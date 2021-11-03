@@ -1735,7 +1735,7 @@ namespace SharedPlugins.UiFramework
         public void AllowMovement(BasePlayer player)
         {
             BaseMountable mounted = player.GetMounted();
-            if (mounted != null && mounted.prefabID == _prefabId)
+            if (mounted != null && mounted.prefabID == _prefabId && mounted.parentEntity.uid == 0)
             {
                 player.DismountObject();
                 mounted.Kill();
