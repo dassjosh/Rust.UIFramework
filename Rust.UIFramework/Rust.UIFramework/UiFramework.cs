@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using System.Text.RegularExpressions;
 using Facepunch;
 using Network;
@@ -10,7 +9,7 @@ using Newtonsoft.Json;
 using Oxide.Plugins;
 using UnityEngine;
 
-namespace SharedPlugins.UiFramework
+namespace Rust.UIFramework
 {
     /// <summary>
     /// Plugin class
@@ -34,11 +33,10 @@ namespace SharedPlugins.UiFramework
         [Flags]
         public enum BorderMode : byte
         {
-            Top = 1,
-            Left = 2,
-            Bottom = 4,
-            Right = 8,
-            All = 15
+            Top = 1 << 0,
+            Left = 1 << 1,
+            Bottom = 1 << 2,
+            Right = 1 << 3,
         }
 
         public enum Layer
@@ -306,7 +304,7 @@ namespace SharedPlugins.UiFramework
         #endregion
 
         #region UI Builder
-        public class UiBuilder
+        public partial class UiBuilder
         {
             private List<BaseUiComponent> _components = Pool.GetList<BaseUiComponent>();
             public BaseUiComponent Root;
@@ -333,6 +331,11 @@ namespace SharedPlugins.UiFramework
             public UiBuilder(UiColor color, UiPosition pos, UiOffset offset, bool useCursor, string name, Layer parent = Layer.Overlay) : this(color, pos, offset, useCursor, name, GetLayerValue(parent))
             {
                 
+            }
+            
+            public UiBuilder(BaseUiComponent root, string name, string parent)
+            {
+                SetRoot(root, name, parent);
             }
 
             public UiBuilder()
@@ -490,7 +493,7 @@ namespace SharedPlugins.UiFramework
             private readonly Position _boarderLeft = new Position("0 0", "0 1");
             private readonly Position _boarderRight = new Position("1 0", "1 1");
             
-            public void Border(BaseUiComponent parent, UiColor color, int size = 0, BorderMode border = BorderMode.All)
+            public void Border(BaseUiComponent parent, UiColor color, int size = 0, BorderMode border = BorderMode.Top | BorderMode.Bottom | BorderMode.Left | BorderMode.Right)
             {
                 string sizeString = size.ToString();
                 if (border.HasFlag(BorderMode.Top))
@@ -520,80 +523,119 @@ namespace SharedPlugins.UiFramework
             #endregion
             
             #region JSON
-            public StringBuilder ToJson()
+            public string ToJson()
             {
                 return JsonCreator.CreateJson(_components);
             }
 
             public void CacheJson()
             {
-                _cachedJson = ToJson().ToString();
+                _cachedJson = ToJson();
             }
             #endregion
 
             #region Add UI
             public void AddUi(BasePlayer player)
             {
-                CommunityEntity.ServerInstance.ClientRPCEx(new SendInfo(player.Connection), null, "AddUI", ToJson().ToString());
+                AddUi(player.Connection);
             }
 
             public void AddUiCached(BasePlayer player)
             {
-                CommunityEntity.ServerInstance.ClientRPCEx(new SendInfo(player.Connection), null, "AddUI", _cachedJson);
+                AddUiCached(player.Connection);
             }
             
             public void AddUi(Connection connection)
             {
-                CommunityEntity.ServerInstance.ClientRPCEx(new SendInfo(connection), null, "AddUI", ToJson().ToString());
+                AddUi(connection, ToJson());
             }
             
             public void AddUiCached(Connection connection)
             {
-                CommunityEntity.ServerInstance.ClientRPCEx(new SendInfo(connection), null, "AddUI", _cachedJson);
+                AddUi(connection, _cachedJson);
             }
             
             public void AddUi(List<Connection> connections)
             {
-                CommunityEntity.ServerInstance.ClientRPCEx(new SendInfo(connections), null, "AddUI", ToJson().ToString());
+                AddUi(connections, ToJson());
             }
             
             public void AddUiCached(List<Connection> connections)
             {
-                CommunityEntity.ServerInstance.ClientRPCEx(new SendInfo(connections), null, "AddUI", _cachedJson);
+                AddUi(connections, _cachedJson);
             }
         
             public void AddUi()
             {
-                CommunityEntity.ServerInstance.ClientRPCEx(new SendInfo(Net.sv.connections), null, "AddUI", ToJson().ToString());
+                AddUi(ToJson());
             }
             
             public void AddUiCached()
             {
-                CommunityEntity.ServerInstance.ClientRPCEx(new SendInfo(Net.sv.connections), null, "AddUI", _cachedJson);
+                AddUi(_cachedJson);
+            }
+            
+            public static void AddUi(BasePlayer player, string json)
+            {
+                CommunityEntity.ServerInstance.ClientRPCEx(new SendInfo(player.Connection), null, "AddUI", json);
+            }
+
+            public static void AddUi(Connection connection, string json)
+            {
+                CommunityEntity.ServerInstance.ClientRPCEx(new SendInfo(connection), null, "AddUI", json);
+            }
+
+            public static void AddUi(List<Connection> connections, string json)
+            {
+                CommunityEntity.ServerInstance.ClientRPCEx(new SendInfo(connections), null, "AddUI", json);
+            }
+
+            public static void AddUi(string json)
+            {
+                CommunityEntity.ServerInstance.ClientRPCEx(new SendInfo(Net.sv.connections), null, "AddUI", json);
             }
             #endregion
 
             #region Destroy Ui
             public void DestroyUi(BasePlayer player)
             {
-                CommunityEntity.ServerInstance.ClientRPCEx(new SendInfo(player.Connection), null, "DestroyUI", Root.Name);
+                DestroyUi(player, Root.Name);
             }
             
             public void DestroyUi(Connection connection)
             {
-                CommunityEntity.ServerInstance.ClientRPCEx(new SendInfo(connection), null, "DestroyUI", Root.Name);
+                DestroyUi(connection, Root.Name);
             }
             
             public void DestroyUi(List<Connection> connections)
             {
-                CommunityEntity.ServerInstance.ClientRPCEx(new SendInfo(connections), null, "DestroyUI", Root.Name);
+                DestroyUi(connections, Root.Name);
             }
             
             public void DestroyUi()
             {
-                CommunityEntity.ServerInstance.ClientRPCEx(new SendInfo(Net.sv.connections), null, "DestroyUI", Root.Name);
+                DestroyUi(Root.Name);
             }
-
+            
+            public static void DestroyUi(BasePlayer player, string name)
+            {
+                CommunityEntity.ServerInstance.ClientRPCEx(new SendInfo(player.Connection), null, "DestroyUI", name);
+            }
+            
+            public static void DestroyUi(Connection connection, string name)
+            {
+                CommunityEntity.ServerInstance.ClientRPCEx(new SendInfo(connection), null, "DestroyUI", name);
+            }
+            
+            public static void DestroyUi(List<Connection> connections, string name)
+            {
+                CommunityEntity.ServerInstance.ClientRPCEx(new SendInfo(connections), null, "DestroyUI", name);
+            }
+            
+            public static void DestroyUi(string name)
+            {
+                CommunityEntity.ServerInstance.ClientRPCEx(new SendInfo(Net.sv.connections), null, "DestroyUI", name);
+            }
             #endregion
         }
         #endregion
@@ -602,70 +644,70 @@ namespace SharedPlugins.UiFramework
         public static class JsonCreator
         {
             //Position & Offset
-            private static string _rectTransformName = "RectTransform";
-            private static string _anchorMinName = "anchormin";
-            private static string _anchorMaxName = "anchormax";
-            private static string _offsetMinName = "offsetmin";
-            private static string _offsetMaxName = "offsetmax";
+            private static readonly string _rectTransformName = "RectTransform";
+            private static readonly string _anchorMinName = "anchormin";
+            private static readonly string _anchorMaxName = "anchormax";
+            private static readonly string _offsetMinName = "offsetmin";
+            private static readonly string _offsetMaxName = "offsetmax";
             private const string DefaultMin = "0.0 0.0";
-            private static readonly string[] DefaultMinValues = {DefaultMin, "0 0"};
+            private static readonly string[] _defaultMinValues = {DefaultMin, "0 0"};
             private const string DefaultMax = "1.0 1.0";
-            private static readonly string[] DefaultMaxValues = {DefaultMax, "1 1"};
-            private static string _offsetMaxValue = "0 0";
+            private static readonly string[] _defaultMaxValues = {DefaultMax, "1 1"};
+            private static readonly string _offsetMaxValue = "0 0";
             
             //Text
-            private static string _alignValue = "UpperLeft";
+            private static readonly string _alignValue = "UpperLeft";
             private static int _fontSizeValue = 14;
-            private static string _fontValue = "RobotoCondensed-Bold.ttf";
-            private static string _fontName = "font";
-            private static string _textName = "text";
-            private static string _textValue = "Text";
-            private static string _fontSizeName = "fontSize";
-            private static string _alignName = "align";
+            private static readonly string _fontValue = "RobotoCondensed-Bold.ttf";
+            private static readonly string _fontName = "font";
+            private static readonly string _textName = "text";
+            private static readonly string _textValue = "Text";
+            private static readonly string _fontSizeName = "fontSize";
+            private static readonly string _alignName = "align";
             
             //Material & Sprite
-            private static string _spriteName = "sprite";
-            private static string _materialName = "material";
-            private static string _spriteValue = "Assets/Content/UI/UI.Background.Tile.psd";
-            private static string _spriteImageValue = "Assets/Icons/rust.png";
-            private static string _materialValue = "Assets/Icons/IconMaterial.mat";
+            private static readonly string _spriteName = "sprite";
+            private static readonly string _materialName = "material";
+            private static readonly string _spriteValue = "Assets/Content/UI/UI.Background.Tile.psd";
+            private static readonly string _spriteImageValue = "Assets/Icons/rust.png";
+            private static readonly string _materialValue = "Assets/Icons/IconMaterial.mat";
             
             //Common
-            private static string _componentTypeName = "type";
-            private static string _colorName = "color";
-            private static string _nullValue;
-            private static string _emptyString = "";
-            private static string _componentName = "name";
-            private static string _parentName = "parent";
-            private static string _fadeoutName = "fadeout";
+            private static readonly string _componentTypeName = "type";
+            private static readonly string _colorName = "color";
+            private static readonly string _nullValue = null;
+            private static readonly string _emptyString = "";
+            private static readonly string _componentName = "name";
+            private static readonly string _parentName = "parent";
+            private static readonly string _fadeInName = "fadeIn";
+            private static readonly string _fadeoutName = "fadeOut";
             private static float _fadeoutValue;
             private static readonly UiColor ColorValue = "1 1 1 1";
             
             //Outline
-            private static string _distanceName = "distance";
-            private static string _useGraphicAlphaName = "useGraphicAlpha";
-            private static string _useGraphicAlphaValue = "True";
-            private static string _distanceValue = "1.0 -1.0";
+            private static readonly string _distanceName = "distance";
+            private static readonly string _useGraphicAlphaName = "useGraphicAlpha";
+            private static readonly string _useGraphicAlphaValue = "True";
+            private static readonly string _distanceValue = "1.0 -1.0";
             
             //Button
-            private static string _commandName = "command";
-            private static string _closeName = "close";
+            private static readonly string _commandName = "command";
+            private static readonly string _closeName = "close";
             
             //Needs Cursor
-            private static string _needsCursorValue = "NeedsCursor";
+            private static readonly string _needsCursorValue = "NeedsCursor";
 
             //Image
-            private static string _pngName = "png";
-            private static string _urlName = "url";
+            private static readonly string _pngName = "png";
+            private static readonly string _urlName = "url";
             
             //Input
-            private static string _characterLimitName = "characterLimit";
+            private static readonly string _characterLimitName = "characterLimit";
             private static int _characterLimitValue;
-            private static string _passwordName = "password";
-            private static string _passwordValue = "true";
-
-
-            public static StringBuilder CreateJson(List<BaseUiComponent> components)
+            private static readonly string _passwordName = "password";
+            private static readonly string _passwordValue = "true";
+            
+            public static string CreateJson(List<BaseUiComponent> components)
             {
                 StringWriter sw = new StringWriter();
                 JsonTextWriter writer = new JsonTextWriter(sw);
@@ -676,9 +718,10 @@ namespace SharedPlugins.UiFramework
                 {
                     BaseUiComponent component = components[index];
                     writer.WriteStartObject();
-                    AddFieldRaw(writer, ref _componentName, ref component.Name);
-                    AddFieldRaw(writer, ref _parentName, ref component.Parent);
-                    AddField(writer, ref _fadeoutName, ref component.FadeOut, ref _fadeoutValue);
+                    AddFieldRaw(writer, _componentName, component.Name);
+                    AddFieldRaw(writer, _parentName, component.Parent);
+                    AddField(writer, _fadeInName, ref component.FadeIn, ref _fadeoutValue);
+                    AddField(writer, _fadeoutName, ref component.FadeOut, ref _fadeoutValue);
 
                     writer.WritePropertyName("components");
                     writer.WriteStartArray();
@@ -689,16 +732,16 @@ namespace SharedPlugins.UiFramework
 
                 writer.WriteEndArray();
 
-                return sw.GetStringBuilder();
+                return sw.ToString();
             }
 
-            public static void AddFieldRaw(JsonTextWriter writer, ref string name, ref string value)
+            public static void AddFieldRaw(JsonTextWriter writer, string name, string value)
             {
                 writer.WritePropertyName(name);
                 writer.WriteValue(value);
             }
 
-            public static void AddField(JsonTextWriter writer, ref string name, ref string value, ref string defaultValue)
+            public static void AddField(JsonTextWriter writer, string name, string value, string defaultValue)
             {
                 if (value != null && value != defaultValue)
                 {
@@ -707,7 +750,7 @@ namespace SharedPlugins.UiFramework
                 }
             }
 
-            public static void AddMultiField(JsonTextWriter writer, ref string name, ref string value, string[] defaultValues)
+            public static void AddMultiField(JsonTextWriter writer, string name, string value, string[] defaultValues)
             {
                 if (value != null && !defaultValues.Contains(value))
                 {
@@ -716,7 +759,7 @@ namespace SharedPlugins.UiFramework
                 }
             }
 
-            public static void AddField(JsonTextWriter writer, ref string name, ref int value, ref int defaultValue)
+            public static void AddField(JsonTextWriter writer, string name, ref int value, ref int defaultValue)
             {
                 if (value != defaultValue)
                 {
@@ -725,7 +768,7 @@ namespace SharedPlugins.UiFramework
                 } 
             }
 
-            public static void AddField(JsonTextWriter writer, ref string name, ref float value, ref float defaultValue)
+            public static void AddField(JsonTextWriter writer, string name, ref float value, ref float defaultValue)
             {
                 if (value != defaultValue)
                 {
@@ -734,7 +777,7 @@ namespace SharedPlugins.UiFramework
                 }
             }
             
-            public static void AddField(JsonTextWriter writer, ref string name, UiColor value, UiColor defaultValue)
+            public static void AddField(JsonTextWriter writer, string name, UiColor value, UiColor defaultValue)
             {
                 if (value.Value != defaultValue.Value)
                 {
@@ -746,21 +789,21 @@ namespace SharedPlugins.UiFramework
             public static void Add(JsonTextWriter writer, ref Position position, ref Offset? offset)
             {
                 writer.WriteStartObject();
-                AddFieldRaw(writer, ref _componentTypeName, ref _rectTransformName);
-                AddMultiField(writer, ref _anchorMinName, ref position.Min, DefaultMinValues);
-                AddMultiField(writer, ref _anchorMaxName, ref position.Max, DefaultMaxValues);
+                AddFieldRaw(writer, _componentTypeName, _rectTransformName);
+                AddMultiField(writer, _anchorMinName, position.Min, _defaultMinValues);
+                AddMultiField(writer, _anchorMaxName, position.Max, _defaultMaxValues);
 
                 if (offset.HasValue)
                 {
                     string min = offset.Value.Min;
                     string max = offset.Value.Max;
-                    AddMultiField(writer, ref _offsetMinName, ref min, DefaultMinValues);
-                    AddMultiField(writer, ref _offsetMaxName, ref max, DefaultMaxValues);
+                    AddMultiField(writer, _offsetMinName, min, _defaultMinValues);
+                    AddMultiField(writer, _offsetMaxName, max, _defaultMaxValues);
                 }
                 else
                 {
                     //Fixes issue with UI going outside of bounds
-                    AddFieldRaw(writer, ref _offsetMaxName, ref _offsetMaxValue);
+                    AddFieldRaw(writer, _offsetMaxName, _offsetMaxValue);
                 }
 
                 writer.WriteEndObject();
@@ -769,41 +812,41 @@ namespace SharedPlugins.UiFramework
             public static void Add(JsonTextWriter writer, ButtonComponent button)
             {
                 writer.WriteStartObject();
-                AddFieldRaw(writer, ref _componentTypeName, ref ButtonComponent.Type);
-                AddField(writer, ref _commandName, ref button.Command, ref _nullValue);
-                AddField(writer, ref _closeName, ref button.Close, ref _nullValue);
-                AddField(writer, ref _colorName, button.Color, ColorValue);
-                AddField(writer, ref _spriteName, ref button.Sprite, ref _spriteValue);
+                AddFieldRaw(writer, _componentTypeName, ButtonComponent.Type);
+                AddField(writer, _commandName, button.Command, _nullValue);
+                AddField(writer, _closeName, button.Close, _nullValue);
+                AddField(writer, _colorName, button.Color, ColorValue);
+                AddField(writer, _spriteName, button.Sprite, _spriteValue);
                 writer.WriteEndObject();
             }
 
             public static void Add(JsonTextWriter writer, TextComponent textComponent)
             {
                 writer.WriteStartObject();
-                AddFieldRaw(writer, ref _componentTypeName, ref TextComponent.Type);
-                AddField(writer, ref _textName, ref textComponent.Text, ref _textValue);
-                AddField(writer, ref _fontSizeName, ref textComponent.FontSize, ref _fontSizeValue);
-                AddField(writer, ref _fontName, ref textComponent.Font, ref _fontValue);
-                AddField(writer, ref _colorName, textComponent.Color, ColorValue);
+                AddFieldRaw(writer, _componentTypeName, TextComponent.Type);
+                AddField(writer, _textName, textComponent.Text, _textValue);
+                AddField(writer, _fontSizeName, ref textComponent.FontSize, ref _fontSizeValue);
+                AddField(writer, _fontName, textComponent.Font, _fontValue);
+                AddField(writer, _colorName, textComponent.Color, ColorValue);
                 string align = textComponent.Align.ToString();
-                AddField(writer, ref _alignName, ref align, ref _alignValue);
+                AddField(writer, _alignName, align, _alignValue);
                 writer.WriteEndObject();
             }
 
             public static void Add(JsonTextWriter writer, RawImageComponent image)
             {
                 writer.WriteStartObject();
-                AddFieldRaw(writer, ref _componentTypeName, ref RawImageComponent.Type);
-                AddField(writer, ref _colorName, image.Color, ColorValue);
-                AddField(writer, ref _spriteName, ref image.Sprite, ref _spriteImageValue);
+                AddFieldRaw(writer, _componentTypeName, RawImageComponent.Type);
+                AddField(writer, _colorName, image.Color, ColorValue);
+                AddField(writer, _spriteName, image.Sprite, _spriteImageValue);
                 if (!string.IsNullOrEmpty(image.Png))
                 {
-                    AddField(writer, ref _pngName, ref image.Png, ref _emptyString);
+                    AddField(writer, _pngName, image.Png, _emptyString);
                 }
 
                 if (!string.IsNullOrEmpty(image.Url))
                 {
-                    AddField(writer, ref _urlName, ref image.Url, ref _emptyString);
+                    AddField(writer, _urlName, image.Url, _emptyString);
                 }
 
                 writer.WriteEndObject();
@@ -812,29 +855,29 @@ namespace SharedPlugins.UiFramework
             public static void Add(JsonTextWriter writer, ImageComponent image)
             {
                 writer.WriteStartObject();
-                AddFieldRaw(writer, ref _componentTypeName, ref ImageComponent.Type);
-                AddField(writer, ref _colorName, image.Color, ColorValue);
-                AddField(writer, ref _spriteName, ref image.Sprite, ref _spriteValue);
-                AddField(writer, ref _materialName, ref image.Material, ref _materialValue);
+                AddFieldRaw(writer, _componentTypeName, ImageComponent.Type);
+                AddField(writer, _colorName, image.Color, ColorValue);
+                AddField(writer, _spriteName, image.Sprite, _spriteValue);
+                AddField(writer, _materialName, image.Material, _materialValue);
                 writer.WriteEndObject();
             }
 
             public static void AddCursor(JsonTextWriter writer)
             {
                 writer.WriteStartObject();
-                AddFieldRaw(writer, ref _componentTypeName, ref _needsCursorValue);
+                AddFieldRaw(writer, _componentTypeName, _needsCursorValue);
                 writer.WriteEndObject();
             }
 
             public static void Add(JsonTextWriter writer, OutlineComponent outline)
             {
                 writer.WriteStartObject();
-                AddFieldRaw(writer, ref _componentTypeName, ref OutlineComponent.Type);
-                AddField(writer, ref _colorName, outline.Color, ColorValue);
-                AddField(writer, ref _distanceName, ref outline.Distance, ref _distanceValue);
+                AddFieldRaw(writer, _componentTypeName, OutlineComponent.Type);
+                AddField(writer, _colorName, outline.Color, ColorValue);
+                AddField(writer, _distanceName, outline.Distance, _distanceValue);
                 if (outline.UseGraphicAlpha)
                 {
-                    AddFieldRaw(writer, ref _useGraphicAlphaName, ref _useGraphicAlphaValue);
+                    AddFieldRaw(writer, _useGraphicAlphaName, _useGraphicAlphaValue);
                 }
 
                 writer.WriteEndObject();
@@ -843,18 +886,18 @@ namespace SharedPlugins.UiFramework
             public static void Add(JsonTextWriter writer, InputComponent input)
             {
                 writer.WriteStartObject();
-                AddFieldRaw(writer, ref _componentTypeName, ref InputComponent.Type);
-                AddField(writer, ref _fontSizeName, ref input.FontSize, ref _fontSizeValue);
-                AddField(writer, ref _fontName, ref input.Font, ref _fontValue);
+                AddFieldRaw(writer, _componentTypeName, InputComponent.Type);
+                AddField(writer, _fontSizeName, ref input.FontSize, ref _fontSizeValue);
+                AddField(writer, _fontName, input.Font, _fontValue);
                 string align = input.Align.ToString();
-                AddField(writer, ref _alignName, ref align, ref _alignValue);
-                AddField(writer, ref _colorName, input.Color, ColorValue);
-                AddField(writer, ref _characterLimitName, ref input.CharsLimit, ref _characterLimitValue);
-                AddField(writer, ref _commandName, ref input.Command, ref _nullValue);
+                AddField(writer, _alignName, align, _alignValue);
+                AddField(writer, _colorName, input.Color, ColorValue);
+                AddField(writer, _characterLimitName, ref input.CharsLimit, ref _characterLimitValue);
+                AddField(writer, _commandName, input.Command, _nullValue);
 
                 if (input.IsPassword)
                 {
-                    AddFieldRaw(writer, ref _passwordName, ref _passwordValue);
+                    AddFieldRaw(writer, _passwordName, _passwordValue);
                 }
 
                 writer.WriteEndObject();
@@ -865,8 +908,8 @@ namespace SharedPlugins.UiFramework
         #region UI Position
         public struct Position
         {
-            public string Min;
-            public string Max;
+            public readonly string Min;
+            public readonly string Max;
             
             private const string PosFormat = "0.####";
 
@@ -890,8 +933,8 @@ namespace SharedPlugins.UiFramework
         
         public struct Offset
         {
-            public string Min;
-            public string Max;
+            public readonly string Min;
+            public readonly string Max;
 
             public Offset(int xMin, int yMin, int xMax, int yMax)
             {
@@ -1257,9 +1300,36 @@ namespace SharedPlugins.UiFramework
                 YMax = y + height;
             }
 
+            public void MoveX(int pixels)
+            {
+                XMin += pixels;
+                XMax += pixels;
+            }
+
+            public void MoveY(int pixels)
+            {
+                YMin += pixels;
+                YMax += pixels;
+            }
+            
+            public void SetWidth(int width)
+            {
+                XMax = XMin + width;
+            }
+        
+            public void SetHeight(int height)
+            {
+                YMax = YMin + height;
+            }
+
             public override Offset ToOffset()
             {
                 return new Offset(XMin, YMin, XMax, YMax);
+            }
+            
+            public UiOffset ToStatic()
+            {
+                return new StaticUiOffset(XMin, YMin, XMax, YMax);
             }
         }
         #endregion
@@ -1270,6 +1340,7 @@ namespace SharedPlugins.UiFramework
             public string Name;
             public string Parent;
             public float FadeOut;
+            public float FadeIn;
             public Position Position;
             public Offset? Offset;
 
@@ -1305,12 +1376,24 @@ namespace SharedPlugins.UiFramework
             {
                 FadeOut = duration;
             }
+            
+            public void SetFadeIn(float duration)
+            {
+                FadeIn = duration;
+            }
+
+            public void UpdatePosition(UiPosition position, UiOffset offset = null)
+            {
+                Position = position.ToPosition();
+                Offset = offset?.ToOffset();
+            }
 
             public virtual void EnterPool()
             {
                 Name = null;
                 Parent = null;
                 FadeOut = 0;
+                FadeIn = 0;
                 Position = default(Position);
                 Offset = null;
             }
