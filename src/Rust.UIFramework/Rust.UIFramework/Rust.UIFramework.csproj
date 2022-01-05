@@ -3,6 +3,9 @@
     <PropertyGroup>
         <TargetFramework>net48</TargetFramework>
         <LangVersion>6</LangVersion>
+        <RunPostBuildEvent>Always</RunPostBuildEvent>
+        <AssemblyName>Ui.Framework.Rust</AssemblyName>
+        <RootNamespace>UI.Framework.Rust</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
@@ -21,10 +24,10 @@
       <Reference Include="Facepunch.UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
         <HintPath>..\References\Facepunch.UnityEngine.dll</HintPath>
       </Reference>
-      <Reference Include="Oxide.Core, Version=2.0.3996.0, Culture=neutral, PublicKeyToken=null">
+      <Reference Include="Oxide.Core, Version=2.0.3999.0, Culture=neutral, PublicKeyToken=null">
         <HintPath>..\References\Oxide.Core.dll</HintPath>
       </Reference>
-      <Reference Include="Oxide.CSharp, Version=2.0.4044.0, Culture=neutral, PublicKeyToken=null">
+      <Reference Include="Oxide.CSharp, Version=2.0.4046.0, Culture=neutral, PublicKeyToken=null">
         <HintPath>..\References\Oxide.CSharp.dll</HintPath>
       </Reference>
       <Reference Include="Oxide.MySql, Version=2.0.3760.0, Culture=neutral, PublicKeyToken=null">
@@ -33,7 +36,7 @@
       <Reference Include="Oxide.References, Version=2.0.3779.0, Culture=neutral, PublicKeyToken=null">
         <HintPath>..\References\Oxide.References.dll</HintPath>
       </Reference>
-      <Reference Include="Oxide.Rust, Version=2.0.5186.0, Culture=neutral, PublicKeyToken=null">
+      <Reference Include="Oxide.Rust, Version=2.0.5297.0, Culture=neutral, PublicKeyToken=null">
         <HintPath>..\References\Oxide.Rust.dll</HintPath>
       </Reference>
       <Reference Include="Oxide.SQLite, Version=2.0.3762.0, Culture=neutral, PublicKeyToken=null">
@@ -41,6 +44,12 @@
       </Reference>
       <Reference Include="Oxide.Unity, Version=2.0.3772.0, Culture=neutral, PublicKeyToken=null">
         <HintPath>..\References\Oxide.Unity.dll</HintPath>
+      </Reference>
+      <Reference Include="Rust.Data, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\References\Rust.Data.dll</HintPath>
+      </Reference>
+      <Reference Include="Rust.Global, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\References\Rust.Global.dll</HintPath>
       </Reference>
       <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
         <HintPath>..\References\UnityEngine.dll</HintPath>
@@ -55,5 +64,28 @@
         <HintPath>..\References\UnityEngine.TextRenderingModule.dll</HintPath>
       </Reference>
     </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="..\merge.framework.json">
+        <Link>merge.framework.json</Link>
+      </Content>
+      <Content Include="..\merge.mergeframework.json">
+        <Link>merge.mergeframework.json</Link>
+      </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="UiFramework.cs" />
+      <Content Include="..\..\..\build\UiFramework.cs">
+        <Link>UiFramework.cs</Link>
+      </Content>
+      <Content Include="..\..\..\build\UiMergeFramework.cs">
+        <Link>UiMergeFramework.cs</Link>
+      </Content>
+    </ItemGroup>
+
+    <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+      <Exec Command="plugin.merge -m -c -p &quot;../merge.framework.json&quot;&#xA;plugin.merge -m -c -p &quot;../merge.mergeframework.json&quot;" />
+    </Target>
 
 </Project>

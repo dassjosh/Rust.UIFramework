@@ -1,0 +1,43 @@
+{
+  "Platform": "Oxide",
+  "Merge Settings": {
+    "Plugin Name": "UiFramework",
+    "Plugin Base Class": "RustPlugin",
+    "Creator Mode": "Framework",
+    "Plugin Input Paths": [
+      "./Rust.UIFramework"
+    ],
+    "Plugin Output Path": "../../build",
+    "Define Definitions": [],
+    "Ignore Paths": [
+      "./IgnoreThisPath"
+    ],
+    "Ignore Files": [
+      "./IgnoreThisFile.cs"
+    ],
+    "Ignore Namespaces": [
+      "UI.Framework.Rust"
+    ],
+    "Code Style": {
+      "Indent Character": " ",
+      "Indent Char Amount": 4,
+      "Indent Multiplier": 1,
+      "New Line String": "\r\n",
+      "Write The Relative File Path In Region": true,
+      "Keep Comments": true
+    }
+  },
+  "Compile Settings": {
+    "Assembly Paths": [
+      "./References"
+    ],
+    "Ignore Paths": [
+      "./References/x86",
+      "./References/x64"
+    ],
+    "Ignore Files": [
+      "./References/Newtonsoft.Json.dll"
+    ],
+    "Compile Log Level (Hidden, Info, Warning, Error)": "Error"
+  }
+}

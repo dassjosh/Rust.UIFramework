@@ -1,0 +1,13 @@
+﻿using System;
+
+namespace UI.Framework.Rust.Enums
+{
+    [Flags]
+    public enum BorderMode : byte
+    {
+        Top = 1 << 0,
+        Left = 1 << 1,
+        Bottom = 1 << 2,
+        Right = 1 << 3,
+    }
+}
