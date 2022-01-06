@@ -66,6 +66,9 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Content Include="..\..\..\README.md">
+        <Link>README.md</Link>
+      </Content>
       <Content Include="..\merge.framework.json">
         <Link>merge.framework.json</Link>
       </Content>

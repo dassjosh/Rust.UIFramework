@@ -1,3 +1,4 @@
+using Color = UnityEngine.Color;
 using Net = Network.Net;
 using Network;
 using Newtonsoft.Json;
@@ -76,13 +77,20 @@ namespace Oxide.Plugins
         #endregion
 
         #region Builder\UiBuilder.cs
-        public partial class UiBuilder
+        public partial class UiBuilder : IDisposable
         {
             private List<BaseUiComponent> _components = Pool.GetList<BaseUiComponent>();
             public BaseUiComponent Root;
             private string _cachedJson;
+            private static string _font;
+            private bool _disposed;
             
             #region Constructor
+            static UiBuilder()
+            {
+                SetFont(UiFont.RobotoCondensedRegular);
+            }
+            
             public UiBuilder(UiColor color, UiPosition pos, UiOffset offset, bool useCursor, string name, string parent)
             {
                 UiPanel panel = UiPanel.Create(pos, offset, color);
@@ -132,11 +140,44 @@ namespace Oxide.Plugins
                 component.Name = name;
                 _components.Add(component);
             }
+            
+            public static void SetFont(UiFont type)
+            {
+                switch (type)
+                {
+                    case UiFont.DroidSansMono:
+                    _font = "droidsansmono.ttf";
+                    break;
+                    case UiFont.PermanentMarker:
+                    _font = "permanentmarker.ttf";
+                    break;
+                    case UiFont.RobotoCondensedBold:
+                    _font = "robotocondensed-bold.ttf";
+                    break;
+                    case UiFont.RobotoCondensedRegular:
+                    _font = "robotocondensed-regular.ttf";
+                    break;
+                    default:
+                    throw new ArgumentOutOfRangeException();
+                }
+            }
             #endregion
             
             #region Decontructor
             ~UiBuilder()
             {
+                Dispose();
+            }
+            
+            public void Dispose()
+            {
+                if (_disposed)
+                {
+                    return;
+                }
+                
+                _disposed = true;
+                
                 for (int index = 0; index < _components.Count; index++)
                 {
                     BaseUiComponent component = _components[index];
@@ -239,7 +280,7 @@ namespace Oxide.Plugins
             
             public UiLabel Label(BaseUiComponent parent, string text, int size, UiColor color, UiPosition pos, TextAnchor align = TextAnchor.MiddleCenter)
             {
-                UiLabel label = UiLabel.Create(text, size, color, pos, align);
+                UiLabel label = UiLabel.Create(text, size, color, pos, _font, align);
                 AddComponent(label, parent);
                 return label;
             }
@@ -247,7 +288,7 @@ namespace Oxide.Plugins
             public UiLabel LabelBackground(BaseUiComponent parent, string text, int size, UiColor color, UiColor backgroundColor, UiPosition pos, TextAnchor align = TextAnchor.MiddleCenter)
             {
                 UiPanel panel = Panel(parent, backgroundColor, pos);
-                UiLabel label = UiLabel.Create(text, size, color, UiPosition.FullPosition, align);
+                UiLabel label = UiLabel.Create(text, size, color, UiPosition.FullPosition, _font, align);
                 AddComponent(label, panel);
                 return label;
             }
@@ -255,7 +296,7 @@ namespace Oxide.Plugins
             public UiInput Input(BaseUiComponent parent, int size, UiColor textColor, UiColor backgroundColor, UiPosition pos, string cmd, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, bool isPassword = false)
             {
                 parent = Panel(parent, backgroundColor, pos);
-                UiInput input = UiInput.Create(size, textColor, pos, cmd, align, charsLimit, isPassword);
+                UiInput input = UiInput.Create(size, textColor, pos, cmd, _font, align,  charsLimit, isPassword);
                 AddComponent(input, parent);
                 return input;
             }
@@ -427,7 +468,7 @@ namespace Oxide.Plugins
             /// Checks for format "0.0 0.0 0.0 0.0"
             /// Any permutation of normal rust color string will work
             /// </summary>
-            private static readonly Regex RustColorFormat = new Regex("\\d*.?\\d* \\d*.?\\d* \\d*.?\\d* \\d*.?\\d*", RegexOptions.Compiled | RegexOptions.ECMAScript);
+            private static readonly Regex _rustColorFormat = new Regex("\\d*.?\\d* \\d*.?\\d* \\d*.?\\d* \\d*.?\\d*", RegexOptions.Compiled | RegexOptions.ECMAScript);
             
             /// <summary>
             /// Valid Hex Color Formats
@@ -440,7 +481,7 @@ namespace Oxide.Plugins
             public UiColor(string color)
             {
                 Color colorValue;
-                if (RustColorFormat.IsMatch(color))
+                if (_rustColorFormat.IsMatch(color))
                 {
                     colorValue = ColorEx.Parse(color);
                 }
@@ -462,18 +503,9 @@ namespace Oxide.Plugins
                 SetValue(color);
             }
             
-            public UiColor(string hexColor, int alpha = 255)
+            public UiColor(string hexColor, int alpha = 255) : this(hexColor, alpha / 255f)
             {
-                if (!hexColor.StartsWith("#"))
-                {
-                    hexColor = "#" + hexColor;
-                }
                 
-                alpha = Mathf.Clamp(alpha, 0, 255);
-                Color colorValue;
-                ColorUtility.TryParseHtmlString(hexColor, out colorValue);
-                colorValue.a = alpha / 255f;
-                SetValue(colorValue);
             }
             
             public UiColor(string hexColor, float alpha = 1f)
@@ -490,14 +522,9 @@ namespace Oxide.Plugins
                 SetValue(colorValue);
             }
             
-            public UiColor(int red, int green, int blue, int alpha = 255)
+            public UiColor(int red, int green, int blue, int alpha = 255) : this(red / 255f, green / 255f, blue / 255f, alpha / 255f)
             {
-                red = Mathf.Clamp(red, 0, 255);
-                green = Mathf.Clamp(green, 0, 255);
-                blue = Mathf.Clamp(blue, 0, 255);
-                alpha = Mathf.Clamp(alpha, 0, 255);
                 
-                SetValue(red / 255f, green / 255f, blue / 255f, alpha / 255f);
             }
             
             public UiColor(float red, float green, float blue, float alpha = 1f)
@@ -517,7 +544,7 @@ namespace Oxide.Plugins
             
             public UiColor WithAlpha(int alpha)
             {
-                return WithAlpha(Mathf.Clamp(alpha, 0, 255) / 255f);
+                return WithAlpha(alpha / 255f);
             }
             
             public UiColor WithAlpha(float alpha)
@@ -822,6 +849,31 @@ namespace Oxide.Plugins
             Left = 1 << 1,
             Bottom = 1 << 2,
             Right = 1 << 3,
+        }
+        #endregion
+
+        #region Enums\UiFont.cs
+        public enum UiFont : byte
+        {
+            /// <summary>
+            /// droidsansmono.ttf
+            /// </summary>
+            DroidSansMono,
+            
+            /// <summary>
+            /// permanentmarker.ttf
+            /// </summary>
+            PermanentMarker,
+            
+            /// <summary>
+            /// robotocondensed-bold.ttf
+            /// </summary>
+            RobotoCondensedBold,
+            
+            /// <summary>
+            /// robotocondensed-regular.ttf
+            /// </summary>
+            RobotoCondensedRegular
         }
         #endregion
 
@@ -1186,6 +1238,13 @@ namespace Oxide.Plugins
             {
                 XMin += cols / NumCols;
                 XMax += cols / NumCols;
+                
+                if (XMax > 1)
+                {
+                    XMin -= 1;
+                    XMax -= 1;
+                    MoveRows(-1);
+                }
                 
                 #if UiDebug
                 ValidatePositions();
@@ -1709,14 +1768,14 @@ namespace Oxide.Plugins
         {
             public InputComponent Input = Pool.Get<InputComponent>();
             
-            public static UiInput Create(int size, UiColor textColor, UiPosition pos, string cmd, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, bool isPassword = false)
+            public static UiInput Create(int size, UiColor textColor, UiPosition pos, string cmd, string font, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, bool isPassword = false)
             {
                 UiInput input = CreateBase<UiInput>(pos);
                 InputComponent inputComp = input.Input;
                 inputComp.FontSize = size;
                 inputComp.Color = textColor;
                 inputComp.Align = align;
-                inputComp.Font = "robotocondensed-regular.ttf";
+                inputComp.Font = font;
                 inputComp.Command = cmd;
                 inputComp.CharsLimit = charsLimit;
                 inputComp.IsPassword = isPassword;
@@ -1750,7 +1809,7 @@ namespace Oxide.Plugins
             public TextComponent TextComponent = Pool.Get<TextComponent>();
             public OutlineComponent Outline;
             
-            public static UiLabel Create(string text, int size, UiColor color, UiPosition pos, TextAnchor align = TextAnchor.MiddleCenter)
+            public static UiLabel Create(string text, int size, UiColor color, UiPosition pos, string font, TextAnchor align = TextAnchor.MiddleCenter)
             {
                 UiLabel label = CreateBase<UiLabel>(pos);
                 TextComponent textComp = label.TextComponent;
@@ -1758,7 +1817,7 @@ namespace Oxide.Plugins
                 textComp.FontSize = size;
                 textComp.Color = color;
                 textComp.Align = align;
-                textComp.Font = "robotocondensed-regular.ttf";
+                textComp.Font = font;
                 return label;
             }
             

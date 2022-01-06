@@ -1,5 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 using UnityEngine;
+using Color = UnityEngine.Color;
 
 namespace UI.Framework.Rust.Colors
 {
@@ -12,7 +13,7 @@ namespace UI.Framework.Rust.Colors
         /// Checks for format "0.0 0.0 0.0 0.0"
         /// Any permutation of normal rust color string will work
         /// </summary>
-        private static readonly Regex RustColorFormat = new Regex("\\d*.?\\d* \\d*.?\\d* \\d*.?\\d* \\d*.?\\d*", RegexOptions.Compiled | RegexOptions.ECMAScript);
+        private static readonly Regex _rustColorFormat = new Regex("\\d*.?\\d* \\d*.?\\d* \\d*.?\\d* \\d*.?\\d*", RegexOptions.Compiled | RegexOptions.ECMAScript);
 
         /// <summary>
         /// Valid Hex Color Formats
@@ -25,7 +26,7 @@ namespace UI.Framework.Rust.Colors
         public UiColor(string color)
         {
             Color colorValue;
-            if (RustColorFormat.IsMatch(color))
+            if (_rustColorFormat.IsMatch(color))
             {
                 colorValue = ColorEx.Parse(color);
             }
@@ -47,18 +48,9 @@ namespace UI.Framework.Rust.Colors
             SetValue(color);
         }
 
-        public UiColor(string hexColor, int alpha = 255)
+        public UiColor(string hexColor, int alpha = 255) : this(hexColor, alpha / 255f)
         {
-            if (!hexColor.StartsWith("#"))
-            {
-                hexColor = "#" + hexColor;
-            }
 
-            alpha = Mathf.Clamp(alpha, 0, 255);
-            Color colorValue;
-            ColorUtility.TryParseHtmlString(hexColor, out colorValue);
-            colorValue.a = alpha / 255f;
-            SetValue(colorValue);
         }
 
         public UiColor(string hexColor, float alpha = 1f)
@@ -75,14 +67,9 @@ namespace UI.Framework.Rust.Colors
             SetValue(colorValue);
         }
 
-        public UiColor(int red, int green, int blue, int alpha = 255)
+        public UiColor(int red, int green, int blue, int alpha = 255) : this(red / 255f, green / 255f, blue / 255f, alpha / 255f)
         {
-            red = Mathf.Clamp(red, 0, 255);
-            green = Mathf.Clamp(green, 0, 255);
-            blue = Mathf.Clamp(blue, 0, 255);
-            alpha = Mathf.Clamp(alpha, 0, 255);
 
-            SetValue(red / 255f, green / 255f, blue / 255f, alpha / 255f);
         }
 
         public UiColor(float red, float green, float blue, float alpha = 1f)
@@ -102,7 +89,7 @@ namespace UI.Framework.Rust.Colors
 
         public UiColor WithAlpha(int alpha)
         {
-            return WithAlpha(Mathf.Clamp(alpha, 0, 255) / 255f);
+            return WithAlpha(alpha / 255f);
         }
 
         public UiColor WithAlpha(float alpha)

@@ -13,7 +13,7 @@ namespace UI.Framework.Rust.UiElements
         public TextComponent TextComponent = Pool.Get<TextComponent>();
         public OutlineComponent Outline;
 
-        public static UiLabel Create(string text, int size, UiColor color, UiPosition pos, TextAnchor align = TextAnchor.MiddleCenter)
+        public static UiLabel Create(string text, int size, UiColor color, UiPosition pos, string font, TextAnchor align = TextAnchor.MiddleCenter)
         {
             UiLabel label = CreateBase<UiLabel>(pos);
             TextComponent textComp = label.TextComponent;
@@ -21,7 +21,7 @@ namespace UI.Framework.Rust.UiElements
             textComp.FontSize = size;
             textComp.Color = color;
             textComp.Align = align;
-            textComp.Font = "robotocondensed-regular.ttf";
+            textComp.Font = font;
             return label;
         }
 

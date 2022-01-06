@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Network;
 using UI.Framework.Rust.Colors;
 using UI.Framework.Rust.Enums;
@@ -11,13 +12,20 @@ using Net = Network.Net;
 
 namespace UI.Framework.Rust.Builder
 {
-    public partial class UiBuilder
+    public partial class UiBuilder : IDisposable
     {
         private List<BaseUiComponent> _components = Pool.GetList<BaseUiComponent>();
         public BaseUiComponent Root;
         private string _cachedJson;
+        private static string _font;
+        private bool _disposed;
             
         #region Constructor
+        static UiBuilder()
+        {
+            SetFont(UiFont.RobotoCondensedRegular);
+        }
+        
         public UiBuilder(UiColor color, UiPosition pos, UiOffset offset, bool useCursor, string name, string parent)
         {
             UiPanel panel = UiPanel.Create(pos, offset, color);
@@ -67,11 +75,44 @@ namespace UI.Framework.Rust.Builder
             component.Name = name;
             _components.Add(component);
         }
+
+        public static void SetFont(UiFont type)
+        {
+            switch (type)
+            {
+                case UiFont.DroidSansMono:
+                    _font = "droidsansmono.ttf";
+                    break;
+                case UiFont.PermanentMarker:
+                    _font = "permanentmarker.ttf";
+                    break;
+                case UiFont.RobotoCondensedBold:
+                    _font = "robotocondensed-bold.ttf";
+                    break;
+                case UiFont.RobotoCondensedRegular:
+                    _font = "robotocondensed-regular.ttf";
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
         #endregion
 
         #region Decontructor
         ~UiBuilder()
         {
+            Dispose();
+        }
+        
+        public void Dispose()
+        {
+            if (_disposed)
+            {
+                return;
+            }
+
+            _disposed = true;
+            
             for (int index = 0; index < _components.Count; index++)
             {
                 BaseUiComponent component = _components[index];
@@ -174,7 +215,7 @@ namespace UI.Framework.Rust.Builder
 
         public UiLabel Label(BaseUiComponent parent, string text, int size, UiColor color, UiPosition pos, TextAnchor align = TextAnchor.MiddleCenter)
         {
-            UiLabel label = UiLabel.Create(text, size, color, pos, align);
+            UiLabel label = UiLabel.Create(text, size, color, pos, _font, align);
             AddComponent(label, parent);
             return label;
         }
@@ -182,7 +223,7 @@ namespace UI.Framework.Rust.Builder
         public UiLabel LabelBackground(BaseUiComponent parent, string text, int size, UiColor color, UiColor backgroundColor, UiPosition pos, TextAnchor align = TextAnchor.MiddleCenter)
         {
             UiPanel panel = Panel(parent, backgroundColor, pos);
-            UiLabel label = UiLabel.Create(text, size, color, UiPosition.FullPosition, align);
+            UiLabel label = UiLabel.Create(text, size, color, UiPosition.FullPosition, _font, align);
             AddComponent(label, panel);
             return label;
         }
@@ -190,7 +231,7 @@ namespace UI.Framework.Rust.Builder
         public UiInput Input(BaseUiComponent parent, int size, UiColor textColor, UiColor backgroundColor, UiPosition pos, string cmd, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, bool isPassword = false)
         {
             parent = Panel(parent, backgroundColor, pos);
-            UiInput input = UiInput.Create(size, textColor, pos, cmd, align, charsLimit, isPassword);
+            UiInput input = UiInput.Create(size, textColor, pos, cmd, _font, align,  charsLimit, isPassword);
             AddComponent(input, parent);
             return input;
         }

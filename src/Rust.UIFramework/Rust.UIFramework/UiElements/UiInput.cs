@@ -12,14 +12,14 @@ namespace UI.Framework.Rust.UiElements
     {
         public InputComponent Input = Pool.Get<InputComponent>();
 
-        public static UiInput Create(int size, UiColor textColor, UiPosition pos, string cmd, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, bool isPassword = false)
+        public static UiInput Create(int size, UiColor textColor, UiPosition pos, string cmd, string font, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, bool isPassword = false)
         {
             UiInput input = CreateBase<UiInput>(pos);
             InputComponent inputComp = input.Input;
             inputComp.FontSize = size;
             inputComp.Color = textColor;
             inputComp.Align = align;
-            inputComp.Font = "robotocondensed-regular.ttf";
+            inputComp.Font = font;
             inputComp.Command = cmd;
             inputComp.CharsLimit = charsLimit;
             inputComp.IsPassword = isPassword;

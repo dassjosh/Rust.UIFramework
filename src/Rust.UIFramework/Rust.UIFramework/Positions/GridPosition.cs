@@ -79,6 +79,13 @@
         {
             XMin += cols / NumCols;
             XMax += cols / NumCols;
+            
+            if (XMax > 1)
+            {
+                XMin -= 1;
+                XMax -= 1;
+                MoveRows(-1);
+            }
 
 #if UiDebug
                 ValidatePositions();
