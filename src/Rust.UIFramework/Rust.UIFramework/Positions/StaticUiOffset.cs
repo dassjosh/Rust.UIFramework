@@ -4,7 +4,7 @@
     {
         private readonly Offset _offset;
 
-        public StaticUiOffset(int width, int height) : this(-width / 2, -height / 2, width / 2, height / 2)
+        public StaticUiOffset(int width, int height) : this(-width / 2, -height / 2, width, height)
         {
         }
 
