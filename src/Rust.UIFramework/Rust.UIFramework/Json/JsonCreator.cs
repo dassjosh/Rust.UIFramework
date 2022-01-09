@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using Newtonsoft.Json;
 using Oxide.Plugins;
 using UI.Framework.Rust.Colors;
@@ -11,6 +12,8 @@ namespace UI.Framework.Rust.Json
 {
     public static class JsonCreator
     {
+        private static readonly StringBuilder _sb = new StringBuilder();
+        
         public static string CreateJson(List<BaseUiComponent> components)
         {
             StringWriter sw = new StringWriter();
@@ -51,6 +54,19 @@ namespace UI.Framework.Rust.Json
             {
                 writer.WritePropertyName(name);
                 writer.WriteValue(value);
+            }
+        }
+        
+        public static void AddTextField(JsonTextWriter writer, string name, string value, string defaultValue)
+        {
+            if (value != null && value != defaultValue)
+            {
+                writer.WritePropertyName(name);
+                _sb.Clear();
+                _sb.Append(Constants.Json.QuoteChar);
+                _sb.Append(value);
+                _sb.Append(Constants.Json.QuoteChar);
+                writer.WriteRawValue(_sb.ToString());
             }
         }
 
@@ -128,7 +144,7 @@ namespace UI.Framework.Rust.Json
         {
             writer.WriteStartObject();
             AddFieldRaw(writer, JsonDefaults.ComponentTypeName, TextComponent.Type);
-            AddField(writer, JsonDefaults.TextName, textComponent.Text, JsonDefaults.TextValue);
+            AddTextField(writer, JsonDefaults.TextName, textComponent.Text, JsonDefaults.TextValue);
             AddField(writer, JsonDefaults.FontSizeName, ref textComponent.FontSize, ref JsonDefaults.FontSizeValue);
             AddField(writer, JsonDefaults.FontName, textComponent.Font, JsonDefaults.FontValue);
             AddField(writer, JsonDefaults.ColorName, textComponent.Color, JsonDefaults.ColorValue);
