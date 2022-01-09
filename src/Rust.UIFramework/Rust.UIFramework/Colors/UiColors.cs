@@ -68,6 +68,7 @@
 
         public static class MJSU
         {
+            public static readonly UiColor Orange = "#de8732";
         }
 
         public static class Rust
