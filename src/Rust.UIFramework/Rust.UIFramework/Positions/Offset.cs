@@ -20,7 +20,6 @@
         public override string ToString()
         {
             return string.Concat(Min, " ", Max);
-            ;
         }
     }
 }
