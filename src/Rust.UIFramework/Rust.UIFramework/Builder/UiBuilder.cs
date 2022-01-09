@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Network;
+using Oxide.Plugins;
 using UI.Framework.Rust.Colors;
 using UI.Framework.Rust.Enums;
 using UI.Framework.Rust.Json;
@@ -14,11 +15,14 @@ namespace UI.Framework.Rust.Builder
 {
     public partial class UiBuilder : IDisposable
     {
-        private List<BaseUiComponent> _components = Pool.GetList<BaseUiComponent>();
         public BaseUiComponent Root;
+        
         private string _cachedJson;
-        private static string _font;
         private bool _disposed;
+        
+        private List<BaseUiComponent> _components = Pool.GetList<BaseUiComponent>();
+
+        private static string _font;
             
         #region Constructor
         static UiBuilder()
@@ -38,12 +42,12 @@ namespace UI.Framework.Rust.Builder
                 
         }
 
-        public UiBuilder(UiColor color, UiPosition pos, bool useCursor, string name, UiLayer parent = UiLayer.Overlay) : this(color, pos, null, useCursor, name, GetLayerValue(parent))
+        public UiBuilder(UiColor color, UiPosition pos, bool useCursor, string name, UiLayer parent = UiLayer.Overlay) : this(color, pos, null, useCursor, name, Constants.UiLayers.GetLayer(parent))
         {
                 
         }
             
-        public UiBuilder(UiColor color, UiPosition pos, UiOffset offset, bool useCursor, string name, UiLayer parent = UiLayer.Overlay) : this(color, pos, offset, useCursor, name, GetLayerValue(parent))
+        public UiBuilder(UiColor color, UiPosition pos, UiOffset offset, bool useCursor, string name, UiLayer parent = UiLayer.Overlay) : this(color, pos, offset, useCursor, name, Constants.UiLayers.GetLayer(parent))
         {
                 
         }
@@ -58,16 +62,6 @@ namespace UI.Framework.Rust.Builder
                 
         }
 
-        public static string GetLayerValue(UiLayer layer)
-        {
-            if (layer == UiLayer.HudMenu)
-            {
-                return "Hud.Menu";
-            }
-
-            return layer.ToString();
-        }
-            
         public void SetRoot(BaseUiComponent component, string name, string parent)
         {
             Root = component;
@@ -76,25 +70,9 @@ namespace UI.Framework.Rust.Builder
             _components.Add(component);
         }
 
-        public static void SetFont(UiFont type)
+        public static void SetFont(UiFont font)
         {
-            switch (type)
-            {
-                case UiFont.DroidSansMono:
-                    _font = "droidsansmono.ttf";
-                    break;
-                case UiFont.PermanentMarker:
-                    _font = "permanentmarker.ttf";
-                    break;
-                case UiFont.RobotoCondensedBold:
-                    _font = "robotocondensed-bold.ttf";
-                    break;
-                case UiFont.RobotoCondensedRegular:
-                    _font = "robotocondensed-regular.ttf";
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+            _font = Constants.UiFonts.GetUiFont(font);
         }
         #endregion
 
@@ -330,22 +308,22 @@ namespace UI.Framework.Rust.Builder
             
         public static void AddUi(BasePlayer player, string json)
         {
-            CommunityEntity.ServerInstance.ClientRPCEx(new SendInfo(player.Connection), null, "AddUI", json);
+            AddUi(player.Connection, json);
+        }
+        
+        public static void AddUi(string json)
+        {
+            AddUi(Net.sv.connections, json);
         }
 
         public static void AddUi(Connection connection, string json)
         {
-            CommunityEntity.ServerInstance.ClientRPCEx(new SendInfo(connection), null, "AddUI", json);
+            CommunityEntity.ServerInstance.ClientRPCEx(new SendInfo(connection), null, Constants.RpcFunctions.AddUiFunc, json);
         }
 
         public static void AddUi(List<Connection> connections, string json)
         {
-            CommunityEntity.ServerInstance.ClientRPCEx(new SendInfo(connections), null, "AddUI", json);
-        }
-
-        public static void AddUi(string json)
-        {
-            CommunityEntity.ServerInstance.ClientRPCEx(new SendInfo(Net.sv.connections), null, "AddUI", json);
+            CommunityEntity.ServerInstance.ClientRPCEx(new SendInfo(connections), null, Constants.RpcFunctions.AddUiFunc, json);
         }
         #endregion
 
@@ -369,25 +347,59 @@ namespace UI.Framework.Rust.Builder
         {
             DestroyUi(Root.Name);
         }
+        
+        public void DestroyUiImages(BasePlayer player)
+        {
+            DestroyUiImages(player.Connection);
+        }
+        
+        public void DestroyUiImages()
+        {
+            DestroyUiImages(Net.sv.connections);
+        }
             
+        public void DestroyUiImages(Connection connection)
+        {
+            for (int index = _components.Count - 1; index >= 0; index--)
+            {
+                BaseUiComponent component = _components[index];
+                if (component is UiImage)
+                {
+                    DestroyUi(connection, component.Name);
+                }
+            }
+        }
+            
+        public void DestroyUiImages(List<Connection> connections)
+        {
+            for (int index = _components.Count - 1; index >= 0; index--)
+            {
+                BaseUiComponent component = _components[index];
+                if (component is UiImage)
+                {
+                    DestroyUi(connections, component.Name);
+                }
+            }
+        }
+
         public static void DestroyUi(BasePlayer player, string name)
         {
-            CommunityEntity.ServerInstance.ClientRPCEx(new SendInfo(player.Connection), null, "DestroyUI", name);
-        }
-            
-        public static void DestroyUi(Connection connection, string name)
-        {
-            CommunityEntity.ServerInstance.ClientRPCEx(new SendInfo(connection), null, "DestroyUI", name);
-        }
-            
-        public static void DestroyUi(List<Connection> connections, string name)
-        {
-            CommunityEntity.ServerInstance.ClientRPCEx(new SendInfo(connections), null, "DestroyUI", name);
+            DestroyUi(player.Connection, name);
         }
             
         public static void DestroyUi(string name)
         {
-            CommunityEntity.ServerInstance.ClientRPCEx(new SendInfo(Net.sv.connections), null, "DestroyUI", name);
+            DestroyUi(Net.sv.connections, name);
+        }
+        
+        public static void DestroyUi(Connection connection, string name)
+        {
+            CommunityEntity.ServerInstance.ClientRPCEx(new SendInfo(connection), null, Constants.RpcFunctions.DestroyUiFunc, name);
+        }
+        
+        public static void DestroyUi(List<Connection> connections, string name)
+        {
+            CommunityEntity.ServerInstance.ClientRPCEx(new SendInfo(connections), null, Constants.RpcFunctions.DestroyUiFunc, name);
         }
         #endregion
     }

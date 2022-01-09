@@ -6,6 +6,7 @@ using Pool = Facepunch.Pool;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using System.Text.RegularExpressions;
 using UnityEngine;
 
@@ -37,6 +38,7 @@ namespace Oxide.Plugins
 
         #region Plugin\UiFramework.PreventMovement.cs
         private const string ChairPrefab = "assets/prefabs/vehicle/seats/standingdriver.prefab";
+        private const ulong PreventMovementSkinId = ulong.MaxValue - 51234;
         
         private uint _prefabId;
         
@@ -60,6 +62,7 @@ namespace Oxide.Plugins
             
             Transform transform = player.transform;
             BaseVehicleSeat chair = GameManager.server.CreateEntity(ChairPrefab, transform.position, transform.rotation) as BaseVehicleSeat;
+            chair.skinID = PreventMovementSkinId;
             chair.Spawn();
             player.MountObject(chair);
         }
@@ -68,7 +71,7 @@ namespace Oxide.Plugins
         {
             InitPreventMovement();
             BaseMountable mounted = player.GetMounted();
-            if (mounted != null && mounted.prefabID == _prefabId && mounted.parentEntity.uid == 0)
+            if (mounted != null && mounted.prefabID == _prefabId && mounted.parentEntity.uid == 0 && mounted.skinID == PreventMovementSkinId)
             {
                 player.DismountObject();
                 mounted.Kill();
@@ -76,14 +79,77 @@ namespace Oxide.Plugins
         }
         #endregion
 
+        #region Constants.cs
+        public class Constants
+        {
+            public static class UiFonts
+            {
+                public static readonly string DroidSansMono = "droidsansmono.ttf";
+                public static readonly string PermanentMarker = "permanentmarker.ttf";
+                public static readonly string RobotoCondensedBold = "robotocondensed-bold.ttf";
+                public static readonly string RobotoCondensedRegular = "robotocondensed-regular.ttf";
+                
+                private static readonly Hash<UiFont, string> _fonts = new Hash<UiFont, string>
+                {
+                    [UiFont.DroidSansMono] = DroidSansMono,
+                    [UiFont.PermanentMarker] = PermanentMarker,
+                    [UiFont.RobotoCondensedBold] = RobotoCondensedBold,
+                    [UiFont.RobotoCondensedRegular] = RobotoCondensedRegular,
+                };
+                
+                public static string GetUiFont(UiFont font)
+                {
+                    return _fonts[font];
+                }
+            }
+            
+            public static class UiLayers
+            {
+                public static readonly string Overall = "Overall";
+                public static readonly string Overlay = "Overlay";
+                public static readonly string Hud = "Hud";
+                public static readonly string HudMenu = "Hud.Menu";
+                public static readonly string Under = "Under";
+                
+                private static readonly Hash<UiLayer, string> _layers = new Hash<UiLayer, string>
+                {
+                    [UiLayer.Overall] = Overall,
+                    [UiLayer.Overlay] = Overlay,
+                    [UiLayer.Hud] = Hud,
+                    [UiLayer.HudMenu] = HudMenu,
+                    [UiLayer.Under] = Under,
+                };
+                
+                public static string GetLayer(UiLayer layer)
+                {
+                    return _layers[layer];
+                }
+            }
+            
+            public static class RpcFunctions
+            {
+                public static readonly string AddUiFunc = "AddUI";
+                public static readonly string DestroyUiFunc = "DestroyUI";
+            }
+            
+            public static class Json
+            {
+                public static readonly char QuoteChar = '\"';
+            }
+        }
+        #endregion
+
         #region Builder\UiBuilder.cs
         public partial class UiBuilder : IDisposable
         {
-            private List<BaseUiComponent> _components = Pool.GetList<BaseUiComponent>();
             public BaseUiComponent Root;
+            
             private string _cachedJson;
-            private static string _font;
             private bool _disposed;
+            
+            private List<BaseUiComponent> _components = Pool.GetList<BaseUiComponent>();
+            
+            private static string _font;
             
             #region Constructor
             static UiBuilder()
@@ -103,12 +169,12 @@ namespace Oxide.Plugins
                 
             }
             
-            public UiBuilder(UiColor color, UiPosition pos, bool useCursor, string name, UiLayer parent = UiLayer.Overlay) : this(color, pos, null, useCursor, name, GetLayerValue(parent))
+            public UiBuilder(UiColor color, UiPosition pos, bool useCursor, string name, UiLayer parent = UiLayer.Overlay) : this(color, pos, null, useCursor, name, Constants.UiLayers.GetLayer(parent))
             {
                 
             }
             
-            public UiBuilder(UiColor color, UiPosition pos, UiOffset offset, bool useCursor, string name, UiLayer parent = UiLayer.Overlay) : this(color, pos, offset, useCursor, name, GetLayerValue(parent))
+            public UiBuilder(UiColor color, UiPosition pos, UiOffset offset, bool useCursor, string name, UiLayer parent = UiLayer.Overlay) : this(color, pos, offset, useCursor, name, Constants.UiLayers.GetLayer(parent))
             {
                 
             }
@@ -123,16 +189,6 @@ namespace Oxide.Plugins
                 
             }
             
-            public static string GetLayerValue(UiLayer layer)
-            {
-                if (layer == UiLayer.HudMenu)
-                {
-                    return "Hud.Menu";
-                }
-                
-                return layer.ToString();
-            }
-            
             public void SetRoot(BaseUiComponent component, string name, string parent)
             {
                 Root = component;
@@ -141,25 +197,9 @@ namespace Oxide.Plugins
                 _components.Add(component);
             }
             
-            public static void SetFont(UiFont type)
+            public static void SetFont(UiFont font)
             {
-                switch (type)
-                {
-                    case UiFont.DroidSansMono:
-                    _font = "droidsansmono.ttf";
-                    break;
-                    case UiFont.PermanentMarker:
-                    _font = "permanentmarker.ttf";
-                    break;
-                    case UiFont.RobotoCondensedBold:
-                    _font = "robotocondensed-bold.ttf";
-                    break;
-                    case UiFont.RobotoCondensedRegular:
-                    _font = "robotocondensed-regular.ttf";
-                    break;
-                    default:
-                    throw new ArgumentOutOfRangeException();
-                }
+                _font = Constants.UiFonts.GetUiFont(font);
             }
             #endregion
             
@@ -395,22 +435,22 @@ namespace Oxide.Plugins
             
             public static void AddUi(BasePlayer player, string json)
             {
-                CommunityEntity.ServerInstance.ClientRPCEx(new SendInfo(player.Connection), null, "AddUI", json);
-            }
-            
-            public static void AddUi(Connection connection, string json)
-            {
-                CommunityEntity.ServerInstance.ClientRPCEx(new SendInfo(connection), null, "AddUI", json);
-            }
-            
-            public static void AddUi(List<Connection> connections, string json)
-            {
-                CommunityEntity.ServerInstance.ClientRPCEx(new SendInfo(connections), null, "AddUI", json);
+                AddUi(player.Connection, json);
             }
             
             public static void AddUi(string json)
             {
-                CommunityEntity.ServerInstance.ClientRPCEx(new SendInfo(Net.sv.connections), null, "AddUI", json);
+                AddUi(Net.sv.connections, json);
+            }
+            
+            public static void AddUi(Connection connection, string json)
+            {
+                CommunityEntity.ServerInstance.ClientRPCEx(new SendInfo(connection), null, Constants.RpcFunctions.AddUiFunc, json);
+            }
+            
+            public static void AddUi(List<Connection> connections, string json)
+            {
+                CommunityEntity.ServerInstance.ClientRPCEx(new SendInfo(connections), null, Constants.RpcFunctions.AddUiFunc, json);
             }
             #endregion
             
@@ -435,24 +475,58 @@ namespace Oxide.Plugins
                 DestroyUi(Root.Name);
             }
             
+            public void DestroyUiImages(BasePlayer player)
+            {
+                DestroyUiImages(player.Connection);
+            }
+            
+            public void DestroyUiImages()
+            {
+                DestroyUiImages(Net.sv.connections);
+            }
+            
+            public void DestroyUiImages(Connection connection)
+            {
+                for (int index = _components.Count - 1; index >= 0; index--)
+                {
+                    BaseUiComponent component = _components[index];
+                    if (component is UiImage)
+                    {
+                        DestroyUi(connection, component.Name);
+                    }
+                }
+            }
+            
+            public void DestroyUiImages(List<Connection> connections)
+            {
+                for (int index = _components.Count - 1; index >= 0; index--)
+                {
+                    BaseUiComponent component = _components[index];
+                    if (component is UiImage)
+                    {
+                        DestroyUi(connections, component.Name);
+                    }
+                }
+            }
+            
             public static void DestroyUi(BasePlayer player, string name)
             {
-                CommunityEntity.ServerInstance.ClientRPCEx(new SendInfo(player.Connection), null, "DestroyUI", name);
-            }
-            
-            public static void DestroyUi(Connection connection, string name)
-            {
-                CommunityEntity.ServerInstance.ClientRPCEx(new SendInfo(connection), null, "DestroyUI", name);
-            }
-            
-            public static void DestroyUi(List<Connection> connections, string name)
-            {
-                CommunityEntity.ServerInstance.ClientRPCEx(new SendInfo(connections), null, "DestroyUI", name);
+                DestroyUi(player.Connection, name);
             }
             
             public static void DestroyUi(string name)
             {
-                CommunityEntity.ServerInstance.ClientRPCEx(new SendInfo(Net.sv.connections), null, "DestroyUI", name);
+                DestroyUi(Net.sv.connections, name);
+            }
+            
+            public static void DestroyUi(Connection connection, string name)
+            {
+                CommunityEntity.ServerInstance.ClientRPCEx(new SendInfo(connection), null, Constants.RpcFunctions.DestroyUiFunc, name);
+            }
+            
+            public static void DestroyUi(List<Connection> connections, string name)
+            {
+                CommunityEntity.ServerInstance.ClientRPCEx(new SendInfo(connections), null, Constants.RpcFunctions.DestroyUiFunc, name);
             }
             #endregion
         }
@@ -638,6 +712,7 @@ namespace Oxide.Plugins
             
             public static class MJSU
             {
+                public static readonly UiColor Orange = "#de8732";
             }
             
             public static class Rust
@@ -891,6 +966,8 @@ namespace Oxide.Plugins
         #region Json\JsonCreator.cs
         public static class JsonCreator
         {
+            private static readonly StringBuilder _sb = new StringBuilder();
+            
             public static string CreateJson(List<BaseUiComponent> components)
             {
                 StringWriter sw = new StringWriter();
@@ -931,6 +1008,19 @@ namespace Oxide.Plugins
                 {
                     writer.WritePropertyName(name);
                     writer.WriteValue(value);
+                }
+            }
+            
+            public static void AddTextField(JsonTextWriter writer, string name, string value, string defaultValue)
+            {
+                if (value != null && value != defaultValue)
+                {
+                    writer.WritePropertyName(name);
+                    _sb.Clear();
+                    _sb.Append(Constants.Json.QuoteChar);
+                    _sb.Append(value);
+                    _sb.Append(Constants.Json.QuoteChar);
+                    writer.WriteRawValue(_sb.ToString());
                 }
             }
             
@@ -1008,7 +1098,7 @@ namespace Oxide.Plugins
             {
                 writer.WriteStartObject();
                 AddFieldRaw(writer, JsonDefaults.ComponentTypeName, TextComponent.Type);
-                AddField(writer, JsonDefaults.TextName, textComponent.Text, JsonDefaults.TextValue);
+                AddTextField(writer, JsonDefaults.TextName, textComponent.Text, JsonDefaults.TextValue);
                 AddField(writer, JsonDefaults.FontSizeName, ref textComponent.FontSize, ref JsonDefaults.FontSizeValue);
                 AddField(writer, JsonDefaults.FontName, textComponent.Font, JsonDefaults.FontValue);
                 AddField(writer, JsonDefaults.ColorName, textComponent.Color, JsonDefaults.ColorValue);
@@ -1521,7 +1611,6 @@ namespace Oxide.Plugins
             public override string ToString()
             {
                 return string.Concat(Min, " ", Max);
-                ;
             }
         }
         #endregion
@@ -1558,12 +1647,23 @@ namespace Oxide.Plugins
         {
             private readonly Offset _offset;
             
-            public StaticUiOffset(int width, int height) : this(-width / 2, -height / 2, width / 2, height / 2)
+            public StaticUiOffset(int width, int height) : this(-width / 2, -height / 2, width, height)
             {
+                
             }
             
             public StaticUiOffset(int x, int y, int width, int height)
             {
+                if (width < 0)
+                {
+                    throw new ArgumentOutOfRangeException(nameof(width), "width cannot be less than 0");
+                }
+                
+                if (height < 0)
+                {
+                    throw new ArgumentOutOfRangeException(nameof(height), "height cannot be less than 0");
+                }
+                
                 _offset = new Offset(x, y, x + width, y + height);
             }
             
