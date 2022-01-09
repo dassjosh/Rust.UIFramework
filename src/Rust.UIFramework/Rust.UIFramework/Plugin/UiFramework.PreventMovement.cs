@@ -5,6 +5,7 @@ namespace UI.Framework.Rust.Plugin
     public partial class UiFramework
     {
         private const string ChairPrefab = "assets/prefabs/vehicle/seats/standingdriver.prefab";
+        private const ulong PreventMovementSkinId = ulong.MaxValue - 51234; 
         
         private uint _prefabId;
 
@@ -28,6 +29,7 @@ namespace UI.Framework.Rust.Plugin
 
             Transform transform = player.transform;
             BaseVehicleSeat chair = GameManager.server.CreateEntity(ChairPrefab, transform.position, transform.rotation) as BaseVehicleSeat;
+            chair.skinID = PreventMovementSkinId;
             chair.Spawn();
             player.MountObject(chair);
         }
@@ -36,7 +38,7 @@ namespace UI.Framework.Rust.Plugin
         {
             InitPreventMovement();
             BaseMountable mounted = player.GetMounted();
-            if (mounted != null && mounted.prefabID == _prefabId && mounted.parentEntity.uid == 0)
+            if (mounted != null && mounted.prefabID == _prefabId && mounted.parentEntity.uid == 0 && mounted.skinID == PreventMovementSkinId)
             {
                 player.DismountObject();
                 mounted.Kill();
