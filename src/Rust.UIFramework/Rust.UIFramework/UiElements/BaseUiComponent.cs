@@ -52,6 +52,11 @@ namespace UI.Framework.Rust.UiElements
             FadeIn = duration;
         }
 
+        public void UpdateOffset(UiOffset offset)
+        {
+            _offset = offset?.ToOffset();
+        }
+
         public void UpdatePosition(UiPosition position, UiOffset offset = null)
         {
             _position = position.ToPosition();
