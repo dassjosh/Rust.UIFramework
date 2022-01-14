@@ -535,8 +535,12 @@ namespace Oxide.Plugins
         #region Colors\UiColor.cs
         public class UiColor
         {
-            public string Color { get; private set; }
-            public int Value { get; private set; }
+            public string Color;
+            public int Value;
+            public float Red;
+            public float Green;
+            public float Blue;
+            public float Alpha;
             
             /// <summary>
             /// Checks for format "0.0 0.0 0.0 0.0"
@@ -623,9 +627,7 @@ namespace Oxide.Plugins
             
             public UiColor WithAlpha(float alpha)
             {
-                Color color = ColorEx.Parse(Color);
-                color.a = Mathf.Clamp01(alpha);
-                return new UiColor(color);
+                return new UiColor(Red, Green, Blue, Mathf.Clamp01(alpha));
             }
             
             private void SetValue(Color color)
@@ -637,9 +639,19 @@ namespace Oxide.Plugins
             {
                 Color = $"{red:0.###} {green:0.###} {blue:0.###} {alpha:0.###}";
                 Value = ((int)(red * 255) << 24) + ((int)(green * 255) << 16) + ((int)(blue * 255) << 8) + (int)(alpha * 255);
+                Red = red;
+                Green = green;
+                Blue = blue;
+                Alpha = alpha;
             }
             
             public static implicit operator UiColor(string value) => new UiColor(value);
+            
+            public static UiColor Lerp(UiColor start, UiColor end, float value)
+            {
+                value = Mathf.Clamp01(value);
+                return new UiColor(start.Red + (end.Red - start.Red) * value, start.Green + (end.Green - start.Green) * value, start.Blue + (end.Blue - start.Blue) * value, start.Alpha + (end.Alpha - start.Alpha) * value);
+            }
         }
         #endregion
 
