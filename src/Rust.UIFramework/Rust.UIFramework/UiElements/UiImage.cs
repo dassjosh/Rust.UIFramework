@@ -9,7 +9,7 @@ namespace UI.Framework.Rust.UiElements
 {
     public class UiImage : BaseUiComponent
     {
-        public RawImageComponent RawImage = Pool.Get<RawImageComponent>();
+        public RawImageComponent RawImage;
 
         public static UiImage Create(string png, UiPosition pos, UiColor color)
         {
@@ -43,6 +43,11 @@ namespace UI.Framework.Rust.UiElements
         {
             base.LeavePool();
             RawImage = Pool.Get<RawImageComponent>();
+        }
+
+        public override void SetFadeIn(float duration)
+        {
+            RawImage.FadeIn = duration;
         }
     }
 }

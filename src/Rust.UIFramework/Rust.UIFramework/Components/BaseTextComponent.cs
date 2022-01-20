@@ -2,7 +2,7 @@
 
 namespace UI.Framework.Rust.Components
 {
-    public class BaseTextComponent : BaseComponent
+    public class BaseTextComponent : FadeInComponent
     {
         public int FontSize = 14;
         public string Font;

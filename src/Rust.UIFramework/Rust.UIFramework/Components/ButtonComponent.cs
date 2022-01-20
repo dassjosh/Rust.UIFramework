@@ -1,6 +1,6 @@
 ﻿namespace UI.Framework.Rust.Components
 {
-    public class ButtonComponent : BaseComponent
+    public class ButtonComponent : FadeInComponent
     {
         public static string Type = "UnityEngine.UI.Button";
 

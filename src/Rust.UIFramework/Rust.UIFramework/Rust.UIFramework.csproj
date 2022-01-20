@@ -8,6 +8,14 @@
         <RootNamespace>UI.Framework.Rust</RootNamespace>
     </PropertyGroup>
 
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+      <DefineConstants>TRACE;UiBenchmarks</DefineConstants>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+      <DefineConstants>TRACE;UiBenchmarks;</DefineConstants>
+    </PropertyGroup>
+
     <ItemGroup>
       <Reference Include="Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
         <HintPath>..\References\Assembly-CSharp.dll</HintPath>

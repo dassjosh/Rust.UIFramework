@@ -10,7 +10,7 @@ namespace UI.Framework.Rust.UiElements
 {
     public class UiInput : BaseUiComponent
     {
-        public InputComponent Input = Pool.Get<InputComponent>();
+        public InputComponent Input;
 
         public static UiInput Create(int size, UiColor textColor, UiPosition pos, string cmd, string font, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, bool isPassword = false)
         {
@@ -43,6 +43,11 @@ namespace UI.Framework.Rust.UiElements
         {
             base.LeavePool();
             Input = Pool.Get<InputComponent>();
+        }
+
+        public override void SetFadeIn(float duration)
+        {
+            Input.FadeIn = duration;
         }
     }
 }

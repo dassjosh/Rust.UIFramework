@@ -1,6 +1,6 @@
 ﻿namespace UI.Framework.Rust.Components
 {
-    public class ImageComponent : BaseComponent
+    public class ImageComponent : FadeInComponent
     {
         public static string Type = "UnityEngine.UI.Image";
 

@@ -41,7 +41,11 @@ namespace UI.Framework.Rust.Colors
                     color = "#" + color;
                 }
 
+#if UiBenchmarks
+                colorValue = UnityEngine.Color.black;
+#else 
                 ColorUtility.TryParseHtmlString(color, out colorValue);
+#endif
             }
 
             SetValue(colorValue);

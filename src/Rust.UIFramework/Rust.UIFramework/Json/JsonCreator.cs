@@ -27,8 +27,7 @@ namespace UI.Framework.Rust.Json
                 writer.WriteStartObject();
                 AddFieldRaw(writer, JsonDefaults.ComponentName, component.Name);
                 AddFieldRaw(writer, JsonDefaults.ParentName, component.Parent);
-                AddField(writer, JsonDefaults.FadeInName, ref component.FadeIn, ref JsonDefaults.FadeoutValue);
-                AddField(writer, JsonDefaults.FadeoutName, ref component.FadeOut, ref JsonDefaults.FadeoutValue);
+                AddField(writer, JsonDefaults.FadeOutName, ref component.FadeOut, ref JsonDefaults.FadeOutValue);
 
                 writer.WritePropertyName("components");
                 writer.WriteStartArray();
@@ -137,19 +136,21 @@ namespace UI.Framework.Rust.Json
             AddField(writer, JsonDefaults.CloseName, button.Close, JsonDefaults.NullValue);
             AddField(writer, JsonDefaults.ColorName, button.Color, JsonDefaults.ColorValue);
             AddField(writer, JsonDefaults.SpriteName, button.Sprite, JsonDefaults.SpriteValue);
+            AddField(writer, JsonDefaults.FadeInName, ref button.FadeIn, ref JsonDefaults.FadeOutValue);
             writer.WriteEndObject();
         }
 
-        public static void Add(JsonTextWriter writer, TextComponent textComponent)
+        public static void Add(JsonTextWriter writer, TextComponent text)
         {
             writer.WriteStartObject();
             AddFieldRaw(writer, JsonDefaults.ComponentTypeName, TextComponent.Type);
-            AddTextField(writer, JsonDefaults.TextName, textComponent.Text, JsonDefaults.TextValue);
-            AddField(writer, JsonDefaults.FontSizeName, ref textComponent.FontSize, ref JsonDefaults.FontSizeValue);
-            AddField(writer, JsonDefaults.FontName, textComponent.Font, JsonDefaults.FontValue);
-            AddField(writer, JsonDefaults.ColorName, textComponent.Color, JsonDefaults.ColorValue);
-            string align = textComponent.Align.ToString();
+            AddTextField(writer, JsonDefaults.TextName, text.Text, JsonDefaults.TextValue);
+            AddField(writer, JsonDefaults.FontSizeName, ref text.FontSize, ref JsonDefaults.FontSizeValue);
+            AddField(writer, JsonDefaults.FontName, text.Font, JsonDefaults.FontValue);
+            AddField(writer, JsonDefaults.ColorName, text.Color, JsonDefaults.ColorValue);
+            string align = text.Align.ToString();
             AddField(writer, JsonDefaults.AlignName, align, JsonDefaults.AlignValue);
+            AddField(writer, JsonDefaults.FadeInName, ref text.FadeIn, ref JsonDefaults.FadeOutValue);
             writer.WriteEndObject();
         }
 
@@ -159,6 +160,7 @@ namespace UI.Framework.Rust.Json
             AddFieldRaw(writer, JsonDefaults.ComponentTypeName, RawImageComponent.Type);
             AddField(writer, JsonDefaults.ColorName, image.Color, JsonDefaults.ColorValue);
             AddField(writer, JsonDefaults.SpriteName, image.Sprite, JsonDefaults.SpriteImageValue);
+            AddField(writer, JsonDefaults.FadeInName, ref image.FadeIn, ref JsonDefaults.FadeOutValue);
             if (!string.IsNullOrEmpty(image.Png))
             {
                 AddField(writer, JsonDefaults.PNGName, image.Png, JsonDefaults.EmptyString);
@@ -179,6 +181,7 @@ namespace UI.Framework.Rust.Json
             AddField(writer, JsonDefaults.ColorName, image.Color, JsonDefaults.ColorValue);
             AddField(writer, JsonDefaults.SpriteName, image.Sprite, JsonDefaults.SpriteValue);
             AddField(writer, JsonDefaults.MaterialName, image.Material, JsonDefaults.MaterialValue);
+            AddField(writer, JsonDefaults.FadeInName, ref image.FadeIn, ref JsonDefaults.FadeOutValue);
             writer.WriteEndObject();
         }
 
@@ -214,6 +217,7 @@ namespace UI.Framework.Rust.Json
             AddField(writer, JsonDefaults.ColorName, input.Color, JsonDefaults.ColorValue);
             AddField(writer, JsonDefaults.CharacterLimitName, ref input.CharsLimit, ref JsonDefaults.CharacterLimitValue);
             AddField(writer, JsonDefaults.CommandName, input.Command, JsonDefaults.NullValue);
+            AddField(writer, JsonDefaults.FadeInName, ref input.FadeIn, ref JsonDefaults.FadeOutValue);
 
             if (input.IsPassword)
             {

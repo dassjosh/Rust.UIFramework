@@ -10,7 +10,7 @@ namespace UI.Framework.Rust.UiElements
 {
     public class UiLabel : BaseUiComponent
     {
-        public TextComponent TextComponent = Pool.Get<TextComponent>();
+        public TextComponent TextComponent;
         public OutlineComponent Outline;
 
         public static UiLabel Create(string text, int size, UiColor color, UiPosition pos, string font, TextAnchor align = TextAnchor.MiddleCenter)
@@ -68,6 +68,11 @@ namespace UI.Framework.Rust.UiElements
         {
             base.LeavePool();
             TextComponent = Pool.Get<TextComponent>();
+        }
+
+        public override void SetFadeIn(float duration)
+        {
+            TextComponent.FadeIn = duration;
         }
     }
 }

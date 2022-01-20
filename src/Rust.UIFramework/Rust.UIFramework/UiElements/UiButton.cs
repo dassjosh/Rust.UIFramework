@@ -9,7 +9,7 @@ namespace UI.Framework.Rust.UiElements
 {
     public class UiButton : BaseUiComponent
     {
-        public ButtonComponent Button = Pool.Get<ButtonComponent>();
+        public ButtonComponent Button;
 
         public static UiButton CreateCommand(UiPosition pos, UiColor color, string command)
         {
@@ -43,6 +43,11 @@ namespace UI.Framework.Rust.UiElements
         {
             base.LeavePool();
             Button = Pool.Get<ButtonComponent>();
+        }
+
+        public override void SetFadeIn(float duration)
+        {
+            Button.FadeIn = duration;
         }
     }
 }

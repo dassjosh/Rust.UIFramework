@@ -42,8 +42,8 @@ namespace UI.Framework.Rust.Json
         public static readonly string ComponentName = "name";
         public static readonly string ParentName = "parent";
         public static readonly string FadeInName = "fadeIn";
-        public static readonly string FadeoutName = "fadeOut";
-        public static float FadeoutValue;
+        public static readonly string FadeOutName = "fadeOut";
+        public static float FadeOutValue;
         public static readonly UiColor ColorValue = "1 1 1 1";
         
         //Outline

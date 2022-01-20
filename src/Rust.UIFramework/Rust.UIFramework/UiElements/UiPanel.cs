@@ -10,7 +10,7 @@ namespace UI.Framework.Rust.UiElements
     public class UiPanel : BaseUiComponent
     {
         public bool NeedsCursor;
-        public ImageComponent Image = Pool.Get<ImageComponent>();
+        public ImageComponent Image;
 
         public void AddSprite(string sprite)
         {
@@ -58,6 +58,11 @@ namespace UI.Framework.Rust.UiElements
         {
             base.LeavePool();
             Image = Pool.Get<ImageComponent>();
+        }
+
+        public override void SetFadeIn(float duration)
+        {
+            Image.FadeIn = duration;
         }
     }
 }

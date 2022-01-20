@@ -147,7 +147,8 @@ namespace Oxide.Plugins
             private string _cachedJson;
             private bool _disposed;
             
-            private List<BaseUiComponent> _components = Pool.GetList<BaseUiComponent>();
+            private List<BaseUiComponent> _components;
+            private readonly StringBuilder _sb = new StringBuilder();
             
             private static string _font;
             
@@ -157,7 +158,7 @@ namespace Oxide.Plugins
                 SetFont(UiFont.RobotoCondensedRegular);
             }
             
-            public UiBuilder(UiColor color, UiPosition pos, UiOffset offset, bool useCursor, string name, string parent)
+            public UiBuilder(UiColor color, UiPosition pos, UiOffset offset, bool useCursor, string name, string parent) : this()
             {
                 UiPanel panel = UiPanel.Create(pos, offset, color);
                 panel.NeedsCursor = useCursor;
@@ -186,7 +187,7 @@ namespace Oxide.Plugins
             
             public UiBuilder()
             {
-                
+                _components = Pool.GetList<BaseUiComponent>() ?? new List<BaseUiComponent>();
             }
             
             public void SetRoot(BaseUiComponent component, string name, string parent)
@@ -195,6 +196,8 @@ namespace Oxide.Plugins
                 component.Parent = parent;
                 component.Name = name;
                 _components.Add(component);
+                _sb.Append(name);
+                _sb.Append('_');
             }
             
             public static void SetFont(UiFont font)
@@ -240,7 +243,11 @@ namespace Oxide.Plugins
             
             public string GetComponentName()
             {
-                return string.Concat(Root.Name, "_", _components.Count.ToString());
+                _sb.Length = Root.Name.Length + 1;
+                _sb.Insert(Root.Name.Length, _components.Count.ToString());
+                //_sb.Append(_components.Count.ToString());
+                return _sb.ToString();
+                //return string.Concat(Root.Name, "_", _components.Count.ToString());
             }
             
             public UiPanel Section(BaseUiComponent parent, UiPosition pos)
@@ -341,10 +348,10 @@ namespace Oxide.Plugins
                 return input;
             }
             
-            private readonly Position _boarderTop = new Position("0 1", "1 1");
-            private readonly Position _boarderBottom = new Position("0 0", "1 0");
-            private readonly Position _boarderLeft = new Position("0 0", "0 1");
-            private readonly Position _boarderRight = new Position("1 0", "1 1");
+            private static readonly Position _boarderTop = new Position("0 1", "1 1");
+            private static readonly Position _boarderBottom = new Position("0 0", "1 0");
+            private static readonly Position _boarderLeft = new Position("0 0", "0 1");
+            private static readonly Position _boarderRight = new Position("1 0", "1 1");
             
             public void Border(BaseUiComponent parent, UiColor color, int size = 0, BorderMode border = BorderMode.Top | BorderMode.Bottom | BorderMode.Left | BorderMode.Right)
             {
@@ -570,7 +577,11 @@ namespace Oxide.Plugins
                         color = "#" + color;
                     }
                     
+                    #if UiBenchmarks
+                    colorValue = UnityEngine.Color.black;
+                    #else
                     ColorUtility.TryParseHtmlString(color, out colorValue);
+                    #endif
                 }
                 
                 SetValue(colorValue);
@@ -802,7 +813,7 @@ namespace Oxide.Plugins
         #endregion
 
         #region Components\BaseTextComponent.cs
-        public class BaseTextComponent : BaseComponent
+        public class BaseTextComponent : FadeInComponent
         {
             public int FontSize = 14;
             public string Font;
@@ -819,7 +830,7 @@ namespace Oxide.Plugins
         #endregion
 
         #region Components\ButtonComponent.cs
-        public class ButtonComponent : BaseComponent
+        public class ButtonComponent : FadeInComponent
         {
             public static string Type = "UnityEngine.UI.Button";
             
@@ -839,8 +850,21 @@ namespace Oxide.Plugins
         }
         #endregion
 
+        #region Components\FadeInComponent.cs
+        public class FadeInComponent : BaseComponent
+        {
+            public float FadeIn;
+            
+            public override void EnterPool()
+            {
+                base.EnterPool();
+                FadeIn = 0;
+            }
+        }
+        #endregion
+
         #region Components\ImageComponent.cs
-        public class ImageComponent : BaseComponent
+        public class ImageComponent : FadeInComponent
         {
             public static string Type = "UnityEngine.UI.Image";
             
@@ -895,7 +919,7 @@ namespace Oxide.Plugins
         #endregion
 
         #region Components\RawImageComponent.cs
-        public class RawImageComponent : BaseComponent
+        public class RawImageComponent : FadeInComponent
         {
             public static string Type = "UnityEngine.UI.RawImage";
             
@@ -993,7 +1017,6 @@ namespace Oxide.Plugins
                     writer.WriteStartObject();
                     AddFieldRaw(writer, JsonDefaults.ComponentName, component.Name);
                     AddFieldRaw(writer, JsonDefaults.ParentName, component.Parent);
-                    AddField(writer, JsonDefaults.FadeInName, ref component.FadeIn, ref JsonDefaults.FadeoutValue);
                     AddField(writer, JsonDefaults.FadeoutName, ref component.FadeOut, ref JsonDefaults.FadeoutValue);
                     
                     writer.WritePropertyName("components");
@@ -1103,19 +1126,21 @@ namespace Oxide.Plugins
                 AddField(writer, JsonDefaults.CloseName, button.Close, JsonDefaults.NullValue);
                 AddField(writer, JsonDefaults.ColorName, button.Color, JsonDefaults.ColorValue);
                 AddField(writer, JsonDefaults.SpriteName, button.Sprite, JsonDefaults.SpriteValue);
+                AddField(writer, JsonDefaults.FadeInName, ref button.FadeIn, ref JsonDefaults.FadeoutValue);
                 writer.WriteEndObject();
             }
             
-            public static void Add(JsonTextWriter writer, TextComponent textComponent)
+            public static void Add(JsonTextWriter writer, TextComponent text)
             {
                 writer.WriteStartObject();
                 AddFieldRaw(writer, JsonDefaults.ComponentTypeName, TextComponent.Type);
-                AddTextField(writer, JsonDefaults.TextName, textComponent.Text, JsonDefaults.TextValue);
-                AddField(writer, JsonDefaults.FontSizeName, ref textComponent.FontSize, ref JsonDefaults.FontSizeValue);
-                AddField(writer, JsonDefaults.FontName, textComponent.Font, JsonDefaults.FontValue);
-                AddField(writer, JsonDefaults.ColorName, textComponent.Color, JsonDefaults.ColorValue);
-                string align = textComponent.Align.ToString();
+                AddTextField(writer, JsonDefaults.TextName, text.Text, JsonDefaults.TextValue);
+                AddField(writer, JsonDefaults.FontSizeName, ref text.FontSize, ref JsonDefaults.FontSizeValue);
+                AddField(writer, JsonDefaults.FontName, text.Font, JsonDefaults.FontValue);
+                AddField(writer, JsonDefaults.ColorName, text.Color, JsonDefaults.ColorValue);
+                string align = text.Align.ToString();
                 AddField(writer, JsonDefaults.AlignName, align, JsonDefaults.AlignValue);
+                AddField(writer, JsonDefaults.FadeInName, ref text.FadeIn, ref JsonDefaults.FadeoutValue);
                 writer.WriteEndObject();
             }
             
@@ -1125,6 +1150,7 @@ namespace Oxide.Plugins
                 AddFieldRaw(writer, JsonDefaults.ComponentTypeName, RawImageComponent.Type);
                 AddField(writer, JsonDefaults.ColorName, image.Color, JsonDefaults.ColorValue);
                 AddField(writer, JsonDefaults.SpriteName, image.Sprite, JsonDefaults.SpriteImageValue);
+                AddField(writer, JsonDefaults.FadeInName, ref image.FadeIn, ref JsonDefaults.FadeoutValue);
                 if (!string.IsNullOrEmpty(image.Png))
                 {
                     AddField(writer, JsonDefaults.PNGName, image.Png, JsonDefaults.EmptyString);
@@ -1145,6 +1171,7 @@ namespace Oxide.Plugins
                 AddField(writer, JsonDefaults.ColorName, image.Color, JsonDefaults.ColorValue);
                 AddField(writer, JsonDefaults.SpriteName, image.Sprite, JsonDefaults.SpriteValue);
                 AddField(writer, JsonDefaults.MaterialName, image.Material, JsonDefaults.MaterialValue);
+                AddField(writer, JsonDefaults.FadeInName, ref image.FadeIn, ref JsonDefaults.FadeoutValue);
                 writer.WriteEndObject();
             }
             
@@ -1180,6 +1207,7 @@ namespace Oxide.Plugins
                 AddField(writer, JsonDefaults.ColorName, input.Color, JsonDefaults.ColorValue);
                 AddField(writer, JsonDefaults.CharacterLimitName, ref input.CharsLimit, ref JsonDefaults.CharacterLimitValue);
                 AddField(writer, JsonDefaults.CommandName, input.Command, JsonDefaults.NullValue);
+                AddField(writer, JsonDefaults.FadeInName, ref input.FadeIn, ref JsonDefaults.FadeoutValue);
                 
                 if (input.IsPassword)
                 {
@@ -1633,12 +1661,12 @@ namespace Oxide.Plugins
             public readonly string Min;
             public readonly string Max;
             
-            private const string PosFormat = "0.####";
+            //private static readonly string PosFormat = "0.####";
             
             public Position(float xMin, float yMin, float xMax, float yMax)
             {
-                Min = string.Concat(xMin.ToString(PosFormat), " ", yMin.ToString(PosFormat));
-                Max = string.Concat(xMax.ToString(PosFormat), " ", yMax.ToString(PosFormat));
+                Min = string.Concat(xMin.ToString(), " ", yMin.ToString());
+                Max = string.Concat(xMax.ToString(), " ", yMax.ToString());
             }
             
             public Position(string min, string max)
@@ -1729,15 +1757,19 @@ namespace Oxide.Plugins
             public string Name;
             public string Parent;
             public float FadeOut;
-            public float FadeIn;
             private Position _position;
             private Offset? _offset;
+            private bool _inPool = true;
             
             protected static T CreateBase<T>(UiPosition pos, UiOffset offset) where T : BaseUiComponent, new()
             {
                 T component = Pool.Get<T>();
                 component._position = pos.ToPosition();
                 component._offset = offset?.ToOffset();
+                if (component._inPool)
+                {
+                    component.LeavePool();
+                }
                 return component;
             }
             
@@ -1746,6 +1778,10 @@ namespace Oxide.Plugins
                 T component = Pool.Get<T>();
                 component._position = pos;
                 component._offset = offset;
+                if (component._inPool)
+                {
+                    component.LeavePool();
+                }
                 return component;
             }
             
@@ -1753,6 +1789,10 @@ namespace Oxide.Plugins
             {
                 T component = Pool.Get<T>();
                 component._position = pos.ToPosition();
+                if (component._inPool)
+                {
+                    component.LeavePool();
+                }
                 return component;
             }
             
@@ -1766,9 +1806,9 @@ namespace Oxide.Plugins
                 FadeOut = duration;
             }
             
-            public void SetFadeIn(float duration)
+            public virtual void SetFadeIn(float duration)
             {
-                FadeIn = duration;
+                throw new NotSupportedException($"FadeIn is not supported on this component {GetType().Name}");
             }
             
             public void UpdateOffset(UiOffset offset)
@@ -1787,13 +1827,14 @@ namespace Oxide.Plugins
                 Name = null;
                 Parent = null;
                 FadeOut = 0;
-                FadeIn = 0;
                 _position = default(Position);
                 _offset = null;
+                _inPool = true;
             }
             
             public virtual void LeavePool()
             {
+                _inPool = false;
             }
         }
         #endregion
@@ -1801,7 +1842,7 @@ namespace Oxide.Plugins
         #region UiElements\UiButton.cs
         public class UiButton : BaseUiComponent
         {
-            public ButtonComponent Button = Pool.Get<ButtonComponent>();
+            public ButtonComponent Button;
             
             public static UiButton CreateCommand(UiPosition pos, UiColor color, string command)
             {
@@ -1836,13 +1877,18 @@ namespace Oxide.Plugins
                 base.LeavePool();
                 Button = Pool.Get<ButtonComponent>();
             }
+            
+            public override void SetFadeIn(float duration)
+            {
+                Button.FadeIn = duration;
+            }
         }
         #endregion
 
         #region UiElements\UiImage.cs
         public class UiImage : BaseUiComponent
         {
-            public RawImageComponent RawImage = Pool.Get<RawImageComponent>();
+            public RawImageComponent RawImage;
             
             public static UiImage Create(string png, UiPosition pos, UiColor color)
             {
@@ -1877,13 +1923,18 @@ namespace Oxide.Plugins
                 base.LeavePool();
                 RawImage = Pool.Get<RawImageComponent>();
             }
+            
+            public override void SetFadeIn(float duration)
+            {
+                RawImage.FadeIn = duration;
+            }
         }
         #endregion
 
         #region UiElements\UiInput.cs
         public class UiInput : BaseUiComponent
         {
-            public InputComponent Input = Pool.Get<InputComponent>();
+            public InputComponent Input;
             
             public static UiInput Create(int size, UiColor textColor, UiPosition pos, string cmd, string font, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, bool isPassword = false)
             {
@@ -1917,13 +1968,18 @@ namespace Oxide.Plugins
                 base.LeavePool();
                 Input = Pool.Get<InputComponent>();
             }
+            
+            public override void SetFadeIn(float duration)
+            {
+                Input.FadeIn = duration;
+            }
         }
         #endregion
 
         #region UiElements\UiLabel.cs
         public class UiLabel : BaseUiComponent
         {
-            public TextComponent TextComponent = Pool.Get<TextComponent>();
+            public TextComponent TextComponent;
             public OutlineComponent Outline;
             
             public static UiLabel Create(string text, int size, UiColor color, UiPosition pos, string font, TextAnchor align = TextAnchor.MiddleCenter)
@@ -1982,6 +2038,11 @@ namespace Oxide.Plugins
                 base.LeavePool();
                 TextComponent = Pool.Get<TextComponent>();
             }
+            
+            public override void SetFadeIn(float duration)
+            {
+                TextComponent.FadeIn = duration;
+            }
         }
         #endregion
 
@@ -1989,7 +2050,7 @@ namespace Oxide.Plugins
         public class UiPanel : BaseUiComponent
         {
             public bool NeedsCursor;
-            public ImageComponent Image = Pool.Get<ImageComponent>();
+            public ImageComponent Image;
             
             public void AddSprite(string sprite)
             {
@@ -2037,6 +2098,11 @@ namespace Oxide.Plugins
             {
                 base.LeavePool();
                 Image = Pool.Get<ImageComponent>();
+            }
+            
+            public override void SetFadeIn(float duration)
+            {
+                Image.FadeIn = duration;
             }
         }
         #endregion
