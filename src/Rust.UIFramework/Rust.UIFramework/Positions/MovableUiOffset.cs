@@ -6,6 +6,7 @@
         public int YMin;
         public int XMax;
         public int YMax;
+        private OffsetState _state;
 
         public MovableUiOffset(int x, int y, int width, int height)
         {
@@ -13,6 +14,7 @@
             YMin = y;
             XMax = x + width;
             YMax = y + height;
+            _state = new OffsetState(XMin, XMax, YMin, YMax);
         }
 
         public void MoveX(int pixels)
@@ -45,6 +47,14 @@
         public UiOffset ToStatic()
         {
             return new StaticUiOffset(XMin, YMin, XMax, YMax);
+        }
+
+        public void Reset()
+        {
+            XMin = _state.XMin;
+            YMin = _state.YMin;
+            XMax = _state.XMax;
+            YMax = _state.YMax;
         }
     }
 }

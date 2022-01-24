@@ -8,10 +8,7 @@ namespace UI.Framework.Rust.Positions
         public float YMin;
         public float XMax;
         public float YMax;
-
-        protected MovablePosition()
-        {
-        }
+        private readonly PositionState _state;
 
         public MovablePosition(float xMin, float yMin, float xMax, float yMax)
         {
@@ -19,8 +16,9 @@ namespace UI.Framework.Rust.Positions
             YMin = yMin;
             XMax = xMax;
             YMax = yMax;
+            _state = new PositionState(XMin, YMin, XMax, YMax);
 #if UiDebug
-                ValidatePositions();
+            ValidatePositions();
 #endif
         }
 
@@ -29,12 +27,18 @@ namespace UI.Framework.Rust.Positions
             return new Position(XMin, YMin, XMax, YMax);
         }
 
+        public void Set(float xMin, float yMin, float xMax, float yMax)
+        {
+            SetX(xMin, xMax);
+            SetY(yMin, yMax);
+        }
+        
         public void SetX(float xPos, float xMax)
         {
             XMin = xPos;
             XMax = xMax;
 #if UiDebug
-                ValidatePositions();
+            ValidatePositions();
 #endif
         }
 
@@ -43,7 +47,7 @@ namespace UI.Framework.Rust.Positions
             YMin = yMin;
             YMax = yMax;
 #if UiDebug
-                ValidatePositions();
+            ValidatePositions();
 #endif
         }
 
@@ -52,7 +56,7 @@ namespace UI.Framework.Rust.Positions
             XMin += delta;
             XMax += delta;
 #if UiDebug
-                ValidatePositions();
+            ValidatePositions();
 #endif
         }
 
@@ -62,13 +66,8 @@ namespace UI.Framework.Rust.Positions
             XMin += spacing;
             XMax += spacing;
 #if UiDebug
-                ValidatePositions();
+            ValidatePositions();
 #endif
-        }
-
-        public MovablePosition CopyX(float yPos, float yMax)
-        {
-            return new MovablePosition(XMin, yPos, XMax, yMax);
         }
 
         public void MoveY(float delta)
@@ -76,7 +75,7 @@ namespace UI.Framework.Rust.Positions
             YMin += delta;
             YMax += delta;
 #if UiDebug
-                ValidatePositions();
+            ValidatePositions();
 #endif
         }
 
@@ -86,18 +85,8 @@ namespace UI.Framework.Rust.Positions
             YMin += spacing;
             YMax += spacing;
 #if UiDebug
-                ValidatePositions();
+            ValidatePositions();
 #endif
-        }
-
-        public MovablePosition CopyY(float xPos, float yMax)
-        {
-            return new MovablePosition(xPos, YMin, yMax, YMax);
-        }
-
-        public MovablePosition Clone()
-        {
-            return new MovablePosition(XMin, YMin, XMax, YMax);
         }
 
         public StaticUiPosition ToStatic()
@@ -105,34 +94,42 @@ namespace UI.Framework.Rust.Positions
             return new StaticUiPosition(XMin, YMin, XMax, YMax);
         }
 
+        public void Reset()
+        {
+            XMin = _state.XMin;
+            YMin = _state.YMin;
+            XMax = _state.XMax;
+            YMax = _state.YMax;
+        }
+
 #if UiDebug
-            protected void ValidatePositions()
+        protected void ValidatePositions()
+        {
+            if (XMin < 0 || XMin > 1)
             {
-                if (XMin < 0 || XMin > 1)
-                {
-                    PrintError($"[{GetType().Name}] XMin is out or range at: {XMin}");
-                }
-
-                if (XMax > 1 || XMax < 0)
-                {
-                    PrintError($"[{GetType().Name}] XMax is out or range at: {XMax}");
-                }
-
-                if (YMin < 0 || YMin > 1)
-                {
-                    PrintError($"[{GetType().Name}] YMin is out or range at: {YMin}");
-                }
-
-                if (YMax > 1 || YMax < 0)
-                {
-                    PrintError($"[{GetType().Name}] YMax is out or range at: {YMax}");
-                }
+                PrintError($"[{GetType().Name}] XMin is out or range at: {XMin}");
             }
 
-            private void PrintError(string format)
+            if (XMax > 1 || XMax < 0)
             {
-                _ins.PrintError(format);
+                PrintError($"[{GetType().Name}] XMax is out or range at: {XMax}");
             }
+
+            if (YMin < 0 || YMin > 1)
+            {
+                PrintError($"[{GetType().Name}] YMin is out or range at: {YMin}");
+            }
+
+            if (YMax > 1 || YMax < 0)
+            {
+                PrintError($"[{GetType().Name}] YMax is out or range at: {YMax}");
+            }
+        }
+
+        private void PrintError(string format)
+        {
+            _ins.PrintError(format);
+        }
 #endif
 
         public override string ToString()

@@ -27,7 +27,7 @@ namespace UI.Framework.Rust.Json
                 writer.WriteStartObject();
                 AddFieldRaw(writer, JsonDefaults.ComponentName, component.Name);
                 AddFieldRaw(writer, JsonDefaults.ParentName, component.Parent);
-                AddField(writer, JsonDefaults.FadeOutName, ref component.FadeOut, ref JsonDefaults.FadeOutValue);
+                AddField(writer, JsonDefaults.FadeOutName, component.FadeOut, JsonDefaults.FadeOutValue);
 
                 writer.WritePropertyName("components");
                 writer.WriteStartArray();
@@ -78,7 +78,7 @@ namespace UI.Framework.Rust.Json
             }
         }
 
-        public static void AddField(JsonTextWriter writer, string name, ref int value, ref int defaultValue)
+        public static void AddField(JsonTextWriter writer, string name, int value, int defaultValue)
         {
             if (value != defaultValue)
             {
@@ -87,7 +87,7 @@ namespace UI.Framework.Rust.Json
             }
         }
 
-        public static void AddField(JsonTextWriter writer, string name, ref float value, ref float defaultValue)
+        public static void AddField(JsonTextWriter writer, string name, float value, float defaultValue)
         {
             if (value != defaultValue)
             {
@@ -136,7 +136,7 @@ namespace UI.Framework.Rust.Json
             AddField(writer, JsonDefaults.CloseName, button.Close, JsonDefaults.NullValue);
             AddField(writer, JsonDefaults.ColorName, button.Color, JsonDefaults.ColorValue);
             AddField(writer, JsonDefaults.SpriteName, button.Sprite, JsonDefaults.SpriteValue);
-            AddField(writer, JsonDefaults.FadeInName, ref button.FadeIn, ref JsonDefaults.FadeOutValue);
+            AddField(writer, JsonDefaults.FadeInName, button.FadeIn, JsonDefaults.FadeOutValue);
             writer.WriteEndObject();
         }
 
@@ -145,12 +145,12 @@ namespace UI.Framework.Rust.Json
             writer.WriteStartObject();
             AddFieldRaw(writer, JsonDefaults.ComponentTypeName, TextComponent.Type);
             AddTextField(writer, JsonDefaults.TextName, text.Text, JsonDefaults.TextValue);
-            AddField(writer, JsonDefaults.FontSizeName, ref text.FontSize, ref JsonDefaults.FontSizeValue);
+            AddField(writer, JsonDefaults.FontSizeName, text.FontSize, JsonDefaults.FontSizeValue);
             AddField(writer, JsonDefaults.FontName, text.Font, JsonDefaults.FontValue);
             AddField(writer, JsonDefaults.ColorName, text.Color, JsonDefaults.ColorValue);
             string align = text.Align.ToString();
             AddField(writer, JsonDefaults.AlignName, align, JsonDefaults.AlignValue);
-            AddField(writer, JsonDefaults.FadeInName, ref text.FadeIn, ref JsonDefaults.FadeOutValue);
+            AddField(writer, JsonDefaults.FadeInName, text.FadeIn, JsonDefaults.FadeOutValue);
             writer.WriteEndObject();
         }
 
@@ -160,7 +160,7 @@ namespace UI.Framework.Rust.Json
             AddFieldRaw(writer, JsonDefaults.ComponentTypeName, RawImageComponent.Type);
             AddField(writer, JsonDefaults.ColorName, image.Color, JsonDefaults.ColorValue);
             AddField(writer, JsonDefaults.SpriteName, image.Sprite, JsonDefaults.SpriteImageValue);
-            AddField(writer, JsonDefaults.FadeInName, ref image.FadeIn, ref JsonDefaults.FadeOutValue);
+            AddField(writer, JsonDefaults.FadeInName, image.FadeIn, JsonDefaults.FadeOutValue);
             if (!string.IsNullOrEmpty(image.Png))
             {
                 AddField(writer, JsonDefaults.PNGName, image.Png, JsonDefaults.EmptyString);
@@ -181,7 +181,7 @@ namespace UI.Framework.Rust.Json
             AddField(writer, JsonDefaults.ColorName, image.Color, JsonDefaults.ColorValue);
             AddField(writer, JsonDefaults.SpriteName, image.Sprite, JsonDefaults.SpriteValue);
             AddField(writer, JsonDefaults.MaterialName, image.Material, JsonDefaults.MaterialValue);
-            AddField(writer, JsonDefaults.FadeInName, ref image.FadeIn, ref JsonDefaults.FadeOutValue);
+            AddField(writer, JsonDefaults.FadeInName, image.FadeIn, JsonDefaults.FadeOutValue);
             writer.WriteEndObject();
         }
 
@@ -210,14 +210,14 @@ namespace UI.Framework.Rust.Json
         {
             writer.WriteStartObject();
             AddFieldRaw(writer, JsonDefaults.ComponentTypeName, InputComponent.Type);
-            AddField(writer, JsonDefaults.FontSizeName, ref input.FontSize, ref JsonDefaults.FontSizeValue);
+            AddField(writer, JsonDefaults.FontSizeName, input.FontSize, JsonDefaults.FontSizeValue);
             AddField(writer, JsonDefaults.FontName, input.Font, JsonDefaults.FontValue);
             string align = input.Align.ToString();
             AddField(writer, JsonDefaults.AlignName, align, JsonDefaults.AlignValue);
             AddField(writer, JsonDefaults.ColorName, input.Color, JsonDefaults.ColorValue);
-            AddField(writer, JsonDefaults.CharacterLimitName, ref input.CharsLimit, ref JsonDefaults.CharacterLimitValue);
+            AddField(writer, JsonDefaults.CharacterLimitName, input.CharsLimit, JsonDefaults.CharacterLimitValue);
             AddField(writer, JsonDefaults.CommandName, input.Command, JsonDefaults.NullValue);
-            AddField(writer, JsonDefaults.FadeInName, ref input.FadeIn, ref JsonDefaults.FadeOutValue);
+            AddField(writer, JsonDefaults.FadeInName, input.FadeIn, JsonDefaults.FadeOutValue);
 
             if (input.IsPassword)
             {

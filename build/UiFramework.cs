@@ -1,14 +1,15 @@
-using Color = UnityEngine.Color;
-using Net = Network.Net;
 using Network;
 using Newtonsoft.Json;
-using Pool = Facepunch.Pool;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 using UnityEngine;
+
+using Color = UnityEngine.Color;
+using Net = Network.Net;
+using Pool = Facepunch.Pool;
 
 //UiFramework created with PluginMerge v(1.0.0.0) by MJSU
 namespace Oxide.Plugins
@@ -17,7 +18,7 @@ namespace Oxide.Plugins
     //[Description("UI Framework for Rust")]
     public partial class UiFramework : RustPlugin
     {
-        #region Plugin\UiFramework.Methods.cs
+        #region Plugin\Methods.cs
         #region JSON Sending
         public void DestroyUi(BasePlayer player, string name)
         {
@@ -36,7 +37,7 @@ namespace Oxide.Plugins
         #endregion
         #endregion
 
-        #region Plugin\UiFramework.PreventMovement.cs
+        #region Plugin\PreventMovement.cs
         private const string ChairPrefab = "assets/prefabs/vehicle/seats/standingdriver.prefab";
         private const ulong PreventMovementSkinId = ulong.MaxValue - 51234;
         
@@ -84,10 +85,10 @@ namespace Oxide.Plugins
         {
             public static class UiFonts
             {
-                public static readonly string DroidSansMono = "droidsansmono.ttf";
-                public static readonly string PermanentMarker = "permanentmarker.ttf";
-                public static readonly string RobotoCondensedBold = "robotocondensed-bold.ttf";
-                public static readonly string RobotoCondensedRegular = "robotocondensed-regular.ttf";
+                public const string DroidSansMono = "droidsansmono.ttf";
+                public const string PermanentMarker = "permanentmarker.ttf";
+                public const string RobotoCondensedBold = "robotocondensed-bold.ttf";
+                public const string RobotoCondensedRegular = "robotocondensed-regular.ttf";
                 
                 private static readonly Hash<UiFont, string> _fonts = new Hash<UiFont, string>
                 {
@@ -167,17 +168,14 @@ namespace Oxide.Plugins
             
             public UiBuilder(UiColor color, UiPosition pos, bool useCursor, string name, string parent) : this(color, pos, null, useCursor, name, parent)
             {
-                
             }
             
             public UiBuilder(UiColor color, UiPosition pos, bool useCursor, string name, UiLayer parent = UiLayer.Overlay) : this(color, pos, null, useCursor, name, Constants.UiLayers.GetLayer(parent))
             {
-                
             }
             
             public UiBuilder(UiColor color, UiPosition pos, UiOffset offset, bool useCursor, string name, UiLayer parent = UiLayer.Overlay) : this(color, pos, offset, useCursor, name, Constants.UiLayers.GetLayer(parent))
             {
-                
             }
             
             public UiBuilder(BaseUiComponent root, string name, string parent)
@@ -273,7 +271,7 @@ namespace Oxide.Plugins
             
             public UiButton EmptyCommandButton(BaseUiComponent parent, UiColor color, UiPosition pos, string cmd)
             {
-                UiButton button = UiButton.CreateCommand(pos, color , cmd);
+                UiButton button = UiButton.CreateCommand(pos, color, cmd);
                 AddComponent(button, parent);
                 return button;
             }
@@ -343,7 +341,7 @@ namespace Oxide.Plugins
             public UiInput Input(BaseUiComponent parent, int size, UiColor textColor, UiColor backgroundColor, UiPosition pos, string cmd, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, bool isPassword = false)
             {
                 parent = Panel(parent, backgroundColor, pos);
-                UiInput input = UiInput.Create(size, textColor, pos, cmd, _font, align,  charsLimit, isPassword);
+                UiInput input = UiInput.Create(size, textColor, pos, cmd, _font, align, charsLimit, isPassword);
                 AddComponent(input, parent);
                 return input;
             }
@@ -368,7 +366,7 @@ namespace Oxide.Plugins
                     AddComponent(panel, parent);
                 }
                 
-                if(HasBorderFlag(border, BorderMode.Bottom))
+                if (HasBorderFlag(border, BorderMode.Bottom))
                 {
                     UiPanel panel = UiPanel.Create(_boarderBottom, new Offset($"0 -{sizeString}", "0 1"), color);
                     AddComponent(panel, parent);
@@ -1017,7 +1015,7 @@ namespace Oxide.Plugins
                     writer.WriteStartObject();
                     AddFieldRaw(writer, JsonDefaults.ComponentName, component.Name);
                     AddFieldRaw(writer, JsonDefaults.ParentName, component.Parent);
-                    AddField(writer, JsonDefaults.FadeoutName, ref component.FadeOut, ref JsonDefaults.FadeoutValue);
+                    AddField(writer, JsonDefaults.FadeOutName, component.FadeOut, JsonDefaults.FadeOutValue);
                     
                     writer.WritePropertyName("components");
                     writer.WriteStartArray();
@@ -1068,7 +1066,7 @@ namespace Oxide.Plugins
                 }
             }
             
-            public static void AddField(JsonTextWriter writer, string name, ref int value, ref int defaultValue)
+            public static void AddField(JsonTextWriter writer, string name, int value, int defaultValue)
             {
                 if (value != defaultValue)
                 {
@@ -1077,7 +1075,7 @@ namespace Oxide.Plugins
                 }
             }
             
-            public static void AddField(JsonTextWriter writer, string name, ref float value, ref float defaultValue)
+            public static void AddField(JsonTextWriter writer, string name, float value, float defaultValue)
             {
                 if (value != defaultValue)
                 {
@@ -1126,7 +1124,7 @@ namespace Oxide.Plugins
                 AddField(writer, JsonDefaults.CloseName, button.Close, JsonDefaults.NullValue);
                 AddField(writer, JsonDefaults.ColorName, button.Color, JsonDefaults.ColorValue);
                 AddField(writer, JsonDefaults.SpriteName, button.Sprite, JsonDefaults.SpriteValue);
-                AddField(writer, JsonDefaults.FadeInName, ref button.FadeIn, ref JsonDefaults.FadeoutValue);
+                AddField(writer, JsonDefaults.FadeInName, button.FadeIn, JsonDefaults.FadeOutValue);
                 writer.WriteEndObject();
             }
             
@@ -1135,12 +1133,12 @@ namespace Oxide.Plugins
                 writer.WriteStartObject();
                 AddFieldRaw(writer, JsonDefaults.ComponentTypeName, TextComponent.Type);
                 AddTextField(writer, JsonDefaults.TextName, text.Text, JsonDefaults.TextValue);
-                AddField(writer, JsonDefaults.FontSizeName, ref text.FontSize, ref JsonDefaults.FontSizeValue);
+                AddField(writer, JsonDefaults.FontSizeName, text.FontSize, JsonDefaults.FontSizeValue);
                 AddField(writer, JsonDefaults.FontName, text.Font, JsonDefaults.FontValue);
                 AddField(writer, JsonDefaults.ColorName, text.Color, JsonDefaults.ColorValue);
                 string align = text.Align.ToString();
                 AddField(writer, JsonDefaults.AlignName, align, JsonDefaults.AlignValue);
-                AddField(writer, JsonDefaults.FadeInName, ref text.FadeIn, ref JsonDefaults.FadeoutValue);
+                AddField(writer, JsonDefaults.FadeInName, text.FadeIn, JsonDefaults.FadeOutValue);
                 writer.WriteEndObject();
             }
             
@@ -1150,7 +1148,7 @@ namespace Oxide.Plugins
                 AddFieldRaw(writer, JsonDefaults.ComponentTypeName, RawImageComponent.Type);
                 AddField(writer, JsonDefaults.ColorName, image.Color, JsonDefaults.ColorValue);
                 AddField(writer, JsonDefaults.SpriteName, image.Sprite, JsonDefaults.SpriteImageValue);
-                AddField(writer, JsonDefaults.FadeInName, ref image.FadeIn, ref JsonDefaults.FadeoutValue);
+                AddField(writer, JsonDefaults.FadeInName, image.FadeIn, JsonDefaults.FadeOutValue);
                 if (!string.IsNullOrEmpty(image.Png))
                 {
                     AddField(writer, JsonDefaults.PNGName, image.Png, JsonDefaults.EmptyString);
@@ -1171,7 +1169,7 @@ namespace Oxide.Plugins
                 AddField(writer, JsonDefaults.ColorName, image.Color, JsonDefaults.ColorValue);
                 AddField(writer, JsonDefaults.SpriteName, image.Sprite, JsonDefaults.SpriteValue);
                 AddField(writer, JsonDefaults.MaterialName, image.Material, JsonDefaults.MaterialValue);
-                AddField(writer, JsonDefaults.FadeInName, ref image.FadeIn, ref JsonDefaults.FadeoutValue);
+                AddField(writer, JsonDefaults.FadeInName, image.FadeIn, JsonDefaults.FadeOutValue);
                 writer.WriteEndObject();
             }
             
@@ -1200,14 +1198,14 @@ namespace Oxide.Plugins
             {
                 writer.WriteStartObject();
                 AddFieldRaw(writer, JsonDefaults.ComponentTypeName, InputComponent.Type);
-                AddField(writer, JsonDefaults.FontSizeName, ref input.FontSize, ref JsonDefaults.FontSizeValue);
+                AddField(writer, JsonDefaults.FontSizeName, input.FontSize, JsonDefaults.FontSizeValue);
                 AddField(writer, JsonDefaults.FontName, input.Font, JsonDefaults.FontValue);
                 string align = input.Align.ToString();
                 AddField(writer, JsonDefaults.AlignName, align, JsonDefaults.AlignValue);
                 AddField(writer, JsonDefaults.ColorName, input.Color, JsonDefaults.ColorValue);
-                AddField(writer, JsonDefaults.CharacterLimitName, ref input.CharsLimit, ref JsonDefaults.CharacterLimitValue);
+                AddField(writer, JsonDefaults.CharacterLimitName, input.CharsLimit, JsonDefaults.CharacterLimitValue);
                 AddField(writer, JsonDefaults.CommandName, input.Command, JsonDefaults.NullValue);
-                AddField(writer, JsonDefaults.FadeInName, ref input.FadeIn, ref JsonDefaults.FadeoutValue);
+                AddField(writer, JsonDefaults.FadeInName, input.FadeIn, JsonDefaults.FadeOutValue);
                 
                 if (input.IsPassword)
                 {
@@ -1225,149 +1223,88 @@ namespace Oxide.Plugins
             //Position & Offset
             private const string DefaultMin = "0.0 0.0";
             private const string DefaultMax = "1.0 1.0";
-            public static readonly string RectTransformName = "RectTransform";
-            public static readonly string AnchorMinName = "anchormin";
-            public static readonly string AnchorMaxName = "anchormax";
-            public static readonly string OffsetMinName = "offsetmin";
-            public static readonly string OffsetMaxName = "offsetmax";
+            public const string RectTransformName = "RectTransform";
+            public const string AnchorMinName = "anchormin";
+            public const string AnchorMaxName = "anchormax";
+            public const string OffsetMinName = "offsetmin";
+            public const string OffsetMaxName = "offsetmax";
             public static readonly string[] DefaultMinValues = { DefaultMin, "0 0" };
             public static readonly string[] DefaultMaxValues = { DefaultMax, "1 1" };
-            public static readonly string OffsetMaxValue = "0 0";
+            public const string OffsetMaxValue = "0 0";
             
             //Text
-            public static readonly string AlignValue = "UpperLeft";
-            public static int FontSizeValue = 14;
-            public static readonly string FontValue = "RobotoCondensed-Bold.ttf";
-            public static readonly string FontName = "font";
-            public static readonly string TextName = "text";
-            public static readonly string TextValue = "Text";
-            public static readonly string FontSizeName = "fontSize";
-            public static readonly string AlignName = "align";
+            public const string AlignValue = "UpperLeft";
+            public const int FontSizeValue = 14;
+            public const string FontValue = "RobotoCondensed-Bold.ttf";
+            public const string FontName = "font";
+            public const string TextName = "text";
+            public const string TextValue = "Text";
+            public const string FontSizeName = "fontSize";
+            public const string AlignName = "align";
             
             //Material & Sprite
-            public static readonly string SpriteName = "sprite";
-            public static readonly string MaterialName = "material";
-            public static readonly string SpriteValue = "Assets/Content/UI/UI.Background.Tile.psd";
-            public static readonly string SpriteImageValue = "Assets/Icons/rust.png";
-            public static readonly string MaterialValue = "Assets/Icons/IconMaterial.mat";
+            public const string SpriteName = "sprite";
+            public const string MaterialName = "material";
+            public const string SpriteValue = "Assets/Content/UI/UI.Background.Tile.psd";
+            public const string SpriteImageValue = "Assets/Icons/rust.png";
+            public const string MaterialValue = "Assets/Icons/IconMaterial.mat";
             
             //Common
-            public static readonly string ComponentTypeName = "type";
-            public static readonly string ColorName = "color";
-            public static readonly string NullValue = null;
-            public static readonly string EmptyString = "";
-            public static readonly string ComponentName = "name";
-            public static readonly string ParentName = "parent";
-            public static readonly string FadeInName = "fadeIn";
-            public static readonly string FadeoutName = "fadeOut";
-            public static float FadeoutValue;
+            public const string ComponentTypeName = "type";
+            public const string ColorName = "color";
+            public const string NullValue = null;
+            public const string EmptyString = "";
+            public const string ComponentName = "name";
+            public const string ParentName = "parent";
+            public const string FadeInName = "fadeIn";
+            public const string FadeOutName = "fadeOut";
+            public const float FadeOutValue = 0;
             public static readonly UiColor ColorValue = "1 1 1 1";
             
             //Outline
-            public static readonly string DistanceName = "distance";
-            public static readonly string UseGraphicAlphaName = "useGraphicAlpha";
-            public static readonly string UseGraphicAlphaValue = "True";
-            public static readonly string DistanceValue = "1.0 -1.0";
+            public const string DistanceName = "distance";
+            public const string UseGraphicAlphaName = "useGraphicAlpha";
+            public const string UseGraphicAlphaValue = "True";
+            public const string DistanceValue = "1.0 -1.0";
             
             //Button
-            public static readonly string CommandName = "command";
-            public static readonly string CloseName = "close";
+            public const string CommandName = "command";
+            public const string CloseName = "close";
             
             //Needs Cursor
-            public static readonly string NeedsCursorValue = "NeedsCursor";
+            public const string NeedsCursorValue = "NeedsCursor";
             
             //Image
-            public static readonly string PNGName = "png";
-            public static readonly string URLName = "url";
+            public const string PNGName = "png";
+            public const string URLName = "url";
             
             //Input
-            public static readonly string CharacterLimitName = "characterLimit";
-            public static int CharacterLimitValue;
-            public static readonly string PasswordName = "password";
-            public static readonly string PasswordValue = "true";
+            public const string CharacterLimitName = "characterLimit";
+            public const int CharacterLimitValue = 0;
+            public const string PasswordName = "password";
+            public const string PasswordValue = "true";
         }
         #endregion
 
         #region Positions\GridPosition.cs
         public class GridPosition : MovablePosition
         {
-            public float NumCols { get; }
-            public float NumRows { get; }
-            private int _xSize = 1;
-            private int _xOffset;
-            private int _ySize = 1;
-            private int _yOffset;
-            private float _xPad;
-            private float _yPad;
+            public float NumCols => _numCols;
+            public float NumRows => _numRows;
             
-            public GridPosition(int size) : this(size, size)
-            {
-            }
+            private readonly float _numCols;
+            private readonly float _numRows;
             
-            public GridPosition(int numCols, int numRows)
+            public GridPosition(float xMin, float yMin, float xMax, float yMax, float numCols, float numRows) : base(xMin, yMin, xMax, yMax)
             {
-                NumCols = numCols;
-                NumRows = numRows;
-            }
-            
-            public GridPosition SetRowLength(int size, int offset = 0)
-            {
-                _xSize = size;
-                _xOffset = offset;
-                return this;
-            }
-            
-            public new GridPosition SetX(float xMin, float xMax)
-            {
-                XMin = xMin;
-                XMax = xMax;
-                return this;
-            }
-            
-            public GridPosition SetColLength(int size, int offset = 0)
-            {
-                _ySize = size;
-                _yOffset = offset;
-                return this;
-            }
-            
-            public new GridPosition SetY(float yMin, float yMax)
-            {
-                YMin = yMin;
-                YMax = yMax;
-                return this;
-            }
-            
-            public GridPosition SetPadding(float padding)
-            {
-                _xPad = padding;
-                _yPad = padding;
-                return this;
-            }
-            
-            public GridPosition SetPadding(float xPad, float yPad)
-            {
-                _xPad = xPad;
-                _yPad = yPad;
-                return this;
-            }
-            
-            public GridPosition SetRowPadding(float padding)
-            {
-                _xPad = padding;
-                return this;
-            }
-            
-            public GridPosition SetColPadding(float padding)
-            {
-                _yPad = padding;
-                return this;
+                _numCols = numCols;
+                _numRows = numRows;
             }
             
             public void MoveCols(int cols)
             {
-                XMin += cols / NumCols;
-                XMax += cols / NumCols;
+                XMin += cols / _numCols;
+                XMax += cols / _numCols;
                 
                 if (XMax > 1)
                 {
@@ -1383,58 +1320,132 @@ namespace Oxide.Plugins
             
             public void MoveRows(int rows)
             {
-                YMin += rows / NumRows;
-                YMax += rows / NumRows;
+                YMin += rows / _numRows;
+                YMax += rows / _numRows;
                 
                 #if UiDebug
                 ValidatePositions();
                 #endif
+            }
+        }
+        #endregion
+
+        #region Positions\GridPositionBuilder.cs
+        public class GridPositionBuilder
+        {
+            private float _xMin;
+            private float _yMin;
+            private float _xMax;
+            private float _yMax;
+            
+            private readonly float _numCols;
+            private readonly float _numRows;
+            private int _rowHeight = 1;
+            private int _rowOffset;
+            private int _colWidth = 1;
+            private int _colOffset;
+            private float _xPad;
+            private float _yPad;
+            
+            public GridPositionBuilder(int size) : this(size, size)
+            {
+            }
+            
+            public GridPositionBuilder(int numCols, int numRows)
+            {
+                _numCols = numCols;
+                _numRows = numRows;
+            }
+            
+            public GridPositionBuilder SetRowHeight(int height)
+            {
+                _rowHeight = height;
+                return this;
+            }
+            
+            public GridPositionBuilder SetRowOffset(int offset)
+            {
+                _rowOffset = offset;
+                return this;
+            }
+            
+            public GridPositionBuilder SetColWidth(int width)
+            {
+                _colWidth = width;
+                return this;
+            }
+            
+            public GridPositionBuilder SetColOffset(int offset)
+            {
+                _colOffset = offset;
+                return this;
+            }
+            
+            public GridPositionBuilder SetPadding(float padding)
+            {
+                _xPad = padding;
+                _yPad = padding;
+                return this;
+            }
+            
+            public GridPositionBuilder SetPadding(float xPad, float yPad)
+            {
+                _xPad = xPad;
+                _yPad = yPad;
+                return this;
+            }
+            
+            public GridPositionBuilder SetRowPadding(float padding)
+            {
+                _xPad = padding;
+                return this;
+            }
+            
+            public GridPositionBuilder SetColPadding(float padding)
+            {
+                _yPad = padding;
+                return this;
             }
             
             public GridPosition Build()
             {
-                if (_xSize != 0)
+                if (_rowHeight != 0)
                 {
-                    float size = _xSize / NumCols;
-                    XMax += size;
+                    float size = _rowHeight / _numCols;
+                    _xMax += size;
                 }
                 
-                if (_xOffset != 0)
+                if (_rowOffset != 0)
                 {
-                    float size = _xOffset / NumCols;
-                    XMin += size;
-                    XMax += size;
+                    float size = _rowOffset / _numCols;
+                    _xMin += size;
+                    _xMax += size;
                 }
                 
-                if (_ySize != 0)
+                if (_colWidth != 0)
                 {
-                    float size = _ySize / NumRows;
-                    YMax += size;
+                    float size = _colWidth / _numRows;
+                    _yMax += size;
                 }
                 
-                if (_yOffset != 0)
+                if (_colOffset != 0)
                 {
-                    float size = _yOffset / NumRows;
-                    YMin += size;
-                    YMax += size;
+                    float size = _colOffset / _numRows;
+                    _yMin += size;
+                    _yMax += size;
                 }
                 
-                XMin += _xPad;
-                XMax -= _xPad;
-                float yMin = YMin; //Need to save yMin before we overwrite it
-                YMin = 1 - YMax + _yPad;
-                YMax = 1 - yMin - _yPad;
+                _xMin += _xPad;
+                _xMax -= _xPad;
+                float yMin = _yMin; //Need to save yMin before we overwrite it
+                _yMin = 1 - _yMax + _yPad;
+                _yMax = 1 - yMin - _yPad;
                 
                 #if UiDebug
                 ValidatePositions();
                 #endif
                 
-                return this;
-            }
-            
-            public new GridPosition Clone()
-            {
-                return (GridPosition)MemberwiseClone();
+                return new GridPosition(_xMin, _yMin, _xMax, _yMax, _numCols, _numRows);
             }
         }
         #endregion
@@ -1446,10 +1457,7 @@ namespace Oxide.Plugins
             public float YMin;
             public float XMax;
             public float YMax;
-            
-            protected MovablePosition()
-            {
-            }
+            private readonly PositionState _state;
             
             public MovablePosition(float xMin, float yMin, float xMax, float yMax)
             {
@@ -1457,6 +1465,7 @@ namespace Oxide.Plugins
                 YMin = yMin;
                 XMax = xMax;
                 YMax = yMax;
+                _state = new PositionState(XMin, YMin, XMax, YMax);
                 #if UiDebug
                 ValidatePositions();
                 #endif
@@ -1465,6 +1474,12 @@ namespace Oxide.Plugins
             public override Position ToPosition()
             {
                 return new Position(XMin, YMin, XMax, YMax);
+            }
+            
+            public void Set(float xMin, float yMin, float xMax, float yMax)
+            {
+                SetX(xMin, xMax);
+                SetY(yMin, yMax);
             }
             
             public void SetX(float xPos, float xMax)
@@ -1504,11 +1519,6 @@ namespace Oxide.Plugins
                 #endif
             }
             
-            public MovablePosition CopyX(float yPos, float yMax)
-            {
-                return new MovablePosition(XMin, yPos, XMax, yMax);
-            }
-            
             public void MoveY(float delta)
             {
                 YMin += delta;
@@ -1528,19 +1538,17 @@ namespace Oxide.Plugins
                 #endif
             }
             
-            public MovablePosition CopyY(float xPos, float yMax)
-            {
-                return new MovablePosition(xPos, YMin, yMax, YMax);
-            }
-            
-            public MovablePosition Clone()
-            {
-                return new MovablePosition(XMin, YMin, XMax, YMax);
-            }
-            
             public StaticUiPosition ToStatic()
             {
                 return new StaticUiPosition(XMin, YMin, XMax, YMax);
+            }
+            
+            public void Reset()
+            {
+                XMin = _state.XMin;
+                YMin = _state.YMin;
+                XMax = _state.XMax;
+                YMax = _state.YMax;
             }
             
             #if UiDebug
@@ -1587,6 +1595,7 @@ namespace Oxide.Plugins
             public int YMin;
             public int XMax;
             public int YMax;
+            private OffsetState _state;
             
             public MovableUiOffset(int x, int y, int width, int height)
             {
@@ -1594,6 +1603,7 @@ namespace Oxide.Plugins
                 YMin = y;
                 XMax = x + width;
                 YMax = y + height;
+                _state = new OffsetState(XMin, XMax, YMin, YMax);
             }
             
             public void MoveX(int pixels)
@@ -1627,6 +1637,14 @@ namespace Oxide.Plugins
             {
                 return new StaticUiOffset(XMin, YMin, XMax, YMax);
             }
+            
+            public void Reset()
+            {
+                XMin = _state.XMin;
+                YMin = _state.YMin;
+                XMax = _state.XMax;
+                YMax = _state.YMax;
+            }
         }
         #endregion
 
@@ -1636,10 +1654,25 @@ namespace Oxide.Plugins
             public readonly string Min;
             public readonly string Max;
             
+            private static readonly string PosFormat = "0.####";
+            private static readonly char _space = ' ';
+            private static readonly StringBuilder _builder = new StringBuilder();
+            
             public Offset(int xMin, int yMin, int xMax, int yMax)
             {
-                Min = string.Concat(xMin.ToString(), " ", yMin.ToString());
-                Max = string.Concat(xMax.ToString(), " ", yMax.ToString());
+                Min = null;
+                Max = null;
+                Min = Build(xMin, yMin);
+                Max = Build(xMax, yMax);
+            }
+            
+            private static string Build(float min, float max)
+            {
+                _builder.Clear();
+                _builder.Append(min.ToString(PosFormat));
+                _builder.Append(_space);
+                _builder.Append(max.ToString(PosFormat));
+                return _builder.ToString();
             }
             
             public Offset(string min, string max)
@@ -1655,18 +1688,49 @@ namespace Oxide.Plugins
         }
         #endregion
 
+        #region Positions\OffsetState.cs
+        public struct OffsetState
+        {
+            public readonly int XMin;
+            public readonly int YMin;
+            public readonly int XMax;
+            public readonly int YMax;
+            
+            public OffsetState(int xMin, int yMin, int xMax, int yMax)
+            {
+                XMin = xMin;
+                YMin = yMin;
+                XMax = xMax;
+                YMax = yMax;
+            }
+        }
+        #endregion
+
         #region Positions\Position.cs
         public struct Position
         {
             public readonly string Min;
             public readonly string Max;
             
-            //private static readonly string PosFormat = "0.####";
+            private static readonly string PosFormat = "0.####";
+            private static readonly char _space = ' ';
+            private static readonly StringBuilder _builder = new StringBuilder();
             
             public Position(float xMin, float yMin, float xMax, float yMax)
             {
-                Min = string.Concat(xMin.ToString(), " ", yMin.ToString());
-                Max = string.Concat(xMax.ToString(), " ", yMax.ToString());
+                Min = null;
+                Max = null;
+                Min = Build(xMin, yMin);
+                Max = Build(xMax, yMax);
+            }
+            
+            private static string Build(float min, float max)
+            {
+                _builder.Clear();
+                _builder.Append(min.ToString(PosFormat));
+                _builder.Append(_space);
+                _builder.Append(max.ToString(PosFormat));
+                return _builder.ToString();
             }
             
             public Position(string min, string max)
@@ -1678,6 +1742,24 @@ namespace Oxide.Plugins
             public override string ToString()
             {
                 return string.Concat(Min, " ", Max);
+            }
+        }
+        #endregion
+
+        #region Positions\PositionState.cs
+        public struct PositionState
+        {
+            public readonly float XMin;
+            public readonly float YMin;
+            public readonly float XMax;
+            public readonly float YMax;
+            
+            public PositionState(float xMin, float yMin, float xMax, float yMax)
+            {
+                XMin = xMin;
+                YMin = yMin;
+                XMax = xMax;
+                YMax = yMax;
             }
         }
         #endregion
@@ -1801,7 +1883,7 @@ namespace Oxide.Plugins
                 JsonCreator.Add(writer, ref _position, ref _offset);
             }
             
-            public void SetFadeout(float duration)
+            public void SetFadeOut(float duration)
             {
                 FadeOut = duration;
             }

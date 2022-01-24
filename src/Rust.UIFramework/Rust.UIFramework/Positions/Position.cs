@@ -1,16 +1,31 @@
-﻿namespace UI.Framework.Rust.Positions
+﻿using System.Text;
+
+namespace UI.Framework.Rust.Positions
 {
     public struct Position
     {
         public readonly string Min;
         public readonly string Max;
-
-        //private static readonly string PosFormat = "0.####";
+        
+        private const string PosFormat = "0.####";
+        private const char Space = ' ';
+        private static readonly StringBuilder _builder = new StringBuilder();
 
         public Position(float xMin, float yMin, float xMax, float yMax)
         {
-            Min = string.Concat(xMin.ToString(), " ", yMin.ToString());
-            Max = string.Concat(xMax.ToString(), " ", yMax.ToString());
+            Min = null;
+            Max = null;
+            Min = Build(xMin, yMin);
+            Max = Build(xMax, yMax);
+        }
+
+        private static string Build(float min, float max)
+        {
+            _builder.Clear();
+            _builder.Append(min.ToString(PosFormat));
+            _builder.Append(Space);
+            _builder.Append(max.ToString(PosFormat));
+            return _builder.ToString();
         }
 
         public Position(string min, string max)

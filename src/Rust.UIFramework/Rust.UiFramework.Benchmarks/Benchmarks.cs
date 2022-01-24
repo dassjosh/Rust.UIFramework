@@ -20,17 +20,18 @@ namespace Rust.UiFramework.Benchmarks
         private readonly List<string> _oxideMaxs = new List<string>();
         private readonly List<UiPosition> _frameworkPos = new List<UiPosition>();
         private UiBuilder _builder;
+        private Random _random;
         
         [GlobalSetup]
         public void Setup()
         {
-            Random random = new Random();
+            _random = new Random();
             for (int i = 0; i < Iterations; i++)
             {
-                float xMin = (float)random.NextDouble();
-                float xMax = (float)random.NextDouble();
-                float yMin = (float)random.NextDouble();
-                float yMax = (float)random.NextDouble();
+                float xMin = (float)_random.NextDouble();
+                float xMax = (float)_random.NextDouble();
+                float yMin = (float)_random.NextDouble();
+                float yMax = (float)_random.NextDouble();
                 _oxideMins.Add($"{xMin} {yMin}");
                 _oxideMaxs.Add($"{xMax} {yMax}");
                 _frameworkPos.Add(new StaticUiPosition(xMin, yMin, xMax, yMax));
@@ -74,10 +75,38 @@ namespace Rust.UiFramework.Benchmarks
             return container;
         }
         
+        private CuiElementContainer GetRandomOxideContainer()
+        {
+            CuiElementContainer container = new CuiElementContainer();
+            for (int i = 0; i < Iterations; i++)
+            {
+                container.Add(new CuiPanel
+                {
+                    Image =
+                    {
+                        Color = "1.0 1.0 1.0 1.0"
+                    },
+                    RectTransform =
+                    {
+                        AnchorMin = $"{(float)_random.NextDouble()} {(float)_random.NextDouble()}",
+                        AnchorMax = $"{(float)_random.NextDouble()} {(float)_random.NextDouble()}"
+                    }
+                });
+            }
+
+            return container;
+        }
+        
         [Benchmark]
         public CuiElementContainer OxideBenchmark_WithoutJson()
         {
             return GetOxideContainer();
+        }
+        
+        [Benchmark]
+        public UiBuilder FrameworkBenchmark_WithoutJson()
+        {
+            return GetFrameworkBuilder();
         }
         
         [Benchmark(Baseline = true)]
@@ -87,15 +116,33 @@ namespace Rust.UiFramework.Benchmarks
         }
         
         [Benchmark]
-        public UiBuilder FrameworkBenchmark_WithoutJson()
-        {
-            return GetFrameworkBuilder();
-        }
-
-        [Benchmark]
         public string FrameworkBenchmark_WithJson()
         {
             return GetFrameworkBuilder().ToJson();
+        }
+        
+        [Benchmark]
+        public CuiElementContainer OxideBenchmark_RandomPos_WithoutJson()
+        {
+            return GetRandomOxideContainer();
+        }
+        
+        [Benchmark]
+        public UiBuilder FrameworkBenchmark_RandomPos_WithoutJson()
+        {
+            return GetRandomPositionBuilder();
+        }
+        
+        [Benchmark]
+        public string OxideBenchmark_RandomPos_WithJson()
+        {
+            return GetRandomOxideContainer().ToJson();
+        }
+
+        [Benchmark]
+        public string FrameworkBenchmark_RandomPos_WithJson()
+        {
+            return GetRandomPositionBuilder().ToJson();
         }
 
         private UiBuilder GetFrameworkBuilder()
@@ -104,6 +151,22 @@ namespace Rust.UiFramework.Benchmarks
             for (int i = 0; i < Iterations; i++)
             {
                 builder.Panel(builder.Root, UiColors.Black, _frameworkPos[i]);
+            }
+
+            _builder = builder;
+
+            return builder;
+        }
+        
+        private UiBuilder GetRandomPositionBuilder()
+        {
+            MovablePosition move = new MovablePosition(0, 0, 0, 0);
+            
+            UiBuilder builder = new UiBuilder(UiColors.Clear, UiPosition.FullPosition, false, "123");
+            for (int i = 0; i < Iterations; i++)
+            {
+                move.Set((float)_random.NextDouble(),(float)_random.NextDouble(),(float)_random.NextDouble(),(float)_random.NextDouble());
+                builder.Panel(builder.Root, UiColors.Black, move);
             }
 
             _builder = builder;
