@@ -7,10 +7,10 @@ namespace UI.Framework.Rust
     {
         public static class UiFonts
         {
-            public static readonly string DroidSansMono = "droidsansmono.ttf";
-            public static readonly string PermanentMarker = "permanentmarker.ttf";
-            public static readonly string RobotoCondensedBold = "robotocondensed-bold.ttf";
-            public static readonly string RobotoCondensedRegular = "robotocondensed-regular.ttf";
+            private const string DroidSansMono = "droidsansmono.ttf";
+            private const string PermanentMarker = "permanentmarker.ttf";
+            private const string RobotoCondensedBold = "robotocondensed-bold.ttf";
+            private const string RobotoCondensedRegular = "robotocondensed-regular.ttf";
 
             private static readonly Hash<UiFont, string> _fonts = new Hash<UiFont, string>
             {
@@ -28,12 +28,12 @@ namespace UI.Framework.Rust
 
         public static class UiLayers
         {
-            public static readonly string Overall = "Overall";
-            public static readonly string Overlay = "Overlay";
-            public static readonly string Hud = "Hud";
-            public static readonly string HudMenu = "Hud.Menu";
-            public static readonly string Under = "Under";
-            
+            private const string Overall = "Overall";
+            private const string Overlay = "Overlay";
+            private const string Hud = "Hud";
+            private const string HudMenu = "Hud.Menu";
+            private const string Under = "Under";
+
             private static readonly Hash<UiLayer, string> _layers = new Hash<UiLayer, string>
             {
                 [UiLayer.Overall] = Overall,
@@ -51,13 +51,13 @@ namespace UI.Framework.Rust
 
         public static class RpcFunctions
         {
-            public static readonly string AddUiFunc = "AddUI";
-            public static readonly string DestroyUiFunc = "DestroyUI";
+            public const string AddUiFunc = "AddUI";
+            public const string DestroyUiFunc = "DestroyUI";
         }
 
         public static class Json
         {
-            public static readonly char QuoteChar = '\"';
+            public const char QuoteChar = '\"';
         }
     }
 }
