@@ -8,7 +8,7 @@
       "./Rust.UIFramework"
     ],
     "Plugin Output Paths": [
-      "./build"
+      "../../build"
     ],
     "Reference Definitions": [],
     "Define Definitions": [],
