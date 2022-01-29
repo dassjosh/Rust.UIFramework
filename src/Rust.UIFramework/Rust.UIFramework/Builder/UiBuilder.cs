@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Text;
 using Network;
-using Oxide.Plugins;
 using UI.Framework.Rust.Colors;
 using UI.Framework.Rust.Enums;
 using UI.Framework.Rust.Json;
@@ -43,11 +42,11 @@ namespace UI.Framework.Rust.Builder
         {
         }
 
-        public UiBuilder(UiColor color, UiPosition pos, bool useCursor, string name, UiLayer parent = UiLayer.Overlay) : this(color, pos, null, useCursor, name, Constants.UiLayers.GetLayer(parent))
+        public UiBuilder(UiColor color, UiPosition pos, bool useCursor, string name, UiLayer parent = UiLayer.Overlay) : this(color, pos, null, useCursor, name, UiConstants.UiLayers.GetLayer(parent))
         {
         }
 
-        public UiBuilder(UiColor color, UiPosition pos, UiOffset offset, bool useCursor, string name, UiLayer parent = UiLayer.Overlay) : this(color, pos, offset, useCursor, name, Constants.UiLayers.GetLayer(parent))
+        public UiBuilder(UiColor color, UiPosition pos, UiOffset offset, bool useCursor, string name, UiLayer parent = UiLayer.Overlay) : this(color, pos, offset, useCursor, name, UiConstants.UiLayers.GetLayer(parent))
         {
         }
 
@@ -59,6 +58,11 @@ namespace UI.Framework.Rust.Builder
         public UiBuilder()
         {
             _components = Pool.GetList<BaseUiComponent>() ?? new List<BaseUiComponent>();
+        }
+
+        public void EnsureCapacity(int capacity)
+        {
+            _components.Capacity = capacity;
         }
 
         public void SetRoot(BaseUiComponent component, string name, string parent)
@@ -73,7 +77,7 @@ namespace UI.Framework.Rust.Builder
 
         public static void SetFont(UiFont font)
         {
-            _font = Constants.UiFonts.GetUiFont(font);
+            _font = UiConstants.UiFonts.GetUiFont(font);
         }
         #endregion
 
@@ -323,12 +327,12 @@ namespace UI.Framework.Rust.Builder
 
         public static void AddUi(Connection connection, string json)
         {
-            CommunityEntity.ServerInstance.ClientRPCEx(new SendInfo(connection), null, Constants.RpcFunctions.AddUiFunc, json);
+            CommunityEntity.ServerInstance.ClientRPCEx(new SendInfo(connection), null, UiConstants.RpcFunctions.AddUiFunc, json);
         }
 
         public static void AddUi(List<Connection> connections, string json)
         {
-            CommunityEntity.ServerInstance.ClientRPCEx(new SendInfo(connections), null, Constants.RpcFunctions.AddUiFunc, json);
+            CommunityEntity.ServerInstance.ClientRPCEx(new SendInfo(connections), null, UiConstants.RpcFunctions.AddUiFunc, json);
         }
         #endregion
 
@@ -399,12 +403,12 @@ namespace UI.Framework.Rust.Builder
 
         public static void DestroyUi(Connection connection, string name)
         {
-            CommunityEntity.ServerInstance.ClientRPCEx(new SendInfo(connection), null, Constants.RpcFunctions.DestroyUiFunc, name);
+            CommunityEntity.ServerInstance.ClientRPCEx(new SendInfo(connection), null, UiConstants.RpcFunctions.DestroyUiFunc, name);
         }
 
         public static void DestroyUi(List<Connection> connections, string name)
         {
-            CommunityEntity.ServerInstance.ClientRPCEx(new SendInfo(connections), null, Constants.RpcFunctions.DestroyUiFunc, name);
+            CommunityEntity.ServerInstance.ClientRPCEx(new SendInfo(connections), null, UiConstants.RpcFunctions.DestroyUiFunc, name);
         }
         #endregion
     }

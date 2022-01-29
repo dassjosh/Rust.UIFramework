@@ -1,8 +1,9 @@
-﻿using UI.Framework.Rust.Enums;
+﻿using Oxide.Plugins;
+using UI.Framework.Rust.Enums;
 
-namespace Oxide.Plugins
+namespace UI.Framework.Rust
 {
-    public class Constants
+    public class UiConstants
     {
         public static class UiFonts
         {
