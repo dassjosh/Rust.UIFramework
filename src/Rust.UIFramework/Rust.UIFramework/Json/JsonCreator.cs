@@ -62,9 +62,9 @@ namespace UI.Framework.Rust.Json
             {
                 writer.WritePropertyName(name);
                 _sb.Clear();
-                _sb.Append(Constants.Json.QuoteChar);
+                _sb.Append(UiConstants.Json.QuoteChar);
                 _sb.Append(value);
-                _sb.Append(Constants.Json.QuoteChar);
+                _sb.Append(UiConstants.Json.QuoteChar);
                 writer.WriteRawValue(_sb.ToString());
             }
         }
