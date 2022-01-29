@@ -9,7 +9,12 @@ namespace Rust.UiFramework.Benchmarks
 #if DEBUG
             Benchmarks benchmarks = new Benchmarks();
             benchmarks.Setup();
-            benchmarks.FrameworkBenchmark_WithoutJson();
+
+            //while (true)
+            //{
+                benchmarks.FrameworkBenchmark_WithoutJson();
+                benchmarks.IterationCleanup();
+            //}
 #else
             BenchmarkRunner.Run<Benchmarks>();
 #endif

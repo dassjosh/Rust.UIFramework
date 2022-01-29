@@ -95,7 +95,7 @@
       </Content>
     </ItemGroup>
 
-    <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Target Name="PostBuild" AfterTargets="PostBuildEvent">
       <Exec Command="plugin.merge -m -c -p &quot;../merge.framework.json&quot;&#xA;plugin.merge -m -c -p &quot;../merge.mergeframework.json&quot;" />
     </Target>
 

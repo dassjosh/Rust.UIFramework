@@ -15,7 +15,7 @@ using Pool = Facepunch.Pool;
 namespace Oxide.Plugins
 {
     //Define:Framework
-    //[Info("Rust UI Framework", "MJSU", "1.1.0")]
+    //[Info("Rust UI Framework", "MJSU", "1.2.0")]
     //[Description("UI Framework for Rust")]
     public partial class UiMergeFramework : RustPlugin
     {
@@ -73,7 +73,7 @@ namespace Oxide.Plugins
         {
             InitPreventMovement();
             BaseMountable mounted = player.GetMounted();
-            if (mounted != null && mounted.prefabID == _prefabId && mounted.parentEntity.uid == 0 && mounted.skinID == PreventMovementSkinId)
+            if (mounted != null && mounted.prefabID == _prefabId && mounted.skinID == PreventMovementSkinId)
             {
                 player.DismountObject();
                 mounted.Kill();
@@ -83,8 +83,8 @@ namespace Oxide.Plugins
 
     }
 
-    #region Constants.cs
-    public class Constants
+    #region UiConstants.cs
+    public class UiConstants
     {
         public static class UiFonts
         {
@@ -173,11 +173,11 @@ namespace Oxide.Plugins
         {
         }
         
-        public UiBuilder(UiColor color, UiPosition pos, bool useCursor, string name, UiLayer parent = UiLayer.Overlay) : this(color, pos, null, useCursor, name, Constants.UiLayers.GetLayer(parent))
+        public UiBuilder(UiColor color, UiPosition pos, bool useCursor, string name, UiLayer parent = UiLayer.Overlay) : this(color, pos, null, useCursor, name, UiConstants.UiLayers.GetLayer(parent))
         {
         }
         
-        public UiBuilder(UiColor color, UiPosition pos, UiOffset offset, bool useCursor, string name, UiLayer parent = UiLayer.Overlay) : this(color, pos, offset, useCursor, name, Constants.UiLayers.GetLayer(parent))
+        public UiBuilder(UiColor color, UiPosition pos, UiOffset offset, bool useCursor, string name, UiLayer parent = UiLayer.Overlay) : this(color, pos, offset, useCursor, name, UiConstants.UiLayers.GetLayer(parent))
         {
         }
         
@@ -189,6 +189,11 @@ namespace Oxide.Plugins
         public UiBuilder()
         {
             _components = Pool.GetList<BaseUiComponent>() ?? new List<BaseUiComponent>();
+        }
+        
+        public void EnsureCapacity(int capacity)
+        {
+            _components.Capacity = capacity;
         }
         
         public void SetRoot(BaseUiComponent component, string name, string parent)
@@ -203,7 +208,7 @@ namespace Oxide.Plugins
         
         public static void SetFont(UiFont font)
         {
-            _font = Constants.UiFonts.GetUiFont(font);
+            _font = UiConstants.UiFonts.GetUiFont(font);
         }
         #endregion
         
@@ -453,12 +458,12 @@ namespace Oxide.Plugins
         
         public static void AddUi(Connection connection, string json)
         {
-            CommunityEntity.ServerInstance.ClientRPCEx(new SendInfo(connection), null, Constants.RpcFunctions.AddUiFunc, json);
+            CommunityEntity.ServerInstance.ClientRPCEx(new SendInfo(connection), null, UiConstants.RpcFunctions.AddUiFunc, json);
         }
         
         public static void AddUi(List<Connection> connections, string json)
         {
-            CommunityEntity.ServerInstance.ClientRPCEx(new SendInfo(connections), null, Constants.RpcFunctions.AddUiFunc, json);
+            CommunityEntity.ServerInstance.ClientRPCEx(new SendInfo(connections), null, UiConstants.RpcFunctions.AddUiFunc, json);
         }
         #endregion
         
@@ -529,12 +534,12 @@ namespace Oxide.Plugins
         
         public static void DestroyUi(Connection connection, string name)
         {
-            CommunityEntity.ServerInstance.ClientRPCEx(new SendInfo(connection), null, Constants.RpcFunctions.DestroyUiFunc, name);
+            CommunityEntity.ServerInstance.ClientRPCEx(new SendInfo(connection), null, UiConstants.RpcFunctions.DestroyUiFunc, name);
         }
         
         public static void DestroyUi(List<Connection> connections, string name)
         {
-            CommunityEntity.ServerInstance.ClientRPCEx(new SendInfo(connections), null, Constants.RpcFunctions.DestroyUiFunc, name);
+            CommunityEntity.ServerInstance.ClientRPCEx(new SendInfo(connections), null, UiConstants.RpcFunctions.DestroyUiFunc, name);
         }
         #endregion
     }
@@ -1053,9 +1058,9 @@ namespace Oxide.Plugins
             {
                 writer.WritePropertyName(name);
                 _sb.Clear();
-                _sb.Append(Constants.Json.QuoteChar);
+                _sb.Append(UiConstants.Json.QuoteChar);
                 _sb.Append(value);
-                _sb.Append(Constants.Json.QuoteChar);
+                _sb.Append(UiConstants.Json.QuoteChar);
                 writer.WriteRawValue(_sb.ToString());
             }
         }
@@ -1657,8 +1662,8 @@ namespace Oxide.Plugins
         public readonly string Min;
         public readonly string Max;
         
-        private static readonly string PosFormat = "0.####";
-        private static readonly char _space = ' ';
+        private const string PosFormat = "0.####";
+        private const char Space = ' ';
         private static readonly StringBuilder _builder = new StringBuilder();
         
         public Offset(int xMin, int yMin, int xMax, int yMax)
@@ -1673,7 +1678,7 @@ namespace Oxide.Plugins
         {
             _builder.Clear();
             _builder.Append(min.ToString(PosFormat));
-            _builder.Append(_space);
+            _builder.Append(Space);
             _builder.Append(max.ToString(PosFormat));
             return _builder.ToString();
         }
@@ -1715,8 +1720,8 @@ namespace Oxide.Plugins
         public readonly string Min;
         public readonly string Max;
         
-        private static readonly string PosFormat = "0.####";
-        private static readonly char _space = ' ';
+        private const string PosFormat = "0.####";
+        private const char Space = ' ';
         private static readonly StringBuilder _builder = new StringBuilder();
         
         public Position(float xMin, float yMin, float xMax, float yMax)
@@ -1731,7 +1736,7 @@ namespace Oxide.Plugins
         {
             _builder.Clear();
             _builder.Append(min.ToString(PosFormat));
-            _builder.Append(_space);
+            _builder.Append(Space);
             _builder.Append(max.ToString(PosFormat));
             return _builder.ToString();
         }
@@ -1830,7 +1835,15 @@ namespace Oxide.Plugins
     public abstract class UiPosition
     {
         public static readonly UiPosition FullPosition = new StaticUiPosition(0, 0, 1, 1);
-        public static readonly UiPosition Center = new StaticUiPosition(.5f, .5f, .5f, .5f);
+        public static readonly UiPosition TopLeft = new StaticUiPosition(0, 1, 0, 1);
+        public static readonly UiPosition Left = new StaticUiPosition(0, .5f, 0, .5f);
+        public static readonly UiPosition BottomLeft = new StaticUiPosition(0, 0, 0, 0);
+        public static readonly UiPosition Top = new StaticUiPosition(.5f, 1, .5f, 1);
+        public static readonly UiPosition Middle = new StaticUiPosition(.5f, .5f, .5f, .5f);
+        public static readonly UiPosition Bottom = new StaticUiPosition(.5f, 0, .5f, 0);
+        public static readonly UiPosition TopRight = new StaticUiPosition(1, 1, 1, 1);
+        public static readonly UiPosition Right = new StaticUiPosition(1, .5f, 1, .5f);
+        public static readonly UiPosition BottomRight = new StaticUiPosition(1, 0, 1, 0);
         
         public abstract Position ToPosition();
     }
