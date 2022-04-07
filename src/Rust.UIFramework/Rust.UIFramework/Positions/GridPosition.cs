@@ -2,22 +2,19 @@
 {
     public class GridPosition : MovablePosition
     {
-        public float NumCols => _numCols;
-        public float NumRows => _numRows;
-
-        private readonly float _numCols;
-        private readonly float _numRows;
+        public readonly float NumCols;
+        public readonly float NumRows;
 
         public GridPosition(float xMin, float yMin, float xMax, float yMax, float numCols, float numRows) : base(xMin, yMin, xMax, yMax)
         {
-            _numCols = numCols;
-            _numRows = numRows;
+            NumCols = numCols;
+            NumRows = numRows;
         }
 
         public void MoveCols(int cols)
         {
-            XMin += cols / _numCols;
-            XMax += cols / _numCols;
+            XMin += cols / NumCols;
+            XMax += cols / NumCols;
             
             if (XMax > 1)
             {
@@ -33,8 +30,8 @@
 
         public void MoveRows(int rows)
         {
-            YMin += rows / _numRows;
-            YMax += rows / _numRows;
+            YMin += rows / NumRows;
+            YMax += rows / NumRows;
 
 #if UiDebug
             ValidatePositions();

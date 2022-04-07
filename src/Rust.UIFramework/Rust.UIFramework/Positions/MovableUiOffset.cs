@@ -6,7 +6,7 @@
         public int YMin;
         public int XMax;
         public int YMax;
-        private OffsetState _state;
+        private readonly OffsetState _state;
 
         public MovableUiOffset(int x, int y, int width, int height)
         {

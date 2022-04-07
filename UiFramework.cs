@@ -1165,6 +1165,12 @@ namespace Oxide.Plugins
                 writer.WriteValue(value);
             }
             
+            public static void AddFieldRaw(JsonTextWriter writer, string name, bool value)
+            {
+                writer.WritePropertyName(name);
+                writer.WriteValue(value);
+            }
+            
             public static void AddField(JsonTextWriter writer, string name, string value, string defaultValue)
             {
                 if (value != null && value != defaultValue)
@@ -1174,17 +1180,39 @@ namespace Oxide.Plugins
                 }
             }
             
-            public static void AddTextField(JsonTextWriter writer, string name, string value, string defaultValue)
+            public static void AddField(JsonTextWriter writer, string name, TextAnchor value)
             {
-                if (value != null && value != defaultValue)
+                if (value != TextAnchor.UpperLeft)
                 {
                     writer.WritePropertyName(name);
-                    _sb.Clear();
-                    _sb.Append(UiConstants.Json.QuoteChar);
-                    _sb.Append(value);
-                    _sb.Append(UiConstants.Json.QuoteChar);
-                    writer.WriteRawValue(_sb.ToString());
+                    writer.WriteValue(value.ToString());
                 }
+            }
+            
+            public static void AddField(JsonTextWriter writer, string name, InputField.LineType value)
+            {
+                if (value != InputField.LineType.SingleLine)
+                {
+                    writer.WritePropertyName(name);
+                    writer.WriteValue(value.ToString());
+                }
+            }
+            
+            public static void AddTextField(JsonTextWriter writer, string name, string value)
+            {
+                if (string.IsNullOrEmpty(value))
+                {
+                    AddFieldRaw(writer, name, string.Empty);
+                    return;
+                }
+                
+                //We need to write it this way so \n type characters are sent over and processed correctly
+                writer.WritePropertyName(name);
+                _sb.Clear();
+                _sb.Append(UiConstants.Json.QuoteChar);
+                _sb.Append(value);
+                _sb.Append(UiConstants.Json.QuoteChar);
+                writer.WriteRawValue(_sb.ToString());
             }
             
             public static void AddMultiField(JsonTextWriter writer, string name, string value, string[] defaultValues)
@@ -1255,20 +1283,6 @@ namespace Oxide.Plugins
                 AddField(writer, JsonDefaults.ColorName, button.Color, JsonDefaults.ColorValue);
                 AddField(writer, JsonDefaults.SpriteName, button.Sprite, JsonDefaults.SpriteValue);
                 AddField(writer, JsonDefaults.FadeInName, button.FadeIn, JsonDefaults.FadeOutValue);
-                writer.WriteEndObject();
-            }
-            
-            public static void Add(JsonTextWriter writer, TextComponent text)
-            {
-                writer.WriteStartObject();
-                AddFieldRaw(writer, JsonDefaults.ComponentTypeName, TextComponent.Type);
-                AddTextField(writer, JsonDefaults.TextName, text.Text, JsonDefaults.TextValue);
-                AddField(writer, JsonDefaults.FontSizeName, text.FontSize, JsonDefaults.FontSizeValue);
-                AddField(writer, JsonDefaults.FontName, text.Font, JsonDefaults.FontValue);
-                AddField(writer, JsonDefaults.ColorName, text.Color, JsonDefaults.ColorValue);
-                string align = text.Align.ToString();
-                AddField(writer, JsonDefaults.AlignName, align, JsonDefaults.AlignValue);
-                AddField(writer, JsonDefaults.FadeInName, text.FadeIn, JsonDefaults.FadeOutValue);
                 writer.WriteEndObject();
             }
             
@@ -1346,22 +1360,41 @@ namespace Oxide.Plugins
                 writer.WriteEndObject();
             }
             
+            public static void Add(JsonTextWriter writer, TextComponent text)
+            {
+                writer.WriteStartObject();
+                AddFieldRaw(writer, JsonDefaults.ComponentTypeName, TextComponent.Type);
+                AddTextField(writer, JsonDefaults.TextName, text.Text);
+                AddField(writer, JsonDefaults.FontSizeName, text.FontSize, JsonDefaults.FontSizeValue);
+                AddField(writer, JsonDefaults.FontName, text.Font, JsonDefaults.FontValue);
+                AddField(writer, JsonDefaults.ColorName, text.Color, JsonDefaults.ColorValue);
+                AddField(writer, JsonDefaults.AlignName, text.Align);
+                AddField(writer, JsonDefaults.FadeInName, text.FadeIn, JsonDefaults.FadeOutValue);
+                writer.WriteEndObject();
+            }
+            
             public static void Add(JsonTextWriter writer, InputComponent input)
             {
                 writer.WriteStartObject();
                 AddFieldRaw(writer, JsonDefaults.ComponentTypeName, InputComponent.Type);
+                AddTextField(writer, JsonDefaults.TextName, input.Text);
                 AddField(writer, JsonDefaults.FontSizeName, input.FontSize, JsonDefaults.FontSizeValue);
                 AddField(writer, JsonDefaults.FontName, input.Font, JsonDefaults.FontValue);
-                string align = input.Align.ToString();
-                AddField(writer, JsonDefaults.AlignName, align, JsonDefaults.AlignValue);
+                AddField(writer, JsonDefaults.AlignName, input.Align);
                 AddField(writer, JsonDefaults.ColorName, input.Color, JsonDefaults.ColorValue);
                 AddField(writer, JsonDefaults.CharacterLimitName, input.CharsLimit, JsonDefaults.CharacterLimitValue);
                 AddField(writer, JsonDefaults.CommandName, input.Command, JsonDefaults.NullValue);
                 AddField(writer, JsonDefaults.FadeInName, input.FadeIn, JsonDefaults.FadeOutValue);
+                AddField(writer, JsonDefaults.LineTypeName, input.LineType);
                 
                 if (input.IsPassword)
                 {
                     AddFieldRaw(writer, JsonDefaults.PasswordName, JsonDefaults.PasswordValue);
+                }
+                
+                if (input.IsReadyOnly)
+                {
+                    AddFieldRaw(writer, JsonDefaults.ReadOnlyName, JsonDefaults.ReadOnlyValue);
                 }
                 
                 writer.WriteEndObject();
@@ -1370,7 +1403,7 @@ namespace Oxide.Plugins
         #endregion
 
         #region Json\JsonDefaults.cs
-        public class JsonDefaults
+        public static class JsonDefaults
         {
             //Position & Offset
             private const string DefaultMin = "0.0 0.0";
@@ -1385,12 +1418,10 @@ namespace Oxide.Plugins
             public const string OffsetMaxValue = "0 0";
             
             //Text
-            public const string AlignValue = "UpperLeft";
             public const int FontSizeValue = 14;
             public const string FontValue = "RobotoCondensed-Bold.ttf";
             public const string FontName = "font";
             public const string TextName = "text";
-            public const string TextValue = "Text";
             public const string FontSizeName = "fontSize";
             public const string AlignName = "align";
             
@@ -1443,6 +1474,9 @@ namespace Oxide.Plugins
             public const int CharacterLimitValue = 0;
             public const string PasswordName = "password";
             public const string PasswordValue = "true";
+            public const string ReadOnlyName = "password";
+            public const bool ReadOnlyValue = true;
+            public const string LineTypeName = "lineType";
         }
         #endregion
 
@@ -1475,22 +1509,19 @@ namespace Oxide.Plugins
         #region Positions\GridPosition.cs
         public class GridPosition : MovablePosition
         {
-            public float NumCols => _numCols;
-            public float NumRows => _numRows;
-            
-            private readonly float _numCols;
-            private readonly float _numRows;
+            public readonly float NumCols;
+            public readonly float NumRows;
             
             public GridPosition(float xMin, float yMin, float xMax, float yMax, float numCols, float numRows) : base(xMin, yMin, xMax, yMax)
             {
-                _numCols = numCols;
-                _numRows = numRows;
+                NumCols = numCols;
+                NumRows = numRows;
             }
             
             public void MoveCols(int cols)
             {
-                XMin += cols / _numCols;
-                XMax += cols / _numCols;
+                XMin += cols / NumCols;
+                XMax += cols / NumCols;
                 
                 if (XMax > 1)
                 {
@@ -1506,8 +1537,8 @@ namespace Oxide.Plugins
             
             public void MoveRows(int rows)
             {
-                YMin += rows / _numRows;
-                YMax += rows / _numRows;
+                YMin += rows / NumRows;
+                YMax += rows / NumRows;
                 
                 #if UiDebug
                 ValidatePositions();
@@ -1781,7 +1812,7 @@ namespace Oxide.Plugins
             public int YMin;
             public int XMax;
             public int YMax;
-            private OffsetState _state;
+            private readonly OffsetState _state;
             
             public MovableUiOffset(int x, int y, int width, int height)
             {

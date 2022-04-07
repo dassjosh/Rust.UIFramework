@@ -4,7 +4,7 @@
 
 namespace Oxide.Ext.UiFramework.Json
 {
-    public class JsonDefaults
+    public static class JsonDefaults
     {
         //Position & Offset
         private const string DefaultMin = "0.0 0.0";
@@ -19,12 +19,10 @@ namespace Oxide.Ext.UiFramework.Json
         public const string OffsetMaxValue = "0 0";
         
         //Text
-        public const string AlignValue = "UpperLeft";
         public const int FontSizeValue = 14;
         public const string FontValue = "RobotoCondensed-Bold.ttf";
         public const string FontName = "font";
         public const string TextName = "text";
-        public const string TextValue = "Text";
         public const string FontSizeName = "fontSize";
         public const string AlignName = "align";
         
@@ -77,5 +75,8 @@ namespace Oxide.Ext.UiFramework.Json
         public const int CharacterLimitValue = 0;
         public const string PasswordName = "password";
         public const string PasswordValue = "true";
+        public const string ReadOnlyName = "password";
+        public const bool ReadOnlyValue = true;
+        public const string LineTypeName = "lineType";
     }
 }

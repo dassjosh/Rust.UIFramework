@@ -8,6 +8,8 @@ using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.UiElements;
 using Oxide.Plugins;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.Json
 {
@@ -87,6 +89,12 @@ namespace Oxide.Ext.UiFramework.Json
             writer.WritePropertyName(name);
             writer.WriteValue(value);
         }
+        
+        public static void AddFieldRaw(JsonTextWriter writer, string name, bool value)
+        {
+            writer.WritePropertyName(name);
+            writer.WriteValue(value);
+        }
 
         public static void AddField(JsonTextWriter writer, string name, string value, string defaultValue)
         {
@@ -97,17 +105,39 @@ namespace Oxide.Ext.UiFramework.Json
             }
         }
         
-        public static void AddTextField(JsonTextWriter writer, string name, string value, string defaultValue)
+        public static void AddField(JsonTextWriter writer, string name, TextAnchor value)
         {
-            if (value != null && value != defaultValue)
+            if (value != TextAnchor.UpperLeft)
             {
                 writer.WritePropertyName(name);
-                _sb.Clear();
-                _sb.Append(UiConstants.Json.QuoteChar);
-                _sb.Append(value);
-                _sb.Append(UiConstants.Json.QuoteChar);
-                writer.WriteRawValue(_sb.ToString());
+                writer.WriteValue(value.ToString());
             }
+        }
+        
+        public static void AddField(JsonTextWriter writer, string name, InputField.LineType value)
+        {
+            if (value != InputField.LineType.SingleLine)
+            {
+                writer.WritePropertyName(name);
+                writer.WriteValue(value.ToString());
+            }
+        }
+        
+        public static void AddTextField(JsonTextWriter writer, string name, string value)
+        {
+            if (string.IsNullOrEmpty(value))
+            {
+                AddFieldRaw(writer, name, string.Empty);
+                return;
+            }
+            
+            //We need to write it this way so \n type characters are sent over and processed correctly
+            writer.WritePropertyName(name);
+            _sb.Clear();
+            _sb.Append(UiConstants.Json.QuoteChar);
+            _sb.Append(value);
+            _sb.Append(UiConstants.Json.QuoteChar);
+            writer.WriteRawValue(_sb.ToString());
         }
 
         public static void AddMultiField(JsonTextWriter writer, string name, string value, string[] defaultValues)
@@ -178,20 +208,6 @@ namespace Oxide.Ext.UiFramework.Json
             AddField(writer, JsonDefaults.ColorName, button.Color, JsonDefaults.ColorValue);
             AddField(writer, JsonDefaults.SpriteName, button.Sprite, JsonDefaults.SpriteValue);
             AddField(writer, JsonDefaults.FadeInName, button.FadeIn, JsonDefaults.FadeOutValue);
-            writer.WriteEndObject();
-        }
-
-        public static void Add(JsonTextWriter writer, TextComponent text)
-        {
-            writer.WriteStartObject();
-            AddFieldRaw(writer, JsonDefaults.ComponentTypeName, TextComponent.Type);
-            AddTextField(writer, JsonDefaults.TextName, text.Text, JsonDefaults.TextValue);
-            AddField(writer, JsonDefaults.FontSizeName, text.FontSize, JsonDefaults.FontSizeValue);
-            AddField(writer, JsonDefaults.FontName, text.Font, JsonDefaults.FontValue);
-            AddField(writer, JsonDefaults.ColorName, text.Color, JsonDefaults.ColorValue);
-            string align = text.Align.ToString();
-            AddField(writer, JsonDefaults.AlignName, align, JsonDefaults.AlignValue);
-            AddField(writer, JsonDefaults.FadeInName, text.FadeIn, JsonDefaults.FadeOutValue);
             writer.WriteEndObject();
         }
 
@@ -268,23 +284,42 @@ namespace Oxide.Ext.UiFramework.Json
 
             writer.WriteEndObject();
         }
+        
+        public static void Add(JsonTextWriter writer, TextComponent text)
+        {
+            writer.WriteStartObject();
+            AddFieldRaw(writer, JsonDefaults.ComponentTypeName, TextComponent.Type);
+            AddTextField(writer, JsonDefaults.TextName, text.Text);
+            AddField(writer, JsonDefaults.FontSizeName, text.FontSize, JsonDefaults.FontSizeValue);
+            AddField(writer, JsonDefaults.FontName, text.Font, JsonDefaults.FontValue);
+            AddField(writer, JsonDefaults.ColorName, text.Color, JsonDefaults.ColorValue);
+            AddField(writer, JsonDefaults.AlignName, text.Align);
+            AddField(writer, JsonDefaults.FadeInName, text.FadeIn, JsonDefaults.FadeOutValue);
+            writer.WriteEndObject();
+        }
 
         public static void Add(JsonTextWriter writer, InputComponent input)
         {
             writer.WriteStartObject();
             AddFieldRaw(writer, JsonDefaults.ComponentTypeName, InputComponent.Type);
+            AddTextField(writer, JsonDefaults.TextName, input.Text);
             AddField(writer, JsonDefaults.FontSizeName, input.FontSize, JsonDefaults.FontSizeValue);
             AddField(writer, JsonDefaults.FontName, input.Font, JsonDefaults.FontValue);
-            string align = input.Align.ToString();
-            AddField(writer, JsonDefaults.AlignName, align, JsonDefaults.AlignValue);
+            AddField(writer, JsonDefaults.AlignName, input.Align);
             AddField(writer, JsonDefaults.ColorName, input.Color, JsonDefaults.ColorValue);
             AddField(writer, JsonDefaults.CharacterLimitName, input.CharsLimit, JsonDefaults.CharacterLimitValue);
             AddField(writer, JsonDefaults.CommandName, input.Command, JsonDefaults.NullValue);
             AddField(writer, JsonDefaults.FadeInName, input.FadeIn, JsonDefaults.FadeOutValue);
+            AddField(writer, JsonDefaults.LineTypeName, input.LineType);
 
             if (input.IsPassword)
             {
                 AddFieldRaw(writer, JsonDefaults.PasswordName, JsonDefaults.PasswordValue);
+            }
+
+            if (input.IsReadyOnly)
+            {
+                AddFieldRaw(writer, JsonDefaults.ReadOnlyName, JsonDefaults.ReadOnlyValue);
             }
 
             writer.WriteEndObject();
