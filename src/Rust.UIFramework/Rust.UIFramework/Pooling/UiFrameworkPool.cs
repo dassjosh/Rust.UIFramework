@@ -2,7 +2,7 @@
 using System.Text;
 using Pool = Facepunch.Pool;
 
-namespace UI.Framework.Rust.Pooling
+namespace Oxide.Ext.UiFramework.Pooling
 {
     public static class UiFrameworkPool
     {

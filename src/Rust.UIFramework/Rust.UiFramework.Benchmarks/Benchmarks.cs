@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using BenchmarkDotNet.Attributes;
+using Oxide.Ext.UiFramework.Builder;
+using Oxide.Ext.UiFramework.Colors;
+using Oxide.Ext.UiFramework.Components;
+using Oxide.Ext.UiFramework.Positions;
+using Oxide.Ext.UiFramework.UiElements;
 using Oxide.Game.Rust.Cui;
-using UI.Framework.Rust.Builder;
-using UI.Framework.Rust.Colors;
-using UI.Framework.Rust.Components;
-using UI.Framework.Rust.Positions;
-using UI.Framework.Rust.UiElements;
 
 namespace Rust.UiFramework.Benchmarks
 {

@@ -2,14 +2,14 @@
 using System.IO;
 using System.Text;
 using Newtonsoft.Json;
+using Oxide.Ext.UiFramework.Colors;
+using Oxide.Ext.UiFramework.Components;
+using Oxide.Ext.UiFramework.Pooling;
+using Oxide.Ext.UiFramework.Positions;
+using Oxide.Ext.UiFramework.UiElements;
 using Oxide.Plugins;
-using UI.Framework.Rust.Colors;
-using UI.Framework.Rust.Components;
-using UI.Framework.Rust.Pooling;
-using UI.Framework.Rust.Positions;
-using UI.Framework.Rust.UiElements;
 
-namespace UI.Framework.Rust.Json
+namespace Oxide.Ext.UiFramework.Json
 {
     public static class JsonCreator
     {

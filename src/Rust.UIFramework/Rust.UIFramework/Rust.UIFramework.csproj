@@ -4,8 +4,8 @@
         <TargetFramework>net48</TargetFramework>
         <LangVersion>6</LangVersion>
         <RunPostBuildEvent>Always</RunPostBuildEvent>
-        <AssemblyName>Ui.Framework.Rust</AssemblyName>
-        <RootNamespace>UI.Framework.Rust</RootNamespace>
+        <AssemblyName>Oxide.Ext.UiFramework</AssemblyName>
+        <RootNamespace>Oxide.Ext.UiFramework</RootNamespace>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
@@ -90,16 +90,16 @@
 
     <ItemGroup>
       <Compile Remove="UiFramework.cs" />
-      <Content Include="..\..\..\build\UiFramework.cs">
+      <Content Include="..\..\..\UiFramework.cs">
         <Link>UiFramework.cs</Link>
       </Content>
-      <Content Include="..\..\..\build\UiMergeFramework.cs">
+      <Content Include="..\..\..\UiMergeFramework.cs">
         <Link>UiMergeFramework.cs</Link>
       </Content>
     </ItemGroup>
 
     <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-      <Exec Command="plugin.merge -m -c -p &quot;../merge.framework.json&quot;&#xA;plugin.merge -m -c -p &quot;../merge.mergeframework.json&quot;" />
+      <Exec Command="plugin.merge -m -c -p &quot;../merge.framework.json&quot;&#xA;plugin.merge -m -c -p &quot;../merge.mergeframework.json&quot;&#xA;&#xA;set inputFile=$(ProjectDir)bin\$(Configuration)\net48\Oxide.Ext.UiFramework.dll&#xA;set outputFile=$(ProjectDir)..\..\..\Oxide.Ext.UiFramework.dll&#xA;&#xA;echo Input: %inputFile%&#xA;echo Output: %outputFile%&#xA;&#xA;copy &quot;%inputFile%&quot; &quot;%outputFile%*&quot;" />
     </Target>
 
 </Project>

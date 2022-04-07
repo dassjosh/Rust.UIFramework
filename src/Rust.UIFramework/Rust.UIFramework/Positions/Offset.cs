@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace UI.Framework.Rust.Positions
+namespace Oxide.Ext.UiFramework.Positions
 {
     public struct Offset
     {

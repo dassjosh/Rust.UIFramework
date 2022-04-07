@@ -1,4 +1,4 @@
-﻿namespace UI.Framework.Rust.Colors
+﻿namespace Oxide.Ext.UiFramework.Colors
 {
     public static class UiColors
     {

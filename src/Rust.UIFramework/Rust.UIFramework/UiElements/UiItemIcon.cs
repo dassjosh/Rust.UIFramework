@@ -1,11 +1,11 @@
 ﻿using Newtonsoft.Json;
-using UI.Framework.Rust.Colors;
-using UI.Framework.Rust.Components;
-using UI.Framework.Rust.Json;
-using UI.Framework.Rust.Positions;
+using Oxide.Ext.UiFramework.Colors;
+using Oxide.Ext.UiFramework.Components;
+using Oxide.Ext.UiFramework.Json;
+using Oxide.Ext.UiFramework.Positions;
 using Pool = Facepunch.Pool;
 
-namespace UI.Framework.Rust.UiElements
+namespace Oxide.Ext.UiFramework.UiElements
 {
     public class UiItemIcon : BaseUiComponent
     {

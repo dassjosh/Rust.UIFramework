@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace UI.Framework.Rust.Enums
+namespace Oxide.Ext.UiFramework.Enums
 {
     [Flags]
     public enum BorderMode : byte

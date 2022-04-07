@@ -2,19 +2,19 @@
 using System.Collections.Generic;
 using System.Text;
 using Network;
-using UI.Framework.Rust.Colors;
-using UI.Framework.Rust.Enums;
-using UI.Framework.Rust.Exceptions;
-using UI.Framework.Rust.Json;
-using UI.Framework.Rust.Pooling;
-using UI.Framework.Rust.Positions;
-using UI.Framework.Rust.UiElements;
+using Oxide.Ext.UiFramework.Colors;
+using Oxide.Ext.UiFramework.Enums;
+using Oxide.Ext.UiFramework.Exceptions;
+using Oxide.Ext.UiFramework.Json;
+using Oxide.Ext.UiFramework.Pooling;
+using Oxide.Ext.UiFramework.Positions;
+using Oxide.Ext.UiFramework.UiElements;
 using UnityEngine;
 using UnityEngine.UI;
 using Pool = Facepunch.Pool;
 using Net = Network.Net;
 
-namespace UI.Framework.Rust.Builder
+namespace Oxide.Ext.UiFramework.Builder
 {
     public partial class UiBuilder : IDisposable
     {

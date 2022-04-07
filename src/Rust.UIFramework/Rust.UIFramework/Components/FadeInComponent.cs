@@ -1,4 +1,4 @@
-﻿namespace UI.Framework.Rust.Components
+﻿namespace Oxide.Ext.UiFramework.Components
 {
     public class FadeInComponent : BaseComponent
     {

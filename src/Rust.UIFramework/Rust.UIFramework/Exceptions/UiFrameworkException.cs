@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace UI.Framework.Rust.Exceptions
+namespace Oxide.Ext.UiFramework.Exceptions
 {
     public class UiFrameworkException : Exception
     {

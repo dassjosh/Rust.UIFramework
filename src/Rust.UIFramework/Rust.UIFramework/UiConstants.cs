@@ -1,7 +1,7 @@
-﻿using Oxide.Plugins;
-using UI.Framework.Rust.Enums;
+﻿using Oxide.Ext.UiFramework.Enums;
+using Oxide.Plugins;
 
-namespace UI.Framework.Rust
+namespace Oxide.Ext.UiFramework
 {
     public class UiConstants
     {

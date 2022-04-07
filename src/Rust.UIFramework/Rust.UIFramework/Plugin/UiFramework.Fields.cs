@@ -1,4 +1,4 @@
-﻿namespace UI.Framework.Rust.Plugin
+﻿namespace Oxide.Ext.UiFramework.Plugin
 {
     public partial class UiFramework
     {

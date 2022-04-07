@@ -8,18 +8,18 @@
       "./Rust.UIFramework"
     ],
     "Plugin Output Paths": [
-      "../../build"
+      "../../"
     ],
     "Reference Definitions": [],
     "Define Definitions": [],
     "Ignore Paths": [
-      "./IgnoreThisPath"
+      "./Rust.UIFramework/Extensions"
     ],
     "Ignore Files": [
       "./IgnoreThisFile.cs"
     ],
     "Ignore Namespaces": [
-      "UI.Framework.Rust"
+      "Oxide.Ext.UiFramework"
     ],
     "Code Style": {
       "Indent Character": " ",

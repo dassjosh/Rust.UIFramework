@@ -1,7 +1,8 @@
-﻿using UI.Framework.Rust.Colors;
+﻿using Oxide.Ext.UiFramework.Colors;
+
 // ReSharper disable ConvertToConstant.Global
 
-namespace UI.Framework.Rust.Json
+namespace Oxide.Ext.UiFramework.Json
 {
     public class JsonDefaults
     {

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using Network;
-using UI.Framework.Rust.Builder;
+using Oxide.Ext.UiFramework.Builder;
 
-namespace UI.Framework.Rust.Plugin
+namespace Oxide.Ext.UiFramework.Plugin
 {
     public partial class UiFramework
     {

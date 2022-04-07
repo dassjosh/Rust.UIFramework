@@ -1,4 +1,4 @@
-﻿namespace UI.Framework.Rust.Enums
+﻿namespace Oxide.Ext.UiFramework.Enums
 {
     public enum UiLayer : byte
     {

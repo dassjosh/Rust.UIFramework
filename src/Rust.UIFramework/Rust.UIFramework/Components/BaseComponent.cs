@@ -1,7 +1,7 @@
-﻿using UI.Framework.Rust.Colors;
+﻿using Oxide.Ext.UiFramework.Colors;
 using Pool = Facepunch.Pool;
 
-namespace UI.Framework.Rust.Components
+namespace Oxide.Ext.UiFramework.Components
 {
     public class BaseComponent : Pool.IPooled
     {

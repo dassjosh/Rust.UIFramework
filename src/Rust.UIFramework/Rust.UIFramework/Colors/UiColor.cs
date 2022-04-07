@@ -2,7 +2,7 @@
 using UnityEngine;
 using Color = UnityEngine.Color;
 
-namespace UI.Framework.Rust.Colors
+namespace Oxide.Ext.UiFramework.Colors
 {
     public class UiColor
     {

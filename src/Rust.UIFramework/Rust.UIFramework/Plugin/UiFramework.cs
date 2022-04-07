@@ -1,6 +1,6 @@
 ﻿using Oxide.Plugins;
 
-namespace UI.Framework.Rust.Plugin
+namespace Oxide.Ext.UiFramework.Plugin
 {
     [Info("Rust UI Framework", "MJSU", "1.3.0")]
     [Description("UI Framework for Rust")]
