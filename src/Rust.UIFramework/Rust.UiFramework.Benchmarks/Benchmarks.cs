@@ -147,7 +147,7 @@ namespace Rust.UiFramework.Benchmarks
 
         private UiBuilder GetFrameworkBuilder()
         {
-            UiBuilder builder = new UiBuilder(UiColors.Clear, UiPosition.FullPosition, false, "123");
+            UiBuilder builder = new UiBuilder(UiColors.Clear, UiPosition.FullPosition, "123");
             builder.EnsureCapacity(Iterations + 1);
             for (int i = 0; i < Iterations; i++)
             {
@@ -163,7 +163,7 @@ namespace Rust.UiFramework.Benchmarks
         {
             MovablePosition move = new MovablePosition(0, 0, 0, 0);
             
-            UiBuilder builder = new UiBuilder(UiColors.Clear, UiPosition.FullPosition, false, "123");
+            UiBuilder builder = new UiBuilder(UiColors.Clear, UiPosition.FullPosition, "123");
             for (int i = 0; i < Iterations; i++)
             {
                 move.Set((float)_random.NextDouble(),(float)_random.NextDouble(),(float)_random.NextDouble(),(float)_random.NextDouble());

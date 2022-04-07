@@ -4,10 +4,13 @@ using System.Text;
 using Network;
 using UI.Framework.Rust.Colors;
 using UI.Framework.Rust.Enums;
+using UI.Framework.Rust.Exceptions;
 using UI.Framework.Rust.Json;
+using UI.Framework.Rust.Pooling;
 using UI.Framework.Rust.Positions;
 using UI.Framework.Rust.UiElements;
 using UnityEngine;
+using UnityEngine.UI;
 using Pool = Facepunch.Pool;
 using Net = Network.Net;
 
@@ -17,11 +20,14 @@ namespace UI.Framework.Rust.Builder
     {
         public BaseUiComponent Root;
 
+        private bool _needsMouse;
+        private bool _needsKeyboard;
+        
         private string _cachedJson;
         private bool _disposed;
 
         private List<BaseUiComponent> _components;
-        private readonly StringBuilder _sb = new StringBuilder();
+        private StringBuilder _sb;
 
         private static string _font;
 
@@ -31,33 +37,23 @@ namespace UI.Framework.Rust.Builder
             SetFont(UiFont.RobotoCondensedRegular);
         }
 
-        public UiBuilder(UiColor color, UiPosition pos, UiOffset offset, bool useCursor, string name, string parent) : this()
-        {
-            UiPanel panel = UiPanel.Create(pos, offset, color);
-            panel.NeedsCursor = useCursor;
-            SetRoot(panel, name, parent);
-        }
+        public UiBuilder(UiColor color, UiPosition pos, UiOffset offset, string name, string parent) : this(UiPanel.Create(pos, offset, color), name, parent) { }
 
-        public UiBuilder(UiColor color, UiPosition pos, bool useCursor, string name, string parent) : this(color, pos, null, useCursor, name, parent)
-        {
-        }
+        public UiBuilder(UiColor color, UiPosition pos, string name, string parent) : this(color, pos, null, name, parent) { }
 
-        public UiBuilder(UiColor color, UiPosition pos, bool useCursor, string name, UiLayer parent = UiLayer.Overlay) : this(color, pos, null, useCursor, name, UiConstants.UiLayers.GetLayer(parent))
-        {
-        }
+        public UiBuilder(UiColor color, UiPosition pos, string name, UiLayer parent = UiLayer.Overlay) : this(color, pos, null, name, UiConstants.UiLayers.GetLayer(parent)) { }
 
-        public UiBuilder(UiColor color, UiPosition pos, UiOffset offset, bool useCursor, string name, UiLayer parent = UiLayer.Overlay) : this(color, pos, offset, useCursor, name, UiConstants.UiLayers.GetLayer(parent))
-        {
-        }
+        public UiBuilder(UiColor color, UiPosition pos, UiOffset offset, string name, UiLayer parent = UiLayer.Overlay) : this(color, pos, offset, name, UiConstants.UiLayers.GetLayer(parent)) { }
 
-        public UiBuilder(BaseUiComponent root, string name, string parent)
+        public UiBuilder(BaseUiComponent root, string name, string parent) : this()
         {
             SetRoot(root, name, parent);
         }
 
         public UiBuilder()
         {
-            _components = Pool.GetList<BaseUiComponent>() ?? new List<BaseUiComponent>();
+            _components = UiFrameworkPool.GetList<BaseUiComponent>();
+            _sb = UiFrameworkPool.GetStringBuilder();
         }
 
         public void EnsureCapacity(int capacity)
@@ -72,7 +68,16 @@ namespace UI.Framework.Rust.Builder
             component.Name = name;
             _components.Add(component);
             _sb.Append(name);
-            _sb.Append('_');
+        }
+
+        public void NeedsMouse(bool enabled = true)
+        {
+            _needsMouse = true;
+        }
+        
+        public void NeedsKeyboard(bool enabled = true)
+        {
+            _needsKeyboard = true;
         }
 
         public static void SetFont(UiFont font)
@@ -102,7 +107,8 @@ namespace UI.Framework.Rust.Builder
                 Pool.Free(ref component);
             }
 
-            Pool.FreeList(ref _components);
+            UiFrameworkPool.FreeList(ref _components);
+            UiFrameworkPool.FreeStringBuilder(ref _sb);
             Root = null;
             _cachedJson = null;
         }
@@ -118,7 +124,7 @@ namespace UI.Framework.Rust.Builder
 
         public string GetComponentName()
         {
-            _sb.Length = Root.Name.Length + 1;
+            _sb.Length = Root.Name.Length;
             _sb.Insert(Root.Name.Length, _components.Count.ToString());
             //_sb.Append(_components.Count.ToString());
             return _sb.ToString();
@@ -173,6 +179,27 @@ namespace UI.Framework.Rust.Builder
             Image(button, png, UiPosition.FullPosition);
             return button;
         }
+        
+        public UiButton WebImageButton(BaseUiComponent parent, UiColor buttonColor, string url, UiPosition pos, string cmd)
+        {
+            UiButton button = EmptyCommandButton(parent, buttonColor, pos, cmd);
+            Image(button, url, UiPosition.FullPosition);
+            return button;
+        }
+        
+        public UiButton ItemIconButton(BaseUiComponent parent, UiColor buttonColor, int itemId, UiPosition pos, string cmd)
+        {
+            UiButton button = EmptyCommandButton(parent, buttonColor, pos, cmd);
+            ItemIcon(button, itemId, UiPosition.FullPosition);
+            return button;
+        }
+        
+        public UiButton ItemIconButton(BaseUiComponent parent, UiColor buttonColor, int itemId, ulong skinId, UiPosition pos, string cmd)
+        {
+            UiButton button = EmptyCommandButton(parent, buttonColor, pos, cmd);
+            ItemIcon(button, itemId, skinId, UiPosition.FullPosition);
+            return button;
+        }
 
         public UiButton TextCloseButton(BaseUiComponent parent, string text, int textSize, UiColor textColor, UiColor buttonColor, UiPosition pos, string close, TextAnchor align = TextAnchor.MiddleCenter)
         {
@@ -187,9 +214,22 @@ namespace UI.Framework.Rust.Builder
             Image(button, png, UiPosition.FullPosition);
             return button;
         }
+        
+        public UiButton WebImageCloseButton(BaseUiComponent parent, UiColor buttonColor, string url, UiPosition pos, string close)
+        {
+            UiButton button = EmptyCloseButton(parent, buttonColor, pos, close);
+            WebImage(button, url, UiPosition.FullPosition);
+            return button;
+        }
 
         public UiImage Image(BaseUiComponent parent, string png, UiPosition pos, UiColor color)
         {
+            uint _;
+            if (!uint.TryParse(png, out _))
+            {
+                throw new UiFrameworkException($"Image PNG '{png}' is not a valid uint. If trying to use a url please use WebImage instead");
+            }
+            
             UiImage image = UiImage.Create(png, pos, color);
             AddComponent(image, parent);
             return image;
@@ -198,6 +238,47 @@ namespace UI.Framework.Rust.Builder
         public UiImage Image(BaseUiComponent parent, string png, UiPosition pos)
         {
             return Image(parent, png, pos, UiColors.White);
+        }
+        
+        public UiWebImage WebImage(BaseUiComponent parent, string url, UiPosition pos, UiColor color)
+        {
+            if (!url.StartsWith("http"))
+            {
+                throw new UiFrameworkException($"WebImage Url '{url}' is not a valid url. If trying to use a png id please use Image instead");
+            }
+            
+            UiWebImage image = UiWebImage.Create(url, pos, color);
+            AddComponent(image, parent);
+            return image;
+        }
+        
+        public UiItemIcon ItemIcon(BaseUiComponent parent, int itemId, UiPosition pos, UiColor color)
+        {
+            UiItemIcon image = UiItemIcon.Create(itemId, pos, color);
+            AddComponent(image, parent);
+            return image;
+        }
+
+        public UiItemIcon ItemIcon(BaseUiComponent parent, int itemId, UiPosition pos)
+        {
+            return ItemIcon(parent, itemId, pos, UiColors.White);
+        }
+        
+        public UiItemIcon ItemIcon(BaseUiComponent parent, int itemId, ulong skinId, UiPosition pos, UiColor color)
+        {
+            UiItemIcon image = UiItemIcon.Create(itemId, skinId, pos, color);
+            AddComponent(image, parent);
+            return image;
+        }
+
+        public UiItemIcon ItemIcon(BaseUiComponent parent, int itemId, ulong skinId, UiPosition pos)
+        {
+            return ItemIcon(parent, itemId, skinId, pos, UiColors.White);
+        }
+
+        public UiWebImage WebImage(BaseUiComponent parent, string url, UiPosition pos)
+        {
+            return WebImage(parent, url, pos, UiColors.White);
         }
 
         public UiLabel Label(BaseUiComponent parent, string text, int size, UiColor color, UiPosition pos, TextAnchor align = TextAnchor.MiddleCenter)
@@ -215,10 +296,10 @@ namespace UI.Framework.Rust.Builder
             return label;
         }
 
-        public UiInput Input(BaseUiComponent parent, int size, UiColor textColor, UiColor backgroundColor, UiPosition pos, string cmd, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, bool isPassword = false)
+        public UiInput Input(BaseUiComponent parent, string text, int size, UiColor textColor, UiColor backgroundColor, UiPosition pos, string cmd, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, bool isPassword = false, bool readOnly = false, InputField.LineType lineType = InputField.LineType.SingleLine)
         {
             parent = Panel(parent, backgroundColor, pos);
-            UiInput input = UiInput.Create(size, textColor, pos, cmd, _font, align, charsLimit, isPassword);
+            UiInput input = UiInput.Create(text, size, textColor, pos, cmd, _font, align, charsLimit, isPassword, readOnly, lineType);
             AddComponent(input, parent);
             return input;
         }
@@ -265,7 +346,7 @@ namespace UI.Framework.Rust.Builder
         #region JSON
         public string ToJson()
         {
-            return JsonCreator.CreateJson(_components);
+            return JsonCreator.CreateJson(_components, _needsMouse, _needsKeyboard);
         }
 
         public void CacheJson()
@@ -372,7 +453,7 @@ namespace UI.Framework.Rust.Builder
             for (int index = _components.Count - 1; index >= 0; index--)
             {
                 BaseUiComponent component = _components[index];
-                if (component is UiImage)
+                if (component is UiWebImage)
                 {
                     DestroyUi(connection, component.Name);
                 }
@@ -384,7 +465,7 @@ namespace UI.Framework.Rust.Builder
             for (int index = _components.Count - 1; index >= 0; index--)
             {
                 BaseUiComponent component = _components[index];
-                if (component is UiImage)
+                if (component is UiWebImage)
                 {
                     DestroyUi(connections, component.Name);
                 }

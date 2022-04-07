@@ -2,18 +2,16 @@
 {
     public class RawImageComponent : FadeInComponent
     {
-        public static string Type = "UnityEngine.UI.RawImage";
+        public const string Type = "UnityEngine.UI.RawImage";
 
         public string Sprite;
         public string Url;
-        public string Png;
 
         public override void EnterPool()
         {
             base.EnterPool();
             Sprite = null;
             Url = null;
-            Png = null;
         }
     }
 }

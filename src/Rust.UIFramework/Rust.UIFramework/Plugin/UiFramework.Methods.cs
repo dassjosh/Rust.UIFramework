@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Network;
+using UI.Framework.Rust.Builder;
 
 namespace UI.Framework.Rust.Plugin
 {
@@ -8,17 +9,17 @@ namespace UI.Framework.Rust.Plugin
         #region JSON Sending
         public void DestroyUi(BasePlayer player, string name)
         {
-            CommunityEntity.ServerInstance.ClientRPCEx(new SendInfo(player.Connection), null, "DestroyUI", name);
+            UiBuilder.DestroyUi(player, name);
         }
 
         public void DestroyUi(List<Connection> connections, string name)
         {
-            CommunityEntity.ServerInstance.ClientRPCEx(new SendInfo(connections), null, "DestroyUI", name);
+            UiBuilder.DestroyUi(connections, name);
         }
 
         private void DestroyUiAll(string name)
         {
-            CommunityEntity.ServerInstance.ClientRPCEx(new SendInfo(Net.sv.connections), null, "DestroyUI", name);
+            UiBuilder.DestroyUi(name);
         }
         #endregion
     }

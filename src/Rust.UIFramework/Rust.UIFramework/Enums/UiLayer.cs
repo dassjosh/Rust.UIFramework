@@ -1,6 +1,6 @@
 ﻿namespace UI.Framework.Rust.Enums
 {
-    public enum UiLayer
+    public enum UiLayer : byte
     {
         Overall,
         Overlay,

@@ -7,39 +7,40 @@ using Pool = Facepunch.Pool;
 
 namespace UI.Framework.Rust.UiElements
 {
-    public class UiImage : BaseUiComponent
+    public class UiWebImage : BaseUiComponent
     {
-        public ImageComponent Image;
-        
-        public static UiImage Create(string png, UiPosition pos, UiColor color)
+        public RawImageComponent RawImage;
+
+        public static UiWebImage Create(string png, UiPosition pos, UiColor color)
         {
-            UiImage image = CreateBase<UiImage>(pos);
-            image.Image.Color = color;
-            image.Image.Png = png;
+            UiWebImage image = CreateBase<UiWebImage>(pos);
+            image.RawImage.Color = color;
+            image.RawImage.Url = png;
+
             return image;
         }
 
         public override void WriteComponents(JsonTextWriter writer)
         {
-            JsonCreator.Add(writer, Image);
+            JsonCreator.Add(writer, RawImage);
             base.WriteComponents(writer);
         }
 
         public override void EnterPool()
         {
             base.EnterPool();
-            Pool.Free(ref Image);
+            Pool.Free(ref RawImage);
         }
 
         public override void LeavePool()
         {
             base.LeavePool();
-            Image = Pool.Get<ImageComponent>();
+            RawImage = Pool.Get<RawImageComponent>();
         }
 
         public override void SetFadeIn(float duration)
         {
-            Image.FadeIn = duration;
+            RawImage.FadeIn = duration;
         }
     }
 }

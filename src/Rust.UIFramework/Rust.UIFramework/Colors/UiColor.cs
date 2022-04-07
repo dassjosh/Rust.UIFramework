@@ -51,9 +51,9 @@ namespace UI.Framework.Rust.Colors
             SetValue(colorValue);
         }
 
-        public UiColor(Color color)
+        public UiColor(Color color) : this(color.r, color.g, color.b, color.a)
         {
-            SetValue(color);
+            
         }
 
         public UiColor(string hexColor, int alpha = 255) : this(hexColor, alpha / 255f)
@@ -103,6 +103,26 @@ namespace UI.Framework.Rust.Colors
         public UiColor WithAlpha(float alpha)
         {
             return new UiColor(Red, Green, Blue, Mathf.Clamp01(alpha));
+        }
+
+        public UiColor Darken(float percentage)
+        {
+            percentage = Mathf.Clamp01(percentage);
+            float red = Red * (1 - percentage);
+            float green = Green * (1 - percentage);
+            float blue = Blue * (1 - percentage);
+
+            return new UiColor(red, green, blue, Alpha);
+        }
+
+        public UiColor Lighten(float percentage)
+        {
+            percentage = Mathf.Clamp01(percentage);
+            float red = (1 - Red) * percentage + Red;
+            float green = (1 - Green) * percentage + Green;
+            float blue = (1 - Blue) * percentage + Blue;
+
+            return new UiColor(red, green, blue, Alpha);
         }
 
         private void SetValue(Color color)

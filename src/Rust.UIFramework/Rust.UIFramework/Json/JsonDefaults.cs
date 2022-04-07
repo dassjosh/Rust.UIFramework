@@ -59,9 +59,17 @@ namespace UI.Framework.Rust.Json
         //Needs Cursor
         public const string NeedsCursorValue = "NeedsCursor";
         
+        //Needs Cursor
+        public const string NeedsKeyboardValue = "NeedsKeyboard";
+        
         //Image
         public const string PNGName = "png";
         public const string URLName = "url";
+        
+        //Item Icon
+        public const string ItemIdName = "itemid";
+        public const string SkinIdName = "skinid";
+        public const ulong DefaultSkinId = 0;
         
         //Input
         public const string CharacterLimitName = "characterLimit";

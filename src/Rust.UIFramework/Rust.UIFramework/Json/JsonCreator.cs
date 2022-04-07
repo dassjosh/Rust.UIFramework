@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using Oxide.Plugins;
 using UI.Framework.Rust.Colors;
 using UI.Framework.Rust.Components;
+using UI.Framework.Rust.Pooling;
 using UI.Framework.Rust.Positions;
 using UI.Framework.Rust.UiElements;
 
@@ -14,34 +15,74 @@ namespace UI.Framework.Rust.Json
     {
         private static readonly StringBuilder _sb = new StringBuilder();
         
-        public static string CreateJson(List<BaseUiComponent> components)
+        public static string CreateJson(List<BaseUiComponent> components, bool needsMouse, bool needsKeyboard)
         {
-            StringWriter sw = new StringWriter();
+            StringBuilder sb = UiFrameworkPool.GetStringBuilder();
+            StringWriter sw = new StringWriter(sb);
             JsonTextWriter writer = new JsonTextWriter(sw);
 
             writer.WriteStartArray();
+            
+            WriteRootComponent(components[0], writer, needsMouse, needsKeyboard);
 
-            for (int index = 0; index < components.Count; index++)
+            for (int index = 1; index < components.Count; index++)
             {
-                BaseUiComponent component = components[index];
-                writer.WriteStartObject();
-                AddFieldRaw(writer, JsonDefaults.ComponentName, component.Name);
-                AddFieldRaw(writer, JsonDefaults.ParentName, component.Parent);
-                AddField(writer, JsonDefaults.FadeOutName, component.FadeOut, JsonDefaults.FadeOutValue);
-
-                writer.WritePropertyName("components");
-                writer.WriteStartArray();
-                component.WriteComponents(writer);
-                writer.WriteEndArray();
-                writer.WriteEndObject();
+                WriteComponent(components[index], writer);
             }
 
             writer.WriteEndArray();
 
-            return sw.ToString();
+            string json = sw.ToString();
+            UiFrameworkPool.FreeStringBuilder(ref sb);
+            return json;
+        }
+
+        private static void WriteRootComponent(BaseUiComponent component, JsonTextWriter writer, bool needsMouse, bool needsKeyboard)
+        {
+            writer.WriteStartObject();
+            AddFieldRaw(writer, JsonDefaults.ComponentName, component.Name);
+            AddFieldRaw(writer, JsonDefaults.ParentName, component.Parent);
+            AddField(writer, JsonDefaults.FadeOutName, component.FadeOut, JsonDefaults.FadeOutValue);
+
+            writer.WritePropertyName("components");
+            writer.WriteStartArray();
+            component.WriteComponents(writer);
+
+            if (needsMouse)
+            {
+                AddMouse(writer);
+            }
+            
+            if (needsKeyboard)
+            {
+                AddKeyboard(writer);
+            }
+            
+            writer.WriteEndArray();
+            writer.WriteEndObject();
+        }
+        
+        private static void WriteComponent(BaseUiComponent component, JsonTextWriter writer)
+        {
+            writer.WriteStartObject();
+            AddFieldRaw(writer, JsonDefaults.ComponentName, component.Name);
+            AddFieldRaw(writer, JsonDefaults.ParentName, component.Parent);
+            AddField(writer, JsonDefaults.FadeOutName, component.FadeOut, JsonDefaults.FadeOutValue);
+
+            writer.WritePropertyName("components");
+            writer.WriteStartArray();
+            component.WriteComponents(writer);
+            writer.WriteEndArray();
+            writer.WriteEndObject();
         }
 
         public static void AddFieldRaw(JsonTextWriter writer, string name, string value)
+        {
+            writer.WritePropertyName(name);
+            writer.WriteValue(value);
+        }
+        
+        public static void AddFieldRaw(JsonTextWriter writer, string name, int value)
         {
             writer.WritePropertyName(name);
             writer.WriteValue(value);
@@ -161,11 +202,6 @@ namespace UI.Framework.Rust.Json
             AddField(writer, JsonDefaults.ColorName, image.Color, JsonDefaults.ColorValue);
             AddField(writer, JsonDefaults.SpriteName, image.Sprite, JsonDefaults.SpriteImageValue);
             AddField(writer, JsonDefaults.FadeInName, image.FadeIn, JsonDefaults.FadeOutValue);
-            if (!string.IsNullOrEmpty(image.Png))
-            {
-                AddField(writer, JsonDefaults.PNGName, image.Png, JsonDefaults.EmptyString);
-            }
-
             if (!string.IsNullOrEmpty(image.Url))
             {
                 AddField(writer, JsonDefaults.URLName, image.Url, JsonDefaults.EmptyString);
@@ -177,18 +213,45 @@ namespace UI.Framework.Rust.Json
         public static void Add(JsonTextWriter writer, ImageComponent image)
         {
             writer.WriteStartObject();
-            AddFieldRaw(writer, JsonDefaults.ComponentTypeName, ImageComponent.Type);
+            AddFieldRaw(writer, JsonDefaults.ComponentTypeName, BaseImageComponent.Type);
             AddField(writer, JsonDefaults.ColorName, image.Color, JsonDefaults.ColorValue);
             AddField(writer, JsonDefaults.SpriteName, image.Sprite, JsonDefaults.SpriteValue);
             AddField(writer, JsonDefaults.MaterialName, image.Material, JsonDefaults.MaterialValue);
             AddField(writer, JsonDefaults.FadeInName, image.FadeIn, JsonDefaults.FadeOutValue);
+            
+            if (!string.IsNullOrEmpty(image.Png))
+            {
+                AddField(writer, JsonDefaults.PNGName, image.Png, JsonDefaults.EmptyString);
+            }
+            
+            writer.WriteEndObject();
+        }
+        
+        public static void Add(JsonTextWriter writer, ItemIconComponent icon)
+        {
+            writer.WriteStartObject();
+            AddFieldRaw(writer, JsonDefaults.ComponentTypeName, BaseImageComponent.Type);
+            AddField(writer, JsonDefaults.ColorName, icon.Color, JsonDefaults.ColorValue);
+            AddField(writer, JsonDefaults.SpriteName, icon.Sprite, JsonDefaults.SpriteValue);
+            AddField(writer, JsonDefaults.MaterialName, icon.Material, JsonDefaults.MaterialValue);
+            AddField(writer, JsonDefaults.FadeInName, icon.FadeIn, JsonDefaults.FadeOutValue);
+            AddFieldRaw(writer, JsonDefaults.ItemIdName, icon.ItemId);
+            AddField(writer, JsonDefaults.SkinIdName, icon.SkinId, JsonDefaults.DefaultSkinId);
+
             writer.WriteEndObject();
         }
 
-        public static void AddCursor(JsonTextWriter writer)
+        public static void AddMouse(JsonTextWriter writer)
         {
             writer.WriteStartObject();
             AddFieldRaw(writer, JsonDefaults.ComponentTypeName, JsonDefaults.NeedsCursorValue);
+            writer.WriteEndObject();
+        }
+        
+        public static void AddKeyboard(JsonTextWriter writer)
+        {
+            writer.WriteStartObject();
+            AddFieldRaw(writer, JsonDefaults.ComponentTypeName, JsonDefaults.NeedsKeyboardValue);
             writer.WriteEndObject();
         }
 

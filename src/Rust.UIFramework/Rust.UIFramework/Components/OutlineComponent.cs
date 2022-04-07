@@ -2,7 +2,7 @@
 {
     public class OutlineComponent : BaseComponent
     {
-        public static string Type = "UnityEngine.UI.Outline";
+        public const string Type = "UnityEngine.UI.Outline";
 
         public string Distance;
         public bool UseGraphicAlpha;

@@ -9,7 +9,6 @@ namespace UI.Framework.Rust.UiElements
 {
     public class UiPanel : BaseUiComponent
     {
-        public bool NeedsCursor;
         public ImageComponent Image;
 
         public void AddSprite(string sprite)
@@ -40,17 +39,11 @@ namespace UI.Framework.Rust.UiElements
         {
             JsonCreator.Add(writer, Image);
             base.WriteComponents(writer);
-
-            if (NeedsCursor)
-            {
-                JsonCreator.AddCursor(writer);
-            }
         }
 
         public override void EnterPool()
         {
             base.EnterPool();
-            NeedsCursor = false;
             Pool.Free(ref Image);
         }
 

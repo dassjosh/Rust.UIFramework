@@ -27,7 +27,7 @@
       "Indent Multiplier": 1,
       "New Line String": "\r\n",
       "Write The Relative File Path In Region": true,
-      "Keep Comments": true
+      "Keep Code Comments": true
     }
   },
   "Compile Settings": {

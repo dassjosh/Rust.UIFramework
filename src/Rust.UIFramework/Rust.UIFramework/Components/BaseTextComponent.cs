@@ -7,6 +7,7 @@ namespace UI.Framework.Rust.Components
         public int FontSize = 14;
         public string Font;
         public TextAnchor Align;
+        public string Text;
 
         public override void EnterPool()
         {
@@ -14,6 +15,7 @@ namespace UI.Framework.Rust.Components
             FontSize = 14;
             Font = null;
             Align = TextAnchor.UpperLeft;
+            Text = null;
         }
     }
 }
