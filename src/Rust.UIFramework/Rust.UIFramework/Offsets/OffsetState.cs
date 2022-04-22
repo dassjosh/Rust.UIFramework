@@ -1,4 +1,4 @@
-﻿namespace Oxide.Ext.UiFramework.Positions
+﻿namespace Oxide.Ext.UiFramework.Offsets
 {
     public struct OffsetState
     {

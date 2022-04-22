@@ -7,15 +7,17 @@ namespace Oxide.Ext.UiFramework.Json
     public static class JsonDefaults
     {
         //Position & Offset
-        private const string DefaultMin = "0.0 0.0";
-        private const string DefaultMax = "1.0 1.0";
+        public const string DefaultFloatMin = "0.0 0.0";
+        public const string DefaultFloatMax = "1.0 1.0";
+        public const string DefaultIntMin = "0 0";
+        public const string DefaultIntMax = "1 1";
         public const string RectTransformName = "RectTransform";
         public const string AnchorMinName = "anchormin";
         public const string AnchorMaxName = "anchormax";
         public const string OffsetMinName = "offsetmin";
         public const string OffsetMaxName = "offsetmax";
-        public static readonly string[] DefaultMinValues = { DefaultMin, "0 0" };
-        public static readonly string[] DefaultMaxValues = { DefaultMax, "1 1" };
+        public static readonly string[] DefaultMinValues = { DefaultFloatMin, DefaultIntMin };
+        public static readonly string[] DefaultMaxValues = { DefaultFloatMax, DefaultIntMax };
         public const string OffsetMaxValue = "0 0";
         
         //Text

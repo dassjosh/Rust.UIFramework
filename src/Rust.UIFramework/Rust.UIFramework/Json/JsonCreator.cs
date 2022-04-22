@@ -4,6 +4,7 @@ using System.Text;
 using Newtonsoft.Json;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
+using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.UiElements;
@@ -176,12 +177,19 @@ namespace Oxide.Ext.UiFramework.Json
             }
         }
 
-        public static void Add(JsonTextWriter writer, ref Position position, ref Offset? offset)
+        public static void Add(JsonTextWriter writer, Position position, Offset? offset)
         {
             writer.WriteStartObject();
             AddFieldRaw(writer, JsonDefaults.ComponentTypeName, JsonDefaults.RectTransformName);
-            AddMultiField(writer, JsonDefaults.AnchorMinName, position.Min, JsonDefaults.DefaultMinValues);
-            AddMultiField(writer, JsonDefaults.AnchorMaxName, position.Max, JsonDefaults.DefaultMaxValues);
+            if (!position.IsDefaultMin)
+            {
+                AddFieldRaw(writer, JsonDefaults.AnchorMinName, position.Min);
+            }
+
+            if (!position.IsDefaultMax)
+            {
+                AddFieldRaw(writer, JsonDefaults.AnchorMaxName, position.Max);
+            }
 
             if (offset.HasValue)
             {
@@ -253,7 +261,6 @@ namespace Oxide.Ext.UiFramework.Json
             AddField(writer, JsonDefaults.FadeInName, icon.FadeIn, JsonDefaults.FadeOutValue);
             AddFieldRaw(writer, JsonDefaults.ItemIdName, icon.ItemId);
             AddField(writer, JsonDefaults.SkinIdName, icon.SkinId, JsonDefaults.DefaultSkinId);
-
             writer.WriteEndObject();
         }
 

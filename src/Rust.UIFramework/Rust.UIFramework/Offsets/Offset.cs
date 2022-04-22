@@ -1,10 +1,9 @@
 ﻿using System.Text;
-using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Pooling;
 
-namespace Oxide.Ext.UiFramework.Positions
+namespace Oxide.Ext.UiFramework.Offsets
 {
-    public struct Position
+    public struct Offset
     {
         public readonly string Min;
         public readonly string Max;
@@ -14,7 +13,7 @@ namespace Oxide.Ext.UiFramework.Positions
         private const string PosFormat = "0.####";
         private const char Space = ' ';
 
-        public Position(float xMin, float yMin, float xMax, float yMax)
+        public Offset(int xMin, int yMin, int xMax, int yMax)
         {
             Min = null;
             if (xMin == 0 && yMin == 0)
@@ -23,8 +22,8 @@ namespace Oxide.Ext.UiFramework.Positions
             }
             else
             {
-                IsDefaultMin = false;
                 Min = Build(xMin, yMin);
+                IsDefaultMin = false;
             }
             
             Max = null;
@@ -34,11 +33,11 @@ namespace Oxide.Ext.UiFramework.Positions
             }
             else
             {
-                IsDefaultMax = false;
                 Max = Build(xMax, yMax);
+                IsDefaultMax = false;
             }
         }
-
+        
         private static string Build(float min, float max)
         {
             StringBuilder sb = UiFrameworkPool.GetStringBuilder();

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Oxide.Ext.UiFramework.Positions
+namespace Oxide.Ext.UiFramework.Offsets
 {
     public class StaticUiOffset : UiOffset
     {

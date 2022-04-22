@@ -26,7 +26,7 @@ namespace Rust.UiFramework.Benchmarks
         public void Setup()
         {
             _random = new Random();
-            for (int i = 0; i < Iterations; i++)
+            for (int i = 0; i < Iterations / 10; i++)
             {
                 float xMin = (float)_random.NextDouble();
                 float xMax = (float)_random.NextDouble();
@@ -66,8 +66,8 @@ namespace Rust.UiFramework.Benchmarks
                     },
                     RectTransform =
                     {
-                        AnchorMin = _oxideMins[i],
-                        AnchorMax = _oxideMaxs[i]
+                        AnchorMin = _oxideMins[i % 10],
+                        AnchorMax = _oxideMaxs[i % 10]
                     }
                 });
             }
@@ -151,7 +151,7 @@ namespace Rust.UiFramework.Benchmarks
             builder.EnsureCapacity(Iterations + 1);
             for (int i = 0; i < Iterations; i++)
             {
-                builder.Panel(builder.Root, UiColors.Black, _frameworkPos[i]);
+                builder.Panel(builder.Root, UiColors.Black, _frameworkPos[i % 10]);
             }
 
             _builder = builder;

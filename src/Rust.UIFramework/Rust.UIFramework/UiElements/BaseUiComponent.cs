@@ -52,7 +52,7 @@ namespace Oxide.Ext.UiFramework.UiElements
 
         public virtual void WriteComponents(JsonTextWriter writer)
         {
-            JsonCreator.Add(writer, ref _position, ref _offset);
+            JsonCreator.Add(writer, _position, _offset);
         }
 
         public void SetFadeOut(float duration)

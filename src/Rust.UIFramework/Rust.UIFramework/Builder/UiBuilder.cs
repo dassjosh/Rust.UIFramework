@@ -6,6 +6,7 @@ using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Exceptions;
 using Oxide.Ext.UiFramework.Json;
+using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.UiElements;
@@ -304,35 +305,29 @@ namespace Oxide.Ext.UiFramework.Builder
             return input;
         }
 
-        private static readonly Position _boarderTop = new Position("0 1", "1 1");
-        private static readonly Position _boarderBottom = new Position("0 0", "1 0");
-        private static readonly Position _boarderLeft = new Position("0 0", "0 1");
-        private static readonly Position _boarderRight = new Position("1 0", "1 1");
-
         public void Border(BaseUiComponent parent, UiColor color, int size = 0, BorderMode border = BorderMode.Top | BorderMode.Bottom | BorderMode.Left | BorderMode.Right)
         {
-            string sizeString = size.ToString();
             if (HasBorderFlag(border, BorderMode.Top))
             {
-                UiPanel panel = UiPanel.Create(_boarderTop, new Offset("0 -1", $"0 {sizeString}"), color);
+                UiPanel panel = UiPanel.Create(UiPosition.Top.ToPosition(), new Offset(0, -1, 0, size), color);
                 AddComponent(panel, parent);
             }
 
             if (HasBorderFlag(border, BorderMode.Left))
             {
-                UiPanel panel = UiPanel.Create(_boarderLeft, new Offset($"-{sizeString} -{sizeString}", "1 0"), color);
+                UiPanel panel = UiPanel.Create(UiPosition.Left.ToPosition(), new Offset(-size, -size, 1, 0), color);
                 AddComponent(panel, parent);
             }
 
             if (HasBorderFlag(border, BorderMode.Bottom))
             {
-                UiPanel panel = UiPanel.Create(_boarderBottom, new Offset($"0 -{sizeString}", "0 1"), color);
+                UiPanel panel = UiPanel.Create(UiPosition.Bottom.ToPosition(), new Offset(0, -size, 0 ,1), color);
                 AddComponent(panel, parent);
             }
 
             if (HasBorderFlag(border, BorderMode.Right))
             {
-                UiPanel panel = UiPanel.Create(_boarderRight, new Offset("-1 0", $"{sizeString} 0"), color);
+                UiPanel panel = UiPanel.Create(UiPosition.Right.ToPosition(), new Offset(-1, 0, size, 0), color);
                 AddComponent(panel, parent);
             }
         }
