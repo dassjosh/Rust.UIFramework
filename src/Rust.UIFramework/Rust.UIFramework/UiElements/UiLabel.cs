@@ -12,6 +12,7 @@ namespace Oxide.Ext.UiFramework.UiElements
     {
         public TextComponent TextComponent;
         public OutlineComponent Outline;
+        public CountdownComponent Countdown;
 
         public static UiLabel Create(string text, int size, UiColor color, UiPosition pos, string font, TextAnchor align = TextAnchor.MiddleCenter)
         {
@@ -43,12 +44,26 @@ namespace Oxide.Ext.UiFramework.UiElements
             Outline.UseGraphicAlpha = useGraphicAlpha;
         }
 
+        public void AddCountdown(int startTime, int endTime, int step, string command)
+        {
+            Countdown = Pool.Get<CountdownComponent>();
+            Countdown.StartTime = startTime;
+            Countdown.EndTime = endTime;
+            Countdown.Step = step;
+            Countdown.Command = command;
+        }
+
         public override void WriteComponents(JsonTextWriter writer)
         {
             JsonCreator.Add(writer, TextComponent);
             if (Outline != null)
             {
                 JsonCreator.Add(writer, Outline);
+            }
+
+            if (Countdown != null)
+            {
+                JsonCreator.Add(writer, Countdown);
             }
 
             base.WriteComponents(writer);

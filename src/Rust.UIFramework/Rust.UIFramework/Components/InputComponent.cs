@@ -10,6 +10,7 @@ namespace Oxide.Ext.UiFramework.Components
         public string Command;
         public bool IsPassword;
         public bool IsReadyOnly;
+        public bool NeedsKeyboard = true;
         public InputField.LineType LineType;
 
         public override void EnterPool()
@@ -17,7 +18,9 @@ namespace Oxide.Ext.UiFramework.Components
             base.EnterPool();
             CharsLimit = 0;
             Command = null;
+            NeedsKeyboard = true;
             IsPassword = false;
+            LineType = default(InputField.LineType);
         }
     }
 }

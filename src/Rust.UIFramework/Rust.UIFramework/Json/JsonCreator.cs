@@ -329,6 +329,22 @@ namespace Oxide.Ext.UiFramework.Json
                 AddFieldRaw(writer, JsonDefaults.ReadOnlyName, JsonDefaults.ReadOnlyValue);
             }
 
+            if (input.NeedsKeyboard)
+            {
+                AddFieldRaw(writer, JsonDefaults.InputNeedsKeyboardName, JsonDefaults.InputNeedsKeyboardValue);
+            }
+
+            writer.WriteEndObject();
+        }
+        
+        public static void Add(JsonTextWriter writer, CountdownComponent countdown)
+        {
+            writer.WriteStartObject();
+            AddFieldRaw(writer, JsonDefaults.ComponentTypeName, CountdownComponent.Type);
+            AddField(writer, JsonDefaults.StartTimeName, countdown.StartTime, JsonDefaults.StartTimeValue);
+            AddField(writer, JsonDefaults.EndTimeName, countdown.EndTime, JsonDefaults.EndTimeValue);
+            AddField(writer, JsonDefaults.StepName, countdown.Step, JsonDefaults.StepValue);
+            AddField(writer, JsonDefaults.CountdownCommandName, countdown.Command, JsonDefaults.NullValue);
             writer.WriteEndObject();
         }
     }

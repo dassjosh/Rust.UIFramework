@@ -80,5 +80,16 @@ namespace Oxide.Ext.UiFramework.Json
         public const string ReadOnlyName = "password";
         public const bool ReadOnlyValue = true;
         public const string LineTypeName = "lineType";
+        public const string InputNeedsKeyboardName = "needsKeyboard";
+        public const string InputNeedsKeyboardValue = "";
+        
+        //Countdown
+        public const string StartTimeName = "startTime";
+        public const int StartTimeValue = 0;
+        public const string EndTimeName = "endTime";
+        public const int EndTimeValue = 0;
+        public const string StepName = "step";
+        public const int StepValue = 1;
+        public const string CountdownCommandName = "command";
     }
 }

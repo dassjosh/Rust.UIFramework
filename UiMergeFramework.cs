@@ -101,6 +101,16 @@ namespace Oxide.Plugins
     }
     #endregion
 
+    #region Builder\UiBuilder.Controls.cs
+    public partial class UiBuilder
+    {
+        public UiButton Checkbox(BaseUiComponent parent, bool isChecked, int textSize, UiColor textColor, UiColor backgroundColor, UiPosition pos, string cmd)
+        {
+            return TextButton(parent, isChecked ? "<b>✓</b>" : string.Empty, textSize, textColor, backgroundColor, pos, cmd);
+        }
+    }
+    #endregion
+
     #region Builder\UiBuilder.cs
     public partial class UiBuilder : IDisposable
     {
@@ -158,12 +168,12 @@ namespace Oxide.Plugins
         
         public void NeedsMouse(bool enabled = true)
         {
-            _needsMouse = true;
+            _needsMouse = enabled;
         }
         
         public void NeedsKeyboard(bool enabled = true)
         {
-            _needsKeyboard = true;
+            _needsKeyboard = enabled;
         }
         
         public static void SetFont(UiFont font)
@@ -390,35 +400,29 @@ namespace Oxide.Plugins
             return input;
         }
         
-        private static readonly Position _boarderTop = new Position("0 1", "1 1");
-        private static readonly Position _boarderBottom = new Position("0 0", "1 0");
-        private static readonly Position _boarderLeft = new Position("0 0", "0 1");
-        private static readonly Position _boarderRight = new Position("1 0", "1 1");
-        
         public void Border(BaseUiComponent parent, UiColor color, int size = 0, BorderMode border = BorderMode.Top | BorderMode.Bottom | BorderMode.Left | BorderMode.Right)
         {
-            string sizeString = size.ToString();
             if (HasBorderFlag(border, BorderMode.Top))
             {
-                UiPanel panel = UiPanel.Create(_boarderTop, new Offset("0 -1", $"0 {sizeString}"), color);
+                UiPanel panel = UiPanel.Create(UiPosition.Top.ToPosition(), new Offset(0, -1, 0, size), color);
                 AddComponent(panel, parent);
             }
             
             if (HasBorderFlag(border, BorderMode.Left))
             {
-                UiPanel panel = UiPanel.Create(_boarderLeft, new Offset($"-{sizeString} -{sizeString}", "1 0"), color);
+                UiPanel panel = UiPanel.Create(UiPosition.Left.ToPosition(), new Offset(-size, -size, 1, 0), color);
                 AddComponent(panel, parent);
             }
             
             if (HasBorderFlag(border, BorderMode.Bottom))
             {
-                UiPanel panel = UiPanel.Create(_boarderBottom, new Offset($"0 -{sizeString}", "0 1"), color);
+                UiPanel panel = UiPanel.Create(UiPosition.Bottom.ToPosition(), new Offset(0, -size, 0 ,1), color);
                 AddComponent(panel, parent);
             }
             
             if (HasBorderFlag(border, BorderMode.Right))
             {
-                UiPanel panel = UiPanel.Create(_boarderRight, new Offset("-1 0", $"{sizeString} 0"), color);
+                UiPanel panel = UiPanel.Create(UiPosition.Right.ToPosition(), new Offset(-1, 0, size, 0), color);
                 AddComponent(panel, parent);
             }
         }
@@ -931,6 +935,26 @@ namespace Oxide.Plugins
     }
     #endregion
 
+    #region Components\CountdownComponent.cs
+    public class CountdownComponent : BaseComponent
+    {
+        public const string Type = "Countdown";
+        
+        public int StartTime;
+        public int EndTime;
+        public int Step;
+        public string Command;
+        
+        public override void EnterPool()
+        {
+            StartTime = 0;
+            EndTime = 0;
+            Step = 0;
+            Command = null;
+        }
+    }
+    #endregion
+
     #region Components\FadeInComponent.cs
     public class FadeInComponent : BaseComponent
     {
@@ -966,6 +990,7 @@ namespace Oxide.Plugins
         public string Command;
         public bool IsPassword;
         public bool IsReadyOnly;
+        public bool NeedsKeyboard = true;
         public InputField.LineType LineType;
         
         public override void EnterPool()
@@ -973,7 +998,9 @@ namespace Oxide.Plugins
             base.EnterPool();
             CharsLimit = 0;
             Command = null;
+            NeedsKeyboard = true;
             IsPassword = false;
+            LineType = default(InputField.LineType);
         }
     }
     #endregion
@@ -1254,12 +1281,19 @@ namespace Oxide.Plugins
             }
         }
         
-        public static void Add(JsonTextWriter writer, ref Position position, ref Offset? offset)
+        public static void Add(JsonTextWriter writer, Position position, Offset? offset)
         {
             writer.WriteStartObject();
             AddFieldRaw(writer, JsonDefaults.ComponentTypeName, JsonDefaults.RectTransformName);
-            AddMultiField(writer, JsonDefaults.AnchorMinName, position.Min, JsonDefaults.DefaultMinValues);
-            AddMultiField(writer, JsonDefaults.AnchorMaxName, position.Max, JsonDefaults.DefaultMaxValues);
+            if (!position.IsDefaultMin)
+            {
+                AddFieldRaw(writer, JsonDefaults.AnchorMinName, position.Min);
+            }
+            
+            if (!position.IsDefaultMax)
+            {
+                AddFieldRaw(writer, JsonDefaults.AnchorMaxName, position.Max);
+            }
             
             if (offset.HasValue)
             {
@@ -1331,7 +1365,6 @@ namespace Oxide.Plugins
             AddField(writer, JsonDefaults.FadeInName, icon.FadeIn, JsonDefaults.FadeOutValue);
             AddFieldRaw(writer, JsonDefaults.ItemIdName, icon.ItemId);
             AddField(writer, JsonDefaults.SkinIdName, icon.SkinId, JsonDefaults.DefaultSkinId);
-            
             writer.WriteEndObject();
         }
         
@@ -1400,6 +1433,22 @@ namespace Oxide.Plugins
                 AddFieldRaw(writer, JsonDefaults.ReadOnlyName, JsonDefaults.ReadOnlyValue);
             }
             
+            if (input.NeedsKeyboard)
+            {
+                AddFieldRaw(writer, JsonDefaults.InputNeedsKeyboardName, JsonDefaults.InputNeedsKeyboardValue);
+            }
+            
+            writer.WriteEndObject();
+        }
+        
+        public static void Add(JsonTextWriter writer, CountdownComponent countdown)
+        {
+            writer.WriteStartObject();
+            AddFieldRaw(writer, JsonDefaults.ComponentTypeName, CountdownComponent.Type);
+            AddField(writer, JsonDefaults.StartTimeName, countdown.StartTime, JsonDefaults.StartTimeValue);
+            AddField(writer, JsonDefaults.EndTimeName, countdown.EndTime, JsonDefaults.EndTimeValue);
+            AddField(writer, JsonDefaults.StepName, countdown.Step, JsonDefaults.StepValue);
+            AddField(writer, JsonDefaults.CountdownCommandName, countdown.Command, JsonDefaults.NullValue);
             writer.WriteEndObject();
         }
     }
@@ -1409,15 +1458,17 @@ namespace Oxide.Plugins
     public static class JsonDefaults
     {
         //Position & Offset
-        private const string DefaultMin = "0.0 0.0";
-        private const string DefaultMax = "1.0 1.0";
+        public const string DefaultFloatMin = "0.0 0.0";
+        public const string DefaultFloatMax = "1.0 1.0";
+        public const string DefaultIntMin = "0 0";
+        public const string DefaultIntMax = "1 1";
         public const string RectTransformName = "RectTransform";
         public const string AnchorMinName = "anchormin";
         public const string AnchorMaxName = "anchormax";
         public const string OffsetMinName = "offsetmin";
         public const string OffsetMaxName = "offsetmax";
-        public static readonly string[] DefaultMinValues = { DefaultMin, "0 0" };
-        public static readonly string[] DefaultMaxValues = { DefaultMax, "1 1" };
+        public static readonly string[] DefaultMinValues = { DefaultFloatMin, DefaultIntMin };
+        public static readonly string[] DefaultMaxValues = { DefaultFloatMax, DefaultIntMax };
         public const string OffsetMaxValue = "0 0";
         
         //Text
@@ -1480,6 +1531,191 @@ namespace Oxide.Plugins
         public const string ReadOnlyName = "password";
         public const bool ReadOnlyValue = true;
         public const string LineTypeName = "lineType";
+        public const string InputNeedsKeyboardName = "needsKeyboard";
+        public const string InputNeedsKeyboardValue = "";
+        
+        //Countdown
+        public const string StartTimeName = "startTime";
+        public const int StartTimeValue = 0;
+        public const string EndTimeName = "endTime";
+        public const int EndTimeValue = 0;
+        public const string StepName = "step";
+        public const int StepValue = 1;
+        public const string CountdownCommandName = "command";
+    }
+    #endregion
+
+    #region Offsets\MovableUiOffset.cs
+    public class MovableUiOffset : UiOffset
+    {
+        public int XMin;
+        public int YMin;
+        public int XMax;
+        public int YMax;
+        private readonly OffsetState _state;
+        
+        public MovableUiOffset(int x, int y, int width, int height)
+        {
+            XMin = x;
+            YMin = y;
+            XMax = x + width;
+            YMax = y + height;
+            _state = new OffsetState(XMin, XMax, YMin, YMax);
+        }
+        
+        public void MoveX(int pixels)
+        {
+            XMin += pixels;
+            XMax += pixels;
+        }
+        
+        public void MoveY(int pixels)
+        {
+            YMin += pixels;
+            YMax += pixels;
+        }
+        
+        public void SetWidth(int width)
+        {
+            XMax = XMin + width;
+        }
+        
+        public void SetHeight(int height)
+        {
+            YMax = YMin + height;
+        }
+        
+        public override Offset ToOffset()
+        {
+            return new Offset(XMin, YMin, XMax, YMax);
+        }
+        
+        public UiOffset ToStatic()
+        {
+            return new StaticUiOffset(XMin, YMin, XMax, YMax);
+        }
+        
+        public void Reset()
+        {
+            XMin = _state.XMin;
+            YMin = _state.YMin;
+            XMax = _state.XMax;
+            YMax = _state.YMax;
+        }
+    }
+    #endregion
+
+    #region Offsets\Offset.cs
+    public struct Offset
+    {
+        public readonly string Min;
+        public readonly string Max;
+        public readonly bool IsDefaultMin;
+        public readonly bool IsDefaultMax;
+        
+        private const string PosFormat = "0.####";
+        private const char Space = ' ';
+        
+        public Offset(int xMin, int yMin, int xMax, int yMax)
+        {
+            Min = null;
+            if (xMin == 0 && yMin == 0)
+            {
+                IsDefaultMin = true;
+            }
+            else
+            {
+                Min = Build(xMin, yMin);
+                IsDefaultMin = false;
+            }
+            
+            Max = null;
+            if (xMax == 0 && yMax == 0)
+            {
+                IsDefaultMax = true;
+            }
+            else
+            {
+                Max = Build(xMax, yMax);
+                IsDefaultMax = false;
+            }
+        }
+        
+        private static string Build(float min, float max)
+        {
+            StringBuilder sb = UiFrameworkPool.GetStringBuilder();
+            sb.Append(min.ToString(PosFormat));
+            sb.Append(Space);
+            sb.Append(max.ToString(PosFormat));
+            string result = sb.ToString();
+            UiFrameworkPool.FreeStringBuilder(ref sb);
+            return result;
+        }
+        
+        public override string ToString()
+        {
+            return string.Concat(Min, " ", Max);
+        }
+    }
+    #endregion
+
+    #region Offsets\OffsetState.cs
+    public struct OffsetState
+    {
+        public readonly int XMin;
+        public readonly int YMin;
+        public readonly int XMax;
+        public readonly int YMax;
+        
+        public OffsetState(int xMin, int yMin, int xMax, int yMax)
+        {
+            XMin = xMin;
+            YMin = yMin;
+            XMax = xMax;
+            YMax = yMax;
+        }
+    }
+    #endregion
+
+    #region Offsets\StaticUiOffset.cs
+    public class StaticUiOffset : UiOffset
+    {
+        private readonly Offset _offset;
+        
+        public StaticUiOffset(int width, int height) : this(-width / 2, -height / 2, width, height)
+        {
+            
+        }
+        
+        public StaticUiOffset(int x, int y, int width, int height)
+        {
+            if (width < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(width), "width cannot be less than 0");
+            }
+            
+            if (height < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(height), "height cannot be less than 0");
+            }
+            
+            _offset = new Offset(x, y, x + width, y + height);
+        }
+        
+        public override Offset ToOffset()
+        {
+            return _offset;
+        }
+    }
+    #endregion
+
+    #region Offsets\UiOffset.cs
+    public abstract class UiOffset
+    {
+        public static readonly UiOffset DefaultOffset = new StaticUiOffset(0, 0, 0, 0);
+        public static readonly Offset Default = new Offset(0, 0, 0, 0);
+        
+        public abstract Offset ToOffset();
     }
     #endregion
 
@@ -1808,155 +2044,51 @@ namespace Oxide.Plugins
     }
     #endregion
 
-    #region Positions\MovableUiOffset.cs
-    public class MovableUiOffset : UiOffset
-    {
-        public int XMin;
-        public int YMin;
-        public int XMax;
-        public int YMax;
-        private readonly OffsetState _state;
-        
-        public MovableUiOffset(int x, int y, int width, int height)
-        {
-            XMin = x;
-            YMin = y;
-            XMax = x + width;
-            YMax = y + height;
-            _state = new OffsetState(XMin, XMax, YMin, YMax);
-        }
-        
-        public void MoveX(int pixels)
-        {
-            XMin += pixels;
-            XMax += pixels;
-        }
-        
-        public void MoveY(int pixels)
-        {
-            YMin += pixels;
-            YMax += pixels;
-        }
-        
-        public void SetWidth(int width)
-        {
-            XMax = XMin + width;
-        }
-        
-        public void SetHeight(int height)
-        {
-            YMax = YMin + height;
-        }
-        
-        public override Offset ToOffset()
-        {
-            return new Offset(XMin, YMin, XMax, YMax);
-        }
-        
-        public UiOffset ToStatic()
-        {
-            return new StaticUiOffset(XMin, YMin, XMax, YMax);
-        }
-        
-        public void Reset()
-        {
-            XMin = _state.XMin;
-            YMin = _state.YMin;
-            XMax = _state.XMax;
-            YMax = _state.YMax;
-        }
-    }
-    #endregion
-
-    #region Positions\Offset.cs
-    public struct Offset
-    {
-        public readonly string Min;
-        public readonly string Max;
-        
-        private const string PosFormat = "0.####";
-        private const char Space = ' ';
-        private static readonly StringBuilder _builder = new StringBuilder();
-        
-        public Offset(int xMin, int yMin, int xMax, int yMax)
-        {
-            Min = null;
-            Max = null;
-            Min = Build(xMin, yMin);
-            Max = Build(xMax, yMax);
-        }
-        
-        private static string Build(float min, float max)
-        {
-            _builder.Clear();
-            _builder.Append(min.ToString(PosFormat));
-            _builder.Append(Space);
-            _builder.Append(max.ToString(PosFormat));
-            return _builder.ToString();
-        }
-        
-        public Offset(string min, string max)
-        {
-            Min = min;
-            Max = max;
-        }
-        
-        public override string ToString()
-        {
-            return string.Concat(Min, " ", Max);
-        }
-    }
-    #endregion
-
-    #region Positions\OffsetState.cs
-    public struct OffsetState
-    {
-        public readonly int XMin;
-        public readonly int YMin;
-        public readonly int XMax;
-        public readonly int YMax;
-        
-        public OffsetState(int xMin, int yMin, int xMax, int yMax)
-        {
-            XMin = xMin;
-            YMin = yMin;
-            XMax = xMax;
-            YMax = yMax;
-        }
-    }
-    #endregion
-
     #region Positions\Position.cs
     public struct Position
     {
         public readonly string Min;
         public readonly string Max;
+        public readonly bool IsDefaultMin;
+        public readonly bool IsDefaultMax;
         
         private const string PosFormat = "0.####";
         private const char Space = ' ';
-        private static readonly StringBuilder _builder = new StringBuilder();
         
         public Position(float xMin, float yMin, float xMax, float yMax)
         {
             Min = null;
+            if (xMin == 0 && yMin == 0)
+            {
+                IsDefaultMin = true;
+            }
+            else
+            {
+                IsDefaultMin = false;
+                Min = Build(xMin, yMin);
+            }
+            
             Max = null;
-            Min = Build(xMin, yMin);
-            Max = Build(xMax, yMax);
+            if (xMax == 0 && yMax == 0)
+            {
+                IsDefaultMax = true;
+            }
+            else
+            {
+                IsDefaultMax = false;
+                Max = Build(xMax, yMax);
+            }
         }
         
         private static string Build(float min, float max)
         {
-            _builder.Clear();
-            _builder.Append(min.ToString(PosFormat));
-            _builder.Append(Space);
-            _builder.Append(max.ToString(PosFormat));
-            return _builder.ToString();
-        }
-        
-        public Position(string min, string max)
-        {
-            Min = min;
-            Max = max;
+            StringBuilder sb = UiFrameworkPool.GetStringBuilder();
+            sb.Append(min.ToString(PosFormat));
+            sb.Append(Space);
+            sb.Append(max.ToString(PosFormat));
+            string result = sb.ToString();
+            UiFrameworkPool.FreeStringBuilder(ref sb);
+            return result;
         }
         
         public override string ToString()
@@ -1984,38 +2116,6 @@ namespace Oxide.Plugins
     }
     #endregion
 
-    #region Positions\StaticUiOffset.cs
-    public class StaticUiOffset : UiOffset
-    {
-        private readonly Offset _offset;
-        
-        public StaticUiOffset(int width, int height) : this(-width / 2, -height / 2, width, height)
-        {
-            
-        }
-        
-        public StaticUiOffset(int x, int y, int width, int height)
-        {
-            if (width < 0)
-            {
-                throw new ArgumentOutOfRangeException(nameof(width), "width cannot be less than 0");
-            }
-            
-            if (height < 0)
-            {
-                throw new ArgumentOutOfRangeException(nameof(height), "height cannot be less than 0");
-            }
-            
-            _offset = new Offset(x, y, x + width, y + height);
-        }
-        
-        public override Offset ToOffset()
-        {
-            return _offset;
-        }
-    }
-    #endregion
-
     #region Positions\StaticUiPosition.cs
     public class StaticUiPosition : UiPosition
     {
@@ -2033,29 +2133,24 @@ namespace Oxide.Plugins
     }
     #endregion
 
-    #region Positions\UiOffset.cs
-    public abstract class UiOffset
-    {
-        public static readonly UiOffset DefaultOffset = new StaticUiOffset(0, 0, 0, 0);
-        public static readonly Offset Default = new Offset(0, 0, 0, 0);
-        
-        public abstract Offset ToOffset();
-    }
-    #endregion
-
     #region Positions\UiPosition.cs
     public abstract class UiPosition
     {
         public static readonly UiPosition FullPosition = new StaticUiPosition(0, 0, 1, 1);
         public static readonly UiPosition TopLeft = new StaticUiPosition(0, 1, 0, 1);
-        public static readonly UiPosition Left = new StaticUiPosition(0, .5f, 0, .5f);
+        public static readonly UiPosition MiddleLeft = new StaticUiPosition(0, .5f, 0, .5f);
         public static readonly UiPosition BottomLeft = new StaticUiPosition(0, 0, 0, 0);
-        public static readonly UiPosition Top = new StaticUiPosition(.5f, 1, .5f, 1);
-        public static readonly UiPosition Middle = new StaticUiPosition(.5f, .5f, .5f, .5f);
-        public static readonly UiPosition Bottom = new StaticUiPosition(.5f, 0, .5f, 0);
+        public static readonly UiPosition TopMiddle = new StaticUiPosition(.5f, 1, .5f, 1);
+        public static readonly UiPosition MiddleMiddle = new StaticUiPosition(.5f, .5f, .5f, .5f);
+        public static readonly UiPosition BottomMiddle = new StaticUiPosition(.5f, 0, .5f, 0);
         public static readonly UiPosition TopRight = new StaticUiPosition(1, 1, 1, 1);
-        public static readonly UiPosition Right = new StaticUiPosition(1, .5f, 1, .5f);
+        public static readonly UiPosition MiddleRight = new StaticUiPosition(1, .5f, 1, .5f);
         public static readonly UiPosition BottomRight = new StaticUiPosition(1, 0, 1, 0);
+        
+        public static readonly UiPosition Top = new StaticUiPosition(0, 1, 1, 1);
+        public static readonly UiPosition Bottom = new StaticUiPosition(0, 0, 1, 0);
+        public static readonly UiPosition Left = new StaticUiPosition(0, 0, 0, 1);
+        public static readonly UiPosition Right = new StaticUiPosition(1, 0, 1, 1);
         
         public abstract Position ToPosition();
     }
@@ -2108,7 +2203,7 @@ namespace Oxide.Plugins
         
         public virtual void WriteComponents(JsonTextWriter writer)
         {
-            JsonCreator.Add(writer, ref _position, ref _offset);
+            JsonCreator.Add(writer, _position, _offset);
         }
         
         public void SetFadeOut(float duration)
@@ -2237,6 +2332,7 @@ namespace Oxide.Plugins
     public class UiInput : BaseUiComponent
     {
         public InputComponent Input;
+        public OutlineComponent Outline;
         
         public static UiInput Create(string text, int size, UiColor textColor, UiPosition pos, string cmd, string font, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, bool isPassword = false, bool readOnly = false, InputField.LineType lineType = InputField.LineType.SingleLine)
         {
@@ -2278,6 +2374,34 @@ namespace Oxide.Plugins
         public void SetLineType(InputField.LineType lineType)
         {
             Input.LineType = lineType;
+        }
+        
+        /// <summary>
+        /// Sets if the input should block keyboard input when focused.
+        /// Default value is true
+        /// </summary>
+        /// <param name="needsKeyboard"></param>
+        public void SetRequiresKeyboard(bool needsKeyboard = true)
+        {
+            Input.NeedsKeyboard = needsKeyboard;
+        }
+        
+        public void AddTextOutline(UiColor color)
+        {
+            Outline = Pool.Get<OutlineComponent>();
+            Outline.Color = color;
+        }
+        
+        public void AddTextOutline(UiColor color, string distance)
+        {
+            AddTextOutline(color);
+            Outline.Distance = distance;
+        }
+        
+        public void AddTextOutline(UiColor color, string distance, bool useGraphicAlpha)
+        {
+            AddTextOutline(color, distance);
+            Outline.UseGraphicAlpha = useGraphicAlpha;
         }
         
         public override void WriteComponents(JsonTextWriter writer)
@@ -2355,6 +2479,7 @@ namespace Oxide.Plugins
     {
         public TextComponent TextComponent;
         public OutlineComponent Outline;
+        public CountdownComponent Countdown;
         
         public static UiLabel Create(string text, int size, UiColor color, UiPosition pos, string font, TextAnchor align = TextAnchor.MiddleCenter)
         {
@@ -2386,12 +2511,26 @@ namespace Oxide.Plugins
             Outline.UseGraphicAlpha = useGraphicAlpha;
         }
         
+        public void AddCountdown(int startTime, int endTime, int step, string command)
+        {
+            Countdown = Pool.Get<CountdownComponent>();
+            Countdown.StartTime = startTime;
+            Countdown.EndTime = endTime;
+            Countdown.Step = step;
+            Countdown.Command = command;
+        }
+        
         public override void WriteComponents(JsonTextWriter writer)
         {
             JsonCreator.Add(writer, TextComponent);
             if (Outline != null)
             {
                 JsonCreator.Add(writer, Outline);
+            }
+            
+            if (Countdown != null)
+            {
+                JsonCreator.Add(writer, Countdown);
             }
             
             base.WriteComponents(writer);

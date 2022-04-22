@@ -12,6 +12,7 @@ namespace Oxide.Ext.UiFramework.UiElements
     public class UiInput : BaseUiComponent
     {
         public InputComponent Input;
+        public OutlineComponent Outline;
 
         public static UiInput Create(string text, int size, UiColor textColor, UiPosition pos, string cmd, string font, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, bool isPassword = false, bool readOnly = false, InputField.LineType lineType = InputField.LineType.SingleLine)
         {
@@ -53,6 +54,34 @@ namespace Oxide.Ext.UiFramework.UiElements
         public void SetLineType(InputField.LineType lineType)
         {
             Input.LineType = lineType;
+        }
+
+        /// <summary>
+        /// Sets if the input should block keyboard input when focused.
+        /// Default value is true
+        /// </summary>
+        /// <param name="needsKeyboard"></param>
+        public void SetRequiresKeyboard(bool needsKeyboard = true)
+        {
+            Input.NeedsKeyboard = needsKeyboard;
+        }
+        
+        public void AddTextOutline(UiColor color)
+        {
+            Outline = Pool.Get<OutlineComponent>();
+            Outline.Color = color;
+        }
+
+        public void AddTextOutline(UiColor color, string distance)
+        {
+            AddTextOutline(color);
+            Outline.Distance = distance;
+        }
+
+        public void AddTextOutline(UiColor color, string distance, bool useGraphicAlpha)
+        {
+            AddTextOutline(color, distance);
+            Outline.UseGraphicAlpha = useGraphicAlpha;
         }
 
         public override void WriteComponents(JsonTextWriter writer)

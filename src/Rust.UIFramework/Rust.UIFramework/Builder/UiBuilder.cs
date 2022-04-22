@@ -73,12 +73,12 @@ namespace Oxide.Ext.UiFramework.Builder
 
         public void NeedsMouse(bool enabled = true)
         {
-            _needsMouse = true;
+            _needsMouse = enabled;
         }
         
         public void NeedsKeyboard(bool enabled = true)
         {
-            _needsKeyboard = true;
+            _needsKeyboard = enabled;
         }
 
         public static void SetFont(UiFont font)
