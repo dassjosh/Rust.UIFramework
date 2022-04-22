@@ -1,6 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 using Oxide.Ext.UiFramework.Json;
+using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
 using Pool = Facepunch.Pool;
 
