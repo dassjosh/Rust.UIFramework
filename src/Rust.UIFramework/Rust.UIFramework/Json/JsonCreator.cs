@@ -4,6 +4,7 @@ using System.IO;
 using System.Text;
 using Newtonsoft.Json;
 using Oxide.Ext.UiFramework.Colors;
+using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.UiElements;
 using UnityEngine;
@@ -84,7 +85,7 @@ namespace Oxide.Ext.UiFramework.Json
             if (value != TextAnchor.UpperLeft)
             {
                 writer.WritePropertyName(name);
-                writer.WriteValue(value.ToString());
+                writer.WriteValue(EnumExt<TextAnchor>.ToString(value));
             }
         }
 
@@ -93,7 +94,7 @@ namespace Oxide.Ext.UiFramework.Json
             if (value != InputField.LineType.SingleLine)
             {
                 writer.WritePropertyName(name);
-                writer.WriteValue(value.ToString());
+                writer.WriteValue(EnumExt<InputField.LineType>.ToString(value));
             }
         }
 
@@ -145,14 +146,14 @@ namespace Oxide.Ext.UiFramework.Json
         public static void AddMouse(JsonTextWriter writer)
         {
             writer.WriteStartObject();
-            AddFieldRaw(writer, JsonDefaults.ComponentTypeName, JsonDefaults.NeedsCursorValue);
+            AddFieldRaw(writer, JsonDefaults.Common.ComponentTypeName, JsonDefaults.Common.NeedsCursorValue);
             writer.WriteEndObject();
         }
 
         public static void AddKeyboard(JsonTextWriter writer)
         {
             writer.WriteStartObject();
-            AddFieldRaw(writer, JsonDefaults.ComponentTypeName, JsonDefaults.NeedsKeyboardValue);
+            AddFieldRaw(writer, JsonDefaults.Common.ComponentTypeName, JsonDefaults.Common.NeedsKeyboardValue);
             writer.WriteEndObject();
         }
     }

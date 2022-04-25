@@ -15,11 +15,11 @@ namespace Oxide.Ext.UiFramework.Components
         public override void WriteComponent(JsonTextWriter writer)
         {
             writer.WriteStartObject();
-            JsonCreator.AddFieldRaw(writer, JsonDefaults.ComponentTypeName, Type);
-            JsonCreator.AddField(writer, JsonDefaults.StartTimeName, StartTime, JsonDefaults.StartTimeValue);
-            JsonCreator.AddField(writer, JsonDefaults.EndTimeName, EndTime, JsonDefaults.EndTimeValue);
-            JsonCreator.AddField(writer, JsonDefaults.StepName, Step, JsonDefaults.StepValue);
-            JsonCreator.AddField(writer, JsonDefaults.CountdownCommandName, Command, JsonDefaults.NullValue);
+            JsonCreator.AddFieldRaw(writer, JsonDefaults.Common.ComponentTypeName, Type);
+            JsonCreator.AddField(writer, JsonDefaults.Countdown.StartTimeName, StartTime, JsonDefaults.Countdown.StartTimeValue);
+            JsonCreator.AddField(writer, JsonDefaults.Countdown.EndTimeName, EndTime, JsonDefaults.Countdown.EndTimeValue);
+            JsonCreator.AddField(writer, JsonDefaults.Countdown.StepName, Step, JsonDefaults.Countdown.StepValue);
+            JsonCreator.AddField(writer, JsonDefaults.Countdown.CountdownCommandName, Command, JsonDefaults.Common.NullValue);
             writer.WriteEndObject();
         }
 

@@ -7,17 +7,19 @@ namespace Oxide.Ext.UiFramework.Components
     {
         private const string Type = "UnityEngine.UI.RawImage";
 
-        public string Sprite;
         public string Url;
+        public string Texture;
+        public string Material;
 
         public override void WriteComponent(JsonTextWriter writer)
         {
             writer.WriteStartObject();
-            JsonCreator.AddFieldRaw(writer, JsonDefaults.ComponentTypeName, Type);
-            JsonCreator.AddField(writer, JsonDefaults.SpriteName, Sprite, JsonDefaults.SpriteImageValue);
+            JsonCreator.AddFieldRaw(writer, JsonDefaults.Common.ComponentTypeName, Type);
+            JsonCreator.AddField(writer, JsonDefaults.BaseImage.SpriteName, Texture, JsonDefaults.RawImage.TextureValue);
+            JsonCreator.AddField(writer, JsonDefaults.BaseImage.MaterialName, Material, JsonDefaults.BaseImage.Material);
             if (!string.IsNullOrEmpty(Url))
             {
-                JsonCreator.AddField(writer, JsonDefaults.UrlName, Url, JsonDefaults.EmptyString);
+                JsonCreator.AddFieldRaw(writer, JsonDefaults.Image.UrlName, Url);
             }
 
             base.WriteComponent(writer);
@@ -28,7 +30,6 @@ namespace Oxide.Ext.UiFramework.Components
         public override void EnterPool()
         {
             base.EnterPool();
-            Sprite = null;
             Url = null;
         }
     }

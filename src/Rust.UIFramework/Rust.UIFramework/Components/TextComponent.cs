@@ -10,7 +10,7 @@ namespace Oxide.Ext.UiFramework.Components
         public override void WriteComponent(JsonTextWriter writer)
         {
             writer.WriteStartObject();
-            JsonCreator.AddFieldRaw(writer, JsonDefaults.ComponentTypeName, Type);
+            JsonCreator.AddFieldRaw(writer, JsonDefaults.Common.ComponentTypeName, Type);
             base.WriteComponent(writer);
             writer.WriteEndObject();
         }

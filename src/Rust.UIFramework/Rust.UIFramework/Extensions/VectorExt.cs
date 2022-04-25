@@ -12,11 +12,9 @@ namespace Oxide.Ext.UiFramework.Extensions
 
         static VectorExt()
         {
-            float pos = 0;
-            for (int i = 0; i <= 10000; i++)
+            for (short i = 0; i <= 10000; i++)
             {
-                PositionCache[(short)(pos * PositionRounder)] = pos.ToString(Format);
-                pos += 0.0001f;
+                PositionCache[i] = (i / 10000f).ToString(Format);
             }
         }
         

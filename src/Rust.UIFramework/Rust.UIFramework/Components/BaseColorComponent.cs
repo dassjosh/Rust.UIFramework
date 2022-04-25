@@ -10,7 +10,7 @@ namespace Oxide.Ext.UiFramework.Components
 
         public override void WriteComponent(JsonTextWriter writer)
         {
-            JsonCreator.AddField(writer, JsonDefaults.ColorName, Color, JsonDefaults.ColorValue);
+            JsonCreator.AddField(writer, JsonDefaults.Color.ColorName, Color, JsonDefaults.Color.ColorValue);
         }
         
         public override void EnterPool()

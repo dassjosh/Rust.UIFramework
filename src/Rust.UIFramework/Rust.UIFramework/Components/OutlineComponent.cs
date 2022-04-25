@@ -15,11 +15,11 @@ namespace Oxide.Ext.UiFramework.Components
         public override void WriteComponent(JsonTextWriter writer)
         {
             writer.WriteStartObject();
-            JsonCreator.AddFieldRaw(writer, JsonDefaults.ComponentTypeName, Type);
-            JsonCreator.AddField(writer, JsonDefaults.DistanceName, Distance, JsonDefaults.DistanceValue, VectorExt.ToString(Distance));
+            JsonCreator.AddFieldRaw(writer, JsonDefaults.Common.ComponentTypeName, Type);
+            JsonCreator.AddField(writer, JsonDefaults.Outline.DistanceName, Distance, JsonDefaults.Outline.DistanceValue, VectorExt.ToString(Distance));
             if (UseGraphicAlpha)
             {
-                JsonCreator.AddFieldRaw(writer, JsonDefaults.UseGraphicAlphaName, JsonDefaults.UseGraphicAlphaValue);
+                JsonCreator.AddFieldRaw(writer, JsonDefaults.Outline.UseGraphicAlphaName, JsonDefaults.Outline.UseGraphicAlphaValue);
             }
             
             base.WriteComponent(writer);
@@ -29,7 +29,7 @@ namespace Oxide.Ext.UiFramework.Components
         public override void EnterPool()
         {
             base.EnterPool();
-            Distance = JsonDefaults.DistanceValue;
+            Distance = JsonDefaults.Outline.DistanceValue;
             UseGraphicAlpha = false;
         }
     }

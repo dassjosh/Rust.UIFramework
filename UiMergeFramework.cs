@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using UnityEngine;
@@ -867,7 +868,7 @@ namespace Oxide.Plugins
         
         public override void WriteComponent(JsonTextWriter writer)
         {
-            JsonCreator.AddField(writer, JsonDefaults.ColorName, Color, JsonDefaults.ColorValue);
+            JsonCreator.AddField(writer, JsonDefaults.Color.ColorName, Color, JsonDefaults.Color.ColorValue);
         }
         
         public override void EnterPool()
@@ -891,16 +892,13 @@ namespace Oxide.Plugins
     #region Components\BaseImageComponent.cs
     public class BaseImageComponent : FadeInComponent
     {
-        private const string Type = "UnityEngine.UI.Image";
-        
         public string Sprite;
         public string Material;
         
         public override void WriteComponent(JsonTextWriter writer)
         {
-            JsonCreator.AddFieldRaw(writer, JsonDefaults.ComponentTypeName, Type);
-            JsonCreator.AddField(writer, JsonDefaults.SpriteName, Sprite, JsonDefaults.SpriteValue);
-            JsonCreator.AddField(writer, JsonDefaults.MaterialName, Material, JsonDefaults.MaterialValue);
+            JsonCreator.AddField(writer, JsonDefaults.BaseImage.SpriteName, Sprite, JsonDefaults.BaseImage.Sprite);
+            JsonCreator.AddField(writer, JsonDefaults.BaseImage.MaterialName, Material, JsonDefaults.BaseImage.Material);
             base.WriteComponent(writer);
         }
         
@@ -916,24 +914,24 @@ namespace Oxide.Plugins
     #region Components\BaseTextComponent.cs
     public class BaseTextComponent : FadeInComponent
     {
-        public int FontSize = 14;
+        public int FontSize = JsonDefaults.BaseText.FontSize;
         public string Font;
         public TextAnchor Align;
         public string Text;
         
         public override void WriteComponent(JsonTextWriter writer)
         {
-            JsonCreator.AddTextField(writer, JsonDefaults.TextName, Text);
-            JsonCreator.AddField(writer, JsonDefaults.FontSizeName, FontSize, JsonDefaults.FontSizeValue);
-            JsonCreator.AddField(writer, JsonDefaults.FontName, Font, JsonDefaults.FontValue);
-            JsonCreator.AddField(writer, JsonDefaults.AlignName, Align);
+            JsonCreator.AddTextField(writer, JsonDefaults.BaseText.TextName, Text);
+            JsonCreator.AddField(writer, JsonDefaults.BaseText.FontSizeName, FontSize, JsonDefaults.BaseText.FontSize);
+            JsonCreator.AddField(writer, JsonDefaults.BaseText.FontName, Font, JsonDefaults.BaseText.FontValue);
+            JsonCreator.AddField(writer, JsonDefaults.BaseText.AlignName, Align);
             base.WriteComponent(writer);
         }
         
         public override void EnterPool()
         {
             base.EnterPool();
-            FontSize = 14;
+            FontSize = JsonDefaults.BaseText.FontSize;
             Font = null;
             Align = TextAnchor.UpperLeft;
             Text = null;
@@ -942,23 +940,19 @@ namespace Oxide.Plugins
     #endregion
 
     #region Components\ButtonComponent.cs
-    public class ButtonComponent : FadeInComponent
+    public class ButtonComponent : BaseImageComponent
     {
         private const string Type = "UnityEngine.UI.Button";
         
         public string Command;
         public string Close;
-        public string Sprite;
-        public string Material;
         
         public override void WriteComponent(JsonTextWriter writer)
         {
             writer.WriteStartObject();
-            JsonCreator.AddFieldRaw(writer, JsonDefaults.ComponentTypeName, Type);
-            JsonCreator.AddField(writer, JsonDefaults.CommandName, Command, JsonDefaults.NullValue);
-            JsonCreator.AddField(writer, JsonDefaults.CloseName, Close, JsonDefaults.NullValue);
-            JsonCreator.AddField(writer, JsonDefaults.SpriteName, Sprite, JsonDefaults.SpriteValue);
-            JsonCreator.AddField(writer, JsonDefaults.MaterialName, Material, JsonDefaults.MaterialValue);
+            JsonCreator.AddFieldRaw(writer, JsonDefaults.Common.ComponentTypeName, Type);
+            JsonCreator.AddField(writer, JsonDefaults.Common.CommandName, Command, JsonDefaults.Common.NullValue);
+            JsonCreator.AddField(writer, JsonDefaults.Button.CloseName, Close, JsonDefaults.Common.NullValue);
             base.WriteComponent(writer);
             writer.WriteEndObject();
         }
@@ -987,11 +981,11 @@ namespace Oxide.Plugins
         public override void WriteComponent(JsonTextWriter writer)
         {
             writer.WriteStartObject();
-            JsonCreator.AddFieldRaw(writer, JsonDefaults.ComponentTypeName, Type);
-            JsonCreator.AddField(writer, JsonDefaults.StartTimeName, StartTime, JsonDefaults.StartTimeValue);
-            JsonCreator.AddField(writer, JsonDefaults.EndTimeName, EndTime, JsonDefaults.EndTimeValue);
-            JsonCreator.AddField(writer, JsonDefaults.StepName, Step, JsonDefaults.StepValue);
-            JsonCreator.AddField(writer, JsonDefaults.CountdownCommandName, Command, JsonDefaults.NullValue);
+            JsonCreator.AddFieldRaw(writer, JsonDefaults.Common.ComponentTypeName, Type);
+            JsonCreator.AddField(writer, JsonDefaults.Countdown.StartTimeName, StartTime, JsonDefaults.Countdown.StartTimeValue);
+            JsonCreator.AddField(writer, JsonDefaults.Countdown.EndTimeName, EndTime, JsonDefaults.Countdown.EndTimeValue);
+            JsonCreator.AddField(writer, JsonDefaults.Countdown.StepName, Step, JsonDefaults.Countdown.StepValue);
+            JsonCreator.AddField(writer, JsonDefaults.Countdown.CountdownCommandName, Command, JsonDefaults.Common.NullValue);
             writer.WriteEndObject();
         }
         
@@ -1012,7 +1006,7 @@ namespace Oxide.Plugins
         
         public override void WriteComponent(JsonTextWriter writer)
         {
-            JsonCreator.AddField(writer, JsonDefaults.FadeInName, FadeIn, JsonDefaults.FadeOutValue);
+            JsonCreator.AddField(writer, JsonDefaults.Common.FadeInName, FadeIn, JsonDefaults.Common.FadeIn);
             base.WriteComponent(writer);
         }
         
@@ -1027,14 +1021,17 @@ namespace Oxide.Plugins
     #region Components\ImageComponent.cs
     public class ImageComponent : BaseImageComponent
     {
+        private const string Type = "UnityEngine.UI.Image";
+        
         public string Png;
         
         public override void WriteComponent(JsonTextWriter writer)
         {
             writer.WriteStartObject();
+            JsonCreator.AddFieldRaw(writer, JsonDefaults.Common.ComponentTypeName, Type);
             if (!string.IsNullOrEmpty(Png))
             {
-                JsonCreator.AddFieldRaw(writer, JsonDefaults.PNGName, Png);
+                JsonCreator.AddFieldRaw(writer, JsonDefaults.Image.PNGName, Png);
             }
             base.WriteComponent(writer);
             writer.WriteEndObject();
@@ -1063,24 +1060,24 @@ namespace Oxide.Plugins
         public override void WriteComponent(JsonTextWriter writer)
         {
             writer.WriteStartObject();
-            JsonCreator.AddFieldRaw(writer, JsonDefaults.ComponentTypeName, InputComponent.Type);
-            JsonCreator.AddField(writer, JsonDefaults.CharacterLimitName, CharsLimit, JsonDefaults.CharacterLimitValue);
-            JsonCreator.AddField(writer, JsonDefaults.CommandName, Command, JsonDefaults.NullValue);
-            JsonCreator.AddField(writer, JsonDefaults.LineTypeName, LineType);
+            JsonCreator.AddFieldRaw(writer, JsonDefaults.Common.ComponentTypeName, Type);
+            JsonCreator.AddField(writer, JsonDefaults.Input.CharacterLimitName, CharsLimit, JsonDefaults.Input.CharacterLimitValue);
+            JsonCreator.AddField(writer, JsonDefaults.Common.CommandName, Command, JsonDefaults.Common.NullValue);
+            JsonCreator.AddField(writer, JsonDefaults.Input.LineTypeName, LineType);
             
             if (IsPassword)
             {
-                JsonCreator.AddFieldRaw(writer, JsonDefaults.PasswordName, JsonDefaults.PasswordValue);
+                JsonCreator.AddFieldRaw(writer, JsonDefaults.Input.PasswordName, JsonDefaults.Input.PasswordValue);
             }
             
             if (IsReadyOnly)
             {
-                JsonCreator.AddFieldRaw(writer, JsonDefaults.ReadOnlyName, JsonDefaults.ReadOnlyValue);
+                JsonCreator.AddFieldRaw(writer, JsonDefaults.Input.ReadOnlyName, JsonDefaults.Input.ReadOnlyValue);
             }
             
             if (NeedsKeyboard)
             {
-                JsonCreator.AddFieldRaw(writer, JsonDefaults.InputNeedsKeyboardName, JsonDefaults.InputNeedsKeyboardValue);
+                JsonCreator.AddFieldRaw(writer, JsonDefaults.Input.InputNeedsKeyboardName, JsonDefaults.Input.InputNeedsKeyboardValue);
             }
             
             base.WriteComponent(writer);
@@ -1108,8 +1105,8 @@ namespace Oxide.Plugins
         public override void WriteComponent(JsonTextWriter writer)
         {
             writer.WriteStartObject();
-            JsonCreator.AddFieldRaw(writer, JsonDefaults.ItemIdName, ItemId);
-            JsonCreator.AddField(writer, JsonDefaults.SkinIdName, SkinId, JsonDefaults.DefaultSkinId);
+            JsonCreator.AddFieldRaw(writer, JsonDefaults.ItemIcon.ItemIdName, ItemId);
+            JsonCreator.AddField(writer, JsonDefaults.ItemIcon.SkinIdName, SkinId, JsonDefaults.ItemIcon.DefaultSkinId);
             base.WriteComponent(writer);
             writer.WriteEndObject();
         }
@@ -1133,11 +1130,11 @@ namespace Oxide.Plugins
         public override void WriteComponent(JsonTextWriter writer)
         {
             writer.WriteStartObject();
-            JsonCreator.AddFieldRaw(writer, JsonDefaults.ComponentTypeName, Type);
-            JsonCreator.AddField(writer, JsonDefaults.DistanceName, Distance, JsonDefaults.DistanceValue, VectorExt.ToString(Distance));
+            JsonCreator.AddFieldRaw(writer, JsonDefaults.Common.ComponentTypeName, Type);
+            JsonCreator.AddField(writer, JsonDefaults.Outline.DistanceName, Distance, JsonDefaults.Outline.DistanceValue, VectorExt.ToString(Distance));
             if (UseGraphicAlpha)
             {
-                JsonCreator.AddFieldRaw(writer, JsonDefaults.UseGraphicAlphaName, JsonDefaults.UseGraphicAlphaValue);
+                JsonCreator.AddFieldRaw(writer, JsonDefaults.Outline.UseGraphicAlphaName, JsonDefaults.Outline.UseGraphicAlphaValue);
             }
             
             base.WriteComponent(writer);
@@ -1147,7 +1144,7 @@ namespace Oxide.Plugins
         public override void EnterPool()
         {
             base.EnterPool();
-            Distance = JsonDefaults.DistanceValue;
+            Distance = JsonDefaults.Outline.DistanceValue;
             UseGraphicAlpha = false;
         }
     }
@@ -1158,17 +1155,19 @@ namespace Oxide.Plugins
     {
         private const string Type = "UnityEngine.UI.RawImage";
         
-        public string Sprite;
         public string Url;
+        public string Texture;
+        public string Material;
         
         public override void WriteComponent(JsonTextWriter writer)
         {
             writer.WriteStartObject();
-            JsonCreator.AddFieldRaw(writer, JsonDefaults.ComponentTypeName, Type);
-            JsonCreator.AddField(writer, JsonDefaults.SpriteName, Sprite, JsonDefaults.SpriteImageValue);
+            JsonCreator.AddFieldRaw(writer, JsonDefaults.Common.ComponentTypeName, Type);
+            JsonCreator.AddField(writer, JsonDefaults.BaseImage.SpriteName, Texture, JsonDefaults.RawImage.TextureValue);
+            JsonCreator.AddField(writer, JsonDefaults.BaseImage.MaterialName, Material, JsonDefaults.BaseImage.Material);
             if (!string.IsNullOrEmpty(Url))
             {
-                JsonCreator.AddField(writer, JsonDefaults.UrlName, Url, JsonDefaults.EmptyString);
+                JsonCreator.AddFieldRaw(writer, JsonDefaults.Image.UrlName, Url);
             }
             
             base.WriteComponent(writer);
@@ -1179,7 +1178,6 @@ namespace Oxide.Plugins
         public override void EnterPool()
         {
             base.EnterPool();
-            Sprite = null;
             Url = null;
         }
     }
@@ -1193,7 +1191,7 @@ namespace Oxide.Plugins
         public override void WriteComponent(JsonTextWriter writer)
         {
             writer.WriteStartObject();
-            JsonCreator.AddFieldRaw(writer, JsonDefaults.ComponentTypeName, Type);
+            JsonCreator.AddFieldRaw(writer, JsonDefaults.Common.ComponentTypeName, Type);
             base.WriteComponent(writer);
             writer.WriteEndObject();
         }
@@ -1257,6 +1255,26 @@ namespace Oxide.Plugins
     }
     #endregion
 
+    #region Extensions\EnumExt{T}.cs
+    public static class EnumExt<T>
+    {
+        private static readonly Hash<T, string> CachedStrings = new Hash<T, string>();
+        
+        static EnumExt()
+        {
+            foreach (T anchor in Enum.GetValues(typeof(T)).Cast<T>())
+            {
+                CachedStrings[anchor] = anchor.ToString();
+            }
+        }
+        
+        public static string ToString(T value)
+        {
+            return CachedStrings[value];
+        }
+    }
+    #endregion
+
     #region Extensions\VectorExt.cs
     public static class VectorExt
     {
@@ -1267,11 +1285,9 @@ namespace Oxide.Plugins
         
         static VectorExt()
         {
-            float pos = 0;
-            for (int i = 0; i <= 10000; i++)
+            for (short i = 0; i <= 10000; i++)
             {
-                PositionCache[(short)(pos * PositionRounder)] = pos.ToString(Format);
-                pos += 0.0001f;
+                PositionCache[i] = (i / 10000f).ToString(Format);
             }
         }
         
@@ -1297,7 +1313,7 @@ namespace Oxide.Plugins
             JsonTextWriter writer = new JsonTextWriter(sw);
             
             writer.WriteStartArray();
-            components[0].WriteRootComponent(writer, needsKeyboard, needsKeyboard);
+            components[0].WriteRootComponent(writer, needsMouse, needsKeyboard);
             
             for (int index = 1; index < components.Count; index++)
             {
@@ -1361,7 +1377,7 @@ namespace Oxide.Plugins
             if (value != TextAnchor.UpperLeft)
             {
                 writer.WritePropertyName(name);
-                writer.WriteValue(value.ToString());
+                writer.WriteValue(EnumExt<TextAnchor>.ToString(value));
             }
         }
         
@@ -1370,7 +1386,7 @@ namespace Oxide.Plugins
             if (value != InputField.LineType.SingleLine)
             {
                 writer.WritePropertyName(name);
-                writer.WriteValue(value.ToString());
+                writer.WriteValue(EnumExt<InputField.LineType>.ToString(value));
             }
         }
         
@@ -1422,14 +1438,14 @@ namespace Oxide.Plugins
         public static void AddMouse(JsonTextWriter writer)
         {
             writer.WriteStartObject();
-            AddFieldRaw(writer, JsonDefaults.ComponentTypeName, JsonDefaults.NeedsCursorValue);
+            AddFieldRaw(writer, JsonDefaults.Common.ComponentTypeName, JsonDefaults.Common.NeedsCursorValue);
             writer.WriteEndObject();
         }
         
         public static void AddKeyboard(JsonTextWriter writer)
         {
             writer.WriteStartObject();
-            AddFieldRaw(writer, JsonDefaults.ComponentTypeName, JsonDefaults.NeedsKeyboardValue);
+            AddFieldRaw(writer, JsonDefaults.Common.ComponentTypeName, JsonDefaults.Common.NeedsKeyboardValue);
             writer.WriteEndObject();
         }
     }
@@ -1438,89 +1454,118 @@ namespace Oxide.Plugins
     #region Json\JsonDefaults.cs
     public static class JsonDefaults
     {
-        //Position & Offset
-        public const string RectTransformName = "RectTransform";
-        public const string AnchorMinName = "anchormin";
-        public const string AnchorMaxName = "anchormax";
-        public const string OffsetMinName = "offsetmin";
-        public const string OffsetMaxName = "offsetmax";
-        public static readonly Vector2 AnchorMin = new Vector2(0, 0);
-        public static readonly Vector2 AnchorMax = new Vector2(1, 1);
-        public static readonly Vector2Int OffsetMin = new Vector2Int(0, 0);
-        public static readonly Vector2Int OffsetMax = new Vector2Int(0, 0);
-        public const string DefaultOffsetMax = "0 0";
+        public static class Common
+        {
+            public const string ComponentTypeName = "type";
+            public const string ComponentName = "name";
+            public const string ParentName = "parent";
+            public const string FadeInName = "fadeIn";
+            public const string FadeOutName = "fadeOut";
+            public const float FadeOut = 0;
+            public const float FadeIn = 0;
+            public const string RectTransformName = "RectTransform";
+            public const string NullValue = null;
+            public const string NeedsCursorValue = "NeedsCursor";
+            public const string NeedsKeyboardValue = "NeedsKeyboard";
+            public const string CommandName = "command";
+        }
         
-        //Text
-        public const int FontSizeValue = 14;
-        public const string FontValue = "RobotoCondensed-Bold.ttf";
-        public const string FontName = "font";
-        public const string TextName = "text";
-        public const string FontSizeName = "fontSize";
-        public const string AlignName = "align";
+        public static class Position
+        {
+            public const string AnchorMinName = "anchormin";
+            public const string AnchorMaxName = "anchormax";
+            public static readonly Vector2 AnchorMin = new Vector2(0, 0);
+            public static readonly Vector2 AnchorMax = new Vector2(1, 1);
+        }
         
-        //Material & Sprite
-        public const string SpriteName = "sprite";
-        public const string MaterialName = "material";
-        public const string SpriteValue = "Assets/Content/UI/UI.Background.Tile.psd";
-        public const string SpriteImageValue = "Assets/Icons/rust.png";
-        public const string MaterialValue = "Assets/Icons/IconMaterial.mat";
+        public static class Offset
+        {
+            public const string OffsetMinName = "offsetmin";
+            public const string OffsetMaxName = "offsetmax";
+            
+            public static readonly Vector2Int OffsetMin = new Vector2Int(0, 0);
+            public static readonly Vector2Int OffsetMax = new Vector2Int(0, 0);
+            public const string DefaultOffsetMax = "0 0";
+        }
         
-        //Common
-        public const string ComponentTypeName = "type";
-        public const string ColorName = "color";
-        public const string NullValue = null;
-        public const string EmptyString = "";
-        public const string ComponentName = "name";
-        public const string ParentName = "parent";
-        public const string FadeInName = "fadeIn";
-        public const string FadeOutName = "fadeOut";
-        public const float FadeOutValue = 0;
-        public static readonly UiColor ColorValue = "1 1 1 1";
+        public static class Color
+        {
+            public const string ColorName = "color";
+            public static readonly UiColor ColorValue = "1 1 1 1";
+        }
         
-        //Outline
-        public const string DistanceName = "distance";
-        public const string UseGraphicAlphaName = "useGraphicAlpha";
-        public const string UseGraphicAlphaValue = "True";
-        public static readonly Vector2 DistanceValue = new Vector2(1.0f, -1.0f);
+        public static class BaseImage
+        {
+            public const string SpriteName = "sprite";
+            public const string MaterialName = "material";
+            public const string Sprite = "Assets/Content/UI/UI.Background.Tile.psd";
+            public const string Material = "Assets/Icons/IconMaterial.mat";
+        }
         
-        //Button
-        public const string CommandName = "command";
-        public const string CloseName = "close";
+        public static class RawImage
+        {
+            public const string TextureValue = "Assets/Icons/rust.png";
+        }
         
-        //Needs Cursor
-        public const string NeedsCursorValue = "NeedsCursor";
+        public static class BaseText
+        {
+            public const int FontSize = 14;
+            public const string FontValue = "RobotoCondensed-Bold.ttf";
+            public const string FontName = "font";
+            public const string TextName = "text";
+            public const string FontSizeName = "fontSize";
+            public const string AlignName = "align";
+        }
         
-        //Needs Cursor
-        public const string NeedsKeyboardValue = "NeedsKeyboard";
+        public static class Outline
+        {
+            public const string DistanceName = "distance";
+            public const string UseGraphicAlphaName = "useGraphicAlpha";
+            public const string UseGraphicAlphaValue = "True";
+            public static readonly Vector2 DistanceValue = new Vector2(1.0f, -1.0f);
+        }
         
-        //Image
-        public const string PNGName = "png";
-        public const string UrlName = "url";
+        public static class Button
+        {
+            public const string CloseName = "close";
+        }
         
-        //Item Icon
-        public const string ItemIdName = "itemid";
-        public const string SkinIdName = "skinid";
-        public const ulong DefaultSkinId = 0;
+        public static class Image
+        {
+            public const string PNGName = "png";
+            public const string UrlName = "url";
+        }
         
-        //Input
-        public const string CharacterLimitName = "characterLimit";
-        public const int CharacterLimitValue = 0;
-        public const string PasswordName = "password";
-        public const string PasswordValue = "true";
-        public const string ReadOnlyName = "password";
-        public const bool ReadOnlyValue = true;
-        public const string LineTypeName = "lineType";
-        public const string InputNeedsKeyboardName = "needsKeyboard";
-        public const string InputNeedsKeyboardValue = "";
+        public static class ItemIcon
+        {
+            public const string ItemIdName = "itemid";
+            public const string SkinIdName = "skinid";
+            public const ulong DefaultSkinId = 0;
+        }
         
-        //Countdown
-        public const string StartTimeName = "startTime";
-        public const int StartTimeValue = 0;
-        public const string EndTimeName = "endTime";
-        public const int EndTimeValue = 0;
-        public const string StepName = "step";
-        public const int StepValue = 1;
-        public const string CountdownCommandName = "command";
+        public static class Input
+        {
+            public const string CharacterLimitName = "characterLimit";
+            public const int CharacterLimitValue = 0;
+            public const string PasswordName = "password";
+            public const string PasswordValue = "";
+            public const string ReadOnlyName = "readOnly";
+            public const bool ReadOnlyValue = false;
+            public const string LineTypeName = "lineType";
+            public const string InputNeedsKeyboardName = "needsKeyboard";
+            public const string InputNeedsKeyboardValue = "";
+        }
+        
+        public static class Countdown
+        {
+            public const string StartTimeName = "startTime";
+            public const int StartTimeValue = 0;
+            public const string EndTimeName = "endTime";
+            public const int EndTimeValue = 0;
+            public const string StepName = "step";
+            public const int StepValue = 1;
+            public const string CountdownCommandName = "command";
+        }
     }
     #endregion
 
@@ -2055,15 +2100,15 @@ namespace Oxide.Plugins
         public string Name;
         public string Parent;
         public float FadeOut;
-        private Position _position;
-        private Offset? _offset;
+        public Position Position;
+        public Offset? Offset;
         private bool _inPool = true;
         
         protected static T CreateBase<T>(UiPosition pos, UiOffset offset) where T : BaseUiComponent, new()
         {
             T component = Pool.Get<T>();
-            component._position = pos.ToPosition();
-            component._offset = offset?.ToOffset();
+            component.Position = pos.ToPosition();
+            component.Offset = offset?.ToOffset();
             if (component._inPool)
             {
                 component.LeavePool();
@@ -2074,8 +2119,8 @@ namespace Oxide.Plugins
         protected static T CreateBase<T>(Position pos, Offset? offset) where T : BaseUiComponent, new()
         {
             T component = Pool.Get<T>();
-            component._position = pos;
-            component._offset = offset;
+            component.Position = pos;
+            component.Offset = offset;
             if (component._inPool)
             {
                 component.LeavePool();
@@ -2086,7 +2131,7 @@ namespace Oxide.Plugins
         protected static T CreateBase<T>(UiPosition pos) where T : BaseUiComponent, new()
         {
             T component = Pool.Get<T>();
-            component._position = pos.ToPosition();
+            component.Position = pos.ToPosition();
             if (component._inPool)
             {
                 component.LeavePool();
@@ -2097,9 +2142,9 @@ namespace Oxide.Plugins
         public void WriteRootComponent(JsonTextWriter writer, bool needsMouse, bool needsKeyboard)
         {
             writer.WriteStartObject();
-            JsonCreator.AddFieldRaw(writer, JsonDefaults.ComponentName, Name);
-            JsonCreator.AddFieldRaw(writer, JsonDefaults.ParentName, Parent);
-            JsonCreator.AddField(writer, JsonDefaults.FadeOutName, FadeOut, JsonDefaults.FadeOutValue);
+            JsonCreator.AddFieldRaw(writer, JsonDefaults.Common.ComponentName, Name);
+            JsonCreator.AddFieldRaw(writer, JsonDefaults.Common.ParentName, Parent);
+            JsonCreator.AddField(writer, JsonDefaults.Common.FadeOutName, FadeOut, JsonDefaults.Common.FadeOut);
             
             writer.WritePropertyName("components");
             writer.WriteStartArray();
@@ -2122,9 +2167,9 @@ namespace Oxide.Plugins
         public void WriteComponent(JsonTextWriter writer)
         {
             writer.WriteStartObject();
-            JsonCreator.AddFieldRaw(writer, JsonDefaults.ComponentName, Name);
-            JsonCreator.AddFieldRaw(writer, JsonDefaults.ParentName, Parent);
-            JsonCreator.AddField(writer, JsonDefaults.FadeOutName, FadeOut, JsonDefaults.FadeOutValue);
+            JsonCreator.AddFieldRaw(writer, JsonDefaults.Common.ComponentName, Name);
+            JsonCreator.AddFieldRaw(writer, JsonDefaults.Common.ParentName, Parent);
+            JsonCreator.AddField(writer, JsonDefaults.Common.FadeOutName, FadeOut, JsonDefaults.Common.FadeOut);
             
             writer.WritePropertyName("components");
             writer.WriteStartArray();
@@ -2136,20 +2181,20 @@ namespace Oxide.Plugins
         protected virtual void WriteComponents(JsonTextWriter writer)
         {
             writer.WriteStartObject();
-            JsonCreator.AddFieldRaw(writer, JsonDefaults.ComponentTypeName, JsonDefaults.RectTransformName);
-            JsonCreator.AddField(writer, JsonDefaults.AnchorMinName, _position.Min, JsonDefaults.AnchorMin, _position.MinString);
-            JsonCreator.AddField(writer, JsonDefaults.AnchorMaxName, _position.Max, JsonDefaults.AnchorMax, _position.MaxString);
+            JsonCreator.AddFieldRaw(writer, JsonDefaults.Common.ComponentTypeName, JsonDefaults.Common.RectTransformName);
+            JsonCreator.AddField(writer, JsonDefaults.Position.AnchorMinName, Position.Min, JsonDefaults.Position.AnchorMin, Position.MinString);
+            JsonCreator.AddField(writer, JsonDefaults.Position.AnchorMaxName, Position.Max, JsonDefaults.Position.AnchorMax, Position.MaxString);
             
-            if (_offset.HasValue)
+            if (Offset.HasValue)
             {
-                Offset offset = _offset.Value;
-                JsonCreator.AddField(writer, JsonDefaults.OffsetMinName, offset.Min, JsonDefaults.OffsetMin, offset.MinString);
-                JsonCreator.AddField(writer, JsonDefaults.OffsetMaxName, offset.Max, JsonDefaults.OffsetMax, offset.MaxString);
+                Offset offset = Offset.Value;
+                JsonCreator.AddField(writer, JsonDefaults.Offset.OffsetMinName, offset.Min, JsonDefaults.Offset.OffsetMin, offset.MinString);
+                JsonCreator.AddField(writer, JsonDefaults.Offset.OffsetMaxName, offset.Max, JsonDefaults.Offset.OffsetMax, offset.MaxString);
             }
             else
             {
                 //Fixes issue with UI going outside of bounds
-                JsonCreator.AddFieldRaw(writer, JsonDefaults.OffsetMaxName, JsonDefaults.DefaultOffsetMax);
+                JsonCreator.AddFieldRaw(writer, JsonDefaults.Offset.OffsetMaxName, JsonDefaults.Offset.DefaultOffsetMax);
             }
             
             writer.WriteEndObject();
@@ -2162,24 +2207,13 @@ namespace Oxide.Plugins
         
         public abstract void SetFadeIn(float duration);
         
-        public void UpdateOffset(UiOffset offset)
-        {
-            _offset = offset?.ToOffset();
-        }
-        
-        public void UpdatePosition(UiPosition position, UiOffset offset = null)
-        {
-            _position = position.ToPosition();
-            _offset = offset?.ToOffset();
-        }
-        
         public virtual void EnterPool()
         {
             Name = null;
             Parent = null;
             FadeOut = 0;
-            _position = default(Position);
-            _offset = null;
+            Position = default(Position);
+            Offset = null;
             _inPool = true;
         }
         

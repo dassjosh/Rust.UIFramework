@@ -9,7 +9,7 @@ namespace Oxide.Ext.UiFramework.Components
 
         public override void WriteComponent(JsonTextWriter writer)
         {
-            JsonCreator.AddField(writer, JsonDefaults.FadeInName, FadeIn, JsonDefaults.FadeOutValue);
+            JsonCreator.AddField(writer, JsonDefaults.Common.FadeInName, FadeIn, JsonDefaults.Common.FadeIn);
             base.WriteComponent(writer);
         }
 
