@@ -1,16 +1,15 @@
 ﻿using Oxide.Ext.UiFramework.Extensions;
-using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Offsets
 {
     public struct Offset
     {
-        public Vector2Int Min;
-        public Vector2Int Max;
+        public Vector2Short Min;
+        public Vector2Short Max;
         public readonly string MinString;
         public readonly string MaxString;
 
-        public Offset(Vector2Int min, Vector2Int max)
+        public Offset(Vector2Short min, Vector2Short max)
         {
             Min = min;
             Max = max;
@@ -18,7 +17,7 @@ namespace Oxide.Ext.UiFramework.Offsets
             MaxString = VectorExt.ToString(Max);
         }
         
-        public Offset(int xMin, int yMin, int xMax, int yMax) : this(new Vector2Int(xMin, yMin), new Vector2Int(xMax, yMax))
+        public Offset(int xMin, int yMin, int xMax, int yMax) : this(new Vector2Short(xMin, yMin), new Vector2Short(xMax, yMax))
         {
             
         }

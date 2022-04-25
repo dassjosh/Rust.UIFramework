@@ -1,5 +1,4 @@
 ﻿using System;
-using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Offsets
 {
@@ -7,7 +6,7 @@ namespace Oxide.Ext.UiFramework.Offsets
     {
         private readonly Offset _offset;
 
-        public StaticUiOffset(Vector2Int min, Vector2Int max)
+        public StaticUiOffset(Vector2Short min, Vector2Short max)
         {
             _offset = new Offset(min, max);
         }
@@ -29,7 +28,7 @@ namespace Oxide.Ext.UiFramework.Offsets
                 throw new ArgumentOutOfRangeException(nameof(height), "height cannot be less than 0");
             }
             
-            _offset = new Offset(new Vector2Int(x, y), new Vector2Int( x + width, y + height));
+            _offset = new Offset(new Vector2Short(x, y), new Vector2Short( x + width, y + height));
         }
 
         public override Offset ToOffset()

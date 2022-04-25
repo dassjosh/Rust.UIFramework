@@ -1,4 +1,5 @@
 ﻿using Oxide.Ext.UiFramework.Colors;
+using Oxide.Ext.UiFramework.Offsets;
 using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Json
@@ -34,8 +35,8 @@ namespace Oxide.Ext.UiFramework.Json
             public const string OffsetMinName = "offsetmin";
             public const string OffsetMaxName = "offsetmax";
         
-            public static readonly Vector2Int OffsetMin = new Vector2Int(0, 0);
-            public static readonly Vector2Int OffsetMax = new Vector2Int(0, 0);
+            public static readonly Vector2Short OffsetMin = new Vector2Short(0, 0);
+            public static readonly Vector2Short OffsetMax = new Vector2Short(0, 0);
             public const string DefaultOffsetMax = "0 0";
         }
 

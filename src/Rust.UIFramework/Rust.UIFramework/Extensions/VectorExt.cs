@@ -1,4 +1,5 @@
-﻿using Oxide.Plugins;
+﻿using Oxide.Ext.UiFramework.Offsets;
+using Oxide.Plugins;
 using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Extensions
@@ -9,6 +10,7 @@ namespace Oxide.Ext.UiFramework.Extensions
 
         private const short PositionRounder = 10000;
         private static readonly Hash<short, string> PositionCache = new Hash<short, string>();
+        private static readonly Hash<short, string> OffsetCache = new Hash<short, string>();
 
         static VectorExt()
         {
@@ -20,12 +22,26 @@ namespace Oxide.Ext.UiFramework.Extensions
         
         public static string ToString(Vector2 pos)
         {
-            return string.Concat(PositionCache[(short)(pos.x * PositionRounder)], " ", PositionCache[(short)(pos.y * PositionRounder)]);;
+            return string.Concat(PositionCache[(short)(pos.x * PositionRounder)], " ", PositionCache[(short)(pos.y * PositionRounder)]);
         }
         
-        public static string ToString(Vector2Int pos)
+        public static string ToString(Vector2Short pos)
         {
-            return string.Concat(pos.x.ToString(), " ", pos.y.ToString());
+            string x;
+            string y;
+            if (!OffsetCache.TryGetValue(pos.X, out x))
+            {
+                x = pos.X.ToString();
+                OffsetCache[pos.X] = x;
+            }
+            
+            if (!OffsetCache.TryGetValue(pos.Y, out y))
+            {
+                y = pos.Y.ToString();
+                OffsetCache[pos.Y] = y;
+            }
+            
+            return string.Concat(x, " ", y);
         }
     }
 }

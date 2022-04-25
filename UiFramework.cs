@@ -1259,9 +1259,9 @@ namespace Oxide.Plugins
             
             static EnumExt()
             {
-                foreach (T anchor in Enum.GetValues(typeof(T)).Cast<T>())
+                foreach (T value in Enum.GetValues(typeof(T)).Cast<T>())
                 {
-                    CachedStrings[anchor] = anchor.ToString();
+                    CachedStrings[value] = value.ToString();
                 }
             }
             
@@ -1279,6 +1279,7 @@ namespace Oxide.Plugins
             
             private const short PositionRounder = 10000;
             private static readonly Hash<short, string> PositionCache = new Hash<short, string>();
+            private static readonly Hash<short, string> OffsetCache = new Hash<short, string>();
             
             static VectorExt()
             {
@@ -1290,12 +1291,26 @@ namespace Oxide.Plugins
             
             public static string ToString(Vector2 pos)
             {
-                return string.Concat(PositionCache[(short)(pos.x * PositionRounder)], " ", PositionCache[(short)(pos.y * PositionRounder)]);;
+                return string.Concat(PositionCache[(short)(pos.x * PositionRounder)], " ", PositionCache[(short)(pos.y * PositionRounder)]);
             }
             
-            public static string ToString(Vector2Int pos)
+            public static string ToString(Vector2Short pos)
             {
-                return string.Concat(pos.x.ToString(), " ", pos.y.ToString());
+                string x;
+                string y;
+                if (!OffsetCache.TryGetValue(pos.X, out x))
+                {
+                    x = pos.X.ToString();
+                    OffsetCache[pos.X] = x;
+                }
+                
+                if (!OffsetCache.TryGetValue(pos.Y, out y))
+                {
+                    y = pos.Y.ToString();
+                    OffsetCache[pos.Y] = y;
+                }
+                
+                return string.Concat(x, " ", y);
             }
         }
         #endregion
@@ -1360,7 +1375,7 @@ namespace Oxide.Plugins
                 }
             }
             
-            public static void AddField(JsonTextWriter writer, string name, Vector2Int value, Vector2Int defaultValue, string valueString)
+            public static void AddField(JsonTextWriter writer, string name, Vector2Short value, Vector2Short defaultValue, string valueString)
             {
                 if (value != defaultValue)
                 {
@@ -1480,8 +1495,8 @@ namespace Oxide.Plugins
                 public const string OffsetMinName = "offsetmin";
                 public const string OffsetMaxName = "offsetmax";
                 
-                public static readonly Vector2Int OffsetMin = new Vector2Int(0, 0);
-                public static readonly Vector2Int OffsetMax = new Vector2Int(0, 0);
+                public static readonly Vector2Short OffsetMin = new Vector2Short(0, 0);
+                public static readonly Vector2Short OffsetMax = new Vector2Short(0, 0);
                 public const string DefaultOffsetMax = "0 0";
             }
             
@@ -1573,8 +1588,8 @@ namespace Oxide.Plugins
             public int YMin;
             public int XMax;
             public int YMax;
-            private readonly Vector2Int _initialMin;
-            private readonly Vector2Int _initialMax;
+            private readonly Vector2Short _initialMin;
+            private readonly Vector2Short _initialMax;
             
             public MovableUiOffset(int x, int y, int width, int height)
             {
@@ -1582,8 +1597,8 @@ namespace Oxide.Plugins
                 YMin = y;
                 XMax = x + width;
                 YMax = y + height;
-                _initialMin = new Vector2Int(XMin, YMin);
-                _initialMax = new Vector2Int(XMax, YMax);
+                _initialMin = new Vector2Short(XMin, YMin);
+                _initialMax = new Vector2Short(XMax, YMax);
             }
             
             public void MoveX(int pixels)
@@ -1620,10 +1635,10 @@ namespace Oxide.Plugins
             
             public void Reset()
             {
-                XMin = _initialMin.x;
-                YMin = _initialMin.y;
-                XMax = _initialMax.x;
-                YMax = _initialMax.y;
+                XMin = _initialMin.X;
+                YMin = _initialMin.Y;
+                XMax = _initialMax.X;
+                YMax = _initialMax.Y;
             }
         }
         #endregion
@@ -1631,12 +1646,12 @@ namespace Oxide.Plugins
         #region Offsets\Offset.cs
         public struct Offset
         {
-            public Vector2Int Min;
-            public Vector2Int Max;
+            public Vector2Short Min;
+            public Vector2Short Max;
             public readonly string MinString;
             public readonly string MaxString;
             
-            public Offset(Vector2Int min, Vector2Int max)
+            public Offset(Vector2Short min, Vector2Short max)
             {
                 Min = min;
                 Max = max;
@@ -1644,7 +1659,7 @@ namespace Oxide.Plugins
                 MaxString = VectorExt.ToString(Max);
             }
             
-            public Offset(int xMin, int yMin, int xMax, int yMax) : this(new Vector2Int(xMin, yMin), new Vector2Int(xMax, yMax))
+            public Offset(int xMin, int yMin, int xMax, int yMax) : this(new Vector2Short(xMin, yMin), new Vector2Short(xMax, yMax))
             {
                 
             }
@@ -1656,7 +1671,7 @@ namespace Oxide.Plugins
         {
             private readonly Offset _offset;
             
-            public StaticUiOffset(Vector2Int min, Vector2Int max)
+            public StaticUiOffset(Vector2Short min, Vector2Short max)
             {
                 _offset = new Offset(min, max);
             }
@@ -1678,7 +1693,7 @@ namespace Oxide.Plugins
                     throw new ArgumentOutOfRangeException(nameof(height), "height cannot be less than 0");
                 }
                 
-                _offset = new Offset(new Vector2Int(x, y), new Vector2Int( x + width, y + height));
+                _offset = new Offset(new Vector2Short(x, y), new Vector2Short( x + width, y + height));
             }
             
             public override Offset ToOffset()
@@ -1692,9 +1707,45 @@ namespace Oxide.Plugins
         public abstract class UiOffset
         {
             public static readonly UiOffset DefaultOffset = new StaticUiOffset(0, 0, 0, 0);
-            public static readonly Offset Default = new Offset(new Vector2Int(0, 0), new Vector2Int(0, 0));
+            public static readonly Offset Default = new Offset(new Vector2Short(0, 0), new Vector2Short(0, 0));
             
             public abstract Offset ToOffset();
+        }
+        #endregion
+
+        #region Offsets\Vector2Short.cs
+        public struct Vector2Short : IEquatable<Vector2Short>
+        {
+            public readonly short X;
+            public readonly short Y;
+            
+            public Vector2Short(short x, short y)
+            {
+                X = x;
+                Y = y;
+            }
+            
+            public Vector2Short(int x, int y) : this((short)x, (short)y) { }
+            
+            public bool Equals(Vector2Short other)
+            {
+                return X == other.X && Y == other.Y;
+            }
+            
+            public override bool Equals(object obj)
+            {
+                if (ReferenceEquals(null, obj)) return false;
+                return obj is Vector2Short && Equals((Vector2Short)obj);
+            }
+            
+            public override int GetHashCode()
+            {
+                return (int)X | (Y << 16);
+            }
+            
+            public static bool operator ==(Vector2Short lhs, Vector2Short rhs) => lhs.X == rhs.X && lhs.Y == rhs.Y;
+            
+            public static bool operator !=(Vector2Short lhs, Vector2Short rhs) => !(lhs == rhs);
         }
         #endregion
 

@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace Oxide.Ext.UiFramework.Offsets
+﻿namespace Oxide.Ext.UiFramework.Offsets
 {
     public class MovableUiOffset : UiOffset
     {
@@ -8,8 +6,8 @@ namespace Oxide.Ext.UiFramework.Offsets
         public int YMin;
         public int XMax;
         public int YMax;
-        private readonly Vector2Int _initialMin;
-        private readonly Vector2Int _initialMax;
+        private readonly Vector2Short _initialMin;
+        private readonly Vector2Short _initialMax;
 
         public MovableUiOffset(int x, int y, int width, int height)
         {
@@ -17,8 +15,8 @@ namespace Oxide.Ext.UiFramework.Offsets
             YMin = y;
             XMax = x + width;
             YMax = y + height;
-            _initialMin = new Vector2Int(XMin, YMin);
-            _initialMax = new Vector2Int(XMax, YMax);
+            _initialMin = new Vector2Short(XMin, YMin);
+            _initialMax = new Vector2Short(XMax, YMax);
         }
 
         public void MoveX(int pixels)
@@ -55,10 +53,10 @@ namespace Oxide.Ext.UiFramework.Offsets
 
         public void Reset()
         {
-            XMin = _initialMin.x;
-            YMin = _initialMin.y;
-            XMax = _initialMax.x;
-            YMax = _initialMax.y;
+            XMin = _initialMin.X;
+            YMin = _initialMin.Y;
+            XMax = _initialMax.X;
+            YMax = _initialMax.Y;
         }
     }
 }

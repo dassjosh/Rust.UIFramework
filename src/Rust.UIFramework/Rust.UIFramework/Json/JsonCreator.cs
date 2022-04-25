@@ -5,6 +5,7 @@ using System.Text;
 using Newtonsoft.Json;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Extensions;
+using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.UiElements;
 using UnityEngine;
@@ -71,7 +72,7 @@ namespace Oxide.Ext.UiFramework.Json
             }
         }
 
-        public static void AddField(JsonTextWriter writer, string name, Vector2Int value, Vector2Int defaultValue, string valueString)
+        public static void AddField(JsonTextWriter writer, string name, Vector2Short value, Vector2Short defaultValue, string valueString)
         {
             if (value != defaultValue)
             {

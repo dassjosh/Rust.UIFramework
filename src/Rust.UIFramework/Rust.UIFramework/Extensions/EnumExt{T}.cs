@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using Oxide.Plugins;
-using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Extensions
 {
@@ -11,9 +10,9 @@ namespace Oxide.Ext.UiFramework.Extensions
 
         static EnumExt()
         {
-            foreach (T anchor in Enum.GetValues(typeof(T)).Cast<T>())
+            foreach (T value in Enum.GetValues(typeof(T)).Cast<T>())
             {
-                CachedStrings[anchor] = anchor.ToString();
+                CachedStrings[value] = value.ToString();
             }
         }
         
