@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
-using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Positions;
 using UnityEngine;
 using Pool = Facepunch.Pool;
@@ -10,14 +9,14 @@ namespace Oxide.Ext.UiFramework.UiElements
 {
     public class UiLabel : BaseUiComponent
     {
-        public TextComponent TextComponent;
+        public TextComponent Text;
         public OutlineComponent Outline;
         public CountdownComponent Countdown;
 
         public static UiLabel Create(string text, int size, UiColor color, UiPosition pos, string font, TextAnchor align = TextAnchor.MiddleCenter)
         {
             UiLabel label = CreateBase<UiLabel>(pos);
-            TextComponent textComp = label.TextComponent;
+            TextComponent textComp = label.Text;
             textComp.Text = text;
             textComp.FontSize = size;
             textComp.Color = color;
@@ -32,13 +31,13 @@ namespace Oxide.Ext.UiFramework.UiElements
             Outline.Color = color;
         }
 
-        public void AddTextOutline(UiColor color, string distance)
+        public void AddTextOutline(UiColor color, Vector2 distance)
         {
             AddTextOutline(color);
             Outline.Distance = distance;
         }
 
-        public void AddTextOutline(UiColor color, string distance, bool useGraphicAlpha)
+        public void AddTextOutline(UiColor color, Vector2 distance, bool useGraphicAlpha)
         {
             AddTextOutline(color, distance);
             Outline.UseGraphicAlpha = useGraphicAlpha;
@@ -53,41 +52,38 @@ namespace Oxide.Ext.UiFramework.UiElements
             Countdown.Command = command;
         }
 
-        public override void WriteComponents(JsonTextWriter writer)
+        protected override void WriteComponents(JsonTextWriter writer)
         {
-            JsonCreator.Add(writer, TextComponent);
-            if (Outline != null)
-            {
-                JsonCreator.Add(writer, Outline);
-            }
-
-            if (Countdown != null)
-            {
-                JsonCreator.Add(writer, Countdown);
-            }
-
+            Text.WriteComponent(writer);
+            Outline?.WriteComponent(writer);
+            Countdown?.WriteComponent(writer);
             base.WriteComponents(writer);
         }
 
         public override void EnterPool()
         {
             base.EnterPool();
-            Pool.Free(ref TextComponent);
+            Pool.Free(ref Text);
             if (Outline != null)
             {
                 Pool.Free(ref Outline);
+            }
+            
+            if (Countdown != null)
+            {
+                Pool.Free(ref Countdown);
             }
         }
 
         public override void LeavePool()
         {
             base.LeavePool();
-            TextComponent = Pool.Get<TextComponent>();
+            Text = Pool.Get<TextComponent>();
         }
 
         public override void SetFadeIn(float duration)
         {
-            TextComponent.FadeIn = duration;
+            Text.FadeIn = duration;
         }
     }
 }

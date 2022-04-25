@@ -127,9 +127,7 @@ namespace Oxide.Ext.UiFramework.Builder
         {
             _sb.Length = Root.Name.Length;
             _sb.Insert(Root.Name.Length, _components.Count.ToString());
-            //_sb.Append(_components.Count.ToString());
             return _sb.ToString();
-            //return string.Concat(Root.Name, "_", _components.Count.ToString());
         }
 
         public UiPanel Section(BaseUiComponent parent, UiPosition pos)

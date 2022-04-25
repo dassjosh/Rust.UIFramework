@@ -103,6 +103,9 @@
         <Reference Include="Oxide.Core, Version=2.0.3999.0, Culture=neutral, PublicKeyToken=null">
           <HintPath>..\References\Oxide.Core.dll</HintPath>
         </Reference>
+        <Reference Include="Oxide.CSharp">
+          <HintPath>..\References\Oxide.CSharp.dll</HintPath>
+        </Reference>
         <Reference Include="Oxide.Rust, Version=2.0.5297.0, Culture=neutral, PublicKeyToken=null">
           <HintPath>..\References\Oxide.Rust.dll</HintPath>
         </Reference>
@@ -273,6 +276,7 @@
         <Compile Include="Benchmarks.cs" />
         <Compile Include="Program.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
+        <Compile Include="PositionBenchmarks.cs" />
     </ItemGroup>
     <ItemGroup>
       <None Include="App.config" />

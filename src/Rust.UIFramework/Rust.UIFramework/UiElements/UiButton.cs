@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
-using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Positions;
 using Pool = Facepunch.Pool;
 
@@ -27,9 +26,9 @@ namespace Oxide.Ext.UiFramework.UiElements
             return button;
         }
 
-        public override void WriteComponents(JsonTextWriter writer)
+        protected override void WriteComponents(JsonTextWriter writer)
         {
-            JsonCreator.Add(writer, Button);
+            Button.WriteComponent(writer);
             base.WriteComponents(writer);
         }
 

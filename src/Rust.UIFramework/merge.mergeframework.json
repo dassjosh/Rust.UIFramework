@@ -13,7 +13,7 @@
     "Reference Definitions": [],
     "Define Definitions": [],
     "Ignore Paths": [
-      "./Rust.UIFramework/Extensions"
+      "./Rust.UIFramework/OxideExtension"
     ],
     "Ignore Files": [
       "./IgnoreThisFile.cs"

@@ -1,4 +1,6 @@
-﻿using BenchmarkDotNet.Running;
+﻿using System.Threading;
+using BenchmarkDotNet.Configs;
+using BenchmarkDotNet.Running;
 
 namespace Rust.UiFramework.Benchmarks
 {
@@ -6,17 +8,20 @@ namespace Rust.UiFramework.Benchmarks
     {
         public static void Main(string[] args)
         {
+            ManualConfig config = ManualConfig
+                                  .Create(DefaultConfig.Instance)
+                                  .WithOptions(ConfigOptions.DisableOptimizationsValidator);
 #if DEBUG
             Benchmarks benchmarks = new Benchmarks();
             benchmarks.Setup();
-
-            //while (true)
-            //{
+            
+            while (true)
+            {
                 benchmarks.FrameworkBenchmark_WithoutJson();
-                benchmarks.IterationCleanup();
-            //}
+            }
 #else
-            BenchmarkRunner.Run<Benchmarks>();
+            BenchmarkRunner.Run<Benchmarks>(config);
+            //BenchmarkRunner.Run<PositionBenchmarks>(config);
 #endif
         }
     }

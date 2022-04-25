@@ -14,18 +14,16 @@ namespace Rust.UiFramework.Benchmarks
     [SimpleJob(1, 15, 30, Invocations)]
     public class Benchmarks
     {
-        private const int Invocations = 192;
-        private const int Iterations = 1000;
+        private const int Invocations = 2500;
+        private const int Iterations = 100;
         private readonly List<string> _oxideMins = new List<string>();
         private readonly List<string> _oxideMaxs = new List<string>();
         private readonly List<UiPosition> _frameworkPos = new List<UiPosition>();
-        private UiBuilder _builder;
-        private Random _random;
+        private readonly Random _random = new Random();
         
         [GlobalSetup]
         public void Setup()
         {
-            _random = new Random();
             for (int i = 0; i < Iterations / 10; i++)
             {
                 float xMin = (float)_random.NextDouble();
@@ -45,12 +43,6 @@ namespace Rust.UiFramework.Benchmarks
             Facepunch.Pool.FillBuffer<ImageComponent>(bufferSize);
             Facepunch.Pool.FillBuffer<List<BaseUiComponent>>(bufferSize);
             UiColor _ = UiColors.Black;
-        }
-
-        [IterationCleanup]
-        public void IterationCleanup()
-        {
-            _builder?.Dispose();
         }
 
         private CuiElementContainer GetOxideContainer()
@@ -106,7 +98,9 @@ namespace Rust.UiFramework.Benchmarks
         [Benchmark]
         public UiBuilder FrameworkBenchmark_WithoutJson()
         {
-            return GetFrameworkBuilder();
+            UiBuilder builder = GetFrameworkBuilder();
+            builder.Dispose();
+            return builder;
         }
         
         [Benchmark(Baseline = true)]
@@ -118,31 +112,39 @@ namespace Rust.UiFramework.Benchmarks
         [Benchmark]
         public string FrameworkBenchmark_WithJson()
         {
-            return GetFrameworkBuilder().ToJson();
+            UiBuilder builder = GetFrameworkBuilder();
+            string json = builder.ToJson();
+            builder.Dispose();
+            return json;
         }
         
-        [Benchmark]
+        //[Benchmark]
         public CuiElementContainer OxideBenchmark_RandomPos_WithoutJson()
         {
             return GetRandomOxideContainer();
         }
         
-        [Benchmark]
+        //[Benchmark]
         public UiBuilder FrameworkBenchmark_RandomPos_WithoutJson()
         {
-            return GetRandomPositionBuilder();
+            UiBuilder builder = GetRandomPositionBuilder();
+            builder.Dispose();
+            return builder;
         }
         
-        [Benchmark]
+        //[Benchmark]
         public string OxideBenchmark_RandomPos_WithJson()
         {
             return GetRandomOxideContainer().ToJson();
         }
 
-        [Benchmark]
+        //[Benchmark]
         public string FrameworkBenchmark_RandomPos_WithJson()
         {
-            return GetRandomPositionBuilder().ToJson();
+            UiBuilder builder = GetRandomPositionBuilder();
+            string json = builder.ToJson();
+            builder.Dispose();
+            return json;
         }
 
         private UiBuilder GetFrameworkBuilder()
@@ -154,25 +156,28 @@ namespace Rust.UiFramework.Benchmarks
                 builder.Panel(builder.Root, UiColors.Black, _frameworkPos[i % 10]);
             }
 
-            _builder = builder;
+            //_builder = builder;
 
             return builder;
         }
         
         private UiBuilder GetRandomPositionBuilder()
         {
-            MovablePosition move = new MovablePosition(0, 0, 0, 0);
-            
-            UiBuilder builder = new UiBuilder(UiColors.Clear, UiPosition.FullPosition, "123");
-            for (int i = 0; i < Iterations; i++)
-            {
-                move.Set((float)_random.NextDouble(),(float)_random.NextDouble(),(float)_random.NextDouble(),(float)_random.NextDouble());
-                builder.Panel(builder.Root, UiColors.Black, move);
-            }
 
-            _builder = builder;
+                MovablePosition move = new MovablePosition(0, 0, 0, 0);
+    
+                UiBuilder builder = new UiBuilder(UiColors.Clear, UiPosition.FullPosition, "123");
+                for (int i = 0; i < Iterations; i++)
+                {
+                
+                    //move.Set((float)_random.NextDouble(),(float)_random.NextDouble(),(float)_random.NextDouble(),(float)_random.NextDouble());
+          
+                    builder.Panel(builder.Root, UiColors.Black, move);
+       
+                }
 
-            return builder;
+                return builder;
+                
         }
     }
 }

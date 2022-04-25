@@ -1,25 +1,22 @@
 ﻿using Oxide.Ext.UiFramework.Colors;
-
-// ReSharper disable ConvertToConstant.Global
+using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Json
 {
     public static class JsonDefaults
     {
         //Position & Offset
-        public const string DefaultFloatMin = "0.0 0.0";
-        public const string DefaultFloatMax = "1.0 1.0";
-        public const string DefaultIntMin = "0 0";
-        public const string DefaultIntMax = "1 1";
         public const string RectTransformName = "RectTransform";
         public const string AnchorMinName = "anchormin";
         public const string AnchorMaxName = "anchormax";
         public const string OffsetMinName = "offsetmin";
         public const string OffsetMaxName = "offsetmax";
-        public static readonly string[] DefaultMinValues = { DefaultFloatMin, DefaultIntMin };
-        public static readonly string[] DefaultMaxValues = { DefaultFloatMax, DefaultIntMax };
-        public const string OffsetMaxValue = "0 0";
-        
+        public static readonly Vector2 AnchorMin = new Vector2(0, 0);
+        public static readonly Vector2 AnchorMax = new Vector2(1, 1);
+        public static readonly Vector2Int OffsetMin = new Vector2Int(0, 0);
+        public static readonly Vector2Int OffsetMax = new Vector2Int(0, 0);
+        public const string DefaultOffsetMax = "0 0";
+
         //Text
         public const int FontSizeValue = 14;
         public const string FontValue = "RobotoCondensed-Bold.ttf";
@@ -51,7 +48,7 @@ namespace Oxide.Ext.UiFramework.Json
         public const string DistanceName = "distance";
         public const string UseGraphicAlphaName = "useGraphicAlpha";
         public const string UseGraphicAlphaValue = "True";
-        public const string DistanceValue = "1.0 -1.0";
+        public static readonly Vector2 DistanceValue = new Vector2(1.0f, -1.0f);
         
         //Button
         public const string CommandName = "command";
@@ -65,7 +62,7 @@ namespace Oxide.Ext.UiFramework.Json
         
         //Image
         public const string PNGName = "png";
-        public const string URLName = "url";
+        public const string UrlName = "url";
         
         //Item Icon
         public const string ItemIdName = "itemid";

@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Positions
 {
@@ -8,7 +9,7 @@ namespace Oxide.Ext.UiFramework.Positions
         public float YMin;
         public float XMax;
         public float YMax;
-        private readonly PositionState _state;
+        private readonly Vector4 _state;
 
         public MovablePosition(float xMin, float yMin, float xMax, float yMax)
         {
@@ -16,7 +17,7 @@ namespace Oxide.Ext.UiFramework.Positions
             YMin = yMin;
             XMax = xMax;
             YMax = yMax;
-            _state = new PositionState(XMin, YMin, XMax, YMax);
+            _state = new Vector4(XMin, YMin, XMax, YMax);
 #if UiDebug
             ValidatePositions();
 #endif
@@ -33,9 +34,9 @@ namespace Oxide.Ext.UiFramework.Positions
             SetY(yMin, yMax);
         }
         
-        public void SetX(float xPos, float xMax)
+        public void SetX(float xMin, float xMax)
         {
-            XMin = xPos;
+            XMin = xMin;
             XMax = xMax;
 #if UiDebug
             ValidatePositions();
@@ -96,10 +97,10 @@ namespace Oxide.Ext.UiFramework.Positions
 
         public void Reset()
         {
-            XMin = _state.XMin;
-            YMin = _state.YMin;
-            XMax = _state.XMax;
-            YMax = _state.YMax;
+            XMin = _state.x;
+            YMin = _state.y;
+            XMax = _state.z;
+            YMax = _state.w;
         }
 
 #if UiDebug

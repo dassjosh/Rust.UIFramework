@@ -1,7 +1,7 @@
 ﻿using Oxide.Core;
 using Oxide.Core.Extensions;
 
-namespace Oxide.Ext.UiFramework.Extensions
+namespace Oxide.Ext.UiFramework.OxideExtension
 {
     public class UiFrameworkExtension : Extension
     {

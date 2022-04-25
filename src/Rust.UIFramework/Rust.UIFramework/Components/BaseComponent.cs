@@ -1,19 +1,14 @@
-﻿using Oxide.Ext.UiFramework.Colors;
+﻿using Newtonsoft.Json;
 using Pool = Facepunch.Pool;
 
 namespace Oxide.Ext.UiFramework.Components
 {
-    public class BaseComponent : Pool.IPooled
+    public abstract class BaseComponent : Pool.IPooled
     {
-        public UiColor Color;
+        public virtual void EnterPool() { }
 
-        public virtual void EnterPool()
-        {
-            Color = null;
-        }
+        public virtual void LeavePool() { }
 
-        public virtual void LeavePool()
-        {
-        }
+        public abstract void WriteComponent(JsonTextWriter writer);
     }
 }

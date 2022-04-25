@@ -219,9 +219,7 @@ namespace Oxide.Plugins
             {
                 _sb.Length = Root.Name.Length;
                 _sb.Insert(Root.Name.Length, _components.Count.ToString());
-                //_sb.Append(_components.Count.ToString());
                 return _sb.ToString();
-                //return string.Concat(Root.Name, "_", _components.Count.ToString());
             }
             
             public UiPanel Section(BaseUiComponent parent, UiPosition pos)
@@ -859,29 +857,49 @@ namespace Oxide.Plugins
         }
         #endregion
 
-        #region Components\BaseComponent.cs
-        public class BaseComponent : Pool.IPooled
+        #region Components\BaseColorComponent.cs
+        public class BaseColorComponent : BaseComponent
         {
             public UiColor Color;
             
-            public virtual void EnterPool()
+            public override void WriteComponent(JsonTextWriter writer)
+            {
+                JsonCreator.AddField(writer, JsonDefaults.ColorName, Color, JsonDefaults.ColorValue);
+            }
+            
+            public override void EnterPool()
             {
                 Color = null;
             }
+        }
+        #endregion
+
+        #region Components\BaseComponent.cs
+        public abstract class BaseComponent : Pool.IPooled
+        {
+            public virtual void EnterPool() { }
             
-            public virtual void LeavePool()
-            {
-            }
+            public virtual void LeavePool() { }
+            
+            public abstract void WriteComponent(JsonTextWriter writer);
         }
         #endregion
 
         #region Components\BaseImageComponent.cs
         public class BaseImageComponent : FadeInComponent
         {
-            public const string Type = "UnityEngine.UI.Image";
+            private const string Type = "UnityEngine.UI.Image";
             
             public string Sprite;
             public string Material;
+            
+            public override void WriteComponent(JsonTextWriter writer)
+            {
+                JsonCreator.AddFieldRaw(writer, JsonDefaults.ComponentTypeName, Type);
+                JsonCreator.AddField(writer, JsonDefaults.SpriteName, Sprite, JsonDefaults.SpriteValue);
+                JsonCreator.AddField(writer, JsonDefaults.MaterialName, Material, JsonDefaults.MaterialValue);
+                base.WriteComponent(writer);
+            }
             
             public override void EnterPool()
             {
@@ -900,6 +918,15 @@ namespace Oxide.Plugins
             public TextAnchor Align;
             public string Text;
             
+            public override void WriteComponent(JsonTextWriter writer)
+            {
+                JsonCreator.AddTextField(writer, JsonDefaults.TextName, Text);
+                JsonCreator.AddField(writer, JsonDefaults.FontSizeName, FontSize, JsonDefaults.FontSizeValue);
+                JsonCreator.AddField(writer, JsonDefaults.FontName, Font, JsonDefaults.FontValue);
+                JsonCreator.AddField(writer, JsonDefaults.AlignName, Align);
+                base.WriteComponent(writer);
+            }
+            
             public override void EnterPool()
             {
                 base.EnterPool();
@@ -914,12 +941,24 @@ namespace Oxide.Plugins
         #region Components\ButtonComponent.cs
         public class ButtonComponent : FadeInComponent
         {
-            public const string Type = "UnityEngine.UI.Button";
+            private const string Type = "UnityEngine.UI.Button";
             
             public string Command;
             public string Close;
             public string Sprite;
             public string Material;
+            
+            public override void WriteComponent(JsonTextWriter writer)
+            {
+                writer.WriteStartObject();
+                JsonCreator.AddFieldRaw(writer, JsonDefaults.ComponentTypeName, Type);
+                JsonCreator.AddField(writer, JsonDefaults.CommandName, Command, JsonDefaults.NullValue);
+                JsonCreator.AddField(writer, JsonDefaults.CloseName, Close, JsonDefaults.NullValue);
+                JsonCreator.AddField(writer, JsonDefaults.SpriteName, Sprite, JsonDefaults.SpriteValue);
+                JsonCreator.AddField(writer, JsonDefaults.MaterialName, Material, JsonDefaults.MaterialValue);
+                base.WriteComponent(writer);
+                writer.WriteEndObject();
+            }
             
             public override void EnterPool()
             {
@@ -935,12 +974,23 @@ namespace Oxide.Plugins
         #region Components\CountdownComponent.cs
         public class CountdownComponent : BaseComponent
         {
-            public const string Type = "Countdown";
+            private const string Type = "Countdown";
             
             public int StartTime;
             public int EndTime;
             public int Step;
             public string Command;
+            
+            public override void WriteComponent(JsonTextWriter writer)
+            {
+                writer.WriteStartObject();
+                JsonCreator.AddFieldRaw(writer, JsonDefaults.ComponentTypeName, Type);
+                JsonCreator.AddField(writer, JsonDefaults.StartTimeName, StartTime, JsonDefaults.StartTimeValue);
+                JsonCreator.AddField(writer, JsonDefaults.EndTimeName, EndTime, JsonDefaults.EndTimeValue);
+                JsonCreator.AddField(writer, JsonDefaults.StepName, Step, JsonDefaults.StepValue);
+                JsonCreator.AddField(writer, JsonDefaults.CountdownCommandName, Command, JsonDefaults.NullValue);
+                writer.WriteEndObject();
+            }
             
             public override void EnterPool()
             {
@@ -953,9 +1003,15 @@ namespace Oxide.Plugins
         #endregion
 
         #region Components\FadeInComponent.cs
-        public class FadeInComponent : BaseComponent
+        public abstract class FadeInComponent : BaseColorComponent
         {
             public float FadeIn;
+            
+            public override void WriteComponent(JsonTextWriter writer)
+            {
+                JsonCreator.AddField(writer, JsonDefaults.FadeInName, FadeIn, JsonDefaults.FadeOutValue);
+                base.WriteComponent(writer);
+            }
             
             public override void EnterPool()
             {
@@ -970,6 +1026,17 @@ namespace Oxide.Plugins
         {
             public string Png;
             
+            public override void WriteComponent(JsonTextWriter writer)
+            {
+                writer.WriteStartObject();
+                if (!string.IsNullOrEmpty(Png))
+                {
+                    JsonCreator.AddFieldRaw(writer, JsonDefaults.PNGName, Png);
+                }
+                base.WriteComponent(writer);
+                writer.WriteEndObject();
+            }
+            
             public override void EnterPool()
             {
                 base.EnterPool();
@@ -981,7 +1048,7 @@ namespace Oxide.Plugins
         #region Components\InputComponent.cs
         public class InputComponent : BaseTextComponent
         {
-            public const string Type = "UnityEngine.UI.InputField";
+            private const string Type = "UnityEngine.UI.InputField";
             
             public int CharsLimit;
             public string Command;
@@ -989,6 +1056,33 @@ namespace Oxide.Plugins
             public bool IsReadyOnly;
             public bool NeedsKeyboard = true;
             public InputField.LineType LineType;
+            
+            public override void WriteComponent(JsonTextWriter writer)
+            {
+                writer.WriteStartObject();
+                JsonCreator.AddFieldRaw(writer, JsonDefaults.ComponentTypeName, InputComponent.Type);
+                JsonCreator.AddField(writer, JsonDefaults.CharacterLimitName, CharsLimit, JsonDefaults.CharacterLimitValue);
+                JsonCreator.AddField(writer, JsonDefaults.CommandName, Command, JsonDefaults.NullValue);
+                JsonCreator.AddField(writer, JsonDefaults.LineTypeName, LineType);
+                
+                if (IsPassword)
+                {
+                    JsonCreator.AddFieldRaw(writer, JsonDefaults.PasswordName, JsonDefaults.PasswordValue);
+                }
+                
+                if (IsReadyOnly)
+                {
+                    JsonCreator.AddFieldRaw(writer, JsonDefaults.ReadOnlyName, JsonDefaults.ReadOnlyValue);
+                }
+                
+                if (NeedsKeyboard)
+                {
+                    JsonCreator.AddFieldRaw(writer, JsonDefaults.InputNeedsKeyboardName, JsonDefaults.InputNeedsKeyboardValue);
+                }
+                
+                base.WriteComponent(writer);
+                writer.WriteEndObject();
+            }
             
             public override void EnterPool()
             {
@@ -1008,6 +1102,15 @@ namespace Oxide.Plugins
             public int ItemId;
             public ulong SkinId;
             
+            public override void WriteComponent(JsonTextWriter writer)
+            {
+                writer.WriteStartObject();
+                JsonCreator.AddFieldRaw(writer, JsonDefaults.ItemIdName, ItemId);
+                JsonCreator.AddField(writer, JsonDefaults.SkinIdName, SkinId, JsonDefaults.DefaultSkinId);
+                base.WriteComponent(writer);
+                writer.WriteEndObject();
+            }
+            
             public override void EnterPool()
             {
                 ItemId = 0;
@@ -1017,17 +1120,31 @@ namespace Oxide.Plugins
         #endregion
 
         #region Components\OutlineComponent.cs
-        public class OutlineComponent : BaseComponent
+        public class OutlineComponent : BaseColorComponent
         {
-            public const string Type = "UnityEngine.UI.Outline";
+            private const string Type = "UnityEngine.UI.Outline";
             
-            public string Distance;
+            public Vector2 Distance;
             public bool UseGraphicAlpha;
+            
+            public override void WriteComponent(JsonTextWriter writer)
+            {
+                writer.WriteStartObject();
+                JsonCreator.AddFieldRaw(writer, JsonDefaults.ComponentTypeName, Type);
+                JsonCreator.AddField(writer, JsonDefaults.DistanceName, Distance, JsonDefaults.DistanceValue, VectorExt.ToString(Distance));
+                if (UseGraphicAlpha)
+                {
+                    JsonCreator.AddFieldRaw(writer, JsonDefaults.UseGraphicAlphaName, JsonDefaults.UseGraphicAlphaValue);
+                }
+                
+                base.WriteComponent(writer);
+                writer.WriteEndObject();
+            }
             
             public override void EnterPool()
             {
                 base.EnterPool();
-                Distance = null;
+                Distance = JsonDefaults.DistanceValue;
                 UseGraphicAlpha = false;
             }
         }
@@ -1036,10 +1153,25 @@ namespace Oxide.Plugins
         #region Components\RawImageComponent.cs
         public class RawImageComponent : FadeInComponent
         {
-            public const string Type = "UnityEngine.UI.RawImage";
+            private const string Type = "UnityEngine.UI.RawImage";
             
             public string Sprite;
             public string Url;
+            
+            public override void WriteComponent(JsonTextWriter writer)
+            {
+                writer.WriteStartObject();
+                JsonCreator.AddFieldRaw(writer, JsonDefaults.ComponentTypeName, Type);
+                JsonCreator.AddField(writer, JsonDefaults.SpriteName, Sprite, JsonDefaults.SpriteImageValue);
+                if (!string.IsNullOrEmpty(Url))
+                {
+                    JsonCreator.AddField(writer, JsonDefaults.UrlName, Url, JsonDefaults.EmptyString);
+                }
+                
+                base.WriteComponent(writer);
+                
+                writer.WriteEndObject();
+            }
             
             public override void EnterPool()
             {
@@ -1053,7 +1185,15 @@ namespace Oxide.Plugins
         #region Components\TextComponent.cs
         public class TextComponent : BaseTextComponent
         {
-            public const string Type = "UnityEngine.UI.Text";
+            private const string Type = "UnityEngine.UI.Text";
+            
+            public override void WriteComponent(JsonTextWriter writer)
+            {
+                writer.WriteStartObject();
+                JsonCreator.AddFieldRaw(writer, JsonDefaults.ComponentTypeName, Type);
+                base.WriteComponent(writer);
+                writer.WriteEndObject();
+            }
         }
         #endregion
 
@@ -1114,11 +1254,39 @@ namespace Oxide.Plugins
         }
         #endregion
 
+        #region Extensions\VectorExt.cs
+        public static class VectorExt
+        {
+            private const string Format = "0.####";
+            
+            private const short PositionRounder = 10000;
+            private static readonly Hash<short, string> PositionCache = new Hash<short, string>();
+            
+            static VectorExt()
+            {
+                float pos = 0;
+                for (int i = 0; i <= 10000; i++)
+                {
+                    PositionCache[(short)(pos * PositionRounder)] = pos.ToString(Format);
+                    pos += 0.0001f;
+                }
+            }
+            
+            public static string ToString(Vector2 pos)
+            {
+                return string.Concat(PositionCache[(short)(pos.x * PositionRounder)], " ", PositionCache[(short)(pos.y * PositionRounder)]);;
+            }
+            
+            public static string ToString(Vector2Int pos)
+            {
+                return string.Concat(pos.x.ToString(), " ", pos.y.ToString());
+            }
+        }
+        #endregion
+
         #region Json\JsonCreator.cs
         public static class JsonCreator
         {
-            private static readonly StringBuilder _sb = new StringBuilder();
-            
             public static string CreateJson(List<BaseUiComponent> components, bool needsMouse, bool needsKeyboard)
             {
                 StringBuilder sb = UiFrameworkPool.GetStringBuilder();
@@ -1126,12 +1294,11 @@ namespace Oxide.Plugins
                 JsonTextWriter writer = new JsonTextWriter(sw);
                 
                 writer.WriteStartArray();
-                
-                WriteRootComponent(components[0], writer, needsMouse, needsKeyboard);
+                components[0].WriteRootComponent(writer, needsKeyboard, needsKeyboard);
                 
                 for (int index = 1; index < components.Count; index++)
                 {
-                    WriteComponent(components[index], writer);
+                    components[index].WriteComponent(writer);
                 }
                 
                 writer.WriteEndArray();
@@ -1139,45 +1306,6 @@ namespace Oxide.Plugins
                 string json = sw.ToString();
                 UiFrameworkPool.FreeStringBuilder(ref sb);
                 return json;
-            }
-            
-            private static void WriteRootComponent(BaseUiComponent component, JsonTextWriter writer, bool needsMouse, bool needsKeyboard)
-            {
-                writer.WriteStartObject();
-                AddFieldRaw(writer, JsonDefaults.ComponentName, component.Name);
-                AddFieldRaw(writer, JsonDefaults.ParentName, component.Parent);
-                AddField(writer, JsonDefaults.FadeOutName, component.FadeOut, JsonDefaults.FadeOutValue);
-                
-                writer.WritePropertyName("components");
-                writer.WriteStartArray();
-                component.WriteComponents(writer);
-                
-                if (needsMouse)
-                {
-                    AddMouse(writer);
-                }
-                
-                if (needsKeyboard)
-                {
-                    AddKeyboard(writer);
-                }
-                
-                writer.WriteEndArray();
-                writer.WriteEndObject();
-            }
-            
-            private static void WriteComponent(BaseUiComponent component, JsonTextWriter writer)
-            {
-                writer.WriteStartObject();
-                AddFieldRaw(writer, JsonDefaults.ComponentName, component.Name);
-                AddFieldRaw(writer, JsonDefaults.ParentName, component.Parent);
-                AddField(writer, JsonDefaults.FadeOutName, component.FadeOut, JsonDefaults.FadeOutValue);
-                
-                writer.WritePropertyName("components");
-                writer.WriteStartArray();
-                component.WriteComponents(writer);
-                writer.WriteEndArray();
-                writer.WriteEndObject();
             }
             
             public static void AddFieldRaw(JsonTextWriter writer, string name, string value)
@@ -1204,6 +1332,24 @@ namespace Oxide.Plugins
                 {
                     writer.WritePropertyName(name);
                     writer.WriteValue(value);
+                }
+            }
+            
+            public static void AddField(JsonTextWriter writer, string name, Vector2 value, Vector2 defaultValue, string valueString)
+            {
+                if (value != defaultValue)
+                {
+                    writer.WritePropertyName(name);
+                    writer.WriteValue(valueString);
+                }
+            }
+            
+            public static void AddField(JsonTextWriter writer, string name, Vector2Int value, Vector2Int defaultValue, string valueString)
+            {
+                if (value != defaultValue)
+                {
+                    writer.WritePropertyName(name);
+                    writer.WriteValue(valueString);
                 }
             }
             
@@ -1235,20 +1381,12 @@ namespace Oxide.Plugins
                 
                 //We need to write it this way so \n type characters are sent over and processed correctly
                 writer.WritePropertyName(name);
-                _sb.Clear();
-                _sb.Append(UiConstants.Json.QuoteChar);
-                _sb.Append(value);
-                _sb.Append(UiConstants.Json.QuoteChar);
-                writer.WriteRawValue(_sb.ToString());
-            }
-            
-            public static void AddMultiField(JsonTextWriter writer, string name, string value, string[] defaultValues)
-            {
-                if (value != null && !defaultValues.Contains(value))
-                {
-                    writer.WritePropertyName(name);
-                    writer.WriteValue(value);
-                }
+                StringBuilder sb = UiFrameworkPool.GetStringBuilder();
+                sb.Append(UiConstants.Json.QuoteChar);
+                sb.Append(value);
+                sb.Append(UiConstants.Json.QuoteChar);
+                UiFrameworkPool.FreeStringBuilder(ref sb);
+                writer.WriteRawValue(sb.ToString());
             }
             
             public static void AddField(JsonTextWriter writer, string name, int value, int defaultValue)
@@ -1262,7 +1400,7 @@ namespace Oxide.Plugins
             
             public static void AddField(JsonTextWriter writer, string name, float value, float defaultValue)
             {
-                if (value != defaultValue)
+                if (Math.Abs(value - defaultValue) > 0.0001)
                 {
                     writer.WritePropertyName(name);
                     writer.WriteValue(value);
@@ -1278,93 +1416,6 @@ namespace Oxide.Plugins
                 }
             }
             
-            public static void Add(JsonTextWriter writer, Position position, Offset? offset)
-            {
-                writer.WriteStartObject();
-                AddFieldRaw(writer, JsonDefaults.ComponentTypeName, JsonDefaults.RectTransformName);
-                if (!position.IsDefaultMin)
-                {
-                    AddFieldRaw(writer, JsonDefaults.AnchorMinName, position.Min);
-                }
-                
-                if (!position.IsDefaultMax)
-                {
-                    AddFieldRaw(writer, JsonDefaults.AnchorMaxName, position.Max);
-                }
-                
-                if (offset.HasValue)
-                {
-                    string min = offset.Value.Min;
-                    string max = offset.Value.Max;
-                    AddMultiField(writer, JsonDefaults.OffsetMinName, min, JsonDefaults.DefaultMinValues);
-                    AddMultiField(writer, JsonDefaults.OffsetMaxName, max, JsonDefaults.DefaultMaxValues);
-                }
-                else
-                {
-                    //Fixes issue with UI going outside of bounds
-                    AddFieldRaw(writer, JsonDefaults.OffsetMaxName, JsonDefaults.OffsetMaxValue);
-                }
-                
-                writer.WriteEndObject();
-            }
-            
-            public static void Add(JsonTextWriter writer, ButtonComponent button)
-            {
-                writer.WriteStartObject();
-                AddFieldRaw(writer, JsonDefaults.ComponentTypeName, ButtonComponent.Type);
-                AddField(writer, JsonDefaults.CommandName, button.Command, JsonDefaults.NullValue);
-                AddField(writer, JsonDefaults.CloseName, button.Close, JsonDefaults.NullValue);
-                AddField(writer, JsonDefaults.ColorName, button.Color, JsonDefaults.ColorValue);
-                AddField(writer, JsonDefaults.SpriteName, button.Sprite, JsonDefaults.SpriteValue);
-                AddField(writer, JsonDefaults.FadeInName, button.FadeIn, JsonDefaults.FadeOutValue);
-                writer.WriteEndObject();
-            }
-            
-            public static void Add(JsonTextWriter writer, RawImageComponent image)
-            {
-                writer.WriteStartObject();
-                AddFieldRaw(writer, JsonDefaults.ComponentTypeName, RawImageComponent.Type);
-                AddField(writer, JsonDefaults.ColorName, image.Color, JsonDefaults.ColorValue);
-                AddField(writer, JsonDefaults.SpriteName, image.Sprite, JsonDefaults.SpriteImageValue);
-                AddField(writer, JsonDefaults.FadeInName, image.FadeIn, JsonDefaults.FadeOutValue);
-                if (!string.IsNullOrEmpty(image.Url))
-                {
-                    AddField(writer, JsonDefaults.URLName, image.Url, JsonDefaults.EmptyString);
-                }
-                
-                writer.WriteEndObject();
-            }
-            
-            public static void Add(JsonTextWriter writer, ImageComponent image)
-            {
-                writer.WriteStartObject();
-                AddFieldRaw(writer, JsonDefaults.ComponentTypeName, BaseImageComponent.Type);
-                AddField(writer, JsonDefaults.ColorName, image.Color, JsonDefaults.ColorValue);
-                AddField(writer, JsonDefaults.SpriteName, image.Sprite, JsonDefaults.SpriteValue);
-                AddField(writer, JsonDefaults.MaterialName, image.Material, JsonDefaults.MaterialValue);
-                AddField(writer, JsonDefaults.FadeInName, image.FadeIn, JsonDefaults.FadeOutValue);
-                
-                if (!string.IsNullOrEmpty(image.Png))
-                {
-                    AddField(writer, JsonDefaults.PNGName, image.Png, JsonDefaults.EmptyString);
-                }
-                
-                writer.WriteEndObject();
-            }
-            
-            public static void Add(JsonTextWriter writer, ItemIconComponent icon)
-            {
-                writer.WriteStartObject();
-                AddFieldRaw(writer, JsonDefaults.ComponentTypeName, BaseImageComponent.Type);
-                AddField(writer, JsonDefaults.ColorName, icon.Color, JsonDefaults.ColorValue);
-                AddField(writer, JsonDefaults.SpriteName, icon.Sprite, JsonDefaults.SpriteValue);
-                AddField(writer, JsonDefaults.MaterialName, icon.Material, JsonDefaults.MaterialValue);
-                AddField(writer, JsonDefaults.FadeInName, icon.FadeIn, JsonDefaults.FadeOutValue);
-                AddFieldRaw(writer, JsonDefaults.ItemIdName, icon.ItemId);
-                AddField(writer, JsonDefaults.SkinIdName, icon.SkinId, JsonDefaults.DefaultSkinId);
-                writer.WriteEndObject();
-            }
-            
             public static void AddMouse(JsonTextWriter writer)
             {
                 writer.WriteStartObject();
@@ -1378,76 +1429,6 @@ namespace Oxide.Plugins
                 AddFieldRaw(writer, JsonDefaults.ComponentTypeName, JsonDefaults.NeedsKeyboardValue);
                 writer.WriteEndObject();
             }
-            
-            public static void Add(JsonTextWriter writer, OutlineComponent outline)
-            {
-                writer.WriteStartObject();
-                AddFieldRaw(writer, JsonDefaults.ComponentTypeName, OutlineComponent.Type);
-                AddField(writer, JsonDefaults.ColorName, outline.Color, JsonDefaults.ColorValue);
-                AddField(writer, JsonDefaults.DistanceName, outline.Distance, JsonDefaults.DistanceValue);
-                if (outline.UseGraphicAlpha)
-                {
-                    AddFieldRaw(writer, JsonDefaults.UseGraphicAlphaName, JsonDefaults.UseGraphicAlphaValue);
-                }
-                
-                writer.WriteEndObject();
-            }
-            
-            public static void Add(JsonTextWriter writer, TextComponent text)
-            {
-                writer.WriteStartObject();
-                AddFieldRaw(writer, JsonDefaults.ComponentTypeName, TextComponent.Type);
-                AddTextField(writer, JsonDefaults.TextName, text.Text);
-                AddField(writer, JsonDefaults.FontSizeName, text.FontSize, JsonDefaults.FontSizeValue);
-                AddField(writer, JsonDefaults.FontName, text.Font, JsonDefaults.FontValue);
-                AddField(writer, JsonDefaults.ColorName, text.Color, JsonDefaults.ColorValue);
-                AddField(writer, JsonDefaults.AlignName, text.Align);
-                AddField(writer, JsonDefaults.FadeInName, text.FadeIn, JsonDefaults.FadeOutValue);
-                writer.WriteEndObject();
-            }
-            
-            public static void Add(JsonTextWriter writer, InputComponent input)
-            {
-                writer.WriteStartObject();
-                AddFieldRaw(writer, JsonDefaults.ComponentTypeName, InputComponent.Type);
-                AddTextField(writer, JsonDefaults.TextName, input.Text);
-                AddField(writer, JsonDefaults.FontSizeName, input.FontSize, JsonDefaults.FontSizeValue);
-                AddField(writer, JsonDefaults.FontName, input.Font, JsonDefaults.FontValue);
-                AddField(writer, JsonDefaults.AlignName, input.Align);
-                AddField(writer, JsonDefaults.ColorName, input.Color, JsonDefaults.ColorValue);
-                AddField(writer, JsonDefaults.CharacterLimitName, input.CharsLimit, JsonDefaults.CharacterLimitValue);
-                AddField(writer, JsonDefaults.CommandName, input.Command, JsonDefaults.NullValue);
-                AddField(writer, JsonDefaults.FadeInName, input.FadeIn, JsonDefaults.FadeOutValue);
-                AddField(writer, JsonDefaults.LineTypeName, input.LineType);
-                
-                if (input.IsPassword)
-                {
-                    AddFieldRaw(writer, JsonDefaults.PasswordName, JsonDefaults.PasswordValue);
-                }
-                
-                if (input.IsReadyOnly)
-                {
-                    AddFieldRaw(writer, JsonDefaults.ReadOnlyName, JsonDefaults.ReadOnlyValue);
-                }
-                
-                if (input.NeedsKeyboard)
-                {
-                    AddFieldRaw(writer, JsonDefaults.InputNeedsKeyboardName, JsonDefaults.InputNeedsKeyboardValue);
-                }
-                
-                writer.WriteEndObject();
-            }
-            
-            public static void Add(JsonTextWriter writer, CountdownComponent countdown)
-            {
-                writer.WriteStartObject();
-                AddFieldRaw(writer, JsonDefaults.ComponentTypeName, CountdownComponent.Type);
-                AddField(writer, JsonDefaults.StartTimeName, countdown.StartTime, JsonDefaults.StartTimeValue);
-                AddField(writer, JsonDefaults.EndTimeName, countdown.EndTime, JsonDefaults.EndTimeValue);
-                AddField(writer, JsonDefaults.StepName, countdown.Step, JsonDefaults.StepValue);
-                AddField(writer, JsonDefaults.CountdownCommandName, countdown.Command, JsonDefaults.NullValue);
-                writer.WriteEndObject();
-            }
         }
         #endregion
 
@@ -1455,18 +1436,16 @@ namespace Oxide.Plugins
         public static class JsonDefaults
         {
             //Position & Offset
-            public const string DefaultFloatMin = "0.0 0.0";
-            public const string DefaultFloatMax = "1.0 1.0";
-            public const string DefaultIntMin = "0 0";
-            public const string DefaultIntMax = "1 1";
             public const string RectTransformName = "RectTransform";
             public const string AnchorMinName = "anchormin";
             public const string AnchorMaxName = "anchormax";
             public const string OffsetMinName = "offsetmin";
             public const string OffsetMaxName = "offsetmax";
-            public static readonly string[] DefaultMinValues = { DefaultFloatMin, DefaultIntMin };
-            public static readonly string[] DefaultMaxValues = { DefaultFloatMax, DefaultIntMax };
-            public const string OffsetMaxValue = "0 0";
+            public static readonly Vector2 AnchorMin = new Vector2(0, 0);
+            public static readonly Vector2 AnchorMax = new Vector2(1, 1);
+            public static readonly Vector2Int OffsetMin = new Vector2Int(0, 0);
+            public static readonly Vector2Int OffsetMax = new Vector2Int(0, 0);
+            public const string DefaultOffsetMax = "0 0";
             
             //Text
             public const int FontSizeValue = 14;
@@ -1499,7 +1478,7 @@ namespace Oxide.Plugins
             public const string DistanceName = "distance";
             public const string UseGraphicAlphaName = "useGraphicAlpha";
             public const string UseGraphicAlphaValue = "True";
-            public const string DistanceValue = "1.0 -1.0";
+            public static readonly Vector2 DistanceValue = new Vector2(1.0f, -1.0f);
             
             //Button
             public const string CommandName = "command";
@@ -1513,7 +1492,7 @@ namespace Oxide.Plugins
             
             //Image
             public const string PNGName = "png";
-            public const string URLName = "url";
+            public const string UrlName = "url";
             
             //Item Icon
             public const string ItemIdName = "itemid";
@@ -1549,7 +1528,8 @@ namespace Oxide.Plugins
             public int YMin;
             public int XMax;
             public int YMax;
-            private readonly OffsetState _state;
+            private readonly Vector2Int _initialMin;
+            private readonly Vector2Int _initialMax;
             
             public MovableUiOffset(int x, int y, int width, int height)
             {
@@ -1557,7 +1537,8 @@ namespace Oxide.Plugins
                 YMin = y;
                 XMax = x + width;
                 YMax = y + height;
-                _state = new OffsetState(XMin, XMax, YMin, YMax);
+                _initialMin = new Vector2Int(XMin, YMin);
+                _initialMax = new Vector2Int(XMax, YMax);
             }
             
             public void MoveX(int pixels)
@@ -1594,10 +1575,10 @@ namespace Oxide.Plugins
             
             public void Reset()
             {
-                XMin = _state.XMin;
-                YMin = _state.YMin;
-                XMax = _state.XMax;
-                YMax = _state.YMax;
+                XMin = _initialMin.x;
+                YMin = _initialMin.y;
+                XMax = _initialMax.x;
+                YMax = _initialMax.y;
             }
         }
         #endregion
@@ -1605,71 +1586,22 @@ namespace Oxide.Plugins
         #region Offsets\Offset.cs
         public struct Offset
         {
-            public readonly string Min;
-            public readonly string Max;
-            public readonly bool IsDefaultMin;
-            public readonly bool IsDefaultMax;
+            public Vector2Int Min;
+            public Vector2Int Max;
+            public readonly string MinString;
+            public readonly string MaxString;
             
-            private const string PosFormat = "0.####";
-            private const char Space = ' ';
-            
-            public Offset(int xMin, int yMin, int xMax, int yMax)
+            public Offset(Vector2Int min, Vector2Int max)
             {
-                Min = null;
-                if (xMin == 0 && yMin == 0)
-                {
-                    IsDefaultMin = true;
-                }
-                else
-                {
-                    Min = Build(xMin, yMin);
-                    IsDefaultMin = false;
-                }
+                Min = min;
+                Max = max;
+                MinString = VectorExt.ToString(Min);
+                MaxString = VectorExt.ToString(Max);
+            }
+            
+            public Offset(int xMin, int yMin, int xMax, int yMax) : this(new Vector2Int(xMin, yMin), new Vector2Int(xMax, yMax))
+            {
                 
-                Max = null;
-                if (xMax == 0 && yMax == 0)
-                {
-                    IsDefaultMax = true;
-                }
-                else
-                {
-                    Max = Build(xMax, yMax);
-                    IsDefaultMax = false;
-                }
-            }
-            
-            private static string Build(float min, float max)
-            {
-                StringBuilder sb = UiFrameworkPool.GetStringBuilder();
-                sb.Append(min.ToString(PosFormat));
-                sb.Append(Space);
-                sb.Append(max.ToString(PosFormat));
-                string result = sb.ToString();
-                UiFrameworkPool.FreeStringBuilder(ref sb);
-                return result;
-            }
-            
-            public override string ToString()
-            {
-                return string.Concat(Min, " ", Max);
-            }
-        }
-        #endregion
-
-        #region Offsets\OffsetState.cs
-        public struct OffsetState
-        {
-            public readonly int XMin;
-            public readonly int YMin;
-            public readonly int XMax;
-            public readonly int YMax;
-            
-            public OffsetState(int xMin, int yMin, int xMax, int yMax)
-            {
-                XMin = xMin;
-                YMin = yMin;
-                XMax = xMax;
-                YMax = yMax;
             }
         }
         #endregion
@@ -1678,6 +1610,11 @@ namespace Oxide.Plugins
         public class StaticUiOffset : UiOffset
         {
             private readonly Offset _offset;
+            
+            public StaticUiOffset(Vector2Int min, Vector2Int max)
+            {
+                _offset = new Offset(min, max);
+            }
             
             public StaticUiOffset(int width, int height) : this(-width / 2, -height / 2, width, height)
             {
@@ -1696,7 +1633,7 @@ namespace Oxide.Plugins
                     throw new ArgumentOutOfRangeException(nameof(height), "height cannot be less than 0");
                 }
                 
-                _offset = new Offset(x, y, x + width, y + height);
+                _offset = new Offset(new Vector2Int(x, y), new Vector2Int( x + width, y + height));
             }
             
             public override Offset ToOffset()
@@ -1710,7 +1647,7 @@ namespace Oxide.Plugins
         public abstract class UiOffset
         {
             public static readonly UiOffset DefaultOffset = new StaticUiOffset(0, 0, 0, 0);
-            public static readonly Offset Default = new Offset(0, 0, 0, 0);
+            public static readonly Offset Default = new Offset(new Vector2Int(0, 0), new Vector2Int(0, 0));
             
             public abstract Offset ToOffset();
         }
@@ -1910,7 +1847,7 @@ namespace Oxide.Plugins
             public float YMin;
             public float XMax;
             public float YMax;
-            private readonly PositionState _state;
+            private readonly Vector4 _state;
             
             public MovablePosition(float xMin, float yMin, float xMax, float yMax)
             {
@@ -1918,7 +1855,7 @@ namespace Oxide.Plugins
                 YMin = yMin;
                 XMax = xMax;
                 YMax = yMax;
-                _state = new PositionState(XMin, YMin, XMax, YMax);
+                _state = new Vector4(XMin, YMin, XMax, YMax);
                 #if UiDebug
                 ValidatePositions();
                 #endif
@@ -1935,9 +1872,9 @@ namespace Oxide.Plugins
                 SetY(yMin, yMax);
             }
             
-            public void SetX(float xPos, float xMax)
+            public void SetX(float xMin, float xMax)
             {
-                XMin = xPos;
+                XMin = xMin;
                 XMax = xMax;
                 #if UiDebug
                 ValidatePositions();
@@ -1998,10 +1935,10 @@ namespace Oxide.Plugins
             
             public void Reset()
             {
-                XMin = _state.XMin;
-                YMin = _state.YMin;
-                XMax = _state.XMax;
-                YMax = _state.YMax;
+                XMin = _state.x;
+                YMin = _state.y;
+                XMax = _state.z;
+                YMax = _state.w;
             }
             
             #if UiDebug
@@ -2044,71 +1981,22 @@ namespace Oxide.Plugins
         #region Positions\Position.cs
         public struct Position
         {
-            public readonly string Min;
-            public readonly string Max;
-            public readonly bool IsDefaultMin;
-            public readonly bool IsDefaultMax;
+            public readonly Vector2 Min;
+            public readonly Vector2 Max;
+            public readonly string MinString;
+            public readonly string MaxString;
             
-            private const string PosFormat = "0.####";
-            private const char Space = ' ';
-            
-            public Position(float xMin, float yMin, float xMax, float yMax)
+            public Position(Vector2 min, Vector2 max)
             {
-                Min = null;
-                if (xMin == 0 && yMin == 0)
-                {
-                    IsDefaultMin = true;
-                }
-                else
-                {
-                    IsDefaultMin = false;
-                    Min = Build(xMin, yMin);
-                }
+                Min = min;
+                Max = max;
+                MinString = VectorExt.ToString(min);
+                MaxString = VectorExt.ToString(max);
+            }
+            
+            public Position(float xMin, float yMin, float xMax, float yMax) : this(new Vector2(xMin, yMin), new Vector2(xMax, yMax))
+            {
                 
-                Max = null;
-                if (xMax == 0 && yMax == 0)
-                {
-                    IsDefaultMax = true;
-                }
-                else
-                {
-                    IsDefaultMax = false;
-                    Max = Build(xMax, yMax);
-                }
-            }
-            
-            private static string Build(float min, float max)
-            {
-                StringBuilder sb = UiFrameworkPool.GetStringBuilder();
-                sb.Append(min.ToString(PosFormat));
-                sb.Append(Space);
-                sb.Append(max.ToString(PosFormat));
-                string result = sb.ToString();
-                UiFrameworkPool.FreeStringBuilder(ref sb);
-                return result;
-            }
-            
-            public override string ToString()
-            {
-                return string.Concat(Min, " ", Max);
-            }
-        }
-        #endregion
-
-        #region Positions\PositionState.cs
-        public struct PositionState
-        {
-            public readonly float XMin;
-            public readonly float YMin;
-            public readonly float XMax;
-            public readonly float YMax;
-            
-            public PositionState(float xMin, float yMin, float xMax, float yMax)
-            {
-                XMin = xMin;
-                YMin = yMin;
-                XMax = xMax;
-                YMax = yMax;
             }
         }
         #endregion
@@ -2118,9 +2006,14 @@ namespace Oxide.Plugins
         {
             private readonly Position _pos;
             
+            public StaticUiPosition(Vector2 min, Vector2 max)
+            {
+                _pos = new Position(min, max);
+            }
+            
             public StaticUiPosition(float xMin, float yMin, float xMax, float yMax)
             {
-                _pos = new Position(xMin, yMin, xMax, yMax);
+                _pos = new Position(new Vector2(xMin, yMin), new Vector2(xMax, yMax));
             }
             
             public override Position ToPosition()
@@ -2154,7 +2047,7 @@ namespace Oxide.Plugins
         #endregion
 
         #region UiElements\BaseUiComponent.cs
-        public class BaseUiComponent : Pool.IPooled
+        public abstract class BaseUiComponent : Pool.IPooled
         {
             public string Name;
             public string Parent;
@@ -2198,9 +2091,65 @@ namespace Oxide.Plugins
                 return component;
             }
             
-            public virtual void WriteComponents(JsonTextWriter writer)
+            public void WriteRootComponent(JsonTextWriter writer, bool needsMouse, bool needsKeyboard)
             {
-                JsonCreator.Add(writer, _position, _offset);
+                writer.WriteStartObject();
+                JsonCreator.AddFieldRaw(writer, JsonDefaults.ComponentName, Name);
+                JsonCreator.AddFieldRaw(writer, JsonDefaults.ParentName, Parent);
+                JsonCreator.AddField(writer, JsonDefaults.FadeOutName, FadeOut, JsonDefaults.FadeOutValue);
+                
+                writer.WritePropertyName("components");
+                writer.WriteStartArray();
+                WriteComponents(writer);
+                
+                if (needsMouse)
+                {
+                    JsonCreator.AddMouse(writer);
+                }
+                
+                if (needsKeyboard)
+                {
+                    JsonCreator.AddKeyboard(writer);
+                }
+                
+                writer.WriteEndArray();
+                writer.WriteEndObject();
+            }
+            
+            public void WriteComponent(JsonTextWriter writer)
+            {
+                writer.WriteStartObject();
+                JsonCreator.AddFieldRaw(writer, JsonDefaults.ComponentName, Name);
+                JsonCreator.AddFieldRaw(writer, JsonDefaults.ParentName, Parent);
+                JsonCreator.AddField(writer, JsonDefaults.FadeOutName, FadeOut, JsonDefaults.FadeOutValue);
+                
+                writer.WritePropertyName("components");
+                writer.WriteStartArray();
+                WriteComponents(writer);
+                writer.WriteEndArray();
+                writer.WriteEndObject();
+            }
+            
+            protected virtual void WriteComponents(JsonTextWriter writer)
+            {
+                writer.WriteStartObject();
+                JsonCreator.AddFieldRaw(writer, JsonDefaults.ComponentTypeName, JsonDefaults.RectTransformName);
+                JsonCreator.AddField(writer, JsonDefaults.AnchorMinName, _position.Min, JsonDefaults.AnchorMin, _position.MinString);
+                JsonCreator.AddField(writer, JsonDefaults.AnchorMaxName, _position.Max, JsonDefaults.AnchorMax, _position.MaxString);
+                
+                if (_offset.HasValue)
+                {
+                    Offset offset = _offset.Value;
+                    JsonCreator.AddField(writer, JsonDefaults.OffsetMinName, offset.Min, JsonDefaults.OffsetMin, offset.MinString);
+                    JsonCreator.AddField(writer, JsonDefaults.OffsetMaxName, offset.Max, JsonDefaults.OffsetMax, offset.MaxString);
+                }
+                else
+                {
+                    //Fixes issue with UI going outside of bounds
+                    JsonCreator.AddFieldRaw(writer, JsonDefaults.OffsetMaxName, JsonDefaults.DefaultOffsetMax);
+                }
+                
+                writer.WriteEndObject();
             }
             
             public void SetFadeOut(float duration)
@@ -2208,10 +2157,7 @@ namespace Oxide.Plugins
                 FadeOut = duration;
             }
             
-            public virtual void SetFadeIn(float duration)
-            {
-                throw new NotSupportedException($"FadeIn is not supported on this component {GetType().Name}");
-            }
+            public abstract void SetFadeIn(float duration);
             
             public void UpdateOffset(UiOffset offset)
             {
@@ -2262,9 +2208,9 @@ namespace Oxide.Plugins
                 return button;
             }
             
-            public override void WriteComponents(JsonTextWriter writer)
+            protected override void WriteComponents(JsonTextWriter writer)
             {
-                JsonCreator.Add(writer, Button);
+                Button.WriteComponent(writer);
                 base.WriteComponents(writer);
             }
             
@@ -2300,9 +2246,9 @@ namespace Oxide.Plugins
                 return image;
             }
             
-            public override void WriteComponents(JsonTextWriter writer)
+            protected override void WriteComponents(JsonTextWriter writer)
             {
-                JsonCreator.Add(writer, Image);
+                Image.WriteComponent(writer);
                 base.WriteComponents(writer);
             }
             
@@ -2389,29 +2335,32 @@ namespace Oxide.Plugins
                 Outline.Color = color;
             }
             
-            public void AddTextOutline(UiColor color, string distance)
+            public void AddTextOutline(UiColor color, Vector2 distance)
             {
                 AddTextOutline(color);
                 Outline.Distance = distance;
             }
             
-            public void AddTextOutline(UiColor color, string distance, bool useGraphicAlpha)
+            public void AddTextOutline(UiColor color, Vector2 distance, bool useGraphicAlpha)
             {
                 AddTextOutline(color, distance);
                 Outline.UseGraphicAlpha = useGraphicAlpha;
             }
             
-            public override void WriteComponents(JsonTextWriter writer)
+            protected override void WriteComponents(JsonTextWriter writer)
             {
-                JsonCreator.Add(writer, Input);
+                Input.WriteComponent(writer);
                 base.WriteComponents(writer);
             }
             
             public override void EnterPool()
             {
                 base.EnterPool();
-                Input.Align = TextAnchor.UpperLeft;
                 Pool.Free(ref Input);
+                if (Outline != null)
+                {
+                    Pool.Free(ref Outline);
+                }
             }
             
             public override void LeavePool()
@@ -2446,9 +2395,9 @@ namespace Oxide.Plugins
                 return icon;
             }
             
-            public override void WriteComponents(JsonTextWriter writer)
+            protected override void WriteComponents(JsonTextWriter writer)
             {
-                JsonCreator.Add(writer, Icon);
+                Icon.WriteComponent(writer);
                 base.WriteComponents(writer);
             }
             
@@ -2474,14 +2423,14 @@ namespace Oxide.Plugins
         #region UiElements\UiLabel.cs
         public class UiLabel : BaseUiComponent
         {
-            public TextComponent TextComponent;
+            public TextComponent Text;
             public OutlineComponent Outline;
             public CountdownComponent Countdown;
             
             public static UiLabel Create(string text, int size, UiColor color, UiPosition pos, string font, TextAnchor align = TextAnchor.MiddleCenter)
             {
                 UiLabel label = CreateBase<UiLabel>(pos);
-                TextComponent textComp = label.TextComponent;
+                TextComponent textComp = label.Text;
                 textComp.Text = text;
                 textComp.FontSize = size;
                 textComp.Color = color;
@@ -2496,13 +2445,13 @@ namespace Oxide.Plugins
                 Outline.Color = color;
             }
             
-            public void AddTextOutline(UiColor color, string distance)
+            public void AddTextOutline(UiColor color, Vector2 distance)
             {
                 AddTextOutline(color);
                 Outline.Distance = distance;
             }
             
-            public void AddTextOutline(UiColor color, string distance, bool useGraphicAlpha)
+            public void AddTextOutline(UiColor color, Vector2 distance, bool useGraphicAlpha)
             {
                 AddTextOutline(color, distance);
                 Outline.UseGraphicAlpha = useGraphicAlpha;
@@ -2517,41 +2466,38 @@ namespace Oxide.Plugins
                 Countdown.Command = command;
             }
             
-            public override void WriteComponents(JsonTextWriter writer)
+            protected override void WriteComponents(JsonTextWriter writer)
             {
-                JsonCreator.Add(writer, TextComponent);
-                if (Outline != null)
-                {
-                    JsonCreator.Add(writer, Outline);
-                }
-                
-                if (Countdown != null)
-                {
-                    JsonCreator.Add(writer, Countdown);
-                }
-                
+                Text.WriteComponent(writer);
+                Outline?.WriteComponent(writer);
+                Countdown?.WriteComponent(writer);
                 base.WriteComponents(writer);
             }
             
             public override void EnterPool()
             {
                 base.EnterPool();
-                Pool.Free(ref TextComponent);
+                Pool.Free(ref Text);
                 if (Outline != null)
                 {
                     Pool.Free(ref Outline);
+                }
+                
+                if (Countdown != null)
+                {
+                    Pool.Free(ref Countdown);
                 }
             }
             
             public override void LeavePool()
             {
                 base.LeavePool();
-                TextComponent = Pool.Get<TextComponent>();
+                Text = Pool.Get<TextComponent>();
             }
             
             public override void SetFadeIn(float duration)
             {
-                TextComponent.FadeIn = duration;
+                Text.FadeIn = duration;
             }
         }
         #endregion
@@ -2578,16 +2524,16 @@ namespace Oxide.Plugins
                 return panel;
             }
             
-            public static UiPanel Create(Position pos, Offset? offset, UiColor color)
+            public static UiPanel Create(Position pos, Offset offset, UiColor color)
             {
                 UiPanel panel = CreateBase<UiPanel>(pos, offset);
                 panel.Image.Color = color;
                 return panel;
             }
             
-            public override void WriteComponents(JsonTextWriter writer)
+            protected override void WriteComponents(JsonTextWriter writer)
             {
-                JsonCreator.Add(writer, Image);
+                Image.WriteComponent(writer);
                 base.WriteComponents(writer);
             }
             
@@ -2624,9 +2570,9 @@ namespace Oxide.Plugins
                 return image;
             }
             
-            public override void WriteComponents(JsonTextWriter writer)
+            protected override void WriteComponents(JsonTextWriter writer)
             {
-                JsonCreator.Add(writer, RawImage);
+                RawImage.WriteComponent(writer);
                 base.WriteComponents(writer);
             }
             

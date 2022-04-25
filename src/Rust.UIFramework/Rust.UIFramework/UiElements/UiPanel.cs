@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
-using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
 using Pool = Facepunch.Pool;
@@ -29,16 +28,16 @@ namespace Oxide.Ext.UiFramework.UiElements
             return panel;
         }
 
-        public static UiPanel Create(Position pos, Offset? offset, UiColor color)
+        public static UiPanel Create(Position pos, Offset offset, UiColor color)
         {
             UiPanel panel = CreateBase<UiPanel>(pos, offset);
             panel.Image.Color = color;
             return panel;
         }
 
-        public override void WriteComponents(JsonTextWriter writer)
+        protected override void WriteComponents(JsonTextWriter writer)
         {
-            JsonCreator.Add(writer, Image);
+            Image.WriteComponent(writer);
             base.WriteComponents(writer);
         }
 

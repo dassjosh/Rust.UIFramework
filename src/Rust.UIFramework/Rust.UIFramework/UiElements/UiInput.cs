@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
-using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Positions;
 using UnityEngine;
 using UnityEngine.UI;
@@ -72,29 +71,32 @@ namespace Oxide.Ext.UiFramework.UiElements
             Outline.Color = color;
         }
 
-        public void AddTextOutline(UiColor color, string distance)
+        public void AddTextOutline(UiColor color, Vector2 distance)
         {
             AddTextOutline(color);
             Outline.Distance = distance;
         }
 
-        public void AddTextOutline(UiColor color, string distance, bool useGraphicAlpha)
+        public void AddTextOutline(UiColor color, Vector2 distance, bool useGraphicAlpha)
         {
             AddTextOutline(color, distance);
             Outline.UseGraphicAlpha = useGraphicAlpha;
         }
 
-        public override void WriteComponents(JsonTextWriter writer)
+        protected override void WriteComponents(JsonTextWriter writer)
         {
-            JsonCreator.Add(writer, Input);
+            Input.WriteComponent(writer);
             base.WriteComponents(writer);
         }
             
         public override void EnterPool()
         {
             base.EnterPool();
-            Input.Align = TextAnchor.UpperLeft;
             Pool.Free(ref Input);
+            if (Outline != null)
+            {
+                Pool.Free(ref Outline);
+            }
         }
             
         public override void LeavePool()
