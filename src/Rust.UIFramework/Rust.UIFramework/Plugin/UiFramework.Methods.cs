@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using Network;
+using Oxide.Core.Plugins;
 using Oxide.Ext.UiFramework.Builder;
+using Oxide.Ext.UiFramework.Pooling;
 
 namespace Oxide.Ext.UiFramework.Plugin
 {
@@ -20,6 +22,14 @@ namespace Oxide.Ext.UiFramework.Plugin
         private void DestroyUiAll(string name)
         {
             UiBuilder.DestroyUi(name);
+        }
+        #endregion
+
+        #region Unloading
+        public override void HandleRemovedFromManager(PluginManager manager)
+        {
+            UiFrameworkPool.OnUnload();
+            base.HandleRemovedFromManager(manager);
         }
         #endregion
     }

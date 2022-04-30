@@ -20,7 +20,7 @@ namespace Oxide.Ext.UiFramework.Components
             writer.WriteEndObject();
         }
 
-        public override void EnterPool()
+        protected override void EnterPool()
         {
             base.EnterPool();
             Command = null;

@@ -13,7 +13,7 @@ namespace Oxide.Ext.UiFramework.Components
             JsonCreator.AddField(writer, JsonDefaults.Color.ColorName, Color, JsonDefaults.Color.ColorValue);
         }
         
-        public override void EnterPool()
+        protected override void EnterPool()
         {
             Color = null;
         }

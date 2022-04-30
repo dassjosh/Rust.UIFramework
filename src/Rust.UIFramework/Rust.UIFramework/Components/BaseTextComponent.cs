@@ -20,7 +20,7 @@ namespace Oxide.Ext.UiFramework.Components
             base.WriteComponent(writer);
         }
 
-        public override void EnterPool()
+        protected override void EnterPool()
         {
             base.EnterPool();
             FontSize = JsonDefaults.BaseText.FontSize;

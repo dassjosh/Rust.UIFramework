@@ -1,5 +1,4 @@
-﻿using Facepunch;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Pooling;
@@ -7,24 +6,19 @@ using Oxide.Ext.UiFramework.Positions;
 
 namespace Oxide.Ext.UiFramework.UiElements
 {
-    public abstract class BaseUiComponent : Pool.IPooled
+    public abstract class BaseUiComponent : BasePoolable
     {
         public string Name;
         public string Parent;
         public float FadeOut;
         public Position Position;
         public Offset? Offset;
-        private bool _inPool = true;
 
         protected static T CreateBase<T>(UiPosition pos, UiOffset offset) where T : BaseUiComponent, new()
         {
             T component = UiFrameworkPool.Get<T>();
             component.Position = pos.ToPosition();
             component.Offset = offset?.ToOffset();
-            if (component._inPool)
-            {
-                component.LeavePool();
-            }
             return component;
         }
 
@@ -33,10 +27,6 @@ namespace Oxide.Ext.UiFramework.UiElements
             T component = UiFrameworkPool.Get<T>();
             component.Position = pos;
             component.Offset = offset;
-            if (component._inPool)
-            {
-                component.LeavePool();
-            }
             return component;
         }
 
@@ -44,10 +34,6 @@ namespace Oxide.Ext.UiFramework.UiElements
         {
             T component = UiFrameworkPool.Get<T>();
             component.Position = pos.ToPosition();
-            if (component._inPool)
-            {
-                component.LeavePool();
-            }
             return component;
         }
 
@@ -119,19 +105,13 @@ namespace Oxide.Ext.UiFramework.UiElements
 
         public abstract void SetFadeIn(float duration);
 
-        public virtual void EnterPool()
+        protected override void EnterPool()
         {
             Name = null;
             Parent = null;
             FadeOut = 0;
             Position = default(Position);
             Offset = null;
-            _inPool = true;
-        }
-
-        public virtual void LeavePool()
-        {
-            _inPool = false;
         }
     }
 }

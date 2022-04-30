@@ -40,7 +40,7 @@ namespace Oxide.Ext.UiFramework.UiElements
             base.WriteComponents(writer);
         }
 
-        public override void EnterPool()
+        protected override void EnterPool()
         {
             base.EnterPool();
             UiFrameworkPool.Free(ref Text);
@@ -51,7 +51,7 @@ namespace Oxide.Ext.UiFramework.UiElements
             }
         }
 
-        public override void LeavePool()
+        protected override void LeavePool()
         {
             base.LeavePool();
             Text = UiFrameworkPool.Get<TextComponent>();

@@ -29,7 +29,7 @@ namespace Oxide.Ext.UiFramework.Builder
 
         private List<BaseUiComponent> _components;
         private Hash<string, BaseUiComponent> _componentLookup;
-        private StringBuilder _sb;
+        private StringBuilder _nameBuilder;
         private string _font;
 
         private static string _globalFont;
@@ -57,7 +57,7 @@ namespace Oxide.Ext.UiFramework.Builder
         {
             _components = UiFrameworkPool.GetList<BaseUiComponent>();
             _componentLookup = UiFrameworkPool.GetHash<string, BaseUiComponent>();
-            _sb = UiFrameworkPool.GetStringBuilder();
+            _nameBuilder = UiFrameworkPool.GetStringBuilder();
             _font = _globalFont;
         }
 
@@ -75,7 +75,7 @@ namespace Oxide.Ext.UiFramework.Builder
             component.Parent = parent;
             component.Name = name;
             _components.Add(component);
-            _sb.Append(name);
+            _nameBuilder.Append(name);
         }
 
         public void NeedsMouse(bool enabled = true)
@@ -121,15 +121,13 @@ namespace Oxide.Ext.UiFramework.Builder
 
             for (int index = 0; index < _components.Count; index++)
             {
-                BaseUiComponent component = _components[index];
-                UiFrameworkPool.Free(ref component);
+                _components[index].Dispose();
             }
 
             UiFrameworkPool.FreeList(ref _components);
-            UiFrameworkPool.FreeStringBuilder(ref _sb);
+            UiFrameworkPool.FreeStringBuilder(ref _nameBuilder);
             UiFrameworkPool.FreeHash(ref _componentLookup);
             Root = null;
-            _cachedJson = null;
         }
         #endregion
 
@@ -144,9 +142,9 @@ namespace Oxide.Ext.UiFramework.Builder
 
         public string GetComponentName()
         {
-            _sb.Length = Root.Name.Length;
-            _sb.Insert(Root.Name.Length, _components.Count.ToString());
-            return _sb.ToString();
+            _nameBuilder.Length = Root.Name.Length;
+            _nameBuilder.Insert(Root.Name.Length, _components.Count.ToString());
+            return _nameBuilder.ToString();
         }
 
         public UiPanel Section(BaseUiComponent parent, UiPosition pos)

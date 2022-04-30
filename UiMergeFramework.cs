@@ -1,6 +1,6 @@
-using Facepunch;
 using Network;
 using Newtonsoft.Json;
+using Oxide.Core.Plugins;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,7 +12,6 @@ using UnityEngine.UI;
 
 using Color = UnityEngine.Color;
 using Net = Network.Net;
-using Pool = Facepunch.Pool;
 
 //UiMergeFramework created with PluginMerge v(1.0.4.0) by MJSU @ https://github.com/dassjosh/Plugin.Merge
 namespace Oxide.Plugins
@@ -37,6 +36,14 @@ namespace Oxide.Plugins
         private void DestroyUiAll(string name)
         {
             UiBuilder.DestroyUi(name);
+        }
+        #endregion
+        
+        #region Unloading
+        public override void HandleRemovedFromManager(PluginManager manager)
+        {
+            UiFrameworkPool.OnUnload();
+            base.HandleRemovedFromManager(manager);
         }
         #endregion
         #endregion
@@ -126,14 +133,15 @@ namespace Oxide.Plugins
         
         private List<BaseUiComponent> _components;
         private Hash<string, BaseUiComponent> _componentLookup;
-        private StringBuilder _sb;
+        private StringBuilder _nameBuilder;
+        private string _font;
         
-        private static string _font;
+        private static string _globalFont;
         
         #region Constructor
         static UiBuilder()
         {
-            SetFont(UiFont.RobotoCondensedRegular);
+            SetGlobalFont(UiFont.RobotoCondensedRegular);
         }
         
         public UiBuilder(UiColor color, UiPosition pos, UiOffset offset, string name, string parent) : this(UiPanel.Create(pos, offset, color), name, parent) { }
@@ -153,7 +161,8 @@ namespace Oxide.Plugins
         {
             _components = UiFrameworkPool.GetList<BaseUiComponent>();
             _componentLookup = UiFrameworkPool.GetHash<string, BaseUiComponent>();
-            _sb = UiFrameworkPool.GetStringBuilder();
+            _nameBuilder = UiFrameworkPool.GetStringBuilder();
+            _font = _globalFont;
         }
         
         public void EnsureCapacity(int capacity)
@@ -170,7 +179,7 @@ namespace Oxide.Plugins
             component.Parent = parent;
             component.Name = name;
             _components.Add(component);
-            _sb.Append(name);
+            _nameBuilder.Append(name);
         }
         
         public void NeedsMouse(bool enabled = true)
@@ -183,9 +192,14 @@ namespace Oxide.Plugins
             _needsKeyboard = enabled;
         }
         
-        public static void SetFont(UiFont font)
+        public void SetCurrentFont(UiFont font)
         {
             _font = UiConstants.UiFonts.GetUiFont(font);
+        }
+        
+        public static void SetGlobalFont(UiFont font)
+        {
+            _globalFont = UiConstants.UiFonts.GetUiFont(font);
         }
         
         public T GetUi<T>(string name) where T : BaseUiComponent
@@ -211,15 +225,13 @@ namespace Oxide.Plugins
             
             for (int index = 0; index < _components.Count; index++)
             {
-                BaseUiComponent component = _components[index];
-                UiFrameworkPool.Free(ref component);
+                _components[index].Dispose();
             }
             
             UiFrameworkPool.FreeList(ref _components);
-            UiFrameworkPool.FreeStringBuilder(ref _sb);
+            UiFrameworkPool.FreeStringBuilder(ref _nameBuilder);
             UiFrameworkPool.FreeHash(ref _componentLookup);
             Root = null;
-            _cachedJson = null;
         }
         #endregion
         
@@ -234,9 +246,9 @@ namespace Oxide.Plugins
         
         public string GetComponentName()
         {
-            _sb.Length = Root.Name.Length;
-            _sb.Insert(Root.Name.Length, _components.Count.ToString());
-            return _sb.ToString();
+            _nameBuilder.Length = Root.Name.Length;
+            _nameBuilder.Insert(Root.Name.Length, _components.Count.ToString());
+            return _nameBuilder.ToString();
         }
         
         public UiPanel Section(BaseUiComponent parent, UiPosition pos)
@@ -908,7 +920,7 @@ namespace Oxide.Plugins
             JsonCreator.AddField(writer, JsonDefaults.Color.ColorName, Color, JsonDefaults.Color.ColorValue);
         }
         
-        public override void EnterPool()
+        protected override void EnterPool()
         {
             Color = null;
         }
@@ -916,12 +928,8 @@ namespace Oxide.Plugins
     #endregion
 
     #region Components\BaseComponent.cs
-    public abstract class BaseComponent : Pool.IPooled
+    public abstract class BaseComponent : BasePoolable
     {
-        public virtual void EnterPool() { }
-        
-        public virtual void LeavePool() { }
-        
         public abstract void WriteComponent(JsonTextWriter writer);
     }
     #endregion
@@ -939,7 +947,7 @@ namespace Oxide.Plugins
             base.WriteComponent(writer);
         }
         
-        public override void EnterPool()
+        protected override void EnterPool()
         {
             base.EnterPool();
             Sprite = null;
@@ -965,7 +973,7 @@ namespace Oxide.Plugins
             base.WriteComponent(writer);
         }
         
-        public override void EnterPool()
+        protected override void EnterPool()
         {
             base.EnterPool();
             FontSize = JsonDefaults.BaseText.FontSize;
@@ -994,7 +1002,7 @@ namespace Oxide.Plugins
             writer.WriteEndObject();
         }
         
-        public override void EnterPool()
+        protected override void EnterPool()
         {
             base.EnterPool();
             Command = null;
@@ -1026,7 +1034,7 @@ namespace Oxide.Plugins
             writer.WriteEndObject();
         }
         
-        public override void EnterPool()
+        protected override void EnterPool()
         {
             StartTime = 0;
             EndTime = 0;
@@ -1047,7 +1055,7 @@ namespace Oxide.Plugins
             base.WriteComponent(writer);
         }
         
-        public override void EnterPool()
+        protected override void EnterPool()
         {
             base.EnterPool();
             FadeIn = 0;
@@ -1074,7 +1082,7 @@ namespace Oxide.Plugins
             writer.WriteEndObject();
         }
         
-        public override void EnterPool()
+        protected override void EnterPool()
         {
             base.EnterPool();
             Png = null;
@@ -1121,7 +1129,7 @@ namespace Oxide.Plugins
             writer.WriteEndObject();
         }
         
-        public override void EnterPool()
+        protected override void EnterPool()
         {
             base.EnterPool();
             CharsLimit = 0;
@@ -1148,7 +1156,7 @@ namespace Oxide.Plugins
             writer.WriteEndObject();
         }
         
-        public override void EnterPool()
+        protected override void EnterPool()
         {
             ItemId = 0;
             SkinId = 0;
@@ -1178,7 +1186,7 @@ namespace Oxide.Plugins
             writer.WriteEndObject();
         }
         
-        public override void EnterPool()
+        protected override void EnterPool()
         {
             base.EnterPool();
             Distance = JsonDefaults.Outline.DistanceValue;
@@ -1212,7 +1220,7 @@ namespace Oxide.Plugins
             writer.WriteEndObject();
         }
         
-        public override void EnterPool()
+        protected override void EnterPool()
         {
             base.EnterPool();
             Url = null;
@@ -1789,49 +1797,426 @@ namespace Oxide.Plugins
     }
     #endregion
 
+    #region Pooling\BasePool.cs
+    public abstract class BasePool<T> : IPool<T> where T : class, new()
+    {
+        private readonly Queue<T> _pool;
+        private readonly int _maxSize;
+        
+        /// <summary>
+        /// Base Pool Constructor
+        /// </summary>
+        /// <param name="maxSize">Max Size of the pool</param>
+        protected BasePool(int maxSize)
+        {
+            _maxSize = maxSize;
+            _pool = new Queue<T>(maxSize);
+            for (int i = 0; i < maxSize; i++)
+            {
+                _pool.Enqueue(new T());
+            }
+        }
+        
+        /// <summary>
+        /// Returns an element from the pool if it exists else it creates a new one
+        /// </summary>
+        /// <returns></returns>
+        public T Get()
+        {
+            T item = _pool.Count != 0 ? _pool.Dequeue() : new T();
+            OnGetItem(item);
+            return item;
+        }
+        
+        /// <summary>
+        /// Frees an item back to the pool
+        /// </summary>
+        /// <param name="item">Item being freed</param>
+        public void Free(ref T item)
+        {
+            if (item == null)
+            {
+                return;
+            }
+            
+            if (!OnFreeItem(ref item))
+            {
+                return;
+            }
+            
+            if (_pool.Count >= _maxSize)
+            {
+                return;
+            }
+            
+            _pool.Enqueue(item);
+            
+            item = null;
+        }
+        
+        /// <summary>
+        /// Called when an item is retrieved from the pool
+        /// </summary>
+        /// <param name="item">Item being retrieved</param>
+        protected virtual void OnGetItem(T item)
+        {
+            
+        }
+        
+        /// <summary>
+        /// Returns if an item can be freed to the pool
+        /// </summary>
+        /// <param name="item">Item to be freed</param>
+        /// <returns>True if can be freed; false otherwise</returns>
+        protected virtual bool OnFreeItem(ref T item)
+        {
+            return true;
+        }
+        
+        public void Clear()
+        {
+            _pool.Clear();
+        }
+    }
+    #endregion
+
+    #region Pooling\BasePoolable.cs
+    public class BasePoolable : IDisposable
+    {
+        internal bool Disposed;
+        
+        /// <summary>
+        /// Returns if the object should be pooled.
+        /// This field is set to true when leaving the pool.
+        /// If the object instantiated using new() outside the pool it will be false
+        /// </summary>
+        private bool _shouldPool;
+        
+        internal void EnterPoolInternal()
+        {
+            EnterPool();
+            _shouldPool = false;
+            Disposed = true;
+        }
+        
+        internal void LeavePoolInternal()
+        {
+            _shouldPool = true;
+            Disposed = false;
+            LeavePool();
+        }
+        
+        /// <summary>
+        /// Called when the object is returned to the pool.
+        /// Can be overriden in child classes to cleanup used data
+        /// </summary>
+        protected virtual void EnterPool()
+        {
+            
+        }
+        
+        /// <summary>
+        /// Called when the object leaves the pool.
+        /// Can be overriden in child classes to set the initial object state
+        /// </summary>
+        protected virtual void LeavePool()
+        {
+            
+        }
+        
+        /// <summary>
+        /// Frees a pooled object that is part of a field on this object
+        /// </summary>
+        /// <param name="obj">Object to free</param>
+        /// <typeparam name="T">Type of object being freed</typeparam>
+        protected void Free<T>(ref T obj) where T : BasePoolable, new()
+        {
+            if (obj != null && obj._shouldPool)
+            {
+                UiFrameworkPool.Free(ref obj);
+            }
+        }
+        
+        /// <summary>
+        /// Frees a pooled list that is part of a field on this object
+        /// </summary>
+        /// <param name="obj">List to be freed</param>
+        /// <typeparam name="T">Type of the list</typeparam>
+        protected void FreeList<T>(ref List<T> obj)
+        {
+            UiFrameworkPool.FreeList(ref obj);
+        }
+        
+        /// <summary>
+        /// Disposes the object when used in a using statement
+        /// </summary>
+        public void Dispose()
+        {
+            if (_shouldPool)
+            {
+                UiFrameworkPool.Free(this);
+            }
+        }
+    }
+    #endregion
+
+    #region Pooling\HashPool.cs
+    public class HashPool<TKey, TValue> : BasePool<Hash<TKey, TValue>>
+    {
+        public static HashPool<TKey, TValue> Instance;
+        
+        internal HashPool() : base(256) { }
+        
+        ///<inheritdoc/>
+        protected override bool OnFreeItem(ref Hash<TKey, TValue> item)
+        {
+            item.Clear();
+            return true;
+        }
+    }
+    #endregion
+
+    #region Pooling\IPool.cs
+    public interface IPool
+    {
+        void Clear();
+    }
+    #endregion
+
+    #region Pooling\IPool{T}.cs
+    public interface IPool<T> : IPool
+    {
+        /// <summary>
+        /// Returns the Pooled type or a new instance if pool is empty.
+        /// </summary>
+        /// <returns></returns>
+        T Get();
+        
+        /// <summary>
+        /// Returns the pooled type back to the pool
+        /// </summary>
+        /// <param name="item"></param>
+        void Free(ref T item);
+    }
+    #endregion
+
+    #region Pooling\ListPool.cs
+    public class ListPool<T> : BasePool<List<T>>
+    {
+        public static ListPool<T> Instance;
+        
+        internal ListPool() : base(256) { }
+        
+        ///<inheritdoc/>
+        protected override bool OnFreeItem(ref List<T> item)
+        {
+            item.Clear();
+            return true;
+        }
+    }
+    #endregion
+
+    #region Pooling\ObjectPool.cs
+    internal class ObjectPool<T> : BasePool<T> where T : BasePoolable, new()
+    {
+        public static ObjectPool<T> Instance;
+        
+        public ObjectPool() : base(1024) { }
+        
+        protected override void OnGetItem(T item)
+        {
+            item.LeavePoolInternal();
+        }
+        
+        protected override bool OnFreeItem(ref T item)
+        {
+            if (item.Disposed)
+            {
+                return false;
+            }
+            
+            item.EnterPoolInternal();
+            return true;
+        }
+    }
+    #endregion
+
+    #region Pooling\StringBuilderPool.cs
+    public class StringBuilderPool : BasePool<StringBuilder>
+    {
+        internal StringBuilderPool() : base(256) { }
+        
+        ///<inheritdoc/>
+        protected override bool OnFreeItem(ref StringBuilder item)
+        {
+            item.Length = 0;
+            return true;
+        }
+    }
+    #endregion
+
     #region Pooling\UiFrameworkPool.cs
     public static class UiFrameworkPool
     {
-        public static T Get<T>() where T : class, new()
+        private static readonly Hash<Type, IPool> Pools = new Hash<Type, IPool>();
+        private static readonly StringBuilderPool StringBuilderPool = new StringBuilderPool();
+        
+        /// <summary>
+        /// Returns a pooled object of type T
+        /// Must inherit from <see cref="BasePoolable"/> and have an empty default constructor
+        /// </summary>
+        /// <typeparam name="T">Type to be returned</typeparam>
+        /// <returns>Pooled object of type T</returns>
+        public static T Get<T>() where T : BasePoolable, new()
         {
-            return Pool.Get<T>() ?? new T();
+            IPool<T> pool = GetObjectPool<T>();
+            return pool.Get();
         }
         
-        public static void Free<T>(ref T entity) where T : class
+        /// <summary>
+        /// Returns a <see cref="BasePoolable"/> back into the pool
+        /// </summary>
+        /// <param name="value">Object to free</param>
+        /// <typeparam name="T">Type of object being freed</typeparam>
+        public static void Free<T>(ref T value) where T : BasePoolable, new()
         {
-            Pool.Free(ref entity);
+            IPool<T> pool = GetObjectPool<T>();
+            pool.Free(ref value);
         }
         
+        /// <summary>
+        /// Returns a <see cref="BasePoolable"/> back into the pool
+        /// </summary>
+        /// <param name="value">Object to free</param>
+        /// <typeparam name="T">Type of object being freed</typeparam>
+        internal static void Free<T>(T value) where T : BasePoolable, new()
+        {
+            IPool<T> pool = GetObjectPool<T>();
+            pool.Free(ref value);
+        }
+        
+        /// <summary>
+        /// Returns a pooled <see cref="List{T}"/>
+        /// </summary>
+        /// <typeparam name="T">Type for the list</typeparam>
+        /// <returns>Pooled List</returns>
         public static List<T> GetList<T>()
         {
-            return Pool.GetList<T>() ?? new List<T>();
+            ListPool<T> pool = GetListPool<T>();
+            return pool.Get();
         }
         
-        public static void FreeList<T>(ref List<T> list)
-        {
-            Pool.FreeList(ref list);
-        }
-        
+        /// <summary>
+        /// Returns a pooled <see cref="Hash{TKey, TValue}"/>
+        /// </summary>
+        /// <typeparam name="TKey">Type for the key</typeparam>
+        /// <typeparam name="TValue">Type for the value</typeparam>
+        /// <returns>Pooled Hash</returns>
         public static Hash<TKey, TValue> GetHash<TKey, TValue>()
         {
-            return Pool.Get<Hash<TKey, TValue>>() ?? new Hash<TKey, TValue>();
+            HashPool<TKey, TValue> pool = GetHashPool<TKey, TValue>();
+            return pool.Get();
         }
         
-        public static void FreeHash<TKey, TValue>(ref Hash<TKey, TValue> hash)
-        {
-            hash.Clear();
-            Pool.Free(ref hash);
-        }
-        
+        /// <summary>
+        /// Returns a pooled <see cref="StringBuilder"/>
+        /// </summary>
+        /// <returns>Pooled <see cref="StringBuilder"/></returns>
         public static StringBuilder GetStringBuilder()
         {
-            return Pool.Get<StringBuilder>() ?? new StringBuilder();
+            return StringBuilderPool.Get();
         }
         
+        /// <summary>
+        /// Free's a pooled <see cref="List{T}"/>
+        /// </summary>
+        /// <param name="list">List to be freed</param>
+        /// <typeparam name="T">Type of the list</typeparam>
+        public static void FreeList<T>(ref List<T> list)
+        {
+            ListPool<T> pool = GetListPool<T>();
+            pool.Free(ref list);
+        }
+        
+        /// <summary>
+        /// Frees a pooled <see cref="Hash{TKey, TValue}"/>
+        /// </summary>
+        /// <param name="hash">Hash to be freed</param>
+        /// <typeparam name="TKey">Type for key</typeparam>
+        /// <typeparam name="TValue">Type for value</typeparam>
+        public static void FreeHash<TKey, TValue>(ref Hash<TKey, TValue> hash)
+        {
+            HashPool<TKey, TValue> pool = GetHashPool<TKey, TValue>();
+            pool.Free(ref hash);
+        }
+        
+        /// <summary>
+        /// Frees a <see cref="StringBuilder"/> back to the pool
+        /// </summary>
+        /// <param name="sb">StringBuilder being freed</param>
         public static void FreeStringBuilder(ref StringBuilder sb)
         {
-            sb.Clear();
-            Pool.Free(ref sb);
+            StringBuilderPool.Free(ref sb);
+        }
+        
+        /// <summary>
+        /// Frees a <see cref="StringBuilder"/> back to the pool returning the <see cref="string"/>
+        /// </summary>
+        /// <param name="sb"><see cref="StringBuilder"/> being freed</param>
+        public static string ToStringAndFreeStringBuilder(ref StringBuilder sb)
+        {
+            string result = sb?.ToString();
+            StringBuilderPool.Free(ref sb);
+            return result;
+        }
+        
+        private static IPool<T> GetObjectPool<T>() where T : BasePoolable, new()
+        {
+            ObjectPool<T> pool = ObjectPool<T>.Instance;
+            if (pool == null)
+            {
+                pool = new ObjectPool<T>();
+                ObjectPool<T>.Instance = pool;
+                Pools[pool.GetType()] = pool;
+            }
+            
+            return pool;
+        }
+        
+        private static ListPool<T> GetListPool<T>()
+        {
+            ListPool<T> pool = ListPool<T>.Instance;
+            if (pool == null)
+            {
+                pool = new ListPool<T>();
+                ListPool<T>.Instance = pool;
+                Pools[pool.GetType()] = pool;
+            }
+            
+            return pool;
+        }
+        
+        private static HashPool<TKey, TValue> GetHashPool<TKey, TValue>()
+        {
+            HashPool<TKey, TValue> pool = HashPool<TKey, TValue>.Instance;
+            if (pool == null)
+            {
+                pool = new HashPool<TKey, TValue>();
+                HashPool<TKey, TValue>.Instance = pool;
+                Pools[pool.GetType()] = pool;
+            }
+            
+            return pool;
+        }
+        
+        public static void OnUnload()
+        {
+            foreach (IPool pool in Pools.Values)
+            {
+                pool.Clear();
+            }
+            
+            StringBuilderPool.Clear();
         }
     }
     #endregion
@@ -2204,24 +2589,19 @@ namespace Oxide.Plugins
     #endregion
 
     #region UiElements\BaseUiComponent.cs
-    public abstract class BaseUiComponent : Pool.IPooled
+    public abstract class BaseUiComponent : BasePoolable
     {
         public string Name;
         public string Parent;
         public float FadeOut;
         public Position Position;
         public Offset? Offset;
-        private bool _inPool = true;
         
         protected static T CreateBase<T>(UiPosition pos, UiOffset offset) where T : BaseUiComponent, new()
         {
             T component = UiFrameworkPool.Get<T>();
             component.Position = pos.ToPosition();
             component.Offset = offset?.ToOffset();
-            if (component._inPool)
-            {
-                component.LeavePool();
-            }
             return component;
         }
         
@@ -2230,10 +2610,6 @@ namespace Oxide.Plugins
             T component = UiFrameworkPool.Get<T>();
             component.Position = pos;
             component.Offset = offset;
-            if (component._inPool)
-            {
-                component.LeavePool();
-            }
             return component;
         }
         
@@ -2241,10 +2617,6 @@ namespace Oxide.Plugins
         {
             T component = UiFrameworkPool.Get<T>();
             component.Position = pos.ToPosition();
-            if (component._inPool)
-            {
-                component.LeavePool();
-            }
             return component;
         }
         
@@ -2316,19 +2688,13 @@ namespace Oxide.Plugins
         
         public abstract void SetFadeIn(float duration);
         
-        public virtual void EnterPool()
+        protected override void EnterPool()
         {
             Name = null;
             Parent = null;
             FadeOut = 0;
             Position = default(Position);
             Offset = null;
-            _inPool = true;
-        }
-        
-        public virtual void LeavePool()
-        {
-            _inPool = false;
         }
     }
     #endregion
@@ -2362,7 +2728,7 @@ namespace Oxide.Plugins
             base.WriteComponents(writer);
         }
         
-        public override void EnterPool()
+        protected override void EnterPool()
         {
             if (Outline != null)
             {
@@ -2399,13 +2765,13 @@ namespace Oxide.Plugins
             base.WriteComponents(writer);
         }
         
-        public override void EnterPool()
+        protected override void EnterPool()
         {
             base.EnterPool();
             UiFrameworkPool.Free(ref Button);
         }
         
-        public override void LeavePool()
+        protected override void LeavePool()
         {
             base.LeavePool();
             Button = UiFrameworkPool.Get<ButtonComponent>();
@@ -2437,13 +2803,13 @@ namespace Oxide.Plugins
             base.WriteComponents(writer);
         }
         
-        public override void EnterPool()
+        protected override void EnterPool()
         {
             base.EnterPool();
             UiFrameworkPool.Free(ref Image);
         }
         
-        public override void LeavePool()
+        protected override void LeavePool()
         {
             base.LeavePool();
             Image = UiFrameworkPool.Get<ImageComponent>();
@@ -2519,7 +2885,7 @@ namespace Oxide.Plugins
             base.WriteComponents(writer);
         }
         
-        public override void EnterPool()
+        protected override void EnterPool()
         {
             base.EnterPool();
             UiFrameworkPool.Free(ref Input);
@@ -2529,7 +2895,7 @@ namespace Oxide.Plugins
             }
         }
         
-        public override void LeavePool()
+        protected override void LeavePool()
         {
             base.LeavePool();
             Input = UiFrameworkPool.Get<InputComponent>();
@@ -2567,13 +2933,13 @@ namespace Oxide.Plugins
             base.WriteComponents(writer);
         }
         
-        public override void EnterPool()
+        protected override void EnterPool()
         {
             base.EnterPool();
             UiFrameworkPool.Free(ref Icon);
         }
         
-        public override void LeavePool()
+        protected override void LeavePool()
         {
             base.LeavePool();
             Icon = UiFrameworkPool.Get<ItemIconComponent>();
@@ -2620,7 +2986,7 @@ namespace Oxide.Plugins
             base.WriteComponents(writer);
         }
         
-        public override void EnterPool()
+        protected override void EnterPool()
         {
             base.EnterPool();
             UiFrameworkPool.Free(ref Text);
@@ -2631,7 +2997,7 @@ namespace Oxide.Plugins
             }
         }
         
-        public override void LeavePool()
+        protected override void LeavePool()
         {
             base.LeavePool();
             Text = UiFrameworkPool.Get<TextComponent>();
@@ -2679,13 +3045,13 @@ namespace Oxide.Plugins
             base.WriteComponents(writer);
         }
         
-        public override void EnterPool()
+        protected override void EnterPool()
         {
             base.EnterPool();
             UiFrameworkPool.Free(ref Image);
         }
         
-        public override void LeavePool()
+        protected override void LeavePool()
         {
             base.LeavePool();
             Image = UiFrameworkPool.Get<ImageComponent>();
@@ -2718,13 +3084,13 @@ namespace Oxide.Plugins
             base.WriteComponents(writer);
         }
         
-        public override void EnterPool()
+        protected override void EnterPool()
         {
             base.EnterPool();
             UiFrameworkPool.Free(ref RawImage);
         }
         
-        public override void LeavePool()
+        protected override void LeavePool()
         {
             base.LeavePool();
             RawImage = UiFrameworkPool.Get<RawImageComponent>();

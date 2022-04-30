@@ -26,7 +26,7 @@ namespace Oxide.Ext.UiFramework.Components
             writer.WriteEndObject();
         }
 
-        public override void EnterPool()
+        protected override void EnterPool()
         {
             base.EnterPool();
             Distance = JsonDefaults.Outline.DistanceValue;

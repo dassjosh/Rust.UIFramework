@@ -1,14 +1,10 @@
-﻿using Facepunch;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using Oxide.Ext.UiFramework.Pooling;
 
 namespace Oxide.Ext.UiFramework.Components
 {
-    public abstract class BaseComponent : Pool.IPooled
+    public abstract class BaseComponent : BasePoolable
     {
-        public virtual void EnterPool() { }
-
-        public virtual void LeavePool() { }
-
         public abstract void WriteComponent(JsonTextWriter writer);
     }
 }
