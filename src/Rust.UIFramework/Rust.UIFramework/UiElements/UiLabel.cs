@@ -1,16 +1,15 @@
 ﻿using Newtonsoft.Json;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
+using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Positions;
 using UnityEngine;
-using Pool = Facepunch.Pool;
 
 namespace Oxide.Ext.UiFramework.UiElements
 {
-    public class UiLabel : BaseUiComponent
+    public class UiLabel : BaseUiTextOutline
     {
         public TextComponent Text;
-        public OutlineComponent Outline;
         public CountdownComponent Countdown;
 
         public static UiLabel Create(string text, int size, UiColor color, UiPosition pos, string font, TextAnchor align = TextAnchor.MiddleCenter)
@@ -25,27 +24,9 @@ namespace Oxide.Ext.UiFramework.UiElements
             return label;
         }
 
-        public void AddTextOutline(UiColor color)
-        {
-            Outline = Pool.Get<OutlineComponent>();
-            Outline.Color = color;
-        }
-
-        public void AddTextOutline(UiColor color, Vector2 distance)
-        {
-            AddTextOutline(color);
-            Outline.Distance = distance;
-        }
-
-        public void AddTextOutline(UiColor color, Vector2 distance, bool useGraphicAlpha)
-        {
-            AddTextOutline(color, distance);
-            Outline.UseGraphicAlpha = useGraphicAlpha;
-        }
-
         public void AddCountdown(int startTime, int endTime, int step, string command)
         {
-            Countdown = Pool.Get<CountdownComponent>();
+            Countdown = UiFrameworkPool.Get<CountdownComponent>();
             Countdown.StartTime = startTime;
             Countdown.EndTime = endTime;
             Countdown.Step = step;
@@ -55,7 +36,6 @@ namespace Oxide.Ext.UiFramework.UiElements
         protected override void WriteComponents(JsonTextWriter writer)
         {
             Text.WriteComponent(writer);
-            Outline?.WriteComponent(writer);
             Countdown?.WriteComponent(writer);
             base.WriteComponents(writer);
         }
@@ -63,22 +43,18 @@ namespace Oxide.Ext.UiFramework.UiElements
         public override void EnterPool()
         {
             base.EnterPool();
-            Pool.Free(ref Text);
-            if (Outline != null)
-            {
-                Pool.Free(ref Outline);
-            }
-            
+            UiFrameworkPool.Free(ref Text);
+
             if (Countdown != null)
             {
-                Pool.Free(ref Countdown);
+                UiFrameworkPool.Free(ref Countdown);
             }
         }
 
         public override void LeavePool()
         {
             base.LeavePool();
-            Text = Pool.Get<TextComponent>();
+            Text = UiFrameworkPool.Get<TextComponent>();
         }
 
         public override void SetFadeIn(float duration)

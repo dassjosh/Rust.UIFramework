@@ -1,3 +1,4 @@
+using Facepunch;
 using Network;
 using Newtonsoft.Json;
 using System;
@@ -49,7 +50,7 @@ namespace Oxide.Plugins
                 private const string RobotoCondensedBold = "robotocondensed-bold.ttf";
                 private const string RobotoCondensedRegular = "robotocondensed-regular.ttf";
                 
-                private static readonly Hash<UiFont, string> _fonts = new Hash<UiFont, string>
+                private static readonly Hash<UiFont, string> Fonts = new Hash<UiFont, string>
                 {
                     [UiFont.DroidSansMono] = DroidSansMono,
                     [UiFont.PermanentMarker] = PermanentMarker,
@@ -59,7 +60,7 @@ namespace Oxide.Plugins
                 
                 public static string GetUiFont(UiFont font)
                 {
-                    return _fonts[font];
+                    return Fonts[font];
                 }
             }
             
@@ -71,7 +72,7 @@ namespace Oxide.Plugins
                 private const string HudMenu = "Hud.Menu";
                 private const string Under = "Under";
                 
-                private static readonly Hash<UiLayer, string> _layers = new Hash<UiLayer, string>
+                private static readonly Hash<UiLayer, string> Layers = new Hash<UiLayer, string>
                 {
                     [UiLayer.Overall] = Overall,
                     [UiLayer.Overlay] = Overlay,
@@ -82,7 +83,7 @@ namespace Oxide.Plugins
                 
                 public static string GetLayer(UiLayer layer)
                 {
-                    return _layers[layer];
+                    return Layers[layer];
                 }
             }
             
@@ -121,6 +122,7 @@ namespace Oxide.Plugins
             private bool _disposed;
             
             private List<BaseUiComponent> _components;
+            private Hash<string, BaseUiComponent> _componentLookup;
             private StringBuilder _sb;
             
             private static string _font;
@@ -147,12 +149,16 @@ namespace Oxide.Plugins
             public UiBuilder()
             {
                 _components = UiFrameworkPool.GetList<BaseUiComponent>();
+                _componentLookup = UiFrameworkPool.GetHash<string, BaseUiComponent>();
                 _sb = UiFrameworkPool.GetStringBuilder();
             }
             
             public void EnsureCapacity(int capacity)
             {
-                _components.Capacity = capacity;
+                if (_components.Capacity < capacity)
+                {
+                    _components.Capacity = capacity;
+                }
             }
             
             public void SetRoot(BaseUiComponent component, string name, string parent)
@@ -178,6 +184,11 @@ namespace Oxide.Plugins
             {
                 _font = UiConstants.UiFonts.GetUiFont(font);
             }
+            
+            public T GetUi<T>(string name) where T : BaseUiComponent
+            {
+                return (T)_componentLookup[name];
+            }
             #endregion
             
             #region Decontructor
@@ -198,11 +209,12 @@ namespace Oxide.Plugins
                 for (int index = 0; index < _components.Count; index++)
                 {
                     BaseUiComponent component = _components[index];
-                    Pool.Free(ref component);
+                    UiFrameworkPool.Free(ref component);
                 }
                 
                 UiFrameworkPool.FreeList(ref _components);
                 UiFrameworkPool.FreeStringBuilder(ref _sb);
+                UiFrameworkPool.FreeHash(ref _componentLookup);
                 Root = null;
                 _cachedJson = null;
             }
@@ -213,6 +225,7 @@ namespace Oxide.Plugins
             {
                 component.Parent = parent.Name;
                 component.Name = GetComponentName();
+                _componentLookup[component.Name] = component;
                 _components.Add(component);
             }
             
@@ -388,6 +401,30 @@ namespace Oxide.Plugins
                 return label;
             }
             
+            public UiLabel Countdown(UiLabel label, int startTime, int endTime, int step, string command)
+            {
+                label.AddCountdown(startTime, endTime, step, command);
+                return label;
+            }
+            
+            public T TextOutline<T>(T outline, UiColor color) where T : BaseUiTextOutline
+            {
+                outline.AddTextOutline(color);
+                return outline;
+            }
+            
+            public T TextOutline<T>(T outline, UiColor color, Vector2 distance) where T : BaseUiTextOutline
+            {
+                outline.AddTextOutline(color, distance);
+                return outline;
+            }
+            
+            public T TextOutline<T>(T outline, UiColor color, Vector2 distance, bool useGraphicAlpha) where T : BaseUiTextOutline
+            {
+                outline.AddTextOutline(color, distance, useGraphicAlpha);
+                return outline;
+            }
+            
             public UiInput Input(BaseUiComponent parent, string text, int size, UiColor textColor, UiColor backgroundColor, UiPosition pos, string cmd, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, bool isPassword = false, bool readOnly = false, InputField.LineType lineType = InputField.LineType.SingleLine)
             {
                 parent = Panel(parent, backgroundColor, pos);
@@ -412,7 +449,7 @@ namespace Oxide.Plugins
                 
                 if (HasBorderFlag(border, BorderMode.Bottom))
                 {
-                    UiPanel panel = UiPanel.Create(UiPosition.Bottom.ToPosition(), new Offset(0, -size, 0 ,1), color);
+                    UiPanel panel = UiPanel.Create(UiPosition.Bottom.ToPosition(), new Offset(0, -size, 0, 1), color);
                     AddComponent(panel, parent);
                 }
                 
@@ -1752,6 +1789,16 @@ namespace Oxide.Plugins
         #region Pooling\UiFrameworkPool.cs
         public static class UiFrameworkPool
         {
+            public static T Get<T>() where T : class, new()
+            {
+                return Pool.Get<T>() ?? new T();
+            }
+            
+            public static void Free<T>(ref T entity) where T : class
+            {
+                Pool.Free(ref entity);
+            }
+            
             public static List<T> GetList<T>()
             {
                 return Pool.GetList<T>() ?? new List<T>();
@@ -1760,6 +1807,17 @@ namespace Oxide.Plugins
             public static void FreeList<T>(ref List<T> list)
             {
                 Pool.FreeList(ref list);
+            }
+            
+            public static Hash<TKey, TValue> GetHash<TKey, TValue>()
+            {
+                return Pool.Get<Hash<TKey, TValue>>() ?? new Hash<TKey, TValue>();
+            }
+            
+            public static void FreeHash<TKey, TValue>(ref Hash<TKey, TValue> hash)
+            {
+                hash.Clear();
+                Pool.Free(ref hash);
             }
             
             public static StringBuilder GetStringBuilder()
@@ -2154,7 +2212,7 @@ namespace Oxide.Plugins
             
             protected static T CreateBase<T>(UiPosition pos, UiOffset offset) where T : BaseUiComponent, new()
             {
-                T component = Pool.Get<T>();
+                T component = UiFrameworkPool.Get<T>();
                 component.Position = pos.ToPosition();
                 component.Offset = offset?.ToOffset();
                 if (component._inPool)
@@ -2166,7 +2224,7 @@ namespace Oxide.Plugins
             
             protected static T CreateBase<T>(Position pos, Offset? offset) where T : BaseUiComponent, new()
             {
-                T component = Pool.Get<T>();
+                T component = UiFrameworkPool.Get<T>();
                 component.Position = pos;
                 component.Offset = offset;
                 if (component._inPool)
@@ -2178,7 +2236,7 @@ namespace Oxide.Plugins
             
             protected static T CreateBase<T>(UiPosition pos) where T : BaseUiComponent, new()
             {
-                T component = Pool.Get<T>();
+                T component = UiFrameworkPool.Get<T>();
                 component.Position = pos.ToPosition();
                 if (component._inPool)
                 {
@@ -2272,6 +2330,45 @@ namespace Oxide.Plugins
         }
         #endregion
 
+        #region UiElements\BaseUiTextOutline.cs
+        public abstract class BaseUiTextOutline : BaseUiComponent
+        {
+            public OutlineComponent Outline;
+            
+            public void AddTextOutline(UiColor color)
+            {
+                Outline = UiFrameworkPool.Get<OutlineComponent>();
+                Outline.Color = color;
+            }
+            
+            public void AddTextOutline(UiColor color, Vector2 distance)
+            {
+                AddTextOutline(color);
+                Outline.Distance = distance;
+            }
+            
+            public void AddTextOutline(UiColor color, Vector2 distance, bool useGraphicAlpha)
+            {
+                AddTextOutline(color, distance);
+                Outline.UseGraphicAlpha = useGraphicAlpha;
+            }
+            
+            protected override void WriteComponents(JsonTextWriter writer)
+            {
+                Outline?.WriteComponent(writer);
+                base.WriteComponents(writer);
+            }
+            
+            public override void EnterPool()
+            {
+                if (Outline != null)
+                {
+                    UiFrameworkPool.Free(ref Outline);
+                }
+            }
+        }
+        #endregion
+
         #region UiElements\UiButton.cs
         public class UiButton : BaseUiComponent
         {
@@ -2302,13 +2399,13 @@ namespace Oxide.Plugins
             public override void EnterPool()
             {
                 base.EnterPool();
-                Pool.Free(ref Button);
+                UiFrameworkPool.Free(ref Button);
             }
             
             public override void LeavePool()
             {
                 base.LeavePool();
-                Button = Pool.Get<ButtonComponent>();
+                Button = UiFrameworkPool.Get<ButtonComponent>();
             }
             
             public override void SetFadeIn(float duration)
@@ -2340,13 +2437,13 @@ namespace Oxide.Plugins
             public override void EnterPool()
             {
                 base.EnterPool();
-                Pool.Free(ref Image);
+                UiFrameworkPool.Free(ref Image);
             }
             
             public override void LeavePool()
             {
                 base.LeavePool();
-                Image = Pool.Get<ImageComponent>();
+                Image = UiFrameworkPool.Get<ImageComponent>();
             }
             
             public override void SetFadeIn(float duration)
@@ -2357,10 +2454,9 @@ namespace Oxide.Plugins
         #endregion
 
         #region UiElements\UiInput.cs
-        public class UiInput : BaseUiComponent
+        public class UiInput : BaseUiTextOutline
         {
             public InputComponent Input;
-            public OutlineComponent Outline;
             
             public static UiInput Create(string text, int size, UiColor textColor, UiPosition pos, string cmd, string font, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, bool isPassword = false, bool readOnly = false, InputField.LineType lineType = InputField.LineType.SingleLine)
             {
@@ -2414,24 +2510,6 @@ namespace Oxide.Plugins
                 Input.NeedsKeyboard = needsKeyboard;
             }
             
-            public void AddTextOutline(UiColor color)
-            {
-                Outline = Pool.Get<OutlineComponent>();
-                Outline.Color = color;
-            }
-            
-            public void AddTextOutline(UiColor color, Vector2 distance)
-            {
-                AddTextOutline(color);
-                Outline.Distance = distance;
-            }
-            
-            public void AddTextOutline(UiColor color, Vector2 distance, bool useGraphicAlpha)
-            {
-                AddTextOutline(color, distance);
-                Outline.UseGraphicAlpha = useGraphicAlpha;
-            }
-            
             protected override void WriteComponents(JsonTextWriter writer)
             {
                 Input.WriteComponent(writer);
@@ -2441,17 +2519,17 @@ namespace Oxide.Plugins
             public override void EnterPool()
             {
                 base.EnterPool();
-                Pool.Free(ref Input);
+                UiFrameworkPool.Free(ref Input);
                 if (Outline != null)
                 {
-                    Pool.Free(ref Outline);
+                    UiFrameworkPool.Free(ref Outline);
                 }
             }
             
             public override void LeavePool()
             {
                 base.LeavePool();
-                Input = Pool.Get<InputComponent>();
+                Input = UiFrameworkPool.Get<InputComponent>();
             }
             
             public override void SetFadeIn(float duration)
@@ -2489,13 +2567,13 @@ namespace Oxide.Plugins
             public override void EnterPool()
             {
                 base.EnterPool();
-                Pool.Free(ref Icon);
+                UiFrameworkPool.Free(ref Icon);
             }
             
             public override void LeavePool()
             {
                 base.LeavePool();
-                Icon = Pool.Get<ItemIconComponent>();
+                Icon = UiFrameworkPool.Get<ItemIconComponent>();
             }
             
             public override void SetFadeIn(float duration)
@@ -2506,10 +2584,9 @@ namespace Oxide.Plugins
         #endregion
 
         #region UiElements\UiLabel.cs
-        public class UiLabel : BaseUiComponent
+        public class UiLabel : BaseUiTextOutline
         {
             public TextComponent Text;
-            public OutlineComponent Outline;
             public CountdownComponent Countdown;
             
             public static UiLabel Create(string text, int size, UiColor color, UiPosition pos, string font, TextAnchor align = TextAnchor.MiddleCenter)
@@ -2524,27 +2601,9 @@ namespace Oxide.Plugins
                 return label;
             }
             
-            public void AddTextOutline(UiColor color)
-            {
-                Outline = Pool.Get<OutlineComponent>();
-                Outline.Color = color;
-            }
-            
-            public void AddTextOutline(UiColor color, Vector2 distance)
-            {
-                AddTextOutline(color);
-                Outline.Distance = distance;
-            }
-            
-            public void AddTextOutline(UiColor color, Vector2 distance, bool useGraphicAlpha)
-            {
-                AddTextOutline(color, distance);
-                Outline.UseGraphicAlpha = useGraphicAlpha;
-            }
-            
             public void AddCountdown(int startTime, int endTime, int step, string command)
             {
-                Countdown = Pool.Get<CountdownComponent>();
+                Countdown = UiFrameworkPool.Get<CountdownComponent>();
                 Countdown.StartTime = startTime;
                 Countdown.EndTime = endTime;
                 Countdown.Step = step;
@@ -2554,7 +2613,6 @@ namespace Oxide.Plugins
             protected override void WriteComponents(JsonTextWriter writer)
             {
                 Text.WriteComponent(writer);
-                Outline?.WriteComponent(writer);
                 Countdown?.WriteComponent(writer);
                 base.WriteComponents(writer);
             }
@@ -2562,22 +2620,18 @@ namespace Oxide.Plugins
             public override void EnterPool()
             {
                 base.EnterPool();
-                Pool.Free(ref Text);
-                if (Outline != null)
-                {
-                    Pool.Free(ref Outline);
-                }
+                UiFrameworkPool.Free(ref Text);
                 
                 if (Countdown != null)
                 {
-                    Pool.Free(ref Countdown);
+                    UiFrameworkPool.Free(ref Countdown);
                 }
             }
             
             public override void LeavePool()
             {
                 base.LeavePool();
-                Text = Pool.Get<TextComponent>();
+                Text = UiFrameworkPool.Get<TextComponent>();
             }
             
             public override void SetFadeIn(float duration)
@@ -2625,13 +2679,13 @@ namespace Oxide.Plugins
             public override void EnterPool()
             {
                 base.EnterPool();
-                Pool.Free(ref Image);
+                UiFrameworkPool.Free(ref Image);
             }
             
             public override void LeavePool()
             {
                 base.LeavePool();
-                Image = Pool.Get<ImageComponent>();
+                Image = UiFrameworkPool.Get<ImageComponent>();
             }
             
             public override void SetFadeIn(float duration)
@@ -2664,13 +2718,13 @@ namespace Oxide.Plugins
             public override void EnterPool()
             {
                 base.EnterPool();
-                Pool.Free(ref RawImage);
+                UiFrameworkPool.Free(ref RawImage);
             }
             
             public override void LeavePool()
             {
                 base.LeavePool();
-                RawImage = Pool.Get<RawImageComponent>();
+                RawImage = UiFrameworkPool.Get<RawImageComponent>();
             }
             
             public override void SetFadeIn(float duration)

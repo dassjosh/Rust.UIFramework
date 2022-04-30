@@ -1,8 +1,9 @@
-﻿using Newtonsoft.Json;
+﻿using Facepunch;
+using Newtonsoft.Json;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Offsets;
+using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Positions;
-using Pool = Facepunch.Pool;
 
 namespace Oxide.Ext.UiFramework.UiElements
 {
@@ -17,7 +18,7 @@ namespace Oxide.Ext.UiFramework.UiElements
 
         protected static T CreateBase<T>(UiPosition pos, UiOffset offset) where T : BaseUiComponent, new()
         {
-            T component = Pool.Get<T>();
+            T component = UiFrameworkPool.Get<T>();
             component.Position = pos.ToPosition();
             component.Offset = offset?.ToOffset();
             if (component._inPool)
@@ -29,7 +30,7 @@ namespace Oxide.Ext.UiFramework.UiElements
 
         protected static T CreateBase<T>(Position pos, Offset? offset) where T : BaseUiComponent, new()
         {
-            T component = Pool.Get<T>();
+            T component = UiFrameworkPool.Get<T>();
             component.Position = pos;
             component.Offset = offset;
             if (component._inPool)
@@ -41,7 +42,7 @@ namespace Oxide.Ext.UiFramework.UiElements
 
         protected static T CreateBase<T>(UiPosition pos) where T : BaseUiComponent, new()
         {
-            T component = Pool.Get<T>();
+            T component = UiFrameworkPool.Get<T>();
             component.Position = pos.ToPosition();
             if (component._inPool)
             {

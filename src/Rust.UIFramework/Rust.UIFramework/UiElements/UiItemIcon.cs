@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
+using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Positions;
-using Pool = Facepunch.Pool;
 
 namespace Oxide.Ext.UiFramework.UiElements
 {
@@ -33,13 +33,13 @@ namespace Oxide.Ext.UiFramework.UiElements
         public override void EnterPool()
         {
             base.EnterPool();
-            Pool.Free(ref Icon);
+            UiFrameworkPool.Free(ref Icon);
         }
 
         public override void LeavePool()
         {
             base.LeavePool();
-            Icon = Pool.Get<ItemIconComponent>();
+            Icon = UiFrameworkPool.Get<ItemIconComponent>();
         }
 
         public override void SetFadeIn(float duration)

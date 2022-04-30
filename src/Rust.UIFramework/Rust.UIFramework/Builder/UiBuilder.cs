@@ -10,9 +10,9 @@ using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.UiElements;
+using Oxide.Plugins;
 using UnityEngine;
 using UnityEngine.UI;
-using Pool = Facepunch.Pool;
 using Net = Network.Net;
 
 namespace Oxide.Ext.UiFramework.Builder
@@ -23,11 +23,12 @@ namespace Oxide.Ext.UiFramework.Builder
 
         private bool _needsMouse;
         private bool _needsKeyboard;
-        
+
         private string _cachedJson;
         private bool _disposed;
 
         private List<BaseUiComponent> _components;
+        private Hash<string, BaseUiComponent> _componentLookup;
         private StringBuilder _sb;
 
         private static string _font;
@@ -54,12 +55,16 @@ namespace Oxide.Ext.UiFramework.Builder
         public UiBuilder()
         {
             _components = UiFrameworkPool.GetList<BaseUiComponent>();
+            _componentLookup = UiFrameworkPool.GetHash<string, BaseUiComponent>();
             _sb = UiFrameworkPool.GetStringBuilder();
         }
 
         public void EnsureCapacity(int capacity)
         {
-            _components.Capacity = capacity;
+            if (_components.Capacity < capacity)
+            {
+                _components.Capacity = capacity;
+            }
         }
 
         public void SetRoot(BaseUiComponent component, string name, string parent)
@@ -75,7 +80,7 @@ namespace Oxide.Ext.UiFramework.Builder
         {
             _needsMouse = enabled;
         }
-        
+
         public void NeedsKeyboard(bool enabled = true)
         {
             _needsKeyboard = enabled;
@@ -84,6 +89,11 @@ namespace Oxide.Ext.UiFramework.Builder
         public static void SetFont(UiFont font)
         {
             _font = UiConstants.UiFonts.GetUiFont(font);
+        }
+
+        public T GetUi<T>(string name) where T : BaseUiComponent
+        {
+            return (T)_componentLookup[name];
         }
         #endregion
 
@@ -105,11 +115,12 @@ namespace Oxide.Ext.UiFramework.Builder
             for (int index = 0; index < _components.Count; index++)
             {
                 BaseUiComponent component = _components[index];
-                Pool.Free(ref component);
+                UiFrameworkPool.Free(ref component);
             }
 
             UiFrameworkPool.FreeList(ref _components);
             UiFrameworkPool.FreeStringBuilder(ref _sb);
+            UiFrameworkPool.FreeHash(ref _componentLookup);
             Root = null;
             _cachedJson = null;
         }
@@ -120,6 +131,7 @@ namespace Oxide.Ext.UiFramework.Builder
         {
             component.Parent = parent.Name;
             component.Name = GetComponentName();
+            _componentLookup[component.Name] = component;
             _components.Add(component);
         }
 
@@ -178,21 +190,21 @@ namespace Oxide.Ext.UiFramework.Builder
             Image(button, png, UiPosition.FullPosition);
             return button;
         }
-        
+
         public UiButton WebImageButton(BaseUiComponent parent, UiColor buttonColor, string url, UiPosition pos, string cmd)
         {
             UiButton button = EmptyCommandButton(parent, buttonColor, pos, cmd);
             Image(button, url, UiPosition.FullPosition);
             return button;
         }
-        
+
         public UiButton ItemIconButton(BaseUiComponent parent, UiColor buttonColor, int itemId, UiPosition pos, string cmd)
         {
             UiButton button = EmptyCommandButton(parent, buttonColor, pos, cmd);
             ItemIcon(button, itemId, UiPosition.FullPosition);
             return button;
         }
-        
+
         public UiButton ItemIconButton(BaseUiComponent parent, UiColor buttonColor, int itemId, ulong skinId, UiPosition pos, string cmd)
         {
             UiButton button = EmptyCommandButton(parent, buttonColor, pos, cmd);
@@ -213,7 +225,7 @@ namespace Oxide.Ext.UiFramework.Builder
             Image(button, png, UiPosition.FullPosition);
             return button;
         }
-        
+
         public UiButton WebImageCloseButton(BaseUiComponent parent, UiColor buttonColor, string url, UiPosition pos, string close)
         {
             UiButton button = EmptyCloseButton(parent, buttonColor, pos, close);
@@ -228,7 +240,7 @@ namespace Oxide.Ext.UiFramework.Builder
             {
                 throw new UiFrameworkException($"Image PNG '{png}' is not a valid uint. If trying to use a url please use WebImage instead");
             }
-            
+
             UiImage image = UiImage.Create(png, pos, color);
             AddComponent(image, parent);
             return image;
@@ -238,19 +250,19 @@ namespace Oxide.Ext.UiFramework.Builder
         {
             return Image(parent, png, pos, UiColors.White);
         }
-        
+
         public UiWebImage WebImage(BaseUiComponent parent, string url, UiPosition pos, UiColor color)
         {
             if (!url.StartsWith("http"))
             {
                 throw new UiFrameworkException($"WebImage Url '{url}' is not a valid url. If trying to use a png id please use Image instead");
             }
-            
+
             UiWebImage image = UiWebImage.Create(url, pos, color);
             AddComponent(image, parent);
             return image;
         }
-        
+
         public UiItemIcon ItemIcon(BaseUiComponent parent, int itemId, UiPosition pos, UiColor color)
         {
             UiItemIcon image = UiItemIcon.Create(itemId, pos, color);
@@ -262,7 +274,7 @@ namespace Oxide.Ext.UiFramework.Builder
         {
             return ItemIcon(parent, itemId, pos, UiColors.White);
         }
-        
+
         public UiItemIcon ItemIcon(BaseUiComponent parent, int itemId, ulong skinId, UiPosition pos, UiColor color)
         {
             UiItemIcon image = UiItemIcon.Create(itemId, skinId, pos, color);
@@ -295,6 +307,30 @@ namespace Oxide.Ext.UiFramework.Builder
             return label;
         }
 
+        public UiLabel Countdown(UiLabel label, int startTime, int endTime, int step, string command)
+        {
+            label.AddCountdown(startTime, endTime, step, command);
+            return label;
+        }
+
+        public T TextOutline<T>(T outline, UiColor color) where T : BaseUiTextOutline
+        {
+            outline.AddTextOutline(color);
+            return outline;
+        }
+
+        public T TextOutline<T>(T outline, UiColor color, Vector2 distance) where T : BaseUiTextOutline
+        {
+            outline.AddTextOutline(color, distance);
+            return outline;
+        }
+
+        public T TextOutline<T>(T outline, UiColor color, Vector2 distance, bool useGraphicAlpha) where T : BaseUiTextOutline
+        {
+            outline.AddTextOutline(color, distance, useGraphicAlpha);
+            return outline;
+        }
+
         public UiInput Input(BaseUiComponent parent, string text, int size, UiColor textColor, UiColor backgroundColor, UiPosition pos, string cmd, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, bool isPassword = false, bool readOnly = false, InputField.LineType lineType = InputField.LineType.SingleLine)
         {
             parent = Panel(parent, backgroundColor, pos);
@@ -319,7 +355,7 @@ namespace Oxide.Ext.UiFramework.Builder
 
             if (HasBorderFlag(border, BorderMode.Bottom))
             {
-                UiPanel panel = UiPanel.Create(UiPosition.Bottom.ToPosition(), new Offset(0, -size, 0 ,1), color);
+                UiPanel panel = UiPanel.Create(UiPosition.Bottom.ToPosition(), new Offset(0, -size, 0, 1), color);
                 AddComponent(panel, parent);
             }
 

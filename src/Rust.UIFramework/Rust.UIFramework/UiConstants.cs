@@ -12,7 +12,7 @@ namespace Oxide.Ext.UiFramework
             private const string RobotoCondensedBold = "robotocondensed-bold.ttf";
             private const string RobotoCondensedRegular = "robotocondensed-regular.ttf";
 
-            private static readonly Hash<UiFont, string> _fonts = new Hash<UiFont, string>
+            private static readonly Hash<UiFont, string> Fonts = new Hash<UiFont, string>
             {
                 [UiFont.DroidSansMono] = DroidSansMono,
                 [UiFont.PermanentMarker] = PermanentMarker,
@@ -22,7 +22,7 @@ namespace Oxide.Ext.UiFramework
 
             public static string GetUiFont(UiFont font)
             {
-                return _fonts[font];
+                return Fonts[font];
             }
         }
 
@@ -34,7 +34,7 @@ namespace Oxide.Ext.UiFramework
             private const string HudMenu = "Hud.Menu";
             private const string Under = "Under";
 
-            private static readonly Hash<UiLayer, string> _layers = new Hash<UiLayer, string>
+            private static readonly Hash<UiLayer, string> Layers = new Hash<UiLayer, string>
             {
                 [UiLayer.Overall] = Overall,
                 [UiLayer.Overlay] = Overlay,
@@ -45,7 +45,7 @@ namespace Oxide.Ext.UiFramework
 
             public static string GetLayer(UiLayer layer)
             {
-                return _layers[layer];
+                return Layers[layer];
             }
         }
 

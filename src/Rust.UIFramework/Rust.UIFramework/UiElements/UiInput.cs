@@ -1,17 +1,16 @@
 ﻿using Newtonsoft.Json;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
+using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Positions;
 using UnityEngine;
 using UnityEngine.UI;
-using Pool = Facepunch.Pool;
 
 namespace Oxide.Ext.UiFramework.UiElements
 {
-    public class UiInput : BaseUiComponent
+    public class UiInput : BaseUiTextOutline
     {
         public InputComponent Input;
-        public OutlineComponent Outline;
 
         public static UiInput Create(string text, int size, UiColor textColor, UiPosition pos, string cmd, string font, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, bool isPassword = false, bool readOnly = false, InputField.LineType lineType = InputField.LineType.SingleLine)
         {
@@ -64,24 +63,6 @@ namespace Oxide.Ext.UiFramework.UiElements
         {
             Input.NeedsKeyboard = needsKeyboard;
         }
-        
-        public void AddTextOutline(UiColor color)
-        {
-            Outline = Pool.Get<OutlineComponent>();
-            Outline.Color = color;
-        }
-
-        public void AddTextOutline(UiColor color, Vector2 distance)
-        {
-            AddTextOutline(color);
-            Outline.Distance = distance;
-        }
-
-        public void AddTextOutline(UiColor color, Vector2 distance, bool useGraphicAlpha)
-        {
-            AddTextOutline(color, distance);
-            Outline.UseGraphicAlpha = useGraphicAlpha;
-        }
 
         protected override void WriteComponents(JsonTextWriter writer)
         {
@@ -92,17 +73,17 @@ namespace Oxide.Ext.UiFramework.UiElements
         public override void EnterPool()
         {
             base.EnterPool();
-            Pool.Free(ref Input);
+            UiFrameworkPool.Free(ref Input);
             if (Outline != null)
             {
-                Pool.Free(ref Outline);
+                UiFrameworkPool.Free(ref Outline);
             }
         }
             
         public override void LeavePool()
         {
             base.LeavePool();
-            Input = Pool.Get<InputComponent>();
+            Input = UiFrameworkPool.Get<InputComponent>();
         }
 
         public override void SetFadeIn(float duration)

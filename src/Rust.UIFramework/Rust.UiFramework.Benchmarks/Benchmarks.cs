@@ -7,6 +7,7 @@ using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.UiElements;
 using Oxide.Game.Rust.Cui;
+using Oxide.Plugins;
 
 namespace Rust.UiFramework.Benchmarks
 {
@@ -36,12 +37,14 @@ namespace Rust.UiFramework.Benchmarks
             }
 
             const int bufferSize = Iterations * (Invocations + 1);
-            Facepunch.Pool.ResizeBuffer<List<BaseUiComponent>>(bufferSize);
-            Facepunch.Pool.ResizeBuffer<UiPanel>(bufferSize);
-            Facepunch.Pool.ResizeBuffer<ImageComponent>(bufferSize);
-            Facepunch.Pool.FillBuffer<UiPanel>(bufferSize);
-            Facepunch.Pool.FillBuffer<ImageComponent>(bufferSize);
-            Facepunch.Pool.FillBuffer<List<BaseUiComponent>>(bufferSize);
+            // Facepunch.Pool.ResizeBuffer<List<BaseUiComponent>>(bufferSize);
+            // Facepunch.Pool.ResizeBuffer<UiPanel>(bufferSize);
+            // Facepunch.Pool.ResizeBuffer<ImageComponent>(bufferSize);
+            // Facepunch.Pool.ResizeBuffer<Hash<string,BaseComponent>>(bufferSize);
+            // Facepunch.Pool.FillBuffer<UiPanel>(bufferSize);
+            // Facepunch.Pool.FillBuffer<ImageComponent>(bufferSize);
+            // Facepunch.Pool.FillBuffer<List<BaseUiComponent>>(bufferSize);
+            // Facepunch.Pool.FillBuffer<Hash<string,BaseComponent>>(bufferSize);
             UiColor _ = UiColors.Black;
         }
 

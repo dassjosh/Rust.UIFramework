@@ -1,5 +1,5 @@
-﻿using Newtonsoft.Json;
-using Pool = Facepunch.Pool;
+﻿using Facepunch;
+using Newtonsoft.Json;
 
 namespace Oxide.Ext.UiFramework.Components
 {

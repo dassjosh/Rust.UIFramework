@@ -1,6 +1,16 @@
 # Rust UI Framework
 UI Framework for Rust (The Game) using the [Oxide/uMod](https://umod.org) plugin platforms
 
+## Performance Comparison vs Oxide
+
+|                         Method |      Mean |     Error |    StdDev | Ratio |   Gen 0 |  Gen 1 | Allocated |
+|------------------------------- |----------:|----------:|----------:|------:|--------:|-------:|----------:|
+|     OxideBenchmark_WithoutJson |  76.44 us |  4.580 us |  6.855 us |  0.11 |  8.0000 | 0.8000 |     33 KB |
+| FrameworkBenchmark_WithoutJson |  44.13 us |  1.252 us |  1.835 us |  0.06 |  3.2000 |      - |     14 KB |
+|        OxideBenchmark_WithJson | 711.20 us | 10.117 us | 15.143 us |  1.00 | 32.0000 |      - |    133 KB |
+|    FrameworkBenchmark_WithJson | 163.52 us |  1.845 us |  2.704 us |  0.23 | 12.8000 |      - |     53 KB |
+
+
 ## Getting Started
 
 ### Plugin

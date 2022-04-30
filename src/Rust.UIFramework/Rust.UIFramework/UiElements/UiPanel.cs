@@ -2,8 +2,8 @@
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Offsets;
+using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Positions;
-using Pool = Facepunch.Pool;
 
 namespace Oxide.Ext.UiFramework.UiElements
 {
@@ -44,13 +44,13 @@ namespace Oxide.Ext.UiFramework.UiElements
         public override void EnterPool()
         {
             base.EnterPool();
-            Pool.Free(ref Image);
+            UiFrameworkPool.Free(ref Image);
         }
 
         public override void LeavePool()
         {
             base.LeavePool();
-            Image = Pool.Get<ImageComponent>();
+            Image = UiFrameworkPool.Get<ImageComponent>();
         }
 
         public override void SetFadeIn(float duration)
