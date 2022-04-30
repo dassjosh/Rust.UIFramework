@@ -3,19 +3,14 @@ using System.Collections.Generic;
 using BenchmarkDotNet.Attributes;
 using Oxide.Ext.UiFramework.Builder;
 using Oxide.Ext.UiFramework.Colors;
-using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Positions;
-using Oxide.Ext.UiFramework.UiElements;
 using Oxide.Game.Rust.Cui;
-using Oxide.Plugins;
 
 namespace Rust.UiFramework.Benchmarks
 {
     [MemoryDiagnoser]
-    [SimpleJob(1, 15, 30, Invocations)]
     public class Benchmarks
     {
-        private const int Invocations = 2500;
         private const int Iterations = 100;
         private readonly List<string> _oxideMins = new List<string>();
         private readonly List<string> _oxideMaxs = new List<string>();
@@ -25,7 +20,7 @@ namespace Rust.UiFramework.Benchmarks
         [GlobalSetup]
         public void Setup()
         {
-            for (int i = 0; i < Iterations / 10; i++)
+            for (int i = 0; i < Iterations; i++)
             {
                 float xMin = (float)_random.NextDouble();
                 float xMax = (float)_random.NextDouble();
@@ -35,17 +30,6 @@ namespace Rust.UiFramework.Benchmarks
                 _oxideMaxs.Add($"{xMax} {yMax}");
                 _frameworkPos.Add(new StaticUiPosition(xMin, yMin, xMax, yMax));
             }
-
-            const int bufferSize = Iterations * (Invocations + 1);
-            // Facepunch.Pool.ResizeBuffer<List<BaseUiComponent>>(bufferSize);
-            // Facepunch.Pool.ResizeBuffer<UiPanel>(bufferSize);
-            // Facepunch.Pool.ResizeBuffer<ImageComponent>(bufferSize);
-            // Facepunch.Pool.ResizeBuffer<Hash<string,BaseComponent>>(bufferSize);
-            // Facepunch.Pool.FillBuffer<UiPanel>(bufferSize);
-            // Facepunch.Pool.FillBuffer<ImageComponent>(bufferSize);
-            // Facepunch.Pool.FillBuffer<List<BaseUiComponent>>(bufferSize);
-            // Facepunch.Pool.FillBuffer<Hash<string,BaseComponent>>(bufferSize);
-            UiColor _ = UiColors.Black;
         }
 
         private CuiElementContainer GetOxideContainer()
@@ -156,31 +140,24 @@ namespace Rust.UiFramework.Benchmarks
             builder.EnsureCapacity(Iterations + 1);
             for (int i = 0; i < Iterations; i++)
             {
-                builder.Panel(builder.Root, UiColors.Black, _frameworkPos[i % 10]);
+                builder.Panel(builder.Root, UiColors.Black, _frameworkPos[i]);
             }
-
-            //_builder = builder;
 
             return builder;
         }
-        
+
         private UiBuilder GetRandomPositionBuilder()
         {
+            MovablePosition move = new MovablePosition(0, 0, 0, 0);
 
-                MovablePosition move = new MovablePosition(0, 0, 0, 0);
-    
-                UiBuilder builder = new UiBuilder(UiColors.Clear, UiPosition.FullPosition, "123");
-                for (int i = 0; i < Iterations; i++)
-                {
-                
-                    //move.Set((float)_random.NextDouble(),(float)_random.NextDouble(),(float)_random.NextDouble(),(float)_random.NextDouble());
-          
-                    builder.Panel(builder.Root, UiColors.Black, move);
-       
-                }
+            UiBuilder builder = new UiBuilder(UiColors.Clear, UiPosition.FullPosition, "123");
+            for (int i = 0; i < Iterations; i++)
+            {
+                move.Set((float)_random.NextDouble(), (float)_random.NextDouble(), (float)_random.NextDouble(), (float)_random.NextDouble());
+                builder.Panel(builder.Root, UiColors.Black, move);
+            }
 
-                return builder;
-                
+            return builder;
         }
     }
 }
