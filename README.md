@@ -4,16 +4,16 @@ UI Framework for Rust (The Game) using the [Oxide/uMod](https://umod.org) plugin
 ## Performance Comparison vs Oxide
 
 This benchmark shows the performance comparision when generating 100 UI elements and then serializing them to JSON.
-In comparision to oxide when performing the serialization UiFramework is ~4.34x faster at generating the UI element and JSON.
+In comparision to oxide when performing the serialization UiFramework is ~4.34x faster at generating the UI elements and JSON.
 Along with the performance improvements the Memory allocated on the heap is ~2.5x smaller than what oxide would allocate.
 
 
-|                         Method |      Mean |     Error |    StdDev | Ratio |   Gen 0 |  Gen 1 | Allocated |
-|------------------------------- |----------:|----------:|----------:|------:|--------:|-------:|----------:|
-|     OxideBenchmark_WithoutJson |  76.44 us |  4.580 us |  6.855 us |  0.11 |  8.0000 | 0.8000 |     33 KB |
+| Method                         |      Mean |     Error |    StdDev | Ratio |   Gen 0 |  Gen 1 | Allocated |
+|--------------------------------|----------:|----------:|----------:|------:|--------:|-------:|----------:|
+| OxideBenchmark_WithoutJson     |  76.44 us |  4.580 us |  6.855 us |  0.11 |  8.0000 | 0.8000 |     33 KB |
 | FrameworkBenchmark_WithoutJson |  44.13 us |  1.252 us |  1.835 us |  0.06 |  3.2000 |      - |     14 KB |
-|        OxideBenchmark_WithJson | 711.20 us | 10.117 us | 15.143 us |  1.00 | 32.0000 |      - |    133 KB |
-|    FrameworkBenchmark_WithJson | 163.52 us |  1.845 us |  2.704 us |  0.23 | 12.8000 |      - |     53 KB |
+| OxideBenchmark_WithJson        | 711.20 us | 10.117 us | 15.143 us |  1.00 | 32.0000 |      - |    133 KB |
+| FrameworkBenchmark_WithJson    | 163.52 us |  1.845 us |  2.704 us |  0.23 | 12.8000 |      - |     53 KB |
 
 
 ## Getting Started

@@ -30,13 +30,14 @@ namespace Oxide.Ext.UiFramework.Builder
         private List<BaseUiComponent> _components;
         private Hash<string, BaseUiComponent> _componentLookup;
         private StringBuilder _sb;
+        private string _font;
 
-        private static string _font;
+        private static string _globalFont;
 
         #region Constructor
         static UiBuilder()
         {
-            SetFont(UiFont.RobotoCondensedRegular);
+            SetGlobalFont(UiFont.RobotoCondensedRegular);
         }
 
         public UiBuilder(UiColor color, UiPosition pos, UiOffset offset, string name, string parent) : this(UiPanel.Create(pos, offset, color), name, parent) { }
@@ -57,6 +58,7 @@ namespace Oxide.Ext.UiFramework.Builder
             _components = UiFrameworkPool.GetList<BaseUiComponent>();
             _componentLookup = UiFrameworkPool.GetHash<string, BaseUiComponent>();
             _sb = UiFrameworkPool.GetStringBuilder();
+            _font = _globalFont;
         }
 
         public void EnsureCapacity(int capacity)
@@ -86,9 +88,14 @@ namespace Oxide.Ext.UiFramework.Builder
             _needsKeyboard = enabled;
         }
 
-        public static void SetFont(UiFont font)
+        public void SetCurrentFont(UiFont font)
         {
             _font = UiConstants.UiFonts.GetUiFont(font);
+        }
+        
+        public static void SetGlobalFont(UiFont font)
+        {
+            _globalFont = UiConstants.UiFonts.GetUiFont(font);
         }
 
         public T GetUi<T>(string name) where T : BaseUiComponent
