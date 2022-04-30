@@ -10,12 +10,12 @@
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
       <DefineConstants>TRACE;UiBenchmarks</DefineConstants>
-      <PlatformTarget>AnyCPU</PlatformTarget>
+      <PlatformTarget>x64</PlatformTarget>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
       <DefineConstants>TRACE;UiBenchmarks;</DefineConstants>
-      <PlatformTarget>AnyCPU</PlatformTarget>
+      <PlatformTarget>x64</PlatformTarget>
     </PropertyGroup>
 
     <ItemGroup>
