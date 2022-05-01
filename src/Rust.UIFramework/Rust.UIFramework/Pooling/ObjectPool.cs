@@ -1,10 +1,15 @@
 namespace Oxide.Ext.UiFramework.Pooling
 {
-    internal class ObjectPool<T> : BasePool<T> where T : BasePoolable, new()
+    public class ObjectPool<T> : BasePool<T> where T : BasePoolable, new()
     {
-        public static ObjectPool<T> Instance;
+        public static IPool<T> Instance;
         
-        public ObjectPool() : base(1024) { }
+        static ObjectPool()
+        {
+            Instance = new ObjectPool<T>();
+        }
+
+        private ObjectPool() : base(1024) { }
 
         protected override void OnGetItem(T item)
         {
@@ -20,6 +25,12 @@ namespace Oxide.Ext.UiFramework.Pooling
             
             item.EnterPoolInternal();
             return true;
+        }
+
+        public override void Clear()
+        {
+            base.Clear();
+            Instance = null;
         }
     }
 }

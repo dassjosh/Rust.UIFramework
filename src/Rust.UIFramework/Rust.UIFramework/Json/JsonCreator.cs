@@ -18,6 +18,11 @@ namespace Oxide.Ext.UiFramework.Json
         public static string CreateJson(List<BaseUiComponent> components, bool needsMouse, bool needsKeyboard)
         {
             StringBuilder sb = UiFrameworkPool.GetStringBuilder();
+            int size = components.Count * 200;
+            if (sb.Capacity < size)
+            {
+                sb.Capacity = size;
+            }
             StringWriter sw = new StringWriter(sb);
             JsonTextWriter writer = new JsonTextWriter(sw);
 
@@ -30,10 +35,8 @@ namespace Oxide.Ext.UiFramework.Json
             }
 
             writer.WriteEndArray();
-
-            string json = sw.ToString();
-            UiFrameworkPool.FreeStringBuilder(ref sb);
-            return json;
+            
+            return UiFrameworkPool.ToStringAndFreeStringBuilder(ref sb);
         }
 
         public static void AddFieldRaw(JsonTextWriter writer, string name, string value)

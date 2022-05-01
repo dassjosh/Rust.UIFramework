@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using Oxide.Plugins;
 
@@ -8,7 +9,6 @@ namespace Oxide.Ext.UiFramework.Pooling
     public static class UiFrameworkPool
     {
         private static readonly Hash<Type, IPool> Pools = new Hash<Type, IPool>();
-        private static readonly StringBuilderPool StringBuilderPool = new StringBuilderPool();
 
         /// <summary>
         /// Returns a pooled object of type T
@@ -18,8 +18,7 @@ namespace Oxide.Ext.UiFramework.Pooling
         /// <returns>Pooled object of type T</returns>
         public static T Get<T>() where T : BasePoolable, new()
         {
-            IPool<T> pool = GetObjectPool<T>();
-            return pool.Get();
+            return ObjectPool<T>.Instance.Get();
         }
 
         /// <summary>
@@ -29,8 +28,7 @@ namespace Oxide.Ext.UiFramework.Pooling
         /// <typeparam name="T">Type of object being freed</typeparam>
         public static void Free<T>(ref T value) where T : BasePoolable, new()
         {
-            IPool<T> pool = GetObjectPool<T>();
-            pool.Free(ref value);
+            ObjectPool<T>.Instance.Free(ref value);
         }
 
         /// <summary>
@@ -40,8 +38,7 @@ namespace Oxide.Ext.UiFramework.Pooling
         /// <typeparam name="T">Type of object being freed</typeparam>
         internal static void Free<T>(T value) where T : BasePoolable, new()
         {
-            IPool<T> pool = GetObjectPool<T>();
-            pool.Free(ref value);
+            ObjectPool<T>.Instance.Free(ref value);
         }
 
         /// <summary>
@@ -51,8 +48,7 @@ namespace Oxide.Ext.UiFramework.Pooling
         /// <returns>Pooled List</returns>
         public static List<T> GetList<T>()
         {
-            ListPool<T> pool = GetListPool<T>();
-            return pool.Get();
+            return ListPool<T>.Instance.Get();
         }
 
         /// <summary>
@@ -63,8 +59,7 @@ namespace Oxide.Ext.UiFramework.Pooling
         /// <returns>Pooled Hash</returns>
         public static Hash<TKey, TValue> GetHash<TKey, TValue>()
         {
-            HashPool<TKey, TValue> pool = GetHashPool<TKey, TValue>();
-            return pool.Get();
+            return HashPool<TKey, TValue>.Instance.Get();
         }
 
         /// <summary>
@@ -73,7 +68,16 @@ namespace Oxide.Ext.UiFramework.Pooling
         /// <returns>Pooled <see cref="StringBuilder"/></returns>
         public static StringBuilder GetStringBuilder()
         {
-            return StringBuilderPool.Get();
+            return StringBuilderPool.Instance.Get();
+        }
+        
+        /// <summary>
+        /// Returns a pooled <see cref="MemoryStream"/>
+        /// </summary>
+        /// <returns>Pooled <see cref="MemoryStream"/></returns>
+        public static MemoryStream GetMemoryStream()
+        {
+            return MemoryStreamPool.Instance.Get();
         }
 
         /// <summary>
@@ -83,8 +87,7 @@ namespace Oxide.Ext.UiFramework.Pooling
         /// <typeparam name="T">Type of the list</typeparam>
         public static void FreeList<T>(ref List<T> list)
         {
-            ListPool<T> pool = GetListPool<T>();
-            pool.Free(ref list);
+            ListPool<T>.Instance.Free(ref list);
         }
 
         /// <summary>
@@ -95,8 +98,7 @@ namespace Oxide.Ext.UiFramework.Pooling
         /// <typeparam name="TValue">Type for value</typeparam>
         public static void FreeHash<TKey, TValue>(ref Hash<TKey, TValue> hash)
         {
-            HashPool<TKey, TValue> pool = GetHashPool<TKey, TValue>();
-            pool.Free(ref hash);
+            HashPool<TKey, TValue>.Instance.Free(ref hash);
         }
 
         /// <summary>
@@ -105,7 +107,16 @@ namespace Oxide.Ext.UiFramework.Pooling
         /// <param name="sb">StringBuilder being freed</param>
         public static void FreeStringBuilder(ref StringBuilder sb)
         {
-            StringBuilderPool.Free(ref sb);
+            StringBuilderPool.Instance.Free(ref sb);
+        }
+        
+        /// <summary>
+        /// Frees a <see cref="MemoryStream"/> back to the pool
+        /// </summary>
+        /// <param name="stream">MemoryStream being freed</param>
+        public static void FreeMemoryStream(ref MemoryStream stream)
+        {
+            MemoryStreamPool.Instance.Free(ref stream);
         }
 
         /// <summary>
@@ -115,49 +126,15 @@ namespace Oxide.Ext.UiFramework.Pooling
         public static string ToStringAndFreeStringBuilder(ref StringBuilder sb)
         {
             string result = sb.ToString();
-            StringBuilderPool.Free(ref sb);
+            StringBuilderPool.Instance.Free(ref sb);
             return result;
         }
 
-        private static IPool<T> GetObjectPool<T>() where T : BasePoolable, new()
+        public static void AddPool<TType>(BasePool<TType> pool) where TType : class, new()
         {
-            ObjectPool<T> pool = ObjectPool<T>.Instance;
-            if (pool == null)
-            {
-                pool = new ObjectPool<T>();
-                ObjectPool<T>.Instance = pool;
-                Pools[pool.GetType()] = pool;
-            }
-
-            return pool;
+            Pools[typeof(TType)] = pool;
         }
-
-        private static ListPool<T> GetListPool<T>()
-        {
-            ListPool<T> pool = ListPool<T>.Instance;
-            if (pool == null)
-            {
-                pool = new ListPool<T>();
-                ListPool<T>.Instance = pool;
-                Pools[pool.GetType()] = pool;
-            }
-
-            return pool;
-        }
-
-        private static HashPool<TKey, TValue> GetHashPool<TKey, TValue>()
-        {
-            HashPool<TKey, TValue> pool = HashPool<TKey, TValue>.Instance;
-            if (pool == null)
-            {
-                pool = new HashPool<TKey, TValue>();
-                HashPool<TKey, TValue>.Instance = pool;
-                Pools[pool.GetType()] = pool;
-            }
-
-            return pool;
-        }
-
+        
         public static void OnUnload()
         {
             foreach (IPool pool in Pools.Values)
@@ -165,7 +142,7 @@ namespace Oxide.Ext.UiFramework.Pooling
                 pool.Clear();
             }
             
-            StringBuilderPool.Clear();
+            Pools.Clear();
         }
     }
 }

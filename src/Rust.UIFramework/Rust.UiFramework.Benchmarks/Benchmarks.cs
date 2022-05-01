@@ -138,7 +138,7 @@ namespace Rust.UiFramework.Benchmarks
         {
             UiBuilder builder = new UiBuilder(UiColors.Clear, UiPosition.FullPosition, "123");
             builder.EnsureCapacity(Iterations);
-            for (int i = 0; i < Iterations; i++)
+            for (int i = 0; i < Iterations - 1; i++)
             {
                 builder.Panel(builder.Root, UiColors.Black, _frameworkPos[i]);
             }
@@ -151,7 +151,7 @@ namespace Rust.UiFramework.Benchmarks
             MovablePosition move = new MovablePosition(0, 0, 0, 0);
 
             UiBuilder builder = new UiBuilder(UiColors.Clear, UiPosition.FullPosition, "123");
-            for (int i = 0; i < Iterations; i++)
+            for (int i = 0; i < Iterations - 1; i++)
             {
                 move.Set((float)_random.NextDouble(), (float)_random.NextDouble(), (float)_random.NextDouble(), (float)_random.NextDouble());
                 builder.Panel(builder.Root, UiColors.Black, move);

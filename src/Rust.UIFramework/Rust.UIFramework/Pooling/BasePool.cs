@@ -3,7 +3,7 @@ using System.Collections.Generic;
 namespace Oxide.Ext.UiFramework.Pooling
 {
     /// <summary>
-    /// Represents a BasePool in Discord
+    /// Represents a BasePool in UiFramework
     /// </summary>
     /// <typeparam name="T">Type being pooled</typeparam>
     public abstract class BasePool<T> : IPool<T> where T : class, new()
@@ -23,6 +23,8 @@ namespace Oxide.Ext.UiFramework.Pooling
             {
                 _pool.Enqueue(new T());
             }
+            
+            UiFrameworkPool.AddPool(this);
         }
         
         /// <summary>
@@ -81,7 +83,7 @@ namespace Oxide.Ext.UiFramework.Pooling
             return true;
         }
 
-        public void Clear()
+        public virtual void Clear()
         {
             _pool.Clear();
         }

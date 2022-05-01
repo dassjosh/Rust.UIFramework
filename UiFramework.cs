@@ -1385,6 +1385,11 @@ namespace Oxide.Plugins
             public static string CreateJson(List<BaseUiComponent> components, bool needsMouse, bool needsKeyboard)
             {
                 StringBuilder sb = UiFrameworkPool.GetStringBuilder();
+                int size = components.Count * 200;
+                if (sb.Capacity < size)
+                {
+                    sb.Capacity = size;
+                }
                 StringWriter sw = new StringWriter(sb);
                 JsonTextWriter writer = new JsonTextWriter(sw);
                 
@@ -1398,9 +1403,7 @@ namespace Oxide.Plugins
                 
                 writer.WriteEndArray();
                 
-                string json = sw.ToString();
-                UiFrameworkPool.FreeStringBuilder(ref sb);
-                return json;
+                return UiFrameworkPool.ToStringAndFreeStringBuilder(ref sb);
             }
             
             public static void AddFieldRaw(JsonTextWriter writer, string name, string value)
@@ -1809,9 +1812,9 @@ namespace Oxide.Plugins
         #endregion
 
         #region Pooling\BasePool.cs
-        public abstract class BasePool<T> : IPool<T> where T : class, new()
+        public abstract class BasePool<TType> : IPool<TType> where TType : class, new()
         {
-            private readonly Queue<T> _pool;
+            private readonly Queue<TType> _pool;
             private readonly int _maxSize;
             
             /// <summary>
@@ -1821,20 +1824,22 @@ namespace Oxide.Plugins
             protected BasePool(int maxSize)
             {
                 _maxSize = maxSize;
-                _pool = new Queue<T>(maxSize);
+                _pool = new Queue<TType>(maxSize);
                 for (int i = 0; i < maxSize; i++)
                 {
-                    _pool.Enqueue(new T());
+                    _pool.Enqueue(new TType());
                 }
+                
+                UiFrameworkPool.AddPool(this);
             }
             
             /// <summary>
             /// Returns an element from the pool if it exists else it creates a new one
             /// </summary>
             /// <returns></returns>
-            public T Get()
+            public TType Get()
             {
-                T item = _pool.Count != 0 ? _pool.Dequeue() : new T();
+                TType item = _pool.Count != 0 ? _pool.Dequeue() : new TType();
                 OnGetItem(item);
                 return item;
             }
@@ -1843,7 +1848,7 @@ namespace Oxide.Plugins
             /// Frees an item back to the pool
             /// </summary>
             /// <param name="item">Item being freed</param>
-            public void Free(ref T item)
+            public void Free(ref TType item)
             {
                 if (item == null)
                 {
@@ -1869,7 +1874,7 @@ namespace Oxide.Plugins
             /// Called when an item is retrieved from the pool
             /// </summary>
             /// <param name="item">Item being retrieved</param>
-            protected virtual void OnGetItem(T item)
+            protected virtual void OnGetItem(TType item)
             {
                 
             }
@@ -1879,12 +1884,12 @@ namespace Oxide.Plugins
             /// </summary>
             /// <param name="item">Item to be freed</param>
             /// <returns>True if can be freed; false otherwise</returns>
-            protected virtual bool OnFreeItem(ref T item)
+            protected virtual bool OnFreeItem(ref TType item)
             {
                 return true;
             }
             
-            public void Clear()
+            public virtual void Clear()
             {
                 _pool.Clear();
             }
@@ -1974,15 +1979,26 @@ namespace Oxide.Plugins
         #region Pooling\HashPool.cs
         public class HashPool<TKey, TValue> : BasePool<Hash<TKey, TValue>>
         {
-            public static HashPool<TKey, TValue> Instance;
+            public static IPool<Hash<TKey, TValue>> Instance;
             
-            internal HashPool() : base(256) { }
+            static HashPool()
+            {
+                Instance = new HashPool<TKey, TValue>();
+            }
+            
+            private HashPool() : base(4096) { }
             
             ///<inheritdoc/>
             protected override bool OnFreeItem(ref Hash<TKey, TValue> item)
             {
                 item.Clear();
                 return true;
+            }
+            
+            public override void Clear()
+            {
+                base.Clear();
+                Instance = null;
             }
         }
         #endregion
@@ -2014,9 +2030,14 @@ namespace Oxide.Plugins
         #region Pooling\ListPool.cs
         public class ListPool<T> : BasePool<List<T>>
         {
-            public static ListPool<T> Instance;
+            public static IPool<List<T>> Instance;
             
-            internal ListPool() : base(256) { }
+            static ListPool()
+            {
+                Instance = new ListPool<T>();
+            }
+            
+            private ListPool() : base(4096) { }
             
             ///<inheritdoc/>
             protected override bool OnFreeItem(ref List<T> item)
@@ -2024,15 +2045,53 @@ namespace Oxide.Plugins
                 item.Clear();
                 return true;
             }
+            
+            public override void Clear()
+            {
+                base.Clear();
+                Instance = null;
+            }
+        }
+        #endregion
+
+        #region Pooling\MemoryStreamPool.cs
+        public class MemoryStreamPool : BasePool<MemoryStream>
+        {
+            public static IPool<MemoryStream> Instance;
+            
+            static MemoryStreamPool()
+            {
+                Instance = new MemoryStreamPool();
+            }
+            
+            private MemoryStreamPool() : base(4096) { }
+            
+            ///<inheritdoc/>
+            protected override bool OnFreeItem(ref MemoryStream item)
+            {
+                item.Position = 0;
+                return true;
+            }
+            
+            public override void Clear()
+            {
+                base.Clear();
+                Instance = null;
+            }
         }
         #endregion
 
         #region Pooling\ObjectPool.cs
-        internal class ObjectPool<T> : BasePool<T> where T : BasePoolable, new()
+        public class ObjectPool<T> : BasePool<T> where T : BasePoolable, new()
         {
-            public static ObjectPool<T> Instance;
+            public static IPool<T> Instance;
             
-            public ObjectPool() : base(1024) { }
+            static ObjectPool()
+            {
+                Instance = new ObjectPool<T>();
+            }
+            
+            private ObjectPool() : base(4096) { }
             
             protected override void OnGetItem(T item)
             {
@@ -2049,19 +2108,38 @@ namespace Oxide.Plugins
                 item.EnterPoolInternal();
                 return true;
             }
+            
+            public override void Clear()
+            {
+                base.Clear();
+                Instance = null;
+            }
         }
         #endregion
 
         #region Pooling\StringBuilderPool.cs
         public class StringBuilderPool : BasePool<StringBuilder>
         {
-            internal StringBuilderPool() : base(256) { }
+            public static IPool<StringBuilder> Instance;
+            
+            static StringBuilderPool()
+            {
+                Instance = new StringBuilderPool();
+            }
+            
+            private StringBuilderPool() : base(4096) { }
             
             ///<inheritdoc/>
             protected override bool OnFreeItem(ref StringBuilder item)
             {
                 item.Length = 0;
                 return true;
+            }
+            
+            public override void Clear()
+            {
+                base.Clear();
+                Instance = null;
             }
         }
         #endregion
@@ -2070,7 +2148,6 @@ namespace Oxide.Plugins
         public static class UiFrameworkPool
         {
             private static readonly Hash<Type, IPool> Pools = new Hash<Type, IPool>();
-            private static readonly StringBuilderPool StringBuilderPool = new StringBuilderPool();
             
             /// <summary>
             /// Returns a pooled object of type T
@@ -2080,8 +2157,7 @@ namespace Oxide.Plugins
             /// <returns>Pooled object of type T</returns>
             public static T Get<T>() where T : BasePoolable, new()
             {
-                IPool<T> pool = GetObjectPool<T>();
-                return pool.Get();
+                return ObjectPool<T>.Instance.Get();
             }
             
             /// <summary>
@@ -2091,8 +2167,7 @@ namespace Oxide.Plugins
             /// <typeparam name="T">Type of object being freed</typeparam>
             public static void Free<T>(ref T value) where T : BasePoolable, new()
             {
-                IPool<T> pool = GetObjectPool<T>();
-                pool.Free(ref value);
+                ObjectPool<T>.Instance.Free(ref value);
             }
             
             /// <summary>
@@ -2102,8 +2177,7 @@ namespace Oxide.Plugins
             /// <typeparam name="T">Type of object being freed</typeparam>
             internal static void Free<T>(T value) where T : BasePoolable, new()
             {
-                IPool<T> pool = GetObjectPool<T>();
-                pool.Free(ref value);
+                ObjectPool<T>.Instance.Free(ref value);
             }
             
             /// <summary>
@@ -2113,8 +2187,7 @@ namespace Oxide.Plugins
             /// <returns>Pooled List</returns>
             public static List<T> GetList<T>()
             {
-                ListPool<T> pool = GetListPool<T>();
-                return pool.Get();
+                return ListPool<T>.Instance.Get();
             }
             
             /// <summary>
@@ -2125,8 +2198,7 @@ namespace Oxide.Plugins
             /// <returns>Pooled Hash</returns>
             public static Hash<TKey, TValue> GetHash<TKey, TValue>()
             {
-                HashPool<TKey, TValue> pool = GetHashPool<TKey, TValue>();
-                return pool.Get();
+                return HashPool<TKey, TValue>.Instance.Get();
             }
             
             /// <summary>
@@ -2135,7 +2207,16 @@ namespace Oxide.Plugins
             /// <returns>Pooled <see cref="StringBuilder"/></returns>
             public static StringBuilder GetStringBuilder()
             {
-                return StringBuilderPool.Get();
+                return StringBuilderPool.Instance.Get();
+            }
+            
+            /// <summary>
+            /// Returns a pooled <see cref="MemoryStream"/>
+            /// </summary>
+            /// <returns>Pooled <see cref="MemoryStream"/></returns>
+            public static MemoryStream GetMemoryStream()
+            {
+                return MemoryStreamPool.Instance.Get();
             }
             
             /// <summary>
@@ -2145,8 +2226,7 @@ namespace Oxide.Plugins
             /// <typeparam name="T">Type of the list</typeparam>
             public static void FreeList<T>(ref List<T> list)
             {
-                ListPool<T> pool = GetListPool<T>();
-                pool.Free(ref list);
+                ListPool<T>.Instance.Free(ref list);
             }
             
             /// <summary>
@@ -2157,8 +2237,7 @@ namespace Oxide.Plugins
             /// <typeparam name="TValue">Type for value</typeparam>
             public static void FreeHash<TKey, TValue>(ref Hash<TKey, TValue> hash)
             {
-                HashPool<TKey, TValue> pool = GetHashPool<TKey, TValue>();
-                pool.Free(ref hash);
+                HashPool<TKey, TValue>.Instance.Free(ref hash);
             }
             
             /// <summary>
@@ -2167,7 +2246,16 @@ namespace Oxide.Plugins
             /// <param name="sb">StringBuilder being freed</param>
             public static void FreeStringBuilder(ref StringBuilder sb)
             {
-                StringBuilderPool.Free(ref sb);
+                StringBuilderPool.Instance.Free(ref sb);
+            }
+            
+            /// <summary>
+            /// Frees a <see cref="MemoryStream"/> back to the pool
+            /// </summary>
+            /// <param name="stream">MemoryStream being freed</param>
+            public static void FreeMemoryStream(ref MemoryStream stream)
+            {
+                MemoryStreamPool.Instance.Free(ref stream);
             }
             
             /// <summary>
@@ -2177,47 +2265,13 @@ namespace Oxide.Plugins
             public static string ToStringAndFreeStringBuilder(ref StringBuilder sb)
             {
                 string result = sb.ToString();
-                StringBuilderPool.Free(ref sb);
+                StringBuilderPool.Instance.Free(ref sb);
                 return result;
             }
             
-            private static IPool<T> GetObjectPool<T>() where T : BasePoolable, new()
+            public static void AddPool<TType>(BasePool<TType> pool) where TType : class, new()
             {
-                ObjectPool<T> pool = ObjectPool<T>.Instance;
-                if (pool == null)
-                {
-                    pool = new ObjectPool<T>();
-                    ObjectPool<T>.Instance = pool;
-                    Pools[pool.GetType()] = pool;
-                }
-                
-                return pool;
-            }
-            
-            private static ListPool<T> GetListPool<T>()
-            {
-                ListPool<T> pool = ListPool<T>.Instance;
-                if (pool == null)
-                {
-                    pool = new ListPool<T>();
-                    ListPool<T>.Instance = pool;
-                    Pools[pool.GetType()] = pool;
-                }
-                
-                return pool;
-            }
-            
-            private static HashPool<TKey, TValue> GetHashPool<TKey, TValue>()
-            {
-                HashPool<TKey, TValue> pool = HashPool<TKey, TValue>.Instance;
-                if (pool == null)
-                {
-                    pool = new HashPool<TKey, TValue>();
-                    HashPool<TKey, TValue>.Instance = pool;
-                    Pools[pool.GetType()] = pool;
-                }
-                
-                return pool;
+                Pools[typeof(TType)] = pool;
             }
             
             public static void OnUnload()
@@ -2227,7 +2281,7 @@ namespace Oxide.Plugins
                     pool.Clear();
                 }
                 
-                StringBuilderPool.Clear();
+                Pools.Clear();
             }
         }
         #endregion

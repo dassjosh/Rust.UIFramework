@@ -9,15 +9,26 @@ namespace Oxide.Ext.UiFramework.Pooling
     /// <typeparam name="TValue"></typeparam>
     public class HashPool<TKey, TValue> : BasePool<Hash<TKey, TValue>>
     {
-        public static HashPool<TKey, TValue> Instance;
+        public static IPool<Hash<TKey, TValue>> Instance;
         
-        internal HashPool() : base(256) { }
+        static HashPool()
+        {
+            Instance = new HashPool<TKey, TValue>();
+        }
+
+        private HashPool() : base(256) { }
         
         ///<inheritdoc/>
         protected override bool OnFreeItem(ref Hash<TKey, TValue> item)
         {
             item.Clear();
             return true;
+        }
+        
+        public override void Clear()
+        {
+            base.Clear();
+            Instance = null;
         }
     }
 }
