@@ -43,7 +43,7 @@ namespace Oxide.Ext.UiFramework.Json
         public static class Color
         {
             public const string ColorName = "color";
-            public static readonly UiColor ColorValue = "1 1 1 1";
+            public const uint ColorValue = ((uint)255 << 24) + (255 << 16) + (255 << 8) + 255;
         }
 
         public static class BaseImage

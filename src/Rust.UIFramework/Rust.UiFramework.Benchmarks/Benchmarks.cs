@@ -76,13 +76,13 @@ namespace Rust.UiFramework.Benchmarks
             return container;
         }
         
-        [Benchmark]
+        //[Benchmark]
         public CuiElementContainer OxideBenchmark_WithoutJson()
         {
             return GetOxideContainer();
         }
         
-        [Benchmark]
+        //[Benchmark]
         public UiBuilder FrameworkBenchmark_WithoutJson()
         {
             UiBuilder builder = GetFrameworkBuilder();
@@ -137,7 +137,7 @@ namespace Rust.UiFramework.Benchmarks
         private UiBuilder GetFrameworkBuilder()
         {
             UiBuilder builder = new UiBuilder(UiColors.Clear, UiPosition.FullPosition, "123");
-            builder.EnsureCapacity(Iterations + 1);
+            builder.EnsureCapacity(Iterations);
             for (int i = 0; i < Iterations; i++)
             {
                 builder.Panel(builder.Root, UiColors.Black, _frameworkPos[i]);

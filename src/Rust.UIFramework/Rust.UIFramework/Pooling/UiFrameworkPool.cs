@@ -114,7 +114,7 @@ namespace Oxide.Ext.UiFramework.Pooling
         /// <param name="sb"><see cref="StringBuilder"/> being freed</param>
         public static string ToStringAndFreeStringBuilder(ref StringBuilder sb)
         {
-            string result = sb?.ToString();
+            string result = sb.ToString();
             StringBuilderPool.Free(ref sb);
             return result;
         }

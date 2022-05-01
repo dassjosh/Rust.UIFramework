@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -211,10 +210,16 @@ namespace Oxide.Plugins
         #region Decontructor
         ~UiBuilder()
         {
-            Dispose();
+            DisposeInternal();
         }
         
         public void Dispose()
+        {
+            DisposeInternal();
+            GC.SuppressFinalize(this);
+        }
+        
+        private void DisposeInternal()
         {
             if (_disposed)
             {
@@ -634,20 +639,121 @@ namespace Oxide.Plugins
     #endregion
 
     #region Colors\UiColor.cs
-    public class UiColor
+    public struct UiColor : IEquatable<UiColor>
     {
-        public string Color;
-        public int Value;
-        public float Red;
-        public float Green;
-        public float Blue;
-        public float Alpha;
+        #region Fields
+        public readonly uint Value;
+        public readonly Color Color;
+        #endregion
         
+        #region Constructors
+        public UiColor(Color color)
+        {
+            Color = color;
+            Value = ((uint)(color.r * 255) << 24) + ((uint)(color.g * 255) << 16) + ((uint)(color.b * 255) << 8) + (uint)(color.a * 255);
+        }
+        
+        public UiColor(int red, int green, int blue, int alpha = 255) : this(red / 255f, green / 255f, blue / 255f, alpha / 255f)
+        {
+            
+        }
+        
+        public UiColor(float red, float green, float blue, float alpha = 1f) : this(new Color(Mathf.Clamp01(red), Mathf.Clamp01(green), Mathf.Clamp01(blue), Mathf.Clamp01(alpha)))
+        {
+            
+        }
+        #endregion
+        
+        #region Modifiers
+        public static UiColor WithAlpha(UiColor color, string hex)
+        {
+            return WithAlpha(color, int.Parse(hex, System.Globalization.NumberStyles.HexNumber));
+        }
+        
+        public static UiColor WithAlpha(UiColor color, int alpha)
+        {
+            return WithAlpha(color, alpha / 255f);
+        }
+        
+        public static UiColor WithAlpha(UiColor color, float alpha)
+        {
+            return new UiColor(color.Color.WithAlpha(Mathf.Clamp01(alpha)));
+        }
+        
+        public static UiColor Darken(UiColor color, float percentage)
+        {
+            percentage = Mathf.Clamp01(percentage);
+            Color col = color.Color;
+            float red = col.r * (1 - percentage);
+            float green = col.g * (1 - percentage);
+            float blue = col.b * (1 - percentage);
+            
+            return new UiColor(red, green, blue, col.a);
+        }
+        
+        public static UiColor Lighten(UiColor color, float percentage)
+        {
+            percentage = Mathf.Clamp01(percentage);
+            Color col = color.Color;
+            float red = (1 - col.r) * percentage + col.r;
+            float green = (1 - col.g) * percentage + col.g;
+            float blue = (1 - col.b) * percentage + col.b;
+            
+            return new UiColor(red, green, blue, col.a);
+        }
+        #endregion
+        
+        #region Operators
+        public static implicit operator UiColor(string value) => ParseHexColor(value);
+        public static implicit operator UiColor(Color value) => new UiColor(value);
+        public static implicit operator Color(UiColor value) => value.Color;
+        public static bool operator ==(UiColor lhs, UiColor rhs) => lhs.Value == rhs.Value;
+        public static bool operator !=(UiColor lhs, UiColor rhs) => !(lhs == rhs);
+        
+        public bool Equals(UiColor other)
+        {
+            return Value == other.Value;
+        }
+        
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            return obj is UiColor && Equals((UiColor)obj);
+        }
+        
+        public override int GetHashCode()
+        {
+            return (int)Value;
+        }
+        #endregion
+        
+        #region ToString
+        public override string ToString()
+        {
+            string color = UiColorExt.ColorCache[Value];
+            if (color == null)
+            {
+                color = UiColorExt.GetColor(Color);
+                UiColorExt.ColorCache[Value] = color;
+            }
+            
+            return color;
+        }
+        #endregion
+        
+        #region Parsing
         /// <summary>
-        /// Checks for format "0.0 0.0 0.0 0.0"
-        /// Any permutation of normal rust color string will work
+        /// Valid Rust Color Formats
+        /// 0 0 0
+        /// 0.0 0.0 0.0 0.0
+        /// 1.0 1.0 1.0
+        /// 1.0 1.0 1.0 1.0
         /// </summary>
-        private static readonly Regex _rustColorFormat = new Regex("\\d*.?\\d* \\d*.?\\d* \\d*.?\\d* \\d*.?\\d*", RegexOptions.Compiled | RegexOptions.ECMAScript);
+        /// <param name="color"></param>
+        public static UiColor ParseRustColor(string color)
+        {
+            return new UiColor(ColorEx.Parse(color));
+        }
         
         /// <summary>
         /// Valid Hex Color Formats
@@ -656,127 +762,26 @@ namespace Oxide.Plugins
         /// #RGBA
         /// #RRGGBBAA
         /// </summary>
-        /// <param name="color"></param>
-        public UiColor(string color)
+        /// <param name="hexColor"></param>
+        /// <returns></returns>
+        /// <exception cref="UiFrameworkException"></exception>
+        public static UiColor ParseHexColor(string hexColor)
         {
+            if (hexColor[0] != '#')
+            {
+                throw new UiFrameworkException($"Invalid Hex Color: '{hexColor}' Color Must Start With '#'");
+            }
+            
+            #if UiBenchmarks
+            Color colorValue = Color.black;
+            #else
             Color colorValue;
-            if (_rustColorFormat.IsMatch(color))
-            {
-                colorValue = ColorEx.Parse(color);
-            }
-            else
-            {
-                if (!color.StartsWith("#"))
-                {
-                    color = "#" + color;
-                }
-                
-                #if UiBenchmarks
-                colorValue = UnityEngine.Color.black;
-                #else
-                ColorUtility.TryParseHtmlString(color, out colorValue);
-                #endif
-            }
+            ColorUtility.TryParseHtmlString(color, out colorValue);
+            #endif
             
-            SetValue(colorValue);
+            return new UiColor(colorValue);
         }
-        
-        public UiColor(Color color) : this(color.r, color.g, color.b, color.a)
-        {
-            
-        }
-        
-        public UiColor(string hexColor, int alpha = 255) : this(hexColor, alpha / 255f)
-        {
-            
-        }
-        
-        public UiColor(string hexColor, float alpha = 1f)
-        {
-            if (!hexColor.StartsWith("#"))
-            {
-                hexColor = "#" + hexColor;
-            }
-            
-            alpha = Mathf.Clamp01(alpha);
-            Color colorValue;
-            ColorUtility.TryParseHtmlString(hexColor, out colorValue);
-            colorValue.a = alpha;
-            SetValue(colorValue);
-        }
-        
-        public UiColor(int red, int green, int blue, int alpha = 255) : this(red / 255f, green / 255f, blue / 255f, alpha / 255f)
-        {
-            
-        }
-        
-        public UiColor(float red, float green, float blue, float alpha = 1f)
-        {
-            red = Mathf.Clamp01(red);
-            green = Mathf.Clamp01(green);
-            blue = Mathf.Clamp01(blue);
-            alpha = Mathf.Clamp01(alpha);
-            
-            SetValue(red, green, blue, alpha);
-        }
-        
-        public UiColor WithAlpha(string hex)
-        {
-            return WithAlpha(int.Parse(hex, System.Globalization.NumberStyles.HexNumber));
-        }
-        
-        public UiColor WithAlpha(int alpha)
-        {
-            return WithAlpha(alpha / 255f);
-        }
-        
-        public UiColor WithAlpha(float alpha)
-        {
-            return new UiColor(Red, Green, Blue, Mathf.Clamp01(alpha));
-        }
-        
-        public UiColor Darken(float percentage)
-        {
-            percentage = Mathf.Clamp01(percentage);
-            float red = Red * (1 - percentage);
-            float green = Green * (1 - percentage);
-            float blue = Blue * (1 - percentage);
-            
-            return new UiColor(red, green, blue, Alpha);
-        }
-        
-        public UiColor Lighten(float percentage)
-        {
-            percentage = Mathf.Clamp01(percentage);
-            float red = (1 - Red) * percentage + Red;
-            float green = (1 - Green) * percentage + Green;
-            float blue = (1 - Blue) * percentage + Blue;
-            
-            return new UiColor(red, green, blue, Alpha);
-        }
-        
-        private void SetValue(Color color)
-        {
-            SetValue(color.r, color.g, color.b, color.a);
-        }
-        
-        private void SetValue(float red, float green, float blue, float alpha)
-        {
-            Color = $"{red:0.###} {green:0.###} {blue:0.###} {alpha:0.###}";
-            Value = ((int)(red * 255) << 24) + ((int)(green * 255) << 16) + ((int)(blue * 255) << 8) + (int)(alpha * 255);
-            Red = red;
-            Green = green;
-            Blue = blue;
-            Alpha = alpha;
-        }
-        
-        public static implicit operator UiColor(string value) => new UiColor(value);
-        
-        public static UiColor Lerp(UiColor start, UiColor end, float value)
-        {
-            value = Mathf.Clamp01(value);
-            return new UiColor(start.Red + (end.Red - start.Red) * value, start.Green + (end.Green - start.Green) * value, start.Blue + (end.Blue - start.Blue) * value, start.Alpha + (end.Alpha - start.Alpha) * value);
-        }
+        #endregion
     }
     #endregion
 
@@ -892,12 +897,12 @@ namespace Oxide.Plugins
         }
         
         #region UI Colors
-        public static readonly UiColor Clear = StandardColors.Black.WithAlpha(0f);
+        public static readonly UiColor Clear = UiColor.WithAlpha(StandardColors.Black, 0f);
         public static readonly UiColor White = StandardColors.White;
         public static readonly UiColor Black = StandardColors.Black;
-        public static readonly UiColor Body = Form.Body.WithAlpha("B2");
+        public static readonly UiColor Body = UiColor.WithAlpha(Form.Body, "F2");
         public static readonly UiColor BodyHeader = Form.Header;
-        public static readonly UiColor Text = Form.Text.WithAlpha("80");
+        public static readonly UiColor Text = UiColor.WithAlpha(Form.Text, "80");
         public static readonly UiColor Panel = Form.Panel;
         public static readonly UiColor PanelSecondary = Form.PanelSecondary;
         public static readonly UiColor PanelTertiary = Form.PanelTertiary;
@@ -917,12 +922,7 @@ namespace Oxide.Plugins
         
         public override void WriteComponent(JsonTextWriter writer)
         {
-            JsonCreator.AddField(writer, JsonDefaults.Color.ColorName, Color, JsonDefaults.Color.ColorValue);
-        }
-        
-        protected override void EnterPool()
-        {
-            Color = null;
+            JsonCreator.AddField(writer, JsonDefaults.Color.ColorName, Color);
         }
     }
     #endregion
@@ -1057,7 +1057,6 @@ namespace Oxide.Plugins
         
         protected override void EnterPool()
         {
-            base.EnterPool();
             FadeIn = 0;
         }
     }
@@ -1188,7 +1187,6 @@ namespace Oxide.Plugins
         
         protected override void EnterPool()
         {
-            base.EnterPool();
             Distance = JsonDefaults.Outline.DistanceValue;
             UseGraphicAlpha = false;
         }
@@ -1316,6 +1314,27 @@ namespace Oxide.Plugins
         public static string ToString(T value)
         {
             return CachedStrings[value];
+        }
+    }
+    #endregion
+
+    #region Extensions\UiColorExt.cs
+    public static class UiColorExt
+    {
+        private const string Format = "0.####";
+        private const string RGBFormat = "{0} ";
+        private const string AFormat = "{0}";
+        
+        public static readonly Hash<uint, string> ColorCache = new Hash<uint, string>();
+        
+        public static string GetColor(Color color)
+        {
+            StringBuilder builder = UiFrameworkPool.GetStringBuilder();
+            builder.AppendFormat(RGBFormat, color.r.ToString(Format));
+            builder.AppendFormat(RGBFormat, color.g.ToString(Format));
+            builder.AppendFormat(RGBFormat, color.b.ToString(Format));
+            builder.AppendFormat(AFormat, color.a.ToString(Format));
+            return UiFrameworkPool.ToStringAndFreeStringBuilder(ref builder);
         }
     }
     #endregion
@@ -1460,12 +1479,7 @@ namespace Oxide.Plugins
             
             //We need to write it this way so \n type characters are sent over and processed correctly
             writer.WritePropertyName(name);
-            StringBuilder sb = UiFrameworkPool.GetStringBuilder();
-            sb.Append(UiConstants.Json.QuoteChar);
-            sb.Append(value);
-            sb.Append(UiConstants.Json.QuoteChar);
-            UiFrameworkPool.FreeStringBuilder(ref sb);
-            writer.WriteRawValue(sb.ToString());
+            writer.WriteRawValue(string.Concat(UiConstants.Json.QuoteChar, value, UiConstants.Json.QuoteChar));
         }
         
         public static void AddField(JsonTextWriter writer, string name, int value, int defaultValue)
@@ -1479,19 +1493,19 @@ namespace Oxide.Plugins
         
         public static void AddField(JsonTextWriter writer, string name, float value, float defaultValue)
         {
-            if (Math.Abs(value - defaultValue) > 0.0001)
+            if (Math.Abs(value - defaultValue) >= 0.0001)
             {
                 writer.WritePropertyName(name);
                 writer.WriteValue(value);
             }
         }
         
-        public static void AddField(JsonTextWriter writer, string name, UiColor value, UiColor defaultValue)
+        public static void AddField(JsonTextWriter writer, string name, UiColor color)
         {
-            if (value.Value != defaultValue.Value)
+            if (color.Value != JsonDefaults.Color.ColorValue)
             {
                 writer.WritePropertyName(name);
-                writer.WriteValue(value.Color);
+                writer.WriteValue(color.ToString());
             }
         }
         
@@ -1551,7 +1565,7 @@ namespace Oxide.Plugins
         public static class Color
         {
             public const string ColorName = "color";
-            public static readonly UiColor ColorValue = "1 1 1 1";
+            public const uint ColorValue = ((uint)255 << 24) + (255 << 16) + (255 << 8) + 255;
         }
         
         public static class BaseImage
@@ -2165,7 +2179,7 @@ namespace Oxide.Plugins
         /// <param name="sb"><see cref="StringBuilder"/> being freed</param>
         public static string ToStringAndFreeStringBuilder(ref StringBuilder sb)
         {
-            string result = sb?.ToString();
+            string result = sb.ToString();
             StringBuilderPool.Free(ref sb);
             return result;
         }

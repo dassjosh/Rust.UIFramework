@@ -15,7 +15,6 @@ namespace Oxide.Ext.UiFramework.Components
 
         protected override void EnterPool()
         {
-            base.EnterPool();
             FadeIn = 0;
         }
     }

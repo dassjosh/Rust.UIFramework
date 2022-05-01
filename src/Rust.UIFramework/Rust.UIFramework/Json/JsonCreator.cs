@@ -106,15 +106,10 @@ namespace Oxide.Ext.UiFramework.Json
                 AddFieldRaw(writer, name, string.Empty);
                 return;
             }
-
+            
             //We need to write it this way so \n type characters are sent over and processed correctly
             writer.WritePropertyName(name);
-            StringBuilder sb = UiFrameworkPool.GetStringBuilder();
-            sb.Append(UiConstants.Json.QuoteChar);
-            sb.Append(value);
-            sb.Append(UiConstants.Json.QuoteChar);
-            UiFrameworkPool.FreeStringBuilder(ref sb);
-            writer.WriteRawValue(sb.ToString());
+            writer.WriteRawValue(string.Concat(UiConstants.Json.QuoteChar, value, UiConstants.Json.QuoteChar));
         }
 
         public static void AddField(JsonTextWriter writer, string name, int value, int defaultValue)
@@ -128,19 +123,19 @@ namespace Oxide.Ext.UiFramework.Json
 
         public static void AddField(JsonTextWriter writer, string name, float value, float defaultValue)
         {
-            if (Math.Abs(value - defaultValue) > 0.0001)
+            if (Math.Abs(value - defaultValue) >= 0.0001)
             {
                 writer.WritePropertyName(name);
                 writer.WriteValue(value);
             }
         }
 
-        public static void AddField(JsonTextWriter writer, string name, UiColor value, UiColor defaultValue)
+        public static void AddField(JsonTextWriter writer, string name, UiColor color)
         {
-            if (value.Value != defaultValue.Value)
+            if (color.Value != JsonDefaults.Color.ColorValue)
             {
                 writer.WritePropertyName(name);
-                writer.WriteValue(value.Color);
+                writer.WriteValue(color.ToString());
             }
         }
 

@@ -16,11 +16,12 @@ namespace Rust.UiFramework.Benchmarks
             
             while (true)
             {
-                benchmarks.FrameworkBenchmark_WithoutJson();
+                benchmarks.FrameworkBenchmark_WithJson();
             }
 #else
             BenchmarkRunner.Run<Benchmarks>(config);
             //BenchmarkRunner.Run<PositionBenchmarks>(config);
+            //BenchmarkRunner.Run<ColorBenchmarks>(config);
 #endif
         }
     }
