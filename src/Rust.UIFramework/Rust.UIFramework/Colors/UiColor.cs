@@ -146,7 +146,7 @@ namespace Oxide.Ext.UiFramework.Colors
             Color colorValue = Color.black;
 #else 
             Color colorValue;
-            ColorUtility.TryParseHtmlString(color, out colorValue);
+            ColorUtility.TryParseHtmlString(hexColor, out colorValue);
 #endif
             
             return new UiColor(colorValue);
