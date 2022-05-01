@@ -107,10 +107,16 @@ namespace Oxide.Ext.UiFramework.Builder
         #region Decontructor
         ~UiBuilder()
         {
-            Dispose();
+            DisposeInternal();
         }
 
         public void Dispose()
+        {
+            DisposeInternal();
+            GC.SuppressFinalize(this);
+        }
+
+        private void DisposeInternal()
         {
             if (_disposed)
             {
