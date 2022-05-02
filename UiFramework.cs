@@ -1,4 +1,5 @@
 using Network;
+using Newtonsoft.Json;
 using Oxide.Core.Plugins;
 using System;
 using System.Collections.Generic;
@@ -636,6 +637,7 @@ namespace Oxide.Plugins
         #endregion
 
         #region Colors\UiColor.cs
+        [JsonConverter(typeof(UiColorConverter))]
         public struct UiColor : IEquatable<UiColor>
         {
             #region Fields
@@ -651,6 +653,11 @@ namespace Oxide.Plugins
             }
             
             public UiColor(int red, int green, int blue, int alpha = 255) : this(red / 255f, green / 255f, blue / 255f, alpha / 255f)
+            {
+                
+            }
+            
+            public UiColor(byte red, byte green, byte blue, byte alpha = 255) : this(red / 255f, green / 255f, blue / 255f, alpha / 255f)
             {
                 
             }
@@ -724,6 +731,13 @@ namespace Oxide.Plugins
             }
             #endregion
             
+            #region Formats
+            public string ToHtmlColor()
+            {
+                return string.Concat("#", ColorUtility.ToHtmlStringRGBA(Color));
+            }
+            #endregion
+            
             #region Parsing
             /// <summary>
             /// Valid Rust Color Formats
@@ -739,6 +753,7 @@ namespace Oxide.Plugins
             }
             
             /// <summary>
+            /// <a href="https://docs.unity3d.com/ScriptReference/ColorUtility.TryParseHtmlString.html">Unity ColorUtility.TryParseHtmlString API reference</a>
             /// Valid Hex Color Formats
             /// #RGB
             /// #RRGGBB
@@ -750,16 +765,14 @@ namespace Oxide.Plugins
             /// <exception cref="UiFrameworkException"></exception>
             public static UiColor ParseHexColor(string hexColor)
             {
-                if (hexColor[0] != '#')
-                {
-                    throw new UiFrameworkException($"Invalid Hex Color: '{hexColor}' Color Must Start With '#'");
-                }
-                
-                #if UiBenchmarks
+                #if !UiBenchmarks
                 Color colorValue = Color.black;
                 #else
                 Color colorValue;
-                ColorUtility.TryParseHtmlString(hexColor, out colorValue);
+                if (!ColorUtility.TryParseHtmlString(hexColor, out colorValue))
+                {
+                    throw new UiFrameworkException($"Invalid Color: '{hexColor}' Hex colors must start with a '#'");
+                }
                 #endif
                 
                 return new UiColor(colorValue);
@@ -768,32 +781,66 @@ namespace Oxide.Plugins
         }
         #endregion
 
+        #region Colors\UiColorConverter.cs
+        public class UiColorConverter : JsonConverter
+        {
+            public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+            {
+                writer.WriteValue(((UiColor)value).ToHtmlColor());
+            }
+            
+            public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+            {
+                switch (reader.TokenType)
+                {
+                    case JsonToken.Null:
+                    if (Nullable.GetUnderlyingType(objectType) != null)
+                    {
+                        return null;
+                    }
+                    
+                    return default(UiColor);
+                    
+                    case JsonToken.String:
+                    return UiColor.ParseHexColor(reader.Value.ToString());
+                }
+                
+                return default(UiColor);
+            }
+            
+            public override bool CanConvert(Type objectType)
+            {
+                return objectType == typeof(UiColor);
+            }
+        }
+        #endregion
+
         #region Colors\UiColors.cs
         public static class UiColors
         {
             public static class BootStrap
             {
-                public static readonly UiColor BootStrapBlue = "#007bff";
-                public static readonly UiColor BootStrapIndigo = "#6610f2";
-                public static readonly UiColor BootStrapPurple = "#6f42c1";
-                public static readonly UiColor BootStrapPink = "#e83e8c";
-                public static readonly UiColor BootStrapRed = "#dc3545";
-                public static readonly UiColor BootStrapOrange = "#fd7e14";
-                public static readonly UiColor BootStrapYellow = "#ffc107";
-                public static readonly UiColor BootStrapGreen = "#28a745";
-                public static readonly UiColor BootStrapTeal = "#20c997";
-                public static readonly UiColor BootStrapCyan = "#17a2b8";
-                public static readonly UiColor BootStrapWhite = "#fff";
-                public static readonly UiColor BootStrapGray = "#6c757d";
-                public static readonly UiColor BootStrapDarkGray = "#343a40";
-                public static readonly UiColor BootStrapPrimary = "#007bff";
-                public static readonly UiColor BootStrapSecondary = "#6c757d";
-                public static readonly UiColor BootStrapSuccess = "#28a745";
-                public static readonly UiColor BootStrapInfo = "#17a2b8";
-                public static readonly UiColor BootStrapWarning = "#ffc107";
-                public static readonly UiColor BootStrapDanger = "#dc3545";
-                public static readonly UiColor BootStrapLight = "#f8f9fa";
-                public static readonly UiColor BootStrapDark = "#343a40";
+                public static readonly UiColor Blue = "#007bff";
+                public static readonly UiColor Indigo = "#6610f2";
+                public static readonly UiColor Purple = "#6f42c1";
+                public static readonly UiColor Pink = "#e83e8c";
+                public static readonly UiColor Red = "#dc3545";
+                public static readonly UiColor Orange = "#fd7e14";
+                public static readonly UiColor Yellow = "#ffc107";
+                public static readonly UiColor Green = "#28a745";
+                public static readonly UiColor Teal = "#20c997";
+                public static readonly UiColor Cyan = "#17a2b8";
+                public static readonly UiColor White = "#fff";
+                public static readonly UiColor Gray = "#6c757d";
+                public static readonly UiColor DarkGray = "#343a40";
+                public static readonly UiColor Primary = "#007bff";
+                public static readonly UiColor Secondary = "#6c757d";
+                public static readonly UiColor Success = "#28a745";
+                public static readonly UiColor Info = "#17a2b8";
+                public static readonly UiColor Warning = "#ffc107";
+                public static readonly UiColor Danger = "#dc3545";
+                public static readonly UiColor Light = "#f8f9fa";
+                public static readonly UiColor Dark = "#343a40";
             }
             
             public static class Material
@@ -864,6 +911,13 @@ namespace Oxide.Plugins
                     public static readonly UiColor Player = "#55AAFF";
                     public static readonly UiColor Developer = "#FFAA55";
                     public static readonly UiColor Admin = "#AAFF55";
+                }
+                
+                public static class Steam
+                {
+                    public static readonly UiColor InGame = "#A2DB40";
+                    public static readonly UiColor Online = "#60CBF2";
+                    public static readonly UiColor Normal = "#F7EBE1";
                 }
             }
             

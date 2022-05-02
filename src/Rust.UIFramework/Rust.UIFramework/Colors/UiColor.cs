@@ -1,10 +1,12 @@
 ﻿using System;
+using Newtonsoft.Json;
 using Oxide.Ext.UiFramework.Exceptions;
 using UnityEngine;
 using Color = UnityEngine.Color;
 
 namespace Oxide.Ext.UiFramework.Colors
 {
+    [JsonConverter(typeof(UiColorConverter))]
     public struct UiColor : IEquatable<UiColor>
     {
         #region Fields
@@ -20,6 +22,11 @@ namespace Oxide.Ext.UiFramework.Colors
         }
         
         public UiColor(int red, int green, int blue, int alpha = 255) : this(red / 255f, green / 255f, blue / 255f, alpha / 255f)
+        {
+
+        }
+        
+        public UiColor(byte red, byte green, byte blue, byte alpha = 255) : this(red / 255f, green / 255f, blue / 255f, alpha / 255f)
         {
 
         }
@@ -93,6 +100,13 @@ namespace Oxide.Ext.UiFramework.Colors
         }
         #endregion
 
+        #region Formats
+        public string ToHtmlColor()
+        {
+            return string.Concat("#", ColorUtility.ToHtmlStringRGBA(Color));
+        }
+        #endregion
+
         #region Parsing
         /// <summary>
         /// Valid Rust Color Formats
@@ -108,6 +122,7 @@ namespace Oxide.Ext.UiFramework.Colors
         }
         
         /// <summary>
+        /// <a href="https://docs.unity3d.com/ScriptReference/ColorUtility.TryParseHtmlString.html">Unity ColorUtility.TryParseHtmlString API reference</a>
         /// Valid Hex Color Formats
         /// #RGB
         /// #RRGGBB
@@ -119,16 +134,14 @@ namespace Oxide.Ext.UiFramework.Colors
         /// <exception cref="UiFrameworkException"></exception>
         public static UiColor ParseHexColor(string hexColor)
         {
-            if (hexColor[0] != '#')
-            {
-                throw new UiFrameworkException($"Invalid Hex Color: '{hexColor}' Color Must Start With '#'");
-            }
-            
-#if UiBenchmarks
+#if !UiBenchmarks
             Color colorValue = Color.black;
 #else 
             Color colorValue;
-            ColorUtility.TryParseHtmlString(hexColor, out colorValue);
+            if (!ColorUtility.TryParseHtmlString(hexColor, out colorValue))
+            {
+                throw new UiFrameworkException($"Invalid Color: '{hexColor}' Hex colors must start with a '#'");
+            }
 #endif
             
             return new UiColor(colorValue);
