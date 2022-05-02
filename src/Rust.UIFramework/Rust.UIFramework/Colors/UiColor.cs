@@ -134,7 +134,7 @@ namespace Oxide.Ext.UiFramework.Colors
         /// <exception cref="UiFrameworkException"></exception>
         public static UiColor ParseHexColor(string hexColor)
         {
-#if !UiBenchmarks
+#if UiBenchmarks
             Color colorValue = Color.black;
 #else 
             Color colorValue;
