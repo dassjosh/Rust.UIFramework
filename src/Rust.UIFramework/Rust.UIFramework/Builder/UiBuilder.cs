@@ -76,6 +76,7 @@ namespace Oxide.Ext.UiFramework.Builder
             component.Name = name;
             _components.Add(component);
             _nameBuilder.Append(name);
+            _nameBuilder.Append('_');
         }
 
         public void NeedsMouse(bool enabled = true)
@@ -148,8 +149,8 @@ namespace Oxide.Ext.UiFramework.Builder
 
         public string GetComponentName()
         {
-            _nameBuilder.Length = Root.Name.Length;
-            _nameBuilder.Insert(Root.Name.Length, _components.Count.ToString());
+            _nameBuilder.Length = Root.Name.Length + 1;
+            _nameBuilder.Insert(Root.Name.Length + 1, _components.Count.ToString());
             return _nameBuilder.ToString();
         }
 

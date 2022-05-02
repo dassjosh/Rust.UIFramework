@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Text;
 using Oxide.Ext.UiFramework.Exceptions;
-using Oxide.Ext.UiFramework.Extensions;
-using Oxide.Ext.UiFramework.Pooling;
-using Oxide.Plugins;
 using UnityEngine;
 using Color = UnityEngine.Color;
 
@@ -94,20 +90,6 @@ namespace Oxide.Ext.UiFramework.Colors
         public override int GetHashCode()
         {
             return (int)Value;
-        }
-        #endregion
-
-        #region ToString
-        public override string ToString()
-        {
-            string color = UiColorExt.ColorCache[Value];
-            if (color == null)
-            {
-                color = UiColorExt.GetColor(Color);
-                UiColorExt.ColorCache[Value] = color;
-            }
-            
-            return color;
         }
         #endregion
 

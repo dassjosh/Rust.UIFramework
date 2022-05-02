@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using Oxide.Ext.UiFramework.Json;
+﻿using Oxide.Ext.UiFramework.Json;
 
 namespace Oxide.Ext.UiFramework.Components
 {
@@ -7,7 +6,7 @@ namespace Oxide.Ext.UiFramework.Components
     {
         public float FadeIn;
 
-        public override void WriteComponent(JsonTextWriter writer)
+        public override void WriteComponent(JsonFrameworkWriter writer)
         {
             JsonCreator.AddField(writer, JsonDefaults.Common.FadeInName, FadeIn, JsonDefaults.Common.FadeIn);
             base.WriteComponent(writer);

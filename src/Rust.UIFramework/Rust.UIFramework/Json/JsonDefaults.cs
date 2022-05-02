@@ -1,5 +1,4 @@
-﻿using Oxide.Ext.UiFramework.Colors;
-using Oxide.Ext.UiFramework.Offsets;
+﻿using Oxide.Ext.UiFramework.Offsets;
 using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Json

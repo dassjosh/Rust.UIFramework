@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using Oxide.Ext.UiFramework.Json;
+﻿using Oxide.Ext.UiFramework.Json;
 using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Components
@@ -11,7 +10,7 @@ namespace Oxide.Ext.UiFramework.Components
         public TextAnchor Align;
         public string Text;
 
-        public override void WriteComponent(JsonTextWriter writer)
+        public override void WriteComponent(JsonFrameworkWriter writer)
         {
             JsonCreator.AddTextField(writer, JsonDefaults.BaseText.TextName, Text);
             JsonCreator.AddField(writer, JsonDefaults.BaseText.FontSizeName, FontSize, JsonDefaults.BaseText.FontSize);

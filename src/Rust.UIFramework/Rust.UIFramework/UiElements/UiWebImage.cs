@@ -1,6 +1,6 @@
-﻿using Newtonsoft.Json;
-using Oxide.Ext.UiFramework.Colors;
+﻿using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
+using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Positions;
 
@@ -19,7 +19,7 @@ namespace Oxide.Ext.UiFramework.UiElements
             return image;
         }
 
-        protected override void WriteComponents(JsonTextWriter writer)
+        protected override void WriteComponents(JsonFrameworkWriter writer)
         {
             RawImage.WriteComponent(writer);
             base.WriteComponents(writer);

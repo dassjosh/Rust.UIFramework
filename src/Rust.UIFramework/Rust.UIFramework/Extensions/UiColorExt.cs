@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Plugins;
 using Color = UnityEngine.Color;
@@ -11,7 +12,19 @@ namespace Oxide.Ext.UiFramework.Extensions
         private const string RGBFormat = "{0} ";
         private const string AFormat = "{0}";
 
-        public static readonly Hash<uint, string> ColorCache = new Hash<uint, string>();
+        private static readonly Hash<uint, string> ColorCache = new Hash<uint, string>();
+        
+        public static void WriteColor(StringBuilder writer, UiColor uiColor)
+        {
+            string color = ColorCache[uiColor.Value];
+            if (color == null)
+            {
+                color = GetColor(uiColor);
+                ColorCache[uiColor.Value] = color;
+            }
+
+            writer.Append(color);
+        }
         
         public static string GetColor(Color color)
         {

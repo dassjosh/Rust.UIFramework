@@ -1,6 +1,6 @@
-﻿using Newtonsoft.Json;
-using Oxide.Ext.UiFramework.Colors;
+﻿using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
+using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Positions;
 using UnityEngine;
@@ -64,7 +64,7 @@ namespace Oxide.Ext.UiFramework.UiElements
             Input.NeedsKeyboard = needsKeyboard;
         }
 
-        protected override void WriteComponents(JsonTextWriter writer)
+        protected override void WriteComponents(JsonFrameworkWriter writer)
         {
             Input.WriteComponent(writer);
             base.WriteComponents(writer);

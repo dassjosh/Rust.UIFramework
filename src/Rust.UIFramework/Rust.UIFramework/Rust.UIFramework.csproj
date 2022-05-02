@@ -101,7 +101,7 @@
     </ItemGroup>
 
     <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-      <Exec Command="plugin.merge -m -c -p &quot;../merge.framework.json&quot;&#xA;plugin.merge -m -c -p &quot;../merge.mergeframework.json&quot;&#xA;&#xA;set inputFile=$(ProjectDir)bin\$(Configuration)\net48\Oxide.Ext.UiFramework.dll&#xA;set outputFile=$(ProjectDir)..\..\..\Oxide.Ext.UiFramework.dll&#xA;&#xA;echo Input: %inputFile%&#xA;echo Output: %outputFile%&#xA;&#xA;copy &quot;%inputFile%&quot; &quot;%outputFile%*&quot;" />
+      <Exec Command="plugin.merge -m -p &quot;../merge.framework.json&quot;&#xA;plugin.merge -m -p &quot;../merge.mergeframework.json&quot;&#xA;&#xA;set inputFile=$(ProjectDir)bin\$(Configuration)\net48\Oxide.Ext.UiFramework.dll&#xA;set outputFile=$(ProjectDir)..\..\..\Oxide.Ext.UiFramework.dll&#xA;&#xA;echo Input: %inputFile%&#xA;echo Output: %outputFile%&#xA;&#xA;copy &quot;%inputFile%&quot; &quot;%outputFile%*&quot;" />
     </Target>
 
 </Project>

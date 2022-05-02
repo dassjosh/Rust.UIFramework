@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using Oxide.Ext.UiFramework.Json;
+﻿using Oxide.Ext.UiFramework.Json;
 
 namespace Oxide.Ext.UiFramework.Components
 {
@@ -8,7 +7,7 @@ namespace Oxide.Ext.UiFramework.Components
         public int ItemId;
         public ulong SkinId;
 
-        public override void WriteComponent(JsonTextWriter writer)
+        public override void WriteComponent(JsonFrameworkWriter writer)
         {
             writer.WriteStartObject();
             JsonCreator.AddFieldRaw(writer, JsonDefaults.ItemIcon.ItemIdName, ItemId);

@@ -6,14 +6,9 @@ namespace Oxide.Ext.UiFramework.Offsets
     {
         private readonly Offset _offset;
 
-        public StaticUiOffset(Vector2Short min, Vector2Short max)
+        public StaticUiOffset(int width, int height)
         {
-            _offset = new Offset(min, max);
-        }
-        
-        public StaticUiOffset(int width, int height) : this(-width / 2, -height / 2, width, height)
-        {
-            
+            _offset = new Offset(-width / 2, -height / 2, width, height);
         }
 
         public StaticUiOffset(int x, int y, int width, int height)
@@ -28,7 +23,7 @@ namespace Oxide.Ext.UiFramework.Offsets
                 throw new ArgumentOutOfRangeException(nameof(height), "height cannot be less than 0");
             }
             
-            _offset = new Offset(new Vector2Short(x, y), new Vector2Short( x + width, y + height));
+            _offset = new Offset(x, y, x + width, y + height);
         }
 
         public override Offset ToOffset()

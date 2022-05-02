@@ -1,5 +1,10 @@
-﻿using BenchmarkDotNet.Configs;
+﻿using System;
+using System.Runtime.InteropServices;
+using BenchmarkDotNet.Configs;
 using BenchmarkDotNet.Running;
+using Oxide.Ext.UiFramework.Colors;
+using Oxide.Ext.UiFramework.Offsets;
+using Oxide.Ext.UiFramework.Positions;
 
 namespace Rust.UiFramework.Benchmarks
 {
@@ -13,10 +18,16 @@ namespace Rust.UiFramework.Benchmarks
 #if DEBUG
             Benchmarks benchmarks = new Benchmarks();
             benchmarks.Setup();
+
+            var position = Marshal.SizeOf(typeof(Position));
+            var offset = Marshal.SizeOf(typeof(Offset));
+            var color = Marshal.SizeOf(typeof(UiColor));
+            
+            
             
             while (true)
             {
-                benchmarks.FrameworkBenchmark_WithJson();
+               var a = benchmarks.FrameworkBenchmark_WithJson();
             }
 #else
             BenchmarkRunner.Run<Benchmarks>(config);

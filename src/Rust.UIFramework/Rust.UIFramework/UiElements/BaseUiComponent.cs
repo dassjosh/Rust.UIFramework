@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using Oxide.Ext.UiFramework.Json;
+﻿using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Positions;
@@ -37,7 +36,7 @@ namespace Oxide.Ext.UiFramework.UiElements
             return component;
         }
 
-        public void WriteRootComponent(JsonTextWriter writer, bool needsMouse, bool needsKeyboard)
+        public void WriteRootComponent(JsonFrameworkWriter writer, bool needsMouse, bool needsKeyboard)
         {
             writer.WriteStartObject();
             JsonCreator.AddFieldRaw(writer, JsonDefaults.Common.ComponentName, Name);
@@ -62,7 +61,7 @@ namespace Oxide.Ext.UiFramework.UiElements
             writer.WriteEndObject();
         }
 
-        public void WriteComponent(JsonTextWriter writer)
+        public void WriteComponent(JsonFrameworkWriter writer)
         {
             writer.WriteStartObject();
             JsonCreator.AddFieldRaw(writer, JsonDefaults.Common.ComponentName, Name);
@@ -76,18 +75,18 @@ namespace Oxide.Ext.UiFramework.UiElements
             writer.WriteEndObject();
         }
         
-        protected virtual void WriteComponents(JsonTextWriter writer)
+        protected virtual void WriteComponents(JsonFrameworkWriter writer)
         {
             writer.WriteStartObject();
             JsonCreator.AddFieldRaw(writer, JsonDefaults.Common.ComponentTypeName, JsonDefaults.Common.RectTransformName);
-            JsonCreator.AddField(writer, JsonDefaults.Position.AnchorMinName, Position.Min, JsonDefaults.Position.AnchorMin, Position.MinString);
-            JsonCreator.AddField(writer, JsonDefaults.Position.AnchorMaxName, Position.Max, JsonDefaults.Position.AnchorMax, Position.MaxString);
+            JsonCreator.AddField(writer, JsonDefaults.Position.AnchorMinName, Position.Min, JsonDefaults.Position.AnchorMin);
+            JsonCreator.AddField(writer, JsonDefaults.Position.AnchorMaxName, Position.Max, JsonDefaults.Position.AnchorMax);
 
             if (Offset.HasValue)
             {
                 Offset offset = Offset.Value;
-                JsonCreator.AddField(writer, JsonDefaults.Offset.OffsetMinName, offset.Min, JsonDefaults.Offset.OffsetMin, offset.MinString);
-                JsonCreator.AddField(writer, JsonDefaults.Offset.OffsetMaxName, offset.Max, JsonDefaults.Offset.OffsetMax, offset.MaxString);
+                JsonCreator.AddField(writer, JsonDefaults.Offset.OffsetMinName, offset.Min, JsonDefaults.Offset.OffsetMin);
+                JsonCreator.AddField(writer, JsonDefaults.Offset.OffsetMaxName, offset.Max, JsonDefaults.Offset.OffsetMax);
             }
             else
             {

@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using Oxide.Ext.UiFramework.Json;
+﻿using Oxide.Ext.UiFramework.Json;
 
 namespace Oxide.Ext.UiFramework.Components
 {
@@ -11,7 +10,7 @@ namespace Oxide.Ext.UiFramework.Components
         public string Texture;
         public string Material;
 
-        public override void WriteComponent(JsonTextWriter writer)
+        public override void WriteComponent(JsonFrameworkWriter writer)
         {
             writer.WriteStartObject();
             JsonCreator.AddFieldRaw(writer, JsonDefaults.Common.ComponentTypeName, Type);
@@ -31,6 +30,8 @@ namespace Oxide.Ext.UiFramework.Components
         {
             base.EnterPool();
             Url = null;
+            Texture = null;
+            Material = null;
         }
     }
 }

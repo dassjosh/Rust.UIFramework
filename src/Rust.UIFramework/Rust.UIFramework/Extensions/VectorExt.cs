@@ -1,5 +1,6 @@
-﻿using Oxide.Ext.UiFramework.Offsets;
-using Oxide.Plugins;
+﻿using System.Collections.Generic;
+using System.Text;
+using Oxide.Ext.UiFramework.Offsets;
 using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Extensions
@@ -7,41 +8,46 @@ namespace Oxide.Ext.UiFramework.Extensions
     public static class VectorExt
     {
         private const string Format = "0.####";
-
+        private const char Space = ' ';
         private const short PositionRounder = 10000;
-        private static readonly Hash<short, string> PositionCache = new Hash<short, string>();
-        private static readonly Hash<short, string> OffsetCache = new Hash<short, string>();
+        
+        private static readonly Dictionary<ushort, string> PositionCache = new Dictionary<ushort, string>();
+        private static readonly Dictionary<short, string> OffsetCache = new Dictionary<short, string>();
 
         static VectorExt()
         {
-            for (short i = 0; i <= 10000; i++)
+            for (ushort i = 0; i <= PositionRounder; i++)
             {
-                PositionCache[i] = (i / 10000f).ToString(Format);
+                PositionCache[i] = (i / (float)PositionRounder).ToString(Format);
             }
         }
         
-        public static string ToString(Vector2 pos)
+        public static void WritePos(StringBuilder sb, Vector2 pos)
         {
-            return string.Concat(PositionCache[(short)(pos.x * PositionRounder)], " ", PositionCache[(short)(pos.y * PositionRounder)]);
+            sb.Append(PositionCache[(ushort)(pos.x * PositionRounder)]);
+            sb.Append(Space);
+            sb.Append(PositionCache[(ushort)(pos.y * PositionRounder)]);
         }
         
-        public static string ToString(Vector2Short pos)
+        public static void WritePos(StringBuilder sb, Vector2Short pos)
         {
-            string x;
-            string y;
-            if (!OffsetCache.TryGetValue(pos.X, out x))
+            string formattedPos;
+            if (!OffsetCache.TryGetValue(pos.X, out formattedPos))
             {
-                x = pos.X.ToString();
-                OffsetCache[pos.X] = x;
+                formattedPos = pos.X.ToString();
+                OffsetCache[pos.X] = formattedPos;
             }
             
-            if (!OffsetCache.TryGetValue(pos.Y, out y))
+            sb.Append(formattedPos);
+            sb.Append(Space);
+            
+            if (!OffsetCache.TryGetValue(pos.Y, out formattedPos))
             {
-                y = pos.Y.ToString();
-                OffsetCache[pos.Y] = y;
+                formattedPos = pos.Y.ToString();
+                OffsetCache[pos.Y] = formattedPos;
             }
             
-            return string.Concat(x, " ", y);
+            sb.Append(formattedPos);
         }
     }
 }

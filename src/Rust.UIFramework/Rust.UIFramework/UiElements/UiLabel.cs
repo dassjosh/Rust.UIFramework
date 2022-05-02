@@ -1,6 +1,6 @@
-﻿using Newtonsoft.Json;
-using Oxide.Ext.UiFramework.Colors;
+﻿using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
+using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Positions;
 using UnityEngine;
@@ -33,7 +33,7 @@ namespace Oxide.Ext.UiFramework.UiElements
             Countdown.Command = command;
         }
 
-        protected override void WriteComponents(JsonTextWriter writer)
+        protected override void WriteComponents(JsonFrameworkWriter writer)
         {
             Text.WriteComponent(writer);
             Countdown?.WriteComponent(writer);

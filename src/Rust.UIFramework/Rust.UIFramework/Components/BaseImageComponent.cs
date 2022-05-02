@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using Oxide.Ext.UiFramework.Json;
+﻿using Oxide.Ext.UiFramework.Json;
 
 namespace Oxide.Ext.UiFramework.Components
 {
@@ -8,7 +7,7 @@ namespace Oxide.Ext.UiFramework.Components
         public string Sprite;
         public string Material;
 
-        public override void WriteComponent(JsonTextWriter writer)
+        public override void WriteComponent(JsonFrameworkWriter writer)
         {
             JsonCreator.AddField(writer, JsonDefaults.BaseImage.SpriteName, Sprite, JsonDefaults.BaseImage.Sprite);
             JsonCreator.AddField(writer, JsonDefaults.BaseImage.MaterialName, Material, JsonDefaults.BaseImage.Material);

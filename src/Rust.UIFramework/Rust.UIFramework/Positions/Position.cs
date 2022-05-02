@@ -1,5 +1,4 @@
-﻿using Oxide.Ext.UiFramework.Extensions;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Positions
 {
@@ -7,20 +6,11 @@ namespace Oxide.Ext.UiFramework.Positions
     {
         public readonly Vector2 Min;
         public readonly Vector2 Max;
-        public readonly string MinString;
-        public readonly string MaxString;
 
-        public Position(Vector2 min, Vector2 max)
+        public Position(float xMin, float yMin, float xMax, float yMax)
         {
-            Min = min;
-            Max = max;
-            MinString = VectorExt.ToString(min);
-            MaxString = VectorExt.ToString(max);
-        }
-
-        public Position(float xMin, float yMin, float xMax, float yMax) : this(new Vector2(xMin, yMin), new Vector2(xMax, yMax))
-        {
-            
+            Min = new Vector2(Mathf.Clamp01(xMin), Mathf.Clamp01(yMin));
+            Max = new Vector2(Mathf.Clamp01(xMax), Mathf.Clamp01(yMax));
         }
     }
 }

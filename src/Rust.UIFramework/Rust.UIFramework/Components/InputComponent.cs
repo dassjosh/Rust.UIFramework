@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using Oxide.Ext.UiFramework.Json;
+﻿using Oxide.Ext.UiFramework.Json;
 using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.Components
@@ -15,7 +14,7 @@ namespace Oxide.Ext.UiFramework.Components
         public bool NeedsKeyboard = true;
         public InputField.LineType LineType;
 
-        public override void WriteComponent(JsonTextWriter writer)
+        public override void WriteComponent(JsonFrameworkWriter writer)
         {
             writer.WriteStartObject();
             JsonCreator.AddFieldRaw(writer, JsonDefaults.Common.ComponentTypeName, Type);

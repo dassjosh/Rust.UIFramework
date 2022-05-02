@@ -1,6 +1,6 @@
-﻿using Newtonsoft.Json;
-using Oxide.Ext.UiFramework.Colors;
+﻿using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
+using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Pooling;
 using UnityEngine;
 
@@ -28,7 +28,7 @@ namespace Oxide.Ext.UiFramework.UiElements
             Outline.UseGraphicAlpha = useGraphicAlpha;
         }
 
-        protected override void WriteComponents(JsonTextWriter writer)
+        protected override void WriteComponents(JsonFrameworkWriter writer)
         {
             Outline?.WriteComponent(writer);
             base.WriteComponents(writer);

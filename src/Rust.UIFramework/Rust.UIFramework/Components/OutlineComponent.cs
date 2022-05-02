@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-using Oxide.Ext.UiFramework.Extensions;
-using Oxide.Ext.UiFramework.Json;
+﻿using Oxide.Ext.UiFramework.Json;
 using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Components
@@ -12,11 +10,11 @@ namespace Oxide.Ext.UiFramework.Components
         public Vector2 Distance;
         public bool UseGraphicAlpha;
 
-        public override void WriteComponent(JsonTextWriter writer)
+        public override void WriteComponent(JsonFrameworkWriter writer)
         {
             writer.WriteStartObject();
             JsonCreator.AddFieldRaw(writer, JsonDefaults.Common.ComponentTypeName, Type);
-            JsonCreator.AddField(writer, JsonDefaults.Outline.DistanceName, Distance, JsonDefaults.Outline.DistanceValue, VectorExt.ToString(Distance));
+            JsonCreator.AddField(writer, JsonDefaults.Outline.DistanceName, Distance, JsonDefaults.Outline.DistanceValue);
             if (UseGraphicAlpha)
             {
                 JsonCreator.AddFieldRaw(writer, JsonDefaults.Outline.UseGraphicAlphaName, JsonDefaults.Outline.UseGraphicAlphaValue);
