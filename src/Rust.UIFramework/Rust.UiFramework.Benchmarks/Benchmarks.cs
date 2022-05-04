@@ -76,13 +76,13 @@ namespace Rust.UiFramework.Benchmarks
             return container;
         }
         
-        //[Benchmark]
+        [Benchmark]
         public CuiElementContainer OxideBenchmark_WithoutJson()
         {
             return GetOxideContainer();
         }
         
-        //[Benchmark]
+        [Benchmark]
         public UiBuilder FrameworkBenchmark_WithoutJson()
         {
             UiBuilder builder = GetFrameworkBuilder();
