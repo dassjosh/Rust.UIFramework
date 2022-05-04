@@ -1,13 +1,12 @@
 ﻿namespace Oxide.Ext.UiFramework.Offsets
 {
-    public class MovableUiOffset : UiOffset
+    public class MovableUiOffset
     {
         public int XMin;
         public int YMin;
         public int XMax;
         public int YMax;
-        private readonly Vector2Short _initialMin;
-        private readonly Vector2Short _initialMax;
+        private readonly UiOffset _initialState;
 
         public MovableUiOffset(int x, int y, int width, int height)
         {
@@ -15,8 +14,7 @@
             YMin = y;
             XMax = x + width;
             YMax = y + height;
-            _initialMin = new Vector2Short(XMin, YMin);
-            _initialMax = new Vector2Short(XMax, YMax);
+            _initialState = new UiOffset(XMin, YMin, XMax, YMax);
         }
 
         public void MoveX(int pixels)
@@ -41,22 +39,19 @@
             YMax = YMin + height;
         }
 
-        public override Offset ToOffset()
+        public UiOffset ToOffset()
         {
-            return new Offset(XMin, YMin, XMax, YMax);
-        }
-
-        public UiOffset ToStatic()
-        {
-            return new StaticUiOffset(XMin, YMin, XMax, YMax);
+            return new UiOffset(XMin, YMin, XMax, YMax);
         }
 
         public void Reset()
         {
-            XMin = _initialMin.X;
-            YMin = _initialMin.Y;
-            XMax = _initialMax.X;
-            YMax = _initialMax.Y;
+            XMin = _initialState.Min.X;
+            YMin = _initialState.Min.Y;
+            XMax = _initialState.Max.X;
+            YMax = _initialState.Max.Y;
         }
+        
+        public static implicit operator UiOffset(MovableUiOffset offset) => offset.ToOffset();
     }
 }

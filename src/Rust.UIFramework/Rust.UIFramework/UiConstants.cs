@@ -54,10 +54,5 @@ namespace Oxide.Ext.UiFramework
             public const string AddUiFunc = "AddUI";
             public const string DestroyUiFunc = "DestroyUI";
         }
-
-        public static class Json
-        {
-            public const char QuoteChar = '\"';
-        }
     }
 }

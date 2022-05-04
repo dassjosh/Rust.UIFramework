@@ -1,6 +1,7 @@
 ﻿using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Json;
+using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Positions;
 using UnityEngine;
@@ -12,9 +13,9 @@ namespace Oxide.Ext.UiFramework.UiElements
     {
         public InputComponent Input;
 
-        public static UiInput Create(string text, int size, UiColor textColor, UiPosition pos, string cmd, string font, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, bool isPassword = false, bool readOnly = false, InputField.LineType lineType = InputField.LineType.SingleLine)
+        public static UiInput Create(UiPosition pos, UiOffset? offset, UiColor textColor, string text, int size, string cmd, string font, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, bool isPassword = false, bool readOnly = false, InputField.LineType lineType = InputField.LineType.SingleLine)
         {
-            UiInput input = CreateBase<UiInput>(pos);
+            UiInput input = CreateBase<UiInput>(pos, offset);
             InputComponent comp = input.Input;
             comp.Text = text;
             comp.FontSize = size;
@@ -84,11 +85,6 @@ namespace Oxide.Ext.UiFramework.UiElements
         {
             base.LeavePool();
             Input = UiFrameworkPool.Get<InputComponent>();
-        }
-
-        public override void SetFadeIn(float duration)
-        {
-            Input.FadeIn = duration;
         }
     }
 }

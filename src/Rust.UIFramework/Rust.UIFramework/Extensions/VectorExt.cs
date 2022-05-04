@@ -29,6 +29,27 @@ namespace Oxide.Ext.UiFramework.Extensions
             sb.Append(PositionCache[(ushort)(pos.y * PositionRounder)]);
         }
         
+        public static void WriteVector2(StringBuilder sb, Vector2 pos)
+        {
+            string formattedPos;
+            if (!PositionCache.TryGetValue((ushort)(pos.x * PositionRounder), out formattedPos))
+            {
+                formattedPos = pos.x.ToString(Format);
+                PositionCache[(ushort)(pos.x * PositionRounder)] = formattedPos;
+            }
+                
+            sb.Append(formattedPos);
+            sb.Append(Space);
+                
+            if (!PositionCache.TryGetValue((ushort)(pos.y * PositionRounder), out formattedPos))
+            {
+                formattedPos = pos.y.ToString(Format);
+                PositionCache[(ushort)(pos.y * PositionRounder)] = formattedPos;
+            }
+                
+            sb.Append(formattedPos);
+        }
+        
         public static void WritePos(StringBuilder sb, Vector2Short pos)
         {
             string formattedPos;

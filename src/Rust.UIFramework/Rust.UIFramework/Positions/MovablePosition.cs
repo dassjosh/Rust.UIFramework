@@ -1,15 +1,14 @@
 ﻿using System;
-using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Positions
 {
-    public class MovablePosition : UiPosition
+    public class MovablePosition
     {
         public float XMin;
         public float YMin;
         public float XMax;
         public float YMax;
-        private readonly Vector4 _state;
+        private readonly UiPosition _initialState;
 
         public MovablePosition(float xMin, float yMin, float xMax, float yMax)
         {
@@ -17,15 +16,15 @@ namespace Oxide.Ext.UiFramework.Positions
             YMin = yMin;
             XMax = xMax;
             YMax = yMax;
-            _state = new Vector4(XMin, YMin, XMax, YMax);
+            _initialState = new UiPosition(XMin, YMin, XMax, YMax);
 #if UiDebug
             ValidatePositions();
 #endif
         }
 
-        public override Position ToPosition()
+        public UiPosition ToPosition()
         {
-            return new Position(XMin, YMin, XMax, YMax);
+            return new UiPosition(XMin, YMin, XMax, YMax);
         }
 
         public void Set(float xMin, float yMin, float xMax, float yMax)
@@ -90,17 +89,45 @@ namespace Oxide.Ext.UiFramework.Positions
 #endif
         }
 
-        public StaticUiPosition ToStatic()
+        public void Expand(float amount)
         {
-            return new StaticUiPosition(XMin, YMin, XMax, YMax);
+            ExpandHorizontal(amount);
+            ExpandVertical(amount);
+        }
+        
+        public void ExpandHorizontal(float amount)
+        {
+            XMin -= amount;
+            XMax += amount;
+        }
+        
+        public void ExpandVertical(float amount)
+        {
+            YMin -= amount;
+            YMax += amount;
+        }
+        
+        public void Shrink(float amount)
+        {
+            Expand(-amount);
+        }
+        
+        public void ShrinkHorizontal(float amount)
+        {
+            ExpandHorizontal(-amount);
+        }
+        
+        public void ShrinkVertical(float amount)
+        {
+            ExpandVertical(-amount);
         }
 
         public void Reset()
         {
-            XMin = _state.x;
-            YMin = _state.y;
-            XMax = _state.z;
-            YMax = _state.w;
+            XMin = _initialState.Min.x;
+            YMin = _initialState.Min.y;
+            XMax = _initialState.Min.x;
+            YMax = _initialState.Max.y;
         }
 
 #if UiDebug
@@ -137,5 +164,7 @@ namespace Oxide.Ext.UiFramework.Positions
         {
             return $"{XMin.ToString()} {YMin.ToString()} {XMax.ToString()} {YMax.ToString()}";
         }
+        
+        public static implicit operator UiPosition(MovablePosition pos) => pos.ToPosition();
     }
 }

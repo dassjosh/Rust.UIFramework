@@ -10,29 +10,14 @@ namespace Oxide.Ext.UiFramework.UiElements
         public string Name;
         public string Parent;
         public float FadeOut;
-        public Position Position;
-        public Offset? Offset;
+        public UiPosition Position;
+        public UiOffset? Offset;
 
-        protected static T CreateBase<T>(UiPosition pos, UiOffset offset) where T : BaseUiComponent, new()
-        {
-            T component = UiFrameworkPool.Get<T>();
-            component.Position = pos.ToPosition();
-            component.Offset = offset?.ToOffset();
-            return component;
-        }
-
-        protected static T CreateBase<T>(Position pos, Offset? offset) where T : BaseUiComponent, new()
+        protected static T CreateBase<T>(UiPosition pos, UiOffset? offset) where T : BaseUiComponent, new()
         {
             T component = UiFrameworkPool.Get<T>();
             component.Position = pos;
             component.Offset = offset;
-            return component;
-        }
-
-        protected static T CreateBase<T>(UiPosition pos) where T : BaseUiComponent, new()
-        {
-            T component = UiFrameworkPool.Get<T>();
-            component.Position = pos.ToPosition();
             return component;
         }
 
@@ -79,14 +64,14 @@ namespace Oxide.Ext.UiFramework.UiElements
         {
             writer.WriteStartObject();
             JsonCreator.AddFieldRaw(writer, JsonDefaults.Common.ComponentTypeName, JsonDefaults.Common.RectTransformName);
-            JsonCreator.AddField(writer, JsonDefaults.Position.AnchorMinName, Position.Min, JsonDefaults.Position.AnchorMin);
-            JsonCreator.AddField(writer, JsonDefaults.Position.AnchorMaxName, Position.Max, JsonDefaults.Position.AnchorMax);
+            JsonCreator.AddPosition(writer, JsonDefaults.Position.AnchorMinName, Position.Min, JsonDefaults.Position.AnchorMin);
+            JsonCreator.AddPosition(writer, JsonDefaults.Position.AnchorMaxName, Position.Max, JsonDefaults.Position.AnchorMax);
 
             if (Offset.HasValue)
             {
-                Offset offset = Offset.Value;
-                JsonCreator.AddField(writer, JsonDefaults.Offset.OffsetMinName, offset.Min, JsonDefaults.Offset.OffsetMin);
-                JsonCreator.AddField(writer, JsonDefaults.Offset.OffsetMaxName, offset.Max, JsonDefaults.Offset.OffsetMax);
+                UiOffset offset = Offset.Value;
+                JsonCreator.AddOffset(writer, JsonDefaults.Offset.OffsetMinName, offset.Min, JsonDefaults.Offset.OffsetMin);
+                JsonCreator.AddOffset(writer, JsonDefaults.Offset.OffsetMaxName, offset.Max, JsonDefaults.Offset.OffsetMax);
             }
             else
             {
@@ -102,14 +87,12 @@ namespace Oxide.Ext.UiFramework.UiElements
             FadeOut = duration;
         }
 
-        public abstract void SetFadeIn(float duration);
-
         protected override void EnterPool()
         {
             Name = null;
             Parent = null;
             FadeOut = 0;
-            Position = default(Position);
+            Position = default(UiPosition);
             Offset = null;
         }
     }

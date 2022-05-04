@@ -54,7 +54,7 @@ namespace Oxide.Ext.UiFramework.Json
                 writer.WriteValue(value);
             }
         }
-
+        
         public static void AddField(JsonFrameworkWriter writer, string name, Vector2 value, Vector2 defaultValue)
         {
             if (value != defaultValue)
@@ -64,12 +64,21 @@ namespace Oxide.Ext.UiFramework.Json
             }
         }
 
-        public static void AddField(JsonFrameworkWriter writer, string name, Vector2Short value, Vector2Short defaultValue)
+        public static void AddPosition(JsonFrameworkWriter writer, string name, Vector2 value, Vector2 defaultValue)
         {
             if (value != defaultValue)
             {
                 writer.WritePropertyName(name);
-                writer.WriteValue(value);
+                writer.WritePosition(value);
+            }
+        }
+
+        public static void AddOffset(JsonFrameworkWriter writer, string name, Vector2Short value, Vector2Short defaultValue)
+        {
+            if (value != defaultValue)
+            {
+                writer.WritePropertyName(name);
+                writer.WriteOffset(value);
             }
         }
 
@@ -88,6 +97,15 @@ namespace Oxide.Ext.UiFramework.Json
             {
                 writer.WritePropertyName(name);
                 writer.WriteValue(EnumExt<InputField.LineType>.ToString(value));
+            }
+        }
+        
+        public static void AddField(JsonFrameworkWriter writer, string name, Image.Type value)
+        {
+            if (value != Image.Type.Simple)
+            {
+                writer.WritePropertyName(name);
+                writer.WriteValue(EnumExt<Image.Type>.ToString(value));
             }
         }
 

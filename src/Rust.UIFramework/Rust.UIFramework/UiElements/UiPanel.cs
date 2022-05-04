@@ -11,6 +11,13 @@ namespace Oxide.Ext.UiFramework.UiElements
     {
         public ImageComponent Image;
 
+        public static UiPanel Create(UiPosition pos, UiOffset? offset, UiColor color)
+        {
+            UiPanel panel = CreateBase<UiPanel>(pos, offset);
+            panel.Image.Color = color;
+            return panel;
+        }
+        
         public void AddSprite(string sprite)
         {
             Image.Sprite = sprite;
@@ -20,19 +27,10 @@ namespace Oxide.Ext.UiFramework.UiElements
         {
             Image.Material = material;
         }
-
-        public static UiPanel Create(UiPosition pos, UiOffset offset, UiColor color)
+        
+        public void SetFadeIn(float duration)
         {
-            UiPanel panel = CreateBase<UiPanel>(pos, offset);
-            panel.Image.Color = color;
-            return panel;
-        }
-
-        public static UiPanel Create(Position pos, Offset offset, UiColor color)
-        {
-            UiPanel panel = CreateBase<UiPanel>(pos, offset);
-            panel.Image.Color = color;
-            return panel;
+            Image.FadeIn = duration;
         }
 
         protected override void WriteComponents(JsonFrameworkWriter writer)
@@ -51,11 +49,6 @@ namespace Oxide.Ext.UiFramework.UiElements
         {
             base.LeavePool();
             Image = UiFrameworkPool.Get<ImageComponent>();
-        }
-
-        public override void SetFadeIn(float duration)
-        {
-            Image.FadeIn = duration;
         }
     }
 }

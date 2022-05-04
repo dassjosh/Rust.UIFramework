@@ -33,7 +33,6 @@ namespace Oxide.Ext.UiFramework.Json
         {
             public const string OffsetMinName = "offsetmin";
             public const string OffsetMaxName = "offsetmax";
-        
             public static readonly Vector2Short OffsetMin = new Vector2Short(0, 0);
             public static readonly Vector2Short OffsetMax = new Vector2Short(0, 0);
             public const string DefaultOffsetMax = "0 0";
@@ -42,7 +41,7 @@ namespace Oxide.Ext.UiFramework.Json
         public static class Color
         {
             public const string ColorName = "color";
-            public const uint ColorValue = ((uint)255 << 24) + (255 << 16) + (255 << 8) + 255;
+            public const uint ColorValue = 0xFFFFFFFF;
         }
 
         public static class BaseImage
@@ -83,8 +82,9 @@ namespace Oxide.Ext.UiFramework.Json
 
         public static class Image
         {
-            public const string PNGName = "png";
+            public const string PngName = "png";
             public const string UrlName = "url";
+            public const string ImageType = "imagetype";
         }
 
         public static class ItemIcon

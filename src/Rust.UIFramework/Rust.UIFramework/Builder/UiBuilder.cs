@@ -40,13 +40,13 @@ namespace Oxide.Ext.UiFramework.Builder
             SetGlobalFont(UiFont.RobotoCondensedRegular);
         }
 
-        public UiBuilder(UiColor color, UiPosition pos, UiOffset offset, string name, string parent) : this(UiPanel.Create(pos, offset, color), name, parent) { }
+        public UiBuilder(UiColor color, UiPosition pos, UiOffset? offset, string name, string parent) : this(UiPanel.Create(pos, offset, color), name, parent) { }
 
         public UiBuilder(UiColor color, UiPosition pos, string name, string parent) : this(color, pos, null, name, parent) { }
 
         public UiBuilder(UiColor color, UiPosition pos, string name, UiLayer parent = UiLayer.Overlay) : this(color, pos, null, name, UiConstants.UiLayers.GetLayer(parent)) { }
 
-        public UiBuilder(UiColor color, UiPosition pos, UiOffset offset, string name, UiLayer parent = UiLayer.Overlay) : this(color, pos, offset, name, UiConstants.UiLayers.GetLayer(parent)) { }
+        public UiBuilder(UiColor color, UiPosition pos, UiOffset? offset, string name, UiLayer parent = UiLayer.Overlay) : this(color, pos, offset, name, UiConstants.UiLayers.GetLayer(parent)) { }
 
         public UiBuilder(BaseUiComponent root, string name, string parent) : this()
         {
@@ -114,7 +114,7 @@ namespace Oxide.Ext.UiFramework.Builder
         public void Dispose()
         {
             DisposeInternal();
-            GC.SuppressFinalize(this);
+            System.GC.SuppressFinalize(this);
         }
 
         private void DisposeInternal()
@@ -154,21 +154,14 @@ namespace Oxide.Ext.UiFramework.Builder
             return _nameBuilder.ToString();
         }
 
-        public UiPanel Section(BaseUiComponent parent, UiPosition pos)
+        public UiSection Section(BaseUiComponent parent, UiPosition pos)
         {
-            UiPanel section = UiPanel.Create(pos, null, UiColors.Clear);
+            UiSection section = UiSection.Create(pos, null);
             AddComponent(section, parent);
             return section;
         }
 
-        public UiPanel Panel(BaseUiComponent parent, UiColor color, UiPosition pos)
-        {
-            UiPanel panel = UiPanel.Create(pos, null, color);
-            AddComponent(panel, parent);
-            return panel;
-        }
-
-        public UiPanel Panel(BaseUiComponent parent, UiColor color, UiPosition pos, UiOffset offset)
+        public UiPanel Panel(BaseUiComponent parent, UiColor color, UiPosition pos, UiOffset? offset = null)
         {
             UiPanel panel = UiPanel.Create(pos, offset, color);
             AddComponent(panel, parent);
@@ -177,14 +170,14 @@ namespace Oxide.Ext.UiFramework.Builder
 
         public UiButton EmptyCommandButton(BaseUiComponent parent, UiColor color, UiPosition pos, string cmd)
         {
-            UiButton button = UiButton.CreateCommand(pos, color, cmd);
+            UiButton button = UiButton.CreateCommand(pos, null, color, cmd);
             AddComponent(button, parent);
             return button;
         }
 
         public UiButton EmptyCloseButton(BaseUiComponent parent, UiColor color, UiPosition pos, string close)
         {
-            UiButton button = UiButton.CreateClose(pos, color, close);
+            UiButton button = UiButton.CreateClose(pos, null, color, close);
             AddComponent(button, parent);
             return button;
         }
@@ -206,7 +199,7 @@ namespace Oxide.Ext.UiFramework.Builder
         public UiButton WebImageButton(BaseUiComponent parent, UiColor buttonColor, string url, UiPosition pos, string cmd)
         {
             UiButton button = EmptyCommandButton(parent, buttonColor, pos, cmd);
-            Image(button, url, UiPosition.FullPosition);
+            WebImage(button, url, UiPosition.FullPosition);
             return button;
         }
 
@@ -253,7 +246,7 @@ namespace Oxide.Ext.UiFramework.Builder
                 throw new UiFrameworkException($"Image PNG '{png}' is not a valid uint. If trying to use a url please use WebImage instead");
             }
 
-            UiImage image = UiImage.Create(png, pos, color);
+            UiImage image = UiImage.Create(pos, null, color, png);
             AddComponent(image, parent);
             return image;
         }
@@ -270,14 +263,14 @@ namespace Oxide.Ext.UiFramework.Builder
                 throw new UiFrameworkException($"WebImage Url '{url}' is not a valid url. If trying to use a png id please use Image instead");
             }
 
-            UiWebImage image = UiWebImage.Create(url, pos, color);
+            UiWebImage image = UiWebImage.Create(pos, null, color, url);
             AddComponent(image, parent);
             return image;
         }
 
         public UiItemIcon ItemIcon(BaseUiComponent parent, int itemId, UiPosition pos, UiColor color)
         {
-            UiItemIcon image = UiItemIcon.Create(itemId, pos, color);
+            UiItemIcon image = UiItemIcon.Create(pos, null, color, itemId);
             AddComponent(image, parent);
             return image;
         }
@@ -289,7 +282,7 @@ namespace Oxide.Ext.UiFramework.Builder
 
         public UiItemIcon ItemIcon(BaseUiComponent parent, int itemId, ulong skinId, UiPosition pos, UiColor color)
         {
-            UiItemIcon image = UiItemIcon.Create(itemId, skinId, pos, color);
+            UiItemIcon image = UiItemIcon.Create(pos, null, color, itemId, skinId);
             AddComponent(image, parent);
             return image;
         }
@@ -304,17 +297,17 @@ namespace Oxide.Ext.UiFramework.Builder
             return WebImage(parent, url, pos, UiColors.White);
         }
 
-        public UiLabel Label(BaseUiComponent parent, string text, int size, UiColor color, UiPosition pos, TextAnchor align = TextAnchor.MiddleCenter)
+        public UiLabel Label(BaseUiComponent parent, string text, int size, UiColor textColor, UiPosition pos, TextAnchor align = TextAnchor.MiddleCenter)
         {
-            UiLabel label = UiLabel.Create(text, size, color, pos, _font, align);
+            UiLabel label = UiLabel.Create(pos, null, textColor, text, size, _font, align);
             AddComponent(label, parent);
             return label;
         }
 
-        public UiLabel LabelBackground(BaseUiComponent parent, string text, int size, UiColor color, UiColor backgroundColor, UiPosition pos, TextAnchor align = TextAnchor.MiddleCenter)
+        public UiLabel LabelBackground(BaseUiComponent parent, string text, int size, UiColor textColor, UiColor backgroundColor, UiPosition pos, TextAnchor align = TextAnchor.MiddleCenter)
         {
             UiPanel panel = Panel(parent, backgroundColor, pos);
-            UiLabel label = UiLabel.Create(text, size, color, UiPosition.FullPosition, _font, align);
+            UiLabel label = UiLabel.Create(UiPosition.FullPosition, null, textColor, text, size, _font, align);
             AddComponent(label, panel);
             return label;
         }
@@ -343,37 +336,37 @@ namespace Oxide.Ext.UiFramework.Builder
             return outline;
         }
 
-        public UiInput Input(BaseUiComponent parent, string text, int size, UiColor textColor, UiColor backgroundColor, UiPosition pos, string cmd, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, bool isPassword = false, bool readOnly = false, InputField.LineType lineType = InputField.LineType.SingleLine)
+        public UiInput Input(BaseUiComponent parent, string text, int fontSize, UiColor textColor, UiColor backgroundColor, UiPosition pos, string cmd, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, bool isPassword = false, bool readOnly = false, InputField.LineType lineType = InputField.LineType.SingleLine)
         {
             parent = Panel(parent, backgroundColor, pos);
-            UiInput input = UiInput.Create(text, size, textColor, pos, cmd, _font, align, charsLimit, isPassword, readOnly, lineType);
+            UiInput input = UiInput.Create(UiPosition.FullPosition, null, textColor, text, fontSize, cmd, _font, align, charsLimit, isPassword, readOnly, lineType);
             AddComponent(input, parent);
             return input;
         }
 
-        public void Border(BaseUiComponent parent, UiColor color, int size = 0, BorderMode border = BorderMode.Top | BorderMode.Bottom | BorderMode.Left | BorderMode.Right)
+        public void Border(BaseUiComponent parent, UiColor color, int width = 0, BorderMode border = BorderMode.Top | BorderMode.Bottom | BorderMode.Left | BorderMode.Right)
         {
             if (HasBorderFlag(border, BorderMode.Top))
             {
-                UiPanel panel = UiPanel.Create(UiPosition.Top.ToPosition(), new Offset(0, -1, 0, size), color);
+                UiPanel panel = UiPanel.Create(UiPosition.Top, new UiOffset(0, -1, 0, width), color);
                 AddComponent(panel, parent);
             }
 
             if (HasBorderFlag(border, BorderMode.Left))
             {
-                UiPanel panel = UiPanel.Create(UiPosition.Left.ToPosition(), new Offset(-size, -size, 1, 0), color);
+                UiPanel panel = UiPanel.Create(UiPosition.Left, new UiOffset(-width, -width, 1, 0), color);
                 AddComponent(panel, parent);
             }
 
             if (HasBorderFlag(border, BorderMode.Bottom))
             {
-                UiPanel panel = UiPanel.Create(UiPosition.Bottom.ToPosition(), new Offset(0, -size, 0, 1), color);
+                UiPanel panel = UiPanel.Create(UiPosition.Bottom, new UiOffset(0, -width, 0, 1), color);
                 AddComponent(panel, parent);
             }
 
             if (HasBorderFlag(border, BorderMode.Right))
             {
-                UiPanel panel = UiPanel.Create(UiPosition.Right.ToPosition(), new Offset(-1, 0, size, 0), color);
+                UiPanel panel = UiPanel.Create(UiPosition.Right, new UiOffset(-1, 0, width, 0), color);
                 AddComponent(panel, parent);
             }
         }

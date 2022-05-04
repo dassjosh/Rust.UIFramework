@@ -1,6 +1,7 @@
 ﻿using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Json;
+using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Positions;
 
@@ -10,13 +11,18 @@ namespace Oxide.Ext.UiFramework.UiElements
     {
         public RawImageComponent RawImage;
 
-        public static UiWebImage Create(string png, UiPosition pos, UiColor color)
+        public static UiWebImage Create(UiPosition pos, UiOffset? offset, UiColor color, string png)
         {
-            UiWebImage image = CreateBase<UiWebImage>(pos);
+            UiWebImage image = CreateBase<UiWebImage>(pos, offset);
             image.RawImage.Color = color;
             image.RawImage.Url = png;
 
             return image;
+        }
+        
+        public void SetFadeIn(float duration)
+        {
+            RawImage.FadeIn = duration;
         }
 
         protected override void WriteComponents(JsonFrameworkWriter writer)
@@ -35,11 +41,6 @@ namespace Oxide.Ext.UiFramework.UiElements
         {
             base.LeavePool();
             RawImage = UiFrameworkPool.Get<RawImageComponent>();
-        }
-
-        public override void SetFadeIn(float duration)
-        {
-            RawImage.FadeIn = duration;
         }
     }
 }

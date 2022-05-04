@@ -1,23 +1,53 @@
-﻿namespace Oxide.Ext.UiFramework.Positions
-{
-    public abstract class UiPosition
-    {
-        public static readonly UiPosition FullPosition = new StaticUiPosition(0, 0, 1, 1);
-        public static readonly UiPosition TopLeft = new StaticUiPosition(0, 1, 0, 1);
-        public static readonly UiPosition MiddleLeft = new StaticUiPosition(0, .5f, 0, .5f);
-        public static readonly UiPosition BottomLeft = new StaticUiPosition(0, 0, 0, 0);
-        public static readonly UiPosition TopMiddle = new StaticUiPosition(.5f, 1, .5f, 1);
-        public static readonly UiPosition MiddleMiddle = new StaticUiPosition(.5f, .5f, .5f, .5f);
-        public static readonly UiPosition BottomMiddle = new StaticUiPosition(.5f, 0, .5f, 0);
-        public static readonly UiPosition TopRight = new StaticUiPosition(1, 1, 1, 1);
-        public static readonly UiPosition MiddleRight = new StaticUiPosition(1, .5f, 1, .5f);
-        public static readonly UiPosition BottomRight = new StaticUiPosition(1, 0, 1, 0);
-        
-        public static readonly UiPosition Top = new StaticUiPosition(0, 1, 1, 1);
-        public static readonly UiPosition Bottom = new StaticUiPosition(0, 0, 1, 0);
-        public static readonly UiPosition Left = new StaticUiPosition(0, 0, 0, 1);
-        public static readonly UiPosition Right = new StaticUiPosition(1, 0, 1, 1);
+﻿using UnityEngine;
 
-        public abstract Position ToPosition();
+namespace Oxide.Ext.UiFramework.Positions
+{
+    public struct UiPosition
+    {
+        public static readonly UiPosition FullPosition = new UiPosition(0, 0, 1, 1);
+        public static readonly UiPosition TopLeft = new UiPosition(0, 1, 0, 1);
+        public static readonly UiPosition MiddleLeft = new UiPosition(0, .5f, 0, .5f);
+        public static readonly UiPosition BottomLeft = new UiPosition(0, 0, 0, 0);
+        public static readonly UiPosition TopMiddle = new UiPosition(.5f, 1, .5f, 1);
+        public static readonly UiPosition MiddleMiddle = new UiPosition(.5f, .5f, .5f, .5f);
+        public static readonly UiPosition BottomMiddle = new UiPosition(.5f, 0, .5f, 0);
+        public static readonly UiPosition TopRight = new UiPosition(1, 1, 1, 1);
+        public static readonly UiPosition MiddleRight = new UiPosition(1, .5f, 1, .5f);
+        public static readonly UiPosition BottomRight = new UiPosition(1, 0, 1, 0);
+        
+        public static readonly UiPosition Top = new UiPosition(0, 1, 1, 1);
+        public static readonly UiPosition Bottom = new UiPosition(0, 0, 1, 0);
+        public static readonly UiPosition Left = new UiPosition(0, 0, 0, 1);
+        public static readonly UiPosition Right = new UiPosition(1, 0, 1, 1);
+        
+        public readonly Vector2 Min;
+        public readonly Vector2 Max;
+
+        public UiPosition(float xMin, float yMin, float xMax, float yMax)
+        {
+            Min = new Vector2(Mathf.Clamp01(xMin), Mathf.Clamp01(yMin));
+            Max = new Vector2(Mathf.Clamp01(xMax), Mathf.Clamp01(yMax));
+        }
+
+        public UiPosition Slice(float xMin, float yMin, float xMax, float yMax)
+        {
+            Vector2 distance = Max - Min;
+            return new UiPosition(Min.x + distance.x * xMin, Min.y + distance.y * yMin, Min.x + distance.x * xMax, Min.y + distance.y * yMax);
+        }
+        
+        public UiPosition SliceHorizontal(float xMin, float xMax)
+        {
+            return new UiPosition(Min.x + (Max.x - Min.x) * xMin, Min.y, Min.x + (Max.x - Min.x) * xMax, Max.y);
+        }
+        
+        public UiPosition SliceVertical(float yMin, float yMax)
+        {
+            return new UiPosition(Min.x, Min.y + (Max.y - Min.y) * yMin, Max.x, Min.y + (Max.y - Min.y) * yMax);
+        }
+        
+        public override string ToString()
+        {
+            return $"({Min.x:0.####}, {Min.y:0.####}) ({Max.x:0.####}, {Max.y:0.####})";
+        }
     }
 }

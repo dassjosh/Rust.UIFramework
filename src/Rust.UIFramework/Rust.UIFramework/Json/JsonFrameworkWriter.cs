@@ -134,11 +134,18 @@ namespace Oxide.Ext.UiFramework.Json
         public void WriteValue(Vector2 pos)
         {
             _writer.Append(QuoteChar);
+            VectorExt.WriteVector2(_writer, pos);
+            _writer.Append(QuoteChar);
+        }
+        
+        public void WritePosition(Vector2 pos)
+        {
+            _writer.Append(QuoteChar);
             VectorExt.WritePos(_writer, pos);
             _writer.Append(QuoteChar);
         }
         
-        public void WriteValue(Vector2Short offset)
+        public void WriteOffset(Vector2Short offset)
         {
             _writer.Append(QuoteChar);
             VectorExt.WritePos(_writer, offset);

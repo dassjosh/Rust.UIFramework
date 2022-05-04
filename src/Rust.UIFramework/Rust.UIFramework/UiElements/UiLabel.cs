@@ -1,6 +1,7 @@
 ﻿using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Json;
+using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Positions;
 using UnityEngine;
@@ -12,9 +13,9 @@ namespace Oxide.Ext.UiFramework.UiElements
         public TextComponent Text;
         public CountdownComponent Countdown;
 
-        public static UiLabel Create(string text, int size, UiColor color, UiPosition pos, string font, TextAnchor align = TextAnchor.MiddleCenter)
+        public static UiLabel Create(UiPosition pos, UiOffset? offset, UiColor color, string text, int size, string font, TextAnchor align = TextAnchor.MiddleCenter)
         {
-            UiLabel label = CreateBase<UiLabel>(pos);
+            UiLabel label = CreateBase<UiLabel>(pos, offset);
             TextComponent textComp = label.Text;
             textComp.Text = text;
             textComp.FontSize = size;
@@ -31,6 +32,11 @@ namespace Oxide.Ext.UiFramework.UiElements
             Countdown.EndTime = endTime;
             Countdown.Step = step;
             Countdown.Command = command;
+        }
+        
+        public void SetFadeIn(float duration)
+        {
+            Text.FadeIn = duration;
         }
 
         protected override void WriteComponents(JsonFrameworkWriter writer)
@@ -55,11 +61,6 @@ namespace Oxide.Ext.UiFramework.UiElements
         {
             base.LeavePool();
             Text = UiFrameworkPool.Get<TextComponent>();
-        }
-
-        public override void SetFadeIn(float duration)
-        {
-            Text.FadeIn = duration;
         }
     }
 }

@@ -1,8 +1,10 @@
 ﻿using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Json;
+using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Positions;
+using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.UiElements
 {
@@ -10,14 +12,24 @@ namespace Oxide.Ext.UiFramework.UiElements
     {
         public ImageComponent Image;
         
-        public static UiImage Create(string png, UiPosition pos, UiColor color)
+        public static UiImage Create(UiPosition pos, UiOffset? offset, UiColor color, string png)
         {
-            UiImage image = CreateBase<UiImage>(pos);
+            UiImage image = CreateBase<UiImage>(pos, offset);
             image.Image.Color = color;
             image.Image.Png = png;
             return image;
         }
 
+        public void SetImageType(Image.Type type)
+        {
+            Image.ImageType = type;
+        }
+        
+        public void SetFadeIn(float duration)
+        {
+            Image.FadeIn = duration;
+        }
+        
         protected override void WriteComponents(JsonFrameworkWriter writer)
         {
             Image.WriteComponent(writer);
@@ -34,11 +46,6 @@ namespace Oxide.Ext.UiFramework.UiElements
         {
             base.LeavePool();
             Image = UiFrameworkPool.Get<ImageComponent>();
-        }
-
-        public override void SetFadeIn(float duration)
-        {
-            Image.FadeIn = duration;
         }
     }
 }

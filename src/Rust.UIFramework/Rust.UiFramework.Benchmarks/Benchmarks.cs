@@ -28,7 +28,7 @@ namespace Rust.UiFramework.Benchmarks
                 float yMax = (float)_random.NextDouble();
                 _oxideMins.Add($"{xMin} {yMin}");
                 _oxideMaxs.Add($"{xMax} {yMax}");
-                _frameworkPos.Add(new StaticUiPosition(xMin, yMin, xMax, yMax));
+                _frameworkPos.Add(new UiPosition(xMin, yMin, xMax, yMax));
             }
         }
 

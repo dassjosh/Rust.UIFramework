@@ -1,6 +1,7 @@
 ﻿using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Json;
+using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Positions;
 
@@ -9,19 +10,19 @@ namespace Oxide.Ext.UiFramework.UiElements
     public class UiItemIcon : BaseUiComponent
     {
         public ItemIconComponent Icon;
-        
-        public static UiItemIcon Create(int itemId, UiPosition pos, UiColor color)
+
+        public static UiItemIcon Create(UiPosition pos, UiOffset? offset, UiColor color, int itemId, ulong skinId = 0)
         {
-            return Create(itemId, 0, pos, color);
-        }
-        
-        public static UiItemIcon Create(int itemId, ulong skinId, UiPosition pos, UiColor color)
-        {
-            UiItemIcon icon = CreateBase<UiItemIcon>(pos);
+            UiItemIcon icon = CreateBase<UiItemIcon>(pos, offset);
             icon.Icon.Color = color;
             icon.Icon.ItemId = itemId;
             icon.Icon.SkinId = skinId;
             return icon;
+        }
+        
+        public void SetFadeIn(float duration)
+        {
+            Icon.FadeIn = duration;
         }
 
         protected override void WriteComponents(JsonFrameworkWriter writer)
@@ -40,11 +41,6 @@ namespace Oxide.Ext.UiFramework.UiElements
         {
             base.LeavePool();
             Icon = UiFrameworkPool.Get<ItemIconComponent>();
-        }
-
-        public override void SetFadeIn(float duration)
-        {
-            Icon.FadeIn = duration;
         }
     }
 }
