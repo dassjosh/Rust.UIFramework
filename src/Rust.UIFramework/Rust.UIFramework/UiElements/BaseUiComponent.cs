@@ -72,7 +72,7 @@ namespace Oxide.Ext.UiFramework.UiElements
             {
                 UiOffset offset = Offset.Value;
                 JsonCreator.AddOffset(writer, JsonDefaults.Offset.OffsetMinName, offset.Min, new Vector2Short(0, 0));
-                JsonCreator.AddOffset(writer, JsonDefaults.Offset.OffsetMaxName, offset.Max, new Vector2Short(0, 0));
+                JsonCreator.AddOffset(writer, JsonDefaults.Offset.OffsetMaxName, offset.Max, new Vector2Short(1, 1));
             }
             else
             {

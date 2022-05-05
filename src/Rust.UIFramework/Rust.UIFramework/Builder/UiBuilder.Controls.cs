@@ -4,6 +4,7 @@ using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.UiElements;
+using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Builder
 {
@@ -16,8 +17,9 @@ namespace Oxide.Ext.UiFramework.Builder
 
         public UiPanel ProgressBar(BaseUiComponent parent, float percentage, UiColor barColor, UiColor backgroundColor, UiPosition pos)
         {
-            Panel(parent, backgroundColor, pos);
-            return Panel(parent, barColor, pos.SliceHorizontal(0, percentage));
+            UiPanel background = Panel(parent, backgroundColor, pos);
+            Panel(parent, barColor, pos.SliceHorizontal(0, Mathf.Clamp01(percentage)));
+            return background;
         }
         
         public void SimpleNumberPicker(BaseUiComponent parent, int value, int fontSize, UiColor textColor, UiColor backgroundColor, UiColor buttonColor, UiPosition pos, string cmd, float buttonWidth = 0.1f, bool readOnly = false)

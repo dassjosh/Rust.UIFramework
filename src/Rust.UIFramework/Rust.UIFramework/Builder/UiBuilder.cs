@@ -364,30 +364,39 @@ namespace Oxide.Ext.UiFramework.Builder
             return input;
         }
 
-        public void Border(BaseUiComponent parent, UiColor color, int width = 0, BorderMode border = BorderMode.Top | BorderMode.Bottom | BorderMode.Left | BorderMode.Right)
+        public void Border(BaseUiComponent parent, UiColor color, int width = 1, BorderMode border = BorderMode.Top | BorderMode.Bottom | BorderMode.Left | BorderMode.Right)
         {
-            if (HasBorderFlag(border, BorderMode.Top))
+            bool top = HasBorderFlag(border, BorderMode.Top);
+            bool left = HasBorderFlag(border, BorderMode.Left);
+            bool bottom = HasBorderFlag(border, BorderMode.Bottom);
+            bool right = HasBorderFlag(border, BorderMode.Right);
+            
+            if (top)
             {
-                UiPanel panel = UiPanel.Create(UiPosition.Top, new UiOffset(0, -1, 0, width), color);
-                AddComponent(panel, parent);
+                int min = left ? -width : 0;
+                int max = right ? width : 0;
+                Panel(parent, color, UiPosition.Top, new UiOffset(min, 0, max, width));
             }
-
-            if (HasBorderFlag(border, BorderMode.Left))
+            
+            if (left)
             {
-                UiPanel panel = UiPanel.Create(UiPosition.Left, new UiOffset(-width, -width, 1, 0), color);
-                AddComponent(panel, parent);
+                int min = top ? -width : 0;
+                int max = bottom ? width : 0;
+                Panel(parent, color, UiPosition.Left, new UiOffset(-width, min, 0, max));
             }
-
-            if (HasBorderFlag(border, BorderMode.Bottom))
+            
+            if (bottom)
             {
-                UiPanel panel = UiPanel.Create(UiPosition.Bottom, new UiOffset(0, -width, 0, 1), color);
-                AddComponent(panel, parent);
+                int min = left ? -width : 0;
+                int max = right ? width : 0;
+                Panel(parent, color, UiPosition.Bottom, new UiOffset(min, -width, max, 0));
             }
-
-            if (HasBorderFlag(border, BorderMode.Right))
+            
+            if (right)
             {
-                UiPanel panel = UiPanel.Create(UiPosition.Right, new UiOffset(-1, 0, width, 0), color);
-                AddComponent(panel, parent);
+                int min = top ? -width : 0;
+                int max = bottom ? width : 0;
+                Panel(parent, color, UiPosition.Right, new UiOffset(0, min, width, max));
             }
         }
 
