@@ -173,8 +173,10 @@ namespace Oxide.Plugins
 
         private void CreateModalUi(BasePlayer player)
         {
-            UiBuilder builder = UiBuilder.CreateModal(new UiOffset(400, 300), UiColors.Panel, UiModal);
+            UiBuilder builder = UiBuilder.CreateModal(new UiOffset(400, 300), UiColor.WithAlpha(UiColors.Panel, 0.5f), UiModal);
             builder.TextButton(builder.Root, "<b>X</b>", 14, UiColors.Text, UiColors.StandardColors.Clear, new UiPosition(.9f, .9f, 1f, 1f), nameof(UiElementsCloseModal));
+            
+            builder.Border(builder.Root, UiColors.Rust.Red, 2);
             
             builder.DestroyUi(player);
             builder.AddUi(player);

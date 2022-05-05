@@ -364,39 +364,67 @@ namespace Oxide.Ext.UiFramework.Builder
             return input;
         }
 
-        public void Border(BaseUiComponent parent, UiColor color, int width = 1, BorderMode border = BorderMode.Top | BorderMode.Bottom | BorderMode.Left | BorderMode.Right)
+                public void Border(BaseUiComponent parent, UiColor color, int width = 1, BorderMode border = BorderMode.Top | BorderMode.Bottom | BorderMode.Left | BorderMode.Right)
         {
+            //If width is 0 nothing is displayed so don't try to render
+            if (width == 0)
+            {
+                return;
+            }
+            
             bool top = HasBorderFlag(border, BorderMode.Top);
             bool left = HasBorderFlag(border, BorderMode.Left);
             bool bottom = HasBorderFlag(border, BorderMode.Bottom);
             bool right = HasBorderFlag(border, BorderMode.Right);
-            
-            if (top)
+
+            if (width > 0)
             {
-                int min = left ? -width : 0;
-                int max = right ? width : 0;
-                Panel(parent, color, UiPosition.Top, new UiOffset(min, 0, max, width));
+                int tbMin = left ? -width : 0;
+                int tbMax = right ? width : 0;
+                int lrMin = top ? -width : 0;
+                int lrMax = bottom ? width : 0;
+            
+                if (top)
+                {
+                    Panel(parent, color, UiPosition.Top, new UiOffset(tbMin, 0, tbMax, width));
+                }
+            
+                if (left)
+                {
+                    Panel(parent, color, UiPosition.Left, new UiOffset(-width, lrMin, 0, lrMax));
+                }
+            
+                if (bottom)
+                {
+                    Panel(parent, color, UiPosition.Bottom, new UiOffset(tbMin, -width, tbMax, 0));
+                }
+            
+                if (right)
+                {
+                    Panel(parent, color, UiPosition.Right, new UiOffset(0, lrMin, width, lrMax));
+                }
             }
-            
-            if (left)
+            else
             {
-                int min = top ? -width : 0;
-                int max = bottom ? width : 0;
-                Panel(parent, color, UiPosition.Left, new UiOffset(-width, min, 0, max));
-            }
+                if (top)
+                {
+                    Panel(parent, color, UiPosition.Top, new UiOffset(0, width, 0, 0));
+                }
             
-            if (bottom)
-            {
-                int min = left ? -width : 0;
-                int max = right ? width : 0;
-                Panel(parent, color, UiPosition.Bottom, new UiOffset(min, -width, max, 0));
-            }
+                if (left)
+                {
+                    Panel(parent, color, UiPosition.Left, new UiOffset(0, 0, -width, 0));
+                }
             
-            if (right)
-            {
-                int min = top ? -width : 0;
-                int max = bottom ? width : 0;
-                Panel(parent, color, UiPosition.Right, new UiOffset(0, min, width, max));
+                if (bottom)
+                {
+                    Panel(parent, color, UiPosition.Bottom, new UiOffset(0, 0, 0, -width));
+                }
+            
+                if (right)
+                {
+                    Panel(parent, color, UiPosition.Right, new UiOffset(width, 0, 0, 0));
+                }
             }
         }
 
