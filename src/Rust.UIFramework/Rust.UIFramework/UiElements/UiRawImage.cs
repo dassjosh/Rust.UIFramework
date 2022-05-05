@@ -7,16 +7,23 @@ using Oxide.Ext.UiFramework.Positions;
 
 namespace Oxide.Ext.UiFramework.UiElements
 {
-    public class UiWebImage : BaseUiComponent
+    public class UiRawImage : BaseUiComponent
     {
         public RawImageComponent RawImage;
 
-        public static UiWebImage Create(UiPosition pos, UiOffset? offset, UiColor color, string png)
+        public static UiRawImage CreateUrl(UiPosition pos, UiOffset? offset, UiColor color, string url)
         {
-            UiWebImage image = CreateBase<UiWebImage>(pos, offset);
+            UiRawImage image = CreateBase<UiRawImage>(pos, offset);
             image.RawImage.Color = color;
-            image.RawImage.Url = png;
-
+            image.RawImage.Url = url;
+            return image;
+        }
+        
+        public static UiRawImage CreateTexture(UiPosition pos, UiOffset? offset, UiColor color, string icon)
+        {
+            UiRawImage image = CreateBase<UiRawImage>(pos, offset);
+            image.RawImage.Color = color;
+            image.RawImage.Texture = icon;
             return image;
         }
         

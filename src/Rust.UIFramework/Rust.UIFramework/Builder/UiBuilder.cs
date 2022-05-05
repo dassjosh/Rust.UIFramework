@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using Network;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Enums;
@@ -10,7 +9,6 @@ using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.UiElements;
-using Oxide.Plugins;
 using UnityEngine;
 using UnityEngine.UI;
 using Net = Network.Net;
@@ -23,15 +21,15 @@ namespace Oxide.Ext.UiFramework.Builder
 
         private bool _needsMouse;
         private bool _needsKeyboard;
-
-        private string _cachedJson;
         private bool _disposed;
-
-        private List<BaseUiComponent> _components;
-        private Hash<string, BaseUiComponent> _componentLookup;
-        private StringBuilder _nameBuilder;
+        
+        private string _baseName;
         private string _font;
-
+        private string _cachedJson;
+        
+        private List<BaseUiComponent> _components;
+        //private Hash<string, BaseUiComponent> _componentLookup;
+        
         private static string _globalFont;
 
         #region Constructor
@@ -39,15 +37,23 @@ namespace Oxide.Ext.UiFramework.Builder
         {
             SetGlobalFont(UiFont.RobotoCondensedRegular);
         }
+        
+        public UiBuilder(UiPosition pos, string name, string parent) : this(pos, null, name, parent) { }
 
-        public UiBuilder(UiColor color, UiPosition pos, UiOffset? offset, string name, string parent) : this(UiPanel.Create(pos, offset, color), name, parent) { }
+        public UiBuilder(UiPosition pos, string name, UiLayer parent = UiLayer.Overlay) : this(pos, null, name, UiConstants.UiLayers.GetLayer(parent)) { }
 
+        public UiBuilder(UiPosition pos, UiOffset? offset, string name, UiLayer parent = UiLayer.Overlay) : this(pos, offset, name, UiConstants.UiLayers.GetLayer(parent)) { }
+
+        public UiBuilder(UiPosition pos, UiOffset? offset, string name, string parent) : this(UiSection.Create(pos, offset), name, parent) { } 
+        
         public UiBuilder(UiColor color, UiPosition pos, string name, string parent) : this(color, pos, null, name, parent) { }
 
         public UiBuilder(UiColor color, UiPosition pos, string name, UiLayer parent = UiLayer.Overlay) : this(color, pos, null, name, UiConstants.UiLayers.GetLayer(parent)) { }
 
         public UiBuilder(UiColor color, UiPosition pos, UiOffset? offset, string name, UiLayer parent = UiLayer.Overlay) : this(color, pos, offset, name, UiConstants.UiLayers.GetLayer(parent)) { }
 
+        public UiBuilder(UiColor color, UiPosition pos, UiOffset? offset, string name, string parent) : this(UiPanel.Create(pos, offset, color), name, parent) { }
+        
         public UiBuilder(BaseUiComponent root, string name, string parent) : this()
         {
             SetRoot(root, name, parent);
@@ -56,8 +62,7 @@ namespace Oxide.Ext.UiFramework.Builder
         public UiBuilder()
         {
             _components = UiFrameworkPool.GetList<BaseUiComponent>();
-            _componentLookup = UiFrameworkPool.GetHash<string, BaseUiComponent>();
-            _nameBuilder = UiFrameworkPool.GetStringBuilder();
+            //_componentLookup = UiFrameworkPool.GetHash<string, BaseUiComponent>();
             _font = _globalFont;
         }
 
@@ -75,8 +80,12 @@ namespace Oxide.Ext.UiFramework.Builder
             component.Parent = parent;
             component.Name = name;
             _components.Add(component);
-            _nameBuilder.Append(name);
-            _nameBuilder.Append('_');
+            _baseName = name + "_";
+        }
+
+        public void OverrideRoot(BaseUiComponent component)
+        {
+            Root = component;
         }
 
         public void NeedsMouse(bool enabled = true)
@@ -99,10 +108,10 @@ namespace Oxide.Ext.UiFramework.Builder
             _globalFont = UiConstants.UiFonts.GetUiFont(font);
         }
 
-        public T GetUi<T>(string name) where T : BaseUiComponent
-        {
-            return (T)_componentLookup[name];
-        }
+        // public T GetUi<T>(string name) where T : BaseUiComponent
+        // {
+        //     return (T)_componentLookup[name];
+        // }
         #endregion
 
         #region Decontructor
@@ -114,6 +123,8 @@ namespace Oxide.Ext.UiFramework.Builder
         public void Dispose()
         {
             DisposeInternal();
+            //Need this because there is a global GC class that causes issues
+            // ReSharper disable once RedundantNameQualifier
             System.GC.SuppressFinalize(this);
         }
 
@@ -132,8 +143,7 @@ namespace Oxide.Ext.UiFramework.Builder
             }
 
             UiFrameworkPool.FreeList(ref _components);
-            UiFrameworkPool.FreeStringBuilder(ref _nameBuilder);
-            UiFrameworkPool.FreeHash(ref _componentLookup);
+            //UiFrameworkPool.FreeHash(ref _componentLookup);
             Root = null;
         }
         #endregion
@@ -143,15 +153,13 @@ namespace Oxide.Ext.UiFramework.Builder
         {
             component.Parent = parent.Name;
             component.Name = GetComponentName();
-            _componentLookup[component.Name] = component;
+            //_componentLookup[component.Name] = component;
             _components.Add(component);
         }
 
         public string GetComponentName()
         {
-            _nameBuilder.Length = Root.Name.Length + 1;
-            _nameBuilder.Insert(Root.Name.Length + 1, _components.Count.ToString());
-            return _nameBuilder.ToString();
+            return string.Concat(_baseName, _components.Count.ToString());
         }
 
         public UiSection Section(BaseUiComponent parent, UiPosition pos)
@@ -253,19 +261,7 @@ namespace Oxide.Ext.UiFramework.Builder
 
         public UiImage Image(BaseUiComponent parent, string png, UiPosition pos)
         {
-            return Image(parent, png, pos, UiColors.White);
-        }
-
-        public UiWebImage WebImage(BaseUiComponent parent, string url, UiPosition pos, UiColor color)
-        {
-            if (!url.StartsWith("http"))
-            {
-                throw new UiFrameworkException($"WebImage Url '{url}' is not a valid url. If trying to use a png id please use Image instead");
-            }
-
-            UiWebImage image = UiWebImage.Create(pos, null, color, url);
-            AddComponent(image, parent);
-            return image;
+            return Image(parent, png, pos, UiColors.StandardColors.White);
         }
 
         public UiItemIcon ItemIcon(BaseUiComponent parent, int itemId, UiPosition pos, UiColor color)
@@ -277,7 +273,7 @@ namespace Oxide.Ext.UiFramework.Builder
 
         public UiItemIcon ItemIcon(BaseUiComponent parent, int itemId, UiPosition pos)
         {
-            return ItemIcon(parent, itemId, pos, UiColors.White);
+            return ItemIcon(parent, itemId, pos, UiColors.StandardColors.White);
         }
 
         public UiItemIcon ItemIcon(BaseUiComponent parent, int itemId, ulong skinId, UiPosition pos, UiColor color)
@@ -289,12 +285,36 @@ namespace Oxide.Ext.UiFramework.Builder
 
         public UiItemIcon ItemIcon(BaseUiComponent parent, int itemId, ulong skinId, UiPosition pos)
         {
-            return ItemIcon(parent, itemId, skinId, pos, UiColors.White);
+            return ItemIcon(parent, itemId, skinId, pos, UiColors.StandardColors.White);
         }
 
-        public UiWebImage WebImage(BaseUiComponent parent, string url, UiPosition pos)
+        public UiRawImage WebImage(BaseUiComponent parent, string url, UiPosition pos)
         {
-            return WebImage(parent, url, pos, UiColors.White);
+            return WebImage(parent, url, pos, UiColors.StandardColors.White);
+        }
+        
+        public UiRawImage WebImage(BaseUiComponent parent, string url, UiPosition pos, UiColor color)
+        {
+            if (!url.StartsWith("http"))
+            {
+                throw new UiFrameworkException($"WebImage Url '{url}' is not a valid url. If trying to use a png id please use Image instead");
+            }
+
+            UiRawImage image = UiRawImage.CreateUrl(pos, null, color, url);
+            AddComponent(image, parent);
+            return image;
+        }
+        
+        public UiRawImage TextureImage(BaseUiComponent parent, string texture, UiPosition pos)
+        {
+            return TextureImage(parent, texture, pos, UiColors.StandardColors.White);
+        }
+        
+        public UiRawImage TextureImage(BaseUiComponent parent, string texture, UiPosition pos, UiColor color)
+        {
+            UiRawImage image = UiRawImage.CreateTexture(pos, null, color, texture);
+            AddComponent(image, parent);
+            return image;
         }
 
         public UiLabel Label(BaseUiComponent parent, string text, int size, UiColor textColor, UiPosition pos, TextAnchor align = TextAnchor.MiddleCenter)
@@ -487,7 +507,7 @@ namespace Oxide.Ext.UiFramework.Builder
             for (int index = _components.Count - 1; index >= 0; index--)
             {
                 BaseUiComponent component = _components[index];
-                if (component is UiWebImage)
+                if (component is UiRawImage)
                 {
                     DestroyUi(connection, component.Name);
                 }
@@ -499,7 +519,7 @@ namespace Oxide.Ext.UiFramework.Builder
             for (int index = _components.Count - 1; index >= 0; index--)
             {
                 BaseUiComponent component = _components[index];
-                if (component is UiWebImage)
+                if (component is UiRawImage)
                 {
                     DestroyUi(connections, component.Name);
                 }
