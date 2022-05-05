@@ -1,5 +1,4 @@
-﻿using Oxide.Ext.UiFramework.Offsets;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Json
 {

@@ -807,6 +807,8 @@ namespace Oxide.Plugins
             CommunityEntity.ServerInstance.ClientRPCEx(new SendInfo(connections), null, UiConstants.RpcFunctions.DestroyUiFunc, name);
         }
         #endregion
+
+
     }
     #endregion
 

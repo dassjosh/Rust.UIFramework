@@ -4,7 +4,8 @@ namespace Oxide.Ext.UiFramework.Positions
 {
     public struct UiPosition
     {
-        public static readonly UiPosition FullPosition = new UiPosition(0, 0, 1, 1);
+        public static readonly UiPosition None = new UiPosition(0, 0, 0, 0);
+        public static readonly UiPosition Full = new UiPosition(0, 0, 1, 1);
         public static readonly UiPosition TopLeft = new UiPosition(0, 1, 0, 1);
         public static readonly UiPosition MiddleLeft = new UiPosition(0, .5f, 0, .5f);
         public static readonly UiPosition BottomLeft = new UiPosition(0, 0, 0, 0);

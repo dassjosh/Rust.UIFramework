@@ -31,12 +31,19 @@ namespace Oxide.Plugins
         private void ElementsChatCommand(BasePlayer player, string cmd, string[] args)
         {
             CreateUi(player);
+        }  
+        
+        [ChatCommand("ets")]
+        private void ElementsSkinChatCommand(BasePlayer player, string cmd, string[] args)
+        {
+            CreateSkinTest(player);
         }
         #endregion
 
         #region UI
         private const string UiName = nameof(UiElementsTest) + "_Main";
         private const string UiModal = nameof(UiElementsTest) + "_Modal";
+        private const string UiSkin = nameof(UiElementsTest) + "_Skin";
 
         private readonly UiOffset _containerSize = new UiOffset(800, 600);
         private readonly UiPosition _titleBarPos = new UiPosition(0, 0.95f, 1, 1);
@@ -183,6 +190,30 @@ namespace Oxide.Plugins
             
             LogToFile("Modal", string.Empty, this);
             LogToFile("Modal", builder.ToJson(), this);
+        }
+
+        private static readonly GridPosition _skin = new GridPositionBuilder(2, 1).SetPadding(0.025f).Build();
+        
+        private void CreateSkinTest(BasePlayer player)
+        {
+            UiBuilder builder = new UiBuilder(UiColors.Body, UiPosition.MiddleMiddle, new UiOffset(400, 300), UiSkin);
+            builder.NeedsMouse();
+            
+            _skin.Reset();
+
+            builder.ItemIcon(builder.Root, 963906841, 2084257363, _skin);
+            _skin.MoveCols(1);
+            
+            builder.ItemIcon(builder.Root, 963906841, 2320435219ul, _skin);
+            _skin.MoveCols(1);
+            
+            builder.TextCloseButton(builder.Root, "<b>X</b>", 14, UiColors.Text, UiColors.StandardColors.Clear, new UiPosition(.9f, .9f, 1f, 1f), UiSkin);
+
+            builder.DestroyUi(player);
+            builder.AddUi(player);
+            
+            LogToFile("Skin", string.Empty, this);
+            LogToFile("Skin", builder.ToJson(), this);
         }
         #endregion
 
