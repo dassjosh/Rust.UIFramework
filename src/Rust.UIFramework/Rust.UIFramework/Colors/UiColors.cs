@@ -1,4 +1,6 @@
-﻿namespace Oxide.Ext.UiFramework.Colors
+﻿using UnityEngine;
+
+namespace Oxide.Ext.UiFramework.Colors
 {
     public static class UiColors
     {
@@ -41,22 +43,25 @@
 
         public static class StandardColors
         {
-            public static readonly UiColor White = "#FFFFFF";
+            public static readonly UiColor White = Color.white;
             public static readonly UiColor Silver = "#C0C0C0";
-            public static readonly UiColor Gray = "#808080";
-            public static readonly UiColor Black = "#000000";
-            public static readonly UiColor Red = "#FF0000";
+            public static readonly UiColor Gray = Color.gray;
+            public static readonly UiColor Black = Color.black;
+            public static readonly UiColor Red = Color.red;
             public static readonly UiColor Maroon = "#800000";
-            public static readonly UiColor Yellow = "#FFFF00";
+            public static readonly UiColor Yellow = Color.yellow;
             public static readonly UiColor Olive = "#808000";
             public static readonly UiColor Lime = "#00FF00";
-            public static readonly UiColor Green = "#008000";
+            public static readonly UiColor Green = Color.green;
             public static readonly UiColor Aqua = "#00FFFF";
             public static readonly UiColor Teal = "#008080";
-            public static readonly UiColor Blue = "#0000FF";
+            public static readonly UiColor Cyan = Color.cyan;
+            public static readonly UiColor Blue = Color.blue;
             public static readonly UiColor Navy = "#000080";
             public static readonly UiColor Fuchsia = "#FF00FF";
+            public static readonly UiColor Magenta = Color.magenta;
             public static readonly UiColor Purple = "#800080";
+            public static readonly UiColor Clear = Color.clear;
         }
 
         public static class Supreme
@@ -118,9 +123,6 @@
         }
 
         #region UI Colors
-        public static readonly UiColor Clear = UiColor.WithAlpha(StandardColors.Black, 0f);
-        public static readonly UiColor White = StandardColors.White;
-        public static readonly UiColor Black = StandardColors.Black;
         public static readonly UiColor Body = UiColor.WithAlpha(Form.Body, "F2");
         public static readonly UiColor BodyHeader = Form.Header;
         public static readonly UiColor Text = UiColor.WithAlpha(Form.Text, "80");
@@ -130,8 +132,6 @@
         public static readonly UiColor CloseButton = Form.ButtonPrimary;
         public static readonly UiColor ButtonPrimary = Form.ButtonPrimary;
         public static readonly UiColor ButtonSecondary = Form.ButtonSecondary;
-        public static readonly UiColor RustRed = Rust.Red;
-        public static readonly UiColor RustGreen = Rust.Green;
         #endregion
     }
 }
