@@ -1,4 +1,4 @@
-using Network;
+﻿using Network;
 using Newtonsoft.Json;
 using Oxide.Core.Plugins;
 using System;
@@ -123,7 +123,8 @@ namespace Oxide.Plugins
         public UiPanel ProgressBar(BaseUiComponent parent, float percentage, UiColor barColor, UiColor backgroundColor, UiPosition pos)
         {
             Panel(parent, backgroundColor, pos);
-            return Panel(parent, barColor, pos.SliceHorizontal(0, percentage));
+            UiPanel bar = Panel(parent, barColor, pos.SliceHorizontal(0, percentage));
+            return bar;
         }
         
         public void SimpleNumberPicker(BaseUiComponent parent, int value, int fontSize, UiColor textColor, UiColor backgroundColor, UiColor buttonColor, UiPosition pos, string cmd, float buttonWidth = 0.1f, bool readOnly = false)
@@ -210,15 +211,15 @@ namespace Oxide.Plugins
             TextButton(parent, ">>>", fontSize, textColor, buttonColor, grid, $"{cmd} {maxPage.ToString()}");
         }
         
-        public static UiBuilder CreateModal(UiOffset offset, UiColor modalColor, string name, UiLayer layer = UiLayer.Overlay)
+        public static UiBuilder CreateModal(UiOffset offset, UiColor backgroundColor, string name, UiLayer layer = UiLayer.Overlay)
         {
             UiBuilder builder = new UiBuilder();
-            UiPanel backgroundBlur = UiPanel.Create(UiPosition.FullPosition, null, new UiColor(0, 0, 0, 0.5f));
-            backgroundBlur.AddMaterial(UiConstants.Materials.InGameBlur);
-            builder.SetRoot(backgroundBlur, name, UiConstants.UiLayers.GetLayer(layer));
-            UiPanel modal = UiPanel.Create(UiPosition.MiddleMiddle, offset, modalColor);
-            builder.AddComponent(modal, backgroundBlur);
-            builder.OverrideRoot(modal);
+            UiPanel panel = UiPanel.Create(UiPosition.FullPosition, null, new UiColor(0, 0, 0, 0.5f));
+            panel.AddMaterial(UiConstants.Materials.InGameBlur);
+            builder.SetRoot(panel, name, UiConstants.UiLayers.GetLayer(layer));
+            UiPanel root = UiPanel.Create(UiPosition.MiddleMiddle, offset, backgroundColor);
+            builder.AddComponent(root, panel);
+            builder.Root = root;
             return builder;
         }
     }
@@ -291,11 +292,6 @@ namespace Oxide.Plugins
             component.Name = name;
             _components.Add(component);
             _baseName = name + "_";
-        }
-        
-        public void OverrideRoot(BaseUiComponent component)
-        {
-            Root = component;
         }
         
         public void NeedsMouse(bool enabled = true)

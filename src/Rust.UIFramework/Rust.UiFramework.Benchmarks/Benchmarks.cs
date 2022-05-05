@@ -136,11 +136,11 @@ namespace Rust.UiFramework.Benchmarks
 
         private UiBuilder GetFrameworkBuilder()
         {
-            UiBuilder builder = new UiBuilder(UiColors.Clear, UiPosition.FullPosition, "123");
+            UiBuilder builder = new UiBuilder(UiColors.StandardColors.Clear, UiPosition.FullPosition, "123");
             builder.EnsureCapacity(Iterations);
             for (int i = 0; i < Iterations - 1; i++)
             {
-                builder.Panel(builder.Root, UiColors.Black, _frameworkPos[i]);
+                builder.Panel(builder.Root, UiColors.StandardColors.Black, _frameworkPos[i]);
             }
 
             return builder;
@@ -150,11 +150,11 @@ namespace Rust.UiFramework.Benchmarks
         {
             MovablePosition move = new MovablePosition(0, 0, 0, 0);
 
-            UiBuilder builder = new UiBuilder(UiColors.Clear, UiPosition.FullPosition, "123");
+            UiBuilder builder = new UiBuilder(UiColors.StandardColors.Clear, UiPosition.FullPosition, "123");
             for (int i = 0; i < Iterations - 1; i++)
             {
                 move.Set((float)_random.NextDouble(), (float)_random.NextDouble(), (float)_random.NextDouble(), (float)_random.NextDouble());
-                builder.Panel(builder.Root, UiColors.Black, move);
+                builder.Panel(builder.Root, UiColors.StandardColors.Black, move);
             }
 
             return builder;

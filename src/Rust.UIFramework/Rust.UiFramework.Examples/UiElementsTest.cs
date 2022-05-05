@@ -1,29 +1,31 @@
-﻿using System;
+using Network;
+using Newtonsoft.Json;
+using Oxide.Core.Plugins;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using Network;
-using Newtonsoft.Json;
-using Oxide.Core.Plugins;
 using UnityEngine;
 using UnityEngine.UI;
 
 using Color = UnityEngine.Color;
 using Net = Network.Net;
 
+//UiElementsTest created with PluginMerge v(1.0.4.0) by MJSU @ https://github.com/dassjosh/Plugin.Merge
 namespace Oxide.Plugins
 {
     [Info("UI Elements Test", "MJSU", "1.0.0")]
     [Description("Tests all UI elements")]
     public partial class UiElementsTest : RustPlugin
     {
+        #region UiElementsTest.Plugin.cs
         #region Fields
         private readonly Hash<ulong, PlayerState> _playerStates = new Hash<ulong, PlayerState>();
-
+        
         private static UiElementsTest _ins;
         #endregion
-
+        
         #region Setup & Loading
         private void Init()
         {
@@ -33,10 +35,11 @@ namespace Oxide.Plugins
         private void Unload()
         {
             UiBuilder.DestroyUi(UiName);
+            UiBuilder.DestroyUi(UiModal);
             _ins = null;
         }
         #endregion
-
+        
         #region Chat Command
         [ChatCommand("et")]
         private void ElementsChatCommand(BasePlayer player, string cmd, string[] args)
@@ -44,10 +47,11 @@ namespace Oxide.Plugins
             CreateUi(player);
         }
         #endregion
-
+        
         #region UI
         private const string UiName = nameof(UiElementsTest) + "_Main";
-
+        private const string UiModal = nameof(UiElementsTest) + "_Modal";
+        
         private readonly UiOffset _containerSize = new UiOffset(800, 600);
         private readonly UiPosition _titleBarPos = new UiPosition(0, 0.95f, 1, 1);
         private readonly UiPosition _titleTextPos = new UiPosition(.25f, 0, 0.75f, 1);
@@ -61,7 +65,7 @@ namespace Oxide.Plugins
         
         private readonly GridPosition _grid = new GridPositionBuilder(6, 6).SetPadding(0.01f).Build();
         private readonly GridPosition _pagination = new GridPositionBuilder(11, 1).SetPadding(0.0025f).Build();
-
+        
         private readonly int[] _numberPickerIncrements = { 1, 5, 25 };
         
         private const int FontSize = 14;
@@ -73,7 +77,7 @@ namespace Oxide.Plugins
             _playerStates[player.userID] = state;
             CreateUi(player, state);
         }
-
+        
         private void CreateUi(BasePlayer player, PlayerState state)
         {
             //Initialize the builder
@@ -96,7 +100,7 @@ namespace Oxide.Plugins
             
             //Create a Text Close Button that closes the UI using a server command
             builder.TextButton(titlePanel, "<b>X</b>", FontSize, UiColors.Text, UiColors.CloseButton, _closeCmdButtonPos, nameof(UiElementsCloseCommand));
-
+            
             //Sections represents an invisible UI element used to parent UI elements to it
             UiSection body = builder.Section(builder.Root, _mainBodyPosition);
             
@@ -108,7 +112,7 @@ namespace Oxide.Plugins
             
             //Move the grid to the next column
             _grid.MoveCols(1);
-
+            
             //We create a panel
             builder.Panel(body, UiColors.PanelTertiary, _grid);
             _grid.MoveCols(1);
@@ -118,29 +122,29 @@ namespace Oxide.Plugins
             _grid.MoveCols(1);
             
             //Creates a button that displays an image from the web
-            builder.WebImageButton(body, UiColors.White, "https://cdn.icon-icons.com/icons2/1381/PNG/512/rust_94773.png", _grid, string.Empty);
+            builder.WebImageButton(body, UiColors.StandardColors.White, "https://cdn.icon-icons.com/icons2/1381/PNG/512/rust_94773.png", _grid, string.Empty);
             _grid.MoveCols(1);
             
             //Creates a button that shows an item icon
             builder.ItemIconButton(body, UiColors.ButtonSecondary, 963906841, _grid, string.Empty);
             _grid.MoveCols(1);
-
+            
             //Displays a web image
             builder.WebImage(body, "https://community.cloudflare.steamstatic.com/economy/image/6TMcQ7eX6E0EZl2byXi7vaVKyDk_zQLX05x6eLCFM9neAckxGDf7qU2e2gu64OnAeQ7835Ja5WrMfDY0jhyo8DEiv5daMKk6r70yQoJpxfiC/360fx360f", _grid);
             _grid.MoveCols(1);
-
+            
             //Displays an item icon with the given skin ID
             builder.ItemIcon(body, 963906841, 2563674658ul, _grid);
             _grid.MoveCols(1);
-
+            
             //Create a label and add a countdown timer to it.
-            UiLabel countdownLabel = builder.LabelBackground(body, "Time Left: %TIME_LEFT%", FontSize, UiColors.White, UiColors.PanelSecondary, _grid);
+            UiLabel countdownLabel = builder.LabelBackground(body, "Time Left: %TIME_LEFT%", FontSize, UiColors.StandardColors.White, UiColors.PanelSecondary, _grid);
             builder.Countdown(countdownLabel, 100, 0, 1, string.Empty);
-
+            
             //Adds a text outline to the countdownLabel
-            builder.TextOutline(countdownLabel, UiColors.RustRed, new Vector2(0.5f, -0.5f));
+            builder.TextOutline(countdownLabel, UiColors.Rust.Red, new Vector2(0.5f, -0.5f));
             _grid.MoveCols(1);
-
+            
             //Creates an input field for the user to type in
             UiInput input1 = builder.Input(body, state.Input1Text, FontSize, UiColors.Text, UiColors.PanelSecondary, _grid, nameof(UiElementsUpdateInput1));
             
@@ -149,32 +153,51 @@ namespace Oxide.Plugins
             _grid.MoveCols(1);
             
             //Adds a border around the body UI
-            builder.Border(body, UiColors.RustRed);
-
+            builder.Border(body, UiColors.Rust.Red);
+            
             //Creates a checkbox
             builder.Checkbox(body, state.Checkbox, FontSize, UiColors.Text, UiColors.PanelSecondary, _grid, nameof(UiElementsToggleCheckbox));
             _grid.MoveCols(1);
             
             //Creates a number picker
-            builder.SimpleNumberPicker(body, state.NumberPicker, FontSize, UiColors.Text, UiColors.Panel, UiColors.ButtonSecondary, _numberPickerPos, nameof(UiElementsNumberPicker));
+            builder.SimpleNumberPicker(body, state.NumberPicker, FontSize, UiColors.Text, UiColors.Panel, UiColors.ButtonSecondary, _numberPickerPos, nameof(UiElementsNumberPicker), readOnly: true);
             _grid.MoveCols(1);
             
             //Creates a number picker where the user can type into as well
             builder.IncrementalNumberPicker(body, state.InputPicker, _numberPickerIncrements, FontSize, UiColors.Text, UiColors.Panel, UiColors.ButtonSecondary, _inputNumberPickerPos, nameof(UiElementsInputNumberPicker));
             _grid.MoveCols(1);
-
+            
             //Creates a paginator
             UiSection paginatorSection = builder.Section(body, _paginator);
             builder.Paginator(paginatorSection, state.Page, 3, FontSize, UiColors.Text, UiColors.ButtonSecondary, UiColors.ButtonPrimary, _pagination, nameof(UiElementsPage));
             
+            builder.TextureImage(body, "assets/icons/change_code.png", _grid, UiColors.StandardColors.White);
+            _grid.MoveCols(1);
+            
+            //Creates a button to open a modal
+            builder.TextButton(body, "Open Modal", FontSize, UiColors.Text, UiColors.ButtonPrimary, _grid, nameof(UiElementsOpenModal));
+            _grid.MoveCols(1);
+            
             builder.DestroyUi(player);
             builder.AddUi(player);
             
-            LogToFile(string.Empty, string.Empty, this);
-            LogToFile(string.Empty, builder.ToJson(), this);
+            LogToFile("Main", string.Empty, this);
+            LogToFile("Main", builder.ToJson(), this);
+        }
+        
+        private void CreateModalUi(BasePlayer player)
+        {
+            UiBuilder builder = UiBuilder.CreateModal(new UiOffset(400, 300), UiColors.Panel, UiModal);
+            builder.TextButton(builder.Root, "<b>X</b>", 14, UiColors.Text, UiColors.StandardColors.Clear, new UiPosition(.9f, .9f, 1f, 1f), nameof(UiElementsCloseModal));
+            
+            builder.DestroyUi(player);
+            builder.AddUi(player);
+            
+            LogToFile("Modal", string.Empty, this);
+            LogToFile("Modal", builder.ToJson(), this);
         }
         #endregion
-
+        
         #region UI Commands
         [ConsoleCommand(nameof(UiElementsCloseCommand))]
         private void UiElementsCloseCommand(ConsoleSystem.Arg arg)
@@ -196,7 +219,7 @@ namespace Oxide.Plugins
             {
                 return;
             }
-
+            
             PlayerState state = _playerStates[player.userID];
             state.Input1Text = arg.GetString(0);
             
@@ -211,7 +234,7 @@ namespace Oxide.Plugins
             {
                 return;
             }
-
+            
             PlayerState state = _playerStates[player.userID];
             state.Checkbox = !state.Checkbox;
             
@@ -226,10 +249,10 @@ namespace Oxide.Plugins
             {
                 return;
             }
-
+            
             PlayerState state = _playerStates[player.userID];
             state.NumberPicker = arg.GetInt(0);
-
+            
             CreateUi(player, state);
         }
         
@@ -241,10 +264,10 @@ namespace Oxide.Plugins
             {
                 return;
             }
-
+            
             PlayerState state = _playerStates[player.userID];
             state.InputPicker = arg.GetInt(0);
-
+            
             CreateUi(player, state);
         }
         
@@ -256,14 +279,38 @@ namespace Oxide.Plugins
             {
                 return;
             }
-
+            
             PlayerState state = _playerStates[player.userID];
             state.Page = arg.GetInt(0);
-
+            
             CreateUi(player, state);
         }
+        
+        [ConsoleCommand(nameof(UiElementsOpenModal))]
+        private void UiElementsOpenModal(ConsoleSystem.Arg arg)
+        {
+            BasePlayer player = arg.Player();
+            if (!player)
+            {
+                return;
+            }
+            
+            CreateModalUi(player);
+        }
+        
+        [ConsoleCommand(nameof(UiElementsCloseModal))]
+        private void UiElementsCloseModal(ConsoleSystem.Arg arg)
+        {
+            BasePlayer player = arg.Player();
+            if (!player)
+            {
+                return;
+            }
+            
+            UiBuilder.DestroyUi(player, UiModal);
+        }
         #endregion
-
+        
         #region Classes
         private class PlayerState
         {
@@ -274,41 +321,45 @@ namespace Oxide.Plugins
             public int InputPicker;
         }
         #endregion
+        #endregion
 
     }
-    
-    //[Info("Rust UI Framework", "MJSU", "1.3.0")]
-    //[Description("UI Framework for Rust")]
-    public partial class UiElementsTest 
-    {
-        #region Plugin\UiFramework.Methods.cs
-        #region JSON Sending
-        public void DestroyUi(BasePlayer player, string name)
-        {
-            UiBuilder.DestroyUi(player, name);
-        }
-        
-        public void DestroyUi(List<Connection> connections, string name)
-        {
-            UiBuilder.DestroyUi(connections, name);
-        }
-        
-        private void DestroyUiAll(string name)
-        {
-            UiBuilder.DestroyUi(name);
-        }
-        #endregion
-        
-        #region Unloading
-        public override void HandleRemovedFromManager(PluginManager manager)
-        {
-            UiFrameworkPool.OnUnload();
-            base.HandleRemovedFromManager(manager);
-        }
-        #endregion
-        #endregion
 
-        #region UiConstants.cs
+    //Framework  v() by 
+    //
+    #region Merged Framework 
+    public partial class UiElementsTest
+    {
+        public partial class UiMergeFramework : RustPlugin
+        {
+            #region Plugin\UiFramework.Methods.cs
+            #region JSON Sending
+            public void DestroyUi(BasePlayer player, string name)
+            {
+                UiBuilder.DestroyUi(player, name);
+            }
+            
+            public void DestroyUi(List<Connection> connections, string name)
+            {
+                UiBuilder.DestroyUi(connections, name);
+            }
+            
+            private void DestroyUiAll(string name)
+            {
+                UiBuilder.DestroyUi(name);
+            }
+            #endregion
+            
+            #region Unloading
+            public override void HandleRemovedFromManager(PluginManager manager)
+            {
+                UiFrameworkPool.OnUnload();
+                base.HandleRemovedFromManager(manager);
+            }
+            #endregion
+            #endregion
+            
+        }
         public class UiConstants
         {
             public static class UiFonts
@@ -360,10 +411,15 @@ namespace Oxide.Plugins
                 public const string AddUiFunc = "AddUI";
                 public const string DestroyUiFunc = "DestroyUI";
             }
+            
+            public static class Materials
+            {
+                public const string InGameBlur = "assets/content/ui/uibackgroundblur-ingamemenu.mat";
+                public const string NoticeBlur = "assets/content/ui/uibackgroundblur-notice.mat";
+                public const string BackgroundBlur = "assets/content/ui/uibackgroundblur.mat";
+                public const string Icon = "assets/icons/iconmaterial.mat";
+            }
         }
-        #endregion
-
-        #region Builder\UiBuilder.Controls.cs
         public partial class UiBuilder
         {
             public UiButton Checkbox(BaseUiComponent parent, bool isChecked, int textSize, UiColor textColor, UiColor backgroundColor, UiPosition pos, string cmd)
@@ -371,15 +427,22 @@ namespace Oxide.Plugins
                 return TextButton(parent, isChecked ? "<b>✓</b>" : string.Empty, textSize, textColor, backgroundColor, pos, cmd);
             }
             
+            public UiPanel ProgressBar(BaseUiComponent parent, float percentage, UiColor barColor, UiColor backgroundColor, UiPosition pos)
+            {
+                Panel(parent, backgroundColor, pos);
+                UiPanel bar = Panel(parent, barColor, pos.SliceHorizontal(0, percentage));
+                return bar;
+            }
+            
             public void SimpleNumberPicker(BaseUiComponent parent, int value, int fontSize, UiColor textColor, UiColor backgroundColor, UiColor buttonColor, UiPosition pos, string cmd, float buttonWidth = 0.1f, bool readOnly = false)
             {
-                UiPosition subtractSlice = pos.SliceHorizontal(0, .1f * buttonWidth);
+                UiPosition subtractSlice = pos.SliceHorizontal(0, buttonWidth);
                 UiPosition addSlice = pos.SliceHorizontal(1 - buttonWidth, 1);
                 
                 TextButton(parent, "-", fontSize, textColor, buttonColor, subtractSlice, $"{cmd} {(value - 1).ToString()}");
                 TextButton(parent, "+", fontSize, textColor, buttonColor, addSlice, $"{cmd} {(value + 1).ToString()}");
                 
-                UiInput input = Input(parent, value.ToString(), fontSize, textColor, backgroundColor, pos.SliceHorizontal(0.3f, 0.7f), cmd, readOnly: readOnly);
+                UiInput input = Input(parent, value.ToString(), fontSize, textColor, backgroundColor, pos.SliceHorizontal(buttonWidth, 1 - buttonWidth), cmd, readOnly: readOnly);
                 input.SetRequiresKeyboard();
             }
             
@@ -402,6 +465,25 @@ namespace Oxide.Plugins
                 input.SetRequiresKeyboard();
             }
             
+            public void IncrementalNumberPicker(BaseUiComponent parent, float value, float[] increments, int fontSize, UiColor textColor, UiColor backgroundColor, UiColor buttonColor, UiPosition pos, string cmd, float buttonWidth = 0.3f, bool readOnly = false, string incrementFormat = "0.##")
+            {
+                int incrementCount = increments.Length;
+                float buttonSize = buttonWidth / incrementCount;
+                for (int i = 0; i < incrementCount; i++)
+                {
+                    float increment = increments[i];
+                    UiPosition subtractSlice = pos.SliceHorizontal(i * buttonSize, (i + 1) * buttonSize);
+                    UiPosition addSlice = pos.SliceHorizontal(1 - buttonWidth + i * buttonSize, 1 - buttonWidth + (i + 1) * buttonSize);
+                    
+                    string incrementDisplay = increment.ToString(incrementFormat);
+                    TextButton(parent, string.Concat("-", incrementDisplay), fontSize, textColor, buttonColor, subtractSlice, $"{cmd} {(value - increment).ToString()}");
+                    TextButton(parent, incrementDisplay, fontSize, textColor, buttonColor, addSlice, $"{cmd} {(value + increment).ToString()}");
+                }
+                
+                UiInput input = Input(parent, value.ToString(), fontSize, textColor, backgroundColor, pos.SliceHorizontal(0.3f, 0.7f), cmd, readOnly: readOnly);
+                input.SetRequiresKeyboard();
+            }
+            
             public void Paginator(BaseUiComponent parent, int currentPage, int maxPage, int fontSize, UiColor textColor, UiColor buttonColor, UiColor activePageColor, GridPosition grid, string cmd)
             {
                 grid.Reset();
@@ -414,6 +496,10 @@ namespace Oxide.Plugins
                 if (endPage - startPage != pageButtons)
                 {
                     startPage = Math.Max(endPage - pageButtons, 0);
+                    if (endPage - startPage != pageButtons)
+                    {
+                        grid.MoveCols((pageButtons - endPage - startPage) / 2f);
+                    }
                 }
                 
                 TextButton(parent, "<<<", fontSize, textColor, buttonColor, grid, $"{cmd} 0");
@@ -431,24 +517,33 @@ namespace Oxide.Plugins
                 grid.MoveCols(1);
                 TextButton(parent, ">>>", fontSize, textColor, buttonColor, grid, $"{cmd} {maxPage.ToString()}");
             }
+            
+            public static UiBuilder CreateModal(UiOffset offset, UiColor backgroundColor, string name, UiLayer layer = UiLayer.Overlay)
+            {
+                UiBuilder builder = new UiBuilder();
+                UiPanel panel = UiPanel.Create(UiPosition.FullPosition, null, new UiColor(0, 0, 0, 0.5f));
+                panel.AddMaterial(UiConstants.Materials.InGameBlur);
+                builder.SetRoot(panel, name, UiConstants.UiLayers.GetLayer(layer));
+                UiPanel root = UiPanel.Create(UiPosition.MiddleMiddle, offset, backgroundColor);
+                builder.AddComponent(root, panel);
+                builder.Root = root;
+                return builder;
+            }
         }
-        #endregion
-
-        #region Builder\UiBuilder.cs
         public partial class UiBuilder : IDisposable
         {
             public BaseUiComponent Root;
             
             private bool _needsMouse;
             private bool _needsKeyboard;
-            
-            private string _cachedJson;
             private bool _disposed;
             
-            private List<BaseUiComponent> _components;
-            private Hash<string, BaseUiComponent> _componentLookup;
-            private StringBuilder _nameBuilder;
+            private string _baseName;
             private string _font;
+            private string _cachedJson;
+            
+            private List<BaseUiComponent> _components;
+            //private Hash<string, BaseUiComponent> _componentLookup;
             
             private static string _globalFont;
             
@@ -458,13 +553,21 @@ namespace Oxide.Plugins
                 SetGlobalFont(UiFont.RobotoCondensedRegular);
             }
             
-            public UiBuilder(UiColor color, UiPosition pos, UiOffset? offset, string name, string parent) : this(UiPanel.Create(pos, offset, color), name, parent) { }
+            public UiBuilder(UiPosition pos, string name, string parent) : this(pos, null, name, parent) { }
+            
+            public UiBuilder(UiPosition pos, string name, UiLayer parent = UiLayer.Overlay) : this(pos, null, name, UiConstants.UiLayers.GetLayer(parent)) { }
+            
+            public UiBuilder(UiPosition pos, UiOffset? offset, string name, UiLayer parent = UiLayer.Overlay) : this(pos, offset, name, UiConstants.UiLayers.GetLayer(parent)) { }
+            
+            public UiBuilder(UiPosition pos, UiOffset? offset, string name, string parent) : this(UiSection.Create(pos, offset), name, parent) { }
             
             public UiBuilder(UiColor color, UiPosition pos, string name, string parent) : this(color, pos, null, name, parent) { }
             
             public UiBuilder(UiColor color, UiPosition pos, string name, UiLayer parent = UiLayer.Overlay) : this(color, pos, null, name, UiConstants.UiLayers.GetLayer(parent)) { }
             
             public UiBuilder(UiColor color, UiPosition pos, UiOffset? offset, string name, UiLayer parent = UiLayer.Overlay) : this(color, pos, offset, name, UiConstants.UiLayers.GetLayer(parent)) { }
+            
+            public UiBuilder(UiColor color, UiPosition pos, UiOffset? offset, string name, string parent) : this(UiPanel.Create(pos, offset, color), name, parent) { }
             
             public UiBuilder(BaseUiComponent root, string name, string parent) : this()
             {
@@ -474,8 +577,7 @@ namespace Oxide.Plugins
             public UiBuilder()
             {
                 _components = UiFrameworkPool.GetList<BaseUiComponent>();
-                _componentLookup = UiFrameworkPool.GetHash<string, BaseUiComponent>();
-                _nameBuilder = UiFrameworkPool.GetStringBuilder();
+                //_componentLookup = UiFrameworkPool.GetHash<string, BaseUiComponent>();
                 _font = _globalFont;
             }
             
@@ -493,8 +595,7 @@ namespace Oxide.Plugins
                 component.Parent = parent;
                 component.Name = name;
                 _components.Add(component);
-                _nameBuilder.Append(name);
-                _nameBuilder.Append('_');
+                _baseName = name + "_";
             }
             
             public void NeedsMouse(bool enabled = true)
@@ -517,10 +618,10 @@ namespace Oxide.Plugins
                 _globalFont = UiConstants.UiFonts.GetUiFont(font);
             }
             
-            public T GetUi<T>(string name) where T : BaseUiComponent
-            {
-                return (T)_componentLookup[name];
-            }
+            // public T GetUi<T>(string name) where T : BaseUiComponent
+            // {
+                //     return (T)_componentLookup[name];
+            // }
             #endregion
             
             #region Decontructor
@@ -532,6 +633,8 @@ namespace Oxide.Plugins
             public void Dispose()
             {
                 DisposeInternal();
+                //Need this because there is a global GC class that causes issues
+                // ReSharper disable once RedundantNameQualifier
                 System.GC.SuppressFinalize(this);
             }
             
@@ -550,8 +653,7 @@ namespace Oxide.Plugins
                 }
                 
                 UiFrameworkPool.FreeList(ref _components);
-                UiFrameworkPool.FreeStringBuilder(ref _nameBuilder);
-                UiFrameworkPool.FreeHash(ref _componentLookup);
+                //UiFrameworkPool.FreeHash(ref _componentLookup);
                 Root = null;
             }
             #endregion
@@ -561,15 +663,13 @@ namespace Oxide.Plugins
             {
                 component.Parent = parent.Name;
                 component.Name = GetComponentName();
-                _componentLookup[component.Name] = component;
+                //_componentLookup[component.Name] = component;
                 _components.Add(component);
             }
             
             public string GetComponentName()
             {
-                _nameBuilder.Length = Root.Name.Length + 1;
-                _nameBuilder.Insert(Root.Name.Length + 1, _components.Count.ToString());
-                return _nameBuilder.ToString();
+                return string.Concat(_baseName, _components.Count.ToString());
             }
             
             public UiSection Section(BaseUiComponent parent, UiPosition pos)
@@ -671,19 +771,7 @@ namespace Oxide.Plugins
             
             public UiImage Image(BaseUiComponent parent, string png, UiPosition pos)
             {
-                return Image(parent, png, pos, UiColors.White);
-            }
-            
-            public UiWebImage WebImage(BaseUiComponent parent, string url, UiPosition pos, UiColor color)
-            {
-                if (!url.StartsWith("http"))
-                {
-                    throw new UiFrameworkException($"WebImage Url '{url}' is not a valid url. If trying to use a png id please use Image instead");
-                }
-                
-                UiWebImage image = UiWebImage.Create(pos, null, color, url);
-                AddComponent(image, parent);
-                return image;
+                return Image(parent, png, pos, UiColors.StandardColors.White);
             }
             
             public UiItemIcon ItemIcon(BaseUiComponent parent, int itemId, UiPosition pos, UiColor color)
@@ -695,7 +783,7 @@ namespace Oxide.Plugins
             
             public UiItemIcon ItemIcon(BaseUiComponent parent, int itemId, UiPosition pos)
             {
-                return ItemIcon(parent, itemId, pos, UiColors.White);
+                return ItemIcon(parent, itemId, pos, UiColors.StandardColors.White);
             }
             
             public UiItemIcon ItemIcon(BaseUiComponent parent, int itemId, ulong skinId, UiPosition pos, UiColor color)
@@ -707,12 +795,36 @@ namespace Oxide.Plugins
             
             public UiItemIcon ItemIcon(BaseUiComponent parent, int itemId, ulong skinId, UiPosition pos)
             {
-                return ItemIcon(parent, itemId, skinId, pos, UiColors.White);
+                return ItemIcon(parent, itemId, skinId, pos, UiColors.StandardColors.White);
             }
             
-            public UiWebImage WebImage(BaseUiComponent parent, string url, UiPosition pos)
+            public UiRawImage WebImage(BaseUiComponent parent, string url, UiPosition pos)
             {
-                return WebImage(parent, url, pos, UiColors.White);
+                return WebImage(parent, url, pos, UiColors.StandardColors.White);
+            }
+            
+            public UiRawImage WebImage(BaseUiComponent parent, string url, UiPosition pos, UiColor color)
+            {
+                if (!url.StartsWith("http"))
+                {
+                    throw new UiFrameworkException($"WebImage Url '{url}' is not a valid url. If trying to use a png id please use Image instead");
+                }
+                
+                UiRawImage image = UiRawImage.CreateUrl(pos, null, color, url);
+                AddComponent(image, parent);
+                return image;
+            }
+            
+            public UiRawImage TextureImage(BaseUiComponent parent, string texture, UiPosition pos)
+            {
+                return TextureImage(parent, texture, pos, UiColors.StandardColors.White);
+            }
+            
+            public UiRawImage TextureImage(BaseUiComponent parent, string texture, UiPosition pos, UiColor color)
+            {
+                UiRawImage image = UiRawImage.CreateTexture(pos, null, color, texture);
+                AddComponent(image, parent);
+                return image;
             }
             
             public UiLabel Label(BaseUiComponent parent, string text, int size, UiColor textColor, UiPosition pos, TextAnchor align = TextAnchor.MiddleCenter)
@@ -905,7 +1017,7 @@ namespace Oxide.Plugins
                 for (int index = _components.Count - 1; index >= 0; index--)
                 {
                     BaseUiComponent component = _components[index];
-                    if (component is UiWebImage)
+                    if (component is UiRawImage)
                     {
                         DestroyUi(connection, component.Name);
                     }
@@ -917,7 +1029,7 @@ namespace Oxide.Plugins
                 for (int index = _components.Count - 1; index >= 0; index--)
                 {
                     BaseUiComponent component = _components[index];
-                    if (component is UiWebImage)
+                    if (component is UiRawImage)
                     {
                         DestroyUi(connections, component.Name);
                     }
@@ -945,9 +1057,6 @@ namespace Oxide.Plugins
             }
             #endregion
         }
-        #endregion
-
-        #region Colors\UiColor.cs
         [JsonConverter(typeof(UiColorConverter))]
         public struct UiColor : IEquatable<UiColor>
         {
@@ -1090,9 +1199,6 @@ namespace Oxide.Plugins
             }
             #endregion
         }
-        #endregion
-
-        #region Colors\UiColorConverter.cs
         public class UiColorConverter : JsonConverter
         {
             public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
@@ -1124,9 +1230,6 @@ namespace Oxide.Plugins
                 return objectType == typeof(UiColor);
             }
         }
-        #endregion
-
-        #region Colors\UiColors.cs
         public static class UiColors
         {
             public static class BootStrap
@@ -1168,22 +1271,25 @@ namespace Oxide.Plugins
             
             public static class StandardColors
             {
-                public static readonly UiColor White = "#FFFFFF";
+                public static readonly UiColor White = Color.white;
                 public static readonly UiColor Silver = "#C0C0C0";
-                public static readonly UiColor Gray = "#808080";
-                public static readonly UiColor Black = "#000000";
-                public static readonly UiColor Red = "#FF0000";
+                public static readonly UiColor Gray = Color.gray;
+                public static readonly UiColor Black = Color.black;
+                public static readonly UiColor Red = Color.red;
                 public static readonly UiColor Maroon = "#800000";
-                public static readonly UiColor Yellow = "#FFFF00";
+                public static readonly UiColor Yellow = Color.yellow;
                 public static readonly UiColor Olive = "#808000";
                 public static readonly UiColor Lime = "#00FF00";
-                public static readonly UiColor Green = "#008000";
+                public static readonly UiColor Green = Color.green;
                 public static readonly UiColor Aqua = "#00FFFF";
                 public static readonly UiColor Teal = "#008080";
-                public static readonly UiColor Blue = "#0000FF";
+                public static readonly UiColor Cyan = Color.cyan;
+                public static readonly UiColor Blue = Color.blue;
                 public static readonly UiColor Navy = "#000080";
                 public static readonly UiColor Fuchsia = "#FF00FF";
+                public static readonly UiColor Magenta = Color.magenta;
                 public static readonly UiColor Purple = "#800080";
+                public static readonly UiColor Clear = Color.clear;
             }
             
             public static class Supreme
@@ -1245,9 +1351,6 @@ namespace Oxide.Plugins
             }
             
             #region UI Colors
-            public static readonly UiColor Clear = UiColor.WithAlpha(StandardColors.Black, 0f);
-            public static readonly UiColor White = StandardColors.White;
-            public static readonly UiColor Black = StandardColors.Black;
             public static readonly UiColor Body = UiColor.WithAlpha(Form.Body, "F2");
             public static readonly UiColor BodyHeader = Form.Header;
             public static readonly UiColor Text = UiColor.WithAlpha(Form.Text, "80");
@@ -1257,13 +1360,8 @@ namespace Oxide.Plugins
             public static readonly UiColor CloseButton = Form.ButtonPrimary;
             public static readonly UiColor ButtonPrimary = Form.ButtonPrimary;
             public static readonly UiColor ButtonSecondary = Form.ButtonSecondary;
-            public static readonly UiColor RustRed = Rust.Red;
-            public static readonly UiColor RustGreen = Rust.Green;
             #endregion
         }
-        #endregion
-
-        #region Components\BaseColorComponent.cs
         public class BaseColorComponent : BaseComponent
         {
             public UiColor Color;
@@ -1273,16 +1371,10 @@ namespace Oxide.Plugins
                 JsonCreator.AddField(writer, JsonDefaults.Color.ColorName, Color);
             }
         }
-        #endregion
-
-        #region Components\BaseComponent.cs
         public abstract class BaseComponent : BasePoolable
         {
             public abstract void WriteComponent(JsonFrameworkWriter writer);
         }
-        #endregion
-
-        #region Components\BaseImageComponent.cs
         public class BaseImageComponent : FadeInComponent
         {
             public string Sprite;
@@ -1302,9 +1394,6 @@ namespace Oxide.Plugins
                 Material = null;
             }
         }
-        #endregion
-
-        #region Components\BaseTextComponent.cs
         public class BaseTextComponent : FadeInComponent
         {
             public int FontSize = JsonDefaults.BaseText.FontSize;
@@ -1330,9 +1419,6 @@ namespace Oxide.Plugins
                 Text = null;
             }
         }
-        #endregion
-
-        #region Components\ButtonComponent.cs
         public class ButtonComponent : BaseImageComponent
         {
             private const string Type = "UnityEngine.UI.Button";
@@ -1359,9 +1445,6 @@ namespace Oxide.Plugins
                 Material = null;
             }
         }
-        #endregion
-
-        #region Components\CountdownComponent.cs
         public class CountdownComponent : BaseComponent
         {
             private const string Type = "Countdown";
@@ -1390,9 +1473,6 @@ namespace Oxide.Plugins
                 Command = null;
             }
         }
-        #endregion
-
-        #region Components\FadeInComponent.cs
         public abstract class FadeInComponent : BaseColorComponent
         {
             public float FadeIn;
@@ -1408,9 +1488,6 @@ namespace Oxide.Plugins
                 FadeIn = 0;
             }
         }
-        #endregion
-
-        #region Components\ImageComponent.cs
         public class ImageComponent : BaseImageComponent
         {
             private const string Type = "UnityEngine.UI.Image";
@@ -1422,10 +1499,7 @@ namespace Oxide.Plugins
             {
                 writer.WriteStartObject();
                 JsonCreator.AddFieldRaw(writer, JsonDefaults.Common.ComponentTypeName, Type);
-                if (!string.IsNullOrEmpty(Png))
-                {
-                    JsonCreator.AddFieldRaw(writer, JsonDefaults.Image.PngName, Png);
-                }
+                JsonCreator.AddField(writer, JsonDefaults.Image.PngName, Png, null);
                 JsonCreator.AddField(writer, JsonDefaults.Image.ImageType, ImageType);
                 base.WriteComponent(writer);
                 writer.WriteEndObject();
@@ -1435,11 +1509,9 @@ namespace Oxide.Plugins
             {
                 base.EnterPool();
                 Png = null;
+                ImageType = Image.Type.Simple;
             }
         }
-        #endregion
-
-        #region Components\InputComponent.cs
         public class InputComponent : BaseTextComponent
         {
             private const string Type = "UnityEngine.UI.InputField";
@@ -1461,17 +1533,17 @@ namespace Oxide.Plugins
                 
                 if (IsPassword)
                 {
-                    JsonCreator.AddFieldRaw(writer, JsonDefaults.Input.PasswordName, JsonDefaults.Input.PasswordValue);
+                    JsonCreator.AddKeyField(writer, JsonDefaults.Input.PasswordName);
                 }
                 
                 if (IsReadyOnly)
                 {
-                    JsonCreator.AddFieldRaw(writer, JsonDefaults.Input.ReadOnlyName, JsonDefaults.Input.ReadOnlyValue);
+                    JsonCreator.AddFieldRaw(writer, JsonDefaults.Input.ReadOnlyName, true);
                 }
                 
                 if (NeedsKeyboard)
                 {
-                    JsonCreator.AddFieldRaw(writer, JsonDefaults.Input.InputNeedsKeyboardName, JsonDefaults.Input.InputNeedsKeyboardValue);
+                    JsonCreator.AddKeyField(writer, JsonDefaults.Input.InputNeedsKeyboardName);
                 }
                 
                 base.WriteComponent(writer);
@@ -1488,9 +1560,6 @@ namespace Oxide.Plugins
                 LineType = default(InputField.LineType);
             }
         }
-        #endregion
-
-        #region Components\ItemIconComponent.cs
         public class ItemIconComponent : BaseImageComponent
         {
             private const string Type = "UnityEngine.UI.Image";
@@ -1511,12 +1580,9 @@ namespace Oxide.Plugins
             protected override void EnterPool()
             {
                 ItemId = 0;
-                SkinId = 0;
+                SkinId = JsonDefaults.ItemIcon.DefaultSkinId;
             }
         }
-        #endregion
-
-        #region Components\OutlineComponent.cs
         public class OutlineComponent : BaseColorComponent
         {
             private const string Type = "UnityEngine.UI.Outline";
@@ -1544,9 +1610,6 @@ namespace Oxide.Plugins
                 UseGraphicAlpha = false;
             }
         }
-        #endregion
-
-        #region Components\RawImageComponent.cs
         public class RawImageComponent : FadeInComponent
         {
             private const string Type = "UnityEngine.UI.RawImage";
@@ -1579,9 +1642,6 @@ namespace Oxide.Plugins
                 Material = null;
             }
         }
-        #endregion
-
-        #region Components\TextComponent.cs
         public class TextComponent : BaseTextComponent
         {
             private const string Type = "UnityEngine.UI.Text";
@@ -1594,9 +1654,6 @@ namespace Oxide.Plugins
                 writer.WriteEndObject();
             }
         }
-        #endregion
-
-        #region Enums\BorderMode.cs
         [Flags]
         public enum BorderMode : byte
         {
@@ -1605,9 +1662,6 @@ namespace Oxide.Plugins
             Bottom = 1 << 2,
             Right = 1 << 3,
         }
-        #endregion
-
-        #region Enums\UiFont.cs
         public enum UiFont : byte
         {
             /// <summary>
@@ -1630,9 +1684,6 @@ namespace Oxide.Plugins
             /// </summary>
             RobotoCondensedRegular
         }
-        #endregion
-
-        #region Enums\UiLayer.cs
         public enum UiLayer : byte
         {
             Overall,
@@ -1641,9 +1692,6 @@ namespace Oxide.Plugins
             HudMenu,
             Under,
         }
-        #endregion
-
-        #region Exceptions\UiFrameworkException.cs
         public class UiFrameworkException : Exception
         {
             public UiFrameworkException(string message) : base(message)
@@ -1651,9 +1699,6 @@ namespace Oxide.Plugins
                 
             }
         }
-        #endregion
-
-        #region Extensions\EnumExt{T}.cs
         public static class EnumExt<T>
         {
             private static readonly Hash<T, string> CachedStrings = new Hash<T, string>();
@@ -1671,9 +1716,6 @@ namespace Oxide.Plugins
                 return CachedStrings[value];
             }
         }
-        #endregion
-
-        #region Extensions\UiColorExt.cs
         public static class UiColorExt
         {
             private const string Format = "0.####";
@@ -1704,9 +1746,6 @@ namespace Oxide.Plugins
                 return UiFrameworkPool.ToStringAndFreeStringBuilder(ref builder);
             }
         }
-        #endregion
-
-        #region Extensions\VectorExt.cs
         public static class VectorExt
         {
             private const string Format = "0.####";
@@ -1773,9 +1812,6 @@ namespace Oxide.Plugins
                 sb.Append(formattedPos);
             }
         }
-        #endregion
-
-        #region Json\JsonCreator.cs
         public static class JsonCreator
         {
             public static string CreateJson(List<BaseUiComponent> components, bool needsMouse, bool needsKeyboard)
@@ -1903,6 +1939,12 @@ namespace Oxide.Plugins
                 }
             }
             
+            public static void AddKeyField(JsonFrameworkWriter writer, string name)
+            {
+                writer.WritePropertyName(name);
+                writer.WriteValue(string.Empty);
+            }
+            
             public static void AddTextField(JsonFrameworkWriter writer, string name, string value)
             {
                 writer.WritePropertyName(name);
@@ -1923,9 +1965,6 @@ namespace Oxide.Plugins
                 writer.WriteEndObject();
             }
         }
-        #endregion
-
-        #region Json\JsonDefaults.cs
         public static class JsonDefaults
         {
             public static class Common
@@ -1948,16 +1987,12 @@ namespace Oxide.Plugins
             {
                 public const string AnchorMinName = "anchormin";
                 public const string AnchorMaxName = "anchormax";
-                public static readonly Vector2 AnchorMin = new Vector2(0, 0);
-                public static readonly Vector2 AnchorMax = new Vector2(1, 1);
             }
             
             public static class Offset
             {
                 public const string OffsetMinName = "offsetmin";
                 public const string OffsetMaxName = "offsetmax";
-                public static readonly Vector2Short OffsetMin = new Vector2Short(0, 0);
-                public static readonly Vector2Short OffsetMax = new Vector2Short(0, 0);
                 public const string DefaultOffsetMax = "0 0";
             }
             
@@ -2022,12 +2057,9 @@ namespace Oxide.Plugins
                 public const string CharacterLimitName = "characterLimit";
                 public const int CharacterLimitValue = 0;
                 public const string PasswordName = "password";
-                public const string PasswordValue = "";
                 public const string ReadOnlyName = "readOnly";
-                public const bool ReadOnlyValue = false;
                 public const string LineTypeName = "lineType";
                 public const string InputNeedsKeyboardName = "needsKeyboard";
-                public const string InputNeedsKeyboardValue = "";
             }
             
             public static class Countdown
@@ -2041,9 +2073,6 @@ namespace Oxide.Plugins
                 public const string CountdownCommandName = "command";
             }
         }
-        #endregion
-
-        #region Json\JsonFrameworkWriter.cs
         public class JsonFrameworkWriter : BasePoolable
         {
             private const char QuoteChar = '\"';
@@ -2213,9 +2242,6 @@ namespace Oxide.Plugins
                 return json;
             }
         }
-        #endregion
-
-        #region Offsets\MovableUiOffset.cs
         public class MovableUiOffset
         {
             public int XMin;
@@ -2270,9 +2296,6 @@ namespace Oxide.Plugins
             
             public static implicit operator UiOffset(MovableUiOffset offset) => offset.ToOffset();
         }
-        #endregion
-
-        #region Offsets\UiOffset.cs
         public struct UiOffset
         {
             public static readonly UiOffset None = new UiOffset(0, 0, 0, 0);
@@ -2294,9 +2317,6 @@ namespace Oxide.Plugins
                 return $"({Min.X:0.####}, {Min.Y:0.####}) ({Max.X:0.####}, {Max.Y:0.####})";
             }
         }
-        #endregion
-
-        #region Offsets\Vector2Short.cs
         public struct Vector2Short : IEquatable<Vector2Short>
         {
             public readonly short X;
@@ -2330,9 +2350,6 @@ namespace Oxide.Plugins
             
             public static bool operator !=(Vector2Short lhs, Vector2Short rhs) => !(lhs == rhs);
         }
-        #endregion
-
-        #region Pooling\BasePool.cs
         public abstract class BasePool<T> : IPool<T> where T : class, new()
         {
             private readonly Queue<T> _pool;
@@ -2415,9 +2432,6 @@ namespace Oxide.Plugins
                 _pool.Clear();
             }
         }
-        #endregion
-
-        #region Pooling\BasePoolable.cs
         public class BasePoolable : IDisposable
         {
             internal bool Disposed;
@@ -2495,9 +2509,6 @@ namespace Oxide.Plugins
                 }
             }
         }
-        #endregion
-
-        #region Pooling\HashPool.cs
         public class HashPool<TKey, TValue> : BasePool<Hash<TKey, TValue>>
         {
             public static IPool<Hash<TKey, TValue>> Instance;
@@ -2522,16 +2533,10 @@ namespace Oxide.Plugins
                 Instance = null;
             }
         }
-        #endregion
-
-        #region Pooling\IPool.cs
         public interface IPool
         {
             void Clear();
         }
-        #endregion
-
-        #region Pooling\IPool{T}.cs
         public interface IPool<T> : IPool
         {
             /// <summary>
@@ -2546,9 +2551,6 @@ namespace Oxide.Plugins
             /// <param name="item"></param>
             void Free(ref T item);
         }
-        #endregion
-
-        #region Pooling\ListPool.cs
         public class ListPool<T> : BasePool<List<T>>
         {
             public static IPool<List<T>> Instance;
@@ -2573,9 +2575,6 @@ namespace Oxide.Plugins
                 Instance = null;
             }
         }
-        #endregion
-
-        #region Pooling\MemoryStreamPool.cs
         public class MemoryStreamPool : BasePool<MemoryStream>
         {
             public static IPool<MemoryStream> Instance;
@@ -2600,9 +2599,6 @@ namespace Oxide.Plugins
                 Instance = null;
             }
         }
-        #endregion
-
-        #region Pooling\ObjectPool.cs
         public class ObjectPool<T> : BasePool<T> where T : BasePoolable, new()
         {
             public static IPool<T> Instance;
@@ -2636,9 +2632,6 @@ namespace Oxide.Plugins
                 Instance = null;
             }
         }
-        #endregion
-
-        #region Pooling\StringBuilderPool.cs
         public class StringBuilderPool : BasePool<StringBuilder>
         {
             public static IPool<StringBuilder> Instance;
@@ -2663,9 +2656,6 @@ namespace Oxide.Plugins
                 Instance = null;
             }
         }
-        #endregion
-
-        #region Pooling\UiFrameworkPool.cs
         public static class UiFrameworkPool
         {
             private static readonly Hash<Type, IPool> Pools = new Hash<Type, IPool>();
@@ -2805,9 +2795,6 @@ namespace Oxide.Plugins
                 Pools.Clear();
             }
         }
-        #endregion
-
-        #region Positions\GridPosition.cs
         public class GridPosition : MovablePosition
         {
             public readonly float NumCols;
@@ -2836,6 +2823,23 @@ namespace Oxide.Plugins
                 #endif
             }
             
+            public void MoveCols(float cols)
+            {
+                XMin += cols / NumCols;
+                XMax += cols / NumCols;
+                
+                if (XMax > 1)
+                {
+                    XMin -= 1;
+                    XMax -= 1;
+                    MoveRows(-1);
+                }
+                
+                #if UiDebug
+                ValidatePositions();
+                #endif
+            }
+            
             public void MoveRows(int rows)
             {
                 YMin += rows / NumRows;
@@ -2846,9 +2850,6 @@ namespace Oxide.Plugins
                 #endif
             }
         }
-        #endregion
-
-        #region Positions\GridPositionBuilder.cs
         public class GridPositionBuilder
         {
             private float _xMin;
@@ -2966,9 +2967,6 @@ namespace Oxide.Plugins
                 return new GridPosition(_xMin, _yMin, _xMax, _yMax, _numCols, _numRows);
             }
         }
-        #endregion
-
-        #region Positions\MovablePosition.cs
         public class MovablePosition
         {
             public float XMin;
@@ -3093,7 +3091,7 @@ namespace Oxide.Plugins
             {
                 XMin = _initialState.Min.x;
                 YMin = _initialState.Min.y;
-                XMax = _initialState.Min.x;
+                XMax = _initialState.Max.x;
                 YMax = _initialState.Max.y;
             }
             
@@ -3134,9 +3132,6 @@ namespace Oxide.Plugins
             
             public static implicit operator UiPosition(MovablePosition pos) => pos.ToPosition();
         }
-        #endregion
-
-        #region Positions\UiPosition.cs
         public struct UiPosition
         {
             public static readonly UiPosition FullPosition = new UiPosition(0, 0, 1, 1);
@@ -3185,9 +3180,6 @@ namespace Oxide.Plugins
                 return $"({Min.x:0.####}, {Min.y:0.####}) ({Max.x:0.####}, {Max.y:0.####})";
             }
         }
-        #endregion
-
-        #region UiElements\BaseUiComponent.cs
         public abstract class BaseUiComponent : BasePoolable
         {
             public string Name;
@@ -3247,14 +3239,14 @@ namespace Oxide.Plugins
             {
                 writer.WriteStartObject();
                 JsonCreator.AddFieldRaw(writer, JsonDefaults.Common.ComponentTypeName, JsonDefaults.Common.RectTransformName);
-                JsonCreator.AddPosition(writer, JsonDefaults.Position.AnchorMinName, Position.Min, JsonDefaults.Position.AnchorMin);
-                JsonCreator.AddPosition(writer, JsonDefaults.Position.AnchorMaxName, Position.Max, JsonDefaults.Position.AnchorMax);
+                JsonCreator.AddPosition(writer, JsonDefaults.Position.AnchorMinName, Position.Min, new Vector2(0, 0));
+                JsonCreator.AddPosition(writer, JsonDefaults.Position.AnchorMaxName, Position.Max, new Vector2(1, 1));
                 
                 if (Offset.HasValue)
                 {
                     UiOffset offset = Offset.Value;
-                    JsonCreator.AddOffset(writer, JsonDefaults.Offset.OffsetMinName, offset.Min, JsonDefaults.Offset.OffsetMin);
-                    JsonCreator.AddOffset(writer, JsonDefaults.Offset.OffsetMaxName, offset.Max, JsonDefaults.Offset.OffsetMax);
+                    JsonCreator.AddOffset(writer, JsonDefaults.Offset.OffsetMinName, offset.Min, new Vector2Short(0, 0));
+                    JsonCreator.AddOffset(writer, JsonDefaults.Offset.OffsetMaxName, offset.Max, new Vector2Short(0, 0));
                 }
                 else
                 {
@@ -3279,9 +3271,6 @@ namespace Oxide.Plugins
                 Offset = null;
             }
         }
-        #endregion
-
-        #region UiElements\BaseUiTextOutline.cs
         public abstract class BaseUiTextOutline : BaseUiComponent
         {
             public OutlineComponent Outline;
@@ -3318,9 +3307,6 @@ namespace Oxide.Plugins
                 }
             }
         }
-        #endregion
-
-        #region UiElements\UiButton.cs
         public class UiButton : BaseUiComponent
         {
             public ButtonComponent Button;
@@ -3364,9 +3350,6 @@ namespace Oxide.Plugins
                 Button = UiFrameworkPool.Get<ButtonComponent>();
             }
         }
-        #endregion
-
-        #region UiElements\UiImage.cs
         public class UiImage : BaseUiComponent
         {
             public ImageComponent Image;
@@ -3407,9 +3390,6 @@ namespace Oxide.Plugins
                 Image = UiFrameworkPool.Get<ImageComponent>();
             }
         }
-        #endregion
-
-        #region UiElements\UiInput.cs
         public class UiInput : BaseUiTextOutline
         {
             public InputComponent Input;
@@ -3488,9 +3468,6 @@ namespace Oxide.Plugins
                 Input = UiFrameworkPool.Get<InputComponent>();
             }
         }
-        #endregion
-
-        #region UiElements\UiItemIcon.cs
         public class UiItemIcon : BaseUiComponent
         {
             public ItemIconComponent Icon;
@@ -3527,9 +3504,6 @@ namespace Oxide.Plugins
                 Icon = UiFrameworkPool.Get<ItemIconComponent>();
             }
         }
-        #endregion
-
-        #region UiElements\UiLabel.cs
         public class UiLabel : BaseUiTextOutline
         {
             public TextComponent Text;
@@ -3585,9 +3559,6 @@ namespace Oxide.Plugins
                 Text = UiFrameworkPool.Get<TextComponent>();
             }
         }
-        #endregion
-
-        #region UiElements\UiPanel.cs
         public class UiPanel : BaseUiComponent
         {
             public ImageComponent Image;
@@ -3632,30 +3603,23 @@ namespace Oxide.Plugins
                 Image = UiFrameworkPool.Get<ImageComponent>();
             }
         }
-        #endregion
-
-        #region UiElements\UiSection.cs
-        public class UiSection : BaseUiComponent
-        {
-            public static UiSection Create(UiPosition pos, UiOffset? offset)
-            {
-                UiSection panel = CreateBase<UiSection>(pos, offset);
-                return panel;
-            }
-        }
-        #endregion
-
-        #region UiElements\UiWebImage.cs
-        public class UiWebImage : BaseUiComponent
+        public class UiRawImage : BaseUiComponent
         {
             public RawImageComponent RawImage;
             
-            public static UiWebImage Create(UiPosition pos, UiOffset? offset, UiColor color, string png)
+            public static UiRawImage CreateUrl(UiPosition pos, UiOffset? offset, UiColor color, string url)
             {
-                UiWebImage image = CreateBase<UiWebImage>(pos, offset);
+                UiRawImage image = CreateBase<UiRawImage>(pos, offset);
                 image.RawImage.Color = color;
-                image.RawImage.Url = png;
-                
+                image.RawImage.Url = url;
+                return image;
+            }
+            
+            public static UiRawImage CreateTexture(UiPosition pos, UiOffset? offset, UiColor color, string icon)
+            {
+                UiRawImage image = CreateBase<UiRawImage>(pos, offset);
+                image.RawImage.Color = color;
+                image.RawImage.Texture = icon;
                 return image;
             }
             
@@ -3682,9 +3646,15 @@ namespace Oxide.Plugins
                 RawImage = UiFrameworkPool.Get<RawImageComponent>();
             }
         }
-        #endregion
-
+        public class UiSection : BaseUiComponent
+        {
+            public static UiSection Create(UiPosition pos, UiOffset? offset)
+            {
+                UiSection panel = CreateBase<UiSection>(pos, offset);
+                return panel;
+            }
+        }
     }
+    #endregion
 
 }
-

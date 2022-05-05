@@ -1,0 +1,40 @@
+{
+  "Platform": "Oxide",
+  "Merge Settings": {
+    "Plugin Name": "UiElementsTest",
+    "Plugin Base Class": "RustPlugin",
+    "Creator Mode": "Plugin",
+    "Plugin Input Paths": [
+      "./"
+    ],
+    "Plugin Output Paths": [
+      "../"
+    ],
+    "Reference Definitions": [],
+    "Define Definitions": [],
+    "Ignore Paths": [],
+    "Ignore Files": [],
+    "Ignore Namespaces": [],
+    "Code Style": {
+      "Indent Character": " ",
+      "Indent Char Amount": 4,
+      "Indent Multiplier": 1,
+      "New Line String": "\r\n",
+      "Write The Relative File Path In Region": true,
+      "Keep Code Comments": true
+    }
+  },
+  "Compile Settings": {
+    "Assembly Paths": [
+      "./References"
+    ],
+    "Ignore Paths": [
+      "./References/x86",
+      "./References/x64"
+    ],
+    "Ignore Files": [
+      "./References/Newtonsoft.Json.dll"
+    ],
+    "Compile Log Level (Hidden, Info, Warning, Error)": "Error"
+  }
+}

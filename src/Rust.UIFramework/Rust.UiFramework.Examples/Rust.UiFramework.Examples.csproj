@@ -76,4 +76,13 @@
       </Reference>
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Remove="UiElementsTest.cs" />
+      <Content Include="UiElementsTest.cs" />
+    </ItemGroup>
+
+    <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+      <Exec Command="plugin.merge -m -d -p &quot;./ElementsTest/merge.json&quot;" />
+    </Target>
+
 </Project>
