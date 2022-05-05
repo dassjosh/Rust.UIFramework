@@ -126,7 +126,7 @@ namespace Oxide.Ext.UiFramework.Positions
         {
             XMin = _initialState.Min.x;
             YMin = _initialState.Min.y;
-            XMax = _initialState.Min.x;
+            XMax = _initialState.Max.x;
             YMax = _initialState.Max.y;
         }
 
