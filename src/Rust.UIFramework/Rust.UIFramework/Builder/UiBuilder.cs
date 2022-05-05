@@ -364,7 +364,7 @@ namespace Oxide.Ext.UiFramework.Builder
             return input;
         }
 
-                public void Border(BaseUiComponent parent, UiColor color, int width = 1, BorderMode border = BorderMode.Top | BorderMode.Bottom | BorderMode.Left | BorderMode.Right)
+        public void Border(BaseUiComponent parent, UiColor color, int width = 1, BorderMode border = BorderMode.Top | BorderMode.Bottom | BorderMode.Left | BorderMode.Right)
         {
             //If width is 0 nothing is displayed so don't try to render
             if (width == 0)
