@@ -136,6 +136,12 @@ namespace Oxide.Ext.UiFramework.Json
             }
         }
         
+        public static void AddKeyField(JsonFrameworkWriter writer, string name)
+        {
+            writer.WritePropertyName(name);
+            writer.WriteValue(string.Empty);
+        }
+        
         public static void AddTextField(JsonFrameworkWriter writer, string name, string value)
         {
             writer.WritePropertyName(name);

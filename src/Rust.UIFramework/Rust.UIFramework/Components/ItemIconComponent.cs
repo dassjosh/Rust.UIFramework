@@ -22,7 +22,7 @@ namespace Oxide.Ext.UiFramework.Components
         protected override void EnterPool()
         {
             ItemId = 0;
-            SkinId = 0;
+            SkinId = JsonDefaults.ItemIcon.DefaultSkinId;
         }
     }
 }

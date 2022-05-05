@@ -25,16 +25,12 @@ namespace Oxide.Ext.UiFramework.Json
         {
             public const string AnchorMinName = "anchormin";
             public const string AnchorMaxName = "anchormax";
-            public static readonly Vector2 AnchorMin = new Vector2(0, 0);
-            public static readonly Vector2 AnchorMax = new Vector2(1, 1);
         }
 
         public static class Offset
         {
             public const string OffsetMinName = "offsetmin";
             public const string OffsetMaxName = "offsetmax";
-            public static readonly Vector2Short OffsetMin = new Vector2Short(0, 0);
-            public static readonly Vector2Short OffsetMax = new Vector2Short(0, 0);
             public const string DefaultOffsetMax = "0 0";
         }
 
@@ -99,12 +95,9 @@ namespace Oxide.Ext.UiFramework.Json
             public const string CharacterLimitName = "characterLimit";
             public const int CharacterLimitValue = 0;
             public const string PasswordName = "password";
-            public const string PasswordValue = "";
             public const string ReadOnlyName = "readOnly";
-            public const bool ReadOnlyValue = false;
             public const string LineTypeName = "lineType";
             public const string InputNeedsKeyboardName = "needsKeyboard";
-            public const string InputNeedsKeyboardValue = "";
         }
         
         public static class Countdown

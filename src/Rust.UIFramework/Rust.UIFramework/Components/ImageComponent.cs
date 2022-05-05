@@ -14,10 +14,7 @@ namespace Oxide.Ext.UiFramework.Components
         {
             writer.WriteStartObject();
             JsonCreator.AddFieldRaw(writer, JsonDefaults.Common.ComponentTypeName, Type);
-            if (!string.IsNullOrEmpty(Png))
-            {
-                JsonCreator.AddFieldRaw(writer, JsonDefaults.Image.PngName, Png);
-            }
+            JsonCreator.AddField(writer, JsonDefaults.Image.PngName, Png, null);
             JsonCreator.AddField(writer, JsonDefaults.Image.ImageType, ImageType);
             base.WriteComponent(writer);
             writer.WriteEndObject();
@@ -27,6 +24,7 @@ namespace Oxide.Ext.UiFramework.Components
         {
             base.EnterPool();
             Png = null;
+            ImageType = Image.Type.Simple;
         }
     }
 }

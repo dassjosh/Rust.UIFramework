@@ -24,17 +24,17 @@ namespace Oxide.Ext.UiFramework.Components
 
             if (IsPassword)
             {
-                JsonCreator.AddFieldRaw(writer, JsonDefaults.Input.PasswordName, JsonDefaults.Input.PasswordValue);
+                JsonCreator.AddKeyField(writer, JsonDefaults.Input.PasswordName);
             }
 
             if (IsReadyOnly)
             {
-                JsonCreator.AddFieldRaw(writer, JsonDefaults.Input.ReadOnlyName, JsonDefaults.Input.ReadOnlyValue);
+                JsonCreator.AddFieldRaw(writer, JsonDefaults.Input.ReadOnlyName, true);
             }
 
             if (NeedsKeyboard)
             {
-                JsonCreator.AddFieldRaw(writer, JsonDefaults.Input.InputNeedsKeyboardName, JsonDefaults.Input.InputNeedsKeyboardValue);
+                JsonCreator.AddKeyField(writer, JsonDefaults.Input.InputNeedsKeyboardName);
             }
             
             base.WriteComponent(writer);
