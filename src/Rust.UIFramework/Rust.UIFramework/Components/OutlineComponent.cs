@@ -13,11 +13,11 @@ namespace Oxide.Ext.UiFramework.Components
         public override void WriteComponent(JsonFrameworkWriter writer)
         {
             writer.WriteStartObject();
-            JsonCreator.AddFieldRaw(writer, JsonDefaults.Common.ComponentTypeName, Type);
-            JsonCreator.AddField(writer, JsonDefaults.Outline.DistanceName, Distance, JsonDefaults.Outline.DistanceValue);
+            writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, Type);
+            writer.AddField(JsonDefaults.Outline.DistanceName, Distance, JsonDefaults.Outline.DistanceValue);
             if (UseGraphicAlpha)
             {
-                JsonCreator.AddFieldRaw(writer, JsonDefaults.Outline.UseGraphicAlphaName, JsonDefaults.Outline.UseGraphicAlphaValue);
+                writer.AddFieldRaw(JsonDefaults.Outline.UseGraphicAlphaName, JsonDefaults.Outline.UseGraphicAlphaValue);
             }
             
             base.WriteComponent(writer);

@@ -9,8 +9,8 @@ namespace Oxide.Ext.UiFramework.Components
 
         public override void WriteComponent(JsonFrameworkWriter writer)
         {
-            JsonCreator.AddField(writer, JsonDefaults.BaseImage.SpriteName, Sprite, JsonDefaults.BaseImage.Sprite);
-            JsonCreator.AddField(writer, JsonDefaults.BaseImage.MaterialName, Material, JsonDefaults.BaseImage.Material);
+            writer.AddField(JsonDefaults.BaseImage.SpriteName, Sprite, JsonDefaults.BaseImage.Sprite);
+            writer.AddField(JsonDefaults.BaseImage.MaterialName, Material, JsonDefaults.BaseImage.Material);
             base.WriteComponent(writer);
         }
 

@@ -25,9 +25,9 @@ namespace Oxide.Ext.UiFramework.UiElements
         public void WriteRootComponent(JsonFrameworkWriter writer, bool needsMouse, bool needsKeyboard)
         {
             writer.WriteStartObject();
-            JsonCreator.AddFieldRaw(writer, JsonDefaults.Common.ComponentName, Name);
-            JsonCreator.AddFieldRaw(writer, JsonDefaults.Common.ParentName, Parent);
-            JsonCreator.AddField(writer, JsonDefaults.Common.FadeOutName, FadeOut, JsonDefaults.Common.FadeOut);
+            writer.AddFieldRaw(JsonDefaults.Common.ComponentName, Name);
+            writer.AddFieldRaw(JsonDefaults.Common.ParentName, Parent);
+            writer.AddField(JsonDefaults.Common.FadeOutName, FadeOut, JsonDefaults.Common.FadeOut);
 
             writer.WritePropertyName("components");
             writer.WriteStartArray();
@@ -35,12 +35,12 @@ namespace Oxide.Ext.UiFramework.UiElements
 
             if (needsMouse)
             {
-                JsonCreator.AddMouse(writer);
+                writer.AddMouse();
             }
 
             if (needsKeyboard)
             {
-                JsonCreator.AddKeyboard(writer);
+                writer.AddKeyboard();
             }
 
             writer.WriteEndArray();
@@ -50,9 +50,9 @@ namespace Oxide.Ext.UiFramework.UiElements
         public void WriteComponent(JsonFrameworkWriter writer)
         {
             writer.WriteStartObject();
-            JsonCreator.AddFieldRaw(writer, JsonDefaults.Common.ComponentName, Name);
-            JsonCreator.AddFieldRaw(writer, JsonDefaults.Common.ParentName, Parent);
-            JsonCreator.AddField(writer, JsonDefaults.Common.FadeOutName, FadeOut, JsonDefaults.Common.FadeOut);
+            writer.AddFieldRaw(JsonDefaults.Common.ComponentName, Name);
+            writer.AddFieldRaw(JsonDefaults.Common.ParentName, Parent);
+            writer.AddField(JsonDefaults.Common.FadeOutName, FadeOut, JsonDefaults.Common.FadeOut);
 
             writer.WritePropertyName("components");
             writer.WriteStartArray();
@@ -64,20 +64,20 @@ namespace Oxide.Ext.UiFramework.UiElements
         protected virtual void WriteComponents(JsonFrameworkWriter writer)
         {
             writer.WriteStartObject();
-            JsonCreator.AddFieldRaw(writer, JsonDefaults.Common.ComponentTypeName, JsonDefaults.Common.RectTransformName);
-            JsonCreator.AddPosition(writer, JsonDefaults.Position.AnchorMinName, Position.Min, new Vector2(0, 0));
-            JsonCreator.AddPosition(writer, JsonDefaults.Position.AnchorMaxName, Position.Max, new Vector2(1, 1));
+            writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, JsonDefaults.Common.RectTransformName);
+            writer.AddPosition(JsonDefaults.Position.AnchorMinName, Position.Min, new Vector2(0, 0));
+            writer.AddPosition(JsonDefaults.Position.AnchorMaxName, Position.Max, new Vector2(1, 1));
 
             if (Offset.HasValue)
             {
                 UiOffset offset = Offset.Value;
-                JsonCreator.AddOffset(writer, JsonDefaults.Offset.OffsetMinName, offset.Min, new Vector2Short(0, 0));
-                JsonCreator.AddOffset(writer, JsonDefaults.Offset.OffsetMaxName, offset.Max, new Vector2Short(1, 1));
+                writer.AddOffset(JsonDefaults.Offset.OffsetMinName, offset.Min, new Vector2Short(0, 0));
+                writer.AddOffset(JsonDefaults.Offset.OffsetMaxName, offset.Max, new Vector2Short(1, 1));
             }
             else
             {
                 //Fixes issue with UI going outside of bounds
-                JsonCreator.AddFieldRaw(writer, JsonDefaults.Offset.OffsetMaxName, JsonDefaults.Offset.DefaultOffsetMax);
+                writer.AddFieldRaw(JsonDefaults.Offset.OffsetMaxName, JsonDefaults.Offset.DefaultOffsetMax);
             }
 
             writer.WriteEndObject();

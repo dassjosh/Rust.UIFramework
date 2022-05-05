@@ -12,9 +12,9 @@ namespace Oxide.Ext.UiFramework.Components
         public override void WriteComponent(JsonFrameworkWriter writer)
         {
             writer.WriteStartObject();
-            JsonCreator.AddFieldRaw(writer, JsonDefaults.Common.ComponentTypeName, Type);
-            JsonCreator.AddField(writer, JsonDefaults.Common.CommandName, Command, JsonDefaults.Common.NullValue);
-            JsonCreator.AddField(writer, JsonDefaults.Button.CloseName, Close, JsonDefaults.Common.NullValue);
+            writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, Type);
+            writer.AddField(JsonDefaults.Common.CommandName, Command, JsonDefaults.Common.NullValue);
+            writer.AddField(JsonDefaults.Button.CloseName, Close, JsonDefaults.Common.NullValue);
             base.WriteComponent(writer);
             writer.WriteEndObject();
         }

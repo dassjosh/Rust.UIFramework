@@ -8,7 +8,7 @@ namespace Oxide.Ext.UiFramework.Components
 
         public override void WriteComponent(JsonFrameworkWriter writer)
         {
-            JsonCreator.AddField(writer, JsonDefaults.Common.FadeInName, FadeIn, JsonDefaults.Common.FadeIn);
+            writer.AddField(JsonDefaults.Common.FadeInName, FadeIn, JsonDefaults.Common.FadeIn);
             base.WriteComponent(writer);
         }
 

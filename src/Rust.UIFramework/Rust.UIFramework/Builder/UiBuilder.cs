@@ -124,7 +124,7 @@ namespace Oxide.Ext.UiFramework.Builder
         {
             DisposeInternal();
             //Need this because there is a global GC class that causes issues
-            // ReSharper disable once RedundantNameQualifier
+            //ReSharper disable once RedundantNameQualifier
             System.GC.SuppressFinalize(this);
         }
 
@@ -437,7 +437,20 @@ namespace Oxide.Ext.UiFramework.Builder
         #region JSON
         public string ToJson()
         {
-            return JsonCreator.CreateJson(_components, _needsMouse, _needsKeyboard);
+            JsonFrameworkWriter writer = JsonFrameworkWriter.Create();
+
+            writer.WriteStartArray();
+            _components[0].WriteRootComponent(writer, _needsMouse, _needsKeyboard);
+
+            int count = _components.Count;
+            for (int index = 1; index < count; index++)
+            {
+                _components[index].WriteComponent(writer);
+            }
+
+            writer.WriteEndArray();
+
+            return writer.ToJson();
         }
 
         public void CacheJson()

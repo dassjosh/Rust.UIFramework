@@ -12,10 +12,10 @@ namespace Oxide.Ext.UiFramework.Components
 
         public override void WriteComponent(JsonFrameworkWriter writer)
         {
-            JsonCreator.AddTextField(writer, JsonDefaults.BaseText.TextName, Text);
-            JsonCreator.AddField(writer, JsonDefaults.BaseText.FontSizeName, FontSize, JsonDefaults.BaseText.FontSize);
-            JsonCreator.AddField(writer, JsonDefaults.BaseText.FontName, Font, JsonDefaults.BaseText.FontValue);
-            JsonCreator.AddField(writer, JsonDefaults.BaseText.AlignName, Align);
+            writer.AddTextField(JsonDefaults.BaseText.TextName, Text);
+            writer.AddField(JsonDefaults.BaseText.FontSizeName, FontSize, JsonDefaults.BaseText.FontSize);
+            writer.AddField(JsonDefaults.BaseText.FontName, Font, JsonDefaults.BaseText.FontValue);
+            writer.AddField(JsonDefaults.BaseText.AlignName, Align);
             base.WriteComponent(writer);
         }
 

@@ -13,9 +13,9 @@ namespace Oxide.Ext.UiFramework.Components
         public override void WriteComponent(JsonFrameworkWriter writer)
         {
             writer.WriteStartObject();
-            JsonCreator.AddFieldRaw(writer, JsonDefaults.Common.ComponentTypeName, Type);
-            JsonCreator.AddField(writer, JsonDefaults.Image.PngName, Png, null);
-            JsonCreator.AddField(writer, JsonDefaults.Image.ImageType, ImageType);
+            writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, Type);
+            writer.AddField(JsonDefaults.Image.PngName, Png, null);
+            writer.AddField(JsonDefaults.Image.ImageType, ImageType);
             base.WriteComponent(writer);
             writer.WriteEndObject();
         }

@@ -17,24 +17,24 @@ namespace Oxide.Ext.UiFramework.Components
         public override void WriteComponent(JsonFrameworkWriter writer)
         {
             writer.WriteStartObject();
-            JsonCreator.AddFieldRaw(writer, JsonDefaults.Common.ComponentTypeName, Type);
-            JsonCreator.AddField(writer, JsonDefaults.Input.CharacterLimitName, CharsLimit, JsonDefaults.Input.CharacterLimitValue);
-            JsonCreator.AddField(writer, JsonDefaults.Common.CommandName, Command, JsonDefaults.Common.NullValue);
-            JsonCreator.AddField(writer, JsonDefaults.Input.LineTypeName, LineType);
+            writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, Type);
+            writer.AddField(JsonDefaults.Input.CharacterLimitName, CharsLimit, JsonDefaults.Input.CharacterLimitValue);
+            writer.AddField(JsonDefaults.Common.CommandName, Command, JsonDefaults.Common.NullValue);
+            writer.AddField(JsonDefaults.Input.LineTypeName, LineType);
 
             if (IsPassword)
             {
-                JsonCreator.AddKeyField(writer, JsonDefaults.Input.PasswordName);
+                writer.AddKeyField(JsonDefaults.Input.PasswordName);
             }
 
             if (IsReadyOnly)
             {
-                JsonCreator.AddFieldRaw(writer, JsonDefaults.Input.ReadOnlyName, true);
+                writer.AddFieldRaw(JsonDefaults.Input.ReadOnlyName, true);
             }
 
             if (NeedsKeyboard)
             {
-                JsonCreator.AddKeyField(writer, JsonDefaults.Input.InputNeedsKeyboardName);
+                writer.AddKeyField(JsonDefaults.Input.InputNeedsKeyboardName);
             }
             
             base.WriteComponent(writer);
