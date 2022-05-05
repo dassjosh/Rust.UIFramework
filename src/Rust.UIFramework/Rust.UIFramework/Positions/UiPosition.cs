@@ -29,17 +29,37 @@ namespace Oxide.Ext.UiFramework.Positions
             Max = new Vector2(Mathf.Clamp01(xMax), Mathf.Clamp01(yMax));
         }
 
+        /// <summary>
+        /// Returns a slice of the position
+        /// </summary>
+        /// <param name="xMin">% of the xMax - xMin distance added to xMin</param>
+        /// <param name="yMin">% of the yMax - yMin distance added to yMin</param>
+        /// <param name="xMax">>% of the xMax - xMin distance added to xMin</param>
+        /// <param name="yMax">% of the yMax - yMin distance added to yMin</param>
+        /// <returns>Sliced <see cref="UiPosition"/></returns>
         public UiPosition Slice(float xMin, float yMin, float xMax, float yMax)
         {
             Vector2 distance = Max - Min;
             return new UiPosition(Min.x + distance.x * xMin, Min.y + distance.y * yMin, Min.x + distance.x * xMax, Min.y + distance.y * yMax);
         }
         
+        /// <summary>
+        /// Returns a horizontal slice of the position
+        /// </summary>
+        /// <param name="xMin">% of the xMax - xMin distance added to xMin</param>
+        /// <param name="xMax">>% of the xMax - xMin distance added to xMin</param>
+        /// <returns>Sliced <see cref="UiPosition"/></returns>
         public UiPosition SliceHorizontal(float xMin, float xMax)
         {
             return new UiPosition(Min.x + (Max.x - Min.x) * xMin, Min.y, Min.x + (Max.x - Min.x) * xMax, Max.y);
         }
         
+        /// <summary>
+        /// Returns a vertical slice of the position
+        /// </summary>
+        /// <param name="yMin">% of the yMax - yMin distance added to yMin</param>
+        /// <param name="yMax">% of the yMax - yMin distance added to yMin</param>
+        /// <returns>Sliced <see cref="UiPosition"/></returns>
         public UiPosition SliceVertical(float yMin, float yMax)
         {
             return new UiPosition(Min.x, Min.y + (Max.y - Min.y) * yMin, Max.x, Min.y + (Max.y - Min.y) * yMax);

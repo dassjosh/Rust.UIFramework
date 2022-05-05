@@ -120,7 +120,7 @@ namespace Oxide.Plugins
             _grid.MoveCols(1);
 
             //Displays an item icon with the given skin ID
-            builder.ItemIcon(body, 963906841, 2563674658ul, _grid);
+            builder.ItemIcon(body, 963906841, 2320435219, _grid);
             _grid.MoveCols(1);
 
             //Create a label and add a countdown timer to it.

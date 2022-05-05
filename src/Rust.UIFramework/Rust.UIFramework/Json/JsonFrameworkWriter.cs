@@ -255,6 +255,11 @@ namespace Oxide.Ext.UiFramework.Json
         {
             _writer.Append(value.ToString());
         }
+        
+        public void WriteValue(ulong value)
+        {
+            _writer.Append(value.ToString());
+        }
 
         public void WriteValue(string value)
         {
