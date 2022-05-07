@@ -7,7 +7,7 @@ namespace Oxide.Ext.UiFramework.Colors
     {
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-           writer.WriteValue(((UiColor)value).ToHtmlColor());
+            writer.WriteValue(((UiColor)value).ToHtmlColor());
         }
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
@@ -19,13 +19,13 @@ namespace Oxide.Ext.UiFramework.Colors
                     {
                         return null;
                     }
-                    
+
                     return default(UiColor);
-                
+
                 case JsonToken.String:
                     return UiColor.ParseHexColor(reader.Value.ToString());
             }
-            
+
             return default(UiColor);
         }
 

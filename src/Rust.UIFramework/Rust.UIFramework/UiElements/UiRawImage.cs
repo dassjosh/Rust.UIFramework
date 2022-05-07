@@ -26,6 +26,11 @@ namespace Oxide.Ext.UiFramework.UiElements
             image.RawImage.Texture = icon;
             return image;
         }
+
+        public void SetMaterial(string material)
+        {
+            RawImage.Material = material;
+        }
         
         public void SetFadeIn(float duration)
         {

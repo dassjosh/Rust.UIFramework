@@ -112,6 +112,248 @@ namespace Oxide.Plugins
     }
     #endregion
 
+    #region Builder\UiBuilder.Components.cs
+    public partial class UiBuilder
+    {
+        #region Add Components
+        public void AddComponent(BaseUiComponent component, BaseUiComponent parent)
+        {
+            component.Parent = parent.Name;
+            component.Name = GetComponentName();
+            //_componentLookup[component.Name] = component;
+            _components.Add(component);
+        }
+        
+        public string GetComponentName()
+        {
+            return string.Concat(_componentBaseName, _components.Count.ToString());
+        }
+        #endregion
+        
+        #region Section
+        public UiSection Section(BaseUiComponent parent, UiPosition pos, UiOffset? offset = null)
+        {
+            UiSection section = UiSection.Create(pos, offset);
+            AddComponent(section, parent);
+            return section;
+        }
+        #endregion
+        
+        #region Panel
+        public UiPanel Panel(BaseUiComponent parent, UiColor color, UiPosition pos, UiOffset? offset = null)
+        {
+            UiPanel panel = UiPanel.Create(pos, offset, color);
+            AddComponent(panel, parent);
+            return panel;
+        }
+        #endregion
+        
+        #region Button
+        public UiButton EmptyCommandButton(BaseUiComponent parent, UiColor color, UiPosition pos, string cmd)
+        {
+            UiButton button = UiButton.CreateCommand(pos, null, color, cmd);
+            AddComponent(button, parent);
+            return button;
+        }
+        
+        public UiButton EmptyCloseButton(BaseUiComponent parent, UiColor color, UiPosition pos, string close)
+        {
+            UiButton button = UiButton.CreateClose(pos, null, color, close);
+            AddComponent(button, parent);
+            return button;
+        }
+        
+        public UiButton TextButton(BaseUiComponent parent, string text, int textSize, UiColor textColor, UiColor buttonColor, UiPosition pos, string cmd, TextAnchor align = TextAnchor.MiddleCenter)
+        {
+            UiButton button = EmptyCommandButton(parent, buttonColor, pos, cmd);
+            Label(button, text, textSize, textColor, UiPosition.Full, align);
+            return button;
+        }
+        
+        public UiButton ImageButton(BaseUiComponent parent, UiColor buttonColor, string png, UiPosition pos, string cmd)
+        {
+            UiButton button = EmptyCommandButton(parent, buttonColor, pos, cmd);
+            Image(button, png, UiPosition.Full);
+            return button;
+        }
+        
+        public UiButton WebImageButton(BaseUiComponent parent, UiColor buttonColor, string url, UiPosition pos, string cmd)
+        {
+            UiButton button = EmptyCommandButton(parent, buttonColor, pos, cmd);
+            WebImage(button, url, UiPosition.Full);
+            return button;
+        }
+        
+        public UiButton ItemIconButton(BaseUiComponent parent, UiColor buttonColor, int itemId, UiPosition pos, string cmd)
+        {
+            UiButton button = EmptyCommandButton(parent, buttonColor, pos, cmd);
+            ItemIcon(button, itemId, UiPosition.Full);
+            return button;
+        }
+        
+        public UiButton ItemIconButton(BaseUiComponent parent, UiColor buttonColor, int itemId, ulong skinId, UiPosition pos, string cmd)
+        {
+            UiButton button = EmptyCommandButton(parent, buttonColor, pos, cmd);
+            ItemIcon(button, itemId, skinId, UiPosition.Full);
+            return button;
+        }
+        
+        public UiButton TextCloseButton(BaseUiComponent parent, string text, int textSize, UiColor textColor, UiColor buttonColor, UiPosition pos, string close, TextAnchor align = TextAnchor.MiddleCenter)
+        {
+            UiButton button = EmptyCloseButton(parent, buttonColor, pos, close);
+            Label(button, text, textSize, textColor, UiPosition.Full, align);
+            return button;
+        }
+        
+        public UiButton ImageCloseButton(BaseUiComponent parent, UiColor buttonColor, string png, UiPosition pos, string close)
+        {
+            UiButton button = EmptyCloseButton(parent, buttonColor, pos, close);
+            Image(button, png, UiPosition.Full);
+            return button;
+        }
+        
+        public UiButton WebImageCloseButton(BaseUiComponent parent, UiColor buttonColor, string url, UiPosition pos, string close)
+        {
+            UiButton button = EmptyCloseButton(parent, buttonColor, pos, close);
+            WebImage(button, url, UiPosition.Full);
+            return button;
+        }
+        #endregion
+        
+        #region Image
+        public UiImage Image(BaseUiComponent parent, string png, UiPosition pos, UiColor color)
+        {
+            uint _;
+            if (!uint.TryParse(png, out _))
+            {
+                throw new UiFrameworkException($"Image PNG '{png}' is not a valid uint. If trying to use a url please use WebImage instead");
+            }
+            
+            UiImage image = UiImage.Create(pos, null, color, png);
+            AddComponent(image, parent);
+            return image;
+        }
+        
+        public UiImage Image(BaseUiComponent parent, string png, UiPosition pos)
+        {
+            return Image(parent, png, pos, UiColors.StandardColors.White);
+        }
+        #endregion
+        
+        #region Item Icon
+        public UiItemIcon ItemIcon(BaseUiComponent parent, int itemId, UiPosition pos, UiColor color)
+        {
+            UiItemIcon image = UiItemIcon.Create(pos, null, color, itemId);
+            AddComponent(image, parent);
+            return image;
+        }
+        
+        public UiItemIcon ItemIcon(BaseUiComponent parent, int itemId, UiPosition pos)
+        {
+            return ItemIcon(parent, itemId, pos, UiColors.StandardColors.White);
+        }
+        
+        public UiItemIcon ItemIcon(BaseUiComponent parent, int itemId, ulong skinId, UiPosition pos, UiColor color)
+        {
+            UiItemIcon image = UiItemIcon.Create(pos, null, color, itemId, skinId);
+            AddComponent(image, parent);
+            return image;
+        }
+        
+        public UiItemIcon ItemIcon(BaseUiComponent parent, int itemId, ulong skinId, UiPosition pos)
+        {
+            return ItemIcon(parent, itemId, skinId, pos, UiColors.StandardColors.White);
+        }
+        #endregion
+        
+        #region Raw Image
+        public UiRawImage WebImage(BaseUiComponent parent, string url, UiPosition pos)
+        {
+            return WebImage(parent, url, pos, UiColors.StandardColors.White);
+        }
+        
+        public UiRawImage WebImage(BaseUiComponent parent, string url, UiPosition pos, UiColor color)
+        {
+            if (!url.StartsWith("http"))
+            {
+                throw new UiFrameworkException($"WebImage Url '{url}' is not a valid url. If trying to use a png id please use Image instead");
+            }
+            
+            UiRawImage image = UiRawImage.CreateUrl(pos, null, color, url);
+            AddComponent(image, parent);
+            return image;
+        }
+        
+        public UiRawImage TextureImage(BaseUiComponent parent, string texture, UiPosition pos)
+        {
+            return TextureImage(parent, texture, pos, UiColors.StandardColors.White);
+        }
+        
+        public UiRawImage TextureImage(BaseUiComponent parent, string texture, UiPosition pos, UiColor color)
+        {
+            UiRawImage image = UiRawImage.CreateTexture(pos, null, color, texture);
+            AddComponent(image, parent);
+            return image;
+        }
+        #endregion
+        
+        #region Label
+        public UiLabel Label(BaseUiComponent parent, string text, int size, UiColor textColor, UiPosition pos, TextAnchor align = TextAnchor.MiddleCenter)
+        {
+            UiLabel label = UiLabel.Create(pos, null, textColor, text, size, _font, align);
+            AddComponent(label, parent);
+            return label;
+        }
+        
+        public UiLabel LabelBackground(BaseUiComponent parent, string text, int size, UiColor textColor, UiColor backgroundColor, UiPosition pos, TextAnchor align = TextAnchor.MiddleCenter)
+        {
+            UiPanel panel = Panel(parent, backgroundColor, pos);
+            UiLabel label = UiLabel.Create(UiPosition.Full, null, textColor, text, size, _font, align);
+            AddComponent(label, panel);
+            return label;
+        }
+        #endregion
+        
+        #region Countdown
+        public UiLabel Countdown(UiLabel label, int startTime, int endTime, int step, string command)
+        {
+            label.AddCountdown(startTime, endTime, step, command);
+            return label;
+        }
+        #endregion
+        
+        #region Outline
+        public T TextOutline<T>(T outline, UiColor color) where T : BaseUiTextOutline
+        {
+            outline.AddTextOutline(color);
+            return outline;
+        }
+        
+        public T TextOutline<T>(T outline, UiColor color, Vector2 distance) where T : BaseUiTextOutline
+        {
+            outline.AddTextOutline(color, distance);
+            return outline;
+        }
+        
+        public T TextOutline<T>(T outline, UiColor color, Vector2 distance, bool useGraphicAlpha) where T : BaseUiTextOutline
+        {
+            outline.AddTextOutline(color, distance, useGraphicAlpha);
+            return outline;
+        }
+        #endregion
+        
+        #region Input
+        public UiInput Input(BaseUiComponent parent, string text, int fontSize, UiColor textColor, UiColor backgroundColor, UiPosition pos, string cmd, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, bool isPassword = false, bool readOnly = false, InputField.LineType lineType = InputField.LineType.SingleLine)
+        {
+            parent = Panel(parent, backgroundColor, pos);
+            UiInput input = UiInput.Create(UiPosition.Full, null, textColor, text, fontSize, cmd, _font, align, charsLimit, isPassword, readOnly, lineType);
+            AddComponent(input, parent);
+            return input;
+        }
+        #endregion
+    }
+    #endregion
+
     #region Builder\UiBuilder.Controls.cs
     public partial class UiBuilder
     {
@@ -211,370 +453,6 @@ namespace Oxide.Plugins
             TextButton(parent, ">>>", fontSize, textColor, buttonColor, grid, $"{cmd} {maxPage.ToString()}");
         }
         
-        public static UiBuilder CreateModal(UiOffset offset, UiColor modalColor, string name, UiLayer layer = UiLayer.Overlay)
-        {
-            UiBuilder builder = new UiBuilder();
-            UiPanel backgroundBlur = UiPanel.Create(UiPosition.FullPosition, null, new UiColor(0, 0, 0, 0.5f));
-            backgroundBlur.AddMaterial(UiConstants.Materials.InGameBlur);
-            builder.SetRoot(backgroundBlur, name, UiConstants.UiLayers.GetLayer(layer));
-            UiPanel modal = UiPanel.Create(UiPosition.MiddleMiddle, offset, modalColor);
-            builder.AddComponent(modal, backgroundBlur);
-            builder.OverrideRoot(modal);
-            return builder;
-        }
-    }
-    #endregion
-
-    #region Builder\UiBuilder.cs
-    public partial class UiBuilder : IDisposable
-    {
-        public BaseUiComponent Root;
-        
-        private bool _needsMouse;
-        private bool _needsKeyboard;
-        private bool _disposed;
-        
-        private string _baseName;
-        private string _font;
-        private string _cachedJson;
-        
-        private List<BaseUiComponent> _components;
-        //private Hash<string, BaseUiComponent> _componentLookup;
-        
-        private static string _globalFont;
-        
-        #region Constructor
-        static UiBuilder()
-        {
-            SetGlobalFont(UiFont.RobotoCondensedRegular);
-        }
-        
-        public UiBuilder(UiPosition pos, string name, string parent) : this(pos, null, name, parent) { }
-        
-        public UiBuilder(UiPosition pos, string name, UiLayer parent = UiLayer.Overlay) : this(pos, null, name, UiConstants.UiLayers.GetLayer(parent)) { }
-        
-        public UiBuilder(UiPosition pos, UiOffset? offset, string name, UiLayer parent = UiLayer.Overlay) : this(pos, offset, name, UiConstants.UiLayers.GetLayer(parent)) { }
-        
-        public UiBuilder(UiPosition pos, UiOffset? offset, string name, string parent) : this(UiSection.Create(pos, offset), name, parent) { }
-        
-        public UiBuilder(UiColor color, UiPosition pos, string name, string parent) : this(color, pos, null, name, parent) { }
-        
-        public UiBuilder(UiColor color, UiPosition pos, string name, UiLayer parent = UiLayer.Overlay) : this(color, pos, null, name, UiConstants.UiLayers.GetLayer(parent)) { }
-        
-        public UiBuilder(UiColor color, UiPosition pos, UiOffset? offset, string name, UiLayer parent = UiLayer.Overlay) : this(color, pos, offset, name, UiConstants.UiLayers.GetLayer(parent)) { }
-        
-        public UiBuilder(UiColor color, UiPosition pos, UiOffset? offset, string name, string parent) : this(UiPanel.Create(pos, offset, color), name, parent) { }
-        
-        public UiBuilder(BaseUiComponent root, string name, string parent) : this()
-        {
-            SetRoot(root, name, parent);
-        }
-        
-        public UiBuilder()
-        {
-            _components = UiFrameworkPool.GetList<BaseUiComponent>();
-            //_componentLookup = UiFrameworkPool.GetHash<string, BaseUiComponent>();
-            _font = _globalFont;
-        }
-        
-        public void EnsureCapacity(int capacity)
-        {
-            if (_components.Capacity < capacity)
-            {
-                _components.Capacity = capacity;
-            }
-        }
-        
-        public void SetRoot(BaseUiComponent component, string name, string parent)
-        {
-            Root = component;
-            component.Parent = parent;
-            component.Name = name;
-            _components.Add(component);
-            _baseName = name + "_";
-        }
-        
-        public void OverrideRoot(BaseUiComponent component)
-        {
-            Root = component;
-        }
-        
-        public void NeedsMouse(bool enabled = true)
-        {
-            _needsMouse = enabled;
-        }
-        
-        public void NeedsKeyboard(bool enabled = true)
-        {
-            _needsKeyboard = enabled;
-        }
-        
-        public void SetCurrentFont(UiFont font)
-        {
-            _font = UiConstants.UiFonts.GetUiFont(font);
-        }
-        
-        public static void SetGlobalFont(UiFont font)
-        {
-            _globalFont = UiConstants.UiFonts.GetUiFont(font);
-        }
-        
-        // public T GetUi<T>(string name) where T : BaseUiComponent
-        // {
-            //     return (T)_componentLookup[name];
-        // }
-        #endregion
-        
-        #region Decontructor
-        ~UiBuilder()
-        {
-            DisposeInternal();
-        }
-        
-        public void Dispose()
-        {
-            DisposeInternal();
-            //Need this because there is a global GC class that causes issues
-            //ReSharper disable once RedundantNameQualifier
-            System.GC.SuppressFinalize(this);
-        }
-        
-        private void DisposeInternal()
-        {
-            if (_disposed)
-            {
-                return;
-            }
-            
-            _disposed = true;
-            
-            for (int index = 0; index < _components.Count; index++)
-            {
-                _components[index].Dispose();
-            }
-            
-            UiFrameworkPool.FreeList(ref _components);
-            //UiFrameworkPool.FreeHash(ref _componentLookup);
-            Root = null;
-        }
-        #endregion
-        
-        #region Add UI
-        public void AddComponent(BaseUiComponent component, BaseUiComponent parent)
-        {
-            component.Parent = parent.Name;
-            component.Name = GetComponentName();
-            //_componentLookup[component.Name] = component;
-            _components.Add(component);
-        }
-        
-        public string GetComponentName()
-        {
-            return string.Concat(_baseName, _components.Count.ToString());
-        }
-        
-        public UiSection Section(BaseUiComponent parent, UiPosition pos)
-        {
-            UiSection section = UiSection.Create(pos, null);
-            AddComponent(section, parent);
-            return section;
-        }
-        
-        public UiPanel Panel(BaseUiComponent parent, UiColor color, UiPosition pos, UiOffset? offset = null)
-        {
-            UiPanel panel = UiPanel.Create(pos, offset, color);
-            AddComponent(panel, parent);
-            return panel;
-        }
-        
-        public UiButton EmptyCommandButton(BaseUiComponent parent, UiColor color, UiPosition pos, string cmd)
-        {
-            UiButton button = UiButton.CreateCommand(pos, null, color, cmd);
-            AddComponent(button, parent);
-            return button;
-        }
-        
-        public UiButton EmptyCloseButton(BaseUiComponent parent, UiColor color, UiPosition pos, string close)
-        {
-            UiButton button = UiButton.CreateClose(pos, null, color, close);
-            AddComponent(button, parent);
-            return button;
-        }
-        
-        public UiButton TextButton(BaseUiComponent parent, string text, int textSize, UiColor textColor, UiColor buttonColor, UiPosition pos, string cmd, TextAnchor align = TextAnchor.MiddleCenter)
-        {
-            UiButton button = EmptyCommandButton(parent, buttonColor, pos, cmd);
-            Label(button, text, textSize, textColor, UiPosition.FullPosition, align);
-            return button;
-        }
-        
-        public UiButton ImageButton(BaseUiComponent parent, UiColor buttonColor, string png, UiPosition pos, string cmd)
-        {
-            UiButton button = EmptyCommandButton(parent, buttonColor, pos, cmd);
-            Image(button, png, UiPosition.FullPosition);
-            return button;
-        }
-        
-        public UiButton WebImageButton(BaseUiComponent parent, UiColor buttonColor, string url, UiPosition pos, string cmd)
-        {
-            UiButton button = EmptyCommandButton(parent, buttonColor, pos, cmd);
-            WebImage(button, url, UiPosition.FullPosition);
-            return button;
-        }
-        
-        public UiButton ItemIconButton(BaseUiComponent parent, UiColor buttonColor, int itemId, UiPosition pos, string cmd)
-        {
-            UiButton button = EmptyCommandButton(parent, buttonColor, pos, cmd);
-            ItemIcon(button, itemId, UiPosition.FullPosition);
-            return button;
-        }
-        
-        public UiButton ItemIconButton(BaseUiComponent parent, UiColor buttonColor, int itemId, ulong skinId, UiPosition pos, string cmd)
-        {
-            UiButton button = EmptyCommandButton(parent, buttonColor, pos, cmd);
-            ItemIcon(button, itemId, skinId, UiPosition.FullPosition);
-            return button;
-        }
-        
-        public UiButton TextCloseButton(BaseUiComponent parent, string text, int textSize, UiColor textColor, UiColor buttonColor, UiPosition pos, string close, TextAnchor align = TextAnchor.MiddleCenter)
-        {
-            UiButton button = EmptyCloseButton(parent, buttonColor, pos, close);
-            Label(button, text, textSize, textColor, UiPosition.FullPosition, align);
-            return button;
-        }
-        
-        public UiButton ImageCloseButton(BaseUiComponent parent, UiColor buttonColor, string png, UiPosition pos, string close)
-        {
-            UiButton button = EmptyCloseButton(parent, buttonColor, pos, close);
-            Image(button, png, UiPosition.FullPosition);
-            return button;
-        }
-        
-        public UiButton WebImageCloseButton(BaseUiComponent parent, UiColor buttonColor, string url, UiPosition pos, string close)
-        {
-            UiButton button = EmptyCloseButton(parent, buttonColor, pos, close);
-            WebImage(button, url, UiPosition.FullPosition);
-            return button;
-        }
-        
-        public UiImage Image(BaseUiComponent parent, string png, UiPosition pos, UiColor color)
-        {
-            uint _;
-            if (!uint.TryParse(png, out _))
-            {
-                throw new UiFrameworkException($"Image PNG '{png}' is not a valid uint. If trying to use a url please use WebImage instead");
-            }
-            
-            UiImage image = UiImage.Create(pos, null, color, png);
-            AddComponent(image, parent);
-            return image;
-        }
-        
-        public UiImage Image(BaseUiComponent parent, string png, UiPosition pos)
-        {
-            return Image(parent, png, pos, UiColors.StandardColors.White);
-        }
-        
-        public UiItemIcon ItemIcon(BaseUiComponent parent, int itemId, UiPosition pos, UiColor color)
-        {
-            UiItemIcon image = UiItemIcon.Create(pos, null, color, itemId);
-            AddComponent(image, parent);
-            return image;
-        }
-        
-        public UiItemIcon ItemIcon(BaseUiComponent parent, int itemId, UiPosition pos)
-        {
-            return ItemIcon(parent, itemId, pos, UiColors.StandardColors.White);
-        }
-        
-        public UiItemIcon ItemIcon(BaseUiComponent parent, int itemId, ulong skinId, UiPosition pos, UiColor color)
-        {
-            UiItemIcon image = UiItemIcon.Create(pos, null, color, itemId, skinId);
-            AddComponent(image, parent);
-            return image;
-        }
-        
-        public UiItemIcon ItemIcon(BaseUiComponent parent, int itemId, ulong skinId, UiPosition pos)
-        {
-            return ItemIcon(parent, itemId, skinId, pos, UiColors.StandardColors.White);
-        }
-        
-        public UiRawImage WebImage(BaseUiComponent parent, string url, UiPosition pos)
-        {
-            return WebImage(parent, url, pos, UiColors.StandardColors.White);
-        }
-        
-        public UiRawImage WebImage(BaseUiComponent parent, string url, UiPosition pos, UiColor color)
-        {
-            if (!url.StartsWith("http"))
-            {
-                throw new UiFrameworkException($"WebImage Url '{url}' is not a valid url. If trying to use a png id please use Image instead");
-            }
-            
-            UiRawImage image = UiRawImage.CreateUrl(pos, null, color, url);
-            AddComponent(image, parent);
-            return image;
-        }
-        
-        public UiRawImage TextureImage(BaseUiComponent parent, string texture, UiPosition pos)
-        {
-            return TextureImage(parent, texture, pos, UiColors.StandardColors.White);
-        }
-        
-        public UiRawImage TextureImage(BaseUiComponent parent, string texture, UiPosition pos, UiColor color)
-        {
-            UiRawImage image = UiRawImage.CreateTexture(pos, null, color, texture);
-            AddComponent(image, parent);
-            return image;
-        }
-        
-        public UiLabel Label(BaseUiComponent parent, string text, int size, UiColor textColor, UiPosition pos, TextAnchor align = TextAnchor.MiddleCenter)
-        {
-            UiLabel label = UiLabel.Create(pos, null, textColor, text, size, _font, align);
-            AddComponent(label, parent);
-            return label;
-        }
-        
-        public UiLabel LabelBackground(BaseUiComponent parent, string text, int size, UiColor textColor, UiColor backgroundColor, UiPosition pos, TextAnchor align = TextAnchor.MiddleCenter)
-        {
-            UiPanel panel = Panel(parent, backgroundColor, pos);
-            UiLabel label = UiLabel.Create(UiPosition.FullPosition, null, textColor, text, size, _font, align);
-            AddComponent(label, panel);
-            return label;
-        }
-        
-        public UiLabel Countdown(UiLabel label, int startTime, int endTime, int step, string command)
-        {
-            label.AddCountdown(startTime, endTime, step, command);
-            return label;
-        }
-        
-        public T TextOutline<T>(T outline, UiColor color) where T : BaseUiTextOutline
-        {
-            outline.AddTextOutline(color);
-            return outline;
-        }
-        
-        public T TextOutline<T>(T outline, UiColor color, Vector2 distance) where T : BaseUiTextOutline
-        {
-            outline.AddTextOutline(color, distance);
-            return outline;
-        }
-        
-        public T TextOutline<T>(T outline, UiColor color, Vector2 distance, bool useGraphicAlpha) where T : BaseUiTextOutline
-        {
-            outline.AddTextOutline(color, distance, useGraphicAlpha);
-            return outline;
-        }
-        
-        public UiInput Input(BaseUiComponent parent, string text, int fontSize, UiColor textColor, UiColor backgroundColor, UiPosition pos, string cmd, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, bool isPassword = false, bool readOnly = false, InputField.LineType lineType = InputField.LineType.SingleLine)
-        {
-            parent = Panel(parent, backgroundColor, pos);
-            UiInput input = UiInput.Create(UiPosition.FullPosition, null, textColor, text, fontSize, cmd, _font, align, charsLimit, isPassword, readOnly, lineType);
-            AddComponent(input, parent);
-            return input;
-        }
-        
         public void Border(BaseUiComponent parent, UiColor color, int width = 1, BorderMode border = BorderMode.Top | BorderMode.Bottom | BorderMode.Left | BorderMode.Right)
         {
             //If width is 0 nothing is displayed so don't try to render
@@ -642,6 +520,143 @@ namespace Oxide.Plugins
         private bool HasBorderFlag(BorderMode mode, BorderMode flag)
         {
             return (mode & flag) != 0;
+        }
+    }
+    #endregion
+
+    #region Builder\UiBuilder.cs
+    public partial class UiBuilder : IDisposable
+    {
+        public BaseUiComponent Root;
+        
+        private bool _needsMouse;
+        private bool _needsKeyboard;
+        private bool _disposed;
+        
+        private string _rootName;
+        private string _componentBaseName;
+        private string _font;
+        private string _cachedJson;
+        
+        private List<BaseUiComponent> _components;
+        //private Hash<string, BaseUiComponent> _componentLookup;
+        
+        private static string _globalFont;
+        
+        #region Constructor
+        static UiBuilder()
+        {
+            SetGlobalFont(UiFont.RobotoCondensedRegular);
+        }
+        
+        public UiBuilder(UiPosition pos, string name, string parent) : this(pos, null, name, parent) { }
+        
+        public UiBuilder(UiPosition pos, string name, UiLayer parent = UiLayer.Overlay) : this(pos, null, name, UiConstants.UiLayers.GetLayer(parent)) { }
+        
+        public UiBuilder(UiPosition pos, UiOffset? offset, string name, UiLayer parent = UiLayer.Overlay) : this(pos, offset, name, UiConstants.UiLayers.GetLayer(parent)) { }
+        
+        public UiBuilder(UiPosition pos, UiOffset? offset, string name, string parent) : this(UiSection.Create(pos, offset), name, parent) { }
+        
+        public UiBuilder(UiColor color, UiPosition pos, string name, string parent) : this(color, pos, null, name, parent) { }
+        
+        public UiBuilder(UiColor color, UiPosition pos, string name, UiLayer parent = UiLayer.Overlay) : this(color, pos, null, name, UiConstants.UiLayers.GetLayer(parent)) { }
+        
+        public UiBuilder(UiColor color, UiPosition pos, UiOffset? offset, string name, UiLayer parent = UiLayer.Overlay) : this(color, pos, offset, name, UiConstants.UiLayers.GetLayer(parent)) { }
+        
+        public UiBuilder(UiColor color, UiPosition pos, UiOffset? offset, string name, string parent) : this(UiPanel.Create(pos, offset, color), name, parent) { }
+        
+        public UiBuilder(BaseUiComponent root, string name, string parent) : this()
+        {
+            SetRoot(root, name, parent);
+        }
+        
+        public UiBuilder()
+        {
+            _components = UiFrameworkPool.GetList<BaseUiComponent>();
+            //_componentLookup = UiFrameworkPool.GetHash<string, BaseUiComponent>();
+            _font = _globalFont;
+        }
+        
+        public void EnsureCapacity(int capacity)
+        {
+            if (_components.Capacity < capacity)
+            {
+                _components.Capacity = capacity;
+            }
+        }
+        
+        public void SetRoot(BaseUiComponent component, string name, string parent)
+        {
+            Root = component;
+            component.Parent = parent;
+            component.Name = name;
+            _components.Add(component);
+            _rootName = name;
+            _componentBaseName = name + "_";
+        }
+        
+        public void OverrideRoot(BaseUiComponent component)
+        {
+            Root = component;
+        }
+        
+        public void NeedsMouse(bool enabled = true)
+        {
+            _needsMouse = enabled;
+        }
+        
+        public void NeedsKeyboard(bool enabled = true)
+        {
+            _needsKeyboard = enabled;
+        }
+        
+        public void SetCurrentFont(UiFont font)
+        {
+            _font = UiConstants.UiFonts.GetUiFont(font);
+        }
+        
+        public static void SetGlobalFont(UiFont font)
+        {
+            _globalFont = UiConstants.UiFonts.GetUiFont(font);
+        }
+        
+        // public T GetUi<T>(string name) where T : BaseUiComponent
+        // {
+            //     return (T)_componentLookup[name];
+        // }
+        #endregion
+        
+        #region Decontructor
+        ~UiBuilder()
+        {
+            DisposeInternal();
+        }
+        
+        public void Dispose()
+        {
+            DisposeInternal();
+            //Need this because there is a global GC class that causes issues
+            //ReSharper disable once RedundantNameQualifier
+            System.GC.SuppressFinalize(this);
+        }
+        
+        private void DisposeInternal()
+        {
+            if (_disposed)
+            {
+                return;
+            }
+            
+            _disposed = true;
+            
+            for (int index = 0; index < _components.Count; index++)
+            {
+                _components[index].Dispose();
+            }
+            
+            UiFrameworkPool.FreeList(ref _components);
+            //UiFrameworkPool.FreeHash(ref _componentLookup);
+            Root = null;
         }
         #endregion
         
@@ -735,22 +750,22 @@ namespace Oxide.Plugins
         #region Destroy Ui
         public void DestroyUi(BasePlayer player)
         {
-            DestroyUi(player, Root.Name);
+            DestroyUi(player, _rootName);
         }
         
         public void DestroyUi(Connection connection)
         {
-            DestroyUi(connection, Root.Name);
+            DestroyUi(connection, _rootName);
         }
         
         public void DestroyUi(List<Connection> connections)
         {
-            DestroyUi(connections, Root.Name);
+            DestroyUi(connections, _rootName);
         }
         
         public void DestroyUi()
         {
-            DestroyUi(Root.Name);
+            DestroyUi(_rootName);
         }
         
         public void DestroyUiImages(BasePlayer player)
@@ -807,6 +822,88 @@ namespace Oxide.Plugins
             CommunityEntity.ServerInstance.ClientRPCEx(new SendInfo(connections), null, UiConstants.RpcFunctions.DestroyUiFunc, name);
         }
         #endregion
+        
+        #region Destroy & Add UI
+        public void DestroyAndAddUi(BasePlayer player)
+        {
+            DestroyAndAddUi(player.Connection);
+        }
+        
+        public void DestroyAndAddUi(Connection connection)
+        {
+            string json = ToJson();
+            DestroyUi(connection, _rootName);
+            AddUi(connection, json);
+        }
+        
+        public void DestroyAndAddUi(List<Connection> connections)
+        {
+            string json = ToJson();
+            DestroyUi(connections, _rootName);
+            AddUi(connections, json);
+        }
+        
+        public void DestroyAndAddUi()
+        {
+            string json = ToJson();
+            DestroyUi(Net.sv.connections, _rootName);
+            AddUi(Net.sv.connections, json);
+        }
+        #endregion
+    }
+    #endregion
+
+    #region Builder\UiBuilder.CustomBuilders.cs
+    public partial class UiBuilder
+    {
+        /// <summary>
+        /// Creates a UiBuilder that is designed to be a popup modal
+        /// </summary>
+        /// <param name="offset">Dimensions of the modal</param>
+        /// <param name="modalColor">Modal form color</param>
+        /// <param name="name">Name of the UI</param>
+        /// <param name="layer">Layer the UI is on</param>
+        /// <returns></returns>
+        public static UiBuilder CreateModal(UiOffset offset, UiColor modalColor, string name, UiLayer layer = UiLayer.Overlay)
+        {
+            UiBuilder builder = new UiBuilder();
+            UiPanel backgroundBlur = UiPanel.Create(UiPosition.Full, null, new UiColor(0, 0, 0, 0.5f));
+            backgroundBlur.AddMaterial(UiConstants.Materials.InGameBlur);
+            builder.SetRoot(backgroundBlur, name, UiConstants.UiLayers.GetLayer(layer));
+            UiPanel modal = UiPanel.Create(UiPosition.MiddleMiddle, offset, modalColor);
+            builder.AddComponent(modal, backgroundBlur);
+            builder.OverrideRoot(modal);
+            return builder;
+        }
+        
+        /// <summary>
+        /// Creates a UI builder that when created before your main UI will run a command if the user click outside of the UI window
+        /// </summary>
+        /// <param name="cmd">Command to run when the button is clicked</param>
+        /// <param name="name">Name of the UI</param>
+        /// <param name="layer">Layer the UI is on</param>
+        /// <returns></returns>
+        public static UiBuilder CreateOutsideClose(string cmd, string name, UiLayer layer = UiLayer.Overlay)
+        {
+            UiBuilder builder = new UiBuilder();
+            UiButton button = UiButton.CreateCommand(UiPosition.Full, null, UiColors.StandardColors.Clear, cmd);
+            builder.SetRoot(button, name, UiConstants.UiLayers.GetLayer(layer));
+            builder.NeedsMouse();
+            return builder;
+        }
+        
+        /// <summary>
+        /// Creates a UI builder that will hold mouse input so the mouse doesn't reset position when updating other UI's
+        /// </summary>
+        /// <param name="name">Name of the UI</param>
+        /// <param name="layer">Layer the UI is on</param>
+        /// <returns></returns>
+        public static UiBuilder CreateMouseLock(string name, UiLayer layer = UiLayer.Overlay)
+        {
+            UiBuilder builder = new UiBuilder(UiColors.StandardColors.Clear, UiPosition.None, name, UiConstants.UiLayers.GetLayer(layer));
+            builder.NeedsMouse();
+            return builder;
+        }
     }
     #endregion
 
@@ -3011,7 +3108,8 @@ namespace Oxide.Plugins
     #region Positions\UiPosition.cs
     public struct UiPosition
     {
-        public static readonly UiPosition FullPosition = new UiPosition(0, 0, 1, 1);
+        public static readonly UiPosition None = new UiPosition(0, 0, 0, 0);
+        public static readonly UiPosition Full = new UiPosition(0, 0, 1, 1);
         public static readonly UiPosition TopLeft = new UiPosition(0, 1, 0, 1);
         public static readonly UiPosition MiddleLeft = new UiPosition(0, .5f, 0, .5f);
         public static readonly UiPosition BottomLeft = new UiPosition(0, 0, 0, 0);
@@ -3545,6 +3643,11 @@ namespace Oxide.Plugins
             image.RawImage.Color = color;
             image.RawImage.Texture = icon;
             return image;
+        }
+        
+        public void SetMaterial(string material)
+        {
+            RawImage.Material = material;
         }
         
         public void SetFadeIn(float duration)
