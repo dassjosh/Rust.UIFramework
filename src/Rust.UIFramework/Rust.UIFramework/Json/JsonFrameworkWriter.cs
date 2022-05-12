@@ -276,16 +276,19 @@ namespace Oxide.Ext.UiFramework.Json
         public void WriteTextValue(string value)
         {
             _writer.Write(QuoteChar);
-            for (int i = 0; i < value.Length; i++)
+            if (value != null)
             {
-                char character = value[i];
-                if (character == '\"')
+                for (int i = 0; i < value.Length; i++)
                 {
-                    _writer.Write("\\\"");
-                }
-                else
-                {
-                    _writer.Write(character);
+                    char character = value[i];
+                    if (character == '\"')
+                    {
+                        _writer.Write("\\\"");
+                    }
+                    else
+                    {
+                        _writer.Write(character);
+                    }
                 }
             }
             _writer.Write(QuoteChar);
