@@ -53,11 +53,23 @@
           <HintPath>..\packages\Microsoft.Diagnostics.Tracing.TraceEvent.2.0.61\lib\net45\Dia2Lib.dll</HintPath>
           <Private>True</Private>
         </Reference>
+        <Reference Include="Facepunch.Console">
+          <HintPath>..\References\Facepunch.Console.dll</HintPath>
+        </Reference>
         <Reference Include="Facepunch.Network, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
           <HintPath>..\References\Facepunch.Network.dll</HintPath>
         </Reference>
+        <Reference Include="Facepunch.System">
+          <HintPath>..\References\Facepunch.System.dll</HintPath>
+        </Reference>
         <Reference Include="Facepunch.System, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
           <HintPath>..\References\Facepunch.System.dll</HintPath>
+        </Reference>
+        <Reference Include="Facepunch.Unity">
+          <HintPath>..\References\Facepunch.Unity.dll</HintPath>
+        </Reference>
+        <Reference Include="Facepunch.UnityEngine">
+          <HintPath>..\References\Facepunch.UnityEngine.dll</HintPath>
         </Reference>
         <Reference Include="Iced, Version=1.8.0.0, Culture=neutral, PublicKeyToken=5baba79f4264913b">
           <HintPath>..\packages\Iced.1.8.0\lib\net45\Iced.dll</HintPath>
@@ -274,9 +286,13 @@
         <Reference Include="UnityEngine.TextRenderingModule">
           <HintPath>..\References\UnityEngine.TextRenderingModule.dll</HintPath>
         </Reference>
+        <Reference Include="UnityEngine.UI">
+          <HintPath>..\References\UnityEngine.UI.dll</HintPath>
+        </Reference>
     </ItemGroup>
     <ItemGroup>
         <Compile Include="Benchmarks.cs" />
+        <Compile Include="Benchmarks.Example.cs" />
         <Compile Include="Program.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>

@@ -49,5 +49,10 @@ namespace Oxide.Ext.UiFramework.UiElements
             base.LeavePool();
             Button = UiFrameworkPool.Get<ButtonComponent>();
         }
+        
+        public override void DisposeInternal()
+        {
+            UiFrameworkPool.Free(this);
+        }
     }
 }

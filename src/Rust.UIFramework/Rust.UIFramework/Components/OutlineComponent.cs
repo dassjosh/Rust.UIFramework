@@ -1,4 +1,5 @@
 ﻿using Oxide.Ext.UiFramework.Json;
+using Oxide.Ext.UiFramework.Pooling;
 using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Components
@@ -14,10 +15,10 @@ namespace Oxide.Ext.UiFramework.Components
         {
             writer.WriteStartObject();
             writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, Type);
-            writer.AddField(JsonDefaults.Outline.DistanceName, Distance, JsonDefaults.Outline.DistanceValue);
+            writer.AddField(JsonDefaults.Outline.DistanceName, Distance, new Vector2(1.0f, -1.0f));
             if (UseGraphicAlpha)
             {
-                writer.AddFieldRaw(JsonDefaults.Outline.UseGraphicAlphaName, JsonDefaults.Outline.UseGraphicAlphaValue);
+                writer.AddKeyField(JsonDefaults.Outline.UseGraphicAlphaName);
             }
             
             base.WriteComponent(writer);
@@ -26,8 +27,13 @@ namespace Oxide.Ext.UiFramework.Components
 
         protected override void EnterPool()
         {
-            Distance = JsonDefaults.Outline.DistanceValue;
+            Distance = new Vector2(1.0f, -1.0f);
             UseGraphicAlpha = false;
+        }
+        
+        public override void DisposeInternal()
+        {
+            UiFrameworkPool.Free(this);
         }
     }
 }

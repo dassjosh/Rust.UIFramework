@@ -3,7 +3,7 @@ using Oxide.Ext.UiFramework.Json;
 
 namespace Oxide.Ext.UiFramework.Components
 {
-    public class BaseColorComponent : BaseComponent
+    public abstract class BaseColorComponent : BaseComponent
     {
         public UiColor Color;
 

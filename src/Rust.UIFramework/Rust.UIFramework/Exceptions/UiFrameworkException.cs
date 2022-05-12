@@ -4,9 +4,6 @@ namespace Oxide.Ext.UiFramework.Exceptions
 {
     public class UiFrameworkException : Exception
     {
-        public UiFrameworkException(string message) : base(message)
-        {
-            
-        }
+        public UiFrameworkException(string message) : base(message) { }
     }
 }

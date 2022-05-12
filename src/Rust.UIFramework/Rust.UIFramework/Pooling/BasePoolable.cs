@@ -1,12 +1,11 @@
 using System;
-using System.Collections.Generic;
 
 namespace Oxide.Ext.UiFramework.Pooling
 {
     /// <summary>
     /// Represents a poolable object
     /// </summary>
-    public class BasePoolable : IDisposable
+    public abstract class BasePoolable : IDisposable
     {
         internal bool Disposed;
 
@@ -49,38 +48,14 @@ namespace Oxide.Ext.UiFramework.Pooling
             
         }
 
-        /// <summary>
-        /// Frees a pooled object that is part of a field on this object
-        /// </summary>
-        /// <param name="obj">Object to free</param>
-        /// <typeparam name="T">Type of object being freed</typeparam>
-        protected void Free<T>(ref T obj) where T : BasePoolable, new()
-        {
-            if (obj != null && obj._shouldPool)
-            {
-                UiFrameworkPool.Free(ref obj);
-            }
-        }
-        
-        /// <summary>
-        /// Frees a pooled list that is part of a field on this object
-        /// </summary>
-        /// <param name="obj">List to be freed</param>
-        /// <typeparam name="T">Type of the list</typeparam>
-        protected void FreeList<T>(ref List<T> obj)
-        {
-            UiFrameworkPool.FreeList(ref obj);
-        }
-
-        /// <summary>
-        /// Disposes the object when used in a using statement
-        /// </summary>
         public void Dispose()
         {
             if (_shouldPool)
             {
-                UiFrameworkPool.Free(this);
+                DisposeInternal();
             }
         }
+
+        public abstract void DisposeInternal();
     }
 }

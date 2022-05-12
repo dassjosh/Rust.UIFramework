@@ -1,4 +1,5 @@
 ﻿using Oxide.Ext.UiFramework.Json;
+using Oxide.Ext.UiFramework.Pooling;
 
 namespace Oxide.Ext.UiFramework.Components
 {
@@ -14,15 +15,20 @@ namespace Oxide.Ext.UiFramework.Components
             writer.WriteStartObject();
             writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, Type);
             writer.AddFieldRaw(JsonDefaults.ItemIcon.ItemIdName, ItemId);
-            writer.AddField(JsonDefaults.ItemIcon.SkinIdName, SkinId, JsonDefaults.ItemIcon.DefaultSkinId);
+            writer.AddField(JsonDefaults.ItemIcon.SkinIdName, SkinId, default(ulong));
             base.WriteComponent(writer);
             writer.WriteEndObject();
         }
 
         protected override void EnterPool()
         {
-            ItemId = 0;
-            SkinId = JsonDefaults.ItemIcon.DefaultSkinId;
+            ItemId = default(int);
+            SkinId = default(ulong);
+        }
+        
+        public override void DisposeInternal()
+        {
+            UiFrameworkPool.Free(this);
         }
     }
 }

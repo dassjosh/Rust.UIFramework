@@ -26,8 +26,8 @@ namespace Oxide.Ext.UiFramework.Positions
 
         public UiPosition(float xMin, float yMin, float xMax, float yMax)
         {
-            Min = new Vector2(Mathf.Clamp01(xMin), Mathf.Clamp01(yMin));
-            Max = new Vector2(Mathf.Clamp01(xMax), Mathf.Clamp01(yMax));
+            Min = new Vector2(xMin, yMin);
+            Max = new Vector2(xMax, yMax);
         }
 
         /// <summary>

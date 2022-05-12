@@ -13,16 +13,14 @@ namespace Rust.UiFramework.Benchmarks
 #if DEBUG
             Benchmarks benchmarks = new Benchmarks();
             benchmarks.Setup();
-
-            var position = Marshal.SizeOf(typeof(Position));
-            var offset = Marshal.SizeOf(typeof(Offset));
-            var color = Marshal.SizeOf(typeof(UiColor));
-            
-            
             
             while (true)
             {
-               var a = benchmarks.FrameworkBenchmark_WithJson();
+                //var buffer = benchmarks.Buffer;
+                 benchmarks.Setup();
+               //var text = Encoding.UTF8.GetString(buffer, 0, count);
+               //var length = text.Length;
+               //var text1 = Encoding.UTF8.GetBytes(text);
             }
 #else
             BenchmarkRunner.Run<Benchmarks>(config);

@@ -7,26 +7,20 @@ namespace Oxide.Ext.UiFramework.Pooling
     /// </summary>
     public class StringBuilderPool : BasePool<StringBuilder>
     {
-        public static IPool<StringBuilder> Instance;
+        public static readonly IPool<StringBuilder> Instance;
         
         static StringBuilderPool()
         {
             Instance = new StringBuilderPool();
         }
 
-        private StringBuilderPool() : base(256) { }
+        private StringBuilderPool() : base(32) { }
         
         ///<inheritdoc/>
         protected override bool OnFreeItem(ref StringBuilder item)
         {
             item.Length = 0;
             return true;
-        }
-        
-        public override void Clear()
-        {
-            base.Clear();
-            Instance = null;
         }
     }
 }

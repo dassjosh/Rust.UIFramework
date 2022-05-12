@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
-using System.Text;
+using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Offsets;
 using UnityEngine;
 
-namespace Oxide.Ext.UiFramework.Extensions
+namespace Oxide.Ext.UiFramework.Cache
 {
-    public static class VectorExt
+    public static class VectorCache
     {
         private const string Format = "0.####";
         private const char Space = ' ';
@@ -14,7 +14,7 @@ namespace Oxide.Ext.UiFramework.Extensions
         private static readonly Dictionary<ushort, string> PositionCache = new Dictionary<ushort, string>();
         private static readonly Dictionary<short, string> OffsetCache = new Dictionary<short, string>();
 
-        static VectorExt()
+        static VectorCache()
         {
             for (ushort i = 0; i <= PositionRounder; i++)
             {
@@ -22,14 +22,44 @@ namespace Oxide.Ext.UiFramework.Extensions
             }
         }
         
-        public static void WritePos(StringBuilder sb, Vector2 pos)
+        public static void WritePos(JsonBinaryWriter sb, Vector2 pos)
         {
-            sb.Append(PositionCache[(ushort)(pos.x * PositionRounder)]);
-            sb.Append(Space);
-            sb.Append(PositionCache[(ushort)(pos.y * PositionRounder)]);
+            if (pos.x >= 0f && pos.x <= 1f)
+            {
+                sb.Write(PositionCache[(ushort)(pos.x * PositionRounder)]);
+            }
+            else
+            {
+                string value;
+                if(!PositionCache.TryGetValue((ushort)(pos.x * PositionRounder), out value))
+                {
+                    value = pos.x.ToString(Format);
+                    PositionCache[(ushort)(pos.x * PositionRounder)] = value;
+                }
+                
+                sb.Write(value);
+            }
+            
+            sb.Write(Space);
+            
+            if (pos.y >= 0f && pos.y <= 1f)
+            {
+                sb.Write(PositionCache[(ushort)(pos.y * PositionRounder)]);
+            }
+            else
+            {
+                string value;
+                if(!PositionCache.TryGetValue((ushort)(pos.y * PositionRounder), out value))
+                {
+                    value = pos.y.ToString(Format);
+                    PositionCache[(ushort)(pos.y * PositionRounder)] = value;
+                }
+                
+                sb.Write(value);
+            }
         }
         
-        public static void WriteVector2(StringBuilder sb, Vector2 pos)
+        public static void WriteVector2(JsonBinaryWriter sb, Vector2 pos)
         {
             string formattedPos;
             if (!PositionCache.TryGetValue((ushort)(pos.x * PositionRounder), out formattedPos))
@@ -38,8 +68,8 @@ namespace Oxide.Ext.UiFramework.Extensions
                 PositionCache[(ushort)(pos.x * PositionRounder)] = formattedPos;
             }
                 
-            sb.Append(formattedPos);
-            sb.Append(Space);
+            sb.Write(formattedPos);
+            sb.Write(Space);
                 
             if (!PositionCache.TryGetValue((ushort)(pos.y * PositionRounder), out formattedPos))
             {
@@ -47,10 +77,10 @@ namespace Oxide.Ext.UiFramework.Extensions
                 PositionCache[(ushort)(pos.y * PositionRounder)] = formattedPos;
             }
                 
-            sb.Append(formattedPos);
+            sb.Write(formattedPos);
         }
         
-        public static void WritePos(StringBuilder sb, Vector2Short pos)
+        public static void WritePos(JsonBinaryWriter sb, Vector2Short pos)
         {
             string formattedPos;
             if (!OffsetCache.TryGetValue(pos.X, out formattedPos))
@@ -59,8 +89,8 @@ namespace Oxide.Ext.UiFramework.Extensions
                 OffsetCache[pos.X] = formattedPos;
             }
             
-            sb.Append(formattedPos);
-            sb.Append(Space);
+            sb.Write(formattedPos);
+            sb.Write(Space);
             
             if (!OffsetCache.TryGetValue(pos.Y, out formattedPos))
             {
@@ -68,7 +98,7 @@ namespace Oxide.Ext.UiFramework.Extensions
                 OffsetCache[pos.Y] = formattedPos;
             }
             
-            sb.Append(formattedPos);
+            sb.Write(formattedPos);
         }
     }
 }

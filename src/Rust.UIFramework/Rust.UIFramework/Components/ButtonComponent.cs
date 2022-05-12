@@ -1,4 +1,5 @@
 ﻿using Oxide.Ext.UiFramework.Json;
+using Oxide.Ext.UiFramework.Pooling;
 
 namespace Oxide.Ext.UiFramework.Components
 {
@@ -24,8 +25,11 @@ namespace Oxide.Ext.UiFramework.Components
             base.EnterPool();
             Command = null;
             Close = null;
-            Sprite = null;
-            Material = null;
+        }
+        
+        public override void DisposeInternal()
+        {
+            UiFrameworkPool.Free(this);
         }
     }
 }

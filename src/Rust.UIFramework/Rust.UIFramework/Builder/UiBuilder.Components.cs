@@ -1,4 +1,5 @@
-﻿using Oxide.Ext.UiFramework.Colors;
+﻿using Oxide.Ext.UiFramework.Cache;
+using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Exceptions;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
@@ -14,14 +15,9 @@ namespace Oxide.Ext.UiFramework.Builder
         public void AddComponent(BaseUiComponent component, BaseUiComponent parent)
         {
             component.Parent = parent.Name;
-            component.Name = GetComponentName();
+            component.Name = UiNameCache.GetName(_rootName, _components.Count);
             //_componentLookup[component.Name] = component;
             _components.Add(component);
-        }
-
-        public string GetComponentName()
-        {
-            return string.Concat(_componentBaseName, _components.Count.ToString());
         }
         #endregion
 

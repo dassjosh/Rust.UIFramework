@@ -3,7 +3,6 @@ using Newtonsoft.Json;
 using Oxide.Core.Plugins;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using UnityEngine;
@@ -41,6 +40,10 @@ namespace Oxide.Plugins
         public override void HandleRemovedFromManager(PluginManager manager)
         {
             UiFrameworkPool.OnUnload();
+            UiFrameworkArrayPool<byte>.Clear();
+            UiFrameworkArrayPool<char>.Clear();
+            UiColorCache.OnUnload();
+            UiNameCache.OnUnload();
             base.HandleRemovedFromManager(manager);
         }
         #endregion
@@ -49,50 +52,6 @@ namespace Oxide.Plugins
         #region UiConstants.cs
         public class UiConstants
         {
-            public static class UiFonts
-            {
-                private const string DroidSansMono = "droidsansmono.ttf";
-                private const string PermanentMarker = "permanentmarker.ttf";
-                private const string RobotoCondensedBold = "robotocondensed-bold.ttf";
-                private const string RobotoCondensedRegular = "robotocondensed-regular.ttf";
-                
-                private static readonly Hash<UiFont, string> Fonts = new Hash<UiFont, string>
-                {
-                    [UiFont.DroidSansMono] = DroidSansMono,
-                    [UiFont.PermanentMarker] = PermanentMarker,
-                    [UiFont.RobotoCondensedBold] = RobotoCondensedBold,
-                    [UiFont.RobotoCondensedRegular] = RobotoCondensedRegular,
-                };
-                
-                public static string GetUiFont(UiFont font)
-                {
-                    return Fonts[font];
-                }
-            }
-            
-            public static class UiLayers
-            {
-                private const string Overall = "Overall";
-                private const string Overlay = "Overlay";
-                private const string Hud = "Hud";
-                private const string HudMenu = "Hud.Menu";
-                private const string Under = "Under";
-                
-                private static readonly Hash<UiLayer, string> Layers = new Hash<UiLayer, string>
-                {
-                    [UiLayer.Overall] = Overall,
-                    [UiLayer.Overlay] = Overlay,
-                    [UiLayer.Hud] = Hud,
-                    [UiLayer.HudMenu] = HudMenu,
-                    [UiLayer.Under] = Under,
-                };
-                
-                public static string GetLayer(UiLayer layer)
-                {
-                    return Layers[layer];
-                }
-            }
-            
             public static class RpcFunctions
             {
                 public const string AddUiFunc = "AddUI";
@@ -109,6 +68,105 @@ namespace Oxide.Plugins
         }
         #endregion
 
+        #region Builder\UiBuilder.AddUi.cs
+        public partial class UiBuilder
+        {
+            #region Add UI
+            public void AddUi(BasePlayer player)
+            {
+                AddUi(new SendInfo(player.Connection));
+            }
+            
+            public void AddUi(Connection connection)
+            {
+                AddUi(new SendInfo(connection));
+            }
+            
+            public void AddUi(List<Connection> connections)
+            {
+                AddUi(new SendInfo(connections));
+            }
+            
+            public void AddUi()
+            {
+                AddUi(new SendInfo(Net.sv.connections));
+            }
+            
+            private void AddUi(SendInfo send)
+            {
+                JsonFrameworkWriter writer = CreateWriter();
+                AddUi(send, writer);
+                UiFrameworkPool.Free(ref writer);
+            }
+            #endregion
+            
+            #region Add UI Cached
+            public void AddUiCached(BasePlayer player)
+            {
+                AddUiCached(new SendInfo(player.Connection));
+            }
+            
+            public void AddUiCached(Connection connection)
+            {
+                AddUiCached(new SendInfo(connection));
+            }
+            
+            public void AddUiCached(List<Connection> connections)
+            {
+                AddUiCached(new SendInfo(connections));
+            }
+            
+            public void AddUiCached()
+            {
+                AddUiCached(new SendInfo(Net.sv.connections));
+            }
+            
+            private void AddUiCached(SendInfo send)
+            {
+                AddUi(send, _cachedJson);
+            }
+            #endregion
+            
+            #region Net Write
+            private static void AddUi(SendInfo send, JsonFrameworkWriter writer)
+            {
+                if (!ClientRPCStart(UiConstants.RpcFunctions.AddUiFunc))
+                {
+                    return;
+                }
+                
+                writer.WriteToNetwork();
+                Net.sv.write.Send(send);
+            }
+            
+            private static void AddUi(SendInfo send, byte[] bytes)
+            {
+                if (!ClientRPCStart(UiConstants.RpcFunctions.AddUiFunc))
+                {
+                    return;
+                }
+                
+                Net.sv.write.BytesWithSize(bytes);
+                Net.sv.write.Send(send);
+            }
+            
+            private static bool ClientRPCStart(string funcName)
+            {
+                if (!Net.sv.IsConnected() || CommunityEntity.ServerInstance.net == null || !Net.sv.write.Start())
+                {
+                    return false;
+                }
+                
+                Net.sv.write.PacketID(Message.Type.RPCMessage);
+                Net.sv.write.UInt32(CommunityEntity.ServerInstance.net.ID);
+                Net.sv.write.UInt32(StringPool.Get(funcName));
+                Net.sv.write.UInt64(0UL);
+                return true;
+            }
+            #endregion
+        }
+        #endregion
+
         #region Builder\UiBuilder.Components.cs
         public partial class UiBuilder
         {
@@ -116,14 +174,9 @@ namespace Oxide.Plugins
             public void AddComponent(BaseUiComponent component, BaseUiComponent parent)
             {
                 component.Parent = parent.Name;
-                component.Name = GetComponentName();
+                component.Name = UiNameCache.GetName(_rootName, _components.Count);
                 //_componentLookup[component.Name] = component;
                 _components.Add(component);
-            }
-            
-            public string GetComponentName()
-            {
-                return string.Concat(_componentBaseName, _components.Count.ToString());
             }
             #endregion
             
@@ -390,7 +443,7 @@ namespace Oxide.Plugins
                     
                     string incrementDisplay = increment.ToString();
                     TextButton(parent, string.Concat("-", incrementDisplay), fontSize, textColor, buttonColor, subtractSlice, $"{cmd} {(value - increment).ToString()}");
-                    TextButton(parent, incrementDisplay, fontSize, textColor, buttonColor, addSlice, $"{cmd} {(value + increment).ToString()}");
+                    TextButton(parent, string.Concat("+", incrementDisplay), fontSize, textColor, buttonColor, addSlice, $"{cmd} {(value + increment).ToString()}");
                 }
                 
                 UiInput input = Input(parent, value.ToString(), fontSize, textColor, backgroundColor, pos.SliceHorizontal(0.3f, 0.7f), cmd, readOnly: readOnly);
@@ -450,7 +503,7 @@ namespace Oxide.Plugins
                 TextButton(parent, ">>>", fontSize, textColor, buttonColor, grid, $"{cmd} {maxPage.ToString()}");
             }
             
-            public void Border(BaseUiComponent parent, UiColor color, int width = 1, BorderMode border = BorderMode.Top | BorderMode.Bottom | BorderMode.Left | BorderMode.Right)
+            public void Border(BaseUiComponent parent, UiColor color, int width = 1, BorderMode border = BorderMode.All)
             {
                 //If width is 0 nothing is displayed so don't try to render
                 if (width == 0)
@@ -492,24 +545,29 @@ namespace Oxide.Plugins
                 }
                 else
                 {
+                    int tbMin = left ? width : 0;
+                    int tbMax = right ? -width : 0;
+                    int lrMin = top ? width : 0;
+                    int lrMax = bottom ? -width : 0;
+                    
                     if (top)
                     {
-                        Panel(parent, color, UiPosition.Top, new UiOffset(0, width, 0, 0));
+                        Panel(parent, color, UiPosition.Top, new UiOffset(tbMin, width, tbMax, 0));
                     }
                     
                     if (left)
                     {
-                        Panel(parent, color, UiPosition.Left, new UiOffset(0, 0, -width, 0));
+                        Panel(parent, color, UiPosition.Left, new UiOffset(0, lrMin, -width, lrMax));
                     }
                     
                     if (bottom)
                     {
-                        Panel(parent, color, UiPosition.Bottom, new UiOffset(0, 0, 0, -width));
+                        Panel(parent, color, UiPosition.Bottom, new UiOffset(tbMin, 0, tbMax, -width));
                     }
                     
                     if (right)
                     {
-                        Panel(parent, color, UiPosition.Right, new UiOffset(width, 0, 0, 0));
+                        Panel(parent, color, UiPosition.Right, new UiOffset(width, lrMin, 0, lrMax));
                     }
                 }
             }
@@ -521,19 +579,91 @@ namespace Oxide.Plugins
         }
         #endregion
 
+        #region Builder\UiBuilder.CreateBuilders.cs
+        public partial class UiBuilder
+        {
+            public static UiBuilder Create(UiPosition pos, string name, string parent) => Create(pos, null, name, parent);
+            public static UiBuilder Create(UiPosition pos, string name, UiLayer parent = UiLayer.Overlay) => Create(pos, null, name, UiLayerCache.GetLayer(parent));
+            public static UiBuilder Create(UiPosition pos, UiOffset? offset, string name, UiLayer parent = UiLayer.Overlay) => Create(pos, offset, name, UiLayerCache.GetLayer(parent));
+            public static UiBuilder Create(UiPosition pos, UiOffset? offset, string name, string parent) => Create(UiSection.Create(pos, offset), name, parent);
+            public static UiBuilder Create(UiColor color, UiPosition pos, string name, string parent) => Create(color, pos, null, name, parent);
+            public static UiBuilder Create(UiColor color, UiPosition pos, string name, UiLayer parent = UiLayer.Overlay) => Create(color, pos, null, name, UiLayerCache.GetLayer(parent));
+            public static UiBuilder Create(UiColor color, UiPosition pos, UiOffset? offset, string name, UiLayer parent = UiLayer.Overlay) => Create(color, pos, offset, name, UiLayerCache.GetLayer(parent));
+            public static UiBuilder Create(UiColor color, UiPosition pos, UiOffset? offset, string name, string parent) => Create(UiPanel.Create(pos, offset, color), name, parent);
+            public static UiBuilder Create(BaseUiComponent root, string name, string parent)
+            {
+                UiBuilder builder = Create();
+                builder.SetRoot(root, name, parent);
+                return builder;
+            }
+            
+            public static UiBuilder Create()
+            {
+                return UiFrameworkPool.Get<UiBuilder>();
+            }
+            
+            /// <summary>
+            /// Creates a UiBuilder that is designed to be a popup modal
+            /// </summary>
+            /// <param name="offset">Dimensions of the modal</param>
+            /// <param name="modalColor">Modal form color</param>
+            /// <param name="name">Name of the UI</param>
+            /// <param name="layer">Layer the UI is on</param>
+            /// <returns></returns>
+            public static UiBuilder CreateModal(UiOffset offset, UiColor modalColor, string name, UiLayer layer = UiLayer.Overlay)
+            {
+                UiBuilder builder = Create();
+                UiPanel backgroundBlur = UiPanel.Create(UiPosition.Full, null, new UiColor(0, 0, 0, 0.5f));
+                backgroundBlur.AddMaterial(UiConstants.Materials.InGameBlur);
+                builder.SetRoot(backgroundBlur, name, UiLayerCache.GetLayer(layer));
+                UiPanel modal = UiPanel.Create(UiPosition.MiddleMiddle, offset, modalColor);
+                builder.AddComponent(modal, backgroundBlur);
+                builder.OverrideRoot(modal);
+                return builder;
+            }
+            
+            /// <summary>
+            /// Creates a UI builder that when created before your main UI will run a command if the user click outside of the UI window
+            /// </summary>
+            /// <param name="cmd">Command to run when the button is clicked</param>
+            /// <param name="name">Name of the UI</param>
+            /// <param name="layer">Layer the UI is on</param>
+            /// <returns></returns>
+            public static UiBuilder CreateOutsideClose(string cmd, string name, UiLayer layer = UiLayer.Overlay)
+            {
+                UiBuilder builder = Create();
+                UiButton button = UiButton.CreateCommand(UiPosition.Full, null, UiColors.StandardColors.Clear, cmd);
+                builder.SetRoot(button, name, UiLayerCache.GetLayer(layer));
+                builder.NeedsMouse();
+                return builder;
+            }
+            
+            /// <summary>
+            /// Creates a UI builder that will hold mouse input so the mouse doesn't reset position when updating other UI's
+            /// </summary>
+            /// <param name="name">Name of the UI</param>
+            /// <param name="layer">Layer the UI is on</param>
+            /// <returns></returns>
+            public static UiBuilder CreateMouseLock(string name, UiLayer layer = UiLayer.Overlay)
+            {
+                UiBuilder builder = Create(UiColors.StandardColors.Clear, UiPosition.None, name, UiLayerCache.GetLayer(layer));
+                builder.NeedsMouse();
+                return builder;
+            }
+        }
+        #endregion
+
         #region Builder\UiBuilder.cs
-        public partial class UiBuilder : IDisposable
+        public partial class UiBuilder : BasePoolable
         {
             public BaseUiComponent Root;
             
             private bool _needsMouse;
             private bool _needsKeyboard;
-            private bool _disposed;
             
             private string _rootName;
-            private string _componentBaseName;
             private string _font;
-            private string _cachedJson;
+            private byte[] _cachedJson;
             
             private List<BaseUiComponent> _components;
             //private Hash<string, BaseUiComponent> _componentLookup;
@@ -544,34 +674,6 @@ namespace Oxide.Plugins
             static UiBuilder()
             {
                 SetGlobalFont(UiFont.RobotoCondensedRegular);
-            }
-            
-            public UiBuilder(UiPosition pos, string name, string parent) : this(pos, null, name, parent) { }
-            
-            public UiBuilder(UiPosition pos, string name, UiLayer parent = UiLayer.Overlay) : this(pos, null, name, UiConstants.UiLayers.GetLayer(parent)) { }
-            
-            public UiBuilder(UiPosition pos, UiOffset? offset, string name, UiLayer parent = UiLayer.Overlay) : this(pos, offset, name, UiConstants.UiLayers.GetLayer(parent)) { }
-            
-            public UiBuilder(UiPosition pos, UiOffset? offset, string name, string parent) : this(UiSection.Create(pos, offset), name, parent) { }
-            
-            public UiBuilder(UiColor color, UiPosition pos, string name, string parent) : this(color, pos, null, name, parent) { }
-            
-            public UiBuilder(UiColor color, UiPosition pos, string name, UiLayer parent = UiLayer.Overlay) : this(color, pos, null, name, UiConstants.UiLayers.GetLayer(parent)) { }
-            
-            public UiBuilder(UiColor color, UiPosition pos, UiOffset? offset, string name, UiLayer parent = UiLayer.Overlay) : this(color, pos, offset, name, UiConstants.UiLayers.GetLayer(parent)) { }
-            
-            public UiBuilder(UiColor color, UiPosition pos, UiOffset? offset, string name, string parent) : this(UiPanel.Create(pos, offset, color), name, parent) { }
-            
-            public UiBuilder(BaseUiComponent root, string name, string parent) : this()
-            {
-                SetRoot(root, name, parent);
-            }
-            
-            public UiBuilder()
-            {
-                _components = UiFrameworkPool.GetList<BaseUiComponent>();
-                //_componentLookup = UiFrameworkPool.GetHash<string, BaseUiComponent>();
-                _font = _globalFont;
             }
             
             public void EnsureCapacity(int capacity)
@@ -589,7 +691,6 @@ namespace Oxide.Plugins
                 component.Name = name;
                 _components.Add(component);
                 _rootName = name;
-                _componentBaseName = name + "_";
             }
             
             public void OverrideRoot(BaseUiComponent component)
@@ -609,12 +710,12 @@ namespace Oxide.Plugins
             
             public void SetCurrentFont(UiFont font)
             {
-                _font = UiConstants.UiFonts.GetUiFont(font);
+                _font = UiFontCache.GetUiFont(font);
             }
             
             public static void SetGlobalFont(UiFont font)
             {
-                _globalFont = UiConstants.UiFonts.GetUiFont(font);
+                _globalFont = UiFontCache.GetUiFont(font);
             }
             
             // public T GetUi<T>(string name) where T : BaseUiComponent
@@ -626,26 +727,19 @@ namespace Oxide.Plugins
             #region Decontructor
             ~UiBuilder()
             {
-                DisposeInternal();
-            }
-            
-            public void Dispose()
-            {
-                DisposeInternal();
+                Dispose();
                 //Need this because there is a global GC class that causes issues
                 //ReSharper disable once RedundantNameQualifier
                 System.GC.SuppressFinalize(this);
             }
             
-            private void DisposeInternal()
+            public override void DisposeInternal()
             {
-                if (_disposed)
-                {
-                    return;
-                }
-                
-                _disposed = true;
-                
+                UiFrameworkPool.Free(this);
+            }
+            
+            protected override void EnterPool()
+            {
                 for (int index = 0; index < _components.Count; index++)
                 {
                     _components[index].Dispose();
@@ -654,11 +748,27 @@ namespace Oxide.Plugins
                 UiFrameworkPool.FreeList(ref _components);
                 //UiFrameworkPool.FreeHash(ref _componentLookup);
                 Root = null;
+                _cachedJson = null;
+            }
+            
+            protected override void LeavePool()
+            {
+                _components = UiFrameworkPool.GetList<BaseUiComponent>();
+                //_componentLookup = UiFrameworkPool.GetHash<string, BaseUiComponent>();
+                _font = _globalFont;
             }
             #endregion
             
             #region JSON
-            public string ToJson()
+            public int WriteBuffer(byte[] buffer)
+            {
+                JsonFrameworkWriter writer = CreateWriter();
+                int bytes = writer.WriteTo(buffer);
+                writer.Dispose();
+                return bytes;
+            }
+            
+            public JsonFrameworkWriter CreateWriter()
             {
                 JsonFrameworkWriter writer = JsonFrameworkWriter.Create();
                 
@@ -672,79 +782,28 @@ namespace Oxide.Plugins
                 }
                 
                 writer.WriteEndArray();
-                
-                return writer.ToJson();
+                return writer;
             }
             
             public void CacheJson()
             {
-                _cachedJson = ToJson();
+                JsonFrameworkWriter writer = CreateWriter();
+                _cachedJson = writer.ToArray();
+                writer.Dispose();
+            }
+            
+            public byte[] GetBytes()
+            {
+                CacheJson();
+                return _cachedJson;
             }
             #endregion
-            
-            #region Add UI
-            public void AddUi(BasePlayer player)
-            {
-                AddUi(player.Connection);
-            }
-            
-            public void AddUiCached(BasePlayer player)
-            {
-                AddUiCached(player.Connection);
-            }
-            
-            public void AddUi(Connection connection)
-            {
-                AddUi(connection, ToJson());
-            }
-            
-            public void AddUiCached(Connection connection)
-            {
-                AddUi(connection, _cachedJson);
-            }
-            
-            public void AddUi(List<Connection> connections)
-            {
-                AddUi(connections, ToJson());
-            }
-            
-            public void AddUiCached(List<Connection> connections)
-            {
-                AddUi(connections, _cachedJson);
-            }
-            
-            public void AddUi()
-            {
-                AddUi(ToJson());
-            }
-            
-            public void AddUiCached()
-            {
-                AddUi(_cachedJson);
-            }
-            
-            public static void AddUi(BasePlayer player, string json)
-            {
-                AddUi(player.Connection, json);
-            }
-            
-            public static void AddUi(string json)
-            {
-                AddUi(Net.sv.connections, json);
-            }
-            
-            public static void AddUi(Connection connection, string json)
-            {
-                CommunityEntity.ServerInstance.ClientRPCEx(new SendInfo(connection), null, UiConstants.RpcFunctions.AddUiFunc, json);
-            }
-            
-            public static void AddUi(List<Connection> connections, string json)
-            {
-                CommunityEntity.ServerInstance.ClientRPCEx(new SendInfo(connections), null, UiConstants.RpcFunctions.AddUiFunc, json);
-            }
-            #endregion
-            
-            #region Destroy Ui
+        }
+        #endregion
+
+        #region Builder\UiBuilder.DestroyUi.cs
+        public partial class UiBuilder
+        {
             public void DestroyUi(BasePlayer player)
             {
                 DestroyUi(player, _rootName);
@@ -818,88 +877,247 @@ namespace Oxide.Plugins
             {
                 CommunityEntity.ServerInstance.ClientRPCEx(new SendInfo(connections), null, UiConstants.RpcFunctions.DestroyUiFunc, name);
             }
-            #endregion
-            
-            #region Destroy & Add UI
-            public void DestroyAndAddUi(BasePlayer player)
-            {
-                DestroyAndAddUi(player.Connection);
-            }
-            
-            public void DestroyAndAddUi(Connection connection)
-            {
-                string json = ToJson();
-                DestroyUi(connection, _rootName);
-                AddUi(connection, json);
-            }
-            
-            public void DestroyAndAddUi(List<Connection> connections)
-            {
-                string json = ToJson();
-                DestroyUi(connections, _rootName);
-                AddUi(connections, json);
-            }
-            
-            public void DestroyAndAddUi()
-            {
-                string json = ToJson();
-                DestroyUi(Net.sv.connections, _rootName);
-                AddUi(Net.sv.connections, json);
-            }
-            #endregion
         }
         #endregion
 
-        #region Builder\UiBuilder.CustomBuilders.cs
-        public partial class UiBuilder
+        #region Cache\EnumCache{T}.cs
+        public static class EnumCache<T>
         {
-            /// <summary>
-            /// Creates a UiBuilder that is designed to be a popup modal
-            /// </summary>
-            /// <param name="offset">Dimensions of the modal</param>
-            /// <param name="modalColor">Modal form color</param>
-            /// <param name="name">Name of the UI</param>
-            /// <param name="layer">Layer the UI is on</param>
-            /// <returns></returns>
-            public static UiBuilder CreateModal(UiOffset offset, UiColor modalColor, string name, UiLayer layer = UiLayer.Overlay)
+            private static readonly Dictionary<T, string> CachedStrings = new Dictionary<T, string>();
+            
+            static EnumCache()
             {
-                UiBuilder builder = new UiBuilder();
-                UiPanel backgroundBlur = UiPanel.Create(UiPosition.Full, null, new UiColor(0, 0, 0, 0.5f));
-                backgroundBlur.AddMaterial(UiConstants.Materials.InGameBlur);
-                builder.SetRoot(backgroundBlur, name, UiConstants.UiLayers.GetLayer(layer));
-                UiPanel modal = UiPanel.Create(UiPosition.MiddleMiddle, offset, modalColor);
-                builder.AddComponent(modal, backgroundBlur);
-                builder.OverrideRoot(modal);
-                return builder;
+                foreach (T value in Enum.GetValues(typeof(T)).Cast<T>())
+                {
+                    CachedStrings[value] = value.ToString();
+                }
             }
             
-            /// <summary>
-            /// Creates a UI builder that when created before your main UI will run a command if the user click outside of the UI window
-            /// </summary>
-            /// <param name="cmd">Command to run when the button is clicked</param>
-            /// <param name="name">Name of the UI</param>
-            /// <param name="layer">Layer the UI is on</param>
-            /// <returns></returns>
-            public static UiBuilder CreateOutsideClose(string cmd, string name, UiLayer layer = UiLayer.Overlay)
+            public static string ToString(T value)
             {
-                UiBuilder builder = new UiBuilder();
-                UiButton button = UiButton.CreateCommand(UiPosition.Full, null, UiColors.StandardColors.Clear, cmd);
-                builder.SetRoot(button, name, UiConstants.UiLayers.GetLayer(layer));
-                builder.NeedsMouse();
-                return builder;
+                return CachedStrings[value];
+            }
+        }
+        #endregion
+
+        #region Cache\UiColorCache.cs
+        public static class UiColorCache
+        {
+            private const string Format = "0.####";
+            private const char Space = ' ';
+            
+            private static readonly Dictionary<uint, string> ColorCache = new Dictionary<uint, string>();
+            
+            public static void WriteColor(JsonBinaryWriter writer, UiColor uiColor)
+            {
+                string color;
+                if (!ColorCache.TryGetValue(uiColor.Value, out color))
+                {
+                    color = GetColor(uiColor);
+                    ColorCache[uiColor.Value] = color;
+                }
+                
+                writer.Write(color);
             }
             
-            /// <summary>
-            /// Creates a UI builder that will hold mouse input so the mouse doesn't reset position when updating other UI's
-            /// </summary>
-            /// <param name="name">Name of the UI</param>
-            /// <param name="layer">Layer the UI is on</param>
-            /// <returns></returns>
-            public static UiBuilder CreateMouseLock(string name, UiLayer layer = UiLayer.Overlay)
+            public static string GetColor(Color color)
             {
-                UiBuilder builder = new UiBuilder(UiColors.StandardColors.Clear, UiPosition.None, name, UiConstants.UiLayers.GetLayer(layer));
-                builder.NeedsMouse();
-                return builder;
+                StringBuilder builder = UiFrameworkPool.GetStringBuilder();
+                builder.Append(color.r.ToString(Format));
+                builder.Append(Space);
+                builder.Append(color.g.ToString(Format));
+                builder.Append(Space);
+                builder.Append(color.b.ToString(Format));
+                if (color.a != 1f)
+                {
+                    builder.Append(Space);
+                    builder.Append(color.a.ToString(Format));
+                }
+                return UiFrameworkPool.ToStringAndFreeStringBuilder(ref builder);
+            }
+            
+            public static void OnUnload()
+            {
+                ColorCache.Clear();
+            }
+        }
+        #endregion
+
+        #region Cache\UiFontCache.cs
+        public static class UiFontCache
+        {
+            private const string DroidSansMono = "droidsansmono.ttf";
+            private const string PermanentMarker = "permanentmarker.ttf";
+            private const string RobotoCondensedBold = "robotocondensed-bold.ttf";
+            private const string RobotoCondensedRegular = "robotocondensed-regular.ttf";
+            
+            private static readonly Dictionary<UiFont, string> Fonts = new Dictionary<UiFont, string>
+            {
+                [UiFont.DroidSansMono] = DroidSansMono,
+                [UiFont.PermanentMarker] = PermanentMarker,
+                [UiFont.RobotoCondensedBold] = RobotoCondensedBold,
+                [UiFont.RobotoCondensedRegular] = RobotoCondensedRegular,
+            };
+            
+            public static string GetUiFont(UiFont font)
+            {
+                return Fonts[font];
+            }
+        }
+        #endregion
+
+        #region Cache\UiLayerCache.cs
+        public static class UiLayerCache
+        {
+            private const string Overall = "Overall";
+            private const string Overlay = "Overlay";
+            private const string Hud = "Hud";
+            private const string HudMenu = "Hud.Menu";
+            private const string Under = "Under";
+            
+            private static readonly Dictionary<UiLayer, string> Layers = new Dictionary<UiLayer, string>
+            {
+                [UiLayer.Overall] = Overall,
+                [UiLayer.Overlay] = Overlay,
+                [UiLayer.Hud] = Hud,
+                [UiLayer.HudMenu] = HudMenu,
+                [UiLayer.Under] = Under,
+            };
+            
+            public static string GetLayer(UiLayer layer)
+            {
+                return Layers[layer];
+            }
+        }
+        #endregion
+
+        #region Cache\UiNameCache.cs
+        public static class UiNameCache
+        {
+            private static readonly Dictionary<string, List<string>> NameCache = new Dictionary<string, List<string>>();
+            
+            public static string GetName(string baseName, int index)
+            {
+                List<string> names;
+                if (!NameCache.TryGetValue(baseName, out names))
+                {
+                    names = new List<string>();
+                    NameCache[baseName] = names;
+                }
+                
+                if (index >= names.Count)
+                {
+                    for (int i = names.Count; i <= index; i++)
+                    {
+                        names.Add(string.Concat(baseName, "_", index.ToString()));
+                    }
+                }
+                
+                return names[index];
+            }
+            
+            public static void OnUnload()
+            {
+                NameCache.Clear();
+            }
+        }
+        #endregion
+
+        #region Cache\VectorCache.cs
+        public static class VectorCache
+        {
+            private const string Format = "0.####";
+            private const char Space = ' ';
+            private const short PositionRounder = 10000;
+            
+            private static readonly Dictionary<ushort, string> PositionCache = new Dictionary<ushort, string>();
+            private static readonly Dictionary<short, string> OffsetCache = new Dictionary<short, string>();
+            
+            static VectorCache()
+            {
+                for (ushort i = 0; i <= PositionRounder; i++)
+                {
+                    PositionCache[i] = (i / (float)PositionRounder).ToString(Format);
+                }
+            }
+            
+            public static void WritePos(JsonBinaryWriter sb, Vector2 pos)
+            {
+                if (pos.x >= 0f && pos.x <= 1f)
+                {
+                    sb.Write(PositionCache[(ushort)(pos.x * PositionRounder)]);
+                }
+                else
+                {
+                    string value;
+                    if(!PositionCache.TryGetValue((ushort)(pos.x * PositionRounder), out value))
+                    {
+                        value = pos.x.ToString(Format);
+                        PositionCache[(ushort)(pos.x * PositionRounder)] = value;
+                    }
+                    
+                    sb.Write(value);
+                }
+                
+                sb.Write(Space);
+                
+                if (pos.y >= 0f && pos.y <= 1f)
+                {
+                    sb.Write(PositionCache[(ushort)(pos.y * PositionRounder)]);
+                }
+                else
+                {
+                    string value;
+                    if(!PositionCache.TryGetValue((ushort)(pos.y * PositionRounder), out value))
+                    {
+                        value = pos.y.ToString(Format);
+                        PositionCache[(ushort)(pos.y * PositionRounder)] = value;
+                    }
+                    
+                    sb.Write(value);
+                }
+            }
+            
+            public static void WriteVector2(JsonBinaryWriter sb, Vector2 pos)
+            {
+                string formattedPos;
+                if (!PositionCache.TryGetValue((ushort)(pos.x * PositionRounder), out formattedPos))
+                {
+                    formattedPos = pos.x.ToString(Format);
+                    PositionCache[(ushort)(pos.x * PositionRounder)] = formattedPos;
+                }
+                
+                sb.Write(formattedPos);
+                sb.Write(Space);
+                
+                if (!PositionCache.TryGetValue((ushort)(pos.y * PositionRounder), out formattedPos))
+                {
+                    formattedPos = pos.y.ToString(Format);
+                    PositionCache[(ushort)(pos.y * PositionRounder)] = formattedPos;
+                }
+                
+                sb.Write(formattedPos);
+            }
+            
+            public static void WritePos(JsonBinaryWriter sb, Vector2Short pos)
+            {
+                string formattedPos;
+                if (!OffsetCache.TryGetValue(pos.X, out formattedPos))
+                {
+                    formattedPos = pos.X.ToString();
+                    OffsetCache[pos.X] = formattedPos;
+                }
+                
+                sb.Write(formattedPos);
+                sb.Write(Space);
+                
+                if (!OffsetCache.TryGetValue(pos.Y, out formattedPos))
+                {
+                    formattedPos = pos.Y.ToString();
+                    OffsetCache[pos.Y] = formattedPos;
+                }
+                
+                sb.Write(formattedPos);
             }
         }
         #endregion
@@ -1219,7 +1437,7 @@ namespace Oxide.Plugins
         #endregion
 
         #region Components\BaseColorComponent.cs
-        public class BaseColorComponent : BaseComponent
+        public abstract class BaseColorComponent : BaseComponent
         {
             public UiColor Color;
             
@@ -1237,8 +1455,26 @@ namespace Oxide.Plugins
         }
         #endregion
 
+        #region Components\BaseFadeInComponent.cs
+        public abstract class BaseFadeInComponent : BaseColorComponent
+        {
+            public float FadeIn;
+            
+            public override void WriteComponent(JsonFrameworkWriter writer)
+            {
+                writer.AddField(JsonDefaults.Common.FadeInName, FadeIn, JsonDefaults.Common.FadeIn);
+                base.WriteComponent(writer);
+            }
+            
+            protected override void EnterPool()
+            {
+                FadeIn = 0;
+            }
+        }
+        #endregion
+
         #region Components\BaseImageComponent.cs
-        public class BaseImageComponent : FadeInComponent
+        public abstract class BaseImageComponent : BaseFadeInComponent
         {
             public string Sprite;
             public string Material;
@@ -1260,7 +1496,7 @@ namespace Oxide.Plugins
         #endregion
 
         #region Components\BaseTextComponent.cs
-        public class BaseTextComponent : FadeInComponent
+        public abstract class BaseTextComponent : BaseFadeInComponent
         {
             public int FontSize = JsonDefaults.BaseText.FontSize;
             public string Font;
@@ -1310,8 +1546,11 @@ namespace Oxide.Plugins
                 base.EnterPool();
                 Command = null;
                 Close = null;
-                Sprite = null;
-                Material = null;
+            }
+            
+            public override void DisposeInternal()
+            {
+                UiFrameworkPool.Free(this);
             }
         }
         #endregion
@@ -1339,28 +1578,15 @@ namespace Oxide.Plugins
             
             protected override void EnterPool()
             {
-                StartTime = 0;
-                EndTime = 0;
-                Step = 0;
+                StartTime = JsonDefaults.Countdown.StartTimeValue;
+                EndTime = JsonDefaults.Countdown.EndTimeValue;
+                Step = JsonDefaults.Countdown.StepValue;
                 Command = null;
             }
-        }
-        #endregion
-
-        #region Components\FadeInComponent.cs
-        public abstract class FadeInComponent : BaseColorComponent
-        {
-            public float FadeIn;
             
-            public override void WriteComponent(JsonFrameworkWriter writer)
+            public override void DisposeInternal()
             {
-                writer.AddField(JsonDefaults.Common.FadeInName, FadeIn, JsonDefaults.Common.FadeIn);
-                base.WriteComponent(writer);
-            }
-            
-            protected override void EnterPool()
-            {
-                FadeIn = 0;
+                UiFrameworkPool.Free(this);
             }
         }
         #endregion
@@ -1377,7 +1603,7 @@ namespace Oxide.Plugins
             {
                 writer.WriteStartObject();
                 writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, Type);
-                writer.AddField(JsonDefaults.Image.PngName, Png, null);
+                writer.AddField(JsonDefaults.Image.PngName, Png, JsonDefaults.Common.NullValue);
                 writer.AddField(JsonDefaults.Image.ImageType, ImageType);
                 base.WriteComponent(writer);
                 writer.WriteEndObject();
@@ -1386,8 +1612,13 @@ namespace Oxide.Plugins
             protected override void EnterPool()
             {
                 base.EnterPool();
-                Png = null;
+                Png = JsonDefaults.Common.NullValue;
                 ImageType = Image.Type.Simple;
+            }
+            
+            public override void DisposeInternal()
+            {
+                UiFrameworkPool.Free(this);
             }
         }
         #endregion
@@ -1434,11 +1665,16 @@ namespace Oxide.Plugins
             protected override void EnterPool()
             {
                 base.EnterPool();
-                CharsLimit = 0;
+                CharsLimit = JsonDefaults.Input.CharacterLimitValue;
                 Command = null;
                 NeedsKeyboard = true;
                 IsPassword = false;
                 LineType = default(InputField.LineType);
+            }
+            
+            public override void DisposeInternal()
+            {
+                UiFrameworkPool.Free(this);
             }
         }
         #endregion
@@ -1456,15 +1692,20 @@ namespace Oxide.Plugins
                 writer.WriteStartObject();
                 writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, Type);
                 writer.AddFieldRaw(JsonDefaults.ItemIcon.ItemIdName, ItemId);
-                writer.AddField(JsonDefaults.ItemIcon.SkinIdName, SkinId, JsonDefaults.ItemIcon.DefaultSkinId);
+                writer.AddField(JsonDefaults.ItemIcon.SkinIdName, SkinId, default(ulong));
                 base.WriteComponent(writer);
                 writer.WriteEndObject();
             }
             
             protected override void EnterPool()
             {
-                ItemId = 0;
-                SkinId = JsonDefaults.ItemIcon.DefaultSkinId;
+                ItemId = default(int);
+                SkinId = default(ulong);
+            }
+            
+            public override void DisposeInternal()
+            {
+                UiFrameworkPool.Free(this);
             }
         }
         #endregion
@@ -1481,10 +1722,10 @@ namespace Oxide.Plugins
             {
                 writer.WriteStartObject();
                 writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, Type);
-                writer.AddField(JsonDefaults.Outline.DistanceName, Distance, JsonDefaults.Outline.DistanceValue);
+                writer.AddField(JsonDefaults.Outline.DistanceName, Distance, new Vector2(1.0f, -1.0f));
                 if (UseGraphicAlpha)
                 {
-                    writer.AddFieldRaw(JsonDefaults.Outline.UseGraphicAlphaName, JsonDefaults.Outline.UseGraphicAlphaValue);
+                    writer.AddKeyField(JsonDefaults.Outline.UseGraphicAlphaName);
                 }
                 
                 base.WriteComponent(writer);
@@ -1493,14 +1734,19 @@ namespace Oxide.Plugins
             
             protected override void EnterPool()
             {
-                Distance = JsonDefaults.Outline.DistanceValue;
+                Distance = new Vector2(1.0f, -1.0f);
                 UseGraphicAlpha = false;
+            }
+            
+            public override void DisposeInternal()
+            {
+                UiFrameworkPool.Free(this);
             }
         }
         #endregion
 
         #region Components\RawImageComponent.cs
-        public class RawImageComponent : FadeInComponent
+        public class RawImageComponent : BaseFadeInComponent
         {
             private const string Type = "UnityEngine.UI.RawImage";
             
@@ -1531,6 +1777,11 @@ namespace Oxide.Plugins
                 Texture = null;
                 Material = null;
             }
+            
+            public override void DisposeInternal()
+            {
+                UiFrameworkPool.Free(this);
+            }
         }
         #endregion
 
@@ -1546,6 +1797,11 @@ namespace Oxide.Plugins
                 base.WriteComponent(writer);
                 writer.WriteEndObject();
             }
+            
+            public override void DisposeInternal()
+            {
+                UiFrameworkPool.Free(this);
+            }
         }
         #endregion
 
@@ -1557,6 +1813,7 @@ namespace Oxide.Plugins
             Left = 1 << 1,
             Bottom = 1 << 2,
             Right = 1 << 3,
+            All = Top | Left | Bottom | Right
         }
         #endregion
 
@@ -1599,131 +1856,121 @@ namespace Oxide.Plugins
         #region Exceptions\UiFrameworkException.cs
         public class UiFrameworkException : Exception
         {
-            public UiFrameworkException(string message) : base(message)
-            {
-                
-            }
+            public UiFrameworkException(string message) : base(message) { }
         }
         #endregion
 
-        #region Extensions\EnumExt{T}.cs
-        public static class EnumExt<T>
+        #region Json\JsonBinaryWriter.cs
+        public class JsonBinaryWriter : BasePoolable
         {
-            private static readonly Hash<T, string> CachedStrings = new Hash<T, string>();
+            private const int SegmentSize = 2048;
             
-            static EnumExt()
+            private List<SizedArray<byte>> _segments;
+            private int _charIndex;
+            private int _size;
+            private char[] _charBuffer;
+            
+            public void Write(char character)
             {
-                foreach (T value in Enum.GetValues(typeof(T)).Cast<T>())
+                _charBuffer[_charIndex] = character;
+                _charIndex++;
+                if (_charIndex >= SegmentSize)
                 {
-                    CachedStrings[value] = value.ToString();
+                    Flush();
                 }
             }
             
-            public static string ToString(T value)
+            public void Write(string text)
             {
-                return CachedStrings[value];
-            }
-        }
-        #endregion
-
-        #region Extensions\UiColorExt.cs
-        public static class UiColorExt
-        {
-            private const string Format = "0.####";
-            private const string RGBFormat = "{0} ";
-            private const string AFormat = "{0}";
-            
-            private static readonly Hash<uint, string> ColorCache = new Hash<uint, string>();
-            
-            public static void WriteColor(StringBuilder writer, UiColor uiColor)
-            {
-                string color = ColorCache[uiColor.Value];
-                if (color == null)
+                int length = text.Length;
+                char[] buffer = _charBuffer;
+                int charIndex = _charIndex;
+                for (int i = 0; i < length; i++)
                 {
-                    color = GetColor(uiColor);
-                    ColorCache[uiColor.Value] = color;
+                    buffer[charIndex + i] = text[i];
                 }
-                
-                writer.Append(color);
-            }
-            
-            public static string GetColor(Color color)
-            {
-                StringBuilder builder = UiFrameworkPool.GetStringBuilder();
-                builder.AppendFormat(RGBFormat, color.r.ToString(Format));
-                builder.AppendFormat(RGBFormat, color.g.ToString(Format));
-                builder.AppendFormat(RGBFormat, color.b.ToString(Format));
-                builder.AppendFormat(AFormat, color.a.ToString(Format));
-                return UiFrameworkPool.ToStringAndFreeStringBuilder(ref builder);
-            }
-        }
-        #endregion
-
-        #region Extensions\VectorExt.cs
-        public static class VectorExt
-        {
-            private const string Format = "0.####";
-            private const char Space = ' ';
-            private const short PositionRounder = 10000;
-            
-            private static readonly Dictionary<ushort, string> PositionCache = new Dictionary<ushort, string>();
-            private static readonly Dictionary<short, string> OffsetCache = new Dictionary<short, string>();
-            
-            static VectorExt()
-            {
-                for (ushort i = 0; i <= PositionRounder; i++)
+                _charIndex += length;
+                if (_charIndex >= SegmentSize)
                 {
-                    PositionCache[i] = (i / (float)PositionRounder).ToString(Format);
+                    Flush();
                 }
             }
             
-            public static void WritePos(StringBuilder sb, Vector2 pos)
+            private void Flush()
             {
-                sb.Append(PositionCache[(ushort)(pos.x * PositionRounder)]);
-                sb.Append(Space);
-                sb.Append(PositionCache[(ushort)(pos.y * PositionRounder)]);
+                if (_charIndex == 0)
+                {
+                    return;
+                }
+                
+                byte[] segment = UiFrameworkArrayPool<byte>.Shared.Rent(SegmentSize * 2);
+                int size = Encoding.UTF8.GetBytes(_charBuffer, 0, _charIndex, segment, 0);
+                _segments.Add(new SizedArray<byte>(segment, size));
+                _size += size;
+                _charIndex = 0;
             }
             
-            public static void WriteVector2(StringBuilder sb, Vector2 pos)
+            public int WriteToArray(byte[] bytes)
             {
-                string formattedPos;
-                if (!PositionCache.TryGetValue((ushort)(pos.x * PositionRounder), out formattedPos))
+                Flush();
+                int writeIndex = 0;
+                for (int i = 0; i < _segments.Count; i++)
                 {
-                    formattedPos = pos.x.ToString(Format);
-                    PositionCache[(ushort)(pos.x * PositionRounder)] = formattedPos;
+                    SizedArray<byte> segment = _segments[i];
+                    Buffer.BlockCopy(segment.Array, 0, bytes, writeIndex, segment.Size);
+                    writeIndex += segment.Size;
                 }
                 
-                sb.Append(formattedPos);
-                sb.Append(Space);
-                
-                if (!PositionCache.TryGetValue((ushort)(pos.y * PositionRounder), out formattedPos))
-                {
-                    formattedPos = pos.y.ToString(Format);
-                    PositionCache[(ushort)(pos.y * PositionRounder)] = formattedPos;
-                }
-                
-                sb.Append(formattedPos);
+                return _size;
             }
             
-            public static void WritePos(StringBuilder sb, Vector2Short pos)
+            public void WriteToNetwork()
             {
-                string formattedPos;
-                if (!OffsetCache.TryGetValue(pos.X, out formattedPos))
+                Flush();
+                Net.sv.write.UInt32((uint)_size);
+                for (int i = 0; i < _segments.Count; i++)
                 {
-                    formattedPos = pos.X.ToString();
-                    OffsetCache[pos.X] = formattedPos;
+                    SizedArray<byte> segment = _segments[i];
+                    Net.sv.write.Write(segment.Array, 0, segment.Size);
+                }
+            }
+            
+            public byte[] ToArray()
+            {
+                Flush();
+                byte[] bytes = new byte[_size];
+                WriteToArray(bytes);
+                return bytes;
+            }
+            
+            protected override void LeavePool()
+            {
+                _segments = UiFrameworkPool.GetList<SizedArray<byte>>();
+                if (_segments.Capacity < 100)
+                {
+                    _segments.Capacity = 100;
+                }
+                _charBuffer = UiFrameworkArrayPool<char>.Shared.Rent(SegmentSize * 2);
+            }
+            
+            protected override void EnterPool()
+            {
+                for (int index = 0; index < _segments.Count; index++)
+                {
+                    byte[] bytes = _segments[index].Array;
+                    UiFrameworkArrayPool<byte>.Shared.Return(bytes);
                 }
                 
-                sb.Append(formattedPos);
-                sb.Append(Space);
-                
-                if (!OffsetCache.TryGetValue(pos.Y, out formattedPos))
-                {
-                    formattedPos = pos.Y.ToString();
-                    OffsetCache[pos.Y] = formattedPos;
-                }
-                
-                sb.Append(formattedPos);
+                UiFrameworkArrayPool<char>.Shared.Return(_charBuffer);
+                UiFrameworkPool.FreeList(ref _segments);
+                _charBuffer = null;
+                _size = 0;
+                _charIndex = 0;
+            }
+            
+            public override void DisposeInternal()
+            {
+                UiFrameworkPool.Free(this);
             }
         }
         #endregion
@@ -1793,8 +2040,6 @@ namespace Oxide.Plugins
             {
                 public const string DistanceName = "distance";
                 public const string UseGraphicAlphaName = "useGraphicAlpha";
-                public const string UseGraphicAlphaValue = "True";
-                public static readonly Vector2 DistanceValue = new Vector2(1.0f, -1.0f);
             }
             
             public static class Button
@@ -1813,7 +2058,6 @@ namespace Oxide.Plugins
             {
                 public const string ItemIdName = "itemid";
                 public const string SkinIdName = "skinid";
-                public const ulong DefaultSkinId = 0;
             }
             
             public static class Input
@@ -1854,11 +2098,11 @@ namespace Oxide.Plugins
             private bool _propertyComma;
             private bool _objectComma;
             
-            private StringBuilder _writer;
+            private JsonBinaryWriter _writer;
             
             private void Init()
             {
-                _writer = UiFrameworkPool.GetStringBuilder();
+                _writer = UiFrameworkPool.Get<JsonBinaryWriter>();
             }
             
             public static JsonFrameworkWriter Create()
@@ -1872,11 +2116,11 @@ namespace Oxide.Plugins
             {
                 if (_objectComma)
                 {
-                    _writer.Append(CommaChar);
+                    _writer.Write(CommaChar);
+                    _objectComma = false;
                 }
                 
                 _propertyComma = false;
-                _objectComma = false;
             }
             
             private void OnDepthDecrease()
@@ -1944,7 +2188,7 @@ namespace Oxide.Plugins
                 if (value != TextAnchor.UpperLeft)
                 {
                     WritePropertyName(name);
-                    WriteValue(EnumExt<TextAnchor>.ToString(value));
+                    WriteValue(EnumCache<TextAnchor>.ToString(value));
                 }
             }
             
@@ -1953,7 +2197,7 @@ namespace Oxide.Plugins
                 if (value != InputField.LineType.SingleLine)
                 {
                     WritePropertyName(name);
-                    WriteValue(EnumExt<InputField.LineType>.ToString(value));
+                    WriteValue(EnumCache<InputField.LineType>.ToString(value));
                 }
             }
             
@@ -1962,7 +2206,7 @@ namespace Oxide.Plugins
                 if (value != Image.Type.Simple)
                 {
                     WritePropertyName(name);
-                    WriteValue(EnumExt<Image.Type>.ToString(value));
+                    WriteValue(EnumCache<Image.Type>.ToString(value));
                 }
             }
             
@@ -1977,7 +2221,7 @@ namespace Oxide.Plugins
             
             public void AddField(string name, float value, float defaultValue)
             {
-                if (Math.Abs(value - defaultValue) >= 0.0001)
+                if (value != defaultValue)
                 {
                     WritePropertyName(name);
                     WriteValue(value);
@@ -2005,7 +2249,7 @@ namespace Oxide.Plugins
             public void AddKeyField(string name)
             {
                 WritePropertyName(name);
-                WriteValue(string.Empty);
+                WriteBlankValue();
             }
             
             public void AddTextField(string name, string value)
@@ -2035,24 +2279,24 @@ namespace Oxide.Plugins
             public void WriteStartArray()
             {
                 OnDepthIncrease();
-                _writer.Append(ArrayStartChar);
+                _writer.Write(ArrayStartChar);
             }
             
             public void WriteEndArray()
             {
-                _writer.Append(ArrayEndChar);
+                _writer.Write(ArrayEndChar);
                 OnDepthDecrease();
             }
             
             public void WriteStartObject()
             {
                 OnDepthIncrease();
-                _writer.Append(ObjectStartChar);
+                _writer.Write(ObjectStartChar);
             }
             
             public void WriteEndObject()
             {
-                _writer.Append(ObjectEndChar);
+                _writer.Write(ObjectEndChar);
                 OnDepthDecrease();
             }
             
@@ -2060,94 +2304,102 @@ namespace Oxide.Plugins
             {
                 if (_propertyComma)
                 {
-                    _writer.Append(PropertyComma);
+                    _writer.Write(PropertyComma);
                 }
                 else
                 {
                     _propertyComma = true;
-                    _writer.Append(QuoteChar);
+                    _writer.Write(QuoteChar);
                 }
                 
-                _writer.Append(name);
-                _writer.Append(Separator);
+                _writer.Write(name);
+                _writer.Write(Separator);
             }
             
             public void WriteValue(bool value)
             {
-                _writer.Append(value ? "true" : "false");
+                _writer.Write(value ? '1' : '0');
             }
             
             public void WriteValue(int value)
             {
-                _writer.Append(value.ToString());
+                _writer.Write(value.ToString());
             }
             
             public void WriteValue(float value)
             {
-                _writer.Append(value.ToString());
+                _writer.Write(value.ToString());
             }
             
             public void WriteValue(ulong value)
             {
-                _writer.Append(value.ToString());
+                _writer.Write(value.ToString());
             }
             
             public void WriteValue(string value)
             {
-                _writer.Append(QuoteChar);
-                _writer.Append(value);
-                _writer.Append(QuoteChar);
+                _writer.Write(QuoteChar);
+                _writer.Write(value);
+                _writer.Write(QuoteChar);
+            }
+            
+            public void WriteBlankValue()
+            {
+                _writer.Write(QuoteChar);
+                _writer.Write(QuoteChar);
             }
             
             public void WriteTextValue(string value)
             {
-                _writer.Append(QuoteChar);
+                _writer.Write(QuoteChar);
                 for (int i = 0; i < value.Length; i++)
                 {
                     char character = value[i];
                     if (character == '\"')
                     {
-                        _writer.Append("\\\"");
+                        _writer.Write("\\\"");
                     }
                     else
                     {
-                        _writer.Append(character);
+                        _writer.Write(character);
                     }
                 }
-                _writer.Append(QuoteChar);
+                _writer.Write(QuoteChar);
             }
             
             public void WriteValue(Vector2 pos)
             {
-                _writer.Append(QuoteChar);
-                VectorExt.WriteVector2(_writer, pos);
-                _writer.Append(QuoteChar);
+                _writer.Write(QuoteChar);
+                VectorCache.WriteVector2(_writer, pos);
+                _writer.Write(QuoteChar);
             }
             
             public void WritePosition(Vector2 pos)
             {
-                _writer.Append(QuoteChar);
-                VectorExt.WritePos(_writer, pos);
-                _writer.Append(QuoteChar);
+                _writer.Write(QuoteChar);
+                VectorCache.WritePos(_writer, pos);
+                _writer.Write(QuoteChar);
             }
             
             public void WriteOffset(Vector2Short offset)
             {
-                _writer.Append(QuoteChar);
-                VectorExt.WritePos(_writer, offset);
-                _writer.Append(QuoteChar);
+                _writer.Write(QuoteChar);
+                VectorCache.WritePos(_writer, offset);
+                _writer.Write(QuoteChar);
             }
             
             public void WriteValue(UiColor color)
             {
-                _writer.Append(QuoteChar);
-                UiColorExt.WriteColor(_writer, color);
-                _writer.Append(QuoteChar);
+                _writer.Write(QuoteChar);
+                UiColorCache.WriteColor(_writer, color);
+                _writer.Write(QuoteChar);
             }
             
             protected override void EnterPool()
             {
-                UiFrameworkPool.FreeStringBuilder(ref _writer);
+                _objectComma = false;
+                _propertyComma = false;
+                UiFrameworkPool.Free(ref _writer);
             }
             
             public override string ToString()
@@ -2155,11 +2407,38 @@ namespace Oxide.Plugins
                 return _writer.ToString();
             }
             
-            public string ToJson()
+            public int WriteTo(byte[] buffer)
             {
-                string json = _writer.ToString();
-                Dispose();
-                return json;
+                return _writer.WriteToArray(buffer);
+            }
+            
+            public void WriteToNetwork()
+            {
+                _writer.WriteToNetwork();
+            }
+            
+            public byte[] ToArray()
+            {
+                return _writer.ToArray();
+            }
+            
+            public override void DisposeInternal()
+            {
+                UiFrameworkPool.Free(this);
+            }
+        }
+        #endregion
+
+        #region Json\SizedArray.cs
+        public struct SizedArray<T>
+        {
+            public readonly T[] Array;
+            public readonly int Size;
+            
+            public SizedArray(T[] array, int size)
+            {
+                Array = array;
+                Size = size;
             }
         }
         #endregion
@@ -2284,8 +2563,9 @@ namespace Oxide.Plugins
         #region Pooling\BasePool.cs
         public abstract class BasePool<T> : IPool<T> where T : class, new()
         {
-            private readonly Queue<T> _pool;
+            private readonly T[] _pool;
             private readonly int _maxSize;
+            private int _index;
             
             /// <summary>
             /// Base Pool Constructor
@@ -2294,11 +2574,7 @@ namespace Oxide.Plugins
             protected BasePool(int maxSize)
             {
                 _maxSize = maxSize;
-                _pool = new Queue<T>(maxSize);
-                for (int i = 0; i < maxSize; i++)
-                {
-                    _pool.Enqueue(new T());
-                }
+                _pool = new T[maxSize];
                 
                 UiFrameworkPool.AddPool(this);
             }
@@ -2309,7 +2585,19 @@ namespace Oxide.Plugins
             /// <returns></returns>
             public T Get()
             {
-                T item = _pool.Count != 0 ? _pool.Dequeue() : new T();
+                T item = null;
+                if (_index < _pool.Length)
+                {
+                    item = _pool[_index];
+                    _pool[_index] = null;
+                    _index++;
+                }
+                
+                if (item == null)
+                {
+                    item = new T();
+                }
+                
                 OnGetItem(item);
                 return item;
             }
@@ -2330,12 +2618,16 @@ namespace Oxide.Plugins
                     return;
                 }
                 
-                if (_pool.Count >= _maxSize)
+                if (_index + 1 >= _maxSize)
                 {
                     return;
                 }
                 
-                _pool.Enqueue(item);
+                if (_index != 0)
+                {
+                    _index--;
+                    _pool[_index] = item;
+                }
                 
                 item = null;
             }
@@ -2359,15 +2651,19 @@ namespace Oxide.Plugins
                 return true;
             }
             
-            public virtual void Clear()
+            public void Clear()
             {
-                _pool.Clear();
+                for (int index = 0; index < _pool.Length; index++)
+                {
+                    _pool[index] = null;
+                    _index = 0;
+                }
             }
         }
         #endregion
 
         #region Pooling\BasePoolable.cs
-        public class BasePoolable : IDisposable
+        public abstract class BasePoolable : IDisposable
         {
             internal bool Disposed;
             
@@ -2410,65 +2706,35 @@ namespace Oxide.Plugins
                 
             }
             
-            /// <summary>
-            /// Frees a pooled object that is part of a field on this object
-            /// </summary>
-            /// <param name="obj">Object to free</param>
-            /// <typeparam name="T">Type of object being freed</typeparam>
-            protected void Free<T>(ref T obj) where T : BasePoolable, new()
-            {
-                if (obj != null && obj._shouldPool)
-                {
-                    UiFrameworkPool.Free(ref obj);
-                }
-            }
-            
-            /// <summary>
-            /// Frees a pooled list that is part of a field on this object
-            /// </summary>
-            /// <param name="obj">List to be freed</param>
-            /// <typeparam name="T">Type of the list</typeparam>
-            protected void FreeList<T>(ref List<T> obj)
-            {
-                UiFrameworkPool.FreeList(ref obj);
-            }
-            
-            /// <summary>
-            /// Disposes the object when used in a using statement
-            /// </summary>
             public void Dispose()
             {
                 if (_shouldPool)
                 {
-                    UiFrameworkPool.Free(this);
+                    DisposeInternal();
                 }
             }
+            
+            public abstract void DisposeInternal();
         }
         #endregion
 
         #region Pooling\HashPool.cs
         public class HashPool<TKey, TValue> : BasePool<Hash<TKey, TValue>>
         {
-            public static IPool<Hash<TKey, TValue>> Instance;
+            public static readonly IPool<Hash<TKey, TValue>> Instance;
             
             static HashPool()
             {
                 Instance = new HashPool<TKey, TValue>();
             }
             
-            private HashPool() : base(256) { }
+            private HashPool() : base(32) { }
             
             ///<inheritdoc/>
             protected override bool OnFreeItem(ref Hash<TKey, TValue> item)
             {
                 item.Clear();
                 return true;
-            }
-            
-            public override void Clear()
-            {
-                base.Clear();
-                Instance = null;
             }
         }
         #endregion
@@ -2500,14 +2766,14 @@ namespace Oxide.Plugins
         #region Pooling\ListPool.cs
         public class ListPool<T> : BasePool<List<T>>
         {
-            public static IPool<List<T>> Instance;
+            public static readonly IPool<List<T>> Instance;
             
             static ListPool()
             {
                 Instance = new ListPool<T>();
             }
             
-            private ListPool() : base(256) { }
+            private ListPool() : base(64) { }
             
             ///<inheritdoc/>
             protected override bool OnFreeItem(ref List<T> item)
@@ -2515,53 +2781,20 @@ namespace Oxide.Plugins
                 item.Clear();
                 return true;
             }
-            
-            public override void Clear()
-            {
-                base.Clear();
-                Instance = null;
-            }
-        }
-        #endregion
-
-        #region Pooling\MemoryStreamPool.cs
-        public class MemoryStreamPool : BasePool<MemoryStream>
-        {
-            public static IPool<MemoryStream> Instance;
-            
-            static MemoryStreamPool()
-            {
-                Instance = new MemoryStreamPool();
-            }
-            
-            private MemoryStreamPool() : base(256) { }
-            
-            ///<inheritdoc/>
-            protected override bool OnFreeItem(ref MemoryStream item)
-            {
-                item.Position = 0;
-                return true;
-            }
-            
-            public override void Clear()
-            {
-                base.Clear();
-                Instance = null;
-            }
         }
         #endregion
 
         #region Pooling\ObjectPool.cs
         public class ObjectPool<T> : BasePool<T> where T : BasePoolable, new()
         {
-            public static IPool<T> Instance;
+            public static readonly IPool<T> Instance;
             
             static ObjectPool()
             {
                 Instance = new ObjectPool<T>();
             }
             
-            private ObjectPool() : base(1024) { }
+            private ObjectPool() : base(256) { }
             
             protected override void OnGetItem(T item)
             {
@@ -2578,38 +2811,26 @@ namespace Oxide.Plugins
                 item.EnterPoolInternal();
                 return true;
             }
-            
-            public override void Clear()
-            {
-                base.Clear();
-                Instance = null;
-            }
         }
         #endregion
 
         #region Pooling\StringBuilderPool.cs
         public class StringBuilderPool : BasePool<StringBuilder>
         {
-            public static IPool<StringBuilder> Instance;
+            public static readonly IPool<StringBuilder> Instance;
             
             static StringBuilderPool()
             {
                 Instance = new StringBuilderPool();
             }
             
-            private StringBuilderPool() : base(256) { }
+            private StringBuilderPool() : base(32) { }
             
             ///<inheritdoc/>
             protected override bool OnFreeItem(ref StringBuilder item)
             {
                 item.Length = 0;
                 return true;
-            }
-            
-            public override void Clear()
-            {
-                base.Clear();
-                Instance = null;
             }
         }
         #endregion
@@ -2681,15 +2902,6 @@ namespace Oxide.Plugins
             }
             
             /// <summary>
-            /// Returns a pooled <see cref="MemoryStream"/>
-            /// </summary>
-            /// <returns>Pooled <see cref="MemoryStream"/></returns>
-            public static MemoryStream GetMemoryStream()
-            {
-                return MemoryStreamPool.Instance.Get();
-            }
-            
-            /// <summary>
             /// Free's a pooled <see cref="List{T}"/>
             /// </summary>
             /// <param name="list">List to be freed</param>
@@ -2720,22 +2932,13 @@ namespace Oxide.Plugins
             }
             
             /// <summary>
-            /// Frees a <see cref="MemoryStream"/> back to the pool
-            /// </summary>
-            /// <param name="stream">MemoryStream being freed</param>
-            public static void FreeMemoryStream(ref MemoryStream stream)
-            {
-                MemoryStreamPool.Instance.Free(ref stream);
-            }
-            
-            /// <summary>
             /// Frees a <see cref="StringBuilder"/> back to the pool returning the <see cref="string"/>
             /// </summary>
             /// <param name="sb"><see cref="StringBuilder"/> being freed</param>
             public static string ToStringAndFreeStringBuilder(ref StringBuilder sb)
             {
                 string result = sb.ToString();
-                StringBuilderPool.Instance.Free(ref sb);
+                FreeStringBuilder(ref sb);
                 return result;
             }
             
@@ -3127,8 +3330,8 @@ namespace Oxide.Plugins
             
             public UiPosition(float xMin, float yMin, float xMax, float yMax)
             {
-                Min = new Vector2(Mathf.Clamp01(xMin), Mathf.Clamp01(yMin));
-                Max = new Vector2(Mathf.Clamp01(xMax), Mathf.Clamp01(yMax));
+                Min = new Vector2(xMin, yMin);
+                Max = new Vector2(xMax, yMax);
             }
             
             /// <summary>
@@ -3350,6 +3553,11 @@ namespace Oxide.Plugins
                 base.LeavePool();
                 Button = UiFrameworkPool.Get<ButtonComponent>();
             }
+            
+            public override void DisposeInternal()
+            {
+                UiFrameworkPool.Free(this);
+            }
         }
         #endregion
 
@@ -3392,6 +3600,11 @@ namespace Oxide.Plugins
             {
                 base.LeavePool();
                 Image = UiFrameworkPool.Get<ImageComponent>();
+            }
+            
+            public override void DisposeInternal()
+            {
+                UiFrameworkPool.Free(this);
             }
         }
         #endregion
@@ -3474,6 +3687,11 @@ namespace Oxide.Plugins
                 base.LeavePool();
                 Input = UiFrameworkPool.Get<InputComponent>();
             }
+            
+            public override void DisposeInternal()
+            {
+                UiFrameworkPool.Free(this);
+            }
         }
         #endregion
 
@@ -3512,6 +3730,11 @@ namespace Oxide.Plugins
             {
                 base.LeavePool();
                 Icon = UiFrameworkPool.Get<ItemIconComponent>();
+            }
+            
+            public override void DisposeInternal()
+            {
+                UiFrameworkPool.Free(this);
             }
         }
         #endregion
@@ -3571,6 +3794,11 @@ namespace Oxide.Plugins
                 base.LeavePool();
                 Text = UiFrameworkPool.Get<TextComponent>();
             }
+            
+            public override void DisposeInternal()
+            {
+                UiFrameworkPool.Free(this);
+            }
         }
         #endregion
 
@@ -3617,6 +3845,11 @@ namespace Oxide.Plugins
             {
                 base.LeavePool();
                 Image = UiFrameworkPool.Get<ImageComponent>();
+            }
+            
+            public override void DisposeInternal()
+            {
+                UiFrameworkPool.Free(this);
             }
         }
         #endregion
@@ -3669,6 +3902,11 @@ namespace Oxide.Plugins
                 base.LeavePool();
                 RawImage = UiFrameworkPool.Get<RawImageComponent>();
             }
+            
+            public override void DisposeInternal()
+            {
+                UiFrameworkPool.Free(this);
+            }
         }
         #endregion
 
@@ -3679,6 +3917,181 @@ namespace Oxide.Plugins
             {
                 UiSection panel = CreateBase<UiSection>(pos, offset);
                 return panel;
+            }
+            
+            public override void DisposeInternal()
+            {
+                UiFrameworkPool.Free(this);
+            }
+        }
+        #endregion
+
+        #region Pooling\ArrayPool\UiFrameworkArrayPool.cs
+        public class UiFrameworkArrayPool<T>
+        {
+            public static readonly UiFrameworkArrayPool<T> Shared;
+            
+            private const int DefaultMaxArrayLength = 1024 * 16;
+            private const int DefaultMaxNumberOfArraysPerBucket = 50;
+            
+            private readonly Bucket[] _buckets;
+            
+            static UiFrameworkArrayPool()
+            {
+                Shared = new UiFrameworkArrayPool<T>();
+            }
+            
+            private UiFrameworkArrayPool() : this(DefaultMaxArrayLength, DefaultMaxNumberOfArraysPerBucket) { }
+            
+            private UiFrameworkArrayPool(int maxArrayLength, int maxArraysPerBucket)
+            {
+                if (maxArrayLength <= 0) throw new ArgumentOutOfRangeException(nameof(maxArrayLength));
+                if (maxArraysPerBucket <= 0) throw new ArgumentOutOfRangeException(nameof(maxArraysPerBucket));
+                
+                maxArrayLength = Mathf.Clamp(maxArrayLength, 16, DefaultMaxArrayLength);
+                
+                _buckets = new Bucket[SelectBucketIndex(maxArrayLength) + 1];
+                for (int i = 0; i < _buckets.Length; i++)
+                {
+                    _buckets[i] = new Bucket(GetMaxSizeForBucket(i), maxArraysPerBucket);
+                }
+            }
+            
+            public T[] Rent(int minimumLength)
+            {
+                if (minimumLength < 0)  throw new ArgumentOutOfRangeException(nameof(minimumLength));
+                
+                if (minimumLength == 0)
+                {
+                    return Array.Empty<T>();
+                }
+                
+                T[] array;
+                int bucketIndex = SelectBucketIndex(minimumLength);
+                int index = bucketIndex;
+                do
+                {
+                    array = _buckets[index].Rent();
+                    if (array != null)
+                    {
+                        return array;
+                    }
+                    
+                    index++;
+                }
+                while (index < _buckets.Length && index != bucketIndex + 2);
+                array = new T[_buckets[bucketIndex].BufferLength];
+                return array;
+            }
+            
+            public void Return(T[] array)
+            {
+                if (array == null) throw new ArgumentNullException(nameof(array));
+                if (array.Length == 0)
+                {
+                    return;
+                }
+                
+                int num = SelectBucketIndex(array.Length);
+                if (num < _buckets.Length)
+                {
+                    _buckets[num].Return(array);
+                }
+            }
+            
+            private static int GetMaxSizeForBucket(int binIndex)
+            {
+                return 16 << (binIndex & 31);
+            }
+            
+            private static int SelectBucketIndex(int bufferSize)
+            {
+                uint num = (uint)(bufferSize - 1 >> 4);
+                int num1 = 0;
+                if (num > 255)
+                {
+                    num >>= 8;
+                    num1 += 8;
+                }
+                if (num > 15)
+                {
+                    num >>= 4;
+                    num1 += 4;
+                }
+                if (num > 3)
+                {
+                    num >>= 2;
+                    num1 += 2;
+                }
+                if (num > 1)
+                {
+                    num >>= 1;
+                    num1++;
+                }
+                return (int)(num1 + num);
+            }
+            
+            private void ClearInternal()
+            {
+                for (int index = 0; index < _buckets.Length; index++)
+                {
+                    _buckets[index].Clear();
+                }
+            }
+            
+            public static void Clear()
+            {
+                Shared.ClearInternal();
+            }
+            
+            private sealed class Bucket
+            {
+                internal readonly int BufferLength;
+                
+                private readonly T[][] _buffers;
+                
+                private int _index;
+                
+                internal Bucket(int bufferLength, int numberOfBuffers)
+                {
+                    _buffers = new T[numberOfBuffers][];
+                    BufferLength = bufferLength;
+                }
+                
+                internal T[] Rent()
+                {
+                    if (_index < _buffers.Length)
+                    {
+                        T[] array = _buffers[_index];
+                        _buffers[_index] = null;
+                        _index++;
+                        if (array != null)
+                        {
+                            return array;
+                        }
+                    }
+                    return new T[BufferLength];
+                }
+                
+                internal void Return(T[] array)
+                {
+                    if (array.Length != BufferLength)  throw new ArgumentException("Buffer not from pool", nameof(array));
+                    if (_index != 0)
+                    {
+                        _index--;
+                        _buffers[_index] = array;
+                    }
+                }
+                
+                public void Clear()
+                {
+                    for (int index = 0; index < _buffers.Length; index++)
+                    {
+                        _buffers[index] = null;
+                    }
+                    
+                    _index = 0;
+                }
             }
         }
         #endregion

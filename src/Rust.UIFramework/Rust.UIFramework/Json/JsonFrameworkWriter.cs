@@ -1,10 +1,9 @@
-﻿using System.Text;
-using Oxide.Ext.UiFramework.Colors;
-using Oxide.Ext.UiFramework.Extensions;
+﻿using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Pooling;
 using UnityEngine;
 using System;
+using Oxide.Ext.UiFramework.Cache;
 using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.Json
@@ -22,12 +21,12 @@ namespace Oxide.Ext.UiFramework.Json
 
         private bool _propertyComma;
         private bool _objectComma;
-
-        private StringBuilder _writer;
+        
+        private JsonBinaryWriter _writer;
 
         private void Init()
         {
-            _writer = UiFrameworkPool.GetStringBuilder();
+            _writer = UiFrameworkPool.Get<JsonBinaryWriter>();
         }
 
         public static JsonFrameworkWriter Create()
@@ -41,11 +40,11 @@ namespace Oxide.Ext.UiFramework.Json
         {
             if (_objectComma)
             {
-                _writer.Append(CommaChar);
+                _writer.Write(CommaChar);
+                _objectComma = false;
             }
             
             _propertyComma = false;
-            _objectComma = false;
         }
         
         private void OnDepthDecrease()
@@ -113,7 +112,7 @@ namespace Oxide.Ext.UiFramework.Json
             if (value != TextAnchor.UpperLeft)
             {
                 WritePropertyName(name);
-                WriteValue(EnumExt<TextAnchor>.ToString(value));
+                WriteValue(EnumCache<TextAnchor>.ToString(value));
             }
         }
 
@@ -122,7 +121,7 @@ namespace Oxide.Ext.UiFramework.Json
             if (value != InputField.LineType.SingleLine)
             {
                 WritePropertyName(name);
-                WriteValue(EnumExt<InputField.LineType>.ToString(value));
+                WriteValue(EnumCache<InputField.LineType>.ToString(value));
             }
         }
         
@@ -131,7 +130,7 @@ namespace Oxide.Ext.UiFramework.Json
             if (value != Image.Type.Simple)
             {
                 WritePropertyName(name);
-                WriteValue(EnumExt<Image.Type>.ToString(value));
+                WriteValue(EnumCache<Image.Type>.ToString(value));
             }
         }
 
@@ -146,7 +145,7 @@ namespace Oxide.Ext.UiFramework.Json
 
         public void AddField(string name, float value, float defaultValue)
         {
-            if (Math.Abs(value - defaultValue) >= 0.0001)
+            if (value != defaultValue)
             {
                 WritePropertyName(name);
                 WriteValue(value);
@@ -174,7 +173,7 @@ namespace Oxide.Ext.UiFramework.Json
         public void AddKeyField(string name)
         {
             WritePropertyName(name);
-            WriteValue(string.Empty);
+            WriteBlankValue();
         }
         
         public void AddTextField(string name, string value)
@@ -204,24 +203,24 @@ namespace Oxide.Ext.UiFramework.Json
         public void WriteStartArray()
         {
             OnDepthIncrease();
-            _writer.Append(ArrayStartChar);
+            _writer.Write(ArrayStartChar);
         }
         
         public void WriteEndArray()
         {
-            _writer.Append(ArrayEndChar);
+            _writer.Write(ArrayEndChar);
             OnDepthDecrease();
         }
 
         public void WriteStartObject()
         {
             OnDepthIncrease();
-            _writer.Append(ObjectStartChar);
+            _writer.Write(ObjectStartChar);
         }
         
         public void WriteEndObject()
         {
-            _writer.Append(ObjectEndChar);
+            _writer.Write(ObjectEndChar);
             OnDepthDecrease();
         }
 
@@ -229,94 +228,102 @@ namespace Oxide.Ext.UiFramework.Json
         {
             if (_propertyComma)
             {
-                _writer.Append(PropertyComma);
+                _writer.Write(PropertyComma);
             }
             else
             {
                 _propertyComma = true;
-                _writer.Append(QuoteChar);
+                _writer.Write(QuoteChar);
             }
             
-            _writer.Append(name);
-            _writer.Append(Separator);
+            _writer.Write(name);
+            _writer.Write(Separator);
         }
 
         public void WriteValue(bool value)
         {
-            _writer.Append(value ? "true" : "false");
+            _writer.Write(value ? '1' : '0');
         }
         
         public void WriteValue(int value)
         {
-            _writer.Append(value.ToString());
+            _writer.Write(value.ToString());
         }
         
         public void WriteValue(float value)
         {
-            _writer.Append(value.ToString());
+            _writer.Write(value.ToString());
         }
         
         public void WriteValue(ulong value)
         {
-            _writer.Append(value.ToString());
+            _writer.Write(value.ToString());
         }
 
         public void WriteValue(string value)
         {
-            _writer.Append(QuoteChar);
-            _writer.Append(value);
-            _writer.Append(QuoteChar);
+            _writer.Write(QuoteChar);
+            _writer.Write(value);
+            _writer.Write(QuoteChar);
+        }
+        
+        public void WriteBlankValue()
+        {
+            _writer.Write(QuoteChar);
+            _writer.Write(QuoteChar);
         }
 
         public void WriteTextValue(string value)
         {
-            _writer.Append(QuoteChar);
+            _writer.Write(QuoteChar);
             for (int i = 0; i < value.Length; i++)
             {
                 char character = value[i];
                 if (character == '\"')
                 {
-                    _writer.Append("\\\"");
+                    _writer.Write("\\\"");
                 }
                 else
                 {
-                    _writer.Append(character);
+                    _writer.Write(character);
                 }
             }
-            _writer.Append(QuoteChar);
+            _writer.Write(QuoteChar);
         }
 
         public void WriteValue(Vector2 pos)
         {
-            _writer.Append(QuoteChar);
-            VectorExt.WriteVector2(_writer, pos);
-            _writer.Append(QuoteChar);
+            _writer.Write(QuoteChar);
+            VectorCache.WriteVector2(_writer, pos);
+            _writer.Write(QuoteChar);
         }
         
         public void WritePosition(Vector2 pos)
         {
-            _writer.Append(QuoteChar);
-            VectorExt.WritePos(_writer, pos);
-            _writer.Append(QuoteChar);
+            _writer.Write(QuoteChar);
+            VectorCache.WritePos(_writer, pos);
+            _writer.Write(QuoteChar);
         }
         
         public void WriteOffset(Vector2Short offset)
         {
-            _writer.Append(QuoteChar);
-            VectorExt.WritePos(_writer, offset);
-            _writer.Append(QuoteChar);
+            _writer.Write(QuoteChar);
+            VectorCache.WritePos(_writer, offset);
+            _writer.Write(QuoteChar);
         }
         
         public void WriteValue(UiColor color)
         {
-            _writer.Append(QuoteChar);
-            UiColorExt.WriteColor(_writer, color);
-            _writer.Append(QuoteChar);
+            _writer.Write(QuoteChar);
+            UiColorCache.WriteColor(_writer, color);
+            _writer.Write(QuoteChar);
         }
 
         protected override void EnterPool()
         {
-            UiFrameworkPool.FreeStringBuilder(ref _writer);
+            _objectComma = false;
+            _propertyComma = false;
+            UiFrameworkPool.Free(ref _writer);
         }
 
         public override string ToString()
@@ -324,11 +331,24 @@ namespace Oxide.Ext.UiFramework.Json
             return _writer.ToString();
         }
 
-        public string ToJson()
+        public int WriteTo(byte[] buffer)
         {
-            string json = _writer.ToString();
-            Dispose();
-            return json;
+            return _writer.WriteToArray(buffer);
+        }
+        
+        public void WriteToNetwork()
+        {
+            _writer.WriteToNetwork();
+        }
+
+        public byte[] ToArray()
+        {
+            return _writer.ToArray();
+        }
+
+        public override void DisposeInternal()
+        {
+            UiFrameworkPool.Free(this);
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace Oxide.Ext.UiFramework.Json
+﻿namespace Oxide.Ext.UiFramework.Json
 {
     public static class JsonDefaults
     {
@@ -66,8 +64,6 @@ namespace Oxide.Ext.UiFramework.Json
         {
             public const string DistanceName = "distance";
             public const string UseGraphicAlphaName = "useGraphicAlpha";
-            public const string UseGraphicAlphaValue = "True";
-            public static readonly Vector2 DistanceValue = new Vector2(1.0f, -1.0f);
         }
 
         public static class Button
@@ -86,7 +82,6 @@ namespace Oxide.Ext.UiFramework.Json
         {
             public const string ItemIdName = "itemid";
             public const string SkinIdName = "skinid";
-            public const ulong DefaultSkinId = 0;
         }
 
         public static class Input

@@ -42,5 +42,10 @@ namespace Oxide.Ext.UiFramework.UiElements
             base.LeavePool();
             Icon = UiFrameworkPool.Get<ItemIconComponent>();
         }
+        
+        public override void DisposeInternal()
+        {
+            UiFrameworkPool.Free(this);
+        }
     }
 }

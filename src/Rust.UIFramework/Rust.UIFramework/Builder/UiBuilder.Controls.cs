@@ -46,7 +46,7 @@ namespace Oxide.Ext.UiFramework.Builder
 
                 string incrementDisplay = increment.ToString();
                 TextButton(parent, string.Concat("-", incrementDisplay), fontSize, textColor, buttonColor, subtractSlice, $"{cmd} {(value - increment).ToString()}");
-                TextButton(parent, incrementDisplay, fontSize, textColor, buttonColor, addSlice, $"{cmd} {(value + increment).ToString()}");
+                TextButton(parent, string.Concat("+", incrementDisplay), fontSize, textColor, buttonColor, addSlice, $"{cmd} {(value + increment).ToString()}");
             }
             
             UiInput input = Input(parent, value.ToString(), fontSize, textColor, backgroundColor, pos.SliceHorizontal(0.3f, 0.7f), cmd, readOnly: readOnly);
@@ -106,7 +106,7 @@ namespace Oxide.Ext.UiFramework.Builder
             TextButton(parent, ">>>", fontSize, textColor, buttonColor, grid, $"{cmd} {maxPage.ToString()}");
         }
         
-        public void Border(BaseUiComponent parent, UiColor color, int width = 1, BorderMode border = BorderMode.Top | BorderMode.Bottom | BorderMode.Left | BorderMode.Right)
+        public void Border(BaseUiComponent parent, UiColor color, int width = 1, BorderMode border = BorderMode.All)
         {
             //If width is 0 nothing is displayed so don't try to render
             if (width == 0)
@@ -148,24 +148,29 @@ namespace Oxide.Ext.UiFramework.Builder
             }
             else
             {
+                int tbMin = left ? width : 0;
+                int tbMax = right ? -width : 0;
+                int lrMin = top ? width : 0;
+                int lrMax = bottom ? -width : 0;
+                
                 if (top)
                 {
-                    Panel(parent, color, UiPosition.Top, new UiOffset(0, width, 0, 0));
+                    Panel(parent, color, UiPosition.Top, new UiOffset(tbMin, width, tbMax, 0));
                 }
             
                 if (left)
                 {
-                    Panel(parent, color, UiPosition.Left, new UiOffset(0, 0, -width, 0));
+                    Panel(parent, color, UiPosition.Left, new UiOffset(0, lrMin, -width, lrMax));
                 }
             
                 if (bottom)
                 {
-                    Panel(parent, color, UiPosition.Bottom, new UiOffset(0, 0, 0, -width));
+                    Panel(parent, color, UiPosition.Bottom, new UiOffset(tbMin, 0, tbMax, -width));
                 }
             
                 if (right)
                 {
-                    Panel(parent, color, UiPosition.Right, new UiOffset(width, 0, 0, 0));
+                    Panel(parent, color, UiPosition.Right, new UiOffset(width, lrMin, 0, lrMax));
                 }
             }
         }

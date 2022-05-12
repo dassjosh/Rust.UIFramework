@@ -2,7 +2,7 @@
 
 namespace Oxide.Ext.UiFramework.Components
 {
-    public class BaseImageComponent : FadeInComponent
+    public abstract class BaseImageComponent : BaseFadeInComponent
     {
         public string Sprite;
         public string Material;

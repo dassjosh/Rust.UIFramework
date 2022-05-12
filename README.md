@@ -4,15 +4,21 @@ UI Framework for Rust (The Game) using the [Oxide/uMod](https://umod.org) plugin
 ## Performance Comparison vs Oxide
 
 This benchmark shows the performance comparision when generating 100 UI elements and then serializing them to JSON.
-In comparision to oxide when performing the serialization UiFramework is ~8.60x faster at generating the UI elements and JSON.
-Along with the performance improvements the Memory allocated on the heap is ~3.01x smaller than what oxide would allocate.
+In comparision to oxide when performing the serialization UiFramework is ~9.40x faster at generating the UI elements and JSON.
+Along with the performance improvements there are 0 memory allocations.
 
-|                         Method |      Mean |    Error |   StdDev | Ratio |   Gen 0 |  Gen 1 | Allocated |
-|------------------------------- |----------:|---------:|---------:|------:|--------:|-------:|----------:|
-|     OxideBenchmark_WithoutJson |  47.74 us | 0.106 us | 0.089 us |  0.08 | 12.3291 |      - |     51 KB |
-| FrameworkBenchmark_WithoutJson |  22.59 us | 0.240 us | 0.213 us |  0.04 |  3.8147 |      - |     16 KB |
-|        OxideBenchmark_WithJson | 598.32 us | 9.672 us | 8.574 us |  1.00 | 39.0625 | 9.7656 |    163 KB |
-|    FrameworkBenchmark_WithJson |  69.55 us | 0.196 us | 0.153 us |  0.12 | 13.0615 |      - |     54 KB |
+|                    Method |       Mean |     Error |    StdDev | Ratio |   Gen 0 |  Gen 1 | Allocated |
+|-------------------------- |-----------:|----------:|----------:|------:|--------:|-------:|----------:|
+|     Oxide_CreateContainer |  49.927 us | 0.9620 us | 1.1451 us | 0.081 | 12.3291 |      - |  51,953 B |
+| Framework_CreateContainer |   9.392 us | 0.0491 us | 0.0460 us | 0.015 |       - |      - |         - |
+|          Oxide_CreateJson | 548.430 us | 3.3054 us | 2.9301 us | 0.881 | 26.3672 | 0.9766 | 114,584 B |
+|      Framework_CreateJson |  51.130 us | 0.2379 us | 0.2109 us | 0.082 |       - |      - |         - |
+|          Oxide_EncodeJson |  20.913 us | 0.2681 us | 0.2507 us | 0.034 |  4.7607 |      - |  19,984 B |
+|      Framework_EncodeJson |   1.889 us | 0.0025 us | 0.0024 us | 0.003 |       - |      - |         - |
+|                Oxide_Full | 622.410 us | 4.9448 us | 4.3835 us | 1.000 | 43.9453 |      - | 186,398 B |
+|            Framework_Full |  66.159 us | 0.7597 us | 0.6734 us | 0.106 |       - |      - |         - |
+
+
 
 ## Getting Started
 

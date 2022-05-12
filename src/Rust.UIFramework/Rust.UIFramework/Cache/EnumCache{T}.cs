@@ -1,14 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using Oxide.Plugins;
 
-namespace Oxide.Ext.UiFramework.Extensions
+namespace Oxide.Ext.UiFramework.Cache
 {
-    public static class EnumExt<T>
+    public static class EnumCache<T>
     {
-        private static readonly Hash<T, string> CachedStrings = new Hash<T, string>();
+        private static readonly Dictionary<T, string> CachedStrings = new Dictionary<T, string>();
 
-        static EnumExt()
+        static EnumCache()
         {
             foreach (T value in Enum.GetValues(typeof(T)).Cast<T>())
             {

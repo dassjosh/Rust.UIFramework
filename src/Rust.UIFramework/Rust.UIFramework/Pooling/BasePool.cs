@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace Oxide.Ext.UiFramework.Pooling
 {
     /// <summary>
@@ -8,8 +6,9 @@ namespace Oxide.Ext.UiFramework.Pooling
     /// <typeparam name="T">Type being pooled</typeparam>
     public abstract class BasePool<T> : IPool<T> where T : class, new()
     {
-        private readonly Queue<T> _pool;
+        private readonly T[] _pool;
         private readonly int _maxSize;
+        private int _index;
 
         /// <summary>
         /// Base Pool Constructor
@@ -18,11 +17,7 @@ namespace Oxide.Ext.UiFramework.Pooling
         protected BasePool(int maxSize)
         {
             _maxSize = maxSize;
-            _pool = new Queue<T>(maxSize);
-            for (int i = 0; i < maxSize; i++)
-            {
-                _pool.Enqueue(new T());
-            }
+            _pool = new T[maxSize];
             
             UiFrameworkPool.AddPool(this);
         }
@@ -33,7 +28,19 @@ namespace Oxide.Ext.UiFramework.Pooling
         /// <returns></returns>
         public T Get()
         {
-            T item = _pool.Count != 0 ? _pool.Dequeue() : new T();
+            T item = null;
+            if (_index < _pool.Length)
+            {
+                item = _pool[_index];
+                _pool[_index] = null;
+                _index++;
+            }
+
+            if (item == null)
+            {
+                item = new T();
+            }
+
             OnGetItem(item);
             return item;
         }
@@ -54,12 +61,16 @@ namespace Oxide.Ext.UiFramework.Pooling
                 return;
             }
             
-            if (_pool.Count >= _maxSize)
+            if (_index + 1 >= _maxSize)
             {
                 return;
             }
                 
-            _pool.Enqueue(item);
+            if (_index != 0)
+            {
+                _index--;
+                _pool[_index] = item;
+            }
 
             item = null;
         }
@@ -83,9 +94,13 @@ namespace Oxide.Ext.UiFramework.Pooling
             return true;
         }
 
-        public virtual void Clear()
+        public void Clear()
         {
-            _pool.Clear();
+            for (int index = 0; index < _pool.Length; index++)
+            {
+                _pool[index] = null;
+                _index = 0;
+            }
         }
     }
 }

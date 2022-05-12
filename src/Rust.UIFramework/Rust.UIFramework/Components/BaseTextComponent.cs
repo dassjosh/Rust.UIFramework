@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Components
 {
-    public class BaseTextComponent : FadeInComponent
+    public abstract class BaseTextComponent : BaseFadeInComponent
     {
         public int FontSize = JsonDefaults.BaseText.FontSize;
         public string Font;

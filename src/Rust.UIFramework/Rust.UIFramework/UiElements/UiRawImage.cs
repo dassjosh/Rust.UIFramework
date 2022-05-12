@@ -54,5 +54,10 @@ namespace Oxide.Ext.UiFramework.UiElements
             base.LeavePool();
             RawImage = UiFrameworkPool.Get<RawImageComponent>();
         }
+        
+        public override void DisposeInternal()
+        {
+            UiFrameworkPool.Free(this);
+        }
     }
 }

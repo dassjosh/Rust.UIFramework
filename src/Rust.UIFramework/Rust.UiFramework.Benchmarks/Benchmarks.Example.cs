@@ -1,54 +1,33 @@
-﻿//Requires System.Buffers
-
+﻿using System;
+using System.Collections.Generic;
 using System.Text;
+using BenchmarkDotNet.Attributes;
+using Oxide.Ext.UiFramework.Builder;
+using Oxide.Ext.UiFramework.Colors;
+using Oxide.Ext.UiFramework.Offsets;
+using Oxide.Ext.UiFramework.Positions;
+using Oxide.Ext.UiFramework.UiElements;
+using Oxide.Game.Rust.Cui;
+using Oxide.Plugins;
 using UnityEngine;
 
-namespace Oxide.Plugins
+namespace Rust.UiFramework.Benchmarks
 {
-    [Info("UI Elements Test", "MJSU", "1.0.0")]
-    [Description("Tests all UI elements")]
-    public partial class UiElementsTest : RustPlugin
+    [MemoryDiagnoser]
+    public class BenchmarksExample
     {
-        #region Fields
-        private readonly Hash<ulong, PlayerState> _playerStates = new Hash<ulong, PlayerState>();
-
-        private static UiElementsTest _ins;
-        #endregion
-
-        #region Setup & Loading
-        private void Init()
-        {
-            _ins = this;
-            _outsideClose.CacheJson();
-        }
-
-        private void Unload()
-        {
-            UiBuilder.DestroyUi(UiName);
-            UiBuilder.DestroyUi(UiModal);
-            _ins = null;
-        }
-        #endregion
-
-        #region Chat Command
-        [ChatCommand("et")]
-        private void ElementsChatCommand(BasePlayer player, string cmd, string[] args)
-        {
-            CreateUi(player);
-        }  
+        public readonly byte[] Buffer = new byte[1024 * 1024];
         
-        [ChatCommand("ets")]
-        private void ElementsSkinChatCommand(BasePlayer player, string cmd, string[] args)
+        [GlobalSetup]
+        public void Setup()
         {
-            CreateSkinTest(player);
+
         }
-        #endregion
 
         #region UI
-        private const string UiName = nameof(UiElementsTest) + "_Main";
-        private const string UiClose = nameof(UiElementsTest) + "_OutsideClose";
-        private const string UiModal = nameof(UiElementsTest) + "_Modal";
-        private const string UiSkin = nameof(UiElementsTest) + "_Skin";
+        private const string UiName = nameof(BenchmarksExample) + "_Main";
+        private const string UiModal = nameof(BenchmarksExample) + "_Modal";
+        private const string UiSkin = nameof(BenchmarksExample) + "_Skin";
 
         private readonly UiOffset _containerSize = new UiOffset(800, 600);
         private readonly UiPosition _titleBarPos = new UiPosition(0, 0.95f, 1, 1);
@@ -69,19 +48,11 @@ namespace Oxide.Plugins
         private const int FontSize = 14;
         private const int TitleFontSize = 16;
 
-        private UiBuilder _outsideClose = UiBuilder.CreateOutsideClose(nameof(UiElementsCloseAll), UiClose);
+        private readonly PlayerState _state = new PlayerState();
         
-        private void CreateUi(BasePlayer player)
+        public int CreateUi()
         {
-            _outsideClose.AddUiCached(player);
-            
-            PlayerState state = new PlayerState();
-            _playerStates[player.userID] = state;
-            CreateUi(player, state);
-        }
-
-        private void CreateUi(BasePlayer player, PlayerState state)
-        {
+            var state = _state;
             //Initialize the builder
             UiBuilder builder = UiBuilder.Create(UiColors.Body, UiPosition.MiddleMiddle, _containerSize, UiName);
 
@@ -89,13 +60,13 @@ namespace Oxide.Plugins
             builder.NeedsMouse();
 
             //UI Grabs control of the keyboard
-            builder.NeedsKeyboard();
+            //builder.NeedsKeyboard();
 
             //Create a panel for the title bar
             UiPanel titlePanel = builder.Panel(builder.Root, UiColors.BodyHeader, _titleBarPos);
 
             //Create the Title Bar Title and parent it to the titlePanel
-            builder.Label(titlePanel, Title, TitleFontSize, UiColors.Text, _titleTextPos);
+            builder.Label(titlePanel, "BenchmarksExample", TitleFontSize, UiColors.Text, _titleTextPos);
 
             //Create a Text Close Button that closes the UI on the client side without using a server command
             builder.TextCloseButton(titlePanel, "<b>X</b>", FontSize, UiColors.Text, UiColors.CloseButton, _closeButtonPos, UiName);
@@ -180,11 +151,13 @@ namespace Oxide.Plugins
             builder.TextButton(body, "Open Modal", FontSize, UiColors.Text, UiColors.ButtonPrimary, _grid, nameof(UiElementsOpenModal));
             _grid.MoveCols(1);
 
-            builder.DestroyUi(player);
-            builder.AddUi(player);
+            return builder.WriteBuffer(Buffer);
 
-            LogToFile("Main", string.Empty, this);
-            LogToFile("Main", Encoding.UTF8.GetString(builder.GetBytes()), this);
+            //builder.DestroyUi(player);
+            //builder.AddUi(player);
+
+            //LogToFile("Main", string.Empty, this);
+            //LogToFile("Main", builder.ToJson(), this);
         }
 
         private void CreateModalUi(BasePlayer player)
@@ -197,161 +170,82 @@ namespace Oxide.Plugins
             builder.DestroyUi(player);
             builder.AddUi(player);
             
-            LogToFile("Modal", string.Empty, this);
-            LogToFile("Modal", Encoding.UTF8.GetString(builder.GetBytes()), this);
+            //LogToFile("Modal", string.Empty, this);
+            //LogToFile("Modal", builder.ToJson(), this);
         }
 
-        private static readonly GridPosition Skin = new GridPositionBuilder(2, 1).SetPadding(0.025f).Build();
+        private static readonly GridPosition _skin = new GridPositionBuilder(2, 1).SetPadding(0.025f).Build();
         
         private void CreateSkinTest(BasePlayer player)
         {
             UiBuilder builder = UiBuilder.Create(UiColors.Body, UiPosition.MiddleMiddle, new UiOffset(400, 300), UiSkin);
             builder.NeedsMouse();
             
-            Skin.Reset();
+            _skin.Reset();
 
-            builder.ItemIcon(builder.Root, 963906841, 2084257363, Skin);
-            Skin.MoveCols(1);
+            builder.ItemIcon(builder.Root, 963906841, 2084257363, _skin);
+            _skin.MoveCols(1);
             
-            builder.ItemIcon(builder.Root, 963906841, 2320435219ul, Skin);
-            Skin.MoveCols(1);
+            builder.ItemIcon(builder.Root, 963906841, 2320435219ul, _skin);
+            _skin.MoveCols(1);
             
             builder.TextCloseButton(builder.Root, "<b>X</b>", 14, UiColors.Text, UiColors.StandardColors.Clear, new UiPosition(.9f, .9f, 1f, 1f), UiSkin);
 
             builder.DestroyUi(player);
             builder.AddUi(player);
             
-            LogToFile("Skin", string.Empty, this);
-            LogToFile("Skin", Encoding.UTF8.GetString(builder.GetBytes()), this);
+            //LogToFile("Skin", string.Empty, this);
+            //LogToFile("Skin", builder.ToJson(), this);
         }
         #endregion
 
         #region UI Commands
-        [ConsoleCommand(nameof(UiElementsCloseAll))]
-        private void UiElementsCloseAll(ConsoleSystem.Arg arg)
-        {
-            BasePlayer player = arg.Player();
-            if (!player)
-            {
-                return;
-            }
-
-            UiBuilder.DestroyUi(player, UiName);
-            UiBuilder.DestroyUi(player, UiClose);
-            UiBuilder.DestroyUi(player, UiModal);
-            UiBuilder.DestroyUi(player, UiName);
-        }
-        
         [ConsoleCommand(nameof(UiElementsCloseCommand))]
         private void UiElementsCloseCommand(ConsoleSystem.Arg arg)
         {
-            BasePlayer player = arg.Player();
-            if (!player)
-            {
-                return;
-            }
 
-            UiBuilder.DestroyUi(player, UiName);
-            UiBuilder.DestroyUi(player, UiClose);
         }
 
         [ConsoleCommand(nameof(UiElementsUpdateInput1))]
         private void UiElementsUpdateInput1(ConsoleSystem.Arg arg)
         {
-            BasePlayer player = arg.Player();
-            if (!player)
-            {
-                return;
-            }
 
-            PlayerState state = _playerStates[player.userID];
-            state.Input1Text = arg.GetString(0);
-
-            CreateUi(player, state);
         }
 
         [ConsoleCommand(nameof(UiElementsToggleCheckbox))]
         private void UiElementsToggleCheckbox(ConsoleSystem.Arg arg)
         {
-            BasePlayer player = arg.Player();
-            if (!player)
-            {
-                return;
-            }
 
-            PlayerState state = _playerStates[player.userID];
-            state.Checkbox = !state.Checkbox;
-
-            CreateUi(player, state);
         }
 
         [ConsoleCommand(nameof(UiElementsNumberPicker))]
         private void UiElementsNumberPicker(ConsoleSystem.Arg arg)
         {
-            BasePlayer player = arg.Player();
-            if (!player)
-            {
-                return;
-            }
 
-            PlayerState state = _playerStates[player.userID];
-            state.NumberPicker = arg.GetInt(0);
-
-            CreateUi(player, state);
         }
 
         [ConsoleCommand(nameof(UiElementsInputNumberPicker))]
         private void UiElementsInputNumberPicker(ConsoleSystem.Arg arg)
         {
-            BasePlayer player = arg.Player();
-            if (!player)
-            {
-                return;
-            }
 
-            PlayerState state = _playerStates[player.userID];
-            state.InputPicker = arg.GetInt(0);
-
-            CreateUi(player, state);
         }
 
         [ConsoleCommand(nameof(UiElementsPage))]
         private void UiElementsPage(ConsoleSystem.Arg arg)
         {
-            BasePlayer player = arg.Player();
-            if (!player)
-            {
-                return;
-            }
 
-            PlayerState state = _playerStates[player.userID];
-            state.Page = arg.GetInt(0);
-
-            CreateUi(player, state);
         }
         
         [ConsoleCommand(nameof(UiElementsOpenModal))]
         private void UiElementsOpenModal(ConsoleSystem.Arg arg)
         {
-            BasePlayer player = arg.Player();
-            if (!player)
-            {
-                return;
-            }
 
-            CreateModalUi(player);
         }
         
         [ConsoleCommand(nameof(UiElementsCloseModal))]
         private void UiElementsCloseModal(ConsoleSystem.Arg arg)
         {
-            BasePlayer player = arg.Player();
-            if (!player)
-            {
-                return;
-            }
 
-            UiBuilder.DestroyUi(player, UiModal);
         }
         #endregion
 
@@ -367,4 +261,3 @@ namespace Oxide.Plugins
         #endregion
     }
 }
-

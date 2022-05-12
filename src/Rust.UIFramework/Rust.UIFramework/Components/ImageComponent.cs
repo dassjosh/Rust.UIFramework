@@ -1,4 +1,5 @@
 ﻿using Oxide.Ext.UiFramework.Json;
+using Oxide.Ext.UiFramework.Pooling;
 using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.Components
@@ -14,7 +15,7 @@ namespace Oxide.Ext.UiFramework.Components
         {
             writer.WriteStartObject();
             writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, Type);
-            writer.AddField(JsonDefaults.Image.PngName, Png, null);
+            writer.AddField(JsonDefaults.Image.PngName, Png, JsonDefaults.Common.NullValue);
             writer.AddField(JsonDefaults.Image.ImageType, ImageType);
             base.WriteComponent(writer);
             writer.WriteEndObject();
@@ -23,8 +24,13 @@ namespace Oxide.Ext.UiFramework.Components
         protected override void EnterPool()
         {
             base.EnterPool();
-            Png = null;
+            Png = JsonDefaults.Common.NullValue;
             ImageType = Image.Type.Simple;
+        }
+        
+        public override void DisposeInternal()
+        {
+            UiFrameworkPool.Free(this);
         }
     }
 }

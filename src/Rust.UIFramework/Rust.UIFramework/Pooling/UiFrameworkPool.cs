@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Text;
 using Oxide.Plugins;
 
@@ -70,15 +69,6 @@ namespace Oxide.Ext.UiFramework.Pooling
         {
             return StringBuilderPool.Instance.Get();
         }
-        
-        /// <summary>
-        /// Returns a pooled <see cref="MemoryStream"/>
-        /// </summary>
-        /// <returns>Pooled <see cref="MemoryStream"/></returns>
-        public static MemoryStream GetMemoryStream()
-        {
-            return MemoryStreamPool.Instance.Get();
-        }
 
         /// <summary>
         /// Free's a pooled <see cref="List{T}"/>
@@ -109,15 +99,6 @@ namespace Oxide.Ext.UiFramework.Pooling
         {
             StringBuilderPool.Instance.Free(ref sb);
         }
-        
-        /// <summary>
-        /// Frees a <see cref="MemoryStream"/> back to the pool
-        /// </summary>
-        /// <param name="stream">MemoryStream being freed</param>
-        public static void FreeMemoryStream(ref MemoryStream stream)
-        {
-            MemoryStreamPool.Instance.Free(ref stream);
-        }
 
         /// <summary>
         /// Frees a <see cref="StringBuilder"/> back to the pool returning the <see cref="string"/>
@@ -126,7 +107,7 @@ namespace Oxide.Ext.UiFramework.Pooling
         public static string ToStringAndFreeStringBuilder(ref StringBuilder sb)
         {
             string result = sb.ToString();
-            StringBuilderPool.Instance.Free(ref sb);
+            FreeStringBuilder(ref sb);
             return result;
         }
 

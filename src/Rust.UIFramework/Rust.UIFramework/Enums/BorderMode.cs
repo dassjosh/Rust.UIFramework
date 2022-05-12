@@ -9,5 +9,6 @@ namespace Oxide.Ext.UiFramework.Enums
         Left = 1 << 1,
         Bottom = 1 << 2,
         Right = 1 << 3,
+        All = Top | Left | Bottom | Right
     }
 }

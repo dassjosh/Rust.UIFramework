@@ -2,7 +2,7 @@
 
 namespace Oxide.Ext.UiFramework.Components
 {
-    public abstract class FadeInComponent : BaseColorComponent
+    public abstract class BaseFadeInComponent : BaseColorComponent
     {
         public float FadeIn;
 

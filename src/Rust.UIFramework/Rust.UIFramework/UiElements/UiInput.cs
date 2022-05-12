@@ -86,5 +86,10 @@ namespace Oxide.Ext.UiFramework.UiElements
             base.LeavePool();
             Input = UiFrameworkPool.Get<InputComponent>();
         }
+        
+        public override void DisposeInternal()
+        {
+            UiFrameworkPool.Free(this);
+        }
     }
 }

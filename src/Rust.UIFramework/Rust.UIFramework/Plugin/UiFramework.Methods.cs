@@ -2,7 +2,11 @@
 using Network;
 using Oxide.Core.Plugins;
 using Oxide.Ext.UiFramework.Builder;
+using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Pooling;
+using Oxide.Ext.UiFramework.Pooling.ArrayPool;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.Plugin
 {
@@ -29,6 +33,10 @@ namespace Oxide.Ext.UiFramework.Plugin
         public override void HandleRemovedFromManager(PluginManager manager)
         {
             UiFrameworkPool.OnUnload();
+            UiFrameworkArrayPool<byte>.Clear();
+            UiFrameworkArrayPool<char>.Clear();
+            UiColorCache.OnUnload();
+            UiNameCache.OnUnload();
             base.HandleRemovedFromManager(manager);
         }
         #endregion

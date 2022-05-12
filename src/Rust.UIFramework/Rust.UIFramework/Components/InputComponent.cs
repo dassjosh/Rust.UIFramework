@@ -1,4 +1,5 @@
 ﻿using Oxide.Ext.UiFramework.Json;
+using Oxide.Ext.UiFramework.Pooling;
 using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.Components
@@ -44,11 +45,16 @@ namespace Oxide.Ext.UiFramework.Components
         protected override void EnterPool()
         {
             base.EnterPool();
-            CharsLimit = 0;
+            CharsLimit = JsonDefaults.Input.CharacterLimitValue;
             Command = null;
             NeedsKeyboard = true;
             IsPassword = false;
             LineType = default(InputField.LineType);
+        }
+        
+        public override void DisposeInternal()
+        {
+            UiFrameworkPool.Free(this);
         }
     }
 }

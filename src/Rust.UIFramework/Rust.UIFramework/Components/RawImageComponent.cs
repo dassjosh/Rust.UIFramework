@@ -1,8 +1,9 @@
 ﻿using Oxide.Ext.UiFramework.Json;
+using Oxide.Ext.UiFramework.Pooling;
 
 namespace Oxide.Ext.UiFramework.Components
 {
-    public class RawImageComponent : FadeInComponent
+    public class RawImageComponent : BaseFadeInComponent
     {
         private const string Type = "UnityEngine.UI.RawImage";
 
@@ -32,6 +33,11 @@ namespace Oxide.Ext.UiFramework.Components
             Url = null;
             Texture = null;
             Material = null;
+        }
+        
+        public override void DisposeInternal()
+        {
+            UiFrameworkPool.Free(this);
         }
     }
 }
