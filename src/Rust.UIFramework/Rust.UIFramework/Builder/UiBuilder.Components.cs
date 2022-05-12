@@ -57,7 +57,7 @@ namespace Oxide.Ext.UiFramework.Builder
         public UiButton TextButton(BaseUiComponent parent, string text, int textSize, UiColor textColor, UiColor buttonColor, UiPosition pos, string cmd, TextAnchor align = TextAnchor.MiddleCenter)
         {
             UiButton button = EmptyCommandButton(parent, buttonColor, pos, cmd);
-            Label(button, text, textSize, textColor, UiPosition.Full, align);
+            Label(button, text, textSize, textColor, UiPosition.Full.SliceHorizontal(0.01f, 0.99f), align);
             return button;
         }
 
@@ -92,7 +92,7 @@ namespace Oxide.Ext.UiFramework.Builder
         public UiButton TextCloseButton(BaseUiComponent parent, string text, int textSize, UiColor textColor, UiColor buttonColor, UiPosition pos, string close, TextAnchor align = TextAnchor.MiddleCenter)
         {
             UiButton button = EmptyCloseButton(parent, buttonColor, pos, close);
-            Label(button, text, textSize, textColor, UiPosition.Full, align);
+            Label(button, text, textSize, textColor, UiPosition.Full.SliceHorizontal(0.01f, 0.99f), align);
             return button;
         }
 
@@ -199,7 +199,7 @@ namespace Oxide.Ext.UiFramework.Builder
         public UiLabel LabelBackground(BaseUiComponent parent, string text, int size, UiColor textColor, UiColor backgroundColor, UiPosition pos, TextAnchor align = TextAnchor.MiddleCenter)
         {
             UiPanel panel = Panel(parent, backgroundColor, pos);
-            UiLabel label = UiLabel.Create(UiPosition.Full, null, textColor, text, size, _font, align);
+            UiLabel label = UiLabel.Create(UiPosition.Full.SliceHorizontal(0.01f, 0.99f), null, textColor, text, size, _font, align);
             AddComponent(label, panel);
             return label;
         }
@@ -234,11 +234,17 @@ namespace Oxide.Ext.UiFramework.Builder
         #endregion
 
         #region Input
-        public UiInput Input(BaseUiComponent parent, string text, int fontSize, UiColor textColor, UiColor backgroundColor, UiPosition pos, string cmd, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, bool isPassword = false, bool readOnly = false, InputField.LineType lineType = InputField.LineType.SingleLine)
+        public UiInput Input(BaseUiComponent parent, string text, int fontSize, UiColor textColor, UiPosition pos, string cmd, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, bool isPassword = false, bool readOnly = false, InputField.LineType lineType = InputField.LineType.SingleLine)
+        {
+            UiInput input = UiInput.Create(pos, null, textColor, text, fontSize, cmd, _font, align, charsLimit, isPassword, readOnly, lineType);
+            AddComponent(input, parent);
+            return input;
+        }
+        
+        public UiInput InputBackground(BaseUiComponent parent, string text, int fontSize, UiColor textColor, UiColor backgroundColor, UiPosition pos, string cmd, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, bool isPassword = false, bool readOnly = false, InputField.LineType lineType = InputField.LineType.SingleLine)
         {
             parent = Panel(parent, backgroundColor, pos);
-            UiInput input = UiInput.Create(UiPosition.Full, null, textColor, text, fontSize, cmd, _font, align, charsLimit, isPassword, readOnly, lineType);
-            AddComponent(input, parent);
+            UiInput input = Input(parent, text, fontSize, textColor, UiPosition.Full.SliceHorizontal(0.01f, 0.99f), cmd, align, charsLimit, isPassword, readOnly, lineType);
             return input;
         }
         #endregion
