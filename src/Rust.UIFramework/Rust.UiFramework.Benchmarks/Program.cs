@@ -1,5 +1,6 @@
 ﻿using BenchmarkDotNet.Configs;
 using BenchmarkDotNet.Running;
+using Oxide.Ext.UiFramework.Positions;
 
 namespace Rust.UiFramework.Benchmarks
 {
@@ -13,7 +14,7 @@ namespace Rust.UiFramework.Benchmarks
 #if DEBUG
             Benchmarks benchmarks = new Benchmarks();
             benchmarks.Setup();
-            
+
             while (true)
             {
                 //var buffer = benchmarks.Buffer;

@@ -216,7 +216,7 @@ namespace Oxide.Plugins
             public UiButton TextButton(BaseUiComponent parent, string text, int textSize, UiColor textColor, UiColor buttonColor, UiPosition pos, string cmd, TextAnchor align = TextAnchor.MiddleCenter)
             {
                 UiButton button = EmptyCommandButton(parent, buttonColor, pos, cmd);
-                Label(button, text, textSize, textColor, UiPosition.Full, align);
+                Label(button, text, textSize, textColor, UiPosition.Full.SliceHorizontal(0.01f, 0.99f), align);
                 return button;
             }
             
@@ -251,7 +251,7 @@ namespace Oxide.Plugins
             public UiButton TextCloseButton(BaseUiComponent parent, string text, int textSize, UiColor textColor, UiColor buttonColor, UiPosition pos, string close, TextAnchor align = TextAnchor.MiddleCenter)
             {
                 UiButton button = EmptyCloseButton(parent, buttonColor, pos, close);
-                Label(button, text, textSize, textColor, UiPosition.Full, align);
+                Label(button, text, textSize, textColor, UiPosition.Full.SliceHorizontal(0.01f, 0.99f), align);
                 return button;
             }
             
@@ -358,7 +358,7 @@ namespace Oxide.Plugins
             public UiLabel LabelBackground(BaseUiComponent parent, string text, int size, UiColor textColor, UiColor backgroundColor, UiPosition pos, TextAnchor align = TextAnchor.MiddleCenter)
             {
                 UiPanel panel = Panel(parent, backgroundColor, pos);
-                UiLabel label = UiLabel.Create(UiPosition.Full, null, textColor, text, size, _font, align);
+                UiLabel label = UiLabel.Create(UiPosition.Full.SliceHorizontal(0.01f, 0.99f), null, textColor, text, size, _font, align);
                 AddComponent(label, panel);
                 return label;
             }
@@ -393,11 +393,17 @@ namespace Oxide.Plugins
             #endregion
             
             #region Input
-            public UiInput Input(BaseUiComponent parent, string text, int fontSize, UiColor textColor, UiColor backgroundColor, UiPosition pos, string cmd, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, bool isPassword = false, bool readOnly = false, InputField.LineType lineType = InputField.LineType.SingleLine)
+            public UiInput Input(BaseUiComponent parent, string text, int fontSize, UiColor textColor, UiPosition pos, string cmd, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, bool isPassword = false, bool readOnly = false, InputField.LineType lineType = InputField.LineType.SingleLine)
+            {
+                UiInput input = UiInput.Create(pos, null, textColor, text, fontSize, cmd, _font, align, charsLimit, isPassword, readOnly, lineType);
+                AddComponent(input, parent);
+                return input;
+            }
+            
+            public UiInput InputBackground(BaseUiComponent parent, string text, int fontSize, UiColor textColor, UiColor backgroundColor, UiPosition pos, string cmd, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, bool isPassword = false, bool readOnly = false, InputField.LineType lineType = InputField.LineType.SingleLine)
             {
                 parent = Panel(parent, backgroundColor, pos);
-                UiInput input = UiInput.Create(UiPosition.Full, null, textColor, text, fontSize, cmd, _font, align, charsLimit, isPassword, readOnly, lineType);
-                AddComponent(input, parent);
+                UiInput input = Input(parent, text, fontSize, textColor, UiPosition.Full.SliceHorizontal(0.01f, 0.99f), cmd, align, charsLimit, isPassword, readOnly, lineType);
                 return input;
             }
             #endregion
@@ -427,7 +433,7 @@ namespace Oxide.Plugins
                 TextButton(parent, "-", fontSize, textColor, buttonColor, subtractSlice, $"{cmd} {(value - 1).ToString()}");
                 TextButton(parent, "+", fontSize, textColor, buttonColor, addSlice, $"{cmd} {(value + 1).ToString()}");
                 
-                UiInput input = Input(parent, value.ToString(), fontSize, textColor, backgroundColor, pos.SliceHorizontal(buttonWidth, 1 - buttonWidth), cmd, readOnly: readOnly);
+                UiInput input = InputBackground(parent, value.ToString(), fontSize, textColor, backgroundColor, pos.SliceHorizontal(buttonWidth, 1 - buttonWidth), cmd, readOnly: readOnly);
                 input.SetRequiresKeyboard();
             }
             
@@ -446,7 +452,7 @@ namespace Oxide.Plugins
                     TextButton(parent, string.Concat("+", incrementDisplay), fontSize, textColor, buttonColor, addSlice, $"{cmd} {(value + increment).ToString()}");
                 }
                 
-                UiInput input = Input(parent, value.ToString(), fontSize, textColor, backgroundColor, pos.SliceHorizontal(0.3f, 0.7f), cmd, readOnly: readOnly);
+                UiInput input = InputBackground(parent, value.ToString(), fontSize, textColor, backgroundColor, pos.SliceHorizontal(0.3f, 0.7f), cmd, readOnly: readOnly);
                 input.SetRequiresKeyboard();
             }
             
@@ -465,7 +471,7 @@ namespace Oxide.Plugins
                     TextButton(parent, incrementDisplay, fontSize, textColor, buttonColor, addSlice, $"{cmd} {(value + increment).ToString()}");
                 }
                 
-                UiInput input = Input(parent, value.ToString(), fontSize, textColor, backgroundColor, pos.SliceHorizontal(0.3f, 0.7f), cmd, readOnly: readOnly);
+                UiInput input = InputBackground(parent, value.ToString(), fontSize, textColor, backgroundColor, pos.SliceHorizontal(0.3f, 0.7f), cmd, readOnly: readOnly);
                 input.SetRequiresKeyboard();
             }
             
@@ -2352,16 +2358,19 @@ namespace Oxide.Plugins
             public void WriteTextValue(string value)
             {
                 _writer.Write(QuoteChar);
-                for (int i = 0; i < value.Length; i++)
+                if (value != null)
                 {
-                    char character = value[i];
-                    if (character == '\"')
+                    for (int i = 0; i < value.Length; i++)
                     {
-                        _writer.Write("\\\"");
-                    }
-                    else
-                    {
-                        _writer.Write(character);
+                        char character = value[i];
+                        if (character == '\"')
+                        {
+                            _writer.Write("\\\"");
+                        }
+                        else
+                        {
+                            _writer.Write(character);
+                        }
                     }
                 }
                 _writer.Write(QuoteChar);
@@ -3020,11 +3029,6 @@ namespace Oxide.Plugins
         #region Positions\GridPositionBuilder.cs
         public class GridPositionBuilder
         {
-            private float _xMin;
-            private float _yMin;
-            private float _xMax;
-            private float _yMax;
-            
             private readonly float _numCols;
             private readonly float _numRows;
             private int _rowHeight = 1;
@@ -3096,43 +3100,48 @@ namespace Oxide.Plugins
             
             public GridPosition Build()
             {
-                if (_rowHeight != 0)
-                {
-                    float size = _rowHeight / _numCols;
-                    _xMax += size;
-                }
-                
-                if (_rowOffset != 0)
-                {
-                    float size = _rowOffset / _numCols;
-                    _xMin += size;
-                    _xMax += size;
-                }
+                float xMin = 0;
+                float yMin = 0;
+                float xMax = 0;
+                float yMax = 0;
                 
                 if (_colWidth != 0)
                 {
-                    float size = _colWidth / _numRows;
-                    _yMax += size;
+                    float size = _colWidth / _numCols;
+                    xMax += size;
                 }
                 
                 if (_colOffset != 0)
                 {
-                    float size = _colOffset / _numRows;
-                    _yMin += size;
-                    _yMax += size;
+                    float size = _colOffset / _numCols;
+                    xMin += size;
+                    xMax += size;
                 }
                 
-                _xMin += _xPad;
-                _xMax -= _xPad;
-                float yMin = _yMin; //Need to save yMin before we overwrite it
-                _yMin = 1 - _yMax + _yPad;
-                _yMax = 1 - yMin - _yPad;
+                if (_rowHeight != 0)
+                {
+                    float size = _rowHeight / _numRows;
+                    yMax += size;
+                }
+                
+                if (_rowOffset != 0)
+                {
+                    float size = _rowOffset / _numRows;
+                    yMin += size;
+                    yMax += size;
+                }
+                
+                xMin += _xPad;
+                xMax -= _xPad;
+                float yMinTemp = yMin; //Need to save yMin before we overwrite it
+                yMin = 1 - yMax + _yPad;
+                yMax = 1 - yMinTemp - _yPad;
                 
                 #if UiDebug
                 ValidatePositions();
                 #endif
                 
-                return new GridPosition(_xMin, _yMin, _xMax, _yMax, _numCols, _numRows);
+                return new GridPosition(xMin, yMin, xMax, yMax, _numCols, _numRows);
             }
         }
         #endregion

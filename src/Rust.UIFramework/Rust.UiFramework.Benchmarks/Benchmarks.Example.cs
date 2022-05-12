@@ -119,7 +119,7 @@ namespace Rust.UiFramework.Benchmarks
             _grid.MoveCols(1);
 
             //Creates an input field for the user to type in
-            UiInput input1 = builder.Input(body, state.Input1Text, FontSize, UiColors.Text, UiColors.PanelSecondary, _grid, nameof(UiElementsUpdateInput1));
+            UiInput input1 = builder.InputBackground(body, state.Input1Text, FontSize, UiColors.Text, UiColors.PanelSecondary, _grid, nameof(UiElementsUpdateInput1));
 
             //Blocks keyboard input when the input field is selected
             input1.SetRequiresKeyboard();
