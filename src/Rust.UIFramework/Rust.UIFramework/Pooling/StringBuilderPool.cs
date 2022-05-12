@@ -14,7 +14,7 @@ namespace Oxide.Ext.UiFramework.Pooling
             Instance = new StringBuilderPool();
         }
 
-        private StringBuilderPool() : base(32) { }
+        private StringBuilderPool() : base(64) { }
         
         ///<inheritdoc/>
         protected override bool OnFreeItem(ref StringBuilder item)

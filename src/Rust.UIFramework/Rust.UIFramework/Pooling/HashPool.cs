@@ -16,7 +16,7 @@ namespace Oxide.Ext.UiFramework.Pooling
             Instance = new HashPool<TKey, TValue>();
         }
 
-        private HashPool() : base(32) { }
+        private HashPool() : base(128) { }
         
         ///<inheritdoc/>
         protected override bool OnFreeItem(ref Hash<TKey, TValue> item)

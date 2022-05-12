@@ -9,7 +9,7 @@ namespace Oxide.Ext.UiFramework.Pooling
             Instance = new ObjectPool<T>();
         }
 
-        private ObjectPool() : base(256) { }
+        private ObjectPool() : base(1024) { }
 
         protected override void OnGetItem(T item)
         {
