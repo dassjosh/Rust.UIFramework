@@ -2740,7 +2740,7 @@ namespace Oxide.Plugins
             Instance = new HashPool<TKey, TValue>();
         }
         
-        private HashPool() : base(32) { }
+        private HashPool() : base(128) { }
         
         ///<inheritdoc/>
         protected override bool OnFreeItem(ref Hash<TKey, TValue> item)
@@ -2785,7 +2785,7 @@ namespace Oxide.Plugins
             Instance = new ListPool<T>();
         }
         
-        private ListPool() : base(64) { }
+        private ListPool() : base(128) { }
         
         ///<inheritdoc/>
         protected override bool OnFreeItem(ref List<T> item)
@@ -2806,7 +2806,7 @@ namespace Oxide.Plugins
             Instance = new ObjectPool<T>();
         }
         
-        private ObjectPool() : base(256) { }
+        private ObjectPool() : base(1024) { }
         
         protected override void OnGetItem(T item)
         {
@@ -2836,7 +2836,7 @@ namespace Oxide.Plugins
             Instance = new StringBuilderPool();
         }
         
-        private StringBuilderPool() : base(32) { }
+        private StringBuilderPool() : base(64) { }
         
         ///<inheritdoc/>
         protected override bool OnFreeItem(ref StringBuilder item)
