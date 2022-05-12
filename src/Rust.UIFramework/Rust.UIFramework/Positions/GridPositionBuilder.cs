@@ -2,11 +2,6 @@
 {
     public class GridPositionBuilder
     {
-        private float _xMin;
-        private float _yMin;
-        private float _xMax;
-        private float _yMax;
-        
         private readonly float _numCols;
         private readonly float _numRows;
         private int _rowHeight = 1;
@@ -15,7 +10,7 @@
         private int _colOffset;
         private float _xPad;
         private float _yPad;
-        
+
         public GridPositionBuilder(int size) : this(size, size)
         {
         }
@@ -75,46 +70,51 @@
             _yPad = padding;
             return this;
         }
-        
+
         public GridPosition Build()
         {
-            if (_rowHeight != 0)
-            {
-                float size = _rowHeight / _numCols;
-                _xMax += size;
-            }
-
-            if (_rowOffset != 0)
-            {
-                float size = _rowOffset / _numCols;
-                _xMin += size;
-                _xMax += size;
-            }
+            float xMin = 0;
+            float yMin = 0;
+            float xMax = 0;
+            float yMax = 0;
 
             if (_colWidth != 0)
             {
-                float size = _colWidth / _numRows;
-                _yMax += size;
+                float size = _colWidth / _numCols;
+                xMax += size;
             }
 
             if (_colOffset != 0)
             {
-                float size = _colOffset / _numRows;
-                _yMin += size;
-                _yMax += size;
+                float size = _colOffset / _numCols;
+                xMin += size;
+                xMax += size;
             }
 
-            _xMin += _xPad;
-            _xMax -= _xPad;
-            float yMin = _yMin; //Need to save yMin before we overwrite it
-            _yMin = 1 - _yMax + _yPad;
-            _yMax = 1 - yMin - _yPad;
+            if (_rowHeight != 0)
+            {
+                float size = _rowHeight / _numRows;
+                yMax += size;
+            }
+
+            if (_rowOffset != 0)
+            {
+                float size = _rowOffset / _numRows;
+                yMin += size;
+                yMax += size;
+            }
+
+            xMin += _xPad;
+            xMax -= _xPad;
+            float yMinTemp = yMin; //Need to save yMin before we overwrite it
+            yMin = 1 - yMax + _yPad;
+            yMax = 1 - yMinTemp - _yPad;
 
 #if UiDebug
-            ValidatePositions();
+                ValidatePositions();
 #endif
 
-            return new GridPosition(_xMin, _yMin, _xMax, _yMax, _numCols, _numRows);
+            return new GridPosition(xMin, yMin, xMax, yMax, _numCols, _numRows);
         }
     }
 }
