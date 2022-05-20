@@ -20,6 +20,11 @@
         /// <summary>
         /// robotocondensed-regular.ttf
         /// </summary>
-        RobotoCondensedRegular
+        RobotoCondensedRegular, 
+        
+        /// <summary>
+        /// PressStart2P-Regular.ttf
+        /// </summary>
+        PressStart2PRegular
     }
 }
