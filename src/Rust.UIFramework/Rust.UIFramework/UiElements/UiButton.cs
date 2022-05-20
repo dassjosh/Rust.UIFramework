@@ -4,6 +4,7 @@ using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Positions;
+using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.UiElements
 {
@@ -30,6 +31,21 @@ namespace Oxide.Ext.UiFramework.UiElements
         public void SetFadeIn(float duration)
         {
             Button.FadeIn = duration;
+        }
+
+        public void SetImageType(Image.Type type)
+        {
+            Button.ImageType = type;
+        }
+
+        public void SetBackground(string sprite)
+        {
+            Button.Sprite = sprite;
+        }
+        
+        public void SetMaterial(string material)
+        {
+            Button.Material = material;
         }
 
         protected override void WriteComponents(JsonFrameworkWriter writer)

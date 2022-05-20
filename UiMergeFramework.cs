@@ -68,6 +68,18 @@ namespace Oxide.Plugins
             public const string BackgroundBlur = "assets/content/ui/uibackgroundblur.mat";
             public const string Icon = "assets/icons/iconmaterial.mat";
         }
+        
+        public static class Backgrounds
+        {
+            public const string Default = "Assets/Content/UI/UI.Background.Tile.psd";
+            public const string RoundedBackground1 = "Assets/Content/UI/UI.Rounded.tga";
+            public const string RoundedBackground2 = "Assets/Content/UI/UI.Background.Rounded.png";
+            public const string GradientUp = "Assets/Content/UI/UI.Gradient.Up.psd";
+            public const string White = "Assets/Content/UI/UI.White.tga";
+            public const string Circle = "Assets/Icons/circle_closed.png";
+            public const string Box = "Assets/Content/UI/UI.Box.tga";
+            public const string BoxSharp = "Assets/Content/UI/UI.Box.Sharp.tga";
+        }
     }
     #endregion
 
@@ -959,6 +971,7 @@ namespace Oxide.Plugins
         private const string PermanentMarker = "permanentmarker.ttf";
         private const string RobotoCondensedBold = "robotocondensed-bold.ttf";
         private const string RobotoCondensedRegular = "robotocondensed-regular.ttf";
+        private const string PressStart2PRegular = "PressStart2P-Regular.ttf";
         
         private static readonly Dictionary<UiFont, string> Fonts = new Dictionary<UiFont, string>
         {
@@ -966,6 +979,7 @@ namespace Oxide.Plugins
             [UiFont.PermanentMarker] = PermanentMarker,
             [UiFont.RobotoCondensedBold] = RobotoCondensedBold,
             [UiFont.RobotoCondensedRegular] = RobotoCondensedRegular,
+            [UiFont.PressStart2PRegular] = PressStart2PRegular,
         };
         
         public static string GetUiFont(UiFont font)
@@ -1539,6 +1553,7 @@ namespace Oxide.Plugins
         
         public string Command;
         public string Close;
+        public Image.Type ImageType;
         
         public override void WriteComponent(JsonFrameworkWriter writer)
         {
@@ -1546,6 +1561,7 @@ namespace Oxide.Plugins
             writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, Type);
             writer.AddField(JsonDefaults.Common.CommandName, Command, JsonDefaults.Common.NullValue);
             writer.AddField(JsonDefaults.Button.CloseName, Close, JsonDefaults.Common.NullValue);
+            writer.AddField(JsonDefaults.Image.ImageType, ImageType);
             base.WriteComponent(writer);
             writer.WriteEndObject();
         }
@@ -1555,6 +1571,7 @@ namespace Oxide.Plugins
             base.EnterPool();
             Command = null;
             Close = null;
+            ImageType = Image.Type.Simple;
         }
         
         public override void DisposeInternal()
@@ -1847,7 +1864,12 @@ namespace Oxide.Plugins
         /// <summary>
         /// robotocondensed-regular.ttf
         /// </summary>
-        RobotoCondensedRegular
+        RobotoCondensedRegular,
+        
+        /// <summary>
+        /// PressStart2P-Regular.ttf
+        /// </summary>
+        PressStart2PRegular
     }
     #endregion
 
@@ -3548,6 +3570,21 @@ namespace Oxide.Plugins
             Button.FadeIn = duration;
         }
         
+        public void SetImageType(Image.Type type)
+        {
+            Button.ImageType = type;
+        }
+        
+        public void SetBackground(string sprite)
+        {
+            Button.Sprite = sprite;
+        }
+        
+        public void SetMaterial(string material)
+        {
+            Button.Material = material;
+        }
+        
         protected override void WriteComponents(JsonFrameworkWriter writer)
         {
             Button.WriteComponent(writer);
@@ -3589,6 +3626,16 @@ namespace Oxide.Plugins
         public void SetImageType(Image.Type type)
         {
             Image.ImageType = type;
+        }
+        
+        public void SetBackground(string sprite)
+        {
+            Image.Sprite = sprite;
+        }
+        
+        public void SetMaterial(string material)
+        {
+            Image.Material = material;
         }
         
         public void SetFadeIn(float duration)

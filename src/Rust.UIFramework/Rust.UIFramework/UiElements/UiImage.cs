@@ -25,6 +25,16 @@ namespace Oxide.Ext.UiFramework.UiElements
             Image.ImageType = type;
         }
         
+        public void SetBackground(string sprite)
+        {
+            Image.Sprite = sprite;
+        }
+        
+        public void SetMaterial(string material)
+        {
+            Image.Material = material;
+        }
+        
         public void SetFadeIn(float duration)
         {
             Image.FadeIn = duration;
