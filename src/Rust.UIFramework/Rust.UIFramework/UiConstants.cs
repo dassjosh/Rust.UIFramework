@@ -19,6 +19,7 @@
         public static class Backgrounds
         {
             public const string Default = "Assets/Content/UI/UI.Background.Tile.psd";
+            public const string Transparent = "Assets/Content/Textures/Generic/fulltransparent.tga";
             public const string RoundedBackground1 = "Assets/Content/UI/UI.Rounded.tga";
             public const string RoundedBackground2 = "Assets/Content/UI/UI.Background.Rounded.png";
             public const string GradientUp = "Assets/Content/UI/UI.Gradient.Up.psd";
