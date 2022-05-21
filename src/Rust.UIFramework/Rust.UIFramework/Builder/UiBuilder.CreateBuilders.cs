@@ -42,7 +42,7 @@ namespace Oxide.Ext.UiFramework.Builder
         {
             UiBuilder builder = Create();
             UiPanel backgroundBlur = UiPanel.Create(UiPosition.Full, null, new UiColor(0, 0, 0, 0.5f));
-            backgroundBlur.AddMaterial(UiConstants.Materials.InGameBlur);
+            backgroundBlur.SetMaterial(UiConstants.Materials.InGameBlur);
             builder.SetRoot(backgroundBlur, name, UiLayerCache.GetLayer(layer));
             UiPanel modal = UiPanel.Create(UiPosition.MiddleMiddle, offset, modalColor);
             builder.AddComponent(modal, backgroundBlur);

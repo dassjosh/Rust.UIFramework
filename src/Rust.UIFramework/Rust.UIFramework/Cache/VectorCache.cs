@@ -22,44 +22,33 @@ namespace Oxide.Ext.UiFramework.Cache
             }
         }
         
-        public static void WritePos(JsonBinaryWriter sb, Vector2 pos)
+        public static void WritePos(JsonBinaryWriter writer, Vector2 pos)
         {
-            if (pos.x >= 0f && pos.x <= 1f)
+            WriteFromCache(writer, pos.x);
+            writer.Write(Space);
+            WriteFromCache(writer, pos.y);
+        }
+
+        private static void WriteFromCache(JsonBinaryWriter writer, float pos)
+        {
+            if (pos >= 0f && pos <= 1f)
             {
-                sb.Write(PositionCache[(ushort)(pos.x * PositionRounder)]);
+                writer.Write(PositionCache[(ushort)(pos * PositionRounder)]);
             }
             else
             {
                 string value;
-                if(!PositionCache.TryGetValue((ushort)(pos.x * PositionRounder), out value))
+                if (!PositionCache.TryGetValue((ushort)(pos * PositionRounder), out value))
                 {
-                    value = pos.x.ToString(Format);
-                    PositionCache[(ushort)(pos.x * PositionRounder)] = value;
+                    value = pos.ToString(Format);
+                    PositionCache[(ushort)(pos * PositionRounder)] = value;
                 }
-                
-                sb.Write(value);
-            }
-            
-            sb.Write(Space);
-            
-            if (pos.y >= 0f && pos.y <= 1f)
-            {
-                sb.Write(PositionCache[(ushort)(pos.y * PositionRounder)]);
-            }
-            else
-            {
-                string value;
-                if(!PositionCache.TryGetValue((ushort)(pos.y * PositionRounder), out value))
-                {
-                    value = pos.y.ToString(Format);
-                    PositionCache[(ushort)(pos.y * PositionRounder)] = value;
-                }
-                
-                sb.Write(value);
+
+                writer.Write(value);
             }
         }
-        
-        public static void WriteVector2(JsonBinaryWriter sb, Vector2 pos)
+
+        public static void WriteVector2(JsonBinaryWriter writer, Vector2 pos)
         {
             string formattedPos;
             if (!PositionCache.TryGetValue((ushort)(pos.x * PositionRounder), out formattedPos))
@@ -68,8 +57,8 @@ namespace Oxide.Ext.UiFramework.Cache
                 PositionCache[(ushort)(pos.x * PositionRounder)] = formattedPos;
             }
                 
-            sb.Write(formattedPos);
-            sb.Write(Space);
+            writer.Write(formattedPos);
+            writer.Write(Space);
                 
             if (!PositionCache.TryGetValue((ushort)(pos.y * PositionRounder), out formattedPos))
             {
@@ -77,10 +66,10 @@ namespace Oxide.Ext.UiFramework.Cache
                 PositionCache[(ushort)(pos.y * PositionRounder)] = formattedPos;
             }
                 
-            sb.Write(formattedPos);
+            writer.Write(formattedPos);
         }
         
-        public static void WritePos(JsonBinaryWriter sb, Vector2Short pos)
+        public static void WritePos(JsonBinaryWriter writer, Vector2Short pos)
         {
             string formattedPos;
             if (!OffsetCache.TryGetValue(pos.X, out formattedPos))
@@ -89,8 +78,8 @@ namespace Oxide.Ext.UiFramework.Cache
                 OffsetCache[pos.X] = formattedPos;
             }
             
-            sb.Write(formattedPos);
-            sb.Write(Space);
+            writer.Write(formattedPos);
+            writer.Write(Space);
             
             if (!OffsetCache.TryGetValue(pos.Y, out formattedPos))
             {
@@ -98,7 +87,7 @@ namespace Oxide.Ext.UiFramework.Cache
                 OffsetCache[pos.Y] = formattedPos;
             }
             
-            sb.Write(formattedPos);
+            writer.Write(formattedPos);
         }
     }
 }
