@@ -14,12 +14,12 @@ namespace Oxide.Ext.UiFramework.Builder
 
         public void DestroyUi(Connection connection)
         {
-            DestroyUi(connection, _rootName);
+            DestroyUi(new SendInfo(connection), _rootName);
         }
 
         public void DestroyUi(List<Connection> connections)
         {
-            DestroyUi(connections, _rootName);
+            DestroyUi(new SendInfo(connections), _rootName);
         }
 
         public void DestroyUi()
@@ -44,7 +44,7 @@ namespace Oxide.Ext.UiFramework.Builder
                 BaseUiComponent component = _components[index];
                 if (component is UiRawImage)
                 {
-                    DestroyUi(connection, component.Name);
+                    DestroyUi(new SendInfo(connection), component.Name);
                 }
             }
         }
@@ -56,29 +56,24 @@ namespace Oxide.Ext.UiFramework.Builder
                 BaseUiComponent component = _components[index];
                 if (component is UiRawImage)
                 {
-                    DestroyUi(connections, component.Name);
+                    DestroyUi(new SendInfo(connections), component.Name);
                 }
             }
         }
 
         public static void DestroyUi(BasePlayer player, string name)
         {
-            DestroyUi(player.Connection, name);
+            DestroyUi(new SendInfo(player.Connection), name);
         }
 
         public static void DestroyUi(string name)
         {
-            DestroyUi(Net.sv.connections, name);
+            DestroyUi(new SendInfo(Net.sv.connections), name);
         }
 
-        public static void DestroyUi(Connection connection, string name)
+        public static void DestroyUi(SendInfo send, string name)
         {
-            CommunityEntity.ServerInstance.ClientRPCEx(new SendInfo(connection), null, UiConstants.RpcFunctions.DestroyUiFunc, name);
-        }
-
-        public static void DestroyUi(List<Connection> connections, string name)
-        {
-            CommunityEntity.ServerInstance.ClientRPCEx(new SendInfo(connections), null, UiConstants.RpcFunctions.DestroyUiFunc, name);
+            CommunityEntity.ServerInstance.ClientRPCEx(send, null, UiConstants.RpcFunctions.DestroyUiFunc, name);
         }
     }
 }

@@ -28,7 +28,7 @@ namespace Oxide.Plugins
         
         public void DestroyUi(List<Connection> connections, string name)
         {
-            UiBuilder.DestroyUi(connections, name);
+            UiBuilder.DestroyUi(new SendInfo(connections), name);
         }
         
         private void DestroyUiAll(string name)
@@ -823,6 +823,41 @@ namespace Oxide.Plugins
     }
     #endregion
 
+    #region Builder\UiBuilder.DestroyAndAddUi.cs
+    public partial class UiBuilder
+    {
+        #region Destroy & Add UI
+        public void DestroyAndAddUi(BasePlayer player)
+        {
+            DestroyAndAddUi(new SendInfo(player.Connection));
+        }
+        
+        public void DestroyAndAddUi(Connection connection)
+        {
+            DestroyAndAddUi(new SendInfo(connection));
+        }
+        
+        public void DestroyAndAddUi(List<Connection> connections)
+        {
+            DestroyAndAddUi(new SendInfo(connections));
+        }
+        
+        public void DestroyAndAddUi()
+        {
+            DestroyAndAddUi(new SendInfo(Net.sv.connections));
+        }
+        
+        private void DestroyAndAddUi(SendInfo send)
+        {
+            JsonFrameworkWriter writer = CreateWriter();
+            DestroyUi(send, _rootName);
+            AddUi(send, writer);
+            UiFrameworkPool.Free(ref writer);
+        }
+        #endregion
+    }
+    #endregion
+
     #region Builder\UiBuilder.DestroyUi.cs
     public partial class UiBuilder
     {
@@ -833,12 +868,12 @@ namespace Oxide.Plugins
         
         public void DestroyUi(Connection connection)
         {
-            DestroyUi(connection, _rootName);
+            DestroyUi(new SendInfo(connection), _rootName);
         }
         
         public void DestroyUi(List<Connection> connections)
         {
-            DestroyUi(connections, _rootName);
+            DestroyUi(new SendInfo(connections), _rootName);
         }
         
         public void DestroyUi()
@@ -863,7 +898,7 @@ namespace Oxide.Plugins
                 BaseUiComponent component = _components[index];
                 if (component is UiRawImage)
                 {
-                    DestroyUi(connection, component.Name);
+                    DestroyUi(new SendInfo(connection), component.Name);
                 }
             }
         }
@@ -875,29 +910,24 @@ namespace Oxide.Plugins
                 BaseUiComponent component = _components[index];
                 if (component is UiRawImage)
                 {
-                    DestroyUi(connections, component.Name);
+                    DestroyUi(new SendInfo(connections), component.Name);
                 }
             }
         }
         
         public static void DestroyUi(BasePlayer player, string name)
         {
-            DestroyUi(player.Connection, name);
+            DestroyUi(new SendInfo(player.Connection), name);
         }
         
         public static void DestroyUi(string name)
         {
-            DestroyUi(Net.sv.connections, name);
+            DestroyUi(new SendInfo(Net.sv.connections), name);
         }
         
-        public static void DestroyUi(Connection connection, string name)
+        public static void DestroyUi(SendInfo send, string name)
         {
-            CommunityEntity.ServerInstance.ClientRPCEx(new SendInfo(connection), null, UiConstants.RpcFunctions.DestroyUiFunc, name);
-        }
-        
-        public static void DestroyUi(List<Connection> connections, string name)
-        {
-            CommunityEntity.ServerInstance.ClientRPCEx(new SendInfo(connections), null, UiConstants.RpcFunctions.DestroyUiFunc, name);
+            CommunityEntity.ServerInstance.ClientRPCEx(send, null, UiConstants.RpcFunctions.DestroyUiFunc, name);
         }
     }
     #endregion
