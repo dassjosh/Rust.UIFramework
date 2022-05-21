@@ -72,6 +72,7 @@ namespace Oxide.Plugins
         public static class Backgrounds
         {
             public const string Default = "Assets/Content/UI/UI.Background.Tile.psd";
+            public const string Transparent = "Assets/Content/Textures/Generic/fulltransparent.tga";
             public const string RoundedBackground1 = "Assets/Content/UI/UI.Rounded.tga";
             public const string RoundedBackground2 = "Assets/Content/UI/UI.Background.Rounded.png";
             public const string GradientUp = "Assets/Content/UI/UI.Gradient.Up.psd";
@@ -635,7 +636,7 @@ namespace Oxide.Plugins
         {
             UiBuilder builder = Create();
             UiPanel backgroundBlur = UiPanel.Create(UiPosition.Full, null, new UiColor(0, 0, 0, 0.5f));
-            backgroundBlur.AddMaterial(UiConstants.Materials.InGameBlur);
+            backgroundBlur.SetMaterial(UiConstants.Materials.InGameBlur);
             builder.SetRoot(backgroundBlur, name, UiLayerCache.GetLayer(layer));
             UiPanel modal = UiPanel.Create(UiPosition.MiddleMiddle, offset, modalColor);
             builder.AddComponent(modal, backgroundBlur);
@@ -1064,44 +1065,33 @@ namespace Oxide.Plugins
             }
         }
         
-        public static void WritePos(JsonBinaryWriter sb, Vector2 pos)
+        public static void WritePos(JsonBinaryWriter writer, Vector2 pos)
         {
-            if (pos.x >= 0f && pos.x <= 1f)
+            WriteFromCache(writer, pos.x);
+            writer.Write(Space);
+            WriteFromCache(writer, pos.y);
+        }
+        
+        private static void WriteFromCache(JsonBinaryWriter writer, float pos)
+        {
+            if (pos >= 0f && pos <= 1f)
             {
-                sb.Write(PositionCache[(ushort)(pos.x * PositionRounder)]);
+                writer.Write(PositionCache[(ushort)(pos * PositionRounder)]);
             }
             else
             {
                 string value;
-                if(!PositionCache.TryGetValue((ushort)(pos.x * PositionRounder), out value))
+                if (!PositionCache.TryGetValue((ushort)(pos * PositionRounder), out value))
                 {
-                    value = pos.x.ToString(Format);
-                    PositionCache[(ushort)(pos.x * PositionRounder)] = value;
+                    value = pos.ToString(Format);
+                    PositionCache[(ushort)(pos * PositionRounder)] = value;
                 }
                 
-                sb.Write(value);
-            }
-            
-            sb.Write(Space);
-            
-            if (pos.y >= 0f && pos.y <= 1f)
-            {
-                sb.Write(PositionCache[(ushort)(pos.y * PositionRounder)]);
-            }
-            else
-            {
-                string value;
-                if(!PositionCache.TryGetValue((ushort)(pos.y * PositionRounder), out value))
-                {
-                    value = pos.y.ToString(Format);
-                    PositionCache[(ushort)(pos.y * PositionRounder)] = value;
-                }
-                
-                sb.Write(value);
+                writer.Write(value);
             }
         }
         
-        public static void WriteVector2(JsonBinaryWriter sb, Vector2 pos)
+        public static void WriteVector2(JsonBinaryWriter writer, Vector2 pos)
         {
             string formattedPos;
             if (!PositionCache.TryGetValue((ushort)(pos.x * PositionRounder), out formattedPos))
@@ -1110,8 +1100,8 @@ namespace Oxide.Plugins
                 PositionCache[(ushort)(pos.x * PositionRounder)] = formattedPos;
             }
             
-            sb.Write(formattedPos);
-            sb.Write(Space);
+            writer.Write(formattedPos);
+            writer.Write(Space);
             
             if (!PositionCache.TryGetValue((ushort)(pos.y * PositionRounder), out formattedPos))
             {
@@ -1119,10 +1109,10 @@ namespace Oxide.Plugins
                 PositionCache[(ushort)(pos.y * PositionRounder)] = formattedPos;
             }
             
-            sb.Write(formattedPos);
+            writer.Write(formattedPos);
         }
         
-        public static void WritePos(JsonBinaryWriter sb, Vector2Short pos)
+        public static void WritePos(JsonBinaryWriter writer, Vector2Short pos)
         {
             string formattedPos;
             if (!OffsetCache.TryGetValue(pos.X, out formattedPos))
@@ -1131,8 +1121,8 @@ namespace Oxide.Plugins
                 OffsetCache[pos.X] = formattedPos;
             }
             
-            sb.Write(formattedPos);
-            sb.Write(Space);
+            writer.Write(formattedPos);
+            writer.Write(Space);
             
             if (!OffsetCache.TryGetValue(pos.Y, out formattedPos))
             {
@@ -1140,7 +1130,7 @@ namespace Oxide.Plugins
                 OffsetCache[pos.Y] = formattedPos;
             }
             
-            sb.Write(formattedPos);
+            writer.Write(formattedPos);
         }
     }
     #endregion
@@ -3505,6 +3495,56 @@ namespace Oxide.Plugins
     }
     #endregion
 
+    #region UiElements\BaseUiImage.cs
+    public class BaseUiImage : BaseUiComponent
+    {
+        public ImageComponent Image;
+        
+        public void SetImageType(Image.Type type)
+        {
+            Image.ImageType = type;
+        }
+        
+        public void SetSprite(string sprite)
+        {
+            Image.Sprite = sprite;
+        }
+        
+        public void SetMaterial(string material)
+        {
+            Image.Material = material;
+        }
+        
+        public void SetFadeIn(float duration)
+        {
+            Image.FadeIn = duration;
+        }
+        
+        protected override void WriteComponents(JsonFrameworkWriter writer)
+        {
+            Image.WriteComponent(writer);
+            base.WriteComponents(writer);
+        }
+        
+        protected override void EnterPool()
+        {
+            base.EnterPool();
+            UiFrameworkPool.Free(ref Image);
+        }
+        
+        protected override void LeavePool()
+        {
+            base.LeavePool();
+            Image = UiFrameworkPool.Get<ImageComponent>();
+        }
+        
+        public override void DisposeInternal()
+        {
+            UiFrameworkPool.Free(this);
+        }
+    }
+    #endregion
+
     #region UiElements\BaseUiTextOutline.cs
     public abstract class BaseUiTextOutline : BaseUiComponent
     {
@@ -3611,59 +3651,14 @@ namespace Oxide.Plugins
     #endregion
 
     #region UiElements\UiImage.cs
-    public class UiImage : BaseUiComponent
+    public class UiImage : BaseUiImage
     {
-        public ImageComponent Image;
-        
         public static UiImage Create(UiPosition pos, UiOffset? offset, UiColor color, string png)
         {
             UiImage image = CreateBase<UiImage>(pos, offset);
             image.Image.Color = color;
             image.Image.Png = png;
             return image;
-        }
-        
-        public void SetImageType(Image.Type type)
-        {
-            Image.ImageType = type;
-        }
-        
-        public void SetBackground(string sprite)
-        {
-            Image.Sprite = sprite;
-        }
-        
-        public void SetMaterial(string material)
-        {
-            Image.Material = material;
-        }
-        
-        public void SetFadeIn(float duration)
-        {
-            Image.FadeIn = duration;
-        }
-        
-        protected override void WriteComponents(JsonFrameworkWriter writer)
-        {
-            Image.WriteComponent(writer);
-            base.WriteComponents(writer);
-        }
-        
-        protected override void EnterPool()
-        {
-            base.EnterPool();
-            UiFrameworkPool.Free(ref Image);
-        }
-        
-        protected override void LeavePool()
-        {
-            base.LeavePool();
-            Image = UiFrameworkPool.Get<ImageComponent>();
-        }
-        
-        public override void DisposeInternal()
-        {
-            UiFrameworkPool.Free(this);
         }
     }
     #endregion
@@ -3862,53 +3857,13 @@ namespace Oxide.Plugins
     #endregion
 
     #region UiElements\UiPanel.cs
-    public class UiPanel : BaseUiComponent
+    public class UiPanel : BaseUiImage
     {
-        public ImageComponent Image;
-        
         public static UiPanel Create(UiPosition pos, UiOffset? offset, UiColor color)
         {
             UiPanel panel = CreateBase<UiPanel>(pos, offset);
             panel.Image.Color = color;
             return panel;
-        }
-        
-        public void AddSprite(string sprite)
-        {
-            Image.Sprite = sprite;
-        }
-        
-        public void AddMaterial(string material)
-        {
-            Image.Material = material;
-        }
-        
-        public void SetFadeIn(float duration)
-        {
-            Image.FadeIn = duration;
-        }
-        
-        protected override void WriteComponents(JsonFrameworkWriter writer)
-        {
-            Image.WriteComponent(writer);
-            base.WriteComponents(writer);
-        }
-        
-        protected override void EnterPool()
-        {
-            base.EnterPool();
-            UiFrameworkPool.Free(ref Image);
-        }
-        
-        protected override void LeavePool()
-        {
-            base.LeavePool();
-            Image = UiFrameworkPool.Get<ImageComponent>();
-        }
-        
-        public override void DisposeInternal()
-        {
-            UiFrameworkPool.Free(this);
         }
     }
     #endregion
