@@ -20,7 +20,7 @@ namespace Oxide.Ext.UiFramework.Plugin
 
         public void DestroyUi(List<Connection> connections, string name)
         {
-            UiBuilder.DestroyUi(connections, name);
+            UiBuilder.DestroyUi(new SendInfo(connections), name);
         }
 
         private void DestroyUiAll(string name)
