@@ -12,7 +12,6 @@ namespace Oxide.Ext.UiFramework.Cache
         private const short PositionRounder = 10000;
         
         private static readonly Dictionary<ushort, string> PositionCache = new Dictionary<ushort, string>();
-        private static readonly Dictionary<short, string> OffsetCache = new Dictionary<short, string>();
 
         static VectorCache()
         {
@@ -71,23 +70,9 @@ namespace Oxide.Ext.UiFramework.Cache
         
         public static void WritePos(JsonBinaryWriter writer, Vector2Short pos)
         {
-            string formattedPos;
-            if (!OffsetCache.TryGetValue(pos.X, out formattedPos))
-            {
-                formattedPos = pos.X.ToString();
-                OffsetCache[pos.X] = formattedPos;
-            }
-            
-            writer.Write(formattedPos);
+            writer.Write(NumberCache<short>.Get(pos.X));
             writer.Write(Space);
-            
-            if (!OffsetCache.TryGetValue(pos.Y, out formattedPos))
-            {
-                formattedPos = pos.Y.ToString();
-                OffsetCache[pos.Y] = formattedPos;
-            }
-            
-            writer.Write(formattedPos);
+            writer.Write(NumberCache<short>.Get(pos.Y));
         }
     }
 }

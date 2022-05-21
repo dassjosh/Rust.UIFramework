@@ -922,6 +922,25 @@ namespace Oxide.Plugins
     }
     #endregion
 
+    #region Cache\NumberCache.cs
+    public static class NumberCache<T>
+    {
+        private static readonly Dictionary<T, string> Cache = new Dictionary<T, string>();
+        
+        public static string Get(T value)
+        {
+            string text;
+            if (!Cache.TryGetValue(value, out text))
+            {
+                text = value.ToString();
+                Cache[value] = text;
+            }
+            
+            return text;
+        }
+    }
+    #endregion
+
     #region Cache\UiColorCache.cs
     public static class UiColorCache
     {
@@ -1055,7 +1074,6 @@ namespace Oxide.Plugins
         private const short PositionRounder = 10000;
         
         private static readonly Dictionary<ushort, string> PositionCache = new Dictionary<ushort, string>();
-        private static readonly Dictionary<short, string> OffsetCache = new Dictionary<short, string>();
         
         static VectorCache()
         {
@@ -1114,23 +1132,9 @@ namespace Oxide.Plugins
         
         public static void WritePos(JsonBinaryWriter writer, Vector2Short pos)
         {
-            string formattedPos;
-            if (!OffsetCache.TryGetValue(pos.X, out formattedPos))
-            {
-                formattedPos = pos.X.ToString();
-                OffsetCache[pos.X] = formattedPos;
-            }
-            
-            writer.Write(formattedPos);
+            writer.Write(NumberCache<short>.Get(pos.X));
             writer.Write(Space);
-            
-            if (!OffsetCache.TryGetValue(pos.Y, out formattedPos))
-            {
-                formattedPos = pos.Y.ToString();
-                OffsetCache[pos.Y] = formattedPos;
-            }
-            
-            writer.Write(formattedPos);
+            writer.Write(NumberCache<short>.Get(pos.Y));
         }
     }
     #endregion
@@ -2344,17 +2348,17 @@ namespace Oxide.Plugins
         
         public void WriteValue(int value)
         {
-            _writer.Write(value.ToString());
+            _writer.Write(NumberCache<int>.Get(value));
         }
         
         public void WriteValue(float value)
         {
-            _writer.Write(value.ToString());
+            _writer.Write(NumberCache<float>.Get(value));
         }
         
         public void WriteValue(ulong value)
         {
-            _writer.Write(value.ToString());
+            _writer.Write(NumberCache<ulong>.Get(value));
         }
         
         public void WriteValue(string value)

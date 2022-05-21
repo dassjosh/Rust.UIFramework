@@ -247,17 +247,17 @@ namespace Oxide.Ext.UiFramework.Json
         
         public void WriteValue(int value)
         {
-            _writer.Write(value.ToString());
+            _writer.Write(NumberCache<int>.Get(value));
         }
         
         public void WriteValue(float value)
         {
-            _writer.Write(value.ToString());
+            _writer.Write(NumberCache<float>.Get(value));
         }
         
         public void WriteValue(ulong value)
         {
-            _writer.Write(value.ToString());
+            _writer.Write(NumberCache<ulong>.Get(value));
         }
 
         public void WriteValue(string value)
