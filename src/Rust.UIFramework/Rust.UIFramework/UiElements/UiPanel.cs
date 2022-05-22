@@ -12,5 +12,10 @@ namespace Oxide.Ext.UiFramework.UiElements
             panel.Image.Color = color;
             return panel;
         }
+        
+        public override void DisposeInternal()
+        {
+            UiFrameworkPool.Free(this);
+        }
     }
 }

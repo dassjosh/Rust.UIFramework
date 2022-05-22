@@ -7,7 +7,6 @@ namespace Oxide.Ext.UiFramework.Pooling
     public abstract class BasePool<T> : IPool<T> where T : class, new()
     {
         private readonly T[] _pool;
-        private readonly int _maxSize;
         private int _index;
 
         /// <summary>
@@ -16,7 +15,6 @@ namespace Oxide.Ext.UiFramework.Pooling
         /// <param name="maxSize">Max Size of the pool</param>
         protected BasePool(int maxSize)
         {
-            _maxSize = maxSize;
             _pool = new T[maxSize];
             
             UiFrameworkPool.AddPool(this);
@@ -60,12 +58,7 @@ namespace Oxide.Ext.UiFramework.Pooling
             {
                 return;
             }
-            
-            if (_index + 1 >= _maxSize)
-            {
-                return;
-            }
-                
+
             if (_index != 0)
             {
                 _index--;
