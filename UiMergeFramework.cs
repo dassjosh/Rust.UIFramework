@@ -20,23 +20,6 @@ namespace Oxide.Plugins
     public partial class UiMergeFramework : RustPlugin
     {
         #region Plugin\UiFramework.Methods.cs
-        #region JSON Sending
-        public void DestroyUi(BasePlayer player, string name)
-        {
-            UiBuilder.DestroyUi(player, name);
-        }
-        
-        public void DestroyUi(List<Connection> connections, string name)
-        {
-            UiBuilder.DestroyUi(new SendInfo(connections), name);
-        }
-        
-        private void DestroyUiAll(string name)
-        {
-            UiBuilder.DestroyUi(name);
-        }
-        #endregion
-        
         #region Unloading
         public override void HandleRemovedFromManager(PluginManager manager)
         {
@@ -236,10 +219,17 @@ namespace Oxide.Plugins
             return button;
         }
         
-        public UiButton ImageButton(BaseUiComponent parent, UiColor buttonColor, string png, UiPosition pos, string cmd)
+        public UiButton ImageFileStorageButton(BaseUiComponent parent, UiColor buttonColor, string png, UiPosition pos, string cmd)
         {
             UiButton button = EmptyCommandButton(parent, buttonColor, pos, cmd);
-            Image(button, png, UiPosition.Full);
+            ImageFileStorage(button, png, UiPosition.Full);
+            return button;
+        }
+        
+        public UiButton ImageSpriteButton(BaseUiComponent parent, UiColor buttonColor, string sprite, UiPosition pos, string cmd)
+        {
+            UiButton button = EmptyCommandButton(parent, buttonColor, pos, cmd);
+            ImageSprite(button, sprite, UiPosition.Full);
             return button;
         }
         
@@ -271,10 +261,17 @@ namespace Oxide.Plugins
             return button;
         }
         
-        public UiButton ImageCloseButton(BaseUiComponent parent, UiColor buttonColor, string png, UiPosition pos, string close)
+        public UiButton ImageFileStorageCloseButton(BaseUiComponent parent, UiColor buttonColor, string png, UiPosition pos, string close)
         {
             UiButton button = EmptyCloseButton(parent, buttonColor, pos, close);
-            Image(button, png, UiPosition.Full);
+            ImageFileStorage(button, png, UiPosition.Full);
+            return button;
+        }
+        
+        public UiButton ImageSpriteCloseButton(BaseUiComponent parent, UiColor buttonColor, string sprite, UiPosition pos, string close)
+        {
+            UiButton button = EmptyCloseButton(parent, buttonColor, pos, close);
+            ImageFileStorage(button, sprite, UiPosition.Full);
             return button;
         }
         
@@ -287,7 +284,7 @@ namespace Oxide.Plugins
         #endregion
         
         #region Image
-        public UiImage Image(BaseUiComponent parent, string png, UiPosition pos, UiColor color)
+        public UiImage ImageFileStorage(BaseUiComponent parent, string png, UiPosition pos, UiColor color)
         {
             uint _;
             if (!uint.TryParse(png, out _))
@@ -295,14 +292,32 @@ namespace Oxide.Plugins
                 throw new UiFrameworkException($"Image PNG '{png}' is not a valid uint. If trying to use a url please use WebImage instead");
             }
             
-            UiImage image = UiImage.Create(pos, null, color, png);
+            UiImage image = UiImage.CreateFileImage(pos, null, color, png);
             AddComponent(image, parent);
             return image;
         }
         
-        public UiImage Image(BaseUiComponent parent, string png, UiPosition pos)
+        public UiImage ImageFileStorage(BaseUiComponent parent, string png, UiPosition pos)
         {
-            return Image(parent, png, pos, UiColors.StandardColors.White);
+            return ImageFileStorage(parent, png, pos, UiColors.StandardColors.White);
+        }
+        
+        public UiImage ImageSprite(BaseUiComponent parent, string sprite, UiPosition pos, UiColor color)
+        {
+            uint _;
+            if (!uint.TryParse(sprite, out _))
+            {
+                throw new UiFrameworkException($"Image PNG '{sprite}' is not a valid uint. If trying to use a url please use WebImage instead");
+            }
+            
+            UiImage image = UiImage.CreateSpriteImage(pos, null, color, sprite);
+            AddComponent(image, parent);
+            return image;
+        }
+        
+        public UiImage ImageSprite(BaseUiComponent parent, string sprite, UiPosition pos)
+        {
+            return ImageSprite(parent, sprite, pos, UiColors.StandardColors.White);
         }
         #endregion
         
@@ -441,19 +456,24 @@ namespace Oxide.Plugins
             return background;
         }
         
-        public void SimpleNumberPicker(BaseUiComponent parent, int value, int fontSize, UiColor textColor, UiColor backgroundColor, UiColor buttonColor, UiPosition pos, string cmd, float buttonWidth = 0.1f, bool readOnly = false)
+        public void SimpleNumberPicker(BaseUiComponent parent, int value, int fontSize, UiColor textColor, UiColor backgroundColor, UiColor buttonColor, UiPosition pos, string cmd, int minValue = int.MinValue, int maxValue = int.MaxValue, float buttonWidth = 0.1f)
         {
-            UiPosition subtractSlice = pos.SliceHorizontal(0, buttonWidth);
-            UiPosition addSlice = pos.SliceHorizontal(1 - buttonWidth, 1);
+            if (value > minValue)
+            {
+                UiPosition subtractSlice = pos.SliceHorizontal(0, buttonWidth);
+                TextButton(parent, "-", fontSize, textColor, buttonColor, subtractSlice, $"{cmd} {NumberCache<int>.Get(value - 1)}");
+            }
             
-            TextButton(parent, "-", fontSize, textColor, buttonColor, subtractSlice, $"{cmd} {(value - 1).ToString()}");
-            TextButton(parent, "+", fontSize, textColor, buttonColor, addSlice, $"{cmd} {(value + 1).ToString()}");
+            if (value < maxValue)
+            {
+                UiPosition addSlice = pos.SliceHorizontal(1 - buttonWidth, 1);
+                TextButton(parent, "+", fontSize, textColor, buttonColor, addSlice, $"{cmd} {NumberCache<int>.Get(value + 1)}");
+            }
             
-            UiInput input = InputBackground(parent, value.ToString(), fontSize, textColor, backgroundColor, pos.SliceHorizontal(buttonWidth, 1 - buttonWidth), cmd, readOnly: readOnly);
-            input.SetRequiresKeyboard();
+            LabelBackground(parent, value.ToString(), fontSize, textColor, backgroundColor, pos.SliceHorizontal(buttonWidth, 1 - buttonWidth));
         }
         
-        public void IncrementalNumberPicker(BaseUiComponent parent, int value, int[] increments, int fontSize, UiColor textColor, UiColor backgroundColor, UiColor buttonColor, UiPosition pos, string cmd, float buttonWidth = 0.3f, bool readOnly = false)
+        public void IncrementalNumberPicker(BaseUiComponent parent, int value, int[] increments, int fontSize, UiColor textColor, UiColor backgroundColor, UiColor buttonColor, UiPosition pos, string cmd, int minValue = int.MinValue, int maxValue = int.MaxValue, float buttonWidth = 0.3f, bool readOnly = false)
         {
             int incrementCount = increments.Length;
             float buttonSize = buttonWidth / incrementCount;
@@ -464,15 +484,22 @@ namespace Oxide.Plugins
                 UiPosition addSlice = pos.SliceHorizontal(1 - buttonWidth + i * buttonSize, 1 - buttonWidth + (i + 1) * buttonSize);
                 
                 string incrementDisplay = increment.ToString();
-                TextButton(parent, string.Concat("-", incrementDisplay), fontSize, textColor, buttonColor, subtractSlice, $"{cmd} {(value - increment).ToString()}");
-                TextButton(parent, string.Concat("+", incrementDisplay), fontSize, textColor, buttonColor, addSlice, $"{cmd} {(value + increment).ToString()}");
+                if (value - increment > minValue)
+                {
+                    TextButton(parent, string.Concat("-", incrementDisplay), fontSize, textColor, buttonColor, subtractSlice, $"{cmd} {(value - increment).ToString()}");
+                }
+                
+                if (value + increment < maxValue)
+                {
+                    TextButton(parent, string.Concat("+", incrementDisplay), fontSize, textColor, buttonColor, addSlice, $"{cmd} {(value + increment).ToString()}");
+                }
             }
             
             UiInput input = InputBackground(parent, value.ToString(), fontSize, textColor, backgroundColor, pos.SliceHorizontal(0.3f, 0.7f), cmd, readOnly: readOnly);
             input.SetRequiresKeyboard();
         }
         
-        public void IncrementalNumberPicker(BaseUiComponent parent, float value, float[] increments, int fontSize, UiColor textColor, UiColor backgroundColor, UiColor buttonColor, UiPosition pos, string cmd, float buttonWidth = 0.3f, bool readOnly = false, string incrementFormat = "0.##")
+        public void IncrementalNumberPicker(BaseUiComponent parent, float value, float[] increments, int fontSize, UiColor textColor, UiColor backgroundColor, UiColor buttonColor, UiPosition pos, string cmd, float minValue = float.MinValue, float maxValue = float.MaxValue, float buttonWidth = 0.3f, bool readOnly = false, string incrementFormat = "0.##")
         {
             int incrementCount = increments.Length;
             float buttonSize = buttonWidth / incrementCount;
@@ -483,8 +510,15 @@ namespace Oxide.Plugins
                 UiPosition addSlice = pos.SliceHorizontal(1 - buttonWidth + i * buttonSize, 1 - buttonWidth + (i + 1) * buttonSize);
                 
                 string incrementDisplay = increment.ToString(incrementFormat);
-                TextButton(parent, string.Concat("-", incrementDisplay), fontSize, textColor, buttonColor, subtractSlice, $"{cmd} {(value - increment).ToString()}");
-                TextButton(parent, incrementDisplay, fontSize, textColor, buttonColor, addSlice, $"{cmd} {(value + increment).ToString()}");
+                if (value - increment > minValue)
+                {
+                    TextButton(parent, string.Concat("-", incrementDisplay), fontSize, textColor, buttonColor, subtractSlice, $"{cmd} {(value - increment).ToString(incrementFormat)}");
+                }
+                
+                if (value + increment < maxValue)
+                {
+                    TextButton(parent, incrementDisplay, fontSize, textColor, buttonColor, addSlice, $"{cmd} {(value + increment).ToString(incrementFormat)}");
+                }
             }
             
             UiInput input = InputBackground(parent, value.ToString(), fontSize, textColor, backgroundColor, pos.SliceHorizontal(0.3f, 0.7f), cmd, readOnly: readOnly);
@@ -2501,8 +2535,171 @@ namespace Oxide.Plugins
     }
     #endregion
 
-    #region Offsets\MovableUiOffset.cs
-    public class MovableUiOffset
+    #region Offsets\GridOffset.cs
+    public class GridOffset : MovableOffset
+    {
+        public readonly int NumCols;
+        public readonly int NumRows;
+        public readonly UiOffset Area;
+        
+        public GridOffset(int xMin, int yMin, int xMax, int yMax, int numCols, int numRows, UiOffset area) : base(xMin, yMin, xMax, yMax)
+        {
+            NumCols = numCols;
+            NumRows = numRows;
+            Area = area;
+        }
+        
+        public void MoveCols(int cols)
+        {
+            int distance = Area.Max.X - Area.Min.X;
+            XMin += cols / NumCols * distance;
+            XMax += cols / NumCols * distance;
+            
+            if (XMax > 1)
+            {
+                XMin -= 1;
+                XMax -= 1;
+                MoveRows(1);
+            }
+        }
+        
+        public void MoveCols(float cols)
+        {
+            int distance = Area.Max.X - Area.Min.X;
+            XMin += (int)(cols / NumCols * distance);
+            XMax += (int)(cols / NumCols * distance);
+            
+            if (XMax > 1)
+            {
+                XMin -= 1;
+                XMax -= 1;
+                MoveRows(1);
+            }
+        }
+        
+        public void MoveRows(int rows)
+        {
+            int distance = Area.Max.Y - Area.Min.Y;
+            YMin -= rows / NumRows * distance;
+            YMax -= rows / NumRows * distance;
+        }
+    }
+    #endregion
+
+    #region Offsets\GridOffsetBuilder.cs
+    public class GridOffsetBuilder
+    {
+        private readonly int _numCols;
+        private readonly int _numRows;
+        private readonly UiOffset _area;
+        private int _rowHeight = 1;
+        private int _rowOffset;
+        private int _colWidth = 1;
+        private int _colOffset;
+        private int _xPad;
+        private int _yPad;
+        
+        public GridOffsetBuilder(int size, UiOffset area) : this(size, size, area)
+        {
+            
+        }
+        
+        public GridOffsetBuilder(int numCols, int numRows, UiOffset area)
+        {
+            if (numCols <= 0) throw new ArgumentOutOfRangeException(nameof(numCols));
+            if (numRows <= 0) throw new ArgumentOutOfRangeException(nameof(numCols));
+            _numCols = numCols;
+            _numRows = numRows;
+            _area = area;
+        }
+        
+        public GridOffsetBuilder SetRowHeight(int height)
+        {
+            if (height <= 0) throw new ArgumentOutOfRangeException(nameof(height));
+            _rowHeight = height;
+            return this;
+        }
+        
+        public GridOffsetBuilder SetRowOffset(int offset)
+        {
+            if (offset <= 0) throw new ArgumentOutOfRangeException(nameof(offset));
+            _rowOffset = offset;
+            return this;
+        }
+        
+        public GridOffsetBuilder SetColWidth(int width)
+        {
+            if (width <= 0) throw new ArgumentOutOfRangeException(nameof(width));
+            _colWidth = width;
+            return this;
+        }
+        
+        public GridOffsetBuilder SetColOffset(int offset)
+        {
+            if (offset <= 0) throw new ArgumentOutOfRangeException(nameof(offset));
+            _colOffset = offset;
+            return this;
+        }
+        
+        public GridOffsetBuilder SetPadding(int padding)
+        {
+            _xPad = padding;
+            _yPad = padding;
+            return this;
+        }
+        
+        public GridOffsetBuilder SetPadding(int xPad, int yPad)
+        {
+            _xPad = xPad;
+            _yPad = yPad;
+            return this;
+        }
+        
+        public GridOffsetBuilder SetRowPadding(int padding)
+        {
+            _xPad = padding;
+            return this;
+        }
+        
+        public GridOffsetBuilder SetColPadding(int padding)
+        {
+            _yPad = padding;
+            return this;
+        }
+        
+        public GridOffset Build()
+        {
+            int xMin = _area.Min.X;
+            int yMin = _area.Max.Y - _rowHeight / _numRows  * (_area.Max.Y - _area.Min.Y);
+            int xMax = _area.Min.X + _colWidth / _numCols * (_area.Max.X - _area.Min.X);
+            int yMax = _area.Max.Y;
+            
+            if (_colOffset != 0)
+            {
+                int size = _colOffset / _numCols;
+                xMin += size;
+                xMax += size;
+            }
+            
+            if (_rowOffset != 0)
+            {
+                int size = _rowOffset / _numRows;
+                yMin += size;
+                yMax += size;
+            }
+            
+            xMin += _xPad;
+            xMax -= _xPad;
+            yMin += _yPad;
+            yMax -= _yPad;
+            
+            return new GridOffset(xMin, yMin, xMax, yMax, _numCols, _numRows, _area);
+        }
+    }
+    #endregion
+
+    #region Offsets\MovableOffset.cs
+    public class MovableOffset
     {
         public int XMin;
         public int YMin;
@@ -2510,7 +2707,7 @@ namespace Oxide.Plugins
         public int YMax;
         private readonly UiOffset _initialState;
         
-        public MovableUiOffset(int x, int y, int width, int height)
+        public MovableOffset(int x, int y, int width, int height)
         {
             XMin = x;
             YMin = y;
@@ -2554,7 +2751,7 @@ namespace Oxide.Plugins
             YMax = _initialState.Max.Y;
         }
         
-        public static implicit operator UiOffset(MovableUiOffset offset) => offset.ToOffset();
+        public static implicit operator UiOffset(MovableOffset offset) => offset.ToOffset();
     }
     #endregion
 
@@ -3038,12 +3235,8 @@ namespace Oxide.Plugins
             {
                 XMin -= 1;
                 XMax -= 1;
-                MoveRows(-1);
+                MoveRows(1);
             }
-            
-            #if UiDebug
-            ValidatePositions();
-            #endif
         }
         
         public void MoveCols(float cols)
@@ -3055,22 +3248,14 @@ namespace Oxide.Plugins
             {
                 XMin -= 1;
                 XMax -= 1;
-                MoveRows(-1);
+                MoveRows(1);
             }
-            
-            #if UiDebug
-            ValidatePositions();
-            #endif
         }
         
         public void MoveRows(int rows)
         {
-            YMin += rows / NumRows;
-            YMax += rows / NumRows;
-            
-            #if UiDebug
-            ValidatePositions();
-            #endif
+            YMin -= rows / NumRows;
+            YMax -= rows / NumRows;
         }
     }
     #endregion
@@ -3093,30 +3278,36 @@ namespace Oxide.Plugins
         
         public GridPositionBuilder(int numCols, int numRows)
         {
+            if (numCols <= 0) throw new ArgumentOutOfRangeException(nameof(numCols));
+            if (numRows <= 0) throw new ArgumentOutOfRangeException(nameof(numCols));
             _numCols = numCols;
             _numRows = numRows;
         }
         
         public GridPositionBuilder SetRowHeight(int height)
         {
+            if (height <= 0) throw new ArgumentOutOfRangeException(nameof(height));
             _rowHeight = height;
             return this;
         }
         
         public GridPositionBuilder SetRowOffset(int offset)
         {
+            if (offset <= 0) throw new ArgumentOutOfRangeException(nameof(offset));
             _rowOffset = offset;
             return this;
         }
         
         public GridPositionBuilder SetColWidth(int width)
         {
+            if (width <= 0) throw new ArgumentOutOfRangeException(nameof(width));
             _colWidth = width;
             return this;
         }
         
         public GridPositionBuilder SetColOffset(int offset)
         {
+            if (offset <= 0) throw new ArgumentOutOfRangeException(nameof(offset));
             _colOffset = offset;
             return this;
         }
@@ -3150,27 +3341,15 @@ namespace Oxide.Plugins
         public GridPosition Build()
         {
             float xMin = 0;
-            float yMin = 0;
-            float xMax = 0;
-            float yMax = 0;
-            
-            if (_colWidth != 0)
-            {
-                float size = _colWidth / _numCols;
-                xMax += size;
-            }
+            float yMin = 1 - _rowHeight / _numRows;
+            float xMax = _colWidth / _numCols;
+            float yMax = 1;
             
             if (_colOffset != 0)
             {
                 float size = _colOffset / _numCols;
                 xMin += size;
                 xMax += size;
-            }
-            
-            if (_rowHeight != 0)
-            {
-                float size = _rowHeight / _numRows;
-                yMax += size;
             }
             
             if (_rowOffset != 0)
@@ -3182,13 +3361,8 @@ namespace Oxide.Plugins
             
             xMin += _xPad;
             xMax -= _xPad;
-            float yMinTemp = yMin; //Need to save yMin before we overwrite it
-            yMin = 1 - yMax + _yPad;
-            yMax = 1 - yMinTemp - _yPad;
-            
-            #if UiDebug
-            ValidatePositions();
-            #endif
+            yMin += _yPad;
+            yMax -= _yPad;
             
             return new GridPosition(xMin, yMin, xMax, yMax, _numCols, _numRows);
         }
@@ -3211,9 +3385,6 @@ namespace Oxide.Plugins
             XMax = xMax;
             YMax = yMax;
             _initialState = new UiPosition(XMin, YMin, XMax, YMax);
-            #if UiDebug
-            ValidatePositions();
-            #endif
         }
         
         public UiPosition ToPosition()
@@ -3231,27 +3402,18 @@ namespace Oxide.Plugins
         {
             XMin = xMin;
             XMax = xMax;
-            #if UiDebug
-            ValidatePositions();
-            #endif
         }
         
         public void SetY(float yMin, float yMax)
         {
             YMin = yMin;
             YMax = yMax;
-            #if UiDebug
-            ValidatePositions();
-            #endif
         }
         
         public void MoveX(float delta)
         {
             XMin += delta;
             XMax += delta;
-            #if UiDebug
-            ValidatePositions();
-            #endif
         }
         
         public void MoveXPadded(float padding)
@@ -3259,18 +3421,12 @@ namespace Oxide.Plugins
             float spacing = (XMax - XMin + Math.Abs(padding)) * (padding < 0 ? -1 : 1);
             XMin += spacing;
             XMax += spacing;
-            #if UiDebug
-            ValidatePositions();
-            #endif
         }
         
         public void MoveY(float delta)
         {
             YMin += delta;
             YMax += delta;
-            #if UiDebug
-            ValidatePositions();
-            #endif
         }
         
         public void MoveYPadded(float padding)
@@ -3278,9 +3434,6 @@ namespace Oxide.Plugins
             float spacing = (YMax - YMin + Math.Abs(padding)) * (padding < 0 ? -1 : 1);
             YMin += spacing;
             YMax += spacing;
-            #if UiDebug
-            ValidatePositions();
-            #endif
         }
         
         public void Expand(float amount)
@@ -3323,36 +3476,6 @@ namespace Oxide.Plugins
             XMax = _initialState.Max.x;
             YMax = _initialState.Max.y;
         }
-        
-        #if UiDebug
-        protected void ValidatePositions()
-        {
-            if (XMin < 0 || XMin > 1)
-            {
-                PrintError($"[{GetType().Name}] XMin is out or range at: {XMin}");
-            }
-            
-            if (XMax > 1 || XMax < 0)
-            {
-                PrintError($"[{GetType().Name}] XMax is out or range at: {XMax}");
-            }
-            
-            if (YMin < 0 || YMin > 1)
-            {
-                PrintError($"[{GetType().Name}] YMin is out or range at: {YMin}");
-            }
-            
-            if (YMax > 1 || YMax < 0)
-            {
-                PrintError($"[{GetType().Name}] YMax is out or range at: {YMax}");
-            }
-        }
-        
-        private void PrintError(string format)
-        {
-            _ins.PrintError(format);
-        }
-        #endif
         
         public override string ToString()
         {
@@ -3687,11 +3810,19 @@ namespace Oxide.Plugins
     #region UiElements\UiImage.cs
     public class UiImage : BaseUiImage
     {
-        public static UiImage Create(UiPosition pos, UiOffset? offset, UiColor color, string png)
+        public static UiImage CreateFileImage(UiPosition pos, UiOffset? offset, UiColor color, string png)
         {
             UiImage image = CreateBase<UiImage>(pos, offset);
             image.Image.Color = color;
             image.Image.Png = png;
+            return image;
+        }
+        
+        public static UiImage CreateSpriteImage(UiPosition pos, UiOffset? offset, UiColor color, string sprite)
+        {
+            UiImage image = CreateBase<UiImage>(pos, offset);
+            image.Image.Color = color;
+            image.Image.Sprite = sprite;
             return image;
         }
     }
