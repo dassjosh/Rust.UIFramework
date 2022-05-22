@@ -1,6 +1,6 @@
 ﻿namespace Oxide.Ext.UiFramework.Offsets
 {
-    public class MovableUiOffset
+    public class MovableOffset
     {
         public int XMin;
         public int YMin;
@@ -8,7 +8,7 @@
         public int YMax;
         private readonly UiOffset _initialState;
 
-        public MovableUiOffset(int x, int y, int width, int height)
+        public MovableOffset(int x, int y, int width, int height)
         {
             XMin = x;
             YMin = y;
@@ -52,6 +52,6 @@
             YMax = _initialState.Max.Y;
         }
         
-        public static implicit operator UiOffset(MovableUiOffset offset) => offset.ToOffset();
+        public static implicit operator UiOffset(MovableOffset offset) => offset.ToOffset();
     }
 }

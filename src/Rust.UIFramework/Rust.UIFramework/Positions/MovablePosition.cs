@@ -17,9 +17,6 @@ namespace Oxide.Ext.UiFramework.Positions
             XMax = xMax;
             YMax = yMax;
             _initialState = new UiPosition(XMin, YMin, XMax, YMax);
-#if UiDebug
-            ValidatePositions();
-#endif
         }
 
         public UiPosition ToPosition()
@@ -37,27 +34,18 @@ namespace Oxide.Ext.UiFramework.Positions
         {
             XMin = xMin;
             XMax = xMax;
-#if UiDebug
-            ValidatePositions();
-#endif
         }
 
         public void SetY(float yMin, float yMax)
         {
             YMin = yMin;
             YMax = yMax;
-#if UiDebug
-            ValidatePositions();
-#endif
         }
 
         public void MoveX(float delta)
         {
             XMin += delta;
             XMax += delta;
-#if UiDebug
-            ValidatePositions();
-#endif
         }
 
         public void MoveXPadded(float padding)
@@ -65,18 +53,12 @@ namespace Oxide.Ext.UiFramework.Positions
             float spacing = (XMax - XMin + Math.Abs(padding)) * (padding < 0 ? -1 : 1);
             XMin += spacing;
             XMax += spacing;
-#if UiDebug
-            ValidatePositions();
-#endif
         }
 
         public void MoveY(float delta)
         {
             YMin += delta;
             YMax += delta;
-#if UiDebug
-            ValidatePositions();
-#endif
         }
 
         public void MoveYPadded(float padding)
@@ -84,9 +66,6 @@ namespace Oxide.Ext.UiFramework.Positions
             float spacing = (YMax - YMin + Math.Abs(padding)) * (padding < 0 ? -1 : 1);
             YMin += spacing;
             YMax += spacing;
-#if UiDebug
-            ValidatePositions();
-#endif
         }
 
         public void Expand(float amount)
@@ -129,36 +108,6 @@ namespace Oxide.Ext.UiFramework.Positions
             XMax = _initialState.Max.x;
             YMax = _initialState.Max.y;
         }
-
-#if UiDebug
-        protected void ValidatePositions()
-        {
-            if (XMin < 0 || XMin > 1)
-            {
-                PrintError($"[{GetType().Name}] XMin is out or range at: {XMin}");
-            }
-
-            if (XMax > 1 || XMax < 0)
-            {
-                PrintError($"[{GetType().Name}] XMax is out or range at: {XMax}");
-            }
-
-            if (YMin < 0 || YMin > 1)
-            {
-                PrintError($"[{GetType().Name}] YMin is out or range at: {YMin}");
-            }
-
-            if (YMax > 1 || YMax < 0)
-            {
-                PrintError($"[{GetType().Name}] YMax is out or range at: {YMax}");
-            }
-        }
-
-        private void PrintError(string format)
-        {
-            _ins.PrintError(format);
-        }
-#endif
 
         public override string ToString()
         {
