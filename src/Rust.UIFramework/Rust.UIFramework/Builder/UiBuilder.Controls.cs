@@ -1,4 +1,5 @@
 ﻿using System;
+using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Offsets;
@@ -22,19 +23,24 @@ namespace Oxide.Ext.UiFramework.Builder
             return background;
         }
         
-        public void SimpleNumberPicker(BaseUiComponent parent, int value, int fontSize, UiColor textColor, UiColor backgroundColor, UiColor buttonColor, UiPosition pos, string cmd, float buttonWidth = 0.1f, bool readOnly = false)
+        public void SimpleNumberPicker(BaseUiComponent parent, int value, int fontSize, UiColor textColor, UiColor backgroundColor, UiColor buttonColor, UiPosition pos, string cmd, int minValue = int.MinValue, int maxValue = int.MaxValue, float buttonWidth = 0.1f)
         {
-            UiPosition subtractSlice = pos.SliceHorizontal(0, buttonWidth);
-            UiPosition addSlice = pos.SliceHorizontal(1 - buttonWidth, 1);
-            
-            TextButton(parent, "-", fontSize, textColor, buttonColor, subtractSlice, $"{cmd} {(value - 1).ToString()}");
-            TextButton(parent, "+", fontSize, textColor, buttonColor, addSlice, $"{cmd} {(value + 1).ToString()}");
-            
-            UiInput input = InputBackground(parent, value.ToString(), fontSize, textColor, backgroundColor, pos.SliceHorizontal(buttonWidth, 1 - buttonWidth), cmd, readOnly: readOnly);
-            input.SetRequiresKeyboard();
+            if (value > minValue)
+            {
+                UiPosition subtractSlice = pos.SliceHorizontal(0, buttonWidth);
+                TextButton(parent, "-", fontSize, textColor, buttonColor, subtractSlice, $"{cmd} {NumberCache<int>.Get(value - 1)}");
+            }
+
+            if (value < maxValue)
+            {
+                UiPosition addSlice = pos.SliceHorizontal(1 - buttonWidth, 1);
+                TextButton(parent, "+", fontSize, textColor, buttonColor, addSlice, $"{cmd} {NumberCache<int>.Get(value + 1)}");
+            }
+
+            LabelBackground(parent, value.ToString(), fontSize, textColor, backgroundColor, pos.SliceHorizontal(buttonWidth, 1 - buttonWidth));
         }
         
-        public void IncrementalNumberPicker(BaseUiComponent parent, int value, int[] increments, int fontSize, UiColor textColor, UiColor backgroundColor, UiColor buttonColor, UiPosition pos, string cmd, float buttonWidth = 0.3f, bool readOnly = false)
+        public void IncrementalNumberPicker(BaseUiComponent parent, int value, int[] increments, int fontSize, UiColor textColor, UiColor backgroundColor, UiColor buttonColor, UiPosition pos, string cmd, int minValue = int.MinValue, int maxValue = int.MaxValue, float buttonWidth = 0.3f, bool readOnly = false)
         {
             int incrementCount = increments.Length;
             float buttonSize = buttonWidth / incrementCount;
@@ -45,15 +51,22 @@ namespace Oxide.Ext.UiFramework.Builder
                 UiPosition addSlice = pos.SliceHorizontal(1 - buttonWidth + i * buttonSize, 1 - buttonWidth + (i + 1) * buttonSize);
 
                 string incrementDisplay = increment.ToString();
-                TextButton(parent, string.Concat("-", incrementDisplay), fontSize, textColor, buttonColor, subtractSlice, $"{cmd} {(value - increment).ToString()}");
-                TextButton(parent, string.Concat("+", incrementDisplay), fontSize, textColor, buttonColor, addSlice, $"{cmd} {(value + increment).ToString()}");
+                if (value - increment > minValue)
+                {
+                    TextButton(parent, string.Concat("-", incrementDisplay), fontSize, textColor, buttonColor, subtractSlice, $"{cmd} {(value - increment).ToString()}");
+                }
+
+                if (value + increment < maxValue)
+                {
+                    TextButton(parent, string.Concat("+", incrementDisplay), fontSize, textColor, buttonColor, addSlice, $"{cmd} {(value + increment).ToString()}");
+                }
             }
             
             UiInput input = InputBackground(parent, value.ToString(), fontSize, textColor, backgroundColor, pos.SliceHorizontal(0.3f, 0.7f), cmd, readOnly: readOnly);
             input.SetRequiresKeyboard();
         }
         
-        public void IncrementalNumberPicker(BaseUiComponent parent, float value, float[] increments, int fontSize, UiColor textColor, UiColor backgroundColor, UiColor buttonColor, UiPosition pos, string cmd, float buttonWidth = 0.3f, bool readOnly = false, string incrementFormat = "0.##")
+        public void IncrementalNumberPicker(BaseUiComponent parent, float value, float[] increments, int fontSize, UiColor textColor, UiColor backgroundColor, UiColor buttonColor, UiPosition pos, string cmd, float minValue = float.MinValue, float maxValue = float.MaxValue, float buttonWidth = 0.3f, bool readOnly = false, string incrementFormat = "0.##")
         {
             int incrementCount = increments.Length;
             float buttonSize = buttonWidth / incrementCount;
@@ -64,8 +77,15 @@ namespace Oxide.Ext.UiFramework.Builder
                 UiPosition addSlice = pos.SliceHorizontal(1 - buttonWidth + i * buttonSize, 1 - buttonWidth + (i + 1) * buttonSize);
 
                 string incrementDisplay = increment.ToString(incrementFormat);
-                TextButton(parent, string.Concat("-", incrementDisplay), fontSize, textColor, buttonColor, subtractSlice, $"{cmd} {(value - increment).ToString()}");
-                TextButton(parent, incrementDisplay, fontSize, textColor, buttonColor, addSlice, $"{cmd} {(value + increment).ToString()}");
+                if (value - increment > minValue)
+                {
+                    TextButton(parent, string.Concat("-", incrementDisplay), fontSize, textColor, buttonColor, subtractSlice, $"{cmd} {(value - increment).ToString(incrementFormat)}");
+                }
+
+                if (value + increment < maxValue)
+                {
+                    TextButton(parent, incrementDisplay, fontSize, textColor, buttonColor, addSlice, $"{cmd} {(value + increment).ToString(incrementFormat)}");
+                }
             }
             
             UiInput input = InputBackground(parent, value.ToString(), fontSize, textColor, backgroundColor, pos.SliceHorizontal(0.3f, 0.7f), cmd, readOnly: readOnly);
