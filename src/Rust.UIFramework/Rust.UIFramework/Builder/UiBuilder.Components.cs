@@ -61,10 +61,17 @@ namespace Oxide.Ext.UiFramework.Builder
             return button;
         }
 
-        public UiButton ImageButton(BaseUiComponent parent, UiColor buttonColor, string png, UiPosition pos, string cmd)
+        public UiButton ImageFileStorageButton(BaseUiComponent parent, UiColor buttonColor, string png, UiPosition pos, string cmd)
         {
             UiButton button = EmptyCommandButton(parent, buttonColor, pos, cmd);
-            Image(button, png, UiPosition.Full);
+            ImageFileStorage(button, png, UiPosition.Full);
+            return button;
+        }
+        
+        public UiButton ImageSpriteButton(BaseUiComponent parent, UiColor buttonColor, string sprite, UiPosition pos, string cmd)
+        {
+            UiButton button = EmptyCommandButton(parent, buttonColor, pos, cmd);
+            ImageSprite(button, sprite, UiPosition.Full);
             return button;
         }
 
@@ -96,10 +103,17 @@ namespace Oxide.Ext.UiFramework.Builder
             return button;
         }
 
-        public UiButton ImageCloseButton(BaseUiComponent parent, UiColor buttonColor, string png, UiPosition pos, string close)
+        public UiButton ImageFileStorageCloseButton(BaseUiComponent parent, UiColor buttonColor, string png, UiPosition pos, string close)
         {
             UiButton button = EmptyCloseButton(parent, buttonColor, pos, close);
-            Image(button, png, UiPosition.Full);
+            ImageFileStorage(button, png, UiPosition.Full);
+            return button;
+        }
+        
+        public UiButton ImageSpriteCloseButton(BaseUiComponent parent, UiColor buttonColor, string sprite, UiPosition pos, string close)
+        {
+            UiButton button = EmptyCloseButton(parent, buttonColor, pos, close);
+            ImageFileStorage(button, sprite, UiPosition.Full);
             return button;
         }
 
@@ -112,7 +126,7 @@ namespace Oxide.Ext.UiFramework.Builder
         #endregion
 
         #region Image
-        public UiImage Image(BaseUiComponent parent, string png, UiPosition pos, UiColor color)
+        public UiImage ImageFileStorage(BaseUiComponent parent, string png, UiPosition pos, UiColor color)
         {
             uint _;
             if (!uint.TryParse(png, out _))
@@ -120,14 +134,32 @@ namespace Oxide.Ext.UiFramework.Builder
                 throw new UiFrameworkException($"Image PNG '{png}' is not a valid uint. If trying to use a url please use WebImage instead");
             }
 
-            UiImage image = UiImage.Create(pos, null, color, png);
+            UiImage image = UiImage.CreateFileImage(pos, null, color, png);
             AddComponent(image, parent);
             return image;
         }
 
-        public UiImage Image(BaseUiComponent parent, string png, UiPosition pos)
+        public UiImage ImageFileStorage(BaseUiComponent parent, string png, UiPosition pos)
         {
-            return Image(parent, png, pos, UiColors.StandardColors.White);
+            return ImageFileStorage(parent, png, pos, UiColors.StandardColors.White);
+        }
+        
+        public UiImage ImageSprite(BaseUiComponent parent, string sprite, UiPosition pos, UiColor color)
+        {
+            uint _;
+            if (!uint.TryParse(sprite, out _))
+            {
+                throw new UiFrameworkException($"Image PNG '{sprite}' is not a valid uint. If trying to use a url please use WebImage instead");
+            }
+
+            UiImage image = UiImage.CreateSpriteImage(pos, null, color, sprite);
+            AddComponent(image, parent);
+            return image;
+        }
+
+        public UiImage ImageSprite(BaseUiComponent parent, string sprite, UiPosition pos)
+        {
+            return ImageSprite(parent, sprite, pos, UiColors.StandardColors.White);
         }
         #endregion
 
