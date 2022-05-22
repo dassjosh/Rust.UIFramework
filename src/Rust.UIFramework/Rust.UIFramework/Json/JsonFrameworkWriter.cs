@@ -2,7 +2,6 @@
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Pooling;
 using UnityEngine;
-using System;
 using Oxide.Ext.UiFramework.Cache;
 using UnityEngine.UI;
 
