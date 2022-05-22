@@ -1,101 +1,104 @@
 ﻿using System;
 
-namespace Oxide.Ext.UiFramework.Positions
+namespace Oxide.Ext.UiFramework.Offsets
 {
-    public class GridPositionBuilder
+    public class GridOffsetBuilder
     {
-        private readonly float _numCols;
-        private readonly float _numRows;
+        private readonly int _numCols;
+        private readonly int _numRows;
+        private readonly UiOffset _area;
         private int _rowHeight = 1;
         private int _rowOffset;
         private int _colWidth = 1;
         private int _colOffset;
-        private float _xPad;
-        private float _yPad;
+        private int _xPad;
+        private int _yPad;
 
-        public GridPositionBuilder(int size) : this(size, size)
+        public GridOffsetBuilder(int size, UiOffset area) : this(size, size, area)
         {
+            
         }
 
-        public GridPositionBuilder(int numCols, int numRows)
+        public GridOffsetBuilder(int numCols, int numRows, UiOffset area)
         {
             if (numCols <= 0) throw new ArgumentOutOfRangeException(nameof(numCols));
             if (numRows <= 0) throw new ArgumentOutOfRangeException(nameof(numCols));
             _numCols = numCols;
             _numRows = numRows;
+            _area = area;
         }
 
-        public GridPositionBuilder SetRowHeight(int height)
+        public GridOffsetBuilder SetRowHeight(int height)
         {
             if (height <= 0) throw new ArgumentOutOfRangeException(nameof(height));
             _rowHeight = height;
             return this;
         }
 
-        public GridPositionBuilder SetRowOffset(int offset)
+        public GridOffsetBuilder SetRowOffset(int offset)
         {
             if (offset <= 0) throw new ArgumentOutOfRangeException(nameof(offset));
             _rowOffset = offset;
             return this;
         }
 
-        public GridPositionBuilder SetColWidth(int width)
+        public GridOffsetBuilder SetColWidth(int width)
         {
             if (width <= 0) throw new ArgumentOutOfRangeException(nameof(width));
             _colWidth = width;
             return this;
         }
 
-        public GridPositionBuilder SetColOffset(int offset)
+        public GridOffsetBuilder SetColOffset(int offset)
         {
             if (offset <= 0) throw new ArgumentOutOfRangeException(nameof(offset));
             _colOffset = offset;
             return this;
         }
 
-        public GridPositionBuilder SetPadding(float padding)
+        public GridOffsetBuilder SetPadding(int padding)
         {
             _xPad = padding;
             _yPad = padding;
             return this;
         }
 
-        public GridPositionBuilder SetPadding(float xPad, float yPad)
+        public GridOffsetBuilder SetPadding(int xPad, int yPad)
         {
             _xPad = xPad;
             _yPad = yPad;
             return this;
         }
 
-        public GridPositionBuilder SetRowPadding(float padding)
+        public GridOffsetBuilder SetRowPadding(int padding)
         {
             _xPad = padding;
             return this;
         }
 
-        public GridPositionBuilder SetColPadding(float padding)
+        public GridOffsetBuilder SetColPadding(int padding)
         {
             _yPad = padding;
             return this;
         }
 
-        public GridPosition Build()
+        public GridOffset Build()
         {
-            float xMin = 0;
-            float yMin = 1 - _rowHeight / _numRows;
-            float xMax = _colWidth / _numCols;
-            float yMax = 1;
+            int xMin = _area.Min.X;
+            int yMin = _area.Max.Y - _rowHeight / _numRows  * (_area.Max.Y - _area.Min.Y);
+            int xMax = _area.Min.X + _colWidth / _numCols * (_area.Max.X - _area.Min.X);
+            int yMax = _area.Max.Y;
 
             if (_colOffset != 0)
             {
-                float size = _colOffset / _numCols;
+                int size = _colOffset / _numCols;
                 xMin += size;
                 xMax += size;
             }
 
             if (_rowOffset != 0)
             {
-                float size = _rowOffset / _numRows;
+                int size = _rowOffset / _numRows;
                 yMin += size;
                 yMax += size;
             }
@@ -105,7 +108,7 @@ namespace Oxide.Ext.UiFramework.Positions
             yMin += _yPad;
             yMax -= _yPad;
 
-            return new GridPosition(xMin, yMin, xMax, yMax, _numCols, _numRows);
+            return new GridOffset(xMin, yMin, xMax, yMax, _numCols, _numRows, _area);
         }
     }
 }

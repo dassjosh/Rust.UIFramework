@@ -20,12 +20,8 @@
             {
                 XMin -= 1;
                 XMax -= 1;
-                MoveRows(-1);
+                MoveRows(1);
             }
-
-#if UiDebug
-            ValidatePositions();
-#endif
         }
         
         public void MoveCols(float cols)
@@ -37,22 +33,14 @@
             {
                 XMin -= 1;
                 XMax -= 1;
-                MoveRows(-1);
+                MoveRows(1);
             }
-
-#if UiDebug
-            ValidatePositions();
-#endif
         }
 
         public void MoveRows(int rows)
         {
-            YMin += rows / NumRows;
-            YMax += rows / NumRows;
-
-#if UiDebug
-            ValidatePositions();
-#endif
+            YMin -= rows / NumRows;
+            YMax -= rows / NumRows;
         }
     }
 }
