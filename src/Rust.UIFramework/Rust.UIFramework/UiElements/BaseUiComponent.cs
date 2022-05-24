@@ -12,9 +12,9 @@ namespace Oxide.Ext.UiFramework.UiElements
         public string Parent;
         public float FadeOut;
         public UiPosition Position;
-        public UiOffset? Offset;
+        public UiOffset Offset;
 
-        protected static T CreateBase<T>(UiPosition pos, UiOffset? offset) where T : BaseUiComponent, new()
+        protected static T CreateBase<T>(UiPosition pos, UiOffset offset) where T : BaseUiComponent, new()
         {
             T component = UiFrameworkPool.Get<T>();
             component.Position = pos;
@@ -67,19 +67,8 @@ namespace Oxide.Ext.UiFramework.UiElements
             writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, JsonDefaults.Common.RectTransformName);
             writer.AddPosition(JsonDefaults.Position.AnchorMinName, Position.Min, new Vector2(0, 0));
             writer.AddPosition(JsonDefaults.Position.AnchorMaxName, Position.Max, new Vector2(1, 1));
-
-            if (Offset.HasValue)
-            {
-                UiOffset offset = Offset.Value;
-                writer.AddOffset(JsonDefaults.Offset.OffsetMinName, offset.Min, new Vector2Short(0, 0));
-                writer.AddOffset(JsonDefaults.Offset.OffsetMaxName, offset.Max, new Vector2Short(1, 1));
-            }
-            else
-            {
-                //Fixes issue with UI going outside of bounds
-                writer.AddFieldRaw(JsonDefaults.Offset.OffsetMaxName, JsonDefaults.Offset.DefaultOffsetMax);
-            }
-
+            writer.AddOffset(JsonDefaults.Offset.OffsetMinName, Offset.Min, new Vector2Short(0, 0));
+            writer.AddOffset(JsonDefaults.Offset.OffsetMaxName, Offset.Max, new Vector2Short(1, 1));
             writer.WriteEndObject();
         }
 
@@ -94,7 +83,7 @@ namespace Oxide.Ext.UiFramework.UiElements
             Parent = null;
             FadeOut = 0;
             Position = default(UiPosition);
-            Offset = null;
+            Offset = default(UiOffset);
         }
     }
 }

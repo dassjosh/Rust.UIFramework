@@ -11,7 +11,7 @@ namespace Oxide.Ext.UiFramework.UiElements
     {
         public RawImageComponent RawImage;
 
-        public static UiRawImage CreateUrl(UiPosition pos, UiOffset? offset, UiColor color, string url)
+        public static UiRawImage CreateUrl(UiPosition pos, UiOffset offset, UiColor color, string url)
         {
             UiRawImage image = CreateBase<UiRawImage>(pos, offset);
             image.RawImage.Color = color;
@@ -19,7 +19,7 @@ namespace Oxide.Ext.UiFramework.UiElements
             return image;
         }
         
-        public static UiRawImage CreateTexture(UiPosition pos, UiOffset? offset, UiColor color, string icon)
+        public static UiRawImage CreateTexture(UiPosition pos, UiOffset offset, UiColor color, string icon)
         {
             UiRawImage image = CreateBase<UiRawImage>(pos, offset);
             image.RawImage.Color = color;

@@ -13,7 +13,7 @@ namespace Oxide.Ext.UiFramework.UiElements
         public TextComponent Text;
         public CountdownComponent Countdown;
 
-        public static UiLabel Create(UiPosition pos, UiOffset? offset, UiColor color, string text, int size, string font, TextAnchor align = TextAnchor.MiddleCenter)
+        public static UiLabel Create(UiPosition pos, UiOffset offset, UiColor color, string text, int size, string font, TextAnchor align = TextAnchor.MiddleCenter)
         {
             UiLabel label = CreateBase<UiLabel>(pos, offset);
             TextComponent textComp = label.Text;
