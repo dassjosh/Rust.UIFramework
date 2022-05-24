@@ -6,6 +6,8 @@ namespace Oxide.Ext.UiFramework.Positions
     {
         public static readonly UiPosition None = new UiPosition(0, 0, 0, 0);
         public static readonly UiPosition Full = new UiPosition(0, 0, 1, 1);
+        public static readonly UiPosition HorizontalPaddedFull = SliceHorizontal(Full, 0.01f, 0.99f);
+        public static readonly UiPosition VerticalPaddedFull = SliceVertical(Full, 0.01f, 0.99f);
         public static readonly UiPosition TopLeft = new UiPosition(0, 1, 0, 1);
         public static readonly UiPosition MiddleLeft = new UiPosition(0, .5f, 0, .5f);
         public static readonly UiPosition BottomLeft = new UiPosition(0, 0, 0, 0);
@@ -21,8 +23,13 @@ namespace Oxide.Ext.UiFramework.Positions
         public static readonly UiPosition Left = new UiPosition(0, 0, 0, 1);
         public static readonly UiPosition Right = new UiPosition(1, 0, 1, 1);
         
-        public readonly Vector2 Min;
-        public readonly Vector2 Max;
+        public static readonly UiPosition LeftHalf = new UiPosition(0, 0, 0.5f, 1);
+        public static readonly UiPosition TopHalf = new UiPosition(0, 0.5f, 1, 1);
+        public static readonly UiPosition RightHalf = new UiPosition(0.5f, 0, 1, 1);
+        public static readonly UiPosition BottomHalf = new UiPosition(0, 0, 1, 0.5f);
+        
+        public Vector2 Min;
+        public Vector2 Max;
 
         public UiPosition(float xMin, float yMin, float xMax, float yMax)
         {
@@ -33,37 +40,46 @@ namespace Oxide.Ext.UiFramework.Positions
         /// <summary>
         /// Returns a slice of the position
         /// </summary>
+        /// <param name="pos">Position to slice</param>
         /// <param name="xMin">% of the xMax - xMin distance added to xMin</param>
         /// <param name="yMin">% of the yMax - yMin distance added to yMin</param>
         /// <param name="xMax">>% of the xMax - xMin distance added to xMin</param>
         /// <param name="yMax">% of the yMax - yMin distance added to yMin</param>
         /// <returns>Sliced <see cref="UiPosition"/></returns>
-        public UiPosition Slice(float xMin, float yMin, float xMax, float yMax)
+        public static UiPosition Slice(UiPosition pos, float xMin, float yMin, float xMax, float yMax)
         {
-            Vector2 distance = Max - Min;
-            return new UiPosition(Min.x + distance.x * xMin, Min.y + distance.y * yMin, Min.x + distance.x * xMax, Min.y + distance.y * yMax);
+            Vector2 min = pos.Min;
+            Vector2 max = pos.Max;
+            Vector2 distance = max - min;
+            return new UiPosition(min.x + distance.x * xMin, min.y + distance.y * yMin, min.x + distance.x * xMax, min.y + distance.y * yMax);
         }
         
         /// <summary>
         /// Returns a horizontal slice of the position
         /// </summary>
+        /// <param name="pos">Position to slice</param>
         /// <param name="xMin">% of the xMax - xMin distance added to xMin</param>
         /// <param name="xMax">>% of the xMax - xMin distance added to xMin</param>
         /// <returns>Sliced <see cref="UiPosition"/></returns>
-        public UiPosition SliceHorizontal(float xMin, float xMax)
+        public static UiPosition SliceHorizontal(UiPosition pos, float xMin, float xMax)
         {
-            return new UiPosition(Min.x + (Max.x - Min.x) * xMin, Min.y, Min.x + (Max.x - Min.x) * xMax, Max.y);
+            Vector2 min = pos.Min;
+            Vector2 max = pos.Max;   
+            return new UiPosition(min.x + (max.x - min.x) * xMin, min.y, min.x + (max.x - min.x) * xMax, max.y);
         }
         
         /// <summary>
         /// Returns a vertical slice of the position
         /// </summary>
+        /// <param name="pos">Position to slice</param>
         /// <param name="yMin">% of the yMax - yMin distance added to yMin</param>
         /// <param name="yMax">% of the yMax - yMin distance added to yMin</param>
         /// <returns>Sliced <see cref="UiPosition"/></returns>
-        public UiPosition SliceVertical(float yMin, float yMax)
+        public static UiPosition SliceVertical(UiPosition pos, float yMin, float yMax)
         {
-            return new UiPosition(Min.x, Min.y + (Max.y - Min.y) * yMin, Max.x, Min.y + (Max.y - Min.y) * yMax);
+            Vector2 min = pos.Min;
+            Vector2 max = pos.Max;   
+            return new UiPosition(max.x, min.y + (max.y - min.y) * yMin, max.x, min.y + (max.y - min.y) * yMax);
         }
         
         public override string ToString()
