@@ -38,7 +38,7 @@ namespace Oxide.Ext.UiFramework.UiElements
             Button.ImageType = type;
         }
 
-        public void SetBackground(string sprite)
+        public void SetSprite(string sprite)
         {
             Button.Sprite = sprite;
         }
@@ -46,6 +46,13 @@ namespace Oxide.Ext.UiFramework.UiElements
         public void SetMaterial(string material)
         {
             Button.Material = material;
+        }
+        
+        public void SetSpriteMaterialImage(string sprite = null, string material = null, Image.Type type = Image.Type.Simple)
+        {
+            Button.Sprite = sprite;
+            Button.Material = material;
+            Button.ImageType = type;
         }
 
         protected override void WriteComponents(JsonFrameworkWriter writer)

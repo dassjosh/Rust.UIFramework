@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.UiElements
 {
-    public class BaseUiImage : BaseUiComponent
+    public abstract class BaseUiImage : BaseUiComponent
     {
         public ImageComponent Image;
         
@@ -22,6 +22,13 @@ namespace Oxide.Ext.UiFramework.UiElements
         public void SetMaterial(string material)
         {
             Image.Material = material;
+        }
+        
+        public void SetSpriteMaterialImage(string sprite = null, string material = null, Image.Type type = UnityEngine.UI.Image.Type.Simple)
+        {
+            Image.Sprite = sprite;
+            Image.Material = material;
+            Image.ImageType = type;
         }
         
         public void SetFadeIn(float duration)
