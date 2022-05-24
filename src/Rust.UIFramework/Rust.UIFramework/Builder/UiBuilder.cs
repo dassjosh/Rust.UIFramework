@@ -88,11 +88,6 @@ namespace Oxide.Ext.UiFramework.Builder
 
         public override void DisposeInternal()
         {
-            UiFrameworkPool.Free(this);
-        }
-
-        protected override void EnterPool()
-        {
             for (int index = 0; index < _components.Count; index++)
             {
                 _components[index].Dispose();
@@ -100,8 +95,17 @@ namespace Oxide.Ext.UiFramework.Builder
 
             UiFrameworkPool.FreeList(ref _components);
             //UiFrameworkPool.FreeHash(ref _componentLookup);
+            UiFrameworkPool.Free(this);
+        }
+
+        protected override void EnterPool()
+        {
             Root = null;
             _cachedJson = null;
+            _needsKeyboard = false;
+            _needsMouse = false;
+            _font = null;
+            _rootName = null;
         }
 
         protected override void LeavePool()

@@ -16,7 +16,6 @@ namespace Oxide.Ext.UiFramework.Pooling
         protected BasePool(int maxSize)
         {
             _pool = new T[maxSize];
-            
             UiFrameworkPool.AddPool(this);
         }
         
