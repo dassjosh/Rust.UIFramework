@@ -14,11 +14,32 @@ namespace Oxide.Ext.UiFramework.Colors
         public readonly Color Color;
         #endregion
 
+        #region Static Colors
+        public static readonly UiColor Black =  "#000000";
+        public static readonly UiColor White = "#FFFFFF";
+        public static readonly UiColor Silver =  "#C0C0C0";
+        public static readonly UiColor Gray = "#808080";
+        public static readonly UiColor Red = "#FF0000";
+        public static readonly UiColor Maroon = "#800000";
+        public static readonly UiColor Orange = "#FFA500";
+        public static readonly UiColor Yellow = "#FFEB04";
+        public static readonly UiColor Olive = "#808000";
+        public static readonly UiColor Lime = "#00FF00";
+        public static readonly UiColor Green = "#008000";
+        public static readonly UiColor Teal = "#008080";
+        public static readonly UiColor Cyan = "#00FFFF";
+        public static readonly UiColor Blue = "#0000FF";
+        public static readonly UiColor Navy = "#000080";
+        public static readonly UiColor Magenta = "#FF00FF";
+        public static readonly UiColor Purple = "#800080";
+        public static readonly UiColor Clear = "#00000000";
+        #endregion
+
         #region Constructors
         public UiColor(Color color)
         {
             Color = color;
-            Value = ((uint)(color.r * 255) << 24) + ((uint)(color.g * 255) << 16) + ((uint)(color.b * 255) << 8) + (uint)(color.a * 255);
+            Value = ((uint)(color.r * 255) << 24) | ((uint)(color.g * 255) << 16) | ((uint)(color.b * 255) << 8) | (uint)(color.a * 255);
         }
         
         public UiColor(int red, int green, int blue, int alpha = 255) : this(red / 255f, green / 255f, blue / 255f, alpha / 255f)
@@ -73,6 +94,11 @@ namespace Oxide.Ext.UiFramework.Colors
             float blue = (1 - col.b) * percentage + col.b;
 
             return new UiColor(red, green, blue, col.a);
+        }
+        
+        public static UiColor Lerp(UiColor start, UiColor end, float value)
+        {
+            return Color.Lerp(start, end, value);
         }
         #endregion
 

@@ -25,8 +25,8 @@ namespace Oxide.Ext.UiFramework.Cache
 
             writer.Write(color);
         }
-        
-        public static string GetColor(Color color)
+
+        private static string GetColor(Color color)
         {
             StringBuilder builder = UiFrameworkPool.GetStringBuilder();
             builder.Append(color.r.ToString(Format));

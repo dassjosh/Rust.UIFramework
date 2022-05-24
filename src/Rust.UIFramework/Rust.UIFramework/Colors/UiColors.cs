@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace Oxide.Ext.UiFramework.Colors
+﻿namespace Oxide.Ext.UiFramework.Colors
 {
     public static class UiColors
     {
@@ -39,29 +37,6 @@ namespace Oxide.Ext.UiFramework.Colors
             public static readonly UiColor MatSecondaryDark = "#0984e3";
             public static readonly UiColor MatTextOnPrimary = "#0984e3";
             public static readonly UiColor MatTextOnSecondary = "#0984e3";
-        }
-
-        public static class StandardColors
-        {
-            public static readonly UiColor White = Color.white;
-            public static readonly UiColor Silver = "#C0C0C0";
-            public static readonly UiColor Gray = Color.gray;
-            public static readonly UiColor Black = Color.black;
-            public static readonly UiColor Red = Color.red;
-            public static readonly UiColor Maroon = "#800000";
-            public static readonly UiColor Yellow = Color.yellow;
-            public static readonly UiColor Olive = "#808000";
-            public static readonly UiColor Lime = "#00FF00";
-            public static readonly UiColor Green = Color.green;
-            public static readonly UiColor Aqua = "#00FFFF";
-            public static readonly UiColor Teal = "#008080";
-            public static readonly UiColor Cyan = Color.cyan;
-            public static readonly UiColor Blue = Color.blue;
-            public static readonly UiColor Navy = "#000080";
-            public static readonly UiColor Fuchsia = "#FF00FF";
-            public static readonly UiColor Magenta = Color.magenta;
-            public static readonly UiColor Purple = "#800080";
-            public static readonly UiColor Clear = Color.clear;
         }
 
         public static class Supreme
@@ -114,7 +89,7 @@ namespace Oxide.Ext.UiFramework.Colors
         {
             public static readonly UiColor Body = "#00001F";
             public static readonly UiColor Header = "#00001F";
-            public static readonly UiColor Text = StandardColors.White;
+            public static readonly UiColor Text = UiColor.White;
             public static readonly UiColor Panel = "#2B2B2B";
             public static readonly UiColor PanelSecondary = "#3f3f3f";
             public static readonly UiColor PanelTertiary = "#525252";
