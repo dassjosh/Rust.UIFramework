@@ -246,17 +246,17 @@ namespace Oxide.Ext.UiFramework.Json
         
         public void WriteValue(int value)
         {
-            _writer.Write(NumberCache<int>.Get(value));
+            _writer.Write(NumberCache<int>.ToString(value));
         }
         
         public void WriteValue(float value)
         {
-            _writer.Write(NumberCache<float>.Get(value));
+            _writer.Write(NumberCache<float>.ToString(value));
         }
         
         public void WriteValue(ulong value)
         {
-            _writer.Write(NumberCache<ulong>.Get(value));
+            _writer.Write(NumberCache<ulong>.ToString(value));
         }
 
         public void WriteValue(string value)
@@ -296,21 +296,21 @@ namespace Oxide.Ext.UiFramework.Json
         public void WriteValue(Vector2 pos)
         {
             _writer.Write(QuoteChar);
-            VectorCache.WriteVector2(_writer, pos);
+            VectorCache.WriteVector(_writer, pos);
             _writer.Write(QuoteChar);
         }
         
         public void WritePosition(Vector2 pos)
         {
             _writer.Write(QuoteChar);
-            VectorCache.WritePos(_writer, pos);
+            VectorCache.WritePosition(_writer, pos);
             _writer.Write(QuoteChar);
         }
         
         public void WriteOffset(Vector2Short offset)
         {
             _writer.Write(QuoteChar);
-            VectorCache.WritePos(_writer, offset);
+            VectorCache.WriteOffset(_writer, offset);
             _writer.Write(QuoteChar);
         }
         

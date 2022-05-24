@@ -292,7 +292,6 @@
     </ItemGroup>
     <ItemGroup>
         <Compile Include="Benchmarks.cs" />
-        <Compile Include="Benchmarks.Example.cs" />
         <Compile Include="Program.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
