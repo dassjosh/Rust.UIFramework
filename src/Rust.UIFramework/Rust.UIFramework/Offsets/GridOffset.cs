@@ -1,51 +1,46 @@
-﻿namespace Oxide.Ext.UiFramework.Offsets
+﻿using System;
+
+namespace Oxide.Ext.UiFramework.Offsets
 {
     public class GridOffset : MovableOffset
     {
         public readonly int NumCols;
         public readonly int NumRows;
-        public readonly UiOffset Area;
+        public readonly int Width;
+        public readonly int Height;
 
-        public GridOffset(int xMin, int yMin, int xMax, int yMax, int numCols, int numRows, UiOffset area) : base(xMin, yMin, xMax, yMax)
+        public GridOffset(int xMin, int yMin, int xMax, int yMax, int numCols, int numRows, int width, int height) : base(xMin, yMin, xMax, yMax)
         {
             NumCols = numCols;
             NumRows = numRows;
-            Area = area;
+            Width = width;
+            Height = height;
         }
-
+        
         public void MoveCols(int cols)
         {
-            int distance = Area.Max.X - Area.Min.X;
-            XMin += cols / NumCols * distance;
-            XMax += cols / NumCols * distance;
-            
-            if (XMax > 1)
-            {
-                XMin -= 1;
-                XMax -= 1;
-                MoveRows(1);
-            }
+            MoveCols((float)cols);
         }
         
         public void MoveCols(float cols)
         {
-            int distance = Area.Max.X - Area.Min.X;
-            XMin += (int)(cols / NumCols * distance);
-            XMax += (int)(cols / NumCols * distance);
+            int distance = (int)Math.Floor(cols / NumCols * Width);
+            XMin += distance;
+            XMax += distance;
             
-            if (XMax > 1)
+            if (XMax > Width)
             {
-                XMin -= 1;
-                XMax -= 1;
+                XMin -= Width;
+                XMax -= Width;
                 MoveRows(1);
             }
         }
-
+        
         public void MoveRows(int rows)
         {
-            int distance = Area.Max.Y - Area.Min.Y;
-            YMin -= rows / NumRows * distance;
-            YMax -= rows / NumRows * distance;
+            int distance = (int)Math.Floor(rows / (float)NumRows * Height);
+            YMin -= distance;
+            YMax -= distance;
         }
     }
 }
