@@ -21,7 +21,7 @@ namespace Oxide.Ext.UiFramework.Cache
             }
         }
         
-        public static void WritePos(JsonBinaryWriter writer, Vector2 pos)
+        public static void WritePosition(JsonBinaryWriter writer, Vector2 pos)
         {
             WriteFromCache(writer, pos.x);
             writer.Write(Space);
@@ -47,7 +47,7 @@ namespace Oxide.Ext.UiFramework.Cache
             }
         }
 
-        public static void WriteVector2(JsonBinaryWriter writer, Vector2 pos)
+        public static void WriteVector(JsonBinaryWriter writer, Vector2 pos)
         {
             string formattedPos;
             if (!PositionCache.TryGetValue((ushort)(pos.x * PositionRounder), out formattedPos))
@@ -68,11 +68,11 @@ namespace Oxide.Ext.UiFramework.Cache
             writer.Write(formattedPos);
         }
         
-        public static void WritePos(JsonBinaryWriter writer, Vector2Short pos)
+        public static void WriteOffset(JsonBinaryWriter writer, Vector2Short pos)
         {
-            writer.Write(NumberCache<short>.Get(pos.X));
+            writer.Write(NumberCache<short>.ToString(pos.X));
             writer.Write(Space);
-            writer.Write(NumberCache<short>.Get(pos.Y));
+            writer.Write(NumberCache<short>.ToString(pos.Y));
         }
     }
 }

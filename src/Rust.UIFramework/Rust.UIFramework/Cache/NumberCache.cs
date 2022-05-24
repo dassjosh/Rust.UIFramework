@@ -6,7 +6,7 @@ namespace Oxide.Ext.UiFramework.Cache
     {
         private static readonly Dictionary<T, string> Cache = new Dictionary<T, string>();
 
-        public static string Get(T value)
+        public static string ToString(T value)
         {
             string text;
             if (!Cache.TryGetValue(value, out text))
