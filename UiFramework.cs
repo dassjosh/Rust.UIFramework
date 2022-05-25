@@ -286,7 +286,7 @@ namespace Oxide.Plugins
             {
                 if (!url.StartsWith("http"))
                 {
-                    throw new UiFrameworkException($"WebImage Url '{url}' is not a valid url. If trying to use a png id please use Image instead");
+                    throw new UiFrameworkException($"WebImage Url '{url}' is not a valid url. If trying to use a png id please use {nameof(ImageFileStorage)} instead");
                 }
                 
                 UiRawImage image = UiRawImage.CreateUrl(pos, offset, color, url);
@@ -363,7 +363,7 @@ namespace Oxide.Plugins
             public UiButton TextButton(BaseUiComponent parent, string text, int textSize, UiColor textColor, UiColor buttonColor, string command, UiPosition pos, UiOffset offset = default(UiOffset), TextAnchor align = TextAnchor.MiddleCenter)
             {
                 UiButton button = CommandButton(parent, buttonColor, command, pos, offset);
-                Label(button, text, textSize, textColor, UiPosition.HorizontalPaddedFull, offset, align);
+                Label(button, text, textSize, textColor, UiPosition.HorizontalPaddedFull, default(UiOffset), align);
                 return button;
             }
             
@@ -404,14 +404,14 @@ namespace Oxide.Plugins
             
             public UiInput InputBackground(BaseUiComponent parent, string text, int fontSize, UiColor textColor, UiColor backgroundColor, UiPosition pos , UiOffset offset = default(UiOffset), string command = "", TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, bool isPassword = false, bool readOnly = false, InputField.LineType lineType = InputField.LineType.SingleLine)
             {
-                parent = Panel(parent, backgroundColor, pos);
-                UiInput input = Input(parent, text, fontSize, textColor,UiPosition.HorizontalPaddedFull, offset, command, align, charsLimit, isPassword, readOnly, lineType);
+                parent = Panel(parent, backgroundColor, pos, offset);
+                UiInput input = Input(parent, text, fontSize, textColor,UiPosition.HorizontalPaddedFull, default(UiOffset), command, align, charsLimit, isPassword, readOnly, lineType);
                 return input;
             }
             
-            public UiButton Checkbox(BaseUiComponent parent, bool isChecked, int textSize, UiColor textColor, UiColor backgroundColor, UiPosition pos, string command)
+            public UiButton Checkbox(BaseUiComponent parent, bool isChecked, int textSize, UiColor textColor, UiColor backgroundColor, string command, UiPosition pos, UiOffset offset)
             {
-                return TextButton(parent, isChecked ? "<b>✓</b>" : string.Empty, textSize, textColor, backgroundColor, command, pos);
+                return TextButton(parent, isChecked ? "<b>✓</b>" : string.Empty, textSize, textColor, backgroundColor, command, pos, offset);
             }
             
             public UiPanel ProgressBar(BaseUiComponent parent, float percentage, UiColor barColor, UiColor backgroundColor, UiPosition pos)
@@ -419,6 +419,24 @@ namespace Oxide.Plugins
                 UiPanel background = Panel(parent, backgroundColor, pos);
                 Panel(parent, barColor, UiPosition.SliceHorizontal(pos,0, Mathf.Clamp01(percentage)));
                 return background;
+            }
+            
+            public void ButtonNumberPicker(BaseUiComponent parent, int currentValue, int minValue, int maxValue, int textSize, UiColor textColor, UiColor buttonColor, UiColor currentButtonColor, UiPosition pos, string command)
+            {
+                float size = 1f / (maxValue - minValue + 1);
+                UiSection section = Section(parent, pos);
+                for (int i = minValue; i <= maxValue; i++)
+                {
+                    UiPosition buttonPos = UiPosition.SliceHorizontal(UiPosition.Full, size * (i - minValue), size * (i + 1 - minValue));
+                    if (i == currentValue)
+                    {
+                        TextButton(section, NumberCache<int>.ToString(i),textSize, textColor, currentButtonColor, $"{command} {i}", buttonPos);
+                    }
+                    else
+                    {
+                        TextButton(section, NumberCache<int>.ToString(i), textSize, textColor, buttonColor, $"{command} {i}", buttonPos);
+                    }
+                }
             }
             
             public void SimpleNumberPicker(BaseUiComponent parent, int value, int fontSize, UiColor textColor, UiColor backgroundColor, UiColor buttonColor, UiPosition pos, string command, int minValue = int.MinValue, int maxValue = int.MaxValue, float buttonWidth = 0.1f)
@@ -1201,11 +1219,11 @@ namespace Oxide.Plugins
                 writer.Write(formattedPos);
             }
             
-            public static void WriteOffset(JsonBinaryWriter writer, Vector2Short pos)
+            public static void WriteOffset(JsonBinaryWriter writer, Vector2 pos)
             {
-                writer.Write(NumberCache<short>.ToString(pos.X));
+                writer.Write(NumberCache<short>.ToString((short)Math.Round(pos.x)));
                 writer.Write(Space);
-                writer.Write(NumberCache<short>.ToString(pos.Y));
+                writer.Write(NumberCache<short>.ToString((short)Math.Round(pos.y)));
             }
         }
         #endregion
@@ -2281,7 +2299,7 @@ namespace Oxide.Plugins
                 }
             }
             
-            public void AddOffset(string name, Vector2Short value, Vector2Short defaultValue)
+            public void AddOffset(string name, Vector2 value, Vector2 defaultValue)
             {
                 if (value != defaultValue)
                 {
@@ -2491,7 +2509,7 @@ namespace Oxide.Plugins
                 _writer.Write(QuoteChar);
             }
             
-            public void WriteOffset(Vector2Short offset)
+            public void WriteOffset(Vector2 offset)
             {
                 _writer.Write(QuoteChar);
                 VectorCache.WriteOffset(_writer, offset);
@@ -2558,10 +2576,10 @@ namespace Oxide.Plugins
         {
             public readonly int NumCols;
             public readonly int NumRows;
-            public readonly int Width;
-            public readonly int Height;
+            public readonly float Width;
+            public readonly float Height;
             
-            public GridOffset(int xMin, int yMin, int xMax, int yMax, int numCols, int numRows, int width, int height) : base(xMin, yMin, xMax, yMax)
+            public GridOffset(float xMin, float yMin, float xMax, float yMax, int numCols, int numRows, float width, float height) : base(xMin, yMin, xMax, yMax)
             {
                 NumCols = numCols;
                 NumRows = numRows;
@@ -2576,7 +2594,7 @@ namespace Oxide.Plugins
             
             public void MoveCols(float cols)
             {
-                int distance = (int)Math.Floor(cols / NumCols * Width);
+                float distance = cols / NumCols * Width;
                 XMin += distance;
                 XMax += distance;
                 
@@ -2590,7 +2608,7 @@ namespace Oxide.Plugins
             
             public void MoveRows(int rows)
             {
-                int distance = (int)Math.Floor(rows / (float)NumRows * Height);
+                float distance = rows / (float)NumRows * Height;
                 YMin -= distance;
                 YMax -= distance;
             }
@@ -2602,8 +2620,9 @@ namespace Oxide.Plugins
         {
             private readonly int _numCols;
             private readonly int _numRows;
-            private readonly int _width;
-            private readonly int _height;
+            private readonly UiOffset _area;
+            private readonly float _width;
+            private readonly float _height;
             private int _rowHeight = 1;
             private int _rowOffset;
             private int _colWidth = 1;
@@ -2611,21 +2630,20 @@ namespace Oxide.Plugins
             private int _xPad;
             private int _yPad;
             
-            public GridOffsetBuilder(int size, int width, int height) : this(size, size, width, height)
+            public GridOffsetBuilder(int size, UiOffset area) : this(size, size, area)
             {
                 
             }
             
-            public GridOffsetBuilder(int numCols, int numRows, int width, int height)
+            public GridOffsetBuilder(int numCols, int numRows, UiOffset area)
             {
                 if (numCols <= 0) throw new ArgumentOutOfRangeException(nameof(numCols));
                 if (numRows <= 0) throw new ArgumentOutOfRangeException(nameof(numCols));
-                if (width <= 0) throw new ArgumentOutOfRangeException(nameof(width));
-                if (height <= 0) throw new ArgumentOutOfRangeException(nameof(height));
                 _numCols = numCols;
                 _numRows = numRows;
-                _width = width;
-                _height = height;
+                _area = area;
+                _width = area.Max.x - area.Min.x;
+                _height = area.Max.y - area.Min.y;
             }
             
             public GridOffsetBuilder SetRowHeight(int height)
@@ -2637,7 +2655,7 @@ namespace Oxide.Plugins
             
             public GridOffsetBuilder SetRowOffset(int offset)
             {
-                if (offset <= 0) throw new ArgumentOutOfRangeException(nameof(offset));
+                if (offset < 0) throw new ArgumentOutOfRangeException(nameof(offset));
                 _rowOffset = offset;
                 return this;
             }
@@ -2651,7 +2669,7 @@ namespace Oxide.Plugins
             
             public GridOffsetBuilder SetColOffset(int offset)
             {
-                if (offset <= 0) throw new ArgumentOutOfRangeException(nameof(offset));
+                if (offset < 0) throw new ArgumentOutOfRangeException(nameof(offset));
                 _colOffset = offset;
                 return this;
             }
@@ -2684,10 +2702,10 @@ namespace Oxide.Plugins
             
             public GridOffset Build()
             {
-                int xMin = 0;
-                int yMin = (int)Math.Floor(_height - _rowHeight / (float)_numRows * _height);
-                int xMax = (int)Math.Floor(_colWidth / (float)_numCols * _width);
-                int yMax = _height / _numRows;
+                float xMin = _area.Min.x;
+                float yMin = _area.Max.y - _rowHeight / (float)_numRows * _height;
+                float xMax = _colWidth / (float)_numCols * _width;
+                float yMax = _rowHeight / (float)_numRows * _height;
                 
                 if (_colOffset != 0)
                 {
@@ -2716,18 +2734,18 @@ namespace Oxide.Plugins
         #region Offsets\MovableOffset.cs
         public class MovableOffset
         {
-            public int XMin;
-            public int YMin;
-            public int XMax;
-            public int YMax;
+            public float XMin;
+            public float YMin;
+            public float XMax;
+            public float YMax;
             private readonly UiOffset _initialState;
             
-            public MovableOffset(int x, int y, int width, int height)
+            public MovableOffset(float xMin, float yMin, float xMax, float yMax)
             {
-                XMin = x;
-                YMin = y;
-                XMax = x + width;
-                YMax = y + height;
+                XMin = xMin;
+                YMin = yMin;
+                XMax = xMin + xMax;
+                YMax = yMin + yMax;
                 _initialState = new UiOffset(XMin, YMin, XMax, YMax);
             }
             
@@ -2760,10 +2778,10 @@ namespace Oxide.Plugins
             
             public void Reset()
             {
-                XMin = _initialState.Min.X;
-                YMin = _initialState.Min.Y;
-                XMax = _initialState.Max.X;
-                YMax = _initialState.Max.Y;
+                XMin = _initialState.Min.x;
+                YMin = _initialState.Min.y;
+                XMax = _initialState.Max.x;
+                YMax = _initialState.Max.y;
             }
             
             public static implicit operator UiOffset(MovableOffset offset) => offset.ToOffset();
@@ -2776,15 +2794,15 @@ namespace Oxide.Plugins
             public static readonly UiOffset None = new UiOffset(0, 0, 0, 0);
             public static readonly UiOffset Scaled = new UiOffset(1280, 720);
             
-            public readonly Vector2Short Min;
-            public readonly Vector2Short Max;
+            public readonly Vector2 Min;
+            public readonly Vector2 Max;
             
-            public UiOffset(int width, int height) : this(-width / 2, -height / 2, width / 2, height / 2) { }
+            public UiOffset(int width, int height) : this(-width / 2f, -height / 2f, width / 2f, height / 2f) { }
             
-            public UiOffset(int xMin, int yMin, int xMax, int yMax)
+            public UiOffset(float xMin, float yMin, float xMax, float yMax)
             {
-                Min = new Vector2Short(xMin, yMin);
-                Max = new Vector2Short(xMax, yMax);
+                Min = new Vector2(xMin, yMin);
+                Max = new Vector2(xMax, yMax);
             }
             
             /// <summary>
@@ -2798,9 +2816,9 @@ namespace Oxide.Plugins
             /// <returns>Sliced <see cref="UiOffset"/></returns>
             public static UiOffset Slice(UiOffset pos, int left, int bottom, int right, int top)
             {
-                Vector2Short min = pos.Min;
-                Vector2Short max = pos.Max;
-                return new UiOffset(min.X + left, min.Y + bottom, max.X - right, max.Y - top);
+                Vector2 min = pos.Min;
+                Vector2 max = pos.Max;
+                return new UiOffset(min.x + left, min.y + bottom, max.x - right, max.y - top);
             }
             
             /// <summary>
@@ -2812,9 +2830,9 @@ namespace Oxide.Plugins
             /// <returns>Sliced <see cref="UiOffset"/></returns>
             public static UiOffset SliceHorizontal(UiOffset pos, int left, int right)
             {
-                Vector2Short min = pos.Min;
-                Vector2Short max = pos.Max;
-                return new UiOffset(min.X + left, min.Y, max.X - right,max.Y);
+                Vector2 min = pos.Min;
+                Vector2 max = pos.Max;
+                return new UiOffset(min.x + left, min.y, max.x - right,max.y);
             }
             
             /// <summary>
@@ -2826,67 +2844,15 @@ namespace Oxide.Plugins
             /// <returns>Sliced <see cref="UiOffset"/></returns>
             public static UiOffset SliceVertical(UiOffset pos, int bottom, int top)
             {
-                Vector2Short min = pos.Min;
-                Vector2Short max = pos.Max;
-                return new UiOffset(max.X, min.Y + bottom, max.X, max.Y - top);
+                Vector2 min = pos.Min;
+                Vector2 max = pos.Max;
+                return new UiOffset(max.x, min.y + bottom, max.x, max.y - top);
             }
             
             public override string ToString()
             {
-                return $"({Min.X:0.####}, {Min.Y:0.####}) ({Max.X:0.####}, {Max.Y:0.####})";
+                return $"({Min.x:0}, {Min.y:0}) ({Max.x:0}, {Max.y:0})";
             }
-        }
-        #endregion
-
-        #region Offsets\Vector2Short.cs
-        public struct Vector2Short : IEquatable<Vector2Short>
-        {
-            public readonly short X;
-            public readonly short Y;
-            
-            public Vector2Short(short x, short y)
-            {
-                X = x;
-                Y = y;
-            }
-            
-            public Vector2Short(int x, int y) : this((short)x, (short)y) { }
-            
-            public bool Equals(Vector2Short other)
-            {
-                return X == other.X && Y == other.Y;
-            }
-            
-            public override bool Equals(object obj)
-            {
-                if (ReferenceEquals(null, obj)) return false;
-                return obj is Vector2Short && Equals((Vector2Short)obj);
-            }
-            
-            public override int GetHashCode()
-            {
-                return (int)X | (Y << 16);
-            }
-            
-            public static bool operator ==(Vector2Short lhs, Vector2Short rhs) => lhs.X == rhs.X && lhs.Y == rhs.Y;
-            
-            public static bool operator !=(Vector2Short lhs, Vector2Short rhs) => !(lhs == rhs);
-            
-            public static Vector2Short operator +(Vector2Short a, Vector2Short b) => new Vector2Short(a.X + b.X, a.Y + b.Y);
-            
-            public static Vector2Short operator -(Vector2Short a, Vector2Short b) => new Vector2Short(a.X - b.X, a.Y - b.Y);
-            
-            public static Vector2Short operator *(Vector2Short a, Vector2Short b) => new Vector2Short(a.X * b.X, a.Y * b.Y);
-            
-            public static Vector2Short operator /(Vector2Short a, Vector2Short b) => new Vector2Short(a.X / b.X, a.Y / b.Y);
-            
-            public static Vector2Short operator -(Vector2Short a) => new Vector2Short(-a.X, -a.Y);
-            
-            public static Vector2Short operator *(Vector2Short a, short d) => new Vector2Short(a.X * d, a.Y * d);
-            
-            public static Vector2Short operator *(short d, Vector2Short a) => new Vector2Short(a.X * d, a.Y * d);
-            
-            public static Vector2Short operator /(Vector2Short a, short d) => new Vector2Short(a.X / d, a.Y / d);
         }
         #endregion
 
@@ -3360,7 +3326,7 @@ namespace Oxide.Plugins
             
             public GridPositionBuilder SetRowOffset(int offset)
             {
-                if (offset <= 0) throw new ArgumentOutOfRangeException(nameof(offset));
+                if (offset < 0) throw new ArgumentOutOfRangeException(nameof(offset));
                 _rowOffset = offset;
                 return this;
             }
@@ -3374,7 +3340,7 @@ namespace Oxide.Plugins
             
             public GridPositionBuilder SetColOffset(int offset)
             {
-                if (offset <= 0) throw new ArgumentOutOfRangeException(nameof(offset));
+                if (offset < 0) throw new ArgumentOutOfRangeException(nameof(offset));
                 _colOffset = offset;
                 return this;
             }
@@ -3575,6 +3541,11 @@ namespace Oxide.Plugins
             public static readonly UiPosition Left = new UiPosition(0, 0, 0, 1);
             public static readonly UiPosition Right = new UiPosition(1, 0, 1, 1);
             
+            public static readonly UiPosition LeftHalf = new UiPosition(0, 0, 0.5f, 1);
+            public static readonly UiPosition TopHalf = new UiPosition(0, 0.5f, 1, 1);
+            public static readonly UiPosition RightHalf = new UiPosition(0.5f, 0, 1, 1);
+            public static readonly UiPosition BottomHalf = new UiPosition(0, 0, 1, 0.5f);
+            
             public Vector2 Min;
             public Vector2 Max;
             
@@ -3698,8 +3669,8 @@ namespace Oxide.Plugins
                 writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, JsonDefaults.Common.RectTransformName);
                 writer.AddPosition(JsonDefaults.Position.AnchorMinName, Position.Min, new Vector2(0, 0));
                 writer.AddPosition(JsonDefaults.Position.AnchorMaxName, Position.Max, new Vector2(1, 1));
-                writer.AddOffset(JsonDefaults.Offset.OffsetMinName, Offset.Min, new Vector2Short(0, 0));
-                writer.AddOffset(JsonDefaults.Offset.OffsetMaxName, Offset.Max, new Vector2Short(1, 1));
+                writer.AddOffset(JsonDefaults.Offset.OffsetMinName, Offset.Min, new Vector2(0, 0));
+                writer.AddOffset(JsonDefaults.Offset.OffsetMaxName, Offset.Max, new Vector2(1, 1));
                 writer.WriteEndObject();
             }
             
