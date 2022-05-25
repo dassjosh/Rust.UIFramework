@@ -34,7 +34,7 @@ namespace Oxide.Ext.UiFramework.Positions
 
         public GridPositionBuilder SetRowOffset(int offset)
         {
-            if (offset <= 0) throw new ArgumentOutOfRangeException(nameof(offset));
+            if (offset < 0) throw new ArgumentOutOfRangeException(nameof(offset));
             _rowOffset = offset;
             return this;
         }
@@ -48,7 +48,7 @@ namespace Oxide.Ext.UiFramework.Positions
 
         public GridPositionBuilder SetColOffset(int offset)
         {
-            if (offset <= 0) throw new ArgumentOutOfRangeException(nameof(offset));
+            if (offset < 0) throw new ArgumentOutOfRangeException(nameof(offset));
             _colOffset = offset;
             return this;
         }

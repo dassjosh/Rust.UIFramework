@@ -97,7 +97,7 @@ namespace Oxide.Ext.UiFramework.Json
             }
         }
 
-        public void AddOffset(string name, Vector2Short value, Vector2Short defaultValue)
+        public void AddOffset(string name, Vector2 value, Vector2 defaultValue)
         {
             if (value != defaultValue)
             {
@@ -307,7 +307,7 @@ namespace Oxide.Ext.UiFramework.Json
             _writer.Write(QuoteChar);
         }
         
-        public void WriteOffset(Vector2Short offset)
+        public void WriteOffset(Vector2 offset)
         {
             _writer.Write(QuoteChar);
             VectorCache.WriteOffset(_writer, offset);

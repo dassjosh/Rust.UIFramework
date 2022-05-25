@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Oxide.Ext.UiFramework.Json;
-using Oxide.Ext.UiFramework.Offsets;
 using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Cache
@@ -68,11 +68,11 @@ namespace Oxide.Ext.UiFramework.Cache
             writer.Write(formattedPos);
         }
         
-        public static void WriteOffset(JsonBinaryWriter writer, Vector2Short pos)
+        public static void WriteOffset(JsonBinaryWriter writer, Vector2 pos)
         {
-            writer.Write(NumberCache<short>.ToString(pos.X));
+            writer.Write(NumberCache<short>.ToString((short)Math.Round(pos.x)));
             writer.Write(Space);
-            writer.Write(NumberCache<short>.ToString(pos.Y));
+            writer.Write(NumberCache<short>.ToString((short)Math.Round(pos.y)));
         }
     }
 }

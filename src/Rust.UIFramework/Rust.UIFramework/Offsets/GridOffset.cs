@@ -1,15 +1,13 @@
-﻿using System;
-
-namespace Oxide.Ext.UiFramework.Offsets
+﻿namespace Oxide.Ext.UiFramework.Offsets
 {
     public class GridOffset : MovableOffset
     {
         public readonly int NumCols;
         public readonly int NumRows;
-        public readonly int Width;
-        public readonly int Height;
-
-        public GridOffset(int xMin, int yMin, int xMax, int yMax, int numCols, int numRows, int width, int height) : base(xMin, yMin, xMax, yMax)
+        public readonly float Width;
+        public readonly float Height;
+        
+        public GridOffset(float xMin, float yMin, float xMax, float yMax, int numCols, int numRows, float width, float height) : base(xMin, yMin, xMax, yMax)
         {
             NumCols = numCols;
             NumRows = numRows;
@@ -24,7 +22,7 @@ namespace Oxide.Ext.UiFramework.Offsets
         
         public void MoveCols(float cols)
         {
-            int distance = (int)Math.Floor(cols / NumCols * Width);
+            float distance = cols / NumCols * Width;
             XMin += distance;
             XMax += distance;
             
@@ -38,7 +36,7 @@ namespace Oxide.Ext.UiFramework.Offsets
         
         public void MoveRows(int rows)
         {
-            int distance = (int)Math.Floor(rows / (float)NumRows * Height);
+            float distance = rows / (float)NumRows * Height;
             YMin -= distance;
             YMax -= distance;
         }

@@ -5,10 +5,11 @@ namespace Oxide.Ext.UiFramework.Offsets
 {
     public class GridOffsetBuilder
     {
-        private readonly int _numCols;
+         private readonly int _numCols;
         private readonly int _numRows;
-        private readonly int _width;
-        private readonly int _height;
+        private readonly UiOffset _area;
+        private readonly float _width;
+        private readonly float _height;
         private int _rowHeight = 1;
         private int _rowOffset;
         private int _colWidth = 1;
@@ -16,21 +17,20 @@ namespace Oxide.Ext.UiFramework.Offsets
         private int _xPad;
         private int _yPad;
         
-        public GridOffsetBuilder(int size, int width, int height) : this(size, size, width, height)
+        public GridOffsetBuilder(int size, UiOffset area) : this(size, size, area)
         {
             
         }
         
-        public GridOffsetBuilder(int numCols, int numRows, int width, int height)
+        public GridOffsetBuilder(int numCols, int numRows, UiOffset area)
         {
             if (numCols <= 0) throw new ArgumentOutOfRangeException(nameof(numCols));
             if (numRows <= 0) throw new ArgumentOutOfRangeException(nameof(numCols));
-            if (width <= 0) throw new ArgumentOutOfRangeException(nameof(width));
-            if (height <= 0) throw new ArgumentOutOfRangeException(nameof(height));
             _numCols = numCols;
             _numRows = numRows;
-            _width = width;
-            _height = height;
+            _area = area;
+            _width = area.Max.x - area.Min.x;
+            _height = area.Max.y - area.Min.y;
         }
         
         public GridOffsetBuilder SetRowHeight(int height)
@@ -42,7 +42,7 @@ namespace Oxide.Ext.UiFramework.Offsets
         
         public GridOffsetBuilder SetRowOffset(int offset)
         {
-            if (offset <= 0) throw new ArgumentOutOfRangeException(nameof(offset));
+            if (offset < 0) throw new ArgumentOutOfRangeException(nameof(offset));
             _rowOffset = offset;
             return this;
         }
@@ -56,7 +56,7 @@ namespace Oxide.Ext.UiFramework.Offsets
         
         public GridOffsetBuilder SetColOffset(int offset)
         {
-            if (offset <= 0) throw new ArgumentOutOfRangeException(nameof(offset));
+            if (offset < 0) throw new ArgumentOutOfRangeException(nameof(offset));
             _colOffset = offset;
             return this;
         }
@@ -89,10 +89,10 @@ namespace Oxide.Ext.UiFramework.Offsets
         
         public GridOffset Build()
         {
-            int xMin = 0;
-            int yMin = (int)Math.Floor(_height - _rowHeight / (float)_numRows * _height);
-            int xMax = (int)Math.Floor(_colWidth / (float)_numCols * _width);
-            int yMax = _height / _numRows;
+            float xMin = _area.Min.x;
+            float yMin = _area.Max.y - _rowHeight / (float)_numRows * _height;
+            float xMax = _colWidth / (float)_numCols * _width;
+            float yMax = _rowHeight / (float)_numRows * _height;
             
             if (_colOffset != 0)
             {

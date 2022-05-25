@@ -67,8 +67,8 @@ namespace Oxide.Ext.UiFramework.UiElements
             writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, JsonDefaults.Common.RectTransformName);
             writer.AddPosition(JsonDefaults.Position.AnchorMinName, Position.Min, new Vector2(0, 0));
             writer.AddPosition(JsonDefaults.Position.AnchorMaxName, Position.Max, new Vector2(1, 1));
-            writer.AddOffset(JsonDefaults.Offset.OffsetMinName, Offset.Min, new Vector2Short(0, 0));
-            writer.AddOffset(JsonDefaults.Offset.OffsetMaxName, Offset.Max, new Vector2Short(1, 1));
+            writer.AddOffset(JsonDefaults.Offset.OffsetMinName, Offset.Min, new Vector2(0, 0));
+            writer.AddOffset(JsonDefaults.Offset.OffsetMaxName, Offset.Max, new Vector2(1, 1));
             writer.WriteEndObject();
         }
 
