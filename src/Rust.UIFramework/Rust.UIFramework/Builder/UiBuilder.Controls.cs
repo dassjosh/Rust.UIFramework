@@ -15,7 +15,7 @@ namespace Oxide.Ext.UiFramework.Builder
         public UiButton TextButton(BaseUiComponent parent, string text, int textSize, UiColor textColor, UiColor buttonColor, string command, UiPosition pos, UiOffset offset = default(UiOffset), TextAnchor align = TextAnchor.MiddleCenter)
         {
             UiButton button = CommandButton(parent, buttonColor, command, pos, offset);
-            Label(button, text, textSize, textColor, UiPosition.HorizontalPaddedFull, offset, align);
+            Label(button, text, textSize, textColor, UiPosition.HorizontalPaddedFull, default(UiOffset), align);
             return button;
         }
         
@@ -56,14 +56,14 @@ namespace Oxide.Ext.UiFramework.Builder
 
         public UiInput InputBackground(BaseUiComponent parent, string text, int fontSize, UiColor textColor, UiColor backgroundColor, UiPosition pos , UiOffset offset = default(UiOffset), string command = "", TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, bool isPassword = false, bool readOnly = false, InputField.LineType lineType = InputField.LineType.SingleLine)
         {
-            parent = Panel(parent, backgroundColor, pos);
-            UiInput input = Input(parent, text, fontSize, textColor,UiPosition.HorizontalPaddedFull, offset, command, align, charsLimit, isPassword, readOnly, lineType);
+            parent = Panel(parent, backgroundColor, pos, offset);
+            UiInput input = Input(parent, text, fontSize, textColor,UiPosition.HorizontalPaddedFull, default(UiOffset), command, align, charsLimit, isPassword, readOnly, lineType);
             return input;
         }
         
-        public UiButton Checkbox(BaseUiComponent parent, bool isChecked, int textSize, UiColor textColor, UiColor backgroundColor, UiPosition pos, string command)
+        public UiButton Checkbox(BaseUiComponent parent, bool isChecked, int textSize, UiColor textColor, UiColor backgroundColor, string command, UiPosition pos, UiOffset offset)
         {
-            return TextButton(parent, isChecked ? "<b>✓</b>" : string.Empty, textSize, textColor, backgroundColor, command, pos);
+            return TextButton(parent, isChecked ? "<b>✓</b>" : string.Empty, textSize, textColor, backgroundColor, command, pos, offset);
         }
 
         public UiPanel ProgressBar(BaseUiComponent parent, float percentage, UiColor barColor, UiColor backgroundColor, UiPosition pos)
@@ -71,6 +71,24 @@ namespace Oxide.Ext.UiFramework.Builder
             UiPanel background = Panel(parent, backgroundColor, pos);
             Panel(parent, barColor, UiPosition.SliceHorizontal(pos,0, Mathf.Clamp01(percentage)));
             return background;
+        }
+        
+        public void ButtonNumberPicker(BaseUiComponent parent, int currentValue, int minValue, int maxValue, int textSize, UiColor textColor, UiColor buttonColor, UiColor currentButtonColor, UiPosition pos, string command)
+        {
+            float size = 1f / (maxValue - minValue + 1);
+            UiSection section = Section(parent, pos);
+            for (int i = minValue; i <= maxValue; i++)
+            {
+                UiPosition buttonPos = UiPosition.SliceHorizontal(UiPosition.Full, size * (i - minValue), size * (i + 1 - minValue));
+                if (i == currentValue)
+                {
+                    TextButton(section, NumberCache<int>.ToString(i),textSize, textColor, currentButtonColor, $"{command} {i}", buttonPos);
+                }
+                else
+                {
+                    TextButton(section, NumberCache<int>.ToString(i), textSize, textColor, buttonColor, $"{command} {i}", buttonPos);
+                }
+            }
         }
         
         public void SimpleNumberPicker(BaseUiComponent parent, int value, int fontSize, UiColor textColor, UiColor backgroundColor, UiColor buttonColor, UiPosition pos, string command, int minValue = int.MinValue, int maxValue = int.MaxValue, float buttonWidth = 0.1f)
