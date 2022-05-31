@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text;
 using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Json;
@@ -153,6 +154,15 @@ namespace Oxide.Ext.UiFramework.Builder
         {
             CacheJson();
             return _cachedJson;
+        }
+
+        /// <summary>
+        /// Warning this is only recommend to use for debugging purposes
+        /// </summary>
+        /// <returns></returns>
+        public string GetJsonString()
+        {
+            return Encoding.UTF8.GetString(GetBytes());
         }
         #endregion
     }

@@ -896,6 +896,15 @@ namespace Oxide.Plugins
                 CacheJson();
                 return _cachedJson;
             }
+            
+            /// <summary>
+            /// Warning this is only recommend to use for debugging purposes
+            /// </summary>
+            /// <returns></returns>
+            public string GetJsonString()
+            {
+                return Encoding.UTF8.GetString(GetBytes());
+            }
             #endregion
         }
         #endregion

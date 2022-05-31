@@ -27,6 +27,8 @@ namespace Oxide.Plugins
         {
             UiBuilder.DestroyUi(UiName);
             UiBuilder.DestroyUi(UiModal);
+            UiBuilder.DestroyUi(UiClose);
+            UiBuilder.DestroyUi(UiSkin);
             _ins = null;
         }
         #endregion
@@ -183,9 +185,11 @@ namespace Oxide.Plugins
             _grid.MoveCols(1);
             
             builder.DestroyAndAddUi(player);
+            builder.Dispose();
 
+            //This code is for debugging purposes only. DO NOT USE IN PRODUCTION!!
             LogToFile("Main", string.Empty, this);
-            LogToFile("Main", Encoding.UTF8.GetString(builder.GetBytes()), this);
+            LogToFile("Main", builder.GetJsonString(), this);
         }
 
         private void CreateModalUi(BasePlayer player)
@@ -199,9 +203,11 @@ namespace Oxide.Plugins
             //builder.Border(builder.Root, UiColors.Rust.Red, 2);
             
             builder.DestroyAndAddUi(player);
+            builder.Dispose();
             
+            //This code is for debugging purposes only. DO NOT USE IN PRODUCTION!!
             LogToFile("Modal", string.Empty, this);
-            LogToFile("Modal", Encoding.UTF8.GetString(builder.GetBytes()), this);
+            LogToFile("Modal", builder.GetJsonString(), this);
         }
 
         private static readonly GridPosition Skin = new GridPositionBuilder(2, 1).SetPadding(0.025f).Build();
@@ -223,9 +229,11 @@ namespace Oxide.Plugins
             builder.Label(close, UiPosition.HorizontalPaddedFull, "<b>X</b>", FontSize, UiColors.Text);
 
             builder.DestroyAndAddUi(player);
+            builder.Dispose();
             
+            //This code is for debugging purposes only. DO NOT USE IN PRODUCTION!!
             LogToFile("Skin", string.Empty, this);
-            LogToFile("Skin", Encoding.UTF8.GetString(builder.GetBytes()), this);
+            LogToFile("Skin", builder.GetJsonString(), this);
         }
         #endregion
 
