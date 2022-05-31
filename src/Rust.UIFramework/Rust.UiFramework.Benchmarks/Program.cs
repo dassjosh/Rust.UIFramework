@@ -18,10 +18,11 @@ namespace Rust.UiFramework.Benchmarks
             while (true)
             {
                 //var buffer = benchmarks.Buffer;
-                 benchmarks.Setup();
-               //var text = Encoding.UTF8.GetString(buffer, 0, count);
-               //var length = text.Length;
-               //var text1 = Encoding.UTF8.GetBytes(text);
+                 //benchmarks.Setup();
+                 benchmarks.Framework_CreateContainer();
+                 //var text = Encoding.UTF8.GetString(buffer, 0, count);
+                 //var length = text.Length;
+                 //var text1 = Encoding.UTF8.GetBytes(text);
             }
 #else
             BenchmarkRunner.Run<Benchmarks>(config);

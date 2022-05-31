@@ -131,11 +131,11 @@ namespace Rust.UiFramework.Benchmarks
 
         private UiBuilder GetFrameworkBuilder()
         {
-            UiBuilder builder = UiBuilder.Create(UiColors.StandardColors.Clear, UiPosition.Full, "123");
+            UiBuilder builder = UiBuilder.Create(UiColor.Clear, UiPosition.Full, "123");
             builder.EnsureCapacity(Iterations);
             for (int i = 0; i < Iterations - 1; i++)
             {
-                builder.Panel(builder.Root, UiColors.StandardColors.Black, _frameworkPos[i]);
+                builder.Panel(builder.Root, _frameworkPos[i], UiColor.Black);
             }
 
             return builder;

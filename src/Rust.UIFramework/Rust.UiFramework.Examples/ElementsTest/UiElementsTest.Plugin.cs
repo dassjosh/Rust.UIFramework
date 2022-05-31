@@ -2,6 +2,7 @@
 
 using System.Text;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Oxide.Plugins
 {
@@ -69,7 +70,7 @@ namespace Oxide.Plugins
         private const int FontSize = 14;
         private const int TitleFontSize = 16;
 
-        private UiBuilder _outsideClose = UiBuilder.CreateOutsideClose(nameof(UiElementsCloseAll), UiClose);
+        private readonly UiBuilder _outsideClose = UiBuilder.CreateOutsideClose(nameof(UiElementsCloseAll), UiClose);
         
         private void CreateUi(BasePlayer player)
         {
@@ -92,16 +93,17 @@ namespace Oxide.Plugins
             builder.NeedsKeyboard();
 
             //Create a panel for the title bar
-            UiPanel titlePanel = builder.Panel(builder.Root, UiColors.BodyHeader, _titleBarPos);
+            UiPanel titlePanel = builder.Panel(builder.Root, _titleBarPos, UiColors.BodyHeader);
 
             //Create the Title Bar Title and parent it to the titlePanel
-            builder.Label(titlePanel, Title, TitleFontSize, UiColors.Text, _titleTextPos);
+            builder.Label(titlePanel, _titleTextPos, Title, TitleFontSize, UiColors.Text);
 
             //Create a Text Close Button that closes the UI on the client side without using a server command
-            builder.TextCloseButton(titlePanel, "<b>X</b>", FontSize, UiColors.Text, UiColors.CloseButton, _closeButtonPos, UiName);
+            UiButton close = builder.CloseButton(titlePanel, _closeButtonPos, UiColors.CloseButton, UiName);
+            builder.Label(close, UiPosition.HorizontalPaddedFull, "<b>X</b>", FontSize, UiColors.Text);
 
             //Create a Text Close Button that closes the UI using a server command
-            builder.TextButton(titlePanel, "<b>X</b>", FontSize, UiColors.Text, UiColors.CloseButton, _closeCmdButtonPos, nameof(UiElementsCloseCommand));
+            builder.TextButton(titlePanel, _closeCmdButtonPos, "<b>X</b>", FontSize, UiColors.Text, UiColors.CloseButton, nameof(UiElementsCloseCommand));
 
             //Sections represents an invisible UI element used to parent UI elements to it
             UiSection body = builder.Section(builder.Root, _mainBodyPosition);
@@ -110,37 +112,37 @@ namespace Oxide.Plugins
             _grid.Reset();
 
             //We create a label with a background color
-            builder.LabelBackground(body, "This is a label", FontSize, UiColors.Text, UiColors.PanelSecondary, _grid);
+            builder.LabelBackground(body, _grid, "This is a label", FontSize, UiColors.Text, UiColors.PanelSecondary);
 
             //Move the grid to the next column
             _grid.MoveCols(1);
 
             //We create a panel
-            builder.Panel(body, UiColors.PanelTertiary, _grid);
+            builder.Panel(body, _grid, UiColors.PanelTertiary);
             _grid.MoveCols(1);
 
             //Creates a button that displays text
-            builder.TextButton(body, "Text Button", FontSize, UiColors.Text, UiColors.ButtonPrimary, _grid, string.Empty);
+            builder.TextButton(body, _grid, "Text Button", FontSize, UiColors.Text, UiColors.ButtonPrimary, string.Empty);
             _grid.MoveCols(1);
 
             //Creates a button that displays an image from the web
-            builder.WebImageButton(body, UiColors.StandardColors.White, "https://cdn.icon-icons.com/icons2/1381/PNG/512/rust_94773.png", _grid, string.Empty);
+            builder.WebImageButton(body, _grid, UiColor.White, "https://cdn.icon-icons.com/icons2/1381/PNG/512/rust_94773.png", string.Empty);
             _grid.MoveCols(1);
 
             //Creates a button that shows an item icon
-            builder.ItemIconButton(body, UiColors.ButtonSecondary, 963906841, _grid, string.Empty);
+            builder.ItemIconButton(body, _grid, UiColors.ButtonSecondary, 963906841, string.Empty);
             _grid.MoveCols(1);
 
             //Displays a web image
-            builder.WebImage(body, "https://community.cloudflare.steamstatic.com/economy/image/6TMcQ7eX6E0EZl2byXi7vaVKyDk_zQLX05x6eLCFM9neAckxGDf7qU2e2gu64OnAeQ7835Ja5WrMfDY0jhyo8DEiv5daMKk6r70yQoJpxfiC/360fx360f", _grid);
+            builder.WebImage(body, _grid, "https://community.cloudflare.steamstatic.com/economy/image/6TMcQ7eX6E0EZl2byXi7vaVKyDk_zQLX05x6eLCFM9neAckxGDf7qU2e2gu64OnAeQ7835Ja5WrMfDY0jhyo8DEiv5daMKk6r70yQoJpxfiC/360fx360f");
             _grid.MoveCols(1);
 
             //Displays an item icon with the given skin ID
-            builder.ItemIcon(body, 963906841, 2320435219, _grid);
+            builder.ItemIcon(body, _grid, 963906841, 2320435219);
             _grid.MoveCols(1);
 
             //Create a label and add a countdown timer to it.
-            UiLabel countdownLabel = builder.LabelBackground(body, "Time Left: %TIME_LEFT%", FontSize, UiColors.StandardColors.White, UiColors.PanelSecondary, _grid);
+            UiLabel countdownLabel = builder.LabelBackground(body, _grid, "Time Left: %TIME_LEFT%", FontSize, UiColor.White, UiColors.PanelSecondary);
             builder.Countdown(countdownLabel, 100, 0, 1, string.Empty);
 
             //Adds a text outline to the countdownLabel
@@ -148,7 +150,7 @@ namespace Oxide.Plugins
             _grid.MoveCols(1);
 
             //Creates an input field for the user to type in
-            UiInput input1 = builder.Input(body, state.Input1Text, FontSize, UiColors.Text, UiColors.PanelSecondary, _grid, nameof(UiElementsUpdateInput1));
+            UiInput input1 = builder.InputBackground(body, _grid, state.Input1Text, FontSize, UiColors.Text, UiColors.PanelSecondary, nameof(UiElementsUpdateInput1));
 
             //Blocks keyboard input when the input field is selected
             input1.SetRequiresKeyboard();
@@ -158,30 +160,29 @@ namespace Oxide.Plugins
             builder.Border(body, UiColors.Rust.Red);
 
             //Creates a checkbox
-            builder.Checkbox(body, state.Checkbox, FontSize, UiColors.Text, UiColors.PanelSecondary, _grid, nameof(UiElementsToggleCheckbox));
+            builder.Checkbox(body, _grid, state.Checkbox, FontSize, UiColors.Text, UiColors.PanelSecondary, nameof(UiElementsToggleCheckbox));
             _grid.MoveCols(1);
 
             //Creates a number picker
-            builder.SimpleNumberPicker(body, state.NumberPicker, FontSize, UiColors.Text, UiColors.Panel, UiColors.ButtonSecondary, _numberPickerPos, nameof(UiElementsNumberPicker), readOnly: true);
+            builder.SimpleNumberPicker(body, _numberPickerPos, state.NumberPicker, FontSize, UiColors.Text, UiColors.Panel, UiColors.ButtonSecondary, nameof(UiElementsNumberPicker));
             _grid.MoveCols(1);
 
             //Creates a number picker where the user can type into as well
-            builder.IncrementalNumberPicker(body, state.InputPicker, _numberPickerIncrements, FontSize, UiColors.Text, UiColors.Panel, UiColors.ButtonSecondary, _inputNumberPickerPos, nameof(UiElementsInputNumberPicker));
+            builder.IncrementalNumberPicker(body, _inputNumberPickerPos, state.InputPicker, _numberPickerIncrements, FontSize, UiColors.Text, UiColors.Panel, UiColors.ButtonSecondary, nameof(UiElementsInputNumberPicker));
             _grid.MoveCols(1);
 
             //Creates a paginator
             UiSection paginatorSection = builder.Section(body, _paginator);
-            builder.Paginator(paginatorSection, state.Page, 3, FontSize, UiColors.Text, UiColors.ButtonSecondary, UiColors.ButtonPrimary, _pagination, nameof(UiElementsPage));
+            builder.Paginator(paginatorSection, _pagination, state.Page, 3, FontSize, UiColors.Text, UiColors.ButtonSecondary, UiColors.ButtonPrimary, nameof(UiElementsPage));
             
-            builder.TextureImage(body, "assets/icons/change_code.png", _grid, UiColors.StandardColors.White);
+            builder.TextureImage(body, _grid, "assets/icons/change_code.png", UiColor.White);
             _grid.MoveCols(1);
             
             //Creates a button to open a modal
-            builder.TextButton(body, "Open Modal", FontSize, UiColors.Text, UiColors.ButtonPrimary, _grid, nameof(UiElementsOpenModal));
+            builder.TextButton(body, _grid, "Open Modal", FontSize, UiColors.Text, UiColors.ButtonPrimary, nameof(UiElementsOpenModal));
             _grid.MoveCols(1);
-
-            builder.DestroyUi(player);
-            builder.AddUi(player);
+            
+            builder.DestroyAndAddUi(player);
 
             LogToFile("Main", string.Empty, this);
             LogToFile("Main", Encoding.UTF8.GetString(builder.GetBytes()), this);
@@ -189,13 +190,15 @@ namespace Oxide.Plugins
 
         private void CreateModalUi(BasePlayer player)
         {
-            UiBuilder builder = UiBuilder.CreateModal(new UiOffset(400, 300), UiColor.WithAlpha(UiColors.Panel, 0.5f), UiModal);
-            builder.TextButton(builder.Root, "<b>X</b>", 14, UiColors.Text, UiColors.StandardColors.Clear, new UiPosition(.9f, .9f, 1f, 1f), nameof(UiElementsCloseModal));
+            UiBuilder builder = UiBuilder.CreateModal(UiModal, UiColor.WithAlpha(UiColors.Panel, 1f), new UiOffset(400, 300));
+            UiPanel panel = builder.Root as UiPanel;
+            panel.SetSpriteMaterialImage(UiConstants.Sprites.RoundedBackground2, null, Image.Type.Sliced);
+
+            builder.TextButton(builder.Root, new UiPosition(.9f, .9f, 1f, 1f), "<b>X</b>", 14, UiColors.Text, UiColor.Clear, nameof(UiElementsCloseModal));
             
-            builder.Border(builder.Root, UiColors.Rust.Red, 2);
+            //builder.Border(builder.Root, UiColors.Rust.Red, 2);
             
-            builder.DestroyUi(player);
-            builder.AddUi(player);
+            builder.DestroyAndAddUi(player);
             
             LogToFile("Modal", string.Empty, this);
             LogToFile("Modal", Encoding.UTF8.GetString(builder.GetBytes()), this);
@@ -210,16 +213,16 @@ namespace Oxide.Plugins
             
             Skin.Reset();
 
-            builder.ItemIcon(builder.Root, 963906841, 2084257363, Skin);
+            builder.ItemIcon(builder.Root, Skin, 963906841, 2084257363);
             Skin.MoveCols(1);
             
-            builder.ItemIcon(builder.Root, 963906841, 2320435219ul, Skin);
+            builder.ItemIcon(builder.Root, Skin, 963906841, 2320435219ul);
             Skin.MoveCols(1);
             
-            builder.TextCloseButton(builder.Root, "<b>X</b>", 14, UiColors.Text, UiColors.StandardColors.Clear, new UiPosition(.9f, .9f, 1f, 1f), UiSkin);
+            UiButton close = builder.CloseButton(builder.Root, _closeButtonPos, UiColors.CloseButton, UiSkin);
+            builder.Label(close, UiPosition.HorizontalPaddedFull, "<b>X</b>", FontSize, UiColors.Text);
 
-            builder.DestroyUi(player);
-            builder.AddUi(player);
+            builder.DestroyAndAddUi(player);
             
             LogToFile("Skin", string.Empty, this);
             LogToFile("Skin", Encoding.UTF8.GetString(builder.GetBytes()), this);
