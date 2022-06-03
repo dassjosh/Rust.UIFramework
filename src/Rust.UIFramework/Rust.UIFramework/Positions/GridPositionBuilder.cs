@@ -96,8 +96,8 @@ namespace Oxide.Ext.UiFramework.Positions
             if (_rowOffset != 0)
             {
                 float size = _rowOffset / _numRows;
-                yMin += size;
-                yMax += size;
+                yMin -= size;
+                yMax -= size;
             }
 
             xMin += _xPad;
