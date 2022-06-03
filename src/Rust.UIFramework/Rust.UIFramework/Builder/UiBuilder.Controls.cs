@@ -290,7 +290,8 @@ namespace Oxide.Ext.UiFramework.Builder
             {
                 float min = buttonSize * i;
                 float max = buttonSize * (i + 1);
-                UiPosition pagePosition = direction == ScrollbarDirection.Vertical ? UiPosition.SliceVertical(UiPosition.Full, min, max) : UiPosition.SliceHorizontal(UiPosition.Full, min, max);
+                UiPosition pagePosition = direction == ScrollbarDirection.Horizontal ? UiPosition.SliceHorizontal(UiPosition.Full, min, max) : new UiPosition(0, 1 - max, 1, 1 - min);
+                
                 if (i != currentPage)
                 {
                     UiButton button = CommandButton(background, pagePosition, backgroundColor, $"{command} {NumberCache<int>.ToString(i)}");
