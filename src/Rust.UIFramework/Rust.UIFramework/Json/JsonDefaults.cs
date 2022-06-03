@@ -92,6 +92,7 @@
             public const string ReadOnlyName = "readOnly";
             public const string LineTypeName = "lineType";
             public const string InputNeedsKeyboardName = "needsKeyboard";
+            public const string AutoFocusName = "autofocus";
         }
         
         public static class Countdown

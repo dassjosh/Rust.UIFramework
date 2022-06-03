@@ -13,6 +13,7 @@ namespace Oxide.Ext.UiFramework.Components
         public bool IsPassword;
         public bool IsReadyOnly;
         public bool NeedsKeyboard = true;
+        public bool AutoFocus;
         public InputField.LineType LineType;
 
         public override void WriteComponent(JsonFrameworkWriter writer)
@@ -37,6 +38,11 @@ namespace Oxide.Ext.UiFramework.Components
             {
                 writer.AddKeyField(JsonDefaults.Input.InputNeedsKeyboardName);
             }
+
+            if (AutoFocus)
+            {
+                writer.AddKeyField(JsonDefaults.Input.AutoFocusName);
+            }
             
             base.WriteComponent(writer);
             writer.WriteEndObject();
@@ -47,8 +53,10 @@ namespace Oxide.Ext.UiFramework.Components
             base.EnterPool();
             CharsLimit = JsonDefaults.Input.CharacterLimitValue;
             Command = null;
-            NeedsKeyboard = true;
             IsPassword = false;
+            IsReadyOnly = false;
+            NeedsKeyboard = true;
+            AutoFocus = false;
             LineType = default(InputField.LineType);
         }
         

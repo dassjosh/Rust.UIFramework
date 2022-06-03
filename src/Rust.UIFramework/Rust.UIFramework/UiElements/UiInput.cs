@@ -13,7 +13,7 @@ namespace Oxide.Ext.UiFramework.UiElements
     {
         public InputComponent Input;
 
-        public static UiInput Create(UiPosition pos, UiOffset offset, UiColor textColor, string text, int size, string cmd, string font, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, bool isPassword = false, bool readOnly = false, InputField.LineType lineType = InputField.LineType.SingleLine)
+        public static UiInput Create(UiPosition pos, UiOffset offset, UiColor textColor, string text, int size, string cmd, string font, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, bool isPassword = false, bool readOnly = false, bool autoFocus = false, InputField.LineType lineType = InputField.LineType.SingleLine)
         {
             UiInput input = CreateBase<UiInput>(pos, offset);
             InputComponent comp = input.Input;
@@ -26,6 +26,7 @@ namespace Oxide.Ext.UiFramework.UiElements
             comp.CharsLimit = charsLimit;
             comp.IsPassword = isPassword;
             comp.IsReadyOnly = readOnly;
+            comp.AutoFocus = autoFocus;
             comp.LineType = lineType;
             return input;
         }
@@ -48,6 +49,11 @@ namespace Oxide.Ext.UiFramework.UiElements
         public void SetIsReadonly(bool isReadonly)
         {
             Input.IsReadyOnly = isReadonly;
+        }
+        
+        public void SetAutoFocus(bool autoFocus)
+        {
+            Input.AutoFocus = autoFocus;
         }
 
         public void SetLineType(InputField.LineType lineType)
