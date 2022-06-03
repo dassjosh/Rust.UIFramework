@@ -324,15 +324,15 @@ namespace Oxide.Plugins
         #endregion
         
         #region Input
-        public UiInput Input(BaseUiComponent parent, UiPosition pos, UiOffset offset, string text, int fontSize, UiColor textColor,  string command, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, bool isPassword = false, bool readOnly = false, InputField.LineType lineType = InputField.LineType.SingleLine)
+        public UiInput Input(BaseUiComponent parent, UiPosition pos, UiOffset offset, string text, int fontSize, UiColor textColor,  string command, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, bool isPassword = false, bool readOnly = false, bool autoFocus = false, InputField.LineType lineType = InputField.LineType.SingleLine)
         {
-            UiInput input = UiInput.Create(pos, offset, textColor, text, fontSize, command, _font, align, charsLimit, isPassword, readOnly, lineType);
+            UiInput input = UiInput.Create(pos, offset, textColor, text, fontSize, command, _font, align, charsLimit, isPassword, readOnly, autoFocus, lineType);
             AddComponent(input, parent);
             return input;
         }
         
-        public UiInput Input(BaseUiComponent parent, UiPosition pos, string text, int fontSize, UiColor textColor, string command, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, bool isPassword = false, bool readOnly = false, InputField.LineType lineType = InputField.LineType.SingleLine)
-        => Input(parent, pos, default(UiOffset), text, fontSize, textColor, command, align, charsLimit, isPassword, readOnly, lineType);
+        public UiInput Input(BaseUiComponent parent, UiPosition pos, string text, int fontSize, UiColor textColor, string command, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, bool isPassword = false, bool readOnly = false, bool autoFocus = false, InputField.LineType lineType = InputField.LineType.SingleLine)
+        => Input(parent, pos, default(UiOffset), text, fontSize, textColor, command, align, charsLimit, isPassword, readOnly, autoFocus, lineType);
         #endregion
         
         #region Countdown
@@ -417,16 +417,16 @@ namespace Oxide.Plugins
         
         public UiButton ItemIconButton(BaseUiComponent parent, UiPosition pos, UiColor buttonColor, int itemId, ulong skinId, string command) => ItemIconButton(parent, pos, default(UiOffset), buttonColor, itemId, skinId, command);
         
-        public UiInput InputBackground(BaseUiComponent parent, UiPosition pos, UiOffset offset, string text, int fontSize, UiColor textColor, UiColor backgroundColor, string command, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, bool isPassword = false, bool readOnly = false, InputField.LineType lineType = InputField.LineType.SingleLine)
+        public UiInput InputBackground(BaseUiComponent parent, UiPosition pos, UiOffset offset, string text, int fontSize, UiColor textColor, UiColor backgroundColor, string command, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, bool isPassword = false, bool readOnly = false, bool autoFocus = false, InputField.LineType lineType = InputField.LineType.SingleLine)
         {
             parent = Panel(parent,  pos, offset, backgroundColor);
-            UiInput input = Input(parent, UiPosition.HorizontalPaddedFull, text, fontSize, textColor, command, align, charsLimit, isPassword, readOnly, lineType);
+            UiInput input = Input(parent, UiPosition.HorizontalPaddedFull, text, fontSize, textColor, command, align, charsLimit, isPassword, readOnly, autoFocus, lineType);
             return input;
         }
         
-        public UiInput InputBackground(BaseUiComponent parent, UiPosition pos, string text, int fontSize, UiColor textColor, UiColor backgroundColor, string command, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, bool isPassword = false, bool readOnly = false,
+        public UiInput InputBackground(BaseUiComponent parent, UiPosition pos, string text, int fontSize, UiColor textColor, UiColor backgroundColor, string command, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, bool isPassword = false, bool readOnly = false, bool autoFocus = false,
         InputField.LineType lineType = InputField.LineType.SingleLine) =>
-        InputBackground(parent, pos, default(UiOffset), text, fontSize, textColor, backgroundColor, command, align, charsLimit, isPassword, readOnly, lineType);
+        InputBackground(parent, pos, default(UiOffset), text, fontSize, textColor, backgroundColor, command, align, charsLimit, isPassword, readOnly, autoFocus, lineType);
         
         public UiButton Checkbox(BaseUiComponent parent, UiPosition pos, UiOffset offset, bool isChecked, int textSize, UiColor textColor, UiColor backgroundColor, string command)
         {
@@ -875,12 +875,16 @@ namespace Oxide.Plugins
             JsonFrameworkWriter writer = JsonFrameworkWriter.Create();
             
             writer.WriteStartArray();
-            _components[0].WriteRootComponent(writer, _needsMouse, _needsKeyboard);
             
-            int count = _components.Count;
-            for (int index = 1; index < count; index++)
+            if (_components != null)
             {
-                _components[index].WriteComponent(writer);
+                _components[0].WriteRootComponent(writer, _needsMouse, _needsKeyboard);
+                
+                int count = _components.Count;
+                for (int index = 1; index < count; index++)
+                {
+                    _components[index].WriteComponent(writer);
+                }
             }
             
             writer.WriteEndArray();
@@ -1775,6 +1779,7 @@ namespace Oxide.Plugins
         public bool IsPassword;
         public bool IsReadyOnly;
         public bool NeedsKeyboard = true;
+        public bool AutoFocus;
         public InputField.LineType LineType;
         
         public override void WriteComponent(JsonFrameworkWriter writer)
@@ -1800,6 +1805,11 @@ namespace Oxide.Plugins
                 writer.AddKeyField(JsonDefaults.Input.InputNeedsKeyboardName);
             }
             
+            if (AutoFocus)
+            {
+                writer.AddKeyField(JsonDefaults.Input.AutoFocusName);
+            }
+            
             base.WriteComponent(writer);
             writer.WriteEndObject();
         }
@@ -1809,8 +1819,10 @@ namespace Oxide.Plugins
             base.EnterPool();
             CharsLimit = JsonDefaults.Input.CharacterLimitValue;
             Command = null;
-            NeedsKeyboard = true;
             IsPassword = false;
+            IsReadyOnly = false;
+            NeedsKeyboard = true;
+            AutoFocus = false;
             LineType = default(InputField.LineType);
         }
         
@@ -2223,6 +2235,7 @@ namespace Oxide.Plugins
             public const string ReadOnlyName = "readOnly";
             public const string LineTypeName = "lineType";
             public const string InputNeedsKeyboardName = "needsKeyboard";
+            public const string AutoFocusName = "autofocus";
         }
         
         public static class Countdown
@@ -3915,7 +3928,7 @@ namespace Oxide.Plugins
     {
         public InputComponent Input;
         
-        public static UiInput Create(UiPosition pos, UiOffset offset, UiColor textColor, string text, int size, string cmd, string font, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, bool isPassword = false, bool readOnly = false, InputField.LineType lineType = InputField.LineType.SingleLine)
+        public static UiInput Create(UiPosition pos, UiOffset offset, UiColor textColor, string text, int size, string cmd, string font, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, bool isPassword = false, bool readOnly = false, bool autoFocus = false, InputField.LineType lineType = InputField.LineType.SingleLine)
         {
             UiInput input = CreateBase<UiInput>(pos, offset);
             InputComponent comp = input.Input;
@@ -3928,6 +3941,7 @@ namespace Oxide.Plugins
             comp.CharsLimit = charsLimit;
             comp.IsPassword = isPassword;
             comp.IsReadyOnly = readOnly;
+            comp.AutoFocus = autoFocus;
             comp.LineType = lineType;
             return input;
         }
@@ -3950,6 +3964,11 @@ namespace Oxide.Plugins
         public void SetIsReadonly(bool isReadonly)
         {
             Input.IsReadyOnly = isReadonly;
+        }
+        
+        public void SetAutoFocus(bool autoFocus)
+        {
+            Input.AutoFocus = autoFocus;
         }
         
         public void SetLineType(InputField.LineType lineType)
