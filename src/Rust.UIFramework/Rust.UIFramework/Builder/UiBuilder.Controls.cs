@@ -12,10 +12,11 @@ namespace Oxide.Ext.UiFramework.Builder
 {
     public partial class UiBuilder
     {
+        #region Buttons
         public UiButton TextButton(BaseUiComponent parent, UiPosition pos, UiOffset offset, string text, int textSize, UiColor textColor, UiColor buttonColor, string command, TextAnchor align = TextAnchor.MiddleCenter)
         {
             UiButton button = CommandButton(parent, pos, offset, buttonColor, command);
-            Label(button, UiPosition.HorizontalPaddedFull, default(UiOffset), text, textSize, textColor , align);
+            Label(button, UiPosition.HorizontalPaddedFull, text, textSize, textColor , align);
             return button;
         }
 
@@ -66,7 +67,64 @@ namespace Oxide.Ext.UiFramework.Builder
         }
 
         public UiButton ItemIconButton(BaseUiComponent parent, UiPosition pos, UiColor buttonColor, int itemId, ulong skinId, string command) => ItemIconButton(parent, pos, default(UiOffset), buttonColor, itemId, skinId, command);
+        
+        public UiButton CloseTextButton(BaseUiComponent parent, UiPosition pos, UiOffset offset, string text, int textSize, UiColor textColor, UiColor buttonColor, string close, TextAnchor align = TextAnchor.MiddleCenter)
+        {
+            UiButton button = CommandButton(parent, pos, offset, buttonColor, close);
+            Label(button, UiPosition.HorizontalPaddedFull, text, textSize, textColor , align);
+            return button;
+        }
 
+        public UiButton CloseTextButton(BaseUiComponent parent, UiPosition pos, string text, int textSize, UiColor textColor, UiColor buttonColor, string close, TextAnchor align = TextAnchor.MiddleCenter) 
+            => CloseTextButton(parent, pos, default(UiOffset), text, textSize, textColor, buttonColor, close, align);
+        
+        public UiButton CloseImageFileStorageButton(BaseUiComponent parent, UiPosition pos, UiOffset offset, UiColor buttonColor, string png, string close)
+        {
+            UiButton button = CommandButton(parent, pos, offset, buttonColor, close);
+            ImageFileStorage(button, UiPosition.Full, png);
+            return button;
+        }
+
+        public UiButton CloseImageFileStorageButton(BaseUiComponent parent, UiPosition pos, UiColor buttonColor, string png, string close) => CloseImageFileStorageButton(parent, pos, default(UiOffset), buttonColor, png, close);
+        
+        public UiButton CloseImageSpriteButton(BaseUiComponent parent, UiPosition pos, UiOffset offset, UiColor buttonColor, string sprite, string close)
+        {
+            UiButton button = CommandButton(parent, pos, offset, buttonColor, close);
+            ImageSprite(button, UiPosition.Full, sprite);
+            return button;
+        }
+
+        public UiButton CloseImageSpriteButton(BaseUiComponent parent, UiPosition pos, UiColor buttonColor, string sprite, string close) => CloseImageSpriteButton(parent, pos, default(UiOffset), buttonColor, sprite, close);
+        
+        public UiButton CloseWebImageButton(BaseUiComponent parent, UiPosition pos, UiOffset offset, UiColor buttonColor, string url, string close)
+        {
+            UiButton button = CommandButton(parent, pos, offset, buttonColor, close);
+            WebImage(button, UiPosition.Full, url);
+            return button;
+        }
+
+        public UiButton CloseWebImageButton(BaseUiComponent parent, UiPosition pos, UiColor buttonColor, string url, string close) => CloseWebImageButton(parent, pos, default(UiOffset), buttonColor, url, close);
+        
+        public UiButton CloseItemIconButton(BaseUiComponent parent, UiPosition pos, UiOffset offset, UiColor buttonColor, int itemId, string close)
+        {
+            UiButton button = CommandButton(parent, pos, offset, buttonColor, close);
+            ItemIcon(button, UiPosition.Full, itemId);
+            return button;
+        }
+
+        public UiButton CloseItemIconButton(BaseUiComponent parent, UiPosition pos, UiColor buttonColor, int itemId, string close) => CloseItemIconButton(parent, pos, default(UiOffset), buttonColor, itemId, close);
+        
+        public UiButton CloseItemIconButton(BaseUiComponent parent, UiPosition pos, UiOffset offset, UiColor buttonColor, int itemId, ulong skinId, string close)
+        {
+            UiButton button = CommandButton(parent, pos, offset, buttonColor, close);
+            ItemIcon(button, UiPosition.Full, itemId, skinId);
+            return button;
+        }
+
+        public UiButton CloseItemIconButton(BaseUiComponent parent, UiPosition pos, UiColor buttonColor, int itemId, ulong skinId, string close) => CloseItemIconButton(parent, pos, default(UiOffset), buttonColor, itemId, skinId, close);
+        #endregion
+
+        #region Input Background
         public UiInput InputBackground(BaseUiComponent parent, UiPosition pos, UiOffset offset, string text, int fontSize, UiColor textColor, UiColor backgroundColor, string command, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, bool isPassword = false, bool readOnly = false, bool autoFocus = false, InputField.LineType lineType = InputField.LineType.SingleLine)
         {
             parent = Panel(parent,  pos, offset, backgroundColor);
@@ -77,21 +135,27 @@ namespace Oxide.Ext.UiFramework.Builder
         public UiInput InputBackground(BaseUiComponent parent, UiPosition pos, string text, int fontSize, UiColor textColor, UiColor backgroundColor, string command, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, bool isPassword = false, bool readOnly = false, bool autoFocus = false,
             InputField.LineType lineType = InputField.LineType.SingleLine) =>
             InputBackground(parent, pos, default(UiOffset), text, fontSize, textColor, backgroundColor, command, align, charsLimit, isPassword, readOnly, autoFocus, lineType);
-        
+        #endregion
+
+        #region Checkbox
         public UiButton Checkbox(BaseUiComponent parent, UiPosition pos, UiOffset offset, bool isChecked, int textSize, UiColor textColor, UiColor backgroundColor, string command)
         {
             return TextButton(parent, pos, offset, isChecked ? "<b>✓</b>" : string.Empty, textSize, textColor, backgroundColor, command);
         }
 
         public UiButton Checkbox(BaseUiComponent parent, UiPosition pos, bool isChecked, int textSize, UiColor textColor, UiColor backgroundColor, string command) => Checkbox(parent, pos, default(UiOffset), isChecked, textSize, textColor, backgroundColor, command);
+        #endregion
 
+        #region ProgressBar
         public UiPanel ProgressBar(BaseUiComponent parent, UiPosition pos, float percentage, UiColor barColor, UiColor backgroundColor)
         {
             UiPanel background = Panel(parent, pos, backgroundColor);
             Panel(parent, UiPosition.SliceHorizontal(pos,0, Mathf.Clamp01(percentage)), barColor);
             return background;
         }
-        
+        #endregion
+
+        #region Number Pickers
         public void ButtonNumberPicker(BaseUiComponent parent, UiPosition pos, int currentValue, int minValue, int maxValue, int textSize, UiColor textColor, UiColor buttonColor, UiColor currentButtonColor, string command)
         {
             float size = 1f / (maxValue - minValue + 1);
@@ -178,7 +242,9 @@ namespace Oxide.Ext.UiFramework.Builder
             UiInput input = InputBackground(parent, UiPosition.SliceHorizontal(pos, buttonWidth, 1f - buttonWidth), value.ToString(), fontSize, textColor, backgroundColor, command, readOnly: readOnly);
             input.SetRequiresKeyboard();
         }
+        #endregion
 
+        #region Paginator
         public void Paginator(BaseUiComponent parent, GridPosition grid, int currentPage, int maxPage, int fontSize, UiColor textColor, UiColor buttonColor, UiColor activePageColor, string command)
         {
             grid.Reset();
@@ -212,7 +278,9 @@ namespace Oxide.Ext.UiFramework.Builder
             grid.MoveCols(1);
             TextButton(parent, grid, ">>>", fontSize, textColor, buttonColor, $"{command} {NumberCache<int>.ToString(maxPage)}");
         }
-
+        #endregion
+        
+        #region Scroll Bar
         public void ScrollBar(BaseUiComponent parent, UiPosition position, int currentPage, int maxPage, UiColor barColor, UiColor backgroundColor, string command, ScrollbarDirection direction = ScrollbarDirection.Vertical, string sprite = UiConstants.Sprites.RoundedBackground2)
         {
             UiPanel background = Panel(parent, position, backgroundColor);
@@ -235,7 +303,9 @@ namespace Oxide.Ext.UiFramework.Builder
                 }
             }
         }
-
+        #endregion
+        
+        #region Border
         public void Border(BaseUiComponent parent, UiColor color, int width = 1, BorderMode border = BorderMode.All)
         {
             //If width is 0 nothing is displayed so don't try to render
@@ -309,5 +379,6 @@ namespace Oxide.Ext.UiFramework.Builder
         {
             return (mode & flag) != 0;
         }
+        #endregion
     }
 }
