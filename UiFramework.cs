@@ -666,10 +666,10 @@ namespace Oxide.Plugins
             public static UiBuilder Create(UiPosition pos, string name, UiLayer parent = UiLayer.Overlay) => Create(pos, default(UiOffset), name, UiLayerCache.GetLayer(parent));
             public static UiBuilder Create(UiPosition pos, UiOffset offset, string name, UiLayer parent = UiLayer.Overlay) => Create(pos, offset, name, UiLayerCache.GetLayer(parent));
             public static UiBuilder Create(UiPosition pos, UiOffset offset, string name, string parent) => Create(UiSection.Create(pos, offset), name, parent);
-            public static UiBuilder Create(UiColor color, UiPosition pos, string name, string parent) => Create(color, pos, default(UiOffset), name, parent);
-            public static UiBuilder Create(UiColor color, UiPosition pos, string name, UiLayer parent = UiLayer.Overlay) => Create(color, pos, default(UiOffset), name, UiLayerCache.GetLayer(parent));
-            public static UiBuilder Create(UiColor color, UiPosition pos, UiOffset offset, string name, UiLayer parent = UiLayer.Overlay) => Create(color, pos, offset, name, UiLayerCache.GetLayer(parent));
-            public static UiBuilder Create(UiColor color, UiPosition pos, UiOffset offset, string name, string parent) => Create(UiPanel.Create(pos, offset, color), name, parent);
+            public static UiBuilder Create(UiPosition pos, UiColor color, string name, string parent) => Create(pos, default(UiOffset), color, name, parent);
+            public static UiBuilder Create(UiPosition pos, UiColor color, string name, UiLayer parent = UiLayer.Overlay) => Create(pos, default(UiOffset), color, name, UiLayerCache.GetLayer(parent));
+            public static UiBuilder Create(UiPosition pos, UiOffset offset, UiColor color, string name, UiLayer parent = UiLayer.Overlay) => Create(pos, offset, color, name, UiLayerCache.GetLayer(parent));
+            public static UiBuilder Create(UiPosition pos, UiOffset offset, UiColor color, string name, string parent) => Create(UiPanel.Create(pos, offset, color), name, parent);
             public static UiBuilder Create(BaseUiComponent root, string name, UiLayer parent = UiLayer.Overlay) => Create(root, name, UiLayerCache.GetLayer(parent));
             public static UiBuilder Create(BaseUiComponent root, string name, string parent)
             {
@@ -741,7 +741,7 @@ namespace Oxide.Plugins
             /// <returns></returns>
             public static UiBuilder CreateMouseLock(string name, UiLayer layer = UiLayer.Overlay)
             {
-                UiBuilder builder = Create(UiColor.Clear, UiPosition.None, name, UiLayerCache.GetLayer(layer));
+                UiBuilder builder = Create(UiPosition.None, UiColor.Clear, name, UiLayerCache.GetLayer(layer));
                 builder.NeedsMouse();
                 return builder;
             }

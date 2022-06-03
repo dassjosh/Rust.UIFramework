@@ -131,7 +131,7 @@ namespace Rust.UiFramework.Benchmarks
 
         private UiBuilder GetFrameworkBuilder()
         {
-            UiBuilder builder = UiBuilder.Create(UiColor.Clear, UiPosition.Full, "123");
+            UiBuilder builder = UiBuilder.Create(UiPosition.Full, UiColor.Clear, "123");
             builder.EnsureCapacity(Iterations);
             for (int i = 0; i < Iterations - 1; i++)
             {
