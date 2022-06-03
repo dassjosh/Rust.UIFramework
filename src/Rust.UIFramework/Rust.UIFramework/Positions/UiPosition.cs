@@ -79,7 +79,7 @@ namespace Oxide.Ext.UiFramework.Positions
         {
             Vector2 min = pos.Min;
             Vector2 max = pos.Max;   
-            return new UiPosition(max.x, min.y + (max.y - min.y) * yMin, max.x, min.y + (max.y - min.y) * yMax);
+            return new UiPosition(min.x, min.y + (max.y - min.y) * yMin, max.x, min.y + (max.y - min.y) * yMax);
         }
         
         public override string ToString()
