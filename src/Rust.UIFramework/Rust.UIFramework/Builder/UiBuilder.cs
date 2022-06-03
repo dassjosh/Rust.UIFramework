@@ -131,12 +131,16 @@ namespace Oxide.Ext.UiFramework.Builder
             JsonFrameworkWriter writer = JsonFrameworkWriter.Create();
 
             writer.WriteStartArray();
-            _components[0].WriteRootComponent(writer, _needsMouse, _needsKeyboard);
 
-            int count = _components.Count;
-            for (int index = 1; index < count; index++)
+            if (_components != null)
             {
-                _components[index].WriteComponent(writer);
+                _components[0].WriteRootComponent(writer, _needsMouse, _needsKeyboard);
+
+                int count = _components.Count;
+                for (int index = 1; index < count; index++)
+                {
+                    _components[index].WriteComponent(writer);
+                }
             }
 
             writer.WriteEndArray();
