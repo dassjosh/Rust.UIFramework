@@ -95,7 +95,7 @@ namespace Oxide.Plugins
         private void CreateUi(BasePlayer player, PlayerState state)
         {
             //Initialize the builder
-            UiBuilder builder = UiBuilder.Create(UiColors.Body, UiPosition.MiddleMiddle, _containerSize, UiName);
+            UiBuilder builder = UiBuilder.Create(UiPosition.MiddleMiddle, _containerSize, UiColors.Body, UiName);
             
             //UI Grabs control of the mouse
             builder.NeedsMouse();
@@ -161,7 +161,7 @@ namespace Oxide.Plugins
             _grid.MoveCols(1);
             
             //Creates an input field for the user to type in
-            UiInput input1 = builder.InputBackground(body, _grid, state.Input1Text, FontSize, UiColors.Text, UiColors.PanelSecondary, nameof(UiElementsUpdateInput1));
+            UiInput input1 = builder.InputBackground(body, _grid, state.Input1Text, FontSize, UiColors.Text, UiColors.PanelSecondary, nameof(UiElementsUpdateInput1), autoFocus: true);
             
             //Blocks keyboard input when the input field is selected
             input1.SetRequiresKeyboard();
@@ -194,11 +194,12 @@ namespace Oxide.Plugins
             _grid.MoveCols(1);
             
             builder.DestroyAndAddUi(player);
-            builder.Dispose();
             
             //This code is for debugging purposes only. DO NOT USE IN PRODUCTION!!
             LogToFile("Main", string.Empty, this);
             LogToFile("Main", builder.GetJsonString(), this);
+            
+            builder.Dispose();
         }
         
         private void CreateModalUi(BasePlayer player)
@@ -212,18 +213,19 @@ namespace Oxide.Plugins
             //builder.Border(builder.Root, UiColors.Rust.Red, 2);
             
             builder.DestroyAndAddUi(player);
-            builder.Dispose();
             
             //This code is for debugging purposes only. DO NOT USE IN PRODUCTION!!
             LogToFile("Modal", string.Empty, this);
             LogToFile("Modal", builder.GetJsonString(), this);
+            
+            builder.Dispose();
         }
         
         private static readonly GridPosition Skin = new GridPositionBuilder(2, 1).SetPadding(0.025f).Build();
         
         private void CreateSkinTest(BasePlayer player)
         {
-            UiBuilder builder = UiBuilder.Create(UiColors.Body, UiPosition.MiddleMiddle, new UiOffset(400, 300), UiSkin);
+            UiBuilder builder = UiBuilder.Create(UiPosition.MiddleMiddle, new UiOffset(400, 300), UiColors.Body, UiSkin);
             builder.NeedsMouse();
             
             Skin.Reset();
@@ -238,11 +240,12 @@ namespace Oxide.Plugins
             builder.Label(close, UiPosition.HorizontalPaddedFull, "<b>X</b>", FontSize, UiColors.Text);
             
             builder.DestroyAndAddUi(player);
-            builder.Dispose();
             
             //This code is for debugging purposes only. DO NOT USE IN PRODUCTION!!
             LogToFile("Skin", string.Empty, this);
             LogToFile("Skin", builder.GetJsonString(), this);
+            
+            builder.Dispose();
         }
         #endregion
         
@@ -285,7 +288,12 @@ namespace Oxide.Plugins
             }
             
             PlayerState state = _playerStates[player.userID];
-            state.Input1Text = arg.GetString(0);
+            string update = arg.GetString(0);
+            if (update == state.Input1Text)
+            {
+                return;
+            }
+            state.Input1Text = update;
             
             CreateUi(player, state);
         }
@@ -330,7 +338,12 @@ namespace Oxide.Plugins
             }
             
             PlayerState state = _playerStates[player.userID];
-            state.InputPicker = arg.GetInt(0);
+            int update = arg.GetInt(0);
+            if (update == state.InputPicker)
+            {
+                return;
+            }
+            state.InputPicker = update;
             
             CreateUi(player, state);
         }
@@ -689,15 +702,15 @@ namespace Oxide.Plugins
             #endregion
             
             #region Input
-            public UiInput Input(BaseUiComponent parent, UiPosition pos, UiOffset offset, string text, int fontSize, UiColor textColor,  string command, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, bool isPassword = false, bool readOnly = false, InputField.LineType lineType = InputField.LineType.SingleLine)
+            public UiInput Input(BaseUiComponent parent, UiPosition pos, UiOffset offset, string text, int fontSize, UiColor textColor,  string command, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, bool isPassword = false, bool readOnly = false, bool autoFocus = false, InputField.LineType lineType = InputField.LineType.SingleLine)
             {
-                UiInput input = UiInput.Create(pos, offset, textColor, text, fontSize, command, _font, align, charsLimit, isPassword, readOnly, lineType);
+                UiInput input = UiInput.Create(pos, offset, textColor, text, fontSize, command, _font, align, charsLimit, isPassword, readOnly, autoFocus, lineType);
                 AddComponent(input, parent);
                 return input;
             }
             
-            public UiInput Input(BaseUiComponent parent, UiPosition pos, string text, int fontSize, UiColor textColor, string command, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, bool isPassword = false, bool readOnly = false, InputField.LineType lineType = InputField.LineType.SingleLine)
-            => Input(parent, pos, default(UiOffset), text, fontSize, textColor, command, align, charsLimit, isPassword, readOnly, lineType);
+            public UiInput Input(BaseUiComponent parent, UiPosition pos, string text, int fontSize, UiColor textColor, string command, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, bool isPassword = false, bool readOnly = false, bool autoFocus = false, InputField.LineType lineType = InputField.LineType.SingleLine)
+            => Input(parent, pos, default(UiOffset), text, fontSize, textColor, command, align, charsLimit, isPassword, readOnly, autoFocus, lineType);
             #endregion
             
             #region Countdown
@@ -779,16 +792,16 @@ namespace Oxide.Plugins
             
             public UiButton ItemIconButton(BaseUiComponent parent, UiPosition pos, UiColor buttonColor, int itemId, ulong skinId, string command) => ItemIconButton(parent, pos, default(UiOffset), buttonColor, itemId, skinId, command);
             
-            public UiInput InputBackground(BaseUiComponent parent, UiPosition pos, UiOffset offset, string text, int fontSize, UiColor textColor, UiColor backgroundColor, string command, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, bool isPassword = false, bool readOnly = false, InputField.LineType lineType = InputField.LineType.SingleLine)
+            public UiInput InputBackground(BaseUiComponent parent, UiPosition pos, UiOffset offset, string text, int fontSize, UiColor textColor, UiColor backgroundColor, string command, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, bool isPassword = false, bool readOnly = false, bool autoFocus = false, InputField.LineType lineType = InputField.LineType.SingleLine)
             {
                 parent = Panel(parent,  pos, offset, backgroundColor);
-                UiInput input = Input(parent, UiPosition.HorizontalPaddedFull, text, fontSize, textColor, command, align, charsLimit, isPassword, readOnly, lineType);
+                UiInput input = Input(parent, UiPosition.HorizontalPaddedFull, text, fontSize, textColor, command, align, charsLimit, isPassword, readOnly, autoFocus, lineType);
                 return input;
             }
             
-            public UiInput InputBackground(BaseUiComponent parent, UiPosition pos, string text, int fontSize, UiColor textColor, UiColor backgroundColor, string command, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, bool isPassword = false, bool readOnly = false,
+            public UiInput InputBackground(BaseUiComponent parent, UiPosition pos, string text, int fontSize, UiColor textColor, UiColor backgroundColor, string command, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, bool isPassword = false, bool readOnly = false, bool autoFocus = false,
             InputField.LineType lineType = InputField.LineType.SingleLine) =>
-            InputBackground(parent, pos, default(UiOffset), text, fontSize, textColor, backgroundColor, command, align, charsLimit, isPassword, readOnly, lineType);
+            InputBackground(parent, pos, default(UiOffset), text, fontSize, textColor, backgroundColor, command, align, charsLimit, isPassword, readOnly, autoFocus, lineType);
             
             public UiButton Checkbox(BaseUiComponent parent, UiPosition pos, UiOffset offset, bool isChecked, int textSize, UiColor textColor, UiColor backgroundColor, string command)
             {
@@ -1028,10 +1041,10 @@ namespace Oxide.Plugins
             public static UiBuilder Create(UiPosition pos, string name, UiLayer parent = UiLayer.Overlay) => Create(pos, default(UiOffset), name, UiLayerCache.GetLayer(parent));
             public static UiBuilder Create(UiPosition pos, UiOffset offset, string name, UiLayer parent = UiLayer.Overlay) => Create(pos, offset, name, UiLayerCache.GetLayer(parent));
             public static UiBuilder Create(UiPosition pos, UiOffset offset, string name, string parent) => Create(UiSection.Create(pos, offset), name, parent);
-            public static UiBuilder Create(UiColor color, UiPosition pos, string name, string parent) => Create(color, pos, default(UiOffset), name, parent);
-            public static UiBuilder Create(UiColor color, UiPosition pos, string name, UiLayer parent = UiLayer.Overlay) => Create(color, pos, default(UiOffset), name, UiLayerCache.GetLayer(parent));
-            public static UiBuilder Create(UiColor color, UiPosition pos, UiOffset offset, string name, UiLayer parent = UiLayer.Overlay) => Create(color, pos, offset, name, UiLayerCache.GetLayer(parent));
-            public static UiBuilder Create(UiColor color, UiPosition pos, UiOffset offset, string name, string parent) => Create(UiPanel.Create(pos, offset, color), name, parent);
+            public static UiBuilder Create(UiPosition pos, UiColor color, string name, string parent) => Create(pos, default(UiOffset), color, name, parent);
+            public static UiBuilder Create(UiPosition pos, UiColor color, string name, UiLayer parent = UiLayer.Overlay) => Create(pos, default(UiOffset), color, name, UiLayerCache.GetLayer(parent));
+            public static UiBuilder Create(UiPosition pos, UiOffset offset, UiColor color, string name, UiLayer parent = UiLayer.Overlay) => Create(pos, offset, color, name, UiLayerCache.GetLayer(parent));
+            public static UiBuilder Create(UiPosition pos, UiOffset offset, UiColor color, string name, string parent) => Create(UiPanel.Create(pos, offset, color), name, parent);
             public static UiBuilder Create(BaseUiComponent root, string name, UiLayer parent = UiLayer.Overlay) => Create(root, name, UiLayerCache.GetLayer(parent));
             public static UiBuilder Create(BaseUiComponent root, string name, string parent)
             {
@@ -1103,7 +1116,7 @@ namespace Oxide.Plugins
             /// <returns></returns>
             public static UiBuilder CreateMouseLock(string name, UiLayer layer = UiLayer.Overlay)
             {
-                UiBuilder builder = Create(UiColor.Clear, UiPosition.None, name, UiLayerCache.GetLayer(layer));
+                UiBuilder builder = Create(UiPosition.None, UiColor.Clear, name, UiLayerCache.GetLayer(layer));
                 builder.NeedsMouse();
                 return builder;
             }
@@ -1231,12 +1244,16 @@ namespace Oxide.Plugins
                 JsonFrameworkWriter writer = JsonFrameworkWriter.Create();
                 
                 writer.WriteStartArray();
-                _components[0].WriteRootComponent(writer, _needsMouse, _needsKeyboard);
                 
-                int count = _components.Count;
-                for (int index = 1; index < count; index++)
+                if (_components != null)
                 {
-                    _components[index].WriteComponent(writer);
+                    _components[0].WriteRootComponent(writer, _needsMouse, _needsKeyboard);
+                    
+                    int count = _components.Count;
+                    for (int index = 1; index < count; index++)
+                    {
+                        _components[index].WriteComponent(writer);
+                    }
                 }
                 
                 writer.WriteEndArray();
@@ -1882,7 +1899,7 @@ namespace Oxide.Plugins
             }
             
             #region UI Colors
-            public static readonly UiColor Body = UiColor.WithAlpha(Form.Body, "F2");
+            public static readonly UiColor Body = UiColor.WithAlpha(Form.Body, "B2");
             public static readonly UiColor BodyHeader = Form.Header;
             public static readonly UiColor Text = UiColor.WithAlpha(Form.Text, "80");
             public static readonly UiColor Panel = Form.Panel;
@@ -2068,6 +2085,7 @@ namespace Oxide.Plugins
             public bool IsPassword;
             public bool IsReadyOnly;
             public bool NeedsKeyboard = true;
+            public bool AutoFocus;
             public InputField.LineType LineType;
             
             public override void WriteComponent(JsonFrameworkWriter writer)
@@ -2093,6 +2111,11 @@ namespace Oxide.Plugins
                     writer.AddKeyField(JsonDefaults.Input.InputNeedsKeyboardName);
                 }
                 
+                if (AutoFocus)
+                {
+                    writer.AddKeyField(JsonDefaults.Input.AutoFocusName);
+                }
+                
                 base.WriteComponent(writer);
                 writer.WriteEndObject();
             }
@@ -2102,8 +2125,10 @@ namespace Oxide.Plugins
                 base.EnterPool();
                 CharsLimit = JsonDefaults.Input.CharacterLimitValue;
                 Command = null;
-                NeedsKeyboard = true;
                 IsPassword = false;
+                IsReadyOnly = false;
+                NeedsKeyboard = true;
+                AutoFocus = false;
                 LineType = default(InputField.LineType);
             }
             
@@ -2483,6 +2508,7 @@ namespace Oxide.Plugins
                 public const string ReadOnlyName = "readOnly";
                 public const string LineTypeName = "lineType";
                 public const string InputNeedsKeyboardName = "needsKeyboard";
+                public const string AutoFocusName = "autofocus";
             }
             
             public static class Countdown
@@ -4100,7 +4126,7 @@ namespace Oxide.Plugins
         {
             public InputComponent Input;
             
-            public static UiInput Create(UiPosition pos, UiOffset offset, UiColor textColor, string text, int size, string cmd, string font, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, bool isPassword = false, bool readOnly = false, InputField.LineType lineType = InputField.LineType.SingleLine)
+            public static UiInput Create(UiPosition pos, UiOffset offset, UiColor textColor, string text, int size, string cmd, string font, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, bool isPassword = false, bool readOnly = false, bool autoFocus = false, InputField.LineType lineType = InputField.LineType.SingleLine)
             {
                 UiInput input = CreateBase<UiInput>(pos, offset);
                 InputComponent comp = input.Input;
@@ -4113,6 +4139,7 @@ namespace Oxide.Plugins
                 comp.CharsLimit = charsLimit;
                 comp.IsPassword = isPassword;
                 comp.IsReadyOnly = readOnly;
+                comp.AutoFocus = autoFocus;
                 comp.LineType = lineType;
                 return input;
             }
@@ -4135,6 +4162,11 @@ namespace Oxide.Plugins
             public void SetIsReadonly(bool isReadonly)
             {
                 Input.IsReadyOnly = isReadonly;
+            }
+            
+            public void SetAutoFocus(bool autoFocus)
+            {
+                Input.AutoFocus = autoFocus;
             }
             
             public void SetLineType(InputField.LineType lineType)

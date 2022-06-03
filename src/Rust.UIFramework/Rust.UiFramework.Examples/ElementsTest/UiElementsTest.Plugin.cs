@@ -86,7 +86,7 @@ namespace Oxide.Plugins
         private void CreateUi(BasePlayer player, PlayerState state)
         {
             //Initialize the builder
-            UiBuilder builder = UiBuilder.Create(UiColors.Body, UiPosition.MiddleMiddle, _containerSize, UiName);
+            UiBuilder builder = UiBuilder.Create(UiPosition.MiddleMiddle, _containerSize, UiColors.Body, UiName);
 
             //UI Grabs control of the mouse
             builder.NeedsMouse();
@@ -152,7 +152,7 @@ namespace Oxide.Plugins
             _grid.MoveCols(1);
 
             //Creates an input field for the user to type in
-            UiInput input1 = builder.InputBackground(body, _grid, state.Input1Text, FontSize, UiColors.Text, UiColors.PanelSecondary, nameof(UiElementsUpdateInput1));
+            UiInput input1 = builder.InputBackground(body, _grid, state.Input1Text, FontSize, UiColors.Text, UiColors.PanelSecondary, nameof(UiElementsUpdateInput1), autoFocus: true);
 
             //Blocks keyboard input when the input field is selected
             input1.SetRequiresKeyboard();
@@ -185,11 +185,12 @@ namespace Oxide.Plugins
             _grid.MoveCols(1);
             
             builder.DestroyAndAddUi(player);
-            builder.Dispose();
-
+            
             //This code is for debugging purposes only. DO NOT USE IN PRODUCTION!!
             LogToFile("Main", string.Empty, this);
             LogToFile("Main", builder.GetJsonString(), this);
+            
+            builder.Dispose();
         }
 
         private void CreateModalUi(BasePlayer player)
@@ -203,18 +204,19 @@ namespace Oxide.Plugins
             //builder.Border(builder.Root, UiColors.Rust.Red, 2);
             
             builder.DestroyAndAddUi(player);
-            builder.Dispose();
-            
+
             //This code is for debugging purposes only. DO NOT USE IN PRODUCTION!!
             LogToFile("Modal", string.Empty, this);
             LogToFile("Modal", builder.GetJsonString(), this);
+            
+            builder.Dispose();
         }
 
         private static readonly GridPosition Skin = new GridPositionBuilder(2, 1).SetPadding(0.025f).Build();
         
         private void CreateSkinTest(BasePlayer player)
         {
-            UiBuilder builder = UiBuilder.Create(UiColors.Body, UiPosition.MiddleMiddle, new UiOffset(400, 300), UiSkin);
+            UiBuilder builder = UiBuilder.Create(UiPosition.MiddleMiddle, new UiOffset(400, 300), UiColors.Body, UiSkin);
             builder.NeedsMouse();
             
             Skin.Reset();
@@ -229,11 +231,12 @@ namespace Oxide.Plugins
             builder.Label(close, UiPosition.HorizontalPaddedFull, "<b>X</b>", FontSize, UiColors.Text);
 
             builder.DestroyAndAddUi(player);
-            builder.Dispose();
-            
+
             //This code is for debugging purposes only. DO NOT USE IN PRODUCTION!!
             LogToFile("Skin", string.Empty, this);
             LogToFile("Skin", builder.GetJsonString(), this);
+            
+            builder.Dispose();
         }
         #endregion
 
@@ -276,7 +279,12 @@ namespace Oxide.Plugins
             }
 
             PlayerState state = _playerStates[player.userID];
-            state.Input1Text = arg.GetString(0);
+            string update = arg.GetString(0);
+            if (update == state.Input1Text)
+            {
+                return;
+            }
+            state.Input1Text = update;
 
             CreateUi(player, state);
         }
@@ -321,7 +329,12 @@ namespace Oxide.Plugins
             }
 
             PlayerState state = _playerStates[player.userID];
-            state.InputPicker = arg.GetInt(0);
+            int update = arg.GetInt(0);
+            if (update == state.InputPicker)
+            {
+                return;
+            }
+            state.InputPicker = update;
 
             CreateUi(player, state);
         }
