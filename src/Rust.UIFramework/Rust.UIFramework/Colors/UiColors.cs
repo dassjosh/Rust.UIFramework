@@ -98,7 +98,7 @@
         }
 
         #region UI Colors
-        public static readonly UiColor Body = UiColor.WithAlpha(Form.Body, "F2");
+        public static readonly UiColor Body = UiColor.WithAlpha(Form.Body, "B2");
         public static readonly UiColor BodyHeader = Form.Header;
         public static readonly UiColor Text = UiColor.WithAlpha(Form.Text, "80");
         public static readonly UiColor Panel = Form.Panel;
