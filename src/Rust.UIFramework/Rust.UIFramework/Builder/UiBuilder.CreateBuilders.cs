@@ -34,34 +34,34 @@ namespace Oxide.Ext.UiFramework.Builder
         /// <summary>
         /// Creates a UiBuilder that is designed to be a popup modal
         /// </summary>
-        /// <param name="offset">Dimensions of the modal</param>
+        /// <param name="modalSize">Dimensions of the modal</param>
         /// <param name="modalColor">Modal form color</param>
         /// <param name="name">Name of the UI</param>
         /// <param name="layer">Layer the UI is on</param>
         /// <returns></returns>
-        public static UiBuilder CreateModal(string name, UiColor modalColor, UiOffset offset, UiLayer layer = UiLayer.Overlay)
+        public static UiBuilder CreateModal(UiOffset modalSize, UiColor modalColor, string name, UiLayer layer = UiLayer.Overlay)
         {
-            return CreateModal(name, modalColor, offset, new UiColor(0, 0, 0, 0.5f), UiConstants.Materials.InGameBlur, layer);
+            return CreateModal(modalSize, modalColor, new UiColor(0, 0, 0, 0.5f), name, layer, UiConstants.Materials.InGameBlur);
         }
 
         /// <summary>
         /// Creates a UiBuilder that is designed to be a popup modal
         /// </summary>
-        /// <param name="offset">Dimensions of the modal</param>
+        /// <param name="modalSize">Dimensions of the modal</param>
         /// <param name="modalColor">Modal form color</param>
         /// <param name="name">Name of the UI</param>
         /// <param name="layer">Layer the UI is on</param>
         /// <param name="modalBackgroundColor">Color of the fullscreen background</param>
         /// <param name="backgroundMaterial">Material of the full screen background</param>
         /// <returns></returns>
-        public static UiBuilder CreateModal(string name, UiColor modalColor, UiOffset offset, UiColor modalBackgroundColor, string backgroundMaterial = null, UiLayer layer = UiLayer.Overlay)
+        public static UiBuilder CreateModal(UiOffset modalSize, UiColor modalColor, UiColor modalBackgroundColor, string name, UiLayer layer = UiLayer.Overlay, string backgroundMaterial = null)
         {
             UiPanel backgroundBlur = UiPanel.Create(UiPosition.Full, default(UiOffset), modalBackgroundColor);
             backgroundBlur.SetMaterial(backgroundMaterial);
             
             UiBuilder builder = Create(backgroundBlur, name, layer);
             
-            UiPanel modal = UiPanel.Create(UiPosition.MiddleMiddle, offset, modalColor);
+            UiPanel modal = UiPanel.Create(UiPosition.MiddleMiddle, modalSize, modalColor);
             builder.AddComponent(modal, backgroundBlur);
             builder.OverrideRoot(modal);
             return builder;
