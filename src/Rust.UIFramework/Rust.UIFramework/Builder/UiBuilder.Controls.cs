@@ -70,7 +70,7 @@ namespace Oxide.Ext.UiFramework.Builder
         
         public UiButton CloseTextButton(BaseUiComponent parent, UiPosition pos, UiOffset offset, string text, int textSize, UiColor textColor, UiColor buttonColor, string close, TextAnchor align = TextAnchor.MiddleCenter)
         {
-            UiButton button = CommandButton(parent, pos, offset, buttonColor, close);
+            UiButton button = CloseButton(parent, pos, offset, buttonColor, close);
             Label(button, UiPosition.HorizontalPaddedFull, text, textSize, textColor , align);
             return button;
         }
@@ -89,7 +89,7 @@ namespace Oxide.Ext.UiFramework.Builder
         
         public UiButton CloseImageSpriteButton(BaseUiComponent parent, UiPosition pos, UiOffset offset, UiColor buttonColor, string sprite, string close)
         {
-            UiButton button = CommandButton(parent, pos, offset, buttonColor, close);
+            UiButton button = CloseButton(parent, pos, offset, buttonColor, close);
             ImageSprite(button, UiPosition.Full, sprite);
             return button;
         }
@@ -98,7 +98,7 @@ namespace Oxide.Ext.UiFramework.Builder
         
         public UiButton CloseWebImageButton(BaseUiComponent parent, UiPosition pos, UiOffset offset, UiColor buttonColor, string url, string close)
         {
-            UiButton button = CommandButton(parent, pos, offset, buttonColor, close);
+            UiButton button = CloseButton(parent, pos, offset, buttonColor, close);
             WebImage(button, UiPosition.Full, url);
             return button;
         }
@@ -107,7 +107,7 @@ namespace Oxide.Ext.UiFramework.Builder
         
         public UiButton CloseItemIconButton(BaseUiComponent parent, UiPosition pos, UiOffset offset, UiColor buttonColor, int itemId, string close)
         {
-            UiButton button = CommandButton(parent, pos, offset, buttonColor, close);
+            UiButton button = CloseButton(parent, pos, offset, buttonColor, close);
             ItemIcon(button, UiPosition.Full, itemId);
             return button;
         }
@@ -116,7 +116,7 @@ namespace Oxide.Ext.UiFramework.Builder
         
         public UiButton CloseItemIconButton(BaseUiComponent parent, UiPosition pos, UiOffset offset, UiColor buttonColor, int itemId, ulong skinId, string close)
         {
-            UiButton button = CommandButton(parent, pos, offset, buttonColor, close);
+            UiButton button = CloseButton(parent, pos, offset, buttonColor, close);
             ItemIcon(button, UiPosition.Full, itemId, skinId);
             return button;
         }
