@@ -2848,8 +2848,8 @@ namespace Oxide.Plugins
             if (_rowOffset != 0)
             {
                 int size = (int)(_rowOffset / (float)_numRows * _height);
-                yMin += size;
-                yMax += size;
+                yMin -= size;
+                yMax -= size;
             }
             
             xMin += _xPad;
