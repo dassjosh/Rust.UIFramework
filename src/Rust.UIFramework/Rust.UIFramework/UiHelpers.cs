@@ -4,8 +4,8 @@
     {
         public static int CalculateMaxPage(int count, int perPage)
         {
-            int maxPage = count / perPage + 1;
-            if (count == perPage)
+            int maxPage = count / perPage;
+            if (count % perPage == 0)
             {
                 maxPage -= 1;
             }
