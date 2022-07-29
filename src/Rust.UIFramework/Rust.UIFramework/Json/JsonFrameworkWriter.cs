@@ -1,5 +1,4 @@
 ﻿using Oxide.Ext.UiFramework.Colors;
-using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Pooling;
 using UnityEngine;
 using Oxide.Ext.UiFramework.Cache;
@@ -59,12 +58,6 @@ namespace Oxide.Ext.UiFramework.Json
         }
 
         public void AddFieldRaw(string name, int value)
-        {
-            WritePropertyName(name);
-            WriteValue(value);
-        }
-
-        public void AddFieldRaw(string name, bool value)
         {
             WritePropertyName(name);
             WriteValue(value);
@@ -132,6 +125,15 @@ namespace Oxide.Ext.UiFramework.Json
                 WriteValue(EnumCache<Image.Type>.ToString(value));
             }
         }
+        
+        public void AddField(string name, VerticalWrapMode value)
+        {
+            if (value != VerticalWrapMode.Truncate)
+            {
+                WritePropertyName(name);
+                WriteValue(EnumCache<VerticalWrapMode>.ToString(value));
+            }
+        }
 
         public void AddField(string name, int value, int defaultValue)
         {
@@ -152,6 +154,15 @@ namespace Oxide.Ext.UiFramework.Json
         }
         
         public void AddField(string name, ulong value, ulong defaultValue)
+        {
+            if (value != defaultValue)
+            {
+                WritePropertyName(name);
+                WriteValue(value);
+            }
+        }
+        
+        public void AddField(string name, bool value, bool defaultValue)
         {
             if (value != defaultValue)
             {
@@ -246,17 +257,17 @@ namespace Oxide.Ext.UiFramework.Json
         
         public void WriteValue(int value)
         {
-            _writer.Write(NumberCache<int>.ToString(value));
+            _writer.Write(StringCache<int>.ToString(value));
         }
         
         public void WriteValue(float value)
         {
-            _writer.Write(NumberCache<float>.ToString(value));
+            _writer.Write(StringCache<float>.ToString(value));
         }
         
         public void WriteValue(ulong value)
         {
-            _writer.Write(NumberCache<ulong>.ToString(value));
+            _writer.Write(StringCache<ulong>.ToString(value));
         }
 
         public void WriteValue(string value)

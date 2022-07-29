@@ -70,9 +70,9 @@ namespace Oxide.Ext.UiFramework.Cache
         
         public static void WriteOffset(JsonBinaryWriter writer, Vector2 pos)
         {
-            writer.Write(NumberCache<short>.ToString((short)Math.Round(pos.x)));
+            writer.Write(StringCache<short>.ToString((short)Math.Round(pos.x)));
             writer.Write(Space);
-            writer.Write(NumberCache<short>.ToString((short)Math.Round(pos.y)));
+            writer.Write(StringCache<short>.ToString((short)Math.Round(pos.y)));
         }
     }
 }

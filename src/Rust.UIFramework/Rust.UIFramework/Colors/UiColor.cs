@@ -57,50 +57,6 @@ namespace Oxide.Ext.UiFramework.Colors
             
         }
         #endregion
-        
-        #region Modifiers
-        public static UiColor WithAlpha(UiColor color, string hex)
-        {
-            return WithAlpha(color, int.Parse(hex, System.Globalization.NumberStyles.HexNumber));
-        }
-
-        public static UiColor WithAlpha(UiColor color, int alpha)
-        {
-            return WithAlpha(color, alpha / 255f);
-        }
-
-        public static UiColor WithAlpha(UiColor color, float alpha)
-        {
-            return new UiColor(color.Color.WithAlpha(Mathf.Clamp01(alpha)));
-        }
-
-        public static UiColor Darken(UiColor color, float percentage)
-        {
-            percentage = Mathf.Clamp01(percentage);
-            Color col = color.Color;
-            float red = col.r * (1 - percentage);
-            float green = col.g * (1 - percentage);
-            float blue = col.b * (1 - percentage);
-
-            return new UiColor(red, green, blue, col.a);
-        }
-
-        public static UiColor Lighten(UiColor color, float percentage)
-        {
-            percentage = Mathf.Clamp01(percentage);
-            Color col = color.Color;
-            float red = (1 - col.r) * percentage + col.r;
-            float green = (1 - col.g) * percentage + col.g;
-            float blue = (1 - col.b) * percentage + col.b;
-
-            return new UiColor(red, green, blue, col.a);
-        }
-        
-        public static UiColor Lerp(UiColor start, UiColor end, float value)
-        {
-            return Color.Lerp(start, end, value);
-        }
-        #endregion
 
         #region Operators
         public static implicit operator UiColor(string value) => ParseHexColor(value);
@@ -124,12 +80,27 @@ namespace Oxide.Ext.UiFramework.Colors
         {
             return (int)Value;
         }
+
+        public override string ToString()
+        {
+            return $"{Color.r} {Color.g} {Color.b} {Color.a}";
+        }
         #endregion
 
         #region Formats
+        public string ToHexRGB()
+        {
+            return ColorUtility.ToHtmlStringRGB(Color);
+        }
+        
+        public string ToHexRGBA()
+        {
+            return ColorUtility.ToHtmlStringRGBA(Color);
+        }
+        
         public string ToHtmlColor()
         {
-            return string.Concat("#", ColorUtility.ToHtmlStringRGBA(Color));
+            return $"#{ColorUtility.ToHtmlStringRGBA(Color)}";
         }
         #endregion
 

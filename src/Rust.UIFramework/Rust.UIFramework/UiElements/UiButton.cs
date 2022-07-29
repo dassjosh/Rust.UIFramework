@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.UiElements
 {
-    public class UiButton : BaseUiComponent
+    public class UiButton : BaseUiOutline
     {
         public ButtonComponent Button;
 

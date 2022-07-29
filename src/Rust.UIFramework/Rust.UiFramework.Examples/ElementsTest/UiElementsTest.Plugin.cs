@@ -1,6 +1,13 @@
 ﻿//Requires System.Buffers
 
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using System.Text;
+using Network;
+using Oxide.Core;
+using Oxide.Plugins.UiMergeFrameworkExtensions;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,7 +20,43 @@ namespace Oxide.Plugins
         #region Fields
         private readonly Hash<ulong, PlayerState> _playerStates = new Hash<ulong, PlayerState>();
 
-        private static UiElementsTest _ins;
+        public static UiElementsTest _ins;
+
+        private enum DropDownExample
+        {
+            Value1,
+            Value2,
+            Value3,
+            Value4,
+        }
+        
+        private enum PageDropdownExample
+        {
+            Value1,
+            Value2,
+            Value3,
+            Value5,
+            Value6,
+            Value7,
+            Value8,
+            Value9,
+            Value10,
+            Value11,
+            Value12,
+            Value13,
+            Value14,
+            Value15,
+            Value16,
+            Value17,
+            Value18,
+            Value19,
+            Value20,
+            Value21,
+            Value22,
+        }
+
+        private readonly List<DropdownMenuData> _exampleList = Enum.GetValues(typeof(DropDownExample)).Cast<DropDownExample>().Select(e => new DropdownMenuData(e.ToString(), e.ToString(), false)).ToList();
+        private readonly List<DropdownMenuData> _pageExampleList = Enum.GetValues(typeof(PageDropdownExample)).Cast<PageDropdownExample>().Select(e => new DropdownMenuData(e.ToString(), e.ToString(), false)).ToList();
         #endregion
 
         #region Setup & Loading
@@ -29,6 +72,8 @@ namespace Oxide.Plugins
             UiBuilder.DestroyUi(UiModal);
             UiBuilder.DestroyUi(UiClose);
             UiBuilder.DestroyUi(UiSkin);
+            UiBuilder.DestroyUi(UiLootBug);
+            UiBuilder.DestroyUi("CI_Crafting_Bottom");
             _ins = null;
         }
         #endregion
@@ -45,6 +90,32 @@ namespace Oxide.Plugins
         {
             CreateSkinTest(player);
         }
+        
+        [ChatCommand("ett")]
+        private void Elements1SkinChatCommand(BasePlayer player, string cmd, string[] args)
+        {
+            var json =
+                "[{\"name\":\"CI_Crafting_Bottom\",\"parent\":\"Overlay\",\"components\":[{\"type\":\"UnityEngine.UI.Image\",\"material\":\"assets/content/ui/uibackgroundblur-ingamemenu.mat\",\"color\":\"0.035 0.039 0.039 1.000\"},{\"type\":\"RectTransform\",\"anchormin\":\"0.5 0\",\"anchormax\":\"0.5 0\",\"offsetmin\":\"190 110\",\"offsetmax\":\"572 420\"},{\"type\":\"NeedsCursor\"}]},{\"name\":\"CI_Crafting_Result\",\"parent\":\"CI_Crafting_Bottom\",\"components\":[{\"type\":\"UnityEngine.UI.Image\",\"material\":\"assets/content/ui/uibackgroundblur-ingamemenu.mat\",\"color\":\"0.102 0.106 0.106 0.500\"},{\"type\":\"RectTransform\",\"anchormin\":\"0 0\",\"anchormax\":\"1 1\",\"offsetmin\":\"1 1\",\"offsetmax\":\"-1 -1\"}]}]";
+            
+            CommunityEntity.ServerInstance.ClientRPCEx(new SendInfo(player.net.connection), null, "AddUI", json);
+        }
+        #endregion
+
+        #region Hooks
+        // private void OnLootEntity(BasePlayer player, BaseEntity entity)
+        // {
+        //     if (!player.IsAdmin)
+        //     {
+        //         return;
+        //     }
+        //
+        //     CreateLootBugUi(player);
+        // }
+        //
+        // private void OnLootEntityEnd(BasePlayer player, BaseCombatEntity entity)
+        // {
+        //     UiBuilder.DestroyUi(player, UiLootBug);
+        // }
         #endregion
 
         #region UI
@@ -52,6 +123,7 @@ namespace Oxide.Plugins
         private const string UiClose = nameof(UiElementsTest) + "_OutsideClose";
         private const string UiModal = nameof(UiElementsTest) + "_Modal";
         private const string UiSkin = nameof(UiElementsTest) + "_Skin";
+        private const string UiLootBug = nameof(UiElementsTest) + "_LootBug";
 
         private readonly UiOffset _containerSize = new UiOffset(800, 600);
         private readonly UiPosition _titleBarPos = new UiPosition(0, 0.95f, 1, 1);
@@ -61,7 +133,7 @@ namespace Oxide.Plugins
         private readonly UiPosition _mainBodyPosition = new UiPosition(0, .1f, 1f, .89f);
         private readonly UiPosition _paginator = new UiPosition(0.025f, 0.025f, 0.975f, 0.09f);
 
-        private readonly UiPosition _numberPickerPos = new UiPosition(0.025f, 0.4f, 0.4f, 0.5f);
+        private readonly UiPosition _numberPickerPos = new UiPosition(0.025f, 0.1f, 0.4f, 0.2f);
         private readonly UiPosition _inputNumberPickerPos = new UiPosition(0.6f, 0.4f, 0.975f, 0.5f);
 
         private readonly GridPosition _grid = new GridPositionBuilder(6, 6).SetPadding(0.01f).Build();
@@ -144,33 +216,31 @@ namespace Oxide.Plugins
             _grid.MoveCols(1);
 
             //Create a label and add a countdown timer to it.
-            UiLabel countdownLabel = builder.LabelBackground(body, _grid, "Time Left: %TIME_LEFT%", FontSize, UiColor.White, UiColors.PanelSecondary);
-            builder.Countdown(countdownLabel, 100, 0, 1, string.Empty);
+            var countdownLabel = builder.LabelBackground(body, _grid, "Time Left: %TIME_LEFT%", FontSize, UiColor.White, UiColors.PanelSecondary);
+            builder.Countdown(countdownLabel.Label, 100, 0, 1, string.Empty);
 
             //Adds a text outline to the countdownLabel
-            builder.TextOutline(countdownLabel, UiColors.Rust.Red, new Vector2(0.5f, -0.5f));
+            builder.Outline(countdownLabel.Background, UiColors.Rust.Red, new Vector2(0.5f, -0.5f));
             _grid.MoveCols(1);
 
             //Creates an input field for the user to type in
-            UiInput input1 = builder.InputBackground(body, _grid, state.Input1Text, FontSize, UiColors.Text, UiColors.PanelSecondary, nameof(UiElementsUpdateInput1), autoFocus: true);
-
-            //Blocks keyboard input when the input field is selected
-            input1.SetRequiresKeyboard();
+            var input1 = builder.InputBackground(body, _grid, default(UiOffset), state.Input1Text, FontSize, UiColors.Text, UiColors.PanelSecondary, nameof(UiElementsUpdateInput1), mode: InputMode.NeedsKeyboard | InputMode.AutoFocus);
+            
             _grid.MoveCols(1);
 
             //Adds a border around the body UI
             builder.Border(body, UiColors.Rust.Red);
 
             //Creates a checkbox
-            builder.Checkbox(body, _grid, state.Checkbox, FontSize, UiColors.Text, UiColors.PanelSecondary, nameof(UiElementsToggleCheckbox));
+            builder.Checkbox(body, _grid, default(UiOffset), state.Checkbox, FontSize, UiColors.Text, UiColors.PanelSecondary, nameof(UiElementsToggleCheckbox));
             _grid.MoveCols(1);
 
             //Creates a number picker
-            builder.SimpleNumberPicker(body, _numberPickerPos, state.NumberPicker, FontSize, UiColors.Text, UiColors.Panel, UiColors.ButtonSecondary, nameof(UiElementsNumberPicker));
+            builder.NumberPicker(body, _numberPickerPos, default(UiOffset), state.NumberPicker, FontSize, FontSize, UiColors.Text, UiColors.Panel, UiColors.ButtonSecondary, UiColors.ButtonSecondary.WithAlpha(0.5f), nameof(UiElementsNumberPicker), "", "");
             _grid.MoveCols(1);
 
             //Creates a number picker where the user can type into as well
-            builder.IncrementalNumberPicker(body, _inputNumberPickerPos, state.InputPicker, _numberPickerIncrements, FontSize, UiColors.Text, UiColors.Panel, UiColors.ButtonSecondary, nameof(UiElementsInputNumberPicker));
+            //builder.IncrementalNumberPicker(body, _inputNumberPickerPos, default(UiOffset), state.InputPicker, _numberPickerIncrements, FontSize, UiColors.Text, UiColors.Panel, UiColors.ButtonSecondary, UiColors.ButtonSecondary.WithAlpha(0.5f), nameof(UiElementsInputNumberPicker));
             _grid.MoveCols(1);
 
             //Creates a paginator
@@ -183,19 +253,46 @@ namespace Oxide.Plugins
             //Creates a button to open a modal
             builder.TextButton(body, _grid, "Open Modal", FontSize, UiColors.Text, UiColors.ButtonPrimary, nameof(UiElementsOpenModal));
             _grid.MoveCols(1);
+
+            //Creates a drop down that when clicked opens a drop down menu
+            builder.Dropdown(body, _grid, default(UiOffset), EnumCache<DropDownExample>.ToString(state.DropDownExample), FontSize, UiColors.Text, UiColors.PanelSecondary, nameof(UiElementsOpenDropdown));
+            _grid.MoveCols(1);
+            
+            //Creates a drop down that supports a scroll bar
+            builder.Dropdown(body, _grid, default(UiOffset), EnumCache<PageDropdownExample>.ToString(state.PageDropDownExample), FontSize, UiColors.Text, UiColors.PanelSecondary, nameof(UiElementsOpenPageDropdown));
+            _grid.MoveCols(1);
+            
+            //Creates a drop down that supports a scroll bar
+            builder.TimePicker(body, _grid, default(UiOffset), state.Time.AsDateTime(), FontSize, UiColors.Text, UiColors.PanelSecondary, nameof(UiElementsOpenTimePicker));
+            _grid.MoveCols(1);
+
+            builder.DatePicker(body, _grid, default(UiOffset), state.Date, FontSize, UiColors.Text, UiColors.PanelSecondary, nameof(UiElementsOpenDatePicker));
+            _grid.MoveCols(1);
+
+            builder.ColorPicker(body, _grid, default(UiOffset), state.Color, FontSize, UiColors.Text, UiColors.PanelSecondary, nameof(UiElementsOpenColorPicker));
+
+            // string imagePath = "Assets/Content/UI/gameui/cardgames/deck/clubs/2_clubs.";
+            // builder.ImageSprite(body, _grid, imagePath + "png").SetSpriteMaterialImage(imagePath + "png", null, Image.Type.Sliced);
+            // _grid.MoveCols(1);
+            // builder.ImageSprite(body, _grid, imagePath + "psd", UiColor.Red);
+            // _grid.MoveCols(1);
+            // builder.ImageSprite(body, _grid, imagePath + "tga");
+            // _grid.MoveCols(1);
+            // builder.ImageSprite(body, _grid, imagePath + "jpg");
+            // _grid.MoveCols(1);
             
             builder.DestroyAndAddUi(player);
             
-            //This code is for debugging purposes only. DO NOT USE IN PRODUCTION!!
-            LogToFile("Main", string.Empty, this);
-            LogToFile("Main", builder.GetJsonString(), this);
+            
+            LogToFile("Main", string.Empty, this); //This code is for debugging purposes only. DO NOT USE IN PRODUCTION!!
+            LogToFile("Main", builder.GetJsonString(), this); //This code is for debugging purposes only. DO NOT USE IN PRODUCTION!!
             
             builder.Dispose();
         }
 
         private void CreateModalUi(BasePlayer player)
         {
-            UiBuilder builder = UiBuilder.CreateModal(UiModal, UiColor.WithAlpha(UiColors.Panel, 1f), new UiOffset(400, 300));
+            UiBuilder builder = UiBuilder.CreateModal(new UiOffset(400, 300), UiColors.Panel.WithAlpha(1f), UiModal);
             UiPanel panel = builder.Root as UiPanel;
             panel.SetSpriteMaterialImage(UiConstants.Sprites.RoundedBackground2, null, Image.Type.Sliced);
 
@@ -204,10 +301,9 @@ namespace Oxide.Plugins
             //builder.Border(builder.Root, UiColors.Rust.Red, 2);
             
             builder.DestroyAndAddUi(player);
-
-            //This code is for debugging purposes only. DO NOT USE IN PRODUCTION!!
-            LogToFile("Modal", string.Empty, this);
-            LogToFile("Modal", builder.GetJsonString(), this);
+            
+            LogToFile("Modal", string.Empty, this); //This code is for debugging purposes only. DO NOT USE IN PRODUCTION!!
+            LogToFile("Modal", builder.GetJsonString(), this); //This code is for debugging purposes only. DO NOT USE IN PRODUCTION!!
             
             builder.Dispose();
         }
@@ -238,6 +334,22 @@ namespace Oxide.Plugins
             
             builder.Dispose();
         }
+
+        private void CreateLootBugUi(BasePlayer player)
+        {
+            UiBuilder builder = UiBuilder.Create(UiPosition.MiddleMiddle, new UiOffset(100, 100), UiColor.Clear, UiLootBug);
+            
+            // UiInput bugged = builder.InputBackground(builder.Root, new UiPosition(0, 0.55f, 1, 1), "", 14, UiColors.Text, UiColors.Rust.Red, "");
+            //
+            // UiInput working = builder.InputBackground(builder.Root, new UiPosition(0, 0f, 1, 0.45f), "", 14, UiColors.Text, UiColors.Rust.Green, "");
+            // working.SetRequiresKeyboard(false);
+            
+            builder.DestroyAndAddUi(player);
+            
+            LogToFile("LootBug", builder.GetJsonString(), this); //This code is for debugging purposes only. DO NOT USE IN PRODUCTION!!
+            
+            builder.Dispose();
+        }
         #endregion
 
         #region UI Commands
@@ -253,7 +365,6 @@ namespace Oxide.Plugins
             UiBuilder.DestroyUi(player, UiName);
             UiBuilder.DestroyUi(player, UiClose);
             UiBuilder.DestroyUi(player, UiModal);
-            UiBuilder.DestroyUi(player, UiName);
         }
         
         [ConsoleCommand(nameof(UiElementsCloseCommand))]
@@ -377,6 +488,155 @@ namespace Oxide.Plugins
 
             UiBuilder.DestroyUi(player, UiModal);
         }
+        
+        [ConsoleCommand(nameof(UiElementsOpenDropdown))]
+        private void UiElementsOpenDropdown(ConsoleSystem.Arg arg)
+        {
+            BasePlayer player = arg.Player();
+            if (!player)
+            {
+                return;
+            }
+
+            string parent = arg.GetString(0);
+            PlayerState state = _playerStates[player.userID];
+            UiDropdownMenu menu = UiBuilder.DropdownMenu(parent, _exampleList, FontSize + state.NumberPicker, UiColors.Text, UiColors.PanelTertiary, nameof(UiElementsSelectDropdownValue), minWidth: 0);
+            menu.Builder.DestroyAndAddUi(player);
+            menu.Dispose();
+        }
+        
+        [ConsoleCommand(nameof(UiElementsOpenPageDropdown))]
+        private void UiElementsOpenPageDropdown(ConsoleSystem.Arg arg)
+        {
+            BasePlayer player = arg.Player();
+            if (!player)
+            {
+                return;
+            }
+
+            string parent = arg.GetString(0);
+            PlayerState state = _playerStates[player.userID];
+            state.MenuDropdownPage = arg.GetInt(1);
+
+            var menu = UiBuilder.DropdownMenu(parent, _pageExampleList, FontSize + state.NumberPicker, UiColors.Text, UiColors.PanelTertiary, nameof(UiElementsSelectPagedDropdownValue), $"{nameof(UiElementsOpenPageDropdown)} {parent}", 
+                state.MenuDropdownPage, 6, minWidth: 0);
+            menu.Builder.DestroyAndAddUi(player);
+            menu.Dispose();
+        }
+
+        [ConsoleCommand(nameof(UiElementsSelectDropdownValue))]
+        private void UiElementsSelectDropdownValue(ConsoleSystem.Arg arg)
+        {
+            BasePlayer player = arg.Player();
+            if (!player)
+            {
+                return;
+            }
+
+            string value = arg.GetString(0);
+
+            PlayerState state = _playerStates[player.userID];
+            state.DropDownExample = (DropDownExample)Enum.Parse(typeof(DropDownExample), value);
+
+            CreateUi(player, state);
+        }
+        
+        [ConsoleCommand(nameof(UiElementsSelectPagedDropdownValue))]
+        private void UiElementsSelectPagedDropdownValue(ConsoleSystem.Arg arg)
+        {
+            BasePlayer player = arg.Player();
+            if (!player)
+            {
+                return;
+            }
+
+            string value = arg.GetString(0);
+
+            PlayerState state = _playerStates[player.userID];
+            state.PageDropDownExample = (PageDropdownExample)Enum.Parse(typeof(PageDropdownExample), value);
+
+            CreateUi(player, state);
+        }
+        
+        [ConsoleCommand(nameof(UiElementsOpenTimePicker))]
+        private void UiElementsOpenTimePicker(ConsoleSystem.Arg arg)
+        {
+            BasePlayer player = arg.Player();
+            if (!player)
+            {
+                return;
+            }
+
+            PlayerState state = _playerStates[player.userID];
+            
+            //Interface.Oxide.LogDebug($"UiElementsOpenTimePicker: {arg.FullString}");
+            
+            string parent = arg.GetString(0);
+            int adjustSeconds = arg.GetInt(1);
+            if (adjustSeconds != 0)
+            {
+                state.Time.Update(adjustSeconds);
+                //Interface.Oxide.LogDebug($"New Time: {state.Time}");
+            }
+
+            var menu = UiBuilder.TimePickerMenu(parent, state.Time, FontSize + state.NumberPicker, UiColors.Text, UiColors.PanelTertiary, $"{nameof(UiElementsOpenTimePicker)} {parent}", TimePickerDisplayMode.All, ClockMode.Hour12);
+            menu.Builder.DestroyAndAddUi(player);
+            menu.Dispose();
+        }
+        
+        [ConsoleCommand(nameof(UiElementsOpenDatePicker))]
+        private void UiElementsOpenDatePicker(ConsoleSystem.Arg arg)
+        {
+            BasePlayer player = arg.Player();
+            if (!player)
+            {
+                return;
+            }
+
+            PlayerState state = _playerStates[player.userID];
+            
+            //Interface.Oxide.LogDebug($"UiElementsOpenTimePicker: {arg.FullString}");
+            
+            string parent = arg.GetString(0);
+            state.Date = arg.GetDateTime(1, state.Date);
+
+            //var sw = Stopwatch.StartNew();
+            
+            UiCalenderPicker menu = UiBuilder.DateCalenderMenu(parent, state.Date, FontSize + state.NumberPicker, UiColors.Text, UiColors.PanelTertiary, UiColors.PanelTertiary.Darken(.15f), UiColors.Rust.Red,$"{nameof(UiElementsOpenDatePicker)} {parent}", PopoverPosition.Left);
+            menu.Builder.DestroyAndAddUi(player);
+            menu.Dispose();
+            
+            //sw.Stop();
+            //Puts($"Took: {TimeSpan.FromTicks(sw.ElapsedTicks).TotalMilliseconds}ms");
+        }
+        
+        [ConsoleCommand(nameof(UiElementsOpenColorPicker))]
+        private void UiElementsOpenColorPicker(ConsoleSystem.Arg arg)
+        {
+            BasePlayer player = arg.Player();
+            if (!player)
+            {
+                return;
+            }
+
+            PlayerState state = _playerStates[player.userID];
+            
+            //Interface.Oxide.LogDebug($"UiElementsOpenTimePicker: {arg.FullString}");
+            
+            string parent = arg.GetString(0);
+            state.Date = arg.GetDateTime(1, state.Date);
+
+            var sw = Stopwatch.StartNew();
+
+            //Puts($"{UiColors.PanelTertiary} {UiColors.PanelTertiary.ToGrayScale()}");
+            
+            UiColorPickerMenu menu = UiBuilder.ColorPickerMenu(parent, state.Color, FontSize + state.NumberPicker, UiColors.Text, UiColors.PanelTertiary.Lighten(.15f), UiColors.PanelTertiary, UiColors.PanelTertiary.Darken(.15f), UiColors.PanelTertiary.Lighten(.15f),$"{nameof(UiElementsOpenDatePicker)} {parent}", ColorPickerMode.RGBA, PopoverPosition.Bottom);
+            menu.Builder.DestroyAndAddUi(player);
+            menu.Dispose();
+            
+            sw.Stop();
+            Puts($"Took: {TimeSpan.FromTicks(sw.ElapsedTicks).TotalMilliseconds}ms");
+        }
         #endregion
 
         #region Classes
@@ -387,6 +647,12 @@ namespace Oxide.Plugins
             public bool Checkbox = true;
             public int NumberPicker;
             public int InputPicker;
+            public DropDownExample DropDownExample;
+            public PageDropdownExample PageDropDownExample;
+            public TimePickerData Time = new TimePickerData(DateTime.Now);
+            public DateTime Date = DateTime.Now;
+            public int MenuDropdownPage;
+            public UiColor Color = UiColor.Red;
         }
         #endregion
     }

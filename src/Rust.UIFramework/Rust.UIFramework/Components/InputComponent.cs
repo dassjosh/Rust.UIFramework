@@ -1,4 +1,5 @@
-﻿using Oxide.Ext.UiFramework.Json;
+﻿using Oxide.Ext.UiFramework.Enums;
+using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Pooling;
 using UnityEngine.UI;
 
@@ -10,10 +11,7 @@ namespace Oxide.Ext.UiFramework.Components
 
         public int CharsLimit;
         public string Command;
-        public bool IsPassword;
-        public bool IsReadyOnly;
-        public bool NeedsKeyboard = true;
-        public bool AutoFocus;
+        public InputMode Mode;
         public InputField.LineType LineType;
 
         public override void WriteComponent(JsonFrameworkWriter writer)
@@ -21,25 +19,33 @@ namespace Oxide.Ext.UiFramework.Components
             writer.WriteStartObject();
             writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, Type);
             writer.AddField(JsonDefaults.Input.CharacterLimitName, CharsLimit, JsonDefaults.Input.CharacterLimitValue);
-            writer.AddField(JsonDefaults.Common.CommandName, Command, JsonDefaults.Common.NullValue);
             writer.AddField(JsonDefaults.Input.LineTypeName, LineType);
+            
+            if (HasMode(InputMode.ReadOnly))
+            {
+                writer.AddField(JsonDefaults.Input.ReadOnlyName, true, false);
+            }
+            else
+            {
+                writer.AddField(JsonDefaults.Common.CommandName, Command, JsonDefaults.Common.NullValue);
+            }
 
-            if (IsPassword)
+            if (HasMode(InputMode.Password))
             {
                 writer.AddKeyField(JsonDefaults.Input.PasswordName);
             }
 
-            if (IsReadyOnly)
+            if (HasMode(InputMode.NeedsKeyboard))
             {
-                writer.AddFieldRaw(JsonDefaults.Input.ReadOnlyName, true);
+                writer.AddKeyField(JsonDefaults.Input.NeedsKeyboardName);
+            }
+            
+            if (HasMode(InputMode.HudNeedsKeyboard))
+            {
+                writer.AddKeyField(JsonDefaults.Input.NeedsHudKeyboardName);
             }
 
-            if (NeedsKeyboard)
-            {
-                writer.AddKeyField(JsonDefaults.Input.InputNeedsKeyboardName);
-            }
-
-            if (AutoFocus)
+            if (HasMode(InputMode.AutoFocus))
             {
                 writer.AddKeyField(JsonDefaults.Input.AutoFocusName);
             }
@@ -48,15 +54,29 @@ namespace Oxide.Ext.UiFramework.Components
             writer.WriteEndObject();
         }
 
+        public bool HasMode(InputMode mode)
+        {
+            return (Mode & mode) == mode;
+        }
+
+        public void SetMode(InputMode mode, bool enabled)
+        {
+            if (enabled)
+            {
+                Mode |= mode;
+            }
+            else
+            {
+                Mode &= ~mode;
+            }
+        }
+
         protected override void EnterPool()
         {
             base.EnterPool();
             CharsLimit = JsonDefaults.Input.CharacterLimitValue;
             Command = null;
-            IsPassword = false;
-            IsReadyOnly = false;
-            NeedsKeyboard = true;
-            AutoFocus = false;
+            Mode = default(InputMode);
             LineType = default(InputField.LineType);
         }
         

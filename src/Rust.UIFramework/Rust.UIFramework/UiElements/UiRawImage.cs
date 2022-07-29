@@ -7,7 +7,7 @@ using Oxide.Ext.UiFramework.Positions;
 
 namespace Oxide.Ext.UiFramework.UiElements
 {
-    public class UiRawImage : BaseUiComponent
+    public class UiRawImage : BaseUiOutline
     {
         public RawImageComponent RawImage;
 

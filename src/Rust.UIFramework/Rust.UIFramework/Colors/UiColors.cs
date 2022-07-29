@@ -1,4 +1,6 @@
-﻿namespace Oxide.Ext.UiFramework.Colors
+﻿using Oxide.Ext.UiFramework.Extensions;
+
+namespace Oxide.Ext.UiFramework.Colors
 {
     public static class UiColors
     {
@@ -98,9 +100,9 @@
         }
 
         #region UI Colors
-        public static readonly UiColor Body = UiColor.WithAlpha(Form.Body, "B2");
+        public static readonly UiColor Body = Form.Body.WithAlpha("B2");
         public static readonly UiColor BodyHeader = Form.Header;
-        public static readonly UiColor Text = UiColor.WithAlpha(Form.Text, "80");
+        public static readonly UiColor Text = Form.Text.WithAlpha("80");
         public static readonly UiColor Panel = Form.Panel;
         public static readonly UiColor PanelSecondary = Form.PanelSecondary;
         public static readonly UiColor PanelTertiary = Form.PanelTertiary;

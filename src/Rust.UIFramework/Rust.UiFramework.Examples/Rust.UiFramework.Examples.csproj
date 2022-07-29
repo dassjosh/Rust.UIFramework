@@ -81,8 +81,12 @@
       <Content Include="UiElementsTest.cs" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Rust.UIFramework\Rust.UIFramework.csproj" />
+    </ItemGroup>
+
     <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-      <Exec Command="plugin.merge -m -d -p &quot;./ElementsTest/merge.json&quot;" />
+      <Exec Command="plugin.merge rename -f ./ElementsTest/UiMergeFramework.cs -n UiElementsTest&#xA;plugin.merge -m -p &quot;./ElementsTest/merge.json&quot;" />
     </Target>
 
 </Project>

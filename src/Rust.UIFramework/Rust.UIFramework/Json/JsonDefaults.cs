@@ -58,6 +58,7 @@
             public const string TextName = "text";
             public const string FontSizeName = "fontSize";
             public const string AlignName = "align";
+            public const string VerticalOverflowName = "verticalOverflow";
         }
 
         public static class Outline
@@ -91,7 +92,8 @@
             public const string PasswordName = "password";
             public const string ReadOnlyName = "readOnly";
             public const string LineTypeName = "lineType";
-            public const string InputNeedsKeyboardName = "needsKeyboard";
+            public const string NeedsKeyboardName = "needsKeyboard";
+            public const string NeedsHudKeyboardName = "hudMenuInput";
             public const string AutoFocusName = "autofocus";
         }
         

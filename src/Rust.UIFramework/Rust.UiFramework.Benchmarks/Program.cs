@@ -1,6 +1,8 @@
-﻿using BenchmarkDotNet.Configs;
+﻿using System;
+using BenchmarkDotNet.Configs;
 using BenchmarkDotNet.Running;
 using Oxide.Ext.UiFramework.Positions;
+using UnityEngine;
 
 namespace Rust.UiFramework.Benchmarks
 {
@@ -11,6 +13,7 @@ namespace Rust.UiFramework.Benchmarks
             ManualConfig config = ManualConfig
                                   .Create(DefaultConfig.Instance)
                                   .WithOptions(ConfigOptions.DisableOptimizationsValidator);
+
 #if DEBUG
             Benchmarks benchmarks = new Benchmarks();
             benchmarks.Setup();

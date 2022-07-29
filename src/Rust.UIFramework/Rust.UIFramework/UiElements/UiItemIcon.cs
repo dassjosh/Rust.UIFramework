@@ -7,7 +7,7 @@ using Oxide.Ext.UiFramework.Positions;
 
 namespace Oxide.Ext.UiFramework.UiElements
 {
-    public class UiItemIcon : BaseUiComponent
+    public class UiItemIcon : BaseUiOutline
     {
         public ItemIconComponent Icon;
 

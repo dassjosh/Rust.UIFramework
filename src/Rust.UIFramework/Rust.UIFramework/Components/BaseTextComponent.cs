@@ -9,6 +9,7 @@ namespace Oxide.Ext.UiFramework.Components
         public string Font;
         public TextAnchor Align;
         public string Text;
+        public VerticalWrapMode VerticalOverflow; 
 
         public override void WriteComponent(JsonFrameworkWriter writer)
         {
@@ -16,6 +17,7 @@ namespace Oxide.Ext.UiFramework.Components
             writer.AddField(JsonDefaults.BaseText.FontSizeName, FontSize, JsonDefaults.BaseText.FontSize);
             writer.AddField(JsonDefaults.BaseText.FontName, Font, JsonDefaults.BaseText.FontValue);
             writer.AddField(JsonDefaults.BaseText.AlignName, Align);
+            writer.AddField(JsonDefaults.BaseText.VerticalOverflowName, VerticalOverflow);
             base.WriteComponent(writer);
         }
 
@@ -26,6 +28,7 @@ namespace Oxide.Ext.UiFramework.Components
             Font = null;
             Align = TextAnchor.UpperLeft;
             Text = null;
+            VerticalOverflow = VerticalWrapMode.Truncate;
         }
     }
 }

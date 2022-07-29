@@ -1,6 +1,6 @@
 ﻿namespace Oxide.Ext.UiFramework.Positions
 {
-    public class GridPosition : MovablePosition
+    public class GridPosition : BasePosition
     {
         public readonly float NumCols;
         public readonly float NumRows;

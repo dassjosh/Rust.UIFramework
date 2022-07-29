@@ -1,7 +1,10 @@
 ﻿using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Colors;
+using Oxide.Ext.UiFramework.Controls;
+using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Exceptions;
 using Oxide.Ext.UiFramework.Offsets;
+using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.UiElements;
 using UnityEngine;
@@ -15,9 +18,26 @@ namespace Oxide.Ext.UiFramework.Builder
         public void AddComponent(BaseUiComponent component, BaseUiComponent parent)
         {
             component.Parent = parent.Name;
-            component.Name = UiNameCache.GetName(_rootName, _components.Count);
-            //_componentLookup[component.Name] = component;
+            component.Name = UiNameCache.GetComponentName(_rootName, _components.Count);
             _components.Add(component);
+        }
+        
+        public void AddControl(BaseUiControl control)
+        {
+            _controls.Add(control);
+        }
+        
+        private void AddAnchor(BaseUiComponent component, BaseUiComponent parent)
+        {
+            if (_anchors == null)
+            {
+                _anchors = UiFrameworkPool.GetList<BaseUiComponent>();
+            }
+            
+            component.Parent = parent.Name;
+            component.Name = UiNameCache.GetAnchorName(_rootName, _anchors.Count);
+            
+            _anchors.Add(component);
         }
         #endregion
 
@@ -81,12 +101,6 @@ namespace Oxide.Ext.UiFramework.Builder
 
         public UiImage ImageSprite(BaseUiComponent parent, UiPosition pos, UiOffset offset, string sprite, UiColor color)
         {
-            uint _;
-            if (!uint.TryParse(sprite, out _))
-            {
-                throw new UiFrameworkException($"Image PNG '{sprite}' is not a valid uint. If trying to use a url please use WebImage instead");
-            }
-
             UiImage image = UiImage.CreateSpriteImage(pos, offset, color, sprite);
             AddComponent(image, parent);
             return image;
@@ -152,27 +166,26 @@ namespace Oxide.Ext.UiFramework.Builder
 
         public UiLabel Label(BaseUiComponent parent, UiPosition pos, string text, int fontSize, UiColor textColor, TextAnchor align = TextAnchor.MiddleCenter) => Label(parent, pos, default(UiOffset), text, fontSize, textColor, align);
 
-        public UiLabel LabelBackground(BaseUiComponent parent, UiPosition pos, UiOffset offset, string text, int fontSize, UiColor textColor, UiColor backgroundColor, TextAnchor align = TextAnchor.MiddleCenter)
+        public UiLabelBackground LabelBackground(BaseUiComponent parent, UiPosition pos, UiOffset offset, string text, int fontSize, UiColor textColor, UiColor backgroundColor, TextAnchor align = TextAnchor.MiddleCenter)
         {
-            UiPanel panel = Panel(parent, pos, backgroundColor);
-            UiLabel label = UiLabel.Create(UiPosition.HorizontalPaddedFull, offset, textColor, text, fontSize, _font, align);
-            AddComponent(label, panel);
-            return label;
+            UiLabelBackground control = UiLabelBackground.Create(this, parent, pos, offset, text, fontSize, textColor, backgroundColor, align);
+            AddControl(control);
+            return control;
         }
 
-        public UiLabel LabelBackground(BaseUiComponent parent, UiPosition pos, string text, int fontSize, UiColor textColor, UiColor backgroundColor, TextAnchor align = TextAnchor.MiddleCenter) => LabelBackground(parent, pos, default(UiOffset), text, fontSize, textColor, backgroundColor, align);
+        public UiLabelBackground LabelBackground(BaseUiComponent parent, UiPosition pos, string text, int fontSize, UiColor textColor, UiColor backgroundColor, TextAnchor align = TextAnchor.MiddleCenter) => LabelBackground(parent, pos, default(UiOffset), text, fontSize, textColor, backgroundColor, align);
         #endregion
         
         #region Input
-        public UiInput Input(BaseUiComponent parent, UiPosition pos, UiOffset offset, string text, int fontSize, UiColor textColor,  string command, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, bool isPassword = false, bool readOnly = false, bool autoFocus = false, InputField.LineType lineType = InputField.LineType.SingleLine)
+        public UiInput Input(BaseUiComponent parent, UiPosition pos, UiOffset offset, string text, int fontSize, UiColor textColor,  string command, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, InputMode mode = InputMode.Default, InputField.LineType lineType = InputField.LineType.SingleLine)
         {
-            UiInput input = UiInput.Create(pos, offset, textColor, text, fontSize, command, _font, align, charsLimit, isPassword, readOnly, autoFocus, lineType);
+            UiInput input = UiInput.Create(pos, offset, textColor, text, fontSize, command, _font, align, charsLimit, mode, lineType);
             AddComponent(input, parent);
             return input;
         }
 
-        public UiInput Input(BaseUiComponent parent, UiPosition pos, string text, int fontSize, UiColor textColor, string command, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, bool isPassword = false, bool readOnly = false, bool autoFocus = false, InputField.LineType lineType = InputField.LineType.SingleLine) 
-            => Input(parent, pos, default(UiOffset), text, fontSize, textColor, command, align, charsLimit, isPassword, readOnly, autoFocus, lineType);
+        public UiInput Input(BaseUiComponent parent, UiPosition pos, string text, int fontSize, UiColor textColor, string command, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, InputMode mode = InputMode.Default, InputField.LineType lineType = InputField.LineType.SingleLine) 
+            => Input(parent, pos, default(UiOffset), text, fontSize, textColor, command, align, charsLimit, mode, lineType);
         #endregion
 
         #region Countdown
@@ -184,16 +197,25 @@ namespace Oxide.Ext.UiFramework.Builder
         #endregion
 
         #region Outline
-        public T TextOutline<T>(T outline, UiColor color) where T : BaseUiTextOutline
+        public T Outline<T>(T outline, UiColor color) where T : BaseUiOutline
         {
-            outline.AddTextOutline(color);
+            outline.AddElementOutline(color);
             return outline;
         }
 
-        public T TextOutline<T>(T outline, UiColor color, Vector2 distance, bool useGraphicAlpha = false) where T : BaseUiTextOutline
+        public T Outline<T>(T outline, UiColor color, Vector2 distance, bool useGraphicAlpha = false) where T : BaseUiOutline
         {
-            outline.AddTextOutline(color, distance, useGraphicAlpha);
+            outline.AddElementOutline(color, distance, useGraphicAlpha);
             return outline;
+        }
+        #endregion
+
+        #region Anchor
+        public UiSection Anchor(BaseUiComponent parent, UiPosition pos, UiOffset offset = default(UiOffset))
+        {
+            UiSection section = UiSection.Create(pos, offset);
+            AddAnchor(section, parent);
+            return section;
         }
         #endregion
     }

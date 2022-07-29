@@ -26,7 +26,8 @@
             public const string BackgroundTransparentLinear = "Assets/Content/UI/UI.Background.Transparent.Linear.png";
             public const string BackgroundTransparentLinearLtr = "Assets/Content/UI/UI.Background.Transparent.LinearLTR.png";
             public const string White = "Assets/Content/UI/UI.White.tga";
-            public const string Circle = "Assets/Icons/circle_closed.png";
+            public const string Circle = "Assets/Icons/circle_closed_white.png";
+            public const string CircleToEdge = "Assets/Icons/circle_closed_white_toEdge.png";
             public const string Box = "Assets/Content/UI/UI.Box.tga";
             public const string BoxSharp = "Assets/Content/UI/UI.Box.Sharp.tga";
         }

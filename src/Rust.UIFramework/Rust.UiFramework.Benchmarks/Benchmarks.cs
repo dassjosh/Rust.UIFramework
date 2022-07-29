@@ -18,7 +18,6 @@ namespace Rust.UiFramework.Benchmarks
         private readonly List<string> _oxideMaxs = new List<string>();
         private readonly List<UiPosition> _frameworkPos = new List<UiPosition>();
         private readonly Random _random = new Random();
-        private readonly MovablePosition _move = new MovablePosition(0, 0, 0, 0);
         public readonly byte[] Buffer = new byte[1024 * 1024];
         private CuiElementContainer _oxideContainer;
         private string _oxideJson;

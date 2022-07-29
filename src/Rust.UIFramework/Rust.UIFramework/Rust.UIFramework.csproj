@@ -3,7 +3,7 @@
     <PropertyGroup>
         <TargetFramework>net48</TargetFramework>
         <LangVersion>6</LangVersion>
-        <RunPostBuildEvent>Always</RunPostBuildEvent>
+        <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
         <AssemblyName>Oxide.Ext.UiFramework</AssemblyName>
         <RootNamespace>Oxide.Ext.UiFramework</RootNamespace>
     </PropertyGroup>
@@ -24,6 +24,9 @@
       </Reference>
       <Reference Include="Assembly-CSharp-firstpass, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
         <HintPath>..\References\Assembly-CSharp-firstpass.dll</HintPath>
+      </Reference>
+      <Reference Include="Facepunch.Console">
+        <HintPath>..\References\Facepunch.Console.dll</HintPath>
       </Reference>
       <Reference Include="Facepunch.Network, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
         <HintPath>..\References\Facepunch.Network.dll</HintPath>

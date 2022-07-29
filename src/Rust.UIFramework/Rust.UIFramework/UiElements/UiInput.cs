@@ -1,5 +1,6 @@
 ﻿using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
+using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Pooling;
@@ -9,11 +10,11 @@ using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.UiElements
 {
-    public class UiInput : BaseUiTextOutline
+    public class UiInput : BaseUiOutline
     {
         public InputComponent Input;
 
-        public static UiInput Create(UiPosition pos, UiOffset offset, UiColor textColor, string text, int size, string cmd, string font, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, bool isPassword = false, bool readOnly = false, bool autoFocus = false, InputField.LineType lineType = InputField.LineType.SingleLine)
+        public static UiInput Create(UiPosition pos, UiOffset offset, UiColor textColor, string text, int size, string cmd, string font, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, InputMode mode = InputMode.Default, InputField.LineType lineType = InputField.LineType.SingleLine)
         {
             UiInput input = CreateBase<UiInput>(pos, offset);
             InputComponent comp = input.Input;
@@ -24,9 +25,7 @@ namespace Oxide.Ext.UiFramework.UiElements
             comp.Font = font;
             comp.Command = cmd;
             comp.CharsLimit = charsLimit;
-            comp.IsPassword = isPassword;
-            comp.IsReadyOnly = readOnly;
-            comp.AutoFocus = autoFocus;
+            comp.Mode = mode;
             comp.LineType = lineType;
             return input;
         }
@@ -43,32 +42,42 @@ namespace Oxide.Ext.UiFramework.UiElements
 
         public void SetIsPassword(bool isPassword)
         {
-            Input.IsPassword = isPassword;
+            Input.SetMode(InputMode.Password, isPassword);
         }
 
         public void SetIsReadonly(bool isReadonly)
         {
-            Input.IsReadyOnly = isReadonly;
+            Input.SetMode(InputMode.ReadOnly, isReadonly);
         }
         
         public void SetAutoFocus(bool autoFocus)
         {
-            Input.AutoFocus = autoFocus;
+            Input.SetMode(InputMode.AutoFocus, autoFocus);
+        }
+        
+        /// <summary>
+        /// Sets if the input should block keyboard input when focused.
+        /// This should not be used when the loot panel / crafting UI is open. Use SetNeedsHudKeyboard instead
+        /// </summary>
+        /// <param name="needsKeyboard"></param>
+        public void SetNeedsKeyboard(bool needsKeyboard)
+        {
+            Input.SetMode(InputMode.NeedsKeyboard, needsKeyboard);
+        }
+        
+        /// <summary>
+        /// Sets if the input should block keyboard input when focused a loot panel / crafting ui is open.
+        /// This should not if a loot panel / crafting ui won't be open when displaying the UI.
+        /// </summary>
+        /// <param name="needsKeyboard"></param>
+        public void SetNeedsHudKeyboard(bool needsKeyboard)
+        {
+            Input.SetMode(InputMode.HudNeedsKeyboard, needsKeyboard);
         }
 
         public void SetLineType(InputField.LineType lineType)
         {
             Input.LineType = lineType;
-        }
-
-        /// <summary>
-        /// Sets if the input should block keyboard input when focused.
-        /// Default value is true
-        /// </summary>
-        /// <param name="needsKeyboard"></param>
-        public void SetRequiresKeyboard(bool needsKeyboard = true)
-        {
-            Input.NeedsKeyboard = needsKeyboard;
         }
 
         protected override void WriteComponents(JsonFrameworkWriter writer)

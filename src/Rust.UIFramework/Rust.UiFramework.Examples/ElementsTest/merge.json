@@ -8,7 +8,8 @@
       "./"
     ],
     "Plugin Output Paths": [
-      "../"
+      "../",
+      "D:\\Servers\\Full\\Rust-Main\\steamapps\\common\\rust_dedicated\\server\\oxide-rust\\oxide\\plugins"
     ],
     "Reference Definitions": [],
     "Define Definitions": [],
@@ -26,14 +27,14 @@
   },
   "Compile Settings": {
     "Assembly Paths": [
-      "./References"
+      "../../References"
     ],
     "Ignore Paths": [
-      "./References/x86",
-      "./References/x64"
+      "../../References/x86",
+      "../../References/x64"
     ],
     "Ignore Files": [
-      "./References/Newtonsoft.Json.dll"
+      "../../References/Newtonsoft.Json.dll"
     ],
     "Compile Log Level (Hidden, Info, Warning, Error)": "Error"
   }

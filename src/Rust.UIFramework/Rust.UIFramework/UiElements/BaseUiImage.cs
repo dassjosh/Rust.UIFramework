@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.UiElements
 {
-    public abstract class BaseUiImage : BaseUiComponent
+    public abstract class BaseUiImage : BaseUiOutline
     {
         public ImageComponent Image;
         

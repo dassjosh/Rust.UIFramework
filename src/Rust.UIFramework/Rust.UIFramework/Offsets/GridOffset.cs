@@ -1,6 +1,6 @@
 ﻿namespace Oxide.Ext.UiFramework.Offsets
 {
-    public class GridOffset : MovableOffset
+    public class GridOffset : BaseOffset
     {
         public readonly int NumCols;
         public readonly int NumRows;

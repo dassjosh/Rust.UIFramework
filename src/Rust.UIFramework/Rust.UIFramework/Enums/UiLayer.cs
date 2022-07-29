@@ -4,8 +4,8 @@
     {
         Overall,
         Overlay,
-        Hud,
         HudMenu,
-        Under,
+        Hud,
+        Under
     }
 }

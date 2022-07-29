@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using Oxide.Ext.UiFramework.Cache;
+using Oxide.Ext.UiFramework.Controls;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Pooling;
@@ -20,8 +22,9 @@ namespace Oxide.Ext.UiFramework.Builder
         private byte[] _cachedJson;
         
         private List<BaseUiComponent> _components;
-        //private Hash<string, BaseUiComponent> _componentLookup;
-        
+        private List<BaseUiControl> _controls;
+        private List<BaseUiComponent> _anchors;
+
         private static string _globalFont;
 
         #region Constructor
@@ -89,13 +92,31 @@ namespace Oxide.Ext.UiFramework.Builder
 
         public override void DisposeInternal()
         {
-            for (int index = 0; index < _components.Count; index++)
+            int count = _components.Count;
+            for (int index = 0; index < count; index++)
             {
                 _components[index].Dispose();
             }
+            
+            count = _controls.Count;
+            for (int index = 0; index < count; index++)
+            {
+                _controls[index].Dispose();
+            }
+
+            if (_anchors != null)
+            {
+                count = _anchors.Count;
+                for (int index = 0; index < count; index++)
+                {
+                    _anchors[index].Dispose();
+                }
+                
+                UiFrameworkPool.FreeList(ref _anchors);
+            }
 
             UiFrameworkPool.FreeList(ref _components);
-            //UiFrameworkPool.FreeHash(ref _componentLookup);
+            UiFrameworkPool.FreeList(ref _controls);
             UiFrameworkPool.Free(this);
         }
 
@@ -112,7 +133,7 @@ namespace Oxide.Ext.UiFramework.Builder
         protected override void LeavePool()
         {
             _components = UiFrameworkPool.GetList<BaseUiComponent>();
-            //_componentLookup = UiFrameworkPool.GetHash<string, BaseUiComponent>();
+            _controls = UiFrameworkPool.GetList<BaseUiControl>();
             _font = _globalFont;
         }
         #endregion
@@ -132,14 +153,42 @@ namespace Oxide.Ext.UiFramework.Builder
 
             writer.WriteStartArray();
 
-            if (_components != null)
+            if (_components == null)
             {
-                _components[0].WriteRootComponent(writer, _needsMouse, _needsKeyboard);
+                throw new Exception("Components List is null. Was UiBuilder not created from pool?");
+            }
 
-                int count = _components.Count;
-                for (int index = 1; index < count; index++)
+            if (_controls == null)
+            {
+                throw new Exception("Controls List is null. Was UiBuilder not created from pool?");
+            }
+            
+            int count;
+            if (_controls.Count != 0)
+            {
+                count = _controls.Count;
+                for (int index = 0; index < count; index++)
                 {
-                    _components[index].WriteComponent(writer);
+                    BaseUiControl control = _controls[index];
+                    control.RenderControl(this);
+                }
+            }
+
+            _components[0].WriteRootComponent(writer, _needsMouse, _needsKeyboard);
+
+            count = _components.Count;
+            for (int index = 1; index < count; index++)
+            {
+                _components[index].WriteComponent(writer);
+            }
+
+
+            if (_anchors != null)
+            {
+                count = _anchors.Count;
+                for (int index = 0; index < count; index++)
+                {
+                    _anchors[index].WriteComponent(writer);
                 }
             }
 

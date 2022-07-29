@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.UiElements
 {
-    public class UiLabel : BaseUiTextOutline
+    public class UiLabel : BaseUiOutline
     {
         public TextComponent Text;
         public CountdownComponent Countdown;

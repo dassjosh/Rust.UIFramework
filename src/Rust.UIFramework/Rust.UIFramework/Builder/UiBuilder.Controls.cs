@@ -1,6 +1,10 @@
 ﻿using System;
-using Oxide.Ext.UiFramework.Cache;
+using System.Collections.Generic;
 using Oxide.Ext.UiFramework.Colors;
+using Oxide.Ext.UiFramework.Controls;
+using Oxide.Ext.UiFramework.Controls.Data;
+using Oxide.Ext.UiFramework.Controls.NumberPicker;
+using Oxide.Ext.UiFramework.Controls.Popover;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
@@ -125,260 +129,149 @@ namespace Oxide.Ext.UiFramework.Builder
         #endregion
 
         #region Input Background
-        public UiInput InputBackground(BaseUiComponent parent, UiPosition pos, UiOffset offset, string text, int fontSize, UiColor textColor, UiColor backgroundColor, string command, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, bool isPassword = false, bool readOnly = false, bool autoFocus = false, InputField.LineType lineType = InputField.LineType.SingleLine)
+        public UiInputBackground InputBackground(BaseUiComponent parent, UiPosition pos, UiOffset offset, string text, int fontSize, UiColor textColor, UiColor backgroundColor, string command, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, InputMode mode = InputMode.Default, InputField.LineType lineType = InputField.LineType.SingleLine)
         {
-            parent = Panel(parent,  pos, offset, backgroundColor);
-            UiInput input = Input(parent, UiPosition.HorizontalPaddedFull, text, fontSize, textColor, command, align, charsLimit, isPassword, readOnly, autoFocus, lineType);
-            return input;
+            UiInputBackground control = UiInputBackground.Create(this, parent, pos, offset, text, fontSize, textColor, backgroundColor, command, align, charsLimit, mode, lineType);
+            AddControl(control);
+            return control;
         }
-
-        public UiInput InputBackground(BaseUiComponent parent, UiPosition pos, string text, int fontSize, UiColor textColor, UiColor backgroundColor, string command, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, bool isPassword = false, bool readOnly = false, bool autoFocus = false,
-            InputField.LineType lineType = InputField.LineType.SingleLine) =>
-            InputBackground(parent, pos, default(UiOffset), text, fontSize, textColor, backgroundColor, command, align, charsLimit, isPassword, readOnly, autoFocus, lineType);
         #endregion
 
         #region Checkbox
-        public UiButton Checkbox(BaseUiComponent parent, UiPosition pos, UiOffset offset, bool isChecked, int textSize, UiColor textColor, UiColor backgroundColor, string command)
+        public UiCheckbox Checkbox(BaseUiComponent parent, UiPosition pos, UiOffset offset, bool isChecked, int textSize, UiColor textColor, UiColor backgroundColor, string command)
         {
-            return TextButton(parent, pos, offset, isChecked ? "<b>✓</b>" : string.Empty, textSize, textColor, backgroundColor, command);
+            UiCheckbox checkbox = UiCheckbox.CreateCheckbox(this, parent, pos, offset, isChecked, textSize, textColor, backgroundColor, command);
+            AddControl(checkbox);
+            return checkbox;
         }
-
-        public UiButton Checkbox(BaseUiComponent parent, UiPosition pos, bool isChecked, int textSize, UiColor textColor, UiColor backgroundColor, string command) => Checkbox(parent, pos, default(UiOffset), isChecked, textSize, textColor, backgroundColor, command);
         #endregion
 
         #region ProgressBar
-        public UiPanel ProgressBar(BaseUiComponent parent, UiPosition pos, float percentage, UiColor barColor, UiColor backgroundColor)
+        public UiProgressBar ProgressBar(BaseUiComponent parent, UiPosition pos, UiOffset offset, float percentage, UiColor barColor, UiColor backgroundColor)
         {
-            UiPanel background = Panel(parent, pos, backgroundColor);
-            Panel(parent, UiPosition.SliceHorizontal(pos,0, Mathf.Clamp01(percentage)), barColor);
-            return background;
+            UiProgressBar control = UiProgressBar.Create(this, parent, pos, offset, percentage, barColor, backgroundColor);
+            AddControl(control);
+            return control;
         }
         #endregion
 
-        #region Number Pickers
-        public void ButtonNumberPicker(BaseUiComponent parent, UiPosition pos, int currentValue, int minValue, int maxValue, int textSize, UiColor textColor, UiColor buttonColor, UiColor currentButtonColor, string command)
+        #region Button Groups
+        public UiButtonGroup ButtonGroup(BaseUiComponent parent, UiPosition pos, UiOffset offset, List<ButtonGroupData> buttons, int textSize, UiColor textColor, UiColor buttonColor, UiColor currentButtonColor, string command)
         {
-            float size = 1f / (maxValue - minValue + 1);
-            UiSection section = Section(parent, pos);
-            for (int i = minValue; i <= maxValue; i++)
-            {
-                UiPosition buttonPos = UiPosition.SliceHorizontal(UiPosition.Full, size * (i - minValue), size * (i + 1 - minValue));
-                if (i == currentValue)
-                {
-                    TextButton(section, buttonPos, NumberCache<int>.ToString(i),textSize, textColor, currentButtonColor, $"{command} {i}");
-                }
-                else
-                {
-                    TextButton(section, buttonPos, NumberCache<int>.ToString(i), textSize, textColor, buttonColor, $"{command} {i}");
-                }
-            }
+            UiButtonGroup control = UiButtonGroup.Create(this, parent, pos, offset, buttons, textSize, textColor, buttonColor, currentButtonColor, command);
+            AddControl(control);
+            return control;
         }
-        
-        public void SimpleNumberPicker(BaseUiComponent parent, UiPosition pos, int value, int fontSize, UiColor textColor, UiColor backgroundColor, UiColor buttonColor, string command, int minValue = int.MinValue, int maxValue = int.MaxValue, float buttonWidth = 0.1f)
+
+        public UiButtonGroup NumericButtonGroup(BaseUiComponent parent, UiPosition pos, UiOffset offset, int value, int minValue, int maxValue, int textSize, UiColor textColor, UiColor buttonColor, UiColor currentButtonColor, string command)
         {
-            if (value > minValue)
-            {
-                UiPosition subtractSlice = UiPosition.SliceHorizontal(pos,0, buttonWidth);
-                TextButton(parent, subtractSlice, "-", fontSize, textColor, buttonColor, $"{command} {NumberCache<int>.ToString(value - 1)}");
-            }
-
-            if (value < maxValue)
-            {
-                UiPosition addSlice = UiPosition.SliceHorizontal(pos, 1 - buttonWidth, 1);
-                TextButton(parent, addSlice, "+", fontSize, textColor, buttonColor, $"{command} {NumberCache<int>.ToString(value + 1)}");
-            }
-
-            LabelBackground(parent, UiPosition.SliceHorizontal(pos,buttonWidth, 1 - buttonWidth), NumberCache<int>.ToString(value), fontSize, textColor, backgroundColor);
+            UiButtonGroup control = UiButtonGroup.CreateNumeric(this, parent, pos, offset, value, minValue, maxValue, textSize, textColor, buttonColor, currentButtonColor, command);
+            AddControl(control);
+            return control;
         }
-        
-        public void IncrementalNumberPicker(BaseUiComponent parent, UiPosition pos, int value, int[] increments, int fontSize, UiColor textColor, UiColor backgroundColor, UiColor buttonColor, string command, int minValue = int.MinValue, int maxValue = int.MaxValue, float buttonWidth = 0.3f, bool readOnly = false)
+        #endregion
+
+        #region Number Picker
+        public UiNumberPicker NumberPicker(BaseUiComponent parent, UiPosition pos, UiOffset offset, int value, int fontSize, int buttonFontSize, UiColor textColor, UiColor backgroundColor, UiColor buttonColor, UiColor disabledButtonColor, string command, string incrementCommand, string decrementCommand, int minValue = int.MinValue, int maxValue = int.MaxValue, float buttonWidth = 0.1f, TextAnchor align = TextAnchor.MiddleRight, InputMode mode = InputMode.Default, NumberPickerMode numberMode = NumberPickerMode.LeftRight, string numberFormat = null)
         {
-            int incrementCount = increments.Length;
-            float buttonSize = buttonWidth / incrementCount;
-            for (int i = 0; i < incrementCount; i++)
-            {
-                int increment = increments[i];
-                UiPosition subtractSlice = UiPosition.SliceHorizontal(pos, i * buttonSize, (i + 1) * buttonSize);
-                UiPosition addSlice = UiPosition.SliceHorizontal(pos, 1 - buttonWidth + i * buttonSize, 1 - buttonWidth + (i + 1) * buttonSize);
-
-                string incrementDisplay = increment.ToString();
-                if (value - increment > minValue)
-                {
-                    TextButton(parent, subtractSlice, string.Concat("-", incrementDisplay), fontSize, textColor, buttonColor, $"{command} {NumberCache<float>.ToString(value - increment)}");
-                }
-
-                if (value + increment < maxValue)
-                {
-                    TextButton(parent, addSlice, string.Concat("+", incrementDisplay), fontSize, textColor, buttonColor, $"{command} {NumberCache<float>.ToString(value + increment)}");
-                }
-            }
-            
-            UiInput input = InputBackground(parent, UiPosition.SliceHorizontal(pos, buttonWidth, 1f - buttonWidth), value.ToString(), fontSize, textColor, backgroundColor, command, readOnly: readOnly);
-            input.SetRequiresKeyboard();
+            UiNumberPicker control = UiNumberPicker.Create(this, parent, pos, offset, value, fontSize, buttonFontSize, textColor, backgroundColor, buttonColor, disabledButtonColor, command, incrementCommand, decrementCommand, minValue, maxValue, buttonWidth, align, mode, numberMode, numberFormat);
+            AddControl(control);
+            return control;
         }
-        
-        public void IncrementalNumberPicker(BaseUiComponent parent, UiPosition pos, float value, float[] increments, int fontSize, UiColor textColor, UiColor backgroundColor, UiColor buttonColor, string command, float minValue = float.MinValue, float maxValue = float.MaxValue, float buttonWidth = 0.3f, bool readOnly = false, string incrementFormat = "0.##")
+
+        public UiIncrementalNumberPicker<T> IncrementalNumberPicker<T>(BaseUiComponent parent, UiPosition pos, UiOffset offset, T value, IList<T> increments, int fontSize, UiColor textColor, UiColor backgroundColor, UiColor buttonColor, UiColor disabledButtonColor, string command, T minValue , T maxValue, InputMode mode = InputMode.Default, float buttonWidth = 0.1f, TextAnchor align = TextAnchor.MiddleRight, string incrementFormat = "0", string numberFormat = null)  where T : struct, IConvertible, IFormattable, IComparable<T>
         {
-            int incrementCount = increments.Length;
-            float buttonSize = buttonWidth / incrementCount;
-            for (int i = 0; i < incrementCount; i++)
-            {
-                float increment = increments[i];
-                UiPosition subtractSlice = UiPosition.SliceHorizontal(pos, i * buttonSize, (i + 1) * buttonSize);
-                UiPosition addSlice = UiPosition.SliceHorizontal(pos,1 - buttonWidth + i * buttonSize, 1 - buttonWidth + (i + 1) * buttonSize);
-
-                string incrementDisplay = increment.ToString(incrementFormat);
-                if (value - increment > minValue)
-                {
-                    TextButton(parent, subtractSlice, string.Concat("-", incrementDisplay), fontSize, textColor, buttonColor, $"{command} {NumberCache<float>.ToString(value - increment)}");
-                }
-
-                if (value + increment < maxValue)
-                {
-                    TextButton(parent, addSlice, incrementDisplay, fontSize, textColor, buttonColor, $"{command} {NumberCache<float>.ToString(value + increment)}");
-                }
-            }
-            
-            UiInput input = InputBackground(parent, UiPosition.SliceHorizontal(pos, buttonWidth, 1f - buttonWidth), value.ToString(), fontSize, textColor, backgroundColor, command, readOnly: readOnly);
-            input.SetRequiresKeyboard();
+            UiIncrementalNumberPicker<T> control = UiIncrementalNumberPicker<T>.Create(this, parent, pos, offset, value, increments, fontSize, textColor, backgroundColor, buttonColor, disabledButtonColor, command, align, mode, minValue, maxValue, buttonWidth, incrementFormat, numberFormat);
+            AddControl(control);
+            return control;
         }
         #endregion
 
         #region Paginator
-        public void Paginator(BaseUiComponent parent, GridPosition grid, int currentPage, int maxPage, int fontSize, UiColor textColor, UiColor buttonColor, UiColor activePageColor, string command)
+        public UiPaginator Paginator(BaseUiComponent parent, GridPosition grid, int currentPage, int maxPage, int fontSize, UiColor textColor, UiColor buttonColor, UiColor activePageColor, string command)
         {
-            grid.Reset();
-
-            int totalButtons = (int)Math.Round(grid.NumCols, 0);
-            int pageButtons = totalButtons - 5;
-
-            int startPage = Math.Max(currentPage - pageButtons / 2, 0);
-            int endPage = Math.Min(maxPage, startPage + pageButtons);
-            if (endPage - startPage != pageButtons)
-            {
-                startPage = Math.Max(endPage - pageButtons, 0);
-                if (endPage - startPage != pageButtons)
-                {
-                    grid.MoveCols((pageButtons - endPage - startPage) / 2f);
-                }
-            }
-
-            TextButton(parent, grid, "<<<", fontSize, textColor, buttonColor, $"{command} 0");
-            grid.MoveCols(1);
-            TextButton(parent, grid, "<", fontSize, textColor, buttonColor, $"{command} {NumberCache<int>.ToString(Math.Max(0, currentPage - 1))}");
-            grid.MoveCols(1);
-
-            for (int i = startPage; i <= endPage; i++)
-            {
-                TextButton(parent, grid, (i + 1).ToString(), fontSize, textColor, i == currentPage ? activePageColor : buttonColor, $"{command} {NumberCache<int>.ToString(i)}");
-                grid.MoveCols(1);
-            }
-
-            TextButton(parent, grid, ">", fontSize, textColor, buttonColor, $"{command} {NumberCache<int>.ToString(Math.Min(maxPage, currentPage + 1))}");
-            grid.MoveCols(1);
-            TextButton(parent, grid, ">>>", fontSize, textColor, buttonColor, $"{command} {NumberCache<int>.ToString(maxPage)}");
+           UiPaginator control = UiPaginator.Create(this, parent, grid, currentPage, maxPage, fontSize, textColor, buttonColor, activePageColor, command);
+           AddControl(control);
+           return control;
         }
         #endregion
         
         #region Scroll Bar
-        public void ScrollBar(BaseUiComponent parent, UiPosition position, int currentPage, int maxPage, UiColor barColor, UiColor backgroundColor, string command, ScrollbarDirection direction = ScrollbarDirection.Vertical, string sprite = UiConstants.Sprites.RoundedBackground2)
+        public UiScrollBar ScrollBar(BaseUiComponent parent, UiPosition position, UiOffset offset, int currentPage, int maxPage, UiColor barColor, UiColor backgroundColor, string command, ScrollbarDirection direction = ScrollbarDirection.Vertical, string sprite = UiConstants.Sprites.RoundedBackground2)
         {
-            UiPanel background = Panel(parent, position, backgroundColor);
-            background.SetSpriteMaterialImage(sprite, null, Image.Type.Sliced);
-            float buttonSize = 1f / maxPage;
-            for (int i = 0; i < maxPage; i++)
-            {
-                float min = buttonSize * i;
-                float max = buttonSize * (i + 1);
-                UiPosition pagePosition = direction == ScrollbarDirection.Horizontal ? UiPosition.SliceHorizontal(UiPosition.Full, min, max) : new UiPosition(0, 1 - max, 1, 1 - min);
-                
-                if (i != currentPage)
-                {
-                    UiButton button = CommandButton(background, pagePosition, backgroundColor, $"{command} {NumberCache<int>.ToString(i)}");
-                    button.SetSpriteMaterialImage(sprite, null, Image.Type.Sliced);
-                }
-                else
-                {
-                    UiPanel panel = Panel(background, pagePosition, barColor);
-                    panel.SetSpriteMaterialImage(sprite, null, Image.Type.Sliced);
-                }
-            }
+            UiScrollBar control = UiScrollBar.Create(this, parent, position, offset, currentPage, maxPage, barColor, backgroundColor, command, direction, sprite);
+            AddControl(control);
+            return control;
+        }
+        #endregion
+
+        #region Dropdown
+        public UiDropdown Dropdown(BaseUiComponent parent, UiPosition pos, UiOffset offset, string displayValue, int fontSize, UiColor textColor, UiColor backgroundColor, string openCommand)
+        {
+            UiDropdown control = UiDropdown.Create(this, parent, pos, offset, displayValue, fontSize, textColor, backgroundColor, openCommand);
+            AddControl(control);
+            return control;
+        }
+
+        public static UiDropdownMenu DropdownMenu(string parentName, List<DropdownMenuData> items, int fontSize, UiColor textColor, UiColor backgroundColor, string selectedCommand, string pageCommand = null, int page = 0, int maxValuesPerPage = 100, int minWidth = 100,
+        PopoverPosition position = PopoverPosition.Bottom, string menuSprite = UiConstants.Sprites.RoundedBackground2)
+        {
+            UiDropdownMenu control = UiDropdownMenu.Create(parentName, items, fontSize, textColor, backgroundColor, selectedCommand, pageCommand, page, maxValuesPerPage, minWidth, position, menuSprite);
+            return control;
+        }
+        #endregion
+
+        #region Time Picker
+        public UiTimePicker TimePicker(BaseUiComponent parent, UiPosition pos, UiOffset offset, DateTime time, int fontSize, UiColor textColor, UiColor backgroundColor, string openCommand, string displayFormat = "hh:mm:ss tt")
+        {
+            var control = UiTimePicker.Create(this, parent, pos, offset, time, fontSize, textColor, backgroundColor, openCommand, displayFormat);
+            AddControl(control);
+            return control;
+        }
+
+        public static UiTimePickerMenu TimePickerMenu(string parentName, TimePickerData time, int fontSize, UiColor textColor, UiColor backgroundColor, string changeCommand, TimePickerDisplayMode displayMode = TimePickerDisplayMode.All, ClockMode clockMode = ClockMode.Hour12,
+        PopoverPosition position = PopoverPosition.Bottom, string menuSprite = UiConstants.Sprites.RoundedBackground2)
+        {
+            UiTimePickerMenu picker = UiTimePickerMenu.Create(parentName, time, fontSize, textColor, backgroundColor, changeCommand, displayMode, clockMode, position, menuSprite);
+            return picker;
+        }
+        #endregion
+
+        #region Date Picker
+        public UiDatePicker DatePicker(BaseUiComponent parent, UiPosition pos, UiOffset offset, DateTime date, int fontSize, UiColor textColor, UiColor backgroundColor, string openCommand)
+        {
+            UiDatePicker picker = UiDatePicker.Create(this, parent, pos,offset, date, fontSize, textColor, backgroundColor, openCommand);
+            return picker;
+        }
+        
+        public static UiCalenderPicker DateCalenderMenu(string parentName, DateTime date, int fontSize, UiColor textColor, UiColor backgroundColor, UiColor buttonColor, UiColor selectedDateColor, string changeCommand, PopoverPosition position, string menuSprite = UiConstants.Sprites.RoundedBackground2, string buttonSprite = UiConstants.Sprites.RoundedBackground1)
+        {
+            UiCalenderPicker picker = UiCalenderPicker.Create(parentName, date, fontSize, textColor, backgroundColor, buttonColor, selectedDateColor, changeCommand, position, menuSprite, buttonSprite);
+            return picker;
+        }
+        #endregion
+        
+        #region Color Picker
+        public UiColorPicker ColorPicker(BaseUiComponent parent, UiPosition pos, UiOffset offset, UiColor selectedColor, int fontSize, UiColor textColor, UiColor backgroundColor, string openCommand)
+        {
+            UiColorPicker control = UiColorPicker.Create(this, parent, pos, offset, selectedColor, fontSize, textColor, backgroundColor, openCommand);
+            AddControl(control);
+            return control;
+        }
+        
+        public static UiColorPickerMenu ColorPickerMenu(string parentName, UiColor selectedColor, int fontSize, UiColor textColor, UiColor buttonColor, UiColor backgroundColor, UiColor pickerBackgroundColor, UiColor pickerDisabledColor, string command, ColorPickerMode mode, PopoverPosition position, string menuSprite = UiConstants.Sprites.RoundedBackground2, InputMode inputMode = InputMode.NeedsKeyboard)
+        {
+            UiColorPickerMenu picker = UiColorPickerMenu.Create(parentName, selectedColor, fontSize, textColor, buttonColor, backgroundColor, pickerBackgroundColor, pickerDisabledColor, command, mode, position, menuSprite, inputMode);
+            return picker;
         }
         #endregion
         
         #region Border
-        public void Border(BaseUiComponent parent, UiColor color, int width = 1, BorderMode border = BorderMode.All)
+        public UiBorder Border(BaseUiComponent parent, UiColor color, int width = 1, BorderMode border = BorderMode.All)
         {
-            //If width is 0 nothing is displayed so don't try to render
-            if (width == 0)
-            {
-                return;
-            }
-            
-            bool top = HasBorderFlag(border, BorderMode.Top);
-            bool left = HasBorderFlag(border, BorderMode.Left);
-            bool bottom = HasBorderFlag(border, BorderMode.Bottom);
-            bool right = HasBorderFlag(border, BorderMode.Right);
-
-            if (width > 0)
-            {
-                int tbMin = left ? -width : 0;
-                int tbMax = right ? width : 0;
-                int lrMin = top ? -width : 0;
-                int lrMax = bottom ? width : 0;
-            
-                if (top)
-                {
-                    Panel(parent, UiPosition.Top, new UiOffset(tbMin, 0, tbMax, width), color);
-                }
-            
-                if (left)
-                {
-                    Panel(parent, UiPosition.Left, new UiOffset(-width, lrMin, 0, lrMax), color);
-                }
-            
-                if (bottom)
-                {
-                    Panel(parent, UiPosition.Bottom, new UiOffset(tbMin, -width, tbMax, 0), color);
-                }
-            
-                if (right)
-                {
-                    Panel(parent, UiPosition.Right, new UiOffset(0, lrMin, width, lrMax), color);
-                }
-            }
-            else
-            {
-                int tbMin = left ? width : 0;
-                int tbMax = right ? -width : 0;
-                int lrMin = top ? width : 0;
-                int lrMax = bottom ? -width : 0;
-                
-                if (top)
-                {
-                    Panel(parent, UiPosition.Top, new UiOffset(tbMin, width, tbMax, 0), color);
-                }
-            
-                if (left)
-                {
-                    Panel(parent, UiPosition.Left, new UiOffset(0, lrMin, -width, lrMax), color);
-                }
-            
-                if (bottom)
-                {
-                    Panel(parent, UiPosition.Bottom, new UiOffset(tbMin, 0, tbMax, -width), color);
-                }
-            
-                if (right)
-                {
-                    Panel(parent, UiPosition.Right, new UiOffset(width, lrMin, 0, lrMax), color);
-                }
-            }
-        }
-
-        private bool HasBorderFlag(BorderMode mode, BorderMode flag)
-        {
-            return (mode & flag) != 0;
+            UiBorder control = UiBorder.Create(this, parent, color, width, border);
+            AddControl(control);
+            return control;
         }
         #endregion
     }

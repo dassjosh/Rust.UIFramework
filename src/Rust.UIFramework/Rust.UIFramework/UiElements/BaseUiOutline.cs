@@ -6,26 +6,35 @@ using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.UiElements
 {
-    public abstract class BaseUiTextOutline : BaseUiComponent
+    public abstract class BaseUiOutline : BaseUiComponent
     {
         public OutlineComponent Outline;
         
-        public void AddTextOutline(UiColor color)
+        public void AddElementOutline(UiColor color)
         {
             Outline = UiFrameworkPool.Get<OutlineComponent>();
             Outline.Color = color;
         }
 
-        public void AddTextOutline(UiColor color, Vector2 distance)
+        public void AddElementOutline(UiColor color, Vector2 distance)
         {
-            AddTextOutline(color);
+            AddElementOutline(color);
             Outline.Distance = distance;
         }
 
-        public void AddTextOutline(UiColor color, Vector2 distance, bool useGraphicAlpha)
+        public void AddElementOutline(UiColor color, Vector2 distance, bool useGraphicAlpha)
         {
-            AddTextOutline(color, distance);
+            AddElementOutline(color, distance);
             Outline.UseGraphicAlpha = useGraphicAlpha;
+        }
+
+        public void RemoveOutline()
+        {
+            if (Outline != null)
+            {
+                Outline.Dispose();
+                Outline = null;
+            }
         }
 
         protected override void WriteComponents(JsonFrameworkWriter writer)
