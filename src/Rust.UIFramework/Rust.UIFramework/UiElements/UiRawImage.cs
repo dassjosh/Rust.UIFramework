@@ -26,6 +26,14 @@ namespace Oxide.Ext.UiFramework.UiElements
             image.RawImage.Texture = icon;
             return image;
         }
+        
+        public static UiRawImage CreateFileImage(UiPosition pos, UiOffset offset, UiColor color, string png)
+        {
+            UiRawImage image = CreateBase<UiRawImage>(pos, offset);
+            image.RawImage.Color = color;
+            image.RawImage.Png = png;
+            return image;
+        }
 
         public void SetMaterial(string material)
         {

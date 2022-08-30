@@ -82,23 +82,6 @@ namespace Oxide.Ext.UiFramework.Builder
         #endregion
 
         #region Image
-        public UiImage ImageFileStorage(BaseUiComponent parent, UiPosition pos, UiOffset offset, string png, UiColor color)
-        {
-            uint _;
-            if (!uint.TryParse(png, out _))
-            {
-                throw new UiFrameworkException($"Image PNG '{png}' is not a valid uint. If trying to use a url please use WebImage instead");
-            }
-
-            UiImage image = UiImage.CreateFileImage(pos, offset, color, png);
-            AddComponent(image, parent);
-            return image;
-        }
-
-        public UiImage ImageFileStorage(BaseUiComponent parent, UiPosition pos, string png, UiColor color) => ImageFileStorage(parent, pos, default(UiOffset), png, color);
-        public UiImage ImageFileStorage(BaseUiComponent parent, UiPosition pos, UiOffset offset, string png) => ImageFileStorage(parent, pos, offset, png, UiColor.White);
-        public UiImage ImageFileStorage(BaseUiComponent parent, UiPosition pos, string png) => ImageFileStorage(parent, pos, default(UiOffset), png, UiColor.White);
-
         public UiImage ImageSprite(BaseUiComponent parent, UiPosition pos, UiOffset offset, string sprite, UiColor color)
         {
             UiImage image = UiImage.CreateSpriteImage(pos, offset, color, sprite);
@@ -154,6 +137,23 @@ namespace Oxide.Ext.UiFramework.Builder
         public UiRawImage TextureImage(BaseUiComponent parent, UiPosition pos, UiOffset offset, string texture) => TextureImage(parent, pos, offset, texture, UiColor.White);
         public UiRawImage TextureImage(BaseUiComponent parent, UiPosition pos, string texture, UiColor color) => TextureImage(parent, pos, default(UiOffset), texture, color);
         public UiRawImage TextureImage(BaseUiComponent parent, UiPosition pos, string texture) => TextureImage(parent, pos, texture, UiColor.White);
+        
+        public UiRawImage ImageFileStorage(BaseUiComponent parent, UiPosition pos, UiOffset offset, string png, UiColor color)
+        {
+            uint _;
+            if (!uint.TryParse(png, out _))
+            {
+                throw new UiFrameworkException($"Image PNG '{png}' is not a valid uint. If trying to use a url please use WebImage instead");
+            }
+
+            UiRawImage image = UiRawImage.CreateFileImage(pos, offset, color, png);
+            AddComponent(image, parent);
+            return image;
+        }
+
+        public UiRawImage ImageFileStorage(BaseUiComponent parent, UiPosition pos, string png, UiColor color) => ImageFileStorage(parent, pos, default(UiOffset), png, color);
+        public UiRawImage ImageFileStorage(BaseUiComponent parent, UiPosition pos, UiOffset offset, string png) => ImageFileStorage(parent, pos, offset, png, UiColor.White);
+        public UiRawImage ImageFileStorage(BaseUiComponent parent, UiPosition pos, string png) => ImageFileStorage(parent, pos, default(UiOffset), png, UiColor.White);
         #endregion
 
         #region Label

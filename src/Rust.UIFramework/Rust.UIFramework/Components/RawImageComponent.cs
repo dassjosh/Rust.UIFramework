@@ -8,6 +8,7 @@ namespace Oxide.Ext.UiFramework.Components
         private const string Type = "UnityEngine.UI.RawImage";
 
         public string Url;
+        public string Png;
         public string Texture;
         public string Material;
 
@@ -20,6 +21,11 @@ namespace Oxide.Ext.UiFramework.Components
             if (!string.IsNullOrEmpty(Url))
             {
                 writer.AddFieldRaw(JsonDefaults.Image.UrlName, Url);
+            }
+            
+            if (!string.IsNullOrEmpty(Png))
+            {
+                writer.AddFieldRaw(JsonDefaults.Image.PngName, Png);
             }
 
             base.WriteComponent(writer);
