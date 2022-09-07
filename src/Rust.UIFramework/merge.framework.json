@@ -22,8 +22,8 @@
       "Oxide.Ext.UiFramework"
     ],
     "Code Style": {
-      "Indent Character": " ",
-      "Indent Char Amount": 4,
+      "Indent Character": "\t",
+      "Indent Char Amount": 1,
       "Indent Multiplier": 1,
       "New Line String": "\r\n",
       "Write The Relative File Path In Region": true,
