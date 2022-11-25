@@ -25,9 +25,9 @@ namespace Oxide.Ext.UiFramework.Components
             writer.WriteEndObject();
         }
 
-        protected override void EnterPool()
+        protected override void LeavePool()
         {
-            Distance = new Vector2(1.0f, -1.0f);
+            Distance = new Vector2(0.5f, -0.5f);
             UseGraphicAlpha = false;
         }
         
