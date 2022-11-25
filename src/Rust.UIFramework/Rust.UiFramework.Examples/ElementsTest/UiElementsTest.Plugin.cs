@@ -269,7 +269,7 @@ namespace Oxide.Plugins
             builder.DatePicker(body, _grid, default(UiOffset), state.Date, FontSize, UiColors.Text, UiColors.PanelSecondary, nameof(UiElementsOpenDatePicker));
             _grid.MoveCols(1);
 
-            builder.ColorPicker(body, _grid, default(UiOffset), state.Color, FontSize, UiColors.Text, UiColors.PanelSecondary, nameof(UiElementsOpenColorPicker));
+            //builder.ColorPicker(body, _grid, default(UiOffset), state.Color, FontSize, UiColors.Text, UiColors.PanelSecondary, nameof(UiElementsOpenColorPicker));
 
             // string imagePath = "Assets/Content/UI/gameui/cardgames/deck/clubs/2_clubs.";
             // builder.ImageSprite(body, _grid, imagePath + "png").SetSpriteMaterialImage(imagePath + "png", null, Image.Type.Sliced);
@@ -281,7 +281,7 @@ namespace Oxide.Plugins
             // builder.ImageSprite(body, _grid, imagePath + "jpg");
             // _grid.MoveCols(1);
             
-            builder.DestroyAndAddUi(player);
+            builder.AddUi(player);
             
             
             LogToFile("Main", string.Empty, this); //This code is for debugging purposes only. DO NOT USE IN PRODUCTION!!
@@ -300,7 +300,7 @@ namespace Oxide.Plugins
             
             //builder.Border(builder.Root, UiColors.Rust.Red, 2);
             
-            builder.DestroyAndAddUi(player);
+            builder.AddUi(player);
             
             LogToFile("Modal", string.Empty, this); //This code is for debugging purposes only. DO NOT USE IN PRODUCTION!!
             LogToFile("Modal", builder.GetJsonString(), this); //This code is for debugging purposes only. DO NOT USE IN PRODUCTION!!
@@ -326,7 +326,7 @@ namespace Oxide.Plugins
             UiButton close = builder.CloseButton(builder.Root, _closeButtonPos, UiColors.CloseButton, UiSkin);
             builder.Label(close, UiPosition.HorizontalPaddedFull, "<b>X</b>", FontSize, UiColors.Text);
 
-            builder.DestroyAndAddUi(player);
+            builder.AddUi(player);
 
             //This code is for debugging purposes only. DO NOT USE IN PRODUCTION!!
             LogToFile("Skin", string.Empty, this);
@@ -344,7 +344,7 @@ namespace Oxide.Plugins
             // UiInput working = builder.InputBackground(builder.Root, new UiPosition(0, 0f, 1, 0.45f), "", 14, UiColors.Text, UiColors.Rust.Green, "");
             // working.SetRequiresKeyboard(false);
             
-            builder.DestroyAndAddUi(player);
+            builder.AddUi(player);
             
             LogToFile("LootBug", builder.GetJsonString(), this); //This code is for debugging purposes only. DO NOT USE IN PRODUCTION!!
             
@@ -501,7 +501,7 @@ namespace Oxide.Plugins
             string parent = arg.GetString(0);
             PlayerState state = _playerStates[player.userID];
             UiDropdownMenu menu = UiBuilder.DropdownMenu(parent, _exampleList, FontSize + state.NumberPicker, UiColors.Text, UiColors.PanelTertiary, nameof(UiElementsSelectDropdownValue), minWidth: 0);
-            menu.Builder.DestroyAndAddUi(player);
+            menu.Builder.AddUi(player);
             menu.Dispose();
         }
         
@@ -520,7 +520,7 @@ namespace Oxide.Plugins
 
             var menu = UiBuilder.DropdownMenu(parent, _pageExampleList, FontSize + state.NumberPicker, UiColors.Text, UiColors.PanelTertiary, nameof(UiElementsSelectPagedDropdownValue), $"{nameof(UiElementsOpenPageDropdown)} {parent}", 
                 state.MenuDropdownPage, 6, minWidth: 0);
-            menu.Builder.DestroyAndAddUi(player);
+            menu.Builder.AddUi(player);
             menu.Dispose();
         }
 
@@ -580,7 +580,7 @@ namespace Oxide.Plugins
             }
 
             var menu = UiBuilder.TimePickerMenu(parent, state.Time, FontSize + state.NumberPicker, UiColors.Text, UiColors.PanelTertiary, $"{nameof(UiElementsOpenTimePicker)} {parent}", TimePickerDisplayMode.All, ClockMode.Hour12);
-            menu.Builder.DestroyAndAddUi(player);
+            menu.Builder.AddUi(player);
             menu.Dispose();
         }
         
@@ -603,7 +603,7 @@ namespace Oxide.Plugins
             //var sw = Stopwatch.StartNew();
             
             UiCalenderPicker menu = UiBuilder.DateCalenderMenu(parent, state.Date, FontSize + state.NumberPicker, UiColors.Text, UiColors.PanelTertiary, UiColors.PanelTertiary.Darken(.15f), UiColors.Rust.Red,$"{nameof(UiElementsOpenDatePicker)} {parent}", PopoverPosition.Left);
-            menu.Builder.DestroyAndAddUi(player);
+            menu.Builder.AddUi(player);
             menu.Dispose();
             
             //sw.Stop();
@@ -630,9 +630,9 @@ namespace Oxide.Plugins
 
             //Puts($"{UiColors.PanelTertiary} {UiColors.PanelTertiary.ToGrayScale()}");
             
-            UiColorPickerMenu menu = UiBuilder.ColorPickerMenu(parent, state.Color, FontSize + state.NumberPicker, UiColors.Text, UiColors.PanelTertiary.Lighten(.15f), UiColors.PanelTertiary, UiColors.PanelTertiary.Darken(.15f), UiColors.PanelTertiary.Lighten(.15f),$"{nameof(UiElementsOpenDatePicker)} {parent}", ColorPickerMode.RGBA, PopoverPosition.Bottom);
-            menu.Builder.DestroyAndAddUi(player);
-            menu.Dispose();
+            // UiColorPickerMenu menu = UiBuilder.ColorPickerMenu(parent, state.Color, FontSize + state.NumberPicker, UiColors.Text, UiColors.PanelTertiary.Lighten(.15f), UiColors.PanelTertiary, UiColors.PanelTertiary.Darken(.15f), UiColors.PanelTertiary.Lighten(.15f),$"{nameof(UiElementsOpenDatePicker)} {parent}", ColorPickerMode.RGBA, PopoverPosition.Bottom);
+            // menu.Builder.DestroyAndAddUi(player);
+            // menu.Dispose();
             
             sw.Stop();
             Puts($"Took: {TimeSpan.FromTicks(sw.ElapsedTicks).TotalMilliseconds}ms");

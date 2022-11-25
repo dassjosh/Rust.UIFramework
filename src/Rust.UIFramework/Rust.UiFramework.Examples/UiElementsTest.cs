@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using Network;
 using Newtonsoft.Json;
 using Oxide.Core;
@@ -15,7 +16,6 @@ using Color = UnityEngine.Color;
 using Net = Network.Net;
 
 using Oxide.Plugins.UiElementsTestExtensions;
-
 //UiElementsTest created with PluginMerge v(1.0.5.0) by MJSU @ https://github.com/dassjosh/Plugin.Merge
 namespace Oxide.Plugins
 {
@@ -276,7 +276,7 @@ namespace Oxide.Plugins
             builder.DatePicker(body, _grid, default(UiOffset), state.Date, FontSize, UiColors.Text, UiColors.PanelSecondary, nameof(UiElementsOpenDatePicker));
             _grid.MoveCols(1);
             
-            builder.ColorPicker(body, _grid, default(UiOffset), state.Color, FontSize, UiColors.Text, UiColors.PanelSecondary, nameof(UiElementsOpenColorPicker));
+            //builder.ColorPicker(body, _grid, default(UiOffset), state.Color, FontSize, UiColors.Text, UiColors.PanelSecondary, nameof(UiElementsOpenColorPicker));
             
             // string imagePath = "Assets/Content/UI/gameui/cardgames/deck/clubs/2_clubs.";
             // builder.ImageSprite(body, _grid, imagePath + "png").SetSpriteMaterialImage(imagePath + "png", null, Image.Type.Sliced);
@@ -288,7 +288,7 @@ namespace Oxide.Plugins
             // builder.ImageSprite(body, _grid, imagePath + "jpg");
             // _grid.MoveCols(1);
             
-            builder.DestroyAndAddUi(player);
+            builder.AddUi(player);
             
             
             LogToFile("Main", string.Empty, this); //This code is for debugging purposes only. DO NOT USE IN PRODUCTION!!
@@ -307,7 +307,7 @@ namespace Oxide.Plugins
             
             //builder.Border(builder.Root, UiColors.Rust.Red, 2);
             
-            builder.DestroyAndAddUi(player);
+            builder.AddUi(player);
             
             LogToFile("Modal", string.Empty, this); //This code is for debugging purposes only. DO NOT USE IN PRODUCTION!!
             LogToFile("Modal", builder.GetJsonString(), this); //This code is for debugging purposes only. DO NOT USE IN PRODUCTION!!
@@ -333,7 +333,7 @@ namespace Oxide.Plugins
             UiButton close = builder.CloseButton(builder.Root, _closeButtonPos, UiColors.CloseButton, UiSkin);
             builder.Label(close, UiPosition.HorizontalPaddedFull, "<b>X</b>", FontSize, UiColors.Text);
             
-            builder.DestroyAndAddUi(player);
+            builder.AddUi(player);
             
             //This code is for debugging purposes only. DO NOT USE IN PRODUCTION!!
             LogToFile("Skin", string.Empty, this);
@@ -351,7 +351,7 @@ namespace Oxide.Plugins
             // UiInput working = builder.InputBackground(builder.Root, new UiPosition(0, 0f, 1, 0.45f), "", 14, UiColors.Text, UiColors.Rust.Green, "");
             // working.SetRequiresKeyboard(false);
             
-            builder.DestroyAndAddUi(player);
+            builder.AddUi(player);
             
             LogToFile("LootBug", builder.GetJsonString(), this); //This code is for debugging purposes only. DO NOT USE IN PRODUCTION!!
             
@@ -508,7 +508,7 @@ namespace Oxide.Plugins
             string parent = arg.GetString(0);
             PlayerState state = _playerStates[player.userID];
             UiDropdownMenu menu = UiBuilder.DropdownMenu(parent, _exampleList, FontSize + state.NumberPicker, UiColors.Text, UiColors.PanelTertiary, nameof(UiElementsSelectDropdownValue), minWidth: 0);
-            menu.Builder.DestroyAndAddUi(player);
+            menu.Builder.AddUi(player);
             menu.Dispose();
         }
         
@@ -527,7 +527,7 @@ namespace Oxide.Plugins
             
             var menu = UiBuilder.DropdownMenu(parent, _pageExampleList, FontSize + state.NumberPicker, UiColors.Text, UiColors.PanelTertiary, nameof(UiElementsSelectPagedDropdownValue), $"{nameof(UiElementsOpenPageDropdown)} {parent}",
             state.MenuDropdownPage, 6, minWidth: 0);
-            menu.Builder.DestroyAndAddUi(player);
+            menu.Builder.AddUi(player);
             menu.Dispose();
         }
         
@@ -587,7 +587,7 @@ namespace Oxide.Plugins
             }
             
             var menu = UiBuilder.TimePickerMenu(parent, state.Time, FontSize + state.NumberPicker, UiColors.Text, UiColors.PanelTertiary, $"{nameof(UiElementsOpenTimePicker)} {parent}", TimePickerDisplayMode.All, ClockMode.Hour12);
-            menu.Builder.DestroyAndAddUi(player);
+            menu.Builder.AddUi(player);
             menu.Dispose();
         }
         
@@ -610,7 +610,7 @@ namespace Oxide.Plugins
             //var sw = Stopwatch.StartNew();
             
             UiCalenderPicker menu = UiBuilder.DateCalenderMenu(parent, state.Date, FontSize + state.NumberPicker, UiColors.Text, UiColors.PanelTertiary, UiColors.PanelTertiary.Darken(.15f), UiColors.Rust.Red,$"{nameof(UiElementsOpenDatePicker)} {parent}", PopoverPosition.Left);
-            menu.Builder.DestroyAndAddUi(player);
+            menu.Builder.AddUi(player);
             menu.Dispose();
             
             //sw.Stop();
@@ -637,9 +637,9 @@ namespace Oxide.Plugins
             
             //Puts($"{UiColors.PanelTertiary} {UiColors.PanelTertiary.ToGrayScale()}");
             
-            UiColorPickerMenu menu = UiBuilder.ColorPickerMenu(parent, state.Color, FontSize + state.NumberPicker, UiColors.Text, UiColors.PanelTertiary.Lighten(.15f), UiColors.PanelTertiary, UiColors.PanelTertiary.Darken(.15f), UiColors.PanelTertiary.Lighten(.15f),$"{nameof(UiElementsOpenDatePicker)} {parent}", ColorPickerMode.RGBA, PopoverPosition.Bottom);
-            menu.Builder.DestroyAndAddUi(player);
-            menu.Dispose();
+            // UiColorPickerMenu menu = UiBuilder.ColorPickerMenu(parent, state.Color, FontSize + state.NumberPicker, UiColors.Text, UiColors.PanelTertiary.Lighten(.15f), UiColors.PanelTertiary, UiColors.PanelTertiary.Darken(.15f), UiColors.PanelTertiary.Lighten(.15f),$"{nameof(UiElementsOpenDatePicker)} {parent}", ColorPickerMode.RGBA, PopoverPosition.Bottom);
+            // menu.Builder.DestroyAndAddUi(player);
+            // menu.Dispose();
             
             sw.Stop();
             Puts($"Took: {TimeSpan.FromTicks(sw.ElapsedTicks).TotalMilliseconds}ms");
@@ -745,16 +745,19 @@ namespace Oxide.Plugins
             #region Add UI
             public void AddUi(BasePlayer player)
             {
+                if (player == null) throw new ArgumentNullException(nameof(player));
                 AddUi(new SendInfo(player.Connection));
             }
             
             public void AddUi(Connection connection)
             {
+                if (connection == null) throw new ArgumentNullException(nameof(connection));
                 AddUi(new SendInfo(connection));
             }
             
             public void AddUi(List<Connection> connections)
             {
+                if (connections == null) throw new ArgumentNullException(nameof(connections));
                 AddUi(new SendInfo(connections));
             }
             
@@ -774,16 +777,19 @@ namespace Oxide.Plugins
             #region Add UI Cached
             public void AddUiCached(BasePlayer player)
             {
+                if (player == null) throw new ArgumentNullException(nameof(player));
                 AddUiCached(new SendInfo(player.Connection));
             }
             
             public void AddUiCached(Connection connection)
             {
+                if (connection == null) throw new ArgumentNullException(nameof(connection));
                 AddUiCached(new SendInfo(connection));
             }
             
             public void AddUiCached(List<Connection> connections)
             {
+                if (connections == null) throw new ArgumentNullException(nameof(connections));
                 AddUiCached(new SendInfo(connections));
             }
             
@@ -906,23 +912,6 @@ namespace Oxide.Plugins
             #endregion
             
             #region Image
-            public UiImage ImageFileStorage(BaseUiComponent parent, UiPosition pos, UiOffset offset, string png, UiColor color)
-            {
-                uint _;
-                if (!uint.TryParse(png, out _))
-                {
-                    throw new UiFrameworkException($"Image PNG '{png}' is not a valid uint. If trying to use a url please use WebImage instead");
-                }
-                
-                UiImage image = UiImage.CreateFileImage(pos, offset, color, png);
-                AddComponent(image, parent);
-                return image;
-            }
-            
-            public UiImage ImageFileStorage(BaseUiComponent parent, UiPosition pos, string png, UiColor color) => ImageFileStorage(parent, pos, default(UiOffset), png, color);
-            public UiImage ImageFileStorage(BaseUiComponent parent, UiPosition pos, UiOffset offset, string png) => ImageFileStorage(parent, pos, offset, png, UiColor.White);
-            public UiImage ImageFileStorage(BaseUiComponent parent, UiPosition pos, string png) => ImageFileStorage(parent, pos, default(UiOffset), png, UiColor.White);
-            
             public UiImage ImageSprite(BaseUiComponent parent, UiPosition pos, UiOffset offset, string sprite, UiColor color)
             {
                 UiImage image = UiImage.CreateSpriteImage(pos, offset, color, sprite);
@@ -978,6 +967,23 @@ namespace Oxide.Plugins
             public UiRawImage TextureImage(BaseUiComponent parent, UiPosition pos, UiOffset offset, string texture) => TextureImage(parent, pos, offset, texture, UiColor.White);
             public UiRawImage TextureImage(BaseUiComponent parent, UiPosition pos, string texture, UiColor color) => TextureImage(parent, pos, default(UiOffset), texture, color);
             public UiRawImage TextureImage(BaseUiComponent parent, UiPosition pos, string texture) => TextureImage(parent, pos, texture, UiColor.White);
+            
+            public UiRawImage ImageFileStorage(BaseUiComponent parent, UiPosition pos, UiOffset offset, string png, UiColor color)
+            {
+                uint _;
+                if (!uint.TryParse(png, out _))
+                {
+                    throw new UiFrameworkException($"Image PNG '{png}' is not a valid uint. If trying to use a url please use WebImage instead");
+                }
+                
+                UiRawImage image = UiRawImage.CreateFileImage(pos, offset, color, png);
+                AddComponent(image, parent);
+                return image;
+            }
+            
+            public UiRawImage ImageFileStorage(BaseUiComponent parent, UiPosition pos, string png, UiColor color) => ImageFileStorage(parent, pos, default(UiOffset), png, color);
+            public UiRawImage ImageFileStorage(BaseUiComponent parent, UiPosition pos, UiOffset offset, string png) => ImageFileStorage(parent, pos, offset, png, UiColor.White);
+            public UiRawImage ImageFileStorage(BaseUiComponent parent, UiPosition pos, string png) => ImageFileStorage(parent, pos, default(UiOffset), png, UiColor.White);
             #endregion
             
             #region Label
@@ -1281,18 +1287,18 @@ namespace Oxide.Plugins
             #endregion
             
             #region Color Picker
-            public UiColorPicker ColorPicker(BaseUiComponent parent, UiPosition pos, UiOffset offset, UiColor selectedColor, int fontSize, UiColor textColor, UiColor backgroundColor, string openCommand)
-            {
-                UiColorPicker control = UiColorPicker.Create(this, parent, pos, offset, selectedColor, fontSize, textColor, backgroundColor, openCommand);
-                AddControl(control);
-                return control;
-            }
-            
-            public static UiColorPickerMenu ColorPickerMenu(string parentName, UiColor selectedColor, int fontSize, UiColor textColor, UiColor buttonColor, UiColor backgroundColor, UiColor pickerBackgroundColor, UiColor pickerDisabledColor, string command, ColorPickerMode mode, PopoverPosition position, string menuSprite = UiConstants.Sprites.RoundedBackground2, InputMode inputMode = InputMode.NeedsKeyboard)
-            {
-                UiColorPickerMenu picker = UiColorPickerMenu.Create(parentName, selectedColor, fontSize, textColor, buttonColor, backgroundColor, pickerBackgroundColor, pickerDisabledColor, command, mode, position, menuSprite, inputMode);
-                return picker;
-            }
+            // public UiColorPicker ColorPicker(BaseUiComponent parent, UiPosition pos, UiOffset offset, UiColor selectedColor, int fontSize, UiColor textColor, UiColor backgroundColor, string openCommand)
+            // {
+                //     UiColorPicker control = UiColorPicker.Create(this, parent, pos, offset, selectedColor, fontSize, textColor, backgroundColor, openCommand);
+                //     AddControl(control);
+                //     return control;
+            // }
+            //
+            // public static UiColorPickerMenu ColorPickerMenu(string parentName, UiColor selectedColor, int fontSize, UiColor textColor, UiColor buttonColor, UiColor backgroundColor, UiColor pickerBackgroundColor, UiColor pickerDisabledColor, string command, ColorPickerMode mode, PopoverPosition position, string menuSprite = UiConstants.Sprites.RoundedBackground2, InputMode inputMode = InputMode.NeedsKeyboard)
+            // {
+                //     UiColorPickerMenu picker = UiColorPickerMenu.Create(parentName, selectedColor, fontSize, textColor, buttonColor, backgroundColor, pickerBackgroundColor, pickerDisabledColor, command, mode, position, menuSprite, inputMode);
+                //     return picker;
+            // }
             #endregion
             
             #region Border
@@ -1402,6 +1408,7 @@ namespace Oxide.Plugins
             
             private bool _needsMouse;
             private bool _needsKeyboard;
+            private bool _autoDestroy = true;
             
             private string _rootName;
             private string _font;
@@ -1449,6 +1456,11 @@ namespace Oxide.Plugins
             public void NeedsKeyboard(bool enabled = true)
             {
                 _needsKeyboard = enabled;
+            }
+            
+            public void EnableAutoDestroy(bool enabled = true)
+            {
+                _autoDestroy = enabled;
             }
             
             public void SetCurrentFont(UiFont font)
@@ -1514,6 +1526,7 @@ namespace Oxide.Plugins
                 _needsMouse = false;
                 _font = null;
                 _rootName = null;
+                _autoDestroy = true;
             }
             
             protected override void LeavePool()
@@ -1560,7 +1573,7 @@ namespace Oxide.Plugins
                     }
                 }
                 
-                _components[0].WriteRootComponent(writer, _needsMouse, _needsKeyboard);
+                _components[0].WriteRootComponent(writer, _needsMouse, _needsKeyboard, _autoDestroy);
                 
                 count = _components.Count;
                 for (int index = 1; index < count; index++)
@@ -1607,50 +1620,21 @@ namespace Oxide.Plugins
         }
         public partial class UiBuilder
         {
-            #region Destroy & Add UI
-            public void DestroyAndAddUi(BasePlayer player)
-            {
-                DestroyAndAddUi(new SendInfo(player.Connection));
-            }
-            
-            public void DestroyAndAddUi(Connection connection)
-            {
-                DestroyAndAddUi(new SendInfo(connection));
-            }
-            
-            public void DestroyAndAddUi(List<Connection> connections)
-            {
-                DestroyAndAddUi(new SendInfo(connections));
-            }
-            
-            public void DestroyAndAddUi()
-            {
-                DestroyAndAddUi(new SendInfo(Net.sv.connections));
-            }
-            
-            private void DestroyAndAddUi(SendInfo send)
-            {
-                JsonFrameworkWriter writer = CreateWriter();
-                DestroyUi(send, _rootName);
-                AddUi(send, writer);
-                UiFrameworkPool.Free(ref writer);
-            }
-            #endregion
-        }
-        public partial class UiBuilder
-        {
             public void DestroyUi(BasePlayer player)
             {
+                if (!player) throw new ArgumentNullException(nameof(player));
                 DestroyUi(player, _rootName);
             }
             
             public void DestroyUi(Connection connection)
             {
+                if (connection == null) throw new ArgumentNullException(nameof(connection));
                 DestroyUi(new SendInfo(connection), _rootName);
             }
             
             public void DestroyUi(List<Connection> connections)
             {
+                if (connections == null) throw new ArgumentNullException(nameof(connections));
                 DestroyUi(new SendInfo(connections), _rootName);
             }
             
@@ -1661,6 +1645,7 @@ namespace Oxide.Plugins
             
             public void DestroyUiImages(BasePlayer player)
             {
+                if (!player) throw new ArgumentNullException(nameof(player));
                 DestroyUiImages(player.Connection);
             }
             
@@ -1671,6 +1656,7 @@ namespace Oxide.Plugins
             
             public void DestroyUiImages(Connection connection)
             {
+                if (connection == null) throw new ArgumentNullException(nameof(connection));
                 for (int index = _components.Count - 1; index >= 0; index--)
                 {
                     BaseUiComponent component = _components[index];
@@ -1683,6 +1669,7 @@ namespace Oxide.Plugins
             
             public void DestroyUiImages(List<Connection> connections)
             {
+                if (connections == null) throw new ArgumentNullException(nameof(connections));
                 for (int index = _components.Count - 1; index >= 0; index--)
                 {
                     BaseUiComponent component = _components[index];
@@ -1695,6 +1682,7 @@ namespace Oxide.Plugins
             
             public static void DestroyUi(BasePlayer player, string name)
             {
+                if (player == null) throw new ArgumentNullException(nameof(player));
                 DestroyUi(new SendInfo(player.Connection), name);
             }
             
@@ -2668,7 +2656,7 @@ namespace Oxide.Plugins
         {
             private const string Type = "UnityEngine.UI.Outline";
             
-            public Vector2 Distance;
+            public Vector2 Distance = new Vector2(0.5f, -0.5f);
             public bool UseGraphicAlpha;
             
             public override void WriteComponent(JsonFrameworkWriter writer)
@@ -2685,9 +2673,9 @@ namespace Oxide.Plugins
                 writer.WriteEndObject();
             }
             
-            protected override void EnterPool()
+            protected override void LeavePool()
             {
-                Distance = new Vector2(1.0f, -1.0f);
+                Distance = new Vector2(0.5f, -0.5f);
                 UseGraphicAlpha = false;
             }
             
@@ -2701,6 +2689,7 @@ namespace Oxide.Plugins
             private const string Type = "UnityEngine.UI.RawImage";
             
             public string Url;
+            public string Png;
             public string Texture;
             public string Material;
             
@@ -2713,6 +2702,11 @@ namespace Oxide.Plugins
                 if (!string.IsNullOrEmpty(Url))
                 {
                     writer.AddFieldRaw(JsonDefaults.Image.UrlName, Url);
+                }
+                
+                if (!string.IsNullOrEmpty(Png))
+                {
+                    writer.AddFieldRaw(JsonDefaults.Image.PngName, Png);
                 }
                 
                 base.WriteComponent(writer);
@@ -2965,28 +2959,6 @@ namespace Oxide.Plugins
                 Button = null;
                 Label = null;
                 Checkmark = DefaultCheckmark;
-            }
-            
-            public override void DisposeInternal()
-            {
-                UiFrameworkPool.Free(this);
-            }
-        }
-        public class UiColorPicker : BaseUiControl
-        {
-            public UiSection Anchor;
-            public UiButton Button;
-            public UiLabel Text;
-            public UiPanel Color;
-            
-            public static UiColorPicker Create(UiBuilder builder, BaseUiComponent parent, UiPosition pos, UiOffset offset, UiColor selectedColor, int fontSize, UiColor textColor, UiColor backgroundColor, string openCommand)
-            {
-                UiColorPicker control = CreateControl<UiColorPicker>();
-                control.Anchor = builder.Anchor(parent, pos, offset);
-                control.Button = builder.CommandButton(parent, pos, offset, backgroundColor, $"{openCommand} {control.Anchor.Name}");
-                control.Text = builder.Label(control.Button, UiPosition.Full, new UiOffset(5, 0, 0, 0), selectedColor.ToHtmlColor(), fontSize, textColor, TextAnchor.MiddleLeft);
-                control.Color = builder.Panel(control.Button, UiPosition.Full.SliceHorizontal(1f - (pos.Max.y - pos.Min.y), 1), new UiOffset(-4, 4, -4, -4), selectedColor);
-                return control;
             }
             
             public override void DisposeInternal()
@@ -3423,7 +3395,7 @@ namespace Oxide.Plugins
             Overlay,
             HudMenu,
             Hud,
-            Under,
+            Under
         }
         public class UiFrameworkException : Exception
         {
@@ -3610,6 +3582,7 @@ namespace Oxide.Plugins
                 public const string NullValue = null;
                 public const string NeedsCursorValue = "NeedsCursor";
                 public const string NeedsKeyboardValue = "NeedsKeyboard";
+                public const string AutoDestroy = "destroyUi";
                 public const string CommandName = "command";
             }
             
@@ -3900,6 +3873,13 @@ namespace Oxide.Plugins
             {
                 WriteStartObject();
                 AddFieldRaw(JsonDefaults.Common.ComponentTypeName, JsonDefaults.Common.NeedsKeyboardValue);
+                WriteEndObject();
+            }
+            
+            public void AddAutoDestroy(string name)
+            {
+                WriteStartObject();
+                AddFieldRaw(JsonDefaults.Common.AutoDestroy, name);
                 WriteEndObject();
             }
             #endregion
@@ -4272,6 +4252,11 @@ namespace Oxide.Plugins
             {
                 Min = new Vector2(xMin, yMin);
                 Max = new Vector2(xMax, yMax);
+            }
+            
+            public static UiOffset CreateRect(int x, int y, int width, int height)
+            {
+                return new UiOffset(x, y, x + width, y + height);
             }
             
             public Vector2 Size => Max - Min;
@@ -4889,7 +4874,7 @@ namespace Oxide.Plugins
                 return component;
             }
             
-            public void WriteRootComponent(JsonFrameworkWriter writer, bool needsMouse, bool needsKeyboard)
+            public void WriteRootComponent(JsonFrameworkWriter writer, bool needsMouse, bool needsKeyboard, bool autoDestroy)
             {
                 writer.WriteStartObject();
                 writer.AddFieldRaw(JsonDefaults.Common.ComponentName, Name);
@@ -4908,6 +4893,11 @@ namespace Oxide.Plugins
                 if (needsKeyboard)
                 {
                     writer.AddKeyboard();
+                }
+                
+                if (autoDestroy)
+                {
+                    writer.AddAutoDestroy(Name);
                 }
                 
                 writer.WriteEndArray();
@@ -5119,14 +5109,6 @@ namespace Oxide.Plugins
         }
         public class UiImage : BaseUiImage
         {
-            public static UiImage CreateFileImage(UiPosition pos, UiOffset offset, UiColor color, string png)
-            {
-                UiImage image = CreateBase<UiImage>(pos, offset);
-                image.Image.Color = color;
-                image.Image.Png = png;
-                return image;
-            }
-            
             public static UiImage CreateSpriteImage(UiPosition pos, UiOffset offset, UiColor color, string sprite)
             {
                 UiImage image = CreateBase<UiImage>(pos, offset);
@@ -5369,6 +5351,14 @@ namespace Oxide.Plugins
                 UiRawImage image = CreateBase<UiRawImage>(pos, offset);
                 image.RawImage.Color = color;
                 image.RawImage.Texture = icon;
+                return image;
+            }
+            
+            public static UiRawImage CreateFileImage(UiPosition pos, UiOffset offset, UiColor color, string png)
+            {
+                UiRawImage image = CreateBase<UiRawImage>(pos, offset);
+                image.RawImage.Color = color;
+                image.RawImage.Png = png;
                 return image;
             }
             
@@ -5932,87 +5922,6 @@ namespace Oxide.Plugins
                 NextYear = null;
                 NextMonth = null;
                 UiFrameworkPool.FreeList(ref DateButtons);
-            }
-            
-            public override void DisposeInternal()
-            {
-                UiFrameworkPool.Free(this);
-            }
-        }
-        public class UiColorPickerMenu : BasePopoverControl
-        {
-            public UiPanel HexInputBackground;
-            public UiInput HexInput;
-            public UiNumberPicker RedPicker;
-            public UiNumberPicker GreenPicker;
-            public UiNumberPicker BluePicker;
-            public UiNumberPicker AlphaPicker;
-            
-            private const int MenuPadding = 4;
-            private const int ItemPadding = 2;
-            
-            private int _width;
-            private int _height;
-            
-            //private int _colorLabelWidth;
-            private int _colorInputWidth;
-            private int _hexInputWidth;
-            
-            public static UiColorPickerMenu Create(string parentName, UiColor selectedColor, int fontSize, UiColor textColor, UiColor buttonColor, UiColor backgroundColor, UiColor pickerBackgroundColor, UiColor pickerDisabledColor, string command, ColorPickerMode mode, PopoverPosition position, string menuSprite, InputMode inputMode)
-            {
-                UiColorPickerMenu control = CreateControl<UiColorPickerMenu>();
-                
-                int labelHeight = UiHelpers.TextOffsetHeight(fontSize);
-                int rgbaTextHeight = labelHeight + 2;
-                
-                control._colorInputWidth = UiHelpers.TextOffsetWidth(6, fontSize);
-                control._hexInputWidth = UiHelpers.TextOffsetWidth(10, fontSize, 4);
-                int numColors = mode == ColorPickerMode.RGBA ? 4 : 3;
-                
-                control._width = MenuPadding * 2 + control._hexInputWidth + control._colorInputWidth * numColors + ItemPadding * numColors;
-                control._height = MenuPadding * 2 + rgbaTextHeight * 3 + ItemPadding * 2;
-                
-                CreateBuilder(control, parentName, new Vector2Int(control._width, control._height), backgroundColor, position, menuSprite);
-                UiBuilder builder = control.Builder;
-                
-                float colorYMin = -MenuPadding - rgbaTextHeight * 2;
-                float colorYMax = -MenuPadding - rgbaTextHeight;
-                
-                UiOffset input = new UiOffset(MenuPadding, colorYMin, MenuPadding + control._hexInputWidth, colorYMax);
-                string color = mode == ColorPickerMode.RGBA ? selectedColor.ToHexRGBA() : selectedColor.ToHexRGB();
-                int charLimit = mode == ColorPickerMode.RGBA ? 8 : 6;
-                control.HexInputBackground = builder.Panel(builder.Root, UiPosition.TopLeft, input, pickerBackgroundColor);
-                control.HexInput = builder.Input(control.HexInputBackground, UiPosition.Full, new UiOffset(4, 0, 0, 0), color, fontSize, textColor, command, TextAnchor.MiddleLeft, charLimit, inputMode);
-                builder.Label(builder.Root, UiPosition.TopLeft, control.GetLabelPosition(input, labelHeight), "Hex", fontSize, textColor);
-                input = input.MoveXPadded(ItemPadding);
-                
-                input = input.SetWidth(control._colorInputWidth);
-                //control.RedPicker = builder.NumberPicker(builder.Root, UiPosition.TopLeft, input, (int)(selectedColor.Color.r * 255f), fontSize, fontSize / 2, textColor, pickerBackgroundColor, buttonColor, pickerDisabledColor, command, 0, 255, 0, TextAnchor.MiddleCenter, inputMode, NumberPickerMode.UpDown);
-                builder.Label(builder.Root, UiPosition.TopLeft, control.GetLabelPosition(control.RedPicker.Background.Offset, labelHeight), "R", fontSize, textColor);
-                input = input.MoveXPadded(ItemPadding);
-                
-                //control.GreenPicker = builder.NumberPicker(builder.Root, UiPosition.TopLeft, input, (int)(selectedColor.Color.g * 255f), fontSize, fontSize / 2, textColor, pickerBackgroundColor, buttonColor, pickerDisabledColor, null, 0, 255, 0, TextAnchor.MiddleCenter, inputMode, NumberPickerMode.UpDown);
-                builder.Label(builder.Root, UiPosition.TopLeft, control.GetLabelPosition(control.GreenPicker.Background.Offset, labelHeight), "G", fontSize, textColor);
-                input = input.MoveXPadded(ItemPadding);
-                
-                //control.BluePicker = builder.NumberPicker(builder.Root, UiPosition.TopLeft, input, (int)(selectedColor.Color.b * 255f), fontSize, fontSize / 2, textColor, pickerBackgroundColor, buttonColor, pickerDisabledColor, null, 0, 255, 0, TextAnchor.MiddleCenter, inputMode, NumberPickerMode.UpDown);
-                builder.Label(builder.Root, UiPosition.TopLeft, control.GetLabelPosition(control.BluePicker.Background.Offset, labelHeight), "B", fontSize, textColor);
-                
-                if (mode == ColorPickerMode.RGBA)
-                {
-                    input = input.MoveXPadded(ItemPadding);
-                    //control.AlphaPicker = builder.NumberPicker(builder.Root, UiPosition.TopLeft, input, (int)(selectedColor.Color.a * 255f), fontSize, fontSize / 2, textColor, pickerBackgroundColor, buttonColor, pickerDisabledColor, null, 0, 255, 0, TextAnchor.MiddleCenter, inputMode, NumberPickerMode.UpDown);
-                    builder.Label(builder.Root, UiPosition.TopLeft, control.GetLabelPosition(control.AlphaPicker.Background.Offset, labelHeight), "A", fontSize, textColor);
-                }
-                
-                builder.Panel(builder.Root, UiPosition.Bottom, new UiOffset(MenuPadding, MenuPadding + 2, -MenuPadding, rgbaTextHeight + ItemPadding + 2), selectedColor);
-                
-                return control;
-            }
-            
-            private UiOffset GetLabelPosition(UiOffset offset, int textHeight)
-            {
-                return new UiOffset(offset.Min.x, offset.Min.y + textHeight + ItemPadding, offset.Max.x, offset.Max.y + textHeight + ItemPadding);
             }
             
             public override void DisposeInternal()
