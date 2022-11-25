@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using JetBrains.Annotations;
 using Network;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Pooling;
@@ -11,16 +13,19 @@ namespace Oxide.Ext.UiFramework.Builder
         #region Add UI
         public void AddUi(BasePlayer player)
         {
+            if (player == null) throw new ArgumentNullException(nameof(player));
             AddUi(new SendInfo(player.Connection));
         }
 
         public void AddUi(Connection connection)
         {
+            if (connection == null) throw new ArgumentNullException(nameof(connection));
             AddUi(new SendInfo(connection));
         }
 
         public void AddUi(List<Connection> connections)
         {
+            if (connections == null) throw new ArgumentNullException(nameof(connections));
             AddUi(new SendInfo(connections));
         }
 
@@ -40,16 +45,19 @@ namespace Oxide.Ext.UiFramework.Builder
         #region Add UI Cached
         public void AddUiCached(BasePlayer player)
         {
+            if (player == null) throw new ArgumentNullException(nameof(player));
             AddUiCached(new SendInfo(player.Connection));
         }
 
         public void AddUiCached(Connection connection)
         {
+            if (connection == null) throw new ArgumentNullException(nameof(connection));
             AddUiCached(new SendInfo(connection));
         }
 
         public void AddUiCached(List<Connection> connections)
         {
+            if (connections == null) throw new ArgumentNullException(nameof(connections));
             AddUiCached(new SendInfo(connections));
         }
 
