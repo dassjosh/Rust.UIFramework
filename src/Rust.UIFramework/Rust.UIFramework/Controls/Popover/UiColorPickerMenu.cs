@@ -1,5 +1,4 @@
-﻿using Oxide.Core;
-using Oxide.Ext.UiFramework.Builder;
+﻿using Oxide.Ext.UiFramework.Builder;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Controls.NumberPicker;
 using Oxide.Ext.UiFramework.Enums;
