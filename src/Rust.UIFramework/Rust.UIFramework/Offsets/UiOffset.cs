@@ -18,6 +18,11 @@ namespace Oxide.Ext.UiFramework.Offsets
             Max = new Vector2(xMax, yMax);
         }
 
+        public static UiOffset CreateRect(int x, int y, int width, int height)
+        {
+            return new UiOffset(x, y, x + width, y + height);
+        }
+
         public Vector2 Size => Max - Min;
         public float Width => Max.x - Min.x;
         public float Height => Max.y - Min.y;

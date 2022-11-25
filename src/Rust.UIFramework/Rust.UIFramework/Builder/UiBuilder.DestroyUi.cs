@@ -9,7 +9,10 @@ namespace Oxide.Ext.UiFramework.Builder
     {
         public void DestroyUi(BasePlayer player)
         {
-            DestroyUi(player, _rootName);
+            if (player)
+            {
+                DestroyUi(player, _rootName);
+            }
         }
 
         public void DestroyUi(Connection connection)

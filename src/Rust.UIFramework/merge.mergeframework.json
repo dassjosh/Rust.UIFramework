@@ -2,7 +2,6 @@
   "Platform": "Oxide",
   "Merge Settings": {
     "Plugin Name": "UiMergeFramework",
-    "Plugin Base Class": "RustPlugin",
     "Creator Mode": "MergeFramework",
     "Plugin Input Paths": [
       "./Rust.UIFramework"

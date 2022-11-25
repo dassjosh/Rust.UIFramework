@@ -2,7 +2,6 @@
   "Platform": "Oxide",
   "Merge Settings": {
     "Plugin Name": "UiElementsTest",
-    "Plugin Base Class": "RustPlugin",
     "Creator Mode": "Plugin",
     "Plugin Input Paths": [
       "./"

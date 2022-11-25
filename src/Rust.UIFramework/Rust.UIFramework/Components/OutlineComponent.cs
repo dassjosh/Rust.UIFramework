@@ -8,7 +8,7 @@ namespace Oxide.Ext.UiFramework.Components
     {
         private const string Type = "UnityEngine.UI.Outline";
 
-        public Vector2 Distance;
+        public Vector2 Distance = new Vector2(0.5f, -0.5f);
         public bool UseGraphicAlpha;
 
         public override void WriteComponent(JsonFrameworkWriter writer)
