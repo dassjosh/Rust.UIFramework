@@ -22,7 +22,7 @@ namespace Oxide.Ext.UiFramework.UiElements
             return component;
         }
 
-        public void WriteRootComponent(JsonFrameworkWriter writer, bool needsMouse, bool needsKeyboard)
+        public void WriteRootComponent(JsonFrameworkWriter writer, bool needsMouse, bool needsKeyboard, bool autoDestroy)
         {
             writer.WriteStartObject();
             writer.AddFieldRaw(JsonDefaults.Common.ComponentName, Name);
@@ -41,6 +41,11 @@ namespace Oxide.Ext.UiFramework.UiElements
             if (needsKeyboard)
             {
                 writer.AddKeyboard();
+            }
+
+            if (autoDestroy)
+            {
+                writer.AddAutoDestroy(Name);
             }
 
             writer.WriteEndArray();

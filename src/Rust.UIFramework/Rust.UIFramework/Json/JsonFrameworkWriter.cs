@@ -205,6 +205,13 @@ namespace Oxide.Ext.UiFramework.Json
             AddFieldRaw(JsonDefaults.Common.ComponentTypeName, JsonDefaults.Common.NeedsKeyboardValue);
             WriteEndObject();
         }
+        
+        public void AddAutoDestroy(string name)
+        {
+            WriteStartObject();
+            AddFieldRaw(JsonDefaults.Common.AutoDestroy, name);
+            WriteEndObject();
+        }
         #endregion
         
         #region Writing

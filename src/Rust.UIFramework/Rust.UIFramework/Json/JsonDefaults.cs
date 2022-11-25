@@ -15,6 +15,7 @@
             public const string NullValue = null;
             public const string NeedsCursorValue = "NeedsCursor";
             public const string NeedsKeyboardValue = "NeedsKeyboard";
+            public const string AutoDestroy = "destroyUi";
             public const string CommandName = "command";
         }
         

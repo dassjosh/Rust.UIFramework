@@ -16,6 +16,7 @@ namespace Oxide.Ext.UiFramework.Builder
 
         private bool _needsMouse;
         private bool _needsKeyboard;
+        private bool _autoDestroy = true;
 
         private string _rootName;
         private string _font;
@@ -63,6 +64,11 @@ namespace Oxide.Ext.UiFramework.Builder
         public void NeedsKeyboard(bool enabled = true)
         {
             _needsKeyboard = enabled;
+        }
+
+        public void EnableAutoDestroy(bool enabled = true)
+        {
+            _autoDestroy = enabled;
         }
 
         public void SetCurrentFont(UiFont font)
@@ -128,6 +134,7 @@ namespace Oxide.Ext.UiFramework.Builder
             _needsMouse = false;
             _font = null;
             _rootName = null;
+            _autoDestroy = true;
         }
 
         protected override void LeavePool()
@@ -174,7 +181,7 @@ namespace Oxide.Ext.UiFramework.Builder
                 }
             }
 
-            _components[0].WriteRootComponent(writer, _needsMouse, _needsKeyboard);
+            _components[0].WriteRootComponent(writer, _needsMouse, _needsKeyboard, _autoDestroy);
 
             count = _components.Count;
             for (int index = 1; index < count; index++)
