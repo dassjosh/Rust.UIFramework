@@ -12,6 +12,7 @@ using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Controls.Popover
 {
+    //Define:ExcludeFile
     public class UiColorPickerMenu : BasePopoverControl
     {
         public UiPanel HexInputBackground;

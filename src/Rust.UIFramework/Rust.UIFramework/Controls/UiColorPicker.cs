@@ -9,6 +9,7 @@ using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Controls
 {
+    //Define:ExcludeFile
     public class UiColorPicker : BaseUiControl
     {
         public UiSection Anchor;
