@@ -18,7 +18,7 @@ namespace Oxide.Ext.UiFramework.Builder
         public void AddComponent(BaseUiComponent component, BaseUiComponent parent)
         {
             component.Parent = parent.Name;
-            component.Name = UiNameCache.GetComponentName(_rootName, _components.Count);
+            component.Name = UiNameCache.GetComponentName(RootName, _components.Count);
             _components.Add(component);
         }
         
@@ -35,7 +35,7 @@ namespace Oxide.Ext.UiFramework.Builder
             }
             
             component.Parent = parent.Name;
-            component.Name = UiNameCache.GetAnchorName(_rootName, _anchors.Count);
+            component.Name = UiNameCache.GetAnchorName(RootName, _anchors.Count);
             
             _anchors.Add(component);
         }

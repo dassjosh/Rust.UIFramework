@@ -10,9 +10,6 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 
-using Color = UnityEngine.Color;
-using Net = Network.Net;
-
 using Oxide.Plugins.UiMergeFrameworkExtensions;
 //UiMergeFramework created with PluginMerge v(1.0.5.0) by MJSU @ https://github.com/dassjosh/Plugin.Merge
 namespace Oxide.Plugins
@@ -100,9 +97,21 @@ namespace Oxide.Plugins
 	}
 	#endregion
 
-	#region Builder\UiBuilder.AddUi.cs
-	public partial class UiBuilder
+	#region Builder\BaseUiBuilder.cs
+	public abstract class BaseUiBuilder : BasePoolable
 	{
+		protected string RootName;
+		
+		public string GetRootName() => RootName;
+		
+		public abstract byte[] GetBytes();
+		
+		/// <summary>
+		/// Warning this is only recommend to use for debugging purposes
+		/// </summary>
+		/// <returns></returns>
+		public string GetJsonString() => Encoding.UTF8.GetString(GetBytes());
+		
 		#region Add UI
 		public void AddUi(BasePlayer player)
 		{
@@ -127,65 +136,24 @@ namespace Oxide.Plugins
 			AddUi(new SendInfo(Net.sv.connections));
 		}
 		
-		private void AddUi(SendInfo send)
-		{
-			JsonFrameworkWriter writer = CreateWriter();
-			AddUi(send, writer);
-			UiFrameworkPool.Free(writer);
-		}
-		#endregion
+		protected abstract void AddUi(SendInfo send);
 		
-		#region Add UI Cached
-		public void AddUiCached(BasePlayer player)
+		protected void AddUi(SendInfo send, JsonFrameworkWriter writer)
 		{
-			if (player == null) throw new ArgumentNullException(nameof(player));
-			AddUiCached(new SendInfo(player.Connection));
-		}
-		
-		public void AddUiCached(Connection connection)
-		{
-			if (connection == null) throw new ArgumentNullException(nameof(connection));
-			AddUiCached(new SendInfo(connection));
-		}
-		
-		public void AddUiCached(List<Connection> connections)
-		{
-			if (connections == null) throw new ArgumentNullException(nameof(connections));
-			AddUiCached(new SendInfo(connections));
-		}
-		
-		public void AddUiCached()
-		{
-			AddUiCached(new SendInfo(Net.sv.connections));
-		}
-		
-		private void AddUiCached(SendInfo send)
-		{
-			AddUi(send, _cachedJson);
-		}
-		#endregion
-		
-		#region Net Write
-		private static void AddUi(SendInfo send, JsonFrameworkWriter writer)
-		{
-			if (!ClientRPCStart(UiConstants.RpcFunctions.AddUiFunc))
+			if (ClientRPCStart(UiConstants.RpcFunctions.AddUiFunc))
 			{
-				return;
+				writer.WriteToNetwork();
+				Net.sv.write.Send(send);
 			}
-			
-			writer.WriteToNetwork();
-			Net.sv.write.Send(send);
 		}
 		
-		private static void AddUi(SendInfo send, byte[] bytes)
+		protected void AddUi(SendInfo send, byte[] bytes)
 		{
-			if (!ClientRPCStart(UiConstants.RpcFunctions.AddUiFunc))
+			if (ClientRPCStart(UiConstants.RpcFunctions.AddUiFunc))
 			{
-				return;
+				Net.sv.write.BytesWithSize(bytes);
+				Net.sv.write.Send(send);
 			}
-			
-			Net.sv.write.BytesWithSize(bytes);
-			Net.sv.write.Send(send);
 		}
 		
 		private static bool ClientRPCStart(string funcName)
@@ -202,6 +170,47 @@ namespace Oxide.Plugins
 			return true;
 		}
 		#endregion
+		
+		#region Destroy UI
+		public void DestroyUi(BasePlayer player)
+		{
+			if (!player) throw new ArgumentNullException(nameof(player));
+			DestroyUi(player, RootName);
+		}
+		
+		public void DestroyUi(Connection connection)
+		{
+			if (connection == null) throw new ArgumentNullException(nameof(connection));
+			DestroyUi(new SendInfo(connection), RootName);
+		}
+		
+		public void DestroyUi(List<Connection> connections)
+		{
+			if (connections == null) throw new ArgumentNullException(nameof(connections));
+			DestroyUi(new SendInfo(connections), RootName);
+		}
+		
+		public void DestroyUi()
+		{
+			DestroyUi(RootName);
+		}
+		
+		public static void DestroyUi(BasePlayer player, string name)
+		{
+			if (player == null) throw new ArgumentNullException(nameof(player));
+			DestroyUi(new SendInfo(player.Connection), name);
+		}
+		
+		public static void DestroyUi(string name)
+		{
+			DestroyUi(new SendInfo(Net.sv.connections), name);
+		}
+		
+		public static void DestroyUi(SendInfo send, string name)
+		{
+			CommunityEntity.ServerInstance.ClientRPCEx(send, null, UiConstants.RpcFunctions.DestroyUiFunc, name);
+		}
+		#endregion
 	}
 	#endregion
 
@@ -212,7 +221,7 @@ namespace Oxide.Plugins
 		public void AddComponent(BaseUiComponent component, BaseUiComponent parent)
 		{
 			component.Parent = parent.Name;
-			component.Name = UiNameCache.GetComponentName(_rootName, _components.Count);
+			component.Name = UiNameCache.GetComponentName(RootName, _components.Count);
 			_components.Add(component);
 		}
 		
@@ -229,7 +238,7 @@ namespace Oxide.Plugins
 			}
 			
 			component.Parent = parent.Name;
-			component.Name = UiNameCache.GetAnchorName(_rootName, _anchors.Count);
+			component.Name = UiNameCache.GetAnchorName(RootName, _anchors.Count);
 			
 			_anchors.Add(component);
 		}
@@ -775,7 +784,7 @@ namespace Oxide.Plugins
 	#endregion
 
 	#region Builder\UiBuilder.cs
-	public partial class UiBuilder : BasePoolable
+	public partial class UiBuilder : BaseUiBuilder
 	{
 		public BaseUiComponent Root;
 		
@@ -783,9 +792,7 @@ namespace Oxide.Plugins
 		private bool _needsKeyboard;
 		private bool _autoDestroy = true;
 		
-		private string _rootName;
 		private string _font;
-		private byte[] _cachedJson;
 		
 		private List<BaseUiComponent> _components;
 		private List<BaseUiControl> _controls;
@@ -813,7 +820,7 @@ namespace Oxide.Plugins
 			component.Parent = parent;
 			component.Name = name;
 			_components.Add(component);
-			_rootName = name;
+			RootName = name;
 		}
 		
 		public void OverrideRoot(BaseUiComponent component)
@@ -858,26 +865,48 @@ namespace Oxide.Plugins
 			Dispose();
 			//Need this because there is a global GC class that causes issues
 			//ReSharper disable once RedundantNameQualifier
-			System.GC.SuppressFinalize(this);
+			GC.SuppressFinalize(this);
 		}
 		
 		protected override void EnterPool()
 		{
-			int count = _components.Count;
-			for (int index = 0; index < count; index++)
+			FreeComponents();
+			
+			Root = null;
+			_needsKeyboard = false;
+			_needsMouse = false;
+			_font = null;
+			RootName = null;
+			_autoDestroy = true;
+		}
+		
+		private void FreeComponents()
+		{
+			if (_components != null)
 			{
-				_components[index].Dispose();
+				int count = _components.Count;
+				for (int index = 0; index < count; index++)
+				{
+					_components[index].Dispose();
+				}
+				
+				UiFrameworkPool.FreeList(_components);
 			}
 			
-			count = _controls.Count;
-			for (int index = 0; index < count; index++)
+			if (_controls != null)
 			{
-				_controls[index].Dispose();
+				int count = _controls.Count;
+				for (int index = 0; index < count; index++)
+				{
+					_controls[index].Dispose();
+				}
+				
+				UiFrameworkPool.FreeList(_controls);
 			}
 			
 			if (_anchors != null)
 			{
-				count = _anchors.Count;
+				int count = _anchors.Count;
 				for (int index = 0; index < count; index++)
 				{
 					_anchors[index].Dispose();
@@ -885,17 +914,6 @@ namespace Oxide.Plugins
 				
 				UiFrameworkPool.FreeList(_anchors);
 			}
-			
-			UiFrameworkPool.FreeList(_components);
-			UiFrameworkPool.FreeList(_controls);
-			
-			Root = null;
-			_cachedJson = null;
-			_needsKeyboard = false;
-			_needsMouse = false;
-			_font = null;
-			_rootName = null;
-			_autoDestroy = true;
 		}
 		
 		protected override void LeavePool()
@@ -964,109 +982,35 @@ namespace Oxide.Plugins
 			return writer;
 		}
 		
-		public void CacheJson()
+		public CachedUiBuilder ToCachedBuilder()
+		{
+			CachedUiBuilder cached = CachedUiBuilder.CreateCachedBuilder(this);
+			if (!Disposed)
+			{
+				Dispose();
+			}
+			return cached;
+		}
+		
+		public override byte[] GetBytes()
 		{
 			JsonFrameworkWriter writer = CreateWriter();
-			_cachedJson = writer.ToArray();
+			byte[] bytes = writer.ToArray();
 			writer.Dispose();
+			return bytes;
 		}
 		
-		public byte[] GetBytes()
+		protected override void AddUi(SendInfo send)
 		{
-			CacheJson();
-			return _cachedJson;
-		}
-		
-		/// <summary>
-		/// Warning this is only recommend to use for debugging purposes
-		/// </summary>
-		/// <returns></returns>
-		public string GetJsonString()
-		{
-			return Encoding.UTF8.GetString(GetBytes());
+			JsonFrameworkWriter writer = CreateWriter();
+			AddUi(send, writer);
+			writer.Dispose();
+			if (!Disposed)
+			{
+				Dispose();
+			}
 		}
 		#endregion
-	}
-	#endregion
-
-	#region Builder\UiBuilder.DestroyUi.cs
-	public partial class UiBuilder
-	{
-		public void DestroyUi(BasePlayer player)
-		{
-			if (!player) throw new ArgumentNullException(nameof(player));
-			DestroyUi(player, _rootName);
-		}
-		
-		public void DestroyUi(Connection connection)
-		{
-			if (connection == null) throw new ArgumentNullException(nameof(connection));
-			DestroyUi(new SendInfo(connection), _rootName);
-		}
-		
-		public void DestroyUi(List<Connection> connections)
-		{
-			if (connections == null) throw new ArgumentNullException(nameof(connections));
-			DestroyUi(new SendInfo(connections), _rootName);
-		}
-		
-		public void DestroyUi()
-		{
-			DestroyUi(_rootName);
-		}
-		
-		public void DestroyUiImages(BasePlayer player)
-		{
-			if (!player) throw new ArgumentNullException(nameof(player));
-			DestroyUiImages(player.Connection);
-		}
-		
-		public void DestroyUiImages()
-		{
-			DestroyUiImages(Net.sv.connections);
-		}
-		
-		public void DestroyUiImages(Connection connection)
-		{
-			if (connection == null) throw new ArgumentNullException(nameof(connection));
-			for (int index = _components.Count - 1; index >= 0; index--)
-			{
-				BaseUiComponent component = _components[index];
-				if (component is UiRawImage)
-				{
-					DestroyUi(new SendInfo(connection), component.Name);
-				}
-			}
-		}
-		
-		public void DestroyUiImages(List<Connection> connections)
-		{
-			if (connections == null) throw new ArgumentNullException(nameof(connections));
-			for (int index = _components.Count - 1; index >= 0; index--)
-			{
-				BaseUiComponent component = _components[index];
-				if (component is UiRawImage)
-				{
-					DestroyUi(new SendInfo(connections), component.Name);
-				}
-			}
-		}
-		
-		public static void DestroyUi(BasePlayer player, string name)
-		{
-			if (player == null) throw new ArgumentNullException(nameof(player));
-			DestroyUi(new SendInfo(player.Connection), name);
-		}
-		
-		public static void DestroyUi(string name)
-		{
-			DestroyUi(new SendInfo(Net.sv.connections), name);
-		}
-		
-		public static void DestroyUi(SendInfo send, string name)
-		{
-			CommunityEntity.ServerInstance.ClientRPCEx(send, null, UiConstants.RpcFunctions.DestroyUiFunc, name);
-		}
 	}
 	#endregion
 
@@ -4886,6 +4830,25 @@ namespace Oxide.Plugins
 	}
 	#endregion
 
+	#region Builder\Cached\CachedUiBuilder.cs
+	public class CachedUiBuilder : BaseUiBuilder
+	{
+		private readonly byte[] _cachedJson;
+		
+		private CachedUiBuilder(UiBuilder builder)
+		{
+			_cachedJson = builder.GetBytes();
+			RootName = builder.GetRootName();
+		}
+		
+		internal static CachedUiBuilder CreateCachedBuilder(UiBuilder builder) => new CachedUiBuilder(builder);
+		
+		public override byte[] GetBytes() => _cachedJson;
+		
+		protected override void AddUi(SendInfo send) => AddUi(send, GetBytes());
+	}
+	#endregion
+
 	#region Controls\Data\ButtonGroupData.cs
 	public struct ButtonGroupData
 	{
@@ -6017,7 +5980,7 @@ namespace Oxide.Plugins.UiMergeFrameworkExtensions
 	{
 		public static UiColor WithAlpha(this UiColor color, string hex)
 		{
-			return WithAlpha(color, int.Parse(hex, System.Globalization.NumberStyles.HexNumber));
+			return WithAlpha(color, int.Parse(hex, NumberStyles.HexNumber));
 		}
 		
 		public static UiColor WithAlpha(this UiColor color, int alpha)

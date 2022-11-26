@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using Network;
+using Oxide.Ext.UiFramework.Builder.Cached;
 using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Controls;
 using Oxide.Ext.UiFramework.Enums;
@@ -10,18 +11,16 @@ using Oxide.Ext.UiFramework.UiElements;
 
 namespace Oxide.Ext.UiFramework.Builder
 {
-    public partial class UiBuilder : BasePoolable
+    public partial class UiBuilder : BaseUiBuilder
     {
         public BaseUiComponent Root;
 
         private bool _needsMouse;
         private bool _needsKeyboard;
         private bool _autoDestroy = true;
-
-        private string _rootName;
-        private string _font;
-        private byte[] _cachedJson;
         
+        private string _font;
+
         private List<BaseUiComponent> _components;
         private List<BaseUiControl> _controls;
         private List<BaseUiComponent> _anchors;
@@ -48,7 +47,7 @@ namespace Oxide.Ext.UiFramework.Builder
             component.Parent = parent;
             component.Name = name;
             _components.Add(component);
-            _rootName = name;
+            RootName = name;
         }
 
         public void OverrideRoot(BaseUiComponent component)
@@ -98,39 +97,50 @@ namespace Oxide.Ext.UiFramework.Builder
 
         protected override void EnterPool()
         {
-            int count = _components.Count;
-            for (int index = 0; index < count; index++)
+            FreeComponents();
+
+            Root = null;
+            _needsKeyboard = false;
+            _needsMouse = false;
+            _font = null;
+            RootName = null;
+            _autoDestroy = true;
+        }
+
+        private void FreeComponents()
+        {
+            if (_components != null)
             {
-                _components[index].Dispose();
+                int count = _components.Count;
+                for (int index = 0; index < count; index++)
+                {
+                    _components[index].Dispose();
+                }
+                
+                UiFrameworkPool.FreeList(_components);
             }
-            
-            count = _controls.Count;
-            for (int index = 0; index < count; index++)
+
+            if (_controls != null)
             {
-                _controls[index].Dispose();
+                int count = _controls.Count;
+                for (int index = 0; index < count; index++)
+                {
+                    _controls[index].Dispose();
+                }
+                
+                UiFrameworkPool.FreeList(_controls);
             }
 
             if (_anchors != null)
             {
-                count = _anchors.Count;
+                int count = _anchors.Count;
                 for (int index = 0; index < count; index++)
                 {
                     _anchors[index].Dispose();
                 }
-                
+
                 UiFrameworkPool.FreeList(_anchors);
             }
-
-            UiFrameworkPool.FreeList(_components);
-            UiFrameworkPool.FreeList(_controls);
-            
-            Root = null;
-            _cachedJson = null;
-            _needsKeyboard = false;
-            _needsMouse = false;
-            _font = null;
-            _rootName = null;
-            _autoDestroy = true;
         }
 
         protected override void LeavePool()
@@ -199,26 +209,33 @@ namespace Oxide.Ext.UiFramework.Builder
             return writer;
         }
 
-        public void CacheJson()
+        public CachedUiBuilder ToCachedBuilder()
         {
-            JsonFrameworkWriter writer = CreateWriter();
-            _cachedJson = writer.ToArray();
-            writer.Dispose();
+            CachedUiBuilder cached = CachedUiBuilder.CreateCachedBuilder(this);
+            if (!Disposed)
+            {
+                Dispose();
+            }
+            return cached;
         }
         
-        public byte[] GetBytes()
+        public override byte[] GetBytes()
         {
-            CacheJson();
-            return _cachedJson;
+            JsonFrameworkWriter writer = CreateWriter();
+            byte[] bytes = writer.ToArray();
+            writer.Dispose();
+            return bytes;
         }
-
-        /// <summary>
-        /// Warning this is only recommend to use for debugging purposes
-        /// </summary>
-        /// <returns></returns>
-        public string GetJsonString()
+        
+        protected override void AddUi(SendInfo send)
         {
-            return Encoding.UTF8.GetString(GetBytes());
+            JsonFrameworkWriter writer = CreateWriter();
+            AddUi(send, writer);
+            writer.Dispose();
+            if (!Disposed)
+            {
+                Dispose();
+            }
         }
         #endregion
     }
