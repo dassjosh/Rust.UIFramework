@@ -1,5 +1,4 @@
 ﻿using Oxide.Ext.UiFramework.Json;
-using Oxide.Ext.UiFramework.Pooling;
 
 namespace Oxide.Ext.UiFramework.Components
 {
@@ -24,11 +23,6 @@ namespace Oxide.Ext.UiFramework.Components
         {
             ItemId = default(int);
             SkinId = default(ulong);
-        }
-        
-        public override void DisposeInternal()
-        {
-            UiFrameworkPool.Free(this);
         }
     }
 }

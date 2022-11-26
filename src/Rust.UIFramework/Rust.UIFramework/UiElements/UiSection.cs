@@ -1,5 +1,4 @@
 ﻿using Oxide.Ext.UiFramework.Offsets;
-using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Positions;
 
 namespace Oxide.Ext.UiFramework.UiElements
@@ -10,11 +9,6 @@ namespace Oxide.Ext.UiFramework.UiElements
         {
             UiSection panel = CreateBase<UiSection>(pos, offset);
             return panel;
-        }
-        
-        public override void DisposeInternal()
-        {
-            UiFrameworkPool.Free(this);
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Enums;
-using Oxide.Ext.UiFramework.Pooling;
 using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Controls.Popover
@@ -12,11 +11,6 @@ namespace Oxide.Ext.UiFramework.Controls.Popover
             UiPopover control = CreateControl<UiPopover>();
             CreateBuilder(control, parentName, size, backgroundColor, position, menuSprite);
             return control;
-        }
-        
-        public override void DisposeInternal()
-        {
-            UiFrameworkPool.Free(this);
         }
     }
 }

@@ -4,7 +4,7 @@ namespace Oxide.Ext.UiFramework.Pooling
     /// Represents a BasePool in UiFramework
     /// </summary>
     /// <typeparam name="T">Type being pooled</typeparam>
-    public abstract class BasePool<T> : IPool<T> where T : class, new()
+    public abstract class BasePool<T> : IPool<T> where T : class
     {
         private readonly T[] _pool;
         private int _index;
@@ -35,18 +35,30 @@ namespace Oxide.Ext.UiFramework.Pooling
 
             if (item == null)
             {
-                item = new T();
+                item = CreateNew();
             }
 
             OnGetItem(item);
             return item;
         }
+        
+        /// <summary>
+        /// Creates new type of T
+        /// </summary>
+        /// <returns>Newly created type of T</returns>
+        protected abstract T CreateNew();
 
         /// <summary>
         /// Frees an item back to the pool
         /// </summary>
         /// <param name="item">Item being freed</param>
-        public void Free(ref T item)
+        public void Free(T item) => Free(ref item);
+        
+        /// <summary>
+        /// Frees an item back to the pool
+        /// </summary>
+        /// <param name="item">Item being freed</param>
+        private void Free(ref T item)
         {
             if (item == null)
             {
@@ -71,20 +83,14 @@ namespace Oxide.Ext.UiFramework.Pooling
         /// Called when an item is retrieved from the pool
         /// </summary>
         /// <param name="item">Item being retrieved</param>
-        protected virtual void OnGetItem(T item)
-        {
-            
-        }
+        protected virtual void OnGetItem(T item) { }
         
         /// <summary>
         /// Returns if an item can be freed to the pool
         /// </summary>
         /// <param name="item">Item to be freed</param>
         /// <returns>True if can be freed; false otherwise</returns>
-        protected virtual bool OnFreeItem(ref T item)
-        {
-            return true;
-        }
+        protected virtual bool OnFreeItem(ref T item) => true;
 
         public void Clear()
         {

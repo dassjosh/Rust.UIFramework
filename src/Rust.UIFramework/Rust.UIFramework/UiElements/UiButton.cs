@@ -64,18 +64,13 @@ namespace Oxide.Ext.UiFramework.UiElements
         protected override void EnterPool()
         {
             base.EnterPool();
-            UiFrameworkPool.Free(ref Button);
+            UiFrameworkPool.Free(Button);
         }
 
         protected override void LeavePool()
         {
             base.LeavePool();
             Button = UiFrameworkPool.Get<ButtonComponent>();
-        }
-        
-        public override void DisposeInternal()
-        {
-            UiFrameworkPool.Free(this);
         }
     }
 }

@@ -1,7 +1,7 @@
-﻿using Oxide.Ext.UiFramework.Colors;
+﻿using Oxide.Ext.UiFramework.Cache;
+using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Pooling;
 using UnityEngine;
-using Oxide.Ext.UiFramework.Cache;
 using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.Json
@@ -343,7 +343,7 @@ namespace Oxide.Ext.UiFramework.Json
         {
             _objectComma = false;
             _propertyComma = false;
-            UiFrameworkPool.Free(ref _writer);
+            UiFrameworkPool.Free(_writer);
         }
 
         public override string ToString()
@@ -364,11 +364,6 @@ namespace Oxide.Ext.UiFramework.Json
         public byte[] ToArray()
         {
             return _writer.ToArray();
-        }
-
-        public override void DisposeInternal()
-        {
-            UiFrameworkPool.Free(this);
         }
     }
 }

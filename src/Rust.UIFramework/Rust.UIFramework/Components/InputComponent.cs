@@ -1,6 +1,5 @@
 ﻿using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Json;
-using Oxide.Ext.UiFramework.Pooling;
 using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.Components
@@ -78,11 +77,6 @@ namespace Oxide.Ext.UiFramework.Components
             Command = null;
             Mode = default(InputMode);
             LineType = default(InputField.LineType);
-        }
-        
-        public override void DisposeInternal()
-        {
-            UiFrameworkPool.Free(this);
         }
     }
 }

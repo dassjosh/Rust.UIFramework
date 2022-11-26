@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Network;
 using Oxide.Ext.UiFramework.UiElements;
-using Net = Network.Net;
 
 namespace Oxide.Ext.UiFramework.Builder
 {

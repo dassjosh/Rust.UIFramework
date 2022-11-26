@@ -1,5 +1,4 @@
 ﻿using Oxide.Ext.UiFramework.Json;
-using Oxide.Ext.UiFramework.Pooling;
 
 namespace Oxide.Ext.UiFramework.Components
 {
@@ -13,11 +12,6 @@ namespace Oxide.Ext.UiFramework.Components
             writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, Type);
             base.WriteComponent(writer);
             writer.WriteEndObject();
-        }
-        
-        public override void DisposeInternal()
-        {
-            UiFrameworkPool.Free(this);
         }
     }
 }

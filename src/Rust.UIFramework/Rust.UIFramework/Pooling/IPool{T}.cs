@@ -16,6 +16,6 @@ namespace Oxide.Ext.UiFramework.Pooling
         /// Returns the pooled type back to the pool
         /// </summary>
         /// <param name="item"></param>
-        void Free(ref T item);
+        void Free(T item);
     }
 }

@@ -1,5 +1,4 @@
 ﻿using Oxide.Ext.UiFramework.Json;
-using Oxide.Ext.UiFramework.Pooling;
 
 namespace Oxide.Ext.UiFramework.Components
 {
@@ -29,11 +28,6 @@ namespace Oxide.Ext.UiFramework.Components
             EndTime = JsonDefaults.Countdown.EndTimeValue;
             Step = JsonDefaults.Countdown.StepValue;
             Command = null;
-        }
-        
-        public override void DisposeInternal()
-        {
-            UiFrameworkPool.Free(this);
         }
     }
 }

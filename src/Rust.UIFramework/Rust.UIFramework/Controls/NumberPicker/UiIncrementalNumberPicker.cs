@@ -68,13 +68,8 @@ namespace Oxide.Ext.UiFramework.Controls.NumberPicker
 
         protected override void EnterPool()
         {
-            UiFrameworkPool.FreeList(ref Subtracts);
-            UiFrameworkPool.FreeList(ref Adds);
-        }
-        
-        public override void DisposeInternal()
-        {
-            UiFrameworkPool.Free(this);
+            UiFrameworkPool.FreeList(Subtracts);
+            UiFrameworkPool.FreeList(Adds);
         }
     }
 }

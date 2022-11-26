@@ -55,7 +55,7 @@ namespace Rust.UiFramework.Benchmarks
         }
         
         [Benchmark]
-        public UiBuilder Framework_CreateContainer()
+        public UiBuilder UiFramework_CreateContainer()
         {
             UiBuilder builder = GetFrameworkBuilder();
             builder.Dispose();
@@ -69,7 +69,7 @@ namespace Rust.UiFramework.Benchmarks
         }
         
         [Benchmark]
-        public JsonFrameworkWriter Framework_CreateJson()
+        public JsonFrameworkWriter UiFramework_CreateJson()
         {
             JsonFrameworkWriter writer = _builder.CreateWriter();
             writer.Dispose();
@@ -83,7 +83,7 @@ namespace Rust.UiFramework.Benchmarks
         }
         
         [Benchmark]
-        public int Framework_EncodeJson()
+        public int UiFramework_EncodeJson()
         {
             int count = _writer.WriteTo(Buffer);
             return count;
@@ -98,7 +98,7 @@ namespace Rust.UiFramework.Benchmarks
         }
         
         [Benchmark]
-        public int Framework_Full()
+        public int UiFramework_Full()
         {
             UiBuilder builder = GetFrameworkBuilder();
             int count = builder.WriteBuffer(Buffer);
@@ -119,8 +119,8 @@ namespace Rust.UiFramework.Benchmarks
                     },
                     RectTransform =
                     {
-                        AnchorMin = _oxideMins[i % 10],
-                        AnchorMax = _oxideMaxs[i % 10]
+                        AnchorMin = _oxideMins[i],
+                        AnchorMax = _oxideMaxs[i]
                     }
                 });
             }

@@ -43,7 +43,7 @@ namespace Oxide.Ext.UiFramework.Controls
             }
             
             UiButtonGroup control = Create(builder, parent, pos, offset, data, textSize, textColor, buttonColor, activeButtonColor, command);
-            UiFrameworkPool.FreeList(ref data);
+            UiFrameworkPool.FreeList(data);
 
             return control;
         }
@@ -57,13 +57,8 @@ namespace Oxide.Ext.UiFramework.Controls
         protected override void EnterPool()
         {
             base.EnterPool();
-            UiFrameworkPool.FreeList(ref Buttons);
+            UiFrameworkPool.FreeList(Buttons);
             Base = null;
-        }
-
-        public override void DisposeInternal()
-        {
-            UiFrameworkPool.Free(this);
         }
     }
 }

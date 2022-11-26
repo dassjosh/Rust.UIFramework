@@ -229,12 +229,7 @@ namespace Oxide.Ext.UiFramework.Controls.Popover
             PreviousMonth = null;        
             NextYear = null;
             NextMonth = null;
-            UiFrameworkPool.FreeList(ref DateButtons);
-        }
-
-        public override void DisposeInternal()
-        {
-            UiFrameworkPool.Free(this);
+            UiFrameworkPool.FreeList(DateButtons);
         }
     }
 }

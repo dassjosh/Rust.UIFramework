@@ -34,18 +34,13 @@ namespace Oxide.Ext.UiFramework.UiElements
         protected override void EnterPool()
         {
             base.EnterPool();
-            UiFrameworkPool.Free(ref Icon);
+            UiFrameworkPool.Free(Icon);
         }
 
         protected override void LeavePool()
         {
             base.LeavePool();
             Icon = UiFrameworkPool.Get<ItemIconComponent>();
-        }
-        
-        public override void DisposeInternal()
-        {
-            UiFrameworkPool.Free(this);
         }
     }
 }

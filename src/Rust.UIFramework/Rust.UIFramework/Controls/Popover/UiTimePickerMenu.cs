@@ -6,7 +6,6 @@ using Oxide.Ext.UiFramework.Controls.Data;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Offsets;
-using Oxide.Ext.UiFramework.Pooling;
 using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Controls.Popover
@@ -136,11 +135,6 @@ namespace Oxide.Ext.UiFramework.Controls.Popover
             Minute = null;
             Second = null;
             AmPm = null;
-        }
-
-        public override void DisposeInternal()
-        {
-            UiFrameworkPool.Free(this);
         }
     }
 }

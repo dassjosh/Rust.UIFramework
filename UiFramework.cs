@@ -1,4 +1,3 @@
-using JetBrains.Annotations;
 using Network;
 using Newtonsoft.Json;
 using Oxide.Core;
@@ -129,7 +128,7 @@ namespace Oxide.Plugins
 			{
 				JsonFrameworkWriter writer = CreateWriter();
 				AddUi(send, writer);
-				UiFrameworkPool.Free(ref writer);
+				UiFrameworkPool.Free(writer);
 			}
 			#endregion
 			
@@ -859,7 +858,7 @@ namespace Oxide.Plugins
 				System.GC.SuppressFinalize(this);
 			}
 			
-			public override void DisposeInternal()
+			protected override void EnterPool()
 			{
 				int count = _components.Count;
 				for (int index = 0; index < count; index++)
@@ -881,16 +880,12 @@ namespace Oxide.Plugins
 						_anchors[index].Dispose();
 					}
 					
-					UiFrameworkPool.FreeList(ref _anchors);
+					UiFrameworkPool.FreeList(_anchors);
 				}
 				
-				UiFrameworkPool.FreeList(ref _components);
-				UiFrameworkPool.FreeList(ref _controls);
-				UiFrameworkPool.Free(this);
-			}
-			
-			protected override void EnterPool()
-			{
+				UiFrameworkPool.FreeList(_components);
+				UiFrameworkPool.FreeList(_controls);
+				
 				Root = null;
 				_cachedJson = null;
 				_needsKeyboard = false;
@@ -1159,12 +1154,13 @@ namespace Oxide.Plugins
 				builder.Append(color.g.ToString(Format));
 				builder.Append(Space);
 				builder.Append(color.b.ToString(Format));
-				if (color.a != 1f)
+				if (color.a < 1f)
 				{
 					builder.Append(Space);
 					builder.Append(color.a.ToString(Format));
 				}
-				return UiFrameworkPool.ToStringAndFreeStringBuilder(ref builder);
+				
+				return builder.ToStringAndFree();
 			}
 			
 			public static void OnUnload()
@@ -1776,7 +1772,7 @@ namespace Oxide.Plugins
 			{
 				if (_disposable && Args != null)
 				{
-					UiFrameworkPool.FreeList(ref Args);
+					UiFrameworkPool.FreeList(Args);
 				}
 			}
 			
@@ -1901,11 +1897,6 @@ namespace Oxide.Plugins
 				Close = null;
 				ImageType = Image.Type.Simple;
 			}
-			
-			public override void DisposeInternal()
-			{
-				UiFrameworkPool.Free(this);
-			}
 		}
 		#endregion
 
@@ -1937,11 +1928,6 @@ namespace Oxide.Plugins
 				Step = JsonDefaults.Countdown.StepValue;
 				Command = null;
 			}
-			
-			public override void DisposeInternal()
-			{
-				UiFrameworkPool.Free(this);
-			}
 		}
 		#endregion
 
@@ -1968,11 +1954,6 @@ namespace Oxide.Plugins
 				base.EnterPool();
 				Png = JsonDefaults.Common.NullValue;
 				ImageType = Image.Type.Simple;
-			}
-			
-			public override void DisposeInternal()
-			{
-				UiFrameworkPool.Free(this);
 			}
 		}
 		#endregion
@@ -2052,11 +2033,6 @@ namespace Oxide.Plugins
 				Mode = default(InputMode);
 				LineType = default(InputField.LineType);
 			}
-			
-			public override void DisposeInternal()
-			{
-				UiFrameworkPool.Free(this);
-			}
 		}
 		#endregion
 
@@ -2082,11 +2058,6 @@ namespace Oxide.Plugins
 			{
 				ItemId = default(int);
 				SkinId = default(ulong);
-			}
-			
-			public override void DisposeInternal()
-			{
-				UiFrameworkPool.Free(this);
 			}
 		}
 		#endregion
@@ -2117,11 +2088,6 @@ namespace Oxide.Plugins
 			{
 				Distance = new Vector2(0.5f, -0.5f);
 				UseGraphicAlpha = false;
-			}
-			
-			public override void DisposeInternal()
-			{
-				UiFrameworkPool.Free(this);
 			}
 		}
 		#endregion
@@ -2164,11 +2130,6 @@ namespace Oxide.Plugins
 				Texture = null;
 				Material = null;
 			}
-			
-			public override void DisposeInternal()
-			{
-				UiFrameworkPool.Free(this);
-			}
 		}
 		#endregion
 
@@ -2183,11 +2144,6 @@ namespace Oxide.Plugins
 				writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, Type);
 				base.WriteComponent(writer);
 				writer.WriteEndObject();
-			}
-			
-			public override void DisposeInternal()
-			{
-				UiFrameworkPool.Free(this);
 			}
 		}
 		#endregion
@@ -2316,11 +2272,6 @@ namespace Oxide.Plugins
 				Right = null;
 				Bottom = null;
 			}
-			
-			public override void DisposeInternal()
-			{
-				UiFrameworkPool.Free(this);
-			}
 		}
 		#endregion
 
@@ -2357,7 +2308,7 @@ namespace Oxide.Plugins
 				}
 				
 				UiButtonGroup control = Create(builder, parent, pos, offset, data, textSize, textColor, buttonColor, activeButtonColor, command);
-				UiFrameworkPool.FreeList(ref data);
+				UiFrameworkPool.FreeList(data);
 				
 				return control;
 			}
@@ -2371,13 +2322,8 @@ namespace Oxide.Plugins
 			protected override void EnterPool()
 			{
 				base.EnterPool();
-				UiFrameworkPool.FreeList(ref Buttons);
+				UiFrameworkPool.FreeList(Buttons);
 				Base = null;
-			}
-			
-			public override void DisposeInternal()
-			{
-				UiFrameworkPool.Free(this);
 			}
 		}
 		#endregion
@@ -2418,11 +2364,6 @@ namespace Oxide.Plugins
 				Label = null;
 				Checkmark = DefaultCheckmark;
 			}
-			
-			public override void DisposeInternal()
-			{
-				UiFrameworkPool.Free(this);
-			}
 		}
 		#endregion
 
@@ -2444,11 +2385,6 @@ namespace Oxide.Plugins
 				control.Icon = builder.Label(control.Command, UiPosition.Right, new UiOffset(-fontSize - 4, 0, -4 , 0), "⏱", fontSize, textColor);
 				
 				return control;
-			}
-			
-			public override void DisposeInternal()
-			{
-				UiFrameworkPool.Free(this);
 			}
 		}
 		#endregion
@@ -2479,11 +2415,6 @@ namespace Oxide.Plugins
 				Text = null;
 				Icon = null;
 			}
-			
-			public override void DisposeInternal()
-			{
-				UiFrameworkPool.Free(this);
-			}
 		}
 		#endregion
 
@@ -2507,11 +2438,6 @@ namespace Oxide.Plugins
 				Input = null;
 				Background = null;
 			}
-			
-			public override void DisposeInternal()
-			{
-				UiFrameworkPool.Free(this);
-			}
 		}
 		#endregion
 
@@ -2534,11 +2460,6 @@ namespace Oxide.Plugins
 				base.EnterPool();
 				Label = null;
 				Background = null;
-			}
-			
-			public override void DisposeInternal()
-			{
-				UiFrameworkPool.Free(this);
 			}
 		}
 		#endregion
@@ -2600,14 +2521,9 @@ namespace Oxide.Plugins
 				base.EnterPool();
 				FirstPage = null;
 				PreviousPage = null;
-				UiFrameworkPool.FreeList(ref PageButtons);
+				UiFrameworkPool.FreeList(PageButtons);
 				NextPage = null;
 				LastPage = null;
-			}
-			
-			public override void DisposeInternal()
-			{
-				UiFrameworkPool.Free(this);
 			}
 		}
 		#endregion
@@ -2640,11 +2556,6 @@ namespace Oxide.Plugins
 				Value = null;
 				Next = null;
 			}
-			
-			public override void DisposeInternal()
-			{
-				UiFrameworkPool.Free(this);
-			}
 		}
 		#endregion
 
@@ -2667,11 +2578,6 @@ namespace Oxide.Plugins
 				base.EnterPool();
 				BackgroundPanel = null;
 				BarPanel = null;
-			}
-			
-			public override void DisposeInternal()
-			{
-				UiFrameworkPool.Free(this);
 			}
 		}
 		#endregion
@@ -2734,12 +2640,7 @@ namespace Oxide.Plugins
 				base.EnterPool();
 				Background = null;
 				ScrollBar = null;
-				UiFrameworkPool.FreeList(ref ScrollButtons);
-			}
-			
-			public override void DisposeInternal()
-			{
-				UiFrameworkPool.Free(this);
+				UiFrameworkPool.FreeList(ScrollButtons);
 			}
 		}
 		#endregion
@@ -2771,11 +2672,6 @@ namespace Oxide.Plugins
 				Command = null;
 				Text = null;
 				Icon = null;
-			}
-			
-			public override void DisposeInternal()
-			{
-				UiFrameworkPool.Free(this);
 			}
 		}
 		#endregion
@@ -3086,15 +2982,10 @@ namespace Oxide.Plugins
 				}
 				
 				UiFrameworkArrayPool<char>.Shared.Return(_charBuffer);
-				UiFrameworkPool.FreeList(ref _segments);
+				UiFrameworkPool.FreeList(_segments);
 				_charBuffer = null;
 				_size = 0;
 				_charIndex = 0;
-			}
-			
-			public override void DisposeInternal()
-			{
-				UiFrameworkPool.Free(this);
 			}
 		}
 		#endregion
@@ -3549,7 +3440,7 @@ namespace Oxide.Plugins
 			{
 				_objectComma = false;
 				_propertyComma = false;
-				UiFrameworkPool.Free(ref _writer);
+				UiFrameworkPool.Free(_writer);
 			}
 			
 			public override string ToString()
@@ -3570,11 +3461,6 @@ namespace Oxide.Plugins
 			public byte[] ToArray()
 			{
 				return _writer.ToArray();
-			}
-			
-			public override void DisposeInternal()
-			{
-				UiFrameworkPool.Free(this);
 			}
 		}
 		#endregion
@@ -3822,7 +3708,7 @@ namespace Oxide.Plugins
 		#endregion
 
 		#region Pooling\BasePool.cs
-		public abstract class BasePool<T> : IPool<T> where T : class, new()
+		public abstract class BasePool<T> : IPool<T> where T : class
 		{
 			private readonly T[] _pool;
 			private int _index;
@@ -3853,7 +3739,7 @@ namespace Oxide.Plugins
 				
 				if (item == null)
 				{
-					item = new T();
+					item = CreateNew();
 				}
 				
 				OnGetItem(item);
@@ -3861,10 +3747,22 @@ namespace Oxide.Plugins
 			}
 			
 			/// <summary>
+			/// Creates new type of T
+			/// </summary>
+			/// <returns>Newly created type of T</returns>
+			protected abstract T CreateNew();
+			
+			/// <summary>
 			/// Frees an item back to the pool
 			/// </summary>
 			/// <param name="item">Item being freed</param>
-			public void Free(ref T item)
+			public void Free(T item) => Free(ref item);
+			
+			/// <summary>
+			/// Frees an item back to the pool
+			/// </summary>
+			/// <param name="item">Item being freed</param>
+			private void Free(ref T item)
 			{
 				if (item == null)
 				{
@@ -3889,20 +3787,14 @@ namespace Oxide.Plugins
 			/// Called when an item is retrieved from the pool
 			/// </summary>
 			/// <param name="item">Item being retrieved</param>
-			protected virtual void OnGetItem(T item)
-			{
-				
-			}
+			protected virtual void OnGetItem(T item) { }
 			
 			/// <summary>
 			/// Returns if an item can be freed to the pool
 			/// </summary>
 			/// <param name="item">Item to be freed</param>
 			/// <returns>True if can be freed; false otherwise</returns>
-			protected virtual bool OnFreeItem(ref T item)
-			{
-				return true;
-			}
+			protected virtual bool OnFreeItem(ref T item) => true;
 			
 			public void Clear()
 			{
@@ -3926,6 +3818,12 @@ namespace Oxide.Plugins
 			/// If the object instantiated using new() outside the pool it will be false
 			/// </summary>
 			private bool _shouldPool;
+			private IPool<BasePoolable> _pool;
+			
+			internal void OnInit(IPool<BasePoolable> pool)
+			{
+				_pool = pool;
+			}
 			
 			internal void EnterPoolInternal()
 			{
@@ -3961,13 +3859,18 @@ namespace Oxide.Plugins
 			
 			public void Dispose()
 			{
-				if (_shouldPool)
+				if (!_shouldPool)
 				{
-					DisposeInternal();
+					return;
 				}
+				
+				if (Disposed)
+				{
+					throw new ObjectDisposedException(GetType().Name);
+				}
+				
+				_pool.Free(this);
 			}
-			
-			public abstract void DisposeInternal();
 		}
 		#endregion
 
@@ -3982,6 +3885,8 @@ namespace Oxide.Plugins
 			}
 			
 			private HashPool() : base(128) { }
+			
+			protected override Hash<TKey, TValue> CreateNew() => new Hash<TKey, TValue>();
 			
 			///<inheritdoc/>
 			protected override bool OnFreeItem(ref Hash<TKey, TValue> item)
@@ -4012,7 +3917,7 @@ namespace Oxide.Plugins
 			/// Returns the pooled type back to the pool
 			/// </summary>
 			/// <param name="item"></param>
-			void Free(ref T item);
+			void Free(T item);
 		}
 		#endregion
 
@@ -4028,6 +3933,8 @@ namespace Oxide.Plugins
 			
 			private ListPool() : base(128) { }
 			
+			protected override List<T> CreateNew() => new List<T>();
+			
 			///<inheritdoc/>
 			protected override bool OnFreeItem(ref List<T> item)
 			{
@@ -4038,23 +3945,25 @@ namespace Oxide.Plugins
 		#endregion
 
 		#region Pooling\ObjectPool.cs
-		public class ObjectPool<T> : BasePool<T> where T : BasePoolable, new()
+		public class ObjectPool<T> : BasePool<BasePoolable> where T : BasePoolable, new()
 		{
-			public static readonly IPool<T> Instance;
-			
-			static ObjectPool()
-			{
-				Instance = new ObjectPool<T>();
-			}
+			public static readonly IPool<BasePoolable> Instance = new ObjectPool<T>();
 			
 			private ObjectPool() : base(1024) { }
 			
-			protected override void OnGetItem(T item)
+			protected override BasePoolable CreateNew()
+			{
+				T obj = new T();
+				obj.OnInit(this);
+				return obj;
+			}
+			
+			protected override void OnGetItem(BasePoolable item)
 			{
 				item.LeavePoolInternal();
 			}
 			
-			protected override bool OnFreeItem(ref T item)
+			protected override bool OnFreeItem(ref BasePoolable item)
 			{
 				if (item.Disposed)
 				{
@@ -4079,6 +3988,8 @@ namespace Oxide.Plugins
 			
 			private StringBuilderPool() : base(64) { }
 			
+			protected override StringBuilder CreateNew() => new StringBuilder();
+			
 			///<inheritdoc/>
 			protected override bool OnFreeItem(ref StringBuilder item)
 			{
@@ -4101,17 +4012,7 @@ namespace Oxide.Plugins
 			/// <returns>Pooled object of type T</returns>
 			public static T Get<T>() where T : BasePoolable, new()
 			{
-				return ObjectPool<T>.Instance.Get();
-			}
-			
-			/// <summary>
-			/// Returns a <see cref="BasePoolable"/> back into the pool
-			/// </summary>
-			/// <param name="value">Object to free</param>
-			/// <typeparam name="T">Type of object being freed</typeparam>
-			public static void Free<T>(ref T value) where T : BasePoolable, new()
-			{
-				ObjectPool<T>.Instance.Free(ref value);
+				return (T)ObjectPool<T>.Instance.Get();
 			}
 			
 			/// <summary>
@@ -4121,7 +4022,7 @@ namespace Oxide.Plugins
 			/// <typeparam name="T">Type of object being freed</typeparam>
 			internal static void Free<T>(T value) where T : BasePoolable, new()
 			{
-				ObjectPool<T>.Instance.Free(ref value);
+				ObjectPool<T>.Instance.Free(value);
 			}
 			
 			/// <summary>
@@ -4159,9 +4060,9 @@ namespace Oxide.Plugins
 			/// </summary>
 			/// <param name="list">List to be freed</param>
 			/// <typeparam name="T">Type of the list</typeparam>
-			public static void FreeList<T>(ref List<T> list)
+			public static void FreeList<T>(List<T> list)
 			{
-				ListPool<T>.Instance.Free(ref list);
+				ListPool<T>.Instance.Free(list);
 			}
 			
 			/// <summary>
@@ -4170,32 +4071,21 @@ namespace Oxide.Plugins
 			/// <param name="hash">Hash to be freed</param>
 			/// <typeparam name="TKey">Type for key</typeparam>
 			/// <typeparam name="TValue">Type for value</typeparam>
-			public static void FreeHash<TKey, TValue>(ref Hash<TKey, TValue> hash)
+			public static void FreeHash<TKey, TValue>(Hash<TKey, TValue> hash)
 			{
-				HashPool<TKey, TValue>.Instance.Free(ref hash);
+				HashPool<TKey, TValue>.Instance.Free(hash);
 			}
 			
 			/// <summary>
 			/// Frees a <see cref="StringBuilder"/> back to the pool
 			/// </summary>
 			/// <param name="sb">StringBuilder being freed</param>
-			public static void FreeStringBuilder(ref StringBuilder sb)
+			public static void FreeStringBuilder(StringBuilder sb)
 			{
-				StringBuilderPool.Instance.Free(ref sb);
+				StringBuilderPool.Instance.Free(sb);
 			}
 			
-			/// <summary>
-			/// Frees a <see cref="StringBuilder"/> back to the pool returning the <see cref="string"/>
-			/// </summary>
-			/// <param name="sb"><see cref="StringBuilder"/> being freed</param>
-			public static string ToStringAndFreeStringBuilder(ref StringBuilder sb)
-			{
-				string result = sb.ToString();
-				FreeStringBuilder(ref sb);
-				return result;
-			}
-			
-			public static void AddPool<TType>(BasePool<TType> pool) where TType : class, new()
+			public static void AddPool<TType>(BasePool<TType> pool) where TType : class
 			{
 				Pools[typeof(TType)] = pool;
 			}
@@ -4579,7 +4469,7 @@ namespace Oxide.Plugins
 			protected override void EnterPool()
 			{
 				base.EnterPool();
-				UiFrameworkPool.Free(ref Image);
+				UiFrameworkPool.Free(Image);
 			}
 			
 			protected override void LeavePool()
@@ -4632,7 +4522,7 @@ namespace Oxide.Plugins
 			{
 				if (Outline != null)
 				{
-					UiFrameworkPool.Free(ref Outline);
+					UiFrameworkPool.Free(Outline);
 				}
 			}
 		}
@@ -4695,18 +4585,13 @@ namespace Oxide.Plugins
 			protected override void EnterPool()
 			{
 				base.EnterPool();
-				UiFrameworkPool.Free(ref Button);
+				UiFrameworkPool.Free(Button);
 			}
 			
 			protected override void LeavePool()
 			{
 				base.LeavePool();
 				Button = UiFrameworkPool.Get<ButtonComponent>();
-			}
-			
-			public override void DisposeInternal()
-			{
-				UiFrameworkPool.Free(this);
 			}
 		}
 		#endregion
@@ -4720,11 +4605,6 @@ namespace Oxide.Plugins
 				image.Image.Color = color;
 				image.Image.Sprite = sprite;
 				return image;
-			}
-			
-			public override void DisposeInternal()
-			{
-				UiFrameworkPool.Free(this);
 			}
 		}
 		#endregion
@@ -4809,10 +4689,10 @@ namespace Oxide.Plugins
 			protected override void EnterPool()
 			{
 				base.EnterPool();
-				UiFrameworkPool.Free(ref Input);
+				UiFrameworkPool.Free(Input);
 				if (Outline != null)
 				{
-					UiFrameworkPool.Free(ref Outline);
+					UiFrameworkPool.Free(Outline);
 				}
 			}
 			
@@ -4820,11 +4700,6 @@ namespace Oxide.Plugins
 			{
 				base.LeavePool();
 				Input = UiFrameworkPool.Get<InputComponent>();
-			}
-			
-			public override void DisposeInternal()
-			{
-				UiFrameworkPool.Free(this);
 			}
 		}
 		#endregion
@@ -4857,18 +4732,13 @@ namespace Oxide.Plugins
 			protected override void EnterPool()
 			{
 				base.EnterPool();
-				UiFrameworkPool.Free(ref Icon);
+				UiFrameworkPool.Free(Icon);
 			}
 			
 			protected override void LeavePool()
 			{
 				base.LeavePool();
 				Icon = UiFrameworkPool.Get<ItemIconComponent>();
-			}
-			
-			public override void DisposeInternal()
-			{
-				UiFrameworkPool.Free(this);
 			}
 		}
 		#endregion
@@ -4915,11 +4785,11 @@ namespace Oxide.Plugins
 			protected override void EnterPool()
 			{
 				base.EnterPool();
-				UiFrameworkPool.Free(ref Text);
+				UiFrameworkPool.Free(Text);
 				
 				if (Countdown != null)
 				{
-					UiFrameworkPool.Free(ref Countdown);
+					UiFrameworkPool.Free(Countdown);
 				}
 			}
 			
@@ -4927,11 +4797,6 @@ namespace Oxide.Plugins
 			{
 				base.LeavePool();
 				Text = UiFrameworkPool.Get<TextComponent>();
-			}
-			
-			public override void DisposeInternal()
-			{
-				UiFrameworkPool.Free(this);
 			}
 		}
 		#endregion
@@ -4944,11 +4809,6 @@ namespace Oxide.Plugins
 				UiPanel panel = CreateBase<UiPanel>(pos, offset);
 				panel.Image.Color = color;
 				return panel;
-			}
-			
-			public override void DisposeInternal()
-			{
-				UiFrameworkPool.Free(this);
 			}
 		}
 		#endregion
@@ -5001,18 +4861,13 @@ namespace Oxide.Plugins
 			protected override void EnterPool()
 			{
 				base.EnterPool();
-				UiFrameworkPool.Free(ref RawImage);
+				UiFrameworkPool.Free(RawImage);
 			}
 			
 			protected override void LeavePool()
 			{
 				base.LeavePool();
 				RawImage = UiFrameworkPool.Get<RawImageComponent>();
-			}
-			
-			public override void DisposeInternal()
-			{
-				UiFrameworkPool.Free(this);
 			}
 		}
 		#endregion
@@ -5024,11 +4879,6 @@ namespace Oxide.Plugins
 			{
 				UiSection panel = CreateBase<UiSection>(pos, offset);
 				return panel;
-			}
-			
-			public override void DisposeInternal()
-			{
-				UiFrameworkPool.Free(this);
 			}
 		}
 		#endregion
@@ -5199,13 +5049,8 @@ namespace Oxide.Plugins
 			
 			protected override void EnterPool()
 			{
-				UiFrameworkPool.FreeList(ref Subtracts);
-				UiFrameworkPool.FreeList(ref Adds);
-			}
-			
-			public override void DisposeInternal()
-			{
-				UiFrameworkPool.Free(this);
+				UiFrameworkPool.FreeList(Subtracts);
+				UiFrameworkPool.FreeList(Adds);
 			}
 		}
 		#endregion
@@ -5269,11 +5114,6 @@ namespace Oxide.Plugins
 			{
 				Subtract = null;
 				Add = null;
-			}
-			
-			public override void DisposeInternal()
-			{
-				UiFrameworkPool.Free(this);
 			}
 		}
 		#endregion
@@ -5568,12 +5408,7 @@ namespace Oxide.Plugins
 				PreviousMonth = null;
 				NextYear = null;
 				NextMonth = null;
-				UiFrameworkPool.FreeList(ref DateButtons);
-			}
-			
-			public override void DisposeInternal()
-			{
-				UiFrameworkPool.Free(this);
+				UiFrameworkPool.FreeList(DateButtons);
 			}
 		}
 		#endregion
@@ -5741,11 +5576,6 @@ namespace Oxide.Plugins
 				_width = 0;
 				_height = 0;
 			}
-			
-			public override void DisposeInternal()
-			{
-				UiFrameworkPool.Free(this);
-			}
 		}
 		#endregion
 
@@ -5809,11 +5639,6 @@ namespace Oxide.Plugins
 				
 				return width;
 			}
-			
-			public override void DisposeInternal()
-			{
-				UiFrameworkPool.Free(this);
-			}
 		}
 		#endregion
 
@@ -5832,11 +5657,6 @@ namespace Oxide.Plugins
 				
 				return control;
 			}
-			
-			public override void DisposeInternal()
-			{
-				UiFrameworkPool.Free(this);
-			}
 		}
 		#endregion
 
@@ -5848,11 +5668,6 @@ namespace Oxide.Plugins
 				UiPopover control = CreateControl<UiPopover>();
 				CreateBuilder(control, parentName, size, backgroundColor, position, menuSprite);
 				return control;
-			}
-			
-			public override void DisposeInternal()
-			{
-				UiFrameworkPool.Free(this);
 			}
 		}
 		#endregion
@@ -5983,11 +5798,6 @@ namespace Oxide.Plugins
 				Minute = null;
 				Second = null;
 				AmPm = null;
-			}
-			
-			public override void DisposeInternal()
-			{
-				UiFrameworkPool.Free(this);
 			}
 		}
 		#endregion
@@ -6168,6 +5978,8 @@ namespace Oxide.Plugins
 
 namespace Oxide.Plugins.UiFrameworkExtensions
 {
+	using UiFramework = UiFramework.UiFramework;
+	using UiFrameworkPool = UiFramework.UiFrameworkPool;
 	using UiColor = UiFramework.UiColor;
 	using UiOffset = UiFramework.UiOffset;
 	using UiPosition = UiFramework.UiPosition;
@@ -6186,6 +5998,21 @@ namespace Oxide.Plugins.UiFrameworkExtensions
 			
 			DateTime date = DateTime.Parse(s);
 			return date;
+		}
+	}
+
+	//Define:ExtensionMethods
+	public static class StringBuilderExt
+	{
+		/// <summary>
+		/// Frees a <see cref="StringBuilder"/> back to the pool returning the created <see cref="string"/>
+		/// </summary>
+		/// <param name="sb"><see cref="StringBuilder"/> with string and being freed</param>
+		public static string ToStringAndFree(this StringBuilder sb)
+		{
+			string result = sb.ToString();
+			UiFrameworkPool.FreeStringBuilder(sb);
+			return result;
 		}
 	}
 

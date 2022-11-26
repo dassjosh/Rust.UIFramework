@@ -47,7 +47,7 @@ namespace Oxide.Ext.UiFramework.UiElements
         {
             if (Outline != null)
             {
-                UiFrameworkPool.Free(ref Outline);
+                UiFrameworkPool.Free(Outline);
             }
         }
     }

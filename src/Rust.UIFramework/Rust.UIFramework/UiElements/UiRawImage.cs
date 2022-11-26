@@ -54,18 +54,13 @@ namespace Oxide.Ext.UiFramework.UiElements
         protected override void EnterPool()
         {
             base.EnterPool();
-            UiFrameworkPool.Free(ref RawImage);
+            UiFrameworkPool.Free(RawImage);
         }
 
         protected override void LeavePool()
         {
             base.LeavePool();
             RawImage = UiFrameworkPool.Get<RawImageComponent>();
-        }
-        
-        public override void DisposeInternal()
-        {
-            UiFrameworkPool.Free(this);
         }
     }
 }

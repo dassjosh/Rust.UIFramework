@@ -4,6 +4,7 @@ using Oxide.Ext.UiFramework.Pooling;
 
 namespace Oxide.Ext.UiFramework.Commands
 {
+    //Define:ExcludeFile
     public struct UiCommand : IDisposable
     {
         public readonly string Command;
@@ -157,7 +158,7 @@ namespace Oxide.Ext.UiFramework.Commands
         {
             if (_disposable && Args != null)
             {
-                UiFrameworkPool.FreeList(ref Args);
+                UiFrameworkPool.FreeList(Args);
             }
         }
 

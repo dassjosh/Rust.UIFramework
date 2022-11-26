@@ -5,7 +5,6 @@ using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Offsets;
-using Oxide.Ext.UiFramework.Pooling;
 using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Controls.Popover
@@ -171,11 +170,6 @@ namespace Oxide.Ext.UiFramework.Controls.Popover
             _dayWidth = 0;
             _width = 0;
             _height = 0;
-        }
-
-        public override void DisposeInternal()
-        {
-            UiFrameworkPool.Free(this);
         }
     }
 }

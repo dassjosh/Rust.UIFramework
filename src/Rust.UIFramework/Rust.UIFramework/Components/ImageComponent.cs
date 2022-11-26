@@ -1,5 +1,4 @@
 ﻿using Oxide.Ext.UiFramework.Json;
-using Oxide.Ext.UiFramework.Pooling;
 using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.Components
@@ -26,11 +25,6 @@ namespace Oxide.Ext.UiFramework.Components
             base.EnterPool();
             Png = JsonDefaults.Common.NullValue;
             ImageType = Image.Type.Simple;
-        }
-        
-        public override void DisposeInternal()
-        {
-            UiFrameworkPool.Free(this);
         }
     }
 }

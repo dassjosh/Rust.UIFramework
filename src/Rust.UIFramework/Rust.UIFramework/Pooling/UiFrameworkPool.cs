@@ -17,17 +17,7 @@ namespace Oxide.Ext.UiFramework.Pooling
         /// <returns>Pooled object of type T</returns>
         public static T Get<T>() where T : BasePoolable, new()
         {
-            return ObjectPool<T>.Instance.Get();
-        }
-
-        /// <summary>
-        /// Returns a <see cref="BasePoolable"/> back into the pool
-        /// </summary>
-        /// <param name="value">Object to free</param>
-        /// <typeparam name="T">Type of object being freed</typeparam>
-        public static void Free<T>(ref T value) where T : BasePoolable, new()
-        {
-            ObjectPool<T>.Instance.Free(ref value);
+            return (T)ObjectPool<T>.Instance.Get();
         }
 
         /// <summary>
@@ -37,7 +27,7 @@ namespace Oxide.Ext.UiFramework.Pooling
         /// <typeparam name="T">Type of object being freed</typeparam>
         internal static void Free<T>(T value) where T : BasePoolable, new()
         {
-            ObjectPool<T>.Instance.Free(ref value);
+            ObjectPool<T>.Instance.Free(value);
         }
 
         /// <summary>
@@ -75,9 +65,9 @@ namespace Oxide.Ext.UiFramework.Pooling
         /// </summary>
         /// <param name="list">List to be freed</param>
         /// <typeparam name="T">Type of the list</typeparam>
-        public static void FreeList<T>(ref List<T> list)
+        public static void FreeList<T>(List<T> list)
         {
-            ListPool<T>.Instance.Free(ref list);
+            ListPool<T>.Instance.Free(list);
         }
 
         /// <summary>
@@ -86,32 +76,21 @@ namespace Oxide.Ext.UiFramework.Pooling
         /// <param name="hash">Hash to be freed</param>
         /// <typeparam name="TKey">Type for key</typeparam>
         /// <typeparam name="TValue">Type for value</typeparam>
-        public static void FreeHash<TKey, TValue>(ref Hash<TKey, TValue> hash)
+        public static void FreeHash<TKey, TValue>(Hash<TKey, TValue> hash)
         {
-            HashPool<TKey, TValue>.Instance.Free(ref hash);
+            HashPool<TKey, TValue>.Instance.Free(hash);
         }
 
         /// <summary>
         /// Frees a <see cref="StringBuilder"/> back to the pool
         /// </summary>
         /// <param name="sb">StringBuilder being freed</param>
-        public static void FreeStringBuilder(ref StringBuilder sb)
+        public static void FreeStringBuilder(StringBuilder sb)
         {
-            StringBuilderPool.Instance.Free(ref sb);
+            StringBuilderPool.Instance.Free(sb);
         }
 
-        /// <summary>
-        /// Frees a <see cref="StringBuilder"/> back to the pool returning the <see cref="string"/>
-        /// </summary>
-        /// <param name="sb"><see cref="StringBuilder"/> being freed</param>
-        public static string ToStringAndFreeStringBuilder(ref StringBuilder sb)
-        {
-            string result = sb.ToString();
-            FreeStringBuilder(ref sb);
-            return result;
-        }
-
-        public static void AddPool<TType>(BasePool<TType> pool) where TType : class, new()
+        public static void AddPool<TType>(BasePool<TType> pool) where TType : class
         {
             Pools[typeof(TType)] = pool;
         }

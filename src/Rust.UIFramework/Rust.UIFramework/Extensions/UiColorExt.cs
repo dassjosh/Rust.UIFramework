@@ -1,4 +1,5 @@
-﻿using Oxide.Ext.UiFramework.Colors;
+﻿using System.Globalization;
+using Oxide.Ext.UiFramework.Colors;
 using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Extensions
@@ -8,7 +9,7 @@ namespace Oxide.Ext.UiFramework.Extensions
     {
         public static UiColor WithAlpha(this UiColor color, string hex)
         {
-            return WithAlpha(color, int.Parse(hex, System.Globalization.NumberStyles.HexNumber));
+            return WithAlpha(color, int.Parse(hex, NumberStyles.HexNumber));
         }
 
         public static UiColor WithAlpha(this UiColor color, int alpha)

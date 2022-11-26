@@ -15,6 +15,12 @@ namespace Oxide.Ext.UiFramework.Pooling
         /// If the object instantiated using new() outside the pool it will be false
         /// </summary>
         private bool _shouldPool;
+        private IPool<BasePoolable> _pool;
+
+        internal void OnInit(IPool<BasePoolable> pool)
+        {
+            _pool = pool;
+        }
 
         internal void EnterPoolInternal()
         {
@@ -50,12 +56,17 @@ namespace Oxide.Ext.UiFramework.Pooling
 
         public void Dispose()
         {
-            if (_shouldPool)
+            if (!_shouldPool)
             {
-                DisposeInternal();
+                return;
             }
-        }
 
-        public abstract void DisposeInternal();
+            if (Disposed)
+            {
+                throw new ObjectDisposedException(GetType().Name);
+            }
+            
+            _pool.Free(this);
+        }
     }
 }

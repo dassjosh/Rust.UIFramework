@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Network;
 using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Pooling.ArrayPool;
-using Net = Network.Net;
 
 namespace Oxide.Ext.UiFramework.Json
 {
@@ -108,15 +108,10 @@ namespace Oxide.Ext.UiFramework.Json
             }
             
             UiFrameworkArrayPool<char>.Shared.Return(_charBuffer);
-            UiFrameworkPool.FreeList(ref _segments);
+            UiFrameworkPool.FreeList(_segments);
             _charBuffer = null;
             _size = 0;
             _charIndex = 0;
-        }
-        
-        public override void DisposeInternal()
-        {
-            UiFrameworkPool.Free(this);
         }
     }
 }

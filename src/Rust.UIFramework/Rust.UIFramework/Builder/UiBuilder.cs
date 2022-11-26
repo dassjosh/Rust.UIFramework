@@ -93,10 +93,10 @@ namespace Oxide.Ext.UiFramework.Builder
             Dispose();
             //Need this because there is a global GC class that causes issues
             //ReSharper disable once RedundantNameQualifier
-            System.GC.SuppressFinalize(this);
+            GC.SuppressFinalize(this);
         }
 
-        public override void DisposeInternal()
+        protected override void EnterPool()
         {
             int count = _components.Count;
             for (int index = 0; index < count; index++)
@@ -118,16 +118,12 @@ namespace Oxide.Ext.UiFramework.Builder
                     _anchors[index].Dispose();
                 }
                 
-                UiFrameworkPool.FreeList(ref _anchors);
+                UiFrameworkPool.FreeList(_anchors);
             }
 
-            UiFrameworkPool.FreeList(ref _components);
-            UiFrameworkPool.FreeList(ref _controls);
-            UiFrameworkPool.Free(this);
-        }
-
-        protected override void EnterPool()
-        {
+            UiFrameworkPool.FreeList(_components);
+            UiFrameworkPool.FreeList(_controls);
+            
             Root = null;
             _cachedJson = null;
             _needsKeyboard = false;

@@ -4,7 +4,6 @@ using Oxide.Ext.UiFramework.Controls.NumberPicker;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Offsets;
-using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.UiElements;
 using UnityEngine;
@@ -86,11 +85,6 @@ namespace Oxide.Ext.UiFramework.Controls.Popover
         private UiOffset GetLabelPosition(UiOffset offset, int textHeight)
         {
             return new UiOffset(offset.Min.x, offset.Min.y + textHeight + ItemPadding, offset.Max.x, offset.Max.y + textHeight + ItemPadding);
-        }
-
-        public override void DisposeInternal()
-        {
-            UiFrameworkPool.Free(this);
         }
     }
 }

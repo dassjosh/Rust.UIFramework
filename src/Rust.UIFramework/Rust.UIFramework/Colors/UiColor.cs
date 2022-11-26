@@ -2,7 +2,6 @@
 using Newtonsoft.Json;
 using Oxide.Ext.UiFramework.Exceptions;
 using UnityEngine;
-using Color = UnityEngine.Color;
 
 namespace Oxide.Ext.UiFramework.Colors
 {

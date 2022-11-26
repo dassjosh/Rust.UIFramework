@@ -49,11 +49,11 @@ namespace Oxide.Ext.UiFramework.UiElements
         protected override void EnterPool()
         {
             base.EnterPool();
-            UiFrameworkPool.Free(ref Text);
+            UiFrameworkPool.Free(Text);
 
             if (Countdown != null)
             {
-                UiFrameworkPool.Free(ref Countdown);
+                UiFrameworkPool.Free(Countdown);
             }
         }
 
@@ -61,11 +61,6 @@ namespace Oxide.Ext.UiFramework.UiElements
         {
             base.LeavePool();
             Text = UiFrameworkPool.Get<TextComponent>();
-        }
-        
-        public override void DisposeInternal()
-        {
-            UiFrameworkPool.Free(this);
         }
     }
 }

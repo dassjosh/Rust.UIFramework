@@ -89,10 +89,10 @@ namespace Oxide.Ext.UiFramework.UiElements
         protected override void EnterPool()
         {
             base.EnterPool();
-            UiFrameworkPool.Free(ref Input);
+            UiFrameworkPool.Free(Input);
             if (Outline != null)
             {
-                UiFrameworkPool.Free(ref Outline);
+                UiFrameworkPool.Free(Outline);
             }
         }
             
@@ -100,11 +100,6 @@ namespace Oxide.Ext.UiFramework.UiElements
         {
             base.LeavePool();
             Input = UiFrameworkPool.Get<InputComponent>();
-        }
-        
-        public override void DisposeInternal()
-        {
-            UiFrameworkPool.Free(this);
         }
     }
 }

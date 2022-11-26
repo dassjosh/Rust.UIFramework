@@ -65,14 +65,9 @@ namespace Oxide.Ext.UiFramework.Controls
             base.EnterPool();
             FirstPage = null;
             PreviousPage = null;
-            UiFrameworkPool.FreeList(ref PageButtons);
+            UiFrameworkPool.FreeList(PageButtons);
             NextPage = null;
             LastPage = null;
-        }
-
-        public override void DisposeInternal()
-        {
-            UiFrameworkPool.Free(this);
         }
     }
 }

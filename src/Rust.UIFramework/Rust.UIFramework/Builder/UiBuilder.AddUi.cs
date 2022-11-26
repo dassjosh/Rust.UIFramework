@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using JetBrains.Annotations;
 using Network;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Pooling;
-using Net = Network.Net;
 
 namespace Oxide.Ext.UiFramework.Builder
 {
@@ -38,7 +36,7 @@ namespace Oxide.Ext.UiFramework.Builder
         {
             JsonFrameworkWriter writer = CreateWriter();
             AddUi(send, writer);
-            UiFrameworkPool.Free(ref writer);
+            UiFrameworkPool.Free(writer);
         }
         #endregion
 

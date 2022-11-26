@@ -1,5 +1,4 @@
 ﻿using Oxide.Ext.UiFramework.Json;
-using Oxide.Ext.UiFramework.Pooling;
 using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Components
@@ -29,11 +28,6 @@ namespace Oxide.Ext.UiFramework.Components
         {
             Distance = new Vector2(0.5f, -0.5f);
             UseGraphicAlpha = false;
-        }
-        
-        public override void DisposeInternal()
-        {
-            UiFrameworkPool.Free(this);
         }
     }
 }

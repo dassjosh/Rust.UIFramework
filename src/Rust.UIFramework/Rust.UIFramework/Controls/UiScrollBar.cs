@@ -69,12 +69,7 @@ namespace Oxide.Ext.UiFramework.Controls
             base.EnterPool();
             Background = null;
             ScrollBar = null;
-            UiFrameworkPool.FreeList(ref ScrollButtons);
-        }
-
-        public override void DisposeInternal()
-        {
-            UiFrameworkPool.Free(this);
+            UiFrameworkPool.FreeList(ScrollButtons);
         }
     }
 }

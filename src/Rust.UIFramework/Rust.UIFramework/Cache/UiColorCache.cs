@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 using Oxide.Ext.UiFramework.Colors;
+using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Pooling;
-using Color = UnityEngine.Color;
+using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Cache
 {
@@ -34,12 +35,13 @@ namespace Oxide.Ext.UiFramework.Cache
             builder.Append(color.g.ToString(Format));
             builder.Append(Space);
             builder.Append(color.b.ToString(Format));
-            if (color.a != 1f)
+            if (color.a < 1f)
             {
                 builder.Append(Space);
                 builder.Append(color.a.ToString(Format));
             }
-            return UiFrameworkPool.ToStringAndFreeStringBuilder(ref builder);
+
+            return builder.ToStringAndFree();
         }
         
         public static void OnUnload()
