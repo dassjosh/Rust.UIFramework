@@ -3387,7 +3387,7 @@ namespace Oxide.Plugins
 		{
 			_objectComma = false;
 			_propertyComma = false;
-			UiFrameworkPool.Free(_writer);
+			_writer.Dispose();
 		}
 		
 		public override string ToString()
@@ -4416,7 +4416,7 @@ namespace Oxide.Plugins
 		protected override void EnterPool()
 		{
 			base.EnterPool();
-			UiFrameworkPool.Free(Image);
+			Image.Dispose();
 		}
 		
 		protected override void LeavePool()
@@ -4467,10 +4467,7 @@ namespace Oxide.Plugins
 		
 		protected override void EnterPool()
 		{
-			if (Outline != null)
-			{
-				UiFrameworkPool.Free(Outline);
-			}
+			Outline?.Dispose();
 		}
 	}
 	#endregion
@@ -4532,7 +4529,7 @@ namespace Oxide.Plugins
 		protected override void EnterPool()
 		{
 			base.EnterPool();
-			UiFrameworkPool.Free(Button);
+			Button.Dispose();
 		}
 		
 		protected override void LeavePool()
@@ -4636,11 +4633,8 @@ namespace Oxide.Plugins
 		protected override void EnterPool()
 		{
 			base.EnterPool();
-			UiFrameworkPool.Free(Input);
-			if (Outline != null)
-			{
-				UiFrameworkPool.Free(Outline);
-			}
+			Input.Dispose();
+			Outline?.Dispose();
 		}
 		
 		protected override void LeavePool()
@@ -4679,7 +4673,7 @@ namespace Oxide.Plugins
 		protected override void EnterPool()
 		{
 			base.EnterPool();
-			UiFrameworkPool.Free(Icon);
+			Icon.Dispose();
 		}
 		
 		protected override void LeavePool()
@@ -4732,12 +4726,8 @@ namespace Oxide.Plugins
 		protected override void EnterPool()
 		{
 			base.EnterPool();
-			UiFrameworkPool.Free(Text);
-			
-			if (Countdown != null)
-			{
-				UiFrameworkPool.Free(Countdown);
-			}
+			Text.Dispose();
+			Countdown?.Dispose();
 		}
 		
 		protected override void LeavePool()
@@ -4808,7 +4798,7 @@ namespace Oxide.Plugins
 		protected override void EnterPool()
 		{
 			base.EnterPool();
-			UiFrameworkPool.Free(RawImage);
+			RawImage.Dispose();
 		}
 		
 		protected override void LeavePool()

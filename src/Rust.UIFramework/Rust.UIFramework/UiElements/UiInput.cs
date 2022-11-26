@@ -89,11 +89,8 @@ namespace Oxide.Ext.UiFramework.UiElements
         protected override void EnterPool()
         {
             base.EnterPool();
-            UiFrameworkPool.Free(Input);
-            if (Outline != null)
-            {
-                UiFrameworkPool.Free(Outline);
-            }
+            Input.Dispose();
+            Outline?.Dispose();
         }
             
         protected override void LeavePool()

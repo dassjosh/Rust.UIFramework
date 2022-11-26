@@ -343,7 +343,7 @@ namespace Oxide.Ext.UiFramework.Json
         {
             _objectComma = false;
             _propertyComma = false;
-            UiFrameworkPool.Free(_writer);
+            _writer.Dispose();
         }
 
         public override string ToString()

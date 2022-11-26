@@ -64,7 +64,7 @@ namespace Oxide.Ext.UiFramework.UiElements
         protected override void EnterPool()
         {
             base.EnterPool();
-            UiFrameworkPool.Free(Button);
+            Button.Dispose();
         }
 
         protected override void LeavePool()

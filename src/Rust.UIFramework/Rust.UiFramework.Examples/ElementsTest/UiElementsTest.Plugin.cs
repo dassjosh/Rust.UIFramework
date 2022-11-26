@@ -63,7 +63,6 @@ namespace Oxide.Plugins
         private void Init()
         {
             _ins = this;
-            _outsideClose.CacheJson();
         }
 
         private void Unload()
@@ -144,11 +143,11 @@ namespace Oxide.Plugins
         private const int FontSize = 14;
         private const int TitleFontSize = 16;
 
-        private readonly UiBuilder _outsideClose = UiBuilder.CreateOutsideClose(nameof(UiElementsCloseAll), UiClose);
+        private readonly CachedUiBuilder _outsideClose = UiBuilder.CreateOutsideClose(nameof(UiElementsCloseAll), UiClose).ToCachedBuilder();
         
         private void CreateUi(BasePlayer player)
         {
-            _outsideClose.AddUiCached(player);
+            _outsideClose.AddUi(player);
             
             PlayerState state = new PlayerState();
             _playerStates[player.userID] = state;
