@@ -15,9 +15,9 @@ using Oxide.Plugins.UiMergeFrameworkExtensions;
 namespace Oxide.Plugins
 {
 	//Define:Framework
-	//[Info("Rust UI Framework", "MJSU", "1.4.0")]
+	//[Info("Rust UI Framework", "MJSU", "1.4.1")]
 	//[Description("UI Framework for Rust")]
-	public partial class UiMergeFramework : RustPlugin
+	public partial class UiElementsTest : RustPlugin
 	{
 		#region Plugin\UiFramework.Methods.cs
 		#region Unloading
