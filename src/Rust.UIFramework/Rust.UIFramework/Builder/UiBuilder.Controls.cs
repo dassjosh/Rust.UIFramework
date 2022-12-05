@@ -137,7 +137,7 @@ namespace Oxide.Ext.UiFramework.Builder
         }
 
         public UiInputBackground InputBackground(BaseUiComponent parent, UiPosition pos, string text, int fontSize, UiColor textColor, UiColor backgroundColor, string command, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, InputMode mode = InputMode.Default, InputField.LineType lineType = InputField.LineType.SingleLine) =>
-            InputBackground(parent, pos, UiOffset.None, text, fontSize, text, backgroundColor, command, align, charsLimit, mode, lineType);
+            InputBackground(parent, pos, UiOffset.None, text, fontSize, textColor, backgroundColor, command, align, charsLimit, mode, lineType);
         #endregion
 
         #region Checkbox
