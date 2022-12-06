@@ -28,6 +28,11 @@ namespace Oxide.Ext.UiFramework.UiElements
             writer.AddFieldRaw(JsonDefaults.Common.ComponentName, Name);
             writer.AddFieldRaw(JsonDefaults.Common.ParentName, Parent);
             writer.AddField(JsonDefaults.Common.FadeOutName, FadeOut, JsonDefaults.Common.FadeOut);
+            
+            if (autoDestroy)
+            {
+                writer.AddField(JsonDefaults.Common.AutoDestroy, Name);
+            }
 
             writer.WritePropertyName("components");
             writer.WriteStartArray();
@@ -41,11 +46,6 @@ namespace Oxide.Ext.UiFramework.UiElements
             if (needsKeyboard)
             {
                 writer.AddKeyboard();
-            }
-
-            if (autoDestroy)
-            {
-                writer.AddAutoDestroy(Name);
             }
 
             writer.WriteEndArray();

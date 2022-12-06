@@ -661,7 +661,7 @@ namespace Oxide.Plugins
 
     }
 
-    //Framework Rust UI Framework v(1.4.1) by MJSU
+    //Framework Rust UI Framework v(1.4.2) by MJSU
     //UI Framework for Rust
     #region Merged Framework Rust UI Framework
     public partial class UiElementsTest
@@ -3715,13 +3715,6 @@ namespace Oxide.Plugins
                 AddFieldRaw(JsonDefaults.Common.ComponentTypeName, JsonDefaults.Common.NeedsKeyboardValue);
                 WriteEndObject();
             }
-            
-            public void AddAutoDestroy(string name)
-            {
-                WriteStartObject();
-                AddFieldRaw(JsonDefaults.Common.AutoDestroy, name);
-                WriteEndObject();
-            }
             #endregion
             
             #region Writing
@@ -4720,6 +4713,11 @@ namespace Oxide.Plugins
                 writer.AddFieldRaw(JsonDefaults.Common.ParentName, Parent);
                 writer.AddField(JsonDefaults.Common.FadeOutName, FadeOut, JsonDefaults.Common.FadeOut);
                 
+                if (autoDestroy)
+                {
+                    writer.AddField(JsonDefaults.Common.AutoDestroy, Name);
+                }
+                
                 writer.WritePropertyName("components");
                 writer.WriteStartArray();
                 WriteComponents(writer);
@@ -4732,11 +4730,6 @@ namespace Oxide.Plugins
                 if (needsKeyboard)
                 {
                     writer.AddKeyboard();
-                }
-                
-                if (autoDestroy)
-                {
-                    writer.AddAutoDestroy(Name);
                 }
                 
                 writer.WriteEndArray();

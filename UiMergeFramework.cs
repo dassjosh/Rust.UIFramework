@@ -15,7 +15,7 @@ using Oxide.Plugins.UiMergeFrameworkExtensions;
 namespace Oxide.Plugins
 {
 	//Define:Framework
-	//[Info("Rust UI Framework", "MJSU", "1.4.1")]
+	//[Info("Rust UI Framework", "MJSU", "1.4.2")]
 	//[Description("UI Framework for Rust")]
 	public partial class UiMergeFramework : RustPlugin
 	{
@@ -3252,13 +3252,6 @@ namespace Oxide.Plugins
 			AddFieldRaw(JsonDefaults.Common.ComponentTypeName, JsonDefaults.Common.NeedsKeyboardValue);
 			WriteEndObject();
 		}
-		
-		public void AddAutoDestroy(string name)
-		{
-			WriteStartObject();
-			AddFieldRaw(JsonDefaults.Common.AutoDestroy, name);
-			WriteEndObject();
-		}
 		#endregion
 		
 		#region Writing
@@ -4314,6 +4307,11 @@ namespace Oxide.Plugins
 			writer.AddFieldRaw(JsonDefaults.Common.ParentName, Parent);
 			writer.AddField(JsonDefaults.Common.FadeOutName, FadeOut, JsonDefaults.Common.FadeOut);
 			
+			if (autoDestroy)
+			{
+				writer.AddField(JsonDefaults.Common.AutoDestroy, Name);
+			}
+			
 			writer.WritePropertyName("components");
 			writer.WriteStartArray();
 			WriteComponents(writer);
@@ -4326,11 +4324,6 @@ namespace Oxide.Plugins
 			if (needsKeyboard)
 			{
 				writer.AddKeyboard();
-			}
-			
-			if (autoDestroy)
-			{
-				writer.AddAutoDestroy(Name);
 			}
 			
 			writer.WriteEndArray();
