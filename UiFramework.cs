@@ -4306,7 +4306,7 @@ namespace Oxide.Plugins
 				
 				if (autoDestroy)
 				{
-					writer.AddField(JsonDefaults.Common.AutoDestroy, Name);
+					writer.AddFieldRaw(JsonDefaults.Common.AutoDestroy, Name);
 				}
 				
 				writer.WritePropertyName("components");
@@ -5927,7 +5927,6 @@ namespace Oxide.Plugins
 
 namespace Oxide.Plugins.UiFrameworkExtensions
 {
-	using UiFramework = UiFramework.UiFramework;
 	using UiFrameworkPool = UiFramework.UiFrameworkPool;
 	using UiColor = UiFramework.UiColor;
 	using UiOffset = UiFramework.UiOffset;

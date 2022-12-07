@@ -4715,7 +4715,7 @@ namespace Oxide.Plugins
                 
                 if (autoDestroy)
                 {
-                    writer.AddField(JsonDefaults.Common.AutoDestroy, Name);
+                    writer.AddFieldRaw(JsonDefaults.Common.AutoDestroy, Name);
                 }
                 
                 writer.WritePropertyName("components");
