@@ -1,4 +1,5 @@
-﻿using Oxide.Ext.UiFramework.Cache;
+﻿using Network;
+using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Pooling;
 using UnityEngine;
@@ -349,9 +350,9 @@ namespace Oxide.Ext.UiFramework.Json
             return _writer.WriteToArray(buffer);
         }
         
-        public void WriteToNetwork()
+        public void WriteToNetwork(NetWrite write)
         {
-            _writer.WriteToNetwork();
+            _writer.WriteToNetwork(write);
         }
 
         public byte[] ToArray()

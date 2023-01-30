@@ -661,7 +661,7 @@ namespace Oxide.Plugins
 
     }
 
-    //Framework Rust UI Framework v(1.4.2) by MJSU
+    //Framework Rust UI Framework v(1.4.3) by MJSU
     //UI Framework for Rust
     #region Merged Framework Rust UI Framework
     public partial class UiElementsTest
@@ -777,34 +777,37 @@ namespace Oxide.Plugins
             
             protected void AddUi(SendInfo send, JsonFrameworkWriter writer)
             {
-                if (ClientRPCStart(UiConstants.RpcFunctions.AddUiFunc))
+                NetWrite write = ClientRPCStart(UiConstants.RpcFunctions.AddUiFunc);
+                if (write != null)
                 {
-                    writer.WriteToNetwork();
-                    Net.sv.write.Send(send);
+                    writer.WriteToNetwork(write);
+                    write.Send(send);
                 }
             }
             
             protected void AddUi(SendInfo send, byte[] bytes)
             {
-                if (ClientRPCStart(UiConstants.RpcFunctions.AddUiFunc))
+                NetWrite write = ClientRPCStart(UiConstants.RpcFunctions.AddUiFunc);
+                if (write != null)
                 {
-                    Net.sv.write.BytesWithSize(bytes);
-                    Net.sv.write.Send(send);
+                    write.BytesWithSize(bytes);
+                    write.Send(send);
                 }
             }
             
-            private static bool ClientRPCStart(string funcName)
+            private static NetWrite ClientRPCStart(string funcName)
             {
-                if (!Net.sv.IsConnected() || CommunityEntity.ServerInstance.net == null || !Net.sv.write.Start())
+                if (!Net.sv.IsConnected() || CommunityEntity.ServerInstance.net == null)
                 {
-                    return false;
+                    return null;
                 }
                 
-                Net.sv.write.PacketID(Message.Type.RPCMessage);
-                Net.sv.write.UInt32(CommunityEntity.ServerInstance.net.ID);
-                Net.sv.write.UInt32(StringPool.Get(funcName));
-                Net.sv.write.UInt64(0UL);
-                return true;
+                NetWrite write = Net.sv.StartWrite();
+                write.PacketID(Message.Type.RPCMessage);
+                write.UInt32(CommunityEntity.ServerInstance.net.ID);
+                write.UInt32(StringPool.Get(funcName));
+                write.UInt64(0UL);
+                return write;
             }
             #endregion
             
@@ -3363,14 +3366,14 @@ namespace Oxide.Plugins
                 return _size;
             }
             
-            public void WriteToNetwork()
+            public void WriteToNetwork(NetWrite write)
             {
                 Flush();
-                Net.sv.write.UInt32((uint)_size);
+                write.UInt32((uint)_size);
                 for (int i = 0; i < _segments.Count; i++)
                 {
                     SizedArray<byte> segment = _segments[i];
-                    Net.sv.write.Write(segment.Array, 0, segment.Size);
+                    write.Write(segment.Array, 0, segment.Size);
                 }
             }
             
@@ -3859,9 +3862,9 @@ namespace Oxide.Plugins
                 return _writer.WriteToArray(buffer);
             }
             
-            public void WriteToNetwork()
+            public void WriteToNetwork(NetWrite write)
             {
-                _writer.WriteToNetwork();
+                _writer.WriteToNetwork(write);
             }
             
             public byte[] ToArray()

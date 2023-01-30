@@ -3,6 +3,7 @@
   "Merge Settings": {
     "Plugin Name": "UiFramework",
     "Creator Mode": "Framework",
+    "Namespace Override": "",
     "Plugin Input Paths": [
       "./Rust.UIFramework"
     ],

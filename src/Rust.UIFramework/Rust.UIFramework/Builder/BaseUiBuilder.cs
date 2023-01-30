@@ -49,34 +49,37 @@ namespace Oxide.Ext.UiFramework.Builder
 
         protected void AddUi(SendInfo send, JsonFrameworkWriter writer)
         {
-            if (ClientRPCStart(UiConstants.RpcFunctions.AddUiFunc))
+            NetWrite write = ClientRPCStart(UiConstants.RpcFunctions.AddUiFunc);
+            if (write != null)
             {
-                writer.WriteToNetwork();
-                Net.sv.write.Send(send);
+                writer.WriteToNetwork(write);
+                write.Send(send);
             }
         }
         
         protected void AddUi(SendInfo send, byte[] bytes)
         {
-            if (ClientRPCStart(UiConstants.RpcFunctions.AddUiFunc))
+            NetWrite write = ClientRPCStart(UiConstants.RpcFunctions.AddUiFunc);
+            if (write != null)
             {
-                Net.sv.write.BytesWithSize(bytes);
-                Net.sv.write.Send(send);
+                write.BytesWithSize(bytes);
+                write.Send(send);
             }
         }
 
-        private static bool ClientRPCStart(string funcName)
+        private static NetWrite ClientRPCStart(string funcName)
         {
-            if (!Net.sv.IsConnected() || CommunityEntity.ServerInstance.net == null || !Net.sv.write.Start())
+            if (!Net.sv.IsConnected() || CommunityEntity.ServerInstance.net == null)
             {
-                return false;
+                return null;
             }
 
-            Net.sv.write.PacketID(Message.Type.RPCMessage);
-            Net.sv.write.UInt32(CommunityEntity.ServerInstance.net.ID);
-            Net.sv.write.UInt32(StringPool.Get(funcName));
-            Net.sv.write.UInt64(0UL);
-            return true;
+            NetWrite write = Net.sv.StartWrite();
+            write.PacketID(Message.Type.RPCMessage);
+            write.UInt32(CommunityEntity.ServerInstance.net.ID);
+            write.UInt32(StringPool.Get(funcName));
+            write.UInt64(0UL);
+            return write;
         }
         #endregion
 

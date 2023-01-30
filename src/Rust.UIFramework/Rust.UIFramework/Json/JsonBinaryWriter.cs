@@ -70,14 +70,14 @@ namespace Oxide.Ext.UiFramework.Json
             return _size;
         }
 
-        public void WriteToNetwork()
+        public void WriteToNetwork(NetWrite write)
         {
             Flush();
-            Net.sv.write.UInt32((uint)_size);
+            write.UInt32((uint)_size);
             for (int i = 0; i < _segments.Count; i++)
             {
                 SizedArray<byte> segment = _segments[i];
-                Net.sv.write.Write(segment.Array, 0, segment.Size);
+                write.Write(segment.Array, 0, segment.Size);
             }
         }
 

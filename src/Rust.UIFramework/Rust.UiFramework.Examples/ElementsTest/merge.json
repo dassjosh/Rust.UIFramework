@@ -3,6 +3,7 @@
   "Merge Settings": {
     "Plugin Name": "UiElementsTest",
     "Creator Mode": "Plugin",
+    "Namespace Override": "",
     "Plugin Input Paths": [
       "./"
     ],
