@@ -17,7 +17,7 @@ namespace Oxide.Plugins
 	//Define:Framework
 	//[Info("Rust UI Framework", "MJSU", "1.4.3")]
 	//[Description("UI Framework for Rust")]
-	public partial class UiElementsTest : RustPlugin
+	public partial class UiMergeFramework : RustPlugin
 	{
 		#region Plugin\UiFramework.Methods.cs
 		#region Unloading
@@ -871,7 +871,7 @@ namespace Oxide.Plugins
 			Dispose();
 			//Need this because there is a global GC class that causes issues
 			//ReSharper disable once RedundantNameQualifier
-			GC.SuppressFinalize(this);
+			System.GC.SuppressFinalize(this);
 		}
 		
 		protected override void EnterPool()

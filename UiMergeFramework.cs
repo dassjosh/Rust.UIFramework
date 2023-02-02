@@ -871,7 +871,7 @@ namespace Oxide.Plugins
 			Dispose();
 			//Need this because there is a global GC class that causes issues
 			//ReSharper disable once RedundantNameQualifier
-			GC.SuppressFinalize(this);
+			System.GC.SuppressFinalize(this);
 		}
 		
 		protected override void EnterPool()
