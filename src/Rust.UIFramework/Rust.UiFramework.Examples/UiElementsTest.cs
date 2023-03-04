@@ -1496,7 +1496,7 @@ namespace Oxide.Plugins
                 Dispose();
                 //Need this because there is a global GC class that causes issues
                 //ReSharper disable once RedundantNameQualifier
-                GC.SuppressFinalize(this);
+                System.GC.SuppressFinalize(this);
             }
             
             protected override void EnterPool()
@@ -2784,7 +2784,7 @@ namespace Oxide.Plugins
                 control.Base = builder.Section(parent, pos, offset);
                 
                 float buttonSize = 1f / (buttons.Count + 1);
-                for (int i = 0; i <= buttons.Count; i++)
+                for (int i = 0; i < buttons.Count; i++)
                 {
                     ButtonGroupData button = buttons[i];
                     
@@ -5328,7 +5328,7 @@ namespace Oxide.Plugins
                     T increment = increments[i];
                     string incrementValue = StringCache<T>.ToString(increment);
                     UiPosition subtractSlice = UiPosition.Full.SliceHorizontal(i * buttonWidth, (i + 1) * buttonWidth);
-                    UiPosition addSlice = UiPosition.Full.SliceHorizontal(1 - buttonWidth + i * buttonWidth, 1 - buttonWidth + (i + 1) * buttonWidth);
+                    UiPosition addSlice = UiPosition.Full.SliceHorizontal(1 - (buttonWidth * incrementCount) + i * buttonWidth, 1 - (buttonWidth * incrementCount) + (i + 1) * buttonWidth);
                     
                     string displayIncrement = StringCache<T>.ToString(increment, incrementFormat);
                     

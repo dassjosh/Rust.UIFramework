@@ -34,7 +34,7 @@ namespace Oxide.Ext.UiFramework.Controls.NumberPicker
                 T increment = increments[i];
                 string incrementValue = StringCache<T>.ToString(increment);
                 UiPosition subtractSlice = UiPosition.Full.SliceHorizontal(i * buttonWidth, (i + 1) * buttonWidth);
-                UiPosition addSlice = UiPosition.Full.SliceHorizontal(1 - buttonWidth + i * buttonWidth, 1 - buttonWidth + (i + 1) * buttonWidth);
+                UiPosition addSlice = UiPosition.Full.SliceHorizontal(1 - (buttonWidth * incrementCount) + i * buttonWidth, 1 - (buttonWidth * incrementCount) + (i + 1) * buttonWidth);
                 
                 string displayIncrement = StringCache<T>.ToString(increment, incrementFormat);
                 

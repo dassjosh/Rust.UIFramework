@@ -22,7 +22,7 @@ namespace Oxide.Ext.UiFramework.Controls
             control.Base = builder.Section(parent, pos, offset);
             
             float buttonSize = 1f / (buttons.Count + 1);
-            for (int i = 0; i <= buttons.Count; i++)
+            for (int i = 0; i < buttons.Count; i++)
             {
                 ButtonGroupData button = buttons[i];
                 
