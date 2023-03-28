@@ -6,15 +6,23 @@
         <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
         <AssemblyName>Oxide.Ext.UiFramework</AssemblyName>
         <RootNamespace>Oxide.Ext.UiFramework</RootNamespace>
+        <Configurations>Debug;Release;Benchmarks</Configurations>
+        <Platforms>AnyCPU</Platforms>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-      <DefineConstants>TRACE;UiBenchmarks</DefineConstants>
+      <DefineConstants>TRACE;</DefineConstants>
       <PlatformTarget>x64</PlatformTarget>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-      <DefineConstants>TRACE;UiBenchmarks;</DefineConstants>
+      <DefineConstants>TRACE;</DefineConstants>
+      <PlatformTarget>x64</PlatformTarget>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Benchmarks' ">
+      <DefineConstants />
+      <Optimize>true</Optimize>
       <PlatformTarget>x64</PlatformTarget>
     </PropertyGroup>
 

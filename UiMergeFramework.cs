@@ -1409,7 +1409,7 @@ namespace Oxide.Plugins
 		/// <exception cref="UiFrameworkException"></exception>
 		public static UiColor ParseHexColor(string hexColor)
 		{
-			#if UiBenchmarks
+			#if BENCHMARKS
 			Color colorValue = Color.black;
 			#else
 			Color colorValue;

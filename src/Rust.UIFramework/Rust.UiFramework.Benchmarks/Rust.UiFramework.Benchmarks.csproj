@@ -33,6 +33,12 @@
         <ErrorReport>prompt</ErrorReport>
         <WarningLevel>4</WarningLevel>
     </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Benchmarks|AnyCPU' ">
+      <OutputPath>bin\Benchmarks\</OutputPath>
+      <PlatformTarget>x64</PlatformTarget>
+      <Prefer32bit>false</Prefer32bit>
+      <Optimize>true</Optimize>
+    </PropertyGroup>
     <ItemGroup>
         <Reference Include="Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
           <HintPath>..\References\Assembly-CSharp.dll</HintPath>
@@ -112,13 +118,13 @@
           <HintPath>..\packages\Microsoft.Diagnostics.Tracing.TraceEvent.2.0.61\lib\net45\OSExtensions.dll</HintPath>
           <Private>True</Private>
         </Reference>
-        <Reference Include="Oxide.Core, Version=2.0.3999.0, Culture=neutral, PublicKeyToken=null">
+        <Reference Include="Oxide.Core">
           <HintPath>..\References\Oxide.Core.dll</HintPath>
         </Reference>
         <Reference Include="Oxide.CSharp">
           <HintPath>..\References\Oxide.CSharp.dll</HintPath>
         </Reference>
-        <Reference Include="Oxide.Rust, Version=2.0.5297.0, Culture=neutral, PublicKeyToken=null">
+        <Reference Include="Oxide.Rust">
           <HintPath>..\References\Oxide.Rust.dll</HintPath>
         </Reference>
         <Reference Include="Perfolizer, Version=0.2.1.0, Culture=neutral, PublicKeyToken=e864f2ec9c0b6d4c">
