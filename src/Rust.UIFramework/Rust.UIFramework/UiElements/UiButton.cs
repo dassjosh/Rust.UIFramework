@@ -65,6 +65,7 @@ namespace Oxide.Ext.UiFramework.UiElements
         {
             base.EnterPool();
             Button.Dispose();
+            Button = null;
         }
 
         protected override void LeavePool()

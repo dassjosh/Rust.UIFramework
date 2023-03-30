@@ -90,7 +90,7 @@ namespace Oxide.Ext.UiFramework.UiElements
         {
             base.EnterPool();
             Input.Dispose();
-            Outline?.Dispose();
+            Input = null;
         }
             
         protected override void LeavePool()

@@ -661,7 +661,7 @@ namespace Oxide.Plugins
 
     }
 
-    //Framework Rust UI Framework v(1.4.3) by MJSU
+    //Framework Rust UI Framework v(1.4.4) by MJSU
     //UI Framework for Rust
     #region Merged Framework Rust UI Framework
     public partial class UiElementsTest
@@ -2579,14 +2579,14 @@ namespace Oxide.Plugins
         {
             private const string Type = "UnityEngine.UI.Outline";
             
-            public Vector2 Distance = new Vector2(0.5f, -0.5f);
+            public Vector2 Distance = JsonDefaults.Outline.Distance;
             public bool UseGraphicAlpha;
             
             public override void WriteComponent(JsonFrameworkWriter writer)
             {
                 writer.WriteStartObject();
                 writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, Type);
-                writer.AddField(JsonDefaults.Outline.DistanceName, Distance, new Vector2(1.0f, -1.0f));
+                writer.AddField(JsonDefaults.Outline.DistanceName, Distance, JsonDefaults.Outline.FpDistance);
                 if (UseGraphicAlpha)
                 {
                     writer.AddKeyField(JsonDefaults.Outline.UseGraphicAlphaName);
@@ -2598,7 +2598,7 @@ namespace Oxide.Plugins
             
             protected override void LeavePool()
             {
-                Distance = new Vector2(0.5f, -0.5f);
+                Distance = JsonDefaults.Outline.Distance;
                 UseGraphicAlpha = false;
             }
         }
@@ -3427,6 +3427,8 @@ namespace Oxide.Plugins
                 public const string NeedsKeyboardValue = "NeedsKeyboard";
                 public const string AutoDestroy = "destroyUi";
                 public const string CommandName = "command";
+                public static readonly Vector2 Min = new Vector2(0, 0);
+                public static readonly Vector2 Max = new Vector2(1, 1);
             }
             
             public static class Position
@@ -3476,6 +3478,8 @@ namespace Oxide.Plugins
             {
                 public const string DistanceName = "distance";
                 public const string UseGraphicAlphaName = "useGraphicAlpha";
+                public static readonly Vector2 FpDistance = new Vector2(1.0f, -1.0f);
+                public static readonly Vector2 Distance = new Vector2(0.5f, -0.5f);
             }
             
             public static class Button
@@ -4757,10 +4761,10 @@ namespace Oxide.Plugins
             {
                 writer.WriteStartObject();
                 writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, JsonDefaults.Common.RectTransformName);
-                writer.AddPosition(JsonDefaults.Position.AnchorMinName, Position.Min, new Vector2(0, 0));
-                writer.AddPosition(JsonDefaults.Position.AnchorMaxName, Position.Max, new Vector2(1, 1));
-                writer.AddOffset(JsonDefaults.Offset.OffsetMinName, Offset.Min, new Vector2(0, 0));
-                writer.AddOffset(JsonDefaults.Offset.OffsetMaxName, Offset.Max, new Vector2(1, 1));
+                writer.AddPosition(JsonDefaults.Position.AnchorMinName, Position.Min, JsonDefaults.Common.Min);
+                writer.AddPosition(JsonDefaults.Position.AnchorMaxName, Position.Max, JsonDefaults.Common.Max);
+                writer.AddOffset(JsonDefaults.Offset.OffsetMinName, Offset.Min, JsonDefaults.Common.Min);
+                writer.AddOffset(JsonDefaults.Offset.OffsetMaxName, Offset.Max, JsonDefaults.Common.Max);
                 writer.WriteEndObject();
             }
             
@@ -4819,6 +4823,7 @@ namespace Oxide.Plugins
             {
                 base.EnterPool();
                 Image.Dispose();
+                Image = null;
             }
             
             protected override void LeavePool()
@@ -4866,7 +4871,7 @@ namespace Oxide.Plugins
             
             protected override void EnterPool()
             {
-                Outline?.Dispose();
+                RemoveOutline();
             }
         }
         public class UiButton : BaseUiOutline
@@ -4926,6 +4931,7 @@ namespace Oxide.Plugins
             {
                 base.EnterPool();
                 Button.Dispose();
+                Button = null;
             }
             
             protected override void LeavePool()
@@ -5024,7 +5030,7 @@ namespace Oxide.Plugins
             {
                 base.EnterPool();
                 Input.Dispose();
-                Outline?.Dispose();
+                Input = null;
             }
             
             protected override void LeavePool()
@@ -5061,6 +5067,7 @@ namespace Oxide.Plugins
             {
                 base.EnterPool();
                 Icon.Dispose();
+                Icon = null;
             }
             
             protected override void LeavePool()
@@ -5111,7 +5118,9 @@ namespace Oxide.Plugins
             {
                 base.EnterPool();
                 Text.Dispose();
+                Text = null;
                 Countdown?.Dispose();
+                Countdown = null;
             }
             
             protected override void LeavePool()
@@ -5177,6 +5186,7 @@ namespace Oxide.Plugins
             {
                 base.EnterPool();
                 RawImage.Dispose();
+                RawImage = null;
             }
             
             protected override void LeavePool()

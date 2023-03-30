@@ -7,14 +7,14 @@ namespace Oxide.Ext.UiFramework.Components
     {
         private const string Type = "UnityEngine.UI.Outline";
 
-        public Vector2 Distance = new Vector2(0.5f, -0.5f);
+        public Vector2 Distance = JsonDefaults.Outline.Distance;
         public bool UseGraphicAlpha;
 
         public override void WriteComponent(JsonFrameworkWriter writer)
         {
             writer.WriteStartObject();
             writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, Type);
-            writer.AddField(JsonDefaults.Outline.DistanceName, Distance, new Vector2(1.0f, -1.0f));
+            writer.AddField(JsonDefaults.Outline.DistanceName, Distance, JsonDefaults.Outline.FpDistance);
             if (UseGraphicAlpha)
             {
                 writer.AddKeyField(JsonDefaults.Outline.UseGraphicAlphaName);
@@ -26,7 +26,7 @@ namespace Oxide.Ext.UiFramework.Components
 
         protected override void LeavePool()
         {
-            Distance = new Vector2(0.5f, -0.5f);
+            Distance = JsonDefaults.Outline.Distance;
             UseGraphicAlpha = false;
         }
     }

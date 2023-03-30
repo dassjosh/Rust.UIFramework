@@ -50,7 +50,9 @@ namespace Oxide.Ext.UiFramework.UiElements
         {
             base.EnterPool();
             Text.Dispose();
+            Text = null;
             Countdown?.Dispose();
+            Countdown = null;
         }
 
         protected override void LeavePool()

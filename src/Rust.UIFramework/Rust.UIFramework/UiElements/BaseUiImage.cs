@@ -46,6 +46,7 @@ namespace Oxide.Ext.UiFramework.UiElements
         {
             base.EnterPool();
             Image.Dispose();
+            Image = null;
         }
 
         protected override void LeavePool()

@@ -1,4 +1,6 @@
-﻿namespace Oxide.Ext.UiFramework.Json
+﻿using UnityEngine;
+
+namespace Oxide.Ext.UiFramework.Json
 {
     public static class JsonDefaults
     {
@@ -17,6 +19,8 @@
             public const string NeedsKeyboardValue = "NeedsKeyboard";
             public const string AutoDestroy = "destroyUi";
             public const string CommandName = "command";
+            public static readonly Vector2 Min = new Vector2(0, 0);
+            public static readonly Vector2 Max = new Vector2(1, 1);
         }
         
         public static class Position
@@ -66,6 +70,8 @@
         {
             public const string DistanceName = "distance";
             public const string UseGraphicAlphaName = "useGraphicAlpha";
+            public static readonly Vector2 FpDistance = new Vector2(1.0f, -1.0f);
+            public static readonly Vector2 Distance = new Vector2(0.5f, -0.5f);
         }
 
         public static class Button
