@@ -14,7 +14,7 @@ using Oxide.Plugins.UiFrameworkExtensions;
 //UiFramework created with PluginMerge v(1.0.5.0) by MJSU @ https://github.com/dassjosh/Plugin.Merge
 namespace Oxide.Plugins
 {
-	//[Info("Rust UI Framework", "MJSU", "1.4.3")]
+	//[Info("Rust UI Framework", "MJSU", "1.4.4")]
 	//[Description("UI Framework for Rust")]
 	public partial class UiFramework : RustPlugin
 	{
@@ -4463,7 +4463,7 @@ namespace Oxide.Plugins
 			
 			protected override void EnterPool()
 			{
-				Outline?.Dispose();
+				RemoveOutline();
 			}
 		}
 		#endregion

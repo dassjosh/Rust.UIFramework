@@ -45,7 +45,7 @@ namespace Oxide.Ext.UiFramework.UiElements
 
         protected override void EnterPool()
         {
-            Outline?.Dispose();
+            RemoveOutline();
         }
     }
 }

@@ -15,7 +15,7 @@ using Oxide.Plugins.UiMergeFrameworkExtensions;
 namespace Oxide.Plugins
 {
 	//Define:Framework
-	//[Info("Rust UI Framework", "MJSU", "1.4.3")]
+	//[Info("Rust UI Framework", "MJSU", "1.4.4")]
 	//[Description("UI Framework for Rust")]
 	public partial class UiMergeFramework : RustPlugin
 	{
@@ -4466,7 +4466,7 @@ namespace Oxide.Plugins
 		
 		protected override void EnterPool()
 		{
-			Outline?.Dispose();
+			RemoveOutline();
 		}
 	}
 	#endregion
