@@ -12,7 +12,7 @@ namespace Oxide.Ext.UiFramework.Controls
         public UiPanel BackgroundPanel;
         public UiPanel BarPanel;
 
-        public static UiProgressBar Create(UiBuilder builder, BaseUiComponent parent, UiPosition pos, UiOffset offset, float percentage, UiColor barColor, UiColor backgroundColor)
+        public static UiProgressBar Create(BaseUiBuilder builder, UiReference parent, UiPosition pos, UiOffset offset, float percentage, UiColor barColor, UiColor backgroundColor)
         {
             UiProgressBar control = CreateControl<UiProgressBar>();
             control.BackgroundPanel = builder.Panel(parent, pos, offset, backgroundColor);

@@ -14,7 +14,7 @@ namespace Oxide.Ext.UiFramework.Controls.NumberPicker
         public UiButton Subtract;
         public UiButton Add;
 
-        public static UiNumberPicker Create(UiBuilder builder, BaseUiComponent parent, UiPosition pos, UiOffset offset, int value, int fontSize, int buttonFontSize, UiColor textColor, UiColor backgroundColor, UiColor buttonColor, UiColor disabledButtonColor, string command, string incrementCommand, string decrementCommand, int minValue, int maxValue, float buttonWidth, TextAnchor align, InputMode mode, NumberPickerMode numberMode, string numberFormat)
+        public static UiNumberPicker Create(BaseUiBuilder builder, UiReference parent, UiPosition pos, UiOffset offset, int value, int fontSize, int buttonFontSize, UiColor textColor, UiColor backgroundColor, UiColor buttonColor, UiColor disabledButtonColor, string command, string incrementCommand, string decrementCommand, int minValue, int maxValue, float buttonWidth, TextAnchor align, InputMode mode, NumberPickerMode numberMode, string numberFormat)
         {
             UiNumberPicker control = CreateControl<UiNumberPicker>();
 
@@ -39,7 +39,7 @@ namespace Oxide.Ext.UiFramework.Controls.NumberPicker
             return control;
         }
 
-        private void CreateSubtract(UiBuilder builder, int value, int minValue, UiPosition position, UiOffset offset, string text, int fontSize, UiColor textColor, UiColor buttonColor, UiColor disabledButtonColor, string command)
+        private void CreateSubtract(BaseUiBuilder builder, int value, int minValue, UiPosition position, UiOffset offset, string text, int fontSize, UiColor textColor, UiColor buttonColor, UiColor disabledButtonColor, string command)
         {
             if (value > minValue)
             {
@@ -51,7 +51,7 @@ namespace Oxide.Ext.UiFramework.Controls.NumberPicker
             }
         }
 
-        private void CreateAdd(UiBuilder builder, int value, int maxValue, UiPosition position, UiOffset offset, string text, int fontSize, UiColor textColor, UiColor buttonColor, UiColor disabledButtonColor, string command)
+        private void CreateAdd(BaseUiBuilder builder, int value, int maxValue, UiPosition position, UiOffset offset, string text, int fontSize, UiColor textColor, UiColor buttonColor, UiColor disabledButtonColor, string command)
         {
             if (value < maxValue)
             {

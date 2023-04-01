@@ -15,12 +15,12 @@ namespace Oxide.Ext.UiFramework.Controls
         public UiLabel Text;
         public UiLabel Icon;
 
-        public static UiTimePicker Create(UiBuilder builder, BaseUiComponent parent, UiPosition pos, UiOffset offset, DateTime time, int fontSize, UiColor textColor, UiColor backgroundColor, string openCommand, string displayFormat = "hh:mm:ss tt")
+        public static UiTimePicker Create(BaseUiBuilder builder, UiReference parent, UiPosition pos, UiOffset offset, DateTime time, int fontSize, UiColor textColor, UiColor backgroundColor, string openCommand, string displayFormat = "hh:mm:ss tt")
         {
             UiTimePicker control = CreateControl<UiTimePicker>();
             
             control.Anchor = builder.Anchor(parent, pos, offset);
-            control.Command = builder.CommandButton(parent, pos, offset, backgroundColor, $"{openCommand} {control.Anchor.Name}");
+            control.Command = builder.CommandButton(parent, pos, offset, backgroundColor, $"{openCommand} {control.Anchor.Reference.Name}");
             control.Text = builder.Label(control.Command, UiPosition.Full, new UiOffset(5, 0, 0, 0), time.ToString(displayFormat), fontSize, textColor, TextAnchor.MiddleLeft);
             control.Icon = builder.Label(control.Command, UiPosition.Right, new UiOffset(-fontSize - 4, 0, -4 , 0), "⏱", fontSize, textColor);
 

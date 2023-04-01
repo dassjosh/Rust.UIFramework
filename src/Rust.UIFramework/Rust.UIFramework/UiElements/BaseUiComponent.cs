@@ -2,14 +2,12 @@
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Positions;
-using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.UiElements
 {
     public abstract class BaseUiComponent : BasePoolable
     {
-        public string Name;
-        public string Parent;
+        public UiReference Reference;
         public float FadeOut;
         public UiPosition Position;
         public UiOffset Offset;
@@ -25,13 +23,13 @@ namespace Oxide.Ext.UiFramework.UiElements
         public void WriteRootComponent(JsonFrameworkWriter writer, bool needsMouse, bool needsKeyboard, bool autoDestroy)
         {
             writer.WriteStartObject();
-            writer.AddFieldRaw(JsonDefaults.Common.ComponentName, Name);
-            writer.AddFieldRaw(JsonDefaults.Common.ParentName, Parent);
+            writer.AddFieldRaw(JsonDefaults.Common.ComponentName, Reference.Name);
+            writer.AddFieldRaw(JsonDefaults.Common.ParentName, Reference.Parent);
             writer.AddField(JsonDefaults.Common.FadeOutName, FadeOut, JsonDefaults.Common.FadeOut);
             
             if (autoDestroy)
             {
-                writer.AddFieldRaw(JsonDefaults.Common.AutoDestroy, Name);
+                writer.AddFieldRaw(JsonDefaults.Common.AutoDestroy, Reference.Name);
             }
 
             writer.WritePropertyName("components");
@@ -52,11 +50,26 @@ namespace Oxide.Ext.UiFramework.UiElements
             writer.WriteEndObject();
         }
 
+        public void WriteUpdateComponent(JsonFrameworkWriter writer)
+        {
+            writer.WriteStartObject();
+            writer.AddFieldRaw(JsonDefaults.Common.ComponentName, Reference.Name);
+            writer.AddFieldRaw(JsonDefaults.Common.ParentName, Reference.Parent);
+            writer.AddField(JsonDefaults.Common.FadeOutName, FadeOut, JsonDefaults.Common.FadeOut);
+            writer.AddFieldRaw(JsonDefaults.Common.AutoDestroy, Reference.Name);
+
+            writer.WritePropertyName("components");
+            writer.WriteStartArray();
+            WriteComponents(writer);
+            writer.WriteEndArray();
+            writer.WriteEndObject();
+        }
+
         public void WriteComponent(JsonFrameworkWriter writer)
         {
             writer.WriteStartObject();
-            writer.AddFieldRaw(JsonDefaults.Common.ComponentName, Name);
-            writer.AddFieldRaw(JsonDefaults.Common.ParentName, Parent);
+            writer.AddFieldRaw(JsonDefaults.Common.ComponentName, Reference.Name);
+            writer.AddFieldRaw(JsonDefaults.Common.ParentName, Reference.Parent);
             writer.AddField(JsonDefaults.Common.FadeOutName, FadeOut, JsonDefaults.Common.FadeOut);
 
             writer.WritePropertyName("components");
@@ -84,11 +97,12 @@ namespace Oxide.Ext.UiFramework.UiElements
 
         protected override void EnterPool()
         {
-            Name = null;
-            Parent = null;
+            Reference = default(UiReference);
             FadeOut = 0;
             Position = default(UiPosition);
             Offset = default(UiOffset);
         }
+
+        public static implicit operator UiReference(BaseUiComponent component) => component.Reference;
     }
 }

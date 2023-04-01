@@ -499,7 +499,7 @@ namespace Oxide.Plugins
 
             string parent = arg.GetString(0);
             PlayerState state = _playerStates[player.userID];
-            UiDropdownMenu menu = UiBuilder.DropdownMenu(parent, _exampleList, FontSize + state.NumberPicker, UiColors.Text, UiColors.PanelTertiary, nameof(UiElementsSelectDropdownValue), minWidth: 0);
+            UiDropdownMenu menu = UiBuilder.DropdownMenu(new UiReference(parent, null), _exampleList, FontSize + state.NumberPicker, UiColors.Text, UiColors.PanelTertiary, nameof(UiElementsSelectDropdownValue), minWidth: 0);
             menu.Builder.AddUi(player);
             menu.Dispose();
         }
@@ -517,7 +517,7 @@ namespace Oxide.Plugins
             PlayerState state = _playerStates[player.userID];
             state.MenuDropdownPage = arg.GetInt(1);
 
-            var menu = UiBuilder.DropdownMenu(parent, _pageExampleList, FontSize + state.NumberPicker, UiColors.Text, UiColors.PanelTertiary, nameof(UiElementsSelectPagedDropdownValue), $"{nameof(UiElementsOpenPageDropdown)} {parent}", 
+            UiDropdownMenu menu = BaseUiBuilder.DropdownMenu(new UiReference(parent, null), _pageExampleList, FontSize + state.NumberPicker, UiColors.Text, UiColors.PanelTertiary, nameof(UiElementsSelectPagedDropdownValue), $"{nameof(UiElementsOpenPageDropdown)} {parent}", 
                 state.MenuDropdownPage, 6, minWidth: 0);
             menu.Builder.AddUi(player);
             menu.Dispose();
@@ -570,7 +570,7 @@ namespace Oxide.Plugins
             
             //Interface.Oxide.LogDebug($"UiElementsOpenTimePicker: {arg.FullString}");
             
-            string parent = arg.GetString(0);
+            UiReference parent = arg.GetParentReference(0);
             int adjustSeconds = arg.GetInt(1);
             if (adjustSeconds != 0)
             {
@@ -578,7 +578,7 @@ namespace Oxide.Plugins
                 //Interface.Oxide.LogDebug($"New Time: {state.Time}");
             }
 
-            var menu = UiBuilder.TimePickerMenu(parent, state.Time, FontSize + state.NumberPicker, UiColors.Text, UiColors.PanelTertiary, $"{nameof(UiElementsOpenTimePicker)} {parent}", TimePickerDisplayMode.All, ClockMode.Hour12);
+            var menu = BaseUiBuilder.TimePickerMenu(parent, state.Time, FontSize + state.NumberPicker, UiColors.Text, UiColors.PanelTertiary, $"{nameof(UiElementsOpenTimePicker)} {parent}", TimePickerDisplayMode.All, ClockMode.Hour12);
             menu.Builder.AddUi(player);
             menu.Dispose();
         }
@@ -596,12 +596,12 @@ namespace Oxide.Plugins
             
             //Interface.Oxide.LogDebug($"UiElementsOpenTimePicker: {arg.FullString}");
             
-            string parent = arg.GetString(0);
+            UiReference parent = arg.GetParentReference(0);
             state.Date = arg.GetDateTime(1, state.Date);
 
             //var sw = Stopwatch.StartNew();
             
-            UiCalenderPicker menu = UiBuilder.DateCalenderMenu(parent, state.Date, FontSize + state.NumberPicker, UiColors.Text, UiColors.PanelTertiary, UiColors.PanelTertiary.Darken(.15f), UiColors.Rust.Red,$"{nameof(UiElementsOpenDatePicker)} {parent}", PopoverPosition.Left);
+            UiCalenderPicker menu = BaseUiBuilder.DateCalenderMenu(parent, state.Date, FontSize + state.NumberPicker, UiColors.Text, UiColors.PanelTertiary, UiColors.PanelTertiary.Darken(.15f), UiColors.Rust.Red,$"{nameof(UiElementsOpenDatePicker)} {parent}", PopoverPosition.Left);
             menu.Builder.AddUi(player);
             menu.Dispose();
             

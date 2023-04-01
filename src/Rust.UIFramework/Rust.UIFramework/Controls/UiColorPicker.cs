@@ -16,11 +16,11 @@ namespace Oxide.Ext.UiFramework.Controls
         public UiLabel Text;
         public UiPanel Color;
         
-        public static UiColorPicker Create(UiBuilder builder, BaseUiComponent parent, UiPosition pos, UiOffset offset, UiColor selectedColor, int fontSize, UiColor textColor, UiColor backgroundColor, string openCommand)
+        public static UiColorPicker Create(BaseUiBuilder builder, BaseUiComponent parent, UiPosition pos, UiOffset offset, UiColor selectedColor, int fontSize, UiColor textColor, UiColor backgroundColor, string openCommand)
         {
             UiColorPicker control = CreateControl<UiColorPicker>();
             control.Anchor = builder.Anchor(parent, pos, offset);
-            control.Button = builder.CommandButton(parent, pos, offset, backgroundColor, $"{openCommand} {control.Anchor.Name}");
+            control.Button = builder.CommandButton(parent, pos, offset, backgroundColor, $"{openCommand} {control.Anchor.Reference.Name}");
             control.Text = builder.Label(control.Button, UiPosition.Full, new UiOffset(5, 0, 0, 0), selectedColor.ToHtmlColor(), fontSize, textColor, TextAnchor.MiddleLeft);
             control.Color = builder.Panel(control.Button, UiPosition.Full.SliceHorizontal(1f - (pos.Max.y - pos.Min.y), 1), new UiOffset(-4, 4, -4, -4), selectedColor);
             return control;

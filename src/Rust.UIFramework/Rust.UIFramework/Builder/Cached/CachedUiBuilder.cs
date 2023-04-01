@@ -1,8 +1,9 @@
 ﻿using Network;
+using Oxide.Ext.UiFramework.Builder.UI;
 
 namespace Oxide.Ext.UiFramework.Builder.Cached
 {
-    public class CachedUiBuilder : BaseUiBuilder
+    public class CachedUiBuilder : BaseBuilder
     {
         private readonly byte[] _cachedJson;
 

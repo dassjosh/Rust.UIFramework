@@ -1,127 +1,125 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using Network;
+using Oxide.Ext.UiFramework.Cache;
+using Oxide.Ext.UiFramework.Controls;
+using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Json;
-using Oxide.Ext.UiFramework.Pooling;
+using Oxide.Ext.UiFramework.UiElements;
 
 namespace Oxide.Ext.UiFramework.Builder
 {
-    public abstract class BaseUiBuilder : BasePoolable
+    public abstract partial class BaseUiBuilder : BaseBuilder
     {
-        protected string RootName;
-
-        public string GetRootName() => RootName;
+        protected readonly List<BaseUiComponent> Components = new List<BaseUiComponent>();
+        protected readonly List<BaseUiControl> Controls = new List<BaseUiControl>();
+        protected readonly List<BaseUiComponent> Anchors = new List<BaseUiComponent>();
         
-        public abstract byte[] GetBytes();
+        protected string Font;
+        protected static string GlobalFont;
+
+        static BaseUiBuilder()
+        {
+            SetGlobalFont(UiFont.RobotoCondensedRegular);
+        }
         
-        /// <summary>
-        /// Warning this is only recommend to use for debugging purposes
-        /// </summary>
-        /// <returns></returns>
-        public string GetJsonString() => Encoding.UTF8.GetString(GetBytes());
-        
-        #region Add UI
-        public void AddUi(BasePlayer player)
+        public void EnsureCapacity(int capacity)
         {
-            if (player == null) throw new ArgumentNullException(nameof(player));
-            AddUi(new SendInfo(player.Connection));
-        }
-
-        public void AddUi(Connection connection)
-        {
-            if (connection == null) throw new ArgumentNullException(nameof(connection));
-            AddUi(new SendInfo(connection));
-        }
-
-        public void AddUi(List<Connection> connections)
-        {
-            if (connections == null) throw new ArgumentNullException(nameof(connections));
-            AddUi(new SendInfo(connections));
-        }
-
-        public void AddUi()
-        {
-            AddUi(new SendInfo(Net.sv.connections));
-        }
-
-        protected abstract void AddUi(SendInfo send);
-
-        protected void AddUi(SendInfo send, JsonFrameworkWriter writer)
-        {
-            NetWrite write = ClientRPCStart(UiConstants.RpcFunctions.AddUiFunc);
-            if (write != null)
+            if (Components.Capacity < capacity)
             {
-                writer.WriteToNetwork(write);
-                write.Send(send);
+                Components.Capacity = capacity;
             }
         }
         
-        protected void AddUi(SendInfo send, byte[] bytes)
+        public void SetCurrentFont(UiFont font)
         {
-            NetWrite write = ClientRPCStart(UiConstants.RpcFunctions.AddUiFunc);
-            if (write != null)
-            {
-                write.BytesWithSize(bytes);
-                write.Send(send);
-            }
-        }
-
-        private static NetWrite ClientRPCStart(string funcName)
-        {
-            if (!Net.sv.IsConnected() || CommunityEntity.ServerInstance.net == null)
-            {
-                return null;
-            }
-
-            NetWrite write = Net.sv.StartWrite();
-            write.PacketID(Message.Type.RPCMessage);
-            write.UInt32(CommunityEntity.ServerInstance.net.ID);
-            write.UInt32(StringPool.Get(funcName));
-            write.UInt64(0UL);
-            return write;
-        }
-        #endregion
-
-        #region Destroy UI
-        public void DestroyUi(BasePlayer player)
-        {
-            if (!player) throw new ArgumentNullException(nameof(player));
-            DestroyUi(player, RootName);
-        }
-
-        public void DestroyUi(Connection connection)
-        {
-            if (connection == null) throw new ArgumentNullException(nameof(connection));
-            DestroyUi(new SendInfo(connection), RootName);
-        }
-
-        public void DestroyUi(List<Connection> connections)
-        {
-            if (connections == null) throw new ArgumentNullException(nameof(connections));
-            DestroyUi(new SendInfo(connections), RootName);
-        }
-
-        public void DestroyUi()
-        {
-            DestroyUi(RootName);
+            Font = UiFontCache.GetUiFont(font);
         }
         
-        public static void DestroyUi(BasePlayer player, string name)
+        public static void SetGlobalFont(UiFont font)
         {
-            if (player == null) throw new ArgumentNullException(nameof(player));
-            DestroyUi(new SendInfo(player.Connection), name);
+            GlobalFont = UiFontCache.GetUiFont(font);
+        }
+        
+        public override byte[] GetBytes()
+        {
+            JsonFrameworkWriter writer = CreateWriter();
+            byte[] bytes = writer.ToArray();
+            writer.Dispose();
+            return bytes;
+        }
+        
+        protected override void AddUi(SendInfo send)
+        {
+            JsonFrameworkWriter writer = CreateWriter();
+            AddUi(send, writer);
+            writer.Dispose();
+            if (!Disposed)
+            {
+                Dispose();
+            }
+        }
+        
+        public JsonFrameworkWriter CreateWriter()
+        {
+            int count = Controls.Count;
+            if (count != 0)
+            {
+                for (int index = 0; index < count; index++)
+                {
+                    BaseUiControl control = Controls[index];
+                    control.RenderControl(this);
+                }
+            }
+            
+            JsonFrameworkWriter writer = JsonFrameworkWriter.Create();
+            writer.WriteStartArray();
+            WriteComponentsInternal(writer);
+            writer.WriteEndArray();
+            return writer;
         }
 
-        public static void DestroyUi(string name)
+        protected abstract void WriteComponentsInternal(JsonFrameworkWriter writer);
+        
+        protected override void EnterPool()
         {
-            DestroyUi(new SendInfo(Net.sv.connections), name);
+            base.EnterPool();
+            FreeComponents();
+            Font = null;
+            RootName = null;
         }
 
-        public static void DestroyUi(SendInfo send, string name)
+        private void FreeComponents()
         {
-            CommunityEntity.ServerInstance.ClientRPCEx(send, null, UiConstants.RpcFunctions.DestroyUiFunc, name);
+            int count = Components.Count;
+            for (int index = 0; index < count; index++)
+            {
+                Components[index].Dispose();
+            }
+                
+            Components.Clear();
+
+            count = Controls.Count;
+            for (int index = 0; index < count; index++)
+            {
+                Controls[index].Dispose();
+            }
+                
+            Controls.Clear();
+            
+            count = Anchors.Count;
+            for (int index = 0; index < count; index++)
+            {
+                Anchors[index].Dispose();
+            }
+
+            Anchors.Clear();
         }
-        #endregion
+
+        protected override void LeavePool()
+        {
+            base.LeavePool();
+            Font = GlobalFont;
+        }
     }
 }

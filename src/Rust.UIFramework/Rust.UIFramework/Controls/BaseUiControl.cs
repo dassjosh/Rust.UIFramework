@@ -12,7 +12,7 @@ namespace Oxide.Ext.UiFramework.Controls
             return UiFrameworkPool.Get<T>();
         }
 
-        public void RenderControl(UiBuilder builder)
+        public void RenderControl(BaseUiBuilder builder)
         {
             if (!_hasRendered)
             {
@@ -21,7 +21,7 @@ namespace Oxide.Ext.UiFramework.Controls
             }
         }
 
-        protected virtual void Render(UiBuilder builder)
+        protected virtual void Render(BaseUiBuilder builder)
         {
             
         }

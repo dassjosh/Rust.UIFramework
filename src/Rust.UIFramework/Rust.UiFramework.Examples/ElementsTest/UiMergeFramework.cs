@@ -17,7 +17,7 @@ namespace Oxide.Plugins
 	//Define:Framework
 	//[Info("Rust UI Framework", "MJSU", "1.4.4")]
 	//[Description("UI Framework for Rust")]
-	public partial class UiElementsTest : RustPlugin
+	public partial class UiMergeFramework : RustPlugin
 	{
 		#region Plugin\UiFramework.Methods.cs
 		#region Unloading
@@ -97,21 +97,12 @@ namespace Oxide.Plugins
 	}
 	#endregion
 
-	#region Builder\BaseUiBuilder.cs
-	public abstract class BaseUiBuilder : BasePoolable
+	#region Builder\BaseBuilder.cs
+	public abstract class BaseBuilder : BasePoolable
 	{
 		protected string RootName;
 		
 		public string GetRootName() => RootName;
-		
-		public abstract byte[] GetBytes();
-		
-		/// <summary>
-		/// Warning this is only recommend to use for debugging purposes
-		/// </summary>
-		/// <returns></returns>
-		public string GetJsonString() => Encoding.UTF8.GetString(GetBytes());
-		
 		#region Add UI
 		public void AddUi(BasePlayer player)
 		{
@@ -214,41 +205,51 @@ namespace Oxide.Plugins
 			CommunityEntity.ServerInstance.ClientRPCEx(send, null, UiConstants.RpcFunctions.DestroyUiFunc, name);
 		}
 		#endregion
+		
+		#region JSON
+		
+		public abstract byte[] GetBytes();
+		
+		/// <summary>
+		/// Warning this is only recommend to use for debugging purposes
+		/// </summary>
+		/// <returns></returns>
+		public string GetJsonString() => Encoding.UTF8.GetString(GetBytes());
+		#endregion
+		
+		#region Pooling
+		protected override void EnterPool()
+		{
+			RootName = null;
+		}
+		#endregion
 	}
 	#endregion
 
-	#region Builder\UiBuilder.Components.cs
-	public partial class UiBuilder
+	#region Builder\BaseUiBuilder.Components.cs
+	public partial class BaseUiBuilder
 	{
 		#region Add Components
-		public void AddComponent(BaseUiComponent component, BaseUiComponent parent)
+		public void AddComponent(BaseUiComponent component, UiReference parent)
 		{
-			component.Parent = parent.Name;
-			component.Name = UiNameCache.GetComponentName(RootName, _components.Count);
-			_components.Add(component);
+			component.Reference = new UiReference(parent.Name, UiNameCache.GetComponentName(RootName, Components.Count));
+			Components.Add(component);
 		}
 		
 		public void AddControl(BaseUiControl control)
 		{
-			_controls.Add(control);
+			Controls.Add(control);
 		}
 		
-		private void AddAnchor(BaseUiComponent component, BaseUiComponent parent)
+		private void AddAnchor(BaseUiComponent component, UiReference parent)
 		{
-			if (_anchors == null)
-			{
-				_anchors = UiFrameworkPool.GetList<BaseUiComponent>();
-			}
-			
-			component.Parent = parent.Name;
-			component.Name = UiNameCache.GetAnchorName(RootName, _anchors.Count);
-			
-			_anchors.Add(component);
+			component.Reference = new UiReference(parent.Name, UiNameCache.GetAnchorName(RootName, Anchors.Count));
+			Anchors.Add(component);
 		}
 		#endregion
 		
 		#region Section
-		public UiSection Section(BaseUiComponent parent, UiPosition pos, UiOffset offset = default(UiOffset))
+		public UiSection Section(UiReference parent, UiPosition pos, UiOffset offset = default(UiOffset))
 		{
 			UiSection section = UiSection.Create(pos, offset);
 			AddComponent(section, parent);
@@ -257,67 +258,67 @@ namespace Oxide.Plugins
 		#endregion
 		
 		#region Panel
-		public UiPanel Panel(BaseUiComponent parent, UiPosition pos, UiOffset offset, UiColor color)
+		public UiPanel Panel(UiReference parent, UiPosition pos, UiOffset offset, UiColor color)
 		{
 			UiPanel panel = UiPanel.Create(pos, offset, color);
 			AddComponent(panel, parent);
 			return panel;
 		}
 		
-		public UiPanel Panel(BaseUiComponent parent, UiPosition pos, UiColor color) => Panel(parent, pos, default(UiOffset), color);
+		public UiPanel Panel(UiReference parent, UiPosition pos, UiColor color) => Panel(parent, pos, default(UiOffset), color);
 		#endregion
 		
 		#region Button
-		public UiButton CommandButton(BaseUiComponent parent, UiPosition pos, UiOffset offset, UiColor color, string command)
+		public UiButton CommandButton(UiReference parent, UiPosition pos, UiOffset offset, UiColor color, string command)
 		{
 			UiButton button = UiButton.CreateCommand(pos, offset, color, command);
 			AddComponent(button, parent);
 			return button;
 		}
 		
-		public UiButton CommandButton(BaseUiComponent parent, UiPosition pos, UiColor color, string command) => CommandButton(parent, pos, default(UiOffset), color, command);
+		public UiButton CommandButton(UiReference parent, UiPosition pos, UiColor color, string command) => CommandButton(parent, pos, default(UiOffset), color, command);
 		
-		public UiButton CloseButton(BaseUiComponent parent, UiPosition pos, UiOffset offset, UiColor color, string close)
+		public UiButton CloseButton(UiReference parent, UiPosition pos, UiOffset offset, UiColor color, string close)
 		{
 			UiButton button = UiButton.CreateClose(pos, offset, color, close);
 			AddComponent(button, parent);
 			return button;
 		}
 		
-		public UiButton CloseButton(BaseUiComponent parent, UiPosition pos, UiColor color, string close) => CloseButton(parent, pos, default(UiOffset), color, close);
+		public UiButton CloseButton(UiReference parent, UiPosition pos, UiColor color, string close) => CloseButton(parent, pos, default(UiOffset), color, close);
 		#endregion
 		
 		#region Image
-		public UiImage ImageSprite(BaseUiComponent parent, UiPosition pos, UiOffset offset, string sprite, UiColor color)
+		public UiImage ImageSprite(UiReference parent, UiPosition pos, UiOffset offset, string sprite, UiColor color)
 		{
 			UiImage image = UiImage.CreateSpriteImage(pos, offset, color, sprite);
 			AddComponent(image, parent);
 			return image;
 		}
 		
-		public UiImage ImageSprite(BaseUiComponent parent, UiPosition pos, UiOffset offset, string sprite) => ImageSprite(parent, pos, offset, sprite, UiColor.White);
-		public UiImage ImageSprite(BaseUiComponent parent, UiPosition pos, string sprite, UiColor color) => ImageSprite(parent, pos, default(UiOffset), sprite, color);
-		public UiImage ImageSprite(BaseUiComponent parent, UiPosition pos, string sprite) => ImageSprite(parent, pos, sprite, UiColor.White);
+		public UiImage ImageSprite(UiReference parent, UiPosition pos, UiOffset offset, string sprite) => ImageSprite(parent, pos, offset, sprite, UiColor.White);
+		public UiImage ImageSprite(UiReference parent, UiPosition pos, string sprite, UiColor color) => ImageSprite(parent, pos, default(UiOffset), sprite, color);
+		public UiImage ImageSprite(UiReference parent, UiPosition pos, string sprite) => ImageSprite(parent, pos, sprite, UiColor.White);
 		#endregion
 		
 		#region Item Icon
-		public UiItemIcon ItemIcon(BaseUiComponent parent, UiPosition pos, UiOffset offset, int itemId, ulong skinId, UiColor color)
+		public UiItemIcon ItemIcon(UiReference parent, UiPosition pos, UiOffset offset, int itemId, ulong skinId, UiColor color)
 		{
 			UiItemIcon image = UiItemIcon.Create(pos, offset, color, itemId, skinId);
 			AddComponent(image, parent);
 			return image;
 		}
 		
-		public UiItemIcon ItemIcon(BaseUiComponent parent, UiPosition pos, UiOffset offset, int itemId, ulong skinId) => ItemIcon(parent, pos, offset, itemId, skinId, UiColor.White);
-		public UiItemIcon ItemIcon(BaseUiComponent parent, UiPosition pos, UiOffset offset, int itemId, UiColor color) => ItemIcon(parent, pos, offset, itemId, 0, color);
-		public UiItemIcon ItemIcon(BaseUiComponent parent, UiPosition pos, UiOffset offset, int itemId) => ItemIcon(parent, pos, offset, itemId, UiColor.White);
-		public UiItemIcon ItemIcon(BaseUiComponent parent, UiPosition pos, int itemId, ulong skinId) => ItemIcon(parent, pos, default(UiOffset), itemId, skinId);
-		public UiItemIcon ItemIcon(BaseUiComponent parent, UiPosition pos, int itemId, UiColor color) => ItemIcon(parent, pos, default(UiOffset), itemId, color);
-		public UiItemIcon ItemIcon(BaseUiComponent parent, UiPosition pos, int itemId) => ItemIcon(parent, pos, default(UiOffset), itemId);
+		public UiItemIcon ItemIcon(UiReference parent, UiPosition pos, UiOffset offset, int itemId, ulong skinId) => ItemIcon(parent, pos, offset, itemId, skinId, UiColor.White);
+		public UiItemIcon ItemIcon(UiReference parent, UiPosition pos, UiOffset offset, int itemId, UiColor color) => ItemIcon(parent, pos, offset, itemId, 0, color);
+		public UiItemIcon ItemIcon(UiReference parent, UiPosition pos, UiOffset offset, int itemId) => ItemIcon(parent, pos, offset, itemId, UiColor.White);
+		public UiItemIcon ItemIcon(UiReference parent, UiPosition pos, int itemId, ulong skinId) => ItemIcon(parent, pos, default(UiOffset), itemId, skinId);
+		public UiItemIcon ItemIcon(UiReference parent, UiPosition pos, int itemId, UiColor color) => ItemIcon(parent, pos, default(UiOffset), itemId, color);
+		public UiItemIcon ItemIcon(UiReference parent, UiPosition pos, int itemId) => ItemIcon(parent, pos, default(UiOffset), itemId);
 		#endregion
 		
 		#region Raw Image
-		public UiRawImage WebImage(BaseUiComponent parent, UiPosition pos, UiOffset offset, string url, UiColor color)
+		public UiRawImage WebImage(UiReference parent, UiPosition pos, UiOffset offset, string url, UiColor color)
 		{
 			if (!url.StartsWith("http"))
 			{
@@ -329,22 +330,22 @@ namespace Oxide.Plugins
 			return image;
 		}
 		
-		public UiRawImage WebImage(BaseUiComponent parent, UiPosition pos, UiOffset offset, string url) => WebImage(parent, pos, offset, url, UiColor.White);
-		public UiRawImage WebImage(BaseUiComponent parent, UiPosition pos, string url, UiColor color) => WebImage(parent, pos, default(UiOffset), url, color);
-		public UiRawImage WebImage(BaseUiComponent parent, UiPosition pos, string url) => WebImage(parent, pos, url, UiColor.White);
+		public UiRawImage WebImage(UiReference parent, UiPosition pos, UiOffset offset, string url) => WebImage(parent, pos, offset, url, UiColor.White);
+		public UiRawImage WebImage(UiReference parent, UiPosition pos, string url, UiColor color) => WebImage(parent, pos, default(UiOffset), url, color);
+		public UiRawImage WebImage(UiReference parent, UiPosition pos, string url) => WebImage(parent, pos, url, UiColor.White);
 		
-		public UiRawImage TextureImage(BaseUiComponent parent, UiPosition pos, UiOffset offset, string texture, UiColor color)
+		public UiRawImage TextureImage(UiReference parent, UiPosition pos, UiOffset offset, string texture, UiColor color)
 		{
 			UiRawImage image = UiRawImage.CreateTexture(pos, offset, color, texture);
 			AddComponent(image, parent);
 			return image;
 		}
 		
-		public UiRawImage TextureImage(BaseUiComponent parent, UiPosition pos, UiOffset offset, string texture) => TextureImage(parent, pos, offset, texture, UiColor.White);
-		public UiRawImage TextureImage(BaseUiComponent parent, UiPosition pos, string texture, UiColor color) => TextureImage(parent, pos, default(UiOffset), texture, color);
-		public UiRawImage TextureImage(BaseUiComponent parent, UiPosition pos, string texture) => TextureImage(parent, pos, texture, UiColor.White);
+		public UiRawImage TextureImage(UiReference parent, UiPosition pos, UiOffset offset, string texture) => TextureImage(parent, pos, offset, texture, UiColor.White);
+		public UiRawImage TextureImage(UiReference parent, UiPosition pos, string texture, UiColor color) => TextureImage(parent, pos, default(UiOffset), texture, color);
+		public UiRawImage TextureImage(UiReference parent, UiPosition pos, string texture) => TextureImage(parent, pos, texture, UiColor.White);
 		
-		public UiRawImage ImageFileStorage(BaseUiComponent parent, UiPosition pos, UiOffset offset, string png, UiColor color)
+		public UiRawImage ImageFileStorage(UiReference parent, UiPosition pos, UiOffset offset, string png, UiColor color)
 		{
 			uint _;
 			if (!uint.TryParse(png, out _))
@@ -357,40 +358,40 @@ namespace Oxide.Plugins
 			return image;
 		}
 		
-		public UiRawImage ImageFileStorage(BaseUiComponent parent, UiPosition pos, string png, UiColor color) => ImageFileStorage(parent, pos, default(UiOffset), png, color);
-		public UiRawImage ImageFileStorage(BaseUiComponent parent, UiPosition pos, UiOffset offset, string png) => ImageFileStorage(parent, pos, offset, png, UiColor.White);
-		public UiRawImage ImageFileStorage(BaseUiComponent parent, UiPosition pos, string png) => ImageFileStorage(parent, pos, default(UiOffset), png, UiColor.White);
+		public UiRawImage ImageFileStorage(UiReference parent, UiPosition pos, string png, UiColor color) => ImageFileStorage(parent, pos, default(UiOffset), png, color);
+		public UiRawImage ImageFileStorage(UiReference parent, UiPosition pos, UiOffset offset, string png) => ImageFileStorage(parent, pos, offset, png, UiColor.White);
+		public UiRawImage ImageFileStorage(UiReference parent, UiPosition pos, string png) => ImageFileStorage(parent, pos, default(UiOffset), png, UiColor.White);
 		#endregion
 		
 		#region Label
-		public UiLabel Label(BaseUiComponent parent, UiPosition pos, UiOffset offset, string text, int size, UiColor textColor, TextAnchor align = TextAnchor.MiddleCenter)
+		public UiLabel Label(UiReference parent, UiPosition pos, UiOffset offset, string text, int size, UiColor textColor, TextAnchor align = TextAnchor.MiddleCenter)
 		{
-			UiLabel label = UiLabel.Create(pos, offset, textColor, text, size, _font, align);
+			UiLabel label = UiLabel.Create(pos, offset, textColor, text, size, Font, align);
 			AddComponent(label, parent);
 			return label;
 		}
 		
-		public UiLabel Label(BaseUiComponent parent, UiPosition pos, string text, int fontSize, UiColor textColor, TextAnchor align = TextAnchor.MiddleCenter) => Label(parent, pos, default(UiOffset), text, fontSize, textColor, align);
+		public UiLabel Label(UiReference parent, UiPosition pos, string text, int fontSize, UiColor textColor, TextAnchor align = TextAnchor.MiddleCenter) => Label(parent, pos, default(UiOffset), text, fontSize, textColor, align);
 		
-		public UiLabelBackground LabelBackground(BaseUiComponent parent, UiPosition pos, UiOffset offset, string text, int fontSize, UiColor textColor, UiColor backgroundColor, TextAnchor align = TextAnchor.MiddleCenter)
+		public UiLabelBackground LabelBackground(UiReference parent, UiPosition pos, UiOffset offset, string text, int fontSize, UiColor textColor, UiColor backgroundColor, TextAnchor align = TextAnchor.MiddleCenter)
 		{
 			UiLabelBackground control = UiLabelBackground.Create(this, parent, pos, offset, text, fontSize, textColor, backgroundColor, align);
 			AddControl(control);
 			return control;
 		}
 		
-		public UiLabelBackground LabelBackground(BaseUiComponent parent, UiPosition pos, string text, int fontSize, UiColor textColor, UiColor backgroundColor, TextAnchor align = TextAnchor.MiddleCenter) => LabelBackground(parent, pos, default(UiOffset), text, fontSize, textColor, backgroundColor, align);
+		public UiLabelBackground LabelBackground(UiReference parent, UiPosition pos, string text, int fontSize, UiColor textColor, UiColor backgroundColor, TextAnchor align = TextAnchor.MiddleCenter) => LabelBackground(parent, pos, default(UiOffset), text, fontSize, textColor, backgroundColor, align);
 		#endregion
 		
 		#region Input
-		public UiInput Input(BaseUiComponent parent, UiPosition pos, UiOffset offset, string text, int fontSize, UiColor textColor,  string command, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, InputMode mode = InputMode.Default, InputField.LineType lineType = InputField.LineType.SingleLine)
+		public UiInput Input(UiReference parent, UiPosition pos, UiOffset offset, string text, int fontSize, UiColor textColor,  string command, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, InputMode mode = InputMode.Default, InputField.LineType lineType = InputField.LineType.SingleLine)
 		{
-			UiInput input = UiInput.Create(pos, offset, textColor, text, fontSize, command, _font, align, charsLimit, mode, lineType);
+			UiInput input = UiInput.Create(pos, offset, textColor, text, fontSize, command, Font, align, charsLimit, mode, lineType);
 			AddComponent(input, parent);
 			return input;
 		}
 		
-		public UiInput Input(BaseUiComponent parent, UiPosition pos, string text, int fontSize, UiColor textColor, string command, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, InputMode mode = InputMode.Default, InputField.LineType lineType = InputField.LineType.SingleLine)
+		public UiInput Input(UiReference parent, UiPosition pos, string text, int fontSize, UiColor textColor, string command, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, InputMode mode = InputMode.Default, InputField.LineType lineType = InputField.LineType.SingleLine)
 		=> Input(parent, pos, default(UiOffset), text, fontSize, textColor, command, align, charsLimit, mode, lineType);
 		#endregion
 		
@@ -417,7 +418,7 @@ namespace Oxide.Plugins
 		#endregion
 		
 		#region Anchor
-		public UiSection Anchor(BaseUiComponent parent, UiPosition pos, UiOffset offset = default(UiOffset))
+		public UiSection Anchor(UiReference parent, UiPosition pos, UiOffset offset = default(UiOffset))
 		{
 			UiSection section = UiSection.Create(pos, offset);
 			AddAnchor(section, parent);
@@ -427,135 +428,135 @@ namespace Oxide.Plugins
 	}
 	#endregion
 
-	#region Builder\UiBuilder.Controls.cs
-	public partial class UiBuilder
+	#region Builder\BaseUiBuilder.Controls.cs
+	public partial class BaseUiBuilder
 	{
 		#region Buttons
-		public UiButton TextButton(BaseUiComponent parent, UiPosition pos, UiOffset offset, string text, int textSize, UiColor textColor, UiColor buttonColor, string command, TextAnchor align = TextAnchor.MiddleCenter)
+		public UiButton TextButton(UiReference parent, UiPosition pos, UiOffset offset, string text, int textSize, UiColor textColor, UiColor buttonColor, string command, TextAnchor align = TextAnchor.MiddleCenter)
 		{
 			UiButton button = CommandButton(parent, pos, offset, buttonColor, command);
 			Label(button, UiPosition.HorizontalPaddedFull, text, textSize, textColor , align);
 			return button;
 		}
 		
-		public UiButton TextButton(BaseUiComponent parent, UiPosition pos, string text, int textSize, UiColor textColor, UiColor buttonColor, string command, TextAnchor align = TextAnchor.MiddleCenter)
+		public UiButton TextButton(UiReference parent, UiPosition pos, string text, int textSize, UiColor textColor, UiColor buttonColor, string command, TextAnchor align = TextAnchor.MiddleCenter)
 		=> TextButton(parent, pos, default(UiOffset), text, textSize, textColor, buttonColor, command, align);
 		
-		public UiButton ImageFileStorageButton(BaseUiComponent parent, UiPosition pos, UiOffset offset, UiColor buttonColor, string png, string command)
+		public UiButton ImageFileStorageButton(UiReference parent, UiPosition pos, UiOffset offset, UiColor buttonColor, string png, string command)
 		{
 			UiButton button = CommandButton(parent, pos, offset, buttonColor, command);
 			ImageFileStorage(button, UiPosition.Full, png);
 			return button;
 		}
 		
-		public UiButton ImageFileStorageButton(BaseUiComponent parent, UiPosition pos, UiColor buttonColor, string png, string command) => ImageFileStorageButton(parent, pos, default(UiOffset), buttonColor, png, command);
+		public UiButton ImageFileStorageButton(UiReference parent, UiPosition pos, UiColor buttonColor, string png, string command) => ImageFileStorageButton(parent, pos, default(UiOffset), buttonColor, png, command);
 		
-		public UiButton ImageSpriteButton(BaseUiComponent parent, UiPosition pos, UiOffset offset, UiColor buttonColor, string sprite, string command)
+		public UiButton ImageSpriteButton(UiReference parent, UiPosition pos, UiOffset offset, UiColor buttonColor, string sprite, string command)
 		{
 			UiButton button = CommandButton(parent, pos, offset, buttonColor, command);
 			ImageSprite(button, UiPosition.Full, sprite);
 			return button;
 		}
 		
-		public UiButton ImageSpriteButton(BaseUiComponent parent, UiPosition pos, UiColor buttonColor, string sprite, string command) => ImageSpriteButton(parent, pos, default(UiOffset), buttonColor, sprite, command);
+		public UiButton ImageSpriteButton(UiReference parent, UiPosition pos, UiColor buttonColor, string sprite, string command) => ImageSpriteButton(parent, pos, default(UiOffset), buttonColor, sprite, command);
 		
-		public UiButton WebImageButton(BaseUiComponent parent, UiPosition pos, UiOffset offset, UiColor buttonColor, string url, string command)
+		public UiButton WebImageButton(UiReference parent, UiPosition pos, UiOffset offset, UiColor buttonColor, string url, string command)
 		{
 			UiButton button = CommandButton(parent, pos, offset, buttonColor, command);
 			WebImage(button, UiPosition.Full, url);
 			return button;
 		}
 		
-		public UiButton WebImageButton(BaseUiComponent parent, UiPosition pos, UiColor buttonColor, string url, string command) => WebImageButton(parent, pos, default(UiOffset), buttonColor, url, command);
+		public UiButton WebImageButton(UiReference parent, UiPosition pos, UiColor buttonColor, string url, string command) => WebImageButton(parent, pos, default(UiOffset), buttonColor, url, command);
 		
-		public UiButton ItemIconButton(BaseUiComponent parent, UiPosition pos, UiOffset offset, UiColor buttonColor, int itemId, string command)
+		public UiButton ItemIconButton(UiReference parent, UiPosition pos, UiOffset offset, UiColor buttonColor, int itemId, string command)
 		{
 			UiButton button = CommandButton(parent, pos, offset, buttonColor, command);
 			ItemIcon(button, UiPosition.Full, itemId);
 			return button;
 		}
 		
-		public UiButton ItemIconButton(BaseUiComponent parent, UiPosition pos, UiColor buttonColor, int itemId, string command) => ItemIconButton(parent, pos, default(UiOffset), buttonColor, itemId, command);
+		public UiButton ItemIconButton(UiReference parent, UiPosition pos, UiColor buttonColor, int itemId, string command) => ItemIconButton(parent, pos, default(UiOffset), buttonColor, itemId, command);
 		
-		public UiButton ItemIconButton(BaseUiComponent parent, UiPosition pos, UiOffset offset, UiColor buttonColor, int itemId, ulong skinId, string command)
+		public UiButton ItemIconButton(UiReference parent, UiPosition pos, UiOffset offset, UiColor buttonColor, int itemId, ulong skinId, string command)
 		{
 			UiButton button = CommandButton(parent, pos, offset, buttonColor, command);
 			ItemIcon(button, UiPosition.Full, itemId, skinId);
 			return button;
 		}
 		
-		public UiButton ItemIconButton(BaseUiComponent parent, UiPosition pos, UiColor buttonColor, int itemId, ulong skinId, string command) => ItemIconButton(parent, pos, default(UiOffset), buttonColor, itemId, skinId, command);
+		public UiButton ItemIconButton(UiReference parent, UiPosition pos, UiColor buttonColor, int itemId, ulong skinId, string command) => ItemIconButton(parent, pos, default(UiOffset), buttonColor, itemId, skinId, command);
 		
-		public UiButton CloseTextButton(BaseUiComponent parent, UiPosition pos, UiOffset offset, string text, int textSize, UiColor textColor, UiColor buttonColor, string close, TextAnchor align = TextAnchor.MiddleCenter)
+		public UiButton CloseTextButton(UiReference parent, UiPosition pos, UiOffset offset, string text, int textSize, UiColor textColor, UiColor buttonColor, string close, TextAnchor align = TextAnchor.MiddleCenter)
 		{
 			UiButton button = CloseButton(parent, pos, offset, buttonColor, close);
 			Label(button, UiPosition.HorizontalPaddedFull, text, textSize, textColor , align);
 			return button;
 		}
 		
-		public UiButton CloseTextButton(BaseUiComponent parent, UiPosition pos, string text, int textSize, UiColor textColor, UiColor buttonColor, string close, TextAnchor align = TextAnchor.MiddleCenter)
+		public UiButton CloseTextButton(UiReference parent, UiPosition pos, string text, int textSize, UiColor textColor, UiColor buttonColor, string close, TextAnchor align = TextAnchor.MiddleCenter)
 		=> CloseTextButton(parent, pos, default(UiOffset), text, textSize, textColor, buttonColor, close, align);
 		
-		public UiButton CloseImageFileStorageButton(BaseUiComponent parent, UiPosition pos, UiOffset offset, UiColor buttonColor, string png, string close)
+		public UiButton CloseImageFileStorageButton(UiReference parent, UiPosition pos, UiOffset offset, UiColor buttonColor, string png, string close)
 		{
 			UiButton button = CommandButton(parent, pos, offset, buttonColor, close);
 			ImageFileStorage(button, UiPosition.Full, png);
 			return button;
 		}
 		
-		public UiButton CloseImageFileStorageButton(BaseUiComponent parent, UiPosition pos, UiColor buttonColor, string png, string close) => CloseImageFileStorageButton(parent, pos, default(UiOffset), buttonColor, png, close);
+		public UiButton CloseImageFileStorageButton(UiReference parent, UiPosition pos, UiColor buttonColor, string png, string close) => CloseImageFileStorageButton(parent, pos, default(UiOffset), buttonColor, png, close);
 		
-		public UiButton CloseImageSpriteButton(BaseUiComponent parent, UiPosition pos, UiOffset offset, UiColor buttonColor, string sprite, string close)
+		public UiButton CloseImageSpriteButton(UiReference parent, UiPosition pos, UiOffset offset, UiColor buttonColor, string sprite, string close)
 		{
 			UiButton button = CloseButton(parent, pos, offset, buttonColor, close);
 			ImageSprite(button, UiPosition.Full, sprite);
 			return button;
 		}
 		
-		public UiButton CloseImageSpriteButton(BaseUiComponent parent, UiPosition pos, UiColor buttonColor, string sprite, string close) => CloseImageSpriteButton(parent, pos, default(UiOffset), buttonColor, sprite, close);
+		public UiButton CloseImageSpriteButton(UiReference parent, UiPosition pos, UiColor buttonColor, string sprite, string close) => CloseImageSpriteButton(parent, pos, default(UiOffset), buttonColor, sprite, close);
 		
-		public UiButton CloseWebImageButton(BaseUiComponent parent, UiPosition pos, UiOffset offset, UiColor buttonColor, string url, string close)
+		public UiButton CloseWebImageButton(UiReference parent, UiPosition pos, UiOffset offset, UiColor buttonColor, string url, string close)
 		{
 			UiButton button = CloseButton(parent, pos, offset, buttonColor, close);
 			WebImage(button, UiPosition.Full, url);
 			return button;
 		}
 		
-		public UiButton CloseWebImageButton(BaseUiComponent parent, UiPosition pos, UiColor buttonColor, string url, string close) => CloseWebImageButton(parent, pos, default(UiOffset), buttonColor, url, close);
+		public UiButton CloseWebImageButton(UiReference parent, UiPosition pos, UiColor buttonColor, string url, string close) => CloseWebImageButton(parent, pos, default(UiOffset), buttonColor, url, close);
 		
-		public UiButton CloseItemIconButton(BaseUiComponent parent, UiPosition pos, UiOffset offset, UiColor buttonColor, int itemId, string close)
+		public UiButton CloseItemIconButton(UiReference parent, UiPosition pos, UiOffset offset, UiColor buttonColor, int itemId, string close)
 		{
 			UiButton button = CloseButton(parent, pos, offset, buttonColor, close);
 			ItemIcon(button, UiPosition.Full, itemId);
 			return button;
 		}
 		
-		public UiButton CloseItemIconButton(BaseUiComponent parent, UiPosition pos, UiColor buttonColor, int itemId, string close) => CloseItemIconButton(parent, pos, default(UiOffset), buttonColor, itemId, close);
+		public UiButton CloseItemIconButton(UiReference parent, UiPosition pos, UiColor buttonColor, int itemId, string close) => CloseItemIconButton(parent, pos, default(UiOffset), buttonColor, itemId, close);
 		
-		public UiButton CloseItemIconButton(BaseUiComponent parent, UiPosition pos, UiOffset offset, UiColor buttonColor, int itemId, ulong skinId, string close)
+		public UiButton CloseItemIconButton(UiReference parent, UiPosition pos, UiOffset offset, UiColor buttonColor, int itemId, ulong skinId, string close)
 		{
 			UiButton button = CloseButton(parent, pos, offset, buttonColor, close);
 			ItemIcon(button, UiPosition.Full, itemId, skinId);
 			return button;
 		}
 		
-		public UiButton CloseItemIconButton(BaseUiComponent parent, UiPosition pos, UiColor buttonColor, int itemId, ulong skinId, string close) => CloseItemIconButton(parent, pos, default(UiOffset), buttonColor, itemId, skinId, close);
+		public UiButton CloseItemIconButton(UiReference parent, UiPosition pos, UiColor buttonColor, int itemId, ulong skinId, string close) => CloseItemIconButton(parent, pos, default(UiOffset), buttonColor, itemId, skinId, close);
 		#endregion
 		
 		#region Input Background
-		public UiInputBackground InputBackground(BaseUiComponent parent, UiPosition pos, UiOffset offset, string text, int fontSize, UiColor textColor, UiColor backgroundColor, string command, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, InputMode mode = InputMode.Default, InputField.LineType lineType = InputField.LineType.SingleLine)
+		public UiInputBackground InputBackground(UiReference parent, UiPosition pos, UiOffset offset, string text, int fontSize, UiColor textColor, UiColor backgroundColor, string command, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, InputMode mode = InputMode.Default, InputField.LineType lineType = InputField.LineType.SingleLine)
 		{
 			UiInputBackground control = UiInputBackground.Create(this, parent, pos, offset, text, fontSize, textColor, backgroundColor, command, align, charsLimit, mode, lineType);
 			AddControl(control);
 			return control;
 		}
 		
-		public UiInputBackground InputBackground(BaseUiComponent parent, UiPosition pos, string text, int fontSize, UiColor textColor, UiColor backgroundColor, string command, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, InputMode mode = InputMode.Default, InputField.LineType lineType = InputField.LineType.SingleLine) =>
+		public UiInputBackground InputBackground(UiReference parent, UiPosition pos, string text, int fontSize, UiColor textColor, UiColor backgroundColor, string command, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, InputMode mode = InputMode.Default, InputField.LineType lineType = InputField.LineType.SingleLine) =>
 		InputBackground(parent, pos, UiOffset.None, text, fontSize, textColor, backgroundColor, command, align, charsLimit, mode, lineType);
 		#endregion
 		
 		#region Checkbox
-		public UiCheckbox Checkbox(BaseUiComponent parent, UiPosition pos, UiOffset offset, bool isChecked, int textSize, UiColor textColor, UiColor backgroundColor, string command)
+		public UiCheckbox Checkbox(UiReference parent, UiPosition pos, UiOffset offset, bool isChecked, int textSize, UiColor textColor, UiColor backgroundColor, string command)
 		{
 			UiCheckbox checkbox = UiCheckbox.CreateCheckbox(this, parent, pos, offset, isChecked, textSize, textColor, backgroundColor, command);
 			AddControl(checkbox);
@@ -564,7 +565,7 @@ namespace Oxide.Plugins
 		#endregion
 		
 		#region ProgressBar
-		public UiProgressBar ProgressBar(BaseUiComponent parent, UiPosition pos, UiOffset offset, float percentage, UiColor barColor, UiColor backgroundColor)
+		public UiProgressBar ProgressBar(UiReference parent, UiPosition pos, UiOffset offset, float percentage, UiColor barColor, UiColor backgroundColor)
 		{
 			UiProgressBar control = UiProgressBar.Create(this, parent, pos, offset, percentage, barColor, backgroundColor);
 			AddControl(control);
@@ -573,14 +574,14 @@ namespace Oxide.Plugins
 		#endregion
 		
 		#region Button Groups
-		public UiButtonGroup ButtonGroup(BaseUiComponent parent, UiPosition pos, UiOffset offset, List<ButtonGroupData> buttons, int textSize, UiColor textColor, UiColor buttonColor, UiColor currentButtonColor, string command)
+		public UiButtonGroup ButtonGroup(UiReference parent, UiPosition pos, UiOffset offset, List<ButtonGroupData> buttons, int textSize, UiColor textColor, UiColor buttonColor, UiColor currentButtonColor, string command)
 		{
 			UiButtonGroup control = UiButtonGroup.Create(this, parent, pos, offset, buttons, textSize, textColor, buttonColor, currentButtonColor, command);
 			AddControl(control);
 			return control;
 		}
 		
-		public UiButtonGroup NumericButtonGroup(BaseUiComponent parent, UiPosition pos, UiOffset offset, int value, int minValue, int maxValue, int textSize, UiColor textColor, UiColor buttonColor, UiColor currentButtonColor, string command)
+		public UiButtonGroup NumericButtonGroup(UiReference parent, UiPosition pos, UiOffset offset, int value, int minValue, int maxValue, int textSize, UiColor textColor, UiColor buttonColor, UiColor currentButtonColor, string command)
 		{
 			UiButtonGroup control = UiButtonGroup.CreateNumeric(this, parent, pos, offset, value, minValue, maxValue, textSize, textColor, buttonColor, currentButtonColor, command);
 			AddControl(control);
@@ -589,14 +590,14 @@ namespace Oxide.Plugins
 		#endregion
 		
 		#region Number Picker
-		public UiNumberPicker NumberPicker(BaseUiComponent parent, UiPosition pos, UiOffset offset, int value, int fontSize, int buttonFontSize, UiColor textColor, UiColor backgroundColor, UiColor buttonColor, UiColor disabledButtonColor, string command, string incrementCommand, string decrementCommand, int minValue = int.MinValue, int maxValue = int.MaxValue, float buttonWidth = 0.1f, TextAnchor align = TextAnchor.MiddleRight, InputMode mode = InputMode.Default, NumberPickerMode numberMode = NumberPickerMode.LeftRight, string numberFormat = null)
+		public UiNumberPicker NumberPicker(UiReference parent, UiPosition pos, UiOffset offset, int value, int fontSize, int buttonFontSize, UiColor textColor, UiColor backgroundColor, UiColor buttonColor, UiColor disabledButtonColor, string command, string incrementCommand, string decrementCommand, int minValue = int.MinValue, int maxValue = int.MaxValue, float buttonWidth = 0.1f, TextAnchor align = TextAnchor.MiddleRight, InputMode mode = InputMode.Default, NumberPickerMode numberMode = NumberPickerMode.LeftRight, string numberFormat = null)
 		{
 			UiNumberPicker control = UiNumberPicker.Create(this, parent, pos, offset, value, fontSize, buttonFontSize, textColor, backgroundColor, buttonColor, disabledButtonColor, command, incrementCommand, decrementCommand, minValue, maxValue, buttonWidth, align, mode, numberMode, numberFormat);
 			AddControl(control);
 			return control;
 		}
 		
-		public UiIncrementalNumberPicker<T> IncrementalNumberPicker<T>(BaseUiComponent parent, UiPosition pos, UiOffset offset, T value, IList<T> increments, int fontSize, UiColor textColor, UiColor backgroundColor, UiColor buttonColor, UiColor disabledButtonColor, string command, T minValue , T maxValue, InputMode mode = InputMode.Default, float buttonWidth = 0.1f, TextAnchor align = TextAnchor.MiddleRight, string incrementFormat = "0", string numberFormat = null)  where T : struct, IConvertible, IFormattable, IComparable<T>
+		public UiIncrementalNumberPicker<T> IncrementalNumberPicker<T>(UiReference parent, UiPosition pos, UiOffset offset, T value, IList<T> increments, int fontSize, UiColor textColor, UiColor backgroundColor, UiColor buttonColor, UiColor disabledButtonColor, string command, T minValue , T maxValue, InputMode mode = InputMode.Default, float buttonWidth = 0.1f, TextAnchor align = TextAnchor.MiddleRight, string incrementFormat = "0", string numberFormat = null)  where T : struct, IConvertible, IFormattable, IComparable<T>
 		{
 			UiIncrementalNumberPicker<T> control = UiIncrementalNumberPicker<T>.Create(this, parent, pos, offset, value, increments, fontSize, textColor, backgroundColor, buttonColor, disabledButtonColor, command, align, mode, minValue, maxValue, buttonWidth, incrementFormat, numberFormat);
 			AddControl(control);
@@ -605,7 +606,7 @@ namespace Oxide.Plugins
 		#endregion
 		
 		#region Paginator
-		public UiPaginator Paginator(BaseUiComponent parent, GridPosition grid, int currentPage, int maxPage, int fontSize, UiColor textColor, UiColor buttonColor, UiColor activePageColor, string command)
+		public UiPaginator Paginator(UiReference parent, GridPosition grid, int currentPage, int maxPage, int fontSize, UiColor textColor, UiColor buttonColor, UiColor activePageColor, string command)
 		{
 			UiPaginator control = UiPaginator.Create(this, parent, grid, currentPage, maxPage, fontSize, textColor, buttonColor, activePageColor, command);
 			AddControl(control);
@@ -614,7 +615,7 @@ namespace Oxide.Plugins
 		#endregion
 		
 		#region Scroll Bar
-		public UiScrollBar ScrollBar(BaseUiComponent parent, UiPosition position, UiOffset offset, int currentPage, int maxPage, UiColor barColor, UiColor backgroundColor, string command, ScrollbarDirection direction = ScrollbarDirection.Vertical, string sprite = UiConstants.Sprites.RoundedBackground2)
+		public UiScrollBar ScrollBar(UiReference parent, UiPosition position, UiOffset offset, int currentPage, int maxPage, UiColor barColor, UiColor backgroundColor, string command, ScrollbarDirection direction = ScrollbarDirection.Vertical, string sprite = UiConstants.Sprites.RoundedBackground2)
 		{
 			UiScrollBar control = UiScrollBar.Create(this, parent, position, offset, currentPage, maxPage, barColor, backgroundColor, command, direction, sprite);
 			AddControl(control);
@@ -623,47 +624,47 @@ namespace Oxide.Plugins
 		#endregion
 		
 		#region Dropdown
-		public UiDropdown Dropdown(BaseUiComponent parent, UiPosition pos, UiOffset offset, string displayValue, int fontSize, UiColor textColor, UiColor backgroundColor, string openCommand)
+		public UiDropdown Dropdown(UiReference parent, UiPosition pos, UiOffset offset, string displayValue, int fontSize, UiColor textColor, UiColor backgroundColor, string openCommand)
 		{
 			UiDropdown control = UiDropdown.Create(this, parent, pos, offset, displayValue, fontSize, textColor, backgroundColor, openCommand);
 			AddControl(control);
 			return control;
 		}
 		
-		public static UiDropdownMenu DropdownMenu(string parentName, List<DropdownMenuData> items, int fontSize, UiColor textColor, UiColor backgroundColor, string selectedCommand, string pageCommand = null, int page = 0, int maxValuesPerPage = 100, int minWidth = 100,
+		public static UiDropdownMenu DropdownMenu(UiReference reference, List<DropdownMenuData> items, int fontSize, UiColor textColor, UiColor backgroundColor, string selectedCommand, string pageCommand = null, int page = 0, int maxValuesPerPage = 100, int minWidth = 100,
 		PopoverPosition position = PopoverPosition.Bottom, string menuSprite = UiConstants.Sprites.RoundedBackground2)
 		{
-			UiDropdownMenu control = UiDropdownMenu.Create(parentName, items, fontSize, textColor, backgroundColor, selectedCommand, pageCommand, page, maxValuesPerPage, minWidth, position, menuSprite);
+			UiDropdownMenu control = UiDropdownMenu.Create(reference, items, fontSize, textColor, backgroundColor, selectedCommand, pageCommand, page, maxValuesPerPage, minWidth, position, menuSprite);
 			return control;
 		}
 		#endregion
 		
 		#region Time Picker
-		public UiTimePicker TimePicker(BaseUiComponent parent, UiPosition pos, UiOffset offset, DateTime time, int fontSize, UiColor textColor, UiColor backgroundColor, string openCommand, string displayFormat = "hh:mm:ss tt")
+		public UiTimePicker TimePicker(UiReference parent, UiPosition pos, UiOffset offset, DateTime time, int fontSize, UiColor textColor, UiColor backgroundColor, string openCommand, string displayFormat = "hh:mm:ss tt")
 		{
-			var control = UiTimePicker.Create(this, parent, pos, offset, time, fontSize, textColor, backgroundColor, openCommand, displayFormat);
+			UiTimePicker control = UiTimePicker.Create(this, parent, pos, offset, time, fontSize, textColor, backgroundColor, openCommand, displayFormat);
 			AddControl(control);
 			return control;
 		}
 		
-		public static UiTimePickerMenu TimePickerMenu(string parentName, TimePickerData time, int fontSize, UiColor textColor, UiColor backgroundColor, string changeCommand, TimePickerDisplayMode displayMode = TimePickerDisplayMode.All, ClockMode clockMode = ClockMode.Hour12,
+		public static UiTimePickerMenu TimePickerMenu(UiReference reference, TimePickerData time, int fontSize, UiColor textColor, UiColor backgroundColor, string changeCommand, TimePickerDisplayMode displayMode = TimePickerDisplayMode.All, ClockMode clockMode = ClockMode.Hour12,
 		PopoverPosition position = PopoverPosition.Bottom, string menuSprite = UiConstants.Sprites.RoundedBackground2)
 		{
-			UiTimePickerMenu picker = UiTimePickerMenu.Create(parentName, time, fontSize, textColor, backgroundColor, changeCommand, displayMode, clockMode, position, menuSprite);
+			UiTimePickerMenu picker = UiTimePickerMenu.Create(reference, time, fontSize, textColor, backgroundColor, changeCommand, displayMode, clockMode, position, menuSprite);
 			return picker;
 		}
 		#endregion
 		
 		#region Date Picker
-		public UiDatePicker DatePicker(BaseUiComponent parent, UiPosition pos, UiOffset offset, DateTime date, int fontSize, UiColor textColor, UiColor backgroundColor, string openCommand)
+		public UiDatePicker DatePicker(UiReference parent, UiPosition pos, UiOffset offset, DateTime date, int fontSize, UiColor textColor, UiColor backgroundColor, string openCommand)
 		{
 			UiDatePicker picker = UiDatePicker.Create(this, parent, pos,offset, date, fontSize, textColor, backgroundColor, openCommand);
 			return picker;
 		}
 		
-		public static UiCalenderPicker DateCalenderMenu(string parentName, DateTime date, int fontSize, UiColor textColor, UiColor backgroundColor, UiColor buttonColor, UiColor selectedDateColor, string changeCommand, PopoverPosition position, string menuSprite = UiConstants.Sprites.RoundedBackground2, string buttonSprite = UiConstants.Sprites.RoundedBackground1)
+		public static UiCalenderPicker DateCalenderMenu(UiReference reference, DateTime date, int fontSize, UiColor textColor, UiColor backgroundColor, UiColor buttonColor, UiColor selectedDateColor, string changeCommand, PopoverPosition position, string menuSprite = UiConstants.Sprites.RoundedBackground2, string buttonSprite = UiConstants.Sprites.RoundedBackground1)
 		{
-			UiCalenderPicker picker = UiCalenderPicker.Create(parentName, date, fontSize, textColor, backgroundColor, buttonColor, selectedDateColor, changeCommand, position, menuSprite, buttonSprite);
+			UiCalenderPicker picker = UiCalenderPicker.Create(reference, date, fontSize, textColor, backgroundColor, buttonColor, selectedDateColor, changeCommand, position, menuSprite, buttonSprite);
 			return picker;
 		}
 		#endregion
@@ -676,15 +677,15 @@ namespace Oxide.Plugins
 			//     return control;
 		// }
 		//
-		// public static UiColorPickerMenu ColorPickerMenu(string parentName, UiColor selectedColor, int fontSize, UiColor textColor, UiColor buttonColor, UiColor backgroundColor, UiColor pickerBackgroundColor, UiColor pickerDisabledColor, string command, ColorPickerMode mode, PopoverPosition position, string menuSprite = UiConstants.Sprites.RoundedBackground2, InputMode inputMode = InputMode.NeedsKeyboard)
+		// public static UiColorPickerMenu ColorPickerMenu(UiReference reference, UiColor selectedColor, int fontSize, UiColor textColor, UiColor buttonColor, UiColor backgroundColor, UiColor pickerBackgroundColor, UiColor pickerDisabledColor, string command, ColorPickerMode mode, PopoverPosition position, string menuSprite = UiConstants.Sprites.RoundedBackground2, InputMode inputMode = InputMode.NeedsKeyboard)
 		// {
-			//     UiColorPickerMenu picker = UiColorPickerMenu.Create(parentName, selectedColor, fontSize, textColor, buttonColor, backgroundColor, pickerBackgroundColor, pickerDisabledColor, command, mode, position, menuSprite, inputMode);
+			//     UiColorPickerMenu picker = UiColorPickerMenu.Create(reference, selectedColor, fontSize, textColor, buttonColor, backgroundColor, pickerBackgroundColor, pickerDisabledColor, command, mode, position, menuSprite, inputMode);
 			//     return picker;
 		// }
 		#endregion
 		
 		#region Border
-		public UiBorder Border(BaseUiComponent parent, UiColor color, int width = 1, BorderMode border = BorderMode.All)
+		public UiBorder Border(UiReference parent, UiColor color, int width = 1, BorderMode border = BorderMode.All)
 		{
 			UiBorder control = UiBorder.Create(this, parent, color, width, border);
 			AddControl(control);
@@ -694,308 +695,37 @@ namespace Oxide.Plugins
 	}
 	#endregion
 
-	#region Builder\UiBuilder.CreateBuilders.cs
-	public partial class UiBuilder
+	#region Builder\BaseUiBuilder.cs
+	public abstract partial class BaseUiBuilder : BaseBuilder
 	{
-		public static UiBuilder Create(UiPosition pos, string name, string parent) => Create(pos, default(UiOffset), name, parent);
-		public static UiBuilder Create(UiPosition pos, string name, UiLayer parent = UiLayer.Overlay) => Create(pos, default(UiOffset), name, UiLayerCache.GetLayer(parent));
-		public static UiBuilder Create(UiPosition pos, UiOffset offset, string name, UiLayer parent = UiLayer.Overlay) => Create(pos, offset, name, UiLayerCache.GetLayer(parent));
-		public static UiBuilder Create(UiPosition pos, UiOffset offset, string name, string parent) => Create(UiSection.Create(pos, offset), name, parent);
-		public static UiBuilder Create(UiPosition pos, UiColor color, string name, string parent) => Create(pos, default(UiOffset), color, name, parent);
-		public static UiBuilder Create(UiPosition pos, UiColor color, string name, UiLayer parent = UiLayer.Overlay) => Create(pos, default(UiOffset), color, name, UiLayerCache.GetLayer(parent));
-		public static UiBuilder Create(UiPosition pos, UiOffset offset, UiColor color, string name, UiLayer parent = UiLayer.Overlay) => Create(pos, offset, color, name, UiLayerCache.GetLayer(parent));
-		public static UiBuilder Create(UiPosition pos, UiOffset offset, UiColor color, string name, string parent) => Create(UiPanel.Create(pos, offset, color), name, parent);
-		public static UiBuilder Create(BaseUiComponent root, string name, UiLayer parent = UiLayer.Overlay) => Create(root, name, UiLayerCache.GetLayer(parent));
-		public static UiBuilder Create(BaseUiComponent root, string name, string parent)
-		{
-			UiBuilder builder = Create();
-			builder.SetRoot(root, name, parent);
-			return builder;
-		}
+		protected readonly List<BaseUiComponent> Components = new List<BaseUiComponent>();
+		protected readonly List<BaseUiControl> Controls = new List<BaseUiControl>();
+		protected readonly List<BaseUiComponent> Anchors = new List<BaseUiComponent>();
 		
-		public static UiBuilder Create()
-		{
-			return UiFrameworkPool.Get<UiBuilder>();
-		}
+		protected string Font;
+		protected static string GlobalFont;
 		
-		/// <summary>
-		/// Creates a UiBuilder that is designed to be a popup modal
-		/// </summary>
-		/// <param name="modalSize">Dimensions of the modal</param>
-		/// <param name="modalColor">Modal form color</param>
-		/// <param name="name">Name of the UI</param>
-		/// <param name="layer">Layer the UI is on</param>
-		/// <returns></returns>
-		public static UiBuilder CreateModal(UiOffset modalSize, UiColor modalColor, string name, UiLayer layer = UiLayer.Overlay)
-		{
-			return CreateModal(modalSize, modalColor, new UiColor(0, 0, 0, 0.5f), name, layer, UiConstants.Materials.InGameBlur);
-		}
-		
-		/// <summary>
-		/// Creates a UiBuilder that is designed to be a popup modal
-		/// </summary>
-		/// <param name="modalSize">Dimensions of the modal</param>
-		/// <param name="modalColor">Modal form color</param>
-		/// <param name="name">Name of the UI</param>
-		/// <param name="layer">Layer the UI is on</param>
-		/// <param name="modalBackgroundColor">Color of the fullscreen background</param>
-		/// <param name="backgroundMaterial">Material of the full screen background</param>
-		/// <returns></returns>
-		public static UiBuilder CreateModal(UiOffset modalSize, UiColor modalColor, UiColor modalBackgroundColor, string name, UiLayer layer = UiLayer.Overlay, string backgroundMaterial = null)
-		{
-			UiPanel backgroundBlur = UiPanel.Create(UiPosition.Full, default(UiOffset), modalBackgroundColor);
-			backgroundBlur.SetMaterial(backgroundMaterial);
-			
-			UiBuilder builder = Create(backgroundBlur, name, layer);
-			
-			UiPanel modal = UiPanel.Create(UiPosition.MiddleMiddle, modalSize, modalColor);
-			builder.AddComponent(modal, backgroundBlur);
-			builder.OverrideRoot(modal);
-			return builder;
-		}
-		
-		/// <summary>
-		/// Creates a UI builder that when created before your main UI will run a command if the user click outside of the UI window
-		/// </summary>
-		/// <param name="command">Command to run when the button is clicked</param>
-		/// <param name="name">Name of the UI</param>
-		/// <param name="layer">Layer the UI is on</param>
-		/// <returns></returns>
-		public static UiBuilder CreateOutsideClose(string command, string name, UiLayer layer = UiLayer.Overlay)
-		{
-			UiBuilder builder = Create(UiButton.CreateCommand(UiPosition.Full, default(UiOffset), UiColor.Clear, command), name, layer);
-			builder.NeedsMouse();
-			return builder;
-		}
-		
-		/// <summary>
-		/// Creates a UI builder that will hold mouse input so the mouse doesn't reset position when updating other UI's
-		/// </summary>
-		/// <param name="name">Name of the UI</param>
-		/// <param name="layer">Layer the UI is on</param>
-		/// <returns></returns>
-		public static UiBuilder CreateMouseLock(string name, UiLayer layer = UiLayer.Overlay)
-		{
-			UiBuilder builder = Create(UiPosition.None, UiColor.Clear, name, UiLayerCache.GetLayer(layer));
-			builder.NeedsMouse();
-			return builder;
-		}
-		
-		public static UiPopover Popover(string parentName, Vector2Int size, UiColor backgroundColor, PopoverPosition position = PopoverPosition.Bottom, string menuSprite = UiConstants.Sprites.RoundedBackground2)
-		{
-			UiPopover control = UiPopover.Create(parentName, size, backgroundColor, position, menuSprite);
-			return control;
-		}
-	}
-	#endregion
-
-	#region Builder\UiBuilder.cs
-	public partial class UiBuilder : BaseUiBuilder
-	{
-		public BaseUiComponent Root;
-		
-		private bool _needsMouse;
-		private bool _needsKeyboard;
-		private bool _autoDestroy = true;
-		
-		private string _font;
-		
-		private List<BaseUiComponent> _components;
-		private List<BaseUiControl> _controls;
-		private List<BaseUiComponent> _anchors;
-		
-		private static string _globalFont;
-		
-		#region Constructor
-		static UiBuilder()
+		static BaseUiBuilder()
 		{
 			SetGlobalFont(UiFont.RobotoCondensedRegular);
 		}
 		
 		public void EnsureCapacity(int capacity)
 		{
-			if (_components.Capacity < capacity)
+			if (Components.Capacity < capacity)
 			{
-				_components.Capacity = capacity;
+				Components.Capacity = capacity;
 			}
-		}
-		
-		public void SetRoot(BaseUiComponent component, string name, string parent)
-		{
-			Root = component;
-			component.Parent = parent;
-			component.Name = name;
-			_components.Add(component);
-			RootName = name;
-		}
-		
-		public void OverrideRoot(BaseUiComponent component)
-		{
-			Root = component;
-		}
-		
-		public void NeedsMouse(bool enabled = true)
-		{
-			_needsMouse = enabled;
-		}
-		
-		public void NeedsKeyboard(bool enabled = true)
-		{
-			_needsKeyboard = enabled;
-		}
-		
-		public void EnableAutoDestroy(bool enabled = true)
-		{
-			_autoDestroy = enabled;
 		}
 		
 		public void SetCurrentFont(UiFont font)
 		{
-			_font = UiFontCache.GetUiFont(font);
+			Font = UiFontCache.GetUiFont(font);
 		}
 		
 		public static void SetGlobalFont(UiFont font)
 		{
-			_globalFont = UiFontCache.GetUiFont(font);
-		}
-		
-		// public T GetUi<T>(string name) where T : BaseUiComponent
-		// {
-			//     return (T)_componentLookup[name];
-		// }
-		#endregion
-		
-		#region Decontructor
-		~UiBuilder()
-		{
-			Dispose();
-			//Need this because there is a global GC class that causes issues
-			//ReSharper disable once RedundantNameQualifier
-			System.GC.SuppressFinalize(this);
-		}
-		
-		protected override void EnterPool()
-		{
-			FreeComponents();
-			
-			Root = null;
-			_needsKeyboard = false;
-			_needsMouse = false;
-			_font = null;
-			RootName = null;
-			_autoDestroy = true;
-		}
-		
-		private void FreeComponents()
-		{
-			if (_components != null)
-			{
-				int count = _components.Count;
-				for (int index = 0; index < count; index++)
-				{
-					_components[index].Dispose();
-				}
-				
-				UiFrameworkPool.FreeList(_components);
-			}
-			
-			if (_controls != null)
-			{
-				int count = _controls.Count;
-				for (int index = 0; index < count; index++)
-				{
-					_controls[index].Dispose();
-				}
-				
-				UiFrameworkPool.FreeList(_controls);
-			}
-			
-			if (_anchors != null)
-			{
-				int count = _anchors.Count;
-				for (int index = 0; index < count; index++)
-				{
-					_anchors[index].Dispose();
-				}
-				
-				UiFrameworkPool.FreeList(_anchors);
-			}
-		}
-		
-		protected override void LeavePool()
-		{
-			_components = UiFrameworkPool.GetList<BaseUiComponent>();
-			_controls = UiFrameworkPool.GetList<BaseUiControl>();
-			_font = _globalFont;
-		}
-		#endregion
-		
-		#region JSON
-		public int WriteBuffer(byte[] buffer)
-		{
-			JsonFrameworkWriter writer = CreateWriter();
-			int bytes = writer.WriteTo(buffer);
-			writer.Dispose();
-			return bytes;
-		}
-		
-		public JsonFrameworkWriter CreateWriter()
-		{
-			JsonFrameworkWriter writer = JsonFrameworkWriter.Create();
-			
-			writer.WriteStartArray();
-			
-			if (_components == null)
-			{
-				throw new Exception("Components List is null. Was UiBuilder not created from pool?");
-			}
-			
-			if (_controls == null)
-			{
-				throw new Exception("Controls List is null. Was UiBuilder not created from pool?");
-			}
-			
-			int count;
-			if (_controls.Count != 0)
-			{
-				count = _controls.Count;
-				for (int index = 0; index < count; index++)
-				{
-					BaseUiControl control = _controls[index];
-					control.RenderControl(this);
-				}
-			}
-			
-			_components[0].WriteRootComponent(writer, _needsMouse, _needsKeyboard, _autoDestroy);
-			
-			count = _components.Count;
-			for (int index = 1; index < count; index++)
-			{
-				_components[index].WriteComponent(writer);
-			}
-			
-			
-			if (_anchors != null)
-			{
-				count = _anchors.Count;
-				for (int index = 0; index < count; index++)
-				{
-					_anchors[index].WriteComponent(writer);
-				}
-			}
-			
-			writer.WriteEndArray();
-			return writer;
-		}
-		
-		public CachedUiBuilder ToCachedBuilder()
-		{
-			CachedUiBuilder cached = CachedUiBuilder.CreateCachedBuilder(this);
-			if (!Disposed)
-			{
-				Dispose();
-			}
-			return cached;
+			GlobalFont = UiFontCache.GetUiFont(font);
 		}
 		
 		public override byte[] GetBytes()
@@ -1016,7 +746,68 @@ namespace Oxide.Plugins
 				Dispose();
 			}
 		}
-		#endregion
+		
+		public JsonFrameworkWriter CreateWriter()
+		{
+			int count = Controls.Count;
+			if (count != 0)
+			{
+				for (int index = 0; index < count; index++)
+				{
+					BaseUiControl control = Controls[index];
+					control.RenderControl(this);
+				}
+			}
+			
+			JsonFrameworkWriter writer = JsonFrameworkWriter.Create();
+			writer.WriteStartArray();
+			WriteComponentsInternal(writer);
+			writer.WriteEndArray();
+			return writer;
+		}
+		
+		protected abstract void WriteComponentsInternal(JsonFrameworkWriter writer);
+		
+		protected override void EnterPool()
+		{
+			base.EnterPool();
+			FreeComponents();
+			Font = null;
+			RootName = null;
+		}
+		
+		private void FreeComponents()
+		{
+			int count = Components.Count;
+			for (int index = 0; index < count; index++)
+			{
+				Components[index].Dispose();
+			}
+			
+			Components.Clear();
+			
+			count = Controls.Count;
+			for (int index = 0; index < count; index++)
+			{
+				Controls[index].Dispose();
+			}
+			
+			Controls.Clear();
+			
+			count = Anchors.Count;
+			for (int index = 0; index < count; index++)
+			{
+				Anchors[index].Dispose();
+			}
+			
+			Anchors.Clear();
+		}
+		
+		protected override void LeavePool()
+		{
+			base.LeavePool();
+			Font = GlobalFont;
+		}
 	}
 	#endregion
 
@@ -2111,7 +1902,7 @@ namespace Oxide.Plugins
 			return UiFrameworkPool.Get<T>();
 		}
 		
-		public void RenderControl(UiBuilder builder)
+		public void RenderControl(BaseUiBuilder builder)
 		{
 			if (!_hasRendered)
 			{
@@ -2120,7 +1911,7 @@ namespace Oxide.Plugins
 			}
 		}
 		
-		protected virtual void Render(UiBuilder builder)
+		protected virtual void Render(BaseUiBuilder builder)
 		{
 			
 		}
@@ -2140,7 +1931,7 @@ namespace Oxide.Plugins
 		public UiPanel Top;
 		public UiPanel Bottom;
 		
-		public static UiBorder Create(UiBuilder builder, BaseUiComponent parent, UiColor color, int width = 1, BorderMode border = BorderMode.All)
+		public static UiBorder Create(BaseUiBuilder builder, UiReference parent, UiColor color, int width = 1, BorderMode border = BorderMode.All)
 		{
 			UiBorder control = CreateControl<UiBorder>();
 			//If width is 0 nothing is displayed so don't try to render
@@ -2234,7 +2025,7 @@ namespace Oxide.Plugins
 		public UiSection Base;
 		public List<UiButton> Buttons;
 		
-		public static UiButtonGroup Create(UiBuilder builder, BaseUiComponent parent, UiPosition pos, UiOffset offset, List<ButtonGroupData> buttons, int textSize, UiColor textColor, UiColor buttonColor, UiColor activeButtonColor, string command)
+		public static UiButtonGroup Create(BaseUiBuilder builder, UiReference parent, UiPosition pos, UiOffset offset, List<ButtonGroupData> buttons, int textSize, UiColor textColor, UiColor buttonColor, UiColor activeButtonColor, string command)
 		{
 			UiButtonGroup control = CreateControl<UiButtonGroup>();
 			control.Base = builder.Section(parent, pos, offset);
@@ -2251,7 +2042,7 @@ namespace Oxide.Plugins
 			return control;
 		}
 		
-		public static UiButtonGroup CreateNumeric(UiBuilder builder, BaseUiComponent parent, UiPosition pos, UiOffset offset, int value, int minValue, int maxValue, int textSize, UiColor textColor, UiColor buttonColor, UiColor activeButtonColor, string command)
+		public static UiButtonGroup CreateNumeric(BaseUiBuilder builder, UiReference parent, UiPosition pos, UiOffset offset, int value, int minValue, int maxValue, int textSize, UiColor textColor, UiColor buttonColor, UiColor activeButtonColor, string command)
 		{
 			List<ButtonGroupData> data = UiFrameworkPool.GetList<ButtonGroupData>();
 			for (int i = minValue; i <= maxValue; i++)
@@ -2291,7 +2082,7 @@ namespace Oxide.Plugins
 		public UiButton Button;
 		public UiLabel Label;
 		
-		public static UiCheckbox CreateCheckbox(UiBuilder builder, BaseUiComponent parent, UiPosition pos, UiOffset offset, bool isChecked, int textSize, UiColor textColor, UiColor backgroundColor, string command)
+		public static UiCheckbox CreateCheckbox(BaseUiBuilder builder, UiReference parent, UiPosition pos, UiOffset offset, bool isChecked, int textSize, UiColor textColor, UiColor backgroundColor, string command)
 		{
 			UiCheckbox control = CreateControl<UiCheckbox>();
 			control.IsChecked = isChecked;
@@ -2301,7 +2092,7 @@ namespace Oxide.Plugins
 			return control;
 		}
 		
-		protected override void Render(UiBuilder builder)
+		protected override void Render(BaseUiBuilder builder)
 		{
 			if (IsChecked)
 			{
@@ -2328,12 +2119,12 @@ namespace Oxide.Plugins
 		public UiLabel Text;
 		public UiLabel Icon;
 		
-		public static UiDatePicker Create(UiBuilder builder, BaseUiComponent parent, UiPosition pos, UiOffset offset, DateTime date, int fontSize, UiColor textColor, UiColor backgroundColor, string openCommand, string displayFormat = "MM/dd/yyyy")
+		public static UiDatePicker Create(BaseUiBuilder builder, UiReference parent, UiPosition pos, UiOffset offset, DateTime date, int fontSize, UiColor textColor, UiColor backgroundColor, string openCommand, string displayFormat = "MM/dd/yyyy")
 		{
 			UiDatePicker control = CreateControl<UiDatePicker>();
 			
 			control.Anchor = builder.Anchor(parent, pos, offset);
-			control.Command = builder.CommandButton(parent, pos, offset, backgroundColor, $"{openCommand} {control.Anchor.Name}");
+			control.Command = builder.CommandButton(parent, pos, offset, backgroundColor, $"{openCommand} {control.Anchor.Reference.Name}");
 			control.Text = builder.Label(control.Command, UiPosition.Full, new UiOffset(5, 0, 0, 0), date.ToString(displayFormat), fontSize, textColor, TextAnchor.MiddleLeft);
 			control.Icon = builder.Label(control.Command, UiPosition.Right, new UiOffset(-fontSize - 4, 0, -4 , 0), "⏱", fontSize, textColor);
 			
@@ -2350,11 +2141,11 @@ namespace Oxide.Plugins
 		public UiLabel Text;
 		public UiLabel Icon;
 		
-		public static UiDropdown Create(UiBuilder builder, BaseUiComponent parent, UiPosition pos, UiOffset offset, string displayValue, int fontSize, UiColor textColor, UiColor backgroundColor, string openCommand)
+		public static UiDropdown Create(BaseUiBuilder builder, UiReference parent, UiPosition pos, UiOffset offset, string displayValue, int fontSize, UiColor textColor, UiColor backgroundColor, string openCommand)
 		{
 			UiDropdown control = CreateControl<UiDropdown>();
 			control.Anchor = builder.Anchor(parent, pos);
-			control.Command = builder.CommandButton(parent, pos, offset, backgroundColor, $"{openCommand} {control.Anchor.Name}");
+			control.Command = builder.CommandButton(parent, pos, offset, backgroundColor, $"{openCommand} {control.Anchor.Reference.Name}");
 			control.Text = builder.Label(control.Command, UiPosition.Full, new UiOffset(5, 0, 0, 0), displayValue, fontSize, textColor, TextAnchor.MiddleLeft);
 			control.Icon = builder.Label(control.Command, UiPosition.Right, new UiOffset(-UiHelpers.TextOffsetWidth(1, fontSize) - 4, 0, -4 , 0), "▼", fontSize, textColor);
 			return control;
@@ -2377,7 +2168,7 @@ namespace Oxide.Plugins
 		public UiInput Input;
 		public UiPanel Background;
 		
-		public static UiInputBackground Create(UiBuilder builder, BaseUiComponent parent, UiPosition pos, UiOffset offset, string text, int fontSize, UiColor textColor, UiColor backgroundColor, string command, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, InputMode mode = InputMode.Default, InputField.LineType lineType = InputField.LineType.SingleLine)
+		public static UiInputBackground Create(BaseUiBuilder builder, UiReference parent, UiPosition pos, UiOffset offset, string text, int fontSize, UiColor textColor, UiColor backgroundColor, string command, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, InputMode mode = InputMode.Default, InputField.LineType lineType = InputField.LineType.SingleLine)
 		{
 			UiInputBackground control = CreateControl<UiInputBackground>();
 			control.Background = builder.Panel(parent,  pos, offset, backgroundColor);
@@ -2400,7 +2191,7 @@ namespace Oxide.Plugins
 		public UiLabel Label;
 		public UiPanel Background;
 		
-		public static UiLabelBackground Create(UiBuilder builder, BaseUiComponent parent, UiPosition pos, UiOffset offset, string text, int fontSize, UiColor textColor, UiColor backgroundColor, TextAnchor align = TextAnchor.MiddleCenter)
+		public static UiLabelBackground Create(BaseUiBuilder builder, UiReference parent, UiPosition pos, UiOffset offset, string text, int fontSize, UiColor textColor, UiColor backgroundColor, TextAnchor align = TextAnchor.MiddleCenter)
 		{
 			UiLabelBackground control = CreateControl<UiLabelBackground>();
 			control.Background = builder.Panel(parent, pos, offset, backgroundColor);
@@ -2426,7 +2217,7 @@ namespace Oxide.Plugins
 		public UiButton NextPage;
 		public UiButton LastPage;
 		
-		public static UiPaginator Create(UiBuilder builder, BaseUiComponent parent, GridPosition grid, int currentPage, int maxPage, int fontSize, UiColor textColor, UiColor buttonColor, UiColor activePageColor, string command)
+		public static UiPaginator Create(BaseUiBuilder builder, UiReference parent, GridPosition grid, int currentPage, int maxPage, int fontSize, UiColor textColor, UiColor buttonColor, UiColor activePageColor, string command)
 		{
 			UiPaginator control = CreateControl<UiPaginator>();
 			grid.Reset();
@@ -2488,16 +2279,16 @@ namespace Oxide.Plugins
 		public UiLabel Value;
 		public UiButton Next;
 		
-		public static UiPicker Create(UiBuilder builder, UiOffset pos, string value, int fontSize, UiColor textColor, UiColor backgroundColor, float height, string incrementCommand, string decrementCommand)
+		public static UiPicker Create(BaseUiBuilder builder, UiReference parent, UiOffset pos, string value, int fontSize, UiColor textColor, UiColor backgroundColor, float height, string incrementCommand, string decrementCommand)
 		{
 			UiPicker control = CreateControl<UiPicker>();
 			
 			UiOffset slice = pos.SliceVertical(0, (int)height * 2);
-			control.Next =  builder.TextButton(builder.Root, UiPosition.BottomLeft, slice, "˅", fontSize, textColor, backgroundColor, decrementCommand);
+			control.Next =  builder.TextButton(parent, UiPosition.BottomLeft, slice, "˅", fontSize, textColor, backgroundColor, decrementCommand);
 			slice = slice.MoveY(height);
-			control.Value = builder.Label(builder.Root, UiPosition.BottomLeft, slice, value, fontSize, textColor);
+			control.Value = builder.Label(parent, UiPosition.BottomLeft, slice, value, fontSize, textColor);
 			slice = slice.MoveY(height);
-			control.Previous = builder.TextButton(builder.Root, UiPosition.BottomLeft, slice, "˄", fontSize, textColor, backgroundColor, incrementCommand);
+			control.Previous = builder.TextButton(parent, UiPosition.BottomLeft, slice, "˄", fontSize, textColor, backgroundColor, incrementCommand);
 			
 			return control;
 		}
@@ -2518,7 +2309,7 @@ namespace Oxide.Plugins
 		public UiPanel BackgroundPanel;
 		public UiPanel BarPanel;
 		
-		public static UiProgressBar Create(UiBuilder builder, BaseUiComponent parent, UiPosition pos, UiOffset offset, float percentage, UiColor barColor, UiColor backgroundColor)
+		public static UiProgressBar Create(BaseUiBuilder builder, UiReference parent, UiPosition pos, UiOffset offset, float percentage, UiColor barColor, UiColor backgroundColor)
 		{
 			UiProgressBar control = CreateControl<UiProgressBar>();
 			control.BackgroundPanel = builder.Panel(parent, pos, offset, backgroundColor);
@@ -2542,7 +2333,7 @@ namespace Oxide.Plugins
 		public UiPanel ScrollBar;
 		public List<UiButton> ScrollButtons;
 		
-		public static UiScrollBar Create(UiBuilder builder, BaseUiComponent parent, UiPosition position, UiOffset offset, int currentPage, int maxPage, UiColor barColor, UiColor backgroundColor, string command, ScrollbarDirection direction, string sprite)
+		public static UiScrollBar Create(BaseUiBuilder builder, UiReference parent, UiPosition position, UiOffset offset, int currentPage, int maxPage, UiColor barColor, UiColor backgroundColor, string command, ScrollbarDirection direction, string sprite)
 		{
 			UiScrollBar control = CreateControl<UiScrollBar>();
 			
@@ -2606,12 +2397,12 @@ namespace Oxide.Plugins
 		public UiLabel Text;
 		public UiLabel Icon;
 		
-		public static UiTimePicker Create(UiBuilder builder, BaseUiComponent parent, UiPosition pos, UiOffset offset, DateTime time, int fontSize, UiColor textColor, UiColor backgroundColor, string openCommand, string displayFormat = "hh:mm:ss tt")
+		public static UiTimePicker Create(BaseUiBuilder builder, UiReference parent, UiPosition pos, UiOffset offset, DateTime time, int fontSize, UiColor textColor, UiColor backgroundColor, string openCommand, string displayFormat = "hh:mm:ss tt")
 		{
 			UiTimePicker control = CreateControl<UiTimePicker>();
 			
 			control.Anchor = builder.Anchor(parent, pos, offset);
-			control.Command = builder.CommandButton(parent, pos, offset, backgroundColor, $"{openCommand} {control.Anchor.Name}");
+			control.Command = builder.CommandButton(parent, pos, offset, backgroundColor, $"{openCommand} {control.Anchor.Reference.Name}");
 			control.Text = builder.Label(control.Command, UiPosition.Full, new UiOffset(5, 0, 0, 0), time.ToString(displayFormat), fontSize, textColor, TextAnchor.MiddleLeft);
 			control.Icon = builder.Label(control.Command, UiPosition.Right, new UiOffset(-fontSize - 4, 0, -4 , 0), "⏱", fontSize, textColor);
 			
@@ -2671,8 +2462,8 @@ namespace Oxide.Plugins
 	#region Enums\DatePickerDisplayOrder.cs
 	public enum DatePickerDisplayOrder
 	{
-		MonthDayYear,
 		YearMonthDay,
+		MonthDayYear,
 		DayMonthYear,
 	}
 	#endregion
@@ -4293,8 +4084,7 @@ namespace Oxide.Plugins
 	#region UiElements\BaseUiComponent.cs
 	public abstract class BaseUiComponent : BasePoolable
 	{
-		public string Name;
-		public string Parent;
+		public UiReference Reference;
 		public float FadeOut;
 		public UiPosition Position;
 		public UiOffset Offset;
@@ -4310,13 +4100,13 @@ namespace Oxide.Plugins
 		public void WriteRootComponent(JsonFrameworkWriter writer, bool needsMouse, bool needsKeyboard, bool autoDestroy)
 		{
 			writer.WriteStartObject();
-			writer.AddFieldRaw(JsonDefaults.Common.ComponentName, Name);
-			writer.AddFieldRaw(JsonDefaults.Common.ParentName, Parent);
+			writer.AddFieldRaw(JsonDefaults.Common.ComponentName, Reference.Name);
+			writer.AddFieldRaw(JsonDefaults.Common.ParentName, Reference.Parent);
 			writer.AddField(JsonDefaults.Common.FadeOutName, FadeOut, JsonDefaults.Common.FadeOut);
 			
 			if (autoDestroy)
 			{
-				writer.AddFieldRaw(JsonDefaults.Common.AutoDestroy, Name);
+				writer.AddFieldRaw(JsonDefaults.Common.AutoDestroy, Reference.Name);
 			}
 			
 			writer.WritePropertyName("components");
@@ -4337,11 +4127,26 @@ namespace Oxide.Plugins
 			writer.WriteEndObject();
 		}
 		
+		public void WriteUpdateComponent(JsonFrameworkWriter writer)
+		{
+			writer.WriteStartObject();
+			writer.AddFieldRaw(JsonDefaults.Common.ComponentName, Reference.Name);
+			writer.AddFieldRaw(JsonDefaults.Common.ParentName, Reference.Parent);
+			writer.AddField(JsonDefaults.Common.FadeOutName, FadeOut, JsonDefaults.Common.FadeOut);
+			writer.AddFieldRaw(JsonDefaults.Common.AutoDestroy, Reference.Name);
+			
+			writer.WritePropertyName("components");
+			writer.WriteStartArray();
+			WriteComponents(writer);
+			writer.WriteEndArray();
+			writer.WriteEndObject();
+		}
+		
 		public void WriteComponent(JsonFrameworkWriter writer)
 		{
 			writer.WriteStartObject();
-			writer.AddFieldRaw(JsonDefaults.Common.ComponentName, Name);
-			writer.AddFieldRaw(JsonDefaults.Common.ParentName, Parent);
+			writer.AddFieldRaw(JsonDefaults.Common.ComponentName, Reference.Name);
+			writer.AddFieldRaw(JsonDefaults.Common.ParentName, Reference.Parent);
 			writer.AddField(JsonDefaults.Common.FadeOutName, FadeOut, JsonDefaults.Common.FadeOut);
 			
 			writer.WritePropertyName("components");
@@ -4369,12 +4174,13 @@ namespace Oxide.Plugins
 		
 		protected override void EnterPool()
 		{
-			Name = null;
-			Parent = null;
+			Reference = default(UiReference);
 			FadeOut = 0;
 			Position = default(UiPosition);
 			Offset = default(UiOffset);
 		}
+		
+		public static implicit operator UiReference(BaseUiComponent component) => component.Reference;
 	}
 	#endregion
 
@@ -4818,6 +4624,20 @@ namespace Oxide.Plugins
 	}
 	#endregion
 
+	#region UiElements\UiReference.cs
+	public struct UiReference
+	{
+		public readonly string Parent;
+		public readonly string Name;
+		
+		public UiReference(string parent, string name)
+		{
+			Parent = parent;
+			Name = name;
+		}
+	}
+	#endregion
+
 	#region UiElements\UiSection.cs
 	public class UiSection : BaseUiComponent
 	{
@@ -4830,7 +4650,7 @@ namespace Oxide.Plugins
 	#endregion
 
 	#region Builder\Cached\CachedUiBuilder.cs
-	public class CachedUiBuilder : BaseUiBuilder
+	public class CachedUiBuilder : BaseBuilder
 	{
 		private readonly byte[] _cachedJson;
 		
@@ -4845,6 +4665,226 @@ namespace Oxide.Plugins
 		public override byte[] GetBytes() => _cachedJson;
 		
 		protected override void AddUi(SendInfo send) => AddUi(send, GetBytes());
+	}
+	#endregion
+
+	#region Builder\UI\UiBuilder.CreateBuilders.cs
+	public partial class UiBuilder
+	{
+		public static UiBuilder Create(UiPosition pos, string name, string parent) => Create(pos, default(UiOffset), name, parent);
+		public static UiBuilder Create(UiPosition pos, string name, UiLayer parent = UiLayer.Overlay) => Create(pos, default(UiOffset), name, UiLayerCache.GetLayer(parent));
+		public static UiBuilder Create(UiPosition pos, UiOffset offset, string name, UiLayer parent = UiLayer.Overlay) => Create(pos, offset, name, UiLayerCache.GetLayer(parent));
+		public static UiBuilder Create(UiPosition pos, UiOffset offset, string name, string parent) => Create(UiSection.Create(pos, offset), name, parent);
+		public static UiBuilder Create(UiPosition pos, UiColor color, string name, string parent) => Create(pos, default(UiOffset), color, name, parent);
+		public static UiBuilder Create(UiPosition pos, UiColor color, string name, UiLayer parent = UiLayer.Overlay) => Create(pos, default(UiOffset), color, name, UiLayerCache.GetLayer(parent));
+		public static UiBuilder Create(UiPosition pos, UiOffset offset, UiColor color, string name, UiLayer parent = UiLayer.Overlay) => Create(pos, offset, color, name, UiLayerCache.GetLayer(parent));
+		public static UiBuilder Create(UiPosition pos, UiOffset offset, UiColor color, string name, string parent) => Create(UiPanel.Create(pos, offset, color), name, parent);
+		public static UiBuilder Create(BaseUiComponent root, string name, UiLayer parent = UiLayer.Overlay) => Create(root, name, UiLayerCache.GetLayer(parent));
+		public static UiBuilder Create(BaseUiComponent root, string name, string parent)
+		{
+			UiBuilder builder = Create();
+			builder.SetRoot(root, name, parent);
+			return builder;
+		}
+		
+		public static UiBuilder Create()
+		{
+			return UiFrameworkPool.Get<UiBuilder>();
+		}
+		
+		/// <summary>
+		/// Creates a UiBuilder that is designed to be a popup modal
+		/// </summary>
+		/// <param name="modalSize">Dimensions of the modal</param>
+		/// <param name="modalColor">Modal form color</param>
+		/// <param name="name">Name of the UI</param>
+		/// <param name="layer">Layer the UI is on</param>
+		/// <returns></returns>
+		public static UiBuilder CreateModal(UiOffset modalSize, UiColor modalColor, string name, UiLayer layer = UiLayer.Overlay)
+		{
+			return CreateModal(modalSize, modalColor, new UiColor(0, 0, 0, 0.5f), name, layer, UiConstants.Materials.InGameBlur);
+		}
+		
+		/// <summary>
+		/// Creates a UiBuilder that is designed to be a popup modal
+		/// </summary>
+		/// <param name="modalSize">Dimensions of the modal</param>
+		/// <param name="modalColor">Modal form color</param>
+		/// <param name="name">Name of the UI</param>
+		/// <param name="layer">Layer the UI is on</param>
+		/// <param name="modalBackgroundColor">Color of the fullscreen background</param>
+		/// <param name="backgroundMaterial">Material of the full screen background</param>
+		/// <returns></returns>
+		public static UiBuilder CreateModal(UiOffset modalSize, UiColor modalColor, UiColor modalBackgroundColor, string name, UiLayer layer = UiLayer.Overlay, string backgroundMaterial = null)
+		{
+			UiPanel backgroundBlur = UiPanel.Create(UiPosition.Full, default(UiOffset), modalBackgroundColor);
+			backgroundBlur.SetMaterial(backgroundMaterial);
+			
+			UiBuilder builder = Create(backgroundBlur, name, layer);
+			
+			UiPanel modal = UiPanel.Create(UiPosition.MiddleMiddle, modalSize, modalColor);
+			builder.AddComponent(modal, backgroundBlur);
+			builder.OverrideRoot(modal);
+			return builder;
+		}
+		
+		/// <summary>
+		/// Creates a UI builder that when created before your main UI will run a command if the user click outside of the UI window
+		/// </summary>
+		/// <param name="command">Command to run when the button is clicked</param>
+		/// <param name="name">Name of the UI</param>
+		/// <param name="layer">Layer the UI is on</param>
+		/// <returns></returns>
+		public static UiBuilder CreateOutsideClose(string command, string name, UiLayer layer = UiLayer.Overlay)
+		{
+			UiBuilder builder = Create(UiButton.CreateCommand(UiPosition.Full, default(UiOffset), UiColor.Clear, command), name, layer);
+			builder.NeedsMouse();
+			return builder;
+		}
+		
+		/// <summary>
+		/// Creates a UI builder that will hold mouse input so the mouse doesn't reset position when updating other UI's
+		/// </summary>
+		/// <param name="name">Name of the UI</param>
+		/// <param name="layer">Layer the UI is on</param>
+		/// <returns></returns>
+		public static UiBuilder CreateMouseLock(string name, UiLayer layer = UiLayer.Overlay)
+		{
+			UiBuilder builder = Create(UiPosition.None, UiColor.Clear, name, UiLayerCache.GetLayer(layer));
+			builder.NeedsMouse();
+			return builder;
+		}
+		
+		public static UiPopover Popover(string parentName, Vector2Int size, UiColor backgroundColor, PopoverPosition position = PopoverPosition.Bottom, string menuSprite = UiConstants.Sprites.RoundedBackground2)
+		{
+			UiPopover control = UiPopover.Create(parentName, size, backgroundColor, position, menuSprite);
+			return control;
+		}
+	}
+	#endregion
+
+	#region Builder\UI\UiBuilder.cs
+	public partial class UiBuilder : BaseUiBuilder
+	{
+		public BaseUiComponent Root;
+		
+		private bool _needsMouse;
+		private bool _needsKeyboard;
+		private bool _autoDestroy = true;
+		
+		#region Decontructor
+		~UiBuilder()
+		{
+			Dispose();
+			//Need this because there is a global GC class that causes issues
+			//ReSharper disable once RedundantNameQualifier
+			System.GC.SuppressFinalize(this);
+		}
+		#endregion
+		
+		#region Setup
+		public void SetRoot(BaseUiComponent component, string name, string parent)
+		{
+			Root = component;
+			component.Reference = new UiReference(parent, name);
+			Components.Add(component);
+			RootName = name;
+		}
+		
+		public void OverrideRoot(BaseUiComponent component)
+		{
+			Root = component;
+		}
+		
+		public void NeedsMouse(bool enabled = true)
+		{
+			_needsMouse = enabled;
+		}
+		
+		public void NeedsKeyboard(bool enabled = true)
+		{
+			_needsKeyboard = enabled;
+		}
+		
+		public void EnableAutoDestroy(bool enabled = true)
+		{
+			_autoDestroy = enabled;
+		}
+		#endregion
+		
+		#region JSON
+		public int WriteBuffer(byte[] buffer)
+		{
+			JsonFrameworkWriter writer = CreateWriter();
+			int bytes = writer.WriteTo(buffer);
+			writer.Dispose();
+			return bytes;
+		}
+		
+		public CachedUiBuilder ToCachedBuilder()
+		{
+			CachedUiBuilder cached = CachedUiBuilder.CreateCachedBuilder(this);
+			if (!Disposed)
+			{
+				Dispose();
+			}
+			return cached;
+		}
+		#endregion
+		
+		protected override void WriteComponentsInternal(JsonFrameworkWriter writer)
+		{
+			Components[0].WriteRootComponent(writer, _needsMouse, _needsKeyboard, _autoDestroy);
+			
+			int count = Components.Count;
+			for (int index = 1; index < count; index++)
+			{
+				Components[index].WriteComponent(writer);
+			}
+			
+			if (Anchors != null)
+			{
+				count = Anchors.Count;
+				for (int index = 0; index < count; index++)
+				{
+					Anchors[index].WriteComponent(writer);
+				}
+			}
+		}
+		
+		protected override void EnterPool()
+		{
+			base.EnterPool();
+			Root = null;
+			_needsKeyboard = false;
+			_needsMouse = false;
+			_autoDestroy = true;
+		}
+	}
+	#endregion
+
+	#region Builder\Update\UpdateBuilder.cs
+	public class UpdateBuilder : BaseUiBuilder
+	{
+		public static UpdateBuilder Create() => UiFrameworkPool.Get<UpdateBuilder>();
+		
+		protected override void WriteComponentsInternal(JsonFrameworkWriter writer)
+		{
+			int count = Components.Count;
+			for (int index = 0; index < count; index++)
+			{
+				Components[index].WriteUpdateComponent(writer);
+			}
+			
+			count = Anchors.Count;
+			if (count != 0)
+			{
+				for (int index = 0; index < count; index++)
+				{
+					Anchors[index].WriteComponent(writer);
+				}
+			}
+		}
 	}
 	#endregion
 
@@ -4937,14 +4977,14 @@ namespace Oxide.Plugins
 		public UiPanel Background;
 		public UiInput Input;
 		
-		protected void CreateLeftRightPicker(UiBuilder builder, BaseUiComponent parent, UiPosition pos, UiOffset offset, T value, int fontSize, UiColor textColor, UiColor backgroundColor, string command, InputMode mode, float buttonWidth, TextAnchor align, string numberFormat)
+		protected void CreateLeftRightPicker(BaseUiBuilder builder, UiReference parent, UiPosition pos, UiOffset offset, T value, int fontSize, UiColor textColor, UiColor backgroundColor, string command, InputMode mode, float buttonWidth, TextAnchor align, string numberFormat)
 		{
 			Background = builder.Panel(parent, pos, offset, backgroundColor);
 			string displayValue = string.IsNullOrEmpty(numberFormat) ? StringCache<T>.ToString(value) : StringCache<T>.ToString(value, numberFormat);
 			Input = builder.Input(Background, UiPosition.Full.SliceHorizontal(buttonWidth, 1 - buttonWidth), displayValue, fontSize, textColor, command, align, mode: mode);
 		}
 		
-		protected void CreateUpDownPicker(UiBuilder builder, BaseUiComponent parent, UiPosition pos, UiOffset offset, T value, int fontSize, UiColor textColor, UiColor backgroundColor, string command, TextAnchor align, InputMode mode, string numberFormat)
+		protected void CreateUpDownPicker(BaseUiBuilder builder, UiReference parent, UiPosition pos, UiOffset offset, T value, int fontSize, UiColor textColor, UiColor backgroundColor, string command, TextAnchor align, InputMode mode, string numberFormat)
 		{
 			Background = builder.Panel(parent, pos, offset, backgroundColor);
 			string displayValue = string.IsNullOrEmpty(numberFormat) ? StringCache<T>.ToString(value) : StringCache<T>.ToString(value, numberFormat);
@@ -4965,7 +5005,7 @@ namespace Oxide.Plugins
 		public List<UiButton> Subtracts;
 		public List<UiButton> Adds;
 		
-		public static UiIncrementalNumberPicker<T> Create(UiBuilder builder, BaseUiComponent parent, UiPosition pos, UiOffset offset, T value, IList<T> increments, int fontSize, UiColor textColor, UiColor backgroundColor, UiColor buttonColor, UiColor disabledButtonColor, string command, TextAnchor align, InputMode mode, T minValue, T maxValue, float buttonWidth, string incrementFormat, string numberFormat)
+		public static UiIncrementalNumberPicker<T> Create(BaseUiBuilder builder, UiReference parent, UiPosition pos, UiOffset offset, T value, IList<T> increments, int fontSize, UiColor textColor, UiColor backgroundColor, UiColor buttonColor, UiColor disabledButtonColor, string command, TextAnchor align, InputMode mode, T minValue, T maxValue, float buttonWidth, string incrementFormat, string numberFormat)
 		{
 			UiIncrementalNumberPicker<T> control = CreateControl<UiIncrementalNumberPicker<T>>();
 			int incrementCount = increments.Count;
@@ -5026,7 +5066,7 @@ namespace Oxide.Plugins
 		public UiButton Subtract;
 		public UiButton Add;
 		
-		public static UiNumberPicker Create(UiBuilder builder, BaseUiComponent parent, UiPosition pos, UiOffset offset, int value, int fontSize, int buttonFontSize, UiColor textColor, UiColor backgroundColor, UiColor buttonColor, UiColor disabledButtonColor, string command, string incrementCommand, string decrementCommand, int minValue, int maxValue, float buttonWidth, TextAnchor align, InputMode mode, NumberPickerMode numberMode, string numberFormat)
+		public static UiNumberPicker Create(BaseUiBuilder builder, UiReference parent, UiPosition pos, UiOffset offset, int value, int fontSize, int buttonFontSize, UiColor textColor, UiColor backgroundColor, UiColor buttonColor, UiColor disabledButtonColor, string command, string incrementCommand, string decrementCommand, int minValue, int maxValue, float buttonWidth, TextAnchor align, InputMode mode, NumberPickerMode numberMode, string numberFormat)
 		{
 			UiNumberPicker control = CreateControl<UiNumberPicker>();
 			
@@ -5051,7 +5091,7 @@ namespace Oxide.Plugins
 			return control;
 		}
 		
-		private void CreateSubtract(UiBuilder builder, int value, int minValue, UiPosition position, UiOffset offset, string text, int fontSize, UiColor textColor, UiColor buttonColor, UiColor disabledButtonColor, string command)
+		private void CreateSubtract(BaseUiBuilder builder, int value, int minValue, UiPosition position, UiOffset offset, string text, int fontSize, UiColor textColor, UiColor buttonColor, UiColor disabledButtonColor, string command)
 		{
 			if (value > minValue)
 			{
@@ -5063,7 +5103,7 @@ namespace Oxide.Plugins
 			}
 		}
 		
-		private void CreateAdd(UiBuilder builder, int value, int maxValue, UiPosition position, UiOffset offset, string text, int fontSize, UiColor textColor, UiColor buttonColor, UiColor disabledButtonColor, string command)
+		private void CreateAdd(BaseUiBuilder builder, int value, int maxValue, UiPosition position, UiOffset offset, string text, int fontSize, UiColor textColor, UiColor buttonColor, UiColor disabledButtonColor, string command)
 		{
 			if (value < maxValue)
 			{
@@ -5197,7 +5237,7 @@ namespace Oxide.Plugins
 		
 		private static readonly string[] DayOfWeekNames = { "Su", "M", "Tu", "W", "Th", "F", "Sa" };
 		
-		public static UiCalenderPicker Create(string parentName, DateTime date, int fontSize, UiColor textColor, UiColor backgroundColor, UiColor buttonColor, UiColor selectedDateColor, string changeCommand, PopoverPosition position, string menuSprite, string buttonSprite)
+		public static UiCalenderPicker Create(UiReference reference, DateTime date, int fontSize, UiColor textColor, UiColor backgroundColor, UiColor buttonColor, UiColor selectedDateColor, string changeCommand, PopoverPosition position, string menuSprite, string buttonSprite)
 		{
 			UiCalenderPicker control = CreateControl<UiCalenderPicker>();
 			
@@ -5206,7 +5246,7 @@ namespace Oxide.Plugins
 			control.CalculateDates(date);
 			control.CalculateSize(fontSize);
 			
-			CreateBuilder(control, parentName, new Vector2Int(control._width + MenuPadding * 2, control._height + MenuPadding * 2), backgroundColor, position, menuSprite);
+			CreateBuilder(control, reference.Parent, new Vector2Int(control._width + MenuPadding * 2, control._height + MenuPadding * 2), backgroundColor, position, menuSprite);
 			UiBuilder builder = control.Builder;
 			
 			control.CreateHeader(builder, fontSize, textColor, buttonColor, changeCommand, buttonSprite);
@@ -5400,7 +5440,7 @@ namespace Oxide.Plugins
 		private int _width;
 		private int _height;
 		
-		public static UiDatePickerMenu Create(string parentName, DateTime date, int fontSize, UiColor textColor, UiColor backgroundColor, string changeCommand, DatePickerDisplayMode displayMode, DatePickerDisplayOrder order, PopoverPosition position, string menuSprite)
+		public static UiDatePickerMenu Create(UiReference parent, DateTime date, int fontSize, UiColor textColor, UiColor backgroundColor, string changeCommand, DatePickerDisplayMode displayMode, DatePickerDisplayOrder order, PopoverPosition position, string menuSprite)
 		{
 			UiDatePickerMenu control = CreateControl<UiDatePickerMenu>();
 			
@@ -5408,7 +5448,7 @@ namespace Oxide.Plugins
 			control._height = UiHelpers.TextOffsetHeight(fontSize) * 3;
 			
 			Vector2Int size = new Vector2Int(control._width + MenuPadding * 2 + 1, control._height + MenuPadding * 2);
-			CreateBuilder(control, parentName, size, backgroundColor, position, menuSprite);
+			CreateBuilder(control, parent.Parent, size, backgroundColor, position, menuSprite);
 			
 			UiBuilder builder = control.Builder;
 			
@@ -5490,7 +5530,7 @@ namespace Oxide.Plugins
 			
 			string increment = $"{changeCommand} {StringCache<int>.ToString(value.Year + 1)}/{_monthValueText}/{_dayText}";
 			string decrement = $"{changeCommand} {StringCache<int>.ToString(value.Year - 1)}/{_monthValueText}/{_dayText}";
-			Year = UiPicker.Create(builder, pos, _yearText, fontSize, textColor, backgroundColor, _height, increment, decrement);
+			Year = UiPicker.Create(builder, builder.Root, pos, _yearText, fontSize, textColor, backgroundColor, _height, increment, decrement);
 			return true;
 		}
 		
@@ -5503,7 +5543,7 @@ namespace Oxide.Plugins
 			
 			string increment = $"{changeCommand} {_yearText}/{StringCache<int>.ToString(value.Month % 12 + 1)}/{_dayText}";
 			string decrement = $"{changeCommand} {_yearText}/{StringCache<int>.ToString(value.Month == 1 ? 12 : value.Month - 1)}/{_dayText}";
-			Month = UiPicker.Create(builder, pos, _monthLabelText, fontSize, textColor, backgroundColor, _height, increment, decrement);
+			Month = UiPicker.Create(builder, builder.Root, pos, _monthLabelText, fontSize, textColor, backgroundColor, _height, increment, decrement);
 			return true;
 		}
 		
@@ -5517,7 +5557,7 @@ namespace Oxide.Plugins
 			int numDays = DateTime.DaysInMonth(value.Year, value.Month);
 			string increment = $"{changeCommand} {_yearText}/{_monthValueText}/{StringCache<int>.ToString(value.Day % numDays + 1)}";
 			string decrement = $"{changeCommand} {_yearText}/{_monthValueText}/{StringCache<int>.ToString(value.Day == 1 ? numDays : value.Day - 1)}";
-			Day = UiPicker.Create(builder, pos, _dayText, fontSize, textColor, backgroundColor, _height, increment, decrement);
+			Day = UiPicker.Create(builder, builder.Root, pos, _dayText, fontSize, textColor, backgroundColor, _height, increment, decrement);
 			return true;
 		}
 		
@@ -5551,7 +5591,7 @@ namespace Oxide.Plugins
 		public UiScrollBar ScrollBar;
 		public List<UiDropdownMenuItem> Items;
 		
-		public static UiDropdownMenu Create(string parentName, List<DropdownMenuData> items, int fontSize, UiColor textColor, UiColor backgroundColor, string selectedCommand, string pageCommand = null, int page = 0, int maxValuesPerPage = 100, int minWidth = 100,
+		public static UiDropdownMenu Create(UiReference reference, List<DropdownMenuData> items, int fontSize, UiColor textColor, UiColor backgroundColor, string selectedCommand, string pageCommand = null, int page = 0, int maxValuesPerPage = 100, int minWidth = 100,
 		PopoverPosition position = PopoverPosition.Bottom, string menuSprite = UiConstants.Sprites.RoundedBackground2)
 		{
 			const int itemPadding = 4;
@@ -5566,7 +5606,7 @@ namespace Oxide.Plugins
 			int maxPage = UiHelpers.CalculateMaxPage(items.Count, maxValuesPerPage);
 			
 			Vector2Int size = new Vector2Int(width, height);
-			CreateBuilder(control, parentName, size, backgroundColor, position, menuSprite);
+			CreateBuilder(control, reference.Parent, size, backgroundColor, position, menuSprite);
 			
 			UiBuilder builder = control.Builder;
 			
@@ -5645,7 +5685,7 @@ namespace Oxide.Plugins
 		public UiPicker Second;
 		public UiPicker AmPm;
 		
-		public static UiTimePickerMenu Create(string parentName, TimePickerData time, int fontSize, UiColor textColor, UiColor backgroundColor, string changeCommand, TimePickerDisplayMode displayMode = TimePickerDisplayMode.All, ClockMode clockMode = ClockMode.Hour12,
+		public static UiTimePickerMenu Create(UiReference parent, TimePickerData time, int fontSize, UiColor textColor, UiColor backgroundColor, string changeCommand, TimePickerDisplayMode displayMode = TimePickerDisplayMode.All, ClockMode clockMode = ClockMode.Hour12,
 		PopoverPosition position = PopoverPosition.Bottom, string menuSprite = UiConstants.Sprites.RoundedBackground2)
 		{
 			const int menuPadding = 5;
@@ -5661,7 +5701,7 @@ namespace Oxide.Plugins
 			Interface.Oxide.LogDebug($"{nameof(UiTimePickerMenu)}.{nameof(Create)} {width} x {height}");
 			
 			Vector2Int size = new Vector2Int(width + menuPadding * 2 + 1, height + menuPadding * 2);
-			CreateBuilder(control, parentName, size, backgroundColor, position, menuSprite);
+			CreateBuilder(control, parent.Parent, size, backgroundColor, position, menuSprite);
 			
 			UiBuilder builder = control.Builder;
 			
@@ -5742,14 +5782,14 @@ namespace Oxide.Plugins
 			
 			string valueText = mode == TimePickerDisplayMode.Hours ? StringCache<int>.ToString(value) : value.ToString("00");
 			
-			return UiPicker.Create(builder, pos, valueText, fontSize, textColor, backgroundColor, height, $"{changeCommand} {timeAmount}", $"{changeCommand} -{timeAmount}");
+			return UiPicker.Create(builder, builder.Root, pos, valueText, fontSize, textColor, backgroundColor, height, $"{changeCommand} {timeAmount}", $"{changeCommand} -{timeAmount}");
 		}
 		
 		public static UiPicker CreateTimePickerAmPmSegment(UiBuilder builder, UiOffset pos, int value, int fontSize, UiColor textColor, UiColor backgroundColor, string changeCommand)
 		{
 			float height = pos.Height / 3f;
 			string command = value >= 12 ? $"{changeCommand} -43200" : $"{changeCommand} 43200";
-			return UiPicker.Create(builder, pos, value >= 12 ? "PM" : "AM", fontSize, textColor, backgroundColor, height, command, command);
+			return UiPicker.Create(builder, builder.Root, pos, value >= 12 ? "PM" : "AM", fontSize, textColor, backgroundColor, height, command, command);
 		}
 		
 		private static bool HasTimePickerDisplayModeFlag(TimePickerDisplayMode mode, TimePickerDisplayMode flag)
@@ -5957,6 +5997,12 @@ namespace Oxide.Plugins.UiMergeFrameworkExtensions
 			DateTime date = DateTime.Parse(s);
 			return date;
 		}
+		
+		public static UiReference GetParentReference(this ConsoleSystem.Arg arg, int iArg)
+		{
+			string s = arg.GetString(iArg);
+			return new UiReference(s, null);
+		}
 	}
 
 	//Define:ExtensionMethods
@@ -6029,6 +6075,27 @@ namespace Oxide.Plugins.UiMergeFrameworkExtensions
 		{
 			return Color.Lerp(start, end, value);
 		}
+	}
+
+	//Define:ExtensionMethods
+	public static class UiElementExt
+	{
+		// public static T WithName<T>(this T element, string name) where T : BaseUiComponent
+		// {
+			//     element.Name = name;
+			//     return element;
+		// }
+		//
+		// public static T WithParent<T>(this T element, BaseUiComponent component) where T : BaseUiComponent
+		// {
+			//     return element.WithParent(component.Name);
+		// }
+		//
+		// public static T WithParent<T>(this T element, string parent) where T : BaseUiComponent
+		// {
+			//     element.Parent = parent;
+			//     return element;
+		// }
 	}
 
 	//Define:ExtensionMethods

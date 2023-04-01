@@ -1,10 +1,12 @@
 ﻿using System;
 using Oxide.Ext.UiFramework.Builder;
+using Oxide.Ext.UiFramework.Builder.UI;
 using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Offsets;
+using Oxide.Ext.UiFramework.UiElements;
 using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Controls.Popover
@@ -30,7 +32,7 @@ namespace Oxide.Ext.UiFramework.Controls.Popover
         private int _width;
         private int _height;
 
-        public static UiDatePickerMenu Create(string parentName, DateTime date, int fontSize, UiColor textColor, UiColor backgroundColor, string changeCommand, DatePickerDisplayMode displayMode, DatePickerDisplayOrder order, PopoverPosition position, string menuSprite)
+        public static UiDatePickerMenu Create(UiReference parent, DateTime date, int fontSize, UiColor textColor, UiColor backgroundColor, string changeCommand, DatePickerDisplayMode displayMode, DatePickerDisplayOrder order, PopoverPosition position, string menuSprite)
         {
             UiDatePickerMenu control = CreateControl<UiDatePickerMenu>();
             
@@ -38,7 +40,7 @@ namespace Oxide.Ext.UiFramework.Controls.Popover
             control._height = UiHelpers.TextOffsetHeight(fontSize) * 3;
 
             Vector2Int size = new Vector2Int(control._width + MenuPadding * 2 + 1, control._height + MenuPadding * 2);
-            CreateBuilder(control, parentName, size, backgroundColor, position, menuSprite);
+            CreateBuilder(control, parent.Parent, size, backgroundColor, position, menuSprite);
 
             UiBuilder builder = control.Builder;
 
@@ -120,7 +122,7 @@ namespace Oxide.Ext.UiFramework.Controls.Popover
             
             string increment = $"{changeCommand} {StringCache<int>.ToString(value.Year + 1)}/{_monthValueText}/{_dayText}";
             string decrement = $"{changeCommand} {StringCache<int>.ToString(value.Year - 1)}/{_monthValueText}/{_dayText}";
-            Year = UiPicker.Create(builder, pos, _yearText, fontSize, textColor, backgroundColor, _height, increment, decrement);
+            Year = UiPicker.Create(builder, builder.Root, pos, _yearText, fontSize, textColor, backgroundColor, _height, increment, decrement);
             return true;
         }
         
@@ -133,7 +135,7 @@ namespace Oxide.Ext.UiFramework.Controls.Popover
             
             string increment = $"{changeCommand} {_yearText}/{StringCache<int>.ToString(value.Month % 12 + 1)}/{_dayText}";
             string decrement = $"{changeCommand} {_yearText}/{StringCache<int>.ToString(value.Month == 1 ? 12 : value.Month - 1)}/{_dayText}";
-            Month = UiPicker.Create(builder, pos, _monthLabelText, fontSize, textColor, backgroundColor, _height, increment, decrement);
+            Month = UiPicker.Create(builder, builder.Root, pos, _monthLabelText, fontSize, textColor, backgroundColor, _height, increment, decrement);
             return true;
         }
         
@@ -147,7 +149,7 @@ namespace Oxide.Ext.UiFramework.Controls.Popover
             int numDays = DateTime.DaysInMonth(value.Year, value.Month);
             string increment = $"{changeCommand} {_yearText}/{_monthValueText}/{StringCache<int>.ToString(value.Day % numDays + 1)}";
             string decrement = $"{changeCommand} {_yearText}/{_monthValueText}/{StringCache<int>.ToString(value.Day == 1 ? numDays : value.Day - 1)}";
-            Day = UiPicker.Create(builder, pos, _dayText, fontSize, textColor, backgroundColor, _height, increment, decrement);
+            Day = UiPicker.Create(builder, builder.Root, pos, _dayText, fontSize, textColor, backgroundColor, _height, increment, decrement);
             return true;
         }
 

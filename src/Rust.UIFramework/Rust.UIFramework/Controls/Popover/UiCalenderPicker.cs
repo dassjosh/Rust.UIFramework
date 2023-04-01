@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using Oxide.Ext.UiFramework.Builder;
+using Oxide.Ext.UiFramework.Builder.UI;
 using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Enums;
@@ -53,7 +54,7 @@ namespace Oxide.Ext.UiFramework.Controls.Popover
 
         private static readonly string[] DayOfWeekNames = { "Su", "M", "Tu", "W", "Th", "F", "Sa" };
         
-        public static UiCalenderPicker Create(string parentName, DateTime date, int fontSize, UiColor textColor, UiColor backgroundColor, UiColor buttonColor, UiColor selectedDateColor, string changeCommand, PopoverPosition position, string menuSprite, string buttonSprite)
+        public static UiCalenderPicker Create(UiReference reference, DateTime date, int fontSize, UiColor textColor, UiColor backgroundColor, UiColor buttonColor, UiColor selectedDateColor, string changeCommand, PopoverPosition position, string menuSprite, string buttonSprite)
         {
             UiCalenderPicker control = CreateControl<UiCalenderPicker>();
             
@@ -62,7 +63,7 @@ namespace Oxide.Ext.UiFramework.Controls.Popover
             control.CalculateDates(date);
             control.CalculateSize(fontSize);
             
-            CreateBuilder(control, parentName, new Vector2Int(control._width + MenuPadding * 2, control._height + MenuPadding * 2), backgroundColor, position, menuSprite);
+            CreateBuilder(control, reference.Parent, new Vector2Int(control._width + MenuPadding * 2, control._height + MenuPadding * 2), backgroundColor, position, menuSprite);
             UiBuilder builder = control.Builder;
             
             control.CreateHeader(builder, fontSize, textColor, buttonColor, changeCommand, buttonSprite);

@@ -16,7 +16,7 @@ namespace Oxide.Ext.UiFramework.Controls
         public UiButton Button;
         public UiLabel Label;
         
-        public static UiCheckbox CreateCheckbox(UiBuilder builder, BaseUiComponent parent, UiPosition pos, UiOffset offset, bool isChecked, int textSize, UiColor textColor, UiColor backgroundColor, string command)
+        public static UiCheckbox CreateCheckbox(BaseUiBuilder builder, UiReference parent, UiPosition pos, UiOffset offset, bool isChecked, int textSize, UiColor textColor, UiColor backgroundColor, string command)
         {
             UiCheckbox control = CreateControl<UiCheckbox>();
             control.IsChecked = isChecked;
@@ -26,7 +26,7 @@ namespace Oxide.Ext.UiFramework.Controls
             return control;
         }
         
-        protected override void Render(UiBuilder builder)
+        protected override void Render(BaseUiBuilder builder)
         {
             if (IsChecked)
             {

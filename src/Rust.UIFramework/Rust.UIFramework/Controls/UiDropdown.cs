@@ -14,11 +14,11 @@ namespace Oxide.Ext.UiFramework.Controls
         public UiLabel Text;
         public UiLabel Icon;
 
-        public static UiDropdown Create(UiBuilder builder, BaseUiComponent parent, UiPosition pos, UiOffset offset, string displayValue, int fontSize, UiColor textColor, UiColor backgroundColor, string openCommand)
+        public static UiDropdown Create(BaseUiBuilder builder, UiReference parent, UiPosition pos, UiOffset offset, string displayValue, int fontSize, UiColor textColor, UiColor backgroundColor, string openCommand)
         {
             UiDropdown control = CreateControl<UiDropdown>();
             control.Anchor = builder.Anchor(parent, pos);
-            control.Command = builder.CommandButton(parent, pos, offset, backgroundColor, $"{openCommand} {control.Anchor.Name}");
+            control.Command = builder.CommandButton(parent, pos, offset, backgroundColor, $"{openCommand} {control.Anchor.Reference.Name}");
             control.Text = builder.Label(control.Command, UiPosition.Full, new UiOffset(5, 0, 0, 0), displayValue, fontSize, textColor, TextAnchor.MiddleLeft);
             control.Icon = builder.Label(control.Command, UiPosition.Right, new UiOffset(-UiHelpers.TextOffsetWidth(1, fontSize) - 4, 0, -4 , 0), "▼", fontSize, textColor);
             return control;

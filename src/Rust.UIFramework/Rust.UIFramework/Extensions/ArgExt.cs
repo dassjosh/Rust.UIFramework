@@ -1,4 +1,5 @@
 ﻿using System;
+using Oxide.Ext.UiFramework.UiElements;
 
 namespace Oxide.Ext.UiFramework.Extensions
 {
@@ -15,6 +16,12 @@ namespace Oxide.Ext.UiFramework.Extensions
             
             DateTime date = DateTime.Parse(s);
             return date;
+        }
+
+        public static UiReference GetParentReference(this ConsoleSystem.Arg arg, int iArg)
+        {
+            string s = arg.GetString(iArg);
+            return new UiReference(s, null);
         }
     }
 }

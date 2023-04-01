@@ -13,16 +13,16 @@ namespace Oxide.Ext.UiFramework.Controls
         public UiLabel Value;
         public UiButton Next;
 
-        public static UiPicker Create(UiBuilder builder, UiOffset pos, string value, int fontSize, UiColor textColor, UiColor backgroundColor, float height, string incrementCommand, string decrementCommand)
+        public static UiPicker Create(BaseUiBuilder builder, UiReference parent, UiOffset pos, string value, int fontSize, UiColor textColor, UiColor backgroundColor, float height, string incrementCommand, string decrementCommand)
         {
             UiPicker control = CreateControl<UiPicker>();
             
             UiOffset slice = pos.SliceVertical(0, (int)height * 2);
-            control.Next =  builder.TextButton(builder.Root, UiPosition.BottomLeft, slice, "˅", fontSize, textColor, backgroundColor, decrementCommand);
+            control.Next =  builder.TextButton(parent, UiPosition.BottomLeft, slice, "˅", fontSize, textColor, backgroundColor, decrementCommand);
             slice = slice.MoveY(height);
-            control.Value = builder.Label(builder.Root, UiPosition.BottomLeft, slice, value, fontSize, textColor);
+            control.Value = builder.Label(parent, UiPosition.BottomLeft, slice, value, fontSize, textColor);
             slice = slice.MoveY(height);
-            control.Previous = builder.TextButton(builder.Root, UiPosition.BottomLeft, slice, "˄", fontSize, textColor, backgroundColor, incrementCommand);
+            control.Previous = builder.TextButton(parent, UiPosition.BottomLeft, slice, "˄", fontSize, textColor, backgroundColor, incrementCommand);
             
             return control;
         }

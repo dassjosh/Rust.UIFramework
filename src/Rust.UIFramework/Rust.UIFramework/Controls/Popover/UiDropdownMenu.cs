@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Oxide.Ext.UiFramework.Builder;
+using Oxide.Ext.UiFramework.Builder.UI;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Controls.Data;
 using Oxide.Ext.UiFramework.Enums;
@@ -19,7 +20,7 @@ namespace Oxide.Ext.UiFramework.Controls.Popover
         public UiScrollBar ScrollBar;
         public List<UiDropdownMenuItem> Items;
         
-        public static UiDropdownMenu Create(string parentName, List<DropdownMenuData> items, int fontSize, UiColor textColor, UiColor backgroundColor, string selectedCommand, string pageCommand = null, int page = 0, int maxValuesPerPage = 100, int minWidth = 100,
+        public static UiDropdownMenu Create(UiReference reference, List<DropdownMenuData> items, int fontSize, UiColor textColor, UiColor backgroundColor, string selectedCommand, string pageCommand = null, int page = 0, int maxValuesPerPage = 100, int minWidth = 100,
             PopoverPosition position = PopoverPosition.Bottom, string menuSprite = UiConstants.Sprites.RoundedBackground2)
         {
             const int itemPadding = 4;
@@ -34,7 +35,7 @@ namespace Oxide.Ext.UiFramework.Controls.Popover
             int maxPage = UiHelpers.CalculateMaxPage(items.Count, maxValuesPerPage);
             
             Vector2Int size = new Vector2Int(width, height);
-            CreateBuilder(control, parentName, size, backgroundColor, position, menuSprite);
+            CreateBuilder(control, reference.Parent, size, backgroundColor, position, menuSprite);
             
             UiBuilder builder = control.Builder;
             

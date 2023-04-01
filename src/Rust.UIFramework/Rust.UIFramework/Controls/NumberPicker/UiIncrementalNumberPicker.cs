@@ -19,7 +19,7 @@ namespace Oxide.Ext.UiFramework.Controls.NumberPicker
         public List<UiButton> Subtracts;
         public List<UiButton> Adds;
 
-        public static UiIncrementalNumberPicker<T> Create(UiBuilder builder, BaseUiComponent parent, UiPosition pos, UiOffset offset, T value, IList<T> increments, int fontSize, UiColor textColor, UiColor backgroundColor, UiColor buttonColor, UiColor disabledButtonColor, string command, TextAnchor align, InputMode mode, T minValue, T maxValue, float buttonWidth, string incrementFormat, string numberFormat)
+        public static UiIncrementalNumberPicker<T> Create(BaseUiBuilder builder, UiReference parent, UiPosition pos, UiOffset offset, T value, IList<T> increments, int fontSize, UiColor textColor, UiColor backgroundColor, UiColor buttonColor, UiColor disabledButtonColor, string command, TextAnchor align, InputMode mode, T minValue, T maxValue, float buttonWidth, string incrementFormat, string numberFormat)
         {
             UiIncrementalNumberPicker<T> control = CreateControl<UiIncrementalNumberPicker<T>>();
             int incrementCount = increments.Count;

@@ -1,11 +1,13 @@
 ﻿using Oxide.Core;
 using Oxide.Ext.UiFramework.Builder;
+using Oxide.Ext.UiFramework.Builder.UI;
 using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Controls.Data;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Offsets;
+using Oxide.Ext.UiFramework.UiElements;
 using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Controls.Popover
@@ -17,7 +19,7 @@ namespace Oxide.Ext.UiFramework.Controls.Popover
         public UiPicker Second;
         public UiPicker AmPm;
         
-        public static UiTimePickerMenu Create(string parentName, TimePickerData time, int fontSize, UiColor textColor, UiColor backgroundColor, string changeCommand, TimePickerDisplayMode displayMode = TimePickerDisplayMode.All, ClockMode clockMode = ClockMode.Hour12,
+        public static UiTimePickerMenu Create(UiReference parent, TimePickerData time, int fontSize, UiColor textColor, UiColor backgroundColor, string changeCommand, TimePickerDisplayMode displayMode = TimePickerDisplayMode.All, ClockMode clockMode = ClockMode.Hour12,
             PopoverPosition position = PopoverPosition.Bottom, string menuSprite = UiConstants.Sprites.RoundedBackground2)
         {
             const int menuPadding = 5;
@@ -33,7 +35,7 @@ namespace Oxide.Ext.UiFramework.Controls.Popover
             Interface.Oxide.LogDebug($"{nameof(UiTimePickerMenu)}.{nameof(Create)} {width} x {height}");
 
             Vector2Int size = new Vector2Int(width + menuPadding * 2 + 1, height + menuPadding * 2);
-            CreateBuilder(control, parentName, size, backgroundColor, position, menuSprite);
+            CreateBuilder(control, parent.Parent, size, backgroundColor, position, menuSprite);
 
             UiBuilder builder = control.Builder;
             
@@ -114,14 +116,14 @@ namespace Oxide.Ext.UiFramework.Controls.Popover
 
             string valueText = mode == TimePickerDisplayMode.Hours ? StringCache<int>.ToString(value) : value.ToString("00");
             
-            return UiPicker.Create(builder, pos, valueText, fontSize, textColor, backgroundColor, height, $"{changeCommand} {timeAmount}", $"{changeCommand} -{timeAmount}");
+            return UiPicker.Create(builder, builder.Root, pos, valueText, fontSize, textColor, backgroundColor, height, $"{changeCommand} {timeAmount}", $"{changeCommand} -{timeAmount}");
         }
         
         public static UiPicker CreateTimePickerAmPmSegment(UiBuilder builder, UiOffset pos, int value, int fontSize, UiColor textColor, UiColor backgroundColor, string changeCommand)
         {
             float height = pos.Height / 3f;
             string command = value >= 12 ? $"{changeCommand} -43200" : $"{changeCommand} 43200";
-            return UiPicker.Create(builder, pos, value >= 12 ? "PM" : "AM", fontSize, textColor, backgroundColor, height, command, command);
+            return UiPicker.Create(builder, builder.Root, pos, value >= 12 ? "PM" : "AM", fontSize, textColor, backgroundColor, height, command, command);
         }
 
         private static bool HasTimePickerDisplayModeFlag(TimePickerDisplayMode mode, TimePickerDisplayMode flag)

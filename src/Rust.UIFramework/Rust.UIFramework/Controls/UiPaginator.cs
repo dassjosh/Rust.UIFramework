@@ -17,7 +17,7 @@ namespace Oxide.Ext.UiFramework.Controls
         public UiButton NextPage;
         public UiButton LastPage;
 
-        public static UiPaginator Create(UiBuilder builder, BaseUiComponent parent, GridPosition grid, int currentPage, int maxPage, int fontSize, UiColor textColor, UiColor buttonColor, UiColor activePageColor, string command)
+        public static UiPaginator Create(BaseUiBuilder builder, UiReference parent, GridPosition grid, int currentPage, int maxPage, int fontSize, UiColor textColor, UiColor buttonColor, UiColor activePageColor, string command)
         {
             UiPaginator control = CreateControl<UiPaginator>();
             grid.Reset();
