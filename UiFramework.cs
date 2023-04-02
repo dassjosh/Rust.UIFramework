@@ -103,7 +103,7 @@ namespace Oxide.Plugins
 			#region Add UI
 			public void AddUi(BasePlayer player)
 			{
-				if (player == null) throw new ArgumentNullException(nameof(player));
+				if (!player) throw new ArgumentNullException(nameof(player));
 				AddUi(new SendInfo(player.Connection));
 			}
 			
@@ -188,7 +188,7 @@ namespace Oxide.Plugins
 			
 			public static void DestroyUi(BasePlayer player, string name)
 			{
-				if (player == null) throw new ArgumentNullException(nameof(player));
+				if (!player) throw new ArgumentNullException(nameof(player));
 				DestroyUi(new SendInfo(player.Connection), name);
 			}
 			
@@ -227,21 +227,13 @@ namespace Oxide.Plugins
 		public partial class BaseUiBuilder
 		{
 			#region Add Components
-			public void AddComponent(BaseUiComponent component, UiReference parent)
-			{
-				component.Reference = new UiReference(parent.Name, UiNameCache.GetComponentName(RootName, Components.Count));
-				Components.Add(component);
-			}
+			public abstract void AddComponent(BaseUiComponent component, UiReference parent);
+			
+			protected abstract void AddAnchor(BaseUiComponent component, UiReference parent);
 			
 			public void AddControl(BaseUiControl control)
 			{
 				Controls.Add(control);
-			}
-			
-			private void AddAnchor(BaseUiComponent component, UiReference parent)
-			{
-				component.Reference = new UiReference(parent.Name, UiNameCache.GetAnchorName(RootName, Anchors.Count));
-				Anchors.Add(component);
 			}
 			#endregion
 			
@@ -770,7 +762,6 @@ namespace Oxide.Plugins
 				base.EnterPool();
 				FreeComponents();
 				Font = null;
-				RootName = null;
 			}
 			
 			private void FreeComponents()
@@ -1522,21 +1513,19 @@ namespace Oxide.Plugins
 		#endregion
 
 		#region Components\BaseColorComponent.cs
-		public abstract class BaseColorComponent : BaseComponent
+		public abstract class BaseColorComponent : IComponent
 		{
 			public UiColor Color;
 			
-			public override void WriteComponent(JsonFrameworkWriter writer)
+			public virtual void WriteComponent(JsonFrameworkWriter writer)
 			{
 				writer.AddField(JsonDefaults.Color.ColorName, Color);
 			}
-		}
-		#endregion
-
-		#region Components\BaseComponent.cs
-		public abstract class BaseComponent : BasePoolable
-		{
-			public abstract void WriteComponent(JsonFrameworkWriter writer);
+			
+			public virtual void Reset()
+			{
+				Color = default(UiColor);
+			}
 		}
 		#endregion
 
@@ -1551,8 +1540,9 @@ namespace Oxide.Plugins
 				base.WriteComponent(writer);
 			}
 			
-			protected override void EnterPool()
+			public override void Reset()
 			{
+				base.Reset();
 				FadeIn = 0;
 			}
 		}
@@ -1571,9 +1561,9 @@ namespace Oxide.Plugins
 				base.WriteComponent(writer);
 			}
 			
-			protected override void EnterPool()
+			public override void Reset()
 			{
-				base.EnterPool();
+				base.Reset();
 				Sprite = null;
 				Material = null;
 			}
@@ -1599,9 +1589,9 @@ namespace Oxide.Plugins
 				base.WriteComponent(writer);
 			}
 			
-			protected override void EnterPool()
+			public override void Reset()
 			{
-				base.EnterPool();
+				base.Reset();
 				FontSize = JsonDefaults.BaseText.FontSize;
 				Font = null;
 				Align = TextAnchor.UpperLeft;
@@ -1631,9 +1621,9 @@ namespace Oxide.Plugins
 				writer.WriteEndObject();
 			}
 			
-			protected override void EnterPool()
+			public override void Reset()
 			{
-				base.EnterPool();
+				base.Reset();
 				Command = null;
 				Close = null;
 				ImageType = Image.Type.Simple;
@@ -1642,7 +1632,7 @@ namespace Oxide.Plugins
 		#endregion
 
 		#region Components\CountdownComponent.cs
-		public class CountdownComponent : BaseComponent
+		public class CountdownComponent : BasePoolable, IComponent
 		{
 			private const string Type = "Countdown";
 			
@@ -1651,7 +1641,7 @@ namespace Oxide.Plugins
 			public int Step;
 			public string Command;
 			
-			public override void WriteComponent(JsonFrameworkWriter writer)
+			public virtual void WriteComponent(JsonFrameworkWriter writer)
 			{
 				writer.WriteStartObject();
 				writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, Type);
@@ -1662,13 +1652,26 @@ namespace Oxide.Plugins
 				writer.WriteEndObject();
 			}
 			
-			protected override void EnterPool()
+			public virtual void Reset()
 			{
 				StartTime = JsonDefaults.Countdown.StartTimeValue;
 				EndTime = JsonDefaults.Countdown.EndTimeValue;
 				Step = JsonDefaults.Countdown.StepValue;
 				Command = null;
 			}
+			
+			protected override void EnterPool()
+			{
+				Reset();
+			}
+		}
+		#endregion
+
+		#region Components\IComponent.cs
+		public interface IComponent
+		{
+			void WriteComponent(JsonFrameworkWriter writer);
+			void Reset();
 		}
 		#endregion
 
@@ -1690,9 +1693,9 @@ namespace Oxide.Plugins
 				writer.WriteEndObject();
 			}
 			
-			protected override void EnterPool()
+			public override void Reset()
 			{
-				base.EnterPool();
+				base.Reset();
 				Png = JsonDefaults.Common.NullValue;
 				ImageType = Image.Type.Simple;
 			}
@@ -1766,9 +1769,9 @@ namespace Oxide.Plugins
 				}
 			}
 			
-			protected override void EnterPool()
+			public override void Reset()
 			{
-				base.EnterPool();
+				base.Reset();
 				CharsLimit = JsonDefaults.Input.CharacterLimitValue;
 				Command = null;
 				Mode = default(InputMode);
@@ -1795,8 +1798,9 @@ namespace Oxide.Plugins
 				writer.WriteEndObject();
 			}
 			
-			protected override void EnterPool()
+			public override void Reset()
 			{
+				base.Reset();
 				ItemId = default(int);
 				SkinId = default(ulong);
 			}
@@ -1804,14 +1808,15 @@ namespace Oxide.Plugins
 		#endregion
 
 		#region Components\OutlineComponent.cs
-		public class OutlineComponent : BaseColorComponent
+		public class OutlineComponent : BasePoolable, IComponent
 		{
 			private const string Type = "UnityEngine.UI.Outline";
 			
+			public UiColor Color;
 			public Vector2 Distance = JsonDefaults.Outline.Distance;
 			public bool UseGraphicAlpha;
 			
-			public override void WriteComponent(JsonFrameworkWriter writer)
+			public virtual void WriteComponent(JsonFrameworkWriter writer)
 			{
 				writer.WriteStartObject();
 				writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, Type);
@@ -1821,14 +1826,20 @@ namespace Oxide.Plugins
 					writer.AddKeyField(JsonDefaults.Outline.UseGraphicAlphaName);
 				}
 				
-				base.WriteComponent(writer);
+				writer.AddField(JsonDefaults.Color.ColorName, Color);
 				writer.WriteEndObject();
 			}
 			
-			protected override void LeavePool()
+			public virtual void Reset()
 			{
 				Distance = JsonDefaults.Outline.Distance;
 				UseGraphicAlpha = false;
+				Color = default(UiColor);
+			}
+			
+			protected override void EnterPool()
+			{
+				Reset();
 			}
 		}
 		#endregion
@@ -1864,9 +1875,9 @@ namespace Oxide.Plugins
 				writer.WriteEndObject();
 			}
 			
-			protected override void EnterPool()
+			public override void Reset()
 			{
-				base.EnterPool();
+				base.Reset();
 				Url = null;
 				Texture = null;
 				Material = null;
@@ -2561,6 +2572,23 @@ namespace Oxide.Plugins
 		public class UiFrameworkException : Exception
 		{
 			public UiFrameworkException(string message) : base(message) { }
+		}
+		#endregion
+
+		#region Exceptions\UiReferenceException.cs
+		public class UiReferenceException : UiFrameworkException
+		{
+			private UiReferenceException(string message) : base(message) { }
+			
+			public static void ThrowIfInvalidParent(UiReference reference)
+			{
+				if (!reference.IsValidParent()) throw new UiReferenceException($"{nameof(UiReference)} parent is not a valid parent reference value. Parent: {reference.Parent}");
+			}
+			
+			public static void ThrowIfInvalidReference(UiReference reference)
+			{
+				if (!reference.IsValidParent()) throw new UiReferenceException($"{nameof(UiReference)} parent is not a valid reference value. Parent: {reference.Parent} Name: {reference.Name}");
+			}
 		}
 		#endregion
 
@@ -4184,7 +4212,7 @@ namespace Oxide.Plugins
 		#region UiElements\BaseUiImage.cs
 		public abstract class BaseUiImage : BaseUiOutline
 		{
-			public ImageComponent Image;
+			public readonly ImageComponent Image = new ImageComponent();
 			
 			public void SetImageType(Image.Type type)
 			{
@@ -4222,14 +4250,7 @@ namespace Oxide.Plugins
 			protected override void EnterPool()
 			{
 				base.EnterPool();
-				Image.Dispose();
-				Image = null;
-			}
-			
-			protected override void LeavePool()
-			{
-				base.LeavePool();
-				Image = UiFrameworkPool.Get<ImageComponent>();
+				Image.Reset();
 			}
 		}
 		#endregion
@@ -4336,14 +4357,7 @@ namespace Oxide.Plugins
 			protected override void EnterPool()
 			{
 				base.EnterPool();
-				Button.Dispose();
-				Button = null;
-			}
-			
-			protected override void LeavePool()
-			{
-				base.LeavePool();
-				Button = UiFrameworkPool.Get<ButtonComponent>();
+				Button.Reset();
 			}
 		}
 		#endregion
@@ -4364,7 +4378,7 @@ namespace Oxide.Plugins
 		#region UiElements\UiInput.cs
 		public class UiInput : BaseUiOutline
 		{
-			public InputComponent Input;
+			public readonly InputComponent Input = new InputComponent();
 			
 			public static UiInput Create(UiPosition pos, UiOffset offset, UiColor textColor, string text, int size, string cmd, string font, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, InputMode mode = InputMode.Default, InputField.LineType lineType = InputField.LineType.SingleLine)
 			{
@@ -4441,14 +4455,7 @@ namespace Oxide.Plugins
 			protected override void EnterPool()
 			{
 				base.EnterPool();
-				Input.Dispose();
-				Input = null;
-			}
-			
-			protected override void LeavePool()
-			{
-				base.LeavePool();
-				Input = UiFrameworkPool.Get<InputComponent>();
+				Input.Reset();
 			}
 		}
 		#endregion
@@ -4456,7 +4463,7 @@ namespace Oxide.Plugins
 		#region UiElements\UiItemIcon.cs
 		public class UiItemIcon : BaseUiOutline
 		{
-			public ItemIconComponent Icon;
+			public readonly ItemIconComponent Icon = new ItemIconComponent();
 			
 			public static UiItemIcon Create(UiPosition pos, UiOffset offset, UiColor color, int itemId, ulong skinId = 0)
 			{
@@ -4481,14 +4488,7 @@ namespace Oxide.Plugins
 			protected override void EnterPool()
 			{
 				base.EnterPool();
-				Icon.Dispose();
-				Icon = null;
-			}
-			
-			protected override void LeavePool()
-			{
-				base.LeavePool();
-				Icon = UiFrameworkPool.Get<ItemIconComponent>();
+				Icon.Reset();
 			}
 		}
 		#endregion
@@ -4496,7 +4496,7 @@ namespace Oxide.Plugins
 		#region UiElements\UiLabel.cs
 		public class UiLabel : BaseUiOutline
 		{
-			public TextComponent Text;
+			public readonly TextComponent Text = new TextComponent();
 			public CountdownComponent Countdown;
 			
 			public static UiLabel Create(UiPosition pos, UiOffset offset, UiColor color, string text, int size, string font, TextAnchor align = TextAnchor.MiddleCenter)
@@ -4535,16 +4535,9 @@ namespace Oxide.Plugins
 			protected override void EnterPool()
 			{
 				base.EnterPool();
-				Text.Dispose();
-				Text = null;
+				Text.Reset();
 				Countdown?.Dispose();
 				Countdown = null;
-			}
-			
-			protected override void LeavePool()
-			{
-				base.LeavePool();
-				Text = UiFrameworkPool.Get<TextComponent>();
 			}
 		}
 		#endregion
@@ -4564,7 +4557,7 @@ namespace Oxide.Plugins
 		#region UiElements\UiRawImage.cs
 		public class UiRawImage : BaseUiOutline
 		{
-			public RawImageComponent RawImage;
+			public readonly RawImageComponent RawImage = new RawImageComponent();
 			
 			public static UiRawImage CreateUrl(UiPosition pos, UiOffset offset, UiColor color, string url)
 			{
@@ -4609,14 +4602,7 @@ namespace Oxide.Plugins
 			protected override void EnterPool()
 			{
 				base.EnterPool();
-				RawImage.Dispose();
-				RawImage = null;
-			}
-			
-			protected override void LeavePool()
-			{
-				base.LeavePool();
-				RawImage = UiFrameworkPool.Get<RawImageComponent>();
+				RawImage.Reset();
 			}
 		}
 		#endregion
@@ -4632,6 +4618,9 @@ namespace Oxide.Plugins
 				Parent = parent;
 				Name = name;
 			}
+			
+			public bool IsValidParent() => !string.IsNullOrEmpty(Parent);
+			public bool IsValidReference() => IsValidParent() && !string.IsNullOrEmpty(Name);
 		}
 		#endregion
 
@@ -4829,6 +4818,22 @@ namespace Oxide.Plugins
 			}
 			#endregion
 			
+			#region Add Components
+			public override void AddComponent(BaseUiComponent component, UiReference parent)
+			{
+				UiReferenceException.ThrowIfInvalidParent(parent);
+				component.Reference = new UiReference(parent.Name, UiNameCache.GetComponentName(RootName, Components.Count));
+				Components.Add(component);
+			}
+			
+			protected override void AddAnchor(BaseUiComponent component, UiReference parent)
+			{
+				UiReferenceException.ThrowIfInvalidParent(parent);
+				component.Reference = new UiReference(parent.Name, UiNameCache.GetAnchorName(RootName, Anchors.Count));
+				Anchors.Add(component);
+			}
+			#endregion
+			
 			protected override void WriteComponentsInternal(JsonFrameworkWriter writer)
 			{
 				Components[0].WriteRootComponent(writer, _needsMouse, _needsKeyboard, _autoDestroy);
@@ -4839,13 +4844,10 @@ namespace Oxide.Plugins
 					Components[index].WriteComponent(writer);
 				}
 				
-				if (Anchors != null)
+				count = Anchors.Count;
+				for (int index = 0; index < count; index++)
 				{
-					count = Anchors.Count;
-					for (int index = 0; index < count; index++)
-					{
-						Anchors[index].WriteComponent(writer);
-					}
+					Anchors[index].WriteComponent(writer);
 				}
 			}
 			
@@ -4882,6 +4884,22 @@ namespace Oxide.Plugins
 					}
 				}
 			}
+			
+			#region Add Components
+			public override void AddComponent(BaseUiComponent component, UiReference parent)
+			{
+				UiReferenceException.ThrowIfInvalidReference(parent);
+				component.Reference = parent;
+				Components.Add(component);
+			}
+			
+			protected override void AddAnchor(BaseUiComponent component, UiReference parent)
+			{
+				UiReferenceException.ThrowIfInvalidReference(parent);
+				component.Reference = parent;
+				Anchors.Add(component);
+			}
+			#endregion
 		}
 		#endregion
 

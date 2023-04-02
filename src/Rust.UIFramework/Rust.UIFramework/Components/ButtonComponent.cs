@@ -22,9 +22,9 @@ namespace Oxide.Ext.UiFramework.Components
             writer.WriteEndObject();
         }
 
-        protected override void EnterPool()
+        public override void Reset()
         {
-            base.EnterPool();
+            base.Reset();
             Command = null;
             Close = null;
             ImageType = Image.Type.Simple;

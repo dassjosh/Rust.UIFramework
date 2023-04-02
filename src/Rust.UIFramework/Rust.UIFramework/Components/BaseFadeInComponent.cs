@@ -12,8 +12,9 @@ namespace Oxide.Ext.UiFramework.Components
             base.WriteComponent(writer);
         }
 
-        protected override void EnterPool()
+        public override void Reset()
         {
+            base.Reset();
             FadeIn = 0;
         }
     }

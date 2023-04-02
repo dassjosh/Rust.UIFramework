@@ -1,8 +1,9 @@
 ﻿using Oxide.Ext.UiFramework.Json;
+using Oxide.Ext.UiFramework.Pooling;
 
 namespace Oxide.Ext.UiFramework.Components
 {
-    public class CountdownComponent : BaseComponent
+    public class CountdownComponent : BasePoolable, IComponent
     {
         private const string Type = "Countdown";
         
@@ -11,7 +12,7 @@ namespace Oxide.Ext.UiFramework.Components
         public int Step;
         public string Command;
 
-        public override void WriteComponent(JsonFrameworkWriter writer)
+        public virtual void WriteComponent(JsonFrameworkWriter writer)
         {
             writer.WriteStartObject();
             writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, Type);
@@ -22,12 +23,17 @@ namespace Oxide.Ext.UiFramework.Components
             writer.WriteEndObject();
         }
 
-        protected override void EnterPool()
+        public virtual void Reset()
         {
             StartTime = JsonDefaults.Countdown.StartTimeValue;
             EndTime = JsonDefaults.Countdown.EndTimeValue;
             Step = JsonDefaults.Countdown.StepValue;
             Command = null;
+        }
+
+        protected override void EnterPool()
+        {
+            Reset();
         }
     }
 }

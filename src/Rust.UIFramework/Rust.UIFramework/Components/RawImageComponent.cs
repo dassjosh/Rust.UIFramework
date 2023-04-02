@@ -32,9 +32,9 @@ namespace Oxide.Ext.UiFramework.Components
             writer.WriteEndObject();
         }
 
-        protected override void EnterPool()
+        public override void Reset()
         {
-            base.EnterPool();
+            base.Reset();
             Url = null;
             Texture = null;
             Material = null;

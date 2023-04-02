@@ -2,14 +2,13 @@
 using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Offsets;
-using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Positions;
 
 namespace Oxide.Ext.UiFramework.UiElements
 {
     public class UiRawImage : BaseUiOutline
     {
-        public RawImageComponent RawImage;
+        public readonly RawImageComponent RawImage = new RawImageComponent();
 
         public static UiRawImage CreateUrl(UiPosition pos, UiOffset offset, UiColor color, string url)
         {
@@ -54,14 +53,7 @@ namespace Oxide.Ext.UiFramework.UiElements
         protected override void EnterPool()
         {
             base.EnterPool();
-            RawImage.Dispose();
-            RawImage = null;
-        }
-
-        protected override void LeavePool()
-        {
-            base.LeavePool();
-            RawImage = UiFrameworkPool.Get<RawImageComponent>();
+            RawImage.Reset();
         }
     }
 }

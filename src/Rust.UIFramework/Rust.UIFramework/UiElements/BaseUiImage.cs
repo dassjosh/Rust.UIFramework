@@ -1,13 +1,12 @@
 ﻿using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Json;
-using Oxide.Ext.UiFramework.Pooling;
 using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.UiElements
 {
     public abstract class BaseUiImage : BaseUiOutline
     {
-        public ImageComponent Image;
+        public readonly ImageComponent Image = new ImageComponent();
         
         public void SetImageType(Image.Type type)
         {
@@ -45,14 +44,7 @@ namespace Oxide.Ext.UiFramework.UiElements
         protected override void EnterPool()
         {
             base.EnterPool();
-            Image.Dispose();
-            Image = null;
-        }
-
-        protected override void LeavePool()
-        {
-            base.LeavePool();
-            Image = UiFrameworkPool.Get<ImageComponent>();
+            Image.Reset();
         }
     }
 }

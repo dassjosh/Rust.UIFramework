@@ -2,7 +2,6 @@
 using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Offsets;
-using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Positions;
 using UnityEngine.UI;
 
@@ -64,14 +63,7 @@ namespace Oxide.Ext.UiFramework.UiElements
         protected override void EnterPool()
         {
             base.EnterPool();
-            Button.Dispose();
-            Button = null;
-        }
-
-        protected override void LeavePool()
-        {
-            base.LeavePool();
-            Button = UiFrameworkPool.Get<ButtonComponent>();
+            Button.Reset();
         }
     }
 }

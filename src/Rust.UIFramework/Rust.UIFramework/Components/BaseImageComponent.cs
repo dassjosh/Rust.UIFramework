@@ -14,9 +14,9 @@ namespace Oxide.Ext.UiFramework.Components
             base.WriteComponent(writer);
         }
 
-        protected override void EnterPool()
+        public override void Reset()
         {
-            base.EnterPool();
+            base.Reset();
             Sprite = null;
             Material = null;
         }

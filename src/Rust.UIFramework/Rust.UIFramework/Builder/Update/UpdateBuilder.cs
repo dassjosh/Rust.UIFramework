@@ -1,6 +1,7 @@
-﻿using Oxide.Ext.UiFramework.Controls;
+﻿using Oxide.Ext.UiFramework.Exceptions;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Pooling;
+using Oxide.Ext.UiFramework.UiElements;
 
 namespace Oxide.Ext.UiFramework.Builder.Update
 {
@@ -25,5 +26,21 @@ namespace Oxide.Ext.UiFramework.Builder.Update
                 }
             }
         }
+        
+        #region Add Components
+        public override void AddComponent(BaseUiComponent component, UiReference parent)
+        {
+            UiReferenceException.ThrowIfInvalidReference(parent);
+            component.Reference = parent;
+            Components.Add(component);
+        }
+        
+        protected override void AddAnchor(BaseUiComponent component, UiReference parent)
+        {
+            UiReferenceException.ThrowIfInvalidReference(parent);
+            component.Reference = parent;
+            Anchors.Add(component);
+        }
+        #endregion
     }
 }

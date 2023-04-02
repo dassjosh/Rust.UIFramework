@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Network;
 using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Controls;
@@ -86,7 +85,6 @@ namespace Oxide.Ext.UiFramework.Builder
             base.EnterPool();
             FreeComponents();
             Font = null;
-            RootName = null;
         }
 
         private void FreeComponents()

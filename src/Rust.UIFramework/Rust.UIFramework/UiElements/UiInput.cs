@@ -3,7 +3,6 @@ using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Offsets;
-using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Positions;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,7 +11,7 @@ namespace Oxide.Ext.UiFramework.UiElements
 {
     public class UiInput : BaseUiOutline
     {
-        public InputComponent Input;
+        public readonly InputComponent Input = new InputComponent();
 
         public static UiInput Create(UiPosition pos, UiOffset offset, UiColor textColor, string text, int size, string cmd, string font, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, InputMode mode = InputMode.Default, InputField.LineType lineType = InputField.LineType.SingleLine)
         {
@@ -89,14 +88,7 @@ namespace Oxide.Ext.UiFramework.UiElements
         protected override void EnterPool()
         {
             base.EnterPool();
-            Input.Dispose();
-            Input = null;
-        }
-            
-        protected override void LeavePool()
-        {
-            base.LeavePool();
-            Input = UiFrameworkPool.Get<InputComponent>();
+            Input.Reset();
         }
     }
 }

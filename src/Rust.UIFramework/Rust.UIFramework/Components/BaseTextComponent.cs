@@ -21,9 +21,9 @@ namespace Oxide.Ext.UiFramework.Components
             base.WriteComponent(writer);
         }
 
-        protected override void EnterPool()
+        public override void Reset()
         {
-            base.EnterPool();
+            base.Reset();
             FontSize = JsonDefaults.BaseText.FontSize;
             Font = null;
             Align = TextAnchor.UpperLeft;

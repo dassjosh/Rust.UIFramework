@@ -10,7 +10,7 @@ namespace Oxide.Ext.UiFramework.UiElements
 {
     public class UiLabel : BaseUiOutline
     {
-        public TextComponent Text;
+        public readonly TextComponent Text = new TextComponent();
         public CountdownComponent Countdown;
 
         public static UiLabel Create(UiPosition pos, UiOffset offset, UiColor color, string text, int size, string font, TextAnchor align = TextAnchor.MiddleCenter)
@@ -49,16 +49,9 @@ namespace Oxide.Ext.UiFramework.UiElements
         protected override void EnterPool()
         {
             base.EnterPool();
-            Text.Dispose();
-            Text = null;
+            Text.Reset();
             Countdown?.Dispose();
             Countdown = null;
-        }
-
-        protected override void LeavePool()
-        {
-            base.LeavePool();
-            Text = UiFrameworkPool.Get<TextComponent>();
         }
     }
 }

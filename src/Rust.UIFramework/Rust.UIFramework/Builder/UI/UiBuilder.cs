@@ -1,4 +1,6 @@
 ﻿using Oxide.Ext.UiFramework.Builder.Cached;
+using Oxide.Ext.UiFramework.Cache;
+using Oxide.Ext.UiFramework.Exceptions;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.UiElements;
 
@@ -71,6 +73,22 @@ namespace Oxide.Ext.UiFramework.Builder.UI
             return cached;
         }
         #endregion
+        
+        #region Add Components
+        public override void AddComponent(BaseUiComponent component, UiReference parent)
+        {
+            UiReferenceException.ThrowIfInvalidParent(parent);
+            component.Reference = new UiReference(parent.Name, UiNameCache.GetComponentName(RootName, Components.Count));
+            Components.Add(component);
+        }
+        
+        protected override void AddAnchor(BaseUiComponent component, UiReference parent)
+        {
+            UiReferenceException.ThrowIfInvalidParent(parent);
+            component.Reference = new UiReference(parent.Name, UiNameCache.GetAnchorName(RootName, Anchors.Count));
+            Anchors.Add(component);
+        }
+        #endregion
 
         protected override void WriteComponentsInternal(JsonFrameworkWriter writer)
         {
@@ -82,13 +100,10 @@ namespace Oxide.Ext.UiFramework.Builder.UI
                 Components[index].WriteComponent(writer);
             }
 
-            if (Anchors != null)
+            count = Anchors.Count;
+            for (int index = 0; index < count; index++)
             {
-                count = Anchors.Count;
-                for (int index = 0; index < count; index++)
-                {
-                    Anchors[index].WriteComponent(writer);
-                }
+                Anchors[index].WriteComponent(writer);
             }
         }
         

@@ -1,5 +1,4 @@
-﻿using Oxide.Ext.UiFramework.Cache;
-using Oxide.Ext.UiFramework.Colors;
+﻿using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Controls;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Exceptions;
@@ -14,21 +13,13 @@ namespace Oxide.Ext.UiFramework.Builder
     public partial class BaseUiBuilder
     {
         #region Add Components
-        public void AddComponent(BaseUiComponent component, UiReference parent)
-        {
-            component.Reference = new UiReference(parent.Name, UiNameCache.GetComponentName(RootName, Components.Count));
-            Components.Add(component);
-        }
+        public abstract void AddComponent(BaseUiComponent component, UiReference parent);
+        
+        protected abstract void AddAnchor(BaseUiComponent component, UiReference parent);
 
         public void AddControl(BaseUiControl control)
         {
             Controls.Add(control);
-        }
-        
-        private void AddAnchor(BaseUiComponent component, UiReference parent)
-        {
-            component.Reference = new UiReference(parent.Name, UiNameCache.GetAnchorName(RootName, Anchors.Count));
-            Anchors.Add(component);
         }
         #endregion
 

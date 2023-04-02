@@ -19,8 +19,9 @@ namespace Oxide.Ext.UiFramework.Components
             writer.WriteEndObject();
         }
 
-        protected override void EnterPool()
+        public override void Reset()
         {
+            base.Reset();
             ItemId = default(int);
             SkinId = default(ulong);
         }

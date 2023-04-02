@@ -10,5 +10,8 @@
             Parent = parent;
             Name = name;
         }
+
+        public bool IsValidParent() => !string.IsNullOrEmpty(Parent);
+        public bool IsValidReference() => IsValidParent() && !string.IsNullOrEmpty(Name);
     }
 }

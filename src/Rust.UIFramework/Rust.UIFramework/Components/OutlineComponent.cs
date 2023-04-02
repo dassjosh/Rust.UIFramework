@@ -1,16 +1,19 @@
-﻿using Oxide.Ext.UiFramework.Json;
+﻿using Oxide.Ext.UiFramework.Colors;
+using Oxide.Ext.UiFramework.Json;
+using Oxide.Ext.UiFramework.Pooling;
 using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Components
 {
-    public class OutlineComponent : BaseColorComponent
+    public class OutlineComponent : BasePoolable, IComponent
     {
         private const string Type = "UnityEngine.UI.Outline";
 
+        public UiColor Color;
         public Vector2 Distance = JsonDefaults.Outline.Distance;
         public bool UseGraphicAlpha;
 
-        public override void WriteComponent(JsonFrameworkWriter writer)
+        public virtual void WriteComponent(JsonFrameworkWriter writer)
         {
             writer.WriteStartObject();
             writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, Type);
@@ -20,14 +23,20 @@ namespace Oxide.Ext.UiFramework.Components
                 writer.AddKeyField(JsonDefaults.Outline.UseGraphicAlphaName);
             }
             
-            base.WriteComponent(writer);
+            writer.AddField(JsonDefaults.Color.ColorName, Color);
             writer.WriteEndObject();
         }
 
-        protected override void LeavePool()
+        public virtual void Reset()
         {
             Distance = JsonDefaults.Outline.Distance;
             UseGraphicAlpha = false;
+            Color = default(UiColor);
+        }
+
+        protected override void EnterPool()
+        {
+            Reset();
         }
     }
 }

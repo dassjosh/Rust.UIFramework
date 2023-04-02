@@ -70,9 +70,9 @@ namespace Oxide.Ext.UiFramework.Components
             }
         }
 
-        protected override void EnterPool()
+        public override void Reset()
         {
-            base.EnterPool();
+            base.Reset();
             CharsLimit = JsonDefaults.Input.CharacterLimitValue;
             Command = null;
             Mode = default(InputMode);

@@ -15,7 +15,7 @@ namespace Oxide.Ext.UiFramework.Builder
         #region Add UI
         public void AddUi(BasePlayer player)
         {
-            if (player == null) throw new ArgumentNullException(nameof(player));
+            if (!player) throw new ArgumentNullException(nameof(player));
             AddUi(new SendInfo(player.Connection));
         }
 
@@ -100,7 +100,7 @@ namespace Oxide.Ext.UiFramework.Builder
         
         public static void DestroyUi(BasePlayer player, string name)
         {
-            if (player == null) throw new ArgumentNullException(nameof(player));
+            if (!player) throw new ArgumentNullException(nameof(player));
             DestroyUi(new SendInfo(player.Connection), name);
         }
 
