@@ -864,15 +864,16 @@ namespace Oxide.Plugins
 			private const string Format = "0.####";
 			private const char Space = ' ';
 			
-			private static readonly Dictionary<uint, string> ColorCache = new Dictionary<uint, string>();
+			private static readonly Dictionary<int, string> ColorCache = new Dictionary<int, string>();
 			
 			public static void WriteColor(JsonBinaryWriter writer, UiColor uiColor)
 			{
 				string color;
-				if (!ColorCache.TryGetValue(uiColor.Value, out color))
+				int hashCode = uiColor.GetHashCode();
+				if (!ColorCache.TryGetValue(hashCode, out color))
 				{
 					color = GetColor(uiColor);
-					ColorCache[uiColor.Value] = color;
+					ColorCache[hashCode] = color;
 				}
 				
 				writer.Write(color);
@@ -881,15 +882,15 @@ namespace Oxide.Plugins
 			private static string GetColor(Color color)
 			{
 				StringBuilder builder = UiFrameworkPool.GetStringBuilder();
-				builder.Append(color.r.ToString(Format));
+				builder.Append(StringCache<float>.ToString(color.r, Format));
 				builder.Append(Space);
-				builder.Append(color.g.ToString(Format));
+				builder.Append(StringCache<float>.ToString(color.g, Format));
 				builder.Append(Space);
-				builder.Append(color.b.ToString(Format));
+				builder.Append(StringCache<float>.ToString(color.b, Format));
 				if (color.a < 1f)
 				{
 					builder.Append(Space);
-					builder.Append(color.a.ToString(Format));
+					builder.Append(StringCache<float>.ToString(color.a, Format));
 				}
 				
 				return builder.ToStringAndFree();
@@ -1067,8 +1068,13 @@ namespace Oxide.Plugins
 		public struct UiColor : IEquatable<UiColor>
 		{
 			#region Fields
-			public readonly uint Value;
-			public readonly Color Color;
+			internal readonly byte _red;
+			internal readonly byte _green;
+			internal readonly byte _blue;
+			internal readonly byte _alpha;
+			
+			//public readonly uint Value;
+			//public readonly Color Color;
 			#endregion
 			
 			#region Static Colors
@@ -1093,38 +1099,37 @@ namespace Oxide.Plugins
 			#endregion
 			
 			#region Constructors
-			public UiColor(Color color)
+			public UiColor(byte red, byte green, byte blue, byte alpha = 255)
 			{
-				Color = color;
-				Value = ((uint)(color.r * 255) << 24) | ((uint)(color.g * 255) << 16) | ((uint)(color.b * 255) << 8) | (uint)(color.a * 255);
+				_red = red;
+				_green = green;
+				_blue = blue;
+				_alpha = alpha;
 			}
 			
-			public UiColor(int red, int green, int blue, int alpha = 255) : this(red / 255f, green / 255f, blue / 255f, alpha / 255f)
-			{
-				
-			}
+			public UiColor(Color color) : this(color.r, color.g, color.b, color.a) { }
 			
-			public UiColor(byte red, byte green, byte blue, byte alpha = 255) : this(red / 255f, green / 255f, blue / 255f, alpha / 255f)
-			{
-				
-			}
+			public UiColor(int red, int green, int blue, int alpha = 255) : this(red / 255f, green / 255f, blue / 255f, alpha / 255f) { }
 			
-			public UiColor(float red, float green, float blue, float alpha = 1f) : this(new Color(Mathf.Clamp01(red), Mathf.Clamp01(green), Mathf.Clamp01(blue), Mathf.Clamp01(alpha)))
-			{
-				
-			}
+			public UiColor(float red, float green, float blue, float alpha = 1f) : this(
+			(byte)Mathf.Clamp(red, 0, byte.MaxValue),
+			(byte)Mathf.Clamp(green, 0, byte.MaxValue),
+			(byte)Mathf.Clamp(blue, 0, byte.MaxValue),
+			(byte)Mathf.Clamp(alpha, 0, byte.MaxValue)) { }
 			#endregion
 			
 			#region Operators
 			public static implicit operator UiColor(string value) => ParseHexColor(value);
 			public static implicit operator UiColor(Color value) => new UiColor(value);
-			public static implicit operator Color(UiColor value) => value.Color;
-			public static bool operator ==(UiColor lhs, UiColor rhs) => lhs.Value == rhs.Value;
+			public static implicit operator Color(UiColor value) => new Color(ToFloat(value._red), ToFloat(value._green), ToFloat(value._blue), ToFloat(value._alpha));
+			public static bool operator ==(UiColor lhs, UiColor rhs) => lhs._red == rhs._red && lhs._green == rhs._green && lhs._blue == rhs._blue && lhs._alpha == rhs._alpha;
 			public static bool operator !=(UiColor lhs, UiColor rhs) => !(lhs == rhs);
+			
+			private static float ToFloat(byte value) => value / 255f;
 			
 			public bool Equals(UiColor other)
 			{
-				return Value == other.Value;
+				return this == other;
 			}
 			
 			public override bool Equals(object obj)
@@ -1135,30 +1140,19 @@ namespace Oxide.Plugins
 			
 			public override int GetHashCode()
 			{
-				return (int)Value;
+				int red = _red << 24;
+				int green = _green << 16;
+				int blue = _blue << 8;
+				return red | green | blue | _alpha;
 			}
 			
-			public override string ToString()
-			{
-				return $"{Color.r} {Color.g} {Color.b} {Color.a}";
-			}
+			public override string ToString() => $"{ToFloat(_red)} {ToFloat(_green)} {ToFloat(_blue)} {ToFloat(_alpha)}";
 			#endregion
 			
 			#region Formats
-			public string ToHexRGB()
-			{
-				return ColorUtility.ToHtmlStringRGB(Color);
-			}
-			
-			public string ToHexRGBA()
-			{
-				return ColorUtility.ToHtmlStringRGBA(Color);
-			}
-			
-			public string ToHtmlColor()
-			{
-				return $"#{ColorUtility.ToHtmlStringRGBA(Color)}";
-			}
+			public string ToHexRGB() => ColorUtility.ToHtmlStringRGB(this);
+			public string ToHexRGBA() => ColorUtility.ToHtmlStringRGBA(this);
+			public string ToHtmlColor() => $"#{ColorUtility.ToHtmlStringRGBA(this)}";
 			#endregion
 			
 			#region Parsing
@@ -1170,10 +1164,7 @@ namespace Oxide.Plugins
 			/// 1.0 1.0 1.0 1.0
 			/// </summary>
 			/// <param name="color"></param>
-			public static UiColor ParseRustColor(string color)
-			{
-				return new UiColor(ColorEx.Parse(color));
-			}
+			public static UiColor ParseRustColor(string color) => new UiColor(ColorEx.Parse(color));
 			
 			/// <summary>
 			/// <a href="https://docs.unity3d.com/ScriptReference/ColorUtility.TryParseHtmlString.html">Unity ColorUtility.TryParseHtmlString API reference</a>
@@ -2797,7 +2788,7 @@ namespace Oxide.Plugins
 			public static class Color
 			{
 				public const string ColorName = "color";
-				public const uint ColorValue = 0xFFFFFFFF;
+				public static readonly UiColor ColorValue = "#FFFFFFFF";
 			}
 			
 			public static class BaseImage
@@ -3043,7 +3034,7 @@ namespace Oxide.Plugins
 			
 			public void AddField(string name, UiColor color)
 			{
-				if (color.Value != JsonDefaults.Color.ColorValue)
+				if (color != JsonDefaults.Color.ColorValue)
 				{
 					WritePropertyName(name);
 					WriteValue(color);
@@ -6001,9 +5992,9 @@ namespace Oxide.Plugins.UiFrameworkExtensions
 	using UiReference = UiFramework.UiReference;
 	using UiFrameworkPool = UiFramework.UiFrameworkPool;
 	using UiColor = UiFramework.UiColor;
-	using BaseUiComponent = UiFramework.BaseUiComponent;
 	using UiOffset = UiFramework.UiOffset;
 	using UiPosition = UiFramework.UiPosition;
+	using UiReference = UiFramework.UiReference;
 
 
 	//Define:ExtensionMethods
@@ -6046,79 +6037,61 @@ namespace Oxide.Plugins.UiFrameworkExtensions
 	//Define:ExtensionMethods
 	public static class UiColorExt
 	{
+		public static UiColor WithAlpha(this UiColor color, byte alpha)
+		{
+			return new UiColor(color._red, color._green, color._blue, alpha);
+		}
+		
 		public static UiColor WithAlpha(this UiColor color, string hex)
 		{
-			return WithAlpha(color, int.Parse(hex, NumberStyles.HexNumber));
+			return color.WithAlpha(byte.Parse(hex, NumberStyles.HexNumber));
 		}
 		
 		public static UiColor WithAlpha(this UiColor color, int alpha)
 		{
-			return color.WithAlpha(alpha / 255f);
+			return color.WithAlpha((byte)alpha);
 		}
 		
 		public static UiColor WithAlpha(this UiColor color, float alpha)
 		{
-			return new UiColor(color.Color.WithAlpha(Mathf.Clamp01(alpha)));
+			return color.WithAlpha((byte)Mathf.Clamp(alpha * 255f, 0, byte.MaxValue));
 		}
 		
 		public static UiColor MultiplyAlpha(this UiColor color, float alpha)
 		{
-			return new UiColor(color.Color.WithAlpha(Mathf.Clamp01(color.Color.a * alpha)));
+			return color.WithAlpha((byte)Mathf.Clamp(color._alpha * alpha, 0, byte.MaxValue));
 		}
 		
 		public static UiColor ToGrayScale(this UiColor color)
 		{
-			float scale = color.Color.grayscale;
+			float scale = ((Color)color).grayscale;
 			return new UiColor(new Color(scale, scale, scale));
 		}
 		
 		public static UiColor Darken(this UiColor color, float percentage)
 		{
 			percentage = Mathf.Clamp01(percentage);
-			Color col = color.Color;
-			float red = col.r * (1 - percentage);
-			float green = col.g * (1 - percentage);
-			float blue = col.b * (1 - percentage);
+			byte red = (byte)Mathf.Clamp(color._red * (1 - percentage), 0, byte.MaxValue);
+			byte green = (byte)Mathf.Clamp(color._green * (1 - percentage), 0, byte.MaxValue);
+			byte blue = (byte)Mathf.Clamp(color._blue * (1 - percentage), 0, byte.MaxValue);
 			
-			return new UiColor(red, green, blue, col.a);
+			return new UiColor(red, green, blue, color._alpha);
 		}
 		
 		public static UiColor Lighten(this UiColor color, float percentage)
 		{
 			percentage = Mathf.Clamp01(percentage);
-			Color col = color.Color;
-			float red = (1 - col.r) * percentage + col.r;
-			float green = (1 - col.g) * percentage + col.g;
-			float blue = (1 - col.b) * percentage + col.b;
+			float red = (byte)Mathf.Clamp(byte.MaxValue - color._red * percentage + color._red, 0, byte.MaxValue);
+			float green = (byte)Mathf.Clamp(byte.MaxValue - color._green * percentage + color._red, 0, byte.MaxValue);
+			float blue = (byte)Mathf.Clamp(byte.MaxValue - color._blue * percentage + color._red, 0, byte.MaxValue);
 			
-			return new UiColor(red, green, blue, col.a);
+			return new UiColor(red, green, blue, color._alpha);
 		}
 		
 		public static UiColor Lerp(this UiColor start, UiColor end, float value)
 		{
-			return Color.Lerp(start, end, value);
+			return new UiColor(start._red + (end._red - start._red) * value, start._green + (end._green - start._green) * value, start._blue + (end._blue - start._blue) * value, start._alpha + (end._alpha - start._alpha) * value);
 		}
-	}
-
-	//Define:ExtensionMethods
-	public static class UiElementExt
-	{
-		// public static T WithName<T>(this T element, string name) where T : BaseUiComponent
-		// {
-			//     element.Name = name;
-			//     return element;
-		// }
-		//
-		// public static T WithParent<T>(this T element, BaseUiComponent component) where T : BaseUiComponent
-		// {
-			//     return element.WithParent(component.Name);
-		// }
-		//
-		// public static T WithParent<T>(this T element, string parent) where T : BaseUiComponent
-		// {
-			//     element.Parent = parent;
-			//     return element;
-		// }
 	}
 
 	//Define:ExtensionMethods
@@ -6435,5 +6408,12 @@ namespace Oxide.Plugins.UiFrameworkExtensions
 			Vector2 max = pos.Max;
 			return new UiPosition(min.x, min.y + (max.y - min.y) * yMin, max.x, min.y + (max.y - min.y) * yMax);
 		}
+	}
+
+	//Define:ExtensionMethods
+	public static class UiReferenceExt
+	{
+		public static UiReference WithName(this UiReference element, string name) => new UiReference(element.Parent, name);
+		public static UiReference WithParent(this UiReference element, string parent) => new UiReference(parent, element.Name);
 	}
 }

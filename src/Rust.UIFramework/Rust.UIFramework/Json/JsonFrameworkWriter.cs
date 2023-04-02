@@ -174,7 +174,7 @@ namespace Oxide.Ext.UiFramework.Json
 
         public void AddField(string name, UiColor color)
         {
-            if (color.Value != JsonDefaults.Color.ColorValue)
+            if (color != JsonDefaults.Color.ColorValue)
             {
                 WritePropertyName(name);
                 WriteValue(color);

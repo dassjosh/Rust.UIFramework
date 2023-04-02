@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Oxide.Ext.UiFramework.Colors;
+using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Json
 {
@@ -39,7 +40,7 @@ namespace Oxide.Ext.UiFramework.Json
         public static class Color
         {
             public const string ColorName = "color";
-            public const uint ColorValue = 0xFFFFFFFF;
+            public static readonly UiColor ColorValue = "#FFFFFFFF";
         }
 
         public static class BaseImage

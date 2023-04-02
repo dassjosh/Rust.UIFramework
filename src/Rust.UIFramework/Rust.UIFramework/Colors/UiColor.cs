@@ -9,8 +9,13 @@ namespace Oxide.Ext.UiFramework.Colors
     public struct UiColor : IEquatable<UiColor>
     {
         #region Fields
-        public readonly uint Value;
-        public readonly Color Color;
+        internal readonly byte _red;
+        internal readonly byte _green;
+        internal readonly byte _blue;
+        internal readonly byte _alpha;
+        
+        //public readonly uint Value;
+        //public readonly Color Color;
         #endregion
 
         #region Static Colors
@@ -35,38 +40,37 @@ namespace Oxide.Ext.UiFramework.Colors
         #endregion
 
         #region Constructors
-        public UiColor(Color color)
+        public UiColor(byte red, byte green, byte blue, byte alpha = 255)
         {
-            Color = color;
-            Value = ((uint)(color.r * 255) << 24) | ((uint)(color.g * 255) << 16) | ((uint)(color.b * 255) << 8) | (uint)(color.a * 255);
+            _red = red;
+            _green = green;
+            _blue = blue;
+            _alpha = alpha;
         }
         
-        public UiColor(int red, int green, int blue, int alpha = 255) : this(red / 255f, green / 255f, blue / 255f, alpha / 255f)
-        {
-
-        }
+        public UiColor(Color color) : this(color.r, color.g, color.b, color.a) { }
         
-        public UiColor(byte red, byte green, byte blue, byte alpha = 255) : this(red / 255f, green / 255f, blue / 255f, alpha / 255f)
-        {
+        public UiColor(int red, int green, int blue, int alpha = 255) : this(red / 255f, green / 255f, blue / 255f, alpha / 255f) { }
 
-        }
-
-        public UiColor(float red, float green, float blue, float alpha = 1f) : this(new Color(Mathf.Clamp01(red), Mathf.Clamp01(green), Mathf.Clamp01(blue), Mathf.Clamp01(alpha)))
-        {
-            
-        }
+        public UiColor(float red, float green, float blue, float alpha = 1f) : this(
+            (byte)Mathf.Clamp(red, 0, byte.MaxValue), 
+            (byte)Mathf.Clamp(green, 0, byte.MaxValue), 
+            (byte)Mathf.Clamp(blue, 0, byte.MaxValue), 
+            (byte)Mathf.Clamp(alpha, 0, byte.MaxValue)) { }
         #endregion
 
         #region Operators
         public static implicit operator UiColor(string value) => ParseHexColor(value);
         public static implicit operator UiColor(Color value) => new UiColor(value);
-        public static implicit operator Color(UiColor value) => value.Color;
-        public static bool operator ==(UiColor lhs, UiColor rhs) => lhs.Value == rhs.Value;
+        public static implicit operator Color(UiColor value) => new Color(ToFloat(value._red), ToFloat(value._green), ToFloat(value._blue), ToFloat(value._alpha));
+        public static bool operator ==(UiColor lhs, UiColor rhs) => lhs._red == rhs._red && lhs._green == rhs._green && lhs._blue == rhs._blue && lhs._alpha == rhs._alpha;
         public static bool operator !=(UiColor lhs, UiColor rhs) => !(lhs == rhs);
+
+        private static float ToFloat(byte value) => value / 255f;
         
         public bool Equals(UiColor other)
         {
-            return Value == other.Value;
+            return this == other;
         }
 
         public override bool Equals(object obj)
@@ -77,30 +81,19 @@ namespace Oxide.Ext.UiFramework.Colors
         
         public override int GetHashCode()
         {
-            return (int)Value;
+            int red = _red << 24;
+            int green = _green << 16;
+            int blue = _blue << 8;
+            return red | green | blue | _alpha;
         }
 
-        public override string ToString()
-        {
-            return $"{Color.r} {Color.g} {Color.b} {Color.a}";
-        }
+        public override string ToString() => $"{ToFloat(_red)} {ToFloat(_green)} {ToFloat(_blue)} {ToFloat(_alpha)}";
         #endregion
 
         #region Formats
-        public string ToHexRGB()
-        {
-            return ColorUtility.ToHtmlStringRGB(Color);
-        }
-        
-        public string ToHexRGBA()
-        {
-            return ColorUtility.ToHtmlStringRGBA(Color);
-        }
-        
-        public string ToHtmlColor()
-        {
-            return $"#{ColorUtility.ToHtmlStringRGBA(Color)}";
-        }
+        public string ToHexRGB() => ColorUtility.ToHtmlStringRGB(this);
+        public string ToHexRGBA() => ColorUtility.ToHtmlStringRGBA(this);
+        public string ToHtmlColor() => $"#{ColorUtility.ToHtmlStringRGBA(this)}";
         #endregion
 
         #region Parsing
@@ -112,11 +105,8 @@ namespace Oxide.Ext.UiFramework.Colors
         /// 1.0 1.0 1.0 1.0
         /// </summary>
         /// <param name="color"></param>
-        public static UiColor ParseRustColor(string color)
-        {
-            return new UiColor(ColorEx.Parse(color));
-        }
-        
+        public static UiColor ParseRustColor(string color) => new UiColor(ColorEx.Parse(color));
+
         /// <summary>
         /// <a href="https://docs.unity3d.com/ScriptReference/ColorUtility.TryParseHtmlString.html">Unity ColorUtility.TryParseHtmlString API reference</a>
         /// Valid Hex Color Formats

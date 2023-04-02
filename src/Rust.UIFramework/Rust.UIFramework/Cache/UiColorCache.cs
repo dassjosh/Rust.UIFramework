@@ -13,15 +13,16 @@ namespace Oxide.Ext.UiFramework.Cache
         private const string Format = "0.####";
         private const char Space = ' ';
 
-        private static readonly Dictionary<uint, string> ColorCache = new Dictionary<uint, string>();
+        private static readonly Dictionary<int, string> ColorCache = new Dictionary<int, string>();
         
         public static void WriteColor(JsonBinaryWriter writer, UiColor uiColor)
         {
             string color;
-            if (!ColorCache.TryGetValue(uiColor.Value, out color))
+            int hashCode = uiColor.GetHashCode();
+            if (!ColorCache.TryGetValue(hashCode, out color))
             {
                 color = GetColor(uiColor);
-                ColorCache[uiColor.Value] = color;
+                ColorCache[hashCode] = color;
             }
 
             writer.Write(color);
@@ -30,15 +31,15 @@ namespace Oxide.Ext.UiFramework.Cache
         private static string GetColor(Color color)
         {
             StringBuilder builder = UiFrameworkPool.GetStringBuilder();
-            builder.Append(color.r.ToString(Format));
+            builder.Append(StringCache<float>.ToString(color.r, Format));
             builder.Append(Space);
-            builder.Append(color.g.ToString(Format));
+            builder.Append(StringCache<float>.ToString(color.g, Format));
             builder.Append(Space);
-            builder.Append(color.b.ToString(Format));
+            builder.Append(StringCache<float>.ToString(color.b, Format));
             if (color.a < 1f)
             {
                 builder.Append(Space);
-                builder.Append(color.a.ToString(Format));
+                builder.Append(StringCache<float>.ToString(color.a, Format));
             }
 
             return builder.ToStringAndFree();
