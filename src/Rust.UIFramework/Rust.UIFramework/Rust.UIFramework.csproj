@@ -8,6 +8,8 @@
         <RootNamespace>Oxide.Ext.UiFramework</RootNamespace>
         <Configurations>Debug;Release;Benchmarks</Configurations>
         <Platforms>AnyCPU</Platforms>
+        <AssemblyVersion>1.4.5</AssemblyVersion>
+        <FileVersion>1.4.5</FileVersion>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">

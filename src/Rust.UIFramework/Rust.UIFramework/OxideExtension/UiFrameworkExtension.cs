@@ -8,7 +8,7 @@ namespace Oxide.Ext.UiFramework
     {
         public override string Name => "UiFramework";
         public override string Author => "MJSU";
-        public override VersionNumber Version => new VersionNumber(1, 4, 4);
+        public override VersionNumber Version => new VersionNumber(1, 4, 5);
         
         public UiFrameworkExtension(ExtensionManager manager) : base(manager) { }
     }

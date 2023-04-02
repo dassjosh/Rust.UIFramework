@@ -661,7 +661,7 @@ namespace Oxide.Plugins
 
     }
 
-    //Framework Rust UI Framework v(1.4.4) by MJSU
+    //Framework Rust UI Framework v(1.4.5) by MJSU
     //UI Framework for Rust
     #region Merged Framework Rust UI Framework
     public partial class UiElementsTest
@@ -740,19 +740,10 @@ namespace Oxide.Plugins
             protected string RootName;
             
             public string GetRootName() => RootName;
-            
-            public abstract byte[] GetBytes();
-            
-            /// <summary>
-            /// Warning this is only recommend to use for debugging purposes
-            /// </summary>
-            /// <returns></returns>
-            public string GetJsonString() => Encoding.UTF8.GetString(GetBytes());
-            
             #region Add UI
             public void AddUi(BasePlayer player)
             {
-                if (player == null) throw new ArgumentNullException(nameof(player));
+                if (!player) throw new ArgumentNullException(nameof(player));
                 AddUi(new SendInfo(player.Connection));
             }
             
@@ -837,7 +828,7 @@ namespace Oxide.Plugins
             
             public static void DestroyUi(BasePlayer player, string name)
             {
-                if (player == null) throw new ArgumentNullException(nameof(player));
+                if (!player) throw new ArgumentNullException(nameof(player));
                 DestroyUi(new SendInfo(player.Connection), name);
             }
             
@@ -851,25 +842,35 @@ namespace Oxide.Plugins
                 CommunityEntity.ServerInstance.ClientRPCEx(send, null, UiConstants.RpcFunctions.DestroyUiFunc, name);
             }
             #endregion
+            
+            #region JSON
+            
+            public abstract byte[] GetBytes();
+            
+            /// <summary>
+            /// Warning this is only recommend to use for debugging purposes
+            /// </summary>
+            /// <returns></returns>
+            public string GetJsonString() => Encoding.UTF8.GetString(GetBytes());
+            #endregion
+            
+            #region Pooling
+            protected override void EnterPool()
+            {
+                RootName = null;
+            }
+            #endregion
         }
         public partial class BaseUiBuilder
         {
             #region Add Components
-            public void AddComponent(BaseUiComponent component, UiReference parent)
-            {
-                component.Reference = new UiReference(parent.Name, UiNameCache.GetComponentName(RootName, Components.Count));
-                Components.Add(component);
-            }
+            public abstract void AddComponent(BaseUiComponent component, UiReference parent);
+            
+            protected abstract void AddAnchor(BaseUiComponent component, UiReference parent);
             
             public void AddControl(BaseUiControl control)
             {
                 Controls.Add(control);
-            }
-            
-            private void AddAnchor(BaseUiComponent component, UiReference parent)
-            {
-                component.Reference = new UiReference(parent.Name, UiNameCache.GetAnchorName(RootName, Anchors.Count));
-                Anchors.Add(component);
             }
             #endregion
             
@@ -1368,18 +1369,17 @@ namespace Oxide.Plugins
             
             public JsonFrameworkWriter CreateWriter()
             {
-                if (Components == null)
+                int count = Controls.Count;
+                if (count != 0)
                 {
-                    throw new Exception("Components List is null. Was UiBuilder not created from pool?");
-                }
-                
-                if (Controls == null)
-                {
-                    throw new Exception("Controls List is null. Was UiBuilder not created from pool?");
+                    for (int index = 0; index < count; index++)
+                    {
+                        BaseUiControl control = Controls[index];
+                        control.RenderControl(this);
+                    }
                 }
                 
                 JsonFrameworkWriter writer = JsonFrameworkWriter.Create();
-                
                 writer.WriteStartArray();
                 WriteComponentsInternal(writer);
                 writer.WriteEndArray();
@@ -1390,9 +1390,9 @@ namespace Oxide.Plugins
             
             protected override void EnterPool()
             {
+                base.EnterPool();
                 FreeComponents();
                 Font = null;
-                RootName = null;
             }
             
             private void FreeComponents()
@@ -1424,6 +1424,7 @@ namespace Oxide.Plugins
             
             protected override void LeavePool()
             {
+                base.LeavePool();
                 Font = GlobalFont;
             }
         }
@@ -1485,15 +1486,16 @@ namespace Oxide.Plugins
             private const string Format = "0.####";
             private const char Space = ' ';
             
-            private static readonly Dictionary<uint, string> ColorCache = new Dictionary<uint, string>();
+            private static readonly Dictionary<int, string> ColorCache = new Dictionary<int, string>();
             
             public static void WriteColor(JsonBinaryWriter writer, UiColor uiColor)
             {
                 string color;
-                if (!ColorCache.TryGetValue(uiColor.Value, out color))
+                int hashCode = uiColor.GetHashCode();
+                if (!ColorCache.TryGetValue(hashCode, out color))
                 {
                     color = GetColor(uiColor);
-                    ColorCache[uiColor.Value] = color;
+                    ColorCache[hashCode] = color;
                 }
                 
                 writer.Write(color);
@@ -1502,15 +1504,15 @@ namespace Oxide.Plugins
             private static string GetColor(Color color)
             {
                 StringBuilder builder = UiFrameworkPool.GetStringBuilder();
-                builder.Append(color.r.ToString(Format));
+                builder.Append(StringCache<float>.ToString(color.r, Format));
                 builder.Append(Space);
-                builder.Append(color.g.ToString(Format));
+                builder.Append(StringCache<float>.ToString(color.g, Format));
                 builder.Append(Space);
-                builder.Append(color.b.ToString(Format));
+                builder.Append(StringCache<float>.ToString(color.b, Format));
                 if (color.a < 1f)
                 {
                     builder.Append(Space);
-                    builder.Append(color.a.ToString(Format));
+                    builder.Append(StringCache<float>.ToString(color.a, Format));
                 }
                 
                 return builder.ToStringAndFree();
@@ -1673,8 +1675,13 @@ namespace Oxide.Plugins
         public struct UiColor : IEquatable<UiColor>
         {
             #region Fields
-            public readonly uint Value;
-            public readonly Color Color;
+            internal readonly byte _red;
+            internal readonly byte _green;
+            internal readonly byte _blue;
+            internal readonly byte _alpha;
+            
+            //public readonly uint Value;
+            //public readonly Color Color;
             #endregion
             
             #region Static Colors
@@ -1699,38 +1706,37 @@ namespace Oxide.Plugins
             #endregion
             
             #region Constructors
-            public UiColor(Color color)
+            public UiColor(byte red, byte green, byte blue, byte alpha = 255)
             {
-                Color = color;
-                Value = ((uint)(color.r * 255) << 24) | ((uint)(color.g * 255) << 16) | ((uint)(color.b * 255) << 8) | (uint)(color.a * 255);
+                _red = red;
+                _green = green;
+                _blue = blue;
+                _alpha = alpha;
             }
             
-            public UiColor(int red, int green, int blue, int alpha = 255) : this(red / 255f, green / 255f, blue / 255f, alpha / 255f)
-            {
-                
-            }
+            public UiColor(Color color) : this(color.r, color.g, color.b, color.a) { }
             
-            public UiColor(byte red, byte green, byte blue, byte alpha = 255) : this(red / 255f, green / 255f, blue / 255f, alpha / 255f)
-            {
-                
-            }
+            public UiColor(int red, int green, int blue, int alpha = 255) : this(red / 255f, green / 255f, blue / 255f, alpha / 255f) { }
             
-            public UiColor(float red, float green, float blue, float alpha = 1f) : this(new Color(Mathf.Clamp01(red), Mathf.Clamp01(green), Mathf.Clamp01(blue), Mathf.Clamp01(alpha)))
-            {
-                
-            }
+            public UiColor(float red, float green, float blue, float alpha = 1f) : this(
+            (byte)Mathf.Clamp(red, 0, byte.MaxValue),
+            (byte)Mathf.Clamp(green, 0, byte.MaxValue),
+            (byte)Mathf.Clamp(blue, 0, byte.MaxValue),
+            (byte)Mathf.Clamp(alpha, 0, byte.MaxValue)) { }
             #endregion
             
             #region Operators
             public static implicit operator UiColor(string value) => ParseHexColor(value);
             public static implicit operator UiColor(Color value) => new UiColor(value);
-            public static implicit operator Color(UiColor value) => value.Color;
-            public static bool operator ==(UiColor lhs, UiColor rhs) => lhs.Value == rhs.Value;
+            public static implicit operator Color(UiColor value) => new Color(ToFloat(value._red), ToFloat(value._green), ToFloat(value._blue), ToFloat(value._alpha));
+            public static bool operator ==(UiColor lhs, UiColor rhs) => lhs._red == rhs._red && lhs._green == rhs._green && lhs._blue == rhs._blue && lhs._alpha == rhs._alpha;
             public static bool operator !=(UiColor lhs, UiColor rhs) => !(lhs == rhs);
+            
+            private static float ToFloat(byte value) => value / 255f;
             
             public bool Equals(UiColor other)
             {
-                return Value == other.Value;
+                return this == other;
             }
             
             public override bool Equals(object obj)
@@ -1741,30 +1747,19 @@ namespace Oxide.Plugins
             
             public override int GetHashCode()
             {
-                return (int)Value;
+                int red = _red << 24;
+                int green = _green << 16;
+                int blue = _blue << 8;
+                return red | green | blue | _alpha;
             }
             
-            public override string ToString()
-            {
-                return $"{Color.r} {Color.g} {Color.b} {Color.a}";
-            }
+            public override string ToString() => $"{ToFloat(_red)} {ToFloat(_green)} {ToFloat(_blue)} {ToFloat(_alpha)}";
             #endregion
             
             #region Formats
-            public string ToHexRGB()
-            {
-                return ColorUtility.ToHtmlStringRGB(Color);
-            }
-            
-            public string ToHexRGBA()
-            {
-                return ColorUtility.ToHtmlStringRGBA(Color);
-            }
-            
-            public string ToHtmlColor()
-            {
-                return $"#{ColorUtility.ToHtmlStringRGBA(Color)}";
-            }
+            public string ToHexRGB() => ColorUtility.ToHtmlStringRGB(this);
+            public string ToHexRGBA() => ColorUtility.ToHtmlStringRGBA(this);
+            public string ToHtmlColor() => $"#{ColorUtility.ToHtmlStringRGBA(this)}";
             #endregion
             
             #region Parsing
@@ -1776,10 +1771,7 @@ namespace Oxide.Plugins
             /// 1.0 1.0 1.0 1.0
             /// </summary>
             /// <param name="color"></param>
-            public static UiColor ParseRustColor(string color)
-            {
-                return new UiColor(ColorEx.Parse(color));
-            }
+            public static UiColor ParseRustColor(string color) => new UiColor(ColorEx.Parse(color));
             
             /// <summary>
             /// <a href="https://docs.unity3d.com/ScriptReference/ColorUtility.TryParseHtmlString.html">Unity ColorUtility.TryParseHtmlString API reference</a>
@@ -2107,18 +2099,19 @@ namespace Oxide.Plugins
             
             public static implicit operator UiCommand(string command) => new UiCommand(command);
         }
-        public abstract class BaseColorComponent : BaseComponent
+        public abstract class BaseColorComponent : IComponent
         {
             public UiColor Color;
             
-            public override void WriteComponent(JsonFrameworkWriter writer)
+            public virtual void WriteComponent(JsonFrameworkWriter writer)
             {
                 writer.AddField(JsonDefaults.Color.ColorName, Color);
             }
-        }
-        public abstract class BaseComponent : BasePoolable
-        {
-            public abstract void WriteComponent(JsonFrameworkWriter writer);
+            
+            public virtual void Reset()
+            {
+                Color = default(UiColor);
+            }
         }
         public abstract class BaseFadeInComponent : BaseColorComponent
         {
@@ -2130,8 +2123,9 @@ namespace Oxide.Plugins
                 base.WriteComponent(writer);
             }
             
-            protected override void EnterPool()
+            public override void Reset()
             {
+                base.Reset();
                 FadeIn = 0;
             }
         }
@@ -2147,9 +2141,9 @@ namespace Oxide.Plugins
                 base.WriteComponent(writer);
             }
             
-            protected override void EnterPool()
+            public override void Reset()
             {
-                base.EnterPool();
+                base.Reset();
                 Sprite = null;
                 Material = null;
             }
@@ -2172,9 +2166,9 @@ namespace Oxide.Plugins
                 base.WriteComponent(writer);
             }
             
-            protected override void EnterPool()
+            public override void Reset()
             {
-                base.EnterPool();
+                base.Reset();
                 FontSize = JsonDefaults.BaseText.FontSize;
                 Font = null;
                 Align = TextAnchor.UpperLeft;
@@ -2201,15 +2195,15 @@ namespace Oxide.Plugins
                 writer.WriteEndObject();
             }
             
-            protected override void EnterPool()
+            public override void Reset()
             {
-                base.EnterPool();
+                base.Reset();
                 Command = null;
                 Close = null;
                 ImageType = Image.Type.Simple;
             }
         }
-        public class CountdownComponent : BaseComponent
+        public class CountdownComponent : BasePoolable, IComponent
         {
             private const string Type = "Countdown";
             
@@ -2218,7 +2212,7 @@ namespace Oxide.Plugins
             public int Step;
             public string Command;
             
-            public override void WriteComponent(JsonFrameworkWriter writer)
+            public virtual void WriteComponent(JsonFrameworkWriter writer)
             {
                 writer.WriteStartObject();
                 writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, Type);
@@ -2229,13 +2223,23 @@ namespace Oxide.Plugins
                 writer.WriteEndObject();
             }
             
-            protected override void EnterPool()
+            public virtual void Reset()
             {
                 StartTime = JsonDefaults.Countdown.StartTimeValue;
                 EndTime = JsonDefaults.Countdown.EndTimeValue;
                 Step = JsonDefaults.Countdown.StepValue;
                 Command = null;
             }
+            
+            protected override void EnterPool()
+            {
+                Reset();
+            }
+        }
+        public interface IComponent
+        {
+            void WriteComponent(JsonFrameworkWriter writer);
+            void Reset();
         }
         public class ImageComponent : BaseImageComponent
         {
@@ -2254,9 +2258,9 @@ namespace Oxide.Plugins
                 writer.WriteEndObject();
             }
             
-            protected override void EnterPool()
+            public override void Reset()
             {
-                base.EnterPool();
+                base.Reset();
                 Png = JsonDefaults.Common.NullValue;
                 ImageType = Image.Type.Simple;
             }
@@ -2327,9 +2331,9 @@ namespace Oxide.Plugins
                 }
             }
             
-            protected override void EnterPool()
+            public override void Reset()
             {
-                base.EnterPool();
+                base.Reset();
                 CharsLimit = JsonDefaults.Input.CharacterLimitValue;
                 Command = null;
                 Mode = default(InputMode);
@@ -2353,20 +2357,22 @@ namespace Oxide.Plugins
                 writer.WriteEndObject();
             }
             
-            protected override void EnterPool()
+            public override void Reset()
             {
+                base.Reset();
                 ItemId = default(int);
                 SkinId = default(ulong);
             }
         }
-        public class OutlineComponent : BaseColorComponent
+        public class OutlineComponent : BasePoolable, IComponent
         {
             private const string Type = "UnityEngine.UI.Outline";
             
+            public UiColor Color;
             public Vector2 Distance = JsonDefaults.Outline.Distance;
             public bool UseGraphicAlpha;
             
-            public override void WriteComponent(JsonFrameworkWriter writer)
+            public virtual void WriteComponent(JsonFrameworkWriter writer)
             {
                 writer.WriteStartObject();
                 writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, Type);
@@ -2376,14 +2382,20 @@ namespace Oxide.Plugins
                     writer.AddKeyField(JsonDefaults.Outline.UseGraphicAlphaName);
                 }
                 
-                base.WriteComponent(writer);
+                writer.AddField(JsonDefaults.Color.ColorName, Color);
                 writer.WriteEndObject();
             }
             
-            protected override void LeavePool()
+            public virtual void Reset()
             {
                 Distance = JsonDefaults.Outline.Distance;
                 UseGraphicAlpha = false;
+                Color = default(UiColor);
+            }
+            
+            protected override void EnterPool()
+            {
+                Reset();
             }
         }
         public class RawImageComponent : BaseFadeInComponent
@@ -2416,9 +2428,9 @@ namespace Oxide.Plugins
                 writer.WriteEndObject();
             }
             
-            protected override void EnterPool()
+            public override void Reset()
             {
-                base.EnterPool();
+                base.Reset();
                 Url = null;
                 Texture = null;
                 Material = null;
@@ -3033,6 +3045,20 @@ namespace Oxide.Plugins
         {
             public UiFrameworkException(string message) : base(message) { }
         }
+        public class UiReferenceException : UiFrameworkException
+        {
+            private UiReferenceException(string message) : base(message) { }
+            
+            public static void ThrowIfInvalidParent(UiReference reference)
+            {
+                if (!reference.IsValidParent()) throw new UiReferenceException($"{nameof(UiReference)} parent is not a valid parent reference value. Parent: {reference.Parent}");
+            }
+            
+            public static void ThrowIfInvalidReference(UiReference reference)
+            {
+                if (!reference.IsValidParent()) throw new UiReferenceException($"{nameof(UiReference)} parent is not a valid reference value. Parent: {reference.Parent} Name: {reference.Name}");
+            }
+        }
         public static class GenericMath
         {
             public static T Add<T>(T left, T right) where T : struct
@@ -3231,7 +3257,7 @@ namespace Oxide.Plugins
             public static class Color
             {
                 public const string ColorName = "color";
-                public const uint ColorValue = 0xFFFFFFFF;
+                public static readonly UiColor ColorValue = "#FFFFFFFF";
             }
             
             public static class BaseImage
@@ -3474,7 +3500,7 @@ namespace Oxide.Plugins
             
             public void AddField(string name, UiColor color)
             {
-                if (color.Value != JsonDefaults.Color.ColorValue)
+                if (color != JsonDefaults.Color.ColorValue)
                 {
                     WritePropertyName(name);
                     WriteValue(color);
@@ -4583,7 +4609,7 @@ namespace Oxide.Plugins
         }
         public abstract class BaseUiImage : BaseUiOutline
         {
-            public ImageComponent Image;
+            public readonly ImageComponent Image = new ImageComponent();
             
             public void SetImageType(Image.Type type)
             {
@@ -4621,14 +4647,7 @@ namespace Oxide.Plugins
             protected override void EnterPool()
             {
                 base.EnterPool();
-                Image.Dispose();
-                Image = null;
-            }
-            
-            protected override void LeavePool()
-            {
-                base.LeavePool();
-                Image = UiFrameworkPool.Get<ImageComponent>();
+                Image.Reset();
             }
         }
         public abstract class BaseUiOutline : BaseUiComponent
@@ -4729,14 +4748,7 @@ namespace Oxide.Plugins
             protected override void EnterPool()
             {
                 base.EnterPool();
-                Button.Dispose();
-                Button = null;
-            }
-            
-            protected override void LeavePool()
-            {
-                base.LeavePool();
-                Button = UiFrameworkPool.Get<ButtonComponent>();
+                Button.Reset();
             }
         }
         public class UiImage : BaseUiImage
@@ -4751,7 +4763,7 @@ namespace Oxide.Plugins
         }
         public class UiInput : BaseUiOutline
         {
-            public InputComponent Input;
+            public readonly InputComponent Input = new InputComponent();
             
             public static UiInput Create(UiPosition pos, UiOffset offset, UiColor textColor, string text, int size, string cmd, string font, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, InputMode mode = InputMode.Default, InputField.LineType lineType = InputField.LineType.SingleLine)
             {
@@ -4828,19 +4840,12 @@ namespace Oxide.Plugins
             protected override void EnterPool()
             {
                 base.EnterPool();
-                Input.Dispose();
-                Input = null;
-            }
-            
-            protected override void LeavePool()
-            {
-                base.LeavePool();
-                Input = UiFrameworkPool.Get<InputComponent>();
+                Input.Reset();
             }
         }
         public class UiItemIcon : BaseUiOutline
         {
-            public ItemIconComponent Icon;
+            public readonly ItemIconComponent Icon = new ItemIconComponent();
             
             public static UiItemIcon Create(UiPosition pos, UiOffset offset, UiColor color, int itemId, ulong skinId = 0)
             {
@@ -4865,19 +4870,12 @@ namespace Oxide.Plugins
             protected override void EnterPool()
             {
                 base.EnterPool();
-                Icon.Dispose();
-                Icon = null;
-            }
-            
-            protected override void LeavePool()
-            {
-                base.LeavePool();
-                Icon = UiFrameworkPool.Get<ItemIconComponent>();
+                Icon.Reset();
             }
         }
         public class UiLabel : BaseUiOutline
         {
-            public TextComponent Text;
+            public readonly TextComponent Text = new TextComponent();
             public CountdownComponent Countdown;
             
             public static UiLabel Create(UiPosition pos, UiOffset offset, UiColor color, string text, int size, string font, TextAnchor align = TextAnchor.MiddleCenter)
@@ -4916,16 +4914,9 @@ namespace Oxide.Plugins
             protected override void EnterPool()
             {
                 base.EnterPool();
-                Text.Dispose();
-                Text = null;
+                Text.Reset();
                 Countdown?.Dispose();
                 Countdown = null;
-            }
-            
-            protected override void LeavePool()
-            {
-                base.LeavePool();
-                Text = UiFrameworkPool.Get<TextComponent>();
             }
         }
         public class UiPanel : BaseUiImage
@@ -4939,7 +4930,7 @@ namespace Oxide.Plugins
         }
         public class UiRawImage : BaseUiOutline
         {
-            public RawImageComponent RawImage;
+            public readonly RawImageComponent RawImage = new RawImageComponent();
             
             public static UiRawImage CreateUrl(UiPosition pos, UiOffset offset, UiColor color, string url)
             {
@@ -4984,14 +4975,7 @@ namespace Oxide.Plugins
             protected override void EnterPool()
             {
                 base.EnterPool();
-                RawImage.Dispose();
-                RawImage = null;
-            }
-            
-            protected override void LeavePool()
-            {
-                base.LeavePool();
-                RawImage = UiFrameworkPool.Get<RawImageComponent>();
+                RawImage.Reset();
             }
         }
         public struct UiReference
@@ -5004,6 +4988,9 @@ namespace Oxide.Plugins
                 Parent = parent;
                 Name = name;
             }
+            
+            public bool IsValidParent() => !string.IsNullOrEmpty(Parent);
+            public bool IsValidReference() => IsValidParent() && !string.IsNullOrEmpty(Name);
         }
         public class UiSection : BaseUiComponent
         {
@@ -5189,39 +5176,42 @@ namespace Oxide.Plugins
             }
             #endregion
             
+            #region Add Components
+            public override void AddComponent(BaseUiComponent component, UiReference parent)
+            {
+                UiReferenceException.ThrowIfInvalidParent(parent);
+                component.Reference = new UiReference(parent.Name, UiNameCache.GetComponentName(RootName, Components.Count));
+                Components.Add(component);
+            }
+            
+            protected override void AddAnchor(BaseUiComponent component, UiReference parent)
+            {
+                UiReferenceException.ThrowIfInvalidParent(parent);
+                component.Reference = new UiReference(parent.Name, UiNameCache.GetAnchorName(RootName, Anchors.Count));
+                Anchors.Add(component);
+            }
+            #endregion
+            
             protected override void WriteComponentsInternal(JsonFrameworkWriter writer)
             {
-                int count;
-                if (Controls.Count != 0)
-                {
-                    count = Controls.Count;
-                    for (int index = 0; index < count; index++)
-                    {
-                        BaseUiControl control = Controls[index];
-                        control.RenderControl(this);
-                    }
-                }
-                
                 Components[0].WriteRootComponent(writer, _needsMouse, _needsKeyboard, _autoDestroy);
                 
-                count = Components.Count;
+                int count = Components.Count;
                 for (int index = 1; index < count; index++)
                 {
                     Components[index].WriteComponent(writer);
                 }
                 
-                if (Anchors != null)
+                count = Anchors.Count;
+                for (int index = 0; index < count; index++)
                 {
-                    count = Anchors.Count;
-                    for (int index = 0; index < count; index++)
-                    {
-                        Anchors[index].WriteComponent(writer);
-                    }
+                    Anchors[index].WriteComponent(writer);
                 }
             }
             
             protected override void EnterPool()
             {
+                base.EnterPool();
                 Root = null;
                 _needsKeyboard = false;
                 _needsMouse = false;
@@ -5234,32 +5224,37 @@ namespace Oxide.Plugins
             
             protected override void WriteComponentsInternal(JsonFrameworkWriter writer)
             {
-                int count;
-                if (Controls.Count != 0)
-                {
-                    count = Controls.Count;
-                    for (int index = 0; index < count; index++)
-                    {
-                        BaseUiControl control = Controls[index];
-                        control.RenderControl(this);
-                    }
-                }
-                
-                count = Components.Count;
+                int count = Components.Count;
                 for (int index = 0; index < count; index++)
                 {
                     Components[index].WriteUpdateComponent(writer);
                 }
                 
-                if (Anchors != null)
+                count = Anchors.Count;
+                if (count != 0)
                 {
-                    count = Anchors.Count;
                     for (int index = 0; index < count; index++)
                     {
                         Anchors[index].WriteComponent(writer);
                     }
                 }
             }
+            
+            #region Add Components
+            public override void AddComponent(BaseUiComponent component, UiReference parent)
+            {
+                UiReferenceException.ThrowIfInvalidReference(parent);
+                component.Reference = parent;
+                Components.Add(component);
+            }
+            
+            protected override void AddAnchor(BaseUiComponent component, UiReference parent)
+            {
+                UiReferenceException.ThrowIfInvalidReference(parent);
+                component.Reference = parent;
+                Anchors.Add(component);
+            }
+            #endregion
         }
         public struct ButtonGroupData
         {
@@ -6318,9 +6313,9 @@ namespace Oxide.Plugins.UiElementsTestExtensions
     using UiReference = UiElementsTest.UiReference;
     using UiFrameworkPool = UiElementsTest.UiFrameworkPool;
     using UiColor = UiElementsTest.UiColor;
-    using BaseUiComponent = UiElementsTest.BaseUiComponent;
     using UiOffset = UiElementsTest.UiOffset;
     using UiPosition = UiElementsTest.UiPosition;
+    using UiReference = UiElementsTest.UiReference;
 
     public static class ArgExt
     {
@@ -6357,77 +6352,61 @@ namespace Oxide.Plugins.UiElementsTestExtensions
     }
     public static class UiColorExt
     {
+        public static UiColor WithAlpha(this UiColor color, byte alpha)
+        {
+            return new UiColor(color._red, color._green, color._blue, alpha);
+        }
+        
         public static UiColor WithAlpha(this UiColor color, string hex)
         {
-            return WithAlpha(color, int.Parse(hex, NumberStyles.HexNumber));
+            return color.WithAlpha(byte.Parse(hex, NumberStyles.HexNumber));
         }
         
         public static UiColor WithAlpha(this UiColor color, int alpha)
         {
-            return color.WithAlpha(alpha / 255f);
+            return color.WithAlpha((byte)alpha);
         }
         
         public static UiColor WithAlpha(this UiColor color, float alpha)
         {
-            return new UiColor(color.Color.WithAlpha(Mathf.Clamp01(alpha)));
+            return color.WithAlpha((byte)Mathf.Clamp(alpha * 255f, 0, byte.MaxValue));
         }
         
         public static UiColor MultiplyAlpha(this UiColor color, float alpha)
         {
-            return new UiColor(color.Color.WithAlpha(Mathf.Clamp01(color.Color.a * alpha)));
+            return color.WithAlpha((byte)Mathf.Clamp(color._alpha * alpha, 0, byte.MaxValue));
         }
         
         public static UiColor ToGrayScale(this UiColor color)
         {
-            float scale = color.Color.grayscale;
+            float scale = ((Color)color).grayscale;
             return new UiColor(new Color(scale, scale, scale));
         }
         
         public static UiColor Darken(this UiColor color, float percentage)
         {
             percentage = Mathf.Clamp01(percentage);
-            Color col = color.Color;
-            float red = col.r * (1 - percentage);
-            float green = col.g * (1 - percentage);
-            float blue = col.b * (1 - percentage);
+            byte red = (byte)Mathf.Clamp(color._red * (1 - percentage), 0, byte.MaxValue);
+            byte green = (byte)Mathf.Clamp(color._green * (1 - percentage), 0, byte.MaxValue);
+            byte blue = (byte)Mathf.Clamp(color._blue * (1 - percentage), 0, byte.MaxValue);
             
-            return new UiColor(red, green, blue, col.a);
+            return new UiColor(red, green, blue, color._alpha);
         }
         
         public static UiColor Lighten(this UiColor color, float percentage)
         {
             percentage = Mathf.Clamp01(percentage);
-            Color col = color.Color;
-            float red = (1 - col.r) * percentage + col.r;
-            float green = (1 - col.g) * percentage + col.g;
-            float blue = (1 - col.b) * percentage + col.b;
+            float red = (byte)Mathf.Clamp(byte.MaxValue - color._red * percentage + color._red, 0, byte.MaxValue);
+            float green = (byte)Mathf.Clamp(byte.MaxValue - color._green * percentage + color._red, 0, byte.MaxValue);
+            float blue = (byte)Mathf.Clamp(byte.MaxValue - color._blue * percentage + color._red, 0, byte.MaxValue);
             
-            return new UiColor(red, green, blue, col.a);
+            return new UiColor(red, green, blue, color._alpha);
         }
         
         public static UiColor Lerp(this UiColor start, UiColor end, float value)
         {
-            return Color.Lerp(start, end, value);
+            return new UiColor(start._red + (end._red - start._red) * value, start._green + (end._green - start._green) * value, start._blue + (end._blue - start._blue) * value, start._alpha + (end._alpha - start._alpha) * value);
         }
-    }
-    public static class UiElementExt
-    {
-        // public static T WithName<T>(this T element, string name) where T : BaseUiComponent
-        // {
-            //     element.Name = name;
-            //     return element;
-        // }
-        //
-        // public static T WithParent<T>(this T element, BaseUiComponent component) where T : BaseUiComponent
-        // {
-            //     return element.WithParent(component.Name);
-        // }
-        //
-        // public static T WithParent<T>(this T element, string parent) where T : BaseUiComponent
-        // {
-            //     element.Parent = parent;
-            //     return element;
-        // }
     }
     public static class UiOffsetExt
     {
@@ -6740,5 +6719,10 @@ namespace Oxide.Plugins.UiElementsTestExtensions
             Vector2 max = pos.Max;
             return new UiPosition(min.x, min.y + (max.y - min.y) * yMin, max.x, min.y + (max.y - min.y) * yMax);
         }
+    }
+    public static class UiReferenceExt
+    {
+        public static UiReference WithName(this UiReference element, string name) => new UiReference(element.Parent, name);
+        public static UiReference WithParent(this UiReference element, string parent) => new UiReference(parent, element.Name);
     }
 }
