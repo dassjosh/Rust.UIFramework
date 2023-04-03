@@ -231,7 +231,7 @@ namespace Oxide.Plugins
             _grid.MoveCols(1);
             
             //Adds a border around the body UI
-            builder.Border(body, UiColors.Rust.Red);
+            builder.Border(body, UiColors.Rust.Red, UiBorderWidth.Default);
             
             //Creates a checkbox
             builder.Checkbox(body, _grid, default(UiOffset), state.Checkbox, FontSize, UiColors.Text, UiColors.PanelSecondary, nameof(UiElementsToggleCheckbox));
@@ -1308,7 +1308,7 @@ namespace Oxide.Plugins
             #endregion
             
             #region Border
-            public UiBorder Border(UiReference parent, UiColor color, int width = 1, BorderMode border = BorderMode.All)
+            public UiBorder Border(UiReference parent, UiColor color, UiBorderWidth width, BorderMode border = BorderMode.All)
             {
                 UiBorder control = UiBorder.Create(this, parent, color, width, border);
                 AddControl(control);
@@ -1714,15 +1714,15 @@ namespace Oxide.Plugins
                 _alpha = alpha;
             }
             
-            public UiColor(Color color) : this(color.r, color.g, color.b, color.a) { }
-            
-            public UiColor(int red, int green, int blue, int alpha = 255) : this(red / 255f, green / 255f, blue / 255f, alpha / 255f) { }
-            
-            public UiColor(float red, float green, float blue, float alpha = 1f) : this(
+            public UiColor(int red, int green, int blue, int alpha = 255) : this(
             (byte)Mathf.Clamp(red, 0, byte.MaxValue),
             (byte)Mathf.Clamp(green, 0, byte.MaxValue),
             (byte)Mathf.Clamp(blue, 0, byte.MaxValue),
             (byte)Mathf.Clamp(alpha, 0, byte.MaxValue)) { }
+            
+            public UiColor(Color color) : this(color.r, color.g, color.b, color.a) { }
+            
+            public UiColor(float red, float green, float blue, float alpha = 1f) : this(Mathf.RoundToInt(red * 255f), Mathf.RoundToInt(green * 255f), Mathf.RoundToInt(blue * 255f), Mathf.RoundToInt(alpha * 255f)) {}
             #endregion
             
             #region Operators
@@ -2483,11 +2483,10 @@ namespace Oxide.Plugins
             public UiPanel Top;
             public UiPanel Bottom;
             
-            public static UiBorder Create(BaseUiBuilder builder, UiReference parent, UiColor color, int width = 1, BorderMode border = BorderMode.All)
+            public static UiBorder Create(BaseUiBuilder builder, UiReference parent, UiColor color, UiBorderWidth width, BorderMode border = BorderMode.All)
             {
                 UiBorder control = CreateControl<UiBorder>();
-                //If width is 0 nothing is displayed so don't try to render
-                if (width == 0)
+                if (width.IsEmpty())
                 {
                     return control;
                 }
@@ -2497,59 +2496,24 @@ namespace Oxide.Plugins
                 bool bottom = HasBorderFlag(border, BorderMode.Bottom);
                 bool right = HasBorderFlag(border, BorderMode.Right);
                 
-                if (width > 0)
+                if (top)
                 {
-                    int tbMin = left ? -width : 0;
-                    int tbMax = right ? width : 0;
-                    int lrMin = top ? -width : 0;
-                    int lrMax = bottom ? width : 0;
-                    
-                    if (top)
-                    {
-                        control.Top = builder.Panel(parent, UiPosition.Top, new UiOffset(tbMin, 0, tbMax, width), color);
-                    }
-                    
-                    if (left)
-                    {
-                        control.Left = builder.Panel(parent, UiPosition.Left, new UiOffset(-width, lrMin, 0, lrMax), color);
-                    }
-                    
-                    if (bottom)
-                    {
-                        control.Bottom = builder.Panel(parent, UiPosition.Bottom, new UiOffset(tbMin, -width, tbMax, 0), color);
-                    }
-                    
-                    if (right)
-                    {
-                        control.Right = builder.Panel(parent, UiPosition.Right, new UiOffset(0, lrMin, width, lrMax), color);
-                    }
+                    control.Top = builder.Panel(parent, UiPosition.Top, new UiOffset(left ? -width.Left : 0, 0, right ? width.Right : 0, width.Top), color);
                 }
-                else
+                
+                if (left)
                 {
-                    int tbMin = left ? width : 0;
-                    int tbMax = right ? -width : 0;
-                    int lrMin = top ? width : 0;
-                    int lrMax = bottom ? -width : 0;
-                    
-                    if (top)
-                    {
-                        control.Top = builder.Panel(parent, UiPosition.Top, new UiOffset(tbMin, width, tbMax, 0), color);
-                    }
-                    
-                    if (left)
-                    {
-                        control.Left = builder.Panel(parent, UiPosition.Left, new UiOffset(0, lrMin, -width, lrMax), color);
-                    }
-                    
-                    if (bottom)
-                    {
-                        control.Bottom = builder.Panel(parent, UiPosition.Bottom, new UiOffset(tbMin, 0, tbMax, -width), color);
-                    }
-                    
-                    if (right)
-                    {
-                        control.Right = builder.Panel(parent, UiPosition.Right, new UiOffset(width, lrMin, 0, lrMax), color);
-                    }
+                    control.Left = builder.Panel(parent, UiPosition.Left, new UiOffset(-width.Left, bottom ? -width.Bottom : 0, 0, top ? width.Top : 0), color);
+                }
+                
+                if (bottom)
+                {
+                    control.Bottom = builder.Panel(parent, UiPosition.Bottom, new UiOffset(left ? -width.Left : 0, -width.Bottom, right ? width.Right : 0, 0), color);
+                }
+                
+                if (right)
+                {
+                    control.Right = builder.Panel(parent, UiPosition.Right, new UiOffset(0, bottom ? -width.Bottom : 0, width.Right, top ? width.Top : 0), color);
                 }
                 
                 return control;
@@ -5235,7 +5199,7 @@ namespace Oxide.Plugins
                 {
                     for (int index = 0; index < count; index++)
                     {
-                        Anchors[index].WriteComponent(writer);
+                        Anchors[index].WriteUpdateComponent(writer);
                     }
                 }
             }
@@ -5329,6 +5293,29 @@ namespace Oxide.Plugins
             {
                 return new DateTime(time.Year, time.Month, time.Day, Hour, Minute, Second);
             }
+        }
+        public struct UiBorderWidth
+        {
+            public static readonly UiBorderWidth Default = new UiBorderWidth(1);
+            
+            public readonly float Left;
+            public readonly float Top;
+            public readonly float Right;
+            public readonly float Bottom;
+            
+            public UiBorderWidth(float left, float top, float right, float bottom)
+            {
+                Left = left;
+                Top = top;
+                Right = right;
+                Bottom = bottom;
+            }
+            
+            public UiBorderWidth(float width, float height) : this(width, height, width, height) { }
+            
+            public UiBorderWidth(float width) : this(width, width) { }
+            
+            public bool IsEmpty() => Left == 0 || Top == 0 || Right == 0 || Bottom == 0;
         }
         public abstract class BaseNumberPicker<T> : BaseUiControl where T : struct, IConvertible, IFormattable, IComparable<T>
         {

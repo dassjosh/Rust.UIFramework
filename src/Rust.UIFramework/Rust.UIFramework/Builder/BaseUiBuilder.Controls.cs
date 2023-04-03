@@ -270,7 +270,7 @@ namespace Oxide.Ext.UiFramework.Builder
         #endregion
         
         #region Border
-        public UiBorder Border(UiReference parent, UiColor color, int width = 1, BorderMode border = BorderMode.All)
+        public UiBorder Border(UiReference parent, UiColor color, UiBorderWidth width, BorderMode border = BorderMode.All)
         {
             UiBorder control = UiBorder.Create(this, parent, color, width, border);
             AddControl(control);

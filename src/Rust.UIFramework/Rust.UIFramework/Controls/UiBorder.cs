@@ -1,5 +1,6 @@
 ﻿using Oxide.Ext.UiFramework.Builder;
 using Oxide.Ext.UiFramework.Colors;
+using Oxide.Ext.UiFramework.Controls.Data;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
@@ -14,11 +15,10 @@ namespace Oxide.Ext.UiFramework.Controls
         public UiPanel Top;
         public UiPanel Bottom;
 
-        public static UiBorder Create(BaseUiBuilder builder, UiReference parent, UiColor color, int width = 1, BorderMode border = BorderMode.All)
+        public static UiBorder Create(BaseUiBuilder builder, UiReference parent, UiColor color, UiBorderWidth width, BorderMode border = BorderMode.All)
         {
             UiBorder control = CreateControl<UiBorder>();
-            //If width is 0 nothing is displayed so don't try to render
-            if (width == 0)
+            if (width.IsEmpty())
             {
                 return control;
             }
@@ -28,59 +28,24 @@ namespace Oxide.Ext.UiFramework.Controls
             bool bottom = HasBorderFlag(border, BorderMode.Bottom);
             bool right = HasBorderFlag(border, BorderMode.Right);
 
-            if (width > 0)
+            if (top)
             {
-                int tbMin = left ? -width : 0;
-                int tbMax = right ? width : 0;
-                int lrMin = top ? -width : 0;
-                int lrMax = bottom ? width : 0;
-            
-                if (top)
-                {
-                    control.Top = builder.Panel(parent, UiPosition.Top, new UiOffset(tbMin, 0, tbMax, width), color);
-                }
-            
-                if (left)
-                {
-                    control.Left = builder.Panel(parent, UiPosition.Left, new UiOffset(-width, lrMin, 0, lrMax), color);
-                }
-            
-                if (bottom)
-                {
-                    control.Bottom = builder.Panel(parent, UiPosition.Bottom, new UiOffset(tbMin, -width, tbMax, 0), color);
-                }
-            
-                if (right)
-                {
-                    control.Right = builder.Panel(parent, UiPosition.Right, new UiOffset(0, lrMin, width, lrMax), color);
-                }
+                control.Top = builder.Panel(parent, UiPosition.Top, new UiOffset(left ? -width.Left : 0, 0, right ? width.Right : 0, width.Top), color);
             }
-            else
+            
+            if (left)
             {
-                int tbMin = left ? width : 0;
-                int tbMax = right ? -width : 0;
-                int lrMin = top ? width : 0;
-                int lrMax = bottom ? -width : 0;
-                
-                if (top)
-                {
-                    control.Top = builder.Panel(parent, UiPosition.Top, new UiOffset(tbMin, width, tbMax, 0), color);
-                }
+                control.Left = builder.Panel(parent, UiPosition.Left, new UiOffset(-width.Left, bottom ? -width.Bottom : 0, 0, top ? width.Top : 0), color);
+            }
             
-                if (left)
-                {
-                    control.Left = builder.Panel(parent, UiPosition.Left, new UiOffset(0, lrMin, -width, lrMax), color);
-                }
+            if (bottom)
+            {
+                control.Bottom = builder.Panel(parent, UiPosition.Bottom, new UiOffset(left ? -width.Left : 0, -width.Bottom, right ? width.Right : 0, 0), color);
+            }
             
-                if (bottom)
-                {
-                    control.Bottom = builder.Panel(parent, UiPosition.Bottom, new UiOffset(tbMin, 0, tbMax, -width), color);
-                }
-            
-                if (right)
-                {
-                    control.Right = builder.Panel(parent, UiPosition.Right, new UiOffset(width, lrMin, 0, lrMax), color);
-                }
+            if (right)
+            {
+                control.Right = builder.Panel(parent, UiPosition.Right, new UiOffset(0, bottom ? -width.Bottom : 0, width.Right, top ? width.Top : 0), color);
             }
 
             return control;

@@ -228,7 +228,7 @@ namespace Oxide.Plugins
             _grid.MoveCols(1);
 
             //Adds a border around the body UI
-            builder.Border(body, UiColors.Rust.Red);
+            builder.Border(body, UiColors.Rust.Red, UiBorderWidth.Default);
 
             //Creates a checkbox
             builder.Checkbox(body, _grid, default(UiOffset), state.Checkbox, FontSize, UiColors.Text, UiColors.PanelSecondary, nameof(UiElementsToggleCheckbox));

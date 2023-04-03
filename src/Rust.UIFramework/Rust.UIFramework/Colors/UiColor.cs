@@ -48,14 +48,14 @@ namespace Oxide.Ext.UiFramework.Colors
             _alpha = alpha;
         }
         
-        public UiColor(Color color) : this(color.r, color.g, color.b, color.a) { }
-        
         public UiColor(int red, int green, int blue, int alpha = 255) : this(
             (byte)Mathf.Clamp(red, 0, byte.MaxValue), 
             (byte)Mathf.Clamp(green, 0, byte.MaxValue), 
             (byte)Mathf.Clamp(blue, 0, byte.MaxValue), 
             (byte)Mathf.Clamp(alpha, 0, byte.MaxValue)) { }
-
+        
+        public UiColor(Color color) : this(color.r, color.g, color.b, color.a) { }
+        
         public UiColor(float red, float green, float blue, float alpha = 1f) : this(Mathf.RoundToInt(red * 255f), Mathf.RoundToInt(green * 255f), Mathf.RoundToInt(blue * 255f), Mathf.RoundToInt(alpha * 255f)) {}
         #endregion
 
