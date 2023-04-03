@@ -4297,7 +4297,7 @@ namespace Oxide.Plugins
 	#region UiElements\UiButton.cs
 	public class UiButton : BaseUiOutline
 	{
-		public ButtonComponent Button;
+		public readonly ButtonComponent Button = new ButtonComponent();
 		
 		public static UiButton CreateCommand(UiPosition pos, UiOffset offset, UiColor color, string command)
 		{
