@@ -22,7 +22,7 @@ namespace Oxide.Ext.UiFramework.Builder.Update
             {
                 for (int index = 0; index < count; index++)
                 {
-                    Anchors[index].WriteComponent(writer);
+                    Anchors[index].WriteUpdateComponent(writer);
                 }
             }
         }

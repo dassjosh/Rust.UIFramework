@@ -17,7 +17,7 @@ namespace Oxide.Plugins
 	//Define:Framework
 	//[Info("Rust UI Framework", "MJSU", "1.4.5")]
 	//[Description("UI Framework for Rust")]
-	public partial class UiElementsTest : RustPlugin
+	public partial class UiMergeFramework : RustPlugin
 	{
 		#region Plugin\UiFramework.Methods.cs
 		#region Unloading
@@ -1112,13 +1112,13 @@ namespace Oxide.Plugins
 		
 		public UiColor(Color color) : this(color.r, color.g, color.b, color.a) { }
 		
-		public UiColor(int red, int green, int blue, int alpha = 255) : this(red / 255f, green / 255f, blue / 255f, alpha / 255f) { }
-		
-		public UiColor(float red, float green, float blue, float alpha = 1f) : this(
+		public UiColor(int red, int green, int blue, int alpha = 255) : this(
 		(byte)Mathf.Clamp(red, 0, byte.MaxValue),
 		(byte)Mathf.Clamp(green, 0, byte.MaxValue),
 		(byte)Mathf.Clamp(blue, 0, byte.MaxValue),
 		(byte)Mathf.Clamp(alpha, 0, byte.MaxValue)) { }
+		
+		public UiColor(float red, float green, float blue, float alpha = 1f) : this(Mathf.RoundToInt(red * 255f), Mathf.RoundToInt(green * 255f), Mathf.RoundToInt(blue * 255f), Mathf.RoundToInt(alpha * 255f)) {}
 		#endregion
 		
 		#region Operators
@@ -4874,7 +4874,7 @@ namespace Oxide.Plugins
 			{
 				for (int index = 0; index < count; index++)
 				{
-					Anchors[index].WriteComponent(writer);
+					Anchors[index].WriteUpdateComponent(writer);
 				}
 			}
 		}
