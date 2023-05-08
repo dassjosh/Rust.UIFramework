@@ -158,7 +158,7 @@ namespace Oxide.Plugins
 			
 			NetWrite write = Net.sv.StartWrite();
 			write.PacketID(Message.Type.RPCMessage);
-			write.UInt32(CommunityEntity.ServerInstance.net.ID);
+			write.EntityID(CommunityEntity.ServerInstance.net.ID);
 			write.UInt32(StringPool.Get(funcName));
 			write.UInt64(0UL);
 			return write;
@@ -935,18 +935,22 @@ namespace Oxide.Plugins
 	public static class UiLayerCache
 	{
 		private const string Overall = "Overall";
+		private const string OverlayNonScaled = "OverlayNonScaled";
 		private const string Overlay = "Overlay";
 		private const string Hud = "Hud";
 		private const string HudMenu = "Hud.Menu";
 		private const string Under = "Under";
+		private const string UnderNonScaled = "UnderNonScaled";
 		
 		private static readonly Dictionary<UiLayer, string> Layers = new Dictionary<UiLayer, string>
 		{
 			[UiLayer.Overall] = Overall,
 			[UiLayer.Overlay] = Overlay,
+			[UiLayer.OverlayNonScaled] = OverlayNonScaled,
 			[UiLayer.Hud] = Hud,
 			[UiLayer.HudMenu] = HudMenu,
 			[UiLayer.Under] = Under,
+			[UiLayer.UnderNonScaled] = UnderNonScaled,
 		};
 		
 		public static string GetLayer(UiLayer layer)
@@ -2520,9 +2524,11 @@ namespace Oxide.Plugins
 	{
 		Overall,
 		Overlay,
+		OverlayNonScaled,
 		HudMenu,
 		Hud,
-		Under
+		Under,
+		UnderNonScaled
 	}
 	#endregion
 

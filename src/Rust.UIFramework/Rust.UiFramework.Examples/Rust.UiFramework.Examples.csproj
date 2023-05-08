@@ -66,6 +66,9 @@
       <Reference Include="Oxide.Rust">
         <HintPath>..\References\Oxide.Rust.dll</HintPath>
       </Reference>
+      <Reference Include="Rust.Data">
+        <HintPath>..\..\..\..\Rust.RemoteQuarry\References\Rust.Data.dll</HintPath>
+      </Reference>
       <Reference Include="UnityEngine">
         <HintPath>..\References\UnityEngine.dll</HintPath>
       </Reference>

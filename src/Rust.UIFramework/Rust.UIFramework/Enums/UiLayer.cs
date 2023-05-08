@@ -4,8 +4,10 @@
     {
         Overall,
         Overlay,
+        OverlayNonScaled,
         HudMenu,
         Hud,
-        Under
+        Under,
+        UnderNonScaled
     }
 }
