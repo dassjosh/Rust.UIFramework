@@ -2,34 +2,21 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rust.UIFramework", "Rust.UIFramework\Rust.UIFramework.csproj", "{2CEE08B1-A5BD-4F64-A1A9-5242440758D0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rust.UiFramework.Benchmarks", "Rust.UiFramework.Benchmarks\Rust.UiFramework.Benchmarks.csproj", "{7D1DD85A-E97C-4B11-BD53-9DA590EA4766}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rust.UiFramework.Examples", "Rust.UiFramework.Examples\Rust.UiFramework.Examples.csproj", "{C87D91A6-D85F-4CC0-8DDA-73546AE674A0}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Release|Any CPU = Release|Any CPU
-		Benchmarks|Any CPU = Benchmarks|Any CPU
+		Release|Oxide = Release|Oxide
+		Release|Carbon = Release|Carbon
+		Debug|Carbon = Debug|Carbon
+		Debug|Oxide = Debug|Oxide
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{2CEE08B1-A5BD-4F64-A1A9-5242440758D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2CEE08B1-A5BD-4F64-A1A9-5242440758D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2CEE08B1-A5BD-4F64-A1A9-5242440758D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2CEE08B1-A5BD-4F64-A1A9-5242440758D0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2CEE08B1-A5BD-4F64-A1A9-5242440758D0}.Benchmarks|Any CPU.ActiveCfg = Benchmarks|Any CPU
-		{2CEE08B1-A5BD-4F64-A1A9-5242440758D0}.Benchmarks|Any CPU.Build.0 = Benchmarks|Any CPU
-		{7D1DD85A-E97C-4B11-BD53-9DA590EA4766}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7D1DD85A-E97C-4B11-BD53-9DA590EA4766}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7D1DD85A-E97C-4B11-BD53-9DA590EA4766}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7D1DD85A-E97C-4B11-BD53-9DA590EA4766}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7D1DD85A-E97C-4B11-BD53-9DA590EA4766}.Benchmarks|Any CPU.ActiveCfg = Benchmarks|Any CPU
-		{7D1DD85A-E97C-4B11-BD53-9DA590EA4766}.Benchmarks|Any CPU.Build.0 = Benchmarks|Any CPU
-		{C87D91A6-D85F-4CC0-8DDA-73546AE674A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C87D91A6-D85F-4CC0-8DDA-73546AE674A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C87D91A6-D85F-4CC0-8DDA-73546AE674A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C87D91A6-D85F-4CC0-8DDA-73546AE674A0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C87D91A6-D85F-4CC0-8DDA-73546AE674A0}.Benchmarks|Any CPU.ActiveCfg = Benchmarks|Any CPU
-		{C87D91A6-D85F-4CC0-8DDA-73546AE674A0}.Benchmarks|Any CPU.Build.0 = Benchmarks|Any CPU
+		{2CEE08B1-A5BD-4F64-A1A9-5242440758D0}.Release|Oxide.ActiveCfg = Release|Oxide
+		{2CEE08B1-A5BD-4F64-A1A9-5242440758D0}.Release|Oxide.Build.0 = Release|Oxide
+		{2CEE08B1-A5BD-4F64-A1A9-5242440758D0}.Debug|Carbon.ActiveCfg = Debug|Carbon
+		{2CEE08B1-A5BD-4F64-A1A9-5242440758D0}.Debug|Carbon.Build.0 = Debug|Carbon
+		{2CEE08B1-A5BD-4F64-A1A9-5242440758D0}.Debug|Oxide.ActiveCfg = Debug|Oxide
+		{2CEE08B1-A5BD-4F64-A1A9-5242440758D0}.Debug|Oxide.Build.0 = Debug|Oxide
+		{2CEE08B1-A5BD-4F64-A1A9-5242440758D0}.Release|Carbon.ActiveCfg = Release|Carbon
+		{2CEE08B1-A5BD-4F64-A1A9-5242440758D0}.Release|Carbon.Build.0 = Release|Carbon
 	EndGlobalSection
 EndGlobal

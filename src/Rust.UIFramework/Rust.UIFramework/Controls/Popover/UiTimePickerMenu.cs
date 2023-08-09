@@ -1,5 +1,4 @@
-﻿using Oxide.Core;
-using Oxide.Ext.UiFramework.Builder.UI;
+﻿using Oxide.Ext.UiFramework.Builder.UI;
 using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Controls.Data;
@@ -31,7 +30,6 @@ namespace Oxide.Ext.UiFramework.Controls.Popover
             int segmentWidth = UiHelpers.TextOffsetWidth(2, fontSize);
             int width = menuPadding * 2 + (numPickers - 2) * itemPadding + numPickers * segmentWidth;
             int height = UiHelpers.TextOffsetHeight(fontSize) * 3;
-            Interface.Oxide.LogDebug($"{nameof(UiTimePickerMenu)}.{nameof(Create)} {width} x {height}");
 
             Vector2Int size = new Vector2Int(width + menuPadding * 2 + 1, height + menuPadding * 2);
             CreateBuilder(control, parent.Parent, size, backgroundColor, position, menuSprite);

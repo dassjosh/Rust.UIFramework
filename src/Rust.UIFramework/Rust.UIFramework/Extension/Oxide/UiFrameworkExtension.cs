@@ -1,4 +1,5 @@
-﻿using Oxide.Core;
+﻿#if OXIDE
+using Oxide.Core;
 using Oxide.Core.Extensions;
 
 // ReSharper disable once CheckNamespace
@@ -13,3 +14,4 @@ namespace Oxide.Ext.UiFramework
         public UiFrameworkExtension(ExtensionManager manager) : base(manager) { }
     }
 }
+#endif
