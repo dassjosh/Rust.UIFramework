@@ -20,6 +20,7 @@ namespace Oxide.Ext.UiFramework.Json
             public const string NeedsKeyboardValue = "NeedsKeyboard";
             public const string AutoDestroy = "destroyUi";
             public const string CommandName = "command";
+            public const string EnabledName = "enabled";
             public static readonly Vector2 Min = new Vector2(0, 0);
             public static readonly Vector2 Max = new Vector2(1, 1);
         }

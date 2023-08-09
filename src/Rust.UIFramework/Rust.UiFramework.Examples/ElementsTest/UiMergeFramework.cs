@@ -1004,15 +1004,7 @@ namespace Oxide.Plugins
 		private const char Space = ' ';
 		private const short PositionRounder = 10000;
 		
-		private static readonly Dictionary<ushort, string> PositionCache = new Dictionary<ushort, string>();
-		
-		static VectorCache()
-		{
-			for (ushort i = 0; i <= PositionRounder; i++)
-			{
-				PositionCache[i] = (i / (float)PositionRounder).ToString(Format);
-			}
-		}
+		private static readonly Dictionary<short, string> PositionCache = new Dictionary<short, string>();
 		
 		public static void WritePosition(JsonBinaryWriter writer, Vector2 pos)
 		{
@@ -1023,39 +1015,32 @@ namespace Oxide.Plugins
 		
 		private static void WriteFromCache(JsonBinaryWriter writer, float pos)
 		{
-			if (pos >= 0f && pos <= 1f)
+			string value;
+			if (!PositionCache.TryGetValue((short)(pos * PositionRounder), out value))
 			{
-				writer.Write(PositionCache[(ushort)(pos * PositionRounder)]);
+				value = pos.ToString(Format);
+				PositionCache[(short)(pos * PositionRounder)] = value;
 			}
-			else
-			{
-				string value;
-				if (!PositionCache.TryGetValue((ushort)(pos * PositionRounder), out value))
-				{
-					value = pos.ToString(Format);
-					PositionCache[(ushort)(pos * PositionRounder)] = value;
-				}
-				
-				writer.Write(value);
-			}
+			
+			writer.Write(value);
 		}
 		
 		public static void WriteVector(JsonBinaryWriter writer, Vector2 pos)
 		{
 			string formattedPos;
-			if (!PositionCache.TryGetValue((ushort)(pos.x * PositionRounder), out formattedPos))
+			if (!PositionCache.TryGetValue((short)(pos.x * PositionRounder), out formattedPos))
 			{
 				formattedPos = pos.x.ToString(Format);
-				PositionCache[(ushort)(pos.x * PositionRounder)] = formattedPos;
+				PositionCache[(short)(pos.x * PositionRounder)] = formattedPos;
 			}
 			
 			writer.Write(formattedPos);
 			writer.Write(Space);
 			
-			if (!PositionCache.TryGetValue((ushort)(pos.y * PositionRounder), out formattedPos))
+			if (!PositionCache.TryGetValue((short)(pos.y * PositionRounder), out formattedPos))
 			{
 				formattedPos = pos.y.ToString(Format);
-				PositionCache[(ushort)(pos.y * PositionRounder)] = formattedPos;
+				PositionCache[(short)(pos.y * PositionRounder)] = formattedPos;
 			}
 			
 			writer.Write(formattedPos);
@@ -1510,45 +1495,28 @@ namespace Oxide.Plugins
 	}
 	#endregion
 
-	#region Components\BaseColorComponent.cs
-	public abstract class BaseColorComponent : IComponent
+	#region Components\BaseComponent.cs
+	public abstract class BaseComponent : IComponent
 	{
-		public UiColor Color;
+		public bool Enabled;
 		
 		public virtual void WriteComponent(JsonFrameworkWriter writer)
 		{
-			writer.AddField(JsonDefaults.Color.ColorName, Color);
+			writer.AddField(JsonDefaults.Common.EnabledName, Enabled, true);
 		}
 		
 		public virtual void Reset()
 		{
-			Color = default(UiColor);
-		}
-	}
-	#endregion
-
-	#region Components\BaseFadeInComponent.cs
-	public abstract class BaseFadeInComponent : BaseColorComponent
-	{
-		public float FadeIn;
-		
-		public override void WriteComponent(JsonFrameworkWriter writer)
-		{
-			writer.AddField(JsonDefaults.Common.FadeInName, FadeIn, JsonDefaults.Common.FadeIn);
-			base.WriteComponent(writer);
-		}
-		
-		public override void Reset()
-		{
-			base.Reset();
-			FadeIn = 0;
+			Enabled = true;
 		}
 	}
 	#endregion
 
 	#region Components\BaseImageComponent.cs
-	public abstract class BaseImageComponent : BaseFadeInComponent
+	public abstract class BaseImageComponent : BaseComponent
 	{
+		public UiColor Color;
+		public float FadeIn;
 		public string Sprite;
 		public string Material;
 		
@@ -1556,12 +1524,16 @@ namespace Oxide.Plugins
 		{
 			writer.AddField(JsonDefaults.BaseImage.SpriteName, Sprite, JsonDefaults.BaseImage.Sprite);
 			writer.AddField(JsonDefaults.BaseImage.MaterialName, Material, JsonDefaults.BaseImage.Material);
+			writer.AddField(JsonDefaults.Common.FadeInName, FadeIn, JsonDefaults.Common.FadeIn);
+			writer.AddField(JsonDefaults.Color.ColorName, Color);
 			base.WriteComponent(writer);
 		}
 		
 		public override void Reset()
 		{
 			base.Reset();
+			Color = default(UiColor);
+			FadeIn = 0;
 			Sprite = null;
 			Material = null;
 		}
@@ -1569,8 +1541,10 @@ namespace Oxide.Plugins
 	#endregion
 
 	#region Components\BaseTextComponent.cs
-	public abstract class BaseTextComponent : BaseFadeInComponent
+	public abstract class BaseTextComponent : BaseComponent
 	{
+		public UiColor Color;
+		public float FadeIn;
 		public int FontSize = JsonDefaults.BaseText.FontSize;
 		public string Font;
 		public TextAnchor Align;
@@ -1584,12 +1558,16 @@ namespace Oxide.Plugins
 			writer.AddField(JsonDefaults.BaseText.FontName, Font, JsonDefaults.BaseText.FontValue);
 			writer.AddField(JsonDefaults.BaseText.AlignName, Align);
 			writer.AddField(JsonDefaults.BaseText.VerticalOverflowName, VerticalOverflow);
+			writer.AddField(JsonDefaults.Common.FadeInName, FadeIn, JsonDefaults.Common.FadeIn);
+			writer.AddField(JsonDefaults.Color.ColorName, Color);
 			base.WriteComponent(writer);
 		}
 		
 		public override void Reset()
 		{
 			base.Reset();
+			Color = default(UiColor);
+			FadeIn = 0;
 			FontSize = JsonDefaults.BaseText.FontSize;
 			Font = null;
 			Align = TextAnchor.UpperLeft;
@@ -1843,16 +1821,18 @@ namespace Oxide.Plugins
 	#endregion
 
 	#region Components\RawImageComponent.cs
-	public class RawImageComponent : BaseFadeInComponent
+	public class RawImageComponent : IComponent
 	{
 		private const string Type = "UnityEngine.UI.RawImage";
 		
+		public UiColor Color;
+		public float FadeIn;
 		public string Url;
 		public string Png;
 		public string Texture;
 		public string Material;
 		
-		public override void WriteComponent(JsonFrameworkWriter writer)
+		public virtual void WriteComponent(JsonFrameworkWriter writer)
 		{
 			writer.WriteStartObject();
 			writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, Type);
@@ -1868,14 +1848,16 @@ namespace Oxide.Plugins
 				writer.AddFieldRaw(JsonDefaults.Image.PngName, Png);
 			}
 			
-			base.WriteComponent(writer);
+			writer.AddField(JsonDefaults.Common.FadeInName, FadeIn, JsonDefaults.Common.FadeIn);
+			writer.AddField(JsonDefaults.Color.ColorName, Color);
 			
 			writer.WriteEndObject();
 		}
 		
-		public override void Reset()
+		public virtual void Reset()
 		{
-			base.Reset();
+			Color = default(UiColor);
+			FadeIn = 0;
 			Url = null;
 			Texture = null;
 			Material = null;
@@ -2741,6 +2723,7 @@ namespace Oxide.Plugins
 			public const string NeedsKeyboardValue = "NeedsKeyboard";
 			public const string AutoDestroy = "destroyUi";
 			public const string CommandName = "command";
+			public const string EnabledName = "enabled";
 			public static readonly Vector2 Min = new Vector2(0, 0);
 			public static readonly Vector2 Max = new Vector2(1, 1);
 		}
