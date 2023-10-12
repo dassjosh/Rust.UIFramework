@@ -16,7 +16,6 @@ jobs:
 
     - name: Set VERSION variable from tag
       run: |
-        echo "GITHUB_REF = ${GITHUB_REF}"
         VERSION=$(echo "${GITHUB_REF}" | sed 's/.*v\([^\s]*\).*/\1/')
         echo "VERSION=$VERSION" >> $GITHUB_ENV
 
@@ -44,9 +43,7 @@ jobs:
     - name: Upload Release Assets
       run: |
         TAG=$(echo "${GITHUB_REF}" | sed 's/refs\/tags\///')
-
         release_id=$(curl -s -H "Authorization: token $GITHUB_TOKEN" -X GET "https://api.github.com/repos/$GITHUB_REPOSITORY_OWNER/$GITHUB_REPOSITORY/releases/tags/$TAG" | jq -r '.id')
-
         if [ "$release_id" != "null" ]; then
           for file in src/Rust.UIFramework/Rust.UIFramework/bin/*.dll; do
             filename=$(basename "$file")
