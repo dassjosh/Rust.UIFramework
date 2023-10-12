@@ -43,11 +43,13 @@ jobs:
     - name: Upload Release Assets
       run: |
         TAG=$(echo "${GITHUB_REF}" | sed 's/refs\/tags\///')
+        echo "TAG = $TAG"
         release_id=$(curl -s -H "Authorization: token $GITHUB_TOKEN" -X GET "https://api.github.com/repos/$GITHUB_REPOSITORY_OWNER/$GITHUB_REPOSITORY/releases/tags/$TAG" | jq -r '.id')
+        echo "release_id = $release_id"
         if [ "$release_id" != "null" ]; then
           for file in src/Rust.UIFramework/Rust.UIFramework/bin/*.dll; do
             filename=$(basename "$file")
-            echo "Uploading $filename to release..."
+            echo "Uploading $filename to release $release_id..."
             curl -s -H "Authorization: token $GITHUB_TOKEN" -X POST -H "Content-Type: application/octet-stream" --data-binary "@$file" "https://uploads.github.com/repos/$GITHUB_REPOSITORY_OWNER/$GITHUB_REPOSITORY/releases/$release_id/assets?name=$filename"
           done
         fi
