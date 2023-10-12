@@ -1,0 +1,48 @@
+name: Create Release
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4.1.0
+
+    - name: Set VERSION variable from tag
+      run: |
+        VERSION=$(echo "${GITHUB_REF}" | sed 's/.*v\([^\s]*\).*/\1/')
+        echo "VERSION=$VERSION" >> $GITHUB_ENV
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3.2.0
+      with:
+        dotnet-version: 6.0.x
+
+    - name: Build DLLs - Oxide
+      run: dotnet build Rust.UIFramework.csproj -c Release /p:Platform=Oxide /p:Version=$VERSION
+      working-directory: src/Rust.UIFramework/Rust.UIFramework
+
+    - name: Build DLLs - Carbon
+      run: dotnet build Rust.UIFramework.csproj -c Release /p:Platform=Carbon /p:Version=$VERSION
+      working-directory: src/Rust.UIFramework/Rust.UIFramework
+
+    - name: Move DLLs
+      run: |
+        mv bin/Oxide/Release/net48/Oxide.Ext.UiFramework.dll bin/
+        mv bin/Carbon/Release/net48/Carbon.Ext.UiFramework.dll bin/
+        rm -rf bin/Oxide
+        rm -rf bin/Carbon
+      working-directory: src/Rust.UIFramework/Rust.UIFramework
+
+    - name: Upload Release Assets
+      run: |
+        TAG=$(echo "${GITHUB_REF}" | sed 's/refs\/tags\///')
+        gh release upload $TAG src/Rust.UIFramework/Rust.UIFramework/bin/*.dll
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
