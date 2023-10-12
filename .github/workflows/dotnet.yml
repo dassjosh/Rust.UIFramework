@@ -16,6 +16,7 @@ jobs:
 
     - name: Set VERSION variable from tag
       run: |
+        echo "GITHUB_REF = ${GITHUB_REF}"
         VERSION=$(echo "${GITHUB_REF}" | sed 's/.*v\([^\s]*\).*/\1/')
         echo "VERSION=$VERSION" >> $GITHUB_ENV
 
