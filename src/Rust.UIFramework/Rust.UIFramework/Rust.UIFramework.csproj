@@ -8,8 +8,8 @@
         <RootNamespace>Oxide.Ext.UiFramework</RootNamespace>
         <Configurations>Release;Debug</Configurations>
         <Platforms>Oxide;Carbon</Platforms>
-        <AssemblyVersion>1.4.5</AssemblyVersion>
-        <FileVersion>1.4.5</FileVersion>
+        <AssemblyVersion>$(VERSION)</AssemblyVersion>
+        <FileVersion>$(VERSION)</FileVersion>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|Carbon' ">
@@ -104,9 +104,4 @@
         <Link>README.md</Link>
       </Content>
     </ItemGroup>
-
-    <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-      <Exec Command="set inputFile=$(ProjectDir)bin\$(Platform)\$(Configuration)\net48\$(Platform).Ext.UiFramework.dll&#xA;set outputFile=$(ProjectDir)..\..\..\$(Platform).Ext.UiFramework.dll&#xA;&#xA;echo Input: %inputFile%&#xA;echo Output: %outputFile%&#xA;&#xA;copy &quot;%inputFile%&quot; &quot;%outputFile%*&quot;" />
-    </Target>
-    
 </Project>
