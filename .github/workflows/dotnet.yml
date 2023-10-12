@@ -43,6 +43,6 @@ jobs:
     - name: Create Release
       id: create_release
       run: |
-        gh release create v$VERSION src/Rust.UIFramework/Rust.UIFramework/bin/*.dll -t "Release $VERSION"
+        gh release create v$VERSION src/Rust.UIFramework/Rust.UIFramework/bin/*.dll -t "Release-v$VERSION"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
