@@ -26,10 +26,6 @@ jobs:
 
     - name: Download References
       run: |
-        echo "[Download References] pwd"
-        pwd
-        echo "[Download References] ls -l"
-        ls -l
         echo "[Download References] Downloading steam"
         mkdir -p RDS/steamcmd
         cd RDS/steamcmd
@@ -44,16 +40,16 @@ jobs:
         echo "[Download References] Downloading Rust"
         steamcmd/steamcmd.sh +runscript steamcmd.txt
         cd ..
-        mkdir -p src/References
+        mkdir -p src/Rust.UIFramework/References
         echo "[Download References] Moving Rust dlls"
-        mv -f RDS/RustDedicated_Data/Managed/*.dll src/References/
+        mv -f RDS/RustDedicated_Data/Managed/*.dll src/Rust.UIFramework/References/
         mkdir -p Carbon
         cd Carbon
         echo "[Download References] Downloading Carbon"
         wget -qO- https://github.com/CarbonCommunity/Carbon/releases/download/production_build/Carbon.Linux.Release.tar.gz | tar zxvf -
         cd ..
         echo "[Download References] Moving Carbon dlls"
-        mv -f Carbon/carbon/managed/*.dll src/References/
+        mv -f Carbon/carbon/managed/*.dll src/Rust.UIFramework/References/
         mkdir -p Oxide
         cd Oxide
         echo "[Download References] Downloading Oxide"
@@ -61,13 +57,7 @@ jobs:
         unzip -qq -o Oxide.Rust-Linux.zip
         cd ..
         echo "[Download References] Moving Oxide dlls"
-        mv -f Oxide/RustDedicated_Data/Managed/*.dll src/References/
-        echo "[Download References] pwd"
-        pwd
-        echo "[Download References] ls -l"
-        ls -l
-        echo "[Download References] ls -l src/References"
-        ls -l src/References
+        mv -f Oxide/RustDedicated_Data/Managed/*.dll src/Rust.UIFramework/References/
 
     - name: Build DLLs - Oxide
       run: dotnet build Rust.UIFramework.csproj -c Release /p:Platform=Oxide /p:Version=$VERSION
