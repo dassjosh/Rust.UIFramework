@@ -57,7 +57,7 @@ jobs:
         unzip -qq -o Oxide.Rust-Linux.zip
         cd ..
         echo "[Download References] Moving Oxide dlls"
-        mv -f /opt/Oxide/RustDedicated_Data/Managed/*.dll src/References/
+        mv -f Oxide/RustDedicated_Data/Managed/*.dll src/References/
 
     - name: Build DLLs - Oxide
       run: dotnet build Rust.UIFramework.csproj -c Release /p:Platform=Oxide /p:Version=$VERSION
