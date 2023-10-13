@@ -26,6 +26,10 @@ jobs:
 
     - name: Download References
       run: |
+        echo "[Download References] pwd"
+        pwd
+        echo "[Download References] ls -l"
+        ls -l
         echo "[Download References] Downloading steam"
         mkdir -p RDS/steamcmd
         cd RDS/steamcmd
@@ -58,6 +62,12 @@ jobs:
         cd ..
         echo "[Download References] Moving Oxide dlls"
         mv -f Oxide/RustDedicated_Data/Managed/*.dll src/References/
+        echo "[Download References] pwd"
+        pwd
+        echo "[Download References] ls -l"
+        ls -l
+        echo "[Download References] ls -l src/References"
+        ls -l src/References
 
     - name: Build DLLs - Oxide
       run: dotnet build Rust.UIFramework.csproj -c Release /p:Platform=Oxide /p:Version=$VERSION
