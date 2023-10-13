@@ -33,6 +33,7 @@ jobs:
         cd ..
         echo "@ShutdownOnFailedCommand 1" > steamcmd/steamcmd.txt
         echo "@NoPromptForPassword 1" >> steamcmd/steamcmd.txt
+        echo "force_install_dir ${PWD}" >> steamcmd/steamcmd.txt
         echo "login anonymous" >> steamcmd/steamcmd.txt
         echo "app_update 258550 validate" >> steamcmd/steamcmd.txt
         echo "quit" >> steamcmd/steamcmd.txt
