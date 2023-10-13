@@ -43,6 +43,8 @@ jobs:
         pwd
         echo "[Download References] ls -l"
         ls -l
+        echo "[Download References] ls -l RDS/RustDedicated_Data/Managed"
+        ls -l RDS/RustDedicated_Data/Managed
         echo "[Download References] Moving Rust dlls"
         mv -f RDS/RustDedicated_Data/Managed/*.dll src/References/
         mkdir -p Carbon
