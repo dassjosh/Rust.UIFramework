@@ -14,15 +14,48 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4.1.0
 
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3.2.0
+      with:
+        dotnet-version: 6.0.x
+
     - name: Set VERSION variable from tag
       run: |
         VERSION=$(echo "${GITHUB_REF}" | sed 's/.*v\([^\s]*\).*/\1/')
         echo "VERSION=$VERSION" >> $GITHUB_ENV
 
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v3.2.0
-      with:
-        dotnet-version: 6.0.x
+    - name: Download References
+      run: |
+        echo "[Download References] Downloading steam"
+        mkdir RDS
+        cd RDS
+        wget -qO- "https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz" | tar zxvf -
+        echo "@ShutdownOnFailedCommand 1" > steamcmd.txt
+        echo "@NoPromptForPassword 1" >> steamcmd.txt
+        echo "login anonymous" >> steamcmd.txt
+        echo "app_update 258550 validate" >> steamcmd.txt
+        echo "quit" >> steamcmd.txt
+        echo "[Download References] Downloading Rust"
+        ./steamcmd.sh +runscript steamcmd.txt
+        cd ..
+        mkdir -p src/References
+        echo "[Download References] Moving Rust dlls"
+        mv -f RDS/RustDedicated_Data/Managed/*.dll src/References/
+        mkdir -p Carbon
+        cd Carbon
+        echo "[Download References] Downloading Carbon"
+        wget -qO- https://github.com/CarbonCommunity/Carbon/releases/download/production_build/Carbon.Linux.Release.tar.gz | tar zxvf -
+        cd ..
+        echo "[Download References] Moving Carbon dlls"
+        mv -f /opt/Carbon/carbon/managed/*.dll src/References/
+        mkdir -p /opt/Oxide
+        cd Oxide
+        echo "[Download References] Downloading Oxide"
+        wget -q https://github.com/OxideMod/Oxide.Rust/releases/latest/download/Oxide.Rust-Linux.zip
+        unzip -qq -o Oxide.Rust-Linux.zip
+        cd ..
+        echo "[Download References] Moving Oxide dlls"
+        mv -f /opt/Oxide/RustDedicated_Data/Managed/*.dll src/References/
 
     - name: Build DLLs - Oxide
       run: dotnet build Rust.UIFramework.csproj -c Release /p:Platform=Oxide /p:Version=$VERSION
