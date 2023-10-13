@@ -32,6 +32,7 @@ jobs:
         wget -qO- "https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz" | tar zxvf -
         echo "@ShutdownOnFailedCommand 1" > steamcmd.txt
         echo "@NoPromptForPassword 1" >> steamcmd.txt
+        echo "force_install_dir ${PWD}" >> steamcmd.txt
         echo "login anonymous" >> steamcmd.txt
         echo "app_update 258550 validate" >> steamcmd.txt
         echo "quit" >> steamcmd.txt
