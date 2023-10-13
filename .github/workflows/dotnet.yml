@@ -39,6 +39,10 @@ jobs:
         ./steamcmd.sh +runscript steamcmd.txt
         cd ..
         mkdir -p src/References
+        echo "[Download References] pwd"
+        pwd
+        echo "[Download References] ls -l"
+        ls -l
         echo "[Download References] Moving Rust dlls"
         mv -f RDS/RustDedicated_Data/Managed/*.dll src/References/
         mkdir -p Carbon
