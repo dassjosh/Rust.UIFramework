@@ -49,8 +49,8 @@ jobs:
         wget -qO- https://github.com/CarbonCommunity/Carbon/releases/download/production_build/Carbon.Linux.Release.tar.gz | tar zxvf -
         cd ..
         echo "[Download References] Moving Carbon dlls"
-        mv -f /opt/Carbon/carbon/managed/*.dll src/References/
-        mkdir -p /opt/Oxide
+        mv -f Carbon/carbon/managed/*.dll src/References/
+        mkdir -p Oxide
         cd Oxide
         echo "[Download References] Downloading Oxide"
         wget -q https://github.com/OxideMod/Oxide.Rust/releases/latest/download/Oxide.Rust-Linux.zip
