@@ -57,8 +57,20 @@ namespace Oxide.Ext.UiFramework.Json
             WritePropertyName(name);
             WriteValue(value);
         }
+        
+        public void AddFieldRaw(string name, char value)
+        {
+            WritePropertyName(name);
+            WriteValue(value);
+        }
 
         public void AddFieldRaw(string name, int value)
+        {
+            WritePropertyName(name);
+            WriteValue(value);
+        }
+        
+        public void AddFieldRaw(string name, bool value)
         {
             WritePropertyName(name);
             WriteValue(value);
@@ -255,6 +267,11 @@ namespace Oxide.Ext.UiFramework.Json
         {
             _writer.Write(value ? '1' : '0');
         }
+
+        public void WriteValue(char value)
+        {
+            _writer.Write(value);
+        }
         
         public void WriteValue(int value)
         {
@@ -295,6 +312,10 @@ namespace Oxide.Ext.UiFramework.Json
                     if (character == '\"')
                     {
                         _writer.Write("\\\"");
+                    }
+                    else if (character == '\\' && i + 1 == value.Length)
+                    {
+                        _writer.Write(@"\\");
                     }
                     else
                     {

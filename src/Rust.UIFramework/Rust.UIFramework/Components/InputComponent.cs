@@ -31,17 +31,17 @@ namespace Oxide.Ext.UiFramework.Components
 
             if (HasMode(InputMode.Password))
             {
-                writer.AddKeyField(JsonDefaults.Input.PasswordName);
+                writer.AddFieldRaw(JsonDefaults.Input.PasswordName, true);
             }
 
             if (HasMode(InputMode.NeedsKeyboard))
             {
-                writer.AddKeyField(JsonDefaults.Input.NeedsKeyboardName);
+                writer.AddFieldRaw(JsonDefaults.Input.NeedsKeyboardName, true);
             }
             
             if (HasMode(InputMode.HudNeedsKeyboard))
             {
-                writer.AddKeyField(JsonDefaults.Input.NeedsHudKeyboardName);
+                writer.AddFieldRaw(JsonDefaults.Input.NeedsHudKeyboardName, true);
             }
 
             if (HasMode(InputMode.AutoFocus))
