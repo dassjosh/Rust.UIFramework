@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rust.UIFramework", "Rust.UIFramework\Rust.UIFramework.csproj", "{2CEE08B1-A5BD-4F64-A1A9-5242440758D0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Release|Oxide = Release|Oxide
+		Release|Carbon = Release|Carbon
+		Debug|Carbon = Debug|Carbon
+		Debug|Oxide = Debug|Oxide
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2CEE08B1-A5BD-4F64-A1A9-5242440758D0}.Release|Oxide.ActiveCfg = Release|Oxide
+		{2CEE08B1-A5BD-4F64-A1A9-5242440758D0}.Release|Oxide.Build.0 = Release|Oxide
+		{2CEE08B1-A5BD-4F64-A1A9-5242440758D0}.Debug|Carbon.ActiveCfg = Debug|Carbon
+		{2CEE08B1-A5BD-4F64-A1A9-5242440758D0}.Debug|Carbon.Build.0 = Debug|Carbon
+		{2CEE08B1-A5BD-4F64-A1A9-5242440758D0}.Debug|Oxide.ActiveCfg = Debug|Oxide
+		{2CEE08B1-A5BD-4F64-A1A9-5242440758D0}.Debug|Oxide.Build.0 = Debug|Oxide
+		{2CEE08B1-A5BD-4F64-A1A9-5242440758D0}.Release|Carbon.ActiveCfg = Release|Carbon
+		{2CEE08B1-A5BD-4F64-A1A9-5242440758D0}.Release|Carbon.Build.0 = Release|Carbon
+	EndGlobalSection
+EndGlobal

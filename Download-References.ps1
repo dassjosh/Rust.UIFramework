@@ -1,5 +1,8 @@
 # Clear the current directory (except the script itself)
-Get-ChildItem -Exclude "Download-References.ps1" | Remove-Item -Force -Recurse
+
+$resourcesDir = Join-Path -Path $PSScriptRoot -ChildPath "src/references"
+
+Get-ChildItem -Path $resourcesDir | Remove-Item -Force -Recurse
 
 # Create a temporary folder
 $tmpDir = New-Item -ItemType Directory -Force -Path "$env:TEMP\Download-References"
@@ -26,7 +29,7 @@ $depotArgs = "-app 258550 -depot 258551 -filelist $fileListPath -dir $rustDir"
 Start-Process -FilePath "$depotDir\DepotDownloader.exe" -ArgumentList $depotArgs -NoNewWindow -Wait
 
 # Move .dll files to the current directory
-Move-Item -Path "$rustDir\RustDedicated_Data\Managed\*.dll" -Destination $PSScriptRoot -Force
+Move-Item -Path "$rustDir\RustDedicated_Data\Managed\*.dll" -Destination $resourcesDir -Force
 
 # Download and extract Carbon (presumably for Windows)
 $carbonDir = Join-Path -Path $tmpDir -ChildPath "Carbon"
@@ -36,7 +39,7 @@ Expand-Archive -Path "$carbonDir\Carbon.zip" -DestinationPath $carbonDir -Force
 Remove-Item -Path "$carbonDir\Carbon.zip"
 
 # Move .dll files from Carbon to the current directory
-Move-Item -Path "$carbonDir\carbon\managed\*.dll" -Destination $PSScriptRoot -Force
+Move-Item -Path "$carbonDir\carbon\managed\*.dll" -Destination $resourcesDir -Force
 
 # Download and extract Oxide (presumably for Windows)
 $oxideDir = Join-Path -Path $tmpDir -ChildPath "Oxide"
@@ -46,7 +49,7 @@ Expand-Archive -Path "$oxideDir\Oxide.Rust.zip" -DestinationPath $oxideDir -Forc
 Remove-Item -Path "$oxideDir\Oxide.Rust.zip"
 
 # Move .dll files from Oxide to the current directory
-Move-Item -Path "$oxideDir\RustDedicated_Data\Managed\*.dll" -Destination $PSScriptRoot -Force
+Move-Item -Path "$oxideDir\RustDedicated_Data\Managed\*.dll" -Destination $resourcesDir -Force
 
 # Delete the temporary folder
 Remove-Item -Path $tmpDir -Force -Recurse
