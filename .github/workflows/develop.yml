@@ -63,10 +63,9 @@ jobs:
 
       - name: Move DLLs
         run: |
+          mkdir -p bin
           mv Rust.UIFramework/bin/Oxide/Release/net48/Oxide.Ext.UiFramework.dll bin/
           mv Rust.UIFramework/bin/Carbon/Release/net48/Carbon.Ext.UiFramework.dll bin/
-          rm -rf bin/Oxide
-          rm -rf bin/Carbon
         working-directory: src
 
       - name: Upload Release Assets
