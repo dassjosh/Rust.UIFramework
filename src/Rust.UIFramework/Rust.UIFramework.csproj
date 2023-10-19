@@ -97,6 +97,12 @@
     </ItemGroup>
     
     <ItemGroup>
+      <Content Include="..\..\.github\workflows\develop.yml">
+        <Link>develop.yml</Link>
+      </Content>
+      <Content Include="..\..\.github\workflows\release.yml">
+        <Link>release.yml</Link>
+      </Content>
       <Content Include="..\..\README.md">
         <Link>README.md</Link>
       </Content>
