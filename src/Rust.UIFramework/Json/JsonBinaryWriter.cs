@@ -1,9 +1,9 @@
 ﻿using System;
+using System.Buffers;
 using System.Collections.Generic;
 using System.Text;
 using Network;
 using Oxide.Ext.UiFramework.Pooling;
-using Oxide.Ext.UiFramework.Pooling.ArrayPool;
 
 namespace Oxide.Ext.UiFramework.Json
 {
@@ -49,7 +49,7 @@ namespace Oxide.Ext.UiFramework.Json
                 return;
             }
 
-            byte[] segment = UiFrameworkArrayPool<byte>.Shared.Rent(SegmentSize * 2);
+            byte[] segment = ArrayPool<byte>.Shared.Rent(SegmentSize * 2);
             int size = Encoding.UTF8.GetBytes(_charBuffer, 0, _charIndex, segment, 0);
             _segments.Add(new SizedArray<byte>(segment, size));
             _size += size;
@@ -96,7 +96,7 @@ namespace Oxide.Ext.UiFramework.Json
             {
                 _segments.Capacity = 100;
             }
-            _charBuffer = UiFrameworkArrayPool<char>.Shared.Rent(SegmentSize * 2);
+            _charBuffer = ArrayPool<char>.Shared.Rent(SegmentSize * 2);
         }
 
         protected override void EnterPool()
@@ -104,10 +104,10 @@ namespace Oxide.Ext.UiFramework.Json
             for (int index = 0; index < _segments.Count; index++)
             {
                 byte[] bytes = _segments[index].Array;
-                UiFrameworkArrayPool<byte>.Shared.Return(bytes);
+                ArrayPool<byte>.Shared.Return(bytes);
             }
             
-            UiFrameworkArrayPool<char>.Shared.Return(_charBuffer);
+            ArrayPool<char>.Shared.Return(_charBuffer);
             UiFrameworkPool.FreeList(_segments);
             _charBuffer = null;
             _size = 0;

@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <TargetFramework>net48</TargetFramework>
-        <LangVersion>6</LangVersion>
+        <LangVersion>12</LangVersion>
         <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
         <AssemblyName>Oxide.Ext.UiFramework</AssemblyName>
         <RootNamespace>Oxide.Ext.UiFramework</RootNamespace>
@@ -54,6 +54,9 @@
       </Reference>
       <Reference Include="Facepunch.UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
         <HintPath>..\References\Facepunch.UnityEngine.dll</HintPath>
+      </Reference>
+      <Reference Include="mscorlib">
+        <HintPath>..\References\mscorlib.dll</HintPath>
       </Reference>
       <Reference Include="Newtonsoft.Json" Condition=" '$(Platform)' == 'Carbon'">
         <HintPath>..\References\Newtonsoft.Json.dll</HintPath>
