@@ -1,0 +1,40 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net48</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <LangVersion>latest</LangVersion>
+        <SignAssembly>true</SignAssembly>
+        <Configurations>Debug;Release;Benchmarks</Configurations>
+        <Platforms>AnyCPU;Oxide</Platforms>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Reference Include="mscorlib">
+        <HintPath>..\References\mscorlib.dll</HintPath>
+      </Reference>
+      <Reference Include="Oxide.Common">
+        <HintPath>..\References\Oxide.Common.dll</HintPath>
+      </Reference>
+      <Reference Include="Oxide.Core">
+        <HintPath>..\References\Oxide.Core.dll</HintPath>
+      </Reference>
+      <Reference Include="Oxide.Rust">
+        <HintPath>..\References\Oxide.Rust.dll</HintPath>
+      </Reference>
+      <Reference Include="System.Buffers">
+        <HintPath>..\References\System.Buffers.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Rust.UIFramework\Rust.UIFramework.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="BenchmarkDotNet" Version="0.13.11" />
+    </ItemGroup>
+    
+</Project>

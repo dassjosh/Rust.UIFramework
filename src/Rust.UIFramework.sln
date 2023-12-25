@@ -2,21 +2,36 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rust.UIFramework", "Rust.UIFramework\Rust.UIFramework.csproj", "{2CEE08B1-A5BD-4F64-A1A9-5242440758D0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rust.UiFramework.Benchmarks", "Rust.UiFramework.Benchmarks\Rust.UiFramework.Benchmarks.csproj", "{6C18B22C-7319-4C3F-B7F9-F9B87B6B244C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Release|Oxide = Release|Oxide
 		Release|Carbon = Release|Carbon
 		Debug|Carbon = Debug|Carbon
 		Debug|Oxide = Debug|Oxide
+		Benchmarks|Oxide = Benchmarks|Oxide
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{2CEE08B1-A5BD-4F64-A1A9-5242440758D0}.Release|Oxide.ActiveCfg = Release|Oxide
-		{2CEE08B1-A5BD-4F64-A1A9-5242440758D0}.Release|Oxide.Build.0 = Release|Oxide
 		{2CEE08B1-A5BD-4F64-A1A9-5242440758D0}.Debug|Carbon.ActiveCfg = Debug|Carbon
 		{2CEE08B1-A5BD-4F64-A1A9-5242440758D0}.Debug|Carbon.Build.0 = Debug|Carbon
 		{2CEE08B1-A5BD-4F64-A1A9-5242440758D0}.Debug|Oxide.ActiveCfg = Debug|Oxide
 		{2CEE08B1-A5BD-4F64-A1A9-5242440758D0}.Debug|Oxide.Build.0 = Debug|Oxide
 		{2CEE08B1-A5BD-4F64-A1A9-5242440758D0}.Release|Carbon.ActiveCfg = Release|Carbon
 		{2CEE08B1-A5BD-4F64-A1A9-5242440758D0}.Release|Carbon.Build.0 = Release|Carbon
+		{2CEE08B1-A5BD-4F64-A1A9-5242440758D0}.Benchmarks|Oxide.ActiveCfg = Benchmarks|Oxide
+		{2CEE08B1-A5BD-4F64-A1A9-5242440758D0}.Benchmarks|Oxide.Build.0 = Benchmarks|Oxide
+		{2CEE08B1-A5BD-4F64-A1A9-5242440758D0}.Release|Oxide.ActiveCfg = Benchmarks|Oxide
+		{2CEE08B1-A5BD-4F64-A1A9-5242440758D0}.Release|Oxide.Build.0 = Benchmarks|Oxide
+		{6C18B22C-7319-4C3F-B7F9-F9B87B6B244C}.Release|Carbon.ActiveCfg = Release|Any CPU
+		{6C18B22C-7319-4C3F-B7F9-F9B87B6B244C}.Release|Carbon.Build.0 = Release|Any CPU
+		{6C18B22C-7319-4C3F-B7F9-F9B87B6B244C}.Debug|Carbon.ActiveCfg = Debug|Any CPU
+		{6C18B22C-7319-4C3F-B7F9-F9B87B6B244C}.Debug|Carbon.Build.0 = Debug|Any CPU
+		{6C18B22C-7319-4C3F-B7F9-F9B87B6B244C}.Debug|Oxide.ActiveCfg = Debug|Any CPU
+		{6C18B22C-7319-4C3F-B7F9-F9B87B6B244C}.Debug|Oxide.Build.0 = Debug|Any CPU
+		{6C18B22C-7319-4C3F-B7F9-F9B87B6B244C}.Benchmarks|Oxide.ActiveCfg = Benchmarks|Oxide
+		{6C18B22C-7319-4C3F-B7F9-F9B87B6B244C}.Benchmarks|Oxide.Build.0 = Benchmarks|Oxide
+		{6C18B22C-7319-4C3F-B7F9-F9B87B6B244C}.Release|Oxide.ActiveCfg = Benchmarks|Oxide
+		{6C18B22C-7319-4C3F-B7F9-F9B87B6B244C}.Release|Oxide.Build.0 = Benchmarks|Oxide
 	EndGlobalSection
 EndGlobal

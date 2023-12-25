@@ -1,15 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net48</TargetFramework>
         <LangVersion>12</LangVersion>
         <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
         <AssemblyName>Oxide.Ext.UiFramework</AssemblyName>
         <RootNamespace>Oxide.Ext.UiFramework</RootNamespace>
-        <Configurations>Release;Debug</Configurations>
+        <Configurations>Release;Debug;Benchmarks</Configurations>
         <Platforms>Oxide;Carbon</Platforms>
         <AssemblyVersion>$(VERSION)</AssemblyVersion>
         <FileVersion>$(VERSION)</FileVersion>
+        <TargetFramework>net48</TargetFramework>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|Carbon' ">
@@ -28,6 +28,16 @@
 
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|Oxide' ">
       <DefineConstants>TRACE;OXIDE</DefineConstants>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Benchmarks|Carbon' ">
+      <Optimize>true</Optimize>
+      <DefineConstants>TRACE;</DefineConstants>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Benchmarks|Oxide' ">
+      <Optimize>true</Optimize>
+      <DefineConstants>TRACE;</DefineConstants>
     </PropertyGroup>
     
     <ItemGroup>
