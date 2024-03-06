@@ -65,8 +65,7 @@ namespace Oxide.Ext.UiFramework.Builder
                 return null;
             }
 
-            NetWrite write = Net.sv.StartWrite();
-            write.PacketID(Message.Type.RPCMessage);
+            NetWrite write = Net.sv.StartWrite(Message.Type.RPCMessage);
             write.EntityID(CommunityEntity.ServerInstance.net.ID);
             write.UInt32(StringPool.Get(funcName));
             write.UInt64(0UL);
