@@ -13,7 +13,7 @@ namespace Oxide.Ext.UiFramework.Builder.Cached
             RootName = builder.GetRootName();
         }
 
-        internal static CachedUiBuilder CreateCachedBuilder(UiBuilder builder) => new CachedUiBuilder(builder);
+        internal static CachedUiBuilder CreateCachedBuilder(UiBuilder builder) => new(builder);
 
         public override byte[] GetBytes() => _cachedJson;
         

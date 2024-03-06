@@ -2,13 +2,17 @@
 
 namespace Oxide.Ext.UiFramework.Offsets
 {
-    public struct UiOffset
+    public readonly struct UiOffset
     {
-        public static readonly UiOffset None = new UiOffset(0, 0, 0, 0);
-        public static readonly UiOffset Scaled = new UiOffset(1280, 720);
+        public static readonly UiOffset None = new(0, 0, 0, 0);
+        public static readonly UiOffset Scaled = new(1280, 720);
         
         public readonly Vector2 Min;
         public readonly Vector2 Max;
+        
+        public Vector2 Size => Max - Min;
+        public float Width => Max.x - Min.x;
+        public float Height => Max.y - Min.y;
 
         public UiOffset(int width, int height) : this(-width / 2f, -height / 2f, width / 2f, height / 2f) { }
         
@@ -22,10 +26,6 @@ namespace Oxide.Ext.UiFramework.Offsets
         {
             return new UiOffset(x, y, x + width, y + height);
         }
-
-        public Vector2 Size => Max - Min;
-        public float Width => Max.x - Min.x;
-        public float Height => Max.y - Min.y;
 
         public override string ToString()
         {

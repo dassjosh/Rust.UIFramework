@@ -8,9 +8,9 @@ namespace Oxide.Ext.UiFramework.UiElements
 {
     public class UiItemIcon : BaseUiOutline
     {
-        public readonly ItemIconComponent Icon = new ItemIconComponent();
+        public readonly ItemIconComponent Icon = new();
 
-        public static UiItemIcon Create(UiPosition pos, UiOffset offset, UiColor color, int itemId, ulong skinId = 0)
+        public static UiItemIcon Create(in UiPosition pos, in UiOffset offset, UiColor color, int itemId, ulong skinId = 0)
         {
             UiItemIcon icon = CreateBase<UiItemIcon>(pos, offset);
             icon.Icon.Color = color;

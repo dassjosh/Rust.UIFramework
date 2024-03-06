@@ -1,6 +1,6 @@
 ﻿namespace Oxide.Ext.UiFramework.Controls.Data
 {
-    public struct DropdownMenuData
+    public readonly struct DropdownMenuData
     {
         public readonly string DisplayName;
         public readonly string CommandArgs;

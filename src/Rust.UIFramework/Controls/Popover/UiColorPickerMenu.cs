@@ -50,7 +50,7 @@ namespace Oxide.Ext.UiFramework.Controls.Popover
             float colorYMin = -MenuPadding - rgbaTextHeight * 2;
             float colorYMax = -MenuPadding - rgbaTextHeight;
 
-            UiOffset input = new UiOffset(MenuPadding, colorYMin, MenuPadding + control._hexInputWidth, colorYMax);
+            UiOffset input = new(MenuPadding, colorYMin, MenuPadding + control._hexInputWidth, colorYMax);
             string color = mode == ColorPickerMode.RGBA ? selectedColor.ToHexRGBA() : selectedColor.ToHexRGB();
             int charLimit = mode == ColorPickerMode.RGBA ? 8 : 6;
             control.HexInputBackground = builder.Panel(builder.Root, UiPosition.TopLeft, input, pickerBackgroundColor);
@@ -82,7 +82,7 @@ namespace Oxide.Ext.UiFramework.Controls.Popover
             return control;
         }
 
-        private UiOffset GetLabelPosition(UiOffset offset, int textHeight)
+        private UiOffset GetLabelPosition(in UiOffset offset, int textHeight)
         {
             return new UiOffset(offset.Min.x, offset.Min.y + textHeight + ItemPadding, offset.Max.x, offset.Max.y + textHeight + ItemPadding);
         }

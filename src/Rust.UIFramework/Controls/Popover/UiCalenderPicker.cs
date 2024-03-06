@@ -53,7 +53,7 @@ namespace Oxide.Ext.UiFramework.Controls.Popover
 
         private static readonly string[] DayOfWeekNames = { "Su", "M", "Tu", "W", "Th", "F", "Sa" };
         
-        public static UiCalenderPicker Create(UiReference reference, DateTime date, int fontSize, UiColor textColor, UiColor backgroundColor, UiColor buttonColor, UiColor selectedDateColor, string changeCommand, PopoverPosition position, string menuSprite, string buttonSprite)
+        public static UiCalenderPicker Create(in UiReference reference, DateTime date, int fontSize, UiColor textColor, UiColor backgroundColor, UiColor buttonColor, UiColor selectedDateColor, string changeCommand, PopoverPosition position, string menuSprite, string buttonSprite)
         {
             UiCalenderPicker control = CreateControl<UiCalenderPicker>();
             
@@ -99,7 +99,7 @@ namespace Oxide.Ext.UiFramework.Controls.Popover
 
         public void CreateHeader(UiBuilder builder, int fontSize, UiColor textColor, UiColor buttonColor, string changeCommand, string buttonSprite)
         {
-            UiOffset pos = new UiOffset(MenuPadding, -MenuPadding - _textHeight, _textWidth3,  -MenuPadding);
+            UiOffset pos = new(MenuPadding, -MenuPadding - _textHeight, _textWidth3,  -MenuPadding);
             //Interface.Oxide.LogDebug($"{nameof(UiCalenderPicker)}.{nameof(CreateHeader)} {pos.ToString()}");
             PreviousYear = builder.TextButton(builder.Root, UiPosition.TopLeft, pos, "<<<", fontSize, textColor, buttonColor, $"{changeCommand} {GetCommandArg(_previousYear)}");
             PreviousYear.SetSpriteMaterialImage(buttonSprite, null, Image.Type.Sliced);
@@ -125,7 +125,7 @@ namespace Oxide.Ext.UiFramework.Controls.Popover
 
         public void CreateDayOfWeekHeader(UiBuilder builder, int fontSize, UiColor textColor)
         {
-            UiOffset pos = new UiOffset(MenuPadding, -MenuPadding - _textHeight, MenuPadding + _textWidth2,  -MenuPadding);
+            UiOffset pos = new(MenuPadding, -MenuPadding - _textHeight, MenuPadding + _textWidth2,  -MenuPadding);
             pos = pos.MoveYPadded(-ItemPadding);
             
             for (int i = 0; i < 7; i++)
@@ -137,7 +137,7 @@ namespace Oxide.Ext.UiFramework.Controls.Popover
 
         public void CreateCalender(UiBuilder builder, int fontSize, UiColor textColor, UiColor buttonColor, UiColor selectedDateColor, string changeCommand, string buttonSprite)
         {
-            UiOffset pos = new UiOffset(MenuPadding, -MenuPadding - _textHeight, MenuPadding + _textWidth2,  -MenuPadding);
+            UiOffset pos = new(MenuPadding, -MenuPadding - _textHeight, MenuPadding + _textWidth2,  -MenuPadding);
             pos = pos.MoveYPadded(-ItemPadding);
             pos = pos.MoveYPadded(-ItemPadding);
             
@@ -190,7 +190,7 @@ namespace Oxide.Ext.UiFramework.Controls.Popover
 
         public int GetWeekRows(int year, int month)
         {
-            DateTime firstDayOfMonth = new DateTime(year, month, 1);
+            DateTime firstDayOfMonth = new(year, month, 1);
             DateTime lastDayOfMonth = new DateTime(year, month, 1).AddMonths(1).AddDays(-1);
             Calendar calendar = CultureInfo.CurrentCulture.Calendar;
             int lastWeek = calendar.GetWeekOfYear(lastDayOfMonth, CalendarWeekRule.FirstDay, DayOfWeek.Sunday);

@@ -16,7 +16,7 @@ namespace Oxide.Ext.UiFramework.Controls
         public UiSection Base;
         public List<UiButton> Buttons;
         
-        public static UiButtonGroup Create(BaseUiBuilder builder, UiReference parent, UiPosition pos, UiOffset offset, List<ButtonGroupData> buttons, int textSize, UiColor textColor, UiColor buttonColor, UiColor activeButtonColor, string command)
+        public static UiButtonGroup Create(BaseUiBuilder builder, in UiReference parent, in UiPosition pos, in UiOffset offset, List<ButtonGroupData> buttons, int textSize, UiColor textColor, UiColor buttonColor, UiColor activeButtonColor, string command)
         {
             UiButtonGroup control = CreateControl<UiButtonGroup>();
             control.Base = builder.Section(parent, pos, offset);
@@ -33,7 +33,7 @@ namespace Oxide.Ext.UiFramework.Controls
             return control;
         }
         
-        public static UiButtonGroup CreateNumeric(BaseUiBuilder builder, UiReference parent, UiPosition pos, UiOffset offset, int value, int minValue, int maxValue, int textSize, UiColor textColor, UiColor buttonColor, UiColor activeButtonColor, string command)
+        public static UiButtonGroup CreateNumeric(BaseUiBuilder builder, in UiReference parent, in UiPosition pos, in UiOffset offset, int value, int minValue, int maxValue, int textSize, UiColor textColor, UiColor buttonColor, UiColor activeButtonColor, string command)
         {
             List<ButtonGroupData> data = UiFrameworkPool.GetList<ButtonGroupData>();
             for (int i = minValue; i <= maxValue; i++)

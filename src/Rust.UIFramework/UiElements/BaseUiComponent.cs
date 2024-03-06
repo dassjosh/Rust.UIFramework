@@ -12,7 +12,7 @@ namespace Oxide.Ext.UiFramework.UiElements
         public UiPosition Position;
         public UiOffset Offset;
 
-        protected static T CreateBase<T>(UiPosition pos, UiOffset offset) where T : BaseUiComponent, new()
+        protected static T CreateBase<T>(in UiPosition pos, in UiOffset offset) where T : BaseUiComponent, new()
         {
             T component = UiFrameworkPool.Get<T>();
             component.Position = pos;
@@ -97,10 +97,10 @@ namespace Oxide.Ext.UiFramework.UiElements
 
         protected override void EnterPool()
         {
-            Reference = default(UiReference);
+            Reference = default;
             FadeOut = 0;
-            Position = default(UiPosition);
-            Offset = default(UiOffset);
+            Position = default;
+            Offset = default;
         }
 
         public static implicit operator UiReference(BaseUiComponent component) => component.Reference;

@@ -11,7 +11,7 @@ namespace Oxide.Ext.UiFramework.Cache
         private const char Space = ' ';
         private const short PositionRounder = 10000;
         
-        private static readonly Dictionary<short, string> PositionCache = new Dictionary<short, string>();
+        private static readonly Dictionary<short, string> PositionCache = new();
 
         public static void WritePosition(JsonBinaryWriter writer, Vector2 pos)
         {

@@ -31,7 +31,7 @@ namespace Oxide.Ext.UiFramework.Components
         {
             Distance = JsonDefaults.Outline.Distance;
             UseGraphicAlpha = false;
-            Color = default(UiColor);
+            Color = default;
         }
 
         protected override void EnterPool()

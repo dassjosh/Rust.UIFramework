@@ -15,7 +15,8 @@ namespace Oxide.Ext.UiFramework.Controls
         public UiPanel Top;
         public UiPanel Bottom;
 
-        public static UiBorder Create(BaseUiBuilder builder, UiReference parent, UiColor color, UiBorderWidth width, BorderMode border = BorderMode.All)
+        public static UiBorder Create(BaseUiBuilder builder, in UiReference parent, UiColor color,
+            in UiBorderWidth width, BorderMode border = BorderMode.All)
         {
             UiBorder control = CreateControl<UiBorder>();
             if (width.IsEmpty())

@@ -16,7 +16,7 @@ namespace Oxide.Ext.UiFramework.Controls
         public UiLabel Text;
         public UiPanel Color;
         
-        public static UiColorPicker Create(BaseUiBuilder builder, BaseUiComponent parent, UiPosition pos, UiOffset offset, UiColor selectedColor, int fontSize, UiColor textColor, UiColor backgroundColor, string openCommand)
+        public static UiColorPicker Create(BaseUiBuilder builder, BaseUiComponent parent, in UiPosition pos, in UiOffset offset, UiColor selectedColor, int fontSize, UiColor textColor, UiColor backgroundColor, string openCommand)
         {
             UiColorPicker control = CreateControl<UiColorPicker>();
             control.Anchor = builder.Anchor(parent, pos, offset);

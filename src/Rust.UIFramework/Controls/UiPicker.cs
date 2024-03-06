@@ -13,7 +13,7 @@ namespace Oxide.Ext.UiFramework.Controls
         public UiLabel Value;
         public UiButton Next;
 
-        public static UiPicker Create(BaseUiBuilder builder, UiReference parent, UiOffset pos, string value, int fontSize, UiColor textColor, UiColor backgroundColor, float height, string incrementCommand, string decrementCommand)
+        public static UiPicker Create(BaseUiBuilder builder, in UiReference parent, in UiOffset pos, string value, int fontSize, UiColor textColor, UiColor backgroundColor, float height, string incrementCommand, string decrementCommand)
         {
             UiPicker control = CreateControl<UiPicker>();
             

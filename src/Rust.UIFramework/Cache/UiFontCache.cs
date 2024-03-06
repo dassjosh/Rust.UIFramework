@@ -11,7 +11,7 @@ namespace Oxide.Ext.UiFramework.Cache
         private const string RobotoCondensedRegular = "robotocondensed-regular.ttf";
         private const string PressStart2PRegular = "PressStart2P-Regular.ttf";
 
-        private static readonly Dictionary<UiFont, string> Fonts = new Dictionary<UiFont, string>
+        private static readonly Dictionary<UiFont, string> Fonts = new()
         {
             [UiFont.DroidSansMono] = DroidSansMono,
             [UiFont.PermanentMarker] = PermanentMarker,

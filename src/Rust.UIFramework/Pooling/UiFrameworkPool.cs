@@ -7,7 +7,7 @@ namespace Oxide.Ext.UiFramework.Pooling
 {
     public static class UiFrameworkPool
     {
-        private static readonly Hash<Type, IPool> Pools = new Hash<Type, IPool>();
+        private static readonly Hash<Type, IPool> Pools = new();
 
         /// <summary>
         /// Returns a pooled object of type T

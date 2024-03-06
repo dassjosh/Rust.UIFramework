@@ -1,5 +1,4 @@
-﻿
-using System.Text;
+﻿using System.Text;
 using BenchmarkDotNet.Attributes;
 using Oxide.Ext.UiFramework.Builder.UI;
 using Oxide.Ext.UiFramework.Colors;
@@ -13,17 +12,17 @@ namespace Rust.UiFramework.Benchmarks
     public class Benchmarks
     {
         private const int Iterations = 100;
-        private readonly List<string> _oxideMins = new List<string>();
-        private readonly List<string> _oxideMaxs = new List<string>();
-        private readonly List<UiPosition> _frameworkPos = new List<UiPosition>();
-        private readonly Random _random = new Random();
+        private readonly List<string> _oxideMins = new();
+        private readonly List<string> _oxideMaxs = new();
+        private readonly List<UiPosition> _frameworkPos = new();
+        private readonly Random _random = new();
         public readonly byte[] Buffer = new byte[1024 * 1024];
         private CuiElementContainer _oxideContainer;
         private string _oxideJson;
         private UiBuilder _builder;
-        //private UiBuilder _randomBuilder;
+        private UiBuilder _randomBuilder;
         private JsonFrameworkWriter _writer;
-        //private JsonFrameworkWriter _randomWriter;
+        private JsonFrameworkWriter _randomWriter;
 
         [GlobalSetup]
         public void Setup()
@@ -47,13 +46,13 @@ namespace Rust.UiFramework.Benchmarks
             //_randomWriter = _randomBuilder.CreateWriter();
         }
 
-        [Benchmark]
-        public CuiElementContainer Oxide_CreateContainer()
-        {
-            return GetOxideContainer();
-        }
+        // [Benchmark]
+        // public CuiElementContainer Oxide_CreateContainer()
+        // {
+        //     return GetOxideContainer();
+        // }
         
-        [Benchmark]
+        [Benchmark(Baseline = true)]
         public UiBuilder UiFramework_CreateContainer()
         {
             UiBuilder builder = GetFrameworkBuilder();
@@ -61,32 +60,33 @@ namespace Rust.UiFramework.Benchmarks
             return builder;
         }
         
-        [Benchmark]
-        public string Oxide_CreateJson()
-        {
-            return _oxideContainer.ToJson();
-        }
-        
-        [Benchmark]
-        public JsonFrameworkWriter UiFramework_CreateJson()
-        {
-            JsonFrameworkWriter writer = _builder.CreateWriter();
-            writer.Dispose();
-            return writer;
-        }
-        
-        [Benchmark]
-        public byte[] Oxide_EncodeJson()
-        {
-            return Encoding.UTF8.GetBytes(_oxideJson);
-        }
-        
-        [Benchmark]
-        public int UiFramework_EncodeJson()
-        {
-            int count = _writer.WriteTo(Buffer);
-            return count;
-        }
+        //
+        // [Benchmark]
+        // public string Oxide_CreateJson()
+        // {
+        //     return _oxideContainer.ToJson();
+        // }
+        //
+        // [Benchmark]
+        // public JsonFrameworkWriter UiFramework_CreateJson()
+        // {
+        //     JsonFrameworkWriter writer = _builder.CreateWriter();
+        //     writer.Dispose();
+        //     return writer;
+        // }
+        //
+        // [Benchmark]
+        // public byte[] Oxide_EncodeJson()
+        // {
+        //     return Encoding.UTF8.GetBytes(_oxideJson);
+        // }
+        //
+        // [Benchmark]
+        // public int UiFramework_EncodeJson()
+        // {
+        //     int count = _writer.WriteTo(Buffer);
+        //     return count;
+        // }
         
         [Benchmark]
         public byte[] Oxide_Full()
@@ -96,18 +96,18 @@ namespace Rust.UiFramework.Benchmarks
             return Encoding.UTF8.GetBytes(json);
         }
         
-        [Benchmark(Baseline = true)]
-        public int UiFramework_Full()
-        {
-            UiBuilder builder = GetFrameworkBuilder();
-            int count = builder.WriteBuffer(Buffer);
-            builder.Dispose();
-            return count;
-        }
+        // [Benchmark(Baseline = true)]
+        // public int UiFramework_Full()
+        // {
+        //     UiBuilder builder = GetFrameworkBuilder();
+        //     int count = builder.WriteBuffer(Buffer);
+        //     builder.Dispose();
+        //     return count;
+        // }
 
         private CuiElementContainer GetOxideContainer()
         {
-            CuiElementContainer container = new CuiElementContainer();
+            CuiElementContainer container = new();
             for (int i = 0; i < Iterations; i++)
             {
                 container.Add(new CuiPanel

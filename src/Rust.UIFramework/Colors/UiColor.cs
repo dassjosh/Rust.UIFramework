@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using Newtonsoft.Json;
 using Oxide.Ext.UiFramework.Exceptions;
 using UnityEngine;
@@ -6,7 +7,7 @@ using UnityEngine;
 namespace Oxide.Ext.UiFramework.Colors
 {
     [JsonConverter(typeof(UiColorConverter))]
-    public struct UiColor : IEquatable<UiColor>
+    public readonly struct UiColor : IEquatable<UiColor>
     {
         #region Fields
         internal readonly byte _red;
@@ -61,8 +62,8 @@ namespace Oxide.Ext.UiFramework.Colors
 
         #region Operators
         public static implicit operator UiColor(string value) => ParseHexColor(value);
-        public static implicit operator UiColor(Color value) => new UiColor(value);
-        public static implicit operator Color(UiColor value) => new Color(ToFloat(value._red), ToFloat(value._green), ToFloat(value._blue), ToFloat(value._alpha));
+        public static implicit operator UiColor(Color value) => new(value);
+        public static implicit operator Color(UiColor value) => new(ToFloat(value._red), ToFloat(value._green), ToFloat(value._blue), ToFloat(value._alpha));
         public static bool operator ==(UiColor lhs, UiColor rhs) => lhs._red == rhs._red && lhs._green == rhs._green && lhs._blue == rhs._blue && lhs._alpha == rhs._alpha;
         public static bool operator !=(UiColor lhs, UiColor rhs) => !(lhs == rhs);
 
@@ -105,7 +106,7 @@ namespace Oxide.Ext.UiFramework.Colors
         /// 1.0 1.0 1.0 1.0
         /// </summary>
         /// <param name="color"></param>
-        public static UiColor ParseRustColor(string color) => new UiColor(ColorEx.Parse(color));
+        public static UiColor ParseRustColor(string color) => new(ColorEx.Parse(color));
 
         /// <summary>
         /// <a href="https://docs.unity3d.com/ScriptReference/ColorUtility.TryParseHtmlString.html">Unity ColorUtility.TryParseHtmlString API reference</a>
@@ -120,17 +121,21 @@ namespace Oxide.Ext.UiFramework.Colors
         /// <exception cref="UiFrameworkException"></exception>
         public static UiColor ParseHexColor(string hexColor)
         {
-#if BENCHMARKS
-            Color colorValue = Color.black;
-#else 
-            Color colorValue;
-            if (!ColorUtility.TryParseHtmlString(hexColor, out colorValue))
+            ReadOnlySpan<char> span = hexColor.AsSpan();
+            if (span[0] == '#')
             {
-                throw new UiFrameworkException($"Invalid Color: '{hexColor}' Hex colors must start with a '#'");
+                span = span[1..];
             }
-#endif
             
-            return new UiColor(colorValue);
+            byte red = byte.Parse(span.Slice(0, 2), NumberStyles.HexNumber);
+            byte green = byte.Parse(span.Slice(2, 2), NumberStyles.HexNumber);
+            byte blue = byte.Parse(span.Slice(4, 2), NumberStyles.HexNumber);
+            byte alpha = 255;
+            if (span.Length == 8)
+            {
+                alpha = byte.Parse(span.Slice(6, 2), NumberStyles.HexNumber);
+            }
+            return new UiColor(red, green, blue, alpha);
         }
         #endregion
     }

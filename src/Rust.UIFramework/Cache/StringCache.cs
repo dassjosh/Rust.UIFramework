@@ -6,13 +6,12 @@ namespace Oxide.Ext.UiFramework.Cache
 {
     public static class StringCache<T> where T : IFormattable
     {
-        private static readonly Dictionary<T, string> Cache = new Dictionary<T, string>();
-        private static readonly Dictionary<string, Dictionary<T, string>>  FormatCache = new Dictionary<string, Dictionary<T, string>>();
+        private static readonly Dictionary<T, string> Cache = new();
+        private static readonly Dictionary<string, Dictionary<T, string>>  FormatCache = new();
 
         public static string ToString(T value)
         {
-            string text;
-            if (!Cache.TryGetValue(value, out text))
+            if (!Cache.TryGetValue(value, out string text))
             {
                 text = value.ToString();
                 Cache[value] = text;
@@ -23,15 +22,13 @@ namespace Oxide.Ext.UiFramework.Cache
         
         public static string ToString(T value, string format)
         {
-            Dictionary<T, string> values;
-            if (!FormatCache.TryGetValue(format, out values))
+            if (!FormatCache.TryGetValue(format, out Dictionary<T, string> values))
             {
                 values = new Dictionary<T, string>();
                 FormatCache[format] = values;
             }
 
-            string text;
-            if (!values.TryGetValue(value, out text))
+            if (!values.TryGetValue(value, out string text))
             {
                 text = value.ToString(format, NumberFormatInfo.CurrentInfo);
                 values[value] = text;

@@ -12,7 +12,7 @@ namespace Oxide.Ext.UiFramework.Controls
         public UiLabel Label;
         public UiPanel Background;
         
-        public static UiLabelBackground Create(BaseUiBuilder builder, UiReference parent, UiPosition pos, UiOffset offset, string text, int fontSize, UiColor textColor, UiColor backgroundColor, TextAnchor align = TextAnchor.MiddleCenter)
+        public static UiLabelBackground Create(BaseUiBuilder builder, in UiReference parent, in UiPosition pos, in UiOffset offset, string text, int fontSize, UiColor textColor, UiColor backgroundColor, TextAnchor align = TextAnchor.MiddleCenter)
         {
             UiLabelBackground control = CreateControl<UiLabelBackground>();
             control.Background = builder.Panel(parent, pos, offset, backgroundColor);

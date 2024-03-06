@@ -6,7 +6,7 @@ namespace Oxide.Ext.UiFramework.UiElements
 {
     public abstract class BaseUiImage : BaseUiOutline
     {
-        public readonly ImageComponent Image = new ImageComponent();
+        public readonly ImageComponent Image = new();
         
         public void SetImageType(Image.Type type)
         {

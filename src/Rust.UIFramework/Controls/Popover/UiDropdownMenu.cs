@@ -19,7 +19,7 @@ namespace Oxide.Ext.UiFramework.Controls.Popover
         public UiScrollBar ScrollBar;
         public List<UiDropdownMenuItem> Items;
         
-        public static UiDropdownMenu Create(UiReference reference, List<DropdownMenuData> items, int fontSize, UiColor textColor, UiColor backgroundColor, string selectedCommand, string pageCommand = null, int page = 0, int maxValuesPerPage = 100, int minWidth = 100,
+        public static UiDropdownMenu Create(in UiReference reference, List<DropdownMenuData> items, int fontSize, UiColor textColor, UiColor backgroundColor, string selectedCommand, string pageCommand = null, int page = 0, int maxValuesPerPage = 100, int minWidth = 100,
             PopoverPosition position = PopoverPosition.Bottom, string menuSprite = UiConstants.Sprites.RoundedBackground2)
         {
             const int itemPadding = 4;
@@ -33,17 +33,17 @@ namespace Oxide.Ext.UiFramework.Controls.Popover
             int height = itemCount * (itemHeight + itemPadding) + menuPadding * 2;
             int maxPage = UiHelpers.CalculateMaxPage(items.Count, maxValuesPerPage);
             
-            Vector2Int size = new Vector2Int(width, height);
+            Vector2Int size = new(width, height);
             CreateBuilder(control, reference.Parent, size, backgroundColor, position, menuSprite);
             
             UiBuilder builder = control.Builder;
             
-            UiOffset buttonPos = new UiOffset(menuPadding, -itemHeight - menuPadding, width + menuPadding, -menuPadding);
+            UiOffset buttonPos = new(menuPadding, -itemHeight - menuPadding, width + menuPadding, -menuPadding);
             if (maxPage > 0)
             {
                 buttonPos = buttonPos.SliceHorizontal(0, 10);
                 control.ScrollBarSection = builder.Section(builder.Root, UiPosition.Right, new UiOffset(-10, 5, -3, -5));
-                control.ScrollBar = builder.ScrollBar(control.ScrollBarSection, UiPosition.Full, default(UiOffset), page, maxPage, UiColors.ButtonPrimary, UiColors.PanelSecondary, pageCommand);
+                control.ScrollBar = builder.ScrollBar(control.ScrollBarSection, UiPosition.Full, default, page, maxPage, UiColors.ButtonPrimary, UiColors.PanelSecondary, pageCommand);
                 control.ScrollBar.SetSpriteMaterialImage(UiConstants.Sprites.RoundedBackground1, null, Image.Type.Sliced);
             }
             

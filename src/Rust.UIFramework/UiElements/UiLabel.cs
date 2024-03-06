@@ -10,10 +10,10 @@ namespace Oxide.Ext.UiFramework.UiElements
 {
     public class UiLabel : BaseUiOutline
     {
-        public readonly TextComponent Text = new TextComponent();
+        public readonly TextComponent Text = new();
         public CountdownComponent Countdown;
 
-        public static UiLabel Create(UiPosition pos, UiOffset offset, UiColor color, string text, int size, string font, TextAnchor align = TextAnchor.MiddleCenter)
+        public static UiLabel Create(in UiPosition pos, in UiOffset offset, UiColor color, string text, int size, string font, TextAnchor align = TextAnchor.MiddleCenter)
         {
             UiLabel label = CreateBase<UiLabel>(pos, offset);
             TextComponent textComp = label.Text;

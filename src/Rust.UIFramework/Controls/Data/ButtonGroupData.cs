@@ -1,6 +1,6 @@
 ﻿namespace Oxide.Ext.UiFramework.Controls.Data
 {
-    public struct ButtonGroupData
+    public readonly struct ButtonGroupData
     {
         public readonly string DisplayName;
         public readonly string CommandArgs;

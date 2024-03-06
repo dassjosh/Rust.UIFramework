@@ -17,7 +17,7 @@ namespace Oxide.Ext.UiFramework.Pooling
 
         private ListPool() : base(128) { }
 
-        protected override List<T> CreateNew() => new List<T>();
+        protected override List<T> CreateNew() => [];
 
         ///<inheritdoc/>
         protected override bool OnFreeItem(ref List<T> item)

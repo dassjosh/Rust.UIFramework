@@ -38,7 +38,7 @@ namespace Oxide.Ext.UiFramework.Builder
 
         protected abstract void AddUi(SendInfo send);
 
-        protected void AddUi(SendInfo send, JsonFrameworkWriter writer)
+        internal void AddUi(SendInfo send, JsonFrameworkWriter writer)
         {
             NetWrite write = ClientRPCStart(UiConstants.RpcFunctions.AddUiFunc);
             if (write != null)

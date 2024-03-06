@@ -18,7 +18,7 @@ namespace Oxide.Ext.UiFramework.Pooling
             _pool = new T[maxSize];
             UiFrameworkPool.AddPool(this);
         }
-        
+
         /// <summary>
         /// Returns an element from the pool if it exists else it creates a new one
         /// </summary>
@@ -33,15 +33,11 @@ namespace Oxide.Ext.UiFramework.Pooling
                 _index++;
             }
 
-            if (item == null)
-            {
-                item = CreateNew();
-            }
-
+            item ??= CreateNew();
             OnGetItem(item);
             return item;
         }
-        
+
         /// <summary>
         /// Creates new type of T
         /// </summary>
@@ -53,7 +49,7 @@ namespace Oxide.Ext.UiFramework.Pooling
         /// </summary>
         /// <param name="item">Item being freed</param>
         public void Free(T item) => Free(ref item);
-        
+
         /// <summary>
         /// Frees an item back to the pool
         /// </summary>
@@ -70,6 +66,7 @@ namespace Oxide.Ext.UiFramework.Pooling
                 return;
             }
 
+
             if (_index != 0)
             {
                 _index--;
@@ -83,8 +80,10 @@ namespace Oxide.Ext.UiFramework.Pooling
         /// Called when an item is retrieved from the pool
         /// </summary>
         /// <param name="item">Item being retrieved</param>
-        protected virtual void OnGetItem(T item) { }
-        
+        protected virtual void OnGetItem(T item)
+        {
+        }
+
         /// <summary>
         /// Returns if an item can be freed to the pool
         /// </summary>

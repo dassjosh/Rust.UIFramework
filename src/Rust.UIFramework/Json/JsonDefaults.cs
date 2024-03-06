@@ -21,8 +21,8 @@ namespace Oxide.Ext.UiFramework.Json
             public const string AutoDestroy = "destroyUi";
             public const string CommandName = "command";
             public const string EnabledName = "enabled";
-            public static readonly Vector2 Min = new Vector2(0, 0);
-            public static readonly Vector2 Max = new Vector2(1, 1);
+            public static readonly Vector2 Min = new(0, 0);
+            public static readonly Vector2 Max = new(1, 1);
         }
         
         public static class Position
@@ -72,8 +72,8 @@ namespace Oxide.Ext.UiFramework.Json
         {
             public const string DistanceName = "distance";
             public const string UseGraphicAlphaName = "useGraphicAlpha";
-            public static readonly Vector2 FpDistance = new Vector2(1.0f, -1.0f);
-            public static readonly Vector2 Distance = new Vector2(0.5f, -0.5f);
+            public static readonly Vector2 FpDistance = new(1.0f, -1.0f);
+            public static readonly Vector2 Distance = new(0.5f, -0.5f);
         }
 
         public static class Button

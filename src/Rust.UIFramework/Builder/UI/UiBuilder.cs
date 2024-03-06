@@ -75,14 +75,14 @@ namespace Oxide.Ext.UiFramework.Builder.UI
         #endregion
         
         #region Add Components
-        public override void AddComponent(BaseUiComponent component, UiReference parent)
+        public override void AddComponent(BaseUiComponent component, in UiReference parent)
         {
             UiReferenceException.ThrowIfInvalidParent(parent);
             component.Reference = new UiReference(parent.Name, UiNameCache.GetComponentName(RootName, Components.Count));
             Components.Add(component);
         }
         
-        protected override void AddAnchor(BaseUiComponent component, UiReference parent)
+        protected override void AddAnchor(BaseUiComponent component, in UiReference parent)
         {
             UiReferenceException.ThrowIfInvalidParent(parent);
             component.Reference = new UiReference(parent.Name, UiNameCache.GetAnchorName(RootName, Anchors.Count));

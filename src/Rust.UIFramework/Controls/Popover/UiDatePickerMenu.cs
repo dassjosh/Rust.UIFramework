@@ -31,14 +31,14 @@ namespace Oxide.Ext.UiFramework.Controls.Popover
         private int _width;
         private int _height;
 
-        public static UiDatePickerMenu Create(UiReference parent, DateTime date, int fontSize, UiColor textColor, UiColor backgroundColor, string changeCommand, DatePickerDisplayMode displayMode, DatePickerDisplayOrder order, PopoverPosition position, string menuSprite)
+        public static UiDatePickerMenu Create(in UiReference parent, DateTime date, int fontSize, UiColor textColor, UiColor backgroundColor, string changeCommand, DatePickerDisplayMode displayMode, DatePickerDisplayOrder order, PopoverPosition position, string menuSprite)
         {
             UiDatePickerMenu control = CreateControl<UiDatePickerMenu>();
             
             control._width = control.PopulateVariables(displayMode, date, fontSize);
             control._height = UiHelpers.TextOffsetHeight(fontSize) * 3;
 
-            Vector2Int size = new Vector2Int(control._width + MenuPadding * 2 + 1, control._height + MenuPadding * 2);
+            Vector2Int size = new(control._width + MenuPadding * 2 + 1, control._height + MenuPadding * 2);
             CreateBuilder(control, parent.Parent, size, backgroundColor, position, menuSprite);
 
             UiBuilder builder = control.Builder;
@@ -90,7 +90,7 @@ namespace Oxide.Ext.UiFramework.Controls.Popover
 
         public void CreatePickers(UiBuilder builder, DateTime date, int fontSize, UiColor textColor, UiColor backgroundColor, string changeCommand, DatePickerDisplayMode displayMode, DatePickerDisplayOrder order)
         {
-            UiOffset offset = new UiOffset(MenuPadding, MenuPadding, MenuPadding, _height);
+            UiOffset offset = new(MenuPadding, MenuPadding, MenuPadding, _height);
 
             switch (order)
             {
@@ -112,7 +112,7 @@ namespace Oxide.Ext.UiFramework.Controls.Popover
             }
         }
 
-        public bool CreateYearPicker(UiBuilder builder, UiOffset pos, DateTime value, int fontSize, UiColor textColor, UiColor backgroundColor, string changeCommand)
+        public bool CreateYearPicker(UiBuilder builder, in UiOffset pos, DateTime value, int fontSize, UiColor textColor, UiColor backgroundColor, string changeCommand)
         {
             if (_yearWidth == 0)
             {
@@ -125,7 +125,7 @@ namespace Oxide.Ext.UiFramework.Controls.Popover
             return true;
         }
         
-        public bool CreateMonthPicker(UiBuilder builder, UiOffset pos, DateTime value, int fontSize, UiColor textColor, UiColor backgroundColor, string changeCommand)
+        public bool CreateMonthPicker(UiBuilder builder, in UiOffset pos, DateTime value, int fontSize, UiColor textColor, UiColor backgroundColor, string changeCommand)
         {
             if (_monthWidth == 0)
             {
@@ -138,7 +138,7 @@ namespace Oxide.Ext.UiFramework.Controls.Popover
             return true;
         }
         
-        public bool CreateDayPicker(UiBuilder builder, UiOffset pos, DateTime value, int fontSize, UiColor textColor, UiColor backgroundColor, string changeCommand)
+        public bool CreateDayPicker(UiBuilder builder, in UiOffset pos, DateTime value, int fontSize, UiColor textColor, UiColor backgroundColor, string changeCommand)
         {
             if (_dayWidth == 0)
             {

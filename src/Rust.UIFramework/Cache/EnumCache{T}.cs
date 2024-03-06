@@ -6,7 +6,7 @@ namespace Oxide.Ext.UiFramework.Cache
 {
     public static class EnumCache<T>
     {
-        private static readonly Dictionary<T, string> CachedStrings = new Dictionary<T, string>();
+        private static readonly Dictionary<T, string> CachedStrings = new();
 
         static EnumCache()
         {

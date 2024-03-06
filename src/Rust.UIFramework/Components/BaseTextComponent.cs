@@ -29,7 +29,7 @@ namespace Oxide.Ext.UiFramework.Components
         public override void Reset()
         {
             base.Reset();
-            Color = default(UiColor);
+            Color = default;
             FadeIn = 0;
             FontSize = JsonDefaults.BaseText.FontSize;
             Font = null;

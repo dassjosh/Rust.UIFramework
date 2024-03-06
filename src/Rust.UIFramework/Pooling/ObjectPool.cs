@@ -8,7 +8,7 @@ namespace Oxide.Ext.UiFramework.Pooling
 
         protected override BasePoolable CreateNew()
         {
-            T obj = new T();
+            T obj = new();
             obj.OnInit(this);
             return obj;
         }

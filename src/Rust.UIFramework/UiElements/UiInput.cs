@@ -11,9 +11,9 @@ namespace Oxide.Ext.UiFramework.UiElements
 {
     public class UiInput : BaseUiOutline
     {
-        public readonly InputComponent Input = new InputComponent();
+        public readonly InputComponent Input = new();
 
-        public static UiInput Create(UiPosition pos, UiOffset offset, UiColor textColor, string text, int size, string cmd, string font, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, InputMode mode = InputMode.Default, InputField.LineType lineType = InputField.LineType.SingleLine)
+        public static UiInput Create(in UiPosition pos, in UiOffset offset, UiColor textColor, string text, int size, string cmd, string font, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, InputMode mode = InputMode.Default, InputField.LineType lineType = InputField.LineType.SingleLine)
         {
             UiInput input = CreateBase<UiInput>(pos, offset);
             InputComponent comp = input.Input;

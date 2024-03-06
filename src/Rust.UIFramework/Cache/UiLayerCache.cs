@@ -13,7 +13,7 @@ namespace Oxide.Ext.UiFramework.Cache
         private const string Under = "Under";
         private const string UnderNonScaled = "UnderNonScaled";
 
-        private static readonly Dictionary<UiLayer, string> Layers = new Dictionary<UiLayer, string>
+        private static readonly Dictionary<UiLayer, string> Layers = new()
         {
             [UiLayer.Overall] = Overall,
             [UiLayer.Overlay] = Overlay,

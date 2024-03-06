@@ -6,7 +6,7 @@ namespace Oxide.Ext.UiFramework.UiElements
 {
     public class UiImage : BaseUiImage
     {
-        public static UiImage CreateSpriteImage(UiPosition pos, UiOffset offset, UiColor color, string sprite)
+        public static UiImage CreateSpriteImage(in UiPosition pos, in UiOffset offset, UiColor color, string sprite)
         {
             UiImage image = CreateBase<UiImage>(pos, offset);
             image.Image.Color = color;

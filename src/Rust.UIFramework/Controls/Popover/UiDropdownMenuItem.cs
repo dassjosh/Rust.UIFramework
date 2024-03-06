@@ -12,7 +12,7 @@ namespace Oxide.Ext.UiFramework.Controls.Popover
         public UiButton Button;
         public UiLabel Label;
 
-        public static UiDropdownMenuItem Create(UiBuilder builder, UiOffset position, DropdownMenuData item, int fontSize, UiColor textColor, UiColor backgroundColor, string selectedCommand)
+        public static UiDropdownMenuItem Create(UiBuilder builder, in UiOffset position, in DropdownMenuData item, int fontSize, UiColor textColor, UiColor backgroundColor, string selectedCommand)
         {
             UiDropdownMenuItem control = CreateControl<UiDropdownMenuItem>();
             

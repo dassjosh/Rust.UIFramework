@@ -16,7 +16,7 @@ namespace Oxide.Ext.UiFramework.Pooling
 
         private StringBuilderPool() : base(64) { }
 
-        protected override StringBuilder CreateNew() => new StringBuilder();
+        protected override StringBuilder CreateNew() => new();
 
         ///<inheritdoc/>
         protected override bool OnFreeItem(ref StringBuilder item)

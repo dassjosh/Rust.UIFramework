@@ -1,4 +1,7 @@
-﻿using BenchmarkDotNet.Running;
+﻿using BenchmarkDotNet.Configs;
+using BenchmarkDotNet.Jobs;
+using BenchmarkDotNet.Running;
+using BenchmarkDotNet.Toolchains.InProcess.Emit;
 
 namespace Rust.UiFramework.Benchmarks
 {
@@ -6,7 +9,17 @@ namespace Rust.UiFramework.Benchmarks
     {
         static void Main(string[] args)
         {
-            BenchmarkRunner.Run<Benchmarks>();
+            ManualConfig config = DefaultConfig.Instance.AddJob(Job.Default
+                .WithToolchain(InProcessEmitToolchain.Instance)
+                .WithIterationCount(30));
+            BenchmarkRunner.Run<Benchmarks>(config, args);
+            //
+            // Benchmarks b = new Benchmarks();
+            // b.Setup();
+            // while (true)
+            // {
+            //     b.UiFramework_Full();
+            // }
         }
     }
 }

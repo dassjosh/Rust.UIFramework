@@ -38,7 +38,7 @@ namespace Oxide.Ext.UiFramework.Components
 
         public virtual void Reset()
         {
-            Color = default(UiColor);
+            Color = default;
             FadeIn = 0;
             Url = null;
             Texture = null;

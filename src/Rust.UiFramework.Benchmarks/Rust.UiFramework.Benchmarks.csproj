@@ -1,16 +1,38 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <OutputType>Exe</OutputType>
-        <TargetFramework>net48</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <LangVersion>latest</LangVersion>
         <SignAssembly>true</SignAssembly>
-        <Configurations>Debug;Release;Benchmarks</Configurations>
-        <Platforms>AnyCPU;Oxide</Platforms>
+        <Configurations>Debug;Release</Configurations>
+        <Platforms>Oxide</Platforms>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>netcoreapp3.0</TargetFramework>
     </PropertyGroup>
 
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|Carbon' ">
+        <DefineConstants>TRACE;DEBUG;CARBON</DefineConstants>
+        <AssemblyName>Carbon.Ext.UiFramework</AssemblyName>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|Oxide' ">
+        <DefineConstants>TRACE;DEBUG;OXIDE</DefineConstants>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|Carbon' ">
+        <DefineConstants>TRACE;CARBON</DefineConstants>
+        <AssemblyName>Carbon.Ext.UiFramework</AssemblyName>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|Oxide' ">
+        <DefineConstants>TRACE;OXIDE</DefineConstants>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Benchmarks' ">
+      <DefineConstants>TRACE;BENCHMARKS</DefineConstants>
+    </PropertyGroup>
+    
     <ItemGroup>
       <Reference Include="mscorlib">
         <HintPath>..\References\mscorlib.dll</HintPath>
@@ -21,11 +43,14 @@
       <Reference Include="Oxide.Core">
         <HintPath>..\References\Oxide.Core.dll</HintPath>
       </Reference>
+      <Reference Include="Oxide.CSharp">
+        <HintPath>..\references\Oxide.CSharp.dll</HintPath>
+      </Reference>
+      <Reference Include="Oxide.References">
+        <HintPath>..\references\Oxide.References.dll</HintPath>
+      </Reference>
       <Reference Include="Oxide.Rust">
         <HintPath>..\References\Oxide.Rust.dll</HintPath>
-      </Reference>
-      <Reference Include="System.Buffers">
-        <HintPath>..\References\System.Buffers.dll</HintPath>
       </Reference>
     </ItemGroup>
 

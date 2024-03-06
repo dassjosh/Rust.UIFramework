@@ -21,7 +21,7 @@ namespace Oxide.Ext.UiFramework.Controls.Popover
         {
             string name = $"{parentName}_Popover";
             
-            UiBuilder builder = UiBuilder.Create(UiSection.Create(UiPosition.Full, default(UiOffset)), name, parentName);
+            UiBuilder builder = UiBuilder.Create(UiSection.Create(UiPosition.Full, default), name, parentName);
             
             UiPosition anchor = GetPopoverPosition(position);
             UiOffset offset = GetPopoverOffset(position, size);

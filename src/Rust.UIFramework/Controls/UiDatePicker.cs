@@ -15,7 +15,7 @@ namespace Oxide.Ext.UiFramework.Controls
         public UiLabel Text;
         public UiLabel Icon; 
         
-        public static UiDatePicker Create(BaseUiBuilder builder, UiReference parent, UiPosition pos, UiOffset offset, DateTime date, int fontSize, UiColor textColor, UiColor backgroundColor, string openCommand, string displayFormat = "MM/dd/yyyy")
+        public static UiDatePicker Create(BaseUiBuilder builder, in UiReference parent, in UiPosition pos, in UiOffset offset, DateTime date, int fontSize, UiColor textColor, UiColor backgroundColor, string openCommand, string displayFormat = "MM/dd/yyyy")
         {
             UiDatePicker control = CreateControl<UiDatePicker>();
             

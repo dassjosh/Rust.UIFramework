@@ -13,13 +13,12 @@ namespace Oxide.Ext.UiFramework.Cache
         private const string Format = "0.####";
         private const char Space = ' ';
 
-        private static readonly Dictionary<int, string> ColorCache = new Dictionary<int, string>();
+        private static readonly Dictionary<int, string> ColorCache = new();
         
         public static void WriteColor(JsonBinaryWriter writer, UiColor uiColor)
         {
-            string color;
             int hashCode = uiColor.GetHashCode();
-            if (!ColorCache.TryGetValue(hashCode, out color))
+            if (!ColorCache.TryGetValue(hashCode, out string color))
             {
                 color = GetColor(uiColor);
                 ColorCache[hashCode] = color;

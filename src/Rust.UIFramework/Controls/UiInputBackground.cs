@@ -14,7 +14,7 @@ namespace Oxide.Ext.UiFramework.Controls
         public UiInput Input;
         public UiPanel Background;
         
-        public static UiInputBackground Create(BaseUiBuilder builder, UiReference parent, UiPosition pos, UiOffset offset, string text, int fontSize, UiColor textColor, UiColor backgroundColor, string command, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, InputMode mode = InputMode.Default, InputField.LineType lineType = InputField.LineType.SingleLine)
+        public static UiInputBackground Create(BaseUiBuilder builder, in UiReference parent, in UiPosition pos, in UiOffset offset, string text, int fontSize, UiColor textColor, UiColor backgroundColor, string command, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, InputMode mode = InputMode.Default, InputField.LineType lineType = InputField.LineType.SingleLine)
         {
             UiInputBackground control = CreateControl<UiInputBackground>();
             control.Background = builder.Panel(parent,  pos, offset, backgroundColor);

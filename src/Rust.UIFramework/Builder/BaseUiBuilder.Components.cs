@@ -13,9 +13,9 @@ namespace Oxide.Ext.UiFramework.Builder
     public partial class BaseUiBuilder
     {
         #region Add Components
-        public abstract void AddComponent(BaseUiComponent component, UiReference parent);
+        public abstract void AddComponent(BaseUiComponent component, in UiReference parent);
         
-        protected abstract void AddAnchor(BaseUiComponent component, UiReference parent);
+        protected abstract void AddAnchor(BaseUiComponent component, in UiReference parent);
 
         public void AddControl(BaseUiControl control)
         {
@@ -24,7 +24,7 @@ namespace Oxide.Ext.UiFramework.Builder
         #endregion
 
         #region Section
-        public UiSection Section(UiReference parent, UiPosition pos, UiOffset offset = default(UiOffset))
+        public UiSection Section(in UiReference parent, in UiPosition pos, in UiOffset offset = default)
         {
             UiSection section = UiSection.Create(pos, offset);
             AddComponent(section, parent);
@@ -33,67 +33,67 @@ namespace Oxide.Ext.UiFramework.Builder
         #endregion
         
         #region Panel
-        public UiPanel Panel(UiReference parent, UiPosition pos, UiOffset offset, UiColor color)
+        public UiPanel Panel(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor color)
         {
             UiPanel panel = UiPanel.Create(pos, offset, color);
             AddComponent(panel, parent);
             return panel;
         }
         
-        public UiPanel Panel(UiReference parent, UiPosition pos, UiColor color) => Panel(parent, pos, default(UiOffset), color);
+        public UiPanel Panel(in UiReference parent, in UiPosition pos, UiColor color) => Panel(parent, pos, default, color);
         #endregion
 
         #region Button
-        public UiButton CommandButton(UiReference parent, UiPosition pos, UiOffset offset, UiColor color, string command)
+        public UiButton CommandButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor color, string command)
         {
             UiButton button = UiButton.CreateCommand(pos, offset, color, command);
             AddComponent(button, parent);
             return button;
         }
 
-        public UiButton CommandButton(UiReference parent, UiPosition pos, UiColor color, string command) => CommandButton(parent, pos, default(UiOffset), color, command);
+        public UiButton CommandButton(in UiReference parent, in UiPosition pos, UiColor color, string command) => CommandButton(parent, pos, default, color, command);
 
-        public UiButton CloseButton(UiReference parent, UiPosition pos, UiOffset offset, UiColor color, string close)
+        public UiButton CloseButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor color, string close)
         {
             UiButton button = UiButton.CreateClose(pos, offset, color, close);
             AddComponent(button, parent);
             return button;
         }
 
-        public UiButton CloseButton(UiReference parent, UiPosition pos, UiColor color, string close) => CloseButton(parent, pos, default(UiOffset), color, close);
+        public UiButton CloseButton(in UiReference parent, in UiPosition pos, UiColor color, string close) => CloseButton(parent, pos, default, color, close);
         #endregion
 
         #region Image
-        public UiImage ImageSprite(UiReference parent, UiPosition pos, UiOffset offset, string sprite, UiColor color)
+        public UiImage ImageSprite(in UiReference parent, in UiPosition pos, in UiOffset offset, string sprite, UiColor color)
         {
             UiImage image = UiImage.CreateSpriteImage(pos, offset, color, sprite);
             AddComponent(image, parent);
             return image;
         }
 
-        public UiImage ImageSprite(UiReference parent, UiPosition pos, UiOffset offset, string sprite) => ImageSprite(parent, pos, offset, sprite, UiColor.White);
-        public UiImage ImageSprite(UiReference parent, UiPosition pos, string sprite, UiColor color) => ImageSprite(parent, pos, default(UiOffset), sprite, color);
-        public UiImage ImageSprite(UiReference parent, UiPosition pos, string sprite) => ImageSprite(parent, pos, sprite, UiColor.White);
+        public UiImage ImageSprite(in UiReference parent, in UiPosition pos, in UiOffset offset, string sprite) => ImageSprite(parent, pos, offset, sprite, UiColor.White);
+        public UiImage ImageSprite(in UiReference parent, in UiPosition pos, string sprite, UiColor color) => ImageSprite(parent, pos, default, sprite, color);
+        public UiImage ImageSprite(in UiReference parent, in UiPosition pos, string sprite) => ImageSprite(parent, pos, sprite, UiColor.White);
         #endregion
 
         #region Item Icon
-        public UiItemIcon ItemIcon(UiReference parent, UiPosition pos, UiOffset offset, int itemId, ulong skinId, UiColor color)
+        public UiItemIcon ItemIcon(in UiReference parent, in UiPosition pos, in UiOffset offset, int itemId, ulong skinId, UiColor color)
         {
             UiItemIcon image = UiItemIcon.Create(pos, offset, color, itemId, skinId);
             AddComponent(image, parent);
             return image;
         }
         
-        public UiItemIcon ItemIcon(UiReference parent, UiPosition pos, UiOffset offset, int itemId, ulong skinId) => ItemIcon(parent, pos, offset, itemId, skinId, UiColor.White);
-        public UiItemIcon ItemIcon(UiReference parent, UiPosition pos, UiOffset offset, int itemId, UiColor color) => ItemIcon(parent, pos, offset, itemId, 0, color);
-        public UiItemIcon ItemIcon(UiReference parent, UiPosition pos, UiOffset offset, int itemId) => ItemIcon(parent, pos, offset, itemId, UiColor.White);
-        public UiItemIcon ItemIcon(UiReference parent, UiPosition pos, int itemId, ulong skinId) => ItemIcon(parent, pos, default(UiOffset), itemId, skinId);
-        public UiItemIcon ItemIcon(UiReference parent, UiPosition pos, int itemId, UiColor color) => ItemIcon(parent, pos, default(UiOffset), itemId, color);
-        public UiItemIcon ItemIcon(UiReference parent, UiPosition pos, int itemId) => ItemIcon(parent, pos, default(UiOffset), itemId);
+        public UiItemIcon ItemIcon(in UiReference parent, in UiPosition pos, in UiOffset offset, int itemId, ulong skinId) => ItemIcon(parent, pos, offset, itemId, skinId, UiColor.White);
+        public UiItemIcon ItemIcon(in UiReference parent, in UiPosition pos, in UiOffset offset, int itemId, UiColor color) => ItemIcon(parent, pos, offset, itemId, 0, color);
+        public UiItemIcon ItemIcon(in UiReference parent, in UiPosition pos, in UiOffset offset, int itemId) => ItemIcon(parent, pos, offset, itemId, UiColor.White);
+        public UiItemIcon ItemIcon(in UiReference parent, in UiPosition pos, int itemId, ulong skinId) => ItemIcon(parent, pos, default, itemId, skinId);
+        public UiItemIcon ItemIcon(in UiReference parent, in UiPosition pos, int itemId, UiColor color) => ItemIcon(parent, pos, default, itemId, color);
+        public UiItemIcon ItemIcon(in UiReference parent, in UiPosition pos, int itemId) => ItemIcon(parent, pos, default, itemId);
         #endregion
 
         #region Raw Image
-        public UiRawImage WebImage(UiReference parent, UiPosition pos, UiOffset offset, string url, UiColor color)
+        public UiRawImage WebImage(in UiReference parent, in UiPosition pos, in UiOffset offset, string url, UiColor color)
         {
             if (!url.StartsWith("http"))
             {
@@ -105,25 +105,24 @@ namespace Oxide.Ext.UiFramework.Builder
             return image;
         }
 
-        public UiRawImage WebImage(UiReference parent, UiPosition pos, UiOffset offset, string url) => WebImage(parent, pos, offset, url, UiColor.White);
-        public UiRawImage WebImage(UiReference parent, UiPosition pos, string url, UiColor color) => WebImage(parent, pos, default(UiOffset), url, color);
-        public UiRawImage WebImage(UiReference parent, UiPosition pos, string url) => WebImage(parent, pos, url, UiColor.White);
+        public UiRawImage WebImage(in UiReference parent, in UiPosition pos, in UiOffset offset, string url) => WebImage(parent, pos, offset, url, UiColor.White);
+        public UiRawImage WebImage(in UiReference parent, in UiPosition pos, string url, UiColor color) => WebImage(parent, pos, default, url, color);
+        public UiRawImage WebImage(in UiReference parent, in UiPosition pos, string url) => WebImage(parent, pos, url, UiColor.White);
 
-        public UiRawImage TextureImage(UiReference parent, UiPosition pos, UiOffset offset, string texture, UiColor color)
+        public UiRawImage TextureImage(in UiReference parent, in UiPosition pos, in UiOffset offset, string texture, UiColor color)
         {
             UiRawImage image = UiRawImage.CreateTexture(pos, offset, color, texture);
             AddComponent(image, parent);
             return image;
         }
 
-        public UiRawImage TextureImage(UiReference parent, UiPosition pos, UiOffset offset, string texture) => TextureImage(parent, pos, offset, texture, UiColor.White);
-        public UiRawImage TextureImage(UiReference parent, UiPosition pos, string texture, UiColor color) => TextureImage(parent, pos, default(UiOffset), texture, color);
-        public UiRawImage TextureImage(UiReference parent, UiPosition pos, string texture) => TextureImage(parent, pos, texture, UiColor.White);
+        public UiRawImage TextureImage(in UiReference parent, in UiPosition pos, in UiOffset offset, string texture) => TextureImage(parent, pos, offset, texture, UiColor.White);
+        public UiRawImage TextureImage(in UiReference parent, in UiPosition pos, string texture, UiColor color) => TextureImage(parent, pos, default, texture, color);
+        public UiRawImage TextureImage(in UiReference parent, in UiPosition pos, string texture) => TextureImage(parent, pos, texture, UiColor.White);
         
-        public UiRawImage ImageFileStorage(UiReference parent, UiPosition pos, UiOffset offset, string png, UiColor color)
+        public UiRawImage ImageFileStorage(in UiReference parent, in UiPosition pos, in UiOffset offset, string png, UiColor color)
         {
-            uint _;
-            if (!uint.TryParse(png, out _))
+            if (!uint.TryParse(png, out uint _))
             {
                 throw new UiFrameworkException($"Image PNG '{png}' is not a valid uint. If trying to use a url please use WebImage instead");
             }
@@ -133,41 +132,41 @@ namespace Oxide.Ext.UiFramework.Builder
             return image;
         }
 
-        public UiRawImage ImageFileStorage(UiReference parent, UiPosition pos, string png, UiColor color) => ImageFileStorage(parent, pos, default(UiOffset), png, color);
-        public UiRawImage ImageFileStorage(UiReference parent, UiPosition pos, UiOffset offset, string png) => ImageFileStorage(parent, pos, offset, png, UiColor.White);
-        public UiRawImage ImageFileStorage(UiReference parent, UiPosition pos, string png) => ImageFileStorage(parent, pos, default(UiOffset), png, UiColor.White);
+        public UiRawImage ImageFileStorage(in UiReference parent, in UiPosition pos, string png, UiColor color) => ImageFileStorage(parent, pos, default, png, color);
+        public UiRawImage ImageFileStorage(in UiReference parent, in UiPosition pos, in UiOffset offset, string png) => ImageFileStorage(parent, pos, offset, png, UiColor.White);
+        public UiRawImage ImageFileStorage(in UiReference parent, in UiPosition pos, string png) => ImageFileStorage(parent, pos, default, png, UiColor.White);
         #endregion
 
         #region Label
-        public UiLabel Label(UiReference parent, UiPosition pos, UiOffset offset, string text, int size, UiColor textColor, TextAnchor align = TextAnchor.MiddleCenter)
+        public UiLabel Label(in UiReference parent, in UiPosition pos, in UiOffset offset, string text, int size, UiColor textColor, TextAnchor align = TextAnchor.MiddleCenter)
         {
             UiLabel label = UiLabel.Create(pos, offset, textColor, text, size, Font, align);
             AddComponent(label, parent);
             return label;
         }
 
-        public UiLabel Label(UiReference parent, UiPosition pos, string text, int fontSize, UiColor textColor, TextAnchor align = TextAnchor.MiddleCenter) => Label(parent, pos, default(UiOffset), text, fontSize, textColor, align);
+        public UiLabel Label(in UiReference parent, in UiPosition pos, string text, int fontSize, UiColor textColor, TextAnchor align = TextAnchor.MiddleCenter) => Label(parent, pos, default, text, fontSize, textColor, align);
 
-        public UiLabelBackground LabelBackground(UiReference parent, UiPosition pos, UiOffset offset, string text, int fontSize, UiColor textColor, UiColor backgroundColor, TextAnchor align = TextAnchor.MiddleCenter)
+        public UiLabelBackground LabelBackground(in UiReference parent, in UiPosition pos, in UiOffset offset, string text, int fontSize, UiColor textColor, UiColor backgroundColor, TextAnchor align = TextAnchor.MiddleCenter)
         {
             UiLabelBackground control = UiLabelBackground.Create(this, parent, pos, offset, text, fontSize, textColor, backgroundColor, align);
             AddControl(control);
             return control;
         }
 
-        public UiLabelBackground LabelBackground(UiReference parent, UiPosition pos, string text, int fontSize, UiColor textColor, UiColor backgroundColor, TextAnchor align = TextAnchor.MiddleCenter) => LabelBackground(parent, pos, default(UiOffset), text, fontSize, textColor, backgroundColor, align);
+        public UiLabelBackground LabelBackground(in UiReference parent, in UiPosition pos, string text, int fontSize, UiColor textColor, UiColor backgroundColor, TextAnchor align = TextAnchor.MiddleCenter) => LabelBackground(parent, pos, default, text, fontSize, textColor, backgroundColor, align);
         #endregion
         
         #region Input
-        public UiInput Input(UiReference parent, UiPosition pos, UiOffset offset, string text, int fontSize, UiColor textColor,  string command, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, InputMode mode = InputMode.Default, InputField.LineType lineType = InputField.LineType.SingleLine)
+        public UiInput Input(in UiReference parent, in UiPosition pos, in UiOffset offset, string text, int fontSize, UiColor textColor,  string command, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, InputMode mode = InputMode.Default, InputField.LineType lineType = InputField.LineType.SingleLine)
         {
             UiInput input = UiInput.Create(pos, offset, textColor, text, fontSize, command, Font, align, charsLimit, mode, lineType);
             AddComponent(input, parent);
             return input;
         }
 
-        public UiInput Input(UiReference parent, UiPosition pos, string text, int fontSize, UiColor textColor, string command, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, InputMode mode = InputMode.Default, InputField.LineType lineType = InputField.LineType.SingleLine) 
-            => Input(parent, pos, default(UiOffset), text, fontSize, textColor, command, align, charsLimit, mode, lineType);
+        public UiInput Input(in UiReference parent, in UiPosition pos, string text, int fontSize, UiColor textColor, string command, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, InputMode mode = InputMode.Default, InputField.LineType lineType = InputField.LineType.SingleLine) 
+            => Input(parent, pos, default, text, fontSize, textColor, command, align, charsLimit, mode, lineType);
         #endregion
 
         #region Countdown
@@ -193,7 +192,7 @@ namespace Oxide.Ext.UiFramework.Builder
         #endregion
 
         #region Anchor
-        public UiSection Anchor(UiReference parent, UiPosition pos, UiOffset offset = default(UiOffset))
+        public UiSection Anchor(in UiReference parent, in UiPosition pos, in UiOffset offset = default)
         {
             UiSection section = UiSection.Create(pos, offset);
             AddAnchor(section, parent);

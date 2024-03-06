@@ -12,14 +12,14 @@ namespace Oxide.Ext.UiFramework.Builder.UI
 {
     public partial class UiBuilder
     {
-        public static UiBuilder Create(UiPosition pos, string name, string parent) => Create(pos, default(UiOffset), name, parent);
-        public static UiBuilder Create(UiPosition pos, string name, UiLayer parent = UiLayer.Overlay) => Create(pos, default(UiOffset), name, UiLayerCache.GetLayer(parent));
-        public static UiBuilder Create(UiPosition pos, UiOffset offset, string name, UiLayer parent = UiLayer.Overlay) => Create(pos, offset, name, UiLayerCache.GetLayer(parent));
-        public static UiBuilder Create(UiPosition pos, UiOffset offset, string name, string parent) => Create(UiSection.Create(pos, offset), name, parent);
-        public static UiBuilder Create(UiPosition pos, UiColor color, string name, string parent) => Create(pos, default(UiOffset), color, name, parent);
-        public static UiBuilder Create(UiPosition pos, UiColor color, string name, UiLayer parent = UiLayer.Overlay) => Create(pos, default(UiOffset), color, name, UiLayerCache.GetLayer(parent));
-        public static UiBuilder Create(UiPosition pos, UiOffset offset, UiColor color, string name, UiLayer parent = UiLayer.Overlay) => Create(pos, offset, color, name, UiLayerCache.GetLayer(parent));
-        public static UiBuilder Create(UiPosition pos, UiOffset offset, UiColor color, string name, string parent) => Create(UiPanel.Create(pos, offset, color), name, parent);
+        public static UiBuilder Create(in UiPosition pos, string name, string parent) => Create(pos, default(UiOffset), name, parent);
+        public static UiBuilder Create(in UiPosition pos, string name, UiLayer parent = UiLayer.Overlay) => Create(pos, default(UiOffset), name, UiLayerCache.GetLayer(parent));
+        public static UiBuilder Create(in UiPosition pos, in UiOffset offset, string name, UiLayer parent = UiLayer.Overlay) => Create(pos, offset, name, UiLayerCache.GetLayer(parent));
+        public static UiBuilder Create(in UiPosition pos, in UiOffset offset, string name, string parent) => Create(UiSection.Create(pos, offset), name, parent);
+        public static UiBuilder Create(in UiPosition pos, UiColor color, string name, string parent) => Create(pos, default, color, name, parent);
+        public static UiBuilder Create(in UiPosition pos, UiColor color, string name, UiLayer parent = UiLayer.Overlay) => Create(pos, default, color, name, UiLayerCache.GetLayer(parent));
+        public static UiBuilder Create(in UiPosition pos, in UiOffset offset, UiColor color, string name, UiLayer parent = UiLayer.Overlay) => Create(pos, offset, color, name, UiLayerCache.GetLayer(parent));
+        public static UiBuilder Create(in UiPosition pos, in UiOffset offset, UiColor color, string name, string parent) => Create(UiPanel.Create(pos, offset, color), name, parent);
         public static UiBuilder Create(BaseUiComponent root, string name, UiLayer parent = UiLayer.Overlay) => Create(root, name, UiLayerCache.GetLayer(parent));
         public static UiBuilder Create(BaseUiComponent root, string name, string parent)
         {
@@ -41,7 +41,7 @@ namespace Oxide.Ext.UiFramework.Builder.UI
         /// <param name="name">Name of the UI</param>
         /// <param name="layer">Layer the UI is on</param>
         /// <returns></returns>
-        public static UiBuilder CreateModal(UiOffset modalSize, UiColor modalColor, string name, UiLayer layer = UiLayer.Overlay)
+        public static UiBuilder CreateModal(in UiOffset modalSize, UiColor modalColor, string name, UiLayer layer = UiLayer.Overlay)
         {
             return CreateModal(modalSize, modalColor, new UiColor(0, 0, 0, 0.5f), name, layer, UiConstants.Materials.InGameBlur);
         }
@@ -56,9 +56,9 @@ namespace Oxide.Ext.UiFramework.Builder.UI
         /// <param name="modalBackgroundColor">Color of the fullscreen background</param>
         /// <param name="backgroundMaterial">Material of the full screen background</param>
         /// <returns></returns>
-        public static UiBuilder CreateModal(UiOffset modalSize, UiColor modalColor, UiColor modalBackgroundColor, string name, UiLayer layer = UiLayer.Overlay, string backgroundMaterial = null)
+        public static UiBuilder CreateModal(in UiOffset modalSize, UiColor modalColor, UiColor modalBackgroundColor, string name, UiLayer layer = UiLayer.Overlay, string backgroundMaterial = null)
         {
-            UiPanel backgroundBlur = UiPanel.Create(UiPosition.Full, default(UiOffset), modalBackgroundColor);
+            UiPanel backgroundBlur = UiPanel.Create(UiPosition.Full, default, modalBackgroundColor);
             backgroundBlur.SetMaterial(backgroundMaterial);
             
             UiBuilder builder = Create(backgroundBlur, name, layer);
@@ -78,7 +78,7 @@ namespace Oxide.Ext.UiFramework.Builder.UI
         /// <returns></returns>
         public static UiBuilder CreateOutsideClose(string command, string name, UiLayer layer = UiLayer.Overlay)
         {
-            UiBuilder builder = Create(UiButton.CreateCommand(UiPosition.Full, default(UiOffset), UiColor.Clear, command), name, layer);
+            UiBuilder builder = Create(UiButton.CreateCommand(UiPosition.Full, default, UiColor.Clear, command), name, layer);
             builder.NeedsMouse();
             return builder;
         }

@@ -75,8 +75,8 @@ namespace Oxide.Ext.UiFramework.Components
             base.Reset();
             CharsLimit = JsonDefaults.Input.CharacterLimitValue;
             Command = null;
-            Mode = default(InputMode);
-            LineType = default(InputField.LineType);
+            Mode = default;
+            LineType = default;
         }
     }
 }

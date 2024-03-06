@@ -9,9 +9,9 @@ namespace Oxide.Ext.UiFramework.UiElements
 {
     public class UiButton : BaseUiOutline
     {
-        public readonly ButtonComponent Button = new ButtonComponent();
+        public readonly ButtonComponent Button = new();
 
-        public static UiButton CreateCommand(UiPosition pos, UiOffset offset, UiColor color, string command)
+        public static UiButton CreateCommand(in UiPosition pos, in UiOffset offset, UiColor color, string command)
         {
             UiButton button = CreateBase<UiButton>(pos, offset);
             button.Button.Color = color;
@@ -19,7 +19,7 @@ namespace Oxide.Ext.UiFramework.UiElements
             return button;
         }
 
-        public static UiButton CreateClose(UiPosition pos, UiOffset offset, UiColor color, string close)
+        public static UiButton CreateClose(in UiPosition pos, in UiOffset offset, UiColor color, string close)
         {
             UiButton button = CreateBase<UiButton>(pos, offset);
             button.Button.Color = color;

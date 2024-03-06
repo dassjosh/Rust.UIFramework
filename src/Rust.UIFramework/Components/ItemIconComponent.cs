@@ -14,7 +14,7 @@ namespace Oxide.Ext.UiFramework.Components
             writer.WriteStartObject();
             writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, Type);
             writer.AddFieldRaw(JsonDefaults.ItemIcon.ItemIdName, ItemId);
-            writer.AddField(JsonDefaults.ItemIcon.SkinIdName, SkinId, default(ulong));
+            writer.AddField(JsonDefaults.ItemIcon.SkinIdName, SkinId, default);
             base.WriteComponent(writer);
             writer.WriteEndObject();
         }
@@ -22,8 +22,8 @@ namespace Oxide.Ext.UiFramework.Components
         public override void Reset()
         {
             base.Reset();
-            ItemId = default(int);
-            SkinId = default(ulong);
+            ItemId = default;
+            SkinId = default;
         }
     }
 }

@@ -15,7 +15,7 @@ namespace Oxide.Ext.UiFramework.Controls
         public UiLabel Text;
         public UiLabel Icon;
 
-        public static UiTimePicker Create(BaseUiBuilder builder, UiReference parent, UiPosition pos, UiOffset offset, DateTime time, int fontSize, UiColor textColor, UiColor backgroundColor, string openCommand, string displayFormat = "hh:mm:ss tt")
+        public static UiTimePicker Create(BaseUiBuilder builder, in UiReference parent, in UiPosition pos, in UiOffset offset, DateTime time, int fontSize, UiColor textColor, UiColor backgroundColor, string openCommand, string displayFormat = "hh:mm:ss tt")
         {
             UiTimePicker control = CreateControl<UiTimePicker>();
             

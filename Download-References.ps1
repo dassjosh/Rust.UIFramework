@@ -2,6 +2,8 @@
 
 $resourcesDir = Join-Path -Path $PSScriptRoot -ChildPath "src/references"
 
+New-Item -ItemType Directory -Force -Path $resourcesDir
+
 Get-ChildItem -Path $resourcesDir | Remove-Item -Force -Recurse
 
 # Create a temporary folder

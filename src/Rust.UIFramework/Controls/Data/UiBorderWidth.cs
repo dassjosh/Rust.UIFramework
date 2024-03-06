@@ -1,8 +1,8 @@
 ﻿namespace Oxide.Ext.UiFramework.Controls.Data
 {
-    public struct UiBorderWidth
+    public readonly struct UiBorderWidth
     {
-        public static readonly UiBorderWidth Default = new UiBorderWidth(1);
+        public static readonly UiBorderWidth Default = new(1);
         
         public readonly float Left;
         public readonly float Top;

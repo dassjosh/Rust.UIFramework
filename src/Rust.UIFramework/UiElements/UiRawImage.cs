@@ -8,9 +8,9 @@ namespace Oxide.Ext.UiFramework.UiElements
 {
     public class UiRawImage : BaseUiOutline
     {
-        public readonly RawImageComponent RawImage = new RawImageComponent();
+        public readonly RawImageComponent RawImage = new();
 
-        public static UiRawImage CreateUrl(UiPosition pos, UiOffset offset, UiColor color, string url)
+        public static UiRawImage CreateUrl(in UiPosition pos, in UiOffset offset, UiColor color, string url)
         {
             UiRawImage image = CreateBase<UiRawImage>(pos, offset);
             image.RawImage.Color = color;
@@ -18,7 +18,7 @@ namespace Oxide.Ext.UiFramework.UiElements
             return image;
         }
         
-        public static UiRawImage CreateTexture(UiPosition pos, UiOffset offset, UiColor color, string icon)
+        public static UiRawImage CreateTexture(in UiPosition pos, in UiOffset offset, UiColor color, string icon)
         {
             UiRawImage image = CreateBase<UiRawImage>(pos, offset);
             image.RawImage.Color = color;
@@ -26,7 +26,7 @@ namespace Oxide.Ext.UiFramework.UiElements
             return image;
         }
         
-        public static UiRawImage CreateFileImage(UiPosition pos, UiOffset offset, UiColor color, string png)
+        public static UiRawImage CreateFileImage(in UiPosition pos, in UiOffset offset, UiColor color, string png)
         {
             UiRawImage image = CreateBase<UiRawImage>(pos, offset);
             image.RawImage.Color = color;

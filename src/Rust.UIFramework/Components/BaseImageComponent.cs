@@ -22,7 +22,7 @@ namespace Oxide.Ext.UiFramework.Components
         public override void Reset()
         {
             base.Reset();
-            Color = default(UiColor);
+            Color = default;
             FadeIn = 0;
             Sprite = null;
             Material = null;

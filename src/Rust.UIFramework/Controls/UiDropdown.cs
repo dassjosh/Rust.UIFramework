@@ -14,7 +14,7 @@ namespace Oxide.Ext.UiFramework.Controls
         public UiLabel Text;
         public UiLabel Icon;
 
-        public static UiDropdown Create(BaseUiBuilder builder, UiReference parent, UiPosition pos, UiOffset offset, string displayValue, int fontSize, UiColor textColor, UiColor backgroundColor, string openCommand)
+        public static UiDropdown Create(BaseUiBuilder builder, in UiReference parent, in UiPosition pos, in UiOffset offset, string displayValue, int fontSize, UiColor textColor, UiColor backgroundColor, string openCommand)
         {
             UiDropdown control = CreateControl<UiDropdown>();
             control.Anchor = builder.Anchor(parent, pos);

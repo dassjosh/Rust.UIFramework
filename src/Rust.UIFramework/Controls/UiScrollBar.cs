@@ -18,7 +18,7 @@ namespace Oxide.Ext.UiFramework.Controls
         public UiPanel ScrollBar;
         public List<UiButton> ScrollButtons;
 
-        public static UiScrollBar Create(BaseUiBuilder builder, UiReference parent, UiPosition position, UiOffset offset, int currentPage, int maxPage, UiColor barColor, UiColor backgroundColor, string command, ScrollbarDirection direction, string sprite)
+        public static UiScrollBar Create(BaseUiBuilder builder, in UiReference parent, in UiPosition position, in UiOffset offset, int currentPage, int maxPage, UiColor barColor, UiColor backgroundColor, string command, ScrollbarDirection direction, string sprite)
         {
             UiScrollBar control = CreateControl<UiScrollBar>();
             

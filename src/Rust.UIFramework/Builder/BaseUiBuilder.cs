@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Network;
 using Oxide.Ext.UiFramework.Cache;
+using Oxide.Ext.UiFramework.Callbacks;
 using Oxide.Ext.UiFramework.Controls;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Json;
@@ -10,9 +11,9 @@ namespace Oxide.Ext.UiFramework.Builder
 {
     public abstract partial class BaseUiBuilder : BaseBuilder
     {
-        protected readonly List<BaseUiComponent> Components = new List<BaseUiComponent>();
-        protected readonly List<BaseUiControl> Controls = new List<BaseUiControl>();
-        protected readonly List<BaseUiComponent> Anchors = new List<BaseUiComponent>();
+        protected readonly List<BaseUiComponent> Components = new();
+        protected readonly List<BaseUiControl> Controls = new();
+        protected readonly List<BaseUiComponent> Anchors = new();
         
         protected string Font;
         protected static string GlobalFont;
@@ -50,13 +51,7 @@ namespace Oxide.Ext.UiFramework.Builder
         
         protected override void AddUi(SendInfo send)
         {
-            JsonFrameworkWriter writer = CreateWriter();
-            AddUi(send, writer);
-            writer.Dispose();
-            if (!Disposed)
-            {
-                Dispose();
-            }
+            SendUiCallback.Start(this, send);
         }
         
         public JsonFrameworkWriter CreateWriter()
