@@ -14,7 +14,7 @@ namespace Oxide.Ext.UiFramework.Cache
         {
             if (!cache.TryGetValue(baseName, out List<string> names))
             {
-                names = new List<string>();
+                names = [];
                 cache[baseName] = names;
             }
 
@@ -27,12 +27,6 @@ namespace Oxide.Ext.UiFramework.Cache
             }
 
             return names[index];
-        }
-        
-        public static void OnUnload()
-        {
-            ComponentNameCache.Clear();
-            AnchorNameCache.Clear();
         }
     }
 }

@@ -94,15 +94,5 @@ namespace Oxide.Ext.UiFramework.Pooling
         {
             Pools[typeof(TType)] = pool;
         }
-        
-        public static void OnUnload()
-        {
-            foreach (IPool pool in Pools.Values)
-            {
-                pool.Clear();
-            }
-            
-            Pools.Clear();
-        }
     }
 }
