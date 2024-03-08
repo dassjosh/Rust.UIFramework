@@ -1,12 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.Linq;
 
 namespace Oxide.Ext.UiFramework.Cache
 {
     public static class EnumCache<T>
     {
-        private static readonly Dictionary<T, string> CachedStrings = new();
+        private static readonly ConcurrentDictionary<T, string> CachedStrings = new();
 
         static EnumCache()
         {

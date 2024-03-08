@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.Concurrent;
 using Oxide.Ext.UiFramework.Json;
 using UnityEngine;
 
@@ -11,7 +11,7 @@ namespace Oxide.Ext.UiFramework.Cache
         private const char Space = ' ';
         private const short PositionRounder = 10000;
         
-        private static readonly Dictionary<short, string> PositionCache = new();
+        private static readonly ConcurrentDictionary<short, string> PositionCache = new();
 
         public static void WritePosition(JsonBinaryWriter writer, Vector2 pos)
         {

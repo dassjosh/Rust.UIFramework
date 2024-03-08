@@ -11,13 +11,13 @@ namespace Oxide.Ext.UiFramework.Cache
         private const string RobotoCondensedRegular = "robotocondensed-regular.ttf";
         private const string PressStart2PRegular = "PressStart2P-Regular.ttf";
 
-        private static readonly Dictionary<UiFont, string> Fonts = new()
+        private static readonly IReadOnlyDictionary<UiFont, string> Fonts = new Dictionary<UiFont, string>
         {
             [UiFont.DroidSansMono] = DroidSansMono,
             [UiFont.PermanentMarker] = PermanentMarker,
             [UiFont.RobotoCondensedBold] = RobotoCondensedBold,
             [UiFont.RobotoCondensedRegular] = RobotoCondensedRegular,
-            [UiFont.PressStart2PRegular] = PressStart2PRegular,
+            [UiFont.PressStart2PRegular] = PressStart2PRegular
         };
 
         public static string GetUiFont(UiFont font)

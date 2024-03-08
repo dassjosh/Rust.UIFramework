@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections.Concurrent;
 using Oxide.Ext.UiFramework.Enums;
 
 namespace Oxide.Ext.UiFramework.Cache
@@ -13,7 +13,7 @@ namespace Oxide.Ext.UiFramework.Cache
         private const string Under = "Under";
         private const string UnderNonScaled = "UnderNonScaled";
 
-        private static readonly Dictionary<UiLayer, string> Layers = new()
+        private static readonly ConcurrentDictionary<UiLayer, string> Layers = new()
         {
             [UiLayer.Overall] = Overall,
             [UiLayer.Overlay] = Overlay,

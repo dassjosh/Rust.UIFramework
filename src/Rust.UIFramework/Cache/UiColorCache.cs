@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections.Concurrent;
 using System.Text;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Extensions;
@@ -13,7 +13,7 @@ namespace Oxide.Ext.UiFramework.Cache
         private const string Format = "0.####";
         private const char Space = ' ';
 
-        private static readonly Dictionary<int, string> ColorCache = new();
+        private static readonly ConcurrentDictionary<int, string> ColorCache = new();
         
         public static void WriteColor(JsonBinaryWriter writer, UiColor uiColor)
         {
@@ -42,11 +42,6 @@ namespace Oxide.Ext.UiFramework.Cache
             }
 
             return builder.ToStringAndFree();
-        }
-        
-        public static void OnUnload()
-        {
-            ColorCache.Clear();
         }
     }
 }

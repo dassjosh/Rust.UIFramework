@@ -1,13 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.Globalization;
 
 namespace Oxide.Ext.UiFramework.Cache
 {
     public static class StringCache<T> where T : IFormattable
     {
-        private static readonly Dictionary<T, string> Cache = new();
-        private static readonly Dictionary<string, Dictionary<T, string>>  FormatCache = new();
+        private static readonly ConcurrentDictionary<T, string> Cache = new();
+        private static readonly ConcurrentDictionary<string, ConcurrentDictionary<T, string>> FormatCache = new();
 
         public static string ToString(T value)
         {
@@ -22,9 +22,9 @@ namespace Oxide.Ext.UiFramework.Cache
         
         public static string ToString(T value, string format)
         {
-            if (!FormatCache.TryGetValue(format, out Dictionary<T, string> values))
+            if (!FormatCache.TryGetValue(format, out ConcurrentDictionary<T, string> values))
             {
-                values = new Dictionary<T, string>();
+                values = new ConcurrentDictionary<T, string>();
                 FormatCache[format] = values;
             }
 
