@@ -4,7 +4,7 @@ namespace Oxide.Ext.UiFramework.Offsets
 {
     public class GridOffsetBuilder
     {
-         private readonly int _numCols;
+        private readonly int _numCols;
         private readonly int _numRows;
         private readonly UiOffset _area;
         private readonly float _width;
