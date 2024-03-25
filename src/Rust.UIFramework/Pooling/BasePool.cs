@@ -7,6 +7,7 @@ namespace Oxide.Ext.UiFramework.Pooling
     public abstract class BasePool<T> : IPool<T> where T : class
     {
         private readonly T[] _pool;
+        private readonly object _lock = new();
         private int _index;
 
         /// <summary>
@@ -26,11 +27,15 @@ namespace Oxide.Ext.UiFramework.Pooling
         public T Get()
         {
             T item = null;
-            if (_index < _pool.Length)
+
+            lock (_lock)
             {
-                item = _pool[_index];
-                _pool[_index] = null;
-                _index++;
+                if (_index < _pool.Length)
+                {
+                    item = _pool[_index];
+                    _pool[_index] = null;
+                    _index++;
+                }
             }
 
             item ??= CreateNew();
@@ -66,11 +71,13 @@ namespace Oxide.Ext.UiFramework.Pooling
                 return;
             }
 
-
-            if (_index != 0)
+            lock (_lock)
             {
-                _index--;
-                _pool[_index] = item;
+                if (_index != 0)
+                {
+                    _index--;
+                    _pool[_index] = item;
+                }
             }
 
             item = null;
@@ -80,9 +87,7 @@ namespace Oxide.Ext.UiFramework.Pooling
         /// Called when an item is retrieved from the pool
         /// </summary>
         /// <param name="item">Item being retrieved</param>
-        protected virtual void OnGetItem(T item)
-        {
-        }
+        protected virtual void OnGetItem(T item) { }
 
         /// <summary>
         /// Returns if an item can be freed to the pool
@@ -93,10 +98,13 @@ namespace Oxide.Ext.UiFramework.Pooling
 
         public void Clear()
         {
-            for (int index = 0; index < _pool.Length; index++)
+            lock (_lock)
             {
-                _pool[index] = null;
-                _index = 0;
+                for (int index = 0; index < _pool.Length; index++)
+                {
+                    _pool[index] = null;
+                    _index = 0;
+                }
             }
         }
     }
