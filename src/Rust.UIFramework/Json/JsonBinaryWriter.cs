@@ -13,7 +13,6 @@ namespace Oxide.Ext.UiFramework.Json
 
         private List<SizedArray<byte>> _segments;
         private short _charIndex;
-        private int _size;
         private char[] _charBuffer;
 
         public void Write(char character)
@@ -53,7 +52,6 @@ namespace Oxide.Ext.UiFramework.Json
             
             int size = Encoding.UTF8.GetBytes(_charBuffer, 0, _charIndex, segment, 0);
             _segments.Add(new SizedArray<byte>(segment, size));
-            _size += size;
             _charIndex = 0;
         }
 
@@ -68,14 +66,27 @@ namespace Oxide.Ext.UiFramework.Json
                 writeIndex += segment.Size;
             }
 
-            return _size;
+            return writeIndex;
+        }
+
+        public uint GetSize()
+        {
+            uint size = 0;
+            int count = _segments.Count;
+            for (int i = 0; i < count; i++)
+            {
+                size += (uint)_segments[i].Size;
+            }
+
+            return size;
         }
 
         public void WriteToNetwork(NetWrite write)
         {
             Flush();
-            write.UInt32((uint)_size);
-            for (int i = 0; i < _segments.Count; i++)
+            write.UInt32(GetSize());
+            int count = _segments.Count;
+            for (int i = 0; i < count; i++)
             {
                 SizedArray<byte> segment = _segments[i];
                 write.Write(segment.Array, 0, segment.Size);
@@ -85,7 +96,7 @@ namespace Oxide.Ext.UiFramework.Json
         public byte[] ToArray()
         {
             Flush();
-            byte[] bytes = new byte[_size];
+            byte[] bytes = new byte[GetSize()];
             WriteToArray(bytes);
             return bytes;
         }
@@ -112,7 +123,6 @@ namespace Oxide.Ext.UiFramework.Json
             ArrayPool<char>.Shared.Return(_charBuffer);
             UiFrameworkPool.FreeList(_segments);
             _charBuffer = null;
-            _size = 0;
             _charIndex = 0;
         }
     }
