@@ -10,6 +10,12 @@ namespace Oxide.Ext.UiFramework.UiElements
     {
         public readonly RawImageComponent RawImage = new();
 
+        public static UiRawImage CreateDefault(in UiPosition pos, in UiOffset offset)
+        {
+            UiRawImage image = CreateBase<UiRawImage>(pos, offset);
+            return image;
+        } 
+        
         public static UiRawImage CreateUrl(in UiPosition pos, in UiOffset offset, UiColor color, string url)
         {
             UiRawImage image = CreateBase<UiRawImage>(pos, offset);

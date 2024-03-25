@@ -97,7 +97,7 @@ namespace Oxide.Ext.UiFramework.Builder
         {
             if (!url.StartsWith("http"))
             {
-                throw new UiFrameworkException($"WebImage Url '{url}' is not a valid url. If trying to use a png id please use {nameof(ImageFileStorage)} instead");
+                return UiRawImage.CreateDefault(pos, offset);
             }
 
             UiRawImage image = UiRawImage.CreateUrl(pos, offset, color, url);
@@ -124,7 +124,7 @@ namespace Oxide.Ext.UiFramework.Builder
         {
             if (!uint.TryParse(png, out uint _))
             {
-                throw new UiFrameworkException($"Image PNG '{png}' is not a valid uint. If trying to use a url please use WebImage instead");
+                return UiRawImage.CreateDefault(pos, offset);
             }
 
             UiRawImage image = UiRawImage.CreateFileImage(pos, offset, color, png);
