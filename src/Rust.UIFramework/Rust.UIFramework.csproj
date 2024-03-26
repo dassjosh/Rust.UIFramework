@@ -120,5 +120,10 @@
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
+      <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies.net48" Version="1.0.3">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+          <ExcludeAssets>build</ExcludeAssets>
+      </PackageReference>
     </ItemGroup>
 </Project>
