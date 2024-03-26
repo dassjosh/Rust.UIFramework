@@ -37,12 +37,12 @@
       <Reference Include="Assembly-CSharp-firstpass, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
         <HintPath>..\References\Assembly-CSharp-firstpass.dll</HintPath>
       </Reference>
-<!--      <Reference Include="Carbon.Common" Condition=" '$(Platform)' == 'Carbon'">-->
-<!--        <HintPath>..\References\Carbon.Common.dll</HintPath>-->
-<!--      </Reference>-->
-<!--      <Reference Include="Carbon.SDK" Condition=" '$(Platform)' == 'Carbon'">-->
-<!--        <HintPath>..\References\Carbon.SDK.dll</HintPath>-->
-<!--      </Reference>-->
+      <Reference Include="Carbon.Common" Condition=" '$(Platform)' == 'Carbon'">
+        <HintPath>..\References\Carbon.Common.dll</HintPath>
+      </Reference>
+      <Reference Include="Carbon.SDK" Condition=" '$(Platform)' == 'Carbon'">
+        <HintPath>..\References\Carbon.SDK.dll</HintPath>
+      </Reference>
       <Reference Include="Facepunch.Console">
         <HintPath>..\References\Facepunch.Console.dll</HintPath>
       </Reference>
@@ -58,25 +58,25 @@
       <Reference Include="mscorlib">
         <HintPath>..\References\mscorlib.dll</HintPath>
       </Reference>
-<!--      <Reference Include="Newtonsoft.Json" Condition=" '$(Platform)' == 'Carbon'">-->
-<!--        <HintPath>..\References\Newtonsoft.Json.dll</HintPath>-->
-<!--      </Reference>-->
-      <Reference Include="Oxide.Core">
+      <Reference Include="Newtonsoft.Json" Condition=" '$(Platform)' == 'Carbon'">
+        <HintPath>..\References\Newtonsoft.Json.dll</HintPath>
+      </Reference>
+      <Reference Include="Oxide.Core" Condition=" '$(Platform)' == 'Oxide'">
         <HintPath>..\References\Oxide.Core.dll</HintPath>
       </Reference>
-      <Reference Include="Oxide.CSharp">
+      <Reference Include="Oxide.CSharp" Condition=" '$(Platform)' == 'Oxide'">
         <HintPath>..\References\Oxide.CSharp.dll</HintPath>
       </Reference>
-      <Reference Include="Oxide.References">
+      <Reference Include="Oxide.References" Condition=" '$(Platform)' == 'Oxide'">
         <HintPath>..\References\Oxide.References.dll</HintPath>
       </Reference>
-      <Reference Include="Oxide.Rust">
+      <Reference Include="Oxide.Rust" Condition=" '$(Platform)' == 'Oxide'">
         <HintPath>..\References\Oxide.Rust.dll</HintPath>
       </Reference>
-      <Reference Include="Oxide.SQLite">
+      <Reference Include="Oxide.SQLite" Condition=" '$(Platform)' == 'Oxide'">
         <HintPath>..\References\Oxide.SQLite.dll</HintPath>
       </Reference>
-      <Reference Include="Oxide.Unity">
+      <Reference Include="Oxide.Unity" Condition=" '$(Platform)' == 'Oxide'">
         <HintPath>..\References\Oxide.Unity.dll</HintPath>
       </Reference>
       <Reference Include="Rust.Data, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">

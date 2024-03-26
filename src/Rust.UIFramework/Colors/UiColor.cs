@@ -124,7 +124,7 @@ namespace Oxide.Ext.UiFramework.Colors
             ReadOnlySpan<char> span = hexColor.AsSpan();
             if (span[0] == '#')
             {
-                span = span[1..];
+                span = span.Slice(1);
             }
             
             byte red = byte.Parse(span.Slice(0, 2), NumberStyles.HexNumber);
