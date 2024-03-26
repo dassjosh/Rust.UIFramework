@@ -55,11 +55,11 @@ jobs:
         mv -f Oxide/RustDedicated_Data/Managed/*.dll src/References/
 
     - name: Build DLLs - Oxide
-      run: dotnet build Rust.UIFramework.csproj -c Release /p:Platform=Oxide /p:Version=$VERSION -f net48 -v diag --no-restore
+      run: dotnet build Rust.UIFramework.csproj -c Release /p:Platform=Oxide /p:Version=$VERSION -f net48 -v diag
       working-directory: src/Rust.UIFramework
 
     - name: Build DLLs - Carbon
-      run: dotnet build Rust.UIFramework.csproj -c Release /p:Platform=Carbon /p:Version=$VERSION -f net48 -v diag --no-restore
+      run: dotnet build Rust.UIFramework.csproj -c Release /p:Platform=Carbon /p:Version=$VERSION -f net48 -v diag
       working-directory: src/Rust.UIFramework
 
     - name: Move DLLs
