@@ -23,7 +23,7 @@ jobs:
       run: dotnet --version
 
     - name: Set VERSION variable from tag
-      run: echo "VERSION=${GITHUB_REF/refs\/tags\/v/}" >> $GITHUB_ENV
+      run: echo "VERSION=${GITHUB_REF/refs\/tags\/v/}" >> $env:GITHUB_ENV
 
     - name: Download References
       shell: pwsh
@@ -47,7 +47,8 @@ jobs:
 
     - name: Upload Release Assets
       run: |
-        TAG=$(echo "${GITHUB_REF}" | sed 's/refs\/tags\///')
-        gh release upload $TAG src/bin/*.dll
+        $TAG=($env:GITHUB_REF -replace 'refs/tags/', '')
+        $dllPath = Get-ChildItem -Path src/bin -Filter *.dll -File | Select-Object -ExpandProperty FullName
+        gh release upload $TAG $dllPath
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
