@@ -31,10 +31,10 @@
     </PropertyGroup>
     
     <ItemGroup>
-      <Reference Include="Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <Reference Include="Assembly-CSharp">
         <HintPath>..\References\Assembly-CSharp.dll</HintPath>
       </Reference>
-      <Reference Include="Assembly-CSharp-firstpass, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <Reference Include="Assembly-CSharp-firstpass">
         <HintPath>..\References\Assembly-CSharp-firstpass.dll</HintPath>
       </Reference>
       <Reference Include="Carbon.Common" Condition=" '$(Platform)' == 'Carbon'">
@@ -46,13 +46,13 @@
       <Reference Include="Facepunch.Console">
         <HintPath>..\References\Facepunch.Console.dll</HintPath>
       </Reference>
-      <Reference Include="Facepunch.Network, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <Reference Include="Facepunch.Network">
         <HintPath>..\References\Facepunch.Network.dll</HintPath>
       </Reference>
-      <Reference Include="Facepunch.System, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <Reference Include="Facepunch.System">
         <HintPath>..\References\Facepunch.System.dll</HintPath>
       </Reference>
-      <Reference Include="Facepunch.UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <Reference Include="Facepunch.UnityEngine">
         <HintPath>..\References\Facepunch.UnityEngine.dll</HintPath>
       </Reference>
       <Reference Include="mscorlib">
@@ -79,22 +79,22 @@
       <Reference Include="Oxide.Unity" Condition=" '$(Platform)' == 'Oxide'">
         <HintPath>..\References\Oxide.Unity.dll</HintPath>
       </Reference>
-      <Reference Include="Rust.Data, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <Reference Include="Rust.Data">
         <HintPath>..\References\Rust.Data.dll</HintPath>
       </Reference>
-      <Reference Include="Rust.Global, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <Reference Include="Rust.Global">
         <HintPath>..\References\Rust.Global.dll</HintPath>
       </Reference>
-      <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <Reference Include="UnityEngine">
         <HintPath>..\References\UnityEngine.dll</HintPath>
       </Reference>
-      <Reference Include="UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <Reference Include="UnityEngine.CoreModule">
         <HintPath>..\References\UnityEngine.CoreModule.dll</HintPath>
       </Reference>
-      <Reference Include="UnityEngine.TextRenderingModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <Reference Include="UnityEngine.TextRenderingModule">
         <HintPath>..\References\UnityEngine.TextRenderingModule.dll</HintPath>
       </Reference>
-      <Reference Include="UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <Reference Include="UnityEngine.UI">
         <HintPath>..\References\UnityEngine.UI.dll</HintPath>
       </Reference>
     </ItemGroup>
@@ -120,6 +120,5 @@
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
-      <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="5.0.0" />
     </ItemGroup>
 </Project>
