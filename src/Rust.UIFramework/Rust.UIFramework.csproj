@@ -10,6 +10,7 @@
         <AssemblyVersion>$(VERSION)</AssemblyVersion>
         <FileVersion>$(VERSION)</FileVersion>
         <TargetFrameworks>net48;netstandard2.1;netcoreapp3.0</TargetFrameworks>
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|Carbon' ">
