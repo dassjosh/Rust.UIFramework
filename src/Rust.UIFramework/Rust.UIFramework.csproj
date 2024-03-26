@@ -100,6 +100,9 @@
     </ItemGroup>
     
     <ItemGroup>
+      <Content Include="..\..\.github\workflows\ci.yml">
+        <Link>ci.yml</Link>
+      </Content>
       <Content Include="..\..\.github\workflows\develop.yml">
         <Link>develop.yml</Link>
       </Content>
@@ -119,11 +122,6 @@
       <PackageReference Include="ErrorProne.NET.Structs" Version="0.1.2">
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      </PackageReference>
-      <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies.net48" Version="1.0.3">
-        <PrivateAssets>all</PrivateAssets>
-        <IncludeAssets>runtime; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-          <ExcludeAssets>build</ExcludeAssets>
       </PackageReference>
     </ItemGroup>
 </Project>

@@ -1,0 +1,52 @@
+name: Create Release
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+
+    runs-on: windows-2019
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+
+    - name: Display .NET version
+      run: dotnet --version
+
+    - name: Set VERSION variable from tag
+      run: echo "VERSION=${GITHUB_REF/refs\/tags\/v/}" >> $GITHUB_ENV
+
+    - name: Download References
+      shell: pwsh
+      run: |
+        .\Download-References.ps1
+
+    - name: Build DLLs - Oxide
+      run: dotnet build Rust.UIFramework.csproj -c Release /p:Platform=Oxide /p:Version=$VERSION -f net48 -v diag
+      working-directory: src/Rust.UIFramework
+
+    - name: Build DLLs - Carbon
+      run: dotnet build Rust.UIFramework.csproj -c Release /p:Platform=Carbon /p:Version=$VERSION -f net48 -v diag
+      working-directory: src/Rust.UIFramework
+
+    - name: Move DLLs
+      run: |
+        mkdir -p bin
+        mv Rust.UIFramework/bin/Oxide/Release/net48/Oxide.Ext.UiFramework.dll bin/
+        mv Rust.UIFramework/bin/Carbon/Release/net48/Carbon.Ext.UiFramework.dll bin/
+      working-directory: src
+
+    - name: Upload Release Assets
+      run: |
+        TAG=$(echo "${GITHUB_REF}" | sed 's/refs\/tags\///')
+        gh release upload $TAG src/bin/*.dll
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
