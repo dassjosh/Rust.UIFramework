@@ -9,32 +9,30 @@ on:
 jobs:
   build:
 
-    runs-on: windows-2019
+    runs-on: windows-latest
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: '8.0.x'
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
 
-    - name: Display .NET version
-      run: dotnet --version
+      - name: Display .NET version
+        run: dotnet --version
 
-    - name: Set VERSION variable from tag
-      run: echo "VERSION=0.0.0" >> $GITHUB_ENV
+      - name: Set VERSION variable from tag
+        run: echo "VERSION=0.0.0" >> $GITHUB_ENV
 
-    - name: Download References
-      shell: pwsh
-      run: |
-        .\Download-References.ps1
+      - name: Download References
+        shell: pwsh
+        run: |
+          .\Download-References.ps1
 
-    - name: Build DLLs - Oxide
-      run: dotnet build Rust.UIFramework.csproj -c Release /p:Platform=Oxide /p:Version=$VERSION -f net48
-      working-directory: src/Rust.UIFramework
+      - name: Build DLLs - Oxide
+        run: dotnet build Rust.UIFramework.csproj -c Release /p:Platform=Oxide /p:Version=$VERSION -f net48
+        working-directory: src/Rust.UIFramework
 
-    - name: Build DLLs - Carbon
-      run: dotnet build Rust.UIFramework.csproj -c Release /p:Platform=Carbon /p:Version=$VERSION -f net48
-      working-directory: src/Rust.UIFramework
+      - name: Build DLLs - Carbon
+        run: dotnet build Rust.UIFramework.csproj -c Release /p:Platform=Carbon /p:Version=$VERSION -f net48
+        working-directory: src/Rust.UIFramework
