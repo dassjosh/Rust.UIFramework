@@ -38,17 +38,3 @@ jobs:
     - name: Build DLLs - Carbon
       run: dotnet build Rust.UIFramework.csproj -c Release /p:Platform=Carbon /p:Version=$VERSION -f net48
       working-directory: src/Rust.UIFramework
-
-    - name: Move DLLs
-      run: |
-        mkdir -p bin
-        mv Rust.UIFramework/bin/Oxide/Release/net48/Oxide.Ext.UiFramework.dll bin/
-        mv Rust.UIFramework/bin/Carbon/Release/net48/Carbon.Ext.UiFramework.dll bin/
-      working-directory: src
-
-    - name: Upload Release Assets
-      run: |
-        TAG=$(echo "${GITHUB_REF}" | sed 's/refs\/tags\///')
-        gh release upload $TAG src/bin/*.dll
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

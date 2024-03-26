@@ -8,57 +8,31 @@ on:
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: windows-2019
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4.1.0
+        uses: actions/checkout@v4
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v3.2.0
+        uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 6.0.x
+          dotnet-version: '8.0.x'
 
       - name: Set VERSION variable from tag
         run: echo "VERSION=${GITHUB_REF/refs\/tags\/v/}" >> $GITHUB_ENV
 
       - name: Download References
+        shell: pwsh
         run: |
-          echo "[Download References] Downloading DepotDownloader"
-          mkdir -p DepotDownloader
-          cd DepotDownloader
-          wget -q https://github.com/SteamRE/DepotDownloader/releases/latest/download/DepotDownloader-linux-x64.zip
-          unzip -qq -o DepotDownloader-linux-x64.zip
-          chmod +x DepotDownloader
-          echo 'regex:RustDedicated_Data/Managed/.*\.dll' > filelist.txt
-          echo "[Download References] Downloading Rust dlls"
-          ./DepotDownloader -app 258550 -depot 258552 -filelist filelist.txt -dir $(pwd)
-          cd ..
-          mkdir -p src/References
-          echo "[Download References] Moving Rust dlls"
-          mv -f DepotDownloader/RustDedicated_Data/Managed/*.dll src/References/
-          mkdir -p Carbon
-          cd Carbon
-          echo "[Download References] Downloading Carbon"
-          wget -qO- https://github.com/CarbonCommunity/Carbon/releases/download/production_build/Carbon.Linux.Release.tar.gz | tar zxvf -
-          cd ..
-          echo "[Download References] Moving Carbon dlls"
-          mv -f Carbon/carbon/managed/*.dll src/References/
-          mkdir -p Oxide
-          cd Oxide
-          echo "[Download References] Downloading Oxide"
-          wget -q https://github.com/OxideMod/Oxide.Rust/releases/latest/download/Oxide.Rust-Linux.zip
-          unzip -qq -o Oxide.Rust-Linux.zip
-          cd ..
-          echo "[Download References] Moving Oxide dlls"
-          mv -f Oxide/RustDedicated_Data/Managed/*.dll src/References/
+          .\Download-References.ps1
 
       - name: Build DLLs - Oxide
-        run: dotnet build Rust.UIFramework.csproj -c Release /p:Platform=Oxide /p:Version=$VERSION
+        run: dotnet build Rust.UIFramework.csproj -c Release /p:Platform=Oxide /p:Version=$VERSION -f net48
         working-directory: src/Rust.UIFramework
 
       - name: Build DLLs - Carbon
-        run: dotnet build Rust.UIFramework.csproj -c Release /p:Platform=Carbon /p:Version=$VERSION
+        run: dotnet build Rust.UIFramework.csproj -c Release /p:Platform=Carbon /p:Version=$VERSION -f net48
         working-directory: src/Rust.UIFramework
 
       - name: Move DLLs
