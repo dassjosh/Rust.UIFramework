@@ -30,11 +30,11 @@ jobs:
         .\Download-References.ps1
 
     - name: Build DLLs - Oxide
-      run: dotnet build Rust.UIFramework.csproj -c Release /p:Platform=Oxide /p:Version=$VERSION -f net48 -v diag
+      run: dotnet build Rust.UIFramework.csproj -c Release /p:Platform=Oxide /p:Version=$VERSION -f net48
       working-directory: src/Rust.UIFramework
 
     - name: Build DLLs - Carbon
-      run: dotnet build Rust.UIFramework.csproj -c Release /p:Platform=Carbon /p:Version=$VERSION -f net48 -v diag
+      run: dotnet build Rust.UIFramework.csproj -c Release /p:Platform=Carbon /p:Version=$VERSION -f net48
       working-directory: src/Rust.UIFramework
 
     - name: Move DLLs
