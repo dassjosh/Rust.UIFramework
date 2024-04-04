@@ -69,7 +69,6 @@ namespace Oxide.Ext.UiFramework.Builder
             write.PacketID(Message.Type.RPCMessage);
             write.EntityID(CommunityEntity.ServerInstance.net.ID);
             write.UInt32(StringPool.Get(funcName));
-            write.UInt64(0UL);
             return write;
         }
         #endregion
@@ -111,7 +110,11 @@ namespace Oxide.Ext.UiFramework.Builder
 
         public static void DestroyUi(SendInfo send, string name)
         {
-            CommunityEntity.ServerInstance.ClientRPCEx(send, null, UiConstants.RpcFunctions.DestroyUiFunc, name);
+            CommunityEntity.ServerInstance.ClientRPC(new RpcTarget
+            {
+                Function = UiConstants.RpcFunctions.DestroyUiFunc,
+                Connections = send
+            }, name);
         }
         #endregion
 
