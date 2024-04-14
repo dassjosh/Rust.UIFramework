@@ -41,8 +41,7 @@ namespace Oxide.Ext.UiFramework.Builder
             AddUi(new SendInfo(Net.sv.connections));
         }
 
-        protected abstract void AddUi(SendInfo send);
-        protected abstract void AddUi(SendInfo send, bool freeConnections);
+        protected abstract void AddUi(SendInfo send, bool freeConnections = false);
 
         internal void AddUi(SendInfo send, JsonFrameworkWriter writer)
         {

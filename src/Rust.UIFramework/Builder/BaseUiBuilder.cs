@@ -49,12 +49,7 @@ namespace Oxide.Ext.UiFramework.Builder
             return bytes;
         }
 
-        protected override void AddUi(SendInfo send)
-        {
-            AddUi(send, false);
-        }
-        
-        protected override void AddUi(SendInfo send, bool freeConnections)
+        protected override void AddUi(SendInfo send, bool freeConnections = false)
         {
             SendUiCallback.Start(this, send, freeConnections);
         }
