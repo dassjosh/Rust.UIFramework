@@ -25,10 +25,15 @@ namespace Oxide.Ext.UiFramework.Builder
             AddUi(new SendInfo(connection));
         }
 
-        public void AddUi(List<Connection> connections)
+        /// <summary>
+        /// Sends ui to players asynchronously and returns the builder to the pool.
+        /// </summary>
+        /// <param name="connections">All connections to send the ui to.</param>
+        /// <param name="freeConnections">Whether or not to return the connections list to the pool.</param>
+        public void AddUi(List<Connection> connections, bool freeConnections = false)
         {
             if (connections == null) throw new ArgumentNullException(nameof(connections));
-            AddUi(new SendInfo(connections));
+            AddUi(new SendInfo(connections), freeConnections);
         }
 
         public void AddUi()
@@ -37,6 +42,7 @@ namespace Oxide.Ext.UiFramework.Builder
         }
 
         protected abstract void AddUi(SendInfo send);
+        protected abstract void AddUi(SendInfo send, bool freeConnections);
 
         internal void AddUi(SendInfo send, JsonFrameworkWriter writer)
         {

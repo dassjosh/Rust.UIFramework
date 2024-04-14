@@ -48,10 +48,15 @@ namespace Oxide.Ext.UiFramework.Builder
             writer.Dispose();
             return bytes;
         }
-        
+
         protected override void AddUi(SendInfo send)
         {
-            SendUiCallback.Start(this, send);
+            AddUi(send, false);
+        }
+        
+        protected override void AddUi(SendInfo send, bool freeConnections)
+        {
+            SendUiCallback.Start(this, send, freeConnections);
         }
         
         public JsonFrameworkWriter CreateWriter()
