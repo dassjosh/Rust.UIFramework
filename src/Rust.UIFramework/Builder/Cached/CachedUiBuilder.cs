@@ -17,6 +17,6 @@ namespace Oxide.Ext.UiFramework.Builder.Cached
 
         public override byte[] GetBytes() => _cachedJson;
         
-        protected override void AddUi(SendInfo send) => AddUi(send, GetBytes());
+        protected override void AddUi(SendInfo send, bool freeConnections = false) => AddUi(send, GetBytes());
     }
 }
