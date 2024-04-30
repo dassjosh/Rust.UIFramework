@@ -11,6 +11,8 @@
             Name = name;
         }
 
+        public UiReference WithChild(string name) => new(Name, name);
+
         public bool IsValidParent() => !string.IsNullOrEmpty(Parent);
         public bool IsValidReference() => IsValidParent() && !string.IsNullOrEmpty(Name);
     }

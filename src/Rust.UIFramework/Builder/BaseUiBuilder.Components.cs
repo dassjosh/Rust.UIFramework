@@ -1,7 +1,6 @@
 ﻿using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Controls;
 using Oxide.Ext.UiFramework.Enums;
-using Oxide.Ext.UiFramework.Exceptions;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.UiElements;
@@ -197,6 +196,17 @@ namespace Oxide.Ext.UiFramework.Builder
             UiSection section = UiSection.Create(pos, offset);
             AddAnchor(section, parent);
             return section;
+        }
+        #endregion
+
+        #region ScrollView
+
+        public UiScrollView ScrollView(in UiReference parent, in UiPosition pos, in UiOffset offset, bool horizontal = false, bool vertical = false, ScrollRect.MovementType movementType = ScrollRect.MovementType.Clamped, float elasticity = 0.1f,
+            bool inertia = false, float decelerationRate = 0.135f, float scrollSensitivity = 1f)
+        {
+            UiScrollView scroll = UiScrollView.Create(pos, offset, horizontal, vertical, movementType, elasticity, inertia, decelerationRate, scrollSensitivity);
+            AddComponent(scroll, parent);
+            return scroll;
         }
         #endregion
     }

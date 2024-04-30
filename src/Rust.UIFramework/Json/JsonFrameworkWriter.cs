@@ -1,6 +1,7 @@
 ﻿using Network;
 using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Colors;
+using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Pooling;
 using UnityEngine;
 using UnityEngine.UI;
@@ -147,6 +148,15 @@ namespace Oxide.Ext.UiFramework.Json
                 WriteValue(EnumCache<VerticalWrapMode>.ToString(value));
             }
         }
+        
+        public void AddField(string name, ScrollRect.MovementType value)
+        {
+            if (value != ScrollRect.MovementType.Clamped)
+            {
+                WritePropertyName(name);
+                WriteValue(EnumCache<ScrollRect.MovementType>.ToString(value));
+            }
+        }
 
         public void AddField(string name, int value, int defaultValue)
         {
@@ -191,6 +201,35 @@ namespace Oxide.Ext.UiFramework.Json
                 WritePropertyName(name);
                 WriteValue(color);
             }
+        }
+        
+        public void AddField(string name, UiColor color, UiColor defaultColor)
+        {
+            if (color != defaultColor)
+            {
+                WritePropertyName(name);
+                WriteValue(color);
+            }
+        }
+        
+        public void AddComponent(string name, IComponent component)
+        {
+            WritePropertyName(name);
+            bool objectComma = _objectComma;
+            bool propertyComma = _propertyComma;
+            _objectComma = false;
+            _propertyComma = false;
+            if (component != null)
+            {
+                component.WriteComponent(this);
+            }
+            else
+            {
+                WriteStartObject();
+                WriteEndObject();
+            }
+            _objectComma = objectComma;
+            _propertyComma = propertyComma;
         }
         
         public void AddKeyField(string name)

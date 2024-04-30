@@ -69,10 +69,7 @@ namespace Oxide.Ext.UiFramework.Colors
 
         private static float ToFloat(byte value) => value / 255f;
         
-        public bool Equals(UiColor other)
-        {
-            return this == other;
-        }
+        public bool Equals(UiColor other) => this == other;
 
         public override bool Equals(object obj)
         {

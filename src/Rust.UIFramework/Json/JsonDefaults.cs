@@ -116,5 +116,45 @@ namespace Oxide.Ext.UiFramework.Json
             public const int StepValue = 1;
             public const string CountdownCommandName = "command";
         }
+
+        public static class ScrollView
+        {
+            public const string Horizontal = "horizontal";
+            public const string Vertical = "vertical";
+            public const string MovementType = "movementType";
+            public const string ElasticityName = "elasticity";
+            public const string Inertia = "inertia";
+            public const string DecelerationRateName = "decelerationRate";
+            public const string ScrollSensitivityName = "scrollSensitivity";
+            public const string HorizontalScrollbar = "horizontalScrollbar";
+            public const string VerticalScrollbar = "verticalScrollbar";
+            public const string ContentTransform = "contentTransform";
+            
+            public static readonly float Elasticity = 0.1f;
+            public static readonly float DecelerationRate = 0.135f;
+            public static readonly float ScrollSensitivity = 1f;
+            
+            public static readonly Vector2 Min = new(0, 0);
+            public static readonly Vector2 AnchorMax = new(1, 1);
+            public static readonly Vector2 OffsetMax = new(0, 0);
+        }
+
+        public static class ScrollBar
+        {
+            public const string Invert = "invert";
+            public const string AutoHide = "autoHide";
+            public const string HandleSprite = "handleSprite";
+            public const string TrackSprite = "trackSprite";
+            public const string SizeName = "size";
+            public const float Size = 20f;
+            public const string HandleColorName = "handleColor";
+            public const string HighlightColorName = "highlightColor";
+            public const string PressedColorName = "pressedColor";
+            public const string TrackColorName = "trackColor";
+            public static readonly UiColor HandleColor = UiColor.ParseHexColor("#262626");
+            public static readonly UiColor HighlightColor = UiColor.ParseHexColor("#2B2B2B");
+            public static readonly UiColor PressedColor = UiColor.ParseHexColor("#333333");
+            public static readonly UiColor TrackColor = UiColor.ParseHexColor("#171717");
+        }
     }
 }
