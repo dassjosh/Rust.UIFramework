@@ -52,6 +52,15 @@
       <Reference Include="Oxide.Rust">
         <HintPath>..\References\Oxide.Rust.dll</HintPath>
       </Reference>
+      <Reference Include="UnityEngine.UI">
+        <HintPath>..\references\UnityEngine.UI.dll</HintPath>
+      </Reference>
+      <Reference Include="UnityEngine.UIElementsModule">
+        <HintPath>..\references\UnityEngine.UIElementsModule.dll</HintPath>
+      </Reference>
+      <Reference Include="UnityEngine.UIModule">
+        <HintPath>..\references\UnityEngine.UIModule.dll</HintPath>
+      </Reference>
     </ItemGroup>
 
     <ItemGroup>
