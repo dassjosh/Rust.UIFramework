@@ -1,4 +1,5 @@
-﻿using Oxide.Ext.UiFramework.Colors;
+﻿using Oxide.Core;
+using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Controls;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Offsets;
@@ -96,6 +97,7 @@ namespace Oxide.Ext.UiFramework.Builder
         {
             if (!url.StartsWith("http"))
             {
+                Interface.Oxide.LogWarning($"WebImage Url '{url}' is not a valid url. If trying to use a png id please use {nameof(ImageFileStorage)} instead.");
                 return UiRawImage.CreateDefault(pos, offset);
             }
 
@@ -123,6 +125,7 @@ namespace Oxide.Ext.UiFramework.Builder
         {
             if (!uint.TryParse(png, out uint _))
             {
+                Interface.Oxide.LogWarning($"Image PNG '{png}' is not a valid uint. If trying to use a url please use WebImage instead.");
                 return UiRawImage.CreateDefault(pos, offset);
             }
 
