@@ -92,9 +92,11 @@ namespace Oxide.Ext.UiFramework.Builder.UI
 
         protected override void WriteComponentsInternal(JsonFrameworkWriter writer)
         {
-            Components[0].WriteRootComponent(writer, _needsMouse, _needsKeyboard, _autoDestroy);
-
             int count = Components.Count;
+
+            if (count > 0)
+                Components[0].WriteRootComponent(writer, _needsMouse, _needsKeyboard, _autoDestroy);
+
             for (int index = 1; index < count; index++)
             {
                 Components[index].WriteComponent(writer);
