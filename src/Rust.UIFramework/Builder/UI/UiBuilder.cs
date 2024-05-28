@@ -63,10 +63,10 @@ namespace Oxide.Ext.UiFramework.Builder.UI
             return bytes;
         }
 
-        public CachedUiBuilder ToCachedBuilder()
+        public CachedUiBuilder ToCachedBuilder(bool dispose = true)
         {
             CachedUiBuilder cached = CachedUiBuilder.CreateCachedBuilder(this);
-            if (!Disposed)
+            if (dispose && !Disposed)
             {
                 Dispose();
             }
