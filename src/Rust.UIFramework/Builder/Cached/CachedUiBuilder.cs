@@ -1,5 +1,6 @@
 ﻿using Network;
 using Oxide.Ext.UiFramework.Builder.UI;
+using Oxide.Ext.UiFramework.Pooling;
 
 namespace Oxide.Ext.UiFramework.Builder.Cached;
 
@@ -17,5 +18,12 @@ public class CachedUiBuilder : BaseBuilder
 
     public override byte[] GetBytes() => _cachedJson;
         
-    protected override void AddUi(SendInfo send) => AddUi(send, GetBytes());
+    protected override void AddUi(SendInfo send)
+    {
+        AddUi(send, GetBytes());
+        if (send.connections != null)
+        {
+            ListPool<Connection>.Instance.Free(send.connections);
+        }
+    }
 }

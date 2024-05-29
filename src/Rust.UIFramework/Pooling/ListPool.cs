@@ -3,7 +3,7 @@ using System.Collections.Generic;
 namespace Oxide.Ext.UiFramework.Pooling;
 
 /// <summary>
-/// Represents a pool for list&lt;T&gt;
+/// Represents a pool for <see cref="List{T}"/>
 /// </summary>
 /// <typeparam name="T">Type that will be in the list</typeparam>
 public class ListPool<T> : BasePool<List<T>>

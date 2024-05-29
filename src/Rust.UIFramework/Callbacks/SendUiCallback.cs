@@ -29,6 +29,10 @@ public class SendUiCallback : BaseAsyncCallback
         JsonFrameworkWriter writer = _builder.CreateWriter();
         _builder.AddUi(_send, writer);
         writer.Dispose();
+        if (_send.connections != null)
+        {
+            ListPool<Connection>.Instance.Free(_send.connections);
+        }
         return new ValueTask();
     }
 

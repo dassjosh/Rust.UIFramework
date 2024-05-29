@@ -16,7 +16,7 @@ public abstract class BaseBuilder : BasePoolable
     public void AddUi(BasePlayer player)
     {
         if (!player) throw new ArgumentNullException(nameof(player));
-        AddUi(new SendInfo(player.Connection));
+        AddUi(player.Connection);
     }
 
     public void AddUi(Connection connection)
@@ -25,15 +25,17 @@ public abstract class BaseBuilder : BasePoolable
         AddUi(new SendInfo(connection));
     }
 
-    public void AddUi(List<Connection> connections)
+    public void AddUi(IEnumerable<Connection> connections)
     {
         if (connections == null) throw new ArgumentNullException(nameof(connections));
-        AddUi(new SendInfo(connections));
+        List<Connection> pooledConnection = ListPool<Connection>.Instance.Get();
+        pooledConnection.AddRange(connections);
+        AddUi(new SendInfo(pooledConnection));
     }
 
     public void AddUi()
     {
-        AddUi(new SendInfo(Net.sv.connections));
+        AddUi(Net.sv.connections);
     }
 
     protected abstract void AddUi(SendInfo send);
