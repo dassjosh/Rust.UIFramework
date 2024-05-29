@@ -32,19 +32,6 @@ namespace Oxide.Ext.UiFramework.Builder.UI
         {
             return UiFrameworkPool.Get<UiBuilder>();
         }
-        
-        /// <summary>
-        /// Creates a UiBuilder that is designed to be a popup modal
-        /// </summary>
-        /// <param name="modalSize">Dimensions of the modal</param>
-        /// <param name="modalColor">Modal form color</param>
-        /// <param name="name">Name of the UI</param>
-        /// <param name="layer">Layer the UI is on</param>
-        /// <returns></returns>
-        public static UiBuilder CreateModal(in UiOffset modalSize, UiColor modalColor, string name, UiLayer layer = UiLayer.Overlay)
-        {
-            return CreateModal(modalSize, modalColor, new UiColor(0, 0, 0, 0.5f), name, layer, UiConstants.Materials.InGameBlur);
-        }
 
         /// <summary>
         /// Creates a UiBuilder that is designed to be a popup modal
@@ -53,19 +40,48 @@ namespace Oxide.Ext.UiFramework.Builder.UI
         /// <param name="modalColor">Modal form color</param>
         /// <param name="name">Name of the UI</param>
         /// <param name="layer">Layer the UI is on</param>
-        /// <param name="modalBackgroundColor">Color of the fullscreen background</param>
-        /// <param name="backgroundMaterial">Material of the full screen background</param>
+        /// <param name="outsideCloseCommand">Command to run when the user clicks outside the modal</param>
         /// <returns></returns>
-        public static UiBuilder CreateModal(in UiOffset modalSize, UiColor modalColor, UiColor modalBackgroundColor, string name, UiLayer layer = UiLayer.Overlay, string backgroundMaterial = null)
+        public static UiBuilder CreateModal(in UiOffset modalSize, UiColor modalColor, string name, UiLayer layer = UiLayer.Overlay, string outsideCloseCommand = null)
+        {
+            return CreateModal(modalSize, modalColor, new UiColor(0, 0, 0, 0.5f), name, layer, UiConstants.Materials.InGameBlur, outsideCloseCommand);
+        }
+
+        /// <summary>
+        /// Creates a UiBuilder that is designed to be a popup modal
+        /// </summary>
+        /// <param name="modalSize">Dimensions of the modal</param>
+        /// <param name="modalColor">Modal form color</param>
+        /// <param name="modalBackgroundColor">Color of the fullscreen background</param>
+        /// <param name="name">Name of the UI</param>
+        /// <param name="layer">Layer the UI is on</param>
+        /// <param name="backgroundMaterial">Material of the full screen background</param>
+        /// <param name="outsideCloseCommand">Command to run when the user clicks outside the modal</param>
+        /// <returns></returns>
+        public static UiBuilder CreateModal(in UiOffset modalSize, UiColor modalColor, UiColor modalBackgroundColor, string name, UiLayer layer = UiLayer.Overlay, string backgroundMaterial = null, string outsideCloseCommand = null)
         {
             UiPanel backgroundBlur = UiPanel.Create(UiPosition.Full, default, modalBackgroundColor);
             backgroundBlur.SetMaterial(backgroundMaterial);
             
             UiBuilder builder = Create(backgroundBlur, name, layer);
+            if (!string.IsNullOrEmpty(outsideCloseCommand))
+            {
+                builder.CommandButton(builder.Root, UiPosition.Full, UiColor.Clear, outsideCloseCommand);
+            }
             
             UiPanel modal = UiPanel.Create(UiPosition.MiddleMiddle, modalSize, modalColor);
             builder.AddComponent(modal, backgroundBlur);
             builder.OverrideRoot(modal);
+            return builder;
+        }
+        
+        public static UiBuilder CreateRootWithOutsideClose(in UiPosition pos, in UiOffset offset, UiColor color, string name, string closeCommand, UiLayer parent = UiLayer.Overlay)
+        {
+            UiSection mainRoot = UiSection.Create(UiPosition.Full, default);
+            UiBuilder builder = Create(mainRoot, name, UiLayerCache.GetLayer(parent));
+            builder.CommandButton(builder.Root, UiPosition.Full, default, UiColor.Clear, closeCommand);
+            UiPanel panel =builder.Panel(builder.Root, pos, offset, color);
+            builder.OverrideRoot(panel);
             return builder;
         }
         
