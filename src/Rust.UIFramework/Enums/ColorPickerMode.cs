@@ -1,8 +1,7 @@
-﻿namespace Oxide.Ext.UiFramework.Enums
+﻿namespace Oxide.Ext.UiFramework.Enums;
+
+public enum ColorPickerMode
 {
-    public enum ColorPickerMode
-    {
-        RGB,
-        RGBA
-    }
+    RGB,
+    RGBA
 }

@@ -1,28 +1,27 @@
 using System.Text;
 
-namespace Oxide.Ext.UiFramework.Pooling
+namespace Oxide.Ext.UiFramework.Pooling;
+
+/// <summary>
+/// Pool for StringBuilders
+/// </summary>
+public class StringBuilderPool : BasePool<StringBuilder>
 {
-    /// <summary>
-    /// Pool for StringBuilders
-    /// </summary>
-    public class StringBuilderPool : BasePool<StringBuilder>
-    {
-        public static readonly IPool<StringBuilder> Instance;
+    public static readonly IPool<StringBuilder> Instance;
         
-        static StringBuilderPool()
-        {
-            Instance = new StringBuilderPool();
-        }
+    static StringBuilderPool()
+    {
+        Instance = new StringBuilderPool();
+    }
 
-        private StringBuilderPool() : base(64) { }
+    private StringBuilderPool() : base(64) { }
 
-        protected override StringBuilder CreateNew() => new();
+    protected override StringBuilder CreateNew() => new();
 
-        ///<inheritdoc/>
-        protected override bool OnFreeItem(ref StringBuilder item)
-        {
-            item.Length = 0;
-            return true;
-        }
+    ///<inheritdoc/>
+    protected override bool OnFreeItem(ref StringBuilder item)
+    {
+        item.Length = 0;
+        return true;
     }
 }

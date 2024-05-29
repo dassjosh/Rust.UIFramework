@@ -1,10 +1,9 @@
-﻿namespace Oxide.Ext.UiFramework.Enums
+﻿namespace Oxide.Ext.UiFramework.Enums;
+
+public enum PopoverPosition
 {
-    public enum PopoverPosition
-    {
-        Top,
-        Left,
-        Right,
-        Bottom
-    }
+    Top,
+    Left,
+    Right,
+    Bottom
 }

@@ -3,40 +3,39 @@ using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Pooling;
 using UnityEngine;
 
-namespace Oxide.Ext.UiFramework.Components
+namespace Oxide.Ext.UiFramework.Components;
+
+public class OutlineComponent : BasePoolable, IComponent
 {
-    public class OutlineComponent : BasePoolable, IComponent
+    private const string Type = "UnityEngine.UI.Outline";
+
+    public UiColor Color;
+    public Vector2 Distance = JsonDefaults.Outline.Distance;
+    public bool UseGraphicAlpha;
+
+    public virtual void WriteComponent(JsonFrameworkWriter writer)
     {
-        private const string Type = "UnityEngine.UI.Outline";
-
-        public UiColor Color;
-        public Vector2 Distance = JsonDefaults.Outline.Distance;
-        public bool UseGraphicAlpha;
-
-        public virtual void WriteComponent(JsonFrameworkWriter writer)
+        writer.WriteStartObject();
+        writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, Type);
+        writer.AddField(JsonDefaults.Outline.DistanceName, Distance, JsonDefaults.Outline.FpDistance);
+        if (UseGraphicAlpha)
         {
-            writer.WriteStartObject();
-            writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, Type);
-            writer.AddField(JsonDefaults.Outline.DistanceName, Distance, JsonDefaults.Outline.FpDistance);
-            if (UseGraphicAlpha)
-            {
-                writer.AddKeyField(JsonDefaults.Outline.UseGraphicAlphaName);
-            }
+            writer.AddKeyField(JsonDefaults.Outline.UseGraphicAlphaName);
+        }
             
-            writer.AddField(JsonDefaults.Color.ColorName, Color);
-            writer.WriteEndObject();
-        }
+        writer.AddField(JsonDefaults.Color.ColorName, Color);
+        writer.WriteEndObject();
+    }
 
-        public virtual void Reset()
-        {
-            Distance = JsonDefaults.Outline.Distance;
-            UseGraphicAlpha = false;
-            Color = default;
-        }
+    public virtual void Reset()
+    {
+        Distance = JsonDefaults.Outline.Distance;
+        UseGraphicAlpha = false;
+        Color = default;
+    }
 
-        protected override void EnterPool()
-        {
-            Reset();
-        }
+    protected override void EnterPool()
+    {
+        Reset();
     }
 }
