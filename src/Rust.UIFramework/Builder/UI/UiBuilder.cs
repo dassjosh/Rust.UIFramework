@@ -63,10 +63,10 @@ public partial class UiBuilder : BaseUiBuilder
         return bytes;
     }
 
-    public CachedUiBuilder ToCachedBuilder()
+    public CachedUiBuilder ToCachedBuilder(bool dispose = true)
     {
         CachedUiBuilder cached = CachedUiBuilder.CreateCachedBuilder(this);
-        if (!Disposed)
+        if (dispose && !Disposed)
         {
             Dispose();
         }
