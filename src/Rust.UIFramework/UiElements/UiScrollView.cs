@@ -33,7 +33,7 @@ public class UiScrollView : BaseUiComponent
         return scroll;
     }
 
-    public void UpdateContentTransform(in UiPosition? position, in UiOffset? offset)
+    public void UpdateContentTransform(in UiPosition? position = null, in UiOffset? offset = null)
     {
         if (position.HasValue)
         {

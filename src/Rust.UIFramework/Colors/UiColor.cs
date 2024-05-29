@@ -14,9 +14,6 @@ namespace Oxide.Ext.UiFramework.Colors
         internal readonly byte _green;
         internal readonly byte _blue;
         internal readonly byte _alpha;
-        
-        //public readonly uint Value;
-        //public readonly Color Color;
         #endregion
 
         #region Static Colors
