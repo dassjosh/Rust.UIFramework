@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Network;
 using Oxide.Ext.UiFramework.Cache;
-using Oxide.Ext.UiFramework.Callbacks;
 using Oxide.Ext.UiFramework.Controls;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Json;
@@ -49,9 +48,11 @@ public abstract partial class BaseUiBuilder : BaseBuilder
         return bytes;
     }
         
-    protected override void AddUi(SendInfo send)
+    internal override void SendUi(SendInfo send)
     {
-        SendUiCallback.Start(this, send);
+        JsonFrameworkWriter writer = CreateWriter();
+        AddUi(send, writer);
+        writer.Dispose();
     }
         
     public JsonFrameworkWriter CreateWriter()

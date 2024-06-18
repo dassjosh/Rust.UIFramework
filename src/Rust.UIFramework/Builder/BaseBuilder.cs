@@ -4,6 +4,7 @@ using System.Text;
 using Network;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Pooling;
+using Oxide.Ext.UiFramework.Threading;
 
 namespace Oxide.Ext.UiFramework.Builder;
 
@@ -38,7 +39,12 @@ public abstract class BaseBuilder : BasePoolable
         AddUi(Net.sv.connections);
     }
 
-    protected abstract void AddUi(SendInfo send);
+    protected void AddUi(SendInfo send)
+    {
+        SendHandler.Enqueue(UiSendRequest.Create(this, send));
+    }
+
+    internal abstract void SendUi(SendInfo send);
 
     internal void AddUi(SendInfo send, JsonFrameworkWriter writer)
     {

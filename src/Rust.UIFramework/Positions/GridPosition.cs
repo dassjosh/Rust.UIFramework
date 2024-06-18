@@ -42,4 +42,20 @@ public class GridPosition : BasePosition
         YMin -= rows / NumRows;
         YMax -= rows / NumRows;
     }
+
+    public float GetScrollViewYMin(int totalRows)
+    {
+        return InitialState.Min.y - (totalRows / NumRows);
+    }
+    
+    public float GetScrollViewYMin(int count, int countPerRow)
+    {
+        int totalRows = count / countPerRow;
+        if (count % countPerRow != 0)
+        {
+            totalRows++;
+        }
+
+        return GetScrollViewYMin(totalRows);
+    }
 }
