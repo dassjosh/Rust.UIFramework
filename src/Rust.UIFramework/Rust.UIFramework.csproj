@@ -5,7 +5,7 @@
         <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
         <AssemblyName>Oxide.Ext.UiFramework</AssemblyName>
         <RootNamespace>Oxide.Ext.UiFramework</RootNamespace>
-        <Configurations>Release;Debug</Configurations>
+        <Configurations>Release;Debug;Benchmarks</Configurations>
         <Platforms>Oxide;Carbon</Platforms>
         <AssemblyVersion>$(VERSION)</AssemblyVersion>
         <FileVersion>$(VERSION)</FileVersion>
@@ -29,6 +29,16 @@
 
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|Oxide' ">
       <DefineConstants>TRACE;OXIDE</DefineConstants>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Benchmarks|Carbon' ">
+      <DefineConstants>TRACE;BENCHMARKS</DefineConstants>
+      <Optimize>true</Optimize>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Benchmarks|Oxide' ">
+      <DefineConstants>TRACE;BENCHMARKS</DefineConstants>
+      <Optimize>true</Optimize>
     </PropertyGroup>
     
     <ItemGroup>

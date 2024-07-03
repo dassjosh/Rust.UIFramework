@@ -13,12 +13,14 @@ internal static class SendHandler
     
     static SendHandler()
     {
+#if !BENCHMARKS
         _thread = new Thread(Send)
         {
             IsBackground = true,
             Name = $"UiFramework.{nameof(SendHandler)}",
         };
         _thread.Start();
+#endif
     }
     
     internal static void Enqueue(UiSendRequest request)

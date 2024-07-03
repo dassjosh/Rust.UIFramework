@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using BenchmarkDotNet.Attributes;
+using Network;
 using Oxide.Ext.UiFramework.Builder.UI;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Json;
@@ -23,43 +24,44 @@ public class Benchmarks
     private UiBuilder _randomBuilder;
     private JsonFrameworkWriter _writer;
     private JsonFrameworkWriter _randomWriter;
+    private readonly Connection _connection = new();
 
     [GlobalSetup]
     public void Setup()
     {
-            for (int i = 0; i < Iterations; i++)
-            {
-                float xMin = (float)_random.NextDouble();
-                float xMax = (float)_random.NextDouble();
-                float yMin = (float)_random.NextDouble();
-                float yMax = (float)_random.NextDouble();
-                _oxideMins.Add($"{xMin} {yMin}");
-                _oxideMaxs.Add($"{xMax} {yMax}");
-                _frameworkPos.Add(new UiPosition(xMin, yMin, xMax, yMax));
-            }
-            
-            _oxideContainer = GetOxideContainer();
-            _oxideJson = _oxideContainer.ToJson();
-            _builder = GetFrameworkBuilder();
-            //_randomBuilder = GetRandomPositionBuilder();
-            _writer = _builder.CreateWriter();
-            //_randomWriter = _randomBuilder.CreateWriter();
+        for (int i = 0; i < Iterations; i++)
+        {
+            float xMin = (float)_random.NextDouble();
+            float xMax = (float)_random.NextDouble();
+            float yMin = (float)_random.NextDouble();
+            float yMax = (float)_random.NextDouble();
+            _oxideMins.Add($"{xMin} {yMin}");
+            _oxideMaxs.Add($"{xMax} {yMax}");
+            _frameworkPos.Add(new UiPosition(xMin, yMin, xMax, yMax));
         }
+
+        _oxideContainer = GetOxideContainer();
+        _oxideJson = _oxideContainer.ToJson();
+        _builder = GetFrameworkBuilder();
+        //_randomBuilder = GetRandomPositionBuilder();
+        _writer = _builder.CreateWriter();
+        //_randomWriter = _randomBuilder.CreateWriter();
+    }
 
     // [Benchmark]
     // public CuiElementContainer Oxide_CreateContainer()
     // {
     //     return GetOxideContainer();
     // }
-        
-    [Benchmark(Baseline = true)]
-    public UiBuilder UiFramework_CreateContainer()
-    {
-            UiBuilder builder = GetFrameworkBuilder();
-            builder.Dispose();
-            return builder;
-        }
-        
+
+    // [Benchmark(Baseline = true)]
+    // public UiBuilder UiFramework_CreateContainer()
+    // {
+    //     UiBuilder builder = GetFrameworkBuilder();
+    //     builder.Dispose();
+    //     return builder;
+    // }
+
     //
     // [Benchmark]
     // public string Oxide_CreateJson()
@@ -87,55 +89,54 @@ public class Benchmarks
     //     int count = _writer.WriteTo(Buffer);
     //     return count;
     // }
-        
+
     [Benchmark]
     public byte[] Oxide_Full()
     {
-            var builder = GetOxideContainer();
-            string json = builder.ToJson();
-            return Encoding.UTF8.GetBytes(json);
-        }
-        
-    // [Benchmark(Baseline = true)]
-    // public int UiFramework_Full()
-    // {
-    //     UiBuilder builder = GetFrameworkBuilder();
-    //     int count = builder.WriteBuffer(Buffer);
-    //     builder.Dispose();
-    //     return count;
-    // }
+        var builder = GetOxideContainer();
+        string json = builder.ToJson();
+        return Encoding.UTF8.GetBytes(json);
+    }
+
+    [Benchmark(Baseline = true)]
+    public void UiFramework_Full()
+    {
+        UiBuilder builder = GetFrameworkBuilder();
+        builder.AddUi(_connection);
+        builder.Dispose();
+    }
 
     private CuiElementContainer GetOxideContainer()
     {
-            CuiElementContainer container = new();
-            for (int i = 0; i < Iterations; i++)
+        CuiElementContainer container = new();
+        for (int i = 0; i < Iterations; i++)
+        {
+            container.Add(new CuiPanel
             {
-                container.Add(new CuiPanel
+                Image =
                 {
-                    Image =
-                    {
-                        Color = "1.0 1.0 1.0 1.0"
-                    },
-                    RectTransform =
-                    {
-                        AnchorMin = _oxideMins[i],
-                        AnchorMax = _oxideMaxs[i]
-                    }
-                });
-            }
-
-            return container;
+                    Color = "1.0 1.0 1.0 1.0"
+                },
+                RectTransform =
+                {
+                    AnchorMin = _oxideMins[i],
+                    AnchorMax = _oxideMaxs[i]
+                }
+            });
         }
+
+        return container;
+    }
 
     private UiBuilder GetFrameworkBuilder()
     {
-            UiBuilder builder = UiBuilder.Create(UiPosition.Full, UiColor.Clear, "123");
-            builder.EnsureCapacity(Iterations);
-            for (int i = 0; i < Iterations - 1; i++)
-            {
-                builder.Panel(builder.Root, _frameworkPos[i], UiColor.Black);
-            }
-
-            return builder;
+        UiBuilder builder = UiBuilder.Create(UiPosition.Full, UiColor.Clear, "123");
+        builder.EnsureCapacity(Iterations);
+        for (int i = 0; i < Iterations - 1; i++)
+        {
+            builder.Panel(builder.Root, _frameworkPos[i], UiColor.Black);
         }
+
+        return builder;
+    }
 }
