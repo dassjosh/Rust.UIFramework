@@ -32,12 +32,12 @@
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Benchmarks|Carbon' ">
-      <DefineConstants>TRACE;BENCHMARKS</DefineConstants>
+      <DefineConstants>TRACE;BENCHMARKS;CARBON</DefineConstants>
       <Optimize>true</Optimize>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Benchmarks|Oxide' ">
-      <DefineConstants>TRACE;BENCHMARKS</DefineConstants>
+      <DefineConstants>TRACE;BENCHMARKS;OXIDE</DefineConstants>
       <Optimize>true</Optimize>
     </PropertyGroup>
     
