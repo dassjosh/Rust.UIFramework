@@ -7,23 +7,21 @@ namespace Oxide.Ext.UiFramework.Threading;
 
 internal static class SendHandler
 {
-    private static readonly ConcurrentQueue<UiSendRequest> Queue = new();
+    private static readonly ConcurrentQueue<IUiRequest> Queue = new();
     private static readonly AutoResetEvent Reset = new(false);
     private static readonly Thread _thread;
     
     static SendHandler()
     {
-#if !BENCHMARKS
         _thread = new Thread(Send)
         {
             IsBackground = true,
             Name = $"UiFramework.{nameof(SendHandler)}",
         };
         _thread.Start();
-#endif
     }
     
-    internal static void Enqueue(UiSendRequest request)
+    internal static void Enqueue(IUiRequest request)
     {
         Queue.Enqueue(request);
         Reset.Set();
@@ -40,11 +38,13 @@ internal static class SendHandler
 
     private static void SendInternal()
     {
-        while (Queue.TryDequeue(out UiSendRequest request))
+        while (Queue.TryDequeue(out IUiRequest request))
         {
             try
             {
-                request.Builder.SendUi(request.Send);
+#if !BENCHMARKS
+                request.SendUi();
+#endif
             }
             catch (Exception ex)
             {

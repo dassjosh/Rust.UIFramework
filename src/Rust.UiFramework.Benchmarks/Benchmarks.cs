@@ -3,6 +3,7 @@ using BenchmarkDotNet.Attributes;
 using Network;
 using Oxide.Ext.UiFramework.Builder.UI;
 using Oxide.Ext.UiFramework.Colors;
+using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Game.Rust.Cui;
@@ -93,7 +94,7 @@ public class Benchmarks
     [Benchmark]
     public byte[] Oxide_Full()
     {
-        var builder = GetOxideContainer();
+        CuiElementContainer builder = GetOxideContainer();
         string json = builder.ToJson();
         return Encoding.UTF8.GetBytes(json);
     }
@@ -104,6 +105,13 @@ public class Benchmarks
         UiBuilder builder = GetFrameworkBuilder();
         builder.AddUi(_connection);
         builder.Dispose();
+    }
+    
+    [Benchmark]
+    public void Oxide_Async()
+    {
+        CuiElementContainer builder = GetOxideContainer();
+        builder.AddUiAsync(_connection);
     }
 
     private CuiElementContainer GetOxideContainer()

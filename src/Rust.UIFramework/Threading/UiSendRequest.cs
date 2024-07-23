@@ -4,10 +4,9 @@ using Oxide.Ext.UiFramework.Pooling;
 
 namespace Oxide.Ext.UiFramework.Threading;
 
-internal class UiSendRequest : BasePoolable
+internal class UiSendRequest : BaseUiRequest, IUiRequest
 {
     public BaseBuilder Builder;
-    public SendInfo Send;
 
     public static UiSendRequest Create(BaseBuilder builder, SendInfo send)
     {
@@ -18,17 +17,18 @@ internal class UiSendRequest : BasePoolable
     
     private void Init(BaseBuilder builder, SendInfo send)
     {
+        base.Init(send);
         Builder = builder;
-        Send = send;
+    }
+    
+    public void SendUi()
+    {
+        Builder.SendUi(Send);
     }
     
     protected override void EnterPool()
     {
+        base.EnterPool();
         Builder = null;
-        if (Send.connections != null)
-        {
-            ListPool<Connection>.Instance.Free(Send.connections);
-        }
-        Send = default;
     }
 }

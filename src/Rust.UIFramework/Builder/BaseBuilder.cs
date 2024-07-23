@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Network;
+using Oxide.Ext.UiFramework.Builders;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Threading;
@@ -16,30 +17,25 @@ public abstract class BaseBuilder : BasePoolable
     #region Add UI
     public void AddUi(BasePlayer player)
     {
-        if (!player) throw new ArgumentNullException(nameof(player));
-        AddUi(player.Connection);
+        AddUi(SendInfoBuilder.Get(player));
     }
 
     public void AddUi(Connection connection)
     {
-        if (connection == null) throw new ArgumentNullException(nameof(connection));
-        AddUi(new SendInfo(connection));
+        AddUi(SendInfoBuilder.Get(connection));
     }
 
     public void AddUi(IEnumerable<Connection> connections)
     {
-        if (connections == null) throw new ArgumentNullException(nameof(connections));
-        List<Connection> pooledConnection = ListPool<Connection>.Instance.Get();
-        pooledConnection.AddRange(connections);
-        AddUi(new SendInfo(pooledConnection));
+        AddUi(SendInfoBuilder.Get(connections));
     }
 
     public void AddUi()
     {
-        AddUi(Net.sv.connections);
+        AddUi(SendInfoBuilder.Get(Net.sv.connections));
     }
 
-    protected void AddUi(SendInfo send)
+    public void AddUi(SendInfo send)
     {
         SendHandler.Enqueue(UiSendRequest.Create(this, send));
     }
@@ -91,13 +87,21 @@ public abstract class BaseBuilder : BasePoolable
     public void DestroyUi(Connection connection)
     {
         if (connection == null) throw new ArgumentNullException(nameof(connection));
-        DestroyUi(new SendInfo(connection), RootName);
+        DestroyUi(SendInfoBuilder.Get(connection), RootName);
     }
 
     public void DestroyUi(List<Connection> connections)
     {
         if (connections == null) throw new ArgumentNullException(nameof(connections));
-        DestroyUi(new SendInfo(connections), RootName);
+        DestroyUi(SendInfoBuilder.Get(connections), RootName);
+    }
+    
+    public void DestroyUi(IEnumerable<Connection> connections)
+    {
+        if (connections == null) throw new ArgumentNullException(nameof(connections));
+        SendInfo send = SendInfoBuilder.Get(connections);
+        DestroyUi(send, RootName);
+        ListPool<Connection>.Instance.Free(send.connections);
     }
 
     public void DestroyUi()
@@ -108,12 +112,12 @@ public abstract class BaseBuilder : BasePoolable
     public static void DestroyUi(BasePlayer player, string name)
     {
         if (!player) throw new ArgumentNullException(nameof(player));
-        DestroyUi(new SendInfo(player.Connection), name);
+        DestroyUi(SendInfoBuilder.Get(player.Connection), name);
     }
 
     public static void DestroyUi(string name)
     {
-        DestroyUi(new SendInfo(Net.sv.connections), name);
+        DestroyUi(SendInfoBuilder.Get(Net.sv.connections), name);
     }
 
     public static void DestroyUi(SendInfo send, string name)
