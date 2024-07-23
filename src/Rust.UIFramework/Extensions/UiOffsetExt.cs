@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Extensions;
 
-//Define:ExtensionMethods
 public static class UiOffsetExt
 {
     public static UiOffset SetX(in this UiOffset pos, float xMin, float xMax)

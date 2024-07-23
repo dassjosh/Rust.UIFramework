@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Extensions;
 
-//Define:ExtensionMethods
 public static class UiColorExt
 {
     public static UiColor WithAlpha(this UiColor color, byte alpha)

@@ -3,7 +3,6 @@ using Oxide.Ext.UiFramework.Pooling;
 
 namespace Oxide.Ext.UiFramework.Extensions;
 
-//Define:ExtensionMethods
 public static class StringBuilderExt
 {
     /// <summary>

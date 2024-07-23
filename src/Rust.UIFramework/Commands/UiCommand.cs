@@ -4,7 +4,6 @@ using Oxide.Ext.UiFramework.Pooling;
 
 namespace Oxide.Ext.UiFramework.Commands;
 
-//Define:ExcludeFile
 public struct UiCommand : IDisposable
 {
     public readonly string Command;

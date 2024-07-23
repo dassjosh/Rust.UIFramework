@@ -3,7 +3,6 @@ using Oxide.Ext.UiFramework.UiElements;
 
 namespace Oxide.Ext.UiFramework.Extensions;
 
-//Define:ExtensionMethods
 public static class ArgExt
 {
     public static DateTime GetDateTime(this ConsoleSystem.Arg arg, int iArg, DateTime def)

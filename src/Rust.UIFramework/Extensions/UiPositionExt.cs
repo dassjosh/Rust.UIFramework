@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Extensions;
 
-//Define:ExtensionMethods
 public static class UiPositionExt
 {
     public static UiPosition SetX(in this UiPosition pos, float xMin, float xMax)

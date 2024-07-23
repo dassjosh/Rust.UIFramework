@@ -2,7 +2,6 @@
 
 namespace Oxide.Ext.UiFramework.Extensions;
 
-//Define:ExtensionMethods
 public static class UiReferenceExt
 {
     public static UiReference WithName(in this UiReference element, string name) => new(element.Parent, name);
