@@ -109,11 +109,17 @@ public static class JsonDefaults
     public static class Countdown
     {
         public const string StartTimeName = "startTime";
-        public const int StartTimeValue = 0;
+        public const float StartTimeValue = 0;
         public const string EndTimeName = "endTime";
-        public const int EndTimeValue = 0;
+        public const float EndTimeValue = 0;
         public const string StepName = "step";
-        public const int StepValue = 1;
+        public const float StepValue = 1;
+        public const string IntervalName = "interval";
+        public const float IntervalValue = 1;
+        public const string TimerFormatName = "timerFormat";
+        public const string NumberFormatName = "numberFormat";
+        public const string NumberFormatValue = "0.####";
+        public const string DestroyIfDoneName = "destroyIfDone";
         public const string CountdownCommandName = "command";
     }
 

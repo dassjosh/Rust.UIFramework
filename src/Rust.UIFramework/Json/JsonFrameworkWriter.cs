@@ -2,6 +2,7 @@
 using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
+using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Pooling;
 using UnityEngine;
 using UnityEngine.UI;
@@ -155,6 +156,15 @@ public class JsonFrameworkWriter : BasePoolable
         {
             WritePropertyName(name);
             WriteValue(EnumCache<ScrollRect.MovementType>.ToString(value));
+        }
+    }
+    
+    public void AddField(string name, TimerFormat value)
+    {
+        if (value != TimerFormat.None)
+        {
+            WritePropertyName(name);
+            WriteValue(EnumCache<TimerFormat>.ToString(value));
         }
     }
 

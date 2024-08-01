@@ -1,5 +1,6 @@
 ﻿using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
+using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Pooling;
@@ -25,13 +26,18 @@ public class UiLabel : BaseUiOutline
         return label;
     }
 
-    public void AddCountdown(int startTime, int endTime, int step, string command)
+    public CountdownComponent AddCountdown(float startTime, float endTime, float step, float interval, TimerFormat timerFormat, string numberFormat, bool destroyIfDone, string command)
     {
         Countdown = UiFrameworkPool.Get<CountdownComponent>();
         Countdown.StartTime = startTime;
         Countdown.EndTime = endTime;
         Countdown.Step = step;
+        Countdown.Interval = interval;
+        Countdown.TimerFormat = timerFormat;
+        Countdown.NumberFormat = numberFormat;
+        Countdown.DestroyIfDone = destroyIfDone;
         Countdown.Command = command;
+        return Countdown;
     }
         
     public void SetFadeIn(float duration)

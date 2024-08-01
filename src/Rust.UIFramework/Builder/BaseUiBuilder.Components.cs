@@ -1,7 +1,10 @@
-﻿using Oxide.Core;
+﻿using System;
+using Oxide.Core;
 using Oxide.Ext.UiFramework.Colors;
+using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Controls;
 using Oxide.Ext.UiFramework.Enums;
+using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.UiElements;
@@ -172,10 +175,17 @@ public partial class BaseUiBuilder
     #endregion
 
     #region Countdown
+    [Obsolete("This method is obsolete. Use Countdown(UiLabel, float, float, string, float, float, TimerFormat, string, bool) instead.")]
     public UiLabel Countdown(UiLabel label, int startTime, int endTime, int step, string command)
     {
-        label.AddCountdown(startTime, endTime, step, command);
+        Countdown(label, startTime, endTime, command, step);
         return label;
+    }
+    
+    public CountdownComponent Countdown(UiLabel label, float startTime, float endTime, string command, float step = 1, float interval = 1, TimerFormat timerFormat = TimerFormat.None, string numberFormat = JsonDefaults.Countdown.NumberFormatValue, bool destroyIfDone = true)
+    {
+        CountdownComponent countdown = label.AddCountdown(startTime, endTime, step, interval, timerFormat, numberFormat, destroyIfDone, command);
+        return countdown;
     }
     #endregion
 
