@@ -121,8 +121,10 @@ public abstract class BaseBuilder : BasePoolable
         
     public static void DestroyUi(BasePlayer player, string name)
     {
-        if (!player) throw new ArgumentNullException(nameof(player));
-        DestroyUi(SendInfoBuilder.Get(player.Connection), name);
+        if (player && player.IsConnected)
+        {
+            DestroyUi(SendInfoBuilder.Get(player.Connection), name);
+        }
     }
 
     public static void DestroyUi(string name)
@@ -145,7 +147,7 @@ public abstract class BaseBuilder : BasePoolable
     public abstract byte[] GetBytes();
         
     /// <summary>
-    /// Warning this is only recommend to use for debugging purposes
+    /// Warning this is only recommended to use for debugging purposes
     /// </summary>
     /// <returns></returns>
     public string GetJsonString() => Encoding.UTF8.GetString(GetBytes());
