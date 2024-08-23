@@ -7,5 +7,10 @@ public enum TimerFormat
     MinutesSeconds,
     MinutesSecondsHundreth,
     HoursMinutes,
-    HoursMinutesSeconds
+    HoursMinutesSeconds,
+    HoursMinutesSecondsMilliseconds,
+    HoursMinutesSecondsTenths,
+    DaysHoursMinutes,
+    DaysHoursMinutesSeconds,
+    Custom
 }
