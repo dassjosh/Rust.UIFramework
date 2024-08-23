@@ -28,7 +28,7 @@ public class JsonBinaryWriter : BasePoolable
     public void Write(ReadOnlySpan<char> text)
     {
         int length = text.Length;
-        var buffer = _charBuffer.AsSpan();
+        Span<char> buffer = _charBuffer.AsSpan();
         int charIndex = _charIndex;
         for (int i = 0; i < length; i++)
         {
