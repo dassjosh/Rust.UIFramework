@@ -17,12 +17,18 @@ public abstract class BaseBuilder : BasePoolable
     #region Add UI
     public void AddUi(BasePlayer player)
     {
-        AddUi(SendInfoBuilder.Get(player));
+        if (player && player.IsConnected)
+        {
+            AddUi(SendInfoBuilder.Get(player));
+        }
     }
 
     public void AddUi(Connection connection)
     {
-        AddUi(SendInfoBuilder.Get(connection));
+        if (connection is { connected: true })
+        {
+            AddUi(SendInfoBuilder.Get(connection));
+        }
     }
 
     public void AddUi(IEnumerable<Connection> connections)
@@ -80,14 +86,18 @@ public abstract class BaseBuilder : BasePoolable
     #region Destroy UI
     public void DestroyUi(BasePlayer player)
     {
-        if (!player) throw new ArgumentNullException(nameof(player));
-        DestroyUi(player, RootName);
+        if (player && player.IsConnected)
+        {
+            DestroyUi(player, RootName);
+        }
     }
 
     public void DestroyUi(Connection connection)
     {
-        if (connection == null) throw new ArgumentNullException(nameof(connection));
-        DestroyUi(SendInfoBuilder.Get(connection), RootName);
+        if (connection is { connected: true })
+        {
+            DestroyUi(SendInfoBuilder.Get(connection), RootName);
+        }
     }
 
     public void DestroyUi(List<Connection> connections)
