@@ -13,7 +13,7 @@ class Program
             .WithToolchain(InProcessEmitToolchain.Instance)
             .WithIterationCount(30));
         BenchmarkRunner.Run<Benchmarks>(config, args);
-        //
+        
         // Benchmarks b = new Benchmarks();
         // b.Setup();
         // while (true)

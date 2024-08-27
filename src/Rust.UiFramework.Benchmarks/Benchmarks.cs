@@ -1,6 +1,8 @@
 ﻿using System.Text;
 using BenchmarkDotNet.Attributes;
+using Facepunch;
 using Network;
+using Oxide.Ext.UiFramework.Benchmarks;
 using Oxide.Ext.UiFramework.Builder.UI;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Extensions;
@@ -103,11 +105,15 @@ public class Benchmarks
     public void UiFramework_Full()
     {
         UiBuilder builder = GetFrameworkBuilder();
-        builder.AddUi(_connection);
+        JsonFrameworkWriter writer = builder.CreateWriter();
+        BenchmarkNetWrite write = Pool.Get<BenchmarkNetWrite>();
+        writer.WriteToNetwork(write);
+        writer.Dispose();
+        Pool.Free(ref write);
         builder.Dispose();
     }
     
-    [Benchmark]
+    //[Benchmark]
     public void Oxide_Async()
     {
         CuiElementContainer builder = GetOxideContainer();

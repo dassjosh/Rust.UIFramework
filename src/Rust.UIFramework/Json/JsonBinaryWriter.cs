@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Buffers;
 using System.Collections.Generic;
+using System.IO;
+using System.Runtime.CompilerServices;
 using System.Text;
 using Network;
+using Oxide.Ext.UiFramework.Benchmarks;
 using Oxide.Ext.UiFramework.Pooling;
 
 namespace Oxide.Ext.UiFramework.Json;
@@ -85,6 +88,20 @@ public class JsonBinaryWriter : BasePoolable
     {
         Flush();
         write.UInt32(GetSize());
+        WriteToNetwork((Stream)write);
+    }
+
+#if BENCHMARKS
+    internal void WriteToNetwork(BenchmarkNetWrite write)
+    {
+        Flush();
+        WriteToNetwork((Stream)write);
+    }
+#endif
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    private void WriteToNetwork(Stream write)
+    {
         int count = _segments.Count;
         for (int i = 0; i < count; i++)
         {

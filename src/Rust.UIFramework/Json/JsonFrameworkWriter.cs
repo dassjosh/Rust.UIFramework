@@ -1,4 +1,5 @@
 ﻿using Network;
+using Oxide.Ext.UiFramework.Benchmarks;
 using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
@@ -424,6 +425,13 @@ public class JsonFrameworkWriter : BasePoolable
     {
         _writer.WriteToNetwork(write);
     }
+
+#if BENCHMARKS
+    internal void WriteToNetwork(BenchmarkNetWrite write)
+    {
+        _writer.WriteToNetwork(write);
+    }
+#endif
 
     public byte[] ToArray()
     {

@@ -3,7 +3,7 @@
     <PropertyGroup>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <LangVersion>latest</LangVersion>
+        <LangVersion>12</LangVersion>
         <SignAssembly>true</SignAssembly>
         <Configurations>Debug;Release;Benchmarks</Configurations>
         <Platforms>Oxide</Platforms>
@@ -41,6 +41,9 @@
       <Reference Include="Facepunch.Network">
         <HintPath>..\references\Facepunch.Network.dll</HintPath>
       </Reference>
+      <Reference Include="Facepunch.System">
+        <HintPath>..\references\Facepunch.System.dll</HintPath>
+      </Reference>
       <Reference Include="mscorlib">
         <HintPath>..\References\mscorlib.dll</HintPath>
       </Reference>
@@ -58,6 +61,12 @@
       </Reference>
       <Reference Include="Oxide.Rust">
         <HintPath>..\References\Oxide.Rust.dll</HintPath>
+      </Reference>
+      <Reference Include="System.Memory">
+        <HintPath>..\references\System.Memory.dll</HintPath>
+      </Reference>
+      <Reference Include="System.Runtime">
+        <HintPath>..\references\System.Runtime.dll</HintPath>
       </Reference>
       <Reference Include="UnityEngine.UI">
         <HintPath>..\references\UnityEngine.UI.dll</HintPath>

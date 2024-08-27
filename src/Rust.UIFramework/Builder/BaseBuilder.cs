@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Facepunch;
 using Network;
+using Oxide.Ext.UiFramework.Benchmarks;
 using Oxide.Ext.UiFramework.Builders;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Pooling;
@@ -141,6 +143,18 @@ public abstract class BaseBuilder : BasePoolable
         }, name);
     }
     #endregion
+
+#if BENCHMARKS
+    #region Benchmark UI
+
+    internal void AddUiBenchmark(JsonFrameworkWriter writer)
+    {
+        BenchmarkNetWrite write = Pool.Get<BenchmarkNetWrite>();
+        writer.WriteToNetwork(write);
+        Pool.Free(ref write);
+    }
+    #endregion
+#endif
 
     #region JSON
                         
