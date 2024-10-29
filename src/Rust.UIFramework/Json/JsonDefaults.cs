@@ -93,6 +93,11 @@ public static class JsonDefaults
         public const string ItemIdName = "itemid";
         public const string SkinIdName = "skinid";
     }
+    
+    public static class PlayerAvatar
+    {
+        public const string SteamIdName = "steamid";
+    }
 
     public static class Input
     {
