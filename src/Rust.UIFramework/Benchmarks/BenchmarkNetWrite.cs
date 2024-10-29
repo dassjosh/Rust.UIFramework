@@ -4,9 +4,9 @@ using Facepunch;
 using Network;
 using UnityEngine;
 
-#if BENCHMARKS
-namespace Oxide.Ext.UiFramework.Benchmarks;
 
+namespace Oxide.Ext.UiFramework.Benchmarks;
+#if BENCHMARKS
 internal class BenchmarkNetWrite : Stream, Pool.IPooled
 {
     public byte[] Data;

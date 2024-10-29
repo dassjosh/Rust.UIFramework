@@ -40,11 +40,11 @@ public readonly struct UiColor : IEquatable<UiColor>
     #region Constructors
     public UiColor(byte red, byte green, byte blue, byte alpha = 255)
     {
-            _red = red;
-            _green = green;
-            _blue = blue;
-            _alpha = alpha;
-        }
+        _red = red;
+        _green = green;
+        _blue = blue;
+        _alpha = alpha;
+    }
         
     public UiColor(int red, int green, int blue, int alpha = 255) : this(
         (byte)Mathf.Clamp(red, 0, byte.MaxValue), 
@@ -70,17 +70,17 @@ public readonly struct UiColor : IEquatable<UiColor>
 
     public override bool Equals(object obj)
     {
-            if (ReferenceEquals(null, obj)) return false;
-            return obj is UiColor && Equals((UiColor)obj);
-        }
+        if (ReferenceEquals(null, obj)) return false;
+        return obj is UiColor && Equals((UiColor)obj);
+    }
         
     public override int GetHashCode()
     {
-            int red = _red << 24;
-            int green = _green << 16;
-            int blue = _blue << 8;
-            return red | green | blue | _alpha;
-        }
+        int red = _red << 24;
+        int green = _green << 16;
+        int blue = _blue << 8;
+        return red | green | blue | _alpha;
+    }
 
     public override string ToString() => $"{ToFloat(_red)} {ToFloat(_green)} {ToFloat(_blue)} {ToFloat(_alpha)}";
     #endregion
@@ -115,21 +115,21 @@ public readonly struct UiColor : IEquatable<UiColor>
     /// <exception cref="UiFrameworkException"></exception>
     public static UiColor ParseHexColor(string hexColor)
     {
-            ReadOnlySpan<char> span = hexColor.AsSpan();
-            if (span[0] == '#')
-            {
-                span = span.Slice(1);
-            }
-            
-            byte red = byte.Parse(span.Slice(0, 2), NumberStyles.HexNumber);
-            byte green = byte.Parse(span.Slice(2, 2), NumberStyles.HexNumber);
-            byte blue = byte.Parse(span.Slice(4, 2), NumberStyles.HexNumber);
-            byte alpha = 255;
-            if (span.Length == 8)
-            {
-                alpha = byte.Parse(span.Slice(6, 2), NumberStyles.HexNumber);
-            }
-            return new UiColor(red, green, blue, alpha);
+        ReadOnlySpan<char> span = hexColor.AsSpan();
+        if (span[0] == '#')
+        {
+            span = span[1..];
         }
+            
+        byte red = byte.Parse(span[..2], NumberStyles.HexNumber);
+        byte green = byte.Parse(span[2..4], NumberStyles.HexNumber);
+        byte blue = byte.Parse(span[4..6], NumberStyles.HexNumber);
+        byte alpha = 255;
+        if (span.Length == 8)
+        {
+            alpha = byte.Parse(span[6..8], NumberStyles.HexNumber);
+        }
+        return new UiColor(red, green, blue, alpha);
+    }
     #endregion
 }

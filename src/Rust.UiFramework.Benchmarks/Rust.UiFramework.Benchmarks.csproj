@@ -68,6 +68,9 @@
       <Reference Include="System.Runtime">
         <HintPath>..\references\System.Runtime.dll</HintPath>
       </Reference>
+      <Reference Include="UnityEngine.TextRenderingModule">
+        <HintPath>..\references\UnityEngine.TextRenderingModule.dll</HintPath>
+      </Reference>
       <Reference Include="UnityEngine.UI">
         <HintPath>..\references\UnityEngine.UI.dll</HintPath>
       </Reference>
