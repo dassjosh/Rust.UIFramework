@@ -49,4 +49,15 @@ private void CreateUi(BasePlayer player
     
     builder.AddUi(player); //By default the builder will auto destroy the previous UI if it exists on the client
 }
+    
+    
+[ConsoleCommand(nameof(CloseCommand))]
+private void CloseCommand(ConsoleSystem.Arg arg)
+{
+    BasePlayer player = arg.Player();
+    if (player)
+    {
+        UiBuilder.DestroyUi(player, MainUi);
+    }
+}
 ```
