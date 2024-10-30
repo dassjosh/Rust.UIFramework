@@ -25,3 +25,28 @@ UI Framework also doesn't have any memory allocations from the framework and poo
 ### Developer Install
 1. Grab the Oxide.Ext.UiFramework.dll from the latest release
 2. Add the DLL to your project repo
+
+
+## Plugin Examples
+
+### Generic Example
+```csharp
+private const string MainUi = "UI_Name";
+private const int TitleFontSize = 20;
+
+private readonly UiPosition _titleBarPos = new(0, .95f, 1f, 1f);
+private readonly UiPosition _closeButtonPos = new(0.95f, 0f, 1f, 1f);
+
+private void CreateUi(BasePlayer player 
+{
+    UiBuilder builder = UiBuilder.Create(UiPosition.MiddleMiddle, new UiOffset(-420, -270, 420, 330), UiColors.Body, MainUi, UiLayer.Hud);
+
+    builder.NeedsMouse();
+    builder.NeedsKeyboard();
+    
+    UiLabelBackground title = builder.LabelBackground(builder.Root, _titleBarPos, Title, TitleFontSize, UiColors.Text, UiColors.BodyHeader);
+    builder.TextButton(title.Background, _closeButtonPos, "<b>X</b>", TitleFontSize, UiColors.Text, UiColors.CloseButton, nameof(CloseCommand));
+    
+    builder.AddUi(player); //By default the builder will auto destroy the previous UI if it exists on the client
+}
+```
