@@ -21,7 +21,6 @@ UI Framework also doesn't have any memory allocations from the framework and poo
 1. Grab the Oxide.Ext.UiFramework.dll from the latest release
 2. Put the DLL into `RustDedicated_Data\Managed` folder
 3. Restart the server
-4. Add the DLL to your project repo
 
 ### Developer Install
 1. Grab the Oxide.Ext.UiFramework.dll from the latest release
