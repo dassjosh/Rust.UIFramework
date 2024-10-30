@@ -1,56 +1,28 @@
 # Rust UI Framework
-UI Framework for Rust (The Game) using the [Oxide/uMod](https://umod.org) plugin platforms
+UI Framework for Rust (The Game) using the [Oxide/uMod](https://umod.org) plugin platform
 
 ## Performance Comparison vs Oxide
 
-This benchmark shows the performance comparision when generating 100 UI elements and then serializing them to JSON.
-In comparision to oxide when performing the serialization UiFramework is ~9.40x faster at generating the UI elements and JSON.
-Along with the performance improvements there are 0 memory allocations.
+This benchmark shows the performance comparison when creating 100 UI Elements and then serializing them to JSON.
+UiFramework_Async is 51.31x faster than CUI provided by oxide and 5.66x faster than Oxide AddUiAsync extension method UI Framework provides.
+The async option in the framework queues the UI to be serialized and sent on a separate thread while CUI from oxide is all ran on the main thread.
+UI Framework also doesn't have any memory allocations from the framework and pooling is used heavily for performance.
 
-|                    Method |       Mean |     Error |    StdDev | Ratio |   Gen 0 |  Gen 1 | Allocated |
-|-------------------------- |-----------:|----------:|----------:|------:|--------:|-------:|----------:|
-|     Oxide_CreateContainer |  49.927 us | 0.9620 us | 1.1451 us | 0.081 | 12.3291 |      - |  51,953 B |
-| Framework_CreateContainer |   9.392 us | 0.0491 us | 0.0460 us | 0.015 |       - |      - |         - |
-|          Oxide_CreateJson | 548.430 us | 3.3054 us | 2.9301 us | 0.881 | 26.3672 | 0.9766 | 114,584 B |
-|      Framework_CreateJson |  51.130 us | 0.2379 us | 0.2109 us | 0.082 |       - |      - |         - |
-|          Oxide_EncodeJson |  20.913 us | 0.2681 us | 0.2507 us | 0.034 |  4.7607 |      - |  19,984 B |
-|      Framework_EncodeJson |   1.889 us | 0.0025 us | 0.0024 us | 0.003 |       - |      - |         - |
-|                Oxide_Full | 622.410 us | 4.9448 us | 4.3835 us | 1.000 | 43.9453 |      - | 186,398 B |
-|            Framework_Full |  66.159 us | 0.7597 us | 0.6734 us | 0.106 |       - |      - |         - |
-
+| Method            | Mean       | Error     | StdDev    | Ratio | RatioSD | Gen0    | Gen1   | Allocated |
+|------------------ |-----------:|----------:|----------:|------:|--------:|--------:|-------:|----------:|
+| UiFramework_Async |   6.329 us | 0.0143 us | 0.0214 us |  1.00 |    0.00 |       - |      - |         - |
+| Oxide_Async       |  35.812 us | 0.2101 us | 0.3145 us |  5.66 |    0.05 |  2.9907 | 0.3052 |   51792 B |
+| Oxide_Full        | 324.565 us | 1.8106 us | 2.4783 us | 51.31 |    0.33 | 11.7188 | 1.9531 |  204088 B |
 
 
 ## Getting Started
 
-### Plugin
-If you wish to use this UI Framework in your plugin  
-1. Grab the `UiFramework.cs` and copy the class under your main plugin class.
-2. Rename the UiFramework class to match the same as the plugin
-3. Remove the ` : RustPlugin` from the copied UiFramework class
-4. Should look something like the below
-
-```c#
-namespace Oxide.Plugins
-{
-    [Info("My Main Plugin", "MJSU", "1.0.0")]
-    [Description("My Plugin Description")]
-    public partial class MyPlugin : RustPlugin
-    {
-        ///Code from your plugin
-    }
-
-    //[Info("Rust UI Framework", "MJSU", "1.1.0")]
-    //[Description("UI Framework for Rust")]
-    public partial class MyPlugin
-    {
-        //Code from UIFramework.cs
-    }
- }
-```
-
-### Extension
-If you wish to use the included extension instead of including the framework files in the plugin.
-1. Grab the Oxide.Ext.UiFramework.dll from latest release
+### Server Installation
+1. Grab the Oxide.Ext.UiFramework.dll from the latest release
 2. Put the DLL into `RustDedicated_Data\Managed` folder
 3. Restart the server
 4. Add the DLL to your project repo
+
+### Developer Install
+1. Grab the Oxide.Ext.UiFramework.dll from the latest release
+2. Add the DLL to your project repo
