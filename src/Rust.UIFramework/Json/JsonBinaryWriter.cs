@@ -14,9 +14,9 @@ public class JsonBinaryWriter : BasePoolable
 {
     private const int SegmentSize = 4096;
 
-    private List<SizedArray<byte>> _segments;
+    private readonly List<SizedArray<byte>> _segments = new(100);
     private short _charIndex;
-    private char[] _charBuffer;
+    private readonly char[] _charBuffer = new char[SegmentSize * 2];
 
     public void Write(char character)
     {
@@ -120,13 +120,7 @@ public class JsonBinaryWriter : BasePoolable
         
     protected override void LeavePool()
     {
-        _segments = UiFrameworkPool.GetList<SizedArray<byte>>();
-        if (_segments.Capacity < 100)
-        {
-            _segments.Capacity = 100;
-        }
-            
-        _charBuffer = ArrayPool<char>.Shared.Rent(SegmentSize * 2);
+
     }
 
     protected override void EnterPool()
@@ -136,10 +130,7 @@ public class JsonBinaryWriter : BasePoolable
             byte[] bytes = _segments[index].Array;
             ArrayPool<byte>.Shared.Return(bytes);
         }
-            
-        ArrayPool<char>.Shared.Return(_charBuffer);
-        UiFrameworkPool.FreeList(_segments);
-        _charBuffer = null;
+        _segments.Clear();
         _charIndex = 0;
     }
 }
