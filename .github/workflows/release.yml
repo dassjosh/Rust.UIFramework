@@ -21,7 +21,7 @@ jobs:
         run: dotnet --version
 
       - name: Set VERSION variable from tag
-        run: echo "VERSION=${GITHUB_REF/refs\/tags\/v/}" | Out-File -FilePath $env:GITHUB_ENV
+        run: echo "VERSION=${github.ref/refs\/tags\/v/}" | Out-File -FilePath $env:GITHUB_ENV
 
       - name: Download References
         shell: pwsh
