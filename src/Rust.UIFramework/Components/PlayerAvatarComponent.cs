@@ -6,7 +6,7 @@ public class PlayerAvatarComponent : BaseImageComponent
 {
     private const string Type = "UnityEngine.UI.RawImage";
     
-    public ulong SteamId;
+    public string SteamId;
 
     public override void WriteComponent(JsonFrameworkWriter writer)
     {

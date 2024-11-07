@@ -1,5 +1,6 @@
 ﻿using System;
 using Oxide.Core;
+using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Controls;
@@ -98,7 +99,7 @@ public partial class BaseUiBuilder
     #region Player Avatar
     public UiPlayerAvatar PlayerAvatar(in UiReference parent, in UiPosition pos, in UiOffset offset, ulong steamId, UiColor color)
     {
-        UiPlayerAvatar image = UiPlayerAvatar.Create(pos, offset, color, steamId);
+        UiPlayerAvatar image = UiPlayerAvatar.Create(pos, offset, color, StringCache<ulong>.ToString(steamId));
         AddComponent(image, parent);
         return image;
     }

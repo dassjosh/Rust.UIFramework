@@ -10,7 +10,7 @@ public class UiPlayerAvatar : BaseUiOutline
 {
     public readonly PlayerAvatarComponent Avatar = new();
 
-    public static UiPlayerAvatar Create(in UiPosition pos, in UiOffset offset, UiColor color, ulong steamId)
+    public static UiPlayerAvatar Create(in UiPosition pos, in UiOffset offset, UiColor color, string steamId)
     {
         UiPlayerAvatar icon = CreateBase<UiPlayerAvatar>(pos, offset);
         icon.Avatar.Color = color;
