@@ -12,6 +12,12 @@ public static class UiLayerCache
     private const string HudMenu = "Hud.Menu";
     private const string Under = "Under";
     private const string UnderNonScaled = "UnderNonScaled";
+    private const string Inventory = "Inventory";
+    private const string Crafting = "Crafting";
+    private const string Contacts = "Contacts";
+    private const string Clans = "Clans";
+    private const string TechTree = "TechTree";
+    private const string Map = "Map";
 
     private static readonly ConcurrentDictionary<UiLayer, string> Layers = new()
     {
@@ -22,6 +28,12 @@ public static class UiLayerCache
         [UiLayer.HudMenu] = HudMenu,
         [UiLayer.Under] = Under,
         [UiLayer.UnderNonScaled] = UnderNonScaled,
+        [UiLayer.Inventory] = Inventory,
+        [UiLayer.Crafting] = Crafting,
+        [UiLayer.Contacts] = Contacts,
+        [UiLayer.Clans] = Clans,
+        [UiLayer.TechTree] = TechTree,
+        [UiLayer.Map] = Map,
     };
 
     public static string GetLayer(UiLayer layer)

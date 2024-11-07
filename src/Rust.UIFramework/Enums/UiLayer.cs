@@ -8,5 +8,11 @@ public enum UiLayer : byte
     HudMenu,
     Hud,
     Under,
-    UnderNonScaled
+    UnderNonScaled,
+    Inventory,
+    Crafting,
+    Contacts,
+    Clans,
+    TechTree,
+    Map,
 }
