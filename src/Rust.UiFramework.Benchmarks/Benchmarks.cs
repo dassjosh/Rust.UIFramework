@@ -2,7 +2,6 @@
 using BenchmarkDotNet.Attributes;
 using Facepunch;
 using Network;
-using Oxide.Ext.UiFramework.Benchmarks;
 using Oxide.Ext.UiFramework.Builder.UI;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Extensions;
@@ -11,6 +10,10 @@ using Oxide.Ext.UiFramework.Positions;
 using Oxide.Game.Rust.Cui;
 
 namespace Rust.UiFramework.Benchmarks;
+
+#if BENCHMARKS
+
+using Oxide.Ext.UiFramework.Benchmarks;
 
 [MemoryDiagnoser]
 public class Benchmarks
@@ -93,15 +96,22 @@ public class Benchmarks
     //     return count;
     // }
 
+    [Benchmark(Baseline = true)]
+    public void UiFramework_Async()
+    {
+        UiBuilder builder = GetFrameworkBuilder();
+        builder.AddUi(default(SendInfo));
+        builder.Dispose();
+    }
+    
     [Benchmark]
-    public byte[] Oxide_Full()
+    public void Oxide_Async()
     {
         CuiElementContainer builder = GetOxideContainer();
-        string json = builder.ToJson();
-        return Encoding.UTF8.GetBytes(json);
+        builder.AddUiAsync(_connection);
     }
-
-    [Benchmark(Baseline = true)]
+    
+    //[Benchmark]
     public void UiFramework_Full()
     {
         UiBuilder builder = GetFrameworkBuilder();
@@ -113,13 +123,14 @@ public class Benchmarks
         builder.Dispose();
     }
     
-    //[Benchmark]
-    public void Oxide_Async()
+    [Benchmark]
+    public byte[] Oxide_Full()
     {
         CuiElementContainer builder = GetOxideContainer();
-        builder.AddUiAsync(_connection);
+        string json = builder.ToJson();
+        return Encoding.UTF8.GetBytes(json);
     }
-
+    
     private CuiElementContainer GetOxideContainer()
     {
         CuiElementContainer container = new();
@@ -154,3 +165,4 @@ public class Benchmarks
         return builder;
     }
 }
+#endif
