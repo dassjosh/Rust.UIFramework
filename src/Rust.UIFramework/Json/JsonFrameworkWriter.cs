@@ -1,5 +1,4 @@
-﻿using System;
-using Network;
+﻿using Network;
 using Oxide.Ext.UiFramework.Benchmarks;
 using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Colors;
@@ -68,12 +67,6 @@ public class JsonFrameworkWriter : BasePoolable
     }
     
     public void AddFieldRaw(byte[] name, string value)
-    {
-        WritePropertyName(name);
-        WriteValue(value);
-    }
-    
-    public void AddFieldRaw1(byte[] name, string value)
     {
         WritePropertyName(name);
         WriteValue(value);

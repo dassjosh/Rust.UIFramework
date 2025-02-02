@@ -38,7 +38,7 @@ public class JsonUtf8Writer : BasePoolable
             Flush();
         }
 
-        if (character < 127)
+        if (character < 0x7F)
         {
             _buffer[_byteIndex++] = (byte)character;
             return;
@@ -71,7 +71,7 @@ public class JsonUtf8Writer : BasePoolable
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Write(ReadOnlySpan<char> text)
+    public void Write(string text)
     {
         int length = text.Length;
         if (_byteIndex + length * 2 >= SegmentSize)
@@ -84,7 +84,7 @@ public class JsonUtf8Writer : BasePoolable
         for (int i = 0; i < length; i++)
         {
             char character = text[i];
-            if (character < 127)
+            if (character < 0x7F)
             {
                 buffer[byteIndex++] = (byte)character;
                 continue;

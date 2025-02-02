@@ -1,5 +1,4 @@
-﻿using Oxide.Ext.UiFramework.Cache;
-using Oxide.Ext.UiFramework.Json;
+﻿using Oxide.Ext.UiFramework.Json;
 
 namespace Oxide.Ext.UiFramework.Components;
 
