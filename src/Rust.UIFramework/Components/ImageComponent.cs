@@ -5,16 +5,14 @@ namespace Oxide.Ext.UiFramework.Components;
 
 public class ImageComponent : BaseImageComponent
 {
-    private const string Type = "UnityEngine.UI.Image";
-        
     public string Png;
     public Image.Type ImageType;
 
     public override void WriteComponent(JsonFrameworkWriter writer)
     {
         writer.WriteStartObject();
-        writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, Type);
-        writer.AddField(JsonDefaults.Image.PngName, Png, JsonDefaults.Common.NullValue);
+        writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, JsonDefaults.Image.Type);
+        writer.AddField(JsonDefaults.Image.PngName, Png, null);
         writer.AddField(JsonDefaults.Image.ImageType, ImageType);
         base.WriteComponent(writer);
         writer.WriteEndObject();

@@ -120,7 +120,7 @@ public readonly struct UiColor : IEquatable<UiColor>
         {
             span = span[1..];
         }
-            
+        
         byte red = byte.Parse(span[..2], NumberStyles.HexNumber);
         byte green = byte.Parse(span[2..4], NumberStyles.HexNumber);
         byte blue = byte.Parse(span[4..6], NumberStyles.HexNumber);

@@ -6,7 +6,7 @@ using UnityEngine;
 
 
 namespace Oxide.Ext.UiFramework.Benchmarks;
-#if BENCHMARKS
+#if BENCHMARKS || DEBUG
 internal class BenchmarkNetWrite : Stream, Pool.IPooled
 {
     public byte[] Data;

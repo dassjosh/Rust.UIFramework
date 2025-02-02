@@ -1,12 +1,11 @@
-﻿using Oxide.Ext.UiFramework.Colors;
+﻿using Oxide.Ext.UiFramework.Cache;
+using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Json;
 
 namespace Oxide.Ext.UiFramework.Components;
 
 public class RawImageComponent : IComponent
 {
-    private const string Type = "UnityEngine.UI.RawImage";
-
     public UiColor Color;
     public float FadeIn;
     public string Url;
@@ -17,7 +16,7 @@ public class RawImageComponent : IComponent
     public virtual void WriteComponent(JsonFrameworkWriter writer)
     {
         writer.WriteStartObject();
-        writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, Type);
+        writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, JsonDefaults.RawImage.Type);
         writer.AddField(JsonDefaults.BaseImage.SpriteName, Texture, JsonDefaults.RawImage.TextureValue);
         writer.AddField(JsonDefaults.BaseImage.MaterialName, Material, JsonDefaults.BaseImage.Material);
         if (!string.IsNullOrEmpty(Url))

@@ -6,8 +6,6 @@ namespace Oxide.Ext.UiFramework.Components;
 
 public class InputComponent : BaseTextComponent
 {
-    private const string Type = "UnityEngine.UI.InputField";
-
     public int CharsLimit;
     public string Command;
     public InputMode Mode;
@@ -16,7 +14,7 @@ public class InputComponent : BaseTextComponent
     public override void WriteComponent(JsonFrameworkWriter writer)
     {
         writer.WriteStartObject();
-        writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, Type);
+        writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, JsonDefaults.Input.Type);
         writer.AddField(JsonDefaults.Input.CharacterLimitName, CharsLimit, JsonDefaults.Input.CharacterLimitValue);
         writer.AddField(JsonDefaults.Input.LineTypeName, LineType);
             

@@ -5,8 +5,6 @@ namespace Oxide.Ext.UiFramework.Components;
 
 public class ScrollViewComponent : IComponent
 {
-    private const string Type = "UnityEngine.UI.ScrollView";
-    
     public ScrollViewContentTransformComponent ContentTransform = new();
     public bool Horizontal;
     public bool Vertical;
@@ -21,7 +19,7 @@ public class ScrollViewComponent : IComponent
     public void WriteComponent(JsonFrameworkWriter writer)
     {
         writer.WriteStartObject();
-        writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, Type);
+        writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, JsonDefaults.ScrollView.Type);
         writer.AddField(JsonDefaults.ScrollView.Horizontal, Horizontal, false);
         writer.AddField(JsonDefaults.ScrollView.Vertical, Vertical, false);
         writer.AddField(JsonDefaults.ScrollView.MovementType, MovementType);

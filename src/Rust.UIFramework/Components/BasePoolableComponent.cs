@@ -9,16 +9,16 @@ public abstract class BasePoolableComponent : BasePoolable, IComponent
         
     public virtual void WriteComponent(JsonFrameworkWriter writer)
     {
-            writer.AddField(JsonDefaults.Common.EnabledName, Enabled, true);
-        }
+        writer.AddField(JsonDefaults.Common.EnabledName, Enabled, true);
+    }
 
     protected override void EnterPool()
     {
-            Reset();
-        }
+        Reset();
+    }
 
     public virtual void Reset()
     {
-            Enabled = true;
-        }
+        Enabled = true;
+    }
 }

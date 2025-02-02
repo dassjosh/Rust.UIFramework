@@ -1,4 +1,4 @@
-﻿using System.Collections.Concurrent;
+﻿using System.Collections.Generic;
 using System.Text;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Extensions;
@@ -8,20 +8,19 @@ using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Cache;
 
-public static class UiColorCache
+internal static class UiColorCache
 {
     private const string Format = "0.####";
     private const char Space = ' ';
 
-    private static readonly ConcurrentDictionary<int, string> ColorCache = new();
+    private static readonly Dictionary<UiColor, byte[]> ColorCache = new();
         
-    public static void WriteColor(JsonBinaryWriter writer, UiColor uiColor)
+    public static void WriteColor(JsonUtf8Writer writer, UiColor uiColor)
     {
-        int hashCode = uiColor.GetHashCode();
-        if (!ColorCache.TryGetValue(hashCode, out string color))
+        if (!ColorCache.TryGetValue(uiColor, out byte[] color))
         {
-            color = GetColor(uiColor);
-            ColorCache[hashCode] = color;
+            color = Encoding.UTF8.GetBytes(GetColor(uiColor));
+            ColorCache[uiColor] = color;
         }
 
         writer.Write(color);

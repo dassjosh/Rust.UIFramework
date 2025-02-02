@@ -16,8 +16,5 @@ public static class EnumCache<T>
         }
     }
         
-    public static string ToString(T value)
-    {
-        return CachedStrings[value];
-    }
+    public static string ToString(T value) => CachedStrings[value];
 }

@@ -6,8 +6,6 @@ namespace Oxide.Ext.UiFramework.Components;
 
 public class CountdownComponent : BasePoolable, IComponent
 {
-    private const string Type = "Countdown";
-        
     public float StartTime;
     public float EndTime;
     public float Step;
@@ -20,7 +18,7 @@ public class CountdownComponent : BasePoolable, IComponent
     public virtual void WriteComponent(JsonFrameworkWriter writer)
     {
         writer.WriteStartObject();
-        writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, Type);
+        writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, JsonDefaults.Countdown.Type);
         writer.AddField(JsonDefaults.Countdown.StartTimeName, StartTime, JsonDefaults.Countdown.StartTimeValue);
         writer.AddField(JsonDefaults.Countdown.EndTimeName, EndTime, JsonDefaults.Countdown.EndTimeValue);
         writer.AddField(JsonDefaults.Countdown.StepName, Step, JsonDefaults.Countdown.StepValue);

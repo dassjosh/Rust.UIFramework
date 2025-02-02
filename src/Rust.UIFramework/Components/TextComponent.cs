@@ -4,12 +4,10 @@ namespace Oxide.Ext.UiFramework.Components;
 
 public class TextComponent : BaseTextComponent
 {
-    private const string Type = "UnityEngine.UI.Text";
-
     public override void WriteComponent(JsonFrameworkWriter writer)
     {
         writer.WriteStartObject();
-        writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, Type);
+        writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, JsonDefaults.BaseText.Type);
         base.WriteComponent(writer);
         writer.WriteEndObject();
     }
