@@ -1,4 +1,6 @@
-﻿namespace Oxide.Ext.UiFramework;
+﻿using System;
+
+namespace Oxide.Ext.UiFramework;
 
 public class UiConstants
 {
@@ -8,6 +10,7 @@ public class UiConstants
         public const string DestroyUiFunc = "DestroyUI";
     }
 
+    [Obsolete("This class is obsolete. Please use UiMaterials instead.")]
     public static class Materials
     {
         public const string InGameBlur = "assets/content/ui/uibackgroundblur-ingamemenu.mat";
@@ -16,6 +19,7 @@ public class UiConstants
         public const string Icon = "assets/icons/iconmaterial.mat";
     }
 
+    [Obsolete("This class is obsolete. Please use UiSprites instead.")]
     public static class Sprites
     {
         public const string Default = "Assets/Content/UI/UI.Background.Tile.psd";

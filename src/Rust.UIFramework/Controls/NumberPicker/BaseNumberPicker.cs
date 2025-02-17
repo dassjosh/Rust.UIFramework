@@ -19,14 +19,14 @@ public abstract class BaseNumberPicker<T> : BaseUiControl where T : struct, ICon
     protected void CreateLeftRightPicker(BaseUiBuilder builder, in UiReference parent, in UiPosition pos, in UiOffset offset, T value, int fontSize, UiColor textColor, UiColor backgroundColor, string command, InputMode mode, float buttonWidth, TextAnchor align, string numberFormat)
     {
         Background = builder.Panel(parent, pos, offset, backgroundColor);
-        string displayValue = string.IsNullOrEmpty(numberFormat) ? StringCache<T>.ToString(value) : StringCache<T>.ToString(value, numberFormat);
+        string displayValue = string.IsNullOrEmpty(numberFormat) ? StringCache<T>.ToString(value) : FormatCache<T>.ToString(value, numberFormat);
         Input = builder.Input(Background, UiPosition.Full.SliceHorizontal(buttonWidth, 1 - buttonWidth), displayValue, fontSize, textColor, command, align, mode: mode);
     }
         
     protected void CreateUpDownPicker(BaseUiBuilder builder, in UiReference parent, in UiPosition pos, in UiOffset offset, T value, int fontSize, UiColor textColor, UiColor backgroundColor, string command, TextAnchor align, InputMode mode, string numberFormat)
     {
         Background = builder.Panel(parent, pos, offset, backgroundColor);
-        string displayValue = string.IsNullOrEmpty(numberFormat) ? StringCache<T>.ToString(value) : StringCache<T>.ToString(value, numberFormat);
+        string displayValue = string.IsNullOrEmpty(numberFormat) ? StringCache<T>.ToString(value) : FormatCache<T>.ToString(value, numberFormat);
         Input = builder.Input(Background, UiPosition.HorizontalPaddedFull, displayValue, fontSize, textColor, command, mode: mode, align: align);
     }
 

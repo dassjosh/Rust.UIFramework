@@ -1,5 +1,4 @@
 ﻿using Oxide.Ext.UiFramework.Json;
-using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
 
 namespace Oxide.Ext.UiFramework.Components;
@@ -8,8 +7,8 @@ public class ScrollViewContentTransformComponent : RectTransformComponent
 {
     public ScrollViewContentTransformComponent()
     {
-        Position = new UiPosition(0, 0, 1, 1);
-        Offset = new UiOffset(0, 0, 0, 0);
+        Position = UiPosition.Full;
+        Offset = default;
     }
     
     public override void WriteComponent(JsonFrameworkWriter writer)
@@ -25,6 +24,6 @@ public class ScrollViewContentTransformComponent : RectTransformComponent
     public override void Reset()
     {
         Position = new UiPosition(0, 0, 1, 1);
-        Offset = new UiOffset(0, 0, 0, 0);
+        Offset = default;
     }
 }

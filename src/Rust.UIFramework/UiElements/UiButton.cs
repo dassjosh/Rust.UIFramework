@@ -1,5 +1,6 @@
 ﻿using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
+using Oxide.Ext.UiFramework.Interfaces.UiElements;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
@@ -7,7 +8,7 @@ using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-public class UiButton : BaseUiOutline
+public class UiButton : BaseUiOutline, IImageType, ISprite, IMaterial
 {
     public readonly ButtonComponent Button = new();
 

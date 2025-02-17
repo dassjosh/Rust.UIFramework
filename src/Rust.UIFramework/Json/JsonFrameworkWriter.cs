@@ -1,5 +1,4 @@
 ﻿using Network;
-using Oxide.Ext.UiFramework.Benchmarks;
 using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
@@ -253,6 +252,15 @@ public class JsonFrameworkWriter : BasePoolable
     {
         WritePropertyName(name);
         WriteTextValue(value);
+    }
+    
+    public void AddTextField(string name, string value, string defaultValue)
+    {
+        if (value != defaultValue)
+        {
+            WritePropertyName(name);
+            WriteTextValue(value);
+        }
     }
 
     public void AddMouse()

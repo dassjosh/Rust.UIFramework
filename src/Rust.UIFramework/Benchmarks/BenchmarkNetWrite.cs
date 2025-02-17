@@ -1,11 +1,4 @@
-﻿using System;
-using System.IO;
-using Facepunch;
-using Network;
-using UnityEngine;
-
-
-namespace Oxide.Ext.UiFramework.Benchmarks;
+﻿namespace Oxide.Ext.UiFramework.Benchmarks;
 #if BENCHMARKS
 internal class BenchmarkNetWrite : Stream, Pool.IPooled
 {

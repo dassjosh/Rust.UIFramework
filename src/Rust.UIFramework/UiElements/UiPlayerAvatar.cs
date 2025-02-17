@@ -1,12 +1,13 @@
 ﻿using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
+using Oxide.Ext.UiFramework.Interfaces.UiElements;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-public class UiPlayerAvatar : BaseUiOutline
+public class UiPlayerAvatar : BaseUiOutline, IMaterial
 {
     public readonly PlayerAvatarComponent Avatar = new();
 
@@ -21,6 +22,11 @@ public class UiPlayerAvatar : BaseUiOutline
     public void SetFadeIn(float duration)
     {
         Avatar.FadeIn = duration;
+    }
+    
+    public void SetMaterial(string material)
+    {
+        Avatar.Material = material;
     }
 
     protected override void WriteComponents(JsonFrameworkWriter writer)

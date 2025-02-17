@@ -15,7 +15,7 @@ public class ButtonComponent : BaseImageComponent
     {
         writer.WriteStartObject();
         writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, Type);
-        writer.AddField(JsonDefaults.Common.CommandName, Command, JsonDefaults.Common.NullValue);
+        writer.AddTextField(JsonDefaults.Common.CommandName, Command, JsonDefaults.Common.NullValue);
         writer.AddField(JsonDefaults.Button.CloseName, Close, JsonDefaults.Common.NullValue);
         writer.AddField(JsonDefaults.Image.ImageType, ImageType);
         base.WriteComponent(writer);

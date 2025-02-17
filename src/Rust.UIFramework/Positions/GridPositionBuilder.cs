@@ -100,11 +100,6 @@ public class GridPositionBuilder
             yMax -= size;
         }
 
-        xMin += _xPad;
-        xMax -= _xPad;
-        yMin += _yPad;
-        yMax -= _yPad;
-
-        return new GridPosition(xMin, yMin, xMax, yMax, _numCols, _numRows);
+        return new GridPosition(xMin, yMin, xMax, yMax, _xPad, _yPad, _numCols, _numRows);
     }
 }

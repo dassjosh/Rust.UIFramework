@@ -11,6 +11,7 @@
         <FileVersion>$(VERSION)</FileVersion>
         <TargetFrameworks>net48;netstandard2.1;netcoreapp3.0</TargetFrameworks>
         <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|Carbon' ">
@@ -96,6 +97,12 @@
       <Reference Include="Rust.Global">
         <HintPath>..\References\Rust.Global.dll</HintPath>
       </Reference>
+      <Reference Include="Rust.UI">
+        <HintPath>..\references\Rust.UI.dll</HintPath>
+      </Reference>
+      <Reference Include="System.Net.Http" Condition="'$(TargetFramework)' == 'net48'">
+        <HintPath>..\references\System.Net.Http.dll</HintPath>
+      </Reference>
       <Reference Include="UnityEngine">
         <HintPath>..\References\UnityEngine.dll</HintPath>
       </Reference>
@@ -134,6 +141,11 @@
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
+      <PackageReference Include="PolySharp" Version="1.15.0">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+      <PackageReference Include="System.Drawing.Common" Version="9.0.1" />
     </ItemGroup>
 
     <ItemGroup>
@@ -141,5 +153,13 @@
             <_Parameter1>Rust.UiFramework.Benchmarks</_Parameter1>
         </AssemblyAttribute>
     </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Factory\" />
+    </ItemGroup>
+
+    <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+      <Exec Command="if '$(TargetFramework)' == 'net48' copy /Y &quot;$(TargetDir)$(TargetName).dll&quot; &quot;D:\Servers\Full\Rust-Main\steamapps\common\rust_dedicated\RustDedicated_Data\Managed&quot;" />
+    </Target>
 
 </Project>

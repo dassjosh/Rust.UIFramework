@@ -8,9 +8,12 @@ public class TextComponent : BaseTextComponent
 
     public override void WriteComponent(JsonFrameworkWriter writer)
     {
-        writer.WriteStartObject();
-        writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, Type);
-        base.WriteComponent(writer);
-        writer.WriteEndObject();
+        if (!string.IsNullOrEmpty(Text))
+        {
+            writer.WriteStartObject();
+            writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, Type);
+            base.WriteComponent(writer);
+            writer.WriteEndObject();
+        }
     }
 }

@@ -3,12 +3,14 @@ using Oxide.Core;
 using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
+using Oxide.Ext.UiFramework.Constants;
 using Oxide.Ext.UiFramework.Controls;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.UiElements;
+using Rust.UI;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -154,6 +156,23 @@ public partial class BaseUiBuilder
     public UiRawImage ImageFileStorage(in UiReference parent, in UiPosition pos, string png, UiColor color) => ImageFileStorage(parent, pos, default, png, color);
     public UiRawImage ImageFileStorage(in UiReference parent, in UiPosition pos, in UiOffset offset, string png) => ImageFileStorage(parent, pos, offset, png, UiColor.White);
     public UiRawImage ImageFileStorage(in UiReference parent, in UiPosition pos, string png) => ImageFileStorage(parent, pos, default, png, UiColor.White);
+    #region Rust Icon
+
+    public UiRawImage RustIcon(in UiReference parent, in UiPosition pos, in UiOffset offset, Icons icon, UiColor color)
+    {
+        string img = RustIconCache.GetIcon(icon);
+        UiRawImage image = img.StartsWith("http") ? WebImage(parent, pos, offset, img, color) : ImageFileStorage(parent, pos, offset, img, color);
+        
+        image.SetMaterial(UiMaterials.Assets.Icons.Iconmaterial);
+        AddComponent(image, parent);
+        return image;
+    }
+
+    public UiRawImage RustIcon(in UiReference parent, in UiPosition pos, Icons icon, UiColor color) => RustIcon(parent, pos, default, icon, color);
+    public UiRawImage RustIcon(in UiReference parent, in UiPosition pos, in UiOffset offset, Icons icon) => RustIcon(parent, pos, offset, icon, UiColor.White);
+    public UiRawImage RustIcon(in UiReference parent, in UiPosition pos, Icons icon) => RustIcon(parent, pos, default, icon, UiColor.White);
+
+    #endregion
     #endregion
 
     #region Label

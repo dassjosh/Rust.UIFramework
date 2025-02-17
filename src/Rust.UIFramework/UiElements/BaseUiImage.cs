@@ -1,10 +1,11 @@
 ﻿using Oxide.Ext.UiFramework.Components;
+using Oxide.Ext.UiFramework.Interfaces.UiElements;
 using Oxide.Ext.UiFramework.Json;
 using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-public abstract class BaseUiImage : BaseUiOutline
+public abstract class BaseUiImage : BaseUiOutline, IImageType, ISprite, IMaterial
 {
     public readonly ImageComponent Image = new();
         

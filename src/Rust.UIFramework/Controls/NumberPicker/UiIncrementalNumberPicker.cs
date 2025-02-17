@@ -36,7 +36,7 @@ public class UiIncrementalNumberPicker<T> : BaseNumberPicker<T> where T : struct
             UiPosition subtractSlice = UiPosition.Full.SliceHorizontal(i * buttonWidth, (i + 1) * buttonWidth);
             UiPosition addSlice = UiPosition.Full.SliceHorizontal(1 - (buttonWidth * incrementCount) + i * buttonWidth, 1 - (buttonWidth * incrementCount) + (i + 1) * buttonWidth);
                 
-            string displayIncrement = StringCache<T>.ToString(increment, incrementFormat);
+            string displayIncrement = FormatCache<T>.ToString(increment, incrementFormat);
                 
             if (GenericMath.Subtract(value, increment).CompareTo(minValue) >= 0)
             {

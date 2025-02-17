@@ -1,9 +1,4 @@
-﻿using BenchmarkDotNet.Configs;
-using BenchmarkDotNet.Jobs;
-using BenchmarkDotNet.Running;
-using BenchmarkDotNet.Toolchains.InProcess.Emit;
-
-namespace Rust.UiFramework.Benchmarks;
+﻿namespace Rust.UiFramework.Benchmarks;
 
 class Program
 {
@@ -14,6 +9,11 @@ class Program
             .WithToolchain(InProcessEmitToolchain.Instance)
             .WithIterationCount(30));
         BenchmarkRunner.Run<Benchmarks>(config, args);
+#else
+        
 #endif
+        
+        byte[] a = BitConverter.GetBytes(int.MaxValue);
+        string b = Convert.ToBase64String(a);
     }
 }

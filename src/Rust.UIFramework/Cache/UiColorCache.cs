@@ -30,15 +30,15 @@ public static class UiColorCache
     private static string GetColor(Color color)
     {
         StringBuilder builder = UiFrameworkPool.GetStringBuilder();
-        builder.Append(StringCache<float>.ToString(color.r, Format));
+        builder.Append(FormatCache<float>.ToString(color.r, Format));
         builder.Append(Space);
-        builder.Append(StringCache<float>.ToString(color.g, Format));
+        builder.Append(FormatCache<float>.ToString(color.g, Format));
         builder.Append(Space);
-        builder.Append(StringCache<float>.ToString(color.b, Format));
+        builder.Append(FormatCache<float>.ToString(color.b, Format));
         if (color.a < 1f)
         {
             builder.Append(Space);
-            builder.Append(StringCache<float>.ToString(color.a, Format));
+            builder.Append(FormatCache<float>.ToString(color.a, Format));
         }
 
         return builder.ToStringAndFree();

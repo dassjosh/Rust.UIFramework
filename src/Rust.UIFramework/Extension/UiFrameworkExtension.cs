@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using System.Reflection;
 using Oxide.Core;
 using Oxide.Core.Extensions;
+using Oxide.Ext.UiFramework.Data;
+using Oxide.Ext.UiFramework.Extensions;
+using Oxide.Ext.UiFramework.Libraries;
+using Oxide.Ext.UiFramework.Plugins;
+using Oxide.Ext.UiFramework.Types;
 
 // ReSharper disable once CheckNamespace
 namespace Oxide.Ext.UiFramework;
@@ -13,12 +18,26 @@ public class UiFrameworkExtension : Extension
     public override string Author => "MJSU";
     public override VersionNumber Version { get; }
 
+    internal static UiFrameworkExtension Instance;
+
     public UiFrameworkExtension(ExtensionManager manager) : base(manager)
     {
+        Instance = this;
         AssemblyName assembly = Assembly.GetExecutingAssembly().GetName();
         Version = new VersionNumber(assembly.Version.Major, assembly.Version.Minor, assembly.Version.Build);
     }
-    
+
+    public override void OnModLoad()
+    {
+        Manager.RegisterPluginLoader(new UiFrameworkExtPluginLoader());
+        Manager.RegisterLibrary($"{Name}_{nameof(ImageStorage)}", Singleton<ImageStorage>.Instance);
+        
+        Interface.Oxide.RootPluginManager.OnPluginRemoved += plugin =>
+        {
+            PluginExt.OnPluginUnloaded(plugin);
+        };
+    }
+
     public override IEnumerable<string> GetPreprocessorDirectives()
     {
         string name = Name.ToUpper();
@@ -27,6 +46,14 @@ public class UiFrameworkExtension : Extension
         {
             yield return $"{name}_EXT_{Version.Major}_{i}";
         }
+    }
+    
+    /// <summary>
+    /// Called when server is shutdown
+    /// </summary>
+    public override void OnShutdown()
+    {
+        Singleton<DataHandler>.Instance.Shutdown();
     }
 }
 #endif

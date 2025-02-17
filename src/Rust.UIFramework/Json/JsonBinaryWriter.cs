@@ -5,7 +5,6 @@ using System.IO;
 using System.Runtime.CompilerServices;
 using System.Text;
 using Network;
-using Oxide.Ext.UiFramework.Benchmarks;
 using Oxide.Ext.UiFramework.Pooling;
 
 namespace Oxide.Ext.UiFramework.Json;

@@ -39,6 +39,7 @@ internal static class TypeExt
     public static object GetDefault(this Type type) => type.IsValueType ? Activator.CreateInstance(type) : null;
 
     internal static T GetAttribute<T>(this Type type, bool inherit) where T : Attribute => type.GetCustomAttribute(typeof(T), inherit) as T;
+    internal static T GetAttribute<T>(this MethodInfo type, bool inherit) where T : Attribute => type.GetCustomAttribute(typeof(T), inherit) as T;
     internal static bool HasAttribute<T>(this Type type, bool inherit) where T : Attribute => GetAttribute<T>(type, inherit) != null;
         
     public static string GetRealTypeName(this Type t)

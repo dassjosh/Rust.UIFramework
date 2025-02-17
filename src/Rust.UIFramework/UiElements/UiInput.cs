@@ -66,7 +66,7 @@ public class UiInput : BaseUiOutline
         
     /// <summary>
     /// Sets if the input should block keyboard input when focused a loot panel / crafting ui is open.
-    /// This should not if a loot panel / crafting ui won't be open when displaying the UI.
+    /// This should not be used if a loot panel / crafting ui won't be open when displaying the UI.
     /// </summary>
     /// <param name="needsKeyboard"></param>
     public void SetNeedsHudKeyboard(bool needsKeyboard)

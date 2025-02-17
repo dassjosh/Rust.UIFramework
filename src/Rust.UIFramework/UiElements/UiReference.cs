@@ -1,15 +1,9 @@
 ﻿namespace Oxide.Ext.UiFramework.UiElements;
 
-public readonly struct UiReference
+public readonly struct UiReference(string parent, string name)
 {
-    public readonly string Parent;
-    public readonly string Name;
-
-    public UiReference(string parent, string name)
-    {
-        Parent = parent;
-        Name = name;
-    }
+    public readonly string Parent = parent;
+    public readonly string Name = name;
 
     public UiReference WithChild(string name) => new(Name, name);
 

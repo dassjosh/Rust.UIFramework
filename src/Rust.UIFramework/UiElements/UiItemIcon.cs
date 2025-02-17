@@ -1,12 +1,13 @@
 ﻿using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
+using Oxide.Ext.UiFramework.Interfaces.UiElements;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-public class UiItemIcon : BaseUiOutline
+public class UiItemIcon : BaseUiOutline, IMaterial
 {
     public readonly ItemIconComponent Icon = new();
 
@@ -22,6 +23,11 @@ public class UiItemIcon : BaseUiOutline
     public void SetFadeIn(float duration)
     {
         Icon.FadeIn = duration;
+    }
+        
+    public void SetMaterial(string material)
+    {
+        Icon.Material = material;
     }
 
     protected override void WriteComponents(JsonFrameworkWriter writer)

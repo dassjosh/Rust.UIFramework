@@ -80,7 +80,7 @@ public class UiCalenderPicker : BasePopoverControl
         _nextYear = _firstOfTheMonth.AddYears(1);
         _daysInMonth = DateTime.DaysInMonth(_firstOfTheMonth.Year, _firstOfTheMonth.Month);
         _yearText = StringCache<int>.ToString(_firstOfTheMonth.Year);
-        _monthLabelText = StringCache<DateTime>.ToString(_firstOfTheMonth, "MMM");
+        _monthLabelText = FormatCache<DateTime>.ToString(_firstOfTheMonth, "MMM");
         _numRows = GetWeekRows(date.Year, date.Month);
         _maxDays = _numRows * NumColumns;
     }

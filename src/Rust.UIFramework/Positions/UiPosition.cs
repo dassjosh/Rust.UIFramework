@@ -1,4 +1,5 @@
-﻿using Oxide.Ext.UiFramework.Extensions;
+﻿using System.Diagnostics.Contracts;
+using Oxide.Ext.UiFramework.Extensions;
 using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Positions;
@@ -42,4 +43,16 @@ public readonly struct UiPosition
     {
         return $"({Min.x:0.####}, {Min.y:0.####}) ({Max.x:0.####}, {Max.y:0.####})";
     }
+    
+    [Pure]
+    public UiPosition WithXMin(float xMin) => new(xMin, Min.y, Max.x, Max.y);
+    
+    [Pure]
+    public UiPosition WithXMax(float xMax) => new(Min.x, Min.y, xMax, Max.y);    
+    
+    [Pure]
+    public UiPosition WithYMin(float yMin) => new(Min.x, yMin, Max.x, Max.y);
+    
+    [Pure]
+    public UiPosition WithYMax(float yMax) => new(Min.x, Min.y, Max.x, yMax);
 }
