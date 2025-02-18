@@ -2,14 +2,17 @@
 using System.Collections.Generic;
 using System.Text;
 using Oxide.Ext.UiFramework.Extensions;
+using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Pooling;
+using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Libraries.UiCommands;
 
-internal class ExtremeProtection : ICommandProtection
+internal class ExtremeProtection(PluginId pluginId, string method, float protectionKeyLifetime) : ICommandProtection
 {
     private readonly Dictionary<long, ProtectedArgs> _protectedArgs = new();
     private readonly Dictionary<long, string> _protectedCommand = new();
+    private readonly TimeSpan _keyLifetime = TimeSpan.FromSeconds(protectionKeyLifetime);
 
     public ArgWriterIterator StartWriteProtection(ArgWriterIterator writer)
     {
@@ -22,16 +25,17 @@ internal class ExtremeProtection : ICommandProtection
 
     public string FinishWriteProtection(ArgWriterIterator writer)
     {
-        _protectedArgs[writer.ProtectionKey] = new ProtectedArgs(writer.ToString(), DateTime.UtcNow.AddMinutes(30));
+        _protectedArgs[writer.ProtectionKey] = new ProtectedArgs(writer.ToString(), DateTime.UtcNow + _keyLifetime);
         return _protectedCommand.Remove(writer.ProtectionKey, out string command) ? command : throw new KeyNotFoundException(nameof(writer.ProtectionKey));
     }
 
-    public bool TryValidateProtection(UiCommandTokenizer tokenizer, out UiCommandTokenizer protectedTokens)
+    public bool TryValidateProtection(BasePlayer player, UiCommandTokenizer tokenizer, out UiCommandTokenizer protectedTokens)
     {
         long protectionKey = tokenizer.GetNext().ToLongFromBase64Span();
         if (!_protectedArgs.TryGetValue(protectionKey, out ProtectedArgs args) || args.IsExpired)
         {
             protectedTokens = default;
+            Singleton<UiCommands>.Instance.OnProtectionValidationFailed(pluginId, player, method);
             return false;
         }
 

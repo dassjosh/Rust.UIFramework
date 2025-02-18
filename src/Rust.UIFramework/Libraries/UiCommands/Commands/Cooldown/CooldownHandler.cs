@@ -5,7 +5,7 @@ using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Libraries.UiCommands;
 
-internal class CooldownHandler(PluginId pluginId, float cooldown) : ICooldownHandler
+internal class CooldownHandler(PluginId pluginId, string method, float cooldown) : ICooldownHandler
 {
     private readonly Dictionary<ulong, DateTime> _cooldownExpires = new();
 
@@ -13,7 +13,7 @@ internal class CooldownHandler(PluginId pluginId, float cooldown) : ICooldownHan
     {
         if(_cooldownExpires.TryGetValue(player.userID, out DateTime expires) && expires > DateTime.UtcNow)
         {
-            Singleton<UiCommands>.Instance.OnPlayerCooldown(pluginId, player, cooldown, (float)expires.Subtract(DateTime.UtcNow).TotalSeconds);
+            Singleton<UiCommands>.Instance.OnPlayerCooldown(pluginId, player, method, cooldown, (float)expires.Subtract(DateTime.UtcNow).TotalSeconds);
             return true;
         }
         

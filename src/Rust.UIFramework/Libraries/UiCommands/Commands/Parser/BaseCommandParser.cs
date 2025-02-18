@@ -24,7 +24,7 @@ internal abstract class BaseCommandParser(ICommandProtection protection, ICooldo
             return true;
         }
 
-        if (protection.TryValidateProtection(command, out command))
+        if (protection.TryValidateProtection(player, command, out command))
         {
             return true;
         }

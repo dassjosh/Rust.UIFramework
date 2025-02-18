@@ -9,8 +9,9 @@ using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Libraries.UiCommands;
 
-public delegate void OnPlayerNoPermission(BasePlayer player, string permission);
-public delegate void OnPlayerCooldown(BasePlayer player, float cooldown, float remaining);
+public delegate void OnPlayerNoPermission(BasePlayer player, string method);
+public delegate void OnPlayerCooldown(BasePlayer player, string method, float cooldown, float remaining);
+public delegate void OnProtectionValidationFailed(BasePlayer player, string method);
 
 public class UiCommands : BaseUiFrameworkLibrary, ISingleton
 {
@@ -18,6 +19,7 @@ public class UiCommands : BaseUiFrameworkLibrary, ISingleton
     private readonly Dictionary<PluginCommand, ICommandParser> _commands = new();
     private readonly Dictionary<PluginId, OnPlayerNoPermission> _playerNoPermission = new();
     private readonly Dictionary<PluginId, OnPlayerCooldown> _playerOnCooldown = new();
+    private readonly Dictionary<PluginId, OnProtectionValidationFailed> _protectionValidationFailed = new();
     
     public ICommandBuilder RegisterCommand(Plugin plugin, Action<BasePlayer> method)
     {
@@ -98,10 +100,10 @@ public class UiCommands : BaseUiFrameworkLibrary, ISingleton
         {
             throw new DuplicateUiCommandRegistration(pluginId, method);
         }
-        
-        cooldown = attribute.Cooldown > 0 ? new CooldownHandler(pluginId, attribute.Cooldown) : null;
-        permission = !string.IsNullOrEmpty(attribute.Permission) ? new PermissionHandler(pluginId, attribute.Permission) : null;
-        protection = CreateProtection(attribute.ProtectionType);
+
+        cooldown = CreateCooldown(pluginId, method);
+        permission = CreatePermission(pluginId, method);
+        protection = CreateProtection(pluginId, method);
     }
 
     public void RegisterNoPermissionCallback(Plugin plugin, OnPlayerNoPermission callback)
@@ -112,6 +114,11 @@ public class UiCommands : BaseUiFrameworkLibrary, ISingleton
     public void RegisterPlayerCooldownCallback(Plugin plugin, OnPlayerCooldown callback)
     {
         _playerOnCooldown[plugin.Id()] = callback;
+    }
+    
+    public void RegisterValidationFailedCallback(Plugin plugin, OnProtectionValidationFailed callback)
+    {
+        _protectionValidationFailed[plugin.Id()] = callback;
     }
     
     public void RegisterCustomParser<T>(Plugin plugin, IArgHandler<T> handler)
@@ -126,6 +133,7 @@ public class UiCommands : BaseUiFrameworkLibrary, ISingleton
         _commands.RemoveAll(c => c.Key.Plugin == pluginId);
         _playerNoPermission.Remove(pluginId);
         _playerOnCooldown.Remove(pluginId);
+        _protectionValidationFailed.Remove(pluginId);
         ArgCreator.RemovePluginHandler(pluginId);
     }
 
@@ -137,31 +145,52 @@ public class UiCommands : BaseUiFrameworkLibrary, ISingleton
         _commands[pluginCommand]?.RunCommand(player, tokenizer);
     }
     
-    internal void OnPlayerNoPermission(PluginId pluginId, BasePlayer player, string permission)
+    internal void OnPlayerNoPermission(PluginId pluginId, BasePlayer player, string method)
     {
         if (_playerNoPermission.TryGetValue(pluginId, out OnPlayerNoPermission callback))
         {
-            callback(player, permission);
+            callback(player, method);
         }
     }
     
-    internal void OnPlayerCooldown(PluginId pluginId, BasePlayer player, float cooldown, float remaining)
+    internal void OnPlayerCooldown(PluginId pluginId, BasePlayer player, string method, float cooldown, float remaining)
     {
         if (_playerOnCooldown.TryGetValue(pluginId, out OnPlayerCooldown callback))
         {
-            callback(player, cooldown, remaining);
+            callback(player, method, cooldown, remaining);
+        }
+    }
+    
+    internal void OnProtectionValidationFailed(PluginId pluginId, BasePlayer player, string method)
+    {
+        if (_protectionValidationFailed.TryGetValue(pluginId, out OnProtectionValidationFailed callback))
+        {
+            callback(player, method);
         }
     }
 
-    private static ICommandProtection CreateProtection(ProtectionType protection)
+    private static ICooldownHandler CreateCooldown(PluginId pluginId, MethodInfo method)
     {
-        return protection switch
+        UiCooldownAttribute cooldown = method.GetCustomAttribute<UiCooldownAttribute>();
+        return cooldown != null ? new CooldownHandler(pluginId, method.Name, cooldown.Cooldown) : null;
+    }
+    
+    private static IPermissionHandler CreatePermission(PluginId pluginId, MethodInfo method)
+    {
+        UiPermissionAttribute permission = method.GetCustomAttribute<UiPermissionAttribute>();
+        return permission != null ? new PermissionHandler(pluginId, method.Name, permission.Permissions, permission.Mode) : null;
+    }
+
+    private static ICommandProtection CreateProtection(PluginId pluginId, MethodInfo method)
+    {
+        UiProtectionAttribute protection = method.GetCustomAttribute<UiProtectionAttribute>();
+        ProtectionType type = protection?.Protection ?? ProtectionType.Simple;
+        return type switch
         {
-            ProtectionType.None => null,
-            ProtectionType.Simple => new SimpleProtection(),
-            ProtectionType.Advanced => new AdvancedProtection(),
-            ProtectionType.Extreme => new ExtremeProtection(),
-            _ => throw new ArgumentOutOfRangeException(nameof(protection), protection, null)
+            ProtectionType.Simple => new SimpleProtection(pluginId, method.Name),
+            ProtectionType.Advanced => new AdvancedProtection(pluginId, method.Name, protection!.ProtectionKeyLifetime),
+            ProtectionType.Extreme => new ExtremeProtection(pluginId, method.Name, protection!.ProtectionKeyLifetime),
+            _ => null
         };
     }
 }

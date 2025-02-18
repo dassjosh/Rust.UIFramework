@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using Oxide.Ext.UiFramework.Extensions;
+using Oxide.Ext.UiFramework.Plugins;
+using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Libraries.UiCommands;
 
-internal class AdvancedProtection : ICommandProtection
+internal class AdvancedProtection(PluginId pluginId, string method, float protectionKeyLifetime) : ICommandProtection
 {
     private readonly Dictionary<int, DateTime> _protectionKeys = new();
+    private readonly TimeSpan _keyLifetime = TimeSpan.FromSeconds(protectionKeyLifetime);
     
     public ArgWriterIterator StartWriteProtection(ArgWriterIterator writer)
     {
@@ -16,12 +19,13 @@ internal class AdvancedProtection : ICommandProtection
 
     public string FinishWriteProtection(ArgWriterIterator writer) => writer.ToString();
 
-    public bool TryValidateProtection(UiCommandTokenizer tokenizer, out UiCommandTokenizer protectedTokens)
+    public bool TryValidateProtection(BasePlayer player, UiCommandTokenizer tokenizer, out UiCommandTokenizer protectedTokens)
     {
         int value = tokenizer.GetNext().ToIntFromBase64Span();
         if (!_protectionKeys.Remove(value, out DateTime expiration))
         {
             protectedTokens = default;
+            Singleton<UiCommands>.Instance.OnProtectionValidationFailed(pluginId, player, method);
             return false;
         }
         
@@ -38,7 +42,7 @@ internal class AdvancedProtection : ICommandProtection
             value = Core.Random.Range(int.MinValue, int.MaxValue);
         }
 
-        _protectionKeys[value] = DateTime.UtcNow.AddHours(1);
+        _protectionKeys[value] = DateTime.UtcNow + _keyLifetime;
         return value;
     }
 }
