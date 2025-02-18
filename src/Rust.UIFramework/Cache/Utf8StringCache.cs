@@ -1,23 +1,23 @@
 ﻿using System.Collections.Generic;
 using System.Text;
+using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Cache;
 
 internal static class Utf8StringCache
 {
-    private static readonly Dictionary<string, byte[]> Cache = new();
+    private static readonly Dictionary<string, Utf8String> Cache = new();
 
-    public static byte[] ToString(string value)
+    public static Utf8String ToString(string value)
     {
         if (string.IsNullOrEmpty(value))
         {
-            return [];
+            return default;
         }
         
-        if (!Cache.TryGetValue(value, out byte[] text))
+        if (!Cache.TryGetValue(value, out Utf8String text))
         {
-            text = Encoding.UTF8.GetBytes(value);
-            Cache[value] = text;
+            Cache[value] = text = value;
         }
 
         return text;

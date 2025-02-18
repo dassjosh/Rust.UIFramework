@@ -5,6 +5,7 @@ using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Pooling;
+using Oxide.Ext.UiFramework.Types;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,11 +21,11 @@ public class JsonFrameworkWriter : BasePoolable
     private const byte CommaChar = (byte)',';
     private const byte True = (byte)'1';
     private const byte False = (byte)'0';
-    private static readonly byte[] Separator = "\":"u8.ToArray();
-    private static readonly byte[] PropertyComma = ",\""u8.ToArray();
+    private static readonly Utf8String Separator = "\":"u8;
+    private static readonly Utf8String PropertyComma = ",\""u8;
     
-    private static readonly byte[] EscapeQuote = "\\\""u8.ToArray();
-    private static readonly byte[] EscapeBackslash = @"\\"u8.ToArray();
+    private static readonly Utf8String EscapeQuote = "\\\""u8;
+    private static readonly Utf8String EscapeBackslash = @"\\"u8;
 
     private bool _propertyComma;
     private bool _objectComma;
@@ -60,31 +61,31 @@ public class JsonFrameworkWriter : BasePoolable
     }
 
     #region Field Handling
-    public void AddFieldRaw(byte[] name, byte[] value)
+    public void AddFieldRaw(in Utf8String name, in Utf8String value)
     {
         WritePropertyName(name);
         WriteValue(value);
     }
     
-    public void AddFieldRaw(byte[] name, string value)
+    public void AddFieldRaw(in Utf8String name, string value)
     {
         WritePropertyName(name);
         WriteValue(value);
     }
     
-    public void AddFieldRaw(byte[] name, int value)
+    public void AddFieldRaw(in Utf8String name, int value)
     {
         WritePropertyName(name);
         WriteValue(value);
     }
 
-    public void AddFieldRaw(byte[] name, bool value)
+    public void AddFieldRaw(in Utf8String name, bool value)
     {
         WritePropertyName(name);
         WriteValue(value);
     }
     
-    public void AddField(byte[] name, string value, string defaultValue)
+    public void AddField(in Utf8String name, string value, string defaultValue)
     {
         if (value != null && value != defaultValue)
         {
@@ -93,7 +94,7 @@ public class JsonFrameworkWriter : BasePoolable
         }
     }
     
-    public void AddField(byte[] name, Vector2 value, Vector2 defaultValue)
+    public void AddField(in Utf8String name, Vector2 value, Vector2 defaultValue)
     {
         if (value != defaultValue)
         {
@@ -102,7 +103,7 @@ public class JsonFrameworkWriter : BasePoolable
         }
     }
     
-    public void AddField(byte[] name, TextAnchor value)
+    public void AddField(in Utf8String name, TextAnchor value)
     {
         if (value != TextAnchor.UpperLeft)
         {
@@ -111,7 +112,7 @@ public class JsonFrameworkWriter : BasePoolable
         }
     }
     
-    public void AddField(byte[] name, InputField.LineType value)
+    public void AddField(in Utf8String name, InputField.LineType value)
     {
         if (value != InputField.LineType.SingleLine)
         {
@@ -120,7 +121,7 @@ public class JsonFrameworkWriter : BasePoolable
         }
     }
     
-    public void AddField(byte[] name, Image.Type value)
+    public void AddField(in Utf8String name, Image.Type value)
     {
         if (value != Image.Type.Simple)
         {
@@ -129,7 +130,7 @@ public class JsonFrameworkWriter : BasePoolable
         }
     }
     
-    public void AddField(byte[] name, VerticalWrapMode value)
+    public void AddField(in Utf8String name, VerticalWrapMode value)
     {
         if (value != VerticalWrapMode.Truncate)
         {
@@ -138,7 +139,7 @@ public class JsonFrameworkWriter : BasePoolable
         }
     }
     
-    public void AddField(byte[] name, ScrollRect.MovementType value)
+    public void AddField(in Utf8String name, ScrollRect.MovementType value)
     {
         if (value != ScrollRect.MovementType.Clamped)
         {
@@ -147,7 +148,7 @@ public class JsonFrameworkWriter : BasePoolable
         }
     }
     
-    public void AddField(byte[] name, TimerFormat value)
+    public void AddField(in Utf8String name, TimerFormat value)
     {
         if (value != TimerFormat.None)
         {
@@ -156,7 +157,7 @@ public class JsonFrameworkWriter : BasePoolable
         }
     }
     
-    public void AddField(byte[] name, int value, int defaultValue)
+    public void AddField(in Utf8String name, int value, int defaultValue)
     {
         if (value != defaultValue)
         {
@@ -165,7 +166,7 @@ public class JsonFrameworkWriter : BasePoolable
         }
     }
     
-    public void AddField(byte[] name, float value, float defaultValue)
+    public void AddField(in Utf8String name, float value, float defaultValue)
     {
         if (value != defaultValue)
         {
@@ -174,7 +175,7 @@ public class JsonFrameworkWriter : BasePoolable
         }
     }
     
-    public void AddField(byte[] name, ulong value, ulong defaultValue)
+    public void AddField(in Utf8String name, ulong value, ulong defaultValue)
     {
         if (value != defaultValue)
         {
@@ -183,7 +184,7 @@ public class JsonFrameworkWriter : BasePoolable
         }
     }
     
-    public void AddField(byte[] name, bool value, bool defaultValue)
+    public void AddField(in Utf8String name, bool value, bool defaultValue)
     {
         if (value != defaultValue)
         {
@@ -192,7 +193,7 @@ public class JsonFrameworkWriter : BasePoolable
         }
     }
     
-    public void AddField(byte[] name, UiColor color)
+    public void AddField(in Utf8String name, UiColor color)
     {
         if (color != JsonDefaults.Color.ColorValue)
         {
@@ -201,7 +202,7 @@ public class JsonFrameworkWriter : BasePoolable
         }
     }
     
-    public void AddField(byte[] name, UiColor color, UiColor defaultColor)
+    public void AddField(in Utf8String name, UiColor color, UiColor defaultColor)
     {
         if (color != defaultColor)
         {
@@ -210,7 +211,7 @@ public class JsonFrameworkWriter : BasePoolable
         }
     }
     
-    public void AddComponent(byte[] name, IComponent component)
+    public void AddComponent(in Utf8String name, IComponent component)
     {
         WritePropertyName(name);
         bool objectComma = _objectComma;
@@ -230,13 +231,13 @@ public class JsonFrameworkWriter : BasePoolable
         _propertyComma = propertyComma;
     }
     
-    public void AddKeyField(byte[] name)
+    public void AddKeyField(in Utf8String name)
     {
         WritePropertyName(name);
         WriteBlankValue();
     }
     
-    public void AddTextField(byte[] name, string value)
+    public void AddTextField(in Utf8String name, string value)
     {
         WritePropertyName(name);
         WriteTextValue(value);
@@ -283,7 +284,7 @@ public class JsonFrameworkWriter : BasePoolable
         OnDepthDecrease();
     }
 
-    public void WritePropertyName(byte[] name)
+    public void WritePropertyName(in Utf8String name)
     {
         if (_propertyComma)
         {
@@ -298,8 +299,8 @@ public class JsonFrameworkWriter : BasePoolable
         _writer.Write(name);
         _writer.Write(Separator);
     }
-
-    public void WriteValue(byte[] value)
+    
+    public void WriteValue(in Utf8String value)
     {
         _writer.Write(QuoteChar);
         _writer.Write(value);

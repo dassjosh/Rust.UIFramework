@@ -1,18 +1,17 @@
 ﻿using System.Collections.Generic;
-using System.Text;
+using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Cache;
 
 internal static class Utf8CharCache
 {
-    private static readonly Dictionary<char, byte[]> Cache = new();
+    private static readonly Dictionary<char, Utf8String> Cache = new();
 
-    public static byte[] ToUtf8String(char value)
+    public static Utf8String ToUtf8String(char value)
     {
-        if (!Cache.TryGetValue(value, out byte[] text))
+        if (!Cache.TryGetValue(value, out Utf8String text))
         {
-            text = Encoding.UTF8.GetBytes(value.ToString());
-            Cache[value] = text;
+            Cache[value] = text = value.ToString();
         }
 
         return text;

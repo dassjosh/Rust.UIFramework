@@ -7,6 +7,7 @@ using System.Text;
 using Network;
 using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Pooling;
+using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Json;
 
@@ -44,7 +45,7 @@ public class JsonUtf8Writer : BasePoolable
             return;
         }
 
-        byte[] bytes = Utf8CharCache.ToUtf8String(character);
+        byte[] bytes = Utf8CharCache.ToUtf8String(character).String;
         for (int i = 0; i < bytes.Length; i++)
         {
             _buffer[_byteIndex++] = bytes[i];
@@ -69,6 +70,9 @@ public class JsonUtf8Writer : BasePoolable
         
         _byteIndex = byteIndex;
     }
+    
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public void Write(in Utf8String text) => Write(text.String);
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void Write(string text)
@@ -90,7 +94,7 @@ public class JsonUtf8Writer : BasePoolable
                 continue;
             }
 
-            byte[] bytes = Utf8CharCache.ToUtf8String(character);
+            byte[] bytes = Utf8CharCache.ToUtf8String(character).String;
             for (int j = 0; j < bytes.Length; j++)
             {
                 buffer[byteIndex++] = bytes[i];

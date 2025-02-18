@@ -4,6 +4,7 @@ using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Pooling;
+using Oxide.Ext.UiFramework.Types;
 using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Cache;
@@ -13,14 +14,13 @@ internal static class UiColorCache
     private const string Format = "0.####";
     private const char Space = ' ';
 
-    private static readonly Dictionary<UiColor, byte[]> ColorCache = new();
+    private static readonly Dictionary<UiColor, Utf8String> ColorCache = new();
         
     public static void WriteColor(JsonUtf8Writer writer, UiColor uiColor)
     {
-        if (!ColorCache.TryGetValue(uiColor, out byte[] color))
+        if (!ColorCache.TryGetValue(uiColor, out Utf8String color))
         {
-            color = Encoding.UTF8.GetBytes(GetColor(uiColor));
-            ColorCache[uiColor] = color;
+            ColorCache[uiColor] = color = GetColor(uiColor);
         }
 
         writer.Write(color);

@@ -5,6 +5,7 @@ using Oxide.Ext.UiFramework.Builder.UI;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Positions;
+using Oxide.Ext.UiFramework.Types;
 using Oxide.Game.Rust.Cui;
 
 namespace Rust.UiFramework.Benchmarks;
