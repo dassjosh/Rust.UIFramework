@@ -6,30 +6,17 @@
         <AssemblyName>Oxide.Ext.UiFramework.Plugins</AssemblyName>
         <RootNamespace>Oxide.Ext.UiFramework.Plugins</RootNamespace>
         <Configurations>Release;Debug;Benchmarks</Configurations>
-        <Platforms>Oxide;Carbon</Platforms>
+        <Platforms>Oxide</Platforms>
         <TargetFrameworks>net48;</TargetFrameworks>
         <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
-    </PropertyGroup>
-
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|Carbon' ">
-        <DefineConstants>TRACE;DEBUG;CARBON</DefineConstants>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|Oxide' ">
         <DefineConstants>TRACE;DEBUG;OXIDE</DefineConstants>
     </PropertyGroup>
 
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|Carbon' ">
-        <DefineConstants>TRACE;CARBON</DefineConstants>
-    </PropertyGroup>
-
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|Oxide' ">
         <DefineConstants>TRACE;OXIDE</DefineConstants>
-    </PropertyGroup>
-
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Benchmarks|Carbon' ">
-        <DefineConstants>TRACE;BENCHMARKS;CARBON</DefineConstants>
-        <Optimize>true</Optimize>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Benchmarks|Oxide' ">
