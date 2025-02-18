@@ -315,7 +315,7 @@ public static class StringBuilderExt
     }
     
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void AppendSpan(this StringBuilder sb, in DateTime value)
+    internal static void AppendSpan(this StringBuilder sb, DateTime value)
     {
         if (value.TryFormat(out ReadOnlySpan<char> written))
         {
@@ -340,7 +340,7 @@ public static class StringBuilderExt
     }
     
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void AppendSpan(this StringBuilder sb, in DateTimeOffset value)
+    internal static void AppendSpan(this StringBuilder sb, DateTimeOffset value)
     {
         if (value.TryFormat(out ReadOnlySpan<char> written))
         {

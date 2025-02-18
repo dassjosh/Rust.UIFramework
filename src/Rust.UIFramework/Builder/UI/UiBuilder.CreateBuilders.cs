@@ -1,5 +1,6 @@
 ﻿using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Colors;
+using Oxide.Ext.UiFramework.Constants;
 using Oxide.Ext.UiFramework.Controls.Popover;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Offsets;
@@ -44,7 +45,7 @@ public partial class UiBuilder
     /// <returns></returns>
     public static UiBuilder CreateModal(in UiOffset modalSize, UiColor modalColor, string name, UiLayer layer = UiLayer.Overlay, string outsideCloseCommand = null)
     {
-        return CreateModal(modalSize, modalColor, new UiColor(0, 0, 0, 0.5f), name, layer, UiConstants.Materials.InGameBlur, outsideCloseCommand);
+        return CreateModal(modalSize, modalColor, new UiColor(0, 0, 0, 0.5f), name, layer, UiMaterials.Assets.Content.Ui.UibackgroundblurIngamemenu, outsideCloseCommand);
     }
 
     /// <summary>
@@ -112,7 +113,7 @@ public partial class UiBuilder
         return builder;
     }
         
-    public static UiPopover Popover(string parentName, Vector2Int size, UiColor backgroundColor, PopoverPosition position = PopoverPosition.Bottom, string menuSprite = UiConstants.Sprites.RoundedBackground2)
+    public static UiPopover Popover(string parentName, Vector2Int size, UiColor backgroundColor, PopoverPosition position = PopoverPosition.Bottom, string menuSprite = UiSprites.Assets.Content.Ui.UiBackgroundRounded)
     {
         UiPopover control = UiPopover.Create(parentName, size, backgroundColor, position, menuSprite);
         return control;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Oxide.Ext.UiFramework.Builder.UI;
 using Oxide.Ext.UiFramework.Colors;
+using Oxide.Ext.UiFramework.Constants;
 using Oxide.Ext.UiFramework.Controls.Data;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Extensions;
@@ -20,7 +21,7 @@ public class UiDropdownMenu : BasePopoverControl
     public List<UiDropdownMenuItem> Items;
         
     public static UiDropdownMenu Create(in UiReference reference, List<DropdownMenuData> items, int fontSize, UiColor textColor, UiColor backgroundColor, string selectedCommand, string pageCommand = null, int page = 0, int maxValuesPerPage = 100, int minWidth = 100,
-        PopoverPosition position = PopoverPosition.Bottom, string menuSprite = UiConstants.Sprites.RoundedBackground2)
+        PopoverPosition position = PopoverPosition.Bottom, string menuSprite = UiSprites.Assets.Content.Ui.UiBackgroundRounded)
     {
         const int itemPadding = 4;
         const int menuPadding = 5;
@@ -44,7 +45,7 @@ public class UiDropdownMenu : BasePopoverControl
             buttonPos = buttonPos.SliceHorizontal(0, 10);
             control.ScrollBarSection = builder.Section(builder.Root, UiPosition.Right, new UiOffset(-10, 5, -3, -5));
             control.ScrollBar = builder.ScrollBar(control.ScrollBarSection, UiPosition.Full, default, page, maxPage, UiColors.ButtonPrimary, UiColors.PanelSecondary, pageCommand);
-            control.ScrollBar.SetSpriteMaterialImage(UiConstants.Sprites.RoundedBackground1, null, Image.Type.Sliced);
+            control.ScrollBar.SetSpriteMaterialImage(UiSprites.Assets.Content.Ui.UiRounded, null, Image.Type.Sliced);
         }
             
         for (int i = page * maxValuesPerPage; i < page * maxValuesPerPage + itemCount; i++)

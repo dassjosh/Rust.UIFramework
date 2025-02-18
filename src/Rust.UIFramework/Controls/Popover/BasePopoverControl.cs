@@ -1,6 +1,7 @@
 ﻿using System;
 using Oxide.Ext.UiFramework.Builder.UI;
 using Oxide.Ext.UiFramework.Colors;
+using Oxide.Ext.UiFramework.Constants;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Offsets;
@@ -17,7 +18,7 @@ public abstract class BasePopoverControl : BaseUiControl
     public UiButton OutsideClose;
     public UiPanel PopoverBackground;
 
-    public static BasePopoverControl CreateBuilder(BasePopoverControl control, string parentName, Vector2Int size, UiColor backgroundColor, PopoverPosition position = PopoverPosition.Bottom, string menuSprite = UiConstants.Sprites.RoundedBackground2)
+    public static BasePopoverControl CreateBuilder(BasePopoverControl control, string parentName, Vector2Int size, UiColor backgroundColor, PopoverPosition position = PopoverPosition.Bottom, string menuSprite = UiSprites.Assets.Content.Ui.UiBackgroundRounded)
     {
         string name = $"{parentName}_Popover";
             
