@@ -254,6 +254,15 @@ public class JsonFrameworkWriter : BasePoolable
             WriteTextValue(value);
         }
     }
+    
+    public void AddTextField(in Utf8String name, string value, string defaultValue)
+    {
+        if (value != defaultValue)
+        {
+            WritePropertyName(name);
+            WriteTextValue(value);
+        }
+    }
 
     public void AddMouse()
     {
