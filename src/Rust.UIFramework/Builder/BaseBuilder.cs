@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Network;
 using Oxide.Ext.UiFramework.Builders;
+using Oxide.Ext.UiFramework.Constants;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Threading;
@@ -55,7 +56,7 @@ public abstract class BaseBuilder : BasePoolable
 
     internal void AddUi(SendInfo send, JsonFrameworkWriter writer)
     {
-        NetWrite write = ClientRPCStart(UiConstants.RpcFunctions.AddUiFunc);
+        NetWrite write = ClientRPCStart(RpcFunctions.AddUiFunc);
         if (write != null)
         {
             writer.WriteToNetwork(write);
@@ -65,7 +66,7 @@ public abstract class BaseBuilder : BasePoolable
         
     protected void AddUi(SendInfo send, byte[] bytes)
     {
-        NetWrite write = ClientRPCStart(UiConstants.RpcFunctions.AddUiFunc);
+        NetWrite write = ClientRPCStart(RpcFunctions.AddUiFunc);
         if (write != null)
         {
             write.BytesWithSize(bytes);
@@ -141,7 +142,7 @@ public abstract class BaseBuilder : BasePoolable
     {
         CommunityEntity.ServerInstance.ClientRPC(new RpcTarget
         {
-            Function = UiConstants.RpcFunctions.DestroyUiFunc,
+            Function = RpcFunctions.DestroyUiFunc,
             Connections = send
         }, name);
     }

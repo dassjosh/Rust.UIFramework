@@ -4,6 +4,7 @@ namespace Oxide.Ext.UiFramework;
 
 public class UiConstants
 {
+    [Obsolete("This class is obsolete. Please use RpcFunctions instead.")]
     public static class RpcFunctions
     {
         public const string AddUiFunc = "AddUI";
