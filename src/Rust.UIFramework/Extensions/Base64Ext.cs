@@ -10,7 +10,7 @@ internal static class Base64Ext
     internal static ReadOnlySpan<char> ToBase64Span(this int value)
     {
         BitConverter.TryWriteBytes(KeyBytes, value);
-        Convert.TryToBase64Chars(KeyBytes, Chars, out int written);
+        Convert.TryToBase64Chars(KeyBytes[..4], Chars, out int written);
         return Chars[..written];
     }
     

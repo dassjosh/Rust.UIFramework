@@ -1,4 +1,7 @@
-﻿namespace Rust.UiFramework.Benchmarks;
+﻿using BenchmarkDotNet.Environments;
+using Oxide.Ext.UiFramework.Extensions;
+
+namespace Rust.UiFramework.Benchmarks;
 
 class Program
 {
@@ -12,8 +15,13 @@ class Program
 #else
         
 #endif
-        
-        byte[] a = BitConverter.GetBytes(int.MaxValue);
-        string b = Convert.ToBase64String(a);
+        Random random = new Random();
+        while (true)
+        {
+            int a = random.Next(int.MinValue, int.MaxValue);
+            string b = a.ToBase64Span().ToString();
+            string c = a.ToString();
+            string d = $"{b.Length} - {c.Length}";
+        }
     }
 }

@@ -401,6 +401,18 @@ public static class StringBuilderExt
         sb.AppendSpan(value.Value);
     }
     
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static void AppendSpan(this StringBuilder sb, in char? value)
+    {
+        if (!value.HasValue)
+        {
+            sb.Append(Null);
+            return;
+        }
+        
+        sb.AppendSpan(value.Value);
+    }
+    
     /// <summary>
     /// Frees a <see cref="StringBuilder"/> back to the pool returning the created <see cref="string"/>
     /// </summary>

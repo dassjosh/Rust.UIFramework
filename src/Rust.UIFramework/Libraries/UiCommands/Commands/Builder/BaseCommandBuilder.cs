@@ -11,12 +11,13 @@ internal abstract class BaseCommandBuilder(PluginCommand command, ICommandProtec
     {
         StringBuilder sb = StringBuilderPool.Instance.Get();
         sb.Append(_commandPrefix);
-        ArgWriterIterator writer = new(sb, writers);
+        UiArgWriter argWriter = new(sb);
+        ArgWriterIterator iterator = new(argWriter, writers);
         if (protection is not null)
         {
-            writer = protection.StartWriteProtection(writer);
+            iterator = protection.StartWriteProtection(iterator);
         }
-        return writer;
+        return iterator;
     }
     
     protected string FinishBuilding(ArgWriterIterator writer)

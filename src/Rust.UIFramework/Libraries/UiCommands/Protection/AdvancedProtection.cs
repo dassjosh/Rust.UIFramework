@@ -22,15 +22,15 @@ internal class AdvancedProtection(PluginId pluginId, string method, float protec
     public bool TryValidateProtection(BasePlayer player, UiCommandTokenizer tokenizer, out UiCommandTokenizer protectedTokens)
     {
         int value = tokenizer.GetNext().ToIntFromBase64Span();
-        if (!_protectionKeys.Remove(value, out DateTime expiration))
+        if (_protectionKeys.Remove(value, out DateTime expiration) && expiration >= DateTime.UtcNow)
         {
-            protectedTokens = default;
-            Singleton<UiCommands>.Instance.OnProtectionValidationFailed(pluginId, player, method);
-            return false;
+            protectedTokens = tokenizer;
+            return true;
         }
-        
-        protectedTokens = tokenizer;
-        return expiration >= DateTime.UtcNow;
+
+        protectedTokens = default;
+        Singleton<UiCommands>.Instance.OnProtectionValidationFailed(pluginId, player, method);
+        return false;
     }
     
     private int GenerateProtectionKey()

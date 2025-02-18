@@ -20,7 +20,7 @@ internal class ExtremeProtection(PluginId pluginId, string method, float protect
         writer.WriteNext(protectionKey.ToBase64Span());
         _protectedCommand[protectionKey] = writer.ToString();
         StringBuilder sb = StringBuilderPool.Instance.Get();
-        return new ArgWriterIterator(sb, writer.Writers, protectionKey);
+        return new ArgWriterIterator(new UiArgWriter(sb), writer.Writers, protectionKey);
     }
 
     public string FinishWriteProtection(ArgWriterIterator writer)

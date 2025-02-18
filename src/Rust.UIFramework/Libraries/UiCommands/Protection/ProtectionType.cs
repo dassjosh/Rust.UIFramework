@@ -20,7 +20,7 @@ public enum ProtectionType
     
     /// <summary>
     /// Command args are not passed to the client.
-    /// Commands stay server side and a unique command key is generated for the client to use
+    /// Args stay server side and a unique command key is generated for the client to use
     /// </summary>
     Extreme
 }

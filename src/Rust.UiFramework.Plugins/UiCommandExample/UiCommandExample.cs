@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Text;
 using Oxide.Ext.UiFramework.Builder.UI;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Libraries.UiCommands;
@@ -64,9 +63,9 @@ public class UiCommandExample : RustPlugin
             return default;
         }
 
-        public void Write(StringBuilder sb, MyCustomClass arg)
+        public void Write(UiArgWriter writer, MyCustomClass arg)
         {
-            sb.Append(arg.Id);
+            writer.AppendArg(arg.Id);
         }
     }
 }
