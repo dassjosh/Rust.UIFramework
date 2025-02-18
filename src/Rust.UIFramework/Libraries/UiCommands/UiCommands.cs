@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
-using Network;
 using Oxide.Core.Plugins;
 using Oxide.Ext.UiFramework.Exceptions.UiCommands;
 using Oxide.Ext.UiFramework.Extensions;
@@ -130,12 +129,12 @@ public class UiCommands : BaseUiFrameworkLibrary, ISingleton
         ArgCreator.RemovePluginHandler(pluginId);
     }
 
-    internal void OnCommandReceived(Connection connection, UiCommandTokenizer tokenizer)
+    internal void OnCommandReceived(BasePlayer player, UiCommandTokenizer tokenizer)
     {
         string pluginName = tokenizer.GetNext().ToString();
         uint commandId = uint.Parse(tokenizer.GetNext());
         PluginCommand pluginCommand = new(new PluginId(pluginName), commandId);
-        _commands[pluginCommand]?.RunCommand(connection, tokenizer);
+        _commands[pluginCommand]?.RunCommand(player, tokenizer);
     }
     
     internal void OnPlayerNoPermission(PluginId pluginId, BasePlayer player, string permission)

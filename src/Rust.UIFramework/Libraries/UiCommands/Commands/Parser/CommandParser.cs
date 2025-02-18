@@ -3,19 +3,12 @@ using Oxide.Ext.UiFramework.Plugins;
 
 namespace Oxide.Ext.UiFramework.Libraries.UiCommands;
 
-internal class CommandParser : BaseCommandParser
+internal class CommandParser(PluginId pluginId, Action<BasePlayer> method, ICommandProtection protection, ICooldownHandler cooldown, IPermissionHandler permission) 
+    : BaseCommandParser(protection, cooldown, permission, [])
 {
-    private readonly Action<BasePlayer> _method;
-    
-    public CommandParser(PluginId pluginId, Action<BasePlayer> method, ICommandProtection protection, ICooldownHandler cooldown, IPermissionHandler permission) 
-        : base(protection, cooldown, permission, [])
-    {
-        _method = method;
-    }
-    
     protected override void RunCommandInternal(BasePlayer player, UiCommandTokenizer args)
     {
-        _method(player);
+        method(player);
     }
 }
 

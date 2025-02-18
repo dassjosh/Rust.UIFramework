@@ -42,11 +42,12 @@ internal class UiFrameworkPlugin : BaseUiFrameworkPlugin
     [HookMethod(nameof(OnClientCommand))]
     private void OnClientCommand(Connection connection, string command)
     {
-        if (command.StartsWith(UiCommands.UiCommandName))
+        BasePlayer player = connection.player as BasePlayer;
+        if (player && command.StartsWith(UiCommands.UiCommandName))
         {
             UiCommandTokenizer tokenizer = new(command);
             tokenizer.GetNext(); // UiCommandName
-            Singleton<UiCommands>.Instance.OnCommandReceived(connection, tokenizer);
+            Singleton<UiCommands>.Instance.OnCommandReceived(player, tokenizer);
         }
     }
 }

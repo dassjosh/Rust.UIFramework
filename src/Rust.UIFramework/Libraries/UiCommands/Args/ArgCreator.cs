@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Oxide.Ext.UiFramework.Cache;
+using Oxide.Ext.UiFramework.Exceptions.UiCommands;
 using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Plugins;
 
@@ -69,6 +70,8 @@ internal class ArgCreator
         if (type == typeof(DateTimeOffset?)) return new ArgHandler<DateTimeOffset?>(span => span is StringBuilderExt.Null ? null : DateTimeOffset.Parse(span), (sb, arg) => sb.AppendSpan(arg));
         if (type == typeof(TimeSpan)) return new ArgHandler<TimeSpan>(span => TimeSpan.Parse(span), (sb, arg) => sb.AppendSpan(arg));
         if (type == typeof(TimeSpan?)) return new ArgHandler<TimeSpan?>(span => span is StringBuilderExt.Null ? null : TimeSpan.Parse(span), (sb, arg) => sb.AppendSpan(arg));
+        if (type == typeof(NetworkableId)) return new ArgHandler<NetworkableId>(span => new NetworkableId(ulong.Parse(span)), (sb, arg) => sb.AppendSpan(arg.Value));
+        if (type == typeof(NetworkableId?)) return new ArgHandler<NetworkableId?>(span => span is StringBuilderExt.Null ? null : new NetworkableId(ulong.Parse(span)), (sb, arg) => sb.AppendSpan(arg));
         if (type == typeof(string)) return new ArgHandler<string>(span => span.ToString(), (sb, arg) =>
         {
             sb.Append('"');
@@ -90,7 +93,7 @@ internal class ArgCreator
         }, (sb, arg) => sb.AppendSpan((arg as BaseNetworkable)?.net.ID.Value));
         if(type.IsEnum) return new ArgHandler<T>(span => Enum.TryParse(type, span.ToString(), out object result) && result is T @enum ? @enum : default, (sb, arg) => sb.Append(StringCache<T>.ToString(arg))); //TODO: Try to avoid string allocation
 
-        throw new Exception($"No ArgHandler found for type: {type}");  //TODO: better exception
+        throw new NoArgHandlerException(type);
     }
     
     internal static void RegisterPluginHandler<T>(PluginId pluginId, IArgHandler<T> handler) => PluginHandlers[new PluginArgHandler(pluginId, typeof(T))] = handler;

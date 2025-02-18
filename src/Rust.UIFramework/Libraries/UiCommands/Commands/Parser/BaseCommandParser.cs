@@ -1,25 +1,22 @@
-﻿using Network;
-using Oxide.Core;
+﻿using Oxide.Core;
 
 namespace Oxide.Ext.UiFramework.Libraries.UiCommands;
 
 internal abstract class BaseCommandParser(ICommandProtection protection, ICooldownHandler cooldown, IPermissionHandler permission, IArgReader[] reader) : ICommandParser
 {
-    public void RunCommand(Connection connection, UiCommandTokenizer command)
+    public void RunCommand(BasePlayer player, UiCommandTokenizer command)
     {
-        BasePlayer player = connection.player as BasePlayer;
-        if ((cooldown?.IsOnCooldown(player) ?? false) 
-            || !(permission?.HasPermission(player) ?? true)
-            || !ValidateProtection(player, ref command))
+        if (!IsOnCooldown(player) && HasPermission(player) && ValidateProtection(player, ref command))
         {
-            return;
+            RunCommandInternal(player, command);
         }
-        
-        RunCommandInternal(player, command);
     }
     
     protected abstract void RunCommandInternal(BasePlayer player, UiCommandTokenizer args);
-    
+
+    private bool IsOnCooldown(BasePlayer player) => cooldown is not null && cooldown.IsOnCooldown(player);
+    private bool HasPermission(BasePlayer player) => permission is null || permission.HasPermission(player);
+
     private bool ValidateProtection(BasePlayer player, ref UiCommandTokenizer command)
     {
         if (protection is null)

@@ -1,5 +1,4 @@
-﻿using System;
-using Oxide.Ext.UiFramework.Plugins;
+﻿using Oxide.Ext.UiFramework.Plugins;
 
 namespace Oxide.Ext.UiFramework.Libraries.UiCommands;
 
