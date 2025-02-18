@@ -32,7 +32,7 @@ public class UiCommandExample : RustPlugin
         {
             //Handle command protection failing
         });
-        _uiCommands.RegisterCustomParser(this, new MyCustomClassHandler());
+        _uiCommands.RegisterCustomParser(this, new MyCustomArgHandler());
     }
 
     public void CreateUi(BasePlayer player)
@@ -62,7 +62,7 @@ public class UiCommandExample : RustPlugin
         public ulong Id { get; set; } = id;
     }
 
-    private class MyCustomClassHandler : IArgHandler<MyCustomArg>
+    private class MyCustomArgHandler : IArgHandler<MyCustomArg>
     {
         private readonly Hash<ulong, MyCustomArg> _classes = new();
         

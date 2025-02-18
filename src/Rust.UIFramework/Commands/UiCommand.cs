@@ -4,6 +4,7 @@ using Oxide.Ext.UiFramework.Pooling;
 
 namespace Oxide.Ext.UiFramework.Commands;
 
+[Obsolete("UiCommand is deprecated, use UiCommand Library instead")]
 public struct UiCommand : IDisposable
 {
     public readonly string Command;
