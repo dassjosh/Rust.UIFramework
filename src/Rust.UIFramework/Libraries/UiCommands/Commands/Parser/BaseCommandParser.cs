@@ -32,7 +32,6 @@ internal abstract class BaseCommandParser(ICommandProtection protection, ICooldo
             return true;
         }
         
-        
         Interface.Oxide.LogError($"[UiFramework] failed to validate command protection for {player.displayName}({player.UserIDString})"); //TODO: Logger
         return false;
     }

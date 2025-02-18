@@ -23,7 +23,7 @@ public static class StringBuilderExt
     }
     
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void AppendSpan(this StringBuilder sb, byte? value)
+    internal static void AppendSpan(this StringBuilder sb, in byte? value)
     {
         if (!value.HasValue)
         {
@@ -48,7 +48,7 @@ public static class StringBuilderExt
     }
     
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void AppendSpan(this StringBuilder sb, sbyte? value)
+    internal static void AppendSpan(this StringBuilder sb, in sbyte? value)
     {
         if (!value.HasValue)
         {
@@ -73,7 +73,7 @@ public static class StringBuilderExt
     }
     
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void AppendSpan(this StringBuilder sb, short? value)
+    internal static void AppendSpan(this StringBuilder sb, in short? value)
     {
         if (!value.HasValue)
         {
@@ -98,7 +98,7 @@ public static class StringBuilderExt
     }
     
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void AppendSpan(this StringBuilder sb, ushort? value)
+    internal static void AppendSpan(this StringBuilder sb, in ushort? value)
     {
         if (!value.HasValue)
         {
@@ -123,7 +123,7 @@ public static class StringBuilderExt
     }
     
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void AppendSpan(this StringBuilder sb, int? value)
+    internal static void AppendSpan(this StringBuilder sb, in int? value)
     {
         if (!value.HasValue)
         {
@@ -148,7 +148,7 @@ public static class StringBuilderExt
     }
     
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void AppendSpan(this StringBuilder sb, uint? value)
+    internal static void AppendSpan(this StringBuilder sb, in uint? value)
     {
         if (!value.HasValue)
         {
@@ -173,7 +173,7 @@ public static class StringBuilderExt
     }
     
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void AppendSpan(this StringBuilder sb, long? value)
+    internal static void AppendSpan(this StringBuilder sb, in long? value)
     {
         if (!value.HasValue)
         {
@@ -198,7 +198,7 @@ public static class StringBuilderExt
     }
     
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void AppendSpan(this StringBuilder sb, ulong? value)
+    internal static void AppendSpan(this StringBuilder sb, in ulong? value)
     {
         if (!value.HasValue)
         {
@@ -223,7 +223,7 @@ public static class StringBuilderExt
     }
     
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void AppendSpan(this StringBuilder sb, float? value)
+    internal static void AppendSpan(this StringBuilder sb, in float? value)
     {
         if (!value.HasValue)
         {
@@ -248,7 +248,7 @@ public static class StringBuilderExt
     }
     
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void AppendSpan(this StringBuilder sb, double? value)
+    internal static void AppendSpan(this StringBuilder sb, in double? value)
     {
         if (!value.HasValue)
         {
@@ -273,7 +273,7 @@ public static class StringBuilderExt
     }
     
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void AppendSpan(this StringBuilder sb, decimal? value)
+    internal static void AppendSpan(this StringBuilder sb, in decimal? value)
     {
         if (!value.HasValue)
         {
@@ -291,7 +291,7 @@ public static class StringBuilderExt
     }
     
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void AppendSpan(this StringBuilder sb, bool? value)
+    internal static void AppendSpan(this StringBuilder sb, in bool? value)
     {
         if (!value.HasValue)
         {
@@ -315,7 +315,7 @@ public static class StringBuilderExt
     }
     
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void AppendSpan(this StringBuilder sb, DateTime value)
+    internal static void AppendSpan(this StringBuilder sb, in DateTime value)
     {
         if (value.TryFormat(out ReadOnlySpan<char> written))
         {
@@ -328,7 +328,7 @@ public static class StringBuilderExt
     }
     
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void AppendSpan(this StringBuilder sb, DateTime? value)
+    internal static void AppendSpan(this StringBuilder sb, in DateTime? value)
     {
         if (!value.HasValue)
         {
@@ -340,7 +340,7 @@ public static class StringBuilderExt
     }
     
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void AppendSpan(this StringBuilder sb, DateTimeOffset value)
+    internal static void AppendSpan(this StringBuilder sb, in DateTimeOffset value)
     {
         if (value.TryFormat(out ReadOnlySpan<char> written))
         {
@@ -353,7 +353,7 @@ public static class StringBuilderExt
     }
     
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void AppendSpan(this StringBuilder sb, DateTimeOffset? value)
+    internal static void AppendSpan(this StringBuilder sb, in DateTimeOffset? value)
     {
         if (!value.HasValue)
         {
@@ -365,7 +365,7 @@ public static class StringBuilderExt
     }
     
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void AppendSpan(this StringBuilder sb, TimeSpan value)
+    internal static void AppendSpan(this StringBuilder sb, in TimeSpan value)
     {
         if (value.TryFormat(out ReadOnlySpan<char> written))
         {
@@ -378,7 +378,7 @@ public static class StringBuilderExt
     }
     
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void AppendSpan(this StringBuilder sb, TimeSpan? value)
+    internal static void AppendSpan(this StringBuilder sb, in TimeSpan? value)
     {
         if (!value.HasValue)
         {

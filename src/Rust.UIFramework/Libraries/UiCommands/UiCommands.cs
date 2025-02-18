@@ -115,11 +115,10 @@ public class UiCommands : BaseUiFrameworkLibrary, ISingleton
         _playerOnCooldown[plugin.Id()] = callback;
     }
     
-    public void RegisterCustomParser<T>(Plugin plugin, IArgReader<T> reader, IArgWriter<T> writer)
+    public void RegisterCustomParser<T>(Plugin plugin, IArgHandler<T> handler)
     {
         PluginId pluginId = plugin.Id();
-        ArgReaderCreator.RegisterPluginReader(pluginId, reader);
-        ArgWriterCreator.RegisterPluginWriter(pluginId, writer);
+        ArgCreator.RegisterPluginHandler(pluginId, handler);
     }
 
     protected override void OnPluginUnloaded(Plugin plugin)
@@ -128,8 +127,7 @@ public class UiCommands : BaseUiFrameworkLibrary, ISingleton
         _commands.RemoveAll(c => c.Key.Plugin == pluginId);
         _playerNoPermission.Remove(pluginId);
         _playerOnCooldown.Remove(pluginId);
-        ArgReaderCreator.RemovePluginReaders(pluginId);
-        ArgWriterCreator.RemovePluginWriters(pluginId);
+        ArgCreator.RemovePluginHandler(pluginId);
     }
 
     internal void OnCommandReceived(Connection connection, UiCommandTokenizer tokenizer)

@@ -8,7 +8,7 @@ internal class CommandBuilder(PluginCommand command, ICommandProtection protecti
     }
 }
 
-internal class CommandBuilder<T0>(PluginCommand command, ICommandProtection protection) : BaseCommandBuilder(command, protection, ArgWriterCreator.CreateWriters<T0>(command.Plugin)), ICommandBuilder<T0>
+internal class CommandBuilder<T0>(PluginCommand command, ICommandProtection protection) : BaseCommandBuilder(command, protection, ArgCreator.CreateArgHandler<T0>(command.Plugin)), ICommandBuilder<T0>
 {
     public string Build(T0 arg0)
     {
@@ -18,7 +18,7 @@ internal class CommandBuilder<T0>(PluginCommand command, ICommandProtection prot
     }
 }
 
-internal class CommandBuilder<T0, T1>(PluginCommand command, ICommandProtection protection) : BaseCommandBuilder(command, protection, ArgWriterCreator.CreateWriters<T0, T1>(command.Plugin)), ICommandBuilder<T0, T1>
+internal class CommandBuilder<T0, T1>(PluginCommand command, ICommandProtection protection) : BaseCommandBuilder(command, protection, ArgCreator.CreateArgHandler<T0, T1>(command.Plugin)), ICommandBuilder<T0, T1>
 {
     public string Build(T0 arg0, T1 arg1)
     {
@@ -29,7 +29,7 @@ internal class CommandBuilder<T0, T1>(PluginCommand command, ICommandProtection 
     }
 }
 
-internal class CommandBuilder<T0, T1, T2>(PluginCommand command, ICommandProtection protection) : BaseCommandBuilder(command, protection, ArgWriterCreator.CreateWriters<T0, T1, T2>(command.Plugin)), ICommandBuilder<T0, T1, T2>
+internal class CommandBuilder<T0, T1, T2>(PluginCommand command, ICommandProtection protection) : BaseCommandBuilder(command, protection, ArgCreator.CreateArgHandler<T0, T1, T2>(command.Plugin)), ICommandBuilder<T0, T1, T2>
 {
     public string Build(T0 arg0, T1 arg1, T2 arg2)
     {
@@ -41,7 +41,7 @@ internal class CommandBuilder<T0, T1, T2>(PluginCommand command, ICommandProtect
     }
 }
 
-internal class CommandBuilder<T0, T1, T2, T3>(PluginCommand command, ICommandProtection protection) : BaseCommandBuilder(command, protection, ArgWriterCreator.CreateWriters<T0, T1, T2, T3>(command.Plugin)), ICommandBuilder<T0, T1, T2, T3>
+internal class CommandBuilder<T0, T1, T2, T3>(PluginCommand command, ICommandProtection protection) : BaseCommandBuilder(command, protection, ArgCreator.CreateArgHandler<T0, T1, T2, T3>(command.Plugin)), ICommandBuilder<T0, T1, T2, T3>
 {
     public string Build(T0 arg0, T1 arg1, T2 arg2, T3 arg3)
     {
@@ -54,7 +54,7 @@ internal class CommandBuilder<T0, T1, T2, T3>(PluginCommand command, ICommandPro
     }
 }
 
-internal class CommandBuilder<T0, T1, T2, T3, T4>(PluginCommand command, ICommandProtection protection) : BaseCommandBuilder(command, protection, ArgWriterCreator.CreateWriters<T0, T1, T2, T3, T4>(command.Plugin)), ICommandBuilder<T0, T1, T2, T3, T4>
+internal class CommandBuilder<T0, T1, T2, T3, T4>(PluginCommand command, ICommandProtection protection) : BaseCommandBuilder(command, protection, ArgCreator.CreateArgHandler<T0, T1, T2, T3, T4>(command.Plugin)), ICommandBuilder<T0, T1, T2, T3, T4>
 {
     public string Build(T0 arg0, T1 arg1, T2 arg2, T3 arg3, T4 arg4)
     {
@@ -68,7 +68,7 @@ internal class CommandBuilder<T0, T1, T2, T3, T4>(PluginCommand command, IComman
     }
 }
 
-internal class CommandBuilder<T0, T1, T2, T3, T4, T5>(PluginCommand command, ICommandProtection protection) : BaseCommandBuilder(command, protection, ArgWriterCreator.CreateWriters<T0, T1, T2, T3, T4, T5>(command.Plugin)), ICommandBuilder<T0, T1, T2, T3, T4, T5>
+internal class CommandBuilder<T0, T1, T2, T3, T4, T5>(PluginCommand command, ICommandProtection protection) : BaseCommandBuilder(command, protection, ArgCreator.CreateArgHandler<T0, T1, T2, T3, T4, T5>(command.Plugin)), ICommandBuilder<T0, T1, T2, T3, T4, T5>
 {
     public string Build(T0 arg0, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5)
     {
@@ -83,7 +83,7 @@ internal class CommandBuilder<T0, T1, T2, T3, T4, T5>(PluginCommand command, ICo
     }
 }
 
-internal class CommandBuilder<T0, T1, T2, T3, T4, T5, T6>(PluginCommand command, ICommandProtection protection) : BaseCommandBuilder(command, protection, ArgWriterCreator.CreateWriters<T0, T1, T2, T3, T4, T5, T6>(command.Plugin)), ICommandBuilder<T0, T1, T2, T3, T4, T5, T6>
+internal class CommandBuilder<T0, T1, T2, T3, T4, T5, T6>(PluginCommand command, ICommandProtection protection) : BaseCommandBuilder(command, protection, ArgCreator.CreateArgHandler<T0, T1, T2, T3, T4, T5, T6>(command.Plugin)), ICommandBuilder<T0, T1, T2, T3, T4, T5, T6>
 {
     public string Build(T0 arg0, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6)
     {
@@ -99,7 +99,7 @@ internal class CommandBuilder<T0, T1, T2, T3, T4, T5, T6>(PluginCommand command,
     }
 }
 
-internal class CommandBuilder<T0, T1, T2, T3, T4, T5, T6, T7>(PluginCommand command, ICommandProtection protection) : BaseCommandBuilder(command, protection, ArgWriterCreator.CreateWriters<T0, T1, T2, T3, T4, T5, T6, T7>(command.Plugin)), ICommandBuilder<T0, T1, T2, T3, T4, T5, T6, T7>
+internal class CommandBuilder<T0, T1, T2, T3, T4, T5, T6, T7>(PluginCommand command, ICommandProtection protection) : BaseCommandBuilder(command, protection, ArgCreator.CreateArgHandler<T0, T1, T2, T3, T4, T5, T6, T7>(command.Plugin)), ICommandBuilder<T0, T1, T2, T3, T4, T5, T6, T7>
 {
     public string Build(T0 arg0, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7)
     {
