@@ -9,12 +9,7 @@ namespace Oxide.Ext.UiFramework.Pooling;
 /// <typeparam name="TValue"></typeparam>
 public class HashPool<TKey, TValue> : BasePool<Hash<TKey, TValue>>
 {
-    public static readonly IPool<Hash<TKey, TValue>> Instance;
-        
-    static HashPool()
-    {
-        Instance = new HashPool<TKey, TValue>();
-    }
+    public static readonly IPool<Hash<TKey, TValue>> Instance = new HashPool<TKey, TValue>();
 
     private HashPool() : base(128) { }
 

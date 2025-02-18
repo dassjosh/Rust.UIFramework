@@ -7,12 +7,7 @@ namespace Oxide.Ext.UiFramework.Pooling;
 /// </summary>
 public class StringBuilderPool : BasePool<StringBuilder>
 {
-    public static readonly IPool<StringBuilder> Instance;
-        
-    static StringBuilderPool()
-    {
-        Instance = new StringBuilderPool();
-    }
+    public static readonly IPool<StringBuilder> Instance = new StringBuilderPool();
 
     private StringBuilderPool() : base(64) { }
 

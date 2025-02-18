@@ -8,12 +8,7 @@ namespace Oxide.Ext.UiFramework.Pooling;
 /// <typeparam name="T">Type that will be in the list</typeparam>
 public class ListPool<T> : BasePool<List<T>>
 {
-    public static readonly IPool<List<T>> Instance;
-        
-    static ListPool()
-    {
-        Instance = new ListPool<T>();
-    }
+    public static readonly IPool<List<T>> Instance = new ListPool<T>();
 
     private ListPool() : base(128) { }
 

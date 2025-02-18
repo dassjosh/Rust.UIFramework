@@ -10,7 +10,7 @@ public static class UiPlayingCards
 {
     private static readonly Dictionary<Card, string> Cards = new();
     
-    public static string GetPlayingCard(Suit suit, Rank rank, PlayingCardType type)
+    public static string GetPlayingCard(Suit suit, Rank rank, PlayingCardTypes type)
     {
         Card card = new(suit, rank, type);
         if (!Cards.TryGetValue(card, out string assetPath))
@@ -26,14 +26,14 @@ public static class UiPlayingCards
         return string.Format(GetCardFormat(card.Type), EnumCache<Suit>.ToLower(card.Suit), GetRankName(card.Rank));
     }
 
-    private static string GetCardFormat(PlayingCardType type)
+    private static string GetCardFormat(PlayingCardTypes type)
     {
         return type switch
         {
-            PlayingCardType.Normal => "assets/content/ui/gameui/cardgames/deck/{0}/{1}_{0}.png",
-            PlayingCardType.Small => "assets/content/ui/gameui/cardgames/deck_small/{0}/{1}_small_{0}.png",
-            PlayingCardType.Transparent => "assets/content/ui/gameui/cardgames/deck_transparent/{0}/{1}_transparent_{0}.png",
-            PlayingCardType.Transparent | PlayingCardType.Small => "assets/content/ui/gameui/cardgames/deck_small_world_transparent/{0}/{1}_{0}.png",
+            PlayingCardTypes.Normal => "assets/content/ui/gameui/cardgames/deck/{0}/{1}_{0}.png",
+            PlayingCardTypes.Small => "assets/content/ui/gameui/cardgames/deck_small/{0}/{1}_small_{0}.png",
+            PlayingCardTypes.Transparent => "assets/content/ui/gameui/cardgames/deck_transparent/{0}/{1}_transparent_{0}.png",
+            PlayingCardTypes.Transparent | PlayingCardTypes.Small => "assets/content/ui/gameui/cardgames/deck_small_world_transparent/{0}/{1}_{0}.png",
             _ => null
         };
     }
@@ -59,5 +59,5 @@ public static class UiPlayingCards
         };
     }
 
-    private readonly record struct Card(Suit Suit, Rank Rank, PlayingCardType Type);
+    private readonly record struct Card(Suit Suit, Rank Rank, PlayingCardTypes Type);
 }

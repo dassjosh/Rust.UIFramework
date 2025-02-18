@@ -71,7 +71,7 @@ public class UiScrollView : BaseUiComponent
         return bar;
     }
 
-    private ScrollbarComponent CreateScrollBar(bool invert = false, bool autoHide = false, string handleSprite = null, string trackSprite = null, float size = 20f, 
+    private static ScrollbarComponent CreateScrollBar(bool invert = false, bool autoHide = false, string handleSprite = null, string trackSprite = null, float size = 20f, 
         UiColor? handleColor = null, UiColor? highlightColor = null, UiColor? pressedColor = null, UiColor? trackColor = null)
     {
         ScrollbarComponent comp = UiFrameworkPool.Get<ScrollbarComponent>();

@@ -18,7 +18,7 @@ public class UiTimePickerMenu : BasePopoverControl
     public UiPicker Second;
     public UiPicker AmPm;
         
-    public static UiTimePickerMenu Create(in UiReference parent, TimePickerData time, int fontSize, UiColor textColor, UiColor backgroundColor, string changeCommand, TimePickerDisplayMode displayMode = TimePickerDisplayMode.All, ClockMode clockMode = ClockMode.Hour12,
+    public static UiTimePickerMenu Create(in UiReference parent, TimePickerData time, int fontSize, UiColor textColor, UiColor backgroundColor, string changeCommand, TimePickerDisplayModes displayMode = TimePickerDisplayModes.All, ClockMode clockMode = ClockMode.Hour12,
         PopoverPosition position = PopoverPosition.Bottom, string menuSprite = UiSprites.Assets.Content.Ui.UiBackgroundRounded)
     {
         const int menuPadding = 5;
@@ -40,23 +40,23 @@ public class UiTimePickerMenu : BasePopoverControl
         UiOffset offset = new(menuPadding, menuPadding, segmentWidth + menuPadding * 2, height);
         //Interface.Oxide.LogDebug(offset.ToString());
             
-        if (HasTimePickerDisplayModeFlag(displayMode, TimePickerDisplayMode.Hours))
+        if (HasTimePickerDisplayModeFlag(displayMode, TimePickerDisplayModes.Hours))
         {
-            control.Hour = CreateTimePickerTimeSegment(builder, offset, time.Hour, fontSize, textColor, backgroundColor, TimePickerDisplayMode.Hours, clockMode, changeCommand);
+            control.Hour = CreateTimePickerTimeSegment(builder, offset, time.Hour, fontSize, textColor, backgroundColor, TimePickerDisplayModes.Hours, clockMode, changeCommand);
             offset = offset.MoveX(segmentWidth + itemPadding);
             //Interface.Oxide.LogDebug($"Hour:{offset.ToString()}");
         }
             
-        if (HasTimePickerDisplayModeFlag(displayMode, TimePickerDisplayMode.Minutes))
+        if (HasTimePickerDisplayModeFlag(displayMode, TimePickerDisplayModes.Minutes))
         {
-            control.Minute = CreateTimePickerTimeSegment(builder, offset, time.Minute, fontSize, textColor, backgroundColor, TimePickerDisplayMode.Minutes, clockMode, changeCommand);
+            control.Minute = CreateTimePickerTimeSegment(builder, offset, time.Minute, fontSize, textColor, backgroundColor, TimePickerDisplayModes.Minutes, clockMode, changeCommand);
             offset = offset.MoveX(segmentWidth + itemPadding);
             //Interface.Oxide.LogDebug($"Minute:{offset.ToString()}");
         }
             
-        if (HasTimePickerDisplayModeFlag(displayMode, TimePickerDisplayMode.Seconds))
+        if (HasTimePickerDisplayModeFlag(displayMode, TimePickerDisplayModes.Seconds))
         {
-            control.Second = CreateTimePickerTimeSegment(builder, offset, time.Second, fontSize, textColor, backgroundColor, TimePickerDisplayMode.Seconds, clockMode, changeCommand);
+            control.Second = CreateTimePickerTimeSegment(builder, offset, time.Second, fontSize, textColor, backgroundColor, TimePickerDisplayModes.Seconds, clockMode, changeCommand);
             offset = offset.MoveX(segmentWidth + itemPadding);
             //Interface.Oxide.LogDebug($"Second:{offset.ToString()}");
         }
@@ -69,20 +69,20 @@ public class UiTimePickerMenu : BasePopoverControl
         return control;
     }
 
-    private static int GetPickerCount(TimePickerDisplayMode displayMode, ClockMode clockMode)
+    private static int GetPickerCount(TimePickerDisplayModes displayMode, ClockMode clockMode)
     {
         int numPickers = 0;
-        if (HasTimePickerDisplayModeFlag(displayMode, TimePickerDisplayMode.Hours))
+        if (HasTimePickerDisplayModeFlag(displayMode, TimePickerDisplayModes.Hours))
         {
             numPickers++;
         }
 
-        if (HasTimePickerDisplayModeFlag(displayMode, TimePickerDisplayMode.Minutes))
+        if (HasTimePickerDisplayModeFlag(displayMode, TimePickerDisplayModes.Minutes))
         {
             numPickers++;
         }
 
-        if (HasTimePickerDisplayModeFlag(displayMode, TimePickerDisplayMode.Seconds))
+        if (HasTimePickerDisplayModeFlag(displayMode, TimePickerDisplayModes.Seconds))
         {
             numPickers++;
         }
@@ -95,11 +95,11 @@ public class UiTimePickerMenu : BasePopoverControl
         return numPickers;
     }
 
-    public static UiPicker CreateTimePickerTimeSegment(UiBuilder builder, in UiOffset pos, int value, int fontSize, UiColor textColor, UiColor backgroundColor, TimePickerDisplayMode mode, ClockMode clockMode, string changeCommand)
+    public static UiPicker CreateTimePickerTimeSegment(UiBuilder builder, in UiOffset pos, int value, int fontSize, UiColor textColor, UiColor backgroundColor, TimePickerDisplayModes mode, ClockMode clockMode, string changeCommand)
     {
         float height = pos.Height / 3f;
-        string timeAmount = StringCache<int>.ToString(mode == TimePickerDisplayMode.Hours ? 3600 : mode == TimePickerDisplayMode.Minutes ? 60 : 1);
-        if (clockMode == ClockMode.Hour12 && mode == TimePickerDisplayMode.Hours)
+        string timeAmount = StringCache<int>.ToString(mode == TimePickerDisplayModes.Hours ? 3600 : mode == TimePickerDisplayModes.Minutes ? 60 : 1);
+        if (clockMode == ClockMode.Hour12 && mode == TimePickerDisplayModes.Hours)
         {
             if (value > 12)
             {
@@ -112,7 +112,7 @@ public class UiTimePickerMenu : BasePopoverControl
             }
         }
 
-        string valueText = mode == TimePickerDisplayMode.Hours ? StringCache<int>.ToString(value) : value.ToString("00");
+        string valueText = mode == TimePickerDisplayModes.Hours ? StringCache<int>.ToString(value) : value.ToString("00");
             
         return UiPicker.Create(builder, builder.Root, pos, valueText, fontSize, textColor, backgroundColor, height, $"{changeCommand} {timeAmount}", $"{changeCommand} -{timeAmount}");
     }
@@ -124,7 +124,7 @@ public class UiTimePickerMenu : BasePopoverControl
         return UiPicker.Create(builder, builder.Root, pos, value >= 12 ? "PM" : "AM", fontSize, textColor, backgroundColor, height, command, command);
     }
 
-    private static bool HasTimePickerDisplayModeFlag(TimePickerDisplayMode mode, TimePickerDisplayMode flag)
+    private static bool HasTimePickerDisplayModeFlag(TimePickerDisplayModes mode, TimePickerDisplayModes flag)
     {
         return (mode & flag) != 0;
     }

@@ -99,21 +99,21 @@ public class AssetBrowser : RustPlugin
             CreateUi(player);
         }
         
-        CreatePlayingCardsFolder(PlayingCardType.Normal);
-        CreatePlayingCardsFolder(PlayingCardType.Small);
-        CreatePlayingCardsFolder(PlayingCardType.Transparent);
-        CreatePlayingCardsFolder(PlayingCardType.Transparent | PlayingCardType.Small);
+        CreatePlayingCardsFolder(PlayingCardTypes.Normal);
+        CreatePlayingCardsFolder(PlayingCardTypes.Small);
+        CreatePlayingCardsFolder(PlayingCardTypes.Transparent);
+        CreatePlayingCardsFolder(PlayingCardTypes.Transparent | PlayingCardTypes.Small);
         CreateItemsFolder();
     }
 
-    private void CreatePlayingCardsFolder(PlayingCardType type)
+    private void CreatePlayingCardsFolder(PlayingCardTypes type)
     {
         string name = type switch
         {
-            PlayingCardType.Normal => "Normal",
-            PlayingCardType.Small => "Small",
-            PlayingCardType.Transparent => "Transparent",
-            PlayingCardType.Transparent | PlayingCardType.Small => "Small Transparent",
+            PlayingCardTypes.Normal => "Normal",
+            PlayingCardTypes.Small => "Small",
+            PlayingCardTypes.Transparent => "Transparent",
+            PlayingCardTypes.Transparent | PlayingCardTypes.Small => "Small Transparent",
             _ => null
         };
         

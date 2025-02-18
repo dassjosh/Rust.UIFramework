@@ -200,6 +200,5 @@ public class JsonUtf8Writer : BasePoolable
         _byteIndex = 0;
         ArrayPool<byte>.Shared.Return(_buffer);
         _buffer = null;
-        //_charIndex = 0;
     }
 }

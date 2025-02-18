@@ -8,6 +8,7 @@ using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Libraries.UiCommands;
 using Oxide.Ext.UiFramework.Plugins;
+using Oxide.Ext.UiFramework.Threading;
 using Oxide.Ext.UiFramework.Types;
 
 // ReSharper disable once CheckNamespace
@@ -58,6 +59,7 @@ public class UiFrameworkExtension : Extension
     public override void OnShutdown()
     {
         Singleton<DataHandler>.Instance.Shutdown();
+        SendHandler.OnServerShutdown();
     }
 }
 #endif

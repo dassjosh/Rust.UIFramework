@@ -3,7 +3,7 @@
 namespace Oxide.Ext.UiFramework.Enums;
 
 [Flags]
-public enum PlayingCardType : byte
+public enum PlayingCardTypes : byte
 {
     Normal = 0,
     Small = 1 << 0,

@@ -4,7 +4,7 @@ using System.Globalization;
 
 namespace Oxide.Ext.UiFramework.Cache;
 
-public class FormatCache<T> where T : IFormattable
+public static class FormatCache<T> where T : IFormattable
 {
     private static readonly ConcurrentDictionary<FormatKey, string> Cache = new();
     

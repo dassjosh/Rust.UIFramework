@@ -13,13 +13,13 @@ internal static class Singleton<T> where T : ISingleton
         ConstructorInfo[] constructors = typeof(T).GetConstructors(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
         if (constructors.Length != 1)
         {
-            throw new Exception($"{typeof(T)} {ErrorMessage}");
+            throw new InvalidOperationException($"{typeof(T)} {ErrorMessage}");
         }
 
         ConstructorInfo constructor = constructors[0];
         if (constructor.IsPublic)
         {
-            throw new Exception($"{typeof(T)} {ErrorMessage}");
+            throw new InvalidOperationException($"{typeof(T)} {ErrorMessage}");
         }
             
         try 
@@ -28,7 +28,7 @@ internal static class Singleton<T> where T : ISingleton
         }
         catch 
         {
-            throw new Exception($"{typeof(T)} {ErrorMessage}");
+            throw new InvalidOperationException($"{typeof(T)} {ErrorMessage}");
         }
     }
 }

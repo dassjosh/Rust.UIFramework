@@ -54,7 +54,7 @@ public abstract class BaseBuilder : BasePoolable
 
     internal abstract void SendUi(SendInfo send);
 
-    internal void AddUi(SendInfo send, JsonFrameworkWriter writer)
+    internal static void AddUi(SendInfo send, JsonFrameworkWriter writer)
     {
         NetWrite write = ClientRPCStart(RpcFunctions.AddUiFunc);
         if (write != null)
@@ -64,7 +64,7 @@ public abstract class BaseBuilder : BasePoolable
         }
     }
         
-    protected void AddUi(SendInfo send, byte[] bytes)
+    protected static void AddUi(SendInfo send, byte[] bytes)
     {
         NetWrite write = ClientRPCStart(RpcFunctions.AddUiFunc);
         if (write != null)

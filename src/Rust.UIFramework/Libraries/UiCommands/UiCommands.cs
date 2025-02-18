@@ -98,7 +98,7 @@ public class UiCommands : BaseUiFrameworkLibrary, ISingleton
         command = new PluginCommand(pluginId, Singleton<CommandIdHandler>.Instance.GetId(method));
         if (_commands.ContainsKey(command))
         {
-            throw new DuplicateUiCommandRegistration(pluginId, method);
+            throw new DuplicateUiCommandRegistrationException(pluginId, method);
         }
 
         cooldown = CreateCooldown(pluginId, method);

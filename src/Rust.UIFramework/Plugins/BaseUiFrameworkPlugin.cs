@@ -13,13 +13,11 @@ internal class BaseUiFrameworkPlugin : CSPlugin
     protected readonly Lang Lang = OxideLibrary.Lang;
     protected readonly Oxide.Core.Libraries.Plugins Plugins = OxideLibrary.Plugins;
     protected readonly Permission Permission = OxideLibrary.Permission;
-    //internal readonly PluginTimers Timer;
 
     protected BaseUiFrameworkPlugin()
     {
         Author = UiFrameworkExtension.Instance.Author;
         Version = UiFrameworkExtension.Instance.Version;
-        //Timer = new PluginTimers(this);
     }
         
     #region Helper Methods

@@ -10,6 +10,7 @@ internal static class SendHandler
     private static readonly ConcurrentQueue<IUiRequest> Queue = new();
     private static readonly AutoResetEvent Reset = new(false);
     private static readonly Thread _thread;
+    private static readonly CancellationTokenSource _source = new();
     
     static SendHandler()
     {
@@ -29,7 +30,7 @@ internal static class SendHandler
 
     private static void Send()
     {
-        while (true)
+        while (!_source.IsCancellationRequested)
         {
             SendInternal();
             Reset.WaitOne();
@@ -55,5 +56,11 @@ internal static class SendHandler
                 request.Dispose();
             }
         }
+    }
+
+    internal static void OnServerShutdown()
+    {
+        _source.Cancel();
+        Reset.Set();
     }
 }

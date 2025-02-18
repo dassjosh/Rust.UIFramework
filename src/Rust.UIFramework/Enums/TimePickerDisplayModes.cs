@@ -3,7 +3,7 @@
 namespace Oxide.Ext.UiFramework.Enums;
 
 [Flags]
-public enum TimePickerDisplayMode : byte
+public enum TimePickerDisplayModes : byte
 {
     Hours = 1 << 0,
     Minutes = 1 << 1,

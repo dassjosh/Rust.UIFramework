@@ -23,8 +23,8 @@ public static class JsonDefaults
         public static readonly Utf8String AutoDestroy = "destroyUi"u8;
         public static readonly Utf8String CommandName = "command"u8;
         public static readonly Utf8String EnabledName = "enabled"u8;
-        public static Vector2 Min = new(0, 0);
-        public static Vector2 Max = new(1, 1);
+        public static readonly Vector2 Min = new(0, 0);
+        public static readonly Vector2 Max = new(1, 1);
     }
         
     public static class Position
@@ -42,7 +42,7 @@ public static class JsonDefaults
     public static class Color
     {
         public static readonly Utf8String ColorName = "color"u8;
-        public static UiColor ColorValue = "#FFFFFFFF";
+        public static readonly UiColor ColorValue = "#FFFFFFFF";
     }
 
     public static class BaseImage
@@ -76,8 +76,8 @@ public static class JsonDefaults
         public static readonly Utf8String Type = "UnityEngine.UI.Outline"u8;
         public static readonly Utf8String DistanceName = "distance"u8;
         public static readonly Utf8String UseGraphicAlphaName = "useGraphicAlpha"u8;
-        public static Vector2 FpDistance = new(1.0f, -1.0f);
-        public static Vector2 Distance = new(0.5f, -0.5f);
+        public static readonly Vector2 FpDistance = new(1.0f, -1.0f);
+        public static readonly Vector2 Distance = new(0.5f, -0.5f);
     }
 
     public static class Button
@@ -154,9 +154,9 @@ public static class JsonDefaults
         public const float DecelerationRate = 0.135f;
         public const float ScrollSensitivity = 1f;
             
-        public static Vector2 Min = new(0, 0);
-        public static Vector2 AnchorMax = new(1, 1);
-        public static Vector2 OffsetMax = new(0, 0);
+        public static readonly Vector2 Min = new(0, 0);
+        public static readonly Vector2 AnchorMax = new(1, 1);
+        public static readonly Vector2 OffsetMax = new(0, 0);
     }
 
     public static class ScrollBar
@@ -171,9 +171,9 @@ public static class JsonDefaults
         public static readonly Utf8String HighlightColorName = "highlightColor"u8;
         public static readonly Utf8String PressedColorName = "pressedColor"u8;
         public static readonly Utf8String TrackColorName = "trackColor"u8;
-        public static UiColor HandleColor = UiColor.ParseHexColor("#262626");
-        public static UiColor HighlightColor = UiColor.ParseHexColor("#2B2B2B");
-        public static UiColor PressedColor = UiColor.ParseHexColor("#333333");
-        public static UiColor TrackColor = UiColor.ParseHexColor("#171717");
+        public static readonly UiColor HandleColor = UiColor.ParseHexColor("#262626");
+        public static readonly UiColor HighlightColor = UiColor.ParseHexColor("#2B2B2B");
+        public static readonly UiColor PressedColor = UiColor.ParseHexColor("#333333");
+        public static readonly UiColor TrackColor = UiColor.ParseHexColor("#171717");
     }
 }

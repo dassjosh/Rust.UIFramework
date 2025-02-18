@@ -239,7 +239,7 @@ public partial class BaseUiBuilder
         return control;
     }
         
-    public static UiTimePickerMenu TimePickerMenu(in UiReference reference, TimePickerData time, int fontSize, UiColor textColor, UiColor backgroundColor, string changeCommand, TimePickerDisplayMode displayMode = TimePickerDisplayMode.All, ClockMode clockMode = ClockMode.Hour12,
+    public static UiTimePickerMenu TimePickerMenu(in UiReference reference, TimePickerData time, int fontSize, UiColor textColor, UiColor backgroundColor, string changeCommand, TimePickerDisplayModes displayMode = TimePickerDisplayModes.All, ClockMode clockMode = ClockMode.Hour12,
         PopoverPosition position = PopoverPosition.Bottom, string menuSprite = UiSprites.Assets.Content.Ui.UiBackgroundRounded)
     {
         UiTimePickerMenu picker = UiTimePickerMenu.Create(reference, time, fontSize, textColor, backgroundColor, changeCommand, displayMode, clockMode, position, menuSprite);
