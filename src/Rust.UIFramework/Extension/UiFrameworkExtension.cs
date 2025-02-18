@@ -6,6 +6,7 @@ using Oxide.Core.Extensions;
 using Oxide.Ext.UiFramework.Data;
 using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Libraries;
+using Oxide.Ext.UiFramework.Libraries.UiCommands;
 using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Types;
 
@@ -31,6 +32,9 @@ public class UiFrameworkExtension : Extension
     {
         Manager.RegisterPluginLoader(new UiFrameworkExtPluginLoader());
         Manager.RegisterLibrary($"{Name}_{nameof(ImageStorage)}", Singleton<ImageStorage>.Instance);
+        Manager.RegisterLibrary(nameof(UiCommands), Singleton<UiCommands>.Instance);
+        Manager.RegisterLibrary(nameof(UiNameStore), Singleton<UiNameStore>.Instance);
+        Manager.RegisterLibrary(nameof(UiPlayerStore), Singleton<UiPlayerStore>.Instance);
         
         Interface.Oxide.RootPluginManager.OnPluginRemoved += plugin =>
         {

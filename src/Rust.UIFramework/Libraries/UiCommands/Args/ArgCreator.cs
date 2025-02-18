@@ -4,6 +4,7 @@ using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Exceptions.UiCommands;
 using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Plugins;
+using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Libraries.UiCommands;
 
@@ -25,17 +26,31 @@ internal class ArgCreator
     {
         Type type = typeof(T);
         PluginArgHandler pluginReader = new(pluginId, type);
-        if (PluginHandlers.TryGetValue(pluginReader, out IArgHandler reader))
+        if (PluginHandlers.TryGetValue(pluginReader, out IArgHandler handler))
         {
-            return reader;
-        }
-        
-        if (!BuiltInHandlers.TryGetValue(type, out reader))
-        {
-            BuiltInHandlers[type] = reader = CreateArgHandler<T>(type);
+            return handler;
         }
 
-        return reader;
+        if (BuiltInHandlers.TryGetValue(type, out handler))
+        {
+            return handler;
+        }
+
+        handler = CreateArgHandler<T>(type);
+        if (handler != null)
+        {
+            BuiltInHandlers[type] = handler;
+            return handler;
+        }
+        
+        handler = CreatePluginArgHandler<T>(pluginId, type);
+        if (handler != null)
+        {
+            PluginHandlers[pluginReader] = handler;
+            return handler;
+        }
+        
+        throw new NoArgHandlerException(type);
     }
     
     private static IArgHandler CreateArgHandler<T>(Type type)
@@ -89,12 +104,22 @@ internal class ArgCreator
             return networkable is T entity ? entity : default;
         }, (writer, arg) => writer.AppendArg((arg as BaseNetworkable)?.net.ID.Value));
         if(type.IsEnum) return new ArgHandler<T>(span => Enum.TryParse(type, span.ToString(), out object result) && result is T @enum ? @enum : default, (writer, arg) => writer.AppendArg(StringCache<T>.ToString(arg))); //TODO: Try to avoid string allocation
+        
+        return null;
+    }
 
-        throw new NoArgHandlerException(type);
+    private static IArgHandler CreatePluginArgHandler<T>(PluginId pluginId, Type type)
+    {
+        if(typeof(INamedStore).IsAssignableFrom(type)) return new ArgHandler<T>(span => (T)Singleton<UiNameStore>.Instance.GetOrCreateStore<T>(pluginId, span.ToString()) , (writer, arg) => writer.AppendArg(((INamedStore)arg).Name));
+        if(typeof(IPlayerStore).IsAssignableFrom(type)) return new ArgHandler<T>(span => (T)Singleton<UiPlayerStore>.Instance.GetOrCreateStore<T>(pluginId, ulong.Parse(span)) , (writer, arg) => writer.AppendArg(((IPlayerStore)arg).PlayerId));
+        return null;
     }
     
     internal static void RegisterPluginHandler<T>(PluginId pluginId, IArgHandler<T> handler) => PluginHandlers[new PluginArgHandler(pluginId, typeof(T))] = handler;
-    internal static void RemovePluginHandler(PluginId pluginId) => PluginHandlers.RemoveAll(r => r.Key.Id == pluginId);
-    
+    internal static void RemovePluginHandler(PluginId pluginId)
+    {
+        PluginHandlers.RemoveAll(r => r.Key.Id == pluginId);
+    }
+
     private record struct PluginArgHandler(PluginId Id, Type Type);
 }
