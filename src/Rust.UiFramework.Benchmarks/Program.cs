@@ -1,5 +1,12 @@
-﻿using BenchmarkDotNet.Environments;
+﻿
 using Oxide.Ext.UiFramework.Extensions;
+
+#if BENCHMARKS
+using BenchmarkDotNet.Configs;
+using BenchmarkDotNet.Jobs;
+using BenchmarkDotNet.Running;
+using BenchmarkDotNet.Toolchains.InProcess.Emit;
+#endif
 
 namespace Rust.UiFramework.Benchmarks;
 
@@ -10,7 +17,7 @@ class Program
 #if BENCHMARKS
         ManualConfig config = DefaultConfig.Instance.AddJob(Job.Default
             .WithToolchain(InProcessEmitToolchain.Instance)
-            .WithIterationCount(30));
+            .WithIterationCount(10));
         BenchmarkRunner.Run<Benchmarks>(config, args);
 #else
         

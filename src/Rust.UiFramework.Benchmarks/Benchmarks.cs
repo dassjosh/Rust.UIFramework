@@ -2,6 +2,17 @@
 
 #if BENCHMARKS
 
+using System.Text;
+using BenchmarkDotNet.Attributes;
+using Facepunch;
+using Network;
+using Oxide.Ext.UiFramework.Builder.UI;
+using Oxide.Ext.UiFramework.Colors;
+using Oxide.Ext.UiFramework.Extensions;
+using Oxide.Ext.UiFramework.Json;
+using Oxide.Ext.UiFramework.Positions;
+using Oxide.Game.Rust.Cui;
+
 using Oxide.Ext.UiFramework.Benchmarks;
 
 [MemoryDiagnoser]

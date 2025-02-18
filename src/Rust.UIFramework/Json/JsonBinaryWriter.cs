@@ -7,6 +7,10 @@ using System.Text;
 using Network;
 using Oxide.Ext.UiFramework.Pooling;
 
+#if BENCHMARKS
+using Oxide.Ext.UiFramework.Benchmarks;
+#endif
+
 namespace Oxide.Ext.UiFramework.Json;
 
 public class JsonBinaryWriter : BasePoolable

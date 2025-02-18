@@ -7,6 +7,10 @@ using Oxide.Ext.UiFramework.Pooling;
 using UnityEngine;
 using UnityEngine.UI;
 
+#if BENCHMARKS
+using Oxide.Ext.UiFramework.Benchmarks;
+#endif
+
 namespace Oxide.Ext.UiFramework.Json;
 
 public class JsonFrameworkWriter : BasePoolable

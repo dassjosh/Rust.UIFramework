@@ -7,6 +7,11 @@ using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Threading;
 
+#if BENCHMARKS
+using Facepunch;
+using Oxide.Ext.UiFramework.Benchmarks;
+#endif
+
 namespace Oxide.Ext.UiFramework.Builder;
 
 public abstract class BaseBuilder : BasePoolable
