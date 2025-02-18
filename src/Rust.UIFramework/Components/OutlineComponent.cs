@@ -7,8 +7,6 @@ namespace Oxide.Ext.UiFramework.Components;
 
 public class OutlineComponent : BasePoolable, IComponent
 {
-    private const string Type = "UnityEngine.UI.Outline";
-
     public UiColor Color;
     public Vector2 Distance = JsonDefaults.Outline.Distance;
     public bool UseGraphicAlpha;
@@ -16,7 +14,7 @@ public class OutlineComponent : BasePoolable, IComponent
     public virtual void WriteComponent(JsonFrameworkWriter writer)
     {
         writer.WriteStartObject();
-        writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, Type);
+        writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, JsonDefaults.Outline.Type);
         writer.AddField(JsonDefaults.Outline.DistanceName, Distance, JsonDefaults.Outline.FpDistance);
         if (UseGraphicAlpha)
         {

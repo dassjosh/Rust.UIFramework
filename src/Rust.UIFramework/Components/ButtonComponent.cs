@@ -5,8 +5,6 @@ namespace Oxide.Ext.UiFramework.Components;
 
 public class ButtonComponent : BaseImageComponent
 {
-    private const string Type = "UnityEngine.UI.Button";
-
     public string Command;
     public string Close;
     public Image.Type ImageType;
@@ -14,7 +12,7 @@ public class ButtonComponent : BaseImageComponent
     public override void WriteComponent(JsonFrameworkWriter writer)
     {
         writer.WriteStartObject();
-        writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, Type);
+        writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, JsonDefaults.Button.Type);
         writer.AddTextField(JsonDefaults.Common.CommandName, Command, JsonDefaults.Common.NullValue);
         writer.AddField(JsonDefaults.Button.CloseName, Close, JsonDefaults.Common.NullValue);
         writer.AddField(JsonDefaults.Image.ImageType, ImageType);

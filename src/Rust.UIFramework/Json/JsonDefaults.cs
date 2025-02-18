@@ -1,4 +1,5 @@
 ﻿using Oxide.Ext.UiFramework.Colors;
+using Oxide.Ext.UiFramework.Types;
 using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Json;
@@ -7,164 +8,172 @@ public static class JsonDefaults
 {
     public static class Common
     {
-        public const string ComponentTypeName = "type";
-        public const string ComponentName = "name";
-        public const string ParentName = "parent";
-        public const string FadeInName = "fadeIn";
-        public const string FadeOutName = "fadeOut";
+        public static readonly Utf8String ComponentTypeName = "type"u8;
+        public static readonly Utf8String ComponentsName = "components"u8;
+        public static readonly Utf8String ComponentName = "name"u8;
+        public static readonly Utf8String ParentName = "parent"u8;
+        public static readonly Utf8String FadeInName = "fadeIn"u8;
+        public static readonly Utf8String FadeOutName = "fadeOut"u8;
         public const float FadeOut = 0;
         public const float FadeIn = 0;
-        public const string RectTransformName = "RectTransform";
+        public static readonly Utf8String RectTransformName = "RectTransform"u8;
         public const string NullValue = null;
-        public const string NeedsCursorValue = "NeedsCursor";
-        public const string NeedsKeyboardValue = "NeedsKeyboard";
-        public const string AutoDestroy = "destroyUi";
-        public const string CommandName = "command";
-        public const string EnabledName = "enabled";
-        public static readonly Vector2 Min = new(0, 0);
-        public static readonly Vector2 Max = new(1, 1);
+        public static readonly Utf8String NeedsCursorValue = "NeedsCursor"u8;
+        public static readonly Utf8String NeedsKeyboardValue = "NeedsKeyboard"u8;
+        public static readonly Utf8String AutoDestroy = "destroyUi"u8;
+        public static readonly Utf8String CommandName = "command"u8;
+        public static readonly Utf8String EnabledName = "enabled"u8;
+        public static Vector2 Min = new(0, 0);
+        public static Vector2 Max = new(1, 1);
     }
         
     public static class Position
     {
-        public const string AnchorMinName = "anchormin";
-        public const string AnchorMaxName = "anchormax";
+        public static readonly Utf8String AnchorMinName = "anchormin"u8;
+        public static readonly Utf8String AnchorMaxName = "anchormax"u8;
     }
 
     public static class Offset
     {
-        public const string OffsetMinName = "offsetmin";
-        public const string OffsetMaxName = "offsetmax";
-        public const string DefaultOffsetMax = "0 0";
+        public static readonly Utf8String OffsetMinName = "offsetmin"u8;
+        public static readonly Utf8String OffsetMaxName = "offsetmax"u8;
     }
 
     public static class Color
     {
-        public const string ColorName = "color";
-        public static readonly UiColor ColorValue = "#FFFFFFFF";
+        public static readonly Utf8String ColorName = "color"u8;
+        public static UiColor ColorValue = "#FFFFFFFF";
     }
 
     public static class BaseImage
     {
-        public const string SpriteName = "sprite";
-        public const string MaterialName = "material";
+        public static readonly Utf8String SpriteName = "sprite"u8;
+        public static readonly Utf8String MaterialName = "material"u8;
         public const string Sprite = "Assets/Content/UI/UI.Background.Tile.psd";
         public const string Material = "Assets/Icons/IconMaterial.mat";
     }
 
     public static class RawImage
     {
+        public static readonly Utf8String Type = "UnityEngine.UI.RawImage"u8;
         public const string TextureValue = "Assets/Icons/rust.png";
     }
 
     public static class BaseText
     {
         public const int FontSize = 14;
+        public static readonly Utf8String Type = "UnityEngine.UI.Text"u8;
         public const string FontValue = "RobotoCondensed-Bold.ttf";
-        public const string FontName = "font";
-        public const string TextName = "text";
-        public const string FontSizeName = "fontSize";
-        public const string AlignName = "align";
-        public const string VerticalOverflowName = "verticalOverflow";
+        public static readonly Utf8String FontName = "font"u8;
+        public static readonly Utf8String TextName = "text"u8;
+        public static readonly Utf8String FontSizeName = "fontSize"u8;
+        public static readonly Utf8String AlignName = "align"u8;
+        public static readonly Utf8String VerticalOverflowName = "verticalOverflow"u8;
     }
 
     public static class Outline
     {
-        public const string DistanceName = "distance";
-        public const string UseGraphicAlphaName = "useGraphicAlpha";
-        public static readonly Vector2 FpDistance = new(1.0f, -1.0f);
-        public static readonly Vector2 Distance = new(0.5f, -0.5f);
+        public static readonly Utf8String Type = "UnityEngine.UI.Outline"u8;
+        public static readonly Utf8String DistanceName = "distance"u8;
+        public static readonly Utf8String UseGraphicAlphaName = "useGraphicAlpha"u8;
+        public static Vector2 FpDistance = new(1.0f, -1.0f);
+        public static Vector2 Distance = new(0.5f, -0.5f);
     }
 
     public static class Button
     {
-        public const string CloseName = "close";
+        public static readonly Utf8String Type = "UnityEngine.UI.Button"u8;
+        public static readonly Utf8String CloseName = "close"u8;
     }
 
     public static class Image
     {
-        public const string PngName = "png";
-        public const string UrlName = "url";
-        public const string ImageType = "imagetype";
+        public static readonly Utf8String Type = "UnityEngine.UI.Image"u8;
+        public static readonly Utf8String PngName = "png"u8;
+        public static readonly Utf8String UrlName = "url"u8;
+        public static readonly Utf8String ImageType = "imagetype"u8;
     }
 
     public static class ItemIcon
     {
-        public const string ItemIdName = "itemid";
-        public const string SkinIdName = "skinid";
+        public static readonly Utf8String ItemIdName = "itemid"u8;
+        public static readonly Utf8String SkinIdName = "skinid"u8;
     }
     
     public static class PlayerAvatar
     {
-        public const string SteamIdName = "steamid";
+        public static readonly Utf8String SteamIdName = "steamid"u8;
     }
 
     public static class Input
     {
-        public const string CharacterLimitName = "characterLimit";
+        public static readonly Utf8String Type = "UnityEngine.UI.InputField"u8;
+        public static readonly Utf8String CharacterLimitName = "characterLimit"u8;
         public const int CharacterLimitValue = 0;
-        public const string PasswordName = "password";
-        public const string ReadOnlyName = "readOnly";
-        public const string LineTypeName = "lineType";
-        public const string NeedsKeyboardName = "needsKeyboard";
-        public const string NeedsHudKeyboardName = "hudMenuInput";
-        public const string AutoFocusName = "autofocus";
+        public static readonly Utf8String PasswordName = "password"u8;
+        public static readonly Utf8String ReadOnlyName = "readOnly"u8;
+        public static readonly Utf8String LineTypeName = "lineType"u8;
+        public static readonly Utf8String NeedsKeyboardName = "needsKeyboard"u8;
+        public static readonly Utf8String NeedsHudKeyboardName = "hudMenuInput"u8;
+        public static readonly Utf8String AutoFocusName = "autofocus"u8;
     }
         
     public static class Countdown
     {
-        public const string StartTimeName = "startTime";
+        public static readonly Utf8String Type = "Countdown"u8;
+        public static readonly Utf8String StartTimeName = "startTime"u8;
         public const float StartTimeValue = 0;
-        public const string EndTimeName = "endTime";
+        public static readonly Utf8String EndTimeName = "endTime"u8;
         public const float EndTimeValue = 0;
-        public const string StepName = "step";
+        public static readonly Utf8String StepName = "step"u8;
         public const float StepValue = 1;
-        public const string IntervalName = "interval";
+        public static readonly Utf8String IntervalName = "interval"u8;
         public const float IntervalValue = 1;
-        public const string TimerFormatName = "timerFormat";
-        public const string NumberFormatName = "numberFormat";
+        public static readonly Utf8String TimerFormatName = "timerFormat"u8;
+        public static readonly Utf8String NumberFormatName = "numberFormat"u8;
         public const string NumberFormatValue = "0.####";
-        public const string DestroyIfDoneName = "destroyIfDone";
-        public const string CountdownCommandName = "command";
+        public static readonly Utf8String DestroyIfDoneName = "destroyIfDone"u8;
+        public static readonly Utf8String CountdownCommandName = "command"u8;
     }
 
     public static class ScrollView
     {
-        public const string Horizontal = "horizontal";
-        public const string Vertical = "vertical";
-        public const string MovementType = "movementType";
-        public const string ElasticityName = "elasticity";
-        public const string Inertia = "inertia";
-        public const string DecelerationRateName = "decelerationRate";
-        public const string ScrollSensitivityName = "scrollSensitivity";
-        public const string HorizontalScrollbar = "horizontalScrollbar";
-        public const string VerticalScrollbar = "verticalScrollbar";
-        public const string ContentTransform = "contentTransform";
+        public static readonly Utf8String Type = "UnityEngine.UI.ScrollView"u8;
+        public static readonly Utf8String Horizontal = "horizontal"u8;
+        public static readonly Utf8String Vertical = "vertical"u8;
+        public static readonly Utf8String MovementType = "movementType"u8;
+        public static readonly Utf8String ElasticityName = "elasticity"u8;
+        public static readonly Utf8String Inertia = "inertia"u8;
+        public static readonly Utf8String DecelerationRateName = "decelerationRate"u8;
+        public static readonly Utf8String ScrollSensitivityName = "scrollSensitivity"u8;
+        public static readonly Utf8String HorizontalScrollbar = "horizontalScrollbar"u8;
+        public static readonly Utf8String VerticalScrollbar = "verticalScrollbar"u8;
+        public static readonly Utf8String ContentTransform = "contentTransform"u8;
             
-        public static readonly float Elasticity = 0.1f;
-        public static readonly float DecelerationRate = 0.135f;
-        public static readonly float ScrollSensitivity = 1f;
+        public const float Elasticity = 0.1f;
+        public const float DecelerationRate = 0.135f;
+        public const float ScrollSensitivity = 1f;
             
-        public static readonly Vector2 Min = new(0, 0);
-        public static readonly Vector2 AnchorMax = new(1, 1);
-        public static readonly Vector2 OffsetMax = new(0, 0);
+        public static Vector2 Min = new(0, 0);
+        public static Vector2 AnchorMax = new(1, 1);
+        public static Vector2 OffsetMax = new(0, 0);
     }
 
     public static class ScrollBar
     {
-        public const string Invert = "invert";
-        public const string AutoHide = "autoHide";
-        public const string HandleSprite = "handleSprite";
-        public const string TrackSprite = "trackSprite";
-        public const string SizeName = "size";
+        public static readonly Utf8String Invert = "invert"u8;
+        public static readonly Utf8String AutoHide = "autoHide"u8;
+        public static readonly Utf8String HandleSprite = "handleSprite"u8;
+        public static readonly Utf8String TrackSprite = "trackSprite"u8;
+        public static readonly Utf8String SizeName = "size"u8;
         public const float Size = 20f;
-        public const string HandleColorName = "handleColor";
-        public const string HighlightColorName = "highlightColor";
-        public const string PressedColorName = "pressedColor";
-        public const string TrackColorName = "trackColor";
-        public static readonly UiColor HandleColor = UiColor.ParseHexColor("#262626");
-        public static readonly UiColor HighlightColor = UiColor.ParseHexColor("#2B2B2B");
-        public static readonly UiColor PressedColor = UiColor.ParseHexColor("#333333");
-        public static readonly UiColor TrackColor = UiColor.ParseHexColor("#171717");
+        public static readonly Utf8String HandleColorName = "handleColor"u8;
+        public static readonly Utf8String HighlightColorName = "highlightColor"u8;
+        public static readonly Utf8String PressedColorName = "pressedColor"u8;
+        public static readonly Utf8String TrackColorName = "trackColor"u8;
+        public static UiColor HandleColor = UiColor.ParseHexColor("#262626");
+        public static UiColor HighlightColor = UiColor.ParseHexColor("#2B2B2B");
+        public static UiColor PressedColor = UiColor.ParseHexColor("#333333");
+        public static UiColor TrackColor = UiColor.ParseHexColor("#171717");
     }
 }

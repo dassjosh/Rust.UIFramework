@@ -4,15 +4,13 @@ namespace Oxide.Ext.UiFramework.Components;
 
 public class PlayerAvatarComponent : BaseImageComponent
 {
-    private const string Type = "UnityEngine.UI.RawImage";
-    
     public string SteamId;
 
     public override void WriteComponent(JsonFrameworkWriter writer)
     {
         writer.WriteStartObject();
-        writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, Type);
-        writer.AddField(JsonDefaults.PlayerAvatar.SteamIdName, SteamId, default);
+        writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, JsonDefaults.RawImage.Type);
+        writer.AddField(JsonDefaults.PlayerAvatar.SteamIdName, SteamId, null);
         base.WriteComponent(writer);
         writer.WriteEndObject();
     }

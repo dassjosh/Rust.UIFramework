@@ -32,7 +32,7 @@ public abstract class BaseUiComponent : BasePoolable
             writer.AddFieldRaw(JsonDefaults.Common.AutoDestroy, Reference.Name);
         }
 
-        writer.WritePropertyName("components");
+        writer.WritePropertyName(JsonDefaults.Common.ComponentsName);
         writer.WriteStartArray();
         WriteComponents(writer);
 
@@ -58,7 +58,7 @@ public abstract class BaseUiComponent : BasePoolable
         writer.AddField(JsonDefaults.Common.FadeOutName, FadeOut, JsonDefaults.Common.FadeOut);
         writer.AddFieldRaw(JsonDefaults.Common.AutoDestroy, Reference.Name);
 
-        writer.WritePropertyName("components");
+        writer.WritePropertyName(JsonDefaults.Common.ComponentsName);
         writer.WriteStartArray();
         WriteComponents(writer);
         writer.WriteEndArray();
@@ -72,7 +72,7 @@ public abstract class BaseUiComponent : BasePoolable
         writer.AddFieldRaw(JsonDefaults.Common.ParentName, Reference.Parent);
         writer.AddField(JsonDefaults.Common.FadeOutName, FadeOut, JsonDefaults.Common.FadeOut);
 
-        writer.WritePropertyName("components");
+        writer.WritePropertyName(JsonDefaults.Common.ComponentsName);
         writer.WriteStartArray();
         WriteComponents(writer);
         writer.WriteEndArray();
@@ -83,10 +83,10 @@ public abstract class BaseUiComponent : BasePoolable
     {
         writer.WriteStartObject();
         writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, JsonDefaults.Common.RectTransformName);
-        writer.AddPosition(JsonDefaults.Position.AnchorMinName, Position.Min, JsonDefaults.Common.Min);
-        writer.AddPosition(JsonDefaults.Position.AnchorMaxName, Position.Max, JsonDefaults.Common.Max);
-        writer.AddOffset(JsonDefaults.Offset.OffsetMinName, Offset.Min, JsonDefaults.Common.Min);
-        writer.AddOffset(JsonDefaults.Offset.OffsetMaxName, Offset.Max, JsonDefaults.Common.Max);
+        writer.AddField(JsonDefaults.Position.AnchorMinName, Position.Min, JsonDefaults.Common.Min);
+        writer.AddField(JsonDefaults.Position.AnchorMaxName, Position.Max, JsonDefaults.Common.Max);
+        writer.AddField(JsonDefaults.Offset.OffsetMinName, Offset.Min, JsonDefaults.Common.Min);
+        writer.AddField(JsonDefaults.Offset.OffsetMaxName, Offset.Max, JsonDefaults.Common.Max);
         writer.WriteEndObject();
     }
 

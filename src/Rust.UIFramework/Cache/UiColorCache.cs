@@ -1,27 +1,26 @@
-﻿using System.Collections.Concurrent;
+﻿using System.Collections.Generic;
 using System.Text;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Pooling;
+using Oxide.Ext.UiFramework.Types;
 using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Cache;
 
-public static class UiColorCache
+internal static class UiColorCache
 {
     private const string Format = "0.####";
     private const char Space = ' ';
 
-    private static readonly ConcurrentDictionary<int, string> ColorCache = new();
+    private static readonly Dictionary<UiColor, Utf8String> ColorCache = new();
         
-    public static void WriteColor(JsonBinaryWriter writer, UiColor uiColor)
+    public static void WriteColor(JsonUtf8Writer writer, UiColor uiColor)
     {
-        int hashCode = uiColor.GetHashCode();
-        if (!ColorCache.TryGetValue(hashCode, out string color))
+        if (!ColorCache.TryGetValue(uiColor, out Utf8String color))
         {
-            color = GetColor(uiColor);
-            ColorCache[hashCode] = color;
+            ColorCache[uiColor] = color = GetColor(uiColor);
         }
 
         writer.Write(color);

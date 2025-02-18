@@ -27,7 +27,7 @@ public struct UiCommand : IDisposable
     public static UiCommand Create<T0>(string command, T0 arg0, bool disposable = true)
     {
         UiCommand cmd = new(command, disposable);
-        cmd.Args = UiFrameworkPool.GetList<string>();;
+        cmd.Args = UiFrameworkPool.GetList<string>();
         cmd.AddArg(arg0);
         return cmd;
     }
@@ -35,7 +35,7 @@ public struct UiCommand : IDisposable
     public static UiCommand Create<T0, T1>(string command, T0 arg0, T1 arg1, bool disposable = true)
     {
         UiCommand cmd = new(command, disposable);
-        cmd.Args = UiFrameworkPool.GetList<string>();;
+        cmd.Args = UiFrameworkPool.GetList<string>();
         cmd.AddArg(arg0);
         cmd.AddArg(arg1);
         return cmd;
@@ -44,7 +44,7 @@ public struct UiCommand : IDisposable
     public static UiCommand Create<T0, T1, T2>(string command, T0 arg0, T1 arg1, T2 arg2, bool disposable = true)
     {
         UiCommand cmd = new(command, disposable);
-        cmd.Args = UiFrameworkPool.GetList<string>();;
+        cmd.Args = UiFrameworkPool.GetList<string>();
         cmd.AddArg(arg0);
         cmd.AddArg(arg1);
         cmd.AddArg(arg2);
@@ -54,7 +54,7 @@ public struct UiCommand : IDisposable
     public static UiCommand Create<T0, T1, T2, T3>(string command, T0 arg0, T1 arg1, T2 arg2, T3 arg3, bool disposable = true)
     {
         UiCommand cmd = new(command, disposable);
-        cmd.Args = UiFrameworkPool.GetList<string>();;
+        cmd.Args = UiFrameworkPool.GetList<string>();
         cmd.AddArg(arg0);
         cmd.AddArg(arg1);
         cmd.AddArg(arg2);
@@ -65,7 +65,7 @@ public struct UiCommand : IDisposable
     public static UiCommand Create<T0, T1, T2, T3, T4>(string command, T0 arg0, T1 arg1, T2 arg2, T3 arg3, T4 arg4, bool disposable = true)
     {
         UiCommand cmd = new(command, disposable);
-        cmd.Args = UiFrameworkPool.GetList<string>();;
+        cmd.Args = UiFrameworkPool.GetList<string>();
         cmd.AddArg(arg0);
         cmd.AddArg(arg1);
         cmd.AddArg(arg2);
@@ -77,7 +77,7 @@ public struct UiCommand : IDisposable
     public static UiCommand Create<T0, T1, T2, T3, T4, T5>(string command, T0 arg0, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, bool disposable = true)
     {
         UiCommand cmd = new(command, disposable);
-        cmd.Args = UiFrameworkPool.GetList<string>();;
+        cmd.Args = UiFrameworkPool.GetList<string>();
         cmd.AddArg(arg0);
         cmd.AddArg(arg1);
         cmd.AddArg(arg2);
@@ -90,7 +90,7 @@ public struct UiCommand : IDisposable
     public static UiCommand Create<T0, T1, T2, T3, T4, T5, T6>(string command, T0 arg0, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, bool disposable = true)
     {
         UiCommand cmd = new(command, disposable);
-        cmd.Args = UiFrameworkPool.GetList<string>();;
+        cmd.Args = UiFrameworkPool.GetList<string>();
         cmd.AddArg(arg0);
         cmd.AddArg(arg1);
         cmd.AddArg(arg2);
@@ -104,7 +104,7 @@ public struct UiCommand : IDisposable
     public static UiCommand Create<T0, T1, T2, T3, T4, T5, T6, T7>(string command, T0 arg0, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, bool disposable = true)
     {
         UiCommand cmd = new(command, disposable);
-        cmd.Args = UiFrameworkPool.GetList<string>();;
+        cmd.Args = UiFrameworkPool.GetList<string>();
         cmd.AddArg(arg0);
         cmd.AddArg(arg1);
         cmd.AddArg(arg2);
@@ -119,7 +119,7 @@ public struct UiCommand : IDisposable
     public static UiCommand Create<T0, T1, T2, T3, T4, T5, T6, T7, T8>(string command, T0 arg0, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, bool disposable = true)
     {
         UiCommand cmd = new(command, disposable);
-        cmd.Args = UiFrameworkPool.GetList<string>();;
+        cmd.Args = UiFrameworkPool.GetList<string>();
         cmd.AddArg(arg0);
         cmd.AddArg(arg1);
         cmd.AddArg(arg2);
@@ -135,7 +135,7 @@ public struct UiCommand : IDisposable
     public static UiCommand Create<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9>(string command, T0 arg0, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, bool disposable = true)
     {
         UiCommand cmd = new(command, disposable);
-        cmd.Args = UiFrameworkPool.GetList<string>();;
+        cmd.Args = UiFrameworkPool.GetList<string>();
         cmd.AddArg(arg0);
         cmd.AddArg(arg1);
         cmd.AddArg(arg2);
