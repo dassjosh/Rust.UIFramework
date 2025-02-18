@@ -423,7 +423,7 @@ public class JsonFrameworkWriter : BasePoolable
         _writer.WriteToNetwork(write);
     }
 
-#if BENCHMARKS || DEBUG
+#if BENCHMARKS
     internal void WriteToNetwork(BenchmarkNetWrite write)
     {
         _writer.WriteToNetwork(write);

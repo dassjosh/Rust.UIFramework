@@ -152,7 +152,7 @@ public class JsonUtf8Writer : BasePoolable
         WriteToNetwork((Stream)write);
     }
 
-#if BENCHMARKS || DEBUG
+#if BENCHMARKS
     internal void WriteToNetwork(Benchmarks.BenchmarkNetWrite write)
     {
         Flush();
