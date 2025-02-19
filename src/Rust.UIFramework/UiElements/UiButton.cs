@@ -2,6 +2,7 @@
 using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Offsets;
+using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Positions;
 using UnityEngine.UI;
 
@@ -52,6 +53,18 @@ public class UiButton : BaseUiOutline
         Button.Sprite = sprite;
         Button.Material = material;
         Button.ImageType = type;
+    }
+    
+    public ColorBlockComponent AddColorBlock(in UiColor? highlightColor = null, in UiColor? pressedColor = null, in UiColor? selectedColor = null, in float? colorMultiplier = null, in float? fadeDuration = null)
+    {
+        ColorBlockComponent colors = UiFrameworkPool.Get<ColorBlockComponent>();
+        if(highlightColor.HasValue) colors.HighlightedColor = highlightColor.Value;
+        if(pressedColor.HasValue) colors.PressedColor = pressedColor.Value;
+        if(selectedColor.HasValue) colors.SelectedColor = selectedColor.Value;
+        if(colorMultiplier.HasValue) colors.ColorMultiplier = colorMultiplier.Value;
+        if(fadeDuration.HasValue) colors.FadeDuration = fadeDuration.Value;
+        Button.ColorBlock = colors;
+        return colors;
     }
 
     protected override void WriteComponents(JsonFrameworkWriter writer)

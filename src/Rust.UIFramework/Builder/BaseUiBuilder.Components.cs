@@ -202,6 +202,13 @@ public partial class BaseUiBuilder
         return countdown;
     }
     #endregion
+    
+    #region ColorBlock
+    public ColorBlockComponent ColorBlock(UiButton button, in UiColor? highlightColor = null, in UiColor? pressedColor = null, in UiColor? selectedColor = null, in float? colorMultiplier = null, in float? fadeDuration = null)
+    {
+        return button.AddColorBlock(highlightColor, pressedColor, selectedColor, colorMultiplier, fadeDuration);
+    }
+    #endregion
 
     #region Outline
     public T Outline<T>(T outline, UiColor color) where T : BaseUiOutline

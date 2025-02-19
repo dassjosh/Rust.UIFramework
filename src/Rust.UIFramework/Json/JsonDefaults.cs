@@ -167,4 +167,18 @@ public static class JsonDefaults
         public static readonly UiColor PressedColor = UiColor.ParseHexColor("#333333");
         public static readonly UiColor TrackColor = UiColor.ParseHexColor("#171717");
     }
+
+    public static class ColorBlock
+    {
+        public const string HighlightedColorName = "highlightedColor";
+        public static readonly UiColor HighlightedColor = UiColor.ParseHexColor("#F5F5F5FF");
+        public const string PressedColorName = "pressedColor";
+        public static readonly UiColor PressedColor = UiColor.ParseHexColor("#C8C8C8FF");
+        public const string SelectedColorName = "selectedColor";
+        public static readonly UiColor SelectedColor = UiColor.ParseHexColor("#F5F5F5FF");
+        public const string ColorMultiplierName = "colorMultiplier";
+        public const float ColorMultiplier = 1f;
+        public const string FadeDurationName = "fadeDuration";
+        public const float FadeDuration = 0.1f;
+    }
 }
