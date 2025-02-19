@@ -59,6 +59,13 @@ internal class UiFrameworkPlugin : BaseUiFrameworkPlugin
         BaseUiFrameworkLibrary.ProcessOnPluginUnloaded(plugin);
     }
 
+    #region Hooks
+    [HookMethod(nameof(OnPlayerDisconnected))]
+    private void OnPlayerDisconnected(BasePlayer player)
+    {
+        BaseUiFrameworkLibrary.ProcessOnPlayerDisconnected(player);
+    }
+    
     [HookMethod(nameof(OnClientCommand))]
     private object OnClientCommand(Connection connection, string command)
     {
@@ -73,6 +80,7 @@ internal class UiFrameworkPlugin : BaseUiFrameworkPlugin
 
         return null;
     }
+    #endregion
 
     #region Commands
     [HookMethod(nameof(VersionCommand))]

@@ -51,5 +51,11 @@ public class UiPlayerStore : BaseUiFrameworkLibrary, ISingleton
         _storeCreators.Remove(pluginId);
     }
 
+    protected override void OnPlayerDisconnected(BasePlayer player)
+    {
+        ulong playerId = player.userID;
+        _stores.RemoveAll(s => s.Key.PlayerId == playerId);
+    }
+
     private readonly record struct PluginPlayerStore(PluginId PluginId, ulong PlayerId);
 }
