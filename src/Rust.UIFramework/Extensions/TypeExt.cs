@@ -50,7 +50,7 @@ internal static class TypeExt
         }
 
         StringBuilder sb = StringBuilderPool.Instance.Get();
-        sb.Append(t.Name.AsSpan().Slice(0, t.Name.IndexOf('`')));
+        sb.Append(t.Name.AsSpan()[..t.Name.IndexOf('`')]);
         sb.Append('<');
         Type[] args = t.GetGenericArguments();
         for (int index = 0; index < args.Length; index++)

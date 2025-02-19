@@ -9,8 +9,8 @@ using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Libraries.UiCommands;
 
-public delegate void OnPlayerNoPermission(BasePlayer player, string method);
-public delegate void OnPlayerCooldown(BasePlayer player, string method, float cooldown, float remaining);
+public delegate void OnPlayerNoPermission(BasePlayer player, string method, string errorMessage);
+public delegate void OnPlayerCooldown(BasePlayer player, string method, float cooldown, float remaining, string errorMessage);
 public delegate void OnProtectionValidationFailed(BasePlayer player, string method);
 
 public class UiCommands : BaseUiFrameworkLibrary, ISingleton
@@ -145,19 +145,19 @@ public class UiCommands : BaseUiFrameworkLibrary, ISingleton
         _commands[pluginCommand]?.RunCommand(player, tokenizer);
     }
     
-    internal void OnPlayerNoPermission(PluginId pluginId, BasePlayer player, string method)
+    internal void OnPlayerNoPermission(PluginId pluginId, BasePlayer player, string method, string errorMessage)
     {
         if (_playerNoPermission.TryGetValue(pluginId, out OnPlayerNoPermission callback))
         {
-            callback(player, method);
+            callback(player, method, errorMessage);
         }
     }
     
-    internal void OnPlayerCooldown(PluginId pluginId, BasePlayer player, string method, float cooldown, float remaining)
+    internal void OnPlayerCooldown(PluginId pluginId, BasePlayer player, string method, float cooldown, float remaining, string errorMessage)
     {
         if (_playerOnCooldown.TryGetValue(pluginId, out OnPlayerCooldown callback))
         {
-            callback(player, method, cooldown, remaining);
+            callback(player, method, cooldown, remaining, errorMessage);
         }
     }
     
@@ -172,13 +172,13 @@ public class UiCommands : BaseUiFrameworkLibrary, ISingleton
     private static ICooldownHandler CreateCooldown(PluginId pluginId, MethodInfo method)
     {
         UiCooldownAttribute cooldown = method.GetCustomAttribute<UiCooldownAttribute>();
-        return cooldown != null ? new CooldownHandler(pluginId, method.Name, cooldown.Cooldown) : null;
+        return cooldown != null ? new CooldownHandler(pluginId, method.Name, cooldown.Cooldown, cooldown.ErrorMessage) : null;
     }
     
     private static IPermissionHandler CreatePermission(PluginId pluginId, MethodInfo method)
     {
         UiPermissionAttribute permission = method.GetCustomAttribute<UiPermissionAttribute>();
-        return permission != null ? new PermissionHandler(pluginId, method.Name, permission.Permissions, permission.Mode) : null;
+        return permission != null ? new PermissionHandler(pluginId, method.Name, permission.Permissions, permission.Mode, permission.ErrorMessage) : null;
     }
 
     private static ICommandProtection CreateProtection(PluginId pluginId, MethodInfo method)

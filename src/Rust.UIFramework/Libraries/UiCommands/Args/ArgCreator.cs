@@ -8,7 +8,7 @@ using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Libraries.UiCommands;
 
-internal class ArgCreator
+internal static class ArgCreator
 {
     private static readonly Dictionary<Type, IArgHandler> BuiltInHandlers = new();
     private static readonly Dictionary<PluginArgHandler, IArgHandler> PluginHandlers = new();
@@ -103,7 +103,7 @@ internal class ArgCreator
             BaseNetworkable networkable = BaseNetworkable.serverEntities.Find(new NetworkableId(ulong.Parse(span)));
             return networkable is T entity ? entity : default;
         }, (writer, arg) => writer.AppendArg((arg as BaseNetworkable)?.net.ID.Value));
-        if(type.IsEnum) return new ArgHandler<T>(span => Enum.TryParse(type, span.ToString(), out object result) && result is T @enum ? @enum : default, (writer, arg) => writer.AppendArg(StringCache<T>.ToString(arg))); //TODO: Try to avoid string allocation
+        if(type.IsEnum) return new ArgHandler<T>(span => Enum.TryParse(type, span.ToString(), out object result) && result is T @enum ? @enum : default, (writer, arg) => writer.AppendArg(StringCache<T>.ToString(arg)));
         
         return null;
     }

@@ -7,7 +7,8 @@ namespace Oxide.Ext.UiFramework.Libraries.UiCommands;
 /// </summary>
 /// <param name="cooldown">Number of seconds between each call</param>
 [AttributeUsage(AttributeTargets.Method)]
-public class UiCooldownAttribute(float cooldown) : Attribute
+public class UiCooldownAttribute(float cooldown, string errorMessage = null) : Attribute
 {
     public readonly float Cooldown = cooldown;
+    public readonly string ErrorMessage = errorMessage;
 }

@@ -4,7 +4,7 @@ using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Libraries.UiCommands;
 
-internal class PermissionHandler(PluginId pluginId, string method, string[] permissions, PermissionMode mode) : IPermissionHandler
+internal class PermissionHandler(PluginId pluginId, string method, string[] permissions, PermissionMode mode, string errorMessage) : IPermissionHandler
 {
     public bool HasPermission(BasePlayer player)
     {
@@ -13,7 +13,7 @@ internal class PermissionHandler(PluginId pluginId, string method, string[] perm
             return true;
         }
 
-        Singleton<UiCommands>.Instance.OnPlayerNoPermission(pluginId, player, method);
+        Singleton<UiCommands>.Instance.OnPlayerNoPermission(pluginId, player, method, errorMessage);
         return false;
     }
 
