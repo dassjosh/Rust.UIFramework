@@ -1,4 +1,5 @@
 ﻿using Oxide.Ext.UiFramework.Colors;
+using Oxide.Ext.UiFramework.Enums;
 using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Json;
@@ -172,13 +173,58 @@ public static class JsonDefaults
     {
         public const string HighlightedColorName = "highlightedColor";
         public static readonly UiColor HighlightedColor = UiColor.ParseHexColor("#F5F5F5FF");
+        
         public const string PressedColorName = "pressedColor";
         public static readonly UiColor PressedColor = UiColor.ParseHexColor("#C8C8C8FF");
+        
         public const string SelectedColorName = "selectedColor";
         public static readonly UiColor SelectedColor = UiColor.ParseHexColor("#F5F5F5FF");
+        
         public const string ColorMultiplierName = "colorMultiplier";
         public const float ColorMultiplier = 1f;
+        
         public const string FadeDurationName = "fadeDuration";
         public const float FadeDuration = 0.1f;
+    }
+
+    public static class Draggable
+    {
+        public const string LimitToParentName = "limitToParent";
+        public const bool LimitToParent = false;
+        
+        public const string MaxDistanceName = "maxDistance";
+        public const float MaxDistance = -1f;
+        
+        public const string AllowSwappingName = "allowSwapping";
+        public const bool AllowSwapping = false;
+        
+        public const string DropAnywhereName = "dropAnywhere";
+        public const bool DropAnywhere = false;
+        
+        public const string DragAlphaName = "dragAlpha";
+        public const float DragAlpha = 1f;
+        
+        public const string ParentLimitIndexName = "parentLimitIndex";
+        public const int ParentLimitIndex = 1;
+        
+        public const string FilterName = "filter";
+        
+        public const string ParentPaddingName = "parentPadding";
+        public static readonly Vector2 ParentPadding = new(0, 0);
+        
+        public const string AnchorOffsetName = "anchorOffset";
+        public static readonly Vector2 AnchorOffset = new(0, 0);
+        
+        public const string KeepOnTopName = "keepOnTop";
+        public const bool KeepOnTop = false;
+        
+        public const string PositionRpcName = "positionRPC";
+        public const string MoveToAnchorName = "moveToAnchor";
+        public const string RebuildAnchorName = "moveToAnchor";
+    }
+
+    public static class Slot
+    {
+        public const string FilterName = "filter";
     }
 }

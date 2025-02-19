@@ -1,4 +1,5 @@
-﻿using Network;
+﻿using System;
+using Network;
 using Oxide.Ext.UiFramework.Benchmarks;
 using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Colors;
@@ -120,7 +121,7 @@ public class JsonFrameworkWriter : BasePoolable
         if (value != TextAnchor.UpperLeft)
         {
             WritePropertyName(name);
-            WriteValue(EnumCache<TextAnchor>.ToString(value));
+            WriteValue(EnumCache<TextAnchor>.ToNumber(value));
         }
     }
 
@@ -129,7 +130,7 @@ public class JsonFrameworkWriter : BasePoolable
         if (value != InputField.LineType.SingleLine)
         {
             WritePropertyName(name);
-            WriteValue(EnumCache<InputField.LineType>.ToString(value));
+            WriteValue(EnumCache<InputField.LineType>.ToNumber(value));
         }
     }
         
@@ -138,7 +139,7 @@ public class JsonFrameworkWriter : BasePoolable
         if (value != Image.Type.Simple)
         {
             WritePropertyName(name);
-            WriteValue(EnumCache<Image.Type>.ToString(value));
+            WriteValue(EnumCache<Image.Type>.ToNumber(value));
         }
     }
         
@@ -147,7 +148,7 @@ public class JsonFrameworkWriter : BasePoolable
         if (value != VerticalWrapMode.Truncate)
         {
             WritePropertyName(name);
-            WriteValue(EnumCache<VerticalWrapMode>.ToString(value));
+            WriteValue(EnumCache<VerticalWrapMode>.ToNumber(value));
         }
     }
         
@@ -156,7 +157,7 @@ public class JsonFrameworkWriter : BasePoolable
         if (value != ScrollRect.MovementType.Clamped)
         {
             WritePropertyName(name);
-            WriteValue(EnumCache<ScrollRect.MovementType>.ToString(value));
+            WriteValue(EnumCache<ScrollRect.MovementType>.ToNumber(value));
         }
     }
     
@@ -165,7 +166,16 @@ public class JsonFrameworkWriter : BasePoolable
         if (value != TimerFormat.None)
         {
             WritePropertyName(name);
-            WriteValue(EnumCache<TimerFormat>.ToString(value));
+            WriteValue(EnumCache<TimerFormat>.ToNumber(value));
+        }
+    }
+    
+    public void AddField(string name, DraggablePositionSendType? value)
+    {
+        if (value.HasValue)
+        {
+            WritePropertyName(name);
+            WriteValue(EnumCache<DraggablePositionSendType>.ToNumber(value.Value));
         }
     }
 
@@ -247,6 +257,14 @@ public class JsonFrameworkWriter : BasePoolable
     {
         WritePropertyName(name);
         WriteBlankValue();
+    }
+    
+    public void AddKeyField(string name, bool add)
+    {
+        if (add)
+        {
+            AddKeyField(name);
+        }
     }
         
     public void AddTextField(string name, string value)
