@@ -7,6 +7,7 @@ using Oxide.Ext.UiFramework.Config;
 using Oxide.Ext.UiFramework.Data;
 using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Libraries;
+using Oxide.Ext.UiFramework.Libraries.Themes;
 using Oxide.Ext.UiFramework.Libraries.UiCommands;
 using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Threading;
@@ -38,6 +39,7 @@ public class UiFrameworkExtension : Extension
         Manager.RegisterLibrary(nameof(UiCommands), Singleton<UiCommands>.Instance);
         Manager.RegisterLibrary(nameof(UiNameStore), Singleton<UiNameStore>.Instance);
         Manager.RegisterLibrary(nameof(UiPlayerStore), Singleton<UiPlayerStore>.Instance);
+        Manager.RegisterLibrary(nameof(ThemeManager), Singleton<ThemeManager>.Instance);
         
         Interface.Oxide.RootPluginManager.OnPluginRemoved += plugin =>
         {
