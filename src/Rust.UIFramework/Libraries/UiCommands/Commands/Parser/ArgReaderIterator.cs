@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Oxide.Ext.UiFramework.Libraries.UiCommands;
+﻿namespace Oxide.Ext.UiFramework.Libraries.UiCommands;
 
 internal ref struct ArgReaderIterator(IArgReader[] readers)
 {

@@ -35,7 +35,7 @@ public static class OxideCuiExt
     
     public static void AddUiAsync(this CuiElementContainer container, SendInfo send, string destroyUiName = null)
     {
-        OxideCuiRequest request = OxideCuiRequest.Create(container, send, destroyUiName);
+        OxideCuiContainerRequest request = OxideCuiContainerRequest.Create(container, send, destroyUiName);
         SendHandler.Enqueue(request);
     }
     

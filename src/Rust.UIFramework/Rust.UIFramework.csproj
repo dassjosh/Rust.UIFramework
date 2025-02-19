@@ -43,6 +43,9 @@
     </PropertyGroup>
     
     <ItemGroup>
+      <Reference Include="0Harmony">
+        <HintPath>..\References\0Harmony.dll</HintPath>
+      </Reference>
       <Reference Include="Assembly-CSharp">
         <HintPath>..\References\Assembly-CSharp.dll</HintPath>
       </Reference>
@@ -154,10 +157,6 @@
         <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
             <_Parameter1>Rust.UiFramework.Benchmarks</_Parameter1>
         </AssemblyAttribute>
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Factory\" />
     </ItemGroup>
 
     <Target Name="PostBuild" AfterTargets="PostBuildEvent">

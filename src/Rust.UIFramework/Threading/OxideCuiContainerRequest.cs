@@ -4,14 +4,14 @@ using Oxide.Game.Rust.Cui;
 
 namespace Oxide.Ext.UiFramework.Threading;
 
-public class OxideCuiRequest : BaseUiRequest, IUiRequest
+internal class OxideCuiContainerRequest : BaseUiRequest, IUiRequest
 {
     private CuiElementContainer _container;
     private string _destroyUiName;
     
-    public static OxideCuiRequest Create(CuiElementContainer container, SendInfo send, string destroyUiName)
+    public static OxideCuiContainerRequest Create(CuiElementContainer container, SendInfo send, string destroyUiName)
     {
-        OxideCuiRequest request = UiFrameworkPool.Get<OxideCuiRequest>();
+        OxideCuiContainerRequest request = UiFrameworkPool.Get<OxideCuiContainerRequest>();
         request.Init(container, send, destroyUiName);
         return request;
     }

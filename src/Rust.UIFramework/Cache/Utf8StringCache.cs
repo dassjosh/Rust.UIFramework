@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Text;
 using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Cache;
