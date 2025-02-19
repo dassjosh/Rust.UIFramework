@@ -2,25 +2,15 @@
 
 namespace Oxide.Ext.UiFramework.Types
 {
-    public ref struct StringTokenizer
+    public ref struct StringTokenizer(string str, string token, int maxLength)
     {
-        private ReadOnlySpan<char> _remaining;
-        private readonly ReadOnlySpan<char> _token;
-        private readonly int _maxLength;
-        public int Index { get; private set; }
+        private ReadOnlySpan<char> _remaining = str;
+        private readonly ReadOnlySpan<char> _token = token;
+        public int Index { get; private set; } = -1;
 
-        public ReadOnlySpan<char> Current { get; private set; }
+        public ReadOnlySpan<char> Current { get; private set; } = default;
 
         public StringTokenizer(string str, string token) : this(str, token, str.Length) { }
-
-        public StringTokenizer(string str, string token, int maxLength)
-        {
-            _remaining = str;
-            _token = token;
-            _maxLength = maxLength;
-            Index = -1;
-            Current = default;
-        }
 
         public bool MoveNext()
         {
@@ -30,7 +20,7 @@ namespace Oxide.Ext.UiFramework.Types
             }
             
             int index = _remaining.IndexOf(_token);
-            if (index == -1 || index > _maxLength)
+            if (index == -1 || index > maxLength)
             {
                 index = _remaining.Length;
             }

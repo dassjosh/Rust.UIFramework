@@ -4,9 +4,9 @@ namespace Oxide.Ext.UiFramework.HarmonyPatches;
 
 internal static class UiHarmony
 {
-    private static readonly Harmony Harmony = new(UiFrameworkExtension.Instance.Name); 
+    internal static readonly Harmony Harmony = new(UiFrameworkExtension.Instance.Name); 
     internal static void Initialize()
     {
-        CuiHelper_AddUi_Patch.Patch(Harmony);
+        CuiHelper_AddUi_Patch.Patch();
     }
 }
