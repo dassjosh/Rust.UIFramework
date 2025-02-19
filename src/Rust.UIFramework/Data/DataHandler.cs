@@ -13,11 +13,6 @@ namespace Oxide.Ext.UiFramework.Data
 
         internal void LoadAll()
         {
-            if (!Directory.Exists(PathConstants.UiFrameworkDataFolder))
-            {
-                Directory.CreateDirectory(PathConstants.UiFrameworkDataFolder);
-            }
-            
             Load<ImageStorageData>(new DataFileInfo("image.storage", 2, DataFormat.Protobuf));
         }
 

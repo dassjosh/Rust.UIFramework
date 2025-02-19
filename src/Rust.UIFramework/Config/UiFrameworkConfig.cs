@@ -3,6 +3,7 @@ using System.IO;
 using Newtonsoft.Json;
 using Oxide.Core;
 using Oxide.Core.Configuration;
+using Oxide.Ext.UiFramework.Constants;
 
 namespace Oxide.Ext.UiFramework.Config;
 
@@ -36,7 +37,7 @@ internal class UiFrameworkConfig : ConfigFile
 
     public static void LoadConfig()
     {
-        string configPath = Path.Combine(Interface.Oxide.InstanceDirectory, "uiframework.config.json");
+        string configPath = Path.Combine(PathConstants.ConfigFolder, "UiFramework.json");
         UiFrameworkConfig config = File.Exists(configPath) ? Load<UiFrameworkConfig>(configPath) : new UiFrameworkConfig(configPath);
         config.Save();
     }

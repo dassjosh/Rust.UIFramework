@@ -5,6 +5,20 @@ namespace Oxide.Ext.UiFramework.Constants
 {
     internal static class PathConstants
     {
-        internal static readonly string UiFrameworkDataFolder = Path.Combine(Interface.Oxide.DataDirectory, "UiFramework");
+        internal static readonly string ConfigFolder = Path.Combine(Interface.Oxide.ConfigDirectory, "UiFramework");
+        internal static readonly string DataFolder = Path.Combine(Interface.Oxide.DataDirectory, "UiFramework");
+        
+        static PathConstants()
+        {
+            if (!Directory.Exists(ConfigFolder))
+            {
+                Directory.CreateDirectory(ConfigFolder);
+            }
+
+            if (!Directory.Exists(DataFolder))
+            {
+                Directory.CreateDirectory(DataFolder);
+            }
+        }
     }
 }
