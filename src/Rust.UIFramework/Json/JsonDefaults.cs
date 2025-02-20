@@ -126,6 +126,7 @@ public static class JsonDefaults
         public const string IntervalName = "interval";
         public const float IntervalValue = 1;
         public const string TimerFormatName = "timerFormat";
+        public const TimerFormat TimeFormatValue = TimerFormat.None;
         public const string NumberFormatName = "numberFormat";
         public const string NumberFormatValue = "0.####";
         public const string DestroyIfDoneName = "destroyIfDone";

@@ -1,6 +1,7 @@
 ﻿using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Enums;
+using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Positions;
@@ -25,7 +26,12 @@ public class UiLabel : BaseUiComponent
         return label;
     }
 
-    public CountdownComponent AddCountdown(float startTime, float endTime, float step, float interval, TimerFormat timerFormat, string numberFormat, bool destroyIfDone, string command)
+    public CountdownComponent AddCountdown(float startTime, float endTime, string command, 
+        float step = JsonDefaults.Countdown.StepValue, 
+        float interval = JsonDefaults.Countdown.IntervalValue, 
+        TimerFormat timerFormat = JsonDefaults.Countdown.TimeFormatValue, 
+        string numberFormat = JsonDefaults.Countdown.NumberFormatValue, 
+        bool destroyIfDone = JsonDefaults.Countdown.DestroyIfDone)
     {
         CountdownComponent countdown = Text.AddSubComponent<CountdownComponent>();
         countdown.StartTime = startTime;

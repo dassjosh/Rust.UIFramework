@@ -19,10 +19,13 @@ public abstract partial class BaseUiBuilder
     
     #region Countdown
     public CountdownComponent Countdown(UiLabel label, float startTime, float endTime, string command, 
-        float step = 1, float interval = 1, TimerFormat timerFormat = TimerFormat.None, string numberFormat = JsonDefaults.Countdown.NumberFormatValue, bool destroyIfDone = true)
+        float step = JsonDefaults.Countdown.StepValue, 
+        float interval = JsonDefaults.Countdown.IntervalValue, 
+        TimerFormat timerFormat = JsonDefaults.Countdown.TimeFormatValue, 
+        string numberFormat = JsonDefaults.Countdown.NumberFormatValue, 
+        bool destroyIfDone = JsonDefaults.Countdown.DestroyIfDone)
     {
-        CountdownComponent countdown = label.AddCountdown(startTime, endTime, step, interval, timerFormat, numberFormat, destroyIfDone, command);
-        return countdown;
+        return label.AddCountdown(startTime, endTime, command, step, interval, timerFormat, numberFormat, destroyIfDone);
     }
     #endregion
     

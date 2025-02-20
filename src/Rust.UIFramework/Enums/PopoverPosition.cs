@@ -1,6 +1,6 @@
 ﻿namespace Oxide.Ext.UiFramework.Enums;
 
-public enum PopoverPosition
+public enum PopoverPosition : byte
 {
     Top,
     Left,

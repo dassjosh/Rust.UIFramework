@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Runtime.CompilerServices;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Enums;
@@ -117,6 +118,9 @@ public abstract class BaseUiComponent : BasePoolable
         outline.UseGraphicAlpha = useGraphicAlpha;
         return outline;
     }
+
+    [Obsolete("Use AddOutline instead")]
+    public OutlineComponent AddElementOutline(UiColor color, Vector2? distance = null, bool useGraphicAlpha = false) => AddOutline(color, distance, useGraphicAlpha);
     
     public DraggableComponent AddDraggable(bool limitToParent = JsonDefaults.Draggable.LimitToParent,
         float maxDistance = JsonDefaults.Draggable.MaxDistance,
