@@ -50,8 +50,8 @@ public class UiCommandExample : RustPlugin
     
     [UiCommand]
     [UiProtection(ProtectionType.Simple, 3600f)]
-    [UiCooldown(1f)]
-    [UiPermission(permissions: ["test.admin"], PermissionMode.RequireAll)]
+    [UiCooldown(1f, "You are on cooldown")]
+    [UiPermission(permissions: ["test.admin"], PermissionMode.RequireAll, "You don't have permission")]
     public void HandleDoTheThing(BasePlayer player, UiState state, MyCustomArg custom, int a, bool b, BuildingPrivlidge id, DateTime c)
     {
         
