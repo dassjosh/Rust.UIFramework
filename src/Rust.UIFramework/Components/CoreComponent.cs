@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Oxide.Ext.UiFramework.Exceptions;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Pooling;
 
@@ -31,7 +32,7 @@ public abstract class CoreComponent : ICoreComponent
         _subComponents ??= UiFrameworkPool.GetList<SubComponent>();
         if (_subComponents.Count != 0 && !subComponent.AllowMultiple && GetSubComponent<T>() != null)
         {
-            throw new Exception($"Multiple instances of subcomponent {typeof(T).Name} are not allowed.");
+            throw new UiFrameworkException($"Multiple instances of subcomponent {typeof(T).Name} are not allowed.");
         }
         _subComponents.Add(subComponent);
         return subComponent;
