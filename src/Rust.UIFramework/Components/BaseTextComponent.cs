@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-public abstract class BaseTextComponent : BaseComponent
+public abstract class BaseTextComponent : CoreComponent
 {
     public UiColor Color;
     public float FadeIn;

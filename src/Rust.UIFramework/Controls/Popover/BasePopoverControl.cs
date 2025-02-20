@@ -30,7 +30,7 @@ public abstract class BasePopoverControl : BaseUiControl
         control.OutsideClose = builder.CloseButton(builder.Root, UiPosition.Full, new UiOffset(-1000, -1000, 1000, 1000), UiColor.Clear, name);
         control.PopoverBackground = builder.Panel(builder.Root, anchor, offset, backgroundColor);
         control.PopoverBackground.SetSpriteMaterialImage(menuSprite, null, Image.Type.Sliced);
-        control.PopoverBackground.AddElementOutline(UiColor.Black.WithAlpha(0.75f));
+        control.PopoverBackground.AddOutline(UiColor.Black.WithAlpha(0.75f));
         builder.OverrideRoot(control.PopoverBackground);
 
         return control;

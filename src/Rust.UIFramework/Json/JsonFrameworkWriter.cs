@@ -1,5 +1,4 @@
-﻿using System;
-using Network;
+﻿using Network;
 using Oxide.Ext.UiFramework.Benchmarks;
 using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Colors;
@@ -233,6 +232,14 @@ public class JsonFrameworkWriter : BasePoolable
         }
     }
         
+    public void AddComponent(string name, IComponent component, bool add)
+    {
+        if (add)
+        {
+            AddComponent(name, component);
+        }
+    }
+    
     public void AddComponent(string name, IComponent component)
     {
         WritePropertyName(name);

@@ -1,5 +1,6 @@
 ﻿using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Enums;
+using Oxide.Ext.UiFramework.Offsets;
 using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Json;
@@ -24,6 +25,7 @@ public static class JsonDefaults
         public const string EnabledName = "enabled";
         public static readonly Vector2 Min = new(0, 0);
         public static readonly Vector2 Max = new(1, 1);
+        public static readonly UiOffset TextPadding = new(2, 0, -2, 0);
     }
         
     public static class Position
@@ -219,8 +221,13 @@ public static class JsonDefaults
         public const bool KeepOnTop = false;
         
         public const string PositionRpcName = "positionRPC";
+        public static readonly DraggablePositionSendType? PositionRpc = null;
+        
         public const string MoveToAnchorName = "moveToAnchor";
+        public const bool MoveToAnchor = false;
+        
         public const string RebuildAnchorName = "moveToAnchor";
+        public const bool RebuildAnchor = false;
     }
 
     public static class Slot

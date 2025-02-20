@@ -3,7 +3,7 @@ using Oxide.Ext.UiFramework.Json;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-public class RawImageComponent : IComponent
+public class RawImageComponent : CoreComponent
 {
     private const string Type = "UnityEngine.UI.RawImage";
 
@@ -14,7 +14,7 @@ public class RawImageComponent : IComponent
     public string Texture;
     public string Material;
 
-    public virtual void WriteComponent(JsonFrameworkWriter writer)
+    public override void WriteComponent(JsonFrameworkWriter writer)
     {
         writer.WriteStartObject();
         writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, Type);
@@ -32,12 +32,13 @@ public class RawImageComponent : IComponent
 
         writer.AddField(JsonDefaults.Common.FadeInName, FadeIn, JsonDefaults.Common.FadeIn);
         writer.AddField(JsonDefaults.Color.ColorName, Color);
-            
+        base.WriteComponent(writer);    
         writer.WriteEndObject();
     }
 
-    public virtual void Reset()
+    public override void Reset()
     {
+        base.Reset();
         Color = default;
         FadeIn = 0;
         Url = null;

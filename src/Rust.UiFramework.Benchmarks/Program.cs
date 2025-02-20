@@ -12,7 +12,7 @@ class Program
 #if BENCHMARKS
         ManualConfig config = DefaultConfig.Instance.AddJob(Job.Default
             .WithToolchain(InProcessEmitToolchain.Instance)
-            .WithIterationCount(30));
+            .WithIterationCount(10));
         BenchmarkRunner.Run<Benchmarks>(config, args);
 #endif
     }

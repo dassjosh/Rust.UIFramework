@@ -1,14 +1,14 @@
 ﻿using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
-using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-public class UiPlayerAvatar : BaseUiOutline
+public class UiPlayerAvatar : BaseUiComponent
 {
     public readonly PlayerAvatarComponent Avatar = new();
+    internal override CoreComponent Component => Avatar;
 
     public static UiPlayerAvatar Create(in UiPosition pos, in UiOffset offset, UiColor color, string steamId)
     {
@@ -21,17 +21,5 @@ public class UiPlayerAvatar : BaseUiOutline
     public void SetFadeIn(float duration)
     {
         Avatar.FadeIn = duration;
-    }
-
-    protected override void WriteComponents(JsonFrameworkWriter writer)
-    {
-        Avatar.WriteComponent(writer);
-        base.WriteComponents(writer);
-    }
-
-    protected override void EnterPool()
-    {
-        base.EnterPool();
-        Avatar.Reset();
     }
 }

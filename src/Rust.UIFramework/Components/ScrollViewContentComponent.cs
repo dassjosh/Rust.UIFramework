@@ -4,9 +4,9 @@ using Oxide.Ext.UiFramework.Positions;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-public class ScrollViewContentTransformComponent : RectTransformComponent
+public class ScrollViewContentComponent : RectTransformComponent
 {
-    public ScrollViewContentTransformComponent()
+    public ScrollViewContentComponent()
     {
         Position = new UiPosition(0, 0, 1, 1);
         Offset = new UiOffset(0, 0, 0, 0);

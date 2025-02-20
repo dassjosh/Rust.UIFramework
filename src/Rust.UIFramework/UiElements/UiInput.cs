@@ -1,7 +1,6 @@
 ﻿using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Enums;
-using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
 using UnityEngine;
@@ -9,9 +8,10 @@ using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-public class UiInput : BaseUiOutline
+public class UiInput : BaseUiComponent
 {
     public readonly InputComponent Input = new();
+    internal override CoreComponent Component => Input;
 
     public static UiInput Create(in UiPosition pos, in UiOffset offset, UiColor textColor, string text, int size, string cmd, string font, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, InputMode mode = InputMode.Default, InputField.LineType lineType = InputField.LineType.SingleLine)
     {
@@ -77,17 +77,5 @@ public class UiInput : BaseUiOutline
     public void SetLineType(InputField.LineType lineType)
     {
         Input.LineType = lineType;
-    }
-
-    protected override void WriteComponents(JsonFrameworkWriter writer)
-    {
-        Input.WriteComponent(writer);
-        base.WriteComponents(writer);
-    }
-            
-    protected override void EnterPool()
-    {
-        base.EnterPool();
-        Input.Reset();
     }
 }

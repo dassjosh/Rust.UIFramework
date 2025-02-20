@@ -1,6 +1,5 @@
 ﻿using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
-using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Positions;
@@ -8,9 +7,10 @@ using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-public class UiButton : BaseUiOutline
+public class UiButton : BaseUiComponent
 {
     public readonly ButtonComponent Button = new();
+    internal override CoreComponent Component => Button;
 
     public static UiButton CreateCommand(in UiPosition pos, in UiOffset offset, UiColor color, string command)
     {
@@ -65,17 +65,5 @@ public class UiButton : BaseUiOutline
         if(fadeDuration.HasValue) colors.FadeDuration = fadeDuration.Value;
         Button.ColorBlock = colors;
         return colors;
-    }
-
-    protected override void WriteComponents(JsonFrameworkWriter writer)
-    {
-        Button.WriteComponent(writer);
-        base.WriteComponents(writer);
-    }
-
-    protected override void EnterPool()
-    {
-        base.EnterPool();
-        Button.Reset();
     }
 }

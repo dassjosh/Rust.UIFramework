@@ -1,7 +1,6 @@
 ﻿using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Enums;
-using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Positions;
@@ -9,10 +8,10 @@ using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-public class UiLabel : BaseUiOutline
+public class UiLabel : BaseUiComponent
 {
     public readonly TextComponent Text = new();
-    public CountdownComponent Countdown;
+    internal override CoreComponent Component => Text;
 
     public static UiLabel Create(in UiPosition pos, in UiOffset offset, UiColor color, string text, int size, string font, TextAnchor align = TextAnchor.MiddleCenter)
     {
@@ -28,35 +27,20 @@ public class UiLabel : BaseUiOutline
 
     public CountdownComponent AddCountdown(float startTime, float endTime, float step, float interval, TimerFormat timerFormat, string numberFormat, bool destroyIfDone, string command)
     {
-        Countdown = UiFrameworkPool.Get<CountdownComponent>();
-        Countdown.StartTime = startTime;
-        Countdown.EndTime = endTime;
-        Countdown.Step = step;
-        Countdown.Interval = interval;
-        Countdown.TimerFormat = timerFormat;
-        Countdown.NumberFormat = numberFormat;
-        Countdown.DestroyIfDone = destroyIfDone;
-        Countdown.Command = command;
-        return Countdown;
+        CountdownComponent countdown = Text.AddSubComponent<CountdownComponent>();
+        countdown.StartTime = startTime;
+        countdown.EndTime = endTime;
+        countdown.Step = step;
+        countdown.Interval = interval;
+        countdown.TimerFormat = timerFormat;
+        countdown.NumberFormat = numberFormat;
+        countdown.DestroyIfDone = destroyIfDone;
+        countdown.Command = command;
+        return countdown;
     }
         
     public void SetFadeIn(float duration)
     {
         Text.FadeIn = duration;
-    }
-
-    protected override void WriteComponents(JsonFrameworkWriter writer)
-    {
-        Text.WriteComponent(writer);
-        Countdown?.WriteComponent(writer);
-        base.WriteComponents(writer);
-    }
-
-    protected override void EnterPool()
-    {
-        base.EnterPool();
-        Text.Reset();
-        Countdown?.Dispose();
-        Countdown = null;
     }
 }

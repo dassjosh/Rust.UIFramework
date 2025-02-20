@@ -3,7 +3,7 @@ using Oxide.Ext.UiFramework.Json;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-public class ScrollbarComponent : BasePoolableComponent
+public class ScrollbarComponent : ChildComponent
 {
     public bool Invert;
     public bool AutoHide;
@@ -18,7 +18,6 @@ public class ScrollbarComponent : BasePoolableComponent
     public override void WriteComponent(JsonFrameworkWriter writer)
     {
         writer.WriteStartObject();
-        base.WriteComponent(writer);
         writer.AddField(JsonDefaults.ScrollBar.Invert, Invert, false);
         writer.AddField(JsonDefaults.ScrollBar.AutoHide, AutoHide, false);
         writer.AddField(JsonDefaults.ScrollBar.HandleSprite, HandleSprite, null);
@@ -33,7 +32,6 @@ public class ScrollbarComponent : BasePoolableComponent
 
     public override void Reset()
     {
-        base.Reset();
         Invert = false;
         AutoHide = false;
         HandleSprite = null;

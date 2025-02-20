@@ -1,14 +1,14 @@
 ﻿using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
-using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-public class UiRawImage : BaseUiOutline
+public class UiRawImage : BaseUiComponent
 {
     public readonly RawImageComponent RawImage = new();
+    internal override CoreComponent Component => RawImage;
 
     public static UiRawImage CreateDefault(in UiPosition pos, in UiOffset offset)
     {
@@ -48,17 +48,5 @@ public class UiRawImage : BaseUiOutline
     public void SetFadeIn(float duration)
     {
         RawImage.FadeIn = duration;
-    }
-
-    protected override void WriteComponents(JsonFrameworkWriter writer)
-    {
-        RawImage.WriteComponent(writer);
-        base.WriteComponents(writer);
-    }
-
-    protected override void EnterPool()
-    {
-        base.EnterPool();
-        RawImage.Reset();
     }
 }

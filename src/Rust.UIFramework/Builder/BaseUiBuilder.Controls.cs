@@ -6,8 +6,10 @@ using Oxide.Ext.UiFramework.Controls.Data;
 using Oxide.Ext.UiFramework.Controls.NumberPicker;
 using Oxide.Ext.UiFramework.Controls.Popover;
 using Oxide.Ext.UiFramework.Enums;
+using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
+using Oxide.Ext.UiFramework.Types;
 using Oxide.Ext.UiFramework.UiElements;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,115 +19,126 @@ namespace Oxide.Ext.UiFramework.Builder;
 public partial class BaseUiBuilder
 {
     #region Buttons
-    public UiButton TextButton(in UiReference parent, in UiPosition pos, in UiOffset offset, string text, int textSize, UiColor textColor, UiColor buttonColor, string command, TextAnchor align = TextAnchor.MiddleCenter)
+    public UiTuple<UiButton, UiLabel> TextButton(in UiReference parent, in UiPosition pos, in UiOffset offset, string text, int textSize, UiColor textColor, UiColor buttonColor, string command, TextAnchor align = TextAnchor.MiddleCenter)
     {
         UiButton button = CommandButton(parent, pos, offset, buttonColor, command);
-        Label(button, UiPosition.HorizontalPaddedFull, text, textSize, textColor , align);
-        return button;
+        UiLabel label = Label(button, UiPosition.Full, JsonDefaults.Common.TextPadding, text, textSize, textColor , align);
+        return new UiTuple<UiButton, UiLabel>(button, label);
     }
 
-    public UiButton TextButton(in UiReference parent, in UiPosition pos, string text, int textSize, UiColor textColor, UiColor buttonColor, string command, TextAnchor align = TextAnchor.MiddleCenter) 
+    public UiTuple<UiButton, UiLabel> TextButton(in UiReference parent, in UiPosition pos, string text, int textSize, UiColor textColor, UiColor buttonColor, string command, TextAnchor align = TextAnchor.MiddleCenter) 
         => TextButton(parent, pos, default, text, textSize, textColor, buttonColor, command, align);
         
-    public UiButton ImageFileStorageButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, string png, string command)
+    public UiTuple<UiButton, UiRawImage> ImageFileStorageButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, string png, string command)
     {
         UiButton button = CommandButton(parent, pos, offset, buttonColor, command);
-        ImageFileStorage(button, UiPosition.Full, png);
-        return button;
+        UiRawImage image = ImageFileStorage(button, UiPosition.Full, png);
+        return new UiTuple<UiButton, UiRawImage>(button, image);
     }
 
-    public UiButton ImageFileStorageButton(in UiReference parent, in UiPosition pos, UiColor buttonColor, string png, string command) => ImageFileStorageButton(parent, pos, default, buttonColor, png, command);
+    public UiTuple<UiButton, UiRawImage> ImageFileStorageButton(in UiReference parent, in UiPosition pos, UiColor buttonColor, string png, string command) => ImageFileStorageButton(parent, pos, default, buttonColor, png, command);
         
-    public UiButton ImageSpriteButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, string sprite, string command)
+    public UiTuple<UiButton, UiImage> ImageSpriteButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, string sprite, string command)
     {
         UiButton button = CommandButton(parent, pos, offset, buttonColor, command);
-        ImageSprite(button, UiPosition.Full, sprite);
-        return button;
+        UiImage image = ImageSprite(button, UiPosition.Full, sprite);
+        return new UiTuple<UiButton, UiImage>(button, image);
     }
 
-    public UiButton ImageSpriteButton(in UiReference parent, in UiPosition pos, UiColor buttonColor, string sprite, string command) => ImageSpriteButton(parent, pos, default, buttonColor, sprite, command);
+    public UiTuple<UiButton, UiImage> ImageSpriteButton(in UiReference parent, in UiPosition pos, UiColor buttonColor, string sprite, string command) => ImageSpriteButton(parent, pos, default, buttonColor, sprite, command);
         
-    public UiButton WebImageButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, string url, string command)
+    public UiTuple<UiButton, UiRawImage> WebImageButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, string url, string command)
     {
         UiButton button = CommandButton(parent, pos, offset, buttonColor, command);
-        WebImage(button, UiPosition.Full, url);
-        return button;
+        UiRawImage image = WebImage(button, UiPosition.Full, url);
+        return new UiTuple<UiButton, UiRawImage>(button, image);
     }
 
-    public UiButton WebImageButton(in UiReference parent, in UiPosition pos, UiColor buttonColor, string url, string command) => WebImageButton(parent, pos, default, buttonColor, url, command);
+    public UiTuple<UiButton, UiRawImage> WebImageButton(in UiReference parent, in UiPosition pos, UiColor buttonColor, string url, string command) => WebImageButton(parent, pos, default, buttonColor, url, command);
         
-    public UiButton ItemIconButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, int itemId, string command)
+    public UiTuple<UiButton, UiItemIcon> ItemIconButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, int itemId, string command)
     {
         UiButton button = CommandButton(parent, pos, offset, buttonColor, command);
-        ItemIcon(button, UiPosition.Full, itemId);
-        return button;
+        UiItemIcon icon = ItemIcon(button, UiPosition.Full, itemId);
+        return new UiTuple<UiButton, UiItemIcon>(button, icon);
     }
 
-    public UiButton ItemIconButton(in UiReference parent, in UiPosition pos, UiColor buttonColor, int itemId, string command) => ItemIconButton(parent, pos, default, buttonColor, itemId, command);
+    public UiTuple<UiButton, UiItemIcon> ItemIconButton(in UiReference parent, in UiPosition pos, UiColor buttonColor, int itemId, string command) => ItemIconButton(parent, pos, default, buttonColor, itemId, command);
         
-    public UiButton ItemIconButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, int itemId, ulong skinId, string command)
+    public UiTuple<UiButton, UiItemIcon> ItemIconButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, int itemId, ulong skinId, string command)
     {
         UiButton button = CommandButton(parent, pos, offset, buttonColor, command);
-        ItemIcon(button, UiPosition.Full, itemId, skinId);
-        return button;
+        UiItemIcon icon = ItemIcon(button, UiPosition.Full, itemId, skinId);
+        return new UiTuple<UiButton, UiItemIcon>(button, icon);
     }
 
-    public UiButton ItemIconButton(in UiReference parent, in UiPosition pos, UiColor buttonColor, int itemId, ulong skinId, string command) => ItemIconButton(parent, pos, default, buttonColor, itemId, skinId, command);
+    public UiTuple<UiButton, UiItemIcon> ItemIconButton(in UiReference parent, in UiPosition pos, UiColor buttonColor, int itemId, ulong skinId, string command) => ItemIconButton(parent, pos, default, buttonColor, itemId, skinId, command);
         
-    public UiButton CloseTextButton(in UiReference parent, in UiPosition pos, in UiOffset offset, string text, int textSize, UiColor textColor, UiColor buttonColor, string close, TextAnchor align = TextAnchor.MiddleCenter)
+    public UiTuple<UiButton, UiLabel> CloseTextButton(in UiReference parent, in UiPosition pos, in UiOffset offset, string text, int textSize, UiColor textColor, UiColor buttonColor, string close, TextAnchor align = TextAnchor.MiddleCenter)
     {
         UiButton button = CloseButton(parent, pos, offset, buttonColor, close);
-        Label(button, UiPosition.HorizontalPaddedFull, text, textSize, textColor , align);
-        return button;
+        UiLabel label = Label(button, UiPosition.Full, JsonDefaults.Common.TextPadding, text, textSize, textColor , align);
+        return new UiTuple<UiButton, UiLabel>(button, label);
     }
 
-    public UiButton CloseTextButton(in UiReference parent, in UiPosition pos, string text, int textSize, UiColor textColor, UiColor buttonColor, string close, TextAnchor align = TextAnchor.MiddleCenter) 
+    public UiTuple<UiButton, UiLabel> CloseTextButton(in UiReference parent, in UiPosition pos, string text, int textSize, UiColor textColor, UiColor buttonColor, string close, TextAnchor align = TextAnchor.MiddleCenter) 
         => CloseTextButton(parent, pos, default, text, textSize, textColor, buttonColor, close, align);
         
-    public UiButton CloseImageFileStorageButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, string png, string close)
+    public UiTuple<UiButton, UiRawImage> CloseImageFileStorageButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, string png, string close)
     {
         UiButton button = CommandButton(parent, pos, offset, buttonColor, close);
-        ImageFileStorage(button, UiPosition.Full, png);
-        return button;
+        UiRawImage image = ImageFileStorage(button, UiPosition.Full, png);
+        return new UiTuple<UiButton, UiRawImage>(button, image);
     }
 
-    public UiButton CloseImageFileStorageButton(in UiReference parent, in UiPosition pos, UiColor buttonColor, string png, string close) => CloseImageFileStorageButton(parent, pos, default, buttonColor, png, close);
+    public UiTuple<UiButton, UiRawImage> CloseImageFileStorageButton(in UiReference parent, in UiPosition pos, UiColor buttonColor, string png, string close) => CloseImageFileStorageButton(parent, pos, default, buttonColor, png, close);
         
-    public UiButton CloseImageSpriteButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, string sprite, string close)
+    public UiTuple<UiButton, UiImage> CloseImageSpriteButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, string sprite, string close)
     {
         UiButton button = CloseButton(parent, pos, offset, buttonColor, close);
-        ImageSprite(button, UiPosition.Full, sprite);
-        return button;
+        UiImage image = ImageSprite(button, UiPosition.Full, sprite);
+        return new UiTuple<UiButton, UiImage>(button, image);
     }
 
-    public UiButton CloseImageSpriteButton(in UiReference parent, in UiPosition pos, UiColor buttonColor, string sprite, string close) => CloseImageSpriteButton(parent, pos, default, buttonColor, sprite, close);
+    public UiTuple<UiButton, UiImage> CloseImageSpriteButton(in UiReference parent, in UiPosition pos, UiColor buttonColor, string sprite, string close) => CloseImageSpriteButton(parent, pos, default, buttonColor, sprite, close);
         
-    public UiButton CloseWebImageButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, string url, string close)
+    public UiTuple<UiButton, UiRawImage> CloseWebImageButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, string url, string close)
     {
         UiButton button = CloseButton(parent, pos, offset, buttonColor, close);
-        WebImage(button, UiPosition.Full, url);
-        return button;
+        UiRawImage image = WebImage(button, UiPosition.Full, url);
+        return new UiTuple<UiButton, UiRawImage>(button, image);
     }
 
-    public UiButton CloseWebImageButton(in UiReference parent, in UiPosition pos, UiColor buttonColor, string url, string close) => CloseWebImageButton(parent, pos, default, buttonColor, url, close);
+    public UiTuple<UiButton, UiRawImage> CloseWebImageButton(in UiReference parent, in UiPosition pos, UiColor buttonColor, string url, string close) => CloseWebImageButton(parent, pos, default, buttonColor, url, close);
         
-    public UiButton CloseItemIconButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, int itemId, string close)
+    public UiTuple<UiButton, UiItemIcon> CloseItemIconButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, int itemId, string close)
     {
         UiButton button = CloseButton(parent, pos, offset, buttonColor, close);
-        ItemIcon(button, UiPosition.Full, itemId);
-        return button;
+        UiItemIcon icon = ItemIcon(button, UiPosition.Full, itemId);
+        return new UiTuple<UiButton, UiItemIcon>(button, icon);
     }
 
-    public UiButton CloseItemIconButton(in UiReference parent, in UiPosition pos, UiColor buttonColor, int itemId, string close) => CloseItemIconButton(parent, pos, default, buttonColor, itemId, close);
+    public UiTuple<UiButton, UiItemIcon> CloseItemIconButton(in UiReference parent, in UiPosition pos, UiColor buttonColor, int itemId, string close) => CloseItemIconButton(parent, pos, default, buttonColor, itemId, close);
         
-    public UiButton CloseItemIconButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, int itemId, ulong skinId, string close)
+    public UiTuple<UiButton, UiItemIcon> CloseItemIconButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, int itemId, ulong skinId, string close)
     {
         UiButton button = CloseButton(parent, pos, offset, buttonColor, close);
-        ItemIcon(button, UiPosition.Full, itemId, skinId);
-        return button;
+        UiItemIcon icon = ItemIcon(button, UiPosition.Full, itemId, skinId);
+        return new UiTuple<UiButton, UiItemIcon>(button, icon);
     }
 
-    public UiButton CloseItemIconButton(in UiReference parent, in UiPosition pos, UiColor buttonColor, int itemId, ulong skinId, string close) => CloseItemIconButton(parent, pos, default, buttonColor, itemId, skinId, close);
+    public UiTuple<UiButton, UiItemIcon> CloseItemIconButton(in UiReference parent, in UiPosition pos, UiColor buttonColor, int itemId, ulong skinId, string close) => CloseItemIconButton(parent, pos, default, buttonColor, itemId, skinId, close);
+    #endregion
+
+    #region Label Background
+    public UiLabelBackground LabelBackground(in UiReference parent, in UiPosition pos, in UiOffset offset, string text, int fontSize, UiColor textColor, UiColor backgroundColor, TextAnchor align = TextAnchor.MiddleCenter)
+    {
+        UiLabelBackground control = UiLabelBackground.Create(this, parent, pos, offset, text, fontSize, textColor, backgroundColor, align);
+        AddControl(control);
+        return control;
+    }
+
+    public UiLabelBackground LabelBackground(in UiReference parent, in UiPosition pos, string text, int fontSize, UiColor textColor, UiColor backgroundColor, TextAnchor align = TextAnchor.MiddleCenter) => LabelBackground(parent, pos, default, text, fontSize, textColor, backgroundColor, align);
     #endregion
 
     #region Input Background

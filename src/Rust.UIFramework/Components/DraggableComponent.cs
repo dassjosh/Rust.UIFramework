@@ -1,11 +1,10 @@
 ﻿using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Json;
-using Oxide.Ext.UiFramework.Pooling;
 using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-public class DraggableComponent : BasePoolable, IComponent
+public class DraggableComponent : SubComponent
 {
     private const string Type = "Draggable";
 
@@ -19,11 +18,13 @@ public class DraggableComponent : BasePoolable, IComponent
     public Vector2 ParentPadding = JsonDefaults.Draggable.ParentPadding;
     public Vector2 AnchorOffset = JsonDefaults.Draggable.AnchorOffset;
     public bool KeepOnTop = JsonDefaults.Draggable.KeepOnTop;
-    public DraggablePositionSendType? PositionRpc;
-    public bool MoveToAnchor;
-    public bool RebuildAnchor;
+    public DraggablePositionSendType? PositionRpc = JsonDefaults.Draggable.PositionRpc;
+    public bool MoveToAnchor = JsonDefaults.Draggable.MoveToAnchor;
+    public bool RebuildAnchor = JsonDefaults.Draggable.RebuildAnchor;
 
-    public void WriteComponent(JsonFrameworkWriter writer)
+    public override bool AllowMultiple => false;
+
+    public override void WriteComponent(JsonFrameworkWriter writer)
     {
         writer.WriteStartObject();
         writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, Type);
@@ -43,7 +44,7 @@ public class DraggableComponent : BasePoolable, IComponent
         writer.WriteEndObject();
     }
 
-    public void Reset()
+    public override void Reset()
     {
         LimitToParent = JsonDefaults.Draggable.LimitToParent;
         MaxDistance = JsonDefaults.Draggable.MaxDistance;
@@ -55,13 +56,8 @@ public class DraggableComponent : BasePoolable, IComponent
         ParentPadding = JsonDefaults.Draggable.ParentPadding;
         AnchorOffset = JsonDefaults.Draggable.AnchorOffset;
         KeepOnTop = JsonDefaults.Draggable.KeepOnTop;
-        PositionRpc = null;
-        MoveToAnchor = false;
-        RebuildAnchor = false;
-    }
-
-    protected override void EnterPool()
-    {
-        Reset();
+        PositionRpc = JsonDefaults.Draggable.PositionRpc;
+        MoveToAnchor = JsonDefaults.Draggable.MoveToAnchor;
+        RebuildAnchor = JsonDefaults.Draggable.RebuildAnchor;
     }
 }

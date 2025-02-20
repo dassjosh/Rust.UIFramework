@@ -2,10 +2,8 @@
 using Oxide.Core;
 using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Colors;
-using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Controls;
 using Oxide.Ext.UiFramework.Enums;
-using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.UiElements;
@@ -165,15 +163,6 @@ public partial class BaseUiBuilder
     }
 
     public UiLabel Label(in UiReference parent, in UiPosition pos, string text, int fontSize, UiColor textColor, TextAnchor align = TextAnchor.MiddleCenter) => Label(parent, pos, default, text, fontSize, textColor, align);
-
-    public UiLabelBackground LabelBackground(in UiReference parent, in UiPosition pos, in UiOffset offset, string text, int fontSize, UiColor textColor, UiColor backgroundColor, TextAnchor align = TextAnchor.MiddleCenter)
-    {
-        UiLabelBackground control = UiLabelBackground.Create(this, parent, pos, offset, text, fontSize, textColor, backgroundColor, align);
-        AddControl(control);
-        return control;
-    }
-
-    public UiLabelBackground LabelBackground(in UiReference parent, in UiPosition pos, string text, int fontSize, UiColor textColor, UiColor backgroundColor, TextAnchor align = TextAnchor.MiddleCenter) => LabelBackground(parent, pos, default, text, fontSize, textColor, backgroundColor, align);
     #endregion
         
     #region Input
@@ -188,42 +177,6 @@ public partial class BaseUiBuilder
         => Input(parent, pos, default, text, fontSize, textColor, command, align, charsLimit, mode, lineType);
     #endregion
 
-    #region Countdown
-    [Obsolete("This method is obsolete. Use Countdown(UiLabel, float, float, string, float, float, TimerFormat, string, bool) instead.")]
-    public UiLabel Countdown(UiLabel label, int startTime, int endTime, int step, string command)
-    {
-        Countdown(label, startTime, endTime, command, step);
-        return label;
-    }
-    
-    public CountdownComponent Countdown(UiLabel label, float startTime, float endTime, string command, float step = 1, float interval = 1, TimerFormat timerFormat = TimerFormat.None, string numberFormat = JsonDefaults.Countdown.NumberFormatValue, bool destroyIfDone = true)
-    {
-        CountdownComponent countdown = label.AddCountdown(startTime, endTime, step, interval, timerFormat, numberFormat, destroyIfDone, command);
-        return countdown;
-    }
-    #endregion
-    
-    #region ColorBlock
-    public ColorBlockComponent ColorBlock(UiButton button, in UiColor? highlightColor = null, in UiColor? pressedColor = null, in UiColor? selectedColor = null, in float? colorMultiplier = null, in float? fadeDuration = null)
-    {
-        return button.AddColorBlock(highlightColor, pressedColor, selectedColor, colorMultiplier, fadeDuration);
-    }
-    #endregion
-
-    #region Outline
-    public T Outline<T>(T outline, UiColor color) where T : BaseUiOutline
-    {
-        outline.AddElementOutline(color);
-        return outline;
-    }
-
-    public T Outline<T>(T outline, UiColor color, Vector2 distance, bool useGraphicAlpha = false) where T : BaseUiOutline
-    {
-        outline.AddElementOutline(color, distance, useGraphicAlpha);
-        return outline;
-    }
-    #endregion
-
     #region Anchor
     public UiSection Anchor(in UiReference parent, in UiPosition pos, in UiOffset offset = default)
     {
@@ -234,11 +187,17 @@ public partial class BaseUiBuilder
     #endregion
 
     #region ScrollView
-
+    [Obsolete("Use ScrollView(in UiReference parent, in UiPosition pos, in UiOffset offset, ScrollRect.MovementType movementType = ScrollRect.MovementType.Clamped, float elasticity = 0.1f, bool inertia = false, float decelerationRate = 0.135f, float scrollSensitivity = 1f) instead")]
     public UiScrollView ScrollView(in UiReference parent, in UiPosition pos, in UiOffset offset, bool horizontal = false, bool vertical = false, ScrollRect.MovementType movementType = ScrollRect.MovementType.Clamped, float elasticity = 0.1f,
         bool inertia = false, float decelerationRate = 0.135f, float scrollSensitivity = 1f)
     {
-        UiScrollView scroll = UiScrollView.Create(pos, offset, horizontal, vertical, movementType, elasticity, inertia, decelerationRate, scrollSensitivity);
+        return ScrollView(in parent, in pos, in offset, movementType, elasticity, inertia, decelerationRate, scrollSensitivity);
+    }
+    
+    public UiScrollView ScrollView(in UiReference parent, in UiPosition pos, in UiOffset offset, ScrollRect.MovementType movementType = ScrollRect.MovementType.Clamped, float elasticity = 0.1f,
+        bool inertia = false, float decelerationRate = 0.135f, float scrollSensitivity = 1f)
+    {
+        UiScrollView scroll = UiScrollView.Create(pos, offset, movementType, elasticity, inertia, decelerationRate, scrollSensitivity);
         AddComponent(scroll, parent);
         return scroll;
     }
