@@ -14,7 +14,7 @@ public class ItemIconComponent : BaseImageComponent
         writer.WriteStartObject();
         writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, Type);
         writer.AddFieldRaw(JsonDefaults.ItemIcon.ItemIdName, ItemId);
-        writer.AddField(JsonDefaults.ItemIcon.SkinIdName, SkinId, default);
+        writer.AddField(JsonDefaults.ItemIcon.SkinIdName, SkinId, 0);
         base.WriteComponent(writer);
         writer.WriteEndObject();
     }
@@ -22,7 +22,7 @@ public class ItemIconComponent : BaseImageComponent
     public override void Reset()
     {
         base.Reset();
-        ItemId = default;
-        SkinId = default;
+        ItemId = 0;
+        SkinId = 0;
     }
 }

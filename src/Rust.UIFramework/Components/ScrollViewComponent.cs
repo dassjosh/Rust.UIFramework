@@ -8,9 +8,9 @@ public class ScrollViewComponent : CoreComponent
     private const string Type = "UnityEngine.UI.ScrollView";
     
     public readonly ScrollViewContentComponent ContentTransform = new();
-    public ScrollRect.MovementType MovementType = ScrollRect.MovementType.Clamped;
+    public ScrollRect.MovementType MovementType = JsonDefaults.ScrollView.MovementType;
     public float Elasticity = JsonDefaults.ScrollView.Elasticity;
-    public bool Inertia;
+    public bool Inertia = JsonDefaults.ScrollView.Inertia;
     public float DecelerationRate = JsonDefaults.ScrollView.DecelerationRate;
     public float ScrollSensitivity = JsonDefaults.ScrollView.ScrollSensitivity;
     public ScrollbarComponent HorizontalScrollbar;
@@ -22,9 +22,9 @@ public class ScrollViewComponent : CoreComponent
         writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, Type);
         writer.AddField(JsonDefaults.ScrollView.Horizontal, HorizontalScrollbar != null, false);
         writer.AddField(JsonDefaults.ScrollView.Vertical, VerticalScrollbar != null, false);
-        writer.AddField(JsonDefaults.ScrollView.MovementType, MovementType);
+        writer.AddField(JsonDefaults.ScrollView.MovementTypeName, MovementType);
         writer.AddField(JsonDefaults.ScrollView.ElasticityName, Elasticity, JsonDefaults.ScrollView.Elasticity);
-        writer.AddField(JsonDefaults.ScrollView.Inertia, Inertia, false);
+        writer.AddField(JsonDefaults.ScrollView.InertiaName, Inertia, JsonDefaults.ScrollView.Inertia);
         writer.AddField(JsonDefaults.ScrollView.DecelerationRateName, DecelerationRate, JsonDefaults.ScrollView.DecelerationRate);
         writer.AddField(JsonDefaults.ScrollView.ScrollSensitivityName, ScrollSensitivity, JsonDefaults.ScrollView.ScrollSensitivity);
         writer.AddComponent(JsonDefaults.ScrollView.HorizontalScrollbar, HorizontalScrollbar, HorizontalScrollbar != null);
@@ -41,9 +41,9 @@ public class ScrollViewComponent : CoreComponent
         HorizontalScrollbar = null;
         VerticalScrollbar?.Dispose();
         VerticalScrollbar = null;
-        MovementType = ScrollRect.MovementType.Clamped;
+        MovementType = JsonDefaults.ScrollView.MovementType;
         Elasticity = JsonDefaults.ScrollView.Elasticity;
-        Inertia = false;
+        Inertia = JsonDefaults.ScrollView.Inertia;
         DecelerationRate = JsonDefaults.ScrollView.DecelerationRate;
         ScrollSensitivity = JsonDefaults.ScrollView.ScrollSensitivity;
         HorizontalScrollbar = null;

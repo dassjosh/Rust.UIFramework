@@ -274,6 +274,14 @@ public class JsonFrameworkWriter : BasePoolable
         }
     }
         
+    public void AddTextField(string name, string value, string defaultValue)
+    {
+        if (value != defaultValue)
+        {
+            AddTextField(name, value);
+        }
+    }
+    
     public void AddTextField(string name, string value)
     {
         WritePropertyName(name);

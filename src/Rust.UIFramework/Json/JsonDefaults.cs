@@ -2,6 +2,7 @@
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Offsets;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.Json;
 
@@ -128,6 +129,7 @@ public static class JsonDefaults
         public const string NumberFormatName = "numberFormat";
         public const string NumberFormatValue = "0.####";
         public const string DestroyIfDoneName = "destroyIfDone";
+        public const bool DestroyIfDone = true;
         public const string CountdownCommandName = "command";
     }
 
@@ -135,9 +137,11 @@ public static class JsonDefaults
     {
         public const string Horizontal = "horizontal";
         public const string Vertical = "vertical";
-        public const string MovementType = "movementType";
+        public const string MovementTypeName = "movementType";
+        public const ScrollRect.MovementType MovementType = ScrollRect.MovementType.Clamped;
         public const string ElasticityName = "elasticity";
-        public const string Inertia = "inertia";
+        public const string InertiaName = "inertia";
+        public const bool Inertia = false;
         public const string DecelerationRateName = "decelerationRate";
         public const string ScrollSensitivityName = "scrollSensitivity";
         public const string HorizontalScrollbar = "horizontalScrollbar";
@@ -155,8 +159,10 @@ public static class JsonDefaults
 
     public static class ScrollBar
     {
-        public const string Invert = "invert";
-        public const string AutoHide = "autoHide";
+        public const string InvertName = "invert";
+        public const bool Invert = false;
+        public const string AutoHideName = "autoHide";
+        public const bool AutoHide = false;
         public const string HandleSprite = "handleSprite";
         public const string TrackSprite = "trackSprite";
         public const string SizeName = "size";

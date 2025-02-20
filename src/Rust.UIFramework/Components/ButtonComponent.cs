@@ -10,13 +10,13 @@ public class ButtonComponent : BaseImageComponent
     public string Command;
     public string Close;
     public Image.Type ImageType;
-    public ColorBlockComponent ColorBlock;
+    public ColorBlockComponent ColorBlock { get; internal set; }
 
     public override void WriteComponent(JsonFrameworkWriter writer)
     {
         writer.WriteStartObject();
         writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, Type);
-        writer.AddField(JsonDefaults.Common.CommandName, Command, JsonDefaults.Common.NullValue);
+        writer.AddTextField(JsonDefaults.Common.CommandName, Command, JsonDefaults.Common.NullValue);
         writer.AddField(JsonDefaults.Button.CloseName, Close, JsonDefaults.Common.NullValue);
         writer.AddField(JsonDefaults.Image.ImageType, ImageType);
         ColorBlock?.WriteComponent(writer);
@@ -27,6 +27,8 @@ public class ButtonComponent : BaseImageComponent
     public override void Reset()
     {
         base.Reset();
+        ColorBlock?.Dispose();
+        ColorBlock = null;
         Command = null;
         Close = null;
         ImageType = Image.Type.Simple;

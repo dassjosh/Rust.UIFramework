@@ -12,7 +12,7 @@ public class PlayerAvatarComponent : BaseImageComponent
     {
         writer.WriteStartObject();
         writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, Type);
-        writer.AddField(JsonDefaults.PlayerAvatar.SteamIdName, SteamId, default);
+        writer.AddFieldRaw(JsonDefaults.PlayerAvatar.SteamIdName, SteamId);
         base.WriteComponent(writer);
         writer.WriteEndObject();
     }
