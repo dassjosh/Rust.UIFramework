@@ -86,7 +86,7 @@ public abstract class BaseUiComponent : BasePoolable
         writer.WriteEndObject();
     }
 
-    protected void WriteComponents(JsonFrameworkWriter writer)
+    private void WriteComponents(JsonFrameworkWriter writer)
     {
         Component.WriteComponent(writer);
         WriteTransform(writer);
