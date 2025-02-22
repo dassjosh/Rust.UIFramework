@@ -1,4 +1,6 @@
 ﻿using Oxide.Ext.UiFramework.Colors;
+using Oxide.Ext.UiFramework.Enums;
+using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Types;
 using UnityEngine;
 using UnityEngine.UI;
@@ -26,6 +28,7 @@ public static class JsonDefaults
         public static readonly Utf8String EnabledName = "enabled"u8;
         public static readonly Vector2 Min = new(0, 0);
         public static readonly Vector2 Max = new(1, 1);
+        public static readonly UiOffset TextPadding = new(2, 0, -2, 0);
     }
         
     public static class Position
@@ -122,26 +125,34 @@ public static class JsonDefaults
     public static class Countdown
     {
         public static readonly Utf8String Type = "Countdown"u8;
+        
         public static readonly Utf8String StartTimeName = "startTime"u8;
         public const float StartTimeValue = 0;
+        
         public static readonly Utf8String EndTimeName = "endTime"u8;
         public const float EndTimeValue = 0;
+        
         public static readonly Utf8String StepName = "step"u8;
         public const float StepValue = 1;
+        
         public static readonly Utf8String IntervalName = "interval"u8;
         public const float IntervalValue = 1;
+        
         public static readonly Utf8String TimerFormatName = "timerFormat"u8;
+        public const TimerFormat TimeFormatValue = TimerFormat.None;
+        
         public static readonly Utf8String NumberFormatName = "numberFormat"u8;
         public const string NumberFormatValue = "0.####";
+        
         public static readonly Utf8String DestroyIfDoneName = "destroyIfDone"u8;
+        public const bool DestroyIfDone = true;
         public static readonly Utf8String CountdownCommandName = "command"u8;
     }
 
     public static class ScrollView
     {
         public static readonly Utf8String Type = "UnityEngine.UI.ScrollView"u8;
-        public static readonly Utf8String Horizontal = "horizontal"u8;
-        public static readonly Utf8String Vertical = "vertical"u8;
+        
         public static readonly Utf8String MovementTypeName = "movementType"u8;
         public const ScrollRect.MovementType MovementType = ScrollRect.MovementType.Clamped;
         
@@ -157,14 +168,12 @@ public static class JsonDefaults
         public static readonly Utf8String ScrollSensitivityName = "scrollSensitivity"u8;
         public const float ScrollSensitivity = 1f;
         
+        public static readonly Utf8String Horizontal = "horizontal"u8;
+        public static readonly Utf8String Vertical = "vertical"u8;
         public static readonly Utf8String HorizontalScrollbar = "horizontalScrollbar"u8;
         public static readonly Utf8String VerticalScrollbar = "verticalScrollbar"u8;
         public static readonly Utf8String ContentTransform = "contentTransform"u8;
-            
-
-
-
-            
+        
         public static readonly Vector2 Min = new(0, 0);
         public static readonly Vector2 AnchorMax = new(1, 1);
         public static readonly Vector2 OffsetMax = new(0, 0);
@@ -172,8 +181,10 @@ public static class JsonDefaults
 
     public static class ScrollBar
     {
-        public static readonly Utf8String Invert = "invert"u8;
-        public static readonly Utf8String AutoHide = "autoHide"u8;
+        public static readonly Utf8String InvertName = "invert"u8;
+        public const bool Invert = false;
+        public static readonly Utf8String AutoHideName = "autoHide"u8;
+        public const bool AutoHide = false;
         public static readonly Utf8String HandleSprite = "handleSprite"u8;
         public static readonly Utf8String TrackSprite = "trackSprite"u8;
         public static readonly Utf8String SizeName = "size"u8;
@@ -186,5 +197,69 @@ public static class JsonDefaults
         public static readonly UiColor HighlightColor = UiColor.ParseHexColor("#2B2B2B");
         public static readonly UiColor PressedColor = UiColor.ParseHexColor("#333333");
         public static readonly UiColor TrackColor = UiColor.ParseHexColor("#171717");
+    }
+
+    public static class ColorBlock
+    {
+        public const string HighlightedColorName = "highlightedColor";
+        public static readonly UiColor HighlightedColor = UiColor.ParseHexColor("#F5F5F5FF");
+        
+        public const string PressedColorName = "pressedColor";
+        public static readonly UiColor PressedColor = UiColor.ParseHexColor("#C8C8C8FF");
+        
+        public const string SelectedColorName = "selectedColor";
+        public static readonly UiColor SelectedColor = UiColor.ParseHexColor("#F5F5F5FF");
+        
+        public const string ColorMultiplierName = "colorMultiplier";
+        public const float ColorMultiplier = 1f;
+        
+        public const string FadeDurationName = "fadeDuration";
+        public const float FadeDuration = 0.1f;
+    }
+
+    public static class Draggable
+    {
+        public const string LimitToParentName = "limitToParent";
+        public const bool LimitToParent = false;
+        
+        public const string MaxDistanceName = "maxDistance";
+        public const float MaxDistance = -1f;
+        
+        public const string AllowSwappingName = "allowSwapping";
+        public const bool AllowSwapping = false;
+        
+        public const string DropAnywhereName = "dropAnywhere";
+        public const bool DropAnywhere = false;
+        
+        public const string DragAlphaName = "dragAlpha";
+        public const float DragAlpha = 1f;
+        
+        public const string ParentLimitIndexName = "parentLimitIndex";
+        public const int ParentLimitIndex = 1;
+        
+        public const string FilterName = "filter";
+        
+        public const string ParentPaddingName = "parentPadding";
+        public static readonly Vector2 ParentPadding = new(0, 0);
+        
+        public const string AnchorOffsetName = "anchorOffset";
+        public static readonly Vector2 AnchorOffset = new(0, 0);
+        
+        public const string KeepOnTopName = "keepOnTop";
+        public const bool KeepOnTop = false;
+        
+        public const string PositionRpcName = "positionRPC";
+        public static readonly DraggablePositionSendType? PositionRpc = null;
+        
+        public const string MoveToAnchorName = "moveToAnchor";
+        public const bool MoveToAnchor = false;
+        
+        public const string RebuildAnchorName = "moveToAnchor";
+        public const bool RebuildAnchor = false;
+    }
+
+    public static class Slot
+    {
+        public const string FilterName = "filter";
     }
 }

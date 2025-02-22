@@ -7,9 +7,10 @@ using Oxide.Ext.UiFramework.Positions;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-public class UiRawImage : BaseUiOutline, IMaterial
+public class UiRawImage : BaseUiComponent, IMaterial
 {
     public readonly RawImageComponent RawImage = new();
+    internal override CoreComponent Component => RawImage;
 
     public static UiRawImage CreateDefault(in UiPosition pos, in UiOffset offset)
     {
@@ -49,17 +50,5 @@ public class UiRawImage : BaseUiOutline, IMaterial
     public void SetFadeIn(float duration)
     {
         RawImage.FadeIn = duration;
-    }
-
-    protected override void WriteComponents(JsonFrameworkWriter writer)
-    {
-        RawImage.WriteComponent(writer);
-        base.WriteComponents(writer);
-    }
-
-    protected override void EnterPool()
-    {
-        base.EnterPool();
-        RawImage.Reset();
     }
 }

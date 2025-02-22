@@ -5,10 +5,11 @@ using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-public abstract class BaseUiImage : BaseUiOutline, IImageType, ISprite, IMaterial
+public abstract class BaseUiImage : BaseUiComponent, IImageType, ISprite, IMaterial
 {
     public readonly ImageComponent Image = new();
-        
+    internal override CoreComponent Component => Image;
+
     public void SetImageType(Image.Type type)
     {
         Image.ImageType = type;
@@ -34,17 +35,5 @@ public abstract class BaseUiImage : BaseUiOutline, IImageType, ISprite, IMateria
     public void SetFadeIn(float duration)
     {
         Image.FadeIn = duration;
-    }
-        
-    protected override void WriteComponents(JsonFrameworkWriter writer)
-    {
-        Image.WriteComponent(writer);
-        base.WriteComponents(writer);
-    }
-
-    protected override void EnterPool()
-    {
-        base.EnterPool();
-        Image.Reset();
     }
 }

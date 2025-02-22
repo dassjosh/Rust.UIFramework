@@ -20,41 +20,23 @@ public class InputComponent : BaseTextComponent
             
         if (HasMode(InputMode.ReadOnly))
         {
-            writer.AddField(JsonDefaults.Input.ReadOnlyName, true, false);
+            writer.AddFieldRaw(JsonDefaults.Input.ReadOnlyName, true);
         }
         else
         {
             writer.AddField(JsonDefaults.Common.CommandName, Command, JsonDefaults.Common.NullValue);
         }
-
-        if (HasMode(InputMode.Password))
-        {
-            writer.AddFieldRaw(JsonDefaults.Input.PasswordName, true);
-        }
-
-        if (HasMode(InputMode.NeedsKeyboard))
-        {
-            writer.AddFieldRaw(JsonDefaults.Input.NeedsKeyboardName, true);
-        }
-            
-        if (HasMode(InputMode.HudNeedsKeyboard))
-        {
-            writer.AddFieldRaw(JsonDefaults.Input.NeedsHudKeyboardName, true);
-        }
-
-        if (HasMode(InputMode.AutoFocus))
-        {
-            writer.AddKeyField(JsonDefaults.Input.AutoFocusName);
-        }
+        
+        writer.AddField(JsonDefaults.Input.PasswordName, HasMode(InputMode.Password), false);
+        writer.AddField(JsonDefaults.Input.NeedsKeyboardName, HasMode(InputMode.NeedsKeyboard), false);
+        writer.AddField(JsonDefaults.Input.NeedsHudKeyboardName, HasMode(InputMode.HudNeedsKeyboard), false);
+        writer.AddField(JsonDefaults.Input.AutoFocusName, HasMode(InputMode.AutoFocus), false);
             
         base.WriteComponent(writer);
         writer.WriteEndObject();
     }
 
-    public bool HasMode(InputMode mode)
-    {
-        return (Mode & mode) == mode;
-    }
+    public bool HasMode(InputMode mode) => (Mode & mode) == mode;
 
     public void SetMode(InputMode mode, bool enabled)
     {

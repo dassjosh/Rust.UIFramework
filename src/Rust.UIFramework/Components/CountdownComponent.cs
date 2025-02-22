@@ -1,10 +1,9 @@
 ﻿using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Json;
-using Oxide.Ext.UiFramework.Pooling;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-public class CountdownComponent : BasePoolable, IComponent
+public class CountdownComponent : SubComponent
 {
     public float StartTime;
     public float EndTime;
@@ -15,7 +14,9 @@ public class CountdownComponent : BasePoolable, IComponent
     public bool DestroyIfDone = true;
     public string Command;
 
-    public virtual void WriteComponent(JsonFrameworkWriter writer)
+    public override bool AllowMultiple => false;
+
+    public override void WriteComponent(JsonFrameworkWriter writer)
     {
         writer.WriteStartObject();
         writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, JsonDefaults.Countdown.Type);
@@ -25,12 +26,13 @@ public class CountdownComponent : BasePoolable, IComponent
         writer.AddField(JsonDefaults.Countdown.IntervalName, Interval, JsonDefaults.Countdown.IntervalValue);
         writer.AddField(JsonDefaults.Countdown.TimerFormatName, TimerFormat);
         writer.AddField(JsonDefaults.Countdown.NumberFormatName, NumberFormat, JsonDefaults.Countdown.NumberFormatValue);
-        writer.AddField(JsonDefaults.Countdown.DestroyIfDoneName, DestroyIfDone, true);
+        writer.AddField(JsonDefaults.Countdown.DestroyIfDoneName, DestroyIfDone, JsonDefaults.Countdown.DestroyIfDone);
         writer.AddField(JsonDefaults.Countdown.CountdownCommandName, Command, JsonDefaults.Common.NullValue);
+        base.WriteComponent(writer);
         writer.WriteEndObject();
     }
 
-    public virtual void Reset()
+    public override void Reset()
     {
         StartTime = JsonDefaults.Countdown.StartTimeValue;
         EndTime = JsonDefaults.Countdown.EndTimeValue;
@@ -40,10 +42,5 @@ public class CountdownComponent : BasePoolable, IComponent
         NumberFormat = JsonDefaults.Countdown.NumberFormatValue;
         DestroyIfDone = true;
         Command = null;
-    }
-
-    protected override void EnterPool()
-    {
-        Reset();
     }
 }

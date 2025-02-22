@@ -3,14 +3,16 @@ using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Interfaces.UiElements;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Offsets;
+using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Positions;
 using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-public class UiButton : BaseUiOutline, IImageType, ISprite, IMaterial
+public class UiButton : BaseUiComponent, ISprite, IMaterial
 {
     public readonly ButtonComponent Button = new();
+    internal override CoreComponent Component => Button;
 
     public static UiButton CreateCommand(in UiPosition pos, in UiOffset offset, UiColor color, string command)
     {
@@ -54,16 +56,16 @@ public class UiButton : BaseUiOutline, IImageType, ISprite, IMaterial
         Button.Material = material;
         Button.ImageType = type;
     }
-
-    protected override void WriteComponents(JsonFrameworkWriter writer)
+    
+    public ColorBlockComponent AddColorBlock(in UiColor? highlightColor = null, in UiColor? pressedColor = null, in UiColor? selectedColor = null, in float? colorMultiplier = null, in float? fadeDuration = null)
     {
-        Button.WriteComponent(writer);
-        base.WriteComponents(writer);
-    }
-
-    protected override void EnterPool()
-    {
-        base.EnterPool();
-        Button.Reset();
+        ColorBlockComponent colors = UiFrameworkPool.Get<ColorBlockComponent>();
+        if(highlightColor.HasValue) colors.HighlightedColor = highlightColor.Value;
+        if(pressedColor.HasValue) colors.PressedColor = pressedColor.Value;
+        if(selectedColor.HasValue) colors.SelectedColor = selectedColor.Value;
+        if(colorMultiplier.HasValue) colors.ColorMultiplier = colorMultiplier.Value;
+        if(fadeDuration.HasValue) colors.FadeDuration = fadeDuration.Value;
+        Button.ColorBlock = colors;
+        return colors;
     }
 }

@@ -22,7 +22,7 @@ public class UiCheckbox : BaseUiControl
         control.IsChecked = isChecked;
         control.Button = builder.CommandButton(parent, pos, offset, backgroundColor, command);
         control.Label = builder.Label(control.Button, UiPosition.Full, string.Empty, textSize, textColor);
-        control.Button.AddElementOutline(UiColor.Black.WithAlpha(0.75f));
+        control.Button.AddOutline(UiColor.Black.WithAlpha(0.75f));
         return control;
     }
         

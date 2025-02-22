@@ -113,7 +113,7 @@ public class JsonFrameworkWriter : BasePoolable
         if (!EqualityComparer<T>.Default.Equals(value, defaultValue))
         {
             WritePropertyName(name);
-            WriteValue(Utf8EnumCache<T>.ToUtf8String(value));
+            WriteValue(Utf8EnumCache<T>.ToUtf8Number(value));
         }
     }
     
@@ -203,6 +203,14 @@ public class JsonFrameworkWriter : BasePoolable
     {
         WritePropertyName(name);
         WriteBlankValue();
+    }
+    
+    public void AddKeyField(in Utf8String name, bool add)
+    {
+        if (add)
+        {
+            AddKeyField(name);
+        }
     }
     
     public void AddTextField(in Utf8String name, string value)

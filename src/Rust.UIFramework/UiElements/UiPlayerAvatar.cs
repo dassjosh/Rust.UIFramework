@@ -7,9 +7,10 @@ using Oxide.Ext.UiFramework.Positions;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-public class UiPlayerAvatar : BaseUiOutline, IMaterial
+public class UiPlayerAvatar : BaseUiComponent, IMaterial
 {
     public readonly PlayerAvatarComponent Avatar = new();
+    internal override CoreComponent Component => Avatar;
 
     public static UiPlayerAvatar Create(in UiPosition pos, in UiOffset offset, UiColor color, string steamId)
     {
@@ -27,17 +28,5 @@ public class UiPlayerAvatar : BaseUiOutline, IMaterial
     public void SetMaterial(string material)
     {
         Avatar.Material = material;
-    }
-
-    protected override void WriteComponents(JsonFrameworkWriter writer)
-    {
-        Avatar.WriteComponent(writer);
-        base.WriteComponents(writer);
-    }
-
-    protected override void EnterPool()
-    {
-        base.EnterPool();
-        Avatar.Reset();
     }
 }

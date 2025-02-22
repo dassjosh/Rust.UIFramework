@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 using Network;
 using Oxide.Ext.UiFramework.Pooling;
 
-namespace Oxide.Ext.UiFramework.Builders;
+namespace Oxide.Ext.UiFramework.Builder;
 
 internal static class SendInfoBuilder
 {

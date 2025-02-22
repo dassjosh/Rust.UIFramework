@@ -7,9 +7,10 @@ using Oxide.Ext.UiFramework.Positions;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-public class UiItemIcon : BaseUiOutline, IMaterial
+public class UiItemIcon : BaseUiComponent, IMaterial
 {
     public readonly ItemIconComponent Icon = new();
+    internal override CoreComponent Component => Icon;
 
     public static UiItemIcon Create(in UiPosition pos, in UiOffset offset, UiColor color, int itemId, ulong skinId = 0)
     {

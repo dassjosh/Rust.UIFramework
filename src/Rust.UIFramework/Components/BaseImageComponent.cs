@@ -3,7 +3,7 @@ using Oxide.Ext.UiFramework.Json;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-public abstract class BaseImageComponent : BaseComponent
+public abstract class BaseImageComponent : CoreComponent
 {
     public UiColor Color;
     public float FadeIn;

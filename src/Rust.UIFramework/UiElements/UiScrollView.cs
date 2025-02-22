@@ -1,6 +1,5 @@
 ﻿using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
-using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Positions;
@@ -11,6 +10,7 @@ namespace Oxide.Ext.UiFramework.UiElements;
 public class UiScrollView : BaseUiComponent
 {
     public readonly ScrollViewComponent ScrollView = new();
+    internal override CoreComponent Component => ScrollView;
 
     public UiReference ViewPort => _viewPort ??= Reference.WithChild($"{Reference.Name}___Viewport");
     public UiReference Content => _content ??= Reference.WithChild($"{Reference.Name}___Content");
@@ -18,13 +18,11 @@ public class UiScrollView : BaseUiComponent
     private UiReference? _viewPort;
     private UiReference? _content;
     
-    public static UiScrollView Create(in UiPosition pos, in UiOffset offset, bool horizontal, bool vertical, ScrollRect.MovementType movementType, float elasticity,
+    public static UiScrollView Create(in UiPosition pos, in UiOffset offset, ScrollRect.MovementType movementType, float elasticity,
         bool inertia, float decelerationRate, float scrollSensitivity)
     {
         UiScrollView scroll = CreateBase<UiScrollView>(pos, offset);
         ScrollViewComponent comp = scroll.ScrollView;
-        comp.Horizontal = horizontal;
-        comp.Vertical = vertical;
         comp.MovementType = movementType;
         comp.Elasticity = elasticity;
         comp.Inertia = inertia;
@@ -56,7 +54,6 @@ public class UiScrollView : BaseUiComponent
     public ScrollbarComponent AddHorizontalScrollBar(bool invert = false, bool autoHide = false, string handleSprite = null, string trackSprite = null, float size = 20f, 
         UiColor? handleColor = null, UiColor? highlightColor = null, UiColor? pressedColor = null, UiColor? trackColor = null)
     {
-        ScrollView.Horizontal = true;
         ScrollbarComponent bar = CreateScrollBar(invert, autoHide, handleSprite, trackSprite, size, handleColor, highlightColor, pressedColor, trackColor);
         ScrollView.HorizontalScrollbar = bar;
         return bar;
@@ -65,7 +62,6 @@ public class UiScrollView : BaseUiComponent
     public ScrollbarComponent AddVerticalScrollBar(bool invert = false, bool autoHide = false, string handleSprite = null, string trackSprite = null, float size = 20f, 
         UiColor? handleColor = null, UiColor? highlightColor = null, UiColor? pressedColor = null, UiColor? trackColor = null)
     {
-        ScrollView.Vertical = true;
         ScrollbarComponent bar = CreateScrollBar(invert, autoHide, handleSprite, trackSprite, size, handleColor, highlightColor, pressedColor, trackColor);
         ScrollView.VerticalScrollbar = bar;
         return bar;
@@ -98,20 +94,10 @@ public class UiScrollView : BaseUiComponent
         }
         return comp;
     }
-    
-    protected override void WriteComponents(JsonFrameworkWriter writer)
-    {
-        ScrollView.WriteComponent(writer);
-        base.WriteComponents(writer);
-    }
 
     protected override void EnterPool()
     {
         base.EnterPool();
-        ScrollView.HorizontalScrollbar?.Dispose();
-        ScrollView.HorizontalScrollbar = null;
-        ScrollView.VerticalScrollbar?.Dispose();
-        ScrollView.VerticalScrollbar = null;
         _viewPort = null;
         _content = null;
     }
