@@ -1,4 +1,6 @@
-﻿using Network;
+﻿using System;
+using System.Collections.Generic;
+using Network;
 using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
@@ -106,57 +108,12 @@ public class JsonFrameworkWriter : BasePoolable
         }
     }
     
-    public void AddField(in Utf8String name, TextAnchor value)
+    public void AddField<T>(in Utf8String name, T value, T defaultValue = default) where T : Enum
     {
-        if (value != TextAnchor.UpperLeft)
+        if (!EqualityComparer<T>.Default.Equals(value, defaultValue))
         {
             WritePropertyName(name);
-            WriteValue(Utf8EnumCache<TextAnchor>.ToUtf8String(value));
-        }
-    }
-    
-    public void AddField(in Utf8String name, InputField.LineType value)
-    {
-        if (value != InputField.LineType.SingleLine)
-        {
-            WritePropertyName(name);
-            WriteValue(Utf8EnumCache<InputField.LineType>.ToUtf8String(value));
-        }
-    }
-    
-    public void AddField(in Utf8String name, Image.Type value)
-    {
-        if (value != Image.Type.Simple)
-        {
-            WritePropertyName(name);
-            WriteValue(Utf8EnumCache<Image.Type>.ToUtf8String(value));
-        }
-    }
-    
-    public void AddField(in Utf8String name, VerticalWrapMode value)
-    {
-        if (value != VerticalWrapMode.Truncate)
-        {
-            WritePropertyName(name);
-            WriteValue(Utf8EnumCache<VerticalWrapMode>.ToUtf8String(value));
-        }
-    }
-    
-    public void AddField(in Utf8String name, ScrollRect.MovementType value)
-    {
-        if (value != ScrollRect.MovementType.Clamped)
-        {
-            WritePropertyName(name);
-            WriteValue(Utf8EnumCache<ScrollRect.MovementType>.ToUtf8String(value));
-        }
-    }
-    
-    public void AddField(in Utf8String name, TimerFormat value)
-    {
-        if (value != TimerFormat.None)
-        {
-            WritePropertyName(name);
-            WriteValue(Utf8EnumCache<TimerFormat>.ToUtf8String(value));
+            WriteValue(Utf8EnumCache<T>.ToUtf8String(value));
         }
     }
     
@@ -211,6 +168,14 @@ public class JsonFrameworkWriter : BasePoolable
         {
             WritePropertyName(name);
             WriteValue(color);
+        }
+    }
+
+    public void AddComponent(in Utf8String name, IComponent component, bool add)
+    {
+        if (add)
+        {
+            AddComponent(name, component);
         }
     }
     

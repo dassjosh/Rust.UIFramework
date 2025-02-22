@@ -1,6 +1,7 @@
 ﻿using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Types;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.Json;
 
@@ -141,18 +142,28 @@ public static class JsonDefaults
         public static readonly Utf8String Type = "UnityEngine.UI.ScrollView"u8;
         public static readonly Utf8String Horizontal = "horizontal"u8;
         public static readonly Utf8String Vertical = "vertical"u8;
-        public static readonly Utf8String MovementType = "movementType"u8;
+        public static readonly Utf8String MovementTypeName = "movementType"u8;
+        public const ScrollRect.MovementType MovementType = ScrollRect.MovementType.Clamped;
+        
         public static readonly Utf8String ElasticityName = "elasticity"u8;
-        public static readonly Utf8String Inertia = "inertia"u8;
+        public const float Elasticity = 0.1f;
+        
+        public static readonly Utf8String InertiaName = "inertia"u8;
+        public const bool Inertia = false;
+        
         public static readonly Utf8String DecelerationRateName = "decelerationRate"u8;
+        public const float DecelerationRate = 0.135f;
+        
         public static readonly Utf8String ScrollSensitivityName = "scrollSensitivity"u8;
+        public const float ScrollSensitivity = 1f;
+        
         public static readonly Utf8String HorizontalScrollbar = "horizontalScrollbar"u8;
         public static readonly Utf8String VerticalScrollbar = "verticalScrollbar"u8;
         public static readonly Utf8String ContentTransform = "contentTransform"u8;
             
-        public const float Elasticity = 0.1f;
-        public const float DecelerationRate = 0.135f;
-        public const float ScrollSensitivity = 1f;
+
+
+
             
         public static readonly Vector2 Min = new(0, 0);
         public static readonly Vector2 AnchorMax = new(1, 1);
