@@ -542,7 +542,7 @@ public class AssetBrowser : RustPlugin
         {
             UiButton button = builder.CommandButton(root, _imageGrid, default, _buttonColor, _uiCommands.SelectAssetType.Build(state, type));
             builder.ImageSprite(button, UiPosition.Full, default, UiSprites.Assets.Icons.Folder, UiColor.White);
-            builder.Label(button, UiPosition.Full, default, EnumCache<AssetType>.ToString(type), 14, _textColor).AddElementOutline(UiColor.Black);
+            builder.Label(button, UiPosition.Full, default, EnumCache<AssetType>.ToString(type), 14, _textColor).AddOutline(UiColor.Black);
             _imageGrid.MoveCols(1);
         }
     }
@@ -561,7 +561,7 @@ public class AssetBrowser : RustPlugin
             Puts($"{nameof(CreateImageBrowser)} Subfolder: {name}");
             UiButton button = builder.ImageSpriteButton(scroll, _imageGrid, default, _buttonColor, UiSprites.Assets.Icons.Folder, _uiCommands.PathInto.Build(state, name));
             //Puts($"{name}: {_imageGrid.ToPosition()}");
-            builder.Label(button, UiPosition.Full, default, name, 12, _textColor).AddElementOutline(UiColor.Black);
+            builder.Label(button, UiPosition.Full, default, name, 12, _textColor).AddOutline(UiColor.Black);
             _imageGrid.MoveCols(1);
         }
         
@@ -593,7 +593,7 @@ public class AssetBrowser : RustPlugin
         {
             UiButton button = builder.ImageSpriteButton(scroll, _imageGrid, default, _buttonColor, UiSprites.Assets.Icons.Folder, _uiCommands.PathInto.Build(state, name));
             //Puts($"{name}: {_imageGrid.ToPosition()}");
-            builder.Label(button, UiPosition.Full, default, name, 12, _textColor).AddElementOutline(UiColor.Black);
+            builder.Label(button, UiPosition.Full, default, name, 12, _textColor).AddOutline(UiColor.Black);
             _imageGrid.MoveCols(1);
         }
         
@@ -616,7 +616,7 @@ public class AssetBrowser : RustPlugin
         {
             UiButton button = builder.ImageSpriteButton(scroll, _imageGrid, default, _buttonColor, UiSprites.Assets.Icons.Folder, _uiCommands.PathInto.Build(state, name));
             //Puts($"{name}: {_imageGrid.ToPosition()}");
-            builder.Label(button, UiPosition.Full, default, name, 12, _textColor).AddElementOutline(UiColor.Black);
+            builder.Label(button, UiPosition.Full, default, name, 12, _textColor).AddOutline(UiColor.Black);
             _imageGrid.MoveCols(1);
         }
         
@@ -640,7 +640,7 @@ public class AssetBrowser : RustPlugin
         {
             UiButton button = builder.ImageSpriteButton(scroll, _imageGrid, default, _buttonColor, UiSprites.Assets.Icons.Folder, _uiCommands.PathInto.Build(state, name));
             //Puts($"{name}: {_imageGrid.ToPosition()}");
-            builder.Label(button, UiPosition.Full, default, name, 12, _textColor).AddElementOutline(UiColor.Black);
+            builder.Label(button, UiPosition.Full, default, name, 12, _textColor).AddOutline(UiColor.Black);
             _imageGrid.MoveCols(1);
         }
         
