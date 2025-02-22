@@ -33,25 +33,12 @@ public abstract class BaseUiComponent : BasePoolable
         writer.AddFieldRaw(JsonDefaults.Common.ComponentName, Reference.Name);
         writer.AddFieldRaw(JsonDefaults.Common.ParentName, Reference.Parent);
         writer.AddField(JsonDefaults.Common.FadeOutName, FadeOut, JsonDefaults.Common.FadeOut);
-            
-        if (autoDestroy)
-        {
-            writer.AddFieldRaw(JsonDefaults.Common.AutoDestroy, Reference.Name);
-        }
-
+        writer.AddField(JsonDefaults.Common.AutoDestroy, Reference.Name, autoDestroy);
         writer.WritePropertyName(JsonDefaults.Common.ComponentsName);
         writer.WriteStartArray();
         WriteComponents(writer);
-
-        if (needsMouse)
-        {
-            writer.AddMouse();
-        }
-
-        if (needsKeyboard)
-        {
-            writer.AddKeyboard();
-        }
+        writer.AddMouse(needsMouse);
+        writer.AddKeyboard(needsKeyboard);
 
         writer.WriteEndArray();
         writer.WriteEndObject();

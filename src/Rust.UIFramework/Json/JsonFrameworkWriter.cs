@@ -108,7 +108,7 @@ public class JsonFrameworkWriter : BasePoolable
         }
     }
     
-    public void AddField<T>(in Utf8String name, T value, T defaultValue = default) where T : Enum
+    public void AddField<T>(in Utf8String name, T value, T defaultValue = default) where T : struct, Enum
     {
         if (!EqualityComparer<T>.Default.Equals(value, defaultValue))
         {
@@ -228,6 +228,16 @@ public class JsonFrameworkWriter : BasePoolable
         WriteTextValue(value);
     }
     
+        
+    public void AddField(in Utf8String name, string value, bool add)
+    {
+        if (add)
+        {
+            WritePropertyName(name);
+            WriteValue(value);
+        }
+    }
+    
     public void AddTextField(string name, string value, string defaultValue)
     {
         if (value != defaultValue)
@@ -246,18 +256,24 @@ public class JsonFrameworkWriter : BasePoolable
         }
     }
 
-    public void AddMouse()
+    public void AddMouse(bool add)
     {
-        WriteStartObject();
-        AddFieldRaw(JsonDefaults.Common.ComponentTypeName, JsonDefaults.Common.NeedsCursorValue);
-        WriteEndObject();
+        if (add)
+        {
+            WriteStartObject();
+            AddFieldRaw(JsonDefaults.Common.ComponentTypeName, JsonDefaults.Common.NeedsCursorValue);
+            WriteEndObject();
+        }
     }
 
-    public void AddKeyboard()
+    public void AddKeyboard(bool add)
     {
-        WriteStartObject();
-        AddFieldRaw(JsonDefaults.Common.ComponentTypeName, JsonDefaults.Common.NeedsKeyboardValue);
-        WriteEndObject();
+        if (add)
+        {
+            WriteStartObject();
+            AddFieldRaw(JsonDefaults.Common.ComponentTypeName, JsonDefaults.Common.NeedsKeyboardValue);
+            WriteEndObject();
+        }
     }
     #endregion
         

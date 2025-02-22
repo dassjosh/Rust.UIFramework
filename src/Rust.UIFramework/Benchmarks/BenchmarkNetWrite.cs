@@ -8,7 +8,6 @@ using Facepunch;
 using Network;
 using UnityEngine;
 
-namespace Oxide.Ext.UiFramework.Benchmarks;
 internal class BenchmarkNetWrite : Stream, Pool.IPooled
 {
     public byte[] Data;
