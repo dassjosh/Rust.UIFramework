@@ -1,6 +1,6 @@
 ﻿using UnityEngine.UI;
 
-namespace Oxide.Ext.UiFramework.Interfaces.UiElements;
+namespace Oxide.Ext.UiFramework.Interfaces;
 
 public interface IImageType
 {

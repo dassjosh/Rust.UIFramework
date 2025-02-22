@@ -33,8 +33,8 @@ public abstract class BaseTextComponent : CoreComponent
         FadeIn = 0;
         FontSize = JsonDefaults.BaseText.FontSize;
         Font = null;
-        Align = TextAnchor.UpperLeft;
+        Align = default;
         Text = null;
-        VerticalOverflow = VerticalWrapMode.Truncate;
+        VerticalOverflow = default;
     }
 }

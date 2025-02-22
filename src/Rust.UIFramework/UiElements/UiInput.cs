@@ -1,6 +1,7 @@
 ﻿using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Enums;
+using Oxide.Ext.UiFramework.Interfaces;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
 using UnityEngine;
@@ -8,7 +9,7 @@ using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-public class UiInput : BaseUiComponent
+public class UiInput : BaseUiComponent, IFadeIn
 {
     public readonly InputComponent Input = new();
     internal override CoreComponent Component => Input;
@@ -77,5 +78,10 @@ public class UiInput : BaseUiComponent
     public void SetLineType(InputField.LineType lineType)
     {
         Input.LineType = lineType;
+    }
+
+    public void SetFadeIn(float duration)
+    {
+        Input.FadeIn = duration;
     }
 }

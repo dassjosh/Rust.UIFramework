@@ -9,9 +9,5 @@ public class UiSection : BaseUiComponent
     public readonly SectionComponent Section = new();
     internal override CoreComponent Component => Section;
     
-    public static UiSection Create(in UiPosition pos, in UiOffset offset)
-    {
-        UiSection panel = CreateBase<UiSection>(pos, offset);
-        return panel;
-    }
+    public static UiSection Create(in UiPosition pos, in UiOffset offset) => CreateBase<UiSection>(pos, offset);
 }

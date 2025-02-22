@@ -16,7 +16,7 @@ using Oxide.Ext.UiFramework.Benchmarks;
 
 namespace Oxide.Ext.UiFramework.Json;
 
-public class JsonFrameworkWriter : BasePoolable
+public sealed class JsonFrameworkWriter : BasePoolable
 {
     private const byte QuoteChar = (byte)'\"';
     private const byte ArrayStartChar = (byte)'[';

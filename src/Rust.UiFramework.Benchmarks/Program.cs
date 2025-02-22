@@ -21,12 +21,5 @@ class Program
 #else
 
 #endif
-        
-        var a = "test 1 \\\"\\\"";
-        var b = new UiCommandTokenizer(a);
-        var c = b.GetNext().ToString();
-        var d = b.GetNext().ToString();
-        var e = b.GetNext().ToString();
-        var f = b.GetNext().ToString();
     }
 }

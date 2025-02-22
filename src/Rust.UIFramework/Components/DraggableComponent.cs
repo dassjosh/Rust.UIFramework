@@ -6,8 +6,6 @@ namespace Oxide.Ext.UiFramework.Components;
 
 public class DraggableComponent : SubComponent
 {
-    private const string Type = "Draggable";
-
     public bool LimitToParent = JsonDefaults.Draggable.LimitToParent;
     public float MaxDistance = JsonDefaults.Draggable.MaxDistance;
     public bool AllowSwapping = JsonDefaults.Draggable.AllowSwapping;
@@ -27,7 +25,7 @@ public class DraggableComponent : SubComponent
     public override void WriteComponent(JsonFrameworkWriter writer)
     {
         writer.WriteStartObject();
-        writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, Type);
+        writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, JsonDefaults.Draggable.Type);
         writer.AddField(JsonDefaults.Draggable.LimitToParentName, LimitToParent, JsonDefaults.Draggable.LimitToParent);
         writer.AddField(JsonDefaults.Draggable.MaxDistanceName, MaxDistance, JsonDefaults.Draggable.MaxDistance);
         writer.AddField(JsonDefaults.Draggable.AllowSwappingName, AllowSwapping, JsonDefaults.Draggable.AllowSwapping);

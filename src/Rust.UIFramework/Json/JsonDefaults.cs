@@ -15,10 +15,12 @@ public static class JsonDefaults
         public static readonly Utf8String ComponentsName = "components"u8;
         public static readonly Utf8String ComponentName = "name"u8;
         public static readonly Utf8String ParentName = "parent"u8;
+        
         public static readonly Utf8String FadeInName = "fadeIn"u8;
+        public const float FadeIn = 0;
         public static readonly Utf8String FadeOutName = "fadeOut"u8;
         public const float FadeOut = 0;
-        public const float FadeIn = 0;
+
         public static readonly Utf8String RectTransformName = "RectTransform"u8;
         public const string NullValue = null;
         public static readonly Utf8String NeedsCursorValue = "NeedsCursor"u8;
@@ -29,6 +31,7 @@ public static class JsonDefaults
         public static readonly Vector2 Min = new(0, 0);
         public static readonly Vector2 Max = new(1, 1);
         public static readonly UiOffset TextPadding = new(2, 0, -2, 0);
+        public static readonly UiOffset Padding = new(2, 2, -2, -2);
     }
         
     public static class Position
@@ -65,13 +68,18 @@ public static class JsonDefaults
 
     public static class BaseText
     {
-        public const int FontSize = 14;
         public static readonly Utf8String Type = "UnityEngine.UI.Text"u8;
-        public const string FontValue = "RobotoCondensed-Bold.ttf";
+       
         public static readonly Utf8String FontName = "font"u8;
+        public const string FontValue = "RobotoCondensed-Bold.ttf";
+        
         public static readonly Utf8String TextName = "text"u8;
+        
         public static readonly Utf8String FontSizeName = "fontSize"u8;
+        public const int FontSize = 14;
+        
         public static readonly Utf8String AlignName = "align"u8;
+        
         public static readonly Utf8String VerticalOverflowName = "verticalOverflow"u8;
     }
 
@@ -201,65 +209,68 @@ public static class JsonDefaults
 
     public static class ColorBlock
     {
-        public const string HighlightedColorName = "highlightedColor";
+        public static readonly Utf8String HighlightedColorName = "highlightedColor";
         public static readonly UiColor HighlightedColor = UiColor.ParseHexColor("#F5F5F5FF");
         
-        public const string PressedColorName = "pressedColor";
+        public static readonly Utf8String PressedColorName = "pressedColor";
         public static readonly UiColor PressedColor = UiColor.ParseHexColor("#C8C8C8FF");
         
-        public const string SelectedColorName = "selectedColor";
+        public static readonly Utf8String SelectedColorName = "selectedColor";
         public static readonly UiColor SelectedColor = UiColor.ParseHexColor("#F5F5F5FF");
         
-        public const string ColorMultiplierName = "colorMultiplier";
+        public static readonly Utf8String ColorMultiplierName = "colorMultiplier";
         public const float ColorMultiplier = 1f;
         
-        public const string FadeDurationName = "fadeDuration";
+        public static readonly Utf8String FadeDurationName = "fadeDuration";
         public const float FadeDuration = 0.1f;
     }
 
     public static class Draggable
     {
-        public const string LimitToParentName = "limitToParent";
+        public static readonly Utf8String Type = "Draggable";
+        
+        public static readonly Utf8String LimitToParentName = "limitToParent";
         public const bool LimitToParent = false;
         
-        public const string MaxDistanceName = "maxDistance";
+        public static readonly Utf8String MaxDistanceName = "maxDistance";
         public const float MaxDistance = -1f;
         
-        public const string AllowSwappingName = "allowSwapping";
+        public static readonly Utf8String AllowSwappingName = "allowSwapping";
         public const bool AllowSwapping = false;
         
-        public const string DropAnywhereName = "dropAnywhere";
+        public static readonly Utf8String DropAnywhereName = "dropAnywhere";
         public const bool DropAnywhere = false;
         
-        public const string DragAlphaName = "dragAlpha";
+        public static readonly Utf8String DragAlphaName = "dragAlpha";
         public const float DragAlpha = 1f;
         
-        public const string ParentLimitIndexName = "parentLimitIndex";
+        public static readonly Utf8String ParentLimitIndexName = "parentLimitIndex";
         public const int ParentLimitIndex = 1;
         
-        public const string FilterName = "filter";
+        public static readonly Utf8String FilterName = "filter";
         
-        public const string ParentPaddingName = "parentPadding";
+        public static readonly Utf8String ParentPaddingName = "parentPadding";
         public static readonly Vector2 ParentPadding = new(0, 0);
         
-        public const string AnchorOffsetName = "anchorOffset";
+        public static readonly Utf8String AnchorOffsetName = "anchorOffset";
         public static readonly Vector2 AnchorOffset = new(0, 0);
         
-        public const string KeepOnTopName = "keepOnTop";
+        public static readonly Utf8String KeepOnTopName = "keepOnTop";
         public const bool KeepOnTop = false;
         
-        public const string PositionRpcName = "positionRPC";
+        public static readonly Utf8String PositionRpcName = "positionRPC";
         public static readonly DraggablePositionSendType? PositionRpc = null;
         
-        public const string MoveToAnchorName = "moveToAnchor";
+        public static readonly Utf8String MoveToAnchorName = "moveToAnchor";
         public const bool MoveToAnchor = false;
         
-        public const string RebuildAnchorName = "moveToAnchor";
+        public static readonly Utf8String RebuildAnchorName = "moveToAnchor";
         public const bool RebuildAnchor = false;
     }
 
     public static class Slot
     {
-        public const string FilterName = "filter";
+        public static readonly Utf8String Type = "Slot";
+        public static readonly Utf8String FilterName = "filter";
     }
 }

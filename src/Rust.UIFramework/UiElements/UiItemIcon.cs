@@ -1,13 +1,12 @@
 ﻿using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
-using Oxide.Ext.UiFramework.Interfaces.UiElements;
-using Oxide.Ext.UiFramework.Json;
+using Oxide.Ext.UiFramework.Interfaces;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-public class UiItemIcon : BaseUiComponent, IMaterial
+public class UiItemIcon : BaseUiComponent, IMaterial, IFadeIn
 {
     public readonly ItemIconComponent Icon = new();
     internal override CoreComponent Component => Icon;

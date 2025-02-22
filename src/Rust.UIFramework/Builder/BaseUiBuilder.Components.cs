@@ -115,7 +115,7 @@ public partial class BaseUiBuilder
     {
         if (!url.StartsWith("http"))
         {
-            Interface.Oxide.LogWarning($"WebImage Url '{url}' is not a valid url. If trying to use a png id please use {nameof(ImageFileStorage)} instead.");
+            Interface.Oxide.LogWarning($"[UiFramework] WebImage Url '{url}' is not a valid url. If trying to use a png id please use {nameof(ImageFileStorage)} instead.");
             return UiRawImage.CreateDefault(pos, offset);
         }
 
@@ -143,7 +143,7 @@ public partial class BaseUiBuilder
     {
         if (!uint.TryParse(png, out uint _))
         {
-            Interface.Oxide.LogWarning($"Image PNG '{png}' is not a valid uint. If trying to use a url please use WebImage instead.");
+            Interface.Oxide.LogWarning($"[UiFramework] Image PNG '{png}' is not a valid uint. If trying to use a url please use WebImage instead.");
             return UiRawImage.CreateDefault(pos, offset);
         }
 

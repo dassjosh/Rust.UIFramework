@@ -1,13 +1,12 @@
 ﻿using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
-using Oxide.Ext.UiFramework.Interfaces.UiElements;
-using Oxide.Ext.UiFramework.Json;
+using Oxide.Ext.UiFramework.Interfaces;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-public class UiRawImage : BaseUiComponent, IMaterial
+public class UiRawImage : BaseUiComponent, IMaterial, IFadeIn
 {
     public readonly RawImageComponent RawImage = new();
     internal override CoreComponent Component => RawImage;

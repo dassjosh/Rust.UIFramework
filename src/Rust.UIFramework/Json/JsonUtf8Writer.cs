@@ -11,7 +11,7 @@ using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Json;
 
-public class JsonUtf8Writer : BasePoolable
+public sealed class JsonUtf8Writer : BasePoolable
 {
     private const int SegmentSize = 4096;
 
