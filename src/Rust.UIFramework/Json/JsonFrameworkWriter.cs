@@ -117,6 +117,15 @@ public class JsonFrameworkWriter : BasePoolable
         }
     }
     
+    public void AddField<T>(in Utf8String name, T? value) where T : struct, Enum
+    {
+        if (value.HasValue)
+        {
+            WritePropertyName(name);
+            WriteValue(Utf8EnumCache<T>.ToUtf8Number(value.Value));
+        }
+    }
+    
     public void AddField(in Utf8String name, int value, int defaultValue)
     {
         if (value != defaultValue)

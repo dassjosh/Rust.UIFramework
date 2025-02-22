@@ -30,16 +30,4 @@ public class UiItemIcon : BaseUiComponent, IMaterial
     {
         Icon.Material = material;
     }
-
-    protected override void WriteComponents(JsonFrameworkWriter writer)
-    {
-        Icon.WriteComponent(writer);
-        base.WriteComponents(writer);
-    }
-
-    protected override void EnterPool()
-    {
-        base.EnterPool();
-        Icon.Reset();
-    }
 }

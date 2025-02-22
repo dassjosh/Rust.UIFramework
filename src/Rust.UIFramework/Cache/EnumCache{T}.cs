@@ -7,24 +7,19 @@ namespace Oxide.Ext.UiFramework.Cache;
 public static class EnumCache<T> where T : Enum
 {
     private static readonly ConcurrentDictionary<T, string> CachedStrings = new();
-    private static readonly ConcurrentDictionary<T, string> CachedNumbers = new();
+    private static readonly ConcurrentDictionary<T, string> LowerStrings = new();
 
     static EnumCache()
     {
         foreach (T value in Enum.GetValues(typeof(T)).Cast<T>())
         {
-            CachedStrings[value] = value.ToString();
-            CachedNumbers[value] = value.ToString("D");
+            string enumString = value.ToString();
+            CachedStrings[value] = enumString;
+            LowerStrings[value] = enumString.ToLower();
         }
     }
         
-    public static string ToString(T value)
-    {
-        return CachedStrings[value];
-    }
+    public static string ToString(T value) => CachedStrings[value];
 
-    public static string ToNumber(T value)
-    {
-        return CachedNumbers[value];
-    }
+    public static string ToLower(T value) => LowerStrings[value];
 }

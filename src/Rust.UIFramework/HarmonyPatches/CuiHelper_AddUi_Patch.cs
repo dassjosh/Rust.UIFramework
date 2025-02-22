@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Reflection;
 using HarmonyLib;
-using Oxide.Ext.UiFramework.Builders;
+using Oxide.Ext.UiFramework.Builder;
 using Oxide.Ext.UiFramework.Config;
 using Oxide.Ext.UiFramework.Threading;
 using Oxide.Game.Rust.Cui;
