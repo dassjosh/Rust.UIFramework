@@ -18,6 +18,8 @@ internal class SimpleProtection : ICommandProtection
         _protectionKey = Convert.ToBase64String(BitConverter.GetBytes(value));
     }
     
+    internal string GetProtectionKey() => _protectionKey;
+    
     public ArgWriterIterator StartWriteProtection(ArgWriterIterator writer)
     {
         writer.WriteSafe(_protectionKey);

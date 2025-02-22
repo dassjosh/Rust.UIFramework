@@ -10,7 +10,6 @@ internal ref struct ArgReaderIterator(IArgReader[] readers)
     {
         ReadOnlySpan<char> arg = args.GetNext();
         T value = ((IArgReader<T>)readers[_index++]).Read(arg);
-        Interface.Oxide.LogDebug($"ParseNext<{typeof(T).Name}> {arg.ToString()} -> {value}");
         return value;
     }
 }

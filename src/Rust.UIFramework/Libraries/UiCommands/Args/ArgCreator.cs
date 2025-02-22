@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Oxide.Core;
 using Oxide.Ext.UiFramework.Cache;
-using Oxide.Ext.UiFramework.Exceptions.UiCommands;
+using Oxide.Ext.UiFramework.Exceptions;
 using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Types;
@@ -104,11 +104,7 @@ internal static class ArgCreator
             BaseNetworkable networkable = BaseNetworkable.serverEntities.Find(new NetworkableId(ulong.Parse(span)));
             return networkable is T entity ? entity : default;
         }, (writer, arg) => writer.AppendArg((arg as BaseNetworkable)?.net.ID.Value));
-        if(type.IsEnum) return new ArgHandler<T>(span =>
-        {
-            Interface.Oxide.LogDebug($"Enum {type} {span.ToString()}");
-            return Enum.TryParse(type, span.ToString(), out object result) && result is T @enum ? @enum : default;
-        }, (writer, arg) => writer.AppendSafe(StringCache<T>.ToString(arg)));
+        if(type.IsEnum) return new ArgHandler<T>(span => Enum.TryParse(type, span.ToString(), out object result) && result is T @enum ? @enum : default, (writer, arg) => writer.AppendSafe(StringCache<T>.ToString(arg)));
         
         return null;
     }

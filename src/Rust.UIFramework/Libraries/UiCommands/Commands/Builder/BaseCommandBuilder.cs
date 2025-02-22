@@ -3,9 +3,9 @@ using Oxide.Ext.UiFramework.Pooling;
 
 namespace Oxide.Ext.UiFramework.Libraries.UiCommands;
 
-internal abstract class BaseCommandBuilder(PluginCommand command, ICommandProtection protection, IArgWriter[] writers)
+internal abstract class BaseCommandBuilder(CommandId command, ICommandProtection protection, IArgWriter[] writers)
 {
-    private readonly string _commandPrefix = $"{UiCommands.UiCommandName}{command.Plugin} {command.CommandId}";
+    private readonly string _commandPrefix = $"{UiCommands.UiCommandName} {command.Id}";
 
     protected ArgWriterIterator StartBuilding()
     {

@@ -1,5 +1,5 @@
 ﻿using System;
-using Oxide.Ext.UiFramework.Exceptions.UiCommands;
+using Oxide.Ext.UiFramework.Exceptions;
 
 namespace Oxide.Ext.UiFramework.Libraries.UiCommands;
 
@@ -10,33 +10,30 @@ internal ref struct UiCommandTokenizer(string str)
     public ReadOnlySpan<char> GetNext()
     {
         ReadOnlySpan<char> remaining = _remaining;
-        if (remaining.Length == 0)
-        {
-            throw new FailedToParseArgumentException();
-        }
+        if (remaining.Length == 0) throw new FailedToParseArgumentException();
 
         int index;
+        //Process escaped quotes
         if (remaining[0] == '\\' && remaining.Length >= 4 && remaining[1] == '"')
         {
             remaining = remaining[2..];
-            index = remaining.IndexOf('"') - 1;
-        }
-        else
-        {
-            index = remaining.IndexOf(' ');
+            index = remaining.IndexOf('"');
+            ReadOnlySpan<char> quoted = remaining[..(index-1)];
+            _remaining = remaining[Math.Min(remaining.Length, index + 1)..];
+            return quoted;
         }
 
+        index = remaining.IndexOf(' ');
         if (index == -1)
         {
             index = remaining.Length;
         }
-            
-        if (index == 0)
+        else if (index == 0)
         {
             _remaining = remaining[1..];
             return GetNext();
         }
-        
+
         _remaining = remaining[Math.Min(remaining.Length, index + 1)..];
         return remaining[..index];
     }

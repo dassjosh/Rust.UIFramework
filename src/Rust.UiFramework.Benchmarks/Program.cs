@@ -1,4 +1,5 @@
-﻿#if BENCHMARKS
+﻿using Oxide.Ext.UiFramework.Libraries.UiCommands;
+#if BENCHMARKS
 using BenchmarkDotNet.Configs;
 using BenchmarkDotNet.Jobs;
 using BenchmarkDotNet.Running;
@@ -18,7 +19,14 @@ class Program
             .WithOptions(ConfigOptions.DisableOptimizationsValidator);
         BenchmarkRunner.Run<Benchmarks>(config, args);
 #else
-         
+
 #endif
+        
+        var a = "test 1 \\\"\\\"";
+        var b = new UiCommandTokenizer(a);
+        var c = b.GetNext().ToString();
+        var d = b.GetNext().ToString();
+        var e = b.GetNext().ToString();
+        var f = b.GetNext().ToString();
     }
 }

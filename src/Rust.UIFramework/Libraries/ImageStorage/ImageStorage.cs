@@ -59,7 +59,9 @@ internal class ImageStorage : BaseUiFrameworkLibrary, ISingleton
             return url;
         }
 
+#pragma warning disable EPC13
         Task.Run(() => DownloadImageInternal(url));
+#pragma warning restore EPC13
         
         return url;
     }
