@@ -16,10 +16,10 @@ internal ref struct UiCommandTokenizer(string str)
         }
 
         int index;
-        if (remaining[0] == '"')
+        if (remaining[0] == '\\' && remaining.Length >= 4 && remaining[1] == '"')
         {
-            remaining = remaining[1..];
-            index = remaining.IndexOf('"');
+            remaining = remaining[2..];
+            index = remaining.IndexOf('"') - 1;
         }
         else
         {

@@ -15,80 +15,82 @@ public delegate void OnProtectionValidationFailed(BasePlayer player, string meth
 
 public class UiCommands : BaseUiFrameworkLibrary, ISingleton
 {
-    internal const string UiCommandName = "UIFramework_EXT_";
+    internal const string UiCommandName = "UIF_EXT_C ";
     private readonly Dictionary<PluginCommand, ICommandParser> _commands = new();
     private readonly Dictionary<PluginId, OnPlayerNoPermission> _playerNoPermission = new();
     private readonly Dictionary<PluginId, OnPlayerCooldown> _playerOnCooldown = new();
     private readonly Dictionary<PluginId, OnProtectionValidationFailed> _protectionValidationFailed = new();
+
+    private UiCommands() { }
     
     public ICommandBuilder RegisterCommand(Plugin plugin, Action<BasePlayer> method)
     {
-        ParseCommand(plugin, method.Method, out PluginId pluginId, out PluginCommand command, out ICommandProtection protection, out ICooldownHandler cooldown, out IPermissionHandler permission);
-        _commands[command] = new CommandParser(pluginId, method, protection, cooldown, permission);
+        ParseCommand(plugin, method.Method, out PluginCommand command, out ICommandProtection protection, out ICooldownHandler cooldown, out IPermissionHandler permission);
+        _commands[command] = new CommandParser(plugin, method, protection, cooldown, permission);
         return new CommandBuilder(command, protection);
     }
 
     public ICommandBuilder<T0> RegisterCommand<T0>(Plugin plugin, Action<BasePlayer, T0> method)
     {
-        ParseCommand(plugin, method.Method, out PluginId pluginId, out PluginCommand command, out ICommandProtection protection, out ICooldownHandler cooldown, out IPermissionHandler permission);
-        _commands[command] = new CommandParser<T0>(pluginId, method, protection, cooldown, permission);
+        ParseCommand(plugin, method.Method, out PluginCommand command, out ICommandProtection protection, out ICooldownHandler cooldown, out IPermissionHandler permission);
+        _commands[command] = new CommandParser<T0>(plugin, method, protection, cooldown, permission);
         return new CommandBuilder<T0>(command, protection);
     }
 
     public ICommandBuilder<T0, T1> RegisterCommand<T0, T1>(Plugin plugin, Action<BasePlayer, T0, T1> method)
     {
-        ParseCommand(plugin, method.Method, out PluginId pluginId, out PluginCommand command, out ICommandProtection protection, out ICooldownHandler cooldown, out IPermissionHandler permission);
-        _commands[command] = new CommandParser<T0, T1>(pluginId, method, protection, cooldown, permission);
+        ParseCommand(plugin, method.Method, out PluginCommand command, out ICommandProtection protection, out ICooldownHandler cooldown, out IPermissionHandler permission);
+        _commands[command] = new CommandParser<T0, T1>(plugin, method, protection, cooldown, permission);
         return new CommandBuilder<T0, T1>(command, protection);
     }
 
     public ICommandBuilder<T0, T1, T2> RegisterCommand<T0, T1, T2>(Plugin plugin, Action<BasePlayer, T0, T1, T2> method)
     {
-        ParseCommand(plugin, method.Method, out PluginId pluginId, out PluginCommand command, out ICommandProtection protection, out ICooldownHandler cooldown, out IPermissionHandler permission);
-        _commands[command] = new CommandParser<T0, T1, T2>(pluginId, method, protection, cooldown, permission);
+        ParseCommand(plugin, method.Method, out PluginCommand command, out ICommandProtection protection, out ICooldownHandler cooldown, out IPermissionHandler permission);
+        _commands[command] = new CommandParser<T0, T1, T2>(plugin, method, protection, cooldown, permission);
         return new CommandBuilder<T0, T1, T2>(command, protection);
     }
 
     public ICommandBuilder<T0, T1, T2, T3> RegisterCommand<T0, T1, T2, T3>(Plugin plugin, Action<BasePlayer, T0, T1, T2, T3> method)
     {
-        ParseCommand(plugin, method.Method, out PluginId pluginId, out PluginCommand command, out ICommandProtection protection, out ICooldownHandler cooldown, out IPermissionHandler permission);
-        _commands[command] = new CommandParser<T0, T1, T2, T3>(pluginId, method, protection, cooldown, permission);
+        ParseCommand(plugin, method.Method, out PluginCommand command, out ICommandProtection protection, out ICooldownHandler cooldown, out IPermissionHandler permission);
+        _commands[command] = new CommandParser<T0, T1, T2, T3>(plugin, method, protection, cooldown, permission);
         return new CommandBuilder<T0, T1, T2, T3>(command, protection);
     }
 
     public ICommandBuilder<T0, T1, T2, T3, T4> RegisterCommand<T0, T1, T2, T3, T4>(Plugin plugin, Action<BasePlayer, T0, T1, T2, T3, T4> method)
     {
-        ParseCommand(plugin, method.Method, out PluginId pluginId, out PluginCommand command, out ICommandProtection protection, out ICooldownHandler cooldown, out IPermissionHandler permission);
-        _commands[command] = new CommandParser<T0, T1, T2, T3, T4>(pluginId, method, protection, cooldown, permission);
+        ParseCommand(plugin, method.Method, out PluginCommand command, out ICommandProtection protection, out ICooldownHandler cooldown, out IPermissionHandler permission);
+        _commands[command] = new CommandParser<T0, T1, T2, T3, T4>(plugin, method, protection, cooldown, permission);
         return new CommandBuilder<T0, T1, T2, T3, T4>(command, protection);
     }
 
     public ICommandBuilder<T0, T1, T2, T3, T4, T5> RegisterCommand<T0, T1, T2, T3, T4, T5>(Plugin plugin, Action<BasePlayer, T0, T1, T2, T3, T4, T5> method)
     {
-        ParseCommand(plugin, method.Method, out PluginId pluginId, out PluginCommand command, out ICommandProtection protection, out ICooldownHandler cooldown, out IPermissionHandler permission);
-        _commands[command] = new CommandParser<T0, T1, T2, T3, T4, T5>(pluginId, method, protection, cooldown, permission);
+        ParseCommand(plugin, method.Method, out PluginCommand command, out ICommandProtection protection, out ICooldownHandler cooldown, out IPermissionHandler permission);
+        _commands[command] = new CommandParser<T0, T1, T2, T3, T4, T5>(plugin, method, protection, cooldown, permission);
         return new CommandBuilder<T0, T1, T2, T3, T4, T5>(command, protection);
     }
 
     public ICommandBuilder<T0, T1, T2, T3, T4, T5, T6> RegisterCommand<T0, T1, T2, T3, T4, T5, T6>(Plugin plugin, Action<BasePlayer, T0, T1, T2, T3, T4, T5, T6> method)
     {
-        ParseCommand(plugin, method.Method, out PluginId pluginId, out PluginCommand command, out ICommandProtection protection, out ICooldownHandler cooldown, out IPermissionHandler permission);
-        _commands[command] = new CommandParser<T0, T1, T2, T3, T4, T5, T6>(pluginId, method, protection, cooldown, permission);
+        ParseCommand(plugin, method.Method, out PluginCommand command, out ICommandProtection protection, out ICooldownHandler cooldown, out IPermissionHandler permission);
+        _commands[command] = new CommandParser<T0, T1, T2, T3, T4, T5, T6>(plugin, method, protection, cooldown, permission);
         return new CommandBuilder<T0, T1, T2, T3, T4, T5, T6>(command, protection);
     }
 
     public ICommandBuilder<T0, T1, T2, T3, T4, T5, T6, T7> RegisterCommand<T0, T1, T2, T3, T4, T5, T6, T7>(Plugin plugin, Action<BasePlayer, T0, T1, T2, T3, T4, T5, T6, T7> method)
     {
-        ParseCommand(plugin, method.Method, out PluginId pluginId, out PluginCommand command, out ICommandProtection protection, out ICooldownHandler cooldown, out IPermissionHandler permission);
-        _commands[command] = new CommandParser<T0, T1, T2, T3, T4, T5, T6, T7>(pluginId, method, protection, cooldown, permission);
+        ParseCommand(plugin, method.Method, out PluginCommand command, out ICommandProtection protection, out ICooldownHandler cooldown, out IPermissionHandler permission);
+        _commands[command] = new CommandParser<T0, T1, T2, T3, T4, T5, T6, T7>(plugin, method, protection, cooldown, permission);
         return new CommandBuilder<T0, T1, T2, T3, T4, T5, T6, T7>(command, protection);
     }
 
-    private void ParseCommand(Plugin plugin, MethodInfo method, out PluginId pluginId, out PluginCommand command, out ICommandProtection protection, out ICooldownHandler cooldown, out IPermissionHandler permission)
+    private void ParseCommand(Plugin plugin, MethodInfo method, out PluginCommand command, out ICommandProtection protection, out ICooldownHandler cooldown, out IPermissionHandler permission)
     {
         if (plugin == null) throw new ArgumentNullException(nameof(plugin));
         if (method == null) throw new ArgumentNullException(nameof(method));
-        pluginId = plugin.Id();
+        PluginId pluginId = plugin.Id();
         UiCommandAttribute attribute = method.GetCustomAttribute<UiCommandAttribute>();
         if (attribute == null)
         {

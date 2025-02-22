@@ -5,7 +5,7 @@ using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Libraries.UiCommands;
 
-public class CommandIdHandler : ISingleton
+internal class CommandIdHandler : ISingleton
 {
     private readonly Dictionary<IntPtr, uint> _methodIds = new();
     private uint _nextId;

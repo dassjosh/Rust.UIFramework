@@ -7,23 +7,19 @@ using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Libraries;
 
-public delegate IPlayerStore CreatePlayerStore(ulong playerId);
-
 public class UiPlayerStore : BaseUiFrameworkLibrary, ISingleton
 {
     private readonly Dictionary<PluginPlayerStore, IPlayerStore> _stores = new();
-    private readonly Dictionary<PluginId, CreatePlayerStore> _storeCreators = new();
 
     private UiPlayerStore() { }
+
+    public void CreateStore<T>(Plugin plugin, T store) where T : IPlayerStore => _stores[new PluginPlayerStore(plugin.Id(), store.PlayerId)] = store;
+    public T GetStore<T>(Plugin plugin, BasePlayer player) where T : IPlayerStore => GetStore<T>(plugin, player.userID.Get());
+    public T GetStore<T>(Plugin plugin, ulong playerId) where T : IPlayerStore => (T)_stores[new PluginPlayerStore(plugin.Id(), playerId)];
     
-    public void RegisterStore(Plugin plugin, CreatePlayerStore creator)
-    {
-        _storeCreators[plugin.Id()] = creator;
-    }
+    public T GetOrCreateStore<T>(Plugin plugin, BasePlayer player) where T : IPlayerStore, new() => GetOrCreateStore<T>(plugin, player.userID.Get());
 
-    public T GetOrCreateStore<T>(Plugin plugin, BasePlayer player) where T : IPlayerStore => GetOrCreateStore<T>(plugin, player.userID.Get());
-
-    public T GetOrCreateStore<T>(Plugin plugin, ulong playerId) where T : IPlayerStore => (T)GetOrCreateStore<T>(plugin.Id(), playerId);
+    public T GetOrCreateStore<T>(Plugin plugin, ulong playerId) where T : IPlayerStore, new() => (T)GetOrCreateStore<T>(plugin.Id(), playerId);
     
     internal IPlayerStore GetOrCreateStore<T>(PluginId pluginId, ulong playerId)
     {
@@ -33,13 +29,8 @@ public class UiPlayerStore : BaseUiFrameworkLibrary, ISingleton
             return value;
         }
 
-        if (_storeCreators.TryGetValue(key.PluginId, out CreatePlayerStore creator))
-        {
-            _stores[key] = value = creator(playerId);
-            return value;
-        }
-
-        value = (IPlayerStore)Activator.CreateInstance(typeof(T), playerId);
+        value = (IPlayerStore)Activator.CreateInstance(typeof(T));
+        value.PlayerId = playerId;
         _stores[key] = value;
         return value;
     }
@@ -48,7 +39,6 @@ public class UiPlayerStore : BaseUiFrameworkLibrary, ISingleton
     {
         PluginId pluginId = plugin.Id();
         _stores.RemoveAll(s => s.Key.PluginId == pluginId);
-        _storeCreators.Remove(pluginId);
     }
 
     protected override void OnPlayerDisconnected(BasePlayer player)

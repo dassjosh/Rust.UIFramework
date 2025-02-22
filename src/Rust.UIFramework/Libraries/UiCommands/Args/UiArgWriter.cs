@@ -237,10 +237,25 @@ public readonly ref struct UiArgWriter(StringBuilder sb)
         sb.AppendSpan(value);
     }
     
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void AppendArg(in char? value)
     {
         AppendSpace();
         sb.AppendSpan(value);
+    }
+    
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal void AppendSafe(string value)
+    {
+        AppendSpace();
+        sb.Append(value);
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal void AppendSafe(in ReadOnlySpan<char> span)
+    {
+        AppendSpace();
+        sb.Append(span);
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]

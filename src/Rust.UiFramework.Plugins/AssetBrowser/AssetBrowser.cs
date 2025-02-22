@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using Facepunch.CardGames;
+using Network;
 using Newtonsoft.Json;
 using Oxide.Core;
 using Oxide.Ext.UiFramework.Builder.UI;
@@ -14,6 +15,8 @@ using Oxide.Ext.UiFramework.Constants;
 using Oxide.Ext.UiFramework.Controls;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Extensions;
+using Oxide.Ext.UiFramework.Libraries;
+using Oxide.Ext.UiFramework.Libraries.UiCommands;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.Types;
@@ -33,8 +36,6 @@ public class AssetBrowser : RustPlugin
     private const string AccentColor = "#de8732";
 
     private static AssetBrowser _ins;
-
-    private readonly Hash<ulong, UiState> _playerStates = new();
     
     private readonly Folder _sprites = Folder.CreateFolders(typeof(UiSprites));
     private readonly Folder _textures = Folder.CreateFolders(typeof(UiTextures));
@@ -42,6 +43,10 @@ public class AssetBrowser : RustPlugin
     private readonly Folder _fonts = Folder.CreateFolders(typeof(UiFontCache));
     private readonly Folder _playingCards = new("root", string.Empty, null);
     private readonly Folder _items = new("root", string.Empty, null);
+
+    private readonly UiCommands _commands = GetLibrary<UiCommands>();
+    private readonly UiPlayerStore _store = GetLibrary<UiPlayerStore>();
+    private UiCommandHandler _uiCommands;
     
     public enum AssetType
     {
@@ -60,8 +65,8 @@ public class AssetBrowser : RustPlugin
     private void Init()
     {
         _ins = this;
-
         permission.RegisterPermission(UsePermission, this);
+        _uiCommands = new UiCommandHandler(this);
     }
 
     protected override void LoadDefaultMessages()
@@ -169,6 +174,11 @@ public class AssetBrowser : RustPlugin
         
         CreateUi(player);
     }
+
+    private void OnClientCommand(Connection connection, string command)
+    {
+        Puts(command);
+    }
     #endregion
 
     #region Helper Methods
@@ -225,114 +235,115 @@ public class AssetBrowser : RustPlugin
     }
 
     public class Folder
-{
-    public readonly string Name;
-    public readonly string Path;
-    public readonly Dictionary<string, Folder> Subfolders = new ();
-    public readonly Dictionary<string, string> Files = new ();
-
-    public Folder(string name, string path, Folder parent)
     {
-        Name = name;
-        if (!string.IsNullOrEmpty(path) && !string.IsNullOrEmpty(name))
-        {
-            Path = $"{path}/{name}";
-        } 
-        else if (string.IsNullOrEmpty(path))
-        {
-            Path = name;
-        }
-        else
-        {
-            Path = string.Empty;
-        }
-    }
+        public readonly string Name;
+        public readonly string Path;
+        public readonly Dictionary<string, Folder> Subfolders = new ();
+        public readonly Dictionary<string, string> Files = new ();
 
-    public static Folder CreateFolders(Type type)
-    {
-        Folder root = new("", "", null);
-        ProcessFolder(type, root);
-        return root;
-    }
-
-    public Folder GetOrCreateFolder(string name)
-    {
-        if (!Subfolders.TryGetValue(name, out Folder folder))
+        public Folder(string name, string path, Folder parent)
         {
-            Subfolders[name] = folder = new Folder(name, Path, this);
-        }
-
-        return folder;
-    }
-    
-    public void AddFolder(string name, Folder folder)
-    {
-        if (!Subfolders.TryAdd(name, folder))
-        {
-            throw new Exception($"{name} folder cannot be duplicated");
-        }
-    }
-		
-    public void AddFile(string name, string assetPath)
-    {
-        if (!Files.TryAdd(name, assetPath))
-        {
-            throw new Exception($"{name} file cannot be duplicated");
-        }
-    }
-
-    public Folder GetFolderFromPath(string path)
-    {
-        StringTokenizer tokenizer = new(path, "/");
-        Folder folder = this;
-        while (tokenizer.MoveNext())
-        {
-            folder = folder.GetFolder(tokenizer.Current);
-        }
-
-        return folder;
-    }
-    
-    public Folder GetFolder(ReadOnlySpan<char> folder)
-    {
-        return Subfolders[folder.ToString()];
-    }
-
-    public IEnumerable<string> EnumerateFolders()
-    {
-        if (Files.Count != 0)
-        {
-            yield return Path;
-        }
-
-        foreach (string paths in Subfolders.Values.SelectMany(folder => folder.EnumerateFolders()))
-        {
-            yield return paths;
-        }
-    }
-    
-    private static void ProcessFolder(Type type, Folder folder)
-    {
-        foreach (Type subType in type.GetNestedTypes())
-        {
-            Folder subFolder = folder.GetOrCreateFolder(subType.Name);
-            ProcessFolder(subType, subFolder);
-        }
-
-        Type stringType = typeof(string);
-        foreach (FieldInfo field in type.GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy))
-        {
-            if (field.IsLiteral && !field.IsInitOnly && field.FieldType == stringType)
+            Name = name;
+            if (!string.IsNullOrEmpty(path) && !string.IsNullOrEmpty(name))
             {
-                string value = (string)field.GetRawConstantValue();
-                folder.AddFile(field.Name, value);
+                Path = $"{path}/{name}";
+            } 
+            else if (string.IsNullOrEmpty(path))
+            {
+                Path = name;
+            }
+            else
+            {
+                Path = string.Empty;
+            }
+        }
+
+        public static Folder CreateFolders(Type type)
+        {
+            Folder root = new("", "", null);
+            ProcessFolder(type, root);
+            return root;
+        }
+
+        public Folder GetOrCreateFolder(string name)
+        {
+            if (!Subfolders.TryGetValue(name, out Folder folder))
+            {
+                Subfolders[name] = folder = new Folder(name, Path, this);
+            }
+
+            return folder;
+        }
+    
+        public void AddFolder(string name, Folder folder)
+        {
+            if (!Subfolders.TryAdd(name, folder))
+            {
+                throw new Exception($"{name} folder cannot be duplicated");
+            }
+        }
+		
+        public void AddFile(string name, string assetPath)
+        {
+            if (!Files.TryAdd(name, assetPath))
+            {
+                throw new Exception($"{name} file cannot be duplicated");
+            }
+        }
+
+        public Folder GetFolderFromPath(string path)
+        {
+            StringTokenizer tokenizer = new(path, "/");
+            Folder folder = this;
+            while (tokenizer.MoveNext())
+            {
+                folder = folder.GetFolder(tokenizer.Current);
+            }
+
+            return folder;
+        }
+    
+        public Folder GetFolder(ReadOnlySpan<char> folder)
+        {
+            return Subfolders[folder.ToString()];
+        }
+
+        public IEnumerable<string> EnumerateFolders()
+        {
+            if (Files.Count != 0)
+            {
+                yield return Path;
+            }
+
+            foreach (string paths in Subfolders.Values.SelectMany(folder => folder.EnumerateFolders()))
+            {
+                yield return paths;
+            }
+        }
+    
+        private static void ProcessFolder(Type type, Folder folder)
+        {
+            foreach (Type subType in type.GetNestedTypes())
+            {
+                Folder subFolder = folder.GetOrCreateFolder(subType.Name);
+                ProcessFolder(subType, subFolder);
+            }
+
+            Type stringType = typeof(string);
+            foreach (FieldInfo field in type.GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy))
+            {
+                if (field.IsLiteral && !field.IsInitOnly && field.FieldType == stringType)
+                {
+                    string value = (string)field.GetRawConstantValue();
+                    folder.AddFile(field.Name, value);
+                }
             }
         }
     }
-}
     
-    public class UiState
+    public class UiState : IPlayerStore
     {
+        public ulong PlayerId { get; set; }
         public AssetType Type { get; private set; }
         public string Path { get; private set; }
         public string SelectedAsset { get; set; }
@@ -340,7 +351,7 @@ public class AssetBrowser : RustPlugin
         public Folder CurrentFolder { get; private set; }
         private readonly List<string> RootFolderPaths = new();
         private int FolderIndex = 0;
-
+        
         public UiState()
         {
             //SetType(AssetType.Texture);
@@ -451,9 +462,7 @@ public class AssetBrowser : RustPlugin
 
     public void CreateUi(BasePlayer player)
     {
-        UiState state = new();
-        _playerStates[player.userID] = state;
-        CreateUi(player, state);
+        CreateUi(player, _store.GetOrCreateStore<UiState>(this, player));
     }
 
     private void CreateUi(BasePlayer player, UiState state)
@@ -465,7 +474,7 @@ public class AssetBrowser : RustPlugin
         
         UiSection titleBar = builder.Section(builder.Root, new UiPosition(0, 0.95f, 1, 1));
         builder.Label(titleBar, new UiPosition(0.4f, 0, 0.6f, 1), default, "Asset Browser", 14, _textColor);
-        UiButton closeButton = builder.CommandButton(titleBar, new UiPosition(0.95f, 0, 1, 1), default, UiColor.Clear, nameof(AssetBrowser_CloseCommand));
+        UiButton closeButton = builder.CommandButton(titleBar, new UiPosition(0.95f, 0, 1, 1), default, UiColor.Clear, _uiCommands.CloseUi.Build());
         builder.ImageSprite(closeButton, UiPosition.Full, default, UiSprites.Assets.Icons.Close, UiColor.Red);
         
         UiSection pathBar = builder.Section(builder.Root, new UiPosition(0, 0.9f, 1, 0.95f), new UiOffset(1, 1, -1, -1));
@@ -479,24 +488,22 @@ public class AssetBrowser : RustPlugin
 
         if (state.Type != AssetType.None)
         {
-            builder.ImageSpriteButton(pathBar, new UiPosition(0.00f, 0, 0.05f, 1), default, "#BAB1A8FF", UiSprites.Assets.Icons.DirLeft, nameof(AssetBrowser_PrevFolder));
-            builder.ImageSpriteButton(pathBar, new UiPosition(0.05f, 0, 0.1f, 1), default, "#BAB1A8FF", UiSprites.Assets.Icons.ArrowRight, nameof(AssetBrowser_NextFolder));
+            builder.ImageSpriteButton(pathBar, new UiPosition(0.00f, 0, 0.05f, 1), default, "#BAB1A8FF", UiSprites.Assets.Icons.DirLeft, _uiCommands.PrevFolder.Build(state));
+            builder.ImageSpriteButton(pathBar, new UiPosition(0.05f, 0, 0.1f, 1), default, "#BAB1A8FF", UiSprites.Assets.Icons.ArrowRight, _uiCommands.NextFolder.Build(state));
         }
         
-        builder.ImageSpriteButton(pathBar, new UiPosition(0.90f, 0, 0.95f, 1), default, "#BAB1A8FF", UiSprites.Assets.Icons.FolderUp, nameof(AssetBrowser_PathUp));
+        builder.ImageSpriteButton(pathBar, new UiPosition(0.90f, 0, 0.95f, 1), default, "#BAB1A8FF", UiSprites.Assets.Icons.FolderUp, _uiCommands.PathUp.Build(state));
         
         UiSection body = builder.Section(builder.Root, new UiPosition(0, 0, 1, 0.90f), new UiOffset(2, 2, -2, -2));
         
         switch (state.Type)
         {
             case AssetType.None:
-                CreateSelectType(builder, body);
-                Puts("A");
+                CreateSelectType(builder, body, state);
                 break;
             case AssetType.Sprite:
             case AssetType.Texture:
                 CreateImageBrowser(builder, body, state);
-                Puts("B");
                 break;
             case AssetType.Material:
                 CreateMaterialBrowser(builder, body, state);
@@ -528,12 +535,12 @@ public class AssetBrowser : RustPlugin
 
     //private readonly GridPosition _selectTypeGrid = new GridPositionBuilder(ImageColumns, ImageRows).SetPadding(0.0025f).Build();
     
-    private void CreateSelectType(UiBuilder builder, UiReference root)
+    private void CreateSelectType(UiBuilder builder, UiReference root, UiState state)
     {
         _imageGrid.Reset();
         foreach (AssetType type in Enum.GetValues(typeof(AssetType)).Cast<AssetType>().Where(at => at != AssetType.None))
         {
-            UiButton button = builder.CommandButton(root, _imageGrid, default, _buttonColor, $"{nameof(AssetBrowser_SelectAssetType)} {EnumCache<AssetType>.ToString(type)}");
+            UiButton button = builder.CommandButton(root, _imageGrid, default, _buttonColor, _uiCommands.SelectAssetType.Build(state, type));
             builder.ImageSprite(button, UiPosition.Full, default, UiSprites.Assets.Icons.Folder, UiColor.White);
             builder.Label(button, UiPosition.Full, default, EnumCache<AssetType>.ToString(type), 14, _textColor).AddElementOutline(UiColor.Black);
             _imageGrid.MoveCols(1);
@@ -552,7 +559,7 @@ public class AssetBrowser : RustPlugin
         foreach (string name in folder.Subfolders.Keys)
         {
             Puts($"{nameof(CreateImageBrowser)} Subfolder: {name}");
-            UiButton button = builder.ImageSpriteButton(scroll, _imageGrid, default, _buttonColor, UiSprites.Assets.Icons.Folder, $"{nameof(AssetBrowser_PathInto)} {name}");
+            UiButton button = builder.ImageSpriteButton(scroll, _imageGrid, default, _buttonColor, UiSprites.Assets.Icons.Folder, _uiCommands.PathInto.Build(state, name));
             //Puts($"{name}: {_imageGrid.ToPosition()}");
             builder.Label(button, UiPosition.Full, default, name, 12, _textColor).AddElementOutline(UiColor.Black);
             _imageGrid.MoveCols(1);
@@ -561,7 +568,7 @@ public class AssetBrowser : RustPlugin
         foreach (KeyValuePair<string, string> pair in folder.Files)
         {
             //Puts($"{pair.Key}: {_imageGrid.ToPosition()}");
-            UiButton button = builder.CommandButton(scroll, _imageGrid, default, _buttonColor, $"{nameof(AssetBrowser_SelectAsset)} \"{pair.Value}\"");
+            UiButton button = builder.CommandButton(scroll, _imageGrid, default, _buttonColor, _uiCommands.SelectAsset.Build(pair.Value));
             if (state.Type == AssetType.Sprite)
             {
                 UiImage sprite = builder.ImageSprite(button, UiPosition.Full, default, pair.Value, UiColor.White);
@@ -584,7 +591,7 @@ public class AssetBrowser : RustPlugin
         
         foreach (string name in folder.Subfolders.Keys)
         {
-            UiButton button = builder.ImageSpriteButton(scroll, _imageGrid, default, _buttonColor, UiSprites.Assets.Icons.Folder, $"{nameof(AssetBrowser_PathInto)} {name}");
+            UiButton button = builder.ImageSpriteButton(scroll, _imageGrid, default, _buttonColor, UiSprites.Assets.Icons.Folder, _uiCommands.PathInto.Build(state, name));
             //Puts($"{name}: {_imageGrid.ToPosition()}");
             builder.Label(button, UiPosition.Full, default, name, 12, _textColor).AddElementOutline(UiColor.Black);
             _imageGrid.MoveCols(1);
@@ -593,7 +600,7 @@ public class AssetBrowser : RustPlugin
         foreach (KeyValuePair<string, string> pair in folder.Files)
         {
             //Puts($"{pair.Key}: {_imageGrid.ToPosition()}");
-            UiButton button = builder.CommandButton(scroll, _imageGrid, default, _buttonColor, $"{nameof(AssetBrowser_SelectAsset)} \"{pair.Value}\"");
+            UiButton button = builder.CommandButton(scroll, _imageGrid, default, _buttonColor, _uiCommands.SelectAsset.Build(pair.Value));
             builder.Panel(button, UiPosition.Full, default, UiColor.White).SetMaterial(pair.Value);
             _imageGrid.MoveCols(1);
         }
@@ -607,7 +614,7 @@ public class AssetBrowser : RustPlugin
         
         foreach (string name in folder.Subfolders.Keys)
         {
-            UiButton button = builder.ImageSpriteButton(scroll, _imageGrid, default, _buttonColor, UiSprites.Assets.Icons.Folder, $"{nameof(AssetBrowser_PathInto)} {name}");
+            UiButton button = builder.ImageSpriteButton(scroll, _imageGrid, default, _buttonColor, UiSprites.Assets.Icons.Folder, _uiCommands.PathInto.Build(state, name));
             //Puts($"{name}: {_imageGrid.ToPosition()}");
             builder.Label(button, UiPosition.Full, default, name, 12, _textColor).AddElementOutline(UiColor.Black);
             _imageGrid.MoveCols(1);
@@ -616,7 +623,7 @@ public class AssetBrowser : RustPlugin
         foreach (KeyValuePair<string, string> pair in folder.Files)
         {
             //Puts($"{pair.Key}: {_imageGrid.ToPosition()}");
-            UiButton button = builder.CommandButton(scroll, _imageGrid, default, _buttonColor, $"{nameof(AssetBrowser_SelectAsset)} \"{pair.Value}\"");
+            UiButton button = builder.CommandButton(scroll, _imageGrid, default, _buttonColor,  _uiCommands.SelectAsset.Build(pair.Value));
             UiImage sprite = builder.ImageSprite(button, UiPosition.Full, default, pair.Value, UiColor.White);
             sprite.SetMaterial(UiMaterials.Assets.Content.Ui.Namefontmaterial);
             _imageGrid.MoveCols(1);
@@ -631,7 +638,7 @@ public class AssetBrowser : RustPlugin
         
         foreach (string name in folder.Subfolders.Keys)
         {
-            UiButton button = builder.ImageSpriteButton(scroll, _imageGrid, default, _buttonColor, UiSprites.Assets.Icons.Folder, $"{nameof(AssetBrowser_PathInto)} {name}");
+            UiButton button = builder.ImageSpriteButton(scroll, _imageGrid, default, _buttonColor, UiSprites.Assets.Icons.Folder, _uiCommands.PathInto.Build(state, name));
             //Puts($"{name}: {_imageGrid.ToPosition()}");
             builder.Label(button, UiPosition.Full, default, name, 12, _textColor).AddElementOutline(UiColor.Black);
             _imageGrid.MoveCols(1);
@@ -640,7 +647,7 @@ public class AssetBrowser : RustPlugin
         foreach (KeyValuePair<string, string> pair in folder.Files)
         {
             //Puts($"{pair.Key}: {_imageGrid.ToPosition()}");
-            UiButton button = builder.CommandButton(scroll, _imageGrid, default, _buttonColor, $"{nameof(AssetBrowser_SelectAsset)} \"{pair.Value}\"");
+            UiButton button = builder.CommandButton(scroll, _imageGrid, default, _buttonColor, _uiCommands.SelectAsset.Build(pair.Value));
             UiItemIcon icon = builder.ItemIcon(button, UiPosition.Full, default, int.Parse(pair.Value), UiColor.White);
             icon.SetMaterial(UiMaterials.Assets.Content.Ui.Namefontmaterial);
             _imageGrid.MoveCols(1);
@@ -695,104 +702,81 @@ public class AssetBrowser : RustPlugin
 
     #region Commands
 
-    [ConsoleCommand(nameof(AssetBrowser_CloseCommand))]
-    private void AssetBrowser_CloseCommand(ConsoleSystem.Arg arg)
+    [UiCommand]
+    [UiProtection(ProtectionType.None)]
+    private void CloseCommand(BasePlayer player)
     {
-        BasePlayer player = arg.Player();
-        if (player)
-        {
-            UiBuilder.DestroyUi(Uiname);
-        }
+        UiBuilder.DestroyUi(player, Uiname);
     }
     
-    [ConsoleCommand(nameof(AssetBrowser_SelectAssetType))]
-    private void AssetBrowser_SelectAssetType(ConsoleSystem.Arg arg)
+    [UiCommand]
+    [UiProtection(ProtectionType.Advanced)]
+    private void SelectAssetType(BasePlayer player, UiState state, AssetType type)
     {
-        BasePlayer player = arg.Player();
-        if (!player)
-        {
-            return;
-        }
-
-        UiState state = _playerStates[player.userID];
-        AssetType type = arg.GetEnum<AssetType>(0);
         state.SetType(type);
-        
         CreateUi(player, state);
     }
     
-    [ConsoleCommand(nameof(AssetBrowser_PathUp))]
-    private void AssetBrowser_PathUp(ConsoleSystem.Arg arg)
+    [UiCommand]
+    [UiProtection(ProtectionType.Extreme)]
+    private void PathUp(BasePlayer player, UiState state)
     {
-        BasePlayer player = arg.Player();
-        if (!player)
-        {
-            return;
-        }
-
-        UiState state = _playerStates[player.userID];
         state.PathUp();
         CreateUi(player, state);
     }    
     
-    [ConsoleCommand(nameof(AssetBrowser_NextFolder))]
-    private void AssetBrowser_NextFolder(ConsoleSystem.Arg arg)
+    [UiCommand]
+    private void NextFolder(BasePlayer player, UiState state)
     {
-        BasePlayer player = arg.Player();
-        if (!player)
-        {
-            return;
-        }
-
-        UiState state = _playerStates[player.userID];
         state.NextFolder();
         CreateUi(player, state);
     }
     
-    [ConsoleCommand(nameof(AssetBrowser_PrevFolder))]
-    private void AssetBrowser_PrevFolder(ConsoleSystem.Arg arg)
+    [UiCommand]
+    private void PrevFolder(BasePlayer player, UiState state)
     {
-        BasePlayer player = arg.Player();
-        if (!player)
-        {
-            return;
-        }
-
-        UiState state = _playerStates[player.userID];
         state.PrevFolder();
         CreateUi(player, state);
     }
     
-    [ConsoleCommand(nameof(AssetBrowser_PathInto))]
-    private void AssetBrowser_PathInto(ConsoleSystem.Arg arg)
+    [UiCommand]
+    private void PathInto(BasePlayer player, UiState state, string path)
     {
-        BasePlayer player = arg.Player();
-        if (!player)
-        {
-            return;
-        }
-
-        UiState state = _playerStates[player.userID];
-        state.PathInto(arg.GetString(0));
+        state.PathInto(path);
         CreateUi(player, state);
     }
     
-    [ConsoleCommand(nameof(AssetBrowser_SelectAsset))]
-    private void AssetBrowser_SelectAsset(ConsoleSystem.Arg arg)
+    [UiCommand]
+    private void SelectAsset(BasePlayer player, string text)
     {
-        BasePlayer player = arg.Player();
-        if (!player)
-        {
-            return;
-        }
-
-        string text = string.Join(" ", arg.Args);
         player.SendConsoleCommand($"echo \"{text}\"");
         player.ChatMessage($"\"{text}\"");
         
         // UiState state = _playerStates[player.userID];
         // state.SelectedAsset = arg.GetString(0);
         // CreateUi(player, state);
+    }
+
+    private class UiCommandHandler
+    {
+        public readonly ICommandBuilder CloseUi;
+        public readonly ICommandBuilder<UiState, AssetType> SelectAssetType;
+        public readonly ICommandBuilder<UiState> PathUp;
+        public readonly ICommandBuilder<UiState> NextFolder;
+        public readonly ICommandBuilder<UiState> PrevFolder;
+        public readonly ICommandBuilder<UiState, string> PathInto;
+        public readonly ICommandBuilder<string> SelectAsset;
+
+        public UiCommandHandler(AssetBrowser plugin)
+        {
+            CloseUi = plugin._commands.RegisterCommand(plugin, plugin.CloseCommand);
+            SelectAssetType = plugin._commands.RegisterCommand<UiState, AssetType>(plugin, plugin.SelectAssetType);
+            PathUp = plugin._commands.RegisterCommand<UiState>(plugin, plugin.PathUp);
+            NextFolder = plugin._commands.RegisterCommand<UiState>(plugin, plugin.NextFolder);
+            PrevFolder = plugin._commands.RegisterCommand<UiState>(plugin, plugin.PrevFolder);
+            PathInto = plugin._commands.RegisterCommand<UiState, string>(plugin, plugin.PathInto);
+            SelectAsset = plugin._commands.RegisterCommand<string>(plugin, plugin.SelectAsset);
+        }
     }
     #endregion
 }

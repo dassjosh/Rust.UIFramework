@@ -19,15 +19,15 @@ internal ref struct ArgWriterIterator(UiArgWriter writer, IArgWriter[] writers)
     {
         ((IArgWriter<T>)Writers[_index++]).Write(_writer, arg);
     }
-    
-    public void WriteNext(string arg)
-    {
-        _writer.AppendArg(arg);
-    }
 
-    public void WriteNext(ReadOnlySpan<char> span)
+    internal void WriteSafe(string arg)
     {
-        _writer.AppendArg(span);
+        _writer.AppendSafe(arg);
+    }
+    
+    internal void WriteSafe(ReadOnlySpan<char> arg)
+    {
+        _writer.AppendSafe(arg);
     }
 
     public override string ToString() => _writer.ToString();

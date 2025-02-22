@@ -7,19 +7,15 @@ using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Libraries;
 
-public delegate INamedStore CreateNameStore(string name);
 
 public class UiNameStore : BaseUiFrameworkLibrary, ISingleton
 {
     private readonly Dictionary<PluginNamedStore, INamedStore> _stores = new();
-    private readonly Dictionary<PluginId, CreateNameStore> _storeCreators = new();
 
     private UiNameStore() { }
-    
-    public void RegisterStore(Plugin plugin, CreateNameStore creator)
-    {
-        _storeCreators[plugin.Id()] = creator;
-    }
+
+    public void CreateStore<T>(Plugin plugin, T store) where T : INamedStore => _stores[new PluginNamedStore(plugin.Id(), store.Name)] = store;
+    public T GetStore<T>(Plugin plugin, string name) where T : INamedStore => (T)_stores[new PluginNamedStore(plugin.Id(), name)];
 
     public T GetOrCreateStore<T>(Plugin plugin, string name) where T : INamedStore => (T)GetOrCreateStore<T>(plugin.Id(), name);
 
@@ -31,13 +27,8 @@ public class UiNameStore : BaseUiFrameworkLibrary, ISingleton
             return value;
         }
 
-        if (_storeCreators.TryGetValue(key.PluginId, out CreateNameStore creator))
-        {
-            _stores[key] = value = creator(name);
-            return value;
-        }
-
-        value = (INamedStore)Activator.CreateInstance(typeof(T), name);
+        value = (INamedStore)Activator.CreateInstance(typeof(T));
+        value.Name = name;
         _stores[key] = value;
         return value;
     }
@@ -46,7 +37,6 @@ public class UiNameStore : BaseUiFrameworkLibrary, ISingleton
     {
         PluginId pluginId = plugin.Id();
         _stores.RemoveAll(s => s.Key.PluginId == pluginId);
-        _storeCreators.Remove(pluginId);
     }
 
     private readonly record struct PluginNamedStore(PluginId PluginId, string Name);

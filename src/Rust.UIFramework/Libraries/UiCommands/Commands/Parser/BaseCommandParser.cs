@@ -1,8 +1,12 @@
-﻿using Oxide.Core;
+﻿using System;
+using System.Reflection;
+using Oxide.Core;
+using Oxide.Core.Plugins;
+using Oxide.Ext.UiFramework.Extensions;
 
 namespace Oxide.Ext.UiFramework.Libraries.UiCommands;
 
-internal abstract class BaseCommandParser(ICommandProtection protection, ICooldownHandler cooldown, IPermissionHandler permission, IArgReader[] reader) : ICommandParser
+internal abstract class BaseCommandParser(Plugin plugin, MethodInfo method, ICommandProtection protection, ICooldownHandler cooldown, IPermissionHandler permission, IArgReader[] reader) : ICommandParser
 {
     public void RunCommand(BasePlayer player, UiCommandTokenizer command)
     {
@@ -34,4 +38,9 @@ internal abstract class BaseCommandParser(ICommandProtection protection, ICooldo
     }
     
     protected ArgReaderIterator GetReader() => new(reader);
+
+    protected void LogException(Exception ex)
+    {
+        Interface.Oxide.LogException($"[{plugin.Title}] Threw an exception invoking UiCommand callback {method.GetMethodWithParams()}", ex);
+    }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Network;
 using Oxide.Core.Libraries.Covalence;
 using Oxide.Core.Plugins;
@@ -72,10 +73,18 @@ internal class UiFrameworkPlugin : BaseUiFrameworkPlugin
         BasePlayer player = connection.player as BasePlayer;
         if (player && command.StartsWith(UiCommands.UiCommandName))
         {
-            UiCommandTokenizer tokenizer = new(command);
-            tokenizer.GetNext(); // UiCommandName
-            Singleton<UiCommands>.Instance.OnCommandReceived(player, tokenizer);
-            return _true;
+            try
+            {
+                UiCommandTokenizer tokenizer = new(command);
+                tokenizer.GetNext(); // UiCommandName
+                Singleton<UiCommands>.Instance.OnCommandReceived(player, tokenizer);
+                return _true;
+            }
+            catch (Exception ex)
+            {
+                PrintError($"Failed to process command '{command}':\n{ex}");
+                return _true;
+            }
         }
 
         return null;

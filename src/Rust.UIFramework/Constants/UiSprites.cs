@@ -1083,46 +1083,6 @@ public static class UiSprites
 						}
 					}
 				}
-				public static class Mirror
-				{
-					public const string FrontiermirrorLargeIcon = "assets/prefabs/misc/mirror/frontiermirror.large.icon.png";
-					public const string FrontiermirrorMediumIcon = "assets/prefabs/misc/mirror/frontiermirror.medium.icon.png";
-					public const string FrontiermirrorSmallIcon = "assets/prefabs/misc/mirror/frontiermirror.small.icon.png";
-					public const string FrontiermirrorStandingIcon = "assets/prefabs/misc/mirror/frontiermirror.standing.icon.png";
-					public const string GoldframeLargeIcon = "assets/prefabs/misc/mirror/goldframe.large.icon.png";
-					public const string GoldframeMediumIcon = "assets/prefabs/misc/mirror/goldframe.medium.icon.png";
-					public const string GoldframeSmallIcon = "assets/prefabs/misc/mirror/goldframe.small.icon.png";
-					public const string GoldframeStandingIcon = "assets/prefabs/misc/mirror/goldframe.standing.icon.png";
-					public const string GoldmirrorLargeIcon = "assets/prefabs/misc/mirror/goldmirror.large.icon.png";
-					public const string GoldmirrorMediumIcon = "assets/prefabs/misc/mirror/goldmirror.medium.icon.png";
-					public const string GoldmirrorSmallIcon = "assets/prefabs/misc/mirror/goldmirror.small.icon.png";
-					public const string GoldmirrorStandingIcon = "assets/prefabs/misc/mirror/goldmirror.standing.icon.png";
-					public const string LightupframeLargeIcon = "assets/prefabs/misc/mirror/lightupframe.large.icon.png";
-					public const string LightupframeMediumIcon = "assets/prefabs/misc/mirror/lightupframe.medium.icon.png";
-					public const string LightupframeSmallIcon = "assets/prefabs/misc/mirror/lightupframe.small.icon.png";
-					public const string LightupframeStandingIcon = "assets/prefabs/misc/mirror/lightupframe.standing.icon.png";
-					public const string LightupmirrorLargeIcon = "assets/prefabs/misc/mirror/lightupmirror.large.icon.png";
-					public const string LightupmirrorMediumIcon = "assets/prefabs/misc/mirror/lightupmirror.medium.icon.png";
-					public const string LightupmirrorSmallIcon = "assets/prefabs/misc/mirror/lightupmirror.small.icon.png";
-					public const string LightupmirrorStandingIcon = "assets/prefabs/misc/mirror/lightupmirror.standing.icon.png";
-					public const string ScrapframeLargeIcon = "assets/prefabs/misc/mirror/scrapframe.large.icon.png";
-					public const string ScrapframeMediumIcon = "assets/prefabs/misc/mirror/scrapframe.medium.icon.png";
-					public const string ScrapframeSmallIcon = "assets/prefabs/misc/mirror/scrapframe.small.icon.png";
-					public const string ScrapframeStandingIcon = "assets/prefabs/misc/mirror/scrapframe.standing.icon.png";
-					public const string ScrapmirrorLargeIcon = "assets/prefabs/misc/mirror/scrapmirror.large.icon.png";
-					public const string ScrapmirrorMediumIcon = "assets/prefabs/misc/mirror/scrapmirror.medium.icon.png";
-					public const string ScrapmirrorSmallIcon = "assets/prefabs/misc/mirror/scrapmirror.small.icon.png";
-					public const string ScrapmirrorStandingIcon = "assets/prefabs/misc/mirror/scrapmirror.standing.icon.png";
-					public const string TwowaymirrorWindowIcon = "assets/prefabs/misc/mirror/twowaymirror.window.icon.png";
-					public const string WoodframeLargeIcon = "assets/prefabs/misc/mirror/woodframe.large.icon.png";
-					public const string WoodframeMediumIcon = "assets/prefabs/misc/mirror/woodframe.medium.icon.png";
-					public const string WoodframeSmallIcon = "assets/prefabs/misc/mirror/woodframe.small.icon.png";
-					public const string WoodframeStandingIcon = "assets/prefabs/misc/mirror/woodframe.standing.icon.png";
-					public const string WoodmirrorLargeIcon = "assets/prefabs/misc/mirror/woodmirror.large.icon.png";
-					public const string WoodmirrorMediumIcon = "assets/prefabs/misc/mirror/woodmirror.medium.icon.png";
-					public const string WoodmirrorSmallIcon = "assets/prefabs/misc/mirror/woodmirror.small.icon.png";
-					public const string WoodmirrorStandingIcon = "assets/prefabs/misc/mirror/woodmirror.standing.icon.png";
-				}
 				public static class Twitch
 				{
 					public static class Underwear

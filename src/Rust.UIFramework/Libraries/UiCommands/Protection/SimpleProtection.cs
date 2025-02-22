@@ -20,7 +20,7 @@ internal class SimpleProtection : ICommandProtection
     
     public ArgWriterIterator StartWriteProtection(ArgWriterIterator writer)
     {
-        writer.WriteNext(_protectionKey);
+        writer.WriteSafe(_protectionKey);
         return writer;
     }
 
@@ -28,7 +28,7 @@ internal class SimpleProtection : ICommandProtection
 
     public bool TryValidateProtection(BasePlayer player, UiCommandTokenizer tokenizer, out UiCommandTokenizer protectedTokens)
     {
-        if (tokenizer.GetNext().SequenceEqual(_protectionKey))
+        if (!tokenizer.GetNext().SequenceEqual(_protectionKey))
         {
             protectedTokens = default;
             Singleton<UiCommands>.Instance.OnProtectionValidationFailed(_pluginId, player, _method);

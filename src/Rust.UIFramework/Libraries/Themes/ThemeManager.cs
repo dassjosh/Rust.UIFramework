@@ -8,6 +8,8 @@ namespace Oxide.Ext.UiFramework.Libraries.Themes;
 
 public class ThemeManager : BaseUiFrameworkLibrary, ISingleton
 {
+    private ThemeManager() { }
+    
     public T RegisterTheme<T>(Plugin plugin, T theme) where T : ITheme => RegisterTheme(plugin, null, theme);
     
     public T RegisterTheme<T>(Plugin plugin, string name, T theme) where T : ITheme

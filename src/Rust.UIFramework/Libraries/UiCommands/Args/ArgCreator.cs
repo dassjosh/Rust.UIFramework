@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Oxide.Core;
 using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Exceptions.UiCommands;
 using Oxide.Ext.UiFramework.Extensions;
@@ -96,14 +97,18 @@ internal static class ArgCreator
             ulong playerId = ulong.Parse(span);
             BasePlayer player = BasePlayer.FindAwakeOrSleepingByID(playerId);
             return player ? player : BasePlayer.FindBot(playerId);
-        }, (writer, arg) => writer.AppendArg(arg?.UserIDString));
+        }, (writer, arg) => writer.AppendSafe(arg?.UserIDString ?? StringBuilderExt.Null));
         if(typeof(BaseNetworkable).IsAssignableFrom(type)) return new ArgHandler<T>(span =>
         {
             if(span.SequenceEqual(StringBuilderExt.Null)) return default;
             BaseNetworkable networkable = BaseNetworkable.serverEntities.Find(new NetworkableId(ulong.Parse(span)));
             return networkable is T entity ? entity : default;
         }, (writer, arg) => writer.AppendArg((arg as BaseNetworkable)?.net.ID.Value));
-        if(type.IsEnum) return new ArgHandler<T>(span => Enum.TryParse(type, span.ToString(), out object result) && result is T @enum ? @enum : default, (writer, arg) => writer.AppendArg(StringCache<T>.ToString(arg)));
+        if(type.IsEnum) return new ArgHandler<T>(span =>
+        {
+            Interface.Oxide.LogDebug($"Enum {type} {span.ToString()}");
+            return Enum.TryParse(type, span.ToString(), out object result) && result is T @enum ? @enum : default;
+        }, (writer, arg) => writer.AppendSafe(StringCache<T>.ToString(arg)));
         
         return null;
     }

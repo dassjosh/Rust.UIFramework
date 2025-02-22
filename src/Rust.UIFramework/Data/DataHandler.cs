@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using Newtonsoft.Json;
-using Oxide.Ext.UiFramework.Constants;
 using Oxide.Ext.UiFramework.Types;
 using ProtoBuf;
 
