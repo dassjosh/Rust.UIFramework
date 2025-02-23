@@ -20,7 +20,7 @@ public class UiDropdownMenu : BasePopoverControl
     public List<UiDropdownMenuItem> Items;
         
     public static UiDropdownMenu Create(in UiReference reference, List<DropdownMenuData> items, int fontSize, UiColor textColor, UiColor backgroundColor, string selectedCommand, string pageCommand = null, int page = 0, int maxValuesPerPage = 100, int minWidth = 100,
-        PopoverPosition position = PopoverPosition.Bottom, string menuSprite = UiSprites.Assets.Content.Ui.UiBackgroundRounded)
+        PopoverPosition position = PopoverPosition.Bottom, string menuSprite = UiSprites.Content.Ui.UiBackgroundRounded)
     {
         const int itemPadding = 4;
         const int menuPadding = 5;
@@ -44,7 +44,7 @@ public class UiDropdownMenu : BasePopoverControl
             buttonPos = buttonPos.SliceHorizontal(0, 10);
             control.ScrollBarSection = builder.Section(builder.Root, UiPosition.Right, new UiOffset(-10, 5, -3, -5));
             control.ScrollBar = builder.ScrollBar(control.ScrollBarSection, UiPosition.Full, default, page, maxPage, UiColors.ButtonPrimary, UiColors.PanelSecondary, pageCommand);
-            control.ScrollBar.SetSpriteMaterialImage(UiSprites.Assets.Content.Ui.UiRounded, null, Image.Type.Sliced);
+            control.ScrollBar.SetSpriteMaterialImage(UiSprites.Content.Ui.UiRounded, null, Image.Type.Sliced);
         }
             
         for (int i = page * maxValuesPerPage; i < page * maxValuesPerPage + itemCount; i++)

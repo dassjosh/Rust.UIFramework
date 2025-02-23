@@ -18,7 +18,7 @@ public class UiTimePickerMenu : BasePopoverControl
     public UiPicker AmPm;
         
     public static UiTimePickerMenu Create(in UiReference parent, TimePickerData time, int fontSize, UiColor textColor, UiColor backgroundColor, string changeCommand, TimePickerDisplayModes displayMode = TimePickerDisplayModes.All, ClockMode clockMode = ClockMode.Hour12,
-        PopoverPosition position = PopoverPosition.Bottom, string menuSprite = UiSprites.Assets.Content.Ui.UiBackgroundRounded)
+        PopoverPosition position = PopoverPosition.Bottom, string menuSprite = UiSprites.Content.Ui.UiBackgroundRounded)
     {
         const int menuPadding = 5;
         const int itemPadding = 3;

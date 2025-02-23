@@ -45,7 +45,7 @@ public partial class UiBuilder
     /// <returns></returns>
     public static UiBuilder CreateModal(in UiOffset modalSize, UiColor modalColor, string name, UiLayer layer = UiLayer.Overlay, string outsideCloseCommand = null)
     {
-        return CreateModal(modalSize, modalColor, new UiColor(0, 0, 0, 0.5f), name, layer, UiMaterials.Assets.Content.Ui.UibackgroundblurIngamemenu, outsideCloseCommand);
+        return CreateModal(modalSize, modalColor, new UiColor(0, 0, 0, 0.5f), name, layer, UiMaterials.Content.Ui.UibackgroundblurIngamemenu, outsideCloseCommand);
     }
 
     /// <summary>
@@ -113,7 +113,7 @@ public partial class UiBuilder
         return builder;
     }
         
-    public static UiPopover Popover(string parentName, Vector2Int size, UiColor backgroundColor, PopoverPosition position = PopoverPosition.Bottom, string menuSprite = UiSprites.Assets.Content.Ui.UiBackgroundRounded)
+    public static UiPopover Popover(string parentName, Vector2Int size, UiColor backgroundColor, PopoverPosition position = PopoverPosition.Bottom, string menuSprite = UiSprites.Content.Ui.UiBackgroundRounded)
     {
         UiPopover control = UiPopover.Create(parentName, size, backgroundColor, position, menuSprite);
         return control;

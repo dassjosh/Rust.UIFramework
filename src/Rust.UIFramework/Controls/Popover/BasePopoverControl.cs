@@ -17,7 +17,7 @@ public abstract class BasePopoverControl : BaseUiControl
     public UiButton OutsideClose;
     public UiPanel PopoverBackground;
 
-    public static BasePopoverControl CreateBuilder(BasePopoverControl control, string parentName, Vector2Int size, UiColor backgroundColor, PopoverPosition position = PopoverPosition.Bottom, string menuSprite = UiSprites.Assets.Content.Ui.UiBackgroundRounded)
+    public static BasePopoverControl CreateBuilder(BasePopoverControl control, string parentName, Vector2Int size, UiColor backgroundColor, PopoverPosition position = PopoverPosition.Bottom, string menuSprite = UiSprites.Content.Ui.UiBackgroundRounded)
     {
         string name = $"{parentName}_Popover";
             

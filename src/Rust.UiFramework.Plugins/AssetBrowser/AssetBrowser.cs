@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -25,7 +24,7 @@ using UnityEngine;
 namespace Oxide.Ext.UiFramework.Plugins.AssetBrowser;
 
 [Info("Asset Browser", "MJSU", "1.0.0")]
-[Oxide.Plugins.Description("Allows browsing Rust assets")]
+[Description("Allows browsing Rust assets")]
 public class AssetBrowser : RustPlugin
 {
     #region Class Fields
@@ -40,8 +39,8 @@ public class AssetBrowser : RustPlugin
     private readonly Folder _textures = Folder.CreateFolders(typeof(UiTextures));
     private readonly Folder _materials = Folder.CreateFolders(typeof(UiMaterials));
     private readonly Folder _fonts = Folder.CreateFolders(typeof(UiFontCache));
-    private readonly Folder _playingCards = new("root", string.Empty, null);
-    private readonly Folder _items = new("root", string.Empty, null);
+    private readonly Folder _playingCards = new("root", string.Empty);
+    private readonly Folder _items = new("root", string.Empty);
 
     private readonly UiCommands _commands = GetLibrary<UiCommands>();
     private readonly UiPlayerStore _store = GetLibrary<UiPlayerStore>();
@@ -216,10 +215,7 @@ public class AssetBrowser : RustPlugin
     #region Classes
     public class PluginConfig
     {
-        [DefaultValue("DefaultValue")]
-        [JsonProperty(PropertyName = "Stub")]
-        public string A { get; set; }
-            
+        
     }
 
     public class PluginData
@@ -240,7 +236,7 @@ public class AssetBrowser : RustPlugin
         public readonly Dictionary<string, Folder> Subfolders = new ();
         public readonly Dictionary<string, string> Files = new ();
 
-        public Folder(string name, string path, Folder parent)
+        public Folder(string name, string path)
         {
             Name = name;
             if (!string.IsNullOrEmpty(path) && !string.IsNullOrEmpty(name))
@@ -259,7 +255,7 @@ public class AssetBrowser : RustPlugin
 
         public static Folder CreateFolders(Type type)
         {
-            Folder root = new("", "", null);
+            Folder root = new("", "");
             ProcessFolder(type, root);
             return root;
         }
@@ -268,7 +264,7 @@ public class AssetBrowser : RustPlugin
         {
             if (!Subfolders.TryGetValue(name, out Folder folder))
             {
-                Subfolders[name] = folder = new Folder(name, Path, this);
+                Subfolders[name] = folder = new Folder(name, Path);
             }
 
             return folder;
@@ -474,7 +470,7 @@ public class AssetBrowser : RustPlugin
         UiSection titleBar = builder.Section(builder.Root, new UiPosition(0, 0.95f, 1, 1));
         builder.Label(titleBar, new UiPosition(0.4f, 0, 0.6f, 1), default, "Asset Browser", 14, _textColor);
         UiButton closeButton = builder.CommandButton(titleBar, new UiPosition(0.95f, 0, 1, 1), default, UiColor.Clear, _uiCommands.CloseUi.Build());
-        builder.ImageSprite(closeButton, UiPosition.Full, default, UiSprites.Assets.Icons.Close, UiColor.Red);
+        builder.ImageSprite(closeButton, UiPosition.Full, default, UiSprites.Icons.Close, UiColor.Red);
         
         UiSection pathBar = builder.Section(builder.Root, new UiPosition(0, 0.9f, 1, 0.95f), new UiOffset(1, 1, -1, -1));
         UiPanel pathPanel = builder.Panel(pathBar, new UiPosition(0.1f, 0, .9f, 1), default, _pathBarColor);
@@ -487,11 +483,11 @@ public class AssetBrowser : RustPlugin
 
         if (state.Type != AssetType.None)
         {
-            builder.ImageSpriteButton(pathBar, new UiPosition(0.00f, 0, 0.05f, 1), default, "#BAB1A8FF", UiSprites.Assets.Icons.DirLeft, _uiCommands.PrevFolder.Build(state));
-            builder.ImageSpriteButton(pathBar, new UiPosition(0.05f, 0, 0.1f, 1), default, "#BAB1A8FF", UiSprites.Assets.Icons.ArrowRight, _uiCommands.NextFolder.Build(state));
+            builder.ImageSpriteButton(pathBar, new UiPosition(0.00f, 0, 0.05f, 1), default, "#BAB1A8FF", UiSprites.Icons.DirLeft, _uiCommands.PrevFolder.Build(state));
+            builder.ImageSpriteButton(pathBar, new UiPosition(0.05f, 0, 0.1f, 1), default, "#BAB1A8FF", UiSprites.Icons.ArrowRight, _uiCommands.NextFolder.Build(state));
         }
         
-        builder.ImageSpriteButton(pathBar, new UiPosition(0.90f, 0, 0.95f, 1), default, "#BAB1A8FF", UiSprites.Assets.Icons.FolderUp, _uiCommands.PathUp.Build(state));
+        builder.ImageSpriteButton(pathBar, new UiPosition(0.90f, 0, 0.95f, 1), default, "#BAB1A8FF", UiSprites.Icons.FolderUp, _uiCommands.PathUp.Build(state));
         
         UiSection body = builder.Section(builder.Root, new UiPosition(0, 0, 1, 0.90f), new UiOffset(2, 2, -2, -2));
         
@@ -540,7 +536,7 @@ public class AssetBrowser : RustPlugin
         foreach (AssetType type in Enum.GetValues(typeof(AssetType)).Cast<AssetType>().Where(at => at != AssetType.None))
         {
             UiButton button = builder.CommandButton(root, _imageGrid, default, _buttonColor, _uiCommands.SelectAssetType.Build(state, type));
-            builder.ImageSprite(button, UiPosition.Full, default, UiSprites.Assets.Icons.Folder, UiColor.White);
+            builder.ImageSprite(button, UiPosition.Full, default, UiSprites.Icons.Folder, UiColor.White);
             builder.Label(button, UiPosition.Full, default, EnumCache<AssetType>.ToString(type), 14, _textColor).AddOutline(UiColor.Black);
             _imageGrid.MoveCols(1);
         }
@@ -558,7 +554,7 @@ public class AssetBrowser : RustPlugin
         foreach (string name in folder.Subfolders.Keys)
         {
             Puts($"{nameof(CreateImageBrowser)} Subfolder: {name}");
-            UiButton button = builder.ImageSpriteButton(scroll, _imageGrid, default, _buttonColor, UiSprites.Assets.Icons.Folder, _uiCommands.PathInto.Build(state, name));
+            UiButton button = builder.ImageSpriteButton(scroll, _imageGrid, default, _buttonColor, UiSprites.Icons.Folder, _uiCommands.PathInto.Build(state, name));
             //Puts($"{name}: {_imageGrid.ToPosition()}");
             builder.Label(button, UiPosition.Full, default, name, 12, _textColor).AddOutline(UiColor.Black);
             _imageGrid.MoveCols(1);
@@ -571,7 +567,7 @@ public class AssetBrowser : RustPlugin
             if (state.Type == AssetType.Sprite)
             {
                 UiImage sprite = builder.ImageSprite(button, UiPosition.Full, default, pair.Value, UiColor.White);
-                sprite.SetMaterial(UiMaterials.Assets.Content.Ui.Namefontmaterial);
+                sprite.SetMaterial(UiMaterials.Content.Ui.Namefontmaterial);
             }
             else
             {
@@ -590,7 +586,7 @@ public class AssetBrowser : RustPlugin
         
         foreach (string name in folder.Subfolders.Keys)
         {
-            UiButton button = builder.ImageSpriteButton(scroll, _imageGrid, default, _buttonColor, UiSprites.Assets.Icons.Folder, _uiCommands.PathInto.Build(state, name));
+            UiButton button = builder.ImageSpriteButton(scroll, _imageGrid, default, _buttonColor, UiSprites.Icons.Folder, _uiCommands.PathInto.Build(state, name));
             //Puts($"{name}: {_imageGrid.ToPosition()}");
             builder.Label(button, UiPosition.Full, default, name, 12, _textColor).AddOutline(UiColor.Black);
             _imageGrid.MoveCols(1);
@@ -613,7 +609,7 @@ public class AssetBrowser : RustPlugin
         
         foreach (string name in folder.Subfolders.Keys)
         {
-            UiButton button = builder.ImageSpriteButton(scroll, _imageGrid, default, _buttonColor, UiSprites.Assets.Icons.Folder, _uiCommands.PathInto.Build(state, name));
+            UiButton button = builder.ImageSpriteButton(scroll, _imageGrid, default, _buttonColor, UiSprites.Icons.Folder, _uiCommands.PathInto.Build(state, name));
             //Puts($"{name}: {_imageGrid.ToPosition()}");
             builder.Label(button, UiPosition.Full, default, name, 12, _textColor).AddOutline(UiColor.Black);
             _imageGrid.MoveCols(1);
@@ -624,7 +620,7 @@ public class AssetBrowser : RustPlugin
             //Puts($"{pair.Key}: {_imageGrid.ToPosition()}");
             UiButton button = builder.CommandButton(scroll, _imageGrid, default, _buttonColor,  _uiCommands.SelectAsset.Build(pair.Value));
             UiImage sprite = builder.ImageSprite(button, UiPosition.Full, default, pair.Value, UiColor.White);
-            sprite.SetMaterial(UiMaterials.Assets.Content.Ui.Namefontmaterial);
+            sprite.SetMaterial(UiMaterials.Content.Ui.Namefontmaterial);
             _imageGrid.MoveCols(1);
         }
     }
@@ -637,7 +633,7 @@ public class AssetBrowser : RustPlugin
         
         foreach (string name in folder.Subfolders.Keys)
         {
-            UiButton button = builder.ImageSpriteButton(scroll, _imageGrid, default, _buttonColor, UiSprites.Assets.Icons.Folder, _uiCommands.PathInto.Build(state, name));
+            UiButton button = builder.ImageSpriteButton(scroll, _imageGrid, default, _buttonColor, UiSprites.Icons.Folder, _uiCommands.PathInto.Build(state, name));
             //Puts($"{name}: {_imageGrid.ToPosition()}");
             builder.Label(button, UiPosition.Full, default, name, 12, _textColor).AddOutline(UiColor.Black);
             _imageGrid.MoveCols(1);
@@ -648,7 +644,7 @@ public class AssetBrowser : RustPlugin
             //Puts($"{pair.Key}: {_imageGrid.ToPosition()}");
             UiButton button = builder.CommandButton(scroll, _imageGrid, default, _buttonColor, _uiCommands.SelectAsset.Build(pair.Value));
             UiItemIcon icon = builder.ItemIcon(button, UiPosition.Full, default, int.Parse(pair.Value), color: UiColor.White);
-            icon.SetMaterial(UiMaterials.Assets.Content.Ui.Namefontmaterial);
+            icon.SetMaterial(UiMaterials.Content.Ui.Namefontmaterial);
             _imageGrid.MoveCols(1);
         }
     }
