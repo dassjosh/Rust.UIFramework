@@ -1,19 +1,13 @@
 namespace Rust.UiFramework.Benchmarks;
 
 #if BENCHMARKS
-
-using System.Text;
 using BenchmarkDotNet.Attributes;
 using Network;
-using Oxide.Ext.UiFramework.Builder.Cached;
-using Oxide.Ext.UiFramework.Builder.UI;
+using Oxide.Ext.UiFramework.Builder;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Positions;
-using Oxide.Ext.UiFramework.Types;
 using Oxide.Game.Rust.Cui;
-
-using Oxide.Ext.UiFramework.Benchmarks;
 
 [MemoryDiagnoser]
 public class Benchmarks
@@ -311,7 +305,7 @@ public class Benchmarks
                     builder.WebImage(builder.Root, _frameworkPos[i], default, "http://google.com", UiColor.Yellow);
                     break;
                 case 5:
-                    builder.ItemIcon(builder.Root, _frameworkPos[i], default, 0, UiColor.Cyan);
+                    builder.ItemIcon(builder.Root, _frameworkPos[i], default, 0, color: UiColor.Cyan);
                     break;
                 case 6:
                     builder.Section(builder.Root, _frameworkPos[i]);

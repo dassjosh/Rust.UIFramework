@@ -3,6 +3,8 @@ using System.Reflection;
 
 namespace Oxide.Ext.UiFramework.Types;
 
+internal interface ISingleton;
+
 internal static class Singleton<T> where T : ISingleton
 {
     public static readonly T Instance;

@@ -24,11 +24,11 @@ public sealed class JsonFrameworkWriter : BasePoolable
     private const byte CommaChar = (byte)',';
     private const byte True = (byte)'1';
     private const byte False = (byte)'0';
-    private static readonly Utf8String Separator = "\":"u8;
-    private static readonly Utf8String PropertyComma = ",\""u8;
+    private static readonly Utf8String Separator = "\":";
+    private static readonly Utf8String PropertyComma = ",\"";
     
-    private static readonly Utf8String EscapeQuote = "\\\""u8;
-    private static readonly Utf8String EscapeBackslash = @"\\"u8;
+    private static readonly Utf8String EscapeQuote = "\\\"";
+    private static readonly Utf8String EscapeBackslash = @"\\";
 
     private bool _propertyComma;
     private bool _objectComma;

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Oxide.Ext.UiFramework;
+namespace Oxide.Ext.UiFramework.Helpers;
 
 public static class UiHelpers
 {
