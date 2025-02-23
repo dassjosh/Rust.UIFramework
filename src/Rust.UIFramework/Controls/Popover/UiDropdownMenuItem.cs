@@ -1,11 +1,10 @@
-﻿using Oxide.Ext.UiFramework.Builder.UI;
+﻿using Oxide.Ext.UiFramework.Builder;
 using Oxide.Ext.UiFramework.Colors;
-using Oxide.Ext.UiFramework.Controls.Data;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.UiElements;
 
-namespace Oxide.Ext.UiFramework.Controls.Popover;
+namespace Oxide.Ext.UiFramework.Controls;
 
 public class UiDropdownMenuItem : BaseUiControl
 {

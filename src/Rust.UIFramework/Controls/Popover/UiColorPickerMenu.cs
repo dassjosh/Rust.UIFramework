@@ -1,6 +1,5 @@
-﻿using Oxide.Ext.UiFramework.Builder.UI;
+﻿using Oxide.Ext.UiFramework.Builder;
 using Oxide.Ext.UiFramework.Colors;
-using Oxide.Ext.UiFramework.Controls.NumberPicker;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Offsets;
@@ -8,7 +7,7 @@ using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.UiElements;
 using UnityEngine;
 
-namespace Oxide.Ext.UiFramework.Controls.Popover;
+namespace Oxide.Ext.UiFramework.Controls;
 
 public class UiColorPickerMenu : BasePopoverControl
 {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Oxide.Ext.UiFramework.Controls.Data;
+namespace Oxide.Ext.UiFramework.Controls;
 
 public struct TimePickerData
 {

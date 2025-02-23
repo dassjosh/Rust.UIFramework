@@ -3,7 +3,7 @@ using Oxide.Ext.UiFramework.Constants;
 using Oxide.Ext.UiFramework.Enums;
 using UnityEngine;
 
-namespace Oxide.Ext.UiFramework.Controls.Popover;
+namespace Oxide.Ext.UiFramework.Controls;
 
 public class UiPopover : BasePopoverControl
 {

@@ -7,7 +7,7 @@ using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.UiElements;
 using UnityEngine;
 
-namespace Oxide.Ext.UiFramework.Controls.NumberPicker;
+namespace Oxide.Ext.UiFramework.Controls;
 
 public class UiNumberPicker : BaseNumberPicker<int>
 {

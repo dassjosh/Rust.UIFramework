@@ -1,10 +1,9 @@
-﻿using Oxide.Ext.UiFramework.Builder.Cached;
-using Oxide.Ext.UiFramework.Cache;
+﻿using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Exceptions;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.UiElements;
 
-namespace Oxide.Ext.UiFramework.Builder.UI;
+namespace Oxide.Ext.UiFramework.Builder;
 
 public partial class UiBuilder : BaseUiBuilder
 {

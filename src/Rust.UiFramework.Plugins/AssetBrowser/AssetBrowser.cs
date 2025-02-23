@@ -8,25 +8,24 @@ using Facepunch.CardGames;
 using Network;
 using Newtonsoft.Json;
 using Oxide.Core;
-using Oxide.Ext.UiFramework.Builder.UI;
+using Oxide.Ext.UiFramework.Builder;
 using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Constants;
-using Oxide.Ext.UiFramework.Controls;
 using Oxide.Ext.UiFramework.Enums;
-using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Libraries.UiCommands;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.Types;
 using Oxide.Ext.UiFramework.UiElements;
+using Oxide.Plugins;
 using UnityEngine;
 
-namespace Oxide.Plugins;
+namespace Oxide.Ext.UiFramework.Plugins.AssetBrowser;
 
 [Info("Asset Browser", "MJSU", "1.0.0")]
-[Description("Allows browsing Rust assets")]
+[Oxide.Plugins.Description("Allows browsing Rust assets")]
 public class AssetBrowser : RustPlugin
 {
     #region Class Fields
@@ -157,7 +156,7 @@ public class AssetBrowser : RustPlugin
     
     private void Unload()
     {
-        UiBuilder.DestroyUi(Uiname);
+        BaseBuilder.DestroyUi(Uiname);
         _ins = null;
     }
     #endregion

@@ -1,5 +1,5 @@
 ﻿using System;
-using Oxide.Ext.UiFramework.Builder.UI;
+using Oxide.Ext.UiFramework.Builder;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Constants;
 using Oxide.Ext.UiFramework.Enums;
@@ -10,7 +10,7 @@ using Oxide.Ext.UiFramework.UiElements;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Oxide.Ext.UiFramework.Controls.Popover;
+namespace Oxide.Ext.UiFramework.Controls;
 
 public abstract class BasePopoverControl : BaseUiControl
 {

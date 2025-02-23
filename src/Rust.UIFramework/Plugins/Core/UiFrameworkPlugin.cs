@@ -11,7 +11,7 @@ using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Libraries.UiCommands;
 using Oxide.Ext.UiFramework.Types;
 
-namespace Oxide.Ext.UiFramework.Plugins.Core;
+namespace Oxide.Ext.UiFramework.Plugins;
 
 internal class UiFrameworkPlugin : BaseUiFrameworkPlugin
 {

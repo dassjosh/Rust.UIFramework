@@ -3,7 +3,7 @@ using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.UiElements;
 
-namespace Oxide.Ext.UiFramework.Builder.Update;
+namespace Oxide.Ext.UiFramework.Builder;
 
 public class UpdateBuilder : BaseUiBuilder
 {

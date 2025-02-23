@@ -1,12 +1,12 @@
 ﻿using System;
-using Oxide.Ext.UiFramework.Builder.UI;
+using Oxide.Ext.UiFramework.Builder;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Libraries.UiCommands;
 using Oxide.Ext.UiFramework.Positions;
+using Oxide.Plugins;
 
-
-namespace Oxide.Plugins;
+namespace Oxide.Ext.UiFramework.Plugins.UiCommandExample;
 
 [Info("UiCommandExample", "MJSU", "1.0.0")]
 [Description("UiCommandExample")]

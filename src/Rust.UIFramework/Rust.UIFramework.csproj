@@ -134,7 +134,6 @@
         <Link>README.md</Link>
       </Content>
       <Compile Remove="Commands\UiCommand.cs" />
-      <Content Include="Commands\UiCommand.cs" />
     </ItemGroup>
     
     <ItemGroup>

@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Oxide.Ext.UiFramework.Builder.UI;
+using Oxide.Ext.UiFramework.Builder;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Constants;
-using Oxide.Ext.UiFramework.Controls.Data;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Offsets;
@@ -12,7 +11,7 @@ using Oxide.Ext.UiFramework.UiElements;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Oxide.Ext.UiFramework.Controls.Popover;
+namespace Oxide.Ext.UiFramework.Controls;
 
 public class UiDropdownMenu : BasePopoverControl
 {

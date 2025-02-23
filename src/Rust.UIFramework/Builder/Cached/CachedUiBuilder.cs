@@ -1,7 +1,6 @@
 ﻿using Network;
-using Oxide.Ext.UiFramework.Builder.UI;
 
-namespace Oxide.Ext.UiFramework.Builder.Cached;
+namespace Oxide.Ext.UiFramework.Builder;
 
 public class CachedUiBuilder : BaseBuilder
 {
