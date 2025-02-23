@@ -1,10 +1,10 @@
-﻿using System.Diagnostics.Contracts;
-using Oxide.Ext.UiFramework.Extensions;
+﻿using System;
+using System.Diagnostics.Contracts;
 using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Positions;
 
-public readonly struct UiPosition
+public readonly struct UiPosition(float xMin, float yMin, float xMax, float yMax)
 {
     public static readonly UiPosition None = new(0, 0, 0, 0);
     public static readonly UiPosition Full = new(0, 0, 1, 1);
@@ -30,14 +30,8 @@ public readonly struct UiPosition
     public static readonly UiPosition RightHalf = new(0.5f, 0, 1, 1);
     public static readonly UiPosition BottomHalf = new(0, 0, 1, 0.5f);
         
-    public readonly Vector2 Min;
-    public readonly Vector2 Max;
-
-    public UiPosition(float xMin, float yMin, float xMax, float yMax)
-    {
-        Min = new Vector2(xMin, yMin);
-        Max = new Vector2(xMax, yMax);
-    }
+    public readonly Vector2 Min = new(xMin, yMin);
+    public readonly Vector2 Max = new(xMax, yMax);
 
     public override string ToString()
     {
@@ -55,4 +49,147 @@ public readonly struct UiPosition
     
     [Pure]
     public UiPosition WithYMax(float yMax) => new(Min.x, Min.y, Max.x, yMax);
+    
+    [Pure]
+    public UiPosition SetX(float xMin, float xMax)
+    {
+        Vector2 min = Min;
+        Vector2 max = Max;
+        return new UiPosition(xMin, min.y, xMax, max.y);
+    }
+        
+    [Pure]
+    public UiPosition SetY(float yMin, float yMax)
+    {
+        Vector2 min = Min;
+        Vector2 max = Max;
+        return new UiPosition(min.x, yMin, max.x, yMax);
+    }
+        
+    [Pure]
+    public UiPosition MoveX(float delta)
+    {
+        Vector2 min = Min;
+        Vector2 max = Max;
+        return new UiPosition(min.x + delta, min.y, max.x + delta, max.y);
+    }
+     
+    [Pure]
+    public UiPosition MoveXPadded(float padding)
+    {
+        Vector2 min = Min;
+        Vector2 max = Max;
+        float spacing = (max.x - min.x + Math.Abs(padding)) * (padding < 0 ? -1 : 1);
+        return new UiPosition(min.x + spacing, min.y, max.x + spacing, max.y);
+    }
+        
+    [Pure]
+    public UiPosition MoveY(float delta)
+    {
+        Vector2 min = Min;
+        Vector2 max = Max;
+        return new UiPosition(min.x, min.y + delta, max.x, max.y + delta);
+    }
+        
+    [Pure]
+    public UiPosition MoveYPadded(float padding)
+    {
+        Vector2 min = Min;
+        Vector2 max = Max;
+        float spacing = (max.y - min.y + Math.Abs(padding)) * (padding < 0 ? -1 : 1);
+        return new UiPosition(min.x, min.y + spacing, max.x, max.y + spacing);
+    }
+        
+    [Pure]
+    public UiPosition Expand(float amount)
+    {
+        Vector2 min = Min;
+        Vector2 max = Max;
+        return new UiPosition(min.x - amount, min.y - amount, max.x + amount, max.y + amount);
+    }
+        
+    [Pure]
+    public UiPosition ExpandHorizontal(float amount)
+    {
+        Vector2 min = Min;
+        Vector2 max = Max;
+        return new UiPosition(min.x - amount, min.y, max.x + amount, max.y);
+    }
+        
+    [Pure]
+    public UiPosition ExpandVertical(float amount)
+    {
+        Vector2 min = Min;
+        Vector2 max = Max;
+        return new UiPosition(min.x, min.y - amount, max.x, max.y + amount);
+    }
+        
+    [Pure]
+    public UiPosition Shrink(float amount)
+    {
+        Vector2 min = Min;
+        Vector2 max = Max;
+        return new UiPosition(min.x + amount, min.y + amount, max.x - amount, max.y - amount);
+    }
+        
+    [Pure]
+    public UiPosition ShrinkHorizontal(float amount)
+    {
+        Vector2 min = Min;
+        Vector2 max = Max;
+        return new UiPosition(min.x + amount, min.y, max.x - amount, max.y);
+    }
+        
+    [Pure]
+    public UiPosition ShrinkVertical(float amount)
+    {
+        Vector2 min = Min;
+        Vector2 max = Max;
+        return new UiPosition(min.x, min.y + amount, max.x, max.y - amount);
+    }
+        
+    /// <summary>
+    /// Returns a slice of the position
+    /// </summary>
+    /// <param name="xMin">% of the xMax - xMin distance added to xMin</param>
+    /// <param name="yMin">% of the yMax - yMin distance added to yMin</param>
+    /// <param name="xMax">>% of the xMax - xMin distance added to xMin</param>
+    /// <param name="yMax">% of the yMax - yMin distance added to yMin</param>
+    /// <returns>Sliced <see cref="UiPosition"/></returns>
+    [Pure]
+    public UiPosition Slice(float xMin, float yMin, float xMax, float yMax)
+    {
+        Vector2 min = Min;
+        Vector2 max = Max;
+        Vector2 distance = max - min;
+        return new UiPosition(min.x + distance.x * xMin, min.y + distance.y * yMin, min.x + distance.x * xMax, min.y + distance.y * yMax);
+    }
+
+    /// <summary>
+    /// Returns a horizontal slice of the position
+    /// </summary>
+    /// <param name="xMin">% of the xMax - xMin distance added to xMin</param>
+    /// <param name="xMax">>% of the xMax - xMin distance added to xMin</param>
+    /// <returns>Sliced <see cref="UiPosition"/></returns>
+    [Pure]
+    public UiPosition SliceHorizontal(float xMin, float xMax)
+    {
+        Vector2 min = Min;
+        Vector2 max = Max;   
+        return new UiPosition(min.x + (max.x - min.x) * xMin, min.y, min.x + (max.x - min.x) * xMax, max.y);
+    }
+
+    /// <summary>
+    /// Returns a vertical slice of the position
+    /// </summary>
+    /// <param name="yMin">% of the yMax - yMin distance added to yMin</param>
+    /// <param name="yMax">% of the yMax - yMin distance added to yMin</param>
+    /// <returns>Sliced <see cref="UiPosition"/></returns>
+    [Pure]
+    public UiPosition SliceVertical(float yMin, float yMax)
+    {
+        Vector2 min = Min;
+        Vector2 max = Max;   
+        return new UiPosition(min.x, min.y + (max.y - min.y) * yMin, max.x, min.y + (max.y - min.y) * yMax);
+    }
 }

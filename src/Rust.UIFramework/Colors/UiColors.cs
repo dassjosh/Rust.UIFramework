@@ -1,6 +1,4 @@
-﻿using Oxide.Ext.UiFramework.Extensions;
-
-namespace Oxide.Ext.UiFramework.Colors;
+﻿namespace Oxide.Ext.UiFramework.Colors;
 
 public static class UiColors
 {

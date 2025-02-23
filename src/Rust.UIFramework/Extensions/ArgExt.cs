@@ -23,7 +23,7 @@ public static class ArgExt
         return new UiReference(s, null);
     }
     
-    public static T GetEnum<T>(this ConsoleSystem.Arg arg, int iArg, T def = default) where T : struct
+    public static T GetEnum<T>(this ConsoleSystem.Arg arg, int iArg, T def = default) where T : struct, Enum
     {
         string enumString = arg.GetString(iArg, null);
         if (string.IsNullOrEmpty(enumString))
@@ -34,7 +34,7 @@ public static class ArgExt
         return Enum.Parse<T>(enumString);
     }
     
-    public static bool TryGetEnum<T>(this ConsoleSystem.Arg arg, int iArg, out T value) where T : struct
+    public static bool TryGetEnum<T>(this ConsoleSystem.Arg arg, int iArg, out T value) where T : struct, Enum
     {
         string enumString = arg.GetString(iArg, null);
         return Enum.TryParse(enumString, out value);

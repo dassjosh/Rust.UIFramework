@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.Contracts;
 using System.Globalization;
 using Newtonsoft.Json;
 using Oxide.Ext.UiFramework.Exceptions;
@@ -88,6 +89,73 @@ public readonly struct UiColor : IEquatable<UiColor>
     }
 
     public override string ToString() => $"{ToFloat(_red)} {ToFloat(_green)} {ToFloat(_blue)} {ToFloat(_alpha)}";
+    #endregion
+
+    #region Modifiers
+    [Pure]
+    public UiColor WithAlpha(byte alpha)
+    {
+        return new UiColor(_red, _green, _blue, alpha);
+    }
+        
+    [Pure]
+    public UiColor WithAlpha(string hex)
+    {
+        return WithAlpha(byte.Parse(hex, NumberStyles.HexNumber));
+    }
+
+    [Pure]
+    public UiColor WithAlpha(int alpha)
+    {
+        return WithAlpha((byte)alpha);
+    }
+
+    [Pure]
+    public UiColor WithAlpha(float alpha)
+    {
+        return WithAlpha((byte)Mathf.Clamp(alpha * 255f, 0, byte.MaxValue));
+    }
+        
+    [Pure]
+    public UiColor MultiplyAlpha(float alpha)
+    {
+        return WithAlpha((byte)Mathf.Clamp(_alpha * alpha, 0, byte.MaxValue));
+    }
+        
+    [Pure]
+    public UiColor ToGrayScale()
+    {
+        float scale = ((Color)this).grayscale;
+        return new UiColor(new Color(scale, scale, scale));
+    }
+
+    [Pure]
+    public UiColor Darken(float percentage)
+    {
+        percentage = Mathf.Clamp01(percentage);
+        byte red = (byte)Mathf.Clamp(_red * (1 - percentage), 0, byte.MaxValue);
+        byte green = (byte)Mathf.Clamp(_green * (1 - percentage), 0, byte.MaxValue);
+        byte blue = (byte)Mathf.Clamp(_blue * (1 - percentage), 0, byte.MaxValue);
+
+        return new UiColor(red, green, blue, _alpha);
+    }
+
+    [Pure]
+    public UiColor Lighten(float percentage)
+    {
+        percentage = Mathf.Clamp01(percentage);
+        float red = (byte)Mathf.Clamp(byte.MaxValue - _red * percentage + _red, 0, byte.MaxValue);
+        float green = (byte)Mathf.Clamp(byte.MaxValue - _green * percentage + _red, 0, byte.MaxValue);
+        float blue = (byte)Mathf.Clamp(byte.MaxValue - _blue * percentage + _red, 0, byte.MaxValue);
+
+        return new UiColor(red, green, blue, _alpha);
+    }
+        
+    [Pure]
+    public static UiColor Lerp(UiColor start, UiColor end, float value)
+    {
+        return new UiColor(start._red + (end._red - start._red) * value, start._green + (end._green - start._green) * value, start._blue + (end._blue - start._blue) * value, start._alpha + (end._alpha - start._alpha) * value);
+    }
     #endregion
 
     #region Formats
