@@ -23,24 +23,15 @@ internal class PermissionHandler(PluginId pluginId, string method, string[] perm
         {
             string permission = permissions[index];
             bool hasPerm = OxideLibrary.Permission.UserHasPermission(player.UserIDString, permission);
-            if (hasPerm && mode == PermissionMode.RequireAny)
+            switch (hasPerm)
             {
-                return true;
-            }
-
-            if (!hasPerm && mode == PermissionMode.RequireAll)
-            {
-                return false;
+                case true when mode == PermissionMode.RequireAny:
+                    return true;
+                case false when mode == PermissionMode.RequireAll:
+                    return false;
             }
         }
 
-        if (mode == PermissionMode.RequireAny)
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
+        return mode != PermissionMode.RequireAny;
     }
 }

@@ -15,11 +15,10 @@ public delegate void OnProtectionValidationFailed(BasePlayer player, string meth
 
 public class UiCommands : BaseUiFrameworkLibrary, ISingleton
 {
+    public const string NullArg = "null";
     internal const string UiCommandName = "UIF_EXT_C ";
     private readonly Dictionary<CommandId, ICommandParser> _commands = new();
-    private readonly Dictionary<PluginId, OnPlayerNoPermission> _playerNoPermission = new();
-    private readonly Dictionary<PluginId, OnPlayerCooldown> _playerOnCooldown = new();
-    private readonly Dictionary<PluginId, OnProtectionValidationFailed> _protectionValidationFailed = new();
+    private readonly Dictionary<PluginId, PluginCallbacks> _callbacks = new();
     private readonly CommandIdHandler _idHandler = new();
 
     private UiCommands() { }
@@ -111,17 +110,28 @@ public class UiCommands : BaseUiFrameworkLibrary, ISingleton
 
     public void RegisterNoPermissionCallback(Plugin plugin, OnPlayerNoPermission callback)
     {
-        _playerNoPermission[plugin.Id()] = callback;
+        GetCallbacks(plugin).PlayerNoPermission = callback;
     }
     
     public void RegisterPlayerCooldownCallback(Plugin plugin, OnPlayerCooldown callback)
     {
-        _playerOnCooldown[plugin.Id()] = callback;
+        GetCallbacks(plugin).PlayerOnCooldown = callback;
     }
     
     public void RegisterValidationFailedCallback(Plugin plugin, OnProtectionValidationFailed callback)
     {
-        _protectionValidationFailed[plugin.Id()] = callback;
+        GetCallbacks(plugin).ProtectionValidationFailed = callback;
+    }
+
+    private PluginCallbacks GetCallbacks(Plugin plugin)
+    {
+        PluginId pluginId = plugin.Id();
+        if (!_callbacks.TryGetValue(pluginId, out PluginCallbacks callbacks))
+        {
+            _callbacks[pluginId] = callbacks = new PluginCallbacks();
+        }
+
+        return callbacks;
     }
     
     public void RegisterCustomParser<T>(Plugin plugin, IArgHandler<T> handler)
@@ -133,11 +143,11 @@ public class UiCommands : BaseUiFrameworkLibrary, ISingleton
     protected override void OnPluginUnloaded(Plugin plugin)
     {
         PluginId pluginId = plugin.Id();
-        List<uint> commandIds = _idHandler.GetCommandIds(pluginId);
-        _commands.RemoveAll(c => commandIds.Contains(c.Key.Id));
-        _playerNoPermission.Remove(pluginId);
-        _playerOnCooldown.Remove(pluginId);
-        _protectionValidationFailed.Remove(pluginId);
+        foreach (CommandId id in _idHandler.GetPluginCommands(pluginId))
+        {
+            _commands.Remove(id);
+        }
+        _callbacks.Remove(pluginId);
         ArgCreator.RemovePluginHandler(pluginId);
         _idHandler.OnPluginUnloaded(pluginId);
     }
@@ -151,25 +161,25 @@ public class UiCommands : BaseUiFrameworkLibrary, ISingleton
     
     internal void OnPlayerNoPermission(PluginId pluginId, BasePlayer player, string method, string errorMessage)
     {
-        if (_playerNoPermission.TryGetValue(pluginId, out OnPlayerNoPermission callback))
+        if (_callbacks.TryGetValue(pluginId, out PluginCallbacks callback) && callback.PlayerNoPermission != null)
         {
-            callback(player, method, errorMessage);
+            callback.PlayerNoPermission(player, method, errorMessage);
         }
     }
     
     internal void OnPlayerCooldown(PluginId pluginId, BasePlayer player, string method, float cooldown, float remaining, string errorMessage)
     {
-        if (_playerOnCooldown.TryGetValue(pluginId, out OnPlayerCooldown callback))
+        if (_callbacks.TryGetValue(pluginId, out PluginCallbacks callback) && callback.PlayerOnCooldown != null)
         {
-            callback(player, method, cooldown, remaining, errorMessage);
+            callback.PlayerOnCooldown(player, method, cooldown, remaining, errorMessage);
         }
     }
     
     internal void OnProtectionValidationFailed(PluginId pluginId, BasePlayer player, string method)
     {
-        if (_protectionValidationFailed.TryGetValue(pluginId, out OnProtectionValidationFailed callback))
+        if (_callbacks.TryGetValue(pluginId, out PluginCallbacks callback) && callback.ProtectionValidationFailed != null)
         {
-            callback(player, method);
+            callback.ProtectionValidationFailed(player, method);
         }
     }
 
@@ -196,5 +206,12 @@ public class UiCommands : BaseUiFrameworkLibrary, ISingleton
             ProtectionType.Extreme => new ExtremeProtection(pluginId, method.Name, protection!.ProtectionKeyLifetime),
             _ => null
         };
+    }
+
+    private sealed class PluginCallbacks
+    {
+        public OnPlayerNoPermission PlayerNoPermission;
+        public OnPlayerCooldown PlayerOnCooldown;
+        public OnProtectionValidationFailed ProtectionValidationFailed;
     }
 }

@@ -84,7 +84,7 @@ public class UiCommandExample : RustPlugin
 
         public void Write(UiArgWriter writer, MyCustomArg arg)
         {
-            writer.AppendArg(arg.Id);
+            writer.Append(arg.Id);
         }
     }
 

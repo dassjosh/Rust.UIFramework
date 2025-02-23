@@ -4,11 +4,9 @@ using Network;
 using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
-using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Types;
 using UnityEngine;
-using UnityEngine.UI;
 
 #if BENCHMARKS
 using Oxide.Ext.UiFramework.Benchmarks;

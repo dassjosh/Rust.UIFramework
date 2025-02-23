@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Plugins;
-using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Libraries.UiCommands;
@@ -17,10 +15,9 @@ internal class ExtremeProtection(PluginId pluginId, string method, float protect
     public ArgWriterIterator StartWriteProtection(ArgWriterIterator writer)
     {
         long protectionKey = GenerateProtectionKey();
-        writer.WriteSafe(protectionKey.ToBase64Span());
+        writer.Write(protectionKey.ToBase64Span());
         _protectedCommand[protectionKey] = writer.ToString();
-        StringBuilder sb = StringBuilderPool.Instance.Get();
-        return new ArgWriterIterator(new UiArgWriter(sb), writer.Writers, protectionKey);
+        return new ArgWriterIterator(writer, protectionKey);
     }
 
     public string FinishWriteProtection(ArgWriterIterator writer)

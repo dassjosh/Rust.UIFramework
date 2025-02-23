@@ -757,7 +757,7 @@ public class AssetBrowser : RustPlugin
         // CreateUi(player, state);
     }
 
-    private class UiCommandHandler
+    private sealed class UiCommandHandler
     {
         public readonly ICommandBuilder CloseUi;
         public readonly ICommandBuilder<UiState, AssetType> SelectAssetType;

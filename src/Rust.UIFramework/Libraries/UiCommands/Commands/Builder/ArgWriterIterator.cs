@@ -1,33 +1,35 @@
 ﻿using System;
+using Oxide.Ext.UiFramework.Pooling;
 
 namespace Oxide.Ext.UiFramework.Libraries.UiCommands;
 
 internal ref struct ArgWriterIterator(UiArgWriter writer, IArgWriter[] writers)
 {
     private readonly UiArgWriter _writer = writer;
-    internal readonly IArgWriter[] Writers = writers;
+    private readonly IArgWriter[] _writers = writers;
     
     internal long ProtectionKey;
     private int _index;
 
-    public ArgWriterIterator(UiArgWriter writer, IArgWriter[] writers, long protectionKey) : this(writer, writers)
+    public ArgWriterIterator(ArgWriterIterator iterator, long protectionKey) : this(new UiArgWriter(StringBuilderPool.Instance.Get()), iterator._writers)
     {
         ProtectionKey = protectionKey;
     }
     
     public void WriteNext<T>(T arg)
     {
-        ((IArgWriter<T>)Writers[_index++]).Write(_writer, arg);
+        _writer.AppendSpace();
+        ((IArgWriter<T>)_writers[_index++]).Write(_writer, arg);
     }
 
-    internal void WriteSafe(string arg)
+    internal void Write(string arg)
     {
-        _writer.AppendSafe(arg);
+        _writer.Append(arg);
     }
     
-    internal void WriteSafe(ReadOnlySpan<char> arg)
+    internal void Write(ReadOnlySpan<char> arg)
     {
-        _writer.AppendSafe(arg);
+        _writer.Append(arg);
     }
 
     public override string ToString() => _writer.ToString();

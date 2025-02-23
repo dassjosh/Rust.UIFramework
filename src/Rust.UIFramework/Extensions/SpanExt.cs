@@ -39,6 +39,24 @@ namespace Oxide.Ext.UiFramework.Extensions
             parsed = input[..end];
             return true;
         }
+        
+        public static ReadOnlySpan<char> ParseNextString(this ReadOnlySpan<char> input, ReadOnlySpan<char> token, out ReadOnlySpan<char> remaining)
+        {
+            if (input.Length == 0)
+            {
+                throw new IndexOutOfRangeException();
+            }
+
+            int end = input.IndexOf(token);
+            if (end == -1)
+            {
+                remaining = ReadOnlySpan<char>.Empty;
+                return input;
+            }
+
+            remaining = input[(end + token.Length)..];
+            return input[..end];
+        }
 
         /// <summary>
         /// Tries to write the formatted values to out span

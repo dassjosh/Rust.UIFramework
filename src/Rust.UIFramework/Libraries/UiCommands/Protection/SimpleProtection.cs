@@ -22,7 +22,7 @@ internal class SimpleProtection : ICommandProtection
     
     public ArgWriterIterator StartWriteProtection(ArgWriterIterator writer)
     {
-        writer.WriteSafe(_protectionKey);
+        writer.Write(_protectionKey);
         return writer;
     }
 

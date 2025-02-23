@@ -13,7 +13,7 @@ internal class AdvancedProtection(PluginId pluginId, string method, float protec
     
     public ArgWriterIterator StartWriteProtection(ArgWriterIterator writer)
     {
-        writer.WriteSafe(GenerateProtectionKey().ToBase64Span());
+        writer.Write(GenerateProtectionKey().ToBase64Span());
         return writer;
     }
 

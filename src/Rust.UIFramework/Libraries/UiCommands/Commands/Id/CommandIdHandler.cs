@@ -1,18 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
-using Oxide.Core.Plugins;
-using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Plugins;
-using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Libraries.UiCommands;
 
 internal class CommandIdHandler
 {
     private readonly Dictionary<IntPtr, uint> _methodIds = new();
-    private readonly Dictionary<PluginId, List<uint>> _pluginCommands = new();
-    private readonly List<uint> _emptyList = [];
+    private readonly Dictionary<PluginId, List<IntPtr>> _pluginMethods = new();
     private uint _nextId;
     
     public uint GetId(PluginId pluginId, MethodInfo method)
@@ -21,29 +17,41 @@ internal class CommandIdHandler
         if (!_methodIds.TryGetValue(ptr, out uint id))
         {
             _methodIds[ptr] = id = _nextId++;
-            AddCommandId(pluginId, id);
+            AddCommandId(pluginId, ptr);
         }
 
         return id;
     }
     
-    public List<uint> GetCommandIds(PluginId pluginId) => _pluginCommands.GetValueOrDefault(pluginId, _emptyList);
-
-    private void AddCommandId(PluginId pluginId, uint id)
+    public IEnumerable<CommandId> GetPluginCommands(PluginId pluginId)
     {
-        if (!_pluginCommands.TryGetValue(pluginId, out List<uint> ids))
+        if (_pluginMethods.TryGetValue(pluginId, out List<IntPtr> ids))
         {
-            _pluginCommands[pluginId] = ids = new List<uint>();
+            foreach (IntPtr ptr in ids)
+            {
+                yield return new CommandId(_methodIds[ptr]);
+            }
+        }
+    }
+
+    private void AddCommandId(PluginId pluginId, IntPtr ptr)
+    {
+        if (!_pluginMethods.TryGetValue(pluginId, out List<IntPtr> ids))
+        {
+            _pluginMethods[pluginId] = ids = [];
         }
         
-        ids.Add(id);
+        ids.Add(ptr);
     }
 
     public void OnPluginUnloaded(PluginId pluginId)
     {
-        if (_pluginCommands.Remove(pluginId, out List<uint> ids))
+        if (_pluginMethods.Remove(pluginId, out List<IntPtr> ids))
         {
-            _methodIds.RemoveAll(mi => ids.Contains(mi.Value));
+            foreach (IntPtr ptr in ids)
+            {
+                _methodIds.Remove(ptr);
+            }
         }
     }
 }

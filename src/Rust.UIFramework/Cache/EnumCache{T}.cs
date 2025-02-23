@@ -8,6 +8,7 @@ public static class EnumCache<T> where T : Enum
 {
     private static readonly ConcurrentDictionary<T, string> CachedStrings = new();
     private static readonly ConcurrentDictionary<T, string> LowerStrings = new();
+    private static readonly ConcurrentDictionary<T, string> NumberStrings = new();
 
     static EnumCache()
     {
@@ -16,10 +17,12 @@ public static class EnumCache<T> where T : Enum
             string enumString = value.ToString();
             CachedStrings[value] = enumString;
             LowerStrings[value] = enumString.ToLower();
+            NumberStrings[value] = value.ToString("D");
         }
     }
         
     public static string ToString(T value) => CachedStrings[value];
 
     public static string ToLower(T value) => LowerStrings[value];
+    public static string ToNumber(T value) => NumberStrings[value];
 }
