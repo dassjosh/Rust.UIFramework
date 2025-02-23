@@ -648,7 +648,7 @@ public class AssetBrowser : RustPlugin
         {
             //Puts($"{pair.Key}: {_imageGrid.ToPosition()}");
             UiButton button = builder.CommandButton(scroll, _imageGrid, default, _buttonColor, _uiCommands.SelectAsset.Build(pair.Value));
-            UiItemIcon icon = builder.ItemIcon(button, UiPosition.Full, default, int.Parse(pair.Value), UiColor.White);
+            UiItemIcon icon = builder.ItemIcon(button, UiPosition.Full, default, int.Parse(pair.Value), color: UiColor.White);
             icon.SetMaterial(UiMaterials.Assets.Content.Ui.Namefontmaterial);
             _imageGrid.MoveCols(1);
         }
@@ -672,8 +672,8 @@ public class AssetBrowser : RustPlugin
             //     text += " -  ";
             // }
             
-            UiLabelBackground label = builder.LabelBackground(scroll, _fontGrid, new UiOffset(2, 2, -2, -2), text, 14, _textColor, _bodyColor, TextAnchor.MiddleLeft);
-            label.Label.Text.Font = pair.Value;
+            UiLabel label = builder.LabelBackground(scroll, _fontGrid, new UiOffset(2, 2, -2, -2), text, 14, _textColor, _bodyColor, TextAnchor.MiddleLeft);
+            label.Text.Font = pair.Value;
             _fontGrid.MoveCols(1);
         }
         
@@ -693,7 +693,7 @@ public class AssetBrowser : RustPlugin
     
     private UiScrollView CreateScrollView(UiBuilder builder, UiReference root, GridPosition grid, int totalItems)
     {
-        UiScrollView scroll = builder.ScrollView(root, UiPosition.Full, default, false, true, inertia: true, scrollSensitivity: 10f);
+        UiScrollView scroll = builder.ScrollView(root, UiPosition.Full, default, inertia: true, scrollSensitivity: 10f);
         scroll.AddVerticalScrollBar(autoHide: true, handleColor: UiColors.ButtonPrimary, pressedColor: UiColors.ButtonPrimary, highlightColor: UiColors.ButtonPrimary, trackColor: UiColors.PanelSecondary);
         grid.ApplyScrollViewContentVertical(totalItems, scroll);
         return scroll;

@@ -67,7 +67,7 @@ public partial class UiBuilder
         UiBuilder builder = Create(backgroundBlur, name, layer);
         if (!string.IsNullOrEmpty(outsideCloseCommand))
         {
-            builder.CommandButton(builder.Root, UiPosition.Full, UiColor.Clear, outsideCloseCommand);
+            builder.CommandButton(builder.Root, UiPosition.Full, default, UiColor.Clear, outsideCloseCommand);
         }
             
         UiPanel modal = UiPanel.Create(UiPosition.MiddleMiddle, modalSize, modalColor);

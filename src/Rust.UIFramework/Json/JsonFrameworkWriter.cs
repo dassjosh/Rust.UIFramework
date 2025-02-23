@@ -81,6 +81,12 @@ public sealed class JsonFrameworkWriter : BasePoolable
         WritePropertyName(name);
         WriteValue(value);
     }
+    
+    public void AddFieldRaw(in Utf8String name, ulong value)
+    {
+        WritePropertyName(name);
+        WriteValue(value);
+    }
 
     public void AddFieldRaw(in Utf8String name, bool value)
     {

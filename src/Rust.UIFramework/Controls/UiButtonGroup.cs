@@ -27,7 +27,7 @@ public class UiButtonGroup : BaseUiControl
             ButtonGroupData button = buttons[i];
                 
             UiPosition buttonPos = UiPosition.Full.SliceHorizontal(buttonSize * i, buttonSize * (i + 1));
-            control.Buttons.Add(builder.TextButton(control.Base, buttonPos, button.DisplayName, textSize, textColor, button.IsActive ? activeButtonColor : buttonColor, $"{command} {button.CommandArgs}"));
+            control.Buttons.Add(builder.TextButton(control.Base, buttonPos, default, button.DisplayName, textSize, textColor, button.IsActive ? activeButtonColor : buttonColor, $"{command} {button.CommandArgs}"));
         }
 
         return control;

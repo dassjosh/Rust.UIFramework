@@ -11,7 +11,7 @@ public class UiPlayerAvatar : BaseUiComponent, IMaterial, IFadeIn
     public readonly PlayerAvatarComponent Avatar = new();
     internal override CoreComponent Component => Avatar;
 
-    public static UiPlayerAvatar Create(in UiPosition pos, in UiOffset offset, UiColor color, string steamId)
+    public static UiPlayerAvatar Create(in UiPosition pos, in UiOffset offset, UiColor color, ulong steamId)
     {
         UiPlayerAvatar icon = CreateBase<UiPlayerAvatar>(pos, offset);
         icon.Avatar.Color = color;

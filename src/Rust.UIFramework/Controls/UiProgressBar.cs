@@ -16,7 +16,7 @@ public class UiProgressBar : BaseUiControl
     {
         UiProgressBar control = CreateControl<UiProgressBar>();
         control.BackgroundPanel = builder.Panel(parent, pos, offset, backgroundColor);
-        control.BarPanel = builder.Panel(control.BackgroundPanel, UiPosition.Full.SliceHorizontal(0, percentage), barColor);
+        control.BarPanel = builder.Panel(control.BackgroundPanel, UiPosition.Full.SliceHorizontal(0, percentage), default, barColor);
         return control;
     }
 

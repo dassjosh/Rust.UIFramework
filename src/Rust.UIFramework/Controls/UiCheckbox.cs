@@ -21,7 +21,7 @@ public class UiCheckbox : BaseUiControl
         UiCheckbox control = CreateControl<UiCheckbox>();
         control.IsChecked = isChecked;
         control.Button = builder.CommandButton(parent, pos, offset, backgroundColor, command);
-        control.Label = builder.Label(control.Button, UiPosition.Full, string.Empty, textSize, textColor);
+        control.Label = builder.Label(control.Button, UiPosition.Full, default, string.Empty, textSize, textColor);
         control.Button.AddOutline(UiColor.Black.WithAlpha(0.75f));
         return control;
     }

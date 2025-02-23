@@ -36,20 +36,20 @@ public class UiPaginator : BaseUiControl
             }
         }
 
-        control.FirstPage = builder.TextButton(parent, grid, "<<<", fontSize, textColor, buttonColor, $"{command} 0");
+        control.FirstPage = builder.TextButton(parent, grid, default, "<<<", fontSize, textColor, buttonColor, $"{command} 0");
         grid.MoveCols(1);
-        control.PreviousPage = builder.TextButton(parent, grid, "<", fontSize, textColor, buttonColor, $"{command} {StringCache<int>.ToString(Math.Max(0, currentPage - 1))}");
+        control.PreviousPage = builder.TextButton(parent, grid, default, "<", fontSize, textColor, buttonColor, $"{command} {StringCache<int>.ToString(Math.Max(0, currentPage - 1))}");
         grid.MoveCols(1);
 
         for (int i = startPage; i <= endPage; i++)
         {
-            control.PageButtons.Add(builder.TextButton(parent, grid, (i + 1).ToString(), fontSize, textColor, i == currentPage ? activePageColor : buttonColor, $"{command} {StringCache<int>.ToString(i)}"));
+            control.PageButtons.Add(builder.TextButton(parent, grid, default, (i + 1).ToString(), fontSize, textColor, i == currentPage ? activePageColor : buttonColor, $"{command} {StringCache<int>.ToString(i)}"));
             grid.MoveCols(1);
         }
 
-        control.NextPage = builder.TextButton(parent, grid, ">", fontSize, textColor, buttonColor, $"{command} {StringCache<int>.ToString(Math.Min(maxPage, currentPage + 1))}");
+        control.NextPage = builder.TextButton(parent, grid, default, ">", fontSize, textColor, buttonColor, $"{command} {StringCache<int>.ToString(Math.Min(maxPage, currentPage + 1))}");
         grid.MoveCols(1);
-        control.LastPage = builder.TextButton(parent, grid, ">>>", fontSize, textColor, buttonColor, $"{command} {StringCache<int>.ToString(maxPage)}");
+        control.LastPage = builder.TextButton(parent, grid, default, ">>>", fontSize, textColor, buttonColor, $"{command} {StringCache<int>.ToString(maxPage)}");
 
         return control;
     }

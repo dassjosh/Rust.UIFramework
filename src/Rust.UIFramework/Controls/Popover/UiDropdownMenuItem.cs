@@ -17,7 +17,7 @@ public class UiDropdownMenuItem : BaseUiControl
         UiDropdownMenuItem control = CreateControl<UiDropdownMenuItem>();
             
         control.Button = builder.CommandButton(builder.Root, UiPosition.TopLeft, position, backgroundColor, $"{selectedCommand} {item.CommandArgs}");
-        control.Label = builder.Label(control.Button, UiPosition.Full, item.DisplayName, fontSize, textColor);
+        control.Label = builder.Label(control.Button, UiPosition.Full, default, item.DisplayName, fontSize, textColor);
 
         return control;
     }

@@ -1,10 +1,10 @@
-﻿using System;
-using Oxide.Core;
+﻿using Oxide.Core;
 using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Constants;
 using Oxide.Ext.UiFramework.Controls;
 using Oxide.Ext.UiFramework.Enums;
+using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.UiElements;
@@ -43,8 +43,6 @@ public partial class BaseUiBuilder
         AddComponent(panel, parent);
         return panel;
     }
-        
-    public UiPanel Panel(in UiReference parent, in UiPosition pos, UiColor color) => Panel(parent, pos, default, color);
     #endregion
 
     #region Button
@@ -55,62 +53,43 @@ public partial class BaseUiBuilder
         return button;
     }
 
-    public UiButton CommandButton(in UiReference parent, in UiPosition pos, UiColor color, string command) => CommandButton(parent, pos, default, color, command);
-
     public UiButton CloseButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor color, string close)
     {
         UiButton button = UiButton.CreateClose(pos, offset, color, close);
         AddComponent(button, parent);
         return button;
     }
-
-    public UiButton CloseButton(in UiReference parent, in UiPosition pos, UiColor color, string close) => CloseButton(parent, pos, default, color, close);
     #endregion
 
     #region Image
-    public UiImage ImageSprite(in UiReference parent, in UiPosition pos, in UiOffset offset, string sprite, UiColor color)
+    public UiImage ImageSprite(in UiReference parent, in UiPosition pos, in UiOffset offset, string sprite, UiColor? color = default)
     {
-        UiImage image = UiImage.CreateSpriteImage(pos, offset, color, sprite);
+        UiImage image = UiImage.CreateSpriteImage(pos, offset, color ?? UiColor.White, sprite);
         AddComponent(image, parent);
         return image;
     }
-
-    public UiImage ImageSprite(in UiReference parent, in UiPosition pos, in UiOffset offset, string sprite) => ImageSprite(parent, pos, offset, sprite, UiColor.White);
-    public UiImage ImageSprite(in UiReference parent, in UiPosition pos, string sprite, UiColor color) => ImageSprite(parent, pos, default, sprite, color);
-    public UiImage ImageSprite(in UiReference parent, in UiPosition pos, string sprite) => ImageSprite(parent, pos, sprite, UiColor.White);
     #endregion
 
     #region Item Icon
-    public UiItemIcon ItemIcon(in UiReference parent, in UiPosition pos, in UiOffset offset, int itemId, ulong skinId, UiColor color)
+    public UiItemIcon ItemIcon(in UiReference parent, in UiPosition pos, in UiOffset offset, int itemId, ulong skinId = 0, UiColor? color = default)
     {
-        UiItemIcon image = UiItemIcon.Create(pos, offset, color, itemId, skinId);
+        UiItemIcon image = UiItemIcon.Create(pos, offset, color ?? UiColor.White, itemId, skinId);
         AddComponent(image, parent);
         return image;
     }
-        
-    public UiItemIcon ItemIcon(in UiReference parent, in UiPosition pos, in UiOffset offset, int itemId, ulong skinId) => ItemIcon(parent, pos, offset, itemId, skinId, UiColor.White);
-    public UiItemIcon ItemIcon(in UiReference parent, in UiPosition pos, in UiOffset offset, int itemId, UiColor color) => ItemIcon(parent, pos, offset, itemId, 0, color);
-    public UiItemIcon ItemIcon(in UiReference parent, in UiPosition pos, in UiOffset offset, int itemId) => ItemIcon(parent, pos, offset, itemId, UiColor.White);
-    public UiItemIcon ItemIcon(in UiReference parent, in UiPosition pos, int itemId, ulong skinId) => ItemIcon(parent, pos, default, itemId, skinId);
-    public UiItemIcon ItemIcon(in UiReference parent, in UiPosition pos, int itemId, UiColor color) => ItemIcon(parent, pos, default, itemId, color);
-    public UiItemIcon ItemIcon(in UiReference parent, in UiPosition pos, int itemId) => ItemIcon(parent, pos, default, itemId);
     #endregion
     
     #region Player Avatar
-    public UiPlayerAvatar PlayerAvatar(in UiReference parent, in UiPosition pos, in UiOffset offset, ulong steamId, UiColor color)
+    public UiPlayerAvatar PlayerAvatar(in UiReference parent, in UiPosition pos, in UiOffset offset, ulong steamId, UiColor? color = default)
     {
-        UiPlayerAvatar image = UiPlayerAvatar.Create(pos, offset, color, StringCache<ulong>.ToString(steamId));
+        UiPlayerAvatar image = UiPlayerAvatar.Create(pos, offset, color ?? UiColor.White, steamId);
         AddComponent(image, parent);
         return image;
     }
-        
-    public UiPlayerAvatar PlayerAvatar(in UiReference parent, in UiPosition pos, in UiOffset offset, ulong steamId) => PlayerAvatar(parent, pos, offset, steamId, UiColor.White);
-    public UiPlayerAvatar PlayerAvatar(in UiReference parent, in UiPosition pos, ulong steamId) => PlayerAvatar(parent, pos, default, steamId);
-    public UiPlayerAvatar PlayerAvatar(in UiReference parent, in UiPosition pos, ulong steamId, UiColor color) => PlayerAvatar(parent, pos, default, steamId, color);
     #endregion
 
     #region Raw Image
-    public UiRawImage WebImage(in UiReference parent, in UiPosition pos, in UiOffset offset, string url, UiColor color)
+    public UiRawImage WebImage(in UiReference parent, in UiPosition pos, in UiOffset offset, string url, UiColor? color = default)
     {
         if (!url.StartsWith("http"))
         {
@@ -118,27 +97,19 @@ public partial class BaseUiBuilder
             return UiRawImage.CreateDefault(pos, offset);
         }
 
-        UiRawImage image = UiRawImage.CreateUrl(pos, offset, color, url);
+        UiRawImage image = UiRawImage.CreateUrl(pos, offset, color ?? UiColor.White, url);
         AddComponent(image, parent);
         return image;
     }
 
-    public UiRawImage WebImage(in UiReference parent, in UiPosition pos, in UiOffset offset, string url) => WebImage(parent, pos, offset, url, UiColor.White);
-    public UiRawImage WebImage(in UiReference parent, in UiPosition pos, string url, UiColor color) => WebImage(parent, pos, default, url, color);
-    public UiRawImage WebImage(in UiReference parent, in UiPosition pos, string url) => WebImage(parent, pos, url, UiColor.White);
-
-    public UiRawImage TextureImage(in UiReference parent, in UiPosition pos, in UiOffset offset, string texture, UiColor color)
+    public UiRawImage TextureImage(in UiReference parent, in UiPosition pos, in UiOffset offset, string texture, UiColor? color = default)
     {
-        UiRawImage image = UiRawImage.CreateTexture(pos, offset, color, texture);
+        UiRawImage image = UiRawImage.CreateTexture(pos, offset, color ?? UiColor.White, texture);
         AddComponent(image, parent);
         return image;
     }
-
-    public UiRawImage TextureImage(in UiReference parent, in UiPosition pos, in UiOffset offset, string texture) => TextureImage(parent, pos, offset, texture, UiColor.White);
-    public UiRawImage TextureImage(in UiReference parent, in UiPosition pos, string texture, UiColor color) => TextureImage(parent, pos, default, texture, color);
-    public UiRawImage TextureImage(in UiReference parent, in UiPosition pos, string texture) => TextureImage(parent, pos, texture, UiColor.White);
         
-    public UiRawImage ImageFileStorage(in UiReference parent, in UiPosition pos, in UiOffset offset, string png, UiColor color)
+    public UiRawImage ImageFileStorage(in UiReference parent, in UiPosition pos, in UiOffset offset, string png, UiColor? color = null)
     {
         if (!uint.TryParse(png, out uint _))
         {
@@ -146,31 +117,23 @@ public partial class BaseUiBuilder
             return UiRawImage.CreateDefault(pos, offset);
         }
 
-        UiRawImage image = UiRawImage.CreateFileImage(pos, offset, color, png);
+        UiRawImage image = UiRawImage.CreateFileImage(pos, offset, color ?? UiColor.White, png);
         AddComponent(image, parent);
         return image;
     }
-
-    public UiRawImage ImageFileStorage(in UiReference parent, in UiPosition pos, string png, UiColor color) => ImageFileStorage(parent, pos, default, png, color);
-    public UiRawImage ImageFileStorage(in UiReference parent, in UiPosition pos, in UiOffset offset, string png) => ImageFileStorage(parent, pos, offset, png, UiColor.White);
-    public UiRawImage ImageFileStorage(in UiReference parent, in UiPosition pos, string png) => ImageFileStorage(parent, pos, default, png, UiColor.White);
+    #endregion
+    
     #region Rust Icon
 
-    public UiRawImage RustIcon(in UiReference parent, in UiPosition pos, in UiOffset offset, Icons icon, UiColor color)
+    public UiRawImage RustIcon(in UiReference parent, in UiPosition pos, in UiOffset offset, Icons icon, UiColor? color = default)
     {
         string img = RustIconCache.GetIcon(icon);
-        UiRawImage image = img.StartsWith("http") ? WebImage(parent, pos, offset, img, color) : ImageFileStorage(parent, pos, offset, img, color);
+        UiRawImage image = img.StartsWith("http") ? WebImage(parent, pos, offset, img, color ?? UiColor.White) : ImageFileStorage(parent, pos, offset, img, color ?? UiColor.White);
         
         image.SetMaterial(UiMaterials.Assets.Icons.Iconmaterial);
         AddComponent(image, parent);
         return image;
     }
-
-    public UiRawImage RustIcon(in UiReference parent, in UiPosition pos, Icons icon, UiColor color) => RustIcon(parent, pos, default, icon, color);
-    public UiRawImage RustIcon(in UiReference parent, in UiPosition pos, in UiOffset offset, Icons icon) => RustIcon(parent, pos, offset, icon, UiColor.White);
-    public UiRawImage RustIcon(in UiReference parent, in UiPosition pos, Icons icon) => RustIcon(parent, pos, default, icon, UiColor.White);
-
-    #endregion
     #endregion
 
     #region Label
@@ -180,20 +143,15 @@ public partial class BaseUiBuilder
         AddComponent(label, parent);
         return label;
     }
-
-    public UiLabel Label(in UiReference parent, in UiPosition pos, string text, int fontSize, UiColor textColor, TextAnchor align = TextAnchor.MiddleCenter) => Label(parent, pos, default, text, fontSize, textColor, align);
     #endregion
         
     #region Input
-    public UiInput Input(in UiReference parent, in UiPosition pos, in UiOffset offset, string text, int fontSize, UiColor textColor,  string command, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, InputMode mode = InputMode.Default, InputField.LineType lineType = InputField.LineType.SingleLine)
+    public UiInput Input(in UiReference parent, in UiPosition pos, in UiOffset offset, string text, int fontSize, UiColor textColor, string command, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, InputMode mode = InputMode.Default, InputField.LineType lineType = InputField.LineType.SingleLine)
     {
         UiInput input = UiInput.Create(pos, offset, textColor, text, fontSize, command, Font, align, charsLimit, mode, lineType);
         AddComponent(input, parent);
         return input;
     }
-
-    public UiInput Input(in UiReference parent, in UiPosition pos, string text, int fontSize, UiColor textColor, string command, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, InputMode mode = InputMode.Default, InputField.LineType lineType = InputField.LineType.SingleLine) 
-        => Input(parent, pos, default, text, fontSize, textColor, command, align, charsLimit, mode, lineType);
     #endregion
 
     #region Anchor
@@ -206,15 +164,12 @@ public partial class BaseUiBuilder
     #endregion
 
     #region ScrollView
-    [Obsolete("Use ScrollView(in UiReference parent, in UiPosition pos, in UiOffset offset, ScrollRect.MovementType movementType = ScrollRect.MovementType.Clamped, float elasticity = 0.1f, bool inertia = false, float decelerationRate = 0.135f, float scrollSensitivity = 1f) instead")]
-    public UiScrollView ScrollView(in UiReference parent, in UiPosition pos, in UiOffset offset, bool horizontal = false, bool vertical = false, ScrollRect.MovementType movementType = ScrollRect.MovementType.Clamped, float elasticity = 0.1f,
-        bool inertia = false, float decelerationRate = 0.135f, float scrollSensitivity = 1f)
-    {
-        return ScrollView(in parent, in pos, in offset, movementType, elasticity, inertia, decelerationRate, scrollSensitivity);
-    }
-    
-    public UiScrollView ScrollView(in UiReference parent, in UiPosition pos, in UiOffset offset, ScrollRect.MovementType movementType = ScrollRect.MovementType.Clamped, float elasticity = 0.1f,
-        bool inertia = false, float decelerationRate = 0.135f, float scrollSensitivity = 1f)
+    public UiScrollView ScrollView(in UiReference parent, in UiPosition pos, in UiOffset offset, 
+        ScrollRect.MovementType movementType = JsonDefaults.ScrollView.MovementType, 
+        float elasticity = JsonDefaults.ScrollView.Elasticity,
+        bool inertia = JsonDefaults.ScrollView.Inertia, 
+        float decelerationRate = JsonDefaults.ScrollView.DecelerationRate, 
+        float scrollSensitivity = JsonDefaults.ScrollView.ScrollSensitivity)
     {
         UiScrollView scroll = UiScrollView.Create(pos, offset, movementType, elasticity, inertia, decelerationRate, scrollSensitivity);
         AddComponent(scroll, parent);

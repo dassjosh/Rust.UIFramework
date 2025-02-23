@@ -47,6 +47,9 @@ public abstract partial class BaseUiBuilder
         return component.AddDraggable(limitToParent, maxDistance, allowSwapping, dropAnywhere, dragAlpha, parentLimitIndex, filter, parentPadding, anchorOffset, keepOnTop, positionRpc, moveToAnchor, rebuildAnchor);
     }
 
+    #endregion
+
+    #region Slot
     public SlotComponent Slot(BaseUiComponent component, string filter = null)
     {
         return component.AddSlot(filter);

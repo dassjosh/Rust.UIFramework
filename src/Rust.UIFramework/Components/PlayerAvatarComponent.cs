@@ -4,7 +4,7 @@ namespace Oxide.Ext.UiFramework.Components;
 
 public class PlayerAvatarComponent : BaseImageComponent
 {
-    public string SteamId;
+    public ulong SteamId;
 
     public override void WriteComponent(JsonFrameworkWriter writer)
     {

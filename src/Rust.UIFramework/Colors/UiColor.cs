@@ -38,6 +38,11 @@ public readonly struct UiColor : IEquatable<UiColor>
     #endregion
 
     #region Constructors
+    public UiColor()
+    {
+        
+    }
+    
     public UiColor(byte red, byte green, byte blue, byte alpha = 255)
     {
         _red = red;

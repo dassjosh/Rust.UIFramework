@@ -40,20 +40,20 @@ public class UiIncrementalNumberPicker<T> : BaseNumberPicker<T> where T : struct
                 
             if (GenericMath.Subtract(value, increment).CompareTo(minValue) >= 0)
             {
-                subtracts.Add(builder.TextButton(background, subtractSlice,  $"-{displayIncrement}", fontSize, textColor, buttonColor, $"{command} -{incrementValue}"));
+                subtracts.Add(builder.TextButton(background, subtractSlice, default, $"-{displayIncrement}", fontSize, textColor, buttonColor, $"{command} -{incrementValue}"));
             }
             else
             {
-                subtracts.Add(builder.TextButton(background, subtractSlice, $"-{displayIncrement}", fontSize, textColor, disabledButtonColor, string.Empty));
+                subtracts.Add(builder.TextButton(background, subtractSlice, default, $"-{displayIncrement}", fontSize, textColor, disabledButtonColor, string.Empty));
             }
 
             if (GenericMath.Add(value, increment).CompareTo(maxValue) <= 0)
             {
-                adds.Add(builder.TextButton(background, addSlice, displayIncrement, fontSize, textColor, buttonColor, $"{command} {incrementValue}"));
+                adds.Add(builder.TextButton(background, addSlice, default, displayIncrement, fontSize, textColor, buttonColor, $"{command} {incrementValue}"));
             }
             else
             {
-                adds.Add(builder.TextButton(background, addSlice, displayIncrement, fontSize, textColor, disabledButtonColor, string.Empty));
+                adds.Add(builder.TextButton(background, addSlice, default, displayIncrement, fontSize, textColor, disabledButtonColor, string.Empty));
             }
         }
 
