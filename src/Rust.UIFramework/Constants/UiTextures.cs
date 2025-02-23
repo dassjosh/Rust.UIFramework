@@ -1,3 +1,4 @@
+// ReSharper disable MemberHidesStaticFromOuterClass
 namespace Oxide.Ext.UiFramework.Constants;
 
 public static class UiTextures
@@ -13,16 +14,16 @@ public static class UiTextures
 			{
 				public static class Materials
 				{
-					public const string Destroyoverlay = "assets/content/building/basicgeo/materials/destroyoverlay.tga";
+					public const string DestroyOverlay = "assets/content/building/basicgeo/materials/destroyoverlay.tga";
 					public const string Guide = "assets/content/building/basicgeo/materials/guide.tga";
-					public const string Guideinvalid = "assets/content/building/basicgeo/materials/guideinvalid.tga";
-					public const string Levelframe = "assets/content/building/basicgeo/materials/levelframe.tga";
-					public const string Levelmetal = "assets/content/building/basicgeo/materials/levelmetal.tga";
-					public const string Levelmetaladv = "assets/content/building/basicgeo/materials/levelmetaladv.tga";
-					public const string Levelstone = "assets/content/building/basicgeo/materials/levelstone.tga";
-					public const string Levelstoneadv = "assets/content/building/basicgeo/materials/levelstoneadv.tga";
-					public const string Levelwood = "assets/content/building/basicgeo/materials/levelwood.tga";
-					public const string Levelwoodadv = "assets/content/building/basicgeo/materials/levelwoodadv.tga";
+					public const string GuideInvalid = "assets/content/building/basicgeo/materials/guideinvalid.tga";
+					public const string LevelFrame = "assets/content/building/basicgeo/materials/levelframe.tga";
+					public const string LevelMetal = "assets/content/building/basicgeo/materials/levelmetal.tga";
+					public const string LevelMetaladv = "assets/content/building/basicgeo/materials/levelmetaladv.tga";
+					public const string LevelStone = "assets/content/building/basicgeo/materials/levelstone.tga";
+					public const string LevelStoneadv = "assets/content/building/basicgeo/materials/levelstoneadv.tga";
+					public const string LevelWood = "assets/content/building/basicgeo/materials/levelwood.tga";
+					public const string LevelWoodadv = "assets/content/building/basicgeo/materials/levelwoodadv.tga";
 				}
 			}
 			public static class Parts
@@ -56,27 +57,27 @@ public static class UiTextures
 			public const string DecalBulletGlass2Albedo = "assets/content/decals/decal_bullet_glass2_albedo.tga";
 			public const string DecalBulletGlass3Albedo = "assets/content/decals/decal_bullet_glass3_albedo.tga";
 			public const string DecalBulletGlassAlbedo = "assets/content/decals/decal_bullet_glass_albedo.tga";
-			public const string Decalbullethole01 = "assets/content/decals/decalbullethole01.tga";
-			public const string Decalbullethole02 = "assets/content/decals/decalbullethole02.tga";
-			public const string Decalbullethole03 = "assets/content/decals/decalbullethole03.tga";
-			public const string Decalbullethole04 = "assets/content/decals/decalbullethole04.tga";
-			public const string Decalbullethole05 = "assets/content/decals/decalbullethole05.tga";
-			public const string Decalbulletholemetal01 = "assets/content/decals/decalbulletholemetal01.tga";
-			public const string Decalbulletholewood01 = "assets/content/decals/decalbulletholewood01.tga";
-			public const string Decalbulletholewood02 = "assets/content/decals/decalbulletholewood02.tga";
-			public const string Decalbulletholewood03 = "assets/content/decals/decalbulletholewood03.tga";
-			public const string Decalbulletholewood04 = "assets/content/decals/decalbulletholewood04.tga";
+			public const string DecalBulletHole01 = "assets/content/decals/decalbullethole01.tga";
+			public const string DecalBulletHole02 = "assets/content/decals/decalbullethole02.tga";
+			public const string DecalBulletHole03 = "assets/content/decals/decalbullethole03.tga";
+			public const string DecalBulletHole04 = "assets/content/decals/decalbullethole04.tga";
+			public const string DecalBulletHole05 = "assets/content/decals/decalbullethole05.tga";
+			public const string DecalBulletHoleMetal01 = "assets/content/decals/decalbulletholemetal01.tga";
+			public const string DecalBulletHoleWood01 = "assets/content/decals/decalbulletholewood01.tga";
+			public const string DecalBulletHoleWood02 = "assets/content/decals/decalbulletholewood02.tga";
+			public const string DecalBulletHoleWood03 = "assets/content/decals/decalbulletholewood03.tga";
+			public const string DecalBulletHoleWood04 = "assets/content/decals/decalbulletholewood04.tga";
 			public const string DecalBulletImpactTundra01 = "assets/content/decals/decal_bullet_impact_tundra_01.tga";
 			public const string DecalBulletMetal01Albedo = "assets/content/decals/decal_bullet_metal_01_albedo.tga";
 			public const string DecalBulletMetal02Albedo = "assets/content/decals/decal_bullet_metal_02_albedo.tga";
 			public const string DecalBulletMetal03Albedo = "assets/content/decals/decal_bullet_metal_03_albedo.tga";
 			public const string DecalBulletRoadAlbedo01 = "assets/content/decals/decal_bullet_road_albedo_01.tga";
 			public const string DecalBulletSand01Albedo = "assets/content/decals/decal_bullet_sand_01_albedo.tga";
-			public const string DecalBulletSandbagAlbedo = "assets/content/decals/decal_bullet_sandbag_albedo.tga";
+			public const string DecalBulletSandBagAlbedo = "assets/content/decals/decal_bullet_sandbag_albedo.tga";
 			public const string DecalBulletSnow01Albedo = "assets/content/decals/decal_bullet_snow_01_albedo.tga";
 			public const string DecalBulletStone01Albedo = "assets/content/decals/decal_bullet_stone_01_albedo.tga";
 			public const string DecalExplosion = "assets/content/decals/decal_explosion.tga";
-			public const string Decalexplosion01 = "assets/content/decals/decalexplosion01.tga";
+			public const string DecalExplosion01 = "assets/content/decals/decalexplosion01.tga";
 			public const string DecalFootprintHumanBareSandLeftAlbedo = "assets/content/decals/decal_footprint_human_bare_sand_left_albedo.tga";
 			public const string DecalFootprintHumanBareSandRightAlbedo = "assets/content/decals/decal_footprint_human_bare_sand_right_albedo.tga";
 			public const string DecalFootprintHumanBareSnowLeftAlbedo = "assets/content/decals/decal_footprint_human_bare_snow_left_albedo.tga";
@@ -86,16 +87,16 @@ public static class UiTextures
 			public const string DecalFootprintHumanBootSnowLeftAlbedo = "assets/content/decals/decal_footprint_human_boot_snow_left_albedo.tga";
 			public const string DecalFootprintHumanBootSnowRightAlbedo = "assets/content/decals/decal_footprint_human_boot_snow_right_albedo.tga";
 			public const string DecalRifleBulletImpactMetalAAlbedo = "assets/content/decals/decal_rifle_bullet_impact_metal_a_albedo.tga";
-			public const string DecalStabFlesh01Albedo = "assets/content/decals/decal_stab_flesh_01_albedo.tga";
-			public const string DecalXsprayA = "assets/content/decals/decal_xspray_a.png";
-			public const string DecalXsprayARed = "assets/content/decals/decal_xspray_a_red.tga";
+			public const string DecalSTabFlesh01Albedo = "assets/content/decals/decal_stab_flesh_01_albedo.tga";
+			public const string DecalXSprayA = "assets/content/decals/decal_xspray_a.png";
+			public const string DecalXSprayARed = "assets/content/decals/decal_xspray_a_red.tga";
 		}
 
 		public static class Developer
 		{
-			public const string Deverror = "assets/content/developer/deverror.png";
-			public const string Devgrey = "assets/content/developer/devgrey.png";
-			public const string Devwhite = "assets/content/developer/devwhite.png";
+			public const string DevError = "assets/content/developer/deverror.png";
+			public const string DevGrey = "assets/content/developer/devgrey.png";
+			public const string DevWhite = "assets/content/developer/devwhite.png";
 		}
 
 		public static class Effects
@@ -128,7 +129,7 @@ public static class UiTextures
 					public const string SingleCumulas03Albedo = "assets/content/effects/textures/clouds/single_cumulas_03_albedo.tga";
 					public const string SingleCumulas04Albedo = "assets/content/effects/textures/clouds/single_cumulas_04_albedo.tga";
 					public const string SingleCumulas05Albedo = "assets/content/effects/textures/clouds/single_cumulas_05_albedo.tga";
-					public const string Stratocumulus02Albedo = "assets/content/effects/textures/clouds/stratocumulus_02_albedo.tga";
+					public const string StratoCumulus02Albedo = "assets/content/effects/textures/clouds/stratocumulus_02_albedo.tga";
 					public const string TransitionAltostratus06Albedo = "assets/content/effects/textures/clouds/transition_altostratus_06_albedo.tga";
 				}
 				public static class Sand
@@ -136,7 +137,7 @@ public static class UiTextures
 					public const string DecalParticleSoft = "assets/content/effects/textures/sand/decal_particle_soft.psd";
 					public const string DecalSand2 = "assets/content/effects/textures/sand/decal_sand2.psd";
 					public const string FxGradient = "assets/content/effects/textures/sand/fx_gradient.psd";
-					public const string FxGradientSoftbottom = "assets/content/effects/textures/sand/fx_gradient_softbottom.psd";
+					public const string FxGradientSoftBottom = "assets/content/effects/textures/sand/fx_gradient_softbottom.psd";
 					public const string SandParticleA = "assets/content/effects/textures/sand/sand_particle_a.tga";
 				}
 				public static class Smoke
@@ -151,8 +152,8 @@ public static class UiTextures
 		public static class Materials
 		{
 			public const string Cable = "assets/content/materials/cable.jpg";
-			public const string Highlight = "assets/content/materials/highlight.png";
-			public const string Highlight2 = "assets/content/materials/highlight2.png";
+			public const string HighLight = "assets/content/materials/highlight.png";
+			public const string HighLight2 = "assets/content/materials/highlight2.png";
 		}
 
 		public static class Nature
@@ -197,7 +198,7 @@ public static class UiTextures
 				{
 					public static class Ies
 					{
-						public static class Spotlight
+						public static class SpotLight
 						{
 							public const string IesCookieHemisphereSpot = "assets/content/props/light_fixtures/v2/ies/spotlight/ies-cookie-hemisphere-spot.tga";
 							public const string IesCookieReflector1 = "assets/content/props/light_fixtures/v2/ies/spotlight/ies-cookie-reflector1.tga";
@@ -248,7 +249,7 @@ public static class UiTextures
 			public static class Decals
 			{
 				public const string ArrowStraightA = "assets/content/textures/decals/arrow_straight_a.tga";
-				public const string Chillzone = "assets/content/textures/decals/chillzone.png";
+				public const string ChillZone = "assets/content/textures/decals/chillzone.png";
 				public const string CompoundSigns = "assets/content/textures/decals/compound_signs.tga";
 				public const string ConcreteCracksA = "assets/content/textures/decals/concrete_cracks_a.tga";
 				public const string ConcreteLeaksA = "assets/content/textures/decals/concrete_leaks_a.tga";
@@ -263,9 +264,9 @@ public static class UiTextures
 				public const string LabelOilA = "assets/content/textures/decals/label_oil_a.tga";
 				public const string RoadDebris = "assets/content/textures/decals/road_debris.tga";
 				public const string RustMillsShipping = "assets/content/textures/decals/rust_mills_shipping.tga";
-				public const string SeaweedplaneSeaweeddecalAlbedotransparency = "assets/content/textures/decals/seaweedplane_seaweeddecal_albedotransparency.tga";
-				public const string SeaweedplaneSeaweeddecalMetallicsmoothness = "assets/content/textures/decals/seaweedplane_seaweeddecal_metallicsmoothness.tga";
-				public const string SeaweedplaneSeaweeddecalTransmission = "assets/content/textures/decals/seaweedplane_seaweeddecal_transmission.tga";
+				public const string SeaweedPlaneSeaweeddecalAlbedotransparency = "assets/content/textures/decals/seaweedplane_seaweeddecal_albedotransparency.tga";
+				public const string SeaweedPlaneSeaweeddecalMetallicsmoothness = "assets/content/textures/decals/seaweedplane_seaweeddecal_metallicsmoothness.tga";
+				public const string SeaweedPlaneSeaweeddecalTransmission = "assets/content/textures/decals/seaweedplane_seaweeddecal_transmission.tga";
 				public const string WarningBiohazardA = "assets/content/textures/decals/warning_biohazard_a.tga";
 				public const string WarningExplosiveA = "assets/content/textures/decals/warning_explosive_a.tga";
 				public const string WarningFuelA = "assets/content/textures/decals/warning_fuel_a.tga";
@@ -303,11 +304,11 @@ public static class UiTextures
 			public const string UiGradientDownTight = "assets/content/ui/ui.gradient.down.tight.psd";
 			public const string UiSpashscreen = "assets/content/ui/ui.spashscreen.psd";
 
-			public static class Gameui
+			public static class GameUi
 			{
 				public const string UiCrosshairCircle = "assets/content/ui/gameui/ui.crosshair.circle.png";
 
-				public static class Attackheli
+				public static class AttackHeli
 				{
 					public static class Compass
 					{
@@ -317,7 +318,7 @@ public static class UiTextures
 					}
 				}
 
-				public static class Cardgames
+				public static class CardGames
 				{
 					public static class Deck
 					{
@@ -331,9 +332,9 @@ public static class UiTextures
 				}
 			}
 
-			public static class Menuui
+			public static class MenuUi
 			{
-				public static class Itemstore
+				public static class ItemStore
 				{
 					public static class Packs
 					{
@@ -358,7 +359,7 @@ public static class UiTextures
 
 		public static class Vehicles
 		{
-			public static class Modularcar
+			public static class ModularCar
 			{
 				public static class Models
 				{
@@ -366,8 +367,8 @@ public static class UiTextures
 					{
 						public static class Textures
 						{
-							public const string Checkenginelight = "assets/content/vehicles/modularcar/models/materials/textures/checkenginelight.tga";
-							public const string Lowgaslight = "assets/content/vehicles/modularcar/models/materials/textures/lowgaslight.tga";
+							public const string CheckEngineLight = "assets/content/vehicles/modularcar/models/materials/textures/checkenginelight.tga";
+							public const string LowgasLight = "assets/content/vehicles/modularcar/models/materials/textures/lowgaslight.tga";
 						}
 					}
 				}

@@ -567,7 +567,7 @@ public class AssetBrowser : RustPlugin
             if (state.Type == AssetType.Sprite)
             {
                 UiImage sprite = builder.ImageSprite(button, UiPosition.Full, default, pair.Value, UiColor.White);
-                sprite.SetMaterial(UiMaterials.Content.Ui.Namefontmaterial);
+                sprite.SetMaterial(UiMaterials.Content.Ui.NameFontMaterial);
             }
             else
             {
@@ -620,7 +620,7 @@ public class AssetBrowser : RustPlugin
             //Puts($"{pair.Key}: {_imageGrid.ToPosition()}");
             UiButton button = builder.CommandButton(scroll, _imageGrid, default, _buttonColor,  _uiCommands.SelectAsset.Build(pair.Value));
             UiImage sprite = builder.ImageSprite(button, UiPosition.Full, default, pair.Value, UiColor.White);
-            sprite.SetMaterial(UiMaterials.Content.Ui.Namefontmaterial);
+            sprite.SetMaterial(UiMaterials.Content.Ui.NameFontMaterial);
             _imageGrid.MoveCols(1);
         }
     }
@@ -644,7 +644,7 @@ public class AssetBrowser : RustPlugin
             //Puts($"{pair.Key}: {_imageGrid.ToPosition()}");
             UiButton button = builder.CommandButton(scroll, _imageGrid, default, _buttonColor, _uiCommands.SelectAsset.Build(pair.Value));
             UiItemIcon icon = builder.ItemIcon(button, UiPosition.Full, default, int.Parse(pair.Value), color: UiColor.White);
-            icon.SetMaterial(UiMaterials.Content.Ui.Namefontmaterial);
+            icon.SetMaterial(UiMaterials.Content.Ui.NameFontMaterial);
             _imageGrid.MoveCols(1);
         }
     }

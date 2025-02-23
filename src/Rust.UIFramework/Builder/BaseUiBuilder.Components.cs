@@ -130,7 +130,7 @@ public partial class BaseUiBuilder
         string img = RustIconCache.GetIcon(icon);
         UiRawImage image = img.StartsWith("http") ? WebImage(parent, pos, offset, img, color ?? UiColor.White) : ImageFileStorage(parent, pos, offset, img, color ?? UiColor.White);
         
-        image.SetMaterial(UiMaterials.Icons.Iconmaterial);
+        image.SetMaterial(UiMaterials.Icons.IconMaterial);
         AddComponent(image, parent);
         return image;
     }

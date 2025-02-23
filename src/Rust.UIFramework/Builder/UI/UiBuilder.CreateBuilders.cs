@@ -45,7 +45,7 @@ public partial class UiBuilder
     /// <returns></returns>
     public static UiBuilder CreateModal(in UiOffset modalSize, UiColor modalColor, string name, UiLayer layer = UiLayer.Overlay, string outsideCloseCommand = null)
     {
-        return CreateModal(modalSize, modalColor, new UiColor(0, 0, 0, 0.5f), name, layer, UiMaterials.Content.Ui.UibackgroundblurIngamemenu, outsideCloseCommand);
+        return CreateModal(modalSize, modalColor, new UiColor(0, 0, 0, 0.5f), name, layer, UiMaterials.Content.Ui.UiBackgroundBlurInGameMenu, outsideCloseCommand);
     }
 
     /// <summary>

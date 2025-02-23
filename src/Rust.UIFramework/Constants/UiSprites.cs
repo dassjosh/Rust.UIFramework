@@ -1,12 +1,13 @@
+// ReSharper disable MemberHidesStaticFromOuterClass
 namespace Oxide.Ext.UiFramework.Constants;
 
 public static class UiSprites
 {
 	public static class Content
 	{
-		public const string Carshredderavatar = "assets/content/structures/carshredder/carshredderavatar.png";
-		public const string DecalXsprayASprite = "assets/content/decals/decal_xspray_a_sprite.png";
-		public const string WolfheaddressIcon = "assets/content/player/clothing/special/wolf head dress/wolfheaddress.icon.png";
+		public const string CarShredderAvatar = "assets/content/structures/carshredder/carshredderavatar.png";
+		public const string DecalXSprayASprite = "assets/content/decals/decal_xspray_a_sprite.png";
+		public const string WolfHeaddressIcon = "assets/content/player/clothing/special/wolf head dress/wolfheaddress.icon.png";
 
 		public static class Effects
 		{
@@ -16,15 +17,15 @@ public static class UiSprites
 
 		public static class Props
 		{
-			public const string FogmachineIcon = "assets/content/props/fog machine/fogmachine.icon.png";
+			public const string FogMachineIcon = "assets/content/props/fog machine/fogmachine.icon.png";
 			public const string HarborDynamicContainerAvatar = "assets/content/props/shipping_containers/harbor_dynamic_container_avatar.png";
 			public const string SentryScientistStaticIcon = "assets/content/props/sentry_scientists/sentry.scientist.static.icon.png";
-			public const string StrobelightIcon = "assets/content/props/strobe light/strobelight.icon.png";
+			public const string StrobeLightIcon = "assets/content/props/strobe light/strobelight.icon.png";
 		}
 
 		public static class Textures
 		{
-			public const string Fulltransparent = "assets/content/textures/generic/fulltransparent.tga";
+			public const string FullTransparent = "assets/content/textures/generic/fulltransparent.tga";
 			public const string MissingIcon = "assets/content/textures/missing_icon.png";
 		}
 
@@ -50,18 +51,18 @@ public static class UiSprites
 			public const string OverlayHelmetSlit = "assets/content/ui/overlay_helmet_slit.png";
 			public const string OverlayNvg = "assets/content/ui/overlay_nvg.png";
 			public const string OverlayPoisoned = "assets/content/ui/overlay_poisoned.png";
-			public const string OverlayPrisonerhood = "assets/content/ui/overlay_prisonerhood.png";
+			public const string OverlayPrisonerHood = "assets/content/ui/overlay_prisonerhood.png";
 			public const string OverlayScope1 = "assets/content/ui/overlay_scope_1.png";
 			public const string OverlayScope1Dirty = "assets/content/ui/overlay_scope_1_dirty.png";
 			public const string OverlayScope2 = "assets/content/ui/overlay_scope_2.png";
 			public const string OverlayScope2Dirty = "assets/content/ui/overlay_scope_2_dirty.png";
 			public const string OverlayScubaDirt = "assets/content/ui/overlay_scuba_dirt.png";
-			public const string Tutorialislandmapicon = "assets/content/ui/tutorialislandmapicon.png";
+			public const string TutorialIslandMapIcon = "assets/content/ui/tutorialislandmapicon.png";
 			public const string UiBackgroundRounded = "assets/content/ui/ui.background.rounded.png";
 			public const string UiBackgroundRoundedPixelated = "assets/content/ui/ui.background.rounded.pixelated.png";
 			public const string UiBackgroundRoundedTop = "assets/content/ui/ui.background.rounded.top.png";
 			public const string UiBackgroundTile = "assets/content/ui/ui.background.tile.psd";
-			public const string UiBackgroundTileclothing = "assets/content/ui/ui.background.tileclothing.png";
+			public const string UiBackgroundTileClothing = "assets/content/ui/ui.background.tileclothing.png";
 			public const string UiBackgroundTiletex = "assets/content/ui/ui.background.tiletex.psd";
 			public const string UiBackgroundTransparentLinear = "assets/content/ui/ui.background.transparent.linear.psd";
 			public const string UiBackgroundTransparentLinearltr = "assets/content/ui/ui.background.transparent.linearltr.tga";
@@ -69,7 +70,7 @@ public static class UiSprites
 			public const string UiBox = "assets/content/ui/ui.box.tga";
 			public const string UiBoxDotted = "assets/content/ui/ui.box.dotted.tga";
 			public const string UiBoxSharp = "assets/content/ui/ui.box.sharp.tga";
-			public const string UiCirclegradient = "assets/content/ui/ui.circlegradient.png";
+			public const string UiCircleGradient = "assets/content/ui/ui.circlegradient.png";
 			public const string UiCompanionGuide1 = "assets/content/ui/ui.companion.guide1.psd";
 			public const string UiCompanionGuide2 = "assets/content/ui/ui.companion.guide2.psd";
 			public const string UiCompanionGuide3 = "assets/content/ui/ui.companion.guide3.psd";
@@ -81,7 +82,7 @@ public static class UiSprites
 			public const string UiIconRust = "assets/content/ui/ui.icon.rust.png";
 			public const string UiLineDotted = "assets/content/ui/ui.line.dotted.tga";
 			public const string UiRounded = "assets/content/ui/ui.rounded.tga";
-			public const string UiServerimageDefault = "assets/content/ui/ui.serverimage.default.psd";
+			public const string UiServerImageDefault = "assets/content/ui/ui.serverimage.default.psd";
 			public const string UiWhite = "assets/content/ui/ui.white.tga";
 			public const string WaypointInner = "assets/content/ui/waypoint.inner.png";
 			public const string WaypointOutline = "assets/content/ui/waypoint.outline.png";
@@ -91,20 +92,20 @@ public static class UiSprites
 
 			public static class Developer
 			{
-				public static class Developmentskin
+				public static class DevelopmentSkin
 				{
-					public const string Devpanelbg = "assets/content/ui/developer/developmentskin/devpanelbg.png";
-					public const string DevtabActive = "assets/content/ui/developer/developmentskin/devtab-active.png";
-					public const string DevtabBright = "assets/content/ui/developer/developmentskin/devtab-bright.png";
-					public const string DevtabNormal = "assets/content/ui/developer/developmentskin/devtab-normal.png";
+					public const string DevPanelbg = "assets/content/ui/developer/developmentskin/devpanelbg.png";
+					public const string DevTabActive = "assets/content/ui/developer/developmentskin/devtab-active.png";
+					public const string DevTabBright = "assets/content/ui/developer/developmentskin/devtab-bright.png";
+					public const string DevTabNormal = "assets/content/ui/developer/developmentskin/devtab-normal.png";
 				}
 			}
 
-			public static class Gameui
+			public static class GameUi
 			{
 				public const string Banner = "assets/content/ui/gameui/clan/banner.png";
 
-				public static class Attackheli
+				public static class AttackHeli
 				{
 					public const string IconMouse1 = "assets/content/ui/gameui/attackheli/icon-mouse1.png";
 					public const string IconMouse2 = "assets/content/ui/gameui/attackheli/icon-mouse2.png";
@@ -121,16 +122,16 @@ public static class UiSprites
 					{
 						public const string AhCrosshairInner = "assets/content/ui/gameui/attackheli/hires/ah_crosshair_inner.png";
 						public const string AhCrosshairOuter = "assets/content/ui/gameui/attackheli/hires/ah_crosshair_outer.png";
-						public const string AhDiamondHighvelocity = "assets/content/ui/gameui/attackheli/hires/ah_diamond_highvelocity.png";
+						public const string AhDiamondHighVelocity = "assets/content/ui/gameui/attackheli/hires/ah_diamond_highvelocity.png";
 						public const string AhDiamondIncendiary = "assets/content/ui/gameui/attackheli/hires/ah_diamond_incendiary.png";
 						public const string AhDiamondRocket = "assets/content/ui/gameui/attackheli/hires/ah_diamond_rocket.png";
 						public const string AhDmg = "assets/content/ui/gameui/attackheli/hires/ah_dmg.png";
-						public const string AhOutofammo = "assets/content/ui/gameui/attackheli/hires/ah_outofammo.png";
-						public const string AhOutofammo2 = "assets/content/ui/gameui/attackheli/hires/ah_outofammo2.png";
-						public const string AhOutofammo3 = "assets/content/ui/gameui/attackheli/hires/ah_outofammo3.png";
+						public const string AhOutOfAmmo = "assets/content/ui/gameui/attackheli/hires/ah_outofammo.png";
+						public const string AhOutOfAmmo2 = "assets/content/ui/gameui/attackheli/hires/ah_outofammo2.png";
+						public const string AhOutOfAmmo3 = "assets/content/ui/gameui/attackheli/hires/ah_outofammo3.png";
 						public const string AhRocket = "assets/content/ui/gameui/attackheli/hires/ah_rocket.png";
-						public const string AhTurretposInner = "assets/content/ui/gameui/attackheli/hires/ah_turretpos_inner.png";
-						public const string AhTurretposOuter = "assets/content/ui/gameui/attackheli/hires/ah_turretpos_outer.png";
+						public const string AhTurretPosInner = "assets/content/ui/gameui/attackheli/hires/ah_turretpos_inner.png";
+						public const string AhTurretPosOuter = "assets/content/ui/gameui/attackheli/hires/ah_turretpos_outer.png";
 						public const string AhZoomArrow = "assets/content/ui/gameui/attackheli/hires/ah_zoom_arrow.png";
 						public const string AhZoomBar = "assets/content/ui/gameui/attackheli/hires/ah_zoom_bar.png";
 					}
@@ -139,13 +140,13 @@ public static class UiSprites
 					{
 						public const string AhCrosshairInner = "assets/content/ui/gameui/attackheli/lores/ah_crosshair_inner.png";
 						public const string AhCrosshairOuter = "assets/content/ui/gameui/attackheli/lores/ah_crosshair_outer.png";
-						public const string AhDiamondHighvelocitySml = "assets/content/ui/gameui/attackheli/lores/ah_diamond_highvelocity_sml.png";
+						public const string AhDiamondHighVelocitySml = "assets/content/ui/gameui/attackheli/lores/ah_diamond_highvelocity_sml.png";
 						public const string AhDiamondIncendiarySml = "assets/content/ui/gameui/attackheli/lores/ah_diamond_incendiary_sml.png";
 						public const string AhDiamondRocketSml = "assets/content/ui/gameui/attackheli/lores/ah_diamond_rocket_sml.png";
-						public const string AhOutofammo = "assets/content/ui/gameui/attackheli/lores/ah_outofammo.png";
-						public const string AhOutofammo2 = "assets/content/ui/gameui/attackheli/lores/ah_outofammo2.png";
-						public const string AhTurretposInner = "assets/content/ui/gameui/attackheli/lores/ah_turretpos_inner.png";
-						public const string AhTurretposOuter = "assets/content/ui/gameui/attackheli/lores/ah_turretpos_outer.png";
+						public const string AhOutOfAmmo = "assets/content/ui/gameui/attackheli/lores/ah_outofammo.png";
+						public const string AhOutOfAmmo2 = "assets/content/ui/gameui/attackheli/lores/ah_outofammo2.png";
+						public const string AhTurretPosInner = "assets/content/ui/gameui/attackheli/lores/ah_turretpos_inner.png";
+						public const string AhTurretPosOuter = "assets/content/ui/gameui/attackheli/lores/ah_turretpos_outer.png";
 						public const string AhZoomArrow = "assets/content/ui/gameui/attackheli/lores/ah_zoom_arrow.png";
 						public const string AhZoomBar = "assets/content/ui/gameui/attackheli/lores/ah_zoom_bar.png";
 						public const string OutOfAmmoSml = "assets/content/ui/gameui/attackheli/lores/out_of_ammo_sml.png";
@@ -180,8 +181,8 @@ public static class UiSprites
 					public const string MonitorMainBackground = "assets/content/ui/gameui/blackjack/monitor_main_background.png";
 					public const string MonitorSmallBackground = "assets/content/ui/gameui/blackjack/monitor_small_background.png";
 					public const string Rust = "assets/content/ui/gameui/blackjack/rust.png";
-					public const string ScanlinesClean = "assets/content/ui/gameui/blackjack/scanlines-clean.png";
-					public const string ScanlinesDirt = "assets/content/ui/gameui/blackjack/scanlines-dirt.png";
+					public const string ScanLinesClean = "assets/content/ui/gameui/blackjack/scanlines-clean.png";
+					public const string ScanLinesDirt = "assets/content/ui/gameui/blackjack/scanlines-dirt.png";
 					public const string Spades = "assets/content/ui/gameui/blackjack/spades.png";
 					public const string SpadesSmall = "assets/content/ui/gameui/blackjack/spades_small.png";
 				}
@@ -197,7 +198,7 @@ public static class UiSprites
 					public const string IconZoom = "assets/content/ui/gameui/camera/icon-zoom.png";
 				}
 
-				public static class Cardgames
+				public static class CardGames
 				{
 					public const string CannotSeeIcon = "assets/content/ui/gameui/cardgames/cannot_see_icon.png";
 					public const string CanSeeIcon = "assets/content/ui/gameui/cardgames/can_see_icon.png";
@@ -211,7 +212,7 @@ public static class UiSprites
 						public const string Back = "assets/content/ui/gameui/cardgames/deck/back.png";
 						public const string Backing = "assets/content/ui/gameui/cardgames/deck/backing.png";
 						public const string CardBlur = "assets/content/ui/gameui/cardgames/deck/card_blur.png";
-						public const string Nocard = "assets/content/ui/gameui/cardgames/deck/nocard.png";
+						public const string NoCard = "assets/content/ui/gameui/cardgames/deck/nocard.png";
 					}
 
 					public static class DeckSmall
@@ -237,12 +238,12 @@ public static class UiSprites
 					public const string ReticleFull = "assets/content/ui/gameui/crosshairs/reticle-full.png";
 				}
 
-				public static class Manpad
+				public static class ManPad
 				{
-					public const string ManpadLocked = "assets/content/ui/gameui/manpad/manpad_locked.png";
-					public const string ManpadSignal = "assets/content/ui/gameui/manpad/manpad_signal.png";
-					public const string ManpadSignal2 = "assets/content/ui/gameui/manpad/manpad_signal2.png";
-					public const string ManpadTracking = "assets/content/ui/gameui/manpad/manpad_tracking.png";
+					public const string ManPadLocked = "assets/content/ui/gameui/manpad/manpad_locked.png";
+					public const string ManPadSignal = "assets/content/ui/gameui/manpad/manpad_signal.png";
+					public const string ManPadSignal2 = "assets/content/ui/gameui/manpad/manpad_signal2.png";
+					public const string ManPadTracking = "assets/content/ui/gameui/manpad/manpad_tracking.png";
 				}
 
 				public static class Mlrs
@@ -254,28 +255,28 @@ public static class UiSprites
 					public const string MlrsFrame = "assets/content/ui/gameui/mlrs/mlrs_frame.png";
 					public const string MlrsMapEdgeFade = "assets/content/ui/gameui/mlrs/mlrs_map_edge_fade.png";
 					public const string MlrsRadialLines = "assets/content/ui/gameui/mlrs/mlrs_radial_lines.png";
-					public const string MlrsScanlines = "assets/content/ui/gameui/mlrs/mlrs_scanlines.png";
+					public const string MlrsScanLines = "assets/content/ui/gameui/mlrs/mlrs_scanlines.png";
 					public const string MlrsTargetCircleFade = "assets/content/ui/gameui/mlrs/mlrs_target_circle_fade.png";
 					public const string MlrsTargetCross = "assets/content/ui/gameui/mlrs/mlrs_target_cross.png";
 				}
 
 				public static class Tugboat
 				{
-					public const string Scanlines = "assets/content/ui/gameui/tugboat/scanlines.png";
+					public const string ScanLines = "assets/content/ui/gameui/tugboat/scanlines.png";
 					public const string UiBackground = "assets/content/ui/gameui/tugboat/ui_background.png";
 				}
 
 				public static class Underlays
 				{
-					public const string Bloodsplat1 = "assets/content/ui/gameui/underlays/bloodsplat1.png";
-					public const string Bloodsplat1White = "assets/content/ui/gameui/underlays/bloodsplat1_white.png";
-					public const string Bloodsplat2 = "assets/content/ui/gameui/underlays/bloodsplat2.png";
-					public const string Bloodsplat2White = "assets/content/ui/gameui/underlays/bloodsplat2_white.png";
-					public const string Bloodsplat3 = "assets/content/ui/gameui/underlays/bloodsplat3.png";
-					public const string Bloodsplat3White = "assets/content/ui/gameui/underlays/bloodsplat3_white.png";
-					public const string Bloodsplat4 = "assets/content/ui/gameui/underlays/bloodsplat4.png";
-					public const string Bloodsplat4White = "assets/content/ui/gameui/underlays/bloodsplat4_white.png";
-					public const string UiDamageDirectionalFunwater = "assets/content/ui/gameui/underlays/ui.damage.directional.funwater.tga";
+					public const string BloodSplat1 = "assets/content/ui/gameui/underlays/bloodsplat1.png";
+					public const string BloodSplat1White = "assets/content/ui/gameui/underlays/bloodsplat1_white.png";
+					public const string BloodSplat2 = "assets/content/ui/gameui/underlays/bloodsplat2.png";
+					public const string BloodSplat2White = "assets/content/ui/gameui/underlays/bloodsplat2_white.png";
+					public const string BloodSplat3 = "assets/content/ui/gameui/underlays/bloodsplat3.png";
+					public const string BloodSplat3White = "assets/content/ui/gameui/underlays/bloodsplat3_white.png";
+					public const string BloodSplat4 = "assets/content/ui/gameui/underlays/bloodsplat4.png";
+					public const string BloodSplat4White = "assets/content/ui/gameui/underlays/bloodsplat4_white.png";
+					public const string UiDamageDirectionalFunWater = "assets/content/ui/gameui/underlays/ui.damage.directional.funwater.tga";
 					public const string UiDamageDirectionalNormal = "assets/content/ui/gameui/underlays/ui.damage.directional.normal.tga";
 				}
 			}
@@ -302,16 +303,16 @@ public static class UiSprites
 				public const string IconMapZzz = "assets/content/ui/map/icon-map_zzz.png";
 			}
 
-			public static class Menuui
+			public static class MenuUi
 			{
 				public const string BootstrapBg01 = "assets/content/ui/menuui/bootstrap_bg_01.png";
 				public const string LoadingBg01 = "assets/content/ui/menuui/loading_bg_01.jpg";
 				public const string LogoHalloween2020 = "assets/content/ui/menuui/logo.halloween.2020.png";
 				public const string Lunar2020 = "assets/content/ui/menuui/lunar2020.png";
 				public const string RustEasterLogo = "assets/content/ui/menuui/rust.easter.logo.png";
-				public const string RustlogoBlurred = "assets/content/ui/menuui/rustlogo-blurred.png";
-				public const string RustlogoNormalTransparent = "assets/content/ui/menuui/rustlogo-normal-transparent.png";
-				public const string RustlogoPlus = "assets/content/ui/menuui/rustlogo-plus.png";
+				public const string RustLogoBlurred = "assets/content/ui/menuui/rustlogo-blurred.png";
+				public const string RustLogoNormalTransparent = "assets/content/ui/menuui/rustlogo-normal-transparent.png";
+				public const string RustLogoPlus = "assets/content/ui/menuui/rustlogo-plus.png";
 				public const string RustSpringLogo = "assets/content/ui/menuui/rust_spring_logo.png";
 				public const string UiLoadingLogo = "assets/content/ui/menuui/ui.loading.logo.tga";
 				public const string UiLogoBig = "assets/content/ui/menuui/ui-logo-big.png";
@@ -321,12 +322,12 @@ public static class UiSprites
 				public const string UiLogoBigXmas2022 = "assets/content/ui/menuui/ui.logo.big.xmas.2022.png";
 				public const string UiLogoRust10 = "assets/content/ui/menuui/ui_logo-rust-10.png";
 				public const string UiMenuLogo = "assets/content/ui/menuui/ui.menu.logo.png";
-				public const string UiMenuNewsMissingbackground = "assets/content/ui/menuui/ui.menu.news.missingbackground.jpg";
-				public const string UiMenuRateusBackground = "assets/content/ui/menuui/ui.menu.rateus.background.png";
+				public const string UiMenuNewsMissingBackground = "assets/content/ui/menuui/ui.menu.news.missingbackground.jpg";
+				public const string UiMenuRateUsBackground = "assets/content/ui/menuui/ui.menu.rateus.background.png";
 
 				public static class Friendslist
 				{
-					public const string UiFriendavatargradient = "assets/content/ui/menuui/friendslist/ui.friendavatargradient.png";
+					public const string UiFriendAvatarGradient = "assets/content/ui/menuui/friendslist/ui.friendavatargradient.png";
 
 					public static class Assets
 					{
@@ -353,12 +354,12 @@ public static class UiSprites
 				public const string SimpleSquareSprite = "assets/content/ui/misc/simple_square_sprite.png";
 			}
 
-			public static class Tiledpatterns
+			public static class TiledPatterns
 			{
 				public const string Circles = "assets/content/ui/tiledpatterns/circles.png";
-				public const string StripeReallythick = "assets/content/ui/tiledpatterns/stripe_reallythick.png";
-				public const string StripeSlight = "assets/content/ui/tiledpatterns/stripe_slight.png";
-				public const string StripeSlightThick = "assets/content/ui/tiledpatterns/stripe_slight_thick.png";
+				public const string StripeReallyThick = "assets/content/ui/tiledpatterns/stripe_reallythick.png";
+				public const string StripeSLight = "assets/content/ui/tiledpatterns/stripe_slight.png";
+				public const string StripeSLightThick = "assets/content/ui/tiledpatterns/stripe_slight_thick.png";
 				public const string StripeThick = "assets/content/ui/tiledpatterns/stripe_thick.png";
 				public const string StripeThin = "assets/content/ui/tiledpatterns/stripe_thin.png";
 				public const string SwirlPattern = "assets/content/ui/tiledpatterns/swirl_pattern.png";
@@ -367,23 +368,23 @@ public static class UiSprites
 
 		public static class Vehicles
 		{
-			public const string AttackhelicopterIcon = "assets/content/vehicles/attackhelicopter/attackhelicopter.icon.png";
+			public const string AttackHelicopterIcon = "assets/content/vehicles/attackhelicopter/attackhelicopter.icon.png";
 			public const string DpvIcon = "assets/content/vehicles/dpv/dpv.icon.png";
-			public const string Magnetcraneavatar = "assets/content/vehicles/crane_magnet/magnetcraneavatar.png";
+			public const string MagnetCraneAvatar = "assets/content/vehicles/crane_magnet/magnetcraneavatar.png";
 			public const string MinicopterEntityIcon = "assets/content/vehicles/minicopter/minicopter.entity.icon.png";
-			public const string ScraptransporthelicopterIcon = "assets/content/vehicles/scrap heli carrier/scraptransporthelicopter.icon.png";
+			public const string ScrapTransportHelicopterIcon = "assets/content/vehicles/scrap heli carrier/scraptransporthelicopter.icon.png";
 
 			public static class Bikes
 			{
-				public const string MotorbikeIcon = "assets/content/vehicles/bikes/motorbike.icon.png";
-				public const string MotorbikeSidecarIcon = "assets/content/vehicles/bikes/motorbike_sidecar.icon.png";
-				public const string PedalbikeIcon = "assets/content/vehicles/bikes/pedalbike.icon.png";
-				public const string PedaltrikeIcon = "assets/content/vehicles/bikes/pedaltrike.icon.png";
+				public const string MotorBikeIcon = "assets/content/vehicles/bikes/motorbike.icon.png";
+				public const string MotorBikeSidecarIcon = "assets/content/vehicles/bikes/motorbike_sidecar.icon.png";
+				public const string PedalBikeIcon = "assets/content/vehicles/bikes/pedalbike.icon.png";
+				public const string PedalTrikeIcon = "assets/content/vehicles/bikes/pedaltrike.icon.png";
 			}
 
 			public static class Boats
 			{
-				public const string Cargoshipavatar = "assets/content/vehicles/boats/cargoship/cargoshipavatar.png";
+				public const string CargoShipAvatar = "assets/content/vehicles/boats/cargoship/cargoshipavatar.png";
 				public const string KayakIcon = "assets/content/vehicles/boats/kayak/kayak.icon.png";
 				public const string RowboatIcon = "assets/content/vehicles/boats/rowboat/rowboat.icon.png";
 				public const string TugboatIcon = "assets/content/vehicles/boats/tugboat/tugboat.icon.png";
@@ -393,23 +394,23 @@ public static class UiSprites
 			{
 				public static class Breeds
 				{
-					public const string HorseavatarAppaloosa = "assets/content/vehicles/horse/breeds/horseavatar_appaloosa.png";
-					public const string HorseavatarBay = "assets/content/vehicles/horse/breeds/horseavatar_bay.png";
-					public const string HorseavatarBlackthoroughbred = "assets/content/vehicles/horse/breeds/horseavatar_blackthoroughbred.png";
-					public const string HorseavatarBucksin = "assets/content/vehicles/horse/breeds/horseavatar_bucksin.png";
-					public const string HorseavatarChestnut = "assets/content/vehicles/horse/breeds/horseavatar_chestnut.png";
-					public const string HorseavatarDapplegrey = "assets/content/vehicles/horse/breeds/horseavatar_dapplegrey.png";
-					public const string HorseavatarPiebald = "assets/content/vehicles/horse/breeds/horseavatar_piebald.png";
-					public const string HorseavatarPinto = "assets/content/vehicles/horse/breeds/horseavatar_pinto.png";
-					public const string HorseavatarRedroan = "assets/content/vehicles/horse/breeds/horseavatar_redroan.png";
-					public const string HorseavatarWhitethoroughbred = "assets/content/vehicles/horse/breeds/horseavatar_whitethoroughbred.png";
+					public const string HorseAvatarAppaloosa = "assets/content/vehicles/horse/breeds/horseavatar_appaloosa.png";
+					public const string HorseAvatarBay = "assets/content/vehicles/horse/breeds/horseavatar_bay.png";
+					public const string HorseAvatarBlackThoroughbred = "assets/content/vehicles/horse/breeds/horseavatar_blackthoroughbred.png";
+					public const string HorseAvatarBucksin = "assets/content/vehicles/horse/breeds/horseavatar_bucksin.png";
+					public const string HorseAvatarChestnut = "assets/content/vehicles/horse/breeds/horseavatar_chestnut.png";
+					public const string HorseAvatarDappleGrey = "assets/content/vehicles/horse/breeds/horseavatar_dapplegrey.png";
+					public const string HorseAvatarPiebald = "assets/content/vehicles/horse/breeds/horseavatar_piebald.png";
+					public const string HorseAvatarPinto = "assets/content/vehicles/horse/breeds/horseavatar_pinto.png";
+					public const string HorseAvatarRedroan = "assets/content/vehicles/horse/breeds/horseavatar_redroan.png";
+					public const string HorseAvatarWhiteThoroughbred = "assets/content/vehicles/horse/breeds/horseavatar_whitethoroughbred.png";
 				}
 				public static class Items
 				{
-					public const string DoublesaddleIcon = "assets/content/vehicles/horse/items/doublesaddle.icon.png";
-					public const string HorseArmorRoadsignIcon = "assets/content/vehicles/horse/items/horse.armor.roadsign.icon.png";
+					public const string DoubleSaddleIcon = "assets/content/vehicles/horse/items/doublesaddle.icon.png";
+					public const string HorseArmorRoadSignIcon = "assets/content/vehicles/horse/items/horse.armor.roadsign.icon.png";
 					public const string HorseArmorWoodIcon = "assets/content/vehicles/horse/items/horse.armor.wood.icon.png";
-					public const string HorseSaddlebagIcon = "assets/content/vehicles/horse/items/horse.saddlebag.icon.png";
+					public const string HorseSaddleBagIcon = "assets/content/vehicles/horse/items/horse.saddlebag.icon.png";
 					public const string HorseShoesAdvancedIcon = "assets/content/vehicles/horse/items/horse.shoes.advanced.icon.png";
 					public const string HorseShoesBasicIcon = "assets/content/vehicles/horse/items/horse.shoes.basic.icon.png";
 					public const string SaddleIcon = "assets/content/vehicles/horse/items/saddle.icon.png";
@@ -418,20 +419,20 @@ public static class UiSprites
 
 			public static class Mlrs
 			{
-				public const string AimingModuleWorldmodelIcon = "assets/content/vehicles/mlrs/aiming_module.worldmodel.icon.png";
-				public const string RocketMlrsWorldmodelIcon = "assets/content/vehicles/mlrs/rocket_mlrs.worldmodel.icon.png";
+				public const string AimingModuleWorldModelIcon = "assets/content/vehicles/mlrs/aiming_module.worldmodel.icon.png";
+				public const string RocketMlrsWorldModelIcon = "assets/content/vehicles/mlrs/rocket_mlrs.worldmodel.icon.png";
 			}
 
-			public static class Modularcar
+			public static class ModularCar
 			{
 				public const string CompleteCarIcon = "assets/content/vehicles/modularcar/complete_car.icon.png";
 				public const string ModularCarRadioIcon = "assets/content/vehicles/modularcar/subents/modular_car_radio.icon.png";
 			}
 
-			public static class Siegeweapons
+			public static class SiegeWeapons
 			{
-				public const string BatteringramItemIcon = "assets/content/vehicles/siegeweapons/batteringram/batteringram.item.icon.png";
-				public const string SiegetowerEntityIcon = "assets/content/vehicles/siegeweapons/siegetower/siegetower.entity.icon.png";
+				public const string BatteringRamItemIcon = "assets/content/vehicles/siegeweapons/batteringram/batteringram.item.icon.png";
+				public const string SiegeTowerEntityIcon = "assets/content/vehicles/siegeweapons/siegetower/siegetower.entity.icon.png";
 
 				public static class Ballista
 				{
@@ -463,20 +464,20 @@ public static class UiSprites
 			public static class Snowmobiles
 			{
 				public const string SnowmobileIcon = "assets/content/vehicles/snowmobiles/snowmobile.icon.png";
-				public const string TomahasnowmobileIcon = "assets/content/vehicles/snowmobiles/tomahasnowmobile.icon.png";
+				public const string TomahaSnowmobileIcon = "assets/content/vehicles/snowmobiles/tomahasnowmobile.icon.png";
 			}
 
 			public static class Submarine
 			{
-				public const string SubmarineduoEntityIcon = "assets/content/vehicles/submarine/submarineduo.entity.icon.png";
-				public const string SubmarinesoloEntityIcon = "assets/content/vehicles/submarine/submarinesolo.entity.icon.png";
+				public const string SubmarineDuoEntityIcon = "assets/content/vehicles/submarine/submarineduo.entity.icon.png";
+				public const string SubmarineSoloEntityIcon = "assets/content/vehicles/submarine/submarinesolo.entity.icon.png";
 			}
 
 			public static class Trains
 			{
 				public const string LocomotiveEntityIcon = "assets/content/vehicles/trains/locomotive/locomotive.entity.icon.png";
-				public const string TrainwagonIcon = "assets/content/vehicles/trains/wagons/trainwagon.icon.png";
-				public const string WorkcartEntityIcon = "assets/content/vehicles/trains/workcart/workcart.entity.icon.png";
+				public const string TrainWagonIcon = "assets/content/vehicles/trains/wagons/trainwagon.icon.png";
+				public const string WorkCartEntityIcon = "assets/content/vehicles/trains/workcart/workcart.entity.icon.png";
 			}
 		}
 
@@ -493,7 +494,7 @@ public static class UiSprites
 					public const string BarrelIcon = "assets/content/workshop/items/crates/barrel.icon.png";
 					public const string BoxHighIcon = "assets/content/workshop/items/crates/box.high.icon.png";
 					public const string BoxLowIcon = "assets/content/workshop/items/crates/box.low.icon.png";
-					public const string TrustinrustCrateIcon = "assets/content/workshop/items/crates/trustinrust_crate.icon.png";
+					public const string TRustinrustCrateIcon = "assets/content/workshop/items/crates/trustinrust_crate.icon.png";
 				}
 
 				public static class Resources
@@ -541,9 +542,9 @@ public static class UiSprites
 		public const string ChinookMapBlades = "assets/icons/chinook_map_blades.png";
 		public const string ChinookMapBody = "assets/icons/chinook_map_body.png";
 		public const string CircleClosed = "assets/icons/circle_closed.png";
-		public const string CircleClosedToedge = "assets/icons/circle_closed_toedge.png";
+		public const string CircleClosedToEdge = "assets/icons/circle_closed_toedge.png";
 		public const string CircleClosedWhite = "assets/icons/circle_closed_white.png";
-		public const string CircleClosedWhiteToedge = "assets/icons/circle_closed_white_toedge.png";
+		public const string CircleClosedWhiteToEdge = "assets/icons/circle_closed_white_toedge.png";
 		public const string CircleGradient = "assets/icons/circle_gradient.png";
 		public const string CircleOpen = "assets/icons/circle_open.png";
 		public const string Clan = "assets/icons/clan.png";
@@ -610,8 +611,8 @@ public static class UiSprites
 		public const string Gem = "assets/icons/gem.png";
 		public const string Gem2 = "assets/icons/gem2.png";
 		public const string Gem3 = "assets/icons/gem3.png";
-		public const string Greyout = "assets/icons/greyout.png";
-		public const string GreyoutLarge = "assets/icons/greyout_large.png";
+		public const string GreyOut = "assets/icons/greyout.png";
+		public const string GreyOutLarge = "assets/icons/greyout_large.png";
 		public const string Handlebar = "assets/icons/handlebar.png";
 		public const string HandLooting = "assets/icons/hand-looting.png";
 		public const string Health = "assets/icons/health.png";
@@ -646,10 +647,10 @@ public static class UiSprites
 		public const string Input = "assets/icons/input.png";
 		public const string InstagramLogo = "assets/icons/instagram-logo.png";
 		public const string Inventory = "assets/icons/inventory.png";
-		public const string Isbroken = "assets/icons/isbroken.png";
-		public const string Iscooking = "assets/icons/iscooking.png";
-		public const string Isloading = "assets/icons/isloading.png";
-		public const string Isonfire = "assets/icons/isonfire.png";
+		public const string IsBroken = "assets/icons/isbroken.png";
+		public const string IsCooking = "assets/icons/iscooking.png";
+		public const string IsLoading = "assets/icons/isloading.png";
+		public const string IsOnFire = "assets/icons/isonfire.png";
 		public const string Joystick = "assets/icons/joystick.png";
 		public const string Key = "assets/icons/key.png";
 		public const string Kick = "assets/icons/kick.png";
@@ -671,7 +672,7 @@ public static class UiSprites
 		public const string Lock = "assets/icons/lock.png";
 		public const string Loot = "assets/icons/loot.png";
 		public const string Lungs = "assets/icons/lungs.png";
-		public const string Maparrow = "assets/icons/maparrow.png";
+		public const string MapArrow = "assets/icons/maparrow.png";
 		public const string MapTunnel = "assets/icons/map-tunnel.png";
 		public const string Market = "assets/icons/market.png";
 		public const string Maximum = "assets/icons/maximum.png";
@@ -679,7 +680,7 @@ public static class UiSprites
 		public const string Medical = "assets/icons/medical.png";
 		public const string MenuDots = "assets/icons/menu_dots.png";
 		public const string ModdedServers = "assets/icons/modded_servers.png";
-		public const string Nextframe = "assets/icons/nextframe.png";
+		public const string NextFrame = "assets/icons/nextframe.png";
 		public const string NoSleep = "assets/icons/no_sleep.png";
 		public const string NoSpawn = "assets/icons/no_spawn.png";
 		public const string Occupied = "assets/icons/occupied.png";
@@ -713,7 +714,7 @@ public static class UiSprites
 		public const string Portion = "assets/icons/portion.png";
 		public const string Power = "assets/icons/power.png";
 		public const string Press = "assets/icons/press.png";
-		public const string Prevframe = "assets/icons/prevframe.png";
+		public const string PrevFrame = "assets/icons/prevframe.png";
 		public const string Radiation = "assets/icons/radiation.png";
 		public const string Rain = "assets/icons/rain.png";
 		public const string Reddit = "assets/icons/reddit.png";
@@ -735,10 +736,10 @@ public static class UiSprites
 		public const string Skull = "assets/icons/skull.png";
 		public const string Slash = "assets/icons/slash.png";
 		public const string Sleeping = "assets/icons/sleeping.png";
-		public const string Sleepingbag = "assets/icons/sleepingbag.png";
+		public const string SleepingBag = "assets/icons/sleepingbag.png";
 		public const string Square = "assets/icons/square.png";
 		public const string SquareGradient = "assets/icons/square_gradient.png";
-		public const string Stab = "assets/icons/stab.png";
+		public const string STab = "assets/icons/stab.png";
 		public const string Star = "assets/icons/star.png";
 		public const string Steam = "assets/icons/steam.png";
 		public const string Stopwatch = "assets/icons/stopwatch.png";
@@ -753,7 +754,7 @@ public static class UiSprites
 		public const string Subtract = "assets/icons/subtract.png";
 		public const string Target = "assets/icons/target.png";
 		public const string Terrain = "assets/icons/terrain.png";
-		public const string Thumbsup = "assets/icons/thumbsup.png";
+		public const string ThumbsUp = "assets/icons/thumbsup.png";
 		public const string Tools = "assets/icons/tools.png";
 		public const string Train = "assets/icons/train.png";
 		public const string Translate = "assets/icons/translate.png";
@@ -766,7 +767,7 @@ public static class UiSprites
 		public const string Twitter1 = "assets/icons/twitter 1.png";
 		public const string Unload = "assets/icons/unload.png";
 		public const string Unlock = "assets/icons/unlock.png";
-		public const string Upgrade = "assets/icons/upgrade.png";
+		public const string UpGrade = "assets/icons/upgrade.png";
 		public const string Victory = "assets/icons/victory.png";
 		public const string Voice = "assets/icons/voice.png";
 		public const string VoteDown = "assets/icons/vote_down.png";
@@ -924,8 +925,8 @@ public static class UiSprites
 				{
 					public static class Halloween
 					{
-						public const string FemaleunderwearMummywrapsIcon = "assets/prefabs/clothes/skin/underwear/halloween/femaleunderwear_mummywraps.icon.png";
-						public const string MaleunderwearMummywrapsIcon = "assets/prefabs/clothes/skin/underwear/halloween/maleunderwear_mummywraps.icon.png";
+						public const string FemaleUnderwearMummyWrapsIcon = "assets/prefabs/clothes/skin/underwear/halloween/femaleunderwear_mummywraps.icon.png";
+						public const string MaleUnderwearMummyWrapsIcon = "assets/prefabs/clothes/skin/underwear/halloween/maleunderwear_mummywraps.icon.png";
 					}
 					public static class Resources
 					{
@@ -940,12 +941,12 @@ public static class UiSprites
 						public const string RapidoMale = "assets/prefabs/clothes/skin/underwear/swimwear/rapido_male.png";
 						public const string SwimwearGradientFemale = "assets/prefabs/clothes/skin/underwear/swimwear/swimwear_gradient_female.png";
 						public const string SwimwearGradientMale = "assets/prefabs/clothes/skin/underwear/swimwear/swimwear_gradient_male.png";
-						public const string SwimwearPalmleavesFemale = "assets/prefabs/clothes/skin/underwear/swimwear/swimwear_palmleaves_female.png";
-						public const string SwimwearPalmleavesMale = "assets/prefabs/clothes/skin/underwear/swimwear/swimwear_palmleaves_male.png";
+						public const string SwimwearPalmLeavesFemale = "assets/prefabs/clothes/skin/underwear/swimwear/swimwear_palmleaves_female.png";
+						public const string SwimwearPalmLeavesMale = "assets/prefabs/clothes/skin/underwear/swimwear/swimwear_palmleaves_male.png";
 						public const string SwimwearScribbleFemale = "assets/prefabs/clothes/skin/underwear/swimwear/swimwear_scribble_female.png";
 						public const string SwimwearScribbleMale = "assets/prefabs/clothes/skin/underwear/swimwear/swimwear_scribble_male.png";
 					}
-					public static class Testreplacement
+					public static class TestReplacement
 					{
 						public const string UnderwearRedFemale = "assets/prefabs/clothes/skin/underwear/testreplacement/underwear_red_female.png";
 						public const string UnderwearRedMale = "assets/prefabs/clothes/skin/underwear/testreplacement/underwear_red_male.png";
@@ -956,12 +957,12 @@ public static class UiSprites
 
 		public static class Deployable
 		{
-			public const string Hotairballoonavatar = "assets/prefabs/deployable/hot air balloon/hotairballoonavatar.png";
+			public const string HotairBalloonAvatar = "assets/prefabs/deployable/hot air balloon/hotairballoonavatar.png";
 
-			public static class Computerstation
+			public static class ComputerStation
 			{
-				public const string Cameratrim = "assets/prefabs/deployable/computerstation/cameratrim.png";
-				public const string ComputerstationDeployedIcon = "assets/prefabs/deployable/computerstation/computerstation.deployed.icon.png";
+				public const string CameraTrim = "assets/prefabs/deployable/computerstation/cameratrim.png";
+				public const string ComputerStationDeployedIcon = "assets/prefabs/deployable/computerstation/computerstation.deployed.icon.png";
 				public const string Dirt = "assets/prefabs/deployable/computerstation/dirt.png";
 				public const string NvgOverexposed = "assets/prefabs/deployable/computerstation/nvg_overexposed.png";
 				public const string Snow = "assets/prefabs/deployable/computerstation/snow.tga";
@@ -975,28 +976,28 @@ public static class UiSprites
 				{
 					public static class Materials
 					{
-						public const string ScreeniconDoor = "assets/prefabs/deployable/tool cupboard/retro/materials/screenicon.door.png";
-						public const string ScreeniconFoundation = "assets/prefabs/deployable/tool cupboard/retro/materials/screenicon.foundation.png";
-						public const string ScreeniconZenlabs = "assets/prefabs/deployable/tool cupboard/retro/materials/screenicon.zenlabs.png";
-						public const string ScreniconZenlabs2 = "assets/prefabs/deployable/tool cupboard/retro/materials/screnicon.zenlabs2.png";
+						public const string ScreenIconDoor = "assets/prefabs/deployable/tool cupboard/retro/materials/screenicon.door.png";
+						public const string ScreenIconFoundation = "assets/prefabs/deployable/tool cupboard/retro/materials/screenicon.foundation.png";
+						public const string ScreenIconZenlabs = "assets/prefabs/deployable/tool cupboard/retro/materials/screenicon.zenlabs.png";
+						public const string ScrenIconZenlabs2 = "assets/prefabs/deployable/tool cupboard/retro/materials/screnicon.zenlabs2.png";
 					}
 				}
 			}
 
-			public static class Vendingmachine
+			public static class VendingMachine
 			{
 				public static class Ui
 				{
-					public const string Outofstock = "assets/prefabs/deployable/vendingmachine/ui/outofstock.png";
+					public const string OutOfStock = "assets/prefabs/deployable/vendingmachine/ui/outofstock.png";
 					public const string Vending = "assets/prefabs/deployable/vendingmachine/ui/vending.png";
-					public const string Whiteonly = "assets/prefabs/deployable/vendingmachine/ui/whiteonly.png";
+					public const string WhiteOnly = "assets/prefabs/deployable/vendingmachine/ui/whiteonly.png";
 				}
 			}
 		}
 
 		public static class Misc
 		{
-			public static class Buildingskins
+			public static class BuildingSkins
 			{
 				public const string AdobeBuildingSkinStoreIcon = "assets/prefabs/misc/buildingskins/adobe/adobe-building-skin-store-icon.png";
 				public const string BrickBuildingSkinStoreIcon = "assets/prefabs/misc/buildingskins/brick/brick-building-skin-store-icon.png";
@@ -1006,9 +1007,9 @@ public static class UiSprites
 			}
 			public static class Casino
 			{
-				public const string Rustslotmachine777 = "assets/prefabs/misc/casino/slotmachine/rustslotmachine777.png";
+				public const string RustslotMachine777 = "assets/prefabs/misc/casino/slotmachine/rustslotmachine777.png";
 
-				public static class Bigwheel
+				public static class BigWheel
 				{
 					public static class Icons
 					{
@@ -1022,17 +1023,17 @@ public static class UiSprites
 			}
 			public static class ChippyArcade
 			{
-				public const string ChippyarcadeIcon = "assets/prefabs/misc/chippy arcade/chippyarcade.icon.png";
+				public const string ChippyArcadeIcon = "assets/prefabs/misc/chippy arcade/chippyarcade.icon.png";
 				public const string TennisLogo = "assets/prefabs/misc/chippy arcade/tennis/textures/tennis_logo.png";
 
 				public static class Chippyart
 				{
-					public const string Bossform0 = "assets/prefabs/misc/chippy arcade/chippyart/bossform0.png";
-					public const string Bossform0Grey = "assets/prefabs/misc/chippy arcade/chippyart/bossform0_grey.png";
-					public const string Bossform1 = "assets/prefabs/misc/chippy arcade/chippyart/bossform1.png";
-					public const string Bossform1Grey = "assets/prefabs/misc/chippy arcade/chippyart/bossform1_grey.png";
-					public const string Bossform2 = "assets/prefabs/misc/chippy arcade/chippyart/bossform2.png";
-					public const string Bossform2Grey = "assets/prefabs/misc/chippy arcade/chippyart/bossform2_grey.png";
+					public const string BossForm0 = "assets/prefabs/misc/chippy arcade/chippyart/bossform0.png";
+					public const string BossForm0Grey = "assets/prefabs/misc/chippy arcade/chippyart/bossform0_grey.png";
+					public const string BossForm1 = "assets/prefabs/misc/chippy arcade/chippyart/bossform1.png";
+					public const string BossForm1Grey = "assets/prefabs/misc/chippy arcade/chippyart/bossform1_grey.png";
+					public const string BossForm2 = "assets/prefabs/misc/chippy arcade/chippyart/bossform2.png";
+					public const string BossForm2Grey = "assets/prefabs/misc/chippy arcade/chippyart/bossform2_grey.png";
 					public const string Bullet1 = "assets/prefabs/misc/chippy arcade/chippyart/bullet1.png";
 					public const string Bullet2 = "assets/prefabs/misc/chippy arcade/chippyart/bullet2.png";
 					public const string Bullet3 = "assets/prefabs/misc/chippy arcade/chippyart/bullet3.png";
@@ -1043,7 +1044,7 @@ public static class UiSprites
 					public const string Bullet8 = "assets/prefabs/misc/chippy arcade/chippyart/bullet8.png";
 					public const string Chippy = "assets/prefabs/misc/chippy arcade/chippyart/chippy.png";
 					public const string ChippyGrey = "assets/prefabs/misc/chippy arcade/chippyart/chippy_grey.png";
-					public const string Chippylogo = "assets/prefabs/misc/chippy arcade/chippyart/chippylogo.png";
+					public const string ChippyLogo = "assets/prefabs/misc/chippy arcade/chippyart/chippylogo.png";
 					public const string Cloud1 = "assets/prefabs/misc/chippy arcade/chippyart/cloud1.png";
 					public const string Cloud2 = "assets/prefabs/misc/chippy arcade/chippyart/cloud2.png";
 					public const string Cloud3 = "assets/prefabs/misc/chippy arcade/chippyart/cloud3.png";
@@ -1055,7 +1056,7 @@ public static class UiSprites
 					public const string Star2 = "assets/prefabs/misc/chippy arcade/chippyart/star2.png";
 				}
 
-				public static class Chippygame
+				public static class ChippyGame
 				{
 					public static class Textures
 					{
@@ -1081,8 +1082,8 @@ public static class UiSprites
 			{
 				public static class Underwear
 				{
-					public const string FemaleunderwearTwitchTorsoIcon = "assets/prefabs/misc/twitch/underwear/femaleunderwear_twitch_torso.icon.png";
-					public const string MaleunderwearTwitchLegsIcon = "assets/prefabs/misc/twitch/underwear/maleunderwear_twitch_legs.icon.png";
+					public const string FemaleUnderwearTwitchTorsoIcon = "assets/prefabs/misc/twitch/underwear/femaleunderwear_twitch_torso.icon.png";
+					public const string MaleUnderwearTwitchLegsIcon = "assets/prefabs/misc/twitch/underwear/maleunderwear_twitch_legs.icon.png";
 				}
 			}
 		}
@@ -1104,13 +1105,13 @@ public static class UiSprites
 
 		public static class Npc
 		{
-			public const string Autoturret = "assets/prefabs/npc/autoturret/autoturret.png";
-			public const string Bradleyavatar = "assets/prefabs/npc/m2bradley/bradleyavatar.png";
-			public const string Flameturret = "assets/prefabs/npc/flame turret/flameturret.png";
-			public const string Patrolhelicopteravatar = "assets/prefabs/npc/patrol helicopter/patrolhelicopteravatar.png";
-			public const string Scarecrowavatar = "assets/prefabs/npc/scarecrow/scarecrowavatar.png";
-			public const string TravellingvendorIcon = "assets/prefabs/npc/travelling vendor/travellingvendor.icon.png";
-			public const string Waterwellnpcavatar = "assets/prefabs/npc/waterwell/waterwellnpcavatar.png";
+			public const string AutoTurret = "assets/prefabs/npc/autoturret/autoturret.png";
+			public const string BradleyAvatar = "assets/prefabs/npc/m2bradley/bradleyavatar.png";
+			public const string FlameTurret = "assets/prefabs/npc/flame turret/flameturret.png";
+			public const string PatrolHelicopterAvatar = "assets/prefabs/npc/patrol helicopter/patrolhelicopteravatar.png";
+			public const string ScarecrowAvatar = "assets/prefabs/npc/scarecrow/scarecrowavatar.png";
+			public const string TravellingVendorIcon = "assets/prefabs/npc/travelling vendor/travellingvendor.icon.png";
+			public const string WaterWellNpcAvatar = "assets/prefabs/npc/waterwell/waterwellnpcavatar.png";
 
 			public static class SamSiteTurret
 			{
@@ -1121,9 +1122,9 @@ public static class UiSprites
 
 		public static class Resource
 		{
-			public const string FuelMidgradeJerrycan = "assets/prefabs/resource/fuel_midgrade_jerrycan.png";
-			public const string Lowgradefuel = "assets/prefabs/resource/lowgradefuel.png";
-			public const string RadioactivewaterOldIcon = "assets/prefabs/resource/radioactive water/radioactivewater_old.icon.png";
+			public const string FuelMidGradeJerrycan = "assets/prefabs/resource/fuel_midgrade_jerrycan.png";
+			public const string LowGradeFuel = "assets/prefabs/resource/lowgradefuel.png";
+			public const string RadioactiveWaterOldIcon = "assets/prefabs/resource/radioactive water/radioactivewater_old.icon.png";
 		}
 
 		public static class Tools
@@ -1151,7 +1152,7 @@ public static class UiSprites
 
 		public static class Vehicle
 		{
-			public static class Vehiclechassisitems
+			public static class VehicleChassisItems
 			{
 				public const string _2moduleChassisIcon = "assets/prefabs/vehicle/vehiclechassisitems/2module_chassis/2module_chassis.icon.png";
 				public const string _3moduleChassisIcon = "assets/prefabs/vehicle/vehiclechassisitems/3module_chassis/3module_chassis.icon.png";
@@ -1165,7 +1166,7 @@ public static class UiSprites
 			{
 				public static class Icons
 				{
-					public const string WallpaperBluediamondIcon = "assets/prefabs/wallpaper/skins/icons/wallpaper.bluediamond.icon.png";
+					public const string WallpaperBlueDiamondIcon = "assets/prefabs/wallpaper/skins/icons/wallpaper.bluediamond.icon.png";
 					public const string WallpaperBlueIcon = "assets/prefabs/wallpaper/skins/icons/wallpaper.blue.icon.png";
 					public const string WallpaperCloudsIcon = "assets/prefabs/wallpaper/skins/icons/wallpaper.clouds.icon.png";
 					public const string WallpaperGeometricaIcon = "assets/prefabs/wallpaper/skins/icons/wallpaper.geometrica.icon.png";
@@ -1185,18 +1186,18 @@ public static class UiSprites
 					public const string WallpaperRoyalcIcon = "assets/prefabs/wallpaper/skins/icons/wallpaper.royalc.icon.png";
 					public const string WallpaperSubwayaIcon = "assets/prefabs/wallpaper/skins/icons/wallpaper.subwaya.icon.png";
 					public const string WallpaperSubwaybIcon = "assets/prefabs/wallpaper/skins/icons/wallpaper.subwayb.icon.png";
-					public const string WallpaperVenetianplasteraIcon = "assets/prefabs/wallpaper/skins/icons/wallpaper.venetianplastera.icon.png";
-					public const string WallpaperVenetianplasterbIcon = "assets/prefabs/wallpaper/skins/icons/wallpaper.venetianplasterb.icon.png";
-					public const string WallpaperVenetianplastercIcon = "assets/prefabs/wallpaper/skins/icons/wallpaper.venetianplasterc.icon.png";
+					public const string WallpaperVenetianPlasteraIcon = "assets/prefabs/wallpaper/skins/icons/wallpaper.venetianplastera.icon.png";
+					public const string WallpaperVenetianPlasterbIcon = "assets/prefabs/wallpaper/skins/icons/wallpaper.venetianplasterb.icon.png";
+					public const string WallpaperVenetianPlastercIcon = "assets/prefabs/wallpaper/skins/icons/wallpaper.venetianplasterc.icon.png";
 					public const string WallpaperWainscottingaIcon = "assets/prefabs/wallpaper/skins/icons/wallpaper.wainscottinga.icon.png";
 					public const string WallpaperWainscottingbIcon = "assets/prefabs/wallpaper/skins/icons/wallpaper.wainscottingb.icon.png";
 					public const string WallpaperWainscottingcIcon = "assets/prefabs/wallpaper/skins/icons/wallpaper.wainscottingc.icon.png";
 					public const string WallpaperYellowIcon = "assets/prefabs/wallpaper/skins/icons/wallpaper.yellow.icon.png";
-					public const string WallpaperYellowstripesIcon = "assets/prefabs/wallpaper/skins/icons/wallpaper.yellowstripes.icon.png";
+					public const string WallpaperYellowStripesIcon = "assets/prefabs/wallpaper/skins/icons/wallpaper.yellowstripes.icon.png";
 
 					public static class Lny25
 					{
-						public const string Lnypackicon = "assets/prefabs/wallpaper/skins/icons/lny25/lnypackicon.png";
+						public const string LnypackIcon = "assets/prefabs/wallpaper/skins/icons/lny25/lnypackicon.png";
 						public const string WallpaperBambooIcon = "assets/prefabs/wallpaper/skins/icons/lny25/wallpaper.bamboo.icon.png";
 						public const string WallpaperCherryBlossomsIcon = "assets/prefabs/wallpaper/skins/icons/lny25/wallpaper.cherry.blossoms.icon.png";
 						public const string WallpaperChineseLanternsIcon = "assets/prefabs/wallpaper/skins/icons/lny25/wallpaper.chinese.lanterns.icon.png";
@@ -1231,35 +1232,35 @@ public static class UiSprites
 	{
 		public static class Agents
 		{
-			public const string Boaravatar = "assets/rust.ai/agents/boar/boaravatar.png";
-			public const string Chickenavatar = "assets/rust.ai/agents/chicken/chickenavatar.png";
-			public const string Sharkavatar = "assets/rust.ai/agents/fish/shark/sharkavatar.png";
-			public const string Stagavatar = "assets/rust.ai/agents/stag/stagavatar.png";
-			public const string Wolfavatar = "assets/rust.ai/agents/wolf/wolfavatar.png";
+			public const string BoarAvatar = "assets/rust.ai/agents/boar/boaravatar.png";
+			public const string ChickenAvatar = "assets/rust.ai/agents/chicken/chickenavatar.png";
+			public const string SharkAvatar = "assets/rust.ai/agents/fish/shark/sharkavatar.png";
+			public const string StagAvatar = "assets/rust.ai/agents/stag/stagavatar.png";
+			public const string WolfAvatar = "assets/rust.ai/agents/wolf/wolfavatar.png";
 
 			public static class Bear
 			{
-				public const string Bearavatar = "assets/rust.ai/agents/bear/bearavatar.png";
-				public const string Polarbearavatar = "assets/rust.ai/agents/bear/polarbearavatar.png";
+				public const string BearAvatar = "assets/rust.ai/agents/bear/bearavatar.png";
+				public const string PolarBearAvatar = "assets/rust.ai/agents/bear/polarbearavatar.png";
 			}
 
-			public static class Npcplayer
+			public static class NpcPlayer
 			{
-				public const string Gingerbreadmanavatar = "assets/rust.ai/agents/npcplayer/gingerbread/gingerbreadmanavatar.png";
+				public const string GingerbreadManAvatar = "assets/rust.ai/agents/npcplayer/gingerbread/gingerbreadmanavatar.png";
 
-				public static class Humannpc
+				public static class HumanNpc
 				{
-					public const string Banditguardavatar = "assets/rust.ai/agents/npcplayer/humannpc/banditguard/banditguardavatar.png";
-					public const string Dwelleravatar = "assets/rust.ai/agents/npcplayer/humannpc/tunneldweller/dwelleravatar.png";
-					public const string Underwaterdwelleravatar = "assets/rust.ai/agents/npcplayer/humannpc/underwaterdweller/underwaterdwelleravatar.png";
+					public const string BanditGuardAvatar = "assets/rust.ai/agents/npcplayer/humannpc/banditguard/banditguardavatar.png";
+					public const string DwellerAvatar = "assets/rust.ai/agents/npcplayer/humannpc/tunneldweller/dwelleravatar.png";
+					public const string UnderWaterDwellerAvatar = "assets/rust.ai/agents/npcplayer/humannpc/underwaterdweller/underwaterdwelleravatar.png";
 
 					public static class Scientist
 					{
-						public const string Arcticscientistavatar = "assets/rust.ai/agents/npcplayer/humannpc/scientist/arcticscientistavatar.png";
-						public const string Heavyscientistavatar = "assets/rust.ai/agents/npcplayer/humannpc/scientist/heavyscientistavatar.png";
-						public const string Peacekeeperavatar = "assets/rust.ai/agents/npcplayer/humannpc/scientist/peacekeeperavatar.png";
-						public const string Scientistavatar = "assets/rust.ai/agents/npcplayer/humannpc/scientist/scientistavatar.png";
-						public const string Scientistnvgavatar = "assets/rust.ai/agents/npcplayer/humannpc/scientist/scientistnvgavatar.png";
+						public const string ArcticScientistAvatar = "assets/rust.ai/agents/npcplayer/humannpc/scientist/arcticscientistavatar.png";
+						public const string HeavyScientistAvatar = "assets/rust.ai/agents/npcplayer/humannpc/scientist/heavyscientistavatar.png";
+						public const string PeacekeeperAvatar = "assets/rust.ai/agents/npcplayer/humannpc/scientist/peacekeeperavatar.png";
+						public const string ScientistAvatar = "assets/rust.ai/agents/npcplayer/humannpc/scientist/scientistavatar.png";
+						public const string ScientistNvgAvatar = "assets/rust.ai/agents/npcplayer/humannpc/scientist/scientistnvgavatar.png";
 					}
 				}
 			}

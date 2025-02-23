@@ -41,7 +41,7 @@
                   "Name": "slotmachine",
                   "Path": "assets/prefabs/misc/casino/slotmachine",
                   "Files": {
-                    "Rustslotmachine777": "assets/prefabs/misc/casino/slotmachine/rustslotmachine777.png"
+                    "RustslotMachine777": "assets/prefabs/misc/casino/slotmachine/rustslotmachine777.png"
                   },
                   "SubFolders": {}
                 }
@@ -66,7 +66,7 @@
                   "Files": {
                     "BeachchairDeployedIcon": "assets/prefabs/misc/summer_dlc/beach_chair/beachchair.deployed.icon.png",
                     "BeachparasolDeployedIcon": "assets/prefabs/misc/summer_dlc/beach_chair/beachparasol.deployed.icon.png",
-                    "BeachtableDeployedIcon": "assets/prefabs/misc/summer_dlc/beach_chair/beachtable.deployed.icon.png"
+                    "BeachTableDeployedIcon": "assets/prefabs/misc/summer_dlc/beach_chair/beachtable.deployed.icon.png"
                   },
                   "SubFolders": {
                     "chairskins": {
@@ -110,7 +110,7 @@
                       "Name": "skins",
                       "Path": "assets/prefabs/misc/summer_dlc/beach_towel/skins",
                       "Files": {
-                        "BeachtowelBrownstripesIcon": "assets/prefabs/misc/summer_dlc/beach_towel/skins/beachtowel.brownstripes.icon.png",
+                        "BeachtowelBrownStripesIcon": "assets/prefabs/misc/summer_dlc/beach_towel/skins/beachtowel.brownstripes.icon.png",
                         "BeachtowelCobaltIcon": "assets/prefabs/misc/summer_dlc/beach_towel/skins/beachtowel.cobalt.icon.png",
                         "BeachtowelDyeIcon": "assets/prefabs/misc/summer_dlc/beach_towel/skins/beachtowel.dye.icon.png",
                         "BeachtowelFishIcon": "assets/prefabs/misc/summer_dlc/beach_towel/skins/beachtowel.fish.icon.png",
@@ -133,12 +133,12 @@
                       "Name": "skins",
                       "Path": "assets/prefabs/misc/summer_dlc/boogie_board/skins",
                       "Files": {
-                        "BoogieboardCorrugatedItemskinIcon": "assets/prefabs/misc/summer_dlc/boogie_board/skins/boogieboard.corrugated.itemskin.icon.png",
-                        "BoogieboardCrashtestItemskinIcon": "assets/prefabs/misc/summer_dlc/boogie_board/skins/boogieboard.crashtest.itemskin.icon.png",
-                        "BoogieboardFlamesItemskinIcon": "assets/prefabs/misc/summer_dlc/boogie_board/skins/boogieboard.flames.itemskin.icon.png",
-                        "BoogieboardMarbledItemskinIcon": "assets/prefabs/misc/summer_dlc/boogie_board/skins/boogieboard.marbled.itemskin.icon.png",
-                        "BoogieboardSharkItemskinIcon": "assets/prefabs/misc/summer_dlc/boogie_board/skins/boogieboard.shark.itemskin.icon.png",
-                        "BoogieboardStarsItemskinIcon": "assets/prefabs/misc/summer_dlc/boogie_board/skins/boogieboard.stars.itemskin.icon.png"
+                        "BoogieboardCorrugatedItemSkinIcon": "assets/prefabs/misc/summer_dlc/boogie_board/skins/boogieboard.corrugated.itemskin.icon.png",
+                        "BoogieboardCrashtestItemSkinIcon": "assets/prefabs/misc/summer_dlc/boogie_board/skins/boogieboard.crashtest.itemskin.icon.png",
+                        "BoogieboardFlamesItemSkinIcon": "assets/prefabs/misc/summer_dlc/boogie_board/skins/boogieboard.flames.itemskin.icon.png",
+                        "BoogieboardMarbledItemSkinIcon": "assets/prefabs/misc/summer_dlc/boogie_board/skins/boogieboard.marbled.itemskin.icon.png",
+                        "BoogieboardSharkItemSkinIcon": "assets/prefabs/misc/summer_dlc/boogie_board/skins/boogieboard.shark.itemskin.icon.png",
+                        "BoogieboardStarsItemSkinIcon": "assets/prefabs/misc/summer_dlc/boogie_board/skins/boogieboard.stars.itemskin.icon.png"
                       },
                       "SubFolders": {}
                     }
@@ -186,10 +186,10 @@
                       "Name": "skins",
                       "Path": "assets/prefabs/misc/summer_dlc/paddling_pool/skins",
                       "Files": {
-                        "PaddlingpoolHottubItemskinIcon": "assets/prefabs/misc/summer_dlc/paddling_pool/skins/paddlingpool.hottub.itemskin.icon.png",
-                        "PaddlingpoolRainbowItemskinIcon": "assets/prefabs/misc/summer_dlc/paddling_pool/skins/paddlingpool.rainbow.itemskin.icon.png",
-                        "PaddlingpoolSeascapeItemskinIcon": "assets/prefabs/misc/summer_dlc/paddling_pool/skins/paddlingpool.seascape.itemskin.icon.png",
-                        "PaddlingpoolSpawnpoolItemskinIcon": "assets/prefabs/misc/summer_dlc/paddling_pool/skins/paddlingpool.spawnpool.itemskin.icon.png"
+                        "PaddlingpoolHottubItemSkinIcon": "assets/prefabs/misc/summer_dlc/paddling_pool/skins/paddlingpool.hottub.itemskin.icon.png",
+                        "PaddlingpoolRainbowItemSkinIcon": "assets/prefabs/misc/summer_dlc/paddling_pool/skins/paddlingpool.rainbow.itemskin.icon.png",
+                        "PaddlingpoolSeascapeItemSkinIcon": "assets/prefabs/misc/summer_dlc/paddling_pool/skins/paddlingpool.seascape.itemskin.icon.png",
+                        "PaddlingpoolSpawnpoolItemSkinIcon": "assets/prefabs/misc/summer_dlc/paddling_pool/skins/paddlingpool.spawnpool.itemskin.icon.png"
                       },
                       "SubFolders": {}
                     }
@@ -199,9 +199,9 @@
                   "Name": "photoframe",
                   "Path": "assets/prefabs/misc/summer_dlc/photoframe",
                   "Files": {
-                    "PhotoframeLandscapeIcon": "assets/prefabs/misc/summer_dlc/photoframe/photoframe.landscape.icon.png",
-                    "PhotoframeLargeIcon": "assets/prefabs/misc/summer_dlc/photoframe/photoframe.large.icon.png",
-                    "PhotoframePortraitIcon": "assets/prefabs/misc/summer_dlc/photoframe/photoframe.portrait.icon.png"
+                    "PhotoFrameLandscapeIcon": "assets/prefabs/misc/summer_dlc/photoframe/photoframe.landscape.icon.png",
+                    "PhotoFrameLargeIcon": "assets/prefabs/misc/summer_dlc/photoframe/photoframe.large.icon.png",
+                    "PhotoFramePortraitIcon": "assets/prefabs/misc/summer_dlc/photoframe/photoframe.portrait.icon.png"
                   },
                   "SubFolders": {}
                 },
@@ -358,13 +358,13 @@
                       "Name": "items",
                       "Path": "assets/prefabs/misc/xmas/xmasdecorations/items",
                       "Files": {
-                        "CandycanesWorldmodelIcon": "assets/prefabs/misc/xmas/xmasdecorations/items/candycanes.worldmodel.icon.png",
-                        "ElectricGarlandWorldmodelIcon": "assets/prefabs/misc/xmas/xmasdecorations/items/electric_garland.worldmodel.icon.png",
-                        "GingermenWorldmodelIcon": "assets/prefabs/misc/xmas/xmasdecorations/items/gingermen.worldmodel.icon.png",
-                        "PineconesWorldmodelIcon": "assets/prefabs/misc/xmas/xmasdecorations/items/pinecones.worldmodel.icon.png",
-                        "PolestarWorldmodelIcon": "assets/prefabs/misc/xmas/xmasdecorations/items/polestar.worldmodel.icon.png",
-                        "TinselWorldmodelIcon": "assets/prefabs/misc/xmas/xmasdecorations/items/tinsel.worldmodel.icon.png",
-                        "XmasBaublesWorldmodelIcon": "assets/prefabs/misc/xmas/xmasdecorations/items/xmas_baubles.worldmodel.icon.png"
+                        "CandycanesWorldModelIcon": "assets/prefabs/misc/xmas/xmasdecorations/items/candycanes.worldmodel.icon.png",
+                        "ElectricGarlandWorldModelIcon": "assets/prefabs/misc/xmas/xmasdecorations/items/electric_garland.worldmodel.icon.png",
+                        "GingermenWorldModelIcon": "assets/prefabs/misc/xmas/xmasdecorations/items/gingermen.worldmodel.icon.png",
+                        "PineconesWorldModelIcon": "assets/prefabs/misc/xmas/xmasdecorations/items/pinecones.worldmodel.icon.png",
+                        "PolestarWorldModelIcon": "assets/prefabs/misc/xmas/xmasdecorations/items/polestar.worldmodel.icon.png",
+                        "TinselWorldModelIcon": "assets/prefabs/misc/xmas/xmasdecorations/items/tinsel.worldmodel.icon.png",
+                        "XmasBaublesWorldModelIcon": "assets/prefabs/misc/xmas/xmasdecorations/items/xmas_baubles.worldmodel.icon.png"
                       },
                       "SubFolders": {}
                     }
@@ -374,7 +374,7 @@
                   "Name": "candy cane club",
                   "Path": "assets/prefabs/misc/xmas/candy cane club",
                   "Files": {
-                    "CandyCaneWorldmodelIcon": "assets/prefabs/misc/xmas/candy cane club/candy_cane.worldmodel.icon.png"
+                    "CandyCaneWorldModelIcon": "assets/prefabs/misc/xmas/candy cane club/candy_cane.worldmodel.icon.png"
                   },
                   "SubFolders": {}
                 },
@@ -447,7 +447,7 @@
                       "Name": "santabeard",
                       "Path": "assets/prefabs/misc/xmas/wearable/santabeard",
                       "Files": {
-                        "SantabeardItemIcon": "assets/prefabs/misc/xmas/wearable/santabeard/santabeard.item.icon.png"
+                        "SanTaBeardItemIcon": "assets/prefabs/misc/xmas/wearable/santabeard/santabeard.item.icon.png"
                       },
                       "SubFolders": {}
                     },
@@ -472,7 +472,7 @@
                       "Name": "gingerbreadman",
                       "Path": "assets/prefabs/misc/xmas/wearable/gingerbreadman",
                       "Files": {
-                        "SuitGingerbreadmanIcon": "assets/prefabs/misc/xmas/wearable/gingerbreadman/suit.gingerbreadman.icon.png"
+                        "SuitGingerbreadManIcon": "assets/prefabs/misc/xmas/wearable/gingerbreadman/suit.gingerbreadman.icon.png"
                       },
                       "SubFolders": {}
                     }
@@ -545,7 +545,7 @@
                   "Name": "snow_machine",
                   "Path": "assets/prefabs/misc/xmas/snow_machine",
                   "Files": {
-                    "SnowmachineIcon": "assets/prefabs/misc/xmas/snow_machine/snowmachine.icon.png"
+                    "SnowMachineIcon": "assets/prefabs/misc/xmas/snow_machine/snowmachine.icon.png"
                   },
                   "SubFolders": {}
                 },
@@ -614,7 +614,7 @@
               "Name": "chippy arcade",
               "Path": "assets/prefabs/misc/chippy arcade",
               "Files": {
-                "ChippyarcadeIcon": "assets/prefabs/misc/chippy arcade/chippyarcade.icon.png"
+                "ChippyArcadeIcon": "assets/prefabs/misc/chippy arcade/chippyarcade.icon.png"
               },
               "SubFolders": {
                 "chippygame": {
@@ -654,12 +654,12 @@
                   "Name": "chippyart",
                   "Path": "assets/prefabs/misc/chippy arcade/chippyart",
                   "Files": {
-                    "Bossform0": "assets/prefabs/misc/chippy arcade/chippyart/bossform0.png",
-                    "Bossform0Grey": "assets/prefabs/misc/chippy arcade/chippyart/bossform0_grey.png",
-                    "Bossform1": "assets/prefabs/misc/chippy arcade/chippyart/bossform1.png",
-                    "Bossform1Grey": "assets/prefabs/misc/chippy arcade/chippyart/bossform1_grey.png",
-                    "Bossform2": "assets/prefabs/misc/chippy arcade/chippyart/bossform2.png",
-                    "Bossform2Grey": "assets/prefabs/misc/chippy arcade/chippyart/bossform2_grey.png",
+                    "BossForm0": "assets/prefabs/misc/chippy arcade/chippyart/bossform0.png",
+                    "BossForm0Grey": "assets/prefabs/misc/chippy arcade/chippyart/bossform0_grey.png",
+                    "BossForm1": "assets/prefabs/misc/chippy arcade/chippyart/bossform1.png",
+                    "BossForm1Grey": "assets/prefabs/misc/chippy arcade/chippyart/bossform1_grey.png",
+                    "BossForm2": "assets/prefabs/misc/chippy arcade/chippyart/bossform2.png",
+                    "BossForm2Grey": "assets/prefabs/misc/chippy arcade/chippyart/bossform2_grey.png",
                     "Bullet1": "assets/prefabs/misc/chippy arcade/chippyart/bullet1.png",
                     "Bullet2": "assets/prefabs/misc/chippy arcade/chippyart/bullet2.png",
                     "Bullet3": "assets/prefabs/misc/chippy arcade/chippyart/bullet3.png",
@@ -670,7 +670,7 @@
                     "Bullet8": "assets/prefabs/misc/chippy arcade/chippyart/bullet8.png",
                     "Chippy": "assets/prefabs/misc/chippy arcade/chippyart/chippy.png",
                     "ChippyGrey": "assets/prefabs/misc/chippy arcade/chippyart/chippy_grey.png",
-                    "Chippylogo": "assets/prefabs/misc/chippy arcade/chippyart/chippylogo.png",
+                    "ChippyLogo": "assets/prefabs/misc/chippy arcade/chippyart/chippylogo.png",
                     "Cloud1": "assets/prefabs/misc/chippy arcade/chippyart/cloud1.png",
                     "Cloud2": "assets/prefabs/misc/chippy arcade/chippyart/cloud2.png",
                     "Cloud3": "assets/prefabs/misc/chippy arcade/chippyart/cloud3.png",
@@ -1034,7 +1034,7 @@
                   "Name": "minecart planter",
                   "Path": "assets/prefabs/misc/decor_dlc/minecart planter",
                   "Files": {
-                    "MinecartPlanterDeployedIcon": "assets/prefabs/misc/decor_dlc/minecart planter/minecart.planter.deployed.icon.png"
+                    "MineCartPlanterDeployedIcon": "assets/prefabs/misc/decor_dlc/minecart planter/minecart.planter.deployed.icon.png"
                   },
                   "SubFolders": {}
                 },
@@ -1129,10 +1129,10 @@
                   "Name": "lootbag",
                   "Path": "assets/prefabs/misc/halloween/lootbag",
                   "Files": {
-                    "CandybagLarge": "assets/prefabs/misc/halloween/lootbag/candybag_large.png",
-                    "CandybagMedium": "assets/prefabs/misc/halloween/lootbag/candybag_medium.png",
-                    "CandybagSmall": "assets/prefabs/misc/halloween/lootbag/candybag_small.png",
-                    "LootbagIcon": "assets/prefabs/misc/halloween/lootbag/lootbag.icon.png"
+                    "CandyBagLarge": "assets/prefabs/misc/halloween/lootbag/candybag_large.png",
+                    "CandyBagMedium": "assets/prefabs/misc/halloween/lootbag/candybag_medium.png",
+                    "CandyBagSmall": "assets/prefabs/misc/halloween/lootbag/candybag_small.png",
+                    "LootBagIcon": "assets/prefabs/misc/halloween/lootbag/lootbag.icon.png"
                   },
                   "SubFolders": {}
                 },
@@ -1194,8 +1194,8 @@
                   "Name": "deployablegravestone",
                   "Path": "assets/prefabs/misc/halloween/deployablegravestone",
                   "Files": {
-                    "GravestoneStoneIcon": "assets/prefabs/misc/halloween/deployablegravestone/gravestone.stone.icon.png",
-                    "GravestoneWoodIcon": "assets/prefabs/misc/halloween/deployablegravestone/gravestone.wood.icon.png"
+                    "GraveStoneStoneIcon": "assets/prefabs/misc/halloween/deployablegravestone/gravestone.stone.icon.png",
+                    "GraveStoneWoodIcon": "assets/prefabs/misc/halloween/deployablegravestone/gravestone.wood.icon.png"
                   },
                   "SubFolders": {}
                 },
@@ -1370,8 +1370,8 @@
                   "Name": "underwear",
                   "Path": "assets/prefabs/misc/twitch/underwear",
                   "Files": {
-                    "FemaleunderwearTwitchTorsoIcon": "assets/prefabs/misc/twitch/underwear/femaleunderwear_twitch_torso.icon.png",
-                    "MaleunderwearTwitchLegsIcon": "assets/prefabs/misc/twitch/underwear/maleunderwear_twitch_legs.icon.png"
+                    "FemaleUnderwearTwitchTorsoIcon": "assets/prefabs/misc/twitch/underwear/femaleunderwear_twitch_torso.icon.png",
+                    "MaleUnderwearTwitchLegsIcon": "assets/prefabs/misc/twitch/underwear/maleunderwear_twitch_legs.icon.png"
                   },
                   "SubFolders": {}
                 },
@@ -1463,35 +1463,35 @@
                 "FrontiermirrorMediumIcon": "assets/prefabs/misc/mirror/frontiermirror.medium.icon.png",
                 "FrontiermirrorSmallIcon": "assets/prefabs/misc/mirror/frontiermirror.small.icon.png",
                 "FrontiermirrorStandingIcon": "assets/prefabs/misc/mirror/frontiermirror.standing.icon.png",
-                "GoldframeLargeIcon": "assets/prefabs/misc/mirror/goldframe.large.icon.png",
-                "GoldframeMediumIcon": "assets/prefabs/misc/mirror/goldframe.medium.icon.png",
-                "GoldframeSmallIcon": "assets/prefabs/misc/mirror/goldframe.small.icon.png",
-                "GoldframeStandingIcon": "assets/prefabs/misc/mirror/goldframe.standing.icon.png",
+                "GoldFrameLargeIcon": "assets/prefabs/misc/mirror/goldframe.large.icon.png",
+                "GoldFrameMediumIcon": "assets/prefabs/misc/mirror/goldframe.medium.icon.png",
+                "GoldFrameSmallIcon": "assets/prefabs/misc/mirror/goldframe.small.icon.png",
+                "GoldFrameStandingIcon": "assets/prefabs/misc/mirror/goldframe.standing.icon.png",
                 "GoldmirrorLargeIcon": "assets/prefabs/misc/mirror/goldmirror.large.icon.png",
                 "GoldmirrorMediumIcon": "assets/prefabs/misc/mirror/goldmirror.medium.icon.png",
                 "GoldmirrorSmallIcon": "assets/prefabs/misc/mirror/goldmirror.small.icon.png",
                 "GoldmirrorStandingIcon": "assets/prefabs/misc/mirror/goldmirror.standing.icon.png",
-                "LightupframeLargeIcon": "assets/prefabs/misc/mirror/lightupframe.large.icon.png",
-                "LightupframeMediumIcon": "assets/prefabs/misc/mirror/lightupframe.medium.icon.png",
-                "LightupframeSmallIcon": "assets/prefabs/misc/mirror/lightupframe.small.icon.png",
-                "LightupframeStandingIcon": "assets/prefabs/misc/mirror/lightupframe.standing.icon.png",
+                "LightupFrameLargeIcon": "assets/prefabs/misc/mirror/lightupframe.large.icon.png",
+                "LightupFrameMediumIcon": "assets/prefabs/misc/mirror/lightupframe.medium.icon.png",
+                "LightupFrameSmallIcon": "assets/prefabs/misc/mirror/lightupframe.small.icon.png",
+                "LightupFrameStandingIcon": "assets/prefabs/misc/mirror/lightupframe.standing.icon.png",
                 "LightupmirrorLargeIcon": "assets/prefabs/misc/mirror/lightupmirror.large.icon.png",
                 "LightupmirrorMediumIcon": "assets/prefabs/misc/mirror/lightupmirror.medium.icon.png",
                 "LightupmirrorSmallIcon": "assets/prefabs/misc/mirror/lightupmirror.small.icon.png",
                 "LightupmirrorStandingIcon": "assets/prefabs/misc/mirror/lightupmirror.standing.icon.png",
-                "ScrapframeLargeIcon": "assets/prefabs/misc/mirror/scrapframe.large.icon.png",
-                "ScrapframeMediumIcon": "assets/prefabs/misc/mirror/scrapframe.medium.icon.png",
-                "ScrapframeSmallIcon": "assets/prefabs/misc/mirror/scrapframe.small.icon.png",
-                "ScrapframeStandingIcon": "assets/prefabs/misc/mirror/scrapframe.standing.icon.png",
+                "ScrapFrameLargeIcon": "assets/prefabs/misc/mirror/scrapframe.large.icon.png",
+                "ScrapFrameMediumIcon": "assets/prefabs/misc/mirror/scrapframe.medium.icon.png",
+                "ScrapFrameSmallIcon": "assets/prefabs/misc/mirror/scrapframe.small.icon.png",
+                "ScrapFrameStandingIcon": "assets/prefabs/misc/mirror/scrapframe.standing.icon.png",
                 "ScrapmirrorLargeIcon": "assets/prefabs/misc/mirror/scrapmirror.large.icon.png",
                 "ScrapmirrorMediumIcon": "assets/prefabs/misc/mirror/scrapmirror.medium.icon.png",
                 "ScrapmirrorSmallIcon": "assets/prefabs/misc/mirror/scrapmirror.small.icon.png",
                 "ScrapmirrorStandingIcon": "assets/prefabs/misc/mirror/scrapmirror.standing.icon.png",
                 "TwowaymirrorWindowIcon": "assets/prefabs/misc/mirror/twowaymirror.window.icon.png",
-                "WoodframeLargeIcon": "assets/prefabs/misc/mirror/woodframe.large.icon.png",
-                "WoodframeMediumIcon": "assets/prefabs/misc/mirror/woodframe.medium.icon.png",
-                "WoodframeSmallIcon": "assets/prefabs/misc/mirror/woodframe.small.icon.png",
-                "WoodframeStandingIcon": "assets/prefabs/misc/mirror/woodframe.standing.icon.png",
+                "WoodFrameLargeIcon": "assets/prefabs/misc/mirror/woodframe.large.icon.png",
+                "WoodFrameMediumIcon": "assets/prefabs/misc/mirror/woodframe.medium.icon.png",
+                "WoodFrameSmallIcon": "assets/prefabs/misc/mirror/woodframe.small.icon.png",
+                "WoodFrameStandingIcon": "assets/prefabs/misc/mirror/woodframe.standing.icon.png",
                 "WoodmirrorLargeIcon": "assets/prefabs/misc/mirror/woodmirror.large.icon.png",
                 "WoodmirrorMediumIcon": "assets/prefabs/misc/mirror/woodmirror.medium.icon.png",
                 "WoodmirrorSmallIcon": "assets/prefabs/misc/mirror/woodmirror.small.icon.png",
@@ -1907,7 +1907,7 @@
               "Name": "flashlight",
               "Path": "assets/prefabs/weapon mods/flashlight",
               "Files": {
-                "FlashlightmodIcon": "assets/prefabs/weapon mods/flashlight/flashlightmod.icon.png"
+                "FlashLightmodIcon": "assets/prefabs/weapon mods/flashlight/flashlightmod.icon.png"
               },
               "SubFolders": {}
             },
@@ -2070,7 +2070,7 @@
                   "Files": {
                     "ScientistsuitarcticIcon": "assets/prefabs/clothes/suit.hazmat/scientist/scientistsuitarctic.icon.png",
                     "ScientistsuitIcon": "assets/prefabs/clothes/suit.hazmat/scientist/scientistsuit.icon.png",
-                    "ScientistsuitnvgmIcon": "assets/prefabs/clothes/suit.hazmat/scientist/scientistsuitnvgm.icon.png",
+                    "ScientistsuitNvgmIcon": "assets/prefabs/clothes/suit.hazmat/scientist/scientistsuitnvgm.icon.png",
                     "ScientistsuitpeacekeeperIcon": "assets/prefabs/clothes/suit.hazmat/scientist/scientistsuitpeacekeeper.icon.png",
                     "ScientistsuitwearableIcon": "assets/prefabs/clothes/suit.hazmat/scientist/scientistsuitwearable.icon.png"
                   },
@@ -2137,8 +2137,8 @@
                         "RapidoMale": "assets/prefabs/clothes/skin/underwear/swimwear/rapido_male.png",
                         "SwimwearGradientFemale": "assets/prefabs/clothes/skin/underwear/swimwear/swimwear_gradient_female.png",
                         "SwimwearGradientMale": "assets/prefabs/clothes/skin/underwear/swimwear/swimwear_gradient_male.png",
-                        "SwimwearPalmleavesFemale": "assets/prefabs/clothes/skin/underwear/swimwear/swimwear_palmleaves_female.png",
-                        "SwimwearPalmleavesMale": "assets/prefabs/clothes/skin/underwear/swimwear/swimwear_palmleaves_male.png",
+                        "SwimwearPalmLeavesFemale": "assets/prefabs/clothes/skin/underwear/swimwear/swimwear_palmleaves_female.png",
+                        "SwimwearPalmLeavesMale": "assets/prefabs/clothes/skin/underwear/swimwear/swimwear_palmleaves_male.png",
                         "SwimwearScribbleFemale": "assets/prefabs/clothes/skin/underwear/swimwear/swimwear_scribble_female.png",
                         "SwimwearScribbleMale": "assets/prefabs/clothes/skin/underwear/swimwear/swimwear_scribble_male.png"
                       },
@@ -2148,8 +2148,8 @@
                       "Name": "halloween",
                       "Path": "assets/prefabs/clothes/skin/underwear/halloween",
                       "Files": {
-                        "FemaleunderwearMummywrapsIcon": "assets/prefabs/clothes/skin/underwear/halloween/femaleunderwear_mummywraps.icon.png",
-                        "MaleunderwearMummywrapsIcon": "assets/prefabs/clothes/skin/underwear/halloween/maleunderwear_mummywraps.icon.png"
+                        "FemaleUnderwearMummyWrapsIcon": "assets/prefabs/clothes/skin/underwear/halloween/femaleunderwear_mummywraps.icon.png",
+                        "MaleUnderwearMummyWrapsIcon": "assets/prefabs/clothes/skin/underwear/halloween/maleunderwear_mummywraps.icon.png"
                       },
                       "SubFolders": {}
                     },
@@ -2260,7 +2260,7 @@
               "Name": "gloves.roadsign",
               "Path": "assets/prefabs/clothes/gloves.roadsign",
               "Files": {
-                "GlovesRoadsignIcon": "assets/prefabs/clothes/gloves.roadsign/gloves.roadsign.icon.png"
+                "GlovesRoadSignIcon": "assets/prefabs/clothes/gloves.roadsign/gloves.roadsign.icon.png"
               },
               "SubFolders": {}
             },
@@ -2466,7 +2466,7 @@
               "Name": "hat.knightsarmour",
               "Path": "assets/prefabs/clothes/hat.knightsarmour",
               "Files": {
-                "HatKnightsarmourWorldmodelIcon": "assets/prefabs/clothes/hat.knightsarmour/hat.knightsarmour_worldmodel.icon.png"
+                "HatKnightsarmourWorldModelIcon": "assets/prefabs/clothes/hat.knightsarmour/hat.knightsarmour_worldmodel.icon.png"
               },
               "SubFolders": {}
             },
@@ -2482,7 +2482,7 @@
               "Name": "hat.prisonerhood",
               "Path": "assets/prefabs/clothes/hat.prisonerhood",
               "Files": {
-                "HatPrisonerhoodMaleIcon": "assets/prefabs/clothes/hat.prisonerhood/hat.prisonerhood.male.icon.png"
+                "HatPrisonerHoodMaleIcon": "assets/prefabs/clothes/hat.prisonerhood/hat.prisonerhood.male.icon.png"
               },
               "SubFolders": {}
             },
@@ -2490,7 +2490,7 @@
               "Name": "hat.wellipets",
               "Path": "assets/prefabs/clothes/hat.wellipets",
               "Files": {
-                "HatWellipetsWorldmodelIcon": "assets/prefabs/clothes/hat.wellipets/hat.wellipets.worldmodel.icon.png"
+                "HatWellipetsWorldModelIcon": "assets/prefabs/clothes/hat.wellipets/hat.wellipets.worldmodel.icon.png"
               },
               "SubFolders": {}
             },
@@ -2498,7 +2498,7 @@
               "Name": "hat.woodarmor",
               "Path": "assets/prefabs/clothes/hat.woodarmor",
               "Files": {
-                "HatwoodarmorIcon": "assets/prefabs/clothes/hat.woodarmor/hatwoodarmor.icon.png"
+                "HatWoodarmorIcon": "assets/prefabs/clothes/hat.woodarmor/hatwoodarmor.icon.png"
               },
               "SubFolders": {}
             },
@@ -2646,8 +2646,8 @@
               "Path": "assets/prefabs/clothes/jacket.snow",
               "Files": {
                 "JacketSnow": "assets/prefabs/clothes/jacket.snow/jacket_snow.png",
-                "JacketSnowBlackItemskinIcon": "assets/prefabs/clothes/jacket.snow/jacket.snow.black.itemskin.icon.png",
-                "JacketSnowWoodlandItemskinIcon": "assets/prefabs/clothes/jacket.snow/jacket.snow.woodland.itemskin.icon.png"
+                "JacketSnowBlackItemSkinIcon": "assets/prefabs/clothes/jacket.snow/jacket.snow.black.itemskin.icon.png",
+                "JacketSnowWoodlandItemSkinIcon": "assets/prefabs/clothes/jacket.snow/jacket.snow.woodland.itemskin.icon.png"
               },
               "SubFolders": {}
             },
@@ -2663,8 +2663,8 @@
               "Name": "underwear.grassskirt",
               "Path": "assets/prefabs/clothes/underwear.grassskirt",
               "Files": {
-                "MaleunderwearCoconutLegsIcon": "assets/prefabs/clothes/underwear.grassskirt/maleunderwear_coconut_legs.icon.png",
-                "MaleunderwearGrassskirtLegsIcon": "assets/prefabs/clothes/underwear.grassskirt/maleunderwear_grassskirt_legs.icon.png",
+                "MaleUnderwearCoconutLegsIcon": "assets/prefabs/clothes/underwear.grassskirt/maleunderwear_coconut_legs.icon.png",
+                "MaleUnderwearGrassskirtLegsIcon": "assets/prefabs/clothes/underwear.grassskirt/maleunderwear_grassskirt_legs.icon.png",
                 "UnderwearFemaleGrassskirtTopIcon": "assets/prefabs/clothes/underwear.grassskirt/underwear_female_grassskirt_top.icon.png"
               },
               "SubFolders": {}
@@ -2916,7 +2916,7 @@
               "Name": "pants.roadsign",
               "Path": "assets/prefabs/clothes/pants.roadsign",
               "Files": {
-                "PantsRoadsignIcon": "assets/prefabs/clothes/pants.roadsign/pants.roadsign.icon.png"
+                "PantsRoadSignIcon": "assets/prefabs/clothes/pants.roadsign/pants.roadsign.icon.png"
               },
               "SubFolders": {}
             },
@@ -3036,7 +3036,7 @@
               "Name": "suit.banditguard",
               "Path": "assets/prefabs/clothes/suit.banditguard",
               "Files": {
-                "SuitBanditguardIcon": "assets/prefabs/clothes/suit.banditguard/suit.banditguard.icon.png"
+                "SuitBanditGuardIcon": "assets/prefabs/clothes/suit.banditguard/suit.banditguard.icon.png"
               },
               "SubFolders": {}
             },
@@ -3044,7 +3044,7 @@
               "Name": "suit.heavyscientist",
               "Path": "assets/prefabs/clothes/suit.heavyscientist",
               "Files": {
-                "SuitHeavyscientistIcon": "assets/prefabs/clothes/suit.heavyscientist/suit_heavyscientist.icon.png"
+                "SuitHeavyScientistIcon": "assets/prefabs/clothes/suit.heavyscientist/suit_heavyscientist.icon.png"
               },
               "SubFolders": {}
             },
@@ -3054,7 +3054,7 @@
               "Files": {
                 "SuitJumpsuitBlueIcon": "assets/prefabs/clothes/suit.jumpsuit/suit.jumpsuit.blue.icon.png",
                 "SuitJumpsuitIcon": "assets/prefabs/clothes/suit.jumpsuit/suit.jumpsuit.icon.png",
-                "SuitJumpsuitMaleWaterwellnpcIcon": "assets/prefabs/clothes/suit.jumpsuit/suit.jumpsuit.male.waterwellnpc.icon.png"
+                "SuitJumpsuitMaleWaterWellNpcIcon": "assets/prefabs/clothes/suit.jumpsuit/suit.jumpsuit.male.waterwellnpc.icon.png"
               },
               "SubFolders": {}
             },
@@ -3192,7 +3192,7 @@
               "Name": "vest.roadsign",
               "Path": "assets/prefabs/clothes/vest.roadsign",
               "Files": {
-                "VestRoadsignIcon": "assets/prefabs/clothes/vest.roadsign/vest.roadsign.icon.png"
+                "VestRoadSignIcon": "assets/prefabs/clothes/vest.roadsign/vest.roadsign.icon.png"
               },
               "SubFolders": {}
             },
@@ -3396,7 +3396,7 @@
               "Name": "cnyspear",
               "Path": "assets/prefabs/weapons/cnyspear",
               "Files": {
-                "CnySpearWorldmodelIcon": "assets/prefabs/weapons/cnyspear/cny_spear.worldmodel.icon.png"
+                "CnySpearWorldModelIcon": "assets/prefabs/weapons/cnyspear/cny_spear.worldmodel.icon.png"
               },
               "SubFolders": {}
             },
@@ -3588,7 +3588,7 @@
               "Name": "legacy bow",
               "Path": "assets/prefabs/weapons/legacy bow",
               "Files": {
-                "LegacybowWorldmodelIcon": "assets/prefabs/weapons/legacy bow/legacybow.worldmodel.icon.png"
+                "LegacybowWorldModelIcon": "assets/prefabs/weapons/legacy bow/legacybow.worldmodel.icon.png"
               },
               "SubFolders": {}
             },
@@ -3628,7 +3628,7 @@
               "Name": "m4 shotgun",
               "Path": "assets/prefabs/weapons/m4 shotgun",
               "Files": {
-                "M4ShotgunWorldmodelIcon": "assets/prefabs/weapons/m4 shotgun/m4_shotgun.worldmodel.icon.png"
+                "M4ShotgunWorldModelIcon": "assets/prefabs/weapons/m4 shotgun/m4_shotgun.worldmodel.icon.png"
               },
               "SubFolders": {}
             },
@@ -3676,7 +3676,7 @@
               "Name": "military flamethrower",
               "Path": "assets/prefabs/weapons/military flamethrower",
               "Files": {
-                "MilitaryflamethrowerWorldmodelIcon": "assets/prefabs/weapons/military flamethrower/militaryflamethrower.worldmodel.icon.png"
+                "MilitaryflamethrowerWorldModelIcon": "assets/prefabs/weapons/military flamethrower/militaryflamethrower.worldmodel.icon.png"
               },
               "SubFolders": {}
             },
@@ -3772,7 +3772,7 @@
               "Name": "reinforcedwoodshield",
               "Path": "assets/prefabs/weapons/reinforcedwoodshield",
               "Files": {
-                "ReinforcedwoodshieldEntityIcon": "assets/prefabs/weapons/reinforcedwoodshield/reinforcedwoodshield.entity.icon.png"
+                "ReinforcedWoodshieldEntityIcon": "assets/prefabs/weapons/reinforcedwoodshield/reinforcedwoodshield.entity.icon.png"
               },
               "SubFolders": {}
             },
@@ -3787,7 +3787,7 @@
                   "Name": "cny_dragonlauncher",
                   "Path": "assets/prefabs/weapons/rocketlauncher/cny_dragonlauncher",
                   "Files": {
-                    "RocketLauncherDragonWorldmodelIcon": "assets/prefabs/weapons/rocketlauncher/cny_dragonlauncher/rocket_launcher_dragon.worldmodel.icon.png"
+                    "RocketLauncherDragonWorldModelIcon": "assets/prefabs/weapons/rocketlauncher/cny_dragonlauncher/rocket_launcher_dragon.worldmodel.icon.png"
                   },
                   "SubFolders": {}
                 }
@@ -3934,7 +3934,7 @@
               "Name": "t1 smg",
               "Path": "assets/prefabs/weapons/t1 smg",
               "Files": {
-                "T1SmgWorldmodelIcon": "assets/prefabs/weapons/t1 smg/t1_smg.worldmodel.icon.png"
+                "T1SmgWorldModelIcon": "assets/prefabs/weapons/t1 smg/t1_smg.worldmodel.icon.png"
               },
               "SubFolders": {}
             },
@@ -3982,7 +3982,7 @@
               "Path": "assets/prefabs/food/fish",
               "Files": {
                 "AnchovyIcon": "assets/prefabs/food/fish/anchovy.icon.png",
-                "CatfishWorldmodelIcon": "assets/prefabs/food/fish/catfish.worldmodel.icon.png",
+                "CatfishWorldModelIcon": "assets/prefabs/food/fish/catfish.worldmodel.icon.png",
                 "FishCooked": "assets/prefabs/food/fish/fish_cooked.png",
                 "FishRawIcon": "assets/prefabs/food/fish/fish_raw.icon.png",
                 "HerringIcon": "assets/prefabs/food/fish/herring.icon.png",
@@ -3990,7 +3990,7 @@
                 "OrangeroughyIcon": "assets/prefabs/food/fish/orangeroughy.icon.png",
                 "SalmonIcon": "assets/prefabs/food/fish/salmon.icon.png",
                 "SardineIcon": "assets/prefabs/food/fish/sardine.icon.png",
-                "SmallsharkWorldmodelIcon": "assets/prefabs/food/fish/smallshark.worldmodel.icon.png",
+                "SmallsharkWorldModelIcon": "assets/prefabs/food/fish/smallshark.worldmodel.icon.png",
                 "SmalltroutIcon": "assets/prefabs/food/fish/smalltrout.icon.png",
                 "YellowperchIcon": "assets/prefabs/food/fish/yellowperch.icon.png"
               },
@@ -4147,7 +4147,7 @@
               "Name": "small water bottle",
               "Path": "assets/prefabs/food/small water bottle",
               "Files": {
-                "Smallwaterbottle": "assets/prefabs/food/small water bottle/smallwaterbottle.png"
+                "SmallWaterbottle": "assets/prefabs/food/small water bottle/smallwaterbottle.png"
               },
               "SubFolders": {}
             },
@@ -4303,14 +4303,14 @@
                   "Name": "lights",
                   "Path": "assets/prefabs/deployable/playerioents/lights",
                   "Files": {
-                    "SimplelightIcon": "assets/prefabs/deployable/playerioents/lights/simplelight.icon.png"
+                    "SimpleLightIcon": "assets/prefabs/deployable/playerioents/lights/simplelight.icon.png"
                   },
                   "SubFolders": {
                     "flasherlight": {
                       "Name": "flasherlight",
                       "Path": "assets/prefabs/deployable/playerioents/lights/flasherlight",
                       "Files": {
-                        "ElectricFlasherlightIcon": "assets/prefabs/deployable/playerioents/lights/flasherlight/electric.flasherlight.icon.png"
+                        "ElectricFlasherLightIcon": "assets/prefabs/deployable/playerioents/lights/flasherlight/electric.flasherlight.icon.png"
                       },
                       "SubFolders": {}
                     },
@@ -4318,7 +4318,7 @@
                       "Name": "sirenlight",
                       "Path": "assets/prefabs/deployable/playerioents/lights/sirenlight",
                       "Files": {
-                        "ElectricSirenlightIcon": "assets/prefabs/deployable/playerioents/lights/sirenlight/electric.sirenlight.icon.png"
+                        "ElectricSirenLightIcon": "assets/prefabs/deployable/playerioents/lights/sirenlight/electric.sirenlight.icon.png"
                       },
                       "SubFolders": {}
                     }
@@ -4391,7 +4391,7 @@
                       "Name": "solar_panels_roof",
                       "Path": "assets/prefabs/deployable/playerioents/generators/solar_panels_roof",
                       "Files": {
-                        "SolarpanelLargeDeployedIcon": "assets/prefabs/deployable/playerioents/generators/solar_panels_roof/solarpanel.large.deployed.icon.png"
+                        "SolarPanelLargeDeployedIcon": "assets/prefabs/deployable/playerioents/generators/solar_panels_roof/solarpanel.large.deployed.icon.png"
                       },
                       "SubFolders": {}
                     }
@@ -4505,7 +4505,7 @@
                   "Name": "poweredwaterpurifier",
                   "Path": "assets/prefabs/deployable/playerioents/poweredwaterpurifier",
                   "Files": {
-                    "PoweredwaterpurifierDeployedIcon": "assets/prefabs/deployable/playerioents/poweredwaterpurifier/poweredwaterpurifier.deployed.icon.png"
+                    "PoweredWaterpurifierDeployedIcon": "assets/prefabs/deployable/playerioents/poweredwaterpurifier/poweredwaterpurifier.deployed.icon.png"
                   },
                   "SubFolders": {}
                 },
@@ -4599,7 +4599,7 @@
                 "BarricadeCoverWoodIcon": "assets/prefabs/deployable/barricades/barricade.cover.wood.icon.png",
                 "BarricadeMedievalIcon": "assets/prefabs/deployable/barricades/barricade.medieval.icon.png",
                 "BarricadeMetal": "assets/prefabs/deployable/barricades/barricade.metal.png",
-                "BarricadeSandbags": "assets/prefabs/deployable/barricades/barricade.sandbags.png",
+                "BarricadeSandBags": "assets/prefabs/deployable/barricades/barricade.sandbags.png",
                 "BarricadeStonebox": "assets/prefabs/deployable/barricades/barricade.stonebox.png",
                 "BarricadeWood": "assets/prefabs/deployable/barricades/barricade.wood.png",
                 "BarricadeWoodwire": "assets/prefabs/deployable/barricades/barricade.woodwire.png"
@@ -4688,8 +4688,8 @@
               "Name": "computerstation",
               "Path": "assets/prefabs/deployable/computerstation",
               "Files": {
-                "Cameratrim": "assets/prefabs/deployable/computerstation/cameratrim.png",
-                "ComputerstationDeployedIcon": "assets/prefabs/deployable/computerstation/computerstation.deployed.icon.png",
+                "CameraTrim": "assets/prefabs/deployable/computerstation/cameratrim.png",
+                "ComputerStationDeployedIcon": "assets/prefabs/deployable/computerstation/computerstation.deployed.icon.png",
                 "Dirt": "assets/prefabs/deployable/computerstation/dirt.png",
                 "NvgOverexposed": "assets/prefabs/deployable/computerstation/nvg_overexposed.png",
                 "Snow": "assets/prefabs/deployable/computerstation/snow.tga"
@@ -4708,7 +4708,7 @@
               "Name": "card table",
               "Path": "assets/prefabs/deployable/card table",
               "Files": {
-                "CardtableDeployedIcon": "assets/prefabs/deployable/card table/cardtable.deployed.icon.png"
+                "CardTableDeployedIcon": "assets/prefabs/deployable/card table/cardtable.deployed.icon.png"
               },
               "SubFolders": {}
             },
@@ -4716,7 +4716,7 @@
               "Name": "ceiling light",
               "Path": "assets/prefabs/deployable/ceiling light",
               "Files": {
-                "CeilinglightIcon": "assets/prefabs/deployable/ceiling light/ceilinglight.icon.png"
+                "CeilingLightIcon": "assets/prefabs/deployable/ceiling light/ceilinglight.icon.png"
               },
               "SubFolders": {}
             },
@@ -4742,7 +4742,7 @@
               "Name": "clan table",
               "Path": "assets/prefabs/deployable/clan table",
               "Files": {
-                "ClantableDeployedIcon": "assets/prefabs/deployable/clan table/clantable.deployed.icon.png"
+                "ClanTableDeployedIcon": "assets/prefabs/deployable/clan table/clantable.deployed.icon.png"
               },
               "SubFolders": {}
             },
@@ -4774,10 +4774,10 @@
                       "Name": "materials",
                       "Path": "assets/prefabs/deployable/tool cupboard/retro/materials",
                       "Files": {
-                        "ScreeniconDoor": "assets/prefabs/deployable/tool cupboard/retro/materials/screenicon.door.png",
-                        "ScreeniconFoundation": "assets/prefabs/deployable/tool cupboard/retro/materials/screenicon.foundation.png",
-                        "ScreeniconZenlabs": "assets/prefabs/deployable/tool cupboard/retro/materials/screenicon.zenlabs.png",
-                        "ScreniconZenlabs2": "assets/prefabs/deployable/tool cupboard/retro/materials/screnicon.zenlabs2.png"
+                        "ScreenIconDoor": "assets/prefabs/deployable/tool cupboard/retro/materials/screenicon.door.png",
+                        "ScreenIconFoundation": "assets/prefabs/deployable/tool cupboard/retro/materials/screenicon.foundation.png",
+                        "ScreenIconZenlabs": "assets/prefabs/deployable/tool cupboard/retro/materials/screenicon.zenlabs.png",
+                        "ScrenIconZenlabs2": "assets/prefabs/deployable/tool cupboard/retro/materials/screnicon.zenlabs2.png"
                       },
                       "SubFolders": {}
                     }
@@ -4814,7 +4814,7 @@
               "Name": "modular car lift",
               "Path": "assets/prefabs/deployable/modular car lift",
               "Files": {
-                "ElectricalModularcarliftIcon": "assets/prefabs/deployable/modular car lift/electrical.modularcarlift.icon.png"
+                "ElectricalModularCarliftIcon": "assets/prefabs/deployable/modular car lift/electrical.modularcarlift.icon.png"
               },
               "SubFolders": {}
             },
@@ -4838,8 +4838,8 @@
               "Name": "frankensteintable",
               "Path": "assets/prefabs/deployable/frankensteintable",
               "Files": {
-                "FrankensteintableDeployedIcon": "assets/prefabs/deployable/frankensteintable/frankensteintable.deployed.icon.png",
-                "MixingtableIcon": "assets/prefabs/deployable/frankensteintable/mixingtable.icon.png"
+                "FrankensteinTableDeployedIcon": "assets/prefabs/deployable/frankensteintable/frankensteintable.deployed.icon.png",
+                "MixingTableIcon": "assets/prefabs/deployable/frankensteintable/mixingtable.icon.png"
               },
               "SubFolders": {}
             },
@@ -4888,7 +4888,7 @@
               "Path": "assets/prefabs/deployable/hot air balloon",
               "Files": {
                 "HabArmorIcon": "assets/prefabs/deployable/hot air balloon/hab.armor.icon.png",
-                "Hotairballoonavatar": "assets/prefabs/deployable/hot air balloon/hotairballoonavatar.png"
+                "HotairBalloonAvatar": "assets/prefabs/deployable/hot air balloon/hotairballoonavatar.png"
               },
               "SubFolders": {}
             },
@@ -4905,7 +4905,7 @@
               "Path": "assets/prefabs/deployable/youtooz_figurines",
               "Files": {
                 "HazmatYoutoozDeployedIcon": "assets/prefabs/deployable/youtooz_figurines/hazmat_youtooz.deployed.icon.png",
-                "HeavyscientistYoutoozDeployedIcon": "assets/prefabs/deployable/youtooz_figurines/heavyscientist_youtooz.deployed.icon.png"
+                "HeavyScientistYoutoozDeployedIcon": "assets/prefabs/deployable/youtooz_figurines/heavyscientist_youtooz.deployed.icon.png"
               },
               "SubFolders": {}
             },
@@ -4997,7 +4997,7 @@
               "Name": "mixingtable",
               "Path": "assets/prefabs/deployable/mixingtable",
               "Files": {
-                "MixingtableIcon": "assets/prefabs/deployable/mixingtable/mixingtable.icon.png"
+                "MixingTableIcon": "assets/prefabs/deployable/mixingtable/mixingtable.icon.png"
               },
               "SubFolders": {}
             },
@@ -5012,9 +5012,9 @@
                   "Name": "ui",
                   "Path": "assets/prefabs/deployable/vendingmachine/ui",
                   "Files": {
-                    "Outofstock": "assets/prefabs/deployable/vendingmachine/ui/outofstock.png",
+                    "OutOfStock": "assets/prefabs/deployable/vendingmachine/ui/outofstock.png",
                     "Vending": "assets/prefabs/deployable/vendingmachine/ui/vending.png",
-                    "Whiteonly": "assets/prefabs/deployable/vendingmachine/ui/whiteonly.png"
+                    "WhiteOnly": "assets/prefabs/deployable/vendingmachine/ui/whiteonly.png"
                   },
                   "SubFolders": {}
                 }
@@ -5108,7 +5108,7 @@
               "Name": "search light",
               "Path": "assets/prefabs/deployable/search light",
               "Files": {
-                "SearchlightIcon": "assets/prefabs/deployable/search light/searchlight.icon.png"
+                "SearchLightIcon": "assets/prefabs/deployable/search light/searchlight.icon.png"
               },
               "SubFolders": {}
             },
@@ -5138,11 +5138,11 @@
                 "SignHugeWoodIcon": "assets/prefabs/deployable/signs/sign.huge.wood.icon.png",
                 "SignLargeWoodIcon": "assets/prefabs/deployable/signs/sign.large.wood.icon.png",
                 "SignMediumWoodIcon": "assets/prefabs/deployable/signs/sign.medium.wood.icon.png",
-                "SignPictureframeLandscapeItemIcon": "assets/prefabs/deployable/signs/sign.pictureframe.landscape.item.icon.png",
-                "SignPictureframePortraitItemIcon": "assets/prefabs/deployable/signs/sign.pictureframe.portrait.item.icon.png",
-                "SignPictureframeTallItemIcon": "assets/prefabs/deployable/signs/sign.pictureframe.tall.item.icon.png",
-                "SignPictureframeXlItemIcon": "assets/prefabs/deployable/signs/sign.pictureframe.xl.item.icon.png",
-                "SignPictureframeXxlItemIcon": "assets/prefabs/deployable/signs/sign.pictureframe.xxl.item.icon.png",
+                "SignPictureFrameLandscapeItemIcon": "assets/prefabs/deployable/signs/sign.pictureframe.landscape.item.icon.png",
+                "SignPictureFramePortraitItemIcon": "assets/prefabs/deployable/signs/sign.pictureframe.portrait.item.icon.png",
+                "SignPictureFrameTallItemIcon": "assets/prefabs/deployable/signs/sign.pictureframe.tall.item.icon.png",
+                "SignPictureFrameXlItemIcon": "assets/prefabs/deployable/signs/sign.pictureframe.xl.item.icon.png",
+                "SignPictureFrameXxlItemIcon": "assets/prefabs/deployable/signs/sign.pictureframe.xxl.item.icon.png",
                 "SignPoleBannerLargeItemIcon": "assets/prefabs/deployable/signs/sign.pole.banner.large.item.icon.png",
                 "SignPostDouble": "assets/prefabs/deployable/signs/sign.post.double.png",
                 "SignPostSingle": "assets/prefabs/deployable/signs/sign.post.single.png",
@@ -5156,7 +5156,7 @@
               "Name": "sleeping bag",
               "Path": "assets/prefabs/deployable/sleeping bag",
               "Files": {
-                "Sleepingbag": "assets/prefabs/deployable/sleeping bag/sleepingbag.png"
+                "SleepingBag": "assets/prefabs/deployable/sleeping bag/sleepingbag.png"
               },
               "SubFolders": {}
             },
@@ -5212,7 +5212,7 @@
               "Name": "tuna can wall lamp",
               "Path": "assets/prefabs/deployable/tuna can wall lamp",
               "Files": {
-                "TunalightIcon": "assets/prefabs/deployable/tuna can wall lamp/tunalight.icon.png"
+                "TunaLightIcon": "assets/prefabs/deployable/tuna can wall lamp/tunalight.icon.png"
               },
               "SubFolders": {}
             },
@@ -5399,7 +5399,7 @@
               "Path": "assets/prefabs/tools/handcuffs",
               "Files": {
                 "BuildingPlanner": "assets/prefabs/tools/handcuffs/building_planner.png",
-                "WHandcuffsWorldmodelIcon": "assets/prefabs/tools/handcuffs/w_handcuffs.worldmodel.icon.png"
+                "WHandcuffsWorldModelIcon": "assets/prefabs/tools/handcuffs/w_handcuffs.worldmodel.icon.png"
               },
               "SubFolders": {}
             },
@@ -5458,7 +5458,7 @@
               "Name": "flashlight",
               "Path": "assets/prefabs/tools/flashlight",
               "Files": {
-                "FlashlightEntityIcon": "assets/prefabs/tools/flashlight/flashlight.entity.icon.png"
+                "FlashLightEntityIcon": "assets/prefabs/tools/flashlight/flashlight.entity.icon.png"
               },
               "SubFolders": {}
             },
@@ -5541,9 +5541,9 @@
               "Name": "keycard",
               "Path": "assets/prefabs/tools/keycard",
               "Files": {
-                "KeycardBlueIcon": "assets/prefabs/tools/keycard/keycard_blue.icon.png",
-                "KeycardGreenIcon": "assets/prefabs/tools/keycard/keycard_green.icon.png",
-                "KeycardRedIcon": "assets/prefabs/tools/keycard/keycard_red.icon.png"
+                "KeyCardBlueIcon": "assets/prefabs/tools/keycard/keycard_blue.icon.png",
+                "KeyCardGreenIcon": "assets/prefabs/tools/keycard/keycard_green.icon.png",
+                "KeyCardRedIcon": "assets/prefabs/tools/keycard/keycard_red.icon.png"
               },
               "SubFolders": {}
             },
@@ -5646,7 +5646,7 @@
               "Name": "autoturret",
               "Path": "assets/prefabs/npc/autoturret",
               "Files": {
-                "Autoturret": "assets/prefabs/npc/autoturret/autoturret.png"
+                "AutoTurret": "assets/prefabs/npc/autoturret/autoturret.png"
               },
               "SubFolders": {}
             },
@@ -5654,7 +5654,7 @@
               "Name": "m2bradley",
               "Path": "assets/prefabs/npc/m2bradley",
               "Files": {
-                "Bradleyavatar": "assets/prefabs/npc/m2bradley/bradleyavatar.png"
+                "BradleyAvatar": "assets/prefabs/npc/m2bradley/bradleyavatar.png"
               },
               "SubFolders": {}
             },
@@ -5662,7 +5662,7 @@
               "Name": "flame turret",
               "Path": "assets/prefabs/npc/flame turret",
               "Files": {
-                "Flameturret": "assets/prefabs/npc/flame turret/flameturret.png"
+                "FlameTurret": "assets/prefabs/npc/flame turret/flameturret.png"
               },
               "SubFolders": {}
             },
@@ -5670,7 +5670,7 @@
               "Name": "patrol helicopter",
               "Path": "assets/prefabs/npc/patrol helicopter",
               "Files": {
-                "Patrolhelicopteravatar": "assets/prefabs/npc/patrol helicopter/patrolhelicopteravatar.png"
+                "PatrolHelicopterAvatar": "assets/prefabs/npc/patrol helicopter/patrolhelicopteravatar.png"
               },
               "SubFolders": {}
             },
@@ -5687,7 +5687,7 @@
               "Name": "scarecrow",
               "Path": "assets/prefabs/npc/scarecrow",
               "Files": {
-                "Scarecrowavatar": "assets/prefabs/npc/scarecrow/scarecrowavatar.png"
+                "ScarecrowAvatar": "assets/prefabs/npc/scarecrow/scarecrowavatar.png"
               },
               "SubFolders": {}
             },
@@ -5695,7 +5695,7 @@
               "Name": "travelling vendor",
               "Path": "assets/prefabs/npc/travelling vendor",
               "Files": {
-                "TravellingvendorIcon": "assets/prefabs/npc/travelling vendor/travellingvendor.icon.png"
+                "TravellingVendorIcon": "assets/prefabs/npc/travelling vendor/travellingvendor.icon.png"
               },
               "SubFolders": {}
             },
@@ -5703,7 +5703,7 @@
               "Name": "waterwell",
               "Path": "assets/prefabs/npc/waterwell",
               "Files": {
-                "Waterwellnpcavatar": "assets/prefabs/npc/waterwell/waterwellnpcavatar.png"
+                "WaterWellNpcAvatar": "assets/prefabs/npc/waterwell/waterwellnpcavatar.png"
               },
               "SubFolders": {}
             }
@@ -5808,8 +5808,8 @@
           "Name": "resource",
           "Path": "assets/prefabs/resource",
           "Files": {
-            "FuelMidgradeJerrycan": "assets/prefabs/resource/fuel_midgrade_jerrycan.png",
-            "Lowgradefuel": "assets/prefabs/resource/lowgradefuel.png",
+            "FuelMidGradeJerrycan": "assets/prefabs/resource/fuel_midgrade_jerrycan.png",
+            "LowGradeFuel": "assets/prefabs/resource/lowgradefuel.png",
             "SkullBear": "assets/prefabs/resource/skull_bear.png",
             "SkullDeer": "assets/prefabs/resource/skull_deer.png"
           },
@@ -5898,7 +5898,7 @@
               "Name": "low grade fuel",
               "Path": "assets/prefabs/resource/low grade fuel",
               "Files": {
-                "FuelLowgradeJar": "assets/prefabs/resource/low grade fuel/fuel_lowgrade_jar.png"
+                "FuelLowGradeJar": "assets/prefabs/resource/low grade fuel/fuel_lowgrade_jar.png"
               },
               "SubFolders": {}
             },
@@ -5995,7 +5995,7 @@
               "Path": "assets/prefabs/resource/radioactive water",
               "Files": {
                 "RadioactiveWaterIcon": "assets/prefabs/resource/radioactive water/radioactive_water.icon.png",
-                "RadioactivewaterOldIcon": "assets/prefabs/resource/radioactive water/radioactivewater_old.icon.png"
+                "RadioactiveWaterOldIcon": "assets/prefabs/resource/radioactive water/radioactivewater_old.icon.png"
               },
               "SubFolders": {}
             },
@@ -6012,7 +6012,7 @@
               "Path": "assets/prefabs/resource/salt water",
               "Files": {
                 "SaltWater": "assets/prefabs/resource/salt water/salt_water.png",
-                "SaltwaterIcon": "assets/prefabs/resource/salt water/saltwater.icon.png"
+                "SaltWaterIcon": "assets/prefabs/resource/salt water/saltwater.icon.png"
               },
               "SubFolders": {}
             },
@@ -6332,7 +6332,7 @@
               "Name": "roadsigns",
               "Path": "assets/prefabs/componentitems/roadsigns",
               "Files": {
-                "RoadsignsIcon": "assets/prefabs/componentitems/roadsigns/roadsigns.icon.png"
+                "RoadSignsIcon": "assets/prefabs/componentitems/roadsigns/roadsigns.icon.png"
               },
               "SubFolders": {}
             },
@@ -6356,7 +6356,7 @@
               "Name": "sheetmetal",
               "Path": "assets/prefabs/componentitems/sheetmetal",
               "Files": {
-                "SheetmetalIcon": "assets/prefabs/componentitems/sheetmetal/sheetmetal.icon.png"
+                "SheetMetalIcon": "assets/prefabs/componentitems/sheetmetal/sheetmetal.icon.png"
               },
               "SubFolders": {}
             },
@@ -6431,7 +6431,7 @@
               "Name": "boomboxportable",
               "Path": "assets/prefabs/voiceaudio/boomboxportable",
               "Files": {
-                "BoomboxportableWeaponIcon": "assets/prefabs/voiceaudio/boomboxportable/boomboxportable.weapon.icon.png"
+                "BoomboxporTableWeaponIcon": "assets/prefabs/voiceaudio/boomboxportable/boomboxportable.weapon.icon.png"
               },
               "SubFolders": {}
             },
@@ -6442,7 +6442,7 @@
                 "CassetteEntityIcon": "assets/prefabs/voiceaudio/cassette/cassette.entity.icon.png",
                 "CassetteMediumEntityIcon": "assets/prefabs/voiceaudio/cassette/cassette.medium.entity.icon.png",
                 "CassetteShortEntityIcon": "assets/prefabs/voiceaudio/cassette/cassette.short.entity.icon.png",
-                "Cassetteuiicon": "assets/prefabs/voiceaudio/cassette/cassetteuiicon.png"
+                "CassetteuiIcon": "assets/prefabs/voiceaudio/cassette/cassetteuiicon.png"
               },
               "SubFolders": {}
             },
@@ -6491,7 +6491,7 @@
               "Name": "laserlight",
               "Path": "assets/prefabs/voiceaudio/laserlight",
               "Files": {
-                "LaserlightDeployedIcon": "assets/prefabs/voiceaudio/laserlight/laserlight.deployed.icon.png"
+                "LaserLightDeployedIcon": "assets/prefabs/voiceaudio/laserlight/laserlight.deployed.icon.png"
               },
               "SubFolders": {}
             },
@@ -6523,7 +6523,7 @@
               "Name": "soundlight",
               "Path": "assets/prefabs/voiceaudio/soundlight",
               "Files": {
-                "SoundlightDeployedIcon": "assets/prefabs/voiceaudio/soundlight/soundlight.deployed.icon.png"
+                "SoundLightDeployedIcon": "assets/prefabs/voiceaudio/soundlight/soundlight.deployed.icon.png"
               },
               "SubFolders": {}
             },
@@ -6577,8 +6577,8 @@
                       "Name": "images",
                       "Path": "assets/prefabs/missions/tutorialisland/helpprompts/images",
                       "Files": {
-                        "Sleepingbag": "assets/prefabs/missions/tutorialisland/helpprompts/images/sleepingbag.jpg",
-                        "TutorialPromptLowgrade": "assets/prefabs/missions/tutorialisland/helpprompts/images/tutorial_prompt_lowgrade.jpg",
+                        "SleepingBag": "assets/prefabs/missions/tutorialisland/helpprompts/images/sleepingbag.jpg",
+                        "TutorialPromptLowGrade": "assets/prefabs/missions/tutorialisland/helpprompts/images/tutorial_prompt_lowgrade.jpg",
                         "TutorialPromptPlanner": "assets/prefabs/missions/tutorialisland/helpprompts/images/tutorial_prompt_planner.jpg",
                         "TutorialPromptToolcupboard": "assets/prefabs/missions/tutorialisland/helpprompts/images/tutorial_prompt_toolcupboard.jpg",
                         "Workbenchcraft": "assets/prefabs/missions/tutorialisland/helpprompts/images/workbenchcraft.jpg"
@@ -6777,7 +6777,7 @@
               "Name": "watchtower.wood",
               "Path": "assets/prefabs/building/watchtower.wood",
               "Files": {
-                "WatchtowerWoodIcon": "assets/prefabs/building/watchtower.wood/watchtower.wood.icon.png"
+                "WatchTowerWoodIcon": "assets/prefabs/building/watchtower.wood/watchtower.wood.icon.png"
               },
               "SubFolders": {}
             },
@@ -7021,7 +7021,7 @@
                   "Name": "icons",
                   "Path": "assets/prefabs/wallpaper/skins/icons",
                   "Files": {
-                    "WallpaperBluediamondIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.bluediamond.icon.png",
+                    "WallpaperBlueDiamondIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.bluediamond.icon.png",
                     "WallpaperBlueIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.blue.icon.png",
                     "WallpaperCloudsIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.clouds.icon.png",
                     "WallpaperGeometricaIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.geometrica.icon.png",
@@ -7041,21 +7041,21 @@
                     "WallpaperRoyalcIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.royalc.icon.png",
                     "WallpaperSubwayaIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.subwaya.icon.png",
                     "WallpaperSubwaybIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.subwayb.icon.png",
-                    "WallpaperVenetianplasteraIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.venetianplastera.icon.png",
-                    "WallpaperVenetianplasterbIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.venetianplasterb.icon.png",
-                    "WallpaperVenetianplastercIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.venetianplasterc.icon.png",
+                    "WallpaperVenetianPlasteraIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.venetianplastera.icon.png",
+                    "WallpaperVenetianPlasterbIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.venetianplasterb.icon.png",
+                    "WallpaperVenetianPlastercIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.venetianplasterc.icon.png",
                     "WallpaperWainscottingaIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.wainscottinga.icon.png",
                     "WallpaperWainscottingbIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.wainscottingb.icon.png",
                     "WallpaperWainscottingcIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.wainscottingc.icon.png",
                     "WallpaperYellowIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.yellow.icon.png",
-                    "WallpaperYellowstripesIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.yellowstripes.icon.png"
+                    "WallpaperYellowStripesIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.yellowstripes.icon.png"
                   },
                   "SubFolders": {
                     "lny25": {
                       "Name": "lny25",
                       "Path": "assets/prefabs/wallpaper/skins/icons/lny25",
                       "Files": {
-                        "Lnypackicon": "assets/prefabs/wallpaper/skins/icons/lny25/lnypackicon.png",
+                        "LnypackIcon": "assets/prefabs/wallpaper/skins/icons/lny25/lnypackicon.png",
                         "WallpaperBambooIcon": "assets/prefabs/wallpaper/skins/icons/lny25/wallpaper.bamboo.icon.png",
                         "WallpaperCherryBlossomsIcon": "assets/prefabs/wallpaper/skins/icons/lny25/wallpaper.cherry.blossoms.icon.png",
                         "WallpaperChineseLanternsIcon": "assets/prefabs/wallpaper/skins/icons/lny25/wallpaper.chinese.lanterns.icon.png",
@@ -7103,18 +7103,18 @@
             "OverlayHelmetSlit": "assets/content/ui/overlay_helmet_slit.png",
             "OverlayNvg": "assets/content/ui/overlay_nvg.png",
             "OverlayPoisoned": "assets/content/ui/overlay_poisoned.png",
-            "OverlayPrisonerhood": "assets/content/ui/overlay_prisonerhood.png",
+            "OverlayPrisonerHood": "assets/content/ui/overlay_prisonerhood.png",
             "OverlayScope1": "assets/content/ui/overlay_scope_1.png",
             "OverlayScope1Dirty": "assets/content/ui/overlay_scope_1_dirty.png",
             "OverlayScope2": "assets/content/ui/overlay_scope_2.png",
             "OverlayScope2Dirty": "assets/content/ui/overlay_scope_2_dirty.png",
             "OverlayScubaDirt": "assets/content/ui/overlay_scuba_dirt.png",
-            "Tutorialislandmapicon": "assets/content/ui/tutorialislandmapicon.png",
+            "TutorialIslandMapIcon": "assets/content/ui/tutorialislandmapicon.png",
             "UiBackgroundRounded": "assets/content/ui/ui.background.rounded.png",
             "UiBackgroundRoundedPixelated": "assets/content/ui/ui.background.rounded.pixelated.png",
             "UiBackgroundRoundedTop": "assets/content/ui/ui.background.rounded.top.png",
             "UiBackgroundTile": "assets/content/ui/ui.background.tile.psd",
-            "UiBackgroundTileclothing": "assets/content/ui/ui.background.tileclothing.png",
+            "UiBackgroundTileClothing": "assets/content/ui/ui.background.tileclothing.png",
             "UiBackgroundTiletex": "assets/content/ui/ui.background.tiletex.psd",
             "UiBackgroundTransparentLinear": "assets/content/ui/ui.background.transparent.linear.psd",
             "UiBackgroundTransparentLinearltr": "assets/content/ui/ui.background.transparent.linearltr.tga",
@@ -7122,7 +7122,7 @@
             "UiBox": "assets/content/ui/ui.box.tga",
             "UiBoxDotted": "assets/content/ui/ui.box.dotted.tga",
             "UiBoxSharp": "assets/content/ui/ui.box.sharp.tga",
-            "UiCirclegradient": "assets/content/ui/ui.circlegradient.png",
+            "UiCircleGradient": "assets/content/ui/ui.circlegradient.png",
             "UiCompanionGuide1": "assets/content/ui/ui.companion.guide1.psd",
             "UiCompanionGuide2": "assets/content/ui/ui.companion.guide2.psd",
             "UiCompanionGuide3": "assets/content/ui/ui.companion.guide3.psd",
@@ -7134,7 +7134,7 @@
             "UiIconRust": "assets/content/ui/ui.icon.rust.png",
             "UiLineDotted": "assets/content/ui/ui.line.dotted.tga",
             "UiRounded": "assets/content/ui/ui.rounded.tga",
-            "UiServerimageDefault": "assets/content/ui/ui.serverimage.default.psd",
+            "UiServerImageDefault": "assets/content/ui/ui.serverimage.default.psd",
             "UiWhite": "assets/content/ui/ui.white.tga",
             "WaypointInner": "assets/content/ui/waypoint.inner.png",
             "WaypointOutline": "assets/content/ui/waypoint.outline.png",
@@ -7152,9 +7152,9 @@
                 "LogoHalloween2020": "assets/content/ui/menuui/logo.halloween.2020.png",
                 "Lunar2020": "assets/content/ui/menuui/lunar2020.png",
                 "RustEasterLogo": "assets/content/ui/menuui/rust.easter.logo.png",
-                "RustlogoBlurred": "assets/content/ui/menuui/rustlogo-blurred.png",
-                "RustlogoNormalTransparent": "assets/content/ui/menuui/rustlogo-normal-transparent.png",
-                "RustlogoPlus": "assets/content/ui/menuui/rustlogo-plus.png",
+                "RustLogoBlurred": "assets/content/ui/menuui/rustlogo-blurred.png",
+                "RustLogoNormalTransparent": "assets/content/ui/menuui/rustlogo-normal-transparent.png",
+                "RustLogoPlus": "assets/content/ui/menuui/rustlogo-plus.png",
                 "RustSpringLogo": "assets/content/ui/menuui/rust_spring_logo.png",
                 "UiLoadingLogo": "assets/content/ui/menuui/ui.loading.logo.tga",
                 "UiLogoBig": "assets/content/ui/menuui/ui-logo-big.png",
@@ -7164,8 +7164,8 @@
                 "UiLogoBigXmas2022": "assets/content/ui/menuui/ui.logo.big.xmas.2022.png",
                 "UiLogoRust10": "assets/content/ui/menuui/ui_logo-rust-10.png",
                 "UiMenuLogo": "assets/content/ui/menuui/ui.menu.logo.png",
-                "UiMenuNewsMissingbackground": "assets/content/ui/menuui/ui.menu.news.missingbackground.jpg",
-                "UiMenuRateusBackground": "assets/content/ui/menuui/ui.menu.rateus.background.png"
+                "UiMenuNewsMissingBackground": "assets/content/ui/menuui/ui.menu.news.missingbackground.jpg",
+                "UiMenuRateUsBackground": "assets/content/ui/menuui/ui.menu.rateus.background.png"
               },
               "SubFolders": {
                 "itemstore": {
@@ -7431,12 +7431,12 @@
                               "Name": "_assets",
                               "Path": "assets/content/ui/menuui/itemstore/building skins/brutalist/_assets",
                               "Files": {
-                                "BrutalistBuildingskin001": "assets/content/ui/menuui/itemstore/building skins/brutalist/_assets/brutalist_buildingskin_001.jpg",
-                                "BrutalistBuildingskin003": "assets/content/ui/menuui/itemstore/building skins/brutalist/_assets/brutalist_buildingskin_003.jpg",
-                                "BrutalistBuildingskin004": "assets/content/ui/menuui/itemstore/building skins/brutalist/_assets/brutalist_buildingskin_004.jpg",
-                                "BrutalistBuildingskin006": "assets/content/ui/menuui/itemstore/building skins/brutalist/_assets/brutalist_buildingskin_006.jpg",
-                                "BrutalistBuildingskin007": "assets/content/ui/menuui/itemstore/building skins/brutalist/_assets/brutalist_buildingskin_007.jpg",
-                                "BrutalistBuildingskin010": "assets/content/ui/menuui/itemstore/building skins/brutalist/_assets/brutalist_buildingskin_010.jpg",
+                                "BrutalistBuildingSkin001": "assets/content/ui/menuui/itemstore/building skins/brutalist/_assets/brutalist_buildingskin_001.jpg",
+                                "BrutalistBuildingSkin003": "assets/content/ui/menuui/itemstore/building skins/brutalist/_assets/brutalist_buildingskin_003.jpg",
+                                "BrutalistBuildingSkin004": "assets/content/ui/menuui/itemstore/building skins/brutalist/_assets/brutalist_buildingskin_004.jpg",
+                                "BrutalistBuildingSkin006": "assets/content/ui/menuui/itemstore/building skins/brutalist/_assets/brutalist_buildingskin_006.jpg",
+                                "BrutalistBuildingSkin007": "assets/content/ui/menuui/itemstore/building skins/brutalist/_assets/brutalist_buildingskin_007.jpg",
+                                "BrutalistBuildingSkin010": "assets/content/ui/menuui/itemstore/building skins/brutalist/_assets/brutalist_buildingskin_010.jpg",
                                 "StoreIconBrutalist": "assets/content/ui/menuui/itemstore/building skins/brutalist/_assets/store-icon_brutalist.jpg"
                               },
                               "SubFolders": {}
@@ -7452,12 +7452,12 @@
                               "Name": "_assets",
                               "Path": "assets/content/ui/menuui/itemstore/building skins/adobe/_assets",
                               "Files": {
-                                "BuildingskinAdobe1": "assets/content/ui/menuui/itemstore/building skins/adobe/_assets/buildingskin_adobe-1.jpg",
-                                "BuildingskinAdobe2": "assets/content/ui/menuui/itemstore/building skins/adobe/_assets/buildingskin_adobe-2.jpg",
-                                "BuildingskinAdobe3": "assets/content/ui/menuui/itemstore/building skins/adobe/_assets/buildingskin_adobe-3.jpg",
-                                "BuildingskinAdobe4": "assets/content/ui/menuui/itemstore/building skins/adobe/_assets/buildingskin_adobe-4.jpg",
-                                "BuildingskinAdobe5": "assets/content/ui/menuui/itemstore/building skins/adobe/_assets/buildingskin_adobe-5.jpg",
-                                "BuildingskinAdobe6": "assets/content/ui/menuui/itemstore/building skins/adobe/_assets/buildingskin_adobe-6.jpg",
+                                "BuildingSkinAdobe1": "assets/content/ui/menuui/itemstore/building skins/adobe/_assets/buildingskin_adobe-1.jpg",
+                                "BuildingSkinAdobe2": "assets/content/ui/menuui/itemstore/building skins/adobe/_assets/buildingskin_adobe-2.jpg",
+                                "BuildingSkinAdobe3": "assets/content/ui/menuui/itemstore/building skins/adobe/_assets/buildingskin_adobe-3.jpg",
+                                "BuildingSkinAdobe4": "assets/content/ui/menuui/itemstore/building skins/adobe/_assets/buildingskin_adobe-4.jpg",
+                                "BuildingSkinAdobe5": "assets/content/ui/menuui/itemstore/building skins/adobe/_assets/buildingskin_adobe-5.jpg",
+                                "BuildingSkinAdobe6": "assets/content/ui/menuui/itemstore/building skins/adobe/_assets/buildingskin_adobe-6.jpg",
                                 "StoreIconAdobe": "assets/content/ui/menuui/itemstore/building skins/adobe/_assets/store-icon_adobe.jpg"
                               },
                               "SubFolders": {}
@@ -7473,12 +7473,12 @@
                               "Name": "_assets",
                               "Path": "assets/content/ui/menuui/itemstore/building skins/brick/_assets",
                               "Files": {
-                                "BuildingskinBrick01": "assets/content/ui/menuui/itemstore/building skins/brick/_assets/buildingskin_brick_01.jpg",
-                                "BuildingskinBrick02": "assets/content/ui/menuui/itemstore/building skins/brick/_assets/buildingskin_brick_02.jpg",
-                                "BuildingskinBrick03": "assets/content/ui/menuui/itemstore/building skins/brick/_assets/buildingskin_brick_03.jpg",
-                                "BuildingskinBrick04": "assets/content/ui/menuui/itemstore/building skins/brick/_assets/buildingskin_brick_04.jpg",
-                                "BuildingskinBrick05": "assets/content/ui/menuui/itemstore/building skins/brick/_assets/buildingskin_brick_05.jpg",
-                                "BuildingskinBrick06": "assets/content/ui/menuui/itemstore/building skins/brick/_assets/buildingskin_brick_06.jpg",
+                                "BuildingSkinBrick01": "assets/content/ui/menuui/itemstore/building skins/brick/_assets/buildingskin_brick_01.jpg",
+                                "BuildingSkinBrick02": "assets/content/ui/menuui/itemstore/building skins/brick/_assets/buildingskin_brick_02.jpg",
+                                "BuildingSkinBrick03": "assets/content/ui/menuui/itemstore/building skins/brick/_assets/buildingskin_brick_03.jpg",
+                                "BuildingSkinBrick04": "assets/content/ui/menuui/itemstore/building skins/brick/_assets/buildingskin_brick_04.jpg",
+                                "BuildingSkinBrick05": "assets/content/ui/menuui/itemstore/building skins/brick/_assets/buildingskin_brick_05.jpg",
+                                "BuildingSkinBrick06": "assets/content/ui/menuui/itemstore/building skins/brick/_assets/buildingskin_brick_06.jpg",
                                 "StoreIconBrick": "assets/content/ui/menuui/itemstore/building skins/brick/_assets/store-icon_brick.jpg"
                               },
                               "SubFolders": {}
@@ -7494,12 +7494,12 @@
                               "Name": "_assets",
                               "Path": "assets/content/ui/menuui/itemstore/building skins/legacywood/_assets",
                               "Files": {
-                                "FrontierBuildingskin01": "assets/content/ui/menuui/itemstore/building skins/legacywood/_assets/frontier_buildingskin_01.jpg",
-                                "FrontierBuildingskin02": "assets/content/ui/menuui/itemstore/building skins/legacywood/_assets/frontier_buildingskin_02.jpg",
-                                "FrontierBuildingskin03": "assets/content/ui/menuui/itemstore/building skins/legacywood/_assets/frontier_buildingskin_03.jpg",
-                                "FrontierBuildingskin04": "assets/content/ui/menuui/itemstore/building skins/legacywood/_assets/frontier_buildingskin_04.jpg",
-                                "FrontierBuildingskin05": "assets/content/ui/menuui/itemstore/building skins/legacywood/_assets/frontier_buildingskin_05.jpg",
-                                "FrontierBuildingskin06": "assets/content/ui/menuui/itemstore/building skins/legacywood/_assets/frontier_buildingskin_06.jpg",
+                                "FrontierBuildingSkin01": "assets/content/ui/menuui/itemstore/building skins/legacywood/_assets/frontier_buildingskin_01.jpg",
+                                "FrontierBuildingSkin02": "assets/content/ui/menuui/itemstore/building skins/legacywood/_assets/frontier_buildingskin_02.jpg",
+                                "FrontierBuildingSkin03": "assets/content/ui/menuui/itemstore/building skins/legacywood/_assets/frontier_buildingskin_03.jpg",
+                                "FrontierBuildingSkin04": "assets/content/ui/menuui/itemstore/building skins/legacywood/_assets/frontier_buildingskin_04.jpg",
+                                "FrontierBuildingSkin05": "assets/content/ui/menuui/itemstore/building skins/legacywood/_assets/frontier_buildingskin_05.jpg",
+                                "FrontierBuildingSkin06": "assets/content/ui/menuui/itemstore/building skins/legacywood/_assets/frontier_buildingskin_06.jpg",
                                 "StoreIconLegacyWood": "assets/content/ui/menuui/itemstore/building skins/legacywood/_assets/store-icon_legacy-wood.jpg"
                               },
                               "SubFolders": {}
@@ -7751,11 +7751,11 @@
                                 "VoicepropsDiscoball1": "assets/content/ui/menuui/itemstore/dlc/voiceprops/_assets/voiceprops_discoball1.jpg",
                                 "VoicepropsDiscodance1": "assets/content/ui/menuui/itemstore/dlc/voiceprops/_assets/voiceprops_discodance1.jpg",
                                 "VoicepropsDlcIcon": "assets/content/ui/menuui/itemstore/dlc/voiceprops/_assets/voiceprops_dlc_icon.jpg",
-                                "VoicepropsLaserlights1": "assets/content/ui/menuui/itemstore/dlc/voiceprops/_assets/voiceprops_laserlights1.jpg",
+                                "VoicepropsLaserLights1": "assets/content/ui/menuui/itemstore/dlc/voiceprops/_assets/voiceprops_laserlights1.jpg",
                                 "VoicepropsLogo": "assets/content/ui/menuui/itemstore/dlc/voiceprops/_assets/voiceprops-logo.png",
                                 "VoicepropsMegaphone1": "assets/content/ui/menuui/itemstore/dlc/voiceprops/_assets/voiceprops_megaphone1.jpg",
                                 "VoicepropsMobilephone1": "assets/content/ui/menuui/itemstore/dlc/voiceprops/_assets/voiceprops_mobilephone1.jpg",
-                                "VoicepropsSoundlights1": "assets/content/ui/menuui/itemstore/dlc/voiceprops/_assets/voiceprops_soundlights1.jpg"
+                                "VoicepropsSoundLights1": "assets/content/ui/menuui/itemstore/dlc/voiceprops/_assets/voiceprops_soundlights1.jpg"
                               },
                               "SubFolders": {}
                             }
@@ -7810,7 +7810,7 @@
                   "Name": "friendslist",
                   "Path": "assets/content/ui/menuui/friendslist",
                   "Files": {
-                    "UiFriendavatargradient": "assets/content/ui/menuui/friendslist/ui.friendavatargradient.png"
+                    "UiFriendAvatarGradient": "assets/content/ui/menuui/friendslist/ui.friendavatargradient.png"
                   },
                   "SubFolders": {
                     "_assets": {
@@ -7857,16 +7857,16 @@
                       "Files": {
                         "AhCrosshairInner": "assets/content/ui/gameui/attackheli/hires/ah_crosshair_inner.png",
                         "AhCrosshairOuter": "assets/content/ui/gameui/attackheli/hires/ah_crosshair_outer.png",
-                        "AhDiamondHighvelocity": "assets/content/ui/gameui/attackheli/hires/ah_diamond_highvelocity.png",
+                        "AhDiamondHighVelocity": "assets/content/ui/gameui/attackheli/hires/ah_diamond_highvelocity.png",
                         "AhDiamondIncendiary": "assets/content/ui/gameui/attackheli/hires/ah_diamond_incendiary.png",
                         "AhDiamondRocket": "assets/content/ui/gameui/attackheli/hires/ah_diamond_rocket.png",
                         "AhDmg": "assets/content/ui/gameui/attackheli/hires/ah_dmg.png",
-                        "AhOutofammo": "assets/content/ui/gameui/attackheli/hires/ah_outofammo.png",
-                        "AhOutofammo2": "assets/content/ui/gameui/attackheli/hires/ah_outofammo2.png",
-                        "AhOutofammo3": "assets/content/ui/gameui/attackheli/hires/ah_outofammo3.png",
+                        "AhOutOfAmmo": "assets/content/ui/gameui/attackheli/hires/ah_outofammo.png",
+                        "AhOutOfAmmo2": "assets/content/ui/gameui/attackheli/hires/ah_outofammo2.png",
+                        "AhOutOfAmmo3": "assets/content/ui/gameui/attackheli/hires/ah_outofammo3.png",
                         "AhRocket": "assets/content/ui/gameui/attackheli/hires/ah_rocket.png",
-                        "AhTurretposInner": "assets/content/ui/gameui/attackheli/hires/ah_turretpos_inner.png",
-                        "AhTurretposOuter": "assets/content/ui/gameui/attackheli/hires/ah_turretpos_outer.png",
+                        "AhTurretPosInner": "assets/content/ui/gameui/attackheli/hires/ah_turretpos_inner.png",
+                        "AhTurretPosOuter": "assets/content/ui/gameui/attackheli/hires/ah_turretpos_outer.png",
                         "AhZoomArrow": "assets/content/ui/gameui/attackheli/hires/ah_zoom_arrow.png",
                         "AhZoomBar": "assets/content/ui/gameui/attackheli/hires/ah_zoom_bar.png"
                       },
@@ -7878,13 +7878,13 @@
                       "Files": {
                         "AhCrosshairInner": "assets/content/ui/gameui/attackheli/lores/ah_crosshair_inner.png",
                         "AhCrosshairOuter": "assets/content/ui/gameui/attackheli/lores/ah_crosshair_outer.png",
-                        "AhDiamondHighvelocitySml": "assets/content/ui/gameui/attackheli/lores/ah_diamond_highvelocity_sml.png",
+                        "AhDiamondHighVelocitySml": "assets/content/ui/gameui/attackheli/lores/ah_diamond_highvelocity_sml.png",
                         "AhDiamondIncendiarySml": "assets/content/ui/gameui/attackheli/lores/ah_diamond_incendiary_sml.png",
                         "AhDiamondRocketSml": "assets/content/ui/gameui/attackheli/lores/ah_diamond_rocket_sml.png",
-                        "AhOutofammo": "assets/content/ui/gameui/attackheli/lores/ah_outofammo.png",
-                        "AhOutofammo2": "assets/content/ui/gameui/attackheli/lores/ah_outofammo2.png",
-                        "AhTurretposInner": "assets/content/ui/gameui/attackheli/lores/ah_turretpos_inner.png",
-                        "AhTurretposOuter": "assets/content/ui/gameui/attackheli/lores/ah_turretpos_outer.png",
+                        "AhOutOfAmmo": "assets/content/ui/gameui/attackheli/lores/ah_outofammo.png",
+                        "AhOutOfAmmo2": "assets/content/ui/gameui/attackheli/lores/ah_outofammo2.png",
+                        "AhTurretPosInner": "assets/content/ui/gameui/attackheli/lores/ah_turretpos_inner.png",
+                        "AhTurretPosOuter": "assets/content/ui/gameui/attackheli/lores/ah_turretpos_outer.png",
                         "AhZoomArrow": "assets/content/ui/gameui/attackheli/lores/ah_zoom_arrow.png",
                         "AhZoomBar": "assets/content/ui/gameui/attackheli/lores/ah_zoom_bar.png",
                         "OutOfAmmoSml": "assets/content/ui/gameui/attackheli/lores/out_of_ammo_sml.png"
@@ -7932,7 +7932,7 @@
                         "Back": "assets/content/ui/gameui/cardgames/deck/back.png",
                         "Backing": "assets/content/ui/gameui/cardgames/deck/backing.png",
                         "CardBlur": "assets/content/ui/gameui/cardgames/deck/card_blur.png",
-                        "Nocard": "assets/content/ui/gameui/cardgames/deck/nocard.png"
+                        "NoCard": "assets/content/ui/gameui/cardgames/deck/nocard.png"
                       },
                       "SubFolders": {}
                     },
@@ -7959,15 +7959,15 @@
                   "Name": "underlays",
                   "Path": "assets/content/ui/gameui/underlays",
                   "Files": {
-                    "Bloodsplat1": "assets/content/ui/gameui/underlays/bloodsplat1.png",
-                    "Bloodsplat1White": "assets/content/ui/gameui/underlays/bloodsplat1_white.png",
-                    "Bloodsplat2": "assets/content/ui/gameui/underlays/bloodsplat2.png",
-                    "Bloodsplat2White": "assets/content/ui/gameui/underlays/bloodsplat2_white.png",
-                    "Bloodsplat3": "assets/content/ui/gameui/underlays/bloodsplat3.png",
-                    "Bloodsplat3White": "assets/content/ui/gameui/underlays/bloodsplat3_white.png",
-                    "Bloodsplat4": "assets/content/ui/gameui/underlays/bloodsplat4.png",
-                    "Bloodsplat4White": "assets/content/ui/gameui/underlays/bloodsplat4_white.png",
-                    "UiDamageDirectionalFunwater": "assets/content/ui/gameui/underlays/ui.damage.directional.funwater.tga",
+                    "BloodSplat1": "assets/content/ui/gameui/underlays/bloodsplat1.png",
+                    "BloodSplat1White": "assets/content/ui/gameui/underlays/bloodsplat1_white.png",
+                    "BloodSplat2": "assets/content/ui/gameui/underlays/bloodsplat2.png",
+                    "BloodSplat2White": "assets/content/ui/gameui/underlays/bloodsplat2_white.png",
+                    "BloodSplat3": "assets/content/ui/gameui/underlays/bloodsplat3.png",
+                    "BloodSplat3White": "assets/content/ui/gameui/underlays/bloodsplat3_white.png",
+                    "BloodSplat4": "assets/content/ui/gameui/underlays/bloodsplat4.png",
+                    "BloodSplat4White": "assets/content/ui/gameui/underlays/bloodsplat4_white.png",
+                    "UiDamageDirectionalFunWater": "assets/content/ui/gameui/underlays/ui.damage.directional.funwater.tga",
                     "UiDamageDirectionalNormal": "assets/content/ui/gameui/underlays/ui.damage.directional.normal.tga"
                   },
                   "SubFolders": {}
@@ -8028,8 +8028,8 @@
                     "MonitorMainBackground": "assets/content/ui/gameui/blackjack/monitor_main_background.png",
                     "MonitorSmallBackground": "assets/content/ui/gameui/blackjack/monitor_small_background.png",
                     "Rust": "assets/content/ui/gameui/blackjack/rust.png",
-                    "ScanlinesClean": "assets/content/ui/gameui/blackjack/scanlines-clean.png",
-                    "ScanlinesDirt": "assets/content/ui/gameui/blackjack/scanlines-dirt.png",
+                    "ScanLinesClean": "assets/content/ui/gameui/blackjack/scanlines-clean.png",
+                    "ScanLinesDirt": "assets/content/ui/gameui/blackjack/scanlines-dirt.png",
                     "Spades": "assets/content/ui/gameui/blackjack/spades.png",
                     "SpadesSmall": "assets/content/ui/gameui/blackjack/spades_small.png"
                   },
@@ -8039,10 +8039,10 @@
                   "Name": "manpad",
                   "Path": "assets/content/ui/gameui/manpad",
                   "Files": {
-                    "ManpadLocked": "assets/content/ui/gameui/manpad/manpad_locked.png",
-                    "ManpadSignal": "assets/content/ui/gameui/manpad/manpad_signal.png",
-                    "ManpadSignal2": "assets/content/ui/gameui/manpad/manpad_signal2.png",
-                    "ManpadTracking": "assets/content/ui/gameui/manpad/manpad_tracking.png"
+                    "ManPadLocked": "assets/content/ui/gameui/manpad/manpad_locked.png",
+                    "ManPadSignal": "assets/content/ui/gameui/manpad/manpad_signal.png",
+                    "ManPadSignal2": "assets/content/ui/gameui/manpad/manpad_signal2.png",
+                    "ManPadTracking": "assets/content/ui/gameui/manpad/manpad_tracking.png"
                   },
                   "SubFolders": {}
                 },
@@ -8057,7 +8057,7 @@
                     "MlrsFrame": "assets/content/ui/gameui/mlrs/mlrs_frame.png",
                     "MlrsMapEdgeFade": "assets/content/ui/gameui/mlrs/mlrs_map_edge_fade.png",
                     "MlrsRadialLines": "assets/content/ui/gameui/mlrs/mlrs_radial_lines.png",
-                    "MlrsScanlines": "assets/content/ui/gameui/mlrs/mlrs_scanlines.png",
+                    "MlrsScanLines": "assets/content/ui/gameui/mlrs/mlrs_scanlines.png",
                     "MlrsTargetCircleFade": "assets/content/ui/gameui/mlrs/mlrs_target_circle_fade.png",
                     "MlrsTargetCross": "assets/content/ui/gameui/mlrs/mlrs_target_cross.png"
                   },
@@ -8067,7 +8067,7 @@
                   "Name": "tugboat",
                   "Path": "assets/content/ui/gameui/tugboat",
                   "Files": {
-                    "Scanlines": "assets/content/ui/gameui/tugboat/scanlines.png",
+                    "ScanLines": "assets/content/ui/gameui/tugboat/scanlines.png",
                     "UiBackground": "assets/content/ui/gameui/tugboat/ui_background.png"
                   },
                   "SubFolders": {}
@@ -8081,8 +8081,8 @@
                       "Name": "images",
                       "Path": "assets/content/ui/gameui/tutorialhelp/images",
                       "Files": {
-                        "Tutorialheroimage": "assets/content/ui/gameui/tutorialhelp/images/tutorialheroimage.jpg",
-                        "TutorialHeroimage01": "assets/content/ui/gameui/tutorialhelp/images/tutorial_heroimage_01.jpg"
+                        "TutorialheroImage": "assets/content/ui/gameui/tutorialhelp/images/tutorialheroimage.jpg",
+                        "TutorialHeroImage01": "assets/content/ui/gameui/tutorialhelp/images/tutorial_heroimage_01.jpg"
                       },
                       "SubFolders": {}
                     }
@@ -8095,9 +8095,9 @@
               "Path": "assets/content/ui/tiledpatterns",
               "Files": {
                 "Circles": "assets/content/ui/tiledpatterns/circles.png",
-                "StripeReallythick": "assets/content/ui/tiledpatterns/stripe_reallythick.png",
-                "StripeSlight": "assets/content/ui/tiledpatterns/stripe_slight.png",
-                "StripeSlightThick": "assets/content/ui/tiledpatterns/stripe_slight_thick.png",
+                "StripeReallyThick": "assets/content/ui/tiledpatterns/stripe_reallythick.png",
+                "StripeSLight": "assets/content/ui/tiledpatterns/stripe_slight.png",
+                "StripeSLightThick": "assets/content/ui/tiledpatterns/stripe_slight_thick.png",
                 "StripeThick": "assets/content/ui/tiledpatterns/stripe_thick.png",
                 "StripeThin": "assets/content/ui/tiledpatterns/stripe_thin.png",
                 "SwirlPattern": "assets/content/ui/tiledpatterns/swirl_pattern.png"
@@ -8122,10 +8122,10 @@
                   "Name": "developmentskin",
                   "Path": "assets/content/ui/developer/developmentskin",
                   "Files": {
-                    "Devpanelbg": "assets/content/ui/developer/developmentskin/devpanelbg.png",
-                    "DevtabActive": "assets/content/ui/developer/developmentskin/devtab-active.png",
-                    "DevtabBright": "assets/content/ui/developer/developmentskin/devtab-bright.png",
-                    "DevtabNormal": "assets/content/ui/developer/developmentskin/devtab-normal.png"
+                    "DevPanelbg": "assets/content/ui/developer/developmentskin/devpanelbg.png",
+                    "DevTabActive": "assets/content/ui/developer/developmentskin/devtab-active.png",
+                    "DevTabBright": "assets/content/ui/developer/developmentskin/devtab-bright.png",
+                    "DevTabNormal": "assets/content/ui/developer/developmentskin/devtab-normal.png"
                   },
                   "SubFolders": {}
                 }
@@ -8167,8 +8167,8 @@
               "Name": "mlrs",
               "Path": "assets/content/vehicles/mlrs",
               "Files": {
-                "AimingModuleWorldmodelIcon": "assets/content/vehicles/mlrs/aiming_module.worldmodel.icon.png",
-                "RocketMlrsWorldmodelIcon": "assets/content/vehicles/mlrs/rocket_mlrs.worldmodel.icon.png"
+                "AimingModuleWorldModelIcon": "assets/content/vehicles/mlrs/aiming_module.worldmodel.icon.png",
+                "RocketMlrsWorldModelIcon": "assets/content/vehicles/mlrs/rocket_mlrs.worldmodel.icon.png"
               },
               "SubFolders": {}
             },
@@ -8176,7 +8176,7 @@
               "Name": "attackhelicopter",
               "Path": "assets/content/vehicles/attackhelicopter",
               "Files": {
-                "AttackhelicopterIcon": "assets/content/vehicles/attackhelicopter/attackhelicopter.icon.png"
+                "AttackHelicopterIcon": "assets/content/vehicles/attackhelicopter/attackhelicopter.icon.png"
               },
               "SubFolders": {}
             },
@@ -8210,7 +8210,7 @@
                   "Name": "batteringram",
                   "Path": "assets/content/vehicles/siegeweapons/batteringram",
                   "Files": {
-                    "BatteringramItemIcon": "assets/content/vehicles/siegeweapons/batteringram/batteringram.item.icon.png"
+                    "BatteringRamItemIcon": "assets/content/vehicles/siegeweapons/batteringram/batteringram.item.icon.png"
                   },
                   "SubFolders": {}
                 },
@@ -8237,7 +8237,7 @@
                   "Name": "siegetower",
                   "Path": "assets/content/vehicles/siegeweapons/siegetower",
                   "Files": {
-                    "SiegetowerEntityIcon": "assets/content/vehicles/siegeweapons/siegetower/siegetower.entity.icon.png"
+                    "SiegeTowerEntityIcon": "assets/content/vehicles/siegeweapons/siegetower/siegetower.entity.icon.png"
                   },
                   "SubFolders": {}
                 }
@@ -8252,7 +8252,7 @@
                   "Name": "cargoship",
                   "Path": "assets/content/vehicles/boats/cargoship",
                   "Files": {
-                    "Cargoshipavatar": "assets/content/vehicles/boats/cargoship/cargoshipavatar.png"
+                    "CargoShipAvatar": "assets/content/vehicles/boats/cargoship/cargoshipavatar.png"
                   },
                   "SubFolders": {}
                 },
@@ -8308,10 +8308,10 @@
                   "Name": "items",
                   "Path": "assets/content/vehicles/horse/items",
                   "Files": {
-                    "DoublesaddleIcon": "assets/content/vehicles/horse/items/doublesaddle.icon.png",
-                    "HorseArmorRoadsignIcon": "assets/content/vehicles/horse/items/horse.armor.roadsign.icon.png",
+                    "DoubleSaddleIcon": "assets/content/vehicles/horse/items/doublesaddle.icon.png",
+                    "HorseArmorRoadSignIcon": "assets/content/vehicles/horse/items/horse.armor.roadsign.icon.png",
                     "HorseArmorWoodIcon": "assets/content/vehicles/horse/items/horse.armor.wood.icon.png",
-                    "HorseSaddlebagIcon": "assets/content/vehicles/horse/items/horse.saddlebag.icon.png",
+                    "HorseSaddleBagIcon": "assets/content/vehicles/horse/items/horse.saddlebag.icon.png",
                     "HorseShoesAdvancedIcon": "assets/content/vehicles/horse/items/horse.shoes.advanced.icon.png",
                     "HorseShoesBasicIcon": "assets/content/vehicles/horse/items/horse.shoes.basic.icon.png",
                     "SaddleIcon": "assets/content/vehicles/horse/items/saddle.icon.png"
@@ -8322,16 +8322,16 @@
                   "Name": "breeds",
                   "Path": "assets/content/vehicles/horse/breeds",
                   "Files": {
-                    "HorseavatarAppaloosa": "assets/content/vehicles/horse/breeds/horseavatar_appaloosa.png",
-                    "HorseavatarBay": "assets/content/vehicles/horse/breeds/horseavatar_bay.png",
-                    "HorseavatarBlackthoroughbred": "assets/content/vehicles/horse/breeds/horseavatar_blackthoroughbred.png",
-                    "HorseavatarBucksin": "assets/content/vehicles/horse/breeds/horseavatar_bucksin.png",
-                    "HorseavatarChestnut": "assets/content/vehicles/horse/breeds/horseavatar_chestnut.png",
-                    "HorseavatarDapplegrey": "assets/content/vehicles/horse/breeds/horseavatar_dapplegrey.png",
-                    "HorseavatarPiebald": "assets/content/vehicles/horse/breeds/horseavatar_piebald.png",
-                    "HorseavatarPinto": "assets/content/vehicles/horse/breeds/horseavatar_pinto.png",
-                    "HorseavatarRedroan": "assets/content/vehicles/horse/breeds/horseavatar_redroan.png",
-                    "HorseavatarWhitethoroughbred": "assets/content/vehicles/horse/breeds/horseavatar_whitethoroughbred.png"
+                    "HorseAvatarAppaloosa": "assets/content/vehicles/horse/breeds/horseavatar_appaloosa.png",
+                    "HorseAvatarBay": "assets/content/vehicles/horse/breeds/horseavatar_bay.png",
+                    "HorseAvatarBlackThoroughbred": "assets/content/vehicles/horse/breeds/horseavatar_blackthoroughbred.png",
+                    "HorseAvatarBucksin": "assets/content/vehicles/horse/breeds/horseavatar_bucksin.png",
+                    "HorseAvatarChestnut": "assets/content/vehicles/horse/breeds/horseavatar_chestnut.png",
+                    "HorseAvatarDappleGrey": "assets/content/vehicles/horse/breeds/horseavatar_dapplegrey.png",
+                    "HorseAvatarPiebald": "assets/content/vehicles/horse/breeds/horseavatar_piebald.png",
+                    "HorseAvatarPinto": "assets/content/vehicles/horse/breeds/horseavatar_pinto.png",
+                    "HorseAvatarRedroan": "assets/content/vehicles/horse/breeds/horseavatar_redroan.png",
+                    "HorseAvatarWhiteThoroughbred": "assets/content/vehicles/horse/breeds/horseavatar_whitethoroughbred.png"
                   },
                   "SubFolders": {}
                 }
@@ -8362,7 +8362,7 @@
                   "Name": "wagons",
                   "Path": "assets/content/vehicles/trains/wagons",
                   "Files": {
-                    "TrainwagonIcon": "assets/content/vehicles/trains/wagons/trainwagon.icon.png"
+                    "TrainWagonIcon": "assets/content/vehicles/trains/wagons/trainwagon.icon.png"
                   },
                   "SubFolders": {}
                 },
@@ -8370,7 +8370,7 @@
                   "Name": "workcart",
                   "Path": "assets/content/vehicles/trains/workcart",
                   "Files": {
-                    "WorkcartEntityIcon": "assets/content/vehicles/trains/workcart/workcart.entity.icon.png"
+                    "WorkCartEntityIcon": "assets/content/vehicles/trains/workcart/workcart.entity.icon.png"
                   },
                   "SubFolders": {}
                 }
@@ -8380,7 +8380,7 @@
               "Name": "crane_magnet",
               "Path": "assets/content/vehicles/crane_magnet",
               "Files": {
-                "Magnetcraneavatar": "assets/content/vehicles/crane_magnet/magnetcraneavatar.png"
+                "MagnetCraneAvatar": "assets/content/vehicles/crane_magnet/magnetcraneavatar.png"
               },
               "SubFolders": {}
             },
@@ -8396,10 +8396,10 @@
               "Name": "bikes",
               "Path": "assets/content/vehicles/bikes",
               "Files": {
-                "MotorbikeIcon": "assets/content/vehicles/bikes/motorbike.icon.png",
-                "MotorbikeSidecarIcon": "assets/content/vehicles/bikes/motorbike_sidecar.icon.png",
-                "PedalbikeIcon": "assets/content/vehicles/bikes/pedalbike.icon.png",
-                "PedaltrikeIcon": "assets/content/vehicles/bikes/pedaltrike.icon.png"
+                "MotorBikeIcon": "assets/content/vehicles/bikes/motorbike.icon.png",
+                "MotorBikeSidecarIcon": "assets/content/vehicles/bikes/motorbike_sidecar.icon.png",
+                "PedalBikeIcon": "assets/content/vehicles/bikes/pedalbike.icon.png",
+                "PedalTrikeIcon": "assets/content/vehicles/bikes/pedaltrike.icon.png"
               },
               "SubFolders": {}
             },
@@ -8407,7 +8407,7 @@
               "Name": "scrap heli carrier",
               "Path": "assets/content/vehicles/scrap heli carrier",
               "Files": {
-                "ScraptransporthelicopterIcon": "assets/content/vehicles/scrap heli carrier/scraptransporthelicopter.icon.png"
+                "ScrapTransportHelicopterIcon": "assets/content/vehicles/scrap heli carrier/scraptransporthelicopter.icon.png"
               },
               "SubFolders": {}
             },
@@ -8416,7 +8416,7 @@
               "Path": "assets/content/vehicles/snowmobiles",
               "Files": {
                 "SnowmobileIcon": "assets/content/vehicles/snowmobiles/snowmobile.icon.png",
-                "TomahasnowmobileIcon": "assets/content/vehicles/snowmobiles/tomahasnowmobile.icon.png"
+                "TomahaSnowmobileIcon": "assets/content/vehicles/snowmobiles/tomahasnowmobile.icon.png"
               },
               "SubFolders": {}
             },
@@ -8424,8 +8424,8 @@
               "Name": "submarine",
               "Path": "assets/content/vehicles/submarine",
               "Files": {
-                "SubmarineduoEntityIcon": "assets/content/vehicles/submarine/submarineduo.entity.icon.png",
-                "SubmarinesoloEntityIcon": "assets/content/vehicles/submarine/submarinesolo.entity.icon.png"
+                "SubmarineDuoEntityIcon": "assets/content/vehicles/submarine/submarineduo.entity.icon.png",
+                "SubmarineSoloEntityIcon": "assets/content/vehicles/submarine/submarinesolo.entity.icon.png"
               },
               "SubFolders": {}
             }
@@ -8466,7 +8466,7 @@
                       "Name": "temper",
                       "Path": "assets/content/workshop/skin/ak47/temper",
                       "Files": {
-                        "SkinAk47Temperedak47ItemskinIcon": "assets/content/workshop/skin/ak47/temper/skin.ak47.temperedak47.itemskin.icon.png"
+                        "SkinAk47Temperedak47ItemSkinIcon": "assets/content/workshop/skin/ak47/temper/skin.ak47.temperedak47.itemskin.icon.png"
                       },
                       "SubFolders": {}
                     }
@@ -8489,7 +8489,7 @@
                       "Name": "the necrophagus - balaclava",
                       "Path": "assets/content/workshop/skin/balaclava/the necrophagus - balaclava",
                       "Files": {
-                        "SkinBalaclavaSkinbalaclavaItemskinIcon": "assets/content/workshop/skin/balaclava/the necrophagus - balaclava/skin.balaclava.skinbalaclava.itemskin.icon.png"
+                        "SkinBalaclavaSkinbalaclavaItemSkinIcon": "assets/content/workshop/skin/balaclava/the necrophagus - balaclava/skin.balaclava.skinbalaclava.itemskin.icon.png"
                       },
                       "SubFolders": {}
                     },
@@ -8497,7 +8497,7 @@
                       "Name": "the rust knight",
                       "Path": "assets/content/workshop/skin/balaclava/the rust knight",
                       "Files": {
-                        "SkinBalaclavaTherustknightItemskinIcon": "assets/content/workshop/skin/balaclava/the rust knight/skin.balaclava.therustknight.itemskin.icon.png"
+                        "SkinBalaclavaTheRustknightItemSkinIcon": "assets/content/workshop/skin/balaclava/the rust knight/skin.balaclava.therustknight.itemskin.icon.png"
                       },
                       "SubFolders": {}
                     },
@@ -8505,7 +8505,7 @@
                       "Name": "valentines balaclava",
                       "Path": "assets/content/workshop/skin/balaclava/valentines balaclava",
                       "Files": {
-                        "SkinBalaclavaValentinebalaclavaItemskinIcon": "assets/content/workshop/skin/balaclava/valentines balaclava/skin.balaclava.valentinebalaclava.itemskin.icon.png"
+                        "SkinBalaclavaValentinebalaclavaItemSkinIcon": "assets/content/workshop/skin/balaclava/valentines balaclava/skin.balaclava.valentinebalaclava.itemskin.icon.png"
                       },
                       "SubFolders": {}
                     },
@@ -8513,7 +8513,7 @@
                       "Name": "zipper face",
                       "Path": "assets/content/workshop/skin/balaclava/zipper face",
                       "Files": {
-                        "SkinBalaclavaZipperfaceItemskinIcon": "assets/content/workshop/skin/balaclava/zipper face/skin.balaclava.zipperface.itemskin.icon.png"
+                        "SkinBalaclavaZipperfaceItemSkinIcon": "assets/content/workshop/skin/balaclava/zipper face/skin.balaclava.zipperface.itemskin.icon.png"
                       },
                       "SubFolders": {}
                     }
@@ -8536,7 +8536,7 @@
                       "Name": "friendly cap",
                       "Path": "assets/content/workshop/skin/hat.cap/friendly cap",
                       "Files": {
-                        "SkinCapFriendlycapItemskinIcon": "assets/content/workshop/skin/hat.cap/friendly cap/skin.cap.friendlycap.itemskin.icon.png"
+                        "SkinCapFriendlycapItemSkinIcon": "assets/content/workshop/skin/hat.cap/friendly cap/skin.cap.friendlycap.itemskin.icon.png"
                       },
                       "SubFolders": {}
                     }
@@ -8559,7 +8559,7 @@
                       "Name": "bloody hoodie",
                       "Path": "assets/content/workshop/skin/hoodie/bloody hoodie",
                       "Files": {
-                        "SkinHoodieBloodyhoodieItemskinIcon": "assets/content/workshop/skin/hoodie/bloody hoodie/skin.hoodie.bloodyhoodie.itemskin.icon.png"
+                        "SkinHoodieBloodyHoodieItemSkinIcon": "assets/content/workshop/skin/hoodie/bloody hoodie/skin.hoodie.bloodyhoodie.itemskin.icon.png"
                       },
                       "SubFolders": {}
                     },
@@ -8567,7 +8567,7 @@
                       "Name": "cuda",
                       "Path": "assets/content/workshop/skin/hoodie/cuda",
                       "Files": {
-                        "SkinHoodieCuda87hoodieItemskinIcon": "assets/content/workshop/skin/hoodie/cuda/skin.hoodie.cuda87hoodie.itemskin.icon.png"
+                        "SkinHoodieCuda87HoodieItemSkinIcon": "assets/content/workshop/skin/hoodie/cuda/skin.hoodie.cuda87hoodie.itemskin.icon.png"
                       },
                       "SubFolders": {}
                     },
@@ -8575,7 +8575,7 @@
                       "Name": "rhino",
                       "Path": "assets/content/workshop/skin/hoodie/rhino",
                       "Files": {
-                        "SkinHoodieRhinocrunchhoodieItemskinIcon": "assets/content/workshop/skin/hoodie/rhino/skin.hoodie.rhinocrunchhoodie.itemskin.icon.png"
+                        "SkinHoodieRhinocrunchHoodieItemSkinIcon": "assets/content/workshop/skin/hoodie/rhino/skin.hoodie.rhinocrunchhoodie.itemskin.icon.png"
                       },
                       "SubFolders": {}
                     },
@@ -8583,7 +8583,7 @@
                       "Name": "safety crew",
                       "Path": "assets/content/workshop/skin/hoodie/safety crew",
                       "Files": {
-                        "SkinHoodieSafetycrewItemskinIcon": "assets/content/workshop/skin/hoodie/safety crew/skin.hoodie.safetycrew.itemskin.icon.png"
+                        "SkinHoodieSafetycrewItemSkinIcon": "assets/content/workshop/skin/hoodie/safety crew/skin.hoodie.safetycrew.itemskin.icon.png"
                       },
                       "SubFolders": {}
                     },
@@ -8591,7 +8591,7 @@
                       "Name": "skeleton hoodie",
                       "Path": "assets/content/workshop/skin/hoodie/skeleton hoodie",
                       "Files": {
-                        "SkinHoodieSkeletonhoodieItemskinIcon": "assets/content/workshop/skin/hoodie/skeleton hoodie/skin.hoodie.skeletonhoodie.itemskin.icon.png"
+                        "SkinHoodieSkeletonHoodieItemSkinIcon": "assets/content/workshop/skin/hoodie/skeleton hoodie/skin.hoodie.skeletonhoodie.itemskin.icon.png"
                       },
                       "SubFolders": {}
                     }
@@ -8614,7 +8614,7 @@
                       "Name": "blue track pants v.2",
                       "Path": "assets/content/workshop/skin/pants/blue track pants v.2",
                       "Files": {
-                        "SkinPantsBluetrackpantsv2ItemskinIcon": "assets/content/workshop/skin/pants/blue track pants v.2/skin.pants.bluetrackpantsv.2.itemskin.icon.png"
+                        "SkinPantsBluetrackpantsv2ItemSkinIcon": "assets/content/workshop/skin/pants/blue track pants v.2/skin.pants.bluetrackpantsv.2.itemskin.icon.png"
                       },
                       "SubFolders": {}
                     },
@@ -8622,7 +8622,7 @@
                       "Name": "old prisoner pants",
                       "Path": "assets/content/workshop/skin/pants/old prisoner pants",
                       "Files": {
-                        "SkinPantsOldprisonerpantsItemskinIcon": "assets/content/workshop/skin/pants/old prisoner pants/skin.pants.oldprisonerpants.itemskin.icon.png"
+                        "SkinPantsOldprisonerpantsItemSkinIcon": "assets/content/workshop/skin/pants/old prisoner pants/skin.pants.oldprisonerpants.itemskin.icon.png"
                       },
                       "SubFolders": {}
                     }
@@ -8684,7 +8684,7 @@
                       "Name": "green checkered shirt",
                       "Path": "assets/content/workshop/skin/tshirt/green checkered shirt",
                       "Files": {
-                        "ShirtgreenItemskinIcon": "assets/content/workshop/skin/tshirt/green checkered shirt/shirtgreen.itemskin.icon.png"
+                        "ShirtgreenItemSkinIcon": "assets/content/workshop/skin/tshirt/green checkered shirt/shirtgreen.itemskin.icon.png"
                       },
                       "SubFolders": {}
                     },
@@ -8692,7 +8692,7 @@
                       "Name": "aztec long t-shirt",
                       "Path": "assets/content/workshop/skin/tshirt/aztec long t-shirt",
                       "Files": {
-                        "SkinLongtshirtAzteclongtShirtItemskinIcon": "assets/content/workshop/skin/tshirt/aztec long t-shirt/skin.longtshirt.azteclongt-shirt.itemskin.icon.png"
+                        "SkinLongtshirtAzteclongtShirtItemSkinIcon": "assets/content/workshop/skin/tshirt/aztec long t-shirt/skin.longtshirt.azteclongt-shirt.itemskin.icon.png"
                       },
                       "SubFolders": {}
                     },
@@ -8700,7 +8700,7 @@
                       "Name": "frankensteins sweater",
                       "Path": "assets/content/workshop/skin/tshirt/frankensteins sweater",
                       "Files": {
-                        "SkinLongtshirtFrankensteinssweaterItemskinIcon": "assets/content/workshop/skin/tshirt/frankensteins sweater/skin.longtshirt.frankensteinssweater.itemskin.icon.png"
+                        "SkinLongtshirtFrankensteinssweaterItemSkinIcon": "assets/content/workshop/skin/tshirt/frankensteins sweater/skin.longtshirt.frankensteinssweater.itemskin.icon.png"
                       },
                       "SubFolders": {}
                     },
@@ -8708,7 +8708,7 @@
                       "Name": "nightmare sweater",
                       "Path": "assets/content/workshop/skin/tshirt/nightmare sweater",
                       "Files": {
-                        "SkinLongtshirtNightmaresweaterItemskinIcon": "assets/content/workshop/skin/tshirt/nightmare sweater/skin.longtshirt.nightmaresweater.itemskin.icon.png"
+                        "SkinLongtshirtNightmaresweaterItemSkinIcon": "assets/content/workshop/skin/tshirt/nightmare sweater/skin.longtshirt.nightmaresweater.itemskin.icon.png"
                       },
                       "SubFolders": {}
                     },
@@ -8716,7 +8716,7 @@
                       "Name": "varsity jacket",
                       "Path": "assets/content/workshop/skin/tshirt/varsity jacket",
                       "Files": {
-                        "SkinLongtshirtVarsityjacketItemskinIcon": "assets/content/workshop/skin/tshirt/varsity jacket/skin.longtshirt.varsityjacket.itemskin.icon.png"
+                        "SkinLongtshirtVarsityjacketItemSkinIcon": "assets/content/workshop/skin/tshirt/varsity jacket/skin.longtshirt.varsityjacket.itemskin.icon.png"
                       },
                       "SubFolders": {}
                     },
@@ -8724,7 +8724,7 @@
                       "Name": "argyle scavenger",
                       "Path": "assets/content/workshop/skin/tshirt/argyle scavenger",
                       "Files": {
-                        "SkinTshirtArgylescavengerItemskinIcon": "assets/content/workshop/skin/tshirt/argyle scavenger/skin.tshirt.argylescavenger.itemskin.icon.png"
+                        "SkinTshirtArgylescavengerItemSkinIcon": "assets/content/workshop/skin/tshirt/argyle scavenger/skin.tshirt.argylescavenger.itemskin.icon.png"
                       },
                       "SubFolders": {}
                     },
@@ -8732,7 +8732,7 @@
                       "Name": "black skull&bones tshirt",
                       "Path": "assets/content/workshop/skin/tshirt/black skull&bones tshirt",
                       "Files": {
-                        "SkinTshirtBlackskullBonestshirtItemskinIcon": "assets/content/workshop/skin/tshirt/black skull&bones tshirt/skin.tshirt.blackskull&bonestshirt.itemskin.icon.png"
+                        "SkinTshirtBlackskullBonestshirtItemSkinIcon": "assets/content/workshop/skin/tshirt/black skull&bones tshirt/skin.tshirt.blackskull&bonestshirt.itemskin.icon.png"
                       },
                       "SubFolders": {}
                     },
@@ -8740,7 +8740,7 @@
                       "Name": "missing textures full",
                       "Path": "assets/content/workshop/skin/tshirt/missing textures full",
                       "Files": {
-                        "SkinTshirtMissingtexturesfullItemskinIcon": "assets/content/workshop/skin/tshirt/missing textures full/skin.tshirt.missingtexturesfull.itemskin.icon.png"
+                        "SkinTshirtMissingtexturesfullItemSkinIcon": "assets/content/workshop/skin/tshirt/missing textures full/skin.tshirt.missingtexturesfull.itemskin.icon.png"
                       },
                       "SubFolders": {}
                     },
@@ -8748,7 +8748,7 @@
                       "Name": "japanese murderer tshirt",
                       "Path": "assets/content/workshop/skin/tshirt/japanese murderer tshirt",
                       "Files": {
-                        "SkinTshirtMurderertshirtItemskinIcon": "assets/content/workshop/skin/tshirt/japanese murderer tshirt/skin.tshirt.murderertshirt.itemskin.icon.png"
+                        "SkinTshirtMurderertshirtItemSkinIcon": "assets/content/workshop/skin/tshirt/japanese murderer tshirt/skin.tshirt.murderertshirt.itemskin.icon.png"
                       },
                       "SubFolders": {}
                     },
@@ -8756,7 +8756,7 @@
                       "Name": "ser",
                       "Path": "assets/content/workshop/skin/tshirt/ser",
                       "Files": {
-                        "SkinTshirtSerwintertshirtItemskinIcon": "assets/content/workshop/skin/tshirt/ser/skin.tshirt.serwintertshirt.itemskin.icon.png"
+                        "SkinTshirtSerwintertshirtItemSkinIcon": "assets/content/workshop/skin/tshirt/ser/skin.tshirt.serwintertshirt.itemskin.icon.png"
                       },
                       "SubFolders": {}
                     },
@@ -8764,7 +8764,7 @@
                       "Name": "smile t-shirt",
                       "Path": "assets/content/workshop/skin/tshirt/smile t-shirt",
                       "Files": {
-                        "SkinTshirtSmiletShirtItemskinIcon": "assets/content/workshop/skin/tshirt/smile t-shirt/skin.tshirt.smilet-shirt.itemskin.icon.png"
+                        "SkinTshirtSmiletShirtItemSkinIcon": "assets/content/workshop/skin/tshirt/smile t-shirt/skin.tshirt.smilet-shirt.itemskin.icon.png"
                       },
                       "SubFolders": {}
                     },
@@ -8772,7 +8772,7 @@
                       "Name": "target practice tshirt",
                       "Path": "assets/content/workshop/skin/tshirt/target practice tshirt",
                       "Files": {
-                        "SkinTshirtTargetpracticetshirtItemskinIcon": "assets/content/workshop/skin/tshirt/target practice tshirt/skin.tshirt.targetpracticetshirt.itemskin.icon.png"
+                        "SkinTshirtTargetpracticetshirtItemSkinIcon": "assets/content/workshop/skin/tshirt/target practice tshirt/skin.tshirt.targetpracticetshirt.itemskin.icon.png"
                       },
                       "SubFolders": {}
                     },
@@ -8811,7 +8811,7 @@
                       "Name": "rasta beenie",
                       "Path": "assets/content/workshop/skin/unknown/rasta beenie",
                       "Files": {
-                        "SkinBeenieRastabeenieItemskinIcon": "assets/content/workshop/skin/unknown/rasta beenie/skin.beenie.rastabeenie.itemskin.icon.png"
+                        "SkinBeenieRasTabeenieItemSkinIcon": "assets/content/workshop/skin/unknown/rasta beenie/skin.beenie.rastabeenie.itemskin.icon.png"
                       },
                       "SubFolders": {}
                     },
@@ -8819,7 +8819,7 @@
                       "Name": "farmer hat",
                       "Path": "assets/content/workshop/skin/unknown/farmer hat",
                       "Files": {
-                        "SkinBoonieFarmerhatItemskinIcon": "assets/content/workshop/skin/unknown/farmer hat/skin.boonie.farmerhat.itemskin.icon.png"
+                        "SkinBoonieFarmerhatItemSkinIcon": "assets/content/workshop/skin/unknown/farmer hat/skin.boonie.farmerhat.itemskin.icon.png"
                       },
                       "SubFolders": {}
                     }
@@ -8842,7 +8842,7 @@
                       "Name": "ammo v2 wooden box",
                       "Path": "assets/content/workshop/skin/box.wooden.large/ammo v2 wooden box",
                       "Files": {
-                        "SkinWoodstorageAmmowoodenboxItemskinIcon": "assets/content/workshop/skin/box.wooden.large/ammo v2 wooden box/skin.woodstorage.ammowoodenbox.itemskin.icon.png"
+                        "SkinWoodstorageAmmoWoodenboxItemSkinIcon": "assets/content/workshop/skin/box.wooden.large/ammo v2 wooden box/skin.woodstorage.ammowoodenbox.itemskin.icon.png"
                       },
                       "SubFolders": {}
                     },
@@ -8850,7 +8850,7 @@
                       "Name": "christmas storage",
                       "Path": "assets/content/workshop/skin/box.wooden.large/christmas storage",
                       "Files": {
-                        "SkinWoodstorageChristmasstorageItemskinIcon": "assets/content/workshop/skin/box.wooden.large/christmas storage/skin.woodstorage.christmasstorage.itemskin.icon.png"
+                        "SkinWoodstorageChristmasstorageItemSkinIcon": "assets/content/workshop/skin/box.wooden.large/christmas storage/skin.woodstorage.christmasstorage.itemskin.icon.png"
                       },
                       "SubFolders": {}
                     },
@@ -8858,7 +8858,7 @@
                       "Name": "first aid green wooden box",
                       "Path": "assets/content/workshop/skin/box.wooden.large/first aid green wooden box",
                       "Files": {
-                        "SkinWoodstorageFirstaidgreenItemskinIcon": "assets/content/workshop/skin/box.wooden.large/first aid green wooden box/skin.woodstorage.firstaidgreen.itemskin.icon.png"
+                        "SkinWoodstorageFirstaidgreenItemSkinIcon": "assets/content/workshop/skin/box.wooden.large/first aid green wooden box/skin.woodstorage.firstaidgreen.itemskin.icon.png"
                       },
                       "SubFolders": {}
                     }
@@ -8888,7 +8888,7 @@
                       "Name": "creepy clown bandana",
                       "Path": "assets/content/workshop/skin/bandana/creepy clown bandana",
                       "Files": {
-                        "SkinBandanaCreepyclownbandanaItemskinIcon": "assets/content/workshop/skin/bandana/creepy clown bandana/skin.bandana.creepyclownbandana.itemskin.icon.png"
+                        "SkinBandanaCreepyclownbandanaItemSkinIcon": "assets/content/workshop/skin/bandana/creepy clown bandana/skin.bandana.creepyclownbandana.itemskin.icon.png"
                       },
                       "SubFolders": {}
                     },
@@ -8896,7 +8896,7 @@
                       "Name": "wizard bandana",
                       "Path": "assets/content/workshop/skin/bandana/wizard bandana",
                       "Files": {
-                        "SkinBandanaWizardbandanaItemskinIcon": "assets/content/workshop/skin/bandana/wizard bandana/skin.bandana.wizardbandana.itemskin.icon.png"
+                        "SkinBandanaWizardbandanaItemSkinIcon": "assets/content/workshop/skin/bandana/wizard bandana/skin.bandana.wizardbandana.itemskin.icon.png"
                       },
                       "SubFolders": {}
                     }
@@ -8911,7 +8911,7 @@
                       "Name": "winter deers",
                       "Path": "assets/content/workshop/skin/beenie/winter deers",
                       "Files": {
-                        "SkinBeenieWinterdeersItemskinIcon": "assets/content/workshop/skin/beenie/winter deers/skin.beenie.winterdeers.itemskin.icon.png"
+                        "SkinBeenieWinterdeersItemSkinIcon": "assets/content/workshop/skin/beenie/winter deers/skin.beenie.winterdeers.itemskin.icon.png"
                       },
                       "SubFolders": {}
                     }
@@ -8926,7 +8926,7 @@
                       "Name": "bolt rifle  dreamcatcher",
                       "Path": "assets/content/workshop/skin/rifle.bolt/bolt rifle  dreamcatcher",
                       "Files": {
-                        "SkinBoltrifleDreamcatcherItemskinIcon": "assets/content/workshop/skin/rifle.bolt/bolt rifle  dreamcatcher/skin.boltrifle.dreamcatcher.itemskin.icon.png"
+                        "SkinBoltrifleDreamcatcherItemSkinIcon": "assets/content/workshop/skin/rifle.bolt/bolt rifle  dreamcatcher/skin.boltrifle.dreamcatcher.itemskin.icon.png"
                       },
                       "SubFolders": {}
                     },
@@ -8934,7 +8934,7 @@
                       "Name": "ghost bolt rifle",
                       "Path": "assets/content/workshop/skin/rifle.bolt/ghost bolt rifle",
                       "Files": {
-                        "SkinBoltrifleGhostboltrifleItemskinIcon": "assets/content/workshop/skin/rifle.bolt/ghost bolt rifle/skin.boltrifle.ghostboltrifle.itemskin.icon.png"
+                        "SkinBoltrifleGhostboltrifleItemSkinIcon": "assets/content/workshop/skin/rifle.bolt/ghost bolt rifle/skin.boltrifle.ghostboltrifle.itemskin.icon.png"
                       },
                       "SubFolders": {}
                     },
@@ -8942,7 +8942,7 @@
                       "Name": "tundra bolt action",
                       "Path": "assets/content/workshop/skin/rifle.bolt/tundra bolt action",
                       "Files": {
-                        "SkinBoltrifleTundraboltrifleItemskinIcon": "assets/content/workshop/skin/rifle.bolt/tundra bolt action/skin.boltrifle.tundraboltrifle.itemskin.icon.png"
+                        "SkinBoltrifleTundraboltrifleItemSkinIcon": "assets/content/workshop/skin/rifle.bolt/tundra bolt action/skin.boltrifle.tundraboltrifle.itemskin.icon.png"
                       },
                       "SubFolders": {}
                     }
@@ -8957,7 +8957,7 @@
                       "Name": "army boots",
                       "Path": "assets/content/workshop/skin/shoes.boots/army boots",
                       "Files": {
-                        "SkinBootsArmybootsItemskinIcon": "assets/content/workshop/skin/shoes.boots/army boots/skin.boots.armyboots.itemskin.icon.png"
+                        "SkinBootsArmybootsItemSkinIcon": "assets/content/workshop/skin/shoes.boots/army boots/skin.boots.armyboots.itemskin.icon.png"
                       },
                       "SubFolders": {}
                     },
@@ -8965,7 +8965,7 @@
                       "Name": "bloody boots",
                       "Path": "assets/content/workshop/skin/shoes.boots/bloody boots",
                       "Files": {
-                        "SkinBootsBloodybootsItemskinIcon": "assets/content/workshop/skin/shoes.boots/bloody boots/skin.boots.bloodyboots.itemskin.icon.png"
+                        "SkinBootsBloodybootsItemSkinIcon": "assets/content/workshop/skin/shoes.boots/bloody boots/skin.boots.bloodyboots.itemskin.icon.png"
                       },
                       "SubFolders": {}
                     },
@@ -8973,7 +8973,7 @@
                       "Name": "punk boots",
                       "Path": "assets/content/workshop/skin/shoes.boots/punk boots",
                       "Files": {
-                        "SkinBootsPunkbootsItemskinIcon": "assets/content/workshop/skin/shoes.boots/punk boots/skin.boots.punkboots.itemskin.icon.png"
+                        "SkinBootsPunkbootsItemSkinIcon": "assets/content/workshop/skin/shoes.boots/punk boots/skin.boots.punkboots.itemskin.icon.png"
                       },
                       "SubFolders": {}
                     },
@@ -8981,7 +8981,7 @@
                       "Name": "scavenged sneakers",
                       "Path": "assets/content/workshop/skin/shoes.boots/scavenged sneakers",
                       "Files": {
-                        "SkinBootsScavengedsneakersItemskinIcon": "assets/content/workshop/skin/shoes.boots/scavenged sneakers/skin.boots.scavengedsneakers.itemskin.icon.png"
+                        "SkinBootsScavengedsneakersItemSkinIcon": "assets/content/workshop/skin/shoes.boots/scavenged sneakers/skin.boots.scavengedsneakers.itemskin.icon.png"
                       },
                       "SubFolders": {}
                     }
@@ -8996,7 +8996,7 @@
                       "Name": "medic helmet",
                       "Path": "assets/content/workshop/skin/hat.bucket/medic helmet",
                       "Files": {
-                        "SkinBuckethatMedichelmetItemskinIcon": "assets/content/workshop/skin/hat.bucket/medic helmet/skin.buckethat.medichelmet.itemskin.icon.png"
+                        "SkinBuckethatMedichelmetItemSkinIcon": "assets/content/workshop/skin/hat.bucket/medic helmet/skin.buckethat.medichelmet.itemskin.icon.png"
                       },
                       "SubFolders": {}
                     }
@@ -9011,7 +9011,7 @@
                       "Name": "boxer's bandages",
                       "Path": "assets/content/workshop/skin/gloves.burlap/boxer's bandages",
                       "Files": {
-                        "SkinBurlapglovesBoxerSbandagesItemskinIcon": "assets/content/workshop/skin/gloves.burlap/boxer's bandages/skin.burlapgloves.boxer'sbandages.itemskin.icon.png"
+                        "SkinBurlapglovesBoxerSbandagesItemSkinIcon": "assets/content/workshop/skin/gloves.burlap/boxer's bandages/skin.burlapgloves.boxer'sbandages.itemskin.icon.png"
                       },
                       "SubFolders": {}
                     }
@@ -9021,7 +9021,7 @@
                   "Name": "burlap.shirt",
                   "Path": "assets/content/workshop/skin/burlap.shirt",
                   "Files": {
-                    "SkinBurlapshirtPiratevestShirtItemskinIcon": "assets/content/workshop/skin/burlap.shirt/skin.burlapshirt.piratevest&shirt.itemskin.icon.png"
+                    "SkinBurlapshirtPiratevestShirtItemSkinIcon": "assets/content/workshop/skin/burlap.shirt/skin.burlapshirt.piratevest&shirt.itemskin.icon.png"
                   },
                   "SubFolders": {}
                 },
@@ -9034,7 +9034,7 @@
                       "Name": "provocateur jacket",
                       "Path": "assets/content/workshop/skin/jacket/provocateur jacket",
                       "Files": {
-                        "SkinJacketProvocateurjacketItemskinIcon": "assets/content/workshop/skin/jacket/provocateur jacket/skin.jacket.provocateurjacket.itemskin.icon.png"
+                        "SkinJacketProvocateurjacketItemSkinIcon": "assets/content/workshop/skin/jacket/provocateur jacket/skin.jacket.provocateurjacket.itemskin.icon.png"
                       },
                       "SubFolders": {}
                     }
@@ -9049,7 +9049,7 @@
                       "Name": "creepy jack",
                       "Path": "assets/content/workshop/skin/tshirt.long/creepy jack",
                       "Files": {
-                        "SkinLongtshirtCreepyjackItemskinIcon": "assets/content/workshop/skin/tshirt.long/creepy jack/skin.longtshirt.creepyjack.itemskin.icon.png"
+                        "SkinLongtshirtCreepyjackItemSkinIcon": "assets/content/workshop/skin/tshirt.long/creepy jack/skin.longtshirt.creepyjack.itemskin.icon.png"
                       },
                       "SubFolders": {}
                     },
@@ -9057,7 +9057,7 @@
                       "Name": "merry reindeer long t-shirt",
                       "Path": "assets/content/workshop/skin/tshirt.long/merry reindeer long t-shirt",
                       "Files": {
-                        "SkinLongtshirtMerryreindeerItemskinIcon": "assets/content/workshop/skin/tshirt.long/merry reindeer long t-shirt/skin.longtshirt.merryreindeer.itemskin.icon.png"
+                        "SkinLongtshirtMerryreindeerItemSkinIcon": "assets/content/workshop/skin/tshirt.long/merry reindeer long t-shirt/skin.longtshirt.merryreindeer.itemskin.icon.png"
                       },
                       "SubFolders": {}
                     }
@@ -9072,7 +9072,7 @@
                       "Name": "revolver  outback",
                       "Path": "assets/content/workshop/skin/pistol.revolver/revolver  outback",
                       "Files": {
-                        "SkinRevolverRevolveroutbackItemskinIcon": "assets/content/workshop/skin/pistol.revolver/revolver  outback/skin.revolver.revolveroutback.itemskin.icon.png"
+                        "SkinRevolverRevolveroutbackItemSkinIcon": "assets/content/workshop/skin/pistol.revolver/revolver  outback/skin.revolver.revolveroutback.itemskin.icon.png"
                       },
                       "SubFolders": {}
                     }
@@ -9087,7 +9087,7 @@
                       "Name": "contamination pistol",
                       "Path": "assets/content/workshop/skin/pistol.semi/contamination pistol",
                       "Files": {
-                        "SkinSemiautopistolContaminationpistolItemskinIcon": "assets/content/workshop/skin/pistol.semi/contamination pistol/skin.semiautopistol.contaminationpistol.itemskin.icon.png"
+                        "SkinSemiautopistolContaminationpistolItemSkinIcon": "assets/content/workshop/skin/pistol.semi/contamination pistol/skin.semiautopistol.contaminationpistol.itemskin.icon.png"
                       },
                       "SubFolders": {}
                     },
@@ -9095,7 +9095,7 @@
                       "Name": "halloween bat",
                       "Path": "assets/content/workshop/skin/pistol.semi/halloween bat",
                       "Files": {
-                        "SkinSemiautopistolHalloweenbatItemskinIcon": "assets/content/workshop/skin/pistol.semi/halloween bat/skin.semiautopistol.halloweenbat.itemskin.icon.png"
+                        "SkinSemiautopistolHalloweenbatItemSkinIcon": "assets/content/workshop/skin/pistol.semi/halloween bat/skin.semiautopistol.halloweenbat.itemskin.icon.png"
                       },
                       "SubFolders": {}
                     },
@@ -9103,7 +9103,7 @@
                       "Name": "semiauto pistol  reaper note",
                       "Path": "assets/content/workshop/skin/pistol.semi/semiauto pistol  reaper note",
                       "Files": {
-                        "SkinSemiautopistolReapernotepistolItemskinIcon": "assets/content/workshop/skin/pistol.semi/semiauto pistol  reaper note/skin.semiautopistol.reapernotepistol.itemskin.icon.png"
+                        "SkinSemiautopistolReapernotepistolItemSkinIcon": "assets/content/workshop/skin/pistol.semi/semiauto pistol  reaper note/skin.semiautopistol.reapernotepistol.itemskin.icon.png"
                       },
                       "SubFolders": {}
                     },
@@ -9111,7 +9111,7 @@
                       "Name": "red shine",
                       "Path": "assets/content/workshop/skin/pistol.semi/red shine",
                       "Files": {
-                        "SkinSemiautopistolRedshineItemskinIcon": "assets/content/workshop/skin/pistol.semi/red shine/skin.semiautopistol.redshine.itemskin.icon.png"
+                        "SkinSemiautopistolRedshineItemSkinIcon": "assets/content/workshop/skin/pistol.semi/red shine/skin.semiautopistol.redshine.itemskin.icon.png"
                       },
                       "SubFolders": {}
                     }
@@ -9126,7 +9126,7 @@
                       "Name": "merry christmas sleeping bag",
                       "Path": "assets/content/workshop/skin/sleepingbag/merry christmas sleeping bag",
                       "Files": {
-                        "SkinSleepingbagAstonchristmasItemskinIcon": "assets/content/workshop/skin/sleepingbag/merry christmas sleeping bag/skin.sleepingbag.astonchristmas.itemskin.icon.png"
+                        "SkinSleepingBagAstonchristmasItemSkinIcon": "assets/content/workshop/skin/sleepingbag/merry christmas sleeping bag/skin.sleepingbag.astonchristmas.itemskin.icon.png"
                       },
                       "SubFolders": {}
                     },
@@ -9134,7 +9134,7 @@
                       "Name": "blue plaid sleeping bag",
                       "Path": "assets/content/workshop/skin/sleepingbag/blue plaid sleeping bag",
                       "Files": {
-                        "SkinSleepingbagBlueplaidsleepingbagItemskinIcon": "assets/content/workshop/skin/sleepingbag/blue plaid sleeping bag/skin.sleepingbag.blueplaidsleepingbag.itemskin.icon.png"
+                        "SkinSleepingBagBlueplaidsleepingbagItemSkinIcon": "assets/content/workshop/skin/sleepingbag/blue plaid sleeping bag/skin.sleepingbag.blueplaidsleepingbag.itemskin.icon.png"
                       },
                       "SubFolders": {}
                     },
@@ -9142,7 +9142,7 @@
                       "Name": "merry christmas",
                       "Path": "assets/content/workshop/skin/sleepingbag/merry christmas",
                       "Files": {
-                        "SkinSleepingbagChristmasbagItemskinIcon": "assets/content/workshop/skin/sleepingbag/merry christmas/skin.sleepingbag.christmasbag.itemskin.icon.png"
+                        "SkinSleepingBagChristmasbagItemSkinIcon": "assets/content/workshop/skin/sleepingbag/merry christmas/skin.sleepingbag.christmasbag.itemskin.icon.png"
                       },
                       "SubFolders": {}
                     },
@@ -9150,7 +9150,7 @@
                       "Name": "sleeping horror",
                       "Path": "assets/content/workshop/skin/sleepingbag/sleeping horror",
                       "Files": {
-                        "SkinSleepingbagHorrorbagItemskinIcon": "assets/content/workshop/skin/sleepingbag/sleeping horror/skin.sleepingbag.horrorbag.itemskin.icon.png"
+                        "SkinSleepingBagHorrorbagItemSkinIcon": "assets/content/workshop/skin/sleepingbag/sleeping horror/skin.sleepingbag.horrorbag.itemskin.icon.png"
                       },
                       "SubFolders": {}
                     },
@@ -9158,7 +9158,7 @@
                       "Name": "tiger crown",
                       "Path": "assets/content/workshop/skin/sleepingbag/tiger crown",
                       "Files": {
-                        "SkinSleepingbagTigercrownsleepingbagItemskinIcon": "assets/content/workshop/skin/sleepingbag/tiger crown/skin.sleepingbag.tigercrownsleepingbag.itemskin.icon.png"
+                        "SkinSleepingBagTigercrownsleepingbagItemSkinIcon": "assets/content/workshop/skin/sleepingbag/tiger crown/skin.sleepingbag.tigercrownsleepingbag.itemskin.icon.png"
                       },
                       "SubFolders": {}
                     },
@@ -9166,7 +9166,7 @@
                       "Name": "usa wood camo sleeping bag + dirt",
                       "Path": "assets/content/workshop/skin/sleepingbag/usa wood camo sleeping bag + dirt",
                       "Files": {
-                        "SkinSleepingbagWoodcamosleepingbagItemskinIcon": "assets/content/workshop/skin/sleepingbag/usa wood camo sleeping bag + dirt/skin.sleepingbag.woodcamosleepingbag.itemskin.icon.png"
+                        "SkinSleepingBagWoodcamosleepingbagItemSkinIcon": "assets/content/workshop/skin/sleepingbag/usa wood camo sleeping bag + dirt/skin.sleepingbag.woodcamosleepingbag.itemskin.icon.png"
                       },
                       "SubFolders": {}
                     }
@@ -9190,7 +9190,7 @@
                     "BarrelIcon": "assets/content/workshop/items/crates/barrel.icon.png",
                     "BoxHighIcon": "assets/content/workshop/items/crates/box.high.icon.png",
                     "BoxLowIcon": "assets/content/workshop/items/crates/box.low.icon.png",
-                    "TrustinrustCrateIcon": "assets/content/workshop/items/crates/trustinrust_crate.icon.png"
+                    "TRustinrustCrateIcon": "assets/content/workshop/items/crates/trustinrust_crate.icon.png"
                   },
                   "SubFolders": {}
                 },
@@ -9591,7 +9591,7 @@
               "Name": "carshredder",
               "Path": "assets/content/structures/carshredder",
               "Files": {
-                "Carshredderavatar": "assets/content/structures/carshredder/carshredderavatar.png"
+                "CarShredderAvatar": "assets/content/structures/carshredder/carshredderavatar.png"
               },
               "SubFolders": {}
             }
@@ -9638,7 +9638,7 @@
           "Name": "decals",
           "Path": "assets/content/decals",
           "Files": {
-            "DecalXsprayASprite": "assets/content/decals/decal_xspray_a_sprite.png"
+            "DecalXSprayASprite": "assets/content/decals/decal_xspray_a_sprite.png"
           },
           "SubFolders": {}
         },
@@ -9651,7 +9651,7 @@
               "Name": "fog machine",
               "Path": "assets/content/props/fog machine",
               "Files": {
-                "FogmachineIcon": "assets/content/props/fog machine/fogmachine.icon.png"
+                "FogMachineIcon": "assets/content/props/fog machine/fogmachine.icon.png"
               },
               "SubFolders": {}
             },
@@ -9675,7 +9675,7 @@
               "Name": "strobe light",
               "Path": "assets/content/props/strobe light",
               "Files": {
-                "StrobelightIcon": "assets/content/props/strobe light/strobelight.icon.png"
+                "StrobeLightIcon": "assets/content/props/strobe light/strobelight.icon.png"
               },
               "SubFolders": {}
             }
@@ -9692,7 +9692,7 @@
               "Name": "generic",
               "Path": "assets/content/textures/generic",
               "Files": {
-                "Fulltransparent": "assets/content/textures/generic/fulltransparent.tga"
+                "FullTransparent": "assets/content/textures/generic/fulltransparent.tga"
               },
               "SubFolders": {}
             }
@@ -9717,7 +9717,7 @@
                       "Name": "wolf head dress",
                       "Path": "assets/content/player/clothing/special/wolf head dress",
                       "Files": {
-                        "WolfheaddressIcon": "assets/content/player/clothing/special/wolf head dress/wolfheaddress.icon.png"
+                        "WolfHeaddressIcon": "assets/content/player/clothing/special/wolf head dress/wolfheaddress.icon.png"
                       },
                       "SubFolders": {}
                     }
@@ -9767,9 +9767,9 @@
         "ChinookMapBlades": "assets/icons/chinook_map_blades.png",
         "ChinookMapBody": "assets/icons/chinook_map_body.png",
         "CircleClosed": "assets/icons/circle_closed.png",
-        "CircleClosedToedge": "assets/icons/circle_closed_toedge.png",
+        "CircleClosedToEdge": "assets/icons/circle_closed_toedge.png",
         "CircleClosedWhite": "assets/icons/circle_closed_white.png",
-        "CircleClosedWhiteToedge": "assets/icons/circle_closed_white_toedge.png",
+        "CircleClosedWhiteToEdge": "assets/icons/circle_closed_white_toedge.png",
         "CircleGradient": "assets/icons/circle_gradient.png",
         "CircleOpen": "assets/icons/circle_open.png",
         "Clan": "assets/icons/clan.png",
@@ -9836,8 +9836,8 @@
         "Gem": "assets/icons/gem.png",
         "Gem2": "assets/icons/gem2.png",
         "Gem3": "assets/icons/gem3.png",
-        "Greyout": "assets/icons/greyout.png",
-        "GreyoutLarge": "assets/icons/greyout_large.png",
+        "GreyOut": "assets/icons/greyout.png",
+        "GreyOutLarge": "assets/icons/greyout_large.png",
         "Handlebar": "assets/icons/handlebar.png",
         "HandLooting": "assets/icons/hand-looting.png",
         "Health": "assets/icons/health.png",
@@ -9872,10 +9872,10 @@
         "Input": "assets/icons/input.png",
         "InstagramLogo": "assets/icons/instagram-logo.png",
         "Inventory": "assets/icons/inventory.png",
-        "Isbroken": "assets/icons/isbroken.png",
-        "Iscooking": "assets/icons/iscooking.png",
-        "Isloading": "assets/icons/isloading.png",
-        "Isonfire": "assets/icons/isonfire.png",
+        "IsBroken": "assets/icons/isbroken.png",
+        "IsCooking": "assets/icons/iscooking.png",
+        "IsLoading": "assets/icons/isloading.png",
+        "IsOnFire": "assets/icons/isonfire.png",
         "Joystick": "assets/icons/joystick.png",
         "Key": "assets/icons/key.png",
         "Kick": "assets/icons/kick.png",
@@ -9897,7 +9897,7 @@
         "Lock": "assets/icons/lock.png",
         "Loot": "assets/icons/loot.png",
         "Lungs": "assets/icons/lungs.png",
-        "Maparrow": "assets/icons/maparrow.png",
+        "MapArrow": "assets/icons/maparrow.png",
         "MapTunnel": "assets/icons/map-tunnel.png",
         "Market": "assets/icons/market.png",
         "Maximum": "assets/icons/maximum.png",
@@ -9905,7 +9905,7 @@
         "Medical": "assets/icons/medical.png",
         "MenuDots": "assets/icons/menu_dots.png",
         "ModdedServers": "assets/icons/modded_servers.png",
-        "Nextframe": "assets/icons/nextframe.png",
+        "NextFrame": "assets/icons/nextframe.png",
         "NoSleep": "assets/icons/no_sleep.png",
         "NoSpawn": "assets/icons/no_spawn.png",
         "Occupied": "assets/icons/occupied.png",
@@ -9939,7 +9939,7 @@
         "Portion": "assets/icons/portion.png",
         "Power": "assets/icons/power.png",
         "Press": "assets/icons/press.png",
-        "Prevframe": "assets/icons/prevframe.png",
+        "PrevFrame": "assets/icons/prevframe.png",
         "Radiation": "assets/icons/radiation.png",
         "Rain": "assets/icons/rain.png",
         "Reddit": "assets/icons/reddit.png",
@@ -9961,10 +9961,10 @@
         "Skull": "assets/icons/skull.png",
         "Slash": "assets/icons/slash.png",
         "Sleeping": "assets/icons/sleeping.png",
-        "Sleepingbag": "assets/icons/sleepingbag.png",
+        "SleepingBag": "assets/icons/sleepingbag.png",
         "Square": "assets/icons/square.png",
         "SquareGradient": "assets/icons/square_gradient.png",
-        "Stab": "assets/icons/stab.png",
+        "STab": "assets/icons/stab.png",
         "Star": "assets/icons/star.png",
         "Steam": "assets/icons/steam.png",
         "Stopwatch": "assets/icons/stopwatch.png",
@@ -9979,7 +9979,7 @@
         "Subtract": "assets/icons/subtract.png",
         "Target": "assets/icons/target.png",
         "Terrain": "assets/icons/terrain.png",
-        "Thumbsup": "assets/icons/thumbsup.png",
+        "ThumbsUp": "assets/icons/thumbsup.png",
         "Tools": "assets/icons/tools.png",
         "Train": "assets/icons/train.png",
         "Translate": "assets/icons/translate.png",
@@ -9992,7 +9992,7 @@
         "Twitter1": "assets/icons/twitter 1.png",
         "Unload": "assets/icons/unload.png",
         "Unlock": "assets/icons/unlock.png",
-        "Upgrade": "assets/icons/upgrade.png",
+        "UpGrade": "assets/icons/upgrade.png",
         "Victory": "assets/icons/victory.png",
         "Voice": "assets/icons/voice.png",
         "VoteDown": "assets/icons/vote_down.png",
@@ -10159,11 +10159,11 @@
                       "Name": "scientist",
                       "Path": "assets/rust.ai/agents/npcplayer/humannpc/scientist",
                       "Files": {
-                        "Arcticscientistavatar": "assets/rust.ai/agents/npcplayer/humannpc/scientist/arcticscientistavatar.png",
-                        "Heavyscientistavatar": "assets/rust.ai/agents/npcplayer/humannpc/scientist/heavyscientistavatar.png",
-                        "Peacekeeperavatar": "assets/rust.ai/agents/npcplayer/humannpc/scientist/peacekeeperavatar.png",
-                        "Scientistavatar": "assets/rust.ai/agents/npcplayer/humannpc/scientist/scientistavatar.png",
-                        "Scientistnvgavatar": "assets/rust.ai/agents/npcplayer/humannpc/scientist/scientistnvgavatar.png"
+                        "ArcticScientistAvatar": "assets/rust.ai/agents/npcplayer/humannpc/scientist/arcticscientistavatar.png",
+                        "HeavyScientistAvatar": "assets/rust.ai/agents/npcplayer/humannpc/scientist/heavyscientistavatar.png",
+                        "PeacekeeperAvatar": "assets/rust.ai/agents/npcplayer/humannpc/scientist/peacekeeperavatar.png",
+                        "ScientistAvatar": "assets/rust.ai/agents/npcplayer/humannpc/scientist/scientistavatar.png",
+                        "ScientistNvgAvatar": "assets/rust.ai/agents/npcplayer/humannpc/scientist/scientistnvgavatar.png"
                       },
                       "SubFolders": {}
                     },
@@ -10171,7 +10171,7 @@
                       "Name": "banditguard",
                       "Path": "assets/rust.ai/agents/npcplayer/humannpc/banditguard",
                       "Files": {
-                        "Banditguardavatar": "assets/rust.ai/agents/npcplayer/humannpc/banditguard/banditguardavatar.png"
+                        "BanditGuardAvatar": "assets/rust.ai/agents/npcplayer/humannpc/banditguard/banditguardavatar.png"
                       },
                       "SubFolders": {}
                     },
@@ -10179,7 +10179,7 @@
                       "Name": "tunneldweller",
                       "Path": "assets/rust.ai/agents/npcplayer/humannpc/tunneldweller",
                       "Files": {
-                        "Dwelleravatar": "assets/rust.ai/agents/npcplayer/humannpc/tunneldweller/dwelleravatar.png"
+                        "DwellerAvatar": "assets/rust.ai/agents/npcplayer/humannpc/tunneldweller/dwelleravatar.png"
                       },
                       "SubFolders": {}
                     },
@@ -10187,7 +10187,7 @@
                       "Name": "underwaterdweller",
                       "Path": "assets/rust.ai/agents/npcplayer/humannpc/underwaterdweller",
                       "Files": {
-                        "Underwaterdwelleravatar": "assets/rust.ai/agents/npcplayer/humannpc/underwaterdweller/underwaterdwelleravatar.png"
+                        "UnderWaterDwellerAvatar": "assets/rust.ai/agents/npcplayer/humannpc/underwaterdweller/underwaterdwelleravatar.png"
                       },
                       "SubFolders": {}
                     }
@@ -10197,7 +10197,7 @@
                   "Name": "gingerbread",
                   "Path": "assets/rust.ai/agents/npcplayer/gingerbread",
                   "Files": {
-                    "Gingerbreadmanavatar": "assets/rust.ai/agents/npcplayer/gingerbread/gingerbreadmanavatar.png"
+                    "GingerbreadManAvatar": "assets/rust.ai/agents/npcplayer/gingerbread/gingerbreadmanavatar.png"
                   },
                   "SubFolders": {}
                 }
@@ -10207,8 +10207,8 @@
               "Name": "bear",
               "Path": "assets/rust.ai/agents/bear",
               "Files": {
-                "Bearavatar": "assets/rust.ai/agents/bear/bearavatar.png",
-                "Polarbearavatar": "assets/rust.ai/agents/bear/polarbearavatar.png"
+                "BearAvatar": "assets/rust.ai/agents/bear/bearavatar.png",
+                "PolarBearAvatar": "assets/rust.ai/agents/bear/polarbearavatar.png"
               },
               "SubFolders": {}
             },
@@ -10216,7 +10216,7 @@
               "Name": "boar",
               "Path": "assets/rust.ai/agents/boar",
               "Files": {
-                "Boaravatar": "assets/rust.ai/agents/boar/boaravatar.png"
+                "BoarAvatar": "assets/rust.ai/agents/boar/boaravatar.png"
               },
               "SubFolders": {}
             },
@@ -10224,7 +10224,7 @@
               "Name": "chicken",
               "Path": "assets/rust.ai/agents/chicken",
               "Files": {
-                "Chickenavatar": "assets/rust.ai/agents/chicken/chickenavatar.png"
+                "ChickenAvatar": "assets/rust.ai/agents/chicken/chickenavatar.png"
               },
               "SubFolders": {}
             },
@@ -10237,7 +10237,7 @@
                   "Name": "shark",
                   "Path": "assets/rust.ai/agents/fish/shark",
                   "Files": {
-                    "Sharkavatar": "assets/rust.ai/agents/fish/shark/sharkavatar.png"
+                    "SharkAvatar": "assets/rust.ai/agents/fish/shark/sharkavatar.png"
                   },
                   "SubFolders": {}
                 }
@@ -10247,7 +10247,7 @@
               "Name": "stag",
               "Path": "assets/rust.ai/agents/stag",
               "Files": {
-                "Stagavatar": "assets/rust.ai/agents/stag/stagavatar.png"
+                "StagAvatar": "assets/rust.ai/agents/stag/stagavatar.png"
               },
               "SubFolders": {}
             },
@@ -10255,7 +10255,7 @@
               "Name": "wolf",
               "Path": "assets/rust.ai/agents/wolf",
               "Files": {
-                "Wolfavatar": "assets/rust.ai/agents/wolf/wolfavatar.png"
+                "WolfAvatar": "assets/rust.ai/agents/wolf/wolfavatar.png"
               },
               "SubFolders": {}
             }

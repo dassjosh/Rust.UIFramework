@@ -1,3 +1,4 @@
+// ReSharper disable MemberHidesStaticFromOuterClass
 namespace Oxide.Ext.UiFramework.Constants;
 
 public static class UiMaterials
@@ -122,24 +123,24 @@ public static class UiMaterials
 							public const string CubeTiledWood04 = "assets/bundled/prefabs/modding/cubes/tiled/materials/cube_tiled_wood_04.mat";
 							public const string CubeTiledWood05 = "assets/bundled/prefabs/modding/cubes/tiled/materials/cube_tiled_wood_05.mat";
 							public const string CubeTiledWood06 = "assets/bundled/prefabs/modding/cubes/tiled/materials/cube_tiled_wood_06.mat";
-							public const string CubeTiledWoodpanelsBlue01 = "assets/bundled/prefabs/modding/cubes/tiled/materials/cube_tiled_woodpanels_blue_01.mat";
-							public const string CubeTiledWoodpanelsBlue02 = "assets/bundled/prefabs/modding/cubes/tiled/materials/cube_tiled_woodpanels_blue_02.mat";
-							public const string CubeTiledWoodpanelsBrown01 = "assets/bundled/prefabs/modding/cubes/tiled/materials/cube_tiled_woodpanels_brown_01.mat";
-							public const string CubeTiledWoodpanelsBrown02 = "assets/bundled/prefabs/modding/cubes/tiled/materials/cube_tiled_woodpanels_brown_02.mat";
-							public const string CubeTiledWoodpanelsCyan01 = "assets/bundled/prefabs/modding/cubes/tiled/materials/cube_tiled_woodpanels_cyan_01.mat";
-							public const string CubeTiledWoodpanelsCyan02 = "assets/bundled/prefabs/modding/cubes/tiled/materials/cube_tiled_woodpanels_cyan_02.mat";
-							public const string CubeTiledWoodpanelsGreen01 = "assets/bundled/prefabs/modding/cubes/tiled/materials/cube_tiled_woodpanels_green_01.mat";
-							public const string CubeTiledWoodpanelsGreen02 = "assets/bundled/prefabs/modding/cubes/tiled/materials/cube_tiled_woodpanels_green_02.mat";
-							public const string CubeTiledWoodpanelsGrey01 = "assets/bundled/prefabs/modding/cubes/tiled/materials/cube_tiled_woodpanels_grey_01.mat";
-							public const string CubeTiledWoodpanelsGrey02 = "assets/bundled/prefabs/modding/cubes/tiled/materials/cube_tiled_woodpanels_grey_02.mat";
-							public const string CubeTiledWoodpanelsOrange01 = "assets/bundled/prefabs/modding/cubes/tiled/materials/cube_tiled_woodpanels_orange_01.mat";
-							public const string CubeTiledWoodpanelsOrange02 = "assets/bundled/prefabs/modding/cubes/tiled/materials/cube_tiled_woodpanels_orange_02.mat";
-							public const string CubeTiledWoodpanelsRed01 = "assets/bundled/prefabs/modding/cubes/tiled/materials/cube_tiled_woodpanels_red_01.mat";
-							public const string CubeTiledWoodpanelsRed02 = "assets/bundled/prefabs/modding/cubes/tiled/materials/cube_tiled_woodpanels_red_02.mat";
-							public const string CubeTiledWoodpanelsWhite01 = "assets/bundled/prefabs/modding/cubes/tiled/materials/cube_tiled_woodpanels_white_01.mat";
-							public const string CubeTiledWoodpanelsWhite02 = "assets/bundled/prefabs/modding/cubes/tiled/materials/cube_tiled_woodpanels_white_02.mat";
-							public const string CubeTiledWoodpanelsYellow01 = "assets/bundled/prefabs/modding/cubes/tiled/materials/cube_tiled_woodpanels_yellow_01.mat";
-							public const string CubeTiledWoodpanelsYellow02 = "assets/bundled/prefabs/modding/cubes/tiled/materials/cube_tiled_woodpanels_yellow_02.mat";
+							public const string CubeTiledWoodPanelsBlue01 = "assets/bundled/prefabs/modding/cubes/tiled/materials/cube_tiled_woodpanels_blue_01.mat";
+							public const string CubeTiledWoodPanelsBlue02 = "assets/bundled/prefabs/modding/cubes/tiled/materials/cube_tiled_woodpanels_blue_02.mat";
+							public const string CubeTiledWoodPanelsBrown01 = "assets/bundled/prefabs/modding/cubes/tiled/materials/cube_tiled_woodpanels_brown_01.mat";
+							public const string CubeTiledWoodPanelsBrown02 = "assets/bundled/prefabs/modding/cubes/tiled/materials/cube_tiled_woodpanels_brown_02.mat";
+							public const string CubeTiledWoodPanelsCyan01 = "assets/bundled/prefabs/modding/cubes/tiled/materials/cube_tiled_woodpanels_cyan_01.mat";
+							public const string CubeTiledWoodPanelsCyan02 = "assets/bundled/prefabs/modding/cubes/tiled/materials/cube_tiled_woodpanels_cyan_02.mat";
+							public const string CubeTiledWoodPanelsGreen01 = "assets/bundled/prefabs/modding/cubes/tiled/materials/cube_tiled_woodpanels_green_01.mat";
+							public const string CubeTiledWoodPanelsGreen02 = "assets/bundled/prefabs/modding/cubes/tiled/materials/cube_tiled_woodpanels_green_02.mat";
+							public const string CubeTiledWoodPanelsGrey01 = "assets/bundled/prefabs/modding/cubes/tiled/materials/cube_tiled_woodpanels_grey_01.mat";
+							public const string CubeTiledWoodPanelsGrey02 = "assets/bundled/prefabs/modding/cubes/tiled/materials/cube_tiled_woodpanels_grey_02.mat";
+							public const string CubeTiledWoodPanelsOrange01 = "assets/bundled/prefabs/modding/cubes/tiled/materials/cube_tiled_woodpanels_orange_01.mat";
+							public const string CubeTiledWoodPanelsOrange02 = "assets/bundled/prefabs/modding/cubes/tiled/materials/cube_tiled_woodpanels_orange_02.mat";
+							public const string CubeTiledWoodPanelsRed01 = "assets/bundled/prefabs/modding/cubes/tiled/materials/cube_tiled_woodpanels_red_01.mat";
+							public const string CubeTiledWoodPanelsRed02 = "assets/bundled/prefabs/modding/cubes/tiled/materials/cube_tiled_woodpanels_red_02.mat";
+							public const string CubeTiledWoodPanelsWhite01 = "assets/bundled/prefabs/modding/cubes/tiled/materials/cube_tiled_woodpanels_white_01.mat";
+							public const string CubeTiledWoodPanelsWhite02 = "assets/bundled/prefabs/modding/cubes/tiled/materials/cube_tiled_woodpanels_white_02.mat";
+							public const string CubeTiledWoodPanelsYellow01 = "assets/bundled/prefabs/modding/cubes/tiled/materials/cube_tiled_woodpanels_yellow_01.mat";
+							public const string CubeTiledWoodPanelsYellow02 = "assets/bundled/prefabs/modding/cubes/tiled/materials/cube_tiled_woodpanels_yellow_02.mat";
 						}
 					}
 				}
@@ -148,7 +149,7 @@ public static class UiMaterials
 	}
 	public static class Content
 	{
-		public const string ExplosionUnderwater = "assets/content/effects/explosions/underwater/explosion_underwater.mat";
+		public const string ExplosionUnderWater = "assets/content/effects/explosions/underwater/explosion_underwater.mat";
 		public const string FishingShopSign = "assets/content/props/fishing_shop_sign/models/materials/fishing_shop_sign.mat";
 		public const string GroundPlantsShadows = "assets/content/nature/ground_plants/models/materials/ground_plants_shadows.mat";
 
@@ -158,12 +159,12 @@ public static class UiMaterials
 			public const string DevCloth = "assets/content/developer/dev.cloth.mat";
 			public const string DevConcrete = "assets/content/developer/dev.concrete.mat";
 			public const string DevDirt = "assets/content/developer/dev.dirt.mat";
-			public const string Deverror = "assets/content/developer/deverror.mat";
+			public const string DevError = "assets/content/developer/deverror.mat";
 			public const string DevFlesh = "assets/content/developer/dev.flesh.mat";
-			public const string DevFrustumrenderer = "assets/content/developer/dev.frustumrenderer.mat";
+			public const string DevFRustumrenderer = "assets/content/developer/dev.frustumrenderer.mat";
 			public const string DevGlass = "assets/content/developer/dev.glass.mat";
 			public const string DevGrass = "assets/content/developer/dev.grass.mat";
-			public const string Devgreyobj = "assets/content/developer/devgreyobj.mat";
+			public const string DevGreyobj = "assets/content/developer/devgreyobj.mat";
 			public const string DevLightWhite = "assets/content/developer/dev.light.white.mat";
 			public const string DevLocal = "assets/content/developer/dev.local.mat";
 			public const string DevMetal = "assets/content/developer/dev.metal.mat";
@@ -174,13 +175,13 @@ public static class UiMaterials
 			public const string DevTransparent = "assets/content/developer/dev.transparent.mat";
 			public const string DevTransparentOrange = "assets/content/developer/dev.transparent.orange.mat";
 			public const string DevWater = "assets/content/developer/dev.water.mat";
-			public const string Devwhitebox = "assets/content/developer/devwhitebox.mat";
-			public const string Devwhiteboxtransparent = "assets/content/developer/devwhiteboxtransparent.mat";
-			public const string Devwhiteobj = "assets/content/developer/devwhiteobj.mat";
+			public const string DevWhitebox = "assets/content/developer/devwhitebox.mat";
+			public const string DevWhiteboxTransparent = "assets/content/developer/devwhiteboxtransparent.mat";
+			public const string DevWhiteobj = "assets/content/developer/devwhiteobj.mat";
 			public const string DevWood = "assets/content/developer/dev.wood.mat";
 			public const string DevWorldBlue = "assets/content/developer/dev.world.blue.mat";
 			public const string DevWorldBlueemissive = "assets/content/developer/dev.world.blueemissive.mat";
-			public const string DevWorldBluetransparent = "assets/content/developer/dev.world.bluetransparent.mat";
+			public const string DevWorldBlueTransparent = "assets/content/developer/dev.world.bluetransparent.mat";
 			public const string DevWorldGreen = "assets/content/developer/dev.world.green.mat";
 			public const string DevWorldGreenemissive = "assets/content/developer/dev.world.greenemissive.mat";
 			public const string DevWorldGreenTransparent = "assets/content/developer/dev.world.green.transparent.mat";
@@ -195,11 +196,11 @@ public static class UiMaterials
 		public static class Materials
 		{
 			public const string _01Default = "assets/content/materials/01 - default.mat";
-			public const string DeployableAcceptable = "assets/content/materials/deployable/deployable_acceptable.mat";
-			public const string GuideHighlight = "assets/content/materials/guide_highlight.mat";
-			public const string GuideHighlight2 = "assets/content/materials/guide_highlight_2.mat";
-			public const string GuideHighlightError = "assets/content/materials/guide_highlight_error.mat";
-			public const string Itemmaterial = "assets/content/materials/itemmaterial.mat";
+			public const string DeployableAccepTable = "assets/content/materials/deployable/deployable_acceptable.mat";
+			public const string GuideHighLight = "assets/content/materials/guide_highlight.mat";
+			public const string GuideHighLight2 = "assets/content/materials/guide_highlight_2.mat";
+			public const string GuideHighLightError = "assets/content/materials/guide_highlight_error.mat";
+			public const string ItemMaterial = "assets/content/materials/itemmaterial.mat";
 		}
 
 		public static class Structures
@@ -249,74 +250,74 @@ public static class UiMaterials
 			public const string DottedLine = "assets/content/ui/dotted_line.mat";
 			public const string GoggleOverlay = "assets/content/ui/goggle_overlay.mat";
 			public const string HelmetSlitOverlay = "assets/content/ui/helmet_slit_overlay.mat";
-			public const string Namefontmaterial = "assets/content/ui/namefontmaterial.mat";
+			public const string NameFontMaterial = "assets/content/ui/namefontmaterial.mat";
 			public const string NmsFontBlack = "assets/content/ui/nms_font_black.mat";
 			public const string NmsFontRed = "assets/content/ui/nms_font_red.mat";
 			public const string NmsOverlay = "assets/content/ui/nms_overlay.mat";
 			public const string NmsWipeRed = "assets/content/ui/nms_wipe_red.mat";
 			public const string NvgOverlay = "assets/content/ui/nvg_overlay.mat";
-			public const string OverlayPrisonerhood = "assets/content/ui/overlay_prisonerhood.mat";
-			public const string Playerpreviewglow = "assets/content/ui/playerpreviewglow.mat";
-			public const string Playerpreviewremovesegments = "assets/content/ui/playerpreviewremovesegments.mat";
-			public const string Playerpreviewsegments = "assets/content/ui/playerpreviewsegments.mat";
+			public const string OverlayPrisonerHood = "assets/content/ui/overlay_prisonerhood.mat";
+			public const string PlayerPreviewGlow = "assets/content/ui/playerpreviewglow.mat";
+			public const string PlayerPreviewremoveSegments = "assets/content/ui/playerpreviewremovesegments.mat";
+			public const string PlayerPreviewSegments = "assets/content/ui/playerpreviewsegments.mat";
 			public const string Scope1 = "assets/content/ui/scope_1.mat";
 			public const string Scope2 = "assets/content/ui/scope_2.mat";
 			public const string UiAlphaclear = "assets/content/ui/ui.alphaclear.mat";
 			public const string UiAlphaclearnoztest = "assets/content/ui/ui.alphaclearnoztest.mat";
-			public const string Uibackgroundblur = "assets/content/ui/uibackgroundblur.mat";
-			public const string UibackgroundblurIngamemenu = "assets/content/ui/uibackgroundblur-ingamemenu.mat";
-			public const string UibackgroundblurMainmenu = "assets/content/ui/uibackgroundblur-mainmenu.mat";
-			public const string UibackgroundblurNotice = "assets/content/ui/uibackgroundblur-notice.mat";
+			public const string UiBackgroundBlur = "assets/content/ui/uibackgroundblur.mat";
+			public const string UiBackgroundBlurInGameMenu = "assets/content/ui/uibackgroundblur-ingamemenu.mat";
+			public const string UiBackgroundBlurMainMenu = "assets/content/ui/uibackgroundblur-mainmenu.mat";
+			public const string UiBackgroundBlurNotice = "assets/content/ui/uibackgroundblur-notice.mat";
 			public const string UiCirclemask = "assets/content/ui/ui.circlemask.mat";
 			public const string UiMaskclear = "assets/content/ui/ui.maskclear.mat";
 			public const string UiNoztest = "assets/content/ui/ui.noztest.mat";
 
 			public static class Fonts
 			{
-				public static class Robotocondensed
+				public static class RobotoCondensed
 				{
 					public static class Materials
 					{
-						public const string RobotocondensedBoldPlayername = "assets/content/ui/fonts/_robotocondensed/materials/robotocondensed-bold - playername.mat";
-						public const string RobotocondensedBoldSdfChat = "assets/content/ui/fonts/_robotocondensed/materials/robotocondensed-bold sdf - chat.mat";
-						public const string RobotocondensedBoldSdfIoentityInfo = "assets/content/ui/fonts/_robotocondensed/materials/robotocondensed-bold sdf - ioentity info.mat";
-						public const string RobotocondensedBoldSdfLit = "assets/content/ui/fonts/_robotocondensed/materials/robotocondensed-bold sdf - lit.mat";
-						public const string RobotocondensedBoldSdfOutline = "assets/content/ui/fonts/_robotocondensed/materials/robotocondensed-bold sdf - outline.mat";
-						public const string RobotocondensedBoldSdfOutline2 = "assets/content/ui/fonts/_robotocondensed/materials/robotocondensed-bold sdf - outline 2.mat";
-						public const string RobotocondensedBoldSdfOutlineBold = "assets/content/ui/fonts/_robotocondensed/materials/robotocondensed-bold sdf - outline bold.mat";
-						public const string RobotocondensedBoldSdfPlayername = "assets/content/ui/fonts/_robotocondensed/materials/robotocondensed-bold sdf - playername.mat";
-						public const string RobotocondensedBoldSdfTeamList = "assets/content/ui/fonts/_robotocondensed/materials/robotocondensed-bold sdf - team list.mat";
-						public const string RobotocondensedBoldSdfTitle = "assets/content/ui/fonts/_robotocondensed/materials/robotocondensed-bold sdf - title.mat";
-						public const string RobotocondensedBoldSdfUnderline = "assets/content/ui/fonts/_robotocondensed/materials/robotocondensed-bold sdf - underline.mat";
-						public const string RobotocondensedBoldTitle = "assets/content/ui/fonts/_robotocondensed/materials/robotocondensed-bold - title.mat";
+						public const string RobotoCondensedBoldPlayerName = "assets/content/ui/fonts/_robotocondensed/materials/robotocondensed-bold - playername.mat";
+						public const string RobotoCondensedBoldSdfChat = "assets/content/ui/fonts/_robotocondensed/materials/robotocondensed-bold sdf - chat.mat";
+						public const string RobotoCondensedBoldSdfIoEntityInfo = "assets/content/ui/fonts/_robotocondensed/materials/robotocondensed-bold sdf - ioentity info.mat";
+						public const string RobotoCondensedBoldSdfLit = "assets/content/ui/fonts/_robotocondensed/materials/robotocondensed-bold sdf - lit.mat";
+						public const string RobotoCondensedBoldSdfOutline = "assets/content/ui/fonts/_robotocondensed/materials/robotocondensed-bold sdf - outline.mat";
+						public const string RobotoCondensedBoldSdfOutline2 = "assets/content/ui/fonts/_robotocondensed/materials/robotocondensed-bold sdf - outline 2.mat";
+						public const string RobotoCondensedBoldSdfOutlineBold = "assets/content/ui/fonts/_robotocondensed/materials/robotocondensed-bold sdf - outline bold.mat";
+						public const string RobotoCondensedBoldSdfPlayerName = "assets/content/ui/fonts/_robotocondensed/materials/robotocondensed-bold sdf - playername.mat";
+						public const string RobotoCondensedBoldSdfTeamList = "assets/content/ui/fonts/_robotocondensed/materials/robotocondensed-bold sdf - team list.mat";
+						public const string RobotoCondensedBoldSdfTitle = "assets/content/ui/fonts/_robotocondensed/materials/robotocondensed-bold sdf - title.mat";
+						public const string RobotoCondensedBoldSdfUnderline = "assets/content/ui/fonts/_robotocondensed/materials/robotocondensed-bold sdf - underline.mat";
+						public const string RobotoCondensedBoldTitle = "assets/content/ui/fonts/_robotocondensed/materials/robotocondensed-bold - title.mat";
 					}
 				}
 			}
 
-			public static class Gameui
+			public static class GameUi
 			{
 				public const string Compassstrip = "assets/content/ui/gameui/compass/compassstrip.mat";
-				public const string ManpadCrtHdr = "assets/content/ui/gameui/manpad/manpad_crt_hdr.mat";
-				public const string Maplayers = "assets/content/ui/gameui/map/maplayers.mat";
-				public const string Markermaterial = "assets/content/ui/gameui/crosshairs/markermaterial.mat";
+				public const string ManPadCrtHdr = "assets/content/ui/gameui/manpad/manpad_crt_hdr.mat";
+				public const string MaPlayers = "assets/content/ui/gameui/map/maplayers.mat";
+				public const string MarkerMaterial = "assets/content/ui/gameui/crosshairs/markermaterial.mat";
 
-				public static class Attackheli
+				public static class AttackHeli
 				{
 					public static class Hires
 					{
 						public const string AhCrtHdr = "assets/content/ui/gameui/attackheli/hires/ah_crt_hdr.mat";
-						public const string Compassstripattackheli = "assets/content/ui/gameui/attackheli/hires/compassstripattackheli.mat";
+						public const string CompassstripattackHeli = "assets/content/ui/gameui/attackheli/hires/compassstripattackheli.mat";
 					}
 				}
 			}
 
-			public static class Menuui
+			public static class MenuUi
 			{
-				public const string MainmenuModal = "assets/content/ui/menuui/mainmenu.modal.mat";
-				public const string MainmenuPanel = "assets/content/ui/menuui/mainmenu.panel.mat";
-				public const string MainmenuSidebar = "assets/content/ui/menuui/mainmenu.sidebar.mat";
-				public const string Newsimagefadedown = "assets/content/ui/menuui/newsimagefadedown.mat";
-				public const string UiFriendavatarmask = "assets/content/ui/menuui/friendslist/ui.friendavatarmask.mat";
+				public const string MainMenuModal = "assets/content/ui/menuui/mainmenu.modal.mat";
+				public const string MainMenuPanel = "assets/content/ui/menuui/mainmenu.panel.mat";
+				public const string MainMenuSidebar = "assets/content/ui/menuui/mainmenu.sidebar.mat";
+				public const string NewsImagefadedown = "assets/content/ui/menuui/newsimagefadedown.mat";
+				public const string UiFriendAvatarmask = "assets/content/ui/menuui/friendslist/ui.friendavatarmask.mat";
 				public const string UiGrayscale = "assets/content/ui/menuui/itemstore/ui.grayscale.mat";
 			}
 		}
@@ -324,8 +325,8 @@ public static class UiMaterials
 	public static class Icons
 	{
 		public const string Fogofwar = "assets/icons/fogofwar.mat";
-		public const string Greyout = "assets/icons/greyout.mat";
-		public const string Iconmaterial = "assets/icons/iconmaterial.mat";
+		public const string GreyOut = "assets/icons/greyout.mat";
+		public const string IconMaterial = "assets/icons/iconmaterial.mat";
 	}
 	public static class Prefabs
 	{
@@ -335,20 +336,20 @@ public static class UiMaterials
 	}
 	public static class RustAi
 	{
-		public const string Polarbearfur = "assets/rust.ai/agents/bear/model/materials/polarbearfur.mat";
+		public const string PolarBearfur = "assets/rust.ai/agents/bear/model/materials/polarbearfur.mat";
 	}
 	public static class Scenes
 	{
-		public const string Uiedgefade = "assets/scenes/release/skinviewer/uiedgefade.mat";
+		public const string UiEdgefade = "assets/scenes/release/skinviewer/uiedgefade.mat";
 	}
 	public static class Scripts
 	{
-		public static class Imageeffects
+		public static class ImageEffects
 		{
-			public static class Glowoutline
+			public static class GlowOutline
 			{
-				public const string Drawglow = "assets/scripts/imageeffects/glowoutline/drawglow.mat";
-				public const string Glowblend = "assets/scripts/imageeffects/glowoutline/glowblend.mat";
+				public const string DrawGlow = "assets/scripts/imageeffects/glowoutline/drawglow.mat";
+				public const string GlowBlend = "assets/scripts/imageeffects/glowoutline/glowblend.mat";
 			}
 		}
 	}
