@@ -1,7 +1,6 @@
 ﻿using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Enums;
-using Oxide.Ext.UiFramework.Interfaces;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
@@ -9,7 +8,7 @@ using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-public class UiLabel : BaseUiComponent, IFadeIn
+public class UiLabel : BaseUiText<UiLabel>
 {
     public readonly TextComponent Text = new();
     internal override CoreComponent Component => Text;
@@ -43,10 +42,5 @@ public class UiLabel : BaseUiComponent, IFadeIn
         countdown.DestroyIfDone = destroyIfDone;
         countdown.Command = command;
         return countdown;
-    }
-        
-    public void SetFadeIn(float duration)
-    {
-        Text.FadeIn = duration;
     }
 }

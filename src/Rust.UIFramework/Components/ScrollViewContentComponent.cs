@@ -5,12 +5,6 @@ namespace Oxide.Ext.UiFramework.Components;
 
 public class ScrollViewContentComponent : RectTransformComponent
 {
-    public ScrollViewContentComponent()
-    {
-        Position = UiPosition.Full;
-        Offset = default;
-    }
-    
     public override void WriteComponent(JsonFrameworkWriter writer)
     {
         writer.WriteStartObject();
@@ -23,7 +17,7 @@ public class ScrollViewContentComponent : RectTransformComponent
 
     public override void Reset()
     {
-        Position = new UiPosition(0, 0, 1, 1);
+        Position = UiPosition.Full;
         Offset = default;
     }
 }

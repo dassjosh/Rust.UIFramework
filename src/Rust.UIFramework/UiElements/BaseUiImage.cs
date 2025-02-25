@@ -4,35 +4,51 @@ using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-public abstract class BaseUiImage : BaseUiComponent, IImageType, ISprite, IMaterial, IFadeIn
+public abstract class BaseUiImage<T> : BaseUiComponent, IImageType, ISprite, IMaterial, IFadeIn where T : BaseUiImage<T>
 {
     public readonly ImageComponent Image = new();
     internal override CoreComponent Component => Image;
 
-    public void SetImageType(Image.Type type)
+    void IImageType.SetImageType(Image.Type type) => SetImageType(type);
+    void ISprite.SetSprite(string sprite) => SetSprite(sprite);
+    void IMaterial.SetMaterial(string material) => SetMaterial(material);
+    void IFadeIn.SetFadeIn(float duration) => SetFadeIn(duration);
+
+    public T SetImageType(Image.Type type)
     {
         Image.ImageType = type;
+        return (T)this;
     }
         
-    public void SetSprite(string sprite)
+    public T SetSprite(string sprite)
     {
         Image.Sprite = sprite;
+        return (T)this;
     }
         
-    public void SetMaterial(string material)
+    public T SetMaterial(string material)
     {
         Image.Material = material;
+        return (T)this;
     }
         
-    public void SetSpriteMaterialImage(string sprite = null, string material = null, Image.Type type = UnityEngine.UI.Image.Type.Simple)
+    public T SetSpriteMaterialImage(string sprite = null, string material = null, Image.Type type = UnityEngine.UI.Image.Type.Simple)
     {
         Image.Sprite = sprite;
         Image.Material = material;
         Image.ImageType = type;
+        return (T)this;
     }
         
-    public void SetFadeIn(float duration)
+    public T SetFadeIn(float duration)
     {
         Image.FadeIn = duration;
+        return (T)this;
+    }
+    
+    public T SetPng(string png)
+    {
+        Image.Png = png;
+        return (T)this;
     }
 }

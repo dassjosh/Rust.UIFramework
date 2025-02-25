@@ -6,13 +6,13 @@ namespace Oxide.Ext.UiFramework.Components;
 public class ScrollViewComponent : CoreComponent
 {
     public readonly ScrollViewContentComponent ContentTransform = new();
-    public ScrollRect.MovementType MovementType = JsonDefaults.ScrollView.MovementType;
-    public float Elasticity = JsonDefaults.ScrollView.Elasticity;
-    public bool Inertia = JsonDefaults.ScrollView.Inertia;
-    public float DecelerationRate = JsonDefaults.ScrollView.DecelerationRate;
-    public float ScrollSensitivity = JsonDefaults.ScrollView.ScrollSensitivity;
-    public ScrollbarComponent HorizontalScrollbar;
-    public ScrollbarComponent VerticalScrollbar;
+    public ScrollRect.MovementType MovementType;
+    public float Elasticity;
+    public bool Inertia;
+    public float DecelerationRate;
+    public float ScrollSensitivity;
+    public ScrollbarComponent HorizontalScrollbar { get; internal set;  }
+    public ScrollbarComponent VerticalScrollbar { get; internal set; }
     
     public override void WriteComponent(JsonFrameworkWriter writer)
     {

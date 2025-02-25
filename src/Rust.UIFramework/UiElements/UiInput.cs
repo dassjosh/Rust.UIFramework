@@ -1,7 +1,6 @@
 ﻿using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Enums;
-using Oxide.Ext.UiFramework.Interfaces;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
 using UnityEngine;
@@ -9,7 +8,7 @@ using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-public class UiInput : BaseUiComponent, IFadeIn
+public class UiInput : BaseUiText<UiInput>
 {
     public readonly InputComponent Input = new();
     internal override CoreComponent Component => Input;
@@ -29,30 +28,29 @@ public class UiInput : BaseUiComponent, IFadeIn
         comp.LineType = lineType;
         return input;
     }
-
-    public void SetTextAlign(TextAnchor align)
-    {
-        Input.Align = align;
-    }
-        
-    public void SetCharsLimit(int limit)
+    
+    public UiInput SetCharsLimit(int limit)
     {
         Input.CharsLimit = limit;
+        return this;
     }
 
-    public void SetIsPassword(bool isPassword)
+    public UiInput SetIsPassword(bool isPassword)
     {
         Input.SetMode(InputMode.Password, isPassword);
+        return this;
     }
 
-    public void SetIsReadonly(bool isReadonly)
+    public UiInput SetIsReadonly(bool isReadonly)
     {
         Input.SetMode(InputMode.ReadOnly, isReadonly);
+        return this;
     }
         
-    public void SetAutoFocus(bool autoFocus)
+    public UiInput SetAutoFocus(bool autoFocus)
     {
         Input.SetMode(InputMode.AutoFocus, autoFocus);
+        return this;
     }
         
     /// <summary>
@@ -60,9 +58,10 @@ public class UiInput : BaseUiComponent, IFadeIn
     /// This should not be used when the loot panel / crafting UI is open. Use SetNeedsHudKeyboard instead
     /// </summary>
     /// <param name="needsKeyboard"></param>
-    public void SetNeedsKeyboard(bool needsKeyboard)
+    public UiInput SetNeedsKeyboard(bool needsKeyboard)
     {
         Input.SetMode(InputMode.NeedsKeyboard, needsKeyboard);
+        return this;
     }
         
     /// <summary>
@@ -70,18 +69,27 @@ public class UiInput : BaseUiComponent, IFadeIn
     /// This should not be used if a loot panel / crafting ui won't be open when displaying the UI.
     /// </summary>
     /// <param name="needsKeyboard"></param>
-    public void SetNeedsHudKeyboard(bool needsKeyboard)
+    public UiInput SetNeedsHudKeyboard(bool needsKeyboard)
     {
         Input.SetMode(InputMode.HudNeedsKeyboard, needsKeyboard);
+        return this;
     }
 
-    public void SetLineType(InputField.LineType lineType)
+    public UiInput SetLineType(InputField.LineType lineType)
     {
         Input.LineType = lineType;
+        return this;
     }
-
-    public void SetFadeIn(float duration)
+    
+    public UiInput SetCommand(string command)
     {
-        Input.FadeIn = duration;
+        Input.Command = command;
+        return this;
+    }
+    
+    public UiInput SetInputMode(InputMode mode)
+    {
+        Input.Mode = mode;
+        return this;
     }
 }

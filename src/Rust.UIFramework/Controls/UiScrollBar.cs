@@ -32,14 +32,14 @@ public class UiScrollBar : BaseUiControl
                 
             if (i != currentPage)
             {
-                UiButton button = builder.CommandButton(control.Background, pagePosition, default, backgroundColor, $"{command} {StringCache<int>.ToString(i)}");
-                button.SetSpriteMaterialImage(sprite, null, Image.Type.Sliced);
+                UiButton button = builder.CommandButton(control.Background, pagePosition, default, backgroundColor, $"{command} {StringCache<int>.ToString(i)}")
+                    .SetSpriteMaterialImage(sprite, null, Image.Type.Sliced);
                 control.ScrollButtons.Add(button);
             }
             else
             {
-                control.ScrollBar = builder.Panel(control.Background, pagePosition, default, barColor);
-                control.ScrollBar.SetSpriteMaterialImage(sprite, null, Image.Type.Sliced);
+                control.ScrollBar = builder.Panel(control.Background, pagePosition, default, barColor)
+                    .SetSpriteMaterialImage(sprite, null, Image.Type.Sliced);
             }
         }
 

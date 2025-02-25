@@ -40,14 +40,37 @@ public class UiRawImage : BaseUiComponent, IMaterial, IFadeIn
         image.RawImage.Png = png;
         return image;
     }
+    
+    void IMaterial.SetMaterial(string material) => SetMaterial(material);
+    void IFadeIn.SetFadeIn(float duration) => SetFadeIn(duration);
 
-    public void SetMaterial(string material)
+    public UiRawImage SetColor(UiColor color)
+    {
+        RawImage.Color = color;
+        return this;
+    }
+    
+    public UiRawImage SetUrl(string url)
+    {
+        RawImage.Url = url;
+        return this;
+    }
+    
+    public UiRawImage SetTexture(string texture)
+    {
+        RawImage.Texture = texture;
+        return this;
+    }
+    
+    public UiRawImage SetMaterial(string material)
     {
         RawImage.Material = material;
+        return this;
     }
         
-    public void SetFadeIn(float duration)
+    public UiRawImage SetFadeIn(float duration)
     {
         RawImage.FadeIn = duration;
+        return this;
     }
 }

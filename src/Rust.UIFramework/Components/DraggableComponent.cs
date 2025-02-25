@@ -6,19 +6,19 @@ namespace Oxide.Ext.UiFramework.Components;
 
 public class DraggableComponent : SubComponent
 {
-    public bool LimitToParent = JsonDefaults.Draggable.LimitToParent;
-    public float MaxDistance = JsonDefaults.Draggable.MaxDistance;
-    public bool AllowSwapping = JsonDefaults.Draggable.AllowSwapping;
-    public bool DropAnywhere = JsonDefaults.Draggable.DropAnywhere;
-    public float DragAlpha = JsonDefaults.Draggable.DragAlpha;
-    public int ParentLimitIndex = JsonDefaults.Draggable.ParentLimitIndex;
-    public string Filter = JsonDefaults.Common.NullValue;
-    public Vector2 ParentPadding = JsonDefaults.Draggable.ParentPadding;
-    public Vector2 AnchorOffset = JsonDefaults.Draggable.AnchorOffset;
-    public bool KeepOnTop = JsonDefaults.Draggable.KeepOnTop;
-    public DraggablePositionSendType? PositionRpc = JsonDefaults.Draggable.PositionRpc;
-    public bool MoveToAnchor = JsonDefaults.Draggable.MoveToAnchor;
-    public bool RebuildAnchor = JsonDefaults.Draggable.RebuildAnchor;
+    public bool LimitToParent;
+    public float MaxDistance;
+    public bool AllowSwapping;
+    public bool DropAnywhere;
+    public float DragAlpha;
+    public int ParentLimitIndex;
+    public string Filter;
+    public Vector2 ParentPadding;
+    public Vector2 AnchorOffset;
+    public bool KeepOnTop;
+    public DraggablePositionSendType? PositionRpc;
+    public bool MoveToAnchor;
+    public bool RebuildAnchor;
 
     public override bool AllowMultiple => false;
 

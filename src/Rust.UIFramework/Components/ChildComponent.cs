@@ -5,8 +5,13 @@ namespace Oxide.Ext.UiFramework.Components;
 
 public abstract class ChildComponent : BasePoolable, IChildComponent
 {
+    protected ChildComponent()
+    {
+        Reset();
+    }
+    
     public abstract void WriteComponent(JsonFrameworkWriter writer);
-
+    
     public abstract void Reset();
 
     protected override void EnterPool()

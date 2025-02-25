@@ -4,7 +4,7 @@ using Oxide.Ext.UiFramework.Positions;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-public class UiImage : BaseUiImage
+public class UiImage : BaseUiImage<UiImage>
 {
     public static UiImage CreateSpriteImage(in UiPosition pos, in UiOffset offset, UiColor color, string sprite)
     {

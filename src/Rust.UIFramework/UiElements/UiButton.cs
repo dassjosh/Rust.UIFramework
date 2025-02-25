@@ -28,32 +28,54 @@ public class UiButton : BaseUiComponent, IImageType, ISprite, IMaterial, IFadeIn
         button.Button.Close = close;
         return button;
     }
+    
+    void IImageType.SetImageType(Image.Type type) => SetImageType(type);
+    void ISprite.SetSprite(string sprite) => SetSprite(sprite);
+    void IMaterial.SetMaterial(string material) => SetMaterial(material);
+    void IFadeIn.SetFadeIn(float duration) => SetFadeIn(duration);
         
-    public void SetFadeIn(float duration)
+    public UiButton SetFadeIn(float duration)
     {
         Button.FadeIn = duration;
+        return this;
     }
 
-    public void SetImageType(Image.Type type)
+    public UiButton SetImageType(Image.Type type)
     {
         Button.ImageType = type;
+        return this;
     }
 
-    public void SetSprite(string sprite)
+    public UiButton SetSprite(string sprite)
     {
         Button.Sprite = sprite;
+        return this;
     }
         
-    public void SetMaterial(string material)
+    public UiButton SetMaterial(string material)
     {
         Button.Material = material;
+        return this;
     }
         
-    public void SetSpriteMaterialImage(string sprite = null, string material = null, Image.Type type = Image.Type.Simple)
+    public UiButton SetSpriteMaterialImage(string sprite = null, string material = null, Image.Type type = Image.Type.Simple)
     {
         Button.Sprite = sprite;
         Button.Material = material;
         Button.ImageType = type;
+        return this;
+    }
+    
+    public UiButton SetCommand(string command)
+    {
+        Button.Command = command;
+        return this;
+    }
+    
+    public UiButton SetClose(string close)
+    {
+        Button.Close = close;
+        return this;
     }
     
     public ColorBlockComponent AddColorBlock(in UiColor? highlightColor = null, in UiColor? pressedColor = null, in UiColor? selectedColor = null, in float? colorMultiplier = null, in float? fadeDuration = null)

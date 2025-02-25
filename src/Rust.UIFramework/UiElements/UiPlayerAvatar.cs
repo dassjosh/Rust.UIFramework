@@ -18,14 +18,25 @@ public class UiPlayerAvatar : BaseUiComponent, IMaterial, IFadeIn
         icon.Avatar.SteamId = steamId;
         return icon;
     }
+    
+    void IMaterial.SetMaterial(string material) => SetMaterial(material);
+    void IFadeIn.SetFadeIn(float duration) => SetFadeIn(duration);
         
-    public void SetFadeIn(float duration)
+    public UiPlayerAvatar SetFadeIn(float duration)
     {
         Avatar.FadeIn = duration;
+        return this;
     }
     
-    public void SetMaterial(string material)
+    public UiPlayerAvatar SetMaterial(string material)
     {
         Avatar.Material = material;
+        return this;
+    }
+
+    public UiPlayerAvatar SetSteamId(ulong steamId)
+    {
+        Avatar.SteamId = steamId;
+        return this;
     }
 }

@@ -24,17 +24,17 @@ public partial class BaseUiBuilder
         return new UiTuple<UiButton, UiLabel>(button, label);
     }
         
-    public UiTuple<UiButton, UiRawImage> ImageFileStorageButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, string png, string command)
+    public UiTuple<UiButton, UiRawImage> ImageFileStorageButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, string png, string command, UiColor? spriteColor = null)
     {
         UiButton button = CommandButton(parent, pos, offset, buttonColor, command);
-        UiRawImage image = ImageFileStorage(button, UiPosition.Full, default, png);
+        UiRawImage image = ImageFileStorage(button, UiPosition.Full, default, png, spriteColor);
         return new UiTuple<UiButton, UiRawImage>(button, image);
     }
-        
-    public UiTuple<UiButton, UiImage> ImageSpriteButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, string sprite, string command)
+
+    public UiTuple<UiButton, UiImage> ImageSpriteButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, string sprite, string command, UiColor? spriteColor = null)
     {
         UiButton button = CommandButton(parent, pos, offset, buttonColor, command);
-        UiImage image = ImageSprite(button, UiPosition.Full, default, sprite);
+        UiImage image = ImageSprite(button, UiPosition.Full, default, sprite, spriteColor);
         return new UiTuple<UiButton, UiImage>(button, image);
     }
         
@@ -66,17 +66,17 @@ public partial class BaseUiBuilder
         return new UiTuple<UiButton, UiLabel>(button, label);
     }
         
-    public UiTuple<UiButton, UiRawImage> CloseImageFileStorageButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, string png, string close)
+    public UiTuple<UiButton, UiRawImage> CloseImageFileStorageButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, string png, string close, UiColor? imageColor = null)
     {
         UiButton button = CommandButton(parent, pos, offset, buttonColor, close);
-        UiRawImage image = ImageFileStorage(button, UiPosition.Full, default, png);
+        UiRawImage image = ImageFileStorage(button, UiPosition.Full, default, png, imageColor);
         return new UiTuple<UiButton, UiRawImage>(button, image);
     }
         
-    public UiTuple<UiButton, UiImage> CloseImageSpriteButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, string sprite, string close)
+    public UiTuple<UiButton, UiImage> CloseImageSpriteButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, string sprite, string close, UiColor? spriteColor = null)
     {
         UiButton button = CloseButton(parent, pos, offset, buttonColor, close);
-        UiImage image = ImageSprite(button, UiPosition.Full, default, sprite);
+        UiImage image = ImageSprite(button, UiPosition.Full, default, sprite, spriteColor);
         return new UiTuple<UiButton, UiImage>(button, image);
     }
         

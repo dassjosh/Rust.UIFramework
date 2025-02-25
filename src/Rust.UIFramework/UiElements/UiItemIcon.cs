@@ -19,14 +19,31 @@ public class UiItemIcon : BaseUiComponent, IMaterial, IFadeIn
         icon.Icon.SkinId = skinId;
         return icon;
     }
+    
+    void IMaterial.SetMaterial(string material) => SetMaterial(material);
+    void IFadeIn.SetFadeIn(float duration) => SetFadeIn(duration);
         
-    public void SetFadeIn(float duration)
+    public UiItemIcon SetFadeIn(float duration)
     {
         Icon.FadeIn = duration;
+        return this;
     }
         
-    public void SetMaterial(string material)
+    public UiItemIcon SetMaterial(string material)
     {
         Icon.Material = material;
+        return this;
+    }
+    
+    public UiItemIcon SetItemId(int itemId)
+    {
+        Icon.ItemId = itemId;
+        return this;
+    }
+    
+    public UiItemIcon SetSkinId(ulong skinId)
+    {
+        Icon.SkinId = skinId;
+        return this;
     }
 }

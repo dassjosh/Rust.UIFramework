@@ -8,7 +8,7 @@ public abstract class BaseTextComponent : CoreComponent
 {
     public UiColor Color;
     public float FadeIn;
-    public int FontSize = JsonDefaults.BaseText.FontSize;
+    public int FontSize;
     public string Font;
     public TextAnchor Align;
     public string Text;

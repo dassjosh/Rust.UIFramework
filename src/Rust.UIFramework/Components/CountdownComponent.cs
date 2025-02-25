@@ -11,7 +11,7 @@ public class CountdownComponent : SubComponent
     public float Interval;
     public TimerFormat TimerFormat;
     public string NumberFormat;
-    public bool DestroyIfDone = true;
+    public bool DestroyIfDone;
     public string Command;
 
     public override bool AllowMultiple => false;
@@ -40,7 +40,7 @@ public class CountdownComponent : SubComponent
         Interval = JsonDefaults.Countdown.IntervalValue;
         TimerFormat = TimerFormat.None;
         NumberFormat = JsonDefaults.Countdown.NumberFormatValue;
-        DestroyIfDone = true;
+        DestroyIfDone = JsonDefaults.Countdown.DestroyIfDone;
         Command = null;
     }
 }

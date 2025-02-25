@@ -27,6 +27,15 @@ public partial class BaseUiBuilder
     }
     #endregion
 
+    #region Base
+    public T Base<T>(in UiReference parent, in UiPosition pos, in UiOffset offset = default) where T : BaseUiComponent, new()
+    {
+        T @base = BaseUiComponent.CreateBase<T>(pos, offset);
+        AddComponent(@base, parent);
+        return @base;
+    }
+    #endregion
+    
     #region Section
     public UiSection Section(in UiReference parent, in UiPosition pos, in UiOffset offset = default)
     {

@@ -4,7 +4,7 @@ using Oxide.Ext.UiFramework.Positions;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-public class UiPanel : BaseUiImage
+public class UiPanel : BaseUiImage<UiPanel>
 {
     public static UiPanel Create(in UiPosition pos, in UiOffset offset, UiColor color)
     {

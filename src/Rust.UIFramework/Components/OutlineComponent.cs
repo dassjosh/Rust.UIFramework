@@ -7,7 +7,7 @@ namespace Oxide.Ext.UiFramework.Components;
 public class OutlineComponent : SubComponent
 {
     public UiColor Color;
-    public Vector2 Distance = JsonDefaults.Outline.Distance;
+    public Vector2 Distance;
     public bool UseGraphicAlpha;
 
     public override bool AllowMultiple => true;

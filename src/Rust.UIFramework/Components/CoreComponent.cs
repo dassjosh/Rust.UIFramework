@@ -9,13 +9,18 @@ public abstract class CoreComponent : ICoreComponent
 {
     public bool Enabled = true;
     private List<SubComponent> _subComponents;
+
+    protected CoreComponent()
+    {
+        Reset();
+    }
         
     public virtual void WriteComponent(JsonFrameworkWriter writer)
     {
         writer.AddField(JsonDefaults.Common.EnabledName, Enabled, true);
     }
 
-    public void WriteSubComponents(JsonFrameworkWriter writer)
+    internal void WriteSubComponents(JsonFrameworkWriter writer)
     {
         if (_subComponents == null) return;
         for (int index = 0; index < _subComponents.Count; index++)

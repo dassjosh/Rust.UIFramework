@@ -28,8 +28,8 @@ public abstract class BasePopoverControl : BaseUiControl
 
         control.Builder = builder;
         control.OutsideClose = builder.CloseButton(builder.Root, UiPosition.Full, new UiOffset(-1000, -1000, 1000, 1000), UiColor.Clear, name);
-        control.PopoverBackground = builder.Panel(builder.Root, anchor, offset, backgroundColor);
-        control.PopoverBackground.SetSpriteMaterialImage(menuSprite, null, Image.Type.Sliced);
+        control.PopoverBackground = builder.Panel(builder.Root, anchor, offset, backgroundColor)
+            .SetSpriteMaterialImage(menuSprite, null, Image.Type.Sliced);
         control.PopoverBackground.AddOutline(UiColor.Black.WithAlpha(0.75f));
         builder.OverrideRoot(control.PopoverBackground);
 
@@ -57,23 +57,14 @@ public abstract class BasePopoverControl : BaseUiControl
 
     public static UiOffset GetPopoverOffset(PopoverPosition position, Vector2Int size)
     {
-        switch (position)
+        return position switch
         {
-            case PopoverPosition.Top:
-                return new UiOffset(0, 1, 1 + size.x, size.y);
-
-            case PopoverPosition.Left:
-                return new UiOffset(-size.x, -size.y - 1, 0, -1);
-
-            case PopoverPosition.Right:
-                return new UiOffset(0, -size.y - 1, size.x, -1);
-
-            case PopoverPosition.Bottom:
-                return new UiOffset(1, -size.y, 1 + size.x, 0);
-
-            default:
-                throw new ArgumentOutOfRangeException(nameof(position), position, null);
-        }
+            PopoverPosition.Top => new UiOffset(0, 1, 1 + size.x, size.y),
+            PopoverPosition.Left => new UiOffset(-size.x, -size.y - 1, 0, -1),
+            PopoverPosition.Right => new UiOffset(0, -size.y - 1, size.x, -1),
+            PopoverPosition.Bottom => new UiOffset(1, -size.y, 1 + size.x, 0),
+            _ => throw new ArgumentOutOfRangeException(nameof(position), position, null)
+        };
     }
         
     protected override void EnterPool()

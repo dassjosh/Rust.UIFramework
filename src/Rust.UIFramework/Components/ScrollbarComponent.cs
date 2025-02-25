@@ -5,15 +5,15 @@ namespace Oxide.Ext.UiFramework.Components;
 
 public class ScrollbarComponent : ChildComponent
 {
-    public bool Invert = JsonDefaults.ScrollBar.Invert;
-    public bool AutoHide = JsonDefaults.ScrollBar.AutoHide;
-    public string HandleSprite = JsonDefaults.Common.NullValue;
-    public string TrackSprite = JsonDefaults.Common.NullValue;
-    public float Size = JsonDefaults.ScrollBar.Size;
-    public UiColor HandleColor = JsonDefaults.ScrollBar.HandleColor;
-    public UiColor HighlightColor = JsonDefaults.ScrollBar.HighlightColor;
-    public UiColor PressedColor = JsonDefaults.ScrollBar.PressedColor;
-    public UiColor TrackColor = JsonDefaults.ScrollBar.TrackColor;
+    public bool Invert;
+    public bool AutoHide;
+    public string HandleSprite;
+    public string TrackSprite;
+    public float Size;
+    public UiColor HandleColor;
+    public UiColor HighlightColor;
+    public UiColor PressedColor;
+    public UiColor TrackColor;
     
     public override void WriteComponent(JsonFrameworkWriter writer)
     {

@@ -5,9 +5,14 @@ namespace Oxide.Ext.UiFramework.Components;
 
 public abstract class SubComponent : BasePoolable, ISubComponent
 {
-    public bool Enabled = true;
+    public bool Enabled;
     
     public abstract bool AllowMultiple { get; }
+
+    protected SubComponent()
+    {
+        Reset();
+    }
     
     public virtual void WriteComponent(JsonFrameworkWriter writer)
     {
