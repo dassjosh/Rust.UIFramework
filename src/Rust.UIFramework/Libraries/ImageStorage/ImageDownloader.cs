@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using Oxide.Ext.UiFramework.Config;
 using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Types;
 
@@ -15,14 +16,14 @@ internal readonly record struct DownloadRequest(PluginId PluginId, string Name, 
 /// <summary>
 /// Handles concurrent downloading of images
 /// </summary>
-public class ImageDownloader
+internal class ImageDownloader
 {
     private readonly HttpClient _httpClient;
     private readonly ConcurrentQueue<DownloadRequest> _requestQueue = new();
     private readonly ConcurrentDictionary<string, DownloadState> _urlState = new();
     private readonly CancellationTokenSource _cancellationTokenSource = new();
-    private const int MaxConcurrentDownloads = 5; //TODO: Make configurable
-    private const int MaxDownloadAttempts = 3; //TODO: Make configurable
+    private readonly int _maxConcurrentDownloads = UiFrameworkConfig.Instance.ImageStorage.MaxConcurrentDownloads;
+    private readonly int _maxDownloadAttempts = UiFrameworkConfig.Instance.ImageStorage.MaxDownloadAttempts;
     private readonly object _taskLock = new();
     private int _activeWorkerCount;
 
@@ -58,7 +59,7 @@ public class ImageDownloader
         DownloadRequest request = new(pluginId, name, url);
         if (_urlState.TryGetValue(url, out DownloadState state))
         {
-            if (state.InProgress || state.Attempts > MaxDownloadAttempts)
+            if (state.InProgress || state.Attempts > _maxDownloadAttempts)
             {
                 return false;
             }
@@ -94,13 +95,13 @@ public class ImageDownloader
         lock (_taskLock)
         {
             // Only start new workers if we're below the maximum and queue has items
-            if (_activeWorkerCount >= MaxConcurrentDownloads || _requestQueue.IsEmpty)
+            if (_activeWorkerCount >= _maxConcurrentDownloads || _requestQueue.IsEmpty)
             {
                 return;
             }
             
             // Calculate how many new workers we need
-            int workersToStart = Math.Min(MaxConcurrentDownloads - _activeWorkerCount, _requestQueue.Count);
+            int workersToStart = Math.Min(_maxConcurrentDownloads - _activeWorkerCount, _requestQueue.Count);
             for (int i = 0; i < workersToStart; i++)
             {
 #pragma warning disable EPC13
