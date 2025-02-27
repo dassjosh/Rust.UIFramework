@@ -6,35 +6,20 @@
         <AssemblyName>Oxide.Ext.UiFramework</AssemblyName>
         <RootNamespace>Oxide.Ext.UiFramework</RootNamespace>
         <Configurations>Release;Debug;Benchmarks</Configurations>
-        <Platforms>Oxide;Carbon</Platforms>
+        <Platforms>Oxide</Platforms>
         <AssemblyVersion>$(VERSION)</AssemblyVersion>
         <FileVersion>$(VERSION)</FileVersion>
         <TargetFrameworks>net48;netstandard2.1;netcoreapp3.0</TargetFrameworks>
         <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     </PropertyGroup>
-
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|Carbon' ">
-        <DefineConstants>TRACE;DEBUG;CARBON</DefineConstants>
-        <AssemblyName>Carbon.Ext.UiFramework</AssemblyName>
-    </PropertyGroup>
-
+    
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|Oxide' ">
       <DefineConstants>TRACE;DEBUG;OXIDE</DefineConstants>
     </PropertyGroup>
-
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|Carbon' ">
-      <DefineConstants>TRACE;CARBON</DefineConstants>
-        <AssemblyName>Carbon.Ext.UiFramework</AssemblyName>
-    </PropertyGroup>
-
+    
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|Oxide' ">
       <DefineConstants>TRACE;OXIDE</DefineConstants>
-    </PropertyGroup>
-
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Benchmarks|Carbon' ">
-      <DefineConstants>TRACE;BENCHMARKS;CARBON</DefineConstants>
-      <Optimize>true</Optimize>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Benchmarks|Oxide' ">
@@ -52,12 +37,6 @@
       <Reference Include="Assembly-CSharp-firstpass">
         <HintPath>..\References\Assembly-CSharp-firstpass.dll</HintPath>
       </Reference>
-      <Reference Include="Carbon.Common" Condition=" '$(Platform)' == 'Carbon'">
-        <HintPath>..\References\Carbon.Common.dll</HintPath>
-      </Reference>
-      <Reference Include="Carbon.SDK" Condition=" '$(Platform)' == 'Carbon'">
-        <HintPath>..\References\Carbon.SDK.dll</HintPath>
-      </Reference>
       <Reference Include="Facepunch.Console">
         <HintPath>..\References\Facepunch.Console.dll</HintPath>
       </Reference>
@@ -73,25 +52,22 @@
       <Reference Include="mscorlib">
         <HintPath>..\References\mscorlib.dll</HintPath>
       </Reference>
-      <Reference Include="Newtonsoft.Json" Condition=" '$(Platform)' == 'Carbon'">
-        <HintPath>..\References\Newtonsoft.Json.dll</HintPath>
-      </Reference>
-      <Reference Include="Oxide.Core" Condition=" '$(Platform)' == 'Oxide'">
+      <Reference Include="Oxide.Core">
         <HintPath>..\References\Oxide.Core.dll</HintPath>
       </Reference>
-      <Reference Include="Oxide.CSharp" Condition=" '$(Platform)' == 'Oxide'">
+      <Reference Include="Oxide.CSharp">
         <HintPath>..\References\Oxide.CSharp.dll</HintPath>
       </Reference>
-      <Reference Include="Oxide.References" Condition=" '$(Platform)' == 'Oxide'">
+      <Reference Include="Oxide.References">
         <HintPath>..\References\Oxide.References.dll</HintPath>
       </Reference>
-      <Reference Include="Oxide.Rust" Condition=" '$(Platform)' == 'Oxide'">
+      <Reference Include="Oxide.Rust">
         <HintPath>..\References\Oxide.Rust.dll</HintPath>
       </Reference>
-      <Reference Include="Oxide.SQLite" Condition=" '$(Platform)' == 'Oxide'">
+      <Reference Include="Oxide.SQLite">
         <HintPath>..\References\Oxide.SQLite.dll</HintPath>
       </Reference>
-      <Reference Include="Oxide.Unity" Condition=" '$(Platform)' == 'Oxide'">
+      <Reference Include="Oxide.Unity">
         <HintPath>..\References\Oxide.Unity.dll</HintPath>
       </Reference>
       <Reference Include="Rust.Data">

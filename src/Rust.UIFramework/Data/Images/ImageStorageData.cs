@@ -1,41 +1,81 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections.Concurrent;
+using Oxide.Core.Plugins;
 using Oxide.Ext.UiFramework.Libraries;
+using Oxide.Ext.UiFramework.Plugins;
+using ProtoBuf;
 
 namespace Oxide.Ext.UiFramework.Data;
 
+internal readonly record struct SaveVersion([property: ProtoMember(1)] ulong EntityId);
+
+[ProtoContract]
 internal class ImageStorageData : BaseDataFile<ImageStorageData>
 {
-    internal SaveVersion SaveVersion;
-    internal readonly List<UrlImage> URLImages = [];
-    internal readonly List<NamedImage> PluginImages = [];
+    [ProtoMember(1)]
+    private SaveVersion _saveVersion;
+    [ProtoMember(2)]
+    private readonly ConcurrentDictionary<string, ImageId> _urlImages = [];
+    [ProtoMember(3)]
+    private readonly ConcurrentDictionary<PluginImage, ImageId> _pluginImages = [];
 
     public void AddUrlImage(string url, ImageId imageId)
     {
-        URLImages.Add(new UrlImage(url, imageId));
-        OnDataChanged();
+        if (!_urlImages.TryGetValue(url, out ImageId existingId) || existingId != imageId)
+        {
+            _urlImages[url] = imageId;
+            OnDataChanged();
+        }
     }
     
-    public void AddPluginImage(in PluginImage pluginImage, ImageId imageId)
+    public void AddPluginImage(PluginId pluginId, string name, ImageId imageId)
     {
-        PluginImages.Add(new NamedImage(pluginImage.PluginId, pluginImage.Name, imageId));
-        OnDataChanged();
+        PluginImage pluginImage = new(pluginId, name);
+        if (!_pluginImages.TryGetValue(pluginImage, out ImageId existingId) || existingId != imageId)
+        {
+            _pluginImages[pluginImage] = imageId;
+            OnDataChanged();
+        }
     }
 
-    internal override void OnDataLoaded(DataFileInfo info)
+    public ImageId Get(Plugin plugin, string name)
     {
-        base.OnDataLoaded(info);
-        SaveVersion saveVersion = new(Rust.Protocol.save, CommunityEntity.ServerInstance.net.ID.Value);
-        if (saveVersion != SaveVersion)
+        if (_pluginImages.TryGetValue(new PluginImage(plugin, name), out ImageId png) && png.IsValid)
+        {
+            return png;
+        }
+        
+        if (_urlImages.TryGetValue(name, out ImageId url) && url.IsValid)
+        {
+            return url;
+        }
+
+        return default;
+    }
+
+    public ImageId GetByUrl(string url)
+    {
+        if (_urlImages.TryGetValue(url, out ImageId image) && image.IsValid)
+        {
+            return image;
+        }
+
+        return default;
+    }
+
+    internal void OnCommunityEntityLoaded()
+    {
+        SaveVersion saveVersion = new(CommunityEntity.ServerInstance.net.ID.Value);
+        if (saveVersion != _saveVersion)
         {
             Wipe();
-            SaveVersion = saveVersion;
+            _saveVersion = saveVersion;
         }
     }
 
     public void Wipe()
     {
-        URLImages.Clear();
-        PluginImages.Clear();
+        _urlImages.Clear();
+        _pluginImages.Clear();
         OnDataChanged();
     }
 }

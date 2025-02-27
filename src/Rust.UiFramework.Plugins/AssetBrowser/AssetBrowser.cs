@@ -19,6 +19,7 @@ using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.Types;
 using Oxide.Ext.UiFramework.UiElements;
 using Oxide.Plugins;
+using Rust.UI;
 using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Plugins.AssetBrowser;
@@ -44,6 +45,7 @@ public class AssetBrowser : RustPlugin
 
     private readonly UiCommands _commands = GetLibrary<UiCommands>();
     private readonly UiPlayerStore _store = GetLibrary<UiPlayerStore>();
+    private readonly UiImageStorage _storage = GetLibrary<UiImageStorage>();
     private UiCommandHandler _uiCommands;
     
     public enum AssetType
@@ -510,6 +512,7 @@ public class AssetBrowser : RustPlugin
                 CreateItems(builder, body, state);
                 break;
             case AssetType.RustIcon:
+                CreateRustIcons(builder, body, state);
                 break;
             case AssetType.Font:
                 CreateFonts(builder, body, state);
@@ -645,6 +648,21 @@ public class AssetBrowser : RustPlugin
             UiButton button = builder.CommandButton(scroll, _imageGrid, default, _buttonColor, _uiCommands.SelectAsset.Build(pair.Value));
             UiItemIcon icon = builder.ItemIcon(button, UiPosition.Full, default, int.Parse(pair.Value), color: UiColor.White);
             icon.SetMaterial(UiMaterials.Content.Ui.NameFontMaterial);
+            _imageGrid.MoveCols(1);
+        }
+    }
+    
+    private void CreateRustIcons(UiBuilder builder, UiReference root, UiState state)
+    {       
+        _imageGrid.Reset();
+        UiScrollView scroll = CreateScrollView(builder, root, _imageGrid, EnumCache<Icons>.GetValues().Count);
+        
+        foreach (Icons icon in EnumCache<Icons>.GetValues())
+        {
+            //Puts($"{pair.Key}: {_imageGrid.ToPosition()}");
+            UiButton button = builder.CommandButton(scroll, _imageGrid, default, _buttonColor,  _uiCommands.SelectAsset.Build($"RustIconCache.GetIcon(Icons.{icon})"));
+            UiRawImage image = _storage.Get(builder, button, UiPosition.Full, default, this, RustIconCache.GetIcon(icon), UiColor.White);
+            image.SetMaterial(UiMaterials.Content.Ui.NameFontMaterial);
             _imageGrid.MoveCols(1);
         }
     }

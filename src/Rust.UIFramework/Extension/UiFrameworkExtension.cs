@@ -1,11 +1,9 @@
-﻿#if OXIDE
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Reflection;
 using Oxide.Core;
 using Oxide.Core.Extensions;
 using Oxide.Ext.UiFramework.Config;
 using Oxide.Ext.UiFramework.Data;
-using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Libraries.Themes;
 using Oxide.Ext.UiFramework.Libraries.UiCommands;
@@ -34,17 +32,13 @@ public class UiFrameworkExtension : Extension
     public override void OnModLoad()
     {
         UiFrameworkConfig.LoadConfig();
+        Singleton<DataHandler>.Instance.LoadAll();
         Manager.RegisterPluginLoader(new UiFrameworkExtPluginLoader());
-        Manager.RegisterLibrary($"{Name}_{nameof(ImageStorage)}", Singleton<ImageStorage>.Instance);
+        Manager.RegisterLibrary(nameof(UiImageStorage), Singleton<UiImageStorage>.Instance);
         Manager.RegisterLibrary(nameof(UiCommands), Singleton<UiCommands>.Instance);
         Manager.RegisterLibrary(nameof(UiNameStore), Singleton<UiNameStore>.Instance);
         Manager.RegisterLibrary(nameof(UiPlayerStore), Singleton<UiPlayerStore>.Instance);
         Manager.RegisterLibrary(nameof(ThemeManager), Singleton<ThemeManager>.Instance);
-        
-        Interface.Oxide.RootPluginManager.OnPluginRemoved += plugin =>
-        {
-            PluginExt.OnPluginUnloaded(plugin);
-        };
     }
 
     public override IEnumerable<string> GetPreprocessorDirectives()
@@ -66,4 +60,3 @@ public class UiFrameworkExtension : Extension
         SendHandler.OnServerShutdown();
     }
 }
-#endif

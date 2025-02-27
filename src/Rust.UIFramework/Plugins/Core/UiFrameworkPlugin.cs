@@ -42,7 +42,6 @@ internal class UiFrameworkPlugin : BaseUiFrameworkPlugin
     [HookMethod(nameof(OnServerInitialized))]
     private void OnServerInitialized()
     {
-        Singleton<DataHandler>.Instance.LoadAll();
         BaseUiFrameworkLibrary.ProcessOnServerInitialized();
         UiHarmony.Initialize();
     }
@@ -53,11 +52,32 @@ internal class UiFrameworkPlugin : BaseUiFrameworkPlugin
     {
         Singleton<DataHandler>.Instance.OnServerSave();
     }
+    
+    [HookMethod(nameof(OnPluginLoaded))]
+    private void OnPluginLoaded(Plugin plugin)
+    {
+        BaseUiFrameworkLibrary.ProcessOnPluginLoaded(plugin);
+    }
 
     [HookMethod(nameof(OnPluginUnloaded))]
     private void OnPluginUnloaded(Plugin plugin)
     {
         BaseUiFrameworkLibrary.ProcessOnPluginUnloaded(plugin);
+        PluginExt.OnPluginUnloaded(plugin);
+    }
+    
+    [HookMethod(nameof(OnServerShutdown))]
+    private void OnServerShutdown()
+    {
+        BaseUiFrameworkLibrary.ProcessOnServerShutdown();
+    }
+    
+    [HookMethod(nameof(OnEntitySpawned))]
+    private void OnEntitySpawned(CommunityEntity entity)
+    {
+        ImageStorageData.Instance.OnCommunityEntityLoaded();
+        Singleton<UiImageStorage>.Instance.OnCommunityEntitySpawned();
+        Unsubscribe(nameof(OnEntitySpawned));
     }
 
     #region Hooks
@@ -110,6 +130,12 @@ internal class UiFrameworkPlugin : BaseUiFrameworkPlugin
         if (!args[0].TryParseBool(out bool state))
         {
             Chat(player, LangKeys.Harmony.Patch.AddUi.InvalidArg, args[0]);
+            return;
+        }
+        
+        if (state == UiFrameworkConfig.Instance.Harmony.PatchAddUiMethod)
+        {
+            Chat(player, LangKeys.Harmony.Patch.AddUi.Show, GetLang(state ? LangKeys.Enabled : LangKeys.Disabled));
             return;
         }
             

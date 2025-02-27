@@ -1,0 +1,155 @@
+﻿using System;
+using System.Collections.Generic;
+using Oxide.Core;
+using Oxide.Core.Plugins;
+using Oxide.Ext.UiFramework.Builder;
+using Oxide.Ext.UiFramework.Colors;
+using Oxide.Ext.UiFramework.Constants;
+using Oxide.Ext.UiFramework.Data;
+using Oxide.Ext.UiFramework.Exceptions;
+using Oxide.Ext.UiFramework.Extensions;
+using Oxide.Ext.UiFramework.Offsets;
+using Oxide.Ext.UiFramework.Positions;
+using Oxide.Ext.UiFramework.Types;
+using Oxide.Ext.UiFramework.UiElements;
+
+namespace Oxide.Ext.UiFramework.Libraries;
+
+public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
+{
+    private readonly ImageStorageData _data = ImageStorageData.Instance;
+    private readonly ImageDownloader _downloader = new();
+    public bool IsReady { get; private set; }
+    
+    private static readonly byte[] SignaturePNG = [137, 80, 78, 71, 13, 10, 26, 10, 0, 0, 0, 13, 73, 72, 68, 82];
+
+    private UiImageStorage() {}
+    
+    public UiRawImage Get(BaseUiBuilder builder, in UiReference parent, in UiPosition pos, in UiOffset offset, Plugin plugin, string name, UiColor color)
+    {
+        string png = Get(plugin, name);
+        return png.StartsWith("http") ? builder.WebImage(parent, pos, offset, png, color) : builder.ImageFileStorage(parent, pos, offset, png, color);
+    }
+
+    public string Get(Plugin plugin, string name)
+    {
+        if (plugin == null) throw new ArgumentNullException(nameof(plugin));
+        if (name == null) throw new ArgumentNullException(nameof(name));
+
+        ImageId id = _data.Get(plugin, name);
+        if (id.IsValid)
+        {
+            return id.Id;
+        }
+
+        if (name.StartsWith("http"))
+        {
+            RegisterImage(plugin, name);
+            return name;
+        }
+
+        throw new ImageNotFoundException(plugin, name);
+    }
+    
+    public bool RegisterImage(Plugin plugin, string name, string url)
+    {
+        CommunityEntityNotReadyException.ThrowIfNotReady();
+        ImageId id = _data.GetByUrl(url);
+        if (id.IsValid)
+        {
+            _data.AddPluginImage(plugin.Id(), name, id);
+            return true;
+        }
+        
+        return _downloader.AddRequest(plugin.Id(), name, url);
+    }
+    
+    public bool RegisterImage(Plugin plugin, string url)
+    {
+        return RegisterImage(plugin, url, url);
+    }
+    
+    public bool RegisterImage(Plugin plugin, string name, byte[] image, out string error)
+    {
+        CommunityEntityNotReadyException.ThrowIfNotReady();
+        if (plugin == null) throw new ArgumentNullException(nameof(plugin));
+        if (string.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
+        if (image == null) throw new ArgumentNullException(nameof(image));
+        
+        ImageId id = _data.Get(plugin, name);
+        if (id.IsValid)
+        {
+            error = "Image already registered";
+            return false;
+        }
+        
+        ImageId imageId = ProcessImage(image, out error);
+        if (!imageId.IsValid)
+        {
+            return false;
+        }
+        
+        _data.AddPluginImage(plugin.Id(), name, imageId);
+        return true;
+    }
+
+    public void BulkRegisterImages(Plugin plugin, Dictionary<string, string> images)
+    {
+        CommunityEntityNotReadyException.ThrowIfNotReady();
+        _downloader.BulkAddRequests(plugin.Id(), images);
+    }
+
+    internal void OnImageDownloaded(in DownloadRequest request, byte[] image)
+    {
+        ImageId imageId = ProcessImage(image, out string error);
+        if (!imageId.IsValid)
+        {
+            Interface.Oxide.LogWarning($"[UiFramework] Failed to download image from url: {request.Url} Error: {error}");
+            return;
+        }
+        
+        _data.AddPluginImage(request.PluginId, request.Name, imageId);
+        _data.AddUrlImage(request.Url, imageId);
+    }
+
+    private static ImageId ProcessImage(byte[] image, out string error)
+    {
+        if (image == null || image.Length == 0)
+        {
+            error = "Image byte[] is empty";
+            return default;
+        }
+
+        if (!IsValidRustPng(image) && !IsValidJpegImage(image))
+        {
+            error = "Image is not a valid PNG or JPEG";
+            return default;
+        }
+        
+        error = null;
+        return StoreImage(image);
+    }
+
+    private static bool IsValidRustPng(byte[] image) => image.AsSpan().StartsWith(SignaturePNG);
+    private static bool IsValidJpegImage(byte[] image) => image is [0xFF, 0xD8, ..];
+    private static ImageId StoreImage(byte[] image) => new(FileStorage.server.Store(image, FileStorage.Type.png, CommunityEntity.ServerInstance.net.ID).ToString());
+
+    internal void OnCommunityEntitySpawned()
+    {
+        IsReady = true;
+        Interface.Oxide.CallHook(UiFrameworkHooks.OnUiImageStorageReady);
+    }
+
+    protected override void OnPluginLoaded(Plugin plugin)
+    {
+        if (IsReady)
+        {
+            plugin.CallHook(UiFrameworkHooks.OnUiImageStorageReady);
+        }
+    }
+
+    protected override void OnServerShutdown()
+    {
+        _downloader.OnServerShutdown();
+    }
+}

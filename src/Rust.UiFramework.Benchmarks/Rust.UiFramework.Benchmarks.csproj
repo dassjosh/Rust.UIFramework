@@ -10,19 +10,9 @@
         <OutputType>Exe</OutputType>
         <TargetFramework>netcoreapp3.0</TargetFramework>
     </PropertyGroup>
-
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|Carbon' ">
-        <DefineConstants>TRACE;DEBUG;CARBON</DefineConstants>
-        <AssemblyName>Carbon.Ext.UiFramework</AssemblyName>
-    </PropertyGroup>
-
+    
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|Oxide' ">
         <DefineConstants>TRACE;DEBUG;OXIDE</DefineConstants>
-    </PropertyGroup>
-
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|Carbon' ">
-        <DefineConstants>TRACE;CARBON</DefineConstants>
-        <AssemblyName>Carbon.Ext.UiFramework</AssemblyName>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|Oxide' ">

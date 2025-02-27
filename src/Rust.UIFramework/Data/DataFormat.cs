@@ -1,8 +1,7 @@
-﻿namespace Oxide.Ext.UiFramework.Data
+﻿namespace Oxide.Ext.UiFramework.Data;
+
+internal enum DataFormat
 {
-    internal enum DataFormat
-    {
-        Json,
-        Protobuf
-    }
+    Json,
+    Protobuf
 }

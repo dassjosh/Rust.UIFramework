@@ -19,6 +19,12 @@ internal class UiFrameworkConfig : ConfigFile
     /// </summary>
     [JsonProperty("Harmony")]
     public UiHarmonyConfig Harmony { get; set; }
+    
+    /// <summary>
+    /// UiFramework Image Storage Options
+    /// </summary>
+    [JsonProperty("ImageStorage")]
+    public UiImageStorageSettings ImageStorage { get; set; }
 
     /// <summary>
     /// Constructor for discord config
@@ -65,6 +71,12 @@ internal class UiFrameworkConfig : ConfigFile
         Harmony = new UiHarmonyConfig
         {
             PatchAddUiMethod = Harmony?.PatchAddUiMethod ?? false
+        };
+
+        ImageStorage = new UiImageStorageSettings
+        {
+            MaxConcurrentDownloads = ImageStorage?.MaxConcurrentDownloads ?? 5,
+            MaxDownloadAttempts = ImageStorage?.MaxDownloadAttempts ?? 3,
         };
     }
 }

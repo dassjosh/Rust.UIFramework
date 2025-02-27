@@ -14,14 +14,24 @@ public abstract class BaseUiFrameworkLibrary : Library
     }
 
     protected virtual void OnServerInitialized() {}
+    protected virtual void OnPluginLoaded(Plugin plugin){}
     protected virtual void OnPluginUnloaded(Plugin plugin){}
     protected virtual void OnPlayerDisconnected(BasePlayer player){}
+    protected virtual void OnServerShutdown(){}
     
     internal static void ProcessOnServerInitialized()
     {
         foreach (BaseUiFrameworkLibrary library in Libraries)
         {
             library.OnServerInitialized();
+        }
+    }
+    
+    internal static void ProcessOnPluginLoaded(Plugin plugin)
+    {
+        foreach (BaseUiFrameworkLibrary library in Libraries)
+        {
+            library.OnPluginLoaded(plugin);
         }
     }
     
@@ -38,6 +48,14 @@ public abstract class BaseUiFrameworkLibrary : Library
         foreach (BaseUiFrameworkLibrary library in Libraries)
         {
             library.OnPlayerDisconnected(player);
+        }
+    }
+    
+    internal static void ProcessOnServerShutdown()
+    {
+        foreach (BaseUiFrameworkLibrary library in Libraries)
+        {
+            library.OnServerShutdown();
         }
     }
 }

@@ -15,10 +15,7 @@ public class ThemeManager : BaseUiFrameworkLibrary, ISingleton
     public T RegisterTheme<T>(Plugin plugin, string name, T theme) where T : ITheme
     {
         string path = Path.Combine(PathConstants.ThemeFolder, plugin.Name);
-        if (!Directory.Exists(path))
-        {
-            Directory.CreateDirectory(path);
-        }
+        Directory.CreateDirectory(path);
         string fileName = string.IsNullOrEmpty(name) ? $"{plugin.Name}.json" : $"{name}.json";
         string filePath = Path.Combine(path, fileName);
         if (File.Exists(filePath))

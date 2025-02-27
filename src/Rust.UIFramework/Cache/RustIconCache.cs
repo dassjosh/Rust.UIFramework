@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Oxide.Ext.UiFramework.Libraries;
+using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Types;
 using Rust.UI;
 
@@ -13,14 +14,9 @@ public static class RustIconCache
     {
         if (!RustIcons.TryGetValue(icon, out string url))
         {
-            RustIcons[icon] = url = GetIconUrl(icon);
+            RustIcons[icon] = url = $"https://rust-images.joshdass.dev/icons/{(int)icon}.png";
         }
         
-        return Singleton<ImageStorage>.Instance.Get(url);
-    }
-
-    private static string GetIconUrl(Icons icon)
-    {
-        return $"https://abc.123/images/uiframework/{(int)icon}.png";
+        return Singleton<UiImageStorage>.Instance.Get(UiFrameworkPlugin.Instance,  url);
     }
 }
