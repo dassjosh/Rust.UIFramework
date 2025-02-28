@@ -38,10 +38,10 @@ public partial class BaseUiBuilder
         return new UiTuple<UiButton, UiImage>(button, image);
     }
         
-    public UiTuple<UiButton, UiRawImage> WebImageButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, string url, string command)
+    public UiTuple<UiButton, UiRawImage> WebImageButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, string url, string command, UiColor? imageColor = null)
     {
         UiButton button = CommandButton(parent, pos, offset, buttonColor, command);
-        UiRawImage image = WebImage(button, UiPosition.Full, default, url);
+        UiRawImage image = WebImage(button, UiPosition.Full, default, url, imageColor);
         return new UiTuple<UiButton, UiRawImage>(button, image);
     }
         
@@ -80,10 +80,10 @@ public partial class BaseUiBuilder
         return new UiTuple<UiButton, UiImage>(button, image);
     }
         
-    public UiTuple<UiButton, UiRawImage> CloseWebImageButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, string url, string close)
+    public UiTuple<UiButton, UiRawImage> CloseWebImageButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, string url, string close, UiColor? imageColor = null)
     {
         UiButton button = CloseButton(parent, pos, offset, buttonColor, close);
-        UiRawImage image = WebImage(button, UiPosition.Full, default, url);
+        UiRawImage image = WebImage(button, UiPosition.Full, default, url, imageColor);
         return new UiTuple<UiButton, UiRawImage>(button, image);
     }
         
