@@ -24,11 +24,13 @@ internal ref struct ArgWriterIterator(UiArgWriter writer, IArgWriter[] writers)
 
     internal void Write(string arg)
     {
+        _writer.AppendSpace();
         _writer.Append(arg);
     }
     
     internal void Write(ReadOnlySpan<char> arg)
     {
+        _writer.AppendSpace();
         _writer.Append(arg);
     }
 

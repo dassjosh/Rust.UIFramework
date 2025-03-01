@@ -5,9 +5,11 @@ using Oxide.Ext.UiFramework.Constants;
 using Oxide.Ext.UiFramework.Controls;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Json;
+using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Logging;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
+using Oxide.Ext.UiFramework.Types;
 using Oxide.Ext.UiFramework.UiElements;
 using Rust.UI;
 using UnityEngine;
@@ -134,12 +136,9 @@ public partial class BaseUiBuilder
     #endregion
     
     #region Rust Icon
-
     public UiRawImage RustIcon(in UiReference parent, in UiPosition pos, in UiOffset offset, Icons icon, UiColor? color = default)
     {
-        string img = RustIconCache.GetIcon(icon);
-        UiRawImage image = img.StartsWith("http") ? WebImage(parent, pos, offset, img, color ?? UiColor.White) : ImageFileStorage(parent, pos, offset, img, color ?? UiColor.White);
-        
+        UiRawImage image = Singleton<UiImageStorage>.Instance.Get(this, parent, pos, offset, icon, color ?? UiColor.White);
         image.SetMaterial(UiMaterials.Icons.IconMaterial);
         AddComponent(image, parent);
         return image;

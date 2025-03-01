@@ -18,7 +18,7 @@ internal static class RustIconCache
         {
             RustIcons[icon] = url = string.Format(Format, (int)icon);
         }
-        
-        return Singleton<UiImageStorage>.Instance.Get(UiFrameworkPlugin.Instance,  url);
+
+        return url;
     }
 }

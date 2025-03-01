@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Reflection;
+using Oxide.Ext.UiFramework.Extensions;
+using Oxide.Ext.UiFramework.Logging;
 
 namespace Oxide.Ext.UiFramework.Types;
 
@@ -28,9 +30,10 @@ public static class Singleton<T> where T : ISingleton
         {
             Instance = (T)constructor.Invoke(null);
         }
-        catch 
+        catch(Exception ex)
         {
-            throw new InvalidOperationException($"{typeof(T)} {ErrorMessage}");
+            UiFrameworkExtension.GlobalLogger.Exception("An error occured in Singleton<{0}> constructor", typeof(T).GetRealTypeName(), ex);
+            throw;
         }
     }
 }

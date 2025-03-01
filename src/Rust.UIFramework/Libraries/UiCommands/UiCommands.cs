@@ -16,7 +16,7 @@ public delegate void OnProtectionValidationFailed(BasePlayer player, string meth
 public class UiCommands : BaseUiFrameworkLibrary, ISingleton
 {
     public const string NullArg = "null";
-    internal const string UiCommandName = "UIF_EXT_C ";
+    internal const string UiCommandName = "UIF_EXT_C";
     private readonly Dictionary<CommandId, ICommandParser> _commands = new();
     private readonly Dictionary<PluginId, PluginCallbacks> _callbacks = new();
     private readonly CommandIdHandler _idHandler = new();

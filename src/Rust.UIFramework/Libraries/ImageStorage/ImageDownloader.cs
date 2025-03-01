@@ -14,6 +14,8 @@ namespace Oxide.Ext.UiFramework.Libraries;
 
 internal readonly record struct DownloadRequest(PluginId PluginId, string Name, string Url);
 
+internal readonly record struct CompletedDownload(DownloadRequest Request, byte[] Data);
+
 /// <summary>
 /// Handles concurrent downloading of images
 /// </summary>
@@ -61,14 +63,14 @@ internal class ImageDownloader
         DownloadRequest request = new(pluginId, name, url);
         if (_urlState.TryGetValue(url, out DownloadState state))
         {
-            if (state.InProgress || state.Attempts > _maxDownloadAttempts)
+            if (state.InProgress  || state.Completed || state.Attempts > _maxDownloadAttempts)
             {
                 return false;
             }
         }
         else
         {
-            _urlState.TryAdd(url, new DownloadState(1, true));
+            _urlState.TryAdd(url, new DownloadState(1, true, false));
         }
 
         _requestQueue.Enqueue(request);
@@ -128,17 +130,16 @@ internal class ImageDownloader
     {
         try
         {
-            while (!cancellationToken.IsCancellationRequested)
+            while (!cancellationToken.IsCancellationRequested && _requestQueue.TryDequeue(out DownloadRequest request))
             {
-                // Try to dequeue a request
-                if (!_requestQueue.TryDequeue(out DownloadRequest request))
+                DownloadState state = _urlState[request.Url];
+                if (state.Completed)
                 {
-                    Interlocked.Decrement(ref _activeWorkerCount);
-                    _logger.Debug("Worker task shutting down due to empty queue. Active workers: {0}", _activeWorkerCount);
-                    return;
+                    _logger.Debug("Skipping url: {0} as it has already been downloaded", request.Url);
+                    continue;
                 }
                 
-                await DownloadImageAsync(request, cancellationToken);
+                await DownloadImageAsync(request, state, cancellationToken);
             }
         }
         catch (OperationCanceledException)
@@ -151,6 +152,7 @@ internal class ImageDownloader
         }
         finally
         {
+            _logger.Debug("Worker task shutting down due to empty queue. Active workers: {0}", _activeWorkerCount);
             Interlocked.Decrement(ref _activeWorkerCount);
         }
     }
@@ -159,9 +161,10 @@ internal class ImageDownloader
     /// Downloads an image from the specified URL
     /// </summary>
     /// <param name="request">The download request</param>
+    /// <param name="state"></param>
     /// <param name="cancellationToken">Token to monitor for cancellation</param>
     /// <returns>True if download was successful, otherwise false</returns>
-    private async ValueTask<bool> DownloadImageAsync(DownloadRequest request, CancellationToken cancellationToken)
+    private async ValueTask<bool> DownloadImageAsync(DownloadRequest request, DownloadState state, CancellationToken cancellationToken)
     {
         try
         {
@@ -169,25 +172,18 @@ internal class ImageDownloader
             using HttpResponseMessage response = await _httpClient.GetAsync(request.Url, cancellationToken);
             if (response.IsSuccessStatusCode)
             {
-                // Successfully downloaded - remove from registry
-                _urlState.TryRemove(request.Url, out _);
                 byte[] data = await response.Content.ReadAsByteArrayAsync();
-                Singleton<UiImageStorage>.Instance.OnImageDownloaded(request, data);
+                SingletonBehavior<ImageStorageBehavior>.Instance.OnDownloadComplete(new CompletedDownload(request, data));
+                state.OnDownloadComplete();
                 return true;
             }
             
-            _logger.Error($"Failed to download image. Url: {request.Url}. Attempt: {_urlState[request.Url].Attempts} Status Code: {response.StatusCode}. Message: {await response.Content.ReadAsStringAsync()}");
+            state.OnDownloadFailed();
+            _logger.Error($"Failed to download image. Url: {request.Url}. Attempt: {state.Attempts} Status Code: {response.StatusCode}. Message: {await response.Content.ReadAsStringAsync()}");
         }
         catch (Exception ex) when (ex is not OperationCanceledException)
         {
-            _logger.Exception($"An error occured downloading image. Url: {request.Url} Attempt: {_urlState[request.Url].Attempts}", ex);
-        }
-        finally
-        {
-            if (_urlState.TryGetValue(request.Url, out DownloadState state))
-            {
-                _urlState[request.Url] = new DownloadState(state.Attempts + 1, false);
-            }
+            _logger.Exception($"An error occured downloading image. Url: {request.Url} Attempt: {state.Attempts}", ex);
         }
 
         return false;
@@ -197,6 +193,23 @@ internal class ImageDownloader
     {
         _cancellationTokenSource.Cancel();
     }
-    
-    private readonly record struct DownloadState(int Attempts, bool InProgress);
+
+    private sealed class DownloadState(int attempts, bool inProgress, bool completed)
+    {
+        public int Attempts = attempts;
+        public bool InProgress = inProgress;
+        public bool Completed = completed;
+        
+        public void OnDownloadFailed()
+        {
+            Attempts += 1;
+            InProgress = false;
+        }
+
+        public void OnDownloadComplete()
+        {
+            InProgress = false;
+            Completed = true;
+        }
+    }
 }

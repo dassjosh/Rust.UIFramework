@@ -5,12 +5,12 @@ using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Pooling
 {
-    internal sealed class ArrayPool<TPooled> : ISingleton, IDebugLoggable
+    internal sealed class UiArrayPool<TPooled> : ISingleton, IDebugLoggable
     {
         private const int MaxArraySize = 64;
         private readonly ArrayPoolInternal[] _pool = new ArrayPoolInternal[MaxArraySize + 1];
 
-        private ArrayPool() { }
+        private UiArrayPool() { }
 
         public TPooled[] Get(int size)
         {

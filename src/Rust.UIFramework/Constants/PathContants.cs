@@ -15,11 +15,6 @@ internal static class PathConstants
         {
             Directory.CreateDirectory(ConfigFolder);
         }
-            
-        if (!Directory.Exists(ThemeFolder))
-        {
-            Directory.CreateDirectory(ThemeFolder);
-        }
 
         if (!Directory.Exists(DataFolder))
         {

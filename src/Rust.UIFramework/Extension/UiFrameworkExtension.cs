@@ -34,6 +34,8 @@ public class UiFrameworkExtension : Extension
     public override void OnModLoad()
     {
         UiFrameworkConfig.LoadConfig();
+        GlobalLogger = Singleton<UiLoggerFactory>.Instance.CreateGlobalLogger();
+        GlobalLogger.Info($"Using UiFramework v{Version}");
         Singleton<DataHandler>.Instance.LoadAll();
         Manager.RegisterPluginLoader(new UiFrameworkExtPluginLoader());
         Manager.RegisterLibrary(nameof(UiImageStorage), Singleton<UiImageStorage>.Instance);

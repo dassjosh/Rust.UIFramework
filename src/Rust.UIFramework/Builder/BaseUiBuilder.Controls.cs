@@ -9,6 +9,7 @@ using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.Types;
 using Oxide.Ext.UiFramework.UiElements;
+using Rust.UI;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -58,6 +59,13 @@ public partial class BaseUiBuilder
         UiItemIcon icon = ItemIcon(button, UiPosition.Full, default, itemId, skinId);
         return new UiTuple<UiButton, UiItemIcon>(button, icon);
     }
+    
+    public UiTuple<UiButton, UiRawImage> RustIconButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, Icons icon, string command, UiColor? iconColor = null)
+    {
+        UiButton button = CommandButton(parent, pos, offset, buttonColor, command);
+        UiRawImage image = RustIcon(button, UiPosition.Full, default, icon, iconColor);
+        return new UiTuple<UiButton, UiRawImage>(button, image);
+    }
         
     public UiTuple<UiButton, UiLabel> CloseTextButton(in UiReference parent, in UiPosition pos, in UiOffset offset, string text, int textSize, UiColor textColor, UiColor buttonColor, string close, TextAnchor align = TextAnchor.MiddleCenter)
     {
@@ -100,6 +108,13 @@ public partial class BaseUiBuilder
         UiItemIcon icon = ItemIcon(button, UiPosition.Full, default, itemId, skinId);
         return new UiTuple<UiButton, UiItemIcon>(button, icon);
     }
+    
+    public UiTuple<UiButton, UiRawImage> CloseRustIconButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, Icons icon, string close, UiColor? iconColor = null)
+    {
+        UiButton button = CloseButton(parent, pos, offset, buttonColor, close);
+        UiRawImage image = RustIcon(button, UiPosition.Full, default, icon, iconColor);
+        return new UiTuple<UiButton, UiRawImage>(button, image);
+    }
     #endregion
 
     #region Label Background
@@ -130,11 +145,11 @@ public partial class BaseUiBuilder
     #endregion
 
     #region ProgressBar
-    public UiProgressBar ProgressBar(in UiReference parent, in UiPosition pos, in UiOffset offset, float percentage, UiColor barColor, UiColor backgroundColor)
+    public UiTuple<UiPanel, UiPanel> ProgressBar(in UiReference parent, in UiPosition pos, in UiOffset offset, float percentage, UiColor barColor, UiColor backgroundColor)
     {
-        UiProgressBar control = UiProgressBar.Create(this, parent, pos, offset, percentage, barColor, backgroundColor);
-        AddControl(control);
-        return control;
+        UiPanel background = Panel(parent, pos, offset, backgroundColor);
+        UiPanel progress = Panel(background, UiPosition.Full.SliceHorizontal(0, percentage), default, barColor);
+        return new UiTuple<UiPanel, UiPanel>(background, progress);
     }
     #endregion
 

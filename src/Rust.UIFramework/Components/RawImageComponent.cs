@@ -40,6 +40,7 @@ public class RawImageComponent : CoreComponent
         Color = default;
         FadeIn = 0;
         Url = null;
+        Png = null;
         Texture = null;
         Material = null;
     }

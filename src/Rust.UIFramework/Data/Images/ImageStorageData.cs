@@ -6,6 +6,7 @@ using ProtoBuf;
 
 namespace Oxide.Ext.UiFramework.Data;
 
+[ProtoContract]
 internal readonly record struct SaveVersion([property: ProtoMember(1)] ulong EntityId);
 
 [ProtoContract]

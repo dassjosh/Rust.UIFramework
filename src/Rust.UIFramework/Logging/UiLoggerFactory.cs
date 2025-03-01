@@ -40,8 +40,10 @@ public sealed class UiLoggerFactory : ISingleton
         return level < globalLevel ? level : globalLevel;
     }
 
+    internal UiLogger CreateGlobalLogger() => CreateGlobalLogger(GetLogLevel());
+    private UiLogger CreateGlobalLogger(UiLogLevel logLevel) => GetLoggerInternal(UiFrameworkExtension.Instance.Name, null, GetLogLevel(logLevel), UiFrameworkConfig.Instance.Logging, true);
     internal UiLogger<T> CreateExtensionLogger<T>() => CreateExtensionLogger<T>(GetLogLevel());
-    private UiLogger<T> CreateExtensionLogger<T>(UiLogLevel logLevel) => GetLoggerInternal<T>(nameof(UiFrameworkExtension), GetLogLevel(logLevel), UiFrameworkConfig.Instance.Logging, true);
+    private UiLogger<T> CreateExtensionLogger<T>(UiLogLevel logLevel) => GetLoggerInternal<T>(UiFrameworkExtension.Instance.Name, GetLogLevel(logLevel), UiFrameworkConfig.Instance.Logging, true);
 
     private UiLogger<T> GetLoggerInternal<T>(string pluginName, UiLogLevel logLevel, IUiLoggingConfig config, bool isExtension)
     {

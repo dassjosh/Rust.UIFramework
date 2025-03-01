@@ -43,7 +43,7 @@ public class UiPaginator : BaseUiControl
 
         for (int i = startPage; i <= endPage; i++)
         {
-            control.PageButtons.Add(builder.TextButton(parent, grid, default, (i + 1).ToString(), fontSize, textColor, i == currentPage ? activePageColor : buttonColor, $"{command} {StringCache<int>.ToString(i)}"));
+            control.PageButtons.Add(builder.TextButton(parent, grid, default, StringCache<int>.ToString(i + 1), fontSize, textColor, i == currentPage ? activePageColor : buttonColor, $"{command} {StringCache<int>.ToString(i)}"));
             grid.MoveCols(1);
         }
 

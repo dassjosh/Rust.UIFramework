@@ -59,6 +59,8 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
             return name;
         }
         
+        _logger.Debug("Failed to get image for plugin: {0} name: {1}", plugin.Name, name);
+        
         return Get(UiFrameworkPlugin.Instance, UiImageDefaults.NotFound);
     }
     
@@ -110,8 +112,10 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
         _downloader.BulkAddRequests(plugin.Id(), images);
     }
 
-    internal void OnImageDownloaded(in DownloadRequest request, byte[] image)
+    internal void OnImageDownloaded(in CompletedDownload download)
     {
+        DownloadRequest request = download.Request;
+        byte[] image = download.Data;
         ImageId imageId = ProcessImage(image, out string error);
         if (!imageId.IsValid)
         {

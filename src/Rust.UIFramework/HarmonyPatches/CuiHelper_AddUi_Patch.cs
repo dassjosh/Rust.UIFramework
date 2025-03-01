@@ -27,7 +27,7 @@ internal static class CuiHelper_AddUi_Patch
         }
     }
 
-    internal static void Unpatch()
+    private static void Unpatch()
     {
         for (int i = 0; i < TargetMethods.Length; i++)
         {
