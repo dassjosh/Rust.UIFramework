@@ -7,6 +7,7 @@ using Oxide.Ext.UiFramework.Data;
 using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Libraries.Themes;
 using Oxide.Ext.UiFramework.Libraries.UiCommands;
+using Oxide.Ext.UiFramework.Logging;
 using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Threading;
 using Oxide.Ext.UiFramework.Types;
@@ -21,6 +22,7 @@ public class UiFrameworkExtension : Extension
     public override VersionNumber Version { get; }
 
     internal static UiFrameworkExtension Instance;
+    internal static IUiLogger GlobalLogger;
 
     public UiFrameworkExtension(ExtensionManager manager) : base(manager)
     {
@@ -57,6 +59,6 @@ public class UiFrameworkExtension : Extension
     public override void OnShutdown()
     {
         Singleton<DataHandler>.Instance.Shutdown();
-        SendHandler.OnServerShutdown();
+        Singleton<SendHandler>.Instance.OnServerShutdown();
     }
 }

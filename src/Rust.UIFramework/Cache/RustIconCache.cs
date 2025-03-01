@@ -6,15 +6,17 @@ using Rust.UI;
 
 namespace Oxide.Ext.UiFramework.Cache;
 
-public static class RustIconCache
+internal static class RustIconCache
 {
     private static readonly Dictionary<Icons, string> RustIcons = new();
 
-    public static string GetIcon(Icons icon)
+    private const string Format = UiImageDefaults.BaseUrl + "rust-images/{0}.png";
+    
+    internal static string GetIcon(Icons icon)
     {
         if (!RustIcons.TryGetValue(icon, out string url))
         {
-            RustIcons[icon] = url = $"https://rust-images.joshdass.dev/icons/{(int)icon}.png";
+            RustIcons[icon] = url = string.Format(Format, (int)icon);
         }
         
         return Singleton<UiImageStorage>.Instance.Get(UiFrameworkPlugin.Instance,  url);

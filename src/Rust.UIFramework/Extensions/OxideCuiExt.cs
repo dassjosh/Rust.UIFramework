@@ -2,6 +2,7 @@
 using Network;
 using Oxide.Ext.UiFramework.Builder;
 using Oxide.Ext.UiFramework.Threading;
+using Oxide.Ext.UiFramework.Types;
 using Oxide.Game.Rust.Cui;
 
 namespace Oxide.Ext.UiFramework.Extensions;
@@ -35,7 +36,7 @@ public static class OxideCuiExt
     public static void AddUiAsync(this CuiElementContainer container, SendInfo send, string destroyUiName = null)
     {
         OxideCuiContainerRequest request = OxideCuiContainerRequest.Create(container, send, destroyUiName);
-        SendHandler.Enqueue(request);
+        Singleton<SendHandler>.Instance.Enqueue(request);
     }
     
     public static void DestroyUi(Connection connection, string destroyUiName = null)

@@ -2,17 +2,20 @@
 using System.Collections.Concurrent;
 using System.Threading;
 using Oxide.Core;
+using Oxide.Ext.UiFramework.Logging;
+using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Threading;
 
-internal static class SendHandler
+internal class SendHandler : ISingleton
 {
-    private static readonly ConcurrentQueue<IUiRequest> Queue = new();
-    private static readonly AutoResetEvent Reset = new(false);
-    private static readonly Thread _thread;
-    private static readonly CancellationTokenSource _source = new();
+    private readonly ConcurrentQueue<IUiRequest> _queue = new();
+    private readonly AutoResetEvent _reset = new(false);
+    private readonly Thread _thread;
+    private readonly CancellationTokenSource _source = new();
+    private readonly ILogger<SendHandler> _logger = Singleton<UiLoggerFactory>.Instance.CreateExtensionLogger<SendHandler>();
     
-    static SendHandler()
+    private SendHandler()
     {
         _thread = new Thread(Send)
         {
@@ -22,24 +25,24 @@ internal static class SendHandler
         _thread.Start();
     }
     
-    internal static void Enqueue(IUiRequest request)
+    internal void Enqueue(IUiRequest request)
     {
-        Queue.Enqueue(request);
-        Reset.Set();
+        _queue.Enqueue(request);
+        _reset.Set();
     }
 
-    private static void Send()
+    private void Send()
     {
         while (!_source.IsCancellationRequested)
         {
             SendInternal();
-            Reset.WaitOne();
+            _reset.WaitOne();
         }
     }
 
-    private static void SendInternal()
+    private void SendInternal()
     {
-        while (Queue.TryDequeue(out IUiRequest request))
+        while (_queue.TryDequeue(out IUiRequest request))
         {
             try
             {
@@ -49,7 +52,7 @@ internal static class SendHandler
             }
             catch (Exception ex)
             {
-                Interface.Oxide.LogException("An error occured during UI Send", ex);
+                _logger.Exception("An error occured during UI Send", ex);
             }
             finally
             {
@@ -58,9 +61,9 @@ internal static class SendHandler
         }
     }
 
-    internal static void OnServerShutdown()
+    internal void OnServerShutdown()
     {
         _source.Cancel();
-        Reset.Set();
+        _reset.Set();
     }
 }

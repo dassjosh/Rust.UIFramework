@@ -51,7 +51,7 @@ public class UiCalenderPicker : BasePopoverControl
     private string _yearText;
     private string _monthLabelText;
 
-    private static readonly string[] DayOfWeekNames = { "Su", "M", "Tu", "W", "Th", "F", "Sa" };
+    private static readonly string[] DayOfWeekNames = ["Su", "M", "Tu", "W", "Th", "F", "Sa"];
         
     public static UiCalenderPicker Create(in UiReference reference, DateTime date, int fontSize, UiColor textColor, UiColor backgroundColor, UiColor buttonColor, UiColor selectedDateColor, string changeCommand, PopoverPosition position, string menuSprite, string buttonSprite)
     {

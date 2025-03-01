@@ -3,9 +3,9 @@ using System.Reflection;
 
 namespace Oxide.Ext.UiFramework.Types;
 
-internal interface ISingleton;
+public interface ISingleton;
 
-internal static class Singleton<T> where T : ISingleton
+public static class Singleton<T> where T : ISingleton
 {
     public static readonly T Instance;
     private const string ErrorMessage = "must have only one constructor that is parameterless and private.";

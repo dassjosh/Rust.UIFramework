@@ -5,6 +5,7 @@ using Oxide.Ext.UiFramework.Constants;
 using Oxide.Ext.UiFramework.Controls;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Json;
+using Oxide.Ext.UiFramework.Logging;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.UiElements;
@@ -102,7 +103,7 @@ public partial class BaseUiBuilder
     {
         if (!url.StartsWith("http"))
         {
-            Interface.Oxide.LogWarning($"[UiFramework] WebImage Url '{url}' is not a valid url. If trying to use a png id please use {nameof(ImageFileStorage)} instead.");
+            UiFrameworkExtension.GlobalLogger.Warning($"[UiFramework] WebImage Url '{{0}}' is not a valid url. If trying to use a png id please use {nameof(ImageFileStorage)} instead.", url);
             return UiRawImage.CreateDefault(pos, offset);
         }
 
@@ -122,7 +123,7 @@ public partial class BaseUiBuilder
     {
         if (!uint.TryParse(png, out uint _))
         {
-            Interface.Oxide.LogWarning($"[UiFramework] Image PNG '{png}' is not a valid uint. If trying to use a url please use WebImage instead.");
+            UiFrameworkExtension.GlobalLogger.Warning($"[UiFramework] Image PNG '{{0}}' is not a valid uint. If trying to use a url please use {nameof(WebImage)} instead.", png);
             return UiRawImage.CreateDefault(pos, offset);
         }
 

@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Oxide.Ext.UiFramework.Config;
+using Oxide.Ext.UiFramework.Logging;
 using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Types;
 
@@ -26,6 +27,7 @@ internal class ImageDownloader
     private readonly int _maxDownloadAttempts = UiFrameworkConfig.Instance.ImageStorage.MaxDownloadAttempts;
     private readonly object _taskLock = new();
     private int _activeWorkerCount;
+    private readonly ILogger<ImageDownloader> _logger = Singleton<UiLoggerFactory>.Instance.CreateExtensionLogger<ImageDownloader>();
 
     /// <summary>
     /// Initializes a new instance of the ImageDownloader class
@@ -113,8 +115,7 @@ internal class ImageDownloader
 #pragma warning restore EPC13
                     
                 Interlocked.Increment(ref _activeWorkerCount);
-                
-                Console.WriteLine($"Started new worker task. Active workers: {_activeWorkerCount}");
+                _logger.Debug("Started new worker task. Active workers: {0}", _activeWorkerCount);
             }
         }
     }
@@ -132,8 +133,8 @@ internal class ImageDownloader
                 // Try to dequeue a request
                 if (!_requestQueue.TryDequeue(out DownloadRequest request))
                 {
-                    Console.WriteLine($"Worker task shutting down due to empty queue. Active workers: {_activeWorkerCount - 1}");
                     Interlocked.Decrement(ref _activeWorkerCount);
+                    _logger.Debug("Worker task shutting down due to empty queue. Active workers: {0}", _activeWorkerCount);
                     return;
                 }
                 
@@ -146,8 +147,7 @@ internal class ImageDownloader
         }
         catch (Exception ex)
         {
-            // Log the exception
-            Console.WriteLine($"Error in download worker: {ex}");
+            _logger.Exception("An error occurred in the download worker", ex);
         }
         finally
         {
@@ -175,12 +175,12 @@ internal class ImageDownloader
                 Singleton<UiImageStorage>.Instance.OnImageDownloaded(request, data);
                 return true;
             }
-
-            Console.WriteLine($"Failed to download image from {request.Url}. Status code: {response.StatusCode}. Attempt: {_urlState[request.Url]}");
+            
+            _logger.Error($"Failed to download image. Url: {request.Url}. Attempt: {_urlState[request.Url].Attempts} Status Code: {response.StatusCode}. Message: {await response.Content.ReadAsStringAsync()}");
         }
         catch (Exception ex) when (ex is not OperationCanceledException)
         {
-            Console.WriteLine($"Error downloading image from {request.Url}: {ex.Message}. Attempt: {_urlState[request.Url]}");
+            _logger.Exception($"An error occured downloading image. Url: {request.Url} Attempt: {_urlState[request.Url].Attempts}", ex);
         }
         finally
         {

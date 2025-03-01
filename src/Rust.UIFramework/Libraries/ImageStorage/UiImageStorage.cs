@@ -3,15 +3,19 @@ using System.Collections.Generic;
 using Oxide.Core;
 using Oxide.Core.Plugins;
 using Oxide.Ext.UiFramework.Builder;
+using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Constants;
 using Oxide.Ext.UiFramework.Data;
 using Oxide.Ext.UiFramework.Exceptions;
 using Oxide.Ext.UiFramework.Extensions;
+using Oxide.Ext.UiFramework.Logging;
 using Oxide.Ext.UiFramework.Offsets;
+using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.Types;
 using Oxide.Ext.UiFramework.UiElements;
+using Rust.UI;
 
 namespace Oxide.Ext.UiFramework.Libraries;
 
@@ -19,6 +23,7 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
 {
     private readonly ImageStorageData _data = ImageStorageData.Instance;
     private readonly ImageDownloader _downloader = new();
+    private readonly ILogger<UiImageStorage> _logger = Singleton<UiLoggerFactory>.Instance.CreateExtensionLogger<UiImageStorage>();
     public bool IsReady { get; private set; }
     
     private static readonly byte[] SignaturePNG = [137, 80, 78, 71, 13, 10, 26, 10, 0, 0, 0, 13, 73, 72, 68, 82];
@@ -28,6 +33,12 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
     public UiRawImage Get(BaseUiBuilder builder, in UiReference parent, in UiPosition pos, in UiOffset offset, Plugin plugin, string name, UiColor color)
     {
         string png = Get(plugin, name);
+        return png.StartsWith("http") ? builder.WebImage(parent, pos, offset, png, color) : builder.ImageFileStorage(parent, pos, offset, png, color);
+    }
+    
+    public UiRawImage Get(BaseUiBuilder builder, in UiReference parent, in UiPosition pos, in UiOffset offset, Icons icon, UiColor color)
+    {
+        string png = Get(UiFrameworkPlugin.Instance, RustIconCache.GetIcon(icon));
         return png.StartsWith("http") ? builder.WebImage(parent, pos, offset, png, color) : builder.ImageFileStorage(parent, pos, offset, png, color);
     }
 
@@ -47,8 +58,8 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
             RegisterImage(plugin, name);
             return name;
         }
-
-        throw new ImageNotFoundException(plugin, name);
+        
+        return Get(UiFrameworkPlugin.Instance, UiImageDefaults.NotFound);
     }
     
     public bool RegisterImage(Plugin plugin, string name, string url)
@@ -104,7 +115,7 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
         ImageId imageId = ProcessImage(image, out string error);
         if (!imageId.IsValid)
         {
-            Interface.Oxide.LogWarning($"[UiFramework] Failed to download image from url: {request.Url} Error: {error}");
+            _logger.Warning("Failed to download image from url: {0} Error: {1}", request.Url, error);
             return;
         }
         

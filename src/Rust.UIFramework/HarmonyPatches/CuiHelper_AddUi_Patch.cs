@@ -5,6 +5,7 @@ using HarmonyLib;
 using Oxide.Ext.UiFramework.Builder;
 using Oxide.Ext.UiFramework.Config;
 using Oxide.Ext.UiFramework.Threading;
+using Oxide.Ext.UiFramework.Types;
 using Oxide.Game.Rust.Cui;
 
 namespace Oxide.Ext.UiFramework.HarmonyPatches;
@@ -50,14 +51,14 @@ internal static class CuiHelper_AddUi_Patch
     private static bool CuiHelper_AddUi_Prefix_Elements(BasePlayer player, List<CuiElement> elements)
     {
         OxideCuiElementsRequest request = OxideCuiElementsRequest.Create(elements, SendInfoBuilder.Get(player));
-        SendHandler.Enqueue(request);
+        Singleton<SendHandler>.Instance.Enqueue(request);
         return false;
     }
     
     private static bool CuiHelper_AddUi_Prefix_Json(BasePlayer player, string json)
     {
         OxideCuiJsonRequest request = OxideCuiJsonRequest.Create(json, SendInfoBuilder.Get(player));
-        SendHandler.Enqueue(request);
+        Singleton<SendHandler>.Instance.Enqueue(request);
         return false;
     }
 }

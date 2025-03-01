@@ -6,6 +6,7 @@ using Oxide.Ext.UiFramework.Constants;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Threading;
+using Oxide.Ext.UiFramework.Types;
 
 #if BENCHMARKS
 using Facepunch;
@@ -48,7 +49,7 @@ public abstract class BaseBuilder : BasePoolable
 
     public void AddUi(SendInfo send)
     {
-        SendHandler.Enqueue(UiSendRequest.Create(this, send));
+        Singleton<SendHandler>.Instance.Enqueue(UiSendRequest.Create(this, send));
     }
 
     internal abstract void SendUi(SendInfo send);

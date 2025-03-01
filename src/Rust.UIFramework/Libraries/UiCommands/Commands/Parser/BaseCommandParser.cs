@@ -3,6 +3,7 @@ using System.Reflection;
 using Oxide.Core;
 using Oxide.Core.Plugins;
 using Oxide.Ext.UiFramework.Extensions;
+using Oxide.Ext.UiFramework.Logging;
 
 namespace Oxide.Ext.UiFramework.Libraries.UiCommands;
 
@@ -33,7 +34,7 @@ internal abstract class BaseCommandParser(Plugin plugin, MethodInfo method, ICom
             return true;
         }
         
-        Interface.Oxide.LogError($"[UiFramework] failed to validate command protection for {player.displayName}({player.UserIDString})"); //TODO: Logger
+        UiFrameworkExtension.GlobalLogger.Error("Failed to validate command protection for {0}({1}) on plugin {2}", player.displayName, player.UserIDString, plugin.FullName());
         return false;
     }
     
@@ -41,6 +42,6 @@ internal abstract class BaseCommandParser(Plugin plugin, MethodInfo method, ICom
 
     protected void LogException(Exception ex)
     {
-        Interface.Oxide.LogException($"[{plugin.Title}] Threw an exception invoking UiCommand callback {method.GetMethodWithParams()}", ex);
+        UiFrameworkExtension.GlobalLogger.Exception("[{0}] Threw an exception invoking UiCommand callback {1}", plugin.FullName(), method.GetMethodWithParams(), ex);
     }
 }

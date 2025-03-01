@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using Oxide.Core;
 using Oxide.Core.Configuration;
 using Oxide.Ext.UiFramework.Constants;
+using Oxide.Ext.UiFramework.Logging;
 
 namespace Oxide.Ext.UiFramework.Config;
 
@@ -25,9 +26,15 @@ internal class UiFrameworkConfig : ConfigFile
     /// </summary>
     [JsonProperty("ImageStorage")]
     public UiImageStorageSettings ImageStorage { get; set; }
+    
+    /// <summary>
+    /// UiFramework Logging Options
+    /// </summary>
+    [JsonProperty("Logging")]
+    public UiLoggingConfig Logging { get; set; }
 
     /// <summary>
-    /// Constructor for discord config
+    /// Constructor for Ui Framework Config
     /// </summary>
     /// <param name="filename">Filename to use</param>
     public UiFrameworkConfig(string filename) : base(filename)
@@ -61,7 +68,7 @@ internal class UiFrameworkConfig : ConfigFile
         }
         catch (Exception ex)
         {
-            Interface.Oxide.LogException($"[UiFramework Extension] Failed to load config file. Using default config. {ex}", ex);
+            Interface.Oxide.LogException($"[UiFramework] Failed to load config file. Using default config. {ex}", ex);
             ApplyDefaults();
         }
     }
@@ -77,6 +84,13 @@ internal class UiFrameworkConfig : ConfigFile
         {
             MaxConcurrentDownloads = ImageStorage?.MaxConcurrentDownloads ?? 5,
             MaxDownloadAttempts = ImageStorage?.MaxDownloadAttempts ?? 3,
+        };
+        
+        Logging = new UiLoggingConfig
+        {
+            ConsoleLogLevel = Logging?.ConsoleLogLevel ?? UiLogLevel.Info,
+            FileLogLevel = Logging?.FileLogLevel ?? UiLogLevel.Off,
+            FileDateTimeFormat = "HH:mm:ss.ff"
         };
     }
 }

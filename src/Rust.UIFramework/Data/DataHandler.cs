@@ -1,6 +1,8 @@
 ﻿using System;
 using System.IO;
 using Newtonsoft.Json;
+using Oxide.Ext.UiFramework.Extensions;
+using Oxide.Ext.UiFramework.Logging;
 using Oxide.Ext.UiFramework.Types;
 using ProtoBuf;
 
@@ -52,8 +54,7 @@ internal sealed class DataHandler : ISingleton
             }
             catch (Exception ex)
             {
-                //TODO Logging
-                //DiscordExtension.GlobalLogger.Exception("An error occured loading the {0} Data File of type {1}", info.FilePath, typeof(TData).FullName, ex);
+                UiFrameworkExtension.GlobalLogger.Exception("An error occured loading the {0} Data File of type {1}", info.FilePath, typeof(TData).FullName, ex);
             }
             finally
             {
@@ -100,8 +101,7 @@ internal sealed class DataHandler : ISingleton
         }
         catch (Exception ex)
         {
-            //TODO Logging
-            //DiscordExtension.GlobalLogger.Exception("An error occured saving the data file. {0}", typeof(TData).GetRealTypeName(), ex);
+            UiFrameworkExtension.GlobalLogger.Exception("An error occured saving the data file. {0}", typeof(TData).GetRealTypeName(), ex);
         }
     }
 

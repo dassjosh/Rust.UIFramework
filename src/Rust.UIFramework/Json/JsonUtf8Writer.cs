@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Buffers;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.CompilerServices;
@@ -114,7 +113,7 @@ public sealed class JsonUtf8Writer : BasePoolable
         
         _segments.Add(new SizedArray<byte>(_buffer, _byteIndex));
         _byteIndex = 0;
-        _buffer = ArrayPool<byte>.Shared.Rent(SegmentSize);
+        _buffer = Singleton<ArrayPool<byte>>.Instance.Get(SegmentSize);
     }
 
     public int WriteToArray(byte[] bytes)
@@ -186,7 +185,7 @@ public sealed class JsonUtf8Writer : BasePoolable
 
     protected override void LeavePool()
     {
-        _buffer = ArrayPool<byte>.Shared.Rent(SegmentSize);
+        _buffer = Singleton<ArrayPool<byte>>.Instance.Get(SegmentSize);
     }
 
     protected override void EnterPool()
@@ -194,11 +193,11 @@ public sealed class JsonUtf8Writer : BasePoolable
         for (int index = 0; index < _segments.Count; index++)
         {
             byte[] bytes = _segments[index].Array;
-            ArrayPool<byte>.Shared.Return(bytes);
+            Singleton<ArrayPool<byte>>.Instance.Free(ref bytes);
         }
         _segments.Clear();
         _byteIndex = 0;
-        ArrayPool<byte>.Shared.Return(_buffer);
+        Singleton<ArrayPool<byte>>.Instance.Free(ref _buffer);
         _buffer = null;
     }
 }

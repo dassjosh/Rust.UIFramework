@@ -659,9 +659,8 @@ public class AssetBrowser : RustPlugin
         
         foreach (Icons icon in EnumCache<Icons>.GetValues())
         {
-            //Puts($"{pair.Key}: {_imageGrid.ToPosition()}");
             UiButton button = builder.CommandButton(scroll, _imageGrid, default, _buttonColor,  _uiCommands.SelectAsset.Build($"RustIconCache.GetIcon(Icons.{icon})"));
-            UiRawImage image = _storage.Get(builder, button, UiPosition.Full, default, this, RustIconCache.GetIcon(icon), UiColor.White);
+            UiRawImage image = _storage.Get(builder, button, UiPosition.Full, default, icon, UiColor.White);
             image.SetMaterial(UiMaterials.Content.Ui.NameFontMaterial);
             _imageGrid.MoveCols(1);
         }
