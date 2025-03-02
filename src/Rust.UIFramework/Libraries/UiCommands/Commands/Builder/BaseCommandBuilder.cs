@@ -3,25 +3,16 @@ using Oxide.Ext.UiFramework.Pooling;
 
 namespace Oxide.Ext.UiFramework.Libraries.UiCommands;
 
-internal abstract class BaseCommandBuilder(CommandId command, ICommandProtection protection, IArgWriter[] writers)
+internal class BaseCommandBuilder(string commandPrefix, IArgWriter[] writers, int argIndex)
 {
-    private readonly string _commandPrefix = $"{UiCommands.UiCommandName} {command.Id}";
+    protected readonly IArgWriter[] Writers = writers;
 
-    protected ArgWriterIterator StartBuilding()
+    protected virtual ArgWriterIterator StartBuilding()
     {
         StringBuilder sb = StringBuilderPool.Instance.Get();
-        sb.Append(_commandPrefix);
+        sb.Append(commandPrefix);
         UiArgWriter argWriter = new(sb);
-        ArgWriterIterator iterator = new(argWriter, writers);
-        if (protection is not null)
-        {
-            iterator = protection.StartWriteProtection(iterator);
-        }
+        ArgWriterIterator iterator = new(argWriter, Writers, argIndex);
         return iterator;
-    }
-    
-    protected string FinishBuilding(ArgWriterIterator writer)
-    {
-        return protection is not null ? protection.FinishWriteProtection(writer) : writer.ToString();
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Network;
 using Oxide.Core.Libraries.Covalence;
 using Oxide.Core.Plugins;
+using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Config;
 using Oxide.Ext.UiFramework.Data;
 using Oxide.Ext.UiFramework.Extensions;
@@ -51,6 +52,7 @@ internal class UiFrameworkPlugin : BaseUiFrameworkPlugin
     private void OnServerSave()
     {
         Singleton<DataHandler>.Instance.OnServerSave();
+        BaseMemoryCache.ExpireCaches();
     }
     
     [HookMethod(nameof(OnPluginLoaded))]

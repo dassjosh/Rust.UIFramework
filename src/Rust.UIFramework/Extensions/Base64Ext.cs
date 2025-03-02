@@ -21,13 +21,13 @@ internal static class Base64Ext
         return Chars[..written];
     }
 
-    internal static int ToIntFromBase64Span(this ReadOnlySpan<char> value)
+    internal static int ToIntFromBase64(this ReadOnlySpan<char> value)
     {
         Convert.TryFromBase64Chars(value, KeyBytes, out int written);
         return BitConverter.ToInt32(KeyBytes[..written], 0);
     }
     
-    internal static long ToLongFromBase64Span(this ReadOnlySpan<char> value)
+    internal static long ToLongFromBase64(this ReadOnlySpan<char> value)
     {
         Convert.TryFromBase64Chars(value, KeyBytes, out int written);
         return BitConverter.ToInt64(KeyBytes[..written], 0);

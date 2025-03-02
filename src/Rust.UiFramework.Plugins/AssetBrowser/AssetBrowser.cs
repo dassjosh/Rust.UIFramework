@@ -678,14 +678,14 @@ public class AssetBrowser : RustPlugin
                      .Skip(state.Page * TotalImages)
                      .Take(TotalImages))
         {
-            UiButton button = builder.CommandButton(images, _imageGrid, default, _buttonColor, _uiCommands.SelectAsset.Build($"RustIconCache.GetIcon(Icons.{icon})"));
+            UiButton button = builder.CommandButton(images, _imageGrid, default, _buttonColor, _uiCommands.SelectAsset.Build($"_storage.Get(builder, button, UiPosition.Full, default, Icons.{icon}, UiColor.White)"));
             UiRawImage image = _storage.Get(builder, button, UiPosition.Full, default, icon, UiColor.White);
             image.SetMaterial(UiMaterials.Icons.IconMaterial);
             _imageGrid.MoveCols(1);
         }
         
         UiSection paginator = builder.Section(root, new UiPosition(0, 0, 1, 0.075f));
-        builder.Paginator(paginator, _iconGrid, state.Page, maxPage, 14, _textColor, UiColors.ButtonSecondary, UiColors.ButtonPrimary, nameof(AssetBrowser_Page));
+        builder.Paginator(paginator, _iconGrid, state.Page, maxPage, 14, _textColor, UiColors.ButtonSecondary, UiColors.ButtonPrimary, _uiCommands.ChangePage.Partial(state));
     }
     
     private readonly GridPosition _fontGrid = new GridPositionBuilder(1, 8).SetPadding(0.01f).Build();
@@ -790,6 +790,13 @@ public class AssetBrowser : RustPlugin
         // state.SelectedAsset = arg.GetString(0);
         // CreateUi(player, state);
     }
+    
+    [UiCommand]
+    private void ChangePage(BasePlayer player, UiState state, int page)
+    {
+        state.Page = page;
+        CreateUi(player, state);
+    }
 
     private sealed class UiCommandHandler
     {
@@ -800,6 +807,7 @@ public class AssetBrowser : RustPlugin
         public readonly ICommandBuilder<UiState> PrevFolder;
         public readonly ICommandBuilder<UiState, string> PathInto;
         public readonly ICommandBuilder<string> SelectAsset;
+        public readonly ICommandBuilder<UiState, int> ChangePage;
 
         public UiCommandHandler(AssetBrowser plugin)
         {
@@ -810,21 +818,8 @@ public class AssetBrowser : RustPlugin
             PrevFolder = plugin._commands.RegisterCommand<UiState>(plugin, plugin.PrevFolder);
             PathInto = plugin._commands.RegisterCommand<UiState, string>(plugin, plugin.PathInto);
             SelectAsset = plugin._commands.RegisterCommand<string>(plugin, plugin.SelectAsset);
+            ChangePage = plugin._commands.RegisterCommand<UiState, int>(plugin, plugin.ChangePage);
         }
-    }
-
-    [ConsoleCommand(nameof(AssetBrowser_Page))]
-    private void AssetBrowser_Page(ConsoleSystem.Arg arg)
-    {
-        BasePlayer player = arg.Player();
-        if (!player)
-        {
-            return;
-        }
-        
-        UiState state = _store.GetOrCreateStore<UiState>(this, player.userID);
-        state.Page = arg.GetInt(0);
-        CreateUi(player, state);
     }
     #endregion
 }

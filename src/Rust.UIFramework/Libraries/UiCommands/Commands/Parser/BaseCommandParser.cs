@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Reflection;
-using Oxide.Core;
 using Oxide.Core.Plugins;
 using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Logging;
@@ -42,6 +41,7 @@ internal abstract class BaseCommandParser(Plugin plugin, MethodInfo method, ICom
 
     protected void LogException(Exception ex)
     {
+        //TODO: Have error to come from plugin instead of extension
         UiFrameworkExtension.GlobalLogger.Exception("[{0}] Threw an exception invoking UiCommand callback {1}", plugin.FullName(), method.GetMethodWithParams(), ex);
     }
 }

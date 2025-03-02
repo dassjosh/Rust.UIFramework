@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Oxide.Ext.UiFramework.Builder;
 using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Colors;
+using Oxide.Ext.UiFramework.Libraries.UiCommands;
 using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.UiElements;
@@ -18,6 +19,11 @@ public class UiPaginator : BaseUiControl
     public UiButton LastPage;
 
     public static UiPaginator Create(BaseUiBuilder builder, in UiReference parent, GridPosition grid, int currentPage, int maxPage, int fontSize, UiColor textColor, UiColor buttonColor, UiColor activePageColor, string command)
+    {
+        return Create(builder, parent, grid, currentPage, maxPage, fontSize, textColor, buttonColor, activePageColor, PartialCommand.Create<int>(command));
+    }
+    
+    public static UiPaginator Create(BaseUiBuilder builder, in UiReference parent, GridPosition grid, int currentPage, int maxPage, int fontSize, UiColor textColor, UiColor buttonColor, UiColor activePageColor, IBaseCommandBuilder<int> command)
     {
         UiPaginator control = CreateControl<UiPaginator>();
         grid.Reset();
@@ -36,20 +42,20 @@ public class UiPaginator : BaseUiControl
             }
         }
 
-        control.FirstPage = builder.TextButton(parent, grid, default, "<<<", fontSize, textColor, buttonColor, $"{command} 0");
+        control.FirstPage = builder.TextButton(parent, grid, default, "<<<", fontSize, textColor, buttonColor, command.Build(0));
         grid.MoveCols(1);
-        control.PreviousPage = builder.TextButton(parent, grid, default, "<", fontSize, textColor, buttonColor, $"{command} {StringCache<int>.ToString(Math.Max(0, currentPage - 1))}");
+        control.PreviousPage = builder.TextButton(parent, grid, default, "<", fontSize, textColor, buttonColor, command.Build(Math.Max(0, currentPage - 1)));
         grid.MoveCols(1);
 
         for (int i = startPage; i <= endPage; i++)
         {
-            control.PageButtons.Add(builder.TextButton(parent, grid, default, StringCache<int>.ToString(i + 1), fontSize, textColor, i == currentPage ? activePageColor : buttonColor, $"{command} {StringCache<int>.ToString(i)}"));
+            control.PageButtons.Add(builder.TextButton(parent, grid, default, StringCache<int>.ToString(i + 1), fontSize, textColor, i == currentPage ? activePageColor : buttonColor, command.Build(i)));
             grid.MoveCols(1);
         }
 
-        control.NextPage = builder.TextButton(parent, grid, default, ">", fontSize, textColor, buttonColor, $"{command} {StringCache<int>.ToString(Math.Min(maxPage, currentPage + 1))}");
+        control.NextPage = builder.TextButton(parent, grid, default, ">", fontSize, textColor, buttonColor, command.Build(Math.Min(maxPage, currentPage + 1)));
         grid.MoveCols(1);
-        control.LastPage = builder.TextButton(parent, grid, default, ">>>", fontSize, textColor, buttonColor, $"{command} {StringCache<int>.ToString(maxPage)}");
+        control.LastPage = builder.TextButton(parent, grid, default, ">>>", fontSize, textColor, buttonColor, command.Build(maxPage));
 
         return control;
     }
