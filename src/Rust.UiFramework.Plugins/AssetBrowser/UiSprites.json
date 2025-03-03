@@ -41,7 +41,7 @@
                   "Name": "slotmachine",
                   "Path": "assets/prefabs/misc/casino/slotmachine",
                   "Files": {
-                    "RustslotMachine777": "assets/prefabs/misc/casino/slotmachine/rustslotmachine777.png"
+                    "RustSlotMachine777": "assets/prefabs/misc/casino/slotmachine/rustslotmachine777.png"
                   },
                   "SubFolders": {}
                 }
@@ -66,7 +66,7 @@
                   "Files": {
                     "BeachchairDeployedIcon": "assets/prefabs/misc/summer_dlc/beach_chair/beachchair.deployed.icon.png",
                     "BeachparasolDeployedIcon": "assets/prefabs/misc/summer_dlc/beach_chair/beachparasol.deployed.icon.png",
-                    "BeachTableDeployedIcon": "assets/prefabs/misc/summer_dlc/beach_chair/beachtable.deployed.icon.png"
+                    "BeachtableDeployedIcon": "assets/prefabs/misc/summer_dlc/beach_chair/beachtable.deployed.icon.png"
                   },
                   "SubFolders": {
                     "chairskins": {
@@ -126,19 +126,19 @@
                   "Name": "boogie_board",
                   "Path": "assets/prefabs/misc/summer_dlc/boogie_board",
                   "Files": {
-                    "BoogieboardDeployedIcon": "assets/prefabs/misc/summer_dlc/boogie_board/boogieboard.deployed.icon.png"
+                    "BoogieBoardDeployedIcon": "assets/prefabs/misc/summer_dlc/boogie_board/boogieboard.deployed.icon.png"
                   },
                   "SubFolders": {
                     "skins": {
                       "Name": "skins",
                       "Path": "assets/prefabs/misc/summer_dlc/boogie_board/skins",
                       "Files": {
-                        "BoogieboardCorrugatedItemSkinIcon": "assets/prefabs/misc/summer_dlc/boogie_board/skins/boogieboard.corrugated.itemskin.icon.png",
-                        "BoogieboardCrashtestItemSkinIcon": "assets/prefabs/misc/summer_dlc/boogie_board/skins/boogieboard.crashtest.itemskin.icon.png",
-                        "BoogieboardFlamesItemSkinIcon": "assets/prefabs/misc/summer_dlc/boogie_board/skins/boogieboard.flames.itemskin.icon.png",
-                        "BoogieboardMarbledItemSkinIcon": "assets/prefabs/misc/summer_dlc/boogie_board/skins/boogieboard.marbled.itemskin.icon.png",
-                        "BoogieboardSharkItemSkinIcon": "assets/prefabs/misc/summer_dlc/boogie_board/skins/boogieboard.shark.itemskin.icon.png",
-                        "BoogieboardStarsItemSkinIcon": "assets/prefabs/misc/summer_dlc/boogie_board/skins/boogieboard.stars.itemskin.icon.png"
+                        "BoogieBoardCorrugatedItemSkinIcon": "assets/prefabs/misc/summer_dlc/boogie_board/skins/boogieboard.corrugated.itemskin.icon.png",
+                        "BoogieBoardCrashTestItemSkinIcon": "assets/prefabs/misc/summer_dlc/boogie_board/skins/boogieboard.crashtest.itemskin.icon.png",
+                        "BoogieBoardFlamesItemSkinIcon": "assets/prefabs/misc/summer_dlc/boogie_board/skins/boogieboard.flames.itemskin.icon.png",
+                        "BoogieBoardMarbledItemSkinIcon": "assets/prefabs/misc/summer_dlc/boogie_board/skins/boogieboard.marbled.itemskin.icon.png",
+                        "BoogieBoardSharkItemSkinIcon": "assets/prefabs/misc/summer_dlc/boogie_board/skins/boogieboard.shark.itemskin.icon.png",
+                        "BoogieBoardStarsItemSkinIcon": "assets/prefabs/misc/summer_dlc/boogie_board/skins/boogieboard.stars.itemskin.icon.png"
                       },
                       "SubFolders": {}
                     }
@@ -447,7 +447,7 @@
                       "Name": "santabeard",
                       "Path": "assets/prefabs/misc/xmas/wearable/santabeard",
                       "Files": {
-                        "SanTaBeardItemIcon": "assets/prefabs/misc/xmas/wearable/santabeard/santabeard.item.icon.png"
+                        "SantaBeardItemIcon": "assets/prefabs/misc/xmas/wearable/santabeard/santabeard.item.icon.png"
                       },
                       "SubFolders": {}
                     },
@@ -859,7 +859,7 @@
                   "Name": "oxmask",
                   "Path": "assets/prefabs/misc/chinesenewyear/oxmask",
                   "Files": {
-                    "BullmaskWearableIcon": "assets/prefabs/misc/chinesenewyear/oxmask/bullmask.wearable.icon.png"
+                    "BullMaskWearableIcon": "assets/prefabs/misc/chinesenewyear/oxmask/bullmask.wearable.icon.png"
                   },
                   "SubFolders": {}
                 },
@@ -908,7 +908,7 @@
                   "Name": "dragonmask",
                   "Path": "assets/prefabs/misc/chinesenewyear/dragonmask",
                   "Files": {
-                    "HatDragonmaskIcon": "assets/prefabs/misc/chinesenewyear/dragonmask/hat.dragonmask.icon.png"
+                    "HatDragonMaskIcon": "assets/prefabs/misc/chinesenewyear/dragonmask/hat.dragonmask.icon.png"
                   },
                   "SubFolders": {}
                 },
@@ -916,7 +916,7 @@
                   "Name": "rabbitmask",
                   "Path": "assets/prefabs/misc/chinesenewyear/rabbitmask",
                   "Files": {
-                    "HatRabbitmaskIcon": "assets/prefabs/misc/chinesenewyear/rabbitmask/hat.rabbitmask.icon.png"
+                    "HatRabbitMaskIcon": "assets/prefabs/misc/chinesenewyear/rabbitmask/hat.rabbitmask.icon.png"
                   },
                   "SubFolders": {}
                 },
@@ -924,7 +924,7 @@
                   "Name": "ratmask",
                   "Path": "assets/prefabs/misc/chinesenewyear/ratmask",
                   "Files": {
-                    "HatRatmaskIcon": "assets/prefabs/misc/chinesenewyear/ratmask/hat.ratmask.icon.png"
+                    "HatRatMaskIcon": "assets/prefabs/misc/chinesenewyear/ratmask/hat.ratmask.icon.png"
                   },
                   "SubFolders": {}
                 },
@@ -932,7 +932,7 @@
                   "Name": "snakemask",
                   "Path": "assets/prefabs/misc/chinesenewyear/snakemask",
                   "Files": {
-                    "HatSnakemaskIcon": "assets/prefabs/misc/chinesenewyear/snakemask/hat.snakemask.icon.png"
+                    "HatSnakeMaskIcon": "assets/prefabs/misc/chinesenewyear/snakemask/hat.snakemask.icon.png"
                   },
                   "SubFolders": {}
                 },
@@ -961,7 +961,7 @@
                   "Name": "tigermask",
                   "Path": "assets/prefabs/misc/chinesenewyear/tigermask",
                   "Files": {
-                    "TigermaskWearableIcon": "assets/prefabs/misc/chinesenewyear/tigermask/tigermask.wearable.icon.png"
+                    "TigerMaskWearableIcon": "assets/prefabs/misc/chinesenewyear/tigermask/tigermask.wearable.icon.png"
                   },
                   "SubFolders": {}
                 }
@@ -2220,7 +2220,7 @@
               "Name": "halloween.draculamask",
               "Path": "assets/prefabs/clothes/halloween.draculamask",
               "Files": {
-                "DraculamaskWearableIcon": "assets/prefabs/clothes/halloween.draculamask/draculamask.wearable.icon.png"
+                "DraculaMaskWearableIcon": "assets/prefabs/clothes/halloween.draculamask/draculamask.wearable.icon.png"
               },
               "SubFolders": {}
             },
@@ -2228,7 +2228,7 @@
               "Name": "halloween.frankensteinmask",
               "Path": "assets/prefabs/clothes/halloween.frankensteinmask",
               "Files": {
-                "FrankensteinmaskWearableIcon": "assets/prefabs/clothes/halloween.frankensteinmask/frankensteinmask.wearable.icon.png"
+                "FrankensteinMaskWearableIcon": "assets/prefabs/clothes/halloween.frankensteinmask/frankensteinmask.wearable.icon.png"
               },
               "SubFolders": {}
             },
@@ -2442,7 +2442,7 @@
               "Name": "hat.deerskullmask",
               "Path": "assets/prefabs/clothes/hat.deerskullmask",
               "Files": {
-                "HatDeerskullmask": "assets/prefabs/clothes/hat.deerskullmask/hat.deerskullmask.png"
+                "HatDeerskullMask": "assets/prefabs/clothes/hat.deerskullmask/hat.deerskullmask.png"
               },
               "SubFolders": {}
             },
@@ -2530,7 +2530,7 @@
               "Name": "haloween.hockeymask",
               "Path": "assets/prefabs/clothes/haloween.hockeymask",
               "Files": {
-                "HockeymaskWearableIcon": "assets/prefabs/clothes/haloween.hockeymask/hockeymask.wearable.icon.png"
+                "HockeyMaskWearableIcon": "assets/prefabs/clothes/haloween.hockeymask/hockeymask.wearable.icon.png"
               },
               "SubFolders": {}
             },
@@ -2829,7 +2829,7 @@
               "Name": "halloween.mummymask",
               "Path": "assets/prefabs/clothes/halloween.mummymask",
               "Files": {
-                "MummymaskWearableIcon": "assets/prefabs/clothes/halloween.mummymask/mummymask.wearable.icon.png"
+                "MummyMaskWearableIcon": "assets/prefabs/clothes/halloween.mummymask/mummymask.wearable.icon.png"
               },
               "SubFolders": {}
             },
@@ -4600,7 +4600,7 @@
                 "BarricadeMedievalIcon": "assets/prefabs/deployable/barricades/barricade.medieval.icon.png",
                 "BarricadeMetal": "assets/prefabs/deployable/barricades/barricade.metal.png",
                 "BarricadeSandBags": "assets/prefabs/deployable/barricades/barricade.sandbags.png",
-                "BarricadeStonebox": "assets/prefabs/deployable/barricades/barricade.stonebox.png",
+                "BarricadeStoneBox": "assets/prefabs/deployable/barricades/barricade.stonebox.png",
                 "BarricadeWood": "assets/prefabs/deployable/barricades/barricade.wood.png",
                 "BarricadeWoodwire": "assets/prefabs/deployable/barricades/barricade.woodwire.png"
               },
@@ -4708,7 +4708,7 @@
               "Name": "card table",
               "Path": "assets/prefabs/deployable/card table",
               "Files": {
-                "CardTableDeployedIcon": "assets/prefabs/deployable/card table/cardtable.deployed.icon.png"
+                "CardtableDeployedIcon": "assets/prefabs/deployable/card table/cardtable.deployed.icon.png"
               },
               "SubFolders": {}
             },
@@ -4742,7 +4742,7 @@
               "Name": "clan table",
               "Path": "assets/prefabs/deployable/clan table",
               "Files": {
-                "ClanTableDeployedIcon": "assets/prefabs/deployable/clan table/clantable.deployed.icon.png"
+                "ClantableDeployedIcon": "assets/prefabs/deployable/clan table/clantable.deployed.icon.png"
               },
               "SubFolders": {}
             },
@@ -4758,14 +4758,14 @@
               "Name": "tool cupboard",
               "Path": "assets/prefabs/deployable/tool cupboard",
               "Files": {
-                "CupboardTool": "assets/prefabs/deployable/tool cupboard/cupboard.tool.png"
+                "CupBoardTool": "assets/prefabs/deployable/tool cupboard/cupboard.tool.png"
               },
               "SubFolders": {
                 "retro": {
                   "Name": "retro",
                   "Path": "assets/prefabs/deployable/tool cupboard/retro",
                   "Files": {
-                    "CupboardToolRetroDeployedIcon": "assets/prefabs/deployable/tool cupboard/retro/cupboard.tool.retro.deployed.icon.png",
+                    "CupBoardToolRetroDeployedIcon": "assets/prefabs/deployable/tool cupboard/retro/cupboard.tool.retro.deployed.icon.png",
                     "RetroTcStoreIcon": "assets/prefabs/deployable/tool cupboard/retro/retro.tc.store.icon.jpg",
                     "RetroTcStoreIcon2": "assets/prefabs/deployable/tool cupboard/retro/retro.tc.store.icon.2.png"
                   },
@@ -4787,7 +4787,7 @@
                   "Name": "shockbyte",
                   "Path": "assets/prefabs/deployable/tool cupboard/shockbyte",
                   "Files": {
-                    "CupboardToolShockbyteDeployedIcon": "assets/prefabs/deployable/tool cupboard/shockbyte/cupboard.tool.shockbyte.deployed.icon.png",
+                    "CupBoardToolShockbyteDeployedIcon": "assets/prefabs/deployable/tool cupboard/shockbyte/cupboard.tool.shockbyte.deployed.icon.png",
                     "Shockbyte512512": "assets/prefabs/deployable/tool cupboard/shockbyte/shockbyte_512_512.png"
                   },
                   "SubFolders": {}
@@ -4806,7 +4806,7 @@
               "Name": "dropbox",
               "Path": "assets/prefabs/deployable/dropbox",
               "Files": {
-                "DropboxIcon": "assets/prefabs/deployable/dropbox/dropbox.icon.png"
+                "DropBoxIcon": "assets/prefabs/deployable/dropbox/dropbox.icon.png"
               },
               "SubFolders": {}
             },
@@ -4838,8 +4838,8 @@
               "Name": "frankensteintable",
               "Path": "assets/prefabs/deployable/frankensteintable",
               "Files": {
-                "FrankensteinTableDeployedIcon": "assets/prefabs/deployable/frankensteintable/frankensteintable.deployed.icon.png",
-                "MixingTableIcon": "assets/prefabs/deployable/frankensteintable/mixingtable.icon.png"
+                "FrankensteintableDeployedIcon": "assets/prefabs/deployable/frankensteintable/frankensteintable.deployed.icon.png",
+                "MixingtableIcon": "assets/prefabs/deployable/frankensteintable/mixingtable.icon.png"
               },
               "SubFolders": {}
             },
@@ -4973,7 +4973,7 @@
               "Name": "mailbox",
               "Path": "assets/prefabs/deployable/mailbox",
               "Files": {
-                "MailboxIcon": "assets/prefabs/deployable/mailbox/mailbox.icon.png"
+                "MailBoxIcon": "assets/prefabs/deployable/mailbox/mailbox.icon.png"
               },
               "SubFolders": {}
             },
@@ -4997,7 +4997,7 @@
               "Name": "mixingtable",
               "Path": "assets/prefabs/deployable/mixingtable",
               "Files": {
-                "MixingTableIcon": "assets/prefabs/deployable/mixingtable/mixingtable.icon.png"
+                "MixingtableIcon": "assets/prefabs/deployable/mixingtable/mixingtable.icon.png"
               },
               "SubFolders": {}
             },
@@ -5474,7 +5474,7 @@
               "Name": "spraycan",
               "Path": "assets/prefabs/tools/spraycan",
               "Files": {
-                "SpraycanWeaponIcon": "assets/prefabs/tools/spraycan/spraycan.weapon.icon.png"
+                "SprayCanWeaponIcon": "assets/prefabs/tools/spraycan/spraycan.weapon.icon.png"
               },
               "SubFolders": {
                 "graffitipack": {
@@ -5490,9 +5490,9 @@
                   "Path": "assets/prefabs/tools/spraycan/sprays",
                   "Files": {
                     "SprayDecalBeancanIcon": "assets/prefabs/tools/spraycan/sprays/spray_decal.beancan.icon.png",
-                    "SprayDecalCandlehatIcon": "assets/prefabs/tools/spraycan/sprays/spray_decal.candlehat.icon.png",
+                    "SprayDecalCandleHatIcon": "assets/prefabs/tools/spraycan/sprays/spray_decal.candlehat.icon.png",
                     "SprayDecalFacepunchIcon": "assets/prefabs/tools/spraycan/sprays/spray_decal.facepunch.icon.png",
-                    "SprayDecalFrogbootsIcon": "assets/prefabs/tools/spraycan/sprays/spray_decal.frogboots.icon.png",
+                    "SprayDecalFrogBootsIcon": "assets/prefabs/tools/spraycan/sprays/spray_decal.frogboots.icon.png",
                     "SprayDecalHazmatIcon": "assets/prefabs/tools/spraycan/sprays/spray_decal.hazmat.icon.png",
                     "SprayDecalIcon": "assets/prefabs/tools/spraycan/sprays/spray.decal.icon.png",
                     "SprayDecalRockIcon": "assets/prefabs/tools/spraycan/sprays/spray_decal.rock.icon.png",
@@ -6423,7 +6423,7 @@
               "Name": "boombox",
               "Path": "assets/prefabs/voiceaudio/boombox",
               "Files": {
-                "BoomboxIcon": "assets/prefabs/voiceaudio/boombox/boombox.icon.png"
+                "BoomBoxIcon": "assets/prefabs/voiceaudio/boombox/boombox.icon.png"
               },
               "SubFolders": {}
             },
@@ -6431,7 +6431,7 @@
               "Name": "boomboxportable",
               "Path": "assets/prefabs/voiceaudio/boomboxportable",
               "Files": {
-                "BoomboxporTableWeaponIcon": "assets/prefabs/voiceaudio/boomboxportable/boomboxportable.weapon.icon.png"
+                "BoomBoxportableWeaponIcon": "assets/prefabs/voiceaudio/boomboxportable/boomboxportable.weapon.icon.png"
               },
               "SubFolders": {}
             },
@@ -6580,7 +6580,7 @@
                         "SleepingBag": "assets/prefabs/missions/tutorialisland/helpprompts/images/sleepingbag.jpg",
                         "TutorialPromptLowGrade": "assets/prefabs/missions/tutorialisland/helpprompts/images/tutorial_prompt_lowgrade.jpg",
                         "TutorialPromptPlanner": "assets/prefabs/missions/tutorialisland/helpprompts/images/tutorial_prompt_planner.jpg",
-                        "TutorialPromptToolcupboard": "assets/prefabs/missions/tutorialisland/helpprompts/images/tutorial_prompt_toolcupboard.jpg",
+                        "TutorialPromptToolcupBoard": "assets/prefabs/missions/tutorialisland/helpprompts/images/tutorial_prompt_toolcupboard.jpg",
                         "Workbenchcraft": "assets/prefabs/missions/tutorialisland/helpprompts/images/workbenchcraft.jpg"
                       },
                       "SubFolders": {}
@@ -7024,29 +7024,29 @@
                     "WallpaperBlueDiamondIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.bluediamond.icon.png",
                     "WallpaperBlueIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.blue.icon.png",
                     "WallpaperCloudsIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.clouds.icon.png",
-                    "WallpaperGeometricaIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.geometrica.icon.png",
-                    "WallpaperGeometricbIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.geometricb.icon.png",
-                    "WallpaperGlowboardaIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.glowboarda.icon.png",
-                    "WallpaperGlowboardbIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.glowboardb.icon.png",
+                    "WallpaperGeometricAIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.geometrica.icon.png",
+                    "WallpaperGeometricBIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.geometricb.icon.png",
+                    "WallpaperGlowBoardAIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.glowboarda.icon.png",
+                    "WallpaperGlowBoardBIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.glowboardb.icon.png",
                     "WallpaperGreenIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.green.icon.png",
-                    "WallpaperPolkadotaIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.polkadota.icon.png",
-                    "WallpaperPolkadotbIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.polkadotb.icon.png",
-                    "WallpaperPolkadotcIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.polkadotc.icon.png",
+                    "WallpaperPolkadotAIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.polkadota.icon.png",
+                    "WallpaperPolkadotBIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.polkadotb.icon.png",
+                    "WallpaperPolkadotCIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.polkadotc.icon.png",
                     "WallpaperRedIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.red.icon.png",
-                    "WallpaperRetroaIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.retroa.icon.png",
-                    "WallpaperRetrobIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.retrob.icon.png",
-                    "WallpaperRetrocIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.retroc.icon.png",
-                    "WallpaperRoyalaIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.royala.icon.png",
-                    "WallpaperRoyalbIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.royalb.icon.png",
-                    "WallpaperRoyalcIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.royalc.icon.png",
-                    "WallpaperSubwayaIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.subwaya.icon.png",
-                    "WallpaperSubwaybIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.subwayb.icon.png",
-                    "WallpaperVenetianPlasteraIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.venetianplastera.icon.png",
-                    "WallpaperVenetianPlasterbIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.venetianplasterb.icon.png",
-                    "WallpaperVenetianPlastercIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.venetianplasterc.icon.png",
-                    "WallpaperWainscottingaIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.wainscottinga.icon.png",
-                    "WallpaperWainscottingbIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.wainscottingb.icon.png",
-                    "WallpaperWainscottingcIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.wainscottingc.icon.png",
+                    "WallpaperRetroAIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.retroa.icon.png",
+                    "WallpaperRetroBIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.retrob.icon.png",
+                    "WallpaperRetroCIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.retroc.icon.png",
+                    "WallpaperRoyalAIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.royala.icon.png",
+                    "WallpaperRoyalBIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.royalb.icon.png",
+                    "WallpaperRoyalCIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.royalc.icon.png",
+                    "WallpaperSubwayAIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.subwaya.icon.png",
+                    "WallpaperSubwayBIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.subwayb.icon.png",
+                    "WallpaperVenetianPlasterAIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.venetianplastera.icon.png",
+                    "WallpaperVenetianPlasterBIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.venetianplasterb.icon.png",
+                    "WallpaperVenetianPlasterCIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.venetianplasterc.icon.png",
+                    "WallpaperWainscottingAIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.wainscottinga.icon.png",
+                    "WallpaperWainscottingBIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.wainscottingb.icon.png",
+                    "WallpaperWainscottingCIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.wainscottingc.icon.png",
                     "WallpaperYellowIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.yellow.icon.png",
                     "WallpaperYellowStripesIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.yellowstripes.icon.png"
                   },
@@ -7055,7 +7055,7 @@
                       "Name": "lny25",
                       "Path": "assets/prefabs/wallpaper/skins/icons/lny25",
                       "Files": {
-                        "LnypackIcon": "assets/prefabs/wallpaper/skins/icons/lny25/lnypackicon.png",
+                        "LnyPackIcon": "assets/prefabs/wallpaper/skins/icons/lny25/lnypackicon.png",
                         "WallpaperBambooIcon": "assets/prefabs/wallpaper/skins/icons/lny25/wallpaper.bamboo.icon.png",
                         "WallpaperCherryBlossomsIcon": "assets/prefabs/wallpaper/skins/icons/lny25/wallpaper.cherry.blossoms.icon.png",
                         "WallpaperChineseLanternsIcon": "assets/prefabs/wallpaper/skins/icons/lny25/wallpaper.chinese.lanterns.icon.png",
@@ -7086,15 +7086,15 @@
             "BackpackIcon": "assets/content/ui/backpack-icon.png",
             "BackpackIcon2": "assets/content/ui/backpack-icon2.png",
             "CapsuleBackground": "assets/content/ui/capsule-background.png",
-            "DeathMarker4x": "assets/content/ui/death-marker@4x.png",
+            "DeathMarker4X": "assets/content/ui/death-marker@4x.png",
             "DeathMarkerCentred": "assets/content/ui/death-marker_centred.png",
             "DottedLineHorizontal": "assets/content/ui/dotted_line_horizontal.png",
             "DottedLineVertical": "assets/content/ui/dotted_line_vertical.png",
-            "FacepunchDarkbg": "assets/content/ui/facepunch-darkbg.png",
+            "FacepunchDarkBg": "assets/content/ui/facepunch-darkbg.png",
             "GradientCircle": "assets/content/ui/gradient-circle.png",
             "Hypnotized": "assets/content/ui/hypnotized.png",
             "LoadingIcon": "assets/content/ui/loading.icon.png",
-            "Lock4x": "assets/content/ui/lock@4x.png",
+            "Lock4X": "assets/content/ui/lock@4x.png",
             "OverlayBinocular": "assets/content/ui/overlay_binocular.png",
             "OverlayBleedingHeight": "assets/content/ui/overlay_bleeding_height.tga",
             "OverlayBleedingNormal": "assets/content/ui/overlay_bleeding_normal.tga",
@@ -7115,9 +7115,9 @@
             "UiBackgroundRoundedTop": "assets/content/ui/ui.background.rounded.top.png",
             "UiBackgroundTile": "assets/content/ui/ui.background.tile.psd",
             "UiBackgroundTileClothing": "assets/content/ui/ui.background.tileclothing.png",
-            "UiBackgroundTiletex": "assets/content/ui/ui.background.tiletex.psd",
+            "UiBackgroundTileTex": "assets/content/ui/ui.background.tiletex.psd",
             "UiBackgroundTransparentLinear": "assets/content/ui/ui.background.transparent.linear.psd",
-            "UiBackgroundTransparentLinearltr": "assets/content/ui/ui.background.transparent.linearltr.tga",
+            "UiBackgroundTransparentLinearLtr": "assets/content/ui/ui.background.transparent.linearltr.tga",
             "UiBackgroundTransparentRadial": "assets/content/ui/ui.background.transparent.radial.psd",
             "UiBox": "assets/content/ui/ui.box.tga",
             "UiBoxDotted": "assets/content/ui/ui.box.dotted.tga",
@@ -7140,7 +7140,7 @@
             "WaypointOutline": "assets/content/ui/waypoint.outline.png",
             "WaypointOutlineInverted": "assets/content/ui/waypoint.outline_inverted.png",
             "WaypointOutlineTeam": "assets/content/ui/waypoint.outline.team.png",
-            "WaypointOutlineTeamtop": "assets/content/ui/waypoint.outline.teamtop.png"
+            "WaypointOutlineTeamTop": "assets/content/ui/waypoint.outline.teamtop.png"
           },
           "SubFolders": {
             "menuui": {
@@ -7301,7 +7301,7 @@
                                     "GesturepackRps01": "assets/content/ui/menuui/itemstore/packs/gesture pack/_assets/images/gesturepack_rps_01.jpg",
                                     "GesturepackShush01": "assets/content/ui/menuui/itemstore/packs/gesture pack/_assets/images/gesturepack_shush_01.jpg",
                                     "GesturepackThroatslit01": "assets/content/ui/menuui/itemstore/packs/gesture pack/_assets/images/gesturepack_throatslit_01.jpg",
-                                    "GesturepackWatchingyou01": "assets/content/ui/menuui/itemstore/packs/gesture pack/_assets/images/gesturepack_watchingyou_01.jpg"
+                                    "GesturepackWatchingYou01": "assets/content/ui/menuui/itemstore/packs/gesture pack/_assets/images/gesturepack_watchingyou_01.jpg"
                                   },
                                   "SubFolders": {}
                                 }
@@ -7382,7 +7382,7 @@
                               "Files": {
                                 "MedievalKnightarmour01": "assets/content/ui/menuui/itemstore/packs/medieval pack/_assets/medieval_knightarmour_01.jpg",
                                 "MedievalKnightarmour07": "assets/content/ui/menuui/itemstore/packs/medieval pack/_assets/medieval_knightarmour_07.jpg",
-                                "MedievalKnightarmourdetails04": "assets/content/ui/menuui/itemstore/packs/medieval pack/_assets/medieval_knightarmourdetails_04.jpg",
+                                "MedievalKnightarmourDetails04": "assets/content/ui/menuui/itemstore/packs/medieval pack/_assets/medieval_knightarmourdetails_04.jpg",
                                 "MedievalKnightarmourpose01": "assets/content/ui/menuui/itemstore/packs/medieval pack/_assets/medieval_knightarmourpose_01.jpg",
                                 "MedievalKnightarmourpose02": "assets/content/ui/menuui/itemstore/packs/medieval pack/_assets/medieval_knightarmourpose_02.jpg",
                                 "MedievalKnightarmourTabletop01": "assets/content/ui/menuui/itemstore/packs/medieval pack/_assets/medieval_knightarmour_tabletop_01.jpg",
@@ -7623,17 +7623,17 @@
                               "Name": "_assets",
                               "Path": "assets/content/ui/menuui/itemstore/misc/tool cupboard - retro/_assets",
                               "Files": {
-                                "RetroToolcupboardBranding": "assets/content/ui/menuui/itemstore/misc/tool cupboard - retro/_assets/retro-toolcupboard-branding.png",
-                                "ToolcupboardRetro01": "assets/content/ui/menuui/itemstore/misc/tool cupboard - retro/_assets/toolcupboard_retro_01.jpg",
-                                "ToolcupboardRetro02": "assets/content/ui/menuui/itemstore/misc/tool cupboard - retro/_assets/toolcupboard_retro_02.jpg",
-                                "ToolcupboardRetro03": "assets/content/ui/menuui/itemstore/misc/tool cupboard - retro/_assets/toolcupboard_retro_03.jpg",
-                                "ToolcupboardRetro04": "assets/content/ui/menuui/itemstore/misc/tool cupboard - retro/_assets/toolcupboard_retro_04.jpg",
-                                "ToolcupboardRetro05": "assets/content/ui/menuui/itemstore/misc/tool cupboard - retro/_assets/toolcupboard_retro_05.jpg",
-                                "ToolcupboardRetro06": "assets/content/ui/menuui/itemstore/misc/tool cupboard - retro/_assets/toolcupboard_retro_06.jpg",
-                                "ToolcupboardRetro07": "assets/content/ui/menuui/itemstore/misc/tool cupboard - retro/_assets/toolcupboard_retro_07.jpg",
-                                "ToolcupboardRetro08": "assets/content/ui/menuui/itemstore/misc/tool cupboard - retro/_assets/toolcupboard_retro_08.jpg",
-                                "ToolcupboardRetroIcon": "assets/content/ui/menuui/itemstore/misc/tool cupboard - retro/_assets/toolcupboard-retro-icon.jpg",
-                                "ToolcupboardRetroMedia1": "assets/content/ui/menuui/itemstore/misc/tool cupboard - retro/_assets/toolcupboard-retro-media-1.jpg"
+                                "RetroToolcupBoardBranding": "assets/content/ui/menuui/itemstore/misc/tool cupboard - retro/_assets/retro-toolcupboard-branding.png",
+                                "ToolcupBoardRetro01": "assets/content/ui/menuui/itemstore/misc/tool cupboard - retro/_assets/toolcupboard_retro_01.jpg",
+                                "ToolcupBoardRetro02": "assets/content/ui/menuui/itemstore/misc/tool cupboard - retro/_assets/toolcupboard_retro_02.jpg",
+                                "ToolcupBoardRetro03": "assets/content/ui/menuui/itemstore/misc/tool cupboard - retro/_assets/toolcupboard_retro_03.jpg",
+                                "ToolcupBoardRetro04": "assets/content/ui/menuui/itemstore/misc/tool cupboard - retro/_assets/toolcupboard_retro_04.jpg",
+                                "ToolcupBoardRetro05": "assets/content/ui/menuui/itemstore/misc/tool cupboard - retro/_assets/toolcupboard_retro_05.jpg",
+                                "ToolcupBoardRetro06": "assets/content/ui/menuui/itemstore/misc/tool cupboard - retro/_assets/toolcupboard_retro_06.jpg",
+                                "ToolcupBoardRetro07": "assets/content/ui/menuui/itemstore/misc/tool cupboard - retro/_assets/toolcupboard_retro_07.jpg",
+                                "ToolcupBoardRetro08": "assets/content/ui/menuui/itemstore/misc/tool cupboard - retro/_assets/toolcupboard_retro_08.jpg",
+                                "ToolcupBoardRetroIcon": "assets/content/ui/menuui/itemstore/misc/tool cupboard - retro/_assets/toolcupboard-retro-icon.jpg",
+                                "ToolcupBoardRetroMedia1": "assets/content/ui/menuui/itemstore/misc/tool cupboard - retro/_assets/toolcupboard-retro-media-1.jpg"
                               },
                               "SubFolders": {}
                             }
@@ -7744,8 +7744,8 @@
                               "Name": "_assets",
                               "Path": "assets/content/ui/menuui/itemstore/dlc/voiceprops/_assets",
                               "Files": {
-                                "VoicepropsBoombox1": "assets/content/ui/menuui/itemstore/dlc/voiceprops/_assets/voiceprops_boombox1.jpg",
-                                "VoicepropsBoombox2": "assets/content/ui/menuui/itemstore/dlc/voiceprops/_assets/voiceprops_boombox2.jpg",
+                                "VoicepropsBoomBox1": "assets/content/ui/menuui/itemstore/dlc/voiceprops/_assets/voiceprops_boombox1.jpg",
+                                "VoicepropsBoomBox2": "assets/content/ui/menuui/itemstore/dlc/voiceprops/_assets/voiceprops_boombox2.jpg",
                                 "VoicepropsCassetteRecorder2": "assets/content/ui/menuui/itemstore/dlc/voiceprops/_assets/voiceprops_cassette_recorder2.jpg",
                                 "VoicepropsCassettes1": "assets/content/ui/menuui/itemstore/dlc/voiceprops/_assets/voiceprops_cassettes1.jpg",
                                 "VoicepropsDiscoball1": "assets/content/ui/menuui/itemstore/dlc/voiceprops/_assets/voiceprops_discoball1.jpg",
@@ -8122,7 +8122,7 @@
                   "Name": "developmentskin",
                   "Path": "assets/content/ui/developer/developmentskin",
                   "Files": {
-                    "DevPanelbg": "assets/content/ui/developer/developmentskin/devpanelbg.png",
+                    "DevPanelBg": "assets/content/ui/developer/developmentskin/devpanelbg.png",
                     "DevTabActive": "assets/content/ui/developer/developmentskin/devtab-active.png",
                     "DevTabBright": "assets/content/ui/developer/developmentskin/devtab-bright.png",
                     "DevTabNormal": "assets/content/ui/developer/developmentskin/devtab-normal.png"
@@ -8497,7 +8497,7 @@
                       "Name": "the rust knight",
                       "Path": "assets/content/workshop/skin/balaclava/the rust knight",
                       "Files": {
-                        "SkinBalaclavaTheRustknightItemSkinIcon": "assets/content/workshop/skin/balaclava/the rust knight/skin.balaclava.therustknight.itemskin.icon.png"
+                        "SkinBalaclavaTherustknightItemSkinIcon": "assets/content/workshop/skin/balaclava/the rust knight/skin.balaclava.therustknight.itemskin.icon.png"
                       },
                       "SubFolders": {}
                     },
@@ -8811,7 +8811,7 @@
                       "Name": "rasta beenie",
                       "Path": "assets/content/workshop/skin/unknown/rasta beenie",
                       "Files": {
-                        "SkinBeenieRasTabeenieItemSkinIcon": "assets/content/workshop/skin/unknown/rasta beenie/skin.beenie.rastabeenie.itemskin.icon.png"
+                        "SkinBeenieRastabeenieItemSkinIcon": "assets/content/workshop/skin/unknown/rasta beenie/skin.beenie.rastabeenie.itemskin.icon.png"
                       },
                       "SubFolders": {}
                     },
@@ -8834,7 +8834,7 @@
                       "Name": "gun box - military green",
                       "Path": "assets/content/workshop/skin/box.wooden.large/gun box - military green",
                       "Files": {
-                        "Icongunbox": "assets/content/workshop/skin/box.wooden.large/gun box - military green/icongunbox.png"
+                        "IcongunBox": "assets/content/workshop/skin/box.wooden.large/gun box - military green/icongunbox.png"
                       },
                       "SubFolders": {}
                     },
@@ -8842,7 +8842,7 @@
                       "Name": "ammo v2 wooden box",
                       "Path": "assets/content/workshop/skin/box.wooden.large/ammo v2 wooden box",
                       "Files": {
-                        "SkinWoodstorageAmmoWoodenboxItemSkinIcon": "assets/content/workshop/skin/box.wooden.large/ammo v2 wooden box/skin.woodstorage.ammowoodenbox.itemskin.icon.png"
+                        "SkinWoodstorageAmmoWoodenBoxItemSkinIcon": "assets/content/workshop/skin/box.wooden.large/ammo v2 wooden box/skin.woodstorage.ammowoodenbox.itemskin.icon.png"
                       },
                       "SubFolders": {}
                     },
@@ -9178,7 +9178,7 @@
               "Name": "items",
               "Path": "assets/content/workshop/items",
               "Files": {
-                "BookAccidentSitemIcon": "assets/content/workshop/items/book.accident.sitem.icon.png"
+                "BookAccidentSItemIcon": "assets/content/workshop/items/book.accident.sitem.icon.png"
               },
               "SubFolders": {
                 "crates": {
@@ -9190,7 +9190,7 @@
                     "BarrelIcon": "assets/content/workshop/items/crates/barrel.icon.png",
                     "BoxHighIcon": "assets/content/workshop/items/crates/box.high.icon.png",
                     "BoxLowIcon": "assets/content/workshop/items/crates/box.low.icon.png",
-                    "TRustinrustCrateIcon": "assets/content/workshop/items/crates/trustinrust_crate.icon.png"
+                    "TrustInRustCrateIcon": "assets/content/workshop/items/crates/trustinrust_crate.icon.png"
                   },
                   "SubFolders": {}
                 },
@@ -9198,9 +9198,9 @@
                   "Name": "resources",
                   "Path": "assets/content/workshop/items/resources",
                   "Files": {
-                    "ClothSitemIcon": "assets/content/workshop/items/resources/cloth.sitem.icon.png",
-                    "MetalSitemIcon": "assets/content/workshop/items/resources/metal.sitem.icon.png",
-                    "WoodSitemIcon": "assets/content/workshop/items/resources/wood.sitem.icon.png"
+                    "ClothSItemIcon": "assets/content/workshop/items/resources/cloth.sitem.icon.png",
+                    "MetalSItemIcon": "assets/content/workshop/items/resources/metal.sitem.icon.png",
+                    "WoodSItemIcon": "assets/content/workshop/items/resources/wood.sitem.icon.png"
                   },
                   "SubFolders": {}
                 }
@@ -9964,7 +9964,7 @@
         "SleepingBag": "assets/icons/sleepingbag.png",
         "Square": "assets/icons/square.png",
         "SquareGradient": "assets/icons/square_gradient.png",
-        "STab": "assets/icons/stab.png",
+        "Stab": "assets/icons/stab.png",
         "Star": "assets/icons/star.png",
         "Steam": "assets/icons/steam.png",
         "Stopwatch": "assets/icons/stopwatch.png",
@@ -10089,7 +10089,7 @@
             "GestureThumbsDown": "assets/icons/gestures/gesture-thumbs-down.png",
             "GestureThumbsUp": "assets/icons/gestures/gesture-thumbs-up.png",
             "GestureVictory": "assets/icons/gestures/gesture-victory.png",
-            "GestureWatchingyou": "assets/icons/gestures/gesture-watchingyou.png",
+            "GestureWatchingYou": "assets/icons/gestures/gesture-watchingyou.png",
             "GestureWave": "assets/icons/gestures/gesture-wave.png",
             "GestureWindUpMiddle": "assets/icons/gestures/gesture-wind-up-middle.png"
           },

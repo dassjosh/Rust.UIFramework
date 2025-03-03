@@ -37,7 +37,7 @@
               "Name": "deployable",
               "Path": "assets/content/materials/deployable",
               "Files": {
-                "DeployableAccepTable": "assets/content/materials/deployable/deployable_acceptable.mat",
+                "DeployableAcceptable": "assets/content/materials/deployable/deployable_acceptable.mat",
                 "DeployableDenied": "assets/content/materials/deployable/deployable_denied.mat"
               },
               "SubFolders": {}
@@ -965,22 +965,22 @@
                       "Name": "materials",
                       "Path": "assets/content/nature/overgrowth/models/materials",
                       "Files": {
-                        "CreepingBushABillboardMat": "assets/content/nature/overgrowth/models/materials/creeping_bush_a_billboard_mat.mat",
-                        "CreepingBushABillboardMatSnow": "assets/content/nature/overgrowth/models/materials/creeping_bush_a_billboard_mat_snow.mat",
-                        "CreepingTreeABillboardMat": "assets/content/nature/overgrowth/models/materials/creeping_tree_a_billboard_mat.mat",
-                        "CreepingTreeABillboardMatSnow": "assets/content/nature/overgrowth/models/materials/creeping_tree_a_billboard_mat_snow.mat",
-                        "CreepingTreeBBillboardMat": "assets/content/nature/overgrowth/models/materials/creeping_tree_b_billboard_mat.mat",
-                        "CreepingTreeBBillboardMatSnow": "assets/content/nature/overgrowth/models/materials/creeping_tree_b_billboard_mat_snow.mat",
-                        "CreepingTreeCBillboardMat": "assets/content/nature/overgrowth/models/materials/creeping_tree_c_billboard_mat.mat",
-                        "CreepingTreeCBillboardMatSnow": "assets/content/nature/overgrowth/models/materials/creeping_tree_c_billboard_mat_snow.mat",
-                        "CreepingTreeDBillboardMat": "assets/content/nature/overgrowth/models/materials/creeping_tree_d_billboard_mat.mat",
-                        "CreepingTreeDBillboardMatSnow": "assets/content/nature/overgrowth/models/materials/creeping_tree_d_billboard_mat_snow.mat",
-                        "CreepingTreeEBillboardMat": "assets/content/nature/overgrowth/models/materials/creeping_tree_e_billboard_mat.mat",
-                        "CreepingTreeEBillboardMatSnow": "assets/content/nature/overgrowth/models/materials/creeping_tree_e_billboard_mat_snow.mat",
-                        "CreepingTreeFBillboardMat": "assets/content/nature/overgrowth/models/materials/creeping_tree_f_billboard_mat.mat",
-                        "CreepingTreeFBillboardMatSnow": "assets/content/nature/overgrowth/models/materials/creeping_tree_f_billboard_mat_snow.mat",
-                        "CreepingTreeGBillboardMat": "assets/content/nature/overgrowth/models/materials/creeping_tree_g_billboard_mat.mat",
-                        "CreepingTreeGBillboardMatSnow": "assets/content/nature/overgrowth/models/materials/creeping_tree_g_billboard_mat_snow.mat"
+                        "CreepingBushABillBoardMat": "assets/content/nature/overgrowth/models/materials/creeping_bush_a_billboard_mat.mat",
+                        "CreepingBushABillBoardMatSnow": "assets/content/nature/overgrowth/models/materials/creeping_bush_a_billboard_mat_snow.mat",
+                        "CreepingTreeABillBoardMat": "assets/content/nature/overgrowth/models/materials/creeping_tree_a_billboard_mat.mat",
+                        "CreepingTreeABillBoardMatSnow": "assets/content/nature/overgrowth/models/materials/creeping_tree_a_billboard_mat_snow.mat",
+                        "CreepingTreeBBillBoardMat": "assets/content/nature/overgrowth/models/materials/creeping_tree_b_billboard_mat.mat",
+                        "CreepingTreeBBillBoardMatSnow": "assets/content/nature/overgrowth/models/materials/creeping_tree_b_billboard_mat_snow.mat",
+                        "CreepingTreeCBillBoardMat": "assets/content/nature/overgrowth/models/materials/creeping_tree_c_billboard_mat.mat",
+                        "CreepingTreeCBillBoardMatSnow": "assets/content/nature/overgrowth/models/materials/creeping_tree_c_billboard_mat_snow.mat",
+                        "CreepingTreeDBillBoardMat": "assets/content/nature/overgrowth/models/materials/creeping_tree_d_billboard_mat.mat",
+                        "CreepingTreeDBillBoardMatSnow": "assets/content/nature/overgrowth/models/materials/creeping_tree_d_billboard_mat_snow.mat",
+                        "CreepingTreeEBillBoardMat": "assets/content/nature/overgrowth/models/materials/creeping_tree_e_billboard_mat.mat",
+                        "CreepingTreeEBillBoardMatSnow": "assets/content/nature/overgrowth/models/materials/creeping_tree_e_billboard_mat_snow.mat",
+                        "CreepingTreeFBillBoardMat": "assets/content/nature/overgrowth/models/materials/creeping_tree_f_billboard_mat.mat",
+                        "CreepingTreeFBillBoardMatSnow": "assets/content/nature/overgrowth/models/materials/creeping_tree_f_billboard_mat_snow.mat",
+                        "CreepingTreeGBillBoardMat": "assets/content/nature/overgrowth/models/materials/creeping_tree_g_billboard_mat.mat",
+                        "CreepingTreeGBillBoardMatSnow": "assets/content/nature/overgrowth/models/materials/creeping_tree_g_billboard_mat_snow.mat"
                       },
                       "SubFolders": {}
                     }
@@ -1209,7 +1209,7 @@
                   "Name": "materials",
                   "Path": "assets/content/nature/terrain/materials",
                   "Files": {
-                    "Terraintestlevel": "assets/content/nature/terrain/materials/terraintestlevel.mat",
+                    "TerrainTestlevel": "assets/content/nature/terrain/materials/terraintestlevel.mat",
                     "TerrainV3": "assets/content/nature/terrain/materials/terrain.v3.mat",
                     "TerrainV3Hapis": "assets/content/nature/terrain/materials/terrain.v3.hapis.mat",
                     "TerrainV3Margin": "assets/content/nature/terrain/materials/terrain.v3_margin.mat"
@@ -1854,13 +1854,13 @@
                         "OilrigFrames": "assets/content/structures/oilrig/models/materials/oilrig_frames.mat",
                         "OilrigGlass": "assets/content/structures/oilrig/models/materials/oilrig_glass.mat",
                         "OilrigGlassTransparent": "assets/content/structures/oilrig/models/materials/oilrig_glass_transparent.mat",
-                        "OilrigGreybox01Default": "assets/content/structures/oilrig/models/materials/oilrig_greybox-01 - default.mat",
-                        "OilrigGreybox02Default": "assets/content/structures/oilrig/models/materials/oilrig_greybox-02 - default.mat",
-                        "OilrigGreybox04Default": "assets/content/structures/oilrig/models/materials/oilrig_greybox-04 - default.mat",
-                        "OilrigGreybox05Default": "assets/content/structures/oilrig/models/materials/oilrig_greybox-05 - default.mat",
-                        "OilrigGreybox10Default": "assets/content/structures/oilrig/models/materials/oilrig_greybox-10 - default.mat",
-                        "OilrigGreybox11Default": "assets/content/structures/oilrig/models/materials/oilrig_greybox-11 - default.mat",
-                        "OilrigGreyboxOfficeVents": "assets/content/structures/oilrig/models/materials/oilrig_greybox-office_vents.mat",
+                        "OilrigGreyBox01Default": "assets/content/structures/oilrig/models/materials/oilrig_greybox-01 - default.mat",
+                        "OilrigGreyBox02Default": "assets/content/structures/oilrig/models/materials/oilrig_greybox-02 - default.mat",
+                        "OilrigGreyBox04Default": "assets/content/structures/oilrig/models/materials/oilrig_greybox-04 - default.mat",
+                        "OilrigGreyBox05Default": "assets/content/structures/oilrig/models/materials/oilrig_greybox-05 - default.mat",
+                        "OilrigGreyBox10Default": "assets/content/structures/oilrig/models/materials/oilrig_greybox-10 - default.mat",
+                        "OilrigGreyBox11Default": "assets/content/structures/oilrig/models/materials/oilrig_greybox-11 - default.mat",
+                        "OilrigGreyBoxOfficeVents": "assets/content/structures/oilrig/models/materials/oilrig_greybox-office_vents.mat",
                         "OilrigInteriorPanels": "assets/content/structures/oilrig/models/materials/oilrig_interior_panels.mat",
                         "OilrigLargeLod": "assets/content/structures/oilrig/models/materials/oilrig_large_lod.mat",
                         "OilrigMarkings": "assets/content/structures/oilrig/models/materials/oilrig_markings.mat",
@@ -2363,7 +2363,7 @@
                       "Name": "materials",
                       "Path": "assets/content/structures/warehouses/models/materials",
                       "Files": {
-                        "BakedWarhouseLaunchsiteLod": "assets/content/structures/warehouses/models/materials/baked_warhouse_launchsite_lod.mat",
+                        "BakedWarhouseLaunchSiteLod": "assets/content/structures/warehouses/models/materials/baked_warhouse_launchsite_lod.mat",
                         "CinderBlocks": "assets/content/structures/warehouses/models/materials/cinder_blocks.mat",
                         "CinderBlocksLod": "assets/content/structures/warehouses/models/materials/cinder_blocks_lod.mat",
                         "ConcreteADiffuse": "assets/content/structures/warehouses/models/materials/concrete_a_diffuse.mat",
@@ -2393,7 +2393,7 @@
                         "WarehouseRoofLod": "assets/content/structures/warehouses/models/materials/warehouse_roof_lod.mat",
                         "WarehouseSmallCoreLod": "assets/content/structures/warehouses/models/materials/warehouse_small_core_lod.mat",
                         "WarehouseSmallShellLod": "assets/content/structures/warehouses/models/materials/warehouse_small_shell_lod.mat",
-                        "WarhouseLaunchsiteLod": "assets/content/structures/warehouses/models/materials/warhouse_launchsite_lod.mat"
+                        "WarhouseLaunchSiteLod": "assets/content/structures/warehouses/models/materials/warhouse_launchsite_lod.mat"
                       },
                       "SubFolders": {}
                     }
@@ -2525,7 +2525,7 @@
                             "CraneDetailsBlue": "assets/content/structures/harbor/cranes/models/materials/crane_details_blue.mat",
                             "CraneDetailsJunk": "assets/content/structures/harbor/cranes/models/materials/crane_details_junk.mat",
                             "CraneDetailsLod": "assets/content/structures/harbor/cranes/models/materials/crane_details_lod.mat",
-                            "CraneDetailsLowgloss": "assets/content/structures/harbor/cranes/models/materials/crane_details_lowgloss.mat",
+                            "CraneDetailsLowGloss": "assets/content/structures/harbor/cranes/models/materials/crane_details_lowgloss.mat",
                             "CraneDetailsRusty": "assets/content/structures/harbor/cranes/models/materials/crane_details_rusty.mat",
                             "CraneDirtDecals": "assets/content/structures/harbor/cranes/models/materials/crane_dirt_decals.mat",
                             "CraneGlass": "assets/content/structures/harbor/cranes/models/materials/crane_glass.mat",
@@ -2655,9 +2655,9 @@
                           "Files": {
                             "Barnacletile": "assets/content/structures/divesite/plane/meshes/materials/barnacletile.mat",
                             "Cockpit": "assets/content/structures/divesite/plane/meshes/materials/cockpit.mat",
-                            "DivesitePlane02Tiled": "assets/content/structures/divesite/plane/meshes/materials/divesite_plane_02_tiled.mat",
-                            "DivesitePlane02Transparent": "assets/content/structures/divesite/plane/meshes/materials/divesite_plane_02_transparent.mat",
-                            "DivesitePlane02Unique": "assets/content/structures/divesite/plane/meshes/materials/divesite_plane_02_unique.mat",
+                            "DiveSitePlane02Tiled": "assets/content/structures/divesite/plane/meshes/materials/divesite_plane_02_tiled.mat",
+                            "DiveSitePlane02Transparent": "assets/content/structures/divesite/plane/meshes/materials/divesite_plane_02_transparent.mat",
+                            "DiveSitePlane02Unique": "assets/content/structures/divesite/plane/meshes/materials/divesite_plane_02_unique.mat",
                             "PlaneMat": "assets/content/structures/divesite/plane/meshes/materials/plane_mat.mat",
                             "Seaweed": "assets/content/structures/divesite/plane/meshes/materials/seaweed.mat",
                             "Skeleton": "assets/content/structures/divesite/plane/meshes/materials/skeleton.mat",
@@ -2683,10 +2683,10 @@
                           "Name": "materials",
                           "Path": "assets/content/structures/divesite/container/meshes/materials",
                           "Files": {
-                            "ContainerDivesite": "assets/content/structures/divesite/container/meshes/materials/container_divesite.mat",
-                            "ContainerDivesiteFront": "assets/content/structures/divesite/container/meshes/materials/container_divesite_front.mat",
-                            "DivesitecontainerLod": "assets/content/structures/divesite/container/meshes/materials/divesitecontainer_lod.mat",
-                            "ShippingContainerFloorDivesite": "assets/content/structures/divesite/container/meshes/materials/shipping_container_floor_divesite.mat"
+                            "ContainerDiveSite": "assets/content/structures/divesite/container/meshes/materials/container_divesite.mat",
+                            "ContainerDiveSiteFront": "assets/content/structures/divesite/container/meshes/materials/container_divesite_front.mat",
+                            "DiveSitecontainerLod": "assets/content/structures/divesite/container/meshes/materials/divesitecontainer_lod.mat",
+                            "ShippingContainerFloorDiveSite": "assets/content/structures/divesite/container/meshes/materials/shipping_container_floor_divesite.mat"
                           },
                           "SubFolders": {}
                         }
@@ -2703,10 +2703,10 @@
                       "Name": "material",
                       "Path": "assets/content/structures/divesite/wooden_boat_a/material",
                       "Files": {
-                        "DivesiteEBarrel": "assets/content/structures/divesite/wooden_boat_a/material/divesite_e_barrel.mat",
-                        "DivesiteEFishingNet01": "assets/content/structures/divesite/wooden_boat_a/material/divesite_e_fishing_net_01.mat",
-                        "DivesiteERope": "assets/content/structures/divesite/wooden_boat_a/material/divesite_e_rope.mat",
-                        "DivesiteEWoodenBoat": "assets/content/structures/divesite/wooden_boat_a/material/divesite_e_wooden_boat.mat"
+                        "DiveSiteEBarrel": "assets/content/structures/divesite/wooden_boat_a/material/divesite_e_barrel.mat",
+                        "DiveSiteEFishingNet01": "assets/content/structures/divesite/wooden_boat_a/material/divesite_e_fishing_net_01.mat",
+                        "DiveSiteERope": "assets/content/structures/divesite/wooden_boat_a/material/divesite_e_rope.mat",
+                        "DiveSiteEWoodenBoat": "assets/content/structures/divesite/wooden_boat_a/material/divesite_e_wooden_boat.mat"
                       },
                       "SubFolders": {}
                     }
@@ -2758,7 +2758,7 @@
                       "Name": "materials",
                       "Path": "assets/content/structures/billboards/models/materials",
                       "Files": {
-                        "BillbrdBackboard": "assets/content/structures/billboards/models/materials/billbrd_backboard.mat",
+                        "BillbrdBackBoard": "assets/content/structures/billboards/models/materials/billbrd_backboard.mat",
                         "BillbrdMetal": "assets/content/structures/billboards/models/materials/billbrd_metal.mat",
                         "BillbrdWoodbeams": "assets/content/structures/billboards/models/materials/billbrd_woodbeams.mat"
                       },
@@ -3666,7 +3666,7 @@
                         "MetalPanelsADiffuse": "assets/content/structures/satellite dish/models/materials/metal_panels_a_diffuse.mat",
                         "MetalPanelsADiffuseLod": "assets/content/structures/satellite dish/models/materials/metal_panels_a_diffuse_lod.mat",
                         "MetalPanelsAJunkyard": "assets/content/structures/satellite dish/models/materials/metal_panels_a_junkyard.mat",
-                        "MetalPanelsATerrainfade": "assets/content/structures/satellite dish/models/materials/metal_panels_a_terrainfade.mat",
+                        "MetalPanelsATerrainFade": "assets/content/structures/satellite dish/models/materials/metal_panels_a_terrainfade.mat",
                         "SatelliteDish": "assets/content/structures/satellite dish/models/materials/satellite_dish.mat",
                         "StrobeLightFlare": "assets/content/structures/satellite dish/models/materials/strobelight_flare.mat"
                       },
@@ -3895,9 +3895,9 @@
                       "Files": {
                         "ConcreteD": "assets/content/structures/rocket_factory_building/models/materials/concrete_d.mat",
                         "ConcreteDLod": "assets/content/structures/rocket_factory_building/models/materials/concrete_d_lod.mat",
-                        "GreyboxConcrete": "assets/content/structures/rocket_factory_building/models/materials/greybox_concrete.mat",
-                        "GreyboxGlass": "assets/content/structures/rocket_factory_building/models/materials/greybox_glass.mat",
-                        "GreyboxGlassOpaque": "assets/content/structures/rocket_factory_building/models/materials/greybox_glass_opaque.mat",
+                        "GreyBoxConcrete": "assets/content/structures/rocket_factory_building/models/materials/greybox_concrete.mat",
+                        "GreyBoxGlass": "assets/content/structures/rocket_factory_building/models/materials/greybox_glass.mat",
+                        "GreyBoxGlassOpaque": "assets/content/structures/rocket_factory_building/models/materials/greybox_glass_opaque.mat",
                         "Material0": "assets/content/structures/rocket_factory_building/models/materials/material #0.mat",
                         "MetalBeams": "assets/content/structures/rocket_factory_building/models/materials/metal_beams.mat",
                         "MetalBeamsLod": "assets/content/structures/rocket_factory_building/models/materials/metal_beams_lod.mat",
@@ -4443,13 +4443,13 @@
                       "Files": {
                         "FarmBuildingsLod3": "assets/content/structures/wooden_buildings/models/materials/farm_buildings_lod3.mat",
                         "Lobster": "assets/content/structures/wooden_buildings/models/materials/lobster.mat",
-                        "STablesBeams": "assets/content/structures/wooden_buildings/models/materials/stables_beams.mat",
-                        "STablesDoorCorrugated": "assets/content/structures/wooden_buildings/models/materials/stables_door_corrugated.mat",
-                        "STablesFloorA": "assets/content/structures/wooden_buildings/models/materials/stables_floor_a.mat",
-                        "STablesHayFloor": "assets/content/structures/wooden_buildings/models/materials/stables_hay_floor.mat",
-                        "STablesRoofCorrugated": "assets/content/structures/wooden_buildings/models/materials/stables_roof_corrugated.mat",
-                        "STablesStonewall": "assets/content/structures/wooden_buildings/models/materials/stables_stonewall.mat",
-                        "STablesTarp": "assets/content/structures/wooden_buildings/models/materials/stables_tarp.mat",
+                        "StablesBeams": "assets/content/structures/wooden_buildings/models/materials/stables_beams.mat",
+                        "StablesDoorCorrugated": "assets/content/structures/wooden_buildings/models/materials/stables_door_corrugated.mat",
+                        "StablesFloorA": "assets/content/structures/wooden_buildings/models/materials/stables_floor_a.mat",
+                        "StablesHayFloor": "assets/content/structures/wooden_buildings/models/materials/stables_hay_floor.mat",
+                        "StablesRoofCorrugated": "assets/content/structures/wooden_buildings/models/materials/stables_roof_corrugated.mat",
+                        "StablesStonewall": "assets/content/structures/wooden_buildings/models/materials/stables_stonewall.mat",
+                        "StablesTarp": "assets/content/structures/wooden_buildings/models/materials/stables_tarp.mat",
                         "WallPaint": "assets/content/structures/wooden_buildings/models/materials/wall paint.mat",
                         "WoodenBuildings": "assets/content/structures/wooden_buildings/models/materials/wooden_buildings.mat",
                         "WoodenBuildingsCorrugatedA": "assets/content/structures/wooden_buildings/models/materials/wooden_buildings_corrugated_a.mat",
@@ -4703,7 +4703,7 @@
                       "Name": "materials",
                       "Path": "assets/content/structures/nuclear_missile_silo/models/materials",
                       "Files": {
-                        "NuclearSiloVents": "assets/content/structures/nuclear_missile_silo/models/materials/nuclear_silo_vents.mat",
+                        "NuClearSiloVents": "assets/content/structures/nuclear_missile_silo/models/materials/nuclear_silo_vents.mat",
                         "SiloCableRack": "assets/content/structures/nuclear_missile_silo/models/materials/silo_cable_rack.mat",
                         "SiloCorrugatedE": "assets/content/structures/nuclear_missile_silo/models/materials/silo_corrugated_e.mat",
                         "SiloDirt": "assets/content/structures/nuclear_missile_silo/models/materials/silo_dirt.mat",
@@ -5248,7 +5248,7 @@
                       "Name": "materials",
                       "Path": "assets/content/structures/powerlines/powerline monument/materials",
                       "Files": {
-                        "Pptarp": "assets/content/structures/powerlines/powerline monument/materials/pptarp.mat",
+                        "PpTarp": "assets/content/structures/powerlines/powerline monument/materials/pptarp.mat",
                         "Pzllodmat": "assets/content/structures/powerlines/powerline monument/materials/pzllodmat.mat",
                         "Ziplinegrip": "assets/content/structures/powerlines/powerline monument/materials/ziplinegrip.mat",
                         "ZipLinestop": "assets/content/structures/powerlines/powerline monument/materials/ziplinestop.mat"
@@ -6755,9 +6755,9 @@
                       "Name": "standard",
                       "Path": "assets/content/effects/explosions/tests/standard",
                       "Files": {
-                        "Explosiontest": "assets/content/effects/explosions/tests/standard/explosiontest.mat",
-                        "Explosiontest1": "assets/content/effects/explosions/tests/standard/explosiontest 1.mat",
-                        "Explosiontest2": "assets/content/effects/explosions/tests/standard/explosiontest 2.mat"
+                        "ExplosionTest": "assets/content/effects/explosions/tests/standard/explosiontest.mat",
+                        "ExplosionTest1": "assets/content/effects/explosions/tests/standard/explosiontest 1.mat",
+                        "ExplosionTest2": "assets/content/effects/explosions/tests/standard/explosiontest 2.mat"
                       },
                       "SubFolders": {}
                     },
@@ -7053,7 +7053,7 @@
                 "ImpactSpark": "assets/content/effects/impact/impact_spark.mat",
                 "ImpactSparkHdr": "assets/content/effects/impact/impact_spark-hdr.mat",
                 "LiquidExplosion1": "assets/content/effects/impact/liquid_explosion1.mat",
-                "MudSplatterBillboard": "assets/content/effects/impact/mud_splatter_billboard.mat",
+                "MudSplatterBillBoard": "assets/content/effects/impact/mud_splatter_billboard.mat",
                 "MudSplatterDirectional": "assets/content/effects/impact/mud_splatter_directional.mat",
                 "ShrapnelDirt": "assets/content/effects/impact/shrapnel_dirt.mat",
                 "ShrapnelGlass": "assets/content/effects/impact/shrapnel_glass.mat",
@@ -7090,7 +7090,7 @@
               "Name": "textures",
               "Path": "assets/content/effects/textures",
               "Files": {
-                "Oiltest": "assets/content/effects/textures/oiltest.mat"
+                "OilTest": "assets/content/effects/textures/oiltest.mat"
               },
               "SubFolders": {
                 "flare": {
@@ -7301,10 +7301,10 @@
                 "MuzzleFlashFront3x3": "assets/content/effects/muzzleflashes/muzzle_flash-front-3x3.mat",
                 "MuzzleFlashRing": "assets/content/effects/muzzleflashes/muzzle_flash-ring.mat",
                 "MuzzleFlashSide1x2": "assets/content/effects/muzzleflashes/muzzle_flash-side-1x2.mat",
-                "MuzzleFlashSide1x4": "assets/content/effects/muzzleflashes/muzzle_flash-side-1x4.mat",
-                "MuzzleFlashSide1x4Dim": "assets/content/effects/muzzleflashes/muzzle_flash-side-1x4-dim.mat",
+                "MuzzleFlashSide1X4": "assets/content/effects/muzzleflashes/muzzle_flash-side-1x4.mat",
+                "MuzzleFlashSide1X4Dim": "assets/content/effects/muzzleflashes/muzzle_flash-side-1x4-dim.mat",
                 "MuzzleFlashT": "assets/content/effects/muzzleflashes/muzzle_flash-t.mat",
-                "MuzzleFlashTwin1x4": "assets/content/effects/muzzleflashes/muzzle_flash-twin-1x4.mat",
+                "MuzzleFlashTwin1X4": "assets/content/effects/muzzleflashes/muzzle_flash-twin-1x4.mat",
                 "MuzzleFlashV": "assets/content/effects/muzzleflashes/muzzle_flash-v.mat",
                 "MuzzleFumes": "assets/content/effects/muzzleflashes/muzzle_fumes.mat",
                 "MuzzleFumes2": "assets/content/effects/muzzleflashes/muzzle_fumes2.mat",
@@ -7333,10 +7333,10 @@
               "Name": "electrical",
               "Path": "assets/content/effects/electrical",
               "Files": {
-                "FuseboxSparks": "assets/content/effects/electrical/fusebox-sparks.mat",
-                "FuseboxSparksB": "assets/content/effects/electrical/fusebox-sparks-b.mat",
-                "FuseboxSparksBright": "assets/content/effects/electrical/fusebox-sparks-bright.mat",
-                "FuseboxSparksBrightLowsoft": "assets/content/effects/electrical/fusebox-sparks-bright-lowsoft.mat"
+                "FuseBoxSparks": "assets/content/effects/electrical/fusebox-sparks.mat",
+                "FuseBoxSparksB": "assets/content/effects/electrical/fusebox-sparks-b.mat",
+                "FuseBoxSparksBright": "assets/content/effects/electrical/fusebox-sparks-bright.mat",
+                "FuseBoxSparksBrightLowsoft": "assets/content/effects/electrical/fusebox-sparks-bright-lowsoft.mat"
               },
               "SubFolders": {}
             },
@@ -7452,7 +7452,7 @@
                 "PfxSmokeRocketThicksoftBlend": "assets/content/effects/fumes/pfx_smoke_rocket_thicksoftblend.mat",
                 "PfxSmokeWhispy1": "assets/content/effects/fumes/pfx_smoke_whispy_1.mat",
                 "PfxSmokeWhispy1Nosoft": "assets/content/effects/fumes/pfx_smoke_whispy_1_nosoft.mat",
-                "PfxSmokeWhispy1NuclearRocketIdle": "assets/content/effects/fumes/pfx_smoke_whispy_1_nuclear_rocket_idle.mat",
+                "PfxSmokeWhispy1NuClearRocketIdle": "assets/content/effects/fumes/pfx_smoke_whispy_1_nuclear_rocket_idle.mat",
                 "PfxSmokeWhispy1White": "assets/content/effects/fumes/pfx_smoke_whispy_1_white.mat",
                 "PfxSmokeWhispy1WhiteExplosionLingering": "assets/content/effects/fumes/pfx_smoke_whispy_1_white_explosion_lingering.mat",
                 "PfxSmokeWhispy1WhiteExplosionLingeringLowersoft": "assets/content/effects/fumes/pfx_smoke_whispy_1_white_explosion_lingering_lowersoft.mat",
@@ -7480,7 +7480,7 @@
               "Name": "liquid",
               "Path": "assets/content/effects/liquid",
               "Files": {
-                "VfxMixingTableDrops": "assets/content/effects/liquid/vfx_mixingtable_drops.mat",
+                "VfxMixingtableDrops": "assets/content/effects/liquid/vfx_mixingtable_drops.mat",
                 "VfxWaterDrops": "assets/content/effects/liquid/vfx_water_drops.mat",
                 "VfxWaterDropsImpact": "assets/content/effects/liquid/vfx_water_drops_impact.mat",
                 "VfxWaterDropsImpactSoft": "assets/content/effects/liquid/vfx_water_drops_impact_soft.mat",
@@ -7608,7 +7608,7 @@
                         "AcUnitsSnow": "assets/content/props/ac_units/models/materials/ac_units_snow.mat",
                         "AirconSmall": "assets/content/props/ac_units/models/materials/aircon_small.mat",
                         "AirconSmallVent": "assets/content/props/ac_units/models/materials/aircon_small_vent.mat",
-                        "GreyboxGrey1024": "assets/content/props/ac_units/models/materials/greybox_grey_1024.mat",
+                        "GreyBoxGrey1024": "assets/content/props/ac_units/models/materials/greybox_grey_1024.mat",
                         "RoofAirconUnit": "assets/content/props/ac_units/models/materials/roof_aircon_unit.mat",
                         "RoofAirconUnitTrans": "assets/content/props/ac_units/models/materials/roof_aircon_unit_trans.mat"
                       },
@@ -7628,7 +7628,7 @@
                   "Path": "assets/content/props/phone system/materials",
                   "Files": {
                     "AnsweringMachine": "assets/content/props/phone system/materials/answeringmachine.mat",
-                    "Boombox": "assets/content/props/phone system/materials/boombox.mat"
+                    "BoomBox": "assets/content/props/phone system/materials/boombox.mat"
                   },
                   "SubFolders": {}
                 }
@@ -7682,7 +7682,7 @@
                       "Name": "materials",
                       "Path": "assets/content/props/appartment_mailboxes/models/materials",
                       "Files": {
-                        "ApartmentMailboxes": "assets/content/props/appartment_mailboxes/models/materials/apartment_mailboxes.mat"
+                        "ApartmentMailBoxes": "assets/content/props/appartment_mailboxes/models/materials/apartment_mailboxes.mat"
                       },
                       "SubFolders": {}
                     }
@@ -9270,9 +9270,9 @@
                       "Path": "assets/content/props/fusebox/models/materials",
                       "Files": {
                         "Fuse": "assets/content/props/fusebox/models/materials/fuse.mat",
-                        "Fusebox": "assets/content/props/fusebox/models/materials/fusebox.mat",
-                        "FuseboxGlass": "assets/content/props/fusebox/models/materials/fusebox_glass.mat",
-                        "FuseboxOff": "assets/content/props/fusebox/models/materials/fusebox_off.mat"
+                        "FuseBox": "assets/content/props/fusebox/models/materials/fusebox.mat",
+                        "FuseBoxGlass": "assets/content/props/fusebox/models/materials/fusebox_glass.mat",
+                        "FuseBoxOff": "assets/content/props/fusebox/models/materials/fusebox_off.mat"
                       },
                       "SubFolders": {}
                     }
@@ -10028,8 +10028,8 @@
                   "Name": "materials",
                   "Path": "assets/content/props/nuclear_warhead/materials",
                   "Files": {
-                    "NuclearWarhead": "assets/content/props/nuclear_warhead/materials/nuclear_warhead.mat",
-                    "NuclearWarheadCables": "assets/content/props/nuclear_warhead/materials/nuclear_warhead_cables.mat"
+                    "NuClearWarhead": "assets/content/props/nuclear_warhead/materials/nuclear_warhead.mat",
+                    "NuClearWarheadCables": "assets/content/props/nuclear_warhead/materials/nuclear_warhead_cables.mat"
                   },
                   "SubFolders": {}
                 }
@@ -10128,8 +10128,8 @@
                   "Name": "materials",
                   "Path": "assets/content/props/boomboxportable/materials",
                   "Files": {
-                    "PorTableboombox": "assets/content/props/boomboxportable/materials/portableboombox.mat",
-                    "PorTableboomboxGlass": "assets/content/props/boomboxportable/materials/portableboombox glass.mat"
+                    "PortableboomBox": "assets/content/props/boomboxportable/materials/portableboombox.mat",
+                    "PortableboomBoxGlass": "assets/content/props/boomboxportable/materials/portableboombox glass.mat"
                   },
                   "SubFolders": {}
                 }
@@ -10269,7 +10269,7 @@
                       "Name": "materials",
                       "Path": "assets/content/props/radiator/models/materials",
                       "Files": {
-                        "RadiatortinTablemat": "assets/content/props/radiator/models/materials/radiatortintablemat.mat",
+                        "Radiatortintablemat": "assets/content/props/radiator/models/materials/radiatortintablemat.mat",
                         "RadiatorWhite": "assets/content/props/radiator/models/materials/radiator_white.mat"
                       },
                       "SubFolders": {}
@@ -10383,7 +10383,7 @@
                         "ReclaimTerminalCorrugated": "assets/content/props/reclaim_terminal/models/materials/reclaim_terminal_corrugated.mat",
                         "ReclaimTerminalCoupler": "assets/content/props/reclaim_terminal/models/materials/reclaim_terminal_coupler.mat",
                         "ReclaimTerminalDecals": "assets/content/props/reclaim_terminal/models/materials/reclaim_terminal_decals.mat",
-                        "ReclaimTerminalDropboxAndBirck": "assets/content/props/reclaim_terminal/models/materials/reclaim_terminal_dropbox_and_birck.mat",
+                        "ReclaimTerminalDropBoxAndBirck": "assets/content/props/reclaim_terminal/models/materials/reclaim_terminal_dropbox_and_birck.mat",
                         "ReclaimTerminalLod4": "assets/content/props/reclaim_terminal/models/materials/reclaim_terminal_lod4.mat",
                         "ReclaimTerminalMetalBeam": "assets/content/props/reclaim_terminal/models/materials/reclaim_terminal_metal_beam.mat",
                         "ReclaimTerminalMetalGrate": "assets/content/props/reclaim_terminal/models/materials/reclaim_terminal_metal_grate.mat",
@@ -11146,12 +11146,12 @@
                   "Name": "materials",
                   "Path": "assets/content/props/surfboard/materials",
                   "Files": {
-                    "Surfboard01": "assets/content/props/surfboard/materials/surfboard_01.mat",
-                    "Surfboard02": "assets/content/props/surfboard/materials/surfboard_02.mat",
-                    "Surfboard03": "assets/content/props/surfboard/materials/surfboard_03.mat",
-                    "Surfboard04": "assets/content/props/surfboard/materials/surfboard_04.mat",
-                    "Surfboard05": "assets/content/props/surfboard/materials/surfboard_05.mat",
-                    "SurfboardSign": "assets/content/props/surfboard/materials/surfboard_sign.mat"
+                    "SurfBoard01": "assets/content/props/surfboard/materials/surfboard_01.mat",
+                    "SurfBoard02": "assets/content/props/surfboard/materials/surfboard_02.mat",
+                    "SurfBoard03": "assets/content/props/surfboard/materials/surfboard_03.mat",
+                    "SurfBoard04": "assets/content/props/surfboard/materials/surfboard_04.mat",
+                    "SurfBoard05": "assets/content/props/surfboard/materials/surfboard_05.mat",
+                    "SurfBoardSign": "assets/content/props/surfboard/materials/surfboard_sign.mat"
                   },
                   "SubFolders": {}
                 }
@@ -11684,19 +11684,19 @@
             "NvgOverlay": "assets/content/ui/nvg_overlay.mat",
             "OverlayPrisonerHood": "assets/content/ui/overlay_prisonerhood.mat",
             "PlayerPreviewGlow": "assets/content/ui/playerpreviewglow.mat",
-            "PlayerPreviewremoveSegments": "assets/content/ui/playerpreviewremovesegments.mat",
+            "PlayerPreviewRemoveSegments": "assets/content/ui/playerpreviewremovesegments.mat",
             "PlayerPreviewSegments": "assets/content/ui/playerpreviewsegments.mat",
             "Scope1": "assets/content/ui/scope_1.mat",
             "Scope2": "assets/content/ui/scope_2.mat",
-            "UiAlphaclear": "assets/content/ui/ui.alphaclear.mat",
-            "UiAlphaclearnoztest": "assets/content/ui/ui.alphaclearnoztest.mat",
+            "UiAlphaClear": "assets/content/ui/ui.alphaclear.mat",
+            "UiAlphaClearNozTest": "assets/content/ui/ui.alphaclearnoztest.mat",
             "UiBackgroundBlur": "assets/content/ui/uibackgroundblur.mat",
             "UiBackgroundBlurInGameMenu": "assets/content/ui/uibackgroundblur-ingamemenu.mat",
             "UiBackgroundBlurMainMenu": "assets/content/ui/uibackgroundblur-mainmenu.mat",
             "UiBackgroundBlurNotice": "assets/content/ui/uibackgroundblur-notice.mat",
-            "UiCirclemask": "assets/content/ui/ui.circlemask.mat",
-            "UiMaskclear": "assets/content/ui/ui.maskclear.mat",
-            "UiNoztest": "assets/content/ui/ui.noztest.mat"
+            "UiCircleMask": "assets/content/ui/ui.circlemask.mat",
+            "UiMaskClear": "assets/content/ui/ui.maskclear.mat",
+            "UiNozTest": "assets/content/ui/ui.noztest.mat"
           },
           "SubFolders": {
             "gameui": {
@@ -11714,7 +11714,7 @@
                       "Path": "assets/content/ui/gameui/attackheli/hires",
                       "Files": {
                         "AhCrtHdr": "assets/content/ui/gameui/attackheli/hires/ah_crt_hdr.mat",
-                        "CompassstripattackHeli": "assets/content/ui/gameui/attackheli/hires/compassstripattackheli.mat"
+                        "CompassStripAttackHeli": "assets/content/ui/gameui/attackheli/hires/compassstripattackheli.mat"
                       },
                       "SubFolders": {}
                     }
@@ -11724,7 +11724,7 @@
                   "Name": "compass",
                   "Path": "assets/content/ui/gameui/compass",
                   "Files": {
-                    "Compassstrip": "assets/content/ui/gameui/compass/compassstrip.mat"
+                    "CompassStrip": "assets/content/ui/gameui/compass/compassstrip.mat"
                   },
                   "SubFolders": {}
                 },
@@ -11761,14 +11761,14 @@
                 "MainMenuModal": "assets/content/ui/menuui/mainmenu.modal.mat",
                 "MainMenuPanel": "assets/content/ui/menuui/mainmenu.panel.mat",
                 "MainMenuSidebar": "assets/content/ui/menuui/mainmenu.sidebar.mat",
-                "NewsImagefadedown": "assets/content/ui/menuui/newsimagefadedown.mat"
+                "NewsImageFadeDown": "assets/content/ui/menuui/newsimagefadedown.mat"
               },
               "SubFolders": {
                 "friendslist": {
                   "Name": "friendslist",
                   "Path": "assets/content/ui/menuui/friendslist",
                   "Files": {
-                    "UiFriendAvatarmask": "assets/content/ui/menuui/friendslist/ui.friendavatarmask.mat"
+                    "UiFriendAvatarMask": "assets/content/ui/menuui/friendslist/ui.friendavatarmask.mat"
                   },
                   "SubFolders": {}
                 },
@@ -11839,13 +11839,13 @@
                         "ArmoredModuleNet": "assets/content/vehicles/modularcar/models/materials/armored_module_net.mat",
                         "Carkeypad": "assets/content/vehicles/modularcar/models/materials/carkeypad.mat",
                         "CheckEngineLight": "assets/content/vehicles/modularcar/models/materials/checkenginelight.mat",
-                        "Dashboardmeters": "assets/content/vehicles/modularcar/models/materials/dashboardmeters.mat",
+                        "DashBoardmeters": "assets/content/vehicles/modularcar/models/materials/dashboardmeters.mat",
                         "GlassarmoredA": "assets/content/vehicles/modularcar/models/materials/glassarmored_a.mat",
                         "GlassarmoredB": "assets/content/vehicles/modularcar/models/materials/glassarmored_b.mat",
                         "HeadLightA": "assets/content/vehicles/modularcar/models/materials/headlight_a.mat",
                         "HeadLightAOff": "assets/content/vehicles/modularcar/models/materials/headlight_a_off.mat",
                         "LightBeam": "assets/content/vehicles/modularcar/models/materials/light_beam.mat",
-                        "LowgasLight": "assets/content/vehicles/modularcar/models/materials/lowgaslight.mat",
+                        "LowGasLight": "assets/content/vehicles/modularcar/models/materials/lowgaslight.mat",
                         "ModularVehicleA": "assets/content/vehicles/modularcar/models/materials/modular_vehicle_a.mat",
                         "TailLightA": "assets/content/vehicles/modularcar/models/materials/taillight_a.mat",
                         "TailLightAOff": "assets/content/vehicles/modularcar/models/materials/taillight_a_off.mat"
@@ -12240,8 +12240,8 @@
                   "Files": {
                     "FlameMlrsBack": "assets/content/vehicles/mlrs/effects/flame-mlrs-back.mat",
                     "FlameMlrsCone": "assets/content/vehicles/mlrs/effects/flame-mlrs-cone.mat",
-                    "MlrsLightmask": "assets/content/vehicles/mlrs/effects/mlrs_lightmask.mat",
-                    "MlrsTvnoise": "assets/content/vehicles/mlrs/effects/mlrs_tvnoise.mat",
+                    "MlrsLightMask": "assets/content/vehicles/mlrs/effects/mlrs_lightmask.mat",
+                    "MlrsTvNoise": "assets/content/vehicles/mlrs/effects/mlrs_tvnoise.mat",
                     "VfxExplosionLarge": "assets/content/vehicles/mlrs/effects/vfx_explosion_large.mat"
                   },
                   "SubFolders": {}
@@ -12251,7 +12251,7 @@
                   "Path": "assets/content/vehicles/mlrs/materials",
                   "Files": {
                     "MlrsBackSection": "assets/content/vehicles/mlrs/materials/mlrs_back_section.mat",
-                    "MlrsBlankscreen": "assets/content/vehicles/mlrs/materials/mlrs_blankscreen.mat",
+                    "MlrsBlankScreen": "assets/content/vehicles/mlrs/materials/mlrs_blankscreen.mat",
                     "Mlrsdottedline": "assets/content/vehicles/mlrs/materials/mlrsdottedline.mat",
                     "MlrsMap": "assets/content/vehicles/mlrs/materials/mlrsmap.mat",
                     "Mlrsrearcamera": "assets/content/vehicles/mlrs/materials/mlrsrearcamera.mat"
@@ -12275,7 +12275,7 @@
                       "Path": "assets/content/vehicles/trains/caboose/materials",
                       "Files": {
                         "Blackjackcomputer": "assets/content/vehicles/trains/caboose/materials/blackjackcomputer.mat",
-                        "BlackjackTable": "assets/content/vehicles/trains/caboose/materials/blackjacktable.mat",
+                        "Blackjacktable": "assets/content/vehicles/trains/caboose/materials/blackjacktable.mat",
                         "Cabooselod": "assets/content/vehicles/trains/caboose/materials/cabooselod.mat",
                         "Caboosewindowlit": "assets/content/vehicles/trains/caboose/materials/caboosewindowlit.mat",
                         "Carpets": "assets/content/vehicles/trains/caboose/materials/carpets.mat",
@@ -12498,7 +12498,7 @@
                   "Name": "rowboat",
                   "Path": "assets/content/vehicles/boats/rowboat",
                   "Files": {
-                    "OutboardTemp": "assets/content/vehicles/boats/rowboat/outboard_temp.mat"
+                    "OutBoardTemp": "assets/content/vehicles/boats/rowboat/outboard_temp.mat"
                   },
                   "SubFolders": {
                     "materials": {
@@ -13252,7 +13252,7 @@
                 "ConcreteLeaksE": "assets/content/textures/decals/concrete_leaks_e.mat",
                 "ConcreteLeaksF": "assets/content/textures/decals/concrete_leaks_f.mat",
                 "DecalVertiigoGraffiti": "assets/content/textures/decals/decal_vertiigo_graffiti.mat",
-                "Kargo1x4": "assets/content/textures/decals/kargo_1x4.mat",
+                "Kargo1X4": "assets/content/textures/decals/kargo_1x4.mat",
                 "KeepOut": "assets/content/textures/decals/keep_out.mat",
                 "LabelOilA": "assets/content/textures/decals/label_oil_a.mat",
                 "MossyGround": "assets/content/textures/decals/mossy_ground.mat",
@@ -13324,9 +13324,9 @@
                     "IndustrialDoorsBlue": "assets/content/textures/generic/industrial_doors_a/industrial_doors_blue.mat",
                     "IndustrialDoorsGlass": "assets/content/textures/generic/industrial_doors_a/industrial_doors_glass.mat",
                     "IndustrialDoorsGreen": "assets/content/textures/generic/industrial_doors_a/industrial_doors_green.mat",
-                    "IndustrialDoorsNuclearSiloGreen": "assets/content/textures/generic/industrial_doors_a/industrial_doors_nuclear_silo_green.mat",
-                    "IndustrialDoorsNuclearSiloGrey": "assets/content/textures/generic/industrial_doors_a/industrial_doors_nuclear_silo_grey.mat",
-                    "IndustrialDoorsNuclearSiloRed": "assets/content/textures/generic/industrial_doors_a/industrial_doors_nuclear_silo_red.mat",
+                    "IndustrialDoorsNuClearSiloGreen": "assets/content/textures/generic/industrial_doors_a/industrial_doors_nuclear_silo_green.mat",
+                    "IndustrialDoorsNuClearSiloGrey": "assets/content/textures/generic/industrial_doors_a/industrial_doors_nuclear_silo_grey.mat",
+                    "IndustrialDoorsNuClearSiloRed": "assets/content/textures/generic/industrial_doors_a/industrial_doors_nuclear_silo_red.mat",
                     "IndustrialDoorsRed": "assets/content/textures/generic/industrial_doors_a/industrial_doors_red.mat",
                     "IndustrialDoorsStatic": "assets/content/textures/generic/industrial_doors_a/industrial_doors_static.mat",
                     "IndustrialDoorsYellow": "assets/content/textures/generic/industrial_doors_a/industrial_doors_yellow.mat"
@@ -13394,19 +13394,19 @@
               "Name": "generic_materials",
               "Path": "assets/content/textures/generic_materials",
               "Files": {
-                "Greybox1024": "assets/content/textures/generic_materials/greybox_1024.mat",
-                "Greybox1024Orange": "assets/content/textures/generic_materials/greybox_1024_orange.mat",
-                "GreyboxBlue": "assets/content/textures/generic_materials/greybox_blue.mat",
-                "GreyboxDarkGrey": "assets/content/textures/generic_materials/greybox_dark_grey.mat",
-                "GreyboxGlass": "assets/content/textures/generic_materials/greybox_glass.mat",
-                "GreyboxGlassOpaque": "assets/content/textures/generic_materials/greybox_glass_opaque.mat",
-                "GreyboxGrass": "assets/content/textures/generic_materials/greybox_grass.mat",
-                "GreyboxGrey": "assets/content/textures/generic_materials/greybox_grey.mat",
-                "GreyboxRed": "assets/content/textures/generic_materials/greybox_red.mat",
-                "GreyboxTarmac": "assets/content/textures/generic_materials/greybox_tarmac.mat",
-                "GreyboxWhite": "assets/content/textures/generic_materials/greybox_white.mat",
-                "GreyboxYellow": "assets/content/textures/generic_materials/greybox_yellow.mat",
-                "SandGreybox": "assets/content/textures/generic_materials/sand_greybox.mat"
+                "GreyBox1024": "assets/content/textures/generic_materials/greybox_1024.mat",
+                "GreyBox1024Orange": "assets/content/textures/generic_materials/greybox_1024_orange.mat",
+                "GreyBoxBlue": "assets/content/textures/generic_materials/greybox_blue.mat",
+                "GreyBoxDarkGrey": "assets/content/textures/generic_materials/greybox_dark_grey.mat",
+                "GreyBoxGlass": "assets/content/textures/generic_materials/greybox_glass.mat",
+                "GreyBoxGlassOpaque": "assets/content/textures/generic_materials/greybox_glass_opaque.mat",
+                "GreyBoxGrass": "assets/content/textures/generic_materials/greybox_grass.mat",
+                "GreyBoxGrey": "assets/content/textures/generic_materials/greybox_grey.mat",
+                "GreyBoxRed": "assets/content/textures/generic_materials/greybox_red.mat",
+                "GreyBoxTarmac": "assets/content/textures/generic_materials/greybox_tarmac.mat",
+                "GreyBoxWhite": "assets/content/textures/generic_materials/greybox_white.mat",
+                "GreyBoxYellow": "assets/content/textures/generic_materials/greybox_yellow.mat",
+                "SandGreyBox": "assets/content/textures/generic_materials/sand_greybox.mat"
               },
               "SubFolders": {}
             }
@@ -13667,15 +13667,15 @@
                   "Name": "materials",
                   "Path": "assets/content/building/basicgeo/materials",
                   "Files": {
-                    "Basicgeometry": "assets/content/building/basicgeo/materials/basicgeometry.mat",
+                    "BasicGeometry": "assets/content/building/basicgeo/materials/basicgeometry.mat",
                     "DestroyOverlay": "assets/content/building/basicgeo/materials/destroyoverlay.mat",
                     "LevelFrame": "assets/content/building/basicgeo/materials/levelframe.mat",
                     "LevelMetal": "assets/content/building/basicgeo/materials/levelmetal.mat",
-                    "LevelMetaladv": "assets/content/building/basicgeo/materials/levelmetaladv.mat",
+                    "LevelMetalAdv": "assets/content/building/basicgeo/materials/levelmetaladv.mat",
                     "LevelStone": "assets/content/building/basicgeo/materials/levelstone.mat",
-                    "LevelStoneadv": "assets/content/building/basicgeo/materials/levelstoneadv.mat",
+                    "LevelStoneAdv": "assets/content/building/basicgeo/materials/levelstoneadv.mat",
                     "LevelWood": "assets/content/building/basicgeo/materials/levelwood.mat",
-                    "LevelWoodadv": "assets/content/building/basicgeo/materials/levelwoodadv.mat"
+                    "LevelWoodAdv": "assets/content/building/basicgeo/materials/levelwoodadv.mat"
                   },
                   "SubFolders": {}
                 }
@@ -13986,10 +13986,10 @@
           "Name": "decals",
           "Path": "assets/content/decals",
           "Files": {
-            "Decalblood": "assets/content/decals/decalblood.mat",
-            "Decalbloodspatter01Static": "assets/content/decals/decalbloodspatter01_static.mat",
-            "Decalbloodspatter02Static": "assets/content/decals/decalbloodspatter02_static.mat",
-            "Decalbloodspatter03Static": "assets/content/decals/decalbloodspatter03_static.mat",
+            "DecalBlood": "assets/content/decals/decalblood.mat",
+            "DecalBloodspatter01Static": "assets/content/decals/decalbloodspatter01_static.mat",
+            "DecalBloodspatter02Static": "assets/content/decals/decalbloodspatter02_static.mat",
+            "DecalBloodspatter03Static": "assets/content/decals/decalbloodspatter03_static.mat",
             "DecalBloodSplatter01": "assets/content/decals/decal_blood_splatter_01.mat",
             "DecalBloodSplatter02": "assets/content/decals/decal_blood_splatter_02.mat",
             "DecalBloodSplatter03": "assets/content/decals/decal_blood_splatter_03.mat",
@@ -14033,7 +14033,7 @@
             "DecalFootprintHumanBootSnowRight": "assets/content/decals/decal_footprint_human_boot_snow_right.mat",
             "DecalmeleeWoodblunt": "assets/content/decals/decalmeleewoodblunt.mat",
             "DecalRifleBulletImpactMetalA": "assets/content/decals/decal_rifle_bullet_impact_metal_a.mat",
-            "DecalSTabFlesh01": "assets/content/decals/decal_stab_flesh_01.mat",
+            "DecalStabFlesh01": "assets/content/decals/decal_stab_flesh_01.mat",
             "DecalXSprayA": "assets/content/decals/decal_xspray_a.mat",
             "DecalXSprayBlue": "assets/content/decals/decal_xspray_blue.mat",
             "DecalXSprayOrange": "assets/content/decals/decal_xspray_orange.mat"
@@ -14050,10 +14050,10 @@
             "DevDirt": "assets/content/developer/dev.dirt.mat",
             "DevError": "assets/content/developer/deverror.mat",
             "DevFlesh": "assets/content/developer/dev.flesh.mat",
-            "DevFRustumrenderer": "assets/content/developer/dev.frustumrenderer.mat",
+            "DevFrustumRenderer": "assets/content/developer/dev.frustumrenderer.mat",
             "DevGlass": "assets/content/developer/dev.glass.mat",
             "DevGrass": "assets/content/developer/dev.grass.mat",
-            "DevGreyobj": "assets/content/developer/devgreyobj.mat",
+            "DevGreyObj": "assets/content/developer/devgreyobj.mat",
             "DevLightWhite": "assets/content/developer/dev.light.white.mat",
             "DevLocal": "assets/content/developer/dev.local.mat",
             "DevMetal": "assets/content/developer/dev.metal.mat",
@@ -14064,15 +14064,15 @@
             "DevTransparent": "assets/content/developer/dev.transparent.mat",
             "DevTransparentOrange": "assets/content/developer/dev.transparent.orange.mat",
             "DevWater": "assets/content/developer/dev.water.mat",
-            "DevWhitebox": "assets/content/developer/devwhitebox.mat",
-            "DevWhiteboxTransparent": "assets/content/developer/devwhiteboxtransparent.mat",
-            "DevWhiteobj": "assets/content/developer/devwhiteobj.mat",
+            "DevWhiteBox": "assets/content/developer/devwhitebox.mat",
+            "DevWhiteBoxTransparent": "assets/content/developer/devwhiteboxtransparent.mat",
+            "DevWhiteObj": "assets/content/developer/devwhiteobj.mat",
             "DevWood": "assets/content/developer/dev.wood.mat",
             "DevWorldBlue": "assets/content/developer/dev.world.blue.mat",
-            "DevWorldBlueemissive": "assets/content/developer/dev.world.blueemissive.mat",
+            "DevWorldBlueEmissive": "assets/content/developer/dev.world.blueemissive.mat",
             "DevWorldBlueTransparent": "assets/content/developer/dev.world.bluetransparent.mat",
             "DevWorldGreen": "assets/content/developer/dev.world.green.mat",
-            "DevWorldGreenemissive": "assets/content/developer/dev.world.greenemissive.mat",
+            "DevWorldGreenEmissive": "assets/content/developer/dev.world.greenemissive.mat",
             "DevWorldGreenTransparent": "assets/content/developer/dev.world.green.transparent.mat",
             "DevWorldGrey": "assets/content/developer/dev.world.grey.mat",
             "DevWorldGreyDark": "assets/content/developer/dev.world.grey.dark.mat",
@@ -14119,7 +14119,7 @@
               "Name": "custom",
               "Path": "assets/content/shaders/custom",
               "Files": {
-                "Waterdepthmask": "assets/content/shaders/custom/waterdepthmask.mat"
+                "WaterdepthMask": "assets/content/shaders/custom/waterdepthmask.mat"
               },
               "SubFolders": {}
             }
@@ -14134,7 +14134,7 @@
               "Name": "island",
               "Path": "assets/content/nexus/island",
               "Files": {
-                "Islandbillboard": "assets/content/nexus/island/islandbillboard.mat"
+                "IslandbillBoard": "assets/content/nexus/island/islandbillboard.mat"
               },
               "SubFolders": {}
             }
@@ -14213,7 +14213,7 @@
                         "SignRope": "assets/prefabs/deployable/signs/models/materials/sign_rope.mat",
                         "Text": "assets/prefabs/deployable/signs/models/materials/text.mat",
                         "WoodenSignNew": "assets/prefabs/deployable/signs/models/materials/wooden_sign_new.mat",
-                        "WoodenSignPainTable": "assets/prefabs/deployable/signs/models/materials/wooden_sign_paintable.mat"
+                        "WoodenSignPaintable": "assets/prefabs/deployable/signs/models/materials/wooden_sign_paintable.mat"
                       },
                       "SubFolders": {}
                     }
@@ -14230,7 +14230,7 @@
                   "Name": "materials",
                   "Path": "assets/prefabs/deployable/advanced lootbox/materials",
                   "Files": {
-                    "Advancedlootbox": "assets/prefabs/deployable/advanced lootbox/materials/advancedlootbox.mat"
+                    "AdvancedlootBox": "assets/prefabs/deployable/advanced lootbox/materials/advancedlootbox.mat"
                   },
                   "SubFolders": {}
                 }
@@ -14279,7 +14279,7 @@
                   "Path": "assets/prefabs/deployable/vendingmachine/materials",
                   "Files": {
                     "ArcadeScreen": "assets/prefabs/deployable/vendingmachine/materials/arcade_screen.mat",
-                    "Glowtest": "assets/prefabs/deployable/vendingmachine/materials/glowtest.mat",
+                    "GlowTest": "assets/prefabs/deployable/vendingmachine/materials/glowtest.mat",
                     "Screenback": "assets/prefabs/deployable/vendingmachine/materials/screenback.mat",
                     "ScreenFont": "assets/prefabs/deployable/vendingmachine/materials/screenfont.mat",
                     "ScreenIcon": "assets/prefabs/deployable/vendingmachine/materials/screenicon.mat",
@@ -14288,7 +14288,7 @@
                     "Screeninterference": "assets/prefabs/deployable/vendingmachine/materials/screeninterference.mat",
                     "ScreeninterferenceDark": "assets/prefabs/deployable/vendingmachine/materials/screeninterference_dark.mat",
                     "ScreenOld": "assets/prefabs/deployable/vendingmachine/materials/screen_old.mat",
-                    "Shadowboxes": "assets/prefabs/deployable/vendingmachine/materials/shadowboxes.mat",
+                    "ShadowBoxes": "assets/prefabs/deployable/vendingmachine/materials/shadowboxes.mat",
                     "VendingMachine": "assets/prefabs/deployable/vendingmachine/materials/vendingmachine.mat",
                     "VmLod": "assets/prefabs/deployable/vendingmachine/materials/vm_lod.mat",
                     "VmScreen": "assets/prefabs/deployable/vendingmachine/materials/vm_screen.mat"
@@ -14534,7 +14534,7 @@
                         "BigWheel": "assets/prefabs/deployable/spinner_wheel/models/materials/big_wheel.mat",
                         "SpinnerWheel": "assets/prefabs/deployable/spinner_wheel/models/materials/spinner_wheel.mat",
                         "SpinnerWheelCanvas": "assets/prefabs/deployable/spinner_wheel/models/materials/spinner_wheel_canvas.mat",
-                        "SpinnerWheelUnusedNotPainTable": "assets/prefabs/deployable/spinner_wheel/models/materials/spinner_wheel_unused_not_paintable.mat"
+                        "SpinnerWheelUnusedNotPaintable": "assets/prefabs/deployable/spinner_wheel/models/materials/spinner_wheel_unused_not_paintable.mat"
                       },
                       "SubFolders": {}
                     }
@@ -15331,8 +15331,8 @@
                       "Path": "assets/prefabs/deployable/clan table/model/materials",
                       "Files": {
                         "ClanMap": "assets/prefabs/deployable/clan table/model/materials/clanmap.mat",
-                        "ClanTable": "assets/prefabs/deployable/clan table/model/materials/clantable.mat",
-                        "ClanTabledressing": "assets/prefabs/deployable/clan table/model/materials/clantabledressing.mat"
+                        "Clantable": "assets/prefabs/deployable/clan table/model/materials/clantable.mat",
+                        "Clantabledressing": "assets/prefabs/deployable/clan table/model/materials/clantabledressing.mat"
                       },
                       "SubFolders": {}
                     }
@@ -15372,7 +15372,7 @@
                       "Path": "assets/prefabs/deployable/tool cupboard/shockbyte/effects",
                       "Files": {
                         "CobosComputerUi": "assets/prefabs/deployable/tool cupboard/shockbyte/effects/cobos_computer_ui.mat",
-                        "ShockbyteToolcupboardScreenMaterial": "assets/prefabs/deployable/tool cupboard/shockbyte/effects/shockbyte_toolcupboard_screenmaterial.mat"
+                        "ShockbyteToolcupBoardScreenMaterial": "assets/prefabs/deployable/tool cupboard/shockbyte/effects/shockbyte_toolcupboard_screenmaterial.mat"
                       },
                       "SubFolders": {}
                     },
@@ -15380,8 +15380,8 @@
                       "Name": "materials",
                       "Path": "assets/prefabs/deployable/tool cupboard/shockbyte/materials",
                       "Files": {
-                        "Sbtclargescreen": "assets/prefabs/deployable/tool cupboard/shockbyte/materials/sbtclargescreen.mat",
-                        "Sbtcsmallscreen": "assets/prefabs/deployable/tool cupboard/shockbyte/materials/sbtcsmallscreen.mat",
+                        "SbtclargeScreen": "assets/prefabs/deployable/tool cupboard/shockbyte/materials/sbtclargescreen.mat",
+                        "SbtcsmallScreen": "assets/prefabs/deployable/tool cupboard/shockbyte/materials/sbtcsmallscreen.mat",
                         "Shockbytetc": "assets/prefabs/deployable/tool cupboard/shockbyte/materials/shockbytetc.mat",
                         "ShockbytetcBakelod": "assets/prefabs/deployable/tool cupboard/shockbyte/materials/shockbytetc bakelod.mat",
                         "Shockbytetcgreeble": "assets/prefabs/deployable/tool cupboard/shockbyte/materials/shockbytetcgreeble.mat"
@@ -15414,21 +15414,21 @@
                       "Path": "assets/prefabs/deployable/tool cupboard/retro/materials",
                       "Files": {
                         "FxOscilloscope": "assets/prefabs/deployable/tool cupboard/retro/materials/fx_oscilloscope.mat",
-                        "RetroToolcupboardCrateContentsAtlas": "assets/prefabs/deployable/tool cupboard/retro/materials/retro_toolcupboard_crate_contents_atlas.mat",
-                        "RetroToolcupboardGroup01": "assets/prefabs/deployable/tool cupboard/retro/materials/retro_toolcupboard_group_01.mat",
-                        "RetroToolcupboardGroup01Gib": "assets/prefabs/deployable/tool cupboard/retro/materials/retro_toolcupboard_group_01_gib.mat",
-                        "RetroToolcupboardGroup02": "assets/prefabs/deployable/tool cupboard/retro/materials/retro_toolcupboard_group_02.mat",
-                        "RetroToolcupboardGroup02Gib": "assets/prefabs/deployable/tool cupboard/retro/materials/retro_toolcupboard_group_02_gib.mat",
-                        "RetroToolcupboardGroup03": "assets/prefabs/deployable/tool cupboard/retro/materials/retro_toolcupboard_group_03.mat",
-                        "RetroToolcupboardGroup03Gib": "assets/prefabs/deployable/tool cupboard/retro/materials/retro_toolcupboard_group_03_gib.mat",
-                        "RetroToolcupboardGroupRefraction": "assets/prefabs/deployable/tool cupboard/retro/materials/retro_toolcupboard_group_refraction.mat",
-                        "RetroToolcupboardGroupTransparent": "assets/prefabs/deployable/tool cupboard/retro/materials/retro_toolcupboard_group_transparent.mat",
-                        "RetroToolcupboardGroupTransparentGib": "assets/prefabs/deployable/tool cupboard/retro/materials/retro_toolcupboard_group_transparent_gib.mat",
-                        "RetroToolcupboardScreenMaterial": "assets/prefabs/deployable/tool cupboard/retro/materials/retro_toolcupboard_screenmaterial.mat",
-                        "RetroToolcupboardScreenMaterialBack": "assets/prefabs/deployable/tool cupboard/retro/materials/retro_toolcupboard_screenmaterial_back.mat",
+                        "RetroToolcupBoardCrateContentsAtlas": "assets/prefabs/deployable/tool cupboard/retro/materials/retro_toolcupboard_crate_contents_atlas.mat",
+                        "RetroToolcupBoardGroup01": "assets/prefabs/deployable/tool cupboard/retro/materials/retro_toolcupboard_group_01.mat",
+                        "RetroToolcupBoardGroup01Gib": "assets/prefabs/deployable/tool cupboard/retro/materials/retro_toolcupboard_group_01_gib.mat",
+                        "RetroToolcupBoardGroup02": "assets/prefabs/deployable/tool cupboard/retro/materials/retro_toolcupboard_group_02.mat",
+                        "RetroToolcupBoardGroup02Gib": "assets/prefabs/deployable/tool cupboard/retro/materials/retro_toolcupboard_group_02_gib.mat",
+                        "RetroToolcupBoardGroup03": "assets/prefabs/deployable/tool cupboard/retro/materials/retro_toolcupboard_group_03.mat",
+                        "RetroToolcupBoardGroup03Gib": "assets/prefabs/deployable/tool cupboard/retro/materials/retro_toolcupboard_group_03_gib.mat",
+                        "RetroToolcupBoardGroupRefraction": "assets/prefabs/deployable/tool cupboard/retro/materials/retro_toolcupboard_group_refraction.mat",
+                        "RetroToolcupBoardGroupTransparent": "assets/prefabs/deployable/tool cupboard/retro/materials/retro_toolcupboard_group_transparent.mat",
+                        "RetroToolcupBoardGroupTransparentGib": "assets/prefabs/deployable/tool cupboard/retro/materials/retro_toolcupboard_group_transparent_gib.mat",
+                        "RetroToolcupBoardScreenMaterial": "assets/prefabs/deployable/tool cupboard/retro/materials/retro_toolcupboard_screenmaterial.mat",
+                        "RetroToolcupBoardScreenMaterialBack": "assets/prefabs/deployable/tool cupboard/retro/materials/retro_toolcupboard_screenmaterial_back.mat",
                         "ScreenIconPixelated": "assets/prefabs/deployable/tool cupboard/retro/materials/screenicon.pixelated.mat",
                         "ScreenIconPixelated2x1": "assets/prefabs/deployable/tool cupboard/retro/materials/screenicon.pixelated.2x1.mat",
-                        "ScreenIconPixelatedRetrocupsmallscreen": "assets/prefabs/deployable/tool cupboard/retro/materials/screenicon.pixelated_retrocupsmallscreen.mat"
+                        "ScreenIconPixelatedRetroCupsmallScreen": "assets/prefabs/deployable/tool cupboard/retro/materials/screenicon.pixelated_retrocupsmallscreen.mat"
                       },
                       "SubFolders": {}
                     }
@@ -15438,11 +15438,11 @@
                   "Name": "materials",
                   "Path": "assets/prefabs/deployable/tool cupboard/materials",
                   "Files": {
-                    "ToolCupboard": "assets/prefabs/deployable/tool cupboard/materials/tool cupboard.mat",
-                    "ToolCupboard1": "assets/prefabs/deployable/tool cupboard/materials/tool_cupboard.mat",
-                    "ToolCupboardDeployBad": "assets/prefabs/deployable/tool cupboard/materials/tool cupboard deploy bad.mat",
-                    "ToolCupboardDeployGood": "assets/prefabs/deployable/tool cupboard/materials/tool cupboard deploy good.mat",
-                    "ToolCupboardFade": "assets/prefabs/deployable/tool cupboard/materials/tool_cupboard_fade.mat"
+                    "ToolCupBoard": "assets/prefabs/deployable/tool cupboard/materials/tool cupboard.mat",
+                    "ToolCupBoard1": "assets/prefabs/deployable/tool cupboard/materials/tool_cupboard.mat",
+                    "ToolCupBoardDeployBad": "assets/prefabs/deployable/tool cupboard/materials/tool cupboard deploy bad.mat",
+                    "ToolCupBoardDeployGood": "assets/prefabs/deployable/tool cupboard/materials/tool cupboard deploy good.mat",
+                    "ToolCupBoardFade": "assets/prefabs/deployable/tool cupboard/materials/tool_cupboard_fade.mat"
                   },
                   "SubFolders": {}
                 }
@@ -15616,8 +15616,8 @@
               "Name": "dropbox",
               "Path": "assets/prefabs/deployable/dropbox",
               "Files": {
-                "Dropbox": "assets/prefabs/deployable/dropbox/dropbox.mat",
-                "DropboxReclaim": "assets/prefabs/deployable/dropbox/dropbox_reclaim.mat"
+                "DropBox": "assets/prefabs/deployable/dropbox/dropbox.mat",
+                "DropBoxReclaim": "assets/prefabs/deployable/dropbox/dropbox_reclaim.mat"
               },
               "SubFolders": {
                 "v2": {
@@ -15629,7 +15629,7 @@
                       "Name": "materials",
                       "Path": "assets/prefabs/deployable/dropbox/v2/materials",
                       "Files": {
-                        "Dropboxv2": "assets/prefabs/deployable/dropbox/v2/materials/dropboxv2.mat"
+                        "DropBoxv2": "assets/prefabs/deployable/dropbox/v2/materials/dropboxv2.mat"
                       },
                       "SubFolders": {}
                     }
@@ -15795,7 +15795,7 @@
                         "OiljackMetal": "assets/prefabs/deployable/oil jack/model/materials/oiljack_metal.mat",
                         "OiljackPlanks": "assets/prefabs/deployable/oil jack/model/materials/oiljack_planks.mat",
                         "OiljackPump": "assets/prefabs/deployable/oil jack/model/materials/oiljack_pump.mat",
-                        "OiljackPumpLpOiljackPumpAlbedotransparency": "assets/prefabs/deployable/oil jack/model/materials/oiljack pump lp_oiljack_pump_albedotransparency.mat",
+                        "OiljackPumpLpOiljackPumpAlbedoTransparency": "assets/prefabs/deployable/oil jack/model/materials/oiljack pump lp_oiljack_pump_albedotransparency.mat",
                         "OilrigTrimsRustyDiff": "assets/prefabs/deployable/oil jack/model/materials/oilrig_trims_rusty_diff.mat"
                       },
                       "SubFolders": {}
@@ -16198,7 +16198,7 @@
                   "Name": "materials",
                   "Path": "assets/prefabs/deployable/mailbox/materials",
                   "Files": {
-                    "Mailbox": "assets/prefabs/deployable/mailbox/materials/mailbox.mat",
+                    "MailBox": "assets/prefabs/deployable/mailbox/materials/mailbox.mat",
                     "Red": "assets/prefabs/deployable/mailbox/materials/red.mat"
                   },
                   "SubFolders": {}
@@ -16219,9 +16219,9 @@
                       "Name": "materials",
                       "Path": "assets/prefabs/deployable/frankensteintable/model/materials",
                       "Files": {
-                        "MixingTableA": "assets/prefabs/deployable/frankensteintable/model/materials/mixingtable_a.mat",
-                        "MixingTableBubbles": "assets/prefabs/deployable/frankensteintable/model/materials/mixingtable_bubbles.mat",
-                        "MixingTableGlass": "assets/prefabs/deployable/frankensteintable/model/materials/mixingtable_glass.mat"
+                        "MixingtableA": "assets/prefabs/deployable/frankensteintable/model/materials/mixingtable_a.mat",
+                        "MixingtableBubbles": "assets/prefabs/deployable/frankensteintable/model/materials/mixingtable_bubbles.mat",
+                        "MixingtableGlass": "assets/prefabs/deployable/frankensteintable/model/materials/mixingtable_glass.mat"
                       },
                       "SubFolders": {}
                     }
@@ -16243,9 +16243,9 @@
                       "Name": "materials",
                       "Path": "assets/prefabs/deployable/mixingtable/model/materials",
                       "Files": {
-                        "MixingTableA": "assets/prefabs/deployable/mixingtable/model/materials/mixingtable_a.mat",
-                        "MixingTableBubbles": "assets/prefabs/deployable/mixingtable/model/materials/mixingtable_bubbles.mat",
-                        "MixingTableGlass": "assets/prefabs/deployable/mixingtable/model/materials/mixingtable_glass.mat"
+                        "MixingtableA": "assets/prefabs/deployable/mixingtable/model/materials/mixingtable_a.mat",
+                        "MixingtableBubbles": "assets/prefabs/deployable/mixingtable/model/materials/mixingtable_bubbles.mat",
+                        "MixingtableGlass": "assets/prefabs/deployable/mixingtable/model/materials/mixingtable_glass.mat"
                       },
                       "SubFolders": {}
                     }
@@ -16296,8 +16296,8 @@
                   "Name": "materials",
                   "Path": "assets/prefabs/deployable/primitive lootbox/materials",
                   "Files": {
-                    "Primitivebox": "assets/prefabs/deployable/primitive lootbox/materials/primitivebox.mat",
-                    "PrimitiveboxUnderWater": "assets/prefabs/deployable/primitive lootbox/materials/primitivebox_underwater.mat"
+                    "PrimitiveBox": "assets/prefabs/deployable/primitive lootbox/materials/primitivebox.mat",
+                    "PrimitiveBoxUnderWater": "assets/prefabs/deployable/primitive lootbox/materials/primitivebox_underwater.mat"
                   },
                   "SubFolders": {}
                 }
@@ -16839,7 +16839,7 @@
                   "Files": {
                     "Glow": "assets/prefabs/misc/xmas/poweredlights/glow.mat",
                     "Glowoff": "assets/prefabs/misc/xmas/poweredlights/glowoff.mat",
-                    "Junctionbox": "assets/prefabs/misc/xmas/poweredlights/junctionbox.mat"
+                    "JunctionBox": "assets/prefabs/misc/xmas/poweredlights/junctionbox.mat"
                   },
                   "SubFolders": {
                     "material": {
@@ -16861,7 +16861,7 @@
                           "Name": "controlbox",
                           "Path": "assets/prefabs/misc/xmas/poweredlights/material/controlbox",
                           "Files": {
-                            "XmasControlbox": "assets/prefabs/misc/xmas/poweredlights/material/controlbox/xmas_controlbox.mat"
+                            "XmasControlBox": "assets/prefabs/misc/xmas/poweredlights/material/controlbox/xmas_controlbox.mat"
                           },
                           "SubFolders": {}
                         }
@@ -17086,7 +17086,7 @@
                           "Name": "materials",
                           "Path": "assets/prefabs/misc/xmas/giftbox/models/materials",
                           "Files": {
-                            "Giftbox": "assets/prefabs/misc/xmas/giftbox/models/materials/giftbox.mat"
+                            "GiftBox": "assets/prefabs/misc/xmas/giftbox/models/materials/giftbox.mat"
                           },
                           "SubFolders": {}
                         }
@@ -17443,7 +17443,7 @@
                   "Name": "stockings",
                   "Path": "assets/prefabs/misc/xmas/stockings",
                   "Files": {
-                    "Snowflakeemissive": "assets/prefabs/misc/xmas/stockings/snowflakeemissive.mat"
+                    "SnowflakeEmissive": "assets/prefabs/misc/xmas/stockings/snowflakeemissive.mat"
                   },
                   "SubFolders": {}
                 },
@@ -17552,7 +17552,7 @@
                       "Files": {
                         "BoogieBoard": "assets/prefabs/misc/summer_dlc/boogie_board/material/boogie_board.mat",
                         "BoogieBoardCorrugated": "assets/prefabs/misc/summer_dlc/boogie_board/material/boogie_board_corrugated.mat",
-                        "BoogieBoardCrashtest": "assets/prefabs/misc/summer_dlc/boogie_board/material/boogie_board_crashtest.mat",
+                        "BoogieBoardCrashTest": "assets/prefabs/misc/summer_dlc/boogie_board/material/boogie_board_crashtest.mat",
                         "BoogieBoardFlames": "assets/prefabs/misc/summer_dlc/boogie_board/material/boogie_board_flames.mat",
                         "BoogieBoardMarbled": "assets/prefabs/misc/summer_dlc/boogie_board/material/boogie_board_marbled.mat",
                         "BoogieBoardShark": "assets/prefabs/misc/summer_dlc/boogie_board/material/boogie_board_shark.mat",
@@ -17907,7 +17907,7 @@
                           "Name": "materials",
                           "Path": "assets/prefabs/misc/item drop/models/drybox/materials",
                           "Files": {
-                            "Drybox": "assets/prefabs/misc/item drop/models/drybox/materials/drybox.mat"
+                            "DryBox": "assets/prefabs/misc/item drop/models/drybox/materials/drybox.mat"
                           },
                           "SubFolders": {}
                         }
@@ -18176,7 +18176,7 @@
                       "Name": "materials",
                       "Path": "assets/prefabs/misc/decor_dlc/wantedposter/materials",
                       "Files": {
-                        "WantedposterCardboard": "assets/prefabs/misc/decor_dlc/wantedposter/materials/wantedpostercardboard.mat",
+                        "WantedposterCardBoard": "assets/prefabs/misc/decor_dlc/wantedposter/materials/wantedpostercardboard.mat",
                         "Wantedposterphoto": "assets/prefabs/misc/decor_dlc/wantedposter/materials/wantedposterphoto.mat",
                         "Wantedposterpolaroid": "assets/prefabs/misc/decor_dlc/wantedposter/materials/wantedposterpolaroid.mat",
                         "WantedpostersketchPoster2": "assets/prefabs/misc/decor_dlc/wantedposter/materials/wantedpostersketch_poster2.mat",
@@ -18211,7 +18211,7 @@
                         "Blackout": "assets/prefabs/misc/casino/slotmachine/materials/blackout.mat",
                         "SlotMachine": "assets/prefabs/misc/casino/slotmachine/materials/slotmachine.mat",
                         "SlotMachinereels": "assets/prefabs/misc/casino/slotmachine/materials/slotmachinereels.mat",
-                        "SlotMachineTable": "assets/prefabs/misc/casino/slotmachine/materials/slotmachinetable.mat"
+                        "SlotMachinetable": "assets/prefabs/misc/casino/slotmachine/materials/slotmachinetable.mat"
                       },
                       "SubFolders": {}
                     },
@@ -18239,7 +18239,7 @@
                   "Path": "assets/prefabs/misc/marketplace/materials",
                   "Files": {
                     "BuildingsupplieslootMarketplace": "assets/prefabs/misc/marketplace/materials/buildingsuppliesloot_marketplace.mat",
-                    "DropboxMarketplace": "assets/prefabs/misc/marketplace/materials/dropbox_marketplace.mat",
+                    "DropBoxMarketplace": "assets/prefabs/misc/marketplace/materials/dropbox_marketplace.mat",
                     "StoragemonitorMarketplace": "assets/prefabs/misc/marketplace/materials/storagemonitor_marketplace.mat"
                   },
                   "SubFolders": {}
@@ -18260,7 +18260,7 @@
                       "Name": "materials",
                       "Path": "assets/prefabs/misc/chinesenewyear/oxmask/materials",
                       "Files": {
-                        "Bullmask": "assets/prefabs/misc/chinesenewyear/oxmask/materials/bullmask.mat"
+                        "BullMask": "assets/prefabs/misc/chinesenewyear/oxmask/materials/bullmask.mat"
                       },
                       "SubFolders": {
                         "hairtextures": {
@@ -18360,7 +18360,7 @@
                       "Name": "materials",
                       "Path": "assets/prefabs/misc/chinesenewyear/dragonmask/materials",
                       "Files": {
-                        "Dragonmask": "assets/prefabs/misc/chinesenewyear/dragonmask/materials/dragonmask.mat"
+                        "DragonMask": "assets/prefabs/misc/chinesenewyear/dragonmask/materials/dragonmask.mat"
                       },
                       "SubFolders": {}
                     }
@@ -18405,7 +18405,7 @@
                       "Name": "materials",
                       "Path": "assets/prefabs/misc/chinesenewyear/rabbitmask/materials",
                       "Files": {
-                        "Rabbitmask": "assets/prefabs/misc/chinesenewyear/rabbitmask/materials/rabbitmask.mat"
+                        "RabbitMask": "assets/prefabs/misc/chinesenewyear/rabbitmask/materials/rabbitmask.mat"
                       },
                       "SubFolders": {}
                     }
@@ -18420,7 +18420,7 @@
                       "Name": "materials",
                       "Path": "assets/prefabs/misc/chinesenewyear/ratmask/materials",
                       "Files": {
-                        "Ratmask": "assets/prefabs/misc/chinesenewyear/ratmask/materials/ratmask.mat"
+                        "RatMask": "assets/prefabs/misc/chinesenewyear/ratmask/materials/ratmask.mat"
                       },
                       "SubFolders": {}
                     }
@@ -18437,7 +18437,7 @@
                       "Files": {
                         "SkyLanternBlue": "assets/prefabs/misc/chinesenewyear/sky_lantern/materials/sky_lantern_blue.mat",
                         "SkyLanternGreen": "assets/prefabs/misc/chinesenewyear/sky_lantern/materials/sky_lantern_green.mat",
-                        "SkyLanternNoemissive": "assets/prefabs/misc/chinesenewyear/sky_lantern/materials/sky_lantern_noemissive.mat",
+                        "SkyLanternNoEmissive": "assets/prefabs/misc/chinesenewyear/sky_lantern/materials/sky_lantern_noemissive.mat",
                         "SkyLanternOrange": "assets/prefabs/misc/chinesenewyear/sky_lantern/materials/sky_lantern_orange.mat",
                         "SkyLanternPink": "assets/prefabs/misc/chinesenewyear/sky_lantern/materials/sky_lantern_pink.mat",
                         "SkyLanternPlain": "assets/prefabs/misc/chinesenewyear/sky_lantern/materials/sky_lantern_plain.mat",
@@ -18459,7 +18459,7 @@
                       "Name": "material",
                       "Path": "assets/prefabs/misc/chinesenewyear/snakemask/material",
                       "Files": {
-                        "Snakemask": "assets/prefabs/misc/chinesenewyear/snakemask/material/snakemask.mat"
+                        "SnakeMask": "assets/prefabs/misc/chinesenewyear/snakemask/material/snakemask.mat"
                       },
                       "SubFolders": {}
                     }
@@ -18496,7 +18496,7 @@
                       "Name": "materials",
                       "Path": "assets/prefabs/misc/chinesenewyear/tigermask/materials",
                       "Files": {
-                        "Tigermask": "assets/prefabs/misc/chinesenewyear/tigermask/materials/tigermask.mat"
+                        "TigerMask": "assets/prefabs/misc/chinesenewyear/tigermask/materials/tigermask.mat"
                       },
                       "SubFolders": {}
                     }
@@ -19025,7 +19025,7 @@
                       "Path": "assets/prefabs/misc/halloween/frankensteintable/materials",
                       "Files": {
                         "Frankeninterface": "assets/prefabs/misc/halloween/frankensteintable/materials/frankeninterface.mat",
-                        "FrankenTable": "assets/prefabs/misc/halloween/frankensteintable/materials/frankentable.mat"
+                        "Frankentable": "assets/prefabs/misc/halloween/frankensteintable/materials/frankentable.mat"
                       },
                       "SubFolders": {}
                     },
@@ -19281,10 +19281,10 @@
                         "Web06": "assets/prefabs/misc/halloween/spiderweb/materials/web_06.mat",
                         "Web07": "assets/prefabs/misc/halloween/spiderweb/materials/web_07.mat",
                         "Web08": "assets/prefabs/misc/halloween/spiderweb/materials/web_08.mat",
-                        "Webtest": "assets/prefabs/misc/halloween/spiderweb/materials/webtest.mat",
-                        "Webtest1": "assets/prefabs/misc/halloween/spiderweb/materials/webtest 1.mat",
-                        "Webtest2": "assets/prefabs/misc/halloween/spiderweb/materials/webtest 2.mat",
-                        "Webtest3": "assets/prefabs/misc/halloween/spiderweb/materials/webtest 3.mat"
+                        "WebTest": "assets/prefabs/misc/halloween/spiderweb/materials/webtest.mat",
+                        "WebTest1": "assets/prefabs/misc/halloween/spiderweb/materials/webtest 1.mat",
+                        "WebTest2": "assets/prefabs/misc/halloween/spiderweb/materials/webtest 2.mat",
+                        "WebTest3": "assets/prefabs/misc/halloween/spiderweb/materials/webtest 3.mat"
                       },
                       "SubFolders": {}
                     }
@@ -19481,7 +19481,7 @@
                         "ChippyArcadeglass": "assets/prefabs/misc/chippy arcade/model/materials/chippyarcadeglass.mat",
                         "ChippyArcadeglass001": "assets/prefabs/misc/chippy arcade/model/materials/chippyarcadeglass.001.mat",
                         "ChippyArcadevariation": "assets/prefabs/misc/chippy arcade/model/materials/chippyarcadevariation.mat",
-                        "ChippyscreenMaterial": "assets/prefabs/misc/chippy arcade/model/materials/chippyscreenmaterial.mat"
+                        "ChippyScreenMaterial": "assets/prefabs/misc/chippy arcade/model/materials/chippyscreenmaterial.mat"
                       },
                       "SubFolders": {}
                     }
@@ -19588,18 +19588,18 @@
                   "Files": {
                     "FrontierMirror": "assets/prefabs/misc/mirror/materials/frontier_mirror.mat",
                     "Mirror01": "assets/prefabs/misc/mirror/materials/mirror_01.mat",
-                    "Mirror01PainTable": "assets/prefabs/misc/mirror/materials/mirror_01_paintable.mat",
-                    "Mirror01StandingPainTable": "assets/prefabs/misc/mirror/materials/mirror_01_standing_paintable.mat",
+                    "Mirror01Paintable": "assets/prefabs/misc/mirror/materials/mirror_01_paintable.mat",
+                    "Mirror01StandingPaintable": "assets/prefabs/misc/mirror/materials/mirror_01_standing_paintable.mat",
                     "Mirror02": "assets/prefabs/misc/mirror/materials/mirror_02.mat",
-                    "Mirror02PainTable": "assets/prefabs/misc/mirror/materials/mirror_02_paintable.mat",
-                    "Mirror02StandingPainTable": "assets/prefabs/misc/mirror/materials/mirror_02_standing_paintable.mat",
+                    "Mirror02Paintable": "assets/prefabs/misc/mirror/materials/mirror_02_paintable.mat",
+                    "Mirror02StandingPaintable": "assets/prefabs/misc/mirror/materials/mirror_02_standing_paintable.mat",
                     "Mirror03Opaque": "assets/prefabs/misc/mirror/materials/mirror_03_opaque.mat",
-                    "Mirror03PainTable": "assets/prefabs/misc/mirror/materials/mirror_03_paintable.mat",
+                    "Mirror03Paintable": "assets/prefabs/misc/mirror/materials/mirror_03_paintable.mat",
                     "Mirror03Shutter": "assets/prefabs/misc/mirror/materials/mirror_03_shutter.mat",
-                    "Mirror03StandingPainTable": "assets/prefabs/misc/mirror/materials/mirror_03_standing_paintable.mat",
+                    "Mirror03StandingPaintable": "assets/prefabs/misc/mirror/materials/mirror_03_standing_paintable.mat",
                     "Mirror03Transparent": "assets/prefabs/misc/mirror/materials/mirror_03_transparent.mat",
                     "Mirror04Opaque": "assets/prefabs/misc/mirror/materials/mirror_04_opaque.mat",
-                    "Mirror04PainTable": "assets/prefabs/misc/mirror/materials/mirror_04_paintable.mat",
+                    "Mirror04Paintable": "assets/prefabs/misc/mirror/materials/mirror_04_paintable.mat",
                     "Mirror04Transparent": "assets/prefabs/misc/mirror/materials/mirror_04_transparent.mat",
                     "Mirror05Opaque": "assets/prefabs/misc/mirror/materials/mirror_05_opaque.mat",
                     "Mirror05Transparent": "assets/prefabs/misc/mirror/materials/mirror_05_transparent.mat",
@@ -19628,9 +19628,9 @@
                         "Material0": "assets/prefabs/misc/junkpile/new/materials/material #0.mat",
                         "OldGunpowder": "assets/prefabs/misc/junkpile/new/materials/old_gunpowder.mat",
                         "RimRebar": "assets/prefabs/misc/junkpile/new/materials/rim_rebar.mat",
-                        "Shadowboxes": "assets/prefabs/misc/junkpile/new/materials/shadowboxes.mat",
-                        "Toolbox": "assets/prefabs/misc/junkpile/new/materials/toolbox.mat",
-                        "ToolboxJunk": "assets/prefabs/misc/junkpile/new/materials/toolbox_junk.mat",
+                        "ShadowBoxes": "assets/prefabs/misc/junkpile/new/materials/shadowboxes.mat",
+                        "ToolBox": "assets/prefabs/misc/junkpile/new/materials/toolbox.mat",
+                        "ToolBoxJunk": "assets/prefabs/misc/junkpile/new/materials/toolbox_junk.mat",
                         "Tyre": "assets/prefabs/misc/junkpile/new/materials/tyre.mat",
                         "WashingMachine": "assets/prefabs/misc/junkpile/new/materials/washingmachine.mat",
                         "WashingMachineJunk": "assets/prefabs/misc/junkpile/new/materials/washingmachine_junk.mat"
@@ -19900,7 +19900,7 @@
                   "Name": "materials",
                   "Path": "assets/prefabs/misc/small ration float/materials",
                   "Files": {
-                    "Rationboxfloat": "assets/prefabs/misc/small ration float/materials/rationboxfloat.mat",
+                    "RationBoxfloat": "assets/prefabs/misc/small ration float/materials/rationboxfloat.mat",
                     "Waterbottle": "assets/prefabs/misc/small ration float/materials/waterbottle.mat",
                     "Webbing": "assets/prefabs/misc/small ration float/materials/webbing.mat"
                   },
@@ -20647,7 +20647,7 @@
                     "BeamRealistic": "assets/prefabs/weapons/toolgun/effects/beam_realistic.mat",
                     "Ring": "assets/prefabs/weapons/toolgun/effects/ring.mat",
                     "RingRealistic": "assets/prefabs/weapons/toolgun/effects/ring_realistic.mat",
-                    "ToolgunscreenFont": "assets/prefabs/weapons/toolgun/effects/toolgunscreenfont.mat"
+                    "ToolgunScreenFont": "assets/prefabs/weapons/toolgun/effects/toolgunscreenfont.mat"
                   },
                   "SubFolders": {}
                 },
@@ -22421,7 +22421,7 @@
                   "Name": "materials",
                   "Path": "assets/prefabs/ammo/handmade shell/materials",
                   "Files": {
-                    "HandmadeshotgunshellAmmobox": "assets/prefabs/ammo/handmade shell/materials/handmadeshotgunshellammobox.mat"
+                    "HandmadeshotgunshellAmmoBox": "assets/prefabs/ammo/handmade shell/materials/handmadeshotgunshellammobox.mat"
                   },
                   "SubFolders": {}
                 }
@@ -22451,9 +22451,9 @@
                   "Name": "materials",
                   "Path": "assets/prefabs/ammo/pistol/materials",
                   "Files": {
-                    "PistolAmmoboxhv": "assets/prefabs/ammo/pistol/materials/pistolammoboxhv.mat",
-                    "PistolAmmoboxincendiary": "assets/prefabs/ammo/pistol/materials/pistolammoboxincendiary.mat",
-                    "PistolAmmoboxstandard": "assets/prefabs/ammo/pistol/materials/pistolammoboxstandard.mat"
+                    "PistolAmmoBoxhv": "assets/prefabs/ammo/pistol/materials/pistolammoboxhv.mat",
+                    "PistolAmmoBoxincendiary": "assets/prefabs/ammo/pistol/materials/pistolammoboxincendiary.mat",
+                    "PistolAmmoBoxstandard": "assets/prefabs/ammo/pistol/materials/pistolammoboxstandard.mat"
                   },
                   "SubFolders": {}
                 }
@@ -22468,10 +22468,10 @@
                   "Name": "materials",
                   "Path": "assets/prefabs/ammo/rifle/materials",
                   "Files": {
-                    "RifleAmmoboxexplosive": "assets/prefabs/ammo/rifle/materials/rifleammoboxexplosive.mat",
-                    "RifleAmmoboxhv": "assets/prefabs/ammo/rifle/materials/rifleammoboxhv.mat",
-                    "RifleAmmoboxincendiary": "assets/prefabs/ammo/rifle/materials/rifleammoboxincendiary.mat",
-                    "RifleAmmoboxstandard": "assets/prefabs/ammo/rifle/materials/rifleammoboxstandard.mat"
+                    "RifleAmmoBoxexplosive": "assets/prefabs/ammo/rifle/materials/rifleammoboxexplosive.mat",
+                    "RifleAmmoBoxhv": "assets/prefabs/ammo/rifle/materials/rifleammoboxhv.mat",
+                    "RifleAmmoBoxincendiary": "assets/prefabs/ammo/rifle/materials/rifleammoboxincendiary.mat",
+                    "RifleAmmoBoxstandard": "assets/prefabs/ammo/rifle/materials/rifleammoboxstandard.mat"
                   },
                   "SubFolders": {}
                 }
@@ -22486,9 +22486,9 @@
                   "Name": "materials",
                   "Path": "assets/prefabs/ammo/shotgun/materials",
                   "Files": {
-                    "ShotgunAmmoboxbuckshot": "assets/prefabs/ammo/shotgun/materials/shotgunammoboxbuckshot.mat",
-                    "ShotgunAmmoboxincendiary": "assets/prefabs/ammo/shotgun/materials/shotgunammoboxincendiary.mat",
-                    "ShotgunAmmoboxslug": "assets/prefabs/ammo/shotgun/materials/shotgunammoboxslug.mat"
+                    "ShotgunAmmoBoxbuckshot": "assets/prefabs/ammo/shotgun/materials/shotgunammoboxbuckshot.mat",
+                    "ShotgunAmmoBoxincendiary": "assets/prefabs/ammo/shotgun/materials/shotgunammoboxincendiary.mat",
+                    "ShotgunAmmoBoxslug": "assets/prefabs/ammo/shotgun/materials/shotgunammoboxslug.mat"
                   },
                   "SubFolders": {}
                 }
@@ -22739,7 +22739,7 @@
                     "MuzzleBradleyFront": "assets/prefabs/npc/m2bradley/effects/muzzle_bradley_front.mat",
                     "MuzzleBradleySide": "assets/prefabs/npc/m2bradley/effects/muzzle_bradley_side.mat",
                     "MuzzleFlashFrontBradley": "assets/prefabs/npc/m2bradley/effects/muzzle_flash-front-bradley.mat",
-                    "MuzzleFlashSide1x4Bradley": "assets/prefabs/npc/m2bradley/effects/muzzle_flash-side-1x4-bradley.mat"
+                    "MuzzleFlashSide1X4Bradley": "assets/prefabs/npc/m2bradley/effects/muzzle_flash-side-1x4-bradley.mat"
                   },
                   "SubFolders": {}
                 }
@@ -22769,7 +22769,7 @@
               "Name": "birds",
               "Path": "assets/prefabs/npc/birds",
               "Files": {
-                "Birdtest": "assets/prefabs/npc/birds/birdtest.mat"
+                "BirdTest": "assets/prefabs/npc/birds/birdtest.mat"
               },
               "SubFolders": {}
             },
@@ -23625,11 +23625,11 @@
                   "Name": "ioslothandles",
                   "Path": "assets/prefabs/tools/wire/ioslothandles",
                   "Files": {
-                    "Ioslothandle": "assets/prefabs/tools/wire/ioslothandles/ioslothandle.mat",
-                    "IoslothandleInuse": "assets/prefabs/tools/wire/ioslothandles/ioslothandle_inuse.mat",
-                    "IoslothandlePending": "assets/prefabs/tools/wire/ioslothandles/ioslothandle_pending.mat",
-                    "IoslothandleSelected": "assets/prefabs/tools/wire/ioslothandles/ioslothandle_selected.mat",
-                    "IoslothandleSelectedInuse": "assets/prefabs/tools/wire/ioslothandles/ioslothandle_selected_inuse.mat"
+                    "IoSlothandle": "assets/prefabs/tools/wire/ioslothandles/ioslothandle.mat",
+                    "IoSlothandleInuse": "assets/prefabs/tools/wire/ioslothandles/ioslothandle_inuse.mat",
+                    "IoSlothandlePending": "assets/prefabs/tools/wire/ioslothandles/ioslothandle_pending.mat",
+                    "IoSlothandleSelected": "assets/prefabs/tools/wire/ioslothandles/ioslothandle_selected.mat",
+                    "IoSlothandleSelectedInuse": "assets/prefabs/tools/wire/ioslothandles/ioslothandle_selected_inuse.mat"
                   },
                   "SubFolders": {}
                 },
@@ -23835,9 +23835,9 @@
                   "Name": "ioslothandles",
                   "Path": "assets/prefabs/tools/hose/ioslothandles",
                   "Files": {
-                    "Ioslothandlehose": "assets/prefabs/tools/hose/ioslothandles/ioslothandlehose.mat",
-                    "IoslothandlehoseInuse": "assets/prefabs/tools/hose/ioslothandles/ioslothandlehose_inuse.mat",
-                    "IoslothandlehosePending": "assets/prefabs/tools/hose/ioslothandles/ioslothandlehose_pending.mat"
+                    "IoSlothandlehose": "assets/prefabs/tools/hose/ioslothandles/ioslothandlehose.mat",
+                    "IoSlothandlehoseInuse": "assets/prefabs/tools/hose/ioslothandles/ioslothandlehose_inuse.mat",
+                    "IoSlothandlehosePending": "assets/prefabs/tools/hose/ioslothandles/ioslothandlehose_pending.mat"
                   },
                   "SubFolders": {}
                 }
@@ -24027,7 +24027,7 @@
                   "Files": {
                     "Spraydecalmat": "assets/prefabs/tools/spraycan/sprays/spraydecalmat.mat",
                     "SpraydecalmatBeancan": "assets/prefabs/tools/spraycan/sprays/spraydecalmat_beancan.mat",
-                    "SpraydecalmatCandlehat": "assets/prefabs/tools/spraycan/sprays/spraydecalmat_candlehat.mat",
+                    "SpraydecalmatCandleHat": "assets/prefabs/tools/spraycan/sprays/spraydecalmat_candlehat.mat",
                     "SpraydecalmatFacepunch": "assets/prefabs/tools/spraycan/sprays/spraydecalmat_facepunch.mat",
                     "SpraydecalmatFrogboot": "assets/prefabs/tools/spraycan/sprays/spraydecalmat_frogboot.mat",
                     "SpraydecalmatHazmat": "assets/prefabs/tools/spraycan/sprays/spraydecalmat_hazmat.mat",
@@ -24046,7 +24046,7 @@
                           "Path": "assets/prefabs/tools/spraycan/sprays/static/materials",
                           "Files": {
                             "SpraydecalStaticBeancan": "assets/prefabs/tools/spraycan/sprays/static/materials/spraydecal_static_beancan.mat",
-                            "SpraydecalStaticCandlehat": "assets/prefabs/tools/spraycan/sprays/static/materials/spraydecal_static_candlehat.mat",
+                            "SpraydecalStaticCandleHat": "assets/prefabs/tools/spraycan/sprays/static/materials/spraydecal_static_candlehat.mat",
                             "SpraydecalStaticFp": "assets/prefabs/tools/spraycan/sprays/static/materials/spraydecal_static_fp.mat",
                             "SpraydecalStaticFrogboot": "assets/prefabs/tools/spraycan/sprays/static/materials/spraydecal_static_frogboot.mat",
                             "SpraydecalStaticHazmat": "assets/prefabs/tools/spraycan/sprays/static/materials/spraydecal_static_hazmat.mat",
@@ -24065,7 +24065,7 @@
                   "Files": {
                     "Spraylinedecalmat": "assets/prefabs/tools/spraycan/freehandspray/spraylinedecalmat.mat",
                     "Spraylinemat": "assets/prefabs/tools/spraycan/freehandspray/spraylinemat.mat",
-                    "Uvtest": "assets/prefabs/tools/spraycan/freehandspray/uvtest.mat"
+                    "UvTest": "assets/prefabs/tools/spraycan/freehandspray/uvtest.mat"
                   },
                   "SubFolders": {}
                 },
@@ -24681,8 +24681,8 @@
               "Name": "hat.candle",
               "Path": "assets/prefabs/clothes/hat.candle",
               "Files": {
-                "Candlehat": "assets/prefabs/clothes/hat.candle/candlehat.mat",
-                "CandlehatLit": "assets/prefabs/clothes/hat.candle/candlehat_lit.mat"
+                "CandleHat": "assets/prefabs/clothes/hat.candle/candlehat.mat",
+                "CandleHatLit": "assets/prefabs/clothes/hat.candle/candlehat_lit.mat"
               },
               "SubFolders": {}
             },
@@ -24753,8 +24753,8 @@
                   "Name": "textures",
                   "Path": "assets/prefabs/clothes/diving.mask/textures",
                   "Files": {
-                    "Divingmask": "assets/prefabs/clothes/diving.mask/textures/divingmask.mat",
-                    "DivingmaskGlass": "assets/prefabs/clothes/diving.mask/textures/divingmask_glass.mat"
+                    "DivingMask": "assets/prefabs/clothes/diving.mask/textures/divingmask.mat",
+                    "DivingMaskGlass": "assets/prefabs/clothes/diving.mask/textures/divingmask_glass.mat"
                   },
                   "SubFolders": {}
                 }
@@ -24802,7 +24802,7 @@
                   "Name": "materials",
                   "Path": "assets/prefabs/clothes/halloween.draculamask/materials",
                   "Files": {
-                    "Draculamask": "assets/prefabs/clothes/halloween.draculamask/materials/draculamask.mat"
+                    "DraculaMask": "assets/prefabs/clothes/halloween.draculamask/materials/draculamask.mat"
                   },
                   "SubFolders": {}
                 }
@@ -24893,7 +24893,7 @@
                   "Name": "materials",
                   "Path": "assets/prefabs/clothes/halloween.frankensteinmask/materials",
                   "Files": {
-                    "Frankensteinmask": "assets/prefabs/clothes/halloween.frankensteinmask/materials/frankensteinmask.mat"
+                    "FrankensteinMask": "assets/prefabs/clothes/halloween.frankensteinmask/materials/frankensteinmask.mat"
                   },
                   "SubFolders": {}
                 }
@@ -24903,7 +24903,7 @@
               "Name": "frogboots",
               "Path": "assets/prefabs/clothes/frogboots",
               "Files": {
-                "Frogboots": "assets/prefabs/clothes/frogboots/frogboots.mat"
+                "FrogBoots": "assets/prefabs/clothes/frogboots/frogboots.mat"
               },
               "SubFolders": {}
             },
@@ -25086,7 +25086,7 @@
               "Name": "hat.deerskullmask",
               "Path": "assets/prefabs/clothes/hat.deerskullmask",
               "Files": {
-                "HatDeerskullmask": "assets/prefabs/clothes/hat.deerskullmask/hat.deerskullmask.mat"
+                "HatDeerskullMask": "assets/prefabs/clothes/hat.deerskullmask/hat.deerskullmask.mat"
               },
               "SubFolders": {}
             },
@@ -25147,8 +25147,8 @@
                       "Path": "assets/prefabs/clothes/mask.metal/metalicefacemask/materials",
                       "Files": {
                         "Headproxy": "assets/prefabs/clothes/mask.metal/metalicefacemask/materials/headproxy.mat",
-                        "Metalicefacemask": "assets/prefabs/clothes/mask.metal/metalicefacemask/materials/metalicefacemask.mat",
-                        "MetalicefacemaskFoliage": "assets/prefabs/clothes/mask.metal/metalicefacemask/materials/metalicefacemask_foliage.mat"
+                        "MetalicefaceMask": "assets/prefabs/clothes/mask.metal/metalicefacemask/materials/metalicefacemask.mat",
+                        "MetalicefaceMaskFoliage": "assets/prefabs/clothes/mask.metal/metalicefacemask/materials/metalicefacemask_foliage.mat"
                       },
                       "SubFolders": {}
                     }
@@ -25243,7 +25243,7 @@
                   "Name": "materials",
                   "Path": "assets/prefabs/clothes/haloween.hockeymask/materials",
                   "Files": {
-                    "Hockeymask": "assets/prefabs/clothes/haloween.hockeymask/materials/hockeymask.mat"
+                    "HockeyMask": "assets/prefabs/clothes/haloween.hockeymask/materials/hockeymask.mat"
                   },
                   "SubFolders": {}
                 }
@@ -25383,7 +25383,7 @@
                       "Name": "materials",
                       "Path": "assets/prefabs/clothes/suit.jumpsuit/waterwell/materials",
                       "Files": {
-                        "WaterWellmask": "assets/prefabs/clothes/suit.jumpsuit/waterwell/materials/waterwellmask.mat"
+                        "WaterWellMask": "assets/prefabs/clothes/suit.jumpsuit/waterwell/materials/waterwellmask.mat"
                       },
                       "SubFolders": {}
                     }
@@ -25661,7 +25661,7 @@
                   "Name": "materials",
                   "Path": "assets/prefabs/clothes/halloween.mummymask/materials",
                   "Files": {
-                    "Mummymask": "assets/prefabs/clothes/halloween.mummymask/materials/mummymask.mat"
+                    "MummyMask": "assets/prefabs/clothes/halloween.mummymask/materials/mummymask.mat"
                   },
                   "SubFolders": {}
                 }
@@ -26208,7 +26208,7 @@
                       "Path": "assets/prefabs/clothes/skin/underwear/materials",
                       "Files": {
                         "Underwear": "assets/prefabs/clothes/skin/underwear/materials/underwear.mat",
-                        "Underweartest": "assets/prefabs/clothes/skin/underwear/materials/underweartest.mat"
+                        "UnderwearTest": "assets/prefabs/clothes/skin/underwear/materials/underweartest.mat"
                       },
                       "SubFolders": {}
                     }
@@ -26840,7 +26840,7 @@
                   "Name": "switches",
                   "Path": "assets/prefabs/io/electric/switches",
                   "Files": {
-                    "Blacktest": "assets/prefabs/io/electric/switches/blacktest.mat"
+                    "BlackTest": "assets/prefabs/io/electric/switches/blacktest.mat"
                   },
                   "SubFolders": {
                     "simpleswitch": {
@@ -27243,7 +27243,7 @@
                       "Name": "materials",
                       "Path": "assets/prefabs/componentitems/sewingkit/model/materials",
                       "Files": {
-                        "CardboardboxSewingkit": "assets/prefabs/componentitems/sewingkit/model/materials/cardboardbox_sewingkit.mat"
+                        "CardBoardBoxSewingkit": "assets/prefabs/componentitems/sewingkit/model/materials/cardboardbox_sewingkit.mat"
                       },
                       "SubFolders": {}
                     }
@@ -27519,8 +27519,8 @@
                     "CloudsWallpaper": "assets/prefabs/wallpaper/models/materials/clouds_wallpaper.mat",
                     "GeometricWallpaperA": "assets/prefabs/wallpaper/models/materials/geometric_wallpaper_a.mat",
                     "GeometricWallpaperB": "assets/prefabs/wallpaper/models/materials/geometric_wallpaper_b.mat",
-                    "GlowboardWallpaperA": "assets/prefabs/wallpaper/models/materials/glowboard_wallpaper_a.mat",
-                    "GlowboardWallpaperB": "assets/prefabs/wallpaper/models/materials/glowboard_wallpaper_b.mat",
+                    "GlowBoardWallpaperA": "assets/prefabs/wallpaper/models/materials/glowboard_wallpaper_a.mat",
+                    "GlowBoardWallpaperB": "assets/prefabs/wallpaper/models/materials/glowboard_wallpaper_b.mat",
                     "PolkaDotsWallpaperA": "assets/prefabs/wallpaper/models/materials/polka_dots_wallpaper_a.mat",
                     "PolkaDotsWallpaperB": "assets/prefabs/wallpaper/models/materials/polka_dots_wallpaper_b.mat",
                     "PolkaDotsWallpaperC": "assets/prefabs/wallpaper/models/materials/polka_dots_wallpaper_c.mat",
@@ -27869,7 +27869,7 @@
                   "Name": "nuclear_missile_silo_root_lods",
                   "Path": "assets/scenes/prefabs/nuclear missile silo/nuclear_missile_silo_root_lods",
                   "Files": {
-                    "NuclearMissileSiloRootHlodMaterial": "assets/scenes/prefabs/nuclear missile silo/nuclear_missile_silo_root_lods/nuclear_missile_silo_root_hlod_material.mat"
+                    "NuClearMissileSiloRootHlodMaterial": "assets/scenes/prefabs/nuclear missile silo/nuclear_missile_silo_root_lods/nuclear_missile_silo_root_hlod_material.mat"
                   },
                   "SubFolders": {}
                 }
@@ -28021,7 +28021,7 @@
                   "Name": "stables_a_root_lods",
                   "Path": "assets/scenes/prefabs/stables/stables_a_root_lods",
                   "Files": {
-                    "STablesARootHlodMaterial": "assets/scenes/prefabs/stables/stables_a_root_lods/stables_a_root_hlod_material.mat"
+                    "StablesARootHlodMaterial": "assets/scenes/prefabs/stables/stables_a_root_lods/stables_a_root_hlod_material.mat"
                   },
                   "SubFolders": {}
                 },
@@ -28029,7 +28029,7 @@
                   "Name": "stables_b_root_lods",
                   "Path": "assets/scenes/prefabs/stables/stables_b_root_lods",
                   "Files": {
-                    "STablesBRootHlodMaterial": "assets/scenes/prefabs/stables/stables_b_root_lods/stables_b_root_hlod_material.mat"
+                    "StablesBRootHlodMaterial": "assets/scenes/prefabs/stables/stables_b_root_lods/stables_b_root_hlod_material.mat"
                   },
                   "SubFolders": {}
                 }
@@ -28199,7 +28199,7 @@
               "Name": "skinviewer",
               "Path": "assets/scenes/release/skinviewer",
               "Files": {
-                "UiEdgefade": "assets/scenes/release/skinviewer/uiedgefade.mat"
+                "UiEdgeFade": "assets/scenes/release/skinviewer/uiedgefade.mat"
               },
               "SubFolders": {}
             }
@@ -28234,12 +28234,12 @@
                         "Atmosphere": "assets/standard assets/third party/time of day/assets/materials/atmosphere.mat",
                         "ClearAlpha": "assets/standard assets/third party/time of day/assets/materials/clear alpha.mat",
                         "ClearDepth": "assets/standard assets/third party/time of day/assets/materials/clear depth.mat",
-                        "CloudBillboardFar": "assets/standard assets/third party/time of day/assets/materials/cloud billboard far.mat",
-                        "CloudBillboardNear": "assets/standard assets/third party/time of day/assets/materials/cloud billboard near.mat",
+                        "CloudBillBoardFar": "assets/standard assets/third party/time of day/assets/materials/cloud billboard far.mat",
+                        "CloudBillBoardNear": "assets/standard assets/third party/time of day/assets/materials/cloud billboard near.mat",
                         "CloudLayers": "assets/standard assets/third party/time of day/assets/materials/cloud layers.mat",
-                        "IconRenderSkybox": "assets/standard assets/third party/time of day/assets/materials/icon render skybox.mat",
+                        "IconRenderSkyBox": "assets/standard assets/third party/time of day/assets/materials/icon render skybox.mat",
                         "Moon": "assets/standard assets/third party/time of day/assets/materials/moon.mat",
-                        "Skybox": "assets/standard assets/third party/time of day/assets/materials/skybox.mat",
+                        "SkyBox": "assets/standard assets/third party/time of day/assets/materials/skybox.mat",
                         "Space": "assets/standard assets/third party/time of day/assets/materials/space.mat",
                         "Stars": "assets/standard assets/third party/time of day/assets/materials/stars.mat",
                         "Sun": "assets/standard assets/third party/time of day/assets/materials/sun.mat"
@@ -28446,9 +28446,9 @@
                       "Path": "assets/rust.ai/agents/bear/model/materials",
                       "Files": {
                         "Bear": "assets/rust.ai/agents/bear/model/materials/bear.mat",
-                        "Bearfur": "assets/rust.ai/agents/bear/model/materials/bearfur.mat",
+                        "BearFur": "assets/rust.ai/agents/bear/model/materials/bearfur.mat",
                         "PolarBear": "assets/rust.ai/agents/bear/model/materials/polarbear.mat",
-                        "PolarBearfur": "assets/rust.ai/agents/bear/model/materials/polarbearfur.mat"
+                        "PolarBearFur": "assets/rust.ai/agents/bear/model/materials/polarbearfur.mat"
                       },
                       "SubFolders": {}
                     }
@@ -28654,10 +28654,10 @@
               "Name": "materials",
               "Path": "assets/third party/ultimatebillboard/materials",
               "Files": {
-                "Billboardcylindricalnofog": "assets/third party/ultimatebillboard/materials/billboardcylindricalnofog.mat",
-                "Billboardsphericalnofog": "assets/third party/ultimatebillboard/materials/billboardsphericalnofog.mat",
-                "Fogbillboardcylindrical": "assets/third party/ultimatebillboard/materials/fogbillboardcylindrical.mat",
-                "Fogbillboardspherical": "assets/third party/ultimatebillboard/materials/fogbillboardspherical.mat",
+                "BillBoardcylindricalnofog": "assets/third party/ultimatebillboard/materials/billboardcylindricalnofog.mat",
+                "BillBoardsphericalnofog": "assets/third party/ultimatebillboard/materials/billboardsphericalnofog.mat",
+                "FogbillBoardcylindrical": "assets/third party/ultimatebillboard/materials/fogbillboardcylindrical.mat",
+                "FogbillBoardspherical": "assets/third party/ultimatebillboard/materials/fogbillboardspherical.mat",
                 "FogOnly": "assets/third party/ultimatebillboard/materials/fogonly.mat"
               },
               "SubFolders": {}
@@ -29336,7 +29336,7 @@
       "Name": "icons",
       "Path": "assets/icons",
       "Files": {
-        "Fogofwar": "assets/icons/fogofwar.mat",
+        "FogOfWar": "assets/icons/fogofwar.mat",
         "GreyOut": "assets/icons/greyout.mat",
         "IconMaterial": "assets/icons/iconmaterial.mat"
       },

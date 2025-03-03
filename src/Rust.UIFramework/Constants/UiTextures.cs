@@ -10,7 +10,7 @@ public static class UiTextures
 
 		public static class Building
 		{
-			public static class Basicgeo
+			public static class BasicGeo
 			{
 				public static class Materials
 				{
@@ -19,11 +19,11 @@ public static class UiTextures
 					public const string GuideInvalid = "assets/content/building/basicgeo/materials/guideinvalid.tga";
 					public const string LevelFrame = "assets/content/building/basicgeo/materials/levelframe.tga";
 					public const string LevelMetal = "assets/content/building/basicgeo/materials/levelmetal.tga";
-					public const string LevelMetaladv = "assets/content/building/basicgeo/materials/levelmetaladv.tga";
+					public const string LevelMetalAdv = "assets/content/building/basicgeo/materials/levelmetaladv.tga";
 					public const string LevelStone = "assets/content/building/basicgeo/materials/levelstone.tga";
-					public const string LevelStoneadv = "assets/content/building/basicgeo/materials/levelstoneadv.tga";
+					public const string LevelStoneAdv = "assets/content/building/basicgeo/materials/levelstoneadv.tga";
 					public const string LevelWood = "assets/content/building/basicgeo/materials/levelwood.tga";
-					public const string LevelWoodadv = "assets/content/building/basicgeo/materials/levelwoodadv.tga";
+					public const string LevelWoodAdv = "assets/content/building/basicgeo/materials/levelwoodadv.tga";
 				}
 			}
 			public static class Parts
@@ -43,8 +43,8 @@ public static class UiTextures
 
 		public static class Decals
 		{
-			public const string Decalblood = "assets/content/decals/decalblood.tga";
-			public const string DecalbloodSpecgloss = "assets/content/decals/decalblood-specgloss.tga";
+			public const string DecalBlood = "assets/content/decals/decalblood.tga";
+			public const string DecalBloodSpecGloss = "assets/content/decals/decalblood-specgloss.tga";
 			public const string DecalBloodSplatter01Albedo = "assets/content/decals/decal_blood_splatter_01_albedo.tga";
 			public const string DecalBloodSplatter02Albedo = "assets/content/decals/decal_blood_splatter_02_albedo.tga";
 			public const string DecalBloodSplatter03Albedo = "assets/content/decals/decal_blood_splatter_03_albedo.tga";
@@ -87,7 +87,7 @@ public static class UiTextures
 			public const string DecalFootprintHumanBootSnowLeftAlbedo = "assets/content/decals/decal_footprint_human_boot_snow_left_albedo.tga";
 			public const string DecalFootprintHumanBootSnowRightAlbedo = "assets/content/decals/decal_footprint_human_boot_snow_right_albedo.tga";
 			public const string DecalRifleBulletImpactMetalAAlbedo = "assets/content/decals/decal_rifle_bullet_impact_metal_a_albedo.tga";
-			public const string DecalSTabFlesh01Albedo = "assets/content/decals/decal_stab_flesh_01_albedo.tga";
+			public const string DecalStabFlesh01Albedo = "assets/content/decals/decal_stab_flesh_01_albedo.tga";
 			public const string DecalXSprayA = "assets/content/decals/decal_xspray_a.png";
 			public const string DecalXSprayARed = "assets/content/decals/decal_xspray_a_red.tga";
 		}
@@ -130,7 +130,7 @@ public static class UiTextures
 					public const string SingleCumulas04Albedo = "assets/content/effects/textures/clouds/single_cumulas_04_albedo.tga";
 					public const string SingleCumulas05Albedo = "assets/content/effects/textures/clouds/single_cumulas_05_albedo.tga";
 					public const string StratoCumulus02Albedo = "assets/content/effects/textures/clouds/stratocumulus_02_albedo.tga";
-					public const string TransitionAltostratus06Albedo = "assets/content/effects/textures/clouds/transition_altostratus_06_albedo.tga";
+					public const string TransitionAltoStratus06Albedo = "assets/content/effects/textures/clouds/transition_altostratus_06_albedo.tga";
 				}
 				public static class Sand
 				{
@@ -173,7 +173,7 @@ public static class UiTextures
 		{
 			public static class Clothing
 			{
-				public const string KnitteddetailDiff = "assets/content/player/clothing/basic/materials/knitted/knitteddetail_diff.png";
+				public const string KnittedDetailDiff = "assets/content/player/clothing/basic/materials/knitted/knitteddetail_diff.png";
 
 				public static class TilingTextures
 				{
@@ -229,7 +229,7 @@ public static class UiTextures
 			{
 				public static class Textures
 				{
-					public const string Bluenoise32 = "assets/content/shaders/resources/textures/bluenoise_32.png";
+					public const string BlueNoise32 = "assets/content/shaders/resources/textures/bluenoise_32.png";
 					public const string Envbrdflut = "assets/content/shaders/resources/textures/envbrdflut.png";
 					public const string Noise2dHf64 = "assets/content/shaders/resources/textures/noise2d_hf_64.png";
 					public const string PfgdGgx = "assets/content/shaders/resources/textures/pfgd_ggx.exr";
@@ -259,14 +259,14 @@ public static class UiTextures
 				public const string ConcreteLeaksE = "assets/content/textures/decals/concrete_leaks_e.tga";
 				public const string ConcreteLeaksF = "assets/content/textures/decals/concrete_leaks_f.tga";
 				public const string DecalVertiigoGraffiti = "assets/content/textures/decals/decal_vertiigo_graffiti.png";
-				public const string Kargo1x4 = "assets/content/textures/decals/kargo_1x4.tga";
+				public const string Kargo1X4 = "assets/content/textures/decals/kargo_1x4.tga";
 				public const string KeepOut = "assets/content/textures/decals/keep_out.tga";
 				public const string LabelOilA = "assets/content/textures/decals/label_oil_a.tga";
 				public const string RoadDebris = "assets/content/textures/decals/road_debris.tga";
 				public const string RustMillsShipping = "assets/content/textures/decals/rust_mills_shipping.tga";
-				public const string SeaweedPlaneSeaweeddecalAlbedotransparency = "assets/content/textures/decals/seaweedplane_seaweeddecal_albedotransparency.tga";
-				public const string SeaweedPlaneSeaweeddecalMetallicsmoothness = "assets/content/textures/decals/seaweedplane_seaweeddecal_metallicsmoothness.tga";
-				public const string SeaweedPlaneSeaweeddecalTransmission = "assets/content/textures/decals/seaweedplane_seaweeddecal_transmission.tga";
+				public const string SeaweedPlaneSeaweedDecalAlbedoTransparency = "assets/content/textures/decals/seaweedplane_seaweeddecal_albedotransparency.tga";
+				public const string SeaweedPlaneSeaweedDecalMetallicSmoothness = "assets/content/textures/decals/seaweedplane_seaweeddecal_metallicsmoothness.tga";
+				public const string SeaweedPlaneSeaweedDecalTransmission = "assets/content/textures/decals/seaweedplane_seaweeddecal_transmission.tga";
 				public const string WarningBiohazardA = "assets/content/textures/decals/warning_biohazard_a.tga";
 				public const string WarningExplosiveA = "assets/content/textures/decals/warning_explosive_a.tga";
 				public const string WarningFuelA = "assets/content/textures/decals/warning_fuel_a.tga";
@@ -302,7 +302,7 @@ public static class UiTextures
 			public const string NmsDirt = "assets/content/ui/nms-dirt.png";
 			public const string OverlayBleeding = "assets/content/ui/overlay_bleeding.png";
 			public const string UiGradientDownTight = "assets/content/ui/ui.gradient.down.tight.psd";
-			public const string UiSpashscreen = "assets/content/ui/ui.spashscreen.psd";
+			public const string UiSpashScreen = "assets/content/ui/ui.spashscreen.psd";
 
 			public static class GameUi
 			{
@@ -368,7 +368,7 @@ public static class UiTextures
 						public static class Textures
 						{
 							public const string CheckEngineLight = "assets/content/vehicles/modularcar/models/materials/textures/checkenginelight.tga";
-							public const string LowgasLight = "assets/content/vehicles/modularcar/models/materials/textures/lowgaslight.tga";
+							public const string LowGasLight = "assets/content/vehicles/modularcar/models/materials/textures/lowgaslight.tga";
 						}
 					}
 				}
@@ -390,7 +390,7 @@ public static class UiTextures
 
 		public static class Tools
 		{
-			public static class Spraycan
+			public static class SprayCan
 			{
 				public static class Sprays
 				{
@@ -414,10 +414,10 @@ public static class UiTextures
 				public static class Textures
 				{
 					public const string BlueDiamondWallpaperADiff = "assets/prefabs/wallpaper/models/textures/blue_diamond_wallpaper_a_diff.tga";
-					public const string GlowboardWallpaperADiff = "assets/prefabs/wallpaper/models/textures/glowboard_wallpaper_a_diff.tga";
-					public const string GlowboardWallpaperAEmissive = "assets/prefabs/wallpaper/models/textures/glowboard_wallpaper_a_emissive.tga";
-					public const string GlowboardWallpaperBDiff = "assets/prefabs/wallpaper/models/textures/glowboard_wallpaper_b_diff.tga";
-					public const string GlowboardWallpaperBEmissive = "assets/prefabs/wallpaper/models/textures/glowboard_wallpaper_b_emissive.tga";
+					public const string GlowBoardWallpaperADiff = "assets/prefabs/wallpaper/models/textures/glowboard_wallpaper_a_diff.tga";
+					public const string GlowBoardWallpaperAEmissive = "assets/prefabs/wallpaper/models/textures/glowboard_wallpaper_a_emissive.tga";
+					public const string GlowBoardWallpaperBDiff = "assets/prefabs/wallpaper/models/textures/glowboard_wallpaper_b_diff.tga";
+					public const string GlowBoardWallpaperBEmissive = "assets/prefabs/wallpaper/models/textures/glowboard_wallpaper_b_emissive.tga";
 					public const string SubwayWallpaperADiff = "assets/prefabs/wallpaper/models/textures/subway_wallpaper_a_diff.tga";
 					public const string SubwayWallpaperBDiff = "assets/prefabs/wallpaper/models/textures/subway_wallpaper_b_diff.tga";
 					public const string VintageWallpaperADiff = "assets/prefabs/wallpaper/models/textures/vintage_wallpaper_a_diff.tga";

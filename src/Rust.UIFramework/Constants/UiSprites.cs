@@ -34,15 +34,15 @@ public static class UiSprites
 			public const string BackpackIcon = "assets/content/ui/backpack-icon.png";
 			public const string BackpackIcon2 = "assets/content/ui/backpack-icon2.png";
 			public const string CapsuleBackground = "assets/content/ui/capsule-background.png";
-			public const string DeathMarker4x = "assets/content/ui/death-marker@4x.png";
+			public const string DeathMarker4X = "assets/content/ui/death-marker@4x.png";
 			public const string DeathMarkerCentred = "assets/content/ui/death-marker_centred.png";
 			public const string DottedLineHorizontal = "assets/content/ui/dotted_line_horizontal.png";
 			public const string DottedLineVertical = "assets/content/ui/dotted_line_vertical.png";
-			public const string FacepunchDarkbg = "assets/content/ui/facepunch-darkbg.png";
+			public const string FacepunchDarkBg = "assets/content/ui/facepunch-darkbg.png";
 			public const string GradientCircle = "assets/content/ui/gradient-circle.png";
 			public const string Hypnotized = "assets/content/ui/hypnotized.png";
 			public const string LoadingIcon = "assets/content/ui/loading.icon.png";
-			public const string Lock4x = "assets/content/ui/lock@4x.png";
+			public const string Lock4X = "assets/content/ui/lock@4x.png";
 			public const string OverlayBinocular = "assets/content/ui/overlay_binocular.png";
 			public const string OverlayBleedingHeight = "assets/content/ui/overlay_bleeding_height.tga";
 			public const string OverlayBleedingNormal = "assets/content/ui/overlay_bleeding_normal.tga";
@@ -63,9 +63,9 @@ public static class UiSprites
 			public const string UiBackgroundRoundedTop = "assets/content/ui/ui.background.rounded.top.png";
 			public const string UiBackgroundTile = "assets/content/ui/ui.background.tile.psd";
 			public const string UiBackgroundTileClothing = "assets/content/ui/ui.background.tileclothing.png";
-			public const string UiBackgroundTiletex = "assets/content/ui/ui.background.tiletex.psd";
+			public const string UiBackgroundTileTex = "assets/content/ui/ui.background.tiletex.psd";
 			public const string UiBackgroundTransparentLinear = "assets/content/ui/ui.background.transparent.linear.psd";
-			public const string UiBackgroundTransparentLinearltr = "assets/content/ui/ui.background.transparent.linearltr.tga";
+			public const string UiBackgroundTransparentLinearLtr = "assets/content/ui/ui.background.transparent.linearltr.tga";
 			public const string UiBackgroundTransparentRadial = "assets/content/ui/ui.background.transparent.radial.psd";
 			public const string UiBox = "assets/content/ui/ui.box.tga";
 			public const string UiBoxDotted = "assets/content/ui/ui.box.dotted.tga";
@@ -88,13 +88,13 @@ public static class UiSprites
 			public const string WaypointOutline = "assets/content/ui/waypoint.outline.png";
 			public const string WaypointOutlineInverted = "assets/content/ui/waypoint.outline_inverted.png";
 			public const string WaypointOutlineTeam = "assets/content/ui/waypoint.outline.team.png";
-			public const string WaypointOutlineTeamtop = "assets/content/ui/waypoint.outline.teamtop.png";
+			public const string WaypointOutlineTeamTop = "assets/content/ui/waypoint.outline.teamtop.png";
 
 			public static class Developer
 			{
 				public static class DevelopmentSkin
 				{
-					public const string DevPanelbg = "assets/content/ui/developer/developmentskin/devpanelbg.png";
+					public const string DevPanelBg = "assets/content/ui/developer/developmentskin/devpanelbg.png";
 					public const string DevTabActive = "assets/content/ui/developer/developmentskin/devtab-active.png";
 					public const string DevTabBright = "assets/content/ui/developer/developmentskin/devtab-bright.png";
 					public const string DevTabNormal = "assets/content/ui/developer/developmentskin/devtab-normal.png";
@@ -325,7 +325,7 @@ public static class UiSprites
 				public const string UiMenuNewsMissingBackground = "assets/content/ui/menuui/ui.menu.news.missingbackground.jpg";
 				public const string UiMenuRateUsBackground = "assets/content/ui/menuui/ui.menu.rateus.background.png";
 
-				public static class Friendslist
+				public static class FriendsList
 				{
 					public const string UiFriendAvatarGradient = "assets/content/ui/menuui/friendslist/ui.friendavatargradient.png";
 
@@ -485,7 +485,7 @@ public static class UiSprites
 		{
 			public static class Items
 			{
-				public const string BookAccidentSitemIcon = "assets/content/workshop/items/book.accident.sitem.icon.png";
+				public const string BookAccidentSItemIcon = "assets/content/workshop/items/book.accident.sitem.icon.png";
 
 				public static class Crates
 				{
@@ -494,14 +494,14 @@ public static class UiSprites
 					public const string BarrelIcon = "assets/content/workshop/items/crates/barrel.icon.png";
 					public const string BoxHighIcon = "assets/content/workshop/items/crates/box.high.icon.png";
 					public const string BoxLowIcon = "assets/content/workshop/items/crates/box.low.icon.png";
-					public const string TRustinrustCrateIcon = "assets/content/workshop/items/crates/trustinrust_crate.icon.png";
+					public const string TrustInRustCrateIcon = "assets/content/workshop/items/crates/trustinrust_crate.icon.png";
 				}
 
 				public static class Resources
 				{
-					public const string ClothSitemIcon = "assets/content/workshop/items/resources/cloth.sitem.icon.png";
-					public const string MetalSitemIcon = "assets/content/workshop/items/resources/metal.sitem.icon.png";
-					public const string WoodSitemIcon = "assets/content/workshop/items/resources/wood.sitem.icon.png";
+					public const string ClothSItemIcon = "assets/content/workshop/items/resources/cloth.sitem.icon.png";
+					public const string MetalSItemIcon = "assets/content/workshop/items/resources/metal.sitem.icon.png";
+					public const string WoodSItemIcon = "assets/content/workshop/items/resources/wood.sitem.icon.png";
 				}
 			}
 		}
@@ -739,7 +739,7 @@ public static class UiSprites
 		public const string SleepingBag = "assets/icons/sleepingbag.png";
 		public const string Square = "assets/icons/square.png";
 		public const string SquareGradient = "assets/icons/square_gradient.png";
-		public const string STab = "assets/icons/stab.png";
+		public const string Stab = "assets/icons/stab.png";
 		public const string Star = "assets/icons/star.png";
 		public const string Steam = "assets/icons/steam.png";
 		public const string Stopwatch = "assets/icons/stopwatch.png";
@@ -877,7 +877,7 @@ public static class UiSprites
 			public const string GestureThumbsDown = "assets/icons/gestures/gesture-thumbs-down.png";
 			public const string GestureThumbsUp = "assets/icons/gestures/gesture-thumbs-up.png";
 			public const string GestureVictory = "assets/icons/gestures/gesture-victory.png";
-			public const string GestureWatchingyou = "assets/icons/gestures/gesture-watchingyou.png";
+			public const string GestureWatchingYou = "assets/icons/gestures/gesture-watchingyou.png";
 			public const string GestureWave = "assets/icons/gestures/gesture-wave.png";
 			public const string GestureWindUpMiddle = "assets/icons/gestures/gesture-wind-up-middle.png";
 		}
@@ -968,7 +968,7 @@ public static class UiSprites
 				public const string Snow = "assets/prefabs/deployable/computerstation/snow.tga";
 			}
 
-			public static class ToolCupboard
+			public static class ToolCupBoard
 			{
 				public const string Shockbyte512512 = "assets/prefabs/deployable/tool cupboard/shockbyte/shockbyte_512_512.png";
 
@@ -1007,7 +1007,7 @@ public static class UiSprites
 			}
 			public static class Casino
 			{
-				public const string RustslotMachine777 = "assets/prefabs/misc/casino/slotmachine/rustslotmachine777.png";
+				public const string RustSlotMachine777 = "assets/prefabs/misc/casino/slotmachine/rustslotmachine777.png";
 
 				public static class BigWheel
 				{
@@ -1129,18 +1129,18 @@ public static class UiSprites
 
 		public static class Tools
 		{
-			public static class Spraycan
+			public static class SprayCan
 			{
 				public const string GraffitiPackStoreIcon = "assets/prefabs/tools/spraycan/graffitipack/graffiti pack store icon.png";
-				public const string SpraycanWeaponIcon = "assets/prefabs/tools/spraycan/spraycan.weapon.icon.png";
+				public const string SprayCanWeaponIcon = "assets/prefabs/tools/spraycan/spraycan.weapon.icon.png";
 				public const string SprayFreehandItemIcon = "assets/prefabs/tools/spraycan/freehandspray/spray.freehand.item.icon.png";
 
 				public static class Sprays
 				{
 					public const string SprayDecalBeancanIcon = "assets/prefabs/tools/spraycan/sprays/spray_decal.beancan.icon.png";
-					public const string SprayDecalCandlehatIcon = "assets/prefabs/tools/spraycan/sprays/spray_decal.candlehat.icon.png";
+					public const string SprayDecalCandleHatIcon = "assets/prefabs/tools/spraycan/sprays/spray_decal.candlehat.icon.png";
 					public const string SprayDecalFacepunchIcon = "assets/prefabs/tools/spraycan/sprays/spray_decal.facepunch.icon.png";
-					public const string SprayDecalFrogbootsIcon = "assets/prefabs/tools/spraycan/sprays/spray_decal.frogboots.icon.png";
+					public const string SprayDecalFrogBootsIcon = "assets/prefabs/tools/spraycan/sprays/spray_decal.frogboots.icon.png";
 					public const string SprayDecalHazmatIcon = "assets/prefabs/tools/spraycan/sprays/spray_decal.hazmat.icon.png";
 					public const string SprayDecalIcon = "assets/prefabs/tools/spraycan/sprays/spray.decal.icon.png";
 					public const string SprayDecalRockIcon = "assets/prefabs/tools/spraycan/sprays/spray_decal.rock.icon.png";
@@ -1169,35 +1169,35 @@ public static class UiSprites
 					public const string WallpaperBlueDiamondIcon = "assets/prefabs/wallpaper/skins/icons/wallpaper.bluediamond.icon.png";
 					public const string WallpaperBlueIcon = "assets/prefabs/wallpaper/skins/icons/wallpaper.blue.icon.png";
 					public const string WallpaperCloudsIcon = "assets/prefabs/wallpaper/skins/icons/wallpaper.clouds.icon.png";
-					public const string WallpaperGeometricaIcon = "assets/prefabs/wallpaper/skins/icons/wallpaper.geometrica.icon.png";
-					public const string WallpaperGeometricbIcon = "assets/prefabs/wallpaper/skins/icons/wallpaper.geometricb.icon.png";
-					public const string WallpaperGlowboardaIcon = "assets/prefabs/wallpaper/skins/icons/wallpaper.glowboarda.icon.png";
-					public const string WallpaperGlowboardbIcon = "assets/prefabs/wallpaper/skins/icons/wallpaper.glowboardb.icon.png";
+					public const string WallpaperGeometricAIcon = "assets/prefabs/wallpaper/skins/icons/wallpaper.geometrica.icon.png";
+					public const string WallpaperGeometricBIcon = "assets/prefabs/wallpaper/skins/icons/wallpaper.geometricb.icon.png";
+					public const string WallpaperGlowBoardAIcon = "assets/prefabs/wallpaper/skins/icons/wallpaper.glowboarda.icon.png";
+					public const string WallpaperGlowBoardBIcon = "assets/prefabs/wallpaper/skins/icons/wallpaper.glowboardb.icon.png";
 					public const string WallpaperGreenIcon = "assets/prefabs/wallpaper/skins/icons/wallpaper.green.icon.png";
-					public const string WallpaperPolkadotaIcon = "assets/prefabs/wallpaper/skins/icons/wallpaper.polkadota.icon.png";
-					public const string WallpaperPolkadotbIcon = "assets/prefabs/wallpaper/skins/icons/wallpaper.polkadotb.icon.png";
-					public const string WallpaperPolkadotcIcon = "assets/prefabs/wallpaper/skins/icons/wallpaper.polkadotc.icon.png";
+					public const string WallpaperPolkadotAIcon = "assets/prefabs/wallpaper/skins/icons/wallpaper.polkadota.icon.png";
+					public const string WallpaperPolkadotBIcon = "assets/prefabs/wallpaper/skins/icons/wallpaper.polkadotb.icon.png";
+					public const string WallpaperPolkadotCIcon = "assets/prefabs/wallpaper/skins/icons/wallpaper.polkadotc.icon.png";
 					public const string WallpaperRedIcon = "assets/prefabs/wallpaper/skins/icons/wallpaper.red.icon.png";
-					public const string WallpaperRetroaIcon = "assets/prefabs/wallpaper/skins/icons/wallpaper.retroa.icon.png";
-					public const string WallpaperRetrobIcon = "assets/prefabs/wallpaper/skins/icons/wallpaper.retrob.icon.png";
-					public const string WallpaperRetrocIcon = "assets/prefabs/wallpaper/skins/icons/wallpaper.retroc.icon.png";
-					public const string WallpaperRoyalaIcon = "assets/prefabs/wallpaper/skins/icons/wallpaper.royala.icon.png";
-					public const string WallpaperRoyalbIcon = "assets/prefabs/wallpaper/skins/icons/wallpaper.royalb.icon.png";
-					public const string WallpaperRoyalcIcon = "assets/prefabs/wallpaper/skins/icons/wallpaper.royalc.icon.png";
-					public const string WallpaperSubwayaIcon = "assets/prefabs/wallpaper/skins/icons/wallpaper.subwaya.icon.png";
-					public const string WallpaperSubwaybIcon = "assets/prefabs/wallpaper/skins/icons/wallpaper.subwayb.icon.png";
-					public const string WallpaperVenetianPlasteraIcon = "assets/prefabs/wallpaper/skins/icons/wallpaper.venetianplastera.icon.png";
-					public const string WallpaperVenetianPlasterbIcon = "assets/prefabs/wallpaper/skins/icons/wallpaper.venetianplasterb.icon.png";
-					public const string WallpaperVenetianPlastercIcon = "assets/prefabs/wallpaper/skins/icons/wallpaper.venetianplasterc.icon.png";
-					public const string WallpaperWainscottingaIcon = "assets/prefabs/wallpaper/skins/icons/wallpaper.wainscottinga.icon.png";
-					public const string WallpaperWainscottingbIcon = "assets/prefabs/wallpaper/skins/icons/wallpaper.wainscottingb.icon.png";
-					public const string WallpaperWainscottingcIcon = "assets/prefabs/wallpaper/skins/icons/wallpaper.wainscottingc.icon.png";
+					public const string WallpaperRetroAIcon = "assets/prefabs/wallpaper/skins/icons/wallpaper.retroa.icon.png";
+					public const string WallpaperRetroBIcon = "assets/prefabs/wallpaper/skins/icons/wallpaper.retrob.icon.png";
+					public const string WallpaperRetroCIcon = "assets/prefabs/wallpaper/skins/icons/wallpaper.retroc.icon.png";
+					public const string WallpaperRoyalAIcon = "assets/prefabs/wallpaper/skins/icons/wallpaper.royala.icon.png";
+					public const string WallpaperRoyalBIcon = "assets/prefabs/wallpaper/skins/icons/wallpaper.royalb.icon.png";
+					public const string WallpaperRoyalCIcon = "assets/prefabs/wallpaper/skins/icons/wallpaper.royalc.icon.png";
+					public const string WallpaperSubwayAIcon = "assets/prefabs/wallpaper/skins/icons/wallpaper.subwaya.icon.png";
+					public const string WallpaperSubwayBIcon = "assets/prefabs/wallpaper/skins/icons/wallpaper.subwayb.icon.png";
+					public const string WallpaperVenetianPlasterAIcon = "assets/prefabs/wallpaper/skins/icons/wallpaper.venetianplastera.icon.png";
+					public const string WallpaperVenetianPlasterBIcon = "assets/prefabs/wallpaper/skins/icons/wallpaper.venetianplasterb.icon.png";
+					public const string WallpaperVenetianPlasterCIcon = "assets/prefabs/wallpaper/skins/icons/wallpaper.venetianplasterc.icon.png";
+					public const string WallpaperWainscottingAIcon = "assets/prefabs/wallpaper/skins/icons/wallpaper.wainscottinga.icon.png";
+					public const string WallpaperWainscottingBIcon = "assets/prefabs/wallpaper/skins/icons/wallpaper.wainscottingb.icon.png";
+					public const string WallpaperWainscottingCIcon = "assets/prefabs/wallpaper/skins/icons/wallpaper.wainscottingc.icon.png";
 					public const string WallpaperYellowIcon = "assets/prefabs/wallpaper/skins/icons/wallpaper.yellow.icon.png";
 					public const string WallpaperYellowStripesIcon = "assets/prefabs/wallpaper/skins/icons/wallpaper.yellowstripes.icon.png";
 
 					public static class Lny25
 					{
-						public const string LnypackIcon = "assets/prefabs/wallpaper/skins/icons/lny25/lnypackicon.png";
+						public const string LnyPackIcon = "assets/prefabs/wallpaper/skins/icons/lny25/lnypackicon.png";
 						public const string WallpaperBambooIcon = "assets/prefabs/wallpaper/skins/icons/lny25/wallpaper.bamboo.icon.png";
 						public const string WallpaperCherryBlossomsIcon = "assets/prefabs/wallpaper/skins/icons/lny25/wallpaper.cherry.blossoms.icon.png";
 						public const string WallpaperChineseLanternsIcon = "assets/prefabs/wallpaper/skins/icons/lny25/wallpaper.chinese.lanterns.icon.png";

@@ -161,10 +161,10 @@ public static class UiMaterials
 			public const string DevDirt = "assets/content/developer/dev.dirt.mat";
 			public const string DevError = "assets/content/developer/deverror.mat";
 			public const string DevFlesh = "assets/content/developer/dev.flesh.mat";
-			public const string DevFRustumrenderer = "assets/content/developer/dev.frustumrenderer.mat";
+			public const string DevFrustumRenderer = "assets/content/developer/dev.frustumrenderer.mat";
 			public const string DevGlass = "assets/content/developer/dev.glass.mat";
 			public const string DevGrass = "assets/content/developer/dev.grass.mat";
-			public const string DevGreyobj = "assets/content/developer/devgreyobj.mat";
+			public const string DevGreyObj = "assets/content/developer/devgreyobj.mat";
 			public const string DevLightWhite = "assets/content/developer/dev.light.white.mat";
 			public const string DevLocal = "assets/content/developer/dev.local.mat";
 			public const string DevMetal = "assets/content/developer/dev.metal.mat";
@@ -175,15 +175,15 @@ public static class UiMaterials
 			public const string DevTransparent = "assets/content/developer/dev.transparent.mat";
 			public const string DevTransparentOrange = "assets/content/developer/dev.transparent.orange.mat";
 			public const string DevWater = "assets/content/developer/dev.water.mat";
-			public const string DevWhitebox = "assets/content/developer/devwhitebox.mat";
-			public const string DevWhiteboxTransparent = "assets/content/developer/devwhiteboxtransparent.mat";
-			public const string DevWhiteobj = "assets/content/developer/devwhiteobj.mat";
+			public const string DevWhiteBox = "assets/content/developer/devwhitebox.mat";
+			public const string DevWhiteBoxTransparent = "assets/content/developer/devwhiteboxtransparent.mat";
+			public const string DevWhiteObj = "assets/content/developer/devwhiteobj.mat";
 			public const string DevWood = "assets/content/developer/dev.wood.mat";
 			public const string DevWorldBlue = "assets/content/developer/dev.world.blue.mat";
-			public const string DevWorldBlueemissive = "assets/content/developer/dev.world.blueemissive.mat";
+			public const string DevWorldBlueEmissive = "assets/content/developer/dev.world.blueemissive.mat";
 			public const string DevWorldBlueTransparent = "assets/content/developer/dev.world.bluetransparent.mat";
 			public const string DevWorldGreen = "assets/content/developer/dev.world.green.mat";
-			public const string DevWorldGreenemissive = "assets/content/developer/dev.world.greenemissive.mat";
+			public const string DevWorldGreenEmissive = "assets/content/developer/dev.world.greenemissive.mat";
 			public const string DevWorldGreenTransparent = "assets/content/developer/dev.world.green.transparent.mat";
 			public const string DevWorldGrey = "assets/content/developer/dev.world.grey.mat";
 			public const string DevWorldGreyDark = "assets/content/developer/dev.world.grey.dark.mat";
@@ -196,7 +196,7 @@ public static class UiMaterials
 		public static class Materials
 		{
 			public const string _01Default = "assets/content/materials/01 - default.mat";
-			public const string DeployableAccepTable = "assets/content/materials/deployable/deployable_acceptable.mat";
+			public const string DeployableAcceptable = "assets/content/materials/deployable/deployable_acceptable.mat";
 			public const string GuideHighLight = "assets/content/materials/guide_highlight.mat";
 			public const string GuideHighLight2 = "assets/content/materials/guide_highlight_2.mat";
 			public const string GuideHighLightError = "assets/content/materials/guide_highlight_error.mat";
@@ -205,8 +205,8 @@ public static class UiMaterials
 
 		public static class Structures
 		{
-			public const string DivesiteEFishingNet01 = "assets/content/structures/divesite/wooden_boat_a/material/divesite_e_fishing_net_01.mat";
-			public const string Pptarp = "assets/content/structures/powerlines/powerline monument/materials/pptarp.mat";
+			public const string DiveSiteEFishingNet01 = "assets/content/structures/divesite/wooden_boat_a/material/divesite_e_fishing_net_01.mat";
+			public const string PpTarp = "assets/content/structures/powerlines/powerline monument/materials/pptarp.mat";
 		}
 
 		public static class Textures
@@ -228,19 +228,19 @@ public static class UiMaterials
 
 			public static class GenericMaterials
 			{
-				public const string Greybox1024 = "assets/content/textures/generic_materials/greybox_1024.mat";
-				public const string Greybox1024Orange = "assets/content/textures/generic_materials/greybox_1024_orange.mat";
-				public const string GreyboxBlue = "assets/content/textures/generic_materials/greybox_blue.mat";
-				public const string GreyboxDarkGrey = "assets/content/textures/generic_materials/greybox_dark_grey.mat";
-				public const string GreyboxGlass = "assets/content/textures/generic_materials/greybox_glass.mat";
-				public const string GreyboxGlassOpaque = "assets/content/textures/generic_materials/greybox_glass_opaque.mat";
-				public const string GreyboxGrass = "assets/content/textures/generic_materials/greybox_grass.mat";
-				public const string GreyboxGrey = "assets/content/textures/generic_materials/greybox_grey.mat";
-				public const string GreyboxRed = "assets/content/textures/generic_materials/greybox_red.mat";
-				public const string GreyboxTarmac = "assets/content/textures/generic_materials/greybox_tarmac.mat";
-				public const string GreyboxWhite = "assets/content/textures/generic_materials/greybox_white.mat";
-				public const string GreyboxYellow = "assets/content/textures/generic_materials/greybox_yellow.mat";
-				public const string SandGreybox = "assets/content/textures/generic_materials/sand_greybox.mat";
+				public const string GreyBox1024 = "assets/content/textures/generic_materials/greybox_1024.mat";
+				public const string GreyBox1024Orange = "assets/content/textures/generic_materials/greybox_1024_orange.mat";
+				public const string GreyBoxBlue = "assets/content/textures/generic_materials/greybox_blue.mat";
+				public const string GreyBoxDarkGrey = "assets/content/textures/generic_materials/greybox_dark_grey.mat";
+				public const string GreyBoxGlass = "assets/content/textures/generic_materials/greybox_glass.mat";
+				public const string GreyBoxGlassOpaque = "assets/content/textures/generic_materials/greybox_glass_opaque.mat";
+				public const string GreyBoxGrass = "assets/content/textures/generic_materials/greybox_grass.mat";
+				public const string GreyBoxGrey = "assets/content/textures/generic_materials/greybox_grey.mat";
+				public const string GreyBoxRed = "assets/content/textures/generic_materials/greybox_red.mat";
+				public const string GreyBoxTarmac = "assets/content/textures/generic_materials/greybox_tarmac.mat";
+				public const string GreyBoxWhite = "assets/content/textures/generic_materials/greybox_white.mat";
+				public const string GreyBoxYellow = "assets/content/textures/generic_materials/greybox_yellow.mat";
+				public const string SandGreyBox = "assets/content/textures/generic_materials/sand_greybox.mat";
 			}
 		}
 
@@ -258,19 +258,19 @@ public static class UiMaterials
 			public const string NvgOverlay = "assets/content/ui/nvg_overlay.mat";
 			public const string OverlayPrisonerHood = "assets/content/ui/overlay_prisonerhood.mat";
 			public const string PlayerPreviewGlow = "assets/content/ui/playerpreviewglow.mat";
-			public const string PlayerPreviewremoveSegments = "assets/content/ui/playerpreviewremovesegments.mat";
+			public const string PlayerPreviewRemoveSegments = "assets/content/ui/playerpreviewremovesegments.mat";
 			public const string PlayerPreviewSegments = "assets/content/ui/playerpreviewsegments.mat";
 			public const string Scope1 = "assets/content/ui/scope_1.mat";
 			public const string Scope2 = "assets/content/ui/scope_2.mat";
-			public const string UiAlphaclear = "assets/content/ui/ui.alphaclear.mat";
-			public const string UiAlphaclearnoztest = "assets/content/ui/ui.alphaclearnoztest.mat";
+			public const string UiAlphaClear = "assets/content/ui/ui.alphaclear.mat";
+			public const string UiAlphaClearNozTest = "assets/content/ui/ui.alphaclearnoztest.mat";
 			public const string UiBackgroundBlur = "assets/content/ui/uibackgroundblur.mat";
 			public const string UiBackgroundBlurInGameMenu = "assets/content/ui/uibackgroundblur-ingamemenu.mat";
 			public const string UiBackgroundBlurMainMenu = "assets/content/ui/uibackgroundblur-mainmenu.mat";
 			public const string UiBackgroundBlurNotice = "assets/content/ui/uibackgroundblur-notice.mat";
-			public const string UiCirclemask = "assets/content/ui/ui.circlemask.mat";
-			public const string UiMaskclear = "assets/content/ui/ui.maskclear.mat";
-			public const string UiNoztest = "assets/content/ui/ui.noztest.mat";
+			public const string UiCircleMask = "assets/content/ui/ui.circlemask.mat";
+			public const string UiMaskClear = "assets/content/ui/ui.maskclear.mat";
+			public const string UiNozTest = "assets/content/ui/ui.noztest.mat";
 
 			public static class Fonts
 			{
@@ -296,7 +296,7 @@ public static class UiMaterials
 
 			public static class GameUi
 			{
-				public const string Compassstrip = "assets/content/ui/gameui/compass/compassstrip.mat";
+				public const string CompassStrip = "assets/content/ui/gameui/compass/compassstrip.mat";
 				public const string ManPadCrtHdr = "assets/content/ui/gameui/manpad/manpad_crt_hdr.mat";
 				public const string MaPlayers = "assets/content/ui/gameui/map/maplayers.mat";
 				public const string MarkerMaterial = "assets/content/ui/gameui/crosshairs/markermaterial.mat";
@@ -306,7 +306,7 @@ public static class UiMaterials
 					public static class Hires
 					{
 						public const string AhCrtHdr = "assets/content/ui/gameui/attackheli/hires/ah_crt_hdr.mat";
-						public const string CompassstripattackHeli = "assets/content/ui/gameui/attackheli/hires/compassstripattackheli.mat";
+						public const string CompassStripAttackHeli = "assets/content/ui/gameui/attackheli/hires/compassstripattackheli.mat";
 					}
 				}
 			}
@@ -316,15 +316,15 @@ public static class UiMaterials
 				public const string MainMenuModal = "assets/content/ui/menuui/mainmenu.modal.mat";
 				public const string MainMenuPanel = "assets/content/ui/menuui/mainmenu.panel.mat";
 				public const string MainMenuSidebar = "assets/content/ui/menuui/mainmenu.sidebar.mat";
-				public const string NewsImagefadedown = "assets/content/ui/menuui/newsimagefadedown.mat";
-				public const string UiFriendAvatarmask = "assets/content/ui/menuui/friendslist/ui.friendavatarmask.mat";
+				public const string NewsImageFadeDown = "assets/content/ui/menuui/newsimagefadedown.mat";
+				public const string UiFriendAvatarMask = "assets/content/ui/menuui/friendslist/ui.friendavatarmask.mat";
 				public const string UiGrayscale = "assets/content/ui/menuui/itemstore/ui.grayscale.mat";
 			}
 		}
 	}
 	public static class Icons
 	{
-		public const string Fogofwar = "assets/icons/fogofwar.mat";
+		public const string FogOfWar = "assets/icons/fogofwar.mat";
 		public const string GreyOut = "assets/icons/greyout.mat";
 		public const string IconMaterial = "assets/icons/iconmaterial.mat";
 	}
@@ -336,11 +336,11 @@ public static class UiMaterials
 	}
 	public static class RustAi
 	{
-		public const string PolarBearfur = "assets/rust.ai/agents/bear/model/materials/polarbearfur.mat";
+		public const string PolarBearFur = "assets/rust.ai/agents/bear/model/materials/polarbearfur.mat";
 	}
 	public static class Scenes
 	{
-		public const string UiEdgefade = "assets/scenes/release/skinviewer/uiedgefade.mat";
+		public const string UiEdgeFade = "assets/scenes/release/skinviewer/uiedgefade.mat";
 	}
 	public static class Scripts
 	{
@@ -366,12 +366,12 @@ public static class UiMaterials
 						public const string Atmosphere = "assets/standard assets/third party/time of day/assets/materials/atmosphere.mat";
 						public const string ClearAlpha = "assets/standard assets/third party/time of day/assets/materials/clear alpha.mat";
 						public const string ClearDepth = "assets/standard assets/third party/time of day/assets/materials/clear depth.mat";
-						public const string CloudBillboardFar = "assets/standard assets/third party/time of day/assets/materials/cloud billboard far.mat";
-						public const string CloudBillboardNear = "assets/standard assets/third party/time of day/assets/materials/cloud billboard near.mat";
+						public const string CloudBillBoardFar = "assets/standard assets/third party/time of day/assets/materials/cloud billboard far.mat";
+						public const string CloudBillBoardNear = "assets/standard assets/third party/time of day/assets/materials/cloud billboard near.mat";
 						public const string CloudLayers = "assets/standard assets/third party/time of day/assets/materials/cloud layers.mat";
-						public const string IconRenderSkybox = "assets/standard assets/third party/time of day/assets/materials/icon render skybox.mat";
+						public const string IconRenderSkyBox = "assets/standard assets/third party/time of day/assets/materials/icon render skybox.mat";
 						public const string Moon = "assets/standard assets/third party/time of day/assets/materials/moon.mat";
-						public const string Skybox = "assets/standard assets/third party/time of day/assets/materials/skybox.mat";
+						public const string SkyBox = "assets/standard assets/third party/time of day/assets/materials/skybox.mat";
 						public const string Space = "assets/standard assets/third party/time of day/assets/materials/space.mat";
 						public const string Stars = "assets/standard assets/third party/time of day/assets/materials/stars.mat";
 						public const string Sun = "assets/standard assets/third party/time of day/assets/materials/sun.mat";
