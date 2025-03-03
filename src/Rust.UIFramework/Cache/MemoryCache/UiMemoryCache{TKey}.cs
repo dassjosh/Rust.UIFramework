@@ -21,9 +21,21 @@ internal class UiMemoryCache<TKey> : BaseMemoryCache
         return true;
     }
     
-    public bool TryRemove(TKey key) => _cache.Remove(key, out Expire value) && !value.IsExpired;
+    public void Remove(TKey key) => _cache.Remove(key);
+    
+    public bool TryGetExpiresIn(TKey key, out float remaining)
+    {
+        if (_cache.TryGetValue(key, out Expire value) && !value.IsExpired)
+        {
+            remaining = (float)(value.Expires - DateTimeOffset.UtcNow).TotalSeconds;
+            return true;
+        }
 
-    private bool ContainsKey(TKey key) => _cache.TryGetValue(key, out Expire value) && !value.IsExpired;
+        remaining = default;
+        return false;
+    }
+
+    public bool ContainsKey(TKey key) => TryGetExpiresIn(key, out _);
     
     public override void RemoveExpired() => _cache.RemoveAll(c => c.Value.IsExpired);
 

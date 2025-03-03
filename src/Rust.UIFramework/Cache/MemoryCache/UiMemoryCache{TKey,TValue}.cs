@@ -21,17 +21,7 @@ internal class UiMemoryCache<TKey, TValue> : BaseMemoryCache
         return true;
     }
     
-    public bool TryRemove(TKey key, out TValue value)
-    {
-        if (!_cache.Remove(key, out CachedValue cachedValue) || cachedValue.IsExpired)
-        {
-            value = default;
-            return false;
-        }
-        
-        value = cachedValue.Value;
-        return true;
-    }
+    public void Remove(TKey key) => _cache.Remove(key);
 
     public bool TryGetValue(TKey key, out TValue value)
     {

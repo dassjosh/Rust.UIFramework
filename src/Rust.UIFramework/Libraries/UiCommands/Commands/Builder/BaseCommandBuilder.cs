@@ -3,16 +3,19 @@ using Oxide.Ext.UiFramework.Pooling;
 
 namespace Oxide.Ext.UiFramework.Libraries.UiCommands;
 
-internal class BaseCommandBuilder(string commandPrefix, IArgWriter[] writers, int argIndex)
+internal class BaseCommandBuilder(string command, ICommandProtection protection, IArgWriter[] writers, int argIndex = 0)
 {
     protected readonly IArgWriter[] Writers = writers;
+    protected readonly ICommandProtection Protection = protection;
 
-    protected virtual ArgWriterIterator StartBuilding()
+    protected ArgWriterIterator StartBuilding()
     {
         StringBuilder sb = StringBuilderPool.Instance.Get();
-        sb.Append(commandPrefix);
+        sb.Append(command);
         UiArgWriter argWriter = new(sb);
         ArgWriterIterator iterator = new(argWriter, Writers, argIndex);
         return iterator;
     }
+    
+    protected string ProtectCommand(ArgWriterIterator writer) => Protection?.ProtectCommand(writer) ?? writer.ToString();
 }

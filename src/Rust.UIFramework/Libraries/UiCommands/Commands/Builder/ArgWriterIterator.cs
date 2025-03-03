@@ -1,26 +1,12 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
-using Oxide.Ext.UiFramework.Pooling;
 
 namespace Oxide.Ext.UiFramework.Libraries.UiCommands;
 
-internal ref struct ArgWriterIterator(UiArgWriter writer, IArgWriter[] writers)
+internal ref struct ArgWriterIterator(UiArgWriter writer, IArgWriter[] writers, int index = 0)
 {
     private readonly UiArgWriter _writer = writer;
-    private readonly IArgWriter[] _writers = writers;
-    
-    internal long ProtectionKey;
-    internal int Index { get; private set; }
-
-    public ArgWriterIterator(ArgWriterIterator iterator, long protectionKey) : this(new UiArgWriter(StringBuilderPool.Instance.Get()), iterator._writers)
-    {
-        ProtectionKey = protectionKey;
-    }
-
-    public ArgWriterIterator(UiArgWriter writer, IArgWriter[] writers, int startIndex) : this(writer, writers)
-    {
-        Index = startIndex;
-    }
+    internal int Index { get; private set; } = index;
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void WriteArgs<T0>(T0 arg)
@@ -77,10 +63,11 @@ internal ref struct ArgWriterIterator(UiArgWriter writer, IArgWriter[] writers)
         WriteNext(arg7);
     }
     
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private void WriteNext<T>(T arg)
     {
         _writer.AppendSpace();
-        ((IArgWriter<T>)_writers[Index++]).Write(_writer, arg);
+        ((IArgWriter<T>)writers[Index++]).Write(_writer, arg);
     }
 
     internal void Write(string arg)

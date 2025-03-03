@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Plugins;
@@ -7,30 +6,33 @@ using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Libraries.UiCommands;
 
-internal class AdvancedProtection(PluginId pluginId, string method, float protectionKeyLifetime) : ICommandProtection
+internal class AdvancedProtection(PluginId pluginId, string method, float protectionKeyLifetime, bool multiUse) : ICommandProtection
 {
     private readonly UiMemoryCache<int> _protectionCache = new(TimeSpan.FromSeconds(protectionKeyLifetime));
     
-    public ArgWriterIterator StartWriteProtection(ArgWriterIterator writer)
+    public string ProtectCommand(ArgWriterIterator writer)
     {
         writer.Write(GenerateProtectionKey().ToBase64Span());
-        return writer;
+        return writer.ToString();
     }
-
-    public string FinishWriteProtection(ArgWriterIterator writer) => writer.ToString();
 
     public bool TryValidateProtection(BasePlayer player, UiCommandTokenizer tokenizer, out UiCommandTokenizer protectedTokens)
     {
-        int value = tokenizer.GetNext().ToIntFromBase64();
-        if (_protectionCache.TryRemove(value))
+        int value = tokenizer.GetLast().ToIntFromBase64();
+        if (!_protectionCache.ContainsKey(value))
         {
-            protectedTokens = tokenizer;
-            return true;
+            protectedTokens = default;
+            Singleton<UiCommands>.Instance.OnProtectionValidationFailed(pluginId, player, method);
+            return false;
         }
 
-        protectedTokens = default;
-        Singleton<UiCommands>.Instance.OnProtectionValidationFailed(pluginId, player, method);
-        return false;
+        if (!multiUse)
+        {
+            _protectionCache.Remove(value);
+        }
+
+        protectedTokens = tokenizer;
+        return true;
     }
     
     private int GenerateProtectionKey()

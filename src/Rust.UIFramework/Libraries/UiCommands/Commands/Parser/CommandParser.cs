@@ -1,6 +1,5 @@
 ﻿using System;
 using Oxide.Core.Plugins;
-using Oxide.Ext.UiFramework.Extensions;
 
 namespace Oxide.Ext.UiFramework.Libraries.UiCommands;
 
@@ -20,8 +19,8 @@ internal class CommandParser(Plugin plugin, Action<BasePlayer> method, ICommandP
     }
 }
 
-internal class CommandParser<T0>(Plugin plugin, Action<BasePlayer, T0> method, ICommandProtection protection, ICooldownHandler cooldown, IPermissionHandler permission)
-    : BaseCommandParser(plugin, method.Method, protection, cooldown, permission, ArgCreator.CreateArgHandler<T0>(plugin.Id()))
+internal class CommandParser<T0>(Plugin plugin, Action<BasePlayer, T0> method, ICommandProtection protection, ICooldownHandler cooldown, IPermissionHandler permission, IArgReader[] readers)
+    : BaseCommandParser(plugin, method.Method, protection, cooldown, permission, readers)
 {
     protected override void RunCommandInternal(BasePlayer player, UiCommandTokenizer args)
     {
@@ -38,8 +37,8 @@ internal class CommandParser<T0>(Plugin plugin, Action<BasePlayer, T0> method, I
     }
 }
 
-internal class CommandParser<T0, T1>(Plugin plugin, Action<BasePlayer, T0, T1> method, ICommandProtection protection, ICooldownHandler cooldown, IPermissionHandler permission)
-    : BaseCommandParser(plugin, method.Method, protection, cooldown, permission, ArgCreator.CreateArgHandler<T0, T1>(plugin.Id()))
+internal class CommandParser<T0, T1>(Plugin plugin, Action<BasePlayer, T0, T1> method, ICommandProtection protection, ICooldownHandler cooldown, IPermissionHandler permission, IArgReader[] readers)
+    : BaseCommandParser(plugin, method.Method, protection, cooldown, permission, readers)
 {
     protected override void RunCommandInternal(BasePlayer player, UiCommandTokenizer args)
     {
@@ -57,8 +56,8 @@ internal class CommandParser<T0, T1>(Plugin plugin, Action<BasePlayer, T0, T1> m
     }
 }
 
-internal class CommandParser<T0, T1, T2>(Plugin plugin, Action<BasePlayer, T0, T1, T2> method, ICommandProtection protection, ICooldownHandler cooldown, IPermissionHandler permission)
-    : BaseCommandParser(plugin, method.Method, protection, cooldown, permission, ArgCreator.CreateArgHandler<T0, T1, T2>(plugin.Id()))
+internal class CommandParser<T0, T1, T2>(Plugin plugin, Action<BasePlayer, T0, T1, T2> method, ICommandProtection protection, ICooldownHandler cooldown, IPermissionHandler permission, IArgReader[] readers)
+    : BaseCommandParser(plugin, method.Method, protection, cooldown, permission, readers)
 {
     protected override void RunCommandInternal(BasePlayer player, UiCommandTokenizer args)
     {
@@ -77,8 +76,8 @@ internal class CommandParser<T0, T1, T2>(Plugin plugin, Action<BasePlayer, T0, T
     }
 }
 
-internal class CommandParser<T0, T1, T2, T3>(Plugin plugin, Action<BasePlayer, T0, T1, T2, T3> method, ICommandProtection protection, ICooldownHandler cooldown, IPermissionHandler permission)
-    : BaseCommandParser(plugin, method.Method, protection, cooldown, permission, ArgCreator.CreateArgHandler<T0, T1, T2, T3>(plugin.Id()))
+internal class CommandParser<T0, T1, T2, T3>(Plugin plugin, Action<BasePlayer, T0, T1, T2, T3> method, ICommandProtection protection, ICooldownHandler cooldown, IPermissionHandler permission, IArgReader[] readers)
+    : BaseCommandParser(plugin, method.Method, protection, cooldown, permission, readers)
 {
     protected override void RunCommandInternal(BasePlayer player, UiCommandTokenizer args)
     {
@@ -98,8 +97,8 @@ internal class CommandParser<T0, T1, T2, T3>(Plugin plugin, Action<BasePlayer, T
     }
 }
 
-internal class CommandParser<T0, T1, T2, T3, T4>(Plugin plugin, Action<BasePlayer, T0, T1, T2, T3, T4> method, ICommandProtection protection, ICooldownHandler cooldown, IPermissionHandler permission)
-    : BaseCommandParser(plugin, method.Method, protection, cooldown, permission, ArgCreator.CreateArgHandler<T0, T1, T2, T3, T4>(plugin.Id()))
+internal class CommandParser<T0, T1, T2, T3, T4>(Plugin plugin, Action<BasePlayer, T0, T1, T2, T3, T4> method, ICommandProtection protection, ICooldownHandler cooldown, IPermissionHandler permission, IArgReader[] readers)
+    : BaseCommandParser(plugin, method.Method, protection, cooldown, permission, readers)
 {
     protected override void RunCommandInternal(BasePlayer player, UiCommandTokenizer args)
     {
@@ -120,8 +119,8 @@ internal class CommandParser<T0, T1, T2, T3, T4>(Plugin plugin, Action<BasePlaye
     }
 }
 
-internal class CommandParser<T0, T1, T2, T3, T4, T5>(Plugin plugin, Action<BasePlayer, T0, T1, T2, T3, T4, T5> method, ICommandProtection protection, ICooldownHandler cooldown, IPermissionHandler permission)
-    : BaseCommandParser(plugin, method.Method, protection, cooldown, permission, ArgCreator.CreateArgHandler<T0, T1, T2, T3, T4, T5>(plugin.Id()))
+internal class CommandParser<T0, T1, T2, T3, T4, T5>(Plugin plugin, Action<BasePlayer, T0, T1, T2, T3, T4, T5> method, ICommandProtection protection, ICooldownHandler cooldown, IPermissionHandler permission, IArgReader[] readers)
+    : BaseCommandParser(plugin, method.Method, protection, cooldown, permission, readers)
 {
     protected override void RunCommandInternal(BasePlayer player, UiCommandTokenizer args)
     {
@@ -143,8 +142,8 @@ internal class CommandParser<T0, T1, T2, T3, T4, T5>(Plugin plugin, Action<BaseP
     }
 }
 
-internal class CommandParser<T0, T1, T2, T3, T4, T5, T6>(Plugin plugin, Action<BasePlayer, T0, T1, T2, T3, T4, T5, T6> method, ICommandProtection protection, ICooldownHandler cooldown, IPermissionHandler permission)
-    : BaseCommandParser(plugin, method.Method, protection, cooldown, permission, ArgCreator.CreateArgHandler<T0, T1, T2, T3, T4, T5, T6>(plugin.Id()))
+internal class CommandParser<T0, T1, T2, T3, T4, T5, T6>(Plugin plugin, Action<BasePlayer, T0, T1, T2, T3, T4, T5, T6> method, ICommandProtection protection, ICooldownHandler cooldown, IPermissionHandler permission, IArgReader[] readers)
+    : BaseCommandParser(plugin, method.Method, protection, cooldown, permission, readers)
 {
     protected override void RunCommandInternal(BasePlayer player, UiCommandTokenizer args)
     {
@@ -167,8 +166,8 @@ internal class CommandParser<T0, T1, T2, T3, T4, T5, T6>(Plugin plugin, Action<B
     }
 }
 
-internal class CommandParser<T0, T1, T2, T3, T4, T5, T6, T7>(Plugin plugin, Action<BasePlayer, T0, T1, T2, T3, T4, T5, T6, T7> method, ICommandProtection protection, ICooldownHandler cooldown, IPermissionHandler permission)
-    : BaseCommandParser(plugin, method.Method, protection, cooldown, permission, ArgCreator.CreateArgHandler<T0, T1, T2, T3, T4, T5, T6, T7>(plugin.Id()))
+internal class CommandParser<T0, T1, T2, T3, T4, T5, T6, T7>(Plugin plugin, Action<BasePlayer, T0, T1, T2, T3, T4, T5, T6, T7> method, ICommandProtection protection, ICooldownHandler cooldown, IPermissionHandler permission, IArgReader[] readers)
+    : BaseCommandParser(plugin, method.Method, protection, cooldown, permission, readers)
 {
     protected override void RunCommandInternal(BasePlayer player, UiCommandTokenizer args)
     {

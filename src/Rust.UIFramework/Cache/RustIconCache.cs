@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
 using Oxide.Ext.UiFramework.Libraries;
-using Oxide.Ext.UiFramework.Plugins;
-using Oxide.Ext.UiFramework.Types;
 using Rust.UI;
 
 namespace Oxide.Ext.UiFramework.Cache;

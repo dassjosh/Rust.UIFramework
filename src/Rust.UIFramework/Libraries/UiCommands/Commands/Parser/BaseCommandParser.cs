@@ -23,12 +23,7 @@ internal abstract class BaseCommandParser(Plugin plugin, MethodInfo method, ICom
 
     private bool ValidateProtection(BasePlayer player, ref UiCommandTokenizer command)
     {
-        if (protection is null)
-        {
-            return true;
-        }
-
-        if (protection.TryValidateProtection(player, command, out command))
+        if (protection is null || protection.TryValidateProtection(player, command, out command))
         {
             return true;
         }

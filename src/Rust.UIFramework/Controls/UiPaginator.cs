@@ -23,7 +23,7 @@ public class UiPaginator : BaseUiControl
         return Create(builder, parent, grid, currentPage, maxPage, fontSize, textColor, buttonColor, activePageColor, PartialCommand.Create<int>(command));
     }
     
-    public static UiPaginator Create(BaseUiBuilder builder, in UiReference parent, GridPosition grid, int currentPage, int maxPage, int fontSize, UiColor textColor, UiColor buttonColor, UiColor activePageColor, IBaseCommandBuilder<int> command)
+    public static UiPaginator Create(BaseUiBuilder builder, in UiReference parent, GridPosition grid, int currentPage, int maxPage, int fontSize, UiColor textColor, UiColor buttonColor, UiColor activePageColor, ICommandBuilder<int> command)
     {
         UiPaginator control = CreateControl<UiPaginator>();
         grid.Reset();
