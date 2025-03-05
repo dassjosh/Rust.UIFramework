@@ -1,7 +1,7 @@
 ﻿using System;
 using Oxide.Ext.UiFramework.Cache;
 
-namespace Oxide.Ext.UiFramework.Libraries.UiCommands.Custom;
+namespace Oxide.Ext.UiFramework.Libraries.UiCommands;
 
 internal class EnumHandler<T> : IArgHandler<T>
 {

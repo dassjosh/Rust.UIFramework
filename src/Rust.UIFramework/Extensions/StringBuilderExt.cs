@@ -364,7 +364,7 @@ internal static class StringBuilderExt
     }
     
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void AppendArg(this StringBuilder sb, in TimeSpan value)
+    internal static void AppendArg(this StringBuilder sb, TimeSpan value)
     {
         if (value.TryFormat(out ReadOnlySpan<char> written))
         {

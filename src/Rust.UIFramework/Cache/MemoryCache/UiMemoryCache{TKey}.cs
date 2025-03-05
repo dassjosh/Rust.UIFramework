@@ -36,8 +36,8 @@ internal class UiMemoryCache<TKey> : BaseMemoryCache
     }
 
     public bool ContainsKey(TKey key) => TryGetExpiresIn(key, out _);
-    
-    public override void RemoveExpired() => _cache.RemoveAll(c => c.Value.IsExpired);
+
+    protected override void RemoveExpired() => _cache.RemoveAll(c => c.Value.IsExpired);
 
     private readonly record struct Expire(DateTimeOffset Expires)
     {

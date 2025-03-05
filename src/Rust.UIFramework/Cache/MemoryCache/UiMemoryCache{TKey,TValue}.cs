@@ -41,8 +41,8 @@ internal class UiMemoryCache<TKey, TValue> : BaseMemoryCache
         get => TryGetValue(key, out TValue value) ? value : throw new KeyNotFoundException();
         set => _cache[key] = new CachedValue(value, DateTimeOffset.UtcNow + CacheDuration);
     }
-    
-    public override void RemoveExpired() => _cache.RemoveAll(c => c.Value.IsExpired);
+
+    protected override void RemoveExpired() => _cache.RemoveAll(c => c.Value.IsExpired);
 
     private readonly record struct CachedValue(TValue Value, DateTimeOffset Expires)
     {

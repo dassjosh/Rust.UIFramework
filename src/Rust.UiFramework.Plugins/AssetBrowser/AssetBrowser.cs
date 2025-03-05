@@ -8,9 +8,11 @@ using Network;
 using Newtonsoft.Json;
 using Oxide.Core;
 using Oxide.Ext.UiFramework.Builder;
+using Oxide.Ext.UiFramework.Builder.UI;
 using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Constants;
+using Oxide.Ext.UiFramework.Controls;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Helpers;
 using Oxide.Ext.UiFramework.Libraries;
@@ -470,7 +472,6 @@ public class AssetBrowser : RustPlugin
 
     private void CreateUi(BasePlayer player, UiState state)
     {
-        Puts($"{state.Type} {state.Path}");
         UiBuilder builder = UiBuilder.Create(UiPosition.MiddleMiddle, new UiOffset(500, 400), _bodyColor, UiName);
         builder.NeedsKeyboard();
         builder.NeedsMouse();
@@ -492,8 +493,8 @@ public class AssetBrowser : RustPlugin
 
         if (state.Type != AssetType.None)
         {
-            builder.RustIconButton(pathBar, new UiPosition(0.00f, 0, 0.05f, 1), default, _spriteColor, Icons.ChevronLeft, _uiCommands.PrevFolder.Build(state));
-            builder.RustIconButton(pathBar, new UiPosition(0.05f, 0, 0.1f, 1), default, _spriteColor, Icons.ChevronRight, _uiCommands.NextFolder.Build(state));
+            builder.IconButton(pathBar, new UiPosition(0.00f, 0, 0.05f, 1), default, _spriteColor, Icons.ChevronLeft, _uiCommands.PrevFolder.Build(state));
+            builder.IconButton(pathBar, new UiPosition(0.05f, 0, 0.1f, 1), default, _spriteColor, Icons.ChevronRight, _uiCommands.NextFolder.Build(state));
         }
         
         builder.ImageSpriteButton(pathBar, new UiPosition(0.90f, 0, 0.95f, 1), default, _spriteColor, UiSprites.Icons.FolderUp, _uiCommands.PathUp.Build(state));
@@ -678,14 +679,18 @@ public class AssetBrowser : RustPlugin
                      .Skip(state.Page * TotalImages)
                      .Take(TotalImages))
         {
-            UiButton button = builder.CommandButton(images, _imageGrid, default, _buttonColor, _uiCommands.SelectAsset.Build($"_storage.Get(builder, button, UiPosition.Full, default, Icons.{icon}, UiColor.White)"));
-            UiRawImage image = _storage.Get(builder, button, UiPosition.Full, default, icon, UiColor.White);
+            UiButton button = builder.CommandButton(images, _imageGrid, default, _buttonColor, _uiCommands.SelectAsset.Build($"Rust.UI.Icons.{icon} | {(int)icon}"));
+            UiIcon image = builder.Icon(button, UiPosition.Full, default, icon);
             image.SetMaterial(UiMaterials.Icons.IconMaterial);
             _imageGrid.MoveCols(1);
         }
         
         UiSection paginator = builder.Section(root, new UiPosition(0, 0, 1, 0.075f));
-        builder.Paginator(paginator, _iconGrid, state.Page, maxPage, 14, _textColor, UiColors.ButtonSecondary, UiColors.ButtonPrimary, _uiCommands.ChangePage.Partial(state));
+        UiPaginator a = builder.Paginator(paginator, _iconGrid, state.Page, maxPage, 14, _textColor, UiColors.ButtonSecondary, UiColors.ButtonPrimary, _uiCommands.ChangePage.Partial(state));
+        
+        Puts($"{UiColor.ParseHexColor("#666666FF") * UiColors.DisabledButtonMultiplier}");
+        
+        //Puts($"{a.FirstPage.Button.Color.ToHexRGBA()}");
     }
     
     private readonly GridPosition _fontGrid = new GridPositionBuilder(1, 8).SetPadding(0.01f).Build();
@@ -785,6 +790,7 @@ public class AssetBrowser : RustPlugin
     {
         player.SendConsoleCommand($"echo \"{text}\"");
         player.ChatMessage($"\"{text}\"");
+        Puts(text);
         
         // UiState state = _playerStates[player.userID];
         // state.SelectedAsset = arg.GetString(0);

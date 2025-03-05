@@ -107,5 +107,7 @@ public static class UiColors
     public static readonly UiColor CloseButton = Form.ButtonPrimary;
     public static readonly UiColor ButtonPrimary = Form.ButtonPrimary;
     public static readonly UiColor ButtonSecondary = Form.ButtonSecondary;
+    public static readonly UiColor DisabledButtonMultiplier = "#C8C8C880";
+
     #endregion
 }

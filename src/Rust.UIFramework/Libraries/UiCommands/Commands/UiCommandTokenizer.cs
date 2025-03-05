@@ -52,15 +52,11 @@ internal ref struct UiCommandTokenizer(string str)
         if (remaining.Length == 0) throw new FailedToParseArgumentException();
 
         int index = remaining.LastIndexOf(' ');
-        if (index == -1)
-        {
-            index = 0;
-        }
-        else
+        if (index != -1)
         {
             _remaining = remaining[..index];
         }
         
-        return remaining[index..];
+        return remaining[(index + 1)..];
     }
 }

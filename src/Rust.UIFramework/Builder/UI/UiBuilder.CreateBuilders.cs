@@ -9,7 +9,7 @@ using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.UiElements;
 using UnityEngine;
 
-namespace Oxide.Ext.UiFramework.Builder;
+namespace Oxide.Ext.UiFramework.Builder.UI;
 
 public partial class UiBuilder
 {

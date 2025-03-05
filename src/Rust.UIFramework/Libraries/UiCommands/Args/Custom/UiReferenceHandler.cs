@@ -3,7 +3,7 @@ using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Types;
 using Oxide.Ext.UiFramework.UiElements;
 
-namespace Oxide.Ext.UiFramework.Libraries.UiCommands.Custom;
+namespace Oxide.Ext.UiFramework.Libraries.UiCommands;
 
 internal class UiReferenceHandler : IArgHandler<UiReference>, IArgHandler<UiReference?>, ISingleton
 {

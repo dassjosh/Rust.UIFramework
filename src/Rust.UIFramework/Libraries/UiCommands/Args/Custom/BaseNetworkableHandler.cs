@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Oxide.Ext.UiFramework.Libraries.UiCommands.Custom;
+namespace Oxide.Ext.UiFramework.Libraries.UiCommands;
 
 internal class BaseNetworkableHandler<T> : IArgHandler<T>
 {

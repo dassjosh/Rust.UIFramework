@@ -1,22 +1,14 @@
 ﻿namespace Oxide.Ext.UiFramework.Controls;
 
-public readonly struct UiBorderWidth
+public readonly struct UiBorderWidth(float left, float top, float right, float bottom)
 {
     public static readonly UiBorderWidth Default = new(1);
         
-    public readonly float Left;
-    public readonly float Top;
-    public readonly float Right;
-    public readonly float Bottom;
+    public readonly float Left = left;
+    public readonly float Top = top;
+    public readonly float Right = right;
+    public readonly float Bottom = bottom;
 
-    public UiBorderWidth(float left, float top, float right, float bottom)
-    {
-        Left = left;
-        Top = top;
-        Right = right;
-        Bottom = bottom;
-    }
-        
     public UiBorderWidth(float width, float height) : this(width, height, width, height) { }
         
     public UiBorderWidth(float width) : this(width, width) { }

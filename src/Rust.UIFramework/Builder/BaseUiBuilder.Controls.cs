@@ -187,14 +187,14 @@ public partial class BaseUiBuilder
     #endregion
 
     #region Paginator
-    public UiPaginator Paginator(in UiReference parent, GridPosition grid, int currentPage, int maxPage, int fontSize, UiColor textColor, UiColor buttonColor, UiColor activePageColor, string command)
+    public UiPaginator Paginator(in UiReference parent, GridPosition grid, int currentPage, int maxPage, int fontSize, UiColor textColor, UiColor buttonColor, UiColor activePageColor, string command, UiColor? disabledColorMultiplier = null)
     {
-        return Paginator(parent, grid, currentPage, maxPage, fontSize, textColor, buttonColor, activePageColor, PartialCommand.Create<int>(command));
+        return Paginator(parent, grid, currentPage, maxPage, fontSize, textColor, buttonColor, activePageColor, PartialCommand.Create<int>(command), disabledColorMultiplier);
     }
     
-    public UiPaginator Paginator(in UiReference parent, GridPosition grid, int currentPage, int maxPage, int fontSize, UiColor textColor, UiColor buttonColor, UiColor activePageColor, ICommandBuilder<int> command)
+    public UiPaginator Paginator(in UiReference parent, GridPosition grid, int currentPage, int maxPage, int fontSize, UiColor textColor, UiColor buttonColor, UiColor activePageColor, ICommandBuilder<int> command, UiColor? disabledColorMultiplier = null)
     {
-        UiPaginator control = UiPaginator.Create(this, parent, grid, currentPage, maxPage, fontSize, textColor, buttonColor, activePageColor, command);
+        UiPaginator control = UiPaginator.Create(this, parent, grid, currentPage, maxPage, fontSize, textColor, buttonColor, activePageColor, command, disabledColorMultiplier);
         AddControl(control);
         return control;
     }

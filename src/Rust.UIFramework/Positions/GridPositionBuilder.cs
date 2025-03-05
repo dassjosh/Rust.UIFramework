@@ -13,9 +13,7 @@ public class GridPositionBuilder
     private float _xPad;
     private float _yPad;
 
-    public GridPositionBuilder(int size) : this(size, size)
-    {
-    }
+    public GridPositionBuilder(int size) : this(size, size) { }
 
     public GridPositionBuilder(int numCols, int numRows)
     {

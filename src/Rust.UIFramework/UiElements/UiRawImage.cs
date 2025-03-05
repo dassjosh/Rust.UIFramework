@@ -17,7 +17,7 @@ public class UiRawImage : BaseUiComponent, IMaterial, IFadeIn
         return image;
     } 
         
-    public static UiRawImage CreateUrl(in UiPosition pos, in UiOffset offset, UiColor color, string url)
+    public static UiRawImage CreateUrl(in UiPosition pos, in UiOffset offset, in UiColor color, string url)
     {
         UiRawImage image = CreateBase<UiRawImage>(pos, offset);
         image.RawImage.Color = color;

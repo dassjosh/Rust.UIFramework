@@ -15,12 +15,7 @@ public class UiColorConverter : JsonConverter
         switch (reader.TokenType)
         {
             case JsonToken.Null:
-                if (Nullable.GetUnderlyingType(objectType) != null)
-                {
-                    return null;
-                }
-
-                return default(UiColor);
+                return Nullable.GetUnderlyingType(objectType) != null ? null : default(UiColor);
 
             case JsonToken.String:
                 return UiColor.ParseHexColor(reader.Value.ToString());

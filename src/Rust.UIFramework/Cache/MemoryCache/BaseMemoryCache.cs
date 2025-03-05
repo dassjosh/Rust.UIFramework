@@ -36,9 +36,9 @@ internal abstract class BaseMemoryCache
         }
     }
 
-    public bool ShouldExpire() => _nextExpireCheck < DateTimeOffset.UtcNow;
+    private bool ShouldExpire() => _nextExpireCheck < DateTimeOffset.UtcNow;
 
-    public abstract void RemoveExpired();
+    protected abstract void RemoveExpired();
 
     private void SetNextExpiresCheck()
     {

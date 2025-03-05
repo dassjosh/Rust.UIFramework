@@ -46,7 +46,7 @@ internal class ExtremeProtection(PluginId pluginId, string method, float protect
     private long GenerateProtectionKey()
     {
         long value = RandomExt.NextLong();
-        while (!_protectedArgs.ContainsKey(value))
+        while (_protectedArgs.ContainsKey(value))
         {
             value = RandomExt.NextLong();
         }

@@ -28,7 +28,7 @@ internal abstract class BaseCommandParser(Plugin plugin, MethodInfo method, ICom
             return true;
         }
         
-        UiFrameworkExtension.GlobalLogger.Error("Failed to validate command protection for {0}({1}) on plugin {2}", player.displayName, player.UserIDString, plugin.FullName());
+        UiFrameworkExtension.GlobalLogger.Error("Failed to validate command protection for {0}({1}) on plugin {2} calling {3}", player.displayName, player.UserIDString, plugin.FullName());
         return false;
     }
     

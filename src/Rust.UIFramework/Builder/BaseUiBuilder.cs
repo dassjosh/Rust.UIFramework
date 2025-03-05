@@ -10,9 +10,9 @@ namespace Oxide.Ext.UiFramework.Builder;
 
 public abstract partial class BaseUiBuilder : BaseBuilder
 {
-    protected readonly List<BaseUiComponent> Components = new();
-    protected readonly List<BaseUiControl> Controls = new();
-    protected readonly List<BaseUiComponent> Anchors = new();
+    protected readonly List<BaseUiComponent> Components = [];
+    protected readonly List<BaseUiControl> Controls = [];
+    protected readonly List<BaseUiComponent> Anchors = [];
         
     protected string Font;
     protected static string GlobalFont;
@@ -30,14 +30,16 @@ public abstract partial class BaseUiBuilder : BaseBuilder
         }
     }
         
-    public void SetCurrentFont(UiFont font)
+    public void SetCurrentFont(UiFont font) => SetCurrentFont(UiFontCache.GetUiFont(font));
+    public void SetCurrentFont(string font)
     {
-        Font = UiFontCache.GetUiFont(font);
+        Font = font;
     }
-        
-    public static void SetGlobalFont(UiFont font)
+
+    public static void SetGlobalFont(UiFont font) => SetGlobalFont(UiFontCache.GetUiFont(font));
+    public static void SetGlobalFont(string font)
     {
-        GlobalFont = UiFontCache.GetUiFont(font);
+        GlobalFont = font;
     }
         
     public override byte[] GetBytes()

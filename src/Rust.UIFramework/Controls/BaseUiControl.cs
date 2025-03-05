@@ -23,7 +23,7 @@ public abstract class BaseUiControl : BasePoolable
 
     protected virtual void Render(BaseUiBuilder builder)
     {
-            
+        
     }
 
     protected override void EnterPool()

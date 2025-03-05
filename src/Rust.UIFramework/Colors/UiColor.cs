@@ -11,10 +11,10 @@ namespace Oxide.Ext.UiFramework.Colors;
 public readonly struct UiColor : IEquatable<UiColor>
 {
     #region Fields
-    internal readonly byte _red;
-    internal readonly byte _green;
-    internal readonly byte _blue;
-    internal readonly byte _alpha;
+    private readonly byte _red;
+    private readonly byte _green;
+    private readonly byte _blue;
+    private readonly byte _alpha;
     #endregion
 
     #region Static Colors
@@ -69,6 +69,10 @@ public readonly struct UiColor : IEquatable<UiColor>
     public static implicit operator Color(UiColor value) => new(ToFloat(value._red), ToFloat(value._green), ToFloat(value._blue), ToFloat(value._alpha));
     public static bool operator ==(UiColor lhs, UiColor rhs) => lhs._red == rhs._red && lhs._green == rhs._green && lhs._blue == rhs._blue && lhs._alpha == rhs._alpha;
     public static bool operator !=(UiColor lhs, UiColor rhs) => !(lhs == rhs);
+    public static UiColor operator *(UiColor color, UiColor multiplier)
+    {
+        return new UiColor(ToFloat(color._red) * ToFloat(multiplier._red), ToFloat(color._green) * ToFloat(multiplier._green), ToFloat(color._blue) * ToFloat(multiplier._blue), ToFloat(color._alpha) * ToFloat(multiplier._alpha));
+    }
 
     private static float ToFloat(byte value) => value / 255f;
         
@@ -77,7 +81,7 @@ public readonly struct UiColor : IEquatable<UiColor>
     public override bool Equals(object obj)
     {
         if (ReferenceEquals(null, obj)) return false;
-        return obj is UiColor && Equals((UiColor)obj);
+        return obj is UiColor color && Equals(color);
     }
         
     public override int GetHashCode()

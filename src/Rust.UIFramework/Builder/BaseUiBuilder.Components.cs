@@ -44,6 +44,11 @@ public partial class BaseUiBuilder
         AddComponent(section, parent);
         return section;
     }
+    
+    public UiSection Padding(in UiReference parent, in UiPosition pos, in UiPadding padding = default)
+    {
+        return Section(parent, pos, padding);
+    }
     #endregion
         
     #region Panel
