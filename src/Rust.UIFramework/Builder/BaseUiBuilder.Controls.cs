@@ -4,6 +4,7 @@ using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Constants;
 using Oxide.Ext.UiFramework.Controls;
 using Oxide.Ext.UiFramework.Enums;
+using Oxide.Ext.UiFramework.Icon;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Libraries.UiCommands;
 using Oxide.Ext.UiFramework.Offsets;
@@ -61,11 +62,11 @@ public partial class BaseUiBuilder
         return new UiTuple<UiButton, UiItemIcon>(button, icon);
     }
     
-    public UiTuple<UiButton, UiRawImage> RustIconButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, Icons icon, string command, UiColor? iconColor = null)
+    public UiTuple<UiButton, UiIcon> IconButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, SelectableIcon icon, string command, UiColor? iconColor = null)
     {
         UiButton button = CommandButton(parent, pos, offset, buttonColor, command);
-        UiRawImage image = RustIcon(button, UiPosition.Full, default, icon, iconColor);
-        return new UiTuple<UiButton, UiRawImage>(button, image);
+        UiIcon image = Icon(button, UiPosition.Full, default, icon, iconColor);
+        return new UiTuple<UiButton, UiIcon>(button, image);
     }
         
     public UiTuple<UiButton, UiLabel> CloseTextButton(in UiReference parent, in UiPosition pos, in UiOffset offset, string text, int textSize, UiColor textColor, UiColor buttonColor, string close, TextAnchor align = TextAnchor.MiddleCenter)
@@ -110,11 +111,11 @@ public partial class BaseUiBuilder
         return new UiTuple<UiButton, UiItemIcon>(button, icon);
     }
     
-    public UiTuple<UiButton, UiRawImage> CloseRustIconButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, Icons icon, string close, UiColor? iconColor = null)
+    public UiTuple<UiButton, UiIcon> CloseIconButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, SelectableIcon icon, string close, UiColor? iconColor = null)
     {
         UiButton button = CloseButton(parent, pos, offset, buttonColor, close);
-        UiRawImage image = RustIcon(button, UiPosition.Full, default, icon, iconColor);
-        return new UiTuple<UiButton, UiRawImage>(button, image);
+        UiIcon image = Icon(button, UiPosition.Full, default, icon, iconColor);
+        return new UiTuple<UiButton, UiIcon>(button, image);
     }
     #endregion
 
@@ -137,9 +138,9 @@ public partial class BaseUiBuilder
     #endregion
 
     #region Checkbox
-    public UiCheckbox Checkbox(in UiReference parent, in UiPosition pos, in UiOffset offset, bool isChecked, int textSize, UiColor textColor, UiColor backgroundColor, string command)
+    public UiCheckbox Checkbox(in UiReference parent, in UiPosition pos, in UiOffset offset, bool isChecked, string command, UiColor? checkedColor = null, UiColor? uncheckedColor = null, UiColor? buttonColor = null)
     {
-        UiCheckbox checkbox = UiCheckbox.CreateCheckbox(this, parent, pos, offset, isChecked, textSize, textColor, backgroundColor, command);
+        UiCheckbox checkbox = UiCheckbox.CreateCheckbox(this, parent, pos, offset, isChecked, command, checkedColor, uncheckedColor, buttonColor);
         AddControl(checkbox);
         return checkbox;
     }

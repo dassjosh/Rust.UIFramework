@@ -3,34 +3,25 @@ using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.UiElements;
+using Rust.UI;
 
 namespace Oxide.Ext.UiFramework.Controls;
 
 public class UiCheckbox : BaseUiControl
 {
-    private const string DefaultCheckmark = "<b>✓</b>";
-        
     public bool IsChecked;
-    public string Checkmark = DefaultCheckmark;
     public UiButton Button;
-    public UiLabel Label;
+    public UiIcon Icon;
         
-    public static UiCheckbox CreateCheckbox(BaseUiBuilder builder, in UiReference parent, in UiPosition pos, in UiOffset offset, bool isChecked, int textSize, UiColor textColor, UiColor backgroundColor, string command)
+    public static UiCheckbox CreateCheckbox(BaseUiBuilder builder, in UiReference parent, in UiPosition pos, in UiOffset offset, bool isChecked, string command, UiColor? checkedColor, UiColor? uncheckedColor, UiColor? buttonColor)
     {
         UiCheckbox control = CreateControl<UiCheckbox>();
         control.IsChecked = isChecked;
-        control.Button = builder.CommandButton(parent, pos, offset, backgroundColor, command);
-        control.Label = builder.Label(control.Button, UiPosition.Full, default, string.Empty, textSize, textColor);
-        control.Button.AddOutline(UiColor.Black.WithAlpha(0.75f));
+        control.Button = builder.CommandButton(parent, pos, offset, buttonColor ?? UiColor.Clear, command);
+        control.Icon = builder.Icon(control.Button, UiPosition.Full, default, isChecked ? Icons.ToggleOn : Icons.ToggleOff, isChecked ? checkedColor ?? UiColors.Rust.Green : uncheckedColor ?? UiColors.Rust.Red);
+
+        //control.Button.AddOutline(UiColor.Black.WithAlpha(0.75f));
         return control;
-    }
-        
-    protected override void Render(BaseUiBuilder builder)
-    {
-        if (IsChecked)
-        {
-            Label.Text.Text = Checkmark;
-        }
     }
 
     protected override void EnterPool()
@@ -38,7 +29,6 @@ public class UiCheckbox : BaseUiControl
         base.EnterPool();
         IsChecked = false;
         Button = null;
-        Label = null;
-        Checkmark = DefaultCheckmark;
+        Icon = null;
     }
 }

@@ -3,6 +3,7 @@ using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.UiElements;
+using Rust.UI;
 
 namespace Oxide.Ext.UiFramework.Controls;
 
@@ -17,11 +18,11 @@ public class UiPicker : BaseUiControl
         UiPicker control = CreateControl<UiPicker>();
             
         UiOffset slice = pos.SliceVertical(0, (int)height * 2);
-        control.Next =  builder.TextButton(parent, UiPosition.BottomLeft, slice, "˅", fontSize, textColor, backgroundColor, decrementCommand);
+        control.Next =  builder.IconButton(parent, UiPosition.BottomLeft, slice, backgroundColor, Icons.ChevronDown, decrementCommand, textColor);
         slice = slice.MoveY(height);
         control.Value = builder.Label(parent, UiPosition.BottomLeft, slice, value, fontSize, textColor);
         slice = slice.MoveY(height);
-        control.Previous = builder.TextButton(parent, UiPosition.BottomLeft, slice, "˄", fontSize, textColor, backgroundColor, incrementCommand);
+        control.Previous = builder.IconButton(parent, UiPosition.BottomLeft, slice, backgroundColor, Icons.ChevronUp, incrementCommand, textColor);
             
         return control;
     }

@@ -2,6 +2,7 @@
 using Oxide.Ext.UiFramework.Constants;
 using Oxide.Ext.UiFramework.Controls;
 using Oxide.Ext.UiFramework.Enums;
+using Oxide.Ext.UiFramework.Icon;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Logging;
@@ -138,10 +139,10 @@ public partial class BaseUiBuilder
     }
     #endregion
     
-    #region Rust Icon
-    public UiRawImage RustIcon(in UiReference parent, in UiPosition pos, in UiOffset offset, Icons icon, UiColor? color = default)
+    #region Icon
+    public UiIcon Icon(in UiReference parent, in UiPosition pos, in UiOffset offset, SelectableIcon icon, UiColor? color = default)
     {
-        UiRawImage image = Singleton<UiImageStorage>.Instance.Get(this, parent, pos, offset, icon, color ?? UiColor.White);
+        UiIcon image = UiIcon.CreateIcon(pos, offset, color ?? UiColor.White, icon);
         image.SetMaterial(UiMaterials.Icons.IconMaterial);
         AddComponent(image, parent);
         return image;

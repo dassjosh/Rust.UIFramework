@@ -9,6 +9,7 @@ using Oxide.Ext.UiFramework.Constants;
 using Oxide.Ext.UiFramework.Data;
 using Oxide.Ext.UiFramework.Exceptions;
 using Oxide.Ext.UiFramework.Extensions;
+using Oxide.Ext.UiFramework.Icon;
 using Oxide.Ext.UiFramework.Logging;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Plugins;
@@ -33,12 +34,6 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
     public UiRawImage Get(BaseUiBuilder builder, in UiReference parent, in UiPosition pos, in UiOffset offset, Plugin plugin, string name, UiColor color)
     {
         string png = Get(plugin, name);
-        return png.StartsWith("http") ? builder.WebImage(parent, pos, offset, png, color) : builder.ImageFileStorage(parent, pos, offset, png, color);
-    }
-    
-    public UiRawImage Get(BaseUiBuilder builder, in UiReference parent, in UiPosition pos, in UiOffset offset, Icons icon, UiColor color)
-    {
-        string png = Get(UiFrameworkPlugin.Instance, RustIconCache.GetIcon(icon));
         return png.StartsWith("http") ? builder.WebImage(parent, pos, offset, png, color) : builder.ImageFileStorage(parent, pos, offset, png, color);
     }
 

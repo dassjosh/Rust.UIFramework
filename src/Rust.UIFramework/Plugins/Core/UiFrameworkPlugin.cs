@@ -8,9 +8,12 @@ using Oxide.Ext.UiFramework.Config;
 using Oxide.Ext.UiFramework.Data;
 using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.HarmonyPatches;
+using Oxide.Ext.UiFramework.Icon;
 using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Libraries.UiCommands;
+using Oxide.Ext.UiFramework.Libraries.UiIcons;
 using Oxide.Ext.UiFramework.Types;
+using Rust.UI;
 
 namespace Oxide.Ext.UiFramework.Plugins;
 
@@ -37,6 +40,10 @@ internal class UiFrameworkPlugin : BaseUiFrameworkPlugin
         {
             Lang.RegisterMessages(language.Value, this, language.Key);
         }
+        
+        IconsLib.RegisterIcons<Icons>(this, @enum => string.Format(IconsCache.RustIconsFormat, (int)@enum));
+        IconsLib.RegisterIcons<FontAwesomeRegularIcons>(this, @enum => string.Format(IconsCache.FontAwesomeRegularFormat, @enum));
+        IconsLib.RegisterIcons<FontAwesomeSolidIcons>(this, @enum => string.Format(IconsCache.FontAwesomeSolidFormat, @enum));
     }
 
     // ReSharper disable once UnusedMember.Local

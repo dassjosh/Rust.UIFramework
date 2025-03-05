@@ -1,4 +1,5 @@
-﻿using Oxide.Ext.UiFramework.Libraries.UiCommands;
+﻿using Oxide.Ext.UiFramework.Extensions;
+using Oxide.Ext.UiFramework.Libraries.UiCommands;
 #if BENCHMARKS
 using BenchmarkDotNet.Configs;
 using BenchmarkDotNet.Jobs;
@@ -20,6 +21,16 @@ class Program
         BenchmarkRunner.Run<Benchmarks>(config, args);
 #else
 
+
+
 #endif
+
+        UiCommandTokenizer tokenizer = new UiCommandTokenizer("UIF_EXT_C 26 c KqRqRTEhrXo=");
+        tokenizer.GetNext();
+        tokenizer.GetNext();
+        var c = tokenizer.GetLast();
+        var e = c.ToString();
+        var d = c.ToLongFromBase64();
+        
     }
 }
