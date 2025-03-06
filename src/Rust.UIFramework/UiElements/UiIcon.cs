@@ -1,10 +1,11 @@
 ﻿using System;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
-using Oxide.Ext.UiFramework.Icon;
 using Oxide.Ext.UiFramework.Interfaces;
+using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
+using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
@@ -13,25 +14,11 @@ public class UiIcon : BaseUiComponent, IMaterial, IFadeIn
     public readonly RawImageComponent RawImage = new();
     internal override CoreComponent Component => RawImage;
         
-    public static UiIcon CreateIcon(in UiPosition pos, in UiOffset offset, UiColor color, SelectableIcon icon)
-    {
-        string png = icon.GetIcon();
-        return Create(pos, offset, color, png);
-    }
-
-    private static UiIcon Create(in UiPosition pos, in UiOffset offset, UiColor color, string png)
+    public static UiIcon CreateIcon<T>(in UiPosition pos, in UiOffset offset, UiColor color, T icon) where T : struct, Enum
     {
         UiIcon image = CreateBase<UiIcon>(pos, offset);
         image.RawImage.Color = color;
-        
-        if (png.StartsWith("http", StringComparison.OrdinalIgnoreCase))
-        {
-            image.RawImage.Url = png;
-        }
-        else
-        {
-            image.RawImage.Png = png;
-        }
+        Singleton<UiIconLib>.Instance.PopulateIconData(image, icon);
         return image;
     }
     

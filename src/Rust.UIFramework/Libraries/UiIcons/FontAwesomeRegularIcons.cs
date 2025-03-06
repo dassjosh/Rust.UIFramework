@@ -1,4 +1,4 @@
-namespace Oxide.Ext.UiFramework.Icon;
+namespace Oxide.Ext.UiFramework.Libraries;
 
 public enum FontAwesomeRegularIcons
 {

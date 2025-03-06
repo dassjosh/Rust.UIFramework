@@ -38,9 +38,9 @@ internal class ImageStorageData : BaseDataFile<ImageStorageData>
         }
     }
 
-    public ImageId Get(Plugin plugin, string name)
+    public ImageId Get(PluginId pluginId, string name)
     {
-        if (_pluginImages.TryGetValue(new PluginImage(plugin, name), out ImageId png) && png.IsValid)
+        if (_pluginImages.TryGetValue(new PluginImage(pluginId, name), out ImageId png) && png.IsValid)
         {
             return png;
         }

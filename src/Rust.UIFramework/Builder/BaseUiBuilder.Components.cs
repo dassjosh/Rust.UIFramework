@@ -1,8 +1,8 @@
-﻿using Oxide.Ext.UiFramework.Colors;
+﻿using System;
+using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Constants;
 using Oxide.Ext.UiFramework.Controls;
 using Oxide.Ext.UiFramework.Enums;
-using Oxide.Ext.UiFramework.Icon;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Logging;
@@ -140,10 +140,9 @@ public partial class BaseUiBuilder
     #endregion
     
     #region Icon
-    public UiIcon Icon(in UiReference parent, in UiPosition pos, in UiOffset offset, SelectableIcon icon, UiColor? color = default)
+    public UiIcon Icon<T>(in UiReference parent, in UiPosition pos, in UiOffset offset, T icon, UiColor? color = default) where T : struct, Enum
     {
         UiIcon image = UiIcon.CreateIcon(pos, offset, color ?? UiColor.White, icon);
-        image.SetMaterial(UiMaterials.Icons.IconMaterial);
         AddComponent(image, parent);
         return image;
     }

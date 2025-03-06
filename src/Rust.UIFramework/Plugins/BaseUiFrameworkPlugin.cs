@@ -4,7 +4,7 @@ using Oxide.Core.Libraries;
 using Oxide.Core.Libraries.Covalence;
 using Oxide.Core.Plugins;
 using Oxide.Ext.UiFramework.Cache;
-using Oxide.Ext.UiFramework.Libraries.UiIcons;
+using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Plugins;
@@ -15,7 +15,7 @@ internal class BaseUiFrameworkPlugin : CSPlugin
     protected readonly Lang Lang = OxideLibrary.Lang;
     protected readonly Oxide.Core.Libraries.Plugins Plugins = OxideLibrary.Plugins;
     protected readonly Permission Permission = OxideLibrary.Permission;
-    protected readonly UiIcons IconsLib = Singleton<UiIcons>.Instance;
+    protected readonly UiIconLib IconsLib = Singleton<UiIconLib>.Instance;
 
     protected BaseUiFrameworkPlugin()
     {

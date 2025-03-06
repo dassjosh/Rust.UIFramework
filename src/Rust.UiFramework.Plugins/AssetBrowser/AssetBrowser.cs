@@ -686,9 +686,7 @@ public class AssetBrowser : RustPlugin
         }
         
         UiSection paginator = builder.Section(root, new UiPosition(0, 0, 1, 0.075f));
-        UiPaginator a = builder.Paginator(paginator, _iconGrid, state.Page, maxPage, 14, _textColor, UiColors.ButtonSecondary, UiColors.ButtonPrimary, _uiCommands.ChangePage.Partial(state));
-        
-        Puts($"{UiColor.ParseHexColor("#666666FF") * UiColors.DisabledButtonMultiplier}");
+        builder.Paginator(paginator, _iconGrid, state.Page, maxPage, 14, _textColor, UiColors.ButtonSecondary, UiColors.ButtonPrimary, _uiCommands.ChangePage.Partial(state));
         
         //Puts($"{a.FirstPage.Button.Color.ToHexRGBA()}");
     }

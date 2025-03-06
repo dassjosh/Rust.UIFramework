@@ -4,7 +4,6 @@ using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Constants;
 using Oxide.Ext.UiFramework.Controls;
 using Oxide.Ext.UiFramework.Enums;
-using Oxide.Ext.UiFramework.Icon;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Libraries.UiCommands;
 using Oxide.Ext.UiFramework.Offsets;
@@ -62,7 +61,7 @@ public partial class BaseUiBuilder
         return new UiTuple<UiButton, UiItemIcon>(button, icon);
     }
     
-    public UiTuple<UiButton, UiIcon> IconButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, SelectableIcon icon, string command, UiColor? iconColor = null)
+    public UiTuple<UiButton, UiIcon> IconButton<T>(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, T icon, string command, UiColor? iconColor = null) where T : struct, Enum
     {
         UiButton button = CommandButton(parent, pos, offset, buttonColor, command);
         UiIcon image = Icon(button, UiPosition.Full, default, icon, iconColor);
@@ -111,7 +110,7 @@ public partial class BaseUiBuilder
         return new UiTuple<UiButton, UiItemIcon>(button, icon);
     }
     
-    public UiTuple<UiButton, UiIcon> CloseIconButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, SelectableIcon icon, string close, UiColor? iconColor = null)
+    public UiTuple<UiButton, UiIcon> CloseIconButton<T>(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, T icon, string close, UiColor? iconColor = null) where T : struct, Enum
     {
         UiButton button = CloseButton(parent, pos, offset, buttonColor, close);
         UiIcon image = Icon(button, UiPosition.Full, default, icon, iconColor);

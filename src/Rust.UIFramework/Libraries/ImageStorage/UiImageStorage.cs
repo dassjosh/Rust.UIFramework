@@ -9,7 +9,6 @@ using Oxide.Ext.UiFramework.Constants;
 using Oxide.Ext.UiFramework.Data;
 using Oxide.Ext.UiFramework.Exceptions;
 using Oxide.Ext.UiFramework.Extensions;
-using Oxide.Ext.UiFramework.Icon;
 using Oxide.Ext.UiFramework.Logging;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Plugins;
@@ -40,9 +39,14 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
     public string Get(Plugin plugin, string name)
     {
         if (plugin == null) throw new ArgumentNullException(nameof(plugin));
+        return Get(plugin.Id(), name);
+    }
+    
+    internal string Get(PluginId pluginId, string name)
+    {
         if (name == null) throw new ArgumentNullException(nameof(name));
 
-        ImageId id = _data.Get(plugin, name);
+        ImageId id = _data.Get(pluginId, name);
         if (id.IsValid)
         {
             return id.Id;
@@ -50,29 +54,36 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
 
         if (name.StartsWith("http"))
         {
-            RegisterImage(plugin, name);
+            RegisterImage(pluginId, name);
             return name;
         }
         
-        _logger.Debug("Failed to get image for plugin: {0} name: {1}", plugin.Name, name);
+        _logger.Debug("Failed to get image for plugin: {0} name: {1}", pluginId.FullName(), name);
         
         return Get(UiFrameworkPlugin.Instance, UiImageDefaults.NotFound);
     }
+
+    public bool RegisterImage(Plugin plugin, string name, string url) => RegisterImage(plugin.Id(), name, url);
     
-    public bool RegisterImage(Plugin plugin, string name, string url)
+    internal bool RegisterImage(PluginId pluginId, string name, string url)
     {
         CommunityEntityNotReadyException.ThrowIfNotReady();
         ImageId id = _data.GetByUrl(url);
         if (id.IsValid)
         {
-            _data.AddPluginImage(plugin.Id(), name, id);
+            _data.AddPluginImage(pluginId, name, id);
             return true;
         }
         
-        return _downloader.AddRequest(plugin.Id(), name, url);
+        return _downloader.AddRequest(pluginId, name, url);
     }
     
     public bool RegisterImage(Plugin plugin, string url)
+    {
+        return RegisterImage(plugin, url, url);
+    }
+    
+    internal bool RegisterImage(PluginId plugin, string url)
     {
         return RegisterImage(plugin, url, url);
     }
@@ -84,7 +95,7 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
         if (string.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
         if (image == null) throw new ArgumentNullException(nameof(image));
         
-        ImageId id = _data.Get(plugin, name);
+        ImageId id = _data.Get(plugin.Id(), name);
         if (id.IsValid)
         {
             error = "Image already registered";

@@ -5,13 +5,12 @@ using Oxide.Core.Libraries.Covalence;
 using Oxide.Core.Plugins;
 using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Config;
+using Oxide.Ext.UiFramework.Constants;
 using Oxide.Ext.UiFramework.Data;
 using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.HarmonyPatches;
-using Oxide.Ext.UiFramework.Icon;
 using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Libraries.UiCommands;
-using Oxide.Ext.UiFramework.Libraries.UiIcons;
 using Oxide.Ext.UiFramework.Types;
 using Rust.UI;
 
@@ -41,9 +40,9 @@ internal class UiFrameworkPlugin : BaseUiFrameworkPlugin
             Lang.RegisterMessages(language.Value, this, language.Key);
         }
         
-        IconsLib.RegisterIcons<Icons>(this, @enum => string.Format(IconsCache.RustIconsFormat, (int)@enum));
-        IconsLib.RegisterIcons<FontAwesomeRegularIcons>(this, @enum => string.Format(IconsCache.FontAwesomeRegularFormat, @enum));
-        IconsLib.RegisterIcons<FontAwesomeSolidIcons>(this, @enum => string.Format(IconsCache.FontAwesomeSolidFormat, @enum));
+        IconsLib.RegisterIcons<Icons>(this, @enum => string.Format(DefaultIconFormats.RustIconsFormat, (int)@enum), icon => icon.SetMaterial(UiMaterials.Icons.IconMaterial));
+        IconsLib.RegisterIcons<FontAwesomeRegularIcons>(this, @enum => string.Format(DefaultIconFormats.FontAwesomeRegularFormat, @enum), icon => icon.SetMaterial(UiMaterials.Icons.IconMaterial));
+        IconsLib.RegisterIcons<FontAwesomeSolidIcons>(this, @enum => string.Format(DefaultIconFormats.FontAwesomeSolidFormat, @enum), icon => icon.SetMaterial(UiMaterials.Icons.IconMaterial));
     }
 
     // ReSharper disable once UnusedMember.Local
