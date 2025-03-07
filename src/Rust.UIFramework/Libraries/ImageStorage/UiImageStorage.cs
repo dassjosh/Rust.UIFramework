@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Oxide.Core;
 using Oxide.Core.Plugins;
 using Oxide.Ext.UiFramework.Builder;
-using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Constants;
 using Oxide.Ext.UiFramework.Data;
@@ -15,7 +14,6 @@ using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.Types;
 using Oxide.Ext.UiFramework.UiElements;
-using Rust.UI;
 
 namespace Oxide.Ext.UiFramework.Libraries;
 

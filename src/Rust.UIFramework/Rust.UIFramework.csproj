@@ -109,7 +109,6 @@
       <Content Include="..\..\README.md">
         <Link>README.md</Link>
       </Content>
-      <Compile Remove="Commands\UiCommand.cs" />
     </ItemGroup>
     
     <ItemGroup>

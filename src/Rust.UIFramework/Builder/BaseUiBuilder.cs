@@ -4,6 +4,8 @@ using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Controls;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Json;
+using Oxide.Ext.UiFramework.Layouts;
+using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.UiElements;
 
 namespace Oxide.Ext.UiFramework.Builder;
@@ -13,6 +15,7 @@ public abstract partial class BaseUiBuilder : BaseBuilder
     protected readonly List<BaseUiComponent> Components = [];
     protected readonly List<BaseUiControl> Controls = [];
     protected readonly List<BaseUiComponent> Anchors = [];
+    protected readonly List<BaseLayout> Layouts = [];
         
     protected string Font;
     protected static string GlobalFont;
@@ -87,29 +90,21 @@ public abstract partial class BaseUiBuilder : BaseBuilder
 
     private void FreeComponents()
     {
-        int count = Components.Count;
+        ClearComponentList(Components);
+        ClearComponentList(Controls);
+        ClearComponentList(Anchors);
+        ClearComponentList(Layouts);
+    }
+    
+    private static void ClearComponentList<T>(List<T> components) where T : BasePoolable
+    {
+        int count = components.Count;
         for (int index = 0; index < count; index++)
         {
-            Components[index].Dispose();
-        }
-                
-        Components.Clear();
-
-        count = Controls.Count;
-        for (int index = 0; index < count; index++)
-        {
-            Controls[index].Dispose();
-        }
-                
-        Controls.Clear();
-            
-        count = Anchors.Count;
-        for (int index = 0; index < count; index++)
-        {
-            Anchors[index].Dispose();
+            components[index].Dispose();
         }
 
-        Anchors.Clear();
+        components.Clear();
     }
 
     protected override void LeavePool()

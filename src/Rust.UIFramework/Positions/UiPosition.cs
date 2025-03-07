@@ -107,6 +107,14 @@ public readonly struct UiPosition(float xMin, float yMin, float xMax, float yMax
         Vector2 max = Max;
         return new UiPosition(min.x - amount, min.y - amount, max.x + amount, max.y + amount);
     }
+    
+    [Pure]
+    public UiPosition Expand(float horizontal, float vertical)
+    {
+        Vector2 min = Min;
+        Vector2 max = Max;
+        return new UiPosition(min.x - horizontal, min.y - vertical, max.x + horizontal, max.y + vertical);
+    }
         
     [Pure]
     public UiPosition ExpandHorizontal(float amount)
@@ -130,6 +138,14 @@ public readonly struct UiPosition(float xMin, float yMin, float xMax, float yMax
         Vector2 min = Min;
         Vector2 max = Max;
         return new UiPosition(min.x + amount, min.y + amount, max.x - amount, max.y - amount);
+    }
+    
+    [Pure]
+    public UiPosition Shrink(float horizontal, float vertical)
+    {
+        Vector2 min = Min;
+        Vector2 max = Max;
+        return new UiPosition(min.x + horizontal, min.y + vertical, max.x - horizontal, max.y - vertical);
     }
         
     [Pure]
