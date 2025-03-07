@@ -6637,6 +6637,7 @@
               "Files": {
                 "VfxExplosionFireball": "assets/content/effects/explosions/vfx_explosion_fireball.mat",
                 "VfxExplosionSecondaryGlow": "assets/content/effects/explosions/vfx_explosion_secondaryglow.mat",
+                "VfxFlashbangSparks": "assets/content/effects/explosions/vfx_flashbang_sparks.mat",
                 "VfxShockwave": "assets/content/effects/explosions/vfx_shockwave.mat",
                 "VfxShockwave2": "assets/content/effects/explosions/vfx_shockwave2.mat",
                 "VfxShockwaveHarder": "assets/content/effects/explosions/vfx_shockwave_harder.mat",
@@ -6791,6 +6792,8 @@
                   "Files": {
                     "DirtBlowupLarge": "assets/content/effects/explosions/v2/dirt_blowup_large.mat",
                     "ExplosionDirtup": "assets/content/effects/explosions/v2/explosion_dirtup.mat",
+                    "ExplosionKickout": "assets/content/effects/explosions/v2/explosion_kickout.mat",
+                    "ExplosionKickup": "assets/content/effects/explosions/v2/explosion_kickup.mat",
                     "ExplosionLarge": "assets/content/effects/explosions/v2/explosion_large.mat",
                     "ExplosionMed": "assets/content/effects/explosions/v2/explosion_med.mat",
                     "ExplosionMedMushroom": "assets/content/effects/explosions/v2/explosion_med_mushroom.mat",
@@ -6804,7 +6807,8 @@
                     "FlameimpactSide": "assets/content/effects/explosions/v2/flameimpact_side.mat",
                     "FlameOmni": "assets/content/effects/explosions/v2/flame_omni.mat",
                     "PfxLightDriver": "assets/content/effects/explosions/v2/pfx_light_driver.mat",
-                    "StreakSmall": "assets/content/effects/explosions/v2/streak_small.mat"
+                    "StreakSmall": "assets/content/effects/explosions/v2/streak_small.mat",
+                    "StreakSmallFresnel": "assets/content/effects/explosions/v2/streak_small_fresnel.mat"
                   },
                   "SubFolders": {}
                 },
@@ -7042,6 +7046,7 @@
               "Path": "assets/content/effects/impact",
               "Files": {
                 "BloodSplatterDirectional": "assets/content/effects/impact/blood_splatter_directional.mat",
+                "BloodSplatterDrop": "assets/content/effects/impact/blood_splatter_drop.mat",
                 "BloodSplatterOmni": "assets/content/effects/impact/blood_splatter_omni.mat",
                 "ExplosionSparks": "assets/content/effects/impact/explosion_sparks.mat",
                 "FlecksCloth": "assets/content/effects/impact/flecks_cloth.mat",
@@ -7152,6 +7157,7 @@
                     "FlameCandle": "assets/content/effects/textures/fire/flame-candle.mat",
                     "FlameCandleV2": "assets/content/effects/textures/fire/flame-candle-v2.mat",
                     "FlameCandleV2Blue": "assets/content/effects/textures/fire/flame-candle-v2-blue.mat",
+                    "FlameCandleV2BlueBrighter": "assets/content/effects/textures/fire/flame-candle-v2-blue-brighter.mat",
                     "FlamePilotLight": "assets/content/effects/textures/fire/flame-pilotlight.mat",
                     "Muzzleflash3": "assets/content/effects/textures/fire/muzzleflash-3.mat",
                     "MuzzleflashHeli": "assets/content/effects/textures/fire/muzzleflash_heli.mat",
@@ -7269,6 +7275,9 @@
                 "FlameFloating2": "assets/content/effects/fire/flame_floating2.mat",
                 "FlameFloatingArrows": "assets/content/effects/fire/flame_floating_arrows.mat",
                 "FlameGroundFireball": "assets/content/effects/fire/flame_ground_fireball.mat",
+                "FlameGroundFireballLowsoft": "assets/content/effects/fire/flame_ground_fireball_lowsoft.mat",
+                "FlameGroundFireballV2": "assets/content/effects/fire/flame_ground_fireball_v2.mat",
+                "FlameGroundFireballV2Lowsoft": "assets/content/effects/fire/flame_ground_fireball_v2_lowsoft.mat",
                 "FlameLickFlatFurnace": "assets/content/effects/fire/flame_lick_flat_furnace.mat",
                 "FlameLickFlatFurnaceLarge": "assets/content/effects/fire/flame_lick_flat_furnace_large.mat",
                 "FlameLickFloating": "assets/content/effects/fire/flame_lick_floating.mat",
@@ -7448,6 +7457,7 @@
                 "PfxRotorwash": "assets/content/effects/fumes/pfx_rotorwash.mat",
                 "PfxSmokeBradleyDamage": "assets/content/effects/fumes/pfx_smoke_bradley_damage.mat",
                 "PfxSmokeGroundfire": "assets/content/effects/fumes/pfx_smoke_groundfire.mat",
+                "PfxSmokeGroundfireLowsoft": "assets/content/effects/fumes/pfx_smoke_groundfire_lowsoft.mat",
                 "PfxSmokeRocket": "assets/content/effects/fumes/pfx_smoke_rocket.mat",
                 "PfxSmokeRocketThicksoftBlend": "assets/content/effects/fumes/pfx_smoke_rocket_thicksoftblend.mat",
                 "PfxSmokeWhispy1": "assets/content/effects/fumes/pfx_smoke_whispy_1.mat",
@@ -7456,6 +7466,7 @@
                 "PfxSmokeWhispy1White": "assets/content/effects/fumes/pfx_smoke_whispy_1_white.mat",
                 "PfxSmokeWhispy1WhiteExplosionLingering": "assets/content/effects/fumes/pfx_smoke_whispy_1_white_explosion_lingering.mat",
                 "PfxSmokeWhispy1WhiteExplosionLingeringLowersoft": "assets/content/effects/fumes/pfx_smoke_whispy_1_white_explosion_lingering_lowersoft.mat",
+                "PfxSmokeWhispy1WhiteExplosionLingeringLowsoft": "assets/content/effects/fumes/pfx_smoke_whispy_1_white_explosion_lingering_lowsoft.mat",
                 "PfxSmokeWhispy1WhiteGroundeffect": "assets/content/effects/fumes/pfx_smoke_whispy_1_white_groundeffect.mat",
                 "PfxSmokeWhispy1WhiteLowersoft": "assets/content/effects/fumes/pfx_smoke_whispy_1_white_lowersoft.mat",
                 "PfxSmokeWhispy1WhiteLowsoft": "assets/content/effects/fumes/pfx_smoke_whispy_1_white_lowsoft.mat",
@@ -7467,10 +7478,13 @@
                 "PfxSmokeWhispy2Lowsoft": "assets/content/effects/fumes/pfx_smoke_whispy_2_lowsoft.mat",
                 "PfxSmokeWhispy2Nosoft": "assets/content/effects/fumes/pfx_smoke_whispy_2_nosoft.mat",
                 "PfxSmokeWhispy2WhiteLowsoft": "assets/content/effects/fumes/pfx_smoke_whispy_2_white_lowsoft.mat",
+                "PfxSmokeWhispy2WhiteNosoft": "assets/content/effects/fumes/pfx_smoke_whispy_2_white_nosoft.mat",
                 "PfxSmokeWhispyGroundeffectxl": "assets/content/effects/fumes/pfx_smoke_whispy_groundeffectxl.mat",
                 "PfxVapourAdditive": "assets/content/effects/fumes/pfx_vapour_additive.mat",
                 "PfxVapourAdditiveVertexlit": "assets/content/effects/fumes/pfx_vapour_additive_vertexlit.mat",
                 "PfxVapourCloningvats": "assets/content/effects/fumes/pfx_vapour_cloningvats.mat",
+                "SmokeLoopThick": "assets/content/effects/fumes/smoke_loop_thick.mat",
+                "SmokeLoopThick2": "assets/content/effects/fumes/smoke_loop_thick2.mat",
                 "SmokeSideBlast": "assets/content/effects/fumes/smoke_side_blast.mat",
                 "SmokeThick": "assets/content/effects/fumes/smoke_thick.mat"
               },
@@ -9037,7 +9051,9 @@
                         "ElectricalBoxesAlt": "assets/content/props/electrical_boxes/models/materials/electrical_boxes_alt.mat",
                         "ElectricalBoxesPuzzles": "assets/content/props/electrical_boxes/models/materials/electrical_boxes_puzzles.mat",
                         "ElectricalBoxesPuzzlesOff": "assets/content/props/electrical_boxes/models/materials/electrical_boxes_puzzles_off.mat",
-                        "ElectricalBoxesPuzzlesOn": "assets/content/props/electrical_boxes/models/materials/electrical_boxes_puzzles_on.mat"
+                        "ElectricalBoxesPuzzlesOffC4": "assets/content/props/electrical_boxes/models/materials/electrical_boxes_puzzles_off_c4.mat",
+                        "ElectricalBoxesPuzzlesOn": "assets/content/props/electrical_boxes/models/materials/electrical_boxes_puzzles_on.mat",
+                        "ElectricalBoxesPuzzlesOnC4": "assets/content/props/electrical_boxes/models/materials/electrical_boxes_puzzles_on_c4.mat"
                       },
                       "SubFolders": {}
                     }
@@ -11927,7 +11943,10 @@
                           "Path": "assets/content/vehicles/siegeweapons/ballista/models/materials",
                           "Files": {
                             "Ballista": "assets/content/vehicles/siegeweapons/ballista/models/materials/ballista.mat",
-                            "Ballista1": "assets/content/vehicles/siegeweapons/ballista/models/materials/ballista1.mat",
+                            "Ballista1": "assets/content/vehicles/siegeweapons/ballista/models/materials/ballista 1.mat",
+                            "Ballista11": "assets/content/vehicles/siegeweapons/ballista/models/materials/ballista1.mat",
+                            "Ballista2": "assets/content/vehicles/siegeweapons/ballista/models/materials/ballista2.mat",
+                            "Ballista3": "assets/content/vehicles/siegeweapons/ballista/models/materials/ballista3.mat",
                             "BallistaStatic": "assets/content/vehicles/siegeweapons/ballista/models/materials/ballista_static.mat"
                           },
                           "SubFolders": {}
@@ -11938,12 +11957,12 @@
                       "Name": "materials",
                       "Path": "assets/content/vehicles/siegeweapons/ballista/materials",
                       "Files": {
-                        "Ballista1": "assets/content/vehicles/siegeweapons/ballista/materials/ballista 1.mat",
-                        "Ballista1noao": "assets/content/vehicles/siegeweapons/ballista/materials/ballista1noao.mat",
-                        "Ballista2": "assets/content/vehicles/siegeweapons/ballista/materials/ballista2.mat",
-                        "Ballista2noao": "assets/content/vehicles/siegeweapons/ballista/materials/ballista2noao.mat",
-                        "Ballista3": "assets/content/vehicles/siegeweapons/ballista/materials/ballista3.mat",
-                        "Ballista3noao": "assets/content/vehicles/siegeweapons/ballista/materials/ballista3noao.mat",
+                        "Ballista01": "assets/content/vehicles/siegeweapons/ballista/materials/ballista_01.mat",
+                        "Ballista02": "assets/content/vehicles/siegeweapons/ballista/materials/ballista_02.mat",
+                        "Ballista03": "assets/content/vehicles/siegeweapons/ballista/materials/ballista_03.mat",
+                        "Ballista1noao": "assets/content/vehicles/siegeweapons/ballista/materials/ballista_1noao.mat",
+                        "Ballista2noao": "assets/content/vehicles/siegeweapons/ballista/materials/ballista_2noao.mat",
+                        "Ballista3noao": "assets/content/vehicles/siegeweapons/ballista/materials/ballista_3noao.mat",
                         "Ballistastaticmount": "assets/content/vehicles/siegeweapons/ballista/materials/ballistastaticmount.mat"
                       },
                       "SubFolders": {
@@ -14036,6 +14055,7 @@
             "DecalStabFlesh01": "assets/content/decals/decal_stab_flesh_01.mat",
             "DecalXSprayA": "assets/content/decals/decal_xspray_a.mat",
             "DecalXSprayBlue": "assets/content/decals/decal_xspray_blue.mat",
+            "DecalXSprayEmissive": "assets/content/decals/decal_xspray_emissive.mat",
             "DecalXSprayOrange": "assets/content/decals/decal_xspray_orange.mat"
           },
           "SubFolders": {}
@@ -14512,6 +14532,29 @@
                   "Path": "assets/prefabs/deployable/bed/materials",
                   "Files": {
                     "Bed": "assets/prefabs/deployable/bed/materials/bed.mat"
+                  },
+                  "SubFolders": {}
+                }
+              }
+            },
+            "beehive": {
+              "Name": "beehive",
+              "Path": "assets/prefabs/deployable/beehive",
+              "Files": {},
+              "SubFolders": {
+                "materials": {
+                  "Name": "materials",
+                  "Path": "assets/prefabs/deployable/beehive/materials",
+                  "Files": {
+                    "BeehiveLower": "assets/prefabs/deployable/beehive/materials/beehive_lower.mat",
+                    "BeehiveMetal": "assets/prefabs/deployable/beehive/materials/beehive_metal.mat",
+                    "BeehivePlyWood": "assets/prefabs/deployable/beehive/materials/beehive_plywood.mat",
+                    "BeehiveRoof": "assets/prefabs/deployable/beehive/materials/beehive_roof.mat",
+                    "BeehiveRust": "assets/prefabs/deployable/beehive/materials/beehive_rust.mat",
+                    "BeehiveTransparent": "assets/prefabs/deployable/beehive/materials/beehive_transparent.mat",
+                    "BeehiveUpper": "assets/prefabs/deployable/beehive/materials/beehive_upper.mat",
+                    "BeehiveWoodPlanks": "assets/prefabs/deployable/beehive/materials/beehive_wood_planks.mat",
+                    "BeehiveWoodTimber": "assets/prefabs/deployable/beehive/materials/beehive_wood_timber.mat"
                   },
                   "SubFolders": {}
                 }
@@ -15294,6 +15337,26 @@
                 }
               }
             },
+            "chickencoop": {
+              "Name": "chickencoop",
+              "Path": "assets/prefabs/deployable/chickencoop",
+              "Files": {},
+              "SubFolders": {
+                "materials": {
+                  "Name": "materials",
+                  "Path": "assets/prefabs/deployable/chickencoop/materials",
+                  "Files": {
+                    "ChickencoopCorrugated": "assets/prefabs/deployable/chickencoop/materials/chickencoop_corrugated.mat",
+                    "ChickencoopWood1": "assets/prefabs/deployable/chickencoop/materials/chickencoop_wood1.mat",
+                    "ChickencoopWood1Lod": "assets/prefabs/deployable/chickencoop/materials/chickencoop_wood1 lod.mat",
+                    "ChickencoopWood2": "assets/prefabs/deployable/chickencoop/materials/chickencoop_wood2.mat",
+                    "ChickencoopWood3": "assets/prefabs/deployable/chickencoop/materials/chickencoop_wood3.mat",
+                    "ChickencoopWood3Lod": "assets/prefabs/deployable/chickencoop/materials/chickencoop_wood3 lod.mat"
+                  },
+                  "SubFolders": {}
+                }
+              }
+            },
             "chinooklockedcrate": {
               "Name": "chinooklockedcrate",
               "Path": "assets/prefabs/deployable/chinooklockedcrate",
@@ -15519,6 +15582,38 @@
                     "TarpsA": "assets/prefabs/deployable/water catcher/materials/tarps_a.mat",
                     "WaterCatchers": "assets/prefabs/deployable/water catcher/materials/water_catchers.mat",
                     "WoodPillarWtrctchr": "assets/prefabs/deployable/water catcher/materials/wood_pillar_wtrctchr.mat"
+                  },
+                  "SubFolders": {}
+                }
+              }
+            },
+            "cookingworkbench": {
+              "Name": "cookingworkbench",
+              "Path": "assets/prefabs/deployable/cookingworkbench",
+              "Files": {},
+              "SubFolders": {
+                "materials": {
+                  "Name": "materials",
+                  "Path": "assets/prefabs/deployable/cookingworkbench/materials",
+                  "Files": {
+                    "CookingWorkbench": "assets/prefabs/deployable/cookingworkbench/materials/cooking_workbench.mat",
+                    "CookingWorkbenchGlass": "assets/prefabs/deployable/cookingworkbench/materials/cooking_workbench_glass.mat",
+                    "CookingWorkbenchParts": "assets/prefabs/deployable/cookingworkbench/materials/cooking_workbench_parts.mat"
+                  },
+                  "SubFolders": {}
+                },
+                "effects": {
+                  "Name": "effects",
+                  "Path": "assets/prefabs/deployable/cookingworkbench/effects",
+                  "Files": {
+                    "FxFlameOverlayCookingworkbench": "assets/prefabs/deployable/cookingworkbench/effects/fx_flame_overlay_cookingworkbench.mat",
+                    "Oilfilm": "assets/prefabs/deployable/cookingworkbench/effects/oilfilm.mat",
+                    "PfxBubble": "assets/prefabs/deployable/cookingworkbench/effects/pfx_bubble.mat",
+                    "PfxBubblePop": "assets/prefabs/deployable/cookingworkbench/effects/pfx_bubble_pop.mat",
+                    "PfxCookingSmoke": "assets/prefabs/deployable/cookingworkbench/effects/pfx_cooking_smoke.mat",
+                    "PfxFlameCookingworkbench": "assets/prefabs/deployable/cookingworkbench/effects/pfx_flame_cookingworkbench.mat",
+                    "PfxRipple": "assets/prefabs/deployable/cookingworkbench/effects/pfx_ripple.mat",
+                    "PfxWhispySmoke": "assets/prefabs/deployable/cookingworkbench/effects/pfx_whispy_smoke.mat"
                   },
                   "SubFolders": {}
                 }
@@ -15766,7 +15861,9 @@
                       "Path": "assets/prefabs/deployable/fridge/models/materials",
                       "Files": {
                         "Fridge": "assets/prefabs/deployable/fridge/models/materials/fridge.mat",
-                        "FridgeJunk": "assets/prefabs/deployable/fridge/models/materials/fridge_junk.mat"
+                        "FridgeJunk": "assets/prefabs/deployable/fridge/models/materials/fridge_junk.mat",
+                        "FridgepowerOff": "assets/prefabs/deployable/fridge/models/materials/fridgepower_off.mat",
+                        "FridgepowerOn": "assets/prefabs/deployable/fridge/models/materials/fridgepower_on.mat"
                       },
                       "SubFolders": {}
                     }
@@ -16009,6 +16106,36 @@
                 }
               }
             },
+            "hopper": {
+              "Name": "hopper",
+              "Path": "assets/prefabs/deployable/hopper",
+              "Files": {},
+              "SubFolders": {
+                "material": {
+                  "Name": "material",
+                  "Path": "assets/prefabs/deployable/hopper/material",
+                  "Files": {
+                    "Hopper": "assets/prefabs/deployable/hopper/material/hopper.mat",
+                    "HopperLightactive": "assets/prefabs/deployable/hopper/material/hopper_lightactive.mat",
+                    "HopperLightpowered": "assets/prefabs/deployable/hopper/material/hopper_lightpowered.mat",
+                    "HopperTransparent": "assets/prefabs/deployable/hopper/material/hopper_transparent.mat"
+                  },
+                  "SubFolders": {}
+                },
+                "effects": {
+                  "Name": "effects",
+                  "Path": "assets/prefabs/deployable/hopper/effects",
+                  "Files": {
+                    "HopperAirvolume": "assets/prefabs/deployable/hopper/effects/hopper_airvolume.mat",
+                    "HopperSuction": "assets/prefabs/deployable/hopper/effects/hopper_suction.mat",
+                    "HumanGibFoot": "assets/prefabs/deployable/hopper/effects/human_gib_foot.mat",
+                    "HumanGibLeg": "assets/prefabs/deployable/hopper/effects/human_gib_leg.mat",
+                    "HumanGibRibcage": "assets/prefabs/deployable/hopper/effects/human_gib_ribcage.mat"
+                  },
+                  "SubFolders": {}
+                }
+              }
+            },
             "waterpurifier": {
               "Name": "waterpurifier",
               "Path": "assets/prefabs/deployable/waterpurifier",
@@ -16032,17 +16159,17 @@
                 }
               }
             },
-            "io_research_table": {
-              "Name": "io_research_table",
-              "Path": "assets/prefabs/deployable/io_research_table",
+            "io research table": {
+              "Name": "io research table",
+              "Path": "assets/prefabs/deployable/io research table",
               "Files": {},
               "SubFolders": {
                 "materials": {
                   "Name": "materials",
-                  "Path": "assets/prefabs/deployable/io_research_table/materials",
+                  "Path": "assets/prefabs/deployable/io research table/materials",
                   "Files": {
-                    "IoResearchTable": "assets/prefabs/deployable/io_research_table/materials/io_research_table.mat",
-                    "IoResearchTableParts": "assets/prefabs/deployable/io_research_table/materials/io_research_table_parts.mat"
+                    "IoResearchTable": "assets/prefabs/deployable/io research table/materials/io_research_table.mat",
+                    "IoResearchTableParts": "assets/prefabs/deployable/io research table/materials/io_research_table_parts.mat"
                   },
                   "SubFolders": {}
                 }
@@ -16479,6 +16606,28 @@
                       "Path": "assets/prefabs/deployable/shelves/models/materials",
                       "Files": {
                         "Shelves": "assets/prefabs/deployable/shelves/models/materials/shelves.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                }
+              }
+            },
+            "plant pots": {
+              "Name": "plant pots",
+              "Path": "assets/prefabs/deployable/plant pots",
+              "Files": {},
+              "SubFolders": {
+                "single plant pot": {
+                  "Name": "single plant pot",
+                  "Path": "assets/prefabs/deployable/plant pots/single plant pot",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/prefabs/deployable/plant pots/single plant pot/materials",
+                      "Files": {
+                        "Singleplantpot": "assets/prefabs/deployable/plant pots/single plant pot/materials/singleplantpot.mat"
                       },
                       "SubFolders": {}
                     }
@@ -20695,6 +20844,35 @@
                 }
               }
             },
+            "bee grenade": {
+              "Name": "bee grenade",
+              "Path": "assets/prefabs/weapons/bee grenade",
+              "Files": {},
+              "SubFolders": {
+                "materials": {
+                  "Name": "materials",
+                  "Path": "assets/prefabs/weapons/bee grenade/materials",
+                  "Files": {
+                    "BeeGrenadeBlur": "assets/prefabs/weapons/bee grenade/materials/bee_grenade_blur.mat",
+                    "BeeGrenadeExtra": "assets/prefabs/weapons/bee grenade/materials/bee_grenade_extra.mat",
+                    "BeeGrenadeGlass": "assets/prefabs/weapons/bee grenade/materials/bee_grenade_glass.mat",
+                    "BeeGrenadeGlassWorldModel": "assets/prefabs/weapons/bee grenade/materials/bee_grenade_glass_world_model.mat",
+                    "BeeGrenadeHoney": "assets/prefabs/weapons/bee grenade/materials/bee_grenade_honey.mat",
+                    "BeeGrenadeLabel": "assets/prefabs/weapons/bee grenade/materials/bee_grenade_label.mat",
+                    "BeeGrenadeLodCombined": "assets/prefabs/weapons/bee grenade/materials/bee_grenade_lod_combined.mat"
+                  },
+                  "SubFolders": {}
+                },
+                "effects": {
+                  "Name": "effects",
+                  "Path": "assets/prefabs/weapons/bee grenade/effects",
+                  "Files": {
+                    "HoneySplatter": "assets/prefabs/weapons/bee grenade/effects/honey_splatter.mat"
+                  },
+                  "SubFolders": {}
+                }
+              }
+            },
             "cake": {
               "Name": "cake",
               "Path": "assets/prefabs/weapons/cake",
@@ -21286,7 +21464,16 @@
                   "Path": "assets/prefabs/weapons/grenade launcher/materials",
                   "Files": {
                     "GlAmmo": "assets/prefabs/weapons/grenade launcher/materials/glammo.mat",
+                    "GlAmmoSmoke": "assets/prefabs/weapons/grenade launcher/materials/glammo_smoke.mat",
                     "Grenadelauncher": "assets/prefabs/weapons/grenade launcher/materials/grenadelauncher.mat"
+                  },
+                  "SubFolders": {}
+                },
+                "effects": {
+                  "Name": "effects",
+                  "Path": "assets/prefabs/weapons/grenade launcher/effects",
+                  "Files": {
+                    "TubeExhaust": "assets/prefabs/weapons/grenade launcher/effects/tube_exhaust.mat"
                   },
                   "SubFolders": {}
                 }
@@ -22745,6 +22932,22 @@
                 }
               }
             },
+            "beeswarm": {
+              "Name": "beeswarm",
+              "Path": "assets/prefabs/npc/beeswarm",
+              "Files": {},
+              "SubFolders": {
+                "materials": {
+                  "Name": "materials",
+                  "Path": "assets/prefabs/npc/beeswarm/materials",
+                  "Files": {
+                    "Beeswarm": "assets/prefabs/npc/beeswarm/materials/beeswarm.mat",
+                    "BeeTestMaterial": "assets/prefabs/npc/beeswarm/materials/beetestmaterial.mat"
+                  },
+                  "SubFolders": {}
+                }
+              }
+            },
             "autoturret": {
               "Name": "autoturret",
               "Path": "assets/prefabs/npc/autoturret",
@@ -22853,6 +23056,30 @@
                       "Files": {
                         "CargoPlaneDif": "assets/prefabs/npc/cargo plane/model/materials/cargo_plane_dif.mat",
                         "CargoPlanePropDif": "assets/prefabs/npc/cargo plane/model/materials/cargo_plane_prop_dif.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                }
+              }
+            },
+            "critters": {
+              "Name": "critters",
+              "Path": "assets/prefabs/npc/critters",
+              "Files": {},
+              "SubFolders": {
+                "honeybee": {
+                  "Name": "honeybee",
+                  "Path": "assets/prefabs/npc/critters/honeybee",
+                  "Files": {},
+                  "SubFolders": {
+                    "material": {
+                      "Name": "material",
+                      "Path": "assets/prefabs/npc/critters/honeybee/material",
+                      "Files": {
+                        "CritterBeeFlyer": "assets/prefabs/npc/critters/honeybee/material/critter_bee_flyer.mat",
+                        "CritterBeeStatic": "assets/prefabs/npc/critters/honeybee/material/critter_bee_static.mat",
+                        "CritterBeeWalker": "assets/prefabs/npc/critters/honeybee/material/critter_bee_walker.mat"
                       },
                       "SubFolders": {}
                     }
@@ -23193,6 +23420,28 @@
                 }
               }
             },
+            "honeycomb": {
+              "Name": "honeycomb",
+              "Path": "assets/prefabs/resource/honeycomb",
+              "Files": {},
+              "SubFolders": {
+                "model": {
+                  "Name": "model",
+                  "Path": "assets/prefabs/resource/honeycomb/model",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/prefabs/resource/honeycomb/model/materials",
+                      "Files": {
+                        "Honeycomb": "assets/prefabs/resource/honeycomb/model/materials/honeycomb.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                }
+              }
+            },
             "horsedung": {
               "Name": "horsedung",
               "Path": "assets/prefabs/resource/horsedung",
@@ -23316,6 +23565,21 @@
                       "SubFolders": {}
                     }
                   }
+                }
+              }
+            },
+            "natural beehive": {
+              "Name": "natural beehive",
+              "Path": "assets/prefabs/resource/natural beehive",
+              "Files": {},
+              "SubFolders": {
+                "materials": {
+                  "Name": "materials",
+                  "Path": "assets/prefabs/resource/natural beehive/materials",
+                  "Files": {
+                    "NaturalBeehive": "assets/prefabs/resource/natural beehive/materials/natural beehive.mat"
+                  },
+                  "SubFolders": {}
                 }
               }
             },
@@ -23446,6 +23710,24 @@
                   "Path": "assets/prefabs/tools/anti-radiation pills/materials",
                   "Files": {
                     "AntiradPills": "assets/prefabs/tools/anti-radiation pills/materials/antirad pills.mat"
+                  },
+                  "SubFolders": {}
+                }
+              }
+            },
+            "armourplating": {
+              "Name": "armourplating",
+              "Path": "assets/prefabs/tools/armourplating",
+              "Files": {},
+              "SubFolders": {
+                "materials": {
+                  "Name": "materials",
+                  "Path": "assets/prefabs/tools/armourplating/materials",
+                  "Files": {
+                    "Asbestosarmourplate": "assets/prefabs/tools/armourplating/materials/asbestosarmourplate.mat",
+                    "Leadarmourplate": "assets/prefabs/tools/armourplating/materials/leadarmourplate.mat",
+                    "Metalarmourplate": "assets/prefabs/tools/armourplating/materials/metalarmourplate.mat",
+                    "Woodarmourplate": "assets/prefabs/tools/armourplating/materials/woodarmourplate.mat"
                   },
                   "SubFolders": {}
                 }
@@ -24160,6 +24442,54 @@
                 }
               }
             },
+            "meat": {
+              "Name": "meat",
+              "Path": "assets/prefabs/food/meat",
+              "Files": {},
+              "SubFolders": {
+                "materials": {
+                  "Name": "materials",
+                  "Path": "assets/prefabs/food/meat/materials",
+                  "Files": {
+                    "BearMeatBurned": "assets/prefabs/food/meat/materials/bear_meat_burned.mat",
+                    "BearMeatCooked": "assets/prefabs/food/meat/materials/bear_meat_cooked.mat",
+                    "BearMeatRaw": "assets/prefabs/food/meat/materials/bear_meat_raw.mat",
+                    "BearMeatSpoiled": "assets/prefabs/food/meat/materials/bear_meat_spoiled.mat",
+                    "ChickenMeatBurned": "assets/prefabs/food/meat/materials/chicken_meat_burned.mat",
+                    "ChickenMeatCooked": "assets/prefabs/food/meat/materials/chicken_meat_cooked.mat",
+                    "ChickenMeatRaw": "assets/prefabs/food/meat/materials/chicken_meat_raw.mat",
+                    "ChickenMeatSpoiled": "assets/prefabs/food/meat/materials/chicken_meat_spoiled.mat",
+                    "DeerMeatBurned": "assets/prefabs/food/meat/materials/deer_meat_burned.mat",
+                    "DeerMeatCooked": "assets/prefabs/food/meat/materials/deer_meat_cooked.mat",
+                    "DeerMeatRaw": "assets/prefabs/food/meat/materials/deer_meat_raw.mat",
+                    "DeerMeatSpoiled": "assets/prefabs/food/meat/materials/deer_meat_spoiled.mat",
+                    "FishMeatBurned": "assets/prefabs/food/meat/materials/fish_meat_burned.mat",
+                    "FishMeatCooked": "assets/prefabs/food/meat/materials/fish_meat_cooked.mat",
+                    "FishMeatRaw": "assets/prefabs/food/meat/materials/fish_meat_raw.mat",
+                    "FishMeatSpoiled": "assets/prefabs/food/meat/materials/fish_meat_spoiled.mat",
+                    "HorseMeatBurned": "assets/prefabs/food/meat/materials/horse_meat_burned.mat",
+                    "HorseMeatCooked": "assets/prefabs/food/meat/materials/horse_meat_cooked.mat",
+                    "HorseMeatRaw": "assets/prefabs/food/meat/materials/horse_meat_raw.mat",
+                    "HorseMeatSpoiled": "assets/prefabs/food/meat/materials/horse_meat_spoiled.mat",
+                    "HumanMeatBurned": "assets/prefabs/food/meat/materials/human_meat_burned.mat",
+                    "HumanMeatCooked": "assets/prefabs/food/meat/materials/human_meat_cooked.mat",
+                    "HumanMeatRaw": "assets/prefabs/food/meat/materials/human_meat_raw.mat",
+                    "HumanMeatSpoiled": "assets/prefabs/food/meat/materials/human_meat_spoiled.mat",
+                    "MeatRabbitCooked": "assets/prefabs/food/meat/materials/meat_rabbit_cooked.mat",
+                    "MeatRabbitRaw": "assets/prefabs/food/meat/materials/meat_rabbit_raw.mat",
+                    "PorkMeatBurned": "assets/prefabs/food/meat/materials/pork_meat_burned.mat",
+                    "PorkMeatCooked": "assets/prefabs/food/meat/materials/pork_meat_cooked.mat",
+                    "PorkMeatRaw": "assets/prefabs/food/meat/materials/pork_meat_raw.mat",
+                    "PorkMeatSpoiled": "assets/prefabs/food/meat/materials/pork_meat_spoiled.mat",
+                    "WolfMeatBurned": "assets/prefabs/food/meat/materials/wolf_meat_burned.mat",
+                    "WolfMeatCooked": "assets/prefabs/food/meat/materials/wolf_meat_cooked.mat",
+                    "WolfMeatRaw": "assets/prefabs/food/meat/materials/wolf_meat_raw.mat",
+                    "WolfMeatSpoiled": "assets/prefabs/food/meat/materials/wolf_meat_spoiled.mat"
+                  },
+                  "SubFolders": {}
+                }
+              }
+            },
             "bota bag": {
               "Name": "bota bag",
               "Path": "assets/prefabs/food/bota bag",
@@ -24182,6 +24512,36 @@
                 }
               }
             },
+            "bread": {
+              "Name": "bread",
+              "Path": "assets/prefabs/food/bread",
+              "Files": {},
+              "SubFolders": {
+                "models": {
+                  "Name": "models",
+                  "Path": "assets/prefabs/food/bread/models",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/prefabs/food/bread/models/materials",
+                      "Files": {
+                        "Bread": "assets/prefabs/food/bread/models/materials/bread.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
+                "cooking_conditionals": {
+                  "Name": "cooking_conditionals",
+                  "Path": "assets/prefabs/food/bread/cooking_conditionals",
+                  "Files": {
+                    "CcBreadRaw": "assets/prefabs/food/bread/cooking_conditionals/cc_bread_raw.mat"
+                  },
+                  "SubFolders": {}
+                }
+              }
+            },
             "cactusflesh": {
               "Name": "cactusflesh",
               "Path": "assets/prefabs/food/cactusflesh",
@@ -24197,81 +24557,93 @@
                 }
               }
             },
-            "fish": {
-              "Name": "fish",
-              "Path": "assets/prefabs/food/fish",
+            "pies": {
+              "Name": "pies",
+              "Path": "assets/prefabs/food/pies",
               "Files": {},
               "SubFolders": {
-                "materials": {
-                  "Name": "materials",
-                  "Path": "assets/prefabs/food/fish/materials",
+                "cooking_conditionals": {
+                  "Name": "cooking_conditionals",
+                  "Path": "assets/prefabs/food/pies/cooking_conditionals",
                   "Files": {
-                    "CookedFishSteak": "assets/prefabs/food/fish/materials/cooked_fish_steak.mat",
-                    "RawFishSteak": "assets/prefabs/food/fish/materials/raw_fish_steak.mat"
+                    "CcPieCrustRaw": "assets/prefabs/food/pies/cooking_conditionals/cc_pie_crust_raw.mat",
+                    "CcPiePanApple": "assets/prefabs/food/pies/cooking_conditionals/cc_pie_pan_apple.mat",
+                    "CcPiePanBear": "assets/prefabs/food/pies/cooking_conditionals/cc_pie_pan_bear.mat",
+                    "CcPiePanBerry": "assets/prefabs/food/pies/cooking_conditionals/cc_pie_pan_berry.mat",
+                    "CcPiePanChicken": "assets/prefabs/food/pies/cooking_conditionals/cc_pie_pan_chicken.mat",
+                    "CcPiePanDeer": "assets/prefabs/food/pies/cooking_conditionals/cc_pie_pan_deer.mat",
+                    "CcPiePanFish": "assets/prefabs/food/pies/cooking_conditionals/cc_pie_pan_fish.mat",
+                    "CcPiePanHorse": "assets/prefabs/food/pies/cooking_conditionals/cc_pie_pan_horse.mat",
+                    "CcPiePanHuman": "assets/prefabs/food/pies/cooking_conditionals/cc_pie_pan_human.mat",
+                    "CcPiePanMushroom": "assets/prefabs/food/pies/cooking_conditionals/cc_pie_pan_mushroom.mat",
+                    "CcPiePanPork": "assets/prefabs/food/pies/cooking_conditionals/cc_pie_pan_pork.mat",
+                    "CcPiePanPotato": "assets/prefabs/food/pies/cooking_conditionals/cc_pie_pan_potato.mat",
+                    "CcPiePanPumpkin": "assets/prefabs/food/pies/cooking_conditionals/cc_pie_pan_pumpkin.mat",
+                    "CcPiePanWolf": "assets/prefabs/food/pies/cooking_conditionals/cc_pie_pan_wolf.mat"
                   },
                   "SubFolders": {}
-                }
-              }
-            },
-            "meat": {
-              "Name": "meat",
-              "Path": "assets/prefabs/food/meat",
-              "Files": {},
-              "SubFolders": {
-                "human meat": {
-                  "Name": "human meat",
-                  "Path": "assets/prefabs/food/meat/human meat",
+                },
+                "models": {
+                  "Name": "models",
+                  "Path": "assets/prefabs/food/pies/models",
                   "Files": {},
                   "SubFolders": {
                     "materials": {
                       "Name": "materials",
-                      "Path": "assets/prefabs/food/meat/human meat/materials",
+                      "Path": "assets/prefabs/food/pies/models/materials",
                       "Files": {
-                        "HumanMeatFootCooked": "assets/prefabs/food/meat/human meat/materials/human_meat_foot_cooked.mat",
-                        "HumanMeatFootHair": "assets/prefabs/food/meat/human meat/materials/human_meat_foot_hair.mat",
-                        "HumanMeatFootRaw": "assets/prefabs/food/meat/human meat/materials/human_meat_foot_raw.mat",
-                        "HumanMeatLegCooked": "assets/prefabs/food/meat/human meat/materials/human_meat_leg_cooked.mat",
-                        "HumanMeatLegHair": "assets/prefabs/food/meat/human meat/materials/human_meat_leg_hair.mat",
-                        "HumanMeatLegRaw": "assets/prefabs/food/meat/human meat/materials/human_meat_leg_raw.mat",
-                        "HumanMeatRibcageCooked": "assets/prefabs/food/meat/human meat/materials/human_meat_ribcage_cooked.mat",
-                        "HumanMeatRibcageRaw": "assets/prefabs/food/meat/human meat/materials/human_meat_ribcage_raw.mat",
-                        "MeatHumanFootRawNoName": "assets/prefabs/food/meat/human meat/materials/meat_human_foot_raw-no name.mat",
-                        "MeatHumanLegRawNoName": "assets/prefabs/food/meat/human meat/materials/meat_human_leg_raw-no name.mat",
-                        "MeatHumanRibcageRawNoName": "assets/prefabs/food/meat/human meat/materials/meat_human_ribcage_raw-no name.mat",
-                        "NoName": "assets/prefabs/food/meat/human meat/materials/no name.mat"
+                        "PieCrust": "assets/prefabs/food/pies/models/materials/pie_crust.mat",
+                        "PieFryingPan": "assets/prefabs/food/pies/models/materials/pie_frying_pan.mat",
+                        "PieFryingPanApple": "assets/prefabs/food/pies/models/materials/pie_frying_pan_apple.mat",
+                        "PieFryingPanBear": "assets/prefabs/food/pies/models/materials/pie_frying_pan_bear.mat",
+                        "PieFryingPanChicken": "assets/prefabs/food/pies/models/materials/pie_frying_pan_chicken.mat",
+                        "PieFryingPanFish": "assets/prefabs/food/pies/models/materials/pie_frying_pan_fish.mat",
+                        "PieFryingPanHunters": "assets/prefabs/food/pies/models/materials/pie_frying_pan_hunters.mat",
+                        "PieFryingPanPork": "assets/prefabs/food/pies/models/materials/pie_frying_pan_pork.mat",
+                        "PieFryingPanPumpkin": "assets/prefabs/food/pies/models/materials/pie_frying_pan_pumpkin.mat",
+                        "PieFryingPanSurvivors": "assets/prefabs/food/pies/models/materials/pie_frying_pan_survivors.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                }
+              }
+            },
+            "honey": {
+              "Name": "honey",
+              "Path": "assets/prefabs/food/honey",
+              "Files": {},
+              "SubFolders": {
+                "nucleus": {
+                  "Name": "nucleus",
+                  "Path": "assets/prefabs/food/honey/nucleus",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/prefabs/food/honey/nucleus/materials",
+                      "Files": {
+                        "Hivenuclei": "assets/prefabs/food/honey/nucleus/materials/hivenuclei.mat"
                       },
                       "SubFolders": {}
                     }
                   }
                 },
-                "models": {
-                  "Name": "models",
-                  "Path": "assets/prefabs/food/meat/models",
-                  "Files": {
-                    "MeatBearRibsRaw": "assets/prefabs/food/meat/models/meat_bear_ribs_raw.mat",
-                    "MeatBoarLegCooked": "assets/prefabs/food/meat/models/meat_boar_leg_cooked.mat",
-                    "MeatBoarLegRaw": "assets/prefabs/food/meat/models/meat_boar_leg_raw.mat",
-                    "MeatBoarRibsRaw": "assets/prefabs/food/meat/models/meat_boar_ribs_raw.mat",
-                    "MeatChickenBurnt": "assets/prefabs/food/meat/models/meat_chicken_burnt.mat",
-                    "MeatChickenCooked": "assets/prefabs/food/meat/models/meat_chicken_cooked.mat",
-                    "MeatChickenRaw": "assets/prefabs/food/meat/models/meat_chicken_raw.mat",
-                    "MeatChickenSpoiled": "assets/prefabs/food/meat/models/meat_chicken_spoiled.mat",
-                    "MeatDeerLegBurned": "assets/prefabs/food/meat/models/meat_deer_leg_burned.mat",
-                    "MeatDeerLegCooked": "assets/prefabs/food/meat/models/meat_deer_leg_cooked.mat",
-                    "MeatDeerLegRaw": "assets/prefabs/food/meat/models/meat_deer_leg_raw.mat",
-                    "MeatDeerRibsRaw": "assets/prefabs/food/meat/models/meat_deer_ribs_raw.mat",
-                    "MeatRabbitCooked": "assets/prefabs/food/meat/models/meat_rabbit_cooked.mat",
-                    "MeatRabbitRaw": "assets/prefabs/food/meat/models/meat_rabbit_raw.mat",
-                    "MeatRibsBurned": "assets/prefabs/food/meat/models/meat_ribs_burned.mat",
-                    "MeatRibsCooked": "assets/prefabs/food/meat/models/meat_ribs_cooked.mat",
-                    "MeatRibsSpoiled": "assets/prefabs/food/meat/models/meat_ribs_spoiled.mat",
-                    "MeatWolfRibsRaw": "assets/prefabs/food/meat/models/meat_wolf_ribs_raw.mat",
-                    "WMeatDifBurnt": "assets/prefabs/food/meat/models/w_meat_dif_burnt.mat",
-                    "WMeatDifCooked": "assets/prefabs/food/meat/models/w_meat_dif_cooked.mat",
-                    "WMeatDifRaw": "assets/prefabs/food/meat/models/w_meat_dif_raw.mat",
-                    "WMeatDifSpoiled": "assets/prefabs/food/meat/models/w_meat_dif_spoiled.mat"
-                  },
-                  "SubFolders": {}
+                "jar of honey": {
+                  "Name": "jar of honey",
+                  "Path": "assets/prefabs/food/honey/jar of honey",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/prefabs/food/honey/jar of honey/materials",
+                      "Files": {
+                        "Honeyjar": "assets/prefabs/food/honey/jar of honey/materials/honeyjar.mat",
+                        "HoneyjarGlass": "assets/prefabs/food/honey/jar of honey/materials/honeyjar glass.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
                 }
               }
             },
@@ -26765,6 +27137,29 @@
                 }
               }
             },
+            "orchid": {
+              "Name": "orchid",
+              "Path": "assets/prefabs/plants/orchid",
+              "Files": {},
+              "SubFolders": {
+                "materials": {
+                  "Name": "materials",
+                  "Path": "assets/prefabs/plants/orchid/materials",
+                  "Files": {
+                    "Orchid": "assets/prefabs/plants/orchid/materials/orchid.mat",
+                    "OrchidDying": "assets/prefabs/plants/orchid/materials/orchid_dying.mat",
+                    "OrchidSkin0SeedlingBillBoard": "assets/prefabs/plants/orchid/materials/orchid_skin_0_seedling_billboard.mat",
+                    "OrchidSkin1SeedlingBillBoard": "assets/prefabs/plants/orchid/materials/orchid_skin_1_seedling_billboard.mat",
+                    "OrchidSkin2SaplingBillBoard": "assets/prefabs/plants/orchid/materials/orchid_skin_2_sapling_billboard.mat",
+                    "OrchidSkin3MatureBillBoard": "assets/prefabs/plants/orchid/materials/orchid_skin_3_mature_billboard.mat",
+                    "OrchidSkin4FruitingBillBoard": "assets/prefabs/plants/orchid/materials/orchid_skin_4_fruiting_billboard.mat",
+                    "OrchidSkin5DyingBillBoard": "assets/prefabs/plants/orchid/materials/orchid_skin_5_dying_billboard.mat",
+                    "OrchidStatic": "assets/prefabs/plants/orchid/materials/orchid_static.mat"
+                  },
+                  "SubFolders": {}
+                }
+              }
+            },
             "potato": {
               "Name": "potato",
               "Path": "assets/prefabs/plants/potato",
@@ -26813,13 +27208,80 @@
                 }
               }
             },
+            "rose": {
+              "Name": "rose",
+              "Path": "assets/prefabs/plants/rose",
+              "Files": {},
+              "SubFolders": {
+                "materials": {
+                  "Name": "materials",
+                  "Path": "assets/prefabs/plants/rose/materials",
+                  "Files": {
+                    "Rose": "assets/prefabs/plants/rose/materials/rose.mat",
+                    "RoseDead": "assets/prefabs/plants/rose/materials/rose_dead.mat",
+                    "RoseSkin0SeedBillBoard": "assets/prefabs/plants/rose/materials/rose_skin_0_seed_billboard.mat",
+                    "RoseSkin1SeedlingBillBoard": "assets/prefabs/plants/rose/materials/rose_skin_1_seedling_billboard.mat",
+                    "RoseSkin2SaplingBillBoard": "assets/prefabs/plants/rose/materials/rose_skin_2_sapling_billboard.mat",
+                    "RoseSkin3MaturingBillBoard": "assets/prefabs/plants/rose/materials/rose_skin_3_maturing_billboard.mat",
+                    "RoseSkin4FruitingBillBoard": "assets/prefabs/plants/rose/materials/rose_skin_4_fruiting_billboard.mat",
+                    "RoseSkin5DyingBillBoard": "assets/prefabs/plants/rose/materials/rose_skin_5_dying_billboard.mat",
+                    "RoseStatic": "assets/prefabs/plants/rose/materials/rose_static.mat"
+                  },
+                  "SubFolders": {}
+                }
+              }
+            },
             "seedsackmaterial": {
               "Name": "seedsackmaterial",
               "Path": "assets/prefabs/plants/seedsackmaterial",
               "Files": {
-                "Seedsackwmcombined": "assets/prefabs/plants/seedsackmaterial/seedsackwmcombined.mat"
+                "SeedsackwmcombinedA": "assets/prefabs/plants/seedsackmaterial/seedsackwmcombined_a.mat",
+                "SeedsackwmcombinedB": "assets/prefabs/plants/seedsackmaterial/seedsackwmcombined_b.mat"
               },
               "SubFolders": {}
+            },
+            "sunflower": {
+              "Name": "sunflower",
+              "Path": "assets/prefabs/plants/sunflower",
+              "Files": {},
+              "SubFolders": {
+                "materials": {
+                  "Name": "materials",
+                  "Path": "assets/prefabs/plants/sunflower/materials",
+                  "Files": {
+                    "Sunflower": "assets/prefabs/plants/sunflower/materials/sunflower.mat",
+                    "SunflowerSkin0SeedBillBoard": "assets/prefabs/plants/sunflower/materials/sunflower_skin_0_seed_billboard.mat",
+                    "SunflowerSkin1SeedlingBillBoard": "assets/prefabs/plants/sunflower/materials/sunflower_skin_1_seedling_billboard.mat",
+                    "SunflowerSkin2SaplingBillBoard": "assets/prefabs/plants/sunflower/materials/sunflower_skin_2_sapling_billboard.mat",
+                    "SunflowerSkin3MaturingBillBoard": "assets/prefabs/plants/sunflower/materials/sunflower_skin_3_maturing_billboard.mat",
+                    "SunflowerSkin4FruitingBillBoard": "assets/prefabs/plants/sunflower/materials/sunflower_skin_4_fruiting_billboard.mat",
+                    "SunflowerSkin5DyingBillBoard": "assets/prefabs/plants/sunflower/materials/sunflower_skin_5_dying_billboard.mat",
+                    "SunflowerStatic": "assets/prefabs/plants/sunflower/materials/sunflower_static.mat"
+                  },
+                  "SubFolders": {}
+                }
+              }
+            },
+            "wheat": {
+              "Name": "wheat",
+              "Path": "assets/prefabs/plants/wheat",
+              "Files": {},
+              "SubFolders": {
+                "materials": {
+                  "Name": "materials",
+                  "Path": "assets/prefabs/plants/wheat/materials",
+                  "Files": {
+                    "Wheat": "assets/prefabs/plants/wheat/materials/wheat.mat",
+                    "WheatSkin0SeedBillBoard": "assets/prefabs/plants/wheat/materials/wheat.skin.0.seed_billboard.mat",
+                    "WheatSkin1SeedlingBillBoard": "assets/prefabs/plants/wheat/materials/wheat.skin.1.seedling_billboard.mat",
+                    "WheatSkin2SaplingBillBoard": "assets/prefabs/plants/wheat/materials/wheat.skin.2.sapling_billboard.mat",
+                    "WheatSkin3MatureBillBoard": "assets/prefabs/plants/wheat/materials/wheat.skin.3.mature_billboard.mat",
+                    "WheatSkin4FruitingBillBoard": "assets/prefabs/plants/wheat/materials/wheat.skin.4.fruiting_billboard.mat",
+                    "WheatSkin5DyingBillBoard": "assets/prefabs/plants/wheat/materials/wheat.skin.5.dying_billboard.mat"
+                  },
+                  "SubFolders": {}
+                }
+              }
             }
           }
         },
@@ -28542,7 +29004,25 @@
                     "Body2": "assets/rust.ai/agents/chicken/model/body-2.mat",
                     "Body3": "assets/rust.ai/agents/chicken/model/body-3.mat"
                   },
-                  "SubFolders": {}
+                  "SubFolders": {
+                    "chicken_update": {
+                      "Name": "chicken_update",
+                      "Path": "assets/rust.ai/agents/chicken/model/chicken_update",
+                      "Files": {},
+                      "SubFolders": {
+                        "materials": {
+                          "Name": "materials",
+                          "Path": "assets/rust.ai/agents/chicken/model/chicken_update/materials",
+                          "Files": {
+                            "ChickenGreyM": "assets/rust.ai/agents/chicken/model/chicken_update/materials/chicken_grey_m.mat",
+                            "ChickenOrangeM": "assets/rust.ai/agents/chicken/model/chicken_update/materials/chicken_orange_m.mat",
+                            "ChickenWhiteM": "assets/rust.ai/agents/chicken/model/chicken_update/materials/chicken_white_m.mat"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    }
+                  }
                 },
                 "footsteps": {
                   "Name": "footsteps",
@@ -29327,6 +29807,22 @@
                   }
                 }
               }
+            }
+          }
+        },
+        "debugging": {
+          "Name": "debugging",
+          "Path": "assets/scripts/debugging",
+          "Files": {},
+          "SubFolders": {
+            "fastdebugdraw": {
+              "Name": "fastdebugdraw",
+              "Path": "assets/scripts/debugging/fastdebugdraw",
+              "Files": {
+                "Fastdebugline": "assets/scripts/debugging/fastdebugdraw/fastdebugline.mat",
+                "FastdebuglineZTested": "assets/scripts/debugging/fastdebugdraw/fastdebugline_ztested.mat"
+              },
+              "SubFolders": {}
             }
           }
         }

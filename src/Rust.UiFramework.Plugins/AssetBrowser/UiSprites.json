@@ -1042,7 +1042,8 @@
                   "Name": "rail road planter",
                   "Path": "assets/prefabs/misc/decor_dlc/rail road planter",
                   "Files": {
-                    "RailroadplanterDeployedIcon": "assets/prefabs/misc/decor_dlc/rail road planter/railroadplanter.deployed.icon.png"
+                    "RailroadplanterDeployedIcon": "assets/prefabs/misc/decor_dlc/rail road planter/railroadplanter.deployed.icon.png",
+                    "TriangleRailroadPlanterDeployedIcon": "assets/prefabs/misc/decor_dlc/rail road planter/triangle_railroad_planter.deployed.icon.png"
                   },
                   "SubFolders": {}
                 },
@@ -3270,6 +3271,15 @@
               },
               "SubFolders": {}
             },
+            "bee grenade": {
+              "Name": "bee grenade",
+              "Path": "assets/prefabs/weapons/bee grenade",
+              "Files": {
+                "BeeGrenadeIcon": "assets/prefabs/weapons/bee grenade/bee.grenade.icon.png",
+                "GrenadeFlashbangIcon": "assets/prefabs/weapons/bee grenade/grenade.flashbang.icon.png"
+              },
+              "SubFolders": {}
+            },
             "chocolate_cake": {
               "Name": "chocolate_cake",
               "Path": "assets/prefabs/weapons/chocolate_cake",
@@ -3983,8 +3993,6 @@
               "Files": {
                 "AnchovyIcon": "assets/prefabs/food/fish/anchovy.icon.png",
                 "CatfishWorldModelIcon": "assets/prefabs/food/fish/catfish.worldmodel.icon.png",
-                "FishCooked": "assets/prefabs/food/fish/fish_cooked.png",
-                "FishRawIcon": "assets/prefabs/food/fish/fish_raw.icon.png",
                 "HerringIcon": "assets/prefabs/food/fish/herring.icon.png",
                 "MinnowsIcon": "assets/prefabs/food/fish/minnows.icon.png",
                 "OrangeroughyIcon": "assets/prefabs/food/fish/orangeroughy.icon.png",
@@ -4008,49 +4016,103 @@
             "meat": {
               "Name": "meat",
               "Path": "assets/prefabs/food/meat",
-              "Files": {
-                "Bearmeat": "assets/prefabs/food/meat/bearmeat.png",
-                "BearmeatBurned": "assets/prefabs/food/meat/bearmeat_burned.png",
-                "BearmeatCooked": "assets/prefabs/food/meat/bearmeat_cooked.png",
-                "BearmeatRaw": "assets/prefabs/food/meat/bearmeat_raw.png",
-                "BearmeatSpoiled": "assets/prefabs/food/meat/bearmeat_spoiled.png",
-                "ChickenBreastBurned": "assets/prefabs/food/meat/chicken_breast_burned.png",
-                "ChickenBreastCooked": "assets/prefabs/food/meat/chicken_breast_cooked.png",
-                "ChickenBreastRaw": "assets/prefabs/food/meat/chicken_breast_raw.png",
-                "ChickenBreastSpoiled": "assets/prefabs/food/meat/chicken_breast_spoiled.png",
-                "ChickenDrumstickRaw": "assets/prefabs/food/meat/chicken_drumstick_raw.png",
-                "HumanmeatBurned": "assets/prefabs/food/meat/humanmeat_burned.png",
-                "HumanmeatCburned": "assets/prefabs/food/meat/humanmeat_cburned.png",
-                "HumanmeatCooked": "assets/prefabs/food/meat/humanmeat_cooked.png",
-                "HumanmeatRaw": "assets/prefabs/food/meat/humanmeat_raw.png",
-                "HumanmeatSpoiled": "assets/prefabs/food/meat/humanmeat_spoiled.png",
-                "MysterymeatBurned": "assets/prefabs/food/meat/mysterymeat_burned.png",
-                "MysterymeatCooked": "assets/prefabs/food/meat/mysterymeat_cooked.png",
-                "MysterymeatRaw": "assets/prefabs/food/meat/mysterymeat_raw.png",
-                "MysterymeatSpoiled": "assets/prefabs/food/meat/mysterymeat_spoiled.png",
-                "WolfmeatBurned": "assets/prefabs/food/meat/wolfmeat_burned.png",
-                "WolfmeatCooked": "assets/prefabs/food/meat/wolfmeat_cooked.png",
-                "WolfmeatRaw": "assets/prefabs/food/meat/wolfmeat_raw.png",
-                "WolfmeatSpoiled": "assets/prefabs/food/meat/wolfmeat_spoiled.png"
-              },
+              "Files": {},
               "SubFolders": {
-                "pork": {
-                  "Name": "pork",
-                  "Path": "assets/prefabs/food/meat/pork",
+                "bear_meat": {
+                  "Name": "bear_meat",
+                  "Path": "assets/prefabs/food/meat/bear_meat",
                   "Files": {
-                    "MeatPorkBurnedIcon": "assets/prefabs/food/meat/pork/meat.pork.burned.icon.png",
-                    "MeatPorkCookedIcon": "assets/prefabs/food/meat/pork/meat.pork.cooked.icon.png",
-                    "MeatPorkRawIcon": "assets/prefabs/food/meat/pork/meat.pork.raw.icon.png"
+                    "BearmeatBurned": "assets/prefabs/food/meat/bear_meat/bearmeat_burned.png",
+                    "BearmeatCooked": "assets/prefabs/food/meat/bear_meat/bearmeat_cooked.png",
+                    "BearmeatRaw": "assets/prefabs/food/meat/bear_meat/bearmeat_raw.png",
+                    "BearmeatSpoiled": "assets/prefabs/food/meat/bear_meat/bearmeat_spoiled.png"
                   },
                   "SubFolders": {}
                 },
-                "deer": {
-                  "Name": "deer",
-                  "Path": "assets/prefabs/food/meat/deer",
+                "chicken_meat": {
+                  "Name": "chicken_meat",
+                  "Path": "assets/prefabs/food/meat/chicken_meat",
                   "Files": {
-                    "VenisonBurned": "assets/prefabs/food/meat/deer/venison_burned.png",
-                    "VenisonCooked": "assets/prefabs/food/meat/deer/venison_cooked.png",
-                    "VenisonRaw": "assets/prefabs/food/meat/deer/venison_raw.png"
+                    "ChickenBreastBurned": "assets/prefabs/food/meat/chicken_meat/chicken_breast_burned.png",
+                    "ChickenBreastCooked": "assets/prefabs/food/meat/chicken_meat/chicken_breast_cooked.png",
+                    "ChickenBreastRaw": "assets/prefabs/food/meat/chicken_meat/chicken_breast_raw.png",
+                    "ChickenBreastSpoiled": "assets/prefabs/food/meat/chicken_meat/chicken_breast_spoiled.png"
+                  },
+                  "SubFolders": {}
+                },
+                "fish_meat": {
+                  "Name": "fish_meat",
+                  "Path": "assets/prefabs/food/meat/fish_meat",
+                  "Files": {
+                    "FishMeatCooked": "assets/prefabs/food/meat/fish_meat/fish_meat_cooked.png",
+                    "FishMeatRaw": "assets/prefabs/food/meat/fish_meat/fish_meat_raw.png",
+                    "FishMeatSpoiled": "assets/prefabs/food/meat/fish_meat/fish_meat_spoiled.png"
+                  },
+                  "SubFolders": {}
+                },
+                "human_meat": {
+                  "Name": "human_meat",
+                  "Path": "assets/prefabs/food/meat/human_meat",
+                  "Files": {
+                    "HumanmeatCburned": "assets/prefabs/food/meat/human_meat/humanmeat_cburned.png",
+                    "HumanmeatCooked": "assets/prefabs/food/meat/human_meat/humanmeat_cooked.png",
+                    "HumanmeatRaw": "assets/prefabs/food/meat/human_meat/humanmeat_raw.png",
+                    "HumanmeatSpoiled": "assets/prefabs/food/meat/human_meat/humanmeat_spoiled.png"
+                  },
+                  "SubFolders": {}
+                },
+                "pig_meat": {
+                  "Name": "pig_meat",
+                  "Path": "assets/prefabs/food/meat/pig_meat",
+                  "Files": {
+                    "MeatPorkBurnedIcon": "assets/prefabs/food/meat/pig_meat/meat.pork.burned.icon.png",
+                    "MeatPorkCookedIcon": "assets/prefabs/food/meat/pig_meat/meat.pork.cooked.icon.png",
+                    "MeatPorkRawIcon": "assets/prefabs/food/meat/pig_meat/meat.pork.raw.icon.png",
+                    "MeatPorkSpoiledIcon": "assets/prefabs/food/meat/pig_meat/meat.pork.spoiled.icon.png"
+                  },
+                  "SubFolders": {}
+                },
+                "horse_meat": {
+                  "Name": "horse_meat",
+                  "Path": "assets/prefabs/food/meat/horse_meat",
+                  "Files": {
+                    "MeetHorseBurnedWorldModelIcon": "assets/prefabs/food/meat/horse_meat/meet.horse.burned.worldmodel.icon.png",
+                    "MeetHorseCookedWorldModelIcon": "assets/prefabs/food/meat/horse_meat/meet.horse.cooked.worldmodel.icon.png",
+                    "MeetHorseRawWorldModelIcon": "assets/prefabs/food/meat/horse_meat/meet.horse.raw.worldmodel.icon.png",
+                    "MeetHorseSpoiledWorldModelIcon": "assets/prefabs/food/meat/horse_meat/meet.horse.spoiled.worldmodel.icon.png"
+                  },
+                  "SubFolders": {}
+                },
+                "wolf_meat": {
+                  "Name": "wolf_meat",
+                  "Path": "assets/prefabs/food/meat/wolf_meat",
+                  "Files": {
+                    "MysterymeatBurned": "assets/prefabs/food/meat/wolf_meat/mysterymeat_burned.png",
+                    "MysterymeatCooked": "assets/prefabs/food/meat/wolf_meat/mysterymeat_cooked.png",
+                    "MysterymeatRaw": "assets/prefabs/food/meat/wolf_meat/mysterymeat_raw.png",
+                    "MysterymeatSpoiled": "assets/prefabs/food/meat/wolf_meat/mysterymeat_spoiled.png"
+                  },
+                  "SubFolders": {}
+                },
+                "rabbit_meat": {
+                  "Name": "rabbit_meat",
+                  "Path": "assets/prefabs/food/meat/rabbit_meat",
+                  "Files": {
+                    "RabbitmeatBurned": "assets/prefabs/food/meat/rabbit_meat/rabbitmeat_burned.png",
+                    "RabbitmeatCooked": "assets/prefabs/food/meat/rabbit_meat/rabbitmeat_cooked.png",
+                    "RabbitmeatRaw": "assets/prefabs/food/meat/rabbit_meat/rabbitmeat_raw.png",
+                    "RabbitmeatSpoiled": "assets/prefabs/food/meat/rabbit_meat/rabbitmeat_spoiled.png"
+                  },
+                  "SubFolders": {}
+                },
+                "deer_meat": {
+                  "Name": "deer_meat",
+                  "Path": "assets/prefabs/food/meat/deer_meat",
+                  "Files": {
+                    "VenisonBurned": "assets/prefabs/food/meat/deer_meat/venison_burned.png",
+                    "VenisonCooked": "assets/prefabs/food/meat/deer_meat/venison_cooked.png",
+                    "VenisonRaw": "assets/prefabs/food/meat/deer_meat/venison_raw.png",
+                    "VenisonSpoiled": "assets/prefabs/food/meat/deer_meat/venison_spoiled.png"
                   },
                   "SubFolders": {}
                 }
@@ -4073,6 +4135,14 @@
               "Path": "assets/prefabs/food/bota bag",
               "Files": {
                 "BotaBagIcon": "assets/prefabs/food/bota bag/bota_bag.icon.png"
+              },
+              "SubFolders": {}
+            },
+            "bread": {
+              "Name": "bread",
+              "Path": "assets/prefabs/food/bread",
+              "Files": {
+                "BreadWorldModelIcon": "assets/prefabs/food/bread/bread.worldmodel.icon.png"
               },
               "SubFolders": {}
             },
@@ -4102,6 +4172,41 @@
               },
               "SubFolders": {}
             },
+            "eggs": {
+              "Name": "eggs",
+              "Path": "assets/prefabs/food/eggs",
+              "Files": {
+                "EggWorldModelIcon": "assets/prefabs/food/eggs/egg.worldmodel.icon.png"
+              },
+              "SubFolders": {}
+            },
+            "pies": {
+              "Name": "pies",
+              "Path": "assets/prefabs/food/pies",
+              "Files": {},
+              "SubFolders": {
+                "items": {
+                  "Name": "items",
+                  "Path": "assets/prefabs/food/pies/items",
+                  "Files": {
+                    "FoodPieAppleItemIcon": "assets/prefabs/food/pies/items/food_pie_apple.item.icon.png",
+                    "FoodPieBearItemIcon": "assets/prefabs/food/pies/items/food_pie_bear.item.icon.png",
+                    "FoodPieBerryItemIcon": "assets/prefabs/food/pies/items/food_pie_berry.item.icon.png",
+                    "FoodPieChickenItemIcon": "assets/prefabs/food/pies/items/food_pie_chicken.item.icon.png",
+                    "FoodPieFishItemIcon": "assets/prefabs/food/pies/items/food_pie_fish.item.icon.png",
+                    "FoodPieHorseItemIcon": "assets/prefabs/food/pies/items/food_pie_horse.item.icon.png",
+                    "FoodPieHuntersItemIcon": "assets/prefabs/food/pies/items/food_pie_hunters.item.icon.png",
+                    "FoodPieMushroomItemIcon": "assets/prefabs/food/pies/items/food_pie_mushroom.item.icon.png",
+                    "FoodPiePorkItemIcon": "assets/prefabs/food/pies/items/food_pie_pork.item.icon.png",
+                    "FoodPiePotatoItemIcon": "assets/prefabs/food/pies/items/food_pie_potato.item.icon.png",
+                    "FoodPiePumpkinItemIcon": "assets/prefabs/food/pies/items/food_pie_pumpkin.item.icon.png",
+                    "FoodPieSurvivorsItemIcon": "assets/prefabs/food/pies/items/food_pie_survivors.item.icon.png",
+                    "FoodPieWolfItemIcon": "assets/prefabs/food/pies/items/food_pie_wolf.item.icon.png"
+                  },
+                  "SubFolders": {}
+                }
+              }
+            },
             "granola bar": {
               "Name": "granola bar",
               "Path": "assets/prefabs/food/granola bar",
@@ -4109,6 +4214,29 @@
                 "Granolabar": "assets/prefabs/food/granola bar/granolabar.png"
               },
               "SubFolders": {}
+            },
+            "honey": {
+              "Name": "honey",
+              "Path": "assets/prefabs/food/honey",
+              "Files": {},
+              "SubFolders": {
+                "nucleus": {
+                  "Name": "nucleus",
+                  "Path": "assets/prefabs/food/honey/nucleus",
+                  "Files": {
+                    "HivenucleiIcon": "assets/prefabs/food/honey/nucleus/hivenuclei.icon.png"
+                  },
+                  "SubFolders": {}
+                },
+                "jar of honey": {
+                  "Name": "jar of honey",
+                  "Path": "assets/prefabs/food/honey/jar of honey",
+                  "Files": {
+                    "HoneyjarIcon": "assets/prefabs/food/honey/jar of honey/honeyjar.icon.png"
+                  },
+                  "SubFolders": {}
+                }
+              }
             },
             "bugs": {
               "Name": "bugs",
@@ -4622,6 +4750,14 @@
               },
               "SubFolders": {}
             },
+            "beehive": {
+              "Name": "beehive",
+              "Path": "assets/prefabs/deployable/beehive",
+              "Files": {
+                "BeehiveDeployedIcon": "assets/prefabs/deployable/beehive/beehive.deployed.icon.png"
+              },
+              "SubFolders": {}
+            },
             "fireworks": {
               "Name": "fireworks",
               "Path": "assets/prefabs/deployable/fireworks",
@@ -4738,6 +4874,14 @@
                 }
               }
             },
+            "chickencoop": {
+              "Name": "chickencoop",
+              "Path": "assets/prefabs/deployable/chickencoop",
+              "Files": {
+                "ChickencoopDeployedIcon": "assets/prefabs/deployable/chickencoop/chickencoop.deployed.icon.png"
+              },
+              "SubFolders": {}
+            },
             "clan table": {
               "Name": "clan table",
               "Path": "assets/prefabs/deployable/clan table",
@@ -4751,6 +4895,14 @@
               "Path": "assets/prefabs/deployable/composter",
               "Files": {
                 "Composter": "assets/prefabs/deployable/composter/composter.png"
+              },
+              "SubFolders": {}
+            },
+            "cookingworkbench": {
+              "Name": "cookingworkbench",
+              "Path": "assets/prefabs/deployable/cookingworkbench",
+              "Files": {
+                "CookingworkbenchDeployedIcon": "assets/prefabs/deployable/cookingworkbench/cookingworkbench.deployed.icon.png"
               },
               "SubFolders": {}
             },
@@ -4917,6 +5069,22 @@
               },
               "SubFolders": {}
             },
+            "hopper": {
+              "Name": "hopper",
+              "Path": "assets/prefabs/deployable/hopper",
+              "Files": {
+                "HopperDeployedIcon": "assets/prefabs/deployable/hopper/hopper.deployed.icon.png"
+              },
+              "SubFolders": {}
+            },
+            "io research table": {
+              "Name": "io research table",
+              "Path": "assets/prefabs/deployable/io research table",
+              "Files": {
+                "IoTableDeployedIcon": "assets/prefabs/deployable/io research table/io.table.deployed.icon.png"
+              },
+              "SubFolders": {}
+            },
             "jack o lantern": {
               "Name": "jack o lantern",
               "Path": "assets/prefabs/deployable/jack o lantern",
@@ -5035,7 +5203,16 @@
               "Path": "assets/prefabs/deployable/planters",
               "Files": {
                 "PlanterLargeIcon": "assets/prefabs/deployable/planters/planter.large.icon.png",
-                "PlanterSmallIcon": "assets/prefabs/deployable/planters/planter.small.icon.png"
+                "PlanterSmallIcon": "assets/prefabs/deployable/planters/planter.small.icon.png",
+                "PlanterTriangleIcon": "assets/prefabs/deployable/planters/planter.triangle.icon.png"
+              },
+              "SubFolders": {}
+            },
+            "plant pots": {
+              "Name": "plant pots",
+              "Path": "assets/prefabs/deployable/plant pots",
+              "Files": {
+                "PlantpotSingleIcon": "assets/prefabs/deployable/plant pots/plantpot.single.icon.png"
               },
               "SubFolders": {}
             },
@@ -5300,6 +5477,30 @@
               },
               "SubFolders": {}
             },
+            "coolingtea": {
+              "Name": "coolingtea",
+              "Path": "assets/prefabs/tea/coolingtea",
+              "Files": {
+                "CoolingTea": "assets/prefabs/tea/coolingtea/cooling_tea.png"
+              },
+              "SubFolders": {}
+            },
+            "craftingtea": {
+              "Name": "craftingtea",
+              "Path": "assets/prefabs/tea/craftingtea",
+              "Files": {
+                "CraftingTeaIcon": "assets/prefabs/tea/craftingtea/crafting_tea_icon.png"
+              },
+              "SubFolders": {}
+            },
+            "harvestingtea": {
+              "Name": "harvestingtea",
+              "Path": "assets/prefabs/tea/harvestingtea",
+              "Files": {
+                "HarvestingTeaIcon": "assets/prefabs/tea/harvestingtea/harvesting_tea_icon.png"
+              },
+              "SubFolders": {}
+            },
             "healingtea": {
               "Name": "healingtea",
               "Path": "assets/prefabs/tea/healingtea",
@@ -5360,6 +5561,14 @@
               },
               "SubFolders": {}
             },
+            "warmingtea": {
+              "Name": "warmingtea",
+              "Path": "assets/prefabs/tea/warmingtea",
+              "Files": {
+                "WarmingTea": "assets/prefabs/tea/warmingtea/warming_tea.png"
+              },
+              "SubFolders": {}
+            },
             "woodtea": {
               "Name": "woodtea",
               "Path": "assets/prefabs/tea/woodtea",
@@ -5383,6 +5592,17 @@
               "Path": "assets/prefabs/tools/anti-radiation pills",
               "Files": {
                 "Antiradpills": "assets/prefabs/tools/anti-radiation pills/antiradpills.png"
+              },
+              "SubFolders": {}
+            },
+            "armourplating": {
+              "Name": "armourplating",
+              "Path": "assets/prefabs/tools/armourplating",
+              "Files": {
+                "AsbestosarmourplateIcon": "assets/prefabs/tools/armourplating/asbestosarmourplate.icon.png",
+                "LeadarmourplateIcon": "assets/prefabs/tools/armourplating/leadarmourplate.icon.png",
+                "MetalarmourplateIcon": "assets/prefabs/tools/armourplating/metalarmourplate.icon.png",
+                "WoodarmourplateIcon": "assets/prefabs/tools/armourplating/woodarmourplate.icon.png"
               },
               "SubFolders": {}
             },
@@ -5822,6 +6042,16 @@
               },
               "SubFolders": {}
             },
+            "honeycomb": {
+              "Name": "honeycomb",
+              "Path": "assets/prefabs/resource/honeycomb",
+              "Files": {
+                "BeehiveNaturalIcon": "assets/prefabs/resource/honeycomb/beehive.natural.icon.png",
+                "BeehiveNaturalIcon1": "assets/prefabs/resource/honeycomb/beehive.natural.icon 1.png",
+                "HoneycombIcon": "assets/prefabs/resource/honeycomb/honeycomb.icon.png"
+              },
+              "SubFolders": {}
+            },
             "blood": {
               "Name": "blood",
               "Path": "assets/prefabs/resource/blood",
@@ -6186,6 +6416,26 @@
               },
               "SubFolders": {}
             },
+            "wheat": {
+              "Name": "wheat",
+              "Path": "assets/prefabs/plants/wheat",
+              "Files": {
+                "IconWheat": "assets/prefabs/plants/wheat/icon_wheat.png",
+                "IconWheatSeed": "assets/prefabs/plants/wheat/icon_wheat_seed.png",
+                "WheatCloneIcon": "assets/prefabs/plants/wheat/wheat_clone.icon.png"
+              },
+              "SubFolders": {}
+            },
+            "orchid": {
+              "Name": "orchid",
+              "Path": "assets/prefabs/plants/orchid",
+              "Files": {
+                "OrchidCloneIcon": "assets/prefabs/plants/orchid/orchid_clone.icon.png",
+                "OrchidIcon": "assets/prefabs/plants/orchid/orchid.icon.png",
+                "OrchidSeedIcon": "assets/prefabs/plants/orchid/orchid_seed_icon.png"
+              },
+              "SubFolders": {}
+            },
             "pumpkin": {
               "Name": "pumpkin",
               "Path": "assets/prefabs/plants/pumpkin",
@@ -6193,6 +6443,26 @@
                 "PumpkinCloneIcon": "assets/prefabs/plants/pumpkin/pumpkin_clone.icon.png",
                 "PumpkinIcon": "assets/prefabs/plants/pumpkin/pumpkin.icon.png",
                 "PumpkinSeedIcon": "assets/prefabs/plants/pumpkin/pumpkin_seed.icon.png"
+              },
+              "SubFolders": {}
+            },
+            "rose": {
+              "Name": "rose",
+              "Path": "assets/prefabs/plants/rose",
+              "Files": {
+                "RoseCloneIcon": "assets/prefabs/plants/rose/rose_clone.icon.png",
+                "RoseIcon": "assets/prefabs/plants/rose/rose.icon.png",
+                "RoseSeedIcon": "assets/prefabs/plants/rose/rose_seed_icon.png"
+              },
+              "SubFolders": {}
+            },
+            "sunflower": {
+              "Name": "sunflower",
+              "Path": "assets/prefabs/plants/sunflower",
+              "Files": {
+                "SunflowerCloneIcon": "assets/prefabs/plants/sunflower/sunflower_clone.icon.png",
+                "SunflowerIcon": "assets/prefabs/plants/sunflower/sunflower.icon.png",
+                "SunflowerSeedIcon": "assets/prefabs/plants/sunflower/sunflower_seed_icon.png"
               },
               "SubFolders": {}
             }
@@ -7380,16 +7650,32 @@
                               "Name": "_assets",
                               "Path": "assets/content/ui/menuui/itemstore/packs/medieval pack/_assets",
                               "Files": {
-                                "MedievalKnightarmour01": "assets/content/ui/menuui/itemstore/packs/medieval pack/_assets/medieval_knightarmour_01.jpg",
-                                "MedievalKnightarmour07": "assets/content/ui/menuui/itemstore/packs/medieval pack/_assets/medieval_knightarmour_07.jpg",
-                                "MedievalKnightarmourDetails04": "assets/content/ui/menuui/itemstore/packs/medieval pack/_assets/medieval_knightarmourdetails_04.jpg",
-                                "MedievalKnightarmourpose01": "assets/content/ui/menuui/itemstore/packs/medieval pack/_assets/medieval_knightarmourpose_01.jpg",
-                                "MedievalKnightarmourpose02": "assets/content/ui/menuui/itemstore/packs/medieval pack/_assets/medieval_knightarmourpose_02.jpg",
-                                "MedievalKnightarmourTabletop01": "assets/content/ui/menuui/itemstore/packs/medieval pack/_assets/medieval_knightarmour_tabletop_01.jpg",
                                 "MedievalpackBranding": "assets/content/ui/menuui/itemstore/packs/medieval pack/_assets/medievalpack-branding.png",
                                 "StoreIconMedievalPack": "assets/content/ui/menuui/itemstore/packs/medieval pack/_assets/store-icon_medieval-pack.jpg"
                               },
-                              "SubFolders": {}
+                              "SubFolders": {
+                                "images": {
+                                  "Name": "images",
+                                  "Path": "assets/content/ui/menuui/itemstore/packs/medieval pack/_assets/images",
+                                  "Files": {
+                                    "MedievalAr03": "assets/content/ui/menuui/itemstore/packs/medieval pack/_assets/images/medieval_ar_03.jpg",
+                                    "MedievalArCloseup05": "assets/content/ui/menuui/itemstore/packs/medieval pack/_assets/images/medieval_ar_closeup_05.jpg",
+                                    "MedievalBarricade01": "assets/content/ui/menuui/itemstore/packs/medieval pack/_assets/images/medieval_barricade_01.jpg",
+                                    "MedievalBarricade04": "assets/content/ui/menuui/itemstore/packs/medieval pack/_assets/images/medieval_barricade_04.jpg",
+                                    "MedievalKnightarmour01": "assets/content/ui/menuui/itemstore/packs/medieval pack/_assets/images/medieval_knightarmour_01.jpg",
+                                    "MedievalKnightarmour07": "assets/content/ui/menuui/itemstore/packs/medieval pack/_assets/images/medieval_knightarmour_07.jpg",
+                                    "MedievalKnightarmourDetails04": "assets/content/ui/menuui/itemstore/packs/medieval pack/_assets/images/medieval_knightarmourdetails_04.jpg",
+                                    "MedievalKnightarmourpose01": "assets/content/ui/menuui/itemstore/packs/medieval pack/_assets/images/medieval_knightarmourpose_01.jpg",
+                                    "MedievalKnightarmourpose02": "assets/content/ui/menuui/itemstore/packs/medieval pack/_assets/images/medieval_knightarmourpose_02.jpg",
+                                    "MedievalKnightarmourTabletop01": "assets/content/ui/menuui/itemstore/packs/medieval pack/_assets/images/medieval_knightarmour_tabletop_01.jpg",
+                                    "MedievalLargeBox04": "assets/content/ui/menuui/itemstore/packs/medieval pack/_assets/images/medieval_largebox_04.jpg",
+                                    "MedievalLargeBox05": "assets/content/ui/menuui/itemstore/packs/medieval pack/_assets/images/medieval_largebox_05.jpg",
+                                    "RustMedievalMetaldoorSkins01": "assets/content/ui/menuui/itemstore/packs/medieval pack/_assets/images/rust_medieval_metaldoor_skins_01.jpg",
+                                    "RustMedievalMetaldoorSkins02": "assets/content/ui/menuui/itemstore/packs/medieval pack/_assets/images/rust_medieval_metaldoor_skins_02.jpg"
+                                  },
+                                  "SubFolders": {}
+                                }
+                              }
                             }
                           }
                         },
@@ -7834,6 +8120,19 @@
                       "SubFolders": {}
                     }
                   }
+                },
+                "premium": {
+                  "Name": "premium",
+                  "Path": "assets/content/ui/menuui/premium",
+                  "Files": {
+                    "M92Trio": "assets/content/ui/menuui/premium/m92_trio.png",
+                    "M92TrioBackground": "assets/content/ui/menuui/premium/m92_trio_background.jpg",
+                    "PrimitiveBackground": "assets/content/ui/menuui/premium/primitive_background.png",
+                    "PrimitiveFighting": "assets/content/ui/menuui/premium/primitive_fighting.png",
+                    "Roadwalk": "assets/content/ui/menuui/premium/roadwalk.jpg",
+                    "ThompsonPlayer": "assets/content/ui/menuui/premium/thompson_player.png"
+                  },
+                  "SubFolders": {}
                 }
               }
             },
@@ -8089,6 +8388,17 @@
                   }
                 }
               }
+            },
+            "chickencoop": {
+              "Name": "chickencoop",
+              "Path": "assets/content/ui/chickencoop",
+              "Files": {
+                "ChromeOqzrjayo4p": "assets/content/ui/chickencoop/chrome_oqzrjayo4p.jpg",
+                "Happy": "assets/content/ui/chickencoop/happy.png",
+                "Neutral": "assets/content/ui/chickencoop/neutral.png",
+                "Unhappy": "assets/content/ui/chickencoop/unhappy.png"
+              },
+              "SubFolders": {}
             },
             "tiledpatterns": {
               "Name": "tiledpatterns",
@@ -9751,6 +10061,7 @@
         "BlueprintUnderlay": "assets/icons/blueprint_underlay.png",
         "Blunt": "assets/icons/blunt.png",
         "Boosts": "assets/icons/boosts.png",
+        "BoostsBright": "assets/icons/boosts_bright.png",
         "BpLock": "assets/icons/bp-lock.png",
         "Broadcast": "assets/icons/broadcast.png",
         "Brush": "assets/icons/brush.png",
@@ -9772,6 +10083,7 @@
         "CircleClosedWhiteToEdge": "assets/icons/circle_closed_white_toedge.png",
         "CircleGradient": "assets/icons/circle_gradient.png",
         "CircleOpen": "assets/icons/circle_open.png",
+        "CircleOpenThick": "assets/icons/circle_open_thick.png",
         "Clan": "assets/icons/clan.png",
         "Clear": "assets/icons/clear.png",
         "ClearList": "assets/icons/clear_list.png",
@@ -9804,6 +10116,7 @@
         "ElevatorDown": "assets/icons/elevator_down.png",
         "ElevatorUp": "assets/icons/elevator_up.png",
         "Embrella": "assets/icons/embrella.png",
+        "EmbrellaBright": "assets/icons/embrella_bright.png",
         "Enter": "assets/icons/enter.png",
         "EquipHood": "assets/icons/equip_hood.png",
         "Eraser": "assets/icons/eraser.png",
@@ -9843,6 +10156,7 @@
         "Health": "assets/icons/health.png",
         "HistoryServers": "assets/icons/history_servers.png",
         "Home": "assets/icons/home.png",
+        "HomeBright": "assets/icons/home_bright.png",
         "HorseRide": "assets/icons/horse_ride.png",
         "HorseRide2": "assets/icons/horse_ride_2.png",
         "Hot": "assets/icons/hot.png",
@@ -9938,6 +10252,8 @@
         "Poof": "assets/icons/poof.png",
         "Portion": "assets/icons/portion.png",
         "Power": "assets/icons/power.png",
+        "PremiumBackground": "assets/icons/premium_background.png",
+        "PremiumFacepunchIcon": "assets/icons/premium_facepunch_icon.png",
         "Press": "assets/icons/press.png",
         "PrevFrame": "assets/icons/prevframe.png",
         "Radiation": "assets/icons/radiation.png",
@@ -10224,7 +10540,9 @@
               "Name": "chicken",
               "Path": "assets/rust.ai/agents/chicken",
               "Files": {
-                "ChickenAvatar": "assets/rust.ai/agents/chicken/chickenavatar.png"
+                "ChickenAvatarGrey": "assets/rust.ai/agents/chicken/chickenavatar_grey.png",
+                "ChickenAvatarOrange": "assets/rust.ai/agents/chicken/chickenavatar_orange.png",
+                "ChickenAvatarWhite": "assets/rust.ai/agents/chicken/chickenavatar_white.png"
               },
               "SubFolders": {}
             },

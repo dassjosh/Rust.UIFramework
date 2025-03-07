@@ -1122,6 +1122,14 @@
                     "ExplosionDirtup6pPositive": "assets/content/effects/explosions/v2/explosion_dirtup_6p_positive.tga",
                     "ExplosionDirtupAlbedoB": "assets/content/effects/explosions/v2/explosion_dirtup_albedo_b.tga",
                     "ExplosionDirtupMotion": "assets/content/effects/explosions/v2/explosion_dirtup_motion.tga",
+                    "ExplosionKickout6pNegative": "assets/content/effects/explosions/v2/explosion_kickout_6p_negative.tga",
+                    "ExplosionKickout6pPositive": "assets/content/effects/explosions/v2/explosion_kickout_6p_positive.tga",
+                    "ExplosionKickoutAlbedoB": "assets/content/effects/explosions/v2/explosion_kickout_albedo_b.tga",
+                    "ExplosionKickoutMotion": "assets/content/effects/explosions/v2/explosion_kickout_motion.tga",
+                    "ExplosionKickup6pNegative": "assets/content/effects/explosions/v2/explosion_kickup_6p_negative.tga",
+                    "ExplosionKickup6pPositive": "assets/content/effects/explosions/v2/explosion_kickup_6p_positive.tga",
+                    "ExplosionKickupAlbedoB": "assets/content/effects/explosions/v2/explosion_kickup_albedo_b.tga",
+                    "ExplosionKickupMotion": "assets/content/effects/explosions/v2/explosion_kickup_motion.tga",
                     "ExplosionLarge6pNegative": "assets/content/effects/explosions/v2/explosion_large_6p_negative.tga",
                     "ExplosionLarge6pPositive": "assets/content/effects/explosions/v2/explosion_large_6p_positive.tga",
                     "ExplosionLargeAlbedoB": "assets/content/effects/explosions/v2/explosion_large_albedo_b.tga",
@@ -1828,6 +1836,29 @@
               },
               "SubFolders": {}
             },
+            "fumes": {
+              "Name": "fumes",
+              "Path": "assets/content/effects/fumes",
+              "Files": {
+                "SmokeLoopThick6pNeg": "assets/content/effects/fumes/smoke_loop_thick_6p_neg.tga",
+                "SmokeLoopThick6pPos": "assets/content/effects/fumes/smoke_loop_thick_6p_pos.tga",
+                "SmokeLoopThickAlbedoB": "assets/content/effects/fumes/smoke_loop_thick_albedo_b.tga",
+                "SmokeLoopThickMotion": "assets/content/effects/fumes/smoke_loop_thick_motion.tga",
+                "SmokeSideBlast6pNegative": "assets/content/effects/fumes/smoke_side_blast_6p_negative.tga",
+                "SmokeSideBlast6pPositive": "assets/content/effects/fumes/smoke_side_blast_6p_positive.tga",
+                "SmokeSideBlastAlbedo": "assets/content/effects/fumes/smoke_side_blast_albedo.tga",
+                "SmokeSideBlastMotion": "assets/content/effects/fumes/smoke_side_blast_motion.tga",
+                "SmokeThickAlbedo": "assets/content/effects/fumes/smoke_thick_albedo.png",
+                "SmokeThickGradientBasedNormalMap": "assets/content/effects/fumes/smoke_thick_gradient_based_normal_map.png",
+                "SmokeThickMotion": "assets/content/effects/fumes/smoke_thick_motion.png",
+                "SmokeThickSixPointNormalMap": "assets/content/effects/fumes/smoke_thick_six_point_normal_map.png",
+                "WispySmoke1": "assets/content/effects/fumes/wispy_smoke-1.tga",
+                "WispySmoke1White": "assets/content/effects/fumes/wispy_smoke-1-white.tga",
+                "WispySmoke2": "assets/content/effects/fumes/wispy_smoke-2.tga",
+                "WispySmoke2White": "assets/content/effects/fumes/wispy_smoke-2-white.tga"
+              },
+              "SubFolders": {}
+            },
             "flame": {
               "Name": "flame",
               "Path": "assets/content/effects/flame",
@@ -1843,25 +1874,6 @@
                   "SubFolders": {}
                 }
               }
-            },
-            "fumes": {
-              "Name": "fumes",
-              "Path": "assets/content/effects/fumes",
-              "Files": {
-                "SmokeSideBlast6pNegative": "assets/content/effects/fumes/smoke_side_blast_6p_negative.tga",
-                "SmokeSideBlast6pPositive": "assets/content/effects/fumes/smoke_side_blast_6p_positive.tga",
-                "SmokeSideBlastAlbedo": "assets/content/effects/fumes/smoke_side_blast_albedo.tga",
-                "SmokeSideBlastMotion": "assets/content/effects/fumes/smoke_side_blast_motion.tga",
-                "SmokeThickAlbedo": "assets/content/effects/fumes/smoke_thick_albedo.png",
-                "SmokeThickGradientBasedNormalMap": "assets/content/effects/fumes/smoke_thick_gradient_based_normal_map.png",
-                "SmokeThickMotion": "assets/content/effects/fumes/smoke_thick_motion.png",
-                "SmokeThickSixPointNormalMap": "assets/content/effects/fumes/smoke_thick_six_point_normal_map.png",
-                "WispySmoke1": "assets/content/effects/fumes/wispy_smoke-1.tga",
-                "WispySmoke1White": "assets/content/effects/fumes/wispy_smoke-1-white.tga",
-                "WispySmoke2": "assets/content/effects/fumes/wispy_smoke-2.tga",
-                "WispySmoke2White": "assets/content/effects/fumes/wispy_smoke-2-white.tga"
-              },
-              "SubFolders": {}
             },
             "snow": {
               "Name": "snow",
@@ -13896,6 +13908,35 @@
                 }
               }
             },
+            "bee grenade": {
+              "Name": "bee grenade",
+              "Path": "assets/prefabs/weapons/bee grenade",
+              "Files": {},
+              "SubFolders": {
+                "materials": {
+                  "Name": "materials",
+                  "Path": "assets/prefabs/weapons/bee grenade/materials",
+                  "Files": {},
+                  "SubFolders": {
+                    "textures": {
+                      "Name": "textures",
+                      "Path": "assets/prefabs/weapons/bee grenade/materials/textures",
+                      "Files": {
+                        "BeeGrenadeExtraAlbedo": "assets/prefabs/weapons/bee grenade/materials/textures/bee_grenade_extra_albedo.tga",
+                        "BeeGrenadeExtraAo": "assets/prefabs/weapons/bee grenade/materials/textures/bee_grenade_extra_ao.tga",
+                        "BeeGrenadeExtraMetallic": "assets/prefabs/weapons/bee grenade/materials/textures/bee_grenade_extra_metallic.tga",
+                        "BeeGrenadeExtraNormal": "assets/prefabs/weapons/bee grenade/materials/textures/bee_grenade_extra_normal.tga",
+                        "BeeGrenadeGlassDiff": "assets/prefabs/weapons/bee grenade/materials/textures/bee_grenade_glass_diff.tga",
+                        "BeeGrenadeGlassNrm": "assets/prefabs/weapons/bee grenade/materials/textures/bee_grenade_glass_nrm.tga",
+                        "BeeGrenadeGlassSpec": "assets/prefabs/weapons/bee grenade/materials/textures/bee_grenade_glass_spec.tga",
+                        "BeeGrenadeLabelDiff": "assets/prefabs/weapons/bee grenade/materials/textures/bee_grenade_label_diff.tga"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                }
+              }
+            },
             "cake": {
               "Name": "cake",
               "Path": "assets/prefabs/weapons/cake",
@@ -14563,6 +14604,7 @@
                   "Path": "assets/prefabs/weapons/grenade launcher/materials",
                   "Files": {
                     "GlAmmoAlbedo": "assets/prefabs/weapons/grenade launcher/materials/glammo_albedo.tga",
+                    "GlAmmoAlbedoSmoke": "assets/prefabs/weapons/grenade launcher/materials/glammo_albedo_smoke.tga",
                     "GlAmmoAo": "assets/prefabs/weapons/grenade launcher/materials/glammo_ao.tga",
                     "GlAmmoMetallic": "assets/prefabs/weapons/grenade launcher/materials/glammo_metallic.tga",
                     "GlAmmoNormals": "assets/prefabs/weapons/grenade launcher/materials/glammo_normals.tga",
@@ -20485,6 +20527,35 @@
                 }
               }
             },
+            "beehive": {
+              "Name": "beehive",
+              "Path": "assets/prefabs/deployable/beehive",
+              "Files": {},
+              "SubFolders": {
+                "materials": {
+                  "Name": "materials",
+                  "Path": "assets/prefabs/deployable/beehive/materials",
+                  "Files": {},
+                  "SubFolders": {
+                    "textures": {
+                      "Name": "textures",
+                      "Path": "assets/prefabs/deployable/beehive/materials/textures",
+                      "Files": {
+                        "BeehiveLowerAlbedoTransparency": "assets/prefabs/deployable/beehive/materials/textures/beehive_lower_albedotransparency.tga",
+                        "BeehiveLowerAo": "assets/prefabs/deployable/beehive/materials/textures/beehive_lower_ao.tga",
+                        "BeehiveLowerMetallicSmoothness": "assets/prefabs/deployable/beehive/materials/textures/beehive_lower_metallicsmoothness.tga",
+                        "BeehiveLowerNormal": "assets/prefabs/deployable/beehive/materials/textures/beehive_lower_normal.tga",
+                        "BeehiveUpperAlbedoTransparency": "assets/prefabs/deployable/beehive/materials/textures/beehive_upper_albedotransparency.tga",
+                        "BeehiveUpperAo": "assets/prefabs/deployable/beehive/materials/textures/beehive_upper_ao.tga",
+                        "BeehiveUpperMetallicSmoothness": "assets/prefabs/deployable/beehive/materials/textures/beehive_upper_metallicsmoothness.tga",
+                        "BeehiveUpperNormal": "assets/prefabs/deployable/beehive/materials/textures/beehive_upper_normal.tga"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                }
+              }
+            },
             "spinner_wheel": {
               "Name": "spinner_wheel",
               "Path": "assets/prefabs/deployable/spinner_wheel",
@@ -20663,6 +20734,28 @@
                     "ChairSpec": "assets/prefabs/deployable/chair/textures/chair_spec.tga"
                   },
                   "SubFolders": {}
+                }
+              }
+            },
+            "chickencoop": {
+              "Name": "chickencoop",
+              "Path": "assets/prefabs/deployable/chickencoop",
+              "Files": {},
+              "SubFolders": {
+                "materials": {
+                  "Name": "materials",
+                  "Path": "assets/prefabs/deployable/chickencoop/materials",
+                  "Files": {},
+                  "SubFolders": {
+                    "textures": {
+                      "Name": "textures",
+                      "Path": "assets/prefabs/deployable/chickencoop/materials/textures",
+                      "Files": {
+                        "ChickencoupAo": "assets/prefabs/deployable/chickencoop/materials/textures/chickencoup_ao.tga"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
                 }
               }
             },
@@ -20845,6 +20938,42 @@
                         "ComposterDiff": "assets/prefabs/deployable/composter/models/materials/composter_diff.tga",
                         "ComposterNrm": "assets/prefabs/deployable/composter/models/materials/composter_nrm.tga",
                         "ComposterSpec": "assets/prefabs/deployable/composter/models/materials/composter_spec.tga"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                }
+              }
+            },
+            "cookingworkbench": {
+              "Name": "cookingworkbench",
+              "Path": "assets/prefabs/deployable/cookingworkbench",
+              "Files": {},
+              "SubFolders": {
+                "materials": {
+                  "Name": "materials",
+                  "Path": "assets/prefabs/deployable/cookingworkbench/materials",
+                  "Files": {},
+                  "SubFolders": {
+                    "textures": {
+                      "Name": "textures",
+                      "Path": "assets/prefabs/deployable/cookingworkbench/materials/textures",
+                      "Files": {
+                        "CookingWorkbenchAo": "assets/prefabs/deployable/cookingworkbench/materials/textures/cooking_workbench_ao.tga",
+                        "CookingWorkbenchDiff": "assets/prefabs/deployable/cookingworkbench/materials/textures/cooking_workbench_diff.tga",
+                        "CookingWorkbenchEmissive": "assets/prefabs/deployable/cookingworkbench/materials/textures/cooking_workbench_emissive.tga",
+                        "CookingWorkbenchGlassAo": "assets/prefabs/deployable/cookingworkbench/materials/textures/cooking_workbench_glass_ao.tga",
+                        "CookingWorkbenchGlassColor": "assets/prefabs/deployable/cookingworkbench/materials/textures/cooking_workbench_glass_color.tga",
+                        "CookingWorkbenchGlassMetal": "assets/prefabs/deployable/cookingworkbench/materials/textures/cooking_workbench_glass_metal.tga",
+                        "CookingWorkbenchGlassNormal": "assets/prefabs/deployable/cookingworkbench/materials/textures/cooking_workbench_glass_normal.tga",
+                        "CookingWorkbenchGlassRough": "assets/prefabs/deployable/cookingworkbench/materials/textures/cooking_workbench_glass_rough.tga",
+                        "CookingWorkbenchGlassTrans": "assets/prefabs/deployable/cookingworkbench/materials/textures/cooking_workbench_glass_trans.tga",
+                        "CookingWorkbenchNrm": "assets/prefabs/deployable/cookingworkbench/materials/textures/cooking_workbench_nrm.tga",
+                        "CookingWorkbenchPartsAo": "assets/prefabs/deployable/cookingworkbench/materials/textures/cooking_workbench_parts_ao.tga",
+                        "CookingWorkbenchPartsDiff": "assets/prefabs/deployable/cookingworkbench/materials/textures/cooking_workbench_parts_diff.tga",
+                        "CookingWorkbenchPartsNrm": "assets/prefabs/deployable/cookingworkbench/materials/textures/cooking_workbench_parts_nrm.tga",
+                        "CookingWorkbenchPartsSpec": "assets/prefabs/deployable/cookingworkbench/materials/textures/cooking_workbench_parts_spec.tga",
+                        "CookingWorkbenchSpec": "assets/prefabs/deployable/cookingworkbench/materials/textures/cooking_workbench_spec.tga"
                       },
                       "SubFolders": {}
                     }
@@ -21059,6 +21188,11 @@
                     "FridgeAo": "assets/prefabs/deployable/fridge/textures/fridge_ao.tga",
                     "FridgeDiff": "assets/prefabs/deployable/fridge/textures/fridge_diff.tga",
                     "FridgeNrm": "assets/prefabs/deployable/fridge/textures/fridge_nrm.tga",
+                    "FridgepowerAlbedo": "assets/prefabs/deployable/fridge/textures/fridgepower_albedo.tga",
+                    "FridgepowerAo": "assets/prefabs/deployable/fridge/textures/fridgepower_ao.tga",
+                    "FridgepowerEmission": "assets/prefabs/deployable/fridge/textures/fridgepower_emission.tga",
+                    "FridgepowerMetallic": "assets/prefabs/deployable/fridge/textures/fridgepower_metallic.tga",
+                    "FridgepowerNormal": "assets/prefabs/deployable/fridge/textures/fridgepower_normal.tga",
                     "FridgeSpec": "assets/prefabs/deployable/fridge/textures/fridge_spec.tga"
                   },
                   "SubFolders": {}
@@ -21236,6 +21370,51 @@
                 }
               }
             },
+            "hopper": {
+              "Name": "hopper",
+              "Path": "assets/prefabs/deployable/hopper",
+              "Files": {},
+              "SubFolders": {
+                "material": {
+                  "Name": "material",
+                  "Path": "assets/prefabs/deployable/hopper/material",
+                  "Files": {},
+                  "SubFolders": {
+                    "textures": {
+                      "Name": "textures",
+                      "Path": "assets/prefabs/deployable/hopper/material/textures",
+                      "Files": {
+                        "HopperAlbedoTransparency": "assets/prefabs/deployable/hopper/material/textures/hopper_albedotransparency.tga",
+                        "HopperAo": "assets/prefabs/deployable/hopper/material/textures/hopper_ao.tga",
+                        "HopperMetallicSmoothness": "assets/prefabs/deployable/hopper/material/textures/hopper_metallicsmoothness.tga",
+                        "HopperNormal": "assets/prefabs/deployable/hopper/material/textures/hopper_normal.tga"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
+                "effects": {
+                  "Name": "effects",
+                  "Path": "assets/prefabs/deployable/hopper/effects",
+                  "Files": {
+                    "HopperSuction": "assets/prefabs/deployable/hopper/effects/hopper_suction.tga",
+                    "HumanGibFootColor": "assets/prefabs/deployable/hopper/effects/human_gib_foot_color.tga",
+                    "HumanGibFootNormal": "assets/prefabs/deployable/hopper/effects/human_gib_foot_normal.tga",
+                    "HumanGibFootOcclusion": "assets/prefabs/deployable/hopper/effects/human_gib_foot_occlusion.tga",
+                    "HumanGibFootSpecular": "assets/prefabs/deployable/hopper/effects/human_gib_foot_specular.tga",
+                    "HumanGibLegRawColor": "assets/prefabs/deployable/hopper/effects/human_gib_leg_raw_color.tga",
+                    "HumanGibLegRawNormal": "assets/prefabs/deployable/hopper/effects/human_gib_leg_raw_normal.tga",
+                    "HumanGibLegRawOcclusion": "assets/prefabs/deployable/hopper/effects/human_gib_leg_raw_occlusion.tga",
+                    "HumanGibLegRawSpecular": "assets/prefabs/deployable/hopper/effects/human_gib_leg_raw_specular.tga",
+                    "HumanGibRibcageRawColor": "assets/prefabs/deployable/hopper/effects/human_gib_ribcage_raw_color.tga",
+                    "HumanGibRibcageRawNormal": "assets/prefabs/deployable/hopper/effects/human_gib_ribcage_raw_normal.tga",
+                    "HumanGibRibcageRawOcclusion": "assets/prefabs/deployable/hopper/effects/human_gib_ribcage_raw_occlusion.tga",
+                    "HumanGibRibcageRawSpecular": "assets/prefabs/deployable/hopper/effects/human_gib_ribcage_raw_specular.tga"
+                  },
+                  "SubFolders": {}
+                }
+              }
+            },
             "waterpurifier": {
               "Name": "waterpurifier",
               "Path": "assets/prefabs/deployable/waterpurifier",
@@ -21258,28 +21437,28 @@
                 }
               }
             },
-            "io_research_table": {
-              "Name": "io_research_table",
-              "Path": "assets/prefabs/deployable/io_research_table",
+            "io research table": {
+              "Name": "io research table",
+              "Path": "assets/prefabs/deployable/io research table",
               "Files": {},
               "SubFolders": {
                 "materials": {
                   "Name": "materials",
-                  "Path": "assets/prefabs/deployable/io_research_table/materials",
+                  "Path": "assets/prefabs/deployable/io research table/materials",
                   "Files": {},
                   "SubFolders": {
                     "textures": {
                       "Name": "textures",
-                      "Path": "assets/prefabs/deployable/io_research_table/materials/textures",
+                      "Path": "assets/prefabs/deployable/io research table/materials/textures",
                       "Files": {
-                        "IoResearchTableAo": "assets/prefabs/deployable/io_research_table/materials/textures/io_research_table_ao.tga",
-                        "IoResearchTableDiff": "assets/prefabs/deployable/io_research_table/materials/textures/io_research_table_diff.tga",
-                        "IoResearchTableNrm": "assets/prefabs/deployable/io_research_table/materials/textures/io_research_table_nrm.tga",
-                        "IoResearchTablePartsAo": "assets/prefabs/deployable/io_research_table/materials/textures/io_research_table_parts_ao.tga",
-                        "IoResearchTablePartsDiff": "assets/prefabs/deployable/io_research_table/materials/textures/io_research_table_parts_diff.tga",
-                        "IoResearchTablePartsNrm": "assets/prefabs/deployable/io_research_table/materials/textures/io_research_table_parts_nrm.tga",
-                        "IoResearchTablePartsSpec": "assets/prefabs/deployable/io_research_table/materials/textures/io_research_table_parts_spec.tga",
-                        "IoResearchTableSpec": "assets/prefabs/deployable/io_research_table/materials/textures/io_research_table_spec.tga"
+                        "IoResearchTableAo": "assets/prefabs/deployable/io research table/materials/textures/io_research_table_ao.tga",
+                        "IoResearchTableDiff": "assets/prefabs/deployable/io research table/materials/textures/io_research_table_diff.tga",
+                        "IoResearchTableNrm": "assets/prefabs/deployable/io research table/materials/textures/io_research_table_nrm.tga",
+                        "IoResearchTablePartsAo": "assets/prefabs/deployable/io research table/materials/textures/io_research_table_parts_ao.tga",
+                        "IoResearchTablePartsDiff": "assets/prefabs/deployable/io research table/materials/textures/io_research_table_parts_diff.tga",
+                        "IoResearchTablePartsNrm": "assets/prefabs/deployable/io research table/materials/textures/io_research_table_parts_nrm.tga",
+                        "IoResearchTablePartsSpec": "assets/prefabs/deployable/io research table/materials/textures/io_research_table_parts_spec.tga",
+                        "IoResearchTableSpec": "assets/prefabs/deployable/io research table/materials/textures/io_research_table_spec.tga"
                       },
                       "SubFolders": {}
                     }
@@ -21892,6 +22071,38 @@
                         "ShelvesSpec": "assets/prefabs/deployable/shelves/models/textures/shelves_spec.tga"
                       },
                       "SubFolders": {}
+                    }
+                  }
+                }
+              }
+            },
+            "plant pots": {
+              "Name": "plant pots",
+              "Path": "assets/prefabs/deployable/plant pots",
+              "Files": {},
+              "SubFolders": {
+                "single plant pot": {
+                  "Name": "single plant pot",
+                  "Path": "assets/prefabs/deployable/plant pots/single plant pot",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/prefabs/deployable/plant pots/single plant pot/materials",
+                      "Files": {},
+                      "SubFolders": {
+                        "textures": {
+                          "Name": "textures",
+                          "Path": "assets/prefabs/deployable/plant pots/single plant pot/materials/textures",
+                          "Files": {
+                            "SingleplantpotAlbedo": "assets/prefabs/deployable/plant pots/single plant pot/materials/textures/singleplantpot_albedo.tga",
+                            "SingleplantpotAo": "assets/prefabs/deployable/plant pots/single plant pot/materials/textures/singleplantpot_ao.tga",
+                            "SingleplantpotMetallic": "assets/prefabs/deployable/plant pots/single plant pot/materials/textures/singleplantpot_metallic.tga",
+                            "SingleplantpotNormal": "assets/prefabs/deployable/plant pots/single plant pot/materials/textures/singleplantpot_normal.tga"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
                     }
                   }
                 }
@@ -24773,6 +24984,49 @@
                 }
               }
             },
+            "beeswarm": {
+              "Name": "beeswarm",
+              "Path": "assets/prefabs/npc/beeswarm",
+              "Files": {},
+              "SubFolders": {
+                "materials": {
+                  "Name": "materials",
+                  "Path": "assets/prefabs/npc/beeswarm/materials",
+                  "Files": {
+                    "BeeAtlas": "assets/prefabs/npc/beeswarm/materials/bee_atlas.tga",
+                    "BeeAtlasNormal": "assets/prefabs/npc/beeswarm/materials/bee_atlas_normal.png"
+                  },
+                  "SubFolders": {}
+                }
+              }
+            },
+            "critters": {
+              "Name": "critters",
+              "Path": "assets/prefabs/npc/critters",
+              "Files": {},
+              "SubFolders": {
+                "honeybee": {
+                  "Name": "honeybee",
+                  "Path": "assets/prefabs/npc/critters/honeybee",
+                  "Files": {},
+                  "SubFolders": {
+                    "textures": {
+                      "Name": "textures",
+                      "Path": "assets/prefabs/npc/critters/honeybee/textures",
+                      "Files": {
+                        "BeeFlyerMoveMask": "assets/prefabs/npc/critters/honeybee/textures/bee_flyer_movemask.tga",
+                        "BeeWalkerMoveMask": "assets/prefabs/npc/critters/honeybee/textures/bee_walker_movemask.tga",
+                        "HoneybeeWalkerAlbedo": "assets/prefabs/npc/critters/honeybee/textures/honeybee_walker_albedo.tga",
+                        "HoneybeeWalkerAo": "assets/prefabs/npc/critters/honeybee/textures/honeybee_walker_ao.tga",
+                        "HoneybeeWalkerMetallic": "assets/prefabs/npc/critters/honeybee/textures/honeybee_walker_metallic.tga",
+                        "HoneybeeWalkerNormal": "assets/prefabs/npc/critters/honeybee/textures/honeybee_walker_normal.tga"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                }
+              }
+            },
             "birds": {
               "Name": "birds",
               "Path": "assets/prefabs/npc/birds",
@@ -25219,6 +25473,39 @@
                 }
               }
             },
+            "honeycomb": {
+              "Name": "honeycomb",
+              "Path": "assets/prefabs/resource/honeycomb",
+              "Files": {},
+              "SubFolders": {
+                "model": {
+                  "Name": "model",
+                  "Path": "assets/prefabs/resource/honeycomb/model",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/prefabs/resource/honeycomb/model/materials",
+                      "Files": {},
+                      "SubFolders": {
+                        "textures": {
+                          "Name": "textures",
+                          "Path": "assets/prefabs/resource/honeycomb/model/materials/textures",
+                          "Files": {
+                            "HoneycombAlbedo": "assets/prefabs/resource/honeycomb/model/materials/textures/honeycomb_albedo.tga",
+                            "HoneycombAo": "assets/prefabs/resource/honeycomb/model/materials/textures/honeycomb_ao.tga",
+                            "HoneycombMetallic": "assets/prefabs/resource/honeycomb/model/materials/textures/honeycomb_metallic.tga",
+                            "HoneycombNormal": "assets/prefabs/resource/honeycomb/model/materials/textures/honeycomb_normal.tga",
+                            "HoneycombThickness": "assets/prefabs/resource/honeycomb/model/materials/textures/honeycomb_thickness.tga"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
             "horsedung": {
               "Name": "horsedung",
               "Path": "assets/prefabs/resource/horsedung",
@@ -25367,6 +25654,32 @@
                 }
               }
             },
+            "natural beehive": {
+              "Name": "natural beehive",
+              "Path": "assets/prefabs/resource/natural beehive",
+              "Files": {},
+              "SubFolders": {
+                "materials": {
+                  "Name": "materials",
+                  "Path": "assets/prefabs/resource/natural beehive/materials",
+                  "Files": {},
+                  "SubFolders": {
+                    "textures": {
+                      "Name": "textures",
+                      "Path": "assets/prefabs/resource/natural beehive/materials/textures",
+                      "Files": {
+                        "NaturalBeehiveAlbedo": "assets/prefabs/resource/natural beehive/materials/textures/natural beehive_albedo.tga",
+                        "NaturalBeehiveAo": "assets/prefabs/resource/natural beehive/materials/textures/natural beehive_ao.tga",
+                        "NaturalBeehiveMetallic": "assets/prefabs/resource/natural beehive/materials/textures/natural beehive_metallic.tga",
+                        "NaturalBeehiveNormal": "assets/prefabs/resource/natural beehive/materials/textures/natural beehive_normal.tga",
+                        "NaturalbeehiveThickness": "assets/prefabs/resource/natural beehive/materials/textures/naturalbeehive_thickness.tga"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                }
+              }
+            },
             "paper": {
               "Name": "paper",
               "Path": "assets/prefabs/resource/paper",
@@ -25486,6 +25799,44 @@
                     "AntiradpillsNormals": "assets/prefabs/tools/anti-radiation pills/materials/antiradpills_normals.tga"
                   },
                   "SubFolders": {}
+                }
+              }
+            },
+            "armourplating": {
+              "Name": "armourplating",
+              "Path": "assets/prefabs/tools/armourplating",
+              "Files": {},
+              "SubFolders": {
+                "materials": {
+                  "Name": "materials",
+                  "Path": "assets/prefabs/tools/armourplating/materials",
+                  "Files": {},
+                  "SubFolders": {
+                    "textures": {
+                      "Name": "textures",
+                      "Path": "assets/prefabs/tools/armourplating/materials/textures",
+                      "Files": {
+                        "AsbestosarmourplateAlbedo": "assets/prefabs/tools/armourplating/materials/textures/asbestosarmourplate_albedo.tga",
+                        "AsbestosarmourplateAo": "assets/prefabs/tools/armourplating/materials/textures/asbestosarmourplate_ao.tga",
+                        "AsbestosarmourplateFuzz": "assets/prefabs/tools/armourplating/materials/textures/asbestosarmourplate_fuzz.tga",
+                        "AsbestosarmourplateMetallic": "assets/prefabs/tools/armourplating/materials/textures/asbestosarmourplate_metallic.tga",
+                        "AsbestosarmourplateNormal": "assets/prefabs/tools/armourplating/materials/textures/asbestosarmourplate_normal.tga",
+                        "LeadarmourplateAlbedo": "assets/prefabs/tools/armourplating/materials/textures/leadarmourplate_albedo.tga",
+                        "LeadarmourplateAo": "assets/prefabs/tools/armourplating/materials/textures/leadarmourplate_ao.tga",
+                        "LeadarmourplateMetallic": "assets/prefabs/tools/armourplating/materials/textures/leadarmourplate_metallic.tga",
+                        "LeadarmourplateNormal": "assets/prefabs/tools/armourplating/materials/textures/leadarmourplate_normal.tga",
+                        "MetalarmourplateAlbedo": "assets/prefabs/tools/armourplating/materials/textures/metalarmourplate_albedo.tga",
+                        "MetalarmourplateAo": "assets/prefabs/tools/armourplating/materials/textures/metalarmourplate_ao.tga",
+                        "MetalarmourplateMetallic": "assets/prefabs/tools/armourplating/materials/textures/metalarmourplate_metallic.tga",
+                        "MetalarmourplateNormal": "assets/prefabs/tools/armourplating/materials/textures/metalarmourplate_normal.tga",
+                        "WoodarmourplateAlbedo": "assets/prefabs/tools/armourplating/materials/textures/woodarmourplate_albedo.tga",
+                        "WoodarmourplateAo": "assets/prefabs/tools/armourplating/materials/textures/woodarmourplate_ao.tga",
+                        "WoodarmourplateMetallic": "assets/prefabs/tools/armourplating/materials/textures/woodarmourplate_metallic.tga",
+                        "WoodarmourplateNormal": "assets/prefabs/tools/armourplating/materials/textures/woodarmourplate_normal.tga"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
                 }
               }
             },
@@ -26225,6 +26576,101 @@
                 }
               }
             },
+            "meat": {
+              "Name": "meat",
+              "Path": "assets/prefabs/food/meat",
+              "Files": {},
+              "SubFolders": {
+                "textures": {
+                  "Name": "textures",
+                  "Path": "assets/prefabs/food/meat/textures",
+                  "Files": {
+                    "BearMeatCookedAlbedo": "assets/prefabs/food/meat/textures/bear_meat_cooked_albedo.tga",
+                    "BearMeatCookedAo": "assets/prefabs/food/meat/textures/bear_meat_cooked_ao.tga",
+                    "BearMeatCookedMetalsmooth": "assets/prefabs/food/meat/textures/bear_meat_cooked_metalsmooth.tga",
+                    "BearMeatCookedNormal": "assets/prefabs/food/meat/textures/bear_meat_cooked_normal.tga",
+                    "BearMeatRawAlbedo": "assets/prefabs/food/meat/textures/bear_meat_raw_albedo.tga",
+                    "BearMeatRawAo": "assets/prefabs/food/meat/textures/bear_meat_raw_ao.tga",
+                    "BearMeatRawMetalsmooth": "assets/prefabs/food/meat/textures/bear_meat_raw_metalsmooth.tga",
+                    "BearMeatRawNormal": "assets/prefabs/food/meat/textures/bear_meat_raw_normal.tga",
+                    "BearMeatRawThickness": "assets/prefabs/food/meat/textures/bear_meat_raw_thickness.tga",
+                    "ChickenMeatCookedAlbedo": "assets/prefabs/food/meat/textures/chicken_meat_cooked_albedo.tga",
+                    "ChickenMeatCookedAo": "assets/prefabs/food/meat/textures/chicken_meat_cooked_ao.tga",
+                    "ChickenMeatCookedMetalsmooth": "assets/prefabs/food/meat/textures/chicken_meat_cooked_metalsmooth.tga",
+                    "ChickenMeatCookedNormal": "assets/prefabs/food/meat/textures/chicken_meat_cooked_normal.tga",
+                    "ChickenMeatRawAlbedo": "assets/prefabs/food/meat/textures/chicken_meat_raw_albedo.tga",
+                    "ChickenMeatRawAo": "assets/prefabs/food/meat/textures/chicken_meat_raw_ao.tga",
+                    "ChickenMeatRawMetalsmooth": "assets/prefabs/food/meat/textures/chicken_meat_raw_metalsmooth.tga",
+                    "ChickenMeatRawNormal": "assets/prefabs/food/meat/textures/chicken_meat_raw_normal.tga",
+                    "ChickenMeatRawThickness": "assets/prefabs/food/meat/textures/chicken_meat_raw_thickness.tga",
+                    "DeerMeatCookedAlbedo": "assets/prefabs/food/meat/textures/deer_meat_cooked_albedo.tga",
+                    "DeerMeatCookedAo": "assets/prefabs/food/meat/textures/deer_meat_cooked_ao.tga",
+                    "DeerMeatCookedMetalsmooth": "assets/prefabs/food/meat/textures/deer_meat_cooked_metalsmooth.tga",
+                    "DeerMeatCookedNormal": "assets/prefabs/food/meat/textures/deer_meat_cooked_normal.tga",
+                    "DeerMeatRawAlbedo": "assets/prefabs/food/meat/textures/deer_meat_raw_albedo.tga",
+                    "DeerMeatRawAo": "assets/prefabs/food/meat/textures/deer_meat_raw_ao.tga",
+                    "DeerMeatRawMetalsmooth": "assets/prefabs/food/meat/textures/deer_meat_raw_metalsmooth.tga",
+                    "DeerMeatRawNormal": "assets/prefabs/food/meat/textures/deer_meat_raw_normal.tga",
+                    "DeerMeatRawThickness": "assets/prefabs/food/meat/textures/deer_meat_raw_thickness.tga",
+                    "FishMeatCookedAlbedo": "assets/prefabs/food/meat/textures/fish_meat_cooked_albedo.tga",
+                    "FishMeatCookedAo": "assets/prefabs/food/meat/textures/fish_meat_cooked_ao.tga",
+                    "FishMeatCookedMetalsmooth": "assets/prefabs/food/meat/textures/fish_meat_cooked_metalsmooth.tga",
+                    "FishMeatCookedNormal": "assets/prefabs/food/meat/textures/fish_meat_cooked_normal.tga",
+                    "FishMeatRawAlbedo": "assets/prefabs/food/meat/textures/fish_meat_raw_albedo.tga",
+                    "FishMeatRawAo": "assets/prefabs/food/meat/textures/fish_meat_raw_ao.tga",
+                    "FishMeatRawMetalrough": "assets/prefabs/food/meat/textures/fish_meat_raw_metalrough.tga",
+                    "FishMeatRawNormal": "assets/prefabs/food/meat/textures/fish_meat_raw_normal.tga",
+                    "FishMeatThickness": "assets/prefabs/food/meat/textures/fish_meat_thickness.tga",
+                    "HorseMeatCookedAlbedo": "assets/prefabs/food/meat/textures/horse_meat_cooked_albedo.tga",
+                    "HorseMeatCookedAo": "assets/prefabs/food/meat/textures/horse_meat_cooked_ao.tga",
+                    "HorseMeatCookedMetalsmooth": "assets/prefabs/food/meat/textures/horse_meat_cooked_metalsmooth.tga",
+                    "HorseMeatCookedNormal": "assets/prefabs/food/meat/textures/horse_meat_cooked_normal.tga",
+                    "HorseMeatRawAlbedo": "assets/prefabs/food/meat/textures/horse_meat_raw_albedo.tga",
+                    "HorseMeatRawAo": "assets/prefabs/food/meat/textures/horse_meat_raw_ao.tga",
+                    "HorseMeatRawMetalsmooth": "assets/prefabs/food/meat/textures/horse_meat_raw_metalsmooth.tga",
+                    "HorseMeatRawNormal": "assets/prefabs/food/meat/textures/horse_meat_raw_normal.tga",
+                    "HorseMeatRawThickness": "assets/prefabs/food/meat/textures/horse_meat_raw_thickness.tga",
+                    "HumanMeatCookedAlbedo": "assets/prefabs/food/meat/textures/human_meat_cooked_albedo.tga",
+                    "HumanMeatCookedAo": "assets/prefabs/food/meat/textures/human_meat_cooked_ao.tga",
+                    "HumanMeatCookedMetalsmooth": "assets/prefabs/food/meat/textures/human_meat_cooked_metalsmooth.tga",
+                    "HumanMeatCookedNormal": "assets/prefabs/food/meat/textures/human_meat_cooked_normal.tga",
+                    "HumanMeatRawAlbedo": "assets/prefabs/food/meat/textures/human_meat_raw_albedo.tga",
+                    "HumanMeatRawAo": "assets/prefabs/food/meat/textures/human_meat_raw_ao.tga",
+                    "HumanMeatRawMetalrough": "assets/prefabs/food/meat/textures/human_meat_raw_metalrough.tga",
+                    "HumanMeatRawNormal": "assets/prefabs/food/meat/textures/human_meat_raw_normal.tga",
+                    "HumanMeatRawThickness": "assets/prefabs/food/meat/textures/human_meat_raw_thickness.tga",
+                    "MeatRabbitCookedColor": "assets/prefabs/food/meat/textures/meat_rabbit_cooked_color.tga",
+                    "MeatRabbitCookedOcclusion": "assets/prefabs/food/meat/textures/meat_rabbit_cooked_occlusion.tga",
+                    "MeatRabbitCookedSpecular": "assets/prefabs/food/meat/textures/meat_rabbit_cooked_specular.tga",
+                    "MeatRabbitNormal": "assets/prefabs/food/meat/textures/meat_rabbit_normal.tga",
+                    "MeatRabbitRawColor": "assets/prefabs/food/meat/textures/meat_rabbit_raw_color.tga",
+                    "MeatRabbitRawSpecular": "assets/prefabs/food/meat/textures/meat_rabbit_raw_specular.tga",
+                    "PorkMeatCookedAlbedo": "assets/prefabs/food/meat/textures/pork_meat_cooked_albedo.tga",
+                    "PorkMeatCookedAo": "assets/prefabs/food/meat/textures/pork_meat_cooked_ao.tga",
+                    "PorkMeatCookedMetalsmooth": "assets/prefabs/food/meat/textures/pork_meat_cooked_metalsmooth.tga",
+                    "PorkMeatCookedNormal": "assets/prefabs/food/meat/textures/pork_meat_cooked_normal.tga",
+                    "PorkMeatRawAlbedo": "assets/prefabs/food/meat/textures/pork_meat_raw_albedo.tga",
+                    "PorkMeatRawAo": "assets/prefabs/food/meat/textures/pork_meat_raw_ao.tga",
+                    "PorkMeatRawMetalsmooth": "assets/prefabs/food/meat/textures/pork_meat_raw_metalsmooth.tga",
+                    "PorkMeatRawNormal": "assets/prefabs/food/meat/textures/pork_meat_raw_normal.tga",
+                    "PorkMeatRawThickness": "assets/prefabs/food/meat/textures/pork_meat_raw_thickness.tga",
+                    "SpoiledFoodMoldAlbedo": "assets/prefabs/food/meat/textures/spoiled_food_mold_albedo.tga",
+                    "SpoiledFoodMoldMetalsmooth": "assets/prefabs/food/meat/textures/spoiled_food_mold_metalsmooth.tga",
+                    "SpoiledFoodMoldNormal": "assets/prefabs/food/meat/textures/spoiled_food_mold_normal.tga",
+                    "WolfMeatCookedAlbedo": "assets/prefabs/food/meat/textures/wolf_meat_cooked_albedo.tga",
+                    "WolfMeatCookedAo": "assets/prefabs/food/meat/textures/wolf_meat_cooked_ao.tga",
+                    "WolfMeatCookedMetalsmooth": "assets/prefabs/food/meat/textures/wolf_meat_cooked_metalsmooth.tga",
+                    "WolfMeatCookedNormal": "assets/prefabs/food/meat/textures/wolf_meat_cooked_normal.tga",
+                    "WolfMeatRawAlbedo": "assets/prefabs/food/meat/textures/wolf_meat_raw_albedo.tga",
+                    "WolfMeatRawAo": "assets/prefabs/food/meat/textures/wolf_meat_raw_ao.tga",
+                    "WolfMeatRawMetalsmooth": "assets/prefabs/food/meat/textures/wolf_meat_raw_metalsmooth.tga",
+                    "WolfMeatRawNormal": "assets/prefabs/food/meat/textures/wolf_meat_raw_normal.tga",
+                    "WolfMeatRawThickness": "assets/prefabs/food/meat/textures/wolf_meat_raw_thickness.tga"
+                  },
+                  "SubFolders": {}
+                }
+              }
+            },
             "bota bag": {
               "Name": "bota bag",
               "Path": "assets/prefabs/food/bota bag",
@@ -26249,6 +26695,27 @@
                 }
               }
             },
+            "bread": {
+              "Name": "bread",
+              "Path": "assets/prefabs/food/bread",
+              "Files": {},
+              "SubFolders": {
+                "textures": {
+                  "Name": "textures",
+                  "Path": "assets/prefabs/food/bread/textures",
+                  "Files": {
+                    "BreadLoafsAlbedo": "assets/prefabs/food/bread/textures/bread_loafs_albedo.tga",
+                    "BreadLoafsAo": "assets/prefabs/food/bread/textures/bread_loafs_ao.tga",
+                    "BreadLoafsMetallic": "assets/prefabs/food/bread/textures/bread_loafs_metallic.tga",
+                    "BreadLoafsNormal": "assets/prefabs/food/bread/textures/bread_loafs_normal.tga",
+                    "BreadloafsRawAlbedo": "assets/prefabs/food/bread/textures/breadloafs_raw_albedo.tga",
+                    "BreadloafsRawMetalrough": "assets/prefabs/food/bread/textures/breadloafs_raw_metalrough.tga",
+                    "BreadloafsRawNormal": "assets/prefabs/food/bread/textures/breadloafs_raw_normal.tga"
+                  },
+                  "SubFolders": {}
+                }
+              }
+            },
             "cactusflesh": {
               "Name": "cactusflesh",
               "Path": "assets/prefabs/food/cactusflesh",
@@ -26267,105 +26734,86 @@
                 }
               }
             },
-            "fish": {
-              "Name": "fish",
-              "Path": "assets/prefabs/food/fish",
+            "honey": {
+              "Name": "honey",
+              "Path": "assets/prefabs/food/honey",
               "Files": {},
               "SubFolders": {
-                "materials": {
-                  "Name": "materials",
-                  "Path": "assets/prefabs/food/fish/materials",
-                  "Files": {
-                    "CookedFishSteakAlbedo": "assets/prefabs/food/fish/materials/cooked_fish_steak_albedo.tga",
-                    "CookedFishSteakAo": "assets/prefabs/food/fish/materials/cooked_fish_steak_ao.tga",
-                    "CookedFishSteakMetalrough": "assets/prefabs/food/fish/materials/cooked_fish_steak_metalrough.tga",
-                    "CookedFishSteakNormal": "assets/prefabs/food/fish/materials/cooked_fish_steak_normal.tga",
-                    "RawFishSteakAlbedo": "assets/prefabs/food/fish/materials/raw_fish_steak_albedo.tga",
-                    "RawFishSteakAo": "assets/prefabs/food/fish/materials/raw_fish_steak_ao.tga",
-                    "RawFishSteakMetalrough": "assets/prefabs/food/fish/materials/raw_fish_steak_metalrough.tga",
-                    "RawFishSteakNormal": "assets/prefabs/food/fish/materials/raw_fish_steak_normal.tga"
-                  },
-                  "SubFolders": {}
-                }
-              }
-            },
-            "meat": {
-              "Name": "meat",
-              "Path": "assets/prefabs/food/meat",
-              "Files": {},
-              "SubFolders": {
-                "human meat": {
-                  "Name": "human meat",
-                  "Path": "assets/prefabs/food/meat/human meat",
+                "nucleus": {
+                  "Name": "nucleus",
+                  "Path": "assets/prefabs/food/honey/nucleus",
                   "Files": {},
                   "SubFolders": {
                     "materials": {
                       "Name": "materials",
-                      "Path": "assets/prefabs/food/meat/human meat/materials",
-                      "Files": {
-                        "HumanMeatFootColor": "assets/prefabs/food/meat/human meat/materials/human_meat_foot_color.tga",
-                        "HumanMeatFootCookedColor": "assets/prefabs/food/meat/human meat/materials/human_meat_foot_cooked_color.tga",
-                        "HumanMeatFootCookedSpecular": "assets/prefabs/food/meat/human meat/materials/human_meat_foot_cooked_specular.tga",
-                        "HumanMeatFootNormal": "assets/prefabs/food/meat/human meat/materials/human_meat_foot_normal.tga",
-                        "HumanMeatFootOcclusion": "assets/prefabs/food/meat/human meat/materials/human_meat_foot_occlusion.tga",
-                        "HumanMeatFootSpecular": "assets/prefabs/food/meat/human meat/materials/human_meat_foot_specular.tga",
-                        "HumanMeatLegCookedColor": "assets/prefabs/food/meat/human meat/materials/human_meat_leg_cooked_color.tga",
-                        "HumanMeatLegCookedSpecular": "assets/prefabs/food/meat/human meat/materials/human_meat_leg_cooked_specular.tga",
-                        "HumanMeatLegRawColor": "assets/prefabs/food/meat/human meat/materials/human_meat_leg_raw_color.tga",
-                        "HumanMeatLegRawNormal": "assets/prefabs/food/meat/human meat/materials/human_meat_leg_raw_normal.tga",
-                        "HumanMeatLegRawOcclusion": "assets/prefabs/food/meat/human meat/materials/human_meat_leg_raw_occlusion.tga",
-                        "HumanMeatLegRawSpecular": "assets/prefabs/food/meat/human meat/materials/human_meat_leg_raw_specular.tga",
-                        "HumanMeatRibcageCookedColor": "assets/prefabs/food/meat/human meat/materials/human_meat_ribcage_cooked_color.tga",
-                        "HumanMeatRibcageCookedSpecular": "assets/prefabs/food/meat/human meat/materials/human_meat_ribcage_cooked_specular.tga",
-                        "HumanMeatRibcageRawColor": "assets/prefabs/food/meat/human meat/materials/human_meat_ribcage_raw_color.tga",
-                        "HumanMeatRibcageRawNormal": "assets/prefabs/food/meat/human meat/materials/human_meat_ribcage_raw_normal.tga",
-                        "HumanMeatRibcageRawOcclusion": "assets/prefabs/food/meat/human meat/materials/human_meat_ribcage_raw_occlusion.tga",
-                        "HumanMeatRibcageRawSpecular": "assets/prefabs/food/meat/human meat/materials/human_meat_ribcage_raw_specular.tga"
-                      },
-                      "SubFolders": {}
+                      "Path": "assets/prefabs/food/honey/nucleus/materials",
+                      "Files": {},
+                      "SubFolders": {
+                        "textures": {
+                          "Name": "textures",
+                          "Path": "assets/prefabs/food/honey/nucleus/materials/textures",
+                          "Files": {
+                            "HivenucleiAlbedo": "assets/prefabs/food/honey/nucleus/materials/textures/hivenuclei_albedo.tga",
+                            "HivenucleiAo": "assets/prefabs/food/honey/nucleus/materials/textures/hivenuclei_ao.tga",
+                            "HivenucleiMetallic": "assets/prefabs/food/honey/nucleus/materials/textures/hivenuclei_metallic.tga",
+                            "HivenucleiNormal": "assets/prefabs/food/honey/nucleus/materials/textures/hivenuclei_normal.tga",
+                            "HivenucleiThickness": "assets/prefabs/food/honey/nucleus/materials/textures/hivenuclei_thickness.tga"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
                     }
                   }
                 },
-                "models": {
-                  "Name": "models",
-                  "Path": "assets/prefabs/food/meat/models",
+                "jar of honey": {
+                  "Name": "jar of honey",
+                  "Path": "assets/prefabs/food/honey/jar of honey",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/prefabs/food/honey/jar of honey/materials",
+                      "Files": {},
+                      "SubFolders": {
+                        "textures": {
+                          "Name": "textures",
+                          "Path": "assets/prefabs/food/honey/jar of honey/materials/textures",
+                          "Files": {
+                            "HoneyjarAlbedo": "assets/prefabs/food/honey/jar of honey/materials/textures/honeyjar_albedo.tga",
+                            "HoneyjarAo": "assets/prefabs/food/honey/jar of honey/materials/textures/honeyjar_ao.tga",
+                            "HoneyjarMetallic": "assets/prefabs/food/honey/jar of honey/materials/textures/honeyjar_metallic.tga",
+                            "HoneyjarNormal": "assets/prefabs/food/honey/jar of honey/materials/textures/honeyjar_normal.tga",
+                            "HoneyjarThickness": "assets/prefabs/food/honey/jar of honey/materials/textures/honeyjar_thickness.tga"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "pies": {
+              "Name": "pies",
+              "Path": "assets/prefabs/food/pies",
+              "Files": {},
+              "SubFolders": {
+                "textures": {
+                  "Name": "textures",
+                  "Path": "assets/prefabs/food/pies/textures",
                   "Files": {
-                    "MeatBearRibsRawColor": "assets/prefabs/food/meat/models/meat_bear_ribs_raw_color.tga",
-                    "MeatBoarLegRawColor": "assets/prefabs/food/meat/models/meat_boar_leg_raw_color.tga",
-                    "MeatBoarRibsRawColor": "assets/prefabs/food/meat/models/meat_boar_ribs_raw_color.tga",
-                    "MeatChickenBurntColor": "assets/prefabs/food/meat/models/meat_chicken_burnt_color.tga",
-                    "MeatChickenCookedColor": "assets/prefabs/food/meat/models/meat_chicken_cooked_color.tga",
-                    "MeatChickenNormal": "assets/prefabs/food/meat/models/meat_chicken_normal.tga",
-                    "MeatChickenRawColor": "assets/prefabs/food/meat/models/meat_chicken_raw_color.tga",
-                    "MeatChickenSpoiledColor": "assets/prefabs/food/meat/models/meat_chicken_spoiled_color.tga",
-                    "MeatDeerLegCookedColor": "assets/prefabs/food/meat/models/meat_deer_leg_cooked_color.tga",
-                    "MeatDeerLegCookedNormal": "assets/prefabs/food/meat/models/meat_deer_leg_cooked_normal.tga",
-                    "MeatDeerLegCookedSpecular": "assets/prefabs/food/meat/models/meat_deer_leg_cooked_specular.tga",
-                    "MeatDeerLegRawColor": "assets/prefabs/food/meat/models/meat_deer_leg_raw_color.tga",
-                    "MeatDeerLegRawNormal": "assets/prefabs/food/meat/models/meat_deer_leg_raw_normal.tga",
-                    "MeatDeerLegRawSpecular": "assets/prefabs/food/meat/models/meat_deer_leg_raw_specular.tga",
-                    "MeatDeerRibsRawColor": "assets/prefabs/food/meat/models/meat_deer_ribs_raw_color.tga",
-                    "MeatRabbitCookedColor": "assets/prefabs/food/meat/models/meat_rabbit_cooked_color.tga",
-                    "MeatRabbitCookedOcclusion": "assets/prefabs/food/meat/models/meat_rabbit_cooked_occlusion.tga",
-                    "MeatRabbitCookedSpecular": "assets/prefabs/food/meat/models/meat_rabbit_cooked_specular.tga",
-                    "MeatRabbitNormal": "assets/prefabs/food/meat/models/meat_rabbit_normal.tga",
-                    "MeatRabbitRawColor": "assets/prefabs/food/meat/models/meat_rabbit_raw_color.tga",
-                    "MeatRabbitRawSpecular": "assets/prefabs/food/meat/models/meat_rabbit_raw_specular.tga",
-                    "MeatRibsCookedColor": "assets/prefabs/food/meat/models/meat_ribs_cooked_color.tga",
-                    "MeatRibsCookedNormal": "assets/prefabs/food/meat/models/meat_ribs_cooked_normal.tga",
-                    "MeatRibsCookedSpecular": "assets/prefabs/food/meat/models/meat_ribs_cooked_specular.tga",
-                    "MeatRibsNormal": "assets/prefabs/food/meat/models/meat_ribs_normal.tga",
-                    "MeatRibsOcclusion": "assets/prefabs/food/meat/models/meat_ribs_occlusion.tga",
-                    "MeatRibsSpecular": "assets/prefabs/food/meat/models/meat_ribs_specular.tga",
-                    "MeatWolfRibsRawColor": "assets/prefabs/food/meat/models/meat_wolf_ribs_raw_color.tga",
-                    "WMeatDifBurnt": "assets/prefabs/food/meat/models/w_meat_dif_burnt.tga",
-                    "WMeatDifCooked": "assets/prefabs/food/meat/models/w_meat_dif_cooked.tga",
-                    "WMeatDifRaw": "assets/prefabs/food/meat/models/w_meat_dif_raw.tga",
-                    "WMeatDifSpoiled": "assets/prefabs/food/meat/models/w_meat_dif_spoiled.tga",
-                    "WMeatNrmBurnt": "assets/prefabs/food/meat/models/w_meat_nrm_burnt.tga",
-                    "WMeatNrmCooked": "assets/prefabs/food/meat/models/w_meat_nrm_cooked.tga",
-                    "WMeatNrmRaw": "assets/prefabs/food/meat/models/w_meat_nrm_raw.tga",
-                    "WMeatNrmSpoiled": "assets/prefabs/food/meat/models/w_meat_nrm_spoiled.tga"
+                    "PieCrustAlbedo": "assets/prefabs/food/pies/textures/pie_crust_albedo.tga",
+                    "PieCrustAo": "assets/prefabs/food/pies/textures/pie_crust_ao.tga",
+                    "PieCrustMetallic": "assets/prefabs/food/pies/textures/pie_crust_metallic.tga",
+                    "PieCrustNormal": "assets/prefabs/food/pies/textures/pie_crust_normal.tga",
+                    "PieCrustRawAlbedo": "assets/prefabs/food/pies/textures/pie_crust_raw_albedo.tga",
+                    "PieCrustRawMetalrough": "assets/prefabs/food/pies/textures/pie_crust_raw_metalrough.tga",
+                    "PieCrustRawNormal": "assets/prefabs/food/pies/textures/pie_crust_raw_normal.tga",
+                    "PieFryingPanAlbedo": "assets/prefabs/food/pies/textures/pie_frying_pan_albedo.tga",
+                    "PieFryingPanAo": "assets/prefabs/food/pies/textures/pie_frying_pan_ao.tga",
+                    "PieFryingPanMask": "assets/prefabs/food/pies/textures/pie_frying_pan_mask.tga",
+                    "PieFryingPanMetallic": "assets/prefabs/food/pies/textures/pie_frying_pan_metallic.tga",
+                    "PieFryingPanNormal": "assets/prefabs/food/pies/textures/pie_frying_pan_normal.tga"
                   },
                   "SubFolders": {}
                 }
@@ -26818,6 +27266,48 @@
                 }
               }
             },
+            "orchid": {
+              "Name": "orchid",
+              "Path": "assets/prefabs/plants/orchid",
+              "Files": {},
+              "SubFolders": {
+                "textures": {
+                  "Name": "textures",
+                  "Path": "assets/prefabs/plants/orchid/textures",
+                  "Files": {
+                    "OrchidDiff": "assets/prefabs/plants/orchid/textures/orchid_diff.tga",
+                    "OrchidNrm": "assets/prefabs/plants/orchid/textures/orchid_nrm.tga",
+                    "OrchidSpec": "assets/prefabs/plants/orchid/textures/orchid_spec.tga"
+                  },
+                  "SubFolders": {}
+                },
+                "billboards": {
+                  "Name": "billboards",
+                  "Path": "assets/prefabs/plants/orchid/billboards",
+                  "Files": {
+                    "OrchidSkin0SeedBillBoardDiff": "assets/prefabs/plants/orchid/billboards/orchid_skin_0_seed_billboard_diff.tga",
+                    "OrchidSkin0SeedBillBoardNrm": "assets/prefabs/plants/orchid/billboards/orchid_skin_0_seed_billboard_nrm.tga",
+                    "OrchidSkin0SeedBillBoardSpec": "assets/prefabs/plants/orchid/billboards/orchid_skin_0_seed_billboard_spec.tga",
+                    "OrchidSkin1SeedlingBillBoardDiff": "assets/prefabs/plants/orchid/billboards/orchid_skin_1_seedling_billboard_diff.tga",
+                    "OrchidSkin1SeedlingBillBoardNrm": "assets/prefabs/plants/orchid/billboards/orchid_skin_1_seedling_billboard_nrm.tga",
+                    "OrchidSkin1SeedlingBillBoardSpec": "assets/prefabs/plants/orchid/billboards/orchid_skin_1_seedling_billboard_spec.tga",
+                    "OrchidSkin2SaplingBillBoardDiff": "assets/prefabs/plants/orchid/billboards/orchid_skin_2_sapling_billboard_diff.tga",
+                    "OrchidSkin2SaplingBillBoardNrm": "assets/prefabs/plants/orchid/billboards/orchid_skin_2_sapling_billboard_nrm.tga",
+                    "OrchidSkin2SaplingBillBoardSpec": "assets/prefabs/plants/orchid/billboards/orchid_skin_2_sapling_billboard_spec.tga",
+                    "OrchidSkin3MatureBillBoardDiff": "assets/prefabs/plants/orchid/billboards/orchid_skin_3_mature_billboard_diff.tga",
+                    "OrchidSkin3MatureBillBoardNrm": "assets/prefabs/plants/orchid/billboards/orchid_skin_3_mature_billboard_nrm.tga",
+                    "OrchidSkin3MatureBillBoardSpec": "assets/prefabs/plants/orchid/billboards/orchid_skin_3_mature_billboard_spec.tga",
+                    "OrchidSkin4FruitingBillBoardDiff": "assets/prefabs/plants/orchid/billboards/orchid_skin_4_fruiting_billboard_diff.tga",
+                    "OrchidSkin4FruitingBillBoardNrm": "assets/prefabs/plants/orchid/billboards/orchid_skin_4_fruiting_billboard_nrm.tga",
+                    "OrchidSkin4FruitingBillBoardSpec": "assets/prefabs/plants/orchid/billboards/orchid_skin_4_fruiting_billboard_spec.tga",
+                    "OrchidSkin5DyingBillBoardDiff": "assets/prefabs/plants/orchid/billboards/orchid_skin_5_dying_billboard_diff.tga",
+                    "OrchidSkin5DyingBillBoardNrm": "assets/prefabs/plants/orchid/billboards/orchid_skin_5_dying_billboard_nrm.tga",
+                    "OrchidSkin5DyingBillBoardSpec": "assets/prefabs/plants/orchid/billboards/orchid_skin_5_dying_billboard_spec.tga"
+                  },
+                  "SubFolders": {}
+                }
+              }
+            },
             "potato": {
               "Name": "potato",
               "Path": "assets/prefabs/plants/potato",
@@ -26853,6 +27343,49 @@
                 }
               }
             },
+            "rose": {
+              "Name": "rose",
+              "Path": "assets/prefabs/plants/rose",
+              "Files": {},
+              "SubFolders": {
+                "textures": {
+                  "Name": "textures",
+                  "Path": "assets/prefabs/plants/rose/textures",
+                  "Files": {
+                    "RoseDiff": "assets/prefabs/plants/rose/textures/rose_diff.tga",
+                    "RoseNrm": "assets/prefabs/plants/rose/textures/rose_nrm.tga",
+                    "RoseSpec": "assets/prefabs/plants/rose/textures/rose_spec.tga",
+                    "RoseTint": "assets/prefabs/plants/rose/textures/rose_tint.tga"
+                  },
+                  "SubFolders": {}
+                },
+                "billboards": {
+                  "Name": "billboards",
+                  "Path": "assets/prefabs/plants/rose/billboards",
+                  "Files": {
+                    "RoseSkin0SeedBillBoardDiff": "assets/prefabs/plants/rose/billboards/rose_skin_0_seed_billboard_diff.tga",
+                    "RoseSkin0SeedBillBoardNrm": "assets/prefabs/plants/rose/billboards/rose_skin_0_seed_billboard_nrm.tga",
+                    "RoseSkin0SeedBillBoardSpec": "assets/prefabs/plants/rose/billboards/rose_skin_0_seed_billboard_spec.tga",
+                    "RoseSkin1SeedlingBillBoardDiff": "assets/prefabs/plants/rose/billboards/rose_skin_1_seedling_billboard_diff.tga",
+                    "RoseSkin1SeedlingBillBoardNrm": "assets/prefabs/plants/rose/billboards/rose_skin_1_seedling_billboard_nrm.tga",
+                    "RoseSkin1SeedlingBillBoardSpec": "assets/prefabs/plants/rose/billboards/rose_skin_1_seedling_billboard_spec.tga",
+                    "RoseSkin2SaplingBillBoardDiff": "assets/prefabs/plants/rose/billboards/rose_skin_2_sapling_billboard_diff.tga",
+                    "RoseSkin2SaplingBillBoardNrm": "assets/prefabs/plants/rose/billboards/rose_skin_2_sapling_billboard_nrm.tga",
+                    "RoseSkin2SaplingBillBoardSpec": "assets/prefabs/plants/rose/billboards/rose_skin_2_sapling_billboard_spec.tga",
+                    "RoseSkin3MaturingBillBoardDiff": "assets/prefabs/plants/rose/billboards/rose_skin_3_maturing_billboard_diff.tga",
+                    "RoseSkin3MaturingBillBoardNrm": "assets/prefabs/plants/rose/billboards/rose_skin_3_maturing_billboard_nrm.tga",
+                    "RoseSkin3MaturingBillBoardSpec": "assets/prefabs/plants/rose/billboards/rose_skin_3_maturing_billboard_spec.tga",
+                    "RoseSkin4FruitingBillBoardDiff": "assets/prefabs/plants/rose/billboards/rose_skin_4_fruiting_billboard_diff.tga",
+                    "RoseSkin4FruitingBillBoardNrm": "assets/prefabs/plants/rose/billboards/rose_skin_4_fruiting_billboard_nrm.tga",
+                    "RoseSkin4FruitingBillBoardSpec": "assets/prefabs/plants/rose/billboards/rose_skin_4_fruiting_billboard_spec.tga",
+                    "RoseSkin5DyingBillBoardDiff": "assets/prefabs/plants/rose/billboards/rose_skin_5_dying_billboard_diff.tga",
+                    "RoseSkin5DyingBillBoardNrm": "assets/prefabs/plants/rose/billboards/rose_skin_5_dying_billboard_nrm.tga",
+                    "RoseSkin5DyingBillBoardSpec": "assets/prefabs/plants/rose/billboards/rose_skin_5_dying_billboard_spec.tga"
+                  },
+                  "SubFolders": {}
+                }
+              }
+            },
             "seedsackmaterial": {
               "Name": "seedsackmaterial",
               "Path": "assets/prefabs/plants/seedsackmaterial",
@@ -26862,10 +27395,57 @@
                   "Name": "textures",
                   "Path": "assets/prefabs/plants/seedsackmaterial/textures",
                   "Files": {
+                    "Seedsackcombined002Albedo": "assets/prefabs/plants/seedsackmaterial/textures/seedsackcombined_002_albedo.psd",
+                    "Seedsackcombined002Ao": "assets/prefabs/plants/seedsackmaterial/textures/seedsackcombined_002_ao.psd",
+                    "Seedsackcombined002Metallic": "assets/prefabs/plants/seedsackmaterial/textures/seedsackcombined_002_metallic.tga",
+                    "Seedsackcombined002Normal": "assets/prefabs/plants/seedsackmaterial/textures/seedsackcombined_002_normal.psd",
                     "SeedsackcombinedAlbedo": "assets/prefabs/plants/seedsackmaterial/textures/seedsackcombined_albedo.tga",
                     "SeedsackcombinedAo": "assets/prefabs/plants/seedsackmaterial/textures/seedsackcombined_ao.tga",
                     "SeedsackcombinedMetallic": "assets/prefabs/plants/seedsackmaterial/textures/seedsackcombined_metallic.tga",
                     "SeedsackcombinedNormal": "assets/prefabs/plants/seedsackmaterial/textures/seedsackcombined_normal.tga"
+                  },
+                  "SubFolders": {}
+                }
+              }
+            },
+            "sunflower": {
+              "Name": "sunflower",
+              "Path": "assets/prefabs/plants/sunflower",
+              "Files": {},
+              "SubFolders": {
+                "textures": {
+                  "Name": "textures",
+                  "Path": "assets/prefabs/plants/sunflower/textures",
+                  "Files": {
+                    "SunflowerAo": "assets/prefabs/plants/sunflower/textures/sunflower_ao.tga",
+                    "SunflowerDiff": "assets/prefabs/plants/sunflower/textures/sunflower_diff.tga",
+                    "SunflowerNrm": "assets/prefabs/plants/sunflower/textures/sunflower_nrm.tga",
+                    "SunflowerSpec": "assets/prefabs/plants/sunflower/textures/sunflower_spec.tga"
+                  },
+                  "SubFolders": {}
+                },
+                "billboards": {
+                  "Name": "billboards",
+                  "Path": "assets/prefabs/plants/sunflower/billboards",
+                  "Files": {
+                    "SunflowerSkin0SeedBillBoardDiff": "assets/prefabs/plants/sunflower/billboards/sunflower_skin_0_seed_billboard_diff.tga",
+                    "SunflowerSkin0SeedBillBoardNrm": "assets/prefabs/plants/sunflower/billboards/sunflower_skin_0_seed_billboard_nrm.tga",
+                    "SunflowerSkin0SeedBillBoardSpec": "assets/prefabs/plants/sunflower/billboards/sunflower_skin_0_seed_billboard_spec.tga",
+                    "SunflowerSkin1SeedlingBillBoardDiff": "assets/prefabs/plants/sunflower/billboards/sunflower_skin_1_seedling_billboard_diff.tga",
+                    "SunflowerSkin1SeedlingBillBoardNrm": "assets/prefabs/plants/sunflower/billboards/sunflower_skin_1_seedling_billboard_nrm.tga",
+                    "SunflowerSkin1SeedlingBillBoardSpec": "assets/prefabs/plants/sunflower/billboards/sunflower_skin_1_seedling_billboard_spec.tga",
+                    "SunflowerSkin2SaplingBillBoardDiff": "assets/prefabs/plants/sunflower/billboards/sunflower_skin_2_sapling_billboard_diff.tga",
+                    "SunflowerSkin2SaplingBillBoardNrm": "assets/prefabs/plants/sunflower/billboards/sunflower_skin_2_sapling_billboard_nrm.tga",
+                    "SunflowerSkin2SaplingBillBoardSpec": "assets/prefabs/plants/sunflower/billboards/sunflower_skin_2_sapling_billboard_spec.tga",
+                    "SunflowerSkin3MatureBillBoardDiff": "assets/prefabs/plants/sunflower/billboards/sunflower_skin_3_mature_billboard_diff.tga",
+                    "SunflowerSkin3MatureBillBoardNrm": "assets/prefabs/plants/sunflower/billboards/sunflower_skin_3_mature_billboard_nrm.tga",
+                    "SunflowerSkin3MatureBillBoardSpec": "assets/prefabs/plants/sunflower/billboards/sunflower_skin_3_mature_billboard_spec.tga",
+                    "SunflowerSkin4FruitingBillBoardDiff": "assets/prefabs/plants/sunflower/billboards/sunflower_skin_4_fruiting_billboard_diff.tga",
+                    "SunflowerSkin4FruitingBillBoardNrm": "assets/prefabs/plants/sunflower/billboards/sunflower_skin_4_fruiting_billboard_nrm.tga",
+                    "SunflowerSkin4FruitingBillBoardSpec": "assets/prefabs/plants/sunflower/billboards/sunflower_skin_4_fruiting_billboard_spec.tga",
+                    "SunflowerSkin5DyingBillBoardDiff": "assets/prefabs/plants/sunflower/billboards/sunflower_skin_5_dying_billboard_diff.tga",
+                    "SunflowerSkin5DyingBillBoardNrm": "assets/prefabs/plants/sunflower/billboards/sunflower_skin_5_dying_billboard_nrm.tga",
+                    "SunflowerSkin5DyingBillBoardSpec": "assets/prefabs/plants/sunflower/billboards/sunflower_skin_5_dying_billboard_spec.tga"
                   },
                   "SubFolders": {}
                 }
@@ -26881,6 +27461,41 @@
                   "Path": "assets/prefabs/plants/underwater vines/materials",
                   "Files": {
                     "UnderWaterPlantsDiff": "assets/prefabs/plants/underwater vines/materials/underwater_plants_diff.tga"
+                  },
+                  "SubFolders": {}
+                }
+              }
+            },
+            "wheat": {
+              "Name": "wheat",
+              "Path": "assets/prefabs/plants/wheat",
+              "Files": {},
+              "SubFolders": {
+                "textures": {
+                  "Name": "textures",
+                  "Path": "assets/prefabs/plants/wheat/textures",
+                  "Files": {
+                    "WheatDiff": "assets/prefabs/plants/wheat/textures/wheat_diff.tga",
+                    "WheatNrm": "assets/prefabs/plants/wheat/textures/wheat_nrm.tga",
+                    "WheatSkin0SeedBillBoardDiff": "assets/prefabs/plants/wheat/textures/wheat.skin.0.seed_billboard_diff.tga",
+                    "WheatSkin0SeedBillBoardNrm": "assets/prefabs/plants/wheat/textures/wheat.skin.0.seed_billboard_nrm.tga",
+                    "WheatSkin0SeedBillBoardSpec": "assets/prefabs/plants/wheat/textures/wheat.skin.0.seed_billboard_spec.tga",
+                    "WheatSkin1SeedlingBillBoardDiff": "assets/prefabs/plants/wheat/textures/wheat.skin.1.seedling_billboard_diff.tga",
+                    "WheatSkin1SeedlingBillBoardNrm": "assets/prefabs/plants/wheat/textures/wheat.skin.1.seedling_billboard_nrm.tga",
+                    "WheatSkin1SeedlingBillBoardSpec": "assets/prefabs/plants/wheat/textures/wheat.skin.1.seedling_billboard_spec.tga",
+                    "WheatSkin2SaplingBillBoardDiff": "assets/prefabs/plants/wheat/textures/wheat.skin.2.sapling_billboard_diff.tga",
+                    "WheatSkin2SaplingBillBoardNrm": "assets/prefabs/plants/wheat/textures/wheat.skin.2.sapling_billboard_nrm.tga",
+                    "WheatSkin2SaplingBillBoardSpec": "assets/prefabs/plants/wheat/textures/wheat.skin.2.sapling_billboard_spec.tga",
+                    "WheatSkin3MatureBillBoardDiff": "assets/prefabs/plants/wheat/textures/wheat.skin.3.mature_billboard_diff.tga",
+                    "WheatSkin3MatureBillBoardNrm": "assets/prefabs/plants/wheat/textures/wheat.skin.3.mature_billboard_nrm.tga",
+                    "WheatSkin3MatureBillBoardSpec": "assets/prefabs/plants/wheat/textures/wheat.skin.3.mature_billboard_spec.tga",
+                    "WheatSkin4FrutingBillBoardDiff": "assets/prefabs/plants/wheat/textures/wheat.skin.4.fruting_billboard_diff.tga",
+                    "WheatSkin4FrutingBillBoardNrm": "assets/prefabs/plants/wheat/textures/wheat.skin.4.fruting_billboard_nrm.tga",
+                    "WheatSkin4FrutingBillBoardSpec": "assets/prefabs/plants/wheat/textures/wheat.skin.4.fruting_billboard_spec.tga",
+                    "WheatSkin5DyingBillBoardDiff": "assets/prefabs/plants/wheat/textures/wheat.skin.5.dying_billboard_diff.tga",
+                    "WheatSkin5DyingBillBoardNrm": "assets/prefabs/plants/wheat/textures/wheat.skin.5.dying_billboard_nrm.tga",
+                    "WheatSkin5DyingBillBoardSpec": "assets/prefabs/plants/wheat/textures/wheat.skin.5.dying_billboard_spec.tga",
+                    "WheatSpec": "assets/prefabs/plants/wheat/textures/wheat_spec.tga"
                   },
                   "SubFolders": {}
                 }
@@ -29641,7 +30256,35 @@
                     "BodyNormal": "assets/rust.ai/agents/chicken/model/body_normal.tga",
                     "BodySpecular": "assets/rust.ai/agents/chicken/model/body_specular.tga"
                   },
-                  "SubFolders": {}
+                  "SubFolders": {
+                    "chicken_update": {
+                      "Name": "chicken_update",
+                      "Path": "assets/rust.ai/agents/chicken/model/chicken_update",
+                      "Files": {},
+                      "SubFolders": {
+                        "materials": {
+                          "Name": "materials",
+                          "Path": "assets/rust.ai/agents/chicken/model/chicken_update/materials",
+                          "Files": {},
+                          "SubFolders": {
+                            "textures": {
+                              "Name": "textures",
+                              "Path": "assets/rust.ai/agents/chicken/model/chicken_update/materials/textures",
+                              "Files": {
+                                "ChickenAo": "assets/rust.ai/agents/chicken/model/chicken_update/materials/textures/chicken_ao.png",
+                                "ChickenGreyAlbedo": "assets/rust.ai/agents/chicken/model/chicken_update/materials/textures/chicken_grey_albedo.png",
+                                "ChickenNormal": "assets/rust.ai/agents/chicken/model/chicken_update/materials/textures/chicken_normal.png",
+                                "ChickenOrangeAlbedo": "assets/rust.ai/agents/chicken/model/chicken_update/materials/textures/chicken_orange_albedo.png",
+                                "ChickenSmoothness": "assets/rust.ai/agents/chicken/model/chicken_update/materials/textures/chicken_smoothness.png",
+                                "ChickenWhiteAlbedo": "assets/rust.ai/agents/chicken/model/chicken_update/materials/textures/chicken_white_albedo.png"
+                              },
+                              "SubFolders": {}
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
                 },
                 "footsteps": {
                   "Name": "footsteps",

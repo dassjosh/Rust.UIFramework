@@ -344,6 +344,14 @@ public static class UiMaterials
 	}
 	public static class Scripts
 	{
+		public static class Debugging
+		{
+			public static class Fastdebugdraw
+			{
+				public const string Fastdebugline = "assets/scripts/debugging/fastdebugdraw/fastdebugline.mat";
+				public const string FastdebuglineZTested = "assets/scripts/debugging/fastdebugdraw/fastdebugline_ztested.mat";
+			}
+		}
 		public static class ImageEffects
 		{
 			public static class GlowOutline
