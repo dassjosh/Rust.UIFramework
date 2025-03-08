@@ -16,12 +16,12 @@ internal class AdvancedProtection(PluginId pluginId, string method, float protec
         return writer.ToString();
     }
 
-    public bool TryValidateProtection(BasePlayer player, UiCommandTokenizer tokenizer, out UiCommandTokenizer protectedTokens)
+    public bool TryValidateProtection(BasePlayer player, ref UiCommandTokenizer tokenizer)
     {
         int value = tokenizer.GetLast().ToIntFromBase64();
         if (!_protectionCache.ContainsKey(value))
         {
-            protectedTokens = default;
+            tokenizer = default;
             Singleton<UiCommands>.Instance.OnProtectionValidationFailed(pluginId, player, method);
             return false;
         }
@@ -30,8 +30,7 @@ internal class AdvancedProtection(PluginId pluginId, string method, float protec
         {
             _protectionCache.Remove(value);
         }
-
-        protectedTokens = tokenizer;
+        
         return true;
     }
     

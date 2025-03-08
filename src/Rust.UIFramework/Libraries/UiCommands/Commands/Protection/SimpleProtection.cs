@@ -26,16 +26,15 @@ internal class SimpleProtection : ICommandProtection
         return writer.ToString();
     }
 
-    public bool TryValidateProtection(BasePlayer player, UiCommandTokenizer tokenizer, out UiCommandTokenizer protectedTokens)
+    public bool TryValidateProtection(BasePlayer player, ref UiCommandTokenizer tokenizer)
     {
         if (!tokenizer.GetLast().SequenceEqual(_protectionKey))
         {
-            protectedTokens = default;
+            tokenizer = default;
             Singleton<UiCommands>.Instance.OnProtectionValidationFailed(_pluginId, player, _method);
             return false;
         }
-
-        protectedTokens = tokenizer;
+        
         return true;
     }
 }

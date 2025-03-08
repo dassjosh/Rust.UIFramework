@@ -23,12 +23,12 @@ internal class ExtremeProtection(PluginId pluginId, string method, float protect
         return sb.ToStringAndFree();
     }
 
-    public bool TryValidateProtection(BasePlayer player, UiCommandTokenizer tokenizer, out UiCommandTokenizer protectedTokens)
+    public bool TryValidateProtection(BasePlayer player, ref UiCommandTokenizer tokenizer)
     {
         long protectionKey = tokenizer.GetLast().ToLongFromBase64();
         if (!_protectedArgs.TryGetValue(protectionKey, out string args))
         {
-            protectedTokens = default;
+            tokenizer = default;
             Singleton<UiCommands>.Instance.OnProtectionValidationFailed(pluginId, player, method);
             return false;
         }
@@ -38,8 +38,8 @@ internal class ExtremeProtection(PluginId pluginId, string method, float protect
             _protectedArgs.Remove(protectionKey);
         }
 
-        protectedTokens = new UiCommandTokenizer(args);
-        protectedTokens.SkipNext(2);  //Skip Command Prefix & Command ID
+        tokenizer = new UiCommandTokenizer(args);
+        tokenizer.SkipNext(2);  //Skip Command Prefix & Command ID
         return true;
     }
 
