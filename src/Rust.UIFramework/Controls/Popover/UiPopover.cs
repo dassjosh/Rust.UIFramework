@@ -7,7 +7,7 @@ namespace Oxide.Ext.UiFramework.Controls;
 
 public class UiPopover : BasePopoverControl
 {
-    public static UiPopover Create(string parentName, Vector2Int size, UiColor backgroundColor, PopoverPosition position = PopoverPosition.Bottom, string menuSprite = UiSprites.Content.Ui.UiBackgroundRounded)
+    public static UiPopover Create(string parentName, Vector2 size, UiColor backgroundColor, PopoverPosition position = PopoverPosition.Bottom, string menuSprite = UiSprites.Content.Ui.UiBackgroundRounded)
     {
         UiPopover control = CreateControl<UiPopover>();
         CreateBuilder(control, parentName, size, backgroundColor, position, menuSprite);

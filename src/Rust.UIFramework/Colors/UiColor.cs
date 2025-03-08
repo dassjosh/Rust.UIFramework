@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Diagnostics.Contracts;
 using System.Globalization;
-using Newtonsoft.Json;
 using Oxide.Ext.UiFramework.Exceptions;
 using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Colors;
 
-[JsonConverter(typeof(UiColorConverter))]
+//[JsonConverter(typeof(UiColorConverter))]
 public readonly struct UiColor : IEquatable<UiColor>
 {
     #region Fields

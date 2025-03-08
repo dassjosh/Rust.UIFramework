@@ -4,7 +4,7 @@ using Oxide.Core.Plugins;
 using Oxide.Ext.UiFramework.Constants;
 using Oxide.Ext.UiFramework.Types;
 
-namespace Oxide.Ext.UiFramework.Libraries.Themes;
+namespace Oxide.Ext.UiFramework.Libraries;
 
 public class ThemeManager : BaseUiFrameworkLibrary, ISingleton
 {

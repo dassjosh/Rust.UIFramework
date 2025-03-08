@@ -13,6 +13,14 @@ public class UiButton : BaseUiComponent, IImageType, ISprite, IMaterial, IFadeIn
     public readonly ButtonComponent Button = new();
     internal override CoreComponent Component => Button;
 
+    public static UiButton CreateCommand(UiColor color, string command)
+    {
+        UiButton button = CreateBase<UiButton>();
+        button.Button.Color = color;
+        button.Button.Command = command;
+        return button;
+    }
+    
     public static UiButton CreateCommand(in UiPosition pos, in UiOffset offset, UiColor color, string command)
     {
         UiButton button = CreateBase<UiButton>(pos, offset);

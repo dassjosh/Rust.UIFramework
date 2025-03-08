@@ -28,8 +28,8 @@ public class UiCalenderPicker : BasePopoverControl
     private const int HorizontalButtonPadding = 5;
     private const int VerticalButtonPadding = 3;
 
-    private int _width;
-    private int _height;
+    private float _width;
+    private float _height;
 
     private DateTime _firstOfTheMonth;
     private DateTime _previousYear;
@@ -43,10 +43,10 @@ public class UiCalenderPicker : BasePopoverControl
     private int _numRows;
     private int _maxDays;
 
-    private int _textHeight;
-    private int _textWidth1;
-    private int _textWidth2;
-    private int _textWidth3;
+    private float _textHeight;
+    private float _textWidth1;
+    private float _textWidth2;
+    private float _textWidth3;
         
     private string _yearText;
     private string _monthLabelText;
@@ -62,7 +62,7 @@ public class UiCalenderPicker : BasePopoverControl
         control.CalculateDates(date);
         control.CalculateSize(fontSize);
             
-        CreateBuilder(control, reference.Parent, new Vector2Int(control._width + MenuPadding * 2, control._height + MenuPadding * 2), backgroundColor, position, menuSprite);
+        CreateBuilder(control, reference.Parent, new Vector2(control._width + MenuPadding * 2, control._height + MenuPadding * 2), backgroundColor, position, menuSprite);
         UiBuilder builder = control.Builder;
             
         control.CreateHeader(builder, fontSize, textColor, buttonColor, changeCommand, buttonSprite);

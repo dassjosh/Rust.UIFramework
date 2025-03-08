@@ -24,12 +24,12 @@ public class UiDatePickerMenu : BasePopoverControl
     private string _monthValueText;
     private string _dayText;
 
-    private int _yearWidth;
-    private int _monthWidth;
-    private int _dayWidth;
+    private float _yearWidth;
+    private float _monthWidth;
+    private float _dayWidth;
 
-    private int _width;
-    private int _height;
+    private float _width;
+    private float _height;
 
     public static UiDatePickerMenu Create(in UiReference parent, DateTime date, int fontSize, UiColor textColor, UiColor backgroundColor, string changeCommand, DatePickerDisplayMode displayMode, DatePickerDisplayOrder order, PopoverPosition position, string menuSprite)
     {
@@ -38,7 +38,7 @@ public class UiDatePickerMenu : BasePopoverControl
         control._width = control.PopulateVariables(displayMode, date, fontSize);
         control._height = UiHelpers.TextOffsetHeight(fontSize) * 3;
 
-        Vector2Int size = new(control._width + MenuPadding * 2 + 1, control._height + MenuPadding * 2);
+        Vector2 size = new(control._width + MenuPadding * 2 + 1, control._height + MenuPadding * 2);
         CreateBuilder(control, parent.Parent, size, backgroundColor, position, menuSprite);
 
         UiBuilder builder = control.Builder;
@@ -48,9 +48,9 @@ public class UiDatePickerMenu : BasePopoverControl
         return control;
     }
 
-    public int PopulateVariables(DatePickerDisplayMode displayMode, DateTime date, int fontSize)
+    public float PopulateVariables(DatePickerDisplayMode displayMode, DateTime date, int fontSize)
     {
-        int width = 0;
+        float width = 0;
         if (HasDatePickerDisplayModeFlag(displayMode, DatePickerDisplayMode.Year))
         {
             _yearText = StringCache<int>.ToString(date.Year);

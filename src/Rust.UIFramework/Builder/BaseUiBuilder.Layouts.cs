@@ -17,20 +17,12 @@ public abstract partial class BaseUiBuilder
         return new UiTuple<UiSection, UiGridLayout>(section, layout);
     }
     
-    public UiTuple<UiSection, UiHorizontalLayout> HorizontalLayout(in UiReference reference, in UiPosition pos, in UiOffset offset, int numCols, float colSpacing = 0f, float rowPadding = 0f, in UiPadding? padding = null)
+    public UiTuple<UiSection, UiDirectionalLayout> DirectionalLayout(in UiReference reference, in UiPosition pos, in UiOffset offset, int numElements, LayoutDirection direction, float directionalSpacing = 0f, float nonDirectionalSpacing = 0f, in UiPadding? padding = null)
     {
         UiSection section = Section(reference, pos, offset);
-        UiHorizontalLayout layout = UiHorizontalLayout.Create(section, numCols, colSpacing, rowPadding, padding);
+        UiDirectionalLayout layout = UiDirectionalLayout.Create(section, numElements, direction, directionalSpacing, nonDirectionalSpacing, padding);
         AddLayout(layout);
-        return new UiTuple<UiSection, UiHorizontalLayout>(section, layout);
-    }
-    
-    public UiTuple<UiSection, UiVerticalLayout> VerticalLayout(in UiReference reference, in UiPosition pos, in UiOffset offset, int numRows, float rowSpacing = 0f, float colPadding = 0f, in UiPadding? padding = null)
-    {
-        UiSection section = Section(reference, pos, offset);
-        UiVerticalLayout layout = UiVerticalLayout.Create(section, numRows, rowSpacing, colPadding, padding);
-        AddLayout(layout);
-        return new UiTuple<UiSection, UiVerticalLayout>(section, layout);
+        return new UiTuple<UiSection, UiDirectionalLayout>(section, layout);
     }
     #endregion
 }

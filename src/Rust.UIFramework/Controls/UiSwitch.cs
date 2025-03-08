@@ -13,7 +13,7 @@ public class UiSwitch : BaseUiControl
     public UiButton Button;
     public UiIcon Icon;
         
-    public static UiSwitch CreateCheckbox(BaseUiBuilder builder, in UiReference parent, in UiPosition pos, in UiOffset offset, bool isChecked, string command, UiColor? checkedColor, UiColor? uncheckedColor, UiColor? buttonColor)
+    public static UiSwitch CreateSwitch(BaseUiBuilder builder, in UiReference parent, in UiPosition pos, in UiOffset offset, bool isChecked, string command, UiColor? checkedColor, UiColor? uncheckedColor, UiColor? buttonColor)
     {
         UiSwitch control = CreateControl<UiSwitch>();
         control.IsChecked = isChecked;

@@ -1,4 +1,5 @@
 ﻿using Oxide.Ext.UiFramework.Extensions;
+using Oxide.Ext.UiFramework.Helpers;
 using Oxide.Ext.UiFramework.Libraries.UiCommands;
 #if BENCHMARKS
 using BenchmarkDotNet.Configs;
@@ -24,13 +25,7 @@ class Program
 
 
 #endif
+        var a = UiHelpers.CalculateMaxPage(1730, 24);
 
-        UiCommandTokenizer tokenizer = new UiCommandTokenizer("UIF_EXT_C 26 c KqRqRTEhrXo=");
-        tokenizer.GetNext();
-        tokenizer.GetNext();
-        var c = tokenizer.GetLast();
-        var e = c.ToString();
-        var d = c.ToLongFromBase64();
-        
     }
 }

@@ -13,7 +13,6 @@ using Oxide.Ext.UiFramework.Types;
 namespace Oxide.Ext.UiFramework.Libraries;
 
 internal readonly record struct DownloadRequest(PluginId PluginId, string Name, string Url);
-
 internal readonly record struct CompletedDownload(DownloadRequest Request, byte[] Data);
 
 /// <summary>

@@ -27,11 +27,11 @@ public class UiTimePickerMenu : BasePopoverControl
             
         int numPickers = GetPickerCount(displayMode, clockMode);
 
-        int segmentWidth = UiHelpers.TextOffsetWidth(2, fontSize);
-        int width = menuPadding * 2 + (numPickers - 2) * itemPadding + numPickers * segmentWidth;
-        int height = UiHelpers.TextOffsetHeight(fontSize) * 3;
+        float segmentWidth = UiHelpers.TextOffsetWidth(2, fontSize);
+        float width = menuPadding * 2 + (numPickers - 2) * itemPadding + numPickers * segmentWidth;
+        float height = UiHelpers.TextOffsetHeight(fontSize) * 3;
 
-        Vector2Int size = new(width + menuPadding * 2 + 1, height + menuPadding * 2);
+        Vector2 size = new(width + menuPadding * 2 + 1, height + menuPadding * 2);
         CreateBuilder(control, parent.Parent, size, backgroundColor, position, menuSprite);
 
         UiBuilder builder = control.Builder;

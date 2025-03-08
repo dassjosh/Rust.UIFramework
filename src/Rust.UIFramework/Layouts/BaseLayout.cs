@@ -6,13 +6,18 @@ namespace Oxide.Ext.UiFramework.Layouts;
 public abstract class BaseLayout : BasePoolable
 {
     public UiReference Reference;
+    public int NumElements;
 
-    protected static T CreateBase<T>(in UiReference reference) where T : BaseLayout, new()
+    protected static T CreateBase<T>(in UiReference reference, int numElements) where T : BaseLayout, new()
     {
         T layout = UiFrameworkPool.Get<T>();
         layout.Reference = reference;
+        layout.NumElements = numElements;
         return layout;
     }
+
+    public abstract void Add(BaseUiComponent component);
+    public abstract void OffsetElements(float numElements);
     
     public static implicit operator UiReference(BaseLayout component) => component.Reference;
 

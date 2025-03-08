@@ -19,9 +19,14 @@ public abstract class BaseUiComponent : BasePoolable
     public UiOffset Offset;
     internal abstract CoreComponent Component { get; }
 
+    public static T CreateBase<T>() where T : BaseUiComponent, new()
+    {
+        return UiFrameworkPool.Get<T>();
+    }
+    
     public static T CreateBase<T>(in UiPosition pos, in UiOffset offset) where T : BaseUiComponent, new()
     {
-        T component = UiFrameworkPool.Get<T>();
+        T component = CreateBase<T>();
         component.Position = pos;
         component.Offset = offset;
         return component;

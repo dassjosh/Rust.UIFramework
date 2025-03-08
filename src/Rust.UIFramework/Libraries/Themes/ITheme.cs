@@ -1,3 +1,3 @@
-﻿namespace Oxide.Ext.UiFramework.Libraries.Themes;
+﻿namespace Oxide.Ext.UiFramework.Libraries;
 
 public interface ITheme;

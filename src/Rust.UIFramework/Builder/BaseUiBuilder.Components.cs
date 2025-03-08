@@ -70,6 +70,14 @@ public partial class BaseUiBuilder
         AddComponent(button, parent);
         return button;
     }
+    
+    public UiButton CommandButton(BaseLayout layout, UiColor color, string command)
+    {
+        UiButton button = UiButton.CreateCommand(color, command);
+        AddComponent(button, layout);
+        layout.Add(button);
+        return button;
+    }
 
     public UiButton CloseButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor color, string close)
     {

@@ -21,19 +21,19 @@ public class UiColorPickerMenu : BasePopoverControl
     private const int MenuPadding = 4;
     private const int ItemPadding = 2;
 
-    private int _width;
-    private int _height;
+    private float _width;
+    private float _height;
 
     //private int _colorLabelWidth;
-    private int _colorInputWidth;
-    private int _hexInputWidth;
+    private float _colorInputWidth;
+    private float _hexInputWidth;
         
     public static UiColorPickerMenu Create(string parentName, UiColor selectedColor, int fontSize, UiColor textColor, UiColor buttonColor, UiColor backgroundColor, UiColor pickerBackgroundColor, UiColor pickerDisabledColor, string command, ColorPickerMode mode, PopoverPosition position, string menuSprite, InputMode inputMode)
     {
         UiColorPickerMenu control = CreateControl<UiColorPickerMenu>();
 
-        int labelHeight = UiHelpers.TextOffsetHeight(fontSize);
-        int rgbaTextHeight = labelHeight + 2;
+        float labelHeight = UiHelpers.TextOffsetHeight(fontSize);
+        float rgbaTextHeight = labelHeight + 2;
 
         control._colorInputWidth = UiHelpers.TextOffsetWidth(6, fontSize);
         control._hexInputWidth = UiHelpers.TextOffsetWidth(10, fontSize, 4);
@@ -42,7 +42,7 @@ public class UiColorPickerMenu : BasePopoverControl
         control._width = MenuPadding * 2 + control._hexInputWidth + control._colorInputWidth * numColors + ItemPadding * numColors;
         control._height = MenuPadding * 2 + rgbaTextHeight * 3 + ItemPadding * 2;
             
-        CreateBuilder(control, parentName, new Vector2Int(control._width, control._height), backgroundColor, position, menuSprite);
+        CreateBuilder(control, parentName, new Vector2(control._width, control._height), backgroundColor, position, menuSprite);
         UiBuilder builder = control.Builder;
             
         float colorYMin = -MenuPadding - rgbaTextHeight * 2;
@@ -80,7 +80,7 @@ public class UiColorPickerMenu : BasePopoverControl
         return control;
     }
 
-    private UiOffset GetLabelPosition(in UiOffset offset, int textHeight)
+    private UiOffset GetLabelPosition(in UiOffset offset, float textHeight)
     {
         return new UiOffset(offset.Min.x, offset.Min.y + textHeight + ItemPadding, offset.Max.x, offset.Max.y + textHeight + ItemPadding);
     }

@@ -16,7 +16,7 @@ public class UiGridLayout : BaseLayout
 
     public static UiGridLayout Create(in UiReference reference, int numCols, int numRows, float rowSpacing, float colSpacing, in UiPadding? padding)
     {
-        UiGridLayout layout = CreateBase<UiGridLayout>(reference);
+        UiGridLayout layout = CreateBase<UiGridLayout>(reference, numCols * numRows);
         layout.NumCols = numCols;
         layout.NumRows = numRows;
         layout.RowSpacing = rowSpacing;
@@ -25,7 +25,9 @@ public class UiGridLayout : BaseLayout
         return layout;
     }
 
-    public void Add(BaseUiComponent component, float colSpan = 1f)
+    public override void Add(BaseUiComponent component) => Add(component, 1f);
+
+    public void Add(BaseUiComponent component, float colSpan)
     {
         if (CurrentCol + colSpan > NumCols)
         {
@@ -42,6 +44,8 @@ public class UiGridLayout : BaseLayout
         CurrentCol -= NumCols;
         CurrentRow += rowSpan;
     }
+
+    public override void OffsetElements(float numElements) => OffsetColumn(numElements);
 
     public void OffsetColumn(float numCols)
     {

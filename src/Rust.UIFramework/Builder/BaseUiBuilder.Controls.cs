@@ -5,6 +5,7 @@ using Oxide.Ext.UiFramework.Constants;
 using Oxide.Ext.UiFramework.Controls;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Json;
+using Oxide.Ext.UiFramework.Layouts;
 using Oxide.Ext.UiFramework.Libraries.UiCommands;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
@@ -21,6 +22,13 @@ public partial class BaseUiBuilder
     public UiTuple<UiButton, UiLabel> TextButton(in UiReference parent, in UiPosition pos, in UiOffset offset, string text, int textSize, UiColor textColor, UiColor buttonColor, string command, TextAnchor align = TextAnchor.MiddleCenter)
     {
         UiButton button = CommandButton(parent, pos, offset, buttonColor, command);
+        UiLabel label = Label(button, UiPosition.Full, JsonDefaults.Common.TextPadding, text, textSize, textColor , align);
+        return new UiTuple<UiButton, UiLabel>(button, label);
+    }
+    
+    public UiTuple<UiButton, UiLabel> TextButton(BaseLayout layout, string text, int textSize, UiColor textColor, UiColor buttonColor, string command, TextAnchor align = TextAnchor.MiddleCenter)
+    {
+        UiButton button = CommandButton(layout, buttonColor, command);
         UiLabel label = Label(button, UiPosition.Full, JsonDefaults.Common.TextPadding, text, textSize, textColor , align);
         return new UiTuple<UiButton, UiLabel>(button, label);
     }
@@ -63,6 +71,13 @@ public partial class BaseUiBuilder
     public UiTuple<UiButton, UiIcon> IconButton<T>(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, T icon, string command, UiColor? iconColor = null) where T : struct, Enum
     {
         UiButton button = CommandButton(parent, pos, offset, buttonColor, command);
+        UiIcon image = Icon(button, UiPosition.Full, default, icon, iconColor);
+        return new UiTuple<UiButton, UiIcon>(button, image);
+    }
+    
+    public UiTuple<UiButton, UiIcon> IconButton<T>(BaseLayout layout, UiColor buttonColor, T icon, string command, UiColor? iconColor = null) where T : struct, Enum
+    {
+        UiButton button = CommandButton(layout, buttonColor, command);
         UiIcon image = Icon(button, UiPosition.Full, default, icon, iconColor);
         return new UiTuple<UiButton, UiIcon>(button, image);
     }
@@ -143,6 +158,15 @@ public partial class BaseUiBuilder
         return checkbox;
     }
     #endregion
+    
+    #region Checkbox
+    public UiSwitch Switch(in UiReference parent, in UiPosition pos, in UiOffset offset, bool isChecked, string command, UiColor? checkedColor = null, UiColor? uncheckedColor = null, UiColor? buttonColor = null)
+    {
+        UiSwitch checkbox = UiSwitch.CreateSwitch(this, parent, pos, offset, isChecked, command, checkedColor, uncheckedColor, buttonColor);
+        AddControl(checkbox);
+        return checkbox;
+    }
+    #endregion
 
     #region ProgressBar
     public UiTuple<UiPanel, UiPanel> ProgressBar(in UiReference parent, in UiPosition pos, in UiOffset offset, float percentage, UiColor barColor, UiColor backgroundColor)
@@ -186,14 +210,14 @@ public partial class BaseUiBuilder
     #endregion
 
     #region Paginator
-    public UiPaginator Paginator(in UiReference parent, GridPosition grid, int currentPage, int maxPage, int fontSize, UiColor textColor, UiColor buttonColor, UiColor activePageColor, string command, UiColor? disabledColorMultiplier = null)
+    public UiPaginator Paginator(BaseLayout layout, int currentPage, int maxPage, int fontSize, UiColor textColor, UiColor buttonColor, UiColor activePageColor, string command, UiColor? disabledColorMultiplier = null)
     {
-        return Paginator(parent, grid, currentPage, maxPage, fontSize, textColor, buttonColor, activePageColor, PartialCommand.Create<int>(command), disabledColorMultiplier);
+        return Paginator(layout, currentPage, maxPage, fontSize, textColor, buttonColor, activePageColor, PartialCommand.Create<int>(command), disabledColorMultiplier);
     }
     
-    public UiPaginator Paginator(in UiReference parent, GridPosition grid, int currentPage, int maxPage, int fontSize, UiColor textColor, UiColor buttonColor, UiColor activePageColor, ICommandBuilder<int> command, UiColor? disabledColorMultiplier = null)
+    public UiPaginator Paginator(BaseLayout layout, int currentPage, int maxPage, int fontSize, UiColor textColor, UiColor buttonColor, UiColor activePageColor, ICommandBuilder<int> command, UiColor? disabledColorMultiplier = null)
     {
-        UiPaginator control = UiPaginator.Create(this, parent, grid, currentPage, maxPage, fontSize, textColor, buttonColor, activePageColor, command, disabledColorMultiplier);
+        UiPaginator control = UiPaginator.Create(this, layout, currentPage, maxPage, fontSize, textColor, buttonColor, activePageColor, command, disabledColorMultiplier);
         AddControl(control);
         return control;
     }

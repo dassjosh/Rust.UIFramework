@@ -28,12 +28,12 @@ public class UiDropdownMenu : BasePopoverControl
         UiDropdownMenu control = CreateControl<UiDropdownMenu>();
 
         int itemCount = Math.Min(items.Count, maxValuesPerPage);
-        int width = Math.Max(minWidth, control.GetWidth(items, fontSize));
-        int itemHeight = UiHelpers.TextOffsetHeight(fontSize);
-        int height = itemCount * (itemHeight + itemPadding) + menuPadding * 2;
+        float width = Math.Max(minWidth, control.GetWidth(items, fontSize));
+        float itemHeight = UiHelpers.TextOffsetHeight(fontSize);
+        float height = itemCount * (itemHeight + itemPadding) + menuPadding * 2;
         int maxPage = UiHelpers.CalculateMaxPage(items.Count, maxValuesPerPage);
             
-        Vector2Int size = new(width, height);
+        Vector2 size = new(width, height);
         CreateBuilder(control, reference.Parent, size, backgroundColor, position, menuSprite);
             
         UiBuilder builder = control.Builder;
@@ -56,14 +56,14 @@ public class UiDropdownMenu : BasePopoverControl
         return control;
     }
 
-    public virtual int GetWidth(List<DropdownMenuData> items, int fontSize)
+    public virtual float GetWidth(List<DropdownMenuData> items, int fontSize)
     {
-        int width = 0;
+        float width = 0;
         int count = items.Count;
         for (int i = 0; i < count; i++)
         {
             DropdownMenuData item = items[i];
-            int valueWidth = UiHelpers.TextOffsetWidth(item.DisplayName.Length, fontSize);
+            float valueWidth = UiHelpers.TextOffsetWidth(item.DisplayName.Length, fontSize);
             if (valueWidth > width)
             {
                 width = valueWidth;

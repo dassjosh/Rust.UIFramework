@@ -29,7 +29,7 @@ public sealed class UiLoggerFactory : ISingleton
         return GetLoggerInternal(plugin.Name, null, logLevel, config, false);
     }
 
-    private UiLogLevel GetLogLevel()
+    private static UiLogLevel GetLogLevel()
     {
         return UiFrameworkConfig.Instance.Logging.ConsoleLogLevel <= UiFrameworkConfig.Instance.Logging.FileLogLevel ? UiFrameworkConfig.Instance.Logging.ConsoleLogLevel : UiFrameworkConfig.Instance.Logging.FileLogLevel;
     }

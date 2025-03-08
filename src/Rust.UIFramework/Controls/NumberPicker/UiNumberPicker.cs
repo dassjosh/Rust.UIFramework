@@ -28,7 +28,7 @@ public class UiNumberPicker : BaseNumberPicker<int>
         }
         else
         {
-            int width = UiHelpers.TextOffsetWidth(1, buttonFontSize, 4);
+            float width = UiHelpers.TextOffsetWidth(1, buttonFontSize, 4);
             UiOffset pickerOffset = offset.SliceHorizontal(0, width);
             control.CreateUpDownPicker(builder, parent, pos, pickerOffset, value, fontSize, textColor, backgroundColor, command, align, mode, numberFormat);
             UiOffset buttonOffset = new(0, 0, width, 0);

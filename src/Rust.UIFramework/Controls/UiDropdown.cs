@@ -1,6 +1,5 @@
 ﻿using Oxide.Ext.UiFramework.Builder;
 using Oxide.Ext.UiFramework.Colors;
-using Oxide.Ext.UiFramework.Helpers;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.UiElements;
@@ -22,7 +21,7 @@ public class UiDropdown : BaseUiControl
         control.Anchor = builder.Anchor(parent, pos);
         control.Command = builder.CommandButton(parent, pos, offset, backgroundColor, $"{openCommand} {control.Anchor.Reference.Name}");
         control.Text = builder.Label(control.Command, UiPosition.Full, new UiOffset(5, 0, 0, 0), displayValue, fontSize, textColor, TextAnchor.MiddleLeft);
-        control.Icon = builder.Icon(control.Command, UiPosition.Right, new UiOffset(-UiHelpers.TextOffsetWidth(1, fontSize) - 4, 0, -4 , 0), Icons.CaretDown, textColor);
+        control.Icon = builder.Icon(control.Command, UiPosition.Right, new UiOffset(-20, 0, -4 , 0), Icons.CaretDown, textColor);
         return control;
     }
         
