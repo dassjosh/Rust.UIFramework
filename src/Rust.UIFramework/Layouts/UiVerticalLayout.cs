@@ -4,7 +4,7 @@ using Oxide.Ext.UiFramework.UiElements;
 
 namespace Oxide.Ext.UiFramework.Layouts;
 
-public class VerticalLayout : BaseLayout
+public class UiVerticalLayout : BaseLayout
 {
     public int NumRows;
     public float CurrentRow;
@@ -12,9 +12,9 @@ public class VerticalLayout : BaseLayout
     public float ColPadding;
     public UiPadding? Padding;
 
-    public static VerticalLayout Create(in UiReference reference, int numRows, float rowSpacing, float colPadding, in UiPadding? padding)
+    public static UiVerticalLayout Create(in UiReference reference, int numRows, float rowSpacing, float colPadding, in UiPadding? padding)
     {
-        VerticalLayout layout = CreateBase<VerticalLayout>(reference);
+        UiVerticalLayout layout = CreateBase<UiVerticalLayout>(reference);
         layout.NumRows = numRows;
         layout.CurrentRow = 0;
         layout.RowSpacing = rowSpacing;
@@ -44,7 +44,7 @@ public class VerticalLayout : BaseLayout
 
     private UiPosition GetPosition(float rowSpan)
     {
-        UiPosition pos = new(ColPadding, 1f - (CurrentRow + rowSpan) / NumRows, 1 - ColPadding, rowSpan / NumRows);
+        UiPosition pos = new(ColPadding, 1f - (CurrentRow + rowSpan) / NumRows, 1 - ColPadding,  1f - CurrentRow / NumRows);
         pos = pos.ShrinkVertical(RowSpacing);
         return pos;
     }

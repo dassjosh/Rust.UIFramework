@@ -15,6 +15,7 @@ using Oxide.Ext.UiFramework.Constants;
 using Oxide.Ext.UiFramework.Controls;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Helpers;
+using Oxide.Ext.UiFramework.Layouts;
 using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Libraries.UiCommands;
 using Oxide.Ext.UiFramework.Offsets;
@@ -60,6 +61,8 @@ public class AssetBrowser : RustPlugin
         PlayingCard,
         Item,
         RustIcon,
+        FontAwesomeRegular,
+        FontAwesomeSolid,
         Font
     }
     #endregion
@@ -365,7 +368,7 @@ public class AssetBrowser : RustPlugin
             RootFolderPaths.Clear();
             FolderIndex = 0;
             OnPathChanged();
-            if (Type != AssetType.RustIcon)
+            if (Type != AssetType.None && Type != AssetType.RustIcon && Type != AssetType.FontAwesomeRegular && Type != AssetType.FontAwesomeSolid)
             {
                 RootFolderPaths.AddRange(CurrentFolder.EnumerateFolders());
             }
@@ -424,7 +427,7 @@ public class AssetBrowser : RustPlugin
                 _ => CurrentFolder
             };
 
-            if (Type == AssetType.RustIcon)
+            if (CurrentFolder == null || Type is AssetType.RustIcon or AssetType.FontAwesomeRegular or AssetType.FontAwesomeSolid)
             {
                 return;
             }
@@ -520,7 +523,13 @@ public class AssetBrowser : RustPlugin
                 CreateItems(builder, body, state);
                 break;
             case AssetType.RustIcon:
-                CreateRustIcons(builder, body, state);
+                CreateIcons<Icons>(builder, body, state, icons => icons != Icons.None && icons != Icons.FontAwesomeLogoFull);
+                break;
+            case AssetType.FontAwesomeRegular:
+                CreateIcons<FontAwesomeRegularIcons>(builder, body, state, icons => true);
+                break;
+            case AssetType.FontAwesomeSolid:
+                CreateIcons<FontAwesomeSolidIcons>(builder, body, state, icons => true);
                 break;
             case AssetType.Font:
                 CreateFonts(builder, body, state);
@@ -554,9 +563,10 @@ public class AssetBrowser : RustPlugin
     
     private const int ImageColumns = 6;
     private const int ImageRows = 4;
+    private const float ImagePadding = 0.01f;
     private const int TotalImages = ImageColumns * ImageRows;
     
-    private readonly GridPosition _imageGrid = new GridPositionBuilder(ImageColumns, ImageRows).SetPadding(0.01f).Build(); 
+    private readonly GridPosition _imageGrid = new GridPositionBuilder(ImageColumns, ImageRows).SetPadding(ImagePadding).Build(); 
 
     private void CreateImageBrowser(UiBuilder builder, UiReference root, UiState state)
     {
@@ -664,31 +674,27 @@ public class AssetBrowser : RustPlugin
     }
     
     private readonly GridPosition _iconGrid = new GridPositionBuilder(15, 1).SetPadding(0.0025f).Build();
-    
-    private void CreateRustIcons(UiBuilder builder, UiReference root, UiState state)
-    {       
-        _imageGrid.Reset();
-        UiSection images = builder.Section(root, new UiPosition(0, 0.075f, 1, 1));
-        //UiScrollView scroll = CreateScrollView(builder, root, _imageGrid, EnumCache<Icons>.GetValues().Count);
 
-        IReadOnlyCollection<Icons> values = EnumCache<Icons>.GetValues();
+    private void CreateIcons<T>(UiBuilder builder, UiReference root, UiState state, Func<T, bool> filter) where T : struct, Enum
+    {
+        UiGridLayout layout =  builder.GridLayout(root, new UiPosition(0, 0.075f, 1, 1), default, ImageColumns, ImageRows,ImagePadding, ImagePadding);
+        
+        IReadOnlyCollection<T> values = EnumCache<T>.GetValues();
         int maxPage = UiHelpers.CalculateMaxPage(values.Count, TotalImages);
         
-        foreach (Icons icon in values
-                     .Where(i => i != Icons.None)
+        foreach (T icon in values
+                     .Where(filter)
                      .Skip(state.Page * TotalImages)
                      .Take(TotalImages))
         {
-            UiButton button = builder.CommandButton(images, _imageGrid, default, _buttonColor, _uiCommands.SelectAsset.Build($"Rust.UI.Icons.{icon} | {(int)icon}"));
-            UiIcon image = builder.Icon(button, UiPosition.Full, default, icon);
-            image.SetMaterial(UiMaterials.Icons.IconMaterial);
-            _imageGrid.MoveCols(1);
+            UiButton button = builder.CommandButton(layout, default, default, _buttonColor, _uiCommands.SelectAsset.Build($"Rust.UI.Icons.{icon} | {Convert.ToUInt16(icon)}"));
+            layout.Add(button);
+            Puts($"{layout.CurrentCol} - {layout.CurrentRow} - {button.Position}");
+            builder.Icon(button, UiPosition.Full, default, icon);
         }
         
         UiSection paginator = builder.Section(root, new UiPosition(0, 0, 1, 0.075f));
         builder.Paginator(paginator, _iconGrid, state.Page, maxPage, 14, _textColor, UiColors.ButtonSecondary, UiColors.ButtonPrimary, _uiCommands.ChangePage.Partial(state));
-        
-        //Puts($"{a.FirstPage.Button.Color.ToHexRGBA()}");
     }
     
     private readonly GridPosition _fontGrid = new GridPositionBuilder(1, 8).SetPadding(0.01f).Build();

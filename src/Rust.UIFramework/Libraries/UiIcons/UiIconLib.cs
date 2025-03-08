@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Oxide.Core.Plugins;
 using Oxide.Ext.UiFramework.Extensions;
+using Oxide.Ext.UiFramework.Logging;
 using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Types;
 using Oxide.Ext.UiFramework.UiElements;
@@ -15,6 +16,7 @@ public class UiIconLib : BaseUiFrameworkLibrary, ISingleton
 {
     private readonly Dictionary<PluginId, List<Type>> _pluginIcons = new();
     private readonly Dictionary<Type, IIconData> _enumIconData = new();
+    private readonly ILogger<UiIconLib> _logger = Singleton<UiLoggerFactory>.Instance.CreateExtensionLogger<UiIconLib>();
 
     private UiIconLib() { }
     
@@ -39,6 +41,7 @@ public class UiIconLib : BaseUiFrameworkLibrary, ISingleton
         
         icons.Add(type);
         _enumIconData[type] = new PluginIconData<T>(pluginId, urlLookup, styling);
+        _logger.Debug("Registered icon for plugin: {0} type: {1}", pluginId.FullName(), typeof(T));
     }
 
     internal void PopulateIconData<T>(UiIcon icon, T value) where T : struct, Enum
@@ -46,6 +49,7 @@ public class UiIconLib : BaseUiFrameworkLibrary, ISingleton
         if(_enumIconData.TryGetValue(typeof(T), out IIconData data))
         {
             ((PluginIconData<T>)data).PopulateIconData(icon, value);
+            return;
         }
         
         throw new Exception($"No icon registered for {typeof(T)}");

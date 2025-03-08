@@ -4,7 +4,7 @@ using Oxide.Ext.UiFramework.UiElements;
 
 namespace Oxide.Ext.UiFramework.Layouts;
 
-public class HorizontalLayout : BaseLayout
+public class UiHorizontalLayout : BaseLayout
 {
     public int NumCols;
     public float CurrentCol;
@@ -12,9 +12,9 @@ public class HorizontalLayout : BaseLayout
     public float RowPadding;
     public UiPadding? Padding;
 
-    public static HorizontalLayout Create(in UiReference reference, int numCols, float colSpacing, float rowPadding, in UiPadding? padding)
+    public static UiHorizontalLayout Create(in UiReference reference, int numCols, float colSpacing, float rowPadding, in UiPadding? padding)
     {
-        HorizontalLayout layout = CreateBase<HorizontalLayout>(reference);
+        UiHorizontalLayout layout = CreateBase<UiHorizontalLayout>(reference);
         layout.NumCols = numCols;
         layout.CurrentCol = 0;
         layout.ColSpacing = colSpacing;
@@ -44,7 +44,7 @@ public class HorizontalLayout : BaseLayout
 
     private UiPosition GetPosition(float colSpan)
     {
-        UiPosition pos = new(CurrentCol / NumCols, RowPadding, colSpan / NumCols, 1 - RowPadding);
+        UiPosition pos = new(CurrentCol / NumCols, RowPadding, (CurrentCol + colSpan) / NumCols, 1 - RowPadding);
         pos = pos.ShrinkHorizontal(ColSpacing);
         return pos;
     }

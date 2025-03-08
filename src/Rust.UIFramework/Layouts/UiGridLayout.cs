@@ -4,7 +4,7 @@ using Oxide.Ext.UiFramework.UiElements;
 
 namespace Oxide.Ext.UiFramework.Layouts;
 
-public class GridLayout : BaseLayout
+public class UiGridLayout : BaseLayout
 {
     public int NumRows;
     public int NumCols;
@@ -14,11 +14,11 @@ public class GridLayout : BaseLayout
     public float ColSpacing;
     public UiPadding? Padding;
 
-    public static GridLayout Create(in UiReference reference, int numRows, int numCols, float rowSpacing, float colSpacing, in UiPadding? padding)
+    public static UiGridLayout Create(in UiReference reference, int numCols, int numRows, float rowSpacing, float colSpacing, in UiPadding? padding)
     {
-        GridLayout layout = CreateBase<GridLayout>(reference);
-        layout.NumRows = numRows;
+        UiGridLayout layout = CreateBase<UiGridLayout>(reference);
         layout.NumCols = numCols;
+        layout.NumRows = numRows;
         layout.RowSpacing = rowSpacing;
         layout.ColSpacing = colSpacing;
         layout.Padding = padding;
@@ -34,6 +34,7 @@ public class GridLayout : BaseLayout
 
         component.Position = GetPosition(colSpan);
         component.Offset = Padding?.ToOffset() ?? default;
+        CurrentCol += colSpan;
     }
     
     public void NextRow(float rowSpan = 1f)
@@ -54,7 +55,7 @@ public class GridLayout : BaseLayout
 
     private UiPosition GetPosition(float colSpan)
     {
-        UiPosition pos = new(CurrentCol / NumCols,  1f - (CurrentRow + 1) / NumRows, colSpan / NumCols, 1f - CurrentRow / NumRows);
+        UiPosition pos = new(CurrentCol / NumCols,  1f - (CurrentRow + 1) / NumRows,  (CurrentCol + colSpan) / NumCols, 1f - CurrentRow / NumRows);
         pos = pos.Shrink(ColSpacing, RowSpacing);
         return pos;
     }
