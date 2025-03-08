@@ -225,6 +225,13 @@ public readonly struct UiOffset(float xMin, float yMin, float xMax, float yMax)
     }
     #endregion
 
+    #region Operators
+
+    public static UiOffset operator +(UiOffset lhs, UiOffset rhs) => new(lhs.Min.x + rhs.Min.x, lhs.Min.y + rhs.Min.y, lhs.Max.x + rhs.Max.x, lhs.Max.y + rhs.Max.y);
+    public static UiOffset operator -(UiOffset lhs, UiOffset rhs) => new(lhs.Min.x - rhs.Min.x, lhs.Min.y - rhs.Min.y, lhs.Max.x - rhs.Max.x, lhs.Max.y - rhs.Max.y);
+
+    #endregion
+    
     public override string ToString()
     {
         return $"({Min.x:0}, {Min.y:0}) ({Max.x:0}, {Max.y:0}) WxH:({Width} x {Height})";
