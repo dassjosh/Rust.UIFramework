@@ -28,7 +28,6 @@ public class UiCheckbox : BaseUiControl
             control.Icon = builder.Icon(control.Button, UiPosition.Full, default, FontAwesomeRegularIcons.Square, uncheckedColor ?? UiColors.Rust.Red);
         }
 
-        //control.Button.AddOutline(UiColor.Black.WithAlpha(0.75f));
         return control;
     }
 

@@ -1,21 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using Oxide.Ext.UiFramework.Builder.UI;
+using Oxide.Ext.UiFramework.Builder;
 using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Colors;
-using Oxide.Ext.UiFramework.Enums;
-using Oxide.Ext.UiFramework.Helpers;
+using Oxide.Ext.UiFramework.Layouts;
+using Oxide.Ext.UiFramework.Libraries.UiCommands;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.UiElements;
-using UnityEngine;
+using Rust.UI;
 using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.Controls;
 
-public class UiCalenderPicker : BasePopoverControl
+public class UiCalenderPicker : BaseUiControl
 {
     public UiButton PreviousYear;
     public UiButton PreviousMonth;        
@@ -23,19 +23,8 @@ public class UiCalenderPicker : BasePopoverControl
     public UiButton NextMonth;
     public List<UiButton> DateButtons;
 
-    private const int MenuPadding = 4;
-    private const int ItemPadding = 2;
-    private const int HorizontalButtonPadding = 5;
-    private const int VerticalButtonPadding = 3;
-
-    private float _width;
-    private float _height;
-
     private DateTime _firstOfTheMonth;
-    private DateTime _previousYear;
-    private DateTime _previousMonth;
     private DateTime _nextMonth;
-    private DateTime _nextYear;
 
     private int _daysInMonth;
 
@@ -43,148 +32,94 @@ public class UiCalenderPicker : BasePopoverControl
     private int _numRows;
     private int _maxDays;
 
-    private float _textHeight;
-    private float _textWidth1;
-    private float _textWidth2;
-    private float _textWidth3;
-        
-    private string _yearText;
-    private string _monthLabelText;
+    private static readonly UiPadding HeaderPadding = new(2, 0);
+    private static readonly UiPadding DayPadding = new(5, 3);
 
     private static readonly string[] DayOfWeekNames = ["Su", "M", "Tu", "W", "Th", "F", "Sa"];
         
-    public static UiCalenderPicker Create(in UiReference reference, DateTime date, int fontSize, UiColor textColor, UiColor backgroundColor, UiColor buttonColor, UiColor selectedDateColor, string changeCommand, PopoverPosition position, string menuSprite, string buttonSprite)
+    public static UiCalenderPicker Create(BaseUiBuilder builder, in UiReference reference, in UiPosition pos, in UiOffset offset, DateTime date, int fontSize, UiColor textColor, UiColor buttonColor, UiColor selectedDateColor, ICommandBuilder<DateTime> changeCommand, string buttonSprite)
     {
         UiCalenderPicker control = CreateControl<UiCalenderPicker>();
-            
-        //Interface.Oxide.LogDebug($"{nameof(UiCalenderPicker)}.{nameof(Create)} Num Rows: {control.NumRows} Max Days: {control.MaxDays}");
-
-        control.CalculateDates(date);
-        control.CalculateSize(fontSize);
-            
-        CreateBuilder(control, reference.Parent, new Vector2(control._width + MenuPadding * 2, control._height + MenuPadding * 2), backgroundColor, position, menuSprite);
-        UiBuilder builder = control.Builder;
-            
-        control.CreateHeader(builder, fontSize, textColor, buttonColor, changeCommand, buttonSprite);
-        control.CreateDayOfWeekHeader(builder, fontSize, textColor);
-        control.CreateCalender(builder, fontSize, textColor, buttonColor, selectedDateColor, changeCommand, buttonSprite);
+        control.CreateCalender(builder, in reference, in pos, in offset, date, fontSize, textColor, buttonColor, selectedDateColor, changeCommand, buttonSprite);
         return control;
+    }
+    
+    private void CreateCalender(BaseUiBuilder builder, in UiReference reference, in UiPosition pos, in UiOffset offset, DateTime date, int fontSize, UiColor textColor, UiColor buttonColor, UiColor selectedDateColor, ICommandBuilder<DateTime> changeCommand, string buttonSprite)
+    {
+        CalculateDates(date);
+        UiDirectionalLayout layout = builder.DirectionalLayout(reference, pos, offset, _numRows + 2, LayoutDirection.TopToBottom, padding: HeaderPadding);
+        CreateHeader(builder, layout, date, fontSize, textColor, buttonColor, changeCommand, buttonSprite);
+        CreateDayOfWeekHeader(builder, layout, fontSize, textColor);
+        CreateCalender(builder, layout, fontSize, textColor, buttonColor, selectedDateColor, changeCommand, buttonSprite);
     }
 
     public void CalculateDates(DateTime date)
     {
         _firstOfTheMonth = new DateTime(date.Year, date.Month, 1);
-        _previousYear = _firstOfTheMonth.AddYears(-1);
-        _previousMonth = _firstOfTheMonth.AddMonths(-1);
         _nextMonth = _firstOfTheMonth.AddMonths(1);
-        _nextYear = _firstOfTheMonth.AddYears(1);
         _daysInMonth = DateTime.DaysInMonth(_firstOfTheMonth.Year, _firstOfTheMonth.Month);
-        _yearText = StringCache<int>.ToString(_firstOfTheMonth.Year);
-        _monthLabelText = FormatCache<DateTime>.ToString(_firstOfTheMonth, "MMM");
         _numRows = GetWeekRows(date.Year, date.Month);
         _maxDays = _numRows * NumColumns;
     }
 
-    public void CalculateSize(int fontSize)
+    public void CreateHeader(BaseUiBuilder builder, BaseLayout layout, DateTime value, int fontSize, UiColor textColor, UiColor buttonColor, ICommandBuilder<DateTime> changeCommand, string buttonSprite)
     {
-        _textHeight = UiHelpers.TextOffsetHeight(fontSize, VerticalButtonPadding);
-        _textWidth1 = UiHelpers.TextOffsetWidth(1, fontSize, HorizontalButtonPadding);
-        _textWidth2 = UiHelpers.TextOffsetWidth(2, fontSize, HorizontalButtonPadding);
-        _textWidth3 = UiHelpers.TextOffsetWidth(3, fontSize, HorizontalButtonPadding);
-            
-        _width = NumColumns * _textWidth2 + ItemPadding * (NumColumns - 1);
-        _height = (_numRows + 2) * _textHeight + ItemPadding * (_numRows + 1);
-        //Interface.Oxide.LogDebug($"{nameof(UiCalenderPicker)}.{nameof(CalculateSize)} {Width} x {Height}");
+        UiDirectionalLayout headerLayout = builder.DirectionalLayout(layout, 7);
+        
+        PreviousYear = builder.IconButton(headerLayout, buttonColor, Icons.StepBackward, changeCommand.Build(value.AddYears(-1)), textColor);
+        StyleButton(PreviousYear, buttonSprite);
+        
+        PreviousMonth = builder.IconButton(headerLayout, buttonColor, Icons.Backward, changeCommand.Build(value.AddMonths(-1)), textColor);
+        StyleButton(PreviousMonth, buttonSprite);
+        
+        builder.Label(layout, 3f, FormatCache<DateTime>.ToString(_firstOfTheMonth, "MMM yyyy"), fontSize, textColor);
+        
+        NextMonth = builder.IconButton(headerLayout, buttonColor, Icons.Forward, changeCommand.Build(value.AddYears(1)), textColor);
+        StyleButton(NextMonth, buttonSprite);
+        
+        NextYear = builder.IconButton(headerLayout, buttonColor, Icons.StepForward, changeCommand.Build(value.AddMonths(1)), textColor);
+        StyleButton(NextYear, buttonSprite);
     }
 
-    public void CreateHeader(UiBuilder builder, int fontSize, UiColor textColor, UiColor buttonColor, string changeCommand, string buttonSprite)
+    public void CreateDayOfWeekHeader(BaseUiBuilder builder, BaseLayout layout, int fontSize, UiColor textColor)
     {
-        UiOffset pos = new(MenuPadding, -MenuPadding - _textHeight, _textWidth3,  -MenuPadding);
-        //Interface.Oxide.LogDebug($"{nameof(UiCalenderPicker)}.{nameof(CreateHeader)} {pos.ToString()}");
-        PreviousYear = builder.TextButton(builder.Root, UiPosition.TopLeft, pos, "<<<", fontSize, textColor, buttonColor, $"{changeCommand} {GetCommandArg(_previousYear)}");
-        PreviousYear.SetSpriteMaterialImage(buttonSprite, null, Image.Type.Sliced);
-        pos = pos.MoveXPadded(ItemPadding);
-            
-        pos = pos.SetWidth(_textWidth1);
-        PreviousMonth = builder.TextButton(builder.Root, UiPosition.TopLeft, pos, "<", fontSize, textColor, buttonColor, $"{changeCommand} {GetCommandArg(_previousMonth)}");
-        PreviousMonth.SetSpriteMaterialImage(buttonSprite, null, Image.Type.Sliced);
-
-        float width = UiHelpers.TextOffsetWidth(_monthLabelText.Length + 5, fontSize, HorizontalButtonPadding);
-        pos = new UiOffset(-width / 2, -MenuPadding - _textHeight, width / 2, -MenuPadding);
-        builder.Label(builder.Root, UiPosition.TopMiddle, pos, $"{_monthLabelText} {_yearText}", fontSize, textColor);
-
-        pos = new UiOffset(-MenuPadding - _textWidth3, -MenuPadding - _textHeight, -MenuPadding, -MenuPadding);
-        NextMonth = builder.TextButton(builder.Root, UiPosition.TopRight, pos, ">>>", fontSize, textColor, buttonColor, $"{changeCommand} {GetCommandArg(_nextYear)}");
-        NextMonth.SetSpriteMaterialImage(buttonSprite, null, Image.Type.Sliced);
-        pos = pos.MoveXPadded(-ItemPadding);
-            
-        pos = pos.SetX(pos.Max.x - _textWidth1, pos.Max.x);
-        NextYear = builder.TextButton(builder.Root, UiPosition.TopRight, pos, ">", fontSize, textColor, buttonColor, $"{changeCommand} {GetCommandArg(_nextMonth)}");
-        NextYear.SetSpriteMaterialImage(buttonSprite, null, Image.Type.Sliced);
-    }
-
-    public void CreateDayOfWeekHeader(UiBuilder builder, int fontSize, UiColor textColor)
-    {
-        UiOffset pos = new(MenuPadding, -MenuPadding - _textHeight, MenuPadding + _textWidth2,  -MenuPadding);
-        pos = pos.MoveYPadded(-ItemPadding);
-            
+        UiDirectionalLayout weekLayout = builder.DirectionalLayout(layout, NumColumns);
         for (int i = 0; i < 7; i++)
         {
-            builder.Label(builder.Root, UiPosition.TopLeft, pos, DayOfWeekNames[i], fontSize, textColor);
-            pos = pos.MoveXPadded(ItemPadding);
+            builder.Label(weekLayout, DayOfWeekNames[i], fontSize, textColor);
         }
     }
 
-    public void CreateCalender(UiBuilder builder, int fontSize, UiColor textColor, UiColor buttonColor, UiColor selectedDateColor, string changeCommand, string buttonSprite)
+    public void CreateCalender(BaseUiBuilder builder, BaseLayout layout, int fontSize, UiColor textColor, UiColor buttonColor, UiColor selectedDateColor, ICommandBuilder<DateTime> changeCommand, string buttonSprite)
     {
-        UiOffset pos = new(MenuPadding, -MenuPadding - _textHeight, MenuPadding + _textWidth2,  -MenuPadding);
-        pos = pos.MoveYPadded(-ItemPadding);
-        pos = pos.MoveYPadded(-ItemPadding);
-            
-        int offset = 0;
+        UiGridLayout daysLayout = builder.GridLayout(layout, NumColumns, _numRows, padding: DayPadding);
+
+        UiColor disabledText = textColor * UiColors.DisabledButtonMultiplier;
+        
         int dayOfWeek = (int)_firstOfTheMonth.DayOfWeek;
         for (int i = 0; i < dayOfWeek; i++)
         {
             DateTime date = _firstOfTheMonth.AddDays(-dayOfWeek + i);
-            UiButton button = builder.TextButton(builder.Root, UiPosition.TopLeft, pos, StringCache<int>.ToString(date.Day), fontSize, textColor.MultiplyAlpha(0.5f), buttonColor, $"{changeCommand} {GetCommandArg(date)}");
-            button.SetSpriteMaterialImage(buttonSprite, null, Image.Type.Sliced);
+            UiButton button = builder.TextButton(daysLayout, StringCache<int>.ToString(date.Day), fontSize, disabledText, buttonColor, changeCommand.Build(date));
+            StyleButton(button, buttonSprite);
             DateButtons.Add(button);
-            pos = pos.MoveXPadded(ItemPadding);
-            offset++;
         }
 
         for (int i = 0; i < _daysInMonth; i++)
         {
-            if (offset != 0 && offset % 7 == 0)
-            {
-                pos = pos.SetX(MenuPadding, MenuPadding + _textWidth2);
-                pos = pos.MoveYPadded(-ItemPadding);
-            }
-                
             DateTime date = _firstOfTheMonth.AddDays(i);
             UiColor color = date.Date == DateTime.Now.Date ? selectedDateColor : buttonColor;
-
-            UiButton button = builder.TextButton(builder.Root, UiPosition.TopLeft, pos, StringCache<int>.ToString(date.Day), fontSize, textColor, color, $"{changeCommand} {GetCommandArg(date)}");
-            button.SetSpriteMaterialImage(buttonSprite, null, Image.Type.Sliced);
+            UiButton button = builder.TextButton(daysLayout, StringCache<int>.ToString(date.Day), fontSize, textColor, color, changeCommand.Build(date));
+            StyleButton(button, buttonSprite);
             DateButtons.Add(button);
-            pos = pos.MoveXPadded(ItemPadding);
-            offset++;
         }
             
-        for (int i = 0; offset < _maxDays; i++)
+        for (int i = DateButtons.Count; i < _maxDays; i++)
         {
-            if (offset != 0 && offset % 7 == 0)
-            {
-                pos = pos.SetX(MenuPadding, MenuPadding + _textWidth2);
-                pos = pos.MoveYPadded(-ItemPadding);
-            }
-                
             DateTime date = _nextMonth.AddDays(i);
-            UiButton button = builder.TextButton(builder.Root, UiPosition.TopLeft, pos, StringCache<int>.ToString(date.Day), fontSize, textColor.MultiplyAlpha(0.5f), buttonColor, $"{changeCommand} {GetCommandArg(date)}");
-            button.SetSpriteMaterialImage(buttonSprite, null, Image.Type.Sliced);
+            UiButton button = builder.TextButton(daysLayout, StringCache<int>.ToString(date.Day), fontSize, disabledText, buttonColor, changeCommand.Build(date));
+            StyleButton(button, buttonSprite);
             DateButtons.Add(button);
-            pos = pos.MoveXPadded(ItemPadding);
-            offset++;
         }
     }
 
@@ -195,13 +130,12 @@ public class UiCalenderPicker : BasePopoverControl
         Calendar calendar = CultureInfo.CurrentCulture.Calendar;
         int lastWeek = calendar.GetWeekOfYear(lastDayOfMonth, CalendarWeekRule.FirstDay, DayOfWeek.Sunday);
         int firstWeek = calendar.GetWeekOfYear(firstDayOfMonth, CalendarWeekRule.FirstDay, DayOfWeek.Sunday);
-        //Interface.Oxide.LogDebug($"{nameof(UiCalenderPicker)}.{nameof(GetWeekRows)} First: {firstDayOfMonth} {firstWeek} Last: {lastDayOfMonth} {lastWeek}");
         return lastWeek - firstWeek + 1;
     }
-        
-    public string GetCommandArg(DateTime date)
+
+    private void StyleButton(UiButton button, string buttonSprite)
     {
-        return $"{StringCache<int>.ToString(date.Year)}/{StringCache<int>.ToString(date.Month)}/{StringCache<int>.ToString(date.Day)}";
+        button.SetSpriteMaterialImage(buttonSprite, null, Image.Type.Sliced);
     }
 
     protected override void LeavePool()
@@ -212,19 +146,9 @@ public class UiCalenderPicker : BasePopoverControl
 
     protected override void EnterPool()
     {
-        _yearText = null;
-        _monthLabelText = null;
-        _width = 0;
-        _height = 0;
         _numRows = 0;
         _maxDays = 0;
-
-        _textHeight = 0;
-        _textWidth1 = 0;
-        _textWidth2 = 0;
-        _textWidth3 = 0;
         _daysInMonth = 0;
-            
         PreviousYear = null;
         PreviousMonth = null;        
         NextYear = null;

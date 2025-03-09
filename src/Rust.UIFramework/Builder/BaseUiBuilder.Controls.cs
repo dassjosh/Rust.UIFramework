@@ -226,6 +226,11 @@ public partial class BaseUiBuilder
     #region Scroll Bar
     public UiScrollBar ScrollBar(in UiReference parent, in UiPosition position, in UiOffset offset, int currentPage, int maxPage, UiColor barColor, UiColor backgroundColor, string command, ScrollbarDirection direction = ScrollbarDirection.Vertical, string sprite = UiSprites.Content.Ui.UiBackgroundRounded)
     {
+        return ScrollBar(parent, position, offset, currentPage, maxPage, barColor, backgroundColor, PartialCommand.Create<int>(command), direction, sprite);
+    }
+    
+    public UiScrollBar ScrollBar(in UiReference parent, in UiPosition position, in UiOffset offset, int currentPage, int maxPage, UiColor barColor, UiColor backgroundColor, ICommandBuilder<int> command, ScrollbarDirection direction = ScrollbarDirection.Vertical, string sprite = UiSprites.Content.Ui.UiBackgroundRounded)
+    {
         UiScrollBar control = UiScrollBar.Create(this, parent, position, offset, currentPage, maxPage, barColor, backgroundColor, command, direction, sprite);
         AddControl(control);
         return control;
@@ -240,10 +245,16 @@ public partial class BaseUiBuilder
         return control;
     }
         
-    public static UiDropdownMenu DropdownMenu(in UiReference reference, List<DropdownMenuData> items, int fontSize, UiColor textColor, UiColor backgroundColor, string selectedCommand, string pageCommand = null, int page = 0, int maxValuesPerPage = 100, int minWidth = 100,
+    public UiDropdownMenu DropdownMenu(in UiReference reference, in UiPosition pos, in UiOffset offset, List<DropdownMenuData> items, int fontSize, UiColor textColor, UiColor backgroundColor, DropdownMenuScrollMode scrollMode, string pageCommand = null, int page = 0, int maxValuesPerPage = 100, in UiPadding? padding = null)
+    {
+        return DropdownMenu(reference, pos, offset, items, fontSize, textColor, backgroundColor, scrollMode, PartialCommand.Create<int>(pageCommand), page, maxValuesPerPage, padding);
+    }
+    
+    public UiDropdownMenu DropdownMenu(in UiReference reference, in UiPosition pos, in UiOffset offset, List<DropdownMenuData> items, int fontSize, UiColor textColor, UiColor backgroundColor, DropdownMenuScrollMode scrollMode, ICommandBuilder<int> pageCommand = null, int page = 0, int maxValuesPerPage = 100, in UiPadding? padding = null,
         PopoverPosition position = PopoverPosition.Bottom, string menuSprite = UiSprites.Content.Ui.UiBackgroundRounded)
     {
-        UiDropdownMenu control = UiDropdownMenu.Create(reference, items, fontSize, textColor, backgroundColor, selectedCommand, pageCommand, page, maxValuesPerPage, minWidth, position, menuSprite);
+        UiDropdownMenu control = UiDropdownMenu.Create(this, reference, pos, offset, items, fontSize, textColor, backgroundColor, scrollMode, pageCommand, page, maxValuesPerPage, padding);
+        AddControl(control);
         return control;
     }
     #endregion
@@ -256,10 +267,15 @@ public partial class BaseUiBuilder
         return control;
     }
         
-    public static UiTimePickerMenu TimePickerMenu(in UiReference reference, TimePickerData time, int fontSize, UiColor textColor, UiColor backgroundColor, string changeCommand, TimePickerDisplayModes displayMode = TimePickerDisplayModes.All, ClockMode clockMode = ClockMode.Hour12,
-        PopoverPosition position = PopoverPosition.Bottom, string menuSprite = UiSprites.Content.Ui.UiBackgroundRounded)
+    public UiTimePickerMenu TimePickerMenu(in UiReference reference, in UiPosition pos, in UiOffset offset, TimePickerData time, int fontSize, UiColor textColor, UiColor backgroundColor, string changeCommand, TimePickerDisplayModes displayMode = TimePickerDisplayModes.All, ClockMode clockMode = ClockMode.Hour12)
     {
-        UiTimePickerMenu picker = UiTimePickerMenu.Create(reference, time, fontSize, textColor, backgroundColor, changeCommand, displayMode, clockMode, position, menuSprite);
+        return TimePickerMenu(reference, pos, offset, time, fontSize, textColor, backgroundColor, PartialCommand.Create<TimePickerData>(changeCommand), displayMode, clockMode);
+    }
+    
+    public UiTimePickerMenu TimePickerMenu(in UiReference reference, in UiPosition pos, in UiOffset offset, TimePickerData time, int fontSize, UiColor textColor, UiColor backgroundColor, ICommandBuilder<TimePickerData> changeCommand, TimePickerDisplayModes displayMode = TimePickerDisplayModes.All, ClockMode clockMode = ClockMode.Hour12)
+    {
+        UiTimePickerMenu picker = UiTimePickerMenu.Create(this, reference, pos, offset, time, fontSize, textColor, backgroundColor, changeCommand, displayMode, clockMode);
+        AddControl(picker);
         return picker;
     }
     #endregion
@@ -271,9 +287,15 @@ public partial class BaseUiBuilder
         return picker;
     }
         
-    public static UiCalenderPicker DateCalenderMenu(in UiReference reference, DateTime date, int fontSize, UiColor textColor, UiColor backgroundColor, UiColor buttonColor, UiColor selectedDateColor, string changeCommand, PopoverPosition position, string menuSprite = UiSprites.Content.Ui.UiBackgroundRounded, string buttonSprite = UiSprites.Content.Ui.UiRounded)
+    public UiCalenderPicker DateCalenderMenu(in UiReference reference, in UiPosition pos, in UiOffset offset, DateTime date, int fontSize, UiColor textColor, UiColor buttonColor, UiColor selectedDateColor, string changeCommand, string buttonSprite = UiSprites.Content.Ui.UiRounded)
     {
-        UiCalenderPicker picker = UiCalenderPicker.Create(reference, date, fontSize, textColor, backgroundColor, buttonColor, selectedDateColor, changeCommand, position, menuSprite, buttonSprite);
+        UiCalenderPicker picker = UiCalenderPicker.Create(this, reference, in pos, in offset, date, fontSize, textColor, buttonColor, selectedDateColor, PartialCommand.Create<DateTime>(changeCommand), buttonSprite);
+        return picker;
+    }
+    
+    public UiCalenderPicker DateCalenderMenu(in UiReference reference, in UiPosition pos, in UiOffset offset, DateTime date, int fontSize, UiColor textColor, UiColor buttonColor, UiColor selectedDateColor, ICommandBuilder<DateTime> changeCommand, string buttonSprite = UiSprites.Content.Ui.UiRounded)
+    {
+        UiCalenderPicker picker = UiCalenderPicker.Create(this, reference, in pos, in offset, date, fontSize, textColor, buttonColor, selectedDateColor, changeCommand, buttonSprite);
         return picker;
     }
     #endregion

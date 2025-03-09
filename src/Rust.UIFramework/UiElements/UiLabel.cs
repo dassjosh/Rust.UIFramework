@@ -13,16 +13,28 @@ public class UiLabel : BaseUiText<UiLabel>
     public readonly TextComponent Text = new();
     internal override CoreComponent Component => Text;
 
+    public static UiLabel Create(UiColor color, string text, int size, string font, TextAnchor align = TextAnchor.MiddleCenter)
+    {
+        UiLabel label = CreateBase<UiLabel>();
+        ConfigureLabel(label, color, text, size, font, align);
+        return label;
+    }
+    
     public static UiLabel Create(in UiPosition pos, in UiOffset offset, UiColor color, string text, int size, string font, TextAnchor align = TextAnchor.MiddleCenter)
     {
         UiLabel label = CreateBase<UiLabel>(pos, offset);
+        ConfigureLabel(label, color, text, size, font, align);
+        return label;
+    }
+
+    private static void ConfigureLabel(UiLabel label, UiColor color, string text, int size, string font, TextAnchor align = TextAnchor.MiddleCenter)
+    {
         TextComponent textComp = label.Text;
         textComp.Text = text;
         textComp.FontSize = size;
         textComp.Color = color;
         textComp.Align = align;
         textComp.Font = font;
-        return label;
     }
 
     public CountdownComponent AddCountdown(float startTime, float endTime, string command, 

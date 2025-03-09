@@ -16,6 +16,8 @@ public readonly struct UiOffset(float xMin, float yMin, float xMax, float yMax)
     public float Width => Max.x - Min.x;
     public float Height => Max.y - Min.y;
 
+    public UiOffset(int size) : this(size, size) { }
+    
     public UiOffset(int width, int height) : this(-width / 2f, -height / 2f, width / 2f, height / 2f)
     {
     }

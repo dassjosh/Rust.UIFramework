@@ -48,6 +48,14 @@ public partial class BaseUiBuilder
         return section;
     }
     
+    public UiSection Section(BaseLayout layout)
+    {
+        UiSection section = UiSection.Create();
+        AddComponent(section, layout);
+        layout.Add(section);
+        return section;
+    }
+    
     public UiSection Padding(in UiReference parent, in UiPosition pos, in UiPadding padding = default)
     {
         return Section(parent, pos, padding);
@@ -163,6 +171,16 @@ public partial class BaseUiBuilder
     {
         UiLabel label = UiLabel.Create(pos, offset, textColor, text, size, Font, align);
         AddComponent(label, parent);
+        return label;
+    }
+    
+    public UiLabel Label(BaseLayout layout, string text, int size, UiColor textColor, TextAnchor align = TextAnchor.MiddleCenter) => Label(layout, 1f, text, size, textColor, align);
+    
+    public UiLabel Label(BaseLayout layout, float elementSpan, string text, int size, UiColor textColor, TextAnchor align = TextAnchor.MiddleCenter)
+    {
+        UiLabel label = UiLabel.Create(textColor, text, size, Font, align);
+        AddComponent(label, layout);
+        layout.Add(label, elementSpan);
         return label;
     }
     #endregion

@@ -17,6 +17,7 @@ public abstract class BaseLayout : BasePoolable
     }
 
     public abstract void Add(BaseUiComponent component);
+    public abstract void Add(BaseUiComponent component, float elementSpan);
     public abstract void OffsetElements(float numElements);
     
     public static implicit operator UiReference(BaseLayout component) => component.Reference;

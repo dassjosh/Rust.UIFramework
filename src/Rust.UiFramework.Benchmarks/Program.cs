@@ -25,7 +25,7 @@ class Program
 
 
 #endif
-        var a = UiHelpers.CalculateMaxPage(1730, 24);
+        var a = -25 % 24;
 
     }
 }

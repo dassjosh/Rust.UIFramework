@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using Oxide.Ext.UiFramework.Builder;
-using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Enums;
+using Oxide.Ext.UiFramework.Libraries.UiCommands;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Positions;
@@ -17,7 +17,7 @@ public class UiScrollBar : BaseUiControl
     public UiPanel ScrollBar;
     public List<UiButton> ScrollButtons;
 
-    public static UiScrollBar Create(BaseUiBuilder builder, in UiReference parent, in UiPosition position, in UiOffset offset, int currentPage, int maxPage, UiColor barColor, UiColor backgroundColor, string command, ScrollbarDirection direction, string sprite)
+    public static UiScrollBar Create(BaseUiBuilder builder, in UiReference parent, in UiPosition position, in UiOffset offset, int currentPage, int maxPage, UiColor barColor, UiColor backgroundColor, ICommandBuilder<int> command, ScrollbarDirection direction, string sprite)
     {
         UiScrollBar control = CreateControl<UiScrollBar>();
             
@@ -32,7 +32,7 @@ public class UiScrollBar : BaseUiControl
                 
             if (i != currentPage)
             {
-                UiButton button = builder.CommandButton(control.Background, pagePosition, default, backgroundColor, $"{command} {StringCache<int>.ToString(i)}")
+                UiButton button = builder.CommandButton(control.Background, pagePosition, default, backgroundColor, command.Build(i))
                     .SetSpriteMaterialImage(sprite, null, Image.Type.Sliced);
                 control.ScrollButtons.Add(button);
             }

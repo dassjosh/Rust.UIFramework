@@ -27,18 +27,18 @@ public class UiDirectionalLayout : BaseLayout
     
     public override void Add(BaseUiComponent component) => Add(component, 1f);
 
-    public void Add(BaseUiComponent component, float directionSpan)
+    public override void Add(BaseUiComponent component, float elementSpan)
     {
-        if (CurrentElement + directionSpan > NumElements)
+        if (CurrentElement + elementSpan > NumElements)
         {
             // Cannot add more components to this column
             return;
         }
 
-        component.Position = GetPosition(directionSpan);
+        component.Position = GetPosition(elementSpan);
         component.Offset = Padding?.ToOffset() ?? default;
         
-        CurrentElement += directionSpan;
+        CurrentElement += elementSpan;
     }
     
     public override void OffsetElements(float numElements)
@@ -93,6 +93,5 @@ public class UiDirectionalLayout : BaseLayout
     {
         base.EnterPool();
         CurrentElement = 0f;
-        Padding = null;
     }
 }

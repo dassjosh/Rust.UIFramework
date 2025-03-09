@@ -53,6 +53,22 @@ public static class GenericMath
                 
         return MathOperations<T>.Divide(a, b);
     }
+    
+    /// <summary>
+    /// Checks if a value is zero.
+    /// </summary>
+    /// <typeparam name="T">The numeric type of the value.</typeparam>
+    /// <param name="a">The value to check.</param>
+    /// <returns>True if the value is zero, false otherwise.</returns>
+    public static bool IsZero<T>(T a) => MathOperations<T>.IsZero(a);
+    
+    /// <summary>
+    /// Checks if a value has a mask.
+    /// </summary>
+    /// <typeparam name="T">The numeric type of the value.</typeparam>
+    /// <param name="a">The value to check.</param>
+    /// <returns>True if the value has a mask, false otherwise.</returns>
+    public static bool HasMask<T>(T a, T b) => MathOperations<T>.HasMask(a, b);
 
     /// <summary>
     /// Helper class that caches the compiled expression trees for each operation.
@@ -64,6 +80,9 @@ public static class GenericMath
         private static readonly Func<T, T, T> _subtract;
         private static readonly Func<T, T, T> _multiply;
         private static readonly Func<T, T, T> _divide;
+        private static readonly Func<T, T, T> _and;
+        private static readonly Func<T, T, T> _or;
+        private static readonly Func<T, T, bool> _hasMask;
         private static readonly Func<T, bool> _isZero;
 
         static MathOperations()
@@ -84,6 +103,9 @@ public static class GenericMath
             _subtract = CompileOperation(Expression.Subtract(paramA, paramB));
             _multiply = CompileOperation(Expression.Multiply(paramA, paramB));
             _divide = CompileOperation(Expression.Divide(paramA, paramB));
+            _and = CompileOperation(Expression.And(paramA, paramB));
+            _or = CompileOperation(Expression.Or(paramA, paramB));
+            _hasMask = Expression.Lambda<Func<T, T, bool>>(Expression.Equal(Expression.And(paramA, paramB), paramB), paramA, paramB).Compile();
                 
             // Create zero comparison
             ConstantExpression zero = Expression.Constant(GetZeroValue(type), type);
@@ -124,7 +146,8 @@ public static class GenericMath
                    type == typeof(ulong) ||
                    type == typeof(uint) ||
                    type == typeof(short) ||
-                   type == typeof(ushort);
+                   type == typeof(ushort) ||
+                   type.IsEnum;
         }
 
         // Public methods that use the cached delegates
@@ -133,5 +156,8 @@ public static class GenericMath
         public static T Multiply(T a, T b) => _multiply(a, b);
         public static T Divide(T a, T b) => _divide(a, b);
         public static bool IsZero(T value) => _isZero(value);
+        public static T And(T a, T b) => _and(a, b);
+        public static T Or(T a, T b) => _or(a, b);
+        public static bool HasMask(T a, T b) => _hasMask(a, b);
     }
 }

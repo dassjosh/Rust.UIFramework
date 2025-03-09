@@ -27,16 +27,16 @@ public class UiGridLayout : BaseLayout
 
     public override void Add(BaseUiComponent component) => Add(component, 1f);
 
-    public void Add(BaseUiComponent component, float colSpan)
+    public override void Add(BaseUiComponent component, float elementSpan)
     {
-        if (CurrentCol + colSpan > NumCols)
+        if (CurrentCol + elementSpan > NumCols)
         {
             NextRow();
         }
 
-        component.Position = GetPosition(colSpan);
+        component.Position = GetPosition(elementSpan);
         component.Offset = Padding?.ToOffset() ?? default;
-        CurrentCol += colSpan;
+        CurrentCol += elementSpan;
     }
     
     public void NextRow(float rowSpan = 1f)
@@ -69,6 +69,5 @@ public class UiGridLayout : BaseLayout
         base.EnterPool();
         CurrentRow = 0f;
         CurrentCol = 0f;
-        Padding = null;
     }
 }

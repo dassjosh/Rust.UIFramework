@@ -1,3 +1,6 @@
+
+using Oxide.Ext.UiFramework.Enums;
+
 namespace Rust.UiFramework.Benchmarks;
 
 #if BENCHMARKS
@@ -8,6 +11,8 @@ using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Game.Rust.Cui;
+using Oxide.Ext.UiFramework.Builder.Cached;
+using Oxide.Ext.UiFramework.Builder.UI;
 
 [MemoryDiagnoser]
 public class Benchmarks
@@ -54,7 +59,7 @@ public class Benchmarks
         //_randomWriter = _randomBuilder.CreateWriter();
         _random = new(1234);
     }
-
+    
     // [Benchmark]
     // public CuiElementContainer Oxide_CreateContainer()
     // {
@@ -97,13 +102,13 @@ public class Benchmarks
     //     return count;
     // }
 
-    [Benchmark]
-    public void UiFramework_Writer()
-    {
-        UiBuilder builder = _builder;
-        JsonFrameworkWriter writer = builder.CreateWriter();
-        writer.Dispose();
-    }
+    // [Benchmark]
+    // public void UiFramework_Writer()
+    // {
+    //     UiBuilder builder = _builder;
+    //     JsonFrameworkWriter writer = builder.CreateWriter();
+    //     writer.Dispose();
+    // }
     
     // public string UiFramework_Writer1()
     // {

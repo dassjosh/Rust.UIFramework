@@ -1,13 +1,14 @@
-﻿using Oxide.Ext.UiFramework.Cache;
+﻿using System;
+using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Constants;
-using Oxide.Ext.UiFramework.Controls;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.UiElements;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.Builder.UI;
 
@@ -81,7 +82,7 @@ public partial class UiBuilder
         UiSection mainRoot = UiSection.Create(UiPosition.Full, default);
         UiBuilder builder = Create(mainRoot, name, UiLayerCache.GetLayer(parent));
         builder.CommandButton(builder.Root, UiPosition.Full, default, UiColor.Clear, closeCommand);
-        UiPanel panel =builder.Panel(builder.Root, pos, offset, color);
+        UiPanel panel = builder.Panel(builder.Root, pos, offset, color);
         builder.OverrideRoot(panel);
         return builder;
     }
@@ -113,9 +114,33 @@ public partial class UiBuilder
         return builder;
     }
         
-    public static UiPopover Popover(string parentName, Vector2Int size, UiColor backgroundColor, PopoverPosition position = PopoverPosition.Bottom, string menuSprite = UiSprites.Content.Ui.UiBackgroundRounded)
+    public static UiBuilder Popover(in UiReference parent, Vector2 size, UiColor backgroundColor, PopoverPosition position = PopoverPosition.Bottom, string menuSprite = UiSprites.Content.Ui.UiBackgroundRounded)
     {
-        UiPopover control = UiPopover.Create(parentName, size, backgroundColor, position, menuSprite);
-        return control;
+        string name = $"{parent.Name}_Popover";
+        UiBuilder builder = Create(UiSection.Create(UiPosition.Full, default), name, parent.Name);
+            
+        UiPosition anchor = position switch
+        {
+            PopoverPosition.Top or PopoverPosition.Left => UiPosition.TopLeft,
+            PopoverPosition.Right => UiPosition.TopRight,
+            PopoverPosition.Bottom => UiPosition.BottomLeft,
+            _ => throw new ArgumentOutOfRangeException(nameof(position), position, null)
+        };
+        
+        UiOffset offset = position switch
+        {
+            PopoverPosition.Top => new UiOffset(0, 1, 1 + size.x, size.y),
+            PopoverPosition.Left => new UiOffset(-size.x, -size.y - 1, 0, -1),
+            PopoverPosition.Right => new UiOffset(0, -size.y - 1, size.x, -1),
+            PopoverPosition.Bottom => new UiOffset(1, -size.y, 1 + size.x, 0),
+            _ => throw new ArgumentOutOfRangeException(nameof(position), position, null)
+        };
+        
+        builder.CloseButton(builder.Root, UiPosition.Full, new UiOffset(9999 * 2), UiColor.Clear, name);
+        UiPanel background = builder.Panel(builder.Root, anchor, offset, backgroundColor).SetSpriteMaterialImage(menuSprite, null, Image.Type.Sliced);
+        background.AddOutline(UiColor.Black.WithAlpha(0.75f));
+        builder.OverrideRoot(background);
+        
+        return builder;
     }
 }
