@@ -24,16 +24,6 @@ public class UiGridLayout : BaseLayout
         layout.Padding = padding;
         return layout;
     }
-
-    public override void Add(BaseUiComponent component) => Add(component, 1f);
-
-    public override void Add(BaseUiComponent component, float elementSpan)
-    {
-        ValidateSpan(elementSpan);
-        component.Position = GetPosition(elementSpan);
-        component.Offset = Padding?.ToOffset() ?? default;
-        CurrentCol += elementSpan;
-    }
     
     public void NextRow(float rowSpan = 1f)
     {
@@ -43,12 +33,12 @@ public class UiGridLayout : BaseLayout
 
     public override void OffsetElements(float numElements) => OffsetColumn(numElements);
     
-    public override LayoutSlice WithSlice(float elementSpan)
+    public override LayoutPosition GetPosition(float elementSpan)
     {
         ValidateSpan(elementSpan);
-        LayoutSlice slice = new(this, GetPosition(elementSpan), Padding?.ToOffset() ?? default);
+        LayoutPosition position = new(Reference, GetUiPosition(elementSpan), Padding?.ToOffset() ?? default);
         CurrentCol += elementSpan;
-        return slice;
+        return position;
     }
 
     private void ValidateSpan(float elementSpan)
@@ -69,7 +59,7 @@ public class UiGridLayout : BaseLayout
         CurrentRow += numRows;
     }
 
-    private UiPosition GetPosition(float colSpan)
+    private UiPosition GetUiPosition(float colSpan)
     {
         UiPosition pos = new(CurrentCol / NumCols,  1f - (CurrentRow + 1) / NumRows,  (CurrentCol + colSpan) / NumCols, 1f - CurrentRow / NumRows);
         pos = pos.Shrink(ColSpacing, RowSpacing);

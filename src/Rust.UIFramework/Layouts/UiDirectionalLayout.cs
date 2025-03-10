@@ -25,31 +25,16 @@ public class UiDirectionalLayout : BaseLayout
         return layout;
     }
     
-    public override void Add(BaseUiComponent component) => Add(component, 1f);
-
-    public override void Add(BaseUiComponent component, float elementSpan)
-    {
-        if (CurrentElement + elementSpan > NumElements)
-        {
-            return;
-        }
-
-        component.Position = GetPosition(elementSpan);
-        component.Offset = Padding?.ToOffset() ?? default;
-        
-        CurrentElement += elementSpan;
-    }
-    
     public override void OffsetElements(float numElements)
     {
         CurrentElement += numElements;
     }
 
-    public override LayoutSlice WithSlice(float elementSpan)
+    public override LayoutPosition GetPosition(float elementSpan)
     {
-        LayoutSlice slice = new(this, GetPosition(elementSpan), Padding?.ToOffset() ?? default);
+        LayoutPosition position = new(Reference, GetUiPosition(elementSpan), Padding?.ToOffset() ?? default);
         CurrentElement += elementSpan;
-        return slice;
+        return position;
     }
 
     private UiPosition GetPositionLeftToRight(float startPos, float endPos)
@@ -80,7 +65,7 @@ public class UiDirectionalLayout : BaseLayout
         return pos;
     }
     
-    private UiPosition GetPosition(float elementSpan)
+    private UiPosition GetUiPosition(float elementSpan)
     {
         float startPos = CurrentElement / NumElements;
         float endPos = (CurrentElement + elementSpan) / NumElements;

@@ -15,14 +15,11 @@ public abstract class BaseLayout : BasePoolable
         layout.NumElements = numElements;
         return layout;
     }
-
-    public abstract void Add(BaseUiComponent component);
-    public abstract void Add(BaseUiComponent component, float elementSpan);
-    public abstract void OffsetElements(float numElements);
-    public abstract LayoutSlice WithSlice(float elementSpan);
     
-    public static implicit operator UiReference(BaseLayout component) => component.Reference;
-    public static implicit operator LayoutSlice(BaseLayout component) => component.WithSlice(1f);
+    public abstract void OffsetElements(float numElements);
+    public abstract LayoutPosition GetPosition(float elementSpan);
+    
+    public static implicit operator LayoutPosition(BaseLayout component) => component.GetPosition(1f);
 
     protected override void EnterPool()
     {

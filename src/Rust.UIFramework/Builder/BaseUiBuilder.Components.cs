@@ -48,13 +48,7 @@ public partial class BaseUiBuilder
         return section;
     }
     
-    public UiSection Section(BaseLayout layout)
-    {
-        UiSection section = UiSection.Create();
-        AddComponent(section, layout);
-        layout.Add(section);
-        return section;
-    }
+    public UiSection Section(LayoutPosition position) => Section(position.Reference, position.Position, position.Offset);
     
     public UiSection Padding(in UiReference parent, in UiPosition pos, in UiPadding padding = default)
     {
@@ -70,10 +64,7 @@ public partial class BaseUiBuilder
         return panel;
     }
 
-    public UiPanel Panel(LayoutSlice layout, UiColor color) => Panel(layout.Layout, layout.Position, layout.Offset, color);
-    
-    public UiPanel Panel(BaseLayout layout, UiColor color) => Panel(layout.WithSlice(1f), color);
-
+    public UiPanel Panel(in LayoutPosition layout, UiColor color) => Panel(layout.Reference, layout.Position, layout.Offset, color);
     #endregion
 
     #region Button
@@ -84,13 +75,7 @@ public partial class BaseUiBuilder
         return button;
     }
     
-    public UiButton CommandButton(BaseLayout layout, UiColor color, string command)
-    {
-        UiButton button = UiButton.CreateCommand(color, command);
-        AddComponent(button, layout);
-        layout.Add(button);
-        return button;
-    }
+    public UiButton CommandButton(LayoutPosition layout, UiColor color, string command) => CommandButton(layout.Reference, layout.Position, layout.Offset, color, command);
 
     public UiButton CloseButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor color, string close)
     {
@@ -179,8 +164,7 @@ public partial class BaseUiBuilder
         return label;
     }
     
-    public UiLabel Label(in LayoutSlice slice, string text, int size, UiColor textColor, TextAnchor align = TextAnchor.MiddleCenter) => Label(slice.Layout, slice.Position, slice.Offset, text, size, textColor, align);
-    //public UiLabel Label(BaseLayout layout, string text, int size, UiColor textColor, TextAnchor align = TextAnchor.MiddleCenter) => Label(layout.WithSlice(1f), text, size, textColor, align);
+    public UiLabel Label(in LayoutPosition position, string text, int size, UiColor textColor, TextAnchor align = TextAnchor.MiddleCenter) => Label(position.Reference, position.Position, position.Offset, text, size, textColor, align);
     #endregion
         
     #region Input

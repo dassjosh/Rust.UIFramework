@@ -25,13 +25,9 @@ public partial class BaseUiBuilder
         UiLabel label = Label(button, UiPosition.Full, JsonDefaults.Common.TextPadding, text, textSize, textColor , align);
         return new UiTuple<UiButton, UiLabel>(button, label);
     }
-    
-    public UiTuple<UiButton, UiLabel> TextButton(BaseLayout layout, string text, int textSize, UiColor textColor, UiColor buttonColor, string command, TextAnchor align = TextAnchor.MiddleCenter)
-    {
-        UiButton button = CommandButton(layout, buttonColor, command);
-        UiLabel label = Label(button, UiPosition.Full, JsonDefaults.Common.TextPadding, text, textSize, textColor , align);
-        return new UiTuple<UiButton, UiLabel>(button, label);
-    }
+
+    public UiTuple<UiButton, UiLabel> TextButton(in LayoutPosition layout, string text, int textSize, UiColor textColor, UiColor buttonColor, string command, TextAnchor align = TextAnchor.MiddleCenter) =>
+        TextButton(layout.Reference, layout.Position, layout.Offset, text, textSize, textColor, buttonColor, command, align);
         
     public UiTuple<UiButton, UiRawImage> ImageFileStorageButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, string png, string command, UiColor? spriteColor = null)
     {
@@ -75,7 +71,7 @@ public partial class BaseUiBuilder
         return new UiTuple<UiButton, UiIcon>(button, image);
     }
     
-    public UiTuple<UiButton, UiIcon> IconButton<T>(BaseLayout layout, UiColor buttonColor, T icon, string command, UiColor? iconColor = null) where T : struct, Enum
+    public UiTuple<UiButton, UiIcon> IconButton<T>(in LayoutPosition layout, UiColor buttonColor, T icon, string command, UiColor? iconColor = null) where T : struct, Enum
     {
         UiButton button = CommandButton(layout, buttonColor, command);
         UiIcon image = Icon(button, UiPosition.Full, default, icon, iconColor);
