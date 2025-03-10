@@ -174,15 +174,8 @@ public partial class BaseUiBuilder
         return label;
     }
     
-    public UiLabel Label(BaseLayout layout, string text, int size, UiColor textColor, TextAnchor align = TextAnchor.MiddleCenter) => Label(layout, 1f, text, size, textColor, align);
-    
-    public UiLabel Label(BaseLayout layout, float elementSpan, string text, int size, UiColor textColor, TextAnchor align = TextAnchor.MiddleCenter)
-    {
-        UiLabel label = UiLabel.Create(textColor, text, size, Font, align);
-        AddComponent(label, layout);
-        layout.Add(label, elementSpan);
-        return label;
-    }
+    public UiLabel Label(in LayoutSlice slice, string text, int size, UiColor textColor, TextAnchor align = TextAnchor.MiddleCenter) => Label(slice.Layout, slice.Position, slice.Offset, text, size, textColor, align);
+    //public UiLabel Label(BaseLayout layout, string text, int size, UiColor textColor, TextAnchor align = TextAnchor.MiddleCenter) => Label(layout.WithSlice(1f), text, size, textColor, align);
     #endregion
         
     #region Input

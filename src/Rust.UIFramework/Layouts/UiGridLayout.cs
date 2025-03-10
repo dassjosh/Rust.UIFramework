@@ -29,11 +29,7 @@ public class UiGridLayout : BaseLayout
 
     public override void Add(BaseUiComponent component, float elementSpan)
     {
-        if (CurrentCol + elementSpan > NumCols)
-        {
-            NextRow();
-        }
-
+        ValidateSpan(elementSpan);
         component.Position = GetPosition(elementSpan);
         component.Offset = Padding?.ToOffset() ?? default;
         CurrentCol += elementSpan;
@@ -46,6 +42,22 @@ public class UiGridLayout : BaseLayout
     }
 
     public override void OffsetElements(float numElements) => OffsetColumn(numElements);
+    
+    public override LayoutSlice WithSlice(float elementSpan)
+    {
+        ValidateSpan(elementSpan);
+        LayoutSlice slice = new(this, GetPosition(elementSpan), Padding?.ToOffset() ?? default);
+        CurrentCol += elementSpan;
+        return slice;
+    }
+
+    private void ValidateSpan(float elementSpan)
+    {
+        if (CurrentCol + elementSpan > NumCols)
+        {
+            NextRow();
+        }
+    }
 
     public void OffsetColumn(float numCols)
     {

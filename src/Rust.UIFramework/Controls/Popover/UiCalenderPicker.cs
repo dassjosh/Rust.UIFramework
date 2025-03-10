@@ -72,7 +72,7 @@ public class UiCalenderPicker : BaseUiControl
         PreviousMonth = builder.IconButton(headerLayout, buttonColor, Icons.Backward, changeCommand.Build(value.AddMonths(-1)), textColor);
         StyleButton(PreviousMonth, buttonSprite);
         
-        builder.Label(layout, 3f, FormatCache<DateTime>.ToString(_firstOfTheMonth, "MMM yyyy"), fontSize, textColor);
+        builder.Label(layout.WithSlice(3f), FormatCache<DateTime>.ToString(_firstOfTheMonth, "MMM yyyy"), fontSize, textColor);
         
         NextMonth = builder.IconButton(headerLayout, buttonColor, Icons.Forward, changeCommand.Build(value.AddYears(1)), textColor);
         StyleButton(NextMonth, buttonSprite);

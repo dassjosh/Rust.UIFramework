@@ -31,7 +31,6 @@ public class UiDirectionalLayout : BaseLayout
     {
         if (CurrentElement + elementSpan > NumElements)
         {
-            // Cannot add more components to this column
             return;
         }
 
@@ -45,7 +44,14 @@ public class UiDirectionalLayout : BaseLayout
     {
         CurrentElement += numElements;
     }
-    
+
+    public override LayoutSlice WithSlice(float elementSpan)
+    {
+        LayoutSlice slice = new(this, GetPosition(elementSpan), Padding?.ToOffset() ?? default);
+        CurrentElement += elementSpan;
+        return slice;
+    }
+
     private UiPosition GetPositionLeftToRight(float startPos, float endPos)
     {
         UiPosition pos = new(startPos, 0, endPos, 1);
