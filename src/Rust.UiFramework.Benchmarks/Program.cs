@@ -26,6 +26,6 @@ class Program
 
 
 #endif
-        var a = -25 % 24;
+
     }
 }

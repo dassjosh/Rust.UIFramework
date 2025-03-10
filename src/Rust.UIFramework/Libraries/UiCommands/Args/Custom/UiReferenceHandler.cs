@@ -13,8 +13,8 @@ internal class UiReferenceHandler : IArgHandler<UiReference>, IArgHandler<UiRefe
     
     UiReference IArgReader<UiReference>.Read(ReadOnlySpan<char> arg)
     {
-        ReadOnlySpan<char> parent = arg.ParseNextString(Separator, out arg);
-        ReadOnlySpan<char> name = arg.ParseNextString(Separator, out arg);
+        arg.ParseNextString(Separator, out ReadOnlySpan<char> parent, out arg);
+        arg.ParseNextString(Separator, out ReadOnlySpan<char> name, out arg);
         return new UiReference(parent.ToString(), name.ToString());
     }
     

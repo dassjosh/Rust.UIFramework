@@ -62,16 +62,6 @@ public abstract partial class BaseUiBuilder : BaseBuilder
         
     public JsonFrameworkWriter CreateWriter()
     {
-        int count = Controls.Count;
-        if (count != 0)
-        {
-            for (int index = 0; index < count; index++)
-            {
-                BaseUiControl control = Controls[index];
-                control.RenderControl(this);
-            }
-        }
-            
         JsonFrameworkWriter writer = JsonFrameworkWriter.Create();
         writer.WriteStartArray();
         WriteComponentsInternal(writer);

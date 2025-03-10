@@ -40,7 +40,7 @@ public static class SpanExt
         return true;
     }
         
-    public static ReadOnlySpan<char> ParseNextString(this ReadOnlySpan<char> input, ReadOnlySpan<char> token, out ReadOnlySpan<char> remaining)
+    public static void ParseNextString(this ReadOnlySpan<char> input, ReadOnlySpan<char> token, out ReadOnlySpan<char> result, out ReadOnlySpan<char> remaining)
     {
         if (input.Length == 0)
         {
@@ -51,11 +51,12 @@ public static class SpanExt
         if (end == -1)
         {
             remaining = ReadOnlySpan<char>.Empty;
-            return input;
+            result = input;
+            return;
         }
 
         remaining = input[(end + token.Length)..];
-        return input[..end];
+        result = input[..end];
     }
 
     /// <summary>

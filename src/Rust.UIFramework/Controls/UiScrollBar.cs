@@ -2,6 +2,7 @@
 using Oxide.Ext.UiFramework.Builder;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Enums;
+using Oxide.Ext.UiFramework.Layouts;
 using Oxide.Ext.UiFramework.Libraries.UiCommands;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Pooling;
@@ -21,25 +22,19 @@ public class UiScrollBar : BaseUiControl
     {
         UiScrollBar control = CreateControl<UiScrollBar>();
             
-        control.Background = builder.Panel(parent, position, offset, backgroundColor);
-        control.Background.SetSpriteMaterialImage(sprite, null, Image.Type.Sliced);
-        float buttonSize = 1f / (maxPage + 1);
+        control.Background = builder.Panel(parent, position, offset, backgroundColor).SetSpriteMaterialImage(sprite, null, Image.Type.Sliced);
+        UiDirectionalLayout layout = builder.DirectionalLayout(parent, position, offset, maxPage + 1, direction == ScrollbarDirection.Horizontal ? LayoutDirection.LeftToRight : LayoutDirection.TopToBottom);
+        
         for (int i = 0; i <= maxPage; i++)
         {
-            float min = buttonSize * i;
-            float max = buttonSize * (i + 1);
-            UiPosition pagePosition = direction == ScrollbarDirection.Horizontal ? UiPosition.Full.SliceHorizontal(min, max) : new UiPosition(0, 1 - max, 1, 1 - min);
-                
             if (i != currentPage)
             {
-                UiButton button = builder.CommandButton(control.Background, pagePosition, default, backgroundColor, command.Build(i))
-                    .SetSpriteMaterialImage(sprite, null, Image.Type.Sliced);
+                UiButton button = builder.CommandButton(layout, backgroundColor, command.Build(i)).SetSpriteMaterialImage(sprite, null, Image.Type.Sliced);
                 control.ScrollButtons.Add(button);
             }
             else
             {
-                control.ScrollBar = builder.Panel(control.Background, pagePosition, default, barColor)
-                    .SetSpriteMaterialImage(sprite, null, Image.Type.Sliced);
+                control.ScrollBar = builder.Panel(layout, barColor).SetSpriteMaterialImage(sprite, null, Image.Type.Sliced);
             }
         }
 

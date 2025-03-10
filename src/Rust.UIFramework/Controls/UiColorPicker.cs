@@ -1,5 +1,6 @@
 ﻿using Oxide.Ext.UiFramework.Builder;
 using Oxide.Ext.UiFramework.Colors;
+using Oxide.Ext.UiFramework.Libraries.UiCommands;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.UiElements;
@@ -14,11 +15,11 @@ public class UiColorPicker : BaseUiControl
     public UiLabel Text;
     public UiPanel Color;
         
-    public static UiColorPicker Create(BaseUiBuilder builder, BaseUiComponent parent, in UiPosition pos, in UiOffset offset, UiColor selectedColor, int fontSize, UiColor textColor, UiColor backgroundColor, string openCommand)
+    public static UiColorPicker Create(BaseUiBuilder builder, BaseUiComponent parent, in UiPosition pos, in UiOffset offset, UiColor selectedColor, int fontSize, UiColor textColor, UiColor backgroundColor, ICommandBuilder<UiReference> openCommand)
     {
         UiColorPicker control = CreateControl<UiColorPicker>();
         control.Anchor = builder.Anchor(parent, pos, offset);
-        control.Button = builder.CommandButton(parent, pos, offset, backgroundColor, $"{openCommand} {control.Anchor.Reference.Name}");
+        control.Button = builder.CommandButton(parent, pos, offset, backgroundColor, openCommand.Build(control.Anchor.Reference));
         control.Text = builder.Label(control.Button, UiPosition.Full, new UiOffset(5, 0, 0, 0), selectedColor.ToHtmlColor(), fontSize, textColor, TextAnchor.MiddleLeft);
         control.Color = builder.Panel(control.Button, UiPosition.Full.SliceHorizontal(1f - (pos.Max.y - pos.Min.y), 1), new UiOffset(-4, 4, -4, -4), selectedColor);
         return control;

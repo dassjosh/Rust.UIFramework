@@ -13,34 +13,34 @@ internal class UnityArgHandler : IArgHandler<Vector2>, IArgHandler<Vector3>, IAr
     
     Vector2 IArgReader<Vector2>.Read(ReadOnlySpan<char> arg)
     {
-        ReadOnlySpan<char> x =  arg.ParseNextString(Separator, out arg);
-        ReadOnlySpan<char> y =  arg.ParseNextString(Separator, out arg);
+        arg.ParseNextString(Separator, out ReadOnlySpan<char> x, out arg);
+        arg.ParseNextString(Separator, out ReadOnlySpan<char> y, out arg);
         return new Vector2(float.Parse(x), float.Parse(y));
     }
     
     Vector3 IArgReader<Vector3>.Read(ReadOnlySpan<char> arg)
     {
-        ReadOnlySpan<char> x =  arg.ParseNextString(Separator, out arg);
-        ReadOnlySpan<char> y =  arg.ParseNextString(Separator, out arg);
-        ReadOnlySpan<char> z =  arg.ParseNextString(Separator, out arg);
+        arg.ParseNextString(Separator, out ReadOnlySpan<char> x, out arg);
+        arg.ParseNextString(Separator, out ReadOnlySpan<char> y, out arg);
+        arg.ParseNextString(Separator, out ReadOnlySpan<char> z, out arg);
         return new Vector3(float.Parse(x), float.Parse(y), float.Parse(z));
     }
     
     Vector4 IArgReader<Vector4>.Read(ReadOnlySpan<char> arg)
     {
-        ReadOnlySpan<char> w =  arg.ParseNextString(Separator, out arg);
-        ReadOnlySpan<char> x =  arg.ParseNextString(Separator, out arg);
-        ReadOnlySpan<char> y =  arg.ParseNextString(Separator, out arg);
-        ReadOnlySpan<char> z =  arg.ParseNextString(Separator, out arg);
+        arg.ParseNextString(Separator, out ReadOnlySpan<char> w, out arg);
+        arg.ParseNextString(Separator, out ReadOnlySpan<char> x, out arg);
+        arg.ParseNextString(Separator, out ReadOnlySpan<char> y, out arg);
+        arg.ParseNextString(Separator, out ReadOnlySpan<char> z, out arg);
         return new Vector4(float.Parse(x), float.Parse(y), float.Parse(z), float.Parse(w));
     }
     
     Quaternion IArgReader<Quaternion>.Read(ReadOnlySpan<char> arg)
     {
-        ReadOnlySpan<char> w =  arg.ParseNextString(Separator, out arg);
-        ReadOnlySpan<char> x =  arg.ParseNextString(Separator, out arg);
-        ReadOnlySpan<char> y =  arg.ParseNextString(Separator, out arg);
-        ReadOnlySpan<char> z =  arg.ParseNextString(Separator, out arg);
+        arg.ParseNextString(Separator, out ReadOnlySpan<char> w, out arg);
+        arg.ParseNextString(Separator, out ReadOnlySpan<char> x, out arg);
+        arg.ParseNextString(Separator, out ReadOnlySpan<char> y, out arg);
+        arg.ParseNextString(Separator, out ReadOnlySpan<char> z, out arg);
         return new Quaternion(float.Parse(x), float.Parse(y), float.Parse(z), float.Parse(w));
     }
 

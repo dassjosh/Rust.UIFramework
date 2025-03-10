@@ -1,5 +1,7 @@
 
 using Oxide.Ext.UiFramework.Enums;
+using Oxide.Ext.UiFramework.Layouts;
+using Oxide.Ext.UiFramework.Offsets;
 
 namespace Rust.UiFramework.Benchmarks;
 
@@ -58,6 +60,30 @@ public class Benchmarks
         _writer = _builder.CreateWriter();
         //_randomWriter = _randomBuilder.CreateWriter();
         _random = new(1234);
+    }
+
+    private readonly UiGridLayout Layout = new();
+    
+    [Benchmark]
+    public bool Slice()
+    {
+        return MethodA(new LayoutSlice(Layout, UiPosition.Full, default));
+    }
+    
+    [Benchmark]
+    public bool Fields()
+    {
+        return MethodA(Layout, UiPosition.Full, default);
+    }
+
+    private bool MethodA(LayoutSlice slice)
+    {
+        return slice is { Layout: not null, Position.Max.y: 1, Offset.Height: 0 };
+    }
+    
+    private bool MethodA(BaseLayout layout, UiPosition position, UiOffset offset)
+    {
+        return layout != null && position.Max.y == 1 && offset.Height == 0;
     }
     
     // [Benchmark]
@@ -310,7 +336,7 @@ public class Benchmarks
                     builder.WebImage(builder.Root, _frameworkPos[i], default, "http://google.com", UiColor.Yellow);
                     break;
                 case 5:
-                    builder.ItemIcon(builder.Root, _frameworkPos[i], default, 0, color: UiColor.Cyan);
+                    builder.ItemIcon(builder.Root, _frameworkPos[i], default, 0, 0, color: UiColor.Cyan);
                     break;
                 case 6:
                     builder.Section(builder.Root, _frameworkPos[i]);

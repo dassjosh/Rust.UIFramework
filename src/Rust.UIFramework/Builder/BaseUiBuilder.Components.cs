@@ -69,6 +69,11 @@ public partial class BaseUiBuilder
         AddComponent(panel, parent);
         return panel;
     }
+
+    public UiPanel Panel(LayoutSlice layout, UiColor color) => Panel(layout.Layout, layout.Position, layout.Offset, color);
+    
+    public UiPanel Panel(BaseLayout layout, UiColor color) => Panel(layout.WithSlice(1f), color);
+
     #endregion
 
     #region Button
