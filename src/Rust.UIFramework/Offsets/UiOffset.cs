@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Offsets;
 
-public readonly struct UiOffset(float xMin, float yMin, float xMax, float yMax)
+public readonly struct UiOffset(float xMin, float yMin, float xMax, float yMax) : IEquatable<UiOffset>
 {
     public static readonly UiOffset None = new(0, 0, 0, 0);
     public static readonly UiOffset Scaled = new(1280, 720);
@@ -238,4 +238,13 @@ public readonly struct UiOffset(float xMin, float yMin, float xMax, float yMax)
     {
         return $"({Min.x:0}, {Min.y:0}) ({Max.x:0}, {Max.y:0}) WxH:({Width} x {Height})";
     }
+
+    public bool Equals(UiOffset other) => Min.Equals(other.Min) && Max.Equals(other.Max);
+
+    public override bool Equals(object obj) => obj is UiOffset other && Equals(other);
+
+    public override int GetHashCode() => HashCode.Combine(Min, Max);
+    
+    public static bool operator ==(UiOffset left, UiOffset right) => left.Equals(right);
+    public static bool operator !=(UiOffset left, UiOffset right) => !(left == right);
 }

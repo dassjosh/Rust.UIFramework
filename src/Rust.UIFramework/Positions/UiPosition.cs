@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Positions;
 
-public readonly struct UiPosition(float xMin, float yMin, float xMax, float yMax)
+public readonly struct UiPosition(float xMin, float yMin, float xMax, float yMax) : IEquatable<UiPosition>
 {
     public static readonly UiPosition None = new(0, 0, 0, 0);
     public static readonly UiPosition Full = new(0, 0, 1, 1);
@@ -208,4 +208,13 @@ public readonly struct UiPosition(float xMin, float yMin, float xMax, float yMax
         Vector2 max = Max;   
         return new UiPosition(min.x, min.y + (max.y - min.y) * yMin, max.x, min.y + (max.y - min.y) * yMax);
     }
+    
+    public static bool operator ==(UiPosition left, UiPosition right) => left.Equals(right);
+    public static bool operator !=(UiPosition left, UiPosition right) => !(left == right);
+
+    public bool Equals(UiPosition other) => Min.Equals(other.Min) && Max.Equals(other.Max);
+
+    public override bool Equals(object obj) => obj is UiPosition other && Equals(other);
+
+    public override int GetHashCode() => HashCode.Combine(Min, Max);
 }
