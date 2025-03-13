@@ -88,6 +88,12 @@ internal class UiFrameworkPlugin : BaseUiFrameworkPlugin
     }
 
     #region Hooks
+    [HookMethod(nameof(OnPlayerConnected))]
+    private void OnPlayerConnected(BasePlayer player)
+    {
+        BaseUiFrameworkLibrary.ProcessOnPlayerConnected(player);
+    }
+    
     [HookMethod(nameof(OnPlayerDisconnected))]
     private void OnPlayerDisconnected(BasePlayer player)
     {

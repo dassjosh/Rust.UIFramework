@@ -41,6 +41,7 @@ public class UiFrameworkExtension : Extension
         Manager.RegisterLibrary(nameof(UiNameStore), Singleton<UiNameStore>.Instance);
         Manager.RegisterLibrary(nameof(UiPlayerStore), Singleton<UiPlayerStore>.Instance);
         Manager.RegisterLibrary(nameof(ThemeManager), Singleton<ThemeManager>.Instance);
+        Manager.RegisterLibrary(nameof(UiPlayerAvatars), Singleton<UiPlayerAvatars>.Instance);
     }
 
     public override IEnumerable<string> GetPreprocessorDirectives()

@@ -1,5 +1,6 @@
 ﻿using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
+using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Interfaces;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
@@ -11,11 +12,12 @@ public class UiPlayerAvatar : BaseUiComponent, IMaterial, IFadeIn
     public readonly PlayerAvatarComponent Avatar = new();
     internal override CoreComponent Component => Avatar;
 
-    public static UiPlayerAvatar Create(in UiPosition pos, in UiOffset offset, UiColor color, ulong steamId)
+    public static UiPlayerAvatar Create(in UiPosition pos, in UiOffset offset, UiColor color, ulong steamId, AvatarType type)
     {
         UiPlayerAvatar icon = CreateBase<UiPlayerAvatar>(pos, offset);
         icon.Avatar.Color = color;
         icon.Avatar.SteamId = steamId;
+        icon.Avatar.Type = type;
         return icon;
     }
     

@@ -15,6 +15,7 @@ internal sealed class DataHandler : ISingleton
     internal void LoadAll()
     {
         Load<ImageStorageData>(new DataFileInfo("image.storage", 2, DataFormat.Protobuf));
+        Load<AvatarData>(new DataFileInfo("player.avatar", 2, DataFormat.Protobuf));
     }
 
     public void OnServerSave() => SaveAll(false);
@@ -24,6 +25,7 @@ internal sealed class DataHandler : ISingleton
     private void SaveAll(bool force)
     {
         Save(ImageStorageData.Instance, force);
+        Save(AvatarData.Instance, force);
     }
         
     public static TData Load<TData>(DataFileInfo info) where TData : BaseDataFile<TData>, new()

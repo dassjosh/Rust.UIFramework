@@ -104,9 +104,9 @@ public partial class BaseUiBuilder
     #endregion
     
     #region Player Avatar
-    public UiPlayerAvatar PlayerAvatar(in UiReference parent, in UiPosition pos, in UiOffset offset, ulong steamId, UiColor? color = default)
+    public UiPlayerAvatar PlayerAvatar(in UiReference parent, in UiPosition pos, in UiOffset offset, ulong steamId, AvatarType type = AvatarType.Medium, UiColor? color = default)
     {
-        UiPlayerAvatar image = UiPlayerAvatar.Create(pos, offset, color ?? UiColor.White, steamId);
+        UiPlayerAvatar image = UiPlayerAvatar.Create(pos, offset, color ?? UiColor.White, steamId, type);
         AddComponent(image, parent);
         return image;
     }

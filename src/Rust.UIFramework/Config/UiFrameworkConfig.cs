@@ -25,7 +25,13 @@ internal class UiFrameworkConfig : ConfigFile
     /// UiFramework Image Storage Options
     /// </summary>
     [JsonProperty("ImageStorage")]
-    public UiImageStorageSettings ImageStorage { get; set; }
+    public UiImageStorageConfig ImageStorage { get; set; }
+    
+    /// <summary>
+    /// UiFramework Image Storage Options
+    /// </summary>
+    [JsonProperty("Steam")]
+    public UiSteamConfig Steam { get; set; }
     
     /// <summary>
     /// UiFramework Logging Options
@@ -80,10 +86,15 @@ internal class UiFrameworkConfig : ConfigFile
             PatchAddUiMethod = Harmony?.PatchAddUiMethod ?? false
         };
 
-        ImageStorage = new UiImageStorageSettings
+        ImageStorage = new UiImageStorageConfig
         {
             MaxConcurrentDownloads = ImageStorage?.MaxConcurrentDownloads ?? 5,
             MaxDownloadAttempts = ImageStorage?.MaxDownloadAttempts ?? 3,
+        };
+        
+        Steam = new UiSteamConfig
+        {
+            ApiKey = Steam?.ApiKey ?? string.Empty
         };
         
         Logging = new UiLoggingConfig

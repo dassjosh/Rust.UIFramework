@@ -16,6 +16,7 @@ public abstract class BaseUiFrameworkLibrary : Library
     protected virtual void OnServerInitialized() {}
     protected virtual void OnPluginLoaded(Plugin plugin){}
     protected virtual void OnPluginUnloaded(Plugin plugin){}
+    protected virtual void OnPlayerConnected(BasePlayer player){}
     protected virtual void OnPlayerDisconnected(BasePlayer player){}
     protected virtual void OnServerShutdown(){}
     
@@ -40,6 +41,14 @@ public abstract class BaseUiFrameworkLibrary : Library
         foreach (BaseUiFrameworkLibrary library in Libraries)
         {
             library.OnPluginUnloaded(plugin);
+        }
+    }
+    
+    internal static void ProcessOnPlayerConnected(BasePlayer player)
+    {
+        foreach (BaseUiFrameworkLibrary library in Libraries)
+        {
+            library.OnPlayerConnected(player);
         }
     }
     
