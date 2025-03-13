@@ -1,6 +1,6 @@
 ﻿// ReSharper disable CoVariantArrayConversion
 
-namespace Oxide.Ext.UiFramework.Libraries.UiCommands;
+namespace Oxide.Ext.UiFramework.Libraries;
 
 internal class CommandBuilder : BaseCommandBuilder, ICommandBuilder
 {

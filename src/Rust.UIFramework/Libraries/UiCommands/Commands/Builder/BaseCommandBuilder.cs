@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using Oxide.Ext.UiFramework.Pooling;
 
-namespace Oxide.Ext.UiFramework.Libraries.UiCommands;
+namespace Oxide.Ext.UiFramework.Libraries;
 
 internal class BaseCommandBuilder(string command, ICommandProtection protection, IArgWriter[] writers, int argIndex = 0)
 {

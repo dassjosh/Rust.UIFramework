@@ -1,4 +1,4 @@
-﻿namespace Oxide.Ext.UiFramework.Libraries.UiCommands;
+﻿namespace Oxide.Ext.UiFramework.Libraries;
 
 internal readonly record struct CommandId(uint Id)
 {

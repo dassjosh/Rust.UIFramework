@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Plugins;
 
-namespace Oxide.Ext.UiFramework.Libraries.UiCommands;
+namespace Oxide.Ext.UiFramework.Libraries;
 
 public static class PartialCommand
 {

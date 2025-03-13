@@ -1,7 +1,7 @@
 ﻿using System;
 using Oxide.Core.Plugins;
 
-namespace Oxide.Ext.UiFramework.Libraries.UiCommands;
+namespace Oxide.Ext.UiFramework.Libraries;
 
 internal class CommandParser(Plugin plugin, Action<BasePlayer> method, ICommandProtection protection, ICooldownHandler cooldown, IPermissionHandler permission) 
     : BaseCommandParser(plugin, method.Method, protection, cooldown, permission, [])

@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Text;
+using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Pooling;
 
-namespace Oxide.Ext.UiFramework.Libraries.UiCommands;
+namespace Oxide.Ext.UiFramework.Libraries;
 
 public readonly ref struct UiArgWriter(StringBuilder sb)
 {
@@ -115,6 +116,12 @@ public readonly ref struct UiArgWriter(StringBuilder sb)
     
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void Append(ReadOnlySpan<char> value) => sb.Append(value);
+    
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public void Append(UiColor color) => sb.AppendArg(color);
+    
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public void Append(UiColor? color) => sb.AppendArg(color);
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void AppendQuote() => sb.Append('"');

@@ -1,11 +1,14 @@
 ﻿using System;
 
-namespace Oxide.Ext.UiFramework.Libraries.UiCommands;
+namespace Oxide.Ext.UiFramework.Libraries;
 
 public interface IArgHandler : IArgReader, IArgWriter;
 public interface IArgHandler<T> : IArgReader<T>, IArgWriter<T>, IArgHandler;
 
-public interface IArgReader;
+public interface IArgReader
+{
+    bool IsInputArg() => false;
+}
 
 public interface IArgReader<out T> : IArgReader
 {

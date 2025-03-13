@@ -1,9 +1,12 @@
 ﻿using System;
+using Oxide.Ext.UiFramework.Types;
 
-namespace Oxide.Ext.UiFramework.Libraries.UiCommands;
+namespace Oxide.Ext.UiFramework.Libraries;
 
-internal class BasePlayerHandler : IArgHandler<BasePlayer>
+internal class BasePlayerHandler : IArgHandler<BasePlayer>, ISingleton
 {
+    private BasePlayerHandler() { }
+    
     public BasePlayer Read(ReadOnlySpan<char> arg)
     {
         if(arg is UiCommands.NullArg) return default;

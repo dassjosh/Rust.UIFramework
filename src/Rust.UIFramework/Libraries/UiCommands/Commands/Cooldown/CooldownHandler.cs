@@ -3,7 +3,7 @@ using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Types;
 
-namespace Oxide.Ext.UiFramework.Libraries.UiCommands;
+namespace Oxide.Ext.UiFramework.Libraries;
 
 internal class CooldownHandler(PluginId pluginId, string method, float cooldown, string errorMessage) : ICooldownHandler
 {

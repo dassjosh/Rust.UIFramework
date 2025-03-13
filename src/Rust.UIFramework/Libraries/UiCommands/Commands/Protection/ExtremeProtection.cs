@@ -6,7 +6,7 @@ using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Types;
 
-namespace Oxide.Ext.UiFramework.Libraries.UiCommands;
+namespace Oxide.Ext.UiFramework.Libraries;
 
 internal class ExtremeProtection(PluginId pluginId, string method, float protectionKeyLifetime, string protectingStringPrefix, bool multiUse) : ICommandProtection
 {

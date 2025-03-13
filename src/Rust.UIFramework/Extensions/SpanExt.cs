@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using Oxide.Ext.UiFramework.Colors;
 
 namespace Oxide.Ext.UiFramework.Extensions;
 
@@ -351,5 +352,30 @@ public static class SpanExt
 
         written = default;
         return false;
+    }
+    
+    /// <summary>
+    /// Tries to write the formatted values to out span
+    /// </summary>
+    /// <param name="value">Value to be formatted</param>
+    /// <param name="written">Span the format is written to</param>
+    /// <returns>true if the format was successful; false otherwise</returns>
+    public static bool TryFormat(this UiColor value, out ReadOnlySpan<char> written)
+    {
+        Span<char> span = Buffer.Value.AsSpan();
+        ReadOnlySpan<char> format = "X2".AsSpan();
+        
+        value.Red.TryFormat(span, out int _, format);
+        value.Green.TryFormat(span[2..], out int _, format);
+        value.Blue.TryFormat(span[4..], out int _, format);
+        if (value.Alpha == byte.MaxValue)
+        {
+            written = span[..6];
+            return true;
+        }
+
+        value.Alpha.TryFormat(span[6..], out int _, format);
+        written = span[..8];
+        return true;
     }
 }

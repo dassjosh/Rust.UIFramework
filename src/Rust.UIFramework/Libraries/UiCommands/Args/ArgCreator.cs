@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Exceptions;
 using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Plugins;
@@ -7,7 +8,7 @@ using Oxide.Ext.UiFramework.Types;
 using Oxide.Ext.UiFramework.UiElements;
 using UnityEngine;
 
-namespace Oxide.Ext.UiFramework.Libraries.UiCommands;
+namespace Oxide.Ext.UiFramework.Libraries;
 
 internal static class ArgCreator
 {
@@ -104,9 +105,12 @@ internal static class ArgCreator
         if (type == typeof(Vector3?)) return Singleton<UnityArgHandler>.Instance;
         if (type == typeof(Vector4)) return Singleton<UnityArgHandler>.Instance;
         if (type == typeof(Vector4?)) return Singleton<UnityArgHandler>.Instance;
-        if(type == typeof(BasePlayer)) return new BasePlayerHandler();
+        if (type == typeof(UiColor)) return new ArgHandler<UiColor>(UiColor.ParseHexColor, (writer, arg) => writer.Append(arg));
+        if (type == typeof(UiColor?)) return new ArgHandler<UiColor?>(span => span is UiCommands.NullArg ? null : UiColor.ParseHexColor(span), (writer, arg) => writer.Append(arg));
+        if (type == typeof(InputArg)) return new InputArgHandler();
+        if (type == typeof(BasePlayer)) return Singleton<BasePlayerHandler>.Instance;
         if (typeof(BaseNetworkable).IsAssignableFrom(type)) return new BaseNetworkableHandler<T>();
-        if(type.IsEnum) return new EnumHandler<T>();
+        if (type.IsEnum) return new EnumHandler<T>();
         
         return null;
     }

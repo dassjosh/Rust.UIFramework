@@ -6,9 +6,10 @@ using Oxide.Ext.UiFramework.Exceptions;
 using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Types;
+
 // ReSharper disable CoVariantArrayConversion
 
-namespace Oxide.Ext.UiFramework.Libraries.UiCommands;
+namespace Oxide.Ext.UiFramework.Libraries;
 
 public delegate void OnPlayerNoPermission(BasePlayer player, string method, string errorMessage);
 public delegate void OnPlayerCooldown(BasePlayer player, string method, float cooldown, float remaining, string errorMessage);
@@ -93,6 +94,70 @@ public class UiCommands : BaseUiFrameworkLibrary, ISingleton
         IArgHandler[] argHandler = ArgCreator.CreateArgHandler<T0, T1, T2, T3, T4, T5, T6, T7>(pluginId);
         _commands[command] = new CommandParser<T0, T1, T2, T3, T4, T5, T6, T7>(plugin, method, protection, cooldown, permission, argHandler);
         return new CommandBuilder<T0, T1, T2, T3, T4, T5, T6, T7>(command.GetCommand(), protection, argHandler);
+    }
+    
+    public ICommandBuilder RegisterInput(Plugin plugin, Action<BasePlayer, InputArg> method)
+    {
+        ParseCommand(plugin, method.Method, out PluginId pluginId, out CommandId command, out ICommandProtection protection, out ICooldownHandler cooldown, out IPermissionHandler permission);
+        IArgHandler[] argHandler = ArgCreator.CreateArgHandler<InputArg>(pluginId);
+        _commands[command] = new CommandParser<InputArg>(plugin, method, protection, cooldown, permission, argHandler);
+        return new CommandBuilder(command.GetCommand(), protection);
+    }
+    
+    public ICommandBuilder<T0> RegisterInput<T0>(Plugin plugin, Action<BasePlayer, T0, InputArg> method)
+    {
+        ParseCommand(plugin, method.Method, out PluginId pluginId, out CommandId command, out ICommandProtection protection, out ICooldownHandler cooldown, out IPermissionHandler permission);
+        IArgHandler[] argHandler = ArgCreator.CreateArgHandler<T0, InputArg>(pluginId);
+        _commands[command] = new CommandParser<T0, InputArg>(plugin, method, protection, cooldown, permission, argHandler);
+        return new CommandBuilder<T0>(command.GetCommand(), protection, argHandler);
+    }
+    
+    public ICommandBuilder<T0, T1> RegisterInput<T0, T1>(Plugin plugin, Action<BasePlayer, T0, T1, InputArg> method)
+    {
+        ParseCommand(plugin, method.Method, out PluginId pluginId, out CommandId command, out ICommandProtection protection, out ICooldownHandler cooldown, out IPermissionHandler permission);
+        IArgHandler[] argHandler = ArgCreator.CreateArgHandler<T0, T1, InputArg>(pluginId);
+        _commands[command] = new CommandParser<T0, T1, InputArg>(plugin, method, protection, cooldown, permission, argHandler);
+        return new CommandBuilder<T0, T1>(command.GetCommand(), protection, argHandler);
+    }
+    
+    public ICommandBuilder<T0, T1, T2> RegisterInput<T0, T1, T2>(Plugin plugin, Action<BasePlayer, T0, T1, T2, InputArg> method)
+    {
+        ParseCommand(plugin, method.Method, out PluginId pluginId, out CommandId command, out ICommandProtection protection, out ICooldownHandler cooldown, out IPermissionHandler permission);
+        IArgHandler[] argHandler = ArgCreator.CreateArgHandler<T0, T1, T2, InputArg>(pluginId);
+        _commands[command] = new CommandParser<T0, T1, T2, InputArg>(plugin, method, protection, cooldown, permission, argHandler);
+        return new CommandBuilder<T0, T1, T2>(command.GetCommand(), protection, argHandler);
+    }
+    
+    public ICommandBuilder<T0, T1, T2, T3> RegisterInput<T0, T1, T2, T3>(Plugin plugin, Action<BasePlayer, T0, T1, T2, T3, InputArg> method)
+    {
+        ParseCommand(plugin, method.Method, out PluginId pluginId, out CommandId command, out ICommandProtection protection, out ICooldownHandler cooldown, out IPermissionHandler permission);
+        IArgHandler[] argHandler = ArgCreator.CreateArgHandler<T0, T1, T2, T3, InputArg>(pluginId);
+        _commands[command] = new CommandParser<T0, T1, T2, T3, InputArg>(plugin, method, protection, cooldown, permission, argHandler);
+        return new CommandBuilder<T0, T1, T2, T3>(command.GetCommand(), protection, argHandler);
+    }
+    
+    public ICommandBuilder<T0, T1, T2, T3, T4> RegisterInput<T0, T1, T2, T3, T4>(Plugin plugin, Action<BasePlayer, T0, T1, T2, T3, T4, InputArg> method)
+    {
+        ParseCommand(plugin, method.Method, out PluginId pluginId, out CommandId command, out ICommandProtection protection, out ICooldownHandler cooldown, out IPermissionHandler permission);
+        IArgHandler[] argHandler = ArgCreator.CreateArgHandler<T0, T1, T2, T3, T4, InputArg>(pluginId);
+        _commands[command] = new CommandParser<T0, T1, T2, T3, T4, InputArg>(plugin, method, protection, cooldown, permission, argHandler);
+        return new CommandBuilder<T0, T1, T2, T3, T4>(command.GetCommand(), protection, argHandler);
+    }
+    
+    public ICommandBuilder<T0, T1, T2, T3, T4, T5> RegisterInput<T0, T1, T2, T3, T4, T5>(Plugin plugin, Action<BasePlayer, T0, T1, T2, T3, T4, T5, InputArg> method)
+    {
+        ParseCommand(plugin, method.Method, out PluginId pluginId, out CommandId command, out ICommandProtection protection, out ICooldownHandler cooldown, out IPermissionHandler permission);
+        IArgHandler[] argHandler = ArgCreator.CreateArgHandler<T0, T1, T2, T3, T4, T5, InputArg>(pluginId);
+        _commands[command] = new CommandParser<T0, T1, T2, T3, T4, T5, InputArg>(plugin, method, protection, cooldown, permission, argHandler);
+        return new CommandBuilder<T0, T1, T2, T3, T4, T5>(command.GetCommand(), protection, argHandler);
+    }
+    
+    public ICommandBuilder<T0, T1, T2, T3, T4, T5, T6> RegisterInput<T0, T1, T2, T3, T4, T5, T6>(Plugin plugin, Action<BasePlayer, T0, T1, T2, T3, T4, T5, T6, InputArg> method)
+    {
+        ParseCommand(plugin, method.Method, out PluginId pluginId, out CommandId command, out ICommandProtection protection, out ICooldownHandler cooldown, out IPermissionHandler permission);
+        IArgHandler[] argHandler = ArgCreator.CreateArgHandler<T0, T1, T2, T3, T4, T5, T6, InputArg>(pluginId);
+        _commands[command] = new CommandParser<T0, T1, T2, T3, T4, T5, T6, InputArg>(plugin, method, protection, cooldown, permission, argHandler);
+        return new CommandBuilder<T0, T1, T2, T3, T4, T5, T6>(command.GetCommand(), protection, argHandler);
     }
 
     private void ParseCommand(Plugin plugin, MethodInfo method, out PluginId pluginId, out CommandId command, out ICommandProtection protection, out ICooldownHandler cooldown, out IPermissionHandler permission)

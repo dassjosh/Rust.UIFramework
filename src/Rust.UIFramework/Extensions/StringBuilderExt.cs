@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Text;
-using Oxide.Ext.UiFramework.Libraries.UiCommands;
+using Oxide.Ext.UiFramework.Colors;
+using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Pooling;
 
 namespace Oxide.Ext.UiFramework.Extensions;
@@ -401,7 +402,38 @@ internal static class StringBuilderExt
     }
     
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static void AppendArg(this StringBuilder sb, char value)
+    {
+        sb.Append(value);
+    }
+    
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal static void AppendArg(this StringBuilder sb, in char? value)
+    {
+        if (!value.HasValue)
+        {
+            sb.Append(UiCommands.NullArg);
+            return;
+        }
+        
+        sb.AppendArg(value.Value);
+    }
+    
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static void AppendArg(this StringBuilder sb, UiColor value)
+    {
+        if (value.TryFormat(out ReadOnlySpan<char> written))
+        {
+            sb.Append(written);
+        }
+        else
+        {
+            sb.Append(value.ToHexRGBA());
+        }
+    }
+    
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static void AppendArg(this StringBuilder sb, in UiColor? value)
     {
         if (!value.HasValue)
         {

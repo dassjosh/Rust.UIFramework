@@ -1,7 +1,7 @@
 ﻿using System;
 using Oxide.Ext.UiFramework.Exceptions;
 
-namespace Oxide.Ext.UiFramework.Libraries.UiCommands;
+namespace Oxide.Ext.UiFramework.Libraries;
 
 internal ref struct UiCommandTokenizer(string str)
 {
@@ -58,5 +58,12 @@ internal ref struct UiCommandTokenizer(string str)
         }
         
         return remaining[(index + 1)..];
+    }
+
+    public ReadOnlySpan<char> ReadToEnd()
+    {
+        ReadOnlySpan<char> remaining = _remaining;
+        _remaining = ReadOnlySpan<char>.Empty;
+        return remaining;
     }
 }

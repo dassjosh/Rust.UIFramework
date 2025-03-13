@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 
-namespace Oxide.Ext.UiFramework.Libraries.UiCommands;
+namespace Oxide.Ext.UiFramework.Libraries;
 
 internal delegate T ReadFunc<out T>(ReadOnlySpan<char> arg);
 internal delegate void WriteFunc<in T>(UiArgWriter writer, T arg);

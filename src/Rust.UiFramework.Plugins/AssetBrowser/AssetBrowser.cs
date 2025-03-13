@@ -17,7 +17,6 @@ using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Helpers;
 using Oxide.Ext.UiFramework.Layouts;
 using Oxide.Ext.UiFramework.Libraries;
-using Oxide.Ext.UiFramework.Libraries.UiCommands;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.Types;
@@ -482,9 +481,9 @@ public class AssetBrowser : RustPlugin
         
         UiSection titleBar = builder.Section(builder.Root, new UiPosition(0, 0.95f, 1, 1));
         builder.Label(titleBar, new UiPosition(0.4f, 0, 0.6f, 1), default, "Asset Browser", 14, _textColor);
-        Puts(_uiCommands.CloseUi.Build());
+
         UiButton closeButton = builder.CommandButton(titleBar, new UiPosition(0.95f, 0, 1, 1), default, UiColor.Clear, _uiCommands.CloseUi.Build());
-        builder.ImageSprite(closeButton, UiPosition.Full, default, UiSprites.Icons.Close, UiColor.Red);
+        builder.ImageSprite(closeButton, UiPosition.Full, default, UiSprites.Icons.Close, UiColors.Red);
         
         UiSection pathBar = builder.Section(builder.Root, new UiPosition(0, 0.9f, 1, 0.95f), new UiOffset(1, 1, -1, -1));
         UiPanel pathPanel = builder.Panel(pathBar, new UiPosition(0.1f, 0, .9f, 1), default, _pathBarColor);
@@ -806,6 +805,12 @@ public class AssetBrowser : RustPlugin
         state.Page = page;
         CreateUi(player, state);
     }
+    
+    [UiCommand]
+    private void InputTest(BasePlayer player, UiState state, InputArg input)
+    {
+        CreateUi(player, state);
+    }
 
     private sealed class UiCommandHandler
     {
@@ -817,6 +822,7 @@ public class AssetBrowser : RustPlugin
         public readonly ICommandBuilder<UiState, string> PathInto;
         public readonly ICommandBuilder<string> SelectAsset;
         public readonly ICommandBuilder<UiState, int> ChangePage;
+        public readonly ICommandBuilder<UiState> InputTest;
 
         public UiCommandHandler(AssetBrowser plugin)
         {
@@ -828,6 +834,7 @@ public class AssetBrowser : RustPlugin
             PathInto = plugin._commands.RegisterCommand<UiState, string>(plugin, plugin.PathInto);
             SelectAsset = plugin._commands.RegisterCommand<string>(plugin, plugin.SelectAsset);
             ChangePage = plugin._commands.RegisterCommand<UiState, int>(plugin, plugin.ChangePage);
+            InputTest = plugin._commands.RegisterInput<UiState>(plugin, plugin.InputTest);
         }
     }
     #endregion

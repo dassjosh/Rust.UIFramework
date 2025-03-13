@@ -2,6 +2,25 @@
 
 public static class UiColors
 {
+    public static readonly UiColor Black =  "#000000";
+    public static readonly UiColor White = "#FFFFFF";
+    public static readonly UiColor Silver =  "#C0C0C0";
+    public static readonly UiColor Gray = "#808080";
+    public static readonly UiColor Red = "#FF0000";
+    public static readonly UiColor Maroon = "#800000";
+    public static readonly UiColor Orange = "#FFA500";
+    public static readonly UiColor Yellow = "#FFEB04";
+    public static readonly UiColor Olive = "#808000";
+    public static readonly UiColor Lime = "#00FF00";
+    public static readonly UiColor Green = "#008000";
+    public static readonly UiColor Teal = "#008080";
+    public static readonly UiColor Cyan = "#00FFFF";
+    public static readonly UiColor Blue = "#0000FF";
+    public static readonly UiColor Navy = "#000080";
+    public static readonly UiColor Magenta = "#FF00FF";
+    public static readonly UiColor Purple = "#800080";
+    public static readonly UiColor Clear = "#00000000";
+    
     public static class BootStrap
     {
         public static readonly UiColor Blue = "#007bff";

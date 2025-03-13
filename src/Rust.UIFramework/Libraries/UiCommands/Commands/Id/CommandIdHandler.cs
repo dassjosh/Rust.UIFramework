@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using Oxide.Ext.UiFramework.Plugins;
 
-namespace Oxide.Ext.UiFramework.Libraries.UiCommands;
+namespace Oxide.Ext.UiFramework.Libraries;
 
 internal class CommandIdHandler
 {

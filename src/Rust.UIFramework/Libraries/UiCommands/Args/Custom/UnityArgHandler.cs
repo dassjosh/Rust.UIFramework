@@ -3,7 +3,7 @@ using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Types;
 using UnityEngine;
 
-namespace Oxide.Ext.UiFramework.Libraries.UiCommands;
+namespace Oxide.Ext.UiFramework.Libraries;
 
 internal class UnityArgHandler : IArgHandler<Vector2>, IArgHandler<Vector3>, IArgHandler<Vector4>, IArgHandler<Vector2?>, IArgHandler<Vector3?>, IArgHandler<Vector4?>, IArgHandler<Quaternion>, IArgHandler<Quaternion?>, ISingleton
 {

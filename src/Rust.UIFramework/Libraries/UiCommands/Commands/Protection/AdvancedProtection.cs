@@ -4,7 +4,7 @@ using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Types;
 
-namespace Oxide.Ext.UiFramework.Libraries.UiCommands;
+namespace Oxide.Ext.UiFramework.Libraries;
 
 internal class AdvancedProtection(PluginId pluginId, string method, float protectionKeyLifetime, bool multiUse) : ICommandProtection
 {
