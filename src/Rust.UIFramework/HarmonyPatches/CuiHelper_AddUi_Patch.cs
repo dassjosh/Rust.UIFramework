@@ -12,27 +12,33 @@ namespace Oxide.Ext.UiFramework.HarmonyPatches;
 
 internal static class CuiHelper_AddUi_Patch
 {
-    private static readonly MethodInfo[] TargetMethods = [
-        typeof(CuiHelper).GetMethod(nameof(CuiHelper.AddUi), [typeof(BasePlayer), typeof(List<CuiElement>)]), 
-        typeof(CuiHelper).GetMethod(nameof(CuiHelper.AddUi), [typeof(BasePlayer), typeof(string)])
+    private static readonly ToggleablePatch[] Patches =
+    [
+        new(typeof(CuiHelper).GetMethod(nameof(CuiHelper.AddUi), [typeof(BasePlayer), typeof(List<CuiElement>)]), 
+            HarmonyPatchType.Prefix, 
+            new HarmonyMethod(typeof(CuiHelper_AddUi_Patch), nameof(CuiHelper_AddUi_Prefix_Elements))),
+        
+        new(typeof(CuiHelper).GetMethod(nameof(CuiHelper.AddUi), [typeof(BasePlayer), typeof(string)]), 
+            HarmonyPatchType.Prefix, 
+            new HarmonyMethod(typeof(CuiHelper_AddUi_Patch), nameof(CuiHelper_AddUi_Prefix_Json)))
     ];
-    private static readonly MethodInfo[] PatchMethods = new MethodInfo[2];
     
     internal static void Patch()
     {
-        if (!UiFrameworkConfig.Instance.Harmony.PatchAddUiMethod && PatchMethods.All(pm => pm == null))
+        if (!UiFrameworkConfig.Instance.Harmony.PatchAddUiMethod)
         {
-            PatchMethods[0] = UiHarmony.Harmony.Patch(TargetMethods[0], prefix: new HarmonyMethod(typeof(CuiHelper_AddUi_Patch), nameof(CuiHelper_AddUi_Prefix_Elements)));
-            PatchMethods[1] = UiHarmony.Harmony.Patch(TargetMethods[1], prefix: new HarmonyMethod(typeof(CuiHelper_AddUi_Patch), nameof(CuiHelper_AddUi_Prefix_Json)));
+            foreach (ToggleablePatch patch in Patches)
+            {
+                patch.Patch();
+            }
         }
     }
 
     private static void Unpatch()
     {
-        for (int i = 0; i < TargetMethods.Length; i++)
+        foreach (ToggleablePatch patch in Patches)
         {
-            UiHarmony.Harmony.Unpatch(TargetMethods[i], PatchMethods[i]);
-            PatchMethods[i] = null;
+            patch.Unpatch();
         }
     }
 
