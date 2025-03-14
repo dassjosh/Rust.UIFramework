@@ -22,11 +22,11 @@ internal class UiReferenceHandler : IArgHandler<UiReference>, IArgHandler<UiRefe
 
     public void Write(UiArgWriter writer, UiReference arg)
     {
-        writer.AppendQuote();
+        writer.AppendStartQuote();
         writer.Append(arg.Parent);
         writer.Append(Separator);
         writer.Append(arg.Name);
-        writer.AppendQuote();
+        writer.AppendEndQuote();
     }
     
     public void Write(UiArgWriter writer, UiReference? arg)

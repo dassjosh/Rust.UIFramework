@@ -61,9 +61,9 @@ internal static class ArgCreator
         if (type == typeof(char?)) return new ArgHandler<char?>(span => span is UiCommands.NullArg ? null : span[0], (writer, arg) => writer.Append(arg));
         if (type == typeof(string)) return new ArgHandler<string>(span => span.ToString(), (writer, arg) =>
         {
-            writer.AppendQuote();
+            writer.AppendStartQuote();
             writer.Append(arg);
-            writer.AppendQuote();
+            writer.AppendEndQuote();
         });
         if (type == typeof(byte)) return new ArgHandler<byte>(span => byte.Parse(span), (writer, arg) => writer.Append(arg));
         if (type == typeof(byte?)) return new ArgHandler<byte?>(span => span is UiCommands.NullArg ? null : byte.Parse(span), (writer, arg) => writer.Append(arg));

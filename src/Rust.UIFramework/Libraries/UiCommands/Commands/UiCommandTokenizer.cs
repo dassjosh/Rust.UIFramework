@@ -21,13 +21,13 @@ internal ref struct UiCommandTokenizer(string str)
         if (remaining.Length == 0) throw new FailedToParseArgumentException();
 
         int index;
-        //Process escaped quotes
-        if (remaining[0] == '\\' && remaining.Length >= 4 && remaining[1] == '"')
+        //Process quoted strings
+        if (remaining[0] == UiCommands.StartQuote && remaining.Length >= 2)
         {
-            remaining = remaining[2..];
-            index = remaining.IndexOf('"');
-            ReadOnlySpan<char> quoted = remaining[..(index-1)];
-            _remaining = remaining[Math.Min(remaining.Length, index + 1)..];
+            remaining = remaining[1..];
+            index = remaining.IndexOf(UiCommands.EndQuote);
+            ReadOnlySpan<char> quoted = remaining[..index];
+            _remaining = remaining[Math.Min(remaining.Length, index)..];
             return quoted;
         }
 

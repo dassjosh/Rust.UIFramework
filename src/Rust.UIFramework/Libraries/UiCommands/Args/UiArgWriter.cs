@@ -124,7 +124,10 @@ public readonly ref struct UiArgWriter(StringBuilder sb)
     public void Append(UiColor? color) => sb.AppendArg(color);
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void AppendQuote() => sb.Append('"');
+    public void AppendStartQuote() => sb.Append(UiCommands.StartQuote);
+    
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public void AppendEndQuote() => sb.Append(UiCommands.EndQuote);
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void AppendNull() => sb.Append(UiCommands.NullArg);
