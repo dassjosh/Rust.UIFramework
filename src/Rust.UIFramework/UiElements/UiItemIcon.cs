@@ -6,7 +6,7 @@ using Oxide.Ext.UiFramework.Positions;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-public class UiItemIcon : BaseUiComponent, IMaterial, IFadeIn
+public class UiItemIcon : BaseUiComponent, IMaterial<UiItemIcon>, IFadeIn<UiItemIcon>, IUiColor<UiItemIcon>
 {
     public readonly ItemIconComponent Icon = new();
     internal override CoreComponent Component => Icon;
@@ -22,6 +22,7 @@ public class UiItemIcon : BaseUiComponent, IMaterial, IFadeIn
     
     void IMaterial.SetMaterial(string material) => SetMaterial(material);
     void IFadeIn.SetFadeIn(float duration) => SetFadeIn(duration);
+    void IUiColor.SetColor(UiColor color) => SetColor(color);
         
     public UiItemIcon SetFadeIn(float duration)
     {
@@ -32,6 +33,12 @@ public class UiItemIcon : BaseUiComponent, IMaterial, IFadeIn
     public UiItemIcon SetMaterial(string material)
     {
         Icon.Material = material;
+        return this;
+    }
+    
+    public UiItemIcon SetColor(UiColor color)
+    {
+        Icon.Color = color;
         return this;
     }
     

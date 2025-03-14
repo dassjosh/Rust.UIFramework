@@ -7,7 +7,7 @@ using Oxide.Ext.UiFramework.Positions;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-public class UiPlayerAvatar : BaseUiComponent, IMaterial, IFadeIn
+public class UiPlayerAvatar : BaseUiComponent, IMaterial<UiPlayerAvatar>, IFadeIn<UiPlayerAvatar>, IUiColor<UiPlayerAvatar>
 {
     public readonly PlayerAvatarComponent Avatar = new();
     internal override CoreComponent Component => Avatar;
@@ -23,6 +23,7 @@ public class UiPlayerAvatar : BaseUiComponent, IMaterial, IFadeIn
     
     void IMaterial.SetMaterial(string material) => SetMaterial(material);
     void IFadeIn.SetFadeIn(float duration) => SetFadeIn(duration);
+    void IUiColor.SetColor(UiColor color) => SetColor(color);
         
     public UiPlayerAvatar SetFadeIn(float duration)
     {
@@ -33,6 +34,12 @@ public class UiPlayerAvatar : BaseUiComponent, IMaterial, IFadeIn
     public UiPlayerAvatar SetMaterial(string material)
     {
         Avatar.Material = material;
+        return this;
+    }
+    
+    public UiPlayerAvatar SetColor(UiColor color)
+    {
+        Avatar.Color = color;
         return this;
     }
 

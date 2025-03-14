@@ -6,7 +6,7 @@ using Oxide.Ext.UiFramework.Positions;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-public class UiRawImage : BaseUiComponent, IMaterial, IFadeIn
+public class UiRawImage : BaseUiComponent, IMaterial<UiRawImage>, IFadeIn<UiRawImage>, IUiColor<UiRawImage>
 {
     public readonly RawImageComponent RawImage = new();
     internal override CoreComponent Component => RawImage;
@@ -43,6 +43,7 @@ public class UiRawImage : BaseUiComponent, IMaterial, IFadeIn
     
     void IMaterial.SetMaterial(string material) => SetMaterial(material);
     void IFadeIn.SetFadeIn(float duration) => SetFadeIn(duration);
+    void IUiColor.SetColor(UiColor color) => SetColor(color);
 
     public UiRawImage SetColor(UiColor color)
     {

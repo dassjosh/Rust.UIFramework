@@ -9,7 +9,7 @@ using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-public class UiIcon : BaseUiComponent, IMaterial, IFadeIn
+public class UiIcon : BaseUiComponent, IMaterial<UiIcon>, IFadeIn<UiIcon>, IUiColor<UiIcon>
 {
     public readonly RawImageComponent RawImage = new();
     internal override CoreComponent Component => RawImage;
@@ -24,6 +24,7 @@ public class UiIcon : BaseUiComponent, IMaterial, IFadeIn
     
     void IMaterial.SetMaterial(string material) => SetMaterial(material);
     void IFadeIn.SetFadeIn(float duration) => SetFadeIn(duration);
+    void IUiColor.SetColor(UiColor color) => SetColor(color);
 
     public UiIcon SetColor(UiColor color)
     {

@@ -101,6 +101,11 @@ public partial class BaseUiBuilder
         AddComponent(image, parent);
         return image;
     }
+    
+    public UiItemIcon ItemIcon(in UiReference parent, in UiPosition pos, in UiOffset offset, Item item, UiColor? color = default)
+    {
+        return ItemIcon(parent, pos, offset, item.info.itemid, item.skin, color);
+    }
     #endregion
     
     #region Player Avatar

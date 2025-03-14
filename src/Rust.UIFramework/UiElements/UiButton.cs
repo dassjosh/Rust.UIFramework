@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-public class UiButton : BaseUiComponent, IImageType, ISprite, IMaterial, IFadeIn
+public class UiButton : BaseUiComponent, IImageType<UiButton>, ISprite<UiButton>, IMaterial<UiButton>, IFadeIn<UiButton>, IUiColor<UiButton>
 {
     public readonly ButtonComponent Button = new();
     internal override CoreComponent Component => Button;
@@ -41,6 +41,7 @@ public class UiButton : BaseUiComponent, IImageType, ISprite, IMaterial, IFadeIn
     void ISprite.SetSprite(string sprite) => SetSprite(sprite);
     void IMaterial.SetMaterial(string material) => SetMaterial(material);
     void IFadeIn.SetFadeIn(float duration) => SetFadeIn(duration);
+    void IUiColor.SetColor(UiColor color) => SetColor(color);
         
     public UiButton SetFadeIn(float duration)
     {
@@ -71,6 +72,12 @@ public class UiButton : BaseUiComponent, IImageType, ISprite, IMaterial, IFadeIn
         Button.Sprite = sprite;
         Button.Material = material;
         Button.ImageType = type;
+        return this;
+    }
+    
+    public UiButton SetColor(UiColor color)
+    {
+        Button.Color = color;
         return this;
     }
     

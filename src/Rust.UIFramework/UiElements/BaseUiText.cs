@@ -5,11 +5,12 @@ using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-public abstract class BaseUiText<T> : BaseUiComponent, IFadeIn where T : BaseUiText<T>
+public abstract class BaseUiText<T> : BaseUiComponent, IFadeIn<T>, IUiColor<T> where T : BaseUiText<T>
 {
     private BaseTextComponent Text => (BaseTextComponent)Component;
     
     void IFadeIn.SetFadeIn(float duration) => SetFadeIn(duration);
+    void IUiColor.SetColor(UiColor color) => SetColor(color);
     
     public T SetFadeIn(float duration)
     {

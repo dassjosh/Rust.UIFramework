@@ -1,10 +1,11 @@
-﻿using Oxide.Ext.UiFramework.Components;
+﻿using Oxide.Ext.UiFramework.Colors;
+using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Interfaces;
 using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-public abstract class BaseUiImage<T> : BaseUiComponent, IImageType, ISprite, IMaterial, IFadeIn where T : BaseUiImage<T>
+public abstract class BaseUiImage<T> : BaseUiComponent, IImageType<T>, ISprite<T>, IMaterial<T>, IFadeIn<T>, IUiColor<T> where T : BaseUiImage<T>
 {
     public readonly ImageComponent Image = new();
     internal override CoreComponent Component => Image;
@@ -13,6 +14,7 @@ public abstract class BaseUiImage<T> : BaseUiComponent, IImageType, ISprite, IMa
     void ISprite.SetSprite(string sprite) => SetSprite(sprite);
     void IMaterial.SetMaterial(string material) => SetMaterial(material);
     void IFadeIn.SetFadeIn(float duration) => SetFadeIn(duration);
+    void IUiColor.SetColor(UiColor color) => SetColor(color);
 
     public T SetImageType(Image.Type type)
     {
@@ -38,6 +40,12 @@ public abstract class BaseUiImage<T> : BaseUiComponent, IImageType, ISprite, IMa
         Image.Material = material;
         Image.ImageType = type;
         return (T)this;
+    }
+    
+    public T SetColor(UiColor color)
+    {
+        Image.Color = color;
+        return (T) this;
     }
         
     public T SetFadeIn(float duration)
