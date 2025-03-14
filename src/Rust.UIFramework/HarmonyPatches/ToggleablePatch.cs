@@ -18,7 +18,7 @@ internal class ToggleablePatch(MethodInfo target, HarmonyPatchType type, Harmony
                 HarmonyPatchType.Postfix => UiHarmony.Harmony.Patch(target, postfix: patchMethod),
                 HarmonyPatchType.Transpiler => UiHarmony.Harmony.Patch(target, transpiler: patchMethod),
                 HarmonyPatchType.Finalizer => UiHarmony.Harmony.Patch(target, finalizer: patchMethod),
-                _ => throw new ArgumentOutOfRangeException()
+                _ => throw new ArgumentOutOfRangeException(nameof(type))
             };
         }
     }
