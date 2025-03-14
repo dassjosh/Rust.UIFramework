@@ -242,21 +242,12 @@ public sealed class JsonFrameworkWriter : BasePoolable
         }
     }
     
-    public void AddTextField(string name, string value, string defaultValue)
+    public void AddCommand(in Utf8String name, string value, string defaultValue)
     {
         if (value != defaultValue)
         {
             WritePropertyName(name);
-            WriteTextValue(value);
-        }
-    }
-    
-    public void AddTextField(in Utf8String name, string value, string defaultValue)
-    {
-        if (value != defaultValue)
-        {
-            WritePropertyName(name);
-            WriteTextValue(value);
+            WriteCommandValue(value);
         }
     }
 
@@ -366,22 +357,49 @@ public sealed class JsonFrameworkWriter : BasePoolable
     public void WriteTextValue(string value)
     {
         _writer.Write(QuoteChar);
+        bool isInQuote = false;
         if (value != null)
         {
             for (int i = 0; i < value.Length; i++)
             {
                 char character = value[i];
-                if (character == '\"')
+                switch (character)
                 {
-                    _writer.Write(EscapeQuote);
+                    case '\"':
+                        isInQuote = !isInQuote;
+                        _writer.Write(isInQuote ? '“' : '”');
+                        break;
+                    case '\\' when i + 1 == value.Length:
+                        _writer.Write(EscapeBackslash);
+                        break;
+                    default:
+                        _writer.Write(character);
+                        break;
                 }
-                else if (character == '\\' && i + 1 == value.Length)
+            }
+        }
+        _writer.Write(QuoteChar);
+    }
+    
+    public void WriteCommandValue(string value)
+    {
+        _writer.Write(QuoteChar);
+        if (value != null)
+        {
+            for (int i = 0; i < value.Length; i++)
+            {
+                char character = value[i];
+                switch (character)
                 {
-                    _writer.Write(EscapeBackslash);
-                }
-                else
-                {
-                    _writer.Write(character);
+                    case '\"':
+                        _writer.Write(EscapeQuote);
+                        break;
+                    case '\\' when i + 1 == value.Length:
+                        _writer.Write(EscapeBackslash);
+                        break;
+                    default:
+                        _writer.Write(character);
+                        break;
                 }
             }
         }
@@ -408,6 +426,7 @@ public sealed class JsonFrameworkWriter : BasePoolable
         _objectComma = false;
         _propertyComma = false;
         _writer.Dispose();
+        _writer = null;
     }
 
     public override string ToString()

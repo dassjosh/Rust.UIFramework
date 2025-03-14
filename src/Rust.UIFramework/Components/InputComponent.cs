@@ -24,7 +24,7 @@ public class InputComponent : BaseTextComponent
         }
         else
         {
-            writer.AddField(JsonDefaults.Common.CommandName, Command, JsonDefaults.Common.NullValue);
+            writer.AddCommand(JsonDefaults.Common.CommandName, Command, JsonDefaults.Common.NullValue);
         }
         
         writer.AddField(JsonDefaults.Input.PasswordName, HasMode(InputMode.Password), false);
