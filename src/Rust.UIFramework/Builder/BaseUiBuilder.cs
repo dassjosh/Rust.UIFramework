@@ -70,6 +70,14 @@ public abstract partial class BaseUiBuilder : BaseBuilder
     }
 
     protected abstract void WriteComponentsInternal(JsonFrameworkWriter writer);
+
+    protected static void WriteComponents<T>(JsonFrameworkWriter writer, List<T> components, int startIndex) where T : BaseUiComponent
+    {
+        for (int index = startIndex; index < components.Count; index++)
+        {
+            components[index].WriteComponent(writer);
+        }
+    }
         
     protected override void EnterPool()
     {

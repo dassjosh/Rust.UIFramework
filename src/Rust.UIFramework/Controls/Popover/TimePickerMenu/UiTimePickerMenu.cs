@@ -87,7 +87,7 @@ public class UiTimePickerMenu : BaseUiControl
             _ => throw new ArgumentOutOfRangeException(nameof(segment), segment, null)
         };
 
-        UiDirectionalLayout pickerLayout = builder.DirectionalLayout(layout, 3, LayoutDirection.TopToBottom);
+        UiDirectionalLayout pickerLayout = builder.DirectionalLayout(layout, 3, LayoutDirection.Vertical);
         string displayedValue = segment == TimePickerSegment.Hour ? StringCache<int>.ToString(value) : FormatCache<int>.ToString(value, "00");
         return UiPicker.Create(builder, pickerLayout, displayedValue, fontSize, textColor, backgroundColor, changeCommand.Build(time.Add(segment)), changeCommand.Build(time.Subtract(segment)));
     }

@@ -26,7 +26,7 @@ public class UiDatePickerMenu : BaseUiControl
 
     public void CreatePickers(BaseUiBuilder builder, in UiReference parent, in UiPosition pos, in UiOffset offset, DateTime date, int fontSize, UiColor textColor, UiColor backgroundColor, ICommandBuilder<DateTime> changeCommand, DatePickerDisplayMode displayMode, DatePickerDisplayOrder order)
     {
-        UiDirectionalLayout layout = builder.DirectionalLayout(parent, pos, offset, GetPickerCount(displayMode), LayoutDirection.TopToBottom);
+        UiDirectionalLayout layout = builder.DirectionalLayout(parent, pos, offset, GetPickerCount(displayMode), LayoutDirection.Vertical);
         
         //TODO: Localization
         switch (order)
@@ -76,7 +76,7 @@ public class UiDatePickerMenu : BaseUiControl
 
     public UiPicker CreatePicker(BaseUiBuilder builder, BaseLayout layout, string displayText, int fontSize, UiColor textColor, UiColor backgroundColor, ICommandBuilder<DateTime> changeCommand, DateTime increment, DateTime decrement)
     {
-        UiDirectionalLayout pickerLayout = builder.DirectionalLayout(layout, 3, LayoutDirection.TopToBottom);
+        UiDirectionalLayout pickerLayout = builder.DirectionalLayout(layout, 3, LayoutDirection.Vertical);
         return UiPicker.Create(builder, pickerLayout, displayText, fontSize, textColor, backgroundColor, changeCommand.Build(increment), changeCommand.Build(decrement));
     }
     

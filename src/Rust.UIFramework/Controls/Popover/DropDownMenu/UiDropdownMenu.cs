@@ -26,7 +26,7 @@ public class UiDropdownMenu : BaseUiControl
         int itemCount = Math.Min(items.Count, maxValuesPerPage);
         int maxPage = UiHelpers.CalculateMaxPage(items.Count, maxValuesPerPage);
             
-        (UiSection section, UiDirectionalLayout layout)  = builder.DirectionalLayout(reference, position, offset, itemCount, LayoutDirection.TopToBottom, padding: padding ?? new UiPadding(5, 4));
+        (UiSection section, UiDirectionalLayout layout)  = builder.DirectionalLayout(reference, position, offset, itemCount, LayoutDirection.Vertical, padding: padding ?? new UiPadding(5, 4));
         
         if (scrollMode == DropdownMenuScrollMode.ScrollBar)
         {

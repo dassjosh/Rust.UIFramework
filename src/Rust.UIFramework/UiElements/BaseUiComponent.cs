@@ -27,9 +27,14 @@ public abstract class BaseUiComponent : BasePoolable
     public static T CreateBase<T>(in UiPosition pos, in UiOffset offset) where T : BaseUiComponent, new()
     {
         T component = CreateBase<T>();
-        component.Position = pos;
-        component.Offset = offset;
+        component.SetPosition(pos, offset);
         return component;
+    }
+
+    public void SetPosition(in UiPosition position, in UiOffset offset)
+    {
+        Position = position;
+        Offset = offset;
     }
 
     public void WriteRootComponent(JsonFrameworkWriter writer, bool needsMouse, bool needsKeyboard, bool autoDestroy)

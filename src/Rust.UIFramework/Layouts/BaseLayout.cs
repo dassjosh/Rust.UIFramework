@@ -6,20 +6,32 @@ namespace Oxide.Ext.UiFramework.Layouts;
 public abstract class BaseLayout : BasePoolable
 {
     public UiReference Reference;
-    public int NumElements;
 
-    protected static T CreateBase<T>(in UiReference reference, int numElements) where T : BaseLayout, new()
+    protected static T CreateBase<T>(in UiReference reference) where T : BaseLayout, new()
     {
         T layout = UiFrameworkPool.Get<T>();
         layout.Reference = reference;
-        layout.NumElements = numElements;
         return layout;
     }
+
+    public abstract void AddElement(BaseUiComponent element);
     
-    public abstract void OffsetElements(float numElements);
-    public abstract LayoutPosition GetPosition(float elementSpan);
+    public abstract void CalculateElementPositions();
     
-    public static implicit operator LayoutPosition(BaseLayout component) => component.GetPosition(1f);
+    protected float GetAlignmentOffset(LayoutAlignment alignment, float numElements, float maxElements)
+    {
+        if(numElements < maxElements)
+        {
+            return alignment switch
+            {
+                LayoutAlignment.Middle => (maxElements - numElements) / 2f,
+                LayoutAlignment.End => maxElements - numElements,
+                _ => 0f
+            };
+        }
+
+        return 0f;
+    }
 
     protected override void EnterPool()
     {

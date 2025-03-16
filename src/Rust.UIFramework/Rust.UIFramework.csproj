@@ -109,6 +109,8 @@
       <Content Include="..\..\README.md">
         <Link>README.md</Link>
       </Content>
+      <Compile Remove="Styles\Layouts\LayoutBuilderAi.cs" />
+      <Content Include="Styles\Layouts\LayoutBuilderAi.cs" />
     </ItemGroup>
     
     <ItemGroup>

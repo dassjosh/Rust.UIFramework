@@ -6,9 +6,9 @@ namespace Oxide.Ext.UiFramework.UiElements;
 
 public class UiPanel : BaseUiImage<UiPanel>
 {
-    public static UiPanel Create(in UiPosition pos, in UiOffset offset, UiColor color)
+    public static UiPanel Create(UiColor color)
     {
-        UiPanel panel = CreateBase<UiPanel>(pos, offset);
+        UiPanel panel = CreateBase<UiPanel>();
         panel.Image.Color = color;
         return panel;
     }

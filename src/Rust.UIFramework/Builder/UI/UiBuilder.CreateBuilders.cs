@@ -21,7 +21,13 @@ public partial class UiBuilder
     public static UiBuilder Create(in UiPosition pos, UiColor color, string name, string parent) => Create(pos, default, color, name, parent);
     public static UiBuilder Create(in UiPosition pos, UiColor color, string name, UiLayer parent = UiLayer.Overlay) => Create(pos, default, color, name, UiLayerCache.GetLayer(parent));
     public static UiBuilder Create(in UiPosition pos, in UiOffset offset, UiColor color, string name, UiLayer parent = UiLayer.Overlay) => Create(pos, offset, color, name, UiLayerCache.GetLayer(parent));
-    public static UiBuilder Create(in UiPosition pos, in UiOffset offset, UiColor color, string name, string parent) => Create(UiPanel.Create(pos, offset, color), name, parent);
+    public static UiBuilder Create(in UiPosition pos, in UiOffset offset, UiColor color, string name, string parent)
+    {
+        UiPanel panel = UiPanel.Create(color);
+        panel.SetPosition(pos, offset);
+        return Create(panel, name, parent);
+    }
+
     public static UiBuilder Create(BaseUiComponent root, string name, UiLayer parent = UiLayer.Overlay) => Create(root, name, UiLayerCache.GetLayer(parent));
     public static UiBuilder Create(BaseUiComponent root, string name, string parent)
     {
@@ -62,7 +68,8 @@ public partial class UiBuilder
     /// <returns></returns>
     public static UiBuilder CreateModal(in UiOffset modalSize, UiColor modalColor, UiColor modalBackgroundColor, string name, UiLayer layer = UiLayer.Overlay, string backgroundMaterial = null, string outsideCloseCommand = null)
     {
-        UiPanel backgroundBlur = UiPanel.Create(UiPosition.Full, default, modalBackgroundColor);
+        UiPanel backgroundBlur = UiPanel.Create(modalBackgroundColor);
+        backgroundBlur.SetPosition(UiPosition.Full, default);
         backgroundBlur.SetMaterial(backgroundMaterial);
             
         UiBuilder builder = Create(backgroundBlur, name, layer);
@@ -71,7 +78,8 @@ public partial class UiBuilder
             builder.CommandButton(builder.Root, UiPosition.Full, default, UiColor.Clear, outsideCloseCommand);
         }
             
-        UiPanel modal = UiPanel.Create(UiPosition.MiddleMiddle, modalSize, modalColor);
+        UiPanel modal = UiPanel.Create(modalColor);
+        modal.SetPosition(UiPosition.MiddleMiddle, modalSize);
         builder.AddComponent(modal, backgroundBlur);
         builder.OverrideRoot(modal);
         return builder;

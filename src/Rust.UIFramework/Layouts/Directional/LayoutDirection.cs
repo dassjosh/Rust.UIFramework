@@ -2,8 +2,6 @@
 
 public enum LayoutDirection
 {
-    LeftToRight,
-    RightToLeft,
-    TopToBottom,
-    BottomToTop
+    Horizontal,
+    Vertical
 }

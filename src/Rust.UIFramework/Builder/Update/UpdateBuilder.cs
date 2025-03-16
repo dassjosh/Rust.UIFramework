@@ -11,20 +11,8 @@ public class UpdateBuilder : BaseUiBuilder
         
     protected override void WriteComponentsInternal(JsonFrameworkWriter writer)
     {
-        int count = Components.Count;
-        for (int index = 0; index < count; index++)
-        {
-            Components[index].WriteUpdateComponent(writer);
-        }
-
-        count = Anchors.Count;
-        if (count != 0)
-        {
-            for (int index = 0; index < count; index++)
-            {
-                Anchors[index].WriteUpdateComponent(writer);
-            }
-        }
+        WriteComponents(writer, Components, 0);
+        WriteComponents(writer, Anchors, 0);
     }
         
     #region Add Components

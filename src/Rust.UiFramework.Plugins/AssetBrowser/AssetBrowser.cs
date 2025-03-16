@@ -675,7 +675,7 @@ public class AssetBrowser : RustPlugin
     
     private void CreateIcons<T>(UiBuilder builder, UiReference root, UiState state, Func<T, bool> filter) where T : struct, Enum
     {
-        UiGridLayout layout =  builder.GridLayout(root, new UiPosition(0, 0.075f, 1, 1), default, ImageColumns, ImageRows,ImagePadding, ImagePadding);
+        UiGridLayout layout =  builder.GridLayout(root, new UiPosition(0, 0.075f, 1, 1), default, ImageColumns, ImageRows, default, new LayoutPadding(ImagePadding));
         
         IReadOnlyCollection<T> values = EnumCache<T>.GetValues();
         int maxPage = UiHelpers.CalculateMaxPage(values.Count, TotalImages);
@@ -691,7 +691,7 @@ public class AssetBrowser : RustPlugin
             builder.Icon(button, UiPosition.Full, default, icon);
         }
         
-        UiDirectionalLayout paginationLayout = builder.DirectionalLayout(root, new UiPosition(0, 0, 1, 0.075f), default, 15, LayoutDirection.LeftToRight, 0.0025f);
+        UiDirectionalLayout paginationLayout = builder.DirectionalLayout(root, new UiPosition(0, 0, 1, 0.075f), default, 15, layoutPadding: new LayoutPadding(0.0025f));
         builder.Paginator(paginationLayout, state.Page, maxPage, 14, _textColor, UiColors.ButtonSecondary, UiColors.ButtonPrimary, _uiCommands.ChangePage.Partial(state));
     }
     

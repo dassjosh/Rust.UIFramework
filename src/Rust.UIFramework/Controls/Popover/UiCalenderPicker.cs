@@ -47,7 +47,7 @@ public class UiCalenderPicker : BaseUiControl
     private void CreateCalender(BaseUiBuilder builder, in UiReference reference, in UiPosition pos, in UiOffset offset, DateTime date, int fontSize, UiColor textColor, UiColor buttonColor, UiColor selectedDateColor, ICommandBuilder<DateTime> changeCommand, string buttonSprite)
     {
         CalculateDates(date);
-        UiDirectionalLayout layout = builder.DirectionalLayout(reference, pos, offset, _numRows + 2, LayoutDirection.TopToBottom, padding: HeaderPadding);
+        UiDirectionalLayout layout = builder.DirectionalLayout(reference, pos, offset, _numRows + 2, LayoutDirection.Vertical, padding: HeaderPadding);
         CreateHeader(builder, layout, date, fontSize, textColor, buttonColor, changeCommand, buttonSprite);
         CreateDayOfWeekHeader(builder, layout, fontSize, textColor);
         CreateCalender(builder, layout, fontSize, textColor, buttonColor, selectedDateColor, changeCommand, buttonSprite);
@@ -72,7 +72,8 @@ public class UiCalenderPicker : BaseUiControl
         PreviousMonth = builder.IconButton(headerLayout, buttonColor, Icons.Backward, changeCommand.Build(value.AddMonths(-1)), textColor);
         StyleButton(PreviousMonth, buttonSprite);
         
-        builder.Label(layout.GetPosition(3f), FormatCache<DateTime>.ToString(_firstOfTheMonth, "MMM yyyy"), fontSize, textColor);
+        UiLabel label = builder.Label(headerLayout.Reference, FormatCache<DateTime>.ToString(_firstOfTheMonth, "MMM yyyy"), fontSize, textColor);
+        headerLayout.AddElement(label, 3f);
         
         NextMonth = builder.IconButton(headerLayout, buttonColor, Icons.Forward, changeCommand.Build(value.AddYears(1)), textColor);
         StyleButton(NextMonth, buttonSprite);

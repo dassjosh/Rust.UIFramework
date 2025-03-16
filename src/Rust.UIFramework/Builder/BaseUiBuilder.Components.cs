@@ -41,15 +41,27 @@ public partial class BaseUiBuilder
     #endregion
     
     #region Section
-    public UiSection Section(in UiReference parent, in UiPosition pos, in UiOffset offset = default)
+    public UiSection Section(in UiReference parent)
     {
-        UiSection section = UiSection.Create(pos, offset);
+        UiSection section = UiSection.Create();
         AddComponent(section, parent);
         return section;
     }
+
+    public UiSection Section(in UiReference parent, in UiPosition pos, in UiOffset offset = default)
+    {
+        UiSection section = Section(parent);
+        section.SetPosition(pos, offset);
+        return section;
+    }
     
-    public UiSection Section(LayoutPosition position) => Section(position.Reference, position.Position, position.Offset);
-    
+    public UiSection Section(BaseLayout layout)
+    {
+        UiSection section = Section(layout.Reference);
+        layout.AddElement(section);
+        return section;
+    }
+
     public UiSection Padding(in UiReference parent, in UiPosition pos, in UiPadding padding = default)
     {
         return Section(parent, pos, padding);
@@ -57,25 +69,50 @@ public partial class BaseUiBuilder
     #endregion
         
     #region Panel
-    public UiPanel Panel(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor color)
+    public UiPanel Panel(in UiReference parent, UiColor color)
     {
-        UiPanel panel = UiPanel.Create(pos, offset, color);
+        UiPanel panel = UiPanel.Create(color);
         AddComponent(panel, parent);
         return panel;
     }
+    
+    public UiPanel Panel(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor color)
+    {
+        UiPanel panel = Panel(parent, color);
+        panel.SetPosition(pos, offset);
+        return panel;
+    }
 
-    public UiPanel Panel(in LayoutPosition layout, UiColor color) => Panel(layout.Reference, layout.Position, layout.Offset, color);
+    public UiPanel Panel(BaseLayout layout, UiColor color)
+    {
+        UiPanel panel = Panel(layout.Reference, color);
+        layout.AddElement(panel);
+        return panel;
+    }
+
     #endregion
 
     #region Button
-    public UiButton CommandButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor color, string command)
+    public UiButton CommandButton(in UiReference parent, UiColor color, string command)
     {
-        UiButton button = UiButton.CreateCommand(pos, offset, color, command);
+        UiButton button = UiButton.CreateCommand(color, command);
         AddComponent(button, parent);
         return button;
     }
     
-    public UiButton CommandButton(LayoutPosition layout, UiColor color, string command) => CommandButton(layout.Reference, layout.Position, layout.Offset, color, command);
+    public UiButton CommandButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor color, string command)
+    {
+        UiButton button = CommandButton(parent, color, command);
+        button.SetPosition(pos, offset);
+        return button;
+    }
+    
+    public UiButton CommandButton(BaseLayout layout, UiColor color, string command)
+    {
+        UiButton button = CommandButton(layout.Reference, color, command);
+        layout.AddElement(button);
+        return button;
+    }
 
     public UiButton CloseButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor color, string close)
     {
@@ -162,14 +199,27 @@ public partial class BaseUiBuilder
     #endregion
 
     #region Label
-    public UiLabel Label(in UiReference parent, in UiPosition pos, in UiOffset offset, string text, int size, UiColor textColor, TextAnchor align = TextAnchor.MiddleCenter)
+    public UiLabel Label(in UiReference parent, string text, int size, UiColor textColor, TextAnchor align = TextAnchor.MiddleCenter)
     {
-        UiLabel label = UiLabel.Create(pos, offset, textColor, text, size, Font, align);
+        UiLabel label = UiLabel.Create(textColor, text, size, Font, align);
         AddComponent(label, parent);
         return label;
     }
     
-    public UiLabel Label(in LayoutPosition position, string text, int size, UiColor textColor, TextAnchor align = TextAnchor.MiddleCenter) => Label(position.Reference, position.Position, position.Offset, text, size, textColor, align);
+    public UiLabel Label(in UiReference parent, in UiPosition pos, in UiOffset offset, string text, int size, UiColor textColor, TextAnchor align = TextAnchor.MiddleCenter)
+    {
+        UiLabel label = Label(parent, text, size, textColor, align);
+        label.SetPosition(pos, offset);
+        return label;
+    }
+    
+    public UiLabel Label(BaseLayout layout, string text, int size, UiColor textColor, TextAnchor align = TextAnchor.MiddleCenter)
+    {
+        UiLabel label = Label(layout.Reference, text, size, textColor, align);
+        layout.AddElement(label);
+        return label;
+    }
+
     #endregion
         
     #region Input
@@ -184,7 +234,8 @@ public partial class BaseUiBuilder
     #region Anchor
     public UiSection Anchor(in UiReference parent, in UiPosition pos, in UiOffset offset = default)
     {
-        UiSection section = UiSection.Create(pos, offset);
+        UiSection section = UiSection.Create();
+        section.SetPosition(pos, offset);
         AddAnchor(section, parent);
         return section;
     }

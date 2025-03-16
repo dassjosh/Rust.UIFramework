@@ -94,17 +94,8 @@ public partial class UiBuilder : BaseUiBuilder
     {
         Components[0].WriteRootComponent(writer, _needsMouse, _needsKeyboard, _autoDestroy);
 
-        int count = Components.Count;
-        for (int index = 1; index < count; index++)
-        {
-            Components[index].WriteComponent(writer);
-        }
-
-        count = Anchors.Count;
-        for (int index = 0; index < count; index++)
-        {
-            Anchors[index].WriteComponent(writer);
-        }
+        WriteComponents(writer, Components, 1);
+        WriteComponents(writer, Anchors, 0);
     }
         
     protected override void EnterPool()

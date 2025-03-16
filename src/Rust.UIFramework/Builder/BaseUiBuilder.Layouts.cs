@@ -8,35 +8,37 @@ namespace Oxide.Ext.UiFramework.Builder;
 
 public abstract partial class BaseUiBuilder
 {
-    #region Layouts
-    public UiTuple<UiSection, UiGridLayout> GridLayout(in UiReference reference, in UiPosition pos, in UiOffset offset, int numCols, int numRows, float rowSpacing = 0f, float colSpacing = 0f, in UiPadding? padding = null)
+    #region Grid
+    public UiTuple<UiSection, UiGridLayout> GridLayout(in UiReference reference, in UiPosition pos, in UiOffset offset, int numCols, int numRows, GridAlignment alignment = default, LayoutPadding layoutPadding = default, in UiPadding padding = default)
     {
         UiSection section = Section(reference, pos, offset);
-        UiGridLayout layout = UiGridLayout.Create(section, numCols, numRows, rowSpacing, colSpacing, padding);
+        UiGridLayout layout = UiGridLayout.Create(section, numCols, numRows, alignment, layoutPadding, padding);
         AddLayout(layout);
         return new UiTuple<UiSection, UiGridLayout>(section, layout);
     }
     
-    public UiTuple<UiSection, UiGridLayout> GridLayout(BaseLayout parentLayout, int numCols, int numRows, float rowSpacing = 0f, float colSpacing = 0f, in UiPadding? padding = null)
+    public UiTuple<UiSection, UiGridLayout> GridLayout(BaseLayout parentLayout, int numCols, int numRows, GridAlignment alignment = default, LayoutPadding layoutPadding = default, in UiPadding padding = default)
     {
-        UiSection section = Section(parentLayout);
-        UiGridLayout layout = UiGridLayout.Create(section, numCols, numRows, rowSpacing, colSpacing, padding);
+        UiSection section = Section(parentLayout.Reference);
+        UiGridLayout layout = UiGridLayout.Create(section, numCols, numRows, alignment, layoutPadding, padding);
         AddLayout(layout);
         return new UiTuple<UiSection, UiGridLayout>(section, layout);
     }
-    
-    public UiTuple<UiSection, UiDirectionalLayout> DirectionalLayout(in UiReference reference, in UiPosition pos, in UiOffset offset, int numElements, LayoutDirection direction = LayoutDirection.LeftToRight, float directionalSpacing = 0f, float nonDirectionalSpacing = 0f, in UiPadding? padding = null)
+    #endregion
+
+    #region Directional
+    public UiTuple<UiSection, UiDirectionalLayout> DirectionalLayout(in UiReference reference, in UiPosition pos, in UiOffset offset, int numElements, LayoutDirection direction = default, LayoutAlignment alignment = default, LayoutPadding layoutPadding = default, in UiPadding padding = default)
     {
         UiSection section = Section(reference, pos, offset);
-        UiDirectionalLayout layout = UiDirectionalLayout.Create(section, numElements, direction, directionalSpacing, nonDirectionalSpacing, padding);
+        UiDirectionalLayout layout = UiDirectionalLayout.Create(section, numElements, direction, alignment, layoutPadding, padding);
         AddLayout(layout);
         return new UiTuple<UiSection, UiDirectionalLayout>(section, layout);
     }
     
-    public UiTuple<UiSection, UiDirectionalLayout> DirectionalLayout(BaseLayout parentLayout, int numElements, LayoutDirection direction = LayoutDirection.LeftToRight, float directionalSpacing = 0f, float nonDirectionalSpacing = 0f, in UiPadding? padding = null)
+    public UiTuple<UiSection, UiDirectionalLayout> DirectionalLayout(BaseLayout parentLayout, int numElements, LayoutDirection direction = default, LayoutAlignment alignment = default, LayoutPadding layoutPadding = default, in UiPadding padding = default)
     {
-        UiSection section = Section(parentLayout);
-        UiDirectionalLayout layout = UiDirectionalLayout.Create(section, numElements, direction, directionalSpacing, nonDirectionalSpacing, padding);
+        UiSection section = Section(parentLayout.Reference);
+        UiDirectionalLayout layout = UiDirectionalLayout.Create(section, numElements, direction, alignment, layoutPadding, padding);
         AddLayout(layout);
         return new UiTuple<UiSection, UiDirectionalLayout>(section, layout);
     }
