@@ -84,7 +84,7 @@ public partial class BaseUiBuilder
         
     public UiButton CloseImageFileStorageButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, string png, string close)
     {
-        UiButton button = CommandButton(parent, pos, offset, buttonColor, close);
+        UiButton button = CloseButton(parent, pos, offset, buttonColor, close);
         ImageFileStorage(button, UiPosition.Full, png);
         return button;
     }
