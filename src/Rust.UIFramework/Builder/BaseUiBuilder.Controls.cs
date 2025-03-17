@@ -27,32 +27,32 @@ public partial class BaseUiBuilder
     public UiButton TextButton(in UiReference parent, in UiPosition pos, string text, int textSize, UiColor textColor, UiColor buttonColor, string command, TextAnchor align = TextAnchor.MiddleCenter) 
         => TextButton(parent, pos, default, text, textSize, textColor, buttonColor, command, align);
         
-    public UiButton ImageFileStorageButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, string png, string command)
+    public UiButton ImageFileStorageButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, string png, string command, UiColor? imageColor = null)
     {
         UiButton button = CommandButton(parent, pos, offset, buttonColor, command);
-        ImageFileStorage(button, UiPosition.Full, png);
+        ImageFileStorage(button, UiPosition.Full, png, imageColor ?? UiColor.White);
         return button;
     }
 
-    public UiButton ImageFileStorageButton(in UiReference parent, in UiPosition pos, UiColor buttonColor, string png, string command) => ImageFileStorageButton(parent, pos, default, buttonColor, png, command);
+    public UiButton ImageFileStorageButton(in UiReference parent, in UiPosition pos, UiColor buttonColor, string png, string command, UiColor? imageColor = null) => ImageFileStorageButton(parent, pos, default, buttonColor, png, command, imageColor);
         
-    public UiButton ImageSpriteButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, string sprite, string command)
+    public UiButton ImageSpriteButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, string sprite, string command, UiColor? imageColor = null)
     {
         UiButton button = CommandButton(parent, pos, offset, buttonColor, command);
-        ImageSprite(button, UiPosition.Full, sprite);
+        ImageSprite(button, UiPosition.Full, sprite, imageColor ?? UiColor.White);
         return button;
     }
 
-    public UiButton ImageSpriteButton(in UiReference parent, in UiPosition pos, UiColor buttonColor, string sprite, string command) => ImageSpriteButton(parent, pos, default, buttonColor, sprite, command);
+    public UiButton ImageSpriteButton(in UiReference parent, in UiPosition pos, UiColor buttonColor, string sprite, string command, UiColor? imageColor = null) => ImageSpriteButton(parent, pos, default, buttonColor, sprite, command, imageColor);
         
-    public UiButton WebImageButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, string url, string command)
+    public UiButton WebImageButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, string url, string command, UiColor? imageColor = null)
     {
         UiButton button = CommandButton(parent, pos, offset, buttonColor, command);
-        WebImage(button, UiPosition.Full, url);
+        WebImage(button, UiPosition.Full, url, imageColor ?? UiColor.White);
         return button;
     }
 
-    public UiButton WebImageButton(in UiReference parent, in UiPosition pos, UiColor buttonColor, string url, string command) => WebImageButton(parent, pos, default, buttonColor, url, command);
+    public UiButton WebImageButton(in UiReference parent, in UiPosition pos, UiColor buttonColor, string url, string command, UiColor? imageColor = null) => WebImageButton(parent, pos, default, buttonColor, url, command, imageColor);
         
     public UiButton ItemIconButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, int itemId, string command)
     {
@@ -82,32 +82,32 @@ public partial class BaseUiBuilder
     public UiButton CloseTextButton(in UiReference parent, in UiPosition pos, string text, int textSize, UiColor textColor, UiColor buttonColor, string close, TextAnchor align = TextAnchor.MiddleCenter) 
         => CloseTextButton(parent, pos, default, text, textSize, textColor, buttonColor, close, align);
         
-    public UiButton CloseImageFileStorageButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, string png, string close)
+    public UiButton CloseImageFileStorageButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, string png, string close, UiColor? imageColor = null)
     {
         UiButton button = CloseButton(parent, pos, offset, buttonColor, close);
-        ImageFileStorage(button, UiPosition.Full, png);
+        ImageFileStorage(button, UiPosition.Full, png, imageColor ?? UiColor.White);
         return button;
     }
 
-    public UiButton CloseImageFileStorageButton(in UiReference parent, in UiPosition pos, UiColor buttonColor, string png, string close) => CloseImageFileStorageButton(parent, pos, default, buttonColor, png, close);
+    public UiButton CloseImageFileStorageButton(in UiReference parent, in UiPosition pos, UiColor buttonColor, string png, string close, UiColor? imageColor = null) => CloseImageFileStorageButton(parent, pos, default, buttonColor, png, close, imageColor);
         
-    public UiButton CloseImageSpriteButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, string sprite, string close)
+    public UiButton CloseImageSpriteButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, string sprite, string close, UiColor? imageColor = null)
     {
         UiButton button = CloseButton(parent, pos, offset, buttonColor, close);
-        ImageSprite(button, UiPosition.Full, sprite);
+        ImageSprite(button, UiPosition.Full, sprite, imageColor ?? UiColor.White);
         return button;
     }
 
-    public UiButton CloseImageSpriteButton(in UiReference parent, in UiPosition pos, UiColor buttonColor, string sprite, string close) => CloseImageSpriteButton(parent, pos, default, buttonColor, sprite, close);
+    public UiButton CloseImageSpriteButton(in UiReference parent, in UiPosition pos, UiColor buttonColor, string sprite, string close, UiColor? imageColor = null) => CloseImageSpriteButton(parent, pos, default, buttonColor, sprite, close, imageColor);
         
-    public UiButton CloseWebImageButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, string url, string close)
+    public UiButton CloseWebImageButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, string url, string close, UiColor? imageColor = null)
     {
         UiButton button = CloseButton(parent, pos, offset, buttonColor, close);
-        WebImage(button, UiPosition.Full, url);
+        WebImage(button, UiPosition.Full, url, imageColor ?? UiColor.White);
         return button;
     }
 
-    public UiButton CloseWebImageButton(in UiReference parent, in UiPosition pos, UiColor buttonColor, string url, string close) => CloseWebImageButton(parent, pos, default, buttonColor, url, close);
+    public UiButton CloseWebImageButton(in UiReference parent, in UiPosition pos, UiColor buttonColor, string url, string close, UiColor? imageColor = null) => CloseWebImageButton(parent, pos, default, buttonColor, url, close, imageColor);
         
     public UiButton CloseItemIconButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, int itemId, string close)
     {
