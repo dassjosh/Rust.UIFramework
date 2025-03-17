@@ -10,6 +10,7 @@ internal static class SendHandler
     private static readonly ConcurrentQueue<IUiRequest> Queue = new();
     private static readonly AutoResetEvent Reset = new(false);
     private static readonly Thread _thread;
+    private static int _sendAttempts;
     
     static SendHandler()
     {
@@ -31,15 +32,20 @@ internal static class SendHandler
     {
         while (true)
         {
-            SendInternal();
-            Reset.WaitOne();
+            if(SendInternal())
+            {
+                _sendAttempts = 0;
+            }
+            Reset.WaitOne(GetTimeout(_sendAttempts++));
         }
     }
 
-    private static void SendInternal()
+    private static bool SendInternal()
     {
+        bool didSend = false;
         while (Queue.TryDequeue(out IUiRequest request))
         {
+            didSend = true;
             try
             {
 #if !BENCHMARKS
@@ -55,5 +61,17 @@ internal static class SendHandler
                 request.Dispose();
             }
         }
+
+        return didSend;
+    }
+
+    private static int GetTimeout(int attempts)
+    {
+        if (attempts > 10)
+        {
+            return -1;
+        }
+
+        return 1 << attempts;
     }
 }
