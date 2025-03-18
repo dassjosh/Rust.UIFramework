@@ -72,15 +72,6 @@ public abstract partial class BaseUiBuilder : BaseBuilder
 
     protected abstract void WriteComponentsInternal(JsonFrameworkWriter writer);
 
-    protected static void WriteComponents<T>(JsonFrameworkWriter writer, List<T> components, int startIndex) where T : BaseUiComponent
-    {
-        int count = components.Count;
-        for (int index = startIndex; index < count; index++)
-        {
-            components[index].WriteComponent(writer);
-        }
-    }
-
     private void PreprocessElements()
     {
         ProcessLayouts();

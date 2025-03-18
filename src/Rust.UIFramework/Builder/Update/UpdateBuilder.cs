@@ -1,4 +1,5 @@
-﻿using Oxide.Ext.UiFramework.Exceptions;
+﻿using System.Collections.Generic;
+using Oxide.Ext.UiFramework.Exceptions;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.UiElements;
@@ -11,10 +12,18 @@ public class UpdateBuilder : BaseUiBuilder
         
     protected override void WriteComponentsInternal(JsonFrameworkWriter writer)
     {
-        WriteComponents(writer, Components, 0);
-        WriteComponents(writer, Anchors, 0);
+        WriteComponents(writer, Components);
+        WriteComponents(writer, Anchors);
     }
-        
+
+    private static void WriteComponents<T>(JsonFrameworkWriter writer, List<T> components) where T : BaseUiComponent
+    {
+        int count = components.Count;
+        for (int index = 0; index < count; index++)
+        {
+            components[index].WriteUpdateComponent(writer);
+        }
+    }
     #region Add Components
     public override void AddComponent(BaseUiComponent component, in UiReference parent)
     {

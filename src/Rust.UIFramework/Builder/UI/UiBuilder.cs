@@ -1,4 +1,5 @@
-﻿using Oxide.Ext.UiFramework.Builder.Cached;
+﻿using System.Collections.Generic;
+using Oxide.Ext.UiFramework.Builder.Cached;
 using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Exceptions;
@@ -11,7 +12,7 @@ public partial class UiBuilder : BaseUiBuilder
 {
     public BaseUiComponent Root;
 
-    private BaseUiComponent InitialRoot;
+    private BaseUiComponent _actualRoot;
     
     private bool _autoDestroy = true;
 
@@ -29,7 +30,7 @@ public partial class UiBuilder : BaseUiBuilder
     public void SetRoot(BaseUiComponent component, string name, string parent)
     {
         Root = component;
-        InitialRoot = component;
+        _actualRoot = component;
         component.Reference = new UiReference(parent, name);
         Components.Add(component);
         RootName = name;
@@ -44,11 +45,11 @@ public partial class UiBuilder : BaseUiBuilder
     {
         if (enabled)
         {
-            InitialRoot.Component.AddSubComponentIfNotExists<NeedsMouseComponent>();
+            _actualRoot.Component.AddSubComponentIfNotExists<NeedsMouseComponent>();
         }
         else
         {
-            InitialRoot.Component.RemoveComponent<NeedsMouseComponent>();
+            _actualRoot.Component.RemoveComponent<NeedsMouseComponent>();
         }
     }
 
@@ -56,11 +57,11 @@ public partial class UiBuilder : BaseUiBuilder
     {
         if (enabled)
         {
-            InitialRoot.Component.AddSubComponentIfNotExists<NeedsKeyboardComponent>();
+            _actualRoot.Component.AddSubComponentIfNotExists<NeedsKeyboardComponent>();
         }
         else
         {
-            InitialRoot.Component.RemoveComponent<NeedsKeyboardComponent>();
+            _actualRoot.Component.RemoveComponent<NeedsKeyboardComponent>();
         }
     }
 
@@ -68,6 +69,8 @@ public partial class UiBuilder : BaseUiBuilder
     {
         _autoDestroy = enabled;
     }
+
+    public BaseUiComponent GetActualRoot() => _actualRoot;
     #endregion
 
     #region JSON
@@ -106,19 +109,32 @@ public partial class UiBuilder : BaseUiBuilder
     }
     #endregion
 
+    #region Write Components
     protected override void WriteComponentsInternal(JsonFrameworkWriter writer)
     {
-        InitialRoot.WriteRootComponent(writer, _autoDestroy);
+        _actualRoot.WriteRootComponent(writer, _autoDestroy);
 
         WriteComponents(writer, Components, 1);
         WriteComponents(writer, Anchors, 0);
     }
-        
+    
+    protected static void WriteComponents<T>(JsonFrameworkWriter writer, List<T> components, int startIndex) where T : BaseUiComponent
+    {
+        int count = components.Count;
+        for (int index = startIndex; index < count; index++)
+        {
+            components[index].WriteComponent(writer);
+        }
+    }
+    #endregion
+
+    #region Pooling
     protected override void EnterPool()
     {
         base.EnterPool();
         Root = null;
-        InitialRoot = null;
+        _actualRoot = null;
         _autoDestroy = true;
     }
+    #endregion
 }
