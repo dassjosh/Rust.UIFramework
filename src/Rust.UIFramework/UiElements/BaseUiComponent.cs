@@ -37,7 +37,7 @@ public abstract class BaseUiComponent : BasePoolable
         Offset = offset;
     }
 
-    public void WriteRootComponent(JsonFrameworkWriter writer, bool needsMouse, bool needsKeyboard, bool autoDestroy)
+    public void WriteRootComponent(JsonFrameworkWriter writer, bool autoDestroy)
     {
         writer.WriteStartObject();
         writer.AddFieldRaw(JsonDefaults.Common.ComponentName, Reference.Name);
@@ -47,8 +47,6 @@ public abstract class BaseUiComponent : BasePoolable
         writer.WritePropertyName(JsonDefaults.Common.ComponentsName);
         writer.WriteStartArray();
         WriteComponents(writer);
-        writer.AddMouse(needsMouse);
-        writer.AddKeyboard(needsKeyboard);
         writer.WriteEndArray();
         writer.WriteEndObject();
     }

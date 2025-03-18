@@ -250,26 +250,6 @@ public sealed class JsonFrameworkWriter : BasePoolable
             WriteCommandValue(value);
         }
     }
-
-    public void AddMouse(bool add)
-    {
-        if (add)
-        {
-            WriteStartObject();
-            AddFieldRaw(JsonDefaults.Common.ComponentTypeName, JsonDefaults.Common.NeedsCursorValue);
-            WriteEndObject();
-        }
-    }
-
-    public void AddKeyboard(bool add)
-    {
-        if (add)
-        {
-            WriteStartObject();
-            AddFieldRaw(JsonDefaults.Common.ComponentTypeName, JsonDefaults.Common.NeedsKeyboardValue);
-            WriteEndObject();
-        }
-    }
     #endregion
         
     #region Writing

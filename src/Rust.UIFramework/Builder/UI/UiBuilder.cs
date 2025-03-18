@@ -1,5 +1,6 @@
 ﻿using Oxide.Ext.UiFramework.Builder.Cached;
 using Oxide.Ext.UiFramework.Cache;
+using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Exceptions;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.UiElements;
@@ -10,8 +11,8 @@ public partial class UiBuilder : BaseUiBuilder
 {
     public BaseUiComponent Root;
 
-    private bool _needsMouse;
-    private bool _needsKeyboard;
+    private BaseUiComponent InitialRoot;
+    
     private bool _autoDestroy = true;
 
     #region Decontructor
@@ -28,6 +29,7 @@ public partial class UiBuilder : BaseUiBuilder
     public void SetRoot(BaseUiComponent component, string name, string parent)
     {
         Root = component;
+        InitialRoot = component;
         component.Reference = new UiReference(parent, name);
         Components.Add(component);
         RootName = name;
@@ -40,12 +42,26 @@ public partial class UiBuilder : BaseUiBuilder
 
     public void NeedsMouse(bool enabled = true)
     {
-        _needsMouse = enabled;
+        if (enabled)
+        {
+            InitialRoot.Component.AddSubComponentIfNotExists<NeedsMouseComponent>();
+        }
+        else
+        {
+            InitialRoot.Component.RemoveComponent<NeedsMouseComponent>();
+        }
     }
 
     public void NeedsKeyboard(bool enabled = true)
     {
-        _needsKeyboard = enabled;
+        if (enabled)
+        {
+            InitialRoot.Component.AddSubComponentIfNotExists<NeedsKeyboardComponent>();
+        }
+        else
+        {
+            InitialRoot.Component.RemoveComponent<NeedsKeyboardComponent>();
+        }
     }
 
     public void EnableAutoDestroy(bool enabled = true)
@@ -92,7 +108,7 @@ public partial class UiBuilder : BaseUiBuilder
 
     protected override void WriteComponentsInternal(JsonFrameworkWriter writer)
     {
-        Components[0].WriteRootComponent(writer, _needsMouse, _needsKeyboard, _autoDestroy);
+        InitialRoot.WriteRootComponent(writer, _autoDestroy);
 
         WriteComponents(writer, Components, 1);
         WriteComponents(writer, Anchors, 0);
@@ -102,8 +118,7 @@ public partial class UiBuilder : BaseUiBuilder
     {
         base.EnterPool();
         Root = null;
-        _needsKeyboard = false;
-        _needsMouse = false;
+        InitialRoot = null;
         _autoDestroy = true;
     }
 }

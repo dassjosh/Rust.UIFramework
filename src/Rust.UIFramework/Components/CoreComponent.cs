@@ -32,12 +32,26 @@ public abstract class CoreComponent : ICoreComponent
 
     public T AddSubComponent<T>() where T : SubComponent, new()
     {
-        T subComponent = UiFrameworkPool.Get<T>();
         _subComponents ??= UiFrameworkPool.GetList<SubComponent>();
-        if (_subComponents.Count != 0 && !subComponent.AllowMultiple && GetSubComponent<T>() != null)
+        if (_subComponents.Count != 0 && GetSubComponent<T>() is { AllowMultiple: true })
         {
             throw new UiFrameworkException($"Multiple instances of subcomponent {typeof(T).Name} are not allowed.");
         }
+        
+        T subComponent = UiFrameworkPool.Get<T>();
+        _subComponents.Add(subComponent);
+        return subComponent;
+    }
+    
+    public T AddSubComponentIfNotExists<T>() where T : SubComponent, new()
+    {
+        _subComponents ??= UiFrameworkPool.GetList<SubComponent>();
+        if (_subComponents.Count != 0 && GetSubComponent<T>() is { AllowMultiple: true })
+        {
+            return null;
+        }
+        
+        T subComponent = UiFrameworkPool.Get<T>();
         _subComponents.Add(subComponent);
         return subComponent;
     }
@@ -76,7 +90,8 @@ public abstract class CoreComponent : ICoreComponent
     
     public void RemoveComponent<T>() where T : SubComponent
     {
-        int index = _subComponents?.FindIndex(sc => sc is T) ?? -1;
+        if (_subComponents == null) return;
+        int index = _subComponents.FindIndex(sc => sc is T);
         if (index != -1)
         {
             _subComponents!.RemoveAt(index);
