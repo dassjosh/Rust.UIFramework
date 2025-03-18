@@ -62,6 +62,7 @@ public abstract partial class BaseUiBuilder : BaseBuilder
         
     public JsonFrameworkWriter CreateWriter()
     {
+        PreprocessElements();
         JsonFrameworkWriter writer = JsonFrameworkWriter.Create();
         writer.WriteStartArray();
         WriteComponentsInternal(writer);
@@ -73,19 +74,27 @@ public abstract partial class BaseUiBuilder : BaseBuilder
 
     protected static void WriteComponents<T>(JsonFrameworkWriter writer, List<T> components, int startIndex) where T : BaseUiComponent
     {
-        for (int index = startIndex; index < components.Count; index++)
+        int count = components.Count;
+        for (int index = startIndex; index < count; index++)
         {
             components[index].WriteComponent(writer);
         }
     }
-        
-    protected override void EnterPool()
+
+    private void PreprocessElements()
     {
-        base.EnterPool();
-        FreeComponents();
-        Font = null;
+        ProcessLayouts();
     }
 
+    private void ProcessLayouts()
+    {
+        int count = Layouts.Count;
+        for (int index = 0; index < count; index++)
+        {
+            Layouts[index].CalculateElementPositions();
+        }
+    }
+    
     private void FreeComponents()
     {
         ClearComponentList(Components);
@@ -103,6 +112,13 @@ public abstract partial class BaseUiBuilder : BaseBuilder
         }
 
         components.Clear();
+    }
+    
+    protected override void EnterPool()
+    {
+        base.EnterPool();
+        FreeComponents();
+        Font = null;
     }
 
     protected override void LeavePool()

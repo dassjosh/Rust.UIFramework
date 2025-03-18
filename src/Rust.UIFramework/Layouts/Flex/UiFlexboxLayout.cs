@@ -13,17 +13,20 @@ public class UiFlexBoxLayout : BaseLayout
     public FlexDirection Direction;
     public FlexWrap Wrap;
     public FlexCrossAlignment CrossAlignment;
-    public FlexJustifyContent JustifyContent;
+    public FlexJustifyContent DefaultJustifyContent;
     public UiPadding Padding;
     public float Gap;
     public readonly List<LayoutState> Elements = [];
+    
+    private readonly List<List<LayoutState>> _lines = [];
+    private readonly Dictionary<FlexJustifyContent, List<int>> _groups = new();
 
     public static UiFlexBoxLayout Create(
         in UiReference reference,
         FlexDirection direction,
         FlexWrap wrap,
         FlexCrossAlignment crossAlignment,
-        FlexJustifyContent justifyContent,
+        FlexJustifyContent defaultJustifyContent,
         in UiPadding padding,
         float gap = 0f)
     {
@@ -31,86 +34,116 @@ public class UiFlexBoxLayout : BaseLayout
         layout.Direction = direction;
         layout.Wrap = wrap;
         layout.CrossAlignment = crossAlignment;
-        layout.JustifyContent = justifyContent;
+        layout.DefaultJustifyContent = defaultJustifyContent;
         layout.Padding = padding;
         layout.Gap = gap;
         return layout;
     }
 
-    public override void AddElement(BaseUiComponent element) => AddElement(element, 1f);
+    public override void AddElement(BaseUiComponent element) => AddElement(element, 0f);
 
-    public void AddElement(BaseUiComponent element, float baseSpan, float flexBasis = 0f, float flexGrow = 1f, float flexShrink = 1f)
+    public void AddElement(BaseUiComponent element, float flexBasis = 0f, float flexGrow = 1f, float flexShrink = 1f, FlexJustifyContent? justifyContent = null)
     {
-        Elements.Add(new LayoutState(element, baseSpan, flexBasis, flexGrow, flexShrink));
+        Elements.Add(new LayoutState(element, flexBasis, flexGrow, flexShrink, justifyContent ?? DefaultJustifyContent));
     }
 
     public override void CalculateElementPositions()
     {
         UiOffset padding = Padding.ToOffset();
-        List<List<LayoutState>> lines = WrapElements();
-
-        try
+        GenerateElementLines();
+        
+        for (int lineIndex = 0; lineIndex < _lines.Count; lineIndex++)
         {
-            float crossAxisSize = lines.Count;
-
-            for (int lineIndex = 0; lineIndex < lines.Count; lineIndex++)
-            {
-                List<LayoutState> line = lines[lineIndex];
-                HandleLinePositioning(line, lineIndex, crossAxisSize, padding);
-            }
-        }
-        finally
-        {
-            FreePooledResources(lines);
+            HandleLinePositioning(_lines[lineIndex], lineIndex, padding);
         }
     }
 
-    private void HandleLinePositioning(List<LayoutState> line, int lineIndex, float crossAxisSize, in UiOffset padding)
+    private void HandleLinePositioning(List<LayoutState> line, int lineIndex, in UiOffset padding)
     {
-        SumState(line, out float totalFlexBasis, out float totalFlexGrow, out float totalFlexShrink);
+        float crossAxisSize = _lines.Count;
+        float totalFlexBasis = GetTotalFlexBasis(line);
         float totalGap = (line.Count - 1) * Gap;
         float totalMainAxisSpan = totalFlexBasis + totalGap;
         float availableSpace = 1f - totalMainAxisSpan;
 
-        float currentMainPos = CalculateJustifyContentOffset(availableSpace, line.Count);
+        GenerateJustifyContentGroups(line);
 
-        for (int index = 0; index < line.Count; index++)
+        foreach ((FlexJustifyContent justifyContent, List<int> indices) in _groups)
         {
-            LayoutState state = line[index];
-            float elementSpan = CalculateElementSpan(state, availableSpace, totalFlexGrow, totalFlexShrink);
-            SetElementPosition(state, currentMainPos, elementSpan, lineIndex, crossAxisSize, padding);
-            currentMainPos += elementSpan + Gap;
+            float groupFlexBasis = 0f;
+            float groupFlexGrow = 0f;
+            float groupFlexShrink = 0f;
+            
+            // Calculate group totals
+            for (int i = 0; i < indices.Count; i++)
+            {
+                int index = indices[i];
+                LayoutState state = line[index];
+                groupFlexBasis += state.FlexBasis;
+                groupFlexGrow += state.FlexGrow;
+                groupFlexShrink += state.FlexShrink;
+            }
+
+            // Calculate group's share of available space
+            float groupShareOfAvailableSpace = availableSpace * (groupFlexBasis / totalFlexBasis);
+            
+            // Calculate offset for this justify content group
+            float groupOffset = CalculateJustifyContentOffset(groupShareOfAvailableSpace, indices.Count, justifyContent);
+            float currentMainPos = groupOffset;
+            
+            // Position elements in this group
+            for (int i = 0; i < indices.Count; i++)
+            {
+                int index = indices[i];
+                LayoutState state = line[index];
+                float elementSpan = CalculateElementSpan(state, groupShareOfAvailableSpace, groupFlexGrow, groupFlexShrink);
+                SetElementPosition(state, currentMainPos, elementSpan, lineIndex, crossAxisSize, padding);
+                currentMainPos += elementSpan + Gap;
+            }
         }
     }
     
-    private void SumState(List<LayoutState> lines, out float totalFlexBasis, out float totalFlexGrow, out float totalFlexShrink)
+    private void GenerateJustifyContentGroups(List<LayoutState> line)
     {
-        totalFlexBasis = 0f;
-        totalFlexGrow = 0f;
-        totalFlexShrink = 0f;
+        for (int i = 0; i < line.Count; i++)
+        {
+            FlexJustifyContent justifyContent = line[i].JustifyContent;
+            
+            if (!_groups.TryGetValue(justifyContent, out List<int> indices))
+            {
+                _groups[justifyContent] = indices = UiFrameworkPool.GetList<int>();
+            }
+            
+            indices.Add(i);
+        }
+    }
+    
+    private static float GetTotalFlexBasis(List<LayoutState> lines)
+    {
+        float totalFlexBasis = 0f;
 
         for (int index = 0; index < lines.Count; index++)
         {
             LayoutState state = lines[index];
-            totalFlexBasis += state.FlexBasis > 0 ? state.FlexBasis : state.BaseSpan;
-            totalFlexGrow += state.FlexGrow;
-            totalFlexShrink += state.FlexShrink;
+            totalFlexBasis += state.FlexBasis;
         }
+
+        return totalFlexBasis;
     }
 
-    private float CalculateElementSpan(in LayoutState state, float availableSpace, float totalFlexGrow, float totalFlexShrink)
+    private static float CalculateElementSpan(in LayoutState state, float availableSpace, float totalFlexGrow, float totalFlexShrink)
     {
-        float elementSpan = state.FlexBasis > 0 ? state.FlexBasis : state.BaseSpan;
+        float elementSpan = state.FlexBasis;
 
         if (availableSpace > 0 && totalFlexGrow > 0)
         {
             // Distribute extra space based on FlexGrow
-            elementSpan += (state.FlexGrow / totalFlexGrow) * availableSpace;
+            elementSpan += state.FlexGrow / totalFlexGrow * availableSpace;
         }
         else if (availableSpace < 0 && totalFlexShrink > 0)
         {
             // Reduce size based on FlexShrink
-            elementSpan += (state.FlexShrink / totalFlexShrink) * availableSpace;
+            elementSpan += state.FlexShrink / totalFlexShrink * availableSpace;
         }
 
         return elementSpan;
@@ -136,15 +169,6 @@ public class UiFlexBoxLayout : BaseLayout
         state.Element.SetPosition(position, padding);
     }
 
-    private void FreePooledResources(List<List<LayoutState>> lines)
-    {
-        foreach (List<LayoutState> line in lines)
-        {
-            UiFrameworkPool.FreeList(line);
-        }
-        UiFrameworkPool.FreeList(lines);
-    }
-
     private (float crossStart, float crossEnd) CalculateCrossAlignment(int lineIndex, float crossAxisSize)
     {
         return CrossAlignment switch
@@ -161,20 +185,19 @@ public class UiFlexBoxLayout : BaseLayout
         };
     }
 
-    private List<List<LayoutState>> WrapElements()
+    private void GenerateElementLines()
     {
-        List<List<LayoutState>> lines = UiFrameworkPool.GetList<List<LayoutState>>();
         List<LayoutState> currentLine = UiFrameworkPool.GetList<LayoutState>();
         float currentLineSpan = 0f;
 
         for (int index = 0; index < Elements.Count; index++)
         {
             LayoutState state = Elements[index];
-            float elementSpan = state.FlexBasis > 0 ? state.FlexBasis : state.BaseSpan;
+            float elementSpan = state.FlexBasis;
 
             if (Wrap == FlexWrap.Wrap && currentLineSpan + elementSpan + (currentLine.Count > 0 ? Gap : 0f) > 1f)
             {
-                lines.Add(currentLine);
+                _lines.Add(currentLine);
                 currentLine = UiFrameworkPool.GetList<LayoutState>();
                 currentLineSpan = 0f;
             }
@@ -185,36 +208,52 @@ public class UiFlexBoxLayout : BaseLayout
 
         if (currentLine.Count > 0)
         {
-            lines.Add(currentLine);
+            _lines.Add(currentLine);
         }
         else
         {
             UiFrameworkPool.FreeList(currentLine);
         }
-
-        return lines;
     }
 
-    private float CalculateJustifyContentOffset(float availableSpace, int elementCount)
+    private static float CalculateJustifyContentOffset(float availableSpace, int elementCount, FlexJustifyContent justifyContent)
     {
-        return JustifyContent switch
+        return justifyContent switch
         {
             FlexJustifyContent.Start => 0f,
             FlexJustifyContent.End => availableSpace,
             FlexJustifyContent.Center => availableSpace / 2f,
             FlexJustifyContent.SpaceBetween => elementCount > 1 ? 0f : availableSpace,
-            FlexJustifyContent.SpaceAround => availableSpace / (2 * elementCount),
+            FlexJustifyContent.SpaceAround => availableSpace / (elementCount * 2),
             FlexJustifyContent.SpaceEvenly => availableSpace / (elementCount + 1),
-            _ => throw new ArgumentOutOfRangeException(nameof(JustifyContent))
+            _ => throw new ArgumentOutOfRangeException(nameof(justifyContent))
         };
     }
 
-    public readonly struct LayoutState(BaseUiComponent element, float baseSpan, float flexBasis, float flexGrow, float flexShrink)
+    protected override void EnterPool()
+    {
+        base.EnterPool();
+        for (int index = 0; index < _lines.Count; index++)
+        {
+            UiFrameworkPool.FreeList(_lines[index]);
+        }
+
+        _lines.Clear();
+        
+        foreach (List<int> indices in _groups.Values)
+        {
+            UiFrameworkPool.FreeList(indices);
+        }
+        
+        _groups.Clear();
+    }
+
+    public readonly struct LayoutState(BaseUiComponent element, float flexBasis, float flexGrow, float flexShrink, FlexJustifyContent justifyContent)
     {
         public readonly BaseUiComponent Element = element;
-        public readonly float BaseSpan = baseSpan;
         public readonly float FlexBasis = flexBasis;
         public readonly float FlexGrow = flexGrow;
         public readonly float FlexShrink = flexShrink;
+        public readonly FlexJustifyContent JustifyContent = justifyContent;
     }
 }

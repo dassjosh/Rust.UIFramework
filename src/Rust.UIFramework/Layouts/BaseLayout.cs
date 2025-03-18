@@ -18,7 +18,7 @@ public abstract class BaseLayout : BasePoolable
     
     public abstract void CalculateElementPositions();
     
-    protected float GetAlignmentOffset(LayoutAlignment alignment, float numElements, float maxElements)
+    protected static float GetAlignmentOffset(LayoutAlignment alignment, float numElements, float maxElements)
     {
         if(numElements < maxElements)
         {
