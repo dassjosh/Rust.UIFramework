@@ -39,9 +39,9 @@ public class UiFlexBoxLayout : BaseLayout
         return layout;
     }
 
-    public override void AddElement(BaseUiComponent element) => AddElement(element, 0f);
+    public override void AddElement(BaseUiComponent element) => AddElement(element, 1f);
 
-    public void AddElement(BaseUiComponent element, float flexBasis = 0f, float flexGrow = 1f, float flexShrink = 1f, FlexJustifyContent? justifyContent = null)
+    public void AddElement(BaseUiComponent element, float flexBasis = 1f, float flexGrow = 1f, float flexShrink = 1f, FlexJustifyContent? justifyContent = null)
     {
         Elements.Add(new LayoutState(element, flexBasis, flexGrow, flexShrink, justifyContent ?? DefaultJustifyContent));
     }
