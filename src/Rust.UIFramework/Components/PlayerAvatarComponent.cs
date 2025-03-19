@@ -24,8 +24,17 @@ public class PlayerAvatarComponent : BaseImageComponent
                 break;
             
             case AvatarType.Large:
-                string img = Singleton<UiImageStorage>.Instance.Get(UiFrameworkPlugin.Instance, Singleton<UiPlayerAvatars>.Instance.GetAvatarUrl(SteamId, Type));
-                writer.AddFieldRaw(img.StartsWith("http") ? JsonDefaults.Image.UrlName : JsonDefaults.Image.PngName, img);
+                string avatarUrl = Singleton<UiPlayerAvatars>.Instance.GetAvatarUrl(SteamId, Type);
+                if (!string.IsNullOrEmpty(avatarUrl))
+                {
+                    string img = Singleton<UiImageStorage>.Instance.Get(UiFrameworkPlugin.Instance, avatarUrl);
+                    writer.AddFieldRaw(img.StartsWith("http") ? JsonDefaults.Image.UrlName : JsonDefaults.Image.PngName, img);
+                }
+                else
+                {
+                    writer.AddFieldRaw(JsonDefaults.PlayerAvatar.SteamIdName, SteamId);
+                }
+
                 break;
         }
         
