@@ -14,25 +14,26 @@ public ref struct StringTokenizer(string str, string token, int maxLength)
 
     public bool MoveNext()
     {
-        if (_remaining.Length == 0)
+        ReadOnlySpan<char> remaining = _remaining;
+        if (remaining.Length == 0)
         {
             return false;
         }
             
-        int index = _remaining.IndexOf(_token);
+        int index = remaining.IndexOf(_token);
         if (index == -1 || index > maxLength)
         {
-            index = _remaining.Length;
+            index = remaining.Length;
         }
             
         if (index == 0)
         {
-            _remaining = _remaining[1..];
+            _remaining = remaining[1..];
             return MoveNext();
         }
 
-        Current = _remaining[..index];
-        _remaining = _remaining[Math.Min(_remaining.Length, index + 1)..];
+        Current = remaining[..index];
+        _remaining = remaining[Math.Min(remaining.Length, index + 1)..];
         Index++;
         return true;
     }

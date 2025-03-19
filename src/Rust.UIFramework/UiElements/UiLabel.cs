@@ -1,10 +1,7 @@
 ﻿using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Enums;
-using Oxide.Ext.UiFramework.Interfaces;
 using Oxide.Ext.UiFramework.Json;
-using Oxide.Ext.UiFramework.Offsets;
-using Oxide.Ext.UiFramework.Positions;
 using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.UiElements;
@@ -17,25 +14,13 @@ public class UiLabel : BaseUiText<UiLabel>
     public static UiLabel Create(UiColor color, string text, int size, string font, TextAnchor align = TextAnchor.MiddleCenter)
     {
         UiLabel label = CreateBase<UiLabel>();
-        ConfigureLabel(label, color, text, size, font, align);
-        return label;
-    }
-    
-    public static UiLabel Create(in UiPosition pos, in UiOffset offset, UiColor color, string text, int size, string font, TextAnchor align = TextAnchor.MiddleCenter)
-    {
-        UiLabel label = CreateBase<UiLabel>(pos, offset);
-        ConfigureLabel(label, color, text, size, font, align);
-        return label;
-    }
-
-    private static void ConfigureLabel(UiLabel label, UiColor color, string text, int size, string font, TextAnchor align = TextAnchor.MiddleCenter)
-    {
         TextComponent textComp = label.Text;
         textComp.Text = text;
         textComp.FontSize = size;
         textComp.Color = color;
         textComp.Align = align;
         textComp.Font = font;
+        return label;
     }
 
     public CountdownComponent AddCountdown(float startTime, float endTime, string command, 

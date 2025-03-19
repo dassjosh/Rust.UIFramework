@@ -18,10 +18,11 @@ public class PlayerAvatarComponent : BaseImageComponent
 
         switch (Type)
         {
+            case AvatarType.Small:
             case AvatarType.Medium:
                 writer.AddFieldRaw(JsonDefaults.PlayerAvatar.SteamIdName, SteamId);
                 break;
-            case AvatarType.Small:
+            
             case AvatarType.Large:
                 string img = Singleton<UiImageStorage>.Instance.Get(UiFrameworkPlugin.Instance, Singleton<UiPlayerAvatars>.Instance.GetAvatarUrl(SteamId, Type));
                 writer.AddFieldRaw(img.StartsWith("http") ? JsonDefaults.Image.UrlName : JsonDefaults.Image.PngName, img);
