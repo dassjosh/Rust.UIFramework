@@ -10,5 +10,5 @@ public interface IImageType
 
 public interface IImageType<out T> : IImageType where T : BaseUiComponent
 {
-    T SetImageType(Image.Type type);
+    new T SetImageType(Image.Type type);
 }

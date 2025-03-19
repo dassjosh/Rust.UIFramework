@@ -9,5 +9,5 @@ public interface IMaterial
 
 public interface IMaterial<out T> : IMaterial where T : BaseUiComponent
 {
-    T SetMaterial(string material);
+    new T SetMaterial(string material);
 }

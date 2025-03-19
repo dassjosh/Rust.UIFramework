@@ -10,5 +10,5 @@ public interface IUiColor
 
 public interface IUiColor<out T> : IUiColor where T : BaseUiComponent
 {
-    T SetColor(UiColor color);
+    new T SetColor(UiColor color);
 }

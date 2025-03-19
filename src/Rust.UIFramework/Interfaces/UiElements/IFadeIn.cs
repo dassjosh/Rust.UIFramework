@@ -9,5 +9,5 @@ public interface IFadeIn
 
 public interface IFadeIn<out T> : IFadeIn where T : BaseUiComponent
 {
-    T SetFadeIn(float duration);
+    new T SetFadeIn(float duration);
 }

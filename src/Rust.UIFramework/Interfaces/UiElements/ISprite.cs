@@ -9,5 +9,5 @@ public interface ISprite
 
 public interface ISprite<out T> : ISprite where T : BaseUiComponent
 {
-    T SetSprite(string sprite);
+    new T SetSprite(string sprite);
 }
