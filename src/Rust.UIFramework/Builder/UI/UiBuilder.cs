@@ -45,7 +45,7 @@ public partial class UiBuilder : BaseUiBuilder
     {
         if (enabled)
         {
-            _actualRoot.Component.AddSubComponentIfNotExists<NeedsMouseComponent>();
+            _actualRoot.Component.AddSubComponent<NeedsMouseComponent>(true);
         }
         else
         {
@@ -57,7 +57,7 @@ public partial class UiBuilder : BaseUiBuilder
     {
         if (enabled)
         {
-            _actualRoot.Component.AddSubComponentIfNotExists<NeedsKeyboardComponent>();
+            _actualRoot.Component.AddSubComponent<NeedsKeyboardComponent>(true);
         }
         else
         {

@@ -30,25 +30,20 @@ public abstract class CoreComponent : ICoreComponent
         }
     }
 
-    public T AddSubComponent<T>() where T : SubComponent, new()
+    public T AddSubComponent<T>(bool ignoreIfExists = false) where T : SubComponent, new()
     {
         _subComponents ??= UiFrameworkPool.GetList<SubComponent>();
-        if (_subComponents.Count != 0 && GetSubComponent<T>() is { AllowMultiple: true })
+        if (_subComponents.Count != 0 && GetSubComponent<T>() is { } component)
         {
-            throw new UiFrameworkException($"Multiple instances of subcomponent {typeof(T).Name} are not allowed.");
-        }
-        
-        T subComponent = UiFrameworkPool.Get<T>();
-        _subComponents.Add(subComponent);
-        return subComponent;
-    }
-    
-    public T AddSubComponentIfNotExists<T>() where T : SubComponent, new()
-    {
-        _subComponents ??= UiFrameworkPool.GetList<SubComponent>();
-        if (_subComponents.Count != 0 && GetSubComponent<T>() is { AllowMultiple: true })
-        {
-            return null;
+            if (ignoreIfExists)
+            {
+                return null;
+            }
+
+            if (!component.AllowMultiple)
+            {
+                throw new UiFrameworkException($"Multiple instances of subcomponent {typeof(T).Name} are not allowed.");
+            }
         }
         
         T subComponent = UiFrameworkPool.Get<T>();

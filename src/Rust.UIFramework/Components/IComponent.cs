@@ -11,7 +11,7 @@ public interface IComponent
 
 public interface ICoreComponent : IComponent
 {
-    T AddSubComponent<T>() where T : SubComponent, new();
+    T AddSubComponent<T>(bool ignoreIfExists = false) where T : SubComponent, new();
     T GetSubComponent<T>() where T : SubComponent;
     IEnumerable<T> GetSubComponents<T>() where T : SubComponent;
     void RemoveComponents<T>() where T : SubComponent;
