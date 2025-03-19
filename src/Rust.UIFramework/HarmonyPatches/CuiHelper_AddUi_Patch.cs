@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 using HarmonyLib;
+using Oxide.Core;
 using Oxide.Ext.UiFramework.Builder;
 using Oxide.Ext.UiFramework.Config;
 using Oxide.Ext.UiFramework.Threading;
@@ -56,6 +55,10 @@ internal static class CuiHelper_AddUi_Patch
     
     private static bool CuiHelper_AddUi_Prefix_Elements(BasePlayer player, List<CuiElement> elements)
     {
+        if (player?.net == null || Interface.CallHook("CanUseUI", player, elements) != null)
+        {
+            return false;
+        }
         OxideCuiElementsRequest request = OxideCuiElementsRequest.Create(elements, SendInfoBuilder.Get(player));
         Singleton<SendHandler>.Instance.Enqueue(request);
         return false;
@@ -63,6 +66,10 @@ internal static class CuiHelper_AddUi_Patch
     
     private static bool CuiHelper_AddUi_Prefix_Json(BasePlayer player, string json)
     {
+        if (player?.net == null || Interface.CallHook("CanUseUI", player, json) != null)
+        {
+            return false;
+        }
         OxideCuiJsonRequest request = OxideCuiJsonRequest.Create(json, SendInfoBuilder.Get(player));
         Singleton<SendHandler>.Instance.Enqueue(request);
         return false;
