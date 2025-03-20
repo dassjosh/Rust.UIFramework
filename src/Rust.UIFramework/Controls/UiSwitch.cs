@@ -19,8 +19,6 @@ public class UiSwitch : BaseUiControl
         control.IsChecked = isChecked;
         control.Button = builder.CommandButton(parent, pos, offset, buttonColor ?? UiColor.Clear, command);
         control.Icon = builder.Icon(control.Button, UiPosition.Full, default, isChecked ? Icons.ToggleOn : Icons.ToggleOff, isChecked ? checkedColor ?? UiColors.Rust.Green : uncheckedColor ?? UiColors.Rust.Red);
-
-        //control.Button.AddOutline(UiColor.Black.WithAlpha(0.75f));
         return control;
     }
 

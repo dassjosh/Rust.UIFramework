@@ -41,7 +41,10 @@ public class UiPlayerAvatars : BaseUiFrameworkLibrary, ISingleton
 
     protected override void OnPlayerConnected(BasePlayer player)
     {
-        Task.Run(() => GetPlayerAvatarAsync(player.userID));
+        if (_httpClient != null)
+        {
+            Task.Run(() => GetPlayerAvatarAsync(player.userID));
+        }
     }
 
     private async Task GetPlayerAvatarAsync(ulong steamId)

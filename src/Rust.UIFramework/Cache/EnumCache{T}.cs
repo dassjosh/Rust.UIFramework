@@ -10,11 +10,10 @@ public static class EnumCache<T> where T : Enum
     private static readonly Dictionary<T, string> CachedStrings = new();
     private static readonly Dictionary<T, string> LowerStrings = new();
     private static readonly Dictionary<T, string> NumberStrings = new();
-    private static readonly ReadOnlyCollection<T> EnumValues;
+    private static readonly ReadOnlyCollection<T> EnumValues = new(Enum.GetValues(typeof(T)).Cast<T>().ToArray());
 
     static EnumCache()
     {
-        EnumValues = new ReadOnlyCollection<T>(Enum.GetValues(typeof(T)).Cast<T>().ToArray());
         foreach (T value in EnumValues)
         {
             string enumString = value.ToString();

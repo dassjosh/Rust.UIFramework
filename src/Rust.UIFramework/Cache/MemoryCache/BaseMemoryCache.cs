@@ -16,7 +16,6 @@ internal abstract class BaseMemoryCache
         SetNextExpiresCheck();
     }
     
-    //TODO: Find a better way and/or place to call this
     internal static void ExpireCaches()
     {
         for (int index = Caches.Count - 1; index >= 0; index--)

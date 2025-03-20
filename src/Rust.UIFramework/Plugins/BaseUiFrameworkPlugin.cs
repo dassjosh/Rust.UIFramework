@@ -37,7 +37,7 @@ internal class BaseUiFrameworkPlugin : CSPlugin
         }
         catch(Exception ex)
         {
-            PrintError($"Lang Key '{key}' threw exception\n:{ex.Message}");
+            PrintError($"Lang Key '{key}' threw exception\n:{ex}");
             throw;
         }
     }

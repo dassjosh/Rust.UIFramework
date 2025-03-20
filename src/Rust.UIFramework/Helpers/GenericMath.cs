@@ -69,6 +69,24 @@ public static class GenericMath
     /// <param name="a">The value to check.</param>
     /// <returns>True if the value has a mask, false otherwise.</returns>
     public static bool HasMask<T>(T a, T b) => MathOperations<T>.HasMask(a, b);
+    
+    /// <summary>
+    /// Performs a bitwise AND operation on two values.
+    /// </summary>
+    /// <typeparam name="T">The numeric type of the values.</typeparam>
+    /// <param name="a">The first value.</param>
+    /// <param name="b">The second value.</param>
+    /// <returns>The result of the bitwise AND operation.</returns>
+    public static T And<T>(T a, T b) => MathOperations<T>.And(a, b);
+    
+    /// <summary>
+    /// Performs a bitwise OR operation on two values.
+    /// </summary>
+    /// <typeparam name="T">The numeric type of the values.</typeparam>
+    /// <param name="a">The first value.</param>
+    /// <param name="b">The second value.</param>
+    /// <returns>The result of the bitwise OR operation.</returns>
+    public static T Or<T>(T a, T b) => MathOperations<T>.Or(a, b);
 
     /// <summary>
     /// Helper class that caches the compiled expression trees for each operation.
