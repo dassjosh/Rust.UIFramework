@@ -39,7 +39,8 @@ public class UiGridLayout : BaseLayout
     public override void CalculateElementPositions()
     {
         float numRows = CalculateNumRows();
-        float currentRow = GetRowOffset(numRows);
+        float scale = GetScrollViewScale(numRows, NumRows);
+        float currentRow = GetRowOffset(numRows) * scale;
         
         UiOffset padding = Padding.ToOffset();
 
@@ -47,28 +48,31 @@ public class UiGridLayout : BaseLayout
         for (int i = 0; i < numRows; i++)
         {
             GetColumnRange(elementIndex, out int maxIndex, out float numCols);
-            float currentCol = GetColOffset(numCols);
+            float currentCol = GetColOffset(numCols) * scale;
             for (int index = elementIndex; index < maxIndex; index++)
             {
                 LayoutState state = Elements[index];
-                state.Element.SetPosition(GetUiPosition(currentCol, currentRow, state.ElementSpan, numRows), padding);
+                state.Element.SetPosition(GetUiPosition(currentCol, currentRow, state.ElementSpan, numRows, scale), padding);
                 currentCol += state.ElementSpan;
                 elementIndex++;
             }
         }
+        
+        ScaleScrollView(LayoutDirection.Vertical, scale);
     }
 
     private float GetRowOffset(float numRows) => GetAlignmentOffset(RowAlignment, numRows, NumRows);
 
     private float GetColOffset(float numColumns) => GetAlignmentOffset(ColumnAlignment, numColumns, NumCols);
 
-    public int CalculateNumRows()
+    private int CalculateNumRows()
     {
         float totalSpan = Elements.Sum(e => e.ElementSpan);
-        return Mathf.Min(Mathf.CeilToInt(totalSpan / NumCols), NumRows);
+        int numRows = Mathf.CeilToInt(totalSpan / NumCols);
+        return ScrollView != null ? Mathf.Max(numRows, NumRows) : Mathf.Min(numRows, NumRows);
     }
 
-    public void GetColumnRange(int startIndex, out int maxColIndex, out float colSpan)
+    private void GetColumnRange(int startIndex, out int maxColIndex, out float colSpan)
     {
         float currentSpan = 0f;
         for(int i = startIndex; i < Elements.Count; i++)
@@ -87,10 +91,10 @@ public class UiGridLayout : BaseLayout
         colSpan = currentSpan;
     }
 
-    private UiPosition GetUiPosition(float currentCol, float currentRow, float colSpan, float totalRows)
+    private UiPosition GetUiPosition(float currentCol, float currentRow, float colSpan, float totalRows, float scale)
     {
-        UiPosition pos = new(currentCol / NumCols,  1f - (currentRow + 1) / totalRows,  (currentCol + colSpan) / NumCols, 1f - currentRow / totalRows);
-        pos = pos.Shrink(LayoutPadding.Horizontal, LayoutPadding.Horizontal);
+        UiPosition pos = new(currentCol / NumCols,  1f - (currentRow + 1) / totalRows * scale,  (currentCol + colSpan) / NumCols, 1f - currentRow / totalRows * scale);
+        pos = pos.Shrink(LayoutPadding.Horizontal, LayoutPadding.Horizontal * scale);
         return pos;
     }
     

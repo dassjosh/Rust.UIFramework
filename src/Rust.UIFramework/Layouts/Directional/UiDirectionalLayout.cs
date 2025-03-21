@@ -37,25 +37,28 @@ public class UiDirectionalLayout : BaseLayout
 
     public override void CalculateElementPositions()
     {
-        float numElements = Math.Max(NumElements, Elements.Sum(e => e.ElementSpan));
-        float currentElement = GetElementOffset(numElements);
+        float totalSpan = Math.Max(NumElements, Elements.Sum(e => e.ElementSpan));
+        float scale = GetScrollViewScale(totalSpan, NumElements);
+        float currentElement = GetElementOffset(totalSpan) * scale;
 
         UiOffset padding = Padding.ToOffset();
         
         for (int index = 0; index < Elements.Count; index++)
         {
             LayoutState state = Elements[index];
-            state.Element.SetPosition(GetUiPosition(state, currentElement, numElements), padding);
+            state.Element.SetPosition(GetUiPosition(state, currentElement, totalSpan, scale), padding);
             currentElement += state.ElementSpan;
         }
+
+        ScaleScrollView(Direction, scale);
     }
     
     private float GetElementOffset(float numElements) => GetAlignmentOffset(Alignment, numElements, Mathf.Max(Elements.Count, NumElements));
     
-    private UiPosition GetUiPosition(in LayoutState state, float currentElement, float numElements)
+    private UiPosition GetUiPosition(in LayoutState state, float currentElement, float numElements, float scale)
     {
-        float startPos = currentElement / numElements;
-        float endPos = (currentElement + state.ElementSpan) / numElements;
+        float startPos = currentElement / numElements * scale;
+        float endPos = ((currentElement + state.ElementSpan) / numElements) * scale;
         
         UiPosition pos = Direction switch
         {
@@ -63,7 +66,10 @@ public class UiDirectionalLayout : BaseLayout
             LayoutDirection.Horizontal => new UiPosition(0, 1f - endPos, 1, 1f - startPos),
             _ => throw new ArgumentOutOfRangeException(nameof(Direction))
         };
-        return pos.Shrink(LayoutPadding.Horizontal, LayoutPadding.Vertical);
+        
+        return Direction == LayoutDirection.Horizontal 
+            ? pos.Shrink(LayoutPadding.Horizontal * scale, LayoutPadding.Vertical)
+            : pos.Shrink(LayoutPadding.Horizontal, LayoutPadding.Vertical * scale);
     }
     
     public readonly struct LayoutState(BaseUiComponent element, float elementSpan)
