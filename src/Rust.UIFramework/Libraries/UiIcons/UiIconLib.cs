@@ -16,7 +16,7 @@ public class UiIconLib : BaseUiFrameworkLibrary, ISingleton
 {
     private readonly Dictionary<PluginId, List<Type>> _pluginIcons = new();
     private readonly Dictionary<Type, IIconData> _enumIconData = new();
-    private readonly ILogger<UiIconLib> _logger = Singleton<UiLoggerFactory>.Instance.CreateExtensionLogger<UiIconLib>();
+    private readonly IUiLogger<UiIconLib> _logger = Singleton<UiLoggerFactory>.Instance.CreateExtensionLogger<UiIconLib>();
 
     private UiIconLib() { }
     

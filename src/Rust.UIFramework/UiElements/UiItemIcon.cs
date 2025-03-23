@@ -20,6 +20,8 @@ public class UiItemIcon : BaseUiComponent, IMaterial<UiItemIcon>, IFadeIn<UiItem
         return icon;
     }
     
+    public UiColor GetColor() => Icon.Color;
+    
     void IMaterial.SetMaterial(string material) => SetMaterial(material);
     void IFadeIn.SetFadeIn(float duration) => SetFadeIn(duration);
     void IUiColor.SetColor(UiColor color) => SetColor(color);

@@ -1,5 +1,6 @@
 ﻿using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Json;
+using Oxide.Ext.UiFramework.Types;
 using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.Components;
@@ -11,10 +12,12 @@ public class InputComponent : BaseTextComponent
     public InputMode Mode;
     public InputField.LineType LineType;
 
+    public override Utf8String Type => JsonDefaults.Input.Type;
+    
     public override void WriteComponent(JsonFrameworkWriter writer)
     {
         writer.WriteStartObject();
-        writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, JsonDefaults.Input.Type);
+        writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, Type);
         writer.AddField(JsonDefaults.Input.CharacterLimitName, CharsLimit, JsonDefaults.Input.CharacterLimitValue);
         writer.AddField(JsonDefaults.Input.LineTypeName, LineType);
             

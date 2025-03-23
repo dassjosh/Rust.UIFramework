@@ -12,14 +12,14 @@ internal class SendHandler : ISingleton
     private readonly AutoResetEvent _reset = new(false);
     private readonly Thread _thread;
     private readonly CancellationTokenSource _source = new();
-    private readonly ILogger<SendHandler> _logger = Singleton<UiLoggerFactory>.Instance.CreateExtensionLogger<SendHandler>();
+    private readonly IUiLogger<SendHandler> _logger = Singleton<UiLoggerFactory>.Instance.CreateExtensionLogger<SendHandler>();
     
     private SendHandler()
     {
         _thread = new Thread(Send)
         {
             IsBackground = true,
-            Name = $"UiFramework.{nameof(SendHandler)}",
+            Name = $"{UiFrameworkExtension.Instance.Name}.{nameof(SendHandler)}",
         };
         _thread.Start();
     }

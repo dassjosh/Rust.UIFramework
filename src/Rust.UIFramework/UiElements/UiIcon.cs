@@ -26,6 +26,8 @@ public class UiIcon : BaseUiComponent, IMaterial<UiIcon>, IFadeIn<UiIcon>, IUiCo
     void IFadeIn.SetFadeIn(float duration) => SetFadeIn(duration);
     void IUiColor.SetColor(UiColor color) => SetColor(color);
 
+    public UiColor GetColor() => RawImage.Color;
+    
     public UiIcon SetColor(UiColor color)
     {
         RawImage.Color = color;

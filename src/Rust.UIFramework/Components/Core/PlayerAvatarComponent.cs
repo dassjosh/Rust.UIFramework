@@ -9,14 +9,16 @@ namespace Oxide.Ext.UiFramework.Components;
 public class PlayerAvatarComponent : BaseImageComponent
 {
     public ulong SteamId;
-    public AvatarType Type = AvatarType.Medium;
+    public AvatarType AvatarType = AvatarType.Medium;
+    
+    public override Utf8String Type => JsonDefaults.RawImage.Type;
 
     public override void WriteComponent(JsonFrameworkWriter writer)
     {
         writer.WriteStartObject();
-        writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, JsonDefaults.RawImage.Type);
+        writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, Type);
 
-        switch (Type)
+        switch (AvatarType)
         {
             case AvatarType.Small:
             case AvatarType.Medium:
@@ -24,7 +26,7 @@ public class PlayerAvatarComponent : BaseImageComponent
                 break;
             
             case AvatarType.Large:
-                string avatarUrl = Singleton<UiPlayerAvatars>.Instance.GetAvatarUrl(SteamId, Type);
+                string avatarUrl = Singleton<UiPlayerAvatars>.Instance.GetAvatarUrl(SteamId, AvatarType);
                 if (!string.IsNullOrEmpty(avatarUrl))
                 {
                     string img = Singleton<UiImageStorage>.Instance.Get(UiFrameworkPlugin.Instance, avatarUrl);
@@ -46,6 +48,6 @@ public class PlayerAvatarComponent : BaseImageComponent
     {
         base.Reset();
         SteamId = default;
-        Type = AvatarType.Medium;
+        AvatarType = AvatarType.Medium;
     }
 }

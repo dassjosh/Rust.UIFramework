@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using Oxide.Core;
 using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Logging;
 
@@ -9,10 +10,10 @@ public interface ISingleton;
 
 public static class Singleton<T> where T : ISingleton
 {
-    public static readonly T Instance = CreateInstance();
+    public static readonly T Instance;
     private const string ErrorMessage = "must have only one constructor that is parameterless and private.";
         
-    private static T CreateInstance()
+    static Singleton()
     {
         ConstructorInfo[] constructors = typeof(T).GetConstructors(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
         if (constructors.Length != 1)
@@ -28,11 +29,12 @@ public static class Singleton<T> where T : ISingleton
             
         try 
         {
-            return (T)constructor.Invoke(null);
+            Instance = (T)constructor.Invoke(null);
         }
         catch(Exception ex)
         {
-            UiFrameworkExtension.GlobalLogger.Exception($"An error occured in Singleton<{{0}}> {nameof(CreateInstance)}()", typeof(T).GetRealTypeName(), ex);
+            Interface.Oxide.LogException("", ex);
+            UiFrameworkExtension.GlobalLogger.Exception("An error occured in Singleton<{0}>", typeof(T).GetRealTypeName(), ex);
             throw;
         }
     }

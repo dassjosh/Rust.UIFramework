@@ -17,9 +17,11 @@ public class UiPlayerAvatar : BaseUiComponent, IMaterial<UiPlayerAvatar>, IFadeI
         UiPlayerAvatar icon = CreateBase<UiPlayerAvatar>(pos, offset);
         icon.Avatar.Color = color;
         icon.Avatar.SteamId = steamId;
-        icon.Avatar.Type = type;
+        icon.Avatar.AvatarType = type;
         return icon;
     }
+    
+    public UiColor GetColor() => Avatar.Color;
     
     void IMaterial.SetMaterial(string material) => SetMaterial(material);
     void IFadeIn.SetFadeIn(float duration) => SetFadeIn(duration);

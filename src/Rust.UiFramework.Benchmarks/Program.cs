@@ -1,4 +1,5 @@
-﻿using Oxide.Ext.UiFramework.Extensions;
+﻿using Oxide.Ext.UiFramework.Colors;
+using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Helpers;
 using Oxide.Ext.UiFramework.Layouts;
 using Oxide.Ext.UiFramework.Positions;
@@ -24,6 +25,15 @@ class Program
 #else
 
 #endif
+
+        UiColor _bodyColor = "#888888C8";
+        UiColor _startColor = _bodyColor.WithAlpha(0f);
+        byte a = 200;
+        var b = a * 0.01f;
+        for (int i = 0; i <= 100; i++)
+        {
+            UiColor lerp = UiColor.Lerp(_startColor, _bodyColor, i / 100f);
+        }
 
     }
 }

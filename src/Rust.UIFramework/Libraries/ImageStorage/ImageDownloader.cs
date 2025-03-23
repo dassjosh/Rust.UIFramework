@@ -28,7 +28,7 @@ internal class ImageDownloader
     private readonly int _maxDownloadAttempts = UiFrameworkConfig.Instance.ImageStorage.MaxDownloadAttempts;
     private readonly object _taskLock = new();
     private int _activeWorkerCount;
-    private readonly ILogger<ImageDownloader> _logger = Singleton<UiLoggerFactory>.Instance.CreateExtensionLogger<ImageDownloader>();
+    private readonly IUiLogger<ImageDownloader> _logger = Singleton<UiLoggerFactory>.Instance.CreateExtensionLogger<ImageDownloader>();
 
     /// <summary>
     /// Initializes a new instance of the ImageDownloader class

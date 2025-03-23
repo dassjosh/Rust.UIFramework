@@ -1,5 +1,6 @@
 ﻿using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Json;
+using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Components;
 
@@ -12,10 +13,12 @@ public class RawImageComponent : CoreComponent
     public string Texture;
     public string Material;
 
+    public override Utf8String Type => JsonDefaults.RawImage.Type;
+    
     public override void WriteComponent(JsonFrameworkWriter writer)
     {
         writer.WriteStartObject();
-        writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, JsonDefaults.RawImage.Type);
+        writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, Type);
         writer.AddField(JsonDefaults.BaseImage.SpriteName, Texture, JsonDefaults.RawImage.TextureValue);
         writer.AddField(JsonDefaults.BaseImage.MaterialName, Material, JsonDefaults.BaseImage.Material);
         if (!string.IsNullOrEmpty(Url))

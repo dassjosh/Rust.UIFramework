@@ -1,3 +1,9 @@
-﻿namespace Oxide.Ext.UiFramework.Components;
+﻿using System;
+using Oxide.Ext.UiFramework.Types;
 
-public class EmptyComponent : CoreComponent;
+namespace Oxide.Ext.UiFramework.Components;
+
+public class EmptyComponent : CoreComponent
+{
+    public override Utf8String Type => throw new NotSupportedException();
+}

@@ -1,4 +1,5 @@
 ﻿using System;
+using Oxide.Ext.UiFramework.Animation;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Controls;
 using Oxide.Ext.UiFramework.Enums;

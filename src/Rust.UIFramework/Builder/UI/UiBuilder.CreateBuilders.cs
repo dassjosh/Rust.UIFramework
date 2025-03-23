@@ -96,7 +96,7 @@ public partial class UiBuilder
     }
         
     /// <summary>
-    /// Creates a UI builder that when created before your main UI will run a command if the user click outside of the UI window
+    /// Creates a UI builder that when created before your main UI will run a command if the user click outside the UI window
     /// </summary>
     /// <param name="command">Command to run when the button is clicked</param>
     /// <param name="name">Name of the UI</param>

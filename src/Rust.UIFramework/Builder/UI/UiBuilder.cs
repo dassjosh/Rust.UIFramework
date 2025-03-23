@@ -1,9 +1,12 @@
 ﻿using System.Collections.Generic;
+using Network;
+using Oxide.Ext.UiFramework.Animation;
 using Oxide.Ext.UiFramework.Builder.Cached;
 using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Exceptions;
 using Oxide.Ext.UiFramework.Json;
+using Oxide.Ext.UiFramework.Types;
 using Oxide.Ext.UiFramework.UiElements;
 
 namespace Oxide.Ext.UiFramework.Builder.UI;
@@ -13,6 +16,7 @@ public partial class UiBuilder : BaseUiBuilder
     public BaseUiComponent Root;
 
     private BaseUiComponent _actualRoot;
+    protected readonly List<BaseAnimation> Animations = [];
     
     private bool _autoDestroy = true;
 
@@ -107,6 +111,11 @@ public partial class UiBuilder : BaseUiBuilder
         component.Reference = parent.WithChild(UiNameCache.GetAnchorName(RootName, Anchors.Count));
         Anchors.Add(component);
     }
+
+    private void AddAnimation(BaseAnimation animation)
+    {
+        Animations.Add(animation);
+    }
     #endregion
 
     #region Write Components
@@ -117,8 +126,8 @@ public partial class UiBuilder : BaseUiBuilder
         WriteComponents(writer, Components, 1);
         WriteComponents(writer, Anchors, 0);
     }
-    
-    protected static void WriteComponents<T>(JsonFrameworkWriter writer, List<T> components, int startIndex) where T : BaseUiComponent
+
+    private static void WriteComponents<T>(JsonFrameworkWriter writer, List<T> components, int startIndex) where T : BaseUiComponent
     {
         int count = components.Count;
         for (int index = startIndex; index < count; index++)
@@ -128,7 +137,25 @@ public partial class UiBuilder : BaseUiBuilder
     }
     #endregion
 
+    #region Animations
+    protected override void OnUiSent(SendInfo send)
+    {
+        for (int index = 0; index < Animations.Count; index++)
+        {
+            BaseAnimation animation = Animations[index];
+            Singleton<AnimationHandler>.Instance.EnqueueAnimation(animation, SendInfoBuilder.GetForAnimations(send));
+        }
+    }
+    #endregion
+
     #region Pooling
+
+    protected override void FreeComponents()
+    {
+        base.FreeComponents();
+        ClearAnimationList(Animations);
+    }
+
     protected override void EnterPool()
     {
         base.EnterPool();

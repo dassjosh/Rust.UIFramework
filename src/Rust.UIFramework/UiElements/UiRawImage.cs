@@ -41,6 +41,8 @@ public class UiRawImage : BaseUiComponent, IMaterial<UiRawImage>, IFadeIn<UiRawI
         return image;
     }
     
+    public UiColor GetColor() => RawImage.Color;
+    
     void IMaterial.SetMaterial(string material) => SetMaterial(material);
     void IFadeIn.SetFadeIn(float duration) => SetFadeIn(duration);
     void IUiColor.SetColor(UiColor color) => SetColor(color);

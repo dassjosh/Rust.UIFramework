@@ -18,7 +18,7 @@ public class UiPlayerAvatars : BaseUiFrameworkLibrary, ISingleton
     private readonly AvatarData _data = AvatarData.Instance;
     private readonly UiSteamConfig _config = UiFrameworkConfig.Instance.Steam;
     private readonly HttpClient _httpClient;
-    private readonly ILogger<UiPlayerAvatars> _logger = Singleton<UiLoggerFactory>.Instance.CreateExtensionLogger<UiPlayerAvatars>();
+    private readonly IUiLogger<UiPlayerAvatars> _logger = Singleton<UiLoggerFactory>.Instance.CreateExtensionLogger<UiPlayerAvatars>();
     
     private UiPlayerAvatars()
     {

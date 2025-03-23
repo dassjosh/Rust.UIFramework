@@ -33,6 +33,8 @@ public readonly struct UiPosition(float xMin, float yMin, float xMax, float yMax
     public readonly Vector2 Min = new(xMin, yMin);
     public readonly Vector2 Max = new(xMax, yMax);
 
+    public UiPosition(Vector2 min, Vector2 max) : this(min.x, min.y, max.x, max.y) { }
+    
     public override string ToString()
     {
         return $"({Min.x:0.####}, {Min.y:0.####}) ({Max.x:0.####}, {Max.y:0.####})";
@@ -208,6 +210,8 @@ public readonly struct UiPosition(float xMin, float yMin, float xMax, float yMax
         Vector2 max = Max;   
         return new UiPosition(min.x, min.y + (max.y - min.y) * yMin, max.x, min.y + (max.y - min.y) * yMax);
     }
+    
+    public static UiPosition Lerp(UiPosition a, UiPosition b, float t) => new(Vector2.Lerp(a.Min, b.Min, t), Vector2.Lerp(a.Max, b.Max, t));
     
     public static bool operator ==(UiPosition left, UiPosition right) => left.Equals(right);
     public static bool operator !=(UiPosition left, UiPosition right) => !(left == right);

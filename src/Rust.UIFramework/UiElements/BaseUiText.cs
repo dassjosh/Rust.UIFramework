@@ -9,6 +9,8 @@ public abstract class BaseUiText<T> : BaseUiComponent, IFadeIn<T>, IUiColor<T> w
 {
     private BaseTextComponent Text => (BaseTextComponent)Component;
     
+    public UiColor GetColor() => Text.Color;
+    
     void IFadeIn.SetFadeIn(float duration) => SetFadeIn(duration);
     void IUiColor.SetColor(UiColor color) => SetColor(color);
     

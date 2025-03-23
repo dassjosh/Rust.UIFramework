@@ -19,7 +19,10 @@ internal static class SendInfoBuilder
     internal static SendInfo Get(Connection connection)
     {
         if (connection == null) throw new ArgumentNullException(nameof(connection));
-        return new SendInfo(connection);
+        return new SendInfo(connection)
+        {
+            //channel = 3
+        };
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -28,6 +31,27 @@ internal static class SendInfoBuilder
         if (connections == null) throw new ArgumentNullException(nameof(connections));
         List<Connection> pooledConnection = ListPool<Connection>.Instance.Get();
         pooledConnection.AddRange(connections);
-        return new SendInfo(pooledConnection);
+        return new SendInfo(pooledConnection)
+        {
+            //channel = 3
+        };
+    }
+
+    internal static SendInfo GetForAnimations(SendInfo info)
+    {
+        if (info.connection != null)
+        {
+            return new SendInfo(info.connection)
+            {
+                //channel = 4
+            };
+        }
+
+        List<Connection> connections = UiFrameworkPool.GetList<Connection>();
+        connections.AddRange(info.connections);
+        return new SendInfo(connections)
+        {
+            //channel = 4
+        };
     }
 }

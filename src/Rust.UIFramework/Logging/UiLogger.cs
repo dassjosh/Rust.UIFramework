@@ -72,7 +72,7 @@ public class UiLogger : IUiLogger
     }
 }
 
-public class UiLogger<T> : UiLogger, ILogger<T>
+public class UiLogger<T> : UiLogger, IUiLogger<T>
 {
     internal UiLogger(UiLogLevel logLevel, IUiLoggingConfig config, UiLogHandler handler) : base(logLevel, config, handler) { }
 }

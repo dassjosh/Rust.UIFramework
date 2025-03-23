@@ -104,11 +104,11 @@ public class AssetBrowser : RustPlugin
         
     private void OnServerInitialized()
     {
-        BasePlayer player = BasePlayer.activePlayerList.FirstOrDefault();
-        if (player)
-        {
-            CreateUi(player);
-        }
+        // BasePlayer player = BasePlayer.activePlayerList.FirstOrDefault();
+        // if (player)
+        // {
+        //     CreateUi(player);
+        // }
         
         CreatePlayingCardsFolder(PlayingCardTypes.Normal);
         CreatePlayingCardsFolder(PlayingCardTypes.Small);
@@ -470,12 +470,25 @@ public class AssetBrowser : RustPlugin
 
     public void CreateUi(BasePlayer player)
     {
-        CreateUi(player, _store.GetOrCreateStore<UiState>(this, player));
+        CreateUi(player, _store.GetOrCreateStore<UiState>(this, player), true);
     }
 
-    private void CreateUi(BasePlayer player, UiState state)
+    private void CreateUi(BasePlayer player, UiState state, bool isInitial = false)
     {
-        UiBuilder builder = UiBuilder.Create(UiPosition.MiddleMiddle, new UiOffset(500, 400), _bodyColor, UiName);
+        UiBuilder builder;
+        if (isInitial)
+        {
+            builder = UiBuilder.Create(new UiPosition(0.5f, 0, 0.5f, 0), new UiOffset(500, 400), _bodyColor, UiName);
+            builder.AnimatePosition(builder.Root, UiPosition.MiddleMiddle, 0.5f);
+            //builder.AnimateOffset(builder.Root, new UiOffset(500, 400), .25f);
+            //builder.AnimateColor(builder.Root, _bodyColor.WithAlpha(0f), _bodyColor, .5f);
+        }
+        else
+        {
+            builder = UiBuilder.Create(UiPosition.MiddleMiddle, new UiOffset(500, 400), _bodyColor, UiName);
+        }
+        
+        //builder.SetCurrentFont(UiFontCache.RobotomonoRegular);
         builder.NeedsKeyboard();
         builder.NeedsMouse();
         

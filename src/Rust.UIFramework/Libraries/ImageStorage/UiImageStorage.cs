@@ -15,13 +15,14 @@ using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.Types;
 using Oxide.Ext.UiFramework.UiElements;
 
+
 namespace Oxide.Ext.UiFramework.Libraries;
 
 public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
 {
     private readonly ImageStorageData _data = ImageStorageData.Instance;
     private readonly ImageDownloader _downloader = new();
-    private readonly ILogger<UiImageStorage> _logger = Singleton<UiLoggerFactory>.Instance.CreateExtensionLogger<UiImageStorage>();
+    private readonly IUiLogger<UiImageStorage> _logger = Singleton<UiLoggerFactory>.Instance.CreateExtensionLogger<UiImageStorage>();
     public bool IsReady { get; private set; }
     
     private static readonly byte[] SignaturePNG = [137, 80, 78, 71, 13, 10, 26, 10, 0, 0, 0, 13, 73, 72, 68, 82];

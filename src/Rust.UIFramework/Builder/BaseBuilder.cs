@@ -141,6 +141,11 @@ public abstract class BaseBuilder : BasePoolable
 
     public static void DestroyUi(SendInfo send, string name)
     {
+        if (!Net.sv.IsConnected() || CommunityEntity.ServerInstance.net == null)
+        {
+            return;
+        }
+        
         CommunityEntity.ServerInstance.ClientRPC(new RpcTarget
         {
             Function = RpcFunctions.DestroyUiFunc,

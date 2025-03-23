@@ -10,6 +10,8 @@ public abstract class BaseUiImage<T> : BaseUiComponent, IImageType<T>, ISprite<T
     public readonly ImageComponent Image = new();
     internal override CoreComponent Component => Image;
 
+    public UiColor GetColor() => Image.Color;
+    
     void IImageType.SetImageType(Image.Type type) => SetImageType(type);
     void ISprite.SetSprite(string sprite) => SetSprite(sprite);
     void IMaterial.SetMaterial(string material) => SetMaterial(material);

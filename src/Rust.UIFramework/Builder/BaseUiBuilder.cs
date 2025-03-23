@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Network;
+using Oxide.Ext.UiFramework.Animation;
 using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Controls;
 using Oxide.Ext.UiFramework.Enums;
@@ -18,12 +19,7 @@ public abstract partial class BaseUiBuilder : BaseBuilder
     protected readonly List<BaseLayout> Layouts = [];
         
     protected string Font;
-    protected static string GlobalFont;
-
-    static BaseUiBuilder()
-    {
-        SetGlobalFont(UiFont.RobotoCondensedRegular);
-    }
+    protected static string GlobalFont = UiFontCache.GetUiFont(UiFont.RobotoCondensedRegular);
         
     public void EnsureCapacity(int capacity)
     {
@@ -37,12 +33,6 @@ public abstract partial class BaseUiBuilder : BaseBuilder
     public void SetCurrentFont(string font)
     {
         Font = font;
-    }
-
-    public static void SetGlobalFont(UiFont font) => SetGlobalFont(UiFontCache.GetUiFont(font));
-    public static void SetGlobalFont(string font)
-    {
-        GlobalFont = font;
     }
         
     public override byte[] GetBytes()
@@ -58,6 +48,7 @@ public abstract partial class BaseUiBuilder : BaseBuilder
         JsonFrameworkWriter writer = CreateWriter();
         AddUi(send, writer);
         writer.Dispose();
+        OnUiSent(send);
     }
         
     public JsonFrameworkWriter CreateWriter()
@@ -71,6 +62,7 @@ public abstract partial class BaseUiBuilder : BaseBuilder
     }
 
     protected abstract void WriteComponentsInternal(JsonFrameworkWriter writer);
+    protected virtual void OnUiSent(SendInfo send) {}
 
     private void PreprocessElements()
     {
@@ -86,7 +78,7 @@ public abstract partial class BaseUiBuilder : BaseBuilder
         }
     }
     
-    private void FreeComponents()
+    protected virtual void FreeComponents()
     {
         ClearComponentList(Components);
         ClearComponentList(Controls);
@@ -103,6 +95,21 @@ public abstract partial class BaseUiBuilder : BaseBuilder
         }
 
         components.Clear();
+    }
+    
+    protected static void ClearAnimationList(List<BaseAnimation> animations)
+    {
+        int count = animations.Count;
+        for (int index = 0; index < count; index++)
+        {
+            BaseAnimation animation = animations[index];
+            if (!animation.WasQueued)
+            {
+                animation.Dispose();
+            }
+        }
+        
+        animations.Clear();
     }
     
     protected override void EnterPool()

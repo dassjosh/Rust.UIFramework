@@ -148,7 +148,13 @@ public readonly struct UiColor : IEquatable<UiColor>
     [Pure]
     public static UiColor Lerp(UiColor start, UiColor end, float value)
     {
-        return new UiColor(start.Red + (end.Red - start.Red) * value, start.Green + (end.Green - start.Green) * value, start.Blue + (end.Blue - start.Blue) * value, start.Alpha + (end.Alpha - start.Alpha) * value);
+        value = Mathf.Clamp01(value);
+        return new UiColor(LerpField(start.Red, end.Red, value), LerpField(start.Green, end.Green, value), LerpField(start.Blue, end.Blue, value), LerpField(start.Alpha, end.Alpha, value));
+    }
+
+    private static byte LerpField(byte start, byte end, float value)
+    {
+        return (byte)Mathf.RoundToInt(start + (end - start) * value);
     }
     #endregion
 

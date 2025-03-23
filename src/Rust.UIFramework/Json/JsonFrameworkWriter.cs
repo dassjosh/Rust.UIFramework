@@ -94,6 +94,18 @@ public sealed class JsonFrameworkWriter : BasePoolable
         WriteValue(value);
     }
     
+    public void AddFieldRaw(in Utf8String name, UiColor color)
+    {
+        WritePropertyName(name);
+        WriteValue(color);
+    }
+    
+    public void AddFieldRaw(in Utf8String name, Vector2 value)
+    {
+        WritePropertyName(name);
+        WriteValue(value);
+    }
+    
     public void AddField(in Utf8String name, string value, string defaultValue)
     {
         if (value != null && value != defaultValue)

@@ -58,6 +58,7 @@ public abstract class BaseUiComponent : BasePoolable
         writer.AddFieldRaw(JsonDefaults.Common.ParentName, Reference.Parent);
         writer.AddField(JsonDefaults.Common.FadeOutName, FadeOut, JsonDefaults.Common.FadeOut);
         writer.AddFieldRaw(JsonDefaults.Common.AutoDestroy, Reference.Name);
+        writer.AddFieldRaw(JsonDefaults.Common.Update, true);
 
         writer.WritePropertyName(JsonDefaults.Common.ComponentsName);
         writer.WriteStartArray();

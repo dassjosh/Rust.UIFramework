@@ -37,6 +37,8 @@ public class UiButton : BaseUiComponent, IImageType<UiButton>, ISprite<UiButton>
         return button;
     }
     
+    public UiColor GetColor() => Button.Color;
+    
     void IImageType.SetImageType(Image.Type type) => SetImageType(type);
     void ISprite.SetSprite(string sprite) => SetSprite(sprite);
     void IMaterial.SetMaterial(string material) => SetMaterial(material);

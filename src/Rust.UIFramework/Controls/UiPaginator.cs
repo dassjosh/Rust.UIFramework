@@ -9,6 +9,7 @@ using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.UiElements;
 using Rust.UI;
 
+
 namespace Oxide.Ext.UiFramework.Controls;
 
 public class UiPaginator : BaseUiControl

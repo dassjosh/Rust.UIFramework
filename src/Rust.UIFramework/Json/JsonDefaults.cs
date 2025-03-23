@@ -15,6 +15,7 @@ public static class JsonDefaults
         public static readonly Utf8String ComponentsName = "components";
         public static readonly Utf8String ComponentName = "name";
         public static readonly Utf8String ParentName = "parent";
+        public static readonly Utf8String Update = "update";
         
         public static readonly Utf8String FadeInName = "fadeIn";
         public const float FadeIn = 0;

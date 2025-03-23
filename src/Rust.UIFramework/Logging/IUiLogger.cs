@@ -54,4 +54,4 @@ public interface IUiLogger
     void Shutdown();
 }
 
-public interface ILogger<T> : IUiLogger;
+public interface IUiLogger<T> : IUiLogger;

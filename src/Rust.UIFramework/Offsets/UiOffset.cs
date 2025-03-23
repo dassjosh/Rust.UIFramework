@@ -16,11 +16,10 @@ public readonly struct UiOffset(float xMin, float yMin, float xMax, float yMax) 
     public float Width => Max.x - Min.x;
     public float Height => Max.y - Min.y;
 
-    public UiOffset(int size) : this(size, size) { }
+    public UiOffset(float size) : this(size, size) { }
     
-    public UiOffset(int width, int height) : this(-width / 2f, -height / 2f, width / 2f, height / 2f)
-    {
-    }
+    public UiOffset(float width, float height) : this(-width / 2f, -height / 2f, width / 2f, height / 2f) { }
+    public UiOffset(Vector2 min, Vector2 max) : this(min.x, min.y, max.x, max.y) { }
 
     public static UiOffset CreateRect(int x, int y, int width, int height)
     {
@@ -225,6 +224,8 @@ public readonly struct UiOffset(float xMin, float yMin, float xMax, float yMax) 
         Vector2 max = Max;   
         return new UiOffset(min.x, min.y + bottom, max.x, max.y - top);
     }
+    
+    public static UiOffset Lerp(in UiOffset a, in UiOffset b, float t) => new(Vector2.Lerp(a.Min, b.Min, t), Vector2.Lerp(a.Max, b.Max, t));
     #endregion
 
     #region Operators
