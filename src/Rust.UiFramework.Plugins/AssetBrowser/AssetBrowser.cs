@@ -7,6 +7,7 @@ using Facepunch.CardGames;
 using Network;
 using Newtonsoft.Json;
 using Oxide.Core;
+using Oxide.Ext.UiFramework.Animation;
 using Oxide.Ext.UiFramework.Builder;
 using Oxide.Ext.UiFramework.Builder.UI;
 using Oxide.Ext.UiFramework.Cache;
@@ -478,9 +479,10 @@ public class AssetBrowser : RustPlugin
         UiBuilder builder;
         if (isInitial)
         {
-            builder = UiBuilder.Create(new UiPosition(0.5f, 0, 0.5f, 0), new UiOffset(500, 400), _bodyColor, UiName);
-            builder.AnimatePosition(builder.Root, UiPosition.MiddleMiddle, 0.5f);
-            //builder.AnimateOffset(builder.Root, new UiOffset(500, 400), .25f);
+            builder = UiBuilder.Create(new UiPosition(0.5f, 0, 0.5f, 0), new UiOffset(500, 0), _bodyColor, UiName);
+            var pos1= builder.AnimatePosition(builder.Root, UiPosition.MiddleMiddle, 1f, delay: .3f);
+            pos1.Points = new BezierPoints(0, 0, 1, 1.75f);
+            builder.AnimateOffset(builder.Root, new UiOffset(500, 400), .35f);
             //builder.AnimateColor(builder.Root, _bodyColor.WithAlpha(0f), _bodyColor, .5f);
         }
         else

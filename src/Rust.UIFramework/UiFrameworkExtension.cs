@@ -2,6 +2,7 @@
 using System.Reflection;
 using Oxide.Core;
 using Oxide.Core.Extensions;
+using Oxide.Ext.UiFramework.Animation;
 using Oxide.Ext.UiFramework.Config;
 using Oxide.Ext.UiFramework.Data;
 using Oxide.Ext.UiFramework.Libraries;
@@ -61,5 +62,6 @@ public class UiFrameworkExtension : Extension
     {
         Singleton<DataHandler>.Instance.Shutdown();
         Singleton<SendHandler>.Instance.OnServerShutdown();
+        Singleton<AnimationHandler>.Instance.OnServerShutdown();
     }
 }

@@ -1,8 +1,10 @@
-﻿using Oxide.Ext.UiFramework.Colors;
+﻿using Oxide.Ext.UiFramework.Animation;
+using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Helpers;
 using Oxide.Ext.UiFramework.Layouts;
 using Oxide.Ext.UiFramework.Positions;
+using Oxide.Ext.UiFramework.Types;
 #if BENCHMARKS
 using BenchmarkDotNet.Configs;
 using BenchmarkDotNet.Jobs;
@@ -26,14 +28,15 @@ class Program
 
 #endif
 
-        UiColor _bodyColor = "#888888C8";
-        UiColor _startColor = _bodyColor.WithAlpha(0f);
-        byte a = 200;
-        var b = a * 0.01f;
-        for (int i = 0; i <= 100; i++)
-        {
-            UiColor lerp = UiColor.Lerp(_startColor, _bodyColor, i / 100f);
-        }
-
+        // UiPosition start = UiPosition.BottomMiddle;
+        // UiPosition end = UiPosition.MiddleMiddle;
+        // var bezier = new BezierPoints(1,0.5f,0, 0.5f);
+        // //cubic-bezier(.06,-0.81,.61,1.92)
+        //
+        // for(float f = 0; f <= 1.1; f += 0.01f)
+        // {
+        //     var pos = Singleton<BezierCurve>.Instance.GetPosition(bezier, start, end, f);
+        //     Console.WriteLine($"{f:0.##}: {pos}");
+        // }
     }
 }

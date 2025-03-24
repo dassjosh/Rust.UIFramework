@@ -30,11 +30,8 @@ public abstract partial class BaseUiBuilder : BaseBuilder
     }
         
     public void SetCurrentFont(UiFont font) => SetCurrentFont(UiFontCache.GetUiFont(font));
-    public void SetCurrentFont(string font)
-    {
-        Font = font;
-    }
-        
+    public void SetCurrentFont(string font) => Font = font;
+
     public override byte[] GetBytes()
     {
         JsonFrameworkWriter writer = CreateWriter();

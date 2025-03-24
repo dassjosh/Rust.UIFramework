@@ -140,10 +140,12 @@ public partial class UiBuilder : BaseUiBuilder
     #region Animations
     protected override void OnUiSent(SendInfo send)
     {
+        Singleton<AnimationTracker>.Instance.RemoveUiForSend(send, RootName);
         for (int index = 0; index < Animations.Count; index++)
         {
             BaseAnimation animation = Animations[index];
             Singleton<AnimationHandler>.Instance.EnqueueAnimation(animation, SendInfoBuilder.GetForAnimations(send));
+            Singleton<AnimationTracker>.Instance.OnAnimatedPanelCreated(send, RootName, animation.Reference.Name, animation.Id);
         }
     }
     #endregion

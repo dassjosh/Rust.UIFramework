@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Network;
+using Oxide.Ext.UiFramework.Animation;
 using Oxide.Ext.UiFramework.Constants;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Pooling;
@@ -146,6 +147,7 @@ public abstract class BaseBuilder : BasePoolable
             return;
         }
         
+        Singleton<AnimationTracker>.Instance.RemoveUiForSend(send, name);
         CommunityEntity.ServerInstance.ClientRPC(new RpcTarget
         {
             Function = RpcFunctions.DestroyUiFunc,

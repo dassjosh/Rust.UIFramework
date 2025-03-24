@@ -9,11 +9,11 @@ namespace Oxide.Ext.UiFramework.Builder.UI;
 
 public partial class UiBuilder
 {
-    public ColorAnimation AnimateColor(BaseUiComponent component, UiColor endColor, float duration, float updateRate = 0.025f, float delay = 0f, int repeats = 1, float repeatDelay = 0f)
+    public ColorAnimation AnimateColor(BaseUiComponent component, UiColor endColor, float duration, float delay = 0f)
     {
         if (component is IUiColor color)
         {
-            ColorAnimation animation = ColorAnimation.Create(color.GetColor(), endColor, component, updateRate, delay, duration, repeats, repeatDelay);
+            ColorAnimation animation = ColorAnimation.Create(color.GetColor(), endColor, component, delay, duration);
             AddAnimation(animation);
             return animation;
         }
@@ -21,16 +21,16 @@ public partial class UiBuilder
         return null;
     }
     
-    public PositionAnimation AnimatePosition(BaseUiComponent component, in UiPosition endPosition, float duration, float updateRate = 0.025f, float delay = 0f, int repeats = 1, float repeatDelay = 0f)
+    public PositionAnimation AnimatePosition(BaseUiComponent component, in UiPosition endPosition, float duration, float delay = 0f)
     {
-        PositionAnimation animation = PositionAnimation.Create(component.Position, endPosition, component, updateRate, delay, duration, repeats, repeatDelay);
+        PositionAnimation animation = PositionAnimation.Create(component.Position, endPosition, component, delay, duration);
         AddAnimation(animation);
         return animation;
     }
     
-    public OffsetAnimation AnimateOffset(BaseUiComponent component, in UiOffset endOffset, float duration, float updateRate = 0.025f, float delay = 0f, int repeats = 1, float repeatDelay = 0f)
+    public OffsetAnimation AnimateOffset(BaseUiComponent component, in UiOffset endOffset, float duration, float delay = 0f)
     {
-        OffsetAnimation animation = OffsetAnimation.Create(component.Offset, endOffset, component, updateRate, delay, duration, repeats, repeatDelay);
+        OffsetAnimation animation = OffsetAnimation.Create(component.Offset, endOffset, component, delay, duration);
         AddAnimation(animation);
         return animation;
     }
