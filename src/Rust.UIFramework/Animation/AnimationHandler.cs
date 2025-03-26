@@ -11,7 +11,7 @@ using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Animation;
 
-public class AnimationHandler : ISingleton
+internal class AnimationHandler : ISingleton
 {
     private readonly ConcurrentDictionary<AnimationId, BaseAnimation> _animations = new();
     private readonly ConcurrentDictionary<ulong, PlayerAnimations> _playerAnimations = new();
@@ -73,7 +73,24 @@ public class AnimationHandler : ISingleton
             if (animations.IsEmpty)
             {
                 _playerAnimations.TryRemove(animation.PlayerId, out PlayerAnimations _);
+                animations.Dispose();
             }
+        }
+    }
+
+    public void OnPlayerDisconnected(ulong playerId)
+    {
+        if(_playerAnimations.TryGetValue(playerId, out PlayerAnimations animations))
+        {
+            foreach (AnimationId id in animations.Animations.Keys)
+            {
+                RemoveAnimation(id);
+            }
+        }
+
+        foreach (BaseAnimation animation in _animations.Values)
+        {
+            animation.RemoveForPlayer(playerId);
         }
     }
     
