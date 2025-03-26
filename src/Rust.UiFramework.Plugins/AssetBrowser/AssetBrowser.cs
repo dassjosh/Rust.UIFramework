@@ -15,6 +15,7 @@ using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Constants;
 using Oxide.Ext.UiFramework.Controls;
 using Oxide.Ext.UiFramework.Enums;
+using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Helpers;
 using Oxide.Ext.UiFramework.Layouts;
 using Oxide.Ext.UiFramework.Libraries;
@@ -116,6 +117,7 @@ public class AssetBrowser : RustPlugin
         CreatePlayingCardsFolder(PlayingCardTypes.Transparent);
         CreatePlayingCardsFolder(PlayingCardTypes.Transparent | PlayingCardTypes.Small);
         CreateItemsFolder();
+        UiInit();
     }
 
     private void CreatePlayingCardsFolder(PlayingCardTypes type)
@@ -468,7 +470,23 @@ public class AssetBrowser : RustPlugin
     private readonly UiColor _buttonColor = "#83838340";
     private readonly UiColor _pathBarColor = "#1D201F96";
     private readonly UiColor _spriteColor = "#BAB1A8FF";
+    private KeyFramePositionAnimator _animator;
+    private AnimationReference _animationReference;
 
+    public void UiInit()
+    {
+        _animator = new KeyFramePositionAnimator(UiPosition.MiddleLeft, UiPosition.MiddleMiddle);
+        _animator.AddKeyFrame(10f, new UiPosition(0.25f, 0.75f, 0.25f, 0.75f));
+        _animator.AddKeyFrame(20f, UiPosition.TopMiddle);
+        _animator.AddKeyFrame(30f, new UiPosition(0.75f, 0.75f, 0.75f, 0.75f));
+        _animator.AddKeyFrame(40f, UiPosition.MiddleRight);
+        _animator.AddKeyFrame(50f, new UiPosition(0.75f, 0.25f, 0.75f, 0.25f));
+        _animator.AddKeyFrame(60f, UiPosition.BottomMiddle);
+        _animator.AddKeyFrame(70f, new UiPosition(0.25f, 0.25f, 0.25f, 0.25f));
+        _animator.AddKeyFrame(80f, UiPosition.MiddleLeft);
+        _animator.AddKeyFrame(90f, UiPosition.MiddleRight);
+    }
+    
     public void CreateUi(BasePlayer player)
     {
         CreateUi(player, _store.GetOrCreateStore<UiState>(this, player), true);
@@ -479,16 +497,17 @@ public class AssetBrowser : RustPlugin
         UiBuilder builder;
         if (isInitial)
         {
-            builder = UiBuilder.Create(new UiPosition(0.5f, 0, 0.5f, 0), new UiOffset(500, 0), _bodyColor, UiName);
-            var pos1= builder.AnimatePosition(builder.Root, UiPosition.MiddleMiddle, 1f, delay: .3f);
-            pos1.Points = new BezierPoints(0, 0, 1, 1.75f);
-            builder.AnimateOffset(builder.Root, new UiOffset(500, 400), .35f);
+            builder = UiBuilder.Create(UiPosition.MiddleLeft, new UiOffset(500, 400), _bodyColor, UiName);
+            var pos1= builder.AnimatePosition(builder.Root, UiPosition.MiddleMiddle, 1f, delay: 0f).WithCustomAnimation(_animator);
+            //builder.AnimateOffset(builder.Root, new UiOffset(500, 400), .35f);
             //builder.AnimateColor(builder.Root, _bodyColor.WithAlpha(0f), _bodyColor, .5f);
         }
         else
         {
             builder = UiBuilder.Create(UiPosition.MiddleMiddle, new UiOffset(500, 400), _bodyColor, UiName);
         }
+
+        _animationReference = builder.Root;
         
         //builder.SetCurrentFont(UiFontCache.RobotomonoRegular);
         builder.NeedsKeyboard();
@@ -762,7 +781,13 @@ public class AssetBrowser : RustPlugin
     [UiProtection(ProtectionType.None)]
     private void CloseCommand(BasePlayer player)
     {
-        UiBuilder.DestroyUi(player, UiName);
+        AnimationBuilder builder = AnimationBuilder.Create();
+        
+        builder.AnimatePosition(_animationReference, UiPosition.MiddleMiddle, new UiPosition(0.5f, -0.5f, 0.5f, -0.5f), 5f)
+            .WithBezierProgressor(new BezierProgressor(.18f,-0.95f,.82f,1f))
+            .DestroyAfter();
+        
+        builder.AddUi(player);
     }
     
     [UiCommand]

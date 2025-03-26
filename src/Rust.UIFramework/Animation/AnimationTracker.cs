@@ -34,11 +34,14 @@ internal class AnimationTracker : ISingleton
     {
         PlayerPanel rootPlayerPanel = new(playerId, rootName);
         PlayerPanel playerPanel = new(playerId, name);
-        _playerPanels.TryAdd(rootPlayerPanel, id);
-        _playerPanels.TryAdd(playerPanel, id);
         List<PlayerPanel> animationPanels = GetAnimationPanels(id);
-        animationPanels.Add(rootPlayerPanel);
+        _playerPanels.TryAdd(playerPanel, id);
         animationPanels.Add(playerPanel);
+        if (!string.IsNullOrEmpty(rootName))
+        {
+            _playerPanels.TryAdd(rootPlayerPanel, id);
+            animationPanels.Add(rootPlayerPanel);
+        }
     }
 
     private List<PlayerPanel> GetAnimationPanels(AnimationId id)

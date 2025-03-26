@@ -18,13 +18,14 @@ public abstract class BaseAnimation : BasePoolable
     public float Delay;
     public float Duration;
     public float Elapsed;
-    public int Repeats;
-    public float RepeatDelay;
-    public bool Loop;
-    internal SendInfo Send;
-    public BezierPoints? Points;
-    public bool DestroyAfter;
-    public UiReference? DestroyTarget;
+    private int _repeats;
+    private float _repeatDelay;
+    private bool _loop;
+    private SendInfo _send;
+    private ICustomProgressor _customProgressor;
+    protected ICustomAnimator CustomAnimator;
+    private bool _destroyAfter;
+    private UiReference? _destroyTarget;
     public float StartTime { get; private set; }
     internal bool WasQueued { get; private set; }
     public bool Cancelled { get; private set; }
@@ -41,7 +42,7 @@ public abstract class BaseAnimation : BasePoolable
 
             float elapsedPercentage = Math.Min((Elapsed - Delay) / Duration, 1f);
             
-            if (Loop)
+            if (_loop)
             {
                 if (elapsedPercentage <= 0.5f)
                 {
@@ -55,10 +56,10 @@ public abstract class BaseAnimation : BasePoolable
         }
     }
 
-    protected void Init(BaseUiComponent component, float delay, float duration)
+    protected void Init(in AnimationReference reference, float delay, float duration)
     {
         Id = AnimationId.GetNextId();
-        Reference = component;
+        Reference = reference.Reference;
         Delay = delay;
         Duration = duration;
     }
@@ -83,25 +84,39 @@ public abstract class BaseAnimation : BasePoolable
         return this;
     }
 
-    public BaseAnimation DestroyUiAfter(in UiReference? destroyTarget = null)
+    public BaseAnimation DestroyAfter(in UiReference? destroyTarget = null)
     {
-        DestroyAfter = true;
-        DestroyTarget = destroyTarget;
+        _destroyAfter = true;
+        _destroyTarget = destroyTarget;
         return this;
     }
     
     public BaseAnimation WithRepeats(int repeats, float repeatDelay)
     {
-        Repeats = repeats;
-        RepeatDelay = repeatDelay;
+        _repeats = repeats;
+        _repeatDelay = repeatDelay;
         return this;
     }
 
     public BaseAnimation WithLoop()
     {
-        Loop = true;
+        _loop = true;
         return this;
     }
+    
+    public BaseAnimation WithCustomAnimation(ICustomAnimator customAnimator)
+    {
+        CustomAnimator = customAnimator;
+        return this;
+    }
+
+    public BaseAnimation WithCustomProgressor(ICustomProgressor progressor)
+    {
+        _customProgressor = progressor;
+        return this;
+    }
+    
+    public BaseAnimation WithBezierProgressor(in BezierProgressor points) => WithCustomProgressor(points);
     
     internal void OnTick(float currentTime)
     {
@@ -112,7 +127,7 @@ public abstract class BaseAnimation : BasePoolable
     {
         JsonFrameworkWriter writer = JsonFrameworkWriter.Create();
         WriteAnimationComponent(writer, elapsedPercentage);
-        BaseBuilder.AddUi(Send, writer);
+        BaseBuilder.AddUi(_send, writer);
         writer.Dispose();
     }
 
@@ -125,7 +140,8 @@ public abstract class BaseAnimation : BasePoolable
         writer.AddFieldRaw(JsonDefaults.Common.Update, true);
         writer.WritePropertyName(JsonDefaults.Common.ComponentsName);
         writer.WriteStartArray();
-        WriteAnimation(writer, elapsedPercentage);    
+        float progress = _customProgressor?.GetProgress(Mathf.Clamp01(elapsedPercentage)) ?? elapsedPercentage;
+        WriteAnimation(writer, progress);    
         writer.WriteEndArray();
         writer.WriteEndObject();
         writer.WriteEndArray();
@@ -133,14 +149,14 @@ public abstract class BaseAnimation : BasePoolable
 
     internal void OnQueued(SendInfo send)
     {
-        Send = send;
+        _send = send;
         WasQueued = true;
         StartTime = Time.realtimeSinceStartup;
     }
     
     internal bool OnAnimationEnded(float currentTime)
     {
-        if (Repeats > 0)
+        if (_repeats > 0)
         {
             OnRepeat(currentTime);
             return false;
@@ -152,15 +168,15 @@ public abstract class BaseAnimation : BasePoolable
 
     private void OnRepeat(float currentTime)
     {
-        Repeats--;
-        StartTime = currentTime + RepeatDelay;
+        _repeats--;
+        StartTime = currentTime + _repeatDelay;
     }
 
     private void OnCompleted()
     {
-        if (DestroyAfter)
+        if (_destroyAfter)
         {
-            UiBuilder.DestroyUi(Send, DestroyTarget.HasValue ? DestroyTarget.Value.Name : Reference.Name);
+            UiBuilder.DestroyUi(_send, _destroyTarget.HasValue ? _destroyTarget.Value.Name : Reference.Name);
         }
         else
         {
@@ -178,9 +194,9 @@ public abstract class BaseAnimation : BasePoolable
 
     public void RemoveForPlayer(ulong playerId)
     {
-        if (Send.connections != null)
+        if (_send.connections != null)
         {
-            List<Connection> connections = Send.connections;
+            List<Connection> connections = _send.connections;
             for (int i = connections.Count - 1; i >= 0; i--)
             {
                 if (connections[i].userid == playerId)
@@ -197,7 +213,7 @@ public abstract class BaseAnimation : BasePoolable
             return;
         }
         
-        if (Send.connection != null && Send.connection.userid == playerId)
+        if (_send.connection != null && _send.connection.userid == playerId)
         {
             Cancelled = true;
         }
@@ -210,17 +226,17 @@ public abstract class BaseAnimation : BasePoolable
         Delay = default;
         Duration = default;
         Elapsed = default;
-        Repeats = default;
-        RepeatDelay = default;
-        Loop = default;
-        if (Send.connections != null)
+        _repeats = default;
+        _repeatDelay = default;
+        _loop = default;
+        if (_send.connections != null)
         {
-            UiFrameworkPool.FreeList(Send.connections);
+            UiFrameworkPool.FreeList(_send.connections);
         }
-        Send = default;
-        Points = null;
-        DestroyAfter = default;
-        DestroyTarget = default;
+        _send = default;
+        CustomAnimator = default;
+        _destroyAfter = default;
+        _destroyTarget = default;
         StartTime = default;
         WasQueued = false;
         Cancelled = false;

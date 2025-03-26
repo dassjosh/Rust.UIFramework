@@ -5,18 +5,19 @@ using Oxide.Ext.UiFramework.Builder.Cached;
 using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Exceptions;
+using Oxide.Ext.UiFramework.Interfaces.Builders;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Types;
 using Oxide.Ext.UiFramework.UiElements;
 
 namespace Oxide.Ext.UiFramework.Builder.UI;
 
-public partial class UiBuilder : BaseUiBuilder
+public partial class UiBuilder : BaseUiBuilder, IAnimationBuilder
 {
     public BaseUiComponent Root;
 
     private BaseUiComponent _actualRoot;
-    protected readonly List<BaseAnimation> Animations = [];
+    private readonly List<BaseAnimation> _animations = [];
     
     private bool _autoDestroy = true;
 
@@ -112,10 +113,8 @@ public partial class UiBuilder : BaseUiBuilder
         Anchors.Add(component);
     }
 
-    private void AddAnimation(BaseAnimation animation)
-    {
-        Animations.Add(animation);
-    }
+    void IAnimationBuilder.AddAnimation(BaseAnimation animation) => _animations.Add(animation);
+
     #endregion
 
     #region Write Components
@@ -141,9 +140,9 @@ public partial class UiBuilder : BaseUiBuilder
     protected override void OnUiSent(SendInfo send)
     {
         Singleton<AnimationTracker>.Instance.RemoveUiForSend(send, RootName);
-        for (int index = 0; index < Animations.Count; index++)
+        for (int index = 0; index < _animations.Count; index++)
         {
-            BaseAnimation animation = Animations[index];
+            BaseAnimation animation = _animations[index];
             Singleton<AnimationHandler>.Instance.EnqueueAnimation(animation, SendInfoBuilder.GetForAnimations(send));
             Singleton<AnimationTracker>.Instance.OnAnimatedPanelCreated(send, RootName, animation.Reference.Name, animation.Id);
         }
@@ -155,7 +154,7 @@ public partial class UiBuilder : BaseUiBuilder
     protected override void FreeComponents()
     {
         base.FreeComponents();
-        ClearAnimationList(Animations);
+        ClearAnimationList(_animations);
     }
 
     protected override void EnterPool()

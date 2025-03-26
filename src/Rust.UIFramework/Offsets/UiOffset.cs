@@ -177,11 +177,10 @@ public readonly struct UiOffset(float xMin, float yMin, float xMax, float yMax) 
         Vector2 max = Max;
         return new UiOffset(min.x, min.y + amount, max.x, max.y - amount);
     }
-        
+
     /// <summary>
     /// Returns a slice of the position
     /// </summary>
-    /// <param name="pos"></param>
     /// <param name="left">Pixels to remove from the left</param>
     /// <param name="bottom">Pixels to remove from the bottom</param>
     /// <param name="right">>Pixels to remove from the right</param>
@@ -198,7 +197,6 @@ public readonly struct UiOffset(float xMin, float yMin, float xMax, float yMax) 
     /// <summary>
     /// Returns a horizontal slice of the position
     /// </summary>
-    /// <param name="pos">Offset to slice</param>
     /// <param name="left">Pixels to remove from the left</param>
     /// <param name="right">>Pixels to remove from the right</param>
     /// <returns>Sliced <see cref="UiOffset"/></returns>
@@ -213,7 +211,6 @@ public readonly struct UiOffset(float xMin, float yMin, float xMax, float yMax) 
     /// <summary>
     /// Returns a vertical slice of the position
     /// </summary>
-    /// <param name="pos"></param>
     /// <param name="bottom">Pixels to remove from the bottom</param>
     /// <param name="top">Pixels to remove from the top</param>
     /// <returns>Sliced <see cref="UiOffset"/></returns>

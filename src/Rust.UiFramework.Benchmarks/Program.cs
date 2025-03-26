@@ -28,15 +28,20 @@ class Program
 
 #endif
 
-        // UiPosition start = UiPosition.BottomMiddle;
-        // UiPosition end = UiPosition.MiddleMiddle;
-        // var bezier = new BezierPoints(1,0.5f,0, 0.5f);
-        // //cubic-bezier(.06,-0.81,.61,1.92)
-        //
-        // for(float f = 0; f <= 1.1; f += 0.01f)
-        // {
-        //     var pos = Singleton<BezierCurve>.Instance.GetPosition(bezier, start, end, f);
-        //     Console.WriteLine($"{f:0.##}: {pos}");
-        // }
+        KeyFramePositionAnimator         _animator = new KeyFramePositionAnimator(UiPosition.MiddleLeft, UiPosition.MiddleMiddle);
+        _animator.AddKeyFrame(10f, new UiPosition(0.25f, 0.75f, 0.25f, 0.75f));
+        _animator.AddKeyFrame(20f, UiPosition.TopMiddle);
+        _animator.AddKeyFrame(30f, new UiPosition(0.75f, 0.75f, 0.75f, 0.75f));
+        _animator.AddKeyFrame(40f, UiPosition.MiddleRight);
+        _animator.AddKeyFrame(50f, new UiPosition(0.75f, 0.25f, 0.75f, 0.25f));
+        _animator.AddKeyFrame(60f, UiPosition.BottomMiddle);
+        _animator.AddKeyFrame(70f, new UiPosition(0.25f, 0.25f, 0.25f, 0.25f));
+        _animator.AddKeyFrame(80f, UiPosition.MiddleLeft);
+        _animator.AddKeyFrame(90f, UiPosition.MiddleRight);
+        
+        for(float i = 0f; i < 1f; i += 0.01f)
+        {
+            Console.WriteLine($"{i:0.00}: {_animator.Get(i)}");
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Oxide.Ext.UiFramework.Animation;
 using Oxide.Ext.UiFramework.Colors;
+using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Interfaces;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
@@ -13,25 +14,13 @@ public partial class UiBuilder
     {
         if (component is IUiColor color)
         {
-            ColorAnimation animation = ColorAnimation.Create(color.GetColor(), endColor, component, delay, duration);
-            AddAnimation(animation);
-            return animation;
+            return this.AnimateColor(component, color.GetColor(), endColor, duration, delay);
         }
 
         return null;
     }
     
-    public PositionAnimation AnimatePosition(BaseUiComponent component, in UiPosition endPosition, float duration, float delay = 0f)
-    {
-        PositionAnimation animation = PositionAnimation.Create(component.Position, endPosition, component, delay, duration);
-        AddAnimation(animation);
-        return animation;
-    }
-    
-    public OffsetAnimation AnimateOffset(BaseUiComponent component, in UiOffset endOffset, float duration, float delay = 0f)
-    {
-        OffsetAnimation animation = OffsetAnimation.Create(component.Offset, endOffset, component, delay, duration);
-        AddAnimation(animation);
-        return animation;
-    }
+    public PositionAnimation AnimatePosition(BaseUiComponent component, in UiPosition endPosition, float duration, float delay = 0f) => this.AnimatePosition(component, component.Position, endPosition, duration, delay);
+
+    public OffsetAnimation AnimateOffset(BaseUiComponent component, in UiOffset endOffset, float duration, float delay = 0f) => this.AnimateOffset(component, component.Offset, endOffset, duration, delay);
 }

@@ -8,6 +8,9 @@ namespace Oxide.Ext.UiFramework.Builder;
 
 internal static class SendInfoBuilder
 {
+    private const sbyte UiChannel = 3;
+    private const sbyte AnimationsChannel = 4;
+    
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal static SendInfo Get(BasePlayer player)
     {
@@ -21,7 +24,7 @@ internal static class SendInfoBuilder
         if (connection == null) throw new ArgumentNullException(nameof(connection));
         return new SendInfo(connection)
         {
-            //channel = 3
+            channel = UiChannel
         };
     }
 
@@ -30,10 +33,16 @@ internal static class SendInfoBuilder
     {
         if (connections == null) throw new ArgumentNullException(nameof(connections));
         List<Connection> pooledConnection = ListPool<Connection>.Instance.Get();
-        pooledConnection.AddRange(connections);
+        foreach (Connection connection in connections)
+        {
+            if (connection is { connected: true })
+            {
+                pooledConnection.Add(connection);
+            }
+        }
         return new SendInfo(pooledConnection)
         {
-            //channel = 3
+            channel = UiChannel
         };
     }
 
@@ -43,15 +52,21 @@ internal static class SendInfoBuilder
         {
             return new SendInfo(info.connection)
             {
-                //channel = 4
+                channel = AnimationsChannel
             };
         }
 
         List<Connection> connections = UiFrameworkPool.GetList<Connection>();
-        connections.AddRange(info.connections);
+        foreach (Connection connection in info.connections)
+        {
+            if (connection is { connected: true })
+            {
+                connections.Add(connection);
+            }
+        }
         return new SendInfo(connections)
         {
-            //channel = 4
+            channel = AnimationsChannel
         };
     }
 }

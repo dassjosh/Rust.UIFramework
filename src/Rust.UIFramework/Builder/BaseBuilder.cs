@@ -180,6 +180,21 @@ public abstract class BaseBuilder : BasePoolable
     #endregion
 
     #region Pooling
+    protected static void ClearAnimationList(List<BaseAnimation> animations)
+    {
+        int count = animations.Count;
+        for (int index = 0; index < count; index++)
+        {
+            BaseAnimation animation = animations[index];
+            if (!animation.WasQueued)
+            {
+                animation.Dispose();
+            }
+        }
+        
+        animations.Clear();
+    }
+    
     protected override void EnterPool()
     {
         RootName = null;

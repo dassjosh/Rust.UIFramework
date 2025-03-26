@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Network;
-using Oxide.Ext.UiFramework.Animation;
 using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Controls;
 using Oxide.Ext.UiFramework.Enums;
@@ -92,21 +91,6 @@ public abstract partial class BaseUiBuilder : BaseBuilder
         }
 
         components.Clear();
-    }
-    
-    protected static void ClearAnimationList(List<BaseAnimation> animations)
-    {
-        int count = animations.Count;
-        for (int index = 0; index < count; index++)
-        {
-            BaseAnimation animation = animations[index];
-            if (!animation.WasQueued)
-            {
-                animation.Dispose();
-            }
-        }
-        
-        animations.Clear();
     }
     
     protected override void EnterPool()

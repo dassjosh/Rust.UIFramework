@@ -216,6 +216,8 @@ public readonly struct UiPosition(float xMin, float yMin, float xMax, float yMax
 
     public static bool operator ==(UiPosition left, UiPosition right) => left.Equals(right);
     public static bool operator !=(UiPosition left, UiPosition right) => !(left == right);
+    public static UiPosition operator +(UiPosition lhs, UiPosition rhs) => new(lhs.Min.x + rhs.Min.x, lhs.Min.y + rhs.Min.y, lhs.Max.x + rhs.Max.x, lhs.Max.y + rhs.Max.y);
+    public static UiPosition operator -(UiPosition lhs, UiPosition rhs) => new(lhs.Min.x - rhs.Min.x, lhs.Min.y - rhs.Min.y, lhs.Max.x - rhs.Max.x, lhs.Max.y - rhs.Max.y);
 
     public bool Equals(UiPosition other) => Min.Equals(other.Min) && Max.Equals(other.Max);
 
