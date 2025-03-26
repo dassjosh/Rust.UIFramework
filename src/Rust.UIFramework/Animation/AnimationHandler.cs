@@ -3,6 +3,8 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading;
 using Network;
+using Oxide.Ext.UiFramework.Builder;
+using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Logging;
 using Oxide.Ext.UiFramework.Types;
 using UnityEngine;
@@ -12,6 +14,7 @@ namespace Oxide.Ext.UiFramework.Animation;
 public class AnimationHandler : ISingleton
 {
     private readonly ConcurrentDictionary<AnimationId, BaseAnimation> _animations = new();
+    private readonly ConcurrentDictionary<ulong, PlayerAnimations> _playerAnimations = new();
     private readonly Thread _thread;
     private readonly CancellationTokenSource _cancellationTokenSource = new();
     private readonly AutoResetEvent _reset = new(false);
@@ -34,8 +37,22 @@ public class AnimationHandler : ISingleton
         if (animation == null) throw new ArgumentNullException(nameof(animation));
         _animations[animation.Id] = animation;
         animation.OnQueued(send);
+        if (animation.IsSinglePlayer)
+        {
+            AddSinglePlayerAnimation(animation);
+        }
         _reset.Set();
         _logger.Debug("Adding animation {0}", animation.Id);
+    }
+
+    public void AddSinglePlayerAnimation(BaseAnimation animation)
+    {
+        if (!_playerAnimations.TryGetValue(animation.PlayerId, out PlayerAnimations animations))
+        {
+            _playerAnimations[animation.PlayerId] = animations = PlayerAnimations.Create(animation.Send);
+        }
+
+        animations.AddAnimation(animation);
     }
     
     public void RemoveAnimation(AnimationId id)
@@ -43,7 +60,20 @@ public class AnimationHandler : ISingleton
         if (id.IsValid && _animations.TryRemove(id, out BaseAnimation animation))
         {
             _logger.Debug("Removing animation {0}", id);
+            RemoveSinglePlayerAnimation(animation);
             animation.OnRemoved();
+        }
+    }
+
+    public void RemoveSinglePlayerAnimation(BaseAnimation animation)
+    {
+        if (animation.IsSinglePlayer && _playerAnimations.TryGetValue(animation.PlayerId, out PlayerAnimations animations))
+        {
+            animations.RemoveAnimation(animation);
+            if (animations.IsEmpty)
+            {
+                _playerAnimations.TryRemove(animation.PlayerId, out PlayerAnimations _);
+            }
         }
     }
     
@@ -80,44 +110,76 @@ public class AnimationHandler : ISingleton
     
     private void ProcessAnimations()
     {
-        // Get the current time
         float currentTime = Time.realtimeSinceStartup;
+
+        foreach (PlayerAnimations playerAnimations in _playerAnimations.Values)
+        {
+            JsonFrameworkWriter writer = Create();
+            foreach ((AnimationId id, BaseAnimation animation) in playerAnimations.Animations)
+            {
+                ProcessAnimation(id, animation, currentTime, writer);
+            }
+            SendAnimations(writer, playerAnimations.Send);
+        }
         
-        // Create a copy of animation keys to prevent collection modification errors
         foreach ((AnimationId id, BaseAnimation animation) in _animations)
         {
-            _logger.Debug("Processing Animation {0}", id);
-
-            if (animation.Cancelled)
+            if (!animation.IsSinglePlayer)
             {
-                RemoveAnimation(id);
-                continue;
-            }
-            
-            animation.OnTick(currentTime);
-                
-            // Check if we need to wait for the delay
-            if (animation.Delay > 0 && animation.Elapsed < animation.Delay)
-            {
-                continue;
-            }
-            
-            float effectiveElapsed = animation.Elapsed - animation.Delay;
-            if (effectiveElapsed >= 0 && effectiveElapsed <= animation.Duration)
-            {
-                animation.SendAnimation(animation.ElapsedPercentage);
-                continue;
-            }
-
-            if (effectiveElapsed > animation.Duration)
-            {
-                animation.SendAnimation(1f);
-                if (animation.OnAnimationEnded(currentTime))
-                {
-                    RemoveAnimation(id);
-                }
+                JsonFrameworkWriter writer = Create();
+                ProcessAnimation(id, animation, currentTime, writer);
+                SendAnimations(writer, animation.Send);
             }
         }
+    }
+
+    private void ProcessAnimation(AnimationId id, BaseAnimation animation, float currentTime, JsonFrameworkWriter writer)
+    {
+        _logger.Debug("Processing Animation {0}", id);
+
+        if (animation.Cancelled)
+        {
+            RemoveAnimation(id);
+            return;
+        }
+            
+        animation.OnTick(currentTime);
+                
+        // Check if we need to wait for the delay
+        if (animation.Delay > 0 && animation.Elapsed < animation.Delay)
+        {
+            return;
+        }
+            
+        float effectiveElapsed = animation.Elapsed - animation.Delay;
+        if (effectiveElapsed >= 0 && effectiveElapsed <= animation.Duration)
+        {
+            animation.WriteAnimationComponent(writer, animation.ElapsedPercentage);
+            return;
+        }
+
+        if (effectiveElapsed > animation.Duration)
+        {
+            animation.WriteAnimationComponent(writer, 1f);
+            if (animation.OnAnimationEnded(currentTime))
+            {
+                RemoveAnimation(id);
+            }
+        }
+    }
+
+    private static JsonFrameworkWriter Create()
+    {
+        JsonFrameworkWriter writer = JsonFrameworkWriter.Create();
+        writer.WriteStartArray();
+        return writer;
+    }
+
+    private static void SendAnimations(JsonFrameworkWriter writer, SendInfo send)
+    {
+        writer.WriteEndArray();
+        BaseBuilder.AddUi(send, writer);
+        writer.Dispose();
     }
 
     private int GetSleepDuration()

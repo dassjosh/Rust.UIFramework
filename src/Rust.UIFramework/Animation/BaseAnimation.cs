@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Network;
-using Oxide.Ext.UiFramework.Builder;
 using Oxide.Ext.UiFramework.Builder.UI;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Pooling;
@@ -20,8 +19,7 @@ public abstract class BaseAnimation : BasePoolable
     public float Elapsed;
     private int _repeats;
     private float _repeatDelay;
-    private bool _loop;
-    private SendInfo _send;
+    internal SendInfo Send { get; private set; }
     private ICustomProgressor _customProgressor;
     protected ICustomAnimator CustomAnimator;
     private bool _destroyAfter;
@@ -30,31 +28,9 @@ public abstract class BaseAnimation : BasePoolable
     internal bool WasQueued { get; private set; }
     public bool Cancelled { get; private set; }
     public float TotalDuration => Delay + Duration;
-    
-    public float ElapsedPercentage
-    {
-        get
-        {
-            if (Elapsed < Delay)
-            {
-                return 0;
-            }
-
-            float elapsedPercentage = Math.Min((Elapsed - Delay) / Duration, 1f);
-            
-            if (_loop)
-            {
-                if (elapsedPercentage <= 0.5f)
-                {
-                    return elapsedPercentage * 2;
-                }
-
-                return 1f - (elapsedPercentage - 0.5f) * 2;
-            }
-
-            return elapsedPercentage;
-        }
-    }
+    internal bool IsSinglePlayer { get; private set; }
+    internal ulong PlayerId { get; private set; }
+    public float ElapsedPercentage => Elapsed < Delay ? 0 : Math.Min((Elapsed - Delay) / Duration, 1f);
 
     protected void Init(in AnimationReference reference, float delay, float duration)
     {
@@ -98,11 +74,7 @@ public abstract class BaseAnimation : BasePoolable
         return this;
     }
 
-    public BaseAnimation WithLoop()
-    {
-        _loop = true;
-        return this;
-    }
+    public BaseAnimation WithLoop() => WithCustomProgressor(LoopProgressor.Default);
     
     public BaseAnimation WithCustomAnimation(ICustomAnimator customAnimator)
     {
@@ -122,18 +94,9 @@ public abstract class BaseAnimation : BasePoolable
     {
         Elapsed = currentTime - StartTime;
     }
-    
-    public void SendAnimation(float elapsedPercentage)
-    {
-        JsonFrameworkWriter writer = JsonFrameworkWriter.Create();
-        WriteAnimationComponent(writer, elapsedPercentage);
-        BaseBuilder.AddUi(_send, writer);
-        writer.Dispose();
-    }
 
-    private void WriteAnimationComponent(JsonFrameworkWriter writer, float elapsedPercentage)
+    public void WriteAnimationComponent(JsonFrameworkWriter writer, float elapsedPercentage)
     {
-        writer.WriteStartArray();
         writer.WriteStartObject();
         writer.AddFieldRaw(JsonDefaults.Common.ParentName, Reference.Parent);
         writer.AddFieldRaw(JsonDefaults.Common.ComponentName, Reference.Name);
@@ -144,14 +107,18 @@ public abstract class BaseAnimation : BasePoolable
         WriteAnimation(writer, progress);    
         writer.WriteEndArray();
         writer.WriteEndObject();
-        writer.WriteEndArray();
     }
 
     internal void OnQueued(SendInfo send)
     {
-        _send = send;
+        Send = send;
         WasQueued = true;
         StartTime = Time.realtimeSinceStartup;
+        if (send.connection != null)
+        {
+            IsSinglePlayer = true;
+            PlayerId = send.connection.userid;
+        }
     }
     
     internal bool OnAnimationEnded(float currentTime)
@@ -176,11 +143,7 @@ public abstract class BaseAnimation : BasePoolable
     {
         if (_destroyAfter)
         {
-            UiBuilder.DestroyUi(_send, _destroyTarget.HasValue ? _destroyTarget.Value.Name : Reference.Name);
-        }
-        else
-        {
-            SendAnimation(1f);
+            UiBuilder.DestroyUi(Send, _destroyTarget.HasValue ? _destroyTarget.Value.Name : Reference.Name);
         }
     }
 
@@ -194,9 +157,9 @@ public abstract class BaseAnimation : BasePoolable
 
     public void RemoveForPlayer(ulong playerId)
     {
-        if (_send.connections != null)
+        if (Send.connections != null)
         {
-            List<Connection> connections = _send.connections;
+            List<Connection> connections = Send.connections;
             for (int i = connections.Count - 1; i >= 0; i--)
             {
                 if (connections[i].userid == playerId)
@@ -213,7 +176,7 @@ public abstract class BaseAnimation : BasePoolable
             return;
         }
         
-        if (_send.connection != null && _send.connection.userid == playerId)
+        if (Send.connection != null && Send.connection.userid == playerId)
         {
             Cancelled = true;
         }
@@ -228,12 +191,11 @@ public abstract class BaseAnimation : BasePoolable
         Elapsed = default;
         _repeats = default;
         _repeatDelay = default;
-        _loop = default;
-        if (_send.connections != null)
+        if (Send.connections != null)
         {
-            UiFrameworkPool.FreeList(_send.connections);
+            UiFrameworkPool.FreeList(Send.connections);
         }
-        _send = default;
+        Send = default;
         CustomAnimator = default;
         _destroyAfter = default;
         _destroyTarget = default;
