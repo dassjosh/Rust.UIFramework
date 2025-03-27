@@ -1,5 +1,6 @@
 using System;
 using Oxide.Ext.UiFramework.Exceptions.Logging;
+using Oxide.Ext.UiFramework.Extensions;
 
 namespace Oxide.Ext.UiFramework.Logging;
 
@@ -12,6 +13,7 @@ public class UiLogger : IUiLogger
     public UiLogLevel LogLevel { get; private set; }
     private readonly IUiLoggingConfig _config;
     private readonly UiLogHandler _handler;
+    protected virtual string Type { get; set; } = string.Empty;
 
     /// <summary>
     /// Creates a new logger with the given log level
@@ -27,17 +29,17 @@ public class UiLogger : IUiLogger
     }
 
     /// <inheritdoc/>
-    public void Log(UiLogLevel level, string log, object[] args, Exception exception = null)
+    public void Log(UiLogLevel level, string method, string log, object[] args, Exception exception = null)
     {
         UiLoggerException.ThrowIfShutdown(_handler);
         if (IsConsoleLogging(level))
         {
-            _handler.LogConsole(level, log, args,  exception);
+            _handler.LogConsole(level, Type, method, log, args, exception);
         }
 
         if (IsFileLogging(level))
         {
-            _handler.LogFile(level, log, args, exception);
+            _handler.LogFile(level, Type, method, log, args, exception);
         }
     }
 
@@ -74,5 +76,6 @@ public class UiLogger : IUiLogger
 
 public class UiLogger<T> : UiLogger, IUiLogger<T>
 {
+    protected override string Type { get; set; } = typeof(T).GetRealTypeName();
     internal UiLogger(UiLogLevel logLevel, IUiLoggingConfig config, UiLogHandler handler) : base(logLevel, config, handler) { }
 }

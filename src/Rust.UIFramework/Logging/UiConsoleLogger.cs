@@ -9,10 +9,8 @@ namespace Oxide.Ext.UiFramework.Logging;
 /// <summary>
 /// Represents a Console Logger for Ui Framework
 /// </summary>
-internal class UiConsoleLogger(string pluginName, string type) : IOutputLogger
+internal class UiConsoleLogger(string pluginName) : IOutputLogger
 {
-    private readonly string _prefix = !string.IsNullOrEmpty(type) ?  $"[{pluginName}] [{type}] " : $"[{pluginName}] ";
-
     private static readonly ThreadLocal<StringBuilder> Builder = new(() => new StringBuilder());
 
     /// <summary>
@@ -22,14 +20,23 @@ internal class UiConsoleLogger(string pluginName, string type) : IOutputLogger
     /// <param name="log"></param>
     /// <param name="args"></param>
     /// <param name="ex"></param>
-    public void AddMessage(UiLogLevel level, string log, object[] args, Exception ex)
+    public void AddMessage(UiLogLevel level, string type, string method, string log, object[] args, Exception ex)
     {
         StringBuilder sb = Builder.Value;
         sb.Clear();
-        sb.Append(_prefix);
+        sb.Append('[');
+        sb.Append(pluginName);
+        sb.Append("] ");
         sb.Append('[');
         sb.Append(EnumCache<UiLogLevel>.ToString(level));
         sb.Append("]: ");
+        if (type != null)
+        {
+            sb.Append(type);
+            sb.Append('.');
+        }
+        sb.Append(method);
+        sb.Append(' ');
         if (args.Length != 0)
         {
             sb.AppendFormat(log, args);

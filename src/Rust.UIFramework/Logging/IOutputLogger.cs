@@ -14,7 +14,7 @@ public interface IOutputLogger
     /// <param name="log"></param>
     /// <param name="args"></param>
     /// <param name="ex"></param>
-    void AddMessage(UiLogLevel level, string log, object[] args, Exception ex);
+    void AddMessage(UiLogLevel level, string type, string method, string log, object[] args, Exception ex);
 
     /// <summary>
     /// Shuts down the logger output

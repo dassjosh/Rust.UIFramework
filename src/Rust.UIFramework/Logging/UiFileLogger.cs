@@ -19,15 +19,13 @@ internal class UiFileLogger : IOutputLogger
     private readonly string _logFileName;
     private readonly string _dateTimeFormat;
     private readonly AutoResetEvent _reset;
-    private readonly string _type;
         
     private static readonly ThreadLocal<StringBuilder> Builder = new(() => new StringBuilder());
 
-    internal UiFileLogger(string pluginName, string type, string dateTimeFormat, AutoResetEvent reset)
+    internal UiFileLogger(string pluginName, string dateTimeFormat, AutoResetEvent reset)
     {
         _dateTimeFormat = dateTimeFormat;
         _reset = reset;
-        _type = !string.IsNullOrEmpty(type) ? $" [{type}]" : null;
         string logPath = Path.Combine(Interface.Oxide.LogDirectory, pluginName);
         if (!Directory.Exists(logPath))
         {
@@ -37,19 +35,24 @@ internal class UiFileLogger : IOutputLogger
         _logFileName = Path.Combine(logPath, $"{pluginName}-{DateTime.Now:yyyy-MM-dd_HH-mm-ss}.txt");
     }
 
-    public void AddMessage(UiLogLevel level, string log, object[] args, Exception ex)
+    public void AddMessage(UiLogLevel level, string type, string method, string log, object[] args, Exception ex)
     {
         StringBuilder sb = Builder.Value;
         sb.Clear();
         DateTime.Now.TryFormat(out ReadOnlySpan<char> written, _dateTimeFormat);
         sb.Append(written);
-        if (_type != null)
-        {
-            sb.Append(_type);
-        }
         sb.Append(" [");
         sb.Append(EnumCache<UiLogLevel>.ToString(level));
         sb.Append("]: ");
+        
+        if (type != null)
+        {
+            sb.Append(type);
+            sb.Append('.');
+        }
+
+        sb.Append(method);
+        
         if (args.Length != 0)
         {
             sb.AppendFormat(log, args);

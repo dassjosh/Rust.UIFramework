@@ -22,9 +22,9 @@ internal sealed class UiFileLoggerFactory : ISingleton
         _writerThread.Start();
     }
 
-    public UiFileLogger CreateLogger(string pluginName, string type, string dateTimeFormat)
+    public UiFileLogger CreateLogger(string pluginName, string dateTimeFormat)
     {
-        UiFileLogger logger = new(pluginName, type, dateTimeFormat, _reset);
+        UiFileLogger logger = new(pluginName, dateTimeFormat, _reset);
         _loggers.Add(logger);
         return logger;
     }
