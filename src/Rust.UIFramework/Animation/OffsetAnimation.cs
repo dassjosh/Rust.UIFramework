@@ -1,6 +1,7 @@
 ﻿using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Pooling;
+using Oxide.Ext.UiFramework.UiElements;
 
 namespace Oxide.Ext.UiFramework.Animation;
 
@@ -9,14 +10,14 @@ public class OffsetAnimation : BaseAnimation
     public UiOffset Start;
     public UiOffset End;
     
-    public static OffsetAnimation Create(in AnimationReference reference,in UiOffset start, in UiOffset end, float delay, float duration)
+    public static OffsetAnimation Create(in UiReference reference,in UiOffset start, in UiOffset end, float delay, float duration)
     {
         OffsetAnimation animation = UiFrameworkPool.Get<OffsetAnimation>();
         animation.Init(reference, start, end, delay, duration);
         return animation;
     }
 
-    private void Init(in AnimationReference reference, in UiOffset start, in UiOffset end, float delay, float duration)
+    private void Init(in UiReference reference, in UiOffset start, in UiOffset end, float delay, float duration)
     {
         base.Init(reference, delay, duration);
         Start = start;

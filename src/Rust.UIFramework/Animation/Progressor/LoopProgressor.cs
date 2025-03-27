@@ -4,6 +4,8 @@ public class LoopProgressor : ICustomProgressor
 {
     public static readonly LoopProgressor Default = new();
     
+    private LoopProgressor() { }
+    
     public float GetProgress(float elapsedPercentage)
     {
         if (elapsedPercentage <= 0.5f)

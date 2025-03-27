@@ -1,6 +1,7 @@
 ﻿using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Positions;
+using Oxide.Ext.UiFramework.UiElements;
 
 namespace Oxide.Ext.UiFramework.Animation;
 
@@ -9,14 +10,14 @@ public class PositionAnimation : BaseAnimation
     public UiPosition Start;
     public UiPosition End;
     
-    public static PositionAnimation Create(in AnimationReference reference, in UiPosition start, in UiPosition end, float delay, float duration)
+    public static PositionAnimation Create(in UiReference reference, in UiPosition start, in UiPosition end, float delay, float duration)
     {
         PositionAnimation animation = UiFrameworkPool.Get<PositionAnimation>();
         animation.Init(reference, start, end, delay, duration);
         return animation;
     }
 
-    private void Init(in AnimationReference reference, in UiPosition start, in UiPosition end, float delay, float duration)
+    private void Init(in UiReference reference, in UiPosition start, in UiPosition end, float delay, float duration)
     {
         base.Init(reference, delay, duration);
         Start = start;

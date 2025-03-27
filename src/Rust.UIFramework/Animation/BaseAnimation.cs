@@ -12,7 +12,7 @@ namespace Oxide.Ext.UiFramework.Animation;
 
 public abstract class BaseAnimation : BasePoolable
 {
-    public AnimationId Id;
+    public AnimationId Id { get; private set; }
     public UiReference Reference { get; private set; }
     public float Delay;
     public float Duration;
@@ -27,15 +27,15 @@ public abstract class BaseAnimation : BasePoolable
     public float StartTime { get; private set; }
     internal bool WasQueued { get; private set; }
     public bool Cancelled { get; private set; }
-    public float TotalDuration => Delay + Duration;
     internal bool IsSinglePlayer { get; private set; }
     internal ulong PlayerId { get; private set; }
+    public float TotalDuration => Delay + Duration;
     public float ElapsedPercentage => Elapsed < Delay ? 0 : Math.Min((Elapsed - Delay) / Duration, 1f);
 
-    protected void Init(in AnimationReference reference, float delay, float duration)
+    protected void Init(in UiReference reference, float delay, float duration)
     {
         Id = AnimationId.GetNextId();
-        Reference = reference.Reference;
+        Reference = reference;
         Delay = delay;
         Duration = duration;
     }

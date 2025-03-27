@@ -20,7 +20,7 @@ public class ColorAnimation : BaseAnimation
 
     private void Init(in AnimationReference reference, UiColor startColor, UiColor endColor, float delay, float duration)
     {
-        base.Init(reference, delay, duration);
+        base.Init(reference.Reference, delay, duration);
         StartColor = startColor;
         EndColor = endColor;
         _elementType = reference.Type;
