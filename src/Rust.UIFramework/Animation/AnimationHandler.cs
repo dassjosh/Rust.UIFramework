@@ -77,22 +77,6 @@ internal class AnimationHandler : ISingleton
             }
         }
     }
-
-    public void OnPlayerDisconnected(ulong playerId)
-    {
-        if(_playerAnimations.TryGetValue(playerId, out PlayerAnimations animations))
-        {
-            foreach (AnimationId id in animations.Animations.Keys)
-            {
-                RemoveAnimation(id);
-            }
-        }
-
-        foreach (BaseAnimation animation in _animations.Values)
-        {
-            animation.RemoveForPlayer(playerId);
-        }
-    }
     
     private void AnimationLoop(object tokenObj)
     {
@@ -182,6 +166,22 @@ internal class AnimationHandler : ISingleton
             {
                 RemoveAnimation(id);
             }
+        }
+    }
+    
+    public void OnPlayerDisconnected(ulong playerId)
+    {
+        if(_playerAnimations.TryGetValue(playerId, out PlayerAnimations animations))
+        {
+            foreach (KeyValuePair<AnimationId, BaseAnimation> pair in animations.Animations)
+            {
+                RemoveAnimation(pair.Key);
+            }
+        }
+
+        foreach (BaseAnimation animation in _animations.Values)
+        {
+            animation.RemoveForPlayer(playerId);
         }
     }
 
