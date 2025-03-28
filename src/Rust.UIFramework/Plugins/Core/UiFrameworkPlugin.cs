@@ -159,5 +159,60 @@ internal class UiFrameworkPlugin : BaseUiFrameworkPlugin
         Chat(player, LangKeys.Harmony.Patch.AddUi.Set, GetLang(state ? LangKeys.Enabled : LangKeys.Disabled));
         UiFrameworkConfig.Instance.Save();
     }
+    
+    [HookMethod(nameof(SetAnimationEnabled))]
+    private void SetAnimationEnabled(IPlayer player, string cmd, string[] args)
+    {
+        if (args.Length == 0)
+        {
+            Chat(player, LangKeys.Animations.Enabled.Show, GetLang(GetBoolLang(UiFrameworkConfig.Instance.Animations.Enabled)));
+            return;
+        }
+
+        if (!args[0].TryParseBool(out bool state))
+        {
+            Chat(player, LangKeys.Animations.Enabled.InvalidArg, args[0]);
+            return;
+        }
+        
+        if (state == UiFrameworkConfig.Instance.Animations.Enabled)
+        {
+            Chat(player, LangKeys.Animations.Enabled.Show, GetBoolLang(state));
+            return;
+        }
+            
+        UiFrameworkConfig.Instance.Animations.Enabled = state;
+        Chat(player, LangKeys.Animations.Enabled.Set, GetBoolLang(state));
+        UiFrameworkConfig.Instance.Save();
+    }
+    
+    [HookMethod(nameof(SetAnimationUpdateRate))]
+    private void SetAnimationUpdateRate(IPlayer player, string cmd, string[] args)
+    {
+        if (args.Length == 0)
+        {
+            Chat(player, LangKeys.Animations.UpdateRate.Show, UiFrameworkConfig.Instance.Animations.UpdateRate);
+            return;
+        }
+
+        if (!args[0].TryParseInt(out int updateRate) || updateRate <= 0)
+        {
+            Chat(player, LangKeys.Animations.UpdateRate.InvalidArg, args[0]);
+            return;
+        }
+        
+        if (updateRate == UiFrameworkConfig.Instance.Animations.UpdateRate)
+        {
+            Chat(player, LangKeys.Animations.UpdateRate.Show, updateRate);
+            return;
+        }
+            
+        UiFrameworkConfig.Instance.Animations.UpdateRate = updateRate;
+        Chat(player, LangKeys.Animations.UpdateRate.Set, updateRate);
+        UiFrameworkConfig.Instance.Save();
+    }
+
+    private string GetBoolLang(bool state) => GetLang(state ? LangKeys.Enabled : LangKeys.Disabled);
+
     #endregion
 }

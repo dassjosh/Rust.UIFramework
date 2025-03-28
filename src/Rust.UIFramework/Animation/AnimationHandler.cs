@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading;
 using Network;
 using Oxide.Ext.UiFramework.Builder;
+using Oxide.Ext.UiFramework.Config;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Logging;
 using Oxide.Ext.UiFramework.Types;
@@ -35,8 +36,18 @@ internal class AnimationHandler : ISingleton
     public void EnqueueAnimation(BaseAnimation animation, SendInfo send)
     {
         if (animation == null) throw new ArgumentNullException(nameof(animation));
-        _animations[animation.Id] = animation;
+        
         animation.OnQueued(send);
+        
+        if (!UiFrameworkConfig.Instance.Animations.Enabled)
+        {
+            JsonFrameworkWriter writer = Create();
+            animation.WriteCompletedComponent(writer);
+            SendAnimations(writer, animation.Send);
+            animation.OnRemoved();
+        }
+        
+        _animations[animation.Id] = animation;
         if (animation.IsSinglePlayer)
         {
             AddSinglePlayerAnimation(animation);
@@ -99,7 +110,7 @@ internal class AnimationHandler : ISingleton
                 else
                 {
                     _sendCount = 0;
-                    Thread.Sleep(25);
+                    Thread.Sleep(UiFrameworkConfig.Instance.Animations.UpdateRate);
                 }
             }
             catch (Exception ex)
@@ -161,7 +172,7 @@ internal class AnimationHandler : ISingleton
 
         if (effectiveElapsed > animation.Duration)
         {
-            animation.WriteAnimationComponent(writer, 1f);
+            animation.WriteCompletedComponent(writer);
             if (animation.OnAnimationEnded(currentTime))
             {
                 RemoveAnimation(id);

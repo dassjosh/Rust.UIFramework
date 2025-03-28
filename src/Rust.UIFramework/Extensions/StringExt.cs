@@ -17,4 +17,6 @@ internal static class StringExt
 
         return false;
     }
+
+    internal static bool TryParseInt(this string input, out int value) => int.TryParse(input, out value);
 }

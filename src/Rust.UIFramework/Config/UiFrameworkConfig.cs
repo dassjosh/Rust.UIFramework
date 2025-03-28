@@ -34,6 +34,12 @@ internal class UiFrameworkConfig : ConfigFile
     public UiSteamConfig Steam { get; set; }
     
     /// <summary>
+    /// UiFramework Image Storage Options
+    /// </summary>
+    [JsonProperty("Animations")]
+    public UiAnimationConfig Animations { get; set; }
+    
+    /// <summary>
     /// UiFramework Logging Options
     /// </summary>
     [JsonProperty("Logging")]
@@ -95,6 +101,12 @@ internal class UiFrameworkConfig : ConfigFile
         Steam = new UiSteamConfig
         {
             ApiKey = Steam?.ApiKey ?? string.Empty
+        };
+
+        Animations = new UiAnimationConfig
+        {
+            Enabled = true,
+            UpdateRate = 25
         };
         
         Logging = new UiLoggingConfig

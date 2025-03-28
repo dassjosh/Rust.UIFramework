@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Network;
+using Oxide.Ext.UiFramework.Config;
 using Oxide.Ext.UiFramework.Pooling;
 
 namespace Oxide.Ext.UiFramework.Builder;
@@ -40,6 +41,7 @@ internal static class SendInfoBuilder
                 pooledConnection.Add(connection);
             }
         }
+        
         return new SendInfo(pooledConnection)
         {
             channel = UiChannel
@@ -48,11 +50,12 @@ internal static class SendInfoBuilder
 
     internal static SendInfo GetForAnimations(SendInfo info)
     {
+        sbyte channel = UiFrameworkConfig.Instance.Animations.Enabled ? AnimationsChannel : UiChannel;
         if (info.connection != null)
         {
             return new SendInfo(info.connection)
             {
-                channel = AnimationsChannel
+                channel = channel
             };
         }
 
@@ -64,9 +67,10 @@ internal static class SendInfoBuilder
                 connections.Add(connection);
             }
         }
+        
         return new SendInfo(connections)
         {
-            channel = AnimationsChannel
+            channel = channel
         };
     }
 }

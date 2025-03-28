@@ -90,11 +90,8 @@ public abstract class BaseAnimation : BasePoolable
     
     public BaseAnimation WithBezierProgressor(in BezierProgressor points) => WithCustomProgressor(points);
     
-    internal void OnTick(float currentTime)
-    {
-        Elapsed = currentTime - StartTime;
-    }
-
+    public void WriteCompletedComponent(JsonFrameworkWriter writer) => WriteAnimationComponent(writer, 1f);
+    
     public void WriteAnimationComponent(JsonFrameworkWriter writer, float elapsedPercentage)
     {
         writer.WriteStartObject();
@@ -108,6 +105,8 @@ public abstract class BaseAnimation : BasePoolable
         writer.WriteEndArray();
         writer.WriteEndObject();
     }
+    
+    public void Cancel() => Cancelled = true;
 
     internal void OnQueued(SendInfo send)
     {
@@ -120,6 +119,8 @@ public abstract class BaseAnimation : BasePoolable
             PlayerId = send.connection.userid;
         }
     }
+    
+    internal void OnTick(float currentTime) => Elapsed = currentTime - StartTime;
     
     internal bool OnAnimationEnded(float currentTime)
     {
@@ -170,7 +171,7 @@ public abstract class BaseAnimation : BasePoolable
 
             if (connections.Count == 0)
             {
-                Cancelled = true;
+                Cancel();
             }
 
             return;
@@ -178,7 +179,7 @@ public abstract class BaseAnimation : BasePoolable
         
         if (Send.connection != null && Send.connection.userid == playerId)
         {
-            Cancelled = true;
+            Cancel();
         }
     }
     
