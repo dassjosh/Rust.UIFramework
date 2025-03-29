@@ -12,6 +12,7 @@ internal class SendHandler : ISingleton
     private readonly AutoResetEvent _reset = new(false);
     private readonly Thread _thread;
     private readonly CancellationTokenSource _source = new();
+    private int _sendAttempts;
     private readonly IUiLogger<SendHandler> _logger = Singleton<UiLoggerFactory>.Instance.CreateExtensionLogger<SendHandler>();
     
     private SendHandler()
@@ -34,15 +35,20 @@ internal class SendHandler : ISingleton
     {
         while (!_source.IsCancellationRequested)
         {
-            SendInternal();
-            _reset.WaitOne();
+            if(SendInternal())
+            {
+                _sendAttempts = 0;
+            }
+            Reset.WaitOne(GetTimeout(_sendAttempts++));
         }
     }
 
-    private void SendInternal()
+    private bool SendInternal()
     {
+        bool didSend = false;
         while (_queue.TryDequeue(out IUiRequest request))
         {
+            didSend = true;
             try
             {
 #if !BENCHMARKS
@@ -58,6 +64,18 @@ internal class SendHandler : ISingleton
                 request.Dispose();
             }
         }
+
+        return didSend;
+    }
+
+    private static int GetTimeout(int attempts)
+    {
+        if (attempts > 10)
+        {
+            return -1;
+        }
+
+        return 1 << attempts;
     }
 
     internal void OnServerShutdown()

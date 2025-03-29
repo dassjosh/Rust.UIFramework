@@ -14,11 +14,15 @@ namespace Oxide.Ext.UiFramework.Builder.UI;
 
 public partial class UiBuilder
 {
+    public static UiBuilder Create(in UiPosition pos, in UiReference reference) => Create(pos, reference.Name, reference.Parent);
+    public static UiBuilder Create(in UiPosition pos, string name, in UiReference reference) => Create(pos, name, reference.Name);
     public static UiBuilder Create(in UiPosition pos, string name, string parent) => Create(pos, default(UiOffset), name, parent);
     public static UiBuilder Create(in UiPosition pos, string name, UiLayer parent = UiLayer.Overlay) => Create(pos, default(UiOffset), name, UiLayerCache.GetLayer(parent));
     public static UiBuilder Create(in UiPosition pos, in UiOffset offset, string name, UiLayer parent = UiLayer.Overlay) => Create(pos, offset, name, UiLayerCache.GetLayer(parent));
     public static UiBuilder Create(in UiPosition pos, in UiOffset offset, string name, string parent) => Create(UiSection.Create(pos, offset), name, parent);
     public static UiBuilder Create(in UiPosition pos, UiColor color, string name, string parent) => Create(pos, default, color, name, parent);
+    public static UiBuilder Create(in UiPosition pos, UiColor color, in UiReference reference) => Create(pos, default, color, reference.Name, reference.Parent);
+    public static UiBuilder Create(in UiPosition pos, UiColor color, string name, in UiReference reference) => Create(pos, default, color, name, reference.Name);
     public static UiBuilder Create(in UiPosition pos, UiColor color, string name, UiLayer parent = UiLayer.Overlay) => Create(pos, default, color, name, UiLayerCache.GetLayer(parent));
     public static UiBuilder Create(in UiPosition pos, in UiOffset offset, UiColor color, string name, UiLayer parent = UiLayer.Overlay) => Create(pos, offset, color, name, UiLayerCache.GetLayer(parent));
     public static UiBuilder Create(in UiPosition pos, in UiOffset offset, UiColor color, string name, string parent)
@@ -27,8 +31,11 @@ public partial class UiBuilder
         panel.SetPosition(pos, offset);
         return Create(panel, name, parent);
     }
-
+    public static UiBuilder Create(in UiPosition pos, in UiOffset offset, UiColor color, in UiReference reference) => Create(UiPanel.Create(pos, offset, color), reference.Name, reference.Parent);
+    public static UiBuilder Create(in UiPosition pos, in UiOffset offset, UiColor color, string name, in UiReference reference) => Create(UiPanel.Create(pos, offset, color), name, reference.Name);
     public static UiBuilder Create(BaseUiComponent root, string name, UiLayer parent = UiLayer.Overlay) => Create(root, name, UiLayerCache.GetLayer(parent));
+    public static UiBuilder Create(BaseUiComponent root, in UiReference reference) => Create(root, reference.Name, reference.Parent);
+    public static UiBuilder Create(BaseUiComponent root, string name, in UiReference reference) => Create(root, name, reference.Name);
     public static UiBuilder Create(BaseUiComponent root, string name, string parent)
     {
         UiBuilder builder = Create();
