@@ -39,7 +39,7 @@ internal class SendHandler : ISingleton
             {
                 _sendAttempts = 0;
             }
-            Reset.WaitOne(GetTimeout(_sendAttempts++));
+            _reset.WaitOne(GetTimeout(_sendAttempts++));
         }
     }
 

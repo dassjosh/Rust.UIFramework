@@ -31,8 +31,8 @@ public partial class UiBuilder
         panel.SetPosition(pos, offset);
         return Create(panel, name, parent);
     }
-    public static UiBuilder Create(in UiPosition pos, in UiOffset offset, UiColor color, in UiReference reference) => Create(UiPanel.Create(pos, offset, color), reference.Name, reference.Parent);
-    public static UiBuilder Create(in UiPosition pos, in UiOffset offset, UiColor color, string name, in UiReference reference) => Create(UiPanel.Create(pos, offset, color), name, reference.Name);
+    public static UiBuilder Create(in UiPosition pos, in UiOffset offset, UiColor color, in UiReference reference) => Create(pos, offset, color, reference.Name, reference.Parent);
+    public static UiBuilder Create(in UiPosition pos, in UiOffset offset, UiColor color, string name, in UiReference reference) => Create(pos, offset, color, name, reference.Name);
     public static UiBuilder Create(BaseUiComponent root, string name, UiLayer parent = UiLayer.Overlay) => Create(root, name, UiLayerCache.GetLayer(parent));
     public static UiBuilder Create(BaseUiComponent root, in UiReference reference) => Create(root, reference.Name, reference.Parent);
     public static UiBuilder Create(BaseUiComponent root, string name, in UiReference reference) => Create(root, name, reference.Name);
