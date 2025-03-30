@@ -3,30 +3,18 @@ using Oxide.Ext.UiFramework.Exceptions;
 using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Pooling;
-using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-public abstract class CoreComponent : ICoreComponent
+public abstract class CoreComponent : BaseTypedComponent, ICoreComponent
 {
-    public bool Enabled = true;
     private List<SubComponent> _subComponents;
-    public abstract Utf8String Type { get; }
-
-    protected CoreComponent()
-    {
-        Reset();
-    }
-        
-    public virtual void WriteComponent(JsonFrameworkWriter writer)
-    {
-        writer.AddField(JsonDefaults.Common.EnabledName, Enabled, true);
-    }
 
     internal void WriteSubComponents(JsonFrameworkWriter writer)
     {
         if (_subComponents == null) return;
-        for (int index = 0; index < _subComponents.Count; index++)
+        int count = _subComponents.Count;
+        for (int index = 0; index < count; index++)
         {
             ISubComponent component = _subComponents[index];
             component.WriteComponent(writer);
@@ -101,10 +89,10 @@ public abstract class CoreComponent : ICoreComponent
         _subComponents.Remove(subComponent);
     }
 
-    public virtual void Reset()
+    public override void Reset()
     {
+        base.Reset();
         _subComponents.ReturnToPool();
         _subComponents = null;
-        Enabled = true;
     }
 }

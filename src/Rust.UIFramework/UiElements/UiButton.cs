@@ -12,8 +12,14 @@ public class UiButton : BaseUiComponent, IImageType<UiButton>, ISprite<UiButton>
 {
     public readonly ButtonComponent Button = new();
     internal override CoreComponent Component => Button;
+    
+    public Image.Type ImageType { get => Button.ImageType; set => Button.ImageType = value; }
+    public string Sprite { get => Button.Sprite; set => Button.Sprite = value; }
+    public string Material { get => Button.Material; set => Button.Material = value; }
+    public float FadeIn { get => Button.FadeIn; set => Button.FadeIn = value; }
+    public UiColor Color { get => Button.Color; set => Button.Color = value; }
 
-    public static UiButton CreateCommand(UiColor color, string command)
+    public static UiButton Create(UiColor color, string command)
     {
         UiButton button = CreateBase<UiButton>();
         button.Button.Color = color;
@@ -28,6 +34,14 @@ public class UiButton : BaseUiComponent, IImageType<UiButton>, ISprite<UiButton>
         button.Button.Command = command;
         return button;
     }
+    
+    public static UiButton CreateClose(UiColor color, string close)
+    {
+        UiButton button = CreateBase<UiButton>();
+        button.Button.Color = color;
+        button.Button.Close = close;
+        return button;
+    }
 
     public static UiButton CreateClose(in UiPosition pos, in UiOffset offset, UiColor color, string close)
     {
@@ -36,14 +50,6 @@ public class UiButton : BaseUiComponent, IImageType<UiButton>, ISprite<UiButton>
         button.Button.Close = close;
         return button;
     }
-    
-    public UiColor GetColor() => Button.Color;
-    
-    void IImageType.SetImageType(Image.Type type) => SetImageType(type);
-    void ISprite.SetSprite(string sprite) => SetSprite(sprite);
-    void IMaterial.SetMaterial(string material) => SetMaterial(material);
-    void IFadeIn.SetFadeIn(float duration) => SetFadeIn(duration);
-    void IUiColor.SetColor(UiColor color) => SetColor(color);
         
     public UiButton SetFadeIn(float duration)
     {

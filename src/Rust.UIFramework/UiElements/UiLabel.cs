@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-public class UiLabel : BaseUiText<UiLabel>
+public class UiLabel : BaseUiComponent
 {
     public readonly TextComponent Text = new();
     internal override CoreComponent Component => Text;

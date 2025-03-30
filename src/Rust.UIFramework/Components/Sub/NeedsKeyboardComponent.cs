@@ -1,15 +1,12 @@
 ﻿using Oxide.Ext.UiFramework.Json;
+using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Components;
 
 public class NeedsKeyboardComponent : SubComponent
 {
+    public override Utf8String Type => JsonDefaults.Common.NeedsKeyboardValue;
     public override bool AllowMultiple => false;
     
-    public override void WriteComponent(JsonFrameworkWriter writer)
-    {
-        writer.WriteStartObject();
-        writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, JsonDefaults.Common.NeedsKeyboardValue);
-        writer.WriteEndObject();
-    }
+    protected override void WriteComponentFields(JsonFrameworkWriter writer) { }
 }

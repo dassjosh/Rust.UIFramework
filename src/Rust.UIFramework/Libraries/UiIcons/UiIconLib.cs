@@ -91,15 +91,7 @@ file sealed class PluginIconData<T>(PluginId id, IconUrlLookup<T> urlLookup, Ico
     {
         string url = GetUrl(value);
         string png = Singleton<UiImageStorage>.Instance.Get(Id, url);
-        if (png.StartsWith("http", StringComparison.OrdinalIgnoreCase))
-        {
-            icon.RawImage.Url = png;
-        }
-        else
-        {
-            icon.RawImage.Png = png;
-        }
-        
+        icon.RawImage.Image = png;
         styling?.Invoke(icon);
     }
 }

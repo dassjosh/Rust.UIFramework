@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
+using Oxide.Ext.UiFramework.Logging;
 using Oxide.Ext.UiFramework.Offsets;
+using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.UiElements;
-using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Layouts;
 
@@ -15,7 +15,7 @@ public class UiGridLayout : BaseLayout
     public LayoutAlignment RowAlignment;
     public LayoutPadding LayoutPadding;
     public UiPadding Padding;
-    public readonly List<LayoutState> Elements = [];
+    public readonly List<GridElement> Elements = [];
 
     public static UiGridLayout Create(in UiReference reference, int numCols, int numRows, GridAlignment alignment, LayoutPadding layoutPadding, in UiPadding padding)
     {
@@ -31,14 +31,12 @@ public class UiGridLayout : BaseLayout
 
     public override void AddElement(BaseUiComponent element) => AddElement(element, 1f);
 
-    public void AddElement(BaseUiComponent element, float elementSpan)
-    {
-        Elements.Add(new LayoutState(element, elementSpan));
-    }
+    public void AddElement(BaseUiComponent element, float elementSpan) => Elements.Add(new GridElement(element, elementSpan));
 
     public override void CalculateElementPositions()
     {
-        float numRows = CalculateNumRows();
+        List<GridRow> rows = GetRows();
+        int numRows = rows.Count;
         float scale = GetScrollViewScale(numRows, NumRows);
         float currentRow = GetRowOffset(numRows) * scale;
         
@@ -47,60 +45,85 @@ public class UiGridLayout : BaseLayout
         int elementIndex = 0;
         for (int i = 0; i < numRows; i++)
         {
-            GetColumnRange(elementIndex, out int maxIndex, out float numCols);
-            float currentCol = GetColOffset(numCols) * scale;
-            for (int index = elementIndex; index < maxIndex; index++)
+            GridRow row = rows[i];
+            float currentCol = GetColOffset(row.TotalSpan);
+            for (int index = 0; index < row.Elements.Count; index++)
             {
-                LayoutState state = Elements[index];
-                state.Element.SetPosition(GetUiPosition(currentCol, currentRow, state.ElementSpan, numRows, scale), padding);
-                currentCol += state.ElementSpan;
+                GridElement element = row.Elements[index];
+                UiPosition pos = GetUiPosition(currentCol, currentRow, element.ColSpan, scale);
+                element.Element.SetPosition(pos, padding);
+                currentCol += element.ColSpan;
                 elementIndex++;
             }
+
+            currentRow += 1f;
         }
         
         ScaleScrollView(LayoutDirection.Vertical, scale);
+        FreeGridRows(rows);
     }
 
     private float GetRowOffset(float numRows) => GetAlignmentOffset(RowAlignment, numRows, NumRows);
 
     private float GetColOffset(float numColumns) => GetAlignmentOffset(ColumnAlignment, numColumns, NumCols);
 
-    private int CalculateNumRows()
+    private List<GridRow> GetRows()
     {
-        float totalSpan = Elements.Sum(e => e.ElementSpan);
-        int numRows = Mathf.CeilToInt(totalSpan / NumCols);
-        return ScrollView != null ? Mathf.Max(numRows, NumRows) : Mathf.Min(numRows, NumRows);
-    }
+        List<GridRow> rows = UiFrameworkPool.GetList<GridRow>();
 
-    private void GetColumnRange(int startIndex, out int maxColIndex, out float colSpan)
-    {
-        float currentSpan = 0f;
-        for(int i = startIndex; i < Elements.Count; i++)
+        float colSpan = 0f;
+        List<GridElement> row = UiFrameworkPool.GetList<GridElement>();
+        for (int index = 0; index < Elements.Count; index++)
         {
-            float elementSpan = Elements[i].ElementSpan;
-            if(currentSpan + elementSpan > NumCols)
+            GridElement state = Elements[index];
+            if (row.Count != 0 && colSpan + state.ColSpan > NumCols)
             {
-                maxColIndex = i;
-                colSpan = currentSpan;
+                rows.Add(new GridRow(colSpan, row));
+                colSpan = 0f;
+                row = UiFrameworkPool.GetList<GridElement>();
             }
             
-            currentSpan += elementSpan;
+            row.Add(state);
+            colSpan += state.ColSpan;
         }
         
-        maxColIndex = Elements.Count - 1;
-        colSpan = currentSpan;
+        rows.Add(new GridRow(colSpan, row));
+        return rows;
     }
 
-    private UiPosition GetUiPosition(float currentCol, float currentRow, float colSpan, float totalRows, float scale)
+    private UiPosition GetUiPosition(float currentCol, float currentRow, float colSpan, float scale)
     {
-        UiPosition pos = new(currentCol / NumCols,  1f - (currentRow + 1) / totalRows * scale,  (currentCol + colSpan) / NumCols, 1f - currentRow / totalRows * scale);
-        pos = pos.Shrink(LayoutPadding.Horizontal, LayoutPadding.Horizontal * scale);
+        UiPosition pos = new(currentCol / NumCols,  1f - (currentRow + 1) * scale / NumRows,  (currentCol + colSpan) / NumCols, 1f - currentRow * scale / NumRows);
+        pos = pos.Shrink(LayoutPadding.Horizontal, LayoutPadding.Vertical * scale);
         return pos;
     }
+
+    private static void FreeGridRows(List<GridRow> rows)
+    {
+        for (int index = 0; index < rows.Count; index++)
+        {
+            GridRow row = rows[index];
+            UiFrameworkPool.FreeList(row.Elements);
+        }
+        
+        UiFrameworkPool.FreeList(rows);
+    }
     
-    public readonly struct LayoutState(BaseUiComponent element, float elementSpan)
+    public readonly struct GridElement(BaseUiComponent element, float elementSpan)
     {
         public readonly BaseUiComponent Element = element;
-        public readonly float ElementSpan = elementSpan;
+        public readonly float ColSpan = elementSpan;
+    }
+
+    private readonly struct GridRow(float totalSpan, List<GridElement> elements)
+    {
+        public readonly float TotalSpan = totalSpan;
+        public readonly List<GridElement> Elements = elements;
+    }
+
+    protected override void EnterPool()
+    {
+        base.EnterPool();
+        Elements.Clear();
     }
 }

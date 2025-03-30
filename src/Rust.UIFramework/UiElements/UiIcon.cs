@@ -3,8 +3,6 @@ using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Interfaces;
 using Oxide.Ext.UiFramework.Libraries;
-using Oxide.Ext.UiFramework.Offsets;
-using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.UiElements;
@@ -13,20 +11,18 @@ public class UiIcon : BaseUiComponent, IMaterial<UiIcon>, IFadeIn<UiIcon>, IUiCo
 {
     public readonly RawImageComponent RawImage = new();
     internal override CoreComponent Component => RawImage;
+    
+    public string Material { get => RawImage.Material; set => RawImage.Material = value; }
+    public float FadeIn { get => RawImage.FadeIn; set => RawImage.FadeIn = value; }
+    public UiColor Color { get => RawImage.Color; set => RawImage.Color = value; }
         
-    public static UiIcon CreateIcon<T>(in UiPosition pos, in UiOffset offset, UiColor color, T icon) where T : struct, Enum
+    public static UiIcon CreateIcon<T>(T icon, UiColor color) where T : struct, Enum
     {
-        UiIcon image = CreateBase<UiIcon>(pos, offset);
+        UiIcon image = CreateBase<UiIcon>();
         image.RawImage.Color = color;
         Singleton<UiIconLib>.Instance.PopulateIconData(image, icon);
         return image;
     }
-    
-    void IMaterial.SetMaterial(string material) => SetMaterial(material);
-    void IFadeIn.SetFadeIn(float duration) => SetFadeIn(duration);
-    void IUiColor.SetColor(UiColor color) => SetColor(color);
-
-    public UiColor GetColor() => RawImage.Color;
     
     public UiIcon SetColor(UiColor color)
     {

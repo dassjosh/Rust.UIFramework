@@ -2,8 +2,6 @@
 using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Interfaces;
-using Oxide.Ext.UiFramework.Offsets;
-using Oxide.Ext.UiFramework.Positions;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
@@ -11,21 +9,19 @@ public class UiPlayerAvatar : BaseUiComponent, IMaterial<UiPlayerAvatar>, IFadeI
 {
     public readonly PlayerAvatarComponent Avatar = new();
     internal override CoreComponent Component => Avatar;
+    
+    public string Material { get => Avatar.Material; set => Avatar.Material = value; }
+    public float FadeIn { get => Avatar.FadeIn; set => Avatar.FadeIn = value; }
+    public UiColor Color { get => Avatar.Color; set => Avatar.Color = value; }
 
-    public static UiPlayerAvatar Create(in UiPosition pos, in UiOffset offset, UiColor color, ulong steamId, AvatarType type)
+    public static UiPlayerAvatar Create(ulong steamId, AvatarType type, UiColor color)
     {
-        UiPlayerAvatar icon = CreateBase<UiPlayerAvatar>(pos, offset);
+        UiPlayerAvatar icon = CreateBase<UiPlayerAvatar>();
         icon.Avatar.Color = color;
         icon.Avatar.SteamId = steamId;
         icon.Avatar.AvatarType = type;
         return icon;
     }
-    
-    public UiColor GetColor() => Avatar.Color;
-    
-    void IMaterial.SetMaterial(string material) => SetMaterial(material);
-    void IFadeIn.SetFadeIn(float duration) => SetFadeIn(duration);
-    void IUiColor.SetColor(UiColor color) => SetColor(color);
         
     public UiPlayerAvatar SetFadeIn(float duration)
     {

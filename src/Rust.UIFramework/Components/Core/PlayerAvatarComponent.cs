@@ -6,18 +6,13 @@ using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-public class PlayerAvatarComponent : BaseImageComponent
+public class PlayerAvatarComponent : RawImageComponent
 {
     public ulong SteamId;
     public AvatarType AvatarType = AvatarType.Medium;
-    
-    public override Utf8String Type => JsonDefaults.RawImage.Type;
 
-    public override void WriteComponent(JsonFrameworkWriter writer)
+    protected override void WriteComponentFields(JsonFrameworkWriter writer)
     {
-        writer.WriteStartObject();
-        writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, Type);
-
         switch (AvatarType)
         {
             case AvatarType.Small:
@@ -40,8 +35,7 @@ public class PlayerAvatarComponent : BaseImageComponent
                 break;
         }
         
-        base.WriteComponent(writer);
-        writer.WriteEndObject();
+        base.WriteComponentFields(writer);
     }
 
     public override void Reset()

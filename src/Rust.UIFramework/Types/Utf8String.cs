@@ -11,4 +11,5 @@ public readonly struct Utf8String(byte[] str)
 
     public override string ToString() => Encoding.UTF8.GetString(String);
     public static implicit operator Utf8String(string str) => new(Encoding.UTF8.GetBytes(str));
+    public static implicit operator Utf8String(char value) => new(Encoding.UTF8.GetBytes(value.ToString()));
 }

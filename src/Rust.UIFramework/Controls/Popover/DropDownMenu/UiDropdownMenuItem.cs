@@ -3,8 +3,7 @@ using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Layouts;
 using Oxide.Ext.UiFramework.UiElements;
 
-
-namespace Oxide.Ext.UiFramework.Controls;
+namespace Oxide.Ext.UiFramework.Controls.Popover;
 
 public readonly struct UiDropdownMenuItem
 {

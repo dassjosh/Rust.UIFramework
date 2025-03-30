@@ -2,18 +2,13 @@
 using System.Collections.Generic;
 using Oxide.Core;
 using Oxide.Core.Plugins;
-using Oxide.Ext.UiFramework.Builder;
-using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Constants;
 using Oxide.Ext.UiFramework.Data;
 using Oxide.Ext.UiFramework.Exceptions;
 using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Logging;
-using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Plugins;
-using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.Types;
-using Oxide.Ext.UiFramework.UiElements;
 
 
 namespace Oxide.Ext.UiFramework.Libraries;
@@ -28,12 +23,6 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
     private static readonly byte[] SignaturePNG = [137, 80, 78, 71, 13, 10, 26, 10, 0, 0, 0, 13, 73, 72, 68, 82];
 
     private UiImageStorage() {}
-    
-    public UiRawImage Get(BaseUiBuilder builder, in UiReference parent, in UiPosition pos, in UiOffset offset, Plugin plugin, string name, UiColor color)
-    {
-        string png = Get(plugin, name);
-        return png.StartsWith("http") ? builder.WebImage(parent, pos, offset, png, color) : builder.ImageFileStorage(parent, pos, offset, png, color);
-    }
 
     public string Get(Plugin plugin, string name)
     {
@@ -77,16 +66,10 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
         return _downloader.AddRequest(pluginId, name, url);
     }
     
-    public bool RegisterImage(Plugin plugin, string url)
-    {
-        return RegisterImage(plugin, url, url);
-    }
-    
-    internal bool RegisterImage(PluginId plugin, string url)
-    {
-        return RegisterImage(plugin, url, url);
-    }
-    
+    public bool RegisterImage(Plugin plugin, string url) => RegisterImage(plugin, url, url);
+
+    internal bool RegisterImage(PluginId plugin, string url) => RegisterImage(plugin, url, url);
+
     public bool RegisterImage(Plugin plugin, string name, byte[] image, out string error)
     {
         CommunityEntityNotReadyException.ThrowIfNotReady();

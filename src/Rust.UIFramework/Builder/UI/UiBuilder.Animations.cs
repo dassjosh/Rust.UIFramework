@@ -14,7 +14,7 @@ public partial class UiBuilder
     {
         if (component is IUiColor color)
         {
-            return this.AnimateColor(component, color.GetColor(), endColor, duration, delay);
+            return this.AnimateColor(component, color.Color, endColor, duration, delay);
         }
 
         return null;

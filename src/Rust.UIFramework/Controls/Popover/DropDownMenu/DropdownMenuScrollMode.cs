@@ -1,4 +1,4 @@
-﻿namespace Oxide.Ext.UiFramework.Controls;
+﻿namespace Oxide.Ext.UiFramework.Controls.Popover;
 
 public enum DropdownMenuScrollMode
 {

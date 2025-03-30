@@ -1,4 +1,4 @@
-﻿using Oxide.Ext.UiFramework.Colors;
+using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Interfaces;
 using UnityEngine;
@@ -7,12 +7,10 @@ namespace Oxide.Ext.UiFramework.UiElements;
 
 public abstract class BaseUiText<T> : BaseUiComponent, IFadeIn<T>, IUiColor<T> where T : BaseUiText<T>
 {
-    private BaseTextComponent Text => (BaseTextComponent)Component;
+    private TextComponent Text => (TextComponent)Component;
     
-    public UiColor GetColor() => Text.Color;
-    
-    void IFadeIn.SetFadeIn(float duration) => SetFadeIn(duration);
-    void IUiColor.SetColor(UiColor color) => SetColor(color);
+    public float FadeIn { get => Text.FadeIn; set => Text.FadeIn = value; }
+    public UiColor Color { get => Text.Color; set => Text.Color = value; }
     
     public T SetFadeIn(float duration)
     {

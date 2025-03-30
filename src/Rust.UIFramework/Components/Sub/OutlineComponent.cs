@@ -1,5 +1,6 @@
 ﻿using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Json;
+using Oxide.Ext.UiFramework.Types;
 using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Components;
@@ -10,16 +11,14 @@ public class OutlineComponent : SubComponent
     public Vector2 Distance;
     public bool UseGraphicAlpha;
 
+    public override Utf8String Type => JsonDefaults.Outline.Type;
     public override bool AllowMultiple => true;
 
-    public override void WriteComponent(JsonFrameworkWriter writer)
+    protected override void WriteComponentFields(JsonFrameworkWriter writer)
     {
-        writer.WriteStartObject();
-        writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, JsonDefaults.Outline.Type);
         writer.AddField(JsonDefaults.Outline.DistanceName, Distance, JsonDefaults.Outline.FpDistance);
         writer.AddKeyField(JsonDefaults.Outline.UseGraphicAlphaName, UseGraphicAlpha);
         writer.AddField(JsonDefaults.Color.ColorName, Color);
-        writer.WriteEndObject();
     }
 
     public override void Reset()

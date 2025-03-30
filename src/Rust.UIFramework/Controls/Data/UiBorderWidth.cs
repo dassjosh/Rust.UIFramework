@@ -1,4 +1,4 @@
-﻿namespace Oxide.Ext.UiFramework.Controls;
+﻿namespace Oxide.Ext.UiFramework.Controls.Data;
 
 public readonly struct UiBorderWidth(float left, float top, float right, float bottom)
 {

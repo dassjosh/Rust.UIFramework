@@ -77,4 +77,10 @@ public class UiDirectionalLayout : BaseLayout
         public readonly BaseUiComponent Element = element;
         public readonly float ElementSpan = elementSpan;
     }
+
+    protected override void EnterPool()
+    {
+        base.EnterPool();
+        Elements.Clear();
+    }
 }

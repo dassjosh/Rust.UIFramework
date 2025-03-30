@@ -55,15 +55,7 @@ public abstract class BaseLayout : BasePoolable
         }
     }
     
-    protected float GetScrollViewScale(float totalSpan, float numElements, float scale = 1f)
-    {
-        if (totalSpan > numElements && ScrollView != null)
-        {
-            scale = numElements / totalSpan;
-        }
-
-        return scale;
-    }
+    protected float GetScrollViewScale(float totalSpan, float numElements, float scale = 1f) => ScrollView == null ? scale : numElements / totalSpan;
 
     protected override void EnterPool()
     {

@@ -17,10 +17,8 @@ public class ScrollViewComponent : CoreComponent
     
     public override Utf8String Type => JsonDefaults.ScrollView.Type;
     
-    public override void WriteComponent(JsonFrameworkWriter writer)
+    protected override void WriteComponentFields(JsonFrameworkWriter writer)
     {
-        writer.WriteStartObject();
-        writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, Type);
         writer.AddField(JsonDefaults.ScrollView.Horizontal, HorizontalScrollbar != null, false);
         writer.AddField(JsonDefaults.ScrollView.Vertical, VerticalScrollbar != null, false);
         writer.AddField(JsonDefaults.ScrollView.MovementTypeName, MovementType);
@@ -31,8 +29,6 @@ public class ScrollViewComponent : CoreComponent
         writer.AddComponent(JsonDefaults.ScrollView.HorizontalScrollbar, HorizontalScrollbar, HorizontalScrollbar != null);
         writer.AddComponent(JsonDefaults.ScrollView.VerticalScrollbar, VerticalScrollbar, VerticalScrollbar != null);
         writer.AddComponent(JsonDefaults.ScrollView.ContentTransform, ContentTransform);
-        base.WriteComponent(writer);
-        writer.WriteEndObject();
     }
 
     public override void Reset()

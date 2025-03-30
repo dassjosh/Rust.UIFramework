@@ -4,10 +4,10 @@ namespace Oxide.Ext.UiFramework.Interfaces;
 
 public interface IFadeIn
 {
-    void SetFadeIn(float duration);
+    float FadeIn { get; set; }
 }
 
 public interface IFadeIn<out T> : IFadeIn where T : BaseUiComponent
 {
-    new T SetFadeIn(float duration);
+    T SetFadeIn(float duration);
 }

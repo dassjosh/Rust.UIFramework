@@ -73,6 +73,12 @@ public class UiDockLayout : BaseLayout
         }
     }
 
+    protected override void EnterPool()
+    {
+        base.EnterPool();
+        Elements.Clear();
+    }
+
     public readonly struct LayoutState(BaseUiComponent element, DockPosition dockPosition, float dockSize)
     {
         public readonly BaseUiComponent Element = element;

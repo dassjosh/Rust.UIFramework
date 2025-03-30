@@ -10,6 +10,10 @@ public class UiRawImage : BaseUiComponent, IMaterial<UiRawImage>, IFadeIn<UiRawI
 {
     public readonly RawImageComponent RawImage = new();
     internal override CoreComponent Component => RawImage;
+    
+    public string Material { get => RawImage.Material; set => RawImage.Material = value; }
+    public float FadeIn { get => RawImage.FadeIn; set => RawImage.FadeIn = value; }
+    public UiColor Color { get => RawImage.Color; set => RawImage.Color = value; }
 
     public static UiRawImage CreateDefault(in UiPosition pos, in UiOffset offset)
     {
@@ -17,35 +21,13 @@ public class UiRawImage : BaseUiComponent, IMaterial<UiRawImage>, IFadeIn<UiRawI
         return image;
     } 
         
-    public static UiRawImage CreateUrl(in UiPosition pos, in UiOffset offset, in UiColor color, string url)
+    public static UiRawImage Create(in UiPosition pos, in UiOffset offset, string image, in UiColor color)
     {
-        UiRawImage image = CreateBase<UiRawImage>(pos, offset);
-        image.RawImage.Color = color;
-        image.RawImage.Url = url;
-        return image;
+        UiRawImage rawImage = CreateBase<UiRawImage>(pos, offset);
+        rawImage.RawImage.Color = color;
+        rawImage.RawImage.Image = image;
+        return rawImage;
     }
-        
-    public static UiRawImage CreateTexture(in UiPosition pos, in UiOffset offset, UiColor color, string icon)
-    {
-        UiRawImage image = CreateBase<UiRawImage>(pos, offset);
-        image.RawImage.Color = color;
-        image.RawImage.Texture = icon;
-        return image;
-    }
-        
-    public static UiRawImage CreateFileImage(in UiPosition pos, in UiOffset offset, UiColor color, string png)
-    {
-        UiRawImage image = CreateBase<UiRawImage>(pos, offset);
-        image.RawImage.Color = color;
-        image.RawImage.Png = png;
-        return image;
-    }
-    
-    public UiColor GetColor() => RawImage.Color;
-    
-    void IMaterial.SetMaterial(string material) => SetMaterial(material);
-    void IFadeIn.SetFadeIn(float duration) => SetFadeIn(duration);
-    void IUiColor.SetColor(UiColor color) => SetColor(color);
 
     public UiRawImage SetColor(UiColor color)
     {
@@ -53,15 +35,9 @@ public class UiRawImage : BaseUiComponent, IMaterial<UiRawImage>, IFadeIn<UiRawI
         return this;
     }
     
-    public UiRawImage SetUrl(string url)
+    public UiRawImage SetImage(string image)
     {
-        RawImage.Url = url;
-        return this;
-    }
-    
-    public UiRawImage SetTexture(string texture)
-    {
-        RawImage.Texture = texture;
+        RawImage.Image = image;
         return this;
     }
     

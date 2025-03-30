@@ -1,15 +1,12 @@
 ﻿using Oxide.Ext.UiFramework.Json;
+using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Components;
 
 public class NeedsMouseComponent : SubComponent
 {
+    public override Utf8String Type => JsonDefaults.Common.NeedsCursorValue;
     public override bool AllowMultiple => false;
     
-    public override void WriteComponent(JsonFrameworkWriter writer)
-    {
-        writer.WriteStartObject();
-        writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, JsonDefaults.Common.NeedsCursorValue);
-        writer.WriteEndObject();
-    }
+    protected override void WriteComponentFields(JsonFrameworkWriter writer) { }
 }

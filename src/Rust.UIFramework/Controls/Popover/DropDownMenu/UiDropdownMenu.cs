@@ -11,8 +11,7 @@ using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.UiElements;
 using UnityEngine.UI;
 
-
-namespace Oxide.Ext.UiFramework.Controls;
+namespace Oxide.Ext.UiFramework.Controls.Popover;
 
 public class UiDropdownMenu : BaseUiControl
 {

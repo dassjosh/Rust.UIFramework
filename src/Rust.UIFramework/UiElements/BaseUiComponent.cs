@@ -85,8 +85,8 @@ public abstract class BaseUiComponent : BasePoolable
     private void WriteComponents(JsonFrameworkWriter writer)
     {
         Component.WriteComponent(writer);
+        Component.WriteSubComponents(writer);        
         WriteTransform(writer);
-        Component.WriteSubComponents(writer);
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]

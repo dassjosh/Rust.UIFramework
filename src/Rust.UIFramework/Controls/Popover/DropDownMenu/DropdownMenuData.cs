@@ -1,4 +1,4 @@
-﻿namespace Oxide.Ext.UiFramework.Controls;
+﻿namespace Oxide.Ext.UiFramework.Controls.Popover;
 
 public readonly struct DropdownMenuData(string displayName, string command, bool isActive = false)
 {

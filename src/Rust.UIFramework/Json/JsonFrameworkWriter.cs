@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Network;
+using Oxide.Core;
 using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
@@ -24,6 +25,8 @@ public sealed class JsonFrameworkWriter : BasePoolable
     private const byte CommaChar = (byte)',';
     private const byte True = (byte)'1';
     private const byte False = (byte)'0';
+    private static readonly Utf8String StartQuote = '“';
+    private static readonly Utf8String EndQuote = '“';
     private static readonly Utf8String Separator = "\":";
     private static readonly Utf8String PropertyComma = ",\"";
     
@@ -254,13 +257,10 @@ public sealed class JsonFrameworkWriter : BasePoolable
         }
     }
     
-    public void AddCommand(in Utf8String name, string value, string defaultValue)
+    public void AddCommand(in Utf8String name, string value)
     {
-        if (value != defaultValue)
-        {
-            WritePropertyName(name);
-            WriteCommandValue(value);
-        }
+        WritePropertyName(name);
+        WriteCommandValue(value);
     }
     #endregion
         
@@ -350,7 +350,7 @@ public sealed class JsonFrameworkWriter : BasePoolable
     {
         _writer.Write(QuoteChar);
         bool isInQuote = false;
-        if (value != null)
+        if (!string.IsNullOrEmpty(value))
         {
             for (int i = 0; i < value.Length; i++)
             {
@@ -359,7 +359,7 @@ public sealed class JsonFrameworkWriter : BasePoolable
                 {
                     case '\"':
                         isInQuote = !isInQuote;
-                        _writer.Write(isInQuote ? '“' : '”');
+                        _writer.Write(isInQuote ? EndQuote : StartQuote);
                         break;
                     case '\\' when i + 1 == value.Length:
                         _writer.Write(EscapeBackslash);
@@ -376,7 +376,7 @@ public sealed class JsonFrameworkWriter : BasePoolable
     public void WriteCommandValue(string value)
     {
         _writer.Write(QuoteChar);
-        if (value != null)
+        if (!string.IsNullOrEmpty(value))
         {
             for (int i = 0; i < value.Length; i++)
             {

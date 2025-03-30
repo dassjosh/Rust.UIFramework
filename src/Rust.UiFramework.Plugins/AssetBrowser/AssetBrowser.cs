@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using Facepunch.CardGames;
 using Network;
 using Newtonsoft.Json;
 using Oxide.Core;
@@ -13,7 +12,6 @@ using Oxide.Ext.UiFramework.Builder.UI;
 using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Constants;
-using Oxide.Ext.UiFramework.Controls;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Helpers;
@@ -23,10 +21,8 @@ using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.Types;
 using Oxide.Ext.UiFramework.UiElements;
-using Oxide.Plugins;
 using Rust.UI;
 using UnityEngine;
-using Random = Oxide.Core.Random;
 
 namespace Oxide.Plugins;
 
@@ -46,7 +42,6 @@ public class AssetBrowser : RustPlugin
     private readonly Folder _textures = Folder.CreateFolders(typeof(UiTextures));
     private readonly Folder _materials = Folder.CreateFolders(typeof(UiMaterials));
     private readonly Folder _fonts = Folder.CreateFolders(typeof(UiFontCache));
-    private readonly Folder _playingCards = new("root", string.Empty);
     private readonly Folder _items = new("root", string.Empty);
 
     private readonly UiCommands _commands = GetLibrary<UiCommands>();
@@ -112,33 +107,8 @@ public class AssetBrowser : RustPlugin
         //     CreateUi(player);
         // }
         
-        CreatePlayingCardsFolder(PlayingCardTypes.Normal);
-        CreatePlayingCardsFolder(PlayingCardTypes.Small);
-        CreatePlayingCardsFolder(PlayingCardTypes.Transparent);
-        CreatePlayingCardsFolder(PlayingCardTypes.Transparent | PlayingCardTypes.Small);
         CreateItemsFolder();
         UiInit();
-    }
-
-    private void CreatePlayingCardsFolder(PlayingCardTypes type)
-    {
-        string name = type switch
-        {
-            PlayingCardTypes.Normal => "Normal",
-            PlayingCardTypes.Small => "Small",
-            PlayingCardTypes.Transparent => "Transparent",
-            PlayingCardTypes.Transparent | PlayingCardTypes.Small => "Small Transparent",
-            _ => null
-        };
-        
-        Folder folder = _playingCards.GetOrCreateFolder(name);
-        foreach (Suit suit in Enum.GetValues(typeof(Suit)).Cast<Suit>())
-        {
-            foreach (Rank rank in Enum.GetValues(typeof(Rank)).Cast<Rank>())
-            {
-                folder.AddFile($"{EnumCache<Suit>.ToString(suit)}-{EnumCache<Rank>.ToString(rank)}", UiPlayingCards.GetPlayingCard(suit, rank, type));
-            }
-        }
     }
 
     private void CreateItemsFolder()
@@ -357,6 +327,7 @@ public class AssetBrowser : RustPlugin
         public Folder CurrentFolder { get; private set; }
         private readonly List<string> RootFolderPaths = new();
         private int FolderIndex = 0;
+        public UiCardType? CardType { get; set; }
         
         public UiState()
         {
@@ -371,7 +342,8 @@ public class AssetBrowser : RustPlugin
             RootFolderPaths.Clear();
             FolderIndex = 0;
             OnPathChanged();
-            if (Type != AssetType.None && Type != AssetType.RustIcon && Type != AssetType.FontAwesomeRegular && Type != AssetType.FontAwesomeSolid)
+            CardType = null;
+            if (Type is not AssetType.None and not AssetType.RustIcon and not AssetType.FontAwesomeRegular and not AssetType.FontAwesomeSolid and not AssetType.PlayingCard)
             {
                 RootFolderPaths.AddRange(CurrentFolder.EnumerateFolders());
             }
@@ -396,6 +368,11 @@ public class AssetBrowser : RustPlugin
 
         public void PathInto(string path)
         {
+            if (Type == AssetType.PlayingCard)
+            {
+                CardType = Enum.Parse<UiCardType>(path);
+            }
+            
             Path += $"/{path}";
             OnPathChanged();
             // if (CurrentFolder.Files.Count == 0 && CurrentFolder.Subfolders.Count == 1)
@@ -423,14 +400,14 @@ public class AssetBrowser : RustPlugin
                 AssetType.Sprite => _ins._sprites.GetFolderFromPath(Path),
                 AssetType.Texture => _ins._textures.GetFolderFromPath(Path),
                 AssetType.Material => _ins._materials.GetFolderFromPath(Path),
-                AssetType.PlayingCard => _ins._playingCards.GetFolderFromPath(Path),
+                AssetType.PlayingCard => null,
                 AssetType.Item => _ins._items.GetFolderFromPath(Path),
                 AssetType.Font => _ins._fonts.GetFolderFromPath(Path),
                 //AssetType.RustIcon => UiRustIcons.GetFolder(Path),
                 _ => CurrentFolder
             };
 
-            if (CurrentFolder == null || Type is AssetType.RustIcon or AssetType.FontAwesomeRegular or AssetType.FontAwesomeSolid)
+            if (CurrentFolder == null || Type is AssetType.RustIcon or AssetType.FontAwesomeRegular or AssetType.FontAwesomeSolid or AssetType.PlayingCard)
             {
                 return;
             }
@@ -497,8 +474,8 @@ public class AssetBrowser : RustPlugin
         UiBuilder builder;
         if (isInitial)
         {
-            builder = UiBuilder.Create(UiPosition.MiddleLeft, new UiOffset(500, 400), _bodyColor, UiName);
-            var pos1= builder.AnimatePosition(builder.Root, UiPosition.MiddleMiddle, 1f, delay: 0f).WithCustomAnimation(_animator);
+            builder = UiBuilder.Create(UiPosition.MiddleMiddle, new UiOffset(500, 400), _bodyColor, UiName);
+            //var pos1= builder.AnimatePosition(builder.Root, UiPosition.MiddleMiddle, 1f, delay: 0f).WithCustomAnimation(_animator);
             //builder.AnimateOffset(builder.Root, new UiOffset(500, 400), .35f);
             //builder.AnimateColor(builder.Root, _bodyColor.WithAlpha(0f), _bodyColor, .5f);
         }
@@ -599,6 +576,7 @@ public class AssetBrowser : RustPlugin
     private const int ImageRows = 4;
     private const float ImagePadding = 0.01f;
     private const int TotalImages = ImageColumns * ImageRows;
+    private readonly LayoutPadding LayoutPadding = new(ImagePadding);
     
     private readonly GridPosition _imageGrid = new GridPositionBuilder(ImageColumns, ImageRows).SetPadding(ImagePadding).Build(); 
 
@@ -608,12 +586,10 @@ public class AssetBrowser : RustPlugin
         Folder folder = state.CurrentFolder;
         Puts($"{nameof(CreateImageBrowser)} Folder Path: {folder.Path} Folder Name: {folder.Name}");
         UiScrollView scroll = CreateScrollView(builder, root, _imageGrid, folder);
-
+        
         foreach (string name in folder.Subfolders.Keys)
         {
-            Puts($"{nameof(CreateImageBrowser)} Subfolder: {name}");
             UiButton button = builder.ImageSpriteButton(scroll, _imageGrid, default, _buttonColor, UiSprites.Icons.Folder, _uiCommands.PathInto.Build(state, name));
-            //Puts($"{name}: {_imageGrid.ToPosition()}");
             builder.Label(button, UiPosition.Full, default, name, 12, _textColor).AddOutline(UiColor.Black);
             _imageGrid.MoveCols(1);
         }
@@ -661,25 +637,32 @@ public class AssetBrowser : RustPlugin
     
     private void CreatePlayingCards(UiBuilder builder, UiReference root, UiState state)
     {       
-        _imageGrid.Reset();
-        Folder folder = state.CurrentFolder;
-        UiScrollView scroll = CreateScrollView(builder, root, _imageGrid, folder);
+        UiScrollView scroll = CreateScrollView(builder, root);
+        UiGridLayout grid = builder.GridLayout(scroll, UiPosition.Full, new UiOffset(0, 0, -20, 0), ImageColumns, ImageRows, layoutPadding: LayoutPadding);
+        grid.ForScrollView(scroll);
         
-        foreach (string name in folder.Subfolders.Keys)
+        if (!state.CardType.HasValue)
         {
-            UiButton button = builder.ImageSpriteButton(scroll, _imageGrid, default, _buttonColor, UiSprites.Icons.Folder, _uiCommands.PathInto.Build(state, name));
-            //Puts($"{name}: {_imageGrid.ToPosition()}");
-            builder.Label(button, UiPosition.Full, default, name, 12, _textColor).AddOutline(UiColor.Black);
-            _imageGrid.MoveCols(1);
+            foreach (UiCardType type in EnumCache<UiCardType>.GetValues())
+            {
+                string name = EnumCache<UiCardType>.ToString(type);
+                UiButton button = builder.ImageSpriteButton(grid, _buttonColor, UiSprites.Icons.Folder, _uiCommands.PathInto.Build(state, name));
+                builder.Label(button, UiPosition.Full, default, name, 12, _textColor).AddOutline(UiColor.Black);
+            }
+            return;
         }
-        
-        foreach (KeyValuePair<string, string> pair in folder.Files)
+
+        foreach (UiSuit suit in EnumCache<UiSuit>.GetValues())
         {
-            //Puts($"{pair.Key}: {_imageGrid.ToPosition()}");
-            UiButton button = builder.CommandButton(scroll, _imageGrid, default, _buttonColor,  _uiCommands.SelectAsset.Build(pair.Value));
-            UiImage sprite = builder.ImageSprite(button, UiPosition.Full, default, pair.Value, UiColor.White);
-            sprite.SetMaterial(UiMaterials.Content.Ui.NameFontMaterial);
-            _imageGrid.MoveCols(1);
+            foreach (UiRank rank in EnumCache<UiRank>.GetValues())
+            {
+                PlayingCardData card = new(suit, rank);
+                string spritePath = UiPlayingCards.GetPlayingCard(suit, rank, state.CardType.Value);
+                UiButton button = builder.CommandButton(grid, _buttonColor,  _uiCommands.SelectAsset.Build(spritePath));
+                //var sprite = builder.ImageSprite(button, UiPosition.Full, default, spritePath, UiColor.White);
+                UiPlayingCard sprite = builder.PlayingCard(button, UiPosition.Full, default, card, state.CardType.Value);
+                //sprite.SetMaterial(UiMaterials.Content.Ui.NameFontMaterial);
+            }
         }
     }
      
@@ -747,7 +730,7 @@ public class AssetBrowser : RustPlugin
             //     text += " -  ";
             // }
             
-            UiLabel label = builder.LabelBackground(scroll, _fontGrid, new UiOffset(2, 2, -2, -2), text, 14, _textColor, _bodyColor, TextAnchor.MiddleLeft);
+            UiLabel label = builder.Label(scroll, _fontGrid, new UiOffset(2, 2, -2, -2), text, 14, _textColor, _bodyColor, TextAnchor.MiddleLeft);
             label.Text.Font = pair.Value;
             _fontGrid.MoveCols(1);
         }
@@ -768,9 +751,15 @@ public class AssetBrowser : RustPlugin
     
     private UiScrollView CreateScrollView(UiBuilder builder, UiReference root, GridPosition grid, int totalItems)
     {
+        UiScrollView scroll = CreateScrollView(builder, root);
+        grid.ApplyScrollViewContentVertical(totalItems, scroll);
+        return scroll;
+    }
+
+    private UiScrollView CreateScrollView(UiBuilder builder, UiReference root)
+    {
         UiScrollView scroll = builder.ScrollView(root, UiPosition.Full, default, inertia: true, scrollSensitivity: 10f);
         scroll.AddVerticalScrollBar(autoHide: true, handleColor: UiColors.ButtonPrimary, pressedColor: UiColors.ButtonPrimary, highlightColor: UiColors.ButtonPrimary, trackColor: UiColors.PanelSecondary);
-        grid.ApplyScrollViewContentVertical(totalItems, scroll);
         return scroll;
     }
     #endregion
@@ -781,13 +770,15 @@ public class AssetBrowser : RustPlugin
     [UiProtection(ProtectionType.None)]
     private void CloseCommand(BasePlayer player)
     {
-        AnimationBuilder builder = AnimationBuilder.Create();
+        // AnimationBuilder builder = AnimationBuilder.Create();
+        //
+        // builder.AnimatePosition(_animationReference, UiPosition.MiddleMiddle, new UiPosition(0.5f, -0.5f, 0.5f, -0.5f), 5f)
+        //     .WithBezierProgressor(new BezierProgressor(.18f,-0.95f,.82f,1f))
+        //     .DestroyAfter();
+        //
+        // builder.AddUi(player);
         
-        builder.AnimatePosition(_animationReference, UiPosition.MiddleMiddle, new UiPosition(0.5f, -0.5f, 0.5f, -0.5f), 5f)
-            .WithBezierProgressor(new BezierProgressor(.18f,-0.95f,.82f,1f))
-            .DestroyAfter();
-        
-        builder.AddUi(player);
+        UiBuilder.DestroyUi(UiName);
     }
     
     [UiCommand]

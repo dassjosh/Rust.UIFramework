@@ -5,11 +5,10 @@ namespace Oxide.Ext.UiFramework.Interfaces;
 
 public interface IUiColor
 {
-    void SetColor(UiColor color);
-    UiColor GetColor();
+    UiColor Color { get; set; }
 }
 
 public interface IUiColor<out T> : IUiColor where T : BaseUiComponent
 {
-    new T SetColor(UiColor color);
+    T SetColor(UiColor color);
 }

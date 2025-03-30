@@ -1,5 +1,6 @@
 ﻿using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Json;
+using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Components;
 
@@ -14,11 +15,11 @@ public class CountdownComponent : SubComponent
     public bool DestroyIfDone;
     public string Command;
 
+    public override Utf8String Type => JsonDefaults.Countdown.Type;
     public override bool AllowMultiple => false;
 
-    public override void WriteComponent(JsonFrameworkWriter writer)
+    protected override void WriteComponentFields(JsonFrameworkWriter writer)
     {
-        writer.WriteStartObject();
         writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, JsonDefaults.Countdown.Type);
         writer.AddField(JsonDefaults.Countdown.StartTimeName, StartTime, JsonDefaults.Countdown.StartTimeValue);
         writer.AddField(JsonDefaults.Countdown.EndTimeName, EndTime, JsonDefaults.Countdown.EndTimeValue);
@@ -28,8 +29,6 @@ public class CountdownComponent : SubComponent
         writer.AddField(JsonDefaults.Countdown.NumberFormatName, NumberFormat, JsonDefaults.Countdown.NumberFormatValue);
         writer.AddField(JsonDefaults.Countdown.DestroyIfDoneName, DestroyIfDone, JsonDefaults.Countdown.DestroyIfDone);
         writer.AddField(JsonDefaults.Countdown.CountdownCommandName, Command, JsonDefaults.Common.NullValue);
-        base.WriteComponent(writer);
-        writer.WriteEndObject();
     }
 
     public override void Reset()

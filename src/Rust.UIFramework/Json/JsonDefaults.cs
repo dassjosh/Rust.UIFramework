@@ -67,7 +67,7 @@ public static class JsonDefaults
         public const string TextureValue = "Assets/Icons/rust.png";
     }
 
-    public static class BaseText
+    public static class Text
     {
         public static readonly Utf8String Type = "UnityEngine.UI.Text";
        

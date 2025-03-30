@@ -9,8 +9,7 @@ using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.UiElements;
 
-
-namespace Oxide.Ext.UiFramework.Controls;
+namespace Oxide.Ext.UiFramework.Controls.Popover;
 
 public class UiDatePickerMenu : BaseUiControl
 {

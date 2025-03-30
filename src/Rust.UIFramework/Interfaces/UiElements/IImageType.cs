@@ -5,10 +5,10 @@ namespace Oxide.Ext.UiFramework.Interfaces;
 
 public interface IImageType
 {
-    void SetImageType(Image.Type type);
+    Image.Type ImageType { get; set; }
 }
 
 public interface IImageType<out T> : IImageType where T : BaseUiComponent
 {
-    new T SetImageType(Image.Type type);
+    T SetImageType(Image.Type type);
 }

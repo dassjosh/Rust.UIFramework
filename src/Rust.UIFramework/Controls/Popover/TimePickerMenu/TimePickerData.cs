@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Oxide.Ext.UiFramework.Controls;
+namespace Oxide.Ext.UiFramework.Controls.Popover;
 
 public readonly record struct TimePickerData(byte Hour, byte Minute, byte Second)
 {

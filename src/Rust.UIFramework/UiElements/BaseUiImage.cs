@@ -7,16 +7,13 @@ namespace Oxide.Ext.UiFramework.UiElements;
 
 public abstract class BaseUiImage<T> : BaseUiComponent, IImageType<T>, ISprite<T>, IMaterial<T>, IFadeIn<T>, IUiColor<T> where T : BaseUiImage<T>
 {
-    public readonly ImageComponent Image = new();
-    internal override CoreComponent Component => Image;
-
-    public UiColor GetColor() => Image.Color;
+    private ImageComponent Image => (ImageComponent)Component;
     
-    void IImageType.SetImageType(Image.Type type) => SetImageType(type);
-    void ISprite.SetSprite(string sprite) => SetSprite(sprite);
-    void IMaterial.SetMaterial(string material) => SetMaterial(material);
-    void IFadeIn.SetFadeIn(float duration) => SetFadeIn(duration);
-    void IUiColor.SetColor(UiColor color) => SetColor(color);
+    public Image.Type ImageType { get => Image.ImageType; set => Image.ImageType = value; }
+    public string Sprite { get => Image.Sprite; set => Image.Sprite = value; }
+    public string Material { get => Image.Material; set => Image.Material = value; }
+    public float FadeIn { get => Image.FadeIn; set => Image.FadeIn = value; }
+    public UiColor Color { get => Image.Color; set => Image.Color = value; }
 
     public T SetImageType(Image.Type type)
     {
@@ -53,12 +50,6 @@ public abstract class BaseUiImage<T> : BaseUiComponent, IImageType<T>, ISprite<T
     public T SetFadeIn(float duration)
     {
         Image.FadeIn = duration;
-        return (T)this;
-    }
-    
-    public T SetPng(string png)
-    {
-        Image.Png = png;
         return (T)this;
     }
 }

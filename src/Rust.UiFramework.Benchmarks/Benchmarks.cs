@@ -5,7 +5,7 @@ using Oxide.Ext.UiFramework.Offsets;
 
 namespace Rust.UiFramework.Benchmarks;
 
-#if BENCHMARKS
+#if BENCHMARKS || DEBUG
 using BenchmarkDotNet.Attributes;
 using Network;
 using Oxide.Ext.UiFramework.Builder;
@@ -109,6 +109,7 @@ public class Benchmarks
     {
         UiBuilder builder = _builder;
         JsonFrameworkWriter writer = builder.CreateWriter();
+        //var a = builder.GetJsonString();
         writer.Dispose();
     }
     

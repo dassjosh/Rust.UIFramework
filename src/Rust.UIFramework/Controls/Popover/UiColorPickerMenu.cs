@@ -1,6 +1,7 @@
-﻿using Oxide.Ext.UiFramework.UiElements;
+﻿using Oxide.Ext.UiFramework.Controls.NumberPicker;
+using Oxide.Ext.UiFramework.UiElements;
 
-namespace Oxide.Ext.UiFramework.Controls;
+namespace Oxide.Ext.UiFramework.Controls.Popover;
 
 public class UiColorPickerMenu : BaseUiControl
 {

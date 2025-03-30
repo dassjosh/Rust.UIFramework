@@ -1,5 +1,6 @@
 ﻿using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Json;
+using Oxide.Ext.UiFramework.Types;
 using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Components;
@@ -20,12 +21,11 @@ public class DraggableComponent : SubComponent
     public bool MoveToAnchor;
     public bool RebuildAnchor;
 
+    public override Utf8String Type => JsonDefaults.Draggable.Type;
     public override bool AllowMultiple => false;
 
-    public override void WriteComponent(JsonFrameworkWriter writer)
+    protected override void WriteComponentFields(JsonFrameworkWriter writer)
     {
-        writer.WriteStartObject();
-        writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, JsonDefaults.Draggable.Type);
         writer.AddField(JsonDefaults.Draggable.LimitToParentName, LimitToParent, JsonDefaults.Draggable.LimitToParent);
         writer.AddField(JsonDefaults.Draggable.MaxDistanceName, MaxDistance, JsonDefaults.Draggable.MaxDistance);
         writer.AddField(JsonDefaults.Draggable.AllowSwappingName, AllowSwapping, JsonDefaults.Draggable.AllowSwapping);
@@ -39,7 +39,6 @@ public class DraggableComponent : SubComponent
         writer.AddField(JsonDefaults.Draggable.PositionRpcName, PositionRpc);
         writer.AddKeyField(JsonDefaults.Draggable.MoveToAnchorName, MoveToAnchor);
         writer.AddKeyField(JsonDefaults.Draggable.RebuildAnchorName, RebuildAnchor);
-        writer.WriteEndObject();
     }
 
     public override void Reset()

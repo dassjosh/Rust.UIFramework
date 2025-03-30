@@ -1,4 +1,4 @@
-﻿namespace Oxide.Ext.UiFramework.Controls;
+﻿namespace Oxide.Ext.UiFramework.Controls.Data;
 
 public readonly struct ButtonGroupData(string displayName, string commandArgs, bool isActive = false)
 {

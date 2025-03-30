@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Constants;
 using Oxide.Ext.UiFramework.Controls;
+using Oxide.Ext.UiFramework.Controls.Data;
+using Oxide.Ext.UiFramework.Controls.NumberPicker;
+using Oxide.Ext.UiFramework.Controls.Popover;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Layouts;
@@ -52,6 +55,13 @@ public partial class BaseUiBuilder
     public UiTuple<UiButton, UiImage> ImageSpriteButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, string sprite, string command, UiColor? spriteColor = null)
     {
         UiButton button = CommandButton(parent, pos, offset, buttonColor, command);
+        UiImage image = ImageSprite(button, UiPosition.Full, default, sprite, spriteColor);
+        return new UiTuple<UiButton, UiImage>(button, image);
+    }
+    
+    public UiTuple<UiButton, UiImage> ImageSpriteButton(BaseLayout layout, UiColor buttonColor, string sprite, string command, UiColor? spriteColor = null)
+    {
+        UiButton button = CommandButton(layout, buttonColor, command);
         UiImage image = ImageSprite(button, UiPosition.Full, default, sprite, spriteColor);
         return new UiTuple<UiButton, UiImage>(button, image);
     }

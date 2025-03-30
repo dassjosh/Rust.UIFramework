@@ -4,25 +4,19 @@ using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-public class ButtonComponent : BaseImageComponent
+public class ButtonComponent : ImageComponent
 {
     public string Command;
     public string Close;
-    public Image.Type ImageType;
     public ColorBlockComponent ColorBlock { get; internal set; }
-
     public override Utf8String Type => JsonDefaults.Button.Type;
 
-    public override void WriteComponent(JsonFrameworkWriter writer)
+    protected override void WriteComponentFields(JsonFrameworkWriter writer)
     {
-        writer.WriteStartObject();
-        writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, Type);
-        writer.AddCommand(JsonDefaults.Common.CommandName, Command, JsonDefaults.Common.NullValue);
+        writer.AddCommand(JsonDefaults.Common.CommandName, Command);
         writer.AddField(JsonDefaults.Button.CloseName, Close, JsonDefaults.Common.NullValue);
-        writer.AddField(JsonDefaults.Image.ImageType, ImageType);
         ColorBlock?.WriteComponent(writer);
-        base.WriteComponent(writer);
-        writer.WriteEndObject();
+        base.WriteComponentFields(writer);
     }
     
     public override void Reset()

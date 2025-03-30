@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-public class InputComponent : BaseTextComponent
+public class InputComponent : TextComponent
 {
     public int CharsLimit;
     public string Command;
@@ -13,30 +13,27 @@ public class InputComponent : BaseTextComponent
     public InputField.LineType LineType;
 
     public override Utf8String Type => JsonDefaults.Input.Type;
-    
-    public override void WriteComponent(JsonFrameworkWriter writer)
+    protected override bool WriteText => true;
+
+    protected override void WriteComponentFields(JsonFrameworkWriter writer)
     {
-        writer.WriteStartObject();
-        writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, Type);
         writer.AddField(JsonDefaults.Input.CharacterLimitName, CharsLimit, JsonDefaults.Input.CharacterLimitValue);
         writer.AddField(JsonDefaults.Input.LineTypeName, LineType);
-            
+        writer.AddField(JsonDefaults.Input.PasswordName, HasMode(InputMode.Password), false);
+        writer.AddField(JsonDefaults.Input.NeedsKeyboardName, HasMode(InputMode.NeedsKeyboard), false);
+        writer.AddField(JsonDefaults.Input.NeedsHudKeyboardName, HasMode(InputMode.HudNeedsKeyboard), false);
+        writer.AddField(JsonDefaults.Input.AutoFocusName, HasMode(InputMode.AutoFocus), false);
+        
         if (HasMode(InputMode.ReadOnly))
         {
             writer.AddFieldRaw(JsonDefaults.Input.ReadOnlyName, true);
         }
         else
         {
-            writer.AddCommand(JsonDefaults.Common.CommandName, Command, JsonDefaults.Common.NullValue);
+            writer.AddCommand(JsonDefaults.Common.CommandName, Command);
         }
         
-        writer.AddField(JsonDefaults.Input.PasswordName, HasMode(InputMode.Password), false);
-        writer.AddField(JsonDefaults.Input.NeedsKeyboardName, HasMode(InputMode.NeedsKeyboard), false);
-        writer.AddField(JsonDefaults.Input.NeedsHudKeyboardName, HasMode(InputMode.HudNeedsKeyboard), false);
-        writer.AddField(JsonDefaults.Input.AutoFocusName, HasMode(InputMode.AutoFocus), false);
-            
-        base.WriteComponent(writer);
-        writer.WriteEndObject();
+        base.WriteComponentFields(writer);
     }
 
     public bool HasMode(InputMode mode) => (Mode & mode) == mode;

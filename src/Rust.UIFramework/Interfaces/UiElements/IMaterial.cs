@@ -4,7 +4,7 @@ namespace Oxide.Ext.UiFramework.Interfaces;
 
 public interface IMaterial
 {
-    void SetMaterial(string material);
+    string Material { get; set; }
 }
 
 public interface IMaterial<out T> : IMaterial where T : BaseUiComponent

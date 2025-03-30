@@ -18,10 +18,10 @@ public class UiScrollView : BaseUiComponent
     private UiReference? _viewPort;
     private UiReference? _content;
     
-    public static UiScrollView Create(in UiPosition pos, in UiOffset offset, ScrollRect.MovementType movementType, float elasticity,
+    public static UiScrollView Create(ScrollRect.MovementType movementType, float elasticity,
         bool inertia, float decelerationRate, float scrollSensitivity)
     {
-        UiScrollView scroll = CreateBase<UiScrollView>(pos, offset);
+        UiScrollView scroll = CreateBase<UiScrollView>();
         ScrollViewComponent comp = scroll.ScrollView;
         comp.MovementType = movementType;
         comp.Elasticity = elasticity;

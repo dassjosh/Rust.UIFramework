@@ -34,15 +34,20 @@ public sealed class JsonUtf8Writer : BasePoolable
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void Write(char character)
     {
-        if (_byteIndex >= SegmentSize)
-        {
-            Flush();
-        }
-
         if (character < 0x7F)
         {
+            if (_byteIndex >= SegmentSize)
+            {
+                Flush();
+            }
+            
             _buffer[_byteIndex++] = (byte)character;
             return;
+        }
+        
+        if (_byteIndex + sizeof(char) > SegmentSize)
+        {
+            Flush();
         }
 
         byte[] bytes = Utf8CharCache.ToUtf8String(character).String;

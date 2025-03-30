@@ -1,8 +1,6 @@
 ﻿using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Enums;
-using Oxide.Ext.UiFramework.Offsets;
-using Oxide.Ext.UiFramework.Positions;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,9 +11,9 @@ public class UiInput : BaseUiText<UiInput>
     public readonly InputComponent Input = new();
     internal override CoreComponent Component => Input;
 
-    public static UiInput Create(in UiPosition pos, in UiOffset offset, UiColor textColor, string text, int size, string cmd, string font, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, InputMode mode = InputMode.Default, InputField.LineType lineType = InputField.LineType.SingleLine)
+    public static UiInput Create(string text, int size, UiColor textColor, string cmd, string font, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, InputMode mode = InputMode.Default, InputField.LineType lineType = InputField.LineType.SingleLine)
     {
-        UiInput input = CreateBase<UiInput>(pos, offset);
+        UiInput input = CreateBase<UiInput>();
         InputComponent comp = input.Input;
         comp.Text = text;
         comp.FontSize = size;
