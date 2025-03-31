@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Network;
-using Oxide.Core;
 using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;

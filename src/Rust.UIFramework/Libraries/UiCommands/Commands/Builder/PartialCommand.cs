@@ -9,8 +9,8 @@ public static class PartialCommand
 {
     private static readonly Dictionary<WriterKey, IArgWriter[]> TypedWriters = new();
     
-    public static ICommandBuilder<T> Create<T>(string command) => new CommandBuilder<T>(command, null, GetWriters<T>(), 0);
-    public static ICommandBuilder<T0, T1> Create<T0, T1>(string command) => new CommandBuilder<T0, T1>(command, null, GetWriters<T0, T1>(), 0);
+    public static ICommandBuilder<T> Create<T>(string command) => new CommandBuilder<T>(command, null, GetWriters<T>());
+    public static ICommandBuilder<T0, T1> Create<T0, T1>(string command) => new CommandBuilder<T0, T1>(command, null, GetWriters<T0, T1>());
     
     private static IArgWriter[] GetWriters<T0>()
     {

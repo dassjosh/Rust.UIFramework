@@ -1,4 +1,6 @@
-﻿using Oxide.Ext.UiFramework.Json;
+﻿using System;
+using Oxide.Ext.UiFramework.Enums;
+using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Types;
 using UnityEngine.UI;
 
@@ -7,14 +9,25 @@ namespace Oxide.Ext.UiFramework.Components;
 public class ButtonComponent : ImageComponent
 {
     public string Command;
-    public string Close;
+    public ButtonType ButtonType;
+    
     public ColorBlockComponent ColorBlock { get; internal set; }
     public override Utf8String Type => JsonDefaults.Button.Type;
 
     protected override void WriteComponentFields(JsonFrameworkWriter writer)
     {
-        writer.AddCommand(JsonDefaults.Common.CommandName, Command);
-        writer.AddField(JsonDefaults.Button.CloseName, Close, JsonDefaults.Common.NullValue);
+        switch (ButtonType)
+        {
+            case ButtonType.Command:
+                writer.AddCommand(JsonDefaults.Common.CommandName, Command);
+                break;
+            case ButtonType.Close:
+                writer.AddField(JsonDefaults.Button.CloseName, Command, JsonDefaults.Common.NullValue);
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+        
         ColorBlock?.WriteComponent(writer);
         base.WriteComponentFields(writer);
     }
@@ -25,7 +38,7 @@ public class ButtonComponent : ImageComponent
         ColorBlock?.Dispose();
         ColorBlock = null;
         Command = null;
-        Close = null;
+        ButtonType = default;
         ImageType = Image.Type.Simple;
     }
 }

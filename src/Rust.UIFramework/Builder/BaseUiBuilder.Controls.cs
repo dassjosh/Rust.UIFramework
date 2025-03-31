@@ -22,160 +22,156 @@ namespace Oxide.Ext.UiFramework.Builder;
 public partial class BaseUiBuilder
 {
     #region Buttons
-    public UiTuple<UiButton, UiLabel> TextButton(in UiReference parent, string text, int textSize, UiColor textColor, UiColor buttonColor, string command, TextAnchor align = TextAnchor.MiddleCenter)
+    #region Sprite
+    public UiTuple<UiButton, UiImage> SpriteButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, string sprite, string command, ButtonType type = ButtonType.Command, UiColor? spriteColor = null)
     {
-        UiButton button = CommandButton(parent, buttonColor, command);
-        UiLabel label = Label(button, UiPosition.Full, JsonDefaults.Common.TextPadding, text, textSize, textColor , align);
-        return new UiTuple<UiButton, UiLabel>(button, label);
-    }
-    
-    public UiTuple<UiButton, UiLabel> TextButton(in UiReference parent, in UiPosition pos, in UiOffset offset, string text, int textSize, UiColor textColor, UiColor buttonColor, string command, TextAnchor align = TextAnchor.MiddleCenter)
-    {
-        UiTuple<UiButton, UiLabel> textButton = TextButton(in parent, text, textSize, textColor, buttonColor, command, align);
-        UiButton button = textButton;
-        button.SetPosition(pos,offset);
-        return textButton;
-    }
-
-    public UiTuple<UiButton, UiLabel> TextButton(BaseLayout layout, string text, int textSize, UiColor textColor, UiColor buttonColor, string command, TextAnchor align = TextAnchor.MiddleCenter)
-    {
-        UiTuple<UiButton, UiLabel> textButton = TextButton(in layout.Reference, text, textSize, textColor, buttonColor, command, align);
-        UiButton button = textButton;
-        layout.AddElement(button);
-        return textButton;
-    }
-
-    public UiTuple<UiButton, UiRawImage> ImageFileStorageButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, string png, string command, UiColor? spriteColor = null)
-    {
-        UiButton button = CommandButton(parent, pos, offset, buttonColor, command);
-        UiRawImage image = ImageFileStorage(button, UiPosition.Full, default, png, spriteColor);
-        return new UiTuple<UiButton, UiRawImage>(button, image);
-    }
-
-    public UiTuple<UiButton, UiImage> ImageSpriteButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, string sprite, string command, UiColor? spriteColor = null)
-    {
-        UiButton button = CommandButton(parent, pos, offset, buttonColor, command);
+        UiButton button = Button(parent, pos, offset, buttonColor, command, type);
         UiImage image = ImageSprite(button, UiPosition.Full, default, sprite, spriteColor);
         return new UiTuple<UiButton, UiImage>(button, image);
     }
     
-    public UiTuple<UiButton, UiImage> ImageSpriteButton(BaseLayout layout, UiColor buttonColor, string sprite, string command, UiColor? spriteColor = null)
+    public UiTuple<UiButton, UiImage> SpriteButton(BaseLayout layout, UiColor buttonColor, string sprite, string command, ButtonType type = ButtonType.Command, UiColor? spriteColor = null)
     {
-        UiButton button = CommandButton(layout, buttonColor, command);
+        UiButton button = Button(layout, buttonColor, command, type);
         UiImage image = ImageSprite(button, UiPosition.Full, default, sprite, spriteColor);
         return new UiTuple<UiButton, UiImage>(button, image);
     }
-        
-    public UiTuple<UiButton, UiRawImage> WebImageButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, string url, string command, UiColor? imageColor = null)
+    #endregion
+    
+    #region PlayingCard
+    public UiTuple<UiButton, UiPlayingCard> PlayingCardButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, PlayingCardData card, string command, UiCardType type = UiCardType.Normal, ButtonType buttonType = ButtonType.Command, UiColor? spriteColor = null)
     {
-        UiButton button = CommandButton(parent, pos, offset, buttonColor, command);
-        UiRawImage image = WebImage(button, UiPosition.Full, default, url, imageColor);
-        return new UiTuple<UiButton, UiRawImage>(button, image);
+        UiButton button = Button(parent, pos, offset, buttonColor, command, buttonType);
+        UiPlayingCard image = PlayingCard(button, UiPosition.Full, default, card, type, spriteColor);
+        return new UiTuple<UiButton, UiPlayingCard>(button, image);
     }
-        
-    public UiTuple<UiButton, UiItemIcon> ItemIconButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, int itemId, string command)
+    
+    public UiTuple<UiButton, UiPlayingCard> PlayingCardButton(BaseLayout layout, UiColor buttonColor, PlayingCardData card, string command, UiCardType type = UiCardType.Normal, ButtonType buttonType = ButtonType.Command, UiColor? spriteColor = null)
     {
-        UiButton button = CommandButton(parent, pos, offset, buttonColor, command);
-        UiItemIcon icon = ItemIcon(button, UiPosition.Full, default, itemId);
+        UiButton button = Button(layout, buttonColor, command, buttonType);
+        UiPlayingCard image = PlayingCard(button, UiPosition.Full, default, card, type, spriteColor);
+        return new UiTuple<UiButton, UiPlayingCard>(button, image);
+    }
+    #endregion
+
+    #region ItemIcon
+    public UiTuple<UiButton, UiItemIcon> ItemIconButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, int itemId, string command, ButtonType type = ButtonType.Command, UiColor? iconColor = null)
+    {
+        UiButton button = Button(parent, pos, offset, buttonColor, command, type);
+        UiItemIcon icon = ItemIcon(button, UiPosition.Full, default, itemId, color: iconColor);
         return new UiTuple<UiButton, UiItemIcon>(button, icon);
     }
         
-    public UiTuple<UiButton, UiItemIcon> ItemIconButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, int itemId, ulong skinId, string command)
+    public UiTuple<UiButton, UiItemIcon> ItemIconButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, int itemId, ulong skinId, string command, ButtonType type = ButtonType.Command, UiColor? iconColor = null)
     {
-        UiButton button = CommandButton(parent, pos, offset, buttonColor, command);
-        UiItemIcon icon = ItemIcon(button, UiPosition.Full, default, itemId, skinId);
+        UiButton button = Button(parent, pos, offset, buttonColor, command, type);
+        UiItemIcon icon = ItemIcon(button, UiPosition.Full, default, itemId, skinId, iconColor ?? UiColor.White);
         return new UiTuple<UiButton, UiItemIcon>(button, icon);
     }
     
-    public UiTuple<UiButton, UiIcon> IconButton<T>(in UiReference parent, UiColor buttonColor, T icon, string command, UiColor? iconColor = null) where T : struct, Enum
+    public UiTuple<UiButton, UiItemIcon> ItemIconButton(BaseLayout layout, UiColor buttonColor, int itemId, string command, ButtonType type = ButtonType.Command, UiColor? iconColor = null)
     {
-        UiButton button = CommandButton(parent, buttonColor, command);
-        UiIcon image = Icon(button, UiPosition.Full, default, icon, iconColor);
+        UiButton button = Button(layout, buttonColor, command, type);
+        UiItemIcon icon = ItemIcon(button, UiPosition.Full, default, itemId, color: iconColor);
+        return new UiTuple<UiButton, UiItemIcon>(button, icon);
+    }
+        
+    public UiTuple<UiButton, UiItemIcon> ItemIconButton(BaseLayout layout, UiColor buttonColor, int itemId, ulong skinId, string command, ButtonType type = ButtonType.Command, UiColor? iconColor = null)
+    {
+        UiButton button = Button(layout, buttonColor, command, type);
+        UiItemIcon icon = ItemIcon(button, UiPosition.Full, default, itemId, skinId, iconColor);
+        return new UiTuple<UiButton, UiItemIcon>(button, icon);
+    }
+    
+    public UiTuple<UiButton, UiItemIcon> ItemIconButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, Item item, string command, ButtonType type = ButtonType.Command, UiColor? iconColor = null) 
+        => ItemIconButton(parent, pos, offset, buttonColor, item.info.itemid, item.skin, command, type, iconColor);
+    public UiTuple<UiButton, UiItemIcon> ItemIconButton(BaseLayout layout, UiColor buttonColor, Item item, string command, ButtonType type = ButtonType.Command, UiColor? iconColor = null)
+        => ItemIconButton(layout, buttonColor, item.info.itemid, item.skin, command, type, iconColor);
+    #endregion
+
+    #region Player Avatar
+    public UiTuple<UiButton, UiPlayerAvatar> PlayerAvatarButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, ulong steamId, string command, AvatarType avatarType = AvatarType.Medium, ButtonType type = ButtonType.Command, UiColor? iconColor = null)
+    {
+        UiButton button = Button(parent, pos, offset, buttonColor, command, type);
+        UiPlayerAvatar icon = PlayerAvatar(button, UiPosition.Full, default, steamId, avatarType, iconColor ?? UiColor.White);
+        return new UiTuple<UiButton, UiPlayerAvatar>(button, icon);
+    }
+    
+    public UiTuple<UiButton, UiPlayerAvatar> PlayerAvatarButton(BaseLayout layout, UiColor buttonColor, ulong steamId, string command, AvatarType avatarType = AvatarType.Medium, ButtonType type = ButtonType.Command, UiColor? iconColor = null)
+    {
+        UiButton button = Button(layout, buttonColor, command, type);
+        UiPlayerAvatar icon = PlayerAvatar(button, UiPosition.Full, default, steamId, avatarType, iconColor ?? UiColor.White);
+        return new UiTuple<UiButton, UiPlayerAvatar>(button, icon);
+    }
+    #endregion
+
+    #region RawImage
+    public UiTuple<UiButton, UiRawImage> RawImageButton(in UiReference parent, in UiPosition pos, in UiOffset offset, string image, string command, UiColor? buttonColor = default, ButtonType type = ButtonType.Command, UiColor? imageColor = default)
+    {
+        UiButton button = Button(parent, pos, offset, buttonColor ?? UiColor.White, command, type);
+        UiRawImage rawImage = RawImage(button, UiPosition.Full, default, image, imageColor ?? UiColor.White);
+        return new UiTuple<UiButton, UiRawImage>(button, rawImage);
+    }
+    
+    public UiTuple<UiButton, UiRawImage> RawImageButton(BaseLayout layout, string image, string command, UiColor? buttonColor = default, ButtonType type = ButtonType.Command, UiColor? imageColor = default)
+    {
+        UiButton button = Button(layout, buttonColor ?? UiColor.White, command, type);
+        UiRawImage rawImage = RawImage(button, UiPosition.Full, default, image, imageColor ?? UiColor.White);
+        return new UiTuple<UiButton, UiRawImage>(button, rawImage);
+    }
+    
+    public UiTuple<UiButton, UiRawImage> WebImageButton(in UiReference parent, in UiPosition pos, in UiOffset offset, string url, string command, UiColor? buttonColor = default, ButtonType type = ButtonType.Command, UiColor? imageColor = default)
+    => RawImageButton(parent, pos, offset, url, command, buttonColor, type, imageColor);
+    public UiTuple<UiButton, UiRawImage> WebImageButton(BaseLayout layout, string url, string command, UiColor? buttonColor = default, ButtonType type = ButtonType.Command, UiColor? imageColor = default)
+        => RawImageButton(layout, url, command, buttonColor, type, imageColor);
+    
+    public UiTuple<UiButton, UiRawImage> TextureImageButton(in UiReference parent, in UiPosition pos, in UiOffset offset, string texture, string command, UiColor? buttonColor = default, ButtonType type = ButtonType.Command, UiColor? imageColor = default)
+        => RawImageButton(parent, pos, offset, texture, command, buttonColor, type, imageColor);
+    public UiTuple<UiButton, UiRawImage> TextureImageButton(BaseLayout layout, string texture, string command, UiColor? buttonColor = default, ButtonType type = ButtonType.Command, UiColor? imageColor = default)
+        => RawImageButton(layout, texture, command, buttonColor, type, imageColor);
+    
+    public UiTuple<UiButton, UiRawImage> FileStorageImageButton(in UiReference parent, in UiPosition pos, in UiOffset offset, string imageId, string command, UiColor? buttonColor = default, ButtonType type = ButtonType.Command, UiColor? imageColor = default)
+        => RawImageButton(parent, pos, offset, imageId, command, buttonColor, type, imageColor);
+    public UiTuple<UiButton, UiRawImage> FileStorageImageButton(BaseLayout layout, string imageId, string command, UiColor? buttonColor = default, ButtonType type = ButtonType.Command, UiColor? imageColor = default)
+        => RawImageButton(layout, imageId, command, buttonColor, type, imageColor);
+    
+    public UiTuple<UiButton, UiRawImage> ImageStorageButton(in UiReference parent, in UiPosition pos, in UiOffset offset, string nameOrUrl, string command, UiColor? buttonColor = default, ButtonType type = ButtonType.Command, UiColor? imageColor = default)
+        => RawImageButton(parent, pos, offset, nameOrUrl, command, buttonColor, type, imageColor);
+    public UiTuple<UiButton, UiRawImage> ImageStorageButton(BaseLayout layout, string nameOrUrl, string command, UiColor? buttonColor = default, ButtonType type = ButtonType.Command, UiColor? imageColor = default)
+        => RawImageButton(layout, nameOrUrl, command, buttonColor, type, imageColor);
+    #endregion
+
+    #region Icon
+    public UiTuple<UiButton, UiIcon> IconButton<T>(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, T icon, string command, UiColor? iconColor = null, ButtonType type = ButtonType.Command) where T : struct, Enum
+    {
+        UiButton button = Button(parent, pos, offset, buttonColor, command, type);
+        UiIcon image = Icon(button, UiPosition.Full, default, icon, iconColor ?? UiColor.White);
         return new UiTuple<UiButton, UiIcon>(button, image);
     }
     
-    public UiTuple<UiButton, UiIcon> IconButton<T>(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, T icon, string command, UiColor? iconColor = null) where T : struct, Enum
+    public UiTuple<UiButton, UiIcon> IconButton<T>(BaseLayout layout, UiColor buttonColor, T icon, string command, UiColor? iconColor = null, ButtonType type = ButtonType.Command) where T : struct, Enum
     {
-        UiTuple<UiButton, UiIcon> iconButton = IconButton(in parent, buttonColor, icon, command, iconColor);
-        UiButton button = iconButton;
-        button.SetPosition(pos, offset);
-        return iconButton;
-    }
-    
-    public UiTuple<UiButton, UiIcon> IconButton<T>(BaseLayout layout, UiColor buttonColor, T icon, string command, UiColor? iconColor = null) where T : struct, Enum
-    {
-        UiTuple<UiButton, UiIcon> iconButton = IconButton(in layout.Reference, buttonColor, icon, command, iconColor);
-        UiButton button = iconButton;
-        layout.AddElement(button);
-        return iconButton;
-    }
-        
-    public UiTuple<UiButton, UiLabel> CloseTextButton(in UiReference parent, in UiPosition pos, in UiOffset offset, string text, int textSize, UiColor textColor, UiColor buttonColor, string close, TextAnchor align = TextAnchor.MiddleCenter)
-    {
-        UiButton button = CloseButton(parent, pos, offset, buttonColor, close);
-        UiLabel label = Label(button, UiPosition.Full, JsonDefaults.Common.TextPadding, text, textSize, textColor , align);
-        return new UiTuple<UiButton, UiLabel>(button, label);
-    }
-        
-    public UiTuple<UiButton, UiRawImage> CloseImageFileStorageButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, string png, string close, UiColor? imageColor = null)
-    {
-        UiButton button = CommandButton(parent, pos, offset, buttonColor, close);
-        UiRawImage image = ImageFileStorage(button, UiPosition.Full, default, png, imageColor);
-        return new UiTuple<UiButton, UiRawImage>(button, image);
-    }
-        
-    public UiTuple<UiButton, UiImage> CloseImageSpriteButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, string sprite, string close, UiColor? spriteColor = null)
-    {
-        UiButton button = CloseButton(parent, pos, offset, buttonColor, close);
-        UiImage image = ImageSprite(button, UiPosition.Full, default, sprite, spriteColor);
-        return new UiTuple<UiButton, UiImage>(button, image);
-    }
-        
-    public UiTuple<UiButton, UiRawImage> CloseWebImageButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, string url, string close, UiColor? imageColor = null)
-    {
-        UiButton button = CloseButton(parent, pos, offset, buttonColor, close);
-        UiRawImage image = WebImage(button, UiPosition.Full, default, url, imageColor);
-        return new UiTuple<UiButton, UiRawImage>(button, image);
-    }
-        
-    public UiTuple<UiButton, UiItemIcon> CloseItemIconButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, int itemId, string close)
-    {
-        UiButton button = CloseButton(parent, pos, offset, buttonColor, close);
-        UiItemIcon icon = ItemIcon(button, UiPosition.Full, default, itemId);
-        return new UiTuple<UiButton, UiItemIcon>(button, icon);
-    }
-        
-    public UiTuple<UiButton, UiItemIcon> CloseItemIconButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, int itemId, ulong skinId, string close)
-    {
-        UiButton button = CloseButton(parent, pos, offset, buttonColor, close);
-        UiItemIcon icon = ItemIcon(button, UiPosition.Full, default, itemId, skinId);
-        return new UiTuple<UiButton, UiItemIcon>(button, icon);
-    }
-    
-    public UiTuple<UiButton, UiIcon> CloseIconButton<T>(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, T icon, string close, UiColor? iconColor = null) where T : struct, Enum
-    {
-        UiButton button = CloseButton(parent, pos, offset, buttonColor, close);
-        UiIcon image = Icon(button, UiPosition.Full, default, icon, iconColor);
+        UiButton button = Button(layout, buttonColor, command, type);
+        UiIcon image = Icon(button, UiPosition.Full, default, icon, iconColor ?? UiColor.White);
         return new UiTuple<UiButton, UiIcon>(button, image);
     }
     #endregion
 
-    #region Label Background
-    public UiTuple<UiPanel, UiLabel> LabelBackground(in UiReference parent, in UiPosition pos, in UiOffset offset, string text, int fontSize, UiColor textColor, UiColor backgroundColor, TextAnchor align = TextAnchor.MiddleCenter)
+    #region Text
+    public UiTuple<UiButton, UiLabel> TextButton(in UiReference parent, in UiPosition pos, in UiOffset offset, string text, int textSize, UiColor textColor, UiColor buttonColor, string command, TextAnchor align = TextAnchor.MiddleCenter, in UiPadding? textPadding = null, ButtonType buttonType = ButtonType.Command)
     {
-        UiPanel background = Panel(parent, pos, offset, backgroundColor);
-        UiLabel label = Label(background, UiPosition.Full, JsonDefaults.Common.TextPadding, text, fontSize, textColor, align);
-        return new UiTuple<UiPanel, UiLabel>(background, label);
+        UiButton button = Button(parent, pos, offset, buttonColor, command, buttonType);
+        UiLabel label = Label(button, UiPosition.Full, textPadding?.ToOffset()?? JsonDefaults.Common.TextPadding, text, textSize, textColor, align);
+        return new UiTuple<UiButton, UiLabel>(button, label);
+    }
+
+    public UiTuple<UiButton, UiLabel> TextButton(BaseLayout layout, string text, int textSize, UiColor textColor, UiColor buttonColor, string command, TextAnchor align = TextAnchor.MiddleCenter, in UiPadding? textPadding = null, ButtonType buttonType = ButtonType.Command)
+    {
+        UiButton button = Button(layout, buttonColor, command, buttonType);
+        UiLabel label = Label(button, UiPosition.Full, textPadding?.ToOffset()?? JsonDefaults.Common.TextPadding, text, textSize, textColor, align);
+        return new UiTuple<UiButton, UiLabel>(button, label);
     }
     #endregion
-
-    #region Input Background
-    public UiTuple<UiPanel, UiInput> InputBackground(in UiReference parent, in UiPosition pos, in UiOffset offset, string text, int fontSize, UiColor textColor, UiColor backgroundColor, string command, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, InputMode mode = InputMode.Default, InputField.LineType lineType = InputField.LineType.SingleLine)
-    {
-        UiPanel background = Panel(parent,  pos, offset, backgroundColor);
-        UiInput input = Input(background, UiPosition.Full, JsonDefaults.Common.TextPadding, text, fontSize, textColor, command, align, charsLimit, mode, lineType);
-        return new UiTuple<UiPanel, UiInput>(background, input);
-    }
     #endregion
 
     #region Checkbox
@@ -185,9 +181,7 @@ public partial class BaseUiBuilder
         AddControl(checkbox);
         return checkbox;
     }
-    #endregion
-    
-    #region Checkbox
+
     public UiSwitch Switch(in UiReference parent, in UiPosition pos, in UiOffset offset, bool isChecked, string command, UiColor? checkedColor = null, UiColor? uncheckedColor = null, UiColor? buttonColor = null)
     {
         UiSwitch checkbox = UiSwitch.CreateSwitch(this, parent, pos, offset, isChecked, command, checkedColor, uncheckedColor, buttonColor);
@@ -206,14 +200,17 @@ public partial class BaseUiBuilder
     #endregion
 
     #region Button Groups
-    public UiButtonGroup ButtonGroup(in UiReference parent, in UiPosition pos, in UiOffset offset, List<ButtonGroupData> buttons, int textSize, UiColor textColor, UiColor buttonColor, UiColor currentButtonColor, string command)
+    public UiButtonGroup ButtonGroup(in UiReference parent, in UiPosition pos, in UiOffset offset, List<ButtonGroupData> buttons, int textSize, UiColor textColor, UiColor buttonColor, UiColor currentButtonColor)
     {
-        UiButtonGroup control = UiButtonGroup.Create(this, parent, pos, offset, buttons, textSize, textColor, buttonColor, currentButtonColor, command);
+        UiButtonGroup control = UiButtonGroup.Create(this, parent, pos, offset, buttons, textSize, textColor, buttonColor, currentButtonColor);
         AddControl(control);
         return control;
     }
-
+    
     public UiButtonGroup NumericButtonGroup(in UiReference parent, in UiPosition pos, in UiOffset offset, int value, int minValue, int maxValue, int textSize, UiColor textColor, UiColor buttonColor, UiColor currentButtonColor, string command)
+        => NumericButtonGroup(parent, pos, offset, value, minValue, maxValue, textSize, textColor, buttonColor, currentButtonColor, PartialCommand.Create<int>(command));
+
+    public UiButtonGroup NumericButtonGroup(in UiReference parent, in UiPosition pos, in UiOffset offset, int value, int minValue, int maxValue, int textSize, UiColor textColor, UiColor buttonColor, UiColor currentButtonColor, ICommandBuilder<int> command)
     {
         UiButtonGroup control = UiButtonGroup.CreateNumeric(this, parent, pos, offset, value, minValue, maxValue, textSize, textColor, buttonColor, currentButtonColor, command);
         AddControl(control);

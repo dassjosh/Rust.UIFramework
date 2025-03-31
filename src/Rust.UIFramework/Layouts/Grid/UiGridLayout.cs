@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Oxide.Ext.UiFramework.Logging;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Positions;

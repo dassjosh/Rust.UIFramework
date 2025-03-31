@@ -4,6 +4,7 @@ using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Controls.Data;
 using Oxide.Ext.UiFramework.Layouts;
+using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Positions;
@@ -17,7 +18,7 @@ public class UiButtonGroup : BaseUiControl
     public UiDirectionalLayout Layout;
     public List<UiButton> Buttons;
         
-    public static UiButtonGroup Create(BaseUiBuilder builder, in UiReference parent, in UiPosition pos, in UiOffset offset, List<ButtonGroupData> buttons, int textSize, UiColor textColor, UiColor buttonColor, UiColor activeButtonColor, string command)
+    public static UiButtonGroup Create(BaseUiBuilder builder, in UiReference parent, in UiPosition pos, in UiOffset offset, List<ButtonGroupData> buttons, int textSize, UiColor textColor, UiColor buttonColor, UiColor activeButtonColor)
     {
         UiButtonGroup control = CreateControl<UiButtonGroup>();
         control.Layout = builder.DirectionalLayout(parent, pos, offset, buttons.Count);
@@ -25,22 +26,22 @@ public class UiButtonGroup : BaseUiControl
         for (int i = 0; i < buttons.Count; i++)
         {
             ButtonGroupData buttonData = buttons[i];
-            control.Buttons.Add(builder.TextButton(control.Layout, buttonData.DisplayName, textSize, textColor, buttonData.IsActive ? activeButtonColor : buttonColor, $"{command} {buttonData.CommandArgs}"));
+            control.Buttons.Add(builder.TextButton(control.Layout, buttonData.DisplayName, textSize, textColor, buttonData.IsActive ? activeButtonColor : buttonColor, buttonData.Command));
         }
 
         return control;
     }
         
-    public static UiButtonGroup CreateNumeric(BaseUiBuilder builder, in UiReference parent, in UiPosition pos, in UiOffset offset, int value, int minValue, int maxValue, int textSize, UiColor textColor, UiColor buttonColor, UiColor activeButtonColor, string command)
+    public static UiButtonGroup CreateNumeric(BaseUiBuilder builder, in UiReference parent, in UiPosition pos, in UiOffset offset, int value, int minValue, int maxValue, int textSize, UiColor textColor, UiColor buttonColor, UiColor activeButtonColor, ICommandBuilder<int> command)
     {
         List<ButtonGroupData> data = UiFrameworkPool.GetList<ButtonGroupData>();
         for (int i = minValue; i <= maxValue; i++)
         {
             string num = StringCache<int>.ToString(i);
-            data.Add(new ButtonGroupData(num, num, i == value));
+            data.Add(new ButtonGroupData(num, command.Build(i), i == value));
         }
             
-        UiButtonGroup control = Create(builder, parent, pos, offset, data, textSize, textColor, buttonColor, activeButtonColor, command);
+        UiButtonGroup control = Create(builder, parent, pos, offset, data, textSize, textColor, buttonColor, activeButtonColor);
         UiFrameworkPool.FreeList(data);
 
         return control;

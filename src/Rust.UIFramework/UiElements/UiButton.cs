@@ -1,9 +1,8 @@
 ﻿using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
+using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Interfaces;
-using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Pooling;
-using Oxide.Ext.UiFramework.Positions;
 using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.UiElements;
@@ -19,35 +18,12 @@ public class UiButton : BaseUiComponent, IImageType<UiButton>, ISprite<UiButton>
     public float FadeIn { get => Button.FadeIn; set => Button.FadeIn = value; }
     public UiColor Color { get => Button.Color; set => Button.Color = value; }
 
-    public static UiButton Create(UiColor color, string command)
+    public static UiButton Create(UiColor color, string command, ButtonType buttonType)
     {
         UiButton button = CreateBase<UiButton>();
         button.Button.Color = color;
         button.Button.Command = command;
-        return button;
-    }
-    
-    public static UiButton CreateCommand(in UiPosition pos, in UiOffset offset, UiColor color, string command)
-    {
-        UiButton button = CreateBase<UiButton>(pos, offset);
-        button.Button.Color = color;
-        button.Button.Command = command;
-        return button;
-    }
-    
-    public static UiButton CreateClose(UiColor color, string close)
-    {
-        UiButton button = CreateBase<UiButton>();
-        button.Button.Color = color;
-        button.Button.Close = close;
-        return button;
-    }
-
-    public static UiButton CreateClose(in UiPosition pos, in UiOffset offset, UiColor color, string close)
-    {
-        UiButton button = CreateBase<UiButton>(pos, offset);
-        button.Button.Color = color;
-        button.Button.Close = close;
+        button.Button.ButtonType = buttonType;
         return button;
     }
         
@@ -92,12 +68,14 @@ public class UiButton : BaseUiComponent, IImageType<UiButton>, ISprite<UiButton>
     public UiButton SetCommand(string command)
     {
         Button.Command = command;
+        Button.ButtonType = ButtonType.Command;
         return this;
     }
     
     public UiButton SetClose(string close)
     {
-        Button.Close = close;
+        Button.Command = close;
+        Button.ButtonType = ButtonType.Close;
         return this;
     }
     

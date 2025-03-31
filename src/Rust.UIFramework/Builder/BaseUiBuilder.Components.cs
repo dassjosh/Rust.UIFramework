@@ -101,65 +101,23 @@ public partial class BaseUiBuilder
     #endregion
 
     #region Button
-    public UiButton Button(in UiReference parent, UiColor color, string command)
+    public UiButton Button(in UiReference parent, UiColor color, string command, ButtonType buttonType = ButtonType.Command)
     {
-        UiButton button = UiButton.CreateCommand(color, command);
+        UiButton button = UiButton.Create(color, command, buttonType);
         AddComponent(button, parent);
         return button;
     }
     
-    public UiButton Button(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor color, string command)
+    public UiButton Button(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor color, string command, ButtonType buttonType = ButtonType.Command)
     {
-        UiButton button = CommandButton(parent, color, command);
+        UiButton button = Button(parent, color, command, buttonType);
         button.SetPosition(pos, offset);
         return button;
     }
     
-    public UiButton Button(BaseLayout layout, UiColor color, string command)
+    public UiButton Button(BaseLayout layout, UiColor color, string command, ButtonType buttonType = ButtonType.Command)
     {
-        UiButton button = CommandButton(layout.Reference, color, command);
-        layout.AddElement(button);
-        return button;
-    }
-    
-    public UiButton CommandButton(in UiReference parent, UiColor color, string command)
-    {
-        UiButton button = UiButton.CreateCommand(color, command);
-        AddComponent(button, parent);
-        return button;
-    }
-    
-    public UiButton CommandButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor color, string command)
-    {
-        UiButton button = CommandButton(parent, color, command);
-        button.SetPosition(pos, offset);
-        return button;
-    }
-    
-    public UiButton CommandButton(BaseLayout layout, UiColor color, string command)
-    {
-        UiButton button = CommandButton(layout.Reference, color, command);
-        layout.AddElement(button);
-        return button;
-    }
-
-    public UiButton CloseButton(in UiReference parent, UiColor color, string command)
-    {
-        UiButton button = UiButton.CreateClose(color, command);
-        AddComponent(button, parent);
-        return button;
-    }
-    
-    public UiButton CloseButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor color, string close)
-    {
-        UiButton button = CloseButton(parent, color, close);
-        button.SetPosition(pos, offset);
-        return button;
-    }
-    
-    public UiButton CloseButton(BaseLayout layout, UiColor color, string command)
-    {
-        UiButton button = CloseButton(layout.Reference, color, command);
+        UiButton button = Button(layout.Reference, color, command, buttonType);
         layout.AddElement(button);
         return button;
     }
@@ -261,21 +219,35 @@ public partial class BaseUiBuilder
     #endregion
 
     #region Raw Image
+    public UiRawImage RawImage(in UiReference parent, string image, UiColor? color = default)
+    {
+        UiRawImage rawImage = UiRawImage.Create(image, color ?? UiColor.White);
+        AddComponent(rawImage, parent);
+        return rawImage;
+    }
+    
     public UiRawImage RawImage(in UiReference parent, in UiPosition pos, in UiOffset offset, string image, UiColor? color = default)
     {
-        UiRawImage rawImage = UiRawImage.Create(pos, offset, image, color ?? UiColor.White);
-        AddComponent(rawImage, parent);
+        UiRawImage rawImage = RawImage(parent, image, color ?? UiColor.White);
+        rawImage.SetPosition(pos, offset);
+        return rawImage;
+    }
+    
+    public UiRawImage RawImage(BaseLayout layout, string image, UiColor? color = default)
+    {
+        UiRawImage rawImage = RawImage(layout.Reference, image, color ?? UiColor.White);
+        layout.AddElement(rawImage);
         return rawImage;
     }
 
     public UiRawImage WebImage(in UiReference parent, in UiPosition pos, in UiOffset offset, string url, UiColor? color = default) => RawImage(parent, pos, offset, url, color);
+    public UiRawImage WebImage(BaseLayout layout, string url, UiColor? color = default) => RawImage(layout, url, color);
     public UiRawImage TextureImage(in UiReference parent, in UiPosition pos, in UiOffset offset, string texture, UiColor? color = default) => RawImage(parent, pos, offset, texture, color);
+    public UiRawImage TextureImage(BaseLayout layout, string texture, UiColor? color = default) => RawImage(layout, texture, color);
     public UiRawImage FileStorageImage(in UiReference parent, in UiPosition pos, in UiOffset offset, string imageId, UiColor? color = default) => RawImage(parent, pos, offset, imageId, color);
-    public UiRawImage ImageStorage(Plugin plugin, in UiReference parent, in UiPosition pos, in UiOffset offset, string nameOrUrl, UiColor? color = default)
-    {
-        string image = Singleton<UiImageStorage>.Instance.Get(plugin, nameOrUrl);
-        return RawImage(parent, pos, offset, image, color);
-    }
+    public UiRawImage FileStorageImage(BaseLayout layout, string imageId, UiColor? color = default) => RawImage(layout, imageId, color);
+    public UiRawImage ImageStorage(Plugin plugin, in UiReference parent, in UiPosition pos, in UiOffset offset, string nameOrUrl, UiColor? color = default) => RawImage(parent, pos, offset, Singleton<UiImageStorage>.Instance.Get(plugin, nameOrUrl), color);
+    public UiRawImage ImageStorage(Plugin plugin, BaseLayout layout , string nameOrUrl, UiColor? color = default) => RawImage(layout, Singleton<UiImageStorage>.Instance.Get(plugin, nameOrUrl), color);
     #endregion
     
     #region Icon
@@ -322,28 +294,19 @@ public partial class BaseUiBuilder
         layout.AddElement(label);
         return label;
     }
-
-    public UiTuple<UiPanel, UiLabel> Label(in UiReference parent, string text, int size, UiColor textColor, UiColor backgroundColor, TextAnchor align = TextAnchor.MiddleCenter)
+    
+    public UiTuple<UiPanel, UiLabel> Label(in UiReference parent, in UiPosition pos, in UiOffset offset, string text, int size, UiColor textColor, UiColor backgroundColor, TextAnchor align = TextAnchor.MiddleCenter, in UiPadding? textPadding = null)
     {
-        UiPanel background = Panel(parent, backgroundColor);
-        UiLabel label = Label(background, UiPosition.Full, default, text, size, textColor, align);
-        return new UiTuple<UiPanel, UiLabel>(background, label);
+        UiPanel panel = Panel(parent, pos, offset, backgroundColor);
+        UiLabel label = Label(panel, UiPosition.Full, textPadding?.ToOffset() ?? JsonDefaults.Common.TextPadding, text, size, textColor, align);
+        return new UiTuple<UiPanel, UiLabel>(panel, label);
     }
     
-    public UiTuple<UiPanel, UiLabel> Label(in UiReference parent, in UiPosition pos, in UiOffset offset, string text, int size, UiColor textColor, UiColor backgroundColor, TextAnchor align = TextAnchor.MiddleCenter)
+    public UiTuple<UiPanel, UiLabel> Label(BaseLayout layout, string text, int size, UiColor textColor, UiColor backgroundColor, TextAnchor align = TextAnchor.MiddleCenter, in UiPadding? textPadding = null)
     {
-        UiTuple<UiPanel, UiLabel> label = Label(parent, text, size, textColor, backgroundColor, align);
-        UiPanel panel = label;
-        panel.SetPosition(pos, offset);
-        return label;
-    }
-    
-    public UiTuple<UiPanel, UiLabel> Label(BaseLayout layout, string text, int size, UiColor textColor, UiColor backgroundColor, TextAnchor align = TextAnchor.MiddleCenter)
-    {
-        UiTuple<UiPanel, UiLabel> label = Label(layout.Reference, text, size, textColor, backgroundColor, align);
-        UiPanel panel = label;
-        layout.AddElement(panel);
-        return label;
+        UiPanel panel = Panel(layout, backgroundColor);
+        UiLabel label = Label(panel, UiPosition.Full, textPadding?.ToOffset() ?? JsonDefaults.Common.TextPadding, text, size, textColor, align);
+        return new UiTuple<UiPanel, UiLabel>(panel, label);
     }
     #endregion
         
@@ -376,20 +339,18 @@ public partial class BaseUiBuilder
         return new UiTuple<UiPanel, UiInput>(background, input);
     }
     
-    public UiTuple<UiPanel, UiInput> Input(in UiReference parent, in UiPosition pos, in UiOffset offset, string text, int fontSize, UiColor textColor, UiColor backgroundColor, string command, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, InputMode mode = InputMode.Default, InputField.LineType lineType = InputField.LineType.SingleLine)
+    public UiTuple<UiPanel, UiInput> Input(in UiReference parent, in UiPosition pos, in UiOffset offset, string text, int fontSize, UiColor textColor, UiColor backgroundColor, string command, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, InputMode mode = InputMode.Default, InputField.LineType lineType = InputField.LineType.SingleLine, in UiPadding? textPadding = null)
     {
-        UiTuple<UiPanel, UiInput> input = Input(parent, text, fontSize, textColor, backgroundColor, command, align, charsLimit, mode, lineType);
-        UiPanel panel = input;
-        panel.SetPosition(pos, offset);
-        return input;
+        UiPanel panel = Panel(parent, pos, offset, backgroundColor);
+        UiInput input = Input(panel, UiPosition.Full, textPadding?.ToOffset() ?? JsonDefaults.Common.TextPadding, text, fontSize, textColor, command, align, charsLimit, mode, lineType);
+        return new UiTuple<UiPanel, UiInput>(panel, input);
     }
     
-    public UiTuple<UiPanel, UiInput> Input(BaseLayout layout, string text, int fontSize, UiColor textColor, UiColor backgroundColor, string command, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, InputMode mode = InputMode.Default, InputField.LineType lineType = InputField.LineType.SingleLine)
+    public UiTuple<UiPanel, UiInput> Input(BaseLayout layout, string text, int fontSize, UiColor textColor, UiColor backgroundColor, string command, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, InputMode mode = InputMode.Default, InputField.LineType lineType = InputField.LineType.SingleLine, in UiPadding? textPadding = null)
     {
-        UiTuple<UiPanel, UiInput> input = Input(layout.Reference, text, fontSize, textColor, backgroundColor, command, align, charsLimit, mode, lineType);
-        UiPanel panel = input;
-        layout.AddElement(panel);
-        return input;
+        UiPanel panel = Panel(layout, backgroundColor);
+        UiInput input = Input(panel, UiPosition.Full, textPadding?.ToOffset() ?? JsonDefaults.Common.TextPadding, text, fontSize, textColor, command, align, charsLimit, mode, lineType);
+        return new UiTuple<UiPanel, UiInput>(panel, input);
     }
     #endregion
 

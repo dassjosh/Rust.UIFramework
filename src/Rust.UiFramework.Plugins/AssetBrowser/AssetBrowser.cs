@@ -511,7 +511,7 @@ public class AssetBrowser : RustPlugin
             builder.IconButton(pathBar, new UiPosition(0.05f, 0, 0.1f, 1), default, _spriteColor, Icons.ChevronRight, _uiCommands.NextFolder.Build(state));
         }
         
-        builder.ImageSpriteButton(pathBar, new UiPosition(0.90f, 0, 0.95f, 1), default, _spriteColor, UiSprites.Icons.FolderUp, _uiCommands.PathUp.Build(state));
+        builder.SpriteButton(pathBar, new UiPosition(0.90f, 0, 0.95f, 1), default, _spriteColor, UiSprites.Icons.FolderUp, _uiCommands.PathUp.Build(state));
         
         UiSection body = builder.Section(builder.Root, new UiPosition(0, 0, 1, 0.90f), new UiPadding(2));
         
@@ -589,7 +589,7 @@ public class AssetBrowser : RustPlugin
         
         foreach (string name in folder.Subfolders.Keys)
         {
-            UiButton button = builder.ImageSpriteButton(scroll, _imageGrid, default, _buttonColor, UiSprites.Icons.Folder, _uiCommands.PathInto.Build(state, name));
+            UiButton button = builder.SpriteButton(scroll, _imageGrid, default, _buttonColor, UiSprites.Icons.Folder, _uiCommands.PathInto.Build(state, name));
             builder.Label(button, UiPosition.Full, default, name, 12, _textColor).AddOutline(UiColor.Black);
             _imageGrid.MoveCols(1);
         }
@@ -620,7 +620,7 @@ public class AssetBrowser : RustPlugin
         
         foreach (string name in folder.Subfolders.Keys)
         {
-            UiButton button = builder.ImageSpriteButton(scroll, _imageGrid, default, _buttonColor, UiSprites.Icons.Folder, _uiCommands.PathInto.Build(state, name));
+            UiButton button = builder.SpriteButton(scroll, _imageGrid, default, _buttonColor, UiSprites.Icons.Folder, _uiCommands.PathInto.Build(state, name));
             //Puts($"{name}: {_imageGrid.ToPosition()}");
             builder.Label(button, UiPosition.Full, default, name, 12, _textColor).AddOutline(UiColor.Black);
             _imageGrid.MoveCols(1);
@@ -646,7 +646,7 @@ public class AssetBrowser : RustPlugin
             foreach (UiCardType type in EnumCache<UiCardType>.GetValues())
             {
                 string name = EnumCache<UiCardType>.ToString(type);
-                UiButton button = builder.ImageSpriteButton(grid, _buttonColor, UiSprites.Icons.Folder, _uiCommands.PathInto.Build(state, name));
+                UiButton button = builder.SpriteButton(grid, _buttonColor, UiSprites.Icons.Folder, _uiCommands.PathInto.Build(state, name));
                 builder.Label(button, UiPosition.Full, default, name, 12, _textColor).AddOutline(UiColor.Black);
             }
             return;
@@ -674,7 +674,7 @@ public class AssetBrowser : RustPlugin
         
         foreach (string name in folder.Subfolders.Keys)
         {
-            UiButton button = builder.ImageSpriteButton(scroll, _imageGrid, default, _buttonColor, UiSprites.Icons.Folder, _uiCommands.PathInto.Build(state, name));
+            UiButton button = builder.SpriteButton(scroll, _imageGrid, default, _buttonColor, UiSprites.Icons.Folder, _uiCommands.PathInto.Build(state, name));
             //Puts($"{name}: {_imageGrid.ToPosition()}");
             builder.Label(button, UiPosition.Full, default, name, 12, _textColor).AddOutline(UiColor.Black);
             _imageGrid.MoveCols(1);

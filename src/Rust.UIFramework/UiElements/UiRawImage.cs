@@ -14,16 +14,10 @@ public class UiRawImage : BaseUiComponent, IMaterial<UiRawImage>, IFadeIn<UiRawI
     public string Material { get => RawImage.Material; set => RawImage.Material = value; }
     public float FadeIn { get => RawImage.FadeIn; set => RawImage.FadeIn = value; }
     public UiColor Color { get => RawImage.Color; set => RawImage.Color = value; }
-
-    public static UiRawImage CreateDefault(in UiPosition pos, in UiOffset offset)
-    {
-        UiRawImage image = CreateBase<UiRawImage>(pos, offset);
-        return image;
-    } 
         
-    public static UiRawImage Create(in UiPosition pos, in UiOffset offset, string image, in UiColor color)
+    public static UiRawImage Create(string image, in UiColor color)
     {
-        UiRawImage rawImage = CreateBase<UiRawImage>(pos, offset);
+        UiRawImage rawImage = CreateBase<UiRawImage>();
         rawImage.RawImage.Color = color;
         rawImage.RawImage.Image = image;
         return rawImage;
