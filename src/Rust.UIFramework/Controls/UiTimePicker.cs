@@ -23,7 +23,7 @@ public class UiTimePicker : BaseUiControl
         UiTimePicker control = CreateControl<UiTimePicker>();
             
         control.Anchor = builder.Anchor(parent, pos, offset);
-        control.Command = builder.CommandButton(parent, pos, offset, backgroundColor, openCommand.Build(control.Anchor.Reference));
+        control.Command = builder.Button(parent, pos, offset, backgroundColor, openCommand.Build(control.Anchor.Reference));
         control.Text = builder.Label(control.Command, UiPosition.Full, new UiOffset(5, 0, 0, 0), time.ToString(displayFormat), fontSize, textColor, TextAnchor.MiddleLeft);
         control.Icon = builder.Icon(control.Command, UiPosition.Right, new UiOffset(-24, 0, -4 , 0), Icons.Clock, textColor);
 

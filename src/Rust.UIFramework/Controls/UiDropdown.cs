@@ -21,7 +21,7 @@ public class UiDropdown : BaseUiControl
     {
         UiDropdown control = CreateControl<UiDropdown>();
         control.Anchor = builder.Anchor(parent, pos);
-        control.Command = builder.CommandButton(parent, pos, offset, backgroundColor, openCommand.Build(control.Anchor.Reference));
+        control.Command = builder.Button(parent, pos, offset, backgroundColor, openCommand.Build(control.Anchor.Reference));
         control.Text = builder.Label(control.Command, UiPosition.Full, new UiOffset(5, 0, 0, 0), displayValue, fontSize, textColor, TextAnchor.MiddleLeft);
         control.Icon = builder.Icon(control.Command, UiPosition.Right, new UiOffset(-20, 0, -4 , 0), Icons.CaretDown, textColor);
         return control;

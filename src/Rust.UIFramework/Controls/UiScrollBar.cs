@@ -30,7 +30,7 @@ public class UiScrollBar : BaseUiControl
         {
             if (i != currentPage)
             {
-                UiButton button = builder.CommandButton(layout, backgroundColor, command.Build(i)).SetSpriteMaterialImage(sprite, null, Image.Type.Sliced);
+                UiButton button = builder.Button(layout, backgroundColor, command.Build(i)).SetSpriteMaterialImage(sprite, null, Image.Type.Sliced);
                 control.ScrollButtons.Add(button);
             }
             else

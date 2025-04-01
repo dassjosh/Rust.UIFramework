@@ -20,7 +20,7 @@ public class UiColorPicker : BaseUiControl
     {
         UiColorPicker control = CreateControl<UiColorPicker>();
         control.Anchor = builder.Anchor(parent, pos, offset);
-        control.Button = builder.CommandButton(parent, pos, offset, backgroundColor, openCommand.Build(control.Anchor.Reference));
+        control.Button = builder.Button(parent, pos, offset, backgroundColor, openCommand.Build(control.Anchor.Reference));
         control.Text = builder.Label(control.Button, UiPosition.Full, new UiOffset(5, 0, 0, 0), selectedColor.ToHtmlColor(), fontSize, textColor, TextAnchor.MiddleLeft);
         control.Color = builder.Panel(control.Button, UiPosition.Full.SliceHorizontal(1f - (pos.Max.y - pos.Min.y), 1), new UiOffset(-4, 4, -4, -4), selectedColor);
         return control;

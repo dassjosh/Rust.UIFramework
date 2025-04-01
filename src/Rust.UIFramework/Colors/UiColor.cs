@@ -11,21 +11,36 @@ namespace Oxide.Ext.UiFramework.Colors;
 public readonly struct UiColor : IEquatable<UiColor>
 {
     #region Fields
-    public readonly byte Red;
-    public readonly byte Green;
-    public readonly byte Blue;
-    public readonly byte Alpha;
+    public readonly byte RedB;
+    public readonly byte GreenB;
+    public readonly byte BlueB;
+    public readonly byte AlphaB;
     
-    public float RedFloat => ToFloat(Red);
-    public float GreenFloat => ToFloat(Green);
-    public float BlueFloat => ToFloat(Blue);
-    public float AlphaFloat => ToFloat(Alpha);
+    public float RedFloat => ToFloat(RedB);
+    public float GreenFloat => ToFloat(GreenB);
+    public float BlueFloat => ToFloat(BlueB);
+    public float AlphaFloat => ToFloat(AlphaB);
     #endregion
 
     #region Static Colors
-    public static readonly UiColor Black =  "#000000";
-    public static readonly UiColor White = "#FFFFFF";
-    public static readonly UiColor Clear = "#00000000";
+    [Obsolete("Use UiColors Instead")] public static readonly UiColor Black =  "#000000";
+    [Obsolete("Use UiColors Instead")] public static readonly UiColor White = "#FFFFFF";
+    [Obsolete("Use UiColors Instead")] public static readonly UiColor Silver =  "#C0C0C0";
+    [Obsolete("Use UiColors Instead")] public static readonly UiColor Gray = "#808080";
+    [Obsolete("Use UiColors Instead")] public static readonly UiColor Red = "#FF0000";
+    [Obsolete("Use UiColors Instead")] public static readonly UiColor Maroon = "#800000";
+    [Obsolete("Use UiColors Instead")] public static readonly UiColor Orange = "#FFA500";
+    [Obsolete("Use UiColors Instead")] public static readonly UiColor Yellow = "#FFEB04";
+    [Obsolete("Use UiColors Instead")] public static readonly UiColor Olive = "#808000";
+    [Obsolete("Use UiColors Instead")] public static readonly UiColor Lime = "#00FF00";
+    [Obsolete("Use UiColors Instead")] public static readonly UiColor Green = "#008000";
+    [Obsolete("Use UiColors Instead")] public static readonly UiColor Teal = "#008080";
+    [Obsolete("Use UiColors Instead")] public static readonly UiColor Cyan = "#00FFFF";
+    [Obsolete("Use UiColors Instead")] public static readonly UiColor Blue = "#0000FF";
+    [Obsolete("Use UiColors Instead")] public static readonly UiColor Navy = "#000080";
+    [Obsolete("Use UiColors Instead")] public static readonly UiColor Magenta = "#FF00FF";
+    [Obsolete("Use UiColors Instead")] public static readonly UiColor Purple = "#800080";
+    [Obsolete("Use UiColors Instead")] public static readonly UiColor Clear = "#00000000";
     #endregion
 
     #region Constructors
@@ -36,10 +51,10 @@ public readonly struct UiColor : IEquatable<UiColor>
     
     public UiColor(byte red, byte green, byte blue, byte alpha = 255)
     {
-        Red = red;
-        Green = green;
-        Blue = blue;
-        Alpha = alpha;
+        RedB = red;
+        GreenB = green;
+        BlueB = blue;
+        AlphaB = alpha;
     }
         
     public UiColor(int red, int green, int blue, int alpha = 255) : this(
@@ -56,12 +71,12 @@ public readonly struct UiColor : IEquatable<UiColor>
     #region Operators
     public static implicit operator UiColor(string value) => ParseHexColor(value);
     public static implicit operator UiColor(Color value) => new(value);
-    public static implicit operator Color(UiColor value) => new(ToFloat(value.Red), ToFloat(value.Green), ToFloat(value.Blue), ToFloat(value.Alpha));
-    public static bool operator ==(UiColor lhs, UiColor rhs) => lhs.Red == rhs.Red && lhs.Green == rhs.Green && lhs.Blue == rhs.Blue && lhs.Alpha == rhs.Alpha;
+    public static implicit operator Color(UiColor value) => new(ToFloat(value.RedB), ToFloat(value.GreenB), ToFloat(value.BlueB), ToFloat(value.AlphaB));
+    public static bool operator ==(UiColor lhs, UiColor rhs) => lhs.RedB == rhs.RedB && lhs.GreenB == rhs.GreenB && lhs.BlueB == rhs.BlueB && lhs.AlphaB == rhs.AlphaB;
     public static bool operator !=(UiColor lhs, UiColor rhs) => !(lhs == rhs);
     public static UiColor operator *(UiColor color, UiColor multiplier)
     {
-        return new UiColor(ToFloat(color.Red) * ToFloat(multiplier.Red), ToFloat(color.Green) * ToFloat(multiplier.Green), ToFloat(color.Blue) * ToFloat(multiplier.Blue), ToFloat(color.Alpha) * ToFloat(multiplier.Alpha));
+        return new UiColor(ToFloat(color.RedB) * ToFloat(multiplier.RedB), ToFloat(color.GreenB) * ToFloat(multiplier.GreenB), ToFloat(color.BlueB) * ToFloat(multiplier.BlueB), ToFloat(color.AlphaB) * ToFloat(multiplier.AlphaB));
     }
 
     private static float ToFloat(byte value) => value / 255f;
@@ -76,20 +91,20 @@ public readonly struct UiColor : IEquatable<UiColor>
         
     public override int GetHashCode()
     {
-        int red = Red << 24;
-        int green = Green << 16;
-        int blue = Blue << 8;
-        return red | green | blue | Alpha;
+        int red = RedB << 24;
+        int green = GreenB << 16;
+        int blue = BlueB << 8;
+        return red | green | blue | AlphaB;
     }
 
-    public override string ToString() => $"{ToFloat(Red)} {ToFloat(Green)} {ToFloat(Blue)} {ToFloat(Alpha)}";
+    public override string ToString() => $"{ToFloat(RedB)} {ToFloat(GreenB)} {ToFloat(BlueB)} {ToFloat(AlphaB)}";
     #endregion
 
     #region Modifiers
     [Pure]
     public UiColor WithAlpha(byte alpha)
     {
-        return new UiColor(Red, Green, Blue, alpha);
+        return new UiColor(RedB, GreenB, BlueB, alpha);
     }
         
     [Pure]
@@ -113,7 +128,7 @@ public readonly struct UiColor : IEquatable<UiColor>
     [Pure]
     public UiColor MultiplyAlpha(float alpha)
     {
-        return WithAlpha((byte)Mathf.Clamp(Alpha * alpha, 0, byte.MaxValue));
+        return WithAlpha((byte)Mathf.Clamp(AlphaB * alpha, 0, byte.MaxValue));
     }
         
     [Pure]
@@ -127,29 +142,29 @@ public readonly struct UiColor : IEquatable<UiColor>
     public UiColor Darken(float percentage)
     {
         percentage = Mathf.Clamp01(percentage);
-        byte red = (byte)Mathf.Clamp(Red * (1 - percentage), 0, byte.MaxValue);
-        byte green = (byte)Mathf.Clamp(Green * (1 - percentage), 0, byte.MaxValue);
-        byte blue = (byte)Mathf.Clamp(Blue * (1 - percentage), 0, byte.MaxValue);
+        byte red = (byte)Mathf.Clamp(RedB * (1 - percentage), 0, byte.MaxValue);
+        byte green = (byte)Mathf.Clamp(GreenB * (1 - percentage), 0, byte.MaxValue);
+        byte blue = (byte)Mathf.Clamp(BlueB * (1 - percentage), 0, byte.MaxValue);
 
-        return new UiColor(red, green, blue, Alpha);
+        return new UiColor(red, green, blue, AlphaB);
     }
 
     [Pure]
     public UiColor Lighten(float percentage)
     {
         percentage = Mathf.Clamp01(percentage);
-        float red = (byte)Mathf.Clamp(byte.MaxValue - Red * percentage + Red, 0, byte.MaxValue);
-        float green = (byte)Mathf.Clamp(byte.MaxValue - Green * percentage + Red, 0, byte.MaxValue);
-        float blue = (byte)Mathf.Clamp(byte.MaxValue - Blue * percentage + Red, 0, byte.MaxValue);
+        float red = (byte)Mathf.Clamp(byte.MaxValue - RedB * percentage + RedB, 0, byte.MaxValue);
+        float green = (byte)Mathf.Clamp(byte.MaxValue - GreenB * percentage + RedB, 0, byte.MaxValue);
+        float blue = (byte)Mathf.Clamp(byte.MaxValue - BlueB * percentage + RedB, 0, byte.MaxValue);
 
-        return new UiColor(red, green, blue, Alpha);
+        return new UiColor(red, green, blue, AlphaB);
     }
         
     [Pure]
     public static UiColor Lerp(UiColor start, UiColor end, float value)
     {
         value = Mathf.Clamp01(value);
-        return new UiColor(LerpField(start.Red, end.Red, value), LerpField(start.Green, end.Green, value), LerpField(start.Blue, end.Blue, value), LerpField(start.Alpha, end.Alpha, value));
+        return new UiColor(LerpField(start.RedB, end.RedB, value), LerpField(start.GreenB, end.GreenB, value), LerpField(start.BlueB, end.BlueB, value), LerpField(start.AlphaB, end.AlphaB, value));
     }
 
     private static byte LerpField(byte start, byte end, float value)

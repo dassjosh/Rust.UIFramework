@@ -365,16 +365,16 @@ public static class SpanExt
         Span<char> span = Buffer.Value.AsSpan();
         ReadOnlySpan<char> format = "X2".AsSpan();
         
-        value.Red.TryFormat(span, out int _, format);
-        value.Green.TryFormat(span[2..], out int _, format);
-        value.Blue.TryFormat(span[4..], out int _, format);
-        if (value.Alpha == byte.MaxValue)
+        value.RedB.TryFormat(span, out int _, format);
+        value.GreenB.TryFormat(span[2..], out int _, format);
+        value.BlueB.TryFormat(span[4..], out int _, format);
+        if (value.AlphaB == byte.MaxValue)
         {
             written = span[..6];
             return true;
         }
 
-        value.Alpha.TryFormat(span[6..], out int _, format);
+        value.AlphaB.TryFormat(span[6..], out int _, format);
         written = span[..8];
         return true;
     }

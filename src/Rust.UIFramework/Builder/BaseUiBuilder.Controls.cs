@@ -191,10 +191,19 @@ public partial class BaseUiBuilder
     #endregion
 
     #region ProgressBar
-    public UiTuple<UiPanel, UiPanel> ProgressBar(in UiReference parent, in UiPosition pos, in UiOffset offset, float percentage, UiColor barColor, UiColor backgroundColor)
+    public UiTuple<UiPanel, UiPanel> ProgressBar(in UiReference parent, in UiPosition pos, in UiOffset offset, float percentage, UiColor barColor, UiColor backgroundColor, ProgressBarDirection direction = ProgressBarDirection.LeftToRight)
     {
+        UiPosition barPos = direction switch
+        {
+            ProgressBarDirection.LeftToRight => UiPosition.Full.SliceHorizontal(0, percentage),
+            ProgressBarDirection.RightToLeft => UiPosition.Full.SliceHorizontal(1 - percentage, 1),
+            ProgressBarDirection.TopToBottom => UiPosition.Full.SliceVertical(0, percentage),
+            ProgressBarDirection.BottomToTop => UiPosition.Full.SliceVertical(1 - percentage, 1),
+            _ => throw new ArgumentOutOfRangeException(nameof(direction), direction, null)
+        };
+
         UiPanel background = Panel(parent, pos, offset, backgroundColor);
-        UiPanel progress = Panel(background, UiPosition.Full.SliceHorizontal(0, percentage), default, barColor);
+        UiPanel progress = Panel(background, barPos, default, barColor);
         return new UiTuple<UiPanel, UiPanel>(background, progress);
     }
     #endregion

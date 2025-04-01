@@ -19,7 +19,7 @@ public class UiCheckbox : BaseUiControl
     {
         UiCheckbox control = CreateControl<UiCheckbox>();
         control.IsChecked = isChecked;
-        control.Button = builder.CommandButton(parent, pos, offset, buttonColor ?? UiColor.Clear, command);
+        control.Button = builder.Button(parent, pos, offset, buttonColor ?? UiColor.Clear, command);
         if (isChecked)
         {
             control.Icon = builder.Icon(control.Button, UiPosition.Full, default, Icons.CheckSquare, checkedColor ?? UiColors.Rust.Green);

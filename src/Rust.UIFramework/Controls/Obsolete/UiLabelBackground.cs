@@ -18,7 +18,7 @@ public class UiLabelBackground : BaseUiControl
     {
         UiLabelBackground control = CreateControl<UiLabelBackground>();
         control.Background = builder.Panel(parent, pos, offset, backgroundColor);
-        control.Label = builder.Label(control.Background, UiPosition.HorizontalPaddedFull, text, fontSize, textColor, align);
+        control.Label = builder.Label(control.Background, UiPosition.HorizontalPaddedFull, default, text, fontSize, textColor, align);
         return control;
     }
 
