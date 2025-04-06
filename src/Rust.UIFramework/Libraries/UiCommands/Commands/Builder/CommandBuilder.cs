@@ -1,6 +1,4 @@
-﻿// ReSharper disable CoVariantArrayConversion
-
-namespace Oxide.Ext.UiFramework.Libraries;
+﻿namespace Oxide.Ext.UiFramework.Libraries;
 
 internal class CommandBuilder : BaseCommandBuilder, ICommandBuilder
 {
@@ -18,7 +16,7 @@ internal class CommandBuilder : BaseCommandBuilder, ICommandBuilder
 
     public string Build()
     {
-        return _staticCommand ?? ProtectCommand(StartBuilding());
+        return _staticCommand ?? FinishBuilding(StartBuilding());
     }
 }
 
@@ -28,7 +26,7 @@ internal class CommandBuilder<T0>(string command, ICommandProtection protection,
     {
         ArgWriterIterator writer = StartBuilding();
         writer.WriteArgs(arg0);
-        return ProtectCommand(writer);
+        return FinishBuilding(writer);
     }
 }
 
@@ -38,11 +36,12 @@ internal class CommandBuilder<T0, T1>(string command, ICommandProtection protect
     {
         ArgWriterIterator writer = StartBuilding();
         writer.WriteArgs(arg0, arg1);
-        return ProtectCommand(writer);
+        return FinishBuilding(writer);
     }
 
     public ICommandBuilder<T1> Partial(T0 arg0)
     {
+        
         ArgWriterIterator writer = StartBuilding();
         writer.WriteArgs(arg0);
         return new CommandBuilder<T1>(writer.ToString(), Protection, Writers, writer.Index);
@@ -55,7 +54,7 @@ internal class CommandBuilder<T0, T1, T2>(string command, ICommandProtection pro
     {
         ArgWriterIterator writer = StartBuilding();
         writer.WriteArgs(arg0, arg1, arg2);
-        return ProtectCommand(writer);
+        return FinishBuilding(writer);
     }
     
     public ICommandBuilder<T2> Partial(T0 arg0, T1 arg1)
@@ -64,7 +63,7 @@ internal class CommandBuilder<T0, T1, T2>(string command, ICommandProtection pro
         writer.WriteArgs(arg0, arg1);
         return new CommandBuilder<T2>(writer.ToString(), Protection, Writers, writer.Index);
     }
-    
+
     public ICommandBuilder<T1, T2> Partial(T0 arg0)
     {
         ArgWriterIterator writer = StartBuilding();
@@ -79,7 +78,7 @@ internal class CommandBuilder<T0, T1, T2, T3>(string command, ICommandProtection
     {
         ArgWriterIterator writer = StartBuilding();
         writer.WriteArgs(arg0, arg1, arg2, arg3);
-        return ProtectCommand(writer);
+        return FinishBuilding(writer);
     }
     
     public ICommandBuilder<T3> Partial(T0 arg0, T1 arg1, T2 arg2)
@@ -103,7 +102,7 @@ internal class CommandBuilder<T0, T1, T2, T3, T4>(string command, ICommandProtec
     {
         ArgWriterIterator writer = StartBuilding();
         writer.WriteArgs(arg0, arg1, arg2, arg3, arg4);
-        return ProtectCommand(writer);
+        return FinishBuilding(writer);
     }
     
     public ICommandBuilder<T4> Partial(T0 arg0, T1 arg1, T2 arg2, T3 arg3)
@@ -127,7 +126,7 @@ internal class CommandBuilder<T0, T1, T2, T3, T4, T5>(string command, ICommandPr
     {
         ArgWriterIterator writer = StartBuilding();
         writer.WriteArgs(arg0, arg1, arg2, arg3, arg4, arg5);
-        return ProtectCommand(writer);
+        return FinishBuilding(writer);
     }
     
     public ICommandBuilder<T5> Partial(T0 arg0, T1 arg1, T2 arg2, T3 arg3, T4 arg4)
@@ -151,7 +150,7 @@ internal class CommandBuilder<T0, T1, T2, T3, T4, T5, T6>(string command, IComma
     {
         ArgWriterIterator writer = StartBuilding();
         writer.WriteArgs(arg0, arg1, arg2, arg3, arg4, arg5, arg6);
-        return ProtectCommand(writer);
+        return FinishBuilding(writer);
     }
     
     public ICommandBuilder<T6> Partial(T0 arg0, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5)
@@ -175,7 +174,7 @@ internal class CommandBuilder<T0, T1, T2, T3, T4, T5, T6, T7>(string command, IC
     {
         ArgWriterIterator writer = StartBuilding();
         writer.WriteArgs(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7);
-        return ProtectCommand(writer);
+        return FinishBuilding(writer);
     }
     
     public ICommandBuilder<T7> Partial(T0 arg0, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6)

@@ -10,12 +10,16 @@ internal class BaseCommandBuilder(string command, ICommandProtection protection,
 
     protected ArgWriterIterator StartBuilding()
     {
-        StringBuilder sb = StringBuilderPool.Instance.Get();
-        sb.Append(command);
-        UiArgWriter argWriter = new(sb);
+        UiArgWriter argWriter = new(StringBuilderPool.Instance.Get());
         ArgWriterIterator iterator = new(argWriter, Writers, argIndex);
         return iterator;
     }
     
-    protected string ProtectCommand(ArgWriterIterator writer) => Protection?.ProtectCommand(writer) ?? writer.ToString();
+    protected string FinishBuilding(ArgWriterIterator writerIterator)
+    {
+        UiArgWriter writer = writerIterator.Writer;
+        Protection?.ProtectCommand(command, ref writer);
+        writer.Insert(command);
+        return writer.ToString();
+    }
 }

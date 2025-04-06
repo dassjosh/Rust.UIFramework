@@ -20,15 +20,14 @@ internal class SimpleProtection : ICommandProtection
     
     internal string GetProtectionKey() => _protectionKey;
 
-    public string ProtectCommand(ArgWriterIterator writer)
+    public void ProtectCommand(string command, ref UiArgWriter writer)
     {
-        writer.Write(_protectionKey);
-        return writer.ToString();
+        writer.Insert(_protectionKey);
     }
 
     public bool TryValidateProtection(BasePlayer player, ref UiCommandTokenizer tokenizer)
     {
-        if (!tokenizer.GetLast().SequenceEqual(_protectionKey))
+        if (!tokenizer.GetNext().SequenceEqual(_protectionKey))
         {
             tokenizer = default;
             Singleton<UiCommands>.Instance.OnProtectionValidationFailed(_pluginId, player, _method);

@@ -140,6 +140,13 @@ public readonly ref struct UiArgWriter(StringBuilder sb)
             sb.Append(' ');
         }
     }
+
+    internal void Insert(string value) => Insert(value.AsSpan());
+    internal void Insert(ReadOnlySpan<char> value)
+    {
+        sb.Insert(0, ' ');
+        sb.Insert(0, value);
+    }
     
     public override string ToString()
     {

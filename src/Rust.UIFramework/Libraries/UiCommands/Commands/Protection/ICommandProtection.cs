@@ -2,6 +2,6 @@
 
 internal interface ICommandProtection
 {
-    public string ProtectCommand(ArgWriterIterator writer);
+    public void ProtectCommand(string command, ref UiArgWriter writer);
     public bool TryValidateProtection(BasePlayer player, ref UiCommandTokenizer tokenizer);
 }

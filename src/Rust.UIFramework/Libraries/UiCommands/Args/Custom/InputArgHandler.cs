@@ -5,6 +5,8 @@ namespace Oxide.Ext.UiFramework.Libraries;
 public readonly struct InputArg(string value)
 {
     public readonly string Value = value;
+    public bool IsValid => !string.IsNullOrEmpty(Value);
+    public static InputArg Empty => new(null);
     
     public bool TryGetValue(out byte value) => byte.TryParse(Value, out value);
     public bool TryGetValue(out sbyte value) => sbyte.TryParse(Value, out value);

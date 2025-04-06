@@ -8,24 +8,23 @@ using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Libraries;
 
-internal class ExtremeProtection(PluginId pluginId, string method, float protectionKeyLifetime, string protectingStringPrefix, bool multiUse) : ICommandProtection
+internal class ExtremeProtection(PluginId pluginId, string method, float protectionKeyLifetime, bool multiUse) : ICommandProtection
 {
     private readonly UiMemoryCache<long, string> _protectedArgs = new(TimeSpan.FromSeconds(protectionKeyLifetime));
 
-    public string ProtectCommand(ArgWriterIterator writer)
+    public void ProtectCommand(string command, ref UiArgWriter writer)
     {
         long protectionKey = GenerateProtectionKey();
         _protectedArgs[protectionKey] = writer.ToString();
-        StringBuilder sb = StringBuilderPool.Instance.Get();
-        sb.Append(protectingStringPrefix);
-        sb.Append(' ');
-        sb.Append(protectionKey.ToBase64Span());
-        return sb.ToStringAndFree();
+        writer = new UiArgWriter(StringBuilderPool.Instance.Get());
+        writer.Append(command);
+        writer.AppendSpace();
+        writer.Append(protectionKey.ToBase64Span());
     }
 
     public bool TryValidateProtection(BasePlayer player, ref UiCommandTokenizer tokenizer)
     {
-        long protectionKey = tokenizer.GetLast().ToLongFromBase64();
+        long protectionKey = tokenizer.GetNext().ToLongFromBase64();
         if (!_protectedArgs.TryGetValue(protectionKey, out string args))
         {
             tokenizer = default;
@@ -39,7 +38,6 @@ internal class ExtremeProtection(PluginId pluginId, string method, float protect
         }
 
         tokenizer = new UiCommandTokenizer(args);
-        tokenizer.SkipNext(2);  //Skip Command Prefix & Command ID
         return true;
     }
 

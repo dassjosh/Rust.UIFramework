@@ -853,7 +853,7 @@ public class AssetBrowser : RustPlugin
         public readonly ICommandBuilder<UiState, string> PathInto;
         public readonly ICommandBuilder<string> SelectAsset;
         public readonly ICommandBuilder<UiState, int> ChangePage;
-        public readonly ICommandBuilder<UiState> InputTest;
+        public readonly ICommandBuilder<UiState, InputArg> InputTest;
 
         public UiCommandHandler(AssetBrowser plugin)
         {
@@ -865,7 +865,7 @@ public class AssetBrowser : RustPlugin
             PathInto = plugin._commands.RegisterCommand<UiState, string>(plugin, plugin.PathInto);
             SelectAsset = plugin._commands.RegisterCommand<string>(plugin, plugin.SelectAsset);
             ChangePage = plugin._commands.RegisterCommand<UiState, int>(plugin, plugin.ChangePage);
-            InputTest = plugin._commands.RegisterInput<UiState>(plugin, plugin.InputTest);
+            InputTest = plugin._commands.RegisterCommand<UiState, InputArg>(plugin, plugin.InputTest);
         }
     }
     #endregion

@@ -3,10 +3,10 @@ using System.Runtime.CompilerServices;
 
 namespace Oxide.Ext.UiFramework.Libraries;
 
-internal ref struct ArgWriterIterator(UiArgWriter writer, IArgWriter[] writers, int index = 0)
+internal ref struct ArgWriterIterator(UiArgWriter writer, IArgWriter[] writers, int startIndex = 0)
 {
-    private readonly UiArgWriter _writer = writer;
-    internal int Index { get; private set; } = index;
+    internal readonly UiArgWriter Writer = writer;
+    internal int Index { get; private set; } = startIndex;
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void WriteArgs<T0>(T0 arg)
@@ -66,21 +66,25 @@ internal ref struct ArgWriterIterator(UiArgWriter writer, IArgWriter[] writers, 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private void WriteNext<T>(T arg)
     {
-        _writer.AppendSpace();
-        ((IArgWriter<T>)writers[Index++]).Write(_writer, arg);
+        int index = Index++;
+        if(index != writers.Length - 1 || arg is not InputArg)
+        {
+            Writer.AppendSpace();
+            ((IArgWriter<T>)writers[index]).Write(Writer, arg);
+        }
     }
 
     internal void Write(string arg)
     {
-        _writer.AppendSpace();
-        _writer.Append(arg);
+        Writer.AppendSpace();
+        Writer.Append(arg);
     }
     
     internal void Write(ReadOnlySpan<char> arg)
     {
-        _writer.AppendSpace();
-        _writer.Append(arg);
+        Writer.AppendSpace();
+        Writer.Append(arg);
     }
 
-    public override string ToString() => _writer.ToString();
+    public override string ToString() => Writer.ToString();
 }

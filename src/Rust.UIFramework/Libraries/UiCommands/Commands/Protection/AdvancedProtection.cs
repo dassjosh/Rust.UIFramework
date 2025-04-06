@@ -10,15 +10,14 @@ internal class AdvancedProtection(PluginId pluginId, string method, float protec
 {
     private readonly UiMemoryCache<int> _protectionCache = new(TimeSpan.FromSeconds(protectionKeyLifetime));
     
-    public string ProtectCommand(ArgWriterIterator writer)
+    public void ProtectCommand(string command, ref UiArgWriter writer)
     {
-        writer.Write(GenerateProtectionKey().ToBase64Span());
-        return writer.ToString();
+        writer.Insert(GenerateProtectionKey().ToBase64Span());
     }
 
     public bool TryValidateProtection(BasePlayer player, ref UiCommandTokenizer tokenizer)
     {
-        int value = tokenizer.GetLast().ToIntFromBase64();
+        int value = tokenizer.GetNext().ToIntFromBase64();
         if (!_protectionCache.ContainsKey(value))
         {
             tokenizer = default;
