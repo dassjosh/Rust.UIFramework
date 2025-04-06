@@ -11,7 +11,7 @@ public class KeyFrameColorAnimator(UiColor startColor, UiColor endColor) : KeyFr
 public class KeyFrameOffsetAnimator(UiOffset startOffset, UiOffset endOffset) : KeyFrameAnimator<UiOffset>(startOffset, endOffset, (start, end, t) => UiOffset.LerpUnclamped(start, end, t));
 public class KeyFramePositionAnimator(UiPosition startPosition, UiPosition endPosition) : KeyFrameAnimator<UiPosition>(startPosition, endPosition, (start, end, t) => UiPosition.LerpUnclamped(start, end, t));
 
-public abstract class KeyFrameAnimator<T> : ICustomAnimator<T>
+public abstract class KeyFrameAnimator<T> : IAnimator<T>
 {
     private readonly SortedList<float, T> _keyFrames = [];
     private readonly Func<T, T, float, T> _lerp;
@@ -42,7 +42,6 @@ public abstract class KeyFrameAnimator<T> : ICustomAnimator<T>
                 T next = _keyFrames.Values[i + 1];
 
                 float elapsed = (progress - keyFramePercentage) / (nextKeyFramePercentage - keyFramePercentage);
-            
                 return _lerp(start, next, elapsed);
             }
         }

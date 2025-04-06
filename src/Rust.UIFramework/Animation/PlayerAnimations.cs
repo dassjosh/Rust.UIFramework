@@ -7,14 +7,13 @@ namespace Oxide.Ext.UiFramework.Animation;
 internal sealed class PlayerAnimations : BasePoolable
 {
     public SendInfo Send;
-    public ConcurrentDictionary<AnimationId, BaseAnimation> Animations;
+    public readonly ConcurrentDictionary<AnimationId, BaseAnimation> Animations = new();
     public bool IsEmpty => Animations.Count == 0;
 
     public static PlayerAnimations Create(SendInfo send)
     {
         PlayerAnimations animations = UiFrameworkPool.Get<PlayerAnimations>();
         animations.Send = send;
-        animations.Animations = UiFrameworkPool.GetConcurrentDictionary<AnimationId, BaseAnimation>();
         return animations;
     }
 
@@ -25,7 +24,7 @@ internal sealed class PlayerAnimations : BasePoolable
     {
         Send = default;
         UiFrameworkPool.FreeConcurrentDictionary(Animations);
-        Animations = default;
+        Animations.Clear();
         base.EnterPool();
     }
 }

@@ -15,7 +15,6 @@ using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.Types;
 using Oxide.Ext.UiFramework.UiElements;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.Builder;
 

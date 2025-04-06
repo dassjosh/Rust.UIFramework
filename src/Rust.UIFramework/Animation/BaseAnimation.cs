@@ -21,7 +21,6 @@ public abstract class BaseAnimation : BasePoolable
     private float _repeatDelay;
     internal SendInfo Send { get; private set; }
     private ICustomProgressor _customProgressor;
-    protected ICustomAnimator CustomAnimator;
     private bool _destroyAfter;
     private UiReference? _destroyTarget;
     public float StartTime { get; private set; }
@@ -75,12 +74,6 @@ public abstract class BaseAnimation : BasePoolable
     }
 
     public BaseAnimation WithLoop() => WithCustomProgressor(LoopProgressor.Default);
-    
-    public BaseAnimation WithCustomAnimation(ICustomAnimator customAnimator)
-    {
-        CustomAnimator = customAnimator;
-        return this;
-    }
 
     public BaseAnimation WithCustomProgressor(ICustomProgressor progressor)
     {
@@ -197,7 +190,6 @@ public abstract class BaseAnimation : BasePoolable
             UiFrameworkPool.FreeList(Send.connections);
         }
         Send = default;
-        CustomAnimator = default;
         _destroyAfter = default;
         _destroyTarget = default;
         StartTime = default;

@@ -45,6 +45,7 @@ internal class AnimationHandler : ISingleton
             animation.WriteCompletedComponent(writer);
             SendAnimations(writer, animation.Send);
             animation.OnRemoved();
+            return;
         }
         
         _animations[animation.Id] = animation;
@@ -164,19 +165,16 @@ internal class AnimationHandler : ISingleton
         }
             
         float effectiveElapsed = animation.Elapsed - animation.Delay;
-        if (effectiveElapsed >= 0 && effectiveElapsed <= animation.Duration)
+        if (effectiveElapsed <= animation.Duration)
         {
             animation.WriteAnimationComponent(writer, animation.ElapsedPercentage);
             return;
         }
 
-        if (effectiveElapsed > animation.Duration)
+        animation.WriteCompletedComponent(writer);
+        if (animation.OnAnimationEnded(currentTime))
         {
-            animation.WriteCompletedComponent(writer);
-            if (animation.OnAnimationEnded(currentTime))
-            {
-                RemoveAnimation(id);
-            }
+            RemoveAnimation(id);
         }
     }
     

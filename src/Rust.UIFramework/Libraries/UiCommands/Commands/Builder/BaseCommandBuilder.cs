@@ -1,5 +1,4 @@
-﻿using System.Text;
-using Oxide.Ext.UiFramework.Pooling;
+﻿using Oxide.Ext.UiFramework.Pooling;
 
 namespace Oxide.Ext.UiFramework.Libraries;
 
