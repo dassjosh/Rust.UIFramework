@@ -14,12 +14,6 @@ namespace Oxide.Ext.UiFramework.Config;
 internal class UiFrameworkConfig : ConfigFile
 {
     internal static UiFrameworkConfig Instance;
-        
-    /// <summary>
-    /// UiFramework Harmony Options
-    /// </summary>
-    [JsonProperty("Harmony")]
-    public UiHarmonyConfig Harmony { get; set; }
     
     /// <summary>
     /// UiFramework Image Storage Options
@@ -30,14 +24,20 @@ internal class UiFrameworkConfig : ConfigFile
     /// <summary>
     /// UiFramework Image Storage Options
     /// </summary>
-    [JsonProperty("Steam")]
-    public UiSteamConfig Steam { get; set; }
+    [JsonProperty("Animations")]
+    public UiAnimationConfig Animations { get; set; }
     
     /// <summary>
     /// UiFramework Image Storage Options
     /// </summary>
-    [JsonProperty("Animations")]
-    public UiAnimationConfig Animations { get; set; }
+    [JsonProperty("Steam")]
+    public UiSteamConfig Steam { get; set; }
+            
+    /// <summary>
+    /// UiFramework Harmony Options
+    /// </summary>
+    [JsonProperty("Harmony")]
+    public UiHarmonyConfig Harmony { get; set; }
     
     /// <summary>
     /// UiFramework Logging Options

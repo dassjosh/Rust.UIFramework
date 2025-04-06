@@ -126,21 +126,21 @@ public partial class BaseUiBuilder
     #region Image
     public UiImage ImageSprite(in UiReference parent, string sprite, UiColor? color = default)
     {
-        UiImage image = UiImage.CreateSpriteImage(sprite, color ?? UiColor.White);
+        UiImage image = UiImage.CreateSpriteImage(sprite, color ?? UiColors.White);
         AddComponent(image, parent);
         return image;
     }
     
     public UiImage ImageSprite(in UiReference parent, in UiPosition pos, in UiOffset offset, string sprite, UiColor? color = default)
     {
-        UiImage image = ImageSprite(parent, sprite, color ?? UiColor.White);
+        UiImage image = ImageSprite(parent, sprite, color ?? UiColors.White);
         image.SetPosition(pos, offset);
         return image;
     }
     
     public UiImage ImageSprite(BaseLayout layout, string sprite, UiColor? color = default)
     {
-        UiImage image = ImageSprite(layout.Reference, sprite, color ?? UiColor.White);
+        UiImage image = ImageSprite(layout.Reference, sprite, color ?? UiColors.White);
         layout.AddElement(image);
         return image;
     }
@@ -149,21 +149,21 @@ public partial class BaseUiBuilder
     #region PlayingCard
     public UiPlayingCard PlayingCard(in UiReference parent, PlayingCardData card, UiCardType type = UiCardType.Normal, UiColor? color = default)
     {
-        UiPlayingCard image = UiPlayingCard.Create(card, type, color ?? UiColor.White);
+        UiPlayingCard image = UiPlayingCard.Create(card, type, color ?? UiColors.White);
         AddComponent(image, parent);
         return image;
     }
     
     public UiPlayingCard PlayingCard(in UiReference parent, in UiPosition pos, in UiOffset offset, PlayingCardData card, UiCardType type = UiCardType.Normal, UiColor? color = default)
     {
-        UiPlayingCard image = PlayingCard(parent, card, type, color ?? UiColor.White);
+        UiPlayingCard image = PlayingCard(parent, card, type, color ?? UiColors.White);
         image.SetPosition(pos, offset);
         return image;
     }
     
     public UiPlayingCard PlayingCard(BaseLayout layout, PlayingCardData card, UiCardType type = UiCardType.Normal, UiColor? color = default)
     {
-        UiPlayingCard image = PlayingCard(layout.Reference, card, type, color ?? UiColor.White);
+        UiPlayingCard image = PlayingCard(layout.Reference, card, type, color ?? UiColors.White);
         layout.AddElement(image);
         return image;
     }
@@ -172,21 +172,21 @@ public partial class BaseUiBuilder
     #region Item Icon
     public UiItemIcon ItemIcon(in UiReference parent, int itemId, ulong skinId = 0, UiColor? color = default)
     {
-        UiItemIcon image = UiItemIcon.Create(itemId, skinId, color ?? UiColor.White);
+        UiItemIcon image = UiItemIcon.Create(itemId, skinId, color ?? UiColors.White);
         AddComponent(image, parent);
         return image;
     }
     
     public UiItemIcon ItemIcon(in UiReference parent, in UiPosition pos, in UiOffset offset, int itemId, ulong skinId = 0, UiColor? color = default)
     {
-        UiItemIcon image = ItemIcon(parent, itemId, skinId, color ?? UiColor.White);
+        UiItemIcon image = ItemIcon(parent, itemId, skinId, color ?? UiColors.White);
         image.SetPosition(pos, offset);
         return image;
     }
     
     public UiItemIcon ItemIcon(BaseLayout layout, int itemId, ulong skinId = 0, UiColor? color = default)
     {
-        UiItemIcon image = ItemIcon(layout.Reference, itemId, skinId, color ?? UiColor.White);
+        UiItemIcon image = ItemIcon(layout.Reference, itemId, skinId, color ?? UiColors.White);
         layout.AddElement(image);
         return image;
     }
@@ -198,21 +198,21 @@ public partial class BaseUiBuilder
     #region Player Avatar
     public UiPlayerAvatar PlayerAvatar(in UiReference parent, ulong steamId, AvatarType type = AvatarType.Medium, UiColor? color = default)
     {
-        UiPlayerAvatar image = UiPlayerAvatar.Create(steamId, type, color ?? UiColor.White);
+        UiPlayerAvatar image = UiPlayerAvatar.Create(steamId, type, color ?? UiColors.White);
         AddComponent(image, parent);
         return image;
     }
     
     public UiPlayerAvatar PlayerAvatar(in UiReference parent, in UiPosition pos, in UiOffset offset, ulong steamId, AvatarType type = AvatarType.Medium, UiColor? color = default)
     {
-        UiPlayerAvatar image = PlayerAvatar(parent, steamId, type, color ?? UiColor.White);
+        UiPlayerAvatar image = PlayerAvatar(parent, steamId, type, color ?? UiColors.White);
         image.SetPosition(pos, offset);
         return image;
     }
     
     public UiPlayerAvatar PlayerAvatar(BaseLayout layout, ulong steamId, AvatarType type = AvatarType.Medium, UiColor? color = default)
     {
-        UiPlayerAvatar image = PlayerAvatar(layout.Reference, steamId, type, color ?? UiColor.White);
+        UiPlayerAvatar image = PlayerAvatar(layout.Reference, steamId, type, color ?? UiColors.White);
         layout.AddElement(image);
         return image;
     }
@@ -221,21 +221,21 @@ public partial class BaseUiBuilder
     #region Raw Image
     public UiRawImage RawImage(in UiReference parent, string image, UiColor? color = default)
     {
-        UiRawImage rawImage = UiRawImage.Create(image, color ?? UiColor.White);
+        UiRawImage rawImage = UiRawImage.Create(image, color ?? UiColors.White);
         AddComponent(rawImage, parent);
         return rawImage;
     }
     
     public UiRawImage RawImage(in UiReference parent, in UiPosition pos, in UiOffset offset, string image, UiColor? color = default)
     {
-        UiRawImage rawImage = RawImage(parent, image, color ?? UiColor.White);
+        UiRawImage rawImage = RawImage(parent, image, color ?? UiColors.White);
         rawImage.SetPosition(pos, offset);
         return rawImage;
     }
     
     public UiRawImage RawImage(BaseLayout layout, string image, UiColor? color = default)
     {
-        UiRawImage rawImage = RawImage(layout.Reference, image, color ?? UiColor.White);
+        UiRawImage rawImage = RawImage(layout.Reference, image, color ?? UiColors.White);
         layout.AddElement(rawImage);
         return rawImage;
     }
@@ -253,21 +253,21 @@ public partial class BaseUiBuilder
     #region Icon
     public UiIcon Icon<T>(in UiReference parent, T icon, UiColor? color = default) where T : struct, Enum
     {
-        UiIcon image = UiIcon.CreateIcon(icon, color ?? UiColor.White);
+        UiIcon image = UiIcon.CreateIcon(icon, color ?? UiColors.White);
         AddComponent(image, parent);
         return image;
     }
     
     public UiIcon Icon<T>(in UiReference parent, in UiPosition pos, in UiOffset offset, T icon, UiColor? color = default) where T : struct, Enum
     {
-        UiIcon image = Icon(parent, icon, color ?? UiColor.White);
+        UiIcon image = Icon(parent, icon, color ?? UiColors.White);
         image.SetPosition(pos, offset);
         return image;
     }
     
     public UiIcon Icon<T>(BaseLayout layout, T icon, UiColor? color = default) where T : struct, Enum
     {
-        UiIcon image = Icon(layout.Reference, icon, color ?? UiColor.White);
+        UiIcon image = Icon(layout.Reference, icon, color ?? UiColors.White);
         layout.AddElement(image);
         return image;
     }

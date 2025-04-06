@@ -43,7 +43,9 @@ public class UiPlayerAvatars : BaseUiFrameworkLibrary, ISingleton
     {
         if (_httpClient != null)
         {
+#pragma warning disable EPC13
             Task.Run(() => GetPlayerAvatarAsync(player.userID));
+#pragma warning restore EPC13
         }
     }
 

@@ -82,7 +82,7 @@ public partial class UiBuilder
         UiBuilder builder = Create(backgroundBlur, name, layer);
         if (!string.IsNullOrEmpty(outsideCloseCommand))
         {
-            builder.Button(builder.Root, UiPosition.Full, default, UiColor.Clear, outsideCloseCommand);
+            builder.Button(builder.Root, UiPosition.Full, default, UiColors.Clear, outsideCloseCommand);
         }
             
         UiPanel modal = UiPanel.Create(modalColor);
@@ -96,7 +96,7 @@ public partial class UiBuilder
     {
         UiSection mainRoot = UiSection.Create(UiPosition.Full, default);
         UiBuilder builder = Create(mainRoot, name, UiLayerCache.GetLayer(parent));
-        builder.Button(builder.Root, UiPosition.Full, default, UiColor.Clear, closeCommand);
+        builder.Button(builder.Root, UiPosition.Full, default, UiColors.Clear, closeCommand);
         UiPanel panel = builder.Panel(builder.Root, pos, offset, color);
         builder.OverrideRoot(panel);
         return builder;
@@ -111,7 +111,7 @@ public partial class UiBuilder
     /// <returns></returns>
     public static UiBuilder CreateOutsideClose(string command, string name, UiLayer layer = UiLayer.Overlay)
     {
-        UiButton button = UiButton.Create(UiColor.Clear, command, ButtonType.Command);
+        UiButton button = UiButton.Create(UiColors.Clear, command, ButtonType.Command);
         button.SetPosition(UiPosition.Full, default);
         UiBuilder builder = Create(button, name, layer);
         builder.NeedsMouse();
@@ -126,7 +126,7 @@ public partial class UiBuilder
     /// <returns></returns>
     public static UiBuilder CreateMouseLock(string name, UiLayer layer = UiLayer.Overlay)
     {
-        UiBuilder builder = Create(UiPosition.None, UiColor.Clear, name, UiLayerCache.GetLayer(layer));
+        UiBuilder builder = Create(UiPosition.None, UiColors.Clear, name, UiLayerCache.GetLayer(layer));
         builder.NeedsMouse();
         return builder;
     }
@@ -153,9 +153,9 @@ public partial class UiBuilder
             _ => throw new ArgumentOutOfRangeException(nameof(position), position, null)
         };
         
-        builder.Button(builder.Root, UiPosition.Full, new UiOffset(9999 * 2), UiColor.Clear, name, ButtonType.Close);
+        builder.Button(builder.Root, UiPosition.Full, new UiOffset(9999 * 2), UiColors.Clear, name, ButtonType.Close);
         UiPanel background = builder.Panel(builder.Root, anchor, offset, backgroundColor).SetSpriteMaterialImage(menuSprite, null, Image.Type.Sliced);
-        background.AddOutline(UiColor.Black.WithAlpha(0.75f));
+        background.AddOutline(UiColors.Black.WithAlpha(0.75f));
         builder.OverrideRoot(background);
         
         return builder;
