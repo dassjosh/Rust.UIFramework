@@ -3,7 +3,9 @@ using System.IO;
 using Newtonsoft.Json;
 using Oxide.Core;
 using Oxide.Core.Configuration;
+using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Constants;
+using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Logging;
 
 namespace Oxide.Ext.UiFramework.Config;
@@ -14,6 +16,12 @@ namespace Oxide.Ext.UiFramework.Config;
 internal class UiFrameworkConfig : ConfigFile
 {
     internal static UiFrameworkConfig Instance;
+    
+    /// <summary>
+    /// UiFramework Image Storage Options
+    /// </summary>
+    [JsonProperty("Font")]
+    public UiFontConfig Font { get; set; }
     
     /// <summary>
     /// UiFramework Image Storage Options
@@ -87,6 +95,11 @@ internal class UiFrameworkConfig : ConfigFile
 
     private void ApplyDefaults()
     {
+        Font = new UiFontConfig
+        {
+            DefaultFont = Font?.DefaultFont ?? UiFontCache.GetUiFont(UiFont.RobotoCondensedRegular)
+        };
+        
         Harmony = new UiHarmonyConfig
         {
             PatchAddUiMethod = Harmony?.PatchAddUiMethod ?? false

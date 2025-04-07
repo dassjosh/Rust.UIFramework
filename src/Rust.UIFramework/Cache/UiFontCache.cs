@@ -25,7 +25,10 @@ public static class UiFontCache
         [UiFont.PermanentMarker] = Permanentmarker,
         [UiFont.RobotoCondensedBold] = RobotocondensedBold,
         [UiFont.RobotoCondensedRegular] = RobotocondensedRegular,
-        [UiFont.PressStart2PRegular] = Pressstart2pRegular
+        [UiFont.PressStart2PRegular] = Pressstart2pRegular,
+        [UiFont.RobotoMonoRegular] = RobotomonoRegular,
+        [UiFont.Lcd] = Lcd,
+        [UiFont.Poxel] = Poxel
     };
 
     public static string GetUiFont(UiFont font) => Fonts[font];

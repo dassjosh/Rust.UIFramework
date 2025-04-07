@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Network;
 using Oxide.Ext.UiFramework.Cache;
+using Oxide.Ext.UiFramework.Config;
 using Oxide.Ext.UiFramework.Controls;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Json;
@@ -18,7 +19,7 @@ public abstract partial class BaseUiBuilder : BaseBuilder
     protected readonly List<BaseLayout> Layouts = [];
         
     protected string Font;
-    protected static string GlobalFont = UiFontCache.GetUiFont(UiFont.RobotoCondensedRegular);
+    protected static readonly string GlobalFont = UiFrameworkConfig.Instance.Font.DefaultFont;
         
     public void EnsureCapacity(int capacity)
     {

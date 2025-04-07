@@ -25,5 +25,20 @@ public enum UiFont : byte
     /// <summary>
     /// PressStart2P-Regular.ttf
     /// </summary>
-    PressStart2PRegular
+    PressStart2PRegular,
+    
+    /// <summary>
+    /// robotomono-regular.ttf
+    /// </summary>
+    RobotoMonoRegular,
+        
+    /// <summary>
+    /// lcd.ttf
+    /// </summary>
+    Lcd,
+            
+    /// <summary>
+    /// poxel.otf
+    /// </summary>
+    Poxel,
 }
