@@ -19,7 +19,7 @@ public abstract partial class BaseUiBuilder : BaseBuilder
     protected readonly List<BaseLayout> Layouts = [];
         
     protected string Font;
-    protected static readonly string GlobalFont = UiFrameworkConfig.Instance.Font.DefaultFont;
+    private static readonly string GlobalFont = UiFrameworkConfig.Instance.Font.DefaultFont;
         
     public void EnsureCapacity(int capacity)
     {
