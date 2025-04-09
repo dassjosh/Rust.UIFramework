@@ -1,4 +1,5 @@
 
+using Oxide.Ext.UiFramework.Config;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Layouts;
 using Oxide.Ext.UiFramework.Offsets;
@@ -39,6 +40,8 @@ public class Benchmarks
     [GlobalSetup]
     public void Setup()
     {
+        if(UiFrameworkConfig.Instance == null) UiFrameworkConfig.LoadConfig();
+        
         _random = new(1234);
         //JsonBinaryWriter.SegmentSize = ArraySize;
         for (int i = 0; i < Iterations; i++)

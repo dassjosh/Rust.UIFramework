@@ -22,15 +22,10 @@ public partial class BaseUiBuilder
         
     protected abstract void AddAnchor(BaseUiComponent component, in UiReference parent);
 
-    public void AddControl(BaseUiControl control)
-    {
-        Controls.Add(control);
-    }
+    public void AddControl(BaseUiControl control) => Controls.Add(control);
 
-    public void AddLayout(BaseLayout layout)
-    {
-        Layouts.Add(layout);
-    }
+    public void AddLayout(BaseLayout layout) => Layouts.Add(layout);
+
     #endregion
 
     #region Base
@@ -43,8 +38,8 @@ public partial class BaseUiBuilder
     
     public T Base<T>(in UiReference parent, in UiPosition pos, in UiOffset offset = default) where T : BaseUiComponent, new()
     {
-        T @base = BaseUiComponent.CreateBase<T>(pos, offset);
-        AddComponent(@base, parent);
+        T @base = Base<T>(parent);
+        @base.SetPosition(pos, offset);
         return @base;
     }
     #endregion

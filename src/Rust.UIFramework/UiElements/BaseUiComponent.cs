@@ -18,13 +18,11 @@ public abstract class BaseUiComponent : BasePoolable
     public float FadeOut;
     public UiPosition Position;
     public UiOffset Offset;
+    public UpdateMode? Update;
     internal abstract CoreComponent Component { get; }
 
-    public static T CreateBase<T>() where T : BaseUiComponent, new()
-    {
-        return UiFrameworkPool.Get<T>();
-    }
-    
+    public static T CreateBase<T>() where T : BaseUiComponent, new() => UiFrameworkPool.Get<T>();
+
     public static T CreateBase<T>(in UiPosition pos, in UiOffset offset) where T : BaseUiComponent, new()
     {
         T component = CreateBase<T>();
@@ -37,35 +35,15 @@ public abstract class BaseUiComponent : BasePoolable
         Position = position;
         Offset = offset;
     }
-
-    public void WriteRootComponent(JsonFrameworkWriter writer, bool autoDestroy)
+    
+    public void SetFadeOut(float duration)
     {
-        writer.WriteStartObject();
-        writer.AddFieldRaw(JsonDefaults.Common.ComponentName, Reference.Name);
-        writer.AddFieldRaw(JsonDefaults.Common.ParentName, Reference.Parent);
-        writer.AddField(JsonDefaults.Common.FadeOutName, FadeOut, JsonDefaults.Common.FadeOut);
-        writer.AddField(JsonDefaults.Common.AutoDestroy, Reference.Name, autoDestroy);
-        writer.WritePropertyName(JsonDefaults.Common.ComponentsName);
-        writer.WriteStartArray();
-        WriteComponents(writer);
-        writer.WriteEndArray();
-        writer.WriteEndObject();
+        FadeOut = duration;
     }
 
-    public void WriteUpdateComponent(JsonFrameworkWriter writer)
+    public void SetUpdate(UpdateMode mode)
     {
-        writer.WriteStartObject();
-        writer.AddFieldRaw(JsonDefaults.Common.ComponentName, Reference.Name);
-        writer.AddFieldRaw(JsonDefaults.Common.ParentName, Reference.Parent);
-        writer.AddField(JsonDefaults.Common.FadeOutName, FadeOut, JsonDefaults.Common.FadeOut);
-        writer.AddFieldRaw(JsonDefaults.Common.AutoDestroy, Reference.Name);
-        writer.AddFieldRaw(JsonDefaults.Common.Update, true);
-
-        writer.WritePropertyName(JsonDefaults.Common.ComponentsName);
-        writer.WriteStartArray();
-        WriteComponents(writer);
-        writer.WriteEndArray();
-        writer.WriteEndObject();
+        Update = mode;
     }
 
     public void WriteComponent(JsonFrameworkWriter writer)
@@ -74,6 +52,15 @@ public abstract class BaseUiComponent : BasePoolable
         writer.AddFieldRaw(JsonDefaults.Common.ComponentName, Reference.Name);
         writer.AddFieldRaw(JsonDefaults.Common.ParentName, Reference.Parent);
         writer.AddField(JsonDefaults.Common.FadeOutName, FadeOut, JsonDefaults.Common.FadeOut);
+        switch (Update)
+        {
+            case UpdateMode.Redraw:
+                writer.AddFieldRaw(JsonDefaults.Common.AutoDestroy, Reference.Name);
+                break;
+            case UpdateMode.Update:
+                writer.AddFieldRaw(JsonDefaults.Common.Update, true);
+                break;
+        }
 
         writer.WritePropertyName(JsonDefaults.Common.ComponentsName);
         writer.WriteStartArray();
@@ -99,11 +86,6 @@ public abstract class BaseUiComponent : BasePoolable
         writer.AddField(JsonDefaults.Offset.OffsetMinName, Offset.Min, JsonDefaults.Common.Min);
         writer.AddField(JsonDefaults.Offset.OffsetMaxName, Offset.Max, JsonDefaults.Common.Max);
         writer.WriteEndObject();
-    }
-
-    public void SetFadeOut(float duration)
-    {
-        FadeOut = duration;
     }
     
     public OutlineComponent AddOutline(UiColor color, Vector2? distance = null, bool useGraphicAlpha = false)
@@ -164,6 +146,7 @@ public abstract class BaseUiComponent : BasePoolable
         FadeOut = 0;
         Position = default;
         Offset = default;
+        Update = default;
         Component.Reset();
     }
 

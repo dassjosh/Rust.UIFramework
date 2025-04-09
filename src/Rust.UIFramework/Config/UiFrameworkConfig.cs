@@ -57,7 +57,7 @@ internal class UiFrameworkConfig : ConfigFile
     /// Constructor for Ui Framework Config
     /// </summary>
     /// <param name="filename">Filename to use</param>
-    public UiFrameworkConfig(string filename) : base(filename)
+    private UiFrameworkConfig(string filename) : base(filename)
     {
         if (Instance != null)
         {
@@ -68,11 +68,16 @@ internal class UiFrameworkConfig : ConfigFile
         ApplyDefaults();
     }
 
-    public static void LoadConfig()
+    internal static void LoadConfig()
     {
+#if BENCHMARKS
+        new UiFrameworkConfig(null);
+#else
         string configPath = Path.Combine(PathConstants.ConfigFolder, "UiFramework.json");
         UiFrameworkConfig config = File.Exists(configPath) ? Load<UiFrameworkConfig>(configPath) : new UiFrameworkConfig(configPath);
         config.Save();
+#endif
+
     }
         
     /// <summary>

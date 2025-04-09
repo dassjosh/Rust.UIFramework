@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Exceptions;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Pooling;
@@ -8,27 +9,20 @@ namespace Oxide.Ext.UiFramework.Builder.Update;
 
 public class UpdateBuilder : BaseUiBuilder
 {
+    public UpdateMode UpdateMode;
     public static UpdateBuilder Create() => UiFrameworkPool.Get<UpdateBuilder>();
-        
-    protected override void WriteComponentsInternal(JsonFrameworkWriter writer)
-    {
-        WriteComponents(writer, Components);
-        WriteComponents(writer, Anchors);
-    }
 
-    private static void WriteComponents<T>(JsonFrameworkWriter writer, List<T> components) where T : BaseUiComponent
+    public void SetUpdateMode(UpdateMode mode)
     {
-        int count = components.Count;
-        for (int index = 0; index < count; index++)
-        {
-            components[index].WriteUpdateComponent(writer);
-        }
+        UpdateMode = mode;
     }
+    
     #region Add Components
     public override void AddComponent(BaseUiComponent component, in UiReference parent)
     {
         UiReferenceException.ThrowIfInvalidReference(parent);
         component.Reference = parent;
+        component.Update = UpdateMode;
         Components.Add(component);
     }
         
@@ -36,7 +30,13 @@ public class UpdateBuilder : BaseUiBuilder
     {
         UiReferenceException.ThrowIfInvalidReference(parent);
         component.Reference = parent;
+        component.Update = UpdateMode;
         Anchors.Add(component);
     }
     #endregion
+
+    protected override void EnterPool()
+    {
+        UpdateMode = default;
+    }
 }

@@ -50,7 +50,6 @@ public abstract partial class BaseUiBuilder : BaseBuilder
         
     public JsonFrameworkWriter CreateWriter()
     {
-        PreprocessElements();
         JsonFrameworkWriter writer = JsonFrameworkWriter.Create();
         writer.WriteStartArray();
         WriteComponentsInternal(writer);
@@ -58,7 +57,22 @@ public abstract partial class BaseUiBuilder : BaseBuilder
         return writer;
     }
 
-    protected abstract void WriteComponentsInternal(JsonFrameworkWriter writer);
+    private void WriteComponentsInternal(JsonFrameworkWriter writer)
+    {
+        PreprocessElements();
+        WriteComponents(writer, Components);
+        WriteComponents(writer, Anchors);
+    }
+
+    private static void WriteComponents<T>(JsonFrameworkWriter writer, List<T> components) where T : BaseUiComponent
+    {
+        int count = components.Count;
+        for (int index = 0; index < count; index++)
+        {
+            components[index].WriteComponent(writer);
+        }
+    }
+    
     protected virtual void OnUiSent(SendInfo send) {}
 
     private void PreprocessElements()

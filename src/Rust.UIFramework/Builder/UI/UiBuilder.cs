@@ -4,6 +4,7 @@ using Oxide.Ext.UiFramework.Animation;
 using Oxide.Ext.UiFramework.Builder.Cached;
 using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Components;
+using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Exceptions;
 using Oxide.Ext.UiFramework.Interfaces.Builders;
 using Oxide.Ext.UiFramework.Json;
@@ -18,8 +19,6 @@ public partial class UiBuilder : BaseUiBuilder, IAnimationBuilder
 
     private BaseUiComponent _actualRoot;
     private readonly List<BaseAnimation> _animations = [];
-    
-    private bool _autoDestroy = true;
 
     #region Decontructor
     ~UiBuilder()
@@ -36,6 +35,7 @@ public partial class UiBuilder : BaseUiBuilder, IAnimationBuilder
     {
         Root = component;
         _actualRoot = component;
+        component.Update = UpdateMode.Redraw;
         component.Reference = new UiReference(parent, name);
         Components.Add(component);
         RootName = name;
@@ -72,7 +72,7 @@ public partial class UiBuilder : BaseUiBuilder, IAnimationBuilder
 
     public void EnableAutoDestroy(bool enabled = true)
     {
-        _autoDestroy = enabled;
+        _actualRoot.Update = enabled ? UpdateMode.Redraw : null;
     }
 
     public BaseUiComponent GetActualRoot() => _actualRoot;
@@ -118,22 +118,7 @@ public partial class UiBuilder : BaseUiBuilder, IAnimationBuilder
     #endregion
 
     #region Write Components
-    protected override void WriteComponentsInternal(JsonFrameworkWriter writer)
-    {
-        _actualRoot.WriteRootComponent(writer, _autoDestroy);
 
-        WriteComponents(writer, Components, 1);
-        WriteComponents(writer, Anchors, 0);
-    }
-
-    private static void WriteComponents<T>(JsonFrameworkWriter writer, List<T> components, int startIndex) where T : BaseUiComponent
-    {
-        int count = components.Count;
-        for (int index = startIndex; index < count; index++)
-        {
-            components[index].WriteComponent(writer);
-        }
-    }
     #endregion
 
     #region Animations
@@ -162,7 +147,6 @@ public partial class UiBuilder : BaseUiBuilder, IAnimationBuilder
         base.EnterPool();
         Root = null;
         _actualRoot = null;
-        _autoDestroy = true;
     }
     #endregion
 }
