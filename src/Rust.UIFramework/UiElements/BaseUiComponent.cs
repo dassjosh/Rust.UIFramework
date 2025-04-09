@@ -118,6 +118,7 @@ public abstract class BaseUiComponent : BasePoolable
     [Obsolete("Use AddOutline instead")]
     public OutlineComponent AddElementOutline(UiColor color, Vector2? distance = null, bool useGraphicAlpha = false) => AddOutline(color, distance, useGraphicAlpha);
     
+    [Obsolete("This component is not currently supported in the Client. This will not work until they are merged in.")]
     public DraggableComponent AddDraggable(bool limitToParent = JsonDefaults.Draggable.LimitToParent,
         float maxDistance = JsonDefaults.Draggable.MaxDistance,
         bool allowSwapping = JsonDefaults.Draggable.AllowSwapping,
@@ -149,6 +150,7 @@ public abstract class BaseUiComponent : BasePoolable
         return draggable;
     }
     
+    [Obsolete("This component is not currently supported in the Client. This will not work until they are merged in.")]
     public SlotComponent AddSlot(string filter = null)
     {
         SlotComponent slot = Component.AddSubComponent<SlotComponent>();
