@@ -8,9 +8,9 @@ using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Layouts;
 
-public class UiDirectionalLayout : BaseLayout
+public class UiDirectionalLayout : BaseLayout, IFixedElementsLayout
 {
-    public int NumElements;
+    public int NumElements { get; set; }
     public LayoutDirection Direction;
     public LayoutAlignment Alignment;
     public LayoutPadding LayoutPadding;

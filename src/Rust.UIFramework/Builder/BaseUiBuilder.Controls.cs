@@ -9,6 +9,7 @@ using Oxide.Ext.UiFramework.Controls.Popover;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Layouts;
+using Oxide.Ext.UiFramework.Layouts.GridPositions;
 using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
@@ -234,6 +235,10 @@ public partial class BaseUiBuilder
         return control;
     }
 
+    public UiIncrementalNumberPicker<T> IncrementalNumberPicker<T>(in UiReference parent, in UiPosition pos, in UiOffset offset, T value, IList<T> increments, int fontSize, UiColor textColor, UiColor backgroundColor, UiColor buttonColor, UiColor disabledButtonColor, string command, T minValue, T maxValue, InputMode mode = InputMode.Default,
+        float buttonWidth = 0.1f, TextAnchor align = TextAnchor.MiddleRight, string incrementFormat = "0", string numberFormat = null) where T : struct, IConvertible, IFormattable, IComparable<T>
+        => IncrementalNumberPicker(in parent, in pos, in offset, value, increments, fontSize, textColor, backgroundColor, buttonColor, disabledButtonColor, PartialCommand.Create<InputArg>(command), PartialCommand.Create<T>(command), minValue, maxValue, mode, buttonWidth, align, incrementFormat, numberFormat);
+
     public UiIncrementalNumberPicker<T> IncrementalNumberPicker<T>(in UiReference parent, in UiPosition pos, in UiOffset offset, T value, IList<T> increments, int fontSize, UiColor textColor, UiColor backgroundColor, UiColor buttonColor, UiColor disabledButtonColor, ICommandBuilder<InputArg> inputCommand, ICommandBuilder<T> buttonCommand, T minValue , T maxValue, InputMode mode = InputMode.Default, float buttonWidth = 0.1f, TextAnchor align = TextAnchor.MiddleRight, string incrementFormat = "0", string numberFormat = null)  where T : struct, IConvertible, IFormattable, IComparable<T>
     {
         UiIncrementalNumberPicker<T> control = UiIncrementalNumberPicker<T>.Create(this, parent, pos, offset, value, increments, fontSize, textColor, backgroundColor, buttonColor, disabledButtonColor, inputCommand, buttonCommand, align, mode, minValue, maxValue, buttonWidth, incrementFormat, numberFormat);
@@ -243,16 +248,35 @@ public partial class BaseUiBuilder
     #endregion
 
     #region Paginator
-    public UiPaginator Paginator(UiDirectionalLayout layout, int currentPage, int maxPage, int fontSize, UiColor textColor, UiColor buttonColor, UiColor activePageColor, string command, UiColor? disabledColorMultiplier = null)
+    public UiPaginator Paginator(BaseLayout layout, int numElements, int currentPage, int maxPage, int fontSize, UiColor textColor, UiColor buttonColor, UiColor activePageColor, string command, UiColor? disabledColorMultiplier = null)
+    {
+        return Paginator(layout, numElements, currentPage, maxPage, fontSize, textColor, buttonColor, activePageColor, PartialCommand.Create<int>(command), disabledColorMultiplier);
+    }
+    
+    public UiPaginator Paginator(BaseLayout layout, int numElements, int currentPage, int maxPage, int fontSize, UiColor textColor, UiColor buttonColor, UiColor activePageColor, ICommandBuilder<int> command, UiColor? disabledColorMultiplier = null)
+    {
+        UiPaginator control = UiPaginator.Create(this, layout, numElements, currentPage, maxPage, fontSize, textColor, buttonColor, activePageColor, command, disabledColorMultiplier);
+        AddControl(control);
+        return control;
+    }
+    
+    public UiPaginator Paginator(IFixedElementsLayout layout, int currentPage, int maxPage, int fontSize, UiColor textColor, UiColor buttonColor, UiColor activePageColor, string command, UiColor? disabledColorMultiplier = null)
     {
         return Paginator(layout, currentPage, maxPage, fontSize, textColor, buttonColor, activePageColor, PartialCommand.Create<int>(command), disabledColorMultiplier);
     }
+
+    public UiPaginator Paginator(IFixedElementsLayout layout, int currentPage, int maxPage, int fontSize, UiColor textColor, UiColor buttonColor, UiColor activePageColor, ICommandBuilder<int> command, UiColor? disabledColorMultiplier = null)
+        => Paginator((BaseLayout)layout, layout.NumElements, currentPage, maxPage, fontSize, textColor, buttonColor, activePageColor, command, disabledColorMultiplier);
     
-    public UiPaginator Paginator(UiDirectionalLayout layout, int currentPage, int maxPage, int fontSize, UiColor textColor, UiColor buttonColor, UiColor activePageColor, ICommandBuilder<int> command, UiColor? disabledColorMultiplier = null)
+    public UiPaginator Paginator(in UiReference parent, GridPosition grid, int currentPage, int maxPage, int fontSize, UiColor textColor, UiColor buttonColor, UiColor activePageColor, string command, UiColor? disabledColorMultiplier = null)
     {
-        UiPaginator control = UiPaginator.Create(this, layout, currentPage, maxPage, fontSize, textColor, buttonColor, activePageColor, command, disabledColorMultiplier);
-        AddControl(control);
-        return control;
+        return Paginator(parent, grid, currentPage, maxPage, fontSize, textColor, buttonColor, activePageColor, PartialCommand.Create<int>(command), disabledColorMultiplier);
+    }
+    
+    public UiPaginator Paginator(in UiReference parent, GridPosition grid, int currentPage, int maxPage, int fontSize, UiColor textColor, UiColor buttonColor, UiColor activePageColor, ICommandBuilder<int> command, UiColor? disabledColorMultiplier = null)
+    {
+        UiGridPositionLayout layout = GridPositionLayout(parent, UiPosition.Full, default, grid);
+        return Paginator(layout, currentPage, maxPage, fontSize, textColor, buttonColor, activePageColor, command, disabledColorMultiplier);
     }
     #endregion
         

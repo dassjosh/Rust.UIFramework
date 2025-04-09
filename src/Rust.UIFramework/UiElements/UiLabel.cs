@@ -1,4 +1,5 @@
-﻿using Oxide.Ext.UiFramework.Colors;
+﻿using System;
+using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Json;
@@ -41,4 +42,7 @@ public class UiLabel : BaseUiComponent
         countdown.Command = command;
         return countdown;
     }
+
+    [Obsolete]
+    public CountdownComponent AddCountdown(float startTime, float endTime, float step, float interval, TimerFormat timerFormat, string numberFormat, bool destroyIfDone, string command) => AddCountdown(startTime, endTime, command, step, interval, timerFormat, numberFormat, destroyIfDone);
 }

@@ -6,7 +6,7 @@ using Oxide.Ext.UiFramework.UiElements;
 
 namespace Oxide.Ext.UiFramework.Layouts;
 
-public class UiGridLayout : BaseLayout
+public class UiGridLayout : BaseLayout, IFixedElementsLayout
 {
     public int NumRows;
     public int NumCols;
@@ -15,6 +15,7 @@ public class UiGridLayout : BaseLayout
     public LayoutPadding LayoutPadding;
     public UiPadding Padding;
     public readonly List<GridElement> Elements = [];
+    public int NumElements => NumRows * NumCols;
 
     public static UiGridLayout Create(in UiReference reference, int numCols, int numRows, GridAlignment alignment, LayoutPadding layoutPadding, in UiPadding padding)
     {

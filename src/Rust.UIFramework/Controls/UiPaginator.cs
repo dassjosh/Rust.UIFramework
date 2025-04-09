@@ -19,12 +19,12 @@ public class UiPaginator : BaseUiControl
     public List<UiButton> PageButtons;
     public UiButton NextPage;
     public UiButton LastPage;
-    
-    public static UiPaginator Create(BaseUiBuilder builder, UiDirectionalLayout layout, int currentPage, int maxPage, int fontSize, UiColor textColor, UiColor buttonColor, UiColor activePageColor, ICommandBuilder<int> command, UiColor? disabledColorMultiplier)
+
+    public static UiPaginator Create(BaseUiBuilder builder, BaseLayout layout, int numElements, int currentPage, int maxPage, int fontSize, UiColor textColor, UiColor buttonColor, UiColor activePageColor, ICommandBuilder<int> command, UiColor? disabledColorMultiplier)
     {
         UiPaginator control = CreateControl<UiPaginator>();
         
-        int pageButtons = layout.NumElements - 5;
+        int pageButtons = numElements - 5;
 
         int startPage = Math.Max(currentPage - pageButtons / 2, 0);
         int endPage = Math.Min(maxPage, startPage + pageButtons);

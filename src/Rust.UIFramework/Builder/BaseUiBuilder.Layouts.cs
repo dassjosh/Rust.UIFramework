@@ -1,4 +1,5 @@
 ﻿using Oxide.Ext.UiFramework.Layouts;
+using Oxide.Ext.UiFramework.Layouts.GridPositions;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.Types;
@@ -23,6 +24,24 @@ public abstract partial class BaseUiBuilder
         UiGridLayout layout = UiGridLayout.Create(section, numCols, numRows, alignment, layoutPadding, padding);
         AddLayout(layout);
         return new UiTuple<UiSection, UiGridLayout>(section, layout);
+    }
+    #endregion
+
+    #region Grid Position Layout
+    public UiTuple<UiSection, UiGridPositionLayout> GridPositionLayout(in UiReference reference, in UiPosition pos, in UiOffset offset, GridPosition grid)
+    {
+        UiSection section = Section(reference, pos, offset);
+        UiGridPositionLayout layout = UiGridPositionLayout.Create(section, grid);
+        AddLayout(layout);
+        return new UiTuple<UiSection, UiGridPositionLayout>(section, layout);
+    }
+    
+    public UiTuple<UiSection, UiGridPositionLayout> GridPositionLayout(BaseLayout parentLayout, GridPosition grid)
+    {
+        UiSection section = Section(parentLayout.Reference);
+        UiGridPositionLayout layout = UiGridPositionLayout.Create(section, grid);
+        AddLayout(layout);
+        return new UiTuple<UiSection, UiGridPositionLayout>(section, layout);
     }
     #endregion
 

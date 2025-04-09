@@ -43,8 +43,8 @@ public class UiCommandExample : RustPlugin
     
     public void CreateUi(BasePlayer player, UiState state, BuildingPrivlidge priv)
     {
-        UiBuilder builder = UiBuilder.Create(UiPosition.Full, default, UiColor.White, "UiName");
-        builder.Button(builder.Root, UiPosition.Full, default, UiColor.Clear, _doTheThingBuilder.Build(state, new MyCustomArg(ulong.MaxValue), 1, false, priv, DateTime.Now));
+        UiBuilder builder = UiBuilder.Create(UiPosition.Full, default, UiColors.White, "UiName");
+        builder.Button(builder.Root, UiPosition.Full, default, UiColors.Clear, _doTheThingBuilder.Build(state, new MyCustomArg(ulong.MaxValue), 1, false, priv, DateTime.Now));
         builder.AddUi(player);
     }
     
