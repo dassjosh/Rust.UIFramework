@@ -2,6 +2,7 @@
 
 public enum UpdateMode : byte
 {
+    None,
     Redraw,
     Update
 }

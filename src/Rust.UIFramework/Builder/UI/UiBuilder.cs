@@ -72,7 +72,7 @@ public partial class UiBuilder : BaseUiBuilder, IAnimationBuilder
 
     public void EnableAutoDestroy(bool enabled = true)
     {
-        _actualRoot.Update = enabled ? UpdateMode.Redraw : null;
+        _actualRoot.Update = enabled ? UpdateMode.Redraw : UpdateMode.None;
     }
 
     public BaseUiComponent GetActualRoot() => _actualRoot;

@@ -18,7 +18,7 @@ public abstract class BaseUiComponent : BasePoolable
     public float FadeOut;
     public UiPosition Position;
     public UiOffset Offset;
-    public UpdateMode? Update;
+    public UpdateMode Update;
     internal abstract CoreComponent Component { get; }
 
     public static T CreateBase<T>() where T : BaseUiComponent, new() => UiFrameworkPool.Get<T>();
@@ -36,16 +36,10 @@ public abstract class BaseUiComponent : BasePoolable
         Offset = offset;
     }
     
-    public void SetFadeOut(float duration)
-    {
-        FadeOut = duration;
-    }
+    public void SetFadeOut(float duration) => FadeOut = duration;
+    public void SetUpdate(UpdateMode mode) => Update = mode;
 
-    public void SetUpdate(UpdateMode mode)
-    {
-        Update = mode;
-    }
-
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void WriteComponent(JsonFrameworkWriter writer)
     {
         writer.WriteStartObject();
@@ -69,6 +63,7 @@ public abstract class BaseUiComponent : BasePoolable
         writer.WriteEndObject();
     }
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private void WriteComponents(JsonFrameworkWriter writer)
     {
         Component.WriteComponent(writer);
