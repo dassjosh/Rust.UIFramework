@@ -6,12 +6,19 @@ namespace Oxide.Ext.UiFramework.UiElements;
 
 public class UiRawImage : BaseUiComponent, IMaterial<UiRawImage>, IFadeIn<UiRawImage>, IUiColor<UiRawImage>
 {
-    public readonly RawImageComponent RawImage = new();
-    internal override CoreComponent Component => RawImage;
+    public readonly RawImageComponent RawImage;
+
+    public UiRawImage() : this(new RawImageComponent()) { }
+
+    private UiRawImage(RawImageComponent component) : base(component)
+    {
+        RawImage = component;
+    }
     
     public string Material { get => RawImage.Material; set => RawImage.Material = value; }
     public float FadeIn { get => RawImage.FadeIn; set => RawImage.FadeIn = value; }
     public UiColor Color { get => RawImage.Color; set => RawImage.Color = value; }
+    public string Image { get => RawImage.Image; set => RawImage.Image = value; }
         
     public static UiRawImage Create(string image, in UiColor color)
     {
@@ -23,25 +30,25 @@ public class UiRawImage : BaseUiComponent, IMaterial<UiRawImage>, IFadeIn<UiRawI
 
     public UiRawImage SetColor(UiColor color)
     {
-        RawImage.Color = color;
+        Color = color;
         return this;
     }
     
     public UiRawImage SetImage(string image)
     {
-        RawImage.Image = image;
+        Image = image;
         return this;
     }
     
     public UiRawImage SetMaterial(string material)
     {
-        RawImage.Material = material;
+        Material = material;
         return this;
     }
         
     public UiRawImage SetFadeIn(float duration)
     {
-        RawImage.FadeIn = duration;
+        FadeIn = duration;
         return this;
     }
 }

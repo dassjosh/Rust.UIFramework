@@ -8,9 +8,20 @@ namespace Oxide.Ext.UiFramework.UiElements;
 
 public class UiInput : BaseUiText<UiInput>
 {
-    public readonly InputComponent Input = new();
-    internal override CoreComponent Component => Input;
+    public readonly InputComponent Input;
 
+    public UiInput() : this(new InputComponent()) { }
+
+    private UiInput(InputComponent component) : base(component)
+    {
+        Input = component;
+    }
+
+    public int CharsLimit { get => Input.CharsLimit; set => Input.CharsLimit = value; }
+    public string Command { get => Input.Command; set => Input.Command = value; }
+    public InputMode Mode { get => Input.Mode; set => Input.Mode = value; }
+    public InputField.LineType LineType { get => Input.LineType; set => Input.LineType = value; }
+    
     public static UiInput Create(string text, int size, UiColor textColor, string cmd, string font, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, InputMode mode = InputMode.Default, InputField.LineType lineType = InputField.LineType.SingleLine)
     {
         UiInput input = CreateBase<UiInput>();
@@ -29,7 +40,7 @@ public class UiInput : BaseUiText<UiInput>
     
     public UiInput SetCharsLimit(int limit)
     {
-        Input.CharsLimit = limit;
+        CharsLimit = limit;
         return this;
     }
 
@@ -63,7 +74,7 @@ public class UiInput : BaseUiText<UiInput>
     }
         
     /// <summary>
-    /// Sets if the input should block keyboard input when focused a loot panel / crafting ui is open.
+    /// Sets if the input should block keyboard input when focused on a loot panel / crafting ui.
     /// This should not be used if a loot panel / crafting ui won't be open when displaying the UI.
     /// </summary>
     /// <param name="needsKeyboard"></param>
@@ -75,19 +86,19 @@ public class UiInput : BaseUiText<UiInput>
 
     public UiInput SetLineType(InputField.LineType lineType)
     {
-        Input.LineType = lineType;
+        LineType = lineType;
         return this;
     }
     
     public UiInput SetCommand(string command)
     {
-        Input.Command = command;
+        Command = command;
         return this;
     }
     
     public UiInput SetInputMode(InputMode mode)
     {
-        Input.Mode = mode;
+        Mode = mode;
         return this;
     }
 }

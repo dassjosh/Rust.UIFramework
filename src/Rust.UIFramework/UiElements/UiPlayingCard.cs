@@ -8,13 +8,22 @@ namespace Oxide.Ext.UiFramework.UiElements;
 
 public class UiPlayingCard : BaseUiComponent, IMaterial<UiPlayingCard>, IFadeIn<UiPlayingCard>, IUiColor<UiPlayingCard>
 {
-    public readonly PlayingCardComponent Card = new();
+    public readonly PlayingCardComponent Card;
 
-    internal override CoreComponent Component => Card;
+    public UiPlayingCard() : this(new PlayingCardComponent()) { }
+
+    private UiPlayingCard(PlayingCardComponent component) : base(component)
+    {
+        Card = component;
+    }
     
     public string Material { get => Card.Material; set => Card.Material = value; }
     public float FadeIn { get => Card.FadeIn; set => Card.FadeIn = value; }
     public UiColor Color { get => Card.Color; set => Card.Color = value; }
+    
+    public UiSuit Suit { get => Card.Suit; set => Card.Suit = value; }
+    public UiRank Rank { get => Card.Rank; set => Card.Rank = value; }
+    public UiCardType CardType { get => Card.CardType; set => Card.CardType = value; }
     
     public static UiPlayingCard Create(PlayingCardData card, UiCardType type, UiColor color)
     {
@@ -28,19 +37,37 @@ public class UiPlayingCard : BaseUiComponent, IMaterial<UiPlayingCard>, IFadeIn<
     
     public UiPlayingCard SetMaterial(string material)
     {
-        Card.Material = material;
+        Material = material;
         return this;
     }
     
     public UiPlayingCard SetColor(UiColor color)
     {
-        Card.Color = color;
+        Color = color;
         return this;
     }
         
     public UiPlayingCard SetFadeIn(float duration)
     {
-        Card.FadeIn = duration;
+        FadeIn = duration;
+        return this;
+    }
+    
+    public UiPlayingCard SetSuit(UiSuit suit)
+    {
+        Suit = suit;
+        return this;
+    }
+    
+    public UiPlayingCard SetRank(UiRank rank)
+    {
+        Rank = rank;
+        return this;
+    }
+    
+    public UiPlayingCard SetCardType(UiCardType cardType)
+    {
+        CardType = cardType;
         return this;
     }
 }

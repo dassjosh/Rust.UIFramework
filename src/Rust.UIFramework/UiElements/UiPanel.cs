@@ -5,8 +5,14 @@ namespace Oxide.Ext.UiFramework.UiElements;
 
 public class UiPanel : BaseUiImage<UiPanel>
 {
-    public readonly ImageComponent Image = new();
-    internal override CoreComponent Component => Image;
+    public readonly ImageComponent Image;
+
+    public UiPanel() : this(new ImageComponent()) { }
+
+    private UiPanel(ImageComponent component) : base(component)
+    {
+        Image = component;
+    }
     
     public static UiPanel Create(UiColor color)
     {

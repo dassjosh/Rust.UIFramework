@@ -19,8 +19,6 @@ public class RawImageComponent : CoreComponent
     public string Png { get => Image; set => Image = value; }
     [Obsolete("Please use Image instead")]
     public string Texture { get => Image; set => Image = value; }
-    
-    
 
     public override Utf8String Type => JsonDefaults.RawImage.Type;
 

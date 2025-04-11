@@ -35,7 +35,7 @@ public partial class UiBuilder : BaseUiBuilder, IAnimationBuilder
     {
         Root = component;
         _actualRoot = component;
-        component.Update = UpdateMode.Redraw;
+        component.Update = UpdateMode.AutoDestroy;
         component.Reference = new UiReference(parent, name);
         Components.Add(component);
         RootName = name;
@@ -72,7 +72,7 @@ public partial class UiBuilder : BaseUiBuilder, IAnimationBuilder
 
     public void EnableAutoDestroy(bool enabled = true)
     {
-        _actualRoot.Update = enabled ? UpdateMode.Redraw : UpdateMode.None;
+        _actualRoot.Update = enabled ? UpdateMode.AutoDestroy : UpdateMode.None;
     }
 
     public BaseUiComponent GetActualRoot() => _actualRoot;

@@ -5,52 +5,54 @@ using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-public abstract class BaseUiText<T> : BaseUiComponent, IFadeIn<T>, IUiColor<T> where T : BaseUiText<T>
+public abstract class BaseUiText<T>(TextComponent component) : BaseUiComponent(component), IFadeIn<T>, IUiColor<T> where T : BaseUiText<T>
 {
-    private TextComponent Text => (TextComponent)Component;
-    
-    public float FadeIn { get => Text.FadeIn; set => Text.FadeIn = value; }
-    public UiColor Color { get => Text.Color; set => Text.Color = value; }
+    public float FadeIn { get => component.FadeIn; set => component.FadeIn = value; }
+    public UiColor Color { get => component.Color; set => component.Color = value; }
+    public int FontSize { get => component.FontSize; set => component.FontSize = value; }
+    public string Font { get => component.Font; set => component.Font = value; }
+    public TextAnchor Align { get => component.Align; set => component.Align = value; }
+    public VerticalWrapMode VerticalOverflow { get => component.VerticalOverflow; set => component.VerticalOverflow = value; }
     
     public T SetFadeIn(float duration)
     {
-        Text.FadeIn = duration;
+        FadeIn = duration;
         return (T) this;
     }
     
     public T SetColor(UiColor color)
     {
-        Text.Color = color;
+        Color = color;
         return (T) this;
     }
     
     public T SetFontSize(int fontSize)
     {
-        Text.FontSize = fontSize;
+        FontSize = fontSize;
         return (T) this;
     }
     
     public T SetFont(string font)
     {
-        Text.Font = font;
+        Font = font;
         return (T) this;
     }
     
     public T SetTextAlign(TextAnchor align)
     {
-        Text.Align = align;
+        Align = align;
         return (T) this;
     }
     
     public T SetText(string text)
     {
-        Text.Text = text;
+        component.Text = text;
         return (T) this;
     }
     
     public T SetVerticalOverflow(VerticalWrapMode verticalOverflow)
     {
-        Text.VerticalOverflow = verticalOverflow;
+        VerticalOverflow = verticalOverflow;
         return (T) this;
     }
 }

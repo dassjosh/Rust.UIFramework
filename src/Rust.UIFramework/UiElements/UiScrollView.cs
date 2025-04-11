@@ -9,14 +9,26 @@ namespace Oxide.Ext.UiFramework.UiElements;
 
 public class UiScrollView : BaseUiComponent
 {
-    public readonly ScrollViewComponent ScrollView = new();
-    internal override CoreComponent Component => ScrollView;
+    public readonly ScrollViewComponent ScrollView;
+
+    public UiScrollView() : this(new ScrollViewComponent()) { }
+
+    private UiScrollView(ScrollViewComponent component) : base(component)
+    {
+        ScrollView = component;
+    }
 
     public UiReference ViewPort => _viewPort ??= Reference.WithChild($"{Reference.Name}___Viewport");
     public UiReference Content => _content ??= Reference.WithChild($"{Reference.Name}___Content");
     
     private UiReference? _viewPort;
     private UiReference? _content;
+
+    public ScrollRect.MovementType MovementType { get => ScrollView.MovementType; set => ScrollView.MovementType = value; }
+    public float Elasticity { get => ScrollView.Elasticity; set => ScrollView.Elasticity = value; }
+    public bool Inertia { get => ScrollView.Inertia; set => ScrollView.Inertia = value; }
+    public float DecelerationRate { get => ScrollView.DecelerationRate; set => ScrollView.DecelerationRate = value; }
+    public float ScrollSensitivity { get => ScrollView.ScrollSensitivity; set => ScrollView.ScrollSensitivity = value; }
     
     public static UiScrollView Create(ScrollRect.MovementType movementType, float elasticity,
         bool inertia, float decelerationRate, float scrollSensitivity)
@@ -31,18 +43,7 @@ public class UiScrollView : BaseUiComponent
         return scroll;
     }
 
-    public void UpdateContentTransform(in UiPosition? position = null, in UiOffset? offset = null)
-    {
-        if (position.HasValue)
-        {
-            ScrollView.ContentTransform.Position = position.Value;
-        }
-
-        if (offset.HasValue)
-        {
-            ScrollView.ContentTransform.Offset = offset.Value;
-        }
-    }
+    public void UpdateContentTransform(in UiPosition? position = null, in UiOffset? offset = null) => ScrollView.UpdateContentTransform(position, offset);
 
     public void AddScrollBars(bool invert = false, bool autoHide = false, string handleSprite = null, string trackSprite = null, float size = 20f,
         UiColor? handleColor = null, UiColor? highlightColor = null, UiColor? pressedColor = null, UiColor? trackColor = null)

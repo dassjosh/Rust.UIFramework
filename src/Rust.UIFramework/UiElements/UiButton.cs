@@ -9,8 +9,14 @@ namespace Oxide.Ext.UiFramework.UiElements;
 
 public class UiButton : BaseUiComponent, IImageType<UiButton>, ISprite<UiButton>, IMaterial<UiButton>, IFadeIn<UiButton>, IUiColor<UiButton>
 {
-    public readonly ButtonComponent Button = new();
-    internal override CoreComponent Component => Button;
+    public readonly ButtonComponent Button;
+
+    public UiButton() : this(new ButtonComponent()) { }
+
+    private UiButton(ButtonComponent component) : base(component)
+    {
+        Button = component;
+    }
     
     public Image.Type ImageType { get => Button.ImageType; set => Button.ImageType = value; }
     public string Sprite { get => Button.Sprite; set => Button.Sprite = value; }

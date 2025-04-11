@@ -6,12 +6,20 @@ namespace Oxide.Ext.UiFramework.UiElements;
 
 public class UiItemIcon : BaseUiComponent, IMaterial<UiItemIcon>, IFadeIn<UiItemIcon>, IUiColor<UiItemIcon>
 {
-    public readonly ItemIconComponent Icon = new();
-    internal override CoreComponent Component => Icon;
+    public readonly ItemIconComponent Icon;
+
+    public UiItemIcon() : this(new ItemIconComponent()) { }
+
+    private UiItemIcon(ItemIconComponent component) : base(component)
+    {
+        Icon = component;
+    }
     
     public string Material { get => Icon.Material; set => Icon.Material = value; }
     public float FadeIn { get => Icon.FadeIn; set => Icon.FadeIn = value; }
     public UiColor Color { get => Icon.Color; set => Icon.Color = value; }
+    public int ItemId { get => Icon.ItemId; set => Icon.ItemId = value; }
+    public ulong SkinId { get => Icon.SkinId; set => Icon.SkinId = value; }
 
     public static UiItemIcon Create(int itemId, ulong skinId, UiColor color)
     {
@@ -24,31 +32,31 @@ public class UiItemIcon : BaseUiComponent, IMaterial<UiItemIcon>, IFadeIn<UiItem
         
     public UiItemIcon SetFadeIn(float duration)
     {
-        Icon.FadeIn = duration;
+        FadeIn = duration;
         return this;
     }
         
     public UiItemIcon SetMaterial(string material)
     {
-        Icon.Material = material;
+        Material = material;
         return this;
     }
     
     public UiItemIcon SetColor(UiColor color)
     {
-        Icon.Color = color;
+        Color = color;
         return this;
     }
     
     public UiItemIcon SetItemId(int itemId)
     {
-        Icon.ItemId = itemId;
+        ItemId = itemId;
         return this;
     }
     
     public UiItemIcon SetSkinId(ulong skinId)
     {
-        Icon.SkinId = skinId;
+        SkinId = skinId;
         return this;
     }
 }

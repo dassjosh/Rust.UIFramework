@@ -3,6 +3,6 @@
 public enum UpdateMode : byte
 {
     None,
-    Redraw,
+    AutoDestroy,
     Update
 }

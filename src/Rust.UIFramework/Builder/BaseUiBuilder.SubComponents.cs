@@ -30,7 +30,7 @@ public abstract partial class BaseUiBuilder
     #endregion
     
     #region Draggable
-    [Obsolete("This component is not currently supported in the Client. This will not work until they are merged in.")]
+    [Obsolete("This component is not currently supported in the Client. This will not work until the changes are merged in.")]
     public DraggableComponent Draggable(BaseUiComponent component,
         bool limitToParent = JsonDefaults.Draggable.LimitToParent,
         float maxDistance = JsonDefaults.Draggable.MaxDistance,
@@ -52,7 +52,7 @@ public abstract partial class BaseUiBuilder
     #endregion
 
     #region Slot
-    [Obsolete("This component is not currently supported in the Client. This will not work until they are merged in.")]
+    [Obsolete("This component is not currently supported in the Client. This will not work until the changes are merged in.")]
     public SlotComponent Slot(BaseUiComponent component, string filter = null)
     {
         return component.AddSlot(filter);

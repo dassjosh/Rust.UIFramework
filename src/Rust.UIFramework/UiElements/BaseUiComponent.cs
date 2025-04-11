@@ -12,14 +12,14 @@ using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-public abstract class BaseUiComponent : BasePoolable
+public abstract class BaseUiComponent(CoreComponent component) : BasePoolable
 {
     public UiReference Reference;
     public float FadeOut;
     public UiPosition Position;
     public UiOffset Offset;
     public UpdateMode Update;
-    internal abstract CoreComponent Component { get; }
+    public readonly CoreComponent Component = component;
 
     public static T CreateBase<T>() where T : BaseUiComponent, new() => UiFrameworkPool.Get<T>();
 
@@ -48,7 +48,7 @@ public abstract class BaseUiComponent : BasePoolable
         writer.AddField(JsonDefaults.Common.FadeOutName, FadeOut, JsonDefaults.Common.FadeOut);
         switch (Update)
         {
-            case UpdateMode.Redraw:
+            case UpdateMode.AutoDestroy:
                 writer.AddFieldRaw(JsonDefaults.Common.AutoDestroy, Reference.Name);
                 break;
             case UpdateMode.Update:
@@ -95,7 +95,7 @@ public abstract class BaseUiComponent : BasePoolable
     [Obsolete("Use AddOutline instead")]
     public OutlineComponent AddElementOutline(UiColor color, Vector2? distance = null, bool useGraphicAlpha = false) => AddOutline(color, distance, useGraphicAlpha);
     
-    [Obsolete("This component is not currently supported in the Client. This will not work until they are merged in.")]
+    [Obsolete("This component is not currently supported in the Client. This will not work until the changes are merged in.")]
     public DraggableComponent AddDraggable(bool limitToParent = JsonDefaults.Draggable.LimitToParent,
         float maxDistance = JsonDefaults.Draggable.MaxDistance,
         bool allowSwapping = JsonDefaults.Draggable.AllowSwapping,
@@ -127,7 +127,7 @@ public abstract class BaseUiComponent : BasePoolable
         return draggable;
     }
     
-    [Obsolete("This component is not currently supported in the Client. This will not work until they are merged in.")]
+    [Obsolete("This component is not currently supported in the Client. This will not work until the changes are merged in.")]
     public SlotComponent AddSlot(string filter = null)
     {
         SlotComponent slot = Component.AddSubComponent<SlotComponent>();

@@ -6,8 +6,14 @@ namespace Oxide.Ext.UiFramework.UiElements;
 
 public class UiSection : BaseUiComponent
 {
-    public readonly EmptyComponent Empty = new();
-    internal override CoreComponent Component => Empty;
+    public readonly EmptyComponent Empty;
+
+    public UiSection() : this(new EmptyComponent()) { }
+
+    private UiSection(EmptyComponent component) : base(component)
+    {
+        Empty = component;
+    }
     
     public static UiSection Create() => CreateBase<UiSection>();
     public static UiSection Create(in UiPosition pos, in UiOffset offset) => CreateBase<UiSection>(pos, offset);

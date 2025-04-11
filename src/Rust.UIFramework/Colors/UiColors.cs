@@ -108,7 +108,7 @@ public static class UiColors
     {
         public static readonly UiColor Body = "#00001F";
         public static readonly UiColor Header = "#00001F";
-        public static readonly UiColor Text = UiColors.White;
+        public static readonly UiColor Text = White;
         public static readonly UiColor Panel = "#2B2B2B";
         public static readonly UiColor PanelSecondary = "#3f3f3f";
         public static readonly UiColor PanelTertiary = "#525252";

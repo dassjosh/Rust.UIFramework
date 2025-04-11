@@ -154,7 +154,7 @@ public partial class UiBuilder
         };
         
         builder.Button(builder.Root, UiPosition.Full, new UiOffset(9999 * 2), UiColors.Clear, name, ButtonType.Close);
-        UiPanel background = builder.Panel(builder.Root, anchor, offset, backgroundColor).SetSpriteMaterialImage(menuSprite, null, Image.Type.Sliced);
+        UiPanel background = builder.Panel(builder.Root, anchor, offset, backgroundColor).SetSprite(menuSprite).SetImageType(Image.Type.Sliced);
         background.AddOutline(UiColors.Black.WithAlpha(0.75f));
         builder.OverrideRoot(background);
         

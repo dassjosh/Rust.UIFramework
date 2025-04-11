@@ -7,12 +7,20 @@ namespace Oxide.Ext.UiFramework.UiElements;
 
 public class UiPlayerAvatar : BaseUiComponent, IMaterial<UiPlayerAvatar>, IFadeIn<UiPlayerAvatar>, IUiColor<UiPlayerAvatar>
 {
-    public readonly PlayerAvatarComponent Avatar = new();
-    internal override CoreComponent Component => Avatar;
+    public readonly PlayerAvatarComponent Avatar;
+
+    public UiPlayerAvatar() : this(new PlayerAvatarComponent()) { }
+
+    private UiPlayerAvatar(PlayerAvatarComponent component) : base(component)
+    {
+        Avatar = component;
+    }
     
     public string Material { get => Avatar.Material; set => Avatar.Material = value; }
     public float FadeIn { get => Avatar.FadeIn; set => Avatar.FadeIn = value; }
     public UiColor Color { get => Avatar.Color; set => Avatar.Color = value; }
+    public ulong SteamId { get => Avatar.SteamId; set => Avatar.SteamId = value; }
+    public AvatarType AvatarType { get => Avatar.AvatarType; set => Avatar.AvatarType = value; }
 
     public static UiPlayerAvatar Create(ulong steamId, AvatarType type, UiColor color)
     {
@@ -25,25 +33,31 @@ public class UiPlayerAvatar : BaseUiComponent, IMaterial<UiPlayerAvatar>, IFadeI
         
     public UiPlayerAvatar SetFadeIn(float duration)
     {
-        Avatar.FadeIn = duration;
+        FadeIn = duration;
         return this;
     }
     
     public UiPlayerAvatar SetMaterial(string material)
     {
-        Avatar.Material = material;
+        Material = material;
         return this;
     }
     
     public UiPlayerAvatar SetColor(UiColor color)
     {
-        Avatar.Color = color;
+        Color = color;
         return this;
     }
 
     public UiPlayerAvatar SetSteamId(ulong steamId)
     {
-        Avatar.SteamId = steamId;
+        SteamId = steamId;
+        return this;
+    }
+    
+    public UiPlayerAvatar SetAvatarType(AvatarType avatarType)
+    {
+        AvatarType = avatarType;
         return this;
     }
 }

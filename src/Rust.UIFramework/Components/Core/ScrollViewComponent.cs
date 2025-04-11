@@ -1,4 +1,6 @@
 ﻿using Oxide.Ext.UiFramework.Json;
+using Oxide.Ext.UiFramework.Offsets;
+using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.Types;
 using UnityEngine.UI;
 
@@ -16,6 +18,8 @@ public class ScrollViewComponent : CoreComponent
     public ScrollbarComponent VerticalScrollbar { get; internal set; }
     
     public override Utf8String Type => JsonDefaults.ScrollView.Type;
+
+    public void UpdateContentTransform(in UiPosition? position = null, in UiOffset? offset = null) => ContentTransform.UpdateContentTransform(position, offset);
     
     protected override void WriteComponentFields(JsonFrameworkWriter writer)
     {
