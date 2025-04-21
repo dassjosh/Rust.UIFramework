@@ -57,7 +57,8 @@ internal class UiFrameworkConfig : ConfigFile
     /// Constructor for Ui Framework Config
     /// </summary>
     /// <param name="filename">Filename to use</param>
-    private UiFrameworkConfig(string filename) : base(filename)
+    // Has to be public
+    public UiFrameworkConfig(string filename) : base(filename)
     {
         if (Instance != null)
         {

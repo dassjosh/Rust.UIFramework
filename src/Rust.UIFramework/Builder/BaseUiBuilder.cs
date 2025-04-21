@@ -4,9 +4,9 @@ using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Config;
 using Oxide.Ext.UiFramework.Controls;
 using Oxide.Ext.UiFramework.Enums;
+using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Layouts;
-using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.UiElements;
 
 namespace Oxide.Ext.UiFramework.Builder;
@@ -91,21 +91,10 @@ public abstract partial class BaseUiBuilder : BaseBuilder
     
     protected virtual void FreeComponents()
     {
-        ClearComponentList(Components);
-        ClearComponentList(Controls);
-        ClearComponentList(Anchors);
-        ClearComponentList(Layouts);
-    }
-    
-    private static void ClearComponentList<T>(List<T> components) where T : BasePoolable
-    {
-        int count = components.Count;
-        for (int index = 0; index < count; index++)
-        {
-            components[index].Dispose();
-        }
-
-        components.Clear();
+        Components.ClearValuesToPool();
+        Controls.ClearValuesToPool();
+        Anchors.ClearValuesToPool();
+        Layouts.ClearValuesToPool();
     }
     
     protected override void EnterPool()

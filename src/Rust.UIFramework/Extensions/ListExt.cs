@@ -12,11 +12,28 @@ public static class ListExt
             return;
         }
         
-        for (int index = 0; index < list.Count; index++)
+        int count = list.Count;
+        for (int index = 0; index < count; index++)
         {
             list[index].Dispose();
         }
 
         UiFrameworkPool.FreeList(list);
+    }
+    
+    public static void ClearValuesToPool<T>(this List<T> list) where T : BasePoolable
+    {
+        if (list == null)
+        {
+            return;
+        }
+        
+        int count = list.Count;
+        for (int index = 0; index < count; index++)
+        {
+            list[index].Dispose();
+        }
+        
+        list.Clear();
     }
 }

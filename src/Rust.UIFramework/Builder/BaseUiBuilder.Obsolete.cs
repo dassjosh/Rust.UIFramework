@@ -7,6 +7,7 @@ using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.UiElements;
 using UnityEngine;
 using UnityEngine.UI;
+#pragma warning disable CS0612 // Type or member is obsolete
 
 namespace Oxide.Ext.UiFramework.Builder;
 

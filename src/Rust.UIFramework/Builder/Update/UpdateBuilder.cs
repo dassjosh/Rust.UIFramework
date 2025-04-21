@@ -1,7 +1,5 @@
-﻿using System.Collections.Generic;
-using Oxide.Ext.UiFramework.Enums;
+﻿using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Exceptions;
-using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.UiElements;
 
@@ -9,7 +7,7 @@ namespace Oxide.Ext.UiFramework.Builder.Update;
 
 public class UpdateBuilder : BaseUiBuilder
 {
-    public UpdateMode UpdateMode;
+    public UpdateMode UpdateMode = UpdateMode.AutoDestroy;
     public static UpdateBuilder Create() => UiFrameworkPool.Get<UpdateBuilder>();
 
     public void SetUpdateMode(UpdateMode mode)
@@ -37,6 +35,7 @@ public class UpdateBuilder : BaseUiBuilder
 
     protected override void EnterPool()
     {
-        UpdateMode = default;
+        base.EnterPool();
+        UpdateMode = UpdateMode.AutoDestroy;
     }
 }

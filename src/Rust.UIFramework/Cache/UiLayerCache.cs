@@ -5,19 +5,19 @@ namespace Oxide.Ext.UiFramework.Cache;
 
 public static class UiLayerCache
 {
-    private const string Overall = "Overall";
-    private const string OverlayNonScaled = "OverlayNonScaled";
-    private const string Overlay = "Overlay";
-    private const string Hud = "Hud";
-    private const string HudMenu = "Hud.Menu";
-    private const string Under = "Under";
-    private const string UnderNonScaled = "UnderNonScaled";
-    private const string Inventory = "Inventory";
-    private const string Crafting = "Crafting";
-    private const string Contacts = "Contacts";
-    private const string Clans = "Clans";
-    private const string TechTree = "TechTree";
-    private const string Map = "Map";
+    public const string Overall = "Overall";
+    public const string OverlayNonScaled = "OverlayNonScaled";
+    public const string Overlay = "Overlay";
+    public const string Hud = "Hud";
+    public const string HudMenu = "Hud.Menu";
+    public const string Under = "Under";
+    public const string UnderNonScaled = "UnderNonScaled";
+    public const string Inventory = "Inventory";
+    public const string Crafting = "Crafting";
+    public const string Contacts = "Contacts";
+    public const string Clans = "Clans";
+    public const string TechTree = "TechTree";
+    public const string Map = "Map";
 
     private static readonly ConcurrentDictionary<UiLayer, string> Layers = new()
     {

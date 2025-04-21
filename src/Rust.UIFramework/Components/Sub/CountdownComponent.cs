@@ -20,7 +20,6 @@ public class CountdownComponent : SubComponent
 
     protected override void WriteComponentFields(JsonFrameworkWriter writer)
     {
-        writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, JsonDefaults.Countdown.Type);
         writer.AddField(JsonDefaults.Countdown.StartTimeName, StartTime, JsonDefaults.Countdown.StartTimeValue);
         writer.AddField(JsonDefaults.Countdown.EndTimeName, EndTime, JsonDefaults.Countdown.EndTimeValue);
         writer.AddField(JsonDefaults.Countdown.StepName, Step, JsonDefaults.Countdown.StepValue);
@@ -33,6 +32,7 @@ public class CountdownComponent : SubComponent
 
     public override void Reset()
     {
+        base.Reset();
         StartTime = JsonDefaults.Countdown.StartTimeValue;
         EndTime = JsonDefaults.Countdown.EndTimeValue;
         Step = JsonDefaults.Countdown.StepValue;

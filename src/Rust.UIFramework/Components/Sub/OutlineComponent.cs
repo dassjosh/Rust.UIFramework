@@ -23,6 +23,7 @@ public class OutlineComponent : SubComponent
 
     public override void Reset()
     {
+        base.Reset();
         Distance = JsonDefaults.Outline.Distance;
         UseGraphicAlpha = false;
         Color = default;

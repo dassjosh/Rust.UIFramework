@@ -43,6 +43,7 @@ public class DraggableComponent : SubComponent
 
     public override void Reset()
     {
+        base.Reset();
         LimitToParent = JsonDefaults.Draggable.LimitToParent;
         MaxDistance = JsonDefaults.Draggable.MaxDistance;
         AllowSwapping = JsonDefaults.Draggable.AllowSwapping;

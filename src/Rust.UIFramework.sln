@@ -29,5 +29,6 @@ Global
 		{5E54706A-32E2-4E3E-BE13-D3C646DD1533}.Release|Oxide.Build.0 = Release|Oxide
 		{5E54706A-32E2-4E3E-BE13-D3C646DD1533}.Debug|Oxide.ActiveCfg = Debug|Oxide
 		{5E54706A-32E2-4E3E-BE13-D3C646DD1533}.Debug|Oxide.Build.0 = Debug|Oxide
+		{5E54706A-32E2-4E3E-BE13-D3C646DD1533}.Benchmarks|Oxide.ActiveCfg = Benchmarks|Oxide
 	EndGlobalSection
 EndGlobal
