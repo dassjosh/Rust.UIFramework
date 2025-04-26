@@ -1,6 +1,6 @@
 ﻿namespace Oxide.Ext.UiFramework.Enums;
 
-public enum AvatarType
+public enum AvatarType : byte
 {
     Small,
     Medium,

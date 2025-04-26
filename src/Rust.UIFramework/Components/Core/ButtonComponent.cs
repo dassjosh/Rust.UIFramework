@@ -38,7 +38,7 @@ public class ButtonComponent : ImageComponent
         ColorBlock?.Dispose();
         ColorBlock = null;
         Command = null;
-        ButtonType = default;
+        ButtonType = ButtonType.Command;
         ImageType = Image.Type.Simple;
     }
 }

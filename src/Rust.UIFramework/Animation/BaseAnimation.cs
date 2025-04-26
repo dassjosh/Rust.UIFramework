@@ -26,7 +26,7 @@ public abstract class BaseAnimation : BasePoolable
     public float StartTime { get; private set; }
     internal bool WasQueued { get; private set; }
     public bool Cancelled { get; private set; }
-    internal bool IsSinglePlayer { get; private set; }
+    internal bool IsSinglePlayer => PlayerId != 0;
     internal ulong PlayerId { get; private set; }
     public float TotalDuration => Delay + Duration;
     public float ElapsedPercentage => Elapsed < Delay ? 0 : Math.Min((Elapsed - Delay) / Duration, 1f);
@@ -108,7 +108,6 @@ public abstract class BaseAnimation : BasePoolable
         StartTime = Time.realtimeSinceStartup;
         if (send.connection != null)
         {
-            IsSinglePlayer = true;
             PlayerId = send.connection.userid;
         }
     }

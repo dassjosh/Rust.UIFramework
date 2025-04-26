@@ -31,6 +31,8 @@ public class PlayingCardComponent : CoreComponent
         Suit = default;
         Rank = default;
         CardType = default;
+        FadeIn = default;
         Material = UiMaterials.Content.Ui.NameFontMaterial;
+        Color = UiColors.White;
     }
 }

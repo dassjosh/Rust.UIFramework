@@ -31,5 +31,6 @@ public class ImageComponent : CoreComponent
         FadeIn = 0;
         Sprite = null;
         Material = null;
+        ImageType = Image.Type.Simple;
     }
 }

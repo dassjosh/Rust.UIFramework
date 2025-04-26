@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Json;
@@ -13,6 +14,8 @@ public static class UiPlayingCards
     
     public static string GetPlayingCard(UiSuit suit, UiRank rank, UiCardType type)
     {
+        if (!Enum.IsDefined(typeof(UiSuit), suit)) throw new InvalidEnumArgumentException(nameof(suit), (int)suit, typeof(UiSuit));
+        if (!Enum.IsDefined(typeof(UiRank), rank)) throw new InvalidEnumArgumentException(nameof(rank), (int)rank, typeof(UiRank));
         Card card = new(suit, rank, type);
         if (!Cards.TryGetValue(card, out string assetPath))
         {
