@@ -17,10 +17,7 @@ public class UiGridPositionLayout : BaseLayout, IFixedElementsLayout
         return layout;
     }
     
-    public override void AddElement(BaseUiComponent element)
-    {
-        Elements.Add(element);
-    }
+    public override void AddElement(BaseUiComponent element) => Elements.Add(element);
 
     public override void CalculateElementPositions()
     {

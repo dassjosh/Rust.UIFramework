@@ -64,18 +64,18 @@ public abstract partial class BaseUiBuilder
     #endregion
 
     #region Flex
-    public UiTuple<UiSection, UiFlexBoxLayout> FlexLayout(in UiReference reference, in UiPosition pos, in UiOffset offset, FlexDirection direction, FlexWrap wrap, FlexCrossAlignment crossAlignment, FlexJustifyContent defaultJustifyContent, in UiPadding padding = default, float gap = 0f)
+    public UiTuple<UiSection, UiFlexBoxLayout> FlexLayout(in UiReference reference, in UiPosition pos, in UiOffset offset, FlexDirection direction, FlexWrap wrap, FlexAlignItems alignItems, FlexJustifyContent defaultJustifyContent, in UiPadding padding = default, float gap = 0f)
     {
         UiSection section = Section(reference, pos, offset);
-        UiFlexBoxLayout layout = UiFlexBoxLayout.Create(section, direction, wrap, crossAlignment, defaultJustifyContent, padding, gap);
+        UiFlexBoxLayout layout = UiFlexBoxLayout.Create(section, direction, wrap, alignItems, defaultJustifyContent, padding, gap);
         AddLayout(layout);
         return new UiTuple<UiSection, UiFlexBoxLayout>(section, layout);
     }
     
-    public UiTuple<UiSection, UiFlexBoxLayout> FlexLayout(BaseLayout parentLayout, FlexDirection direction, FlexWrap wrap, FlexCrossAlignment crossAlignment, FlexJustifyContent defaultJustifyContent, in UiPadding padding = default, float gap = 0f)
+    public UiTuple<UiSection, UiFlexBoxLayout> FlexLayout(BaseLayout parentLayout, FlexDirection direction, FlexWrap wrap, FlexAlignItems alignItems, FlexJustifyContent defaultJustifyContent, in UiPadding padding = default, float gap = 0f)
     {
         UiSection section = Section(parentLayout.Reference);
-        UiFlexBoxLayout layout = UiFlexBoxLayout.Create(section, direction, wrap, crossAlignment, defaultJustifyContent, padding, gap);
+        UiFlexBoxLayout layout = UiFlexBoxLayout.Create(section, direction, wrap, alignItems, defaultJustifyContent, padding, gap);
         AddLayout(layout);
         return new UiTuple<UiSection, UiFlexBoxLayout>(section, layout);
     }

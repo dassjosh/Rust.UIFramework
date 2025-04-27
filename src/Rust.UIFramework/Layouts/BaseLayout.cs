@@ -45,7 +45,6 @@ public abstract class BaseLayout : BasePoolable
             switch (direction)
             {
                 case LayoutDirection.Horizontal:
-                    
                     ScrollView.UpdateContentTransform(position.WithXMax(1 / scale));
                     break;
                 case LayoutDirection.Vertical:

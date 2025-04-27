@@ -1,20 +1,12 @@
 ﻿namespace Oxide.Ext.UiFramework.Offsets;
 
-public class GridOffset : BaseOffset
+public class GridOffset(float xMin, float yMin, float xMax, float yMax, int numCols, int numRows, float width, float height) : BaseOffset(xMin, yMin, xMax, yMax)
 {
-    public readonly int NumCols;
-    public readonly int NumRows;
-    public readonly float Width;
-    public readonly float Height;
-        
-    public GridOffset(float xMin, float yMin, float xMax, float yMax, int numCols, int numRows, float width, float height) : base(xMin, yMin, xMax, yMax)
-    {
-        NumCols = numCols;
-        NumRows = numRows;
-        Width = width;
-        Height = height;
-    }
-        
+    public readonly int NumCols = numCols;
+    public readonly int NumRows = numRows;
+    public readonly float Width = width;
+    public readonly float Height = height;
+
     public void MoveCols(int cols)
     {
         MoveCols((float)cols);

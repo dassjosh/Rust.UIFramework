@@ -11,7 +11,7 @@ public class UiFlexBoxLayout : BaseLayout
 {
     public FlexDirection Direction;
     public FlexWrap Wrap;
-    public FlexCrossAlignment CrossAlignment;
+    public FlexAlignItems AlignItems;
     public FlexJustifyContent DefaultJustifyContent;
     public UiPadding Padding;
     public float Gap;
@@ -24,7 +24,7 @@ public class UiFlexBoxLayout : BaseLayout
         in UiReference reference,
         FlexDirection direction,
         FlexWrap wrap,
-        FlexCrossAlignment crossAlignment,
+        FlexAlignItems alignItems,
         FlexJustifyContent defaultJustifyContent,
         in UiPadding padding,
         float gap = 0f)
@@ -32,7 +32,7 @@ public class UiFlexBoxLayout : BaseLayout
         UiFlexBoxLayout layout = CreateBase<UiFlexBoxLayout>(reference);
         layout.Direction = direction;
         layout.Wrap = wrap;
-        layout.CrossAlignment = crossAlignment;
+        layout.AlignItems = alignItems;
         layout.DefaultJustifyContent = defaultJustifyContent;
         layout.Padding = padding;
         layout.Gap = gap;
@@ -170,17 +170,17 @@ public class UiFlexBoxLayout : BaseLayout
 
     private (float crossStart, float crossEnd) CalculateCrossAlignment(int lineIndex, float crossAxisSize)
     {
-        return CrossAlignment switch
+        return AlignItems switch
         {
-            FlexCrossAlignment.Start => (lineIndex / crossAxisSize, (lineIndex + 1) / crossAxisSize),
-            FlexCrossAlignment.Center => (
+            FlexAlignItems.Start => (lineIndex / crossAxisSize, (lineIndex + 1) / crossAxisSize),
+            FlexAlignItems.Center => (
                 lineIndex / crossAxisSize + 1f / (2 * crossAxisSize),
                 (lineIndex + 1) / crossAxisSize - 1f / (2 * crossAxisSize)),
-            FlexCrossAlignment.End => (
+            FlexAlignItems.End => (
                 (lineIndex + 1) / crossAxisSize - 1f / crossAxisSize,
                 (lineIndex + 1) / crossAxisSize),
-            FlexCrossAlignment.Stretch => (lineIndex / crossAxisSize, (lineIndex + 1) / crossAxisSize),
-            _ => throw new ArgumentOutOfRangeException(nameof(CrossAlignment)),
+            FlexAlignItems.Stretch => (lineIndex / crossAxisSize, (lineIndex + 1) / crossAxisSize),
+            _ => throw new ArgumentOutOfRangeException(nameof(AlignItems)),
         };
     }
 

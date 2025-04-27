@@ -98,9 +98,11 @@ internal class AnimationHandler : ISingleton
         {
             try
             {
+                float startTime = Time.realtimeSinceStartup;
                 _logger.Debug("Processing {0} animations", _animations.Count);
-                ProcessAnimations();
+                ProcessAnimations(startTime);
                 _logger.Debug("Processed animations. {0} remaining", _animations.Count);
+                float endTime = Time.realtimeSinceStartup;
                 
                 if (_animations.Count == 0)
                 {
@@ -111,20 +113,20 @@ internal class AnimationHandler : ISingleton
                 else
                 {
                     _sendCount = 0;
-                    Thread.Sleep(UiFrameworkConfig.Instance.Animations.UpdateRate);
+                    int processDuration = Mathf.RoundToInt((endTime - startTime) * 1000);
+                    int sleepDuration = Mathf.Max(UiFrameworkConfig.Instance.Animations.UpdateRate - processDuration, 1);
+                    Thread.Sleep(sleepDuration);
                 }
             }
             catch (Exception ex)
             {
-                _logger.Exception("An error occured", ex);
+                _logger.Exception("An error occurred while processing animations", ex);
             }
         }
     }
     
-    private void ProcessAnimations()
+    private void ProcessAnimations(float currentTime)
     {
-        float currentTime = Time.realtimeSinceStartup;
-
         foreach (PlayerAnimations playerAnimations in _playerAnimations.Values)
         {
             JsonFrameworkWriter writer = Create();
@@ -215,7 +217,7 @@ internal class AnimationHandler : ISingleton
             return -1;
         }
         
-        return 25 + 1 << _sendCount;
+        return 25 + (1 << _sendCount);
     }
     
     internal void OnServerShutdown() => _cancellationTokenSource.Cancel();

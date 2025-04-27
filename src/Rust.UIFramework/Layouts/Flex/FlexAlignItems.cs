@@ -1,6 +1,6 @@
 ﻿namespace Oxide.Ext.UiFramework.Layouts;
 
-public enum FlexCrossAlignment : byte
+public enum FlexAlignItems : byte
 {
     Start,
     Center,
