@@ -2975,6 +2975,31 @@
                 }
               }
             },
+            "discord trophy": {
+              "Name": "discord trophy",
+              "Path": "assets/content/props/discord trophy",
+              "Files": {},
+              "SubFolders": {
+                "materials": {
+                  "Name": "materials",
+                  "Path": "assets/content/props/discord trophy/materials",
+                  "Files": {},
+                  "SubFolders": {
+                    "textures": {
+                      "Name": "textures",
+                      "Path": "assets/content/props/discord trophy/materials/textures",
+                      "Files": {
+                        "DiscordtrophyAlbedo": "assets/content/props/discord trophy/materials/textures/discordtrophy_albedo.tga",
+                        "DiscordtrophyAo": "assets/content/props/discord trophy/materials/textures/discordtrophy_ao.tga",
+                        "DiscordtrophyMetallic": "assets/content/props/discord trophy/materials/textures/discordtrophy_metallic.tga",
+                        "DiscordtrophyNormal": "assets/content/props/discord trophy/materials/textures/discordtrophy_normal.tga"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                }
+              }
+            },
             "wooden_furniture": {
               "Name": "wooden_furniture",
               "Path": "assets/content/props/wooden_furniture",
@@ -4940,6 +4965,128 @@
                     "ZiplinePlatFormsSpec": "assets/content/props/zipline_platforms/textures/zipline_platforms_spec.tga"
                   },
                   "SubFolders": {}
+                }
+              }
+            }
+          }
+        },
+        "ui": {
+          "Name": "ui",
+          "Path": "assets/content/ui",
+          "Files": {
+            "MugshotUnknown": "assets/content/ui/mugshot_unknown.png",
+            "NmsDirt": "assets/content/ui/nms-dirt.png",
+            "OverlayBleeding": "assets/content/ui/overlay_bleeding.png",
+            "UiGradientDownTight": "assets/content/ui/ui.gradient.down.tight.psd",
+            "UiSpashScreen": "assets/content/ui/ui.spashscreen.psd"
+          },
+          "SubFolders": {
+            "menuui": {
+              "Name": "menuui",
+              "Path": "assets/content/ui/menuui",
+              "Files": {},
+              "SubFolders": {
+                "itemstore": {
+                  "Name": "itemstore",
+                  "Path": "assets/content/ui/menuui/itemstore",
+                  "Files": {},
+                  "SubFolders": {
+                    "packs": {
+                      "Name": "packs",
+                      "Path": "assets/content/ui/menuui/itemstore/packs",
+                      "Files": {},
+                      "SubFolders": {
+                        "abyss": {
+                          "Name": "abyss",
+                          "Path": "assets/content/ui/menuui/itemstore/packs/abyss",
+                          "Files": {},
+                          "SubFolders": {
+                            "_assets": {
+                              "Name": "_assets",
+                              "Path": "assets/content/ui/menuui/itemstore/packs/abyss/_assets",
+                              "Files": {
+                                "AbyssMedia6Sunkenknife": "assets/content/ui/menuui/itemstore/packs/abyss/_assets/abyss-media-6-sunkenknife.jpg",
+                                "AbyssMedia7Sunkenknife": "assets/content/ui/menuui/itemstore/packs/abyss/_assets/abyss-media-7-sunkenknife.jpg"
+                              },
+                              "SubFolders": {}
+                            }
+                          }
+                        },
+                        "wallpaper starter pack": {
+                          "Name": "wallpaper starter pack",
+                          "Path": "assets/content/ui/menuui/itemstore/packs/wallpaper starter pack",
+                          "Files": {},
+                          "SubFolders": {
+                            "_assets": {
+                              "Name": "_assets",
+                              "Path": "assets/content/ui/menuui/itemstore/packs/wallpaper starter pack/_assets",
+                              "Files": {
+                                "RustWallpaperGallery03": "assets/content/ui/menuui/itemstore/packs/wallpaper starter pack/_assets/rust_wallpaper_gallery_03.jpg",
+                                "RustWallpaperGallery08": "assets/content/ui/menuui/itemstore/packs/wallpaper starter pack/_assets/rust_wallpaper_gallery_08.jpg",
+                                "RustWallpaperGallery09": "assets/content/ui/menuui/itemstore/packs/wallpaper starter pack/_assets/rust_wallpaper_gallery_09.jpg",
+                                "RustWallpaperGallery10": "assets/content/ui/menuui/itemstore/packs/wallpaper starter pack/_assets/rust_wallpaper_gallery_10.jpg",
+                                "RustWallpaperGallery11": "assets/content/ui/menuui/itemstore/packs/wallpaper starter pack/_assets/rust_wallpaper_gallery_11.jpg",
+                                "RustWallpaperSubway01": "assets/content/ui/menuui/itemstore/packs/wallpaper starter pack/_assets/rust_wallpaper_subway_01.jpg",
+                                "RustWallpaperSubway02Alt1": "assets/content/ui/menuui/itemstore/packs/wallpaper starter pack/_assets/rust_wallpaper_subway_02_alt1.jpg",
+                                "RustWallpaperWorkbench01": "assets/content/ui/menuui/itemstore/packs/wallpaper starter pack/_assets/rust_wallpaper_workbench_01.jpg"
+                              },
+                              "SubFolders": {}
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "gameui": {
+              "Name": "gameui",
+              "Path": "assets/content/ui/gameui",
+              "Files": {
+                "UiCrosshairCircle": "assets/content/ui/gameui/ui.crosshair.circle.png"
+              },
+              "SubFolders": {
+                "attackheli": {
+                  "Name": "attackheli",
+                  "Path": "assets/content/ui/gameui/attackheli",
+                  "Files": {},
+                  "SubFolders": {
+                    "compass": {
+                      "Name": "compass",
+                      "Path": "assets/content/ui/gameui/attackheli/compass",
+                      "Files": {
+                        "CompassStrip": "assets/content/ui/gameui/attackheli/compass/compass_strip.psd",
+                        "CompassStrip2": "assets/content/ui/gameui/attackheli/compass/compass_strip_2.psd",
+                        "CompassStripDigital": "assets/content/ui/gameui/attackheli/compass/compass_strip_digital.psd"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
+                "cardgames": {
+                  "Name": "cardgames",
+                  "Path": "assets/content/ui/gameui/cardgames",
+                  "Files": {},
+                  "SubFolders": {
+                    "deck": {
+                      "Name": "deck",
+                      "Path": "assets/content/ui/gameui/cardgames/deck",
+                      "Files": {},
+                      "SubFolders": {
+                        "jokers": {
+                          "Name": "jokers",
+                          "Path": "assets/content/ui/gameui/cardgames/deck/jokers",
+                          "Files": {
+                            "JokerBlack": "assets/content/ui/gameui/cardgames/deck/jokers/joker_black.png",
+                            "JokerMixed": "assets/content/ui/gameui/cardgames/deck/jokers/joker_mixed.png",
+                            "JokerRed": "assets/content/ui/gameui/cardgames/deck/jokers/joker_red.png"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -13020,112 +13167,6 @@
           },
           "SubFolders": {}
         },
-        "ui": {
-          "Name": "ui",
-          "Path": "assets/content/ui",
-          "Files": {
-            "MugshotUnknown": "assets/content/ui/mugshot_unknown.png",
-            "NmsDirt": "assets/content/ui/nms-dirt.png",
-            "OverlayBleeding": "assets/content/ui/overlay_bleeding.png",
-            "UiGradientDownTight": "assets/content/ui/ui.gradient.down.tight.psd",
-            "UiSpashScreen": "assets/content/ui/ui.spashscreen.psd"
-          },
-          "SubFolders": {
-            "gameui": {
-              "Name": "gameui",
-              "Path": "assets/content/ui/gameui",
-              "Files": {
-                "UiCrosshairCircle": "assets/content/ui/gameui/ui.crosshair.circle.png"
-              },
-              "SubFolders": {
-                "attackheli": {
-                  "Name": "attackheli",
-                  "Path": "assets/content/ui/gameui/attackheli",
-                  "Files": {},
-                  "SubFolders": {
-                    "compass": {
-                      "Name": "compass",
-                      "Path": "assets/content/ui/gameui/attackheli/compass",
-                      "Files": {
-                        "CompassStrip": "assets/content/ui/gameui/attackheli/compass/compass_strip.psd",
-                        "CompassStrip2": "assets/content/ui/gameui/attackheli/compass/compass_strip_2.psd",
-                        "CompassStripDigital": "assets/content/ui/gameui/attackheli/compass/compass_strip_digital.psd"
-                      },
-                      "SubFolders": {}
-                    }
-                  }
-                },
-                "cardgames": {
-                  "Name": "cardgames",
-                  "Path": "assets/content/ui/gameui/cardgames",
-                  "Files": {},
-                  "SubFolders": {
-                    "deck": {
-                      "Name": "deck",
-                      "Path": "assets/content/ui/gameui/cardgames/deck",
-                      "Files": {},
-                      "SubFolders": {
-                        "jokers": {
-                          "Name": "jokers",
-                          "Path": "assets/content/ui/gameui/cardgames/deck/jokers",
-                          "Files": {
-                            "JokerBlack": "assets/content/ui/gameui/cardgames/deck/jokers/joker_black.png",
-                            "JokerMixed": "assets/content/ui/gameui/cardgames/deck/jokers/joker_mixed.png",
-                            "JokerRed": "assets/content/ui/gameui/cardgames/deck/jokers/joker_red.png"
-                          },
-                          "SubFolders": {}
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "menuui": {
-              "Name": "menuui",
-              "Path": "assets/content/ui/menuui",
-              "Files": {},
-              "SubFolders": {
-                "itemstore": {
-                  "Name": "itemstore",
-                  "Path": "assets/content/ui/menuui/itemstore",
-                  "Files": {},
-                  "SubFolders": {
-                    "packs": {
-                      "Name": "packs",
-                      "Path": "assets/content/ui/menuui/itemstore/packs",
-                      "Files": {},
-                      "SubFolders": {
-                        "wallpaper starter pack": {
-                          "Name": "wallpaper starter pack",
-                          "Path": "assets/content/ui/menuui/itemstore/packs/wallpaper starter pack",
-                          "Files": {},
-                          "SubFolders": {
-                            "_assets": {
-                              "Name": "_assets",
-                              "Path": "assets/content/ui/menuui/itemstore/packs/wallpaper starter pack/_assets",
-                              "Files": {
-                                "RustWallpaperGallery03": "assets/content/ui/menuui/itemstore/packs/wallpaper starter pack/_assets/rust_wallpaper_gallery_03.jpg",
-                                "RustWallpaperGallery08": "assets/content/ui/menuui/itemstore/packs/wallpaper starter pack/_assets/rust_wallpaper_gallery_08.jpg",
-                                "RustWallpaperGallery09": "assets/content/ui/menuui/itemstore/packs/wallpaper starter pack/_assets/rust_wallpaper_gallery_09.jpg",
-                                "RustWallpaperGallery10": "assets/content/ui/menuui/itemstore/packs/wallpaper starter pack/_assets/rust_wallpaper_gallery_10.jpg",
-                                "RustWallpaperGallery11": "assets/content/ui/menuui/itemstore/packs/wallpaper starter pack/_assets/rust_wallpaper_gallery_11.jpg",
-                                "RustWallpaperSubway01": "assets/content/ui/menuui/itemstore/packs/wallpaper starter pack/_assets/rust_wallpaper_subway_01.jpg",
-                                "RustWallpaperSubway02Alt1": "assets/content/ui/menuui/itemstore/packs/wallpaper starter pack/_assets/rust_wallpaper_subway_02_alt1.jpg",
-                                "RustWallpaperWorkbench01": "assets/content/ui/menuui/itemstore/packs/wallpaper starter pack/_assets/rust_wallpaper_workbench_01.jpg"
-                              },
-                              "SubFolders": {}
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
         "decals": {
           "Name": "decals",
           "Path": "assets/content/decals",
@@ -13564,6 +13605,56 @@
                     "NailgunFuzz": "assets/prefabs/weapons/nailgun/materials/nailgun_fuzz.tga",
                     "NailgunNormals": "assets/prefabs/weapons/nailgun/materials/nailgun_normals.tga",
                     "NailgunSpecular": "assets/prefabs/weapons/nailgun/materials/nailgun_specular.tga"
+                  },
+                  "SubFolders": {}
+                }
+              }
+            },
+            "knife": {
+              "Name": "knife",
+              "Path": "assets/prefabs/weapons/knife",
+              "Files": {},
+              "SubFolders": {
+                "skins": {
+                  "Name": "skins",
+                  "Path": "assets/prefabs/weapons/knife/skins",
+                  "Files": {},
+                  "SubFolders": {
+                    "sunkenknife": {
+                      "Name": "sunkenknife",
+                      "Path": "assets/prefabs/weapons/knife/skins/sunkenknife",
+                      "Files": {},
+                      "SubFolders": {
+                        "materials": {
+                          "Name": "materials",
+                          "Path": "assets/prefabs/weapons/knife/skins/sunkenknife/materials",
+                          "Files": {},
+                          "SubFolders": {
+                            "textures": {
+                              "Name": "textures",
+                              "Path": "assets/prefabs/weapons/knife/skins/sunkenknife/materials/textures",
+                              "Files": {
+                                "AntiqueknifeAlbedo": "assets/prefabs/weapons/knife/skins/sunkenknife/materials/textures/antiqueknife_albedo.tga",
+                                "AntiqueknifeAo": "assets/prefabs/weapons/knife/skins/sunkenknife/materials/textures/antiqueknife_ao.tga",
+                                "AntiqueknifeMetallic": "assets/prefabs/weapons/knife/skins/sunkenknife/materials/textures/antiqueknife_metallic.tga",
+                                "AntiqueknifeNormal": "assets/prefabs/weapons/knife/skins/sunkenknife/materials/textures/antiqueknife_normal.tga"
+                              },
+                              "SubFolders": {}
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "materials": {
+                  "Name": "materials",
+                  "Path": "assets/prefabs/weapons/knife/materials",
+                  "Files": {
+                    "KnifeAlbedo": "assets/prefabs/weapons/knife/materials/knife_albedo.tga",
+                    "KnifeAo": "assets/prefabs/weapons/knife/materials/knife_ao.tga",
+                    "KnifeNormals": "assets/prefabs/weapons/knife/materials/knife_normals.tga",
+                    "KnifeSpecular": "assets/prefabs/weapons/knife/materials/knife_specular.tga"
                   },
                   "SubFolders": {}
                 }
@@ -14938,24 +15029,6 @@
                       "SubFolders": {}
                     }
                   }
-                }
-              }
-            },
-            "knife": {
-              "Name": "knife",
-              "Path": "assets/prefabs/weapons/knife",
-              "Files": {},
-              "SubFolders": {
-                "materials": {
-                  "Name": "materials",
-                  "Path": "assets/prefabs/weapons/knife/materials",
-                  "Files": {
-                    "KnifeAlbedo": "assets/prefabs/weapons/knife/materials/knife_albedo.tga",
-                    "KnifeAo": "assets/prefabs/weapons/knife/materials/knife_ao.tga",
-                    "KnifeNormals": "assets/prefabs/weapons/knife/materials/knife_normals.tga",
-                    "KnifeSpecular": "assets/prefabs/weapons/knife/materials/knife_specular.tga"
-                  },
-                  "SubFolders": {}
                 }
               }
             },
@@ -18356,6 +18429,30 @@
                     }
                   }
                 },
+                "horsecostume": {
+                  "Name": "horsecostume",
+                  "Path": "assets/prefabs/misc/easter/horsecostume",
+                  "Files": {},
+                  "SubFolders": {
+                    "textures": {
+                      "Name": "textures",
+                      "Path": "assets/prefabs/misc/easter/horsecostume/textures",
+                      "Files": {
+                        "HorsecostumeAAlbedo": "assets/prefabs/misc/easter/horsecostume/textures/horsecostume_a_albedo.png",
+                        "HorsecostumeAMetallic": "assets/prefabs/misc/easter/horsecostume/textures/horsecostume_a_metallic.png",
+                        "HorsecostumeAo": "assets/prefabs/misc/easter/horsecostume/textures/horsecostume_ao.png",
+                        "HorsecostumeBAlbedo": "assets/prefabs/misc/easter/horsecostume/textures/horsecostume_b_albedo.png",
+                        "HorsecostumeBMetallic": "assets/prefabs/misc/easter/horsecostume/textures/horsecostume_b_metallic.png",
+                        "HorsecostumeCAlbedo": "assets/prefabs/misc/easter/horsecostume/textures/horsecostume_c_albedo.png",
+                        "HorsecostumeCMetallic": "assets/prefabs/misc/easter/horsecostume/textures/horsecostume_c_metallic.png",
+                        "HorsecostumeMask": "assets/prefabs/misc/easter/horsecostume/textures/horsecostume_mask.png",
+                        "HorsecostumeNormal": "assets/prefabs/misc/easter/horsecostume/textures/horsecostume_normal.png",
+                        "HorsecostumeTangentMap": "assets/prefabs/misc/easter/horsecostume/textures/horsecostume_tangentmap.png"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
                 "nest_hat": {
                   "Name": "nest_hat",
                   "Path": "assets/prefabs/misc/easter/nest_hat",
@@ -18392,6 +18489,25 @@
                         "OnesieFuzz": "assets/prefabs/misc/easter/bunny onesie/materials/onesie_fuzz.png",
                         "OnesieNormal": "assets/prefabs/misc/easter/bunny onesie/materials/onesie_normal.png",
                         "OnesieSpecGloss": "assets/prefabs/misc/easter/bunny onesie/materials/onesie_specgloss.png"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
+                "faberge_egg_g": {
+                  "Name": "faberge_egg_g",
+                  "Path": "assets/prefabs/misc/easter/faberge_egg_g",
+                  "Files": {},
+                  "SubFolders": {
+                    "textures": {
+                      "Name": "textures",
+                      "Path": "assets/prefabs/misc/easter/faberge_egg_g/textures",
+                      "Files": {
+                        "RustigeeggCargoShipAo": "assets/prefabs/misc/easter/faberge_egg_g/textures/rustigeegg_cargoship_ao.png",
+                        "RustigeeggCargoShipDiff": "assets/prefabs/misc/easter/faberge_egg_g/textures/rustigeegg_cargoship_diff.png",
+                        "RustigeeggCargoShipNrm": "assets/prefabs/misc/easter/faberge_egg_g/textures/rustigeegg_cargoship_nrm.png",
+                        "RustigeeggCargoShipSpec": "assets/prefabs/misc/easter/faberge_egg_g/textures/rustigeegg_cargoship_spec.png",
+                        "RustigeeggCargoShipSss": "assets/prefabs/misc/easter/faberge_egg_g/textures/rustigeegg_cargoship_sss.png"
                       },
                       "SubFolders": {}
                     }
@@ -22515,6 +22631,245 @@
                     "YoutoozhazmatplushyFuzzMask": "assets/prefabs/deployable/hazmatplushy/textures/youtoozhazmatplushy_fuzzmask.tga",
                     "YoutoozhazmatplushyMetallic": "assets/prefabs/deployable/hazmatplushy/textures/youtoozhazmatplushy_metallic.tga",
                     "YoutoozhazmatplushyNormal": "assets/prefabs/deployable/hazmatplushy/textures/youtoozhazmatplushy_normal.tga"
+                  },
+                  "SubFolders": {}
+                }
+              }
+            }
+          }
+        },
+        "building": {
+          "Name": "building",
+          "Path": "assets/prefabs/building",
+          "Files": {},
+          "SubFolders": {
+            "gates.external.high.adobe": {
+              "Name": "gates.external.high.adobe",
+              "Path": "assets/prefabs/building/gates.external.high.adobe",
+              "Files": {},
+              "SubFolders": {
+                "models": {
+                  "Name": "models",
+                  "Path": "assets/prefabs/building/gates.external.high.adobe/models",
+                  "Files": {},
+                  "SubFolders": {
+                    "textures": {
+                      "Name": "textures",
+                      "Path": "assets/prefabs/building/gates.external.high.adobe/models/textures",
+                      "Files": {
+                        "AdobegateDoorDiff": "assets/prefabs/building/gates.external.high.adobe/models/textures/adobegate_door_diff.tga",
+                        "AdobegateDoorNrm": "assets/prefabs/building/gates.external.high.adobe/models/textures/adobegate_door_nrm.tga",
+                        "AdobegateDoorSpec": "assets/prefabs/building/gates.external.high.adobe/models/textures/adobegate_door_spec.tga",
+                        "AdobegateLodDiff": "assets/prefabs/building/gates.external.high.adobe/models/textures/adobegate_lod_diff.tga",
+                        "AdobegateLodNrm": "assets/prefabs/building/gates.external.high.adobe/models/textures/adobegate_lod_nrm.tga",
+                        "AdobegateLodSpec": "assets/prefabs/building/gates.external.high.adobe/models/textures/adobegate_lod_spec.tga",
+                        "ControlMask": "assets/prefabs/building/gates.external.high.adobe/models/textures/controlmask.tga",
+                        "DetailMask": "assets/prefabs/building/gates.external.high.adobe/models/textures/detailmask.tga",
+                        "WoodbeamDiff": "assets/prefabs/building/gates.external.high.adobe/models/textures/woodbeam_diff.tga",
+                        "WoodbeamNrm": "assets/prefabs/building/gates.external.high.adobe/models/textures/woodbeam_nrm.tga",
+                        "WoodbeamSpec": "assets/prefabs/building/gates.external.high.adobe/models/textures/woodbeam_spec.tga",
+                        "WoodgrainDetailNrm": "assets/prefabs/building/gates.external.high.adobe/models/textures/woodgraindetail_nrm.tga"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                }
+              }
+            },
+            "wall.external.high.adobe": {
+              "Name": "wall.external.high.adobe",
+              "Path": "assets/prefabs/building/wall.external.high.adobe",
+              "Files": {},
+              "SubFolders": {
+                "models": {
+                  "Name": "models",
+                  "Path": "assets/prefabs/building/wall.external.high.adobe/models",
+                  "Files": {},
+                  "SubFolders": {
+                    "textures": {
+                      "Name": "textures",
+                      "Path": "assets/prefabs/building/wall.external.high.adobe/models/textures",
+                      "Files": {
+                        "AdobewallHighDiff": "assets/prefabs/building/wall.external.high.adobe/models/textures/adobewall_high_diff.tga",
+                        "AdobewallHighlodDiff": "assets/prefabs/building/wall.external.high.adobe/models/textures/adobewall_highlod_diff.tga",
+                        "AdobewallHighlodNrm": "assets/prefabs/building/wall.external.high.adobe/models/textures/adobewall_highlod_nrm.tga",
+                        "AdobewallHighlodSpec": "assets/prefabs/building/wall.external.high.adobe/models/textures/adobewall_highlod_spec.tga",
+                        "AdobewallHighNrm": "assets/prefabs/building/wall.external.high.adobe/models/textures/adobewall_high_nrm.tga",
+                        "AdobewallHighSpec": "assets/prefabs/building/wall.external.high.adobe/models/textures/adobewall_high_spec.tga",
+                        "AdobewallLowDiff": "assets/prefabs/building/wall.external.high.adobe/models/textures/adobewall_low_diff.tga",
+                        "AdobewallLowNrm": "assets/prefabs/building/wall.external.high.adobe/models/textures/adobewall_low_nrm.tga",
+                        "AdobewallLowSpec": "assets/prefabs/building/wall.external.high.adobe/models/textures/adobewall_low_spec.tga",
+                        "ConcreteDetailNrm": "assets/prefabs/building/wall.external.high.adobe/models/textures/concrete_detail_nrm.jpg"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                }
+              }
+            },
+            "door.double.hinged": {
+              "Name": "door.double.hinged",
+              "Path": "assets/prefabs/building/door.double.hinged",
+              "Files": {},
+              "SubFolders": {
+                "textures": {
+                  "Name": "textures",
+                  "Path": "assets/prefabs/building/door.double.hinged/textures",
+                  "Files": {
+                    "DblLogWoodWindowDoorsAo": "assets/prefabs/building/door.double.hinged/textures/dbl_logwood_window_doors_ao.tga",
+                    "DblLogWoodWindowDoorsDif": "assets/prefabs/building/door.double.hinged/textures/dbl_logwood_window_doors_dif.tga",
+                    "DblLogWoodWindowDoorsNrm": "assets/prefabs/building/door.double.hinged/textures/dbl_logwood_window_doors_nrm.tga",
+                    "DblLogWoodWindowDoorsSpec": "assets/prefabs/building/door.double.hinged/textures/dbl_logwood_window_doors_spec.tga",
+                    "DblMetalDoorTier1Ao": "assets/prefabs/building/door.double.hinged/textures/dbl_metal_door_tier1_ao.tga",
+                    "DblMetalDoorTier1Diff": "assets/prefabs/building/door.double.hinged/textures/dbl_metal_door_tier1_diff.tga",
+                    "DblMetalDoorTier1Nrm": "assets/prefabs/building/door.double.hinged/textures/dbl_metal_door_tier1_nrm.tga",
+                    "DblMetalDoorTier1Spec": "assets/prefabs/building/door.double.hinged/textures/dbl_metal_door_tier1_spec.tga",
+                    "DblMetalDoorTier2Ao": "assets/prefabs/building/door.double.hinged/textures/dbl_metal_door_tier2_ao.tga",
+                    "DblMetalDoorTier2Diff": "assets/prefabs/building/door.double.hinged/textures/dbl_metal_door_tier2_diff.tga",
+                    "DblMetalDoorTier2Nrm": "assets/prefabs/building/door.double.hinged/textures/dbl_metal_door_tier2_nrm.tga",
+                    "DblMetalDoorTier2Spec": "assets/prefabs/building/door.double.hinged/textures/dbl_metal_door_tier2_spec.tga"
+                  },
+                  "SubFolders": {}
+                }
+              }
+            },
+            "wall.frame.garagedoor": {
+              "Name": "wall.frame.garagedoor",
+              "Path": "assets/prefabs/building/wall.frame.garagedoor",
+              "Files": {},
+              "SubFolders": {
+                "textures": {
+                  "Name": "textures",
+                  "Path": "assets/prefabs/building/wall.frame.garagedoor/textures",
+                  "Files": {
+                    "GarageDoorBlockDiff": "assets/prefabs/building/wall.frame.garagedoor/textures/garage_door_block_diff.tga",
+                    "GarageDoorBlockNrm": "assets/prefabs/building/wall.frame.garagedoor/textures/garage_door_block_nrm.tga",
+                    "GarageDoorBlockSpec": "assets/prefabs/building/wall.frame.garagedoor/textures/garage_door_block_spec.tga"
+                  },
+                  "SubFolders": {}
+                }
+              }
+            },
+            "gates.external.high.frontier": {
+              "Name": "gates.external.high.frontier",
+              "Path": "assets/prefabs/building/gates.external.high.frontier",
+              "Files": {},
+              "SubFolders": {
+                "textures": {
+                  "Name": "textures",
+                  "Path": "assets/prefabs/building/gates.external.high.frontier/textures",
+                  "Files": {
+                    "GateFrontierExtrasAlbedo": "assets/prefabs/building/gates.external.high.frontier/textures/gate.frontier.extras_albedo.tga",
+                    "GateFrontierExtrasNormal": "assets/prefabs/building/gates.external.high.frontier/textures/gate.frontier.extras_normal.tga",
+                    "GateFrontierExtrasSpec": "assets/prefabs/building/gates.external.high.frontier/textures/gate.frontier.extras_spec.tga",
+                    "GateFrontierLodAlbedo": "assets/prefabs/building/gates.external.high.frontier/textures/gate.frontier.lod_albedo.tga",
+                    "GateFrontierLodNormal": "assets/prefabs/building/gates.external.high.frontier/textures/gate.frontier.lod_normal.tga",
+                    "GateFrontierSkullAlbedo": "assets/prefabs/building/gates.external.high.frontier/textures/gate.frontier.skull_albedo.tga",
+                    "GateFrontierSkullNormal": "assets/prefabs/building/gates.external.high.frontier/textures/gate.frontier.skull_normal.tga",
+                    "GateFrontierSkullSpec": "assets/prefabs/building/gates.external.high.frontier/textures/gate.frontier.skull_spec.tga",
+                    "GateFrontierTreeAlbedo": "assets/prefabs/building/gates.external.high.frontier/textures/gate.frontier.tree_albedo.tga",
+                    "GateFrontierTreeAo": "assets/prefabs/building/gates.external.high.frontier/textures/gate.frontier.tree_ao.tga",
+                    "GateFrontierTreeNormal": "assets/prefabs/building/gates.external.high.frontier/textures/gate.frontier.tree_normal.tga",
+                    "GateFrontierTreeSpec": "assets/prefabs/building/gates.external.high.frontier/textures/gate.frontier.tree_spec.tga"
+                  },
+                  "SubFolders": {}
+                }
+              }
+            },
+            "gates.external.high": {
+              "Name": "gates.external.high",
+              "Path": "assets/prefabs/building/gates.external.high",
+              "Files": {},
+              "SubFolders": {
+                "gates.external.high.wood": {
+                  "Name": "gates.external.high.wood",
+                  "Path": "assets/prefabs/building/gates.external.high/gates.external.high.wood",
+                  "Files": {},
+                  "SubFolders": {
+                    "textures": {
+                      "Name": "textures",
+                      "Path": "assets/prefabs/building/gates.external.high/gates.external.high.wood/textures",
+                      "Files": {
+                        "GateWoodLod3Diff": "assets/prefabs/building/gates.external.high/gates.external.high.wood/textures/gate.wood.lod3_diff.tga",
+                        "GateWoodLod3Nrm": "assets/prefabs/building/gates.external.high/gates.external.high.wood/textures/gate.wood.lod3_nrm.tga"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                }
+              }
+            },
+            "door.hinged": {
+              "Name": "door.hinged",
+              "Path": "assets/prefabs/building/door.hinged",
+              "Files": {},
+              "SubFolders": {
+                "model": {
+                  "Name": "model",
+                  "Path": "assets/prefabs/building/door.hinged/model",
+                  "Files": {
+                    "LogWoodWindowDoorsAo": "assets/prefabs/building/door.hinged/model/logwood_window_doors_ao.tga",
+                    "LogWoodWindowDoorsDiff": "assets/prefabs/building/door.hinged/model/logwood_window_doors_diff.tga",
+                    "LogWoodWindowDoorsNrm": "assets/prefabs/building/door.hinged/model/logwood_window_doors_nrm.tga",
+                    "LogWoodWindowDoorsSpec": "assets/prefabs/building/door.hinged/model/logwood_window_doors_spec.tga",
+                    "MetalDoorTier1Ao": "assets/prefabs/building/door.hinged/model/metal_door_tier1_ao.tga",
+                    "MetalDoorTier1Diff": "assets/prefabs/building/door.hinged/model/metal_door_tier1_diff.tga",
+                    "MetalDoorTier1Nrm": "assets/prefabs/building/door.hinged/model/metal_door_tier1_nrm.tga",
+                    "MetalDoorTier1Spec": "assets/prefabs/building/door.hinged/model/metal_door_tier1_spec.tga",
+                    "MetalDoorTier2Ao": "assets/prefabs/building/door.hinged/model/metal_door_tier2_ao.tga",
+                    "MetalDoorTier2Diff": "assets/prefabs/building/door.hinged/model/metal_door_tier2_diff.tga",
+                    "MetalDoorTier2Nrm": "assets/prefabs/building/door.hinged/model/metal_door_tier2_nrm.tga",
+                    "MetalDoorTier2Spec": "assets/prefabs/building/door.hinged/model/metal_door_tier2_spec.tga"
+                  },
+                  "SubFolders": {}
+                }
+              }
+            },
+            "wall.external.high.frontier": {
+              "Name": "wall.external.high.frontier",
+              "Path": "assets/prefabs/building/wall.external.high.frontier",
+              "Files": {},
+              "SubFolders": {
+                "models": {
+                  "Name": "models",
+                  "Path": "assets/prefabs/building/wall.external.high.frontier/models",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/prefabs/building/wall.external.high.frontier/models/materials",
+                      "Files": {},
+                      "SubFolders": {
+                        "textures": {
+                          "Name": "textures",
+                          "Path": "assets/prefabs/building/wall.external.high.frontier/models/materials/textures",
+                          "Files": {
+                            "WallExternalHighFrontierWallalodAlbedo": "assets/prefabs/building/wall.external.high.frontier/models/materials/textures/wall.external.high.frontier.wallalod_albedo.tga",
+                            "WallExternalHighFrontierWallalodNormal": "assets/prefabs/building/wall.external.high.frontier/models/materials/textures/wall.external.high.frontier.wallalod_normal.tga",
+                            "WallExternalHighFrontierWallblodAlbedo": "assets/prefabs/building/wall.external.high.frontier/models/materials/textures/wall.external.high.frontier.wallblod_albedo.tga",
+                            "WallExternalHighFrontierWallblodNormal": "assets/prefabs/building/wall.external.high.frontier/models/materials/textures/wall.external.high.frontier.wallblod_normal.tga",
+                            "WallExternalHighFrontierWallclodAlbedo": "assets/prefabs/building/wall.external.high.frontier/models/materials/textures/wall.external.high.frontier.wallclod_albedo.tga",
+                            "WallExternalHighFrontierWallclodNormal": "assets/prefabs/building/wall.external.high.frontier/models/materials/textures/wall.external.high.frontier.wallclod_normal.tga"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "wall.external.high.wood": {
+              "Name": "wall.external.high.wood",
+              "Path": "assets/prefabs/building/wall.external.high.wood",
+              "Files": {},
+              "SubFolders": {
+                "textures": {
+                  "Name": "textures",
+                  "Path": "assets/prefabs/building/wall.external.high.wood/textures",
+                  "Files": {
+                    "WoodWallLod3Diff": "assets/prefabs/building/wall.external.high.wood/textures/wood_wall_lod3_diff.tga",
+                    "WoodWallLod3Nrm": "assets/prefabs/building/wall.external.high.wood/textures/wood_wall_lod3_nrm.tga"
                   },
                   "SubFolders": {}
                 }
@@ -28153,121 +28508,6 @@
             }
           }
         },
-        "building": {
-          "Name": "building",
-          "Path": "assets/prefabs/building",
-          "Files": {},
-          "SubFolders": {
-            "door.double.hinged": {
-              "Name": "door.double.hinged",
-              "Path": "assets/prefabs/building/door.double.hinged",
-              "Files": {},
-              "SubFolders": {
-                "textures": {
-                  "Name": "textures",
-                  "Path": "assets/prefabs/building/door.double.hinged/textures",
-                  "Files": {
-                    "DblLogWoodWindowDoorsAo": "assets/prefabs/building/door.double.hinged/textures/dbl_logwood_window_doors_ao.tga",
-                    "DblLogWoodWindowDoorsDif": "assets/prefabs/building/door.double.hinged/textures/dbl_logwood_window_doors_dif.tga",
-                    "DblLogWoodWindowDoorsNrm": "assets/prefabs/building/door.double.hinged/textures/dbl_logwood_window_doors_nrm.tga",
-                    "DblLogWoodWindowDoorsSpec": "assets/prefabs/building/door.double.hinged/textures/dbl_logwood_window_doors_spec.tga",
-                    "DblMetalDoorTier1Ao": "assets/prefabs/building/door.double.hinged/textures/dbl_metal_door_tier1_ao.tga",
-                    "DblMetalDoorTier1Diff": "assets/prefabs/building/door.double.hinged/textures/dbl_metal_door_tier1_diff.tga",
-                    "DblMetalDoorTier1Nrm": "assets/prefabs/building/door.double.hinged/textures/dbl_metal_door_tier1_nrm.tga",
-                    "DblMetalDoorTier1Spec": "assets/prefabs/building/door.double.hinged/textures/dbl_metal_door_tier1_spec.tga",
-                    "DblMetalDoorTier2Ao": "assets/prefabs/building/door.double.hinged/textures/dbl_metal_door_tier2_ao.tga",
-                    "DblMetalDoorTier2Diff": "assets/prefabs/building/door.double.hinged/textures/dbl_metal_door_tier2_diff.tga",
-                    "DblMetalDoorTier2Nrm": "assets/prefabs/building/door.double.hinged/textures/dbl_metal_door_tier2_nrm.tga",
-                    "DblMetalDoorTier2Spec": "assets/prefabs/building/door.double.hinged/textures/dbl_metal_door_tier2_spec.tga"
-                  },
-                  "SubFolders": {}
-                }
-              }
-            },
-            "wall.frame.garagedoor": {
-              "Name": "wall.frame.garagedoor",
-              "Path": "assets/prefabs/building/wall.frame.garagedoor",
-              "Files": {},
-              "SubFolders": {
-                "textures": {
-                  "Name": "textures",
-                  "Path": "assets/prefabs/building/wall.frame.garagedoor/textures",
-                  "Files": {
-                    "GarageDoorBlockDiff": "assets/prefabs/building/wall.frame.garagedoor/textures/garage_door_block_diff.tga",
-                    "GarageDoorBlockNrm": "assets/prefabs/building/wall.frame.garagedoor/textures/garage_door_block_nrm.tga",
-                    "GarageDoorBlockSpec": "assets/prefabs/building/wall.frame.garagedoor/textures/garage_door_block_spec.tga"
-                  },
-                  "SubFolders": {}
-                }
-              }
-            },
-            "gates.external.high": {
-              "Name": "gates.external.high",
-              "Path": "assets/prefabs/building/gates.external.high",
-              "Files": {},
-              "SubFolders": {
-                "gates.external.high.wood": {
-                  "Name": "gates.external.high.wood",
-                  "Path": "assets/prefabs/building/gates.external.high/gates.external.high.wood",
-                  "Files": {},
-                  "SubFolders": {
-                    "textures": {
-                      "Name": "textures",
-                      "Path": "assets/prefabs/building/gates.external.high/gates.external.high.wood/textures",
-                      "Files": {
-                        "GateWoodLod3Diff": "assets/prefabs/building/gates.external.high/gates.external.high.wood/textures/gate.wood.lod3_diff.tga",
-                        "GateWoodLod3Nrm": "assets/prefabs/building/gates.external.high/gates.external.high.wood/textures/gate.wood.lod3_nrm.tga"
-                      },
-                      "SubFolders": {}
-                    }
-                  }
-                }
-              }
-            },
-            "door.hinged": {
-              "Name": "door.hinged",
-              "Path": "assets/prefabs/building/door.hinged",
-              "Files": {},
-              "SubFolders": {
-                "model": {
-                  "Name": "model",
-                  "Path": "assets/prefabs/building/door.hinged/model",
-                  "Files": {
-                    "LogWoodWindowDoorsAo": "assets/prefabs/building/door.hinged/model/logwood_window_doors_ao.tga",
-                    "LogWoodWindowDoorsDiff": "assets/prefabs/building/door.hinged/model/logwood_window_doors_diff.tga",
-                    "LogWoodWindowDoorsNrm": "assets/prefabs/building/door.hinged/model/logwood_window_doors_nrm.tga",
-                    "LogWoodWindowDoorsSpec": "assets/prefabs/building/door.hinged/model/logwood_window_doors_spec.tga",
-                    "MetalDoorTier1Ao": "assets/prefabs/building/door.hinged/model/metal_door_tier1_ao.tga",
-                    "MetalDoorTier1Diff": "assets/prefabs/building/door.hinged/model/metal_door_tier1_diff.tga",
-                    "MetalDoorTier1Nrm": "assets/prefabs/building/door.hinged/model/metal_door_tier1_nrm.tga",
-                    "MetalDoorTier1Spec": "assets/prefabs/building/door.hinged/model/metal_door_tier1_spec.tga",
-                    "MetalDoorTier2Ao": "assets/prefabs/building/door.hinged/model/metal_door_tier2_ao.tga",
-                    "MetalDoorTier2Diff": "assets/prefabs/building/door.hinged/model/metal_door_tier2_diff.tga",
-                    "MetalDoorTier2Nrm": "assets/prefabs/building/door.hinged/model/metal_door_tier2_nrm.tga",
-                    "MetalDoorTier2Spec": "assets/prefabs/building/door.hinged/model/metal_door_tier2_spec.tga"
-                  },
-                  "SubFolders": {}
-                }
-              }
-            },
-            "wall.external.high.wood": {
-              "Name": "wall.external.high.wood",
-              "Path": "assets/prefabs/building/wall.external.high.wood",
-              "Files": {},
-              "SubFolders": {
-                "textures": {
-                  "Name": "textures",
-                  "Path": "assets/prefabs/building/wall.external.high.wood/textures",
-                  "Files": {
-                    "WoodWallLod3Diff": "assets/prefabs/building/wall.external.high.wood/textures/wood_wall_lod3_diff.tga",
-                    "WoodWallLod3Nrm": "assets/prefabs/building/wall.external.high.wood/textures/wood_wall_lod3_nrm.tga"
-                  },
-                  "SubFolders": {}
-                }
-              }
-            }
-          }
-        },
         "locks": {
           "Name": "locks",
           "Path": "assets/prefabs/locks",
@@ -30249,38 +30489,25 @@
                 "model": {
                   "Name": "model",
                   "Path": "assets/rust.ai/agents/chicken/model",
-                  "Files": {
-                    "Body1": "assets/rust.ai/agents/chicken/model/body-1.tga",
-                    "Body2": "assets/rust.ai/agents/chicken/model/body-2.tga",
-                    "Body3": "assets/rust.ai/agents/chicken/model/body-3.tga",
-                    "BodyNormal": "assets/rust.ai/agents/chicken/model/body_normal.tga",
-                    "BodySpecular": "assets/rust.ai/agents/chicken/model/body_specular.tga"
-                  },
+                  "Files": {},
                   "SubFolders": {
-                    "chicken_update": {
-                      "Name": "chicken_update",
-                      "Path": "assets/rust.ai/agents/chicken/model/chicken_update",
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/rust.ai/agents/chicken/model/materials",
                       "Files": {},
                       "SubFolders": {
-                        "materials": {
-                          "Name": "materials",
-                          "Path": "assets/rust.ai/agents/chicken/model/chicken_update/materials",
-                          "Files": {},
-                          "SubFolders": {
-                            "textures": {
-                              "Name": "textures",
-                              "Path": "assets/rust.ai/agents/chicken/model/chicken_update/materials/textures",
-                              "Files": {
-                                "ChickenAo": "assets/rust.ai/agents/chicken/model/chicken_update/materials/textures/chicken_ao.png",
-                                "ChickenGreyAlbedo": "assets/rust.ai/agents/chicken/model/chicken_update/materials/textures/chicken_grey_albedo.png",
-                                "ChickenNormal": "assets/rust.ai/agents/chicken/model/chicken_update/materials/textures/chicken_normal.png",
-                                "ChickenOrangeAlbedo": "assets/rust.ai/agents/chicken/model/chicken_update/materials/textures/chicken_orange_albedo.png",
-                                "ChickenSmoothness": "assets/rust.ai/agents/chicken/model/chicken_update/materials/textures/chicken_smoothness.png",
-                                "ChickenWhiteAlbedo": "assets/rust.ai/agents/chicken/model/chicken_update/materials/textures/chicken_white_albedo.png"
-                              },
-                              "SubFolders": {}
-                            }
-                          }
+                        "textures": {
+                          "Name": "textures",
+                          "Path": "assets/rust.ai/agents/chicken/model/materials/textures",
+                          "Files": {
+                            "ChickenAo": "assets/rust.ai/agents/chicken/model/materials/textures/chicken_ao.png",
+                            "ChickenGreyAlbedo": "assets/rust.ai/agents/chicken/model/materials/textures/chicken_grey_albedo.png",
+                            "ChickenNormal": "assets/rust.ai/agents/chicken/model/materials/textures/chicken_normal.png",
+                            "ChickenOrangeAlbedo": "assets/rust.ai/agents/chicken/model/materials/textures/chicken_orange_albedo.png",
+                            "ChickenSmoothness": "assets/rust.ai/agents/chicken/model/materials/textures/chicken_smoothness.png",
+                            "ChickenWhiteAlbedo": "assets/rust.ai/agents/chicken/model/materials/textures/chicken_white_albedo.png"
+                          },
+                          "SubFolders": {}
                         }
                       }
                     }

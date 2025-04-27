@@ -338,6 +338,14 @@ public static class UiTextures
 				{
 					public static class Packs
 					{
+						public static class Abyss
+						{
+							public static class Assets
+							{
+								public const string AbyssMedia6Sunkenknife = "assets/content/ui/menuui/itemstore/packs/abyss/_assets/abyss-media-6-sunkenknife.jpg";
+								public const string AbyssMedia7Sunkenknife = "assets/content/ui/menuui/itemstore/packs/abyss/_assets/abyss-media-7-sunkenknife.jpg";
+							}
+						}
 						public static class WallpaperStarterPack
 						{
 							public static class Assets

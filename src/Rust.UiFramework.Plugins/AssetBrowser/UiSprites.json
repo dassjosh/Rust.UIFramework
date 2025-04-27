@@ -776,11 +776,27 @@
                   },
                   "SubFolders": {}
                 },
+                "faberge_egg_g": {
+                  "Name": "faberge_egg_g",
+                  "Path": "assets/prefabs/misc/easter/faberge_egg_g",
+                  "Files": {
+                    "FabergeEggGDeployedIcon": "assets/prefabs/misc/easter/faberge_egg_g/faberge_egg_g.deployed.icon.png"
+                  },
+                  "SubFolders": {}
+                },
                 "bunny ears": {
                   "Name": "bunny ears",
                   "Path": "assets/prefabs/misc/easter/bunny ears",
                   "Files": {
                     "HatBunnyearsIcon": "assets/prefabs/misc/easter/bunny ears/hat.bunnyears.icon.png"
+                  },
+                  "SubFolders": {}
+                },
+                "horsecostume": {
+                  "Name": "horsecostume",
+                  "Path": "assets/prefabs/misc/easter/horsecostume",
+                  "Files": {
+                    "HorseCostumeIcon": "assets/prefabs/misc/easter/horsecostume/horse_costume.icon.png"
                   },
                   "SubFolders": {}
                 },
@@ -3584,7 +3600,23 @@
               "Files": {
                 "KnifeCombatIcon": "assets/prefabs/weapons/knife/knife.combat.icon.png"
               },
-              "SubFolders": {}
+              "SubFolders": {
+                "skins": {
+                  "Name": "skins",
+                  "Path": "assets/prefabs/weapons/knife/skins",
+                  "Files": {},
+                  "SubFolders": {
+                    "sunkenknife": {
+                      "Name": "sunkenknife",
+                      "Path": "assets/prefabs/weapons/knife/skins/sunkenknife",
+                      "Files": {
+                        "SunkenknifeIcon": "assets/prefabs/weapons/knife/skins/sunkenknife/sunkenknife.icon.png"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                }
+              }
             },
             "l96": {
               "Name": "l96",
@@ -5204,7 +5236,7 @@
               "Files": {
                 "PlanterLargeIcon": "assets/prefabs/deployable/planters/planter.large.icon.png",
                 "PlanterSmallIcon": "assets/prefabs/deployable/planters/planter.small.icon.png",
-                "PlanterTriangleIcon": "assets/prefabs/deployable/planters/planter.triangle.icon.png"
+                "PlanterTriangleDeployedIcon": "assets/prefabs/deployable/planters/planter.triangle.deployed.icon.png"
               },
               "SubFolders": {}
             },
@@ -6918,6 +6950,22 @@
               },
               "SubFolders": {}
             },
+            "gates.external.high.adobe": {
+              "Name": "gates.external.high.adobe",
+              "Path": "assets/prefabs/building/gates.external.high.adobe",
+              "Files": {
+                "GatesExternalHighAdobeIcon": "assets/prefabs/building/gates.external.high.adobe/gates.external.high.adobe.icon.png"
+              },
+              "SubFolders": {}
+            },
+            "gates.external.high.frontier": {
+              "Name": "gates.external.high.frontier",
+              "Path": "assets/prefabs/building/gates.external.high.frontier",
+              "Files": {
+                "GatesExternalHighFrontierIcon": "assets/prefabs/building/gates.external.high.frontier/gates.external.high.frontier.icon.png"
+              },
+              "SubFolders": {}
+            },
             "gates.external.high": {
               "Name": "gates.external.high",
               "Path": "assets/prefabs/building/gates.external.high",
@@ -6963,6 +7011,23 @@
               "Path": "assets/prefabs/building/wall.window.shutter",
               "Files": {
                 "ShutterWoodAItemIcon": "assets/prefabs/building/wall.window.shutter/shutter.wood.a.item.icon.png"
+              },
+              "SubFolders": {}
+            },
+            "wall.external.high.adobe": {
+              "Name": "wall.external.high.adobe",
+              "Path": "assets/prefabs/building/wall.external.high.adobe",
+              "Files": {
+                "StoreIconAdobeWallpack": "assets/prefabs/building/wall.external.high.adobe/store-icon_adobe-wallpack.png",
+                "WallExternalHighAdobeIcon": "assets/prefabs/building/wall.external.high.adobe/wall.external.high.adobe.icon.png"
+              },
+              "SubFolders": {}
+            },
+            "wall.external.high.frontier": {
+              "Name": "wall.external.high.frontier",
+              "Path": "assets/prefabs/building/wall.external.high.frontier",
+              "Files": {
+                "WallExternalHighFrontierIcon": "assets/prefabs/building/wall.external.high.frontier/wall.external.high.frontier.icon.png"
               },
               "SubFolders": {}
             },
@@ -7787,6 +7852,27 @@
                                 "FrontierBuildingSkin05": "assets/content/ui/menuui/itemstore/building skins/legacywood/_assets/frontier_buildingskin_05.jpg",
                                 "FrontierBuildingSkin06": "assets/content/ui/menuui/itemstore/building skins/legacywood/_assets/frontier_buildingskin_06.jpg",
                                 "StoreIconLegacyWood": "assets/content/ui/menuui/itemstore/building skins/legacywood/_assets/store-icon_legacy-wood.jpg"
+                              },
+                              "SubFolders": {}
+                            }
+                          }
+                        },
+                        "adobe_externalwallsandgate": {
+                          "Name": "adobe_externalwallsandgate",
+                          "Path": "assets/content/ui/menuui/itemstore/building skins/adobe_externalwallsandgate",
+                          "Files": {},
+                          "SubFolders": {
+                            "_assets": {
+                              "Name": "_assets",
+                              "Path": "assets/content/ui/menuui/itemstore/building skins/adobe_externalwallsandgate/_assets",
+                              "Files": {
+                                "HighwallsAdobe01": "assets/content/ui/menuui/itemstore/building skins/adobe_externalwallsandgate/_assets/highwalls_adobe_01.jpg",
+                                "HighwallsAdobe02": "assets/content/ui/menuui/itemstore/building skins/adobe_externalwallsandgate/_assets/highwalls_adobe_02.jpg",
+                                "HighwallsAdobe03": "assets/content/ui/menuui/itemstore/building skins/adobe_externalwallsandgate/_assets/highwalls_adobe_03.jpg",
+                                "HighwallsAdobe04": "assets/content/ui/menuui/itemstore/building skins/adobe_externalwallsandgate/_assets/highwalls_adobe_04.jpg",
+                                "HighwallsAdobe05": "assets/content/ui/menuui/itemstore/building skins/adobe_externalwallsandgate/_assets/highwalls_adobe_05.jpg",
+                                "HighwallsAdobe06": "assets/content/ui/menuui/itemstore/building skins/adobe_externalwallsandgate/_assets/highwalls_adobe_06.jpg",
+                                "StoreIconAdobeWallpack": "assets/content/ui/menuui/itemstore/building skins/adobe_externalwallsandgate/_assets/store-icon_adobe-wallpack.png"
                               },
                               "SubFolders": {}
                             }
@@ -9952,11 +10038,37 @@
           },
           "SubFolders": {}
         },
+        "textures": {
+          "Name": "textures",
+          "Path": "assets/content/textures",
+          "Files": {
+            "MissingIcon": "assets/content/textures/missing_icon.png"
+          },
+          "SubFolders": {
+            "generic": {
+              "Name": "generic",
+              "Path": "assets/content/textures/generic",
+              "Files": {
+                "Diagonalbase": "assets/content/textures/generic/diagonalbase.png",
+                "FullTransparent": "assets/content/textures/generic/fulltransparent.tga"
+              },
+              "SubFolders": {}
+            }
+          }
+        },
         "props": {
           "Name": "props",
           "Path": "assets/content/props",
           "Files": {},
           "SubFolders": {
+            "discord trophy": {
+              "Name": "discord trophy",
+              "Path": "assets/content/props/discord trophy",
+              "Files": {
+                "DiscordtrophyIcon": "assets/content/props/discord trophy/discordtrophy.icon.png"
+              },
+              "SubFolders": {}
+            },
             "fog machine": {
               "Name": "fog machine",
               "Path": "assets/content/props/fog machine",
@@ -9986,23 +10098,6 @@
               "Path": "assets/content/props/strobe light",
               "Files": {
                 "StrobeLightIcon": "assets/content/props/strobe light/strobelight.icon.png"
-              },
-              "SubFolders": {}
-            }
-          }
-        },
-        "textures": {
-          "Name": "textures",
-          "Path": "assets/content/textures",
-          "Files": {
-            "MissingIcon": "assets/content/textures/missing_icon.png"
-          },
-          "SubFolders": {
-            "generic": {
-              "Name": "generic",
-              "Path": "assets/content/textures/generic",
-              "Files": {
-                "FullTransparent": "assets/content/textures/generic/fulltransparent.tga"
               },
               "SubFolders": {}
             }

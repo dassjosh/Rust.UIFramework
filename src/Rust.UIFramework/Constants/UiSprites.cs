@@ -17,6 +17,7 @@ public static class UiSprites
 
 		public static class Props
 		{
+			public const string DiscordtrophyIcon = "assets/content/props/discord trophy/discordtrophy.icon.png";
 			public const string FogMachineIcon = "assets/content/props/fog machine/fogmachine.icon.png";
 			public const string HarborDynamicContainerAvatar = "assets/content/props/shipping_containers/harbor_dynamic_container_avatar.png";
 			public const string SentryScientistStaticIcon = "assets/content/props/sentry_scientists/sentry.scientist.static.icon.png";
@@ -25,8 +26,13 @@ public static class UiSprites
 
 		public static class Textures
 		{
-			public const string FullTransparent = "assets/content/textures/generic/fulltransparent.tga";
 			public const string MissingIcon = "assets/content/textures/missing_icon.png";
+
+			public static class Generic
+			{
+				public const string Diagonalbase = "assets/content/textures/generic/diagonalbase.png";
+				public const string FullTransparent = "assets/content/textures/generic/fulltransparent.tga";
+			}
 		}
 
 		public static class Ui

@@ -27,6 +27,7 @@
             "GuideHighLight2": "assets/content/materials/guide_highlight_2.mat",
             "GuideHighLightError": "assets/content/materials/guide_highlight_error.mat",
             "GuideNeutral": "assets/content/materials/guide_neutral.mat",
+            "GuideVolume": "assets/content/materials/guide_volume.mat",
             "ItemMaterial": "assets/content/materials/itemmaterial.mat",
             "MaleMaterial": "assets/content/materials/male.material.mat",
             "Occluders": "assets/content/materials/occluders.mat",
@@ -7570,6 +7571,19 @@
                 "VfxSmokeWhiteSofter": "assets/content/effects/cars/vfx_smoke_white_softer.mat"
               },
               "SubFolders": {}
+            },
+            "zones": {
+              "Name": "zones",
+              "Path": "assets/content/effects/zones",
+              "Files": {
+                "Zonegenericbase": "assets/content/effects/zones/zonegenericbase.mat",
+                "ZonegenericOutline": "assets/content/effects/zones/zonegenericoutline.mat",
+                "Zoneheatbase": "assets/content/effects/zones/zoneheatbase.mat",
+                "ZoneheatOutline": "assets/content/effects/zones/zoneheatoutline.mat",
+                "ZoneWaterbase": "assets/content/effects/zones/zonewaterbase.mat",
+                "ZoneWaterOutline": "assets/content/effects/zones/zonewateroutline.mat"
+              },
+              "SubFolders": {}
             }
           }
         },
@@ -9028,6 +9042,22 @@
                   "Path": "assets/content/props/digital_phone/materials",
                   "Files": {
                     "Digitalphone": "assets/content/props/digital_phone/materials/digitalphone.mat"
+                  },
+                  "SubFolders": {}
+                }
+              }
+            },
+            "discord trophy": {
+              "Name": "discord trophy",
+              "Path": "assets/content/props/discord trophy",
+              "Files": {},
+              "SubFolders": {
+                "materials": {
+                  "Name": "materials",
+                  "Path": "assets/content/props/discord trophy/materials",
+                  "Files": {
+                    "Discordtrophy": "assets/content/props/discord trophy/materials/discordtrophy.mat",
+                    "DiscordtrophygemStones": "assets/content/props/discord trophy/materials/discordtrophygemstones.mat"
                   },
                   "SubFolders": {}
                 }
@@ -16868,6 +16898,398 @@
             }
           }
         },
+        "building": {
+          "Name": "building",
+          "Path": "assets/prefabs/building",
+          "Files": {},
+          "SubFolders": {
+            "wall.external.high.frontier": {
+              "Name": "wall.external.high.frontier",
+              "Path": "assets/prefabs/building/wall.external.high.frontier",
+              "Files": {},
+              "SubFolders": {
+                "models": {
+                  "Name": "models",
+                  "Path": "assets/prefabs/building/wall.external.high.frontier/models",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/prefabs/building/wall.external.high.frontier/models/materials",
+                      "Files": {
+                        "_14Default": "assets/prefabs/building/wall.external.high.frontier/models/materials/14 - default.mat",
+                        "Material620": "assets/prefabs/building/wall.external.high.frontier/models/materials/material #620.mat",
+                        "WallExternalHighFrontierWallalodMat": "assets/prefabs/building/wall.external.high.frontier/models/materials/wall.external.high.frontier.wallalod_mat.mat",
+                        "WallExternalHighFrontierWallblodMat": "assets/prefabs/building/wall.external.high.frontier/models/materials/wall.external.high.frontier.wallblod_mat.mat",
+                        "WallExternalHighFrontierWallclodMat": "assets/prefabs/building/wall.external.high.frontier/models/materials/wall.external.high.frontier.wallclod_mat.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                }
+              }
+            },
+            "gates.external.high.adobe": {
+              "Name": "gates.external.high.adobe",
+              "Path": "assets/prefabs/building/gates.external.high.adobe",
+              "Files": {},
+              "SubFolders": {
+                "models": {
+                  "Name": "models",
+                  "Path": "assets/prefabs/building/gates.external.high.adobe/models",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/prefabs/building/gates.external.high.adobe/models/materials",
+                      "Files": {
+                        "AdobegateDoorMat": "assets/prefabs/building/gates.external.high.adobe/models/materials/adobegate_door_mat.mat",
+                        "AdobegateLod": "assets/prefabs/building/gates.external.high.adobe/models/materials/adobegate_lod.mat",
+                        "WoodbeamsMat": "assets/prefabs/building/gates.external.high.adobe/models/materials/woodbeams_mat.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                }
+              }
+            },
+            "wall.external.high.adobe": {
+              "Name": "wall.external.high.adobe",
+              "Path": "assets/prefabs/building/wall.external.high.adobe",
+              "Files": {},
+              "SubFolders": {
+                "models": {
+                  "Name": "models",
+                  "Path": "assets/prefabs/building/wall.external.high.adobe/models",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/prefabs/building/wall.external.high.adobe/models/materials",
+                      "Files": {
+                        "AdobeWallHigh": "assets/prefabs/building/wall.external.high.adobe/models/materials/adobe_wall_high.mat",
+                        "AdobewallHighLod": "assets/prefabs/building/wall.external.high.adobe/models/materials/adobewall_high_lod.mat",
+                        "AdobeWallLow": "assets/prefabs/building/wall.external.high.adobe/models/materials/adobe_wall_low.mat",
+                        "AtlasAdobeSkin1Decal": "assets/prefabs/building/wall.external.high.adobe/models/materials/atlas_adobe_skin_1_decal.mat",
+                        "AtlasAdobeSkin2Decal": "assets/prefabs/building/wall.external.high.adobe/models/materials/atlas_adobe_skin_2_decal.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                }
+              }
+            },
+            "door.hinged": {
+              "Name": "door.hinged",
+              "Path": "assets/prefabs/building/door.hinged",
+              "Files": {},
+              "SubFolders": {
+                "model": {
+                  "Name": "model",
+                  "Path": "assets/prefabs/building/door.hinged/model",
+                  "Files": {
+                    "BldLogWoodDoorwin": "assets/prefabs/building/door.hinged/model/bld_logwood_doorwin.mat",
+                    "MetalDoorTier1": "assets/prefabs/building/door.hinged/model/metal_door_tier1.mat",
+                    "MetalDoorTier2": "assets/prefabs/building/door.hinged/model/metal_door_tier2.mat"
+                  },
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/prefabs/building/door.hinged/model/materials",
+                      "Files": {
+                        "LogWoodWindowDoorsDif": "assets/prefabs/building/door.hinged/model/materials/logwood_window_doors_dif.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                }
+              }
+            },
+            "wall.frame.fence": {
+              "Name": "wall.frame.fence",
+              "Path": "assets/prefabs/building/wall.frame.fence",
+              "Files": {},
+              "SubFolders": {
+                "models": {
+                  "Name": "models",
+                  "Path": "assets/prefabs/building/wall.frame.fence/models",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/prefabs/building/wall.frame.fence/models/materials",
+                      "Files": {
+                        "ChainlinkBldblock": "assets/prefabs/building/wall.frame.fence/models/materials/chainlink_bldblock.mat",
+                        "ChainlinkFenceBldblock": "assets/prefabs/building/wall.frame.fence/models/materials/chainlink_fence_bldblock.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                }
+              }
+            },
+            "gates.external.high": {
+              "Name": "gates.external.high",
+              "Path": "assets/prefabs/building/gates.external.high",
+              "Files": {},
+              "SubFolders": {
+                "gates.external.high.stone": {
+                  "Name": "gates.external.high.stone",
+                  "Path": "assets/prefabs/building/gates.external.high/gates.external.high.stone",
+                  "Files": {},
+                  "SubFolders": {
+                    "models": {
+                      "Name": "models",
+                      "Path": "assets/prefabs/building/gates.external.high/gates.external.high.stone/models",
+                      "Files": {},
+                      "SubFolders": {
+                        "materials": {
+                          "Name": "materials",
+                          "Path": "assets/prefabs/building/gates.external.high/gates.external.high.stone/models/materials",
+                          "Files": {
+                            "CorrugatedAGate": "assets/prefabs/building/gates.external.high/gates.external.high.stone/models/materials/corrugated_a_gate.mat",
+                            "MetalArmoredAGate": "assets/prefabs/building/gates.external.high/gates.external.high.stone/models/materials/metal_armored_a_gate.mat"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    }
+                  }
+                },
+                "gates.external.high.wood": {
+                  "Name": "gates.external.high.wood",
+                  "Path": "assets/prefabs/building/gates.external.high/gates.external.high.wood",
+                  "Files": {},
+                  "SubFolders": {
+                    "model": {
+                      "Name": "model",
+                      "Path": "assets/prefabs/building/gates.external.high/gates.external.high.wood/model",
+                      "Files": {},
+                      "SubFolders": {
+                        "materials": {
+                          "Name": "materials",
+                          "Path": "assets/prefabs/building/gates.external.high/gates.external.high.wood/model/materials",
+                          "Files": {
+                            "GateExternalHighWoodLod3": "assets/prefabs/building/gates.external.high/gates.external.high.wood/model/materials/gate.external.high.wood_lod3.mat"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "door.double.hinged": {
+              "Name": "door.double.hinged",
+              "Path": "assets/prefabs/building/door.double.hinged",
+              "Files": {},
+              "SubFolders": {
+                "model": {
+                  "Name": "model",
+                  "Path": "assets/prefabs/building/door.double.hinged/model",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/prefabs/building/door.double.hinged/model/materials",
+                      "Files": {
+                        "DblBldLogWoodDoorwin": "assets/prefabs/building/door.double.hinged/model/materials/dbl_bld_logwood_doorwin.mat",
+                        "DblMetalDoorTier1": "assets/prefabs/building/door.double.hinged/model/materials/dbl_metal_door_tier1.mat",
+                        "DblMetalDoorTier2": "assets/prefabs/building/door.double.hinged/model/materials/dbl_metal_door_tier2.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                }
+              }
+            },
+            "wall.external.high.wood": {
+              "Name": "wall.external.high.wood",
+              "Path": "assets/prefabs/building/wall.external.high.wood",
+              "Files": {},
+              "SubFolders": {
+                "materials": {
+                  "Name": "materials",
+                  "Path": "assets/prefabs/building/wall.external.high.wood/materials",
+                  "Files": {
+                    "ExternalWallWood": "assets/prefabs/building/wall.external.high.wood/materials/external_wall_wood.mat",
+                    "RopeHighWall": "assets/prefabs/building/wall.external.high.wood/materials/rope_high_wall.mat",
+                    "WoodStickWall": "assets/prefabs/building/wall.external.high.wood/materials/wood_stick_wall.mat"
+                  },
+                  "SubFolders": {}
+                },
+                "models": {
+                  "Name": "models",
+                  "Path": "assets/prefabs/building/wall.external.high.wood/models",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/prefabs/building/wall.external.high.wood/models/materials",
+                      "Files": {
+                        "WallExternalHighWoodLod3": "assets/prefabs/building/wall.external.high.wood/models/materials/wall.external.high.wood_lod3.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                }
+              }
+            },
+            "floor.grill": {
+              "Name": "floor.grill",
+              "Path": "assets/prefabs/building/floor.grill",
+              "Files": {},
+              "SubFolders": {
+                "models": {
+                  "Name": "models",
+                  "Path": "assets/prefabs/building/floor.grill/models",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/prefabs/building/floor.grill/models/materials",
+                      "Files": {
+                        "FloorGrill": "assets/prefabs/building/floor.grill/models/materials/floor_grill.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                }
+              }
+            },
+            "wall.frame.garagedoor": {
+              "Name": "wall.frame.garagedoor",
+              "Path": "assets/prefabs/building/wall.frame.garagedoor",
+              "Files": {},
+              "SubFolders": {
+                "models": {
+                  "Name": "models",
+                  "Path": "assets/prefabs/building/wall.frame.garagedoor/models",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/prefabs/building/wall.frame.garagedoor/models/materials",
+                      "Files": {
+                        "GarageDoorBlock": "assets/prefabs/building/wall.frame.garagedoor/models/materials/garage_door_block.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                }
+              }
+            },
+            "gates.external.high.frontier": {
+              "Name": "gates.external.high.frontier",
+              "Path": "assets/prefabs/building/gates.external.high.frontier",
+              "Files": {},
+              "SubFolders": {
+                "models": {
+                  "Name": "models",
+                  "Path": "assets/prefabs/building/gates.external.high.frontier/models",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/prefabs/building/gates.external.high.frontier/models/materials",
+                      "Files": {
+                        "GateFrontierExtrasMat": "assets/prefabs/building/gates.external.high.frontier/models/materials/gate.frontier.extras_mat.mat",
+                        "GateFrontierLodMat": "assets/prefabs/building/gates.external.high.frontier/models/materials/gate.frontier.lod_mat.mat",
+                        "GateFrontierSkullMat": "assets/prefabs/building/gates.external.high.frontier/models/materials/gate.frontier.skull_mat.mat",
+                        "GateFrontierTreeMat": "assets/prefabs/building/gates.external.high.frontier/models/materials/gate.frontier.tree_mat.mat",
+                        "Material276": "assets/prefabs/building/gates.external.high.frontier/models/materials/material #276.mat",
+                        "Material575": "assets/prefabs/building/gates.external.high.frontier/models/materials/material #575.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                }
+              }
+            },
+            "wall.frame.shopfront": {
+              "Name": "wall.frame.shopfront",
+              "Path": "assets/prefabs/building/wall.frame.shopfront",
+              "Files": {},
+              "SubFolders": {
+                "models": {
+                  "Name": "models",
+                  "Path": "assets/prefabs/building/wall.frame.shopfront/models",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/prefabs/building/wall.frame.shopfront/models/materials",
+                      "Files": {
+                        "GlassReinforcedShop": "assets/prefabs/building/wall.frame.shopfront/models/materials/glass_reinforced_shop.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                }
+              }
+            },
+            "legacy.shelter.wood": {
+              "Name": "legacy.shelter.wood",
+              "Path": "assets/prefabs/building/legacy.shelter.wood",
+              "Files": {},
+              "SubFolders": {
+                "models": {
+                  "Name": "models",
+                  "Path": "assets/prefabs/building/legacy.shelter.wood/models",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/prefabs/building/legacy.shelter.wood/models/materials",
+                      "Files": {
+                        "LegacyWoodShelterLod2": "assets/prefabs/building/legacy.shelter.wood/models/materials/legacy_wood_shelter_lod2.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                }
+              }
+            },
+            "wall.frame.netting": {
+              "Name": "wall.frame.netting",
+              "Path": "assets/prefabs/building/wall.frame.netting",
+              "Files": {},
+              "SubFolders": {
+                "models": {
+                  "Name": "models",
+                  "Path": "assets/prefabs/building/wall.frame.netting/models",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/prefabs/building/wall.frame.netting/models/materials",
+                      "Files": {
+                        "Netting": "assets/prefabs/building/wall.frame.netting/models/materials/netting.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                }
+              }
+            },
+            "wall.external.high.stone": {
+              "Name": "wall.external.high.stone",
+              "Path": "assets/prefabs/building/wall.external.high.stone",
+              "Files": {},
+              "SubFolders": {
+                "materials": {
+                  "Name": "materials",
+                  "Path": "assets/prefabs/building/wall.external.high.stone/materials",
+                  "Files": {
+                    "StonewallC": "assets/prefabs/building/wall.external.high.stone/materials/stonewall_c.mat"
+                  },
+                  "SubFolders": {}
+                }
+              }
+            }
+          }
+        },
         "misc": {
           "Name": "misc",
           "Path": "assets/prefabs/misc",
@@ -18959,6 +19381,47 @@
                           "SubFolders": {}
                         }
                       }
+                    }
+                  }
+                },
+                "faberge_egg_g": {
+                  "Name": "faberge_egg_g",
+                  "Path": "assets/prefabs/misc/easter/faberge_egg_g",
+                  "Files": {},
+                  "SubFolders": {
+                    "models": {
+                      "Name": "models",
+                      "Path": "assets/prefabs/misc/easter/faberge_egg_g/models",
+                      "Files": {},
+                      "SubFolders": {
+                        "materials": {
+                          "Name": "materials",
+                          "Path": "assets/prefabs/misc/easter/faberge_egg_g/models/materials",
+                          "Files": {
+                            "FabergeEggG": "assets/prefabs/misc/easter/faberge_egg_g/models/materials/faberge_egg_g.mat",
+                            "FabergeEggGNormals": "assets/prefabs/misc/easter/faberge_egg_g/models/materials/faberge_egg_g_normals.mat",
+                            "FabergeEggGPearls": "assets/prefabs/misc/easter/faberge_egg_g/models/materials/faberge_egg_g_pearls.mat"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    }
+                  }
+                },
+                "horsecostume": {
+                  "Name": "horsecostume",
+                  "Path": "assets/prefabs/misc/easter/horsecostume",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/prefabs/misc/easter/horsecostume/materials",
+                      "Files": {
+                        "HorsecostumeA": "assets/prefabs/misc/easter/horsecostume/materials/horsecostume_a.mat",
+                        "HorsecostumeB": "assets/prefabs/misc/easter/horsecostume/materials/horsecostume_b.mat",
+                        "HorsecostumeC": "assets/prefabs/misc/easter/horsecostume/materials/horsecostume_c.mat"
+                      },
+                      "SubFolders": {}
                     }
                   }
                 },
@@ -21653,6 +22116,28 @@
                     "Knife": "assets/prefabs/weapons/knife/materials/knife.mat"
                   },
                   "SubFolders": {}
+                },
+                "skins": {
+                  "Name": "skins",
+                  "Path": "assets/prefabs/weapons/knife/skins",
+                  "Files": {},
+                  "SubFolders": {
+                    "sunkenknife": {
+                      "Name": "sunkenknife",
+                      "Path": "assets/prefabs/weapons/knife/skins/sunkenknife",
+                      "Files": {},
+                      "SubFolders": {
+                        "materials": {
+                          "Name": "materials",
+                          "Path": "assets/prefabs/weapons/knife/skins/sunkenknife/materials",
+                          "Files": {
+                            "Sunkenknife": "assets/prefabs/weapons/knife/skins/sunkenknife/materials/sunkenknife.mat"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    }
+                  }
                 }
               }
             },
@@ -27375,295 +27860,6 @@
             }
           }
         },
-        "building": {
-          "Name": "building",
-          "Path": "assets/prefabs/building",
-          "Files": {},
-          "SubFolders": {
-            "door.hinged": {
-              "Name": "door.hinged",
-              "Path": "assets/prefabs/building/door.hinged",
-              "Files": {},
-              "SubFolders": {
-                "model": {
-                  "Name": "model",
-                  "Path": "assets/prefabs/building/door.hinged/model",
-                  "Files": {
-                    "BldLogWoodDoorwin": "assets/prefabs/building/door.hinged/model/bld_logwood_doorwin.mat",
-                    "MetalDoorTier1": "assets/prefabs/building/door.hinged/model/metal_door_tier1.mat",
-                    "MetalDoorTier2": "assets/prefabs/building/door.hinged/model/metal_door_tier2.mat"
-                  },
-                  "SubFolders": {
-                    "materials": {
-                      "Name": "materials",
-                      "Path": "assets/prefabs/building/door.hinged/model/materials",
-                      "Files": {
-                        "LogWoodWindowDoorsDif": "assets/prefabs/building/door.hinged/model/materials/logwood_window_doors_dif.mat"
-                      },
-                      "SubFolders": {}
-                    }
-                  }
-                }
-              }
-            },
-            "wall.frame.fence": {
-              "Name": "wall.frame.fence",
-              "Path": "assets/prefabs/building/wall.frame.fence",
-              "Files": {},
-              "SubFolders": {
-                "models": {
-                  "Name": "models",
-                  "Path": "assets/prefabs/building/wall.frame.fence/models",
-                  "Files": {},
-                  "SubFolders": {
-                    "materials": {
-                      "Name": "materials",
-                      "Path": "assets/prefabs/building/wall.frame.fence/models/materials",
-                      "Files": {
-                        "ChainlinkBldblock": "assets/prefabs/building/wall.frame.fence/models/materials/chainlink_bldblock.mat",
-                        "ChainlinkFenceBldblock": "assets/prefabs/building/wall.frame.fence/models/materials/chainlink_fence_bldblock.mat"
-                      },
-                      "SubFolders": {}
-                    }
-                  }
-                }
-              }
-            },
-            "gates.external.high": {
-              "Name": "gates.external.high",
-              "Path": "assets/prefabs/building/gates.external.high",
-              "Files": {},
-              "SubFolders": {
-                "gates.external.high.stone": {
-                  "Name": "gates.external.high.stone",
-                  "Path": "assets/prefabs/building/gates.external.high/gates.external.high.stone",
-                  "Files": {},
-                  "SubFolders": {
-                    "models": {
-                      "Name": "models",
-                      "Path": "assets/prefabs/building/gates.external.high/gates.external.high.stone/models",
-                      "Files": {},
-                      "SubFolders": {
-                        "materials": {
-                          "Name": "materials",
-                          "Path": "assets/prefabs/building/gates.external.high/gates.external.high.stone/models/materials",
-                          "Files": {
-                            "CorrugatedAGate": "assets/prefabs/building/gates.external.high/gates.external.high.stone/models/materials/corrugated_a_gate.mat",
-                            "MetalArmoredAGate": "assets/prefabs/building/gates.external.high/gates.external.high.stone/models/materials/metal_armored_a_gate.mat"
-                          },
-                          "SubFolders": {}
-                        }
-                      }
-                    }
-                  }
-                },
-                "gates.external.high.wood": {
-                  "Name": "gates.external.high.wood",
-                  "Path": "assets/prefabs/building/gates.external.high/gates.external.high.wood",
-                  "Files": {},
-                  "SubFolders": {
-                    "model": {
-                      "Name": "model",
-                      "Path": "assets/prefabs/building/gates.external.high/gates.external.high.wood/model",
-                      "Files": {},
-                      "SubFolders": {
-                        "materials": {
-                          "Name": "materials",
-                          "Path": "assets/prefabs/building/gates.external.high/gates.external.high.wood/model/materials",
-                          "Files": {
-                            "GateExternalHighWoodLod3": "assets/prefabs/building/gates.external.high/gates.external.high.wood/model/materials/gate.external.high.wood_lod3.mat"
-                          },
-                          "SubFolders": {}
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "door.double.hinged": {
-              "Name": "door.double.hinged",
-              "Path": "assets/prefabs/building/door.double.hinged",
-              "Files": {},
-              "SubFolders": {
-                "model": {
-                  "Name": "model",
-                  "Path": "assets/prefabs/building/door.double.hinged/model",
-                  "Files": {},
-                  "SubFolders": {
-                    "materials": {
-                      "Name": "materials",
-                      "Path": "assets/prefabs/building/door.double.hinged/model/materials",
-                      "Files": {
-                        "DblBldLogWoodDoorwin": "assets/prefabs/building/door.double.hinged/model/materials/dbl_bld_logwood_doorwin.mat",
-                        "DblMetalDoorTier1": "assets/prefabs/building/door.double.hinged/model/materials/dbl_metal_door_tier1.mat",
-                        "DblMetalDoorTier2": "assets/prefabs/building/door.double.hinged/model/materials/dbl_metal_door_tier2.mat"
-                      },
-                      "SubFolders": {}
-                    }
-                  }
-                }
-              }
-            },
-            "wall.external.high.wood": {
-              "Name": "wall.external.high.wood",
-              "Path": "assets/prefabs/building/wall.external.high.wood",
-              "Files": {},
-              "SubFolders": {
-                "materials": {
-                  "Name": "materials",
-                  "Path": "assets/prefabs/building/wall.external.high.wood/materials",
-                  "Files": {
-                    "ExternalWallWood": "assets/prefabs/building/wall.external.high.wood/materials/external_wall_wood.mat",
-                    "RopeHighWall": "assets/prefabs/building/wall.external.high.wood/materials/rope_high_wall.mat",
-                    "WoodStickWall": "assets/prefabs/building/wall.external.high.wood/materials/wood_stick_wall.mat"
-                  },
-                  "SubFolders": {}
-                },
-                "models": {
-                  "Name": "models",
-                  "Path": "assets/prefabs/building/wall.external.high.wood/models",
-                  "Files": {},
-                  "SubFolders": {
-                    "materials": {
-                      "Name": "materials",
-                      "Path": "assets/prefabs/building/wall.external.high.wood/models/materials",
-                      "Files": {
-                        "WallExternalHighWoodLod3": "assets/prefabs/building/wall.external.high.wood/models/materials/wall.external.high.wood_lod3.mat"
-                      },
-                      "SubFolders": {}
-                    }
-                  }
-                }
-              }
-            },
-            "floor.grill": {
-              "Name": "floor.grill",
-              "Path": "assets/prefabs/building/floor.grill",
-              "Files": {},
-              "SubFolders": {
-                "models": {
-                  "Name": "models",
-                  "Path": "assets/prefabs/building/floor.grill/models",
-                  "Files": {},
-                  "SubFolders": {
-                    "materials": {
-                      "Name": "materials",
-                      "Path": "assets/prefabs/building/floor.grill/models/materials",
-                      "Files": {
-                        "FloorGrill": "assets/prefabs/building/floor.grill/models/materials/floor_grill.mat"
-                      },
-                      "SubFolders": {}
-                    }
-                  }
-                }
-              }
-            },
-            "wall.frame.garagedoor": {
-              "Name": "wall.frame.garagedoor",
-              "Path": "assets/prefabs/building/wall.frame.garagedoor",
-              "Files": {},
-              "SubFolders": {
-                "models": {
-                  "Name": "models",
-                  "Path": "assets/prefabs/building/wall.frame.garagedoor/models",
-                  "Files": {},
-                  "SubFolders": {
-                    "materials": {
-                      "Name": "materials",
-                      "Path": "assets/prefabs/building/wall.frame.garagedoor/models/materials",
-                      "Files": {
-                        "GarageDoorBlock": "assets/prefabs/building/wall.frame.garagedoor/models/materials/garage_door_block.mat"
-                      },
-                      "SubFolders": {}
-                    }
-                  }
-                }
-              }
-            },
-            "wall.frame.shopfront": {
-              "Name": "wall.frame.shopfront",
-              "Path": "assets/prefabs/building/wall.frame.shopfront",
-              "Files": {},
-              "SubFolders": {
-                "models": {
-                  "Name": "models",
-                  "Path": "assets/prefabs/building/wall.frame.shopfront/models",
-                  "Files": {},
-                  "SubFolders": {
-                    "materials": {
-                      "Name": "materials",
-                      "Path": "assets/prefabs/building/wall.frame.shopfront/models/materials",
-                      "Files": {
-                        "GlassReinforcedShop": "assets/prefabs/building/wall.frame.shopfront/models/materials/glass_reinforced_shop.mat"
-                      },
-                      "SubFolders": {}
-                    }
-                  }
-                }
-              }
-            },
-            "legacy.shelter.wood": {
-              "Name": "legacy.shelter.wood",
-              "Path": "assets/prefabs/building/legacy.shelter.wood",
-              "Files": {},
-              "SubFolders": {
-                "models": {
-                  "Name": "models",
-                  "Path": "assets/prefabs/building/legacy.shelter.wood/models",
-                  "Files": {},
-                  "SubFolders": {
-                    "materials": {
-                      "Name": "materials",
-                      "Path": "assets/prefabs/building/legacy.shelter.wood/models/materials",
-                      "Files": {
-                        "LegacyWoodShelterLod2": "assets/prefabs/building/legacy.shelter.wood/models/materials/legacy_wood_shelter_lod2.mat"
-                      },
-                      "SubFolders": {}
-                    }
-                  }
-                }
-              }
-            },
-            "wall.frame.netting": {
-              "Name": "wall.frame.netting",
-              "Path": "assets/prefabs/building/wall.frame.netting",
-              "Files": {},
-              "SubFolders": {
-                "models": {
-                  "Name": "models",
-                  "Path": "assets/prefabs/building/wall.frame.netting/models",
-                  "Files": {},
-                  "SubFolders": {
-                    "materials": {
-                      "Name": "materials",
-                      "Path": "assets/prefabs/building/wall.frame.netting/models/materials",
-                      "Files": {
-                        "Netting": "assets/prefabs/building/wall.frame.netting/models/materials/netting.mat"
-                      },
-                      "SubFolders": {}
-                    }
-                  }
-                }
-              }
-            },
-            "wall.external.high.stone": {
-              "Name": "wall.external.high.stone",
-              "Path": "assets/prefabs/building/wall.external.high.stone",
-              "Files": {},
-              "SubFolders": {
-                "materials": {
-                  "Name": "materials",
-                  "Path": "assets/prefabs/building/wall.external.high.stone/materials",
-                  "Files": {
-                    "StonewallC": "assets/prefabs/building/wall.external.high.stone/materials/stonewall_c.mat"
-                  },
-                  "SubFolders": {}
-                }
-              }
-            }
-          }
-        },
         "componentitems": {
           "Name": "componentitems",
           "Path": "assets/prefabs/componentitems",
@@ -28999,28 +29195,17 @@
                 "model": {
                   "Name": "model",
                   "Path": "assets/rust.ai/agents/chicken/model",
-                  "Files": {
-                    "Body1": "assets/rust.ai/agents/chicken/model/body-1.mat",
-                    "Body2": "assets/rust.ai/agents/chicken/model/body-2.mat",
-                    "Body3": "assets/rust.ai/agents/chicken/model/body-3.mat"
-                  },
+                  "Files": {},
                   "SubFolders": {
-                    "chicken_update": {
-                      "Name": "chicken_update",
-                      "Path": "assets/rust.ai/agents/chicken/model/chicken_update",
-                      "Files": {},
-                      "SubFolders": {
-                        "materials": {
-                          "Name": "materials",
-                          "Path": "assets/rust.ai/agents/chicken/model/chicken_update/materials",
-                          "Files": {
-                            "ChickenGreyM": "assets/rust.ai/agents/chicken/model/chicken_update/materials/chicken_grey_m.mat",
-                            "ChickenOrangeM": "assets/rust.ai/agents/chicken/model/chicken_update/materials/chicken_orange_m.mat",
-                            "ChickenWhiteM": "assets/rust.ai/agents/chicken/model/chicken_update/materials/chicken_white_m.mat"
-                          },
-                          "SubFolders": {}
-                        }
-                      }
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/rust.ai/agents/chicken/model/materials",
+                      "Files": {
+                        "ChickenGreyM": "assets/rust.ai/agents/chicken/model/materials/chicken_grey_m.mat",
+                        "ChickenOrangeM": "assets/rust.ai/agents/chicken/model/materials/chicken_orange_m.mat",
+                        "ChickenWhiteM": "assets/rust.ai/agents/chicken/model/materials/chicken_white_m.mat"
+                      },
+                      "SubFolders": {}
                     }
                   }
                 },
