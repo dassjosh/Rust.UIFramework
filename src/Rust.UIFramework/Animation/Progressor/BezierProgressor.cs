@@ -9,7 +9,7 @@
 /// <param name="Y1"></param>
 /// <param name="X2"></param>
 /// <param name="Y2"></param>
-public readonly record struct BezierProgressor(float X1, float Y1, float X2, float Y2) : ICustomProgressor
+public readonly record struct BezierProgressor(float X1, float Y1, float X2, float Y2) : IAnimationProgressor
 {
     public static readonly BezierProgressor Ease = new(.25f, .1f, .25f, 1f);
     public static readonly BezierProgressor Linear = new(0f, 0f, 1f, 1f);

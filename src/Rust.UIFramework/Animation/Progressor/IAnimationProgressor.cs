@@ -3,7 +3,7 @@
 /// <summary>
 /// Providers a custom animator to animate a UiElement
 /// </summary>
-public interface ICustomProgressor
+public interface IAnimationProgressor
 {
     /// <summary>
     /// Returns the current progress for the animation based on the elapsed percentage

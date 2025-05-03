@@ -36,4 +36,23 @@ public static class ListExt
         
         list.Clear();
     }
+
+    public static void ClearAndTryPoolValues<T>(this List<T> list)
+    {
+        if (list == null)
+        {
+            return;
+        }
+        
+        int count = list.Count;
+        for (int index = 0; index < count; index++)
+        {
+            if (list[index] is BasePoolable poolable)
+            {
+                poolable.Dispose();
+            }
+        }
+        
+        list.Clear();
+    }
 }

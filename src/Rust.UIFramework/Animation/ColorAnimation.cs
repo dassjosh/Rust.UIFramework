@@ -9,16 +9,16 @@ public class ColorAnimation : BaseAnimation<UiColor>
 {
     private Utf8String _elementType;
     
-    public static ColorAnimation Create(in AnimationReference reference, IAnimator<UiColor> animator, float delay, float duration)
+    public static ColorAnimation Create(in AnimationReference reference, IAnimator<UiColor> animator, IAnimationDuration duration)
     {
         ColorAnimation animation = UiFrameworkPool.Get<ColorAnimation>();
-        animation.Init(reference, animator, delay, duration);
+        animation.Init(reference, animator, duration);
         return animation;
     }
 
-    private void Init(in AnimationReference reference, IAnimator<UiColor> animator, float delay, float duration)
+    private void Init(in AnimationReference reference, IAnimator<UiColor> animator, IAnimationDuration duration)
     {
-        base.Init(reference.Reference, animator, delay, duration);
+        base.Init(reference.Reference, animator, duration);
         _elementType = reference.Type;
     }
     

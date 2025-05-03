@@ -7,10 +7,10 @@ namespace Oxide.Ext.UiFramework.Animation;
 
 public class PositionAnimation : BaseAnimation<UiPosition>
 {
-    public static PositionAnimation Create(in UiReference reference, IAnimator<UiPosition> animator, float delay, float duration)
+    public static PositionAnimation Create(in UiReference reference, IAnimator<UiPosition> animator, IAnimationDuration duration)
     {
         PositionAnimation animation = UiFrameworkPool.Get<PositionAnimation>();
-        animation.Init(reference, animator, delay, duration);
+        animation.Init(reference, animator, duration);
         return animation;
     }
     

@@ -380,18 +380,21 @@ public partial class BaseUiBuilder
     #endregion
 
     #region Anchor
-    public UiSection Anchor(in UiReference parent)
+    public UiSection Anchor(in UiReference parent, string anchorName = null)
     {
         UiSection section = UiSection.Create();
         AddAnchor(section, parent);
+        if (!string.IsNullOrEmpty(anchorName))
+        {
+            section.Reference = section.Reference.WithName(anchorName);
+        }
         return section;
     }
     
-    public UiSection Anchor(in UiReference parent, in UiPosition pos, in UiOffset offset = default)
+    public UiSection Anchor(in UiReference parent, in UiPosition pos, in UiOffset offset = default, string anchorName = null)
     {
-        UiSection section = Anchor(parent);
+        UiSection section = Anchor(parent, anchorName);
         section.SetPosition(pos, offset);
-        AddAnchor(section, parent);
         return section;
     }
     #endregion

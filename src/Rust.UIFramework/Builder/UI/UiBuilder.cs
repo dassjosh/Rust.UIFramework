@@ -117,10 +117,6 @@ public partial class UiBuilder : BaseUiBuilder, IAnimationBuilder
 
     #endregion
 
-    #region Write Components
-
-    #endregion
-
     #region Animations
     protected override void OnUiSent(SendInfo send)
     {

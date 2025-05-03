@@ -1,6 +1,6 @@
 ﻿namespace Oxide.Ext.UiFramework.Animation;
 
-public class LoopProgressor : ICustomProgressor
+public class LoopProgressor : IAnimationProgressor
 {
     public static readonly LoopProgressor Default = new();
     

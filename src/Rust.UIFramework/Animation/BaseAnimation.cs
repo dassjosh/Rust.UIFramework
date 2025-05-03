@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using Network;
-using Oxide.Ext.UiFramework.Builder.UI;
+using Oxide.Ext.UiFramework.Exceptions;
+using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Types;
@@ -14,74 +15,69 @@ public abstract class BaseAnimation : BasePoolable
 {
     public AnimationId Id { get; private set; }
     public UiReference Reference { get; private set; }
-    public float Delay;
-    public float Duration;
-    public float Elapsed;
-    private int _repeats;
-    private float _repeatDelay;
     internal SendInfo Send { get; private set; }
-    private ICustomProgressor _customProgressor;
-    private bool _destroyAfter;
-    private UiReference? _destroyTarget;
-    public float StartTime { get; private set; }
-    internal bool WasQueued { get; private set; }
-    public bool Cancelled { get; private set; }
+    internal IAnimationDuration Duration { get; private set; }
+    private IAnimationProgressor _customProgressor;
+    public AnimationState State { get; private set; }
     internal bool IsSinglePlayer => PlayerId != 0;
     internal ulong PlayerId { get; private set; }
-    public float TotalDuration => Delay + Duration;
-    public float ElapsedPercentage => Elapsed < Delay ? 0 : Math.Min((Elapsed - Delay) / Duration, 1f);
-
-    protected void Init(in UiReference reference, float delay, float duration)
+    private readonly List<IAnimationEvent> _events = [];
+    
+    protected void Init(in UiReference reference, IAnimationDuration duration)
     {
         Id = AnimationId.GetNextId();
         Reference = reference;
-        Delay = delay;
         Duration = duration;
+        UpdateState(AnimationState.Init);
     }
 
-    public BaseAnimation ComesAfter(BaseAnimation animation) => WithDelay(animation.TotalDuration);
+    public BaseAnimation WithDuration(IAnimationDuration duration)
+    {
+        Duration = duration;
+        return this;
+    }
+
+    public IConfigurableAnimationDuration GetConfigurableDuration()
+    {
+        return Duration as IConfigurableAnimationDuration;
+    }
+    
+    public BaseAnimation ComesAfter(BaseAnimation animation, bool includeRepeats = false) => WithDelay(animation.Duration.GetRemainingDuration(includeRepeats));
     
     public BaseAnimation WithDelay(float delay)
     {
-        Delay = delay;
+        if (Duration is IConfigurableAnimationDuration duration)
+        {
+            duration.Delay = delay;
+        }
         return this;
     }
     
-    public BaseAnimation WithDuration(float duration)
+    public BaseAnimation WithRepeats(int repeats, float repeatDelay = 0f)
     {
-        Duration = duration;
-        return this;
-    }
-    
-    public BaseAnimation WithElapsed(BaseAnimation animation)
-    {
-        Elapsed = animation.Elapsed;
+        if (Duration is IConfigurableAnimationDuration duration)
+        {
+            duration.Repeats = repeats;
+            duration.RepeatDelay = repeatDelay;
+        }
         return this;
     }
 
     public BaseAnimation DestroyAfter(in UiReference? destroyTarget = null)
     {
-        _destroyAfter = true;
-        _destroyTarget = destroyTarget;
-        return this;
-    }
-    
-    public BaseAnimation WithRepeats(int repeats, float repeatDelay)
-    {
-        _repeats = repeats;
-        _repeatDelay = repeatDelay;
+        AddEvent(DestroyAfterEvent.Create(destroyTarget));
         return this;
     }
 
-    public BaseAnimation WithLoop() => WithCustomProgressor(LoopProgressor.Default);
+    public BaseAnimation WithLoop() => WithProgressor(LoopProgressor.Default);
 
-    public BaseAnimation WithCustomProgressor(ICustomProgressor progressor)
+    public BaseAnimation WithProgressor(IAnimationProgressor progressor)
     {
         _customProgressor = progressor;
         return this;
     }
     
-    public BaseAnimation WithBezierProgressor(in BezierProgressor points) => WithCustomProgressor(points);
+    public BaseAnimation WithBezierProgressor(in BezierProgressor points) => WithProgressor(points);
     
     public void WriteCompletedComponent(JsonFrameworkWriter writer) => WriteAnimationComponent(writer, 1f);
     
@@ -98,52 +94,84 @@ public abstract class BaseAnimation : BasePoolable
         writer.WriteEndArray();
         writer.WriteEndObject();
     }
+
+    internal void UpdateState(AnimationState newState)
+    {
+        InvalidAnimationStateException.ThrowIfInvalidState(State, newState);
+        State = newState;
+    }
     
-    public void Cancel() => Cancelled = true;
+    public void Cancel()
+    {
+        UpdateState(AnimationState.Cancelled);
+        OnEvent(AnimationEventType.Canceled);
+    }
 
     internal void OnQueued(SendInfo send)
     {
         Send = send;
-        WasQueued = true;
-        StartTime = Time.realtimeSinceStartup;
+        UpdateState(AnimationState.Queued);
+        Duration.OnStarted(Time.realtimeSinceStartup);
         if (send.connection != null)
         {
             PlayerId = send.connection.userid;
         }
     }
-    
-    internal void OnTick(float currentTime) => Elapsed = currentTime - StartTime;
-    
-    internal bool OnAnimationEnded(float currentTime)
-    {
-        if (_repeats > 0)
-        {
-            OnRepeat(currentTime);
-            return false;
-        }
 
-        OnCompleted();
-        return true;
+    internal void OnTick(float currentTime)
+    {
+        if (State != AnimationState.Running)
+        {
+            UpdateState(AnimationState.Running);
+        }
+        
+        Duration.OnTick(currentTime);
     }
 
-    private void OnRepeat(float currentTime)
+    internal void OnRepeat()
     {
-        _repeats--;
-        StartTime = currentTime + _repeatDelay;
+        OnEvent(AnimationEventType.Repeat);
     }
 
-    private void OnCompleted()
+    internal void OnCompleted()
     {
-        if (_destroyAfter)
-        {
-            UiBuilder.DestroyUi(Send, _destroyTarget.HasValue ? _destroyTarget.Value.Name : Reference.Name);
-        }
+        UpdateState(AnimationState.Completed);
+        OnEvent(AnimationEventType.Completed);
     }
 
     internal void OnRemoved()
     {
         Singleton<AnimationTracker>.Instance.OnAnimationCompleted(Id);
+        OnEvent(AnimationEventType.Removed);
         Dispose();
+    }
+    
+    public void AddEvent(IAnimationEvent @event) => _events.Add(@event);
+    
+    public void RemoveEvent(IAnimationEvent @event) => _events.Remove(@event);
+    public void RemoveEvent(Predicate<IAnimationEvent> predicate) => _events.RemoveAll(predicate);
+
+    internal void OnEvent(AnimationEventType type)
+    {
+        for (int index = 0; index < _events.Count; index++)
+        {
+            IAnimationEvent @event = _events[index];
+            switch (type)
+            {
+                case AnimationEventType.Repeat when @event is IAnimationRepeat repeatEvent:
+                    repeatEvent.OnAnimationRepeat(this);
+                    break;
+                case AnimationEventType.Completed when @event is IAnimationCompleted completedEvent:
+                    completedEvent.OnAnimationCompleted(this);
+                    break;
+                case AnimationEventType.Removed when @event is IAnimationRemoved removedEvent:
+                    removedEvent.OnAnimationRemoved(this);
+                    break;
+                case AnimationEventType.Canceled when @event is IAnimationCancelled cancelledEvent:
+                    cancelledEvent.OnAnimationCancelled(this);
+                    break;
+            }
+        }
     }
     
     protected abstract void WriteAnimation(JsonFrameworkWriter writer, float value);
@@ -177,22 +205,21 @@ public abstract class BaseAnimation : BasePoolable
     
     protected override void EnterPool()
     {
-        Id = default;
-        Reference = default;
-        Delay = default;
-        Duration = default;
-        Elapsed = default;
-        _repeats = default;
-        _repeatDelay = default;
         if (Send.connections != null)
         {
             UiFrameworkPool.FreeList(Send.connections);
         }
+
+        if (Duration is BasePoolable poolable)
+        {
+            poolable.Dispose();
+        }
+
+        Id = default;
+        Reference = default;
+        Duration = null;
         Send = default;
-        _destroyAfter = default;
-        _destroyTarget = default;
-        StartTime = default;
-        WasQueued = false;
-        Cancelled = false;
+        _events.ClearAndTryPoolValues();
+        UpdateState(AnimationState.Pooled);
     }
 }

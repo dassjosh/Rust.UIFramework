@@ -8,9 +8,9 @@ public abstract class BaseAnimation<T> : BaseAnimation
 {
     public IAnimator<T> Animator { get; private set; }
     
-    protected void Init(in UiReference reference, IAnimator<T> animator, float delay, float duration)
+    protected void Init(in UiReference reference, IAnimator<T> animator, IAnimationDuration duration)
     {
-        base.Init(reference, delay, duration);
+        base.Init(reference, duration);
         Animator = animator;
     }
     

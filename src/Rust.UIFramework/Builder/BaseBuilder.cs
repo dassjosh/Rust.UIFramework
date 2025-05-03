@@ -186,7 +186,7 @@ public abstract class BaseBuilder : BasePoolable
         for (int index = 0; index < count; index++)
         {
             BaseAnimation animation = animations[index];
-            if (!animation.WasQueued)
+            if (animation.State == AnimationState.Init)
             {
                 animation.Dispose();
             }

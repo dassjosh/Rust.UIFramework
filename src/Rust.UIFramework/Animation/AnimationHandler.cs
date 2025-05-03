@@ -152,31 +152,35 @@ internal class AnimationHandler : ISingleton
     {
         _logger.Debug("Processing Animation {0}", id);
 
-        if (animation.Cancelled)
+        if (animation.State == AnimationState.Cancelled)
         {
             RemoveAnimation(id);
             return;
         }
-            
+        
         animation.OnTick(currentTime);
-                
-        // Check if we need to wait for the delay
-        if (animation.Delay > 0 && animation.Elapsed < animation.Delay)
+        IAnimationDuration duration = animation.Duration;
+        if (duration.IsDelayed)
         {
             return;
         }
-            
-        float effectiveElapsed = animation.Elapsed - animation.Delay;
-        if (effectiveElapsed <= animation.Duration)
+        
+        if (duration.IsRunning)
         {
-            animation.WriteAnimationComponent(writer, animation.ElapsedPercentage);
+            animation.WriteAnimationComponent(writer, duration.ElapsedPercentage);
             return;
         }
 
         animation.WriteCompletedComponent(writer);
-        if (animation.OnAnimationEnded(currentTime))
+        duration.OnAnimationCompleted(currentTime);
+        if (duration.IsCompleted)
         {
+            animation.OnCompleted();
             RemoveAnimation(id);
+        }
+        else
+        {
+            animation.OnRepeat();
         }
     }
     

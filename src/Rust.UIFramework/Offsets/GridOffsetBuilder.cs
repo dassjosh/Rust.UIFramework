@@ -24,7 +24,7 @@ public class GridOffsetBuilder
     public GridOffsetBuilder(int numCols, int numRows, UiOffset area)
     {
         if (numCols <= 0) throw new ArgumentOutOfRangeException(nameof(numCols));
-        if (numRows <= 0) throw new ArgumentOutOfRangeException(nameof(numCols));
+        if (numRows <= 0) throw new ArgumentOutOfRangeException(nameof(numRows));
         _numCols = numCols;
         _numRows = numRows;
         _area = area;
