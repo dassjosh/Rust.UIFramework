@@ -16,8 +16,8 @@ public abstract class BaseAnimation : BasePoolable
     public AnimationId Id { get; private set; }
     public UiReference Reference { get; private set; }
     internal SendInfo Send { get; private set; }
-    internal IAnimationDuration Duration { get; private set; }
-    private IAnimationProgressor _customProgressor;
+    public IAnimationDuration Duration { get; private set; }
+    public IAnimationProgressor Progressor { get; private set; }
     public AnimationState State { get; private set; }
     internal bool IsSinglePlayer => PlayerId != 0;
     internal ulong PlayerId { get; private set; }
@@ -73,7 +73,7 @@ public abstract class BaseAnimation : BasePoolable
 
     public BaseAnimation WithProgressor(IAnimationProgressor progressor)
     {
-        _customProgressor = progressor;
+        Progressor = progressor;
         return this;
     }
     
@@ -89,7 +89,7 @@ public abstract class BaseAnimation : BasePoolable
         writer.AddFieldRaw(JsonDefaults.Common.Update, true);
         writer.WritePropertyName(JsonDefaults.Common.ComponentsName);
         writer.WriteStartArray();
-        float progress = _customProgressor?.GetProgress(Mathf.Clamp01(elapsedPercentage)) ?? elapsedPercentage;
+        float progress = Progressor?.GetProgress(Mathf.Clamp01(elapsedPercentage)) ?? elapsedPercentage;
         WriteAnimation(writer, progress);    
         writer.WriteEndArray();
         writer.WriteEndObject();
