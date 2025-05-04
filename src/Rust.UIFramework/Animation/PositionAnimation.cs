@@ -18,8 +18,8 @@ public class PositionAnimation : BaseAnimation<UiPosition>
     {
         writer.WriteStartObject();
         writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, JsonDefaults.Common.RectTransformName);
-        writer.AddField(JsonDefaults.Position.AnchorMinName, value.Min, JsonDefaults.Common.Min);
-        writer.AddField(JsonDefaults.Position.AnchorMaxName, value.Max, JsonDefaults.Common.Max);
+        writer.AddFieldRaw(JsonDefaults.Position.AnchorMinName, value.Min);
+        writer.AddFieldRaw(JsonDefaults.Position.AnchorMaxName, value.Max);
         writer.WriteEndObject();
     }
 }
