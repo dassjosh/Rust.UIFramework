@@ -1,8 +1,7 @@
-﻿namespace Oxide.Ext.UiFramework.Enums
+﻿namespace Oxide.Ext.UiFramework.Enums;
+
+public enum ScrollbarDirection
 {
-    public enum ScrollbarDirection
-    {
-        Vertical,
-        Horizontal
-    }
+    Vertical,
+    Horizontal
 }

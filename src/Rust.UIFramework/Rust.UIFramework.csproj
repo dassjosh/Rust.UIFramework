@@ -5,12 +5,12 @@
         <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
         <AssemblyName>Oxide.Ext.UiFramework</AssemblyName>
         <RootNamespace>Oxide.Ext.UiFramework</RootNamespace>
-        <Configurations>Release;Debug</Configurations>
+        <Configurations>Release;Debug;Benchmarks</Configurations>
         <Platforms>Oxide;Carbon</Platforms>
         <AssemblyVersion>$(VERSION)</AssemblyVersion>
         <FileVersion>$(VERSION)</FileVersion>
         <TargetFrameworks>net48;netstandard2.1;netcoreapp3.0</TargetFrameworks>
-        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+        <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|Carbon' ">
@@ -29,6 +29,16 @@
 
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|Oxide' ">
       <DefineConstants>TRACE;OXIDE</DefineConstants>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Benchmarks|Carbon' ">
+      <DefineConstants>TRACE;BENCHMARKS;CARBON</DefineConstants>
+      <Optimize>true</Optimize>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Benchmarks|Oxide' ">
+      <DefineConstants>TRACE;BENCHMARKS;OXIDE</DefineConstants>
+      <Optimize>true</Optimize>
     </PropertyGroup>
     
     <ItemGroup>
@@ -125,4 +135,11 @@
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
     </ItemGroup>
+
+    <ItemGroup>
+        <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+            <_Parameter1>Rust.UiFramework.Benchmarks</_Parameter1>
+        </AssemblyAttribute>
+    </ItemGroup>
+
 </Project>

@@ -2,15 +2,14 @@
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
 
-namespace Oxide.Ext.UiFramework.UiElements
+namespace Oxide.Ext.UiFramework.UiElements;
+
+public class UiPanel : BaseUiImage
 {
-    public class UiPanel : BaseUiImage
+    public static UiPanel Create(in UiPosition pos, in UiOffset offset, UiColor color)
     {
-        public static UiPanel Create(in UiPosition pos, in UiOffset offset, UiColor color)
-        {
-            UiPanel panel = CreateBase<UiPanel>(pos, offset);
-            panel.Image.Color = color;
-            return panel;
-        }
+        UiPanel panel = CreateBase<UiPanel>(pos, offset);
+        panel.Image.Color = color;
+        return panel;
     }
 }

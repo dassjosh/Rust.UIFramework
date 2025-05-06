@@ -3,9 +3,9 @@
     <PropertyGroup>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <LangVersion>latest</LangVersion>
+        <LangVersion>12</LangVersion>
         <SignAssembly>true</SignAssembly>
-        <Configurations>Debug;Release</Configurations>
+        <Configurations>Debug;Release;Benchmarks</Configurations>
         <Platforms>Oxide</Platforms>
         <OutputType>Exe</OutputType>
         <TargetFramework>netcoreapp3.0</TargetFramework>
@@ -31,9 +31,19 @@
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Benchmarks' ">
       <DefineConstants>TRACE;BENCHMARKS</DefineConstants>
+      <Optimize>true</Optimize>
     </PropertyGroup>
     
     <ItemGroup>
+      <Reference Include="Assembly-CSharp">
+        <HintPath>..\references\Assembly-CSharp.dll</HintPath>
+      </Reference>
+      <Reference Include="Facepunch.Network">
+        <HintPath>..\references\Facepunch.Network.dll</HintPath>
+      </Reference>
+      <Reference Include="Facepunch.System">
+        <HintPath>..\references\Facepunch.System.dll</HintPath>
+      </Reference>
       <Reference Include="mscorlib">
         <HintPath>..\References\mscorlib.dll</HintPath>
       </Reference>
@@ -51,6 +61,24 @@
       </Reference>
       <Reference Include="Oxide.Rust">
         <HintPath>..\References\Oxide.Rust.dll</HintPath>
+      </Reference>
+      <Reference Include="System.Memory">
+        <HintPath>..\references\System.Memory.dll</HintPath>
+      </Reference>
+      <Reference Include="System.Runtime">
+        <HintPath>..\references\System.Runtime.dll</HintPath>
+      </Reference>
+      <Reference Include="UnityEngine.TextRenderingModule">
+        <HintPath>..\references\UnityEngine.TextRenderingModule.dll</HintPath>
+      </Reference>
+      <Reference Include="UnityEngine.UI">
+        <HintPath>..\references\UnityEngine.UI.dll</HintPath>
+      </Reference>
+      <Reference Include="UnityEngine.UIElementsModule">
+        <HintPath>..\references\UnityEngine.UIElementsModule.dll</HintPath>
+      </Reference>
+      <Reference Include="UnityEngine.UIModule">
+        <HintPath>..\references\UnityEngine.UIModule.dll</HintPath>
       </Reference>
     </ItemGroup>
 

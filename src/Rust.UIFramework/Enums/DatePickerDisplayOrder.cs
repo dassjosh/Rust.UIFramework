@@ -1,9 +1,8 @@
-﻿namespace Oxide.Ext.UiFramework.Enums
+﻿namespace Oxide.Ext.UiFramework.Enums;
+
+public enum DatePickerDisplayOrder
 {
-    public enum DatePickerDisplayOrder
-    {
-        YearMonthDay,
-        MonthDayYear,
-        DayMonthYear,
-    }
+    YearMonthDay,
+    MonthDayYear,
+    DayMonthYear,
 }

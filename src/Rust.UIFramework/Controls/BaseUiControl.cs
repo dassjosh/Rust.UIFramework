@@ -1,34 +1,33 @@
 ﻿using Oxide.Ext.UiFramework.Builder;
 using Oxide.Ext.UiFramework.Pooling;
 
-namespace Oxide.Ext.UiFramework.Controls
+namespace Oxide.Ext.UiFramework.Controls;
+
+public abstract class BaseUiControl : BasePoolable
 {
-    public abstract class BaseUiControl : BasePoolable
+    private bool _hasRendered;
+
+    protected static T CreateControl<T>() where T : BaseUiControl, new()
     {
-        private bool _hasRendered;
+        return UiFrameworkPool.Get<T>();
+    }
 
-        protected static T CreateControl<T>() where T : BaseUiControl, new()
+    public void RenderControl(BaseUiBuilder builder)
+    {
+        if (!_hasRendered)
         {
-            return UiFrameworkPool.Get<T>();
+            Render(builder);
+            _hasRendered = true;
         }
+    }
 
-        public void RenderControl(BaseUiBuilder builder)
-        {
-            if (!_hasRendered)
-            {
-                Render(builder);
-                _hasRendered = true;
-            }
-        }
-
-        protected virtual void Render(BaseUiBuilder builder)
-        {
+    protected virtual void Render(BaseUiBuilder builder)
+    {
             
-        }
+    }
 
-        protected override void EnterPool()
-        {
-            _hasRendered = false;
-        }
+    protected override void EnterPool()
+    {
+        _hasRendered = false;
     }
 }

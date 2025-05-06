@@ -7,26 +7,25 @@ using Oxide.Ext.UiFramework.UiElements;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Oxide.Ext.UiFramework.Controls
-{
-    public class UiInputBackground : BaseUiControl
-    {
-        public UiInput Input;
-        public UiPanel Background;
-        
-        public static UiInputBackground Create(BaseUiBuilder builder, in UiReference parent, in UiPosition pos, in UiOffset offset, string text, int fontSize, UiColor textColor, UiColor backgroundColor, string command, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, InputMode mode = InputMode.Default, InputField.LineType lineType = InputField.LineType.SingleLine)
-        {
-            UiInputBackground control = CreateControl<UiInputBackground>();
-            control.Background = builder.Panel(parent,  pos, offset, backgroundColor);
-            control.Input = builder.Input(control.Background, UiPosition.HorizontalPaddedFull, text, fontSize, textColor, command, align, charsLimit, mode, lineType);
-            return control;
-        }
+namespace Oxide.Ext.UiFramework.Controls;
 
-        protected override void EnterPool()
-        {
-            base.EnterPool();
-            Input = null;
-            Background = null;
-        }
+public class UiInputBackground : BaseUiControl
+{
+    public UiInput Input;
+    public UiPanel Background;
+        
+    public static UiInputBackground Create(BaseUiBuilder builder, in UiReference parent, in UiPosition pos, in UiOffset offset, string text, int fontSize, UiColor textColor, UiColor backgroundColor, string command, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, InputMode mode = InputMode.Default, InputField.LineType lineType = InputField.LineType.SingleLine)
+    {
+        UiInputBackground control = CreateControl<UiInputBackground>();
+        control.Background = builder.Panel(parent,  pos, offset, backgroundColor);
+        control.Input = builder.Input(control.Background, UiPosition.HorizontalPaddedFull, text, fontSize, textColor, command, align, charsLimit, mode, lineType);
+        return control;
+    }
+
+    protected override void EnterPool()
+    {
+        base.EnterPool();
+        Input = null;
+        Background = null;
     }
 }

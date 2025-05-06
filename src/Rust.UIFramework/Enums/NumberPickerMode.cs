@@ -1,8 +1,7 @@
-﻿namespace Oxide.Ext.UiFramework.Enums
+﻿namespace Oxide.Ext.UiFramework.Enums;
+
+public enum NumberPickerMode
 {
-    public enum NumberPickerMode
-    {
-        LeftRight,
-        UpDown
-    }
+    LeftRight,
+    UpDown
 }

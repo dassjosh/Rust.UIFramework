@@ -1,8 +1,7 @@
-﻿namespace Oxide.Ext.UiFramework.Enums
+﻿namespace Oxide.Ext.UiFramework.Enums;
+
+public enum ClockMode
 {
-    public enum ClockMode
-    {
-        Hour12,
-        Hour24
-    }
+    Hour12,
+    Hour24
 }

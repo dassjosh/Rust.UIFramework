@@ -19,13 +19,15 @@ Global
 		{2CEE08B1-A5BD-4F64-A1A9-5242440758D0}.Debug|Oxide.Build.0 = Debug|Oxide
 		{2CEE08B1-A5BD-4F64-A1A9-5242440758D0}.Release|Carbon.ActiveCfg = Release|Carbon
 		{2CEE08B1-A5BD-4F64-A1A9-5242440758D0}.Release|Carbon.Build.0 = Release|Carbon
-		{2CEE08B1-A5BD-4F64-A1A9-5242440758D0}.Benchmarks|Oxide.ActiveCfg = Benchmarks|Oxide
-		{2CEE08B1-A5BD-4F64-A1A9-5242440758D0}.Benchmarks|Oxide.Build.0 = Benchmarks|Oxide
 		{2CEE08B1-A5BD-4F64-A1A9-5242440758D0}.Release|Oxide.ActiveCfg = Release|Oxide
 		{2CEE08B1-A5BD-4F64-A1A9-5242440758D0}.Release|Oxide.Build.0 = Release|Oxide
-		{6C18B22C-7319-4C3F-B7F9-F9B87B6B244C}.Benchmarks|Oxide.ActiveCfg = Benchmarks|Oxide
-		{6C18B22C-7319-4C3F-B7F9-F9B87B6B244C}.Benchmarks|Oxide.Build.0 = Benchmarks|Oxide
+		{2CEE08B1-A5BD-4F64-A1A9-5242440758D0}.Benchmarks|Oxide.ActiveCfg = Benchmarks|Oxide
+		{2CEE08B1-A5BD-4F64-A1A9-5242440758D0}.Benchmarks|Oxide.Build.0 = Benchmarks|Oxide
 		{6C18B22C-7319-4C3F-B7F9-F9B87B6B244C}.Release|Oxide.ActiveCfg = Release|Oxide
 		{6C18B22C-7319-4C3F-B7F9-F9B87B6B244C}.Release|Oxide.Build.0 = Release|Oxide
+		{6C18B22C-7319-4C3F-B7F9-F9B87B6B244C}.Benchmarks|Oxide.ActiveCfg = Benchmarks|Oxide
+		{6C18B22C-7319-4C3F-B7F9-F9B87B6B244C}.Benchmarks|Oxide.Build.0 = Benchmarks|Oxide
+		{6C18B22C-7319-4C3F-B7F9-F9B87B6B244C}.Debug|Oxide.ActiveCfg = Debug|Oxide
+		{6C18B22C-7319-4C3F-B7F9-F9B87B6B244C}.Debug|Oxide.Build.0 = Debug|Oxide
 	EndGlobalSection
 EndGlobal

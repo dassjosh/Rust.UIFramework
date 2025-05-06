@@ -7,66 +7,65 @@ using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.UiElements;
 using UnityEngine;
 
-namespace Oxide.Ext.UiFramework.Controls.NumberPicker
+namespace Oxide.Ext.UiFramework.Controls.NumberPicker;
+
+public class UiNumberPicker : BaseNumberPicker<int>
 {
-    public class UiNumberPicker : BaseNumberPicker<int>
+    public UiButton Subtract;
+    public UiButton Add;
+
+    public static UiNumberPicker Create(BaseUiBuilder builder, in UiReference parent, in UiPosition pos, in UiOffset offset, int value, int fontSize, int buttonFontSize, UiColor textColor, UiColor backgroundColor, UiColor buttonColor, UiColor disabledButtonColor, string command, string incrementCommand, string decrementCommand, int minValue, int maxValue, float buttonWidth, TextAnchor align, InputMode mode, NumberPickerMode numberMode, string numberFormat)
     {
-        public UiButton Subtract;
-        public UiButton Add;
+        UiNumberPicker control = CreateControl<UiNumberPicker>();
 
-        public static UiNumberPicker Create(BaseUiBuilder builder, in UiReference parent, in UiPosition pos, in UiOffset offset, int value, int fontSize, int buttonFontSize, UiColor textColor, UiColor backgroundColor, UiColor buttonColor, UiColor disabledButtonColor, string command, string incrementCommand, string decrementCommand, int minValue, int maxValue, float buttonWidth, TextAnchor align, InputMode mode, NumberPickerMode numberMode, string numberFormat)
+        if (numberMode == NumberPickerMode.LeftRight)
         {
-            UiNumberPicker control = CreateControl<UiNumberPicker>();
-
-            if (numberMode == NumberPickerMode.LeftRight)
-            {
-                control.CreateLeftRightPicker(builder, parent, pos, offset, value, fontSize, textColor, backgroundColor, command, mode, buttonWidth, align, numberFormat);
-                UiPosition subtractPosition = UiPosition.Full.SliceHorizontal(0, buttonWidth);
-                UiPosition addPosition = UiPosition.Full.SliceHorizontal(1 - buttonWidth, 1);
-                control.CreateAdd(builder, value, maxValue, addPosition, default, "+", buttonFontSize, textColor, buttonColor, disabledButtonColor, incrementCommand);
-                control.CreateSubtract(builder, value, minValue, subtractPosition, default, "-", buttonFontSize, textColor, buttonColor, disabledButtonColor, decrementCommand);
-            }
-            else
-            {
-                int width = UiHelpers.TextOffsetWidth(1, buttonFontSize, 4);
-                UiOffset pickerOffset = offset.SliceHorizontal(0, width);
-                control.CreateUpDownPicker(builder, parent, pos, pickerOffset, value, fontSize, textColor, backgroundColor, command, align, mode, numberFormat);
-                UiOffset buttonOffset = new(0, 0, width, 0);
-                control.CreateAdd(builder, value, maxValue, new UiPosition(1, 0.5f, 1, 1), buttonOffset, "<b>˄</b>", buttonFontSize, textColor, buttonColor, disabledButtonColor, incrementCommand);
-                control.CreateSubtract(builder, value, minValue, new UiPosition(1, 0, 1, 0.5f), buttonOffset, "<b>˅</b>", buttonFontSize, textColor, buttonColor, disabledButtonColor, decrementCommand);
-            }
+            control.CreateLeftRightPicker(builder, parent, pos, offset, value, fontSize, textColor, backgroundColor, command, mode, buttonWidth, align, numberFormat);
+            UiPosition subtractPosition = UiPosition.Full.SliceHorizontal(0, buttonWidth);
+            UiPosition addPosition = UiPosition.Full.SliceHorizontal(1 - buttonWidth, 1);
+            control.CreateAdd(builder, value, maxValue, addPosition, default, "+", buttonFontSize, textColor, buttonColor, disabledButtonColor, incrementCommand);
+            control.CreateSubtract(builder, value, minValue, subtractPosition, default, "-", buttonFontSize, textColor, buttonColor, disabledButtonColor, decrementCommand);
+        }
+        else
+        {
+            int width = UiHelpers.TextOffsetWidth(1, buttonFontSize, 4);
+            UiOffset pickerOffset = offset.SliceHorizontal(0, width);
+            control.CreateUpDownPicker(builder, parent, pos, pickerOffset, value, fontSize, textColor, backgroundColor, command, align, mode, numberFormat);
+            UiOffset buttonOffset = new(0, 0, width, 0);
+            control.CreateAdd(builder, value, maxValue, new UiPosition(1, 0.5f, 1, 1), buttonOffset, "<b>˄</b>", buttonFontSize, textColor, buttonColor, disabledButtonColor, incrementCommand);
+            control.CreateSubtract(builder, value, minValue, new UiPosition(1, 0, 1, 0.5f), buttonOffset, "<b>˅</b>", buttonFontSize, textColor, buttonColor, disabledButtonColor, decrementCommand);
+        }
             
-            return control;
-        }
+        return control;
+    }
 
-        private void CreateSubtract(BaseUiBuilder builder, int value, int minValue, in UiPosition position, in UiOffset offset, string text, int fontSize, UiColor textColor, UiColor buttonColor, UiColor disabledButtonColor, string command)
+    private void CreateSubtract(BaseUiBuilder builder, int value, int minValue, in UiPosition position, in UiOffset offset, string text, int fontSize, UiColor textColor, UiColor buttonColor, UiColor disabledButtonColor, string command)
+    {
+        if (value > minValue)
         {
-            if (value > minValue)
-            {
-                Subtract = builder.TextButton(Background, position, offset, text, fontSize, textColor, buttonColor, command);
-            }
-            else
-            {
-                Subtract = builder.TextButton(Background, position, offset, text, fontSize, textColor.MultiplyAlpha(0.5f), disabledButtonColor, null);
-            }
+            Subtract = builder.TextButton(Background, position, offset, text, fontSize, textColor, buttonColor, command);
         }
+        else
+        {
+            Subtract = builder.TextButton(Background, position, offset, text, fontSize, textColor.MultiplyAlpha(0.5f), disabledButtonColor, null);
+        }
+    }
 
-        private void CreateAdd(BaseUiBuilder builder, int value, int maxValue, in UiPosition position, in UiOffset offset, string text, int fontSize, UiColor textColor, UiColor buttonColor, UiColor disabledButtonColor, string command)
+    private void CreateAdd(BaseUiBuilder builder, int value, int maxValue, in UiPosition position, in UiOffset offset, string text, int fontSize, UiColor textColor, UiColor buttonColor, UiColor disabledButtonColor, string command)
+    {
+        if (value < maxValue)
         {
-            if (value < maxValue)
-            {
-                Add = builder.TextButton(Background, position, offset, text, fontSize, textColor, buttonColor,  command);
-            }
-            else
-            {
-                Add = builder.TextButton(Background, position, offset, text, fontSize, textColor.MultiplyAlpha(0.5f), disabledButtonColor, null);
-            }
+            Add = builder.TextButton(Background, position, offset, text, fontSize, textColor, buttonColor,  command);
         }
+        else
+        {
+            Add = builder.TextButton(Background, position, offset, text, fontSize, textColor.MultiplyAlpha(0.5f), disabledButtonColor, null);
+        }
+    }
 
-        protected override void EnterPool()
-        {
-            Subtract = null;
-            Add = null;
-        }
+    protected override void EnterPool()
+    {
+        Subtract = null;
+        Add = null;
     }
 }

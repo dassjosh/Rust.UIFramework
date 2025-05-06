@@ -1,10 +1,9 @@
 ﻿using Oxide.Ext.UiFramework.Json;
 
-namespace Oxide.Ext.UiFramework.Components
+namespace Oxide.Ext.UiFramework.Components;
+
+public interface IComponent
 {
-    public interface IComponent
-    {
-        void WriteComponent(JsonFrameworkWriter writer);
-        void Reset();
-    }
+    void WriteComponent(JsonFrameworkWriter writer);
+    void Reset();
 }

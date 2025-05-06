@@ -1,129 +1,136 @@
 ﻿using System;
 using System.Buffers;
 using System.Collections.Generic;
+using System.IO;
+using System.Runtime.CompilerServices;
 using System.Text;
 using Network;
+using Oxide.Ext.UiFramework.Benchmarks;
 using Oxide.Ext.UiFramework.Pooling;
 
-namespace Oxide.Ext.UiFramework.Json
+namespace Oxide.Ext.UiFramework.Json;
+
+public class JsonBinaryWriter : BasePoolable
 {
-    public class JsonBinaryWriter : BasePoolable
+    private const int SegmentSize = 4096;
+
+    private readonly List<SizedArray<byte>> _segments = new(100);
+    private short _charIndex;
+    private readonly char[] _charBuffer = new char[SegmentSize * 2];
+
+    public void Write(char character)
     {
-        private const int SegmentSize = 4096;
-
-        private List<SizedArray<byte>> _segments;
-        private short _charIndex;
-        private char[] _charBuffer;
-
-        public void Write(char character)
+        _charBuffer[_charIndex] = character;
+        _charIndex++;
+        if (_charIndex >= SegmentSize)
         {
-            _charBuffer[_charIndex] = character;
-            _charIndex++;
-            if (_charIndex >= SegmentSize)
-            {
-                Flush();
-            }
+            Flush();
+        }
+    }
+
+    public void Write(ReadOnlySpan<char> text)
+    {
+        int length = text.Length;
+        Span<char> buffer = _charBuffer.AsSpan();
+        int charIndex = _charIndex;
+        for (int i = 0; i < length; i++)
+        {
+            buffer[charIndex + i] = text[i];
+        }
+        _charIndex += (short)length;
+        if (_charIndex >= SegmentSize)
+        {
+            Flush();
+        }
+    }
+
+    private void Flush()
+    {
+        if (_charIndex == 0)
+        {
+            return;
         }
 
-        public void Write(ReadOnlySpan<char> text)
-        {
-            int length = text.Length;
-            var buffer = _charBuffer.AsSpan();
-            int charIndex = _charIndex;
-            for (int i = 0; i < length; i++)
-            {
-                buffer[charIndex + i] = text[i];
-            }
-            _charIndex += (short)length;
-            if (_charIndex >= SegmentSize)
-            {
-                Flush();
-            }
-        }
-
-        private void Flush()
-        {
-            if (_charIndex == 0)
-            {
-                return;
-            }
-
-            byte[] segment = ArrayPool<byte>.Shared.Rent(SegmentSize * 2);
+        byte[] segment = ArrayPool<byte>.Shared.Rent(SegmentSize * 2);
             
-            int size = Encoding.UTF8.GetBytes(_charBuffer, 0, _charIndex, segment, 0);
-            _segments.Add(new SizedArray<byte>(segment, size));
-            _charIndex = 0;
-        }
+        int size = Encoding.UTF8.GetBytes(_charBuffer, 0, _charIndex, segment, 0);
+        _segments.Add(new SizedArray<byte>(segment, size));
+        _charIndex = 0;
+    }
 
-        public int WriteToArray(byte[] bytes)
+    public int WriteToArray(byte[] bytes)
+    {
+        Flush();
+        int writeIndex = 0;
+        for (int i = 0; i < _segments.Count; i++)
         {
-            Flush();
-            int writeIndex = 0;
-            for (int i = 0; i < _segments.Count; i++)
-            {
-                SizedArray<byte> segment = _segments[i];
-                Buffer.BlockCopy(segment.Array, 0, bytes, writeIndex, segment.Size);
-                writeIndex += segment.Size;
-            }
-
-            return writeIndex;
+            SizedArray<byte> segment = _segments[i];
+            Buffer.BlockCopy(segment.Array, 0, bytes, writeIndex, segment.Size);
+            writeIndex += segment.Size;
         }
 
-        public uint GetSize()
+        return writeIndex;
+    }
+
+    public uint GetSize()
+    {
+        uint size = 0;
+        int count = _segments.Count;
+        for (int i = 0; i < count; i++)
         {
-            uint size = 0;
-            int count = _segments.Count;
-            for (int i = 0; i < count; i++)
-            {
-                size += (uint)_segments[i].Size;
-            }
-
-            return size;
+            size += (uint)_segments[i].Size;
         }
 
-        public void WriteToNetwork(NetWrite write)
+        return size;
+    }
+
+    public void WriteToNetwork(NetWrite write)
+    {
+        Flush();
+        write.UInt32(GetSize());
+        WriteToNetwork((Stream)write);
+    }
+
+#if BENCHMARKS
+    internal void WriteToNetwork(BenchmarkNetWrite write)
+    {
+        Flush();
+        WriteToNetwork((Stream)write);
+    }
+#endif
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    private void WriteToNetwork(Stream write)
+    {
+        int count = _segments.Count;
+        for (int i = 0; i < count; i++)
         {
-            Flush();
-            write.UInt32(GetSize());
-            int count = _segments.Count;
-            for (int i = 0; i < count; i++)
-            {
-                SizedArray<byte> segment = _segments[i];
-                write.Write(segment.Array, 0, segment.Size);
-            }
+            SizedArray<byte> segment = _segments[i];
+            write.Write(segment.Array, 0, segment.Size);
         }
+    }
 
-        public byte[] ToArray()
-        {
-            Flush();
-            byte[] bytes = new byte[GetSize()];
-            WriteToArray(bytes);
-            return bytes;
-        }
+    public byte[] ToArray()
+    {
+        Flush();
+        byte[] bytes = new byte[GetSize()];
+        WriteToArray(bytes);
+        return bytes;
+    }
         
-        protected override void LeavePool()
-        {
-            _segments = UiFrameworkPool.GetList<SizedArray<byte>>();
-            if (_segments.Capacity < 100)
-            {
-                _segments.Capacity = 100;
-            }
-            
-            _charBuffer = ArrayPool<char>.Shared.Rent(SegmentSize * 2);
-        }
+    protected override void LeavePool()
+    {
 
-        protected override void EnterPool()
+    }
+
+    protected override void EnterPool()
+    {
+        for (int index = 0; index < _segments.Count; index++)
         {
-            for (int index = 0; index < _segments.Count; index++)
-            {
-                byte[] bytes = _segments[index].Array;
-                ArrayPool<byte>.Shared.Return(bytes);
-            }
-            
-            ArrayPool<char>.Shared.Return(_charBuffer);
-            UiFrameworkPool.FreeList(_segments);
-            _charBuffer = null;
-            _charIndex = 0;
+            byte[] bytes = _segments[index].Array;
+            ArrayPool<byte>.Shared.Return(bytes);
         }
+        _segments.Clear();
+        _charIndex = 0;
     }
 }

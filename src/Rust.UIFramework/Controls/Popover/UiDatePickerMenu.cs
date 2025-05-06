@@ -8,169 +8,168 @@ using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.UiElements;
 using UnityEngine;
 
-namespace Oxide.Ext.UiFramework.Controls.Popover
+namespace Oxide.Ext.UiFramework.Controls.Popover;
+
+public class UiDatePickerMenu : BasePopoverControl
 {
-    public class UiDatePickerMenu : BasePopoverControl
+    public UiPicker Year;
+    public UiPicker Month;
+    public UiPicker Day;
+
+    public const int MenuPadding = 5;
+    public const int ItemPadding = 3;
+
+    private string _yearText;
+    private string _monthLabelText;
+    private string _monthValueText;
+    private string _dayText;
+
+    private int _yearWidth;
+    private int _monthWidth;
+    private int _dayWidth;
+
+    private int _width;
+    private int _height;
+
+    public static UiDatePickerMenu Create(in UiReference parent, DateTime date, int fontSize, UiColor textColor, UiColor backgroundColor, string changeCommand, DatePickerDisplayMode displayMode, DatePickerDisplayOrder order, PopoverPosition position, string menuSprite)
     {
-        public UiPicker Year;
-        public UiPicker Month;
-        public UiPicker Day;
-
-        public const int MenuPadding = 5;
-        public const int ItemPadding = 3;
-
-        private string _yearText;
-        private string _monthLabelText;
-        private string _monthValueText;
-        private string _dayText;
-
-        private int _yearWidth;
-        private int _monthWidth;
-        private int _dayWidth;
-
-        private int _width;
-        private int _height;
-
-        public static UiDatePickerMenu Create(in UiReference parent, DateTime date, int fontSize, UiColor textColor, UiColor backgroundColor, string changeCommand, DatePickerDisplayMode displayMode, DatePickerDisplayOrder order, PopoverPosition position, string menuSprite)
-        {
-            UiDatePickerMenu control = CreateControl<UiDatePickerMenu>();
+        UiDatePickerMenu control = CreateControl<UiDatePickerMenu>();
             
-            control._width = control.PopulateVariables(displayMode, date, fontSize);
-            control._height = UiHelpers.TextOffsetHeight(fontSize) * 3;
+        control._width = control.PopulateVariables(displayMode, date, fontSize);
+        control._height = UiHelpers.TextOffsetHeight(fontSize) * 3;
 
-            Vector2Int size = new(control._width + MenuPadding * 2 + 1, control._height + MenuPadding * 2);
-            CreateBuilder(control, parent.Parent, size, backgroundColor, position, menuSprite);
+        Vector2Int size = new(control._width + MenuPadding * 2 + 1, control._height + MenuPadding * 2);
+        CreateBuilder(control, parent.Parent, size, backgroundColor, position, menuSprite);
 
-            UiBuilder builder = control.Builder;
+        UiBuilder builder = control.Builder;
 
-            control.CreatePickers(builder, date, fontSize, textColor, backgroundColor, changeCommand, displayMode, order);
+        control.CreatePickers(builder, date, fontSize, textColor, backgroundColor, changeCommand, displayMode, order);
 
-            return control;
+        return control;
+    }
+
+    public int PopulateVariables(DatePickerDisplayMode displayMode, DateTime date, int fontSize)
+    {
+        int width = 0;
+        if (HasDatePickerDisplayModeFlag(displayMode, DatePickerDisplayMode.Year))
+        {
+            _yearText = StringCache<int>.ToString(date.Year);
+            _yearWidth = UiHelpers.TextOffsetWidth(_yearText.Length, fontSize);
+            width += _yearWidth;
         }
 
-        public int PopulateVariables(DatePickerDisplayMode displayMode, DateTime date, int fontSize)
+        if (HasDatePickerDisplayModeFlag(displayMode, DatePickerDisplayMode.Month))
         {
-            int width = 0;
-            if (HasDatePickerDisplayModeFlag(displayMode, DatePickerDisplayMode.Year))
+            if (width != 0)
             {
-                _yearText = StringCache<int>.ToString(date.Year);
-                _yearWidth = UiHelpers.TextOffsetWidth(_yearText.Length, fontSize);
-                width += _yearWidth;
+                width += ItemPadding;
             }
-
-            if (HasDatePickerDisplayModeFlag(displayMode, DatePickerDisplayMode.Month))
-            {
-                if (width != 0)
-                {
-                    width += ItemPadding;
-                }
                 
-                _monthLabelText = date.ToString("MMM");
-                _monthValueText = StringCache<int>.ToString(date.Month);
-                _monthWidth = UiHelpers.TextOffsetWidth(_monthLabelText.Length, fontSize);
-                width += _monthWidth;
-            }
+            _monthLabelText = date.ToString("MMM");
+            _monthValueText = StringCache<int>.ToString(date.Month);
+            _monthWidth = UiHelpers.TextOffsetWidth(_monthLabelText.Length, fontSize);
+            width += _monthWidth;
+        }
 
-            if (HasDatePickerDisplayModeFlag(displayMode, DatePickerDisplayMode.Day))
+        if (HasDatePickerDisplayModeFlag(displayMode, DatePickerDisplayMode.Day))
+        {
+            if (width != 0)
             {
-                if (width != 0)
-                {
-                    width += ItemPadding;
-                }
+                width += ItemPadding;
+            }
                 
-                _dayText = StringCache<int>.ToString(date.Day);
-                _dayWidth = UiHelpers.TextOffsetWidth(_dayText.Length, fontSize);
-                width += _dayWidth;
-            }
-
-            width += MenuPadding * 2;
-
-            return width;
+            _dayText = StringCache<int>.ToString(date.Day);
+            _dayWidth = UiHelpers.TextOffsetWidth(_dayText.Length, fontSize);
+            width += _dayWidth;
         }
 
-        public void CreatePickers(UiBuilder builder, DateTime date, int fontSize, UiColor textColor, UiColor backgroundColor, string changeCommand, DatePickerDisplayMode displayMode, DatePickerDisplayOrder order)
-        {
-            UiOffset offset = new(MenuPadding, MenuPadding, MenuPadding, _height);
+        width += MenuPadding * 2;
 
-            switch (order)
-            {
-                case DatePickerDisplayOrder.MonthDayYear:
-                    if (CreateMonthPicker(builder, offset, date, fontSize, textColor, backgroundColor, changeCommand)) offset.MoveX(_monthWidth + ItemPadding);
-                    if (CreateDayPicker(builder, offset, date, fontSize, textColor, backgroundColor, changeCommand)) offset.MoveX(_dayWidth + ItemPadding);
-                    CreateYearPicker(builder, offset, date, fontSize, textColor, backgroundColor, changeCommand);
-                    break;
-                case DatePickerDisplayOrder.YearMonthDay:
-                    if (CreateYearPicker(builder, offset, date, fontSize, textColor, backgroundColor, changeCommand)) offset.MoveX(_yearWidth + ItemPadding);
-                    if (CreateMonthPicker(builder, offset, date, fontSize, textColor, backgroundColor, changeCommand)) offset.MoveX(_monthWidth + ItemPadding);
-                    CreateDayPicker(builder, offset, date, fontSize, textColor, backgroundColor, changeCommand);
-                    break;
-                case DatePickerDisplayOrder.DayMonthYear:
-                    if (CreateDayPicker(builder, offset, date, fontSize, textColor, backgroundColor, changeCommand)) offset.MoveX(_dayWidth + ItemPadding);
-                    if (CreateMonthPicker(builder, offset, date, fontSize, textColor, backgroundColor, changeCommand)) offset.MoveX(_monthWidth + ItemPadding);
-                    CreateYearPicker(builder, offset, date, fontSize, textColor, backgroundColor, changeCommand);
-                    break;
-            }
+        return width;
+    }
+
+    public void CreatePickers(UiBuilder builder, DateTime date, int fontSize, UiColor textColor, UiColor backgroundColor, string changeCommand, DatePickerDisplayMode displayMode, DatePickerDisplayOrder order)
+    {
+        UiOffset offset = new(MenuPadding, MenuPadding, MenuPadding, _height);
+
+        switch (order)
+        {
+            case DatePickerDisplayOrder.MonthDayYear:
+                if (CreateMonthPicker(builder, offset, date, fontSize, textColor, backgroundColor, changeCommand)) offset.MoveX(_monthWidth + ItemPadding);
+                if (CreateDayPicker(builder, offset, date, fontSize, textColor, backgroundColor, changeCommand)) offset.MoveX(_dayWidth + ItemPadding);
+                CreateYearPicker(builder, offset, date, fontSize, textColor, backgroundColor, changeCommand);
+                break;
+            case DatePickerDisplayOrder.YearMonthDay:
+                if (CreateYearPicker(builder, offset, date, fontSize, textColor, backgroundColor, changeCommand)) offset.MoveX(_yearWidth + ItemPadding);
+                if (CreateMonthPicker(builder, offset, date, fontSize, textColor, backgroundColor, changeCommand)) offset.MoveX(_monthWidth + ItemPadding);
+                CreateDayPicker(builder, offset, date, fontSize, textColor, backgroundColor, changeCommand);
+                break;
+            case DatePickerDisplayOrder.DayMonthYear:
+                if (CreateDayPicker(builder, offset, date, fontSize, textColor, backgroundColor, changeCommand)) offset.MoveX(_dayWidth + ItemPadding);
+                if (CreateMonthPicker(builder, offset, date, fontSize, textColor, backgroundColor, changeCommand)) offset.MoveX(_monthWidth + ItemPadding);
+                CreateYearPicker(builder, offset, date, fontSize, textColor, backgroundColor, changeCommand);
+                break;
         }
+    }
 
-        public bool CreateYearPicker(UiBuilder builder, in UiOffset pos, DateTime value, int fontSize, UiColor textColor, UiColor backgroundColor, string changeCommand)
+    public bool CreateYearPicker(UiBuilder builder, in UiOffset pos, DateTime value, int fontSize, UiColor textColor, UiColor backgroundColor, string changeCommand)
+    {
+        if (_yearWidth == 0)
         {
-            if (_yearWidth == 0)
-            {
-                return false;
-            }
+            return false;
+        }
             
-            string increment = $"{changeCommand} {StringCache<int>.ToString(value.Year + 1)}/{_monthValueText}/{_dayText}";
-            string decrement = $"{changeCommand} {StringCache<int>.ToString(value.Year - 1)}/{_monthValueText}/{_dayText}";
-            Year = UiPicker.Create(builder, builder.Root, pos, _yearText, fontSize, textColor, backgroundColor, _height, increment, decrement);
-            return true;
-        }
+        string increment = $"{changeCommand} {StringCache<int>.ToString(value.Year + 1)}/{_monthValueText}/{_dayText}";
+        string decrement = $"{changeCommand} {StringCache<int>.ToString(value.Year - 1)}/{_monthValueText}/{_dayText}";
+        Year = UiPicker.Create(builder, builder.Root, pos, _yearText, fontSize, textColor, backgroundColor, _height, increment, decrement);
+        return true;
+    }
         
-        public bool CreateMonthPicker(UiBuilder builder, in UiOffset pos, DateTime value, int fontSize, UiColor textColor, UiColor backgroundColor, string changeCommand)
+    public bool CreateMonthPicker(UiBuilder builder, in UiOffset pos, DateTime value, int fontSize, UiColor textColor, UiColor backgroundColor, string changeCommand)
+    {
+        if (_monthWidth == 0)
         {
-            if (_monthWidth == 0)
-            {
-                return false;
-            }
-            
-            string increment = $"{changeCommand} {_yearText}/{StringCache<int>.ToString(value.Month % 12 + 1)}/{_dayText}";
-            string decrement = $"{changeCommand} {_yearText}/{StringCache<int>.ToString(value.Month == 1 ? 12 : value.Month - 1)}/{_dayText}";
-            Month = UiPicker.Create(builder, builder.Root, pos, _monthLabelText, fontSize, textColor, backgroundColor, _height, increment, decrement);
-            return true;
+            return false;
         }
+            
+        string increment = $"{changeCommand} {_yearText}/{StringCache<int>.ToString(value.Month % 12 + 1)}/{_dayText}";
+        string decrement = $"{changeCommand} {_yearText}/{StringCache<int>.ToString(value.Month == 1 ? 12 : value.Month - 1)}/{_dayText}";
+        Month = UiPicker.Create(builder, builder.Root, pos, _monthLabelText, fontSize, textColor, backgroundColor, _height, increment, decrement);
+        return true;
+    }
         
-        public bool CreateDayPicker(UiBuilder builder, in UiOffset pos, DateTime value, int fontSize, UiColor textColor, UiColor backgroundColor, string changeCommand)
+    public bool CreateDayPicker(UiBuilder builder, in UiOffset pos, DateTime value, int fontSize, UiColor textColor, UiColor backgroundColor, string changeCommand)
+    {
+        if (_dayWidth == 0)
         {
-            if (_dayWidth == 0)
-            {
-                return false;
-            }
+            return false;
+        }
             
-            int numDays = DateTime.DaysInMonth(value.Year, value.Month);
-            string increment = $"{changeCommand} {_yearText}/{_monthValueText}/{StringCache<int>.ToString(value.Day % numDays + 1)}";
-            string decrement = $"{changeCommand} {_yearText}/{_monthValueText}/{StringCache<int>.ToString(value.Day == 1 ? numDays : value.Day - 1)}";
-            Day = UiPicker.Create(builder, builder.Root, pos, _dayText, fontSize, textColor, backgroundColor, _height, increment, decrement);
-            return true;
-        }
+        int numDays = DateTime.DaysInMonth(value.Year, value.Month);
+        string increment = $"{changeCommand} {_yearText}/{_monthValueText}/{StringCache<int>.ToString(value.Day % numDays + 1)}";
+        string decrement = $"{changeCommand} {_yearText}/{_monthValueText}/{StringCache<int>.ToString(value.Day == 1 ? numDays : value.Day - 1)}";
+        Day = UiPicker.Create(builder, builder.Root, pos, _dayText, fontSize, textColor, backgroundColor, _height, increment, decrement);
+        return true;
+    }
 
-        private bool HasDatePickerDisplayModeFlag(DatePickerDisplayMode mode, DatePickerDisplayMode flag)
-        {
-            return (mode & flag) != 0;
-        }
+    private bool HasDatePickerDisplayModeFlag(DatePickerDisplayMode mode, DatePickerDisplayMode flag)
+    {
+        return (mode & flag) != 0;
+    }
 
-        protected override void EnterPool()
-        {
-            Year = null;
-            Month = null;
-            Day = null;
-            _yearText = null;
-            _monthLabelText = null;
-            _monthValueText = null;
-            _dayText = null;
-            _yearWidth = 0;
-            _monthWidth = 0;
-            _dayWidth = 0;
-            _width = 0;
-            _height = 0;
-        }
+    protected override void EnterPool()
+    {
+        Year = null;
+        Month = null;
+        Day = null;
+        _yearText = null;
+        _monthLabelText = null;
+        _monthValueText = null;
+        _dayText = null;
+        _yearWidth = 0;
+        _monthWidth = 0;
+        _dayWidth = 0;
+        _width = 0;
+        _height = 0;
     }
 }
