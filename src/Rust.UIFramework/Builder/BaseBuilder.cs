@@ -142,6 +142,11 @@ public abstract class BaseBuilder : BasePoolable
             Connections = send
         }, name);
     }
+
+    public static void DestroyUi(IEnumerable<Connection> connections, string name)
+    {
+        DestroyUi(SendInfoBuilder.Get(connections), name);
+    }
     #endregion
 
 #if BENCHMARKS
