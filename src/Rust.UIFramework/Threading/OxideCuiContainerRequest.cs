@@ -23,7 +23,7 @@ internal class OxideCuiContainerRequest : BaseUiRequest, IUiRequest
         _destroyUiName = destroyUiName;
     }
     
-    public void SendUi()
+    public void SendRequest()
     {
         if (!string.IsNullOrEmpty(_destroyUiName))
         {

@@ -52,7 +52,7 @@ internal class SendHandler : ISingleton
             try
             {
 #if !BENCHMARKS
-                request.SendUi();
+                request.SendRequest();
 #endif
             }
             catch (Exception ex)

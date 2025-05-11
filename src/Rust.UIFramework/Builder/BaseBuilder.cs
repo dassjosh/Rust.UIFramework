@@ -148,11 +148,17 @@ public abstract class BaseBuilder : BasePoolable
         }
         
         Singleton<AnimationTracker>.Instance.RemoveUiForSend(send, name);
-        CommunityEntity.ServerInstance.ClientRPC(new RpcTarget
+        Singleton<SendHandler>.Instance.Enqueue(UiDestroyRequest.Create(name, send));
+    }
+
+    internal static void SendDestroyUi(SendInfo send, string name)
+    {
+        NetWrite write = ClientRPCStart(RpcFunctions.DestroyUiFunc);
+        if (write != null)
         {
-            Function = RpcFunctions.DestroyUiFunc,
-            Connections = send
-        }, name);
+            write.String(name);
+            write.Send(send);
+        }
     }
     #endregion
 

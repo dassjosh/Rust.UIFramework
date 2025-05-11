@@ -22,7 +22,7 @@ internal class OxideCuiElementsRequest : BaseUiRequest, IUiRequest
         _elements = elements;
     }
     
-    public void SendUi()
+    public void SendRequest()
     {
         CommunityEntity.ServerInstance.ClientRPC(RpcTarget.SendInfo("AddUI", Send), CuiHelper.ToJson(_elements));
     }

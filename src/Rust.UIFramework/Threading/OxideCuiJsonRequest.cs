@@ -20,7 +20,7 @@ internal class OxideCuiJsonRequest : BaseUiRequest, IUiRequest
         _json = json;
     }
     
-    public void SendUi()
+    public void SendRequest()
     {
         CommunityEntity.ServerInstance.ClientRPC(RpcTarget.SendInfo("AddUI", Send), _json);
     }

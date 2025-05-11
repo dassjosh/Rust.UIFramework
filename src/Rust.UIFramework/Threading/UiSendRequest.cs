@@ -21,7 +21,7 @@ internal class UiSendRequest : BaseUiRequest, IUiRequest
         Builder = builder;
     }
     
-    public void SendUi()
+    public void SendRequest()
     {
         Builder.SendUi(Send);
     }
