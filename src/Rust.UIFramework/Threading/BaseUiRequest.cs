@@ -14,7 +14,6 @@ public abstract class BaseUiRequest : BasePoolable
 
     protected override void EnterPool()
     {
-        base.EnterPool();
         if (Send.connections != null)
         {
             ListPool<Connection>.Instance.Free(Send.connections);
