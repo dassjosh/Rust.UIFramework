@@ -51,11 +51,6 @@ public static class UiFrameworkPool
     {
         return HashPool<TKey, TValue>.Instance.Get();
     }
-    
-    public static ConcurrentDictionary<TKey, TValue> GetConcurrentDictionary<TKey, TValue>()
-    {
-        return ConcurrentDictionaryPool<TKey, TValue>.Instance.Get();
-    }
 
     /// <summary>
     /// Returns a pooled <see cref="StringBuilder"/>
@@ -85,11 +80,6 @@ public static class UiFrameworkPool
     public static void FreeHash<TKey, TValue>(Hash<TKey, TValue> hash)
     {
         HashPool<TKey, TValue>.Instance.Free(hash);
-    }
-    
-    public static void FreeConcurrentDictionary<TKey, TValue>(ConcurrentDictionary<TKey, TValue> hash)
-    {
-        ConcurrentDictionaryPool<TKey, TValue>.Instance.Free(hash);
     }
 
     /// <summary>

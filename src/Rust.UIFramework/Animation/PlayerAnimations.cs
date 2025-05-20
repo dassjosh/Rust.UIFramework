@@ -23,7 +23,6 @@ internal sealed class PlayerAnimations : BasePoolable
     protected override void EnterPool()
     {
         Send = default;
-        UiFrameworkPool.FreeConcurrentDictionary(Animations);
         Animations.Clear();
         base.EnterPool();
     }
