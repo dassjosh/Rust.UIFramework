@@ -91,10 +91,10 @@ public abstract partial class BaseUiBuilder : BaseBuilder
     
     protected virtual void FreeComponents()
     {
-        Components.ClearValuesToPool();
-        Controls.ClearValuesToPool();
-        Anchors.ClearValuesToPool();
-        Layouts.ClearValuesToPool();
+        Components.FreeValues();
+        Controls.FreeValues();
+        Anchors.FreeValues();
+        Layouts.FreeValues();
     }
     
     protected override void EnterPool()

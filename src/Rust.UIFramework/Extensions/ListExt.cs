@@ -5,7 +5,7 @@ namespace Oxide.Ext.UiFramework.Extensions;
 
 public static class ListExt
 {
-    public static void ReturnToPool<T>(this List<T> list) where T : BasePoolable
+    public static void FreeList<T>(this List<T> list) where T : BasePoolable
     {
         if (list == null)
         {
@@ -21,7 +21,7 @@ public static class ListExt
         UiFrameworkPool.FreeList(list);
     }
     
-    public static void ClearValuesToPool<T>(this List<T> list) where T : BasePoolable
+    public static void FreeValues<T>(this List<T> list) where T : BasePoolable
     {
         if (list == null)
         {
@@ -37,7 +37,7 @@ public static class ListExt
         list.Clear();
     }
 
-    public static void ClearAndTryPoolValues<T>(this List<T> list)
+    public static void TryFreeValues<T>(this List<T> list)
     {
         if (list == null)
         {

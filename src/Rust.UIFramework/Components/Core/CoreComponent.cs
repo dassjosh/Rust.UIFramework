@@ -92,7 +92,7 @@ public abstract class CoreComponent : BaseTypedComponent, ICoreComponent
     public override void Reset()
     {
         base.Reset();
-        _subComponents.ReturnToPool();
+        _subComponents.FreeList();
         _subComponents = null;
     }
 }
