@@ -219,7 +219,7 @@ public abstract class BaseAnimation : BasePoolable
         Reference = default;
         Duration = null;
         Send = default;
-        _events.ClearAndTryPoolValues();
+        _events.TryFreeValues();
         UpdateState(AnimationState.Pooled);
     }
 }
