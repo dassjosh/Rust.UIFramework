@@ -1,4 +1,5 @@
-﻿using Oxide.Ext.UiFramework.Enums;
+﻿using Oxide.Ext.UiFramework.Cache;
+using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Plugins;
@@ -17,7 +18,7 @@ public class PlayerAvatarComponent : RawImageComponent
         {
             case AvatarType.Small:
             case AvatarType.Medium:
-                writer.AddFieldRaw(JsonDefaults.PlayerAvatar.SteamIdName, SteamId);
+                writer.AddFieldRaw(JsonDefaults.PlayerAvatar.SteamIdName, Utf8StringCache<ulong>.ToString(SteamId));
                 break;
             
             case AvatarType.Large:
@@ -29,7 +30,7 @@ public class PlayerAvatarComponent : RawImageComponent
                 }
                 else
                 {
-                    writer.AddFieldRaw(JsonDefaults.PlayerAvatar.SteamIdName, SteamId);
+                    writer.AddFieldRaw(JsonDefaults.PlayerAvatar.SteamIdName, Utf8StringCache<ulong>.ToString(SteamId));
                 }
 
                 break;

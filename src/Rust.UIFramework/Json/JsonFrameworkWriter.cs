@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Network;
 using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Colors;
@@ -246,16 +247,6 @@ public sealed class JsonFrameworkWriter : BasePoolable
         WriteTextValue(value);
     }
     
-        
-    public void AddField(in Utf8String name, string value, bool add)
-    {
-        if (add)
-        {
-            WritePropertyName(name);
-            WriteValue(value);
-        }
-    }
-    
     public void AddCommand(in Utf8String name, string value)
     {
         WritePropertyName(name);
@@ -298,18 +289,24 @@ public sealed class JsonFrameworkWriter : BasePoolable
         else
         {
             _propertyComma = true;
-            _writer.Write(QuoteChar);
+            WriteQuote();
         }
             
         _writer.Write(name);
         _writer.Write(Separator);
     }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public void WriteQuote()
+    {
+        _writer.Write(QuoteChar);
+    }
     
     public void WriteValue(in Utf8String value)
     {
-        _writer.Write(QuoteChar);
+        WriteQuote();
         _writer.Write(value);
-        _writer.Write(QuoteChar);
+        WriteQuote();
     }
     
     public void WriteValue(bool value)
