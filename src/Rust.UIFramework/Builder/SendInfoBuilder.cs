@@ -33,7 +33,7 @@ internal static class SendInfoBuilder
     internal static SendInfo Get(IEnumerable<Connection> connections)
     {
         if (connections == null) throw new ArgumentNullException(nameof(connections));
-        List<Connection> pooledConnection = ListPool<Connection>.Instance.Get();
+        List<Connection> pooledConnection = UiFrameworkPool.GetList<Connection>();
         foreach (Connection connection in connections)
         {
             if (connection is { connected: true })

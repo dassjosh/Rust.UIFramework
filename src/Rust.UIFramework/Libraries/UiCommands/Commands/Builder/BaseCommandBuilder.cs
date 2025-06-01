@@ -9,7 +9,7 @@ internal class BaseCommandBuilder(string command, ICommandProtection protection,
 
     protected ArgWriterIterator StartBuilding()
     {
-        UiArgWriter argWriter = new(StringBuilderPool.Instance.Get());
+        UiArgWriter argWriter = new(UiFrameworkPool.GetStringBuilder());
         ArgWriterIterator iterator = new(argWriter, Writers, argIndex);
         return iterator;
     }

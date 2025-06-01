@@ -49,7 +49,7 @@ internal static class TypeExt
             return t.Name;
         }
 
-        StringBuilder sb = StringBuilderPool.Instance.Get();
+        StringBuilder sb = UiFrameworkPool.GetStringBuilder();
         sb.Append(t.Name.AsSpan()[..t.Name.IndexOf('`')]);
         sb.Append('<');
         Type[] args = t.GetGenericArguments();
@@ -64,7 +64,7 @@ internal static class TypeExt
         }
         sb.Append('>');
         string type = sb.ToString();
-        StringBuilderPool.Instance.Free(sb);
+        UiFrameworkPool.FreeStringBuilder(sb);
         return type;
     }
 }

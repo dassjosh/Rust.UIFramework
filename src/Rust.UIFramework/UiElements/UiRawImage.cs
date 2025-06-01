@@ -8,6 +8,11 @@ public class UiRawImage : BaseUiComponent, IMaterial<UiRawImage>, IFadeIn<UiRawI
 {
     public readonly RawImageComponent RawImage;
 
+    public string Material { get => RawImage.Material; set => RawImage.Material = value; }
+    public float FadeIn { get => RawImage.FadeIn; set => RawImage.FadeIn = value; }
+    public UiColor Color { get => RawImage.Color; set => RawImage.Color = value; }
+    public string Image { get => RawImage.Image; set => RawImage.Image = value; }
+    
     public UiRawImage() : this(new RawImageComponent()) { }
 
     private UiRawImage(RawImageComponent component) : base(component)
@@ -15,11 +20,6 @@ public class UiRawImage : BaseUiComponent, IMaterial<UiRawImage>, IFadeIn<UiRawI
         RawImage = component;
     }
     
-    public string Material { get => RawImage.Material; set => RawImage.Material = value; }
-    public float FadeIn { get => RawImage.FadeIn; set => RawImage.FadeIn = value; }
-    public UiColor Color { get => RawImage.Color; set => RawImage.Color = value; }
-    public string Image { get => RawImage.Image; set => RawImage.Image = value; }
-        
     public static UiRawImage Create(string image, in UiColor color)
     {
         UiRawImage rawImage = CreateBase<UiRawImage>();

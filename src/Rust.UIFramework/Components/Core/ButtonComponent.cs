@@ -1,4 +1,5 @@
 ﻿using System;
+using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Types;
@@ -11,9 +12,31 @@ public class ButtonComponent : ImageComponent
     public string Command;
     public ButtonType ButtonType;
     
-    public ColorBlockComponent ColorBlock { get; internal set; }
+    public ColorBlockComponent ColorBlock { get; private set; }
     public override Utf8String Type => JsonDefaults.Button.Type;
 
+    internal ColorBlockComponent GetOrAddColorBlock()
+    {
+        if (ColorBlock != null)
+        {
+            return ColorBlock; 
+        }
+        ColorBlockComponent colors = PluginPool.Get<ColorBlockComponent>();
+        ColorBlock = colors;
+        return colors;
+    }
+
+    internal ColorBlockComponent AddColorBlock(in UiColor? highlightColor, in UiColor? pressedColor, in UiColor? selectedColor, in float? colorMultiplier, in float? fadeDuration)
+    {
+        ColorBlockComponent colors = GetOrAddColorBlock();
+        if(highlightColor.HasValue) colors.HighlightedColor = highlightColor.Value;
+        if(pressedColor.HasValue) colors.PressedColor = pressedColor.Value;
+        if(selectedColor.HasValue) colors.SelectedColor = selectedColor.Value;
+        if(colorMultiplier.HasValue) colors.ColorMultiplier = colorMultiplier.Value;
+        if(fadeDuration.HasValue) colors.FadeDuration = fadeDuration.Value;
+        return colors;
+    }
+    
     protected override void WriteComponentFields(JsonFrameworkWriter writer)
     {
         switch (ButtonType)

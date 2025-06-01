@@ -1,0 +1,23 @@
+﻿{
+  "Color": "#808080FF",
+  "Enabled": true,
+  "FadeIn": 1.5,
+  "Image": {
+    "Color": "#808080FF",
+    "Enabled": true,
+    "FadeIn": 1.5,
+    "ImageType": "Tiled",
+    "Material": "assets/icons/iconmaterial.mat",
+    "Sprite": "assets/icons/authorize.png",
+    "Type": "UnityEngine.UI.Image"
+  },
+  "ImageType": "Tiled",
+  "Material": "assets/icons/iconmaterial.mat",
+  "Offset": "(100, 200) (300, 400)",
+  "Position": "(0.1, 0.2) (0.3, 0.4)",
+  "Reference": {
+    "Name": "element",
+    "Parent": "parent"
+  },
+  "Sprite": "assets/icons/authorize.png"
+}

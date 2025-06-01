@@ -1,0 +1,11 @@
+﻿{
+  "Color": "#FF0000FF",
+  "Enabled": true,
+  "FadeIn": 1.0,
+  "ImageType": "Sliced",
+  "ItemId": 123,
+  "Material": "assets/icons/iconmaterial.mat",
+  "SkinId": 34621422135410688,
+  "Sprite": "assets/content/ui/ui.background.rounded.png",
+  "Type": "UnityEngine.UI.Image"
+}

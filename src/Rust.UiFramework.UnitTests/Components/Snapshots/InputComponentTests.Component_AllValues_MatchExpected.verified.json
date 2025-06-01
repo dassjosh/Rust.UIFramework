@@ -1,0 +1,15 @@
+﻿{
+  "Align": "UpperRight",
+  "CharsLimit": 16,
+  "Color": "#008000FF",
+  "Command": "command",
+  "Enabled": true,
+  "FadeIn": 2.0,
+  "Font": "permanentmarker.ttf",
+  "FontSize": 24,
+  "LineType": "MultiLineNewline",
+  "Mode": "NeedsKeyboard, AutoFocus",
+  "Text": "text 123",
+  "Type": "UnityEngine.UI.InputField",
+  "VerticalOverflow": "Overflow"
+}

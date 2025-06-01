@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Text;
 using Network;
 using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Colors;
@@ -17,6 +18,10 @@ namespace Oxide.Ext.UiFramework.Json;
 
 public sealed class JsonFrameworkWriter : BasePoolable
 {
+    internal const char StartQuoteString = '“';
+    internal const char EndQuoteString = '“';
+    internal const string BackslashString = "⧹";
+    
     private const byte QuoteChar = (byte)'\"';
     private const byte ArrayStartChar = (byte)'[';
     private const byte ArrayEndChar = (byte)']';
@@ -25,13 +30,13 @@ public sealed class JsonFrameworkWriter : BasePoolable
     private const byte CommaChar = (byte)',';
     private const byte True = (byte)'1';
     private const byte False = (byte)'0';
-    private static readonly Utf8String StartQuote = '“';
-    private static readonly Utf8String EndQuote = '“';
+    private static readonly Utf8String StartQuote = StartQuoteString;
+    private static readonly Utf8String EndQuote = EndQuoteString;
     private static readonly Utf8String Separator = "\":";
     private static readonly Utf8String PropertyComma = ",\"";
     
     private static readonly Utf8String EscapeQuote = "\\\"";
-    private static readonly Utf8String EscapeBackslash = @"\\";
+    private static readonly Utf8String Backslash = BackslashString;
 
     private bool _propertyComma;
     private bool _objectComma;
@@ -40,7 +45,7 @@ public sealed class JsonFrameworkWriter : BasePoolable
 
     private void Init()
     {
-        _writer = UiFrameworkPool.Get<JsonUtf8Writer>();
+        _writer = PluginPool.Get<JsonUtf8Writer>();
     }
 
     public static JsonFrameworkWriter Create()
@@ -127,7 +132,7 @@ public sealed class JsonFrameworkWriter : BasePoolable
         }
     }
     
-    public void AddField<T>(in Utf8String name, T value, T defaultValue = default) where T : struct, Enum
+    public void AddField<T>(in Utf8String name, T value, T defaultValue) where T : struct, Enum
     {
         if (!EqualityComparer<T>.Default.Equals(value, defaultValue))
         {
@@ -345,25 +350,34 @@ public sealed class JsonFrameworkWriter : BasePoolable
     public void WriteTextValue(string value)
     {
         _writer.Write(QuoteChar);
-        bool isInQuote = false;
         if (!string.IsNullOrEmpty(value))
         {
-            for (int i = 0; i < value.Length; i++)
+            bool isInQuote = false;
+            for (int i = 0; i < value.Length;)
             {
                 char character = value[i];
+                if (i + 1 < value.Length && char.IsHighSurrogate(character) && char.IsLowSurrogate(value[i + 1]))
+                {
+                    _writer.Write(value.AsSpan().Slice(i, 2));
+                    i += 2;
+                    continue;
+                }
+
                 switch (character)
                 {
                     case '\"':
                         isInQuote = !isInQuote;
                         _writer.Write(isInQuote ? EndQuote : StartQuote);
                         break;
-                    case '\\' when i + 1 == value.Length:
-                        _writer.Write(EscapeBackslash);
+                    case '\\':
+                        _writer.Write(Backslash);
                         break;
                     default:
                         _writer.Write(character);
                         break;
                 }
+
+                i += 1;
             }
         }
         _writer.Write(QuoteChar);
@@ -374,21 +388,29 @@ public sealed class JsonFrameworkWriter : BasePoolable
         _writer.Write(QuoteChar);
         if (!string.IsNullOrEmpty(value))
         {
-            for (int i = 0; i < value.Length; i++)
+            for (int i = 0; i < value.Length;)
             {
                 char character = value[i];
+                if (i + 1 < value.Length && char.IsHighSurrogate(character) && char.IsLowSurrogate(value[i + 1]))
+                {
+                    _writer.Write(value.AsSpan().Slice(i, 2));
+                    i += 2;
+                    continue;
+                }
                 switch (character)
                 {
                     case '\"':
                         _writer.Write(EscapeQuote);
                         break;
-                    case '\\' when i + 1 == value.Length:
-                        _writer.Write(EscapeBackslash);
+                    case '\\':
+                        _writer.Write(Backslash);
                         break;
                     default:
                         _writer.Write(character);
                         break;
                 }
+                
+                i += 1;
             }
         }
         _writer.Write(QuoteChar);

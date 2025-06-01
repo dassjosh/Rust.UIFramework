@@ -24,7 +24,7 @@ public class CountdownComponent : SubComponent
         writer.AddField(JsonDefaults.Countdown.EndTimeName, EndTime, JsonDefaults.Countdown.EndTimeValue);
         writer.AddField(JsonDefaults.Countdown.StepName, Step, JsonDefaults.Countdown.StepValue);
         writer.AddField(JsonDefaults.Countdown.IntervalName, Interval, JsonDefaults.Countdown.IntervalValue);
-        writer.AddField(JsonDefaults.Countdown.TimerFormatName, TimerFormat);
+        writer.AddField(JsonDefaults.Countdown.TimerFormatName, TimerFormat, JsonDefaults.Countdown.TimeFormatValue);
         writer.AddField(JsonDefaults.Countdown.NumberFormatName, NumberFormat, JsonDefaults.Countdown.NumberFormatValue);
         writer.AddField(JsonDefaults.Countdown.DestroyIfDoneName, DestroyIfDone, JsonDefaults.Countdown.DestroyIfDone);
         writer.AddField(JsonDefaults.Countdown.CountdownCommandName, Command, JsonDefaults.Common.NullValue);

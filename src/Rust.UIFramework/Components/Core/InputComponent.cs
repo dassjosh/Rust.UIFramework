@@ -1,4 +1,5 @@
-﻿using Oxide.Ext.UiFramework.Enums;
+﻿using System;
+using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Types;
 using UnityEngine.UI;
@@ -17,8 +18,8 @@ public class InputComponent : TextComponent
 
     protected override void WriteComponentFields(JsonFrameworkWriter writer)
     {
-        writer.AddField(JsonDefaults.Input.CharacterLimitName, CharsLimit, JsonDefaults.Input.CharacterLimitValue);
-        writer.AddField(JsonDefaults.Input.LineTypeName, LineType);
+        writer.AddField(JsonDefaults.Input.CharacterLimitName, CharsLimit, JsonDefaults.Input.CharacterLimit);
+        writer.AddField(JsonDefaults.Input.LineTypeName, LineType, JsonDefaults.Input.LineType);
         writer.AddField(JsonDefaults.Input.PasswordName, HasMode(InputMode.Password), false);
         writer.AddField(JsonDefaults.Input.NeedsKeyboardName, HasMode(InputMode.NeedsKeyboard), false);
         writer.AddField(JsonDefaults.Input.NeedsHudKeyboardName, HasMode(InputMode.HudNeedsKeyboard), false);
@@ -35,9 +36,10 @@ public class InputComponent : TextComponent
         
         base.WriteComponentFields(writer);
     }
-
+    
     public bool HasMode(InputMode mode) => (Mode & mode) == mode;
 
+    [Obsolete("Use SetMode on UiInput instead")]
     public void SetMode(InputMode mode, bool enabled)
     {
         if (enabled)
@@ -53,9 +55,9 @@ public class InputComponent : TextComponent
     public override void Reset()
     {
         base.Reset();
-        CharsLimit = JsonDefaults.Input.CharacterLimitValue;
+        CharsLimit = JsonDefaults.Input.CharacterLimit;
         Command = null;
-        Mode = default;
-        LineType = default;
+        Mode = JsonDefaults.Input.Mode;
+        LineType = JsonDefaults.Input.LineType;
     }
 }

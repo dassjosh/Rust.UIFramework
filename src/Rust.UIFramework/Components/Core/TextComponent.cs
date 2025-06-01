@@ -25,8 +25,8 @@ public class TextComponent : CoreComponent
             writer.AddTextField(JsonDefaults.Text.TextName, Text);
             writer.AddField(JsonDefaults.Text.FontSizeName, FontSize, JsonDefaults.Text.FontSize);
             writer.AddField(JsonDefaults.Text.FontName, Font, JsonDefaults.Text.FontValue);
-            writer.AddField(JsonDefaults.Text.AlignName, Align);
-            writer.AddField(JsonDefaults.Text.VerticalOverflowName, VerticalOverflow);
+            writer.AddField(JsonDefaults.Text.AlignName, Align, JsonDefaults.Text.Align);
+            writer.AddField(JsonDefaults.Text.VerticalOverflowName, VerticalOverflow, JsonDefaults.Text.VerticalOverflow);
             writer.AddField(JsonDefaults.Common.FadeInName, FadeIn, JsonDefaults.Common.FadeIn);
             writer.AddField(JsonDefaults.Color.ColorName, Color);
         }
@@ -39,8 +39,8 @@ public class TextComponent : CoreComponent
         FadeIn = 0;
         FontSize = JsonDefaults.Text.FontSize;
         Font = null;
-        Align = default;
+        Align = JsonDefaults.Text.Align;
         Text = null;
-        VerticalOverflow = default;
+        VerticalOverflow = JsonDefaults.Text.VerticalOverflow;
     }
 }

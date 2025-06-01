@@ -16,5 +16,4 @@ public class UiSection : BaseUiComponent
     }
     
     public static UiSection Create() => CreateBase<UiSection>();
-    public static UiSection Create(in UiPosition pos, in UiOffset offset) => CreateBase<UiSection>(pos, offset);
 }

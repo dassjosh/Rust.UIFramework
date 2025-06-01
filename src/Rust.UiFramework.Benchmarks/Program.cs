@@ -31,7 +31,7 @@ class Program
             .WithOptions(ConfigOptions.DisableOptimizationsValidator);
         BenchmarkRunner.Run<Benchmarks>(config, args);
 #else
-
+        
 #endif
     }
 }

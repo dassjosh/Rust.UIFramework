@@ -1,0 +1,24 @@
+﻿{
+  "ContentTransform": {
+    "Offset": "(100, 200) (300, 400)",
+    "Position": "(0.1, 0.2) (0.3, 0.4)"
+  },
+  "DecelerationRate": 200.0,
+  "Elasticity": 100.0,
+  "Enabled": true,
+  "Inertia": true,
+  "MovementType": "Elastic",
+  "ScrollSensitivity": 300.0,
+  "Type": "UnityEngine.UI.ScrollView",
+  "VerticalScrollbar": {
+    "AutoHide": false,
+    "HandleColor": "#00FFFFFF",
+    "HandleSprite": "assets/icons/subtract.png",
+    "HighlightColor": "#00FF00FF",
+    "Invert": false,
+    "PressedColor": "#000080FF",
+    "Size": 60.0,
+    "TrackColor": "#808000FF",
+    "TrackSprite": "assets/icons/bleeding.png"
+  }
+}

@@ -9,6 +9,23 @@ namespace Oxide.Ext.UiFramework.Builder;
 
 public abstract partial class BaseUiBuilder
 {
+    #region Generic
+    public UiTuple<UiSection, TLayout> Layout<TLayout>(in UiReference reference) where TLayout : BaseUiLayout, new()
+    {
+        UiSection section = Section(reference);
+        TLayout layout = BaseUiLayout.CreateBase<TLayout>(section);
+        return new UiTuple<UiSection, TLayout>(section, layout);
+    }
+    
+    public UiTuple<UiSection, TLayout> Layout<TLayout>(in UiReference reference, in UiPosition pos, in UiOffset offset = default) where TLayout : BaseUiLayout, new()
+    {
+        UiTuple<UiSection, TLayout> layout = Layout<TLayout>(reference);
+        UiSection section = layout;
+        section.SetPosition(pos, offset);
+        return layout;
+    }
+    #endregion
+    
     #region Grid
     public UiTuple<UiSection, UiGridLayout> GridLayout(in UiReference reference, in UiPosition pos, in UiOffset offset, int numCols, int numRows, GridAlignment alignment = default, LayoutPadding layoutPadding = default, in UiPadding padding = default)
     {
@@ -18,7 +35,7 @@ public abstract partial class BaseUiBuilder
         return new UiTuple<UiSection, UiGridLayout>(section, layout);
     }
     
-    public UiTuple<UiSection, UiGridLayout> GridLayout(BaseLayout parentLayout, int numCols, int numRows, GridAlignment alignment = default, LayoutPadding layoutPadding = default, in UiPadding padding = default)
+    public UiTuple<UiSection, UiGridLayout> GridLayout(BaseUiLayout parentLayout, int numCols, int numRows, GridAlignment alignment = default, LayoutPadding layoutPadding = default, in UiPadding padding = default)
     {
         UiSection section = Section(parentLayout.Reference);
         UiGridLayout layout = UiGridLayout.Create(section, numCols, numRows, alignment, layoutPadding, padding);
@@ -36,7 +53,7 @@ public abstract partial class BaseUiBuilder
         return new UiTuple<UiSection, UiGridPositionLayout>(section, layout);
     }
     
-    public UiTuple<UiSection, UiGridPositionLayout> GridPositionLayout(BaseLayout parentLayout, GridPosition grid)
+    public UiTuple<UiSection, UiGridPositionLayout> GridPositionLayout(BaseUiLayout parentLayout, GridPosition grid)
     {
         UiSection section = Section(parentLayout.Reference);
         UiGridPositionLayout layout = UiGridPositionLayout.Create(section, grid);
@@ -54,7 +71,7 @@ public abstract partial class BaseUiBuilder
         return new UiTuple<UiSection, UiDirectionalLayout>(section, layout);
     }
     
-    public UiTuple<UiSection, UiDirectionalLayout> DirectionalLayout(BaseLayout parentLayout, int numElements, LayoutDirection direction = default, LayoutAlignment alignment = default, LayoutPadding layoutPadding = default, in UiPadding padding = default)
+    public UiTuple<UiSection, UiDirectionalLayout> DirectionalLayout(BaseUiLayout parentLayout, int numElements, LayoutDirection direction = default, LayoutAlignment alignment = default, LayoutPadding layoutPadding = default, in UiPadding padding = default)
     {
         UiSection section = Section(parentLayout.Reference);
         UiDirectionalLayout layout = UiDirectionalLayout.Create(section, numElements, direction, alignment, layoutPadding, padding);
@@ -72,7 +89,7 @@ public abstract partial class BaseUiBuilder
         return new UiTuple<UiSection, UiFlexBoxLayout>(section, layout);
     }
     
-    public UiTuple<UiSection, UiFlexBoxLayout> FlexLayout(BaseLayout parentLayout, FlexDirection direction, FlexWrap wrap, FlexAlignItems alignItems, FlexJustifyContent defaultJustifyContent, in UiPadding padding = default, float gap = 0f)
+    public UiTuple<UiSection, UiFlexBoxLayout> FlexLayout(BaseUiLayout parentLayout, FlexDirection direction, FlexWrap wrap, FlexAlignItems alignItems, FlexJustifyContent defaultJustifyContent, in UiPadding padding = default, float gap = 0f)
     {
         UiSection section = Section(parentLayout.Reference);
         UiFlexBoxLayout layout = UiFlexBoxLayout.Create(section, direction, wrap, alignItems, defaultJustifyContent, padding, gap);
@@ -90,7 +107,7 @@ public abstract partial class BaseUiBuilder
         return new UiTuple<UiSection, UiDockLayout>(section, layout);
     }
     
-    public UiTuple<UiSection, UiDockLayout> DockLayout(BaseLayout parentLayout)
+    public UiTuple<UiSection, UiDockLayout> DockLayout(BaseUiLayout parentLayout)
     {
         UiSection section = Section(parentLayout.Reference);
         UiDockLayout layout = UiDockLayout.Create(section);

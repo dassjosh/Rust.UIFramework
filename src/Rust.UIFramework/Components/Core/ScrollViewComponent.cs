@@ -1,4 +1,6 @@
-﻿using Oxide.Ext.UiFramework.Json;
+﻿using Oxide.Ext.UiFramework.Colors;
+using Oxide.Ext.UiFramework.Json;
+using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.Types;
@@ -14,18 +16,82 @@ public class ScrollViewComponent : CoreComponent
     public bool Inertia;
     public float DecelerationRate;
     public float ScrollSensitivity;
-    public ScrollbarComponent HorizontalScrollbar { get; internal set;  }
-    public ScrollbarComponent VerticalScrollbar { get; internal set; }
+    public ScrollbarComponent HorizontalScrollbar { get; private set; }
+    public ScrollbarComponent VerticalScrollbar { get; private set; }
     
     public override Utf8String Type => JsonDefaults.ScrollView.Type;
 
-    public void UpdateContentTransform(in UiPosition? position = null, in UiOffset? offset = null) => ContentTransform.UpdateContentTransform(position, offset);
+    internal void UpdateContentTransform(in UiPosition? position = null, in UiOffset? offset = null) => ContentTransform.UpdateContentTransform(position, offset);
+    
+    internal (ScrollbarComponent horizontal, ScrollbarComponent vertical) AddScrollBars(bool invert = false, bool autoHide = false, string handleSprite = null, string trackSprite = null, float size = JsonDefaults.ScrollBar.Size,
+        UiColor? handleColor = null, UiColor? highlightColor = null, UiColor? pressedColor = null, UiColor? trackColor = null)
+    {
+        ScrollbarComponent horizontal = AddHorizontalScrollBar(invert, autoHide, handleSprite, trackSprite, size, handleColor, highlightColor, pressedColor, trackColor);
+        ScrollbarComponent vertical = AddVerticalScrollBar(invert, autoHide, handleSprite, trackSprite, size, handleColor, highlightColor, pressedColor, trackColor);
+        return (horizontal, vertical);
+    }
+    
+    internal ScrollbarComponent AddHorizontalScrollBar(bool invert = false, bool autoHide = false, string handleSprite = null, string trackSprite = null, float size = JsonDefaults.ScrollBar.Size, 
+        UiColor? handleColor = null, UiColor? highlightColor = null, UiColor? pressedColor = null, UiColor? trackColor = null)
+    {
+        ScrollbarComponent bar = GetOrCreateHorizontalScrollBar();
+        PopulateScrollBar(bar, invert, autoHide, handleSprite, trackSprite, size, handleColor, highlightColor, pressedColor, trackColor);
+        return bar;
+    }
+    
+    internal ScrollbarComponent AddVerticalScrollBar(bool invert = false, bool autoHide = false, string handleSprite = null, string trackSprite = null, float size = JsonDefaults.ScrollBar.Size, 
+        UiColor? handleColor = null, UiColor? highlightColor = null, UiColor? pressedColor = null, UiColor? trackColor = null)
+    {
+        ScrollbarComponent bar = GetOrCreateVerticalScrollBar();
+        PopulateScrollBar(bar, invert, autoHide, handleSprite, trackSprite, size, handleColor, highlightColor, pressedColor, trackColor);
+        return bar;
+    }
+
+    internal ScrollbarComponent GetOrCreateHorizontalScrollBar()
+    {
+        if(HorizontalScrollbar != null) return HorizontalScrollbar;
+        HorizontalScrollbar = PluginPool.Get<ScrollbarComponent>();
+        return HorizontalScrollbar;
+    }
+    
+    internal ScrollbarComponent GetOrCreateVerticalScrollBar()
+    {
+        if(VerticalScrollbar != null) return VerticalScrollbar;
+        VerticalScrollbar = PluginPool.Get<ScrollbarComponent>();
+        return VerticalScrollbar;
+    }
+
+    private static void PopulateScrollBar(ScrollbarComponent bar, bool invert = false, bool autoHide = false, string handleSprite = null, string trackSprite = null, float size = JsonDefaults.ScrollBar.Size, 
+        UiColor? handleColor = null, UiColor? highlightColor = null, UiColor? pressedColor = null, UiColor? trackColor = null)
+    {
+        bar.Invert = invert;
+        bar.AutoHide = autoHide;
+        bar.HandleSprite = handleSprite;
+        bar.TrackSprite = trackSprite;
+        bar.Size = size;
+        if (handleColor.HasValue)
+        {
+            bar.HandleColor = handleColor.Value;
+        }
+        if (highlightColor.HasValue)
+        {
+            bar.HighlightColor = highlightColor.Value;
+        }
+        if (pressedColor.HasValue)
+        {
+            bar.PressedColor = pressedColor.Value;
+        }
+        if (trackColor.HasValue)
+        {
+            bar.TrackColor = trackColor.Value;
+        }
+    }
     
     protected override void WriteComponentFields(JsonFrameworkWriter writer)
     {
         writer.AddField(JsonDefaults.ScrollView.Horizontal, HorizontalScrollbar != null, false);
         writer.AddField(JsonDefaults.ScrollView.Vertical, VerticalScrollbar != null, false);
-        writer.AddField(JsonDefaults.ScrollView.MovementTypeName, MovementType);
+        writer.AddField(JsonDefaults.ScrollView.MovementTypeName, MovementType, JsonDefaults.ScrollView.MovementType);
         writer.AddField(JsonDefaults.ScrollView.ElasticityName, Elasticity, JsonDefaults.ScrollView.Elasticity);
         writer.AddField(JsonDefaults.ScrollView.InertiaName, Inertia, JsonDefaults.ScrollView.Inertia);
         writer.AddField(JsonDefaults.ScrollView.DecelerationRateName, DecelerationRate, JsonDefaults.ScrollView.DecelerationRate);
@@ -37,6 +103,7 @@ public class ScrollViewComponent : CoreComponent
 
     public override void Reset()
     {
+        base.Reset();
         ContentTransform.Reset();
         HorizontalScrollbar?.Dispose();
         HorizontalScrollbar = null;
@@ -47,7 +114,5 @@ public class ScrollViewComponent : CoreComponent
         Inertia = JsonDefaults.ScrollView.Inertia;
         DecelerationRate = JsonDefaults.ScrollView.DecelerationRate;
         ScrollSensitivity = JsonDefaults.ScrollView.ScrollSensitivity;
-        HorizontalScrollbar = null;
-        VerticalScrollbar = null;
     }
 }

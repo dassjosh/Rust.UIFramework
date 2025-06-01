@@ -5,7 +5,7 @@
         <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
         <AssemblyName>Oxide.Ext.UiFramework</AssemblyName>
         <RootNamespace>Oxide.Ext.UiFramework</RootNamespace>
-        <Configurations>Release;Debug;Benchmarks</Configurations>
+        <Configurations>Release;Debug;Benchmarks;Unit Tests</Configurations>
         <Platforms>Oxide</Platforms>
         <AssemblyVersion>$(VERSION)</AssemblyVersion>
         <FileVersion>$(VERSION)</FileVersion>
@@ -25,6 +25,10 @@
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Benchmarks|Oxide' ">
       <DefineConstants>TRACE;BENCHMARKS;OXIDE</DefineConstants>
       <Optimize>true</Optimize>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Unit Tests|Oxide' ">
+      <DefineConstants>TRACE; UNIT_TESTS</DefineConstants>
     </PropertyGroup>
     
     <ItemGroup>
@@ -97,6 +101,9 @@
     </ItemGroup>
     
     <ItemGroup>
+      <Content Include="..\..\.gitattributes">
+        <Link>.gitattributes</Link>
+      </Content>
       <Content Include="..\..\.github\workflows\ci.yml">
         <Link>ci.yml</Link>
       </Content>
@@ -105,6 +112,9 @@
       </Content>
       <Content Include="..\..\.github\workflows\release.yml">
         <Link>release.yml</Link>
+      </Content>
+      <Content Include="..\..\.gitignore">
+        <Link>.gitignore</Link>
       </Content>
       <Content Include="..\..\README.md">
         <Link>README.md</Link>
@@ -131,6 +141,9 @@
     <ItemGroup>
         <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
             <_Parameter1>Rust.UiFramework.Benchmarks</_Parameter1>
+        </AssemblyAttribute>
+        <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+            <_Parameter1>Rust.UiFramework.UnitTests</_Parameter1>
         </AssemblyAttribute>
     </ItemGroup>
 

@@ -1,44 +1,111 @@
+using System;
+using System.Collections.Concurrent;
+using Oxide.Ext.UiFramework.Exceptions;
+using Oxide.Ext.UiFramework.Extensions;
+using Oxide.Ext.UiFramework.Libraries;
+using Oxide.Ext.UiFramework.Logging;
+using Oxide.Ext.UiFramework.Plugins;
+
 namespace Oxide.Ext.UiFramework.Pooling;
 
 /// <summary>
 /// Represents a BasePool in UiFramework
 /// </summary>
-/// <typeparam name="T">Type being pooled</typeparam>
-public abstract class BasePool<T> : IPool<T> where T : class
+/// <typeparam name="TPooled">Type being pooled</typeparam>
+/// <typeparam name="TPool">Type of the pool</typeparam>
+public abstract class BasePool<TPooled, TPool> : IPool<TPooled> 
+    where TPooled : class 
+    where TPool : BasePool<TPooled, TPool>, new()
 {
-    private readonly T[] _pool;
+    /// <summary>
+    /// Owner Plugin Pool
+    /// </summary>
+    private UiFrameworkPluginPool _pluginPool;
+    
+    UiFrameworkPluginPool IPool.PluginPool => _pluginPool;
+    
+    private TPooled[] _pool;
     private readonly object _lock = new();
     private int _index;
-
-    /// <summary>
-    /// Base Pool Constructor
-    /// </summary>
-    /// <param name="maxSize">Max Size of the pool</param>
-    protected BasePool(int maxSize)
+    private PoolSize _size;
+    private bool _isInitialized;
+    private LeakHandler _leakHandler;
+    
+    private static readonly ConcurrentDictionary<PluginId, TPool> Pools = new();
+    
+    private void InitPool(UiFrameworkPluginPool pluginPool)
     {
-        _pool = new T[maxSize];
-        UiFrameworkPool.AddPool(this);
+        lock (_lock)
+        {
+            if (_isInitialized)
+            {
+                return;
+            }
+            _size = GetPoolSize(pluginPool.Settings);
+            InvalidPoolException.ThrowIfInvalidPoolSize(_size);
+            _pluginPool = pluginPool;
+            pluginPool.AddPool(this);
+            _pool = new TPooled[_size.StartingSize];
+            _isInitialized = true;
+            UiFrameworkExtension.GlobalLogger.Debug("Creating Pool. Plugin ID: {0} Type: {1}", pluginPool.PluginName, GetType().GetRealTypeName());
+        }
     }
+    
+    /// <summary>
+    /// Returns the pool size from the pool settings for the pool
+    /// </summary>
+    /// <param name="settings"></param>
+    /// <returns></returns>
+    protected abstract PoolSize GetPoolSize(PoolSettings settings);
+    
+    /// <summary>
+    /// Returns a pool for the given plugin pool
+    /// </summary>
+    /// <param name="pluginPool"><see cref="UiFrameworkPluginPool"/> to get the pool from</param>
+    /// <returns></returns>
+    public static TPool ForPlugin(UiFrameworkPluginPool pluginPool)
+    {
+        TPool pool = Pools.GetOrAdd(pluginPool.PluginId, CreatePool);
+        if (!pool._isInitialized)
+        {
+            pool.InitPool(pluginPool);
+        }
+        return pool;
+    }
+    
+    private static TPool CreatePool(PluginId id) => new();
 
     /// <summary>
     /// Returns an element from the pool if it exists else it creates a new one
     /// </summary>
     /// <returns></returns>
-    public T Get()
+    public TPooled Get()
     {
-        T item = null;
-
+        TPooled item = null;
         lock (_lock)
         {
+            if (_index == _pool.Length && _size.CanResize(_pool.Length))
+            {
+                int nextSize = PoolSize.GetNextSize(_pool.Length);
+                UiFrameworkExtension.GlobalLogger.Debug("{0} Resizing Pool {1} Current Size: {2} Next Size: {3}", _pluginPool.PluginName, GetType(), _pool.Length, nextSize);
+                Array.Resize(ref _pool, nextSize);
+            }
+                
             if (_index < _pool.Length)
             {
                 item = _pool[_index];
                 _pool[_index] = null;
                 _index++;
             }
+            else 
+            {
+                LeakHandler leak = _leakHandler ??= new LeakHandler(_pluginPool.PluginId, GetType().ToString());
+                leak.OnLeak(_index, _pool.Length);
+            }
         }
-
+                
         item ??= CreateNew();
+                
         OnGetItem(item);
         return item;
     }
@@ -47,19 +114,19 @@ public abstract class BasePool<T> : IPool<T> where T : class
     /// Creates new type of T
     /// </summary>
     /// <returns>Newly created type of T</returns>
-    protected abstract T CreateNew();
+    protected abstract TPooled CreateNew();
 
     /// <summary>
     /// Frees an item back to the pool
     /// </summary>
     /// <param name="item">Item being freed</param>
-    public void Free(T item) => Free(ref item);
+    public void Free(TPooled item) => Free(ref item);
 
     /// <summary>
     /// Frees an item back to the pool
     /// </summary>
     /// <param name="item">Item being freed</param>
-    private void Free(ref T item)
+    private void Free(ref TPooled item)
     {
         if (item == null)
         {
@@ -87,24 +154,48 @@ public abstract class BasePool<T> : IPool<T> where T : class
     /// Called when an item is retrieved from the pool
     /// </summary>
     /// <param name="item">Item being retrieved</param>
-    protected virtual void OnGetItem(T item) { }
+    protected virtual void OnGetItem(TPooled item) { }
 
     /// <summary>
     /// Returns if an item can be freed to the pool
     /// </summary>
     /// <param name="item">Item to be freed</param>
     /// <returns>True if can be freed; false otherwise</returns>
-    protected virtual bool OnFreeItem(ref T item) => true;
+    protected virtual bool OnFreeItem(ref TPooled item) => true;
 
-    public void Clear()
+    public void OnPluginUnloaded(UiFrameworkPluginPool pluginPool)
+    {
+        Pools.TryRemove(pluginPool.PluginId, out TPool _);
+    }
+
+    /// <summary>
+    /// Clears the pool of all pooled objects and resets state to when the pool was first created
+    /// </summary>
+    public void ClearPoolEntities()
     {
         lock (_lock)
         {
-            for (int index = 0; index < _pool.Length; index++)
+            for (int i = _pool.Length - 1; i >= 0; i--)
             {
-                _pool[index] = null;
-                _index = 0;
+                _pool[i] = null;
             }
+            _index = 0;
+        }
+    }
+
+    /// <summary>
+    /// Wipes all the pools for this type
+    /// </summary>
+    public void RemoveAllPools()
+    {
+        Pools.Clear();
+    }
+
+    public void CheckForLeaks()
+    {
+        if (_index != 0)
+        {
+            UiFrameworkExtension.GlobalLogger.Error("Plugin: {0} Pool: {1} Has Leaked {2}/{3} Entities", _pluginPool.PluginName, GetType().GetRealTypeName(), _index, _pool.Length);
         }
     }
 }

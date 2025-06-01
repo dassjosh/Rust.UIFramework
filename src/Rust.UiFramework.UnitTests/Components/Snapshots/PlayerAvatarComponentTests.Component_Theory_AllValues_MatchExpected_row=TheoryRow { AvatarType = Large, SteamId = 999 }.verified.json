@@ -1,0 +1,9 @@
+﻿{
+  "AvatarType": "Large",
+  "Color": "#FFEB04FF",
+  "Enabled": true,
+  "FadeIn": 3.5,
+  "Material": "assets/content/ui/namefontmaterial.mat",
+  "SteamId": 999,
+  "Type": "UnityEngine.UI.RawImage"
+}

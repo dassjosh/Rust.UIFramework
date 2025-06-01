@@ -1,24 +1,26 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Text;
+using Oxide.Ext.UiFramework.Libraries;
+using Oxide.Ext.UiFramework.Types;
 using Oxide.Plugins;
 
 namespace Oxide.Ext.UiFramework.Pooling;
 
 public static class UiFrameworkPool
 {
-    private static readonly Hash<Type, IPool> Pools = new();
-
+    private static UiFrameworkPluginPool Pool = Singleton<UiFrameworkPoolLib>.Instance.Obsolete;
+    
     /// <summary>
     /// Returns a pooled object of type T
     /// Must inherit from <see cref="BasePoolable"/> and have an empty default constructor
     /// </summary>
     /// <typeparam name="T">Type to be returned</typeparam>
     /// <returns>Pooled object of type T</returns>
+    [Obsolete]
     public static T Get<T>() where T : BasePoolable, new()
     {
-        return (T)ObjectPool<T>.Instance.Get();
+        return Pool.Get<T>();
     }
 
     /// <summary>
@@ -26,9 +28,10 @@ public static class UiFrameworkPool
     /// </summary>
     /// <param name="value">Object to free</param>
     /// <typeparam name="T">Type of object being freed</typeparam>
+    [Obsolete]
     internal static void Free<T>(T value) where T : BasePoolable, new()
     {
-        ObjectPool<T>.Instance.Free(value);
+        Pool.Free(value);
     }
 
     /// <summary>
@@ -36,9 +39,10 @@ public static class UiFrameworkPool
     /// </summary>
     /// <typeparam name="T">Type for the list</typeparam>
     /// <returns>Pooled List</returns>
+    [Obsolete]
     public static List<T> GetList<T>()
     {
-        return ListPool<T>.Instance.Get();
+        return Pool.GetList<T>();
     }
 
     /// <summary>
@@ -47,18 +51,20 @@ public static class UiFrameworkPool
     /// <typeparam name="TKey">Type for the key</typeparam>
     /// <typeparam name="TValue">Type for the value</typeparam>
     /// <returns>Pooled Hash</returns>
+    [Obsolete]
     public static Hash<TKey, TValue> GetHash<TKey, TValue>()
     {
-        return HashPool<TKey, TValue>.Instance.Get();
+        return Pool.GetHash<TKey, TValue>();
     }
 
     /// <summary>
     /// Returns a pooled <see cref="StringBuilder"/>
     /// </summary>
     /// <returns>Pooled <see cref="StringBuilder"/></returns>
+    [Obsolete]
     public static StringBuilder GetStringBuilder()
     {
-        return StringBuilderPool.Instance.Get();
+        return Pool.GetStringBuilder();
     }
 
     /// <summary>
@@ -66,9 +72,10 @@ public static class UiFrameworkPool
     /// </summary>
     /// <param name="list">List to be freed</param>
     /// <typeparam name="T">Type of the list</typeparam>
+    [Obsolete]
     public static void FreeList<T>(List<T> list)
     {
-        ListPool<T>.Instance.Free(list);
+        Pool.FreeList(list);
     }
 
     /// <summary>
@@ -77,22 +84,19 @@ public static class UiFrameworkPool
     /// <param name="hash">Hash to be freed</param>
     /// <typeparam name="TKey">Type for key</typeparam>
     /// <typeparam name="TValue">Type for value</typeparam>
+    [Obsolete]
     public static void FreeHash<TKey, TValue>(Hash<TKey, TValue> hash)
     {
-        HashPool<TKey, TValue>.Instance.Free(hash);
+        Pool.FreeHash(hash);
     }
 
     /// <summary>
     /// Frees a <see cref="StringBuilder"/> back to the pool
     /// </summary>
     /// <param name="sb">StringBuilder being freed</param>
+    [Obsolete]
     public static void FreeStringBuilder(StringBuilder sb)
     {
-        StringBuilderPool.Instance.Free(sb);
-    }
-
-    public static void AddPool<TType>(BasePool<TType> pool) where TType : class
-    {
-        Pools[typeof(TType)] = pool;
+        Pool.FreeStringBuilder(sb);
     }
 }

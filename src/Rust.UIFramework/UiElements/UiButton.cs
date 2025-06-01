@@ -2,7 +2,6 @@
 using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Interfaces;
-using Oxide.Ext.UiFramework.Pooling;
 using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.UiElements;
@@ -11,18 +10,21 @@ public class UiButton : BaseUiComponent, IImageType<UiButton>, ISprite<UiButton>
 {
     public readonly ButtonComponent Button;
 
+    public Image.Type ImageType { get => Button.ImageType; set => Button.ImageType = value; }
+    public string Sprite { get => Button.Sprite; set => Button.Sprite = value; }
+    public string Material { get => Button.Material; set => Button.Material = value; }
+    public float FadeIn { get => Button.FadeIn; set => Button.FadeIn = value; }
+    public UiColor Color { get => Button.Color; set => Button.Color = value; }
+    public string Command { get => Button.Command; set => Button.Command = value; }
+    public ButtonType ButtonType { get => Button.ButtonType; set => Button.ButtonType = value; }
+    public ColorBlockComponent ColorBlock => Button.ColorBlock;
+    
     public UiButton() : this(new ButtonComponent()) { }
 
     private UiButton(ButtonComponent component) : base(component)
     {
         Button = component;
     }
-    
-    public Image.Type ImageType { get => Button.ImageType; set => Button.ImageType = value; }
-    public string Sprite { get => Button.Sprite; set => Button.Sprite = value; }
-    public string Material { get => Button.Material; set => Button.Material = value; }
-    public float FadeIn { get => Button.FadeIn; set => Button.FadeIn = value; }
-    public UiColor Color { get => Button.Color; set => Button.Color = value; }
 
     public static UiButton Create(UiColor color, string command, ButtonType buttonType)
     {
@@ -35,65 +37,92 @@ public class UiButton : BaseUiComponent, IImageType<UiButton>, ISprite<UiButton>
         
     public UiButton SetFadeIn(float duration)
     {
-        Button.FadeIn = duration;
+        FadeIn = duration;
         return this;
     }
 
     public UiButton SetImageType(Image.Type type)
     {
-        Button.ImageType = type;
+        ImageType = type;
         return this;
     }
 
     public UiButton SetSprite(string sprite)
     {
-        Button.Sprite = sprite;
+        Sprite = sprite;
         return this;
     }
         
     public UiButton SetMaterial(string material)
     {
-        Button.Material = material;
+        Material = material;
         return this;
     }
         
     public UiButton SetSpriteMaterialImage(string sprite = null, string material = null, Image.Type type = Image.Type.Simple)
     {
-        Button.Sprite = sprite;
-        Button.Material = material;
-        Button.ImageType = type;
+        Sprite = sprite;
+        Material = material;
+        ImageType = type;
         return this;
     }
     
     public UiButton SetColor(UiColor color)
     {
-        Button.Color = color;
+        Color = color;
         return this;
     }
     
     public UiButton SetCommand(string command)
     {
-        Button.Command = command;
-        Button.ButtonType = ButtonType.Command;
+        Command = command;
+        ButtonType = ButtonType.Command;
         return this;
     }
     
     public UiButton SetClose(string close)
     {
-        Button.Command = close;
-        Button.ButtonType = ButtonType.Close;
+        Command = close;
+        ButtonType = ButtonType.Close;
+        return this;
+    }
+    
+    public UiButton SetHighlightedColor(UiColor color)
+    {
+        Button.GetOrAddColorBlock();
+        ColorBlock.HighlightedColor = color;
+        return this;
+    }
+    
+    public UiButton SetPressedColor(UiColor color)
+    {
+        Button.GetOrAddColorBlock();
+        ColorBlock.PressedColor = color;
+        return this;
+    }
+    
+    public UiButton SetSelectedColor(UiColor color)
+    {
+        Button.GetOrAddColorBlock();
+        ColorBlock.SelectedColor = color;
+        return this;
+    }    
+    public UiButton SetColorMultiplier(float colorMultiplier)
+    {
+        Button.GetOrAddColorBlock();
+        ColorBlock.ColorMultiplier = colorMultiplier;
+        return this;
+    }
+    
+    public UiButton SetFadeDuration(float fadeDuration)
+    {
+        Button.GetOrAddColorBlock();
+        ColorBlock.FadeDuration = fadeDuration;
         return this;
     }
     
     public ColorBlockComponent AddColorBlock(in UiColor? highlightColor = null, in UiColor? pressedColor = null, in UiColor? selectedColor = null, in float? colorMultiplier = null, in float? fadeDuration = null)
     {
-        ColorBlockComponent colors = UiFrameworkPool.Get<ColorBlockComponent>();
-        if(highlightColor.HasValue) colors.HighlightedColor = highlightColor.Value;
-        if(pressedColor.HasValue) colors.PressedColor = pressedColor.Value;
-        if(selectedColor.HasValue) colors.SelectedColor = selectedColor.Value;
-        if(colorMultiplier.HasValue) colors.ColorMultiplier = colorMultiplier.Value;
-        if(fadeDuration.HasValue) colors.FadeDuration = fadeDuration.Value;
-        Button.ColorBlock = colors;
-        return colors;
+        return Button.AddColorBlock(highlightColor, pressedColor, selectedColor, colorMultiplier, fadeDuration);
     }
 }

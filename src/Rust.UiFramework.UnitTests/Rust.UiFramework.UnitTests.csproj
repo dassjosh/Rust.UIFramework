@@ -1,0 +1,71 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <Nullable>disable</Nullable>
+        <IsPackable>false</IsPackable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <LangVersion>13</LangVersion>
+        <Configurations>Release;Benchmarks;Debug;Unit Tests</Configurations>
+        <Platforms>Oxide</Platforms>
+        <TargetFramework>net9.0</TargetFramework>
+        <OutputType>Library</OutputType>
+        <DebugType>portable</DebugType>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Unit Tests|Oxide' ">
+      <DefineConstants>TRACE; UNIT_TESTS</DefineConstants>
+      <PlatformTarget>x64</PlatformTarget>
+      <OutputPath>bin\Oxide\UnitTests\</OutputPath>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Argon" Version="0.28.0" />
+        <PackageReference Include="coverlet.collector" Version="6.0.2"/>
+        <PackageReference Include="FluentAssertions" Version="8.2.0" />
+        <PackageReference Include="FluentAssertions.Analyzers" Version="0.34.1">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0"/>
+        <PackageReference Include="Verify.XunitV3" Version="30.1.0" />
+        <PackageReference Include="xunit.v3" Version="2.0.2" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Using Include="Xunit"/>
+        <Using Include="FluentAssertions"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Rust.UIFramework\Rust.UIFramework.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="Assembly-CSharp-firstpass">
+        <HintPath>..\references\Assembly-CSharp-firstpass.dll</HintPath>
+      </Reference>
+      <Reference Include="Oxide.Core">
+        <HintPath>..\references\Oxide.Core.dll</HintPath>
+      </Reference>
+      <Reference Include="Oxide.CSharp">
+        <HintPath>..\references\Oxide.CSharp.dll</HintPath>
+      </Reference>
+      <Reference Include="UnityEngine">
+        <HintPath>..\references\UnityEngine.dll</HintPath>
+      </Reference>
+      <Reference Include="UnityEngine.CoreModule">
+        <HintPath>..\references\UnityEngine.CoreModule.dll</HintPath>
+      </Reference>
+      <Reference Include="UnityEngine.TextRenderingModule">
+        <HintPath>..\references\UnityEngine.TextRenderingModule.dll</HintPath>
+      </Reference>
+      <Reference Include="UnityEngine.UI">
+        <HintPath>..\references\UnityEngine.UI.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Layouts\" />
+    </ItemGroup>
+
+</Project>

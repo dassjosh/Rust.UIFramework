@@ -5,8 +5,8 @@ namespace Oxide.Ext.UiFramework.Components;
 
 public abstract class BaseComponent : BasePoolable
 {
-    protected BaseComponent() => Reset();
-    protected override void EnterPool() => Reset();
+    protected BaseComponent() => EnterPool();
+    protected sealed override void EnterPool() => Reset();
     public abstract void WriteComponent(JsonFrameworkWriter writer);
     public abstract void Reset();
 }

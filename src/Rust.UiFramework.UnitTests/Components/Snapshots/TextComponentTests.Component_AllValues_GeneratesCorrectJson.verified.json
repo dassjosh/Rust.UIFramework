@@ -1,0 +1,10 @@
+﻿{
+  "type": "UnityEngine.UI.Text",
+  "text": "text 123",
+  "fontSize": 24,
+  "font": "permanentmarker.ttf",
+  "align": "2",
+  "verticalOverflow": "1",
+  "fadeIn": 2,
+  "color": "0 0.502 0"
+}

@@ -1,0 +1,11 @@
+﻿{
+  "Empty": {
+    "Enabled": true
+  },
+  "Enabled": true,
+  "Name": "element",
+  "Offset": "(100, 200) (300, 400)",
+  "Parent": "parent",
+  "Position": "(0.1, 0.2) (0.3, 0.4)",
+  "Reference": "parent:element"
+}

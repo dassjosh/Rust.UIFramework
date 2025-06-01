@@ -1,0 +1,9 @@
+﻿{
+  "AllowMultiple": false,
+  "DestroyIfDone": true,
+  "Enabled": true,
+  "Interval": 1.0,
+  "NumberFormat": "0.####",
+  "Step": 1.0,
+  "Type": "Countdown"
+}

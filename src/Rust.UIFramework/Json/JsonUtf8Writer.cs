@@ -108,6 +108,19 @@ public sealed class JsonUtf8Writer : BasePoolable
         
         _byteIndex = byteIndex;
     }
+    
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public void Write(ReadOnlySpan<char> text)
+    {
+        int length = text.Length;
+        if (_byteIndex + length * 2 >= SegmentSize)
+        {
+            Flush();
+        }
+        
+        int encodedLength = Encoding.UTF8.GetBytes(text, _buffer.AsSpan(_byteIndex));
+        _byteIndex += encodedLength;
+    }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private void Flush()

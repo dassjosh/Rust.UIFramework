@@ -19,7 +19,7 @@ public partial class UiBuilder
     public static UiBuilder Create(in UiPosition pos, string name, string parent) => Create(pos, default(UiOffset), name, parent);
     public static UiBuilder Create(in UiPosition pos, string name, UiLayer parent = UiLayer.Overlay) => Create(pos, default(UiOffset), name, UiLayerCache.GetLayer(parent));
     public static UiBuilder Create(in UiPosition pos, in UiOffset offset, string name, UiLayer parent = UiLayer.Overlay) => Create(pos, offset, name, UiLayerCache.GetLayer(parent));
-    public static UiBuilder Create(in UiPosition pos, in UiOffset offset, string name, string parent) => Create(UiSection.Create(pos, offset), name, parent);
+    public static UiBuilder Create(in UiPosition pos, in UiOffset offset, string name, string parent) => Create(UiSection.Create().SetPosition(pos, offset), name, parent);
     public static UiBuilder Create(in UiPosition pos, UiColor color, string name, string parent) => Create(pos, default, color, name, parent);
     public static UiBuilder Create(in UiPosition pos, UiColor color, in UiReference reference) => Create(pos, default, color, reference.Name, reference.Parent);
     public static UiBuilder Create(in UiPosition pos, UiColor color, string name, in UiReference reference) => Create(pos, default, color, name, reference.Name);
@@ -94,7 +94,7 @@ public partial class UiBuilder
         
     public static UiBuilder CreateRootWithOutsideClose(in UiPosition pos, in UiOffset offset, UiColor color, string name, string closeCommand, UiLayer parent = UiLayer.Overlay)
     {
-        UiSection mainRoot = UiSection.Create(UiPosition.Full, default);
+        UiSection mainRoot = UiSection.Create().SetPosition(UiPosition.Full);
         UiBuilder builder = Create(mainRoot, name, UiLayerCache.GetLayer(parent));
         builder.Button(builder.Root, UiPosition.Full, default, UiColors.Clear, closeCommand);
         UiPanel panel = builder.Panel(builder.Root, pos, offset, color);
@@ -134,7 +134,7 @@ public partial class UiBuilder
     public static UiBuilder Popover(in UiReference parent, Vector2 size, UiColor backgroundColor, PopoverPosition position = PopoverPosition.Bottom, string menuSprite = UiSprites.Content.Ui.UiBackgroundRounded)
     {
         string name = $"{parent.Name}_Popover";
-        UiBuilder builder = Create(UiSection.Create(UiPosition.Full, default), name, parent.Name);
+        UiBuilder builder = Create(UiSection.Create().SetPosition(UiPosition.Full), name, parent.Name);
             
         UiPosition anchor = position switch
         {

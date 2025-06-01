@@ -1,0 +1,12 @@
+﻿{
+  "ContentTransform": {
+    "Position": "(0, 0) (1, 1)"
+  },
+  "DecelerationRate": 0.135,
+  "Elasticity": 0.1,
+  "Enabled": true,
+  "Inertia": false,
+  "MovementType": "Clamped",
+  "ScrollSensitivity": 1.0,
+  "Type": "UnityEngine.UI.ScrollView"
+}

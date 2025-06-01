@@ -30,7 +30,7 @@ public partial class BaseUiBuilder
         return new UiTuple<UiButton, UiImage>(button, image);
     }
     
-    public UiTuple<UiButton, UiImage> SpriteButton(BaseLayout layout, UiColor buttonColor, string sprite, string command, ButtonType type = ButtonType.Command, UiColor? spriteColor = null)
+    public UiTuple<UiButton, UiImage> SpriteButton(BaseUiLayout layout, UiColor buttonColor, string sprite, string command, ButtonType type = ButtonType.Command, UiColor? spriteColor = null)
     {
         UiButton button = Button(layout, buttonColor, command, type);
         UiImage image = ImageSprite(button, UiPosition.Full, default, sprite, spriteColor);
@@ -46,7 +46,7 @@ public partial class BaseUiBuilder
         return new UiTuple<UiButton, UiPlayingCard>(button, image);
     }
     
-    public UiTuple<UiButton, UiPlayingCard> PlayingCardButton(BaseLayout layout, UiColor buttonColor, PlayingCardData card, string command, UiCardType type = UiCardType.Normal, ButtonType buttonType = ButtonType.Command, UiColor? spriteColor = null)
+    public UiTuple<UiButton, UiPlayingCard> PlayingCardButton(BaseUiLayout layout, UiColor buttonColor, PlayingCardData card, string command, UiCardType type = UiCardType.Normal, ButtonType buttonType = ButtonType.Command, UiColor? spriteColor = null)
     {
         UiButton button = Button(layout, buttonColor, command, buttonType);
         UiPlayingCard image = PlayingCard(button, UiPosition.Full, default, card, type, spriteColor);
@@ -69,14 +69,14 @@ public partial class BaseUiBuilder
         return new UiTuple<UiButton, UiItemIcon>(button, icon);
     }
     
-    public UiTuple<UiButton, UiItemIcon> ItemIconButton(BaseLayout layout, UiColor buttonColor, int itemId, string command, ButtonType type = ButtonType.Command, UiColor? iconColor = null)
+    public UiTuple<UiButton, UiItemIcon> ItemIconButton(BaseUiLayout layout, UiColor buttonColor, int itemId, string command, ButtonType type = ButtonType.Command, UiColor? iconColor = null)
     {
         UiButton button = Button(layout, buttonColor, command, type);
         UiItemIcon icon = ItemIcon(button, UiPosition.Full, default, itemId, color: iconColor);
         return new UiTuple<UiButton, UiItemIcon>(button, icon);
     }
         
-    public UiTuple<UiButton, UiItemIcon> ItemIconButton(BaseLayout layout, UiColor buttonColor, int itemId, ulong skinId, string command, ButtonType type = ButtonType.Command, UiColor? iconColor = null)
+    public UiTuple<UiButton, UiItemIcon> ItemIconButton(BaseUiLayout layout, UiColor buttonColor, int itemId, ulong skinId, string command, ButtonType type = ButtonType.Command, UiColor? iconColor = null)
     {
         UiButton button = Button(layout, buttonColor, command, type);
         UiItemIcon icon = ItemIcon(button, UiPosition.Full, default, itemId, skinId, iconColor);
@@ -85,7 +85,7 @@ public partial class BaseUiBuilder
     
     public UiTuple<UiButton, UiItemIcon> ItemIconButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, Item item, string command, ButtonType type = ButtonType.Command, UiColor? iconColor = null) 
         => ItemIconButton(parent, pos, offset, buttonColor, item.info.itemid, item.skin, command, type, iconColor);
-    public UiTuple<UiButton, UiItemIcon> ItemIconButton(BaseLayout layout, UiColor buttonColor, Item item, string command, ButtonType type = ButtonType.Command, UiColor? iconColor = null)
+    public UiTuple<UiButton, UiItemIcon> ItemIconButton(BaseUiLayout layout, UiColor buttonColor, Item item, string command, ButtonType type = ButtonType.Command, UiColor? iconColor = null)
         => ItemIconButton(layout, buttonColor, item.info.itemid, item.skin, command, type, iconColor);
     #endregion
 
@@ -97,7 +97,7 @@ public partial class BaseUiBuilder
         return new UiTuple<UiButton, UiPlayerAvatar>(button, icon);
     }
     
-    public UiTuple<UiButton, UiPlayerAvatar> PlayerAvatarButton(BaseLayout layout, UiColor buttonColor, ulong steamId, string command, AvatarType avatarType = AvatarType.Medium, ButtonType type = ButtonType.Command, UiColor? iconColor = null)
+    public UiTuple<UiButton, UiPlayerAvatar> PlayerAvatarButton(BaseUiLayout layout, UiColor buttonColor, ulong steamId, string command, AvatarType avatarType = AvatarType.Medium, ButtonType type = ButtonType.Command, UiColor? iconColor = null)
     {
         UiButton button = Button(layout, buttonColor, command, type);
         UiPlayerAvatar icon = PlayerAvatar(button, UiPosition.Full, default, steamId, avatarType, iconColor ?? UiColors.White);
@@ -113,7 +113,7 @@ public partial class BaseUiBuilder
         return new UiTuple<UiButton, UiRawImage>(button, rawImage);
     }
     
-    public UiTuple<UiButton, UiRawImage> RawImageButton(BaseLayout layout, string image, string command, UiColor? buttonColor = default, ButtonType type = ButtonType.Command, UiColor? imageColor = default)
+    public UiTuple<UiButton, UiRawImage> RawImageButton(BaseUiLayout layout, string image, string command, UiColor? buttonColor = default, ButtonType type = ButtonType.Command, UiColor? imageColor = default)
     {
         UiButton button = Button(layout, buttonColor ?? UiColors.White, command, type);
         UiRawImage rawImage = RawImage(button, UiPosition.Full, default, image, imageColor ?? UiColors.White);
@@ -122,22 +122,22 @@ public partial class BaseUiBuilder
     
     public UiTuple<UiButton, UiRawImage> WebImageButton(in UiReference parent, in UiPosition pos, in UiOffset offset, string url, string command, UiColor? buttonColor = default, ButtonType type = ButtonType.Command, UiColor? imageColor = default)
     => RawImageButton(parent, pos, offset, url, command, buttonColor, type, imageColor);
-    public UiTuple<UiButton, UiRawImage> WebImageButton(BaseLayout layout, string url, string command, UiColor? buttonColor = default, ButtonType type = ButtonType.Command, UiColor? imageColor = default)
+    public UiTuple<UiButton, UiRawImage> WebImageButton(BaseUiLayout layout, string url, string command, UiColor? buttonColor = default, ButtonType type = ButtonType.Command, UiColor? imageColor = default)
         => RawImageButton(layout, url, command, buttonColor, type, imageColor);
     
     public UiTuple<UiButton, UiRawImage> TextureImageButton(in UiReference parent, in UiPosition pos, in UiOffset offset, string texture, string command, UiColor? buttonColor = default, ButtonType type = ButtonType.Command, UiColor? imageColor = default)
         => RawImageButton(parent, pos, offset, texture, command, buttonColor, type, imageColor);
-    public UiTuple<UiButton, UiRawImage> TextureImageButton(BaseLayout layout, string texture, string command, UiColor? buttonColor = default, ButtonType type = ButtonType.Command, UiColor? imageColor = default)
+    public UiTuple<UiButton, UiRawImage> TextureImageButton(BaseUiLayout layout, string texture, string command, UiColor? buttonColor = default, ButtonType type = ButtonType.Command, UiColor? imageColor = default)
         => RawImageButton(layout, texture, command, buttonColor, type, imageColor);
     
     public UiTuple<UiButton, UiRawImage> FileStorageImageButton(in UiReference parent, in UiPosition pos, in UiOffset offset, string imageId, string command, UiColor? buttonColor = default, ButtonType type = ButtonType.Command, UiColor? imageColor = default)
         => RawImageButton(parent, pos, offset, imageId, command, buttonColor, type, imageColor);
-    public UiTuple<UiButton, UiRawImage> FileStorageImageButton(BaseLayout layout, string imageId, string command, UiColor? buttonColor = default, ButtonType type = ButtonType.Command, UiColor? imageColor = default)
+    public UiTuple<UiButton, UiRawImage> FileStorageImageButton(BaseUiLayout layout, string imageId, string command, UiColor? buttonColor = default, ButtonType type = ButtonType.Command, UiColor? imageColor = default)
         => RawImageButton(layout, imageId, command, buttonColor, type, imageColor);
     
     public UiTuple<UiButton, UiRawImage> ImageStorageButton(in UiReference parent, in UiPosition pos, in UiOffset offset, string nameOrUrl, string command, UiColor? buttonColor = default, ButtonType type = ButtonType.Command, UiColor? imageColor = default)
         => RawImageButton(parent, pos, offset, nameOrUrl, command, buttonColor, type, imageColor);
-    public UiTuple<UiButton, UiRawImage> ImageStorageButton(BaseLayout layout, string nameOrUrl, string command, UiColor? buttonColor = default, ButtonType type = ButtonType.Command, UiColor? imageColor = default)
+    public UiTuple<UiButton, UiRawImage> ImageStorageButton(BaseUiLayout layout, string nameOrUrl, string command, UiColor? buttonColor = default, ButtonType type = ButtonType.Command, UiColor? imageColor = default)
         => RawImageButton(layout, nameOrUrl, command, buttonColor, type, imageColor);
     #endregion
 
@@ -149,7 +149,7 @@ public partial class BaseUiBuilder
         return new UiTuple<UiButton, UiIcon>(button, image);
     }
     
-    public UiTuple<UiButton, UiIcon> IconButton<T>(BaseLayout layout, UiColor buttonColor, T icon, string command, UiColor? iconColor = null, ButtonType type = ButtonType.Command) where T : struct, Enum
+    public UiTuple<UiButton, UiIcon> IconButton<T>(BaseUiLayout layout, UiColor buttonColor, T icon, string command, UiColor? iconColor = null, ButtonType type = ButtonType.Command) where T : struct, Enum
     {
         UiButton button = Button(layout, buttonColor, command, type);
         UiIcon image = Icon(button, UiPosition.Full, default, icon, iconColor ?? UiColors.White);
@@ -165,7 +165,7 @@ public partial class BaseUiBuilder
         return new UiTuple<UiButton, UiLabel>(button, label);
     }
 
-    public UiTuple<UiButton, UiLabel> TextButton(BaseLayout layout, string text, int textSize, UiColor textColor, UiColor buttonColor, string command, TextAnchor align = TextAnchor.MiddleCenter, in UiPadding? textPadding = null, ButtonType buttonType = ButtonType.Command)
+    public UiTuple<UiButton, UiLabel> TextButton(BaseUiLayout layout, string text, int textSize, UiColor textColor, UiColor buttonColor, string command, TextAnchor align = TextAnchor.MiddleCenter, in UiPadding? textPadding = null, ButtonType buttonType = ButtonType.Command)
     {
         UiButton button = Button(layout, buttonColor, command, buttonType);
         UiLabel label = Label(button, UiPosition.Full, textPadding?.ToOffset()?? JsonDefaults.Common.TextPadding, text, textSize, textColor, align);
@@ -248,12 +248,12 @@ public partial class BaseUiBuilder
     #endregion
 
     #region Paginator
-    public UiPaginator Paginator(BaseLayout layout, int numElements, int currentPage, int maxPage, int fontSize, UiColor textColor, UiColor buttonColor, UiColor activePageColor, string command, UiColor? disabledColorMultiplier = null)
+    public UiPaginator Paginator(BaseUiLayout layout, int numElements, int currentPage, int maxPage, int fontSize, UiColor textColor, UiColor buttonColor, UiColor activePageColor, string command, UiColor? disabledColorMultiplier = null)
     {
         return Paginator(layout, numElements, currentPage, maxPage, fontSize, textColor, buttonColor, activePageColor, PartialCommand.Create<int>(command), disabledColorMultiplier);
     }
     
-    public UiPaginator Paginator(BaseLayout layout, int numElements, int currentPage, int maxPage, int fontSize, UiColor textColor, UiColor buttonColor, UiColor activePageColor, ICommandBuilder<int> command, UiColor? disabledColorMultiplier = null)
+    public UiPaginator Paginator(BaseUiLayout layout, int numElements, int currentPage, int maxPage, int fontSize, UiColor textColor, UiColor buttonColor, UiColor activePageColor, ICommandBuilder<int> command, UiColor? disabledColorMultiplier = null)
     {
         UiPaginator control = UiPaginator.Create(this, layout, numElements, currentPage, maxPage, fontSize, textColor, buttonColor, activePageColor, command, disabledColorMultiplier);
         AddControl(control);
@@ -266,7 +266,7 @@ public partial class BaseUiBuilder
     }
 
     public UiPaginator Paginator(IFixedElementsLayout layout, int currentPage, int maxPage, int fontSize, UiColor textColor, UiColor buttonColor, UiColor activePageColor, ICommandBuilder<int> command, UiColor? disabledColorMultiplier = null)
-        => Paginator((BaseLayout)layout, layout.NumElements, currentPage, maxPage, fontSize, textColor, buttonColor, activePageColor, command, disabledColorMultiplier);
+        => Paginator((BaseUiLayout)layout, layout.NumElements, currentPage, maxPage, fontSize, textColor, buttonColor, activePageColor, command, disabledColorMultiplier);
     
     public UiPaginator Paginator(in UiReference parent, GridPosition grid, int currentPage, int maxPage, int fontSize, UiColor textColor, UiColor buttonColor, UiColor activePageColor, string command, UiColor? disabledColorMultiplier = null)
     {

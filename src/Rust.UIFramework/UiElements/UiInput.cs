@@ -10,17 +10,17 @@ public class UiInput : BaseUiText<UiInput>
 {
     public readonly InputComponent Input;
 
+    public int CharsLimit { get => Input.CharsLimit; set => Input.CharsLimit = value; }
+    public string Command { get => Input.Command; set => Input.Command = value; }
+    public InputMode Mode { get => Input.Mode; set => Input.Mode = value; }
+    public InputField.LineType LineType { get => Input.LineType; set => Input.LineType = value; }
+    
     public UiInput() : this(new InputComponent()) { }
 
     private UiInput(InputComponent component) : base(component)
     {
         Input = component;
     }
-
-    public int CharsLimit { get => Input.CharsLimit; set => Input.CharsLimit = value; }
-    public string Command { get => Input.Command; set => Input.Command = value; }
-    public InputMode Mode { get => Input.Mode; set => Input.Mode = value; }
-    public InputField.LineType LineType { get => Input.LineType; set => Input.LineType = value; }
     
     public static UiInput Create(string text, int size, UiColor textColor, string cmd, string font, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, InputMode mode = InputMode.Default, InputField.LineType lineType = InputField.LineType.SingleLine)
     {
@@ -44,43 +44,39 @@ public class UiInput : BaseUiText<UiInput>
         return this;
     }
 
-    public UiInput SetIsPassword(bool isPassword)
-    {
-        Input.SetMode(InputMode.Password, isPassword);
-        return this;
-    }
+    public UiInput SetIsPassword(bool isPassword) => SetMode(InputMode.Password, isPassword);
 
-    public UiInput SetIsReadonly(bool isReadonly)
-    {
-        Input.SetMode(InputMode.ReadOnly, isReadonly);
-        return this;
-    }
-        
-    public UiInput SetAutoFocus(bool autoFocus)
-    {
-        Input.SetMode(InputMode.AutoFocus, autoFocus);
-        return this;
-    }
-        
+    public UiInput SetIsReadonly(bool isReadonly) => SetMode(InputMode.ReadOnly, isReadonly);
+
+    public UiInput SetAutoFocus(bool autoFocus) => SetMode(InputMode.AutoFocus, autoFocus);
+
     /// <summary>
     /// Sets if the input should block keyboard input when focused.
     /// This should not be used when the loot panel / crafting UI is open. Use SetNeedsHudKeyboard instead
     /// </summary>
     /// <param name="needsKeyboard"></param>
-    public UiInput SetNeedsKeyboard(bool needsKeyboard)
-    {
-        Input.SetMode(InputMode.NeedsKeyboard, needsKeyboard);
-        return this;
-    }
-        
+    public UiInput SetNeedsKeyboard(bool needsKeyboard) => SetMode(InputMode.NeedsKeyboard, needsKeyboard);
+
     /// <summary>
     /// Sets if the input should block keyboard input when focused on a loot panel / crafting ui.
     /// This should not be used if a loot panel / crafting ui won't be open when displaying the UI.
     /// </summary>
     /// <param name="needsKeyboard"></param>
-    public UiInput SetNeedsHudKeyboard(bool needsKeyboard)
+    public UiInput SetNeedsHudKeyboard(bool needsKeyboard) => SetMode(InputMode.HudNeedsKeyboard, needsKeyboard);
+
+    public bool HasMode(InputMode mode) => Input.HasMode(mode);
+    
+    public UiInput SetMode(InputMode mode, bool enabled)
     {
-        Input.SetMode(InputMode.HudNeedsKeyboard, needsKeyboard);
+        if (enabled)
+        {
+            Mode |= mode;
+        }
+        else
+        {
+            Mode &= ~mode;
+        }
+
         return this;
     }
 

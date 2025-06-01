@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Diagnostics.Contracts;
 using System.Globalization;
 using Newtonsoft.Json;
@@ -8,6 +9,7 @@ using UnityEngine;
 namespace Oxide.Ext.UiFramework.Colors;
 
 [JsonConverter(typeof(UiColorConverter))]
+[DebuggerDisplay("{ToHtmlColor()}")]
 public readonly struct UiColor : IEquatable<UiColor>
 {
     #region Fields
@@ -44,10 +46,7 @@ public readonly struct UiColor : IEquatable<UiColor>
     #endregion
 
     #region Constructors
-    public UiColor()
-    {
-        
-    }
+    public UiColor() { }
     
     public UiColor(byte red, byte green, byte blue, byte alpha = 255)
     {
@@ -71,12 +70,12 @@ public readonly struct UiColor : IEquatable<UiColor>
     #region Operators
     public static implicit operator UiColor(string value) => ParseHexColor(value);
     public static implicit operator UiColor(Color value) => new(value);
-    public static implicit operator Color(UiColor value) => new(ToFloat(value.RedB), ToFloat(value.GreenB), ToFloat(value.BlueB), ToFloat(value.AlphaB));
+    public static implicit operator Color(UiColor value) => new(value.RedFloat, value.GreenFloat, value.BlueFloat, value.AlphaFloat);
     public static bool operator ==(UiColor lhs, UiColor rhs) => lhs.RedB == rhs.RedB && lhs.GreenB == rhs.GreenB && lhs.BlueB == rhs.BlueB && lhs.AlphaB == rhs.AlphaB;
     public static bool operator !=(UiColor lhs, UiColor rhs) => !(lhs == rhs);
     public static UiColor operator *(UiColor color, UiColor multiplier)
     {
-        return new UiColor(ToFloat(color.RedB) * ToFloat(multiplier.RedB), ToFloat(color.GreenB) * ToFloat(multiplier.GreenB), ToFloat(color.BlueB) * ToFloat(multiplier.BlueB), ToFloat(color.AlphaB) * ToFloat(multiplier.AlphaB));
+        return new UiColor( color.RedFloat * multiplier.RedFloat, color.GreenFloat * multiplier.GreenFloat, color.BlueFloat * multiplier.BlueFloat, color.AlphaFloat * multiplier.AlphaFloat);
     }
 
     private static float ToFloat(byte value) => value / 255f;
@@ -91,13 +90,10 @@ public readonly struct UiColor : IEquatable<UiColor>
         
     public override int GetHashCode()
     {
-        int red = RedB << 24;
-        int green = GreenB << 16;
-        int blue = BlueB << 8;
-        return red | green | blue | AlphaB;
+        return RedB << 24 | GreenB << 16 | BlueB << 8 | AlphaB;
     }
 
-    public override string ToString() => $"{ToFloat(RedB)} {ToFloat(GreenB)} {ToFloat(BlueB)} {ToFloat(AlphaB)}";
+    public override string ToString() => $"{RedFloat} {GreenFloat} {BlueFloat} {AlphaFloat}";
     #endregion
 
     #region Modifiers
@@ -116,7 +112,7 @@ public readonly struct UiColor : IEquatable<UiColor>
     [Pure]
     public UiColor WithAlpha(int alpha)
     {
-        return WithAlpha((byte)alpha);
+        return WithAlpha((byte)Mathf.Clamp(alpha, 0, byte.MaxValue));
     }
 
     [Pure]
@@ -153,9 +149,9 @@ public readonly struct UiColor : IEquatable<UiColor>
     public UiColor Lighten(float percentage)
     {
         percentage = Mathf.Clamp01(percentage);
-        float red = (byte)Mathf.Clamp(byte.MaxValue - RedB * percentage + RedB, 0, byte.MaxValue);
-        float green = (byte)Mathf.Clamp(byte.MaxValue - GreenB * percentage + RedB, 0, byte.MaxValue);
-        float blue = (byte)Mathf.Clamp(byte.MaxValue - BlueB * percentage + RedB, 0, byte.MaxValue);
+        byte red = (byte)Mathf.Clamp((byte.MaxValue - RedB) * percentage + RedB, 0, byte.MaxValue);
+        byte green = (byte)Mathf.Clamp((byte.MaxValue - GreenB) * percentage + GreenB, 0, byte.MaxValue); 
+        byte blue = (byte)Mathf.Clamp((byte.MaxValue - BlueB) * percentage + BlueB, 0, byte.MaxValue);
 
         return new UiColor(red, green, blue, AlphaB);
     }
@@ -163,13 +159,18 @@ public readonly struct UiColor : IEquatable<UiColor>
     [Pure]
     public static UiColor Lerp(UiColor start, UiColor end, float value)
     {
-        value = Mathf.Clamp01(value);
-        return new UiColor(LerpField(start.RedB, end.RedB, value), LerpField(start.GreenB, end.GreenB, value), LerpField(start.BlueB, end.BlueB, value), LerpField(start.AlphaB, end.AlphaB, value));
+        return LerpUnclamped(start, end, Mathf.Clamp01(value));
+    }
+    
+    [Pure]
+    public static UiColor LerpUnclamped(UiColor start, UiColor end, float value)
+    {
+        return new UiColor(LerpField(start.RedFloat, end.RedFloat, value), LerpField(start.GreenFloat, end.GreenFloat, value), LerpField(start.BlueFloat, end.BlueFloat, value), LerpField(start.AlphaFloat, end.AlphaFloat, value));
     }
 
-    private static byte LerpField(byte start, byte end, float value)
+    private static float LerpField(float start, float end, float value)
     {
-        return (byte)Mathf.RoundToInt(start + (end - start) * value);
+        return start + (end - start) * value;
     }
     #endregion
 

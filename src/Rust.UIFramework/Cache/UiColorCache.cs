@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections.Concurrent;
 using System.Text;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Extensions;
@@ -14,7 +14,7 @@ internal static class UiColorCache
     private const string Format = "0.####";
     private const char Space = ' ';
 
-    private static readonly Dictionary<UiColor, Utf8String> ColorCache = new();
+    private static readonly ConcurrentDictionary<UiColor, Utf8String> ColorCache = new();
         
     public static void WriteColor(JsonUtf8Writer writer, UiColor uiColor)
     {

@@ -11,7 +11,7 @@ namespace Oxide.Ext.UiFramework.Pooling
         private readonly ArrayPoolInternal[] _pool = new ArrayPoolInternal[MaxArraySize + 1];
 
         private UiArrayPool() { }
-
+        
         public TPooled[] Get(int size)
         {
             if (size < 0) throw new ArgumentOutOfRangeException(nameof(size), "Cannot be less than 0");
@@ -28,8 +28,7 @@ namespace Oxide.Ext.UiFramework.Pooling
             ArrayPoolInternal pool = _pool[size];
             if (pool == null)
             {
-                pool = new ArrayPoolInternal(size);
-                _pool[size] = pool;
+                _pool[size] = pool = new ArrayPoolInternal(size);
             }
 
             return pool.Get();
@@ -42,7 +41,7 @@ namespace Oxide.Ext.UiFramework.Pooling
             {
                 return;
             }
-            
+
             if (size > MaxArraySize)
             {
                 throw new ArgumentOutOfRangeException(nameof(array), $"Array length cannot be greater than {MaxArraySize}");
@@ -62,19 +61,14 @@ namespace Oxide.Ext.UiFramework.Pooling
             logger.EndObject();
         }
 
-        private sealed class ArrayPoolInternal
+        private sealed class ArrayPoolInternal(int arraySize)
         {
             internal const int MaxArrays = 256;
             internal ushort Index;
             private readonly TPooled[][] _pool = new TPooled[MaxArrays][];
             private readonly object _lock = new();
-            internal readonly int ArraySize;
+            internal readonly int ArraySize = arraySize;
 
-            public ArrayPoolInternal(int arraySize)
-            {
-                ArraySize = arraySize;
-            }
-            
             public TPooled[] Get()
             {
                 TPooled[] array = null;

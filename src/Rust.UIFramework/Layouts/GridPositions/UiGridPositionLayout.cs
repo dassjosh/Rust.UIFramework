@@ -4,7 +4,7 @@ using Oxide.Ext.UiFramework.UiElements;
 
 namespace Oxide.Ext.UiFramework.Layouts.GridPositions;
 
-public class UiGridPositionLayout : BaseLayout, IFixedElementsLayout
+public class UiGridPositionLayout : BaseUiLayout, IFixedElementsLayout
 {
     public int NumElements => (int)(Grid.NumCols * Grid.NumRows);
     public GridPosition Grid;

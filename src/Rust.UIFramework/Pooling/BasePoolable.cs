@@ -1,4 +1,5 @@
 using System;
+using Oxide.Ext.UiFramework.Libraries;
 
 namespace Oxide.Ext.UiFramework.Pooling;
 
@@ -12,14 +13,24 @@ public abstract class BasePoolable : IDisposable
     /// <summary>
     /// Returns if the object should be pooled.
     /// This field is set to true when leaving the pool.
-    /// If the object instantiated using new() outside the pool it will be false
+    /// If the object is instantiated using new() outside the pool, it will be false
     /// </summary>
     private bool _shouldPool;
     private IPool<BasePoolable> _pool;
+    protected UiFrameworkPluginPool PluginPool;
 
-    internal void OnInit(IPool<BasePoolable> pool)
+    internal void OnInitInternal(IPool<BasePoolable> pool)
     {
         _pool = pool;
+        PluginPool = pool.PluginPool;
+        OnInit();
+    }
+    
+    internal virtual void OnInit() {}
+    
+    internal void OverridePluginPool(UiFrameworkPluginPool pluginPool)
+    {
+        PluginPool = pluginPool;
     }
 
     internal void EnterPoolInternal()
@@ -53,6 +64,11 @@ public abstract class BasePoolable : IDisposable
     {
             
     }
+    
+#if UNIT_TESTS
+    internal void TestEnterPool() => EnterPool();
+    internal void TestLeavePool() => LeavePool();
+#endif
 
     public virtual void Dispose()
     {

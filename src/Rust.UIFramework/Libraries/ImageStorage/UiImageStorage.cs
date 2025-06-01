@@ -26,6 +26,9 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
 
     public string Get(Plugin plugin, string name)
     {
+#if UNIT_TESTS
+        return name;
+#endif
         if (plugin == null) throw new ArgumentNullException(nameof(plugin));
         return Get(plugin.Id(), name);
     }

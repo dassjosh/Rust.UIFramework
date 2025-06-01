@@ -48,6 +48,9 @@ internal class UiConsoleLogger(string pluginName) : IOutputLogger
 
         string message = sb.ToString();
 
+#if UNIT_TESTS
+        Console.WriteLine(message);
+#else
         switch (level)
         {
             case UiLogLevel.Debug:
@@ -64,6 +67,7 @@ internal class UiConsoleLogger(string pluginName) : IOutputLogger
                 Interface.Oxide.LogInfo(message);
                 break;
         }
+#endif
     }
 
     public void OnShutdown() {}

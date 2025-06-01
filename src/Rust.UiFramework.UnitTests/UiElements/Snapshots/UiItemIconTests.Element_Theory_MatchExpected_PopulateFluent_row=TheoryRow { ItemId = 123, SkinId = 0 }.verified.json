@@ -1,0 +1,23 @@
+﻿{
+  "Color": "#808080FF",
+  "Enabled": true,
+  "FadeIn": 1.5,
+  "Icon": {
+    "Color": "#808080FF",
+    "Enabled": true,
+    "FadeIn": 1.5,
+    "ImageType": "Tiled",
+    "ItemId": 123,
+    "Material": "assets/icons/iconmaterial.mat",
+    "Type": "UnityEngine.UI.Image"
+  },
+  "ImageType": "Tiled",
+  "ItemId": 123,
+  "Material": "assets/icons/iconmaterial.mat",
+  "Offset": "(100, 200) (300, 400)",
+  "Position": "(0.1, 0.2) (0.3, 0.4)",
+  "Reference": {
+    "Name": "element",
+    "Parent": "parent"
+  }
+}

@@ -4,12 +4,12 @@ using Oxide.Ext.UiFramework.UiElements;
 
 namespace Oxide.Ext.UiFramework.Layouts;
 
-public abstract class BaseLayout : BasePoolable
+public abstract class BaseUiLayout : BasePoolable
 {
     public UiReference Reference;
     public UiScrollView ScrollView;
 
-    protected static T CreateBase<T>(in UiReference reference) where T : BaseLayout, new()
+    public static T CreateBase<T>(in UiReference reference) where T : BaseUiLayout, new()
     {
         T layout = UiFrameworkPool.Get<T>();
         layout.Reference = reference;

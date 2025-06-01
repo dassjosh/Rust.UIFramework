@@ -6,7 +6,7 @@ using Oxide.Ext.UiFramework.UiElements;
 
 namespace Oxide.Ext.UiFramework.Layouts;
 
-public class UiGridLayout : BaseLayout, IFixedElementsLayout
+public class UiGridLayout : BaseUiLayout, IFixedElementsLayout
 {
     public int NumRows;
     public int NumCols;
@@ -16,7 +16,7 @@ public class UiGridLayout : BaseLayout, IFixedElementsLayout
     public UiPadding Padding;
     public readonly List<GridElement> Elements = [];
     public int NumElements => NumRows * NumCols;
-
+    
     public static UiGridLayout Create(in UiReference reference, int numCols, int numRows, GridAlignment alignment, LayoutPadding layoutPadding, in UiPadding padding)
     {
         UiGridLayout layout = CreateBase<UiGridLayout>(reference);
@@ -27,6 +27,42 @@ public class UiGridLayout : BaseLayout, IFixedElementsLayout
         layout.LayoutPadding = layoutPadding;
         layout.Padding = padding;
         return layout;
+    }
+
+    public UiGridLayout SetNumRows(int numRows)
+    {
+        NumRows = numRows;
+        return this;
+    }
+
+    public UiGridLayout SetNumCols(int numCols)
+    {
+        NumCols = numCols;
+        return this;
+    }
+
+    public UiGridLayout SetColumnAlignment(LayoutAlignment alignment)
+    {
+        ColumnAlignment = alignment;
+        return this;
+    }
+
+    public UiGridLayout SetRowAlignment(LayoutAlignment alignment)
+    {
+        RowAlignment = alignment;
+        return this;
+    }
+
+    public UiGridLayout SetLayoutPadding(LayoutPadding layoutPadding)
+    {
+        LayoutPadding = layoutPadding;
+        return this;
+    }
+
+    public UiGridLayout SetPadding(in UiPadding padding)
+    {
+        Padding = padding;
+        return this;
     }
 
     public override void AddElement(BaseUiComponent element) => AddElement(element, 1f);
@@ -69,10 +105,10 @@ public class UiGridLayout : BaseLayout, IFixedElementsLayout
 
     private List<GridRow> GetRows()
     {
-        List<GridRow> rows = UiFrameworkPool.GetList<GridRow>();
+        List<GridRow> rows = PluginPool.GetList<GridRow>();
 
         float colSpan = 0f;
-        List<GridElement> row = UiFrameworkPool.GetList<GridElement>();
+        List<GridElement> row = PluginPool.GetList<GridElement>();
         for (int index = 0; index < Elements.Count; index++)
         {
             GridElement state = Elements[index];
@@ -80,7 +116,7 @@ public class UiGridLayout : BaseLayout, IFixedElementsLayout
             {
                 rows.Add(new GridRow(colSpan, row));
                 colSpan = 0f;
-                row = UiFrameworkPool.GetList<GridElement>();
+                row = PluginPool.GetList<GridElement>();
             }
             
             row.Add(state);
@@ -98,15 +134,15 @@ public class UiGridLayout : BaseLayout, IFixedElementsLayout
         return pos;
     }
 
-    private static void FreeGridRows(List<GridRow> rows)
+    private void FreeGridRows(List<GridRow> rows)
     {
         for (int index = 0; index < rows.Count; index++)
         {
             GridRow row = rows[index];
-            UiFrameworkPool.FreeList(row.Elements);
+            PluginPool.FreeList(row.Elements);
         }
         
-        UiFrameworkPool.FreeList(rows);
+        PluginPool.FreeList(rows);
     }
     
     public readonly struct GridElement(BaseUiComponent element, float elementSpan)

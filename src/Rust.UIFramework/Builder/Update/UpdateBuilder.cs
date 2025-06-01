@@ -8,11 +8,13 @@ namespace Oxide.Ext.UiFramework.Builder.Update;
 public class UpdateBuilder : BaseUiBuilder
 {
     public UpdateMode UpdateMode = UpdateMode.AutoDestroy;
+    
     public static UpdateBuilder Create() => UiFrameworkPool.Get<UpdateBuilder>();
 
-    public void SetUpdateMode(UpdateMode mode)
+    public UpdateBuilder SetUpdateMode(UpdateMode mode)
     {
         UpdateMode = mode;
+        return this;
     }
     
     #region Add Components

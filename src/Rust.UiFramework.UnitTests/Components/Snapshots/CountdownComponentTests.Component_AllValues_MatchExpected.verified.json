@@ -1,0 +1,13 @@
+﻿{
+  "AllowMultiple": false,
+  "Command": "command",
+  "DestroyIfDone": false,
+  "Enabled": true,
+  "EndTime": 10.0,
+  "Interval": 5.0,
+  "NumberFormat": "##:##",
+  "StartTime": 60.0,
+  "Step": 2.0,
+  "TimerFormat": "HoursMinutes",
+  "Type": "Countdown"
+}

@@ -9,6 +9,12 @@ public class UiPlayerAvatar : BaseUiComponent, IMaterial<UiPlayerAvatar>, IFadeI
 {
     public readonly PlayerAvatarComponent Avatar;
 
+    public string Material { get => Avatar.Material; set => Avatar.Material = value; }
+    public float FadeIn { get => Avatar.FadeIn; set => Avatar.FadeIn = value; }
+    public UiColor Color { get => Avatar.Color; set => Avatar.Color = value; }
+    public ulong SteamId { get => Avatar.SteamId; set => Avatar.SteamId = value; }
+    public AvatarType AvatarType { get => Avatar.AvatarType; set => Avatar.AvatarType = value; }
+    
     public UiPlayerAvatar() : this(new PlayerAvatarComponent()) { }
 
     private UiPlayerAvatar(PlayerAvatarComponent component) : base(component)
@@ -16,12 +22,6 @@ public class UiPlayerAvatar : BaseUiComponent, IMaterial<UiPlayerAvatar>, IFadeI
         Avatar = component;
     }
     
-    public string Material { get => Avatar.Material; set => Avatar.Material = value; }
-    public float FadeIn { get => Avatar.FadeIn; set => Avatar.FadeIn = value; }
-    public UiColor Color { get => Avatar.Color; set => Avatar.Color = value; }
-    public ulong SteamId { get => Avatar.SteamId; set => Avatar.SteamId = value; }
-    public AvatarType AvatarType { get => Avatar.AvatarType; set => Avatar.AvatarType = value; }
-
     public static UiPlayerAvatar Create(ulong steamId, AvatarType type, UiColor color)
     {
         UiPlayerAvatar icon = CreateBase<UiPlayerAvatar>();

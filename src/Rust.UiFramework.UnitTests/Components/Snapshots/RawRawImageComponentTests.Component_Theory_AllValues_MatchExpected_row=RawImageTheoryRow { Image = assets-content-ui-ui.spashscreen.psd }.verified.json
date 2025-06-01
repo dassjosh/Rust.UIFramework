@@ -1,0 +1,8 @@
+﻿{
+  "Color": "#FFEB04FF",
+  "Enabled": true,
+  "FadeIn": 3.5,
+  "Image": "assets/content/ui/ui.spashscreen.psd",
+  "Material": "assets/content/ui/namefontmaterial.mat",
+  "Type": "UnityEngine.UI.RawImage"
+}

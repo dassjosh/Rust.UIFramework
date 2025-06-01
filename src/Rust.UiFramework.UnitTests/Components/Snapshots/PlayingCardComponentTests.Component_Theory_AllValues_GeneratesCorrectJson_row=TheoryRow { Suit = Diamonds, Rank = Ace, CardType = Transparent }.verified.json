@@ -1,0 +1,7 @@
+﻿{
+  "type": "UnityEngine.UI.Image",
+  "sprite": "assets/content/ui/gameui/cardgames/deck_transparent/diamonds/ace_transparent_diamonds.png",
+  "material": "assets/content/ui/uibackgroundblur.mat",
+  "fadeIn": 1.5,
+  "color": "1 0.6471 0"
+}

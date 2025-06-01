@@ -47,7 +47,7 @@ public class GridPosition : BasePosition
     }
 
     [Obsolete("Use ApplyScrollViewVertical instead")]
-    public float GetScrollViewYMin(int totalRows)
+    public float GetScrollViewYMin(float totalRows)
     {
         return Mathf.Min(1 - (totalRows / NumRows), 0);
     }
@@ -55,8 +55,8 @@ public class GridPosition : BasePosition
     [Obsolete("Use ApplyScrollViewVertical instead")]
     public float GetScrollViewYMin(int count, int countPerRow)
     {
-        int totalRows = count / countPerRow;
-        if (count % countPerRow != 0)
+        float totalRows = count / countPerRow;
+        if (count % Mathf.RoundToInt(countPerRow) != 0)
         {
             totalRows++;
         }
@@ -65,16 +65,16 @@ public class GridPosition : BasePosition
     }
     
     [Obsolete("Use ApplyScrollViewHorizontal instead")]
-    public float GetScrollViewXMax(int totalColumns)
+    public float GetScrollViewXMax(float totalColumns)
     {
-        return Mathf.Max(1 + (totalColumns / NumCols), 1);
+        return Mathf.Max(totalColumns / NumCols, 1);
     }
     
     [Obsolete("Use ApplyScrollViewHorizontal instead")]
-    public float GetScrollViewXMax(int count, int countPerColumn)
+    public float GetScrollViewXMax(int totalItems, int countPerRow)
     {
-        int totalRows = count / countPerColumn;
-        if (count % countPerColumn != 0)
+        float totalRows = totalItems / countPerRow;
+        if (totalItems % Mathf.RoundToInt(countPerRow) != 0)
         {
             totalRows++;
         }
@@ -118,10 +118,12 @@ public class GridPosition : BasePosition
 
     private void ApplyPadding()
     {
-        XMin += _xPadding * _xScale;
-        XMax -= _xPadding * _xScale;
-        YMin += _yPadding * _yScale;
-        YMax -= _yPadding * _yScale;
+        float xPadding = _xPadding * _xScale;
+        float yPadding = _yPadding * _yScale;
+        XMin += xPadding;
+        XMax -= xPadding;
+        YMin += yPadding;
+        YMax -= yPadding;
     }
 
     public void ResetScale()

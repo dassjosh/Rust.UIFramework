@@ -1,0 +1,11 @@
+﻿{
+  "Align": "UpperRight",
+  "Color": "#008000FF",
+  "Enabled": true,
+  "FadeIn": 2.0,
+  "Font": "permanentmarker.ttf",
+  "FontSize": 24,
+  "Text": "text 123",
+  "Type": "UnityEngine.UI.Text",
+  "VerticalOverflow": "Overflow"
+}

@@ -235,7 +235,7 @@ public readonly struct UiOffset(float xMin, float yMin, float xMax, float yMax) 
     
     public override string ToString()
     {
-        return $"({Min.x:0}, {Min.y:0}) ({Max.x:0}, {Max.y:0}) WxH:({Width} x {Height})";
+        return $"({Min.x:0}, {Min.y:0}) ({Max.x:0}, {Max.y:0})";
     }
 
     public bool Equals(UiOffset other) => Min.Equals(other.Min) && Max.Equals(other.Max);

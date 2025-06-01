@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections.Concurrent;
 using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Cache;
 
 internal static class Utf8StringCache<T> where T : struct
 {
-    private static readonly Dictionary<T, Utf8String> Cache = new();
+    private static readonly ConcurrentDictionary<T, Utf8String> Cache = new();
 
     public static Utf8String ToString(T value)
     {

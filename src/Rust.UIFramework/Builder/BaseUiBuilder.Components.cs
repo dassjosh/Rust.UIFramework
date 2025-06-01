@@ -24,21 +24,21 @@ public partial class BaseUiBuilder
 
     public void AddControl(BaseUiControl control) => Controls.Add(control);
 
-    public void AddLayout(BaseLayout layout) => Layouts.Add(layout);
+    public void AddLayout(BaseUiLayout layout) => Layouts.Add(layout);
 
     #endregion
 
     #region Base
-    public T Base<T>(in UiReference parent) where T : BaseUiComponent, new()
+    public T Element<T>(in UiReference parent) where T : BaseUiComponent, new()
     {
         T @base = BaseUiComponent.CreateBase<T>();
         AddComponent(@base, parent);
         return @base;
     }
     
-    public T Base<T>(in UiReference parent, in UiPosition pos, in UiOffset offset = default) where T : BaseUiComponent, new()
+    public T Element<T>(in UiReference parent, in UiPosition pos, in UiOffset offset = default) where T : BaseUiComponent, new()
     {
-        T @base = Base<T>(parent);
+        T @base = Element<T>(parent);
         @base.SetPosition(pos, offset);
         return @base;
     }
@@ -47,9 +47,7 @@ public partial class BaseUiBuilder
     #region Section
     public UiSection Section(in UiReference parent)
     {
-        UiSection section = UiSection.Create();
-        AddComponent(section, parent);
-        return section;
+        return Element<UiSection>(parent);
     }
 
     public UiSection Section(in UiReference parent, in UiPosition pos, in UiOffset offset = default)
@@ -59,7 +57,7 @@ public partial class BaseUiBuilder
         return section;
     }
     
-    public UiSection Section(BaseLayout layout)
+    public UiSection Section(BaseUiLayout layout)
     {
         UiSection section = Section(layout.Reference);
         layout.AddElement(section);
@@ -87,7 +85,7 @@ public partial class BaseUiBuilder
         return panel;
     }
 
-    public UiPanel Panel(BaseLayout layout, UiColor color)
+    public UiPanel Panel(BaseUiLayout layout, UiColor color)
     {
         UiPanel panel = Panel(layout.Reference, color);
         layout.AddElement(panel);
@@ -110,7 +108,7 @@ public partial class BaseUiBuilder
         return button;
     }
     
-    public UiButton Button(BaseLayout layout, UiColor color, string command, ButtonType buttonType = ButtonType.Command)
+    public UiButton Button(BaseUiLayout layout, UiColor color, string command, ButtonType buttonType = ButtonType.Command)
     {
         UiButton button = Button(layout.Reference, color, command, buttonType);
         layout.AddElement(button);
@@ -133,7 +131,7 @@ public partial class BaseUiBuilder
         return image;
     }
     
-    public UiImage ImageSprite(BaseLayout layout, string sprite, UiColor? color = default)
+    public UiImage ImageSprite(BaseUiLayout layout, string sprite, UiColor? color = default)
     {
         UiImage image = ImageSprite(layout.Reference, sprite, color ?? UiColors.White);
         layout.AddElement(image);
@@ -156,7 +154,7 @@ public partial class BaseUiBuilder
         return image;
     }
     
-    public UiPlayingCard PlayingCard(BaseLayout layout, PlayingCardData card, UiCardType type = UiCardType.Normal, UiColor? color = default)
+    public UiPlayingCard PlayingCard(BaseUiLayout layout, PlayingCardData card, UiCardType type = UiCardType.Normal, UiColor? color = default)
     {
         UiPlayingCard image = PlayingCard(layout.Reference, card, type, color ?? UiColors.White);
         layout.AddElement(image);
@@ -179,7 +177,7 @@ public partial class BaseUiBuilder
         return image;
     }
     
-    public UiItemIcon ItemIcon(BaseLayout layout, int itemId, ulong skinId = 0, UiColor? color = default)
+    public UiItemIcon ItemIcon(BaseUiLayout layout, int itemId, ulong skinId = 0, UiColor? color = default)
     {
         UiItemIcon image = ItemIcon(layout.Reference, itemId, skinId, color ?? UiColors.White);
         layout.AddElement(image);
@@ -187,7 +185,7 @@ public partial class BaseUiBuilder
     }
     
     public UiItemIcon ItemIcon(in UiReference parent, in UiPosition pos, in UiOffset offset, Item item, UiColor? color = default) => ItemIcon(parent, pos, offset, item.info.itemid, item.skin, color);
-    public UiItemIcon ItemIcon(BaseLayout layout, Item item, UiColor? color = default) => ItemIcon(layout, item.info.itemid, item.skin, color);
+    public UiItemIcon ItemIcon(BaseUiLayout layout, Item item, UiColor? color = default) => ItemIcon(layout, item.info.itemid, item.skin, color);
     #endregion
     
     #region Player Avatar
@@ -205,7 +203,7 @@ public partial class BaseUiBuilder
         return image;
     }
     
-    public UiPlayerAvatar PlayerAvatar(BaseLayout layout, ulong steamId, AvatarType type = AvatarType.Medium, UiColor? color = default)
+    public UiPlayerAvatar PlayerAvatar(BaseUiLayout layout, ulong steamId, AvatarType type = AvatarType.Medium, UiColor? color = default)
     {
         UiPlayerAvatar image = PlayerAvatar(layout.Reference, steamId, type, color ?? UiColors.White);
         layout.AddElement(image);
@@ -228,7 +226,7 @@ public partial class BaseUiBuilder
         return rawImage;
     }
     
-    public UiRawImage RawImage(BaseLayout layout, string image, UiColor? color = default)
+    public UiRawImage RawImage(BaseUiLayout layout, string image, UiColor? color = default)
     {
         UiRawImage rawImage = RawImage(layout.Reference, image, color ?? UiColors.White);
         layout.AddElement(rawImage);
@@ -236,13 +234,13 @@ public partial class BaseUiBuilder
     }
 
     public UiRawImage WebImage(in UiReference parent, in UiPosition pos, in UiOffset offset, string url, UiColor? color = default) => RawImage(parent, pos, offset, url, color);
-    public UiRawImage WebImage(BaseLayout layout, string url, UiColor? color = default) => RawImage(layout, url, color);
+    public UiRawImage WebImage(BaseUiLayout layout, string url, UiColor? color = default) => RawImage(layout, url, color);
     public UiRawImage TextureImage(in UiReference parent, in UiPosition pos, in UiOffset offset, string texture, UiColor? color = default) => RawImage(parent, pos, offset, texture, color);
-    public UiRawImage TextureImage(BaseLayout layout, string texture, UiColor? color = default) => RawImage(layout, texture, color);
+    public UiRawImage TextureImage(BaseUiLayout layout, string texture, UiColor? color = default) => RawImage(layout, texture, color);
     public UiRawImage FileStorageImage(in UiReference parent, in UiPosition pos, in UiOffset offset, string imageId, UiColor? color = default) => RawImage(parent, pos, offset, imageId, color);
-    public UiRawImage FileStorageImage(BaseLayout layout, string imageId, UiColor? color = default) => RawImage(layout, imageId, color);
+    public UiRawImage FileStorageImage(BaseUiLayout layout, string imageId, UiColor? color = default) => RawImage(layout, imageId, color);
     public UiRawImage ImageStorage(Plugin plugin, in UiReference parent, in UiPosition pos, in UiOffset offset, string nameOrUrl, UiColor? color = default) => RawImage(parent, pos, offset, Singleton<UiImageStorage>.Instance.Get(plugin, nameOrUrl), color);
-    public UiRawImage ImageStorage(Plugin plugin, BaseLayout layout , string nameOrUrl, UiColor? color = default) => RawImage(layout, Singleton<UiImageStorage>.Instance.Get(plugin, nameOrUrl), color);
+    public UiRawImage ImageStorage(Plugin plugin, BaseUiLayout layout , string nameOrUrl, UiColor? color = default) => RawImage(layout, Singleton<UiImageStorage>.Instance.Get(plugin, nameOrUrl), color);
     #endregion
     
     #region Icon
@@ -260,7 +258,7 @@ public partial class BaseUiBuilder
         return image;
     }
     
-    public UiIcon Icon<T>(BaseLayout layout, T icon, UiColor? color = default) where T : struct, Enum
+    public UiIcon Icon<T>(BaseUiLayout layout, T icon, UiColor? color = default) where T : struct, Enum
     {
         UiIcon image = Icon(layout.Reference, icon, color ?? UiColors.White);
         layout.AddElement(image);
@@ -283,7 +281,7 @@ public partial class BaseUiBuilder
         return label;
     }
     
-    public UiLabel Label(BaseLayout layout, string text, int size, UiColor textColor, TextAnchor align = TextAnchor.MiddleCenter)
+    public UiLabel Label(BaseUiLayout layout, string text, int size, UiColor textColor, TextAnchor align = TextAnchor.MiddleCenter)
     {
         UiLabel label = Label(layout.Reference, text, size, textColor, align);
         layout.AddElement(label);
@@ -297,7 +295,7 @@ public partial class BaseUiBuilder
         return new UiTuple<UiPanel, UiLabel>(panel, label);
     }
     
-    public UiTuple<UiPanel, UiLabel> Label(BaseLayout layout, string text, int size, UiColor textColor, UiColor backgroundColor, TextAnchor align = TextAnchor.MiddleCenter, in UiPadding? textPadding = null)
+    public UiTuple<UiPanel, UiLabel> Label(BaseUiLayout layout, string text, int size, UiColor textColor, UiColor backgroundColor, TextAnchor align = TextAnchor.MiddleCenter, in UiPadding? textPadding = null)
     {
         UiPanel panel = Panel(layout, backgroundColor);
         UiLabel label = Label(panel, UiPosition.Full, textPadding?.ToOffset() ?? JsonDefaults.Common.TextPadding, text, size, textColor, align);
@@ -320,7 +318,7 @@ public partial class BaseUiBuilder
         return input;
     }
     
-    public UiInput Input(BaseLayout layout, string text, int fontSize, UiColor textColor, string command, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, InputMode mode = InputMode.Default, InputField.LineType lineType = InputField.LineType.SingleLine)
+    public UiInput Input(BaseUiLayout layout, string text, int fontSize, UiColor textColor, string command, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, InputMode mode = InputMode.Default, InputField.LineType lineType = InputField.LineType.SingleLine)
     {
         UiInput input = Input(layout.Reference, text, fontSize, textColor, command, align, charsLimit, mode, lineType);
         layout.AddElement(input);
@@ -341,7 +339,7 @@ public partial class BaseUiBuilder
         return new UiTuple<UiPanel, UiInput>(panel, input);
     }
     
-    public UiTuple<UiPanel, UiInput> Input(BaseLayout layout, string text, int fontSize, UiColor textColor, UiColor backgroundColor, string command, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, InputMode mode = InputMode.Default, InputField.LineType lineType = InputField.LineType.SingleLine, in UiPadding? textPadding = null)
+    public UiTuple<UiPanel, UiInput> Input(BaseUiLayout layout, string text, int fontSize, UiColor textColor, UiColor backgroundColor, string command, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, InputMode mode = InputMode.Default, InputField.LineType lineType = InputField.LineType.SingleLine, in UiPadding? textPadding = null)
     {
         UiPanel panel = Panel(layout, backgroundColor);
         UiInput input = Input(panel, UiPosition.Full, textPadding?.ToOffset() ?? JsonDefaults.Common.TextPadding, text, fontSize, textColor, command, align, charsLimit, mode, lineType);
@@ -358,7 +356,7 @@ public partial class BaseUiBuilder
         return Input(parent, pos, offset, text, fontSize, textColor, command.Build(InputArg.Empty), align, charsLimit, mode, lineType);
     }
     
-    public UiInput Input(BaseLayout layout, string text, int fontSize, UiColor textColor, ICommandBuilder<InputArg> command, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, InputMode mode = InputMode.Default, InputField.LineType lineType = InputField.LineType.SingleLine)
+    public UiInput Input(BaseUiLayout layout, string text, int fontSize, UiColor textColor, ICommandBuilder<InputArg> command, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, InputMode mode = InputMode.Default, InputField.LineType lineType = InputField.LineType.SingleLine)
     {
         return Input(layout, text, fontSize, textColor, command.Build(InputArg.Empty), align, charsLimit, mode, lineType);
     }
@@ -373,7 +371,7 @@ public partial class BaseUiBuilder
         return Input(parent, pos, offset, text, fontSize, textColor, backgroundColor, command.Build(InputArg.Empty), align, charsLimit, mode, lineType);
     }
     
-    public UiTuple<UiPanel, UiInput> Input(BaseLayout layout, string text, int fontSize, UiColor textColor, UiColor backgroundColor, ICommandBuilder<InputArg> command, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, InputMode mode = InputMode.Default, InputField.LineType lineType = InputField.LineType.SingleLine, in UiPadding? textPadding = null)
+    public UiTuple<UiPanel, UiInput> Input(BaseUiLayout layout, string text, int fontSize, UiColor textColor, UiColor backgroundColor, ICommandBuilder<InputArg> command, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, InputMode mode = InputMode.Default, InputField.LineType lineType = InputField.LineType.SingleLine, in UiPadding? textPadding = null)
     {
         return Input(layout, text, fontSize, textColor, backgroundColor, command.Build(InputArg.Empty), align, charsLimit, mode, lineType);
     }
@@ -424,7 +422,7 @@ public partial class BaseUiBuilder
         return scroll;
     }
     
-    public UiScrollView ScrollView(BaseLayout layout, 
+    public UiScrollView ScrollView(BaseUiLayout layout, 
         ScrollRect.MovementType movementType = JsonDefaults.ScrollView.MovementType, 
         float elasticity = JsonDefaults.ScrollView.Elasticity,
         bool inertia = JsonDefaults.ScrollView.Inertia, 

@@ -15,7 +15,7 @@ namespace Oxide.Ext.UiFramework.Logging;
 /// </summary>
 public class DebugLogger
 {
-    private readonly StringBuilder _logger = StringBuilderPool.Instance.Get();
+    private readonly StringBuilder _logger = UiFrameworkPool.GetStringBuilder();
     private const char IndentCharacter = '\t';
 
     private int _indent;
@@ -335,9 +335,9 @@ public class DebugLogger
     /// <param name="items">String items to add</param>
     public void AppendList(string name, IEnumerable<string> items)
     {
-        List<string> list = ListPool<string>.Instance.Get();
+        List<string> list = UiFrameworkPool.GetList<string>();
         AppendList(name, list);
-        ListPool<string>.Instance.Free(list);
+        UiFrameworkPool.FreeList(list);
     }
 
     /// <summary>
@@ -368,9 +368,9 @@ public class DebugLogger
     /// <param name="items">Loggable items to add</param>
     public void AppendList<T>(string name, IEnumerable<T> items) where T : IDebugLoggable
     {
-        List<string> list = ListPool<string>.Instance.Get();
+        List<string> list = UiFrameworkPool.GetList<string>();
         AppendList(name, list);
-        ListPool<string>.Instance.Free(list);
+        UiFrameworkPool.FreeList(list);
     }
         
     /// <summary>

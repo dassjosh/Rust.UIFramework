@@ -5,7 +5,7 @@
         <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
         <AssemblyName>Oxide.Ext.UiFramework.Plugins</AssemblyName>
         <RootNamespace>Oxide.Ext.UiFramework.Plugins</RootNamespace>
-        <Configurations>Release;Debug;Benchmarks</Configurations>
+        <Configurations>Release;Debug;Benchmarks;Unit Tests</Configurations>
         <Platforms>Oxide</Platforms>
         <TargetFrameworks>net48;</TargetFrameworks>
         <GenerateAssemblyInfo>true</GenerateAssemblyInfo>

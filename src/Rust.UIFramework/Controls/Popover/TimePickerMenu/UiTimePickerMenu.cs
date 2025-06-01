@@ -77,7 +77,7 @@ public class UiTimePickerMenu : BaseUiControl
         return numPickers;
     }
 
-    private static UiPicker CreateTimePickerTimeSegment(BaseUiBuilder builder, BaseLayout layout, TimePickerData time, int fontSize, UiColor textColor, UiColor backgroundColor, TimePickerSegment segment, ClockMode clockMode, ICommandBuilder<TimePickerData> changeCommand)
+    private static UiPicker CreateTimePickerTimeSegment(BaseUiBuilder builder, BaseUiLayout layout, TimePickerData time, int fontSize, UiColor textColor, UiColor backgroundColor, TimePickerSegment segment, ClockMode clockMode, ICommandBuilder<TimePickerData> changeCommand)
     {
         int value = segment switch
         {
@@ -104,7 +104,7 @@ public class UiTimePickerMenu : BaseUiControl
         return value;
     }
 
-    public static UiPicker CreateTimePickerAmPmSegment(BaseUiBuilder builder, BaseLayout layout, TimePickerData time, int fontSize, UiColor textColor, UiColor backgroundColor, ICommandBuilder<TimePickerData> changeCommand)
+    public static UiPicker CreateTimePickerAmPmSegment(BaseUiBuilder builder, BaseUiLayout layout, TimePickerData time, int fontSize, UiColor textColor, UiColor backgroundColor, ICommandBuilder<TimePickerData> changeCommand)
     {
         byte value = time.Hour;
         TimePickerData newTime = value >= 12 ? time with { Hour = (byte)(value - 12) } : time with { Hour = (byte)(value + 12) };

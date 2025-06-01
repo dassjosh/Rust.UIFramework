@@ -12,6 +12,7 @@ public abstract class BaseUiText<T>(TextComponent component) : BaseUiComponent(c
     public int FontSize { get => component.FontSize; set => component.FontSize = value; }
     public string Font { get => component.Font; set => component.Font = value; }
     public TextAnchor Align { get => component.Align; set => component.Align = value; }
+    public string TextValue { get => component.Text; set => component.Text = value; }
     public VerticalWrapMode VerticalOverflow { get => component.VerticalOverflow; set => component.VerticalOverflow = value; }
     
     public T SetFadeIn(float duration)
@@ -46,7 +47,7 @@ public abstract class BaseUiText<T>(TextComponent component) : BaseUiComponent(c
     
     public T SetText(string text)
     {
-        component.Text = text;
+        TextValue = text;
         return (T) this;
     }
     

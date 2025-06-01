@@ -1,8 +1,13 @@
 
+using Oxide.Ext.UiFramework;
 using Oxide.Ext.UiFramework.Config;
+using Oxide.Ext.UiFramework.Constants;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Layouts;
+using Oxide.Ext.UiFramework.Libraries;
+using Oxide.Ext.UiFramework.Logging;
 using Oxide.Ext.UiFramework.Offsets;
+using Oxide.Ext.UiFramework.Types;
 
 namespace Rust.UiFramework.Benchmarks;
 
@@ -40,7 +45,12 @@ public class Benchmarks
     [GlobalSetup]
     public void Setup()
     {
+        UiFrameworkExtension ext = new UiFrameworkExtension(null);
+        
         if(UiFrameworkConfig.Instance == null) UiFrameworkConfig.LoadConfig();
+        UiFrameworkExtension.GlobalLogger = Singleton<UiLoggerFactory>.Instance.CreateGlobalLogger();
+        
+        //Singleton<UiFrameworkPoolLib>.Instance.CreateInternal();
         
         _random = new(1234);
         //JsonBinaryWriter.SegmentSize = ArraySize;

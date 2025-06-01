@@ -21,13 +21,13 @@ public class ImageComponent : CoreComponent
         writer.AddField(JsonDefaults.BaseImage.MaterialName, Material, JsonDefaults.BaseImage.Material);
         writer.AddField(JsonDefaults.Common.FadeInName, FadeIn, JsonDefaults.Common.FadeIn);
         writer.AddField(JsonDefaults.Color.ColorName, Color);
-        writer.AddField(JsonDefaults.Image.ImageType, ImageType);
+        writer.AddField(JsonDefaults.Image.ImageTypeName, ImageType, JsonDefaults.Image.ImageType);
     }
 
     public override void Reset()
     {
         base.Reset();
-        Color = default;
+        Color = JsonDefaults.Color.ColorValue;
         FadeIn = 0;
         Sprite = null;
         Material = null;

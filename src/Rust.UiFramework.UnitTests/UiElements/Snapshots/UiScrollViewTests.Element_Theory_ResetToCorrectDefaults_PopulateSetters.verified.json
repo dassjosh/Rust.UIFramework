@@ -1,0 +1,24 @@
+﻿{
+  "Content": ":___Content",
+  "ContentPosition": "(0, 0) (1, 1)",
+  "DecelerationRate": 0.135,
+  "Elasticity": 0.1,
+  "Enabled": true,
+  "Inertia": false,
+  "MovementType": "Clamped",
+  "Position": "(0, 0) (1, 1)",
+  "ScrollSensitivity": 1.0,
+  "ScrollView": {
+    "ContentTransform": {
+      "Position": "(0, 0) (1, 1)"
+    },
+    "DecelerationRate": 0.135,
+    "Elasticity": 0.1,
+    "Enabled": true,
+    "Inertia": false,
+    "MovementType": "Clamped",
+    "ScrollSensitivity": 1.0,
+    "Type": "UnityEngine.UI.ScrollView"
+  },
+  "ViewPort": ":___Viewport"
+}

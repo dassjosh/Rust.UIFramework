@@ -1,25 +1,27 @@
 ﻿using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Interfaces;
+using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-public class UiItemIcon : BaseUiComponent, IMaterial<UiItemIcon>, IFadeIn<UiItemIcon>, IUiColor<UiItemIcon>
+public class UiItemIcon : BaseUiComponent, IMaterial<UiItemIcon>, IFadeIn<UiItemIcon>, IUiColor<UiItemIcon>, IImageType<UiItemIcon>
 {
     public readonly ItemIconComponent Icon;
 
+    public Image.Type ImageType { get => Icon.ImageType; set => Icon.ImageType = value; }
+    public string Material { get => Icon.Material; set => Icon.Material = value; }
+    public float FadeIn { get => Icon.FadeIn; set => Icon.FadeIn = value; }
+    public UiColor Color { get => Icon.Color; set => Icon.Color = value; }
+    public int ItemId { get => Icon.ItemId; set => Icon.ItemId = value; }
+    public ulong SkinId { get => Icon.SkinId; set => Icon.SkinId = value; }
+    
     public UiItemIcon() : this(new ItemIconComponent()) { }
 
     private UiItemIcon(ItemIconComponent component) : base(component)
     {
         Icon = component;
     }
-    
-    public string Material { get => Icon.Material; set => Icon.Material = value; }
-    public float FadeIn { get => Icon.FadeIn; set => Icon.FadeIn = value; }
-    public UiColor Color { get => Icon.Color; set => Icon.Color = value; }
-    public int ItemId { get => Icon.ItemId; set => Icon.ItemId = value; }
-    public ulong SkinId { get => Icon.SkinId; set => Icon.SkinId = value; }
 
     public static UiItemIcon Create(int itemId, ulong skinId, UiColor color)
     {
@@ -30,6 +32,12 @@ public class UiItemIcon : BaseUiComponent, IMaterial<UiItemIcon>, IFadeIn<UiItem
         return icon;
     }
         
+    public UiItemIcon SetImageType(Image.Type type)
+    {
+        ImageType = type;
+        return this;
+    }
+    
     public UiItemIcon SetFadeIn(float duration)
     {
         FadeIn = duration;

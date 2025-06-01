@@ -1,0 +1,18 @@
+﻿{
+  "AllowMultiple": false,
+  "AllowSwapping": true,
+  "AnchorOffset": "0.4 0.5",
+  "DragAlpha": 0.5,
+  "DropAnywhere": true,
+  "Enabled": true,
+  "Filter": "filter",
+  "KeepOnTop": true,
+  "LimitToParent": true,
+  "MaxDistance": 10.0,
+  "MoveToAnchor": true,
+  "ParentLimitIndex": 2,
+  "ParentPadding": "0.5 0.4",
+  "PositionRpc": "Relative",
+  "RebuildAnchor": true,
+  "Type": "Draggable"
+}

@@ -1,0 +1,10 @@
+﻿{
+  "type": "UnityEngine.UI.Image",
+  "itemid": 123,
+  "skinid": 34621422135410688,
+  "sprite": "assets/content/ui/ui.background.rounded.png",
+  "material": "assets/icons/iconmaterial.mat",
+  "fadeIn": 1,
+  "color": "1 0 0",
+  "imagetype": "1"
+}

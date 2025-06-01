@@ -3,7 +3,6 @@ using Network;
 using Oxide.Ext.UiFramework.Animation;
 using Oxide.Ext.UiFramework.Builder.Cached;
 using Oxide.Ext.UiFramework.Cache;
-using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Exceptions;
 using Oxide.Ext.UiFramework.Interfaces.Builders;
@@ -48,26 +47,12 @@ public partial class UiBuilder : BaseUiBuilder, IAnimationBuilder
 
     public void NeedsMouse(bool enabled = true)
     {
-        if (enabled)
-        {
-            _actualRoot.Component.AddSubComponent<NeedsMouseComponent>(true);
-        }
-        else
-        {
-            _actualRoot.Component.RemoveComponent<NeedsMouseComponent>();
-        }
+        _actualRoot.NeedsMouse(enabled);
     }
 
     public void NeedsKeyboard(bool enabled = true)
     {
-        if (enabled)
-        {
-            _actualRoot.Component.AddSubComponent<NeedsKeyboardComponent>(true);
-        }
-        else
-        {
-            _actualRoot.Component.RemoveComponent<NeedsKeyboardComponent>();
-        }
+        _actualRoot.NeedsKeyboard(enabled);
     }
 
     public void EnableAutoDestroy(bool enabled = true)

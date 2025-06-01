@@ -1,0 +1,22 @@
+﻿{
+  "name": "element",
+  "parent": "parent",
+  "components": [
+    {
+      "type": "UnityEngine.UI.Button",
+      "close": "command",
+      "sprite": "assets/icons/authorize.png",
+      "material": "assets/icons/iconmaterial.mat",
+      "fadeIn": 1.5,
+      "color": "0.502 0.502 0.502",
+      "imagetype": "1"
+    },
+    {
+      "type": "RectTransform",
+      "anchormin": "0.1 0.2",
+      "anchormax": "0.3 0.4",
+      "offsetmin": "100 200",
+      "offsetmax": "300 400"
+    }
+  ]
+}

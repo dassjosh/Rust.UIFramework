@@ -43,7 +43,7 @@ internal static class PluginExt
             return fullName;
         }
 
-        Plugin plugin = OxideLibrary.Plugins.Find(pluginId.Id);
+        Plugin plugin = OxideLibrary.Plugins?.Find(pluginId.Id);
         if (plugin != null)
         {
             return plugin.FullName();

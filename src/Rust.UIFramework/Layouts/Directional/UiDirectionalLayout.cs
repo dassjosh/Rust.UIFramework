@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Layouts;
 
-public class UiDirectionalLayout : BaseLayout, IFixedElementsLayout
+public class UiDirectionalLayout : BaseUiLayout, IFixedElementsLayout
 {
     public int NumElements { get; set; }
     public LayoutDirection Direction;
@@ -26,6 +26,36 @@ public class UiDirectionalLayout : BaseLayout, IFixedElementsLayout
         layout.LayoutPadding = layoutPadding;
         layout.Padding = padding;
         return layout;
+    }
+
+    public UiDirectionalLayout SetNumElements(int numElements)
+    {
+        NumElements = numElements;
+        return this;
+    }
+
+    public UiDirectionalLayout SetDirection(LayoutDirection direction)
+    {
+        Direction = direction;
+        return this;
+    }
+
+    public UiDirectionalLayout SetAlignment(LayoutAlignment alignment)
+    {
+        Alignment = alignment;
+        return this;
+    }
+
+    public UiDirectionalLayout SetLayoutPadding(LayoutPadding layoutPadding)
+    {
+        LayoutPadding = layoutPadding;
+        return this;
+    }
+
+    public UiDirectionalLayout SetPadding(in UiPadding padding)
+    {
+        Padding = padding;
+        return this;
     }
 
     public override void AddElement(BaseUiComponent element) => AddElement(element, 1f);

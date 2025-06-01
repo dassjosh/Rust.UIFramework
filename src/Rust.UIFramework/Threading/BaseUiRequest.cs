@@ -16,7 +16,7 @@ public abstract class BaseUiRequest : BasePoolable
     {
         if (Send.connections != null)
         {
-            ListPool<Connection>.Instance.Free(Send.connections);
+            UiFrameworkPool.FreeList(Send.connections);
         }
         Send = default;
     }

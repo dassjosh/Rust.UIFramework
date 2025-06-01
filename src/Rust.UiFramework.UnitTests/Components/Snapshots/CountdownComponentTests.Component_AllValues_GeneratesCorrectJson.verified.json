@@ -1,0 +1,11 @@
+﻿{
+  "type": "Countdown",
+  "startTime": 60,
+  "endTime": 10,
+  "step": 2,
+  "interval": 5,
+  "timerFormat": "4",
+  "numberFormat": "##:##",
+  "destroyIfDone": 0,
+  "command": "command"
+}

@@ -8,7 +8,7 @@ public static class MethodInfoExt
 {
     public static string GetMethodWithParams(this MethodInfo info)
     {
-        StringBuilder sb = StringBuilderPool.Instance.Get();
+        StringBuilder sb = UiFrameworkPool.GetStringBuilder();
         sb.Append(info.Name);
         sb.Append('(');
 

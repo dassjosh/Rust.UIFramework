@@ -1,0 +1,7 @@
+﻿{
+  "type": "UnityEngine.UI.RawImage",
+  "steamid": "34621422135410688",
+  "material": "assets/content/ui/namefontmaterial.mat",
+  "fadeIn": 3.5,
+  "color": "1 0.9216 0.0157"
+}

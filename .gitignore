@@ -354,3 +354,5 @@ MigrationBackup/
 **/.idea/*
 
 src/References/*.dll
+
+*.received.*

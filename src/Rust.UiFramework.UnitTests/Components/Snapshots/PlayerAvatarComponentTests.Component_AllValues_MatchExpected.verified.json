@@ -1,0 +1,9 @@
+﻿{
+  "AvatarType": "Medium",
+  "Color": "#FFEB04FF",
+  "Enabled": true,
+  "FadeIn": 3.5,
+  "Material": "assets/content/ui/namefontmaterial.mat",
+  "SteamId": 34621422135410688,
+  "Type": "UnityEngine.UI.RawImage"
+}

@@ -16,7 +16,7 @@ public abstract partial class BaseUiBuilder : BaseBuilder
     protected readonly List<BaseUiComponent> Components = [];
     protected readonly List<BaseUiControl> Controls = [];
     protected readonly List<BaseUiComponent> Anchors = [];
-    protected readonly List<BaseLayout> Layouts = [];
+    protected readonly List<BaseUiLayout> Layouts = [];
         
     protected string Font;
     private static readonly string GlobalFont = UiFrameworkConfig.Instance.Font.DefaultFont;

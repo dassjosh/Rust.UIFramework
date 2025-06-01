@@ -1,0 +1,14 @@
+﻿{
+  "AllowMultiple": false,
+  "AllowSwapping": false,
+  "DragAlpha": 1.0,
+  "DropAnywhere": false,
+  "Enabled": true,
+  "KeepOnTop": false,
+  "LimitToParent": false,
+  "MaxDistance": -1.0,
+  "MoveToAnchor": false,
+  "ParentLimitIndex": 1,
+  "RebuildAnchor": false,
+  "Type": "Draggable"
+}

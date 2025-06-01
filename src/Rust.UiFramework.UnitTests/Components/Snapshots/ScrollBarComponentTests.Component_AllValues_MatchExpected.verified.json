@@ -1,0 +1,11 @@
+﻿{
+  "AutoHide": true,
+  "HandleColor": "#000000FF",
+  "HandleSprite": "assets/icons/add.png",
+  "HighlightColor": "#800000FF",
+  "Invert": true,
+  "PressedColor": "#000080FF",
+  "Size": 30.0,
+  "TrackColor": "#808000FF",
+  "TrackSprite": "assets/icons/subtract.png"
+}

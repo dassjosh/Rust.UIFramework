@@ -37,7 +37,10 @@ public class UiPlayerAvatars : BaseUiFrameworkLibrary, ISingleton
         }
     }
 
-    public string GetAvatarUrl(ulong steamId, AvatarType type) => _data.GetAvatar(steamId, type);
+    public string GetAvatarUrl(ulong steamId, AvatarType type)
+    {
+        return _data.GetAvatar(steamId, type);
+    }
 
     protected override void OnPlayerConnected(BasePlayer player)
     {

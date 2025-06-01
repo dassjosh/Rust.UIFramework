@@ -1,0 +1,19 @@
+﻿{
+  "Utf8StringRaw": "Value",
+  "StringRaw": "string",
+  "IntRaw": 123,
+  "UlongRaw": 18446744073709551615,
+  "BoolRaw": 1,
+  "UiColorRaw": "0.498 0.498 0.498 0.498",
+  "Vector2Raw": "100 200",
+  "TextAnchorEnumRaw": "3",
+  "Utf8String": "Value",
+  "Int": 123,
+  "Float": 12.3,
+  "Ulong": 18446744073709551615,
+  "Bool": 1,
+  "UiColor": "0.498 0.498 0.498 0.498",
+  "Vector2": "100 200",
+  "TextAnchorEnum": "3",
+  "KeyField": ""
+}

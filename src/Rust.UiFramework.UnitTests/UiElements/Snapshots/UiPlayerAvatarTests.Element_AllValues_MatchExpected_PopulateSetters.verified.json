@@ -1,0 +1,20 @@
+﻿{
+  "Avatar": {
+    "Color": "#808080FF",
+    "Enabled": true,
+    "FadeIn": 1.5,
+    "Material": "assets/icons/iconmaterial.mat",
+    "SteamId": 112233,
+    "Type": "UnityEngine.UI.RawImage"
+  },
+  "Color": "#808080FF",
+  "Enabled": true,
+  "FadeIn": 1.5,
+  "Material": "assets/icons/iconmaterial.mat",
+  "Name": "element",
+  "Offset": "(100, 200) (300, 400)",
+  "Parent": "parent",
+  "Position": "(0.1, 0.2) (0.3, 0.4)",
+  "Reference": "parent:element",
+  "SteamId": 112233
+}

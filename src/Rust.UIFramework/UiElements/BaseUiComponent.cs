@@ -16,28 +16,16 @@ public abstract class BaseUiComponent(CoreComponent component) : BasePoolable
 {
     public UiReference Reference;
     public float FadeOut;
-    public UiPosition Position;
+    public UiPosition Position = UiPosition.Full;
     public UiOffset Offset;
     public UpdateMode Update;
-    public readonly CoreComponent Component = component;
+    private readonly CoreComponent _component = component;
+    
+    public string Name { get => Reference.Name; set => Reference = Reference.WithName(value); }
+    public string Parent { get => Reference.Parent; set => Reference = Reference.WithParent(value); }
+    public bool Enabled { get => _component.Enabled; set => _component.Enabled = value; }
 
     public static T CreateBase<T>() where T : BaseUiComponent, new() => UiFrameworkPool.Get<T>();
-
-    public static T CreateBase<T>(in UiPosition pos, in UiOffset offset) where T : BaseUiComponent, new()
-    {
-        T component = CreateBase<T>();
-        component.SetPosition(pos, offset);
-        return component;
-    }
-
-    public void SetPosition(in UiPosition position, in UiOffset offset)
-    {
-        Position = position;
-        Offset = offset;
-    }
-    
-    public void SetFadeOut(float duration) => FadeOut = duration;
-    public void SetUpdate(UpdateMode mode) => Update = mode;
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void WriteComponent(JsonFrameworkWriter writer)
@@ -54,6 +42,8 @@ public abstract class BaseUiComponent(CoreComponent component) : BasePoolable
             case UpdateMode.Update:
                 writer.AddFieldRaw(JsonDefaults.Common.Update, true);
                 break;
+            case UpdateMode.None:
+                break;
         }
 
         writer.WritePropertyName(JsonDefaults.Common.ComponentsName);
@@ -66,8 +56,8 @@ public abstract class BaseUiComponent(CoreComponent component) : BasePoolable
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private void WriteComponents(JsonFrameworkWriter writer)
     {
-        Component.WriteComponent(writer);
-        Component.WriteSubComponents(writer);        
+        _component.WriteComponent(writer);
+        _component.WriteSubComponents(writer);        
         WriteTransform(writer);
     }
 
@@ -85,7 +75,7 @@ public abstract class BaseUiComponent(CoreComponent component) : BasePoolable
     
     public OutlineComponent AddOutline(UiColor color, Vector2? distance = null, bool useGraphicAlpha = false)
     {
-        OutlineComponent outline = Component.AddSubComponent<OutlineComponent>();
+        OutlineComponent outline = _component.AddSubComponent<OutlineComponent>();
         outline.Color = color;
         outline.Distance = distance ?? JsonDefaults.Outline.Distance;
         outline.UseGraphicAlpha = useGraphicAlpha;
@@ -110,7 +100,7 @@ public abstract class BaseUiComponent(CoreComponent component) : BasePoolable
         bool moveToAnchor = JsonDefaults.Draggable.MoveToAnchor,
         bool rebuildAnchor = JsonDefaults.Draggable.RebuildAnchor)
     {
-        DraggableComponent draggable = Component.AddSubComponent<DraggableComponent>();
+        DraggableComponent draggable = _component.AddSubComponent<DraggableComponent>();
         draggable.LimitToParent = limitToParent;
         draggable.MaxDistance = maxDistance;
         draggable.AllowSwapping = allowSwapping;
@@ -130,21 +120,51 @@ public abstract class BaseUiComponent(CoreComponent component) : BasePoolable
     [Obsolete("This component is not currently supported in the Client. This will not work until the changes are merged in.")]
     public SlotComponent AddSlot(string filter = null)
     {
-        SlotComponent slot = Component.AddSubComponent<SlotComponent>();
+        SlotComponent slot = _component.AddSubComponent<SlotComponent>();
         slot.Filter = filter;
         return slot;
+    }
+    
+    public void NeedsMouse(bool enabled = true)
+    {
+        if (enabled)
+        {
+            _component.AddSubComponent<NeedsMouseComponent>(true);
+        }
+        else
+        {
+            _component.RemoveComponent<NeedsMouseComponent>();
+        }
+    }
+
+    public void NeedsKeyboard(bool enabled = true)
+    {
+        if (enabled)
+        {
+            _component.AddSubComponent<NeedsKeyboardComponent>(true);
+        }
+        else
+        {
+            _component.RemoveComponent<NeedsKeyboardComponent>();
+        }
+    }
+
+    internal override void OnInit()
+    {
+        base.OnInit();
+        _component.OverridePluginPool(PluginPool);
     }
 
     protected override void EnterPool()
     {
         Reference = default;
         FadeOut = 0;
-        Position = default;
+        Position = UiPosition.Full;
         Offset = default;
         Update = default;
-        Component.Reset();
+        _component.Reset();
     }
 
     public static implicit operator UiReference(BaseUiComponent component) => component.Reference;
-    public static implicit operator AnimationReference(BaseUiComponent component) => new(component.Reference, component.Component.Type);
+    public static implicit operator AnimationReference(BaseUiComponent component) => new(component.Reference, component._component.Type);
 }

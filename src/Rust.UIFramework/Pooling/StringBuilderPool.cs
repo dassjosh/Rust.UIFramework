@@ -5,12 +5,9 @@ namespace Oxide.Ext.UiFramework.Pooling;
 /// <summary>
 /// Pool for StringBuilders
 /// </summary>
-public class StringBuilderPool : BasePool<StringBuilder>
+public class StringBuilderPool : BasePool<StringBuilder, StringBuilderPool>
 {
-    public static readonly IPool<StringBuilder> Instance = new StringBuilderPool();
-
-    private StringBuilderPool() : base(64) { }
-
+    protected override PoolSize GetPoolSize(PoolSettings settings) => settings.StringBuilderPoolSize;
     protected override StringBuilder CreateNew() => new();
 
     ///<inheritdoc/>

@@ -19,6 +19,7 @@ namespace Oxide.Ext.UiFramework.Plugins;
 internal class UiFrameworkPlugin : BaseUiFrameworkPlugin
 {
     public static UiFrameworkPlugin Instance;
+    public readonly PluginId PluginId;
     private readonly object _true = true;
 
     public UiFrameworkPlugin()
@@ -27,10 +28,11 @@ internal class UiFrameworkPlugin : BaseUiFrameworkPlugin
         Name = UiFrameworkExtension.Instance.Name;
         Title = "UI Framework";
         Author = UiFrameworkExtension.Instance.Author;
+        PluginId = new PluginId(this);
     }
 
     [HookMethod(nameof(Init))]
-    private void Init()
+    internal void Init()
     {
         AddCovalenceCommand(["uif.version"], nameof(VersionCommand), "uif.version");
         AddCovalenceCommand(["uif.harmony.oxide.addui"], nameof(HarmonyAddUiPatch), "uif.harmony.oxide.addui");
@@ -47,7 +49,7 @@ internal class UiFrameworkPlugin : BaseUiFrameworkPlugin
 
     // ReSharper disable once UnusedMember.Local
     [HookMethod(nameof(OnServerInitialized))]
-    private void OnServerInitialized()
+    internal void OnServerInitialized()
     {
         BaseUiFrameworkLibrary.ProcessOnServerInitialized();
         UiHarmony.Initialize();

@@ -151,7 +151,7 @@ public readonly ref struct UiArgWriter(StringBuilder sb)
     public override string ToString()
     {
         string command = sb.ToString();
-        StringBuilderPool.Instance.Free(sb);
+        UiFrameworkPool.FreeStringBuilder(sb);
         return command;
     }
 }

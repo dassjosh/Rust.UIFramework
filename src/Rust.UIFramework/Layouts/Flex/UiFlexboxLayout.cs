@@ -7,7 +7,7 @@ using Oxide.Ext.UiFramework.UiElements;
 
 namespace Oxide.Ext.UiFramework.Layouts;
 
-public class UiFlexBoxLayout : BaseLayout
+public class UiFlexBoxLayout : BaseUiLayout
 {
     public FlexDirection Direction;
     public FlexWrap Wrap;
@@ -37,6 +37,42 @@ public class UiFlexBoxLayout : BaseLayout
         layout.Padding = padding;
         layout.Gap = gap;
         return layout;
+    }
+
+    public UiFlexBoxLayout SetDirection(FlexDirection direction)
+    {
+        Direction = direction;
+        return this;
+    }
+
+    public UiFlexBoxLayout SetWrap(FlexWrap wrap)
+    {
+        Wrap = wrap;
+        return this;
+    }
+
+    public UiFlexBoxLayout SetAlignItems(FlexAlignItems alignItems)
+    {
+        AlignItems = alignItems;
+        return this;
+    }
+
+    public UiFlexBoxLayout SetDefaultJustifyContent(FlexJustifyContent justifyContent)
+    {
+        DefaultJustifyContent = justifyContent;
+        return this;
+    }
+
+    public UiFlexBoxLayout SetPadding(in UiPadding padding)
+    {
+        Padding = padding;
+        return this;
+    }
+
+    public UiFlexBoxLayout SetGap(float gap)
+    {
+        Gap = gap;
+        return this;
     }
 
     public override void AddElement(BaseUiComponent element) => AddElement(element, 1f);

@@ -20,7 +20,7 @@ public static class DictionaryExt
     {
         if (dic == null) throw new ArgumentNullException(nameof(dic));
 
-        List<TKey> removeKeys = ListPool<TKey>.Instance.Get();
+        List<TKey> removeKeys = UiFrameworkPool.GetList<TKey>();
         foreach (KeyValuePair<TKey, TValue> key in dic)
         {
             if (predicate(key))
@@ -34,7 +34,7 @@ public static class DictionaryExt
             dic.Remove(key);
         }
             
-        ListPool<TKey>.Instance.Free(removeKeys);
+        UiFrameworkPool.FreeList(removeKeys);
     }
         
     /// <summary>
@@ -49,7 +49,7 @@ public static class DictionaryExt
     {
         if (hash == null) throw new ArgumentNullException(nameof(hash));
 
-        List<TKey> removeKeys = ListPool<TKey>.Instance.Get();
+        List<TKey> removeKeys = UiFrameworkPool.GetList<TKey>();
         foreach (KeyValuePair<TKey, TValue> key in hash)
         {
             if (predicate(key.Value))
@@ -64,6 +64,6 @@ public static class DictionaryExt
             hash.Remove(key);
         }
             
-        ListPool<TKey>.Instance.Free(removeKeys);
+        UiFrameworkPool.FreeList(removeKeys);
     }
 }

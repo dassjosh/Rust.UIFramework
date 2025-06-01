@@ -1,0 +1,10 @@
+﻿{
+  "Avatar": {
+    "AvatarType": "Medium",
+    "Enabled": true,
+    "Type": "UnityEngine.UI.RawImage"
+  },
+  "AvatarType": "Medium",
+  "Enabled": true,
+  "Position": "(0, 0) (1, 1)"
+}

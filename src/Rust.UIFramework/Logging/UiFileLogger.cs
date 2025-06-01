@@ -3,7 +3,6 @@ using System.Collections.Concurrent;
 using System.IO;
 using System.Text;
 using System.Threading;
-using Oxide.Core;
 using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Types;
@@ -26,7 +25,7 @@ internal class UiFileLogger : IOutputLogger
     {
         _dateTimeFormat = dateTimeFormat;
         _reset = reset;
-        string logPath = Path.Combine(Interface.Oxide.LogDirectory, pluginName);
+        string logPath = Path.Combine(OxideLibrary.LogFolder, pluginName);
         if (!Directory.Exists(logPath))
         {
             Directory.CreateDirectory(logPath);

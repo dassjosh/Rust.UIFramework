@@ -1,0 +1,10 @@
+﻿{
+  "Enabled": true,
+  "FontSize": 14,
+  "Position": "(0, 0) (1, 1)",
+  "Text": {
+    "Enabled": true,
+    "FontSize": 14,
+    "Type": "UnityEngine.UI.Text"
+  }
+}

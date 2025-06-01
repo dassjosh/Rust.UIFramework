@@ -80,8 +80,10 @@ public static class JsonDefaults
         public const int FontSize = 14;
         
         public static readonly Utf8String AlignName = "align";
+        public const TextAnchor Align = TextAnchor.UpperLeft;
         
         public static readonly Utf8String VerticalOverflowName = "verticalOverflow";
+        public const VerticalWrapMode VerticalOverflow = VerticalWrapMode.Truncate;
     }
 
     public static class Outline
@@ -104,7 +106,8 @@ public static class JsonDefaults
         public static readonly Utf8String Type = "UnityEngine.UI.Image";
         public static readonly Utf8String PngName = "png";
         public static readonly Utf8String UrlName = "url";
-        public static readonly Utf8String ImageType = "imagetype";
+        public static readonly Utf8String ImageTypeName = "imagetype";
+        public static readonly UnityEngine.UI.Image.Type ImageType = UnityEngine.UI.Image.Type.Simple;
     }
 
     public static class ItemIcon
@@ -122,13 +125,15 @@ public static class JsonDefaults
     {
         public static readonly Utf8String Type = "UnityEngine.UI.InputField";
         public static readonly Utf8String CharacterLimitName = "characterLimit";
-        public const int CharacterLimitValue = 0;
+        public const int CharacterLimit = 0;
         public static readonly Utf8String PasswordName = "password";
         public static readonly Utf8String ReadOnlyName = "readOnly";
         public static readonly Utf8String LineTypeName = "lineType";
+        public const InputField.LineType LineType = InputField.LineType.SingleLine;
         public static readonly Utf8String NeedsKeyboardName = "needsKeyboard";
         public static readonly Utf8String NeedsHudKeyboardName = "hudMenuInput";
         public static readonly Utf8String AutoFocusName = "autofocus";
+        public const InputMode Mode = InputMode.Default;
     }
         
     public static class Countdown
@@ -265,7 +270,7 @@ public static class JsonDefaults
         public static readonly Utf8String MoveToAnchorName = "moveToAnchor";
         public const bool MoveToAnchor = false;
         
-        public static readonly Utf8String RebuildAnchorName = "moveToAnchor";
+        public static readonly Utf8String RebuildAnchorName = "rebuildAnchor";
         public const bool RebuildAnchor = false;
     }
 

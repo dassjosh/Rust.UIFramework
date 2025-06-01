@@ -10,13 +10,6 @@ public class UiPlayingCard : BaseUiComponent, IMaterial<UiPlayingCard>, IFadeIn<
 {
     public readonly PlayingCardComponent Card;
 
-    public UiPlayingCard() : this(new PlayingCardComponent()) { }
-
-    private UiPlayingCard(PlayingCardComponent component) : base(component)
-    {
-        Card = component;
-    }
-    
     public string Material { get => Card.Material; set => Card.Material = value; }
     public float FadeIn { get => Card.FadeIn; set => Card.FadeIn = value; }
     public UiColor Color { get => Card.Color; set => Card.Color = value; }
@@ -24,6 +17,13 @@ public class UiPlayingCard : BaseUiComponent, IMaterial<UiPlayingCard>, IFadeIn<
     public UiSuit Suit { get => Card.Suit; set => Card.Suit = value; }
     public UiRank Rank { get => Card.Rank; set => Card.Rank = value; }
     public UiCardType CardType { get => Card.CardType; set => Card.CardType = value; }
+    
+    public UiPlayingCard() : this(new PlayingCardComponent()) { }
+
+    private UiPlayingCard(PlayingCardComponent component) : base(component)
+    {
+        Card = component;
+    }
     
     public static UiPlayingCard Create(PlayingCardData card, UiCardType type, UiColor color)
     {

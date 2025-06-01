@@ -1,10 +1,8 @@
 ﻿using System;
-using System.IO;
 using Newtonsoft.Json;
 using Oxide.Core;
 using Oxide.Core.Configuration;
 using Oxide.Ext.UiFramework.Cache;
-using Oxide.Ext.UiFramework.Constants;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Logging;
 
@@ -71,7 +69,7 @@ internal class UiFrameworkConfig : ConfigFile
 
     internal static void LoadConfig()
     {
-#if BENCHMARKS
+#if BENCHMARKS || UNIT_TESTS
         new UiFrameworkConfig(null);
 #else
         string configPath = Path.Combine(PathConstants.ConfigFolder, "UiFramework.json");

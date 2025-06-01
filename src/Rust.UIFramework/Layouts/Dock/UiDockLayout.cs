@@ -6,7 +6,7 @@ using Oxide.Ext.UiFramework.UiElements;
 
 namespace Oxide.Ext.UiFramework.Layouts;
 
-public class UiDockLayout : BaseLayout
+public class UiDockLayout : BaseUiLayout
 {
     public LayoutPadding LayoutPadding;
     public UiPadding Padding;

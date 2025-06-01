@@ -10,7 +10,7 @@ public readonly struct UiDropdownMenuItem
     public readonly UiButton Button;
     public readonly UiLabel Label;
 
-    public UiDropdownMenuItem(BaseUiBuilder builder, BaseLayout layout, in DropdownMenuData item, int fontSize, UiColor textColor, UiColor backgroundColor)
+    public UiDropdownMenuItem(BaseUiBuilder builder, BaseUiLayout layout, in DropdownMenuData item, int fontSize, UiColor textColor, UiColor backgroundColor)
     {
         (Button, Label) = builder.TextButton(layout, item.DisplayName, fontSize, textColor, backgroundColor, item.Command);
     }

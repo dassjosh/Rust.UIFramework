@@ -62,7 +62,7 @@ public class UiCalenderPicker : BaseUiControl
         _maxDays = _numRows * NumColumns;
     }
 
-    public void CreateHeader(BaseUiBuilder builder, BaseLayout layout, DateTime value, int fontSize, UiColor textColor, UiColor buttonColor, ICommandBuilder<DateTime> changeCommand, string buttonSprite)
+    public void CreateHeader(BaseUiBuilder builder, BaseUiLayout layout, DateTime value, int fontSize, UiColor textColor, UiColor buttonColor, ICommandBuilder<DateTime> changeCommand, string buttonSprite)
     {
         UiDirectionalLayout headerLayout = builder.DirectionalLayout(layout, 7);
         
@@ -82,7 +82,7 @@ public class UiCalenderPicker : BaseUiControl
         StyleButton(NextYear, buttonSprite);
     }
 
-    public void CreateDayOfWeekHeader(BaseUiBuilder builder, BaseLayout layout, int fontSize, UiColor textColor)
+    public void CreateDayOfWeekHeader(BaseUiBuilder builder, BaseUiLayout layout, int fontSize, UiColor textColor)
     {
         UiDirectionalLayout weekLayout = builder.DirectionalLayout(layout, NumColumns);
         for (int i = 0; i < 7; i++)
@@ -91,7 +91,7 @@ public class UiCalenderPicker : BaseUiControl
         }
     }
 
-    public void CreateCalender(BaseUiBuilder builder, BaseLayout layout, int fontSize, UiColor textColor, UiColor buttonColor, UiColor selectedDateColor, ICommandBuilder<DateTime> changeCommand, string buttonSprite)
+    public void CreateCalender(BaseUiBuilder builder, BaseUiLayout layout, int fontSize, UiColor textColor, UiColor buttonColor, UiColor selectedDateColor, ICommandBuilder<DateTime> changeCommand, string buttonSprite)
     {
         UiGridLayout daysLayout = builder.GridLayout(layout, NumColumns, _numRows, padding: DayPadding);
 
