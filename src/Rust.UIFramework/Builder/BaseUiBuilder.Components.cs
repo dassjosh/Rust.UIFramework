@@ -17,8 +17,8 @@ namespace Oxide.Ext.UiFramework.Builder;
 public partial class BaseUiBuilder
 {
     #region Add Components
-    public abstract void AddComponent(BaseUiComponent component, in UiReference parent);
-        
+    public abstract void AddComponent(BaseUiComponent component, in UiReference parent, bool withChild = true);
+
     protected abstract void AddAnchor(BaseUiComponent component, in UiReference parent);
 
     public void AddControl(BaseUiControl control)
@@ -35,7 +35,7 @@ public partial class BaseUiBuilder
         return section;
     }
     #endregion
-        
+
     #region Panel
     public UiPanel Panel(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor color)
     {
@@ -43,7 +43,7 @@ public partial class BaseUiBuilder
         AddComponent(panel, parent);
         return panel;
     }
-        
+
     public UiPanel Panel(in UiReference parent, in UiPosition pos, UiColor color) => Panel(parent, pos, default, color);
     #endregion
 
@@ -87,7 +87,7 @@ public partial class BaseUiBuilder
         AddComponent(image, parent);
         return image;
     }
-        
+
     public UiItemIcon ItemIcon(in UiReference parent, in UiPosition pos, in UiOffset offset, int itemId, ulong skinId) => ItemIcon(parent, pos, offset, itemId, skinId, UiColor.White);
     public UiItemIcon ItemIcon(in UiReference parent, in UiPosition pos, in UiOffset offset, int itemId, UiColor color) => ItemIcon(parent, pos, offset, itemId, 0, color);
     public UiItemIcon ItemIcon(in UiReference parent, in UiPosition pos, in UiOffset offset, int itemId) => ItemIcon(parent, pos, offset, itemId, UiColor.White);
@@ -95,7 +95,7 @@ public partial class BaseUiBuilder
     public UiItemIcon ItemIcon(in UiReference parent, in UiPosition pos, int itemId, UiColor color) => ItemIcon(parent, pos, default, itemId, color);
     public UiItemIcon ItemIcon(in UiReference parent, in UiPosition pos, int itemId) => ItemIcon(parent, pos, default, itemId);
     #endregion
-    
+
     #region Player Avatar
     public UiPlayerAvatar PlayerAvatar(in UiReference parent, in UiPosition pos, in UiOffset offset, ulong steamId, UiColor color)
     {
@@ -103,7 +103,7 @@ public partial class BaseUiBuilder
         AddComponent(image, parent);
         return image;
     }
-        
+
     public UiPlayerAvatar PlayerAvatar(in UiReference parent, in UiPosition pos, in UiOffset offset, ulong steamId) => PlayerAvatar(parent, pos, offset, steamId, UiColor.White);
     public UiPlayerAvatar PlayerAvatar(in UiReference parent, in UiPosition pos, ulong steamId) => PlayerAvatar(parent, pos, default, steamId);
     public UiPlayerAvatar PlayerAvatar(in UiReference parent, in UiPosition pos, ulong steamId, UiColor color) => PlayerAvatar(parent, pos, default, steamId, color);
@@ -137,7 +137,7 @@ public partial class BaseUiBuilder
     public UiRawImage TextureImage(in UiReference parent, in UiPosition pos, in UiOffset offset, string texture) => TextureImage(parent, pos, offset, texture, UiColor.White);
     public UiRawImage TextureImage(in UiReference parent, in UiPosition pos, string texture, UiColor color) => TextureImage(parent, pos, default, texture, color);
     public UiRawImage TextureImage(in UiReference parent, in UiPosition pos, string texture) => TextureImage(parent, pos, texture, UiColor.White);
-        
+
     public UiRawImage ImageFileStorage(in UiReference parent, in UiPosition pos, in UiOffset offset, string png, UiColor color)
     {
         if (!uint.TryParse(png, out uint _))
@@ -175,16 +175,16 @@ public partial class BaseUiBuilder
 
     public UiLabelBackground LabelBackground(in UiReference parent, in UiPosition pos, string text, int fontSize, UiColor textColor, UiColor backgroundColor, TextAnchor align = TextAnchor.MiddleCenter) => LabelBackground(parent, pos, default, text, fontSize, textColor, backgroundColor, align);
     #endregion
-        
+
     #region Input
-    public UiInput Input(in UiReference parent, in UiPosition pos, in UiOffset offset, string text, int fontSize, UiColor textColor,  string command, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, InputMode mode = InputMode.Default, InputField.LineType lineType = InputField.LineType.SingleLine)
+    public UiInput Input(in UiReference parent, in UiPosition pos, in UiOffset offset, string text, int fontSize, UiColor textColor, string command, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, InputMode mode = InputMode.Default, InputField.LineType lineType = InputField.LineType.SingleLine)
     {
         UiInput input = UiInput.Create(pos, offset, textColor, text, fontSize, command, Font, align, charsLimit, mode, lineType);
         AddComponent(input, parent);
         return input;
     }
 
-    public UiInput Input(in UiReference parent, in UiPosition pos, string text, int fontSize, UiColor textColor, string command, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, InputMode mode = InputMode.Default, InputField.LineType lineType = InputField.LineType.SingleLine) 
+    public UiInput Input(in UiReference parent, in UiPosition pos, string text, int fontSize, UiColor textColor, string command, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, InputMode mode = InputMode.Default, InputField.LineType lineType = InputField.LineType.SingleLine)
         => Input(parent, pos, default, text, fontSize, textColor, command, align, charsLimit, mode, lineType);
     #endregion
 
@@ -195,7 +195,7 @@ public partial class BaseUiBuilder
         Countdown(label, startTime, endTime, command, step);
         return label;
     }
-    
+
     public CountdownComponent Countdown(UiLabel label, float startTime, float endTime, string command, float step = 1, float interval = 1, TimerFormat timerFormat = TimerFormat.None, string numberFormat = JsonDefaults.Countdown.NumberFormatValue, bool destroyIfDone = true)
     {
         CountdownComponent countdown = label.AddCountdown(startTime, endTime, step, interval, timerFormat, numberFormat, destroyIfDone, command);

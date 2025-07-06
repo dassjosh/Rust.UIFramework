@@ -23,7 +23,7 @@ public partial class UiBuilder : BaseUiBuilder
         System.GC.SuppressFinalize(this);
     }
     #endregion
-        
+
     #region Setup
     public void SetRoot(BaseUiComponent component, string name, string parent)
     {
@@ -73,15 +73,22 @@ public partial class UiBuilder : BaseUiBuilder
         return cached;
     }
     #endregion
-        
+
     #region Add Components
-    public override void AddComponent(BaseUiComponent component, in UiReference parent)
+    public override void AddComponent(BaseUiComponent component, in UiReference parent, bool withChild = true)
     {
         UiReferenceException.ThrowIfInvalidParent(parent);
-        component.Reference = parent.WithChild(UiNameCache.GetComponentName(RootName, Components.Count));
+        if (withChild)
+        {
+            component.Reference = parent.WithChild(UiNameCache.GetComponentName(RootName, Components.Count));
+        }
+        else
+        {
+            component.Reference = parent;
+        }
         Components.Add(component);
     }
-        
+
     protected override void AddAnchor(BaseUiComponent component, in UiReference parent)
     {
         UiReferenceException.ThrowIfInvalidParent(parent);
@@ -106,7 +113,7 @@ public partial class UiBuilder : BaseUiBuilder
             Anchors[index].WriteComponent(writer);
         }
     }
-        
+
     protected override void EnterPool()
     {
         base.EnterPool();

@@ -1,4 +1,5 @@
-﻿using Oxide.Ext.UiFramework.Exceptions;
+﻿using Oxide.Ext.UiFramework.Cache;
+using Oxide.Ext.UiFramework.Exceptions;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.UiElements;
@@ -8,7 +9,7 @@ namespace Oxide.Ext.UiFramework.Builder.Update;
 public class UpdateBuilder : BaseUiBuilder
 {
     public static UpdateBuilder Create() => UiFrameworkPool.Get<UpdateBuilder>();
-        
+
     protected override void WriteComponentsInternal(JsonFrameworkWriter writer)
     {
         int count = Components.Count;
@@ -26,15 +27,22 @@ public class UpdateBuilder : BaseUiBuilder
             }
         }
     }
-        
+
     #region Add Components
-    public override void AddComponent(BaseUiComponent component, in UiReference parent)
+    public override void AddComponent(BaseUiComponent component, in UiReference parent, bool withChild = false)
     {
         UiReferenceException.ThrowIfInvalidReference(parent);
-        component.Reference = parent;
+        if (withChild)
+        {
+            component.Reference = parent.WithChild(UiNameCache.GetComponentName(RootName, Components.Count));
+        }
+        else
+        {
+            component.Reference = parent;
+        }
         Components.Add(component);
     }
-        
+
     protected override void AddAnchor(BaseUiComponent component, in UiReference parent)
     {
         UiReferenceException.ThrowIfInvalidReference(parent);
