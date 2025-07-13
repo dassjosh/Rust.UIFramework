@@ -65,7 +65,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Layouts\" />
+      <Folder Include="Libraries\" />
     </ItemGroup>
 
 </Project>

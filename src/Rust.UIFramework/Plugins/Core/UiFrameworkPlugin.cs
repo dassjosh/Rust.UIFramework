@@ -73,7 +73,7 @@ internal class UiFrameworkPlugin : BaseUiFrameworkPlugin
     private void OnPluginUnloaded(Plugin plugin)
     {
         BaseUiFrameworkLibrary.ProcessOnPluginUnloaded(plugin);
-        PluginExt.OnPluginUnloaded(plugin);
+        PluginIdExt.OnPluginUnloaded(plugin);
     }
     
     [HookMethod(nameof(OnServerShutdown))]

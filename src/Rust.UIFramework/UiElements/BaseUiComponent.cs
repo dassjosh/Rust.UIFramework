@@ -25,6 +25,7 @@ public abstract class BaseUiComponent(CoreComponent component) : BasePoolable
     public string Parent { get => Reference.Parent; set => Reference = Reference.WithParent(value); }
     public bool Enabled { get => _component.Enabled; set => _component.Enabled = value; }
 
+    [Obsolete]
     public static T CreateBase<T>() where T : BaseUiComponent, new() => UiFrameworkPool.Get<T>();
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]

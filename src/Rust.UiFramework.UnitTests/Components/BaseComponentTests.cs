@@ -11,7 +11,7 @@ public abstract class BaseComponentTests<T> where T : BaseComponent, new()
     public void Component_FromPool_IsNotNull()
     {
         // Arrange
-        using T component = Singleton<UiFrameworkPoolLib>.Instance.Internal.Get<T>();
+        using T component = UiPool.Internal.Get<T>();
         
         // Act
         
@@ -23,7 +23,7 @@ public abstract class BaseComponentTests<T> where T : BaseComponent, new()
     public Task Component_FromPool_HasDefaultValues()
     {
         // Arrange
-        using T component = Singleton<UiFrameworkPoolLib>.Instance.Internal.Get<T>();
+        using T component = UiPool.Internal.Get<T>();
         
         // Act
         
@@ -41,7 +41,7 @@ public abstract class BasePopulateComponentTests<T>(Action<T> populateComponent)
     public Task Component_AllValues_MatchExpected()
     {
         // Arrange
-        using T component = Singleton<UiFrameworkPoolLib>.Instance.Internal.Get<T>();
+        using T component = UiPool.Internal.Get<T>();
         
         // Act
         PopulateComponent(component);
@@ -54,8 +54,8 @@ public abstract class BasePopulateComponentTests<T>(Action<T> populateComponent)
     public Task Component_AllValues_GeneratesCorrectJson()
     {
         // Arrange
-        using T component = Singleton<UiFrameworkPoolLib>.Instance.Internal.Get<T>();
-        using JsonFrameworkWriter writer = JsonFrameworkWriter.Create();
+        using T component = UiPool.Internal.Get<T>();
+        using JsonFrameworkWriter writer = JsonFrameworkWriter.Create(UnitTestHelpers.UnitTestPool);
         
         // Act
         PopulateComponent(component);
@@ -70,7 +70,7 @@ public abstract class BasePopulateComponentTests<T>(Action<T> populateComponent)
     public Task Component_AllValues_ResetToCorrectDefaults()
     {
         // Arrange
-        using T component = Singleton<UiFrameworkPoolLib>.Instance.Internal.Get<T>();
+        using T component = UiPool.Internal.Get<T>();
         
         // Act
         PopulateComponent(component);
@@ -89,7 +89,7 @@ public abstract class BaseTheoryComponentTests<TComponent, TTheoryRow>(Action<TC
     public Task Component_Theory_AllValues_MatchExpected(TTheoryRow row)
     {
         // Arrange
-        using TComponent component = Singleton<UiFrameworkPoolLib>.Instance.Internal.Get<TComponent>();
+        using TComponent component = UiPool.Internal.Get<TComponent>();
         
         // Act
         PopulateComponent(component);
@@ -104,8 +104,8 @@ public abstract class BaseTheoryComponentTests<TComponent, TTheoryRow>(Action<TC
     public Task Component_Theory_AllValues_GeneratesCorrectJson(TTheoryRow row)
     {
         // Arrange
-        using TComponent component = Singleton<UiFrameworkPoolLib>.Instance.Internal.Get<TComponent>();
-        using JsonFrameworkWriter writer = JsonFrameworkWriter.Create();
+        using TComponent component = UiPool.Internal.Get<TComponent>();
+        using JsonFrameworkWriter writer = JsonFrameworkWriter.Create(UnitTestHelpers.UnitTestPool);
         
         // Act
         PopulateComponent(component);

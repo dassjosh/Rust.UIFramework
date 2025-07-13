@@ -10,11 +10,10 @@ internal sealed class PlayerAnimations : BasePoolable
     public readonly ConcurrentDictionary<AnimationId, BaseAnimation> Animations = new();
     public bool IsEmpty => Animations.Count == 0;
 
-    public static PlayerAnimations Create(SendInfo send)
+    public PlayerAnimations Init(SendInfo send)
     {
-        PlayerAnimations animations = UiFrameworkPool.Get<PlayerAnimations>();
-        animations.Send = send;
-        return animations;
+        Send = send;
+        return this;
     }
 
     public void AddAnimation(BaseAnimation animation) => Animations[animation.Id] = animation;

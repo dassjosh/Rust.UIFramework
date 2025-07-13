@@ -1,4 +1,6 @@
-﻿namespace Oxide.Ext.UiFramework.Types;
+﻿using System.Runtime.CompilerServices;
+
+namespace Oxide.Ext.UiFramework.Types;
 
 public readonly struct UiTuple<T0, T1>(T0 item1, T1 item2)
 {
@@ -9,12 +11,14 @@ public readonly struct UiTuple<T0, T1>(T0 item1, T1 item2)
     /// Implicitly converts from the ValueTuple to the first item's type.
     /// </summary>
     /// <param name="tuple">The tuple to convert</param>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static implicit operator T0(UiTuple<T0, T1> tuple) => tuple.Item1;
 
     /// <summary>
     /// Implicitly converts from the ValueTuple to the second item's type.
     /// </summary>
     /// <param name="tuple">The tuple to convert</param>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static implicit operator T1(UiTuple<T0, T1> tuple) => tuple.Item2;
     
     /// <summary>

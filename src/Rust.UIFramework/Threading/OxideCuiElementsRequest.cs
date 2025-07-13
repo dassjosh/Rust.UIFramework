@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Network;
-using Oxide.Ext.UiFramework.Pooling;
+using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Game.Rust.Cui;
 
 namespace Oxide.Ext.UiFramework.Threading;
@@ -11,7 +11,7 @@ internal class OxideCuiElementsRequest : BaseUiRequest, IUiRequest
     
     public static OxideCuiElementsRequest Create(List<CuiElement> elements, SendInfo send)
     {
-        OxideCuiElementsRequest request = UiFrameworkPool.Get<OxideCuiElementsRequest>();
+        OxideCuiElementsRequest request = UiPool.Internal.Get<OxideCuiElementsRequest>();
         request.Init(elements, send);
         return request;
     }

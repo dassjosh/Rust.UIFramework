@@ -18,7 +18,7 @@ public class UiBorder : BaseUiControl
 
     public static UiBorder Create(BaseUiBuilder builder, in UiReference parent, UiColor color, in UiBorderWidth width, BorderMode border = BorderMode.All)
     {
-        UiBorder control = CreateControl<UiBorder>();
+        UiBorder control = CreateControl<UiBorder>(builder.PluginPool);
         if (width.IsEmpty())
         {
             return control;

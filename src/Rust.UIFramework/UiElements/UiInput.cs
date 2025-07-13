@@ -1,6 +1,7 @@
 ﻿using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Enums;
+using Oxide.Ext.UiFramework.Libraries;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,20 +23,18 @@ public class UiInput : BaseUiText<UiInput>
         Input = component;
     }
     
-    public static UiInput Create(string text, int size, UiColor textColor, string cmd, string font, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, InputMode mode = InputMode.Default, InputField.LineType lineType = InputField.LineType.SingleLine)
+    public UiInput Init(string text, int size, UiColor textColor, string cmd, string font, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, InputMode mode = InputMode.Default, InputField.LineType lineType = InputField.LineType.SingleLine)
     {
-        UiInput input = CreateBase<UiInput>();
-        InputComponent comp = input.Input;
-        comp.Text = text;
-        comp.FontSize = size;
-        comp.Color = textColor;
-        comp.Align = align;
-        comp.Font = font;
-        comp.Command = cmd;
-        comp.CharsLimit = charsLimit;
-        comp.Mode = mode;
-        comp.LineType = lineType;
-        return input;
+        TextValue = text;
+        FontSize = size;
+        Color = textColor;
+        Align = align;
+        Font = font;
+        Command = cmd;
+        CharsLimit = charsLimit;
+        Mode = mode;
+        LineType = lineType;
+        return this;
     }
     
     public UiInput SetCharsLimit(int limit)
@@ -59,10 +58,10 @@ public class UiInput : BaseUiText<UiInput>
 
     /// <summary>
     /// Sets if the input should block keyboard input when focused on a loot panel / crafting ui.
-    /// This should not be used if a loot panel / crafting ui won't be open when displaying the UI.
+    /// This should only be used if a loot panel / crafting ui is open when displaying the UI.
     /// </summary>
     /// <param name="needsKeyboard"></param>
-    public UiInput SetNeedsHudKeyboard(bool needsKeyboard) => SetMode(InputMode.HudNeedsKeyboard, needsKeyboard);
+    public UiInput SetHudNeedsKeyboard(bool needsKeyboard) => SetMode(InputMode.HudNeedsKeyboard, needsKeyboard);
 
     public bool HasMode(InputMode mode) => Input.HasMode(mode);
     
@@ -91,6 +90,8 @@ public class UiInput : BaseUiText<UiInput>
         Command = command;
         return this;
     }
+    
+    public UiInput SetCommand(ICommandBuilder<InputArg> command) => SetCommand(command.Build(InputArg.Empty));
     
     public UiInput SetInputMode(InputMode mode)
     {

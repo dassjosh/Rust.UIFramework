@@ -19,7 +19,7 @@ public class UiDropdown : BaseUiControl
 
     public static UiDropdown Create(BaseUiBuilder builder, in UiReference parent, in UiPosition pos, in UiOffset offset, string displayValue, int fontSize, UiColor textColor, UiColor backgroundColor, ICommandBuilder<UiReference> openCommand)
     {
-        UiDropdown control = CreateControl<UiDropdown>();
+        UiDropdown control = CreateControl<UiDropdown>(builder.PluginPool);
         control.Anchor = builder.Anchor(parent, pos);
         control.Command = builder.Button(parent, pos, offset, backgroundColor, openCommand.Build(control.Anchor.Reference));
         control.Text = builder.Label(control.Command, UiPosition.Full, new UiOffset(5, 0, 0, 0), displayValue, fontSize, textColor, TextAnchor.MiddleLeft);

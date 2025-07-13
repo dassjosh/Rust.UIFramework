@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Diagnostics.Contracts;
+using Oxide.Ext.UiFramework.Padding;
+using Oxide.Ext.UiFramework.Positions;
 using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Offsets;
@@ -222,14 +224,21 @@ public readonly struct UiOffset(float xMin, float yMin, float xMax, float yMax) 
         return new UiOffset(min.x, min.y + bottom, max.x, max.y - top);
     }
     
+    [Pure]
+    public UiOffset WithPadding(in UiPadding padding)
+    {
+        return this + padding;
+    }
+    
     public static UiOffset Lerp(in UiOffset a, in UiOffset b, float t) => new(Vector2.Lerp(a.Min, b.Min, t), Vector2.Lerp(a.Max, b.Max, t));
     public static UiOffset LerpUnclamped(in UiOffset a, in UiOffset b, float t) => new(Vector2.LerpUnclamped(a.Min, b.Min, t), Vector2.LerpUnclamped(a.Max, b.Max, t));
+    
     #endregion
 
     #region Operators
 
-    public static UiOffset operator +(UiOffset lhs, UiOffset rhs) => new(lhs.Min.x + rhs.Min.x, lhs.Min.y + rhs.Min.y, lhs.Max.x + rhs.Max.x, lhs.Max.y + rhs.Max.y);
-    public static UiOffset operator -(UiOffset lhs, UiOffset rhs) => new(lhs.Min.x - rhs.Min.x, lhs.Min.y - rhs.Min.y, lhs.Max.x - rhs.Max.x, lhs.Max.y - rhs.Max.y);
+    public static UiOffset operator +(UiOffset lhs, UiOffset rhs) => new(lhs.Min.x + rhs.Min.x, lhs.Min.y + rhs.Min.y, lhs.Max.x - rhs.Max.x, lhs.Max.y - rhs.Max.y);
+    public static UiOffset operator -(UiOffset lhs, UiOffset rhs) => new(lhs.Min.x - rhs.Min.x, lhs.Min.y - rhs.Min.y, lhs.Max.x + rhs.Max.x, lhs.Max.y + rhs.Max.y);
 
     #endregion
     

@@ -1,6 +1,4 @@
-﻿using Oxide.Ext.UiFramework.Pooling;
-
-namespace Oxide.Ext.UiFramework.Libraries;
+﻿namespace Oxide.Ext.UiFramework.Libraries;
 
 internal class BaseCommandBuilder(string command, ICommandProtection protection, IArgWriter[] writers, int argIndex = 0)
 {
@@ -9,7 +7,7 @@ internal class BaseCommandBuilder(string command, ICommandProtection protection,
 
     protected ArgWriterIterator StartBuilding()
     {
-        UiArgWriter argWriter = new(UiFrameworkPool.GetStringBuilder());
+        UiArgWriter argWriter = new(UiPool.Internal.GetStringBuilder());
         ArgWriterIterator iterator = new(argWriter, Writers, argIndex);
         return iterator;
     }

@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Oxide.Ext.UiFramework.Pooling;
+using Oxide.Ext.UiFramework.Libraries;
 
 namespace Oxide.Ext.UiFramework.Extensions;
 
@@ -20,7 +20,7 @@ public static class DictionaryExt
     {
         if (dic == null) throw new ArgumentNullException(nameof(dic));
 
-        List<TKey> removeKeys = UiFrameworkPool.GetList<TKey>();
+        List<TKey> removeKeys = UiPool.Internal.GetList<TKey>();
         foreach (KeyValuePair<TKey, TValue> key in dic)
         {
             if (predicate(key))
@@ -34,7 +34,7 @@ public static class DictionaryExt
             dic.Remove(key);
         }
             
-        UiFrameworkPool.FreeList(removeKeys);
+        UiPool.Internal.FreeList(removeKeys);
     }
         
     /// <summary>
@@ -49,7 +49,7 @@ public static class DictionaryExt
     {
         if (hash == null) throw new ArgumentNullException(nameof(hash));
 
-        List<TKey> removeKeys = UiFrameworkPool.GetList<TKey>();
+        List<TKey> removeKeys = UiPool.Internal.GetList<TKey>();
         foreach (KeyValuePair<TKey, TValue> key in hash)
         {
             if (predicate(key.Value))
@@ -64,6 +64,6 @@ public static class DictionaryExt
             hash.Remove(key);
         }
             
-        UiFrameworkPool.FreeList(removeKeys);
+        UiPool.Internal.FreeList(removeKeys);
     }
 }

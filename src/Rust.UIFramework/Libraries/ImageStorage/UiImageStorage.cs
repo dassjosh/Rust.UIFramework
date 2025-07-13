@@ -9,6 +9,7 @@ using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Logging;
 using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Types;
+using Random = Oxide.Core.Random;
 
 
 namespace Oxide.Ext.UiFramework.Libraries;
@@ -16,21 +17,29 @@ namespace Oxide.Ext.UiFramework.Libraries;
 public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
 {
     private readonly ImageStorageData _data = ImageStorageData.Instance;
-    private readonly ImageDownloader _downloader = new();
+    private readonly ImageDownloader _downloader;
     private readonly IUiLogger<UiImageStorage> _logger = Singleton<UiLoggerFactory>.Instance.CreateExtensionLogger<UiImageStorage>();
     public bool IsReady { get; private set; }
     
     private static readonly byte[] SignaturePNG = [137, 80, 78, 71, 13, 10, 26, 10, 0, 0, 0, 13, 73, 72, 68, 82];
 
-    private UiImageStorage() {}
+    private UiImageStorage()
+    {
+#if UNIT_TESTS
+        _downloader = new ImageDownloader(Singleton<ImageStorageBehavior>.Instance);
+#else
+        _downloader = new ImageDownloader(SingletonBehavior<ImageStorageBehavior>.Instance);
+#endif
+    }
 
     public string Get(Plugin plugin, string name)
     {
 #if UNIT_TESTS
         return name;
-#endif
+#else
         if (plugin == null) throw new ArgumentNullException(nameof(plugin));
         return Get(plugin.Id(), name);
+#endif
     }
     
     internal string Get(PluginId pluginId, string name)
@@ -138,7 +147,14 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
 
     private static bool IsValidRustPng(byte[] image) => image.AsSpan().StartsWith(SignaturePNG);
     private static bool IsValidJpegImage(byte[] image) => image is [0xFF, 0xD8, ..];
-    private static ImageId StoreImage(byte[] image) => new(FileStorage.server.Store(image, FileStorage.Type.png, CommunityEntity.ServerInstance.net.ID).ToString());
+    private static ImageId StoreImage(byte[] image)
+    {
+#if UNIT_TESTS
+        return new ImageId(Random.Range(0, int.MaxValue).ToString());
+#else
+        return new ImageId(FileStorage.server.Store(image, FileStorage.Type.png, CommunityEntity.ServerInstance.net.ID).ToString());
+#endif
+    }
 
     internal void OnCommunityEntitySpawned()
     {

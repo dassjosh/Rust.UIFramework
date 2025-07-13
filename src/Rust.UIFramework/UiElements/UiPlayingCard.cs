@@ -25,14 +25,13 @@ public class UiPlayingCard : BaseUiComponent, IMaterial<UiPlayingCard>, IFadeIn<
         Card = component;
     }
     
-    public static UiPlayingCard Create(PlayingCardData card, UiCardType type, UiColor color)
+    public UiPlayingCard Init(PlayingCardData card, UiCardType type, UiColor color)
     {
-        UiPlayingCard image = CreateBase<UiPlayingCard>();
-        image.Card.Color = color;
-        image.Card.Rank = card.Rank;
-        image.Card.Suit = card.Suit;
-        image.Card.CardType = type;
-        return image;
+        Color = color;
+        Rank = card.Rank;
+        Suit = card.Suit;
+        CardType = type;
+        return this;
     }
     
     public UiPlayingCard SetMaterial(string material)

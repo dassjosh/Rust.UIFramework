@@ -1,7 +1,7 @@
 ﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
 using Network;
-using Oxide.Ext.UiFramework.Pooling;
+using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Animation;
@@ -15,19 +15,18 @@ internal class AnimationTracker : ISingleton
     
     public void OnAnimatedPanelCreated(SendInfo send, string rootName, string name, AnimationId id)
     {
-        if (send.connections != null)
+        if (send.connections == null)
         {
-            List<Connection> connections = send.connections;
-            for (int index = 0; index < connections.Count; index++)
-            {
-                Connection connection = connections[index];
-                OnAnimatedPanelCreated(connection.userid, rootName, name, id);
-            }
-
+            OnAnimatedPanelCreated(send.connection.userid, rootName, name, id);
             return;
         }
-        
-        OnAnimatedPanelCreated(send.connection.userid, rootName, name, id);
+
+        List<Connection> connections = send.connections;
+        for (int index = 0; index < connections.Count; index++)
+        {
+            Connection connection = connections[index];
+            OnAnimatedPanelCreated(connection.userid, rootName, name, id);
+        }
     }
     
     private void OnAnimatedPanelCreated(ulong playerId, string rootName, string name, AnimationId id)
@@ -35,20 +34,24 @@ internal class AnimationTracker : ISingleton
         PlayerPanel rootPlayerPanel = new(playerId, rootName);
         PlayerPanel playerPanel = new(playerId, name);
         List<PlayerPanel> animationPanels = GetAnimationPanels(id);
-        _playerPanels.TryAdd(playerPanel, id);
-        animationPanels.Add(playerPanel);
+        AddPlayerPanel(id, playerPanel, animationPanels);
         if (!string.IsNullOrEmpty(rootName))
         {
-            _playerPanels.TryAdd(rootPlayerPanel, id);
-            animationPanels.Add(rootPlayerPanel);
+            AddPlayerPanel(id, rootPlayerPanel, animationPanels);
         }
+    }
+
+    private void AddPlayerPanel(AnimationId id, in PlayerPanel rootPlayerPanel, List<PlayerPanel> animationPanels)
+    {
+        _playerPanels.TryAdd(rootPlayerPanel, id);
+        animationPanels.Add(rootPlayerPanel);
     }
 
     private List<PlayerPanel> GetAnimationPanels(AnimationId id)
     {
         if (!_animatedPlayers.TryGetValue(id, out List<PlayerPanel> playerPanels))
         {
-            _animatedPlayers[id] = playerPanels = UiFrameworkPool.GetList<PlayerPanel>();
+            _animatedPlayers[id] = playerPanels = UiPool.Internal.GetList<PlayerPanel>();
         }
 
         return playerPanels;
@@ -62,25 +65,24 @@ internal class AnimationTracker : ISingleton
             {
                 _playerPanels.TryRemove(playerPanel, out AnimationId _);
             }
-            UiFrameworkPool.FreeList(playerPanels);
+            UiPool.Internal.FreeList(playerPanels);
         }
     }
     
     public void RemoveUiForSend(SendInfo send, string name)
     {
-        if (send.connections != null)
+        if (send.connections == null)
         {
-            List<Connection> connections = send.connections;
-            for (int index = 0; index < connections.Count; index++)
-            {
-                Connection connection = connections[index];
-                RemoveUiForSend(connection.userid, name);
-            }
-
+            RemoveUiForSend(send.connection.userid, name);
             return;
         }
-        
-        RemoveUiForSend(send.connection.userid, name);
+
+        List<Connection> connections = send.connections;
+        for (int index = 0; index < connections.Count; index++)
+        {
+            Connection connection = connections[index];
+            RemoveUiForSend(connection.userid, name);
+        }
     }
 
     private void RemoveUiForSend(ulong playerId, string name)

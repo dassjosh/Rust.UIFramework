@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Offsets;
+using Oxide.Ext.UiFramework.Padding;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.UiElements;
 
@@ -12,9 +14,9 @@ public class UiDockLayout : BaseUiLayout
     public UiPadding Padding;
     public readonly List<LayoutState> Elements = [];
 
-    public static UiDockLayout Create(in UiReference reference)
+    public static UiDockLayout Create(UiPluginPool pool, in UiReference reference)
     {
-        return CreateBase<UiDockLayout>(reference);
+        return CreateBase<UiDockLayout>(pool, reference);
     }
 
     public override void AddElement(BaseUiComponent element)

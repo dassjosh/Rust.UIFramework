@@ -7,7 +7,7 @@ using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Layouts;
 using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Offsets;
-using Oxide.Ext.UiFramework.Pooling;
+using Oxide.Ext.UiFramework.Padding;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.UiElements;
 using Rust.UI;
@@ -39,7 +39,7 @@ public class UiCalenderPicker : BaseUiControl
         
     public static UiCalenderPicker Create(BaseUiBuilder builder, in UiReference reference, in UiPosition pos, in UiOffset offset, DateTime date, int fontSize, UiColor textColor, UiColor buttonColor, UiColor selectedDateColor, ICommandBuilder<DateTime> changeCommand, string buttonSprite)
     {
-        UiCalenderPicker control = CreateControl<UiCalenderPicker>();
+        UiCalenderPicker control = CreateControl<UiCalenderPicker>(builder.PluginPool);
         control.CreateCalender(builder, in reference, in pos, in offset, date, fontSize, textColor, buttonColor, selectedDateColor, changeCommand, buttonSprite);
         return control;
     }
@@ -72,7 +72,7 @@ public class UiCalenderPicker : BaseUiControl
         PreviousMonth = builder.IconButton(headerLayout, buttonColor, Icons.Backward, changeCommand.Build(value.AddMonths(-1)), textColor);
         StyleButton(PreviousMonth, buttonSprite);
         
-        UiLabel label = builder.Label(headerLayout.Reference, FormatCache<DateTime>.ToString(_firstOfTheMonth, "MMM yyyy"), fontSize, textColor);
+        UiLabel label = builder.Label(headerLayout, FormatCache<DateTime>.ToString(_firstOfTheMonth, "MMM yyyy"), fontSize, textColor);
         headerLayout.AddElement(label, 3f);
         
         NextMonth = builder.IconButton(headerLayout, buttonColor, Icons.Forward, changeCommand.Build(value.AddYears(1)), textColor);
@@ -142,7 +142,7 @@ public class UiCalenderPicker : BaseUiControl
     protected override void LeavePool()
     {
         base.LeavePool();
-        DateButtons = UiFrameworkPool.GetList<UiButton>();
+        DateButtons = PluginPool.GetList<UiButton>();
     }
 
     protected override void EnterPool()
@@ -154,6 +154,6 @@ public class UiCalenderPicker : BaseUiControl
         PreviousMonth = null;        
         NextYear = null;
         NextMonth = null;
-        UiFrameworkPool.FreeList(DateButtons);
+        PluginPool.FreeList(DateButtons);
     }
 }

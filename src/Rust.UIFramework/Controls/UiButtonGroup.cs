@@ -6,7 +6,6 @@ using Oxide.Ext.UiFramework.Controls.Data;
 using Oxide.Ext.UiFramework.Layouts;
 using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Offsets;
-using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.UiElements;
 
@@ -20,7 +19,7 @@ public class UiButtonGroup : BaseUiControl
         
     public static UiButtonGroup Create(BaseUiBuilder builder, in UiReference parent, in UiPosition pos, in UiOffset offset, List<ButtonGroupData> buttons, int textSize, UiColor textColor, UiColor buttonColor, UiColor activeButtonColor)
     {
-        UiButtonGroup control = CreateControl<UiButtonGroup>();
+        UiButtonGroup control = CreateControl<UiButtonGroup>(builder.PluginPool);
         control.Layout = builder.DirectionalLayout(parent, pos, offset, buttons.Count);
         
         for (int i = 0; i < buttons.Count; i++)
@@ -34,7 +33,7 @@ public class UiButtonGroup : BaseUiControl
         
     public static UiButtonGroup CreateNumeric(BaseUiBuilder builder, in UiReference parent, in UiPosition pos, in UiOffset offset, int value, int minValue, int maxValue, int textSize, UiColor textColor, UiColor buttonColor, UiColor activeButtonColor, ICommandBuilder<int> command)
     {
-        List<ButtonGroupData> data = UiFrameworkPool.GetList<ButtonGroupData>();
+        List<ButtonGroupData> data = builder.PluginPool.GetList<ButtonGroupData>();
         for (int i = minValue; i <= maxValue; i++)
         {
             string num = StringCache<int>.ToString(i);
@@ -42,7 +41,7 @@ public class UiButtonGroup : BaseUiControl
         }
             
         UiButtonGroup control = Create(builder, parent, pos, offset, data, textSize, textColor, buttonColor, activeButtonColor);
-        UiFrameworkPool.FreeList(data);
+        builder.PluginPool.FreeList(data);
 
         return control;
     }
@@ -50,13 +49,13 @@ public class UiButtonGroup : BaseUiControl
     protected override void LeavePool()
     {
         base.LeavePool();
-        Buttons = UiFrameworkPool.GetList<UiButton>();
+        Buttons = PluginPool.GetList<UiButton>();
     }
 
     protected override void EnterPool()
     {
         base.EnterPool();
-        UiFrameworkPool.FreeList(Buttons);
+        PluginPool.FreeList(Buttons);
         Layout = null;
     }
 }

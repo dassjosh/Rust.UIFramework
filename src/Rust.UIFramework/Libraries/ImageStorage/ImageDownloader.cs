@@ -24,6 +24,7 @@ internal class ImageDownloader
     private readonly ConcurrentQueue<DownloadRequest> _requestQueue = new();
     private readonly ConcurrentDictionary<string, DownloadState> _urlState = new();
     private readonly CancellationTokenSource _cancellationTokenSource = new();
+    private readonly IImageStorageBehavior _storage;
     private readonly int _maxConcurrentDownloads = UiFrameworkConfig.Instance.ImageStorage.MaxConcurrentDownloads;
     private readonly int _maxDownloadAttempts = UiFrameworkConfig.Instance.ImageStorage.MaxDownloadAttempts;
     private readonly object _taskLock = new();
@@ -33,8 +34,9 @@ internal class ImageDownloader
     /// <summary>
     /// Initializes a new instance of the ImageDownloader class
     /// </summary>
-    public ImageDownloader()
+    public ImageDownloader(IImageStorageBehavior storage)
     {
+        _storage = storage;
         HttpClientHandler handler = new()
         {
             AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate,
@@ -62,19 +64,18 @@ internal class ImageDownloader
         DownloadRequest request = new(pluginId, name, url);
         if (_urlState.TryGetValue(url, out DownloadState state))
         {
-            if (state.InProgress  || state.Completed || state.Attempts > _maxDownloadAttempts)
+            if (state.InProgress || state.Completed || state.Attempts > _maxDownloadAttempts)
             {
                 return false;
             }
         }
         else
         {
-            _urlState.TryAdd(url, new DownloadState(1, true, false));
+            _urlState.TryAdd(url, new DownloadState());
         }
 
         _requestQueue.Enqueue(request);
-                
-        // Start workers if needed
+        
         EnsureWorkersRunning();
                 
         return true;
@@ -138,16 +139,33 @@ internal class ImageDownloader
                     continue;
                 }
                 
-                await DownloadImageAsync(request, state, cancellationToken);
+                if (state.Attempts > _maxDownloadAttempts)
+                {
+                    _logger.Debug("Skipping url: {0} as it's out of attempts", request.Url);
+                    continue;
+                }
+                
+                try
+                {
+                    await DownloadImageAsync(request, state, cancellationToken);
+                }
+                catch (OperationCanceledException)
+                {
+                    // Expected when cancellation is requested
+                    if(cancellationToken.IsCancellationRequested)
+                    {
+                        _logger.Debug("Worker task shutting down due to cancellation. Active workers: {0}", _activeWorkerCount);
+                    }
+
+                    // Failed because of timeout. Requeue the request
+                    _requestQueue.Enqueue(request);
+                    _logger.Debug("A timeout occured during download for request: {0}", request.Url);
+                }
+                catch (Exception ex)
+                {
+                    _logger.Exception("An unhandled exception occurred in the download worker", ex);
+                }
             }
-        }
-        catch (OperationCanceledException)
-        {
-            // Expected when cancellation is requested
-        }
-        catch (Exception ex)
-        {
-            _logger.Exception("An error occurred in the download worker", ex);
         }
         finally
         {
@@ -172,12 +190,11 @@ internal class ImageDownloader
             if (response.IsSuccessStatusCode)
             {
                 byte[] data = await response.Content.ReadAsByteArrayAsync();
-                SingletonBehavior<ImageStorageBehavior>.Instance.OnDownloadComplete(new CompletedDownload(request, data));
+                _storage.OnDownloadComplete(new CompletedDownload(request, data));
                 state.OnDownloadComplete();
                 return true;
             }
             
-            state.OnDownloadFailed();
             _logger.Error($"Failed to download image. Url: {request.Url}. Attempt: {state.Attempts} Status Code: {response.StatusCode}. Message: {await response.Content.ReadAsStringAsync()}");
         }
         catch (Exception ex) when (ex is not OperationCanceledException)
@@ -185,6 +202,7 @@ internal class ImageDownloader
             _logger.Exception($"An error occured downloading image. Url: {request.Url} Attempt: {state.Attempts}", ex);
         }
 
+        state.OnDownloadFailed();
         return false;
     }
     
@@ -193,12 +211,12 @@ internal class ImageDownloader
         _cancellationTokenSource.Cancel();
     }
 
-    private sealed class DownloadState(int attempts, bool inProgress, bool completed)
+    private sealed class DownloadState
     {
-        public int Attempts = attempts;
-        public bool InProgress = inProgress;
-        public bool Completed = completed;
-        
+        public int Attempts = 1;
+        public bool InProgress = true;
+        public bool Completed;
+
         public void OnDownloadFailed()
         {
             Attempts += 1;

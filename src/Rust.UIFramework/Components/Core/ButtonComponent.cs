@@ -17,13 +17,7 @@ public class ButtonComponent : ImageComponent
 
     internal ColorBlockComponent GetOrAddColorBlock()
     {
-        if (ColorBlock != null)
-        {
-            return ColorBlock; 
-        }
-        ColorBlockComponent colors = PluginPool.Get<ColorBlockComponent>();
-        ColorBlock = colors;
-        return colors;
+        return ColorBlock ??= PluginPool.Get<ColorBlockComponent>();
     }
 
     internal ColorBlockComponent AddColorBlock(in UiColor? highlightColor, in UiColor? pressedColor, in UiColor? selectedColor, in float? colorMultiplier, in float? fadeDuration)

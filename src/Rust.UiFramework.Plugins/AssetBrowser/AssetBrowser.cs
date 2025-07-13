@@ -19,6 +19,8 @@ using Oxide.Ext.UiFramework.Helpers;
 using Oxide.Ext.UiFramework.Layouts;
 using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Offsets;
+using Oxide.Ext.UiFramework.Padding;
+using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.Types;
 using Oxide.Ext.UiFramework.UiElements;
@@ -30,7 +32,7 @@ namespace Oxide.Plugins;
 
 [Info("Asset Browser", "MJSU", "1.0.0")]
 [Description("Allows browsing Rust assets")]
-public class AssetBrowser : RustPlugin
+public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
 {
     #region Class Fields
     private PluginConfig _pluginConfig;
@@ -50,6 +52,8 @@ public class AssetBrowser : RustPlugin
     private readonly UiPlayerStore _store = GetLibrary<UiPlayerStore>();
     private readonly UiImageStorage _storage = GetLibrary<UiImageStorage>();
     private UiCommandHandler _uiCommands;
+    
+    public UiPluginPool Pool { get; set; }
     
     public enum AssetType
     {

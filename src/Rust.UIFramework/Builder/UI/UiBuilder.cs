@@ -7,6 +7,8 @@ using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Exceptions;
 using Oxide.Ext.UiFramework.Interfaces.Builders;
 using Oxide.Ext.UiFramework.Json;
+using Oxide.Ext.UiFramework.Offsets;
+using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.Types;
 using Oxide.Ext.UiFramework.UiElements;
 
@@ -30,39 +32,95 @@ public partial class UiBuilder : BaseUiBuilder, IAnimationBuilder
     #endregion
         
     #region Setup
-    public void SetRoot(BaseUiComponent component, string name, string parent)
+    public UiBuilder SetRoot<T>(out T element) where T : BaseUiComponent, new()
     {
-        Root = component;
-        _actualRoot = component;
-        component.Update = UpdateMode.AutoDestroy;
-        component.Reference = new UiReference(parent, name);
-        Components.Add(component);
+        element = PluginPool.Get<T>();
+        Components.Add(element);
+        return this;
+    }
+    
+    public UiBuilder SetRoot<T>(in UiReference reference, out T element) where T : BaseUiComponent, new()
+    {
+        element = PluginPool.Get<T>();
+        return SetRoot(element, reference.Name, reference.Parent);
+    }
+    
+    public UiBuilder SetRoot(BaseUiComponent element, string name, string parent)
+    {
+        Root = _actualRoot = element;
+        element.Update = UpdateMode.AutoDestroy;
+        element.Reference = new UiReference(parent, name);
+        Components.Add(element);
         RootName = name;
+        return this;
     }
 
-    public void OverrideRoot(BaseUiComponent component)
+    public UiBuilder OverrideRoot(BaseUiComponent component)
     {
         Root = component;
+        return this;
     }
 
-    public void NeedsMouse(bool enabled = true)
+    public UiBuilder NeedsMouse(bool enabled = true)
     {
         _actualRoot.NeedsMouse(enabled);
+        return this;
     }
 
-    public void NeedsKeyboard(bool enabled = true)
+    public UiBuilder NeedsKeyboard(bool enabled = true)
     {
         _actualRoot.NeedsKeyboard(enabled);
+        return this;
     }
 
-    public void EnableAutoDestroy(bool enabled = true)
+    public UiBuilder EnableAutoDestroy(bool enabled = true)
     {
         _actualRoot.Update = enabled ? UpdateMode.AutoDestroy : UpdateMode.None;
+        return this;
     }
 
     public BaseUiComponent GetActualRoot() => _actualRoot;
     #endregion
 
+    #region Builder
+    public UiBuilder SetName(string name)
+    {
+        RootName = name;
+        _actualRoot.Name = name;
+        return this;
+    }
+    
+    public UiBuilder SetParent(string parent)
+    {
+        _actualRoot.Parent = parent;
+        return this;
+    }
+
+    public UiBuilder SetParent(UiLayer parent)
+    {
+        _actualRoot.SetParent(parent);
+        return this;
+    }
+
+    public UiBuilder SetReference(in UiReference reference)
+    {
+        _actualRoot.Reference = reference;
+        return this;
+    }
+    
+    public UiBuilder SetPosition(in UiPosition pos)
+    {
+        _actualRoot.SetPosition(pos);
+        return this;
+    }
+    
+    public UiBuilder SetPosition(in UiPosition pos, in UiOffset offset)
+    {
+        _actualRoot.SetPosition(pos, offset);
+        return this;
+    }
+    #endregion
+    
     #region JSON
     public int WriteBuffer(byte[] buffer)
     {
@@ -75,7 +133,7 @@ public partial class UiBuilder : BaseUiBuilder, IAnimationBuilder
     public CachedUiBuilder ToCachedBuilder(bool dispose = true)
     {
         CachedUiBuilder cached = CachedUiBuilder.CreateCachedBuilder(this);
-        if (dispose && !Disposed)
+        if (dispose && CanPool)
         {
             Dispose();
         }

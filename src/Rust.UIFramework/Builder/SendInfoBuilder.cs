@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Network;
 using Oxide.Ext.UiFramework.Config;
-using Oxide.Ext.UiFramework.Pooling;
+using Oxide.Ext.UiFramework.Libraries;
 
 namespace Oxide.Ext.UiFramework.Builder;
 
@@ -33,7 +33,7 @@ internal static class SendInfoBuilder
     internal static SendInfo Get(IEnumerable<Connection> connections)
     {
         if (connections == null) throw new ArgumentNullException(nameof(connections));
-        List<Connection> pooledConnection = UiFrameworkPool.GetList<Connection>();
+        List<Connection> pooledConnection = UiPool.Internal.GetList<Connection>();
         foreach (Connection connection in connections)
         {
             if (connection is { connected: true })
@@ -59,7 +59,7 @@ internal static class SendInfoBuilder
             };
         }
 
-        List<Connection> connections = UiFrameworkPool.GetList<Connection>();
+        List<Connection> connections = UiPool.Internal.GetList<Connection>();
         foreach (Connection connection in info.connections)
         {
             if (connection is { connected: true })

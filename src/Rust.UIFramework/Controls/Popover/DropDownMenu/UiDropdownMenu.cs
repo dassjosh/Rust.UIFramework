@@ -6,6 +6,7 @@ using Oxide.Ext.UiFramework.Constants;
 using Oxide.Ext.UiFramework.Layouts;
 using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Offsets;
+using Oxide.Ext.UiFramework.Padding;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.UiElements;
 using UnityEngine.UI;
@@ -20,7 +21,7 @@ public class UiDropdownMenu : BaseUiControl
         
     public static UiDropdownMenu Create(BaseUiBuilder builder, in UiReference reference, in UiPosition position, in UiOffset offset, List<DropdownMenuData> items, int fontSize, UiColor textColor, UiColor backgroundColor, DropdownMenuScrollMode scrollMode, ICommandBuilder<int> pageCommand = null, int page = 0, int maxValuesPerPage = 100, in UiPadding? padding = null)
     {
-        UiDropdownMenu control = CreateControl<UiDropdownMenu>();
+        UiDropdownMenu control = CreateControl<UiDropdownMenu>(builder.PluginPool);
         
         int itemCount = Math.Min(items.Count, maxValuesPerPage);
         int maxPage = UiHelpers.CalculateMaxPage(items.Count, maxValuesPerPage);

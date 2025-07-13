@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 using System.Text;
-using Oxide.Ext.UiFramework.Pooling;
+using Oxide.Ext.UiFramework.Libraries;
 
 namespace Oxide.Ext.UiFramework.Extensions;
 
@@ -8,7 +8,7 @@ public static class MethodInfoExt
 {
     public static string GetMethodWithParams(this MethodInfo info)
     {
-        StringBuilder sb = UiFrameworkPool.GetStringBuilder();
+        StringBuilder sb = UiPool.Internal.GetStringBuilder();
         sb.Append(info.Name);
         sb.Append('(');
 
@@ -27,6 +27,6 @@ public static class MethodInfoExt
         }
 
         sb.Append(')');
-        return sb.ToStringAndFree();
+        return UiPool.Internal.ToStringAndFree(sb);
     }
 }

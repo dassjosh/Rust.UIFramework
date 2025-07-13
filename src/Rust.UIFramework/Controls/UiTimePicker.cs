@@ -20,7 +20,7 @@ public class UiTimePicker : BaseUiControl
 
     public static UiTimePicker Create(BaseUiBuilder builder, in UiReference parent, in UiPosition pos, in UiOffset offset, DateTime time, int fontSize, UiColor textColor, UiColor backgroundColor, ICommandBuilder<UiReference> openCommand, string displayFormat = "hh:mm:ss tt")
     {
-        UiTimePicker control = CreateControl<UiTimePicker>();
+        UiTimePicker control = CreateControl<UiTimePicker>(builder.PluginPool);
             
         control.Anchor = builder.Anchor(parent, pos, offset);
         control.Command = builder.Button(parent, pos, offset, backgroundColor, openCommand.Build(control.Anchor.Reference));

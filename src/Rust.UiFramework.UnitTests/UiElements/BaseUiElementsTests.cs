@@ -86,7 +86,7 @@ public abstract class BasePopulateUiElementsTests<T>(params Action<T>[] populate
         {
             // Arrange
             using T element = GetElementWithValues();
-            using JsonFrameworkWriter writer = JsonFrameworkWriter.Create();
+            using JsonFrameworkWriter writer = JsonFrameworkWriter.Create(UnitTestHelpers.UnitTestPool);
 
             // Act
             populate(element);
@@ -146,7 +146,7 @@ public abstract class BaseTheoryUiElementsTests<TElement, TTheoryRow>(params Act
         {
             // Arrange
             using TElement element = GetElementWithValues();
-            using JsonFrameworkWriter writer = JsonFrameworkWriter.Create();
+            using JsonFrameworkWriter writer = JsonFrameworkWriter.Create(UnitTestHelpers.UnitTestPool);
 
             // Act
             populate(element, row);

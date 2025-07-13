@@ -1,4 +1,5 @@
 ﻿using Network;
+using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Pooling;
 
 namespace Oxide.Ext.UiFramework.Threading;
@@ -16,7 +17,7 @@ public abstract class BaseUiRequest : BasePoolable
     {
         if (Send.connections != null)
         {
-            UiFrameworkPool.FreeList(Send.connections);
+            UiPool.Internal.FreeList(Send.connections);
         }
         Send = default;
     }

@@ -22,13 +22,12 @@ public class UiPlayerAvatar : BaseUiComponent, IMaterial<UiPlayerAvatar>, IFadeI
         Avatar = component;
     }
     
-    public static UiPlayerAvatar Create(ulong steamId, AvatarType type, UiColor color)
+    public UiPlayerAvatar Init(ulong steamId, AvatarType type, UiColor color)
     {
-        UiPlayerAvatar icon = CreateBase<UiPlayerAvatar>();
-        icon.Avatar.Color = color;
-        icon.Avatar.SteamId = steamId;
-        icon.Avatar.AvatarType = type;
-        return icon;
+        Color = color;
+        SteamId = steamId;
+        AvatarType = type;
+        return this;
     }
         
     public UiPlayerAvatar SetFadeIn(float duration)

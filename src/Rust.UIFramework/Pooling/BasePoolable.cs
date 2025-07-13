@@ -6,18 +6,13 @@ namespace Oxide.Ext.UiFramework.Pooling;
 /// <summary>
 /// Represents a poolable object
 /// </summary>
-public abstract class BasePoolable : IDisposable
+public abstract class BasePoolable : IPoolable
 {
-    internal bool Disposed;
-
-    /// <summary>
-    /// Returns if the object should be pooled.
-    /// This field is set to true when leaving the pool.
-    /// If the object is instantiated using new() outside the pool, it will be false
-    /// </summary>
-    private bool _shouldPool;
+    private bool _disposed;
+    internal bool CanPool => _pool != null && !_disposed;
     private IPool<BasePoolable> _pool;
-    protected UiFrameworkPluginPool PluginPool;
+    internal UiPluginPool PluginPool;
+    UiPluginPool IPoolable.PluginPool => PluginPool;
 
     internal void OnInitInternal(IPool<BasePoolable> pool)
     {
@@ -28,7 +23,7 @@ public abstract class BasePoolable : IDisposable
     
     internal virtual void OnInit() {}
     
-    internal void OverridePluginPool(UiFrameworkPluginPool pluginPool)
+    internal void OverridePluginPool(UiPluginPool pluginPool)
     {
         PluginPool = pluginPool;
     }
@@ -36,34 +31,26 @@ public abstract class BasePoolable : IDisposable
     internal void EnterPoolInternal()
     {
         EnterPool();
-        _shouldPool = false;
-        Disposed = true;
+        _disposed = true;
     }
 
     internal void LeavePoolInternal()
     {
-        _shouldPool = true;
-        Disposed = false;
+        _disposed = false;
         LeavePool();
     }
 
     /// <summary>
     /// Called when the object is returned to the pool.
-    /// Can be overriden in child classes to cleanup used data
+    /// Can be overriden in child classes to clean up used data
     /// </summary>
-    protected virtual void EnterPool()
-    {
-            
-    }
+    protected virtual void EnterPool() { }
         
     /// <summary>
     /// Called when the object leaves the pool.
     /// Can be overriden in child classes to set the initial object state
     /// </summary>
-    protected virtual void LeavePool()
-    {
-            
-    }
+    protected virtual void LeavePool() { }
     
 #if UNIT_TESTS
     internal void TestEnterPool() => EnterPool();
@@ -72,12 +59,12 @@ public abstract class BasePoolable : IDisposable
 
     public virtual void Dispose()
     {
-        if (!_shouldPool)
+        if (_pool == null)
         {
             return;
         }
 
-        if (Disposed)
+        if (_disposed)
         {
             throw new ObjectDisposedException(GetType().Name);
         }

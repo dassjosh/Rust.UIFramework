@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Offsets;
+using Oxide.Ext.UiFramework.Padding;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.UiElements;
 using UnityEngine;
@@ -17,9 +19,9 @@ public class UiDirectionalLayout : BaseUiLayout, IFixedElementsLayout
     public UiPadding Padding;
     public readonly List<LayoutState> Elements = [];
 
-    public static UiDirectionalLayout Create(in UiReference reference, int numElements, LayoutDirection direction, LayoutAlignment alignment, LayoutPadding layoutPadding, in UiPadding padding)
+    public static UiDirectionalLayout Create(UiPluginPool pool, in UiReference reference, int numElements, LayoutDirection direction, LayoutAlignment alignment, LayoutPadding layoutPadding, in UiPadding padding)
     {
-        UiDirectionalLayout layout = CreateBase<UiDirectionalLayout>(reference);
+        UiDirectionalLayout layout = CreateBase<UiDirectionalLayout>(pool, reference);
         layout.NumElements = numElements;
         layout.Direction = direction;
         layout.Alignment = alignment;

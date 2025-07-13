@@ -18,16 +18,14 @@ public class UiLabel : BaseUiText<UiLabel>
         Text = component;
     }
 
-    public static UiLabel Create(UiColor color, string text, int size, string font, TextAnchor align = TextAnchor.MiddleCenter)
+    public UiLabel Init(string text, int size, UiColor color, TextAnchor align, string font)
     {
-        UiLabel label = CreateBase<UiLabel>();
-        TextComponent textComp = label.Text;
-        textComp.Text = text;
-        textComp.FontSize = size;
-        textComp.Color = color;
-        textComp.Align = align;
-        textComp.Font = font;
-        return label;
+        TextValue = text;
+        FontSize = size;
+        Color = color;
+        Align = align;
+        Font = font;
+        return this;
     }
 
     public CountdownComponent AddCountdown(float startTime, float endTime, string command, 

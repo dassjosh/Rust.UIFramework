@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using System.Diagnostics.Contracts;
+using Oxide.Ext.UiFramework.Padding;
 using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Positions;
@@ -29,17 +30,17 @@ public readonly struct UiPosition(float xMin, float yMin, float xMax, float yMax
     public static readonly UiPosition TopHalf = new(0, 0.5f, 1, 1);
     public static readonly UiPosition RightHalf = new(0.5f, 0, 1, 1);
     public static readonly UiPosition BottomHalf = new(0, 0, 1, 0.5f);
-        
+    
     public readonly Vector2 Min = new(xMin, yMin);
     public readonly Vector2 Max = new(xMax, yMax);
+    
+    public float XMin => Min.x;
+    public float YMin => Min.y;
+    public float XMax => Max.x;
+    public float YMax => Max.y;
 
     public UiPosition(Vector2 min, Vector2 max) : this(min.x, min.y, max.x, max.y) { }
-    
-    public override string ToString()
-    {
-        return $"({Min.x:0.####}, {Min.y:0.####}) ({Max.x:0.####}, {Max.y:0.####})";
-    }
-    
+
     [Pure]
     public UiPosition WithXMin(float xMin) => new(xMin, Min.y, Max.x, Max.y);
     
@@ -210,18 +211,23 @@ public readonly struct UiPosition(float xMin, float yMin, float xMax, float yMax
         Vector2 max = Max;   
         return new UiPosition(min.x, min.y + (max.y - min.y) * yMin, max.x, min.y + (max.y - min.y) * yMax);
     }
+
+    [Pure]
+    public UiPosition WithPadding(in UiPadding padding)
+    {
+        return this + padding;
+    }
     
     public static UiPosition Lerp(in UiPosition a, in UiPosition b, float t) => new(Vector2.Lerp(a.Min, b.Min, t), Vector2.Lerp(a.Max, b.Max, t));
     public static UiPosition LerpUnclamped(in UiPosition a, in UiPosition b, float t) => new(Vector2.LerpUnclamped(a.Min, b.Min, t), Vector2.LerpUnclamped(a.Max, b.Max, t));
 
     public static bool operator ==(UiPosition left, UiPosition right) => left.Equals(right);
     public static bool operator !=(UiPosition left, UiPosition right) => !(left == right);
-    public static UiPosition operator +(UiPosition lhs, UiPosition rhs) => new(lhs.Min.x + rhs.Min.x, lhs.Min.y + rhs.Min.y, lhs.Max.x + rhs.Max.x, lhs.Max.y + rhs.Max.y);
-    public static UiPosition operator -(UiPosition lhs, UiPosition rhs) => new(lhs.Min.x - rhs.Min.x, lhs.Min.y - rhs.Min.y, lhs.Max.x - rhs.Max.x, lhs.Max.y - rhs.Max.y);
+    public static UiPosition operator +(UiPosition lhs, UiPosition rhs) => new(lhs.Min.x + rhs.Min.x, lhs.Min.y + rhs.Min.y, lhs.Max.x - rhs.Max.x, lhs.Max.y - rhs.Max.y);
+    public static UiPosition operator -(UiPosition lhs, UiPosition rhs) => new(lhs.Min.x - rhs.Min.x, lhs.Min.y - rhs.Min.y, lhs.Max.x + rhs.Max.x, lhs.Max.y + rhs.Max.y);
 
     public bool Equals(UiPosition other) => Min.Equals(other.Min) && Max.Equals(other.Max);
-
     public override bool Equals(object obj) => obj is UiPosition other && Equals(other);
-
     public override int GetHashCode() => HashCode.Combine(Min, Max);
+    public override string ToString() => $"({Min.x:0.####}, {Min.y:0.####}) ({Max.x:0.####}, {Max.y:0.####})";
 }

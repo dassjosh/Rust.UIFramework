@@ -2,6 +2,7 @@
 using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Interfaces;
+using Oxide.Ext.UiFramework.Libraries;
 using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.UiElements;
@@ -26,13 +27,12 @@ public class UiButton : BaseUiComponent, IImageType<UiButton>, ISprite<UiButton>
         Button = component;
     }
 
-    public static UiButton Create(UiColor color, string command, ButtonType buttonType)
+    public UiButton Init(UiColor color, string command, ButtonType buttonType)
     {
-        UiButton button = CreateBase<UiButton>();
-        button.Button.Color = color;
-        button.Button.Command = command;
-        button.Button.ButtonType = buttonType;
-        return button;
+        Color = color;
+        Command = command;
+        ButtonType = buttonType;
+        return this;
     }
         
     public UiButton SetFadeIn(float duration)
@@ -79,6 +79,8 @@ public class UiButton : BaseUiComponent, IImageType<UiButton>, ISprite<UiButton>
         ButtonType = ButtonType.Command;
         return this;
     }
+    
+    public UiButton SetCommand(ICommandBuilder command) => SetCommand(command.Build());
     
     public UiButton SetClose(string close)
     {

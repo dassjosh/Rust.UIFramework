@@ -119,7 +119,6 @@ public abstract class BaseBuilder : BasePoolable
         if (connections == null) throw new ArgumentNullException(nameof(connections));
         SendInfo send = SendInfoBuilder.Get(connections);
         DestroyUi(send, RootName);
-        UiFrameworkPool.FreeList(send.connections);
     }
 
     public void DestroyUi()

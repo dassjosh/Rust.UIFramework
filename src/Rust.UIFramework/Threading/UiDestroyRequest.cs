@@ -1,6 +1,6 @@
 ﻿using Network;
 using Oxide.Ext.UiFramework.Builder;
-using Oxide.Ext.UiFramework.Pooling;
+using Oxide.Ext.UiFramework.Libraries;
 
 namespace Oxide.Ext.UiFramework.Threading;
 
@@ -10,7 +10,7 @@ public class UiDestroyRequest : BaseUiRequest, IUiRequest
     
     public static UiDestroyRequest Create(string name, SendInfo send)
     {
-        UiDestroyRequest request = UiFrameworkPool.Get<UiDestroyRequest>();
+        UiDestroyRequest request = UiPool.Internal.Get<UiDestroyRequest>();
         request.Init(name, send);
         return request;
     }

@@ -50,7 +50,7 @@ public abstract partial class BaseUiBuilder : BaseBuilder
         
     public JsonFrameworkWriter CreateWriter()
     {
-        JsonFrameworkWriter writer = JsonFrameworkWriter.Create();
+        JsonFrameworkWriter writer = JsonFrameworkWriter.Create(PluginPool);
         writer.WriteStartArray();
         WriteComponentsInternal(writer);
         writer.WriteEndArray();

@@ -1,9 +1,8 @@
 ﻿using System.Collections.Concurrent;
 using System.Text;
 using Oxide.Ext.UiFramework.Colors;
-using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Json;
-using Oxide.Ext.UiFramework.Pooling;
+using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Types;
 using UnityEngine;
 
@@ -28,7 +27,7 @@ internal static class UiColorCache
 
     private static string GetColor(Color color)
     {
-        StringBuilder builder = UiFrameworkPool.GetStringBuilder();
+        StringBuilder builder = UiPool.Internal.GetStringBuilder();
         builder.Append(FormatCache<float>.ToString(color.r, Format));
         builder.Append(Space);
         builder.Append(FormatCache<float>.ToString(color.g, Format));
@@ -40,6 +39,6 @@ internal static class UiColorCache
             builder.Append(FormatCache<float>.ToString(color.a, Format));
         }
 
-        return builder.ToStringAndFree();
+        return UiPool.Internal.ToStringAndFree(builder);
     }
 }

@@ -23,13 +23,12 @@ public class UiItemIcon : BaseUiComponent, IMaterial<UiItemIcon>, IFadeIn<UiItem
         Icon = component;
     }
 
-    public static UiItemIcon Create(int itemId, ulong skinId, UiColor color)
+    public UiItemIcon Init(int itemId, ulong skinId, UiColor color)
     {
-        UiItemIcon icon = CreateBase<UiItemIcon>();
-        icon.Icon.Color = color;
-        icon.Icon.ItemId = itemId;
-        icon.Icon.SkinId = skinId;
-        return icon;
+        Color = color;
+        ItemId = itemId;
+        SkinId = skinId;
+        return this;
     }
         
     public UiItemIcon SetImageType(Image.Type type)

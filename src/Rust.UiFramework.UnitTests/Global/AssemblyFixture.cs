@@ -4,8 +4,11 @@ using Oxide.Ext.UiFramework.Config;
 using Oxide.Ext.UiFramework.Data;
 using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Logging;
+using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.Types;
 using Rust.UiFramework.UnitTests.Global;
+using Rust.UiFramework.UnitTests.Global.XUnit.Serializers;
+using Xunit.Sdk;
 using Xunit.v3;
 
 [assembly: TestFramework(typeof(AssemblyFixture))]
@@ -16,8 +19,14 @@ public class AssemblyFixture : XunitTestFramework
 {
     public AssemblyFixture()
     {
+        ConfigureXUnit();
         ConfigureVerify();
         ConfigureExtension();
+    }
+
+    private static void ConfigureXUnit()
+    {
+        SerializationHelper.Instance.AddRegisteredSerializers(typeof(AssemblyFixture).Assembly);
     }
 
     private static void ConfigureVerify()
@@ -28,6 +37,7 @@ public class AssemblyFixture : XunitTestFramework
         VerifierSettings.SortPropertiesAlphabetically();
         UseSourceFileRelativeDirectory("Snapshots");
         AddVerifyConverters();
+        AddVerifyParameterConverters();
     }
     
     private static void AddVerifyConverters()
@@ -37,6 +47,11 @@ public class AssemblyFixture : XunitTestFramework
             .Select(t => (JsonConverter)Activator.CreateInstance(t))
             .ToArray();
         VerifierSettings.AddExtraSettings(settings => settings.Converters.AddRange(converters));
+    }
+
+    private static void AddVerifyParameterConverters()
+    {
+        VerifierSettings.NameForParameter<GridPosition>(pos => GridPositionSerializer.Instance.Serialize(pos));
     }
 
     private static void ConfigureExtension()
@@ -53,7 +68,7 @@ public class AssemblyFixture : XunitTestFramework
 
     public override async ValueTask DisposeAsync()
     {
-        Singleton<UiFrameworkPoolLib>.Instance.CheckForLeaks();
+        Singleton<UiPool>.Instance.CheckForLeaks();
         await base.DisposeAsync();
     }
 }

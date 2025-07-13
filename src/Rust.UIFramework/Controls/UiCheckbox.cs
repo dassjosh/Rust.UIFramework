@@ -17,7 +17,7 @@ public class UiCheckbox : BaseUiControl
         
     public static UiCheckbox CreateCheckbox(BaseUiBuilder builder, in UiReference parent, in UiPosition pos, in UiOffset offset, bool isChecked, string command, UiColor? checkedColor, UiColor? uncheckedColor, UiColor? buttonColor)
     {
-        UiCheckbox control = CreateControl<UiCheckbox>();
+        UiCheckbox control = CreateControl<UiCheckbox>(builder.PluginPool);
         control.IsChecked = isChecked;
         control.Button = builder.Button(parent, pos, offset, buttonColor ?? UiColors.Clear, command);
         if (isChecked)

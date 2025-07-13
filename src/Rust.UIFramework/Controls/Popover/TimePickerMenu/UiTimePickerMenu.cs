@@ -20,7 +20,7 @@ public class UiTimePickerMenu : BaseUiControl
         
     public static UiTimePickerMenu Create(BaseUiBuilder builder, in UiReference reference, in UiPosition pos, in UiOffset offset, TimePickerData time, int fontSize, UiColor textColor, UiColor backgroundColor, ICommandBuilder<TimePickerData> changeCommand, TimePickerDisplayModes displayMode = TimePickerDisplayModes.All, ClockMode clockMode = ClockMode.Hour12)
     {
-        UiTimePickerMenu control = CreateControl<UiTimePickerMenu>();
+        UiTimePickerMenu control = CreateControl<UiTimePickerMenu>(builder.PluginPool);
         control.CreateUi(builder, reference, pos, offset, time, fontSize, textColor, backgroundColor, changeCommand, displayMode, clockMode);
         return control;
     }

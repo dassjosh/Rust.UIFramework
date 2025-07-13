@@ -51,7 +51,7 @@ internal class SendHandler : ISingleton
             didSend = true;
             try
             {
-#if !BENCHMARKS
+#if !BENCHMARKS && !UNIT_TESTS
                 request.SendRequest();
 #endif
             }

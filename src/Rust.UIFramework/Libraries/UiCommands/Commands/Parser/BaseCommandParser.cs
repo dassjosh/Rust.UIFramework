@@ -4,10 +4,11 @@ using Oxide.Core;
 using Oxide.Core.Plugins;
 using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Logging;
+using Oxide.Ext.UiFramework.Plugins;
 
 namespace Oxide.Ext.UiFramework.Libraries;
 
-internal abstract class BaseCommandParser(Plugin plugin, MethodInfo method, ICommandProtection protection, ICooldownHandler cooldown, IPermissionHandler permission, IArgReader[] reader) : ICommandParser
+internal abstract class BaseCommandParser(IUiFrameworkPlugin plugin, MethodInfo method, ICommandProtection protection, ICooldownHandler cooldown, IPermissionHandler permission, IArgReader[] reader) : ICommandParser
 {
     public void RunCommand(BasePlayer player, UiCommandTokenizer command)
     {

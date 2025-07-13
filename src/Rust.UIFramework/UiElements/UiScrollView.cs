@@ -35,17 +35,15 @@ public class UiScrollView : BaseUiComponent
     public ScrollbarComponent HorizontalScrollbar => ScrollView.HorizontalScrollbar;
     public ScrollbarComponent VerticalScrollbar => ScrollView.VerticalScrollbar;
 
-    public static UiScrollView Create(ScrollRect.MovementType movementType, float elasticity,
+    public UiScrollView Init(ScrollRect.MovementType movementType, float elasticity,
         bool inertia, float decelerationRate, float scrollSensitivity)
     {
-        UiScrollView scroll = CreateBase<UiScrollView>();
-        ScrollViewComponent comp = scroll.ScrollView;
-        comp.MovementType = movementType;
-        comp.Elasticity = elasticity;
-        comp.Inertia = inertia;
-        comp.DecelerationRate = decelerationRate;
-        comp.ScrollSensitivity = scrollSensitivity;
-        return scroll;
+        MovementType = movementType;
+        Elasticity = elasticity;
+        Inertia = inertia;
+        DecelerationRate = decelerationRate;
+        ScrollSensitivity = scrollSensitivity;
+        return this;
     }
 
     public void UpdateContentTransform(in UiPosition? position = null, in UiOffset? offset = null) => ScrollView.UpdateContentTransform(position, offset);

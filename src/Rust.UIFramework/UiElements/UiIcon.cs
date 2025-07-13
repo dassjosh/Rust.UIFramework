@@ -22,12 +22,11 @@ public class UiIcon : BaseUiComponent, IMaterial<UiIcon>, IFadeIn<UiIcon>, IUiCo
         RawImage = component;
     }
         
-    public static UiIcon CreateIcon<T>(T icon, UiColor color) where T : struct, Enum
+    public UiIcon Init<T>(T icon, UiColor color) where T : struct, Enum
     {
-        UiIcon image = CreateBase<UiIcon>();
-        image.Color = color;
-        image.SetIcon(icon);
-        return image;
+        Color = color;
+        SetIcon(icon);
+        return this;
     }
     
     public UiIcon SetColor(UiColor color)

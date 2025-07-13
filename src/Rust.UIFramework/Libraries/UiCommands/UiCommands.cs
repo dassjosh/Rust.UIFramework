@@ -27,14 +27,14 @@ public class UiCommands : BaseUiFrameworkLibrary, ISingleton
 
     private UiCommands() { }
     
-    public ICommandBuilder RegisterCommand(Plugin plugin, Action<BasePlayer> method)
+    public ICommandBuilder RegisterCommand(IUiFrameworkPlugin plugin, Action<BasePlayer> method)
     {
-        ParseCommand(plugin, method.Method, out PluginId pluginId, out CommandId command, out ICommandProtection protection, out ICooldownHandler cooldown, out IPermissionHandler permission);
+        ParseCommand(plugin, method.Method, out PluginId _, out CommandId command, out ICommandProtection protection, out ICooldownHandler cooldown, out IPermissionHandler permission);
         _commands[command] = new CommandParser(plugin, method, protection, cooldown, permission);
         return new CommandBuilder(command.GetCommand(), protection);
     }
 
-    public ICommandBuilder<T0> RegisterCommand<T0>(Plugin plugin, Action<BasePlayer, T0> method)
+    public ICommandBuilder<T0> RegisterCommand<T0>(IUiFrameworkPlugin plugin, Action<BasePlayer, T0> method)
     {
         ParseCommand(plugin, method.Method, out PluginId pluginId, out CommandId command, out ICommandProtection protection, out ICooldownHandler cooldown, out IPermissionHandler permission);
         IArgHandler[] argHandler = ArgCreator.CreateArgHandler<T0>(pluginId);
@@ -42,7 +42,7 @@ public class UiCommands : BaseUiFrameworkLibrary, ISingleton
         return new CommandBuilder<T0>(command.GetCommand(), protection, argHandler);
     }
 
-    public ICommandBuilder<T0, T1> RegisterCommand<T0, T1>(Plugin plugin, Action<BasePlayer, T0, T1> method)
+    public ICommandBuilder<T0, T1> RegisterCommand<T0, T1>(IUiFrameworkPlugin plugin, Action<BasePlayer, T0, T1> method)
     {
         ParseCommand(plugin, method.Method, out PluginId pluginId, out CommandId command, out ICommandProtection protection, out ICooldownHandler cooldown, out IPermissionHandler permission);
         IArgHandler[] argHandler = ArgCreator.CreateArgHandler<T0, T1>(pluginId);
@@ -50,7 +50,7 @@ public class UiCommands : BaseUiFrameworkLibrary, ISingleton
         return new CommandBuilder<T0, T1>(command.GetCommand(), protection, argHandler);
     }
 
-    public ICommandBuilder<T0, T1, T2> RegisterCommand<T0, T1, T2>(Plugin plugin, Action<BasePlayer, T0, T1, T2> method)
+    public ICommandBuilder<T0, T1, T2> RegisterCommand<T0, T1, T2>(IUiFrameworkPlugin plugin, Action<BasePlayer, T0, T1, T2> method)
     {
         ParseCommand(plugin, method.Method, out PluginId pluginId, out CommandId command, out ICommandProtection protection, out ICooldownHandler cooldown, out IPermissionHandler permission);
         IArgHandler[] argHandler = ArgCreator.CreateArgHandler<T0, T1, T2>(pluginId);
@@ -58,7 +58,7 @@ public class UiCommands : BaseUiFrameworkLibrary, ISingleton
         return new CommandBuilder<T0, T1, T2>(command.GetCommand(), protection, argHandler);
     }
 
-    public ICommandBuilder<T0, T1, T2, T3> RegisterCommand<T0, T1, T2, T3>(Plugin plugin, Action<BasePlayer, T0, T1, T2, T3> method)
+    public ICommandBuilder<T0, T1, T2, T3> RegisterCommand<T0, T1, T2, T3>(IUiFrameworkPlugin plugin, Action<BasePlayer, T0, T1, T2, T3> method)
     {
         ParseCommand(plugin, method.Method, out PluginId pluginId, out CommandId command, out ICommandProtection protection, out ICooldownHandler cooldown, out IPermissionHandler permission);
         IArgHandler[] argHandler = ArgCreator.CreateArgHandler<T0, T1, T2, T3>(pluginId);
@@ -66,7 +66,7 @@ public class UiCommands : BaseUiFrameworkLibrary, ISingleton
         return new CommandBuilder<T0, T1, T2, T3>(command.GetCommand(), protection, argHandler);
     }
 
-    public ICommandBuilder<T0, T1, T2, T3, T4> RegisterCommand<T0, T1, T2, T3, T4>(Plugin plugin, Action<BasePlayer, T0, T1, T2, T3, T4> method)
+    public ICommandBuilder<T0, T1, T2, T3, T4> RegisterCommand<T0, T1, T2, T3, T4>(IUiFrameworkPlugin plugin, Action<BasePlayer, T0, T1, T2, T3, T4> method)
     {
         ParseCommand(plugin, method.Method, out PluginId pluginId, out CommandId command, out ICommandProtection protection, out ICooldownHandler cooldown, out IPermissionHandler permission);
         IArgHandler[] argHandler = ArgCreator.CreateArgHandler<T0, T1, T2, T3, T4>(pluginId);
@@ -74,7 +74,7 @@ public class UiCommands : BaseUiFrameworkLibrary, ISingleton
         return new CommandBuilder<T0, T1, T2, T3, T4>(command.GetCommand(), protection, argHandler);
     }
 
-    public ICommandBuilder<T0, T1, T2, T3, T4, T5> RegisterCommand<T0, T1, T2, T3, T4, T5>(Plugin plugin, Action<BasePlayer, T0, T1, T2, T3, T4, T5> method)
+    public ICommandBuilder<T0, T1, T2, T3, T4, T5> RegisterCommand<T0, T1, T2, T3, T4, T5>(IUiFrameworkPlugin plugin, Action<BasePlayer, T0, T1, T2, T3, T4, T5> method)
     {
         ParseCommand(plugin, method.Method, out PluginId pluginId, out CommandId command, out ICommandProtection protection, out ICooldownHandler cooldown, out IPermissionHandler permission);
         IArgHandler[] argHandler = ArgCreator.CreateArgHandler<T0, T1, T2, T3, T4, T5>(pluginId);
@@ -82,7 +82,7 @@ public class UiCommands : BaseUiFrameworkLibrary, ISingleton
         return new CommandBuilder<T0, T1, T2, T3, T4, T5>(command.GetCommand(), protection, argHandler);
     }
 
-    public ICommandBuilder<T0, T1, T2, T3, T4, T5, T6> RegisterCommand<T0, T1, T2, T3, T4, T5, T6>(Plugin plugin, Action<BasePlayer, T0, T1, T2, T3, T4, T5, T6> method)
+    public ICommandBuilder<T0, T1, T2, T3, T4, T5, T6> RegisterCommand<T0, T1, T2, T3, T4, T5, T6>(IUiFrameworkPlugin plugin, Action<BasePlayer, T0, T1, T2, T3, T4, T5, T6> method)
     {
         ParseCommand(plugin, method.Method, out PluginId pluginId, out CommandId command, out ICommandProtection protection, out ICooldownHandler cooldown, out IPermissionHandler permission);
         IArgHandler[] argHandler = ArgCreator.CreateArgHandler<T0, T1, T2, T3, T4, T5, T6>(pluginId);
@@ -90,7 +90,7 @@ public class UiCommands : BaseUiFrameworkLibrary, ISingleton
         return new CommandBuilder<T0, T1, T2, T3, T4, T5, T6>(command.GetCommand(), protection, argHandler);
     }
 
-    public ICommandBuilder<T0, T1, T2, T3, T4, T5, T6, T7> RegisterCommand<T0, T1, T2, T3, T4, T5, T6, T7>(Plugin plugin, Action<BasePlayer, T0, T1, T2, T3, T4, T5, T6, T7> method)
+    public ICommandBuilder<T0, T1, T2, T3, T4, T5, T6, T7> RegisterCommand<T0, T1, T2, T3, T4, T5, T6, T7>(IUiFrameworkPlugin plugin, Action<BasePlayer, T0, T1, T2, T3, T4, T5, T6, T7> method)
     {
         ParseCommand(plugin, method.Method, out PluginId pluginId, out CommandId command, out ICommandProtection protection, out ICooldownHandler cooldown, out IPermissionHandler permission);
         IArgHandler[] argHandler = ArgCreator.CreateArgHandler<T0, T1, T2, T3, T4, T5, T6, T7>(pluginId);
@@ -98,7 +98,7 @@ public class UiCommands : BaseUiFrameworkLibrary, ISingleton
         return new CommandBuilder<T0, T1, T2, T3, T4, T5, T6, T7>(command.GetCommand(), protection, argHandler);
     }
 
-    private void ParseCommand(Plugin plugin, MethodInfo method, out PluginId pluginId, out CommandId command, out ICommandProtection protection, out ICooldownHandler cooldown, out IPermissionHandler permission)
+    private void ParseCommand(IUiFrameworkPlugin plugin, MethodInfo method, out PluginId pluginId, out CommandId command, out ICommandProtection protection, out ICooldownHandler cooldown, out IPermissionHandler permission)
     {
         if (plugin == null) throw new ArgumentNullException(nameof(plugin));
         if (method == null) throw new ArgumentNullException(nameof(method));

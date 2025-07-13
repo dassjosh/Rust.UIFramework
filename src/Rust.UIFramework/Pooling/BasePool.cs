@@ -20,9 +20,9 @@ public abstract class BasePool<TPooled, TPool> : IPool<TPooled>
     /// <summary>
     /// Owner Plugin Pool
     /// </summary>
-    private UiFrameworkPluginPool _pluginPool;
+    private UiPluginPool _pluginPool;
     
-    UiFrameworkPluginPool IPool.PluginPool => _pluginPool;
+    UiPluginPool IPool.PluginPool => _pluginPool;
     
     private TPooled[] _pool;
     private readonly object _lock = new();
@@ -33,7 +33,7 @@ public abstract class BasePool<TPooled, TPool> : IPool<TPooled>
     
     private static readonly ConcurrentDictionary<PluginId, TPool> Pools = new();
     
-    private void InitPool(UiFrameworkPluginPool pluginPool)
+    private void InitPool(UiPluginPool pluginPool)
     {
         lock (_lock)
         {
@@ -61,9 +61,9 @@ public abstract class BasePool<TPooled, TPool> : IPool<TPooled>
     /// <summary>
     /// Returns a pool for the given plugin pool
     /// </summary>
-    /// <param name="pluginPool"><see cref="UiFrameworkPluginPool"/> to get the pool from</param>
+    /// <param name="pluginPool"><see cref="UiPluginPool"/> to get the pool from</param>
     /// <returns></returns>
-    public static TPool ForPlugin(UiFrameworkPluginPool pluginPool)
+    public static TPool ForPlugin(UiPluginPool pluginPool)
     {
         TPool pool = Pools.GetOrAdd(pluginPool.PluginId, CreatePool);
         if (!pool._isInitialized)
@@ -163,7 +163,7 @@ public abstract class BasePool<TPooled, TPool> : IPool<TPooled>
     /// <returns>True if can be freed; false otherwise</returns>
     protected virtual bool OnFreeItem(ref TPooled item) => true;
 
-    public void OnPluginUnloaded(UiFrameworkPluginPool pluginPool)
+    public void OnPluginUnloaded(UiPluginPool pluginPool)
     {
         Pools.TryRemove(pluginPool.PluginId, out TPool _);
     }

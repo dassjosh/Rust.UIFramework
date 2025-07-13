@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Offsets;
-using Oxide.Ext.UiFramework.Pooling;
+using Oxide.Ext.UiFramework.Padding;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.UiElements;
 
@@ -21,6 +22,7 @@ public class UiFlexBoxLayout : BaseUiLayout
     private readonly Dictionary<FlexJustifyContent, List<int>> _groups = new();
 
     public static UiFlexBoxLayout Create(
+        UiPluginPool pool,
         in UiReference reference,
         FlexDirection direction,
         FlexWrap wrap,
@@ -29,7 +31,7 @@ public class UiFlexBoxLayout : BaseUiLayout
         in UiPadding padding,
         float gap = 0f)
     {
-        UiFlexBoxLayout layout = CreateBase<UiFlexBoxLayout>(reference);
+        UiFlexBoxLayout layout = CreateBase<UiFlexBoxLayout>(pool,reference);
         layout.Direction = direction;
         layout.Wrap = wrap;
         layout.AlignItems = alignItems;
@@ -146,7 +148,7 @@ public class UiFlexBoxLayout : BaseUiLayout
             
             if (!_groups.TryGetValue(justifyContent, out List<int> indices))
             {
-                _groups[justifyContent] = indices = UiFrameworkPool.GetList<int>();
+                _groups[justifyContent] = indices = PluginPool.GetList<int>();
             }
             
             indices.Add(i);
@@ -222,7 +224,7 @@ public class UiFlexBoxLayout : BaseUiLayout
 
     private void GenerateElementLines()
     {
-        List<LayoutState> currentLine = UiFrameworkPool.GetList<LayoutState>();
+        List<LayoutState> currentLine = PluginPool.GetList<LayoutState>();
         float currentLineSpan = 0f;
 
         for (int index = 0; index < Elements.Count; index++)
@@ -233,7 +235,7 @@ public class UiFlexBoxLayout : BaseUiLayout
             if (Wrap == FlexWrap.Wrap && currentLineSpan + elementSpan + (currentLine.Count > 0 ? Gap : 0f) > 1f)
             {
                 _lines.Add(currentLine);
-                currentLine = UiFrameworkPool.GetList<LayoutState>();
+                currentLine = PluginPool.GetList<LayoutState>();
                 currentLineSpan = 0f;
             }
 
@@ -247,7 +249,7 @@ public class UiFlexBoxLayout : BaseUiLayout
         }
         else
         {
-            UiFrameworkPool.FreeList(currentLine);
+            PluginPool.FreeList(currentLine);
         }
     }
 
@@ -270,14 +272,14 @@ public class UiFlexBoxLayout : BaseUiLayout
         base.EnterPool();
         for (int index = 0; index < _lines.Count; index++)
         {
-            UiFrameworkPool.FreeList(_lines[index]);
+            PluginPool.FreeList(_lines[index]);
         }
 
         _lines.Clear();
         
         foreach (List<int> indices in _groups.Values)
         {
-            UiFrameworkPool.FreeList(indices);
+            PluginPool.FreeList(indices);
         }
         
         _groups.Clear();

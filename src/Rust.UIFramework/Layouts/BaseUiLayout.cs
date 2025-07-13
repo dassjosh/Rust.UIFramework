@@ -1,4 +1,5 @@
-﻿using Oxide.Ext.UiFramework.Pooling;
+﻿using Oxide.Ext.UiFramework.Libraries;
+using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.UiElements;
 
@@ -9,9 +10,9 @@ public abstract class BaseUiLayout : BasePoolable
     public UiReference Reference;
     public UiScrollView ScrollView;
 
-    public static T CreateBase<T>(in UiReference reference) where T : BaseUiLayout, new()
+    public static T CreateBase<T>(UiPluginPool pool, in UiReference reference) where T : BaseUiLayout, new()
     {
-        T layout = UiFrameworkPool.Get<T>();
+        T layout = pool.Get<T>();
         layout.Reference = reference;
         return layout;
     }

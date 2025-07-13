@@ -1,6 +1,5 @@
 ﻿using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Json;
-using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.Types;
@@ -47,19 +46,8 @@ public class ScrollViewComponent : CoreComponent
         return bar;
     }
 
-    internal ScrollbarComponent GetOrCreateHorizontalScrollBar()
-    {
-        if(HorizontalScrollbar != null) return HorizontalScrollbar;
-        HorizontalScrollbar = PluginPool.Get<ScrollbarComponent>();
-        return HorizontalScrollbar;
-    }
-    
-    internal ScrollbarComponent GetOrCreateVerticalScrollBar()
-    {
-        if(VerticalScrollbar != null) return VerticalScrollbar;
-        VerticalScrollbar = PluginPool.Get<ScrollbarComponent>();
-        return VerticalScrollbar;
-    }
+    internal ScrollbarComponent GetOrCreateHorizontalScrollBar() => HorizontalScrollbar ??= PluginPool.Get<ScrollbarComponent>();
+    internal ScrollbarComponent GetOrCreateVerticalScrollBar() => VerticalScrollbar ??= PluginPool.Get<ScrollbarComponent>();
 
     private static void PopulateScrollBar(ScrollbarComponent bar, bool invert = false, bool autoHide = false, string handleSprite = null, string trackSprite = null, float size = JsonDefaults.ScrollBar.Size, 
         UiColor? handleColor = null, UiColor? highlightColor = null, UiColor? pressedColor = null, UiColor? trackColor = null)

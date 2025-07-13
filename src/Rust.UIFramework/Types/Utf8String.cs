@@ -7,6 +7,8 @@ namespace Oxide.Ext.UiFramework.Types;
 [DebuggerDisplay("{ToString()}")]
 public readonly struct Utf8String(byte[] str)
 {
+    internal static readonly Utf8String Empty = new([]); 
+    
     internal readonly byte[] String = str;
 
     public override string ToString() => Encoding.UTF8.GetString(String);

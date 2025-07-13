@@ -5,7 +5,6 @@ using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Layouts;
 using Oxide.Ext.UiFramework.Libraries;
-using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.UiElements;
 using Rust.UI;
 
@@ -22,7 +21,7 @@ public class UiPaginator : BaseUiControl
 
     public static UiPaginator Create(BaseUiBuilder builder, BaseUiLayout layout, int numElements, int currentPage, int maxPage, int fontSize, UiColor textColor, UiColor buttonColor, UiColor activePageColor, ICommandBuilder<int> command, UiColor? disabledColorMultiplier)
     {
-        UiPaginator control = CreateControl<UiPaginator>();
+        UiPaginator control = CreateControl<UiPaginator>(builder.PluginPool);
         
         int pageButtons = numElements - 5;
 
@@ -51,7 +50,7 @@ public class UiPaginator : BaseUiControl
     protected override void LeavePool()
     {
         base.LeavePool();
-        PageButtons = UiFrameworkPool.GetList<UiButton>();
+        PageButtons = PluginPool.GetList<UiButton>();
     }
 
     protected override void EnterPool()
@@ -59,7 +58,7 @@ public class UiPaginator : BaseUiControl
         base.EnterPool();
         FirstPage = null;
         PreviousPage = null;
-        UiFrameworkPool.FreeList(PageButtons);
+        PluginPool.FreeList(PageButtons);
         NextPage = null;
         LastPage = null;
     }

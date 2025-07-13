@@ -2,7 +2,6 @@
 using Oxide.Ext.UiFramework.Exceptions;
 using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Json;
-using Oxide.Ext.UiFramework.Pooling;
 
 namespace Oxide.Ext.UiFramework.Components;
 
@@ -23,7 +22,7 @@ public abstract class CoreComponent : BaseTypedComponent, ICoreComponent
 
     public T AddSubComponent<T>(bool ignoreIfExists = false) where T : SubComponent, new()
     {
-        _subComponents ??= UiFrameworkPool.GetList<SubComponent>();
+        _subComponents ??= PluginPool.GetList<SubComponent>();
         if (_subComponents.Count != 0 && GetSubComponent<T>() is { } component)
         {
             if (ignoreIfExists)
@@ -37,7 +36,7 @@ public abstract class CoreComponent : BaseTypedComponent, ICoreComponent
             }
         }
         
-        T subComponent = UiFrameworkPool.Get<T>();
+        T subComponent = PluginPool.Get<T>();
         _subComponents.Add(subComponent);
         return subComponent;
     }
@@ -92,7 +91,11 @@ public abstract class CoreComponent : BaseTypedComponent, ICoreComponent
     public override void Reset()
     {
         base.Reset();
-        _subComponents.FreeList();
-        _subComponents = null;
+        if(_subComponents != null)
+        {
+            _subComponents.FreeValues();
+            PluginPool.FreeList(_subComponents);
+            _subComponents = null;
+        }
     }
 }

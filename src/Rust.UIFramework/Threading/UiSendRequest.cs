@@ -1,6 +1,5 @@
 ﻿using Network;
 using Oxide.Ext.UiFramework.Builder;
-using Oxide.Ext.UiFramework.Pooling;
 
 namespace Oxide.Ext.UiFramework.Threading;
 
@@ -10,7 +9,7 @@ internal class UiSendRequest : BaseUiRequest, IUiRequest
 
     public static UiSendRequest Create(BaseBuilder builder, SendInfo send)
     {
-        UiSendRequest request = UiFrameworkPool.Get<UiSendRequest>();
+        UiSendRequest request = builder.PluginPool.Get<UiSendRequest>();
         request.Init(builder, send);
         return request;
     }

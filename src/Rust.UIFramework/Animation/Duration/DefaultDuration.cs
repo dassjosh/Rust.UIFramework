@@ -1,4 +1,5 @@
 ﻿using System;
+using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Pooling;
 using UnityEngine;
 
@@ -19,16 +20,9 @@ public class DefaultDuration : BasePoolable, IConfigurableAnimationDuration
     public bool IsRunning => Elapsed >= Delay && Elapsed < TotalDuration;
     public bool IsCompleted => Repeats <= 0;
     
-    public static DefaultDuration Create(float duration, float delay) => Create(duration, delay, 1, 0);
+    public static DefaultDuration Create(UiPluginPool pool, float duration, float delay = 0, int repeats = 1, float repeatDelay = 0) => pool.Get<DefaultDuration>().Init(duration, delay, repeats, repeatDelay);
     
-    public static DefaultDuration Create(float duration, float delay, int repeats, float repeatDelay)
-    {
-        DefaultDuration dur = UiFrameworkPool.Get<DefaultDuration>();
-        dur.Init(delay, duration, repeats, repeatDelay);
-        return dur;
-    }
-    
-    public void Init(float delay, float duration, int repeats, float repeatDelay)
+    public DefaultDuration Init(float duration, float delay = 0, int repeats = 1, float repeatDelay = 0)
     {
         if(delay <= 0) throw new ArgumentOutOfRangeException(nameof(delay), $"{nameof(delay)} cannot be less than 0");
         if(duration <= 0) throw new ArgumentOutOfRangeException(nameof(duration), $"{nameof(duration)} cannot be less than 0");
@@ -38,6 +32,7 @@ public class DefaultDuration : BasePoolable, IConfigurableAnimationDuration
         Duration = duration;
         Repeats = repeats;
         RepeatDelay = repeatDelay;
+        return this;
     }
 
     public void OnStarted(float startTime)

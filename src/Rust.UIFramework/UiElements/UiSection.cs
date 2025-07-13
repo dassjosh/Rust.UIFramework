@@ -1,6 +1,4 @@
 ﻿using Oxide.Ext.UiFramework.Components;
-using Oxide.Ext.UiFramework.Offsets;
-using Oxide.Ext.UiFramework.Positions;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
@@ -14,6 +12,4 @@ public class UiSection : BaseUiComponent
     {
         Empty = component;
     }
-    
-    public static UiSection Create() => CreateBase<UiSection>();
 }

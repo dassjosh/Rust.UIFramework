@@ -1,5 +1,5 @@
 ﻿using Network;
-using Oxide.Ext.UiFramework.Pooling;
+using Oxide.Ext.UiFramework.Libraries;
 
 namespace Oxide.Ext.UiFramework.Threading;
 
@@ -9,7 +9,7 @@ internal class OxideCuiJsonRequest : BaseUiRequest, IUiRequest
     
     public static OxideCuiJsonRequest Create(string json, SendInfo send)
     {
-        OxideCuiJsonRequest request = UiFrameworkPool.Get<OxideCuiJsonRequest>();
+        OxideCuiJsonRequest request = UiPool.Internal.Get<OxideCuiJsonRequest>();
         request.Init(json, send);
         return request;
     }

@@ -75,19 +75,19 @@ public class Benchmarks
         _random = new(1234);
     }
     
-    // [Benchmark]
-    // public CuiElementContainer Oxide_CreateContainer()
-    // {
-    //     return GetOxideContainer();
-    // }
+    [Benchmark]
+    public CuiElementContainer Oxide_CreateContainer()
+    {
+        return GetOxideContainer();
+    }
 
-    // [Benchmark(Baseline = true)]
-    // public UiBuilder UiFramework_CreateContainer()
-    // {
-    //     UiBuilder builder = GetFrameworkBuilder();
-    //     builder.Dispose();
-    //     return builder;
-    // }
+    [Benchmark(Baseline = true)]
+    public UiBuilder UiFramework_CreateContainer()
+    {
+        UiBuilder builder = GetFrameworkBuilder();
+        builder.Dispose();
+        return builder;
+    }
 
     //
     // [Benchmark]

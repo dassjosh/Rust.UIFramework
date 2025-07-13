@@ -1,5 +1,5 @@
 ﻿using Network;
-using Oxide.Ext.UiFramework.Pooling;
+using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Game.Rust.Cui;
 
 namespace Oxide.Ext.UiFramework.Threading;
@@ -11,7 +11,7 @@ internal class OxideCuiContainerRequest : BaseUiRequest, IUiRequest
     
     public static OxideCuiContainerRequest Create(CuiElementContainer container, SendInfo send, string destroyUiName)
     {
-        OxideCuiContainerRequest request = UiFrameworkPool.Get<OxideCuiContainerRequest>();
+        OxideCuiContainerRequest request = UiPool.Internal.Get<OxideCuiContainerRequest>();
         request.Init(container, send, destroyUiName);
         return request;
     }

@@ -5,8 +5,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 using Oxide.Ext.UiFramework.Cache;
-using Oxide.Ext.UiFramework.Extensions;
-using Oxide.Ext.UiFramework.Pooling;
+using Oxide.Ext.UiFramework.Libraries;
 
 namespace Oxide.Ext.UiFramework.Logging;
 
@@ -15,7 +14,7 @@ namespace Oxide.Ext.UiFramework.Logging;
 /// </summary>
 public class DebugLogger
 {
-    private readonly StringBuilder _logger = UiFrameworkPool.GetStringBuilder();
+    private readonly StringBuilder _logger = new();
     private const char IndentCharacter = '\t';
 
     private int _indent;
@@ -335,9 +334,9 @@ public class DebugLogger
     /// <param name="items">String items to add</param>
     public void AppendList(string name, IEnumerable<string> items)
     {
-        List<string> list = UiFrameworkPool.GetList<string>();
+        List<string> list = UiPool.Internal.GetList<string>();
         AppendList(name, list);
-        UiFrameworkPool.FreeList(list);
+        UiPool.Internal.FreeList(list);
     }
 
     /// <summary>
@@ -368,9 +367,9 @@ public class DebugLogger
     /// <param name="items">Loggable items to add</param>
     public void AppendList<T>(string name, IEnumerable<T> items) where T : IDebugLoggable
     {
-        List<string> list = UiFrameworkPool.GetList<string>();
+        List<string> list = UiPool.Internal.GetList<string>();
         AppendList(name, list);
-        UiFrameworkPool.FreeList(list);
+        UiPool.Internal.FreeList(list);
     }
         
     /// <summary>
@@ -453,5 +452,5 @@ public class DebugLogger
     /// Returns the logged data as a string
     /// </summary>
     /// <returns></returns>
-    public override string ToString() => _logger.ToStringAndFree();
+    public override string ToString() => _logger.ToString();
 }

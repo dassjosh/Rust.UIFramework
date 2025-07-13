@@ -14,11 +14,10 @@ public class UiImage : BaseUiImage<UiImage>
         Image = component;
     }
     
-    public static UiImage CreateSpriteImage(string sprite, UiColor color)
+    public UiImage Init(string sprite, UiColor color)
     {
-        UiImage image = CreateBase<UiImage>();
-        image.Image.Color = color;
-        image.Image.Sprite = sprite;
-        return image;
+        Color = color;
+        Sprite = sprite;
+        return this;
     }
 }

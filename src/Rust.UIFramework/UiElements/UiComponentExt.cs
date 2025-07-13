@@ -1,4 +1,5 @@
-﻿using Oxide.Ext.UiFramework.Enums;
+﻿using Oxide.Ext.UiFramework.Cache;
+using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
 
@@ -17,6 +18,8 @@ public static class UiComponentExt
         component.Parent = parent;
         return component;
     }
+    
+    public static T SetParent<T>(this T component, UiLayer layer) where T : BaseUiComponent => SetParent(component, UiLayerCache.GetLayer(layer));
     
     public static T SetPosition<T>(this T component, in UiPosition position) where T : BaseUiComponent
     {

@@ -1,5 +1,5 @@
-﻿using Oxide.Ext.UiFramework.Json;
-using Oxide.Ext.UiFramework.Pooling;
+﻿using Oxide.Ext.UiFramework.Interfaces.Builders;
+using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.UiElements;
 
@@ -7,9 +7,9 @@ namespace Oxide.Ext.UiFramework.Animation;
 
 public class PositionAnimation : BaseAnimation<UiPosition>
 {
-    public static PositionAnimation Create(in UiReference reference, IAnimator<UiPosition> animator, IAnimationDuration duration)
+    public static PositionAnimation Create(IAnimationBuilder builder, in UiReference reference, IAnimator<UiPosition> animator, IAnimationDuration duration)
     {
-        PositionAnimation animation = UiFrameworkPool.Get<PositionAnimation>();
+        PositionAnimation animation = builder.PluginPool.Get<PositionAnimation>();
         animation.Init(reference, animator, duration);
         return animation;
     }

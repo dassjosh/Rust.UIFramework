@@ -3,7 +3,6 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Extensions;
-using Oxide.Ext.UiFramework.Pooling;
 
 namespace Oxide.Ext.UiFramework.Libraries;
 
@@ -150,8 +149,6 @@ public readonly ref struct UiArgWriter(StringBuilder sb)
     
     public override string ToString()
     {
-        string command = sb.ToString();
-        UiFrameworkPool.FreeStringBuilder(sb);
-        return command;
+        return UiPool.Internal.ToStringAndFree(sb);
     }
 }

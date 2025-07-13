@@ -19,7 +19,7 @@ public class UiDatePickerMenu : BaseUiControl
 
     public static UiDatePickerMenu Create(BaseUiBuilder builder, in UiReference parent, in UiPosition pos, in UiOffset offset, DateTime date, int fontSize, UiColor textColor, UiColor backgroundColor, ICommandBuilder<DateTime> changeCommand, DatePickerDisplayMode displayMode, DatePickerDisplayOrder order)
     {
-        UiDatePickerMenu control = CreateControl<UiDatePickerMenu>();
+        UiDatePickerMenu control = CreateControl<UiDatePickerMenu>(builder.PluginPool);
         control.CreatePickers(builder, parent, pos, offset, date, fontSize, textColor, backgroundColor, changeCommand, displayMode, order);
         return control;
     }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.UiElements;
 
@@ -9,14 +10,21 @@ public class UiGridPositionLayout : BaseUiLayout, IFixedElementsLayout
     public int NumElements => (int)(Grid.NumCols * Grid.NumRows);
     public GridPosition Grid;
     public readonly List<BaseUiComponent> Elements = [];
+    public GridMoveMode MoveMode = GridMoveMode.Column;
     
-    public static UiGridPositionLayout Create(in UiReference reference, GridPosition grid)
+    public static UiGridPositionLayout Create(UiPluginPool pool, in UiReference reference, GridPosition grid)
     {
-        UiGridPositionLayout layout = CreateBase<UiGridPositionLayout>(reference);
+        UiGridPositionLayout layout = CreateBase<UiGridPositionLayout>(pool, reference);
         layout.Grid = grid;
         return layout;
     }
-    
+
+    public UiGridPositionLayout SetMoveMode(GridMoveMode mode)
+    {
+        MoveMode = mode;
+        return this;
+    }
+
     public override void AddElement(BaseUiComponent element) => Elements.Add(element);
 
     public override void CalculateElementPositions()
@@ -25,8 +33,16 @@ public class UiGridPositionLayout : BaseUiLayout, IFixedElementsLayout
         for (int index = 0; index < Elements.Count; index++)
         {
             BaseUiComponent element = Elements[index];
-            element.SetPosition(Grid.ToPosition(), default);
-            Grid.MoveCols(1);
+            element.SetPosition(Grid.ToPosition());
+            switch (MoveMode)
+            {
+                case GridMoveMode.Column:
+                    Grid.MoveRows(1);
+                    break;
+                case GridMoveMode.Row:
+                    Grid.MoveCols(1);
+                    break;
+            }
         }
     }
 
@@ -35,5 +51,6 @@ public class UiGridPositionLayout : BaseUiLayout, IFixedElementsLayout
         base.EnterPool();
         Grid = null;
         Elements.Clear();
+        MoveMode = GridMoveMode.Column;
     }
 }

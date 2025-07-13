@@ -1,6 +1,6 @@
 ﻿using Oxide.Ext.UiFramework.Colors;
+using Oxide.Ext.UiFramework.Interfaces.Builders;
 using Oxide.Ext.UiFramework.Json;
-using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Animation;
@@ -9,17 +9,14 @@ public class ColorAnimation : BaseAnimation<UiColor>
 {
     private Utf8String _elementType;
     
-    public static ColorAnimation Create(in AnimationReference reference, IAnimator<UiColor> animator, IAnimationDuration duration)
-    {
-        ColorAnimation animation = UiFrameworkPool.Get<ColorAnimation>();
-        animation.Init(reference, animator, duration);
-        return animation;
-    }
+    public static ColorAnimation Create(IAnimationBuilder builder, in AnimationReference reference, IAnimator<UiColor> animator, IAnimationDuration duration) 
+        => builder.PluginPool.Get<ColorAnimation>().Init(reference, animator, duration);
 
-    private void Init(in AnimationReference reference, IAnimator<UiColor> animator, IAnimationDuration duration)
+    private ColorAnimation Init(in AnimationReference reference, IAnimator<UiColor> animator, IAnimationDuration duration)
     {
         base.Init(reference.Reference, animator, duration);
         _elementType = reference.Type;
+        return this;
     }
     
     protected override void WriteAnimation(JsonFrameworkWriter writer, UiColor value)

@@ -83,7 +83,7 @@ public class GridPositionTests
     {
         // Arrange
         GridPosition grid = new GridPositionBuilder(4, 2).Build();
-        using UiScrollView scrollView = UiScrollView.Create(ScrollRect.MovementType.Unrestricted, 0f, false, 0f, 0f);
+        using UiScrollView scrollView = UnitTestHelpers.UnitTestPool.Get<UiScrollView>().Init(ScrollRect.MovementType.Unrestricted, 0f, false, 0f, 0f);
 
         // Act
         grid.ApplyScrollViewContentVertical(totalItems, scrollView);
@@ -120,7 +120,7 @@ public class GridPositionTests
     {
         // Arrange
         GridPosition grid = new GridPositionBuilder(4, 2).Build();
-        using UiScrollView scrollView = UiScrollView.Create(ScrollRect.MovementType.Unrestricted, 0f, false, 0f, 0f);
+        using UiScrollView scrollView = UnitTestHelpers.UnitTestPool.Get<UiScrollView>().Init(ScrollRect.MovementType.Unrestricted, 0f, false, 0f, 0f);
 
         // Act
         grid.ApplyScrollViewContentHorizontal(totalItems, scrollView);

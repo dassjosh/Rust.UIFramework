@@ -7,7 +7,6 @@ using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Helpers;
 using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Offsets;
-using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.UiElements;
 using UnityEngine;
@@ -21,7 +20,7 @@ public class UiIncrementalNumberPicker<T> : BaseNumberPicker<T> where T : struct
 
     public static UiIncrementalNumberPicker<T> Create(BaseUiBuilder builder, in UiReference parent, in UiPosition pos, in UiOffset offset, T value, IList<T> increments, int fontSize, UiColor textColor, UiColor backgroundColor, UiColor buttonColor, UiColor disabledButtonColor, ICommandBuilder<InputArg> command, ICommandBuilder<T> buttonCommand, TextAnchor align, InputMode mode, T minValue, T maxValue, float buttonWidth, string incrementFormat, string numberFormat)
     {
-        UiIncrementalNumberPicker<T> control = CreateControl<UiIncrementalNumberPicker<T>>();
+        UiIncrementalNumberPicker<T> control = CreateControl<UiIncrementalNumberPicker<T>>(builder.PluginPool);
         int incrementCount = increments.Count;
             
         control.CreateLeftRightPicker(builder, parent, pos, offset, value, fontSize, textColor, backgroundColor, command, mode, buttonWidth * incrementCount, align, numberFormat);
@@ -63,13 +62,13 @@ public class UiIncrementalNumberPicker<T> : BaseNumberPicker<T> where T : struct
 
     protected override void LeavePool()
     {
-        Subtracts = UiFrameworkPool.GetList<UiButton>();
-        Adds = UiFrameworkPool.GetList<UiButton>();
+        Subtracts = PluginPool.GetList<UiButton>();
+        Adds = PluginPool.GetList<UiButton>();
     }
 
     protected override void EnterPool()
     {
-        UiFrameworkPool.FreeList(Subtracts);
-        UiFrameworkPool.FreeList(Adds);
+        PluginPool.FreeList(Subtracts);
+        PluginPool.FreeList(Adds);
     }
 }

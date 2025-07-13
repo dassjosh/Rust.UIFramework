@@ -1,5 +1,7 @@
-﻿using Oxide.Ext.UiFramework.Enums;
+﻿using System;
+using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Exceptions;
+using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.UiElements;
 
@@ -9,7 +11,9 @@ public class UpdateBuilder : BaseUiBuilder
 {
     public UpdateMode UpdateMode = UpdateMode.AutoDestroy;
     
+    [Obsolete]
     public static UpdateBuilder Create() => UiFrameworkPool.Get<UpdateBuilder>();
+    public static UpdateBuilder Create(IUiFrameworkPlugin plugin) => plugin.Pool.Get<UpdateBuilder>();
 
     public UpdateBuilder SetUpdateMode(UpdateMode mode)
     {

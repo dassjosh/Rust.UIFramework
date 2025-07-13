@@ -2,7 +2,6 @@
 using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Plugins;
-using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Libraries;
@@ -15,7 +14,7 @@ internal class ExtremeProtection(PluginId pluginId, string method, float protect
     {
         long protectionKey = GenerateProtectionKey();
         _protectedArgs[protectionKey] = writer.ToString();
-        writer = new UiArgWriter(UiFrameworkPool.GetStringBuilder());
+        writer = new UiArgWriter(UiPool.Internal.GetStringBuilder());
         writer.Append(command);
         writer.AppendSpace();
         writer.Append(protectionKey.ToBase64Span());

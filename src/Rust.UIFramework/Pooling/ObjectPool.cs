@@ -17,12 +17,12 @@ public class ObjectPool<T> : BasePool<BasePoolable, ObjectPool<T>> where T : Bas
         
     protected override bool OnFreeItem(ref BasePoolable item)
     {
-        if (item.Disposed)
+        if (item.CanPool)
         {
-            return false;
+            item.EnterPoolInternal();
+            return true;
         }
-            
-        item.EnterPoolInternal();
-        return true;
+
+        return false;
     }
 }

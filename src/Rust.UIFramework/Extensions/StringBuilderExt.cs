@@ -3,7 +3,6 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Libraries;
-using Oxide.Ext.UiFramework.Pooling;
 
 namespace Oxide.Ext.UiFramework.Extensions;
 
@@ -442,16 +441,5 @@ internal static class StringBuilderExt
         }
         
         sb.AppendArg(value.Value);
-    }
-    
-    /// <summary>
-    /// Frees a <see cref="StringBuilder"/> back to the pool returning the created <see cref="string"/>
-    /// </summary>
-    /// <param name="sb"><see cref="StringBuilder"/> with string and being freed</param>
-    internal static string ToStringAndFree(this StringBuilder sb)
-    {
-        string result = sb.ToString();
-        UiFrameworkPool.FreeStringBuilder(sb);
-        return result;
     }
 }

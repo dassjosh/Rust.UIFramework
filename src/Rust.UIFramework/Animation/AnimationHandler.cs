@@ -6,6 +6,7 @@ using Network;
 using Oxide.Ext.UiFramework.Builder;
 using Oxide.Ext.UiFramework.Config;
 using Oxide.Ext.UiFramework.Json;
+using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Logging;
 using Oxide.Ext.UiFramework.Types;
 using UnityEngine;
@@ -16,19 +17,18 @@ internal class AnimationHandler : ISingleton
 {
     private readonly ConcurrentDictionary<AnimationId, BaseAnimation> _animations = new();
     private readonly ConcurrentDictionary<ulong, PlayerAnimations> _playerAnimations = new();
-    private readonly Thread _thread;
     private readonly CancellationTokenSource _cancellationTokenSource = new();
     private readonly AutoResetEvent _reset = new(false);
     private int _sendCount;
-    private readonly IUiLogger _logger = UiFrameworkExtension.GlobalLogger;
+    private readonly IUiLogger _logger = Singleton<UiLoggerFactory>.Instance.CreateExtensionLogger<AnimationHandler>();
 
     private AnimationHandler()
     {
-        _thread = new Thread(AnimationLoop)
+        Thread thread = new(AnimationLoop)
         {
             IsBackground = true
         };
-        _thread.Start(_cancellationTokenSource.Token);
+        thread.Start(_cancellationTokenSource.Token);
     }
 
     public BaseAnimation GetAnimation(AnimationId id) => _animations.GetValueOrDefault(id);
@@ -61,7 +61,7 @@ internal class AnimationHandler : ISingleton
     {
         if (!_playerAnimations.TryGetValue(animation.PlayerId, out PlayerAnimations animations))
         {
-            _playerAnimations[animation.PlayerId] = animations = PlayerAnimations.Create(animation.Send);
+            _playerAnimations[animation.PlayerId] = animations = animation.PluginPool.Get<PlayerAnimations>().Init(animation.Send);
         }
 
         animations.AddAnimation(animation);
@@ -202,7 +202,7 @@ internal class AnimationHandler : ISingleton
 
     private static JsonFrameworkWriter Create()
     {
-        JsonFrameworkWriter writer = JsonFrameworkWriter.Create();
+        JsonFrameworkWriter writer = JsonFrameworkWriter.Create(UiPool.Internal);
         writer.WriteStartArray();
         return writer;
     }

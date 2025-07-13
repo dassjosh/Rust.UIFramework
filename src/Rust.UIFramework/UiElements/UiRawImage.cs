@@ -20,12 +20,11 @@ public class UiRawImage : BaseUiComponent, IMaterial<UiRawImage>, IFadeIn<UiRawI
         RawImage = component;
     }
     
-    public static UiRawImage Create(string image, in UiColor color)
+    public UiRawImage Init(string image, in UiColor color)
     {
-        UiRawImage rawImage = CreateBase<UiRawImage>();
-        rawImage.RawImage.Color = color;
-        rawImage.RawImage.Image = image;
-        return rawImage;
+        Color = color;
+        Image = image;
+        return this;
     }
 
     public UiRawImage SetColor(UiColor color)

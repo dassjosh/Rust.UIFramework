@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using System.Text;
-using Oxide.Ext.UiFramework.Pooling;
+using Oxide.Ext.UiFramework.Libraries;
 
 namespace Oxide.Ext.UiFramework.Extensions;
 
@@ -49,7 +49,7 @@ internal static class TypeExt
             return t.Name;
         }
 
-        StringBuilder sb = UiFrameworkPool.GetStringBuilder();
+        StringBuilder sb = UiPool.Internal.GetStringBuilder();
         sb.Append(t.Name.AsSpan()[..t.Name.IndexOf('`')]);
         sb.Append('<');
         Type[] args = t.GetGenericArguments();
@@ -63,8 +63,6 @@ internal static class TypeExt
             sb.Append(GetRealTypeName(arg));
         }
         sb.Append('>');
-        string type = sb.ToString();
-        UiFrameworkPool.FreeStringBuilder(sb);
-        return type;
+        return UiPool.Internal.ToStringAndFree(sb);
     }
 }

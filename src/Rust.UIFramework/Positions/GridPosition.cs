@@ -1,4 +1,5 @@
 ﻿using System;
+using Oxide.Ext.UiFramework.Padding;
 using Oxide.Ext.UiFramework.UiElements;
 using UnityEngine;
 
@@ -11,15 +12,26 @@ public class GridPosition : BasePosition
 
     private float _xScale = 1;
     private float _yScale = 1;
-    private readonly float _xPadding;
-    private readonly float _yPadding;
+    
+    public UiPadding Padding;
+    
+    // public readonly float HorizontalPadding;
+    // public readonly float VerticalPadding;
 
-    public GridPosition(float xMin, float yMin, float xMax, float yMax, float xPad, float yPad, float numCols, float numRows) : base(xMin, yMin, xMax, yMax)
+    public GridPosition(UiPosition initialState, UiPadding padding, float numCols, float numRows) : base(initialState.XMin, initialState.YMin, initialState.XMax, initialState.YMax)
+    {
+        Padding = padding;
+        NumCols = numCols;
+        NumRows = numRows;
+        ApplyPadding();
+    }
+    
+    [Obsolete]
+    public GridPosition(float xMin, float yMin, float xMax, float yMax, float horizontalPadding, float verticalPadding, float numCols, float numRows) : base(xMin, yMin, xMax, yMax)
     {
         NumCols = numCols;
         NumRows = numRows;
-        _xPadding = xPad;
-        _yPadding = yPad;
+        Padding = new UiPadding(horizontalPadding, verticalPadding);
         ApplyPadding();
     }
 
@@ -27,8 +39,9 @@ public class GridPosition : BasePosition
         
     public void MoveCols(float cols)
     {
-        XMin += cols / NumCols * _xScale;
-        XMax += cols / NumCols * _xScale;
+        float amount = cols / NumCols * _xScale;
+        XMin += amount;
+        XMax += amount;
             
         if (XMax > 1)
         {
@@ -42,8 +55,9 @@ public class GridPosition : BasePosition
     
     public void MoveRows(float rows)
     {
-        YMin -= rows / NumRows * _yScale;
-        YMax -= rows / NumRows * _yScale;
+        float amount = rows / NumRows * _yScale;
+        YMin -= amount;
+        YMax -= amount;
     }
 
     [Obsolete("Use ApplyScrollViewVertical instead")]
@@ -118,12 +132,11 @@ public class GridPosition : BasePosition
 
     private void ApplyPadding()
     {
-        float xPadding = _xPadding * _xScale;
-        float yPadding = _yPadding * _yScale;
-        XMin += xPadding;
-        XMax -= xPadding;
-        YMin += yPadding;
-        YMax -= yPadding;
+        UiPadding padding = Padding;
+        XMin += padding.Left * _xScale;
+        XMax -= padding.Right * _xScale;
+        YMin += padding.Bottom * _yScale;
+        YMax -= padding.Top * _yScale;
     }
 
     public void ResetScale()

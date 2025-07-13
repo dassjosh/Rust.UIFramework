@@ -1,15 +1,15 @@
-﻿using Oxide.Ext.UiFramework.Json;
+﻿using Oxide.Ext.UiFramework.Interfaces.Builders;
+using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Offsets;
-using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.UiElements;
 
 namespace Oxide.Ext.UiFramework.Animation;
 
 public class OffsetAnimation : BaseAnimation<UiOffset>
 {
-    public static OffsetAnimation Create(in UiReference reference, IAnimator<UiOffset> animator, IAnimationDuration duration)
+    public static OffsetAnimation Create(IAnimationBuilder builder, in UiReference reference, IAnimator<UiOffset> animator, IAnimationDuration duration)
     {
-        OffsetAnimation animation = UiFrameworkPool.Get<OffsetAnimation>();
+        OffsetAnimation animation = builder.PluginPool.Get<OffsetAnimation>();
         animation.Init(reference, animator, duration);
         return animation;
     }

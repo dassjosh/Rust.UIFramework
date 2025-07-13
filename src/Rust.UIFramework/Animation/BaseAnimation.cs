@@ -65,7 +65,7 @@ public abstract class BaseAnimation : BasePoolable
 
     public BaseAnimation DestroyAfter(in UiReference? destroyTarget = null)
     {
-        AddEvent(DestroyAfterEvent.Create(destroyTarget));
+        AddEvent(PluginPool.Get<DestroyAfterEvent>().Init(destroyTarget));
         return this;
     }
 
@@ -207,7 +207,7 @@ public abstract class BaseAnimation : BasePoolable
     {
         if (Send.connections != null)
         {
-            UiFrameworkPool.FreeList(Send.connections);
+            PluginPool.FreeList(Send.connections);
         }
 
         if (Duration is BasePoolable poolable)

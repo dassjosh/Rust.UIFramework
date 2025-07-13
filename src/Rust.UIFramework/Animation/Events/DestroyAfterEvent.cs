@@ -8,16 +8,10 @@ public class DestroyAfterEvent : BasePoolable, IAnimationCompleted
 {
     public UiReference? Target;
 
-    public static DestroyAfterEvent Create(in UiReference? target)
-    {
-        DestroyAfterEvent @event = UiFrameworkPool.Get<DestroyAfterEvent>();
-        @event.Init(target);
-        return @event;
-    }
-
-    private void Init(in UiReference? target)
+    public DestroyAfterEvent Init(in UiReference? target)
     {
         Target = target;
+        return this;
     }
     
     public void OnAnimationCompleted(BaseAnimation animation)

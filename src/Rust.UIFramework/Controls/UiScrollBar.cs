@@ -5,7 +5,6 @@ using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Layouts;
 using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Offsets;
-using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.UiElements;
 using UnityEngine.UI;
@@ -21,7 +20,7 @@ public class UiScrollBar : BaseUiControl
 
     public static UiScrollBar Create(BaseUiBuilder builder, in UiReference parent, in UiPosition position, in UiOffset offset, int currentPage, int maxPage, UiColor barColor, UiColor backgroundColor, ICommandBuilder<int> command, ScrollbarDirection direction, string sprite)
     {
-        UiScrollBar control = CreateControl<UiScrollBar>();
+        UiScrollBar control = CreateControl<UiScrollBar>(builder.PluginPool);
             
         control.Background = builder.Panel(parent, position, offset, backgroundColor).SetSpriteMaterialImage(sprite, null, Image.Type.Sliced);
         UiDirectionalLayout layout = builder.DirectionalLayout(parent, position, offset, maxPage + 1, direction == ScrollbarDirection.Horizontal ? LayoutDirection.Horizontal : LayoutDirection.Vertical);
@@ -56,7 +55,7 @@ public class UiScrollBar : BaseUiControl
     protected override void LeavePool()
     {
         base.LeavePool();
-        ScrollButtons = UiFrameworkPool.GetList<UiButton>();
+        ScrollButtons = PluginPool.GetList<UiButton>();
     }
 
     protected override void EnterPool()
@@ -64,6 +63,6 @@ public class UiScrollBar : BaseUiControl
         base.EnterPool();
         Background = null;
         ScrollBar = null;
-        UiFrameworkPool.FreeList(ScrollButtons);
+        PluginPool.FreeList(ScrollButtons);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Offsets;
-using Oxide.Ext.UiFramework.Pooling;
+using Oxide.Ext.UiFramework.Padding;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.UiElements;
 
@@ -17,9 +18,9 @@ public class UiGridLayout : BaseUiLayout, IFixedElementsLayout
     public readonly List<GridElement> Elements = [];
     public int NumElements => NumRows * NumCols;
     
-    public static UiGridLayout Create(in UiReference reference, int numCols, int numRows, GridAlignment alignment, LayoutPadding layoutPadding, in UiPadding padding)
+    public static UiGridLayout Create(UiPluginPool pool, in UiReference reference, int numCols, int numRows, GridAlignment alignment, LayoutPadding layoutPadding, in UiPadding padding)
     {
-        UiGridLayout layout = CreateBase<UiGridLayout>(reference);
+        UiGridLayout layout = CreateBase<UiGridLayout>(pool, reference);
         layout.NumCols = numCols;
         layout.NumRows = numRows;
         layout.ColumnAlignment = alignment.ColumnAlignment;

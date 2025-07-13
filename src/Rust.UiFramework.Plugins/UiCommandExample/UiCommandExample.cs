@@ -10,10 +10,12 @@ namespace Oxide.Ext.UiFramework.Plugins.UiCommandExample;
 
 [Info("UiCommandExample", "MJSU", "1.0.0")]
 [Description("UiCommandExample")]
-public class UiCommandExample : RustPlugin
+public class UiCommandExample : RustPlugin, IUiFrameworkPlugin
 {
     private readonly UiCommands _uiCommands = GetLibrary<UiCommands>();
     private readonly UiPlayerStore _playerStore = GetLibrary<UiPlayerStore>();
+    
+    public UiPluginPool Pool { get; set; }
 
     private ICommandBuilder<UiState, MyCustomArg, int, bool, BuildingPrivlidge, DateTime> _doTheThingBuilder;
     
