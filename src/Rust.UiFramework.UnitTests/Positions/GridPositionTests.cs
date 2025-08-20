@@ -1,5 +1,9 @@
-﻿using Oxide.Ext.UiFramework.Positions;
+﻿using Oxide.Ext.UiFramework.Padding;
+using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.UiElements;
+using Rust.UiFramework.UnitTests.Extensions;
+using Rust.UiFramework.UnitTests.Global.Generators;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Rust.UiFramework.UnitTests.Positions;
@@ -10,7 +14,7 @@ public class GridPositionTests
     public void Constructor_SetsCorrectValues()
     {
         // Arrange
-        GridPosition grid = new(1f, 2f, 3f, 4f, 0.1f, 0.2f, 2, 4);
+        GridPosition grid = new(new UiPosition(1f, 2f, 3f, 4f), new UiPadding(0.1f, 0.2f), 2, 4);
         
         // Act
         UiPosition position = grid.ToPosition();
@@ -20,37 +24,6 @@ public class GridPositionTests
         grid.NumRows.Should().Be(4);
         position.Should().Be(new UiPosition(1.1f, 2.2f, 2.9f, 3.8f)); 
     }
-    
-    [Theory]
-    [MemberData(nameof(MoveColsData))]
-    public void MoveCols_SetsCorrectValues(int moves, UiPosition expected)
-    {
-        // Arrange
-        GridPosition grid = new GridPositionBuilder(4, 2).Build();
-        
-        // Act
-        for (int i = 0; i < moves; i++)
-        {
-            grid.MoveCols(1);
-        }
-
-        UiPosition position = grid;
-        
-        // Assert
-        position.Should().Be(expected); 
-    }
-
-    public static TheoryData<int, UiPosition> MoveColsData => 
-        [
-            (0, new UiPosition(0, 0.5f, 0.25f, 1f)),
-            (1, new UiPosition(0.25f, 0.5f, 0.5f, 1f)),
-            (2, new UiPosition(0.5f, 0.5f, 0.75f, 1f)),
-            (3, new UiPosition(0.75f, 0.5f, 1f, 1f)),
-            (4, new UiPosition(0, 0, 0.25f, 0.5f)),
-            (5, new UiPosition(0.25f, 0, 0.5f, 0.5f)),
-            (6, new UiPosition(0.5f, 0, 0.75f, 0.5f)),
-            (7, new UiPosition(0.75f, 0, 1f, 0.5f))
-        ];
     
     [Theory]
     [MemberData(nameof(MoveRowsData))]
@@ -76,6 +49,76 @@ public class GridPositionTests
         (0, new UiPosition(0, 0.5f, 0.25f, 1f)),
         (1, new UiPosition(0, 0, 0.25f, 0.5f))
     ];
+    
+    [Theory]
+    [MemberData(nameof(Grid_SetsCorrectValuesTheoryData))]
+    public async Task Grid_SetsCorrectValues(GridPosition grid)
+    {
+        // Arrange
+        List<UiPosition> positions = [];
+        
+        // Act
+        for (int i = 0; i < grid.NumElements; i++)
+        {
+            positions.Add(grid.ToPosition());
+            grid.MoveCols(1);
+        }
+        
+        // Assert
+        await Verify(positions).DisableRequireUniquePrefix();
+    }
+
+    public static TheoryData<GridPosition> Grid_SetsCorrectValuesTheoryData() =>
+    [
+        (new GridPositionBuilder(1,1).Build()),
+        (new GridPositionBuilder(2,2).Build()),
+        (new GridPositionBuilder(4,2).Build()),
+        (new GridPositionBuilder(2,4).Build()),
+        (new GridPositionBuilder(3,3).Build()),
+        (new GridPositionBuilder(4,8).Build()),
+        (new GridPositionBuilder(8,4).Build()),
+        
+        (new GridPositionBuilder(1,1).SetHorizontalPadding(0.01f).SetVerticalPadding(0.02f).Build()),
+        (new GridPositionBuilder(2,2).SetHorizontalPadding(0.01f).SetVerticalPadding(0.02f).Build()),
+        (new GridPositionBuilder(3,3).SetHorizontalPadding(0.01f).SetVerticalPadding(0.02f).Build()),
+        (new GridPositionBuilder(4,8).SetHorizontalPadding(0.01f).SetVerticalPadding(0.02f).Build()),
+        (new GridPositionBuilder(8,4).SetHorizontalPadding(0.01f).SetVerticalPadding(0.02f).Build()),
+        
+        (new GridPositionBuilder(2,2).SetColWidth(2).Build()),
+        (new GridPositionBuilder(3,3).SetColWidth(2).Build()),
+        (new GridPositionBuilder(4,16).SetColWidth(2).Build()),
+        (new GridPositionBuilder(16,4).SetColWidth(2).Build()),
+        
+        (new GridPositionBuilder(2,2).SetRowHeight(2).Build()),
+        (new GridPositionBuilder(3,3).SetRowHeight(2).Build()),
+        (new GridPositionBuilder(4,16).SetRowHeight(2).Build()),
+        (new GridPositionBuilder(16,4).SetRowHeight(2).Build()),
+    ];
+    
+    [Theory]
+    [MemberData(nameof(Grid_BoundsTheoryData))]
+    public void Grid_StaysInBounds(GridPosition grid)
+    {
+        // Arrange
+        List<UiPosition> positions = [];
+        
+        // Act
+        for (int i = 0; i < grid.NumElements; i++)
+        {
+            positions.Add(grid.ToPosition());
+            grid.MoveCols(1);
+        }
+        
+        // Assert
+        positions.Count.Should().Be(grid.NumElements);
+        
+        foreach (UiPosition position in positions)
+        {
+            position.ShouldBeInRange(new Vector2(0, 0), new Vector2(1, 1));
+        }
+    }
+
+    public static TheoryData<GridPosition> Grid_BoundsTheoryData() => TheoryDataGenerator.Generate(val => new GridPositionBuilder(val, val).Build(), Enumerable.Range(1, 24));
 
     [Theory]
     [MemberData(nameof(ScrollViewVertical))]
@@ -87,7 +130,7 @@ public class GridPositionTests
 
         // Act
         grid.ApplyScrollViewContentVertical(totalItems, scrollView);
-
+        
         // Assert
         scrollView.ContentPosition.Should().Be(expected);
     }

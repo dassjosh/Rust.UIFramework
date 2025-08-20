@@ -32,7 +32,12 @@ public class UiPlayerStore : BaseUiFrameworkLibrary, ISingleton
     {
         if (plugin == null) throw new ArgumentNullException(nameof(plugin));
         InvalidStorePlayerIdException.ThrowIfInvalidPlayerId(playerId);
-        return (T)_stores[new PluginPlayerStore(plugin.Id(), playerId)];
+        if (_stores.TryGetValue(new PluginPlayerStore(plugin.Id(), playerId), out IPlayerStore store))
+        {
+            return (T)store;
+        }
+
+        return default;
     }
 
     public void RemoveStore(Plugin plugin, BasePlayer player)

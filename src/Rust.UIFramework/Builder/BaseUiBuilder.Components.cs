@@ -29,26 +29,26 @@ public partial class BaseUiBuilder
 
     #endregion
 
-    #region Base
-    public T Element<T>(in UiReference parent) where T : BaseUiComponent, new()
+    #region Component
+    public T Component<T>(in UiReference parent) where T : BaseUiComponent, new()
     {
-        T element = PluginPool.Get<T>();
-        AddComponent(element, parent);
-        return element;
+        T component = PluginPool.Get<T>();
+        AddComponent(component, parent);
+        return component;
     }
     
-    public T Element<T>(BaseUiLayout layout) where T : BaseUiComponent, new()
+    public T Component<T>(BaseUiLayout layout) where T : BaseUiComponent, new()
     {
-        T element = Element<T>(layout.Reference);
-        layout.AddElement(element);
-        return element;
+        T component = Component<T>(layout.Reference);
+        layout.AddElement(component);
+        return component;
     }
     #endregion
     
     #region Section
     public UiSection Section(in UiReference parent)
     {
-        return Element<UiSection>(parent);
+        return Component<UiSection>(parent);
     }
 
     public UiSection Section(in UiReference parent, in UiPosition pos, in UiOffset offset = default)
@@ -58,7 +58,7 @@ public partial class BaseUiBuilder
     
     public UiSection Section(BaseUiLayout layout)
     {
-       return Element<UiSection>(layout);
+       return Component<UiSection>(layout);
     }
 
     public UiSection Padding(in UiReference parent, in UiPosition pos, in UiPadding padding = default)
@@ -70,7 +70,7 @@ public partial class BaseUiBuilder
     #region Panel
     public UiPanel Panel(in UiReference parent)
     {
-        return Element<UiPanel>(parent);
+        return Component<UiPanel>(parent);
     }
     
     public UiPanel Panel(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor color)
@@ -80,14 +80,14 @@ public partial class BaseUiBuilder
 
     public UiPanel Panel(BaseUiLayout layout, UiColor color)
     {
-        return Element<UiPanel>(layout).SetColor(color);
+        return Component<UiPanel>(layout).SetColor(color);
     }
     #endregion
 
     #region Button
     public UiButton Button(in UiReference parent)
     {
-        return Element<UiButton>(parent);
+        return Component<UiButton>(parent);
     }
     
     public UiButton Button(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor color, string command, ButtonType buttonType = ButtonType.Command)
@@ -97,14 +97,14 @@ public partial class BaseUiBuilder
     
     public UiButton Button(BaseUiLayout layout, UiColor color, string command, ButtonType buttonType = ButtonType.Command)
     {
-        return Element<UiButton>(layout).Init(color, command, buttonType);
+        return Component<UiButton>(layout).Init(color, command, buttonType);
     }
     #endregion
 
     #region Image
     public UiImage ImageSprite(in UiReference parent)
     {
-        return Element<UiImage>(parent);
+        return Component<UiImage>(parent);
     }
     
     public UiImage ImageSprite(in UiReference parent, in UiPosition pos, in UiOffset offset, string sprite, UiColor? color = default)
@@ -114,14 +114,14 @@ public partial class BaseUiBuilder
     
     public UiImage ImageSprite(BaseUiLayout layout, string sprite, UiColor? color = default)
     {
-        return Element<UiImage>(layout).Init(sprite, color ?? UiColors.White);
+        return Component<UiImage>(layout).Init(sprite, color ?? UiColors.White);
     }
     #endregion
 
     #region PlayingCard
     public UiPlayingCard PlayingCard(in UiReference parent)
     {
-        return Element<UiPlayingCard>(parent);
+        return Component<UiPlayingCard>(parent);
     }
     
     public UiPlayingCard PlayingCard(in UiReference parent, in UiPosition pos, in UiOffset offset, PlayingCardData card, UiCardType type = UiCardType.Normal, UiColor? color = default)
@@ -131,14 +131,14 @@ public partial class BaseUiBuilder
     
     public UiPlayingCard PlayingCard(BaseUiLayout layout, PlayingCardData card, UiCardType type = UiCardType.Normal, UiColor? color = default)
     {
-        return Element<UiPlayingCard>(layout).Init(card, type, color ?? UiColors.White);
+        return Component<UiPlayingCard>(layout).Init(card, type, color ?? UiColors.White);
     }
     #endregion
 
     #region Item Icon
     public UiItemIcon ItemIcon(in UiReference parent)
     {
-        return Element<UiItemIcon>(parent);
+        return Component<UiItemIcon>(parent);
     }
     
     public UiItemIcon ItemIcon(in UiReference parent, in UiPosition pos, in UiOffset offset, int itemId, ulong skinId = 0, UiColor? color = default)
@@ -148,7 +148,7 @@ public partial class BaseUiBuilder
     
     public UiItemIcon ItemIcon(BaseUiLayout layout, int itemId, ulong skinId = 0, UiColor? color = default)
     {
-        return Element<UiItemIcon>(layout).Init(itemId, skinId, color ?? UiColors.White);
+        return Component<UiItemIcon>(layout).Init(itemId, skinId, color ?? UiColors.White);
     }
     
     public UiItemIcon ItemIcon(in UiReference parent, in UiPosition pos, in UiOffset offset, Item item, UiColor? color = default) => ItemIcon(parent, pos, offset, item.info.itemid, item.skin, color);
@@ -158,7 +158,7 @@ public partial class BaseUiBuilder
     #region Player Avatar
     public UiPlayerAvatar PlayerAvatar(in UiReference parent)
     {
-        return Element<UiPlayerAvatar>(parent);
+        return Component<UiPlayerAvatar>(parent);
     }
     
     public UiPlayerAvatar PlayerAvatar(in UiReference parent, in UiPosition pos, in UiOffset offset, ulong steamId, AvatarType type = AvatarType.Medium, UiColor? color = default)
@@ -168,14 +168,14 @@ public partial class BaseUiBuilder
     
     public UiPlayerAvatar PlayerAvatar(BaseUiLayout layout, ulong steamId, AvatarType type = AvatarType.Medium, UiColor? color = default)
     {
-        return Element<UiPlayerAvatar>(layout).Init(steamId, type, color ?? UiColors.White);
+        return Component<UiPlayerAvatar>(layout).Init(steamId, type, color ?? UiColors.White);
     }
     #endregion
 
     #region Raw Image
     public UiRawImage RawImage(in UiReference parent)
     {
-        return Element<UiRawImage>(parent);
+        return Component<UiRawImage>(parent);
     }
     
     public UiRawImage RawImage(in UiReference parent, in UiPosition pos, in UiOffset offset, string image, UiColor? color = default)
@@ -185,7 +185,7 @@ public partial class BaseUiBuilder
     
     public UiRawImage RawImage(BaseUiLayout layout, string image, UiColor? color = default)
     {
-        return Element<UiRawImage>(layout).Init(image, color ?? UiColors.White);
+        return Component<UiRawImage>(layout).Init(image, color ?? UiColors.White);
     }
 
     public UiRawImage WebImage(in UiReference parent, in UiPosition pos, in UiOffset offset, string url, UiColor? color = default) => RawImage(parent, pos, offset, url, color);
@@ -201,7 +201,7 @@ public partial class BaseUiBuilder
     #region Icon
     public UiIcon Icon(in UiReference parent)
     {
-        return Element<UiIcon>(parent);
+        return Component<UiIcon>(parent);
     }
     
     public UiIcon Icon<T>(in UiReference parent, in UiPosition pos, in UiOffset offset, T icon, UiColor? color = default) where T : struct, Enum
@@ -211,14 +211,14 @@ public partial class BaseUiBuilder
     
     public UiIcon Icon<T>(BaseUiLayout layout, T icon, UiColor? color = default) where T : struct, Enum
     {
-        return Element<UiIcon>(layout).Init(icon, color ?? UiColors.White);
+        return Component<UiIcon>(layout).Init(icon, color ?? UiColors.White);
     }
     #endregion
 
     #region Label
     public UiLabel Label(in UiReference parent)
     {
-        return Element<UiLabel>(parent);
+        return Component<UiLabel>(parent);
     }
     
     public UiLabel Label(in UiReference parent, in UiPosition pos, in UiOffset offset, string text, int size, UiColor textColor, TextAnchor align = TextAnchor.MiddleCenter)
@@ -228,7 +228,7 @@ public partial class BaseUiBuilder
     
     public UiLabel Label(BaseUiLayout layout, string text, int size, UiColor textColor, TextAnchor align = TextAnchor.MiddleCenter)
     {
-        return Element<UiLabel>(layout).Init(text, size, textColor, align, Font);
+        return Component<UiLabel>(layout).Init(text, size, textColor, align, Font);
     }
     
     public UiTuple<UiPanel, UiLabel> Label(in UiReference parent, in UiPosition pos, in UiOffset offset, string text, int size, UiColor textColor, UiColor backgroundColor, TextAnchor align = TextAnchor.MiddleCenter, in UiPadding? textPadding = null)
@@ -249,7 +249,7 @@ public partial class BaseUiBuilder
     #region Input
     public UiInput Input(in UiReference parent)
     {
-        return Element<UiInput>(parent);
+        return Component<UiInput>(parent);
     }
     
     public UiInput Input(in UiReference parent, in UiPosition pos, in UiOffset offset, string text, int fontSize, UiColor textColor, string command, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, InputMode mode = InputMode.Default, InputField.LineType lineType = InputField.LineType.SingleLine)
@@ -259,7 +259,7 @@ public partial class BaseUiBuilder
     
     public UiInput Input(BaseUiLayout layout, string text, int fontSize, UiColor textColor, string command, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, InputMode mode = InputMode.Default, InputField.LineType lineType = InputField.LineType.SingleLine)
     {
-        return Element<UiInput>(layout).Init(text, fontSize, textColor, command, Font, align, charsLimit, mode, lineType);
+        return Component<UiInput>(layout).Init(text, fontSize, textColor, command, Font, align, charsLimit, mode, lineType);
     }
     
     public UiTuple<UiPanel, UiInput> Input(in UiReference parent, string text, int fontSize, UiColor textColor, UiColor backgroundColor, string command, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, InputMode mode = InputMode.Default, InputField.LineType lineType = InputField.LineType.SingleLine)
@@ -335,7 +335,7 @@ public partial class BaseUiBuilder
     #region ScrollView
     public UiScrollView ScrollView(in UiReference parent)
     {
-        return Element<UiScrollView>(parent);
+        return Component<UiScrollView>(parent);
     }
     
     public UiScrollView ScrollView(in UiReference parent, in UiPosition pos, in UiOffset offset, 
@@ -355,7 +355,7 @@ public partial class BaseUiBuilder
         float decelerationRate = JsonDefaults.ScrollView.DecelerationRate, 
         float scrollSensitivity = JsonDefaults.ScrollView.ScrollSensitivity)
     {
-        return Element<UiScrollView>(layout).Init(movementType, elasticity, inertia, decelerationRate, scrollSensitivity);
+        return Component<UiScrollView>(layout).Init(movementType, elasticity, inertia, decelerationRate, scrollSensitivity);
     }
     #endregion
 }

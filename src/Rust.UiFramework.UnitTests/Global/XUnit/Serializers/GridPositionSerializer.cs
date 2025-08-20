@@ -1,4 +1,5 @@
-﻿using Oxide.Ext.UiFramework.Positions;
+﻿using Oxide.Ext.UiFramework.Padding;
+using Oxide.Ext.UiFramework.Positions;
 using Rust.UiFramework.UnitTests.Global.XUnit.Serializers;
 using Xunit.Sdk;
 
@@ -6,11 +7,11 @@ using Xunit.Sdk;
 
 namespace Rust.UiFramework.UnitTests.Global.XUnit.Serializers;
 
-public class GridPositionSerializer : IXunitSerializer
+public class GridPositionSerializer : BaseSerializer<GridPosition>
 {
     public static readonly GridPositionSerializer Instance = new(); 
     
-    public object Deserialize(Type type, string serializedValue)
+    protected override GridPosition Deserialize(string serializedValue)
     {
         string[] parts = serializedValue.Replace("(", "").Replace(")", "").Split(",");
         UiPosition initial = new(float.Parse(parts[0]), float.Parse(parts[1]), float.Parse(parts[2]), float.Parse(parts[3]));
@@ -18,25 +19,13 @@ public class GridPositionSerializer : IXunitSerializer
         int numRows = int.Parse(parts[5]);
         float xPadding = float.Parse(parts[6]);
         float yPadding = float.Parse(parts[7]);
-        return new GridPosition(initial.XMin, initial.YMin, initial.XMax, initial.YMax, numCols, numRows, xPadding, yPadding);
+        UiPadding padding = new(xPadding, yPadding);
+        return new GridPosition(initial, padding, numCols, numRows);
     }
 
-    public bool IsSerializable(Type type, object value, out string failureReason)
+    protected override string Serialize(GridPosition value)
     {
-        if (type == typeof(GridPosition))
-        {
-            failureReason = null;
-            return true;
-        }
-
-        failureReason = "Not a GridPosition";
-        return false;
-    }
-
-    public string Serialize(object value)
-    {
-        GridPosition grid = (GridPosition)value;
-        UiPosition initial = grid.InitialState;
-        return $"({initial.Min.x},{initial.Min.y},{initial.Max.x},{initial.Max.y}),({grid.NumCols},{grid.NumRows}),({grid.Padding})";
+        UiPosition initial = value.InitialState;
+        return $"({initial.Min.x},{initial.Min.y},{initial.Max.x},{initial.Max.y}),({value.NumCols},{value.NumRows}),({value.Padding})";
     }
 }

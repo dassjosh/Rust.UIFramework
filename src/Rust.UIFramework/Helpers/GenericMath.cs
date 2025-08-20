@@ -61,12 +61,13 @@ public static class GenericMath
     /// <param name="a">The value to check.</param>
     /// <returns>True if the value is zero, false otherwise.</returns>
     public static bool IsZero<T>(T a) => MathOperations<T>.IsZero(a);
-    
+
     /// <summary>
     /// Checks if a value has a mask.
     /// </summary>
     /// <typeparam name="T">The numeric type of the value.</typeparam>
     /// <param name="a">The value to check.</param>
+    /// <param name="b">The mask to check for.</param>
     /// <returns>True if the value has a mask, false otherwise.</returns>
     public static bool HasMask<T>(T a, T b) => MathOperations<T>.HasMask(a, b);
     

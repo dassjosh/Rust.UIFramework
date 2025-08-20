@@ -10,7 +10,7 @@ internal class EnumHandler<T> : IArgHandler<T>
     public EnumHandler()
     {
         Type underlyingType = Enum.GetUnderlyingType(typeof(T));
-        _isUnsigned = underlyingType == typeof(sbyte) || underlyingType == typeof(ushort) || underlyingType == typeof(uint) || underlyingType == typeof(ulong);
+        _isUnsigned = underlyingType == typeof(byte) || underlyingType == typeof(ushort) || underlyingType == typeof(uint) || underlyingType == typeof(ulong);
     }
     
     public T Read(ReadOnlySpan<char> arg) => _isUnsigned ? (T)Enum.ToObject(typeof(T), ulong.Parse(arg)) : (T)Enum.ToObject(typeof(T), long.Parse(arg));

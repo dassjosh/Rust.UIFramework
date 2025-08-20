@@ -27,7 +27,18 @@ public class UiNameStore : BaseUiFrameworkLibrary, ISingleton
     {
         if (plugin == null) throw new ArgumentNullException(nameof(plugin));
         InvalidStoreNameException.ThrowIfInvalidStoreName(name);
-        return (T)_stores[new PluginNamedStore(plugin.Id(), name)];
+        if(_stores.TryGetValue(new PluginNamedStore(plugin.Id(), name), out INamedStore store))
+        {
+            return (T)store;
+        }
+
+        return default;
+    }
+    
+    public T GetOrCreateStore<T>(Plugin plugin, string name) where T : class, INamedStore
+    {
+        if (plugin == null) throw new ArgumentNullException(nameof(plugin));
+        return (T)GetOrCreateStore<T>(plugin.Id(), name);
     }
 
     public void RemoveStore(Plugin plugin, string name)
@@ -35,12 +46,6 @@ public class UiNameStore : BaseUiFrameworkLibrary, ISingleton
         if (plugin == null) throw new ArgumentNullException(nameof(plugin));
         InvalidStoreNameException.ThrowIfInvalidStoreName(name);
         _stores.Remove(new PluginNamedStore(plugin.Id(), name));
-    }
-
-    public T GetOrCreateStore<T>(Plugin plugin, string name) where T : class, INamedStore
-    {
-        if (plugin == null) throw new ArgumentNullException(nameof(plugin));
-        return (T)GetOrCreateStore<T>(plugin.Id(), name);
     }
 
     internal INamedStore GetOrCreateStore<T>(PluginId pluginId, string name)
@@ -52,9 +57,8 @@ public class UiNameStore : BaseUiFrameworkLibrary, ISingleton
             return value;
         }
 
-        value = (INamedStore)Activator.CreateInstance(typeof(T));
+        _stores[key] = value = (INamedStore)Activator.CreateInstance(typeof(T));
         value!.Name = name;
-        _stores[key] = value;
         return value;
     }
 

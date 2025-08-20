@@ -7,12 +7,15 @@ using Oxide.Ext.UiFramework.UiElements;
 
 namespace Oxide.Ext.UiFramework.Builder.Update;
 
+[Obsolete("UpdateBuilder is obsolete and will be removed in a future version. Use UiBuilder.CreateUpdate() instead", false)]
 public class UpdateBuilder : BaseUiBuilder
 {
     public UpdateMode UpdateMode = UpdateMode.AutoDestroy;
     
-    [Obsolete]
+    [Obsolete("UpdateBuilder is obsolete and will be removed in a future version. Use UiBuilder.CreateUpdate() instead", false)]
     public static UpdateBuilder Create() => UiFrameworkPool.Get<UpdateBuilder>();
+    
+    [Obsolete("UpdateBuilder is obsolete and will be removed in a future version. Use UiBuilder.CreateUpdate() instead", false)]
     public static UpdateBuilder Create(IUiFrameworkPlugin plugin) => plugin.Pool.Get<UpdateBuilder>();
 
     public UpdateBuilder SetUpdateMode(UpdateMode mode)

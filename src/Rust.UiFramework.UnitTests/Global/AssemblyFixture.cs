@@ -52,6 +52,7 @@ public class AssemblyFixture : XunitTestFramework
     private static void AddVerifyParameterConverters()
     {
         VerifierSettings.NameForParameter<GridPosition>(pos => GridPositionSerializer.Instance.Serialize(pos));
+        VerifierSettings.NameForParameter<UiPosition>(pos => UiPositionSerializer.Instance.Serialize(pos));
     }
 
     private static void ConfigureExtension()

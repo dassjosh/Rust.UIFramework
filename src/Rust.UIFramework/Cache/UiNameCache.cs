@@ -14,8 +14,7 @@ public static class UiNameCache
     {
         if (!cache.TryGetValue(baseName, out List<string> names))
         {
-            names = [];
-            cache[baseName] = names;
+            cache[baseName] = names = [];
         }
 
         if (index >= names.Count)

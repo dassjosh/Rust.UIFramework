@@ -54,16 +54,23 @@ public class UiPlayerAvatars : BaseUiFrameworkLibrary, ISingleton
 
     private async Task GetPlayerAvatarAsync(ulong steamId)
     {
-        HttpResponseMessage response = await _httpClient.GetAsync(StringCache<ulong>.ToString(steamId));
-        if (!response.IsSuccessStatusCode)
+        try
         {
-            _logger.Error("An error occured getting player avatar. SteamId: {0} Status Code: {1} Message: {2}", steamId, response.StatusCode, await response.Content.ReadAsStringAsync());
-            return;
-        }
+            HttpResponseMessage response = await _httpClient.GetAsync(StringCache<ulong>.ToString(steamId));
+            if (!response.IsSuccessStatusCode)
+            {
+                _logger.Error("An error occured getting player avatar. SteamId: {0} Status Code: {1} Message: {2}", steamId, response.StatusCode, await response.Content.ReadAsStringAsync());
+                return;
+            }
         
-        string json = await response.Content.ReadAsStringAsync();
-        Root root = JsonConvert.DeserializeObject<Root>(json);
-        _data.AddAvatar(steamId, root.Response.Players[0].AvatarHash);
+            string json = await response.Content.ReadAsStringAsync();
+            Root root = JsonConvert.DeserializeObject<Root>(json);
+            _data.AddAvatar(steamId, root.Response.Players[0].AvatarHash);
+        }
+        catch (Exception ex)
+        {
+            _logger.Exception("An error occured getting player avatar. SteamId: {0}", steamId, ex);
+        }
     }
     
     private sealed class Player

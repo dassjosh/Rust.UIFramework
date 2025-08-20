@@ -26,6 +26,15 @@ public partial class UiBuilder
     public static UiBuilder Create(IUiFrameworkPlugin plugin) => Create(plugin.Pool);
     private static UiBuilder Create(UiPluginPool pool) => pool.Get<UiBuilder>();
 
+
+    /// <summary>
+    /// Creates a UiBuilder to update existing UI
+    /// </summary>
+    /// <param name="plugin"></param>
+    /// <param name="mode">Update mode to use</param>
+    /// <returns></returns>
+    public static UiBuilder CreateUpdate(IUiFrameworkPlugin plugin, UpdateMode mode = UpdateMode.Update) => Create(plugin).SetUpdateMode(mode);
+    
     /// <summary>
     /// Creates a UiBuilder that is designed to be a popup modal
     /// </summary>

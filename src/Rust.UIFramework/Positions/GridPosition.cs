@@ -1,22 +1,23 @@
 ﻿using System;
+using System.Diagnostics;
 using Oxide.Ext.UiFramework.Padding;
 using Oxide.Ext.UiFramework.UiElements;
 using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Positions;
 
+[DebuggerDisplay("Cols: {NumCols}, Rows: {NumRows} XMin: {XMin}, YMin: {YMin}, XMax: {XMax}, YMax: {YMax} Padding: {Padding}")]
 public class GridPosition : BasePosition
 {
     public readonly float NumCols;
     public readonly float NumRows;
+    
+    public int NumElements => Mathf.FloorToInt(NumCols) * Mathf.FloorToInt(NumRows);
 
     private float _xScale = 1;
     private float _yScale = 1;
     
     public UiPadding Padding;
-    
-    // public readonly float HorizontalPadding;
-    // public readonly float VerticalPadding;
 
     public GridPosition(UiPosition initialState, UiPadding padding, float numCols, float numRows) : base(initialState.XMin, initialState.YMin, initialState.XMax, initialState.YMax)
     {
@@ -43,10 +44,9 @@ public class GridPosition : BasePosition
         XMin += amount;
         XMax += amount;
             
-        if (XMax > 1)
+        if (XMax > 1 && !Mathf.Approximately(XMax, 1))
         {
-            XMin -= 1;
-            XMax -= 1;
+            ResetX();
             MoveRows(1f);
         }
     }

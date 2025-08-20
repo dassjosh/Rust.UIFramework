@@ -1,13 +1,15 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.UiElements;
 
 namespace Oxide.Ext.UiFramework.Layouts.GridPositions;
 
+[DebuggerDisplay("Grid: {Grid} Elements: {Elements.Count} NumElements: {NumElements}")]
 public class UiGridPositionLayout : BaseUiLayout, IFixedElementsLayout
 {
-    public int NumElements => (int)(Grid.NumCols * Grid.NumRows);
+    public int NumElements => Grid.NumElements;
     public GridPosition Grid;
     public readonly List<BaseUiComponent> Elements = [];
     public GridMoveMode MoveMode = GridMoveMode.Column;
@@ -37,10 +39,10 @@ public class UiGridPositionLayout : BaseUiLayout, IFixedElementsLayout
             switch (MoveMode)
             {
                 case GridMoveMode.Column:
-                    Grid.MoveRows(1);
+                    Grid.MoveCols(1);
                     break;
                 case GridMoveMode.Row:
-                    Grid.MoveCols(1);
+                    Grid.MoveRows(1);
                     break;
             }
         }

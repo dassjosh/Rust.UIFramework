@@ -2,7 +2,6 @@
 using Network;
 using Oxide.Ext.UiFramework.Animation;
 using Oxide.Ext.UiFramework.Builder.Cached;
-using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Exceptions;
 using Oxide.Ext.UiFramework.Interfaces.Builders;
@@ -17,28 +16,13 @@ namespace Oxide.Ext.UiFramework.Builder.UI;
 public partial class UiBuilder : BaseUiBuilder, IAnimationBuilder
 {
     public BaseUiComponent Root;
-
+    public UpdateMode UpdateMode = UpdateMode.None;
+    
     private BaseUiComponent _actualRoot;
     private readonly List<BaseAnimation> _animations = [];
-
-    #region Decontructor
-    ~UiBuilder()
-    {
-        Dispose();
-        //Need this because there is a global GC class that causes issues
-        //ReSharper disable once RedundantNameQualifier
-        System.GC.SuppressFinalize(this);
-    }
-    #endregion
+    private INamingStrategy _naming = Singleton<DefaultNamingStrategy>.Instance;
         
     #region Setup
-    public UiBuilder SetRoot<T>(out T element) where T : BaseUiComponent, new()
-    {
-        element = PluginPool.Get<T>();
-        Components.Add(element);
-        return this;
-    }
-    
     public UiBuilder SetRoot<T>(in UiReference reference, out T element) where T : BaseUiComponent, new()
     {
         element = PluginPool.Get<T>();
@@ -73,7 +57,7 @@ public partial class UiBuilder : BaseUiBuilder, IAnimationBuilder
         return this;
     }
 
-    public UiBuilder EnableAutoDestroy(bool enabled = true)
+    public UiBuilder SetRootAutoDestroy(bool enabled = true)
     {
         _actualRoot.Update = enabled ? UpdateMode.AutoDestroy : UpdateMode.None;
         return this;
@@ -119,6 +103,18 @@ public partial class UiBuilder : BaseUiBuilder, IAnimationBuilder
         _actualRoot.SetPosition(pos, offset);
         return this;
     }
+    
+    public UiBuilder SetUpdateMode(UpdateMode mode)
+    {
+        UpdateMode = mode;
+        return this;
+    }
+
+    public UiBuilder SetCustomNaming(INamingStrategy naming)
+    {
+        _naming = naming;
+        return this;
+    }
     #endregion
     
     #region JSON
@@ -145,14 +141,16 @@ public partial class UiBuilder : BaseUiBuilder, IAnimationBuilder
     public override void AddComponent(BaseUiComponent component, in UiReference parent)
     {
         UiReferenceException.ThrowIfInvalidParent(parent);
-        component.Reference = parent.WithChild(UiNameCache.GetComponentName(RootName, Components.Count));
+        component.Reference = _naming.GetComponentName(parent, UpdateMode, RootName, Components.Count);
+        component.Update = UpdateMode;
         Components.Add(component);
     }
         
     protected override void AddAnchor(BaseUiComponent component, in UiReference parent)
     {
         UiReferenceException.ThrowIfInvalidParent(parent);
-        component.Reference = parent.WithChild(UiNameCache.GetAnchorName(RootName, Anchors.Count));
+        component.Reference = _naming.GetAnchorName(parent, UpdateMode, RootName, Components.Count);
+        component.Update = UpdateMode;
         Anchors.Add(component);
     }
 
@@ -186,6 +184,8 @@ public partial class UiBuilder : BaseUiBuilder, IAnimationBuilder
         base.EnterPool();
         Root = null;
         _actualRoot = null;
+        UpdateMode = UpdateMode.None;
+        _naming = Singleton<DefaultNamingStrategy>.Instance;
     }
     #endregion
 }

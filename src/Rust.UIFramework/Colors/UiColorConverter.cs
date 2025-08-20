@@ -12,16 +12,12 @@ public class UiColorConverter : JsonConverter
 
     public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
     {
-        switch (reader.TokenType)
+        return reader.TokenType switch
         {
-            case JsonToken.Null:
-                return Nullable.GetUnderlyingType(objectType) != null ? null : default(UiColor);
-
-            case JsonToken.String:
-                return UiColor.ParseHexColor(reader.Value.ToString());
-        }
-
-        return default(UiColor);
+            JsonToken.Null => Nullable.GetUnderlyingType(objectType) != null ? null : default(UiColor),
+            JsonToken.String => UiColor.ParseHexColor(reader.Value.ToString()),
+            _ => default
+        };
     }
 
     public override bool CanConvert(Type objectType)

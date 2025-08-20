@@ -8,7 +8,7 @@ internal readonly record struct PluginImage([property: ProtoMember(1)] PluginId 
 {
     public bool IsValid => PluginId.IsValid && !string.IsNullOrEmpty(Name);
     
-    public static implicit operator string(PluginImage snowflake) => $"{snowflake.PluginId.Id}:{snowflake.Name}";
+    public static implicit operator string(PluginImage image) => $"{image.PluginId.Id}:{image.Name}";
     
     public static explicit operator PluginImage(string id)
     {

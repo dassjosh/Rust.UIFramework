@@ -4,12 +4,12 @@ public static class Permutations
 {
     private static readonly bool[] BoolArray = [true, false];
     
-    public static IEnumerable<T> Generate<T>(T[] t1 = null)
+    public static IEnumerable<T> Generate<T>(IEnumerable<T> t1 = null)
     {
         return GenerateType(t1);
     }
     
-    public static IEnumerable<(T1, T2)> Generate<T1, T2>(T1[] t1 = null, T2[] t2 = null)
+    public static IEnumerable<(T1, T2)> Generate<T1, T2>(IEnumerable<T1> t1 = null, IEnumerable<T2> t2 = null)
     {
         foreach (T1 value1 in GenerateType(t1))
         {
@@ -20,7 +20,7 @@ public static class Permutations
         }
     }
     
-    public static IEnumerable<(T1, T2, T3)> Generate<T1, T2, T3>(T1[] t1 = null, T2[] t2 = null, T3[] t3 = null)
+    public static IEnumerable<(T1, T2, T3)> Generate<T1, T2, T3>(IEnumerable<T1> t1 = null, IEnumerable<T2> t2 = null, IEnumerable<T3> t3 = null)
     {
         foreach (T1 value1 in GenerateType(t1))
         {
@@ -34,7 +34,7 @@ public static class Permutations
         }
     }
 
-    private static IEnumerable<T> GenerateType<T>(T[] t)
+    private static IEnumerable<T> GenerateType<T>(IEnumerable<T> t)
     {
         if (t != null)
         {
