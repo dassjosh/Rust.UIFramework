@@ -120,6 +120,7 @@ internal class AnimationHandler : ISingleton
             }
             catch (Exception ex)
             {
+                Thread.Sleep(UiFrameworkConfig.Instance.Animations.UpdateRate);
                 _logger.Exception("An error occurred while processing animations", ex);
             }
         }
@@ -135,6 +136,14 @@ internal class AnimationHandler : ISingleton
                 ProcessAnimation(id, animation, currentTime, writer);
             }
             SendAnimations(writer, playerAnimations.Send);
+
+            foreach ((AnimationId id, BaseAnimation animation) in playerAnimations.Animations)
+            {
+                if (animation.IsCompleted)
+                {
+                    RemoveAnimation(id);
+                }
+            }
         }
         
         foreach ((AnimationId id, BaseAnimation animation) in _animations)
@@ -144,6 +153,11 @@ internal class AnimationHandler : ISingleton
                 JsonFrameworkWriter writer = Create();
                 ProcessAnimation(id, animation, currentTime, writer);
                 SendAnimations(writer, animation.Send);
+                
+                if (animation.IsCompleted)
+                {
+                    RemoveAnimation(id);
+                }
             }
         }
     }
@@ -154,7 +168,6 @@ internal class AnimationHandler : ISingleton
 
         if (animation.State == AnimationState.Cancelled)
         {
-            RemoveAnimation(id);
             return;
         }
         
@@ -176,7 +189,6 @@ internal class AnimationHandler : ISingleton
         if (duration.IsCompleted)
         {
             animation.OnCompleted();
-            RemoveAnimation(id);
         }
         else
         {
