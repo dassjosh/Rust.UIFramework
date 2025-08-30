@@ -13,12 +13,10 @@ public class UiGridPositionLayout : BaseUiLayout, IFixedElementsLayout
     public GridPosition Grid;
     public readonly List<BaseUiComponent> Elements = [];
     public GridMoveMode MoveMode = GridMoveMode.Column;
-    
-    public static UiGridPositionLayout Create(UiPluginPool pool, in UiReference reference, GridPosition grid)
+
+    public void Init(GridPosition grid)
     {
-        UiGridPositionLayout layout = CreateBase<UiGridPositionLayout>(pool, reference);
-        layout.Grid = grid;
-        return layout;
+        Grid = grid;
     }
 
     public UiGridPositionLayout SetMoveMode(GridMoveMode mode)

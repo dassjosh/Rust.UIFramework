@@ -14,11 +14,24 @@ public class UiDockLayout : BaseUiLayout
     public UiPadding Padding;
     public readonly List<LayoutState> Elements = [];
 
-    public static UiDockLayout Create(UiPluginPool pool, in UiReference reference)
+    public void Init(LayoutPadding layoutPadding, UiPadding padding)
     {
-        return CreateBase<UiDockLayout>(pool, reference);
+        LayoutPadding = layoutPadding;
+        Padding = padding;
     }
-
+    
+    public UiDockLayout SetLayoutPadding(LayoutPadding layoutPadding)
+    {
+        LayoutPadding = layoutPadding;
+        return this;
+    }
+    
+    public UiDockLayout SetPadding(in UiPadding padding)
+    {
+        Padding = padding;
+        return this;
+    }
+    
     public override void AddElement(BaseUiComponent element)
     {
         AddElement(element, DockPosition.Center, 0f);

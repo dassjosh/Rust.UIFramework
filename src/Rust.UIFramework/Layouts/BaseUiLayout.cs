@@ -7,13 +7,14 @@ namespace Oxide.Ext.UiFramework.Layouts;
 
 public abstract class BaseUiLayout : BasePoolable
 {
-    public UiReference Reference;
+    public UiReference Reference => Section.Reference;
+    public UiSection Section;
     public UiScrollView ScrollView;
 
-    public static T CreateBase<T>(UiPluginPool pool, in UiReference reference) where T : BaseUiLayout, new()
+    internal static T CreateBase<T>(UiPluginPool pool, in UiSection section) where T : BaseUiLayout, new()
     {
         T layout = pool.Get<T>();
-        layout.Reference = reference;
+        layout.Section = section;
         return layout;
     }
 
@@ -59,7 +60,7 @@ public abstract class BaseUiLayout : BasePoolable
 
     protected override void EnterPool()
     {
-        Reference = default;
+        Section = null;
         ScrollView = null;
     }
 }

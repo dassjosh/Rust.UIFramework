@@ -21,9 +21,7 @@ public class UiFlexBoxLayout : BaseUiLayout
     private readonly List<List<LayoutState>> _lines = [];
     private readonly Dictionary<FlexJustifyContent, List<int>> _groups = new();
 
-    public static UiFlexBoxLayout Create(
-        UiPluginPool pool,
-        in UiReference reference,
+    public void Init(
         FlexDirection direction,
         FlexWrap wrap,
         FlexAlignItems alignItems,
@@ -31,14 +29,12 @@ public class UiFlexBoxLayout : BaseUiLayout
         in UiPadding padding,
         float gap = 0f)
     {
-        UiFlexBoxLayout layout = CreateBase<UiFlexBoxLayout>(pool,reference);
-        layout.Direction = direction;
-        layout.Wrap = wrap;
-        layout.AlignItems = alignItems;
-        layout.DefaultJustifyContent = defaultJustifyContent;
-        layout.Padding = padding;
-        layout.Gap = gap;
-        return layout;
+        Direction = direction;
+        Wrap = wrap;
+        AlignItems = alignItems;
+        DefaultJustifyContent = defaultJustifyContent;
+        Padding = padding;
+        Gap = gap;
     }
 
     public UiFlexBoxLayout SetDirection(FlexDirection direction)

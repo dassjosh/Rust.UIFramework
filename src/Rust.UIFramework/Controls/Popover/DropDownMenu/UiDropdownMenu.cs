@@ -26,11 +26,11 @@ public class UiDropdownMenu : BaseUiControl
         int itemCount = Math.Min(items.Count, maxValuesPerPage);
         int maxPage = UiHelpers.CalculateMaxPage(items.Count, maxValuesPerPage);
             
-        (UiSection section, UiDirectionalLayout layout)  = builder.DirectionalLayout(reference, position, offset, itemCount, LayoutDirection.Vertical, padding: padding ?? new UiPadding(5, 4));
+        UiDirectionalLayout layout = builder.DirectionalLayout(reference, position, offset, itemCount, LayoutDirection.Vertical, padding: padding ?? new UiPadding(5, 4));
         
         if (scrollMode == DropdownMenuScrollMode.ScrollBar)
         {
-            control.ScrollBarSection = builder.Section(section, UiPosition.Right, new UiOffset(-10, 5, -3, -5));
+            control.ScrollBarSection = builder.Section(layout.Section, UiPosition.Right, new UiOffset(-10, 5, -3, -5));
             control.ScrollBar = builder.ScrollBar(control.ScrollBarSection, UiPosition.Full, default, page, maxPage, UiColors.ButtonPrimary, UiColors.PanelSecondary, pageCommand);
             control.ScrollBar.SetSpriteMaterialImage(UiSprites.Content.Ui.UiRounded, null, Image.Type.Sliced);
         }

@@ -17,17 +17,15 @@ public class UiGridLayout : BaseUiLayout, IFixedElementsLayout
     public UiPadding Padding;
     public readonly List<GridElement> Elements = [];
     public int NumElements => NumRows * NumCols;
-    
-    public static UiGridLayout Create(UiPluginPool pool, in UiReference reference, int numCols, int numRows, GridAlignment alignment, LayoutPadding layoutPadding, in UiPadding padding)
+
+    public void Init(int numCols, int numRows, GridAlignment alignment, LayoutPadding layoutPadding, in UiPadding padding)
     {
-        UiGridLayout layout = CreateBase<UiGridLayout>(pool, reference);
-        layout.NumCols = numCols;
-        layout.NumRows = numRows;
-        layout.ColumnAlignment = alignment.ColumnAlignment;
-        layout.RowAlignment = alignment.RowAlignment;
-        layout.LayoutPadding = layoutPadding;
-        layout.Padding = padding;
-        return layout;
+        NumCols = numCols;
+        NumRows = numRows;
+        ColumnAlignment = alignment.ColumnAlignment;
+        RowAlignment = alignment.RowAlignment;
+        LayoutPadding = layoutPadding;
+        Padding = padding;
     }
 
     public UiGridLayout SetNumRows(int numRows)

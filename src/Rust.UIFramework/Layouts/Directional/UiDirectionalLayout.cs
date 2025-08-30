@@ -19,15 +19,13 @@ public class UiDirectionalLayout : BaseUiLayout, IFixedElementsLayout
     public UiPadding Padding;
     public readonly List<LayoutState> Elements = [];
 
-    public static UiDirectionalLayout Create(UiPluginPool pool, in UiReference reference, int numElements, LayoutDirection direction, LayoutAlignment alignment, LayoutPadding layoutPadding, in UiPadding padding)
+    public void Init(int numElements, LayoutDirection direction, LayoutAlignment alignment, LayoutPadding layoutPadding, in UiPadding padding)
     {
-        UiDirectionalLayout layout = CreateBase<UiDirectionalLayout>(pool, reference);
-        layout.NumElements = numElements;
-        layout.Direction = direction;
-        layout.Alignment = alignment;
-        layout.LayoutPadding = layoutPadding;
-        layout.Padding = padding;
-        return layout;
+        NumElements = numElements;
+        Direction = direction;
+        Alignment = alignment;
+        LayoutPadding = layoutPadding;
+        Padding = padding;
     }
 
     public UiDirectionalLayout SetNumElements(int numElements)
@@ -94,8 +92,8 @@ public class UiDirectionalLayout : BaseUiLayout, IFixedElementsLayout
         
         UiPosition pos = Direction switch
         {
-            LayoutDirection.Vertical => new UiPosition(startPos, 0, endPos, 1),
-            LayoutDirection.Horizontal => new UiPosition(0, 1f - endPos, 1, 1f - startPos),
+            LayoutDirection.Horizontal => new UiPosition(startPos, 0, endPos, 1),
+            LayoutDirection.Vertical => new UiPosition(0, 1f - endPos, 1, 1f - startPos),
             _ => throw new ArgumentOutOfRangeException(nameof(Direction))
         };
         
