@@ -13,6 +13,17 @@ public abstract class BaseAnimation<T> : BaseAnimation
         base.Init(reference, duration);
         Animator = animator;
     }
+
+    public BaseAnimation<T> WithAnimator(IAnimator<T> animator)
+    {
+        if (Animator is BasePoolable poolable)
+        {
+            poolable.Dispose();
+        }
+
+        Animator = animator;
+        return this;
+    }
     
     protected override void WriteAnimation(JsonFrameworkWriter writer, float value) => WriteAnimation(writer, Animator.Get(value));
 

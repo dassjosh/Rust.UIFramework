@@ -27,6 +27,9 @@ public class InvalidAnimationStateException : BaseUiFrameworkException
             case AnimationState.Cancelled:
                 if (currentState == AnimationState.Pooled) ThrowNotExpectedException(currentState, newState);
                 break;
+            case AnimationState.Pooled:
+                if(currentState != AnimationState.Cancelled && currentState != AnimationState.Completed) ThrowNotExpectedException(currentState, newState);
+                break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
         }

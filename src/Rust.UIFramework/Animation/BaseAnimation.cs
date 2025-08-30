@@ -22,6 +22,7 @@ public abstract class BaseAnimation : BasePoolable
     internal bool IsSinglePlayer => PlayerId != 0;
     internal ulong PlayerId { get; private set; }
     private readonly List<IAnimationEvent> _events = [];
+    public bool IsCompleted => State is AnimationState.Completed or AnimationState.Cancelled;
     
     protected void Init(in UiReference reference, IAnimationDuration duration)
     {
