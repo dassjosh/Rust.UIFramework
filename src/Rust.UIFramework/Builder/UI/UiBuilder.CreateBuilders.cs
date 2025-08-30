@@ -26,7 +26,6 @@ public partial class UiBuilder
     public static UiBuilder Create(IUiFrameworkPlugin plugin) => Create(plugin.Pool);
     private static UiBuilder Create(UiPluginPool pool) => pool.Get<UiBuilder>();
 
-
     /// <summary>
     /// Creates a UiBuilder to update existing UI
     /// </summary>

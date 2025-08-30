@@ -44,7 +44,7 @@ public class RawImageComponent : CoreComponent
             }
             else
             {
-                UiFrameworkExtension.GlobalLogger.Warning<string>("[UiFramework] RawImage.Image '{0}' is not a valid image. Should be a URL, PNG ID, or Texture.", Image);
+                UiFrameworkExtension.GlobalLogger.Warning("[UiFramework] RawImage.Image '{0}' is not a valid image. Should be a URL, PNG ID, or Texture.", Image);
             }
         }
     }

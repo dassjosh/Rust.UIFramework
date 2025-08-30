@@ -7,7 +7,7 @@ using Oxide.Ext.UiFramework.Threading;
 using Oxide.Ext.UiFramework.Types;
 using Oxide.Game.Rust.Cui;
 
-namespace Oxide.Ext.UiFramework.HarmonyPatches;
+namespace Oxide.Ext.UiFramework.Harmony;
 
 internal static class CuiHelper_AddUi_Patch
 {

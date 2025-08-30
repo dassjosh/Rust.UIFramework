@@ -9,7 +9,7 @@ using Oxide.Ext.UiFramework.Config;
 using Oxide.Ext.UiFramework.Constants;
 using Oxide.Ext.UiFramework.Data;
 using Oxide.Ext.UiFramework.Extensions;
-using Oxide.Ext.UiFramework.HarmonyPatches;
+using Oxide.Ext.UiFramework.Harmony;
 using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Types;
 using Rust.UI;
@@ -82,6 +82,7 @@ internal class UiFrameworkPlugin : BaseUiFrameworkPlugin
         BaseUiFrameworkLibrary.ProcessOnServerShutdown();
     }
     
+    #region Hooks
     [HookMethod(nameof(OnEntitySpawned))]
     private void OnEntitySpawned(CommunityEntity entity)
     {
@@ -89,8 +90,7 @@ internal class UiFrameworkPlugin : BaseUiFrameworkPlugin
         Singleton<UiImageStorage>.Instance.OnCommunityEntitySpawned();
         Unsubscribe(nameof(OnEntitySpawned));
     }
-
-    #region Hooks
+    
     [HookMethod(nameof(OnPlayerConnected))]
     private void OnPlayerConnected(BasePlayer player)
     {

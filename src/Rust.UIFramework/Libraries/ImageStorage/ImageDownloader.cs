@@ -195,11 +195,11 @@ internal class ImageDownloader
                 return true;
             }
             
-            _logger.Error($"Failed to download image. Url: {request.Url}. Attempt: {state.Attempts} Status Code: {response.StatusCode}. Message: {await response.Content.ReadAsStringAsync()}");
+            _logger.Error($"Failed to download image. Plugin: {request.PluginId} Url: {request.Url}. Attempt: {state.Attempts} Status Code: {response.StatusCode}. Message: {await response.Content.ReadAsStringAsync()}");
         }
         catch (Exception ex) when (ex is not OperationCanceledException)
         {
-            _logger.Exception($"An error occured downloading image. Url: {request.Url} Attempt: {state.Attempts}", ex);
+            _logger.Exception($"An error occured downloading image. Plugin: {request.PluginId} Url: {request.Url} Attempt: {state.Attempts}", ex);
         }
 
         state.OnDownloadFailed();

@@ -35,8 +35,7 @@ public class UiScrollView : BaseUiComponent
     public ScrollbarComponent HorizontalScrollbar => ScrollView.HorizontalScrollbar;
     public ScrollbarComponent VerticalScrollbar => ScrollView.VerticalScrollbar;
 
-    public UiScrollView Init(ScrollRect.MovementType movementType, float elasticity,
-        bool inertia, float decelerationRate, float scrollSensitivity)
+    public UiScrollView Init(ScrollRect.MovementType movementType, float elasticity, bool inertia, float decelerationRate, float scrollSensitivity)
     {
         MovementType = movementType;
         Elasticity = elasticity;

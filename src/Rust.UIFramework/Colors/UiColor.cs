@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Diagnostics.Contracts;
 using System.Globalization;
+using System.Runtime.CompilerServices;
 using Newtonsoft.Json;
 using Oxide.Ext.UiFramework.Exceptions;
 using UnityEngine;
@@ -78,6 +79,7 @@ public readonly struct UiColor : IEquatable<UiColor>
         return new UiColor( color.RedFloat * multiplier.RedFloat, color.GreenFloat * multiplier.GreenFloat, color.BlueFloat * multiplier.BlueFloat, color.AlphaFloat * multiplier.AlphaFloat);
     }
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static float ToFloat(byte value) => value / 255f;
         
     public bool Equals(UiColor other) => this == other;
@@ -175,9 +177,9 @@ public readonly struct UiColor : IEquatable<UiColor>
     #endregion
 
     #region Formats
-    public string ToHexRGB() => ColorUtility.ToHtmlStringRGB(this);
-    public string ToHexRGBA() => ColorUtility.ToHtmlStringRGBA(this);
-    public string ToHtmlColor() => $"#{ColorUtility.ToHtmlStringRGBA(this)}";
+    public string ToHexRGB() => $"{RedB:X2}{GreenB:X2}{BlueB:X2}";
+    public string ToHexRGBA() => $"{RedB:X2}{GreenB:X2}{BlueB:X2}{AlphaB:X2}";
+    public string ToHtmlColor() => $"#{RedB:X2}{GreenB:X2}{BlueB:X2}{AlphaB:X2}";
     #endregion
 
     #region Parsing

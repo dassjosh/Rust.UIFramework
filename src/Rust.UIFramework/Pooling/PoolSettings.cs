@@ -33,7 +33,7 @@
         /// <summary>
         /// Size of the <see cref="ObjectPool{T}"/>
         /// </summary>
-        public PoolSize ObjectPoolSize { get; set; } = new(32, 256);
+        public PoolSize ObjectPoolSize { get; set; } = new(32, 4096);
         
         /// <summary>
         /// Size of the <see cref="ObjectPool{T}"/>

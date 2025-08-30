@@ -15,6 +15,12 @@ public abstract partial class BaseUiBuilder
     #endregion
 
     #region ScrollBar
+    public (ScrollbarComponent horizontal, ScrollbarComponent vertical) AddScrollBars(UiScrollView view, bool invert = false, bool autoHide = false, string handleSprite = null, string trackSprite = null, float size = JsonDefaults.ScrollBar.Size,
+        UiColor? handleColor = null, UiColor? highlightColor = null, UiColor? pressedColor = null, UiColor? trackColor = null)
+    {
+        return view.AddScrollBars(invert, autoHide, handleSprite, trackSprite, size, handleColor, highlightColor, pressedColor, trackColor);
+    }
+    
     public ScrollbarComponent AddHorizontalScrollBar(UiScrollView view, bool invert = false, bool autoHide = false, string handleSprite = null, string trackSprite = null, float size = JsonDefaults.ScrollBar.Size, 
         UiColor? handleColor = null, UiColor? highlightColor = null, UiColor? pressedColor = null, UiColor? trackColor = null)
     {

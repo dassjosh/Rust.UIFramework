@@ -84,23 +84,24 @@ public abstract class BasePool<TPooled, TPool> : IPool<TPooled>
         TPooled item = null;
         lock (_lock)
         {
-            if (_index == _pool.Length && _size.CanResize(_pool.Length))
+            int index = _index;
+            if (index == _pool.Length && _size.CanResize(_pool.Length))
             {
                 int nextSize = PoolSize.GetNextSize(_pool.Length);
                 UiFrameworkExtension.GlobalLogger.Debug("{0} Resizing Pool {1} Current Size: {2} Next Size: {3}", _pluginPool.PluginName, GetType(), _pool.Length, nextSize);
                 Array.Resize(ref _pool, nextSize);
             }
                 
-            if (_index < _pool.Length)
+            if (index < _pool.Length)
             {
-                item = _pool[_index];
-                _pool[_index] = null;
+                item = _pool[index];
+                _pool[index] = null;
                 _index++;
             }
             else 
             {
                 LeakHandler leak = _leakHandler ??= new LeakHandler(_pluginPool.PluginId, GetType().ToString());
-                leak.OnLeak(_index, _pool.Length);
+                leak.OnLeak(index, _pool.Length);
             }
         }
                 
@@ -142,8 +143,7 @@ public abstract class BasePool<TPooled, TPool> : IPool<TPooled>
         {
             if (_index != 0)
             {
-                _index--;
-                _pool[_index] = item;
+                _pool[--_index] = item;
             }
         }
 

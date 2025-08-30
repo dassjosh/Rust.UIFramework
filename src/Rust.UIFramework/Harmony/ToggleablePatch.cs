@@ -2,7 +2,7 @@
 using System.Reflection;
 using HarmonyLib;
 
-namespace Oxide.Ext.UiFramework.HarmonyPatches;
+namespace Oxide.Ext.UiFramework.Harmony;
 
 internal class ToggleablePatch(MethodInfo target, HarmonyPatchType type, HarmonyMethod patchMethod)
 {

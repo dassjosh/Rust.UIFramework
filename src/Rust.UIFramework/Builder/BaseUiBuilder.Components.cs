@@ -46,25 +46,11 @@ public partial class BaseUiBuilder
     #endregion
     
     #region Section
-    public UiSection Section(in UiReference parent)
-    {
-        return Component<UiSection>(parent);
-    }
-
-    public UiSection Section(in UiReference parent, in UiPosition pos, in UiOffset offset = default)
-    {
-        return Section(parent).SetPosition(pos, offset);
-    }
-    
-    public UiSection Section(BaseUiLayout layout)
-    {
-       return Component<UiSection>(layout);
-    }
-
-    public UiSection Padding(in UiReference parent, in UiPosition pos, in UiPadding padding = default)
-    {
-        return Section(parent, pos, padding);
-    }
+    public UiSection Section(in UiReference parent) => Component<UiSection>(parent);
+    public UiSection Section(in UiReference parent, in UiPosition pos, in UiOffset offset = default) => Section(parent).SetPosition(pos, offset);
+    public UiSection Section(BaseUiLayout layout) => Component<UiSection>(layout);
+    public UiSection Padding(in UiReference parent, in UiPosition pos, in UiPadding padding = default) => Section(parent, pos, padding);
+    //public UiSection Padding(BaseUiLayout layout, in UiPadding padding = default) => Section(layout, padding);
     #endregion
         
     #region Panel

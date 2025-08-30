@@ -13,6 +13,6 @@ public class UiReferenceException : UiFrameworkException
         
     public static void ThrowIfInvalidReference(in UiReference reference)
     {
-        if (!reference.IsValidReference()) throw new UiReferenceException($"{nameof(UiReference)} parent is not a valid reference value. Parent: {reference.Parent} Name: {reference.Name}");
+        if (!reference.IsValidReference()) throw new UiReferenceException($"{nameof(UiReference)} is not a valid reference value. Parent: {reference.Parent} Name: {reference.Name}");
     }
 }

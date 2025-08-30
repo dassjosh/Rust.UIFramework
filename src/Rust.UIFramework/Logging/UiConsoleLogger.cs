@@ -20,7 +20,7 @@ internal class UiConsoleLogger(string pluginName) : IOutputLogger
     /// <param name="log"></param>
     /// <param name="args"></param>
     /// <param name="ex"></param>
-    public void AddMessage(UiLogLevel level, string type, string method, string log, object[] args, Exception ex)
+    public void AddMessage(UiLogLevel level, string type, string log, object[] args, Exception ex)
     {
         StringBuilder sb = Builder.Value;
         sb.Clear();
@@ -29,14 +29,13 @@ internal class UiConsoleLogger(string pluginName) : IOutputLogger
         sb.Append("] ");
         sb.Append('[');
         sb.Append(EnumCache<UiLogLevel>.ToString(level));
-        sb.Append("]: ");
+        sb.Append("] ");
         if (type != null)
         {
+            sb.Append('[');
             sb.Append(type);
-            sb.Append('.');
+            sb.Append("]: ");
         }
-        sb.Append(method);
-        sb.Append(' ');
         if (args.Length != 0)
         {
             sb.AppendFormat(log, args);
@@ -63,8 +62,11 @@ internal class UiConsoleLogger(string pluginName) : IOutputLogger
             case UiLogLevel.Exception:
                 Interface.Oxide.LogException(message, ex);
                 break;
-            default:
+            case UiLogLevel.Verbose:
+            case UiLogLevel.Info:
                 Interface.Oxide.LogInfo(message);
+                break;
+            case UiLogLevel.Off:
                 break;
         }
 #endif
