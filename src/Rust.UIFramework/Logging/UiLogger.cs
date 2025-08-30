@@ -13,7 +13,7 @@ public class UiLogger : IUiLogger
     public UiLogLevel LogLevel { get; private set; }
     private readonly IUiLoggingConfig _config;
     private readonly UiLogHandler _handler;
-    protected virtual string Type { get; set; } = string.Empty;
+    protected virtual string Type { get; set; }
 
     /// <summary>
     /// Creates a new logger with the given log level
@@ -29,17 +29,17 @@ public class UiLogger : IUiLogger
     }
 
     /// <inheritdoc/>
-    public void Log(UiLogLevel level, string method, string log, object[] args, Exception exception = null)
+    public void Log(UiLogLevel level, string log, object[] args, Exception exception = null)
     {
         UiLoggerException.ThrowIfShutdown(_handler);
         if (IsConsoleLogging(level))
         {
-            _handler.LogConsole(level, Type, method, log, args, exception);
+            _handler.LogConsole(level, Type, log, args, exception);
         }
 
         if (IsFileLogging(level))
         {
-            _handler.LogFile(level, Type, method, log, args, exception);
+            _handler.LogFile(level, Type, log, args, exception);
         }
     }
 

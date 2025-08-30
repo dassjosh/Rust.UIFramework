@@ -34,7 +34,7 @@ internal class UiFileLogger : IOutputLogger
         _logFileName = Path.Combine(logPath, $"{pluginName}-{DateTime.Now:yyyy-MM-dd_HH-mm-ss}.txt");
     }
 
-    public void AddMessage(UiLogLevel level, string type, string method, string log, object[] args, Exception ex)
+    public void AddMessage(UiLogLevel level, string type, string log, object[] args, Exception ex)
     {
         StringBuilder sb = Builder.Value;
         sb.Clear();
@@ -42,15 +42,14 @@ internal class UiFileLogger : IOutputLogger
         sb.Append(written);
         sb.Append(" [");
         sb.Append(EnumCache<UiLogLevel>.ToString(level));
-        sb.Append("]: ");
+        sb.Append("] ");
         
         if (type != null)
         {
+            sb.Append("[");
             sb.Append(type);
-            sb.Append('.');
+            sb.Append("]: ");
         }
-
-        sb.Append(method);
         
         if (args.Length != 0)
         {

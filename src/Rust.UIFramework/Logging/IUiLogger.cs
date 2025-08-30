@@ -46,7 +46,7 @@ public interface IUiLogger
     /// <param name="log">Message format to log</param>
     /// <param name="args">Message args</param>
     /// <param name="exception">Exception for the log</param>
-    void Log(UiLogLevel level, string method, string log, object[] args, Exception exception = null);
+    void Log(UiLogLevel level, string log, object[] args, Exception exception = null);
 
     /// <summary>
     /// Shuts down the logger

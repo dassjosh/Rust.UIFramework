@@ -14,14 +14,14 @@ internal class UiLogHandler(string pluginName, IUiLoggingConfig config, bool isE
     
     public bool IsShutdown { get; private set; }
 
-    public void LogConsole(UiLogLevel level, string type, string method, string log, object[] args, Exception exception = null)
+    public void LogConsole(UiLogLevel level, string type, string log, object[] args, Exception exception = null)
     {
-        _consoleLogger?.AddMessage(level, type, method, log, args, exception);
+        _consoleLogger?.AddMessage(level, type, log, args, exception);
     }
 
-    public void LogFile(UiLogLevel level, string type, string method, string log, object[] args, Exception exception = null)
+    public void LogFile(UiLogLevel level, string type, string log, object[] args, Exception exception = null)
     {
-        _fileLogger?.AddMessage(level, type, method, log, args, exception);
+        _fileLogger?.AddMessage(level, type, log, args, exception);
     }
 
     public void Shutdown()
