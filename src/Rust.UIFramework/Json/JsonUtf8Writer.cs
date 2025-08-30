@@ -20,35 +20,24 @@ public sealed class JsonUtf8Writer : BasePoolable
     private int _byteIndex;
     private byte[] _buffer;
     
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    //[MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void Write(byte character)
     {
-        if (_byteIndex >= SegmentSize)
-        {
-            Flush();
-        }
-
+        CheckForFlush(1);
         _buffer[_byteIndex++] = character;
     }
     
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    //[MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void Write(char character)
     {
         if (character < 0x7F)
         {
-            if (_byteIndex >= SegmentSize)
-            {
-                Flush();
-            }
-            
+            CheckForFlush(1);
             _buffer[_byteIndex++] = (byte)character;
             return;
         }
         
-        if (_byteIndex + sizeof(char) > SegmentSize)
-        {
-            Flush();
-        }
+        CheckForFlush(sizeof(char));
 
         byte[] bytes = Utf8CharCache.ToUtf8String(character).String;
         for (int i = 0; i < bytes.Length; i++)
@@ -57,14 +46,11 @@ public sealed class JsonUtf8Writer : BasePoolable
         }
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    //[MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void Write(byte[] text)
     {
         int length = text.Length;
-        if (_byteIndex + length >= SegmentSize)
-        {
-            Flush();
-        }
+        CheckForFlush(length);
         
         byte[] buffer = _buffer;
         int byteIndex = _byteIndex;
@@ -76,17 +62,14 @@ public sealed class JsonUtf8Writer : BasePoolable
         _byteIndex = byteIndex;
     }
     
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    //[MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void Write(in Utf8String text) => Write(text.String);
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    //[MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void Write(string text)
     {
         int length = text.Length;
-        if (_byteIndex + length * 2 >= SegmentSize)
-        {
-            Flush();
-        }
+        CheckForFlush(length * 2);
         
         byte[] buffer = _buffer;
         int byteIndex = _byteIndex;
@@ -109,20 +92,27 @@ public sealed class JsonUtf8Writer : BasePoolable
         _byteIndex = byteIndex;
     }
     
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    //[MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void Write(ReadOnlySpan<char> text)
     {
         int length = text.Length;
-        if (_byteIndex + length * 2 >= SegmentSize)
-        {
-            Flush();
-        }
+
+        CheckForFlush(length * 2);
         
         int encodedLength = Encoding.UTF8.GetBytes(text, _buffer.AsSpan(_byteIndex));
         _byteIndex += encodedLength;
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    //[MethodImpl(MethodImplOptions.AggressiveInlining)]
+    private void CheckForFlush(int addedBytes)
+    {
+        if (_byteIndex + addedBytes >= SegmentSize)
+        {
+            Flush();
+        }
+    }
+    
+    //[MethodImpl(MethodImplOptions.AggressiveInlining)]
     private void Flush()
     {
         if (_byteIndex == 0)
@@ -149,7 +139,7 @@ public sealed class JsonUtf8Writer : BasePoolable
         return writeIndex;
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    //[MethodImpl(MethodImplOptions.AggressiveInlining)]
     public uint GetSize()
     {
         uint size = 0;
@@ -162,7 +152,7 @@ public sealed class JsonUtf8Writer : BasePoolable
         return size;
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    //[MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void WriteToNetwork(NetWrite write)
     {
         Flush();
@@ -178,7 +168,7 @@ public sealed class JsonUtf8Writer : BasePoolable
     }
 #endif
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    //[MethodImpl(MethodImplOptions.AggressiveInlining)]
     private void WriteToNetwork(Stream write)
     {
         int count = _segments.Count;
