@@ -1,5 +1,6 @@
 ﻿using Oxide.Ext.UiFramework.Animation;
 using Oxide.Ext.UiFramework.Colors;
+using Oxide.Ext.UiFramework.Exceptions;
 using Oxide.Ext.UiFramework.Interfaces.Builders;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
@@ -11,6 +12,7 @@ public static class AnimationExt
 {
     public static ColorAnimation AnimateColor(this IAnimationBuilder builder, in AnimationReference reference, IAnimator<UiColor> animator, IAnimationDuration duration)
     {
+        UiReferenceException.ThrowIfInvalidReference(reference);
         ColorAnimation animation = ColorAnimation.Create(builder, reference, animator, duration);
         builder.AddAnimation(animation);
         return animation;
@@ -21,6 +23,7 @@ public static class AnimationExt
     
     public static PositionAnimation AnimatePosition(this IAnimationBuilder builder, in UiReference reference, IAnimator<UiPosition> animator, IAnimationDuration duration)
     {
+        UiReferenceException.ThrowIfInvalidReference(reference);
         PositionAnimation animation = PositionAnimation.Create(builder, reference, animator, duration);
         builder.AddAnimation(animation);
         return animation;
@@ -31,6 +34,7 @@ public static class AnimationExt
     
     public static OffsetAnimation AnimateOffset(this IAnimationBuilder builder, in UiReference reference, IAnimator<UiOffset> animator, IAnimationDuration duration)
     {
+        UiReferenceException.ThrowIfInvalidReference(reference);
         OffsetAnimation animation = OffsetAnimation.Create(builder, reference, animator, duration);
         builder.AddAnimation(animation);
         return animation;
