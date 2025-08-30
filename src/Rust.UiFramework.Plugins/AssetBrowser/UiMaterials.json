@@ -2317,6 +2317,7 @@
                             "Concrete": "assets/content/structures/radtown/gate/models/materials/concrete.mat",
                             "ConcreteEdge": "assets/content/structures/radtown/gate/models/materials/concreteedge.mat",
                             "Leak": "assets/content/structures/radtown/gate/models/materials/leak.mat",
+                            "MetalBeams1": "assets/content/structures/radtown/gate/models/materials/metalbeams 1.mat",
                             "RadtowngateLod": "assets/content/structures/radtown/gate/models/materials/radtowngate_lod.mat"
                           },
                           "SubFolders": {}
@@ -2647,6 +2648,84 @@
                         "Level2Lod": "assets/content/structures/oilrig_small/models/materials/level2_lod.mat",
                         "Level3Lod": "assets/content/structures/oilrig_small/models/materials/level3_lod.mat",
                         "Level4Lod": "assets/content/structures/oilrig_small/models/materials/level4_lod.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                }
+              }
+            },
+            "rocket_factory_building": {
+              "Name": "rocket_factory_building",
+              "Path": "assets/content/structures/rocket_factory_building",
+              "Files": {},
+              "SubFolders": {
+                "models": {
+                  "Name": "models",
+                  "Path": "assets/content/structures/rocket_factory_building/models",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/content/structures/rocket_factory_building/models/materials",
+                      "Files": {
+                        "BakedRocketFactoryExteriorLod": "assets/content/structures/rocket_factory_building/models/materials/baked_rocket_factory_exterior_lod.mat",
+                        "ConcreteD": "assets/content/structures/rocket_factory_building/models/materials/concrete_d.mat",
+                        "ConcreteDLod": "assets/content/structures/rocket_factory_building/models/materials/concrete_d_lod.mat",
+                        "GreyBoxConcrete": "assets/content/structures/rocket_factory_building/models/materials/greybox_concrete.mat",
+                        "GreyBoxGlass": "assets/content/structures/rocket_factory_building/models/materials/greybox_glass.mat",
+                        "GreyBoxGlassOpaque": "assets/content/structures/rocket_factory_building/models/materials/greybox_glass_opaque.mat",
+                        "Material0": "assets/content/structures/rocket_factory_building/models/materials/material #0.mat",
+                        "MetalBeams": "assets/content/structures/rocket_factory_building/models/materials/metal_beams.mat",
+                        "MetalBeamsLod": "assets/content/structures/rocket_factory_building/models/materials/metal_beams_lod.mat",
+                        "RocketFactoryBricks": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_bricks.mat",
+                        "RocketFactoryBricksLod": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_bricks_lod.mat",
+                        "RocketFactoryCables": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_cables.mat",
+                        "RocketFactoryCraneArmALod": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_crane_arm_a_lod.mat",
+                        "RocketFactoryCraneBeamsLod": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_crane_beams_lod.mat",
+                        "RocketFactoryCraneDetails": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_crane_details.mat",
+                        "RocketFactoryDoor": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_door.mat",
+                        "RocketFactoryDoorLod": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_door_lod.mat",
+                        "RocketFactoryEdgeDecals": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_edge_decals.mat",
+                        "RocketFactoryExteriorLod": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_exterior_lod.mat",
+                        "RocketFactoryGlass": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_glass.mat",
+                        "RocketFactoryGlassInterior": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_glass_interior.mat",
+                        "RocketFactoryGlassLod": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_glass_lod.mat",
+                        "RocketFactoryGrateFloor": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_grate_floor.mat",
+                        "RocketFactoryGrateFloorLod": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_grate_floor_lod.mat",
+                        "RocketFactoryGround": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_ground.mat",
+                        "RocketFactoryGroundLod": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_ground_lod.mat",
+                        "RocketFactoryHelipadFloor": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_helipad_floor.mat",
+                        "RocketFactoryHelipadFloorLod": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_helipad_floor_lod.mat",
+                        "RocketFactoryIndustrialMarkings": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_industrial_markings.mat",
+                        "RocketFactoryInteriorPanels": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_interior_panels.mat",
+                        "RocketFactoryInteriorPanelsBlue": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_interior_panels_blue.mat",
+                        "RocketFactoryInteriorPanelsBlueLod": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_interior_panels_blue_lod.mat",
+                        "RocketFactoryInteriorPanelsGreen": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_interior_panels_green.mat",
+                        "RocketFactoryInteriorPanelsGrey": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_interior_panels_grey.mat",
+                        "RocketFactoryInteriorPanelsLod": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_interior_panels_lod.mat",
+                        "RocketFactoryInteriorPanelsPurple": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_interior_panels_purple.mat",
+                        "RocketFactoryInteriorPanelsRed": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_interior_panels_red.mat",
+                        "RocketFactoryInteriorPanelsYellow": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_interior_panels_yellow.mat",
+                        "RocketFactoryLift": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_lift.mat",
+                        "RocketFactoryMetal": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_metal.mat",
+                        "RocketFactoryMetalFrames": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_metal_frames.mat",
+                        "RocketFactoryMetalFramesLod": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_metal_frames_lod.mat",
+                        "RocketFactoryMetalFramesPainted": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_metal_frames_painted.mat",
+                        "RocketFactoryMetalFramesPaintedLod": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_metal_frames_painted_lod.mat",
+                        "RocketFactoryMetalLod": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_metal_lod.mat",
+                        "RocketFactoryMetalPanels": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_metal_panels.mat",
+                        "RocketFactoryMetalPanelsB": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_metal_panels_b.mat",
+                        "RocketFactoryMetalPanelsLod": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_metal_panels_lod.mat",
+                        "RocketFactoryRoadDecals": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_road_decals.mat",
+                        "RocketFactoryTrainTrack": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_train_track.mat",
+                        "RocketFactoryTrainTrackLod": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_train_track_lod.mat",
+                        "RocketFactoryTrainWagons": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_train_wagons.mat",
+                        "RocketFactoryTrainWagonsLod": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_train_wagons_lod.mat",
+                        "Tarmac": "assets/content/structures/rocket_factory_building/models/materials/tarmac.mat",
+                        "WalkwayA": "assets/content/structures/rocket_factory_building/models/materials/walkway_a.mat",
+                        "WalkwayALod": "assets/content/structures/rocket_factory_building/models/materials/walkway_a_lod.mat",
+                        "WindowFrames": "assets/content/structures/rocket_factory_building/models/materials/window_frames.mat"
                       },
                       "SubFolders": {}
                     }
@@ -4248,83 +4327,6 @@
                         "SpheretankWalkwayFLod": "assets/content/structures/spherical tank/models/materials/spheretank_walkway_f_lod.mat",
                         "WoodplanksWalkways": "assets/content/structures/spherical tank/models/materials/woodplanks_walkways.mat",
                         "WoodplanksWalkwaysLod": "assets/content/structures/spherical tank/models/materials/woodplanks_walkways_lod.mat"
-                      },
-                      "SubFolders": {}
-                    }
-                  }
-                }
-              }
-            },
-            "rocket_factory_building": {
-              "Name": "rocket_factory_building",
-              "Path": "assets/content/structures/rocket_factory_building",
-              "Files": {},
-              "SubFolders": {
-                "models": {
-                  "Name": "models",
-                  "Path": "assets/content/structures/rocket_factory_building/models",
-                  "Files": {},
-                  "SubFolders": {
-                    "materials": {
-                      "Name": "materials",
-                      "Path": "assets/content/structures/rocket_factory_building/models/materials",
-                      "Files": {
-                        "ConcreteD": "assets/content/structures/rocket_factory_building/models/materials/concrete_d.mat",
-                        "ConcreteDLod": "assets/content/structures/rocket_factory_building/models/materials/concrete_d_lod.mat",
-                        "GreyBoxConcrete": "assets/content/structures/rocket_factory_building/models/materials/greybox_concrete.mat",
-                        "GreyBoxGlass": "assets/content/structures/rocket_factory_building/models/materials/greybox_glass.mat",
-                        "GreyBoxGlassOpaque": "assets/content/structures/rocket_factory_building/models/materials/greybox_glass_opaque.mat",
-                        "Material0": "assets/content/structures/rocket_factory_building/models/materials/material #0.mat",
-                        "MetalBeams": "assets/content/structures/rocket_factory_building/models/materials/metal_beams.mat",
-                        "MetalBeamsLod": "assets/content/structures/rocket_factory_building/models/materials/metal_beams_lod.mat",
-                        "RocketFactoryBricks": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_bricks.mat",
-                        "RocketFactoryBricksLod": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_bricks_lod.mat",
-                        "RocketFactoryCables": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_cables.mat",
-                        "RocketFactoryCraneArmALod": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_crane_arm_a_lod.mat",
-                        "RocketFactoryCraneBeamsLod": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_crane_beams_lod.mat",
-                        "RocketFactoryCraneDetails": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_crane_details.mat",
-                        "RocketFactoryDoor": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_door.mat",
-                        "RocketFactoryDoorLod": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_door_lod.mat",
-                        "RocketFactoryEdgeDecals": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_edge_decals.mat",
-                        "RocketFactoryExteriorLod": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_exterior_lod.mat",
-                        "RocketFactoryGlass": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_glass.mat",
-                        "RocketFactoryGlassInterior": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_glass_interior.mat",
-                        "RocketFactoryGlassLod": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_glass_lod.mat",
-                        "RocketFactoryGrateFloor": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_grate_floor.mat",
-                        "RocketFactoryGrateFloorLod": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_grate_floor_lod.mat",
-                        "RocketFactoryGround": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_ground.mat",
-                        "RocketFactoryGroundLod": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_ground_lod.mat",
-                        "RocketFactoryHelipadFloor": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_helipad_floor.mat",
-                        "RocketFactoryHelipadFloorLod": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_helipad_floor_lod.mat",
-                        "RocketFactoryIndustrialMarkings": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_industrial_markings.mat",
-                        "RocketFactoryInteriorPanels": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_interior_panels.mat",
-                        "RocketFactoryInteriorPanelsBlue": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_interior_panels_blue.mat",
-                        "RocketFactoryInteriorPanelsBlueLod": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_interior_panels_blue_lod.mat",
-                        "RocketFactoryInteriorPanelsGreen": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_interior_panels_green.mat",
-                        "RocketFactoryInteriorPanelsGrey": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_interior_panels_grey.mat",
-                        "RocketFactoryInteriorPanelsLod": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_interior_panels_lod.mat",
-                        "RocketFactoryInteriorPanelsPurple": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_interior_panels_purple.mat",
-                        "RocketFactoryInteriorPanelsRed": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_interior_panels_red.mat",
-                        "RocketFactoryInteriorPanelsYellow": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_interior_panels_yellow.mat",
-                        "RocketFactoryLift": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_lift.mat",
-                        "RocketFactoryMetal": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_metal.mat",
-                        "RocketFactoryMetalFrames": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_metal_frames.mat",
-                        "RocketFactoryMetalFramesLod": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_metal_frames_lod.mat",
-                        "RocketFactoryMetalFramesPainted": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_metal_frames_painted.mat",
-                        "RocketFactoryMetalFramesPaintedLod": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_metal_frames_painted_lod.mat",
-                        "RocketFactoryMetalLod": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_metal_lod.mat",
-                        "RocketFactoryMetalPanels": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_metal_panels.mat",
-                        "RocketFactoryMetalPanelsB": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_metal_panels_b.mat",
-                        "RocketFactoryMetalPanelsLod": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_metal_panels_lod.mat",
-                        "RocketFactoryRoadDecals": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_road_decals.mat",
-                        "RocketFactoryTrainTrack": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_train_track.mat",
-                        "RocketFactoryTrainTrackLod": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_train_track_lod.mat",
-                        "RocketFactoryTrainWagons": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_train_wagons.mat",
-                        "RocketFactoryTrainWagonsLod": "assets/content/structures/rocket_factory_building/models/materials/rocket_factory_train_wagons_lod.mat",
-                        "Tarmac": "assets/content/structures/rocket_factory_building/models/materials/tarmac.mat",
-                        "WalkwayA": "assets/content/structures/rocket_factory_building/models/materials/walkway_a.mat",
-                        "WalkwayALod": "assets/content/structures/rocket_factory_building/models/materials/walkway_a_lod.mat",
-                        "WindowFrames": "assets/content/structures/rocket_factory_building/models/materials/window_frames.mat"
                       },
                       "SubFolders": {}
                     }
@@ -15790,6 +15792,7 @@
                       "Path": "assets/prefabs/deployable/woodenbox/model/materials",
                       "Files": {
                         "BoxLootDif": "assets/prefabs/deployable/woodenbox/model/materials/box_loot_dif.mat",
+                        "Maintex0": "assets/prefabs/deployable/woodenbox/model/materials/_maintex0.mat",
                         "WStorageBox1Dif": "assets/prefabs/deployable/woodenbox/model/materials/w_storage_box_1_dif.mat"
                       },
                       "SubFolders": {}
