@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Oxide.Core.Plugins;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Constants;
 using Oxide.Ext.UiFramework.Controls;
@@ -136,10 +137,10 @@ public partial class BaseUiBuilder
     public UiTuple<UiButton, UiRawImage> FileStorageImageButton(BaseUiLayout layout, string imageId, string command, UiColor? buttonColor = default, ButtonType type = ButtonType.Command, UiColor? imageColor = default)
         => RawImageButton(layout, imageId, command, buttonColor, type, imageColor);
     
-    public UiTuple<UiButton, UiRawImage> ImageStorageButton(in UiReference parent, in UiPosition pos, in UiOffset offset, string nameOrUrl, string command, UiColor? buttonColor = default, ButtonType type = ButtonType.Command, UiColor? imageColor = default)
-        => RawImageButton(parent, pos, offset, nameOrUrl, command, buttonColor, type, imageColor);
-    public UiTuple<UiButton, UiRawImage> ImageStorageButton(BaseUiLayout layout, string nameOrUrl, string command, UiColor? buttonColor = default, ButtonType type = ButtonType.Command, UiColor? imageColor = default)
-        => RawImageButton(layout, nameOrUrl, command, buttonColor, type, imageColor);
+    public UiTuple<UiButton, UiRawImage> ImageStorageButton(Plugin plugin, in UiReference parent, in UiPosition pos, in UiOffset offset, string nameOrUrl, string command, UiColor? buttonColor = default, ButtonType type = ButtonType.Command, UiColor? imageColor = default)
+        => RawImageButton(parent, pos, offset, Singleton<UiImageStorage>.Instance.Get(plugin, nameOrUrl), command, buttonColor, type, imageColor);
+    public UiTuple<UiButton, UiRawImage> ImageStorageButton(Plugin plugin, BaseUiLayout layout, string nameOrUrl, string command, UiColor? buttonColor = default, ButtonType type = ButtonType.Command, UiColor? imageColor = default)
+        => RawImageButton(layout, Singleton<UiImageStorage>.Instance.Get(plugin, nameOrUrl), command, buttonColor, type, imageColor);
     #endregion
 
     #region Icon
