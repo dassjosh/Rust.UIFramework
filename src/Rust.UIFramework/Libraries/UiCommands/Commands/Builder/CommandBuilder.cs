@@ -20,7 +20,7 @@ internal class CommandBuilder : BaseCommandBuilder, ICommandBuilder
     }
 }
 
-internal class CommandBuilder<T0>(string command, ICommandProtection protection, IArgWriter[] writers, int argIndex = 0) : BaseCommandBuilder(command, protection, writers, argIndex), ICommandBuilder<T0>
+internal class CommandBuilder<T0>(string command, ICommandProtection protection, IArgWriter[] writers, int argIndex = 0, string partialArgs = null) : BaseCommandBuilder(command, protection, writers, argIndex, partialArgs), ICommandBuilder<T0>
 {
     public string Build(T0 arg0)
     {
@@ -30,7 +30,7 @@ internal class CommandBuilder<T0>(string command, ICommandProtection protection,
     }
 }
 
-internal class CommandBuilder<T0, T1>(string command, ICommandProtection protection, IArgWriter[] writers, int argIndex = 0) : BaseCommandBuilder(command, protection, writers, argIndex), ICommandBuilder<T0, T1>
+internal class CommandBuilder<T0, T1>(string command, ICommandProtection protection, IArgWriter[] writers, int argIndex = 0, string partialArgs = null) : BaseCommandBuilder(command, protection, writers, argIndex, partialArgs), ICommandBuilder<T0, T1>
 {
     public string Build(T0 arg0, T1 arg1)
     {
@@ -41,14 +41,13 @@ internal class CommandBuilder<T0, T1>(string command, ICommandProtection protect
 
     public ICommandBuilder<T1> Partial(T0 arg0)
     {
-        
         ArgWriterIterator writer = StartBuilding();
         writer.WriteArgs(arg0);
-        return new CommandBuilder<T1>(writer.ToString(), Protection, Writers, writer.Index);
+        return new CommandBuilder<T1>(Command, Protection, Writers, writer.Index, writer.ToString());
     }
 }
 
-internal class CommandBuilder<T0, T1, T2>(string command, ICommandProtection protection, IArgWriter[] writers, int argIndex = 0) : BaseCommandBuilder(command, protection, writers, argIndex), ICommandBuilder<T0, T1, T2>
+internal class CommandBuilder<T0, T1, T2>(string command, ICommandProtection protection, IArgWriter[] writers, int argIndex = 0, string partialArgs = null) : BaseCommandBuilder(command, protection, writers, argIndex, partialArgs), ICommandBuilder<T0, T1, T2>
 {
     public string Build(T0 arg0, T1 arg1, T2 arg2)
     {
@@ -61,18 +60,18 @@ internal class CommandBuilder<T0, T1, T2>(string command, ICommandProtection pro
     {
         ArgWriterIterator writer = StartBuilding();
         writer.WriteArgs(arg0, arg1);
-        return new CommandBuilder<T2>(writer.ToString(), Protection, Writers, writer.Index);
+        return new CommandBuilder<T2>(Command, Protection, Writers, writer.Index, writer.ToString());
     }
 
     public ICommandBuilder<T1, T2> Partial(T0 arg0)
     {
         ArgWriterIterator writer = StartBuilding();
         writer.WriteArgs(arg0);
-        return new CommandBuilder<T1, T2>(writer.ToString(), Protection, Writers, writer.Index);
+        return new CommandBuilder<T1, T2>(Command, Protection, Writers, writer.Index, writer.ToString());
     }
 }
 
-internal class CommandBuilder<T0, T1, T2, T3>(string command, ICommandProtection protection, IArgWriter[] writers, int argIndex = 0) : BaseCommandBuilder(command, protection, writers, argIndex), ICommandBuilder<T0, T1, T2, T3>
+internal class CommandBuilder<T0, T1, T2, T3>(string command, ICommandProtection protection, IArgWriter[] writers, int argIndex = 0, string partialArgs = null) : BaseCommandBuilder(command, protection, writers, argIndex, partialArgs), ICommandBuilder<T0, T1, T2, T3>
 {
     public string Build(T0 arg0, T1 arg1, T2 arg2, T3 arg3)
     {
@@ -85,18 +84,18 @@ internal class CommandBuilder<T0, T1, T2, T3>(string command, ICommandProtection
     {
         ArgWriterIterator writer = StartBuilding();
         writer.WriteArgs(arg0, arg1, arg2);
-        return new CommandBuilder<T3>(writer.ToString(), Protection, Writers, writer.Index);
+        return new CommandBuilder<T3>(Command, Protection, Writers, writer.Index, writer.ToString());
     }
 
     public ICommandBuilder<T2, T3> Partial(T0 arg0, T1 arg1)
     {
         ArgWriterIterator writer = StartBuilding();
         writer.WriteArgs(arg0, arg1);
-        return new CommandBuilder<T2, T3>(writer.ToString(), Protection, Writers, writer.Index);
+        return new CommandBuilder<T2, T3>(Command, Protection, Writers, writer.Index, writer.ToString());
     }
 }
 
-internal class CommandBuilder<T0, T1, T2, T3, T4>(string command, ICommandProtection protection, IArgWriter[] writers, int argIndex = 0) : BaseCommandBuilder(command, protection, writers, argIndex), ICommandBuilder<T0, T1, T2, T3, T4>
+internal class CommandBuilder<T0, T1, T2, T3, T4>(string command, ICommandProtection protection, IArgWriter[] writers, int argIndex = 0, string partialArgs = null) : BaseCommandBuilder(command, protection, writers, argIndex, partialArgs), ICommandBuilder<T0, T1, T2, T3, T4>
 {
     public string Build(T0 arg0, T1 arg1, T2 arg2, T3 arg3, T4 arg4)
     {
@@ -109,18 +108,18 @@ internal class CommandBuilder<T0, T1, T2, T3, T4>(string command, ICommandProtec
     {
         ArgWriterIterator writer = StartBuilding();
         writer.WriteArgs(arg0, arg1, arg2, arg3);
-        return new CommandBuilder<T4>(writer.ToString(), Protection, Writers, writer.Index);
+        return new CommandBuilder<T4>(Command, Protection, Writers, writer.Index, writer.ToString());
     }
     
     public ICommandBuilder<T3, T4> Partial(T0 arg0, T1 arg1, T2 arg2)
     {
         ArgWriterIterator writer = StartBuilding();
         writer.WriteArgs(arg0, arg1, arg2);
-        return new CommandBuilder<T3, T4>(writer.ToString(), Protection, Writers, writer.Index);
+        return new CommandBuilder<T3, T4>(Command, Protection, Writers, writer.Index, writer.ToString());
     }
 }
 
-internal class CommandBuilder<T0, T1, T2, T3, T4, T5>(string command, ICommandProtection protection, IArgWriter[] writers, int argIndex = 0) : BaseCommandBuilder(command, protection, writers, argIndex), ICommandBuilder<T0, T1, T2, T3, T4, T5>
+internal class CommandBuilder<T0, T1, T2, T3, T4, T5>(string command, ICommandProtection protection, IArgWriter[] writers, int argIndex = 0, string partialArgs = null) : BaseCommandBuilder(command, protection, writers, argIndex, partialArgs), ICommandBuilder<T0, T1, T2, T3, T4, T5>
 {
     public string Build(T0 arg0, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5)
     {
@@ -133,18 +132,18 @@ internal class CommandBuilder<T0, T1, T2, T3, T4, T5>(string command, ICommandPr
     {
         ArgWriterIterator writer = StartBuilding();
         writer.WriteArgs(arg0, arg1, arg2, arg3, arg4);
-        return new CommandBuilder<T5>(writer.ToString(), Protection, Writers, writer.Index);
+        return new CommandBuilder<T5>(Command, Protection, Writers, writer.Index, writer.ToString());
     }
     
     public ICommandBuilder<T4, T5> Partial(T0 arg0, T1 arg1, T2 arg2, T3 arg3)
     {
         ArgWriterIterator writer = StartBuilding();
         writer.WriteArgs(arg0, arg1, arg2, arg3);
-        return new CommandBuilder<T4, T5>(writer.ToString(), Protection, Writers, writer.Index);
+        return new CommandBuilder<T4, T5>(Command, Protection, Writers, writer.Index, writer.ToString());
     }
 }
 
-internal class CommandBuilder<T0, T1, T2, T3, T4, T5, T6>(string command, ICommandProtection protection, IArgWriter[] writers, int argIndex = 0) : BaseCommandBuilder(command, protection, writers, argIndex), ICommandBuilder<T0, T1, T2, T3, T4, T5, T6>
+internal class CommandBuilder<T0, T1, T2, T3, T4, T5, T6>(string command, ICommandProtection protection, IArgWriter[] writers, int argIndex = 0, string partialArgs = null) : BaseCommandBuilder(command, protection, writers, argIndex, partialArgs), ICommandBuilder<T0, T1, T2, T3, T4, T5, T6>
 {
     public string Build(T0 arg0, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6)
     {
@@ -157,18 +156,18 @@ internal class CommandBuilder<T0, T1, T2, T3, T4, T5, T6>(string command, IComma
     {
         ArgWriterIterator writer = StartBuilding();
         writer.WriteArgs(arg0, arg1, arg2, arg3, arg4, arg5);
-        return new CommandBuilder<T6>(writer.ToString(), Protection, Writers, writer.Index);
+        return new CommandBuilder<T6>(Command, Protection, Writers, writer.Index, writer.ToString());
     }
     
     public ICommandBuilder<T5, T6> Partial(T0 arg0, T1 arg1, T2 arg2, T3 arg3, T4 arg4)
     {
         ArgWriterIterator writer = StartBuilding();
         writer.WriteArgs(arg0, arg1, arg2, arg3, arg4);
-        return new CommandBuilder<T5, T6>(writer.ToString(), Protection, Writers, writer.Index);
+        return new CommandBuilder<T5, T6>(Command, Protection, Writers, writer.Index, writer.ToString());
     }
 }
 
-internal class CommandBuilder<T0, T1, T2, T3, T4, T5, T6, T7>(string command, ICommandProtection protection, IArgWriter[] writers, int argIndex = 0) : BaseCommandBuilder(command, protection, writers, argIndex), ICommandBuilder<T0, T1, T2, T3, T4, T5, T6, T7>
+internal class CommandBuilder<T0, T1, T2, T3, T4, T5, T6, T7>(string command, ICommandProtection protection, IArgWriter[] writers, int argIndex = 0, string partialArgs = null) : BaseCommandBuilder(command, protection, writers, argIndex, partialArgs), ICommandBuilder<T0, T1, T2, T3, T4, T5, T6, T7>
 {
     public string Build(T0 arg0, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7)
     {
@@ -181,13 +180,13 @@ internal class CommandBuilder<T0, T1, T2, T3, T4, T5, T6, T7>(string command, IC
     {
         ArgWriterIterator writer = StartBuilding();
         writer.WriteArgs(arg0, arg1, arg2, arg3, arg4, arg5, arg6);
-        return new CommandBuilder<T7>(writer.ToString(), Protection, Writers, writer.Index);
+        return new CommandBuilder<T7>(Command, Protection, Writers, writer.Index, writer.ToString());
     }
     
     public ICommandBuilder<T6, T7> Partial(T0 arg0, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5)
     {
         ArgWriterIterator writer = StartBuilding();
         writer.WriteArgs(arg0, arg1, arg2, arg3, arg4, arg5);
-        return new CommandBuilder<T6, T7>(writer.ToString(), Protection, Writers, writer.Index);
+        return new CommandBuilder<T6, T7>(Command, Protection, Writers, writer.Index, writer.ToString());
     }
 }

@@ -20,7 +20,7 @@ internal class SimpleProtection : ICommandProtection
     
     internal string GetProtectionKey() => _protectionKey;
 
-    public void ProtectCommand(string command, ref UiArgWriter writer)
+    public void ProtectCommand(ref UiArgWriter writer)
     {
         writer.Insert(_protectionKey);
     }

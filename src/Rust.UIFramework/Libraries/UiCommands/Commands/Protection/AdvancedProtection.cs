@@ -10,7 +10,7 @@ internal class AdvancedProtection(PluginId pluginId, string method, float protec
 {
     private readonly UiMemoryCache<int> _protectionCache = new(TimeSpan.FromSeconds(protectionKeyLifetime));
     
-    public void ProtectCommand(string command, ref UiArgWriter writer)
+    public void ProtectCommand(ref UiArgWriter writer)
     {
         writer.Insert(GenerateProtectionKey().ToBase64Span());
     }

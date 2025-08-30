@@ -10,13 +10,11 @@ internal class ExtremeProtection(PluginId pluginId, string method, float protect
 {
     private readonly UiMemoryCache<long, string> _protectedArgs = new(TimeSpan.FromSeconds(protectionKeyLifetime));
 
-    public void ProtectCommand(string command, ref UiArgWriter writer)
+    public void ProtectCommand(ref UiArgWriter writer)
     {
         long protectionKey = GenerateProtectionKey();
         _protectedArgs[protectionKey] = writer.ToString();
         writer = new UiArgWriter(UiPool.Internal.GetStringBuilder());
-        writer.Append(command);
-        writer.AppendSpace();
         writer.Append(protectionKey.ToBase64Span());
     }
 
