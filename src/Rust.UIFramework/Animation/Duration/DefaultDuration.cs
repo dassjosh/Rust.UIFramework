@@ -24,10 +24,10 @@ public class DefaultDuration : BasePoolable, IConfigurableAnimationDuration
     
     public DefaultDuration Init(float duration, float delay = 0, int repeats = 1, float repeatDelay = 0)
     {
-        if(delay <= 0) throw new ArgumentOutOfRangeException(nameof(delay), $"{nameof(delay)} cannot be less than 0");
-        if(duration <= 0) throw new ArgumentOutOfRangeException(nameof(duration), $"{nameof(duration)} cannot be less than 0");
-        if(repeats <= 0) throw new ArgumentOutOfRangeException(nameof(repeats), $"{nameof(repeats)} cannot be less than 0");
-        if(repeatDelay <= 0) throw new ArgumentOutOfRangeException(nameof(repeatDelay), $"{nameof(repeatDelay)} cannot be less than 0");
+        if(delay < 0) throw new ArgumentOutOfRangeException(nameof(delay), $"{nameof(delay)} cannot be less than 0");
+        if(duration < 0) throw new ArgumentOutOfRangeException(nameof(duration), $"{nameof(duration)} cannot be less than 0");
+        if(repeats < 0) throw new ArgumentOutOfRangeException(nameof(repeats), $"{nameof(repeats)} cannot be less than 0");
+        if(repeatDelay < 0) throw new ArgumentOutOfRangeException(nameof(repeatDelay), $"{nameof(repeatDelay)} cannot be less than 0");
         Delay = delay;
         Duration = duration;
         Repeats = repeats;
