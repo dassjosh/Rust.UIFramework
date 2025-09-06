@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 using Oxide.Ext.UiFramework.Cache;
+using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Libraries;
 
 namespace Oxide.Ext.UiFramework.Logging;
@@ -74,17 +75,9 @@ public class DebugLogger
     /// <param name="value">Value of the field</param>
     public void AppendField(string name, int value)
     {
-        char[] array = System.Buffers.ArrayPool<char>.Shared.Rent(20);
-        Span<char> span = array.AsSpan();
-        if (value.TryFormat(span, out int written))
-        {
-            AppendField(name, span.Slice(0, written));
-        }
-        else
-        {
-            AppendField(name, value.ToString());
-        }
-        System.Buffers.ArrayPool<char>.Shared.Return(array);
+        AppendFieldPrefix(name);
+        _logger.AppendSpan(value);
+        _logger.AppendLine();
     }
 
     /// <summary>
@@ -94,17 +87,9 @@ public class DebugLogger
     /// <param name="value">Value of the field</param>
     public void AppendField(string name, double value)
     {
-        char[] array = System.Buffers.ArrayPool<char>.Shared.Rent(64);
-        Span<char> span = array.AsSpan();
-        if (value.TryFormat(span, out int written))
-        {
-            AppendField(name, span.Slice(0, written));
-        }
-        else
-        {
-            AppendField(name, value.ToString(CultureInfo.InvariantCulture));
-        }
-        System.Buffers.ArrayPool<char>.Shared.Return(array);
+        AppendFieldPrefix(name);
+        _logger.AppendSpan(value);
+        _logger.AppendLine();
     }
 
     /// <summary>
@@ -114,17 +99,9 @@ public class DebugLogger
     /// <param name="value">Value of the field</param>
     public void AppendField(string name, float value)
     {
-        char[] array = System.Buffers.ArrayPool<char>.Shared.Rent(64);
-        Span<char> span = array.AsSpan();
-        if (value.TryFormat(span, out int written))
-        {
-            AppendField(name, span.Slice(0, written));
-        }
-        else
-        {
-            AppendField(name, value.ToString(CultureInfo.InvariantCulture));
-        }
-        System.Buffers.ArrayPool<char>.Shared.Return(array);
+        AppendFieldPrefix(name);
+        _logger.AppendSpan(value);
+        _logger.AppendLine();
     }
 
     /// <summary>
@@ -134,17 +111,9 @@ public class DebugLogger
     /// <param name="value">Value of the field</param>
     public void AppendField(string name, ulong value)
     {
-        char[] array = System.Buffers.ArrayPool<char>.Shared.Rent(32);
-        Span<char> span = array.AsSpan();
-        if (value.TryFormat(span, out int written))
-        {
-            AppendField(name, span.Slice(0, written));
-        }
-        else
-        {
-            AppendField(name, value.ToString());
-        }
-        System.Buffers.ArrayPool<char>.Shared.Return(array);
+        AppendFieldPrefix(name);
+        _logger.AppendSpan(value);
+        _logger.AppendLine();
     }
 
     /// <summary>
@@ -154,17 +123,9 @@ public class DebugLogger
     /// <param name="value">Value of the field</param>
     public void AppendField(string name, long value)
     {
-        char[] array = System.Buffers.ArrayPool<char>.Shared.Rent(32);
-        Span<char> span = array.AsSpan();
-        if (value.TryFormat(span, out int written))
-        {
-            AppendField(name, span.Slice(0, written));
-        }
-        else
-        {
-            AppendField(name, value.ToString());
-        }
-        System.Buffers.ArrayPool<char>.Shared.Return(array);
+        AppendFieldPrefix(name);
+        _logger.AppendSpan(value);
+        _logger.AppendLine();
     }
 
     /// <summary>
