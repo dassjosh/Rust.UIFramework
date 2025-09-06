@@ -77,6 +77,16 @@ internal class SendHandler : ISingleton
 
         return 1 << attempts;
     }
+    
+#if UNIT_TESTS
+    internal void WaitUntilFinished()
+    {
+        while (!_queue.IsEmpty)
+        {
+            Thread.Sleep(10);
+        }
+    }
+#endif
 
     internal void OnServerShutdown()
     {
