@@ -159,7 +159,7 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
     private static ImageId StoreImage(byte[] image)
     {
 #if UNIT_TESTS
-        return new ImageId(Random.Range(0, int.MaxValue).ToString());
+        return new ImageId(Core.Random.Range(0, int.MaxValue).ToString());
 #else
         return new ImageId(FileStorage.server.Store(image, FileStorage.Type.png, CommunityEntity.ServerInstance.net.ID).ToString());
 #endif

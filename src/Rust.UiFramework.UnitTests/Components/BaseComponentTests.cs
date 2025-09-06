@@ -1,7 +1,6 @@
 using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Libraries;
-using Oxide.Ext.UiFramework.Types;
 
 namespace Rust.UiFramework.UnitTests.Components;
 

@@ -5,7 +5,6 @@ using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.UiElements;
 using Network;
 using Oxide.Ext.UiFramework.Libraries;
-using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Threading;
 using Oxide.Ext.UiFramework.Types;
 

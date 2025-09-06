@@ -1,5 +1,4 @@
 ﻿using Oxide.Ext.UiFramework.Positions;
-using Xunit.Sdk;
 
 namespace Rust.UiFramework.UnitTests.Positions;
 

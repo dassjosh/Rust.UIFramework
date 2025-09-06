@@ -30,14 +30,6 @@ public abstract partial class BaseUiBuilder : BaseBuilder
     
     private static readonly string GlobalFont = UiFrameworkConfig.Instance.Font.DefaultFont;
         
-    public void EnsureCapacity(int capacity)
-    {
-        if (Components.Capacity < capacity)
-        {
-            Components.Capacity = capacity;
-        }
-    }
-        
     public void SetCurrentFont(UiFont font) => SetCurrentFont(UiFontCache.GetUiFont(font));
     public void SetCurrentFont(string font) => Font = font;
 
