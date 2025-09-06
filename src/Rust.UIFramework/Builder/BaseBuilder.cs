@@ -29,6 +29,10 @@ public abstract class BaseBuilder : BasePoolable
         {
             AddUi(SendInfoBuilder.Get(player));
         }
+        else
+        {
+            TryDispose();
+        }
     }
 
     public void AddUi(Connection connection)
@@ -36,6 +40,10 @@ public abstract class BaseBuilder : BasePoolable
         if (connection is { connected: true })
         {
             AddUi(SendInfoBuilder.Get(connection));
+        }
+        else
+        {
+            TryDispose();
         }
     }
 
@@ -58,7 +66,7 @@ public abstract class BaseBuilder : BasePoolable
 
     internal static void AddUi(SendInfo send, JsonFrameworkWriter writer)
     {
-        NetWrite write = ClientRPCStart(RpcFunctions.AddUiFunc);
+        NetWrite write = ClientRPCStart(RpcFunctions.AddUi);
         if (write != null)
         {
             writer.WriteToNetwork(write);
@@ -68,7 +76,7 @@ public abstract class BaseBuilder : BasePoolable
         
     protected static void AddUi(SendInfo send, byte[] bytes)
     {
-        NetWrite write = ClientRPCStart(RpcFunctions.AddUiFunc);
+        NetWrite write = ClientRPCStart(RpcFunctions.AddUi);
         if (write != null)
         {
             write.BytesWithSize(bytes);
@@ -76,7 +84,7 @@ public abstract class BaseBuilder : BasePoolable
         }
     }
 
-    private static NetWrite ClientRPCStart(string funcName)
+    private static NetWrite ClientRPCStart(uint funcId)
     {
         if (!Net.sv.IsConnected() || CommunityEntity.ServerInstance.net == null)
         {
@@ -86,7 +94,7 @@ public abstract class BaseBuilder : BasePoolable
         NetWrite write = Net.sv.StartWrite();
         write.PacketID(Message.Type.RPCMessage);
         write.EntityID(CommunityEntity.ServerInstance.net.ID);
-        write.UInt32(StringPool.Get(funcName));
+        write.UInt32(funcId);
         return write;
     }
     #endregion
@@ -152,7 +160,7 @@ public abstract class BaseBuilder : BasePoolable
 
     internal static void SendDestroyUi(SendInfo send, string name)
     {
-        NetWrite write = ClientRPCStart(RpcFunctions.DestroyUiFunc);
+        NetWrite write = ClientRPCStart(RpcFunctions.DestroyUi);
         if (write != null)
         {
             write.String(name);

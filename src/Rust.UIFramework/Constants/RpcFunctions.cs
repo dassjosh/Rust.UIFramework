@@ -2,6 +2,10 @@
 
 public static class RpcFunctions
 {
-    public const string AddUiFunc = "AddUI";
-    public const string DestroyUiFunc = "DestroyUI";
+    private const string AddUiFunc = "AddUI";
+    private const string DestroyUiFunc = "DestroyUI";
+    
+    
+    public static readonly uint AddUi = StringPool.Get(AddUiFunc);
+    public static readonly uint DestroyUi = StringPool.Get(DestroyUiFunc);
 }
