@@ -32,33 +32,33 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
 #endif
     }
 
-    public string Get(Plugin plugin, string name)
+    public string Get(Plugin plugin, string nameOrUrl)
     {
 #if UNIT_TESTS
-        return name;
+        return nameOrUrl;
 #else
         if (plugin == null) throw new ArgumentNullException(nameof(plugin));
-        return Get(plugin.Id(), name);
+        return Get(plugin.Id(), nameOrUrl);
 #endif
     }
     
-    internal string Get(PluginId pluginId, string name)
+    internal string Get(PluginId pluginId, string nameOrUrl)
     {
-        if (name == null) throw new ArgumentNullException(nameof(name));
+        if (nameOrUrl == null) throw new ArgumentNullException(nameof(nameOrUrl));
 
-        ImageId id = _data.Get(pluginId, name);
+        ImageId id = _data.Get(pluginId, nameOrUrl);
         if (id.IsValid)
         {
             return id.Id;
         }
 
-        if (name.StartsWith("http"))
+        if (nameOrUrl.StartsWith("http"))
         {
-            RegisterImage(pluginId, name);
-            return name;
+            RegisterImage(pluginId, nameOrUrl);
+            return nameOrUrl;
         }
         
-        _logger.Debug("Failed to get image for plugin: {0} name: {1}", pluginId.FullName(), name);
+        _logger.Debug("Failed to get image for plugin: {0} name: {1}", pluginId.FullName(), nameOrUrl);
         
         return Get(UiFrameworkPlugin.Instance, UiImageDefaults.NotFound);
     }
