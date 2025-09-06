@@ -21,6 +21,12 @@ public static class UiComponentExt
     
     public static T SetParent<T>(this T component, UiLayer layer) where T : BaseUiComponent => SetParent(component, UiLayerCache.GetLayer(layer));
     
+    public static T SetReference<T>(this T component, in UiReference reference) where T : BaseUiComponent
+    {
+        component.Reference = reference;
+        return component;
+    }
+    
     public static T SetPosition<T>(this T component, in UiPosition position) where T : BaseUiComponent
     {
         component.Position = position;
