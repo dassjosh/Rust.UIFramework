@@ -25,8 +25,8 @@ internal class ImageDownloader
     private readonly ConcurrentDictionary<string, DownloadState> _urlState = new();
     private readonly CancellationTokenSource _cancellationTokenSource = new();
     private readonly IImageStorageBehavior _storage;
-    private readonly int _maxConcurrentDownloads = UiFrameworkConfig.Instance.ImageStorage.MaxConcurrentDownloads;
-    private readonly int _maxDownloadAttempts = UiFrameworkConfig.Instance.ImageStorage.MaxDownloadAttempts;
+    private static readonly int MaxConcurrentDownloads = UiFrameworkConfig.Instance.ImageStorage.MaxConcurrentDownloads;
+    private static readonly int MaxDownloadAttempts = UiFrameworkConfig.Instance.ImageStorage.MaxDownloadAttempts;
     private readonly object _taskLock = new();
     private int _activeWorkerCount;
     private readonly IUiLogger<ImageDownloader> _logger = Singleton<UiLoggerFactory>.Instance.CreateExtensionLogger<ImageDownloader>();
@@ -64,7 +64,7 @@ internal class ImageDownloader
         DownloadRequest request = new(pluginId, name, url);
         if (_urlState.TryGetValue(url, out DownloadState state))
         {
-            if (state.InProgress || state.Completed || state.Attempts > _maxDownloadAttempts)
+            if (state.InProgress || state.HasCompleted || state.IsOutOfAttempts)
             {
                 return false;
             }
@@ -99,13 +99,13 @@ internal class ImageDownloader
         lock (_taskLock)
         {
             // Only start new workers if we're below the maximum and queue has items
-            if (_activeWorkerCount >= _maxConcurrentDownloads || _requestQueue.IsEmpty)
+            if (_activeWorkerCount >= MaxConcurrentDownloads || _requestQueue.IsEmpty)
             {
                 return;
             }
             
             // Calculate how many new workers we need
-            int workersToStart = Math.Min(_maxConcurrentDownloads - _activeWorkerCount, _requestQueue.Count);
+            int workersToStart = Math.Min(MaxConcurrentDownloads - _activeWorkerCount, _requestQueue.Count);
             for (int i = 0; i < workersToStart; i++)
             {
 #pragma warning disable EPC13
@@ -117,7 +117,7 @@ internal class ImageDownloader
 #pragma warning restore EPC13
                     
                 Interlocked.Increment(ref _activeWorkerCount);
-                _logger.Debug("Started new worker task. Active workers: {0}", _activeWorkerCount);
+                _logger.Debug("Started new worker task. Active workers: {0}/{1}", _activeWorkerCount, MaxConcurrentDownloads);
             }
         }
     }
@@ -133,15 +133,15 @@ internal class ImageDownloader
             while (!cancellationToken.IsCancellationRequested && _requestQueue.TryDequeue(out DownloadRequest request))
             {
                 DownloadState state = _urlState[request.Url];
-                if (state.Completed)
+                if (state.HasCompleted)
                 {
                     _logger.Debug("Skipping url: {0} as it has already been downloaded", request.Url);
                     continue;
                 }
                 
-                if (state.Attempts > _maxDownloadAttempts)
+                if (state.IsOutOfAttempts)
                 {
-                    _logger.Debug("Skipping url: {0} as it's out of attempts", request.Url);
+                    _logger.Debug("Skipping url: {0} as it is greater than max attempts {1}", request.Url, MaxDownloadAttempts);
                     continue;
                 }
                 
@@ -215,8 +215,11 @@ internal class ImageDownloader
     {
         public int Attempts = 1;
         public bool InProgress = true;
-        public bool Completed;
+        public bool HasCompleted;
 
+        public bool HadDownloadError => Attempts > 1;
+        public bool IsOutOfAttempts => Attempts > MaxDownloadAttempts;
+        
         public void OnDownloadFailed()
         {
             Attempts += 1;
@@ -226,7 +229,7 @@ internal class ImageDownloader
         public void OnDownloadComplete()
         {
             InProgress = false;
-            Completed = true;
+            HasCompleted = true;
         }
     }
 }
