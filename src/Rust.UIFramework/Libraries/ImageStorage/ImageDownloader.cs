@@ -55,15 +55,17 @@ internal class ImageDownloader
     /// <param name="name">The name for the downloaded image</param>
     /// <param name="url">The URL to download the image from</param>
     /// <returns>True if the request was added, false if it already existed or failed too many times</returns>
-    internal bool AddRequest(PluginId pluginId, string name, string url)
+    internal bool AddRequest(PluginId pluginId, string name, string url, out bool hasFailedAttempt)
     {
         if (!pluginId.IsValid) throw new ArgumentNullException(nameof(pluginId));
         if (string.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
         if (string.IsNullOrEmpty(url)) throw new ArgumentNullException(nameof(url));
 
         DownloadRequest request = new(pluginId, name, url);
+        hasFailedAttempt = false;
         if (_urlState.TryGetValue(url, out DownloadState state))
         {
+            hasFailedAttempt = state.HadDownloadError;
             if (state.InProgress || state.HasCompleted || state.IsOutOfAttempts)
             {
                 return false;
@@ -85,7 +87,7 @@ internal class ImageDownloader
     {
         foreach ((string name, string url) in requests)
         {
-            AddRequest(pluginId, name, url);
+            AddRequest(pluginId, name, url, out bool _);
         }
     }
 

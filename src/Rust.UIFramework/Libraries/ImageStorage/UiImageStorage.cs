@@ -9,8 +9,6 @@ using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Logging;
 using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Types;
-using Random = Oxide.Core.Random;
-
 
 namespace Oxide.Ext.UiFramework.Libraries;
 
@@ -32,17 +30,17 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
 #endif
     }
 
-    public string Get(Plugin plugin, string nameOrUrl)
+    public string Get(Plugin plugin, string nameOrUrl, string fallbackNameOrUrl = null)
     {
 #if UNIT_TESTS
         return nameOrUrl;
 #else
         if (plugin == null) throw new ArgumentNullException(nameof(plugin));
-        return Get(plugin.Id(), nameOrUrl);
+        return Get(plugin.Id(), nameOrUrl, fallbackNameOrUrl);
 #endif
     }
     
-    internal string Get(PluginId pluginId, string nameOrUrl)
+    internal string Get(PluginId pluginId, string nameOrUrl, string fallbackNameOrUrl)
     {
         if (nameOrUrl == null) throw new ArgumentNullException(nameof(nameOrUrl));
 
@@ -54,7 +52,17 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
 
         if (nameOrUrl.StartsWith("http"))
         {
-            RegisterImage(pluginId, nameOrUrl);
+            RegisterImage(pluginId, nameOrUrl, out bool hasFailedAttempt);
+            if (hasFailedAttempt)
+            {
+                if (!string.IsNullOrEmpty(fallbackNameOrUrl))
+                {
+                    return Get(pluginId, fallbackNameOrUrl, null); 
+                }
+                
+                return Get(UiFrameworkPlugin.Instance, UiImageDefaults.NotFound);
+            }
+            
             return nameOrUrl;
         }
         
@@ -63,24 +71,25 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
         return Get(UiFrameworkPlugin.Instance, UiImageDefaults.NotFound);
     }
 
-    public bool RegisterImage(Plugin plugin, string name, string url) => RegisterImage(plugin.Id(), name, url);
+    public bool RegisterImage(Plugin plugin, string name, string url) => RegisterImage(plugin.Id(), name, url, out bool _);
     
-    internal bool RegisterImage(PluginId pluginId, string name, string url)
+    internal bool RegisterImage(PluginId pluginId, string name, string url, out bool hasFailedAttempt)
     {
         CommunityEntityNotReadyException.ThrowIfNotReady();
         ImageId id = _data.GetByUrl(url);
         if (id.IsValid)
         {
             _data.AddPluginImage(pluginId, name, id);
+            hasFailedAttempt = false;
             return true;
         }
         
-        return _downloader.AddRequest(pluginId, name, url);
+        return _downloader.AddRequest(pluginId, name, url, out hasFailedAttempt);
     }
     
     public bool RegisterImage(Plugin plugin, string url) => RegisterImage(plugin, url, url);
 
-    internal bool RegisterImage(PluginId plugin, string url) => RegisterImage(plugin, url, url);
+    internal bool RegisterImage(PluginId plugin, string url, out bool hasFailedAttempt) => RegisterImage(plugin, url, url, out hasFailedAttempt);
 
     public bool RegisterImage(Plugin plugin, string name, byte[] image, out string error)
     {

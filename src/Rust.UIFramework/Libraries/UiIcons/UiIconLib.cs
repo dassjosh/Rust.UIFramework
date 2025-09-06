@@ -90,7 +90,7 @@ file sealed class PluginIconData<T>(PluginId id, IconUrlLookup<T> urlLookup, Ico
     public void PopulateIconData(UiIcon icon, T value)
     {
         string url = GetUrl(value);
-        string png = Singleton<UiImageStorage>.Instance.Get(Id, url);
+        string png = Singleton<UiImageStorage>.Instance.Get(Id, url, null);
         icon.RawImage.Image = png;
         styling?.Invoke(icon);
     }
