@@ -13,7 +13,9 @@ public class UiGridPositionLayoutTests
     {
         //Arrange
         UiReference reference = new("parent", "name");
-        using UiGridPositionLayout layout = UiGridPositionLayout.Create(UnitTestHelpers.UnitTestPool, reference, grid);
+        using UiSection section = UnitTestHelpers.UnitTestPool.Get<UiSection>().SetReference(reference);
+        using UiGridPositionLayout layout = UiGridPositionLayout.CreateBase<UiGridPositionLayout>(UnitTestHelpers.UnitTestPool, section);
+        layout.Init(grid);
         
         //Act
         
@@ -38,7 +40,10 @@ public class UiGridPositionLayoutTests
     {
         //Arrange
         List<BaseUiComponent> elements = [];
-        using UiGridPositionLayout layout = UiGridPositionLayout.Create(UnitTestHelpers.UnitTestPool, new UiReference("parent", "name"), grid);
+        UiReference reference = new("parent", "name");
+        using UiSection layoutSection = UnitTestHelpers.UnitTestPool.Get<UiSection>().SetReference(reference);
+        using UiGridPositionLayout layout = UiGridPositionLayout.CreateBase<UiGridPositionLayout>(UnitTestHelpers.UnitTestPool, layoutSection);
+        layout.Init(grid);
         
         //Act
         for (int i = 0; i < layout.NumElements; i++)

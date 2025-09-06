@@ -23,16 +23,17 @@ public partial class UiBuilder
     }
     
     public static UiBuilder Create<T>(IUiFrameworkPlugin plugin, in UiReference reference, out T root) where T : BaseUiComponent, new() => Create(plugin).SetRoot(reference, out root);
-    public static UiBuilder Create(IUiFrameworkPlugin plugin) => Create(plugin.Pool);
-    private static UiBuilder Create(UiPluginPool pool) => pool.Get<UiBuilder>();
+    public static UiBuilder Create(IUiFrameworkPlugin plugin) => Create(plugin.PluginPool);
+    internal static UiBuilder Create(UiPluginPool pool) => pool.Get<UiBuilder>();
 
     /// <summary>
-    /// Creates a UiBuilder to update existing UI
+    /// Creates a UiBuilder to update the existing UI
     /// </summary>
     /// <param name="plugin"></param>
     /// <param name="mode">Update mode to use</param>
+    /// <param name="namingMode">Mode to use when naming UI Elements</param>
     /// <returns></returns>
-    public static UiBuilder CreateUpdate(IUiFrameworkPlugin plugin, UpdateMode mode = UpdateMode.Update) => Create(plugin).SetUpdateMode(mode);
+    public static UiBuilder CreateUpdate(IUiFrameworkPlugin plugin, string rootName = null, UpdateMode mode = UpdateMode.Update, NamingMode namingMode = NamingMode.Child) => Create(plugin).SetName(rootName).SetUpdateMode(mode).SetNamingMode(namingMode);
     
     /// <summary>
     /// Creates a UiBuilder that is designed to be a popup modal
@@ -44,7 +45,7 @@ public partial class UiBuilder
     /// <returns></returns>
     public static UiBuilder CreateModal(IUiFrameworkPlugin plugin, in UiReference reference, in UiOffset modalSize, UiColor modalColor, string closeCommand = null, ButtonType buttonType = ButtonType.Close)
     {
-        return CreateModal(plugin.Pool, reference, modalSize, modalColor, new UiColor(0, 0, 0, 0.5f), UiMaterials.Content.Ui.UiBackgroundBlurInGameMenu, closeCommand, buttonType);
+        return CreateModal(plugin.PluginPool, reference, modalSize, modalColor, new UiColor(0, 0, 0, 0.5f), UiMaterials.Content.Ui.UiBackgroundBlurInGameMenu, closeCommand, buttonType);
     }
 
     /// <summary>
@@ -59,7 +60,7 @@ public partial class UiBuilder
     /// <returns></returns>
     public static UiBuilder CreateModal(IUiFrameworkPlugin plugin, in UiReference reference, in UiOffset modalSize, UiColor modalColor, UiColor modalBackgroundColor, string backgroundMaterial = null, string closeCommand = null, ButtonType buttonType = ButtonType.Close)
     {
-        return CreateModal(plugin.Pool, reference, modalSize, modalColor, modalBackgroundColor, backgroundMaterial, closeCommand, buttonType);
+        return CreateModal(plugin.PluginPool, reference, modalSize, modalColor, modalBackgroundColor, backgroundMaterial, closeCommand, buttonType);
     }
     
     private static UiBuilder CreateModal(UiPluginPool pool, in UiReference reference, in UiOffset modalSize, UiColor modalColor, UiColor modalBackgroundColor, string backgroundMaterial = null, string closeCommand = null, ButtonType buttonType = ButtonType.Close)
@@ -85,7 +86,7 @@ public partial class UiBuilder
     /// <returns></returns>
     public static UiBuilder CreateRootWithOutsideClose(IUiFrameworkPlugin plugin, in UiReference reference, in UiPosition pos, in UiOffset offset, UiColor color, string closeCommand = null, ButtonType buttonType = ButtonType.Command)
     {
-        return CreateRootWithOutsideClose(plugin.Pool, reference, pos, offset, color, closeCommand, buttonType);
+        return CreateRootWithOutsideClose(plugin.PluginPool, reference, pos, offset, color, closeCommand, buttonType);
     }
     
     private static UiBuilder CreateRootWithOutsideClose(UiPluginPool pool, in UiReference reference, in UiPosition pos, in UiOffset offset, UiColor color, string closeCommand, ButtonType buttonType)
@@ -107,7 +108,7 @@ public partial class UiBuilder
     /// <returns></returns>
     public static UiBuilder CreateOutsideClose(IUiFrameworkPlugin plugin, in UiReference reference, string command, ButtonType buttonType = ButtonType.Command)
     {
-        return CreateOutsideClose(plugin.Pool, reference, command, buttonType);
+        return CreateOutsideClose(plugin.PluginPool, reference, command, buttonType);
     }
     
     private static UiBuilder CreateOutsideClose(UiPluginPool pool, in UiReference reference, string command, ButtonType buttonType)
@@ -119,7 +120,7 @@ public partial class UiBuilder
 
     public static UiBuilder Popover(IUiFrameworkPlugin plugin, in UiReference parent, Vector2 size, UiColor backgroundColor, PopoverPosition position = PopoverPosition.Bottom, string menuSprite = UiSprites.Content.Ui.UiBackgroundRounded, UiColor? outlineColor = null)
     {
-        return Popover(plugin.Pool, parent, size, backgroundColor, position, menuSprite, outlineColor);
+        return Popover(plugin.PluginPool, parent, size, backgroundColor, position, menuSprite, outlineColor);
     }
     
     private static UiBuilder Popover(UiPluginPool pool, in UiReference parent, Vector2 size, UiColor backgroundColor, PopoverPosition position, string menuSprite, UiColor? outlineColor)
