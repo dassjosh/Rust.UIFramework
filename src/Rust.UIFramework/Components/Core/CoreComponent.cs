@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Oxide.Ext.UiFramework.Exceptions;
 using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Json;
@@ -11,11 +12,12 @@ public abstract class CoreComponent : BaseTypedComponent, ICoreComponent
 
     internal void WriteSubComponents(JsonFrameworkWriter writer)
     {
-        if (_subComponents == null) return;
+        if (_subComponents == null || _subComponents.Count == 0) return;
         int count = _subComponents.Count;
+        ReadOnlySpan<SubComponent> span = _subComponents.ListAsReadOnlySpan();
         for (int index = 0; index < count; index++)
         {
-            ISubComponent component = _subComponents[index];
+            ISubComponent component = span[index];
             component.WriteComponent(writer);
         }
     }
