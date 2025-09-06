@@ -88,6 +88,9 @@
       <Reference Include="System.Net.Http" Condition="'$(TargetFramework)' == 'net48'">
         <HintPath>..\references\System.Net.Http.dll</HintPath>
       </Reference>
+      <Reference Include="System.Runtime.CompilerServices.Unsafe" Condition="'$(TargetFramework)' == 'net48'">
+        <HintPath>..\references\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+      </Reference>
       <Reference Include="UnityEngine">
         <HintPath>..\References\UnityEngine.dll</HintPath>
       </Reference>
@@ -149,8 +152,8 @@
         </AssemblyAttribute>
     </ItemGroup>
 
-<!--    <Target Name="PostBuild" AfterTargets="PostBuildEvent">-->
-<!--      <Exec Command="if '$(TargetFramework)' == 'net48' copy /Y &quot;$(TargetDir)$(TargetName).dll&quot; &quot;D:\Servers\Full\Rust-Main\steamapps\common\rust_dedicated\RustDedicated_Data\Managed&quot;" />-->
-<!--    </Target>-->
+    <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+      <Exec Command="if '$(TargetFramework)' == 'net48' copy /Y &quot;$(TargetDir)$(TargetName).dll&quot; &quot;D:\Servers\Full\Rust-Main\steamapps\common\rust_dedicated\RustDedicated_Data\Managed&quot;" />
+    </Target>
 
 </Project>

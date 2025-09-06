@@ -41,14 +41,32 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Reference Include="Assembly-CSharp">
+        <HintPath>..\references\Assembly-CSharp.dll</HintPath>
+      </Reference>
       <Reference Include="Assembly-CSharp-firstpass">
         <HintPath>..\references\Assembly-CSharp-firstpass.dll</HintPath>
+      </Reference>
+      <Reference Include="BoomlagoonJSON">
+        <HintPath>..\references\BoomlagoonJSON.dll</HintPath>
+      </Reference>
+      <Reference Include="Facepunch.Network">
+        <HintPath>..\references\Facepunch.Network.dll</HintPath>
+      </Reference>
+      <Reference Include="Facepunch.Unity">
+        <HintPath>..\references\Facepunch.Unity.dll</HintPath>
+      </Reference>
+      <Reference Include="Facepunch.UnityEngine">
+        <HintPath>..\references\Facepunch.UnityEngine.dll</HintPath>
       </Reference>
       <Reference Include="Oxide.Core">
         <HintPath>..\references\Oxide.Core.dll</HintPath>
       </Reference>
       <Reference Include="Oxide.CSharp">
         <HintPath>..\references\Oxide.CSharp.dll</HintPath>
+      </Reference>
+      <Reference Include="Rust.Global">
+        <HintPath>..\references\Rust.Global.dll</HintPath>
       </Reference>
       <Reference Include="UnityEngine">
         <HintPath>..\references\UnityEngine.dll</HintPath>
