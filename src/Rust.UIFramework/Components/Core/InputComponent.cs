@@ -14,7 +14,6 @@ public class InputComponent : TextComponent
     public InputField.LineType LineType;
 
     public override Utf8String Type => JsonDefaults.Input.Type;
-    protected override bool WriteText => true;
 
     protected override void WriteComponentFields(JsonFrameworkWriter writer)
     {
@@ -24,16 +23,8 @@ public class InputComponent : TextComponent
         writer.AddField(JsonDefaults.Input.NeedsKeyboardName, HasMode(InputMode.NeedsKeyboard), false);
         writer.AddField(JsonDefaults.Input.NeedsHudKeyboardName, HasMode(InputMode.HudNeedsKeyboard), false);
         writer.AddField(JsonDefaults.Input.AutoFocusName, HasMode(InputMode.AutoFocus), false);
-        
-        if (HasMode(InputMode.ReadOnly))
-        {
-            writer.AddFieldRaw(JsonDefaults.Input.ReadOnlyName, true);
-        }
-        else
-        {
-            writer.AddCommand(JsonDefaults.Common.CommandName, Command);
-        }
-        
+        writer.AddField(JsonDefaults.Input.ReadOnlyName, HasMode(InputMode.ReadOnly), false);
+        writer.AddCommand(JsonDefaults.Common.CommandName, Command);
         base.WriteComponentFields(writer);
     }
     
