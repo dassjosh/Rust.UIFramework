@@ -96,7 +96,7 @@ public abstract class BasePool<TPooled, TPool> : IPool<TPooled>
             {
                 item = _pool[index];
                 _pool[index] = null;
-                _index++;
+                _index = index + 1;
             }
             else 
             {
@@ -191,11 +191,20 @@ public abstract class BasePool<TPooled, TPool> : IPool<TPooled>
         Pools.Clear();
     }
 
-    public void CheckForLeaks()
+    public bool HasPoolLeaked()
     {
         if (_index != 0)
         {
             UiFrameworkExtension.GlobalLogger.Error("Plugin: {0} Pool: {1} Has Leaked {2}/{3} Entities", _pluginPool.PluginName, GetType().GetRealTypeName(), _index, _pool.Length);
+            return true;
         }
+
+        return false;
+    }
+
+    ///<inheritdoc/>
+    public void LogDebug(DebugLogger logger)
+    {
+        logger.AppendLine($"{GetType().GetRealTypeName()}: Pool: {_pool.Length - _index}/{_pool.Length}");
     }
 }

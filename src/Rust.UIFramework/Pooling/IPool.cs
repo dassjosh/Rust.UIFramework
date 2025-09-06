@@ -1,4 +1,5 @@
 using Oxide.Ext.UiFramework.Libraries;
+using Oxide.Ext.UiFramework.Logging;
 
 namespace Oxide.Ext.UiFramework.Pooling;
 
@@ -25,5 +26,7 @@ internal interface IPool
     /// </summary>
     void RemoveAllPools();
 
-    void CheckForLeaks();
+    bool HasPoolLeaked();
+    
+    void LogDebug(DebugLogger logger);
 }

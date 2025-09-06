@@ -19,42 +19,42 @@ public class UiPool : BaseUiFrameworkLibrary, ISingleton
 
     private UiPool()
     {
-        _internal = CreatePoolInternal(new PluginId(UiFrameworkExtension.Instance.Name));
-        _internal.SetSettings(PoolSettings.CreateInternal());        
+        _internal = CreatePoolInternal(new PluginId(UiFrameworkExtension.Instance.Name), PoolSettings.CreateInternal());
     }
     
     internal UiPluginPool CreateObsoletePool()
     {
-        UiPluginPool obsolete = CreatePoolInternal(PluginId.CreateInternal($"{UiFrameworkExtension.Instance.Name}.Obsolete"));
-        obsolete.SetSettings(PoolSettings.CreateInternal());
+        UiPluginPool obsolete = CreatePoolInternal(PluginId.CreateInternal($"{UiFrameworkExtension.Instance.Name}.Obsolete"), PoolSettings.CreateInternal());
         return obsolete; 
     }
-    
+
     /// <summary>
     /// Returns an existing <see cref="UiPluginPool"/> for the given plugin or returns a new one
     /// </summary>
     /// <param name="plugin">The pool the plugin is for</param>
+    /// <param name="settings">Settings for the pools</param>
     /// <returns></returns>
     /// <exception cref="ArgumentNullException">Thrown if the plugin is null</exception>
-    public UiPluginPool GetOrCreate(Plugin plugin)
+    public UiPluginPool GetOrCreate(Plugin plugin, PoolSettings settings = null)
     {
         if (plugin == null) throw new ArgumentNullException(nameof(plugin));
-        return GetOrCreate(plugin.Id());
+        return GetOrCreate(plugin.Id(), settings);
     }
     
-    internal UiPluginPool GetOrCreate(PluginId plugin)
+    internal UiPluginPool GetOrCreate(PluginId plugin, PoolSettings settings = null)
     {
-        return CreatePoolInternal(plugin);
+        return CreatePoolInternal(plugin, settings);
     }
     
-    private UiPluginPool CreatePoolInternal(Plugin plugin) => CreatePoolInternal(plugin.Id());
+    private UiPluginPool CreatePoolInternal(Plugin plugin, PoolSettings settings) => CreatePoolInternal(plugin.Id(), settings);
     
-    private UiPluginPool CreatePoolInternal(PluginId id)
+    private UiPluginPool CreatePoolInternal(PluginId id, PoolSettings settings)
     {
         UiPluginPool pool = _pluginPools[id];
         if (pool == null)
         {
             _pluginPools[id] = pool = new UiPluginPool(id);
+            pool.SetSettings(settings);
         }
 
         return pool;
@@ -66,7 +66,7 @@ public class UiPool : BaseUiFrameworkLibrary, ISingleton
         // ReSharper disable once SuspiciousTypeConversion.Global
         if (plugin is IUiFrameworkPlugin uiPlugin)
         {
-            uiPlugin.Pool = GetOrCreate(plugin);
+            uiPlugin.PluginPool = GetOrCreate(plugin);
         }
     }
 
@@ -98,18 +98,22 @@ public class UiPool : BaseUiFrameworkLibrary, ISingleton
         }
     }
     
-    internal void CheckForLeaks()
+    internal bool CheckForLeaks()
     {
+        bool hasLeaked = false;
         foreach (UiPluginPool pool in _pluginPools.Values)
         {
-            pool.CheckForLeaks();
+            hasLeaked |= pool.CheckForLeaks();
         }
+
+        return hasLeaked;
     }
 
     ///<inheritdoc/>
     public void LogDebug(DebugLogger logger)
     {
         logger.AppendObject("Internal", _internal);
+        logger.AppendObject("Obsolete", UiFrameworkPool.Pool);
         foreach (UiPluginPool pool in _pluginPools.Values)
         {
             if (pool != _internal)

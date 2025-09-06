@@ -4,5 +4,5 @@ namespace Oxide.Ext.UiFramework.Plugins;
 
 public interface IUiFrameworkPlugin : IPluginBase
 {
-    public UiPluginPool Pool { get; set; }
+    public UiPluginPool PluginPool { get; set; }
 }

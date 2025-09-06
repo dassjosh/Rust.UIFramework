@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Logging;
@@ -68,7 +70,53 @@ public class UiPluginPool : IDebugLoggable
     /// <param name="list">List to be freed</param>
     /// <typeparam name="T">Type of the list</typeparam>
     public void FreeList<T>(List<T> list) => ListPool<T>.ForPlugin(this).Free(list);
+    
+    /// <summary>
+    /// Returns a pooled <see cref="HashSet{T}"/>
+    /// </summary>
+    /// <typeparam name="T">Type for the HashSet</typeparam>
+    /// <returns>Pooled HashSet</returns>
+    public HashSet<T> GetHashSet<T>() => HashSetPool<T>.ForPlugin(this).Get();
 
+    /// <summary>
+    /// Free's a pooled <see cref="HashSet{T}"/>
+    /// </summary>
+    /// <param name="set">HashSet to be freed</param>
+    /// <typeparam name="T">Type of the HashSet</typeparam>
+    public void FreeHashSet<T>(HashSet<T> set) => HashSetPool<T>.ForPlugin(this).Free(set);
+
+    /// <summary>
+    /// Returns a pooled <see cref="Dictionary{TKey,TValue}"/>
+    /// </summary>
+    /// <typeparam name="TKey">Type for the key</typeparam>
+    /// <typeparam name="TValue">Type for the value</typeparam>
+    /// <returns>Pooled Dictionary</returns>
+    public Dictionary<TKey, TValue> GetDictionary<TKey, TValue>() => DictionaryPool<TKey, TValue>.ForPlugin(this).Get();
+
+    /// <summary>
+    /// Frees a pooled <see cref="Dictionary{TKey, TValue}"/>
+    /// </summary>
+    /// <param name="dic">Dictionary to be freed</param>
+    /// <typeparam name="TKey">Type for key</typeparam>
+    /// <typeparam name="TValue">Type for value</typeparam>
+    public void FreeDictionary<TKey, TValue>(Dictionary<TKey, TValue> dic) => DictionaryPool<TKey, TValue>.ForPlugin(this).Free(dic);
+    
+    /// <summary>
+    /// Returns a pooled <see cref="ConcurrentDictionary{TKey,TValue}"/>
+    /// </summary>
+    /// <typeparam name="TKey">Type for the key</typeparam>
+    /// <typeparam name="TValue">Type for the value</typeparam>
+    /// <returns>Pooled ConcurrentDictionary</returns>
+    public ConcurrentDictionary<TKey, TValue> GetConcurrentDictionary<TKey, TValue>() => ConcurrentDictionaryPool<TKey, TValue>.ForPlugin(this).Get();
+
+    /// <summary>
+    /// Frees a pooled <see cref="ConcurrentDictionary{TKey, TValue}"/>
+    /// </summary>
+    /// <param name="dic">ConcurrentDictionary to be freed</param>
+    /// <typeparam name="TKey">Type for key</typeparam>
+    /// <typeparam name="TValue">Type for value</typeparam>
+    public void FreeConcurrentDictionary<TKey, TValue>(ConcurrentDictionary<TKey, TValue> dic) => ConcurrentDictionaryPool<TKey, TValue>.ForPlugin(this).Free(dic);
+    
     /// <summary>
     /// Returns a pooled <see cref="Hash{TKey,TValue}"/>
     /// </summary>
@@ -119,6 +167,18 @@ public class UiPluginPool : IDebugLoggable
         FreeStringBuilder(sb);
         return result;
     }
+    
+    /// <summary>
+    /// Returns a pooled <see cref="MemoryStream"/>
+    /// </summary>
+    /// <returns>Pooled <see cref="MemoryStream"/></returns>
+    public MemoryStream GetMemoryStream() => MemoryStreamPool.ForPlugin(this).Get();
+
+    /// <summary>
+    /// Frees a <see cref="MemoryStream"/> back to the pool
+    /// </summary>
+    /// <param name="stream"><see cref="MemoryStream"/> being freed</param>
+    public void FreeMemoryStream(MemoryStream stream) => MemoryStreamPool.ForPlugin(this).Free(stream);
 
     internal void OnPluginUnloaded()
     {
@@ -153,17 +213,20 @@ public class UiPluginPool : IDebugLoggable
         logger.StartArray(PluginId.PluginName());
         foreach (IPool pool in _pools)
         {
-            //pool.LogDebug(logger);
+            pool.LogDebug(logger);
         }
         logger.EndArray();
     }
     
-    internal void CheckForLeaks()
+    internal bool CheckForLeaks()
     {
+        bool hasLeaked = false;
         for (int index = 0; index < _pools.Count; index++)
         {
             IPool pool = _pools[index];
-            pool.CheckForLeaks();
+            hasLeaked |= pool.HasPoolLeaked();
         }
+
+        return hasLeaked;
     }
 }
