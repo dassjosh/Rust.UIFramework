@@ -1,7 +1,4 @@
 ﻿{
-  "Empty": {
-    "Enabled": true
-  },
   "Enabled": true,
   "Name": "element",
   "Offset": "(100, 200) (300, 400)",
