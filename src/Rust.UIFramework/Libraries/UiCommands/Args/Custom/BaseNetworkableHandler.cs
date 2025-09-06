@@ -8,7 +8,7 @@ internal class BaseNetworkableHandler<T> : IArgHandler<T>
     {
         if(arg is UiCommands.NullArg) return default;
         BaseNetworkable networkable = BaseNetworkable.serverEntities.Find(new NetworkableId(ulong.Parse(arg)));
-        return networkable is T entity ? entity : default;
+        return networkable && networkable is T entity ? entity : default;
     }
 
     public void Write(UiArgWriter writer, T arg)
