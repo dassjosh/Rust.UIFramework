@@ -3,6 +3,7 @@ using Oxide.Core.Plugins;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Controls;
 using Oxide.Ext.UiFramework.Enums;
+using Oxide.Ext.UiFramework.Exceptions;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Layouts;
 using Oxide.Ext.UiFramework.Libraries;
@@ -19,9 +20,6 @@ namespace Oxide.Ext.UiFramework.Builder;
 public partial class BaseUiBuilder
 {
     #region Add Components
-    public abstract void AddComponent(BaseUiComponent component, in UiReference parent);
-        
-    protected abstract void AddAnchor(BaseUiComponent component, in UiReference parent);
 
     public void AddControl(BaseUiControl control) => Controls.Add(control);
 
@@ -30,11 +28,13 @@ public partial class BaseUiBuilder
     #endregion
 
     #region Component
-    public T Component<T>(in UiReference parent) where T : BaseUiComponent, new()
+    public T Component<T>(in UiReference reference) where T : BaseUiComponent, new()
     {
+        UiReferenceException.ThrowIfInvalidReference(reference);
         T component = PluginPool.Get<T>();
-        AddComponent(component, parent);
-        return component;
+        Components.Add(component);
+        Naming.SetComponentName(component, reference, NamingMode, RootName, Components.Count);
+        return component.SetUpdate(UpdateMode);
     }
     
     public T Component<T>(BaseUiLayout layout) where T : BaseUiComponent, new()
@@ -50,7 +50,6 @@ public partial class BaseUiBuilder
     public UiSection Section(in UiReference parent, in UiPosition pos, in UiOffset offset = default) => Section(parent).SetPosition(pos, offset);
     public UiSection Section(BaseUiLayout layout) => Component<UiSection>(layout);
     public UiSection Padding(in UiReference parent, in UiPosition pos, in UiPadding padding = default) => Section(parent, pos, padding);
-    //public UiSection Padding(BaseUiLayout layout, in UiPadding padding = default) => Section(layout, padding);
     #endregion
         
     #region Panel
@@ -301,10 +300,12 @@ public partial class BaseUiBuilder
     #endregion
 
     #region Anchor
-    public UiSection Anchor(in UiReference parent, string anchorName = null)
+    public UiSection Anchor(in UiReference reference, string anchorName = null)
     {
+        UiReferenceException.ThrowIfInvalidReference(reference);
         UiSection section = PluginPool.Get<UiSection>();
-        AddAnchor(section, parent);
+        Anchors.Add(section);
+        Naming.SetAnchorName(section, reference, NamingMode, RootName, Components.Count);
         if (!string.IsNullOrEmpty(anchorName))
         {
             section.Name = anchorName;

@@ -3,7 +3,6 @@ using Network;
 using Oxide.Ext.UiFramework.Animation;
 using Oxide.Ext.UiFramework.Builder.Cached;
 using Oxide.Ext.UiFramework.Enums;
-using Oxide.Ext.UiFramework.Exceptions;
 using Oxide.Ext.UiFramework.Interfaces.Builders;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Offsets;
@@ -16,11 +15,9 @@ namespace Oxide.Ext.UiFramework.Builder.UI;
 public partial class UiBuilder : BaseUiBuilder, IAnimationBuilder
 {
     public BaseUiComponent Root;
-    public UpdateMode UpdateMode = UpdateMode.None;
     
     private BaseUiComponent _actualRoot;
     private readonly List<BaseAnimation> _animations = [];
-    private INamingStrategy _naming = Singleton<DefaultNamingStrategy>.Instance;
         
     #region Setup
     public UiBuilder SetRoot<T>(in UiReference reference, out T element) where T : BaseUiComponent, new()
@@ -31,9 +28,7 @@ public partial class UiBuilder : BaseUiBuilder, IAnimationBuilder
     
     public UiBuilder SetRoot(BaseUiComponent element, string name, string parent)
     {
-        Root = _actualRoot = element;
-        element.Update = UpdateMode.AutoDestroy;
-        element.Reference = new UiReference(parent, name);
+        Root = _actualRoot = element.SetUpdate(UpdateMode.AutoDestroy).SetReference(new UiReference(parent, name));
         Components.Add(element);
         RootName = name;
         return this;
@@ -69,8 +64,15 @@ public partial class UiBuilder : BaseUiBuilder, IAnimationBuilder
     #region Builder
     public UiBuilder SetName(string name)
     {
-        RootName = name;
-        _actualRoot.Name = name;
+        if (!string.IsNullOrEmpty(name))
+        {
+            RootName = name;
+            if (_actualRoot != null)
+            {
+                _actualRoot.Name = name;
+            }
+        }
+
         return this;
     }
     
@@ -109,12 +111,23 @@ public partial class UiBuilder : BaseUiBuilder, IAnimationBuilder
         UpdateMode = mode;
         return this;
     }
+    
+    public UiBuilder SetNamingMode(NamingMode mode)
+    {
+        NamingMode = mode;
+        return this;
+    }
 
     public UiBuilder SetCustomNaming(INamingStrategy naming)
     {
-        _naming = naming;
+        Naming = naming;
         return this;
     }
+
+    public UiBuilder SwitchToDefaultMode(string uiRootName = null) => SwitchTo(UpdateMode.None, NamingMode.Child).SetName(uiRootName);
+    public UiBuilder SwitchToUpdateExistingMode() => SwitchTo(UpdateMode.Update, NamingMode.Reference);
+    public UiBuilder SwitchToReplaceExistingMode() => SwitchTo(UpdateMode.AutoDestroy, NamingMode.Reference);
+    public UiBuilder SwitchTo(UpdateMode update, NamingMode naming) => SetUpdateMode(update).SetNamingMode(naming);
     #endregion
     
     #region JSON
@@ -136,29 +149,10 @@ public partial class UiBuilder : BaseUiBuilder, IAnimationBuilder
         return cached;
     }
     #endregion
-        
-    #region Add Components
-    public override void AddComponent(BaseUiComponent component, in UiReference parent)
-    {
-        UiReferenceException.ThrowIfInvalidParent(parent);
-        component.Reference = _naming.GetComponentName(parent, UpdateMode, RootName, Components.Count);
-        component.Update = UpdateMode;
-        Components.Add(component);
-    }
-        
-    protected override void AddAnchor(BaseUiComponent component, in UiReference parent)
-    {
-        UiReferenceException.ThrowIfInvalidParent(parent);
-        component.Reference = _naming.GetAnchorName(parent, UpdateMode, RootName, Components.Count);
-        component.Update = UpdateMode;
-        Anchors.Add(component);
-    }
-
-    void IAnimationBuilder.AddAnimation(BaseAnimation animation) => _animations.Add(animation);
-
-    #endregion
 
     #region Animations
+    void IAnimationBuilder.AddAnimation(BaseAnimation animation) => _animations.Add(animation);
+    
     protected override void OnUiSent(SendInfo send)
     {
         Singleton<AnimationTracker>.Instance.RemoveUiForSend(send, RootName);
@@ -184,8 +178,14 @@ public partial class UiBuilder : BaseUiBuilder, IAnimationBuilder
         base.EnterPool();
         Root = null;
         _actualRoot = null;
-        UpdateMode = UpdateMode.None;
-        _naming = Singleton<DefaultNamingStrategy>.Instance;
     }
+    
+    protected override void LeavePool()
+    {
+        base.LeavePool();
+        UpdateMode = UpdateMode.None;
+        NamingMode = NamingMode.Child;
+    }
+
     #endregion
 }

@@ -31,7 +31,7 @@ public abstract partial class BaseUiBuilder
     #endregion
 
     #region Image
-    [Obsolete] public UiImage ImageSprite(in UiReference parent, in UiPosition pos, in UiOffset offset, string sprite) => ImageSprite(parent, pos, offset, sprite, UiColors.White);
+    //[Obsolete] public UiImage ImageSprite(in UiReference parent, in UiPosition pos, in UiOffset offset, string sprite) => ImageSprite(parent, pos, offset, sprite, UiColors.White);
     [Obsolete] public UiImage ImageSprite(in UiReference parent, in UiPosition pos, string sprite, UiColor color) => ImageSprite(parent, pos, default, sprite, color);
     [Obsolete] public UiImage ImageSprite(in UiReference parent, in UiPosition pos, string sprite) => ImageSprite(parent, pos, sprite, UiColors.White);
     #endregion
@@ -39,7 +39,7 @@ public abstract partial class BaseUiBuilder
     #region Item Icon
     [Obsolete] public UiItemIcon ItemIcon(in UiReference parent, in UiPosition pos, in UiOffset offset, int itemId, ulong skinId) => ItemIcon(parent, pos, offset, itemId, skinId, UiColors.White);
     [Obsolete] public UiItemIcon ItemIcon(in UiReference parent, in UiPosition pos, in UiOffset offset, int itemId, UiColor color) => ItemIcon(parent, pos, offset, itemId, 0, color);
-    [Obsolete] public UiItemIcon ItemIcon(in UiReference parent, in UiPosition pos, in UiOffset offset, int itemId) => ItemIcon(parent, pos, offset, itemId, UiColors.White);
+    //[Obsolete] public UiItemIcon ItemIcon(in UiReference parent, in UiPosition pos, in UiOffset offset, int itemId) => ItemIcon(parent, pos, offset, itemId, UiColors.White);
     [Obsolete] public UiItemIcon ItemIcon(in UiReference parent, in UiPosition pos, int itemId, ulong skinId) => ItemIcon(parent, pos, default, itemId, skinId);
     [Obsolete] public UiItemIcon ItemIcon(in UiReference parent, in UiPosition pos, int itemId, UiColor color) => ItemIcon(parent, pos, default, itemId, color);
     [Obsolete] public UiItemIcon ItemIcon(in UiReference parent, in UiPosition pos, int itemId) => ItemIcon(parent, pos, default, itemId);
@@ -49,16 +49,16 @@ public abstract partial class BaseUiBuilder
 
     [Obsolete] public UiPlayerAvatar PlayerAvatar(in UiReference parent, in UiPosition pos, in UiOffset offset, ulong steamId, UiColor color)
         => PlayerAvatar(parent, pos, offset, steamId, AvatarType.Medium, color);
-    [Obsolete] public UiPlayerAvatar PlayerAvatar(in UiReference parent, in UiPosition pos, in UiOffset offset, ulong steamId) => PlayerAvatar(parent, pos, offset, steamId, UiColors.White);
+    //[Obsolete] public UiPlayerAvatar PlayerAvatar(in UiReference parent, in UiPosition pos, in UiOffset offset, ulong steamId) => PlayerAvatar(parent, pos, offset, steamId, UiColors.White);
     [Obsolete] public UiPlayerAvatar PlayerAvatar(in UiReference parent, in UiPosition pos, ulong steamId) => PlayerAvatar(parent, pos, default, steamId);
     [Obsolete] public UiPlayerAvatar PlayerAvatar(in UiReference parent, in UiPosition pos, ulong steamId, UiColor color) => PlayerAvatar(parent, pos, default, steamId, color);
     #endregion
 
     #region Raw Image
-    [Obsolete] public UiRawImage WebImage(in UiReference parent, in UiPosition pos, in UiOffset offset, string url) => WebImage(parent, pos, offset, url, UiColors.White);
+    //[Obsolete] public UiRawImage WebImage(in UiReference parent, in UiPosition pos, in UiOffset offset, string url) => WebImage(parent, pos, offset, url, UiColors.White);
     [Obsolete] public UiRawImage WebImage(in UiReference parent, in UiPosition pos, string url, UiColor color) => WebImage(parent, pos, default, url, color);
     [Obsolete] public UiRawImage WebImage(in UiReference parent, in UiPosition pos, string url) => WebImage(parent, pos, url, UiColors.White);
-    [Obsolete] public UiRawImage TextureImage(in UiReference parent, in UiPosition pos, in UiOffset offset, string texture) => TextureImage(parent, pos, offset, texture, UiColors.White);
+    //[Obsolete] public UiRawImage TextureImage(in UiReference parent, in UiPosition pos, in UiOffset offset, string texture) => TextureImage(parent, pos, offset, texture, UiColors.White);
     [Obsolete] public UiRawImage TextureImage(in UiReference parent, in UiPosition pos, string texture, UiColor color) => TextureImage(parent, pos, default, texture, color);
     [Obsolete] public UiRawImage TextureImage(in UiReference parent, in UiPosition pos, string texture) => TextureImage(parent, pos, texture, UiColors.White);
     [Obsolete] public UiRawImage ImageFileStorage(in UiReference parent, in UiPosition pos, in UiOffset offset, string png, UiColor color) 
@@ -146,21 +146,21 @@ public abstract partial class BaseUiBuilder
 
     [Obsolete] public UiButton WebImageButton(in UiReference parent, in UiPosition pos, UiColor buttonColor, string url, string command, UiColor? imageColor = null) => WebImageButton(parent, pos, default, buttonColor, url, command, imageColor);
         
-    [Obsolete] public UiButton ItemIconButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, int itemId, string command)
-    {
-        UiButton button = CommandButton(parent, pos, offset, buttonColor, command);
-        ItemIcon(button, UiPosition.Full, itemId);
-        return button;
-    }
+    // [Obsolete] public UiButton ItemIconButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, int itemId, string command)
+    // {
+    //     UiButton button = CommandButton(parent, pos, offset, buttonColor, command);
+    //     ItemIcon(button, UiPosition.Full, itemId);
+    //     return button;
+    // }
 
     [Obsolete] public UiButton ItemIconButton(in UiReference parent, in UiPosition pos, UiColor buttonColor, int itemId, string command) => ItemIconButton(parent, pos, default, buttonColor, itemId, command);
         
-    [Obsolete] public UiButton ItemIconButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, int itemId, ulong skinId, string command)
-    {
-        UiButton button = CommandButton(parent, pos, offset, buttonColor, command);
-        ItemIcon(button, UiPosition.Full, itemId, skinId);
-        return button;
-    }
+    // [Obsolete] public UiButton ItemIconButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, int itemId, ulong skinId, string command)
+    // {
+    //     UiButton button = CommandButton(parent, pos, offset, buttonColor, command);
+    //     ItemIcon(button, UiPosition.Full, itemId, skinId);
+    //     return button;
+    // }
 
     [Obsolete] public UiButton ItemIconButton(in UiReference parent, in UiPosition pos, UiColor buttonColor, int itemId, ulong skinId, string command) => ItemIconButton(parent, pos, default, buttonColor, itemId, skinId, command);
         
@@ -239,12 +239,12 @@ public abstract partial class BaseUiBuilder
     #endregion
 
     #region ProgressBar
-    [Obsolete] public UiProgressBar ProgressBar(in UiReference parent, in UiPosition pos, in UiOffset offset, float percentage, UiColor barColor, UiColor backgroundColor)
-    {
-        UiProgressBar control = UiProgressBar.Create(this, parent, pos, offset, percentage, barColor, backgroundColor);
-        AddControl(control);
-        return control;
-    }
+    // [Obsolete] public UiProgressBar ProgressBar(in UiReference parent, in UiPosition pos, in UiOffset offset, float percentage, UiColor barColor, UiColor backgroundColor)
+    // {
+    //     UiProgressBar control = UiProgressBar.Create(this, parent, pos, offset, percentage, barColor, backgroundColor);
+    //     AddControl(control);
+    //     return control;
+    // }
     #endregion
 
     // #region Button Groups

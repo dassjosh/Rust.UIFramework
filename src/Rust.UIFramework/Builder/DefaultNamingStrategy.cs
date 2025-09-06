@@ -1,6 +1,6 @@
-﻿using System;
-using Oxide.Ext.UiFramework.Cache;
+﻿using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Enums;
+using Oxide.Ext.UiFramework.Exceptions;
 using Oxide.Ext.UiFramework.Interfaces.Builders;
 using Oxide.Ext.UiFramework.Types;
 using Oxide.Ext.UiFramework.UiElements;
@@ -11,31 +11,31 @@ public class DefaultNamingStrategy : INamingStrategy, ISingleton
 {
     private DefaultNamingStrategy() { }
     
-    public UiReference GetComponentName(in UiReference reference, UpdateMode updateMode, string baseName, int index)
+    public void SetComponentName(BaseUiComponent component, in UiReference reference, NamingMode namingMode, string rootName, int elementNum)
     {
-        switch (updateMode)
+        switch (namingMode)
         {
-            case UpdateMode.None:
-                return reference.WithChild(UiNameCache.GetComponentName(baseName, index));
-            case UpdateMode.AutoDestroy:
-            case UpdateMode.Update:
-                return reference;
-            default:
-                throw new ArgumentOutOfRangeException(nameof(updateMode), updateMode, null);
+            case NamingMode.Child:
+                UiReferenceException.ThrowIfInValidRootName(rootName);
+                component.Reference = reference.WithChild(UiNameCache.GetComponentName(rootName, elementNum));
+                break;
+            case NamingMode.Reference:
+                component.Reference = reference;
+                break;
         }
     }
 
-    public UiReference GetAnchorName(in UiReference reference, UpdateMode updateMode, string baseName, int index)
+    public void SetAnchorName(BaseUiComponent component, in UiReference reference, NamingMode namingMode, string rootName, int elementNum)
     {
-        switch (updateMode)
+        switch (namingMode)
         {
-            case UpdateMode.None:
-                return reference.WithChild(UiNameCache.GetAnchorName(baseName, index));
-            case UpdateMode.AutoDestroy:
-            case UpdateMode.Update:
-                return reference;
-            default:
-                throw new ArgumentOutOfRangeException(nameof(updateMode), updateMode, null);
+            case NamingMode.Child:
+                UiReferenceException.ThrowIfInValidRootName(rootName);
+                component.Reference = reference.WithChild(UiNameCache.GetAnchorName(rootName, elementNum));
+                break;
+            case NamingMode.Reference:
+                component.Reference = reference;
+                break;
         }
     }
 }

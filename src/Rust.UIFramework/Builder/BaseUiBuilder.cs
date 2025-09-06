@@ -1,24 +1,34 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Network;
 using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Config;
 using Oxide.Ext.UiFramework.Controls;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Extensions;
+using Oxide.Ext.UiFramework.Interfaces.Builders;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Layouts;
+using Oxide.Ext.UiFramework.Types;
 using Oxide.Ext.UiFramework.UiElements;
+using Unity.Collections.LowLevel.Unsafe;
 
 namespace Oxide.Ext.UiFramework.Builder;
 
 public abstract partial class BaseUiBuilder : BaseBuilder
 {
+    public UpdateMode UpdateMode;
+    public NamingMode NamingMode;
+    
     protected readonly List<BaseUiComponent> Components = [];
     protected readonly List<BaseUiControl> Controls = [];
     protected readonly List<BaseUiComponent> Anchors = [];
     protected readonly List<BaseUiLayout> Layouts = [];
         
     protected string Font;
+    
+    protected INamingStrategy Naming = Singleton<DefaultNamingStrategy>.Instance;
+    
     private static readonly string GlobalFont = UiFrameworkConfig.Instance.Font.DefaultFont;
         
     public void EnsureCapacity(int capacity)
@@ -67,9 +77,10 @@ public abstract partial class BaseUiBuilder : BaseBuilder
     private static void WriteComponents<T>(JsonFrameworkWriter writer, List<T> components) where T : BaseUiComponent
     {
         int count = components.Count;
+        ReadOnlySpan<T> span = components.ListAsReadOnlySpan();
         for (int index = 0; index < count; index++)
         {
-            components[index].WriteComponent(writer);
+            span[index].WriteComponent(writer);
         }
     }
     
@@ -101,9 +112,9 @@ public abstract partial class BaseUiBuilder : BaseBuilder
     {
         base.EnterPool();
         FreeComponents();
-        Font = null;
+        Naming = Singleton<DefaultNamingStrategy>.Instance;
     }
-
+    
     protected override void LeavePool()
     {
         base.LeavePool();
