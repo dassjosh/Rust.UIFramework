@@ -1,6 +1,7 @@
 ﻿using System;
 using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Extensions;
+using Oxide.Ext.UiFramework.Logging;
 using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Types;
 
@@ -9,6 +10,7 @@ namespace Oxide.Ext.UiFramework.Libraries;
 internal class ExtremeProtection(PluginId pluginId, string method, float protectionKeyLifetime, bool multiUse, OnPlayerProtectionFailed onProtectionFailed) : ICommandProtection
 {
     private readonly UiMemoryCache<long, string> _protectedArgs = new(TimeSpan.FromSeconds(protectionKeyLifetime));
+    private static readonly IUiLogger<ExtremeProtection> Logger = Singleton<UiLoggerFactory>.Instance.CreateExtensionLogger<ExtremeProtection>();
 
     public void ProtectCommand(ref UiArgWriter writer)
     {
@@ -24,14 +26,7 @@ internal class ExtremeProtection(PluginId pluginId, string method, float protect
         if (!_protectedArgs.TryGetValue(protectionKey, out string args))
         {
             tokenizer = default;
-
-            if (onProtectionFailed != null)
-            {
-                onProtectionFailed(player);
-                return false;
-            }
-            
-            Singleton<UiCommands>.Instance.OnProtectionValidationFailed(pluginId, player, method);
+            HandleCallback(player);
             return false;
         }
 
@@ -42,6 +37,24 @@ internal class ExtremeProtection(PluginId pluginId, string method, float protect
 
         tokenizer = new UiCommandTokenizer(args);
         return true;
+    }
+
+    private void HandleCallback(BasePlayer player)
+    {
+        try
+        {
+            if (onProtectionFailed != null)
+            {
+                onProtectionFailed(player);
+                return;
+            }
+
+            Singleton<UiCommands>.Instance.OnProtectionValidationFailed(pluginId, player, method);
+        }
+        catch (Exception ex)
+        {
+            Logger.Exception($"{nameof(HandleCallback)} An error occured during callback", ex);
+        }
     }
 
     private long GenerateProtectionKey()
