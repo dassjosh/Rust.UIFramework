@@ -142,6 +142,17 @@ internal static class StringBuilderArgExt
         sb.AppendSpan(value.Value);
     }
     
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static void AppendArg(this StringBuilder sb, string value)
+    {
+        if (string.IsNullOrEmpty(value))
+        {
+            sb.Append(UiCommands.NullArg);
+            return;
+        }
+        
+        sb.Append(value);
+    }
         
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal static void AppendArg(this StringBuilder sb, bool value)

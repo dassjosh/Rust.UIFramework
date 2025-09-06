@@ -152,18 +152,6 @@ public static class StringBuilderExt
     }
     
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static void AppendSpan(this StringBuilder sb, string value)
-    {
-        if (string.IsNullOrEmpty(value))
-        {
-            sb.Append(UiCommands.NullArg);
-            return;
-        }
-        
-        sb.Append(value);
-    }
-    
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void AppendSpan(this StringBuilder sb, DateTime value)
     {
         if (value.TryFormat(out ReadOnlySpan<char> written))

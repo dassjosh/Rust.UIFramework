@@ -6,7 +6,7 @@ using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Libraries;
 
-internal class AdvancedProtection(PluginId pluginId, string method, float protectionKeyLifetime, bool multiUse) : ICommandProtection
+internal class AdvancedProtection(PluginId pluginId, string method, float protectionKeyLifetime, bool multiUse, OnPlayerProtectionFailed onProtectionFailed) : ICommandProtection
 {
     private readonly UiMemoryCache<int> _protectionCache = new(TimeSpan.FromSeconds(protectionKeyLifetime));
     
@@ -21,6 +21,13 @@ internal class AdvancedProtection(PluginId pluginId, string method, float protec
         if (!_protectionCache.ContainsKey(value))
         {
             tokenizer = default;
+
+            if (onProtectionFailed != null)
+            {
+                onProtectionFailed(player);
+                return false;
+            }
+            
             Singleton<UiCommands>.Instance.OnProtectionValidationFailed(pluginId, player, method);
             return false;
         }

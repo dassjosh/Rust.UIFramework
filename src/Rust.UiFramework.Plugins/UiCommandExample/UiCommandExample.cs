@@ -22,15 +22,15 @@ public class UiCommandExample : RustPlugin, IUiFrameworkPlugin
     private void Init()
     {
         _doTheThingBuilder = _uiCommands.RegisterCommand<UiState, MyCustomArg, int, bool, BuildingPrivlidge, DateTime>(this, HandleDoTheThing);
-        _uiCommands.RegisterPlayerCooldownCallback(this, (player, method, cooldown, remaining, errorMessage) => //[Optional]
+        _uiCommands.RegisterPluginPlayerCooldownCallback(this, (player, method, cooldown, remaining, errorMessage) => //[Optional]
         {
             //Show UI about being on cooldown
         });
-        _uiCommands.RegisterNoPermissionCallback(this, (player, method, errorMessage) => //[Optional]
+        _uiCommands.RegisterPluginNoPermissionCallback(this, (player, method, errorMessage) => //[Optional]
         {
             //Show UI about not having permission
         });
-        _uiCommands.RegisterValidationFailedCallback(this, (player, method) => //[Optional]
+        _uiCommands.RegisterPluginValidationFailedCallback(this, (player, method) => //[Optional]
         {
             //Handle command protection failing
         });

@@ -4,13 +4,19 @@ using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Libraries;
 
-internal class PermissionHandler(PluginId pluginId, string method, string[] permissions, PermissionMode mode, string errorMessage) : IPermissionHandler
+internal class PermissionHandler(PluginId pluginId, string method, string[] permissions, PermissionMode mode, string errorMessage, OnPlayerNoPermission noPermission) : IPermissionHandler
 {
     public bool HasPermission(BasePlayer player)
     {
         if (CheckPlayerPermissions(player))
         {
             return true;
+        }
+
+        if (noPermission != null)
+        {
+            noPermission(player, errorMessage);
+            return false;
         }
 
         Singleton<UiCommands>.Instance.OnPlayerNoPermission(pluginId, player, method, errorMessage);
