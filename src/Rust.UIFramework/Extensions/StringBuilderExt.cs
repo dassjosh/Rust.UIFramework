@@ -6,10 +6,10 @@ using Oxide.Ext.UiFramework.Libraries;
 
 namespace Oxide.Ext.UiFramework.Extensions;
 
-internal static class StringBuilderExt
+public static class StringBuilderExt
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void AppendArg(this StringBuilder sb, byte value)
+    public static void AppendSpan(this StringBuilder sb, byte value)
     {
         if (value.TryFormat(out ReadOnlySpan<char> written))
         {
@@ -22,19 +22,7 @@ internal static class StringBuilderExt
     }
     
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void AppendArg(this StringBuilder sb, in byte? value)
-    {
-        if (!value.HasValue)
-        {
-            sb.Append(UiCommands.NullArg);
-            return;
-        }
-        
-        sb.AppendArg(value.Value);
-    }
-    
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void AppendArg(this StringBuilder sb, sbyte value)
+    public static void AppendSpan(this StringBuilder sb, sbyte value)
     {
         if (value.TryFormat(out ReadOnlySpan<char> written))
         {
@@ -47,19 +35,7 @@ internal static class StringBuilderExt
     }
     
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void AppendArg(this StringBuilder sb, in sbyte? value)
-    {
-        if (!value.HasValue)
-        {
-            sb.Append(UiCommands.NullArg);
-            return;
-        }
-        
-        sb.AppendArg(value.Value);
-    }
-    
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void AppendArg(this StringBuilder sb, short value)
+    public static void AppendSpan(this StringBuilder sb, short value)
     {
         if (value.TryFormat(out ReadOnlySpan<char> written))
         {
@@ -72,19 +48,7 @@ internal static class StringBuilderExt
     }
     
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void AppendArg(this StringBuilder sb, in short? value)
-    {
-        if (!value.HasValue)
-        {
-            sb.Append(UiCommands.NullArg);
-            return;
-        }
-        
-        sb.AppendArg(value.Value);
-    }
-    
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void AppendArg(this StringBuilder sb, ushort value)
+    public static void AppendSpan(this StringBuilder sb, ushort value)
     {
         if (value.TryFormat(out ReadOnlySpan<char> written))
         {
@@ -97,19 +61,7 @@ internal static class StringBuilderExt
     }
     
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void AppendArg(this StringBuilder sb, in ushort? value)
-    {
-        if (!value.HasValue)
-        {
-            sb.Append(UiCommands.NullArg);
-            return;
-        }
-        
-        sb.AppendArg(value.Value);
-    }
-    
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void AppendArg(this StringBuilder sb, int value)
+    public static void AppendSpan(this StringBuilder sb, int value)
     {
         if (value.TryFormat(out ReadOnlySpan<char> written))
         {
@@ -122,19 +74,7 @@ internal static class StringBuilderExt
     }
     
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void AppendArg(this StringBuilder sb, in int? value)
-    {
-        if (!value.HasValue)
-        {
-            sb.Append(UiCommands.NullArg);
-            return;
-        }
-        
-        sb.AppendArg(value.Value);
-    }
-    
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void AppendArg(this StringBuilder sb, uint value)
+    public static void AppendSpan(this StringBuilder sb, uint value)
     {
         if (value.TryFormat(out ReadOnlySpan<char> written))
         {
@@ -147,19 +87,7 @@ internal static class StringBuilderExt
     }
     
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void AppendArg(this StringBuilder sb, in uint? value)
-    {
-        if (!value.HasValue)
-        {
-            sb.Append(UiCommands.NullArg);
-            return;
-        }
-        
-        sb.AppendArg(value.Value);
-    }
-    
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void AppendArg(this StringBuilder sb, long value)
+    public static void AppendSpan(this StringBuilder sb, long value)
     {
         if (value.TryFormat(out ReadOnlySpan<char> written))
         {
@@ -172,19 +100,7 @@ internal static class StringBuilderExt
     }
     
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void AppendArg(this StringBuilder sb, in long? value)
-    {
-        if (!value.HasValue)
-        {
-            sb.Append(UiCommands.NullArg);
-            return;
-        }
-        
-        sb.AppendArg(value.Value);
-    }
-    
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void AppendArg(this StringBuilder sb, ulong value)
+    public static void AppendSpan(this StringBuilder sb, ulong value)
     {
         if (value.TryFormat(out ReadOnlySpan<char> written))
         {
@@ -197,19 +113,7 @@ internal static class StringBuilderExt
     }
     
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void AppendArg(this StringBuilder sb, in ulong? value)
-    {
-        if (!value.HasValue)
-        {
-            sb.Append(UiCommands.NullArg);
-            return;
-        }
-        
-        sb.AppendArg(value.Value);
-    }
-    
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void AppendArg(this StringBuilder sb, float value)
+    public static void AppendSpan(this StringBuilder sb, float value)
     {
         if (value.TryFormat(out ReadOnlySpan<char> written))
         {
@@ -222,19 +126,7 @@ internal static class StringBuilderExt
     }
     
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void AppendArg(this StringBuilder sb, in float? value)
-    {
-        if (!value.HasValue)
-        {
-            sb.Append(UiCommands.NullArg);
-            return;
-        }
-        
-        sb.AppendArg(value.Value);
-    }
-    
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void AppendArg(this StringBuilder sb, double value)
+    public static void AppendSpan(this StringBuilder sb, double value)
     {
         if (value.TryFormat(out ReadOnlySpan<char> written))
         {
@@ -247,19 +139,7 @@ internal static class StringBuilderExt
     }
     
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void AppendArg(this StringBuilder sb, in double? value)
-    {
-        if (!value.HasValue)
-        {
-            sb.Append(UiCommands.NullArg);
-            return;
-        }
-        
-        sb.AppendArg(value.Value);
-    }
-    
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void AppendArg(this StringBuilder sb, decimal value)
+    public static void AppendSpan(this StringBuilder sb, decimal value)
     {
         if (value.TryFormat(out ReadOnlySpan<char> written))
         {
@@ -272,37 +152,7 @@ internal static class StringBuilderExt
     }
     
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void AppendArg(this StringBuilder sb, in decimal? value)
-    {
-        if (!value.HasValue)
-        {
-            sb.Append(UiCommands.NullArg);
-            return;
-        }
-        
-        sb.AppendArg(value.Value);
-    }
-    
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void AppendArg(this StringBuilder sb, bool value)
-    {
-        sb.Append(value ? "True" : "False");
-    }
-    
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void AppendArg(this StringBuilder sb, in bool? value)
-    {
-        if (!value.HasValue)
-        {
-            sb.Append(UiCommands.NullArg);
-            return;
-        }
-        
-        sb.AppendArg(value.Value);
-    }
-    
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void AppendArg(this StringBuilder sb, string value)
+    public static void AppendSpan(this StringBuilder sb, string value)
     {
         if (string.IsNullOrEmpty(value))
         {
@@ -314,7 +164,7 @@ internal static class StringBuilderExt
     }
     
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void AppendArg(this StringBuilder sb, DateTime value)
+    public static void AppendSpan(this StringBuilder sb, DateTime value)
     {
         if (value.TryFormat(out ReadOnlySpan<char> written))
         {
@@ -327,19 +177,7 @@ internal static class StringBuilderExt
     }
     
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void AppendArg(this StringBuilder sb, in DateTime? value)
-    {
-        if (!value.HasValue)
-        {
-            sb.Append(UiCommands.NullArg);
-            return;
-        }
-        
-        sb.AppendArg(value.Value);
-    }
-    
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void AppendArg(this StringBuilder sb, DateTimeOffset value)
+    public static void AppendSpan(this StringBuilder sb, DateTimeOffset value)
     {
         if (value.TryFormat(out ReadOnlySpan<char> written))
         {
@@ -352,19 +190,7 @@ internal static class StringBuilderExt
     }
     
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void AppendArg(this StringBuilder sb, in DateTimeOffset? value)
-    {
-        if (!value.HasValue)
-        {
-            sb.Append(UiCommands.NullArg);
-            return;
-        }
-        
-        sb.AppendArg(value.Value);
-    }
-    
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void AppendArg(this StringBuilder sb, TimeSpan value)
+    public static void AppendSpan(this StringBuilder sb, TimeSpan value)
     {
         if (value.TryFormat(out ReadOnlySpan<char> written))
         {
@@ -377,49 +203,13 @@ internal static class StringBuilderExt
     }
     
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void AppendArg(this StringBuilder sb, in TimeSpan? value)
-    {
-        if (!value.HasValue)
-        {
-            sb.Append(UiCommands.NullArg);
-            return;
-        }
-        
-        sb.AppendArg(value.Value);
-    }
-    
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void AppendArg(this StringBuilder sb, in NetworkableId? value)
-    {
-        if (!value.HasValue)
-        {
-            sb.Append(UiCommands.NullArg);
-            return;
-        }
-        
-        sb.AppendArg(value.Value);
-    }
-    
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void AppendArg(this StringBuilder sb, char value)
+    public static void AppendSpan(this StringBuilder sb, char value)
     {
         sb.Append(value);
     }
     
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void AppendArg(this StringBuilder sb, in char? value)
-    {
-        if (!value.HasValue)
-        {
-            sb.Append(UiCommands.NullArg);
-            return;
-        }
-        
-        sb.AppendArg(value.Value);
-    }
-    
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void AppendArg(this StringBuilder sb, UiColor value)
+    public static void AppendSpan(this StringBuilder sb, UiColor value)
     {
         if (value.TryFormat(out ReadOnlySpan<char> written))
         {
@@ -429,17 +219,5 @@ internal static class StringBuilderExt
         {
             sb.Append(value.ToHexRGBA());
         }
-    }
-    
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void AppendArg(this StringBuilder sb, in UiColor? value)
-    {
-        if (!value.HasValue)
-        {
-            sb.Append(UiCommands.NullArg);
-            return;
-        }
-        
-        sb.AppendArg(value.Value);
     }
 }

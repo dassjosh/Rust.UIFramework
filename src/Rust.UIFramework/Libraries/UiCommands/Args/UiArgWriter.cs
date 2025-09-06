@@ -15,85 +15,85 @@ public readonly ref struct UiArgWriter(StringBuilder sb)
     public void Append(bool? value) => sb.AppendArg(value);
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Append(byte value) => sb.AppendArg(value);
+    public void Append(byte value) => sb.AppendSpan(value);
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void Append(byte? value) => sb.AppendArg(value);
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Append(sbyte value) => sb.AppendArg(value);
+    public void Append(sbyte value) => sb.AppendSpan(value);
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void Append(sbyte? value) => sb.AppendArg(value);
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Append(short value) => sb.AppendArg(value);
+    public void Append(short value) => sb.AppendSpan(value);
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void Append(short? value) => sb.AppendArg(value);
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Append(ushort value) => sb.AppendArg(value);
+    public void Append(ushort value) => sb.AppendSpan(value);
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void Append(ushort? value) => sb.AppendArg(value);
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Append(int value) => sb.AppendArg(value);
+    public void Append(int value) => sb.AppendSpan(value);
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void Append(int? value) => sb.AppendArg(value);
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Append(uint value) => sb.AppendArg(value);
+    public void Append(uint value) => sb.AppendSpan(value);
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void Append(uint? value) => sb.AppendArg(value);
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Append(long value) => sb.AppendArg(value);
+    public void Append(long value) => sb.AppendSpan(value);
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void Append(in long? value) => sb.AppendArg(value);
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Append(ulong value) => sb.AppendArg(value);
+    public void Append(ulong value) => sb.AppendSpan(value);
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void Append(in ulong? value) => sb.AppendArg(value);
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Append(float value) => sb.AppendArg(value);
+    public void Append(float value) => sb.AppendSpan(value);
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void Append(in float? value) => sb.AppendArg(value);
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Append(double value) => sb.AppendArg(value);
+    public void Append(double value) => sb.AppendSpan(value);
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void Append(in double? value) => sb.AppendArg(value);
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Append(decimal value) => sb.AppendArg(value);
+    public void Append(decimal value) => sb.AppendSpan(value);
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void Append(in decimal? value) => sb.AppendArg(value);
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Append(DateTime value) => sb.AppendArg(value);
+    public void Append(DateTime value) => sb.AppendSpan(value);
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void Append(in DateTime? value) => sb.AppendArg(value);
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Append(DateTimeOffset value) => sb.AppendArg(value);
+    public void Append(DateTimeOffset value) => sb.AppendSpan(value);
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void Append(in DateTimeOffset? value) => sb.AppendArg(value);
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Append(TimeSpan value) => sb.AppendArg(value);
+    public void Append(TimeSpan value) => sb.AppendSpan(value);
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void Append(in TimeSpan? value) => sb.AppendArg(value);
@@ -105,7 +105,7 @@ public readonly ref struct UiArgWriter(StringBuilder sb)
     public void Append(in NetworkableId? value) => sb.AppendArg(value);
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Append(char value) => sb.AppendArg(value);
+    public void Append(char value) => sb.AppendSpan(value);
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void Append(in char? value) => sb.AppendArg(value);
@@ -117,7 +117,7 @@ public readonly ref struct UiArgWriter(StringBuilder sb)
     public void Append(ReadOnlySpan<char> value) => sb.Append(value);
     
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Append(UiColor color) => sb.AppendArg(color);
+    public void Append(UiColor color) => sb.AppendSpan(color);
     
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void Append(UiColor? color) => sb.AppendArg(color);
