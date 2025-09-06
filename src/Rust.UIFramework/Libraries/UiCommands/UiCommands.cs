@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using Oxide.Core.Plugins;
 using Oxide.Ext.UiFramework.Exceptions;
 using Oxide.Ext.UiFramework.Extensions;
+using Oxide.Ext.UiFramework.Logging;
 using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Types;
 
@@ -28,6 +30,8 @@ public class UiCommands : BaseUiFrameworkLibrary, ISingleton
     private readonly Dictionary<CommandId, ICommandParser> _commands = new();
     private readonly Dictionary<PluginId, PluginCallbacks> _callbacks = new();
     private readonly CommandIdHandler _idHandler = new();
+    
+    private readonly IUiLogger<UiCommands> _logger = Singleton<UiLoggerFactory>.Instance.CreateExtensionLogger<UiCommands>();
 
     private UiCommands() { }
     
@@ -122,6 +126,7 @@ public class UiCommands : BaseUiFrameworkLibrary, ISingleton
         cooldown = CreateCooldown(pluginId, method, options);
         permission = CreatePermission(pluginId, method, options);
         protection = CreateProtection(pluginId, method, options);
+        _logger.Debug("Registered UiCommand. Plugin: {0}, Method: {1}({2})", plugin.FullName(), method.Name, string.Join(", ", method.GetParameters().Select(p => $"{p.ParameterType.Name} {p.Name}")));
     }
 
     public void RegisterPluginNoPermissionCallback(Plugin plugin, OnPluginNoPermission callback)
