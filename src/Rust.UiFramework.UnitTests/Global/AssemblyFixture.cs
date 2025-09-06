@@ -69,7 +69,13 @@ public class AssemblyFixture : XunitTestFramework
 
     public override async ValueTask DisposeAsync()
     {
-        Singleton<UiPool>.Instance.CheckForLeaks();
+        if (Singleton<UiPool>.Instance.CheckForLeaks())
+        {
+            DebugLogger logger = new();
+            Singleton<UiPool>.Instance.LogDebug(logger);
+            Console.WriteLine(logger.ToString());
+        }
+        
         await base.DisposeAsync();
     }
 }

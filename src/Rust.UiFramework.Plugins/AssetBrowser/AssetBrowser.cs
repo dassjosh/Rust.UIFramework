@@ -54,7 +54,7 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
     private readonly UiImageStorage _storage = GetLibrary<UiImageStorage>();
     private UiCommandHandler _uiCommands;
     
-    public UiPluginPool Pool { get; set; }
+    public UiPluginPool PluginPool { get; set; }
     
     public enum AssetType
     {

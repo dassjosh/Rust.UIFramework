@@ -12,7 +12,7 @@ public class AnimationBuilder : BaseBuilder, IAnimationBuilder
 {
     private readonly List<BaseAnimation> _animations = [];
 
-    public static AnimationBuilder Create(IUiFrameworkPlugin plugin) => plugin.Pool.Get<AnimationBuilder>();
+    public static AnimationBuilder Create(IUiFrameworkPlugin plugin) => plugin.PluginPool.Get<AnimationBuilder>();
 
     void IAnimationBuilder.AddAnimation(BaseAnimation animation) => _animations.Add(animation);
 

@@ -15,7 +15,7 @@ public class UiCommandExample : RustPlugin, IUiFrameworkPlugin
     private readonly UiCommands _uiCommands = GetLibrary<UiCommands>();
     private readonly UiPlayerStore _playerStore = GetLibrary<UiPlayerStore>();
     
-    public UiPluginPool Pool { get; set; }
+    public UiPluginPool PluginPool { get; set; }
 
     private ICommandBuilder<UiState, MyCustomArg, int, bool, BuildingPrivlidge, DateTime> _doTheThingBuilder;
     
