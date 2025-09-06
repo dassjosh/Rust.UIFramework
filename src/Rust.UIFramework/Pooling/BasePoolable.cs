@@ -57,6 +57,14 @@ public abstract class BasePoolable : IPoolable
     internal void TestLeavePool() => LeavePool();
 #endif
 
+    public void TryDispose()
+    {
+        if (CanPool && !_disposed)
+        {
+            Dispose();
+        }
+    }
+    
     public virtual void Dispose()
     {
         if (_pool == null)
