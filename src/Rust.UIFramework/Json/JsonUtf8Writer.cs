@@ -18,16 +18,17 @@ public sealed class JsonUtf8Writer : BasePoolable
     private readonly List<SizedArray<byte>> _segments = new(100);
     
     private int _byteIndex;
+    private uint _size;
     private byte[] _buffer;
     
-    //[MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void Write(byte character)
     {
         CheckForFlush(1);
         _buffer[_byteIndex++] = character;
     }
     
-    //[MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void Write(char character)
     {
         if (character < 0x7F)
@@ -46,7 +47,7 @@ public sealed class JsonUtf8Writer : BasePoolable
         }
     }
 
-    //[MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void Write(byte[] text)
     {
         int length = text.Length;
@@ -62,10 +63,10 @@ public sealed class JsonUtf8Writer : BasePoolable
         _byteIndex = byteIndex;
     }
     
-    //[MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void Write(in Utf8String text) => Write(text.String);
 
-    //[MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void Write(string text)
     {
         int length = text.Length;
@@ -92,7 +93,7 @@ public sealed class JsonUtf8Writer : BasePoolable
         _byteIndex = byteIndex;
     }
     
-    //[MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void Write(ReadOnlySpan<char> text)
     {
         int length = text.Length;
@@ -103,7 +104,7 @@ public sealed class JsonUtf8Writer : BasePoolable
         _byteIndex += encodedLength;
     }
 
-    //[MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private void CheckForFlush(int addedBytes)
     {
         if (_byteIndex + addedBytes >= SegmentSize)
@@ -112,7 +113,7 @@ public sealed class JsonUtf8Writer : BasePoolable
         }
     }
     
-    //[MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private void Flush()
     {
         if (_byteIndex == 0)
@@ -120,6 +121,7 @@ public sealed class JsonUtf8Writer : BasePoolable
             return;
         }
         
+        _size += (uint)_byteIndex;
         _segments.Add(new SizedArray<byte>(_buffer, _byteIndex));
         _byteIndex = 0;
         _buffer = ArrayPool<byte>.Shared.Rent(SegmentSize);
@@ -128,6 +130,7 @@ public sealed class JsonUtf8Writer : BasePoolable
     public int WriteToArray(byte[] bytes)
     {
         Flush();
+        if (bytes.Length < _size) throw new ArgumentOutOfRangeException(nameof(bytes), $"bytes.length is less than the size, {bytes.Length} < {_size}");
         int writeIndex = 0;
         for (int i = 0; i < _segments.Count; i++)
         {
@@ -139,24 +142,11 @@ public sealed class JsonUtf8Writer : BasePoolable
         return writeIndex;
     }
 
-    //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public uint GetSize()
-    {
-        uint size = 0;
-        int count = _segments.Count;
-        for (int i = 0; i < count; i++)
-        {
-            size += (uint)_segments[i].Size;
-        }
-
-        return size;
-    }
-
-    //[MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void WriteToNetwork(NetWrite write)
     {
         Flush();
-        write.UInt32(GetSize());
+        write.UInt32(_size);
         WriteToNetwork((Stream)write);
     }
 
@@ -168,7 +158,7 @@ public sealed class JsonUtf8Writer : BasePoolable
     }
 #endif
 
-    //[MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private void WriteToNetwork(Stream write)
     {
         int count = _segments.Count;
@@ -182,7 +172,7 @@ public sealed class JsonUtf8Writer : BasePoolable
     public byte[] ToArray()
     {
         Flush();
-        byte[] bytes = new byte[GetSize()];
+        byte[] bytes = new byte[_size];
         WriteToArray(bytes);
         return bytes;
     }
@@ -206,6 +196,7 @@ public sealed class JsonUtf8Writer : BasePoolable
         }
         _segments.Clear();
         _byteIndex = 0;
+        _size = 0;
         ArrayPool<byte>.Shared.Return(_buffer);
         _buffer = null;
     }
