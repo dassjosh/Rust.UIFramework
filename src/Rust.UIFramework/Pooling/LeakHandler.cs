@@ -3,41 +3,35 @@ using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Logging;
 using Oxide.Ext.UiFramework.Plugins;
 
-namespace Oxide.Ext.UiFramework.Pooling
+namespace Oxide.Ext.UiFramework.Pooling;
+
+internal class LeakHandler(PluginId pluginId, string poolType)
 {
-    internal class LeakHandler(PluginId pluginId, string poolType)
+    private bool _isFirstLeakError = true;
+    private DateTime _nextLeakError;
+
+    internal void OnLeak(int index, int poolSize)
     {
-        private bool _isFirstLeakError = true;
-        private DateTime _nextLeakError;
-
-        internal void OnLeak(int index, int poolSize)
+        if (ShouldLogLeak())
         {
-            if (ShouldLogLeak())
-            {
-                UiFrameworkExtension.GlobalLogger.Warning("Plugin: {0} Pool: {1} is leaking entities!!! {2}/{3}", pluginId.PluginName(), poolType, index, poolSize);
-            }
+            UiFrameworkExtension.GlobalLogger.Warning("Plugin: {0} Pool: {1} is leaking entities!!! {2}/{3}", pluginId.PluginName(), poolType, index, poolSize);
+        }
+    }
+
+    private bool ShouldLogLeak()
+    {
+        if (_isFirstLeakError)
+        {
+            _isFirstLeakError = false;
+            return false;
         }
 
-        private bool ShouldLogLeak()
+        if (_nextLeakError >= DateTime.UtcNow)
         {
-            if (!pluginId.IsExtensionPlugin)
-            {
-                return true;
-            }
-
-            if (_isFirstLeakError)
-            {
-                _isFirstLeakError = false;
-                return false;
-            }
-
-            if (_nextLeakError >= DateTime.UtcNow)
-            {
-                return false;
-            }
+            return false;
+        }
             
-            _nextLeakError = DateTime.UtcNow + TimeSpan.FromSeconds(30);
-            return true;
-        }
+        _nextLeakError = DateTime.UtcNow + TimeSpan.FromSeconds(30);
+        return true;
     }
 }
