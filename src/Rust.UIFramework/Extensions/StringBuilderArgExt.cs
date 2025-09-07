@@ -157,7 +157,7 @@ internal static class StringBuilderArgExt
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal static void AppendArg(this StringBuilder sb, bool value)
     {
-        sb.Append(value ? "True" : "False");
+        sb.Append(value ? '1' : '0');
     }
     
     [MethodImpl(MethodImplOptions.AggressiveInlining)]

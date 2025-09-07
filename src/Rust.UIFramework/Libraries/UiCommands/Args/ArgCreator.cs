@@ -87,7 +87,7 @@ internal static class ArgCreator
         if (type == typeof(double?)) return new ArgHandler<double?>(span => span is UiCommands.NullArg ? null : double.Parse(span), (writer, arg) => writer.Append(arg));
         if (type == typeof(decimal)) return new ArgHandler<decimal>(span => decimal.Parse(span), (writer, arg) => writer.Append(arg));
         if (type == typeof(decimal?)) return new ArgHandler<decimal?>(span => span is UiCommands.NullArg ? null : decimal.Parse(span), (writer, arg) => writer.Append(arg));
-        if (type == typeof(bool)) return new ArgHandler<bool>(bool.Parse, (writer, arg) => writer.Append(arg));
+        if (type == typeof(bool)) return new ArgHandler<bool>(span => span is "1", (writer, arg) => writer.Append(arg));
         if (type == typeof(bool?)) return new ArgHandler<bool?>(span => span is UiCommands.NullArg ? null : bool.Parse(span), (writer, arg) => writer.Append(arg));
         if (type == typeof(DateTime)) return new ArgHandler<DateTime>(span => DateTime.Parse(span), (writer, arg) => writer.Append(arg));
         if (type == typeof(DateTime?)) return new ArgHandler<DateTime?>(span => span is UiCommands.NullArg ? null : DateTime.Parse(span), (writer, arg) => writer.Append(arg));
