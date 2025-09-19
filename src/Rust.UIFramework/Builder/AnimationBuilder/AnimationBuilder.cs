@@ -10,9 +10,17 @@ namespace Oxide.Ext.UiFramework.Builder;
 
 public class AnimationBuilder : BaseBuilder, IAnimationBuilder
 {
+    public IUiFrameworkPlugin Plugin { get; private set; }
+    
     private readonly List<BaseAnimation> _animations = [];
 
-    public static AnimationBuilder Create(IUiFrameworkPlugin plugin) => plugin.PluginPool.Get<AnimationBuilder>();
+    public static AnimationBuilder Create(IUiFrameworkPlugin plugin) => plugin.PluginPool.Get<AnimationBuilder>().Init(plugin);
+
+    private AnimationBuilder Init(IUiFrameworkPlugin plugin)
+    {
+        Plugin = plugin;
+        return this;
+    }
 
     void IAnimationBuilder.AddAnimation(BaseAnimation animation) => _animations.Add(animation);
 
@@ -26,10 +34,11 @@ public class AnimationBuilder : BaseBuilder, IAnimationBuilder
         }
     }
 
-    public override byte[] GetBytes() => throw new NotSupportedException("Cannot get bytes for an animation builder");
+    public override byte[] GetBytes() => throw new NotSupportedException($"Cannot get bytes for an {nameof(AnimationBuilder)}");
 
     protected override void EnterPool()
     {
         ClearAnimationList(_animations);
+        Plugin = null;
     }
 }

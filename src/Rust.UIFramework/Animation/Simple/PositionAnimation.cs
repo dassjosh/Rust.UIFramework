@@ -5,12 +5,12 @@ using Oxide.Ext.UiFramework.UiElements;
 
 namespace Oxide.Ext.UiFramework.Animation;
 
-public class PositionAnimation : BaseAnimation<UiPosition>
+public class PositionAnimation : SimpleAnimation<UiPosition>
 {
-    public static PositionAnimation Create(IAnimationBuilder builder, in UiReference reference, IAnimator<UiPosition> animator, IAnimationDuration duration)
+    public static PositionAnimation Create(IAnimationBuilder builder, in UiReference reference, ISimpleAnimator<UiPosition> animator, IAnimationDuration duration)
     {
         PositionAnimation animation = builder.PluginPool.Get<PositionAnimation>();
-        animation.Init(reference, animator, duration);
+        animation.Init(builder.Plugin, reference, animator, duration);
         return animation;
     }
     

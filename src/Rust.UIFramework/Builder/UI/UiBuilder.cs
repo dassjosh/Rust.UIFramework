@@ -6,6 +6,7 @@ using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Interfaces.Builders;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Offsets;
+using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.Types;
 using Oxide.Ext.UiFramework.UiElements;
@@ -15,11 +16,18 @@ namespace Oxide.Ext.UiFramework.Builder.UI;
 public partial class UiBuilder : BaseUiBuilder, IAnimationBuilder
 {
     public BaseUiComponent Root;
+    public IUiFrameworkPlugin Plugin { get; private set; }
     
     private BaseUiComponent _actualRoot;
     private readonly List<BaseAnimation> _animations = [];
         
     #region Setup
+    public UiBuilder Init(IUiFrameworkPlugin plugin)
+    {
+        Plugin = plugin;
+        return this;
+    }
+    
     public UiBuilder SetRoot<T>(in UiReference reference, out T element) where T : BaseUiComponent, new()
     {
         element = PluginPool.Get<T>();

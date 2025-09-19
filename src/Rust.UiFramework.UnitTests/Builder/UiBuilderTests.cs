@@ -22,7 +22,7 @@ public class UiBuilderTests
         //Act
         for (int i = 0; i < 1000; i++)
         {
-            UiBuilder builder = UiBuilder.Create(pool).SetRoot(new UiReference(UiLayer.Overlay, "UI"), out UiSection _);
+            UiBuilder builder = UiBuilder.Create(UnitTestHelpers.Plugin).SetRoot(new UiReference(UiLayer.Overlay, "UI"), out UiSection _);
             for (int j = 0; j < 1000; j++)
             {
                 builder.Panel(builder.Root, UiPosition.Full, default, UiColors.Clear);

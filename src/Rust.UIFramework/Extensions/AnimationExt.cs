@@ -10,7 +10,7 @@ namespace Oxide.Ext.UiFramework.Extensions;
 
 public static class AnimationExt
 {
-    public static ColorAnimation AnimateColor(this IAnimationBuilder builder, in AnimationReference reference, IAnimator<UiColor> animator, IAnimationDuration duration)
+    public static ColorAnimation AnimateColor(this IAnimationBuilder builder, in AnimationReference reference, ISimpleAnimator<UiColor> animator, IAnimationDuration duration)
     {
         UiReferenceException.ThrowIfInvalidReference(reference);
         ColorAnimation animation = ColorAnimation.Create(builder, reference, animator, duration);
@@ -21,7 +21,7 @@ public static class AnimationExt
     public static ColorAnimation AnimateColor(this IAnimationBuilder builder, in AnimationReference reference, UiColor startColor, UiColor endColor, float duration, float delay = 0f)
         => AnimateColor(builder, in reference, UiColorLerpAnimator.Create(builder.PluginPool, startColor, endColor), builder.DefaultDuration(duration, delay));
     
-    public static PositionAnimation AnimatePosition(this IAnimationBuilder builder, in UiReference reference, IAnimator<UiPosition> animator, IAnimationDuration duration)
+    public static PositionAnimation AnimatePosition(this IAnimationBuilder builder, in UiReference reference, ISimpleAnimator<UiPosition> animator, IAnimationDuration duration)
     {
         UiReferenceException.ThrowIfInvalidReference(reference);
         PositionAnimation animation = PositionAnimation.Create(builder, reference, animator, duration);
@@ -32,7 +32,7 @@ public static class AnimationExt
     public static PositionAnimation AnimatePosition(this IAnimationBuilder builder, in UiReference reference, in UiPosition startPosition, in UiPosition endPosition, float duration, float delay = 0f)
         => AnimatePosition(builder, in reference, UiPositionLerpAnimator.Create(builder.PluginPool, startPosition, endPosition), builder.DefaultDuration(duration, delay));
     
-    public static OffsetAnimation AnimateOffset(this IAnimationBuilder builder, in UiReference reference, IAnimator<UiOffset> animator, IAnimationDuration duration)
+    public static OffsetAnimation AnimateOffset(this IAnimationBuilder builder, in UiReference reference, ISimpleAnimator<UiOffset> animator, IAnimationDuration duration)
     {
         UiReferenceException.ThrowIfInvalidReference(reference);
         OffsetAnimation animation = OffsetAnimation.Create(builder, reference, animator, duration);
@@ -42,6 +42,17 @@ public static class AnimationExt
     
     public static OffsetAnimation AnimateOffset(this IAnimationBuilder builder, in UiReference reference, in UiOffset startOffset, in UiOffset endOffset, float duration, float delay = 0f)
         => AnimateOffset(builder, in reference, UiOffsetLerpAnimator.Create(builder.PluginPool, startOffset, endOffset), builder.DefaultDuration(duration, delay));
+    
+    public static TextAnimation AnimateText(this IAnimationBuilder builder, in AnimationReference reference, ISimpleAnimator<string> animator, IAnimationDuration duration, TextFormatter formatter = null)
+    {
+        UiReferenceException.ThrowIfInvalidReference(reference);
+        TextAnimation animation = TextAnimation.Create(builder, reference, animator, duration, formatter);
+        builder.AddAnimation(animation);
+        return animation;
+    }
+    
+    public static TextAnimation AnimateText(this IAnimationBuilder builder, in AnimationReference reference, string start, string end, float duration, float delay = 0f, TextFormatter formatter = null)
+        => AnimateText(builder, in reference, StringLerpAnimator.Create(builder.PluginPool, start, end), builder.DefaultDuration(duration, delay), formatter);
     
     private static DefaultDuration DefaultDuration(this IAnimationBuilder builder, float duration, float delay = 0f) => Animation.DefaultDuration.Create(builder.PluginPool, duration, delay);
 }

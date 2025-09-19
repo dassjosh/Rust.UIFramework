@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
+using Oxide.Ext.UiFramework.Types;
 using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Animation;
@@ -10,8 +11,9 @@ namespace Oxide.Ext.UiFramework.Animation;
 public class KeyFrameColorAnimator(UiColor startColor, UiColor endColor) : KeyFrameAnimator<UiColor>(startColor, endColor, UiColor.Lerp);
 public class KeyFrameOffsetAnimator(UiOffset startOffset, UiOffset endOffset) : KeyFrameAnimator<UiOffset>(startOffset, endOffset, (start, end, t) => UiOffset.LerpUnclamped(start, end, t));
 public class KeyFramePositionAnimator(UiPosition startPosition, UiPosition endPosition) : KeyFrameAnimator<UiPosition>(startPosition, endPosition, (start, end, t) => UiPosition.LerpUnclamped(start, end, t));
+public class KeyFrameStringAnimator(string start, string end) : KeyFrameAnimator<string>(start, end, LevenshteinDistanceExt.Lerp);
 
-public abstract class KeyFrameAnimator<T> : IAnimator<T>
+public abstract class KeyFrameAnimator<T> : ISimpleAnimator<T>
 {
     private readonly SortedList<float, T> _keyFrames = [];
     private readonly Func<T, T, float, T> _lerp;

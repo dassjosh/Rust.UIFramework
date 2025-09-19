@@ -8,6 +8,7 @@ using Oxide.Ext.UiFramework.Config;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Logging;
+using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Types;
 using UnityEngine;
 
@@ -42,7 +43,7 @@ internal class AnimationHandler : ISingleton
         if (!UiFrameworkConfig.Instance.Animations.Enabled)
         {
             JsonFrameworkWriter writer = Create();
-            animation.WriteCompletedComponent(writer);
+            animation.WriteCompletedAnimation(writer);
             SendAnimations(writer, animation.Send);
             animation.OnRemoved();
             return;
@@ -180,11 +181,11 @@ internal class AnimationHandler : ISingleton
         
         if (duration.IsRunning)
         {
-            animation.WriteAnimationComponent(writer, duration.ElapsedPercentage);
+            animation.WriteAnimation(writer, duration.ElapsedPercentage);
             return;
         }
 
-        animation.WriteCompletedComponent(writer);
+        animation.WriteCompletedAnimation(writer);
         duration.OnAnimationCompleted(currentTime);
         if (duration.IsCompleted)
         {
@@ -235,6 +236,16 @@ internal class AnimationHandler : ISingleton
         
         return 25 + (1 << _sendCount);
     }
-    
+
+    internal void OnPluginUnloaded(IUiFrameworkPlugin plugin)
+    {
+        foreach (BaseAnimation animation in _animations.Values)
+        {
+            if (animation.Plugin == plugin)
+            {
+                RemoveAnimation(animation.Id);
+            }
+        }
+    }
     internal void OnServerShutdown() => _cancellationTokenSource.Cancel();
 }

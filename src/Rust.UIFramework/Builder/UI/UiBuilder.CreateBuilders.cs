@@ -23,8 +23,8 @@ public partial class UiBuilder
     }
     
     public static UiBuilder Create<T>(IUiFrameworkPlugin plugin, in UiReference reference, out T root) where T : BaseUiComponent, new() => Create(plugin).SetRoot(reference, out root);
-    public static UiBuilder Create(IUiFrameworkPlugin plugin) => Create(plugin.PluginPool);
-    internal static UiBuilder Create(UiPluginPool pool) => pool.Get<UiBuilder>();
+    public static UiBuilder Create(IUiFrameworkPlugin plugin) => Create(plugin.PluginPool).Init(plugin);
+    private static UiBuilder Create(UiPluginPool pool) => pool.Get<UiBuilder>();
 
     /// <summary>
     /// Creates a UiBuilder to update the existing UI

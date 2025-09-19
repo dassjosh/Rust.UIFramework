@@ -74,6 +74,10 @@ internal class UiFrameworkPlugin : BaseUiFrameworkPlugin
     {
         BaseUiFrameworkLibrary.ProcessOnPluginUnloaded(plugin);
         PluginIdExt.OnPluginUnloaded(plugin);
+        if (plugin is IUiFrameworkPlugin uiPlugin)
+        {
+            Singleton<AnimationHandler>.Instance.OnPluginUnloaded(uiPlugin);
+        }
     }
     
     [HookMethod(nameof(OnServerShutdown))]

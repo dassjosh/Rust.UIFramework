@@ -1,20 +1,21 @@
 ﻿using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Interfaces.Builders;
 using Oxide.Ext.UiFramework.Json;
+using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Animation;
 
-public class ColorAnimation : BaseAnimation<UiColor>
+public class ColorAnimation : SimpleAnimation<UiColor>
 {
     private Utf8String _elementType;
     
-    public static ColorAnimation Create(IAnimationBuilder builder, in AnimationReference reference, IAnimator<UiColor> animator, IAnimationDuration duration) 
-        => builder.PluginPool.Get<ColorAnimation>().Init(reference, animator, duration);
+    public static ColorAnimation Create(IAnimationBuilder builder, in AnimationReference reference, ISimpleAnimator<UiColor> animator, IAnimationDuration duration) 
+        => builder.PluginPool.Get<ColorAnimation>().Init(builder.Plugin, reference, animator, duration);
 
-    private ColorAnimation Init(in AnimationReference reference, IAnimator<UiColor> animator, IAnimationDuration duration)
+    private ColorAnimation Init(IUiFrameworkPlugin plugin, in AnimationReference reference, ISimpleAnimator<UiColor> animator, IAnimationDuration duration)
     {
-        base.Init(reference.Reference, animator, duration);
+        base.Init(plugin, reference.Reference, animator, duration);
         _elementType = reference.Type;
         return this;
     }

@@ -20,7 +20,7 @@ public static class ListExt
         Span<T> span = list.ListAsSpan();
         for (int index = 0; index < count; index++)
         {
-            span[index].Dispose();
+            span[index].TryDispose();
         }
         
         list.Clear();
@@ -37,17 +37,30 @@ public static class ListExt
         Span<T> span = list.ListAsSpan();
         for (int index = 0; index < count; index++)
         {
-            if (span[index] is BasePoolable poolable)
-            {
-                poolable.Dispose();
-            }
+            span[index].TryReturnToPool();
         }
         
         list.Clear();
     }
 
+    public static void RemoveSequentialDuplicates<T>(this List<T> list)
+    {
+        for (int i = list.Count - 1; i > 0;)
+        {
+            int prevIndex = i - 1;
+            if (list[i].Equals(list[prevIndex]))
+            {
+                list.RemoveAt(i);
+            }
+            else
+            {
+                i = prevIndex;
+            }
+        }
+    }
+
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static T[] GetInternalArrayUnsafe<T>(this List<T> list)
+    internal static T[] GetInternalArrayUnsafe<T>(this List<T> list)
     {
         return list.GetPrivateFieldsUnsafe()._items;
     }

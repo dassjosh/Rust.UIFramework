@@ -1,6 +1,6 @@
 ﻿namespace Oxide.Ext.UiFramework.Enums;
 
-public enum NamingMode
+public enum NamingMode : byte
 {
     /// <summary>
     /// Name will not automatically be set by the builder

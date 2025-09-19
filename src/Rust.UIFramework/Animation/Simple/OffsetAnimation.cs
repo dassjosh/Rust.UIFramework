@@ -5,12 +5,12 @@ using Oxide.Ext.UiFramework.UiElements;
 
 namespace Oxide.Ext.UiFramework.Animation;
 
-public class OffsetAnimation : BaseAnimation<UiOffset>
+public class OffsetAnimation : SimpleAnimation<UiOffset>
 {
-    public static OffsetAnimation Create(IAnimationBuilder builder, in UiReference reference, IAnimator<UiOffset> animator, IAnimationDuration duration)
+    public static OffsetAnimation Create(IAnimationBuilder builder, in UiReference reference, ISimpleAnimator<UiOffset> animator, IAnimationDuration duration)
     {
         OffsetAnimation animation = builder.PluginPool.Get<OffsetAnimation>();
-        animation.Init(reference, animator, duration);
+        animation.Init(builder.Plugin, reference, animator, duration);
         return animation;
     }
     

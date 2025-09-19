@@ -4,6 +4,7 @@ using Network;
 using Oxide.Ext.UiFramework.Exceptions;
 using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Json;
+using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Types;
 using Oxide.Ext.UiFramework.UiElements;
@@ -14,6 +15,7 @@ namespace Oxide.Ext.UiFramework.Animation;
 public abstract class BaseAnimation : BasePoolable
 {
     public AnimationId Id { get; private set; }
+    public IUiFrameworkPlugin Plugin { get; private set; }
     public UiReference Reference { get; private set; }
     internal SendInfo Send { get; private set; }
     public IAnimationDuration Duration { get; private set; }
@@ -24,9 +26,10 @@ public abstract class BaseAnimation : BasePoolable
     private readonly List<IAnimationEvent> _events = [];
     public bool IsCompleted => State is AnimationState.Completed or AnimationState.Cancelled;
     
-    protected void Init(in UiReference reference, IAnimationDuration duration)
+    protected void Init(IUiFrameworkPlugin plugin, in UiReference reference, IAnimationDuration duration)
     {
         Id = AnimationId.GetNextId();
+        Plugin = plugin;
         Reference = reference;
         Duration = duration;
         UpdateState(AnimationState.Init);
@@ -34,6 +37,7 @@ public abstract class BaseAnimation : BasePoolable
 
     public BaseAnimation WithDuration(IAnimationDuration duration)
     {
+        Duration.TryReturnToPool();
         Duration = duration;
         return this;
     }
@@ -64,37 +68,27 @@ public abstract class BaseAnimation : BasePoolable
         return this;
     }
 
-    public BaseAnimation DestroyAfter(in UiReference? destroyTarget = null)
+    public BaseAnimation DestroyAfter() => DestroyAfter(Reference);
+    public BaseAnimation DestroyAfter(in UiReference destroyTarget) => DestroyAfter(destroyTarget.Name);
+    public BaseAnimation DestroyAfter(string name)
     {
-        AddEvent(PluginPool.Get<DestroyAfterEvent>().Init(destroyTarget));
+        AddEvent(DestroyUiAfterEvent.Create(PluginPool, name));
         return this;
     }
-
+    
     public BaseAnimation WithLoop() => WithProgressor(LoopProgressor.Default);
+    public BaseAnimation WithBezierProgressor(in BezierProgressor points) => WithProgressor(points);
 
     public BaseAnimation WithProgressor(IAnimationProgressor progressor)
     {
+        progressor.TryReturnToPool();
         Progressor = progressor;
         return this;
     }
     
-    public BaseAnimation WithBezierProgressor(in BezierProgressor points) => WithProgressor(points);
-    
-    public void WriteCompletedComponent(JsonFrameworkWriter writer) => WriteAnimationComponent(writer, 1f);
-    
-    public void WriteAnimationComponent(JsonFrameworkWriter writer, float elapsedPercentage)
-    {
-        writer.WriteStartObject();
-        writer.AddFieldRaw(JsonDefaults.Common.ParentName, Reference.Parent);
-        writer.AddFieldRaw(JsonDefaults.Common.ComponentName, Reference.Name);
-        writer.AddFieldRaw(JsonDefaults.Common.Update, true);
-        writer.WritePropertyName(JsonDefaults.Common.ComponentsName);
-        writer.WriteStartArray();
-        float progress = Progressor?.GetProgress(Mathf.Clamp01(elapsedPercentage)) ?? elapsedPercentage;
-        WriteAnimation(writer, progress);    
-        writer.WriteEndArray();
-        writer.WriteEndObject();
-    }
+    public void WriteCompletedAnimation(JsonFrameworkWriter writer) => WriteAnimation(writer, 1f);
+
+    public abstract void WriteAnimation(JsonFrameworkWriter writer, float elapsedPercentage);
 
     internal void UpdateState(AnimationState newState)
     {
@@ -174,8 +168,6 @@ public abstract class BaseAnimation : BasePoolable
             }
         }
     }
-    
-    protected abstract void WriteAnimation(JsonFrameworkWriter writer, float value);
 
     public void RemoveForPlayer(ulong playerId)
     {
@@ -211,10 +203,7 @@ public abstract class BaseAnimation : BasePoolable
             PluginPool.FreeList(Send.connections);
         }
 
-        if (Duration is BasePoolable poolable)
-        {
-            poolable.Dispose();
-        }
+        Duration.TryReturnToPool();
 
         Id = default;
         Reference = default;

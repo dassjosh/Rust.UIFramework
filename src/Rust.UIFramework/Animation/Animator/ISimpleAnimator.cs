@@ -2,7 +2,7 @@
 
 public interface IAnimator;
 
-public interface IAnimator<out T> : IAnimator
+public interface ISimpleAnimator<out T> : IAnimator
 {
     T Get(float progress);
 }
