@@ -11,7 +11,6 @@ public class ButtonComponent : ImageComponent
 {
     public string Command;
     public ButtonType ButtonType;
-    
     public ColorBlockComponent ColorBlock { get; private set; }
     public override Utf8String Type => JsonDefaults.Button.Type;
 

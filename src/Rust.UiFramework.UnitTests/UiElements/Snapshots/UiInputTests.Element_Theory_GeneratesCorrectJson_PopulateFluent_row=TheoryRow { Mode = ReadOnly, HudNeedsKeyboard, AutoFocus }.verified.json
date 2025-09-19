@@ -9,6 +9,7 @@
       "hudMenuInput": 1,
       "autofocus": 1,
       "readOnly": 1,
+      "command": "command",
       "text": "text",
       "fontSize": 20,
       "font": "lcd.ttf",
