@@ -1,6 +1,7 @@
 ﻿{
   "ContentTransform": {
     "Offset": "(100, 200) (300, 400)",
+    "Pivot": "0.1 0.2",
     "Position": "(0.1, 0.2) (0.3, 0.4)"
   },
   "DecelerationRate": 200.0,

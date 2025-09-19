@@ -1,5 +1,7 @@
 ﻿{
+  "Active": true,
   "Content": ":___Content",
+  "ContentPivot": "0.5 0.5",
   "ContentPosition": "(0, 0) (1, 1)",
   "DecelerationRate": 0.135,
   "Elasticity": 0.1,
@@ -10,6 +12,7 @@
   "ScrollSensitivity": 1.0,
   "ScrollView": {
     "ContentTransform": {
+      "Pivot": "0.5 0.5",
       "Position": "(0, 0) (1, 1)"
     },
     "DecelerationRate": 0.135,

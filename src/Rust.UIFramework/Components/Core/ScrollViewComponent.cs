@@ -3,6 +3,7 @@ using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.Types;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.Components;
@@ -20,7 +21,7 @@ public class ScrollViewComponent : CoreComponent
     
     public override Utf8String Type => JsonDefaults.ScrollView.Type;
 
-    internal void UpdateContentTransform(in UiPosition? position = null, in UiOffset? offset = null) => ContentTransform.UpdateContentTransform(position, offset);
+    internal void UpdateContentTransform(in UiPosition? position, in UiOffset? offset, in Vector2? pivot) => ContentTransform.UpdateContentTransform(position, offset, pivot);
     
     internal (ScrollbarComponent horizontal, ScrollbarComponent vertical) AddScrollBars(bool invert = false, bool autoHide = false, string handleSprite = null, string trackSprite = null, float size = JsonDefaults.ScrollBar.Size,
         UiColor? handleColor = null, UiColor? highlightColor = null, UiColor? pressedColor = null, UiColor? trackColor = null)

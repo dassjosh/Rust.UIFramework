@@ -52,6 +52,12 @@ public static class UiComponentExt
         return component;
     }
     
+    public static T SetActive<T>(this T component, bool active) where T : BaseUiComponent
+    {
+        component.Active = active;
+        return component;
+    }
+    
     public static T SetFadeOut<T>(this T component, float duration) where T : BaseUiComponent
     {
         component.FadeOut = duration;

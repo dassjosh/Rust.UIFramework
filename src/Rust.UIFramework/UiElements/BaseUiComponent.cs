@@ -19,6 +19,7 @@ public abstract class BaseUiComponent(CoreComponent component) : BasePoolable
     public UiPosition Position = UiPosition.Full;
     public UiOffset Offset;
     public UpdateMode Update;
+    public bool Active = true;
     private readonly CoreComponent _component = component;
     
     public string Name { get => Reference.Name; set => Reference = Reference.WithName(value); }
@@ -35,6 +36,7 @@ public abstract class BaseUiComponent(CoreComponent component) : BasePoolable
         writer.AddFieldRaw(JsonDefaults.Common.ComponentName, Reference.Name);
         writer.AddFieldRaw(JsonDefaults.Common.ParentName, Reference.Parent);
         writer.AddField(JsonDefaults.Common.FadeOutName, FadeOut, JsonDefaults.Common.FadeOut);
+        writer.AddField(JsonDefaults.Common.ActiveName, Active, JsonDefaults.Common.Active);
         switch (Update)
         {
             case UpdateMode.AutoDestroy:
@@ -163,6 +165,7 @@ public abstract class BaseUiComponent(CoreComponent component) : BasePoolable
         Position = UiPosition.Full;
         Offset = default;
         Update = default;
+        Active = true;
         _component.Reset();
     }
 

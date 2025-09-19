@@ -4,6 +4,7 @@ using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.UiElements;
@@ -32,6 +33,7 @@ public class UiScrollView : BaseUiComponent
     public float ScrollSensitivity { get => ScrollView.ScrollSensitivity; set => ScrollView.ScrollSensitivity = value; }
     public UiPosition ContentPosition { get => ScrollView.ContentTransform.Position; set => ScrollView.ContentTransform.Position = value; }
     public UiOffset ContentOffset { get => ScrollView.ContentTransform.Offset; set => ScrollView.ContentTransform.Offset = value; }
+    public Vector2 ContentPivot { get => ScrollView.ContentTransform.Pivot; set => ScrollView.ContentTransform.Pivot = value; }
     public ScrollbarComponent HorizontalScrollbar => ScrollView.HorizontalScrollbar;
     public ScrollbarComponent VerticalScrollbar => ScrollView.VerticalScrollbar;
 
@@ -45,7 +47,7 @@ public class UiScrollView : BaseUiComponent
         return this;
     }
 
-    public void UpdateContentTransform(in UiPosition? position = null, in UiOffset? offset = null) => ScrollView.UpdateContentTransform(position, offset);
+    public void UpdateContentTransform(in UiPosition? position = null, in UiOffset? offset = null, in Vector2? pivot = null) => ScrollView.UpdateContentTransform(position, offset, pivot);
 
     public (ScrollbarComponent horizontal, ScrollbarComponent vertical) AddScrollBars(bool invert = false, bool autoHide = false, string handleSprite = null, string trackSprite = null, float size = JsonDefaults.ScrollBar.Size,
         UiColor? handleColor = null, UiColor? highlightColor = null, UiColor? pressedColor = null, UiColor? trackColor = null)
@@ -104,6 +106,12 @@ public class UiScrollView : BaseUiComponent
     public UiScrollView SetContentOffset(in UiOffset offset)
     {
         ContentOffset = offset;
+        return this;
+    }
+    
+    public UiScrollView SetContentPivot(in Vector2 pivot)
+    {
+        ContentPivot = pivot;
         return this;
     }
 

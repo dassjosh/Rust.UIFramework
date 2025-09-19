@@ -19,6 +19,7 @@
     "anchormin": "0.1 0.2",
     "anchormax": "0.3 0.4",
     "offsetmin": "100 200",
-    "offsetmax": "300 400"
+    "offsetmax": "300 400",
+    "pivot": "0.1 0.2"
   }
 }

@@ -75,7 +75,7 @@ public static class ComponentHelpers
         scrollView.Inertia = true;
         scrollView.DecelerationRate = 200f;
         scrollView.ScrollSensitivity = 300f;
-        scrollView.UpdateContentTransform(new UiPosition(0.1f, 0.2f, 0.3f, 0.4f), new UiOffset(100, 200, 300, 400));
+        scrollView.UpdateContentTransform(new UiPosition(0.1f, 0.2f, 0.3f, 0.4f), new UiOffset(100, 200, 300, 400), new Vector2(0.1f, 0.2f));
     }
 
     public static void PopulatePlayingCard(PlayingCardComponent card)

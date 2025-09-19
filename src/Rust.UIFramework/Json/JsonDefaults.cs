@@ -17,6 +17,9 @@ public static class JsonDefaults
         public static readonly Utf8String ParentName = "parent";
         public static readonly Utf8String Update = "update";
         
+        public static readonly Utf8String ActiveName = "activeSelf";
+        public const bool Active = true;
+        
         public static readonly Utf8String FadeInName = "fadeIn";
         public const float FadeIn = 0;
         public static readonly Utf8String FadeOutName = "fadeOut";
@@ -191,6 +194,9 @@ public static class JsonDefaults
         public static readonly Vector2 Min = new(0, 0);
         public static readonly Vector2 AnchorMax = new(1, 1);
         public static readonly Vector2 OffsetMax = new(0, 0);
+        
+        public static readonly Utf8String PivotName = "pivot";
+        public static readonly Vector2 Pivot = new(0.5f, 0.5f);
     }
 
     public static class ScrollBar
