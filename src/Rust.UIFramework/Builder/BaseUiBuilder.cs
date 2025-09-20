@@ -6,7 +6,7 @@ using Oxide.Ext.UiFramework.Config;
 using Oxide.Ext.UiFramework.Controls;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Extensions;
-using Oxide.Ext.UiFramework.Interfaces.Builders;
+using Oxide.Ext.UiFramework.Interfaces;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Layouts;
 using Oxide.Ext.UiFramework.Types;
@@ -27,6 +27,7 @@ public abstract partial class BaseUiBuilder : BaseBuilder
     protected string Font;
     
     protected INamingStrategy Naming = Singleton<DefaultNamingStrategy>.Instance;
+    protected INamingCache NamingCache = Singleton<UiNamingCache>.Instance.Default;
     
     private static readonly string GlobalFont = UiFrameworkConfig.Instance.Font.DefaultFont;
         
@@ -104,6 +105,7 @@ public abstract partial class BaseUiBuilder : BaseBuilder
         base.EnterPool();
         FreeComponents();
         Naming = Singleton<DefaultNamingStrategy>.Instance;
+        NamingCache = Singleton<UiNamingCache>.Instance.Default;
     }
     
     protected override void LeavePool()

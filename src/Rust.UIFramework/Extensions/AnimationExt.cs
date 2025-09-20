@@ -1,7 +1,7 @@
 ﻿using Oxide.Ext.UiFramework.Animation;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Exceptions;
-using Oxide.Ext.UiFramework.Interfaces.Builders;
+using Oxide.Ext.UiFramework.Interfaces;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.UiElements;

@@ -1,5 +1,5 @@
 ﻿using Oxide.Ext.UiFramework.Colors;
-using Oxide.Ext.UiFramework.Interfaces.Builders;
+using Oxide.Ext.UiFramework.Interfaces;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Types;

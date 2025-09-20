@@ -33,7 +33,7 @@ public partial class BaseUiBuilder
         UiReferenceException.ThrowIfInvalidReference(reference);
         T component = PluginPool.Get<T>();
         Components.Add(component);
-        Naming.SetComponentName(component, reference, NamingMode, RootName, Components.Count);
+        Naming.SetComponentName(component, reference, NamingMode, NamingCache, Components.Count);
         return component.SetUpdate(UpdateMode);
     }
     
@@ -305,7 +305,7 @@ public partial class BaseUiBuilder
         UiReferenceException.ThrowIfInvalidReference(reference);
         UiSection section = PluginPool.Get<UiSection>();
         Anchors.Add(section);
-        Naming.SetAnchorName(section, reference, NamingMode, RootName, Components.Count);
+        Naming.SetAnchorName(section, reference, NamingMode, NamingCache, Components.Count);
         if (!string.IsNullOrEmpty(anchorName))
         {
             section.Name = anchorName;

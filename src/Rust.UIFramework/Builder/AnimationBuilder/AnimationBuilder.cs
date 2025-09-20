@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Network;
 using Oxide.Ext.UiFramework.Animation;
-using Oxide.Ext.UiFramework.Interfaces.Builders;
+using Oxide.Ext.UiFramework.Interfaces;
 using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Types;
 

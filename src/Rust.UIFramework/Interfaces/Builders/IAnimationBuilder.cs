@@ -2,7 +2,7 @@
 using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Pooling;
 
-namespace Oxide.Ext.UiFramework.Interfaces.Builders;
+namespace Oxide.Ext.UiFramework.Interfaces;
 
 public interface IAnimationBuilder : IPoolable
 {

@@ -3,7 +3,7 @@ using Network;
 using Oxide.Ext.UiFramework.Animation;
 using Oxide.Ext.UiFramework.Builder.Cached;
 using Oxide.Ext.UiFramework.Enums;
-using Oxide.Ext.UiFramework.Interfaces.Builders;
+using Oxide.Ext.UiFramework.Interfaces;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Plugins;
@@ -75,6 +75,7 @@ public partial class UiBuilder : BaseUiBuilder, IAnimationBuilder
         if (!string.IsNullOrEmpty(name))
         {
             RootName = name;
+            NamingCache = Singleton<UiNamingCache>.Instance.GetNamingCache(name);
             if (_actualRoot != null)
             {
                 _actualRoot.Name = name;
