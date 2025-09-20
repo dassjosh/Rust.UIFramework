@@ -91,35 +91,30 @@ public class UiButton : BaseUiComponent, IImageType<UiButton>, ISprite<UiButton>
     
     public UiButton SetHighlightedColor(UiColor color)
     {
-        Button.GetOrAddColorBlock();
-        ColorBlock.HighlightedColor = color;
+        Button.GetOrAddColorBlock().HighlightedColor = color;
         return this;
     }
     
     public UiButton SetPressedColor(UiColor color)
     {
-        Button.GetOrAddColorBlock();
-        ColorBlock.PressedColor = color;
+        Button.GetOrAddColorBlock().PressedColor = color;
         return this;
     }
     
     public UiButton SetSelectedColor(UiColor color)
     {
-        Button.GetOrAddColorBlock();
-        ColorBlock.SelectedColor = color;
+        Button.GetOrAddColorBlock().SelectedColor = color;
         return this;
     }    
     public UiButton SetColorMultiplier(float colorMultiplier)
     {
-        Button.GetOrAddColorBlock();
-        ColorBlock.ColorMultiplier = colorMultiplier;
+        Button.GetOrAddColorBlock().ColorMultiplier = colorMultiplier;
         return this;
     }
     
     public UiButton SetFadeDuration(float fadeDuration)
     {
-        Button.GetOrAddColorBlock();
-        ColorBlock.FadeDuration = fadeDuration;
+        Button.GetOrAddColorBlock().FadeDuration = fadeDuration;
         return this;
     }
     

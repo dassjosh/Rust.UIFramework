@@ -81,7 +81,7 @@ public abstract class CoreComponent : BaseTypedComponent, ICoreComponent
         int index = _subComponents.FindIndex(sc => sc is T);
         if (index != -1)
         {
-            _subComponents!.RemoveAt(index);
+            _subComponents.RemoveAt(index);
         }
     }
 
