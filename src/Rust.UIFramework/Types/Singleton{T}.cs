@@ -33,7 +33,7 @@ public static class Singleton<T> where T : ISingleton
         }
         catch(Exception ex)
         {
-            Interface.Oxide.LogException("", ex);
+            Interface.Oxide.LogException($"An error occured in Singleton<{typeof(T).GetRealTypeName()}>", ex);
             UiFrameworkExtension.GlobalLogger.Exception("An error occured in Singleton<{0}>", typeof(T).GetRealTypeName(), ex);
             throw;
         }
