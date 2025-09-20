@@ -12,7 +12,7 @@ internal class HashSetPool<T> : BasePool<HashSet<T>, HashSetPool<T>>
     protected override HashSet<T> CreateNew() => [];
 
     ///<inheritdoc/>
-    protected override bool OnFreeItem(ref HashSet<T> item)
+    protected override bool OnFreeItem(HashSet<T> item)
     {
         item.Clear();
         return true;

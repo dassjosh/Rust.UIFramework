@@ -12,7 +12,7 @@ internal class ListPool<T> : BasePool<List<T>, ListPool<T>>
     protected override List<T> CreateNew() => [];
 
     ///<inheritdoc/>
-    protected override bool OnFreeItem(ref List<T> item)
+    protected override bool OnFreeItem(List<T> item)
     {
         item.Clear();
         return true;

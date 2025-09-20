@@ -121,20 +121,14 @@ public abstract class BasePool<TPooled, TPool> : IPool<TPooled>
     /// Frees an item back to the pool
     /// </summary>
     /// <param name="item">Item being freed</param>
-    public void Free(TPooled item) => Free(ref item);
-
-    /// <summary>
-    /// Frees an item back to the pool
-    /// </summary>
-    /// <param name="item">Item being freed</param>
-    private void Free(ref TPooled item)
+    public void Free(TPooled item)
     {
         if (item == null)
         {
             return;
         }
 
-        if (!OnFreeItem(ref item))
+        if (!OnFreeItem(item))
         {
             return;
         }
@@ -146,8 +140,6 @@ public abstract class BasePool<TPooled, TPool> : IPool<TPooled>
                 _pool[--_index] = item;
             }
         }
-
-        item = null;
     }
 
     /// <summary>
@@ -161,7 +153,7 @@ public abstract class BasePool<TPooled, TPool> : IPool<TPooled>
     /// </summary>
     /// <param name="item">Item to be freed</param>
     /// <returns>True if can be freed; false otherwise</returns>
-    protected virtual bool OnFreeItem(ref TPooled item) => true;
+    protected virtual bool OnFreeItem(TPooled item) => true;
 
     public void OnPluginUnloaded(UiPluginPool pluginPool)
     {

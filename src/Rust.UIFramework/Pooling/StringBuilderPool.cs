@@ -11,7 +11,7 @@ internal class StringBuilderPool : BasePool<StringBuilder, StringBuilderPool>
     protected override StringBuilder CreateNew() => new();
 
     ///<inheritdoc/>
-    protected override bool OnFreeItem(ref StringBuilder item)
+    protected override bool OnFreeItem(StringBuilder item)
     {
         item.Length = 0;
         return true;

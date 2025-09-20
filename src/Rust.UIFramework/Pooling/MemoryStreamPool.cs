@@ -11,7 +11,7 @@ internal class MemoryStreamPool : BasePool<MemoryStream, MemoryStreamPool>
     protected override MemoryStream CreateNew() => new();
 
     ///<inheritdoc/>
-    protected override bool OnFreeItem(ref MemoryStream item)
+    protected override bool OnFreeItem(MemoryStream item)
     {
         item.SetLength(0);
         return true;

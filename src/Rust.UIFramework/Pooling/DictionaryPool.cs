@@ -8,7 +8,7 @@ internal class DictionaryPool<TKey, TValue> : BasePool<Dictionary<TKey, TValue>,
     protected override Dictionary<TKey, TValue> CreateNew() => [];
 
     ///<inheritdoc/>
-    protected override bool OnFreeItem(ref Dictionary<TKey, TValue> item)
+    protected override bool OnFreeItem(Dictionary<TKey, TValue> item)
     {
         item.Clear();
         return true;

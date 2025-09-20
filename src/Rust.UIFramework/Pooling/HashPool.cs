@@ -13,7 +13,7 @@ internal class HashPool<TKey, TValue> : BasePool<Hash<TKey, TValue>, HashPool<TK
     protected override Hash<TKey, TValue> CreateNew() => new();
 
     ///<inheritdoc/>
-    protected override bool OnFreeItem(ref Hash<TKey, TValue> item)
+    protected override bool OnFreeItem(Hash<TKey, TValue> item)
     {
         item.Clear();
         return true;

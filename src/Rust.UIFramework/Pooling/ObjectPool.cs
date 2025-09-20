@@ -15,7 +15,7 @@ internal class ObjectPool<T> : BasePool<BasePoolable, ObjectPool<T>> where T : B
         item.LeavePoolInternal();
     }
         
-    protected override bool OnFreeItem(ref BasePoolable item)
+    protected override bool OnFreeItem(BasePoolable item)
     {
         if (item.CanPool)
         {

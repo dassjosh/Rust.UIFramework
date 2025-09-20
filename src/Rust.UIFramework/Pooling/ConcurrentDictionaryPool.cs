@@ -8,7 +8,7 @@ internal class ConcurrentDictionaryPool<TKey, TValue> : BasePool<ConcurrentDicti
     protected override ConcurrentDictionary<TKey, TValue> CreateNew() => [];
 
     ///<inheritdoc/>
-    protected override bool OnFreeItem(ref ConcurrentDictionary<TKey, TValue> item)
+    protected override bool OnFreeItem(ConcurrentDictionary<TKey, TValue> item)
     {
         item.Clear();
         return true;
