@@ -14,6 +14,24 @@ public class OutlineComponent : SubComponent
     public override Utf8String Type => JsonDefaults.Outline.Type;
     public override bool AllowMultiple => true;
 
+    public OutlineComponent SetColor(UiColor color)
+    {
+        Color = color;
+        return this;
+    }
+    
+    public OutlineComponent SetDistance(Vector2 distance)
+    {
+        Distance = distance;
+        return this;
+    }
+    
+    public OutlineComponent SetUseGraphicAlpha(bool useGraphicAlpha)
+    {
+        UseGraphicAlpha = useGraphicAlpha;
+        return this;
+    }
+
     protected override void WriteComponentFields(JsonFrameworkWriter writer)
     {
         writer.AddField(JsonDefaults.Outline.DistanceName, Distance, JsonDefaults.Outline.FpDistance);

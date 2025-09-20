@@ -28,6 +28,8 @@ public class UiLabel : BaseUiText<UiLabel>
         return this;
     }
 
+    public CountdownComponent AddCountdown() => Text.AddSubComponent<CountdownComponent>();
+    
     public CountdownComponent AddCountdown(float startTime, float endTime, string command, 
         float step = JsonDefaults.Countdown.StepValue, 
         float interval = JsonDefaults.Countdown.IntervalValue, 
@@ -35,7 +37,7 @@ public class UiLabel : BaseUiText<UiLabel>
         string numberFormat = JsonDefaults.Countdown.NumberFormatValue, 
         bool destroyIfDone = JsonDefaults.Countdown.DestroyIfDone)
     {
-        CountdownComponent countdown = Text.AddSubComponent<CountdownComponent>();
+        CountdownComponent countdown = AddCountdown();
         countdown.StartTime = startTime;
         countdown.EndTime = endTime;
         countdown.Step = step;

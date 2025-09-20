@@ -76,9 +76,11 @@ public abstract class BaseUiComponent(CoreComponent component) : BasePoolable
         writer.WriteEndObject();
     }
     
+    public OutlineComponent AddOutline() => _component.AddSubComponent<OutlineComponent>();
+    
     public OutlineComponent AddOutline(UiColor color, Vector2? distance = null, bool useGraphicAlpha = false)
     {
-        OutlineComponent outline = _component.AddSubComponent<OutlineComponent>();
+        OutlineComponent outline = AddOutline();
         outline.Color = color;
         outline.Distance = distance ?? JsonDefaults.Outline.Distance;
         outline.UseGraphicAlpha = useGraphicAlpha;
@@ -88,7 +90,8 @@ public abstract class BaseUiComponent(CoreComponent component) : BasePoolable
     [Obsolete("Use AddOutline instead")]
     public OutlineComponent AddElementOutline(UiColor color, Vector2? distance = null, bool useGraphicAlpha = false) => AddOutline(color, distance, useGraphicAlpha);
     
-    [Obsolete("This component is not currently supported in the Client. This will not work until the changes are merged in.")]
+    public DraggableComponent AddDraggable() => _component.AddSubComponent<DraggableComponent>();
+    
     public DraggableComponent AddDraggable(bool limitToParent = JsonDefaults.Draggable.LimitToParent,
         float maxDistance = JsonDefaults.Draggable.MaxDistance,
         bool allowSwapping = JsonDefaults.Draggable.AllowSwapping,
@@ -103,7 +106,7 @@ public abstract class BaseUiComponent(CoreComponent component) : BasePoolable
         bool moveToAnchor = JsonDefaults.Draggable.MoveToAnchor,
         bool rebuildAnchor = JsonDefaults.Draggable.RebuildAnchor)
     {
-        DraggableComponent draggable = _component.AddSubComponent<DraggableComponent>();
+        DraggableComponent draggable = AddDraggable();
         draggable.LimitToParent = limitToParent;
         draggable.MaxDistance = maxDistance;
         draggable.AllowSwapping = allowSwapping;
@@ -120,7 +123,6 @@ public abstract class BaseUiComponent(CoreComponent component) : BasePoolable
         return draggable;
     }
     
-    [Obsolete("This component is not currently supported in the Client. This will not work until the changes are merged in.")]
     public SlotComponent AddSlot(string filter = null)
     {
         SlotComponent slot = _component.AddSubComponent<SlotComponent>();

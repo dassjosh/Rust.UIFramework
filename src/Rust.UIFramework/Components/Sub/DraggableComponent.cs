@@ -24,6 +24,84 @@ public class DraggableComponent : SubComponent
     public override Utf8String Type => JsonDefaults.Draggable.Type;
     public override bool AllowMultiple => false;
 
+    public DraggableComponent SetLimitToParent(bool limitToParent)
+    {
+        LimitToParent = limitToParent;
+        return this;
+    }
+    
+    public DraggableComponent SetMaxDistance(float maxDistance)
+    {
+        MaxDistance = maxDistance;
+        return this;
+    }
+    
+    public DraggableComponent SetAllowSwapping(bool allowSwapping)
+    {
+        AllowSwapping = allowSwapping;
+        return this;
+    }
+
+    public DraggableComponent SetDropAnywhere(bool dropAnywhere)
+    {
+        DropAnywhere = dropAnywhere;
+        return this;
+    }
+
+    public DraggableComponent SetDragAlpha(float dragAlpha)
+    {
+        DragAlpha = dragAlpha;
+        return this;
+    }
+
+    public DraggableComponent SetParentLimitIndex(int parentLimitIndex)
+    {
+        ParentLimitIndex = parentLimitIndex;
+        return this;
+    }
+
+    public DraggableComponent SetFilter(string filter)
+    {
+        Filter = filter;
+        return this;
+    }
+
+    public DraggableComponent SetParentPadding(Vector2 parentPadding)
+    {
+        ParentPadding = parentPadding;
+        return this;
+    }
+
+    public DraggableComponent SetAnchorOffset(Vector2 anchorOffset)
+    {
+        AnchorOffset = anchorOffset;
+        return this;
+    }
+
+    public DraggableComponent SetKeepOnTop(bool keepOnTop)
+    {
+        KeepOnTop = keepOnTop;
+        return this;
+    }
+    
+    public DraggableComponent SetPositionRpc(DraggablePositionSendType positionRpc)
+    {
+        PositionRpc = positionRpc;
+        return this;
+    }
+    
+    public DraggableComponent SetMoveToAnchor(bool moveToAnchor)
+    {
+        MoveToAnchor = moveToAnchor;
+        return this;
+    }
+    
+    public DraggableComponent SetRebuildAnchor(bool rebuildAnchor)
+    {
+        RebuildAnchor = rebuildAnchor;
+        return this;
+    }
+
     protected override void WriteComponentFields(JsonFrameworkWriter writer)
     {
         writer.AddField(JsonDefaults.Draggable.LimitToParentName, LimitToParent, JsonDefaults.Draggable.LimitToParent);

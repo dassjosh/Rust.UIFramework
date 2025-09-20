@@ -60,7 +60,7 @@ public static class ListExt
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static T[] GetInternalArrayUnsafe<T>(this List<T> list)
+    private static T[] GetInternalArrayUnsafe<T>(this List<T> list)
     {
         return list.GetPrivateFieldsUnsafe()._items;
     }

@@ -11,6 +11,8 @@ namespace Oxide.Ext.UiFramework.Builder;
 public abstract partial class BaseUiBuilder
 {
     #region Outline
+    public OutlineComponent Outline(BaseUiComponent component) => component.AddOutline();
+    
     public OutlineComponent Outline(BaseUiComponent component, UiColor color, Vector2? distance = null, bool useGraphicAlpha = false)
     {
        return component.AddOutline(color, distance, useGraphicAlpha);
@@ -18,6 +20,8 @@ public abstract partial class BaseUiBuilder
     #endregion
     
     #region Countdown
+    public CountdownComponent Countdown(UiLabel component) => component.AddCountdown();
+    
     public CountdownComponent Countdown(UiLabel label, float startTime, float endTime, string command, 
         float step = JsonDefaults.Countdown.StepValue, 
         float interval = JsonDefaults.Countdown.IntervalValue, 
@@ -30,7 +34,8 @@ public abstract partial class BaseUiBuilder
     #endregion
     
     #region Draggable
-    [Obsolete("This component is not currently supported in the Client. This will not work until the changes are merged in.")]
+    public DraggableComponent Draggable(BaseUiComponent component) => component.AddDraggable();
+    
     public DraggableComponent Draggable(BaseUiComponent component,
         bool limitToParent = JsonDefaults.Draggable.LimitToParent,
         float maxDistance = JsonDefaults.Draggable.MaxDistance,
@@ -52,7 +57,6 @@ public abstract partial class BaseUiBuilder
     #endregion
 
     #region Slot
-    [Obsolete("This component is not currently supported in the Client. This will not work until the changes are merged in.")]
     public SlotComponent Slot(BaseUiComponent component, string filter = null)
     {
         return component.AddSlot(filter);

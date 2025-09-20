@@ -18,6 +18,54 @@ public class CountdownComponent : SubComponent
     public override Utf8String Type => JsonDefaults.Countdown.Type;
     public override bool AllowMultiple => false;
 
+    public CountdownComponent SetStartTime(float startTime)
+    {
+        StartTime = startTime;
+        return this;
+    }
+
+    public CountdownComponent SetEndTime(float endTime)
+    {
+        EndTime = endTime;
+        return this;
+    }
+
+    public CountdownComponent SetStep(float step)
+    {
+        Step = step;
+        return this;
+    }
+
+    public CountdownComponent SetInterval(float interval)
+    {
+        Interval = interval;
+        return this;
+    }
+
+    public CountdownComponent SetTimerFormat(TimerFormat timerFormat)
+    {
+        TimerFormat = timerFormat;
+        return this;
+    }
+
+    public CountdownComponent SetNumberFormat(string numberFormat)
+    {
+        NumberFormat = numberFormat;
+        return this;
+    }
+
+    public CountdownComponent SetDestroyIfDone(bool destroyIfDone)
+    {
+        DestroyIfDone = destroyIfDone;
+        return this;
+    }
+    
+    public CountdownComponent SetCommand(string command)
+    {
+        Command = command;
+        return this;
+    }
+
     protected override void WriteComponentFields(JsonFrameworkWriter writer)
     {
         writer.AddField(JsonDefaults.Countdown.StartTimeName, StartTime, JsonDefaults.Countdown.StartTimeValue);
