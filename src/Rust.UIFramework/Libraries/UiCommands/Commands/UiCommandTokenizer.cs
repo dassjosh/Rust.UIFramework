@@ -6,14 +6,6 @@ namespace Oxide.Ext.UiFramework.Libraries;
 internal ref struct UiCommandTokenizer(string str)
 {
     private ReadOnlySpan<char> _remaining = str;
-
-    public void SkipNext(int amount = 1)
-    {
-        for (int i = 0; i < amount; i++)
-        {
-            GetNext();
-        }
-    }
     
     public ReadOnlySpan<char> GetNext()
     {
@@ -44,20 +36,6 @@ internal ref struct UiCommandTokenizer(string str)
 
         _remaining = remaining[Math.Min(remaining.Length, index + 1)..];
         return remaining[..index];
-    }
-    
-    public ReadOnlySpan<char> GetLast()
-    {
-        ReadOnlySpan<char> remaining = _remaining;
-        if (remaining.Length == 0) throw new FailedToParseArgumentException();
-
-        int index = remaining.LastIndexOf(' ');
-        if (index != -1)
-        {
-            _remaining = remaining[..index];
-        }
-        
-        return remaining[(index + 1)..];
     }
 
     public ReadOnlySpan<char> ReadToEnd()

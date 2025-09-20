@@ -175,6 +175,7 @@ public class UiCommands : BaseUiFrameworkLibrary, ISingleton
 
     internal void OnCommandReceived(BasePlayer player, UiCommandTokenizer tokenizer)
     {
+        tokenizer.GetNext(); // Skip UiCommandName
         CommandId commandId = new(uint.Parse(tokenizer.GetNext()));
         _commands[commandId]?.RunCommand(player, tokenizer);
     }

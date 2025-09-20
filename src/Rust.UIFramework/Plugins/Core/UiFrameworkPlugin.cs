@@ -63,12 +63,14 @@ internal class UiFrameworkPlugin : BaseUiFrameworkPlugin
         BaseMemoryCache.ExpireCaches();
     }
     
+    // ReSharper disable once UnusedMember.Local
     [HookMethod(nameof(OnPluginLoaded))]
     private void OnPluginLoaded(Plugin plugin)
     {
         BaseUiFrameworkLibrary.ProcessOnPluginLoaded(plugin);
     }
 
+    // ReSharper disable once UnusedMember.Local
     [HookMethod(nameof(OnPluginUnloaded))]
     private void OnPluginUnloaded(Plugin plugin)
     {
@@ -80,6 +82,7 @@ internal class UiFrameworkPlugin : BaseUiFrameworkPlugin
         }
     }
     
+    // ReSharper disable once UnusedMember.Local
     [HookMethod(nameof(OnServerShutdown))]
     private void OnServerShutdown()
     {
@@ -87,6 +90,7 @@ internal class UiFrameworkPlugin : BaseUiFrameworkPlugin
     }
     
     #region Hooks
+    // ReSharper disable once UnusedMember.Local
     [HookMethod(nameof(OnEntitySpawned))]
     private void OnEntitySpawned(CommunityEntity entity)
     {
@@ -95,12 +99,14 @@ internal class UiFrameworkPlugin : BaseUiFrameworkPlugin
         Unsubscribe(nameof(OnEntitySpawned));
     }
     
+    // ReSharper disable once UnusedMember.Local
     [HookMethod(nameof(OnPlayerConnected))]
     private void OnPlayerConnected(BasePlayer player)
     {
         BaseUiFrameworkLibrary.ProcessOnPlayerConnected(player);
     }
     
+    // ReSharper disable once UnusedMember.Local
     [HookMethod(nameof(OnPlayerDisconnected))]
     private void OnPlayerDisconnected(BasePlayer player)
     {
@@ -108,6 +114,7 @@ internal class UiFrameworkPlugin : BaseUiFrameworkPlugin
         Singleton<AnimationHandler>.Instance.OnPlayerDisconnected(player.userID.Get());
     }
     
+    // ReSharper disable once UnusedMember.Local
     [HookMethod(nameof(OnClientCommand))]
     private object OnClientCommand(Connection connection, string command)
     {
@@ -116,9 +123,7 @@ internal class UiFrameworkPlugin : BaseUiFrameworkPlugin
         {
             try
             {
-                UiCommandTokenizer tokenizer = new(command);
-                tokenizer.GetNext(); // UiCommandName
-                Singleton<UiCommands>.Instance.OnCommandReceived(player, tokenizer);
+                Singleton<UiCommands>.Instance.OnCommandReceived(player, new UiCommandTokenizer(command));
                 return _true;
             }
             catch (Exception ex)
