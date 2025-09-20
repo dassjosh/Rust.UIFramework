@@ -83,7 +83,7 @@ public static class ListExt
         return list.GetInternalArrayUnsafe().AsSpan(0, list.Count);
     }
     
-    private class PrivateList<T>
+    private sealed class PrivateList<T>
     {
         internal T[] _items;
         internal int _size;

@@ -65,14 +65,6 @@ public partial class UiBuilder : BaseUiBuilder, IAnimationBuilder
         _actualRoot.Update = enabled ? UpdateMode.AutoDestroy : UpdateMode.None;
         return this;
     }
-    
-    public UiBuilder SetNamingStrategy(INamingStrategy naming)
-    {
-        Naming = naming;
-        return this;
-    }
-    
-    public UiBuilder UseDefaultNamingStrategy() => SetNamingStrategy(Singleton<DefaultNamingStrategy>.Instance);
 
     public BaseUiComponent GetActualRoot() => _actualRoot;
     #endregion
@@ -134,11 +126,13 @@ public partial class UiBuilder : BaseUiBuilder, IAnimationBuilder
         return this;
     }
 
-    public UiBuilder SetCustomNaming(INamingStrategy naming)
+    public UiBuilder SetNamingStrategy(INamingStrategy naming)
     {
         Naming = naming;
         return this;
     }
+    
+    public UiBuilder UseDefaultNamingStrategy() => SetNamingStrategy(Singleton<DefaultNamingStrategy>.Instance);
 
     public UiBuilder SwitchToDefaultMode(string uiRootName = null) => SwitchTo(UpdateMode.None, NamingMode.Child).SetName(uiRootName);
     public UiBuilder SwitchToUpdateExistingMode() => SwitchTo(UpdateMode.Update, NamingMode.Reference);
