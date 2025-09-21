@@ -39,6 +39,7 @@ public partial class UiBuilder : BaseUiBuilder, IAnimationBuilder
         Root = _actualRoot = element.SetUpdate(UpdateMode.AutoDestroy).SetReference(new UiReference(parent, name));
         Components.Add(element);
         RootName = name;
+        SetNamingCache(name);
         return this;
     }
 
@@ -75,7 +76,7 @@ public partial class UiBuilder : BaseUiBuilder, IAnimationBuilder
         if (!string.IsNullOrEmpty(name))
         {
             RootName = name;
-            NamingCache = Singleton<UiNamingCache>.Instance.GetNamingCache(name);
+            SetNamingCache(name);
             if (_actualRoot != null)
             {
                 _actualRoot.Name = name;
@@ -100,6 +101,18 @@ public partial class UiBuilder : BaseUiBuilder, IAnimationBuilder
     public UiBuilder SetReference(in UiReference reference)
     {
         _actualRoot.Reference = reference;
+        return this;
+    }
+    
+    public UiBuilder SetNamingCache(string name)
+    {
+        SetNamingCache(Singleton<UiNamingCache>.Instance.GetNamingCache(name));
+        return this;
+    }
+
+    public UiBuilder SetNamingCache(INamingCache cache)
+    {
+        NamingCache = cache;
         return this;
     }
     

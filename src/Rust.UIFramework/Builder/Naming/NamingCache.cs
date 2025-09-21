@@ -10,7 +10,7 @@ public class NamingCache(string baseName) : INamingCache
     private readonly List<string> _anchors = [];
 
     private readonly string _baseName = $"{baseName}_";
-    private readonly string _anchorBaseName = $"{baseName}_anchor_";
+    private readonly string _anchorBaseName = $"{baseName}_@_";
     
     private readonly object _lock = new();
 
