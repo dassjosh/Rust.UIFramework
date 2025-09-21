@@ -5,7 +5,7 @@ using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Animation;
 
-public delegate string TextFormatter(string text);
+public delegate string TextFormatter(float progress, string text);
 
 public class TextAnimation : SimpleAnimation<string>
 {
@@ -23,11 +23,11 @@ public class TextAnimation : SimpleAnimation<string>
         return this;
     }
     
-    protected override void WriteAnimation(JsonFrameworkWriter writer, string value)
+    protected override void WriteAnimation(JsonFrameworkWriter writer, string value, float progress)
     {
         if (_formatter != null)
         {
-            value = _formatter(value);
+            value = _formatter(progress, value);
         }
         
         writer.WriteStartObject();

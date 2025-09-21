@@ -14,7 +14,7 @@ public class OffsetAnimation : SimpleAnimation<UiOffset>
         return animation;
     }
     
-    protected override void WriteAnimation(JsonFrameworkWriter writer, UiOffset value)
+    protected override void WriteAnimation(JsonFrameworkWriter writer, UiOffset value, float progress)
     {
         writer.WriteStartObject();
         writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, JsonDefaults.Common.RectTransformName);

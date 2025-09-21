@@ -32,12 +32,12 @@ public abstract class SimpleAnimation<T> : BaseAnimation
         writer.WritePropertyName(JsonDefaults.Common.ComponentsName);
         writer.WriteStartArray();
         float progress = Progressor?.GetProgress(Mathf.Clamp01(elapsedPercentage)) ?? elapsedPercentage;
-        WriteAnimation(writer, Animator.Get(progress));
+        WriteAnimation(writer, Animator.Get(progress), progress);
         writer.WriteEndArray();
         writer.WriteEndObject();
     }
     
-    protected abstract void WriteAnimation(JsonFrameworkWriter writer, T value);
+    protected abstract void WriteAnimation(JsonFrameworkWriter writer, T value, float progress);
 
     protected override void EnterPool()
     {

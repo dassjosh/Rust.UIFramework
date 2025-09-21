@@ -20,7 +20,7 @@ public class ColorAnimation : SimpleAnimation<UiColor>
         return this;
     }
     
-    protected override void WriteAnimation(JsonFrameworkWriter writer, UiColor value)
+    protected override void WriteAnimation(JsonFrameworkWriter writer, UiColor value, float progress)
     {
         writer.WriteStartObject();
         writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, _elementType);

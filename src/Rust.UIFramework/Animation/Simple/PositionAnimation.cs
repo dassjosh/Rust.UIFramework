@@ -14,7 +14,7 @@ public class PositionAnimation : SimpleAnimation<UiPosition>
         return animation;
     }
     
-    protected override void WriteAnimation(JsonFrameworkWriter writer, UiPosition value)
+    protected override void WriteAnimation(JsonFrameworkWriter writer, UiPosition value, float progress)
     {
         writer.WriteStartObject();
         writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, JsonDefaults.Common.RectTransformName);
