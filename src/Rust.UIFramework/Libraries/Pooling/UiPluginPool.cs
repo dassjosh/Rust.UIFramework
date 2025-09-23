@@ -6,6 +6,7 @@ using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Logging;
 using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Pooling;
+using Oxide.Ext.UiFramework.Types;
 using Oxide.Plugins;
 
 namespace Oxide.Ext.UiFramework.Libraries;
@@ -70,6 +71,20 @@ public class UiPluginPool : IDebugLoggable
     /// <param name="list">List to be freed</param>
     /// <typeparam name="T">Type of the list</typeparam>
     public void FreeList<T>(List<T> list) => ListPool<T>.ForPlugin(this).Free(list);
+    
+    /// <summary>
+    /// Returns a pooled <see cref="ConcurrentList{T}"/>
+    /// </summary>
+    /// <typeparam name="T">Type for the list</typeparam>
+    /// <returns>Pooled List</returns>
+    public ConcurrentList<T> GetConcurrentList<T>() => ConcurrentListPool<T>.ForPlugin(this).Get();
+
+    /// <summary>
+    /// Free's a pooled <see cref="ConcurrentList{T}"/>
+    /// </summary>
+    /// <param name="list">List to be freed</param>
+    /// <typeparam name="T">Type of the list</typeparam>
+    public void FreeConcurrentList<T>(ConcurrentList<T> list) => ConcurrentListPool<T>.ForPlugin(this).Free(list);
     
     /// <summary>
     /// Returns a pooled <see cref="HashSet{T}"/>
