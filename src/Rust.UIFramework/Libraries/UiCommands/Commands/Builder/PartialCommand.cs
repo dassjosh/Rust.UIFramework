@@ -10,8 +10,8 @@ public static class PartialCommand
 {
     private static readonly Dictionary<WriterKey, IArgWriter[]> TypedWriters = new();
 
-    internal static ICommandBuilder<T> Create<T>(string command) => Create<T>(UiFrameworkPlugin.Instance.Id(), command);
-    internal static ICommandBuilder<T0, T1> Create<T0, T1>(string command) => Create<T0, T1>(UiFrameworkPlugin.Instance.Id(), command);
+    internal static ICommandBuilder<T> Create<T>(string command) => Create<T>(UiFrameworkPlugin.Instance.PluginId, command);
+    internal static ICommandBuilder<T0, T1> Create<T0, T1>(string command) => Create<T0, T1>(UiFrameworkPlugin.Instance.PluginId, command);
 
     public static ICommandBuilder<T> Create<T>(Plugin plugin, string command) => Create<T>(plugin.Id(), command);
     public static ICommandBuilder<T0, T1> Create<T0, T1>(Plugin plugin, string command)=> Create<T0, T1>(plugin.Id(), command);

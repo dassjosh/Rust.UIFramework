@@ -123,6 +123,7 @@ public class UiCommands : BaseUiFrameworkLibrary, ISingleton
             throw new DuplicateUiCommandRegistrationException(pluginId, method);
         }
 
+        options ??= CommandOptions.Default;
         cooldown = CreateCooldown(pluginId, method, options);
         permission = CreatePermission(pluginId, method, options);
         protection = CreateProtection(pluginId, method, options);
