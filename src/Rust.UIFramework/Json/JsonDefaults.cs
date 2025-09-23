@@ -1,6 +1,7 @@
 ﻿using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Offsets;
+using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.Types;
 using UnityEngine;
 using UnityEngine.UI;
@@ -32,22 +33,24 @@ public static class JsonDefaults
         public static readonly Utf8String AutoDestroy = "destroyUi";
         public static readonly Utf8String CommandName = "command";
         public static readonly Utf8String EnabledName = "enabled";
-        public static readonly Vector2 Min = new(0, 0);
-        public static readonly Vector2 Max = new(1, 1);
         public static readonly UiOffset TextPadding = new(2, 0, -2, 0);
         public static readonly UiOffset Padding = new(2, 2, -2, -2);
     }
-        
-    public static class Position
+
+    public static class RectTransform
     {
         public static readonly Utf8String AnchorMinName = "anchormin";
+        public static readonly Vector2 AnchorMin = new(0, 0);
         public static readonly Utf8String AnchorMaxName = "anchormax";
-    }
-
-    public static class Offset
-    {
+        public static readonly Vector2 AnchorMax = new(1, 1);
+        
         public static readonly Utf8String OffsetMinName = "offsetmin";
+        public static readonly Vector2 OffsetMin = new(0, 0);
         public static readonly Utf8String OffsetMaxName = "offsetmax";
+        public static readonly Vector2 OffsetMax = new(1, 1);
+        
+        public static readonly Utf8String RotationName = "rotation";
+        public const float Rotation = 0;
     }
 
     public static class Color
@@ -191,8 +194,6 @@ public static class JsonDefaults
         public static readonly Utf8String VerticalScrollbar = "verticalScrollbar";
         public static readonly Utf8String ContentTransform = "contentTransform";
         
-        public static readonly Vector2 Min = new(0, 0);
-        public static readonly Vector2 AnchorMax = new(1, 1);
         public static readonly Vector2 OffsetMax = new(0, 0);
         
         public static readonly Utf8String PivotName = "pivot";

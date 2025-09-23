@@ -22,6 +22,12 @@ public abstract class CoreComponent : BaseTypedComponent, ICoreComponent
         }
     }
 
+    public T GetOrAddSubComponent<T>() where T : SubComponent, new()
+    {
+        _subComponents ??= PluginPool.GetList<SubComponent>();
+        return GetSubComponent<T>() ?? AddSubComponentInternal<T>();
+    }
+
     public T AddSubComponent<T>(bool ignoreIfExists = false) where T : SubComponent, new()
     {
         _subComponents ??= PluginPool.GetList<SubComponent>();
@@ -38,6 +44,11 @@ public abstract class CoreComponent : BaseTypedComponent, ICoreComponent
             }
         }
         
+        return AddSubComponentInternal<T>();
+    }
+
+    private T AddSubComponentInternal<T>() where T : SubComponent, new()
+    {
         T subComponent = PluginPool.Get<T>();
         _subComponents.Add(subComponent);
         return subComponent;

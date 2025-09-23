@@ -18,8 +18,8 @@ public class OffsetAnimation : SimpleAnimation<UiOffset>
     {
         writer.WriteStartObject();
         writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, JsonDefaults.Common.RectTransformName);
-        writer.AddFieldRaw(JsonDefaults.Offset.OffsetMinName, value.Min);
-        writer.AddFieldRaw(JsonDefaults.Offset.OffsetMaxName, value.Max);
+        writer.AddFieldRaw(JsonDefaults.RectTransform.OffsetMinName, value.Min);
+        writer.AddFieldRaw(JsonDefaults.RectTransform.OffsetMaxName, value.Max);
         writer.WriteEndObject();
     }
 }

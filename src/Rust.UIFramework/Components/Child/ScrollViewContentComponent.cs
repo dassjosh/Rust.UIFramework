@@ -32,10 +32,10 @@ public class ScrollViewContentComponent : ChildComponent
     public override void WriteComponent(JsonFrameworkWriter writer)
     {
         writer.WriteStartObject();
-        writer.AddField(JsonDefaults.Position.AnchorMinName, Position.Min, JsonDefaults.ScrollView.Min);
-        writer.AddField(JsonDefaults.Position.AnchorMaxName, Position.Max, JsonDefaults.ScrollView.AnchorMax);
-        writer.AddField(JsonDefaults.Offset.OffsetMinName, Offset.Min, JsonDefaults.ScrollView.Min);
-        writer.AddField(JsonDefaults.Offset.OffsetMaxName, Offset.Max, JsonDefaults.ScrollView.OffsetMax);
+        writer.AddField(JsonDefaults.RectTransform.AnchorMinName, Position.Min, JsonDefaults.RectTransform.AnchorMin);
+        writer.AddField(JsonDefaults.RectTransform.AnchorMaxName, Position.Max, JsonDefaults.RectTransform.AnchorMax);
+        writer.AddField(JsonDefaults.RectTransform.OffsetMinName, Offset.Min, JsonDefaults.RectTransform.OffsetMin);
+        writer.AddField(JsonDefaults.RectTransform.OffsetMaxName, Offset.Max, JsonDefaults.ScrollView.OffsetMax);
         writer.AddField(JsonDefaults.ScrollView.PivotName, Pivot, JsonDefaults.ScrollView.Pivot);
         writer.WriteEndObject();
     }

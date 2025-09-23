@@ -51,7 +51,6 @@ public partial class BaseUiBuilder
     public UiSection Section(in UiReference parent) => Component<UiSection>(parent);
     public UiSection Section(in UiReference parent, in UiPosition pos, in UiOffset offset = default) => Section(parent).SetPosition(pos, offset);
     public UiSection Section(BaseUiLayout layout) => Component<UiSection>(layout);
-    public UiSection Padding(in UiReference parent, in UiPosition pos, in UiPadding padding = default) => Section(parent, pos, padding);
     #endregion
         
     #region Panel

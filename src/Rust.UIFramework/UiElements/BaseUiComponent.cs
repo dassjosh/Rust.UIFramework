@@ -6,8 +6,10 @@ using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Offsets;
+using Oxide.Ext.UiFramework.Padding;
 using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Positions;
+using Oxide.Ext.UiFramework.Rotation;
 using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.UiElements;
@@ -16,8 +18,6 @@ public abstract class BaseUiComponent(CoreComponent component) : BasePoolable
 {
     public UiReference Reference;
     public float FadeOut;
-    public UiPosition Position = UiPosition.Full;
-    public UiOffset Offset;
     public UpdateMode Update;
     public bool Active = true;
     private readonly CoreComponent _component = component;
@@ -25,6 +25,13 @@ public abstract class BaseUiComponent(CoreComponent component) : BasePoolable
     public string Name { get => Reference.Name; set => Reference = Reference.WithName(value); }
     public string Parent { get => Reference.Parent; set => Reference = Reference.WithParent(value); }
     public bool Enabled { get => _component.Enabled; set => _component.Enabled = value; }
+    public UiPosition Position { get => RectTransform.Position; set => RectTransform.Position = value; }
+    public UiOffset Offset { get => RectTransform.Offset; set => RectTransform.Offset = value; }
+    public UiRotation Rotation { get => RectTransform.Rotation; set => RectTransform.Rotation = value; }
+    public UiPadding Padding { get => RectTransform.Padding; set => RectTransform.Padding = value; }
+
+    private RectTransformComponent _rectTransform;
+    public RectTransformComponent RectTransform => _rectTransform ??= _component.GetOrAddSubComponent<RectTransformComponent>();
 
     [Obsolete]
     public static T CreateBase<T>() where T : BaseUiComponent, new() => UiFrameworkPool.Get<T>();
@@ -61,19 +68,6 @@ public abstract class BaseUiComponent(CoreComponent component) : BasePoolable
     {
         _component.WriteComponent(writer);
         _component.WriteSubComponents(writer);        
-        WriteTransform(writer);
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private void WriteTransform(JsonFrameworkWriter writer)
-    {
-        writer.WriteStartObject();
-        writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, JsonDefaults.Common.RectTransformName);
-        writer.AddField(JsonDefaults.Position.AnchorMinName, Position.Min, JsonDefaults.Common.Min);
-        writer.AddField(JsonDefaults.Position.AnchorMaxName, Position.Max, JsonDefaults.Common.Max);
-        writer.AddField(JsonDefaults.Offset.OffsetMinName, Offset.Min, JsonDefaults.Common.Min);
-        writer.AddField(JsonDefaults.Offset.OffsetMaxName, Offset.Max, JsonDefaults.Common.Max);
-        writer.WriteEndObject();
     }
     
     public OutlineComponent AddOutline() => _component.AddSubComponent<OutlineComponent>();

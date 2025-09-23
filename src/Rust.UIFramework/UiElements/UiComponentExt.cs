@@ -1,7 +1,9 @@
 ﻿using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Offsets;
+using Oxide.Ext.UiFramework.Padding;
 using Oxide.Ext.UiFramework.Positions;
+using Oxide.Ext.UiFramework.Rotation;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
@@ -43,6 +45,18 @@ public static class UiComponentExt
     public static T SetOffset<T>(this T component, in UiOffset offset) where T : BaseUiComponent
     {
         component.Offset = offset;
+        return component;
+    }
+    
+    public static T SetRotation<T>(this T component, UiRotation rotation) where T : BaseUiComponent
+    {
+        component.Rotation = rotation;
+        return component;
+    }
+    
+    public static T SetPadding<T>(this T component, in UiPadding padding) where T : BaseUiComponent
+    {
+        component.Padding = padding;
         return component;
     }
     
