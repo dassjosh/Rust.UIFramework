@@ -33,6 +33,8 @@ public static class JsonDefaults
         public static readonly Utf8String AutoDestroy = "destroyUi";
         public static readonly Utf8String CommandName = "command";
         public static readonly Utf8String EnabledName = "enabled";
+        public static readonly Utf8String PlaceholderInputId = "placeholderParentId";
+        
         public static readonly UiOffset TextPadding = new(2, 0, -2, 0);
         public static readonly UiOffset Padding = new(2, 2, -2, -2);
     }
@@ -139,6 +141,7 @@ public static class JsonDefaults
         public static readonly Utf8String NeedsKeyboardName = "needsKeyboard";
         public static readonly Utf8String NeedsHudKeyboardName = "hudMenuInput";
         public static readonly Utf8String AutoFocusName = "autofocus";
+        public static readonly Utf8String PlaceholderName = "placeholderId";
         public const InputMode Mode = InputMode.Default;
     }
         

@@ -12,6 +12,7 @@ public class UiRawImage : BaseUiComponent, IMaterial<UiRawImage>, IFadeIn<UiRawI
     public float FadeIn { get => RawImage.FadeIn; set => RawImage.FadeIn = value; }
     public UiColor Color { get => RawImage.Color; set => RawImage.Color = value; }
     public string Image { get => RawImage.Image; set => RawImage.Image = value; }
+    public UiReference PlaceholderFor { get => RawImage.PlaceholderFor; set => RawImage.PlaceholderFor = value; }
     
     public UiRawImage() : this(new RawImageComponent()) { }
 
@@ -50,4 +51,12 @@ public class UiRawImage : BaseUiComponent, IMaterial<UiRawImage>, IFadeIn<UiRawI
         FadeIn = duration;
         return this;
     }
+    
+    public UiRawImage SetPlaceholderFor(in UiReference placeholder)
+    {
+        PlaceholderFor = placeholder;
+        return this;
+    }
+
+    public UiRawImage SetPlaceholderFor(UiInput input) => SetPlaceholderFor(input.Reference);
 }

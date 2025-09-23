@@ -3,6 +3,7 @@ using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Logging;
 using Oxide.Ext.UiFramework.Types;
+using Oxide.Ext.UiFramework.UiElements;
 
 namespace Oxide.Ext.UiFramework.Components;
 
@@ -12,6 +13,7 @@ public class RawImageComponent : CoreComponent
     public float FadeIn;
     public string Image;
     public string Material;
+    public UiReference PlaceholderFor;
     
     [Obsolete("Please use Image instead")]
     public string Url { get => Image; set => Image = value; }
@@ -27,6 +29,11 @@ public class RawImageComponent : CoreComponent
         writer.AddField(JsonDefaults.BaseImage.MaterialName, Material, JsonDefaults.BaseImage.Material);
         writer.AddField(JsonDefaults.Common.FadeInName, FadeIn, JsonDefaults.Common.FadeIn);
         writer.AddField(JsonDefaults.Color.ColorName, Color);
+        
+        if (PlaceholderFor.IsValidReference())
+        {
+            writer.AddFieldRaw(JsonDefaults.Common.PlaceholderInputId, PlaceholderFor.Name);
+        }
         
         if (!string.IsNullOrEmpty(Image))
         {
@@ -56,5 +63,6 @@ public class RawImageComponent : CoreComponent
         FadeIn = 0;
         Image = null;
         Material = null;
+        PlaceholderFor = default;
     }
 }

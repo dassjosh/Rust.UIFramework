@@ -1,6 +1,8 @@
-﻿using Oxide.Ext.UiFramework.Colors;
+﻿using System;
+using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Enums;
+using Oxide.Ext.UiFramework.Exceptions.UiElements;
 using Oxide.Ext.UiFramework.Libraries;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,6 +17,7 @@ public class UiInput : BaseUiText<UiInput>
     public string Command { get => Input.Command; set => Input.Command = value; }
     public InputMode Mode { get => Input.Mode; set => Input.Mode = value; }
     public InputField.LineType LineType { get => Input.LineType; set => Input.LineType = value; }
+    public UiReference Placeholder { get => Input.Placeholder; set => Input.Placeholder = value; }
     
     public UiInput() : this(new InputComponent()) { }
 
@@ -96,6 +99,19 @@ public class UiInput : BaseUiText<UiInput>
     public UiInput SetInputMode(InputMode mode)
     {
         Mode = mode;
+        return this;
+    }
+
+    public UiInput SetPlaceholder(in UiReference placeholder)
+    {
+        Placeholder = placeholder;
+        return this;
+    }
+    
+    public UiInput SetPlaceholder<T>(T placeholder) where T : BaseUiComponent 
+    {
+        NonGraphicalElementException.ThrowIfNonGraphicalElement(placeholder);
+        Placeholder = placeholder;
         return this;
     }
 }

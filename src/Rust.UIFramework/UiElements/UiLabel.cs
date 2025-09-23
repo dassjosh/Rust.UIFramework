@@ -10,6 +10,8 @@ namespace Oxide.Ext.UiFramework.UiElements;
 public class UiLabel : BaseUiText<UiLabel>
 {
     public readonly TextComponent Text;
+    
+    public UiReference PlaceholderFor { get => Text.PlaceholderFor; set => Text.PlaceholderFor = value; }
 
     public UiLabel() : this(new TextComponent()) { }
 
@@ -28,6 +30,14 @@ public class UiLabel : BaseUiText<UiLabel>
         return this;
     }
 
+    public UiLabel SetPlaceholderFor(in UiReference placeholder)
+    {
+        PlaceholderFor = placeholder;
+        return this;
+    }
+
+    public UiLabel SetPlaceholderFor(UiInput input) => SetPlaceholderFor(input.Reference);
+    
     public CountdownComponent AddCountdown() => Text.AddSubComponent<CountdownComponent>();
     
     public CountdownComponent AddCountdown(float startTime, float endTime, string command, 

@@ -2,6 +2,7 @@
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Types;
+using Oxide.Ext.UiFramework.UiElements;
 using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.Components;
@@ -12,6 +13,7 @@ public class InputComponent : TextComponent
     public string Command;
     public InputMode Mode;
     public InputField.LineType LineType;
+    public UiReference Placeholder;
 
     public override Utf8String Type => JsonDefaults.Input.Type;
 
@@ -24,6 +26,10 @@ public class InputComponent : TextComponent
         writer.AddField(JsonDefaults.Input.NeedsHudKeyboardName, HasMode(InputMode.HudNeedsKeyboard), false);
         writer.AddField(JsonDefaults.Input.AutoFocusName, HasMode(InputMode.AutoFocus), false);
         writer.AddField(JsonDefaults.Input.ReadOnlyName, HasMode(InputMode.ReadOnly), false);
+        if (Placeholder.IsValidReference())
+        {
+            writer.AddFieldRaw(JsonDefaults.Input.PlaceholderName, Placeholder.Name);
+        }
         writer.AddCommand(JsonDefaults.Common.CommandName, Command);
         base.WriteComponentFields(writer);
     }
@@ -50,5 +56,6 @@ public class InputComponent : TextComponent
         Command = null;
         Mode = JsonDefaults.Input.Mode;
         LineType = JsonDefaults.Input.LineType;
+        Placeholder = default;
     }
 }
