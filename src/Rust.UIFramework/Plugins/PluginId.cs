@@ -33,6 +33,13 @@ internal readonly record struct PluginId
         
     internal PluginId(Plugin plugin) => Id = plugin?.Name ?? throw new ArgumentNullException(nameof(plugin));
     internal PluginId(string id) => Id = id ?? throw new ArgumentNullException(nameof(id));
+
+    internal static PluginId CreateInternal(Plugin plugin)
+    {
+        PluginId pluginId = new(plugin);
+        PluginIdExt.RegisterInternalPluginId(pluginId);
+        return pluginId;
+    }
     
     internal static PluginId CreateInternal(string id)
     {

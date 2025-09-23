@@ -29,7 +29,7 @@ internal class UiFrameworkPlugin : BaseUiFrameworkPlugin, IUiFrameworkPlugin
         Name = UiFrameworkExtension.Instance.Name;
         Title = "UI Framework";
         Author = UiFrameworkExtension.Instance.Author;
-        PluginId = new PluginId(this);
+        PluginId = PluginId.CreateInternal(this);
     }
 
     [HookMethod(nameof(Init))]
