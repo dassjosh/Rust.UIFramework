@@ -10,7 +10,7 @@ internal static class ImageDownloadExt
 {
     internal static UiRawImage HandleImageDownloadUpdate(this UiRawImage image, BaseUiBuilder builder, string nameOrUrl, ImageDownloadOptions options)
     {
-        if (options.AutomaticUpdate is { EnableAutoImageUpdate: true } && builder is IAnimationBuilder animationBuilder && nameOrUrl.StartsWith("http") && Singleton<UiImageStorage>.Instance.IsDownloading(nameOrUrl))
+        if (options?.AutomaticUpdate is { EnableAutoImageUpdate: true } && builder is IAnimationBuilder animationBuilder && nameOrUrl.StartsWith("http") && Singleton<UiImageStorage>.Instance.IsDownloading(nameOrUrl))
         {
             animationBuilder.AnimateImageDownload(image, nameOrUrl, options);
         }
