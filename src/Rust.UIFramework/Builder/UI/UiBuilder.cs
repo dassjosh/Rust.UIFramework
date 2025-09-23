@@ -16,7 +16,6 @@ namespace Oxide.Ext.UiFramework.Builder.UI;
 public partial class UiBuilder : BaseUiBuilder, IAnimationBuilder
 {
     public BaseUiComponent Root;
-    public IUiFrameworkPlugin Plugin { get; private set; }
     
     private BaseUiComponent _actualRoot;
     private readonly List<BaseAnimation> _animations = [];

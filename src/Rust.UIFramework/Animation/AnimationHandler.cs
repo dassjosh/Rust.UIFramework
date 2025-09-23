@@ -174,7 +174,7 @@ internal class AnimationHandler : ISingleton
         
         animation.OnTick(currentTime);
         IAnimationDuration duration = animation.Duration;
-        if (duration.IsDelayed)
+        if (duration.IsDelayed || !duration.HasChanged)
         {
             return;
         }

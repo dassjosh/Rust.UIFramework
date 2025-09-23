@@ -6,6 +6,7 @@ public interface IAnimationDuration
     bool IsDelayed { get; }
     bool IsRunning { get; }
     bool IsCompleted { get; }
+    bool HasChanged { get; }
 
     void OnStarted(float startTime);
     float GetRemainingDuration(bool includeRepeats);

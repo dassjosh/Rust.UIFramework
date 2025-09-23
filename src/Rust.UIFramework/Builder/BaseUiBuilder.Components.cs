@@ -4,6 +4,8 @@ using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Controls;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Exceptions;
+using Oxide.Ext.UiFramework.Extensions;
+using Oxide.Ext.UiFramework.Interfaces;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Layouts;
 using Oxide.Ext.UiFramework.Libraries;
@@ -179,8 +181,11 @@ public partial class BaseUiBuilder
     public UiRawImage TextureImage(BaseUiLayout layout, string texture, UiColor? color = default) => RawImage(layout, texture, color);
     public UiRawImage FileStorageImage(in UiReference parent, in UiPosition pos, in UiOffset offset, string imageId, UiColor? color = default) => RawImage(parent, pos, offset, imageId, color);
     public UiRawImage FileStorageImage(BaseUiLayout layout, string imageId, UiColor? color = default) => RawImage(layout, imageId, color);
-    public UiRawImage ImageStorage(Plugin plugin, in UiReference parent, in UiPosition pos, in UiOffset offset, string nameOrUrl, string fallbackNameOrUrl = null, UiColor? color = default) => RawImage(parent, pos, offset, Singleton<UiImageStorage>.Instance.Get(plugin, nameOrUrl, fallbackNameOrUrl), color);
-    public UiRawImage ImageStorage(Plugin plugin, BaseUiLayout layout , string nameOrUrl, string fallbackNameOrUrl = null, UiColor? color = default) => RawImage(layout, Singleton<UiImageStorage>.Instance.Get(plugin, nameOrUrl, fallbackNameOrUrl), color);
+    public UiRawImage ImageStorage(in UiReference parent, in UiPosition pos, in UiOffset offset, string nameOrUrl, ImageDownloadOptions options = null, UiColor? color = default)
+        => RawImage(parent, pos, offset, Singleton<UiImageStorage>.Instance.Get(Plugin, nameOrUrl, options), color).HandleImageDownloadUpdate(this, nameOrUrl, options);
+
+    public UiRawImage ImageStorage(BaseUiLayout layout, string nameOrUrl, ImageDownloadOptions options = null, UiColor? color = default)
+        => RawImage(layout, Singleton<UiImageStorage>.Instance.Get(Plugin, nameOrUrl, options), color).HandleImageDownloadUpdate(this, nameOrUrl, options);
     #endregion
     
     #region Icon

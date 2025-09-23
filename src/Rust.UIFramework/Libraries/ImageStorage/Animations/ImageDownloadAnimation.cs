@@ -1,0 +1,106 @@
+﻿using System;
+using Oxide.Ext.UiFramework.Animation;
+using Oxide.Ext.UiFramework.Interfaces;
+using Oxide.Ext.UiFramework.Json;
+using Oxide.Ext.UiFramework.Types;
+using Oxide.Ext.UiFramework.UiElements;
+
+namespace Oxide.Ext.UiFramework.Libraries;
+
+internal class ImageDownloadAnimation : BaseAnimation
+{ 
+    private ImageId _id;
+    private string _timeoutImage;
+    private string _failedImage;
+    private readonly ImageDownloadDuration _duration = new();
+    private DownloadState _state = DownloadState.InProgress;
+
+    private enum DownloadState { InProgress, Failed, Success, Timeout }
+    
+    internal static ImageDownloadAnimation Create(IAnimationBuilder builder, in UiReference reference, ImageDownloadOptions options)
+    {
+        ImageDownloadAnimation animation = builder.PluginPool.Get<ImageDownloadAnimation>();
+        animation.Init(builder, reference, options);
+        return animation;
+    }
+
+    private void Init(IAnimationBuilder builder, in UiReference reference, ImageDownloadOptions options)
+    {
+        base.Init(builder.Plugin, reference, _duration);
+        _duration.Init(options.AutomaticUpdate.Timeout);
+        _timeoutImage = options.AutomaticUpdate.TimeoutImageNameOrUrl;
+        _failedImage = options.FailedImageNameOrUrl;
+    }
+
+    public void OnImageDownloadedSuccessfully(ImageId id)
+    {
+        _id = id;
+        _state = DownloadState.Success;
+        _duration.OnDownloadFinished();
+    }
+    
+    public void OnImageDownloadFailed()
+    {
+        _state = DownloadState.Failed;
+        _duration.OnDownloadFinished();
+    }
+    
+    public override void WriteAnimation(JsonFrameworkWriter writer, float elapsedPercentage)
+    {
+        if (_state == DownloadState.InProgress && _duration.HasTimedOut)
+        {
+            _state = DownloadState.Timeout;
+        }
+        
+        writer.WriteStartObject();
+        writer.AddFieldRaw(JsonDefaults.Common.ParentName, Reference.Parent);
+        writer.AddFieldRaw(JsonDefaults.Common.ComponentName, Reference.Name);
+        writer.AddFieldRaw(JsonDefaults.Common.Update, true);
+        writer.WritePropertyName(JsonDefaults.Common.ComponentsName);
+        writer.WriteStartArray();
+        writer.WriteStartObject();
+        writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, JsonDefaults.RawImage.Type);
+        
+        string image = _state switch
+        {
+            DownloadState.InProgress or DownloadState.Failed => _failedImage,
+            DownloadState.Success => _id.Id,
+            DownloadState.Timeout => _timeoutImage ?? _failedImage,
+            _ => throw new ArgumentOutOfRangeException()
+        };
+        SetImage(writer, image);
+        
+        writer.WriteEndObject();
+        writer.WriteEndArray();
+        writer.WriteEndObject();
+    }
+
+    private void SetImage(JsonFrameworkWriter writer, string image)
+    {
+        if (image.StartsWith("http", StringComparison.OrdinalIgnoreCase))
+        {
+            image = Singleton<UiImageStorage>.Instance.Get(Plugin, image);
+            if (image.StartsWith("http", StringComparison.OrdinalIgnoreCase))
+            {
+                writer.AddFieldRaw(JsonDefaults.Image.UrlName, image);
+            }
+            else
+            {
+                writer.AddFieldRaw(JsonDefaults.Image.PngName, image);
+            }
+        }
+        else
+        {
+            writer.AddFieldRaw(JsonDefaults.Image.PngName, image);
+        }
+    }
+
+    protected override void EnterPool()
+    {
+        base.EnterPool();
+        _duration.Reset();
+        _state = DownloadState.InProgress;
+        _timeoutImage = null;
+        _failedImage = null;
+    }
+}

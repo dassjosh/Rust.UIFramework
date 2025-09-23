@@ -16,12 +16,13 @@ using Rust.UI;
 
 namespace Oxide.Ext.UiFramework.Plugins;
 
-internal class UiFrameworkPlugin : BaseUiFrameworkPlugin
+internal class UiFrameworkPlugin : BaseUiFrameworkPlugin, IUiFrameworkPlugin
 {
     public static UiFrameworkPlugin Instance;
     public readonly PluginId PluginId;
     private readonly object _true = true;
-
+    public UiPluginPool PluginPool { get; set; } = UiPool.Internal;
+    
     public UiFrameworkPlugin()
     {
         Instance = this;
@@ -61,6 +62,7 @@ internal class UiFrameworkPlugin : BaseUiFrameworkPlugin
     {
         Singleton<DataHandler>.Instance.OnServerSave();
         BaseMemoryCache.ExpireCaches();
+        Singleton<ImageUpdateAnimations>.Instance.CleanupOldUpdates();
     }
     
     // ReSharper disable once UnusedMember.Local

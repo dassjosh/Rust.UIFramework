@@ -2,8 +2,10 @@
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Exceptions;
 using Oxide.Ext.UiFramework.Interfaces;
+using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
+using Oxide.Ext.UiFramework.Types;
 using Oxide.Ext.UiFramework.UiElements;
 
 namespace Oxide.Ext.UiFramework.Extensions;
@@ -53,6 +55,16 @@ public static class AnimationExt
     
     public static TextAnimation AnimateText(this IAnimationBuilder builder, in AnimationReference reference, string start, string end, float duration, float delay = 0f, TextFormatter formatter = null)
         => AnimateText(builder, in reference, StringLerpAnimator.Create(builder.PluginPool, start, end), builder.DefaultDuration(duration, delay), formatter);
+
+    internal static ImageDownloadAnimation AnimateImageDownload(this IAnimationBuilder builder, in UiReference reference, string url, ImageDownloadOptions options)
+    {
+        UiReferenceException.ThrowIfInvalidReference(reference);
+        
+        ImageDownloadAnimation animation = ImageDownloadAnimation.Create(builder, reference, options);
+        builder.AddAnimation(animation);
+        Singleton<ImageUpdateAnimations>.Instance.QueueUpdate(url, animation);
+        return animation;
+    }
     
     private static DefaultDuration DefaultDuration(this IAnimationBuilder builder, float duration, float delay = 0f) => Animation.DefaultDuration.Create(builder.PluginPool, duration, delay);
 }

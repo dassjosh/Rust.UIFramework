@@ -15,6 +15,11 @@ namespace Oxide.Ext.UiFramework.Libraries;
 internal readonly record struct DownloadRequest(PluginId PluginId, string Name, string Url);
 internal readonly record struct CompletedDownload(DownloadRequest Request, byte[] Data);
 
+public readonly record struct RegisterResult(bool IsNewlyRegistered, bool HasDownloadedSuccessfully, bool HadDownloadError, bool DownloadInProgress)
+{
+    internal static readonly RegisterResult Success = new(false, true, false, false);
+}
+
 /// <summary>
 /// Handles concurrent downloading of images
 /// </summary>
@@ -55,40 +60,44 @@ internal class ImageDownloader
     /// <param name="name">The name for the downloaded image</param>
     /// <param name="url">The URL to download the image from</param>
     /// <returns>True if the request was added, false if it already existed or failed too many times</returns>
-    internal bool AddRequest(PluginId pluginId, string name, string url, out bool hasFailedAttempt)
+    internal RegisterResult AddRequest(PluginId pluginId, string name, string url)
     {
         if (!pluginId.IsValid) throw new ArgumentNullException(nameof(pluginId));
         if (string.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
         if (string.IsNullOrEmpty(url)) throw new ArgumentNullException(nameof(url));
 
         DownloadRequest request = new(pluginId, name, url);
-        hasFailedAttempt = false;
         if (_urlState.TryGetValue(url, out DownloadState state))
         {
-            hasFailedAttempt = state.HadDownloadError;
             if (state.InProgress || state.HasCompleted || state.IsOutOfAttempts)
             {
-                return false;
+                return new RegisterResult(false, state.HasCompleted, state.HadDownloadError, state.InProgress);
             }
         }
         else
         {
-            _urlState.TryAdd(url, new DownloadState());
+            state = new DownloadState();
+            _urlState.TryAdd(url, state);
         }
 
         _requestQueue.Enqueue(request);
         
         EnsureWorkersRunning();
                 
-        return true;
+        return new RegisterResult(true, state.HasCompleted, state.HadDownloadError, state.InProgress);
     }
 
     internal void BulkAddRequests(PluginId pluginId, Dictionary<string, string> requests)
     {
         foreach ((string name, string url) in requests)
         {
-            AddRequest(pluginId, name, url, out bool _);
+            AddRequest(pluginId, name, url);
         }
+    }
+
+    internal bool IsDownloading(string url)
+    {
+        return _urlState.TryGetValue(url, out DownloadState state) && state.InProgress;
     }
 
     /// <summary>
@@ -205,6 +214,7 @@ internal class ImageDownloader
         }
 
         state.OnDownloadFailed();
+        Singleton<UiImageStorage>.Instance.OnImageDownloadFailed(request);
         return false;
     }
     
