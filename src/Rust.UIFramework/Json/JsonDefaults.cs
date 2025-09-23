@@ -53,6 +53,11 @@ public static class JsonDefaults
         
         public static readonly Utf8String RotationName = "rotation";
         public const float Rotation = 0;
+        
+        public static readonly Utf8String SetParentName = "setParent";
+        
+        public static readonly Utf8String SetTransformIndexName = "setTransformIndex";
+        public const int SetTransformIndex = -1;
     }
 
     public static class Color
