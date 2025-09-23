@@ -31,6 +31,8 @@ public class UiScrollView : BaseUiComponent
     public bool Inertia { get => ScrollView.Inertia; set => ScrollView.Inertia = value; }
     public float DecelerationRate { get => ScrollView.DecelerationRate; set => ScrollView.DecelerationRate = value; }
     public float ScrollSensitivity { get => ScrollView.ScrollSensitivity; set => ScrollView.ScrollSensitivity = value; }
+    public float HorizontalScrollProgress { get => ScrollView.HorizontalScrollProgress; set => ScrollView.HorizontalScrollProgress = value; }
+    public float VerticalScrollProgress { get => ScrollView.VerticalScrollProgress; set => ScrollView.VerticalScrollProgress = value; }
     public UiPosition ContentPosition { get => ScrollView.ContentTransform.Position; set => ScrollView.ContentTransform.Position = value; }
     public UiOffset ContentOffset { get => ScrollView.ContentTransform.Offset; set => ScrollView.ContentTransform.Offset = value; }
     public Vector2 ContentPivot { get => ScrollView.ContentTransform.Pivot; set => ScrollView.ContentTransform.Pivot = value; }
@@ -88,6 +90,18 @@ public class UiScrollView : BaseUiComponent
     public UiScrollView SetScrollSensitivity(float scrollSensitivity)
     {
         ScrollSensitivity = scrollSensitivity;
+        return this;
+    }
+    
+    public UiScrollView SetHorizontalScrollProgress(float progress)
+    {
+        HorizontalScrollProgress = progress;
+        return this;
+    }
+    
+    public UiScrollView SetVerticalScrollProgress(float progress)
+    {
+        VerticalScrollProgress = progress;
         return this;
     }
 
