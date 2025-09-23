@@ -13,9 +13,11 @@ public class DefaultDuration : BasePoolable, IConfigurableAnimationDuration
     public int Repeats { get; set; }
     public float RepeatDelay { get; set; }
     public float StartTime { get; private set; }
+    public float ElapsedPercentage { get; private set; } 
+    public bool HasChanged { get; private set; }
     
     public float TotalDuration => Delay + Duration;
-    public float ElapsedPercentage => Math.Min((Elapsed - Delay) / Duration, 1f);
+
     public bool IsDelayed => Elapsed < Delay;
     public bool IsRunning => Elapsed >= Delay && Elapsed < TotalDuration;
     public bool IsCompleted => Repeats <= 0;
@@ -53,6 +55,9 @@ public class DefaultDuration : BasePoolable, IConfigurableAnimationDuration
     public void OnTick(float currentTime)
     {
         Elapsed = currentTime - StartTime;
+        float previousElapsed = ElapsedPercentage;
+        ElapsedPercentage = Math.Min((Elapsed - Delay) / Duration, 1f);
+        HasChanged = previousElapsed != ElapsedPercentage;
     }
 
     public void OnAnimationCompleted(float currentTime)
