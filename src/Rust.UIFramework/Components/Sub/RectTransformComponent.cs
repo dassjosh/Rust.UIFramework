@@ -43,6 +43,6 @@ public class RectTransformComponent : SubComponent
         Rotation = default;
         Padding = default;
         ChangeParent = default;
-        TransformIndex = -1;
+        TransformIndex = JsonDefaults.RectTransform.SetTransformIndex;
     }
 }
