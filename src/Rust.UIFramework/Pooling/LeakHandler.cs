@@ -14,7 +14,7 @@ internal class LeakHandler(PluginId pluginId, string poolType)
     {
         if (ShouldLogLeak())
         {
-            UiFrameworkExtension.GlobalLogger.Warning("Plugin: {0} Pool: {1} is leaking entities!!! {2}/{3}", pluginId.PluginName(), poolType, index, poolSize);
+            UiFrameworkExtension.GlobalLogger.Warning("Plugin: {0} Pool: {1} is leaking entities! {2}/{3}", pluginId.PluginName(), poolType, index, poolSize);
         }
     }
 
