@@ -206,6 +206,12 @@ public static class JsonDefaults
         
         public static readonly Utf8String PivotName = "pivot";
         public static readonly Vector2 Pivot = new(0.5f, 0.5f);
+        
+        public static readonly Utf8String HorizontalScrollProgressName = "horizontalNormalizedPosition";
+        public const float HorizontalScrollProgress = 0f;
+        
+        public static readonly Utf8String VerticalScrollProgressName = "verticalNormalizedPosition";
+        public const float VerticalScrollProgress = 0f;
     }
 
     public static class ScrollBar

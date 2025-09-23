@@ -16,6 +16,8 @@ public class ScrollViewComponent : CoreComponent
     public bool Inertia;
     public float DecelerationRate;
     public float ScrollSensitivity;
+    public float HorizontalScrollProgress;
+    public float VerticalScrollProgress;
     public ScrollbarComponent HorizontalScrollbar { get; private set; }
     public ScrollbarComponent VerticalScrollbar { get; private set; }
     
@@ -85,6 +87,8 @@ public class ScrollViewComponent : CoreComponent
         writer.AddField(JsonDefaults.ScrollView.InertiaName, Inertia, JsonDefaults.ScrollView.Inertia);
         writer.AddField(JsonDefaults.ScrollView.DecelerationRateName, DecelerationRate, JsonDefaults.ScrollView.DecelerationRate);
         writer.AddField(JsonDefaults.ScrollView.ScrollSensitivityName, ScrollSensitivity, JsonDefaults.ScrollView.ScrollSensitivity);
+        writer.AddField(JsonDefaults.ScrollView.HorizontalScrollProgressName, HorizontalScrollProgress, JsonDefaults.ScrollView.HorizontalScrollProgress);
+        writer.AddField(JsonDefaults.ScrollView.VerticalScrollProgressName, VerticalScrollProgress, JsonDefaults.ScrollView.VerticalScrollProgress);
         writer.AddComponent(JsonDefaults.ScrollView.HorizontalScrollbar, HorizontalScrollbar, HorizontalScrollbar != null);
         writer.AddComponent(JsonDefaults.ScrollView.VerticalScrollbar, VerticalScrollbar, VerticalScrollbar != null);
         writer.AddComponent(JsonDefaults.ScrollView.ContentTransform, ContentTransform);
