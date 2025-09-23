@@ -84,7 +84,7 @@ public abstract class BaseUiComponent(CoreComponent component) : BasePoolable
     [Obsolete("Use AddOutline instead")]
     public OutlineComponent AddElementOutline(UiColor color, Vector2? distance = null, bool useGraphicAlpha = false) => AddOutline(color, distance, useGraphicAlpha);
     
-    public DraggableComponent AddDraggable() => _component.AddSubComponent<DraggableComponent>();
+    public DraggableComponent AddDraggable() => _component.GetOrAddSubComponent<DraggableComponent>();
     
     public DraggableComponent AddDraggable(bool limitToParent = JsonDefaults.Draggable.LimitToParent,
         float maxDistance = JsonDefaults.Draggable.MaxDistance,
@@ -119,7 +119,7 @@ public abstract class BaseUiComponent(CoreComponent component) : BasePoolable
     
     public SlotComponent AddSlot(string filter = null)
     {
-        SlotComponent slot = _component.AddSubComponent<SlotComponent>();
+        SlotComponent slot = _component.GetOrAddSubComponent<SlotComponent>();
         slot.Filter = filter;
         return slot;
     }
