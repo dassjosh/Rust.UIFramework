@@ -163,6 +163,7 @@ public abstract class BaseUiComponent(CoreComponent component) : BasePoolable
         Update = default;
         Active = true;
         _component.Reset();
+        _rectTransform = null;
     }
 
     public static implicit operator UiReference(BaseUiComponent component) => component.Reference;
