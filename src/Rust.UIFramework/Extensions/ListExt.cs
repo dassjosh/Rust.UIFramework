@@ -15,7 +15,7 @@ public static class ListExt
             return;
         }
         
-        ReadOnlySpan<T> span = list.GetAsReadonlySpan();
+        ReadOnlySpan<T> span = list.GetAsReadOnlySpan();
         int count = span.Length;
         for (int index = 0; index < count; index++)
         {
@@ -32,7 +32,7 @@ public static class ListExt
             return;
         }
         
-        ReadOnlySpan<T> span = list.GetAsReadonlySpan();
+        ReadOnlySpan<T> span = list.GetAsReadOnlySpan();
         int count = span.Length;
         for (int index = 0; index < count; index++)
         {
@@ -71,7 +71,7 @@ public static class ListExt
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ReadOnlySpan<T> GetAsReadonlySpan<T>(this List<T> list)
+    public static ReadOnlySpan<T> GetAsReadOnlySpan<T>(this List<T> list)
     {
         return list.GetInternalArrayUnsafe().AsSpan(0, list.Count);
     }

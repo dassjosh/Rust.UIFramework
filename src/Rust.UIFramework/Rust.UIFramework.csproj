@@ -55,7 +55,7 @@
       <Reference Include="Facepunch.UnityEngine">
         <HintPath>..\References\Facepunch.UnityEngine.dll</HintPath>
       </Reference>
-      <Reference Include="Ionic.Zip.Reduced" Condition="'$(TargetFramework)' == 'net48'">
+      <Reference Include="Ionic.Zip.Reduced">
         <HintPath>..\references\Ionic.Zip.Reduced.dll</HintPath>
       </Reference>
       <Reference Include="mscorlib">

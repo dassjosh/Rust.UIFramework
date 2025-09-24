@@ -12,9 +12,9 @@ public abstract class CoreComponent : BaseTypedComponent, ICoreComponent
 
     internal void WriteSubComponents(JsonFrameworkWriter writer)
     {
-        if (_subComponents == null || _subComponents.Count == 0) return;
+        if (_subComponents.Count == 0) return;
         
-        ReadOnlySpan<SubComponent> span = _subComponents.GetAsReadonlySpan();
+        ReadOnlySpan<SubComponent> span = _subComponents.GetAsReadOnlySpan();
         int count = span.Length;
         for (int index = 0; index < count; index++)
         {
@@ -55,7 +55,6 @@ public abstract class CoreComponent : BaseTypedComponent, ICoreComponent
 
     public T GetSubComponent<T>() where T : SubComponent
     {
-        if (_subComponents == null) return null;
         for (int index = 0; index < _subComponents.Count; index++)
         {
             if (_subComponents[index] is T t)
@@ -69,7 +68,6 @@ public abstract class CoreComponent : BaseTypedComponent, ICoreComponent
 
     public IEnumerable<T> GetSubComponents<T>() where T : SubComponent
     {
-        if (_subComponents == null) yield break;
         for (int index = 0; index < _subComponents.Count; index++)
         {
             if (_subComponents[index] is T tComponent)
@@ -81,17 +79,16 @@ public abstract class CoreComponent : BaseTypedComponent, ICoreComponent
 
     public void RemoveSubComponents<T>() where T : SubComponent
     {
-        _subComponents?.RemoveAll(sc => sc is T);
+        _subComponents.RemoveAll(sc => sc is T);
     }
     
     public void RemoveSubComponents<T>(Predicate<T> predicate) where T : SubComponent
     {
-        _subComponents?.RemoveAll(sc => sc is T component && predicate(component));
+        _subComponents.RemoveAll(sc => sc is T component && predicate(component));
     }
     
     public void RemoveSubComponent<T>() where T : SubComponent
     {
-        if (_subComponents == null) return;
         int index = _subComponents.FindIndex(sc => sc is T);
         if (index != -1)
         {
@@ -101,7 +98,6 @@ public abstract class CoreComponent : BaseTypedComponent, ICoreComponent
     
     public void RemoveSubComponent<T>(Predicate<T> predicate) where T : SubComponent
     {
-        if (_subComponents == null) return;
         int index = _subComponents.FindIndex(sc => sc is T component && predicate(component));
         if (index != -1)
         {

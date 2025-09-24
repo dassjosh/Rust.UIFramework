@@ -72,7 +72,7 @@ public abstract partial class BaseUiBuilder : BaseBuilder
     private static void WriteComponents<T>(JsonFrameworkWriter writer, List<T> components) where T : BaseUiComponent
     {
         int count = components.Count;
-        ReadOnlySpan<T> span = components.GetAsReadonlySpan();
+        ReadOnlySpan<T> span = components.GetAsReadOnlySpan();
         for (int index = 0; index < count; index++)
         {
             span[index].WriteComponent(writer);
