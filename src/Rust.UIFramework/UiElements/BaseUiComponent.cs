@@ -71,7 +71,13 @@ public abstract class BaseUiComponent(CoreComponent component) : BasePoolable
     }
     
     internal T GetOrAddSubComponent<T>() where T : SubComponent, new() => _component.GetOrAddSubComponent<T>();
-    
+    internal T GetOrAddLayoutComponent<T>() where T : BaseLayoutComponent, new()
+    {
+        T layout = GetOrAddSubComponent<T>();
+        layout.Owner = this;
+        return layout;
+    }
+
     public OutlineComponent AddOutline() => _component.AddSubComponent<OutlineComponent>();
     
     public OutlineComponent AddOutline(UiColor color, Vector2? distance = null, bool useGraphicAlpha = false)

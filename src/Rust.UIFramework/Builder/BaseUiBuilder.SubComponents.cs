@@ -80,7 +80,7 @@ public abstract partial class BaseUiBuilder
     #endregion
 
     #region Horizontal Layout
-    public HorizontalLayoutComponent HorizontalLayout(BaseUiComponent component) => component.GetOrAddSubComponent<HorizontalLayoutComponent>();
+    public HorizontalLayoutComponent HorizontalLayout(BaseUiComponent component) => component.GetOrAddLayoutComponent<HorizontalLayoutComponent>();
     
     public HorizontalLayoutComponent HorizontalLayout(BaseUiComponent component,
         float spacing = JsonDefaults.DirectionalLayout.Spacing,
@@ -93,7 +93,7 @@ public abstract partial class BaseUiBuilder
         bool childScaleHeight = JsonDefaults.DirectionalLayout.ChildScaleHeight,
         in UiPadding padding = default)
     {
-        HorizontalLayoutComponent layout = component.GetOrAddSubComponent<HorizontalLayoutComponent>();
+        HorizontalLayoutComponent layout = component.GetOrAddLayoutComponent<HorizontalLayoutComponent>();
         layout.Spacing = spacing;
         layout.ChildAlignment = childAlignment;
         layout.ChildForceExpandWidth = childForceExpandWidth;
@@ -108,7 +108,7 @@ public abstract partial class BaseUiBuilder
     #endregion
     
     #region Horizontal Layout
-    public VerticalLayoutComponent VerticalLayout(BaseUiComponent component) => component.GetOrAddSubComponent<VerticalLayoutComponent>();
+    public VerticalLayoutComponent VerticalLayout(BaseUiComponent component) => component.GetOrAddLayoutComponent<VerticalLayoutComponent>();
     
     public VerticalLayoutComponent VerticalLayout(BaseUiComponent component,
         float spacing = JsonDefaults.DirectionalLayout.Spacing,
@@ -121,7 +121,7 @@ public abstract partial class BaseUiBuilder
         bool childScaleHeight = JsonDefaults.DirectionalLayout.ChildScaleHeight,
         in UiPadding padding = default)
     {
-        VerticalLayoutComponent layout = component.GetOrAddSubComponent<VerticalLayoutComponent>();
+        VerticalLayoutComponent layout = component.GetOrAddLayoutComponent<VerticalLayoutComponent>();
         layout.Spacing = spacing;
         layout.ChildAlignment = childAlignment;
         layout.ChildForceExpandWidth = childForceExpandWidth;
@@ -136,7 +136,7 @@ public abstract partial class BaseUiBuilder
     #endregion
     
     #region Grid Layout
-    public GridLayoutComponent GridLayout(BaseUiComponent component) => component.GetOrAddSubComponent<GridLayoutComponent>();
+    public GridLayoutComponent GridLayout(BaseUiComponent component) => component.GetOrAddLayoutComponent<GridLayoutComponent>();
 
     public GridLayoutComponent GridLayout(BaseUiComponent component,
         Vector2 cellSize,
@@ -148,7 +148,7 @@ public abstract partial class BaseUiBuilder
         int constraintCount = JsonDefaults.GridLayout.ConstraintCount,
         in UiPadding padding = default)
     {
-        GridLayoutComponent layout = component.GetOrAddSubComponent<GridLayoutComponent>();
+        GridLayoutComponent layout = component.GetOrAddLayoutComponent<GridLayoutComponent>();
         layout.CellSize = cellSize;
         layout.Spacing = spacing;
         layout.ChildAlignment = childAlignment;
