@@ -1,7 +1,7 @@
 ﻿using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Offsets;
-using Oxide.Ext.UiFramework.Positions;
+using Oxide.Ext.UiFramework.Padding;
 using Oxide.Ext.UiFramework.Types;
 using UnityEngine;
 using UnityEngine.UI;
@@ -299,5 +299,101 @@ public static class JsonDefaults
     {
         public static readonly Utf8String Type = "Slot";
         public static readonly Utf8String FilterName = "filter";
+    }
+
+    public static class Layout
+    {
+        public static readonly Utf8String PaddingName = "padding";
+        public static readonly UiPadding Padding = default;
+        
+        public static readonly Utf8String ChildAlignmentName = "childAlignment";
+        public const TextAnchor ChildAlignment = TextAnchor.UpperLeft;
+    }
+    
+    public static class DirectionalLayout
+    {
+        public static readonly Utf8String HorizontalType = "UnityEngine.UI.HorizontalLayoutGroup";
+        public static readonly Utf8String VerticalType = "UnityEngine.UI.VerticalLayoutGroup";
+        
+        public static readonly Utf8String SpacingName = "spacing";
+        public const float Spacing = 0f;
+        
+        public static readonly Utf8String ChildForceExpandWidthName = "childForceExpandWidth";
+        public const bool ChildForceExpandWidth = true;
+        
+        public static readonly Utf8String ChildForceExpandHeightName = "childForceExpandHeight";
+        public const bool ChildForceExpandHeight = true;
+        
+        public static readonly Utf8String ChildControlWidthName = "childControlWidth";
+        public const bool ChildControlWidth = false;
+        
+        public static readonly Utf8String ChildControlHeightName = "childControlHeight";
+        public const bool ChildControlHeight = false;
+        
+        public static readonly Utf8String ChildScaleWidthName = "childScaleWidth";
+        public const bool ChildScaleWidth = false;
+        
+        public static readonly Utf8String ChildScaleHeightName = "childScaleHeight";
+        public const bool ChildScaleHeight = false;
+    }
+
+    public static class GridLayout
+    {
+        public static readonly Utf8String Type = "UnityEngine.UI.GridLayoutGroup";
+        
+        public static readonly Utf8String CellSizeName = "cellSize";
+        public static readonly Vector2 CellSize = new(100, 100);
+        
+        public static readonly Utf8String SpacingName = "spacing";
+        public static readonly Vector2 Spacing = new(0, 0);
+        
+        public static readonly Utf8String StartCornerName = "startCorner";
+        public const GridLayoutGroup.Corner StartCorner = GridLayoutGroup.Corner.UpperLeft;
+        
+        public static readonly Utf8String StartAxisName = "startAxis";
+        public const GridLayoutGroup.Axis StartAxis = GridLayoutGroup.Axis.Horizontal;
+        
+        public static readonly Utf8String ConstraintName = "constraint";
+        public const GridLayoutGroup.Constraint Constraint = GridLayoutGroup.Constraint.Flexible;
+        
+        public static readonly Utf8String ConstraintCountName = "constraintCount";
+        public const int ConstraintCount = 2;
+    }
+
+    public static class ContentSizeFitterData
+    {
+        public static readonly Utf8String Type = "UnityEngine.UI.ContentSizeFitter";
+        
+        public static readonly Utf8String HorizontalFitName = "horizontalFit";
+        public const ContentSizeFitter.FitMode HorizontalFit = ContentSizeFitter.FitMode.PreferredSize;
+        
+        public static readonly Utf8String VerticalFitName = "verticalFit";
+        public const ContentSizeFitter.FitMode VerticalFit = ContentSizeFitter.FitMode.PreferredSize;
+    }
+
+    public static class LayoutElement
+    {
+        public static readonly Utf8String Type = "UnityEngine.UI.LayoutElement";
+        
+        public static readonly Utf8String PreferredWidthName = "preferredWidth";
+        public const float PreferredWidth = 0f;
+        
+        public static readonly Utf8String PreferredHeightName = "preferredHeight";
+        public const float PreferredHeight = 0f;
+        
+        public static readonly Utf8String MinWidthName = "minWidth";
+        public const float MinWidth = 0f;
+        
+        public static readonly Utf8String MinHeightName = "minHeight";
+        public const float MinHeight = 0f;
+        
+        public static readonly Utf8String FlexibleWidthName = "flexibleWidth";
+        public const float FlexibleWidth = 0f;
+        
+        public static readonly Utf8String FlexibleHeightName = "flexibleHeight";
+        public const float FlexibleHeight = 0f;
+        
+        public static readonly Utf8String IgnoreLayoutName = "ignoreLayout";
+        public const bool IgnoreLayout = false;
     }
 }

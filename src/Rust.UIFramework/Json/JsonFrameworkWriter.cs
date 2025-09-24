@@ -6,6 +6,7 @@ using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Libraries;
+using Oxide.Ext.UiFramework.Padding;
 using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Types;
 using UnityEngine;
@@ -196,6 +197,15 @@ public sealed class JsonFrameworkWriter : BasePoolable
     }
     
     public void AddField(in Utf8String name, UiColor color, UiColor defaultColor)
+    {
+        if (color != defaultColor)
+        {
+            WritePropertyName(name);
+            WriteValue(color);
+        }
+    }
+    
+    public void AddField(in Utf8String name, in UiPadding color, in UiPadding defaultColor)
     {
         if (color != defaultColor)
         {
@@ -427,6 +437,13 @@ public sealed class JsonFrameworkWriter : BasePoolable
     {
         _writer.Write(QuoteChar);
         UiColorCache.WriteColor(_writer, color);
+        _writer.Write(QuoteChar);
+    }
+    
+    public void WriteValue(in UiPadding padding)
+    {
+        _writer.Write(QuoteChar);
+        UiPaddingCache.WritePadding(_writer, padding);
         _writer.Write(QuoteChar);
     }
     #endregion

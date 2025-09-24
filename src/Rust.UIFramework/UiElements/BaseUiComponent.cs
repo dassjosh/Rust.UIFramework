@@ -70,6 +70,8 @@ public abstract class BaseUiComponent(CoreComponent component) : BasePoolable
         _component.WriteSubComponents(writer);        
     }
     
+    internal T GetOrAddSubComponent<T>() where T : SubComponent, new() => _component.GetOrAddSubComponent<T>();
+    
     public OutlineComponent AddOutline() => _component.AddSubComponent<OutlineComponent>();
     
     public OutlineComponent AddOutline(UiColor color, Vector2? distance = null, bool useGraphicAlpha = false)
@@ -83,46 +85,6 @@ public abstract class BaseUiComponent(CoreComponent component) : BasePoolable
 
     [Obsolete("Use AddOutline instead")]
     public OutlineComponent AddElementOutline(UiColor color, Vector2? distance = null, bool useGraphicAlpha = false) => AddOutline(color, distance, useGraphicAlpha);
-    
-    public DraggableComponent AddDraggable() => _component.GetOrAddSubComponent<DraggableComponent>();
-    
-    public DraggableComponent AddDraggable(bool limitToParent = JsonDefaults.Draggable.LimitToParent,
-        float maxDistance = JsonDefaults.Draggable.MaxDistance,
-        bool allowSwapping = JsonDefaults.Draggable.AllowSwapping,
-        bool dropAnywhere = JsonDefaults.Draggable.DropAnywhere,
-        float dragAlpha = JsonDefaults.Draggable.DragAlpha,
-        int parentLimitIndex = JsonDefaults.Draggable.ParentLimitIndex,
-        string filter = JsonDefaults.Common.NullValue,
-        Vector2? parentPadding = null,
-        Vector2? anchorOffset = null,
-        bool keepOnTop = JsonDefaults.Draggable.KeepOnTop,
-        DraggablePositionSendType? positionRpc = null,
-        bool moveToAnchor = JsonDefaults.Draggable.MoveToAnchor,
-        bool rebuildAnchor = JsonDefaults.Draggable.RebuildAnchor)
-    {
-        DraggableComponent draggable = AddDraggable();
-        draggable.LimitToParent = limitToParent;
-        draggable.MaxDistance = maxDistance;
-        draggable.AllowSwapping = allowSwapping;
-        draggable.DropAnywhere = dropAnywhere;
-        draggable.DragAlpha = dragAlpha;
-        draggable.ParentLimitIndex = parentLimitIndex;
-        draggable.Filter = filter;
-        draggable.ParentPadding = parentPadding ?? Vector2.zero;
-        draggable.AnchorOffset = anchorOffset ?? Vector2.zero;
-        draggable.KeepOnTop = keepOnTop;
-        draggable.PositionRpc = positionRpc;
-        draggable.MoveToAnchor = moveToAnchor;
-        draggable.RebuildAnchor = rebuildAnchor;
-        return draggable;
-    }
-    
-    public SlotComponent AddSlot(string filter = null)
-    {
-        SlotComponent slot = _component.GetOrAddSubComponent<SlotComponent>();
-        slot.Filter = filter;
-        return slot;
-    }
     
     public void NeedsMouse(bool enabled = true)
     {

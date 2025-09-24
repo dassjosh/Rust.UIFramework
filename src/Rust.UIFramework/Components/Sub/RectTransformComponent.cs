@@ -4,7 +4,6 @@ using Oxide.Ext.UiFramework.Padding;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.Rotation;
 using Oxide.Ext.UiFramework.Types;
-using Oxide.Ext.UiFramework.UiElements;
 
 namespace Oxide.Ext.UiFramework.Components;
 

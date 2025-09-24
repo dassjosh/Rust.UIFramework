@@ -6,6 +6,8 @@ namespace Oxide.Ext.UiFramework.Padding;
 public readonly record struct UiPadding(float Left, float Bottom, float Right, float Top)
 {
     public static readonly UiPadding None = new(0);
+    
+    public bool IsSingleValue => Left == Bottom && Left == Right && Left == Top;
 
     public UiPadding(float horizontal, float vertical) : this(horizontal, vertical, horizontal, vertical) {}
 
