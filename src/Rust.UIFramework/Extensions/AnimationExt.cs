@@ -5,6 +5,7 @@ using Oxide.Ext.UiFramework.Interfaces;
 using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
+using Oxide.Ext.UiFramework.Rotation;
 using Oxide.Ext.UiFramework.Types;
 using Oxide.Ext.UiFramework.UiElements;
 
@@ -44,6 +45,17 @@ public static class AnimationExt
     
     public static OffsetAnimation AnimateOffset(this IAnimationBuilder builder, in UiReference reference, in UiOffset startOffset, in UiOffset endOffset, float duration, float delay = 0f)
         => AnimateOffset(builder, in reference, UiOffsetLerpAnimator.Create(builder.PluginPool, startOffset, endOffset), builder.DefaultDuration(duration, delay));
+    
+    public static RotationAnimation AnimateRotation(this IAnimationBuilder builder, in UiReference reference, ISimpleAnimator<UiRotation> animator, IAnimationDuration duration)
+    {
+        UiReferenceException.ThrowIfInvalidReference(reference);
+        RotationAnimation animation = RotationAnimation.Create(builder, reference, animator, duration);
+        builder.AddAnimation(animation);
+        return animation;
+    }
+    
+    public static RotationAnimation AnimateRotation(this IAnimationBuilder builder, in UiReference reference, in UiRotation start, in UiRotation end, float duration, float delay = 0f)
+        => AnimateRotation(builder, in reference, UiRotationLerpAnimator.Create(builder.PluginPool, start, end), builder.DefaultDuration(duration, delay));
     
     public static TextAnimation AnimateText(this IAnimationBuilder builder, in AnimationReference reference, ISimpleAnimator<string> animator, IAnimationDuration duration, TextFormatter formatter = null)
     {

@@ -4,6 +4,7 @@ using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Positions;
+using Oxide.Ext.UiFramework.Rotation;
 using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Animation;
@@ -29,6 +30,13 @@ public class UiColorLerpAnimator : BaseLerpAnimator<UiColor>
     public UiColorLerpAnimator() { }
     public UiColorLerpAnimator(UiColor start, UiColor end, Func<UiColor, UiColor, float, UiColor> lerp) : base(start, end, lerp) { }
     public static UiColorLerpAnimator Create(UiPluginPool pool, UiColor start, UiColor end) => Create<UiColorLerpAnimator>(pool, start, end, UiColor.Lerp);
+}
+
+public class UiRotationLerpAnimator : BaseLerpAnimator<UiRotation>
+{
+    public UiRotationLerpAnimator() { }
+    public UiRotationLerpAnimator(UiRotation start, UiRotation end, Func<UiRotation, UiRotation, float, UiRotation> lerp) : base(start, end, lerp) { }
+    public static UiRotationLerpAnimator Create(UiPluginPool pool, UiRotation start, UiRotation end) => Create<UiRotationLerpAnimator>(pool, start, end, UiRotation.LerpUnclamped);
 }
 
 public class StringLerpAnimator : BaseLerpAnimator<string>
