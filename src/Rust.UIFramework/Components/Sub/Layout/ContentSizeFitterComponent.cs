@@ -11,6 +11,19 @@ public class ContentSizeFitterComponent : SubComponent
     
     public override Utf8String Type => JsonDefaults.ContentSizeFitterData.Type;
     public override bool AllowMultiple => false;
+    
+    public ContentSizeFitterComponent SetHorizontalFit(ContentSizeFitter.FitMode horizontalFit)
+    {
+        HorizontalFit = horizontalFit;
+        return this;
+    }
+    
+    public ContentSizeFitterComponent SetVerticalFit(ContentSizeFitter.FitMode verticalFit)
+    {
+        VerticalFit = verticalFit;
+        return this;
+    }
+    
     protected override void WriteComponentFields(JsonFrameworkWriter writer)
     {
         writer.AddField(JsonDefaults.ContentSizeFitterData.HorizontalFitName, HorizontalFit, JsonDefaults.ContentSizeFitterData.HorizontalFit);

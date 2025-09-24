@@ -13,8 +13,45 @@ public class GridLayoutComponent : BaseLayoutComponent
     public GridLayoutGroup.Axis StartAxis;
     public GridLayoutGroup.Constraint Constraint;
     public int ConstraintCount;
+
+    public override Utf8String Type => JsonDefaults.GridLayout.Type;
     
-    public override Utf8String Type { get; }
+    public GridLayoutComponent SetCellSize(Vector2 cellSize)
+    {
+        CellSize = cellSize;
+        return this;
+    }
+
+    public GridLayoutComponent SetSpacing(Vector2 spacing)
+    {
+        Spacing = spacing;
+        return this;
+    }
+
+    public GridLayoutComponent SetStartCorner(GridLayoutGroup.Corner startCorner)
+    {
+        StartCorner = startCorner;
+        return this;
+    }
+
+    public GridLayoutComponent SetStartAxis(GridLayoutGroup.Axis startAxis)
+    {
+        StartAxis = startAxis;
+        return this;
+    }
+    
+    public GridLayoutComponent SetConstraint(GridLayoutGroup.Constraint constraint)
+    {
+        Constraint = constraint;
+        return this;
+    }
+    
+    public GridLayoutComponent SetConstraintCount(int constraintCount)
+    {
+        ConstraintCount = constraintCount;
+        return this;
+    }
+    
     protected override void WriteComponentFields(JsonFrameworkWriter writer)
     {
         base.WriteComponentFields(writer);

@@ -10,6 +10,7 @@ public abstract class BaseLayoutComponent : SubComponent
     public TextAnchor ChildAlignment;
     public UiPadding Padding;
     public override bool AllowMultiple => false;
+    
     protected override void WriteComponentFields(JsonFrameworkWriter writer)
     {
         writer.AddField(JsonDefaults.Layout.ChildAlignmentName, ChildAlignment, JsonDefaults.Layout.ChildAlignment);

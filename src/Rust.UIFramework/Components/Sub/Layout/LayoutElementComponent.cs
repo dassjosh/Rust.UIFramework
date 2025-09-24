@@ -15,6 +15,49 @@ public class LayoutElementComponent : SubComponent
 
     public override Utf8String Type => JsonDefaults.LayoutElement.Type;
     public override bool AllowMultiple => false;
+
+    public LayoutElementComponent SetPreferredWidth(float preferredWidth)
+    {
+        PreferredWidth = preferredWidth;
+        return this;
+    }
+
+    public LayoutElementComponent SetPreferredHeight(float preferredHeight)
+    {
+        PreferredHeight = preferredHeight;
+        return this;
+    }
+
+    public LayoutElementComponent SetMinWidth(float minWidth)
+    {
+        MinWidth = minWidth;
+        return this;
+    }
+
+    public LayoutElementComponent SetMinHeight(float minHeight)
+    {
+        MinHeight = minHeight;
+        return this;
+    }
+
+    public LayoutElementComponent SetFlexibleWidth(float flexibleWidth)
+    {
+        FlexibleWidth = flexibleWidth;
+        return this;
+    }
+    
+    public LayoutElementComponent SetFlexibleHeight(float flexibleHeight)
+    {
+        FlexibleHeight = flexibleHeight;
+        return this;
+    }
+    
+    public LayoutElementComponent SetIgnoreLayout(bool ignoreLayout)
+    {
+        IgnoreLayout = ignoreLayout;
+        return this;
+    }
+    
     protected override void WriteComponentFields(JsonFrameworkWriter writer)
     {
         writer.AddField(JsonDefaults.LayoutElement.PreferredWidthName, PreferredWidth, JsonDefaults.LayoutElement.PreferredWidth);
