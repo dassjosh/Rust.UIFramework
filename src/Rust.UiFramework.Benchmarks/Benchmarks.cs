@@ -79,13 +79,13 @@ public class Benchmarks
         _random = new(1234);
     }
     
-    [Benchmark]
+    //[Benchmark]
     public CuiElementContainer Oxide_CreateContainer()
     {
         return GetOxideContainer();
     }
 
-    [Benchmark(Baseline = true)]
+    [Benchmark(Baseline = false)]
     public UiBuilder UiFramework_CreateContainer()
     {
         UiBuilder builder = GetFrameworkBuilder();
@@ -93,13 +93,13 @@ public class Benchmarks
         return builder;
     }
     
-    [Benchmark]
+    //[Benchmark]
     public string Oxide_CreateJson()
     {
         return _oxideContainer.ToJson();
     }
     
-    [Benchmark]
+    //[Benchmark]
     public JsonFrameworkWriter UiFramework_CreateJson()
     {
         JsonFrameworkWriter writer = _builder.CreateWriter();
@@ -107,20 +107,20 @@ public class Benchmarks
         return writer;
     }
     
-    [Benchmark]
+    //[Benchmark]
     public byte[] Oxide_EncodeJson()
     {
         return Encoding.UTF8.GetBytes(_oxideJson);
     }
     
-    [Benchmark]
+    //[Benchmark]
     public int UiFramework_EncodeJson()
     {
         int count = _writer.WriteTo(Buffer);
         return count;
     }
 
-    [Benchmark]
+    //[Benchmark]
     public void UiFramework_Writer()
     {
         UiBuilder builder = _builder;
@@ -137,7 +137,7 @@ public class Benchmarks
         //writer.Dispose();
     }
     
-    [Benchmark]
+    //[Benchmark]
     public void UiFramework_Network()
     {
         BenchmarkNetWrite write = Pool.Get<BenchmarkNetWrite>();
@@ -145,29 +145,28 @@ public class Benchmarks
         Pool.Free(ref write);
     }
     
-    [Benchmark(Baseline = false)]
+    //[Benchmark(Baseline = false)]
     public void UiFramework_Cached()
     {
         CachedUiBuilder builder = _cached;
         builder.AddUi(default(SendInfo));
     }
     
-    [Benchmark(Baseline = false)]
+    //[Benchmark(Baseline = true)]
     public void UiFramework_Async()
     {
         UiBuilder builder = GetFrameworkBuilder();
         builder.AddUi(default(SendInfo));
-        builder.Dispose();
     }
     
-    [Benchmark]
+    //[Benchmark]
     public void Oxide_Async()
     {
         CuiElementContainer builder = GetOxideContainer();
         builder.AddUiAsync(_connection);
     }
     
-    [Benchmark(Baseline = false)]
+    //[Benchmark(Baseline = false)]
     public void UiFramework_Full()
     {
         UiBuilder builder = GetFrameworkBuilder();
@@ -179,7 +178,7 @@ public class Benchmarks
         builder.Dispose();
     }
     
-    [Benchmark(Baseline = false)]
+    //[Benchmark(Baseline = false)]
     public byte[] Oxide_Full()
     {
         CuiElementContainer builder = GetOxideContainer();
@@ -307,23 +306,22 @@ public class Benchmarks
     private UiBuilder GetFrameworkBuilder()
     {
         UiBuilder builder = UiBuilder.Create(UiPosition.Full, UiColor.Clear, "123");
-        builder.EnsureCapacity(Iterations);
         for (int i = 0; i < Iterations - 1; i++)
         {
-            int mode = _random.Next(7);
+            int mode = i % 7;
             switch (mode)
             {
                 case 0:
-                    builder.Panel(builder.Root, _frameworkPos[i], default, UiColor.Clear);
+                    builder.Panel(builder.Root, _frameworkPos[i], default, UiColors.Clear);
                     break;
                 case 1:
-                    builder.Label(builder.Root, _frameworkPos[i], default, "Text", 14, UiColor.White);
+                    builder.Label(builder.Root, _frameworkPos[i], default, "Text", 14, UiColors.White);
                     break;
                 case 2:
-                    builder.CommandButton(builder.Root, _frameworkPos[i], default, UiColors.Green, "command");
+                    builder.Button(builder.Root, _frameworkPos[i], default, UiColors.Green, "command");
                     break;
                 case 3:
-                    builder.ImageFileStorage(builder.Root, _frameworkPos[i], default, "0", UiColors.Blue);
+                    builder.FileStorageImage(builder.Root, _frameworkPos[i], default, "0", UiColors.Blue);
                     break;
                 case 4:
                     builder.WebImage(builder.Root, _frameworkPos[i], default, "http://google.com", UiColors.Yellow);

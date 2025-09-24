@@ -1,4 +1,5 @@
 ﻿using System;
+using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Logging;
 
