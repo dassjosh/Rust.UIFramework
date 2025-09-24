@@ -87,11 +87,11 @@ internal class ImageDownloader
         return new RegisterResult(true, state.HasCompleted, state.HadDownloadError, state.InProgress);
     }
 
-    internal void BulkAddRequests(PluginId pluginId, Dictionary<string, string> requests)
+    internal void BulkAddRequests(PluginId pluginId, List<BulkUrlImageRequest> requests)
     {
-        foreach ((string name, string url) in requests)
+        foreach (BulkUrlImageRequest request in requests)
         {
-            AddRequest(pluginId, name, url);
+            AddRequest(pluginId, request.Name, request.Url);
         }
     }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Ionic.Crc;
 using Oxide.Core;
 using Oxide.Core.Plugins;
 using Oxide.Ext.UiFramework.Constants;
@@ -17,6 +18,8 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
     private readonly ImageStorageData _data = ImageStorageData.Instance;
     private readonly ImageDownloader _downloader;
     private readonly IUiLogger<UiImageStorage> _logger = Singleton<UiLoggerFactory>.Instance.CreateExtensionLogger<UiImageStorage>();
+    private readonly CRC32 _crc = new();
+    
     public bool IsReady { get; private set; }
     
     private static readonly byte[] SignaturePNG = [137, 80, 78, 71, 13, 10, 26, 10, 0, 0, 0, 13, 73, 72, 68, 82];
@@ -101,7 +104,7 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
 
     internal RegisterResult RegisterImage(PluginId plugin, string url) => RegisterImage(plugin, url, url);
 
-    public bool RegisterImage(Plugin plugin, string name, byte[] image, out string error)
+    public bool RegisterImage(IUiFrameworkPlugin plugin, string name, byte[] image, out string error)
     {
         CommunityEntityNotReadyException.ThrowIfNotReady();
         if (plugin == null) throw new ArgumentNullException(nameof(plugin));
@@ -109,7 +112,7 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
         if (image == null) throw new ArgumentNullException(nameof(image));
         
         ImageId id = _data.Get(plugin.Id(), name);
-        if (id.IsValid)
+        if (id.IsValid && id.TryGetCrc(out uint crc) && crc == GetCRC(image))
         {
             error = "Image already registered";
             return false;
@@ -125,10 +128,19 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
         return true;
     }
 
-    public void BulkRegisterImages(Plugin plugin, Dictionary<string, string> images)
+    public void BulkRegisterImages(IUiFrameworkPlugin plugin, List<BulkUrlImageRequest> images)
     {
         CommunityEntityNotReadyException.ThrowIfNotReady();
         _downloader.BulkAddRequests(plugin.Id(), images);
+    }
+    
+    public void BulkRegisterImages(IUiFrameworkPlugin plugin, List<BulkByteImageRequest> images)
+    {
+        CommunityEntityNotReadyException.ThrowIfNotReady();
+        foreach (BulkByteImageRequest request in images)
+        {
+            RegisterImage(plugin, request.Name, request.Image, out string _);
+        }
     }
 
     public bool IsDownloading(string url)
@@ -184,6 +196,14 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
 #else
         return new ImageId(FileStorage.server.Store(image, FileStorage.Type.png, CommunityEntity.ServerInstance.net.ID).ToString());
 #endif
+    }
+    
+    private uint GetCRC(byte[] data)
+    {
+        _crc.Reset();
+        _crc.SlurpBlock(data, 0, data.Length);
+        _crc.UpdateCRC((byte) FileStorage.Type.png);
+        return (uint) _crc.Crc32Result;
     }
 
     internal void OnCommunityEntitySpawned()

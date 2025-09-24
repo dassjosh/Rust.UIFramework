@@ -1,9 +1,10 @@
-﻿using System.Diagnostics.Contracts;
+﻿using System;
+using System.Diagnostics.Contracts;
 using Oxide.Ext.UiFramework.Extensions;
 
 namespace Oxide.Ext.UiFramework.Rotation;
 
-public readonly struct UiRotation(float rotation)
+public readonly struct UiRotation(float rotation) : IEquatable<UiRotation>
 {
     public static readonly UiRotation Zero = new(0);
     public static readonly UiRotation Twelfth = new(FullRotation / 12);
@@ -50,4 +51,8 @@ public readonly struct UiRotation(float rotation)
     public static UiRotation operator *(UiRotation lhs, UiRotation rhs) => new(lhs.Rotation * (rhs.Rotation / Full.Rotation));
     public static UiRotation operator /(UiRotation lhs, float rhs) => new(lhs.Rotation / rhs);
     public static UiRotation operator /(UiRotation lhs, UiRotation rhs) => new((lhs.Rotation * Full.Rotation) / rhs.Rotation);
+
+    public bool Equals(UiRotation other) => Rotation.Equals(other.Rotation);
+    public override bool Equals(object obj) => obj is UiRotation other && Equals(other);
+    public override int GetHashCode() => Rotation.GetHashCode();
 }

@@ -8,13 +8,14 @@ namespace Oxide.Ext.UiFramework.Components;
 
 public abstract class CoreComponent : BaseTypedComponent, ICoreComponent
 {
-    private List<SubComponent> _subComponents;
+    private readonly List<SubComponent> _subComponents = [];
 
     internal void WriteSubComponents(JsonFrameworkWriter writer)
     {
         if (_subComponents == null || _subComponents.Count == 0) return;
-        int count = _subComponents.Count;
-        ReadOnlySpan<SubComponent> span = _subComponents.ListAsReadOnlySpan();
+        
+        ReadOnlySpan<SubComponent> span = _subComponents.GetAsReadonlySpan();
+        int count = span.Length;
         for (int index = 0; index < count; index++)
         {
             ISubComponent component = span[index];
@@ -24,13 +25,11 @@ public abstract class CoreComponent : BaseTypedComponent, ICoreComponent
 
     public T GetOrAddSubComponent<T>() where T : SubComponent, new()
     {
-        _subComponents ??= PluginPool.GetList<SubComponent>();
         return GetSubComponent<T>() ?? AddSubComponentInternal<T>();
     }
 
     public T AddSubComponent<T>(bool ignoreIfExists = false) where T : SubComponent, new()
     {
-        _subComponents ??= PluginPool.GetList<SubComponent>();
         if (_subComponents.Count != 0 && GetSubComponent<T>() is { } component)
         {
             if (ignoreIfExists)
@@ -59,8 +58,7 @@ public abstract class CoreComponent : BaseTypedComponent, ICoreComponent
         if (_subComponents == null) return null;
         for (int index = 0; index < _subComponents.Count; index++)
         {
-            SubComponent component = _subComponents[index];
-            if (component is T t)
+            if (_subComponents[index] is T t)
             {
                 return t;
             }
@@ -72,21 +70,26 @@ public abstract class CoreComponent : BaseTypedComponent, ICoreComponent
     public IEnumerable<T> GetSubComponents<T>() where T : SubComponent
     {
         if (_subComponents == null) yield break;
-        foreach (SubComponent component in _subComponents)
+        for (int index = 0; index < _subComponents.Count; index++)
         {
-            if (component is T tComponent)
+            if (_subComponents[index] is T tComponent)
             {
                 yield return tComponent;
             }
         }
     }
 
-    public void RemoveComponents<T>() where T : SubComponent
+    public void RemoveSubComponents<T>() where T : SubComponent
     {
         _subComponents?.RemoveAll(sc => sc is T);
     }
     
-    public void RemoveComponent<T>() where T : SubComponent
+    public void RemoveSubComponents<T>(Predicate<T> predicate) where T : SubComponent
+    {
+        _subComponents?.RemoveAll(sc => sc is T component && predicate(component));
+    }
+    
+    public void RemoveSubComponent<T>() where T : SubComponent
     {
         if (_subComponents == null) return;
         int index = _subComponents.FindIndex(sc => sc is T);
@@ -95,8 +98,18 @@ public abstract class CoreComponent : BaseTypedComponent, ICoreComponent
             _subComponents.RemoveAt(index);
         }
     }
+    
+    public void RemoveSubComponent<T>(Predicate<T> predicate) where T : SubComponent
+    {
+        if (_subComponents == null) return;
+        int index = _subComponents.FindIndex(sc => sc is T component && predicate(component));
+        if (index != -1)
+        {
+            _subComponents.RemoveAt(index);
+        }
+    }
 
-    public void RemoveComponent(SubComponent subComponent)
+    public void RemoveSubComponent(SubComponent subComponent)
     {
         _subComponents.Remove(subComponent);
     }
@@ -104,11 +117,6 @@ public abstract class CoreComponent : BaseTypedComponent, ICoreComponent
     public override void Reset()
     {
         base.Reset();
-        if(_subComponents != null)
-        {
-            _subComponents.FreeValues();
-            PluginPool.FreeList(_subComponents);
-            _subComponents = null;
-        }
+        _subComponents.FreeValues();
     }
 }

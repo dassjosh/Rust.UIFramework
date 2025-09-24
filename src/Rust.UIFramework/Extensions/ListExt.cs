@@ -15,8 +15,8 @@ public static class ListExt
             return;
         }
         
-        int count = list.Count;
-        Span<T> span = list.ListAsSpan();
+        ReadOnlySpan<T> span = list.GetAsReadonlySpan();
+        int count = span.Length;
         for (int index = 0; index < count; index++)
         {
             span[index].TryDispose();
@@ -32,8 +32,8 @@ public static class ListExt
             return;
         }
         
-        int count = list.Count;
-        Span<T> span = list.ListAsSpan();
+        ReadOnlySpan<T> span = list.GetAsReadonlySpan();
+        int count = span.Length;
         for (int index = 0; index < count; index++)
         {
             span[index].TryReturnToPool();
@@ -71,13 +71,13 @@ public static class ListExt
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ReadOnlySpan<T> ListAsReadOnlySpan<T>(this List<T> list)
+    public static ReadOnlySpan<T> GetAsReadonlySpan<T>(this List<T> list)
     {
         return list.GetInternalArrayUnsafe().AsSpan(0, list.Count);
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static Span<T> ListAsSpan<T>(this List<T> list)
+    public static Span<T> GetAsSpan<T>(this List<T> list)
     {
         return list.GetInternalArrayUnsafe().AsSpan(0, list.Count);
     }

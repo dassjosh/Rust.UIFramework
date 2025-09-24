@@ -94,7 +94,7 @@ public abstract class BaseUiComponent(CoreComponent component) : BasePoolable
         }
         else
         {
-            _component.RemoveComponent<NeedsMouseComponent>();
+            _component.RemoveSubComponent<NeedsMouseComponent>();
         }
     }
 
@@ -106,7 +106,7 @@ public abstract class BaseUiComponent(CoreComponent component) : BasePoolable
         }
         else
         {
-            _component.RemoveComponent<NeedsKeyboardComponent>();
+            _component.RemoveSubComponent<NeedsKeyboardComponent>();
         }
     }
 
