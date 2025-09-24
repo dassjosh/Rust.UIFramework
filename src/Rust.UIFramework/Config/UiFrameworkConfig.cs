@@ -48,6 +48,12 @@ internal class UiFrameworkConfig : ConfigFile
     public UiHarmonyConfig Harmony { get; set; }
     
     /// <summary>
+    /// UiFramework Proxy Options
+    /// </summary>
+    [JsonProperty("Proxy")]
+    public UiProxyConfig Proxy { get; set; }
+    
+    /// <summary>
     /// UiFramework Logging Options
     /// </summary>
     [JsonProperty("Logging")]
@@ -127,6 +133,8 @@ internal class UiFrameworkConfig : ConfigFile
             Enabled = true,
             UpdateRate = 25
         };
+
+        Proxy = new UiProxyConfig(Proxy);
         
         Logging = new UiLoggingConfig
         {

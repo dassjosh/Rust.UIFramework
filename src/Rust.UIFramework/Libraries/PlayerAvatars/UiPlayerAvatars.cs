@@ -29,6 +29,18 @@ public class UiPlayerAvatars : BaseUiFrameworkLibrary, ISingleton
                 AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate,
                 UseCookies = false
             };
+            
+            UiProxyConfig proxyConfig = UiFrameworkConfig.Instance.Proxy;
+            if (proxyConfig.EnableProxy)
+            {
+                WebProxy proxy = new()
+                {
+                    Credentials = new NetworkCredential(proxyConfig.Username, proxyConfig.Password),
+                    Address = new Uri(proxyConfig.Url),
+                };
+                handler.Proxy = proxy;
+            }
+            
             _httpClient = new HttpClient(handler)
             {
                 Timeout = TimeSpan.FromSeconds(30),
