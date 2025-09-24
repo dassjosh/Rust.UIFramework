@@ -38,7 +38,7 @@ public class UiLabel : BaseUiText<UiLabel>
 
     public UiLabel SetPlaceholderFor(UiInput input) => SetPlaceholderFor(input.Reference);
     
-    public CountdownComponent AddCountdown() => Text.AddSubComponent<CountdownComponent>();
+    public CountdownComponent AddCountdown() => Text.GetOrAddSubComponent<CountdownComponent>();
     
     public CountdownComponent AddCountdown(float startTime, float endTime, string command, 
         float step = JsonDefaults.Countdown.StepValue, 

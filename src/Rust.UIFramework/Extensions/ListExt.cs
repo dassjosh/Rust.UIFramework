@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Oxide.Ext.UiFramework.Pooling;
 using Unity.Collections.LowLevel.Unsafe;
-using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Extensions;
 
