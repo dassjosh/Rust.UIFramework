@@ -15,11 +15,11 @@ public static class ListExt
             return;
         }
         
-        ReadOnlySpan<T> span = list.GetAsReadOnlySpan();
-        int count = span.Length;
+        int count = list.Count;
+        T[] array = list.GetInternalArray();
         for (int index = 0; index < count; index++)
         {
-            span[index].TryDispose();
+            array[index].TryDispose();
         }
         
         list.Clear();
@@ -32,11 +32,11 @@ public static class ListExt
             return;
         }
         
-        ReadOnlySpan<T> span = list.GetAsReadOnlySpan();
-        int count = span.Length;
+        int count = list.Count;
+        T[] array = list.GetInternalArray();
         for (int index = 0; index < count; index++)
         {
-            span[index].TryReturnToPool();
+            array[index].TryReturnToPool();
         }
         
         list.Clear();
@@ -59,7 +59,7 @@ public static class ListExt
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static T[] GetInternalArrayUnsafe<T>(this List<T> list)
+    internal static T[] GetInternalArray<T>(this List<T> list)
     {
         return list.GetPrivateFieldsUnsafe()._items;
     }
@@ -73,13 +73,13 @@ public static class ListExt
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static ReadOnlySpan<T> GetAsReadOnlySpan<T>(this List<T> list)
     {
-        return list.GetInternalArrayUnsafe().AsSpan(0, list.Count);
+        return list.GetInternalArray().AsSpan(0, list.Count);
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Span<T> GetAsSpan<T>(this List<T> list)
     {
-        return list.GetInternalArrayUnsafe().AsSpan(0, list.Count);
+        return list.GetInternalArray().AsSpan(0, list.Count);
     }
     
     private sealed class PrivateList<T>

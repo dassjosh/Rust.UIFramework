@@ -14,12 +14,11 @@ public abstract class CoreComponent : BaseTypedComponent, ICoreComponent
     {
         if (_subComponents.Count == 0) return;
         
-        ReadOnlySpan<SubComponent> span = _subComponents.GetAsReadOnlySpan();
-        int count = span.Length;
+        int count = _subComponents.Count;
+        SubComponent[] array = _subComponents.GetInternalArray();
         for (int index = 0; index < count; index++)
         {
-            ISubComponent component = span[index];
-            component.WriteComponent(writer);
+            array[index].WriteComponent(writer);
         }
     }
 

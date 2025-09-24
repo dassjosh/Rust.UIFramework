@@ -17,6 +17,7 @@ internal class UiConsoleLogger(string pluginName) : IOutputLogger
     /// Adds a message to the server console
     /// </summary>
     /// <param name="level"></param>
+    /// <param name="type"></param>
     /// <param name="log"></param>
     /// <param name="args"></param>
     /// <param name="ex"></param>
@@ -46,30 +47,25 @@ internal class UiConsoleLogger(string pluginName) : IOutputLogger
         }
 
         string message = sb.ToString();
-
-#if UNIT_TESTS
-        Console.WriteLine(message);
-#else
         switch (level)
         {
             case UiLogLevel.Debug:
             case UiLogLevel.Warning:
-                Interface.Oxide.LogWarning(message);
+                OxideLibrary.LogWarning(message);
                 break;
             case UiLogLevel.Error:
-                Interface.Oxide.LogError(message);
+                OxideLibrary.LogError(message);
                 break;
             case UiLogLevel.Exception:
-                Interface.Oxide.LogException(message, ex);
+                OxideLibrary.LogException(message, ex);
                 break;
             case UiLogLevel.Verbose:
             case UiLogLevel.Info:
-                Interface.Oxide.LogInfo(message);
+                OxideLibrary.LogInfo(message);
                 break;
             case UiLogLevel.Off:
                 break;
         }
-#endif
     }
 
     public void OnShutdown() {}

@@ -2,7 +2,6 @@
 using Oxide.Ext.UiFramework.Padding;
 using UnityEngine;
 
-
 namespace Oxide.Ext.UiFramework.Components;
 
 public abstract class BaseLayoutComponent : SubComponent

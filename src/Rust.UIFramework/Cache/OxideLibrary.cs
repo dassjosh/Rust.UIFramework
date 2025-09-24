@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using System.Runtime.CompilerServices;
 using Oxide.Core;
 using Oxide.Core.Libraries;
 using Oxide.Core.Libraries.Covalence;
@@ -18,6 +20,15 @@ internal static class OxideLibrary
     internal static readonly string ConfigFolder = Interface.Oxide.ConfigDirectory;
     internal static readonly string DataFolder = Interface.Oxide.DataDirectory;
     internal static readonly string LogFolder = Interface.Oxide.LogDirectory;
+    
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static void LogInfo(string message) => Interface.Oxide.LogInfo(message); 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static void LogWarning(string message) => Interface.Oxide.LogWarning(message); 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static void LogError(string message) => Interface.Oxide.LogError(message); 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static void LogException(string message, Exception exception) => Interface.Oxide.LogException(message, exception); 
 #else
 
     internal static readonly Covalence Covalence = null;
@@ -29,6 +40,10 @@ internal static class OxideLibrary
     internal const string ConfigFolder = "oxide/config";
     internal const string DataFolder = "oxide/data";
     internal const string LogFolder = "oxide/log";
+    internal static void LogInfo(string message) => Console.WriteLine(message);
+    internal static void LogWarning(string message) => Console.WriteLine(message);
+    internal static void LogError(string message) => Console.WriteLine(message);
+    internal static void LogException(string message, Exception exception) => Console.WriteLine($"{message}\n{exception}");
 #endif
 
 }

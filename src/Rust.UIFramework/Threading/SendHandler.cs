@@ -78,7 +78,7 @@ internal class SendHandler : ISingleton
         return 1 << attempts;
     }
     
-#if UNIT_TESTS
+#if UNIT_TESTS || BENCHMARKS
     internal void WaitUntilFinished()
     {
         while (!_queue.IsEmpty)
