@@ -77,7 +77,7 @@ internal class UiFrameworkConfig : ConfigFile
 
     internal static void LoadConfig()
     {
-#if BENCHMARKS || UNIT_TESTS
+#if !SERVER
         new UiFrameworkConfig(null);
 #else
         string configPath = Path.Combine(PathConstants.ConfigFolder, "UiFramework.json");

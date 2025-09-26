@@ -5,6 +5,7 @@ using Oxide.Ext.UiFramework.Constants;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
+using Oxide.Ext.UiFramework.UiElements;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,11 +20,16 @@ public static class ComponentHelpers
         image.Sprite = UiSprites.Content.Ui.UiBackgroundRounded;
         image.Material = UiMaterials.Icons.IconMaterial;
         image.ImageType = Image.Type.Sliced;
+        image.PlaceholderFor = new UiReference("parent", "name");
     }
 
     public static void PopulateButton(ButtonComponent button)
     {
-        PopulateImage(button);
+        button.Color = UiColors.Red;
+        button.FadeIn = 1;
+        button.Sprite = UiSprites.Content.Ui.UiBackgroundRounded;
+        button.Material = UiMaterials.Icons.IconMaterial;
+        button.ImageType = Image.Type.Sliced;
         button.Command = "command";
     }
     

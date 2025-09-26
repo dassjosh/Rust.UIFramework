@@ -10,7 +10,7 @@ namespace Oxide.Ext.UiFramework.Cache;
 
 internal static class OxideLibrary 
 {
-#if !UNIT_TESTS && !BENCHMARKS
+#if SERVER
     internal static readonly Covalence Covalence = Interface.Oxide.GetLibrary<Covalence>();
     internal static readonly Permission Permission = Interface.Oxide.GetLibrary<Permission>();
     internal static readonly Lang Lang = Interface.Oxide.GetLibrary<Lang>();

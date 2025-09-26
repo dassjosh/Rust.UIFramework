@@ -2,7 +2,7 @@
 
 namespace Oxide.Ext.UiFramework.Libraries;
 
-#if !UNIT_TESTS
+#if SERVER
 using System.Collections.Concurrent;
 /// <summary>
 /// Stores downloaded images on the main thread

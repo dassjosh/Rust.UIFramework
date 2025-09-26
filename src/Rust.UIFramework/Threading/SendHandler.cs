@@ -51,7 +51,7 @@ internal class SendHandler : ISingleton
             didSend = true;
             try
             {
-#if !BENCHMARKS && !UNIT_TESTS
+#if SERVER
                 request.SendRequest();
 #endif
             }
@@ -78,7 +78,7 @@ internal class SendHandler : ISingleton
         return 1 << attempts;
     }
     
-#if UNIT_TESTS || BENCHMARKS
+#if !SERVER
     internal void WaitUntilFinished()
     {
         while (!_queue.IsEmpty)

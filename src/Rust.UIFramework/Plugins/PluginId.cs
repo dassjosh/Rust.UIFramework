@@ -23,13 +23,7 @@ internal readonly record struct PluginId
     [ProtoIgnore]
     public bool IsValid => !string.IsNullOrEmpty(Id);
 
-    [ProtoIgnore]
-    internal bool IsExtensionPlugin => IsValid &&
-#if UNIT_TESTS
-                                       this == new PluginId(UiFrameworkExtension.Instance.Name);
-#else
-                                       this == UiFrameworkPlugin.Instance.PluginId;
-#endif
+    [ProtoIgnore] internal bool IsExtensionPlugin => IsValid && this == UiFrameworkExtension.Instance.PluginId;
         
     internal PluginId(Plugin plugin) => Id = plugin?.Name ?? throw new ArgumentNullException(nameof(plugin));
     internal PluginId(string id) => Id = id ?? throw new ArgumentNullException(nameof(id));

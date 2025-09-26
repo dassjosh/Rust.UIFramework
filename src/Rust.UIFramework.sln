@@ -41,6 +41,5 @@ Global
 		{6D5681D6-15DF-41DF-8A1F-03A923F592F1}.Release|Oxide.ActiveCfg = Release|Oxide
 		{6D5681D6-15DF-41DF-8A1F-03A923F592F1}.Unit Tests|Oxide.ActiveCfg = Unit Tests|Oxide
 		{6D5681D6-15DF-41DF-8A1F-03A923F592F1}.Unit Tests|Oxide.Build.0 = Unit Tests|Oxide
-		{6D5681D6-15DF-41DF-8A1F-03A923F592F1}.Debug|Oxide.Build.0 = Debug|Oxide
 	EndGlobalSection
 EndGlobal

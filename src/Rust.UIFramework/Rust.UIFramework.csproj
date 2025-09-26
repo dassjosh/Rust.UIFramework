@@ -15,21 +15,21 @@
     </PropertyGroup>
     
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|Oxide' ">
-      <DefineConstants>TRACE;DEBUG;OXIDE</DefineConstants>
+      <DefineConstants>TRACE;DEBUG;OXIDE;SERVER;</DefineConstants>
     </PropertyGroup>
     
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|Oxide' ">
-      <DefineConstants>TRACE;OXIDE</DefineConstants>
+      <DefineConstants>TRACE;OXIDE;SERVER;</DefineConstants>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Benchmarks|Oxide' ">
-      <DefineConstants>TRACE;BENCHMARKS;OXIDE</DefineConstants>
+      <DefineConstants>TRACE;BENCHMARKS;OXIDE;</DefineConstants>
       <Optimize>true</Optimize>
       <NoWarn>1701;1702;EPS06</NoWarn>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Unit Tests|Oxide' ">
-      <DefineConstants>TRACE; UNIT_TESTS</DefineConstants>
+      <DefineConstants>TRACE; UNIT_TESTS;</DefineConstants>
       <NoWarn>1701;1702;EPS06</NoWarn>
     </PropertyGroup>
     

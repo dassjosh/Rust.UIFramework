@@ -6,7 +6,7 @@ namespace Oxide.Ext.UiFramework.Logging;
 internal class UiLogHandler(string plugin, IUiLoggingConfig config, bool isExtension)
 {
     private UiConsoleLogger _consoleLogger = isExtension || config.ConsoleLogLevel != UiLogLevel.Off ? new UiConsoleLogger(plugin) : null;
-#if !UNIT_TESTS && !BENCHMARKS
+#if SERVER
     private UiFileLogger _fileLogger = isExtension || config.FileLogLevel != UiLogLevel.Off ? Singleton<UiFileLoggerFactory>.Instance.CreateLogger(plugin, config.FileDateTimeFormat) : null;
 #else
     private UiFileLogger _fileLogger;

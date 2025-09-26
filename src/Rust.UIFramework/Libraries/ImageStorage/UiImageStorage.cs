@@ -26,7 +26,7 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
 
     private UiImageStorage()
     {
-#if UNIT_TESTS
+#if !SERVER
         _downloader = new ImageDownloader(Singleton<ImageStorageBehavior>.Instance);
 #else
         _downloader = new ImageDownloader(SingletonBehavior<ImageStorageBehavior>.Instance);
@@ -35,7 +35,7 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
 
     public string Get(IUiFrameworkPlugin plugin, string nameOrUrl, ImageDownloadOptions options = null)
     {
-#if UNIT_TESTS
+#if !SERVER
         return nameOrUrl;
 #else
         if (plugin == null) throw new ArgumentNullException(nameof(plugin));
@@ -191,7 +191,7 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
     private static bool IsValidJpegImage(byte[] image) => image is [0xFF, 0xD8, ..];
     private static ImageId StoreImage(byte[] image)
     {
-#if UNIT_TESTS
+#if !SERVER
         return new ImageId(Core.Random.Range(0, int.MaxValue).ToString());
 #else
         return new ImageId(FileStorage.server.Store(image, FileStorage.Type.png, CommunityEntity.ServerInstance.net.ID).ToString());
