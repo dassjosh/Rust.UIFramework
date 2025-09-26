@@ -107,5 +107,7 @@ public class ScrollViewComponent : CoreComponent
         Inertia = JsonDefaults.ScrollView.Inertia;
         DecelerationRate = JsonDefaults.ScrollView.DecelerationRate;
         ScrollSensitivity = JsonDefaults.ScrollView.ScrollSensitivity;
+        HorizontalScrollProgress = JsonDefaults.ScrollView.HorizontalScrollProgress;
+        VerticalScrollProgress = JsonDefaults.ScrollView.VerticalScrollProgressOverride;
     }
 }
