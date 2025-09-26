@@ -19,10 +19,6 @@ public class UiScrollView : BaseUiComponent
     {
         ScrollView = component;
     }
-    
-    public UiReference Content => _content ??= Reference.WithChild($"{Reference.Name}___Content");
-    
-    private UiReference? _content;
 
     public ScrollRect.MovementType MovementType { get => ScrollView.MovementType; set => ScrollView.MovementType = value; }
     public float Elasticity { get => ScrollView.Elasticity; set => ScrollView.Elasticity = value; }
@@ -207,11 +203,5 @@ public class UiScrollView : BaseUiComponent
         if(type.HasFlag(ScrollbarTypes.Horizontal) && HorizontalScrollbar != null) HorizontalScrollbar.TrackColor = color;
         if(type.HasFlag(ScrollbarTypes.Vertical) && VerticalScrollbar != null) VerticalScrollbar.TrackColor = color;
         return this;
-    }
-
-    protected override void EnterPool()
-    {
-        base.EnterPool();
-        _content = null;
     }
 }
