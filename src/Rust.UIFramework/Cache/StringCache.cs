@@ -1,4 +1,5 @@
-﻿using System.Collections.Concurrent;
+﻿using System;
+using System.Collections.Concurrent;
 
 namespace Oxide.Ext.UiFramework.Cache;
 
@@ -16,4 +17,7 @@ public static class StringCache<T>
 
         return text;
     }
+    
+    [Obsolete("Use FormatCache<T>.ToString() instead.")]
+    public static string ToString<TFormat>(TFormat value, string format) where TFormat : IFormattable => FormatCache<TFormat>.ToString(value, format);
 }
