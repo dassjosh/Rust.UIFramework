@@ -9,21 +9,8 @@ namespace Oxide.Ext.UiFramework.Layouts;
 
 public class UiDockLayout : BaseUiLayout
 {
-    public LayoutPadding LayoutPadding;
     public UiPadding Padding;
     public readonly List<LayoutState> Elements = [];
-
-    public void Init(LayoutPadding layoutPadding, UiPadding padding)
-    {
-        LayoutPadding = layoutPadding;
-        Padding = padding;
-    }
-    
-    public UiDockLayout SetLayoutPadding(LayoutPadding layoutPadding)
-    {
-        LayoutPadding = layoutPadding;
-        return this;
-    }
     
     public UiDockLayout SetPadding(in UiPadding padding)
     {
@@ -43,13 +30,12 @@ public class UiDockLayout : BaseUiLayout
 
     public override void CalculateElementPositions()
     {
-        UiOffset padding = Padding.ToOffset();
         UiPosition remainingArea = new(0, 0, 1, 1);
 
         foreach (LayoutState state in Elements)
         {
             UiPosition dockedPosition = CalculateDockedPosition(state, ref remainingArea);
-            state.Element.SetPosition(dockedPosition.Shrink(LayoutPadding.Horizontal, LayoutPadding.Vertical), padding);
+            state.Element.SetPosition(dockedPosition).SetPadding(Padding);
         }
     }
 

@@ -12,19 +12,18 @@ public class UiGridLayout : BaseUiLayout, IFixedElementsLayout
     public int NumCols;
     public LayoutAlignment ColumnAlignment;
     public LayoutAlignment RowAlignment;
-    public LayoutPadding LayoutPadding;
     public UiPadding Padding;
     public readonly List<GridElement> Elements = [];
     public int NumElements => NumRows * NumCols;
 
-    public void Init(int numCols, int numRows, GridAlignment alignment, LayoutPadding layoutPadding, in UiPadding padding)
+    public UiGridLayout Init(int numCols, int numRows, GridAlignment alignment, in UiPadding padding)
     {
         NumCols = numCols;
         NumRows = numRows;
         ColumnAlignment = alignment.ColumnAlignment;
         RowAlignment = alignment.RowAlignment;
-        LayoutPadding = layoutPadding;
         Padding = padding;
+        return this;
     }
 
     public UiGridLayout SetNumRows(int numRows)
@@ -51,12 +50,6 @@ public class UiGridLayout : BaseUiLayout, IFixedElementsLayout
         return this;
     }
 
-    public UiGridLayout SetLayoutPadding(LayoutPadding layoutPadding)
-    {
-        LayoutPadding = layoutPadding;
-        return this;
-    }
-
     public UiGridLayout SetPadding(in UiPadding padding)
     {
         Padding = padding;
@@ -73,8 +66,6 @@ public class UiGridLayout : BaseUiLayout, IFixedElementsLayout
         int numRows = rows.Count;
         float scale = GetScrollViewScale(numRows, NumRows);
         float currentRow = GetRowOffset(numRows) * scale;
-        
-        UiOffset padding = Padding.ToOffset();
 
         int elementIndex = 0;
         for (int i = 0; i < numRows; i++)
@@ -85,7 +76,7 @@ public class UiGridLayout : BaseUiLayout, IFixedElementsLayout
             {
                 GridElement element = row.Elements[index];
                 UiPosition pos = GetUiPosition(currentCol, currentRow, element.ColSpan, scale);
-                element.Element.SetPosition(pos, padding);
+                element.Element.SetPosition(pos).SetPadding(Padding);
                 currentCol += element.ColSpan;
                 elementIndex++;
             }
@@ -127,9 +118,7 @@ public class UiGridLayout : BaseUiLayout, IFixedElementsLayout
 
     private UiPosition GetUiPosition(float currentCol, float currentRow, float colSpan, float scale)
     {
-        UiPosition pos = new(currentCol / NumCols,  1f - (currentRow + 1) * scale / NumRows,  (currentCol + colSpan) / NumCols, 1f - currentRow * scale / NumRows);
-        pos = pos.Shrink(LayoutPadding.Horizontal, LayoutPadding.Vertical * scale);
-        return pos;
+        return new UiPosition(currentCol / NumCols,  1f - (currentRow + 1) * scale / NumRows,  (currentCol + colSpan) / NumCols, 1f - currentRow * scale / NumRows);
     }
 
     private void FreeGridRows(List<GridRow> rows)

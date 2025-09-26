@@ -619,7 +619,7 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
     private const int ImageRows = 4;
     private const float ImagePadding = 0.01f;
     private const int TotalImages = ImageColumns * ImageRows;
-    private readonly LayoutPadding LayoutPadding = new(ImagePadding);
+    private readonly UiPadding LayoutPadding = new(2);
     
     private readonly GridPosition _imageGrid = new GridPositionBuilder(ImageColumns, ImageRows).SetPadding(ImagePadding).Build(); 
 
@@ -681,7 +681,7 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
     private void CreatePlayingCards(UiBuilder builder, UiReference root, UiState state)
     {       
         UiScrollView scroll = CreateScrollView(builder, root);
-        UiGridLayout grid = builder.GridLayout(scroll, UiPosition.Full, new UiOffset(0, 0, -20, 0), ImageColumns, ImageRows, layoutPadding: LayoutPadding);
+        UiGridLayout grid = builder.GridLayout(scroll, UiPosition.Full, new UiOffset(0, 0, -20, 0), ImageColumns, ImageRows, padding: LayoutPadding);
         grid.ForScrollView(scroll);
         
         if (!state.CardType.HasValue)
@@ -735,7 +735,7 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
     
     private void CreateIcons<T>(UiBuilder builder, UiReference root, UiState state, Func<T, bool> filter) where T : struct, Enum
     {
-        UiGridLayout layout =  builder.GridLayout(root, new UiPosition(0, 0.075f, 1, 1), default, ImageColumns, ImageRows, default, new LayoutPadding(ImagePadding));
+        UiGridLayout layout =  builder.GridLayout(root, new UiPosition(0, 0.075f, 1, 1), default, ImageColumns, ImageRows, default, LayoutPadding);
         
         IReadOnlyCollection<T> values = EnumCache<T>.GetValues();
         int maxPage = UiHelpers.CalculateMaxPage(values.Count, TotalImages);
@@ -753,7 +753,7 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
             builder.Icon(button, UiPosition.Full, default, icon);
         }
         
-        UiDirectionalLayout paginationLayout = builder.DirectionalLayout(root, new UiPosition(0, 0, 1, 0.075f), default, 15, layoutPadding: new LayoutPadding(0.0025f), direction: LayoutDirection.Horizontal);
+        UiDirectionalLayout paginationLayout = builder.DirectionalLayout(root, new UiPosition(0, 0, 1, 0.075f), default, 15, padding: LayoutPadding, direction: LayoutDirection.Horizontal);
         builder.Paginator(paginationLayout, state.Page, maxPage, 14, _textColor, UiColors.ButtonSecondary, UiColors.ButtonPrimary, _uiCommands.ChangePage.Partial(state));
     }
     
@@ -803,7 +803,7 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
 
     private UiScrollView CreateScrollView(UiBuilder builder, UiReference root)
     {
-        UiScrollView scroll = builder.ScrollView(root, UiPosition.Full, default, ScrollRect.MovementType.Elastic, inertia: true, scrollSensitivity: 10f);
+        UiScrollView scroll = builder.ScrollView(root, UiPosition.Full, default, ScrollRect.MovementType.Clamped, inertia: true, scrollSensitivity: 10f);
         scroll.AddVerticalScrollBar(autoHide: true, handleColor: UiColors.ButtonPrimary, pressedColor: UiColors.ButtonPrimary, highlightColor: UiColors.ButtonPrimary, trackColor: UiColors.PanelSecondary);
         return scroll;
     }

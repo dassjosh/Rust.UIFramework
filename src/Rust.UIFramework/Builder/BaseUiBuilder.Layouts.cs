@@ -39,19 +39,12 @@ public abstract partial class BaseUiBuilder
     public UiGridLayout GridLayout(in UiReference reference, in UiPosition pos, in UiOffset offset) => Layout<UiGridLayout>(reference, pos, offset);
     public UiGridLayout GridLayout(BaseUiLayout parentLayout) => Layout<UiGridLayout>(parentLayout);
 
-    public UiGridLayout GridLayout(in UiReference reference, in UiPosition pos, in UiOffset offset, int numCols, int numRows, GridAlignment alignment = default, LayoutPadding layoutPadding = default, in UiPadding padding = default)
-    {
-        UiGridLayout layout = GridLayout(reference, pos, offset);
-        layout.Init(numCols, numRows, alignment, layoutPadding, padding);
-        return layout;
-    }
-    
-    public UiGridLayout GridLayout(BaseUiLayout parentLayout, int numCols, int numRows, GridAlignment alignment = default, LayoutPadding layoutPadding = default, in UiPadding padding = default)
-    {
-        UiGridLayout layout = GridLayout(parentLayout);
-        layout.Init(numCols, numRows, alignment, layoutPadding, padding);
-        return layout;
-    }
+    public UiGridLayout GridLayout(in UiReference reference, in UiPosition pos, in UiOffset offset, int numCols, int numRows, GridAlignment alignment = default, in UiPadding padding = default)
+        => GridLayout(reference, pos, offset).Init(numCols, numRows, alignment, padding);
+
+    public UiGridLayout GridLayout(BaseUiLayout parentLayout, int numCols, int numRows, GridAlignment alignment = default, in UiPadding padding = default) 
+        => GridLayout(parentLayout).Init(numCols, numRows, alignment, padding);
+
     #endregion
 
     #region Grid Position Layout
@@ -59,19 +52,10 @@ public abstract partial class BaseUiBuilder
     public UiGridPositionLayout GridPositionLayout(in UiReference reference, in UiPosition pos, in UiOffset offset) => Layout<UiGridPositionLayout>(reference, pos, offset);
     public UiGridPositionLayout GridPositionLayout(BaseUiLayout parentLayout) => Layout<UiGridPositionLayout>(parentLayout);
     
-    public UiGridPositionLayout GridPositionLayout(in UiReference reference, in UiPosition pos, in UiOffset offset, GridPosition grid)
-    {
-        UiGridPositionLayout layout = GridPositionLayout(reference, pos, offset);
-        layout.Init(grid);
-        return layout;
-    }
-    
-    public UiGridPositionLayout GridPositionLayout(BaseUiLayout parentLayout, GridPosition grid)
-    {
-        UiGridPositionLayout layout = GridPositionLayout(parentLayout);
-        layout.Init(grid);
-        return layout;
-    }
+    public UiGridPositionLayout GridPositionLayout(in UiReference reference, in UiPosition pos, in UiOffset offset, GridPosition grid, in UiPadding padding) => GridPositionLayout(reference, pos, offset).Init(grid, padding);
+
+    public UiGridPositionLayout GridPositionLayout(BaseUiLayout parentLayout, GridPosition grid, in UiPadding padding) => GridPositionLayout(parentLayout).Init(grid, padding);
+
     #endregion
 
     #region Directional
@@ -79,19 +63,12 @@ public abstract partial class BaseUiBuilder
     public UiDirectionalLayout DirectionalLayout(in UiReference reference, in UiPosition pos, in UiOffset offset) => Layout<UiDirectionalLayout>(reference, pos, offset);
     public UiDirectionalLayout DirectionalLayout(BaseUiLayout parentLayout) => Layout<UiDirectionalLayout>(parentLayout);
     
-    public UiDirectionalLayout DirectionalLayout(in UiReference reference, in UiPosition pos, in UiOffset offset, int numElements, LayoutDirection direction = default, LayoutAlignment alignment = default, LayoutPadding layoutPadding = default, in UiPadding padding = default)
-    {
-        UiDirectionalLayout layout = DirectionalLayout(reference, pos, offset);
-        layout.Init(numElements, direction, alignment, layoutPadding, padding);
-        return layout;
-    }
-    
-    public UiDirectionalLayout DirectionalLayout(BaseUiLayout parentLayout, int numElements, LayoutDirection direction = default, LayoutAlignment alignment = default, LayoutPadding layoutPadding = default, in UiPadding padding = default)
-    {
-        UiDirectionalLayout layout = DirectionalLayout(parentLayout);
-        layout.Init(numElements, direction, alignment, layoutPadding, padding);
-        return layout;
-    }
+    public UiDirectionalLayout DirectionalLayout(in UiReference reference, in UiPosition pos, in UiOffset offset, int numElements, LayoutDirection direction = default, LayoutAlignment alignment = default, in UiPadding padding = default)
+        => DirectionalLayout(reference, pos, offset).Init(numElements, direction, alignment, padding);
+
+    public UiDirectionalLayout DirectionalLayout(BaseUiLayout parentLayout, int numElements, LayoutDirection direction = default, LayoutAlignment alignment = default, in UiPadding padding = default)
+        => DirectionalLayout(parentLayout).Init(numElements, direction, alignment, padding);
+
     #endregion
 
     #region Flex
@@ -100,18 +77,11 @@ public abstract partial class BaseUiBuilder
     public UiFlexBoxLayout FlexLayout(BaseUiLayout parentLayout) => Layout<UiFlexBoxLayout>(parentLayout);
     
     public UiFlexBoxLayout FlexLayout(in UiReference reference, in UiPosition pos, in UiOffset offset, FlexDirection direction, FlexWrap wrap, FlexAlignItems alignItems, FlexJustifyContent defaultJustifyContent, in UiPadding padding = default, float gap = 0f)
-    {
-        UiFlexBoxLayout layout = FlexLayout(reference, pos, offset);
-        layout.Init(direction, wrap, alignItems, defaultJustifyContent, padding, gap);
-        return layout;
-    }
-    
+        => FlexLayout(reference, pos, offset).Init(direction, wrap, alignItems, defaultJustifyContent, padding, gap);
+
     public UiFlexBoxLayout FlexLayout(BaseUiLayout parentLayout, FlexDirection direction, FlexWrap wrap, FlexAlignItems alignItems, FlexJustifyContent defaultJustifyContent, in UiPadding padding = default, float gap = 0f)
-    {
-        UiFlexBoxLayout layout = FlexLayout(parentLayout);
-        layout.Init(direction, wrap, alignItems, defaultJustifyContent, padding, gap);
-        return layout;
-    }
+        => FlexLayout(parentLayout).Init(direction, wrap, alignItems, defaultJustifyContent, padding, gap);
+
     #endregion
 
     #region Dock
@@ -119,18 +89,9 @@ public abstract partial class BaseUiBuilder
     public UiDockLayout DockLayout(in UiReference reference, in UiPosition pos, in UiOffset offset) => Layout<UiDockLayout>(reference, pos, offset);
     public UiDockLayout DockLayout(BaseUiLayout parentLayout) => Layout<UiDockLayout>(parentLayout);
     
-    public UiDockLayout DockLayout(in UiReference reference, in UiPosition pos, in UiOffset offset, LayoutPadding layoutPadding, in UiPadding padding)
-    {
-        UiDockLayout layout = DockLayout(reference, pos, offset);
-        layout.Init(layoutPadding, padding);
-        return layout;
-    }
-    
-    public UiDockLayout DockLayout(BaseUiLayout parentLayout, LayoutPadding layoutPadding, in UiPadding padding)
-    {
-        UiDockLayout layout = DockLayout(parentLayout);
-        layout.Init(layoutPadding, padding);
-        return layout;
-    }
+    public UiDockLayout DockLayout(in UiReference reference, in UiPosition pos, in UiOffset offset, in UiPadding padding) => DockLayout(reference, pos, offset).SetPadding(padding);
+
+    public UiDockLayout DockLayout(BaseUiLayout parentLayout, in UiPadding padding) => DockLayout(parentLayout).SetPadding(padding);
+
     #endregion
 }

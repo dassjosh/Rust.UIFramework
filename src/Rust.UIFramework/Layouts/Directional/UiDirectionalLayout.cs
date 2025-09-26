@@ -14,17 +14,16 @@ public class UiDirectionalLayout : BaseUiLayout, IFixedElementsLayout
     public int NumElements { get; set; }
     public LayoutDirection Direction;
     public LayoutAlignment Alignment;
-    public LayoutPadding LayoutPadding;
     public UiPadding Padding;
     public readonly List<LayoutState> Elements = [];
 
-    public void Init(int numElements, LayoutDirection direction, LayoutAlignment alignment, LayoutPadding layoutPadding, in UiPadding padding)
+    public UiDirectionalLayout Init(int numElements, LayoutDirection direction, LayoutAlignment alignment, in UiPadding padding)
     {
         NumElements = numElements;
         Direction = direction;
         Alignment = alignment;
-        LayoutPadding = layoutPadding;
         Padding = padding;
+        return this;
     }
 
     public UiDirectionalLayout SetNumElements(int numElements)
@@ -42,12 +41,6 @@ public class UiDirectionalLayout : BaseUiLayout, IFixedElementsLayout
     public UiDirectionalLayout SetAlignment(LayoutAlignment alignment)
     {
         Alignment = alignment;
-        return this;
-    }
-
-    public UiDirectionalLayout SetLayoutPadding(LayoutPadding layoutPadding)
-    {
-        LayoutPadding = layoutPadding;
         return this;
     }
 
@@ -69,13 +62,11 @@ public class UiDirectionalLayout : BaseUiLayout, IFixedElementsLayout
         float totalSpan = Math.Max(NumElements, Elements.Sum(e => e.ElementSpan));
         float scale = GetScrollViewScale(totalSpan, NumElements);
         float currentElement = GetElementOffset(totalSpan) * scale;
-
-        UiOffset padding = Padding.ToOffset();
         
         for (int index = 0; index < Elements.Count; index++)
         {
             LayoutState state = Elements[index];
-            state.Element.SetPosition(GetUiPosition(state, currentElement, totalSpan, scale), padding);
+            state.Element.SetPosition(GetUiPosition(state, currentElement, totalSpan, scale)).SetPadding(Padding);
             currentElement += state.ElementSpan;
         }
 
@@ -89,16 +80,12 @@ public class UiDirectionalLayout : BaseUiLayout, IFixedElementsLayout
         float startPos = currentElement / numElements * scale;
         float endPos = ((currentElement + state.ElementSpan) / numElements) * scale;
         
-        UiPosition pos = Direction switch
+        return Direction switch
         {
             LayoutDirection.Horizontal => new UiPosition(startPos, 0, endPos, 1),
             LayoutDirection.Vertical => new UiPosition(0, 1f - endPos, 1, 1f - startPos),
             _ => throw new ArgumentOutOfRangeException(nameof(Direction))
         };
-        
-        return Direction == LayoutDirection.Horizontal 
-            ? pos.Shrink(LayoutPadding.Horizontal * scale, LayoutPadding.Vertical)
-            : pos.Shrink(LayoutPadding.Horizontal, LayoutPadding.Vertical * scale);
     }
     
     public readonly struct LayoutState(BaseUiComponent element, float elementSpan)

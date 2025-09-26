@@ -357,7 +357,7 @@ public partial class BaseUiBuilder
     
     public UiPaginator Paginator(in UiReference parent, GridPosition grid, int currentPage, int maxPage, int fontSize, UiColor textColor, UiColor buttonColor, UiColor activePageColor, ICommandBuilder<int> command, UiColor? disabledColorMultiplier = null)
     {
-        UiGridPositionLayout layout = GridPositionLayout(parent, UiPosition.Full, default, grid);
+        UiGridPositionLayout layout = GridPositionLayout(parent, UiPosition.Full, default, grid, default);
         return Paginator(layout, currentPage, maxPage, fontSize, textColor, buttonColor, activePageColor, command, disabledColorMultiplier);
     }
     #endregion

@@ -20,7 +20,7 @@ public class UiFlexBoxLayout : BaseUiLayout
     private readonly List<List<LayoutState>> _lines = [];
     private readonly Dictionary<FlexJustifyContent, List<int>> _groups = new();
 
-    public void Init(
+    public UiFlexBoxLayout Init(
         FlexDirection direction,
         FlexWrap wrap,
         FlexAlignItems alignItems,
@@ -34,6 +34,7 @@ public class UiFlexBoxLayout : BaseUiLayout
         DefaultJustifyContent = defaultJustifyContent;
         Padding = padding;
         Gap = gap;
+        return this;
     }
 
     public UiFlexBoxLayout SetDirection(FlexDirection direction)
@@ -81,16 +82,15 @@ public class UiFlexBoxLayout : BaseUiLayout
 
     public override void CalculateElementPositions()
     {
-        UiOffset padding = Padding.ToOffset();
         GenerateElementLines();
         
         for (int lineIndex = 0; lineIndex < _lines.Count; lineIndex++)
         {
-            HandleLinePositioning(_lines[lineIndex], lineIndex, padding);
+            HandleLinePositioning(_lines[lineIndex], lineIndex);
         }
     }
 
-    private void HandleLinePositioning(List<LayoutState> line, int lineIndex, in UiOffset padding)
+    private void HandleLinePositioning(List<LayoutState> line, int lineIndex)
     {
         float crossAxisSize = _lines.Count;
         float totalFlexBasis = GetTotalFlexBasis(line);
@@ -129,7 +129,7 @@ public class UiFlexBoxLayout : BaseUiLayout
                 int index = indices[i];
                 LayoutState state = line[index];
                 float elementSpan = CalculateElementSpan(state, groupShareOfAvailableSpace, groupFlexGrow, groupFlexShrink);
-                SetElementPosition(state, currentMainPos, elementSpan, lineIndex, crossAxisSize, padding);
+                SetElementPosition(state, currentMainPos, elementSpan, lineIndex, crossAxisSize);
                 currentMainPos += elementSpan + Gap;
             }
         }
@@ -181,7 +181,7 @@ public class UiFlexBoxLayout : BaseUiLayout
         return elementSpan;
     }
 
-    private void SetElementPosition(in LayoutState state, float currentMainPos, float elementSpan, int lineIndex, float crossAxisSize, in UiOffset padding)
+    private void SetElementPosition(in LayoutState state, float currentMainPos, float elementSpan, int lineIndex, float crossAxisSize)
     {
         (float crossStart, float crossEnd) = CalculateCrossAlignment(lineIndex, crossAxisSize);
 
@@ -198,7 +198,7 @@ public class UiFlexBoxLayout : BaseUiLayout
             _ => throw new ArgumentOutOfRangeException(nameof(Direction)),
         };
 
-        state.Element.SetPosition(position, padding);
+        state.Element.SetPosition(position).SetPadding(Padding);
     }
 
     private (float crossStart, float crossEnd) CalculateCrossAlignment(int lineIndex, float crossAxisSize)

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
 using Oxide.Ext.UiFramework.Positions;
+using Oxide.Ext.UiFramework.Types;
 using Oxide.Ext.UiFramework.UiElements;
 
 namespace Oxide.Ext.UiFramework.Layouts.GridPositions;
@@ -12,15 +13,24 @@ public class UiGridPositionLayout : BaseUiLayout, IFixedElementsLayout
     public GridPosition Grid;
     public readonly List<BaseUiComponent> Elements = [];
     public GridMoveMode MoveMode = GridMoveMode.Column;
+    public UiPadding Padding;
 
-    public void Init(GridPosition grid)
+    public UiGridPositionLayout Init(GridPosition grid, in UiPadding padding)
     {
         Grid = grid;
+        Padding = padding;
+        return this;
     }
 
     public UiGridPositionLayout SetMoveMode(GridMoveMode mode)
     {
         MoveMode = mode;
+        return this;
+    }
+    
+    public UiGridPositionLayout SetPadding(in UiPadding padding)
+    {
+        Padding = padding;
         return this;
     }
 
@@ -32,7 +42,7 @@ public class UiGridPositionLayout : BaseUiLayout, IFixedElementsLayout
         for (int index = 0; index < Elements.Count; index++)
         {
             BaseUiComponent element = Elements[index];
-            element.SetPosition(Grid.ToPosition());
+            element.SetPosition(Grid.ToPosition()).SetPadding(Padding);
             switch (MoveMode)
             {
                 case GridMoveMode.Column:
