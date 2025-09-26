@@ -19,11 +19,9 @@ public class UiScrollView : BaseUiComponent
     {
         ScrollView = component;
     }
-
-    public UiReference ViewPort => _viewPort ??= Reference.WithChild($"{Reference.Name}___Viewport");
+    
     public UiReference Content => _content ??= Reference.WithChild($"{Reference.Name}___Content");
     
-    private UiReference? _viewPort;
     private UiReference? _content;
 
     public ScrollRect.MovementType MovementType { get => ScrollView.MovementType; set => ScrollView.MovementType = value; }
@@ -214,7 +212,6 @@ public class UiScrollView : BaseUiComponent
     protected override void EnterPool()
     {
         base.EnterPool();
-        _viewPort = null;
         _content = null;
     }
 }
