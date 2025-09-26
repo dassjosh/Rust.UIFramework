@@ -97,14 +97,8 @@ internal static class ArgCreator
         if (type == typeof(TimeSpan?)) return new ArgHandler<TimeSpan?>(span => span is UiCommands.NullArg ? null : TimeSpan.Parse(span), (writer, arg) => writer.Append(arg));
         if (type == typeof(NetworkableId)) return new ArgHandler<NetworkableId>(span => new NetworkableId(ulong.Parse(span)), (writer, arg) => writer.Append(arg));
         if (type == typeof(NetworkableId?)) return new ArgHandler<NetworkableId?>(span => span is UiCommands.NullArg ? null : new NetworkableId(ulong.Parse(span)), (writer, arg) => writer.Append(arg));
-        if (type == typeof(UiReference)) return Singleton<UiReferenceHandler>.Instance;
-        if (type == typeof(UiReference?)) return Singleton<UiReferenceHandler>.Instance;
-        if (type == typeof(Vector2)) return Singleton<UnityArgHandler>.Instance;
-        if (type == typeof(Vector2?)) return Singleton<UnityArgHandler>.Instance;
-        if (type == typeof(Vector3)) return Singleton<UnityArgHandler>.Instance;
-        if (type == typeof(Vector3?)) return Singleton<UnityArgHandler>.Instance;
-        if (type == typeof(Vector4)) return Singleton<UnityArgHandler>.Instance;
-        if (type == typeof(Vector4?)) return Singleton<UnityArgHandler>.Instance;
+        if (type == typeof(UiReference) || type == typeof(UiReference?)) return Singleton<UiReferenceHandler>.Instance;
+        if (type == typeof(Vector2) || type == typeof(Vector2?) || type == typeof(Vector3) || type == typeof(Vector3?) || type == typeof(Vector4) || type == typeof(Vector4?)) return Singleton<UnityArgHandler>.Instance;
         if (type == typeof(UiColor)) return new ArgHandler<UiColor>(UiColor.ParseHexColor, (writer, arg) => writer.Append(arg));
         if (type == typeof(UiColor?)) return new ArgHandler<UiColor?>(span => span is UiCommands.NullArg ? null : UiColor.ParseHexColor(span), (writer, arg) => writer.Append(arg));
         if (type == typeof(InputArg)) return new InputArgHandler();
