@@ -1,5 +1,5 @@
 ﻿using System;
-using Oxide.Ext.UiFramework.Padding;
+using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Positions;
 

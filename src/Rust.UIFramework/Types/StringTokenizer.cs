@@ -2,7 +2,7 @@
 
 namespace Oxide.Ext.UiFramework.Types;
 
-public ref struct StringTokenizer(string str, string token, int maxLength)
+public ref struct StringTokenizer(ReadOnlySpan<char> str, ReadOnlySpan<char> token, int maxLength)
 {
     private ReadOnlySpan<char> _remaining = str;
     private readonly ReadOnlySpan<char> _token = token;
@@ -11,6 +11,8 @@ public ref struct StringTokenizer(string str, string token, int maxLength)
     public ReadOnlySpan<char> Current { get; private set; } = default;
 
     public StringTokenizer(string str, string token) : this(str, token, str.Length) { }
+    public StringTokenizer(ReadOnlySpan<char> str, ReadOnlySpan<char> token) : this(str, token, str.Length) { }
+    public StringTokenizer(string str, string token, int maxLength) : this(str.AsSpan(), token.AsSpan(), maxLength) { }
 
     public bool MoveNext()
     {

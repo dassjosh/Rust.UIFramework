@@ -1,4 +1,4 @@
-﻿using Oxide.Ext.UiFramework.Padding;
+﻿using Oxide.Ext.UiFramework.Types;
 using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Components;
@@ -11,7 +11,7 @@ public static class BaseLayoutExt
         return layout;
     }
     
-    public static T SetPadding<T>(this T layout, UiPadding padding) where T : BaseLayoutComponent 
+    public static T SetPadding<T>(this T layout, in UiPadding padding) where T : BaseLayoutComponent 
     {
         layout.Padding = padding;
         return layout;

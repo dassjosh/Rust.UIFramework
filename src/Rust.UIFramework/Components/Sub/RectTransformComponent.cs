@@ -1,8 +1,6 @@
 ﻿using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Offsets;
-using Oxide.Ext.UiFramework.Padding;
 using Oxide.Ext.UiFramework.Positions;
-using Oxide.Ext.UiFramework.Rotation;
 using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Components;

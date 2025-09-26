@@ -39,7 +39,7 @@ public class TextComponent : CoreComponent
     {
         base.Reset();
         Color = default;
-        FadeIn = 0;
+        FadeIn = JsonDefaults.Common.FadeIn;
         FontSize = JsonDefaults.Text.FontSize;
         Font = null;
         Align = JsonDefaults.Text.Align;

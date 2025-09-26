@@ -1,7 +1,7 @@
 ﻿using Oxide.Ext.UiFramework.Colors;
+using Oxide.Ext.UiFramework.Controls.Data;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Offsets;
-using Oxide.Ext.UiFramework.Padding;
 using Oxide.Ext.UiFramework.Types;
 using UnityEngine;
 using UnityEngine.UI;
@@ -120,7 +120,13 @@ public static class JsonDefaults
         public static readonly Utf8String PngName = "png";
         public static readonly Utf8String UrlName = "url";
         public static readonly Utf8String ImageTypeName = "imagetype";
-        public static readonly UnityEngine.UI.Image.Type ImageType = UnityEngine.UI.Image.Type.Simple;
+        public const UnityEngine.UI.Image.Type ImageType = UnityEngine.UI.Image.Type.Simple;
+        
+        public static readonly Utf8String FillCenterName = "fillCenter";
+        public const bool FillCenter = true;
+        
+        public static readonly Utf8String SliceName = "slice";
+        public static readonly UiBorderWidth Slice = UiBorderWidth.One;
     }
 
     public static class ItemIcon

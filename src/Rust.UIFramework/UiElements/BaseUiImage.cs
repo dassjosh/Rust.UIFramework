@@ -13,6 +13,7 @@ public abstract class BaseUiImage<T>(ImageComponent image) : BaseUiComponent(ima
     public float FadeIn { get => image.FadeIn; set => image.FadeIn = value; }
     public UiColor Color { get => image.Color; set => image.Color = value; }
     public UiReference PlaceholderFor { get => image.PlaceholderFor; set => image.PlaceholderFor = value; }
+    public bool FillCenter { get => image.FillCenter; set => image.FillCenter = value; }
 
     public T SetImageType(Image.Type type)
     {

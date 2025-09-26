@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
-using Oxide.Ext.UiFramework.Padding;
+using Oxide.Ext.UiFramework.Types;
 using Oxide.Ext.UiFramework.UiElements;
 using UnityEngine;
 

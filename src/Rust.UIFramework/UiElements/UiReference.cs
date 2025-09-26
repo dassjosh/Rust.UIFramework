@@ -28,5 +28,6 @@ public readonly struct UiReference(string parent, string name)
     public UiReference WithParent(in UiReference parent) => WithParent(parent.Name);
 
     public bool IsValidParent() => !string.IsNullOrEmpty(Parent);
+    public bool IsValidName() => !string.IsNullOrEmpty(Name);
     public bool IsValidReference() => IsValidParent() && !string.IsNullOrEmpty(Name);
 }

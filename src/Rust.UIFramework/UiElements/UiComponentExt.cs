@@ -1,10 +1,10 @@
 ﻿using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Offsets;
-using Oxide.Ext.UiFramework.Padding;
 using Oxide.Ext.UiFramework.Positions;
-using Oxide.Ext.UiFramework.Rotation;
+using Oxide.Ext.UiFramework.Types;
 
+// ReSharper disable MemberCanBePrivate.Global
 namespace Oxide.Ext.UiFramework.UiElements;
 
 public static class UiComponentExt

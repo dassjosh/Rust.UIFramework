@@ -2,13 +2,13 @@
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Controls;
+using Oxide.Ext.UiFramework.Controls.Data;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Exceptions;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Layouts;
 using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Offsets;
-using Oxide.Ext.UiFramework.Padding;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.Types;
 using Oxide.Ext.UiFramework.UiElements;
@@ -426,6 +426,28 @@ public partial class BaseUiBuilder
         float scrollSensitivity = JsonDefaults.ScrollView.ScrollSensitivity)
     {
         return Component<UiScrollView>(layout).Init(movementType, elasticity, inertia, decelerationRate, scrollSensitivity);
+    }
+    #endregion
+
+    #region Nine Slice
+    public UiNineSlice NineSlice(in UiReference parent)
+    {
+        return Component<UiNineSlice>(parent);
+    }
+    
+    public UiNineSlice NineSlice(in UiReference parent, in UiPosition pos, in UiOffset offset, string png, in UiBorderWidth slice, bool fillCenter = false, UiColor? color = default, Image.Type type = Image.Type.Simple)
+    {
+        return NineSlice(parent).SetPosition(pos, offset).Init(png, slice, fillCenter, color ?? UiColors.White, type);
+    }
+    
+    public UiNineSlice NineSlice(BaseUiLayout layout, string png, in UiBorderWidth slice, bool fillCenter = false, UiColor? color = default, Image.Type type = Image.Type.Simple)
+    {
+        return Component<UiNineSlice>(layout).Init(png, slice, fillCenter, color ?? UiColors.White, type);
+    }
+    
+    public UiNineSlice NineSlice(BaseLayoutComponent layout, string png, in UiBorderWidth slice, bool fillCenter = false, UiColor? color = default, Image.Type type = Image.Type.Simple)
+    {
+        return Component<UiNineSlice>(layout).Init(png, slice, fillCenter, color ?? UiColors.White, type);
     }
     #endregion
 }

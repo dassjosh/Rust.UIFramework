@@ -40,6 +40,30 @@ public static class SpanExt
         parsed = input[..end];
         return true;
     }
+
+    public static bool TryParseNextFloat(this ReadOnlySpan<char> input, ReadOnlySpan<char> token, out ReadOnlySpan<char> remaining, out float parsed)
+    {
+        parsed = default;
+        return input.TryParseNextString(token, out remaining, out ReadOnlySpan<char> parsedStr) && float.TryParse(parsedStr, out parsed);
+    }
+    
+    public static bool TryParseNextInt(this ReadOnlySpan<char> input, ReadOnlySpan<char> token, out ReadOnlySpan<char> remaining, out int parsed)
+    {
+        parsed = default;
+        return input.TryParseNextString(token, out remaining, out ReadOnlySpan<char> parsedStr) && int.TryParse(parsedStr, out parsed);
+    }
+    
+    public static bool TryParseNextLong(this ReadOnlySpan<char> input, ReadOnlySpan<char> token, out ReadOnlySpan<char> remaining, out long parsed)
+    {
+        parsed = default;
+        return input.TryParseNextString(token, out remaining, out ReadOnlySpan<char> parsedStr) && long.TryParse(parsedStr, out parsed);
+    }
+    
+    public static bool TryParseNextUlong(this ReadOnlySpan<char> input, ReadOnlySpan<char> token, out ReadOnlySpan<char> remaining, out ulong parsed)
+    {
+        parsed = default;
+        return input.TryParseNextString(token, out remaining, out ReadOnlySpan<char> parsedStr) && ulong.TryParse(parsedStr, out parsed);
+    }
         
     public static void ParseNextString(this ReadOnlySpan<char> input, ReadOnlySpan<char> token, out ReadOnlySpan<char> result, out ReadOnlySpan<char> remaining)
     {
@@ -58,6 +82,30 @@ public static class SpanExt
 
         remaining = input[(end + token.Length)..];
         result = input[..end];
+    }
+    
+    public static float ParseNextFloat(this ReadOnlySpan<char> input, ReadOnlySpan<char> token, out ReadOnlySpan<char> remaining)
+    {
+        input.ParseNextString(token, out remaining, out ReadOnlySpan<char> parsed);
+        return float.Parse(parsed);
+    }
+    
+    public static int ParseNextInt(this ReadOnlySpan<char> input, ReadOnlySpan<char> token, out ReadOnlySpan<char> remaining)
+    {
+        input.ParseNextString(token, out remaining, out ReadOnlySpan<char> parsed);
+        return int.Parse(parsed);
+    }
+    
+    public static long ParseNextLong(this ReadOnlySpan<char> input, ReadOnlySpan<char> token, out ReadOnlySpan<char> remaining)
+    {
+        input.ParseNextString(token, out remaining, out ReadOnlySpan<char> parsed);
+        return long.Parse(parsed);
+    }
+    
+    public static ulong ParseNextUlong(this ReadOnlySpan<char> input, ReadOnlySpan<char> token, out ReadOnlySpan<char> remaining)
+    {
+        input.ParseNextString(token, out remaining, out ReadOnlySpan<char> parsed);
+        return ulong.Parse(parsed);
     }
 
     /// <summary>

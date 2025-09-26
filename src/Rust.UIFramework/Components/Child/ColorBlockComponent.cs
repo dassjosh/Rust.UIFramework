@@ -11,6 +11,10 @@ public class ColorBlockComponent : ChildComponent
     public float ColorMultiplier;
     public float FadeDuration;
 
+    public static readonly UiColor DefaultHighlightedColor = JsonDefaults.ColorBlock.HighlightedColor;
+    public static readonly UiColor DefaultPressedColor = JsonDefaults.ColorBlock.PressedColor;
+    public static readonly UiColor DefaultSelectedColor = JsonDefaults.ColorBlock.SelectedColor;
+
     public override void WriteComponent(JsonFrameworkWriter writer)
     {
         writer.AddField(JsonDefaults.ColorBlock.HighlightedColorName, HighlightedColor, JsonDefaults.ColorBlock.HighlightedColor);

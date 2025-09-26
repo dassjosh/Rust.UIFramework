@@ -26,7 +26,7 @@ public class InputComponent : TextComponent
         writer.AddField(JsonDefaults.Input.NeedsHudKeyboardName, HasMode(InputMode.HudNeedsKeyboard), false);
         writer.AddField(JsonDefaults.Input.AutoFocusName, HasMode(InputMode.AutoFocus), false);
         writer.AddField(JsonDefaults.Input.ReadOnlyName, HasMode(InputMode.ReadOnly), false);
-        if (Placeholder.IsValidReference())
+        if (Placeholder.IsValidName())
         {
             writer.AddFieldRaw(JsonDefaults.Input.PlaceholderName, Placeholder.Name);
         }

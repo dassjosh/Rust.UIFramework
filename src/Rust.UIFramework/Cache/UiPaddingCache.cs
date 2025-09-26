@@ -2,7 +2,6 @@
 using System.Text;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Libraries;
-using Oxide.Ext.UiFramework.Padding;
 using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Cache;
@@ -12,19 +11,19 @@ internal static class UiPaddingCache
     private const string Format = "0.####";
     private const char Space = ' ';
 
-    private static readonly ConcurrentDictionary<UiPadding, Utf8String> ColorCache = new();
+    private static readonly ConcurrentDictionary<UiPadding, Utf8String> PaddingCache = new();
         
-    public static void WritePadding(JsonUtf8Writer writer, in UiPadding uiColor)
+    public static void WritePadding(JsonUtf8Writer writer, in UiPadding uiPadding)
     {
-        if (!ColorCache.TryGetValue(uiColor, out Utf8String color))
+        if (!PaddingCache.TryGetValue(uiPadding, out Utf8String padding))
         {
-            ColorCache[uiColor] = color = GetColor(uiColor);
+            PaddingCache[uiPadding] = padding = GetPadding(uiPadding);
         }
 
-        writer.Write(color);
+        writer.Write(padding);
     }
 
-    private static string GetColor(in UiPadding padding)
+    private static string GetPadding(in UiPadding padding)
     {
         if (padding.IsSingleValue)
         {

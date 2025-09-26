@@ -60,7 +60,7 @@ public class RawImageComponent : CoreComponent
     {
         base.Reset();
         Color = default;
-        FadeIn = 0;
+        FadeIn = JsonDefaults.Common.FadeIn;
         Image = null;
         Material = null;
         PlaceholderFor = default;

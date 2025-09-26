@@ -1,5 +1,5 @@
-﻿using Oxide.Ext.UiFramework.Padding;
-using Oxide.Ext.UiFramework.Positions;
+﻿using Oxide.Ext.UiFramework.Positions;
+using Oxide.Ext.UiFramework.Types;
 using Rust.UiFramework.UnitTests.Global.XUnit.Serializers;
 using Xunit.Sdk;
 

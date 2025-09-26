@@ -7,17 +7,19 @@ using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-public class ButtonComponent : ImageComponent
+public class ButtonComponent : CoreComponent
 {
     public string Command;
     public ButtonType ButtonType;
+    public UiColor Color;
+    public float FadeIn;
+    public string Sprite;
+    public string Material;
+    public Image.Type ImageType;
     public ColorBlockComponent ColorBlock { get; private set; }
     public override Utf8String Type => JsonDefaults.Button.Type;
 
-    internal ColorBlockComponent GetOrAddColorBlock()
-    {
-        return ColorBlock ??= PluginPool.Get<ColorBlockComponent>();
-    }
+    internal ColorBlockComponent GetOrAddColorBlock() => ColorBlock ??= PluginPool.Get<ColorBlockComponent>();
 
     internal ColorBlockComponent AddColorBlock(in UiColor? highlightColor, in UiColor? pressedColor, in UiColor? selectedColor, in float? colorMultiplier, in float? fadeDuration)
     {
@@ -32,6 +34,11 @@ public class ButtonComponent : ImageComponent
     
     protected override void WriteComponentFields(JsonFrameworkWriter writer)
     {
+        writer.AddField(JsonDefaults.BaseImage.SpriteName, Sprite, JsonDefaults.BaseImage.Sprite);
+        writer.AddField(JsonDefaults.BaseImage.MaterialName, Material, JsonDefaults.BaseImage.Material);
+        writer.AddField(JsonDefaults.Common.FadeInName, FadeIn, JsonDefaults.Common.FadeIn);
+        writer.AddField(JsonDefaults.Color.ColorName, Color);
+        writer.AddField(JsonDefaults.Image.ImageTypeName, ImageType, JsonDefaults.Image.ImageType);
         switch (ButtonType)
         {
             case ButtonType.Command:
@@ -45,7 +52,6 @@ public class ButtonComponent : ImageComponent
         }
         
         ColorBlock?.WriteComponent(writer);
-        base.WriteComponentFields(writer);
     }
     
     public override void Reset()
@@ -55,6 +61,10 @@ public class ButtonComponent : ImageComponent
         ColorBlock = null;
         Command = null;
         ButtonType = ButtonType.Command;
-        ImageType = Image.Type.Simple;
+        Color = JsonDefaults.Color.ColorValue;
+        FadeIn = JsonDefaults.Common.FadeIn;
+        Sprite = null;
+        Material = null;
+        ImageType = JsonDefaults.Image.ImageType;
     }
 }
