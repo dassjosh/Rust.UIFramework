@@ -59,12 +59,10 @@ public sealed class UiLoggerFactory : ISingleton
     
     private UiLogHandler CreateLogHandler(PluginId plugin, IUiLoggingConfig config, bool isExtension)
     {
-        UiLogHandler handler = _handlers[plugin];
-        if (handler == null)
+        if (!_handlers.TryGetValue(plugin, out UiLogHandler handler))
         {
             _handlers[plugin] = handler = new UiLogHandler(plugin.Id, config, isExtension);
         }
-
         return handler;
     }
 
