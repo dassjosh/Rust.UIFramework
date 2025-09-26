@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Oxide.Core.Libraries;
 using Oxide.Core.Plugins;
+using Oxide.Ext.UiFramework.Plugins;
 
 namespace Oxide.Ext.UiFramework.Libraries;
 
@@ -16,6 +17,8 @@ public abstract class BaseUiFrameworkLibrary : Library
     protected virtual void OnServerInitialized() {}
     protected virtual void OnPluginLoaded(Plugin plugin){}
     protected virtual void OnPluginUnloaded(Plugin plugin){}
+    protected virtual void OnPluginLoaded(IUiFrameworkPlugin plugin){}
+    protected virtual void OnPluginUnloaded(IUiFrameworkPlugin plugin){}
     protected virtual void OnPlayerConnected(BasePlayer player){}
     protected virtual void OnPlayerDisconnected(BasePlayer player){}
     protected virtual void OnServerShutdown(){}
@@ -36,7 +39,23 @@ public abstract class BaseUiFrameworkLibrary : Library
         }
     }
     
+    internal static void ProcessOnPluginLoaded(IUiFrameworkPlugin plugin)
+    {
+        foreach (BaseUiFrameworkLibrary library in Libraries)
+        {
+            library.OnPluginLoaded(plugin);
+        }
+    }
+    
     internal static void ProcessOnPluginUnloaded(Plugin plugin)
+    {
+        foreach (BaseUiFrameworkLibrary library in Libraries)
+        {
+            library.OnPluginUnloaded(plugin);
+        }
+    }
+    
+    internal static void ProcessOnPluginUnloaded(IUiFrameworkPlugin plugin)
     {
         foreach (BaseUiFrameworkLibrary library in Libraries)
         {

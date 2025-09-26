@@ -20,6 +20,8 @@ public class UiFrameworkExtension : Extension
     public override string Author => "MJSU";
     public override VersionNumber Version { get; }
 
+    internal readonly PluginId PluginId;
+
     internal static UiFrameworkExtension Instance;
     internal static IUiLogger GlobalLogger;
 
@@ -28,6 +30,7 @@ public class UiFrameworkExtension : Extension
         Instance = this;
         AssemblyName assembly = Assembly.GetExecutingAssembly().GetName();
         Version = new VersionNumber(assembly.Version.Major, assembly.Version.Minor, assembly.Version.Build);
+        PluginId = PluginId.CreateInternal(Name);
     }
 
     public override void OnModLoad()
@@ -63,5 +66,6 @@ public class UiFrameworkExtension : Extension
         Singleton<DataHandler>.Instance.Shutdown();
         Singleton<SendHandler>.Instance.OnServerShutdown();
         Singleton<AnimationHandler>.Instance.OnServerShutdown();
+        Singleton<UiLoggerFactory>.Instance.OnServerShutdown();
     }
 }

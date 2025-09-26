@@ -35,7 +35,7 @@ public class UiPool : BaseUiFrameworkLibrary, ISingleton
     /// <param name="settings">Settings for the pools</param>
     /// <returns></returns>
     /// <exception cref="ArgumentNullException">Thrown if the plugin is null</exception>
-    public UiPluginPool GetOrCreate(Plugin plugin, PoolSettings settings = null)
+    public UiPluginPool GetOrCreate(IUiFrameworkPlugin plugin, PoolSettings settings = null)
     {
         if (plugin == null) throw new ArgumentNullException(nameof(plugin));
         return GetOrCreate(plugin.Id(), settings);
@@ -46,7 +46,7 @@ public class UiPool : BaseUiFrameworkLibrary, ISingleton
         return CreatePoolInternal(plugin, settings);
     }
     
-    private UiPluginPool CreatePoolInternal(Plugin plugin, PoolSettings settings) => CreatePoolInternal(plugin.Id(), settings);
+    private UiPluginPool CreatePoolInternal(IUiFrameworkPlugin plugin, PoolSettings settings) => CreatePoolInternal(plugin.Id(), settings);
     
     private UiPluginPool CreatePoolInternal(PluginId id, PoolSettings settings)
     {
@@ -61,17 +61,13 @@ public class UiPool : BaseUiFrameworkLibrary, ISingleton
     }
 
     ///<inheritdoc/>
-    protected override void OnPluginLoaded(Plugin plugin)
+    protected override void OnPluginLoaded(IUiFrameworkPlugin plugin)
     {
-        // ReSharper disable once SuspiciousTypeConversion.Global
-        if (plugin is IUiFrameworkPlugin uiPlugin)
-        {
-            uiPlugin.PluginPool = GetOrCreate(plugin);
-        }
+        plugin.PluginPool = GetOrCreate(plugin);
     }
 
     ///<inheritdoc/>
-    protected override void OnPluginUnloaded(Plugin plugin)
+    protected override void OnPluginUnloaded(IUiFrameworkPlugin plugin)
     {
         PluginId id = plugin.Id();
         UiPluginPool pool = _pluginPools[id];

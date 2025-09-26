@@ -19,7 +19,6 @@ using Oxide.Ext.UiFramework.Helpers;
 using Oxide.Ext.UiFramework.Layouts;
 using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Offsets;
-using Oxide.Ext.UiFramework.Padding;
 using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Positions;
@@ -145,6 +144,19 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
     {
         BaseBuilder.DestroyUi(UiName);
         _ins = null;
+    }
+    #endregion
+
+    #region UiFramework Hooks
+
+    private const string LoadingImage = "https://rust-images.joshdass.dev/load.png";
+    private const string ErrorImage = "https://rust-images.joshdass.dev/error.png";
+    private const string WarningImage = "https://rust-images.joshdass.dev/warning.png";
+    private void OnUiImageStorageReady()
+    {
+        _storage.RegisterImage(this, LoadingImage);
+        _storage.RegisterImage(this, ErrorImage);
+        _storage.RegisterImage(this, WarningImage);
     }
     #endregion
     
@@ -463,6 +475,18 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
     private KeyFramePositionAnimator _animator;
     private AnimationReference _animationReference;
 
+    private readonly ImageDownloadOptions _downloadOptions = new()
+    {
+        FailedImageNameOrUrl = ErrorImage,
+        AutomaticUpdate = new ImageAutomaticUpdateOptions
+        {
+            DownloadingImageNameOrUrl = LoadingImage,
+            EnableAutoImageUpdate = true,
+            TimeoutImageNameOrUrl = WarningImage,
+            Timeout = TimeSpan.FromSeconds(5)
+        }
+    };
+
     public void UiInit()
     {
         _animator = new KeyFramePositionAnimator(UiPosition.MiddleLeft, UiPosition.MiddleMiddle);
@@ -487,22 +511,19 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
         UiBuilder builder;
         if (isInitial)
         {
-            //builder = UiBuilder.Create(UiPosition.MiddleMiddle, new UiOffset(500, 400), _bodyColor, UiName);
+            builder = UiBuilder.Create(this, new UiReference(UiLayer.Overlay, UiName), UiPosition.MiddleMiddle, new UiOffset(500, 400), _bodyColor);
 
-            builder = UiBuilder.Create(this, new UiReference(UiLayer.Overlay, UiName), UiPosition.MiddleMiddle, default, _bodyColor);
+            //builder = UiBuilder.Create(this, new UiReference(UiLayer.Overlay, UiName), UiPosition.MiddleMiddle, default, _bodyColor);
 
-            var pos1= builder.AnimatePosition(builder.Root, UiPosition.MiddleMiddle, 2f, delay: 0f).WithAnimator(_animator);
-            builder.AnimateOffset(builder.Root, new UiOffset(500, 400), .35f);
-            builder.AnimateColor(builder.Root, _bodyColor.WithAlpha(0f), _bodyColor, .5f);
+            //var pos1= builder.AnimatePosition(builder.Root, UiPosition.MiddleMiddle, 2f, delay: 0f).WithAnimator(_animator);
+           // builder.AnimateOffset(builder.Root, new UiOffset(500, 400), .35f);
+            //builder.AnimateColor(builder.Root, _bodyColor.WithAlpha(0f), _bodyColor, .5f);
         }
         else
         {
             //builder = UiBuilder.Create(UiPosition.MiddleMiddle, new UiOffset(500, 400), _bodyColor, UiName);
             builder = UiBuilder.Create(this, new UiReference(UiLayer.Overlay, UiName), UiPosition.MiddleMiddle, new UiOffset(500, 400), _bodyColor);
         }
-
-        IPoolable poolable = builder;
-        Puts($"Plugin Pool is not null: {poolable.PluginPool != null}");
         
         _animationReference = builder.Root;
         
@@ -566,6 +587,8 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
                 CreateFonts(builder, body, state);
                 break;
         }
+
+        //builder.ImageStorage(body, UiPosition.Full, default, "https://rust-images.joshdass.dev/rust-icons/61504.png", _downloadOptions);
         
         string json = builder.GetJsonString();
         
@@ -792,15 +815,15 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
     [UiProtection(ProtectionType.None)]
     private void CloseCommand(BasePlayer player)
     {
-        AnimationBuilder builder = AnimationBuilder.Create(this);
+        //AnimationBuilder builder = AnimationBuilder.Create(this);
         
-        builder.AnimatePosition(_animationReference, UiPosition.MiddleMiddle, new UiPosition(0.5f, -0.5f, 0.5f, -0.5f), 5f)
-            .WithBezierProgressor(new BezierProgressor(.18f,-0.95f,.82f,1f))
-            .DestroyAfter();
+        // builder.AnimatePosition(_animationReference, UiPosition.MiddleMiddle, new UiPosition(0.5f, -0.5f, 0.5f, -0.5f), 5f)
+        //     .WithBezierProgressor(new BezierProgressor(.18f,-0.95f,.82f,1f))
+        //     .DestroyAfter();
+        //
+        // builder.AddUi(player);
         
-        builder.AddUi(player);
-        
-        //UiBuilder.DestroyUi(UiName);
+        UiBuilder.DestroyUi(UiName);
     }
     
     [UiCommand]

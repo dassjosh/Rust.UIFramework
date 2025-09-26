@@ -3,6 +3,7 @@ using System.Text;
 using Facepunch;
 using Oxide.Ext.UiFramework;
 using Oxide.Ext.UiFramework.Benchmarks;
+using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Config;
 using Oxide.Ext.UiFramework.Constants;
 using Oxide.Ext.UiFramework.Enums;
@@ -11,7 +12,11 @@ using Oxide.Ext.UiFramework.Layouts;
 using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Logging;
 using Oxide.Ext.UiFramework.Offsets;
+using Oxide.Ext.UiFramework.Threading;
 using Oxide.Ext.UiFramework.Types;
+using Unity.Collections.LowLevel.Unsafe;
+using UnityEngine;
+using Random = System.Random;
 
 namespace Rust.UiFramework.Benchmarks;
 
@@ -78,6 +83,26 @@ public class Benchmarks
         //_randomWriter = _randomBuilder.CreateWriter();
         _random = new(1234);
     }
+
+    [GlobalCleanup]
+    public void GlobalCleanup()
+    {
+        _builder.Dispose();
+        _writer.Dispose();
+        
+        Singleton<SendHandler>.Instance.WaitUntilFinished();
+        
+        if (Singleton<UiPool>.Instance.CheckForLeaks())
+        {
+            DebugLogger logger = new();
+            Singleton<UiPool>.Instance.LogDebug(logger);
+            Console.WriteLine(logger.ToString());
+        }
+        else
+        {
+            Console.WriteLine("No leaks found");
+        }
+    }
     
     //[Benchmark]
     public CuiElementContainer Oxide_CreateContainer()
@@ -132,7 +157,7 @@ public class Benchmarks
     public string UiFramework_Writer1()
     {
         UiBuilder builder = _builder;
-        JsonFrameworkWriter writer = builder.CreateWriter();
+        using JsonFrameworkWriter writer = builder.CreateWriter();
         return Encoding.UTF8.GetString(writer.ToArray());
         //writer.Dispose();
     }
@@ -152,11 +177,13 @@ public class Benchmarks
         builder.AddUi(default(SendInfo));
     }
     
-    //[Benchmark(Baseline = true)]
-    public void UiFramework_Async()
+    [Benchmark(Baseline = true)]
+    public UiBuilder UiFramework_Async()
     {
         UiBuilder builder = GetFrameworkBuilder();
-        builder.AddUi(default(SendInfo));
+        //builder.AddUi(default(SendInfo));
+        builder.Dispose();
+        return builder;
     }
     
     //[Benchmark]

@@ -14,7 +14,7 @@ public class UiPlayerStore : BaseUiFrameworkLibrary, ISingleton
 
     private UiPlayerStore() { }
 
-    public void CreateStore<T>(Plugin plugin, T store) where T : class, IPlayerStore
+    public void CreateStore<T>(IUiFrameworkPlugin plugin, T store) where T : class, IPlayerStore
     {
         if (plugin == null) throw new ArgumentNullException(nameof(plugin));
         if (store == null) throw new ArgumentNullException(nameof(store));
@@ -22,13 +22,13 @@ public class UiPlayerStore : BaseUiFrameworkLibrary, ISingleton
         _stores[new PluginPlayerStore(plugin.Id(), store.PlayerId)] = store;
     }
 
-    public T GetStore<T>(Plugin plugin, BasePlayer player) where T : class, IPlayerStore
+    public T GetStore<T>(IUiFrameworkPlugin plugin, BasePlayer player) where T : class, IPlayerStore
     {
         if (!player) throw new ArgumentNullException(nameof(player));
         return GetStore<T>(plugin, player.userID.Get());
     }
 
-    public T GetStore<T>(Plugin plugin, ulong playerId) where T : class, IPlayerStore
+    public T GetStore<T>(IUiFrameworkPlugin plugin, ulong playerId) where T : class, IPlayerStore
     {
         if (plugin == null) throw new ArgumentNullException(nameof(plugin));
         InvalidStorePlayerIdException.ThrowIfInvalidPlayerId(playerId);
@@ -40,22 +40,22 @@ public class UiPlayerStore : BaseUiFrameworkLibrary, ISingleton
         return default;
     }
 
-    public void RemoveStore(Plugin plugin, BasePlayer player)
+    public void RemoveStore(IUiFrameworkPlugin plugin, BasePlayer player)
     {
         if (!player) throw new ArgumentNullException(nameof(player));
         RemoveStore(plugin, player.userID.Get());
     }
     
-    public void RemoveStore(Plugin plugin, ulong playerId)
+    public void RemoveStore(IUiFrameworkPlugin plugin, ulong playerId)
     {
         if (plugin == null) throw new ArgumentNullException(nameof(plugin));
         InvalidStorePlayerIdException.ThrowIfInvalidPlayerId(playerId);
         _stores.Remove(new PluginPlayerStore(plugin.Id(), playerId));
     }
 
-    public T GetOrCreateStore<T>(Plugin plugin, BasePlayer player) where T : class, IPlayerStore, new() => GetOrCreateStore<T>(plugin, player.userID.Get());
+    public T GetOrCreateStore<T>(IUiFrameworkPlugin plugin, BasePlayer player) where T : class, IPlayerStore, new() => GetOrCreateStore<T>(plugin, player.userID.Get());
 
-    public T GetOrCreateStore<T>(Plugin plugin, ulong playerId) where T : class, IPlayerStore, new() => (T)GetOrCreateStore<T>(plugin.Id(), playerId);
+    public T GetOrCreateStore<T>(IUiFrameworkPlugin plugin, ulong playerId) where T : class, IPlayerStore, new() => (T)GetOrCreateStore<T>(plugin.Id(), playerId);
     
     internal IPlayerStore GetOrCreateStore<T>(PluginId pluginId, ulong playerId)
     {
@@ -72,7 +72,7 @@ public class UiPlayerStore : BaseUiFrameworkLibrary, ISingleton
         return value;
     }
 
-    protected override void OnPluginUnloaded(Plugin plugin)
+    protected override void OnPluginUnloaded(IUiFrameworkPlugin plugin)
     {
         PluginId pluginId = plugin.Id();
         _stores.RemoveAll(s => s.Key.PluginId == pluginId);

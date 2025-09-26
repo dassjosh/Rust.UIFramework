@@ -3,11 +3,11 @@ using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Logging;
 
-internal class UiLogHandler(string pluginName, IUiLoggingConfig config, bool isExtension)
+internal class UiLogHandler(string plugin, IUiLoggingConfig config, bool isExtension)
 {
-    private UiConsoleLogger _consoleLogger = isExtension || config.ConsoleLogLevel != UiLogLevel.Off ? new UiConsoleLogger(pluginName) : null;
+    private UiConsoleLogger _consoleLogger = isExtension || config.ConsoleLogLevel != UiLogLevel.Off ? new UiConsoleLogger(plugin) : null;
 #if !UNIT_TESTS && !BENCHMARKS
-    private UiFileLogger _fileLogger = isExtension || config.FileLogLevel != UiLogLevel.Off ? Singleton<UiFileLoggerFactory>.Instance.CreateLogger(pluginName, config.FileDateTimeFormat) : null;
+    private UiFileLogger _fileLogger = isExtension || config.FileLogLevel != UiLogLevel.Off ? Singleton<UiFileLoggerFactory>.Instance.CreateLogger(plugin, config.FileDateTimeFormat) : null;
 #else
     private UiFileLogger _fileLogger;
 #endif

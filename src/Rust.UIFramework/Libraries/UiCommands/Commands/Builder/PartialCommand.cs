@@ -13,8 +13,8 @@ public static class PartialCommand
     internal static ICommandBuilder<T> Create<T>(string command) => Create<T>(UiFrameworkPlugin.Instance.PluginId, command);
     internal static ICommandBuilder<T0, T1> Create<T0, T1>(string command) => Create<T0, T1>(UiFrameworkPlugin.Instance.PluginId, command);
 
-    public static ICommandBuilder<T> Create<T>(Plugin plugin, string command) => Create<T>(plugin.Id(), command);
-    public static ICommandBuilder<T0, T1> Create<T0, T1>(Plugin plugin, string command)=> Create<T0, T1>(plugin.Id(), command);
+    public static ICommandBuilder<T> Create<T>(IUiFrameworkPlugin plugin, string command) => Create<T>(plugin.Id(), command);
+    public static ICommandBuilder<T0, T1> Create<T0, T1>(IUiFrameworkPlugin plugin, string command)=> Create<T0, T1>(plugin.Id(), command);
     
     private static ICommandBuilder<T> Create<T>(PluginId plugin, string command) => new CommandBuilder<T>(command, null, GetWriters<T>(plugin));
     private static ICommandBuilder<T0, T1> Create<T0, T1>(PluginId plugin, string command) => new CommandBuilder<T0, T1>(command, null, GetWriters<T0, T1>(plugin));

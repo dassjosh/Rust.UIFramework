@@ -11,6 +11,7 @@ using Oxide.Ext.UiFramework.Data;
 using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Harmony;
 using Oxide.Ext.UiFramework.Libraries;
+using Oxide.Ext.UiFramework.Logging;
 using Oxide.Ext.UiFramework.Types;
 using Rust.UI;
 
@@ -29,7 +30,7 @@ internal class UiFrameworkPlugin : BaseUiFrameworkPlugin, IUiFrameworkPlugin
         Name = UiFrameworkExtension.Instance.Name;
         Title = "UI Framework";
         Author = UiFrameworkExtension.Instance.Author;
-        PluginId = PluginId.CreateInternal(this);
+        PluginId = UiFrameworkExtension.Instance.PluginId;
     }
 
     [HookMethod(nameof(Init))]
@@ -70,6 +71,10 @@ internal class UiFrameworkPlugin : BaseUiFrameworkPlugin, IUiFrameworkPlugin
     private void OnPluginLoaded(Plugin plugin)
     {
         BaseUiFrameworkLibrary.ProcessOnPluginLoaded(plugin);
+        if (plugin is IUiFrameworkPlugin uiPlugin)
+        {
+            BaseUiFrameworkLibrary.ProcessOnPluginLoaded(uiPlugin);
+        }
     }
 
     // ReSharper disable once UnusedMember.Local
@@ -80,6 +85,8 @@ internal class UiFrameworkPlugin : BaseUiFrameworkPlugin, IUiFrameworkPlugin
         PluginIdExt.OnPluginUnloaded(plugin);
         if (plugin is IUiFrameworkPlugin uiPlugin)
         {
+            BaseUiFrameworkLibrary.ProcessOnPluginUnloaded(uiPlugin);
+            Singleton<UiLoggerFactory>.Instance.OnPluginUnloaded(uiPlugin);
             Singleton<AnimationHandler>.Instance.OnPluginUnloaded(uiPlugin);
         }
     }

@@ -32,7 +32,7 @@ public abstract class BaseUiComponent(CoreComponent component) : BasePoolable
     private RectTransformComponent _rectTransform;
     public RectTransformComponent RectTransform => _rectTransform ??= _component.GetOrAddSubComponent<RectTransformComponent>();
 
-    [Obsolete]
+    [Obsolete("This method is obsolete. Please use UiBuilder.Component<T>() instead.")]
     public static T CreateBase<T>() where T : BaseUiComponent, new() => UiFrameworkPool.Get<T>();
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]

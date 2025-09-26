@@ -130,22 +130,22 @@ public class UiCommands : BaseUiFrameworkLibrary, ISingleton
         _logger.Debug("Registered UiCommand. Plugin: {0}, Method: {1}({2})", plugin.FullName(), method.Name, string.Join(", ", method.GetParameters().Select(p => $"{p.ParameterType.Name} {p.Name}")));
     }
 
-    public void RegisterPluginNoPermissionCallback(Plugin plugin, OnPluginNoPermission callback)
+    public void RegisterPluginNoPermissionCallback(IUiFrameworkPlugin plugin, OnPluginNoPermission callback)
     {
         GetCallbacks(plugin).PlayerNoPermission = callback;
     }
     
-    public void RegisterPluginPlayerCooldownCallback(Plugin plugin, OnPluginCooldown callback)
+    public void RegisterPluginPlayerCooldownCallback(IUiFrameworkPlugin plugin, OnPluginCooldown callback)
     {
         GetCallbacks(plugin).PlayerOnCooldown = callback;
     }
     
-    public void RegisterPluginValidationFailedCallback(Plugin plugin, OnPluginProtectionFailed callback)
+    public void RegisterPluginValidationFailedCallback(IUiFrameworkPlugin plugin, OnPluginProtectionFailed callback)
     {
         GetCallbacks(plugin).ProtectionValidationFailed = callback;
     }
 
-    private PluginCallbacks GetCallbacks(Plugin plugin)
+    private PluginCallbacks GetCallbacks(IUiFrameworkPlugin plugin)
     {
         PluginId pluginId = plugin.Id();
         if (!_callbacks.TryGetValue(pluginId, out PluginCallbacks callbacks))
@@ -156,13 +156,13 @@ public class UiCommands : BaseUiFrameworkLibrary, ISingleton
         return callbacks;
     }
     
-    public void RegisterCustomParser<T>(Plugin plugin, IArgHandler<T> handler)
+    public void RegisterCustomParser<T>(IUiFrameworkPlugin plugin, IArgHandler<T> handler)
     {
         PluginId pluginId = plugin.Id();
         ArgCreator.RegisterPluginHandler(pluginId, handler);
     }
 
-    protected override void OnPluginUnloaded(Plugin plugin)
+    protected override void OnPluginUnloaded(IUiFrameworkPlugin plugin)
     {
         PluginId pluginId = plugin.Id();
         foreach (CommandId id in _idHandler.GetPluginCommands(pluginId))

@@ -15,7 +15,7 @@ public class UiNameStore : BaseUiFrameworkLibrary, ISingleton
 
     private UiNameStore() { }
 
-    public void CreateStore<T>(Plugin plugin, T store) where T : class, INamedStore
+    public void CreateStore<T>(IUiFrameworkPlugin plugin, T store) where T : class, INamedStore
     {
         if (plugin == null) throw new ArgumentNullException(nameof(plugin));
         if (store == null) throw new ArgumentNullException(nameof(store));
@@ -23,7 +23,7 @@ public class UiNameStore : BaseUiFrameworkLibrary, ISingleton
         _stores[new PluginNamedStore(plugin.Id(), store.Name)] = store;
     }
 
-    public T GetStore<T>(Plugin plugin, string name) where T : class, INamedStore
+    public T GetStore<T>(IUiFrameworkPlugin plugin, string name) where T : class, INamedStore
     {
         if (plugin == null) throw new ArgumentNullException(nameof(plugin));
         InvalidStoreNameException.ThrowIfInvalidStoreName(name);
@@ -35,13 +35,13 @@ public class UiNameStore : BaseUiFrameworkLibrary, ISingleton
         return default;
     }
     
-    public T GetOrCreateStore<T>(Plugin plugin, string name) where T : class, INamedStore
+    public T GetOrCreateStore<T>(IUiFrameworkPlugin plugin, string name) where T : class, INamedStore
     {
         if (plugin == null) throw new ArgumentNullException(nameof(plugin));
         return (T)GetOrCreateStore<T>(plugin.Id(), name);
     }
 
-    public void RemoveStore(Plugin plugin, string name)
+    public void RemoveStore(IUiFrameworkPlugin plugin, string name)
     {
         if (plugin == null) throw new ArgumentNullException(nameof(plugin));
         InvalidStoreNameException.ThrowIfInvalidStoreName(name);
@@ -62,7 +62,7 @@ public class UiNameStore : BaseUiFrameworkLibrary, ISingleton
         return value;
     }
 
-    protected override void OnPluginUnloaded(Plugin plugin)
+    protected override void OnPluginUnloaded(IUiFrameworkPlugin plugin)
     {
         PluginId pluginId = plugin.Id();
         _stores.RemoveAll(s => s.Key.PluginId == pluginId);

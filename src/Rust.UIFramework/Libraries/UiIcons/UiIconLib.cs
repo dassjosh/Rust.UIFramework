@@ -20,7 +20,7 @@ public class UiIconLib : BaseUiFrameworkLibrary, ISingleton
 
     private UiIconLib() { }
     
-    public void RegisterIcons<T>(Plugin plugin, IconUrlLookup<T> urlLookup, IconStyling styling = null) where T : Enum
+    public void RegisterIcons<T>(IUiFrameworkPlugin plugin, IconUrlLookup<T> urlLookup, IconStyling styling = null) where T : Enum
     {
         PluginId pluginId = plugin.Id();
         if(!_pluginIcons.TryGetValue(pluginId, out List<Type> icons))
@@ -55,7 +55,7 @@ public class UiIconLib : BaseUiFrameworkLibrary, ISingleton
         throw new Exception($"No icon registered for {typeof(T)}");
     }
     
-    protected override void OnPluginUnloaded(Plugin plugin)
+    protected override void OnPluginUnloaded(IUiFrameworkPlugin plugin)
     {
         if(_pluginIcons.Remove(plugin.Id(), out List<Type> icons))
         {

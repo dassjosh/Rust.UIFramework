@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using Oxide.Core.Plugins;
 using Oxide.Ext.UiFramework.Constants;
+using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Libraries;
@@ -10,9 +11,9 @@ public class ThemeManager : BaseUiFrameworkLibrary, ISingleton
 {
     private ThemeManager() { }
     
-    public T RegisterTheme<T>(Plugin plugin, T theme) where T : ITheme => RegisterTheme(plugin, null, theme);
+    public T RegisterTheme<T>(IUiFrameworkPlugin plugin, T theme) where T : ITheme => RegisterTheme(plugin, null, theme);
     
-    public T RegisterTheme<T>(Plugin plugin, string name, T theme) where T : ITheme
+    public T RegisterTheme<T>(IUiFrameworkPlugin plugin, string name, T theme) where T : ITheme
     {
         string path = Path.Combine(PathConstants.ThemeFolder, plugin.Name);
         Directory.CreateDirectory(path);
