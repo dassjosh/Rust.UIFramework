@@ -54,7 +54,7 @@ public sealed class UiLoggerFactory : ISingleton
     private UiLogger GetLoggerInternal(PluginId plugin, UiLogLevel logLevel, IUiLoggingConfig config, bool isExtension)
     {
         UiLogHandler handler = CreateLogHandler(plugin, config, isExtension);
-        return new UiLogger(logLevel, config, handler);
+        return new UiLogger(logLevel, config, handler, null);
     }
     
     private UiLogHandler CreateLogHandler(PluginId plugin, IUiLoggingConfig config, bool isExtension)

@@ -65,7 +65,7 @@ public abstract class BasePoolable : IPoolable
         }
     }
     
-    public virtual void Dispose()
+    public void Dispose()
     {
         if (_pool == null)
         {

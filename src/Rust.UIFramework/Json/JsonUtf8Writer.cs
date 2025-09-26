@@ -15,7 +15,7 @@ public sealed class JsonUtf8Writer : BasePoolable
 {
     private const int SegmentSize = 4096;
 
-    private readonly List<SizedArray<byte>> _segments = new(100);
+    private readonly List<SizedArray<byte>> _segments = [];
     
     private int _byteIndex;
     private uint _size;
@@ -33,18 +33,11 @@ public sealed class JsonUtf8Writer : BasePoolable
     {
         if (character < 0x7F)
         {
-            CheckForFlush(1);
-            _buffer[_byteIndex++] = (byte)character;
+            Write((byte)character);
             return;
         }
         
-        CheckForFlush(sizeof(char));
-
-        byte[] bytes = Utf8CharCache.ToUtf8String(character).String;
-        for (int i = 0; i < bytes.Length; i++)
-        {
-            _buffer[_byteIndex++] = bytes[i];
-        }
+        Write(Utf8CharCache.ToUtf8String(character).String);
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]

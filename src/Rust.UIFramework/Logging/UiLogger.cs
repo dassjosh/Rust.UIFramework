@@ -13,7 +13,7 @@ public class UiLogger : IUiLogger
     public UiLogLevel LogLevel { get; private set; }
     private readonly IUiLoggingConfig _config;
     private readonly UiLogHandler _handler;
-    protected virtual string Type { get; set; }
+    private readonly string _type;
 
     /// <summary>
     /// Creates a new logger with the given log level
@@ -21,11 +21,13 @@ public class UiLogger : IUiLogger
     /// <param name="logLevel">Log level of the logger</param>
     /// <param name="config">Configuration for the logger</param>
     /// <param name="handler">Handler for the logger</param>
-    internal UiLogger(UiLogLevel logLevel, IUiLoggingConfig config, UiLogHandler handler)
+    /// <param name="type">Type of the logger</param>
+    internal UiLogger(UiLogLevel logLevel, IUiLoggingConfig config, UiLogHandler handler, string type)
     {
         LogLevel = logLevel;
         _config = config;
         _handler = handler;
+        _type = type;
     }
 
     /// <inheritdoc/>
@@ -34,12 +36,12 @@ public class UiLogger : IUiLogger
         UiLoggerException.ThrowIfShutdown(_handler);
         if (IsConsoleLogging(level))
         {
-            _handler.LogConsole(level, Type, log, args, exception);
+            _handler.LogConsole(level, _type, log, args, exception);
         }
 
         if (IsFileLogging(level))
         {
-            _handler.LogFile(level, Type, log, args, exception);
+            _handler.LogFile(level, _type, log, args, exception);
         }
     }
 
@@ -76,6 +78,5 @@ public class UiLogger : IUiLogger
 
 public class UiLogger<T> : UiLogger, IUiLogger<T>
 {
-    protected override string Type { get; set; } = typeof(T).GetRealTypeName();
-    internal UiLogger(UiLogLevel logLevel, IUiLoggingConfig config, UiLogHandler handler) : base(logLevel, config, handler) { }
+    internal UiLogger(UiLogLevel logLevel, IUiLoggingConfig config, UiLogHandler handler) : base(logLevel, config, handler, typeof(T).GetRealTypeName()) { }
 }

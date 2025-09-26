@@ -365,6 +365,34 @@ public sealed class JsonFrameworkWriter : BasePoolable
         _writer.Write(value);
         _writer.Write(QuoteChar);
     }
+    
+    public void WriteValue(Vector2 pos)
+    {
+        _writer.Write(QuoteChar);
+        VectorCache.WriteVector(_writer, pos);
+        _writer.Write(QuoteChar);
+    }
+        
+    public void WriteValue(UiColor color)
+    {
+        _writer.Write(QuoteChar);
+        UiColorCache.WriteColor(_writer, color);
+        _writer.Write(QuoteChar);
+    }
+    
+    public void WriteValue(in UiPadding padding)
+    {
+        _writer.Write(QuoteChar);
+        UiPaddingCache.WritePadding(_writer, padding);
+        _writer.Write(QuoteChar);
+    }
+    
+    public void WriteValue(in UiBorderWidth border)
+    {
+        _writer.Write(QuoteChar);
+        UiBorderWidthCache.WriteBorderWidth(_writer, border);
+        _writer.Write(QuoteChar);
+    }
         
     public void WriteBlankValue()
     {
@@ -378,10 +406,11 @@ public sealed class JsonFrameworkWriter : BasePoolable
         if (!string.IsNullOrEmpty(value))
         {
             bool isInQuote = false;
-            for (int i = 0; i < value.Length;)
+            int i = 0;
+            while (i < value.Length)
             {
                 char character = value[i];
-                if (i + 1 < value.Length && char.IsHighSurrogate(character) && char.IsLowSurrogate(value[i + 1]))
+                if (char.IsHighSurrogate(character) && i + 1 < value.Length && char.IsLowSurrogate(value[i + 1]))
                 {
                     _writer.Write(value.AsSpan().Slice(i, 2));
                     i += 2;
@@ -413,10 +442,11 @@ public sealed class JsonFrameworkWriter : BasePoolable
         _writer.Write(QuoteChar);
         if (!string.IsNullOrEmpty(value))
         {
-            for (int i = 0; i < value.Length;)
+            int i = 0;
+            while (i < value.Length)
             {
                 char character = value[i];
-                if (i + 1 < value.Length && char.IsHighSurrogate(character) && char.IsLowSurrogate(value[i + 1]))
+                if (char.IsHighSurrogate(character) && i + 1 < value.Length && char.IsLowSurrogate(value[i + 1]))
                 {
                     _writer.Write(value.AsSpan().Slice(i, 2));
                     i += 2;
@@ -438,34 +468,6 @@ public sealed class JsonFrameworkWriter : BasePoolable
                 i += 1;
             }
         }
-        _writer.Write(QuoteChar);
-    }
-
-    public void WriteValue(Vector2 pos)
-    {
-        _writer.Write(QuoteChar);
-        VectorCache.WriteVector(_writer, pos);
-        _writer.Write(QuoteChar);
-    }
-        
-    public void WriteValue(UiColor color)
-    {
-        _writer.Write(QuoteChar);
-        UiColorCache.WriteColor(_writer, color);
-        _writer.Write(QuoteChar);
-    }
-    
-    public void WriteValue(in UiPadding padding)
-    {
-        _writer.Write(QuoteChar);
-        UiPaddingCache.WritePadding(_writer, padding);
-        _writer.Write(QuoteChar);
-    }
-    
-    public void WriteValue(in UiBorderWidth border)
-    {
-        _writer.Write(QuoteChar);
-        UiBorderWidthCache.WriteBorderWidth(_writer, border);
         _writer.Write(QuoteChar);
     }
     #endregion
