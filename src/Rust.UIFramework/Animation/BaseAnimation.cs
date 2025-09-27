@@ -30,7 +30,6 @@ public abstract class BaseAnimation : BasePoolable
     
     protected TriggeredTimeoutTracker TriggeredTracker;
     protected TimeoutAnimationAction TimeoutAction;
-    protected bool HasStarted;
     
     protected void Init(IUiFrameworkPlugin plugin, in UiReference reference, IAnimationDuration duration)
     {
@@ -137,6 +136,7 @@ public abstract class BaseAnimation : BasePoolable
     {
         Send = send;
         UpdateState(AnimationState.Queued);
+        OnStarted();
         if (send.connection != null)
         {
             PlayerId = send.connection.userid;
@@ -146,7 +146,6 @@ public abstract class BaseAnimation : BasePoolable
     private void OnStarted()
     {
         Duration.OnStarted(Time.realtimeSinceStartup);
-        HasStarted = true;
     }
 
     internal void OnTick(float currentTime)
@@ -169,11 +168,6 @@ public abstract class BaseAnimation : BasePoolable
             {
                 return;
             }
-        }
-
-        if (!HasStarted)
-        {
-            OnStarted();
         }
         
         Duration.OnTick(currentTime);
