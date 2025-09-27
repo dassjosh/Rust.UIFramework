@@ -81,7 +81,7 @@ public abstract class BaseAnimation : BasePoolable
 
     public BaseAnimation WithProgressor(IAnimationProgressor progressor)
     {
-        progressor.TryReturnToPool();
+        Progressor?.TryReturnToPool();
         Progressor = progressor;
         return this;
     }
