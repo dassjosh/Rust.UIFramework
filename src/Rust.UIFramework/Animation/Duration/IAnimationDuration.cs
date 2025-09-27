@@ -9,7 +9,6 @@ public interface IAnimationDuration
     bool HasChanged { get; }
 
     void OnStarted(float startTime);
-    float GetRemainingDuration(bool includeRepeats);
     void OnTick(float currentTime);
     void OnAnimationCompleted(float currentTime);
 }

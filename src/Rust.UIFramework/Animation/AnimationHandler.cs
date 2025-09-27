@@ -5,6 +5,7 @@ using System.Threading;
 using Network;
 using Oxide.Ext.UiFramework.Builder;
 using Oxide.Ext.UiFramework.Config;
+using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Logging;
@@ -174,7 +175,7 @@ internal class AnimationHandler : ISingleton
         
         animation.OnTick(currentTime);
         IAnimationDuration duration = animation.Duration;
-        if (duration.IsDelayed || !duration.HasChanged)
+        if (animation.IsDelayed || (!duration.HasChanged && !duration.IsCompleted))
         {
             return;
         }

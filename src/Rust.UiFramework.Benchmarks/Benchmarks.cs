@@ -332,7 +332,7 @@ public class Benchmarks
 
     private UiBuilder GetFrameworkBuilder()
     {
-        UiBuilder builder = UiBuilder.Create(UiPosition.Full, UiColor.Clear, "123");
+        UiBuilder builder = UiBuilder.Create(UiPosition.Full, UiColors.Clear, "123");
         for (int i = 0; i < Iterations - 1; i++)
         {
             int mode = i % 7;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Network;
+using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Exceptions;
 using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Json;
@@ -25,6 +26,11 @@ public abstract class BaseAnimation : BasePoolable
     internal ulong PlayerId { get; private set; }
     private readonly List<IAnimationEvent> _events = [];
     public bool IsCompleted => State is AnimationState.Completed or AnimationState.Cancelled;
+    public bool IsDelayed => TriggeredTracker is { IsTriggeredOrTimedOut: false } || Duration.IsDelayed;
+    
+    protected TriggeredTimeoutTracker TriggeredTracker;
+    protected TimeoutAnimationAction TimeoutAction;
+    protected bool HasStarted;
     
     protected void Init(IUiFrameworkPlugin plugin, in UiReference reference, IAnimationDuration duration)
     {
@@ -47,8 +53,24 @@ public abstract class BaseAnimation : BasePoolable
         return Duration as IConfigurableAnimationDuration;
     }
     
-    public BaseAnimation ComesAfter(BaseAnimation animation, bool includeRepeats = false) => WithDelay(animation.Duration.GetRemainingDuration(includeRepeats));
-    
+    public BaseAnimation ComesAfter(BaseAnimation animation, bool includeRepeats)
+    {
+        if (animation.Duration is IRemainingDuration remaining)
+        {
+            return WithDelay(remaining.GetRemainingDuration(includeRepeats));
+        }
+
+        return ComesAfter(animation);
+    }
+
+    public BaseAnimation ComesAfter(BaseAnimation animation, in TimeSpan? timeout = null, TimeoutAnimationAction action = TimeoutAnimationAction.StartAnimation)
+    {
+        animation.AddEvent(StartAnimationAfterEvent.Create(this, action));
+        TriggeredTracker = TriggeredTimeoutTracker.Create(PluginPool, timeout ?? TimeSpan.FromMinutes(1));
+        TimeoutAction = action;
+        return this;
+    }
+
     public BaseAnimation WithDelay(float delay)
     {
         if (Duration is IConfigurableAnimationDuration duration)
@@ -56,6 +78,15 @@ public abstract class BaseAnimation : BasePoolable
             duration.Delay = delay;
         }
         return this;
+    }
+    
+    public void TriggerDelayComplete()
+    {
+        if (State is AnimationState.Queued or AnimationState.Running)
+        {
+            TriggeredTracker?.Trigger();
+            OnStarted();
+        }
     }
     
     public BaseAnimation WithRepeats(int repeats, float repeatDelay = 0f)
@@ -76,7 +107,7 @@ public abstract class BaseAnimation : BasePoolable
         return this;
     }
     
-    public BaseAnimation WithLoop() => WithProgressor(LoopProgressor.Default);
+    public BaseAnimation WithPingPongProgressor() => WithProgressor(PingPongProgressor.Default);
     public BaseAnimation WithBezierProgressor(in BezierProgressor points) => WithProgressor(points);
 
     public BaseAnimation WithProgressor(IAnimationProgressor progressor)
@@ -90,7 +121,7 @@ public abstract class BaseAnimation : BasePoolable
 
     public abstract void WriteAnimation(JsonFrameworkWriter writer, float elapsedPercentage);
 
-    internal void UpdateState(AnimationState newState)
+    private void UpdateState(AnimationState newState)
     {
         InvalidAnimationStateException.ThrowIfInvalidState(State, newState);
         State = newState;
@@ -106,11 +137,16 @@ public abstract class BaseAnimation : BasePoolable
     {
         Send = send;
         UpdateState(AnimationState.Queued);
-        Duration.OnStarted(Time.realtimeSinceStartup);
         if (send.connection != null)
         {
             PlayerId = send.connection.userid;
         }
+    }
+
+    private void OnStarted()
+    {
+        Duration.OnStarted(Time.realtimeSinceStartup);
+        HasStarted = true;
     }
 
     internal void OnTick(float currentTime)
@@ -118,6 +154,26 @@ public abstract class BaseAnimation : BasePoolable
         if (State != AnimationState.Running)
         {
             UpdateState(AnimationState.Running);
+        }
+
+        if (TriggeredTracker != null)
+        {
+            TriggeredTracker.OnTick(currentTime);
+            if (TriggeredTracker.HasTimedOut && TimeoutAction == TimeoutAnimationAction.CancelAnimation)
+            {
+                Cancel();
+                return;
+            }
+            
+            if (!TriggeredTracker.IsTriggeredOrTimedOut)
+            {
+                return;
+            }
+        }
+
+        if (!HasStarted)
+        {
+            OnStarted();
         }
         
         Duration.OnTick(currentTime);
@@ -210,6 +266,7 @@ public abstract class BaseAnimation : BasePoolable
         Duration = null;
         Send = default;
         _events.TryFreeValues();
+        TriggeredTracker?.TryDispose();
         UpdateState(AnimationState.Pooled);
     }
 }

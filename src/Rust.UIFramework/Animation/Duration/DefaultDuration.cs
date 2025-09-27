@@ -9,7 +9,7 @@ public class DefaultDuration : BasePoolable, IConfigurableAnimationDuration
 {
     public float Delay { get; set; }
     public float Duration { get; set; }
-    public float Elapsed;
+    public float Elapsed { get; set; }
     public int Repeats { get; set; }
     public float RepeatDelay { get; set; }
     public float StartTime { get; private set; }

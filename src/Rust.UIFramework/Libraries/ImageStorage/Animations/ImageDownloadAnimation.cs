@@ -2,47 +2,48 @@
 using Oxide.Ext.UiFramework.Animation;
 using Oxide.Ext.UiFramework.Interfaces;
 using Oxide.Ext.UiFramework.Json;
+using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Types;
 using Oxide.Ext.UiFramework.UiElements;
 
 namespace Oxide.Ext.UiFramework.Libraries;
 
-internal class ImageDownloadAnimation : BaseAnimation
+public class ImageDownloadAnimation : BaseAnimation
 { 
     private ImageId _id;
     private string _timeoutImage;
     private string _failedImage;
-    private readonly ImageDownloadDuration _duration = new();
+    private ITriggeredDuration _duration;
     private DownloadState _state = DownloadState.InProgress;
 
     private enum DownloadState { InProgress, Failed, Success, Timeout }
     
-    internal static ImageDownloadAnimation Create(IAnimationBuilder builder, in UiReference reference, ImageDownloadOptions options)
+    internal static ImageDownloadAnimation Create(IAnimationBuilder builder, ITriggeredDuration duration, in UiReference reference, ImageDownloadOptions options)
     {
         ImageDownloadAnimation animation = builder.PluginPool.Get<ImageDownloadAnimation>();
-        animation.Init(builder, reference, options);
+        animation.Init(builder, duration, reference, options);
         return animation;
     }
 
-    private void Init(IAnimationBuilder builder, in UiReference reference, ImageDownloadOptions options)
+    private void Init(IAnimationBuilder builder, ITriggeredDuration duration, in UiReference reference, ImageDownloadOptions options)
     {
         base.Init(builder.Plugin, reference, _duration);
-        _duration.Init(options.AutomaticUpdate.Timeout);
+        _duration = duration;
         _timeoutImage = options.AutomaticUpdate.TimeoutImageNameOrUrl;
         _failedImage = options.FailedImageNameOrUrl;
     }
 
-    public void OnImageDownloadedSuccessfully(ImageId id)
+    internal void OnImageDownloadedSuccessfully(ImageId id)
     {
         _id = id;
         _state = DownloadState.Success;
-        _duration.OnDownloadFinished();
+        _duration.Trigger();
     }
     
     public void OnImageDownloadFailed()
     {
         _state = DownloadState.Failed;
-        _duration.OnDownloadFinished();
+        _duration.Trigger();
     }
     
     public override void WriteAnimation(JsonFrameworkWriter writer, float elapsedPercentage)
@@ -98,9 +99,12 @@ internal class ImageDownloadAnimation : BaseAnimation
     protected override void EnterPool()
     {
         base.EnterPool();
-        _duration.Reset();
         _state = DownloadState.InProgress;
         _timeoutImage = null;
         _failedImage = null;
+        if (_duration is BasePoolable poolable)
+        {
+            poolable.TryDispose();
+        }
     }
 }

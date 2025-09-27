@@ -1,10 +1,10 @@
 ﻿namespace Oxide.Ext.UiFramework.Animation;
 
-public class LoopProgressor : IAnimationProgressor
+public class PingPongProgressor : IAnimationProgressor
 {
-    public static readonly LoopProgressor Default = new();
+    public static readonly PingPongProgressor Default = new();
     
-    private LoopProgressor() { }
+    private PingPongProgressor() { }
     
     public float GetProgress(float elapsedPercentage)
     {

@@ -1,6 +1,6 @@
 ﻿namespace Oxide.Ext.UiFramework.Animation;
 
-public interface IConfigurableAnimationDuration : IAnimationDuration
+public interface IConfigurableAnimationDuration : IAnimationDuration, IRemainingDuration
 {
     public float Delay { get; set; }
     public float Duration { get; set; }

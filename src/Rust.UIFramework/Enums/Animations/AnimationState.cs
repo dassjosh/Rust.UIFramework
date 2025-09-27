@@ -1,4 +1,4 @@
-﻿namespace Oxide.Ext.UiFramework.Animation;
+﻿namespace Oxide.Ext.UiFramework.Enums;
 
 public enum AnimationState : byte
 {
