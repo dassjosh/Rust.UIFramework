@@ -5,6 +5,7 @@ using Oxide.Core;
 using Oxide.Core.Plugins;
 using Oxide.Ext.UiFramework.Constants;
 using Oxide.Ext.UiFramework.Data;
+using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Exceptions;
 using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Logging;
@@ -84,7 +85,7 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
         return Get(UiFrameworkPlugin.Instance, UiImageDefaults.NotFound);
     }
 
-    public RegisterResult RegisterImage(IUiFrameworkPlugin plugin, string name, string url) => RegisterImage(plugin.Id(), name, url);
+    public void RegisterImage(IUiFrameworkPlugin plugin, string name, string url) => RegisterImage(plugin.Id(), name, url);
     
     internal RegisterResult RegisterImage(PluginId pluginId, string name, string url)
     {
@@ -100,11 +101,11 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
         return _downloader.AddRequest(pluginId, name, url);
     }
     
-    public RegisterResult RegisterImage(IUiFrameworkPlugin plugin, string url) => RegisterImage(plugin, url, url);
+    public void RegisterImage(IUiFrameworkPlugin plugin, string url) => RegisterImage(plugin, url, url);
 
     internal RegisterResult RegisterImage(PluginId plugin, string url) => RegisterImage(plugin, url, url);
 
-    public bool RegisterImage(IUiFrameworkPlugin plugin, string name, byte[] image, out string error)
+    public bool RegisterImage(IUiFrameworkPlugin plugin, string name, byte[] image, out RegisterImageErrorCode error)
     {
         CommunityEntityNotReadyException.ThrowIfNotReady();
         if (plugin == null) throw new ArgumentNullException(nameof(plugin));
@@ -114,7 +115,7 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
         ImageId id = _data.Get(plugin.Id(), name);
         if (id.IsValid && id.TryGetCrc(out uint crc) && crc == GetCRC(image))
         {
-            error = "Image already registered";
+            error = RegisterImageErrorCode.AlreadyRegistered;
             return false;
         }
         
@@ -139,7 +140,7 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
         CommunityEntityNotReadyException.ThrowIfNotReady();
         foreach (BulkByteImageRequest request in images)
         {
-            RegisterImage(plugin, request.Name, request.Image, out string _);
+            RegisterImage(plugin, request.Name, request.Image, out RegisterImageErrorCode _);
         }
     }
 
@@ -152,7 +153,7 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
     {
         DownloadRequest request = download.Request;
         byte[] image = download.Data;
-        ImageId imageId = ProcessImage(image, out string error);
+        ImageId imageId = ProcessImage(image, out RegisterImageErrorCode error);
         if (!imageId.IsValid)
         {
             _logger.Warning("Failed to download image from url: {0} Error: {1}", request.Url, error);
@@ -169,21 +170,21 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
         Singleton<ImageUpdateAnimations>.Instance.OnDownloadCompleted(request.Url, false, default);
     }
 
-    private static ImageId ProcessImage(byte[] image, out string error)
+    private static ImageId ProcessImage(byte[] image, out RegisterImageErrorCode error)
     {
         if (image == null || image.Length == 0)
         {
-            error = "Image byte[] is empty";
+            error = RegisterImageErrorCode.EmptyImage;
             return default;
         }
 
         if (!IsValidRustPng(image) && !IsValidJpegImage(image))
         {
-            error = "Image is not a valid PNG or JPEG";
+            error = RegisterImageErrorCode.InvalidImageType;
             return default;
         }
         
-        error = null;
+        error = RegisterImageErrorCode.None;
         return StoreImage(image);
     }
 
