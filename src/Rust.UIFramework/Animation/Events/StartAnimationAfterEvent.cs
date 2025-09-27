@@ -1,5 +1,4 @@
-﻿using Oxide.Ext.UiFramework.Enums;
-using Oxide.Ext.UiFramework.Pooling;
+﻿using Oxide.Ext.UiFramework.Pooling;
 
 namespace Oxide.Ext.UiFramework.Animation;
 
@@ -7,9 +6,9 @@ public class StartAnimationAfterEvent : BasePoolable, IAnimationCompleted
 {
     private BaseAnimation _animation;
 
-    public static StartAnimationAfterEvent Create(BaseAnimation animation, TimeoutAnimationAction action) => animation.PluginPool.Get<StartAnimationAfterEvent>().Init(animation, action);
+    public static StartAnimationAfterEvent Create(BaseAnimation animation) => animation.PluginPool.Get<StartAnimationAfterEvent>().Init(animation);
 
-    public StartAnimationAfterEvent Init(BaseAnimation animation, TimeoutAnimationAction action)
+    public StartAnimationAfterEvent Init(BaseAnimation animation)
     {
         _animation = animation;
         return this;

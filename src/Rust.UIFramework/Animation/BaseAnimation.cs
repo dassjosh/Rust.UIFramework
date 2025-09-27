@@ -65,7 +65,7 @@ public abstract class BaseAnimation : BasePoolable
 
     public BaseAnimation ComesAfter(BaseAnimation animation, in TimeSpan? timeout = null, TimeoutAnimationAction action = TimeoutAnimationAction.StartAnimation)
     {
-        animation.AddEvent(StartAnimationAfterEvent.Create(this, action));
+        animation.AddEvent(StartAnimationAfterEvent.Create(this));
         TriggeredTracker = TriggeredTimeoutTracker.Create(PluginPool, timeout ?? TimeSpan.FromMinutes(1));
         TimeoutAction = action;
         return this;
