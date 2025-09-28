@@ -125,8 +125,6 @@ public abstract class BaseUiComponent(CoreComponent component) : BasePoolable
     {
         Reference = default;
         FadeOut = 0;
-        Position = UiPosition.Full;
-        Offset = default;
         Update = default;
         Active = true;
         _component.Reset();
