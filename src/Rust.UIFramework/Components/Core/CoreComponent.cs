@@ -22,10 +22,7 @@ public abstract class CoreComponent : BaseTypedComponent, ICoreComponent
         }
     }
 
-    public T GetOrAddSubComponent<T>() where T : SubComponent, new()
-    {
-        return GetSubComponent<T>() ?? AddSubComponentInternal<T>();
-    }
+    public T GetOrAddSubComponent<T>() where T : SubComponent, new() => GetSubComponent<T>() ?? AddSubComponentInternal<T>();
 
     public T AddSubComponent<T>(bool ignoreIfExists = false) where T : SubComponent, new()
     {
@@ -78,12 +75,28 @@ public abstract class CoreComponent : BaseTypedComponent, ICoreComponent
 
     public void RemoveSubComponents<T>() where T : SubComponent
     {
-        _subComponents.RemoveAll(sc => sc is T);
+        for (int index = _subComponents.Count - 1; index >= 0; index--)
+        {
+            SubComponent component = _subComponents[index];
+            if (component is T)
+            {
+                component.TryDispose();
+                _subComponents.RemoveAt(index);
+            }
+        }
     }
     
     public void RemoveSubComponents<T>(Predicate<T> predicate) where T : SubComponent
     {
-        _subComponents.RemoveAll(sc => sc is T component && predicate(component));
+        for (int index = _subComponents.Count - 1; index >= 0; index--)
+        {
+            SubComponent subComponent = _subComponents[index];
+            if (subComponent is T component && predicate(component))
+            {
+                subComponent.TryDispose();
+                _subComponents.RemoveAt(index);
+            }
+        }
     }
     
     public void RemoveSubComponent<T>() where T : SubComponent
@@ -91,6 +104,7 @@ public abstract class CoreComponent : BaseTypedComponent, ICoreComponent
         int index = _subComponents.FindIndex(sc => sc is T);
         if (index != -1)
         {
+            _subComponents[index].TryDispose();
             _subComponents.RemoveAt(index);
         }
     }
@@ -100,13 +114,17 @@ public abstract class CoreComponent : BaseTypedComponent, ICoreComponent
         int index = _subComponents.FindIndex(sc => sc is T component && predicate(component));
         if (index != -1)
         {
+            _subComponents[index].TryDispose();
             _subComponents.RemoveAt(index);
         }
     }
 
     public void RemoveSubComponent(SubComponent subComponent)
     {
-        _subComponents.Remove(subComponent);
+        if (_subComponents.Remove(subComponent))
+        {
+            subComponent.TryDispose();
+        }
     }
 
     public override void Reset()
