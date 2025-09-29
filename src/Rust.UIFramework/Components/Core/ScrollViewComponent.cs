@@ -108,6 +108,6 @@ public class ScrollViewComponent : CoreComponent
         DecelerationRate = JsonDefaults.ScrollView.DecelerationRate;
         ScrollSensitivity = JsonDefaults.ScrollView.ScrollSensitivity;
         HorizontalScrollProgress = JsonDefaults.ScrollView.HorizontalScrollProgress;
-        VerticalScrollProgress = JsonDefaults.ScrollView.VerticalScrollProgressOverride;
+        VerticalScrollProgress = JsonDefaults.ScrollView.VerticalScrollProgress;
     }
 }

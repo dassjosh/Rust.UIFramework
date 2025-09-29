@@ -217,8 +217,7 @@ public static class JsonDefaults
         public const float HorizontalScrollProgress = 0f;
         
         public static readonly Utf8String VerticalScrollProgressName = "verticalNormalizedPosition";
-        public const float VerticalScrollProgress = 0f;
-        public const float VerticalScrollProgressOverride = 1f;
+        public const float VerticalScrollProgress = 1f;
     }
 
     public static class ScrollBar
