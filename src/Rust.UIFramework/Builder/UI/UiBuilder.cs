@@ -35,7 +35,7 @@ public partial class UiBuilder : BaseUiBuilder, IAnimationBuilder
     
     public UiBuilder SetRoot(BaseUiComponent element, string name, string parent)
     {
-        Root = _actualRoot = element.SetUpdate(UpdateMode.AutoDestroy).SetReference(new UiReference(parent, name));
+        Root = _actualRoot = element.SetUpdate(UpdateMode.Replace).SetReference(new UiReference(parent, name));
         Components.Add(element);
         RootName = name;
         SetNamingCache(name);
@@ -60,9 +60,9 @@ public partial class UiBuilder : BaseUiBuilder, IAnimationBuilder
         return this;
     }
 
-    public UiBuilder SetRootAutoDestroy(bool enabled = true)
+    public UiBuilder SetRootReplace(bool enabled = true)
     {
-        _actualRoot.Update = enabled ? UpdateMode.AutoDestroy : UpdateMode.None;
+        _actualRoot.Update = enabled ? UpdateMode.Replace : UpdateMode.None;
         return this;
     }
 
@@ -149,7 +149,7 @@ public partial class UiBuilder : BaseUiBuilder, IAnimationBuilder
 
     public UiBuilder SwitchToDefaultMode(string uiRootName = null) => SwitchTo(UpdateMode.None, NamingMode.Child).SetName(uiRootName);
     public UiBuilder SwitchToUpdateExistingMode() => SwitchTo(UpdateMode.Update, NamingMode.Reference);
-    public UiBuilder SwitchToReplaceExistingMode() => SwitchTo(UpdateMode.AutoDestroy, NamingMode.Reference);
+    public UiBuilder SwitchToReplaceExistingMode() => SwitchTo(UpdateMode.Replace, NamingMode.Reference);
     public UiBuilder SwitchTo(UpdateMode update, NamingMode naming) => SetUpdateMode(update).SetNamingMode(naming);
     #endregion
     

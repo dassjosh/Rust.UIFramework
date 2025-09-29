@@ -3,6 +3,6 @@
 public enum UpdateMode : byte
 {
     None,
-    AutoDestroy,
+    Replace,
     Update
 }

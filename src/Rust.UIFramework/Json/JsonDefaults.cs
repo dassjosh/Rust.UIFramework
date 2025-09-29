@@ -30,7 +30,7 @@ public static class JsonDefaults
         public const string NullValue = null;
         public static readonly Utf8String NeedsCursorValue = "NeedsCursor";
         public static readonly Utf8String NeedsKeyboardValue = "NeedsKeyboard";
-        public static readonly Utf8String AutoDestroy = "destroyUi";
+        public static readonly Utf8String Replace = "destroyUi";
         public static readonly Utf8String CommandName = "command";
         public static readonly Utf8String EnabledName = "enabled";
         public static readonly Utf8String PlaceholderInputId = "placeholderParentId";

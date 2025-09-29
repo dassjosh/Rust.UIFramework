@@ -45,8 +45,8 @@ public abstract class BaseUiComponent(CoreComponent component) : BasePoolable
         writer.AddField(JsonDefaults.Common.ActiveName, Active, JsonDefaults.Common.Active);
         switch (Update)
         {
-            case UpdateMode.AutoDestroy:
-                writer.AddFieldRaw(JsonDefaults.Common.AutoDestroy, Reference.Name);
+            case UpdateMode.Replace:
+                writer.AddFieldRaw(JsonDefaults.Common.Replace, Reference.Name);
                 break;
             case UpdateMode.Update:
                 writer.AddFieldRaw(JsonDefaults.Common.Update, true);

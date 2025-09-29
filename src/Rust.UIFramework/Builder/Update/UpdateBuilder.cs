@@ -23,7 +23,7 @@ public class UpdateBuilder : BaseUiBuilder
     protected override void LeavePool()
     {
         base.LeavePool();
-        UpdateMode = UpdateMode.AutoDestroy;
+        UpdateMode = UpdateMode.Replace;
         NamingMode = NamingMode.Reference;
     }
 }
