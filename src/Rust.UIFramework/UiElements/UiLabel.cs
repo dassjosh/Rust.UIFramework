@@ -7,6 +7,7 @@ using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
+[UiFrameworkSerializer(typeof(UiComponentSerializer<UiLabel>))]
 public class UiLabel : BaseUiText<UiLabel>
 {
     public readonly TextComponent Text;
@@ -41,10 +42,10 @@ public class UiLabel : BaseUiText<UiLabel>
     public CountdownComponent AddCountdown() => Text.GetOrAddSubComponent<CountdownComponent>();
     
     public CountdownComponent AddCountdown(float startTime, float endTime, string command, 
-        float step = JsonDefaults.Countdown.StepValue, 
-        float interval = JsonDefaults.Countdown.IntervalValue, 
-        TimerFormat timerFormat = JsonDefaults.Countdown.TimeFormatValue, 
-        string numberFormat = JsonDefaults.Countdown.NumberFormatValue, 
+        float step = JsonDefaults.Countdown.Step, 
+        float interval = JsonDefaults.Countdown.Interval, 
+        TimerFormat timerFormat = JsonDefaults.Countdown.TimerFormat, 
+        string numberFormat = JsonDefaults.Countdown.NumberFormat, 
         bool destroyIfDone = JsonDefaults.Countdown.DestroyIfDone)
     {
         CountdownComponent countdown = AddCountdown();

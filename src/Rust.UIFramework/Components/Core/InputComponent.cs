@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.Components;
 
+[UiFrameworkSerializer(typeof(InputComponentSerializer))]
 public class InputComponent : TextComponent
 {
     public int CharsLimit;
@@ -16,23 +17,7 @@ public class InputComponent : TextComponent
     public UiReference Placeholder;
 
     public override Utf8String Type => JsonDefaults.Input.Type;
-
-    protected override void WriteComponentFields(JsonFrameworkWriter writer)
-    {
-        writer.AddField(JsonDefaults.Input.CharacterLimitName, CharsLimit, JsonDefaults.Input.CharacterLimit);
-        writer.AddField(JsonDefaults.Input.LineTypeName, LineType, JsonDefaults.Input.LineType);
-        writer.AddField(JsonDefaults.Input.PasswordName, HasMode(InputMode.Password), false);
-        writer.AddField(JsonDefaults.Input.NeedsKeyboardName, HasMode(InputMode.NeedsKeyboard), false);
-        writer.AddField(JsonDefaults.Input.NeedsHudKeyboardName, HasMode(InputMode.HudNeedsKeyboard), false);
-        writer.AddField(JsonDefaults.Input.AutoFocusName, HasMode(InputMode.AutoFocus), false);
-        writer.AddField(JsonDefaults.Input.ReadOnlyName, HasMode(InputMode.ReadOnly), false);
-        if (Placeholder.IsValidName())
-        {
-            writer.AddFieldRaw(JsonDefaults.Input.PlaceholderName, Placeholder.Name);
-        }
-        writer.AddCommand(JsonDefaults.Common.CommandName, Command);
-        base.WriteComponentFields(writer);
-    }
+    public override ComponentType ComponentType => ComponentType.Input;
     
     public bool HasMode(InputMode mode) => (Mode & mode) == mode;
 
@@ -57,5 +42,16 @@ public class InputComponent : TextComponent
         Mode = JsonDefaults.Input.Mode;
         LineType = JsonDefaults.Input.LineType;
         Placeholder = default;
+    }
+    
+    public override bool Equals(BaseComponent other)
+    {
+        if (!base.Equals(other)) return false;
+        InputComponent typedOther = (InputComponent)other!;
+        return CharsLimit == typedOther.CharsLimit
+               && Command == typedOther.Command 
+               && Mode == typedOther.Mode 
+               && LineType == typedOther.LineType 
+               && Placeholder == typedOther.Placeholder;
     }
 }

@@ -6,24 +6,18 @@ using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-public class PlayingCardComponent : CoreComponent
+[UiFrameworkSerializer(typeof(PlayingCardComponentSerializer))]
+public class PlayingCardComponent : CoreComponent, IGraphicalComponent
 {
     public UiSuit Suit;
     public UiRank Rank;
     public UiCardType CardType;
-    public float FadeIn;
+    public float FadeIn { get; set; }
     public string Material;
     public UiColor Color;
 
     public override Utf8String Type => UiPlayingCards.GetComponentType(Rank, CardType);
-
-    protected override void WriteComponentFields(JsonFrameworkWriter writer)
-    {
-        writer.AddField(JsonDefaults.BaseImage.SpriteName, UiPlayingCards.GetPlayingCard(Suit, Rank, CardType), JsonDefaults.BaseImage.Sprite);
-        writer.AddField(JsonDefaults.BaseImage.MaterialName, Material, JsonDefaults.BaseImage.Material);
-        writer.AddField(JsonDefaults.Common.FadeInName, FadeIn, JsonDefaults.Common.FadeIn);
-        writer.AddField(JsonDefaults.Color.ColorName, Color);
-    }
+    public override ComponentType ComponentType => ComponentType.PlayingCard;
     
     public override void Reset()
     {
@@ -34,5 +28,31 @@ public class PlayingCardComponent : CoreComponent
         FadeIn = default;
         Material = UiMaterials.Content.Ui.NameFontMaterial;
         Color = UiColors.White;
+    }
+
+    public override void CopyFrom(object value)
+    {
+        base.CopyFrom(value);
+        if (value is PlayingCardComponent component)
+        {
+            Suit = component.Suit;
+            Rank = component.Rank;
+            CardType = component.CardType;
+            FadeIn = component.FadeIn;
+            Material = component.Material;
+            Color = component.Color;
+        }
+    }
+    
+    public override bool Equals(BaseComponent other)
+    {
+        if (!base.Equals(other)) return false;
+        PlayingCardComponent typedOther = (PlayingCardComponent)other!;
+        return Suit == typedOther.Suit 
+               && Rank == typedOther.Rank 
+               && CardType == typedOther.CardType 
+               && FadeIn == typedOther.FadeIn 
+               && Material == typedOther.Material 
+               && Color == typedOther.Color;
     }
 }

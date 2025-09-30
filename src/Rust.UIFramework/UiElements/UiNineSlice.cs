@@ -1,10 +1,12 @@
 ﻿using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
+using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Types;
 using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
+[UiFrameworkSerializer(typeof(UiComponentSerializer<UiNineSlice>))]
 public class UiNineSlice : BaseUiImage<UiNineSlice>
 {
     public string Png { get => Image.Png; set => Image.Png = value; }

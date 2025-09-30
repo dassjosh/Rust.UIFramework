@@ -35,6 +35,7 @@ public class AssemblyFixture : XunitTestFramework
         VerifierSettings.UseStrictJson();
         VerifierSettings.DontIgnoreEmptyCollections();
         VerifierSettings.SortPropertiesAlphabetically();
+        VerifierSettings.SortJsonObjects();
         UseSourceFileRelativeDirectory("Snapshots");
         AddVerifyConverters();
         AddVerifyParameterConverters();

@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Components;
 
+[UiFrameworkSerializer(typeof(OutlineComponentSerializer))]
 public class OutlineComponent : SubComponent
 {
     public UiColor Color;
@@ -12,6 +13,7 @@ public class OutlineComponent : SubComponent
     public bool UseGraphicAlpha;
 
     public override Utf8String Type => JsonDefaults.Outline.Type;
+    public override ComponentType ComponentType => ComponentType.Outline;
     public override bool AllowMultiple => true;
 
     public OutlineComponent SetColor(UiColor color)
@@ -32,18 +34,31 @@ public class OutlineComponent : SubComponent
         return this;
     }
 
-    protected override void WriteComponentFields(JsonFrameworkWriter writer)
-    {
-        writer.AddField(JsonDefaults.Outline.DistanceName, Distance, JsonDefaults.Outline.FpDistance);
-        writer.AddKeyField(JsonDefaults.Outline.UseGraphicAlphaName, UseGraphicAlpha);
-        writer.AddField(JsonDefaults.Color.ColorName, Color);
-    }
-
     public override void Reset()
     {
         base.Reset();
         Distance = JsonDefaults.Outline.Distance;
         UseGraphicAlpha = false;
         Color = default;
+    }
+    
+    public override void CopyFrom(object value)
+    {
+        base.CopyFrom(value);
+        if (value is OutlineComponent component)
+        {
+            Color = component.Color;
+            Distance = component.Distance;
+            UseGraphicAlpha = component.UseGraphicAlpha;
+        }
+    }
+    
+    public override bool Equals(BaseComponent other)
+    {
+        if (!base.Equals(other)) return false;
+        OutlineComponent typedOther = (OutlineComponent)other!;
+        return Color == typedOther.Color 
+               && Distance == typedOther.Distance 
+               && UseGraphicAlpha == typedOther.UseGraphicAlpha;
     }
 }

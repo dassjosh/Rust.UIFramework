@@ -6,10 +6,11 @@ using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-public class TextComponent : CoreComponent
+[UiFrameworkSerializer(typeof(TextComponentSerializer))]
+public class TextComponent : CoreComponent, IGraphicalComponent
 {
     public UiColor Color;
-    public float FadeIn;
+    public float FadeIn { get; set; }
     public int FontSize;
     public string Font;
     public TextAnchor Align;
@@ -18,22 +19,7 @@ public class TextComponent : CoreComponent
     public UiReference PlaceholderFor;
 
     public override Utf8String Type => JsonDefaults.Text.Type;
-
-    protected override void WriteComponentFields(JsonFrameworkWriter writer)
-    {
-        writer.AddTextField(JsonDefaults.Text.TextName, Text);
-        writer.AddField(JsonDefaults.Text.FontSizeName, FontSize, JsonDefaults.Text.FontSize);
-        writer.AddField(JsonDefaults.Text.FontName, Font, JsonDefaults.Text.FontValue);
-        writer.AddField(JsonDefaults.Text.AlignName, Align, JsonDefaults.Text.Align);
-        writer.AddField(JsonDefaults.Text.VerticalOverflowName, VerticalOverflow, JsonDefaults.Text.VerticalOverflow);
-        writer.AddField(JsonDefaults.Common.FadeInName, FadeIn, JsonDefaults.Common.FadeIn);
-        writer.AddField(JsonDefaults.Color.ColorName, Color);
-        
-        if (PlaceholderFor.IsValidReference())
-        {
-            writer.AddFieldRaw(JsonDefaults.Common.PlaceholderInputId, PlaceholderFor.Name);
-        }
-    }
+    public override ComponentType ComponentType => ComponentType.Text;
 
     public override void Reset()
     {
@@ -46,5 +32,35 @@ public class TextComponent : CoreComponent
         Text = null;
         VerticalOverflow = JsonDefaults.Text.VerticalOverflow;
         PlaceholderFor = default;
+    }
+
+    public override void CopyFrom(object value)
+    {
+        base.CopyFrom(value);
+        if (value is TextComponent component)
+        {
+            Color = component.Color;
+            FadeIn = component.FadeIn;
+            FontSize = component.FontSize;
+            Font = component.Font;
+            Align = component.Align;
+            Text = component.Text;
+            VerticalOverflow = component.VerticalOverflow;
+            PlaceholderFor = component.PlaceholderFor;
+        }
+    }
+
+    public override bool Equals(BaseComponent other)
+    {
+        if (!base.Equals(other)) return false;
+        TextComponent typedOther = (TextComponent)other!;
+        return Color == typedOther.Color 
+               && FadeIn == typedOther.FadeIn 
+               && FontSize == typedOther.FontSize 
+               && Font == typedOther.Font 
+               && Align == typedOther.Align 
+               && Text == typedOther.Text 
+               && VerticalOverflow == typedOther.VerticalOverflow 
+               && PlaceholderFor == typedOther.PlaceholderFor;
     }
 }

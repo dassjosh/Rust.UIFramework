@@ -70,6 +70,8 @@ public readonly struct UiRotation(float rotation) : IEquatable<UiRotation>
     public static UiRotation operator *(UiRotation lhs, UiRotation rhs) => new(lhs.Rotation * (rhs.Rotation / Full.Rotation));
     public static UiRotation operator /(UiRotation lhs, float rhs) => new(lhs.Rotation / rhs);
     public static UiRotation operator /(UiRotation lhs, UiRotation rhs) => new((lhs.Rotation * Full.Rotation) / rhs.Rotation);
+    public static bool operator ==(UiRotation lhs, UiRotation rhs) => lhs.Equals(rhs);
+    public static bool operator !=(UiRotation lhs, UiRotation rhs) => !(lhs == rhs);
 
     public bool Equals(UiRotation other) => Rotation.Equals(other.Rotation);
     public override bool Equals(object obj) => obj is UiRotation other && Equals(other);

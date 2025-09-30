@@ -96,7 +96,7 @@ public class JsonFrameworkWriterTests
         
         // Act
         writer.WriteStartObject();
-        writer.AddCommand((Utf8String)"TextField", value);
+        writer.AddCommand((Utf8String)"TextField", value, null);
         writer.WriteEndObject();
         
         // Assert

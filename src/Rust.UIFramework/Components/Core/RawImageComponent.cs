@@ -1,16 +1,16 @@
 ﻿using System;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Json;
-using Oxide.Ext.UiFramework.Logging;
 using Oxide.Ext.UiFramework.Types;
 using Oxide.Ext.UiFramework.UiElements;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-public class RawImageComponent : CoreComponent
+[UiFrameworkSerializer(typeof(RawImageComponentSerializer))]
+public class RawImageComponent : CoreComponent, IGraphicalComponent
 {
     public UiColor Color;
-    public float FadeIn;
+    public float FadeIn { get; set; }
     public string Image;
     public string Material;
     public UiReference PlaceholderFor;
@@ -23,38 +23,7 @@ public class RawImageComponent : CoreComponent
     public string Texture { get => Image; set => Image = value; }
 
     public override Utf8String Type => JsonDefaults.RawImage.Type;
-
-    protected override void WriteComponentFields(JsonFrameworkWriter writer)
-    {
-        writer.AddField(JsonDefaults.BaseImage.MaterialName, Material, JsonDefaults.BaseImage.Material);
-        writer.AddField(JsonDefaults.Common.FadeInName, FadeIn, JsonDefaults.Common.FadeIn);
-        writer.AddField(JsonDefaults.Color.ColorName, Color);
-        
-        if (PlaceholderFor.IsValidReference())
-        {
-            writer.AddFieldRaw(JsonDefaults.Common.PlaceholderInputId, PlaceholderFor.Name);
-        }
-        
-        if (!string.IsNullOrEmpty(Image))
-        {
-            if (Image.StartsWith("http", StringComparison.OrdinalIgnoreCase))
-            {
-                writer.AddFieldRaw(JsonDefaults.Image.UrlName, Image);
-            } 
-            else if (uint.TryParse(Image, out uint _))
-            {
-                writer.AddFieldRaw(JsonDefaults.Image.PngName, Image);
-            }
-            else if(Image.StartsWith("assets/", StringComparison.OrdinalIgnoreCase))
-            {
-                writer.AddField(JsonDefaults.BaseImage.SpriteName, Image, JsonDefaults.RawImage.TextureValue);
-            }
-            else
-            {
-                UiFrameworkExtension.GlobalLogger.Warning("[UiFramework] RawImage.Image '{0}' is not a valid image. Should be a URL, PNG ID, or Texture.", Image);
-            }
-        }
-    }
+    public override ComponentType ComponentType => ComponentType.RawImage;
 
     public override void Reset()
     {
@@ -64,5 +33,29 @@ public class RawImageComponent : CoreComponent
         Image = null;
         Material = null;
         PlaceholderFor = default;
+    }
+
+    public override void CopyFrom(object value)
+    {
+        base.CopyFrom(value);
+        if (value is RawImageComponent component)
+        {
+            Color = component.Color;
+            FadeIn = component.FadeIn;
+            Image = component.Image;
+            Material = component.Material;
+            PlaceholderFor = component.PlaceholderFor;
+        }
+    }
+    
+    public override bool Equals(BaseComponent other)
+    {
+        if (!base.Equals(other)) return false;
+        RawImageComponent typedOther = (RawImageComponent)other!;
+        return Color == typedOther.Color 
+               && FadeIn == typedOther.FadeIn 
+               && Image == typedOther.Image 
+               && Material == typedOther.Material 
+               && PlaceholderFor == typedOther.PlaceholderFor;
     }
 }

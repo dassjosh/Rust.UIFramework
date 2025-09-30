@@ -5,6 +5,7 @@ using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Components;
 
+[UiFrameworkSerializer(typeof(RectTransformComponentSerializer))]
 public class RectTransformComponent : SubComponent
 {
     public UiPosition Position;
@@ -15,22 +16,8 @@ public class RectTransformComponent : SubComponent
     public int TransformIndex;
     
     public override Utf8String Type => JsonDefaults.Common.RectTransformName;
+    public override ComponentType ComponentType => ComponentType.RectTransform;
     public override bool AllowMultiple => false;
-    protected override void WriteComponentFields(JsonFrameworkWriter writer)
-    {
-        UiOffset computedOffset = Offset + Padding;
-        
-        writer.AddField(JsonDefaults.RectTransform.AnchorMinName, Position.Min, JsonDefaults.RectTransform.AnchorMin);
-        writer.AddField(JsonDefaults.RectTransform.AnchorMaxName, Position.Max, JsonDefaults.RectTransform.AnchorMax);
-        writer.AddField(JsonDefaults.RectTransform.OffsetMinName, computedOffset.Min, JsonDefaults.RectTransform.OffsetMin);
-        writer.AddField(JsonDefaults.RectTransform.OffsetMaxName, computedOffset.Max, JsonDefaults.RectTransform.OffsetMax);
-        writer.AddField(JsonDefaults.RectTransform.RotationName, Rotation.Rotation, JsonDefaults.RectTransform.Rotation);
-        writer.AddField(JsonDefaults.RectTransform.SetTransformIndexName, TransformIndex, JsonDefaults.RectTransform.SetTransformIndex);
-        if (!string.IsNullOrEmpty(ChangeParent))
-        {
-            writer.AddFieldRaw(JsonDefaults.RectTransform.SetParentName, ChangeParent);
-        }
-    }
 
     public override void Reset()
     {
@@ -41,5 +28,31 @@ public class RectTransformComponent : SubComponent
         Padding = default;
         ChangeParent = default;
         TransformIndex = JsonDefaults.RectTransform.SetTransformIndex;
+    }
+
+    public override void CopyFrom(object value)
+    {
+        base.CopyFrom(value);
+        if (value is RectTransformComponent component)
+        {
+            Position = component.Position;
+            Offset = component.Offset;
+            Rotation = component.Rotation;
+            Padding = component.Padding;
+            ChangeParent = component.ChangeParent;
+            TransformIndex = component.TransformIndex;
+        }
+    }
+    
+    public override bool Equals(BaseComponent other)
+    {
+        if (!base.Equals(other)) return false;
+        RectTransformComponent typedOther = (RectTransformComponent)other!;
+        return Position == typedOther.Position 
+               && Offset == typedOther.Offset 
+               && Rotation == typedOther.Rotation 
+               && Padding == typedOther.Padding 
+               && ChangeParent == typedOther.ChangeParent 
+               && TransformIndex == typedOther.TransformIndex;
     }
 }

@@ -5,11 +5,14 @@ using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Components;
 
+[UiFrameworkSerializer(typeof(ScrollViewContentComponentSerializer))]
 public class ScrollViewContentComponent : ChildComponent
 {
     public UiPosition Position;
     public UiOffset Offset;
     public Vector2 Pivot;
+    
+    public override ComponentType ComponentType => ComponentType.ScrollView;
     
     public void UpdateContentTransform(in UiPosition? position = null, in UiOffset? offset = null, in Vector2? pivot = null)
     {
@@ -28,22 +31,30 @@ public class ScrollViewContentComponent : ChildComponent
             Pivot = pivot.Value;
         }
     }
-    
-    public override void WriteComponent(JsonFrameworkWriter writer)
-    {
-        writer.WriteStartObject();
-        writer.AddField(JsonDefaults.RectTransform.AnchorMinName, Position.Min, JsonDefaults.RectTransform.AnchorMin);
-        writer.AddField(JsonDefaults.RectTransform.AnchorMaxName, Position.Max, JsonDefaults.RectTransform.AnchorMax);
-        writer.AddField(JsonDefaults.RectTransform.OffsetMinName, Offset.Min, JsonDefaults.RectTransform.OffsetMin);
-        writer.AddField(JsonDefaults.RectTransform.OffsetMaxName, Offset.Max, JsonDefaults.ScrollView.OffsetMax);
-        writer.AddField(JsonDefaults.ScrollView.PivotName, Pivot, JsonDefaults.ScrollView.Pivot);
-        writer.WriteEndObject();
-    }
 
     public override void Reset()
     {
         Position = UiPosition.Full;
         Offset = default;
         Pivot = JsonDefaults.ScrollView.Pivot;
+    }
+
+    public override void CopyFrom(object value)
+    {
+        if (value is ScrollViewContentComponent component)
+        {
+            Position = component.Position;
+            Offset = component.Offset;
+            Pivot = component.Pivot;
+        }
+    }
+    
+    public override bool Equals(BaseComponent other)
+    {
+        if (!base.Equals(other)) return false;
+        ScrollViewContentComponent typedOther = (ScrollViewContentComponent)other!;
+        return Position == typedOther.Position 
+               && Offset == typedOther.Offset 
+               && Pivot == typedOther.Pivot;
     }
 }

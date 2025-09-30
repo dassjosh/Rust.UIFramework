@@ -1,4 +1,5 @@
-﻿using Oxide.Ext.UiFramework.Cache;
+﻿using Oxide.Ext.UiFramework.Builder;
+using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
@@ -82,5 +83,10 @@ public static class UiComponentExt
     {
         component.Update = mode;
         return component;
+    }
+    
+    public static UiUpdatable<T> ToUpdatable<T>(this T component, UpdatableBuilder builder) where T : BaseUiComponent, new()
+    {
+        return UiUpdatable<T>.Create(builder, component);
     }
 }

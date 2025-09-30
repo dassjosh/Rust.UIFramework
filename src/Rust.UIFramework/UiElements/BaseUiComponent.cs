@@ -4,6 +4,7 @@ using Oxide.Ext.UiFramework.Animation;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Enums;
+using Oxide.Ext.UiFramework.Interfaces;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Pooling;
@@ -13,13 +14,13 @@ using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-public abstract class BaseUiComponent(CoreComponent component) : BasePoolable
+public abstract class BaseUiComponent : BasePoolable, ICopyFrom, IEquatable<BaseUiComponent>
 {
     public UiReference Reference;
     public float FadeOut;
     public UpdateMode Update;
     public bool Active = true;
-    private readonly CoreComponent _component = component;
+    internal readonly CoreComponent _component;
     
     public string Name { get => Reference.Name; set => Reference = Reference.WithName(value); }
     public string Parent { get => Reference.Parent; set => Reference = Reference.WithParent(value); }
@@ -31,43 +32,15 @@ public abstract class BaseUiComponent(CoreComponent component) : BasePoolable
 
     private RectTransformComponent _rectTransform;
     public RectTransformComponent RectTransform => _rectTransform ??= _component.GetOrAddSubComponent<RectTransformComponent>();
+    
+    protected BaseUiComponent(CoreComponent component)
+    {
+        _component = component;
+        Reset();
+    }
 
     [Obsolete("This method is obsolete. Please use UiBuilder.Component<T>() instead.")]
     public static T CreateBase<T>() where T : BaseUiComponent, new() => UiFrameworkPool.Get<T>();
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void WriteComponent(JsonFrameworkWriter writer)
-    {
-        writer.WriteStartObject();
-        writer.AddFieldRaw(JsonDefaults.Common.ComponentName, Reference.Name);
-        writer.AddFieldRaw(JsonDefaults.Common.ParentName, Reference.Parent);
-        writer.AddField(JsonDefaults.Common.FadeOutName, FadeOut, JsonDefaults.Common.FadeOut);
-        writer.AddField(JsonDefaults.Common.ActiveName, Active, JsonDefaults.Common.Active);
-        switch (Update)
-        {
-            case UpdateMode.Replace:
-                writer.AddFieldRaw(JsonDefaults.Common.Replace, Reference.Name);
-                break;
-            case UpdateMode.Update:
-                writer.AddFieldRaw(JsonDefaults.Common.Update, true);
-                break;
-            case UpdateMode.None:
-                break;
-        }
-
-        writer.WritePropertyName(JsonDefaults.Common.ComponentsName);
-        writer.WriteStartArray();
-        WriteComponents(writer);
-        writer.WriteEndArray();
-        writer.WriteEndObject();
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private void WriteComponents(JsonFrameworkWriter writer)
-    {
-        _component.WriteComponent(writer);
-        _component.WriteSubComponents(writer);        
-    }
     
     internal T GetOrAddSubComponent<T>() where T : SubComponent, new() => _component.GetOrAddSubComponent<T>();
     internal T GetOrAddLayoutComponent<T>() where T : BaseLayoutComponent, new()
@@ -95,7 +68,7 @@ public abstract class BaseUiComponent(CoreComponent component) : BasePoolable
     {
         if (enabled)
         {
-            _component.AddSubComponent<NeedsMouseComponent>(true);
+            _component.GetOrAddSubComponent<NeedsMouseComponent>();
         }
         else
         {
@@ -107,7 +80,7 @@ public abstract class BaseUiComponent(CoreComponent component) : BasePoolable
     {
         if (enabled)
         {
-            _component.AddSubComponent<NeedsKeyboardComponent>(true);
+            _component.GetOrAddSubComponent<NeedsKeyboardComponent>();
         }
         else
         {
@@ -117,11 +90,12 @@ public abstract class BaseUiComponent(CoreComponent component) : BasePoolable
 
     internal override void OnInit()
     {
-        base.OnInit();
         _component.OverridePluginPool(PluginPool);
     }
 
-    protected override void EnterPool()
+    protected override void EnterPool() => Reset();
+
+    public void Reset()
     {
         Reference = default;
         FadeOut = 0;
@@ -133,4 +107,33 @@ public abstract class BaseUiComponent(CoreComponent component) : BasePoolable
 
     public static implicit operator UiReference(BaseUiComponent component) => component.Reference;
     public static implicit operator AnimationReference(BaseUiComponent component) => new(component.Reference, component._component.Type);
+    public void CopyFrom(object value)
+    {
+        if (value is BaseUiComponent component)
+        {
+            Reference = component.Reference;
+            FadeOut = component.FadeOut;
+            Update = component.Update;
+            Active = component.Active;
+            _component.CopyFrom(component._component);
+        }
+    }
+
+    public bool Equals(BaseUiComponent other)
+    {
+        if (other is null) return false;
+        if (ReferenceEquals(this, other)) return true;
+        return Reference.Equals(other.Reference) 
+               && FadeOut.Equals(other.FadeOut) 
+               && Update == other.Update 
+               && Active == other.Active 
+               && _component == other._component;
+    }
+
+    public override bool Equals(object obj)
+    {
+        if (obj is null) return false;
+        if (obj.GetType() != GetType()) return false;
+        return Equals((BaseUiComponent)obj);
+    }
 }

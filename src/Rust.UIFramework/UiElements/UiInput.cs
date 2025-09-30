@@ -2,12 +2,14 @@
 using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Exceptions.UiElements;
+using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Libraries;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
+[UiFrameworkSerializer(typeof(UiComponentSerializer<UiInput>))]
 public class UiInput : BaseUiText<UiInput>
 {
     public readonly InputComponent Input;

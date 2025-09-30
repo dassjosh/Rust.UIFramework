@@ -1,10 +1,11 @@
-﻿using System.Diagnostics.Contracts;
+﻿using System;
+using System.Diagnostics.Contracts;
 using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Enums;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-public readonly struct UiReference(string parent, string name)
+public readonly struct UiReference(string parent, string name) : IEquatable<UiReference>
 {
     public readonly string Parent = parent;
     public readonly string Name = name;
@@ -30,4 +31,10 @@ public readonly struct UiReference(string parent, string name)
     public bool IsValidParent() => !string.IsNullOrEmpty(Parent);
     public bool IsValidName() => !string.IsNullOrEmpty(Name);
     public bool IsValidReference() => IsValidParent() && !string.IsNullOrEmpty(Name);
+
+    public bool Equals(UiReference other) => Parent == other.Parent && Name == other.Name;
+    public override bool Equals(object obj) => obj is UiReference other && Equals(other);
+    public override int GetHashCode() => HashCode.Combine(Parent, Name);
+    public static bool operator ==(UiReference left, UiReference right) => left.Equals(right);
+    public static bool operator !=(UiReference left, UiReference right) => !(left == right);
 }

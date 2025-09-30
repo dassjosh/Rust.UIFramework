@@ -1,7 +1,9 @@
 ﻿using Oxide.Ext.UiFramework.Components;
+using Oxide.Ext.UiFramework.Json;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
+[UiFrameworkSerializer(typeof(UiComponentSerializer<UiPanel>))]
 public class UiPanel : BaseUiImage<UiPanel>
 {
     public readonly ImageComponent Image;

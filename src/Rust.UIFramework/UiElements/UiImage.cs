@@ -1,8 +1,10 @@
 ﻿using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
+using Oxide.Ext.UiFramework.Json;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
+[UiFrameworkSerializer(typeof(UiComponentSerializer<UiImage>))]
 public class UiImage : BaseUiImage<UiImage>
 {
     public readonly ImageComponent Image;

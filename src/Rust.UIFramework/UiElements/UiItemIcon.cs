@@ -1,10 +1,12 @@
 ﻿using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Interfaces;
+using Oxide.Ext.UiFramework.Json;
 using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
+[UiFrameworkSerializer(typeof(UiComponentSerializer<UiItemIcon>))]
 public class UiItemIcon : BaseUiComponent, IMaterial<UiItemIcon>, IFadeIn<UiItemIcon>, IUiColor<UiItemIcon>, IImageType<UiItemIcon>
 {
     public readonly ItemIconComponent Icon;

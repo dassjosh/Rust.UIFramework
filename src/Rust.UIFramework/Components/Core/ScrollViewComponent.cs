@@ -8,6 +8,7 @@ using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.Components;
 
+[UiFrameworkSerializer(typeof(ScrollViewComponentSerializer))]
 public class ScrollViewComponent : CoreComponent
 {
     public readonly ScrollViewContentComponent ContentTransform = new();
@@ -22,6 +23,7 @@ public class ScrollViewComponent : CoreComponent
     public ScrollbarComponent VerticalScrollbar { get; private set; }
     
     public override Utf8String Type => JsonDefaults.ScrollView.Type;
+    public override ComponentType ComponentType => ComponentType.ScrollView;
 
     internal void UpdateContentTransform(in UiPosition? position, in UiOffset? offset, in Vector2? pivot) => ContentTransform.UpdateContentTransform(position, offset, pivot);
     
@@ -77,22 +79,6 @@ public class ScrollViewComponent : CoreComponent
             bar.TrackColor = trackColor.Value;
         }
     }
-    
-    protected override void WriteComponentFields(JsonFrameworkWriter writer)
-    {
-        writer.AddField(JsonDefaults.ScrollView.Horizontal, HorizontalScrollbar != null, false);
-        writer.AddField(JsonDefaults.ScrollView.Vertical, VerticalScrollbar != null, false);
-        writer.AddField(JsonDefaults.ScrollView.MovementTypeName, MovementType, JsonDefaults.ScrollView.MovementType);
-        writer.AddField(JsonDefaults.ScrollView.ElasticityName, Elasticity, JsonDefaults.ScrollView.Elasticity);
-        writer.AddField(JsonDefaults.ScrollView.InertiaName, Inertia, JsonDefaults.ScrollView.Inertia);
-        writer.AddField(JsonDefaults.ScrollView.DecelerationRateName, DecelerationRate, JsonDefaults.ScrollView.DecelerationRate);
-        writer.AddField(JsonDefaults.ScrollView.ScrollSensitivityName, ScrollSensitivity, JsonDefaults.ScrollView.ScrollSensitivity);
-        writer.AddField(JsonDefaults.ScrollView.HorizontalScrollProgressName, HorizontalScrollProgress, JsonDefaults.ScrollView.HorizontalScrollProgress);
-        writer.AddField(JsonDefaults.ScrollView.VerticalScrollProgressName, VerticalScrollProgress, JsonDefaults.ScrollView.VerticalScrollProgress);
-        writer.AddComponent(JsonDefaults.ScrollView.HorizontalScrollbar, HorizontalScrollbar, HorizontalScrollbar != null);
-        writer.AddComponent(JsonDefaults.ScrollView.VerticalScrollbar, VerticalScrollbar, VerticalScrollbar != null);
-        writer.AddComponent(JsonDefaults.ScrollView.ContentTransform, ContentTransform);
-    }
 
     public override void Reset()
     {
@@ -109,5 +95,39 @@ public class ScrollViewComponent : CoreComponent
         ScrollSensitivity = JsonDefaults.ScrollView.ScrollSensitivity;
         HorizontalScrollProgress = JsonDefaults.ScrollView.HorizontalScrollProgress;
         VerticalScrollProgress = JsonDefaults.ScrollView.VerticalScrollProgress;
+    }
+
+    public override void CopyFrom(object value)
+    {
+        base.CopyFrom(value);
+        if (value is ScrollViewComponent component)
+        {
+            MovementType = component.MovementType;
+            Elasticity = component.Elasticity;
+            Inertia = component.Inertia;
+            DecelerationRate = component.DecelerationRate;
+            ScrollSensitivity = component.ScrollSensitivity;
+            HorizontalScrollProgress = component.HorizontalScrollProgress;
+            VerticalScrollProgress = component.VerticalScrollProgress;
+            ContentTransform.CopyFrom(component.ContentTransform);
+            HorizontalScrollbar = CopyChild(HorizontalScrollbar, component.HorizontalScrollbar);
+            VerticalScrollbar = CopyChild(VerticalScrollbar, component.VerticalScrollbar);
+        }
+    }
+
+    public override bool Equals(BaseComponent other)
+    {
+        if (!base.Equals(other)) return false;
+        ScrollViewComponent typedOther = (ScrollViewComponent)other!;
+        return MovementType == typedOther.MovementType 
+               && Elasticity == typedOther.Elasticity 
+               && Inertia == typedOther.Inertia 
+               && DecelerationRate == typedOther.DecelerationRate 
+               && ScrollSensitivity == typedOther.ScrollSensitivity 
+               && HorizontalScrollProgress == typedOther.HorizontalScrollProgress 
+               && VerticalScrollProgress == typedOther.VerticalScrollProgress 
+               && ContentTransform == typedOther.ContentTransform 
+               && HorizontalScrollbar == typedOther.HorizontalScrollbar 
+               && VerticalScrollbar == typedOther.VerticalScrollbar;
     }
 }

@@ -11,18 +11,6 @@ public abstract class BaseDirectionalLayoutComponent : BaseLayoutComponent
     public bool ChildControlHeight;
     public bool ChildScaleWidth;
     public bool ChildScaleHeight;
-    
-    protected override void WriteComponentFields(JsonFrameworkWriter writer)
-    {
-        base.WriteComponentFields(writer);
-        writer.AddField(JsonDefaults.DirectionalLayout.SpacingName, Spacing, JsonDefaults.DirectionalLayout.Spacing);
-        writer.AddField(JsonDefaults.DirectionalLayout.ChildForceExpandWidthName, ChildForceExpandWidth, JsonDefaults.DirectionalLayout.ChildForceExpandWidth);
-        writer.AddField(JsonDefaults.DirectionalLayout.ChildForceExpandHeightName, ChildForceExpandHeight, JsonDefaults.DirectionalLayout.ChildForceExpandHeight);
-        writer.AddField(JsonDefaults.DirectionalLayout.ChildControlWidthName, ChildControlWidth, JsonDefaults.DirectionalLayout.ChildControlWidth);
-        writer.AddField(JsonDefaults.DirectionalLayout.ChildControlHeightName, ChildControlHeight, JsonDefaults.DirectionalLayout.ChildControlHeight);
-        writer.AddField(JsonDefaults.DirectionalLayout.ChildScaleWidthName, ChildScaleWidth, JsonDefaults.DirectionalLayout.ChildScaleWidth);
-        writer.AddField(JsonDefaults.DirectionalLayout.ChildScaleHeightName, ChildScaleHeight, JsonDefaults.DirectionalLayout.ChildScaleHeight);
-    }
 
     public override void Reset()
     {
@@ -34,5 +22,33 @@ public abstract class BaseDirectionalLayoutComponent : BaseLayoutComponent
         ChildControlHeight = JsonDefaults.DirectionalLayout.ChildControlHeight;
         ChildScaleWidth = JsonDefaults.DirectionalLayout.ChildScaleWidth;
         ChildScaleHeight = JsonDefaults.DirectionalLayout.ChildScaleHeight;
+    }
+
+    public override void CopyFrom(object value)
+    {
+        base.CopyFrom(value);
+        if (value is BaseDirectionalLayoutComponent component)
+        {
+            Spacing = component.Spacing;
+            ChildForceExpandWidth = component.ChildForceExpandWidth;
+            ChildForceExpandHeight = component.ChildForceExpandHeight;
+            ChildControlWidth = component.ChildControlWidth;
+            ChildControlHeight = component.ChildControlHeight;
+            ChildScaleWidth = component.ChildScaleWidth;
+            ChildScaleHeight = component.ChildScaleHeight;
+        }
+    }
+
+    public override bool Equals(BaseComponent other)
+    {
+        if (!base.Equals(other)) return false;
+        BaseDirectionalLayoutComponent typedOther = (BaseDirectionalLayoutComponent)other!;
+        return Spacing == typedOther.Spacing 
+               && ChildForceExpandWidth == typedOther.ChildForceExpandWidth 
+               && ChildForceExpandHeight == typedOther.ChildForceExpandHeight 
+               && ChildControlWidth == typedOther.ChildControlWidth 
+               && ChildControlHeight == typedOther.ChildControlHeight 
+               && ChildScaleWidth == typedOther.ChildScaleWidth 
+               && ChildScaleHeight == typedOther.ChildScaleHeight;
     }
 }

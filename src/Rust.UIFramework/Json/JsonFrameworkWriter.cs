@@ -6,6 +6,7 @@ using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Controls.Data;
+using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Types;
@@ -121,6 +122,12 @@ public sealed class JsonFrameworkWriter : BasePoolable
         WriteValue(value);
     }
     
+    public void AddFieldRaw<T>(in Utf8String name, T value) where T : struct, Enum
+    {
+        WritePropertyName(name);
+        WriteValue(Utf8EnumCache<T>.ToUtf8Number(value));
+    }
+    
     public void AddField(in Utf8String name, string value, string defaultValue)
     {
         if (value != null && value != defaultValue)
@@ -145,6 +152,21 @@ public sealed class JsonFrameworkWriter : BasePoolable
         {
             WritePropertyName(name);
             WriteValue(Utf8EnumCache<T>.ToUtf8Number(value));
+        }
+    }
+    
+    public void AddField<T>(in Utf8String name, T? value, T? defaultValue) where T : struct, Enum
+    {
+        if (value.HasValue)
+        {
+            if (defaultValue.HasValue)
+            {
+                AddField(name, value.Value, defaultValue.Value);
+            }
+            else
+            {
+                AddFieldRaw(name, value.Value);
+            }
         }
     }
     
@@ -229,15 +251,15 @@ public sealed class JsonFrameworkWriter : BasePoolable
         }
     }
 
-    public void AddComponent(in Utf8String name, IComponent component, bool add)
+    public void AddComponent(in Utf8String name, IComponent component, IComponent defaults, SerializeMode mode, bool add)
     {
         if (add)
         {
-            AddComponent(name, component);
+            AddComponent(name, component, defaults, mode);
         }
     }
     
-    public void AddComponent(in Utf8String name, IComponent component)
+    public void AddComponent(in Utf8String name, IComponent component, IComponent defaults, SerializeMode mode)
     {
         WritePropertyName(name);
         bool objectComma = _objectComma;
@@ -246,7 +268,7 @@ public sealed class JsonFrameworkWriter : BasePoolable
         _propertyComma = false;
         if (component != null)
         {
-            component.WriteComponent(this);
+            UiFrameworkSerializer.Serialize(this, component, defaults, mode);
         }
         else
         {
@@ -277,10 +299,22 @@ public sealed class JsonFrameworkWriter : BasePoolable
         WriteTextValue(value);
     }
     
-    public void AddCommand(in Utf8String name, string value)
+    public void AddTextField(in Utf8String name, string value, string defaultValue)
     {
-        WritePropertyName(name);
-        WriteCommandValue(value);
+        if (value != defaultValue)
+        {
+            WritePropertyName(name);
+            WriteTextValue(value);
+        }
+    }
+    
+    public void AddCommand(in Utf8String name, string value, string defaultValue)
+    {
+        if (value != null && value != defaultValue)
+        {
+            WritePropertyName(name);
+            WriteCommandValue(value);
+        }
     }
     #endregion
         
@@ -469,6 +503,11 @@ public sealed class JsonFrameworkWriter : BasePoolable
             }
         }
         _writer.Write(QuoteChar);
+    }
+    
+    public void WriteNull()
+    {
+        _writer.Write(JsonDefaults.Common.NullValue);
     }
     #endregion
 

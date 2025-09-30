@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.Components;
 
+[UiFrameworkSerializer(typeof(GridLayoutComponentSerializer))]
 public class GridLayoutComponent : BaseLayoutComponent
 {
     public Vector2 CellSize;
@@ -15,6 +16,7 @@ public class GridLayoutComponent : BaseLayoutComponent
     public int ConstraintCount;
 
     public override Utf8String Type => JsonDefaults.GridLayout.Type;
+    public override ComponentType ComponentType => ComponentType.GridLayout;
     
     public GridLayoutComponent SetCellSize(Vector2 cellSize)
     {
@@ -52,17 +54,6 @@ public class GridLayoutComponent : BaseLayoutComponent
         return this;
     }
     
-    protected override void WriteComponentFields(JsonFrameworkWriter writer)
-    {
-        base.WriteComponentFields(writer);
-        writer.AddField(JsonDefaults.GridLayout.CellSizeName, CellSize, JsonDefaults.GridLayout.CellSize);
-        writer.AddField(JsonDefaults.GridLayout.SpacingName, Spacing, JsonDefaults.GridLayout.Spacing);
-        writer.AddField(JsonDefaults.GridLayout.StartCornerName, StartCorner, JsonDefaults.GridLayout.StartCorner);
-        writer.AddField(JsonDefaults.GridLayout.StartAxisName, StartAxis, JsonDefaults.GridLayout.StartAxis);
-        writer.AddField(JsonDefaults.GridLayout.ConstraintName, Constraint, JsonDefaults.GridLayout.Constraint);
-        writer.AddField(JsonDefaults.GridLayout.ConstraintCountName, ConstraintCount, JsonDefaults.GridLayout.ConstraintCount);
-    }
-    
     public override void Reset()
     {
         base.Reset();
@@ -72,5 +63,31 @@ public class GridLayoutComponent : BaseLayoutComponent
         StartAxis = JsonDefaults.GridLayout.StartAxis;
         Constraint = JsonDefaults.GridLayout.Constraint;
         ConstraintCount = JsonDefaults.GridLayout.ConstraintCount;
+    }
+
+    public override void CopyFrom(object value)
+    {
+        base.CopyFrom(value);
+        if (value is GridLayoutComponent component) 
+        {
+            CellSize = component.CellSize;
+            Spacing = component.Spacing;
+            StartCorner = component.StartCorner;
+            StartAxis = component.StartAxis;
+            Constraint = component.Constraint;
+            ConstraintCount = component.ConstraintCount;
+        }
+    }
+    
+    public override bool Equals(BaseComponent other)
+    {
+        if (!base.Equals(other)) return false;
+        GridLayoutComponent typedOther = (GridLayoutComponent)other!;
+        return CellSize == typedOther.CellSize 
+               && Spacing == typedOther.Spacing 
+               && StartCorner == typedOther.StartCorner 
+               && StartAxis == typedOther.StartAxis 
+               && Constraint == typedOther.Constraint 
+               && ConstraintCount == typedOther.ConstraintCount;
     }
 }

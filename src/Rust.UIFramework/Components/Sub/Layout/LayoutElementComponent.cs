@@ -3,6 +3,7 @@ using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Components;
 
+[UiFrameworkSerializer(typeof(LayoutElementComponentSerializer))]
 public class LayoutElementComponent : SubComponent
 {
     public float PreferredWidth;
@@ -14,6 +15,7 @@ public class LayoutElementComponent : SubComponent
     public bool IgnoreLayout;
 
     public override Utf8String Type => JsonDefaults.LayoutElement.Type;
+    public override ComponentType ComponentType => ComponentType.LayoutElement;
     public override bool AllowMultiple => false;
 
     public LayoutElementComponent SetPreferredWidth(float preferredWidth)
@@ -58,17 +60,6 @@ public class LayoutElementComponent : SubComponent
         return this;
     }
     
-    protected override void WriteComponentFields(JsonFrameworkWriter writer)
-    {
-        writer.AddField(JsonDefaults.LayoutElement.PreferredWidthName, PreferredWidth, JsonDefaults.LayoutElement.PreferredWidth);
-        writer.AddField(JsonDefaults.LayoutElement.PreferredHeightName, PreferredHeight, JsonDefaults.LayoutElement.PreferredHeight);
-        writer.AddField(JsonDefaults.LayoutElement.MinWidthName, MinWidth, JsonDefaults.LayoutElement.MinWidth);
-        writer.AddField(JsonDefaults.LayoutElement.MinHeightName, MinHeight, JsonDefaults.LayoutElement.MinHeight);
-        writer.AddField(JsonDefaults.LayoutElement.FlexibleWidthName, FlexibleWidth, JsonDefaults.LayoutElement.FlexibleWidth);
-        writer.AddField(JsonDefaults.LayoutElement.FlexibleHeightName, FlexibleHeight, JsonDefaults.LayoutElement.FlexibleHeight);
-        writer.AddField(JsonDefaults.LayoutElement.IgnoreLayoutName, IgnoreLayout, JsonDefaults.LayoutElement.IgnoreLayout);
-    }
-    
     public override void Reset()
     {
         base.Reset();
@@ -79,5 +70,33 @@ public class LayoutElementComponent : SubComponent
         FlexibleWidth = JsonDefaults.LayoutElement.FlexibleWidth;
         FlexibleHeight = JsonDefaults.LayoutElement.FlexibleHeight;
         IgnoreLayout = JsonDefaults.LayoutElement.IgnoreLayout;
+    }
+
+    public override void CopyFrom(object value)
+    {
+        base.CopyFrom(value); 
+        if (value is LayoutElementComponent component)
+        {
+            PreferredWidth = component.PreferredWidth;
+            PreferredHeight = component.PreferredHeight;
+            MinWidth = component.MinWidth;
+            MinHeight = component.MinHeight;
+            FlexibleWidth = component.FlexibleWidth;
+            FlexibleHeight = component.FlexibleHeight;
+            IgnoreLayout = component.IgnoreLayout;
+        }
+    }
+
+    public override bool Equals(BaseComponent other)
+    {
+        if (!base.Equals(other)) return false;
+        LayoutElementComponent typedOther = (LayoutElementComponent)other!;
+        return PreferredWidth == typedOther.PreferredWidth 
+               && PreferredHeight == typedOther.PreferredHeight 
+               && MinWidth == typedOther.MinWidth 
+               && MinHeight == typedOther.MinHeight 
+               && FlexibleWidth == typedOther.FlexibleWidth 
+               && FlexibleHeight == typedOther.FlexibleHeight 
+               && IgnoreLayout == typedOther.IgnoreLayout;
     }
 }

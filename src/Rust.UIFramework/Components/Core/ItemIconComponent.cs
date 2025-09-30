@@ -2,22 +2,26 @@
 
 namespace Oxide.Ext.UiFramework.Components;
 
+[UiFrameworkSerializer(typeof(ItemIconComponentSerializer))]
 public class ItemIconComponent : ImageComponent
 {
     public int ItemId;
     public ulong SkinId;
-
-    protected override void WriteComponentFields(JsonFrameworkWriter writer)
-    {
-        writer.AddFieldRaw(JsonDefaults.ItemIcon.ItemIdName, ItemId);
-        writer.AddField(JsonDefaults.ItemIcon.SkinIdName, SkinId, 0);
-        base.WriteComponentFields(writer);
-    }
+    
+    public override ComponentType ComponentType => ComponentType.ItemIcon;
 
     public override void Reset()
     {
         base.Reset();
         ItemId = 0;
         SkinId = 0;
+    }
+    
+    public override bool Equals(BaseComponent other)
+    {
+        if (!base.Equals(other)) return false;
+        ItemIconComponent typedOther = (ItemIconComponent)other!;
+        return ItemId == typedOther.ItemId 
+               && SkinId == typedOther.SkinId;
     }
 }

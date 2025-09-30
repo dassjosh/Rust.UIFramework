@@ -3,6 +3,7 @@ using Oxide.Ext.UiFramework.Json;
 
 namespace Oxide.Ext.UiFramework.Components;
 
+[UiFrameworkSerializer(typeof(ScrollBarComponentSerializer))]
 public class ScrollbarComponent : ChildComponent
 {
     public bool Invert;
@@ -15,20 +16,7 @@ public class ScrollbarComponent : ChildComponent
     public UiColor PressedColor;
     public UiColor TrackColor;
     
-    public override void WriteComponent(JsonFrameworkWriter writer)
-    {
-        writer.WriteStartObject();
-        writer.AddField(JsonDefaults.ScrollBar.InvertName, Invert, JsonDefaults.ScrollBar.Invert);
-        writer.AddField(JsonDefaults.ScrollBar.AutoHideName, AutoHide, JsonDefaults.ScrollBar.AutoHide);
-        writer.AddField(JsonDefaults.ScrollBar.HandleSprite, HandleSprite, JsonDefaults.Common.NullValue);
-        writer.AddField(JsonDefaults.ScrollBar.TrackSprite, TrackSprite, JsonDefaults.Common.NullValue);
-        writer.AddField(JsonDefaults.ScrollBar.SizeName, Size, JsonDefaults.ScrollBar.Size);
-        writer.AddField(JsonDefaults.ScrollBar.HandleColorName, HandleColor, JsonDefaults.ScrollBar.HandleColor);
-        writer.AddField(JsonDefaults.ScrollBar.HighlightColorName, HighlightColor, JsonDefaults.ScrollBar.HighlightColor);
-        writer.AddField(JsonDefaults.ScrollBar.PressedColorName, PressedColor, JsonDefaults.ScrollBar.PressedColor);
-        writer.AddField(JsonDefaults.ScrollBar.TrackColorName, TrackColor, JsonDefaults.ScrollBar.TrackColor);
-        writer.WriteEndObject();
-    }
+    public override ComponentType ComponentType => ComponentType.ScrollBar;
 
     public override void Reset()
     {
@@ -41,5 +29,36 @@ public class ScrollbarComponent : ChildComponent
         HighlightColor = JsonDefaults.ScrollBar.HighlightColor;
         PressedColor = JsonDefaults.ScrollBar.PressedColor;
         TrackColor = JsonDefaults.ScrollBar.TrackColor;
+    }
+
+    public override void CopyFrom(object value)
+    {
+        if (value is ScrollbarComponent component)
+        {
+            Invert = component.Invert;
+            AutoHide = component.AutoHide;
+            HandleSprite = component.HandleSprite;
+            TrackSprite = component.TrackSprite;
+            Size = component.Size;
+            HandleColor = component.HandleColor;
+            HighlightColor = component.HighlightColor;
+            PressedColor = component.PressedColor;
+            TrackColor = component.TrackColor;
+        } 
+    }
+
+    public override bool Equals(BaseComponent other)
+    {
+        if (!base.Equals(other)) return false;
+        ScrollbarComponent typedOther = (ScrollbarComponent)other!;
+        return Invert == typedOther.Invert 
+               && AutoHide == typedOther.AutoHide 
+               && HandleSprite == typedOther.HandleSprite 
+               && TrackSprite == typedOther.TrackSprite 
+               && Size == typedOther.Size 
+               && HandleColor == typedOther.HandleColor 
+               && HighlightColor == typedOther.HighlightColor 
+               && PressedColor == typedOther.PressedColor 
+               && TrackColor == typedOther.TrackColor;
     }
 }

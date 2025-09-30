@@ -4,6 +4,7 @@ using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Components;
 
+[UiFrameworkSerializer(typeof(CountdownComponentSerializer))]
 public class CountdownComponent : SubComponent
 {
     public float StartTime;
@@ -16,6 +17,7 @@ public class CountdownComponent : SubComponent
     public string Command;
 
     public override Utf8String Type => JsonDefaults.Countdown.Type;
+    public override ComponentType ComponentType => ComponentType.Countdown;
     public override bool AllowMultiple => false;
 
     public CountdownComponent SetStartTime(float startTime)
@@ -66,28 +68,46 @@ public class CountdownComponent : SubComponent
         return this;
     }
 
-    protected override void WriteComponentFields(JsonFrameworkWriter writer)
-    {
-        writer.AddField(JsonDefaults.Countdown.StartTimeName, StartTime, JsonDefaults.Countdown.StartTimeValue);
-        writer.AddField(JsonDefaults.Countdown.EndTimeName, EndTime, JsonDefaults.Countdown.EndTimeValue);
-        writer.AddField(JsonDefaults.Countdown.StepName, Step, JsonDefaults.Countdown.StepValue);
-        writer.AddField(JsonDefaults.Countdown.IntervalName, Interval, JsonDefaults.Countdown.IntervalValue);
-        writer.AddField(JsonDefaults.Countdown.TimerFormatName, TimerFormat, JsonDefaults.Countdown.TimeFormatValue);
-        writer.AddField(JsonDefaults.Countdown.NumberFormatName, NumberFormat, JsonDefaults.Countdown.NumberFormatValue);
-        writer.AddField(JsonDefaults.Countdown.DestroyIfDoneName, DestroyIfDone, JsonDefaults.Countdown.DestroyIfDone);
-        writer.AddField(JsonDefaults.Countdown.CountdownCommandName, Command, JsonDefaults.Common.NullValue);
-    }
-
     public override void Reset()
     {
         base.Reset();
-        StartTime = JsonDefaults.Countdown.StartTimeValue;
-        EndTime = JsonDefaults.Countdown.EndTimeValue;
-        Step = JsonDefaults.Countdown.StepValue;
-        Interval = JsonDefaults.Countdown.IntervalValue;
+        StartTime = JsonDefaults.Countdown.StartTime;
+        EndTime = JsonDefaults.Countdown.EndTime;
+        Step = JsonDefaults.Countdown.Step;
+        Interval = JsonDefaults.Countdown.Interval;
         TimerFormat = TimerFormat.None;
-        NumberFormat = JsonDefaults.Countdown.NumberFormatValue;
+        NumberFormat = JsonDefaults.Countdown.NumberFormat;
         DestroyIfDone = JsonDefaults.Countdown.DestroyIfDone;
         Command = null;
+    }
+
+    public override void CopyFrom(object value)
+    {
+        base.CopyFrom(value);
+        if (value is CountdownComponent component)
+        {
+            StartTime = component.StartTime;
+            EndTime = component.EndTime;
+            Step = component.Step;
+            Interval = component.Interval;
+            TimerFormat = component.TimerFormat;
+            NumberFormat = component.NumberFormat;
+            DestroyIfDone = component.DestroyIfDone;
+            Command = component.Command;
+        }
+    }
+
+    public override bool Equals(BaseComponent other)
+    {
+        if (!base.Equals(other)) return false;
+        CountdownComponent typedOther = (CountdownComponent)other!;
+        return StartTime == typedOther.StartTime 
+               && EndTime == typedOther.EndTime 
+               && Step == typedOther.Step 
+               && Interval == typedOther.Interval 
+               && TimerFormat == typedOther.TimerFormat 
+               && NumberFormat == typedOther.NumberFormat 
+               && DestroyIfDone == typedOther.DestroyIfDone 
+               && Command == typedOther.Command;
     }
 }

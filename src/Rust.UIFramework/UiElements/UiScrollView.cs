@@ -9,6 +9,7 @@ using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
+[UiFrameworkSerializer(typeof(UiComponentSerializer<UiScrollView>))]
 public class UiScrollView : BaseUiComponent
 {
     public readonly ScrollViewComponent ScrollView;

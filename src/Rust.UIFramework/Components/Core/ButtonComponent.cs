@@ -1,5 +1,4 @@
-﻿using System;
-using Oxide.Ext.UiFramework.Colors;
+﻿using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Types;
@@ -7,17 +6,19 @@ using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-public class ButtonComponent : CoreComponent
+[UiFrameworkSerializer(typeof(ButtonComponentSerializer))]
+public class ButtonComponent : CoreComponent, IGraphicalComponent
 {
     public string Command;
     public ButtonType ButtonType;
     public UiColor Color;
-    public float FadeIn;
+    public float FadeIn { get; set; }
     public string Sprite;
     public string Material;
     public Image.Type ImageType;
     public ColorBlockComponent ColorBlock { get; private set; }
     public override Utf8String Type => JsonDefaults.Button.Type;
+    public override ComponentType ComponentType => ComponentType.Button;
 
     internal ColorBlockComponent GetOrAddColorBlock() => ColorBlock ??= PluginPool.Get<ColorBlockComponent>();
 
@@ -31,29 +32,7 @@ public class ButtonComponent : CoreComponent
         if(fadeDuration.HasValue) colors.FadeDuration = fadeDuration.Value;
         return colors;
     }
-    
-    protected override void WriteComponentFields(JsonFrameworkWriter writer)
-    {
-        writer.AddField(JsonDefaults.BaseImage.SpriteName, Sprite, JsonDefaults.BaseImage.Sprite);
-        writer.AddField(JsonDefaults.BaseImage.MaterialName, Material, JsonDefaults.BaseImage.Material);
-        writer.AddField(JsonDefaults.Common.FadeInName, FadeIn, JsonDefaults.Common.FadeIn);
-        writer.AddField(JsonDefaults.Color.ColorName, Color);
-        writer.AddField(JsonDefaults.Image.ImageTypeName, ImageType, JsonDefaults.Image.ImageType);
-        switch (ButtonType)
-        {
-            case ButtonType.Command:
-                writer.AddCommand(JsonDefaults.Common.CommandName, Command);
-                break;
-            case ButtonType.Close:
-                writer.AddField(JsonDefaults.Button.CloseName, Command, JsonDefaults.Common.NullValue);
-                break;
-            default:
-                throw new ArgumentOutOfRangeException();
-        }
-        
-        ColorBlock?.WriteComponent(writer);
-    }
-    
+
     public override void Reset()
     {
         base.Reset();
@@ -66,5 +45,35 @@ public class ButtonComponent : CoreComponent
         Sprite = null;
         Material = null;
         ImageType = JsonDefaults.Image.ImageType;
+    }
+
+    public override void CopyFrom(object value)
+    {
+        base.CopyFrom(value);
+        if (value is ButtonComponent component)
+        {
+            Command = component.Command;
+            ButtonType = component.ButtonType;
+            Color = component.Color;
+            FadeIn = component.FadeIn;
+            Sprite = component.Sprite;
+            Material = component.Material;
+            ImageType = component.ImageType;
+            ColorBlock =  CopyChild(ColorBlock, component.ColorBlock);
+        }
+    }
+    
+    public override bool Equals(BaseComponent other)
+    {
+        if (!base.Equals(other)) return false;
+        ButtonComponent typedOther = (ButtonComponent)other!;
+        return Command == typedOther.Command 
+               && ButtonType == typedOther.ButtonType 
+               && Color == typedOther.Color 
+               && FadeIn == typedOther.FadeIn 
+               && Sprite == typedOther.Sprite 
+               && Material == typedOther.Material 
+               && ImageType == typedOther.ImageType 
+               && ColorBlock == typedOther.ColorBlock;
     }
 }

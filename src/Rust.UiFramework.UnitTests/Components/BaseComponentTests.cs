@@ -58,7 +58,7 @@ public abstract class BasePopulateComponentTests<T>(Action<T> populateComponent)
         
         // Act
         PopulateComponent(component);
-        component.WriteComponent(writer);
+        UiFrameworkSerializer.Serialize(writer, component);
         
         // Assert
         string json = writer.ToString();
@@ -109,7 +109,7 @@ public abstract class BaseTheoryComponentTests<TComponent, TTheoryRow>(Action<TC
         // Act
         PopulateComponent(component);
         PopulateTheory(component, row);
-        component.WriteComponent(writer);
+        UiFrameworkSerializer.Serialize(writer, component);
         
         // Assert
         string json = writer.ToString();

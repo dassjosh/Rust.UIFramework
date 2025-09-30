@@ -161,22 +161,22 @@ public static class JsonDefaults
         public static readonly Utf8String Type = "Countdown";
         
         public static readonly Utf8String StartTimeName = "startTime";
-        public const float StartTimeValue = 0;
+        public const float StartTime = 0;
         
         public static readonly Utf8String EndTimeName = "endTime";
-        public const float EndTimeValue = 0;
+        public const float EndTime = 0;
         
         public static readonly Utf8String StepName = "step";
-        public const float StepValue = 1;
+        public const float Step = 1;
         
         public static readonly Utf8String IntervalName = "interval";
-        public const float IntervalValue = 1;
+        public const float Interval = 1;
         
         public static readonly Utf8String TimerFormatName = "timerFormat";
-        public const TimerFormat TimeFormatValue = TimerFormat.None;
+        public const TimerFormat TimerFormat = Enums.TimerFormat.None;
         
         public static readonly Utf8String NumberFormatName = "numberFormat";
-        public const string NumberFormatValue = "0.####";
+        public const string NumberFormat = "0.####";
         
         public static readonly Utf8String DestroyIfDoneName = "destroyIfDone";
         public const bool DestroyIfDone = true;

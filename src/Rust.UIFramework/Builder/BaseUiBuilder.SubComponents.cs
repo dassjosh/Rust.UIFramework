@@ -24,10 +24,10 @@ public abstract partial class BaseUiBuilder
     public CountdownComponent Countdown(UiLabel component) => component.AddCountdown();
     
     public CountdownComponent Countdown(UiLabel label, float startTime, float endTime, string command, 
-        float step = JsonDefaults.Countdown.StepValue, 
-        float interval = JsonDefaults.Countdown.IntervalValue, 
-        TimerFormat timerFormat = JsonDefaults.Countdown.TimeFormatValue, 
-        string numberFormat = JsonDefaults.Countdown.NumberFormatValue, 
+        float step = JsonDefaults.Countdown.Step, 
+        float interval = JsonDefaults.Countdown.Interval, 
+        TimerFormat timerFormat = JsonDefaults.Countdown.TimerFormat, 
+        string numberFormat = JsonDefaults.Countdown.NumberFormat, 
         bool destroyIfDone = JsonDefaults.Countdown.DestroyIfDone)
     {
         return label.AddCountdown(startTime, endTime, command, step, interval, timerFormat, numberFormat, destroyIfDone);
@@ -107,7 +107,7 @@ public abstract partial class BaseUiBuilder
     }
     #endregion
     
-    #region Horizontal Layout
+    #region Vertical Layout
     public VerticalLayoutComponent VerticalLayout(BaseUiComponent component) => component.GetOrAddLayoutComponent<VerticalLayoutComponent>();
     
     public VerticalLayoutComponent VerticalLayout(BaseUiComponent component,

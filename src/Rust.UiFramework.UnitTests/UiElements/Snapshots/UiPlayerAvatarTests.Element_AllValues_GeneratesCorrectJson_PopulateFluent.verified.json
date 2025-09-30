@@ -4,10 +4,10 @@
   "components": [
     {
       "type": "UnityEngine.UI.RawImage",
-      "steamid": "112233",
       "material": "assets/icons/iconmaterial.mat",
-      "fadeIn": 1.5,
-      "color": "0.502 0.502 0.502"
+      "color": "0.502 0.502 0.502",
+      "steamid": 112233,
+      "fadeIn": 1.5
     },
     {
       "type": "RectTransform",

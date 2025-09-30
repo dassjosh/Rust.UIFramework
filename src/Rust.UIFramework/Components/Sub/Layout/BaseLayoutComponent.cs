@@ -13,12 +13,6 @@ public abstract class BaseLayoutComponent : SubComponent
     public UiReference Reference => Owner.Reference;
     
     public override bool AllowMultiple => false;
-    
-    protected override void WriteComponentFields(JsonFrameworkWriter writer)
-    {
-        writer.AddField(JsonDefaults.Layout.ChildAlignmentName, ChildAlignment, JsonDefaults.Layout.ChildAlignment);
-        writer.AddField(JsonDefaults.Layout.PaddingName, Padding, JsonDefaults.Layout.Padding);
-    }
 
     public override void Reset()
     {
@@ -26,5 +20,23 @@ public abstract class BaseLayoutComponent : SubComponent
         ChildAlignment = JsonDefaults.Layout.ChildAlignment;
         Padding = default;
         Owner = null;
+    }
+
+    public override void CopyFrom(object value)
+    {
+        base.CopyFrom(value);
+        if (value is BaseLayoutComponent component)
+        {
+            ChildAlignment = component.ChildAlignment;
+            Padding = component.Padding;
+        }
+    }
+    
+    public override bool Equals(BaseComponent other)
+    {
+        if (!base.Equals(other)) return false;
+        BaseLayoutComponent typedOther = (BaseLayoutComponent)other!;
+        return ChildAlignment == typedOther.ChildAlignment 
+               && Padding == typedOther.Padding;
     }
 }

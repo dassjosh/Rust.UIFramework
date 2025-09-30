@@ -91,7 +91,7 @@ public abstract class BasePopulateUiElementsTests<T>(params Action<T>[] populate
 
             // Act
             populate(element);
-            element.WriteComponent(writer);
+            UiFrameworkSerializer.Serialize(writer, element);
 
             // Assert
             string json = writer.ToString();
@@ -151,7 +151,7 @@ public abstract class BaseTheoryUiElementsTests<TElement, TTheoryRow>(params Act
 
             // Act
             populate(element, row);
-            element.WriteComponent(writer);
+            UiFrameworkSerializer.Serialize(writer, element);
 
             // Assert
             string json = writer.ToString();

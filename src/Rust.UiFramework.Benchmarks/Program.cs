@@ -25,12 +25,16 @@ class Program
     static void Main(string[] args)
     {
 #if BENCHMARKS
+        Benchmarks benchmarks = new();
+        benchmarks.Setup();
+        
         ManualConfig config = DefaultConfig.Instance.AddJob(Job.Default
             .WithToolchain(InProcessEmitToolchain.Instance)
             .WithIterationCount(10))
             .WithOptions(ConfigOptions.DisableOptimizationsValidator);
         BenchmarkRunner.Run<Benchmarks>(config, args);
-#else
+#elif DEBUG
+        
         
 #endif
     }
