@@ -213,7 +213,7 @@ public abstract class CoreComponent : BaseTypedComponent, ICoreComponent
     {
         if (!base.Equals(other)) return false;
         CoreComponent typedOther = (CoreComponent)other!;
-        if(SubComponents.Count == typedOther.SubComponents.Count) return false;
+        if(SubComponents.Count != typedOther.SubComponents.Count) return false;
         for (int i = 0; i < SubComponents.Count; i++)
         {
             if (SubComponents[i] != typedOther.SubComponents[i])
