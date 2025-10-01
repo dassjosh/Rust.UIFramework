@@ -42,7 +42,11 @@ public abstract class CoreComponentSerializer<T> : TypedComponentSerializer<T> w
                 for (int index = 0; index < component.SubComponents.Count; index++)
                 {
                     SubComponent subComponent = component.SubComponents[index];
-                    UiFrameworkSerializer.Serialize(writer, subComponent, defaults.GetSubComponentByType(subComponent.ComponentType), mode);
+                    SubComponent defaultsSubComponent = defaults.GetSubComponentByType(subComponent.ComponentType);
+                    if (defaultsSubComponent == null || !subComponent.Equals(defaultsSubComponent))
+                    {
+                        UiFrameworkSerializer.Serialize(writer, subComponent, defaultsSubComponent, mode);
+                    }
                 }
                 break;
         }
