@@ -3,9 +3,9 @@ using Oxide.Ext.UiFramework.Enums;
 
 namespace Oxide.Ext.UiFramework.Json;
 
-public class NeedsKeyboardComponentSerializer : SubComponentSerializer<NeedsMouseComponent>
+public class NeedsKeyboardComponentSerializer : SubComponentSerializer<NeedsKeyboardComponent>
 {
-    protected override void SerializeComponent(JsonFrameworkWriter writer, NeedsMouseComponent component, NeedsMouseComponent defaults, SerializeMode mode)
+    protected override void SerializeComponent(JsonFrameworkWriter writer, NeedsKeyboardComponent component, NeedsKeyboardComponent defaults, SerializeMode mode)
     {
         
     }
