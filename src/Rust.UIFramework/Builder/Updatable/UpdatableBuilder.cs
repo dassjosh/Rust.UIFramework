@@ -12,10 +12,7 @@ public class UpdatableBuilder : BaseBuilder
 {
     private List<UiUpdatable> _updatables;
 
-    public static UpdatableBuilder Create(IUiFrameworkPlugin plugin)
-    {
-        return new UpdatableBuilder().Init(plugin.PluginPool);
-    }
+    public static UpdatableBuilder Create(IUiFrameworkPlugin plugin) => new UpdatableBuilder().Init(plugin.PluginPool);
 
     public UiUpdatable<T> AddUpdatable<T>(T element) where T : BaseUiComponent, new() => UiUpdatable<T>.Create(this, element);
 
