@@ -2,6 +2,6 @@
   "color": "1 0.9216 0.0157",
   "fadeIn": 3.5,
   "material": "assets/content/ui/namefontmaterial.mat",
-  "steamid": 999,
+  "steamid": "999",
   "type": "UnityEngine.UI.RawImage"
 }

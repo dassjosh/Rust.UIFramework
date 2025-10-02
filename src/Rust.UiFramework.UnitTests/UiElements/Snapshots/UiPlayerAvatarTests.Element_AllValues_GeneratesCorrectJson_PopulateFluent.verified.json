@@ -4,7 +4,7 @@
       "color": "0.502 0.502 0.502",
       "fadeIn": 1.5,
       "material": "assets/icons/iconmaterial.mat",
-      "steamid": 112233,
+      "steamid": "112233",
       "type": "UnityEngine.UI.RawImage"
     },
     {

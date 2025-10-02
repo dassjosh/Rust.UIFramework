@@ -1,4 +1,5 @@
 ﻿using System.Runtime.CompilerServices;
+using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Libraries;
@@ -20,7 +21,7 @@ public class PlayerAvatarComponentSerializer : RawImageComponentSerializer<Playe
             {
                 case AvatarType.Small:
                 case AvatarType.Medium:
-                    writer.AddFieldRaw(JsonDefaults.PlayerAvatar.SteamIdName, component.SteamId);
+                    writer.AddFieldRaw(JsonDefaults.PlayerAvatar.SteamIdName, StringCache<ulong>.ToString(component.SteamId));
                     break;
             
                 case AvatarType.Large:
@@ -38,12 +39,12 @@ public class PlayerAvatarComponentSerializer : RawImageComponentSerializer<Playe
                         }
                         else
                         {
-                            writer.AddFieldRaw(JsonDefaults.PlayerAvatar.SteamIdName, component.SteamId);
+                            writer.AddFieldRaw(JsonDefaults.PlayerAvatar.SteamIdName, StringCache<ulong>.ToString(component.SteamId));
                         }
                     }
                     else
                     {
-                        writer.AddFieldRaw(JsonDefaults.PlayerAvatar.SteamIdName, component.SteamId);
+                        writer.AddFieldRaw(JsonDefaults.PlayerAvatar.SteamIdName, StringCache<ulong>.ToString(component.SteamId));
                     }
 
                     break;
