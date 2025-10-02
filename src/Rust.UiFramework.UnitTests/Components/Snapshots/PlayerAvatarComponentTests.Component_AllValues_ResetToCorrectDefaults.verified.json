@@ -1,5 +1,6 @@
 ﻿{
   "AvatarType": "Medium",
+  "ComponentType": "PlayerAvatar",
   "Enabled": true,
   "Type": "UnityEngine.UI.RawImage"
 }

@@ -1,7 +1,7 @@
 ﻿{
-  "type": "UnityEngine.UI.Image",
-  "sprite": "assets/content/ui/gameui/cardgames/deck_small_world_transparent/hearts/2_hearts.png",
-  "material": "assets/content/ui/uibackgroundblur.mat",
+  "color": "1 0.6471 0",
   "fadeIn": 1.5,
-  "color": "1 0.6471 0"
+  "material": "assets/content/ui/uibackgroundblur.mat",
+  "sprite": "assets/content/ui/gameui/cardgames/deck_small_world_transparent/hearts/2_hearts.png",
+  "type": "UnityEngine.UI.Image"
 }

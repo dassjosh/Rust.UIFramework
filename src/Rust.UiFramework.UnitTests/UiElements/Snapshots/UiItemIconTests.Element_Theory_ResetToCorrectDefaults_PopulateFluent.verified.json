@@ -4,8 +4,9 @@
   "Enabled": true,
   "Icon": {
     "Color": "#FFFFFFFF",
+    "ComponentType": "ItemIcon",
     "Enabled": true,
+    "FillCenter": true,
     "Type": "UnityEngine.UI.Image"
-  },
-  "Position": "(0, 0) (1, 1)"
+  }
 }

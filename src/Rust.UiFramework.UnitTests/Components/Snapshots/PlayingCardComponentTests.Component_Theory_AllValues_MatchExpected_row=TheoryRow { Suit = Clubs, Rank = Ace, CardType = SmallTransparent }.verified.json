@@ -1,6 +1,7 @@
 ﻿{
   "CardType": "SmallTransparent",
   "Color": "#FFA500FF",
+  "ComponentType": "CoreEnd",
   "Enabled": true,
   "FadeIn": 1.5,
   "Material": "assets/content/ui/uibackgroundblur.mat",

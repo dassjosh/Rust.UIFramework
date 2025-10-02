@@ -2,10 +2,10 @@
   "Active": true,
   "Avatar": {
     "AvatarType": "Medium",
+    "ComponentType": "PlayerAvatar",
     "Enabled": true,
     "Type": "UnityEngine.UI.RawImage"
   },
   "AvatarType": "Medium",
-  "Enabled": true,
-  "Position": "(0, 0) (1, 1)"
+  "Enabled": true
 }

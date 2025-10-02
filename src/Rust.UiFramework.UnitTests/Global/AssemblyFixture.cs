@@ -6,7 +6,9 @@ using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Logging;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.Types;
+using Oxide.Ext.UiFramework.UiElements;
 using Rust.UiFramework.UnitTests.Global;
+using Rust.UiFramework.UnitTests.Global.Verify.IgnoreMembers;
 using Rust.UiFramework.UnitTests.Global.XUnit.Serializers;
 using Xunit.Sdk;
 using Xunit.v3;
@@ -38,6 +40,7 @@ public class AssemblyFixture : XunitTestFramework
         VerifierSettings.SortJsonObjects();
         UseSourceFileRelativeDirectory("Snapshots");
         AddVerifyConverters();
+        AddVerifyIgnores();
         AddVerifyParameterConverters();
     }
     
@@ -48,6 +51,18 @@ public class AssemblyFixture : XunitTestFramework
             .Select(t => (JsonConverter)Activator.CreateInstance(t))
             .ToArray();
         VerifierSettings.AddExtraSettings(settings => settings.Converters.AddRange(converters));
+    }    
+    
+    private static void AddVerifyIgnores()
+    {
+        IVerifyIgnoreMembers[] ignores = typeof(AssemblyFixture).Assembly.DefinedTypes
+            .Where(t => t.IsAssignableTo(typeof(IVerifyIgnoreMembers)) && !t.IsInterface)
+            .Select(t => (IVerifyIgnoreMembers)Activator.CreateInstance(t))
+            .ToArray();
+        foreach (IVerifyIgnoreMembers ignore in ignores)
+        {
+            ignore.Register();
+        }
     }
 
     private static void AddVerifyParameterConverters()

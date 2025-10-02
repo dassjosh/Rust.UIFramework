@@ -1,6 +1,7 @@
 ﻿{
   "AvatarType": "Large",
   "Color": "#FFEB04FF",
+  "ComponentType": "PlayerAvatar",
   "Enabled": true,
   "FadeIn": 3.5,
   "Material": "assets/content/ui/namefontmaterial.mat",

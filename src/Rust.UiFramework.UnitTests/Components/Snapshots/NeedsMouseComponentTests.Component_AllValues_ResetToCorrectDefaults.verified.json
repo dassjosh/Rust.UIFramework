@@ -1,5 +1,6 @@
 ﻿{
   "AllowMultiple": false,
+  "ComponentType": "NeedsMouse",
   "Enabled": true,
   "Type": "NeedsCursor"
 }

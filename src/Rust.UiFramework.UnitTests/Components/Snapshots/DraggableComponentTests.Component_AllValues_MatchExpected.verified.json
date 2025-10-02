@@ -2,6 +2,7 @@
   "AllowMultiple": false,
   "AllowSwapping": true,
   "AnchorOffset": "0.4 0.5",
+  "ComponentType": "Draggable",
   "DragAlpha": 0.5,
   "DropAnywhere": true,
   "Enabled": true,

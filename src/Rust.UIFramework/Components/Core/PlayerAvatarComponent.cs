@@ -18,9 +18,19 @@ public class PlayerAvatarComponent : RawImageComponent
         AvatarType = AvatarType.Medium;
     }
     
-    public override bool Equals(BaseComponent other)
+    public override void CopyFrom(object value)
     {
-        if (!base.Equals(other)) return false;
+        base.CopyFrom(value);
+        if (value is PlayerAvatarComponent component)
+        {
+            SteamId = component.SteamId;
+            AvatarType = component.AvatarType;
+        }
+    }
+    
+    public override bool AreEquivalent(BaseComponent other)
+    {
+        if (!base.AreEquivalent(other)) return false;
         PlayerAvatarComponent typedOther = (PlayerAvatarComponent)other!;
         return SteamId == typedOther.SteamId 
                && AvatarType == typedOther.AvatarType;

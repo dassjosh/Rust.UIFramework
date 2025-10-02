@@ -50,9 +50,9 @@ public class TextComponent : CoreComponent, IGraphicalComponent
         }
     }
 
-    public override bool Equals(BaseComponent other)
+    public override bool AreEquivalent(BaseComponent other)
     {
-        if (!base.Equals(other)) return false;
+        if (!base.AreEquivalent(other)) return false;
         TextComponent typedOther = (TextComponent)other!;
         return Color == typedOther.Color 
                && FadeIn == typedOther.FadeIn 

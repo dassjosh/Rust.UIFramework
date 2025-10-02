@@ -9,9 +9,4 @@ public class EmptyComponent : CoreComponent
 {
     public override Utf8String Type => throw new NotSupportedException();
     public override ComponentType ComponentType => ComponentType.Empty;
-
-    public override void CopyFrom(object value)
-    {
-        
-    }
 }

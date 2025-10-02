@@ -76,4 +76,5 @@ public readonly struct UiRotation(float rotation) : IEquatable<UiRotation>
     public bool Equals(UiRotation other) => Rotation.Equals(other.Rotation);
     public override bool Equals(object obj) => obj is UiRotation other && Equals(other);
     public override int GetHashCode() => Rotation.GetHashCode();
+    public override string ToString() => Rotation.ToString();
 }

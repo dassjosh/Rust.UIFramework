@@ -43,10 +43,23 @@ public class InputComponent : TextComponent
         LineType = JsonDefaults.Input.LineType;
         Placeholder = default;
     }
-    
-    public override bool Equals(BaseComponent other)
+
+    public override void CopyFrom(object value)
     {
-        if (!base.Equals(other)) return false;
+        base.CopyFrom(value);
+        if (value is InputComponent component)
+        {
+            CharsLimit = component.CharsLimit;
+            Command = component.Command;
+            Mode = component.Mode;
+            LineType = component.LineType;
+            Placeholder = component.Placeholder;
+        }
+    }
+    
+    public override bool AreEquivalent(BaseComponent other)
+    {
+        if (!base.AreEquivalent(other)) return false;
         InputComponent typedOther = (InputComponent)other!;
         return CharsLimit == typedOther.CharsLimit
                && Command == typedOther.Command 

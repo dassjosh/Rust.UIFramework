@@ -11,7 +11,10 @@ public class UiComponentSerializer<TComponent> : BaseSerializer<TComponent> wher
     {
         writer.WriteStartObject();
         writer.AddFieldRaw(JsonDefaults.Common.ComponentName, component.Reference.Name);
-        writer.AddFieldRaw(JsonDefaults.Common.ParentName, component.Reference.Parent);
+        if (mode == SerializeMode.Create && component.Update != UpdateMode.Update)
+        {
+            writer.AddFieldRaw(JsonDefaults.Common.ParentName, component.Reference.Parent);
+        }
         writer.AddField(JsonDefaults.Common.FadeOutName, component.FadeOut, defaults.FadeOut);
         writer.AddField(JsonDefaults.Common.ActiveName, component.Active, defaults.Active);
         switch (component.Update)

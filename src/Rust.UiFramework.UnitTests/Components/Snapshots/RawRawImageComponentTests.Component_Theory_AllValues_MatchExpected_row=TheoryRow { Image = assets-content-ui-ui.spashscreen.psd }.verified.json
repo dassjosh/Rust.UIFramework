@@ -1,5 +1,6 @@
 ﻿{
   "Color": "#FFEB04FF",
+  "ComponentType": "RawImage",
   "Enabled": true,
   "FadeIn": 3.5,
   "Image": "assets/content/ui/ui.spashscreen.psd",

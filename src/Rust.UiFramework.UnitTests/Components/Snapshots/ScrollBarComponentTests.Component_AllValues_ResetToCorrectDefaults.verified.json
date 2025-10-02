@@ -1,5 +1,6 @@
 ﻿{
   "AutoHide": false,
+  "ComponentType": "ScrollBar",
   "HandleColor": "#262626FF",
   "HighlightColor": "#2B2B2BFF",
   "Invert": false,

@@ -1,8 +1,8 @@
 ﻿{
   "Active": true,
   "Enabled": true,
-  "Position": "(0, 0) (1, 1)",
   "RawImage": {
+    "ComponentType": "RawImage",
     "Enabled": true,
     "Type": "UnityEngine.UI.RawImage"
   }

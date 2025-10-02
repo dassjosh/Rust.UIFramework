@@ -18,10 +18,10 @@ public abstract class BaseTypedComponent : BaseComponent
         }
     }
 
-    public override bool Equals(BaseComponent other)
+    public override bool AreEquivalent(BaseComponent other)
     {
         if (other is null) return false;
-        if(!base.Equals(other)) return false;
+        if(!base.AreEquivalent(other)) return false;
         BaseTypedComponent typedOther = (BaseTypedComponent)other;
         return Enabled == typedOther.Enabled;
     }

@@ -14,7 +14,15 @@ public class RectTransformComponentSerializer : SubComponentSerializer<RectTrans
         writer.AddField(JsonDefaults.RectTransform.AnchorMinName, component.Position.Min, defaults.Position.Min);
         writer.AddField(JsonDefaults.RectTransform.AnchorMaxName, component.Position.Max, defaults.Position.Max);
         writer.AddField(JsonDefaults.RectTransform.OffsetMinName, computedOffset.Min, computedDefault.Min);
-        writer.AddField(JsonDefaults.RectTransform.OffsetMaxName, computedOffset.Max, computedDefault.Max);
+        if (mode == SerializeMode.Create)
+        {
+            writer.AddField(JsonDefaults.RectTransform.OffsetMaxName, computedOffset.Max, JsonDefaults.RectTransform.OffsetMax);
+        }
+        else
+        {
+            writer.AddField(JsonDefaults.RectTransform.OffsetMaxName, computedOffset.Max, computedDefault.Max);
+        }
+        
         writer.AddField(JsonDefaults.RectTransform.RotationName, component.Rotation.Rotation, defaults.Rotation.Rotation);
 
         if (mode == SerializeMode.Update)

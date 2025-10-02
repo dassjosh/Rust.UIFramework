@@ -27,9 +27,9 @@ public class SlotComponent : SubComponent
         }
     }
     
-    public override bool Equals(BaseComponent other)
+    public override bool AreEquivalent(BaseComponent other)
     {
-        if (!base.Equals(other)) return false;
+        if (!base.AreEquivalent(other)) return false;
         SlotComponent typedOther = (SlotComponent)other!;
         return Filter == typedOther.Filter;
     }

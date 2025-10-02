@@ -1,5 +1,6 @@
 ﻿{
   "Color": "#FFFFFFFF",
+  "ComponentType": "Button",
   "Enabled": true,
   "Type": "UnityEngine.UI.Button"
 }

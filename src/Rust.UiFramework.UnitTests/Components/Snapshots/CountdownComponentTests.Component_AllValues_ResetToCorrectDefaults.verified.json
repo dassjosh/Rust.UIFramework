@@ -1,5 +1,6 @@
 ﻿{
   "AllowMultiple": false,
+  "ComponentType": "Countdown",
   "DestroyIfDone": true,
   "Enabled": true,
   "Interval": 1.0,

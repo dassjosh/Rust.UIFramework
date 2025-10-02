@@ -47,9 +47,9 @@ public class ScrollbarComponent : ChildComponent
         } 
     }
 
-    public override bool Equals(BaseComponent other)
+    public override bool AreEquivalent(BaseComponent other)
     {
-        if (!base.Equals(other)) return false;
+        if (!base.AreEquivalent(other)) return false;
         ScrollbarComponent typedOther = (ScrollbarComponent)other!;
         return Invert == typedOther.Invert 
                && AutoHide == typedOther.AutoHide 

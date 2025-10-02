@@ -1,27 +1,27 @@
 ﻿{
-  "name": "element",
-  "parent": "parent",
   "components": [
     {
-      "type": "UnityEngine.UI.ScrollView",
-      "movementType": "1",
+      "contentTransform": {
+        "anchormax": "0.3 0.4",
+        "anchormin": "0.1 0.2",
+        "offsetmax": "300 400",
+        "offsetmin": "100 200"
+      },
+      "decelerationRate": 200,
       "elasticity": 100,
       "inertia": 1,
-      "decelerationRate": 200,
+      "movementType": "1",
       "scrollSensitivity": 300,
-      "contentTransform": {
-        "anchormin": "0.1 0.2",
-        "anchormax": "0.3 0.4",
-        "offsetmin": "100 200",
-        "offsetmax": "300 400"
-      }
+      "type": "UnityEngine.UI.ScrollView"
     },
     {
-      "type": "RectTransform",
-      "anchormin": "0.1 0.2",
       "anchormax": "0.3 0.4",
+      "anchormin": "0.1 0.2",
+      "offsetmax": "300 400",
       "offsetmin": "100 200",
-      "offsetmax": "300 400"
+      "type": "RectTransform"
     }
-  ]
+  ],
+  "name": "element",
+  "parent": "parent"
 }

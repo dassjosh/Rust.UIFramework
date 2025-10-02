@@ -1,6 +1,7 @@
 ﻿{
   "AllowMultiple": false,
   "AllowSwapping": false,
+  "ComponentType": "Draggable",
   "DragAlpha": 1.0,
   "DropAnywhere": false,
   "Enabled": true,

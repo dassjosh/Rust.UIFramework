@@ -1,27 +1,27 @@
 ﻿{
-  "name": "element",
-  "parent": "parent",
   "components": [
     {
-      "type": "UnityEngine.UI.Button",
       "close": "command",
-      "highlightedColor": "0 0 1",
-      "pressedColor": "1 0.6471 0",
-      "selectedColor": "0 0.502 0",
+      "color": "0.502 0.502 0.502",
       "colorMultiplier": 2,
       "fadeDuration": 3,
-      "sprite": "assets/icons/authorize.png",
-      "material": "assets/icons/iconmaterial.mat",
       "fadeIn": 1.5,
-      "color": "0.502 0.502 0.502",
-      "imagetype": "1"
+      "highlightedColor": "0 0 1",
+      "imagetype": "1",
+      "material": "assets/icons/iconmaterial.mat",
+      "pressedColor": "1 0.6471 0",
+      "selectedColor": "0 0.502 0",
+      "sprite": "assets/icons/authorize.png",
+      "type": "UnityEngine.UI.Button"
     },
     {
-      "type": "RectTransform",
-      "anchormin": "0.1 0.2",
       "anchormax": "0.3 0.4",
+      "anchormin": "0.1 0.2",
+      "offsetmax": "300 400",
       "offsetmin": "100 200",
-      "offsetmax": "300 400"
+      "type": "RectTransform"
     }
-  ]
+  ],
+  "name": "element",
+  "parent": "parent"
 }

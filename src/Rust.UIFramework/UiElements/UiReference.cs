@@ -37,4 +37,5 @@ public readonly struct UiReference(string parent, string name) : IEquatable<UiRe
     public override int GetHashCode() => HashCode.Combine(Parent, Name);
     public static bool operator ==(UiReference left, UiReference right) => left.Equals(right);
     public static bool operator !=(UiReference left, UiReference right) => !(left == right);
+    public override string ToString() => $"{Parent}:{Name}";
 }

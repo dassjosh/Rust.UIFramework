@@ -1,10 +1,13 @@
 ﻿{
   "Color": "#FF0000FF",
+  "ComponentType": "ItemIcon",
   "Enabled": true,
   "FadeIn": 1.0,
+  "FillCenter": true,
   "ImageType": "Sliced",
   "ItemId": 123,
   "Material": "assets/icons/iconmaterial.mat",
+  "PlaceholderFor": "parent:name",
   "SkinId": 34621422135410688,
   "Sprite": "assets/content/ui/ui.background.rounded.png",
   "Type": "UnityEngine.UI.Image"

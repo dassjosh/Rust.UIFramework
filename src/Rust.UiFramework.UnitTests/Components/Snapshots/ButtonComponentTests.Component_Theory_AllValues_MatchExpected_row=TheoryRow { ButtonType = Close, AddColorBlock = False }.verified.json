@@ -2,6 +2,7 @@
   "ButtonType": "Close",
   "Color": "#FF0000FF",
   "Command": "command",
+  "ComponentType": "Button",
   "Enabled": true,
   "FadeIn": 1.0,
   "ImageType": "Sliced",

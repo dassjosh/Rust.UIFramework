@@ -16,11 +16,10 @@ public class UpdatableBuilder : BaseBuilder
     {
         return new UpdatableBuilder().Init(plugin.PluginPool);
     }
-    
-    internal void AddUpdatable(UiUpdatable updatable)
-    {
-        _updatables.Add(updatable);
-    }
+
+    public UiUpdatable<T> AddUpdatable<T>(T element) where T : BaseUiComponent, new() => UiUpdatable<T>.Create(this, element);
+
+    internal void AddUpdatable(UiUpdatable updatable) => _updatables.Add(updatable);
 
     private UpdatableBuilder Init(UiPluginPool pool)
     {
@@ -29,21 +28,16 @@ public class UpdatableBuilder : BaseBuilder
         return this;
     }
     
-    ~UpdatableBuilder()
-    {
-        _updatables.FreeValues();
-        PluginPool.FreeList(_updatables);
-        _updatables = null;
-    }
-    
+    ~UpdatableBuilder() => Cleanup();
+
     internal override void SendUi(SendInfo send)
     {
-        JsonFrameworkWriter writer = CreateWriter();
+        JsonFrameworkWriter writer = CreateWriter(true);
         AddUi(send, writer);
         writer.Dispose();
     }
     
-    private JsonFrameworkWriter CreateWriter()
+    private JsonFrameworkWriter CreateWriter(bool swap)
     {
         JsonFrameworkWriter writer = JsonFrameworkWriter.Create(PluginPool);
         writer.WriteStartArray();
@@ -51,7 +45,12 @@ public class UpdatableBuilder : BaseBuilder
         UiUpdatable[] updatables = _updatables.GetInternalArray();
         for (int index = 0; index < count; index++)
         {
-            updatables[index].Serialize(writer);
+            UiUpdatable updatable = updatables[index];
+            updatable.Serialize(writer);
+            if (swap)
+            {
+                updatable.Swap();
+            }
         }
         writer.WriteEndArray();
         return writer;
@@ -59,6 +58,21 @@ public class UpdatableBuilder : BaseBuilder
 
     public override byte[] GetBytes()
     {
-        throw new System.NotImplementedException();
+        JsonFrameworkWriter writer = CreateWriter(false);
+        byte[] bytes = writer.ToArray();
+        writer.Dispose();
+        return bytes;
+    }
+    
+    public override void Dispose() => Cleanup();
+
+    private void Cleanup()
+    {
+        if (_updatables != null)
+        {
+            _updatables.FreeValues();
+            PluginPool.FreeList(_updatables);
+            _updatables = null;
+        }
     }
 }

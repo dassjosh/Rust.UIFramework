@@ -1,5 +1,6 @@
 ﻿{
   "AutoHide": true,
+  "ComponentType": "ScrollBar",
   "HandleColor": "#000000FF",
   "HandleSprite": "assets/icons/add.png",
   "HighlightColor": "#800000FF",

@@ -1,6 +1,7 @@
 ﻿{
   "Align": "UpperRight",
   "Color": "#008000FF",
+  "ComponentType": "Text",
   "Enabled": true,
   "FadeIn": 2.0,
   "Font": "permanentmarker.ttf",

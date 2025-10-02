@@ -2,10 +2,10 @@
   "Active": true,
   "Button": {
     "Color": "#FFFFFFFF",
+    "ComponentType": "Button",
     "Enabled": true,
     "Type": "UnityEngine.UI.Button"
   },
   "Color": "#FFFFFFFF",
-  "Enabled": true,
-  "Position": "(0, 0) (1, 1)"
+  "Enabled": true
 }

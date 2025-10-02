@@ -1,5 +1,6 @@
 ﻿{
   "ColorMultiplier": 0.5,
+  "ComponentType": "ColorBlock",
   "FadeDuration": 1.5,
   "HighlightedColor": "#FF0000FF",
   "PressedColor": "#008000FF",

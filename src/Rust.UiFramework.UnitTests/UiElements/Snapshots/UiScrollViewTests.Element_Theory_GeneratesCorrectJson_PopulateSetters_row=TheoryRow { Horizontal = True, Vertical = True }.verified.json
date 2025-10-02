@@ -1,49 +1,49 @@
 ﻿{
-  "name": "element",
-  "parent": "parent",
   "components": [
     {
-      "type": "UnityEngine.UI.ScrollView",
-      "horizontal": 1,
-      "vertical": 1,
-      "movementType": "1",
-      "elasticity": 100,
-      "inertia": 1,
-      "decelerationRate": 200,
-      "scrollSensitivity": 300,
-      "horizontalScrollbar": {
-        "invert": 1,
-        "autoHide": 1,
-        "handleSprite": "assets/icons/add.png",
-        "trackSprite": "assets/icons/ammunition.png",
-        "size": 50,
-        "handleColor": "0 0.502 0",
-        "highlightColor": "0 0 1",
-        "pressedColor": "0.502 0 0.502",
-        "trackColor": "1 0 1"
+      "contentTransform": {
+        "anchormax": "0.3 0.4",
+        "anchormin": "0.1 0.2",
+        "offsetmax": "300 400",
+        "offsetmin": "100 200"
       },
+      "decelerationRate": 200,
+      "elasticity": 100,
+      "horizontal": 1,
+      "horizontalScrollbar": {
+        "autoHide": 1,
+        "handleColor": "0 0.502 0",
+        "handleSprite": "assets/icons/add.png",
+        "highlightColor": "0 0 1",
+        "invert": 1,
+        "pressedColor": "0.502 0 0.502",
+        "size": 50,
+        "trackColor": "1 0 1",
+        "trackSprite": "assets/icons/ammunition.png"
+      },
+      "inertia": 1,
+      "movementType": "1",
+      "scrollSensitivity": 300,
+      "type": "UnityEngine.UI.ScrollView",
+      "vertical": 1,
       "verticalScrollbar": {
-        "handleSprite": "assets/icons/subtract.png",
-        "trackSprite": "assets/icons/bleeding.png",
-        "size": 60,
         "handleColor": "0 1 1",
+        "handleSprite": "assets/icons/subtract.png",
         "highlightColor": "0 1 0",
         "pressedColor": "0 0 0.502",
-        "trackColor": "0.502 0.502 0"
-      },
-      "contentTransform": {
-        "anchormin": "0.1 0.2",
-        "anchormax": "0.3 0.4",
-        "offsetmin": "100 200",
-        "offsetmax": "300 400"
+        "size": 60,
+        "trackColor": "0.502 0.502 0",
+        "trackSprite": "assets/icons/bleeding.png"
       }
     },
     {
-      "type": "RectTransform",
-      "anchormin": "0.1 0.2",
       "anchormax": "0.3 0.4",
+      "anchormin": "0.1 0.2",
+      "offsetmax": "300 400",
       "offsetmin": "100 200",
-      "offsetmax": "300 400"
+      "type": "RectTransform"
     }
-  ]
+  ],
+  "name": "element",
+  "parent": "parent"
 }

@@ -3,6 +3,7 @@
   "CharsLimit": 16,
   "Color": "#008000FF",
   "Command": "command",
+  "ComponentType": "Input",
   "Enabled": true,
   "FadeIn": 2.0,
   "Font": "permanentmarker.ttf",

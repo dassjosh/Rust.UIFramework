@@ -1,5 +1,7 @@
 ﻿{
   "Color": "#FFFFFFFF",
+  "ComponentType": "Image",
   "Enabled": true,
+  "FillCenter": true,
   "Type": "UnityEngine.UI.Image"
 }

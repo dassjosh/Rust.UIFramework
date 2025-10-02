@@ -1,6 +1,5 @@
 ﻿{
   "Active": true,
-  "Content": ":___Content",
   "ContentPivot": "0.5 0.5",
   "ContentPosition": "(0, 0) (1, 1)",
   "DecelerationRate": 0.135,
@@ -8,10 +7,11 @@
   "Enabled": true,
   "Inertia": false,
   "MovementType": "Clamped",
-  "Position": "(0, 0) (1, 1)",
   "ScrollSensitivity": 1.0,
   "ScrollView": {
+    "ComponentType": "ScrollView",
     "ContentTransform": {
+      "ComponentType": "ScrollView",
       "Pivot": "0.5 0.5",
       "Position": "(0, 0) (1, 1)"
     },
@@ -21,7 +21,8 @@
     "Inertia": false,
     "MovementType": "Clamped",
     "ScrollSensitivity": 1.0,
-    "Type": "UnityEngine.UI.ScrollView"
+    "Type": "UnityEngine.UI.ScrollView",
+    "VerticalScrollProgress": 1.0
   },
-  "ViewPort": ":___Viewport"
+  "VerticalScrollProgress": 1.0
 }

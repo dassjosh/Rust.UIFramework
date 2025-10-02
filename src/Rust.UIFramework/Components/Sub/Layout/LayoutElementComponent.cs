@@ -87,9 +87,9 @@ public class LayoutElementComponent : SubComponent
         }
     }
 
-    public override bool Equals(BaseComponent other)
+    public override bool AreEquivalent(BaseComponent other)
     {
-        if (!base.Equals(other)) return false;
+        if (!base.AreEquivalent(other)) return false;
         LayoutElementComponent typedOther = (LayoutElementComponent)other!;
         return PreferredWidth == typedOther.PreferredWidth 
                && PreferredHeight == typedOther.PreferredHeight 

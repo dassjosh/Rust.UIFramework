@@ -3,6 +3,7 @@
   "Card": {
     "CardType": "SmallTransparent",
     "Color": "#808080FF",
+    "ComponentType": "CoreEnd",
     "Enabled": true,
     "FadeIn": 1.5,
     "Material": "assets/icons/iconmaterial.mat",
@@ -16,9 +17,7 @@
   "FadeIn": 1.5,
   "Material": "assets/icons/iconmaterial.mat",
   "Name": "element",
-  "Offset": "(100, 200) (300, 400)",
   "Parent": "parent",
-  "Position": "(0.1, 0.2) (0.3, 0.4)",
   "Rank": "Two",
   "Reference": "parent:element",
   "Suit": "Diamonds"

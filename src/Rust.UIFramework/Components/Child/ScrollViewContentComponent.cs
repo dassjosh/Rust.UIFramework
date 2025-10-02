@@ -49,9 +49,9 @@ public class ScrollViewContentComponent : ChildComponent
         }
     }
     
-    public override bool Equals(BaseComponent other)
+    public override bool AreEquivalent(BaseComponent other)
     {
-        if (!base.Equals(other)) return false;
+        if (!base.AreEquivalent(other)) return false;
         ScrollViewContentComponent typedOther = (ScrollViewContentComponent)other!;
         return Position == typedOther.Position 
                && Offset == typedOther.Offset 

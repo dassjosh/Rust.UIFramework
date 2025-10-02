@@ -1,6 +1,7 @@
 ﻿{
   "AllowMultiple": true,
   "Color": "#FF0000FF",
+  "ComponentType": "Outline",
   "Distance": "0.5 0.4",
   "Enabled": true,
   "Type": "UnityEngine.UI.Outline",

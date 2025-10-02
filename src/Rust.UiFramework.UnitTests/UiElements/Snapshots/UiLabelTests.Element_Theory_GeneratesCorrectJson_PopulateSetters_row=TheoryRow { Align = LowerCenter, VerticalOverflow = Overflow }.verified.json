@@ -1,23 +1,23 @@
 ﻿{
-  "name": "element",
-  "parent": "parent",
   "components": [
     {
-      "type": "UnityEngine.UI.Text",
-      "text": "text",
-      "fontSize": 20,
-      "font": "lcd.ttf",
       "align": "7",
-      "verticalOverflow": "1",
+      "color": "0.502 0.502 0.502",
       "fadeIn": 1.5,
-      "color": "0.502 0.502 0.502"
+      "font": "lcd.ttf",
+      "fontSize": 20,
+      "text": "text",
+      "type": "UnityEngine.UI.Text",
+      "verticalOverflow": "1"
     },
     {
-      "type": "RectTransform",
-      "anchormin": "0.1 0.2",
       "anchormax": "0.3 0.4",
+      "anchormin": "0.1 0.2",
+      "offsetmax": "300 400",
       "offsetmin": "100 200",
-      "offsetmax": "300 400"
+      "type": "RectTransform"
     }
-  ]
+  ],
+  "name": "element",
+  "parent": "parent"
 }

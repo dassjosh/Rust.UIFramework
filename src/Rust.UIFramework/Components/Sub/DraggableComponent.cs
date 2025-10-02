@@ -143,9 +143,9 @@ public class DraggableComponent : SubComponent
         }
     }
 
-    public override bool Equals(BaseComponent other)
+    public override bool AreEquivalent(BaseComponent other)
     {
-        if (!base.Equals(other)) return false;
+        if (!base.AreEquivalent(other)) return false;
         DraggableComponent typedOther = (DraggableComponent)other!;
         return LimitToParent == typedOther.LimitToParent 
             && MaxDistance == typedOther.MaxDistance 

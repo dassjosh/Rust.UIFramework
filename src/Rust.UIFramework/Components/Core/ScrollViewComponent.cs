@@ -1,4 +1,5 @@
 ﻿using Oxide.Ext.UiFramework.Colors;
+using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
@@ -115,9 +116,9 @@ public class ScrollViewComponent : CoreComponent
         }
     }
 
-    public override bool Equals(BaseComponent other)
+    public override bool AreEquivalent(BaseComponent other)
     {
-        if (!base.Equals(other)) return false;
+        if (!base.AreEquivalent(other)) return false;
         ScrollViewComponent typedOther = (ScrollViewComponent)other!;
         return MovementType == typedOther.MovementType 
                && Elasticity == typedOther.Elasticity 
@@ -126,8 +127,8 @@ public class ScrollViewComponent : CoreComponent
                && ScrollSensitivity == typedOther.ScrollSensitivity 
                && HorizontalScrollProgress == typedOther.HorizontalScrollProgress 
                && VerticalScrollProgress == typedOther.VerticalScrollProgress 
-               && ContentTransform == typedOther.ContentTransform 
-               && HorizontalScrollbar == typedOther.HorizontalScrollbar 
-               && VerticalScrollbar == typedOther.VerticalScrollbar;
+               && ContentTransform.TryAreEquivalent(typedOther.ContentTransform) 
+               && HorizontalScrollbar.TryAreEquivalent(typedOther.HorizontalScrollbar) 
+               && VerticalScrollbar.TryAreEquivalent(typedOther.VerticalScrollbar);
     }
 }

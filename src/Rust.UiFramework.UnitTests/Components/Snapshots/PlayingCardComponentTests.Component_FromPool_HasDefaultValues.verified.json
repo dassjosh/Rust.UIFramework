@@ -1,5 +1,6 @@
 ﻿{
   "Color": "#FFFFFFFF",
+  "ComponentType": "CoreEnd",
   "Enabled": true,
   "Material": "assets/content/ui/namefontmaterial.mat",
   "Type": "UnityEngine.UI.RawImage"

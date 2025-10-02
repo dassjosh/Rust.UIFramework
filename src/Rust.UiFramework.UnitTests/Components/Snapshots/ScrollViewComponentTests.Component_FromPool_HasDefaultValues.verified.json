@@ -1,5 +1,7 @@
 ﻿{
+  "ComponentType": "ScrollView",
   "ContentTransform": {
+    "ComponentType": "ScrollView",
     "Pivot": "0.5 0.5",
     "Position": "(0, 0) (1, 1)"
   },
@@ -9,5 +11,6 @@
   "Inertia": false,
   "MovementType": "Clamped",
   "ScrollSensitivity": 1.0,
-  "Type": "UnityEngine.UI.ScrollView"
+  "Type": "UnityEngine.UI.ScrollView",
+  "VerticalScrollProgress": 1.0
 }

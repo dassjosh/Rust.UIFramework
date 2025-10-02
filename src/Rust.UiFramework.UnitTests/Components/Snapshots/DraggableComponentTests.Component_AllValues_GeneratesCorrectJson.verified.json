@@ -1,16 +1,14 @@
 ﻿{
-  "type": "Draggable",
+  "allowSwapping": 1,
+  "anchorOffset": "0.4 0.5",
+  "dragAlpha": 0.5,
+  "dropAnywhere": 1,
+  "filter": "filter",
+  "keepOnTop": 1,
   "limitToParent": 1,
   "maxDistance": 10,
-  "allowSwapping": 1,
-  "dropAnywhere": 1,
-  "dragAlpha": 0.5,
   "parentLimitIndex": 2,
-  "filter": "filter",
   "parentPadding": "0.5 0.4",
-  "anchorOffset": "0.4 0.5",
-  "keepOnTop": 1,
   "positionRPC": "2",
-  "moveToAnchor": "",
-  "rebuildAnchor": ""
+  "type": "Draggable"
 }

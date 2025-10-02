@@ -1,5 +1,6 @@
 ﻿using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Enums;
+using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Types;
 using UnityEngine.UI;
@@ -63,9 +64,9 @@ public class ButtonComponent : CoreComponent, IGraphicalComponent
         }
     }
     
-    public override bool Equals(BaseComponent other)
+    public override bool AreEquivalent(BaseComponent other)
     {
-        if (!base.Equals(other)) return false;
+        if (!base.AreEquivalent(other)) return false;
         ButtonComponent typedOther = (ButtonComponent)other!;
         return Command == typedOther.Command 
                && ButtonType == typedOther.ButtonType 
@@ -74,6 +75,6 @@ public class ButtonComponent : CoreComponent, IGraphicalComponent
                && Sprite == typedOther.Sprite 
                && Material == typedOther.Material 
                && ImageType == typedOther.ImageType 
-               && ColorBlock == typedOther.ColorBlock;
+               && ColorBlock.TryAreEquivalent(typedOther.ColorBlock);
     }
 }

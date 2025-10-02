@@ -14,7 +14,7 @@ using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-public abstract class BaseUiComponent : BasePoolable, ICopyFrom, IEquatable<BaseUiComponent>
+public abstract class BaseUiComponent : BasePoolable, ICopyFrom
 {
     public UiReference Reference;
     public float FadeOut;
@@ -119,21 +119,14 @@ public abstract class BaseUiComponent : BasePoolable, ICopyFrom, IEquatable<Base
         }
     }
 
-    public bool Equals(BaseUiComponent other)
+    public bool AreEquivalent(BaseUiComponent other)
     {
         if (other is null) return false;
         if (ReferenceEquals(this, other)) return true;
         return Reference.Equals(other.Reference) 
                && FadeOut.Equals(other.FadeOut) 
-               && Update == other.Update 
+               //&& Update == other.Update 
                && Active == other.Active 
-               && _component == other._component;
-    }
-
-    public override bool Equals(object obj)
-    {
-        if (obj is null) return false;
-        if (obj.GetType() != GetType()) return false;
-        return Equals((BaseUiComponent)obj);
+               && _component.AreEquivalent(other._component);
     }
 }

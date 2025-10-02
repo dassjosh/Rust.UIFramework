@@ -1,6 +1,6 @@
 ﻿{
-  "type": "UnityEngine.UI.Outline",
+  "color": "1 0 0",
   "distance": "0.5 0.4",
-  "useGraphicAlpha": "",
-  "color": "1 0 0"
+  "type": "UnityEngine.UI.Outline",
+  "useGraphicAlpha": ""
 }

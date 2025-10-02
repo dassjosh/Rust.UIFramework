@@ -1,6 +1,7 @@
 ﻿{
   "AllowMultiple": false,
   "Command": "command",
+  "ComponentType": "Countdown",
   "DestroyIfDone": false,
   "Enabled": true,
   "EndTime": 10.0,

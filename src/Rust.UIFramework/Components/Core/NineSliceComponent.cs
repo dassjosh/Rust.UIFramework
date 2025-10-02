@@ -19,9 +19,9 @@ public class NineSliceComponent : ImageComponent
         FillCenter = false;
     }
     
-    public override bool Equals(BaseComponent other)
+    public override bool AreEquivalent(BaseComponent other)
     {
-        if (!base.Equals(other)) return false;
+        if (!base.AreEquivalent(other)) return false;
         NineSliceComponent typedOther = (NineSliceComponent)other!;
         return Png == typedOther.Png 
                && Slice == typedOther.Slice;

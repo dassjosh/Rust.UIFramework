@@ -97,9 +97,9 @@ public class CountdownComponent : SubComponent
         }
     }
 
-    public override bool Equals(BaseComponent other)
+    public override bool AreEquivalent(BaseComponent other)
     {
-        if (!base.Equals(other)) return false;
+        if (!base.AreEquivalent(other)) return false;
         CountdownComponent typedOther = (CountdownComponent)other!;
         return StartTime == typedOther.StartTime 
                && EndTime == typedOther.EndTime 

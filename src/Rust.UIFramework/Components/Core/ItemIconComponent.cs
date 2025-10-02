@@ -17,9 +17,19 @@ public class ItemIconComponent : ImageComponent
         SkinId = 0;
     }
     
-    public override bool Equals(BaseComponent other)
+    public override void CopyFrom(object value)
     {
-        if (!base.Equals(other)) return false;
+        base.CopyFrom(value);
+        if (value is ItemIconComponent component)
+        {
+            ItemId = component.ItemId;
+            SkinId = component.SkinId;
+        }
+    }
+    
+    public override bool AreEquivalent(BaseComponent other)
+    {
+        if (!base.AreEquivalent(other)) return false;
         ItemIconComponent typedOther = (ItemIconComponent)other!;
         return ItemId == typedOther.ItemId 
                && SkinId == typedOther.SkinId;

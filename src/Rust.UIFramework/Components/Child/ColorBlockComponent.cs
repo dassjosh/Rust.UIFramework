@@ -39,9 +39,9 @@ public class ColorBlockComponent : ChildComponent
         }
     }
     
-    public override bool Equals(BaseComponent other)
+    public override bool AreEquivalent(BaseComponent other)
     {
-        if (!base.Equals(other)) return false;
+        if (!base.AreEquivalent(other)) return false;
         ColorBlockComponent typedOther = (ColorBlockComponent)other!;
         return HighlightedColor == typedOther.HighlightedColor 
                && PressedColor == typedOther.PressedColor 

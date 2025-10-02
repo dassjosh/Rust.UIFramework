@@ -209,14 +209,14 @@ public abstract class CoreComponent : BaseTypedComponent, ICoreComponent
         }
     }
 
-    public override bool Equals(BaseComponent other)
+    public override bool AreEquivalent(BaseComponent other)
     {
-        if (!base.Equals(other)) return false;
+        if (!base.AreEquivalent(other)) return false;
         CoreComponent typedOther = (CoreComponent)other!;
         if(SubComponents.Count != typedOther.SubComponents.Count) return false;
         for (int i = 0; i < SubComponents.Count; i++)
         {
-            if (SubComponents[i] != typedOther.SubComponents[i])
+            if (!SubComponents[i].AreEquivalent(typedOther.SubComponents[i]))
             {
                 return false;
             }
@@ -227,19 +227,23 @@ public abstract class CoreComponent : BaseTypedComponent, ICoreComponent
 
     protected T CopyChild<T>(T target, T value) where T : ChildComponent, new()
     {
-        if (target == null && value != null)
+        if (target == null && value == null)
+        {
+            return null;
+        }
+        if (target == null)
         {
             target = PluginPool.Get<T>();
             target.CopyFrom(value);
         } 
-        else if (target != null && value == null)
+        else if (value == null)
         {
             target.Dispose();
             target = null;
         }
         else
         {
-            target!.CopyFrom(value);
+            target.CopyFrom(value);
         }
         
         return target;

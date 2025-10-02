@@ -110,7 +110,7 @@ public class Benchmarks
         return GetOxideContainer();
     }
 
-    [Benchmark(Baseline = false)]
+    //[Benchmark(Baseline = false)]
     public UiBuilder UiFramework_CreateContainer()
     {
         UiBuilder builder = GetFrameworkBuilder();
@@ -124,7 +124,7 @@ public class Benchmarks
         return _oxideContainer.ToJson();
     }
     
-    //[Benchmark]
+    [Benchmark]
     public JsonFrameworkWriter UiFramework_CreateJson()
     {
         JsonFrameworkWriter writer = _builder.CreateWriter();
@@ -177,7 +177,7 @@ public class Benchmarks
         builder.AddUi(default(SendInfo));
     }
     
-    [Benchmark(Baseline = true)]
+    //[Benchmark(Baseline = true)]
     public UiBuilder UiFramework_Async()
     {
         UiBuilder builder = GetFrameworkBuilder();

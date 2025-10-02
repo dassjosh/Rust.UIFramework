@@ -39,9 +39,9 @@ public abstract class BaseDirectionalLayoutComponent : BaseLayoutComponent
         }
     }
 
-    public override bool Equals(BaseComponent other)
+    public override bool AreEquivalent(BaseComponent other)
     {
-        if (!base.Equals(other)) return false;
+        if (!base.AreEquivalent(other)) return false;
         BaseDirectionalLayoutComponent typedOther = (BaseDirectionalLayoutComponent)other!;
         return Spacing == typedOther.Spacing 
                && ChildForceExpandWidth == typedOther.ChildForceExpandWidth 

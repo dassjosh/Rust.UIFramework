@@ -2,12 +2,12 @@
   "Active": true,
   "Card": {
     "Color": "#FFFFFFFF",
+    "ComponentType": "CoreEnd",
     "Enabled": true,
     "Material": "assets/content/ui/namefontmaterial.mat",
     "Type": "UnityEngine.UI.RawImage"
   },
   "Color": "#FFFFFFFF",
   "Enabled": true,
-  "Material": "assets/content/ui/namefontmaterial.mat",
-  "Position": "(0, 0) (1, 1)"
+  "Material": "assets/content/ui/namefontmaterial.mat"
 }

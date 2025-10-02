@@ -7,12 +7,17 @@ namespace Oxide.Ext.UiFramework.UiElements;
 
 public class UiUpdatable<T> : UiUpdatable where T : BaseUiComponent, new()
 {
+#if SERVER
     private T _previous;
+#else
+    internal T _previous;
+#endif
+    
     public T Current { get; private set; }
 
-    public static UiUpdatable<T> Create(UpdatableBuilder builder, T source)
+    public static UiUpdatable<T> Create(UpdatableBuilder builder, T element)
     {
-        UiUpdatable<T> updatable = builder.PluginPool.Get<UiUpdatable<T>>().Init(source);
+        UiUpdatable<T> updatable = builder.PluginPool.Get<UiUpdatable<T>>().Init(element);
         builder.AddUpdatable(updatable);
         return updatable;
     }
@@ -21,19 +26,25 @@ public class UiUpdatable<T> : UiUpdatable where T : BaseUiComponent, new()
     {
         _previous = PluginPool.Get<T>();
         _previous.CopyFrom(source);
+        _previous.Update = UpdateMode.Update;
         Current = PluginPool.Get<T>();
         Current.CopyFrom(source);
+        Current.Update = UpdateMode.Update;
         return this;
     }
         
     public override void Serialize(JsonFrameworkWriter writer)
     {
-        if (Current != _previous)
+        if (!Current.AreEquivalent(_previous))
         {
             UiFrameworkSerializer.Serialize(writer, Current, _previous, SerializeMode.Update);
-            (_previous, Current) = (Current, _previous);
-            Current.CopyFrom(_previous);
         }
+    }
+
+    public override void Swap()
+    {
+        (_previous, Current) = (Current, _previous);
+        Current.CopyFrom(_previous);
     }
 
     protected override void LeavePool()
@@ -54,4 +65,5 @@ public class UiUpdatable<T> : UiUpdatable where T : BaseUiComponent, new()
 public abstract class UiUpdatable : BasePoolable
 {
     public abstract void Serialize(JsonFrameworkWriter writer);
+    public abstract void Swap();
 }

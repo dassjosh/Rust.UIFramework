@@ -29,5 +29,12 @@ public enum ComponentType : ushort
    
    ColorBlock = 1000,
    ScrollBar = 1001,
-   ScrollViewContent
+   ScrollViewContent = 1002,
+   
+   CoreStart = Empty,
+   CoreEnd = PlayingCard,
+   SubStart = RectTransform,
+   SubEnd = LayoutElement,
+   ChildStart = ColorBlock,
+   ChildEnd = ScrollViewContent,
 }

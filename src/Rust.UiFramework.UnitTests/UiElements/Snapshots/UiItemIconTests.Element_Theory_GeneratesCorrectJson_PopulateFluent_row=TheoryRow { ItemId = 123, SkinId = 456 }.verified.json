@@ -1,22 +1,22 @@
 ﻿{
-  "name": "element",
-  "parent": "parent",
   "components": [
     {
-      "type": "UnityEngine.UI.Image",
-      "itemid": 123,
-      "skinid": 456,
-      "material": "assets/icons/iconmaterial.mat",
-      "fadeIn": 1.5,
       "color": "0.502 0.502 0.502",
-      "imagetype": "2"
+      "fadeIn": 1.5,
+      "imagetype": "2",
+      "itemid": 123,
+      "material": "assets/icons/iconmaterial.mat",
+      "skinid": 456,
+      "type": "UnityEngine.UI.Image"
     },
     {
-      "type": "RectTransform",
-      "anchormin": "0.1 0.2",
       "anchormax": "0.3 0.4",
+      "anchormin": "0.1 0.2",
+      "offsetmax": "300 400",
       "offsetmin": "100 200",
-      "offsetmax": "300 400"
+      "type": "RectTransform"
     }
-  ]
+  ],
+  "name": "element",
+  "parent": "parent"
 }

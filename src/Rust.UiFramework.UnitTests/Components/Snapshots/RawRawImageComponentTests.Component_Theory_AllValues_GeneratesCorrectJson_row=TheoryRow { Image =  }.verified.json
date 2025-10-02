@@ -1,6 +1,6 @@
 ﻿{
-  "type": "UnityEngine.UI.RawImage",
-  "material": "assets/content/ui/namefontmaterial.mat",
+  "color": "1 0.9216 0.0157",
   "fadeIn": 3.5,
-  "color": "1 0.9216 0.0157"
+  "material": "assets/content/ui/namefontmaterial.mat",
+  "type": "UnityEngine.UI.RawImage"
 }

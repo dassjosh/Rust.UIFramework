@@ -3,12 +3,14 @@
   "Color": "#FF0000FF",
   "ColorBlock": {
     "ColorMultiplier": 0.5,
+    "ComponentType": "ColorBlock",
     "FadeDuration": 1.5,
     "HighlightedColor": "#0000FFFF",
     "PressedColor": "#FFA500FF",
     "SelectedColor": "#008000FF"
   },
   "Command": "command",
+  "ComponentType": "Button",
   "Enabled": true,
   "FadeIn": 1.0,
   "ImageType": "Sliced",

@@ -1,10 +1,11 @@
 ﻿{
-  "type": "UnityEngine.UI.Image",
+  "color": "1 0 0",
+  "fadeIn": 1,
+  "imagetype": "1",
   "itemid": 123,
+  "material": "assets/icons/iconmaterial.mat",
+  "placeholderParentId": "name",
   "skinid": 34621422135410688,
   "sprite": "assets/content/ui/ui.background.rounded.png",
-  "material": "assets/icons/iconmaterial.mat",
-  "fadeIn": 1,
-  "color": "1 0 0",
-  "imagetype": "1"
+  "type": "UnityEngine.UI.Image"
 }

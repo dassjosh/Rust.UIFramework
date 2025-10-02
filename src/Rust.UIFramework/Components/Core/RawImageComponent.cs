@@ -48,9 +48,9 @@ public class RawImageComponent : CoreComponent, IGraphicalComponent
         }
     }
     
-    public override bool Equals(BaseComponent other)
+    public override bool AreEquivalent(BaseComponent other)
     {
-        if (!base.Equals(other)) return false;
+        if (!base.AreEquivalent(other)) return false;
         RawImageComponent typedOther = (RawImageComponent)other!;
         return Color == typedOther.Color 
                && FadeIn == typedOther.FadeIn 

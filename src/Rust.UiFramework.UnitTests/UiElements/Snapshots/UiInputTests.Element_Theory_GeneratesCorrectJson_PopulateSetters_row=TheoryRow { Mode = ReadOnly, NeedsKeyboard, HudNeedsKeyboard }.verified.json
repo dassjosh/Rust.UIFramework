@@ -1,29 +1,29 @@
 ﻿{
-  "name": "element",
-  "parent": "parent",
   "components": [
     {
-      "type": "UnityEngine.UI.InputField",
+      "align": "4",
       "characterLimit": 16,
+      "color": "0.502 0.502 0.502",
+      "command": "command",
+      "fadeIn": 1.5,
+      "font": "lcd.ttf",
+      "fontSize": 20,
+      "hudMenuInput": 1,
       "lineType": "2",
       "needsKeyboard": 1,
-      "hudMenuInput": 1,
       "readOnly": 1,
-      "command": "command",
       "text": "text",
-      "fontSize": 20,
-      "font": "lcd.ttf",
-      "align": "4",
-      "verticalOverflow": "1",
-      "fadeIn": 1.5,
-      "color": "0.502 0.502 0.502"
+      "type": "UnityEngine.UI.InputField",
+      "verticalOverflow": "1"
     },
     {
-      "type": "RectTransform",
-      "anchormin": "0.1 0.2",
       "anchormax": "0.3 0.4",
+      "anchormin": "0.1 0.2",
+      "offsetmax": "300 400",
       "offsetmin": "100 200",
-      "offsetmax": "300 400"
+      "type": "RectTransform"
     }
-  ]
+  ],
+  "name": "element",
+  "parent": "parent"
 }

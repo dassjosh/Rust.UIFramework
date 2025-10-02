@@ -79,9 +79,9 @@ public class GridLayoutComponent : BaseLayoutComponent
         }
     }
     
-    public override bool Equals(BaseComponent other)
+    public override bool AreEquivalent(BaseComponent other)
     {
-        if (!base.Equals(other)) return false;
+        if (!base.AreEquivalent(other)) return false;
         GridLayoutComponent typedOther = (GridLayoutComponent)other!;
         return CellSize == typedOther.CellSize 
                && Spacing == typedOther.Spacing 

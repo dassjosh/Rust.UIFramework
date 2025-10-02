@@ -43,7 +43,7 @@ public abstract class CoreComponentSerializer<T> : TypedComponentSerializer<T> w
                 {
                     SubComponent subComponent = component.SubComponents[index];
                     SubComponent defaultsSubComponent = defaults.GetSubComponentByType(subComponent.ComponentType);
-                    if (defaultsSubComponent == null || !subComponent.Equals(defaultsSubComponent))
+                    if (defaultsSubComponent == null || !subComponent.AreEquivalent(defaultsSubComponent))
                     {
                         UiFrameworkSerializer.Serialize(writer, subComponent, defaultsSubComponent, mode);
                     }

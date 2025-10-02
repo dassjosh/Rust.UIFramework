@@ -3,9 +3,9 @@
   "Enabled": true,
   "FontSize": 14,
   "Input": {
+    "ComponentType": "Input",
     "Enabled": true,
     "FontSize": 14,
     "Type": "UnityEngine.UI.InputField"
-  },
-  "Position": "(0, 0) (1, 1)"
+  }
 }
