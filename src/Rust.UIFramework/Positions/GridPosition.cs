@@ -132,9 +132,20 @@ public class GridPosition : BasePosition
 
     private void ApplyPadding()
     {
+        ApplyHorizontalPadding();
+        ApplyVerticalPadding();
+    }
+
+    private void ApplyHorizontalPadding()
+    {
         UiPadding padding = Padding;
         XMin += padding.Left * _xScale;
         XMax -= padding.Right * _xScale;
+    }
+
+    private void ApplyVerticalPadding()
+    {
+        UiPadding padding = Padding;
         YMin += padding.Bottom * _yScale;
         YMax -= padding.Top * _yScale;
     }
@@ -144,7 +155,19 @@ public class GridPosition : BasePosition
         _xScale = 1;
         _yScale = 1;
     }
+
+    public override void ResetX()
+    {
+        base.ResetX();
+        ApplyHorizontalPadding();
+    }
     
+    public override void ResetY()
+    {
+        base.ResetY();
+        ApplyVerticalPadding();
+    }
+
     public override void Reset()
     {
         base.Reset();
