@@ -371,10 +371,10 @@ public static class JsonDefaults
         public static readonly Utf8String Type = "UnityEngine.UI.ContentSizeFitter";
         
         public static readonly Utf8String HorizontalFitName = "horizontalFit";
-        public const ContentSizeFitter.FitMode HorizontalFit = ContentSizeFitter.FitMode.PreferredSize;
+        public const ContentSizeFitter.FitMode HorizontalFit = ContentSizeFitter.FitMode.Unconstrained;
         
         public static readonly Utf8String VerticalFitName = "verticalFit";
-        public const ContentSizeFitter.FitMode VerticalFit = ContentSizeFitter.FitMode.PreferredSize;
+        public const ContentSizeFitter.FitMode VerticalFit = ContentSizeFitter.FitMode.Unconstrained;
     }
 
     public static class LayoutElement
