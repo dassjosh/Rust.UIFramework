@@ -12,7 +12,6 @@ namespace Oxide.Ext.UiFramework.Components;
 [UiFrameworkSerializer(typeof(ScrollViewComponentSerializer))]
 public class ScrollViewComponent : CoreComponent
 {
-    public readonly ScrollViewContentComponent ContentTransform = new();
     public ScrollRect.MovementType MovementType;
     public float Elasticity;
     public bool Inertia;
@@ -20,13 +19,16 @@ public class ScrollViewComponent : CoreComponent
     public float ScrollSensitivity;
     public float HorizontalScrollProgress;
     public float VerticalScrollProgress;
+    
+    public ScrollViewContentComponent ContentTransform { get; private set; }
     public ScrollbarComponent HorizontalScrollbar { get; private set; }
     public ScrollbarComponent VerticalScrollbar { get; private set; }
     
     public override Utf8String Type => JsonDefaults.ScrollView.Type;
     public override ComponentType ComponentType => ComponentType.ScrollView;
 
-    internal void UpdateContentTransform(in UiPosition? position, in UiOffset? offset, in Vector2? pivot) => ContentTransform.UpdateContentTransform(position, offset, pivot);
+    internal ScrollViewContentComponent GetOrCreateContentTransform() => ContentTransform ??= PluginPool.Get<ScrollViewContentComponent>();
+    internal void UpdateContentTransform(in UiPosition? position, in UiOffset? offset, in Vector2? pivot) => GetOrCreateContentTransform().UpdateContentTransform(position, offset, pivot);
     
     internal (ScrollbarComponent horizontal, ScrollbarComponent vertical) AddScrollBars(bool invert = false, bool autoHide = false, string handleSprite = null, string trackSprite = null, float size = JsonDefaults.ScrollBar.Size,
         UiColor? handleColor = null, UiColor? highlightColor = null, UiColor? pressedColor = null, UiColor? trackColor = null)
@@ -84,7 +86,8 @@ public class ScrollViewComponent : CoreComponent
     public override void Reset()
     {
         base.Reset();
-        ContentTransform.Reset();
+        ContentTransform?.Dispose();
+        ContentTransform = null;
         HorizontalScrollbar?.Dispose();
         HorizontalScrollbar = null;
         VerticalScrollbar?.Dispose();
