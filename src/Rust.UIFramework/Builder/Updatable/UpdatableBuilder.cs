@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Network;
 using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Json;
@@ -61,7 +62,11 @@ public class UpdatableBuilder : BaseBuilder
         return bytes;
     }
     
-    public override void Dispose() => Cleanup();
+    public override void Dispose()
+    {
+        Cleanup();
+        GC.SuppressFinalize(this);
+    }
 
     private void Cleanup()
     {
