@@ -18,8 +18,8 @@ public readonly record struct UiPadding(float Left, float Bottom, float Right, f
 
     public UiPadding(float padding) : this(padding, padding, padding, padding) {}
     
-    public static implicit operator UiOffset(UiPadding padding) => padding.ToOffset();
-    public static implicit operator UiPosition(UiPadding padding) => padding.ToPosition();
+    public static UiOffset operator +(UiOffset offset, UiPadding padding) => new(offset.Min.x + padding.Left, offset.Min.y + padding.Bottom, offset.Max.x - padding.Right,  offset.Max.y - padding.Top);
+    public static UiPosition operator +(UiPosition position, UiPadding padding) => new(position.Min.x + padding.Left, position.Min.y + padding.Bottom, position.Max.x - padding.Right,  position.Max.y - padding.Top);
     
     public UiOffset ToOffset() => new(Left, Bottom, -Right, -Top);
     public UiPosition ToPosition() => new(Left, Bottom, -Right, -Top);
