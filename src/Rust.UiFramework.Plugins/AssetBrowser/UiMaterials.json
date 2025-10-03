@@ -51,6 +51,7 @@
               "Path": "assets/content/materials/displacement",
               "Files": {
                 "FoliagedisplaceCircle": "assets/content/materials/displacement/foliagedisplace_circle.mat",
+                "FoliagedisplaceRefresh": "assets/content/materials/displacement/foliagedisplace_refresh.mat",
                 "FoliagedisplaceSquare": "assets/content/materials/displacement/foliagedisplace_square.mat"
               },
               "SubFolders": {}
@@ -1442,9 +1443,12 @@
                           "Path": "assets/content/nature/terrain/stones/models/materials",
                           "Files": {
                             "GravelSplatRocks": "assets/content/nature/terrain/stones/models/materials/gravel_splat_rocks.mat",
+                            "GravelSplatRocksInst": "assets/content/nature/terrain/stones/models/materials/gravel_splat_rocks_inst.mat",
                             "StoneSplatRocks": "assets/content/nature/terrain/stones/models/materials/stone_splat_rocks.mat",
                             "StonesSplatRocks": "assets/content/nature/terrain/stones/models/materials/stones_splat_rocks.mat",
-                            "StonesSplatRocksSnow": "assets/content/nature/terrain/stones/models/materials/stones_splat_rocks_snow.mat"
+                            "StonesSplatRocksInst": "assets/content/nature/terrain/stones/models/materials/stones_splat_rocks_inst.mat",
+                            "StonesSplatRocksSnow": "assets/content/nature/terrain/stones/models/materials/stones_splat_rocks_snow.mat",
+                            "StonesSplatRocksSnowInst": "assets/content/nature/terrain/stones/models/materials/stones_splat_rocks_snow_inst.mat"
                           },
                           "SubFolders": {}
                         }
@@ -1501,15 +1505,25 @@
                       "Files": {
                         "GroundPlants": "assets/content/nature/ground_plants/models/materials/ground_plants.mat",
                         "GroundPlantsArctic": "assets/content/nature/ground_plants/models/materials/ground_plants_arctic.mat",
+                        "GroundPlantsArcticInst": "assets/content/nature/ground_plants/models/materials/ground_plants_arctic_inst.mat",
                         "GroundPlantsArcticNoSnow": "assets/content/nature/ground_plants/models/materials/ground_plants_arctic_no_snow.mat",
+                        "GroundPlantsArcticNoSnowInst": "assets/content/nature/ground_plants/models/materials/ground_plants_arctic_no_snow_inst.mat",
                         "GroundPlantsArid": "assets/content/nature/ground_plants/models/materials/ground_plants_arid.mat",
+                        "GroundPlantsAridInst": "assets/content/nature/ground_plants/models/materials/ground_plants_arid_inst.mat",
                         "GroundPlantsBeach": "assets/content/nature/ground_plants/models/materials/ground_plants_beach.mat",
+                        "GroundPlantsBeachInst": "assets/content/nature/ground_plants/models/materials/ground_plants_beach_inst.mat",
                         "GroundPlantsForestTemperate": "assets/content/nature/ground_plants/models/materials/ground_plants_forest_temperate.mat",
+                        "GroundPlantsForestTemperateInst": "assets/content/nature/ground_plants/models/materials/ground_plants_forest_temperate_inst.mat",
                         "GroundPlantsForestTundra": "assets/content/nature/ground_plants/models/materials/ground_plants_forest_tundra.mat",
+                        "GroundPlantsForestTundraInst": "assets/content/nature/ground_plants/models/materials/ground_plants_forest_tundra_inst.mat",
+                        "GroundPlantsInst": "assets/content/nature/ground_plants/models/materials/ground_plants_inst.mat",
                         "GroundPlantsMoss": "assets/content/nature/ground_plants/models/materials/ground_plants_moss.mat",
+                        "GroundPlantsMossInst": "assets/content/nature/ground_plants/models/materials/ground_plants_moss_inst.mat",
                         "GroundPlantsMossTundra": "assets/content/nature/ground_plants/models/materials/ground_plants_moss_tundra.mat",
+                        "GroundPlantsMossTundraInst": "assets/content/nature/ground_plants/models/materials/ground_plants_moss_tundra_inst.mat",
                         "GroundPlantsShadows": "assets/content/nature/ground_plants/models/materials/ground_plants_shadows.mat",
-                        "GroundPlantsTundra": "assets/content/nature/ground_plants/models/materials/ground_plants_tundra.mat"
+                        "GroundPlantsTundra": "assets/content/nature/ground_plants/models/materials/ground_plants_tundra.mat",
+                        "GroundPlantsTundraInst": "assets/content/nature/ground_plants/models/materials/ground_plants_tundra_inst.mat"
                       },
                       "SubFolders": {}
                     }
@@ -1526,7 +1540,8 @@
                   "Name": "materials",
                   "Path": "assets/content/nature/ground_plants_jungle/materials",
                   "Files": {
-                    "GroundPlantsJungle": "assets/content/nature/ground_plants_jungle/materials/ground_plants_jungle.mat"
+                    "GroundPlantsJungle": "assets/content/nature/ground_plants_jungle/materials/ground_plants_jungle.mat",
+                    "GroundPlantsJungleInst": "assets/content/nature/ground_plants_jungle/materials/ground_plants_jungle_inst.mat"
                   },
                   "SubFolders": {}
                 }
@@ -1995,7 +2010,8 @@
                       "Name": "materials",
                       "Path": "assets/content/nature/underwater_plants/models/materials",
                       "Files": {
-                        "UnderWaterPlants": "assets/content/nature/underwater_plants/models/materials/underwater_plants.mat"
+                        "UnderWaterPlants": "assets/content/nature/underwater_plants/models/materials/underwater_plants.mat",
+                        "UnderWaterPlantsInst": "assets/content/nature/underwater_plants/models/materials/underwater_plants_inst.mat"
                       },
                       "SubFolders": {}
                     }
@@ -7462,6 +7478,7 @@
                     "SmokeExhaustfumesLowdepth": "assets/content/effects/materials/smoke/smoke_exhaustfumes_lowdepth.mat",
                     "SmokeExplodeVertical": "assets/content/effects/materials/smoke/smoke_explode_vertical.mat",
                     "SmokeGrenade": "assets/content/effects/materials/smoke/smoke_grenade.mat",
+                    "SmokeVolcano": "assets/content/effects/materials/smoke/smoke_volcano.mat",
                     "TorchSmokeA": "assets/content/effects/materials/smoke/torch_smoke_a.mat",
                     "WarmFumesAdditive": "assets/content/effects/materials/smoke/warm_fumes_additive.mat",
                     "Wispy4": "assets/content/effects/materials/smoke/wispy-4.mat",
@@ -8038,6 +8055,7 @@
                 "VfxGibsSnow": "assets/content/effects/cars/vfx_gibs_snow.mat",
                 "VfxHeatshimmer": "assets/content/effects/cars/vfx_heatshimmer.mat",
                 "VfxHeatshimmerHeater": "assets/content/effects/cars/vfx_heatshimmer_heater.mat",
+                "VfxHeatshimmerLava": "assets/content/effects/cars/vfx_heatshimmer_lava.mat",
                 "VfxHeatshimmerMilder": "assets/content/effects/cars/vfx_heatshimmer_milder.mat",
                 "VfxHeatshimmerStronger": "assets/content/effects/cars/vfx_heatshimmer_stronger.mat",
                 "VfxHeatshimmerStrongest": "assets/content/effects/cars/vfx_heatshimmer_strongest.mat",
@@ -15707,7 +15725,7 @@
                   "Name": "materials",
                   "Path": "assets/prefabs/deployable/bed/materials",
                   "Files": {
-                    "Bed": "assets/prefabs/deployable/bed/materials/bed.mat"
+                    "BedUpdated": "assets/prefabs/deployable/bed/materials/bed_updated.mat"
                   },
                   "SubFolders": {}
                 }
@@ -15977,6 +15995,170 @@
                           "SubFolders": {}
                         }
                       }
+                    }
+                  }
+                },
+                "lights": {
+                  "Name": "lights",
+                  "Path": "assets/prefabs/deployable/playerioents/lights",
+                  "Files": {},
+                  "SubFolders": {
+                    "cozypack": {
+                      "Name": "cozypack",
+                      "Path": "assets/prefabs/deployable/playerioents/lights/cozypack",
+                      "Files": {},
+                      "SubFolders": {
+                        "chandelier": {
+                          "Name": "chandelier",
+                          "Path": "assets/prefabs/deployable/playerioents/lights/cozypack/chandelier",
+                          "Files": {
+                            "ChandelierBulbsCutout": "assets/prefabs/deployable/playerioents/lights/cozypack/chandelier/chandelier_bulbs_cutout.mat",
+                            "ChandelierBulbsCutoutOn": "assets/prefabs/deployable/playerioents/lights/cozypack/chandelier/chandelier_bulbs_cutout_on.mat",
+                            "ChandelierBulbsTransparent": "assets/prefabs/deployable/playerioents/lights/cozypack/chandelier/chandelier_bulbs_transparent.mat",
+                            "ChandelierBulbsTransparentOn": "assets/prefabs/deployable/playerioents/lights/cozypack/chandelier/chandelier_bulbs_transparent_on.mat",
+                            "ChandelierBulbsTransparentOnBrightchandelier": "assets/prefabs/deployable/playerioents/lights/cozypack/chandelier/chandelier_bulbs_transparent_on_brightchandelier.mat"
+                          },
+                          "SubFolders": {
+                            "models": {
+                              "Name": "models",
+                              "Path": "assets/prefabs/deployable/playerioents/lights/cozypack/chandelier/models",
+                              "Files": {},
+                              "SubFolders": {
+                                "materials": {
+                                  "Name": "materials",
+                                  "Path": "assets/prefabs/deployable/playerioents/lights/cozypack/chandelier/models/materials",
+                                  "Files": {
+                                    "ChainTrim": "assets/prefabs/deployable/playerioents/lights/cozypack/chandelier/models/materials/chain_trim.mat",
+                                    "ChainTrimAdjustedTiling": "assets/prefabs/deployable/playerioents/lights/cozypack/chandelier/models/materials/chain_trim_adjusted_tiling.mat",
+                                    "ChainTrimStatic": "assets/prefabs/deployable/playerioents/lights/cozypack/chandelier/models/materials/chain_trim_static.mat",
+                                    "ChainTrimStaticNocutout": "assets/prefabs/deployable/playerioents/lights/cozypack/chandelier/models/materials/chain_trim_static_nocutout.mat",
+                                    "Chandelier": "assets/prefabs/deployable/playerioents/lights/cozypack/chandelier/models/materials/chandelier.mat"
+                                  },
+                                  "SubFolders": {}
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "fairylights": {
+                          "Name": "fairylights",
+                          "Path": "assets/prefabs/deployable/playerioents/lights/cozypack/fairylights",
+                          "Files": {},
+                          "SubFolders": {
+                            "materials": {
+                              "Name": "materials",
+                              "Path": "assets/prefabs/deployable/playerioents/lights/cozypack/fairylights/materials",
+                              "Files": {
+                                "DlcFairyLightsWire": "assets/prefabs/deployable/playerioents/lights/cozypack/fairylights/materials/dlc_fairy_lights_wire.mat"
+                              },
+                              "SubFolders": {}
+                            },
+                            "bulbs": {
+                              "Name": "bulbs",
+                              "Path": "assets/prefabs/deployable/playerioents/lights/cozypack/fairylights/bulbs",
+                              "Files": {},
+                              "SubFolders": {
+                                "materials": {
+                                  "Name": "materials",
+                                  "Path": "assets/prefabs/deployable/playerioents/lights/cozypack/fairylights/bulbs/materials",
+                                  "Files": {
+                                    "FairyLightBulbBlue": "assets/prefabs/deployable/playerioents/lights/cozypack/fairylights/bulbs/materials/fairylight bulb.blue.mat",
+                                    "FairyLightBulbGreen": "assets/prefabs/deployable/playerioents/lights/cozypack/fairylights/bulbs/materials/fairylight bulb.green.mat",
+                                    "FairyLightBulbRed": "assets/prefabs/deployable/playerioents/lights/cozypack/fairylights/bulbs/materials/fairylight bulb.red.mat",
+                                    "FairyLightBulbWarmYellow": "assets/prefabs/deployable/playerioents/lights/cozypack/fairylights/bulbs/materials/fairylight bulb.warmyellow.mat"
+                                  },
+                                  "SubFolders": {}
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "hangingbulbs": {
+                          "Name": "hangingbulbs",
+                          "Path": "assets/prefabs/deployable/playerioents/lights/cozypack/hangingbulbs",
+                          "Files": {},
+                          "SubFolders": {
+                            "materials": {
+                              "Name": "materials",
+                              "Path": "assets/prefabs/deployable/playerioents/lights/cozypack/hangingbulbs/materials",
+                              "Files": {
+                                "DlcLightBulbs": "assets/prefabs/deployable/playerioents/lights/cozypack/hangingbulbs/materials/dlc_light_bulbs.mat",
+                                "DlcLightBulbsCutout": "assets/prefabs/deployable/playerioents/lights/cozypack/hangingbulbs/materials/dlc_light_bulbs_cutout.mat",
+                                "DlcLightBulbsCutoutOn": "assets/prefabs/deployable/playerioents/lights/cozypack/hangingbulbs/materials/dlc_light_bulbs_cutout_on.mat",
+                                "DlcLightBulbsfairyCutout": "assets/prefabs/deployable/playerioents/lights/cozypack/hangingbulbs/materials/dlc_light_bulbsfairy_cutout.mat",
+                                "DlcLightBulbsTransparent": "assets/prefabs/deployable/playerioents/lights/cozypack/hangingbulbs/materials/dlc_light_bulbs_transparent.mat",
+                                "DlcLightBulbsTransparentNotexture": "assets/prefabs/deployable/playerioents/lights/cozypack/hangingbulbs/materials/dlc_light_bulbs_transparent_notexture.mat",
+                                "DlcLightBulbsTransparentNotextureOnSpotLight": "assets/prefabs/deployable/playerioents/lights/cozypack/hangingbulbs/materials/dlc_light_bulbs_transparent_notexture_on_spotlight.mat",
+                                "DlcLightBulbsTransparentOffOpaque": "assets/prefabs/deployable/playerioents/lights/cozypack/hangingbulbs/materials/dlc_light_bulbs_transparent_off_opaque.mat",
+                                "DlcLightBulbsTransparentOn": "assets/prefabs/deployable/playerioents/lights/cozypack/hangingbulbs/materials/dlc_light_bulbs_transparent_on.mat",
+                                "DlcLightBulbsTransparentOnOpaque": "assets/prefabs/deployable/playerioents/lights/cozypack/hangingbulbs/materials/dlc_light_bulbs_transparent_on_opaque.mat",
+                                "HangingbulbsWire": "assets/prefabs/deployable/playerioents/lights/cozypack/hangingbulbs/materials/hangingbulbs_wire.mat"
+                              },
+                              "SubFolders": {}
+                            }
+                          }
+                        },
+                        "orientablespotlight": {
+                          "Name": "orientablespotlight",
+                          "Path": "assets/prefabs/deployable/playerioents/lights/cozypack/orientablespotlight",
+                          "Files": {},
+                          "SubFolders": {
+                            "materials": {
+                              "Name": "materials",
+                              "Path": "assets/prefabs/deployable/playerioents/lights/cozypack/orientablespotlight/materials",
+                              "Files": {
+                                "DlcLightSpot": "assets/prefabs/deployable/playerioents/lights/cozypack/orientablespotlight/materials/dlc_light_spot.mat",
+                                "DlcLightSpotGlass": "assets/prefabs/deployable/playerioents/lights/cozypack/orientablespotlight/materials/dlc_light_spot_glass.mat",
+                                "DlcLightSpotOff": "assets/prefabs/deployable/playerioents/lights/cozypack/orientablespotlight/materials/dlc_light_spot_off.mat",
+                                "DlcSpotLightTripod": "assets/prefabs/deployable/playerioents/lights/cozypack/orientablespotlight/materials/dlc_spotlight_tripod.mat"
+                              },
+                              "SubFolders": {}
+                            }
+                          }
+                        },
+                        "electrictablelamp": {
+                          "Name": "electrictablelamp",
+                          "Path": "assets/prefabs/deployable/playerioents/lights/cozypack/electrictablelamp",
+                          "Files": {},
+                          "SubFolders": {
+                            "models": {
+                              "Name": "models",
+                              "Path": "assets/prefabs/deployable/playerioents/lights/cozypack/electrictablelamp/models",
+                              "Files": {
+                                "Electrictablelamp": "assets/prefabs/deployable/playerioents/lights/cozypack/electrictablelamp/models/electrictablelamp.mat"
+                              },
+                              "SubFolders": {}
+                            }
+                          }
+                        },
+                        "fluorescentlights": {
+                          "Name": "fluorescentlights",
+                          "Path": "assets/prefabs/deployable/playerioents/lights/cozypack/fluorescentlights",
+                          "Files": {},
+                          "SubFolders": {
+                            "materials": {
+                              "Name": "materials",
+                              "Path": "assets/prefabs/deployable/playerioents/lights/cozypack/fluorescentlights/materials",
+                              "Files": {
+                                "IndustrialStripLight": "assets/prefabs/deployable/playerioents/lights/cozypack/fluorescentlights/materials/industrial_strip_light.mat",
+                                "IndustrialStripLightGlass": "assets/prefabs/deployable/playerioents/lights/cozypack/fluorescentlights/materials/industrial_strip_light_glass.mat",
+                                "IndustrialStripLightGlassOff": "assets/prefabs/deployable/playerioents/lights/cozypack/fluorescentlights/materials/industrial_strip_light_glass_off.mat",
+                                "IndustrialStripLightMount": "assets/prefabs/deployable/playerioents/lights/cozypack/fluorescentlights/materials/industrial_strip_light_mount.mat",
+                                "IndustrialStripLightOff": "assets/prefabs/deployable/playerioents/lights/cozypack/fluorescentlights/materials/industrial_strip_light_off.mat"
+                              },
+                              "SubFolders": {}
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "sirenlight": {
+                      "Name": "sirenlight",
+                      "Path": "assets/prefabs/deployable/playerioents/lights/sirenlight",
+                      "Files": {
+                        "Sirenemission": "assets/prefabs/deployable/playerioents/lights/sirenlight/sirenemission.mat"
+                      },
+                      "SubFolders": {}
                     }
                   }
                 },
@@ -16287,21 +16469,6 @@
                     }
                   }
                 },
-                "lights": {
-                  "Name": "lights",
-                  "Path": "assets/prefabs/deployable/playerioents/lights",
-                  "Files": {},
-                  "SubFolders": {
-                    "sirenlight": {
-                      "Name": "sirenlight",
-                      "Path": "assets/prefabs/deployable/playerioents/lights/sirenlight",
-                      "Files": {
-                        "Sirenemission": "assets/prefabs/deployable/playerioents/lights/sirenlight/sirenemission.mat"
-                      },
-                      "SubFolders": {}
-                    }
-                  }
-                },
                 "app": {
                   "Name": "app",
                   "Path": "assets/prefabs/deployable/playerioents/app",
@@ -16531,6 +16698,22 @@
                   "Path": "assets/prefabs/deployable/chair/skins",
                   "Files": {},
                   "SubFolders": {
+                    "cozy_beanbag_seat": {
+                      "Name": "cozy_beanbag_seat",
+                      "Path": "assets/prefabs/deployable/chair/skins/cozy_beanbag_seat",
+                      "Files": {},
+                      "SubFolders": {
+                        "materials": {
+                          "Name": "materials",
+                          "Path": "assets/prefabs/deployable/chair/skins/cozy_beanbag_seat/materials",
+                          "Files": {
+                            "CozyBeanBagSeat1": "assets/prefabs/deployable/chair/skins/cozy_beanbag_seat/materials/cozy_beanbag_seat_1.mat",
+                            "CozyBeanBagSeat2": "assets/prefabs/deployable/chair/skins/cozy_beanbag_seat/materials/cozy_beanbag_seat_2.mat"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    },
                     "pilot_hazmat_ejector_seat": {
                       "Name": "pilot_hazmat_ejector_seat",
                       "Path": "assets/prefabs/deployable/chair/skins/pilot_hazmat_ejector_seat",
@@ -16576,6 +16759,37 @@
                     "MetalPanelsRefineryLod": "assets/prefabs/deployable/oil refinery/materials/metal_panels_refinery_lod.mat",
                     "RefineryALod4": "assets/prefabs/deployable/oil refinery/materials/refinery_a_lod4.mat",
                     "RefineryGrill": "assets/prefabs/deployable/oil refinery/materials/refinery_grill.mat"
+                  },
+                  "SubFolders": {}
+                }
+              }
+            },
+            "charity_plushie_01": {
+              "Name": "charity_plushie_01",
+              "Path": "assets/prefabs/deployable/charity_plushie_01",
+              "Files": {},
+              "SubFolders": {
+                "material": {
+                  "Name": "material",
+                  "Path": "assets/prefabs/deployable/charity_plushie_01/material",
+                  "Files": {
+                    "CharityPlushie01": "assets/prefabs/deployable/charity_plushie_01/material/charity_plushie_01.mat",
+                    "CharityPlushie01Sash": "assets/prefabs/deployable/charity_plushie_01/material/charity_plushie_01_sash.mat"
+                  },
+                  "SubFolders": {}
+                }
+              }
+            },
+            "charity_plushie_02": {
+              "Name": "charity_plushie_02",
+              "Path": "assets/prefabs/deployable/charity_plushie_02",
+              "Files": {},
+              "SubFolders": {
+                "material": {
+                  "Name": "material",
+                  "Path": "assets/prefabs/deployable/charity_plushie_02/material",
+                  "Files": {
+                    "CharityPlushie02": "assets/prefabs/deployable/charity_plushie_02/material/charity_plushie_02.mat"
                   },
                   "SubFolders": {}
                 }
@@ -16888,6 +17102,22 @@
                       "SubFolders": {}
                     }
                   }
+                }
+              }
+            },
+            "wall cabinet": {
+              "Name": "wall cabinet",
+              "Path": "assets/prefabs/deployable/wall cabinet",
+              "Files": {},
+              "SubFolders": {
+                "material": {
+                  "Name": "material",
+                  "Path": "assets/prefabs/deployable/wall cabinet/material",
+                  "Files": {
+                    "Cozywallstorage": "assets/prefabs/deployable/wall cabinet/material/cozywallstorage.mat",
+                    "CozywallstorageGlass": "assets/prefabs/deployable/wall cabinet/material/cozywallstorage_glass.mat"
+                  },
+                  "SubFolders": {}
                 }
               }
             },
@@ -17474,6 +17704,21 @@
                 }
               }
             },
+            "large_cozy_water_fountain_a": {
+              "Name": "large_cozy_water_fountain_a",
+              "Path": "assets/prefabs/deployable/large_cozy_water_fountain_a",
+              "Files": {},
+              "SubFolders": {
+                "materials": {
+                  "Name": "materials",
+                  "Path": "assets/prefabs/deployable/large_cozy_water_fountain_a/materials",
+                  "Files": {
+                    "LargeCozyWaterFountainA": "assets/prefabs/deployable/large_cozy_water_fountain_a/materials/large_cozy_water_fountain_a.mat"
+                  },
+                  "SubFolders": {}
+                }
+              }
+            },
             "legacyfurnace": {
               "Name": "legacyfurnace",
               "Path": "assets/prefabs/deployable/legacyfurnace",
@@ -17918,6 +18163,28 @@
                       "Files": {
                         "Speaker": "assets/prefabs/deployable/speaker/models/materials/speaker.mat",
                         "SpeakerBlank": "assets/prefabs/deployable/speaker/models/materials/speaker_blank.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                }
+              }
+            },
+            "spike trap": {
+              "Name": "spike trap",
+              "Path": "assets/prefabs/deployable/spike trap",
+              "Files": {},
+              "SubFolders": {
+                "models": {
+                  "Name": "models",
+                  "Path": "assets/prefabs/deployable/spike trap/models",
+                  "Files": {},
+                  "SubFolders": {
+                    "material": {
+                      "Name": "material",
+                      "Path": "assets/prefabs/deployable/spike trap/models/material",
+                      "Files": {
+                        "Spiketrap": "assets/prefabs/deployable/spike trap/models/material/spiketrap.mat"
                       },
                       "SubFolders": {}
                     }
@@ -18641,32 +18908,31 @@
                 "poweredlights": {
                   "Name": "poweredlights",
                   "Path": "assets/prefabs/misc/xmas/poweredlights",
-                  "Files": {
-                    "Glow": "assets/prefabs/misc/xmas/poweredlights/glow.mat",
-                    "Glowoff": "assets/prefabs/misc/xmas/poweredlights/glowoff.mat",
-                    "JunctionBox": "assets/prefabs/misc/xmas/poweredlights/junctionbox.mat"
-                  },
+                  "Files": {},
                   "SubFolders": {
-                    "material": {
-                      "Name": "material",
-                      "Path": "assets/prefabs/misc/xmas/poweredlights/material",
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/prefabs/misc/xmas/poweredlights/materials",
                       "Files": {
-                        "ChristmasLight": "assets/prefabs/misc/xmas/poweredlights/material/christmas_light.mat",
-                        "ChristmasLightGlow": "assets/prefabs/misc/xmas/poweredlights/material/christmas_light_glow.mat",
-                        "ChristmasLightStatic": "assets/prefabs/misc/xmas/poweredlights/material/christmas_light_static.mat",
-                        "ChristmasLightStaticBlue": "assets/prefabs/misc/xmas/poweredlights/material/christmas_light_static_blue.mat",
-                        "ChristmasLightStaticGreen": "assets/prefabs/misc/xmas/poweredlights/material/christmas_light_static_green.mat",
-                        "ChristmasLightStaticOff": "assets/prefabs/misc/xmas/poweredlights/material/christmas_light_static_off.mat",
-                        "ChristmasLightStaticViolet": "assets/prefabs/misc/xmas/poweredlights/material/christmas_light_static_violet.mat",
-                        "ChristmasLightStaticYellow": "assets/prefabs/misc/xmas/poweredlights/material/christmas_light_static_yellow.mat",
-                        "ChristmasLightV2": "assets/prefabs/misc/xmas/poweredlights/material/christmas_light_v2.mat"
+                        "ChristmasLight": "assets/prefabs/misc/xmas/poweredlights/materials/christmas_light.mat",
+                        "ChristmasLightGlow": "assets/prefabs/misc/xmas/poweredlights/materials/christmas_light_glow.mat",
+                        "ChristmasLightStatic": "assets/prefabs/misc/xmas/poweredlights/materials/christmas_light_static.mat",
+                        "ChristmasLightStaticBlue": "assets/prefabs/misc/xmas/poweredlights/materials/christmas_light_static_blue.mat",
+                        "ChristmasLightStaticGreen": "assets/prefabs/misc/xmas/poweredlights/materials/christmas_light_static_green.mat",
+                        "ChristmasLightStaticOff": "assets/prefabs/misc/xmas/poweredlights/materials/christmas_light_static_off.mat",
+                        "ChristmasLightStaticViolet": "assets/prefabs/misc/xmas/poweredlights/materials/christmas_light_static_violet.mat",
+                        "ChristmasLightStaticYellow": "assets/prefabs/misc/xmas/poweredlights/materials/christmas_light_static_yellow.mat",
+                        "ChristmasLightV2": "assets/prefabs/misc/xmas/poweredlights/materials/christmas_light_v2.mat",
+                        "Glow": "assets/prefabs/misc/xmas/poweredlights/materials/glow.mat",
+                        "Glowoff": "assets/prefabs/misc/xmas/poweredlights/materials/glowoff.mat",
+                        "JunctionBox": "assets/prefabs/misc/xmas/poweredlights/materials/junctionbox.mat"
                       },
                       "SubFolders": {
                         "controlbox": {
                           "Name": "controlbox",
-                          "Path": "assets/prefabs/misc/xmas/poweredlights/material/controlbox",
+                          "Path": "assets/prefabs/misc/xmas/poweredlights/materials/controlbox",
                           "Files": {
-                            "XmasControlBox": "assets/prefabs/misc/xmas/poweredlights/material/controlbox/xmas_controlbox.mat"
+                            "XmasControlBox": "assets/prefabs/misc/xmas/poweredlights/materials/controlbox/xmas_controlbox.mat"
                           },
                           "SubFolders": {}
                         }
@@ -24594,6 +24860,21 @@
                 }
               }
             },
+            "viewmodel": {
+              "Name": "viewmodel",
+              "Path": "assets/prefabs/ammo/viewmodel",
+              "Files": {},
+              "SubFolders": {
+                "materials": {
+                  "Name": "materials",
+                  "Path": "assets/prefabs/ammo/viewmodel/materials",
+                  "Files": {
+                    "ShotgunShellViewModel": "assets/prefabs/ammo/viewmodel/materials/shotgun_shell_viewmodel.mat"
+                  },
+                  "SubFolders": {}
+                }
+              }
+            },
             "torpedo": {
               "Name": "torpedo",
               "Path": "assets/prefabs/ammo/torpedo",
@@ -25193,6 +25474,28 @@
                       "Path": "assets/prefabs/resource/plantfiber/model/materials",
                       "Files": {
                         "Animalfat": "assets/prefabs/resource/plantfiber/model/materials/animalfat.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                }
+              }
+            },
+            "blueprint fragment": {
+              "Name": "blueprint fragment",
+              "Path": "assets/prefabs/resource/blueprint fragment",
+              "Files": {},
+              "SubFolders": {
+                "model": {
+                  "Name": "model",
+                  "Path": "assets/prefabs/resource/blueprint fragment/model",
+                  "Files": {},
+                  "SubFolders": {
+                    "material": {
+                      "Name": "material",
+                      "Path": "assets/prefabs/resource/blueprint fragment/model/material",
+                      "Files": {
+                        "Blueprintfragments": "assets/prefabs/resource/blueprint fragment/model/material/blueprintfragments.mat"
                       },
                       "SubFolders": {}
                     }
@@ -26781,6 +27084,21 @@
                         "Backpack": "assets/prefabs/clothes/suit.hazmat/spacesuit/materials/backpack.mat",
                         "Helmet": "assets/prefabs/clothes/suit.hazmat/spacesuit/materials/helmet.mat",
                         "Suit": "assets/prefabs/clothes/suit.hazmat/spacesuit/materials/suit.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
+                "clothing_mannequin": {
+                  "Name": "clothing_mannequin",
+                  "Path": "assets/prefabs/clothes/suit.hazmat/clothing_mannequin",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/prefabs/clothes/suit.hazmat/clothing_mannequin/materials",
+                      "Files": {
+                        "ClothingMannequin": "assets/prefabs/clothes/suit.hazmat/clothing_mannequin/materials/clothing_mannequin.mat"
                       },
                       "SubFolders": {}
                     }
@@ -29858,6 +30176,187 @@
           "Path": "assets/prefabs/wallpaper",
           "Files": {},
           "SubFolders": {
+            "skins": {
+              "Name": "skins",
+              "Path": "assets/prefabs/wallpaper/skins",
+              "Files": {},
+              "SubFolders": {
+                "2024-09_wallpaper_starter_pack": {
+                  "Name": "2024-09_wallpaper_starter_pack",
+                  "Path": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/materials",
+                      "Files": {
+                        "BlueDiamondWallPaperA": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/materials/blue_diamond_wallpaper_a.mat",
+                        "CloudsWallPaper": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/materials/clouds_wallpaper.mat",
+                        "GeometricWallPaperA": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/materials/geometric_wallpaper_a.mat",
+                        "GeometricWallPaperB": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/materials/geometric_wallpaper_b.mat",
+                        "GlowBoardWallPaperA": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/materials/glowboard_wallpaper_a.mat",
+                        "GlowBoardWallPaperB": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/materials/glowboard_wallpaper_b.mat",
+                        "PolkaDotsWallPaperA": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/materials/polka_dots_wallpaper_a.mat",
+                        "PolkaDotsWallPaperB": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/materials/polka_dots_wallpaper_b.mat",
+                        "PolkaDotsWallPaperC": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/materials/polka_dots_wallpaper_c.mat",
+                        "RetroWallPaperA": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/materials/retro_wallpaper_a.mat",
+                        "RetroWallPaperB": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/materials/retro_wallpaper_b.mat",
+                        "RetroWallPaperC": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/materials/retro_wallpaper_c.mat",
+                        "RoyalWallPaperA": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/materials/royal_wallpaper_a.mat",
+                        "RoyalWallPaperB": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/materials/royal_wallpaper_b.mat",
+                        "RoyalWallPaperC": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/materials/royal_wallpaper_c.mat",
+                        "SubwayWallPaperA": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/materials/subway_wallpaper_a.mat",
+                        "SubwayWallPaperB": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/materials/subway_wallpaper_b.mat",
+                        "VenetianPlasterWallPaperA": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/materials/venetian_plaster_wallpaper_a.mat",
+                        "VenetianPlasterWallPaperB": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/materials/venetian_plaster_wallpaper_b.mat",
+                        "VenetianPlasterWallPaperC": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/materials/venetian_plaster_wallpaper_c.mat",
+                        "VintageWallPaperBlue": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/materials/vintage_wallpaper_blue.mat",
+                        "VintageWallPaperGreen": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/materials/vintage_wallpaper_green.mat",
+                        "VintageWallPaperRed": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/materials/vintage_wallpaper_red.mat",
+                        "VintageWallPaperYellow": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/materials/vintage_wallpaper_yellow.mat",
+                        "WainscottingWallPaperA": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/materials/wainscotting_wallpaper_a.mat",
+                        "WainscottingWallPaperB": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/materials/wainscotting_wallpaper_b.mat",
+                        "WainscottingWallPaperC": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/materials/wainscotting_wallpaper_c.mat",
+                        "YellowStripeWallPaperA": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/materials/yellow_stripe_wallpaper_a.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
+                "2025-06_floor&ceiling_pack_dlc": {
+                  "Name": "2025-06_floor&ceiling_pack_dlc",
+                  "Path": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/materials",
+                      "Files": {
+                        "CeilingMetalSheetA": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/materials/ceiling_metal_sheet_a.mat",
+                        "CeilingMetalSheetB": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/materials/ceiling_metal_sheet_b.mat",
+                        "CeilingMetalSheetC": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/materials/ceiling_metal_sheet_c.mat",
+                        "CeilingOffice": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/materials/ceiling_office.mat",
+                        "CeilingParquetC": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/materials/ceiling_parquet_c.mat",
+                        "CeilingParquetPaintedA": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/materials/ceiling_parquet_painted_a.mat",
+                        "CeilingParquetPaintedABlue": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/materials/ceiling_parquet_painted_a_blue.mat",
+                        "CeilingParquetPaintedABlue02": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/materials/ceiling_parquet_painted_a_blue_02.mat",
+                        "CeilingParquetPaintedAGreen": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/materials/ceiling_parquet_painted_a_green.mat",
+                        "CeilingParquetPaintedAPink": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/materials/ceiling_parquet_painted_a_pink.mat",
+                        "CeilingParquetPaintedAYellow": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/materials/ceiling_parquet_painted_a_yellow.mat",
+                        "CeilingParquetPaintedD": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/materials/ceiling_parquet_painted_d.mat",
+                        "CeilingPlasterBoardA": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/materials/ceiling_plasterboard_a.mat",
+                        "CeilingPlasterDamagedBlue": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/materials/ceiling_plaster_damaged_blue.mat",
+                        "CeilingPlasterDamagedGreen": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/materials/ceiling_plaster_damaged_green.mat",
+                        "CeilingPlasterSwirls": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/materials/ceiling_plaster_swirls.mat",
+                        "CeilingPlasterWaves": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/materials/ceiling_plaster_waves.mat",
+                        "CeilingStarsGlow": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/materials/ceiling_stars_glow.mat",
+                        "CeilingSubwayA": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/materials/ceiling_subway_a.mat",
+                        "CeilingSubwayAPattern": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/materials/ceiling_subway_a_pattern.mat",
+                        "CeilingSubwayAYellow": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/materials/ceiling_subway_a_yellow.mat",
+                        "CeilingSubwayB": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/materials/ceiling_subway_b.mat",
+                        "CeilingSubwayBPattern": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/materials/ceiling_subway_b_pattern.mat",
+                        "CeilingWoodBeamsA": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/materials/ceiling_woodbeams_a.mat",
+                        "FloorAsbestosTilesA": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/materials/floor_asbestos_tiles_a.mat",
+                        "FloorAsbestosTilesB": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/materials/floor_asbestos_tiles_b.mat",
+                        "FloorAsbestosTilesC": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/materials/floor_asbestos_tiles_c.mat",
+                        "FloorAsbestosTilesD": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/materials/floor_asbestos_tiles_d.mat",
+                        "FloorAsbestosTilesVintageC": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/materials/floor_asbestos_tiles_vintage_c.mat",
+                        "FloorAsbestosTilesVintageD": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/materials/floor_asbestos_tiles_vintage_d.mat",
+                        "FloorCarpetA": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/materials/floor_carpet_a.mat",
+                        "FloorCarpetB": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/materials/floor_carpet_b.mat",
+                        "FloorCarpetPlainA": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/materials/floor_carpet_plain_a.mat",
+                        "FloorCarpetPlainB": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/materials/floor_carpet_plain_b.mat",
+                        "FloorMarbleA": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/materials/floor_marble_a.mat",
+                        "FloorMarbleB": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/materials/floor_marble_b.mat",
+                        "FloorMetalTreadplateA": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/materials/floor_metal_treadplate_a.mat",
+                        "FloorParquetA": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/materials/floor_parquet_a.mat",
+                        "FloorParquetB": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/materials/floor_parquet_b.mat",
+                        "FloorParquetC": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/materials/floor_parquet_c.mat",
+                        "FloorParquetD": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/materials/floor_parquet_d.mat",
+                        "FloorParquetPaintedA": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/materials/floor_parquet_painted_a.mat",
+                        "FloorParquetPaintedC": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/materials/floor_parquet_painted_c.mat",
+                        "FloorParquetPaintedWhite": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/materials/floor_parquet_painted_white.mat",
+                        "FloorTatamiA": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/materials/floor_tatami_a.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
+                "2025-09_exhibit_decor_dlc": {
+                  "Name": "2025-09_exhibit_decor_dlc",
+                  "Path": "assets/prefabs/wallpaper/skins/2025-09_exhibit_decor_dlc",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/prefabs/wallpaper/skins/2025-09_exhibit_decor_dlc/materials",
+                      "Files": {
+                        "CeilingPaintedGoldStars": "assets/prefabs/wallpaper/skins/2025-09_exhibit_decor_dlc/materials/ceiling_painted_gold_stars.mat",
+                        "FloorCarpetShaggyA": "assets/prefabs/wallpaper/skins/2025-09_exhibit_decor_dlc/materials/floor_carpet_shaggy_a.mat",
+                        "WallTileHexagonA": "assets/prefabs/wallpaper/skins/2025-09_exhibit_decor_dlc/materials/wall_tile_hexagon_a.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
+                "2025-10_halloween": {
+                  "Name": "2025-10_halloween",
+                  "Path": "assets/prefabs/wallpaper/skins/2025-10_halloween",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/prefabs/wallpaper/skins/2025-10_halloween/materials",
+                      "Files": {
+                        "CeilingWoodCobwebs": "assets/prefabs/wallpaper/skins/2025-10_halloween/materials/ceiling_wood_cobwebs.mat",
+                        "FloorTreeRoots": "assets/prefabs/wallpaper/skins/2025-10_halloween/materials/floor_tree_roots.mat",
+                        "WallHalloweenBats": "assets/prefabs/wallpaper/skins/2025-10_halloween/materials/wall_halloween_bats.mat",
+                        "WallHalloweenMuertosA": "assets/prefabs/wallpaper/skins/2025-10_halloween/materials/wall_halloween_muertos_a.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
+                "2025-05_jungledlc": {
+                  "Name": "2025-05_jungledlc",
+                  "Path": "assets/prefabs/wallpaper/skins/2025-05_jungledlc",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/prefabs/wallpaper/skins/2025-05_jungledlc/materials",
+                      "Files": {
+                        "JungleAnimalsWallPaper": "assets/prefabs/wallpaper/skins/2025-05_jungledlc/materials/jungle_animals_wallpaper.mat",
+                        "JungleLeavesWallPaper": "assets/prefabs/wallpaper/skins/2025-05_jungledlc/materials/jungle_leaves_wallpaper.mat",
+                        "JungleSigilWallPaper": "assets/prefabs/wallpaper/skins/2025-05_jungledlc/materials/jungle_sigil_wallpaper.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
+                "2025-01_lny25": {
+                  "Name": "2025-01_lny25",
+                  "Path": "assets/prefabs/wallpaper/skins/2025-01_lny25",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/prefabs/wallpaper/skins/2025-01_lny25/materials",
+                      "Files": {
+                        "Lny25BamboWallPaper": "assets/prefabs/wallpaper/skins/2025-01_lny25/materials/lny25_bambo_wallpaper.mat",
+                        "Lny25CherryBlossomsWallPaper": "assets/prefabs/wallpaper/skins/2025-01_lny25/materials/lny25_cherry_blossoms_wallpaper.mat",
+                        "Lny25ChineseLanternsWallPaper": "assets/prefabs/wallpaper/skins/2025-01_lny25/materials/lny25_chinese_lanterns_wallpaper.mat",
+                        "Lny25DiamondsWallPaper": "assets/prefabs/wallpaper/skins/2025-01_lny25/materials/lny25_diamonds_wallpaper.mat",
+                        "Lny25PanelAWallPaper": "assets/prefabs/wallpaper/skins/2025-01_lny25/materials/lny25_panel_a_wallpaper.mat",
+                        "Lny25PanelBWallPaper": "assets/prefabs/wallpaper/skins/2025-01_lny25/materials/lny25_panel_b_wallpaper.mat",
+                        "Lny25PanelCWallPaper": "assets/prefabs/wallpaper/skins/2025-01_lny25/materials/lny25_panel_c_wallpaper.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                }
+              }
+            },
             "models": {
               "Name": "models",
               "Path": "assets/prefabs/wallpaper/models",
@@ -29866,89 +30365,8 @@
                 "materials": {
                   "Name": "materials",
                   "Path": "assets/prefabs/wallpaper/models/materials",
-                  "Files": {
-                    "BlueDiamondWallPaperA": "assets/prefabs/wallpaper/models/materials/blue_diamond_wallpaper_a.mat",
-                    "CloudsWallPaper": "assets/prefabs/wallpaper/models/materials/clouds_wallpaper.mat",
-                    "GeometricWallPaperA": "assets/prefabs/wallpaper/models/materials/geometric_wallpaper_a.mat",
-                    "GeometricWallPaperB": "assets/prefabs/wallpaper/models/materials/geometric_wallpaper_b.mat",
-                    "GlowBoardWallPaperA": "assets/prefabs/wallpaper/models/materials/glowboard_wallpaper_a.mat",
-                    "GlowBoardWallPaperB": "assets/prefabs/wallpaper/models/materials/glowboard_wallpaper_b.mat",
-                    "PolkaDotsWallPaperA": "assets/prefabs/wallpaper/models/materials/polka_dots_wallpaper_a.mat",
-                    "PolkaDotsWallPaperB": "assets/prefabs/wallpaper/models/materials/polka_dots_wallpaper_b.mat",
-                    "PolkaDotsWallPaperC": "assets/prefabs/wallpaper/models/materials/polka_dots_wallpaper_c.mat",
-                    "RetroWallPaperA": "assets/prefabs/wallpaper/models/materials/retro_wallpaper_a.mat",
-                    "RetroWallPaperB": "assets/prefabs/wallpaper/models/materials/retro_wallpaper_b.mat",
-                    "RetroWallPaperC": "assets/prefabs/wallpaper/models/materials/retro_wallpaper_c.mat",
-                    "RoyalWallPaperA": "assets/prefabs/wallpaper/models/materials/royal_wallpaper_a.mat",
-                    "RoyalWallPaperB": "assets/prefabs/wallpaper/models/materials/royal_wallpaper_b.mat",
-                    "RoyalWallPaperC": "assets/prefabs/wallpaper/models/materials/royal_wallpaper_c.mat",
-                    "SubwayWallPaperA": "assets/prefabs/wallpaper/models/materials/subway_wallpaper_a.mat",
-                    "SubwayWallPaperB": "assets/prefabs/wallpaper/models/materials/subway_wallpaper_b.mat",
-                    "VenetianPlasterWallPaperA": "assets/prefabs/wallpaper/models/materials/venetian_plaster_wallpaper_a.mat",
-                    "VenetianPlasterWallPaperB": "assets/prefabs/wallpaper/models/materials/venetian_plaster_wallpaper_b.mat",
-                    "VenetianPlasterWallPaperC": "assets/prefabs/wallpaper/models/materials/venetian_plaster_wallpaper_c.mat",
-                    "VintageWallPaperBlue": "assets/prefabs/wallpaper/models/materials/vintage_wallpaper_blue.mat",
-                    "VintageWallPaperGreen": "assets/prefabs/wallpaper/models/materials/vintage_wallpaper_green.mat",
-                    "VintageWallPaperRed": "assets/prefabs/wallpaper/models/materials/vintage_wallpaper_red.mat",
-                    "VintageWallPaperYellow": "assets/prefabs/wallpaper/models/materials/vintage_wallpaper_yellow.mat",
-                    "WainscottingWallPaperA": "assets/prefabs/wallpaper/models/materials/wainscotting_wallpaper_a.mat",
-                    "WainscottingWallPaperB": "assets/prefabs/wallpaper/models/materials/wainscotting_wallpaper_b.mat",
-                    "WainscottingWallPaperC": "assets/prefabs/wallpaper/models/materials/wainscotting_wallpaper_c.mat",
-                    "YellowStripeWallPaperA": "assets/prefabs/wallpaper/models/materials/yellow_stripe_wallpaper_a.mat"
-                  },
+                  "Files": {},
                   "SubFolders": {
-                    "starter_pack_floor_ceiling": {
-                      "Name": "starter_pack_floor_ceiling",
-                      "Path": "assets/prefabs/wallpaper/models/materials/starter_pack_floor_ceiling",
-                      "Files": {
-                        "CeilingMetalSheetA": "assets/prefabs/wallpaper/models/materials/starter_pack_floor_ceiling/ceiling_metal_sheet_a.mat",
-                        "CeilingMetalSheetB": "assets/prefabs/wallpaper/models/materials/starter_pack_floor_ceiling/ceiling_metal_sheet_b.mat",
-                        "CeilingMetalSheetC": "assets/prefabs/wallpaper/models/materials/starter_pack_floor_ceiling/ceiling_metal_sheet_c.mat",
-                        "CeilingOffice": "assets/prefabs/wallpaper/models/materials/starter_pack_floor_ceiling/ceiling_office.mat",
-                        "CeilingParquetC": "assets/prefabs/wallpaper/models/materials/starter_pack_floor_ceiling/ceiling_parquet_c.mat",
-                        "CeilingParquetPaintedA": "assets/prefabs/wallpaper/models/materials/starter_pack_floor_ceiling/ceiling_parquet_painted_a.mat",
-                        "CeilingParquetPaintedABlue": "assets/prefabs/wallpaper/models/materials/starter_pack_floor_ceiling/ceiling_parquet_painted_a_blue.mat",
-                        "CeilingParquetPaintedABlue02": "assets/prefabs/wallpaper/models/materials/starter_pack_floor_ceiling/ceiling_parquet_painted_a_blue_02.mat",
-                        "CeilingParquetPaintedAGreen": "assets/prefabs/wallpaper/models/materials/starter_pack_floor_ceiling/ceiling_parquet_painted_a_green.mat",
-                        "CeilingParquetPaintedAPink": "assets/prefabs/wallpaper/models/materials/starter_pack_floor_ceiling/ceiling_parquet_painted_a_pink.mat",
-                        "CeilingParquetPaintedAYellow": "assets/prefabs/wallpaper/models/materials/starter_pack_floor_ceiling/ceiling_parquet_painted_a_yellow.mat",
-                        "CeilingParquetPaintedD": "assets/prefabs/wallpaper/models/materials/starter_pack_floor_ceiling/ceiling_parquet_painted_d.mat",
-                        "CeilingPlasterBoardA": "assets/prefabs/wallpaper/models/materials/starter_pack_floor_ceiling/ceiling_plasterboard_a.mat",
-                        "CeilingPlasterDamagedBlue": "assets/prefabs/wallpaper/models/materials/starter_pack_floor_ceiling/ceiling_plaster_damaged_blue.mat",
-                        "CeilingPlasterDamagedGreen": "assets/prefabs/wallpaper/models/materials/starter_pack_floor_ceiling/ceiling_plaster_damaged_green.mat",
-                        "CeilingPlasterSwirls": "assets/prefabs/wallpaper/models/materials/starter_pack_floor_ceiling/ceiling_plaster_swirls.mat",
-                        "CeilingPlasterWaves": "assets/prefabs/wallpaper/models/materials/starter_pack_floor_ceiling/ceiling_plaster_waves.mat",
-                        "CeilingStarsGlow": "assets/prefabs/wallpaper/models/materials/starter_pack_floor_ceiling/ceiling_stars_glow.mat",
-                        "CeilingSubwayA": "assets/prefabs/wallpaper/models/materials/starter_pack_floor_ceiling/ceiling_subway_a.mat",
-                        "CeilingSubwayAPattern": "assets/prefabs/wallpaper/models/materials/starter_pack_floor_ceiling/ceiling_subway_a_pattern.mat",
-                        "CeilingSubwayAYellow": "assets/prefabs/wallpaper/models/materials/starter_pack_floor_ceiling/ceiling_subway_a_yellow.mat",
-                        "CeilingSubwayB": "assets/prefabs/wallpaper/models/materials/starter_pack_floor_ceiling/ceiling_subway_b.mat",
-                        "CeilingSubwayBPattern": "assets/prefabs/wallpaper/models/materials/starter_pack_floor_ceiling/ceiling_subway_b_pattern.mat",
-                        "CeilingWoodBeamsA": "assets/prefabs/wallpaper/models/materials/starter_pack_floor_ceiling/ceiling_woodbeams_a.mat",
-                        "FloorAsbestosTilesA": "assets/prefabs/wallpaper/models/materials/starter_pack_floor_ceiling/floor_asbestos_tiles_a.mat",
-                        "FloorAsbestosTilesB": "assets/prefabs/wallpaper/models/materials/starter_pack_floor_ceiling/floor_asbestos_tiles_b.mat",
-                        "FloorAsbestosTilesC": "assets/prefabs/wallpaper/models/materials/starter_pack_floor_ceiling/floor_asbestos_tiles_c.mat",
-                        "FloorAsbestosTilesD": "assets/prefabs/wallpaper/models/materials/starter_pack_floor_ceiling/floor_asbestos_tiles_d.mat",
-                        "FloorAsbestosTilesVintageC": "assets/prefabs/wallpaper/models/materials/starter_pack_floor_ceiling/floor_asbestos_tiles_vintage_c.mat",
-                        "FloorAsbestosTilesVintageD": "assets/prefabs/wallpaper/models/materials/starter_pack_floor_ceiling/floor_asbestos_tiles_vintage_d.mat",
-                        "FloorCarpetA": "assets/prefabs/wallpaper/models/materials/starter_pack_floor_ceiling/floor_carpet_a.mat",
-                        "FloorCarpetB": "assets/prefabs/wallpaper/models/materials/starter_pack_floor_ceiling/floor_carpet_b.mat",
-                        "FloorCarpetPlainA": "assets/prefabs/wallpaper/models/materials/starter_pack_floor_ceiling/floor_carpet_plain_a.mat",
-                        "FloorCarpetPlainB": "assets/prefabs/wallpaper/models/materials/starter_pack_floor_ceiling/floor_carpet_plain_b.mat",
-                        "FloorMarbleA": "assets/prefabs/wallpaper/models/materials/starter_pack_floor_ceiling/floor_marble_a.mat",
-                        "FloorMarbleB": "assets/prefabs/wallpaper/models/materials/starter_pack_floor_ceiling/floor_marble_b.mat",
-                        "FloorMetalTreadplateA": "assets/prefabs/wallpaper/models/materials/starter_pack_floor_ceiling/floor_metal_treadplate_a.mat",
-                        "FloorParquetA": "assets/prefabs/wallpaper/models/materials/starter_pack_floor_ceiling/floor_parquet_a.mat",
-                        "FloorParquetB": "assets/prefabs/wallpaper/models/materials/starter_pack_floor_ceiling/floor_parquet_b.mat",
-                        "FloorParquetC": "assets/prefabs/wallpaper/models/materials/starter_pack_floor_ceiling/floor_parquet_c.mat",
-                        "FloorParquetD": "assets/prefabs/wallpaper/models/materials/starter_pack_floor_ceiling/floor_parquet_d.mat",
-                        "FloorParquetPaintedA": "assets/prefabs/wallpaper/models/materials/starter_pack_floor_ceiling/floor_parquet_painted_a.mat",
-                        "FloorParquetPaintedC": "assets/prefabs/wallpaper/models/materials/starter_pack_floor_ceiling/floor_parquet_painted_c.mat",
-                        "FloorParquetPaintedWhite": "assets/prefabs/wallpaper/models/materials/starter_pack_floor_ceiling/floor_parquet_painted_white.mat",
-                        "FloorTatamiA": "assets/prefabs/wallpaper/models/materials/starter_pack_floor_ceiling/floor_tatami_a.mat"
-                      },
-                      "SubFolders": {}
-                    },
                     "wallpaper_tools": {
                       "Name": "wallpaper_tools",
                       "Path": "assets/prefabs/wallpaper/models/materials/wallpaper_tools",
@@ -29956,30 +30374,6 @@
                         "CeilingPaperViewModel": "assets/prefabs/wallpaper/models/materials/wallpaper_tools/ceilingpaper_viewmodel.mat",
                         "FloorPaperViewModel": "assets/prefabs/wallpaper/models/materials/wallpaper_tools/floorpaper_viewmodel.mat",
                         "WallPaperViewModel": "assets/prefabs/wallpaper/models/materials/wallpaper_tools/wallpaper_viewmodel.mat"
-                      },
-                      "SubFolders": {}
-                    },
-                    "jungle_dlc": {
-                      "Name": "jungle_dlc",
-                      "Path": "assets/prefabs/wallpaper/models/materials/jungle_dlc",
-                      "Files": {
-                        "JungleAnimalsWallPaper": "assets/prefabs/wallpaper/models/materials/jungle_dlc/jungle_animals_wallpaper.mat",
-                        "JungleLeavesWallPaper": "assets/prefabs/wallpaper/models/materials/jungle_dlc/jungle_leaves_wallpaper.mat",
-                        "JungleSigilWallPaper": "assets/prefabs/wallpaper/models/materials/jungle_dlc/jungle_sigil_wallpaper.mat"
-                      },
-                      "SubFolders": {}
-                    },
-                    "lunar_new_year_2025": {
-                      "Name": "lunar_new_year_2025",
-                      "Path": "assets/prefabs/wallpaper/models/materials/lunar_new_year_2025",
-                      "Files": {
-                        "Lny25BamboWallPaper": "assets/prefabs/wallpaper/models/materials/lunar_new_year_2025/lny25_bambo_wallpaper.mat",
-                        "Lny25CherryBlossomsWallPaper": "assets/prefabs/wallpaper/models/materials/lunar_new_year_2025/lny25_cherry_blossoms_wallpaper.mat",
-                        "Lny25ChineseLanternsWallPaper": "assets/prefabs/wallpaper/models/materials/lunar_new_year_2025/lny25_chinese_lanterns_wallpaper.mat",
-                        "Lny25DiamondsWallPaper": "assets/prefabs/wallpaper/models/materials/lunar_new_year_2025/lny25_diamonds_wallpaper.mat",
-                        "Lny25PanelAWallPaper": "assets/prefabs/wallpaper/models/materials/lunar_new_year_2025/lny25_panel_a_wallpaper.mat",
-                        "Lny25PanelBWallPaper": "assets/prefabs/wallpaper/models/materials/lunar_new_year_2025/lny25_panel_b_wallpaper.mat",
-                        "Lny25PanelCWallPaper": "assets/prefabs/wallpaper/models/materials/lunar_new_year_2025/lny25_panel_c_wallpaper.mat"
                       },
                       "SubFolders": {}
                     }
@@ -31686,6 +32080,30 @@
             }
           }
         },
+        "flexiblecolorpicker": {
+          "Name": "flexiblecolorpicker",
+          "Path": "assets/third party/flexiblecolorpicker",
+          "Files": {},
+          "SubFolders": {
+            "materials": {
+              "Name": "materials",
+              "Path": "assets/third party/flexiblecolorpicker/materials",
+              "Files": {
+                "FcpAlphaPreview": "assets/third party/flexiblecolorpicker/materials/fcp_alphapreview.mat",
+                "FcpApicker": "assets/third party/flexiblecolorpicker/materials/fcp_apicker.mat",
+                "FcpBpicker": "assets/third party/flexiblecolorpicker/materials/fcp_bpicker.mat",
+                "FcpGpicker": "assets/third party/flexiblecolorpicker/materials/fcp_gpicker.mat",
+                "FcpHpicker": "assets/third party/flexiblecolorpicker/materials/fcp_hpicker.mat",
+                "FcpMainpicker": "assets/third party/flexiblecolorpicker/materials/fcp_mainpicker.mat",
+                "FcpPreview": "assets/third party/flexiblecolorpicker/materials/fcp_preview.mat",
+                "FcpRpicker": "assets/third party/flexiblecolorpicker/materials/fcp_rpicker.mat",
+                "FcpSpicker": "assets/third party/flexiblecolorpicker/materials/fcp_spicker.mat",
+                "FcpVpicker": "assets/third party/flexiblecolorpicker/materials/fcp_vpicker.mat"
+              },
+              "SubFolders": {}
+            }
+          }
+        },
         "blood": {
           "Name": "blood",
           "Path": "assets/third party/blood",
@@ -31915,6 +32333,8 @@
                             "CubeTiledGravel02": "assets/bundled/prefabs/modding/cubes/tiled/materials/cube_tiled_gravel_02.mat",
                             "CubeTiledIce01": "assets/bundled/prefabs/modding/cubes/tiled/materials/cube_tiled_ice_01.mat",
                             "CubeTiledIce02": "assets/bundled/prefabs/modding/cubes/tiled/materials/cube_tiled_ice_02.mat",
+                            "CubeTiledLava01": "assets/bundled/prefabs/modding/cubes/tiled/materials/cube_tiled_lava_01.mat",
+                            "CubeTiledLava02": "assets/bundled/prefabs/modding/cubes/tiled/materials/cube_tiled_lava_02.mat",
                             "CubeTiledMetal01": "assets/bundled/prefabs/modding/cubes/tiled/materials/cube_tiled_metal_01.mat",
                             "CubeTiledMetal02": "assets/bundled/prefabs/modding/cubes/tiled/materials/cube_tiled_metal_02.mat",
                             "CubeTiledMetal03": "assets/bundled/prefabs/modding/cubes/tiled/materials/cube_tiled_metal_03.mat",

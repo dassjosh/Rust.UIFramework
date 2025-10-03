@@ -1949,7 +1949,7 @@
               "Name": "speargun",
               "Path": "assets/prefabs/ammo/speargun",
               "Files": {
-                "SpeargunSpearIcon": "assets/prefabs/ammo/speargun/speargun_spear_icon.png"
+                "SpeargunSpearIcon": "assets/prefabs/ammo/speargun/speargun_spear.icon.png"
               },
               "SubFolders": {}
             }
@@ -2292,14 +2292,6 @@
                   },
                   "SubFolders": {}
                 },
-                "digitalclock": {
-                  "Name": "digitalclock",
-                  "Path": "assets/prefabs/deployable/playerioents/digitalclock",
-                  "Files": {
-                    "ElectricDigitalclockIcon": "assets/prefabs/deployable/playerioents/digitalclock/electric.digitalclock.icon.png"
-                  },
-                  "SubFolders": {}
-                },
                 "lights": {
                   "Name": "lights",
                   "Path": "assets/prefabs/deployable/playerioents/lights",
@@ -2307,6 +2299,79 @@
                     "SimpleLightIcon": "assets/prefabs/deployable/playerioents/lights/simplelight.icon.png"
                   },
                   "SubFolders": {
+                    "cozypack": {
+                      "Name": "cozypack",
+                      "Path": "assets/prefabs/deployable/playerioents/lights/cozypack",
+                      "Files": {},
+                      "SubFolders": {
+                        "chandelier": {
+                          "Name": "chandelier",
+                          "Path": "assets/prefabs/deployable/playerioents/lights/cozypack/chandelier",
+                          "Files": {
+                            "ElectricChandelierIcon": "assets/prefabs/deployable/playerioents/lights/cozypack/chandelier/electric.chandelier.icon.png"
+                          },
+                          "SubFolders": {}
+                        },
+                        "fairylights": {
+                          "Name": "fairylights",
+                          "Path": "assets/prefabs/deployable/playerioents/lights/cozypack/fairylights",
+                          "Files": {
+                            "ElectricFairyLightsIcon": "assets/prefabs/deployable/playerioents/lights/cozypack/fairylights/electric.fairylights.icon.png"
+                          },
+                          "SubFolders": {}
+                        },
+                        "fluorescentlights": {
+                          "Name": "fluorescentlights",
+                          "Path": "assets/prefabs/deployable/playerioents/lights/cozypack/fluorescentlights",
+                          "Files": {
+                            "ElectricFluorescentLightIcon": "assets/prefabs/deployable/playerioents/lights/cozypack/fluorescentlights/electric.fluorescentlight.icon.png"
+                          },
+                          "SubFolders": {
+                            "ceiling": {
+                              "Name": "ceiling",
+                              "Path": "assets/prefabs/deployable/playerioents/lights/cozypack/fluorescentlights/ceiling",
+                              "Files": {
+                                "ElectricFluorescentLightCeilingIcon": "assets/prefabs/deployable/playerioents/lights/cozypack/fluorescentlights/ceiling/electric.fluorescentlight.ceiling.icon.png"
+                              },
+                              "SubFolders": {}
+                            }
+                          }
+                        },
+                        "orientablespotlight": {
+                          "Name": "orientablespotlight",
+                          "Path": "assets/prefabs/deployable/playerioents/lights/cozypack/orientablespotlight",
+                          "Files": {
+                            "ElectricSpotLightIcon": "assets/prefabs/deployable/playerioents/lights/cozypack/orientablespotlight/electric.spotlight.icon.png"
+                          },
+                          "SubFolders": {
+                            "tripod": {
+                              "Name": "tripod",
+                              "Path": "assets/prefabs/deployable/playerioents/lights/cozypack/orientablespotlight/tripod",
+                              "Files": {
+                                "ElectricSpotLightTripodIcon": "assets/prefabs/deployable/playerioents/lights/cozypack/orientablespotlight/tripod/electric.spotlight.tripod.icon.png"
+                              },
+                              "SubFolders": {}
+                            }
+                          }
+                        },
+                        "hangingbulbs": {
+                          "Name": "hangingbulbs",
+                          "Path": "assets/prefabs/deployable/playerioents/lights/cozypack/hangingbulbs",
+                          "Files": {
+                            "ElectricStringLightsIcon": "assets/prefabs/deployable/playerioents/lights/cozypack/hangingbulbs/electric.stringlights.icon.png"
+                          },
+                          "SubFolders": {}
+                        },
+                        "electrictablelamp": {
+                          "Name": "electrictablelamp",
+                          "Path": "assets/prefabs/deployable/playerioents/lights/cozypack/electrictablelamp",
+                          "Files": {
+                            "ElectricTablelampDeployedIcon": "assets/prefabs/deployable/playerioents/lights/cozypack/electrictablelamp/electric.tablelamp.deployed.icon.png"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    },
                     "flasherlight": {
                       "Name": "flasherlight",
                       "Path": "assets/prefabs/deployable/playerioents/lights/flasherlight",
@@ -2324,6 +2389,14 @@
                       "SubFolders": {}
                     }
                   }
+                },
+                "digitalclock": {
+                  "Name": "digitalclock",
+                  "Path": "assets/prefabs/deployable/playerioents/digitalclock",
+                  "Files": {
+                    "ElectricDigitalclockIcon": "assets/prefabs/deployable/playerioents/digitalclock/electric.digitalclock.icon.png"
+                  },
+                  "SubFolders": {}
                 },
                 "electricfurnace": {
                   "Name": "electricfurnace",
@@ -2615,6 +2688,48 @@
               },
               "SubFolders": {}
             },
+            "chair": {
+              "Name": "chair",
+              "Path": "assets/prefabs/deployable/chair",
+              "Files": {
+                "ChairItemIcon": "assets/prefabs/deployable/chair/chair.item.icon.png"
+              },
+              "SubFolders": {
+                "skins": {
+                  "Name": "skins",
+                  "Path": "assets/prefabs/deployable/chair/skins",
+                  "Files": {},
+                  "SubFolders": {
+                    "cozy_beanbag_seat": {
+                      "Name": "cozy_beanbag_seat",
+                      "Path": "assets/prefabs/deployable/chair/skins/cozy_beanbag_seat",
+                      "Files": {
+                        "BeanBagSeatFabricIcon": "assets/prefabs/deployable/chair/skins/cozy_beanbag_seat/beanbag.seat.fabric.icon.png",
+                        "BeanBagSeatLeatherIcon": "assets/prefabs/deployable/chair/skins/cozy_beanbag_seat/beanbag.seat.leather.icon.png"
+                      },
+                      "SubFolders": {}
+                    },
+                    "pilot_hazmat_ejector_seat": {
+                      "Name": "pilot_hazmat_ejector_seat",
+                      "Path": "assets/prefabs/deployable/chair/skins/pilot_hazmat_ejector_seat",
+                      "Files": {
+                        "ChairEjectorseatIcon": "assets/prefabs/deployable/chair/skins/pilot_hazmat_ejector_seat/chair.ejectorseat.icon.png"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
+                "ice_throne": {
+                  "Name": "ice_throne",
+                  "Path": "assets/prefabs/deployable/chair/ice_throne",
+                  "Files": {
+                    "ChairIcethroneIcon": "assets/prefabs/deployable/chair/ice_throne/chair.icethrone.icon.png",
+                    "IcePackIcon": "assets/prefabs/deployable/chair/ice_throne/ice.pack.icon.jpg"
+                  },
+                  "SubFolders": {}
+                }
+              }
+            },
             "bed": {
               "Name": "bed",
               "Path": "assets/prefabs/deployable/bed",
@@ -2720,38 +2835,21 @@
               },
               "SubFolders": {}
             },
-            "chair": {
-              "Name": "chair",
-              "Path": "assets/prefabs/deployable/chair",
+            "charity_plushie_01": {
+              "Name": "charity_plushie_01",
+              "Path": "assets/prefabs/deployable/charity_plushie_01",
               "Files": {
-                "ChairItemIcon": "assets/prefabs/deployable/chair/chair.item.icon.png"
+                "CharityPlushie01DeployedIcon": "assets/prefabs/deployable/charity_plushie_01/charityplushie_01_deployed.icon.png"
               },
-              "SubFolders": {
-                "skins": {
-                  "Name": "skins",
-                  "Path": "assets/prefabs/deployable/chair/skins",
-                  "Files": {},
-                  "SubFolders": {
-                    "pilot_hazmat_ejector_seat": {
-                      "Name": "pilot_hazmat_ejector_seat",
-                      "Path": "assets/prefabs/deployable/chair/skins/pilot_hazmat_ejector_seat",
-                      "Files": {
-                        "ChairEjectorseatIcon": "assets/prefabs/deployable/chair/skins/pilot_hazmat_ejector_seat/chair.ejectorseat.icon.png"
-                      },
-                      "SubFolders": {}
-                    }
-                  }
-                },
-                "ice_throne": {
-                  "Name": "ice_throne",
-                  "Path": "assets/prefabs/deployable/chair/ice_throne",
-                  "Files": {
-                    "ChairIcethroneIcon": "assets/prefabs/deployable/chair/ice_throne/chair.icethrone.icon.png",
-                    "IcePackIcon": "assets/prefabs/deployable/chair/ice_throne/ice.pack.icon.jpg"
-                  },
-                  "SubFolders": {}
-                }
-              }
+              "SubFolders": {}
+            },
+            "charity_plushie_02": {
+              "Name": "charity_plushie_02",
+              "Path": "assets/prefabs/deployable/charity_plushie_02",
+              "Files": {
+                "CharityPlushie02DeployedIcon": "assets/prefabs/deployable/charity_plushie_02/charityplushie_02_deployed.icon.png"
+              },
+              "SubFolders": {}
             },
             "chickencoop": {
               "Name": "chickencoop",
@@ -2846,6 +2944,14 @@
               "Path": "assets/prefabs/deployable/modular car lift",
               "Files": {
                 "ElectricalModularCarliftIcon": "assets/prefabs/deployable/modular car lift/electrical.modularcarlift.icon.png"
+              },
+              "SubFolders": {}
+            },
+            "wall cabinet": {
+              "Name": "wall cabinet",
+              "Path": "assets/prefabs/deployable/wall cabinet",
+              "Files": {
+                "ElectricWallcabinetIcon": "assets/prefabs/deployable/wall cabinet/electric.wallcabinet.icon.png"
               },
               "SubFolders": {}
             },
@@ -3029,6 +3135,14 @@
               "Path": "assets/prefabs/deployable/mailbox",
               "Files": {
                 "MailBoxIcon": "assets/prefabs/deployable/mailbox/mailbox.icon.png"
+              },
+              "SubFolders": {}
+            },
+            "mannequin": {
+              "Name": "mannequin",
+              "Path": "assets/prefabs/deployable/mannequin",
+              "Files": {
+                "MannequinDeployedIcon": "assets/prefabs/deployable/mannequin/mannequin_deployed.icon.png"
               },
               "SubFolders": {}
             },
@@ -3253,6 +3367,14 @@
               "Path": "assets/prefabs/deployable/floor spikes",
               "Files": {
                 "SpikesFloor": "assets/prefabs/deployable/floor spikes/spikes.floor.png"
+              },
+              "SubFolders": {}
+            },
+            "spike trap": {
+              "Name": "spike trap",
+              "Path": "assets/prefabs/deployable/spike trap",
+              "Files": {
+                "SpikesTrapIcon": "assets/prefabs/deployable/spike trap/spikes.trap.icon.png"
               },
               "SubFolders": {}
             },
@@ -3918,7 +4040,7 @@
               "Name": "hat.wellipets",
               "Path": "assets/prefabs/clothes/hat.wellipets",
               "Files": {
-                "HatWellipetsWorldModelIcon": "assets/prefabs/clothes/hat.wellipets/hat.wellipets.worldmodel.icon.png"
+                "HatWellipetsIcon": "assets/prefabs/clothes/hat.wellipets/hat.wellipets.icon.png"
               },
               "SubFolders": {}
             },
@@ -5436,7 +5558,7 @@
               "Name": "speargun",
               "Path": "assets/prefabs/weapons/speargun",
               "Files": {
-                "SpeargunIcon": "assets/prefabs/weapons/speargun/speargun..icon.png"
+                "SpeargunIcon": "assets/prefabs/weapons/speargun/speargun.icon.png"
               },
               "SubFolders": {}
             },
@@ -6499,6 +6621,15 @@
               },
               "SubFolders": {}
             },
+            "blueprint fragment": {
+              "Name": "blueprint fragment",
+              "Path": "assets/prefabs/resource/blueprint fragment",
+              "Files": {
+                "BlueprintFragment": "assets/prefabs/resource/blueprint fragment/blueprint_fragment.png",
+                "ResearchPaperIcon": "assets/prefabs/resource/blueprint fragment/researchpaper.icon.png"
+              },
+              "SubFolders": {}
+            },
             "bone fragments": {
               "Name": "bone fragments",
               "Path": "assets/prefabs/resource/bone fragments",
@@ -6705,7 +6836,7 @@
               "Name": "stone",
               "Path": "assets/prefabs/resource/stone",
               "Files": {
-                "Stones": "assets/prefabs/resource/stone/stones.png"
+                "StonesIcon": "assets/prefabs/resource/stone/stones.icon.png"
               },
               "SubFolders": {}
             },
@@ -6737,7 +6868,7 @@
               "Name": "wood",
               "Path": "assets/prefabs/resource/wood",
               "Files": {
-                "Wood": "assets/prefabs/resource/wood/wood.png"
+                "WoodIcon": "assets/prefabs/resource/wood/wood.icon.png"
               },
               "SubFolders": {}
             }
@@ -6858,16 +6989,6 @@
               },
               "SubFolders": {}
             },
-            "wheat": {
-              "Name": "wheat",
-              "Path": "assets/prefabs/plants/wheat",
-              "Files": {
-                "IconWheat": "assets/prefabs/plants/wheat/icon_wheat.png",
-                "IconWheatSeed": "assets/prefabs/plants/wheat/icon_wheat_seed.png",
-                "WheatCloneIcon": "assets/prefabs/plants/wheat/wheat_clone.icon.png"
-              },
-              "SubFolders": {}
-            },
             "orchid": {
               "Name": "orchid",
               "Path": "assets/prefabs/plants/orchid",
@@ -6904,7 +7025,17 @@
               "Files": {
                 "SunflowerCloneIcon": "assets/prefabs/plants/sunflower/sunflower_clone.icon.png",
                 "SunflowerIcon": "assets/prefabs/plants/sunflower/sunflower.icon.png",
-                "SunflowerSeedIcon": "assets/prefabs/plants/sunflower/sunflower_seed_icon.png"
+                "SunflowerSeedIcon": "assets/prefabs/plants/sunflower/sunflower_seed.icon.png"
+              },
+              "SubFolders": {}
+            },
+            "wheat": {
+              "Name": "wheat",
+              "Path": "assets/prefabs/plants/wheat",
+              "Files": {
+                "WheatCloneIcon": "assets/prefabs/plants/wheat/wheat_clone.icon.png",
+                "WheatIcon": "assets/prefabs/plants/wheat/wheat.icon.png",
+                "WheatSeedIcon": "assets/prefabs/plants/wheat/wheat_seed.icon.png"
               },
               "SubFolders": {}
             }
@@ -7308,7 +7439,6 @@
           "Name": "wallpaper",
           "Path": "assets/prefabs/wallpaper",
           "Files": {
-            "WallPaperPack1Icon": "assets/prefabs/wallpaper/wallpaper.pack1.icon.png",
             "WallPaperToolIcon": "assets/prefabs/wallpaper/wallpaper.tool.icon.png"
           },
           "SubFolders": {
@@ -7317,117 +7447,181 @@
               "Path": "assets/prefabs/wallpaper/skins",
               "Files": {},
               "SubFolders": {
-                "icons": {
-                  "Name": "icons",
-                  "Path": "assets/prefabs/wallpaper/skins/icons",
-                  "Files": {
-                    "WallPaperBlueDiamondIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.bluediamond.icon.png",
-                    "WallPaperBlueIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.blue.icon.png",
-                    "WallPaperCloudsIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.clouds.icon.png",
-                    "WallPaperGeometricAIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.geometrica.icon.png",
-                    "WallPaperGeometricBIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.geometricb.icon.png",
-                    "WallPaperGlowBoardAIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.glowboarda.icon.png",
-                    "WallPaperGlowBoardBIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.glowboardb.icon.png",
-                    "WallPaperGreenIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.green.icon.png",
-                    "WallPaperPolkadotAIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.polkadota.icon.png",
-                    "WallPaperPolkadotBIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.polkadotb.icon.png",
-                    "WallPaperPolkadotCIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.polkadotc.icon.png",
-                    "WallPaperRedIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.red.icon.png",
-                    "WallPaperRetroAIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.retroa.icon.png",
-                    "WallPaperRetroBIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.retrob.icon.png",
-                    "WallPaperRetroCIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.retroc.icon.png",
-                    "WallPaperRoyalAIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.royala.icon.png",
-                    "WallPaperRoyalBIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.royalb.icon.png",
-                    "WallPaperRoyalCIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.royalc.icon.png",
-                    "WallPaperSubwayAIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.subwaya.icon.png",
-                    "WallPaperSubwayBIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.subwayb.icon.png",
-                    "WallPaperVenetianPlasterAIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.venetianplastera.icon.png",
-                    "WallPaperVenetianPlasterBIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.venetianplasterb.icon.png",
-                    "WallPaperVenetianPlasterCIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.venetianplasterc.icon.png",
-                    "WallPaperWainscottingAIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.wainscottinga.icon.png",
-                    "WallPaperWainscottingBIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.wainscottingb.icon.png",
-                    "WallPaperWainscottingCIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.wainscottingc.icon.png",
-                    "WallPaperYellowIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.yellow.icon.png",
-                    "WallPaperYellowStripesIcon": "assets/prefabs/wallpaper/skins/icons/wallpaper.yellowstripes.icon.png"
-                  },
+                "2025-10_halloween": {
+                  "Name": "2025-10_halloween",
+                  "Path": "assets/prefabs/wallpaper/skins/2025-10_halloween",
+                  "Files": {},
                   "SubFolders": {
-                    "floor&ceiling_pack_dlc": {
-                      "Name": "floor&ceiling_pack_dlc",
-                      "Path": "assets/prefabs/wallpaper/skins/icons/floor&ceiling_pack_dlc",
+                    "icons": {
+                      "Name": "icons",
+                      "Path": "assets/prefabs/wallpaper/skins/2025-10_halloween/icons",
                       "Files": {
-                        "CeilingPaperMetalSheetAIcon": "assets/prefabs/wallpaper/skins/icons/floor&ceiling_pack_dlc/ceilingpaper.metalsheeta.icon.png",
-                        "CeilingPaperMetalSheetBIcon": "assets/prefabs/wallpaper/skins/icons/floor&ceiling_pack_dlc/ceilingpaper.metalsheetb.icon.png",
-                        "CeilingPaperMetalSheetCIcon": "assets/prefabs/wallpaper/skins/icons/floor&ceiling_pack_dlc/ceilingpaper.metalsheetc.icon.png",
-                        "CeilingPaperMetalSheetDIcon": "assets/prefabs/wallpaper/skins/icons/floor&ceiling_pack_dlc/ceilingpaper.metalsheetd.icon.png",
-                        "CeilingPaperOfficeIcon": "assets/prefabs/wallpaper/skins/icons/floor&ceiling_pack_dlc/ceilingpaper.office.icon.png",
-                        "CeilingPaperParquetDarkIcon": "assets/prefabs/wallpaper/skins/icons/floor&ceiling_pack_dlc/ceilingpaper.parquetdark.icon.png",
-                        "CeilingPaperParquetPaintedABlueIcon": "assets/prefabs/wallpaper/skins/icons/floor&ceiling_pack_dlc/ceilingpaper.parquetpainteda.blue.icon.png",
-                        "CeilingPaperParquetPaintedAGreenIcon": "assets/prefabs/wallpaper/skins/icons/floor&ceiling_pack_dlc/ceilingpaper.parquetpainteda.green.icon.png",
-                        "CeilingPaperParquetPaintedAIcon": "assets/prefabs/wallpaper/skins/icons/floor&ceiling_pack_dlc/ceilingpaper.parquetpainteda.icon.png",
-                        "CeilingPaperParquetPaintedAPinkIcon": "assets/prefabs/wallpaper/skins/icons/floor&ceiling_pack_dlc/ceilingpaper.parquetpainteda.pink.icon.png",
-                        "CeilingPaperParquetPaintedAYellowIcon": "assets/prefabs/wallpaper/skins/icons/floor&ceiling_pack_dlc/ceilingpaper.parquetpainteda.yellow.icon.png",
-                        "CeilingPaperParquetPaintedDIcon": "assets/prefabs/wallpaper/skins/icons/floor&ceiling_pack_dlc/ceilingpaper.parquetpaintedd.icon.png",
-                        "CeilingPaperPlasterBoardAIcon": "assets/prefabs/wallpaper/skins/icons/floor&ceiling_pack_dlc/ceilingpaper.plasterboarda.icon.png",
-                        "CeilingPaperPlasterDamagedBlueIcon": "assets/prefabs/wallpaper/skins/icons/floor&ceiling_pack_dlc/ceilingpaper.plaster.damaged.blue.icon.png",
-                        "CeilingPaperPlasterDamagedGreenIcon": "assets/prefabs/wallpaper/skins/icons/floor&ceiling_pack_dlc/ceilingpaper.plaster.damaged.green.icon.png",
-                        "CeilingPaperPlasterSwirlsBlueIcon": "assets/prefabs/wallpaper/skins/icons/floor&ceiling_pack_dlc/ceilingpaper.plasterswirls.blue.icon.png",
-                        "CeilingPaperPlasterSwirlsGreenIcon": "assets/prefabs/wallpaper/skins/icons/floor&ceiling_pack_dlc/ceilingpaper.plasterswirls.green.icon.png",
-                        "CeilingPaperPlasterSwirlsIcon": "assets/prefabs/wallpaper/skins/icons/floor&ceiling_pack_dlc/ceilingpaper.plasterswirls.icon.png",
-                        "CeilingPaperPlasterWavesIcon": "assets/prefabs/wallpaper/skins/icons/floor&ceiling_pack_dlc/ceilingpaper.plasterwaves.icon.png",
-                        "CeilingPaperSubwayAIcon": "assets/prefabs/wallpaper/skins/icons/floor&ceiling_pack_dlc/ceilingpaper.subwaya.icon.png",
-                        "CeilingPaperSubwayAPatternIcon": "assets/prefabs/wallpaper/skins/icons/floor&ceiling_pack_dlc/ceilingpaper.subwayapattern.icon.png",
-                        "CeilingPaperSubwayAYellowIcon": "assets/prefabs/wallpaper/skins/icons/floor&ceiling_pack_dlc/ceilingpaper.subwayayellow.icon.png",
-                        "CeilingPaperSubwayBIcon": "assets/prefabs/wallpaper/skins/icons/floor&ceiling_pack_dlc/ceilingpaper.subwayb.icon.png",
-                        "CeilingPaperSubwayBPatternIcon": "assets/prefabs/wallpaper/skins/icons/floor&ceiling_pack_dlc/ceilingpaper.subwaybpattern.icon.png",
-                        "CeilingPaperWoodBeamsaIcon": "assets/prefabs/wallpaper/skins/icons/floor&ceiling_pack_dlc/ceilingpaper.woodbeamsa.icon.png",
-                        "FloorPaperAsbestosAIcon": "assets/prefabs/wallpaper/skins/icons/floor&ceiling_pack_dlc/floorpaper.asbestosa.icon.png",
-                        "FloorPaperAsbestosBIcon": "assets/prefabs/wallpaper/skins/icons/floor&ceiling_pack_dlc/floorpaper.asbestosb.icon.png",
-                        "FloorPaperAsbestosCIcon": "assets/prefabs/wallpaper/skins/icons/floor&ceiling_pack_dlc/floorpaper.asbestosc.icon.png",
-                        "FloorPaperAsbestosDIcon": "assets/prefabs/wallpaper/skins/icons/floor&ceiling_pack_dlc/floorpaper.asbestosd.icon.png",
-                        "FloorPaperAsbestosVintageAIcon": "assets/prefabs/wallpaper/skins/icons/floor&ceiling_pack_dlc/floorpaper.asbestosvintagea.icon.png",
-                        "FloorPaperAsbestosVintageBIcon": "assets/prefabs/wallpaper/skins/icons/floor&ceiling_pack_dlc/floorpaper.asbestosvintageb.icon.png",
-                        "FloorPaperAsbestosVintageCIcon": "assets/prefabs/wallpaper/skins/icons/floor&ceiling_pack_dlc/floorpaper.asbestosvintagec.icon.png",
-                        "FloorPaperAsbestosVintageDIcon": "assets/prefabs/wallpaper/skins/icons/floor&ceiling_pack_dlc/floorpaper.asbestosvintaged.icon.png",
-                        "FloorPaperCarpetAIcon": "assets/prefabs/wallpaper/skins/icons/floor&ceiling_pack_dlc/floorpaper.carpeta.icon.png",
-                        "FloorPaperCarpetBIcon": "assets/prefabs/wallpaper/skins/icons/floor&ceiling_pack_dlc/floorpaper.carpetb.icon.png",
-                        "FloorPaperCarpetPlainAIcon": "assets/prefabs/wallpaper/skins/icons/floor&ceiling_pack_dlc/floorpaper.carpetplaina.icon.png",
-                        "FloorPaperCarpetPlainBIcon": "assets/prefabs/wallpaper/skins/icons/floor&ceiling_pack_dlc/floorpaper.carpetplainb.icon.png",
-                        "FloorPaperMarbleAIcon": "assets/prefabs/wallpaper/skins/icons/floor&ceiling_pack_dlc/floorpaper.marblea.icon.png",
-                        "FloorPaperMarbleBIcon": "assets/prefabs/wallpaper/skins/icons/floor&ceiling_pack_dlc/floorpaper.marbleb.icon.png",
-                        "FloorPaperMetalTreadPlateAIcon": "assets/prefabs/wallpaper/skins/icons/floor&ceiling_pack_dlc/floorpaper.metaltreadplatea.icon.png",
-                        "FloorPaperParquetAIcon": "assets/prefabs/wallpaper/skins/icons/floor&ceiling_pack_dlc/floorpaper.parqueta.icon.png",
-                        "FloorPaperParquetBIcon": "assets/prefabs/wallpaper/skins/icons/floor&ceiling_pack_dlc/floorpaper.parquetb.icon.png",
-                        "FloorPaperParquetCIcon": "assets/prefabs/wallpaper/skins/icons/floor&ceiling_pack_dlc/floorpaper.parquetc.icon.png",
-                        "FloorPaperParquetDIcon": "assets/prefabs/wallpaper/skins/icons/floor&ceiling_pack_dlc/floorpaper.parquetd.icon.png",
-                        "FloorPaperParquetPaintedAIcon": "assets/prefabs/wallpaper/skins/icons/floor&ceiling_pack_dlc/floorpaper.parquetpainteda.icon.png",
-                        "FloorPaperParquetPaintedBIcon": "assets/prefabs/wallpaper/skins/icons/floor&ceiling_pack_dlc/floorpaper.parquetpaintedb.icon.png",
-                        "FloorPaperParquetPaintedCIcon": "assets/prefabs/wallpaper/skins/icons/floor&ceiling_pack_dlc/floorpaper.parquetpaintedc.icon.png",
-                        "FloorPaperTatamiIcon": "assets/prefabs/wallpaper/skins/icons/floor&ceiling_pack_dlc/floorpaper.tatami.icon.png"
+                        "CeilingPaperCobwebWoodIcon": "assets/prefabs/wallpaper/skins/2025-10_halloween/icons/ceilingpaper.cobweb.wood.icon.png",
+                        "FloorPaperTreeRootsIcon": "assets/prefabs/wallpaper/skins/2025-10_halloween/icons/floorpaper.tree.roots.icon.png",
+                        "WallPaperDiadelosmuertosIcon": "assets/prefabs/wallpaper/skins/2025-10_halloween/icons/wallpaper.diadelosmuertos.icon.png",
+                        "WallPaperHalloweenbatsIcon": "assets/prefabs/wallpaper/skins/2025-10_halloween/icons/wallpaper.halloweenbats.icon.png"
                       },
                       "SubFolders": {}
-                    },
-                    "lny25": {
-                      "Name": "lny25",
-                      "Path": "assets/prefabs/wallpaper/skins/icons/lny25",
+                    }
+                  }
+                },
+                "2025-06_floor&ceiling_pack_dlc": {
+                  "Name": "2025-06_floor&ceiling_pack_dlc",
+                  "Path": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc",
+                  "Files": {},
+                  "SubFolders": {
+                    "icons": {
+                      "Name": "icons",
+                      "Path": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/icons",
                       "Files": {
-                        "LnyPackIcon": "assets/prefabs/wallpaper/skins/icons/lny25/lnypackicon.png",
-                        "WallPaperBambooIcon": "assets/prefabs/wallpaper/skins/icons/lny25/wallpaper.bamboo.icon.png",
-                        "WallPaperCherryBlossomsIcon": "assets/prefabs/wallpaper/skins/icons/lny25/wallpaper.cherry.blossoms.icon.png",
-                        "WallPaperChineseLanternsIcon": "assets/prefabs/wallpaper/skins/icons/lny25/wallpaper.chinese.lanterns.icon.png",
-                        "WallPaperDiamondsIcon": "assets/prefabs/wallpaper/skins/icons/lny25/wallpaper.diamonds.icon.png",
-                        "WallPaperLnyPanelAIcon": "assets/prefabs/wallpaper/skins/icons/lny25/wallpaper.lny.panel.a.icon.png",
-                        "WallPaperLnyPanelBIcon": "assets/prefabs/wallpaper/skins/icons/lny25/wallpaper.lny.panel.b.icon.png",
-                        "WallPaperLnyPanelCIcon": "assets/prefabs/wallpaper/skins/icons/lny25/wallpaper.lny.panel.c.icon.png"
+                        "CeilingPaperMetalSheetAIcon": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/icons/ceilingpaper.metalsheeta.icon.png",
+                        "CeilingPaperMetalSheetBIcon": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/icons/ceilingpaper.metalsheetb.icon.png",
+                        "CeilingPaperMetalSheetCIcon": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/icons/ceilingpaper.metalsheetc.icon.png",
+                        "CeilingPaperMetalSheetDIcon": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/icons/ceilingpaper.metalsheetd.icon.png",
+                        "CeilingPaperOfficeIcon": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/icons/ceilingpaper.office.icon.png",
+                        "CeilingPaperParquetDarkIcon": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/icons/ceilingpaper.parquetdark.icon.png",
+                        "CeilingPaperParquetPaintedABlueIcon": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/icons/ceilingpaper.parquetpainteda.blue.icon.png",
+                        "CeilingPaperParquetPaintedAGreenIcon": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/icons/ceilingpaper.parquetpainteda.green.icon.png",
+                        "CeilingPaperParquetPaintedAIcon": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/icons/ceilingpaper.parquetpainteda.icon.png",
+                        "CeilingPaperParquetPaintedAPinkIcon": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/icons/ceilingpaper.parquetpainteda.pink.icon.png",
+                        "CeilingPaperParquetPaintedAYellowIcon": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/icons/ceilingpaper.parquetpainteda.yellow.icon.png",
+                        "CeilingPaperParquetPaintedDIcon": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/icons/ceilingpaper.parquetpaintedd.icon.png",
+                        "CeilingPaperPlasterBoardAIcon": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/icons/ceilingpaper.plasterboarda.icon.png",
+                        "CeilingPaperPlasterDamagedBlueIcon": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/icons/ceilingpaper.plaster.damaged.blue.icon.png",
+                        "CeilingPaperPlasterDamagedGreenIcon": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/icons/ceilingpaper.plaster.damaged.green.icon.png",
+                        "CeilingPaperPlasterSwirlsBlueIcon": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/icons/ceilingpaper.plasterswirls.blue.icon.png",
+                        "CeilingPaperPlasterSwirlsGreenIcon": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/icons/ceilingpaper.plasterswirls.green.icon.png",
+                        "CeilingPaperPlasterSwirlsIcon": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/icons/ceilingpaper.plasterswirls.icon.png",
+                        "CeilingPaperPlasterWavesIcon": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/icons/ceilingpaper.plasterwaves.icon.png",
+                        "CeilingPaperSubwayAIcon": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/icons/ceilingpaper.subwaya.icon.png",
+                        "CeilingPaperSubwayAPatternIcon": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/icons/ceilingpaper.subwayapattern.icon.png",
+                        "CeilingPaperSubwayAYellowIcon": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/icons/ceilingpaper.subwayayellow.icon.png",
+                        "CeilingPaperSubwayBIcon": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/icons/ceilingpaper.subwayb.icon.png",
+                        "CeilingPaperSubwayBPatternIcon": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/icons/ceilingpaper.subwaybpattern.icon.png",
+                        "CeilingPaperWoodBeamsaIcon": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/icons/ceilingpaper.woodbeamsa.icon.png",
+                        "FloorPaperAsbestosAIcon": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/icons/floorpaper.asbestosa.icon.png",
+                        "FloorPaperAsbestosBIcon": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/icons/floorpaper.asbestosb.icon.png",
+                        "FloorPaperAsbestosCIcon": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/icons/floorpaper.asbestosc.icon.png",
+                        "FloorPaperAsbestosDIcon": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/icons/floorpaper.asbestosd.icon.png",
+                        "FloorPaperAsbestosVintageAIcon": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/icons/floorpaper.asbestosvintagea.icon.png",
+                        "FloorPaperAsbestosVintageBIcon": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/icons/floorpaper.asbestosvintageb.icon.png",
+                        "FloorPaperAsbestosVintageCIcon": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/icons/floorpaper.asbestosvintagec.icon.png",
+                        "FloorPaperAsbestosVintageDIcon": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/icons/floorpaper.asbestosvintaged.icon.png",
+                        "FloorPaperCarpetAIcon": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/icons/floorpaper.carpeta.icon.png",
+                        "FloorPaperCarpetBIcon": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/icons/floorpaper.carpetb.icon.png",
+                        "FloorPaperCarpetPlainAIcon": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/icons/floorpaper.carpetplaina.icon.png",
+                        "FloorPaperCarpetPlainBIcon": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/icons/floorpaper.carpetplainb.icon.png",
+                        "FloorPaperMarbleAIcon": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/icons/floorpaper.marblea.icon.png",
+                        "FloorPaperMarbleBIcon": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/icons/floorpaper.marbleb.icon.png",
+                        "FloorPaperMetalTreadPlateAIcon": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/icons/floorpaper.metaltreadplatea.icon.png",
+                        "FloorPaperParquetAIcon": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/icons/floorpaper.parqueta.icon.png",
+                        "FloorPaperParquetBIcon": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/icons/floorpaper.parquetb.icon.png",
+                        "FloorPaperParquetCIcon": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/icons/floorpaper.parquetc.icon.png",
+                        "FloorPaperParquetDIcon": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/icons/floorpaper.parquetd.icon.png",
+                        "FloorPaperParquetPaintedAIcon": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/icons/floorpaper.parquetpainteda.icon.png",
+                        "FloorPaperParquetPaintedBIcon": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/icons/floorpaper.parquetpaintedb.icon.png",
+                        "FloorPaperParquetPaintedCIcon": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/icons/floorpaper.parquetpaintedc.icon.png",
+                        "FloorPaperTatamiIcon": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/icons/floorpaper.tatami.icon.png",
+                        "StoreIconHelkFixFloorCeilingPack": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/icons/store-icon-helk-fix-floor-ceiling-pack.png"
                       },
                       "SubFolders": {}
-                    },
-                    "jungledlc": {
-                      "Name": "jungledlc",
-                      "Path": "assets/prefabs/wallpaper/skins/icons/jungledlc",
+                    }
+                  }
+                },
+                "2025-09_exhibit_decor_dlc": {
+                  "Name": "2025-09_exhibit_decor_dlc",
+                  "Path": "assets/prefabs/wallpaper/skins/2025-09_exhibit_decor_dlc",
+                  "Files": {},
+                  "SubFolders": {
+                    "icons": {
+                      "Name": "icons",
+                      "Path": "assets/prefabs/wallpaper/skins/2025-09_exhibit_decor_dlc/icons",
                       "Files": {
-                        "WallPaperJungleAnimals": "assets/prefabs/wallpaper/skins/icons/jungledlc/wallpaper_jungle_animals.png",
-                        "WallPaperJungleLeaves": "assets/prefabs/wallpaper/skins/icons/jungledlc/wallpaper_jungle_leaves.png",
-                        "WallPaperJungleSigil": "assets/prefabs/wallpaper/skins/icons/jungledlc/wallpaper_jungle_sigil.png"
+                        "CeilingPaperPaintedGoldstarsIcon": "assets/prefabs/wallpaper/skins/2025-09_exhibit_decor_dlc/icons/ceilingpaper.painted.goldstars.icon.png",
+                        "FloorPaperCarpetShaggyAIcon": "assets/prefabs/wallpaper/skins/2025-09_exhibit_decor_dlc/icons/floorpaper.carpet.shaggy.a.icon.png",
+                        "WallPaperTilesHexagonAIcon": "assets/prefabs/wallpaper/skins/2025-09_exhibit_decor_dlc/icons/wallpaper.tiles.hexagon.a.icon.png"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
+                "2025-01_lny25": {
+                  "Name": "2025-01_lny25",
+                  "Path": "assets/prefabs/wallpaper/skins/2025-01_lny25",
+                  "Files": {},
+                  "SubFolders": {
+                    "icons": {
+                      "Name": "icons",
+                      "Path": "assets/prefabs/wallpaper/skins/2025-01_lny25/icons",
+                      "Files": {
+                        "LnyPackIcon": "assets/prefabs/wallpaper/skins/2025-01_lny25/icons/lnypackicon.png",
+                        "WallPaperBambooIcon": "assets/prefabs/wallpaper/skins/2025-01_lny25/icons/wallpaper.bamboo.icon.png",
+                        "WallPaperCherryBlossomsIcon": "assets/prefabs/wallpaper/skins/2025-01_lny25/icons/wallpaper.cherry.blossoms.icon.png",
+                        "WallPaperChineseLanternsIcon": "assets/prefabs/wallpaper/skins/2025-01_lny25/icons/wallpaper.chinese.lanterns.icon.png",
+                        "WallPaperDiamondsIcon": "assets/prefabs/wallpaper/skins/2025-01_lny25/icons/wallpaper.diamonds.icon.png",
+                        "WallPaperLnyPanelAIcon": "assets/prefabs/wallpaper/skins/2025-01_lny25/icons/wallpaper.lny.panel.a.icon.png",
+                        "WallPaperLnyPanelBIcon": "assets/prefabs/wallpaper/skins/2025-01_lny25/icons/wallpaper.lny.panel.b.icon.png",
+                        "WallPaperLnyPanelCIcon": "assets/prefabs/wallpaper/skins/2025-01_lny25/icons/wallpaper.lny.panel.c.icon.png"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
+                "2024-09_wallpaper_starter_pack": {
+                  "Name": "2024-09_wallpaper_starter_pack",
+                  "Path": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack",
+                  "Files": {},
+                  "SubFolders": {
+                    "icons": {
+                      "Name": "icons",
+                      "Path": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/icons",
+                      "Files": {
+                        "WallPaperBlueDiamondIcon": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/icons/wallpaper.bluediamond.icon.png",
+                        "WallPaperBlueIcon": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/icons/wallpaper.blue.icon.png",
+                        "WallPaperCloudsIcon": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/icons/wallpaper.clouds.icon.png",
+                        "WallPaperGeometricAIcon": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/icons/wallpaper.geometrica.icon.png",
+                        "WallPaperGeometricBIcon": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/icons/wallpaper.geometricb.icon.png",
+                        "WallPaperGlowBoardAIcon": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/icons/wallpaper.glowboarda.icon.png",
+                        "WallPaperGlowBoardBIcon": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/icons/wallpaper.glowboardb.icon.png",
+                        "WallPaperGreenIcon": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/icons/wallpaper.green.icon.png",
+                        "WallPaperPack1Icon": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/icons/wallpaper.pack1.icon.png",
+                        "WallPaperPolkadotAIcon": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/icons/wallpaper.polkadota.icon.png",
+                        "WallPaperPolkadotBIcon": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/icons/wallpaper.polkadotb.icon.png",
+                        "WallPaperPolkadotCIcon": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/icons/wallpaper.polkadotc.icon.png",
+                        "WallPaperRedIcon": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/icons/wallpaper.red.icon.png",
+                        "WallPaperRetroAIcon": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/icons/wallpaper.retroa.icon.png",
+                        "WallPaperRetroBIcon": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/icons/wallpaper.retrob.icon.png",
+                        "WallPaperRetroCIcon": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/icons/wallpaper.retroc.icon.png",
+                        "WallPaperRoyalAIcon": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/icons/wallpaper.royala.icon.png",
+                        "WallPaperRoyalBIcon": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/icons/wallpaper.royalb.icon.png",
+                        "WallPaperRoyalCIcon": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/icons/wallpaper.royalc.icon.png",
+                        "WallPaperSubwayAIcon": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/icons/wallpaper.subwaya.icon.png",
+                        "WallPaperSubwayBIcon": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/icons/wallpaper.subwayb.icon.png",
+                        "WallPaperVenetianPlasterAIcon": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/icons/wallpaper.venetianplastera.icon.png",
+                        "WallPaperVenetianPlasterBIcon": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/icons/wallpaper.venetianplasterb.icon.png",
+                        "WallPaperVenetianPlasterCIcon": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/icons/wallpaper.venetianplasterc.icon.png",
+                        "WallPaperWainscottingAIcon": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/icons/wallpaper.wainscottinga.icon.png",
+                        "WallPaperWainscottingBIcon": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/icons/wallpaper.wainscottingb.icon.png",
+                        "WallPaperWainscottingCIcon": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/icons/wallpaper.wainscottingc.icon.png",
+                        "WallPaperYellowIcon": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/icons/wallpaper.yellow.icon.png",
+                        "WallPaperYellowStripesIcon": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/icons/wallpaper.yellowstripes.icon.png"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
+                "2025-05_jungledlc": {
+                  "Name": "2025-05_jungledlc",
+                  "Path": "assets/prefabs/wallpaper/skins/2025-05_jungledlc",
+                  "Files": {},
+                  "SubFolders": {
+                    "icons": {
+                      "Name": "icons",
+                      "Path": "assets/prefabs/wallpaper/skins/2025-05_jungledlc/icons",
+                      "Files": {
+                        "WallPaperJungleAnimals": "assets/prefabs/wallpaper/skins/2025-05_jungledlc/icons/wallpaper_jungle_animals.png",
+                        "WallPaperJungleLeaves": "assets/prefabs/wallpaper/skins/2025-05_jungledlc/icons/wallpaper_jungle_leaves.png",
+                        "WallPaperJungleSigil": "assets/prefabs/wallpaper/skins/2025-05_jungledlc/icons/wallpaper_jungle_sigil.png"
                       },
                       "SubFolders": {}
                     }
@@ -7894,6 +8088,28 @@
                   "Path": "assets/prefabs/player/gestures/crude pack",
                   "Files": {
                     "GesturepackIcon": "assets/prefabs/player/gestures/crude pack/gesturepack.icon.png"
+                  },
+                  "SubFolders": {}
+                }
+              }
+            }
+          }
+        },
+        "dlc": {
+          "Name": "dlc",
+          "Path": "assets/prefabs/dlc",
+          "Files": {},
+          "SubFolders": {
+            "pack_sitems": {
+              "Name": "pack_sitems",
+              "Path": "assets/prefabs/dlc/pack_sitems",
+              "Files": {},
+              "SubFolders": {
+                "decor_lighting_pack": {
+                  "Name": "decor_lighting_pack",
+                  "Path": "assets/prefabs/dlc/pack_sitems/decor_lighting_pack",
+                  "Files": {
+                    "StoreIconDecorLightingPack": "assets/prefabs/dlc/pack_sitems/decor_lighting_pack/store-icon_decor_lighting_pack.png"
                   },
                   "SubFolders": {}
                 }
@@ -8626,6 +8842,14 @@
                     "MlrsScanLines": "assets/content/ui/gameui/mlrs/mlrs_scanlines.png",
                     "MlrsTargetCircleFade": "assets/content/ui/gameui/mlrs/mlrs_target_circle_fade.png",
                     "MlrsTargetCross": "assets/content/ui/gameui/mlrs/mlrs_target_cross.png"
+                  },
+                  "SubFolders": {}
+                },
+                "crosshair": {
+                  "Name": "crosshair",
+                  "Path": "assets/content/ui/gameui/crosshair",
+                  "Files": {
+                    "Reticleline": "assets/content/ui/gameui/crosshair/reticleline.png"
                   },
                   "SubFolders": {}
                 },

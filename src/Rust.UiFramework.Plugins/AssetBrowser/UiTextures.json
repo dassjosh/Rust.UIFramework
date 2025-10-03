@@ -1208,6 +1208,7 @@
                     "Roundsoftparticle": "assets/content/effects/explosions/textures/roundsoftparticle.tif",
                     "Roundsoftparticle2": "assets/content/effects/explosions/textures/roundsoftparticle2.tif",
                     "Roundsoftparticle3": "assets/content/effects/explosions/textures/roundsoftparticle3.tif",
+                    "Roundsoftparticle4": "assets/content/effects/explosions/textures/roundsoftparticle4.tif",
                     "Shockwave": "assets/content/effects/explosions/textures/shockwave.tif",
                     "Smokeloop": "assets/content/effects/explosions/textures/smokeloop.tif",
                     "Smokeloop02": "assets/content/effects/explosions/textures/smokeloop02.tif",
@@ -1218,6 +1219,7 @@
                     "Smokepuffnormal": "assets/content/effects/explosions/textures/smokepuffnormal.tif",
                     "Smokeysteam": "assets/content/effects/explosions/textures/smokeysteam.tif",
                     "Spherenormal": "assets/content/effects/explosions/textures/spherenormal.tif",
+                    "Spherenormal2": "assets/content/effects/explosions/textures/spherenormal2.tga",
                     "Spherenormalrippled": "assets/content/effects/explosions/textures/spherenormalrippled.tga",
                     "TinyStones": "assets/content/effects/explosions/textures/tinystones.png",
                     "Twinkle": "assets/content/effects/explosions/textures/twinkle.png",
@@ -12589,6 +12591,21 @@
                   },
                   "SubFolders": {}
                 },
+                "lava": {
+                  "Name": "lava",
+                  "Path": "assets/content/textures/generic/lava",
+                  "Files": {
+                    "LavaADiff": "assets/content/textures/generic/lava/lava_a_diff.tga",
+                    "LavaAEmissive": "assets/content/textures/generic/lava/lava_a_emissive.tga",
+                    "LavaANrm": "assets/content/textures/generic/lava/lava_a_nrm.tga",
+                    "LavaASpec": "assets/content/textures/generic/lava/lava_a_spec.tga",
+                    "LavaBDiff": "assets/content/textures/generic/lava/lava_b_diff.tga",
+                    "LavaBEmissive": "assets/content/textures/generic/lava/lava_b_emissive.tga",
+                    "LavaBNrm": "assets/content/textures/generic/lava/lava_b_nrm.tga",
+                    "LavaBSpec": "assets/content/textures/generic/lava/lava_b_spec.tga"
+                  },
+                  "SubFolders": {}
+                },
                 "lift": {
                   "Name": "lift",
                   "Path": "assets/content/textures/generic/lift",
@@ -17698,28 +17715,28 @@
                   "Path": "assets/prefabs/misc/xmas/poweredlights",
                   "Files": {},
                   "SubFolders": {
-                    "material": {
-                      "Name": "material",
-                      "Path": "assets/prefabs/misc/xmas/poweredlights/material",
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/prefabs/misc/xmas/poweredlights/materials",
                       "Files": {
-                        "ChristmasLightAlbedo": "assets/prefabs/misc/xmas/poweredlights/material/christmas_light_albedo.tga",
-                        "ChristmasLightAo": "assets/prefabs/misc/xmas/poweredlights/material/christmas_light_ao.tga",
-                        "ChristmasLightEmissive": "assets/prefabs/misc/xmas/poweredlights/material/christmas_light_emissive.tga",
-                        "ChristmasLightEmissive2": "assets/prefabs/misc/xmas/poweredlights/material/christmas_light_emissive2.tga",
-                        "ChristmasLightMetalrough": "assets/prefabs/misc/xmas/poweredlights/material/christmas_light_metalrough.tga",
-                        "ChristmasLightNormal": "assets/prefabs/misc/xmas/poweredlights/material/christmas_light_normal.tga",
-                        "ChristmasLightRough": "assets/prefabs/misc/xmas/poweredlights/material/christmas_light_rough.tga",
-                        "ChristmasLightSss": "assets/prefabs/misc/xmas/poweredlights/material/christmas_light_sss.tga"
+                        "ChristmasLightAlbedo": "assets/prefabs/misc/xmas/poweredlights/materials/christmas_light_albedo.tga",
+                        "ChristmasLightAo": "assets/prefabs/misc/xmas/poweredlights/materials/christmas_light_ao.tga",
+                        "ChristmasLightEmissive": "assets/prefabs/misc/xmas/poweredlights/materials/christmas_light_emissive.tga",
+                        "ChristmasLightEmissive2": "assets/prefabs/misc/xmas/poweredlights/materials/christmas_light_emissive2.tga",
+                        "ChristmasLightMetalrough": "assets/prefabs/misc/xmas/poweredlights/materials/christmas_light_metalrough.tga",
+                        "ChristmasLightNormal": "assets/prefabs/misc/xmas/poweredlights/materials/christmas_light_normal.tga",
+                        "ChristmasLightRough": "assets/prefabs/misc/xmas/poweredlights/materials/christmas_light_rough.tga",
+                        "ChristmasLightSss": "assets/prefabs/misc/xmas/poweredlights/materials/christmas_light_sss.tga"
                       },
                       "SubFolders": {
                         "controlbox": {
                           "Name": "controlbox",
-                          "Path": "assets/prefabs/misc/xmas/poweredlights/material/controlbox",
+                          "Path": "assets/prefabs/misc/xmas/poweredlights/materials/controlbox",
                           "Files": {
-                            "XmasControlBoxAlbedo": "assets/prefabs/misc/xmas/poweredlights/material/controlbox/xmas_controlbox_albedo.tga",
-                            "XmasControlBoxAo": "assets/prefabs/misc/xmas/poweredlights/material/controlbox/xmas_controlbox_ao.tga",
-                            "XmasControlBoxMetalrough": "assets/prefabs/misc/xmas/poweredlights/material/controlbox/xmas_controlbox_metalrough.tga",
-                            "XmasControlBoxNormal": "assets/prefabs/misc/xmas/poweredlights/material/controlbox/xmas_controlbox_normal.tga"
+                            "XmasControlBoxAlbedo": "assets/prefabs/misc/xmas/poweredlights/materials/controlbox/xmas_controlbox_albedo.tga",
+                            "XmasControlBoxAo": "assets/prefabs/misc/xmas/poweredlights/materials/controlbox/xmas_controlbox_ao.tga",
+                            "XmasControlBoxMetalrough": "assets/prefabs/misc/xmas/poweredlights/materials/controlbox/xmas_controlbox_metalrough.tga",
+                            "XmasControlBoxNormal": "assets/prefabs/misc/xmas/poweredlights/materials/controlbox/xmas_controlbox_normal.tga"
                           },
                           "SubFolders": {}
                         }
@@ -21624,6 +21641,166 @@
                     }
                   }
                 },
+                "lights": {
+                  "Name": "lights",
+                  "Path": "assets/prefabs/deployable/playerioents/lights",
+                  "Files": {},
+                  "SubFolders": {
+                    "cozypack": {
+                      "Name": "cozypack",
+                      "Path": "assets/prefabs/deployable/playerioents/lights/cozypack",
+                      "Files": {},
+                      "SubFolders": {
+                        "hangingbulbs": {
+                          "Name": "hangingbulbs",
+                          "Path": "assets/prefabs/deployable/playerioents/lights/cozypack/hangingbulbs",
+                          "Files": {},
+                          "SubFolders": {
+                            "models": {
+                              "Name": "models",
+                              "Path": "assets/prefabs/deployable/playerioents/lights/cozypack/hangingbulbs/models",
+                              "Files": {
+                                "BulbEmissiveSideproject": "assets/prefabs/deployable/playerioents/lights/cozypack/hangingbulbs/models/bulb.emissive.sideproject.psd"
+                              },
+                              "SubFolders": {}
+                            },
+                            "textures": {
+                              "Name": "textures",
+                              "Path": "assets/prefabs/deployable/playerioents/lights/cozypack/hangingbulbs/textures",
+                              "Files": {
+                                "DlcLightBulbsAo": "assets/prefabs/deployable/playerioents/lights/cozypack/hangingbulbs/textures/dlc_light_bulbs_ao.tga",
+                                "DlcLightBulbsDiff": "assets/prefabs/deployable/playerioents/lights/cozypack/hangingbulbs/textures/dlc_light_bulbs_diff.tga",
+                                "DlcLightBulbsEmissive": "assets/prefabs/deployable/playerioents/lights/cozypack/hangingbulbs/textures/dlc_light_bulbs_emissive.tga",
+                                "DlcLightBulbsfairyEmissive": "assets/prefabs/deployable/playerioents/lights/cozypack/hangingbulbs/textures/dlc_light_bulbsfairy_emissive.tga",
+                                "DlcLightBulbsNrm": "assets/prefabs/deployable/playerioents/lights/cozypack/hangingbulbs/textures/dlc_light_bulbs_nrm.tga",
+                                "DlcLightBulbsSpec": "assets/prefabs/deployable/playerioents/lights/cozypack/hangingbulbs/textures/dlc_light_bulbs_spec.tga"
+                              },
+                              "SubFolders": {}
+                            }
+                          }
+                        },
+                        "chandelier": {
+                          "Name": "chandelier",
+                          "Path": "assets/prefabs/deployable/playerioents/lights/cozypack/chandelier",
+                          "Files": {},
+                          "SubFolders": {
+                            "models": {
+                              "Name": "models",
+                              "Path": "assets/prefabs/deployable/playerioents/lights/cozypack/chandelier/models",
+                              "Files": {
+                                "ChainTrimAlbedo": "assets/prefabs/deployable/playerioents/lights/cozypack/chandelier/models/chain_trim_albedo.tga",
+                                "ChainTrimAo": "assets/prefabs/deployable/playerioents/lights/cozypack/chandelier/models/chain_trim_ao.tga",
+                                "ChainTrimMetal": "assets/prefabs/deployable/playerioents/lights/cozypack/chandelier/models/chain_trim_metal.tga",
+                                "ChainTrimNormal": "assets/prefabs/deployable/playerioents/lights/cozypack/chandelier/models/chain_trim_normal.tga",
+                                "ChandelierAlbedo": "assets/prefabs/deployable/playerioents/lights/cozypack/chandelier/models/chandelier_albedo.tga",
+                                "ChandelierAo": "assets/prefabs/deployable/playerioents/lights/cozypack/chandelier/models/chandelier_ao.tga",
+                                "ChandelierMetal": "assets/prefabs/deployable/playerioents/lights/cozypack/chandelier/models/chandelier_metal.tga",
+                                "ChandelierNormal": "assets/prefabs/deployable/playerioents/lights/cozypack/chandelier/models/chandelier_normal.tga"
+                              },
+                              "SubFolders": {}
+                            }
+                          }
+                        },
+                        "orientablespotlight": {
+                          "Name": "orientablespotlight",
+                          "Path": "assets/prefabs/deployable/playerioents/lights/cozypack/orientablespotlight",
+                          "Files": {},
+                          "SubFolders": {
+                            "textures": {
+                              "Name": "textures",
+                              "Path": "assets/prefabs/deployable/playerioents/lights/cozypack/orientablespotlight/textures",
+                              "Files": {
+                                "DlcSpotLightAo": "assets/prefabs/deployable/playerioents/lights/cozypack/orientablespotlight/textures/dlc_spotlight_ao.tga",
+                                "DlcSpotLightDiff": "assets/prefabs/deployable/playerioents/lights/cozypack/orientablespotlight/textures/dlc_spotlight_diff.tga",
+                                "DlcSpotLightEmissive": "assets/prefabs/deployable/playerioents/lights/cozypack/orientablespotlight/textures/dlc_spotlight_emissive.png",
+                                "DlcSpotLightNrm": "assets/prefabs/deployable/playerioents/lights/cozypack/orientablespotlight/textures/dlc_spotlight_nrm.tga",
+                                "DlcSpotLightSpec": "assets/prefabs/deployable/playerioents/lights/cozypack/orientablespotlight/textures/dlc_spotlight_spec.tga",
+                                "DlcSpotLightTripodAo": "assets/prefabs/deployable/playerioents/lights/cozypack/orientablespotlight/textures/dlc_spotlight_tripod_ao.tga",
+                                "DlcSpotLightTripodDiff": "assets/prefabs/deployable/playerioents/lights/cozypack/orientablespotlight/textures/dlc_spotlight_tripod_diff.tga",
+                                "DlcSpotLightTripodNrm": "assets/prefabs/deployable/playerioents/lights/cozypack/orientablespotlight/textures/dlc_spotlight_tripod_nrm.tga",
+                                "DlcSpotLightTripodSpec": "assets/prefabs/deployable/playerioents/lights/cozypack/orientablespotlight/textures/dlc_spotlight_tripod_spec.tga"
+                              },
+                              "SubFolders": {}
+                            }
+                          }
+                        },
+                        "electrictablelamp": {
+                          "Name": "electrictablelamp",
+                          "Path": "assets/prefabs/deployable/playerioents/lights/cozypack/electrictablelamp",
+                          "Files": {},
+                          "SubFolders": {
+                            "models": {
+                              "Name": "models",
+                              "Path": "assets/prefabs/deployable/playerioents/lights/cozypack/electrictablelamp/models",
+                              "Files": {
+                                "ElectrictablelampAlbedo": "assets/prefabs/deployable/playerioents/lights/cozypack/electrictablelamp/models/electrictablelamp_albedo.tga",
+                                "ElectrictablelampAo": "assets/prefabs/deployable/playerioents/lights/cozypack/electrictablelamp/models/electrictablelamp_ao.tga",
+                                "ElectrictablelampMetal": "assets/prefabs/deployable/playerioents/lights/cozypack/electrictablelamp/models/electrictablelamp_metal.tga",
+                                "ElectrictablelampNormal": "assets/prefabs/deployable/playerioents/lights/cozypack/electrictablelamp/models/electrictablelamp_normal.tga",
+                                "ElectrictablelampTransmission": "assets/prefabs/deployable/playerioents/lights/cozypack/electrictablelamp/models/electrictablelamp_transmission.tga"
+                              },
+                              "SubFolders": {}
+                            }
+                          }
+                        },
+                        "fairylights": {
+                          "Name": "fairylights",
+                          "Path": "assets/prefabs/deployable/playerioents/lights/cozypack/fairylights",
+                          "Files": {},
+                          "SubFolders": {
+                            "materials": {
+                              "Name": "materials",
+                              "Path": "assets/prefabs/deployable/playerioents/lights/cozypack/fairylights/materials",
+                              "Files": {},
+                              "SubFolders": {
+                                "textures": {
+                                  "Name": "textures",
+                                  "Path": "assets/prefabs/deployable/playerioents/lights/cozypack/fairylights/materials/textures",
+                                  "Files": {
+                                    "FairyLightWireAo": "assets/prefabs/deployable/playerioents/lights/cozypack/fairylights/materials/textures/fairy_light_wire_ao.tga",
+                                    "FairyLightWireDiff": "assets/prefabs/deployable/playerioents/lights/cozypack/fairylights/materials/textures/fairy_light_wire_diff.tga",
+                                    "FairyLightWireNrm": "assets/prefabs/deployable/playerioents/lights/cozypack/fairylights/materials/textures/fairy_light_wire_nrm.tga",
+                                    "FairyLightWireSpec": "assets/prefabs/deployable/playerioents/lights/cozypack/fairylights/materials/textures/fairy_light_wire_spec.tga"
+                                  },
+                                  "SubFolders": {}
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "fluorescentlights": {
+                          "Name": "fluorescentlights",
+                          "Path": "assets/prefabs/deployable/playerioents/lights/cozypack/fluorescentlights",
+                          "Files": {},
+                          "SubFolders": {
+                            "textures": {
+                              "Name": "textures",
+                              "Path": "assets/prefabs/deployable/playerioents/lights/cozypack/fluorescentlights/textures",
+                              "Files": {
+                                "IndustrialStripLightAo": "assets/prefabs/deployable/playerioents/lights/cozypack/fluorescentlights/textures/industrial_strip_light_ao.png",
+                                "IndustrialStripLightDiff": "assets/prefabs/deployable/playerioents/lights/cozypack/fluorescentlights/textures/industrial_strip_light_diff.png",
+                                "IndustrialStripLightEmissive": "assets/prefabs/deployable/playerioents/lights/cozypack/fluorescentlights/textures/industrial_strip_light_emissive.png",
+                                "IndustrialStripLightGlassAo": "assets/prefabs/deployable/playerioents/lights/cozypack/fluorescentlights/textures/industrial_strip_light_glass_ao.png",
+                                "IndustrialStripLightGlassDiff": "assets/prefabs/deployable/playerioents/lights/cozypack/fluorescentlights/textures/industrial_strip_light_glass_diff.png",
+                                "IndustrialStripLightGlassEmissive": "assets/prefabs/deployable/playerioents/lights/cozypack/fluorescentlights/textures/industrial_strip_light_glass_emissive.png",
+                                "IndustrialStripLightGlassNrm": "assets/prefabs/deployable/playerioents/lights/cozypack/fluorescentlights/textures/industrial_strip_light_glass_nrm.png",
+                                "IndustrialStripLightGlassSpec": "assets/prefabs/deployable/playerioents/lights/cozypack/fluorescentlights/textures/industrial_strip_light_glass_spec.png",
+                                "IndustrialStripLightGlassSpec1": "assets/prefabs/deployable/playerioents/lights/cozypack/fluorescentlights/textures/industrial_strip_light_glass_spec.tga",
+                                "IndustrialStripLightNrm": "assets/prefabs/deployable/playerioents/lights/cozypack/fluorescentlights/textures/industrial_strip_light_nrm.png",
+                                "IndustrialStripLightSpec": "assets/prefabs/deployable/playerioents/lights/cozypack/fluorescentlights/textures/industrial_strip_light_spec.png",
+                                "StripLightMountAo": "assets/prefabs/deployable/playerioents/lights/cozypack/fluorescentlights/textures/striplight_mount_ao.tga",
+                                "StripLightMountDiff": "assets/prefabs/deployable/playerioents/lights/cozypack/fluorescentlights/textures/striplight_mount_diff.tga",
+                                "StripLightMountNrm": "assets/prefabs/deployable/playerioents/lights/cozypack/fluorescentlights/textures/striplight_mount_nrm.tga",
+                                "StripLightMountSpec": "assets/prefabs/deployable/playerioents/lights/cozypack/fluorescentlights/textures/striplight_mount_spec.tga"
+                              },
+                              "SubFolders": {}
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
                 "tunnel": {
                   "Name": "tunnel",
                   "Path": "assets/prefabs/deployable/playerioents/tunnel",
@@ -22368,13 +22545,20 @@
                 "textures": {
                   "Name": "textures",
                   "Path": "assets/prefabs/deployable/bed/textures",
-                  "Files": {
-                    "BedAo": "assets/prefabs/deployable/bed/textures/bed_ao.tga",
-                    "BedDiff": "assets/prefabs/deployable/bed/textures/bed_diff.tga",
-                    "BedNrm": "assets/prefabs/deployable/bed/textures/bed_nrm.tga",
-                    "BedSpec": "assets/prefabs/deployable/bed/textures/bed_spec.tga"
-                  },
-                  "SubFolders": {}
+                  "Files": {},
+                  "SubFolders": {
+                    "bed_updated": {
+                      "Name": "bed_updated",
+                      "Path": "assets/prefabs/deployable/bed/textures/bed_updated",
+                      "Files": {
+                        "BedAo": "assets/prefabs/deployable/bed/textures/bed_updated/bed_ao.tga",
+                        "BedDiffuse": "assets/prefabs/deployable/bed/textures/bed_updated/bed_diffuse.tga",
+                        "BedNormal": "assets/prefabs/deployable/bed/textures/bed_updated/bed_normal.tga",
+                        "BedSpecGloss": "assets/prefabs/deployable/bed/textures/bed_updated/bed_specgloss.tga"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
                 }
               }
             },
@@ -22591,6 +22775,29 @@
                   "Path": "assets/prefabs/deployable/chair/skins",
                   "Files": {},
                   "SubFolders": {
+                    "cozy_beanbag_seat": {
+                      "Name": "cozy_beanbag_seat",
+                      "Path": "assets/prefabs/deployable/chair/skins/cozy_beanbag_seat",
+                      "Files": {},
+                      "SubFolders": {
+                        "materials": {
+                          "Name": "materials",
+                          "Path": "assets/prefabs/deployable/chair/skins/cozy_beanbag_seat/materials",
+                          "Files": {
+                            "CozyBeanBagSeat2AlbedoTransparency": "assets/prefabs/deployable/chair/skins/cozy_beanbag_seat/materials/cozy_beanbag_seat_2_albedotransparency.png",
+                            "CozyBeanBagSeat2Ao": "assets/prefabs/deployable/chair/skins/cozy_beanbag_seat/materials/cozy_beanbag_seat_2_ao.png",
+                            "CozyBeanBagSeat2MetallicSmoothness": "assets/prefabs/deployable/chair/skins/cozy_beanbag_seat/materials/cozy_beanbag_seat_2_metallicsmoothness.png",
+                            "CozyBeanBagSeat2Normal": "assets/prefabs/deployable/chair/skins/cozy_beanbag_seat/materials/cozy_beanbag_seat_2_normal.png",
+                            "CozyBeanBagSeatAlbedoTransparency": "assets/prefabs/deployable/chair/skins/cozy_beanbag_seat/materials/cozy_beanbag_seat_albedotransparency.png",
+                            "CozyBeanBagSeatAo": "assets/prefabs/deployable/chair/skins/cozy_beanbag_seat/materials/cozy_beanbag_seat_ao.png",
+                            "CozyBeanBagSeatFuzz": "assets/prefabs/deployable/chair/skins/cozy_beanbag_seat/materials/cozy_beanbag_seat_fuzz.png",
+                            "CozyBeanBagSeatMetallicSmoothness": "assets/prefabs/deployable/chair/skins/cozy_beanbag_seat/materials/cozy_beanbag_seat_metallicsmoothness.png",
+                            "CozyBeanBagSeatNormal": "assets/prefabs/deployable/chair/skins/cozy_beanbag_seat/materials/cozy_beanbag_seat_normal.png"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    },
                     "pilot_hazmat_ejector_seat": {
                       "Name": "pilot_hazmat_ejector_seat",
                       "Path": "assets/prefabs/deployable/chair/skins/pilot_hazmat_ejector_seat",
@@ -22614,6 +22821,46 @@
                       }
                     }
                   }
+                }
+              }
+            },
+            "charity_plushie_01": {
+              "Name": "charity_plushie_01",
+              "Path": "assets/prefabs/deployable/charity_plushie_01",
+              "Files": {},
+              "SubFolders": {
+                "material": {
+                  "Name": "material",
+                  "Path": "assets/prefabs/deployable/charity_plushie_01/material",
+                  "Files": {
+                    "CharityPlushie01Albedo": "assets/prefabs/deployable/charity_plushie_01/material/charity_plushie_01_albedo.tga",
+                    "CharityPlushie01Anisolevel": "assets/prefabs/deployable/charity_plushie_01/material/charity_plushie_01_anisolevel.tga",
+                    "CharityPlushie01Ao": "assets/prefabs/deployable/charity_plushie_01/material/charity_plushie_01_ao.tga",
+                    "CharityPlushie01FuzzMask": "assets/prefabs/deployable/charity_plushie_01/material/charity_plushie_01_fuzzmask.tga",
+                    "CharityPlushie01Metallic": "assets/prefabs/deployable/charity_plushie_01/material/charity_plushie_01_metallic.tga",
+                    "CharityPlushie01Normal": "assets/prefabs/deployable/charity_plushie_01/material/charity_plushie_01_normal.tga",
+                    "CharityPlushie01Tangent": "assets/prefabs/deployable/charity_plushie_01/material/charity_plushie_01_tangent.tga"
+                  },
+                  "SubFolders": {}
+                }
+              }
+            },
+            "charity_plushie_02": {
+              "Name": "charity_plushie_02",
+              "Path": "assets/prefabs/deployable/charity_plushie_02",
+              "Files": {},
+              "SubFolders": {
+                "material": {
+                  "Name": "material",
+                  "Path": "assets/prefabs/deployable/charity_plushie_02/material",
+                  "Files": {
+                    "CharityPlushie02Albedo": "assets/prefabs/deployable/charity_plushie_02/material/charity_plushie_02_albedo.tga",
+                    "CharityPlushie02Ao": "assets/prefabs/deployable/charity_plushie_02/material/charity_plushie_02_ao.tga",
+                    "CharityPlushie02FuzzMask": "assets/prefabs/deployable/charity_plushie_02/material/charity_plushie_02_fuzzmask.tga",
+                    "CharityPlushie02Metallic": "assets/prefabs/deployable/charity_plushie_02/material/charity_plushie_02_metallic.tga",
+                    "CharityPlushie02Normal": "assets/prefabs/deployable/charity_plushie_02/material/charity_plushie_02_normal.tga"
+                  },
+                  "SubFolders": {}
                 }
               }
             },
@@ -22858,6 +23105,25 @@
                       "SubFolders": {}
                     }
                   }
+                }
+              }
+            },
+            "wall cabinet": {
+              "Name": "wall cabinet",
+              "Path": "assets/prefabs/deployable/wall cabinet",
+              "Files": {},
+              "SubFolders": {
+                "material": {
+                  "Name": "material",
+                  "Path": "assets/prefabs/deployable/wall cabinet/material",
+                  "Files": {
+                    "CozywallstorageshelfAlbedoTransparency": "assets/prefabs/deployable/wall cabinet/material/cozywallstorageshelf_albedotransparency.tga",
+                    "CozywallstorageshelfAo": "assets/prefabs/deployable/wall cabinet/material/cozywallstorageshelf_ao.tga",
+                    "CozywallstorageshelfCookie": "assets/prefabs/deployable/wall cabinet/material/cozywallstorageshelf_cookie.png",
+                    "CozywallstorageshelfMetallicSmoothness": "assets/prefabs/deployable/wall cabinet/material/cozywallstorageshelf_metallicsmoothness.tga",
+                    "CozywallstorageshelfNormal": "assets/prefabs/deployable/wall cabinet/material/cozywallstorageshelf_normal.tga"
+                  },
+                  "SubFolders": {}
                 }
               }
             },
@@ -24099,6 +24365,38 @@
                 }
               }
             },
+            "spike trap": {
+              "Name": "spike trap",
+              "Path": "assets/prefabs/deployable/spike trap",
+              "Files": {},
+              "SubFolders": {
+                "models": {
+                  "Name": "models",
+                  "Path": "assets/prefabs/deployable/spike trap/models",
+                  "Files": {},
+                  "SubFolders": {
+                    "material": {
+                      "Name": "material",
+                      "Path": "assets/prefabs/deployable/spike trap/models/material",
+                      "Files": {},
+                      "SubFolders": {
+                        "textures": {
+                          "Name": "textures",
+                          "Path": "assets/prefabs/deployable/spike trap/models/material/textures",
+                          "Files": {
+                            "SpiketrapAlbedoTransparency": "assets/prefabs/deployable/spike trap/models/material/textures/spiketrap_albedotransparency.tga",
+                            "SpiketrapAo": "assets/prefabs/deployable/spike trap/models/material/textures/spiketrap_ao.tga",
+                            "SpiketrapMetallicSmoothness": "assets/prefabs/deployable/spike trap/models/material/textures/spiketrap_metallicsmoothness.tga",
+                            "SpiketrapNormal": "assets/prefabs/deployable/spike trap/models/material/textures/spiketrap_normal.tga"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
             "storage monitor": {
               "Name": "storage monitor",
               "Path": "assets/prefabs/deployable/storage monitor",
@@ -24887,6 +25185,24 @@
                         "SuitFuzz": "assets/prefabs/clothes/suit.hazmat/spacesuit/materials/suit_fuzz.png",
                         "SuitNormal": "assets/prefabs/clothes/suit.hazmat/spacesuit/materials/suit_normal.png",
                         "SuitSpecGloss": "assets/prefabs/clothes/suit.hazmat/spacesuit/materials/suit_specgloss.png"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
+                "clothing_mannequin": {
+                  "Name": "clothing_mannequin",
+                  "Path": "assets/prefabs/clothes/suit.hazmat/clothing_mannequin",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/prefabs/clothes/suit.hazmat/clothing_mannequin/materials",
+                      "Files": {
+                        "ClothingMannequinClothingMannequinAlbedo": "assets/prefabs/clothes/suit.hazmat/clothing_mannequin/materials/clothing_mannequin_clothing_mannequin_albedo.tga",
+                        "ClothingMannequinClothingMannequinAo": "assets/prefabs/clothes/suit.hazmat/clothing_mannequin/materials/clothing_mannequin_clothing_mannequin_ao.tga",
+                        "ClothingMannequinClothingMannequinMetalsmooth": "assets/prefabs/clothes/suit.hazmat/clothing_mannequin/materials/clothing_mannequin_clothing_mannequin_metalsmooth.tga",
+                        "ClothingMannequinClothingMannequinNormal": "assets/prefabs/clothes/suit.hazmat/clothing_mannequin/materials/clothing_mannequin_clothing_mannequin_normal.tga"
                       },
                       "SubFolders": {}
                     }
@@ -27107,6 +27423,31 @@
                   "SubFolders": {}
                 }
               }
+            },
+            "viewmodel": {
+              "Name": "viewmodel",
+              "Path": "assets/prefabs/ammo/viewmodel",
+              "Files": {},
+              "SubFolders": {
+                "materials": {
+                  "Name": "materials",
+                  "Path": "assets/prefabs/ammo/viewmodel/materials",
+                  "Files": {},
+                  "SubFolders": {
+                    "textures": {
+                      "Name": "textures",
+                      "Path": "assets/prefabs/ammo/viewmodel/materials/textures",
+                      "Files": {
+                        "ViewModelShotgunShellsAlbedo": "assets/prefabs/ammo/viewmodel/materials/textures/viewmodel_shotgun_shells_albedo.tga",
+                        "ViewModelShotgunShellsAo": "assets/prefabs/ammo/viewmodel/materials/textures/viewmodel_shotgun_shells_ao.tga",
+                        "ViewModelShotgunShellsMetallic": "assets/prefabs/ammo/viewmodel/materials/textures/viewmodel_shotgun_shells_metallic.tga",
+                        "ViewModelShotgunShellsNormal": "assets/prefabs/ammo/viewmodel/materials/textures/viewmodel_shotgun_shells_normal.tga"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                }
+              }
             }
           }
         },
@@ -27689,6 +28030,37 @@
                         "AnimalfatSpecular": "assets/prefabs/resource/plantfiber/model/materials/animalfat_specular.tga"
                       },
                       "SubFolders": {}
+                    }
+                  }
+                }
+              }
+            },
+            "blueprint fragment": {
+              "Name": "blueprint fragment",
+              "Path": "assets/prefabs/resource/blueprint fragment",
+              "Files": {},
+              "SubFolders": {
+                "model": {
+                  "Name": "model",
+                  "Path": "assets/prefabs/resource/blueprint fragment/model",
+                  "Files": {},
+                  "SubFolders": {
+                    "material": {
+                      "Name": "material",
+                      "Path": "assets/prefabs/resource/blueprint fragment/model/material",
+                      "Files": {},
+                      "SubFolders": {
+                        "textures": {
+                          "Name": "textures",
+                          "Path": "assets/prefabs/resource/blueprint fragment/model/material/textures",
+                          "Files": {
+                            "BlueprintsAlbedo": "assets/prefabs/resource/blueprint fragment/model/material/textures/blueprints_albedo.tga",
+                            "BlueprintsMetallic": "assets/prefabs/resource/blueprint fragment/model/material/textures/blueprints_metallic.tga",
+                            "BlueprintsNormal": "assets/prefabs/resource/blueprint fragment/model/material/textures/blueprints_normal.tga"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
                     }
                   }
                 }
@@ -30271,6 +30643,410 @@
           "Path": "assets/prefabs/wallpaper",
           "Files": {},
           "SubFolders": {
+            "skins": {
+              "Name": "skins",
+              "Path": "assets/prefabs/wallpaper/skins",
+              "Files": {},
+              "SubFolders": {
+                "2024-09_wallpaper_starter_pack": {
+                  "Name": "2024-09_wallpaper_starter_pack",
+                  "Path": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack",
+                  "Files": {},
+                  "SubFolders": {
+                    "textures": {
+                      "Name": "textures",
+                      "Path": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures",
+                      "Files": {
+                        "BlueDiamondWallPaperAAo": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/blue_diamond_wallpaper_a_ao.tga",
+                        "BlueDiamondWallPaperADiff": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/blue_diamond_wallpaper_a_diff.tga",
+                        "BlueDiamondWallPaperANrm": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/blue_diamond_wallpaper_a_nrm.tga",
+                        "BlueDiamondWallPaperASpec": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/blue_diamond_wallpaper_a_spec.tga",
+                        "GlowBoardWallPaperAAo": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/glowboard_wallpaper_a_ao.tga",
+                        "GlowBoardWallPaperADiff": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/glowboard_wallpaper_a_diff.tga",
+                        "GlowBoardWallPaperAEmissive": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/glowboard_wallpaper_a_emissive.tga",
+                        "GlowBoardWallPaperANrm": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/glowboard_wallpaper_a_nrm.tga",
+                        "GlowBoardWallPaperASpec": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/glowboard_wallpaper_a_spec.tga",
+                        "GlowBoardWallPaperBAo": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/glowboard_wallpaper_b_ao.tga",
+                        "GlowBoardWallPaperBDiff": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/glowboard_wallpaper_b_diff.tga",
+                        "GlowBoardWallPaperBEmissive": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/glowboard_wallpaper_b_emissive.tga",
+                        "GlowBoardWallPaperBNrm": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/glowboard_wallpaper_b_nrm.tga",
+                        "GlowBoardWallPaperBSpec": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/glowboard_wallpaper_b_spec.tga",
+                        "SubwayWallPaperAAo": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/subway_wallpaper_a_ao.tga",
+                        "SubwayWallPaperADiff": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/subway_wallpaper_a_diff.tga",
+                        "SubwayWallPaperANrm": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/subway_wallpaper_a_nrm.tga",
+                        "SubwayWallPaperASpec": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/subway_wallpaper_a_spec.tga",
+                        "SubwayWallPaperBAo": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/subway_wallpaper_b_ao.tga",
+                        "SubwayWallPaperBDiff": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/subway_wallpaper_b_diff.tga",
+                        "SubwayWallPaperBNrm": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/subway_wallpaper_b_nrm.tga",
+                        "SubwayWallPaperBSpec": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/subway_wallpaper_b_spec.tga",
+                        "VintageWallPaperAAo": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/vintage_wallpaper_a_ao.tga",
+                        "VintageWallPaperADiff": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/vintage_wallpaper_a_diff.tga",
+                        "VintageWallPaperAMask": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/vintage_wallpaper_a_mask.tga",
+                        "VintageWallPaperANrm": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/vintage_wallpaper_a_nrm.tga",
+                        "VintageWallPaperASpec": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/vintage_wallpaper_a_spec.tga",
+                        "VintageWallPaperBAo": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/vintage_wallpaper_b_ao.tga",
+                        "VintageWallPaperBDiff": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/vintage_wallpaper_b_diff.tga",
+                        "VintageWallPaperBNrm": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/vintage_wallpaper_b_nrm.tga",
+                        "VintageWallPaperBSpec": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/vintage_wallpaper_b_spec.tga",
+                        "VintageWallPaperCAo": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/vintage_wallpaper_c_ao.tga",
+                        "VintageWallPaperCDiff": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/vintage_wallpaper_c_diff.tga",
+                        "VintageWallPaperCNrm": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/vintage_wallpaper_c_nrm.tga",
+                        "VintageWallPaperCSpec": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/vintage_wallpaper_c_spec.tga",
+                        "VintageWallPaperDAo": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/vintage_wallpaper_d_ao.tga",
+                        "VintageWallPaperDDiff": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/vintage_wallpaper_d_diff.tga",
+                        "VintageWallPaperDNrm": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/vintage_wallpaper_d_nrm.tga",
+                        "VintageWallPaperDSpec": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/vintage_wallpaper_d_spec.tga",
+                        "WainscottingWallPaperAAo": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/wainscotting_wallpaper_a_ao.tga",
+                        "WainscottingWallPaperADiff": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/wainscotting_wallpaper_a_diff.tga",
+                        "WainscottingWallPaperANrm": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/wainscotting_wallpaper_a_nrm.tga",
+                        "WainscottingWallPaperASpec": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/wainscotting_wallpaper_a_spec.tga",
+                        "WainscottingWallPaperBAo": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/wainscotting_wallpaper_b_ao.tga",
+                        "WainscottingWallPaperBDiff": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/wainscotting_wallpaper_b_diff.tga",
+                        "WainscottingWallPaperBNrm": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/wainscotting_wallpaper_b_nrm.tga",
+                        "WainscottingWallPaperBSpec": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/wainscotting_wallpaper_b_spec.tga",
+                        "WainscottingWallPaperCAo": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/wainscotting_wallpaper_c_ao.tga",
+                        "WainscottingWallPaperCDiff": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/wainscotting_wallpaper_c_diff.tga",
+                        "WainscottingWallPaperCNrm": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/wainscotting_wallpaper_c_nrm.tga",
+                        "WainscottingWallPaperCSpec": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/wainscotting_wallpaper_c_spec.tga",
+                        "WallPaperClouds1Ao": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/wallpaper_clouds_1_ao.tga",
+                        "WallPaperClouds1Diff": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/wallpaper_clouds_1_diff.tga",
+                        "WallPaperClouds1Nrm": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/wallpaper_clouds_1_nrm.tga",
+                        "WallPaperClouds1Spec": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/wallpaper_clouds_1_spec.tga",
+                        "WallPaperGeometric2Ao": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/wallpaper_geometric_2_ao.tga",
+                        "WallPaperGeometric2Diff": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/wallpaper_geometric_2_diff.tga",
+                        "WallPaperGeometric2Nrm": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/wallpaper_geometric_2_nrm.tga",
+                        "WallPaperGeometric2Spec": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/wallpaper_geometric_2_spec.tga",
+                        "WallPaperGeometric3Ao": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/wallpaper_geometric_3_ao.tga",
+                        "WallPaperGeometric3Diff": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/wallpaper_geometric_3_diff.tga",
+                        "WallPaperGeometric3Nrm": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/wallpaper_geometric_3_nrm.tga",
+                        "WallPaperGeometric3Spec": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/wallpaper_geometric_3_spec.tga",
+                        "WallPaperPolka1Ao": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/wallpaper_polka_1_ao.tga",
+                        "WallPaperPolka1Diff": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/wallpaper_polka_1_diff.tga",
+                        "WallPaperPolka1Nrm": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/wallpaper_polka_1_nrm.tga",
+                        "WallPaperPolka1Spec": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/wallpaper_polka_1_spec.tga",
+                        "WallPaperPolka2Ao": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/wallpaper_polka_2_ao.tga",
+                        "WallPaperPolka2Diff": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/wallpaper_polka_2_diff.tga",
+                        "WallPaperPolka2Nrm": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/wallpaper_polka_2_nrm.tga",
+                        "WallPaperPolka2Spec": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/wallpaper_polka_2_spec.tga",
+                        "WallPaperPolka3Ao": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/wallpaper_polka_3_ao.tga",
+                        "WallPaperPolka3Diff": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/wallpaper_polka_3_diff.tga",
+                        "WallPaperPolka3Nrm": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/wallpaper_polka_3_nrm.tga",
+                        "WallPaperPolka3Spec": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/wallpaper_polka_3_spec.tga",
+                        "WallPaperRetro1Ao": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/wallpaper_retro_1_ao.tga",
+                        "WallPaperRetro1Diff": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/wallpaper_retro_1_diff.tga",
+                        "WallPaperRetro1Nrm": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/wallpaper_retro_1_nrm.tga",
+                        "WallPaperRetro1Spec": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/wallpaper_retro_1_spec.tga",
+                        "WallPaperRetro2Ao": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/wallpaper_retro_2_ao.tga",
+                        "WallPaperRetro2Diff": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/wallpaper_retro_2_diff.tga",
+                        "WallPaperRetro2Nrm": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/wallpaper_retro_2_nrm.tga",
+                        "WallPaperRetro2Spec": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/wallpaper_retro_2_spec.tga",
+                        "WallPaperRetro3Ao": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/wallpaper_retro_3_ao.tga",
+                        "WallPaperRetro3Diff": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/wallpaper_retro_3_diff.tga",
+                        "WallPaperRetro3Nrm": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/wallpaper_retro_3_nrm.tga",
+                        "WallPaperRetro3Spec": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/wallpaper_retro_3_spec.tga",
+                        "WallPaperRoyal1Ao": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/wallpaper_royal_1_ao.tga",
+                        "WallPaperRoyal1Diff": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/wallpaper_royal_1_diff.tga",
+                        "WallPaperRoyal1Nrm": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/wallpaper_royal_1_nrm.tga",
+                        "WallPaperRoyal1Spec": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/wallpaper_royal_1_spec.tga",
+                        "WallPaperRoyal2Ao": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/wallpaper_royal_2_ao.tga",
+                        "WallPaperRoyal2Diff": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/wallpaper_royal_2_diff.tga",
+                        "WallPaperRoyal2Nrm": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/wallpaper_royal_2_nrm.tga",
+                        "WallPaperRoyal2Spec": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/wallpaper_royal_2_spec.tga",
+                        "WallPaperRoyal3Ao": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/wallpaper_royal_3_ao.tga",
+                        "WallPaperRoyal3Diff": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/wallpaper_royal_3_diff.tga",
+                        "WallPaperRoyal3Nrm": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/wallpaper_royal_3_nrm.tga",
+                        "WallPaperRoyal3Spec": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/wallpaper_royal_3_spec.tga",
+                        "WallPaperVenetianPlasterAAo": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/wallpaper_venetian_plaster_a_ao.tga",
+                        "WallPaperVenetianPlasterADiff": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/wallpaper_venetian_plaster_a_diff.tga",
+                        "WallPaperVenetianPlasterANrm": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/wallpaper_venetian_plaster_a_nrm.tga",
+                        "WallPaperVenetianPlasterASpec": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/wallpaper_venetian_plaster_a_spec.tga",
+                        "WallPaperVenetianPlasterBAo": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/wallpaper_venetian_plaster_b_ao.tga",
+                        "WallPaperVenetianPlasterBDiff": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/wallpaper_venetian_plaster_b_diff.tga",
+                        "WallPaperVenetianPlasterBNrm": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/wallpaper_venetian_plaster_b_nrm.tga",
+                        "WallPaperVenetianPlasterBSpec": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/wallpaper_venetian_plaster_b_spec.tga",
+                        "WallPaperVenetianPlasterCAo": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/wallpaper_venetian_plaster_c_ao.tga",
+                        "WallPaperVenetianPlasterCDiff": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/wallpaper_venetian_plaster_c_diff.tga",
+                        "WallPaperVenetianPlasterCNrm": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/wallpaper_venetian_plaster_c_nrm.tga",
+                        "WallPaperVenetianPlasterCSpec": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/wallpaper_venetian_plaster_c_spec.tga",
+                        "YellowStripeWallPaperAAo": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/yellow_stripe_wallpaper_a_ao.tga",
+                        "YellowStripeWallPaperADiff": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/yellow_stripe_wallpaper_a_diff.tga",
+                        "YellowStripeWallPaperANrm": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/yellow_stripe_wallpaper_a_nrm.tga",
+                        "YellowStripeWallPaperASpec": "assets/prefabs/wallpaper/skins/2024-09_wallpaper_starter_pack/textures/yellow_stripe_wallpaper_a_spec.tga"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
+                "2025-06_floor&ceiling_pack_dlc": {
+                  "Name": "2025-06_floor&ceiling_pack_dlc",
+                  "Path": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc",
+                  "Files": {},
+                  "SubFolders": {
+                    "textures": {
+                      "Name": "textures",
+                      "Path": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures",
+                      "Files": {
+                        "CeilingArtexSwirlsAo": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/ceiling_artex_swirls_ao.tga",
+                        "CeilingArtexSwirlsDiff": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/ceiling_artex_swirls_diff.tga",
+                        "CeilingArtexSwirlsNrm": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/ceiling_artex_swirls_nrm.tga",
+                        "CeilingArtexSwirlsSpec": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/ceiling_artex_swirls_spec.tga",
+                        "CeilingArtexWavesAo": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/ceiling_artex_waves_ao.tga",
+                        "CeilingArtexWavesDiff": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/ceiling_artex_waves_diff.tga",
+                        "CeilingArtexWavesNrm": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/ceiling_artex_waves_nrm.tga",
+                        "CeilingArtexWavesSpec": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/ceiling_artex_waves_spec.tga",
+                        "CeilingMetalSheetAAo": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/ceiling_metal_sheet_a_ao.tga",
+                        "CeilingMetalSheetADiff": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/ceiling_metal_sheet_a_diff.tga",
+                        "CeilingMetalSheetANrm": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/ceiling_metal_sheet_a_nrm.tga",
+                        "CeilingMetalSheetASpec": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/ceiling_metal_sheet_a_spec.tga",
+                        "CeilingMetalSheetBDiff": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/ceiling_metal_sheet_b_diff.tga",
+                        "CeilingMetalSheetCDiff": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/ceiling_metal_sheet_c_diff.tga",
+                        "CeilingOfficeAo": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/ceiling_office_ao.tga",
+                        "CeilingOfficeDiff": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/ceiling_office_diff.tga",
+                        "CeilingOfficeNrm": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/ceiling_office_nrm.tga",
+                        "CeilingOfficeSpec": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/ceiling_office_spec.tga",
+                        "CeilingParquetCAo": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/ceiling_parquet_c_ao.tga",
+                        "CeilingParquetCDiff": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/ceiling_parquet_c_diff.tga",
+                        "CeilingParquetCNrm": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/ceiling_parquet_c_nrm.tga",
+                        "CeilingParquetCSpec": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/ceiling_parquet_c_spec.tga",
+                        "CeilingParquetPaintedAAo": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/ceiling_parquet_painted_a_ao.tga",
+                        "CeilingParquetPaintedABlue02Diff": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/ceiling_parquet_painted_a_blue_02_diff.tga",
+                        "CeilingParquetPaintedABlueDiff": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/ceiling_parquet_painted_a_blue_diff.tga",
+                        "CeilingParquetPaintedADiff": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/ceiling_parquet_painted_a_diff.tga",
+                        "CeilingParquetPaintedAGreenDiff": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/ceiling_parquet_painted_a_green_diff.tga",
+                        "CeilingParquetPaintedANrm": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/ceiling_parquet_painted_a_nrm.tga",
+                        "CeilingParquetPaintedAPinkDiff": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/ceiling_parquet_painted_a_pink_diff.tga",
+                        "CeilingParquetPaintedASpec": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/ceiling_parquet_painted_a_spec.tga",
+                        "CeilingParquetPaintedAYellowDiff": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/ceiling_parquet_painted_a_yellow_diff.tga",
+                        "CeilingPlasterBoardAAo": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/ceiling_plasterboard_a_ao.tga",
+                        "CeilingPlasterBoardADiff": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/ceiling_plasterboard_a_diff.tga",
+                        "CeilingPlasterBoardANrm": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/ceiling_plasterboard_a_nrm.tga",
+                        "CeilingPlasterBoardASpec": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/ceiling_plasterboard_a_spec.tga",
+                        "CeilingPlasterDamagedAo": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/ceiling_plaster_damaged_ao.tga",
+                        "CeilingPlasterDamagedBlueDiff": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/ceiling_plaster_damaged_blue_diff.tga",
+                        "CeilingPlasterDamagedGreenDiff": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/ceiling_plaster_damaged_green_diff.tga",
+                        "CeilingPlasterDamagedNrm": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/ceiling_plaster_damaged_nrm.tga",
+                        "CeilingPlasterDamagedSpec": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/ceiling_plaster_damaged_spec.tga",
+                        "CeilingSubwayAAo": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/ceiling_subway_a_ao.tga",
+                        "CeilingSubwayADiff": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/ceiling_subway_a_diff.tga",
+                        "CeilingSubwayANrm": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/ceiling_subway_a_nrm.tga",
+                        "CeilingSubwayAPatternDiff": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/ceiling_subway_a_pattern_diff.tga",
+                        "CeilingSubwayASpec": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/ceiling_subway_a_spec.tga",
+                        "CeilingSubwayAYellowDiff": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/ceiling_subway_a_yellow_diff.tga",
+                        "CeilingSubwayBAo": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/ceiling_subway_b_ao.tga",
+                        "CeilingSubwayBDiffuse": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/ceiling_subway_b_diffuse.tga",
+                        "CeilingSubwayBNormal": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/ceiling_subway_b_normal.tga",
+                        "CeilingSubwayBPatternDiffuse": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/ceiling_subway_b_pattern_diffuse.tga",
+                        "CeilingSubwayBSpecular": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/ceiling_subway_b_specular.tga",
+                        "CeilingWoodBeamsAAo": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/ceiling_woodbeams_a_ao.tga",
+                        "CeilingWoodBeamsADiff": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/ceiling_woodbeams_a_diff.tga",
+                        "CeilingWoodBeamsANrm": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/ceiling_woodbeams_a_nrm.tga",
+                        "CeilingWoodBeamsASpec": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/ceiling_woodbeams_a_spec.tga",
+                        "FloorAsbestosTilesAAo": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_asbestos_tiles_a_ao.tga",
+                        "FloorAsbestosTilesADiff": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_asbestos_tiles_a_diff.tga",
+                        "FloorAsbestosTilesANrm": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_asbestos_tiles_a_nrm.tga",
+                        "FloorAsbestosTilesASpec": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_asbestos_tiles_a_spec.tga",
+                        "FloorAsbestosTilesBDiff": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_asbestos_tiles_b_diff.tga",
+                        "FloorAsbestosTilesCDiff": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_asbestos_tiles_c_diff.tga",
+                        "FloorAsbestosTilesDDiff": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_asbestos_tiles_d_diff.tga",
+                        "FloorAsbestosTilesVintageAAo": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_asbestos_tiles_vintage_a_ao.tga",
+                        "FloorAsbestosTilesVintageANrm": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_asbestos_tiles_vintage_a_nrm.tga",
+                        "FloorAsbestosTilesVintageASpec": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_asbestos_tiles_vintage_a_spec.tga",
+                        "FloorAsbestosTilesVintageCDiff": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_asbestos_tiles_vintage_c_diff.tga",
+                        "FloorAsbestosTilesVintageDDiff": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_asbestos_tiles_vintage_d_diff.tga",
+                        "FloorCarpetAAo": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_carpet_a_ao.tga",
+                        "FloorCarpetADiff": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_carpet_a_diff.tga",
+                        "FloorCarpetANrm": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_carpet_a_nrm.tga",
+                        "FloorCarpetASpec": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_carpet_a_spec.tga",
+                        "FloorCarpetBDiff": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_carpet_b_diff.tga",
+                        "FloorCarpetPlainAAo": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_carpet_plain_a_ao.tga",
+                        "FloorCarpetPlainADiff": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_carpet_plain_a_diff.tga",
+                        "FloorCarpetPlainANrm": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_carpet_plain_a_nrm.tga",
+                        "FloorCarpetPlainASpec": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_carpet_plain_a_spec.tga",
+                        "FloorCarpetPlainBDiff": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_carpet_plain_b_diff.tga",
+                        "FloorMarbleAAo": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_marble_a_ao.tga",
+                        "FloorMarbleADiff": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_marble_a_diff.tga",
+                        "FloorMarbleANrm": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_marble_a_nrm.tga",
+                        "FloorMarbleASpec": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_marble_a_spec.tga",
+                        "FloorMarbleBAo": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_marble_b_ao.tga",
+                        "FloorMarbleBDiff": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_marble_b_diff.tga",
+                        "FloorMarbleBNrm": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_marble_b_nrm.tga",
+                        "FloorMarbleBSpec": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_marble_b_spec.tga",
+                        "FloorMetalTreadplateAAo": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_metal_treadplate_a_ao.tga",
+                        "FloorMetalTreadplateADiff": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_metal_treadplate_a_diff.tga",
+                        "FloorMetalTreadplateANrm": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_metal_treadplate_a_nrm.tga",
+                        "FloorMetalTreadplateASpec": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_metal_treadplate_a_spec.tga",
+                        "FloorParquetAAo": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_parquet_a_ao.tga",
+                        "FloorParquetADiff": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_parquet_a_diff.tga",
+                        "FloorParquetANrm": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_parquet_a_nrm.tga",
+                        "FloorParquetASpec": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_parquet_a_spec.tga",
+                        "FloorParquetBAo": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_parquet_b_ao.tga",
+                        "FloorParquetBDiff": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_parquet_b_diff.tga",
+                        "FloorParquetBNrm": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_parquet_b_nrm.tga",
+                        "FloorParquetBSpec": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_parquet_b_spec.tga",
+                        "FloorParquetCAo": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_parquet_c_ao.tga",
+                        "FloorParquetCDiff": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_parquet_c_diff.tga",
+                        "FloorParquetCNrm": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_parquet_c_nrm.tga",
+                        "FloorParquetCSpec": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_parquet_c_spec.tga",
+                        "FloorParquetDAo": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_parquet_d_ao.tga",
+                        "FloorParquetDDiff": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_parquet_d_diff.tga",
+                        "FloorParquetDNrm": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_parquet_d_nrm.tga",
+                        "FloorParquetDSpec": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_parquet_d_spec.tga",
+                        "FloorParquetPaintedAAo": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_parquet_painted_a_ao.tga",
+                        "FloorParquetPaintedADiff": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_parquet_painted_a_diff.tga",
+                        "FloorParquetPaintedANrm": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_parquet_painted_a_nrm.tga",
+                        "FloorParquetPaintedASpec": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_parquet_painted_a_spec.tga",
+                        "FloorParquetPaintedBAo": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_parquet_painted_b_ao.tga",
+                        "FloorParquetPaintedBBlueDiff": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_parquet_painted_b_blue_diff.tga",
+                        "FloorParquetPaintedBDiff": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_parquet_painted_b_diff.tga",
+                        "FloorParquetPaintedBNrm": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_parquet_painted_b_nrm.tga",
+                        "FloorParquetPaintedBSpec": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_parquet_painted_b_spec.tga",
+                        "FloorParquetPaintedCAo": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_parquet_painted_c_ao.tga",
+                        "FloorParquetPaintedCDiff": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_parquet_painted_c_diff.tga",
+                        "FloorParquetPaintedCNrm": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_parquet_painted_c_nrm.tga",
+                        "FloorParquetPaintedCSpec": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_parquet_painted_c_spec.tga",
+                        "FloorParquetPaintedDAo": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_parquet_painted_d_ao.tga",
+                        "FloorParquetPaintedDDiff": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_parquet_painted_d_diff.tga",
+                        "FloorParquetPaintedDNrm": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_parquet_painted_d_nrm.tga",
+                        "FloorParquetPaintedDSpec": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_parquet_painted_d_spec.tga",
+                        "FloorTatamiAAo": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_tatami_a_ao.tga",
+                        "FloorTatamiADiff": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_tatami_a_diff.tga",
+                        "FloorTatamiANrm": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_tatami_a_nrm.tga",
+                        "FloorTatamiASpec": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_tatami_a_spec.tga"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
+                "2025-09_exhibit_decor_dlc": {
+                  "Name": "2025-09_exhibit_decor_dlc",
+                  "Path": "assets/prefabs/wallpaper/skins/2025-09_exhibit_decor_dlc",
+                  "Files": {},
+                  "SubFolders": {
+                    "textures": {
+                      "Name": "textures",
+                      "Path": "assets/prefabs/wallpaper/skins/2025-09_exhibit_decor_dlc/textures",
+                      "Files": {
+                        "CeilingGoldStarsAo": "assets/prefabs/wallpaper/skins/2025-09_exhibit_decor_dlc/textures/ceiling_gold_stars_ao.tga",
+                        "CeilingGoldStarsDiff": "assets/prefabs/wallpaper/skins/2025-09_exhibit_decor_dlc/textures/ceiling_gold_stars_diff.tga",
+                        "CeilingGoldStarsNrm": "assets/prefabs/wallpaper/skins/2025-09_exhibit_decor_dlc/textures/ceiling_gold_stars_nrm.tga",
+                        "CeilingGoldStarsSpec": "assets/prefabs/wallpaper/skins/2025-09_exhibit_decor_dlc/textures/ceiling_gold_stars_spec.tga",
+                        "FloorCarpetShaggyAAo": "assets/prefabs/wallpaper/skins/2025-09_exhibit_decor_dlc/textures/floor_carpet_shaggy_a_ao.tga",
+                        "FloorCarpetShaggyADiff": "assets/prefabs/wallpaper/skins/2025-09_exhibit_decor_dlc/textures/floor_carpet_shaggy_a_diff.tga",
+                        "FloorCarpetShaggyANrm": "assets/prefabs/wallpaper/skins/2025-09_exhibit_decor_dlc/textures/floor_carpet_shaggy_a_nrm.tga",
+                        "FloorCarpetShaggyASpec": "assets/prefabs/wallpaper/skins/2025-09_exhibit_decor_dlc/textures/floor_carpet_shaggy_a_spec.tga",
+                        "WallTilesHexagonAAo": "assets/prefabs/wallpaper/skins/2025-09_exhibit_decor_dlc/textures/wall_tiles_hexagon_a_ao.tga",
+                        "WallTilesHexagonADiff": "assets/prefabs/wallpaper/skins/2025-09_exhibit_decor_dlc/textures/wall_tiles_hexagon_a_diff.tga",
+                        "WallTilesHexagonANrm": "assets/prefabs/wallpaper/skins/2025-09_exhibit_decor_dlc/textures/wall_tiles_hexagon_a_nrm.tga",
+                        "WallTilesHexagonASpec": "assets/prefabs/wallpaper/skins/2025-09_exhibit_decor_dlc/textures/wall_tiles_hexagon_a_spec.tga"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
+                "2025-10_halloween": {
+                  "Name": "2025-10_halloween",
+                  "Path": "assets/prefabs/wallpaper/skins/2025-10_halloween",
+                  "Files": {},
+                  "SubFolders": {
+                    "textures": {
+                      "Name": "textures",
+                      "Path": "assets/prefabs/wallpaper/skins/2025-10_halloween/textures",
+                      "Files": {
+                        "CeilingWoodCobwebsAo": "assets/prefabs/wallpaper/skins/2025-10_halloween/textures/ceiling_wood_cobwebs_ao.tga",
+                        "CeilingWoodCobwebsDiff": "assets/prefabs/wallpaper/skins/2025-10_halloween/textures/ceiling_wood_cobwebs_diff.tga",
+                        "CeilingWoodCobwebsEmission": "assets/prefabs/wallpaper/skins/2025-10_halloween/textures/ceiling_wood_cobwebs_emission.tga",
+                        "CeilingWoodCobwebsEmissiveMask": "assets/prefabs/wallpaper/skins/2025-10_halloween/textures/ceiling_wood_cobwebs_emissive_mask.tga",
+                        "CeilingWoodCobwebsNrm": "assets/prefabs/wallpaper/skins/2025-10_halloween/textures/ceiling_wood_cobwebs_nrm.tga",
+                        "CeilingWoodCobwebsSpec": "assets/prefabs/wallpaper/skins/2025-10_halloween/textures/ceiling_wood_cobwebs_spec.tga",
+                        "FloorTreeRootsAo": "assets/prefabs/wallpaper/skins/2025-10_halloween/textures/floor_tree_roots_ao.tga",
+                        "FloorTreeRootsDiff": "assets/prefabs/wallpaper/skins/2025-10_halloween/textures/floor_tree_roots_diff.tga",
+                        "FloorTreeRootsNrm": "assets/prefabs/wallpaper/skins/2025-10_halloween/textures/floor_tree_roots_nrm.tga",
+                        "FloorTreeRootsSpec": "assets/prefabs/wallpaper/skins/2025-10_halloween/textures/floor_tree_roots_spec.tga",
+                        "WallHalloweenBatsAlbedo": "assets/prefabs/wallpaper/skins/2025-10_halloween/textures/wall_halloween_bats_albedo.tga",
+                        "WallHalloweenBatsAo": "assets/prefabs/wallpaper/skins/2025-10_halloween/textures/wall_halloween_bats_ao.tga",
+                        "WallHalloweenBatsEmissive": "assets/prefabs/wallpaper/skins/2025-10_halloween/textures/wall_halloween_bats_emissive.tga",
+                        "WallHalloweenBatsNormal": "assets/prefabs/wallpaper/skins/2025-10_halloween/textures/wall_halloween_bats_normal.tga",
+                        "WallHalloweenBatsSpecGloss": "assets/prefabs/wallpaper/skins/2025-10_halloween/textures/wall_halloween_bats_specgloss.tga",
+                        "WallHalloweenMuertosAAlbedo": "assets/prefabs/wallpaper/skins/2025-10_halloween/textures/wall_halloween_muertos_a_albedo.tga",
+                        "WallHalloweenMuertosAAo": "assets/prefabs/wallpaper/skins/2025-10_halloween/textures/wall_halloween_muertos_a_ao.tga",
+                        "WallHalloweenMuertosAEmissive": "assets/prefabs/wallpaper/skins/2025-10_halloween/textures/wall_halloween_muertos_a_emissive.tga",
+                        "WallHalloweenMuertosANormal": "assets/prefabs/wallpaper/skins/2025-10_halloween/textures/wall_halloween_muertos_a_normal.tga",
+                        "WallHalloweenMuertosASpecGloss": "assets/prefabs/wallpaper/skins/2025-10_halloween/textures/wall_halloween_muertos_a_specgloss.tga"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
+                "2025-05_jungledlc": {
+                  "Name": "2025-05_jungledlc",
+                  "Path": "assets/prefabs/wallpaper/skins/2025-05_jungledlc",
+                  "Files": {},
+                  "SubFolders": {
+                    "textures": {
+                      "Name": "textures",
+                      "Path": "assets/prefabs/wallpaper/skins/2025-05_jungledlc/textures",
+                      "Files": {
+                        "JungleDlcAnimalsAlbedo": "assets/prefabs/wallpaper/skins/2025-05_jungledlc/textures/jungledlc_animals.albedo.tga",
+                        "JungleDlcAnimalsAo": "assets/prefabs/wallpaper/skins/2025-05_jungledlc/textures/jungledlc_animals.ao.tga",
+                        "JungleDlcAnimalsNormal": "assets/prefabs/wallpaper/skins/2025-05_jungledlc/textures/jungledlc_animals.normal.tga",
+                        "JungleDlcAnimalsSpecGloss": "assets/prefabs/wallpaper/skins/2025-05_jungledlc/textures/jungledlc_animals.specgloss.tga",
+                        "JungleDlcLeavesAlbedo": "assets/prefabs/wallpaper/skins/2025-05_jungledlc/textures/jungledlc_leaves.albedo.tga",
+                        "JungleDlcLeavesAo": "assets/prefabs/wallpaper/skins/2025-05_jungledlc/textures/jungledlc_leaves.ao.tga",
+                        "JungleDlcLeavesNormal": "assets/prefabs/wallpaper/skins/2025-05_jungledlc/textures/jungledlc_leaves.normal.tga",
+                        "JungleDlcLeavesSpecGloss": "assets/prefabs/wallpaper/skins/2025-05_jungledlc/textures/jungledlc_leaves.specgloss.tga",
+                        "JungleDlcSigilAlbedo": "assets/prefabs/wallpaper/skins/2025-05_jungledlc/textures/jungledlc_sigil.albedo.tga",
+                        "JungleDlcSigilAo": "assets/prefabs/wallpaper/skins/2025-05_jungledlc/textures/jungledlc_sigil.ao.tga",
+                        "JungleDlcSigilNormal": "assets/prefabs/wallpaper/skins/2025-05_jungledlc/textures/jungledlc_sigil.normal.tga",
+                        "JungleDlcSigilSpecGloss": "assets/prefabs/wallpaper/skins/2025-05_jungledlc/textures/jungledlc_sigil.specgloss.tga"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
+                "2025-01_lny25": {
+                  "Name": "2025-01_lny25",
+                  "Path": "assets/prefabs/wallpaper/skins/2025-01_lny25",
+                  "Files": {},
+                  "SubFolders": {
+                    "textures": {
+                      "Name": "textures",
+                      "Path": "assets/prefabs/wallpaper/skins/2025-01_lny25/textures",
+                      "Files": {
+                        "Lny25BambooLayeredAo": "assets/prefabs/wallpaper/skins/2025-01_lny25/textures/lny25_bamboo_layered_ao.tga",
+                        "Lny25BambooLayeredDiff": "assets/prefabs/wallpaper/skins/2025-01_lny25/textures/lny25_bamboo_layered_diff.tga",
+                        "Lny25BambooLayeredNrm": "assets/prefabs/wallpaper/skins/2025-01_lny25/textures/lny25_bamboo_layered_nrm.tga",
+                        "Lny25BambooLayeredSpec": "assets/prefabs/wallpaper/skins/2025-01_lny25/textures/lny25_bamboo_layered_spec.tga",
+                        "Lny25CherryBlossomsAo": "assets/prefabs/wallpaper/skins/2025-01_lny25/textures/lny25_cherry_blossoms_ao.tga",
+                        "Lny25CherryBlossomsDiff": "assets/prefabs/wallpaper/skins/2025-01_lny25/textures/lny25_cherry_blossoms_diff.tga",
+                        "Lny25CherryBlossomsNrm": "assets/prefabs/wallpaper/skins/2025-01_lny25/textures/lny25_cherry_blossoms_nrm.tga",
+                        "Lny25CherryBlossomsSpec": "assets/prefabs/wallpaper/skins/2025-01_lny25/textures/lny25_cherry_blossoms_spec.tga",
+                        "Lny25ChineseLanternsAo": "assets/prefabs/wallpaper/skins/2025-01_lny25/textures/lny25_chinese_lanterns_ao.tga",
+                        "Lny25ChineseLanternsDiff": "assets/prefabs/wallpaper/skins/2025-01_lny25/textures/lny25_chinese_lanterns_diff.tga",
+                        "Lny25ChineseLanternsNrm": "assets/prefabs/wallpaper/skins/2025-01_lny25/textures/lny25_chinese_lanterns_nrm.tga",
+                        "Lny25ChineseLanternsSpec": "assets/prefabs/wallpaper/skins/2025-01_lny25/textures/lny25_chinese_lanterns_spec.tga",
+                        "Lny25DiamondsAo": "assets/prefabs/wallpaper/skins/2025-01_lny25/textures/lny25_diamonds_ao.tga",
+                        "Lny25DiamondsDiff": "assets/prefabs/wallpaper/skins/2025-01_lny25/textures/lny25_diamonds_diff.tga",
+                        "Lny25DiamondsNrm": "assets/prefabs/wallpaper/skins/2025-01_lny25/textures/lny25_diamonds_nrm.tga",
+                        "Lny25DiamondsSpec": "assets/prefabs/wallpaper/skins/2025-01_lny25/textures/lny25_diamonds_spec.tga",
+                        "Lny25PanelAAo": "assets/prefabs/wallpaper/skins/2025-01_lny25/textures/lny25_panel_a_ao.tga",
+                        "Lny25PanelADiff": "assets/prefabs/wallpaper/skins/2025-01_lny25/textures/lny25_panel_a_diff.tga",
+                        "Lny25PanelANrm": "assets/prefabs/wallpaper/skins/2025-01_lny25/textures/lny25_panel_a_nrm.tga",
+                        "Lny25PanelASpec": "assets/prefabs/wallpaper/skins/2025-01_lny25/textures/lny25_panel_a_spec.tga",
+                        "Lny25PanelBAo": "assets/prefabs/wallpaper/skins/2025-01_lny25/textures/lny25_panel_b_ao.tga",
+                        "Lny25PanelBDiff": "assets/prefabs/wallpaper/skins/2025-01_lny25/textures/lny25_panel_b_diff.tga",
+                        "Lny25PanelBNrm": "assets/prefabs/wallpaper/skins/2025-01_lny25/textures/lny25_panel_b_nrm.tga",
+                        "Lny25PanelBSpec": "assets/prefabs/wallpaper/skins/2025-01_lny25/textures/lny25_panel_b_spec.tga",
+                        "Lny25PanelCAo": "assets/prefabs/wallpaper/skins/2025-01_lny25/textures/lny25_panel_c_ao.tga",
+                        "Lny25PanelCDiff": "assets/prefabs/wallpaper/skins/2025-01_lny25/textures/lny25_panel_c_diff.tga",
+                        "Lny25PanelCNrm": "assets/prefabs/wallpaper/skins/2025-01_lny25/textures/lny25_panel_c_nrm.tga",
+                        "Lny25PanelCSpec": "assets/prefabs/wallpaper/skins/2025-01_lny25/textures/lny25_panel_c_spec.tga"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                }
+              }
+            },
             "models": {
               "Name": "models",
               "Path": "assets/prefabs/wallpaper/models",
@@ -30279,257 +31055,8 @@
                 "textures": {
                   "Name": "textures",
                   "Path": "assets/prefabs/wallpaper/models/textures",
-                  "Files": {
-                    "BlueDiamondWallPaperAAo": "assets/prefabs/wallpaper/models/textures/blue_diamond_wallpaper_a_ao.tga",
-                    "BlueDiamondWallPaperADiff": "assets/prefabs/wallpaper/models/textures/blue_diamond_wallpaper_a_diff.tga",
-                    "BlueDiamondWallPaperANrm": "assets/prefabs/wallpaper/models/textures/blue_diamond_wallpaper_a_nrm.tga",
-                    "BlueDiamondWallPaperASpec": "assets/prefabs/wallpaper/models/textures/blue_diamond_wallpaper_a_spec.tga",
-                    "GlowBoardWallPaperAAo": "assets/prefabs/wallpaper/models/textures/glowboard_wallpaper_a_ao.tga",
-                    "GlowBoardWallPaperADiff": "assets/prefabs/wallpaper/models/textures/glowboard_wallpaper_a_diff.tga",
-                    "GlowBoardWallPaperAEmissive": "assets/prefabs/wallpaper/models/textures/glowboard_wallpaper_a_emissive.tga",
-                    "GlowBoardWallPaperANrm": "assets/prefabs/wallpaper/models/textures/glowboard_wallpaper_a_nrm.tga",
-                    "GlowBoardWallPaperASpec": "assets/prefabs/wallpaper/models/textures/glowboard_wallpaper_a_spec.tga",
-                    "GlowBoardWallPaperBAo": "assets/prefabs/wallpaper/models/textures/glowboard_wallpaper_b_ao.tga",
-                    "GlowBoardWallPaperBDiff": "assets/prefabs/wallpaper/models/textures/glowboard_wallpaper_b_diff.tga",
-                    "GlowBoardWallPaperBEmissive": "assets/prefabs/wallpaper/models/textures/glowboard_wallpaper_b_emissive.tga",
-                    "GlowBoardWallPaperBNrm": "assets/prefabs/wallpaper/models/textures/glowboard_wallpaper_b_nrm.tga",
-                    "GlowBoardWallPaperBSpec": "assets/prefabs/wallpaper/models/textures/glowboard_wallpaper_b_spec.tga",
-                    "SubwayWallPaperAAo": "assets/prefabs/wallpaper/models/textures/subway_wallpaper_a_ao.tga",
-                    "SubwayWallPaperADiff": "assets/prefabs/wallpaper/models/textures/subway_wallpaper_a_diff.tga",
-                    "SubwayWallPaperANrm": "assets/prefabs/wallpaper/models/textures/subway_wallpaper_a_nrm.tga",
-                    "SubwayWallPaperASpec": "assets/prefabs/wallpaper/models/textures/subway_wallpaper_a_spec.tga",
-                    "SubwayWallPaperBAo": "assets/prefabs/wallpaper/models/textures/subway_wallpaper_b_ao.tga",
-                    "SubwayWallPaperBDiff": "assets/prefabs/wallpaper/models/textures/subway_wallpaper_b_diff.tga",
-                    "SubwayWallPaperBNrm": "assets/prefabs/wallpaper/models/textures/subway_wallpaper_b_nrm.tga",
-                    "SubwayWallPaperBSpec": "assets/prefabs/wallpaper/models/textures/subway_wallpaper_b_spec.tga",
-                    "VintageWallPaperAAo": "assets/prefabs/wallpaper/models/textures/vintage_wallpaper_a_ao.tga",
-                    "VintageWallPaperADiff": "assets/prefabs/wallpaper/models/textures/vintage_wallpaper_a_diff.tga",
-                    "VintageWallPaperAMask": "assets/prefabs/wallpaper/models/textures/vintage_wallpaper_a_mask.tga",
-                    "VintageWallPaperANrm": "assets/prefabs/wallpaper/models/textures/vintage_wallpaper_a_nrm.tga",
-                    "VintageWallPaperASpec": "assets/prefabs/wallpaper/models/textures/vintage_wallpaper_a_spec.tga",
-                    "VintageWallPaperBAo": "assets/prefabs/wallpaper/models/textures/vintage_wallpaper_b_ao.tga",
-                    "VintageWallPaperBDiff": "assets/prefabs/wallpaper/models/textures/vintage_wallpaper_b_diff.tga",
-                    "VintageWallPaperBNrm": "assets/prefabs/wallpaper/models/textures/vintage_wallpaper_b_nrm.tga",
-                    "VintageWallPaperBSpec": "assets/prefabs/wallpaper/models/textures/vintage_wallpaper_b_spec.tga",
-                    "VintageWallPaperCAo": "assets/prefabs/wallpaper/models/textures/vintage_wallpaper_c_ao.tga",
-                    "VintageWallPaperCDiff": "assets/prefabs/wallpaper/models/textures/vintage_wallpaper_c_diff.tga",
-                    "VintageWallPaperCNrm": "assets/prefabs/wallpaper/models/textures/vintage_wallpaper_c_nrm.tga",
-                    "VintageWallPaperCSpec": "assets/prefabs/wallpaper/models/textures/vintage_wallpaper_c_spec.tga",
-                    "VintageWallPaperDAo": "assets/prefabs/wallpaper/models/textures/vintage_wallpaper_d_ao.tga",
-                    "VintageWallPaperDDiff": "assets/prefabs/wallpaper/models/textures/vintage_wallpaper_d_diff.tga",
-                    "VintageWallPaperDNrm": "assets/prefabs/wallpaper/models/textures/vintage_wallpaper_d_nrm.tga",
-                    "VintageWallPaperDSpec": "assets/prefabs/wallpaper/models/textures/vintage_wallpaper_d_spec.tga",
-                    "WainscottingWallPaperAAo": "assets/prefabs/wallpaper/models/textures/wainscotting_wallpaper_a_ao.tga",
-                    "WainscottingWallPaperADiff": "assets/prefabs/wallpaper/models/textures/wainscotting_wallpaper_a_diff.tga",
-                    "WainscottingWallPaperANrm": "assets/prefabs/wallpaper/models/textures/wainscotting_wallpaper_a_nrm.tga",
-                    "WainscottingWallPaperASpec": "assets/prefabs/wallpaper/models/textures/wainscotting_wallpaper_a_spec.tga",
-                    "WainscottingWallPaperBAo": "assets/prefabs/wallpaper/models/textures/wainscotting_wallpaper_b_ao.tga",
-                    "WainscottingWallPaperBDiff": "assets/prefabs/wallpaper/models/textures/wainscotting_wallpaper_b_diff.tga",
-                    "WainscottingWallPaperBNrm": "assets/prefabs/wallpaper/models/textures/wainscotting_wallpaper_b_nrm.tga",
-                    "WainscottingWallPaperBSpec": "assets/prefabs/wallpaper/models/textures/wainscotting_wallpaper_b_spec.tga",
-                    "WainscottingWallPaperCAo": "assets/prefabs/wallpaper/models/textures/wainscotting_wallpaper_c_ao.tga",
-                    "WainscottingWallPaperCDiff": "assets/prefabs/wallpaper/models/textures/wainscotting_wallpaper_c_diff.tga",
-                    "WainscottingWallPaperCNrm": "assets/prefabs/wallpaper/models/textures/wainscotting_wallpaper_c_nrm.tga",
-                    "WainscottingWallPaperCSpec": "assets/prefabs/wallpaper/models/textures/wainscotting_wallpaper_c_spec.tga",
-                    "WallPaperClouds1Ao": "assets/prefabs/wallpaper/models/textures/wallpaper_clouds_1_ao.tga",
-                    "WallPaperClouds1Diff": "assets/prefabs/wallpaper/models/textures/wallpaper_clouds_1_diff.tga",
-                    "WallPaperClouds1Nrm": "assets/prefabs/wallpaper/models/textures/wallpaper_clouds_1_nrm.tga",
-                    "WallPaperClouds1Spec": "assets/prefabs/wallpaper/models/textures/wallpaper_clouds_1_spec.tga",
-                    "WallPaperGeometric2Ao": "assets/prefabs/wallpaper/models/textures/wallpaper_geometric_2_ao.tga",
-                    "WallPaperGeometric2Diff": "assets/prefabs/wallpaper/models/textures/wallpaper_geometric_2_diff.tga",
-                    "WallPaperGeometric2Nrm": "assets/prefabs/wallpaper/models/textures/wallpaper_geometric_2_nrm.tga",
-                    "WallPaperGeometric2Spec": "assets/prefabs/wallpaper/models/textures/wallpaper_geometric_2_spec.tga",
-                    "WallPaperGeometric3Ao": "assets/prefabs/wallpaper/models/textures/wallpaper_geometric_3_ao.tga",
-                    "WallPaperGeometric3Diff": "assets/prefabs/wallpaper/models/textures/wallpaper_geometric_3_diff.tga",
-                    "WallPaperGeometric3Nrm": "assets/prefabs/wallpaper/models/textures/wallpaper_geometric_3_nrm.tga",
-                    "WallPaperGeometric3Spec": "assets/prefabs/wallpaper/models/textures/wallpaper_geometric_3_spec.tga",
-                    "WallPaperPolka1Ao": "assets/prefabs/wallpaper/models/textures/wallpaper_polka_1_ao.tga",
-                    "WallPaperPolka1Diff": "assets/prefabs/wallpaper/models/textures/wallpaper_polka_1_diff.tga",
-                    "WallPaperPolka1Nrm": "assets/prefabs/wallpaper/models/textures/wallpaper_polka_1_nrm.tga",
-                    "WallPaperPolka1Spec": "assets/prefabs/wallpaper/models/textures/wallpaper_polka_1_spec.tga",
-                    "WallPaperPolka2Ao": "assets/prefabs/wallpaper/models/textures/wallpaper_polka_2_ao.tga",
-                    "WallPaperPolka2Diff": "assets/prefabs/wallpaper/models/textures/wallpaper_polka_2_diff.tga",
-                    "WallPaperPolka2Nrm": "assets/prefabs/wallpaper/models/textures/wallpaper_polka_2_nrm.tga",
-                    "WallPaperPolka2Spec": "assets/prefabs/wallpaper/models/textures/wallpaper_polka_2_spec.tga",
-                    "WallPaperPolka3Ao": "assets/prefabs/wallpaper/models/textures/wallpaper_polka_3_ao.tga",
-                    "WallPaperPolka3Diff": "assets/prefabs/wallpaper/models/textures/wallpaper_polka_3_diff.tga",
-                    "WallPaperPolka3Nrm": "assets/prefabs/wallpaper/models/textures/wallpaper_polka_3_nrm.tga",
-                    "WallPaperPolka3Spec": "assets/prefabs/wallpaper/models/textures/wallpaper_polka_3_spec.tga",
-                    "WallPaperRetro1Ao": "assets/prefabs/wallpaper/models/textures/wallpaper_retro_1_ao.tga",
-                    "WallPaperRetro1Diff": "assets/prefabs/wallpaper/models/textures/wallpaper_retro_1_diff.tga",
-                    "WallPaperRetro1Nrm": "assets/prefabs/wallpaper/models/textures/wallpaper_retro_1_nrm.tga",
-                    "WallPaperRetro1Spec": "assets/prefabs/wallpaper/models/textures/wallpaper_retro_1_spec.tga",
-                    "WallPaperRetro2Ao": "assets/prefabs/wallpaper/models/textures/wallpaper_retro_2_ao.tga",
-                    "WallPaperRetro2Diff": "assets/prefabs/wallpaper/models/textures/wallpaper_retro_2_diff.tga",
-                    "WallPaperRetro2Nrm": "assets/prefabs/wallpaper/models/textures/wallpaper_retro_2_nrm.tga",
-                    "WallPaperRetro2Spec": "assets/prefabs/wallpaper/models/textures/wallpaper_retro_2_spec.tga",
-                    "WallPaperRetro3Ao": "assets/prefabs/wallpaper/models/textures/wallpaper_retro_3_ao.tga",
-                    "WallPaperRetro3Diff": "assets/prefabs/wallpaper/models/textures/wallpaper_retro_3_diff.tga",
-                    "WallPaperRetro3Nrm": "assets/prefabs/wallpaper/models/textures/wallpaper_retro_3_nrm.tga",
-                    "WallPaperRetro3Spec": "assets/prefabs/wallpaper/models/textures/wallpaper_retro_3_spec.tga",
-                    "WallPaperRoyal1Ao": "assets/prefabs/wallpaper/models/textures/wallpaper_royal_1_ao.tga",
-                    "WallPaperRoyal1Diff": "assets/prefabs/wallpaper/models/textures/wallpaper_royal_1_diff.tga",
-                    "WallPaperRoyal1Nrm": "assets/prefabs/wallpaper/models/textures/wallpaper_royal_1_nrm.tga",
-                    "WallPaperRoyal1Spec": "assets/prefabs/wallpaper/models/textures/wallpaper_royal_1_spec.tga",
-                    "WallPaperRoyal2Ao": "assets/prefabs/wallpaper/models/textures/wallpaper_royal_2_ao.tga",
-                    "WallPaperRoyal2Diff": "assets/prefabs/wallpaper/models/textures/wallpaper_royal_2_diff.tga",
-                    "WallPaperRoyal2Nrm": "assets/prefabs/wallpaper/models/textures/wallpaper_royal_2_nrm.tga",
-                    "WallPaperRoyal2Spec": "assets/prefabs/wallpaper/models/textures/wallpaper_royal_2_spec.tga",
-                    "WallPaperRoyal3Ao": "assets/prefabs/wallpaper/models/textures/wallpaper_royal_3_ao.tga",
-                    "WallPaperRoyal3Diff": "assets/prefabs/wallpaper/models/textures/wallpaper_royal_3_diff.tga",
-                    "WallPaperRoyal3Nrm": "assets/prefabs/wallpaper/models/textures/wallpaper_royal_3_nrm.tga",
-                    "WallPaperRoyal3Spec": "assets/prefabs/wallpaper/models/textures/wallpaper_royal_3_spec.tga",
-                    "WallPaperVenetianPlasterAAo": "assets/prefabs/wallpaper/models/textures/wallpaper_venetian_plaster_a_ao.tga",
-                    "WallPaperVenetianPlasterADiff": "assets/prefabs/wallpaper/models/textures/wallpaper_venetian_plaster_a_diff.tga",
-                    "WallPaperVenetianPlasterANrm": "assets/prefabs/wallpaper/models/textures/wallpaper_venetian_plaster_a_nrm.tga",
-                    "WallPaperVenetianPlasterASpec": "assets/prefabs/wallpaper/models/textures/wallpaper_venetian_plaster_a_spec.tga",
-                    "WallPaperVenetianPlasterBAo": "assets/prefabs/wallpaper/models/textures/wallpaper_venetian_plaster_b_ao.tga",
-                    "WallPaperVenetianPlasterBDiff": "assets/prefabs/wallpaper/models/textures/wallpaper_venetian_plaster_b_diff.tga",
-                    "WallPaperVenetianPlasterBNrm": "assets/prefabs/wallpaper/models/textures/wallpaper_venetian_plaster_b_nrm.tga",
-                    "WallPaperVenetianPlasterBSpec": "assets/prefabs/wallpaper/models/textures/wallpaper_venetian_plaster_b_spec.tga",
-                    "WallPaperVenetianPlasterCAo": "assets/prefabs/wallpaper/models/textures/wallpaper_venetian_plaster_c_ao.tga",
-                    "WallPaperVenetianPlasterCDiff": "assets/prefabs/wallpaper/models/textures/wallpaper_venetian_plaster_c_diff.tga",
-                    "WallPaperVenetianPlasterCNrm": "assets/prefabs/wallpaper/models/textures/wallpaper_venetian_plaster_c_nrm.tga",
-                    "WallPaperVenetianPlasterCSpec": "assets/prefabs/wallpaper/models/textures/wallpaper_venetian_plaster_c_spec.tga",
-                    "YellowStripeWallPaperAAo": "assets/prefabs/wallpaper/models/textures/yellow_stripe_wallpaper_a_ao.tga",
-                    "YellowStripeWallPaperADiff": "assets/prefabs/wallpaper/models/textures/yellow_stripe_wallpaper_a_diff.tga",
-                    "YellowStripeWallPaperANrm": "assets/prefabs/wallpaper/models/textures/yellow_stripe_wallpaper_a_nrm.tga",
-                    "YellowStripeWallPaperASpec": "assets/prefabs/wallpaper/models/textures/yellow_stripe_wallpaper_a_spec.tga"
-                  },
+                  "Files": {},
                   "SubFolders": {
-                    "starter_pack_floor_ceiling": {
-                      "Name": "starter_pack_floor_ceiling",
-                      "Path": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling",
-                      "Files": {
-                        "CeilingArtexSwirlsAo": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/ceiling_artex_swirls_ao.tga",
-                        "CeilingArtexSwirlsDiff": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/ceiling_artex_swirls_diff.tga",
-                        "CeilingArtexSwirlsNrm": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/ceiling_artex_swirls_nrm.tga",
-                        "CeilingArtexSwirlsSpec": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/ceiling_artex_swirls_spec.tga",
-                        "CeilingArtexWavesAo": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/ceiling_artex_waves_ao.tga",
-                        "CeilingArtexWavesDiff": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/ceiling_artex_waves_diff.tga",
-                        "CeilingArtexWavesNrm": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/ceiling_artex_waves_nrm.tga",
-                        "CeilingArtexWavesSpec": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/ceiling_artex_waves_spec.tga",
-                        "CeilingMetalSheetAAo": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/ceiling_metal_sheet_a_ao.tga",
-                        "CeilingMetalSheetADiff": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/ceiling_metal_sheet_a_diff.tga",
-                        "CeilingMetalSheetANrm": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/ceiling_metal_sheet_a_nrm.tga",
-                        "CeilingMetalSheetASpec": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/ceiling_metal_sheet_a_spec.tga",
-                        "CeilingMetalSheetBDiff": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/ceiling_metal_sheet_b_diff.tga",
-                        "CeilingMetalSheetCDiff": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/ceiling_metal_sheet_c_diff.tga",
-                        "CeilingOfficeAo": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/ceiling_office_ao.tga",
-                        "CeilingOfficeDiff": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/ceiling_office_diff.tga",
-                        "CeilingOfficeNrm": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/ceiling_office_nrm.tga",
-                        "CeilingOfficeSpec": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/ceiling_office_spec.tga",
-                        "CeilingParquetCAo": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/ceiling_parquet_c_ao.tga",
-                        "CeilingParquetCDiff": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/ceiling_parquet_c_diff.tga",
-                        "CeilingParquetCNrm": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/ceiling_parquet_c_nrm.tga",
-                        "CeilingParquetCSpec": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/ceiling_parquet_c_spec.tga",
-                        "CeilingParquetPaintedAAo": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/ceiling_parquet_painted_a_ao.tga",
-                        "CeilingParquetPaintedABlue02Diff": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/ceiling_parquet_painted_a_blue_02_diff.tga",
-                        "CeilingParquetPaintedABlueDiff": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/ceiling_parquet_painted_a_blue_diff.tga",
-                        "CeilingParquetPaintedADiff": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/ceiling_parquet_painted_a_diff.tga",
-                        "CeilingParquetPaintedAGreenDiff": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/ceiling_parquet_painted_a_green_diff.tga",
-                        "CeilingParquetPaintedANrm": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/ceiling_parquet_painted_a_nrm.tga",
-                        "CeilingParquetPaintedAPinkDiff": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/ceiling_parquet_painted_a_pink_diff.tga",
-                        "CeilingParquetPaintedASpec": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/ceiling_parquet_painted_a_spec.tga",
-                        "CeilingParquetPaintedAYellowDiff": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/ceiling_parquet_painted_a_yellow_diff.tga",
-                        "CeilingPlasterBoardAAo": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/ceiling_plasterboard_a_ao.tga",
-                        "CeilingPlasterBoardADiff": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/ceiling_plasterboard_a_diff.tga",
-                        "CeilingPlasterBoardANrm": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/ceiling_plasterboard_a_nrm.tga",
-                        "CeilingPlasterBoardASpec": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/ceiling_plasterboard_a_spec.tga",
-                        "CeilingPlasterDamagedAo": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/ceiling_plaster_damaged_ao.tga",
-                        "CeilingPlasterDamagedBlueDiff": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/ceiling_plaster_damaged_blue_diff.tga",
-                        "CeilingPlasterDamagedGreenDiff": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/ceiling_plaster_damaged_green_diff.tga",
-                        "CeilingPlasterDamagedNrm": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/ceiling_plaster_damaged_nrm.tga",
-                        "CeilingPlasterDamagedSpec": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/ceiling_plaster_damaged_spec.tga",
-                        "CeilingSubwayAAo": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/ceiling_subway_a_ao.tga",
-                        "CeilingSubwayADiff": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/ceiling_subway_a_diff.tga",
-                        "CeilingSubwayANrm": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/ceiling_subway_a_nrm.tga",
-                        "CeilingSubwayAPatternDiff": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/ceiling_subway_a_pattern_diff.tga",
-                        "CeilingSubwayASpec": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/ceiling_subway_a_spec.tga",
-                        "CeilingSubwayAYellowDiff": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/ceiling_subway_a_yellow_diff.tga",
-                        "CeilingSubwayBAo": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/ceiling_subway_b_ao.tga",
-                        "CeilingSubwayBDiffuse": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/ceiling_subway_b_diffuse.tga",
-                        "CeilingSubwayBNormal": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/ceiling_subway_b_normal.tga",
-                        "CeilingSubwayBPatternDiffuse": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/ceiling_subway_b_pattern_diffuse.tga",
-                        "CeilingSubwayBSpecular": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/ceiling_subway_b_specular.tga",
-                        "CeilingWoodBeamsAAo": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/ceiling_woodbeams_a_ao.tga",
-                        "CeilingWoodBeamsADiff": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/ceiling_woodbeams_a_diff.tga",
-                        "CeilingWoodBeamsANrm": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/ceiling_woodbeams_a_nrm.tga",
-                        "CeilingWoodBeamsASpec": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/ceiling_woodbeams_a_spec.tga",
-                        "FloorAsbestosTilesAAo": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/floor_asbestos_tiles_a_ao.tga",
-                        "FloorAsbestosTilesADiff": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/floor_asbestos_tiles_a_diff.tga",
-                        "FloorAsbestosTilesANrm": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/floor_asbestos_tiles_a_nrm.tga",
-                        "FloorAsbestosTilesASpec": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/floor_asbestos_tiles_a_spec.tga",
-                        "FloorAsbestosTilesBDiff": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/floor_asbestos_tiles_b_diff.tga",
-                        "FloorAsbestosTilesCDiff": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/floor_asbestos_tiles_c_diff.tga",
-                        "FloorAsbestosTilesDDiff": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/floor_asbestos_tiles_d_diff.tga",
-                        "FloorAsbestosTilesVintageAAo": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/floor_asbestos_tiles_vintage_a_ao.tga",
-                        "FloorAsbestosTilesVintageANrm": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/floor_asbestos_tiles_vintage_a_nrm.tga",
-                        "FloorAsbestosTilesVintageASpec": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/floor_asbestos_tiles_vintage_a_spec.tga",
-                        "FloorAsbestosTilesVintageCDiff": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/floor_asbestos_tiles_vintage_c_diff.tga",
-                        "FloorAsbestosTilesVintageDDiff": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/floor_asbestos_tiles_vintage_d_diff.tga",
-                        "FloorCarpetAAo": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/floor_carpet_a_ao.tga",
-                        "FloorCarpetADiff": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/floor_carpet_a_diff.tga",
-                        "FloorCarpetANrm": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/floor_carpet_a_nrm.tga",
-                        "FloorCarpetASpec": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/floor_carpet_a_spec.tga",
-                        "FloorCarpetBDiff": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/floor_carpet_b_diff.tga",
-                        "FloorCarpetPlainAAo": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/floor_carpet_plain_a_ao.tga",
-                        "FloorCarpetPlainADiff": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/floor_carpet_plain_a_diff.tga",
-                        "FloorCarpetPlainANrm": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/floor_carpet_plain_a_nrm.tga",
-                        "FloorCarpetPlainASpec": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/floor_carpet_plain_a_spec.tga",
-                        "FloorCarpetPlainBDiff": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/floor_carpet_plain_b_diff.tga",
-                        "FloorMarbleAAo": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/floor_marble_a_ao.tga",
-                        "FloorMarbleADiff": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/floor_marble_a_diff.tga",
-                        "FloorMarbleANrm": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/floor_marble_a_nrm.tga",
-                        "FloorMarbleASpec": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/floor_marble_a_spec.tga",
-                        "FloorMarbleBAo": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/floor_marble_b_ao.tga",
-                        "FloorMarbleBDiff": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/floor_marble_b_diff.tga",
-                        "FloorMarbleBNrm": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/floor_marble_b_nrm.tga",
-                        "FloorMarbleBSpec": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/floor_marble_b_spec.tga",
-                        "FloorMetalTreadplateAAo": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/floor_metal_treadplate_a_ao.tga",
-                        "FloorMetalTreadplateADiff": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/floor_metal_treadplate_a_diff.tga",
-                        "FloorMetalTreadplateANrm": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/floor_metal_treadplate_a_nrm.tga",
-                        "FloorMetalTreadplateASpec": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/floor_metal_treadplate_a_spec.tga",
-                        "FloorParquetAAo": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/floor_parquet_a_ao.tga",
-                        "FloorParquetADiff": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/floor_parquet_a_diff.tga",
-                        "FloorParquetANrm": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/floor_parquet_a_nrm.tga",
-                        "FloorParquetASpec": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/floor_parquet_a_spec.tga",
-                        "FloorParquetBAo": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/floor_parquet_b_ao.tga",
-                        "FloorParquetBDiff": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/floor_parquet_b_diff.tga",
-                        "FloorParquetBNrm": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/floor_parquet_b_nrm.tga",
-                        "FloorParquetBSpec": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/floor_parquet_b_spec.tga",
-                        "FloorParquetCAo": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/floor_parquet_c_ao.tga",
-                        "FloorParquetCDiff": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/floor_parquet_c_diff.tga",
-                        "FloorParquetCNrm": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/floor_parquet_c_nrm.tga",
-                        "FloorParquetCSpec": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/floor_parquet_c_spec.tga",
-                        "FloorParquetDAo": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/floor_parquet_d_ao.tga",
-                        "FloorParquetDDiff": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/floor_parquet_d_diff.tga",
-                        "FloorParquetDNrm": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/floor_parquet_d_nrm.tga",
-                        "FloorParquetDSpec": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/floor_parquet_d_spec.tga",
-                        "FloorParquetPaintedAAo": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/floor_parquet_painted_a_ao.tga",
-                        "FloorParquetPaintedADiff": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/floor_parquet_painted_a_diff.tga",
-                        "FloorParquetPaintedANrm": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/floor_parquet_painted_a_nrm.tga",
-                        "FloorParquetPaintedASpec": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/floor_parquet_painted_a_spec.tga",
-                        "FloorParquetPaintedBAo": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/floor_parquet_painted_b_ao.tga",
-                        "FloorParquetPaintedBBlueDiff": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/floor_parquet_painted_b_blue_diff.tga",
-                        "FloorParquetPaintedBDiff": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/floor_parquet_painted_b_diff.tga",
-                        "FloorParquetPaintedBNrm": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/floor_parquet_painted_b_nrm.tga",
-                        "FloorParquetPaintedBSpec": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/floor_parquet_painted_b_spec.tga",
-                        "FloorParquetPaintedCAo": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/floor_parquet_painted_c_ao.tga",
-                        "FloorParquetPaintedCDiff": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/floor_parquet_painted_c_diff.tga",
-                        "FloorParquetPaintedCNrm": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/floor_parquet_painted_c_nrm.tga",
-                        "FloorParquetPaintedCSpec": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/floor_parquet_painted_c_spec.tga",
-                        "FloorParquetPaintedDAo": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/floor_parquet_painted_d_ao.tga",
-                        "FloorParquetPaintedDDiff": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/floor_parquet_painted_d_diff.tga",
-                        "FloorParquetPaintedDNrm": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/floor_parquet_painted_d_nrm.tga",
-                        "FloorParquetPaintedDSpec": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/floor_parquet_painted_d_spec.tga",
-                        "FloorTatamiAAo": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/floor_tatami_a_ao.tga",
-                        "FloorTatamiADiff": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/floor_tatami_a_diff.tga",
-                        "FloorTatamiANrm": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/floor_tatami_a_nrm.tga",
-                        "FloorTatamiASpec": "assets/prefabs/wallpaper/models/textures/starter_pack_floor_ceiling/floor_tatami_a_spec.tga"
-                      },
-                      "SubFolders": {}
-                    },
                     "wallpaper_tools": {
                       "Name": "wallpaper_tools",
                       "Path": "assets/prefabs/wallpaper/models/textures/wallpaper_tools",
@@ -30549,60 +31076,6 @@
                         "WallPaperRollMask": "assets/prefabs/wallpaper/models/textures/wallpaper_tools/wallpaper_roll_mask.tga",
                         "WallPaperRollNormal": "assets/prefabs/wallpaper/models/textures/wallpaper_tools/wallpaper_roll_normal.tga",
                         "WallPaperRollSpecGloss": "assets/prefabs/wallpaper/models/textures/wallpaper_tools/wallpaper_roll_specgloss.tga"
-                      },
-                      "SubFolders": {}
-                    },
-                    "jungle_dlc": {
-                      "Name": "jungle_dlc",
-                      "Path": "assets/prefabs/wallpaper/models/textures/jungle_dlc",
-                      "Files": {
-                        "JungleDlcAnimalsAlbedo": "assets/prefabs/wallpaper/models/textures/jungle_dlc/jungledlc_animals.albedo.tga",
-                        "JungleDlcAnimalsAo": "assets/prefabs/wallpaper/models/textures/jungle_dlc/jungledlc_animals.ao.tga",
-                        "JungleDlcAnimalsNormal": "assets/prefabs/wallpaper/models/textures/jungle_dlc/jungledlc_animals.normal.tga",
-                        "JungleDlcAnimalsSpecGloss": "assets/prefabs/wallpaper/models/textures/jungle_dlc/jungledlc_animals.specgloss.tga",
-                        "JungleDlcLeavesAlbedo": "assets/prefabs/wallpaper/models/textures/jungle_dlc/jungledlc_leaves.albedo.tga",
-                        "JungleDlcLeavesAo": "assets/prefabs/wallpaper/models/textures/jungle_dlc/jungledlc_leaves.ao.tga",
-                        "JungleDlcLeavesNormal": "assets/prefabs/wallpaper/models/textures/jungle_dlc/jungledlc_leaves.normal.tga",
-                        "JungleDlcLeavesSpecGloss": "assets/prefabs/wallpaper/models/textures/jungle_dlc/jungledlc_leaves.specgloss.tga",
-                        "JungleDlcSigilAlbedo": "assets/prefabs/wallpaper/models/textures/jungle_dlc/jungledlc_sigil.albedo.tga",
-                        "JungleDlcSigilAo": "assets/prefabs/wallpaper/models/textures/jungle_dlc/jungledlc_sigil.ao.tga",
-                        "JungleDlcSigilNormal": "assets/prefabs/wallpaper/models/textures/jungle_dlc/jungledlc_sigil.normal.tga",
-                        "JungleDlcSigilSpecGloss": "assets/prefabs/wallpaper/models/textures/jungle_dlc/jungledlc_sigil.specgloss.tga"
-                      },
-                      "SubFolders": {}
-                    },
-                    "lny25": {
-                      "Name": "lny25",
-                      "Path": "assets/prefabs/wallpaper/models/textures/lny25",
-                      "Files": {
-                        "Lny25BambooLayeredAo": "assets/prefabs/wallpaper/models/textures/lny25/lny25_bamboo_layered_ao.tga",
-                        "Lny25BambooLayeredDiff": "assets/prefabs/wallpaper/models/textures/lny25/lny25_bamboo_layered_diff.tga",
-                        "Lny25BambooLayeredNrm": "assets/prefabs/wallpaper/models/textures/lny25/lny25_bamboo_layered_nrm.tga",
-                        "Lny25BambooLayeredSpec": "assets/prefabs/wallpaper/models/textures/lny25/lny25_bamboo_layered_spec.tga",
-                        "Lny25CherryBlossomsAo": "assets/prefabs/wallpaper/models/textures/lny25/lny25_cherry_blossoms_ao.tga",
-                        "Lny25CherryBlossomsDiff": "assets/prefabs/wallpaper/models/textures/lny25/lny25_cherry_blossoms_diff.tga",
-                        "Lny25CherryBlossomsNrm": "assets/prefabs/wallpaper/models/textures/lny25/lny25_cherry_blossoms_nrm.tga",
-                        "Lny25CherryBlossomsSpec": "assets/prefabs/wallpaper/models/textures/lny25/lny25_cherry_blossoms_spec.tga",
-                        "Lny25ChineseLanternsAo": "assets/prefabs/wallpaper/models/textures/lny25/lny25_chinese_lanterns_ao.tga",
-                        "Lny25ChineseLanternsDiff": "assets/prefabs/wallpaper/models/textures/lny25/lny25_chinese_lanterns_diff.tga",
-                        "Lny25ChineseLanternsNrm": "assets/prefabs/wallpaper/models/textures/lny25/lny25_chinese_lanterns_nrm.tga",
-                        "Lny25ChineseLanternsSpec": "assets/prefabs/wallpaper/models/textures/lny25/lny25_chinese_lanterns_spec.tga",
-                        "Lny25DiamondsAo": "assets/prefabs/wallpaper/models/textures/lny25/lny25_diamonds_ao.tga",
-                        "Lny25DiamondsDiff": "assets/prefabs/wallpaper/models/textures/lny25/lny25_diamonds_diff.tga",
-                        "Lny25DiamondsNrm": "assets/prefabs/wallpaper/models/textures/lny25/lny25_diamonds_nrm.tga",
-                        "Lny25DiamondsSpec": "assets/prefabs/wallpaper/models/textures/lny25/lny25_diamonds_spec.tga",
-                        "Lny25PanelAAo": "assets/prefabs/wallpaper/models/textures/lny25/lny25_panel_a_ao.tga",
-                        "Lny25PanelADiff": "assets/prefabs/wallpaper/models/textures/lny25/lny25_panel_a_diff.tga",
-                        "Lny25PanelANrm": "assets/prefabs/wallpaper/models/textures/lny25/lny25_panel_a_nrm.tga",
-                        "Lny25PanelASpec": "assets/prefabs/wallpaper/models/textures/lny25/lny25_panel_a_spec.tga",
-                        "Lny25PanelBAo": "assets/prefabs/wallpaper/models/textures/lny25/lny25_panel_b_ao.tga",
-                        "Lny25PanelBDiff": "assets/prefabs/wallpaper/models/textures/lny25/lny25_panel_b_diff.tga",
-                        "Lny25PanelBNrm": "assets/prefabs/wallpaper/models/textures/lny25/lny25_panel_b_nrm.tga",
-                        "Lny25PanelBSpec": "assets/prefabs/wallpaper/models/textures/lny25/lny25_panel_b_spec.tga",
-                        "Lny25PanelCAo": "assets/prefabs/wallpaper/models/textures/lny25/lny25_panel_c_ao.tga",
-                        "Lny25PanelCDiff": "assets/prefabs/wallpaper/models/textures/lny25/lny25_panel_c_diff.tga",
-                        "Lny25PanelCNrm": "assets/prefabs/wallpaper/models/textures/lny25/lny25_panel_c_nrm.tga",
-                        "Lny25PanelCSpec": "assets/prefabs/wallpaper/models/textures/lny25/lny25_panel_c_spec.tga"
                       },
                       "SubFolders": {}
                     }
