@@ -43,6 +43,8 @@ public class UiScrollView : BaseUiComponent
         ScrollSensitivity = scrollSensitivity;
         return this;
     }
+    
+    public ScrollViewContentComponent GetOrCreateContentTransform() => ScrollView.GetOrCreateContentTransform();
 
     public void UpdateContentTransform(in UiPosition? position = null, in UiOffset? offset = null, in Vector2? pivot = null) => ScrollView.UpdateContentTransform(position, offset, pivot);
 
