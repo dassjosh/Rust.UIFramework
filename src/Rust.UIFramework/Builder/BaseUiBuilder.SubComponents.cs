@@ -1,4 +1,5 @@
-﻿using Oxide.Ext.UiFramework.Colors;
+﻿using System;
+using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Json;
@@ -6,6 +7,8 @@ using Oxide.Ext.UiFramework.Types;
 using Oxide.Ext.UiFramework.UiElements;
 using UnityEngine;
 using UnityEngine.UI;
+
+using FitMode = UnityEngine.UI.ContentSizeFitter.FitMode;
 
 namespace Oxide.Ext.UiFramework.Builder;
 
@@ -105,6 +108,29 @@ public abstract partial class BaseUiBuilder
         layout.Padding = padding;
         return layout;
     }
+    
+    public (UiSection ScrollContent, HorizontalLayoutComponent Layout) HorizontalLayout(UiScrollView scroll)
+    {
+        UiSection section = LayoutSizedScrollViewContent(scroll, AutoSizeDirection.Horizontal);
+        HorizontalLayoutComponent layout = HorizontalLayout(section);
+        return (section, layout);
+    }
+    
+    public (UiSection ScrollContent, HorizontalLayoutComponent Layout) HorizontalLayout(UiScrollView scroll,
+        float spacing = JsonDefaults.DirectionalLayout.Spacing,
+        TextAnchor childAlignment = JsonDefaults.Layout.ChildAlignment,
+        bool childForceExpandWidth = JsonDefaults.DirectionalLayout.ChildForceExpandWidth,
+        bool childForceExpandHeight = JsonDefaults.DirectionalLayout.ChildForceExpandHeight,
+        bool childControlWidth = JsonDefaults.DirectionalLayout.ChildControlWidth,
+        bool childControlHeight = JsonDefaults.DirectionalLayout.ChildControlHeight,
+        bool childScaleWidth = JsonDefaults.DirectionalLayout.ChildScaleWidth,
+        bool childScaleHeight = JsonDefaults.DirectionalLayout.ChildScaleHeight,
+        in UiPadding padding = default)
+    {
+        UiSection section = LayoutSizedScrollViewContent(scroll, AutoSizeDirection.Horizontal);
+        HorizontalLayoutComponent layout = HorizontalLayout(section, spacing, childAlignment, childForceExpandWidth, childForceExpandHeight, childControlWidth, childControlHeight, childScaleWidth, childScaleHeight, padding);
+        return (section, layout);
+    }
     #endregion
     
     #region Vertical Layout
@@ -133,6 +159,29 @@ public abstract partial class BaseUiBuilder
         layout.Padding = padding;
         return layout;
     }
+
+    public (UiSection ScrollContent, VerticalLayoutComponent Layout) VerticalLayout(UiScrollView scroll)
+    {
+        UiSection section = LayoutSizedScrollViewContent(scroll, AutoSizeDirection.Vertical);
+        VerticalLayoutComponent layout = VerticalLayout(section);
+        return (section, layout);
+    }
+    
+    public (UiSection ScrollContent, VerticalLayoutComponent Layout) VerticalLayout(UiScrollView scroll,
+        float spacing = JsonDefaults.DirectionalLayout.Spacing,
+        TextAnchor childAlignment = JsonDefaults.Layout.ChildAlignment,
+        bool childForceExpandWidth = JsonDefaults.DirectionalLayout.ChildForceExpandWidth,
+        bool childForceExpandHeight = JsonDefaults.DirectionalLayout.ChildForceExpandHeight,
+        bool childControlWidth = JsonDefaults.DirectionalLayout.ChildControlWidth,
+        bool childControlHeight = JsonDefaults.DirectionalLayout.ChildControlHeight,
+        bool childScaleWidth = JsonDefaults.DirectionalLayout.ChildScaleWidth,
+        bool childScaleHeight = JsonDefaults.DirectionalLayout.ChildScaleHeight,
+        in UiPadding padding = default)
+    {
+        UiSection section = LayoutSizedScrollViewContent(scroll, AutoSizeDirection.Vertical);
+        VerticalLayoutComponent layout = VerticalLayout(section, spacing, childAlignment, childForceExpandWidth, childForceExpandHeight, childControlWidth, childControlHeight, childScaleWidth, childScaleHeight, padding);
+        return (section, layout);
+    }
     #endregion
     
     #region Grid Layout
@@ -158,6 +207,28 @@ public abstract partial class BaseUiBuilder
         layout.ConstraintCount = constraintCount;
         layout.Padding = padding;
         return layout;
+    }
+    
+    public (UiSection ScrollContent, GridLayoutComponent Layout) GridLayout(UiScrollView scroll)
+    {
+        UiSection section = LayoutSizedScrollViewContent(scroll, AutoSizeDirection.Vertical);
+        GridLayoutComponent layout = GridLayout(section);
+        return (section, layout);
+    }
+    
+    public (UiSection ScrollContent, GridLayoutComponent Layout) GridLayout(UiScrollView scroll,
+        Vector2 cellSize,
+        Vector2 spacing,
+        TextAnchor childAlignment = JsonDefaults.Layout.ChildAlignment,
+        GridLayoutGroup.Corner startCorner = JsonDefaults.GridLayout.StartCorner,
+        GridLayoutGroup.Axis startAxis = JsonDefaults.GridLayout.StartAxis,
+        GridLayoutGroup.Constraint constraint = JsonDefaults.GridLayout.Constraint,
+        int constraintCount = JsonDefaults.GridLayout.ConstraintCount,
+        in UiPadding padding = default)
+    {
+        UiSection section = LayoutSizedScrollViewContent(scroll, AutoSizeDirection.Vertical);
+        GridLayoutComponent layout = GridLayout(section, cellSize, spacing, childAlignment, startCorner, startAxis, constraint, constraintCount, in padding);
+        return (section, layout);
     }
     #endregion
 
@@ -199,5 +270,26 @@ public abstract partial class BaseUiBuilder
         return layout;
     }
 
+    #endregion
+
+    #region Layout Helpers
+    public UiSection LayoutSizedScrollViewContent(UiScrollView scrollView, AutoSizeDirection direction)
+    {
+        UiSection section = UpdateScrollViewContent(scrollView);
+        ContentSizeFitter(section).SetHorizontalFit(direction.HasFlag(AutoSizeDirection.Horizontal) ? FitMode.PreferredSize : FitMode.Unconstrained);
+        ContentSizeFitter(section).SetVerticalFit(direction.HasFlag(AutoSizeDirection.Vertical) ? FitMode.PreferredSize : FitMode.Unconstrained);
+        return section;
+    }
+    
+    /// <summary>
+    /// Selected the ScrollView___Content GameObject on the client to be able to modify.
+    /// Setting the mode to update allows us to modify scroll view content when we normally cannot
+    /// </summary>
+    /// <param name="scroll"></param>
+    /// <returns></returns>
+    public UiSection UpdateScrollViewContent(UiScrollView scroll)
+    {
+        return Section(scroll).SetName($"{scroll.Reference.Name}___Content").SetUpdate(UpdateMode.Update);
+    }
     #endregion
 }

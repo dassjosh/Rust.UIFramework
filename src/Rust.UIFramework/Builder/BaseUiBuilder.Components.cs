@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Controls;
@@ -28,6 +29,7 @@ public partial class BaseUiBuilder
     #endregion
 
     #region Component
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public T Component<T>(in UiReference reference) where T : BaseUiComponent, new()
     {
         UiReferenceException.ThrowIfInvalidReference(reference);
@@ -37,6 +39,7 @@ public partial class BaseUiBuilder
         return component.SetUpdate(UpdateMode);
     }
     
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public T Component<T>(BaseUiLayout layout) where T : BaseUiComponent, new()
     {
         T component = Component<T>(layout.Reference);
@@ -44,6 +47,7 @@ public partial class BaseUiBuilder
         return component;
     }
     
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public T Component<T>(BaseLayoutComponent layout) where T : BaseUiComponent, new() => Component<T>(layout.Reference);
     #endregion
     
