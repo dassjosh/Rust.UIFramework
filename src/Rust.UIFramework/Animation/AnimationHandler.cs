@@ -3,8 +3,8 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading;
 using Network;
-using Oxide.Ext.UiFramework.Builder;
 using Oxide.Ext.UiFramework.Config;
+using Oxide.Ext.UiFramework.Constants;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Libraries;
@@ -224,7 +224,7 @@ internal class AnimationHandler : ISingleton
     private static void SendAnimations(JsonFrameworkWriter writer, SendInfo send)
     {
         writer.WriteEndArray();
-        BaseBuilder.AddUi(send, writer);
+        RpcFunctions.SendAddUi(send, writer);
         writer.Dispose();
     }
 
