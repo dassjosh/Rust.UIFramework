@@ -1,14 +1,20 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Oxide.Ext.UiFramework.Builder;
 using Oxide.Ext.UiFramework.Builder.UI;
 using Oxide.Ext.UiFramework.Colors;
+using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Positions;
+using Oxide.Ext.UiFramework.Types;
 using Oxide.Ext.UiFramework.UiElements;
 using Oxide.Plugins;
+using UnityEngine;
+using UnityEngine.UI;
+using Random = Oxide.Core.Random;
 
 namespace Oxide.Plugins;
 
@@ -29,8 +35,18 @@ public class UpdateableTests : RustPlugin, IUiFrameworkPlugin
        _close = _commands.RegisterCommand<UiState>(this, CloseCommand);
     }
 
+    private void OnServerInitialized()
+    {
+        NextTick(() =>
+        {
+            BasePlayer player = BasePlayer.activePlayerList.FirstOrDefault();
+            UpdateableTestsCommand(player, null, null);
+        });
+    }
+    
     private void Unload()
     {
+        UiBuilder.DestroyUi(UiName);
         _ins = null;
     }
     
@@ -68,7 +84,7 @@ public class UpdateableTests : RustPlugin, IUiFrameworkPlugin
     }
 
     private const string UiName = "UiUpdateableTests";
-    private readonly GridPosition _grid = new GridPositionBuilder(3, 3).SetPadding(0.01f).Build();
+    //private readonly GridPosition _grid = new GridPositionBuilder(3, 3).SetPadding(0.01f).Build();
     private readonly UiColor[] _colors = {UiColors.Red, UiColors.Orange, UiColors.Yellow, UiColors.Green, UiColors.Blue, UiColors.Purple, UiColors.Gray, UiColors.Black, UiColors.White};
     private ICommandBuilder<UiState> _close;
 
@@ -80,22 +96,30 @@ public class UpdateableTests : RustPlugin, IUiFrameworkPlugin
         UiPanel header = builder.Panel(builder.Root, new UiPosition(0, 0.95f, 1, 1), default, UiColors.PanelSecondary);
         builder.TextButton(header, new UiPosition(0.95f, 0f, 1, 1), default, "X", 14, UiColors.White, UiColors.Rust.Red, _close.Build(state));
 
-        UiPanel body = builder.Panel(builder.Root, new UiPosition(0, 0, 1, 0.945f), default, UiColors.PanelTertiary);
+        UiPanel body = builder.Panel(builder.Root, new UiPosition(0, 0, 1, 0.945f), default, UiColors.PanelTertiary).SetPadding(new UiPadding(10));
 
-        builder.Section(body, new UiPosition(0.25f, 0.25f, 0.25f, 0.25f));
-            
-        _grid.Reset();
+        UiScrollView scroll = builder.ScrollView(body, UiPosition.Full, default, ScrollRect.MovementType.Clamped);
+        scroll.AddVerticalScrollBar();
+        scroll.UpdateContentTransform(UiPosition.Full, default, new Vector2(0f, 1f));
 
-        UpdatableBuilder updateable = state.Builder = UpdatableBuilder.Create(this);
+        //Hack to select the ScrollView___Content GameObject
+        UiSection section = builder.Section(scroll).SetName($"{scroll.Reference.Name}___Content").SetUpdate(UpdateMode.Update).SetPadding(new UiPadding(20));
+        builder.ContentSizeFitter(section).SetVerticalFit(ContentSizeFitter.FitMode.PreferredSize);
+        GridLayoutComponent layout = builder.GridLayout(section).SetCellSize(new Vector2(150f, 150f)).SetSpacing(new Vector2(10f, 10f)).SetPadding(new UiPadding(20, 20));
         
-        foreach (UiColor color in _colors)
+        //UpdatableBuilder updateable = state.Builder = UpdatableBuilder.Create(this);
+
+        for (int i = 0; i < 25; i++)
         {
-            state.Panels.Add(builder.Panel(body, _grid, default, color).ToUpdatable(updateable));
-            _grid.MoveCols(1);
+            UiPanel panel = builder.Panel(layout, new UiColor(Random.Range(0, 1f), Random.Range(0, 1f), Random.Range(0, 1f)));
+            //builder.LayoutElement(panel);
+            //builder.ContentSizeFitter(panel);
+            //state.Panels.Add(panel.ToUpdatable(updateable));
         }
+        
         Puts($"A-{builder.GetJsonString()}");
         builder.AddUi(player);
-        state.StartTimer();
+        //state.StartTimer();
     }
 
     [UiCommand]

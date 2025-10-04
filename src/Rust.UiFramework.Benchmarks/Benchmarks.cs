@@ -110,7 +110,7 @@ public class Benchmarks
         return GetOxideContainer();
     }
 
-    //[Benchmark(Baseline = false)]
+    [Benchmark(Baseline = false)]
     public UiBuilder UiFramework_CreateContainer()
     {
         UiBuilder builder = GetFrameworkBuilder();

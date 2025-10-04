@@ -554,7 +554,7 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
         
         builder.SpriteButton(pathBar, new UiPosition(0.90f, 0, 0.95f, 1), default, _spriteColor, UiSprites.Icons.FolderUp, _uiCommands.PathUp.Build(state));
         
-        UiSection body = builder.Section(builder.Root, new UiPosition(0, 0, 1, 0.90f), new UiPadding(2));
+        UiSection body = builder.Section(builder.Root, new UiPosition(0, 0, 1, 0.90f), new UiPadding(2).ToOffset());
         
         switch (state.Type)
         {
