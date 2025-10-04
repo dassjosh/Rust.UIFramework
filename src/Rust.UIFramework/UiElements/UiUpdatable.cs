@@ -1,4 +1,5 @@
-﻿using Oxide.Ext.UiFramework.Builder;
+﻿using System;
+using Oxide.Ext.UiFramework.Builder;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Pooling;
@@ -12,23 +13,47 @@ public class UiUpdatable<T> : UiUpdatable where T : BaseUiComponent, new()
 #else
     internal T _previous;
 #endif
+
+    private Action<T> _init;
     
     public T Current { get; private set; }
 
     public static UiUpdatable<T> Create(UpdatableBuilder builder, T element)
     {
-        UiUpdatable<T> updatable = builder.PluginPool.Get<UiUpdatable<T>>().Init(element);
+        UiUpdatable<T> updatable = Create(builder).Init(element);
         builder.AddUpdatable(updatable);
+        return updatable;
+    }
+
+    private static UiUpdatable<T> Create(UpdatableBuilder builder) => builder.PluginPool.Get<UiUpdatable<T>>().Init();
+    public static UiUpdatable<T> Create(UpdatableBuilder builder, in UiReference reference, Action<T> init = null)
+    {
+        UiUpdatable<T> updatable = Create(builder).Init(reference, init);
         return updatable;
     }
 
     private UiUpdatable<T> Init(T source)
     {
-        _previous = PluginPool.Get<T>();
         _previous.CopyFrom(source);
         _previous.Update = UpdateMode.Update;
-        Current = PluginPool.Get<T>();
         Current.CopyFrom(source);
+        Current.Update = UpdateMode.Update;
+        return this;
+    }
+
+    private UiUpdatable<T> Init(in UiReference reference, Action<T> init)
+    {
+        Current.Reference = reference;
+        _previous.Reference = reference;
+        _init = init;
+        return this;
+    }
+
+    private UiUpdatable<T> Init()
+    {
+        _previous = PluginPool.Get<T>();
+        _previous.Update = UpdateMode.Update;
+        Current = PluginPool.Get<T>();
         Current.Update = UpdateMode.Update;
         return this;
     }
@@ -45,6 +70,17 @@ public class UiUpdatable<T> : UiUpdatable where T : BaseUiComponent, new()
     {
         (_previous, Current) = (Current, _previous);
         Current.CopyFrom(_previous);
+    }
+
+    public override void ResetElements()
+    {
+        Current.Reset();
+        _previous.Reset();
+        if (_init != null)
+        {
+            _init.Invoke(Current);
+            _init.Invoke(_previous);
+        }
     }
 
     protected override void LeavePool()
@@ -66,4 +102,5 @@ public abstract class UiUpdatable : BasePoolable
 {
     public abstract void Serialize(JsonFrameworkWriter writer);
     public abstract void Swap();
+    public abstract void ResetElements();
 }

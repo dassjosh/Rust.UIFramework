@@ -4,7 +4,6 @@ using Network;
 using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Libraries;
-using Oxide.Ext.UiFramework.Logging;
 using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.UiElements;
 
@@ -17,6 +16,7 @@ public class UpdatableBuilder : BaseBuilder
     public static UpdatableBuilder Create(IUiFrameworkPlugin plugin) => new UpdatableBuilder().Init(plugin.PluginPool);
 
     public UiUpdatable<T> AddUpdatable<T>(T element) where T : BaseUiComponent, new() => UiUpdatable<T>.Create(this, element);
+    public UiUpdatable<T> AddUpdatable<T>(in UiReference reference, Action<T> init = null) where T : BaseUiComponent, new() => UiUpdatable<T>.Create(this, reference, init);
 
     internal void AddUpdatable(UiUpdatable updatable) => _updatables.Add(updatable);
 
