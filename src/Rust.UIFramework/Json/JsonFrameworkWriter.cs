@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Runtime.CompilerServices;
 using Network;
 using Oxide.Ext.UiFramework.Cache;
@@ -8,6 +9,7 @@ using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Controls.Data;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Libraries;
+using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Types;
 using UnityEngine;
@@ -261,20 +263,17 @@ public sealed class JsonFrameworkWriter : BasePoolable
     
     public void AddComponent(in Utf8String name, IComponent component, IComponent defaults, SerializeMode mode)
     {
+        if (component is null)
+        {
+            return;
+        }
+        
         WritePropertyName(name);
         bool objectComma = _objectComma;
         bool propertyComma = _propertyComma;
         _objectComma = false;
         _propertyComma = false;
-        if (component != null)
-        {
-            UiFrameworkSerializer.Serialize(this, component, defaults, mode);
-        }
-        else
-        {
-            WriteStartObject();
-            WriteEndObject();
-        }
+        UiFrameworkSerializer.Serialize(this, component, defaults, mode);
         _objectComma = objectComma;
         _propertyComma = propertyComma;
     }
