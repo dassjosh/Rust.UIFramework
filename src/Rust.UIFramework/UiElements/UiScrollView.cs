@@ -28,9 +28,9 @@ public class UiScrollView : BaseUiComponent
     public float ScrollSensitivity { get => ScrollView.ScrollSensitivity; set => ScrollView.ScrollSensitivity = value; }
     public float HorizontalScrollProgress { get => ScrollView.HorizontalScrollProgress; set => ScrollView.HorizontalScrollProgress = value; }
     public float VerticalScrollProgress { get => ScrollView.VerticalScrollProgress; set => ScrollView.VerticalScrollProgress = value; }
-    public UiPosition ContentPosition { get => ScrollView.ContentTransform.Position; set => ScrollView.ContentTransform.Position = value; }
-    public UiOffset ContentOffset { get => ScrollView.ContentTransform.Offset; set => ScrollView.ContentTransform.Offset = value; }
-    public Vector2 ContentPivot { get => ScrollView.ContentTransform.Pivot; set => ScrollView.ContentTransform.Pivot = value; }
+    public UiPosition ContentPosition { get => GetOrCreateContentTransform().Position; set => GetOrCreateContentTransform().Position = value; }
+    public UiOffset ContentOffset { get => GetOrCreateContentTransform().Offset; set => GetOrCreateContentTransform().Offset = value; }
+    public Vector2 ContentPivot { get => GetOrCreateContentTransform().Pivot; set => GetOrCreateContentTransform().Pivot = value; }
     public ScrollbarComponent HorizontalScrollbar => ScrollView.HorizontalScrollbar;
     public ScrollbarComponent VerticalScrollbar => ScrollView.VerticalScrollbar;
 

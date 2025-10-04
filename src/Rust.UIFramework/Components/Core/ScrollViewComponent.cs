@@ -113,7 +113,7 @@ public class ScrollViewComponent : CoreComponent
             ScrollSensitivity = component.ScrollSensitivity;
             HorizontalScrollProgress = component.HorizontalScrollProgress;
             VerticalScrollProgress = component.VerticalScrollProgress;
-            ContentTransform.CopyFrom(component.ContentTransform);
+            ContentTransform = CopyChild(ContentTransform, component.ContentTransform);
             HorizontalScrollbar = CopyChild(HorizontalScrollbar, component.HorizontalScrollbar);
             VerticalScrollbar = CopyChild(VerticalScrollbar, component.VerticalScrollbar);
         }
