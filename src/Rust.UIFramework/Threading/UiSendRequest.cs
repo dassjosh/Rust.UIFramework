@@ -1,4 +1,5 @@
-﻿using Network;
+﻿using System;
+using Network;
 using Oxide.Ext.UiFramework.Builder;
 using Oxide.Ext.UiFramework.Libraries;
 
@@ -15,15 +16,15 @@ internal class UiSendRequest : BaseUiRequest, IUiRequest
         return request;
     }
     
-    private void Init(BaseBuilder builder, SendInfo send)
+    protected void Init(BaseBuilder builder, SendInfo send)
     {
         base.Init(send);
         Builder = builder;
     }
     
-    public void SendRequest()
+    public virtual void SendRequest()
     {
-        Builder.SendUi(Send);
+        Builder.SendUi(Send, null);
     }
     
     protected override void EnterPool()

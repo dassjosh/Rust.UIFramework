@@ -116,7 +116,7 @@ public class GridPosition : BasePosition
         float minY = GetScrollViewYMin(totalItems, Mathf.RoundToInt(NumCols));
 #pragma warning restore CS0618 // Type or member is obsolete
         SetYScale(1 / (1 - minY));
-        UiPosition position = scrollView.ScrollView.ContentTransform.Position;
+        UiPosition position = scrollView.GetOrCreateContentTransform().Position;
         scrollView.UpdateContentTransform(position.WithYMin(minY));
     }
 
@@ -126,7 +126,7 @@ public class GridPosition : BasePosition
         float maxX = GetScrollViewXMax(totalItems, Mathf.RoundToInt(NumRows));
 #pragma warning restore CS0618 // Type or member is obsolete
         SetXScale(1 / maxX);
-        UiPosition position = scrollView.ScrollView.ContentTransform.Position;
+        UiPosition position = scrollView.GetOrCreateContentTransform().Position;
         scrollView.UpdateContentTransform(position.WithXMax(maxX));
     }
 

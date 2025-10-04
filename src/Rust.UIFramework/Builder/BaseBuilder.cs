@@ -6,6 +6,7 @@ using Oxide.Ext.UiFramework.Animation;
 using Oxide.Ext.UiFramework.Constants;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Json;
+using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Threading;
 using Oxide.Ext.UiFramework.Types;
@@ -20,8 +21,15 @@ namespace Oxide.Ext.UiFramework.Builder;
 public abstract class BaseBuilder : BasePoolable
 {
     protected string RootName;
-
+    
     public string GetRootName() => RootName;
+    
+    public IUiFrameworkPlugin Plugin { get; protected set; }
+
+    protected void Init(IUiFrameworkPlugin plugin)
+    {
+        Plugin = plugin;
+    }
     
     #region Add UI
     public void AddUi(BasePlayer player)
@@ -63,40 +71,65 @@ public abstract class BaseBuilder : BasePoolable
         Singleton<SendHandler>.Instance.Enqueue(UiSendRequest.Create(this, send));
     }
 
-    internal abstract void SendUi(SendInfo send);
-
-    internal static void AddUi(SendInfo send, JsonFrameworkWriter writer)
+    public void AddUiDebug(BasePlayer player, in UiDebugOptions options)
     {
-        NetWrite write = ClientRPCStart(RpcFunctions.AddUi);
-        if (write != null)
+        if (player && player.IsConnected)
         {
-            writer.WriteToNetwork(write);
-            write.Send(send);
+            AddUiDebug(SendInfoBuilder.Get(player), options);
+        }
+        else
+        {
+            TryDispose();
+        }
+    }
+
+    public void AddUiDebug(Connection connection, in UiDebugOptions options)
+    {
+        if (connection is { connected: true })
+        {
+            AddUiDebug(SendInfoBuilder.Get(connection), options);
+        }
+        else
+        {
+            TryDispose();
+        }
+    }
+
+    public void AddUiDebug(IEnumerable<Connection> connections, in UiDebugOptions options)
+    {
+        AddUiDebug(SendInfoBuilder.Get(connections), options);
+    }
+
+    public void AddUiDebug(in UiDebugOptions options)
+    {
+        AddUiDebug(SendInfoBuilder.Get(Net.sv.connections), options);
+    }
+    
+    public void AddUiDebug(SendInfo send, in UiDebugOptions options)
+    {
+        Singleton<SendHandler>.Instance.Enqueue(UiDebugSendRequest.Create(this, send, options));
+    }
+
+    internal abstract void SendUi(SendInfo send, in UiDebugOptions? options);
+
+    internal void AddUi(SendInfo send, JsonFrameworkWriter writer, in UiDebugOptions? options)
+    {
+        RpcFunctions.SendAddUi(send, writer);
+        
+        if (options.HasValue)
+        {
+            UiDebugHandler.HandleDebug(Plugin, writer, options.Value);
         }
     }
         
-    protected static void AddUi(SendInfo send, byte[] bytes)
+    protected void AddUi(SendInfo send, byte[] bytes, in UiDebugOptions? options)
     {
-        NetWrite write = ClientRPCStart(RpcFunctions.AddUi);
-        if (write != null)
+        RpcFunctions.SendAddUi(send, bytes);
+        
+        if (options.HasValue)
         {
-            write.BytesWithSize(bytes);
-            write.Send(send);
+            UiDebugHandler.HandleDebug(Plugin, bytes, options.Value);
         }
-    }
-
-    private static NetWrite ClientRPCStart(uint funcId)
-    {
-        if (!Net.sv.IsConnected() || CommunityEntity.ServerInstance.net == null)
-        {
-            return null;
-        }
-
-        NetWrite write = Net.sv.StartWrite();
-        write.PacketID(Message.Type.RPCMessage);
-        write.EntityID(CommunityEntity.ServerInstance.net.ID);
-        write.UInt32(funcId);
-        return write;
     }
     #endregion
 
@@ -157,16 +190,6 @@ public abstract class BaseBuilder : BasePoolable
         
         Singleton<AnimationTracker>.Instance.RemoveUiForSend(send, name);
         Singleton<SendHandler>.Instance.Enqueue(UiDestroyRequest.Create(name, send));
-    }
-
-    internal static void SendDestroyUi(SendInfo send, string name)
-    {
-        NetWrite write = ClientRPCStart(RpcFunctions.DestroyUi);
-        if (write != null)
-        {
-            write.String(name);
-            write.Send(send);
-        }
     }
     #endregion
 

@@ -4,6 +4,7 @@ using Network;
 using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Libraries;
+using Oxide.Ext.UiFramework.Logging;
 using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.UiElements;
 
@@ -28,10 +29,10 @@ public class UpdatableBuilder : BaseBuilder
     
     ~UpdatableBuilder() => Cleanup();
 
-    internal override void SendUi(SendInfo send)
+    internal override void SendUi(SendInfo send, in UiDebugOptions? options)
     {
         JsonFrameworkWriter writer = CreateWriter(true);
-        AddUi(send, writer);
+        AddUi(send, writer, options);
         writer.Dispose();
     }
     

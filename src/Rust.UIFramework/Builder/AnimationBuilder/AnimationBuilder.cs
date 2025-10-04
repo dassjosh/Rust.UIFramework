@@ -14,17 +14,16 @@ public class AnimationBuilder : BaseBuilder, IAnimationBuilder
     
     private readonly List<BaseAnimation> _animations = [];
 
-    public static AnimationBuilder Create(IUiFrameworkPlugin plugin) => plugin.PluginPool.Get<AnimationBuilder>().Init(plugin);
-
-    private AnimationBuilder Init(IUiFrameworkPlugin plugin)
+    public static AnimationBuilder Create(IUiFrameworkPlugin plugin)
     {
-        Plugin = plugin;
-        return this;
+        AnimationBuilder builder = plugin.PluginPool.Get<AnimationBuilder>();
+        builder.Init(plugin);
+        return builder;
     }
 
     void IAnimationBuilder.AddAnimation(BaseAnimation animation) => _animations.Add(animation);
 
-    internal override void SendUi(SendInfo send)
+    internal override void SendUi(SendInfo send, in UiDebugOptions? options)
     {
         for (int index = 0; index < _animations.Count; index++)
         {

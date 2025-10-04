@@ -11,14 +11,15 @@ public class CachedUiBuilder : BaseBuilder
     {
         _cachedJson = builder.GetBytes();
         RootName = builder.GetRootName();
+        Plugin = builder.Plugin;
     }
 
     internal static CachedUiBuilder CreateCachedBuilder(UiBuilder builder) => new(builder);
 
     public override byte[] GetBytes() => _cachedJson;
         
-    internal override void SendUi(SendInfo send)
+    internal override void SendUi(SendInfo send, in UiDebugOptions? options)
     {
-        AddUi(send, GetBytes());
+        AddUi(send, GetBytes(), options);
     }
 }

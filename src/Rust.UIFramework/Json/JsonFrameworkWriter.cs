@@ -519,6 +519,11 @@ public sealed class JsonFrameworkWriter : BasePoolable
         _writer = null;
     }
 
+    public void WriteToStream(IUiFrameworkPlugin plugin, Stream stream)
+    {
+        _writer.WriteToStream(stream);
+    }
+
     public override string ToString()
     {
         return _writer.ToString();

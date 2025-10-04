@@ -135,6 +135,16 @@ public sealed class JsonUtf8Writer : BasePoolable
         return writeIndex;
     }
 
+    public void WriteToStream(Stream stream)
+    {
+        Flush();
+        for (int i = 0; i < _segments.Count; i++)
+        {
+            SizedArray<byte> segment = _segments[i];
+            stream.Write(segment.Array, 0, segment.Size);
+        }
+    }
+
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void WriteToNetwork(NetWrite write)
     {

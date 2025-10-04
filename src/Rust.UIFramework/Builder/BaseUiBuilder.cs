@@ -31,8 +31,6 @@ public abstract partial class BaseUiBuilder : BaseBuilder
     protected INamingCache NamingCache = Singleton<UiNamingCache>.Instance.Default;
     
     private static readonly string GlobalFont = UiFrameworkConfig.Instance.Font.DefaultFont;
-    
-    public IUiFrameworkPlugin Plugin { get; protected set; }
         
     public void SetCurrentFont(UiFont font) => SetCurrentFont(UiFontCache.GetUiFont(font));
     public void SetCurrentFont(string font) => Font = font;
@@ -45,10 +43,10 @@ public abstract partial class BaseUiBuilder : BaseBuilder
         return bytes;
     }
         
-    internal override void SendUi(SendInfo send)
+    internal override void SendUi(SendInfo send, in UiDebugOptions? options)
     {
         JsonFrameworkWriter writer = CreateWriter();
-        AddUi(send, writer);
+        AddUi(send, writer, options);
         writer.Dispose();
         OnUiSent(send);
     }
