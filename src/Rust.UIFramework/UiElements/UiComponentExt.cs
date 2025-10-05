@@ -98,9 +98,4 @@ public static class UiComponentExt
         component.Update = mode;
         return component;
     }
-    
-    public static UiUpdatable<T> ToUpdatable<T>(this T component, UpdatableBuilder builder) where T : BaseUiComponent, new()
-    {
-        return builder.AddUpdatable(component);
-    }
 }

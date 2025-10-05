@@ -61,19 +61,13 @@ public class UpdateableTests : RustPlugin, IUiFrameworkPlugin
         public ulong PlayerId { get; set; }
         public BasePlayer Player { get; set; }
         
-        public UpdatableBuilder Builder { get; set; }
-        public List<UiUpdatable<UiPanel>> Panels { get; set; } = new();
-        
         public Timer UpdateTimer { get; set; }
 
         public void StartTimer()
         {
             UpdateTimer = _ins.timer.Every(1f, () =>
             {
-                UiUpdatable<UiPanel> panel = Panels.GetRandom();
-                panel.Current.SetEnabled(!panel.Current.Enabled);
-                _ins.Puts($"B-{Builder.GetJsonString()}");
-                Builder.AddUi(Player);
+               
             });
         }
         
