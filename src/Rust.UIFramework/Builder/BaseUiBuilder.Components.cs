@@ -281,21 +281,21 @@ public partial class BaseUiBuilder
     {
         UiPanel panel = Panel(parent, pos, offset, backgroundColor);
         UiLabel label = Label(panel, UiPosition.Full, textPadding?.ToOffset() ?? JsonDefaults.Common.TextPadding, text, size, textColor, align);
-        return new UiTuple<UiPanel, UiLabel>(panel, label);
+        return UiTuple.Create(panel, label);
     }
     
     public UiTuple<UiPanel, UiLabel> Label(BaseUiLayout layout, string text, int size, UiColor textColor, UiColor backgroundColor, TextAnchor align = TextAnchor.MiddleCenter, in UiPadding? textPadding = null)
     {
         UiPanel panel = Panel(layout, backgroundColor);
         UiLabel label = Label(panel, UiPosition.Full, textPadding?.ToOffset() ?? JsonDefaults.Common.TextPadding, text, size, textColor, align);
-        return new UiTuple<UiPanel, UiLabel>(panel, label);
+        return UiTuple.Create(panel, label);
     }
     
     public UiTuple<UiPanel, UiLabel> Label(BaseLayoutComponent layout, string text, int size, UiColor textColor, UiColor backgroundColor, TextAnchor align = TextAnchor.MiddleCenter, in UiPadding? textPadding = null)
     {
         UiPanel panel = Panel(layout, backgroundColor);
         UiLabel label = Label(panel, UiPosition.Full, textPadding?.ToOffset() ?? JsonDefaults.Common.TextPadding, text, size, textColor, align);
-        return new UiTuple<UiPanel, UiLabel>(panel, label);
+        return UiTuple.Create(panel, label);
     }
     #endregion
         
@@ -324,28 +324,28 @@ public partial class BaseUiBuilder
     {
         UiPanel background = Panel(parent).SetColor(backgroundColor);
         UiInput input = Input(background, UiPosition.Full, default, text, fontSize, textColor, command, align, charsLimit, mode, lineType);
-        return new UiTuple<UiPanel, UiInput>(background, input);
+        return UiTuple.Create(background, input);
     }
     
     public UiTuple<UiPanel, UiInput> Input(in UiReference parent, in UiPosition pos, in UiOffset offset, string text, int fontSize, UiColor textColor, UiColor backgroundColor, string command, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, InputMode mode = InputMode.Default, InputField.LineType lineType = InputField.LineType.SingleLine, in UiPadding? textPadding = null)
     {
         UiPanel panel = Panel(parent, pos, offset, backgroundColor);
         UiInput input = Input(panel, UiPosition.Full, textPadding?.ToOffset() ?? JsonDefaults.Common.TextPadding, text, fontSize, textColor, command, align, charsLimit, mode, lineType);
-        return new UiTuple<UiPanel, UiInput>(panel, input);
+        return UiTuple.Create(panel, input);
     }
     
     public UiTuple<UiPanel, UiInput> Input(BaseUiLayout layout, string text, int fontSize, UiColor textColor, UiColor backgroundColor, string command, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, InputMode mode = InputMode.Default, InputField.LineType lineType = InputField.LineType.SingleLine, in UiPadding? textPadding = null)
     {
         UiPanel panel = Panel(layout, backgroundColor);
         UiInput input = Input(panel, UiPosition.Full, textPadding?.ToOffset() ?? JsonDefaults.Common.TextPadding, text, fontSize, textColor, command, align, charsLimit, mode, lineType);
-        return new UiTuple<UiPanel, UiInput>(panel, input);
+        return UiTuple.Create(panel, input);
     }
     
     public UiTuple<UiPanel, UiInput> Input(BaseLayoutComponent layout, string text, int fontSize, UiColor textColor, UiColor backgroundColor, string command, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, InputMode mode = InputMode.Default, InputField.LineType lineType = InputField.LineType.SingleLine, in UiPadding? textPadding = null)
     {
         UiPanel panel = Panel(layout, backgroundColor);
         UiInput input = Input(panel, UiPosition.Full, textPadding?.ToOffset() ?? JsonDefaults.Common.TextPadding, text, fontSize, textColor, command, align, charsLimit, mode, lineType);
-        return new UiTuple<UiPanel, UiInput>(panel, input);
+        return UiTuple.Create(panel, input);
     }
     
     public UiInput Input(in UiReference parent, string text, int fontSize, UiColor textColor, ICommandBuilder<InputArg> command, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, InputMode mode = InputMode.Default, InputField.LineType lineType = InputField.LineType.SingleLine)

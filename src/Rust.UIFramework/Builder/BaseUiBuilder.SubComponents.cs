@@ -110,14 +110,14 @@ public abstract partial class BaseUiBuilder
         return layout;
     }
     
-    public (UiSection ScrollContent, HorizontalLayoutComponent Layout) HorizontalLayout(UiScrollView scroll, AutoSizeDirection autoSize = AutoSizeDirection.Horizontal)
+    public UiTuple<UiSection, HorizontalLayoutComponent> HorizontalLayout(UiScrollView scroll, AutoSizeDirection autoSize = AutoSizeDirection.Horizontal)
     {
         UiSection section = AutoSizedScrollView(scroll, autoSize);
         HorizontalLayoutComponent layout = HorizontalLayout(section);
-        return (section, layout);
+        return UiTuple.Create(section, layout);
     }
     
-    public (UiSection ScrollContent, HorizontalLayoutComponent Layout) HorizontalLayout(UiScrollView scroll,
+    public UiTuple<UiSection, HorizontalLayoutComponent> HorizontalLayout(UiScrollView scroll,
         float spacing = JsonDefaults.DirectionalLayout.Spacing,
         TextAnchor childAlignment = JsonDefaults.Layout.ChildAlignment,
         bool childForceExpandWidth = JsonDefaults.DirectionalLayout.ChildForceExpandWidth,
@@ -131,7 +131,7 @@ public abstract partial class BaseUiBuilder
     {
         UiSection section = AutoSizedScrollView(scroll, autoSize);
         HorizontalLayoutComponent layout = HorizontalLayout(section, spacing, childAlignment, childForceExpandWidth, childForceExpandHeight, childControlWidth, childControlHeight, childScaleWidth, childScaleHeight, padding);
-        return (section, layout);
+        return UiTuple.Create(section, layout);
     }
     #endregion
     
@@ -162,14 +162,14 @@ public abstract partial class BaseUiBuilder
         return layout;
     }
 
-    public (UiSection ScrollContent, VerticalLayoutComponent Layout) VerticalLayout(UiScrollView scroll, AutoSizeDirection autoSize = AutoSizeDirection.Vertical)
+    public UiTuple<UiSection, VerticalLayoutComponent> VerticalLayout(UiScrollView scroll, AutoSizeDirection autoSize = AutoSizeDirection.Vertical)
     {
         UiSection section = AutoSizedScrollView(scroll, autoSize);
         VerticalLayoutComponent layout = VerticalLayout(section);
-        return (section, layout);
+        return UiTuple.Create(section, layout);
     }
     
-    public (UiSection ScrollContent, VerticalLayoutComponent Layout) VerticalLayout(UiScrollView scroll,
+    public UiTuple<UiSection, VerticalLayoutComponent> VerticalLayout(UiScrollView scroll,
         float spacing = JsonDefaults.DirectionalLayout.Spacing,
         TextAnchor childAlignment = JsonDefaults.Layout.ChildAlignment,
         bool childForceExpandWidth = JsonDefaults.DirectionalLayout.ChildForceExpandWidth,
@@ -183,7 +183,7 @@ public abstract partial class BaseUiBuilder
     {
         UiSection section = AutoSizedScrollView(scroll, autoSize);
         VerticalLayoutComponent layout = VerticalLayout(section, spacing, childAlignment, childForceExpandWidth, childForceExpandHeight, childControlWidth, childControlHeight, childScaleWidth, childScaleHeight, padding);
-        return (section, layout);
+        return UiTuple.Create(section, layout);
     }
     #endregion
     
@@ -212,14 +212,14 @@ public abstract partial class BaseUiBuilder
         return layout;
     }
     
-    public (UiSection ScrollContent, GridLayoutComponent Layout) GridLayout(UiScrollView scroll, AutoSizeDirection autoSize = AutoSizeDirection.Vertical)
+    public UiTuple<UiSection, GridLayoutComponent> GridLayout(UiScrollView scroll, AutoSizeDirection autoSize = AutoSizeDirection.Vertical)
     {
         UiSection section = AutoSizedScrollView(scroll, autoSize);
         GridLayoutComponent layout = GridLayout(section);
-        return (section, layout);
+        return UiTuple.Create(section, layout);
     }
     
-    public (UiSection ScrollContent, GridLayoutComponent Layout) GridLayout(UiScrollView scroll,
+    public UiTuple<UiSection, GridLayoutComponent> GridLayout(UiScrollView scroll,
         Vector2 cellSize,
         Vector2 spacing,
         TextAnchor childAlignment = JsonDefaults.Layout.ChildAlignment,
@@ -232,7 +232,7 @@ public abstract partial class BaseUiBuilder
     {
         UiSection section = AutoSizedScrollView(scroll, autoSize);
         GridLayoutComponent layout = GridLayout(section, cellSize, spacing, childAlignment, startCorner, startAxis, constraint, constraintCount, in padding);
-        return (section, layout);
+        return UiTuple.Create(section, layout);
     }
     #endregion
 

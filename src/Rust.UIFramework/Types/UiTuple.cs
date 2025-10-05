@@ -47,3 +47,9 @@ public readonly struct UiTuple<T0, T1>(T0 item1, T1 item2)
         item2 = Item2;
     }
 }
+
+public static class UiTuple
+{
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static UiTuple<T0, T1> Create<T0, T1>(T0 item1, T1 item2) => new(item1, item2);
+}
