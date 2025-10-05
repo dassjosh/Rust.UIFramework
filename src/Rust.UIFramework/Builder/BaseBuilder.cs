@@ -216,6 +216,10 @@ public abstract class BaseBuilder : BasePoolable
     public string GetJsonString() => Encoding.UTF8.GetString(GetBytes());
     #endregion
 
+    #region Combined
+    public abstract void Combine(SendInfo send, JsonFrameworkWriter writer);
+    #endregion
+
     #region Pooling
     protected static void ClearAnimationList(List<BaseAnimation> animations)
     {

@@ -107,7 +107,7 @@ public sealed class JsonUtf8Writer : BasePoolable
     }
     
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private void Flush()
+    private void Flush(int rentSize = SegmentSize)
     {
         if (_byteIndex == 0)
         {
@@ -117,7 +117,7 @@ public sealed class JsonUtf8Writer : BasePoolable
         _size += (uint)_byteIndex;
         _segments.Add(new SizedArray<byte>(_buffer, _byteIndex));
         _byteIndex = 0;
-        _buffer = ArrayPool<byte>.Shared.Rent(SegmentSize);
+        _buffer = ArrayPool<byte>.Shared.Rent(rentSize);
     }
 
     public int WriteToArray(byte[] bytes)
@@ -202,5 +202,15 @@ public sealed class JsonUtf8Writer : BasePoolable
         _size = 0;
         ArrayPool<byte>.Shared.Return(_buffer);
         _buffer = null;
+    }
+
+    public void WriteRaw(ReadOnlySpan<byte> span)
+    {
+        Flush(span.Length);
+        if (span.TryCopyTo(_buffer))
+        {
+            _byteIndex += span.Length;
+        }
+        Flush();
     }
 }

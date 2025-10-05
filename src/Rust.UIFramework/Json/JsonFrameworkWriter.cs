@@ -705,4 +705,9 @@ public sealed class JsonFrameworkWriter : BasePoolable
     {
         return _writer.ToArray();
     }
+
+    public void WriteRaw(ReadOnlySpan<byte> span)
+    {
+        _writer.WriteRaw(span);
+    }
 }

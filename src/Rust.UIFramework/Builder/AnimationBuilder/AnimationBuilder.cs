@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Network;
 using Oxide.Ext.UiFramework.Animation;
 using Oxide.Ext.UiFramework.Interfaces;
+using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Types;
 
@@ -34,6 +35,10 @@ public class AnimationBuilder : BaseBuilder, IAnimationBuilder
     }
 
     public override byte[] GetBytes() => throw new NotSupportedException($"Cannot get bytes for an {nameof(AnimationBuilder)}");
+    public override void Combine(SendInfo send, JsonFrameworkWriter writer)
+    {
+        SendUi(send, null);
+    }
 
     protected override void EnterPool()
     {

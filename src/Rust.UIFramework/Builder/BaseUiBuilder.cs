@@ -93,6 +93,11 @@ public abstract partial class BaseUiBuilder : BaseBuilder
         }
     }
     
+    public override void Combine(SendInfo send, JsonFrameworkWriter writer)
+    {
+        WriteComponentsInternal(writer);
+    }
+    
     protected virtual void FreeComponents()
     {
         Components.FreeValues();

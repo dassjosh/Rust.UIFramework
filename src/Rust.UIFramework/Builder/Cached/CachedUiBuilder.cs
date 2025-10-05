@@ -1,5 +1,7 @@
-﻿using Network;
+﻿using System;
+using Network;
 using Oxide.Ext.UiFramework.Builder.UI;
+using Oxide.Ext.UiFramework.Json;
 
 namespace Oxide.Ext.UiFramework.Builder.Cached;
 
@@ -17,7 +19,11 @@ public class CachedUiBuilder : BaseBuilder
     internal static CachedUiBuilder CreateCachedBuilder(UiBuilder builder) => new(builder);
 
     public override byte[] GetBytes() => _cachedJson;
-        
+    public override void Combine(SendInfo send, JsonFrameworkWriter writer)
+    {
+        writer.WriteRaw(_cachedJson.AsSpan()[1..^1]);
+    }
+
     internal override void SendUi(SendInfo send, in UiDebugOptions? options)
     {
         AddUi(send, GetBytes(), options);

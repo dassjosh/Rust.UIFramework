@@ -1,5 +1,7 @@
 ﻿using System;
+using Network;
 using Oxide.Ext.UiFramework.Enums;
+using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Pooling;
 
@@ -25,5 +27,10 @@ public class UpdateBuilder : BaseUiBuilder
         base.LeavePool();
         UpdateMode = UpdateMode.Replace;
         NamingMode = NamingMode.Reference;
+    }
+
+    public override void Combine(SendInfo send, JsonFrameworkWriter writer)
+    {
+        throw new NotSupportedException("Combine is not supported for UpdateBuilder");
     }
 }
