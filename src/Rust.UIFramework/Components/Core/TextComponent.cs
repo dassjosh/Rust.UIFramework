@@ -39,6 +39,7 @@ public class TextComponent : CoreComponent, IGraphicalComponent
         writer.AddField(JsonDefaults.Text.AlignName, _align, mode);
         writer.AddField(JsonDefaults.Text.VerticalOverflowName, _verticalOverflow, mode);
         writer.AddField(JsonDefaults.Color.ColorName, _color, mode);
+        writer.AddField(JsonDefaults.Common.FadeInName, _fadeIn, mode);
         
         if (_placeholderFor.ShouldSerialize(mode) && PlaceholderFor.IsValidName())
         {

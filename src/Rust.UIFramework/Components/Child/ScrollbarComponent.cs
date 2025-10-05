@@ -32,6 +32,7 @@ public class ScrollbarComponent : ChildComponent
 
     public override void WriteComponent(JsonFrameworkWriter writer, SerializeMode mode)
     {
+        writer.WriteStartObject();
         writer.AddField(JsonDefaults.ScrollBar.InvertName, _invert, mode);
         writer.AddField(JsonDefaults.ScrollBar.AutoHideName, _autoHide, mode);
         writer.AddField(JsonDefaults.ScrollBar.HandleSprite, _handleSprite, mode);
@@ -41,6 +42,7 @@ public class ScrollbarComponent : ChildComponent
         writer.AddField(JsonDefaults.ScrollBar.HighlightColorName, _highlightColor, mode);
         writer.AddField(JsonDefaults.ScrollBar.PressedColorName, _pressedColor, mode);
         writer.AddField(JsonDefaults.ScrollBar.TrackColorName, _trackColor, mode);
+        writer.WriteEndObject();
     }
 
     public override void Reset()

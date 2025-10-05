@@ -33,6 +33,7 @@ public class ButtonComponent : CoreComponent, IGraphicalComponent
         writer.AddField(JsonDefaults.BaseImage.SpriteName, _sprite, mode);
         writer.AddField(JsonDefaults.BaseImage.MaterialName, _material, mode);
         writer.AddField(JsonDefaults.Color.ColorName, _color, mode);
+        writer.AddField(JsonDefaults.Common.FadeInName, _fadeIn, mode);
         writer.AddField(JsonDefaults.Image.ImageTypeName, _imageType, mode);
         switch (ButtonType)
         {
@@ -44,10 +45,7 @@ public class ButtonComponent : CoreComponent, IGraphicalComponent
                 break;
         }
 
-        if (ColorBlock != null)
-        {
-            //ColorBlock.WriteComponent(writer, mode);
-        }
+        ColorBlock?.WriteComponent(writer, mode);
     }
 
     internal ColorBlockComponent GetOrAddColorBlock() => ColorBlock ??= PluginPool.Get<ColorBlockComponent>();

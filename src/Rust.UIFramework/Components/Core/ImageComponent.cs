@@ -32,6 +32,7 @@ public class ImageComponent : CoreComponent, IGraphicalComponent
     protected override void WriteComponentFields(JsonFrameworkWriter writer, SerializeMode mode)
     {
         writer.AddField(JsonDefaults.BaseImage.SpriteName, _sprite, mode);
+        writer.AddField(JsonDefaults.Common.FadeInName, _fadein, mode);
         writer.AddField(JsonDefaults.BaseImage.MaterialName, _material, mode);
         writer.AddField(JsonDefaults.Color.ColorName, _color, mode);
         writer.AddField(JsonDefaults.Image.ImageTypeName, _imageType, mode);

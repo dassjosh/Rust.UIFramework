@@ -53,8 +53,8 @@ public class DraggableComponent : SubComponent
         writer.AddField(JsonDefaults.Draggable.AnchorOffsetName, _anchorOffset, mode);
         writer.AddField(JsonDefaults.Draggable.KeepOnTopName, _keepOnTop, mode);
         writer.AddField(JsonDefaults.Draggable.PositionRpcName, _positionRpc, mode);
-        writer.AddField(JsonDefaults.Draggable.MoveToAnchorName, _moveToAnchor, mode);
-        writer.AddField(JsonDefaults.Draggable.RebuildAnchorName, _rebuildAnchor, mode);
+        writer.AddKeyField(JsonDefaults.Draggable.MoveToAnchorName, _moveToAnchor.ShouldSerialize(mode) && _moveToAnchor.Value);
+        writer.AddKeyField(JsonDefaults.Draggable.RebuildAnchorName, _rebuildAnchor.ShouldSerialize(mode) && _rebuildAnchor.Value);
     }
 
     public DraggableComponent SetLimitToParent(bool limitToParent)

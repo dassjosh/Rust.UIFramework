@@ -34,6 +34,7 @@ public class PlayingCardComponent : CoreComponent, IGraphicalComponent
         }
         writer.AddField(JsonDefaults.BaseImage.MaterialName, _material, mode);
         writer.AddField(JsonDefaults.Color.ColorName, _color, mode);
+        writer.AddField(JsonDefaults.Common.FadeInName, _fadeIn, mode);
     }
 
     public override void Reset()

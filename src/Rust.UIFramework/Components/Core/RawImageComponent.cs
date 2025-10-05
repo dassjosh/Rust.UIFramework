@@ -37,6 +37,7 @@ public class RawImageComponent : CoreComponent, IGraphicalComponent
     {
         writer.AddField(JsonDefaults.BaseImage.MaterialName, _material, mode);
         writer.AddField(JsonDefaults.Color.ColorName, _color, mode);
+        writer.AddField(JsonDefaults.Common.FadeInName, _fadeIn, mode);
         
         if (_placeholderFor.ShouldSerialize(mode) && PlaceholderFor.IsValidName())
         {

@@ -25,7 +25,7 @@ public class OutlineComponent : SubComponent
     {
         writer.AddField(JsonDefaults.Color.ColorName, _color, mode);
         writer.AddField(JsonDefaults.Outline.DistanceName, _distance, mode);
-        writer.AddField(JsonDefaults.Outline.UseGraphicAlphaName, _useGraphicAlpha, mode);
+        writer.AddKeyField(JsonDefaults.Outline.UseGraphicAlphaName, _useGraphicAlpha.ShouldSerialize(mode) && _useGraphicAlpha.Value);
     }
     
     public OutlineComponent SetColor(UiColor color)
