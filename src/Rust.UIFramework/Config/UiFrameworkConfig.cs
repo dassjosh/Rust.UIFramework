@@ -130,8 +130,8 @@ internal class UiFrameworkConfig : ConfigFile
 
         Animations = new UiAnimationConfig
         {
-            Enabled = true,
-            UpdateRate = 25
+            Enabled = Animations?.Enabled ?? true,
+            UpdateRate = Animations?.UpdateRate ?? 25
         };
 
         Proxy = new UiProxyConfig(Proxy);
