@@ -16,10 +16,13 @@ namespace Oxide.Ext.UiFramework.UiElements;
 
 public abstract class BaseUiComponent : BasePoolable, ICopyFrom
 {
+    private readonly TrackedValue<float> _fadeOut = new();
+    private readonly TrackedValue<bool> _active = new(true);
+    
     public UiReference Reference;
-    public float FadeOut;
+    public float FadeOut { get => _fadeOut.Value; set => _fadeOut.Value = value; }
     public UpdateMode Update;
-    public bool Active = true;
+    public bool Active { get => _active.Value; set => _active.Value = value; }
     internal readonly CoreComponent _component;
     
     public string Name { get => Reference.Name; set => Reference = Reference.WithName(value); }
@@ -41,6 +44,36 @@ public abstract class BaseUiComponent : BasePoolable, ICopyFrom
 
     [Obsolete("This method is obsolete. Please use UiBuilder.Component<T>() instead.")]
     public static T CreateBase<T>() where T : BaseUiComponent, new() => UiFrameworkPool.Get<T>();
+
+    public void WriteElement(JsonFrameworkWriter writer)
+    {
+        SerializeMode mode = Update == UpdateMode.Update ? SerializeMode.Update : SerializeMode.Create;
+        writer.WriteStartObject();
+        writer.AddFieldRaw(JsonDefaults.Common.ComponentName, Reference.Name);
+        if (mode == SerializeMode.Create)
+        {
+            writer.AddFieldRaw(JsonDefaults.Common.ParentName, Reference.Parent);
+        }
+        writer.AddField(JsonDefaults.Common.FadeOutName, _fadeOut, mode);
+        writer.AddField(JsonDefaults.Common.ActiveName, _active, mode);
+        switch (Update)
+        {
+            case UpdateMode.Replace:
+                writer.AddFieldRaw(JsonDefaults.Common.Replace, Reference.Name);
+                break;
+            case UpdateMode.Update:
+                writer.AddFieldRaw(JsonDefaults.Common.Update, true);
+                break;
+            case UpdateMode.None:
+                break;
+        }
+        writer.WritePropertyName(JsonDefaults.Common.ComponentsName);
+        writer.WriteStartArray();
+        _component.WriteComponent(writer, mode);
+        _component.WriteSubComponents(writer, mode);
+        writer.WriteEndArray();
+        writer.WriteEndObject();
+    }
     
     internal T GetOrAddSubComponent<T>() where T : SubComponent, new() => _component.GetOrAddSubComponent<T>();
     internal T GetOrAddLayoutComponent<T>() where T : BaseLayoutComponent, new()
@@ -98,9 +131,9 @@ public abstract class BaseUiComponent : BasePoolable, ICopyFrom
     public void Reset()
     {
         Reference = default;
-        FadeOut = 0;
+        _fadeOut.Reset();
         Update = default;
-        Active = true;
+        _active.Reset();
         _component.Reset();
         _rectTransform = null;
     }

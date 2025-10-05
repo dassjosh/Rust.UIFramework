@@ -10,16 +10,45 @@ namespace Oxide.Ext.UiFramework.Components;
 [UiFrameworkSerializer(typeof(ButtonComponentSerializer))]
 public class ButtonComponent : CoreComponent, IGraphicalComponent
 {
-    public string Command;
+    private readonly TrackedValue<string> _command = new();
+    private readonly TrackedValue<UiColor> _color = new(JsonDefaults.Color.ColorValue);
+    private readonly TrackedValue<float> _fadeIn = new(JsonDefaults.Common.FadeIn);
+    private readonly TrackedValue<string> _sprite = new();
+    private readonly TrackedValue<string> _material = new();
+    private readonly TrackedValue<Image.Type> _imageType = new(JsonDefaults.Image.ImageType);
+    
+    public string Command { get => _command.Value; set => _command.Value = value; }
     public ButtonType ButtonType;
-    public UiColor Color;
-    public float FadeIn { get; set; }
-    public string Sprite;
-    public string Material;
-    public Image.Type ImageType;
+    public UiColor Color { get => _color.Value; set => _color.Value = value; }
+    public float FadeIn { get => _fadeIn.Value; set => _fadeIn.Value = value; }
+    public string Sprite { get => _sprite.Value; set => _sprite.Value = value; }
+    public string Material { get => _material.Value; set => _material.Value = value; }
+    public Image.Type ImageType { get => _imageType.Value; set => _imageType.Value = value; }
     public ColorBlockComponent ColorBlock { get; private set; }
     public override Utf8String Type => JsonDefaults.Button.Type;
     public override ComponentType ComponentType => ComponentType.Button;
+
+    protected override void WriteComponentFields(JsonFrameworkWriter writer, SerializeMode mode)
+    {
+        writer.AddField(JsonDefaults.BaseImage.SpriteName, _sprite, mode);
+        writer.AddField(JsonDefaults.BaseImage.MaterialName, _material, mode);
+        writer.AddField(JsonDefaults.Color.ColorName, _color, mode);
+        writer.AddField(JsonDefaults.Image.ImageTypeName, _imageType, mode);
+        switch (ButtonType)
+        {
+            case ButtonType.Command:
+                writer.AddCommand(JsonDefaults.Common.CommandName, _command, mode);
+                break;
+            case ButtonType.Close:
+                writer.AddField(JsonDefaults.Button.CloseName, _command, mode);
+                break;
+        }
+
+        if (ColorBlock != null)
+        {
+            //ColorBlock.WriteComponent(writer, mode);
+        }
+    }
 
     internal ColorBlockComponent GetOrAddColorBlock() => ColorBlock ??= PluginPool.Get<ColorBlockComponent>();
 
@@ -39,13 +68,13 @@ public class ButtonComponent : CoreComponent, IGraphicalComponent
         base.Reset();
         ColorBlock?.Dispose();
         ColorBlock = null;
-        Command = null;
+        _command.Reset();
+        _color.Reset();
+        _fadeIn.Reset();
+        _sprite.Reset();
+        _material.Reset();
+        _imageType.Reset();
         ButtonType = ButtonType.Command;
-        Color = JsonDefaults.Color.ColorValue;
-        FadeIn = JsonDefaults.Common.FadeIn;
-        Sprite = null;
-        Material = null;
-        ImageType = JsonDefaults.Image.ImageType;
     }
 
     public override void CopyFrom(object value)

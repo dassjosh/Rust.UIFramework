@@ -1,9 +1,12 @@
 ﻿using System.Collections.Generic;
+using Oxide.Ext.UiFramework.Enums;
+using Oxide.Ext.UiFramework.Json;
 
 namespace Oxide.Ext.UiFramework.Components;
 
 public interface IComponent
 {
+    void WriteComponent(JsonFrameworkWriter writer, SerializeMode mode);
     void Reset();
 }
 

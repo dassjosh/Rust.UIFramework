@@ -50,6 +50,19 @@ public partial class BaseUiBuilder
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public T Component<T>(BaseLayoutComponent layout) where T : BaseUiComponent, new() => Component<T>(layout.Reference);
     #endregion
+
+    #region Update
+
+    public T Update<T>(string name) where T : BaseUiComponent, new()
+    {
+        if (string.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
+        T component = PluginPool.Get<T>().SetUpdate(UpdateMode.Update);
+        Components.Add(component);
+        return component;
+    }
+
+    public T Update<T>(in UiReference reference) where T : BaseUiComponent, new() => Update<T>(reference.Name);
+    #endregion
     
     #region Section
     public UiSection Section(in UiReference parent) => Component<UiSection>(parent);

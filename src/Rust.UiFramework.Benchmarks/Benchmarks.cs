@@ -1,4 +1,5 @@
 
+using System.Runtime.CompilerServices;
 using System.Text;
 using Facepunch;
 using Oxide.Ext.UiFramework;
@@ -16,6 +17,7 @@ using Oxide.Ext.UiFramework.Threading;
 using Oxide.Ext.UiFramework.Types;
 using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
+using UnityEngine.UI;
 using Random = System.Random;
 
 namespace Rust.UiFramework.Benchmarks;
@@ -145,7 +147,7 @@ public class Benchmarks
         return count;
     }
 
-    //[Benchmark]
+    [Benchmark]
     public void UiFramework_Writer()
     {
         UiBuilder builder = _builder;
@@ -177,7 +179,7 @@ public class Benchmarks
         builder.AddUi(default(SendInfo));
     }
     
-    //[Benchmark(Baseline = true)]
+    [Benchmark(Baseline = true)]
     public UiBuilder UiFramework_Async()
     {
         UiBuilder builder = GetFrameworkBuilder();
@@ -193,7 +195,7 @@ public class Benchmarks
         builder.AddUiAsync(_connection);
     }
     
-    //[Benchmark(Baseline = false)]
+    [Benchmark(Baseline = false)]
     public void UiFramework_Full()
     {
         UiBuilder builder = GetFrameworkBuilder();

@@ -10,15 +10,38 @@ namespace Oxide.Ext.UiFramework.Components;
 [UiFrameworkSerializer(typeof(InputComponentSerializer))]
 public class InputComponent : TextComponent
 {
-    public int CharsLimit;
-    public string Command;
-    public InputMode Mode;
-    public InputField.LineType LineType;
-    public UiReference Placeholder;
+    private readonly TrackedValue<int> _charsLimit = new(JsonDefaults.Input.CharacterLimit);
+    private readonly TrackedValue<string> _command = new();
+    private readonly TrackedValue<InputMode> _mode = new(JsonDefaults.Input.Mode);
+    private readonly TrackedValue<InputField.LineType> _lineType = new(JsonDefaults.Input.LineType);
+    private readonly TrackedValue<UiReference> _placeholder = new();
+    
+    public int CharsLimit { get => _charsLimit.Value; set => _charsLimit.Value = value; } 
+    public string Command { get => _command.Value; set => _command.Value = value; }
+    public InputMode Mode { get => _mode.Value; set => _mode.Value = value; }
+    public InputField.LineType LineType { get => _lineType.Value; set => _lineType.Value = value; }
+    public UiReference Placeholder { get => _placeholder.Value; set => _placeholder.Value = value; }
 
     public override Utf8String Type => JsonDefaults.Input.Type;
     public override ComponentType ComponentType => ComponentType.Input;
-    
+
+    protected override void WriteComponentFields(JsonFrameworkWriter writer, SerializeMode mode)
+    {
+        base.WriteComponentFields(writer, mode);
+        writer.AddField(JsonDefaults.Input.CharacterLimitName, _charsLimit, mode);
+        writer.AddField(JsonDefaults.Input.LineTypeName, _lineType, mode);
+        writer.AddField(JsonDefaults.Input.PasswordName, HasMode(InputMode.Password), _mode.ShouldSerialize(mode));
+        writer.AddField(JsonDefaults.Input.NeedsKeyboardName, HasMode(InputMode.NeedsKeyboard), _mode.ShouldSerialize(mode));
+        writer.AddField(JsonDefaults.Input.NeedsHudKeyboardName, HasMode(InputMode.HudNeedsKeyboard), _mode.ShouldSerialize(mode));
+        writer.AddField(JsonDefaults.Input.AutoFocusName, HasMode(InputMode.AutoFocus), _mode.ShouldSerialize(mode));
+        writer.AddField(JsonDefaults.Input.ReadOnlyName, HasMode(InputMode.ReadOnly), _mode.ShouldSerialize(mode));
+        writer.AddCommand(JsonDefaults.Common.CommandName, _command, mode);
+        if (_placeholder.ShouldSerialize(mode) && Placeholder.IsValidName())
+        {
+            writer.AddFieldRaw(JsonDefaults.Input.PlaceholderName, Placeholder.Name);
+        }
+    }
+
     public bool HasMode(InputMode mode) => (Mode & mode) == mode;
 
     [Obsolete("Use SetMode on UiInput instead")]
@@ -37,11 +60,11 @@ public class InputComponent : TextComponent
     public override void Reset()
     {
         base.Reset();
-        CharsLimit = JsonDefaults.Input.CharacterLimit;
-        Command = null;
-        Mode = JsonDefaults.Input.Mode;
-        LineType = JsonDefaults.Input.LineType;
-        Placeholder = default;
+        _charsLimit.Reset();
+        _command.Reset();
+        _mode.Reset();
+        _lineType.Reset();
+        _placeholder.Reset();
     }
 
     public override void CopyFrom(object value)

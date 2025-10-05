@@ -73,7 +73,7 @@ public abstract partial class BaseUiBuilder : BaseBuilder
         T[] array = components.GetInternalArray();
         for (int index = 0; index < count; index++)
         {
-            UiFrameworkSerializer.Serialize(writer, array[index]);
+            array[index].WriteElement(writer);
         }
     }
     

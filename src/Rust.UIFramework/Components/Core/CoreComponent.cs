@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Exceptions;
 using Oxide.Ext.UiFramework.Extensions;
+using Oxide.Ext.UiFramework.Json;
 
 namespace Oxide.Ext.UiFramework.Components;
 
 public abstract class CoreComponent : BaseTypedComponent, ICoreComponent
 {
     internal readonly List<SubComponent> SubComponents = [];
-
+    
     public T GetOrAddSubComponent<T>() where T : SubComponent, new() => GetSubComponent<T>() ?? AddSubComponentInternal<T>();
 
     public T AddSubComponent<T>(bool ignoreIfExists = false) where T : SubComponent, new()
@@ -188,6 +190,35 @@ public abstract class CoreComponent : BaseTypedComponent, ICoreComponent
         if (SubComponents.Remove(subComponent))
         {
             subComponent.TryDispose();
+        }
+    }
+
+    public void WriteSubComponents(JsonFrameworkWriter writer, SerializeMode mode)
+    {
+        switch (mode)
+        {
+            case SerializeMode.Create:
+            {
+                for (int i = 0; i < SubComponents.Count; i++)
+                {
+                    SubComponents[i].WriteComponent(writer, mode);
+                }
+
+                break;
+            }
+            case SerializeMode.Update:
+            {
+                for (int i = 0; i < SubComponents.Count; i++)
+                {
+                    SubComponent component = SubComponents[i];
+                    if (component.HasChanged())
+                    {
+                        component.WriteComponent(writer, mode);
+                    }
+                }
+
+                break;
+            }
         }
     }
 

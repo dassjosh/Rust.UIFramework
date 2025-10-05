@@ -24,9 +24,10 @@ class Program
 {
     static void Main(string[] args)
     {
-#if BENCHMARKS
         Benchmarks benchmarks = new();
         benchmarks.Setup();
+#if BENCHMARKS
+
         
         ManualConfig config = DefaultConfig.Instance.AddJob(Job.Default
             .WithToolchain(InProcessEmitToolchain.Instance)

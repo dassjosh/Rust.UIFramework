@@ -1,6 +1,8 @@
-﻿using Oxide.Ext.UiFramework.Json;
+﻿using Oxide.Ext.UiFramework.Enums;
+using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
+using Oxide.Ext.UiFramework.Types;
 using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Components;
@@ -8,11 +10,24 @@ namespace Oxide.Ext.UiFramework.Components;
 [UiFrameworkSerializer(typeof(ScrollViewContentComponentSerializer))]
 public class ScrollViewContentComponent : ChildComponent
 {
-    public UiPosition Position;
-    public UiOffset Offset;
-    public Vector2 Pivot;
+    private readonly TrackedValue<UiPosition> _position = new(UiPosition.Full);
+    private readonly TrackedValue<UiOffset> _offset = new();
+    private readonly TrackedValue<Vector2> _pivot = new(JsonDefaults.ScrollView.Pivot);
+    
+    public UiPosition Position { get => _position.Value; set => _position.Value = value; }
+    public UiOffset Offset { get => _offset.Value; set => _offset.Value = value; }
+    public Vector2 Pivot { get => _pivot.Value; set => _pivot.Value = value; }
     
     public override ComponentType ComponentType => ComponentType.ScrollView;
+    
+    public override void WriteComponent(JsonFrameworkWriter writer, SerializeMode mode)
+    {
+        writer.WriteStartObject();
+        writer.AddField(_position, mode);
+        writer.AddField(_offset, mode);
+        writer.AddField(JsonDefaults.ScrollView.PivotName, _pivot, mode);
+        writer.WriteEndObject();
+    }
     
     public void UpdateContentTransform(in UiPosition? position = null, in UiOffset? offset = null, in Vector2? pivot = null)
     {
@@ -34,9 +49,9 @@ public class ScrollViewContentComponent : ChildComponent
 
     public override void Reset()
     {
-        Position = UiPosition.Full;
-        Offset = default;
-        Pivot = JsonDefaults.ScrollView.Pivot;
+        _position.Reset();
+        _offset.Reset();
+        _pivot.Reset();
     }
 
     public override void CopyFrom(object value)

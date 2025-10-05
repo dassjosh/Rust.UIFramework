@@ -9,8 +9,10 @@ using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Controls.Data;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Libraries;
+using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Pooling;
+using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.Types;
 using UnityEngine;
 
@@ -147,6 +149,40 @@ public sealed class JsonFrameworkWriter : BasePoolable
             WriteValue(value);
         }
     }
+
+    public void AddField(TrackedValue<UiPosition> value, SerializeMode mode)
+    {
+        if (mode == SerializeMode.Create)
+        {
+            AddField(JsonDefaults.RectTransform.AnchorMinName, value.Value.Min, JsonDefaults.RectTransform.AnchorMin);
+            AddField(JsonDefaults.RectTransform.AnchorMaxName, value.Value.Max, JsonDefaults.RectTransform.AnchorMax);
+        }
+        else if(value.HasChanged)
+        {
+            UiPosition pos = value.Value;
+            WritePropertyName(JsonDefaults.RectTransform.AnchorMinName);
+            WriteValue(pos.Min);
+            WritePropertyName(JsonDefaults.RectTransform.AnchorMaxName);
+            WriteValue(pos.Max);
+        }
+    }
+    
+    public void AddField(TrackedValue<UiOffset> value, SerializeMode mode)
+    {
+        if (mode == SerializeMode.Create)
+        {
+            AddField(JsonDefaults.RectTransform.OffsetMinName, value.Value.Min, JsonDefaults.RectTransform.OffsetMin);
+            AddField(JsonDefaults.RectTransform.OffsetMaxName, value.Value.Max, JsonDefaults.RectTransform.OffsetMax);
+        }
+        else if(value.HasChanged)
+        {
+            UiOffset pos = value.Value;
+            WritePropertyName(JsonDefaults.RectTransform.AnchorMinName);
+            WriteValue(pos.Min);
+            WritePropertyName(JsonDefaults.RectTransform.AnchorMaxName);
+            WriteValue(pos.Max);
+        }
+    }
     
     public void AddField<T>(in Utf8String name, T value, T defaultValue) where T : struct, Enum
     {
@@ -252,12 +288,122 @@ public sealed class JsonFrameworkWriter : BasePoolable
             WriteValue(border);
         }
     }
+    
+    public void AddField(in Utf8String name, TrackedValue<bool> value, SerializeMode mode)
+    {
+        if (value.ShouldSerialize(mode))
+        {
+            WritePropertyName(name);
+            WriteValue(value.Value);
+        }
+    }
+    
+    public void AddField(in Utf8String name, TrackedValue<int> value, SerializeMode mode)
+    {
+        if (value.ShouldSerialize(mode))
+        {
+            WritePropertyName(name);
+            WriteValue(value.Value);
+        }
+    }
+    
+    public void AddField(in Utf8String name, TrackedValue<ulong> value, SerializeMode mode)
+    {
+        if (value.ShouldSerialize(mode))
+        {
+            WritePropertyName(name);
+            WriteValue(value.Value);
+        }
+    }
+    
+    public void AddField(in Utf8String name, TrackedValue<float> value, SerializeMode mode)
+    {
+        if (value.ShouldSerialize(mode))
+        {
+            WritePropertyName(name);
+            WriteValue(value.Value);
+        }
+    }
+    
+    public void AddField(in Utf8String name, TrackedValue<string> value, SerializeMode mode)
+    {
+        if (value.ShouldSerialize(mode))
+        {
+            WritePropertyName(name);
+            WriteValue(value.Value);
+        }
+    }
+    
+    public void AddField(in Utf8String name, TrackedValue<UiColor> value, SerializeMode mode)
+    {
+        if (value.ShouldSerialize(mode))
+        {
+            WritePropertyName(name);
+            WriteValue(value.Value);
+        }
+    }
+    
+    public void AddField(in Utf8String name, TrackedValue<UiBorderWidth> value, SerializeMode mode)
+    {
+        if (value.ShouldSerialize(mode))
+        {
+            WritePropertyName(name);
+            WriteValue(value.Value);
+        }
+    }
+    
+    public void AddField(in Utf8String name, TrackedValue<UiRotation> value, SerializeMode mode)
+    {
+        if (value.ShouldSerialize(mode))
+        {
+            WritePropertyName(name);
+            WriteValue(value.Value.Rotation);
+        }
+    }
+    
+    public void AddField(in Utf8String name, TrackedValue<Vector2> value, SerializeMode mode)
+    {
+        if (value.ShouldSerialize(mode))
+        {
+            WritePropertyName(name);
+            WriteValue(value.Value);
+        }
+    }
+    
+    public void AddField<T>(in Utf8String name, TrackedValue<T> value, SerializeMode mode) where T : struct, Enum
+    {
+        if (value.ShouldSerialize(mode))
+        {
+            WritePropertyName(name);
+            WriteValue(Utf8EnumCache<T>.ToUtf8Number(value.Value));
+        }
+    }
+    
+    public void AddField<T>(in Utf8String name, TrackedValue<T?> value, SerializeMode mode) where T : struct, Enum
+    {
+        if (value.ShouldSerialize(mode))
+        {
+            T? enumVal = value.Value;
+            if (enumVal.HasValue)
+            {
+                AddFieldRaw(name, enumVal.Value);
+            }
+        }
+    }
 
     public void AddComponent(in Utf8String name, IComponent component, IComponent defaults, SerializeMode mode, bool add)
     {
         if (add)
         {
             AddComponent(name, component, defaults, mode);
+        }
+    }
+    
+    public void AddComponent(in Utf8String name, IComponent component, SerializeMode mode, bool add)
+    {
+        if (add)
+        {
+            AddComponent(name, component, mode);
         }
     }
     
@@ -274,6 +420,23 @@ public sealed class JsonFrameworkWriter : BasePoolable
         _objectComma = false;
         _propertyComma = false;
         UiFrameworkSerializer.Serialize(this, component, defaults, mode);
+        _objectComma = objectComma;
+        _propertyComma = propertyComma;
+    }
+    
+    public void AddComponent(in Utf8String name, IComponent component, SerializeMode mode)
+    {
+        if (component is null)
+        {
+            return;
+        }
+        
+        WritePropertyName(name);
+        bool objectComma = _objectComma;
+        bool propertyComma = _propertyComma;
+        _objectComma = false;
+        _propertyComma = false;
+        component.WriteComponent(this, mode);
         _objectComma = objectComma;
         _propertyComma = propertyComma;
     }
@@ -307,12 +470,30 @@ public sealed class JsonFrameworkWriter : BasePoolable
         }
     }
     
+    public void AddTextField(in Utf8String name, TrackedValue<string> value, SerializeMode mode)
+    {
+        if (value.ShouldSerialize(mode))
+        {
+            WritePropertyName(name);
+            WriteTextValue(value.Value);
+        }
+    }
+    
     public void AddCommand(in Utf8String name, string value, string defaultValue)
     {
         if (value != null && value != defaultValue)
         {
             WritePropertyName(name);
             WriteCommandValue(value);
+        }
+    }
+    
+    public void AddCommand(in Utf8String name, TrackedValue<string> value, SerializeMode mode)
+    {
+        if (value.ShouldSerialize(mode))
+        {
+            WritePropertyName(name);
+            WriteCommandValue(value.Value);
         }
     }
     #endregion

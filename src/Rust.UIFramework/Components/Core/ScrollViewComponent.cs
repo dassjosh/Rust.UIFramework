@@ -1,4 +1,5 @@
 ﻿using Oxide.Ext.UiFramework.Colors;
+using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Offsets;
@@ -12,13 +13,21 @@ namespace Oxide.Ext.UiFramework.Components;
 [UiFrameworkSerializer(typeof(ScrollViewComponentSerializer))]
 public class ScrollViewComponent : CoreComponent
 {
-    public ScrollRect.MovementType MovementType;
-    public float Elasticity;
-    public bool Inertia;
-    public float DecelerationRate;
-    public float ScrollSensitivity;
-    public float HorizontalScrollProgress;
-    public float VerticalScrollProgress;
+    private readonly TrackedValue<ScrollRect.MovementType> _movementType = new(JsonDefaults.ScrollView.MovementType);
+    private readonly TrackedValue<float> _elasticity = new(JsonDefaults.ScrollView.Elasticity);
+    private readonly TrackedValue<bool> _inertia = new(JsonDefaults.ScrollView.Inertia);
+    private readonly TrackedValue<float> _decelerationRate = new(JsonDefaults.ScrollView.DecelerationRate);
+    private readonly TrackedValue<float> _scrollSensitivity = new(JsonDefaults.ScrollView.ScrollSensitivity);
+    private readonly TrackedValue<float> _horizontalScrollProgress = new(JsonDefaults.ScrollView.HorizontalScrollProgress);
+    private readonly TrackedValue<float> _verticalScrollProgress = new(JsonDefaults.ScrollView.VerticalScrollProgress);
+    
+    public ScrollRect.MovementType MovementType { get => _movementType.Value; set => _movementType.Value = value; }
+    public float Elasticity { get => _elasticity.Value; set => _elasticity.Value = value; }
+    public bool Inertia { get => _inertia.Value; set => _inertia.Value = value; }
+    public float DecelerationRate { get => _decelerationRate.Value; set => _decelerationRate.Value = value; }
+    public float ScrollSensitivity { get => _scrollSensitivity.Value; set => _scrollSensitivity.Value = value; }
+    public float HorizontalScrollProgress { get => _horizontalScrollProgress.Value; set => _horizontalScrollProgress.Value = value; }
+    public float VerticalScrollProgress { get => _verticalScrollProgress.Value; set => _verticalScrollProgress.Value = value; }
     
     public ScrollViewContentComponent ContentTransform { get; private set; }
     public ScrollbarComponent HorizontalScrollbar { get; private set; }
@@ -27,6 +36,22 @@ public class ScrollViewComponent : CoreComponent
     public override Utf8String Type => JsonDefaults.ScrollView.Type;
     public override ComponentType ComponentType => ComponentType.ScrollView;
 
+    protected override void WriteComponentFields(JsonFrameworkWriter writer, SerializeMode mode)
+    {
+        writer.AddField(JsonDefaults.ScrollView.Horizontal, HorizontalScrollbar != null, false);
+        writer.AddField(JsonDefaults.ScrollView.Vertical, VerticalScrollbar != null, false);
+        writer.AddField(JsonDefaults.ScrollView.MovementTypeName, _movementType, mode);
+        writer.AddField(JsonDefaults.ScrollView.ElasticityName, _elasticity, mode);
+        writer.AddField(JsonDefaults.ScrollView.InertiaName, _inertia, mode);
+        writer.AddField(JsonDefaults.ScrollView.DecelerationRateName, _decelerationRate, mode);
+        writer.AddField(JsonDefaults.ScrollView.ScrollSensitivityName, _scrollSensitivity, mode);
+        writer.AddField(JsonDefaults.ScrollView.HorizontalScrollProgressName, _horizontalScrollProgress, mode);
+        writer.AddField(JsonDefaults.ScrollView.VerticalScrollProgressName, _verticalScrollProgress, mode);
+        writer.AddComponent(JsonDefaults.ScrollView.HorizontalScrollbar, HorizontalScrollbar, mode, HorizontalScrollbar != null);
+        writer.AddComponent(JsonDefaults.ScrollView.VerticalScrollbar, VerticalScrollbar, mode, VerticalScrollbar != null);
+        writer.AddComponent(JsonDefaults.ScrollView.ContentTransform, ContentTransform, mode);
+    }
+    
     internal ScrollViewContentComponent GetOrCreateContentTransform() => ContentTransform ??= PluginPool.Get<ScrollViewContentComponent>();
     internal void UpdateContentTransform(in UiPosition? position, in UiOffset? offset, in Vector2? pivot) => GetOrCreateContentTransform().UpdateContentTransform(position, offset, pivot);
     
@@ -92,13 +117,13 @@ public class ScrollViewComponent : CoreComponent
         HorizontalScrollbar = null;
         VerticalScrollbar?.Dispose();
         VerticalScrollbar = null;
-        MovementType = JsonDefaults.ScrollView.MovementType;
-        Elasticity = JsonDefaults.ScrollView.Elasticity;
-        Inertia = JsonDefaults.ScrollView.Inertia;
-        DecelerationRate = JsonDefaults.ScrollView.DecelerationRate;
-        ScrollSensitivity = JsonDefaults.ScrollView.ScrollSensitivity;
-        HorizontalScrollProgress = JsonDefaults.ScrollView.HorizontalScrollProgress;
-        VerticalScrollProgress = JsonDefaults.ScrollView.VerticalScrollProgress;
+        _movementType.Reset();
+        _elasticity.Reset();
+        _inertia.Reset();
+        _decelerationRate.Reset();
+        _scrollSensitivity.Reset();
+        _horizontalScrollProgress.Reset();
+        _verticalScrollProgress.Reset();
     }
 
     public override void CopyFrom(object value)
