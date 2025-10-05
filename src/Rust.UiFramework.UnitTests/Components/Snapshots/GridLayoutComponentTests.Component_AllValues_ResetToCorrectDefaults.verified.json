@@ -1,0 +1,8 @@
+﻿{
+  "AllowMultiple": false,
+  "CellSize": "100 100",
+  "ComponentType": "GridLayout",
+  "ConstraintCount": 2,
+  "Enabled": true,
+  "Type": "UnityEngine.UI.GridLayoutGroup"
+}

@@ -2,7 +2,4 @@
 
 namespace Rust.UiFramework.UnitTests.Components.Sub;
 
-public class OutlineComponentTests() : BasePopulateComponentTests<OutlineComponent>(SubComponentHelpers.PopulatedOutline)
-{
-
-}
+public class OutlineComponentTests() : BasePopulateComponentTests<OutlineComponent>(SubComponentHelpers.PopulateOutline);

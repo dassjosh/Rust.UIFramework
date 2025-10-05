@@ -2,7 +2,4 @@
 
 namespace Rust.UiFramework.UnitTests.Components.Sub;
 
-public class DraggableComponentTests() : BasePopulateComponentTests<DraggableComponent>(SubComponentHelpers.PopulatedDraggable)
-{
-
-}
+public class DraggableComponentTests() : BasePopulateComponentTests<DraggableComponent>(SubComponentHelpers.PopulateDraggable);

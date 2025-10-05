@@ -2,7 +2,4 @@
 
 namespace Rust.UiFramework.UnitTests.Components.Sub;
 
-public class SlotComponentTests() : BasePopulateComponentTests<SlotComponent>(SubComponentHelpers.PopulatedSlot)
-{
-
-}
+public class SlotComponentTests() : BasePopulateComponentTests<SlotComponent>(SubComponentHelpers.PopulateSlot);

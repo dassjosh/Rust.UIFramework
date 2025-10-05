@@ -1,0 +1,7 @@
+﻿{
+  "AllowMultiple": false,
+  "ComponentType": "LayoutElement",
+  "Enabled": true,
+  "IgnoreLayout": false,
+  "Type": "UnityEngine.UI.LayoutElement"
+}

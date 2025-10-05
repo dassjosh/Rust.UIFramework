@@ -2,7 +2,4 @@
 
 namespace Rust.UiFramework.UnitTests.Components.Sub;
 
-public class NeedsKeyboardComponentTests() : BasePopulateComponentTests<NeedsKeyboardComponent>(_ => {})
-{
-
-}
+public class NeedsKeyboardComponentTests() : BasePopulateComponentTests<NeedsKeyboardComponent>(_ => {});

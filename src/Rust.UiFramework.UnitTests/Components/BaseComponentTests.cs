@@ -1,4 +1,5 @@
 using Oxide.Ext.UiFramework.Components;
+using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Libraries;
 
@@ -58,7 +59,7 @@ public abstract class BasePopulateComponentTests<T>(Action<T> populateComponent)
         
         // Act
         PopulateComponent(component);
-        UiFrameworkSerializer.Serialize(writer, component);
+        component.WriteComponent(writer, SerializeMode.Create);
         
         // Assert
         string json = writer.ToString();
@@ -109,7 +110,7 @@ public abstract class BaseTheoryComponentTests<TComponent, TTheoryRow>(Action<TC
         // Act
         PopulateComponent(component);
         PopulateTheory(component, row);
-        UiFrameworkSerializer.Serialize(writer, component);
+        component.WriteComponent(writer, SerializeMode.Create);
         
         // Assert
         string json = writer.ToString();

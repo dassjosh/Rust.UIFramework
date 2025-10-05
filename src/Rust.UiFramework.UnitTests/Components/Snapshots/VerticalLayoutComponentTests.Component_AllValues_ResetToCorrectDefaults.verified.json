@@ -1,0 +1,12 @@
+﻿{
+  "AllowMultiple": false,
+  "ChildControlHeight": false,
+  "ChildControlWidth": false,
+  "ChildForceExpandHeight": true,
+  "ChildForceExpandWidth": true,
+  "ChildScaleHeight": false,
+  "ChildScaleWidth": false,
+  "ComponentType": "VerticalLayout",
+  "Enabled": true,
+  "Type": "UnityEngine.UI.VerticalLayoutGroup"
+}

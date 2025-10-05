@@ -1,6 +1,7 @@
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using Oxide.Ext.UiFramework.Builder;
+using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Offsets;
@@ -122,7 +123,7 @@ public abstract class BasePopulateUiElementsTests<T>(params Action<T>[] populate
 
             // Act
             populate(element);
-            UiFrameworkSerializer.Serialize(writer, element);
+            element.WriteElement(writer);
 
             // Assert
             string json = writer.ToString();
@@ -182,7 +183,7 @@ public abstract class BaseTheoryUiElementsTests<TElement, TTheoryRow>(params Act
 
             // Act
             populate(element, row);
-            UiFrameworkSerializer.Serialize(writer, element);
+            element.WriteElement(writer);
 
             // Assert
             string json = writer.ToString();

@@ -1,0 +1,10 @@
+﻿{
+  "flexibleHeight": 60,
+  "flexibleWidth": 50,
+  "ignoreLayout": 1,
+  "minHeight": 40,
+  "minWidth": 30,
+  "preferredHeight": 20,
+  "preferredWidth": 10,
+  "type": "UnityEngine.UI.LayoutElement"
+}

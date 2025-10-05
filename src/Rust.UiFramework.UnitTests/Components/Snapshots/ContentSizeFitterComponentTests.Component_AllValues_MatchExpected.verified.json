@@ -1,0 +1,8 @@
+﻿{
+  "AllowMultiple": false,
+  "ComponentType": "ContentSizeFitter",
+  "Enabled": true,
+  "HorizontalFit": "PreferredSize",
+  "Type": "UnityEngine.UI.ContentSizeFitter",
+  "VerticalFit": "PreferredSize"
+}

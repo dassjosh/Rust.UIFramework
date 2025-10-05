@@ -7,8 +7,10 @@
   "keepOnTop": 1,
   "limitToParent": 1,
   "maxDistance": 10,
+  "moveToAnchor": "",
   "parentLimitIndex": 2,
   "parentPadding": "0.5 0.4",
   "positionRPC": "2",
+  "rebuildAnchor": "",
   "type": "Draggable"
 }

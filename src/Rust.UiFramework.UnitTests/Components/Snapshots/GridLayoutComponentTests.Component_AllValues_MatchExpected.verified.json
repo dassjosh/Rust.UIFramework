@@ -1,0 +1,12 @@
+﻿{
+  "AllowMultiple": false,
+  "CellSize": "100 200",
+  "ComponentType": "GridLayout",
+  "Constraint": "FixedRowCount",
+  "ConstraintCount": 2,
+  "Enabled": true,
+  "Spacing": "40 50",
+  "StartAxis": "Vertical",
+  "StartCorner": "LowerRight",
+  "Type": "UnityEngine.UI.GridLayoutGroup"
+}

@@ -1,0 +1,13 @@
+﻿{
+  "AllowMultiple": false,
+  "ComponentType": "LayoutElement",
+  "Enabled": true,
+  "FlexibleHeight": 60.0,
+  "FlexibleWidth": 50.0,
+  "IgnoreLayout": true,
+  "MinHeight": 40.0,
+  "MinWidth": 30.0,
+  "PreferredHeight": 20.0,
+  "PreferredWidth": 10.0,
+  "Type": "UnityEngine.UI.LayoutElement"
+}

@@ -2,7 +2,4 @@
 
 namespace Rust.UiFramework.UnitTests.Components.Sub;
 
-public class CountdownComponentTests() : BasePopulateComponentTests<CountdownComponent>(SubComponentHelpers.PopulatedCountdown)
-{
-
-}
+public class CountdownComponentTests() : BasePopulateComponentTests<CountdownComponent>(SubComponentHelpers.PopulateCountdown);
