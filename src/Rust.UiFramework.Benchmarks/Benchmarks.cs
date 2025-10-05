@@ -1,24 +1,13 @@
-
-using System.Runtime.CompilerServices;
 using System.Text;
 using Facepunch;
 using Oxide.Ext.UiFramework;
 using Oxide.Ext.UiFramework.Benchmarks;
-using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Config;
-using Oxide.Ext.UiFramework.Constants;
-using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Extensions;
-using Oxide.Ext.UiFramework.Layouts;
 using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Logging;
-using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Threading;
 using Oxide.Ext.UiFramework.Types;
-using Unity.Collections.LowLevel.Unsafe;
-using UnityEngine;
-using UnityEngine.UI;
-using Random = System.Random;
 
 namespace Rust.UiFramework.Benchmarks;
 

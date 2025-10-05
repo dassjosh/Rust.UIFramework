@@ -2,9 +2,7 @@
 using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Interfaces;
-using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Libraries;
-using Oxide.Ext.UiFramework.Types;
 using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.UiElements;

@@ -1,13 +1,10 @@
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using Oxide.Ext.UiFramework.Builder;
-using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.UiElements;
-using Rust.UiFramework.UnitTests.Global.Generators;
 
 namespace Rust.UiFramework.UnitTests.UiElements;
 

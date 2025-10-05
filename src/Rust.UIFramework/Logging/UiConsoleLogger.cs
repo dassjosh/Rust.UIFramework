@@ -1,7 +1,6 @@
 using System;
 using System.Text;
 using System.Threading;
-using Oxide.Core;
 using Oxide.Ext.UiFramework.Cache;
 
 namespace Oxide.Ext.UiFramework.Logging;

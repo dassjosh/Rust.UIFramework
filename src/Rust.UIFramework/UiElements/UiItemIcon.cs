@@ -1,7 +1,6 @@
 ﻿using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Interfaces;
-using Oxide.Ext.UiFramework.Json;
 using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.UiElements;

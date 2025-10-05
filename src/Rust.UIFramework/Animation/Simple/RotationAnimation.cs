@@ -1,6 +1,5 @@
 ﻿using Oxide.Ext.UiFramework.Interfaces;
 using Oxide.Ext.UiFramework.Json;
-using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.Types;
 using Oxide.Ext.UiFramework.UiElements;
 

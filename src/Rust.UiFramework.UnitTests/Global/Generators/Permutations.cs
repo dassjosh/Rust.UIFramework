@@ -8,7 +8,6 @@ using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.Types;
 using Oxide.Ext.UiFramework.UiElements;
 using UnityEngine;
-using UnityEngine.UI;
 using Random = System.Random;
 
 namespace Rust.UiFramework.UnitTests.Global.Generators;

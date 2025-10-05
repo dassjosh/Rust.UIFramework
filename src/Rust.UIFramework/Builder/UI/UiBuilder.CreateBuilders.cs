@@ -30,18 +30,21 @@ public partial class UiBuilder
     /// Creates a UiBuilder to update the existing UI
     /// </summary>
     /// <param name="plugin"></param>
+    /// <param name="rootName"></param>
     /// <param name="mode">Update mode to use</param>
     /// <param name="namingMode">Mode to use when naming UI Elements</param>
     /// <returns></returns>
-    public static UiBuilder CreateUpdate(IUiFrameworkPlugin plugin, string rootName = null, UpdateMode mode = UpdateMode.Update, NamingMode namingMode = NamingMode.Child) => Create(plugin).SetName(rootName).SetUpdateMode(mode).SetNamingMode(namingMode);
-    
+    public static UiBuilder CreateUpdate(IUiFrameworkPlugin plugin, string rootName = null, UpdateMode mode = UpdateMode.Update, NamingMode namingMode = NamingMode.Reference) => Create(plugin).SetName(rootName).SetUpdateMode(mode).SetNamingMode(namingMode);
+
     /// <summary>
     /// Creates a UiBuilder that is designed to be a popup modal
     /// </summary>
+    /// <param name="plugin">Plugin the UI is for</param>
     /// <param name="reference">Name and Parent of the UI</param>
     /// <param name="modalSize">Dimensions of the modal</param>
     /// <param name="modalColor">Modal form color</param>
     /// <param name="closeCommand">Command to run when the user clicks outside the modal</param>
+    /// <param name="buttonType"></param>
     /// <returns></returns>
     public static UiBuilder CreateModal(IUiFrameworkPlugin plugin, in UiReference reference, in UiOffset modalSize, UiColor modalColor, string closeCommand = null, ButtonType buttonType = ButtonType.Close)
     {
@@ -51,6 +54,7 @@ public partial class UiBuilder
     /// <summary>
     /// Creates a UiBuilder that is designed to be a popup modal
     /// </summary>
+    /// <param name="plugin">Plugin the UI is for</param>
     /// <param name="reference">Name and Parent of the UI</param>
     /// <param name="modalSize">Dimensions of the modal</param>
     /// <param name="modalColor">Modal form color</param>

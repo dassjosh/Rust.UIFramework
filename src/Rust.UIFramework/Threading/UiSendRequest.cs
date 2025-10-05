@@ -1,5 +1,4 @@
-﻿using System;
-using Network;
+﻿using Network;
 using Oxide.Ext.UiFramework.Builder;
 using Oxide.Ext.UiFramework.Libraries;
 

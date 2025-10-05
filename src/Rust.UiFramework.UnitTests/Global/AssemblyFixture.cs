@@ -6,7 +6,6 @@ using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Logging;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.Types;
-using Oxide.Ext.UiFramework.UiElements;
 using Rust.UiFramework.UnitTests.Global;
 using Rust.UiFramework.UnitTests.Global.Verify.IgnoreMembers;
 using Rust.UiFramework.UnitTests.Global.XUnit.Serializers;

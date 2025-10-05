@@ -1,5 +1,4 @@
-﻿using System;
-using Oxide.Ext.UiFramework.Enums;
+﻿using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Types;
 
