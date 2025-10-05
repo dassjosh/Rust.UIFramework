@@ -56,6 +56,13 @@ public class PlayerAvatarComponent : RawImageComponent
             }
         }
     }
+    
+    public override void ResetHasChanged()
+    {
+        base.ResetHasChanged();
+        _steamId.ResetHasChanged();
+        _avatarType.ResetHasChanged();
+    }
 
     public override void Reset()
     {

@@ -37,6 +37,17 @@ public abstract class BaseDirectionalLayoutComponent : BaseLayoutComponent
     {
         return _spacing.HasChanged || _childForceExpandWidth.HasChanged || _childForceExpandHeight.HasChanged || _childControlWidth.HasChanged || _childControlHeight.HasChanged || _childScaleWidth.HasChanged || _childScaleHeight.HasChanged;
     }
+    
+    public override void ResetHasChanged()
+    {
+        _spacing.ResetHasChanged();
+        _childForceExpandWidth.ResetHasChanged();
+        _childForceExpandHeight.ResetHasChanged();
+        _childControlWidth.ResetHasChanged();
+        _childControlHeight.ResetHasChanged();
+        _childScaleWidth.ResetHasChanged();
+        _childScaleHeight.ResetHasChanged();
+    }
 
     public override void Reset()
     {

@@ -60,6 +60,17 @@ public class ButtonComponent : CoreComponent, IGraphicalComponent
         return colors;
     }
 
+    public override void ResetHasChanged()
+    {
+        base.ResetHasChanged();
+        _command.ResetHasChanged();
+        _color.ResetHasChanged();
+        _fadeIn.ResetHasChanged();
+        _sprite.ResetHasChanged();
+        _material.ResetHasChanged();
+        _imageType.ResetHasChanged();
+    }
+
     public override void Reset()
     {
         base.Reset();

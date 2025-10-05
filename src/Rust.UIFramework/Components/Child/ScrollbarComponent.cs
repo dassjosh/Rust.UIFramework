@@ -44,6 +44,19 @@ public class ScrollbarComponent : ChildComponent
         writer.WriteEndObject();
     }
 
+    public override void ResetHasChanged()
+    {
+        _invert.ResetHasChanged();
+        _autoHide.ResetHasChanged();
+        _handleSprite.ResetHasChanged();
+        _trackSprite.ResetHasChanged();
+        _size.ResetHasChanged();
+        _handleColor.ResetHasChanged();
+        _highlightColor.ResetHasChanged();
+        _pressedColor.ResetHasChanged();
+        _trackColor.ResetHasChanged();
+    }
+
     public override void Reset()
     {
         _invert.Reset();

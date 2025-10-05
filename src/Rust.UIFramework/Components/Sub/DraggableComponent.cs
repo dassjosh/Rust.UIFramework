@@ -151,6 +151,23 @@ public class DraggableComponent : SubComponent
                _rebuildAnchor.HasChanged;
     }
 
+    public override void ResetHasChanged()
+    {
+        _limitToParent.ResetHasChanged();
+        _maxDistance.ResetHasChanged();
+        _allowSwapping.ResetHasChanged();
+        _dropAnywhere.ResetHasChanged();
+        _dragAlpha.ResetHasChanged();
+        _parentLimitIndex.ResetHasChanged();
+        _filter.ResetHasChanged();
+        _parentPadding.ResetHasChanged();
+        _anchorOffset.ResetHasChanged();
+        _keepOnTop.ResetHasChanged();
+        _positionRpc.ResetHasChanged();
+        _moveToAnchor.ResetHasChanged();
+        _rebuildAnchor.ResetHasChanged();
+    }
+
     public override void Reset()
     {
         base.Reset();

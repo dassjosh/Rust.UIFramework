@@ -45,6 +45,16 @@ public class RectTransformComponent : SubComponent
     {
         return _position.HasChanged || _offset.HasChanged || _rotation.HasChanged || _padding.HasChanged || _changeParent.HasChanged || _transformIndex.HasChanged;
     }
+    
+    public override void ResetHasChanged()
+    {
+        _position.ResetHasChanged();
+        _offset.ResetHasChanged();
+        _rotation.ResetHasChanged();
+        _padding.ResetHasChanged();
+        _changeParent.ResetHasChanged();
+        _transformIndex.ResetHasChanged();
+    }
 
     public override void Reset()
     {

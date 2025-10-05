@@ -67,6 +67,16 @@ public class RawImageComponent : CoreComponent, IGraphicalComponent
             }
         }
     }
+    
+    public override void ResetHasChanged()
+    {
+        base.ResetHasChanged();
+        _color.ResetHasChanged();
+        _fadeIn.ResetHasChanged();
+        _image.ResetHasChanged();
+        _material.ResetHasChanged();
+        _placeholderFor.ResetHasChanged();
+    }
 
     public override void Reset()
     {

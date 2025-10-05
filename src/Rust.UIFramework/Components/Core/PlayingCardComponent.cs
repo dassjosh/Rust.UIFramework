@@ -35,6 +35,17 @@ public class PlayingCardComponent : CoreComponent, IGraphicalComponent
         writer.AddField(JsonDefaults.Color.ColorName, _color, mode);
         writer.AddField(JsonDefaults.Common.FadeInName, _fadeIn, mode);
     }
+    
+    public override void ResetHasChanged()
+    {
+        base.ResetHasChanged();
+        _suit.ResetHasChanged();
+        _rank.ResetHasChanged();
+        _cardType.ResetHasChanged();
+        _fadeIn.ResetHasChanged();
+        _material.ResetHasChanged();
+        _color.ResetHasChanged();
+    }
 
     public override void Reset()
     {

@@ -222,6 +222,14 @@ public abstract class CoreComponent : BaseTypedComponent, ICoreComponent
         }
     }
 
+    public override void ResetHasChanged()
+    {
+        for (int i = 0; i < SubComponents.Count; i++)
+        {
+            SubComponents[i].ResetHasChanged();
+        }
+    }
+
     public override void Reset()
     {
         base.Reset();

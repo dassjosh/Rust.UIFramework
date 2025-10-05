@@ -23,6 +23,11 @@ public class SlotComponent : SubComponent
     {
         return _filter.HasChanged;
     }
+    
+    public override void ResetHasChanged()
+    {
+        _filter.ResetHasChanged();
+    }
 
     public override void Reset()
     {

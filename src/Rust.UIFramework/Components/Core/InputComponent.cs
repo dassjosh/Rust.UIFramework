@@ -67,6 +67,16 @@ public class InputComponent : TextComponent
             Mode &= ~mode;
         }
     }
+    
+    public override void ResetHasChanged()
+    {
+        base.ResetHasChanged();
+        _charsLimit.ResetHasChanged();
+        _command.ResetHasChanged();
+        _mode.ResetHasChanged();
+        _lineType.ResetHasChanged();
+        _placeholder.ResetHasChanged();
+    }
 
     public override void Reset()
     {

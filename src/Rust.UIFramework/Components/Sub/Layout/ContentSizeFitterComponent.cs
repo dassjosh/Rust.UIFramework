@@ -40,6 +40,12 @@ public class ContentSizeFitterComponent : SubComponent
         return _horizontalFit.HasChanged || _verticalFit.HasChanged;
     }
     
+    public override void ResetHasChanged()
+    {
+        _horizontalFit.ResetHasChanged();
+        _verticalFit.ResetHasChanged();
+    }
+    
     public override void Reset()
     {
         base.Reset();

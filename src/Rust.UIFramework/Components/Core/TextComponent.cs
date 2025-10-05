@@ -45,6 +45,19 @@ public class TextComponent : CoreComponent, IGraphicalComponent
             writer.AddFieldRaw(JsonDefaults.Common.PlaceholderInputId, PlaceholderFor.Name);
         }
     }
+    
+    public override void ResetHasChanged()
+    {
+        base.ResetHasChanged();
+        _color.ResetHasChanged();
+        _fadeIn.ResetHasChanged();
+        _fontSize.ResetHasChanged();
+        _font.ResetHasChanged();
+        _align.ResetHasChanged();
+        _text.ResetHasChanged();
+        _verticalOverflow.ResetHasChanged();
+        _placeholderFor.ResetHasChanged();
+    }
 
     public override void Reset()
     {

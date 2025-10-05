@@ -80,6 +80,16 @@ public class GridLayoutComponent : BaseLayoutComponent
                || _constraint.HasChanged
                || _constraintCount.HasChanged;
     }
+    
+    public override void ResetHasChanged()
+    {
+        _cellSize.ResetHasChanged();
+        _spacing.ResetHasChanged();
+        _startCorner.ResetHasChanged();
+        _startAxis.ResetHasChanged();
+        _constraint.ResetHasChanged();
+        _constraintCount.ResetHasChanged();
+    }
 
     public override void Reset()
     {

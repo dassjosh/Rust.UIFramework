@@ -107,6 +107,21 @@ public class ScrollViewComponent : CoreComponent
         }
     }
 
+    public override void ResetHasChanged()
+    {
+        base.ResetHasChanged();
+        ContentTransform?.ResetHasChanged();
+        HorizontalScrollbar?.ResetHasChanged();
+        VerticalScrollbar?.ResetHasChanged();
+        _movementType.ResetHasChanged();
+        _elasticity.ResetHasChanged();
+        _inertia.ResetHasChanged();
+        _decelerationRate.ResetHasChanged();
+        _scrollSensitivity.ResetHasChanged();
+        _horizontalScrollProgress.ResetHasChanged();
+        _verticalScrollProgress.ResetHasChanged();
+    }
+
     public override void Reset()
     {
         base.Reset();

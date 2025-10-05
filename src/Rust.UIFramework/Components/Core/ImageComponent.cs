@@ -41,6 +41,18 @@ public class ImageComponent : CoreComponent, IGraphicalComponent
             writer.AddFieldRaw(JsonDefaults.Common.PlaceholderInputId, PlaceholderFor.Name);
         }
     }
+    
+    public override void ResetHasChanged()
+    {
+        base.ResetHasChanged();
+        _color.ResetHasChanged();
+        _fadein.ResetHasChanged();
+        _sprite.ResetHasChanged();
+        _material.ResetHasChanged();
+        _imageType.ResetHasChanged();
+        _fillCenter.ResetHasChanged();
+        _placeholderFor.ResetHasChanged();
+    }
 
     public override void Reset()
     {

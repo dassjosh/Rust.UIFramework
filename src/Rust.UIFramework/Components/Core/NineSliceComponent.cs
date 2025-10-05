@@ -24,6 +24,12 @@ public class NineSliceComponent : ImageComponent
         writer.AddFieldRaw(JsonDefaults.Image.PngName, Png); //PNG needs to always be provided for update else the slice won't change
         writer.AddField(JsonDefaults.Image.SliceName, _slice, mode);
     }
+    
+    public override void ResetHasChanged()
+    {
+        base.ResetHasChanged();
+        _slice.ResetHasChanged();
+    }
 
     public override void Reset()
     {

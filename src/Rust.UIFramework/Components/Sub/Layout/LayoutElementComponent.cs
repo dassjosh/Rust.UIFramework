@@ -83,6 +83,17 @@ public class LayoutElementComponent : SubComponent
     {
         return _preferredWidth.HasChanged || _preferredHeight.HasChanged || _minWidth.HasChanged || _minHeight.HasChanged || _flexibleWidth.HasChanged || _flexibleHeight.HasChanged || _ignoreLayout.HasChanged;
     }
+    
+    public override void ResetHasChanged()
+    {
+        _preferredWidth.ResetHasChanged();
+        _preferredHeight.ResetHasChanged();
+        _minWidth.ResetHasChanged();
+        _minHeight.ResetHasChanged();
+        _flexibleWidth.ResetHasChanged();
+        _flexibleHeight.ResetHasChanged();
+        _ignoreLayout.ResetHasChanged();
+    }
 
     public override void Reset()
     {

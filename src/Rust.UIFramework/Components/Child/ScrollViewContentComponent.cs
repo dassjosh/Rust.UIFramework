@@ -27,7 +27,14 @@ public class ScrollViewContentComponent : ChildComponent
         writer.AddField(JsonDefaults.ScrollView.PivotName, _pivot, mode);
         writer.WriteEndObject();
     }
-    
+
+    public override void ResetHasChanged()
+    {
+        _position.ResetHasChanged();
+        _offset.ResetHasChanged();
+        _pivot.ResetHasChanged();
+    }
+
     public void UpdateContentTransform(in UiPosition? position = null, in UiOffset? offset = null, in Vector2? pivot = null)
     {
         if (position.HasValue)

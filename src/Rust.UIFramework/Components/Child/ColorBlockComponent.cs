@@ -34,6 +34,15 @@ public class ColorBlockComponent : ChildComponent
         writer.AddField(JsonDefaults.ColorBlock.FadeDurationName, _fadeDuration, mode);
     }
 
+    public override void ResetHasChanged()
+    {
+        _highlightColor.ResetHasChanged();
+        _pressedColor.ResetHasChanged();
+        _selectedColor.ResetHasChanged();
+        _colorMultiplier.ResetHasChanged();
+        _fadeDuration.ResetHasChanged();
+    }
+
     public override void Reset() 
     {
         _highlightColor.Reset();

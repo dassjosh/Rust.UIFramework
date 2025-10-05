@@ -87,6 +87,30 @@ public class CountdownComponent : SubComponent
         Command = command;
         return this;
     }
+    
+    public override bool HasChanged()
+    {
+        return _startTime.HasChanged ||
+               _endTime.HasChanged ||
+               _step.HasChanged ||
+               _interval.HasChanged ||
+               _timerFormat.HasChanged ||
+               _numberFormat.HasChanged ||
+               _destroyIfDone.HasChanged ||
+               _command.HasChanged;
+    }
+    
+    public override void ResetHasChanged()
+    {
+        _startTime.ResetHasChanged();
+        _endTime.ResetHasChanged();
+        _step.ResetHasChanged();
+        _interval.ResetHasChanged();
+        _timerFormat.ResetHasChanged();
+        _numberFormat.ResetHasChanged();
+        _destroyIfDone.ResetHasChanged();
+        _command.ResetHasChanged();
+    }
 
     public override void Reset()
     {
@@ -99,17 +123,5 @@ public class CountdownComponent : SubComponent
         _numberFormat.Reset();
         _destroyIfDone.Reset();
         _command.Reset();
-    }
-    
-    public override bool HasChanged()
-    {
-        return _startTime.HasChanged ||
-               _endTime.HasChanged ||
-               _step.HasChanged ||
-               _interval.HasChanged ||
-               _timerFormat.HasChanged ||
-               _numberFormat.HasChanged ||
-               _destroyIfDone.HasChanged ||
-               _command.HasChanged;
     }
 }

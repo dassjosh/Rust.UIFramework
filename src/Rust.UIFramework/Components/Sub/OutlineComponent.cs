@@ -49,6 +49,13 @@ public class OutlineComponent : SubComponent
     {
         return _color.HasChanged || _distance.HasChanged || _useGraphicAlpha.HasChanged;
     }
+    
+    public override void ResetHasChanged()
+    {
+        _color.ResetHasChanged();
+        _distance.ResetHasChanged();
+        _useGraphicAlpha.ResetHasChanged();
+    }
 
     public override void Reset()
     {
