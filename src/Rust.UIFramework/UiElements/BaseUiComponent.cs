@@ -14,7 +14,7 @@ using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-public abstract class BaseUiComponent : BasePoolable, ICopyFrom
+public abstract class BaseUiComponent : BasePoolable
 {
     private readonly TrackedValue<float> _fadeOut = new();
     private readonly TrackedValue<bool> _active = new(true);
@@ -140,26 +140,4 @@ public abstract class BaseUiComponent : BasePoolable, ICopyFrom
 
     public static implicit operator UiReference(BaseUiComponent component) => component.Reference;
     public static implicit operator AnimationReference(BaseUiComponent component) => new(component.Reference, component._component.Type);
-    public void CopyFrom(object value)
-    {
-        if (value is BaseUiComponent component)
-        {
-            Reference = component.Reference;
-            FadeOut = component.FadeOut;
-            Update = component.Update;
-            Active = component.Active;
-            _component.CopyFrom(component._component);
-        }
-    }
-
-    public bool AreEquivalent(BaseUiComponent other)
-    {
-        if (other is null) return false;
-        if (ReferenceEquals(this, other)) return true;
-        return Reference.Equals(other.Reference) 
-               && FadeOut.Equals(other.FadeOut) 
-               //&& Update == other.Update 
-               && Active == other.Active 
-               && _component.AreEquivalent(other._component);
-    }
 }

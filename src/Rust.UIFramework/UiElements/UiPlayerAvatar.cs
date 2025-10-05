@@ -6,7 +6,6 @@ using Oxide.Ext.UiFramework.Json;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-[UiFrameworkSerializer(typeof(UiComponentSerializer<UiPlayerAvatar>))]
 public class UiPlayerAvatar : BaseUiComponent, IMaterial<UiPlayerAvatar>, IFadeIn<UiPlayerAvatar>, IUiColor<UiPlayerAvatar>
 {
     public readonly PlayerAvatarComponent Avatar;

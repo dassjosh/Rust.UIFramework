@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-[UiFrameworkSerializer(typeof(UiComponentSerializer<UiNineSlice>))]
 public class UiNineSlice : BaseUiImage<UiNineSlice>
 {
     public string Png { get => Image.Png; set => Image.Png = value; }

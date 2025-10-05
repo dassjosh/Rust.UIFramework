@@ -9,7 +9,6 @@ using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-[UiFrameworkSerializer(typeof(UiComponentSerializer<UiButton>))]
 public class UiButton : BaseUiComponent, IImageType<UiButton>, ISprite<UiButton>, IMaterial<UiButton>, IFadeIn<UiButton>, IUiColor<UiButton>
 {
     public readonly ButtonComponent Button;

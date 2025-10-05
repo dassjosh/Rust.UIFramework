@@ -5,7 +5,6 @@ using Oxide.Ext.UiFramework.Json;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-[UiFrameworkSerializer(typeof(UiComponentSerializer<UiRawImage>))]
 public class UiRawImage : BaseUiComponent, IMaterial<UiRawImage>, IFadeIn<UiRawImage>, IUiColor<UiRawImage>
 {
     public readonly RawImageComponent RawImage;

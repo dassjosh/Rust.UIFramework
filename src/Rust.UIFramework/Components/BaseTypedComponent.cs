@@ -24,20 +24,4 @@ public abstract class BaseTypedComponent : BaseComponent
     protected abstract void WriteComponentFields(JsonFrameworkWriter writer, SerializeMode mode);
     
     public override void Reset() => Enabled = true;
-
-    public override void CopyFrom(object value)
-    {
-        if (value is BaseTypedComponent component)
-        {
-            Enabled = component.Enabled;
-        }
-    }
-
-    public override bool AreEquivalent(BaseComponent other)
-    {
-        if (other is null) return false;
-        if(!base.AreEquivalent(other)) return false;
-        BaseTypedComponent typedOther = (BaseTypedComponent)other;
-        return Enabled == typedOther.Enabled;
-    }
 }

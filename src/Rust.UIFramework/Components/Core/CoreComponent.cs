@@ -226,57 +226,5 @@ public abstract class CoreComponent : BaseTypedComponent, ICoreComponent
     {
         base.Reset();
         SubComponents.FreeValues();
-    }
-
-    public override void CopyFrom(object value)
-    {
-        base.CopyFrom(value);
-        if (value is CoreComponent component)
-        {
-            foreach (SubComponent subComponent in component.SubComponents)
-            {
-                GetOrAddSubComponentByType(subComponent.ComponentType).CopyFrom(subComponent);
-            }
-        }
-    }
-
-    public override bool AreEquivalent(BaseComponent other)
-    {
-        if (!base.AreEquivalent(other)) return false;
-        CoreComponent typedOther = (CoreComponent)other!;
-        if(SubComponents.Count != typedOther.SubComponents.Count) return false;
-        for (int i = 0; i < SubComponents.Count; i++)
-        {
-            if (!SubComponents[i].AreEquivalent(typedOther.SubComponents[i]))
-            {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    protected T CopyChild<T>(T target, T value) where T : ChildComponent, new()
-    {
-        if (target == null && value == null)
-        {
-            return null;
-        }
-        if (target == null)
-        {
-            target = PluginPool.Get<T>();
-            target.CopyFrom(value);
-        } 
-        else if (value == null)
-        {
-            target.Dispose();
-            target = null;
-        }
-        else
-        {
-            target.CopyFrom(value);
-        }
-        
-        return target;
-    }
+    } 
 }

@@ -4,7 +4,6 @@ using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-[UiFrameworkSerializer(typeof(NineSliceComponentSerializer))]
 public class NineSliceComponent : ImageComponent
 {
     private readonly TrackedValue<UiBorderWidth> _slice = new(JsonDefaults.Image.Slice);
@@ -32,13 +31,5 @@ public class NineSliceComponent : ImageComponent
         Png = null;
         _slice.Reset();
         _fillCenter.Reset();
-    }
-    
-    public override bool AreEquivalent(BaseComponent other)
-    {
-        if (!base.AreEquivalent(other)) return false;
-        NineSliceComponent typedOther = (NineSliceComponent)other!;
-        return Png == typedOther.Png 
-               && Slice == typedOther.Slice;
     }
 }

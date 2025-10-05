@@ -21,22 +21,4 @@ public abstract class BaseLayoutComponent : SubComponent
         Padding = default;
         Owner = null;
     }
-
-    public override void CopyFrom(object value)
-    {
-        base.CopyFrom(value);
-        if (value is BaseLayoutComponent component)
-        {
-            ChildAlignment = component.ChildAlignment;
-            Padding = component.Padding;
-        }
-    }
-    
-    public override bool AreEquivalent(BaseComponent other)
-    {
-        if (!base.AreEquivalent(other)) return false;
-        BaseLayoutComponent typedOther = (BaseLayoutComponent)other!;
-        return ChildAlignment == typedOther.ChildAlignment 
-               && Padding == typedOther.Padding;
-    }
 }

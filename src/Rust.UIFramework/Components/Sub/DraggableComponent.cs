@@ -5,7 +5,6 @@ using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-[UiFrameworkSerializer(typeof(DraggableComponentSerializer))]
 public class DraggableComponent : SubComponent
 {
     private readonly TrackedValue<bool> _limitToParent = new(JsonDefaults.Draggable.LimitToParent);
@@ -168,45 +167,5 @@ public class DraggableComponent : SubComponent
         _positionRpc.Reset();
         _moveToAnchor.Reset();
         _rebuildAnchor.Reset();
-    }
-
-    public override void CopyFrom(object value)
-    {
-        base.CopyFrom(value);
-        if (value is DraggableComponent component)
-        {
-            LimitToParent = component.LimitToParent;
-            MaxDistance = component.MaxDistance;
-            AllowSwapping = component.AllowSwapping;
-            DropAnywhere = component.DropAnywhere;
-            DragAlpha = component.DragAlpha;
-            ParentLimitIndex = component.ParentLimitIndex;
-            Filter = component.Filter;
-            ParentPadding = component.ParentPadding;
-            AnchorOffset = component.AnchorOffset;
-            KeepOnTop = component.KeepOnTop;
-            PositionRpc = component.PositionRpc;
-            MoveToAnchor = component.MoveToAnchor;
-            RebuildAnchor = component.RebuildAnchor;
-        }
-    }
-
-    public override bool AreEquivalent(BaseComponent other)
-    {
-        if (!base.AreEquivalent(other)) return false;
-        DraggableComponent typedOther = (DraggableComponent)other!;
-        return LimitToParent == typedOther.LimitToParent 
-            && MaxDistance == typedOther.MaxDistance 
-            && AllowSwapping == typedOther.AllowSwapping 
-            && DropAnywhere == typedOther.DropAnywhere 
-            && DragAlpha == typedOther.DragAlpha 
-            && ParentLimitIndex == typedOther.ParentLimitIndex 
-            && Filter == typedOther.Filter 
-            && ParentPadding == typedOther.ParentPadding 
-            && AnchorOffset == typedOther.AnchorOffset 
-            && KeepOnTop == typedOther.KeepOnTop 
-            && PositionRpc == typedOther.PositionRpc 
-            && MoveToAnchor == typedOther.MoveToAnchor 
-            && RebuildAnchor == typedOther.RebuildAnchor;
     }
 }

@@ -7,7 +7,6 @@ using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-[UiFrameworkSerializer(typeof(TextComponentSerializer))]
 public class TextComponent : CoreComponent, IGraphicalComponent
 {
     private readonly TrackedValue<UiColor> _color = new();
@@ -58,35 +57,5 @@ public class TextComponent : CoreComponent, IGraphicalComponent
         _text.Reset();
         _verticalOverflow.Reset();
         _placeholderFor.Reset();
-    }
-
-    public override void CopyFrom(object value)
-    {
-        base.CopyFrom(value);
-        if (value is TextComponent component)
-        {
-            Color = component.Color;
-            FadeIn = component.FadeIn;
-            FontSize = component.FontSize;
-            Font = component.Font;
-            Align = component.Align;
-            Text = component.Text;
-            VerticalOverflow = component.VerticalOverflow;
-            PlaceholderFor = component.PlaceholderFor;
-        }
-    }
-
-    public override bool AreEquivalent(BaseComponent other)
-    {
-        if (!base.AreEquivalent(other)) return false;
-        TextComponent typedOther = (TextComponent)other!;
-        return Color == typedOther.Color 
-               && FadeIn == typedOther.FadeIn 
-               && FontSize == typedOther.FontSize 
-               && Font == typedOther.Font 
-               && Align == typedOther.Align 
-               && Text == typedOther.Text 
-               && VerticalOverflow == typedOther.VerticalOverflow 
-               && PlaceholderFor == typedOther.PlaceholderFor;
     }
 }

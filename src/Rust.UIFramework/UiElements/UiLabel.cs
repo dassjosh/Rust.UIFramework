@@ -7,7 +7,6 @@ using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-[UiFrameworkSerializer(typeof(UiComponentSerializer<UiLabel>))]
 public class UiLabel : BaseUiText<UiLabel>
 {
     public readonly TextComponent Text;

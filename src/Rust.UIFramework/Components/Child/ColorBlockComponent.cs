@@ -5,7 +5,6 @@ using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-[UiFrameworkSerializer(typeof(ColorBlockComponentSerializer))]
 public class ColorBlockComponent : ChildComponent
 {
     private readonly TrackedValue<UiColor> _highlightColor = new(JsonDefaults.ColorBlock.HighlightedColor);
@@ -42,28 +41,5 @@ public class ColorBlockComponent : ChildComponent
         _selectedColor.Reset();
         _colorMultiplier.Reset();
         _fadeDuration.Reset();
-    }
-
-    public override void CopyFrom(object value)
-    {
-        if (value is ColorBlockComponent component)
-        {
-            HighlightedColor = component.HighlightedColor;
-            PressedColor = component.PressedColor;
-            SelectedColor = component.SelectedColor;
-            ColorMultiplier = component.ColorMultiplier;
-            FadeDuration = component.FadeDuration;
-        }
-    }
-    
-    public override bool AreEquivalent(BaseComponent other)
-    {
-        if (!base.AreEquivalent(other)) return false;
-        ColorBlockComponent typedOther = (ColorBlockComponent)other!;
-        return HighlightedColor == typedOther.HighlightedColor 
-               && PressedColor == typedOther.PressedColor 
-               && SelectedColor == typedOther.SelectedColor 
-               && ColorMultiplier == typedOther.ColorMultiplier 
-               && FadeDuration == typedOther.FadeDuration;
     }
 }

@@ -7,7 +7,6 @@ using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-[UiFrameworkSerializer(typeof(InputComponentSerializer))]
 public class InputComponent : TextComponent
 {
     private readonly TrackedValue<int> _charsLimit = new(JsonDefaults.Input.CharacterLimit);
@@ -77,29 +76,5 @@ public class InputComponent : TextComponent
         _mode.Reset();
         _lineType.Reset();
         _placeholder.Reset();
-    }
-
-    public override void CopyFrom(object value)
-    {
-        base.CopyFrom(value);
-        if (value is InputComponent component)
-        {
-            CharsLimit = component.CharsLimit;
-            Command = component.Command;
-            Mode = component.Mode;
-            LineType = component.LineType;
-            Placeholder = component.Placeholder;
-        }
-    }
-    
-    public override bool AreEquivalent(BaseComponent other)
-    {
-        if (!base.AreEquivalent(other)) return false;
-        InputComponent typedOther = (InputComponent)other!;
-        return CharsLimit == typedOther.CharsLimit
-               && Command == typedOther.Command 
-               && Mode == typedOther.Mode 
-               && LineType == typedOther.LineType 
-               && Placeholder == typedOther.Placeholder;
     }
 }

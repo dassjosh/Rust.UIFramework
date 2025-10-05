@@ -4,7 +4,6 @@ using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-[UiFrameworkSerializer(typeof(ItemIconComponentSerializer))]
 public class ItemIconComponent : ImageComponent
 {
     private readonly TrackedValue<int> _itemId = new();
@@ -27,23 +26,5 @@ public class ItemIconComponent : ImageComponent
         base.Reset();
         _itemId.Reset();
         _skinId.Reset();
-    }
-    
-    public override void CopyFrom(object value)
-    {
-        base.CopyFrom(value);
-        if (value is ItemIconComponent component)
-        {
-            ItemId = component.ItemId;
-            SkinId = component.SkinId;
-        }
-    }
-    
-    public override bool AreEquivalent(BaseComponent other)
-    {
-        if (!base.AreEquivalent(other)) return false;
-        ItemIconComponent typedOther = (ItemIconComponent)other!;
-        return ItemId == typedOther.ItemId 
-               && SkinId == typedOther.SkinId;
     }
 }

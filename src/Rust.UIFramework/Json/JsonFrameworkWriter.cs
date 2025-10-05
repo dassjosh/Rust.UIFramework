@@ -390,14 +390,6 @@ public sealed class JsonFrameworkWriter : BasePoolable
             }
         }
     }
-
-    public void AddComponent(in Utf8String name, IComponent component, IComponent defaults, SerializeMode mode, bool add)
-    {
-        if (add)
-        {
-            AddComponent(name, component, defaults, mode);
-        }
-    }
     
     public void AddComponent(in Utf8String name, IComponent component, SerializeMode mode, bool add)
     {
@@ -405,23 +397,6 @@ public sealed class JsonFrameworkWriter : BasePoolable
         {
             AddComponent(name, component, mode);
         }
-    }
-    
-    public void AddComponent(in Utf8String name, IComponent component, IComponent defaults, SerializeMode mode)
-    {
-        if (component is null)
-        {
-            return;
-        }
-        
-        WritePropertyName(name);
-        bool objectComma = _objectComma;
-        bool propertyComma = _propertyComma;
-        _objectComma = false;
-        _propertyComma = false;
-        UiFrameworkSerializer.Serialize(this, component, defaults, mode);
-        _objectComma = objectComma;
-        _propertyComma = propertyComma;
     }
     
     public void AddComponent(in Utf8String name, IComponent component, SerializeMode mode)

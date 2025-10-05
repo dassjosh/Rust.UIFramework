@@ -7,8 +7,8 @@ namespace Oxide.Ext.UiFramework.Components;
 public abstract class BaseDirectionalLayoutComponent : BaseLayoutComponent
 {
     private readonly TrackedValue<float> _spacing = new(JsonDefaults.DirectionalLayout.Spacing);
-    private readonly TrackedValue<bool> _childForceExpandWidth = new(JsonDefaults.DirectionalLayout.ChildControlWidth);
-    private readonly TrackedValue<bool> _childForceExpandHeight = new(JsonDefaults.DirectionalLayout.ChildControlHeight);
+    private readonly TrackedValue<bool> _childForceExpandWidth = new(JsonDefaults.DirectionalLayout.ChildForceExpandWidth);
+    private readonly TrackedValue<bool> _childForceExpandHeight = new(JsonDefaults.DirectionalLayout.ChildForceExpandHeight);
     private readonly TrackedValue<bool> _childControlWidth = new(JsonDefaults.DirectionalLayout.ChildControlWidth);
     private readonly TrackedValue<bool> _childControlHeight = new(JsonDefaults.DirectionalLayout.ChildControlHeight);
     private readonly TrackedValue<bool> _childScaleWidth = new(JsonDefaults.DirectionalLayout.ChildScaleWidth);
@@ -48,33 +48,5 @@ public abstract class BaseDirectionalLayoutComponent : BaseLayoutComponent
         ChildControlHeight = JsonDefaults.DirectionalLayout.ChildControlHeight;
         ChildScaleWidth = JsonDefaults.DirectionalLayout.ChildScaleWidth;
         ChildScaleHeight = JsonDefaults.DirectionalLayout.ChildScaleHeight;
-    }
-
-    public override void CopyFrom(object value)
-    {
-        base.CopyFrom(value);
-        if (value is BaseDirectionalLayoutComponent component)
-        {
-            Spacing = component.Spacing;
-            ChildForceExpandWidth = component.ChildForceExpandWidth;
-            ChildForceExpandHeight = component.ChildForceExpandHeight;
-            ChildControlWidth = component.ChildControlWidth;
-            ChildControlHeight = component.ChildControlHeight;
-            ChildScaleWidth = component.ChildScaleWidth;
-            ChildScaleHeight = component.ChildScaleHeight;
-        }
-    }
-
-    public override bool AreEquivalent(BaseComponent other)
-    {
-        if (!base.AreEquivalent(other)) return false;
-        BaseDirectionalLayoutComponent typedOther = (BaseDirectionalLayoutComponent)other!;
-        return Spacing == typedOther.Spacing 
-               && ChildForceExpandWidth == typedOther.ChildForceExpandWidth 
-               && ChildForceExpandHeight == typedOther.ChildForceExpandHeight 
-               && ChildControlWidth == typedOther.ChildControlWidth 
-               && ChildControlHeight == typedOther.ChildControlHeight 
-               && ChildScaleWidth == typedOther.ChildScaleWidth 
-               && ChildScaleHeight == typedOther.ChildScaleHeight;
     }
 }

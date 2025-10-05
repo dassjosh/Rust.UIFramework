@@ -6,7 +6,6 @@ using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-[UiFrameworkSerializer(typeof(RectTransformComponentSerializer))]
 public class RectTransformComponent : SubComponent
 {
     private readonly TrackedValue<UiPosition> _position = new(UiPosition.Full);
@@ -56,31 +55,5 @@ public class RectTransformComponent : SubComponent
         _padding.Reset();
         _changeParent.Reset();
         _transformIndex.Reset();
-    }
-
-    public override void CopyFrom(object value)
-    {
-        base.CopyFrom(value);
-        if (value is RectTransformComponent component)
-        {
-            Position = component.Position;
-            Offset = component.Offset;
-            Rotation = component.Rotation;
-            Padding = component.Padding;
-            ChangeParent = component.ChangeParent;
-            TransformIndex = component.TransformIndex;
-        }
-    }
-    
-    public override bool AreEquivalent(BaseComponent other)
-    {
-        if (!base.AreEquivalent(other)) return false;
-        RectTransformComponent typedOther = (RectTransformComponent)other!;
-        return Position == typedOther.Position 
-               && Offset == typedOther.Offset 
-               && Rotation == typedOther.Rotation 
-               && Padding == typedOther.Padding 
-               && ChangeParent == typedOther.ChangeParent 
-               && TransformIndex == typedOther.TransformIndex;
     }
 }

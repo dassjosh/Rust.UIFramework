@@ -6,7 +6,6 @@ using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-[UiFrameworkSerializer(typeof(OutlineComponentSerializer))]
 public class OutlineComponent : SubComponent
 {
     private readonly TrackedValue<UiColor> _color = new();
@@ -57,25 +56,5 @@ public class OutlineComponent : SubComponent
         _color.Reset();
         _distance.Reset();
         _useGraphicAlpha.Reset();
-    }
-    
-    public override void CopyFrom(object value)
-    {
-        base.CopyFrom(value);
-        if (value is OutlineComponent component)
-        {
-            Color = component.Color;
-            Distance = component.Distance;
-            UseGraphicAlpha = component.UseGraphicAlpha;
-        }
-    }
-    
-    public override bool AreEquivalent(BaseComponent other)
-    {
-        if (!base.AreEquivalent(other)) return false;
-        OutlineComponent typedOther = (OutlineComponent)other!;
-        return Color == typedOther.Color 
-               && Distance == typedOther.Distance 
-               && UseGraphicAlpha == typedOther.UseGraphicAlpha;
     }
 }

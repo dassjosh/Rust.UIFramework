@@ -8,7 +8,6 @@ using Oxide.Ext.UiFramework.UiElements;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-[UiFrameworkSerializer(typeof(RawImageComponentSerializer))]
 public class RawImageComponent : CoreComponent, IGraphicalComponent
 {
     private readonly TrackedValue<UiColor> _color = new();
@@ -77,29 +76,5 @@ public class RawImageComponent : CoreComponent, IGraphicalComponent
         _image.Reset();
         _material.Reset();
         _placeholderFor.Reset();
-    }
-
-    public override void CopyFrom(object value)
-    {
-        base.CopyFrom(value);
-        if (value is RawImageComponent component)
-        {
-            Color = component.Color;
-            FadeIn = component.FadeIn;
-            Image = component.Image;
-            Material = component.Material;
-            PlaceholderFor = component.PlaceholderFor;
-        }
-    }
-    
-    public override bool AreEquivalent(BaseComponent other)
-    {
-        if (!base.AreEquivalent(other)) return false;
-        RawImageComponent typedOther = (RawImageComponent)other!;
-        return Color == typedOther.Color 
-               && FadeIn == typedOther.FadeIn 
-               && Image == typedOther.Image 
-               && Material == typedOther.Material 
-               && PlaceholderFor == typedOther.PlaceholderFor;
     }
 }

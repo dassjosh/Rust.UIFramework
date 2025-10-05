@@ -7,7 +7,6 @@ using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-[UiFrameworkSerializer(typeof(PlayerAvatarComponentSerializer))]
 public class PlayerAvatarComponent : RawImageComponent
 {
     private readonly TrackedValue<ulong> _steamId = new();
@@ -63,23 +62,5 @@ public class PlayerAvatarComponent : RawImageComponent
         base.Reset();
         _steamId.Reset();
         _avatarType.Reset();
-    }
-    
-    public override void CopyFrom(object value)
-    {
-        base.CopyFrom(value);
-        if (value is PlayerAvatarComponent component)
-        {
-            SteamId = component.SteamId;
-            AvatarType = component.AvatarType;
-        }
-    }
-    
-    public override bool AreEquivalent(BaseComponent other)
-    {
-        if (!base.AreEquivalent(other)) return false;
-        PlayerAvatarComponent typedOther = (PlayerAvatarComponent)other!;
-        return SteamId == typedOther.SteamId 
-               && AvatarType == typedOther.AvatarType;
     }
 }

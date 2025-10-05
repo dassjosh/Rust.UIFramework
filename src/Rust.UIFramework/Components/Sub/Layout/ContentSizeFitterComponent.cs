@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-[UiFrameworkSerializer(typeof(ContentSizeFitterComponentSerializer))]
 public class ContentSizeFitterComponent : SubComponent
 {
     private readonly TrackedValue<ContentSizeFitter.FitMode> _horizontalFit = new(JsonDefaults.ContentSizeFitterData.HorizontalFit);
@@ -46,23 +45,5 @@ public class ContentSizeFitterComponent : SubComponent
         base.Reset();
         _horizontalFit.Reset();
         _verticalFit.Reset();
-    }
-    
-    public override void CopyFrom(object value) 
-    {
-        base.CopyFrom(value);
-        if (value is ContentSizeFitterComponent component)
-        {
-            HorizontalFit = component.HorizontalFit;
-            VerticalFit = component.VerticalFit;
-        }
-    }
-    
-    public override bool AreEquivalent(BaseComponent other) 
-    {
-        if (!base.AreEquivalent(other)) return false;
-        ContentSizeFitterComponent typedOther = (ContentSizeFitterComponent)other!;
-        return HorizontalFit == typedOther.HorizontalFit 
-               && VerticalFit == typedOther.VerticalFit;
     }
 }

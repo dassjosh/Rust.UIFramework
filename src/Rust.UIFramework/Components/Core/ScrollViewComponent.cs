@@ -10,7 +10,6 @@ using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-[UiFrameworkSerializer(typeof(ScrollViewComponentSerializer))]
 public class ScrollViewComponent : CoreComponent
 {
     private readonly TrackedValue<ScrollRect.MovementType> _movementType = new(JsonDefaults.ScrollView.MovementType);
@@ -124,39 +123,5 @@ public class ScrollViewComponent : CoreComponent
         _scrollSensitivity.Reset();
         _horizontalScrollProgress.Reset();
         _verticalScrollProgress.Reset();
-    }
-
-    public override void CopyFrom(object value)
-    {
-        base.CopyFrom(value);
-        if (value is ScrollViewComponent component)
-        {
-            MovementType = component.MovementType;
-            Elasticity = component.Elasticity;
-            Inertia = component.Inertia;
-            DecelerationRate = component.DecelerationRate;
-            ScrollSensitivity = component.ScrollSensitivity;
-            HorizontalScrollProgress = component.HorizontalScrollProgress;
-            VerticalScrollProgress = component.VerticalScrollProgress;
-            ContentTransform = CopyChild(ContentTransform, component.ContentTransform);
-            HorizontalScrollbar = CopyChild(HorizontalScrollbar, component.HorizontalScrollbar);
-            VerticalScrollbar = CopyChild(VerticalScrollbar, component.VerticalScrollbar);
-        }
-    }
-
-    public override bool AreEquivalent(BaseComponent other)
-    {
-        if (!base.AreEquivalent(other)) return false;
-        ScrollViewComponent typedOther = (ScrollViewComponent)other!;
-        return MovementType == typedOther.MovementType 
-               && Elasticity == typedOther.Elasticity 
-               && Inertia == typedOther.Inertia 
-               && DecelerationRate == typedOther.DecelerationRate 
-               && ScrollSensitivity == typedOther.ScrollSensitivity 
-               && HorizontalScrollProgress == typedOther.HorizontalScrollProgress 
-               && VerticalScrollProgress == typedOther.VerticalScrollProgress 
-               && ContentTransform.TryAreEquivalent(typedOther.ContentTransform) 
-               && HorizontalScrollbar.TryAreEquivalent(typedOther.HorizontalScrollbar) 
-               && VerticalScrollbar.TryAreEquivalent(typedOther.VerticalScrollbar);
     }
 }

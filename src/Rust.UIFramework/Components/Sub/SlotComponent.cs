@@ -4,7 +4,6 @@ using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-[UiFrameworkSerializer(typeof(SlotComponentSerializer))]
 public class SlotComponent : SubComponent
 {
     private readonly TrackedValue<string> _filter = new();
@@ -29,21 +28,5 @@ public class SlotComponent : SubComponent
     {
         base.Reset();
         _filter.Reset();
-    }
-    
-    public override void CopyFrom(object value)
-    {
-        base.CopyFrom(value);
-        if (value is SlotComponent component)
-        {
-            Filter = component.Filter;
-        }
-    }
-    
-    public override bool AreEquivalent(BaseComponent other)
-    {
-        if (!base.AreEquivalent(other)) return false;
-        SlotComponent typedOther = (SlotComponent)other!;
-        return Filter == typedOther.Filter;
     }
 }

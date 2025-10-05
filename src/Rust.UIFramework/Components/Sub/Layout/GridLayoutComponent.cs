@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-[UiFrameworkSerializer(typeof(GridLayoutComponentSerializer))]
 public class GridLayoutComponent : BaseLayoutComponent
 {
     private readonly TrackedValue<Vector2> _cellSize = new(JsonDefaults.GridLayout.CellSize);
@@ -91,31 +90,5 @@ public class GridLayoutComponent : BaseLayoutComponent
         _startAxis.Reset();
         _constraint.Reset();
         _constraintCount.Reset();
-    }
-
-    public override void CopyFrom(object value)
-    {
-        base.CopyFrom(value);
-        if (value is GridLayoutComponent component) 
-        {
-            CellSize = component.CellSize;
-            Spacing = component.Spacing;
-            StartCorner = component.StartCorner;
-            StartAxis = component.StartAxis;
-            Constraint = component.Constraint;
-            ConstraintCount = component.ConstraintCount;
-        }
-    }
-    
-    public override bool AreEquivalent(BaseComponent other)
-    {
-        if (!base.AreEquivalent(other)) return false;
-        GridLayoutComponent typedOther = (GridLayoutComponent)other!;
-        return CellSize == typedOther.CellSize 
-               && Spacing == typedOther.Spacing 
-               && StartCorner == typedOther.StartCorner 
-               && StartAxis == typedOther.StartAxis 
-               && Constraint == typedOther.Constraint 
-               && ConstraintCount == typedOther.ConstraintCount;
     }
 }

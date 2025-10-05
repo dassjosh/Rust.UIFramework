@@ -5,7 +5,6 @@ using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-[UiFrameworkSerializer(typeof(ScrollBarComponentSerializer))]
 public class ScrollbarComponent : ChildComponent
 {
     private readonly TrackedValue<bool> _invert = new(JsonDefaults.ScrollBar.Invert);
@@ -56,36 +55,5 @@ public class ScrollbarComponent : ChildComponent
         _highlightColor.Reset();
         _pressedColor.Reset();
         _trackColor.Reset();
-    }
-
-    public override void CopyFrom(object value)
-    {
-        if (value is ScrollbarComponent component)
-        {
-            Invert = component.Invert;
-            AutoHide = component.AutoHide;
-            HandleSprite = component.HandleSprite;
-            TrackSprite = component.TrackSprite;
-            Size = component.Size;
-            HandleColor = component.HandleColor;
-            HighlightColor = component.HighlightColor;
-            PressedColor = component.PressedColor;
-            TrackColor = component.TrackColor;
-        } 
-    }
-
-    public override bool AreEquivalent(BaseComponent other)
-    {
-        if (!base.AreEquivalent(other)) return false;
-        ScrollbarComponent typedOther = (ScrollbarComponent)other!;
-        return Invert == typedOther.Invert 
-               && AutoHide == typedOther.AutoHide 
-               && HandleSprite == typedOther.HandleSprite 
-               && TrackSprite == typedOther.TrackSprite 
-               && Size == typedOther.Size 
-               && HandleColor == typedOther.HandleColor 
-               && HighlightColor == typedOther.HighlightColor 
-               && PressedColor == typedOther.PressedColor 
-               && TrackColor == typedOther.TrackColor;
     }
 }

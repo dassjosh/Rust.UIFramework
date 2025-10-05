@@ -7,7 +7,6 @@ using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-[UiFrameworkSerializer(typeof(ScrollViewContentComponentSerializer))]
 public class ScrollViewContentComponent : ChildComponent
 {
     private readonly TrackedValue<UiPosition> _position = new(UiPosition.Full);
@@ -52,24 +51,5 @@ public class ScrollViewContentComponent : ChildComponent
         _position.Reset();
         _offset.Reset();
         _pivot.Reset();
-    }
-
-    public override void CopyFrom(object value)
-    {
-        if (value is ScrollViewContentComponent component)
-        {
-            Position = component.Position;
-            Offset = component.Offset;
-            Pivot = component.Pivot;
-        }
-    }
-    
-    public override bool AreEquivalent(BaseComponent other)
-    {
-        if (!base.AreEquivalent(other)) return false;
-        ScrollViewContentComponent typedOther = (ScrollViewContentComponent)other!;
-        return Position == typedOther.Position 
-               && Offset == typedOther.Offset 
-               && Pivot == typedOther.Pivot;
     }
 }

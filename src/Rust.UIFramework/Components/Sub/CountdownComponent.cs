@@ -4,7 +4,6 @@ using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-[UiFrameworkSerializer(typeof(CountdownComponentSerializer))]
 public class CountdownComponent : SubComponent
 {
     private readonly TrackedValue<float> _startTime = new(JsonDefaults.Countdown.StartTime);
@@ -112,35 +111,5 @@ public class CountdownComponent : SubComponent
                _numberFormat.HasChanged ||
                _destroyIfDone.HasChanged ||
                _command.HasChanged;
-    }
-
-    public override void CopyFrom(object value)
-    {
-        base.CopyFrom(value);
-        if (value is CountdownComponent component)
-        {
-            StartTime = component.StartTime;
-            EndTime = component.EndTime;
-            Step = component.Step;
-            Interval = component.Interval;
-            TimerFormat = component.TimerFormat;
-            NumberFormat = component.NumberFormat;
-            DestroyIfDone = component.DestroyIfDone;
-            Command = component.Command;
-        }
-    }
-
-    public override bool AreEquivalent(BaseComponent other)
-    {
-        if (!base.AreEquivalent(other)) return false;
-        CountdownComponent typedOther = (CountdownComponent)other!;
-        return StartTime == typedOther.StartTime 
-               && EndTime == typedOther.EndTime 
-               && Step == typedOther.Step 
-               && Interval == typedOther.Interval 
-               && TimerFormat == typedOther.TimerFormat 
-               && NumberFormat == typedOther.NumberFormat 
-               && DestroyIfDone == typedOther.DestroyIfDone 
-               && Command == typedOther.Command;
     }
 }

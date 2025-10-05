@@ -9,7 +9,6 @@ using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-[UiFrameworkSerializer(typeof(UiComponentSerializer<UiInput>))]
 public class UiInput : BaseUiText<UiInput>
 {
     public readonly InputComponent Input;

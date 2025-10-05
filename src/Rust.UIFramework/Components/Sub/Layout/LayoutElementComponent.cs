@@ -4,7 +4,6 @@ using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-[UiFrameworkSerializer(typeof(LayoutElementComponentSerializer))]
 public class LayoutElementComponent : SubComponent
 {
     private readonly TrackedValue<float> _preferredWidth = new(JsonDefaults.LayoutElement.PreferredWidth);
@@ -95,33 +94,5 @@ public class LayoutElementComponent : SubComponent
         _flexibleWidth.Reset();
         _flexibleHeight.Reset();
         _ignoreLayout.Reset();
-    }
-
-    public override void CopyFrom(object value)
-    {
-        base.CopyFrom(value); 
-        if (value is LayoutElementComponent component)
-        {
-            PreferredWidth = component.PreferredWidth;
-            PreferredHeight = component.PreferredHeight;
-            MinWidth = component.MinWidth;
-            MinHeight = component.MinHeight;
-            FlexibleWidth = component.FlexibleWidth;
-            FlexibleHeight = component.FlexibleHeight;
-            IgnoreLayout = component.IgnoreLayout;
-        }
-    }
-
-    public override bool AreEquivalent(BaseComponent other)
-    {
-        if (!base.AreEquivalent(other)) return false;
-        LayoutElementComponent typedOther = (LayoutElementComponent)other!;
-        return PreferredWidth == typedOther.PreferredWidth 
-               && PreferredHeight == typedOther.PreferredHeight 
-               && MinWidth == typedOther.MinWidth 
-               && MinHeight == typedOther.MinHeight 
-               && FlexibleWidth == typedOther.FlexibleWidth 
-               && FlexibleHeight == typedOther.FlexibleHeight 
-               && IgnoreLayout == typedOther.IgnoreLayout;
     }
 }

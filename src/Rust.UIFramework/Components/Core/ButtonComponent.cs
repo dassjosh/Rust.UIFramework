@@ -7,7 +7,6 @@ using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-[UiFrameworkSerializer(typeof(ButtonComponentSerializer))]
 public class ButtonComponent : CoreComponent, IGraphicalComponent
 {
     private readonly TrackedValue<string> _command = new();
@@ -73,35 +72,5 @@ public class ButtonComponent : CoreComponent, IGraphicalComponent
         _material.Reset();
         _imageType.Reset();
         ButtonType = ButtonType.Command;
-    }
-
-    public override void CopyFrom(object value)
-    {
-        base.CopyFrom(value);
-        if (value is ButtonComponent component)
-        {
-            Command = component.Command;
-            ButtonType = component.ButtonType;
-            Color = component.Color;
-            FadeIn = component.FadeIn;
-            Sprite = component.Sprite;
-            Material = component.Material;
-            ImageType = component.ImageType;
-            ColorBlock =  CopyChild(ColorBlock, component.ColorBlock);
-        }
-    }
-    
-    public override bool AreEquivalent(BaseComponent other)
-    {
-        if (!base.AreEquivalent(other)) return false;
-        ButtonComponent typedOther = (ButtonComponent)other!;
-        return Command == typedOther.Command 
-               && ButtonType == typedOther.ButtonType 
-               && Color == typedOther.Color 
-               && FadeIn == typedOther.FadeIn 
-               && Sprite == typedOther.Sprite 
-               && Material == typedOther.Material 
-               && ImageType == typedOther.ImageType 
-               && ColorBlock.TryAreEquivalent(typedOther.ColorBlock);
     }
 }
