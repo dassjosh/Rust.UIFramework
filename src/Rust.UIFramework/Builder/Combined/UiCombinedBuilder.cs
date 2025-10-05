@@ -35,12 +35,23 @@ public class UiCombinedBuilder : BaseBuilder
     
     internal override void SendUi(SendInfo send, in UiDebugOptions? options)
     {
-        
+        using JsonFrameworkWriter writer = CreateWriter();
+        AddUi(send, writer, options);
     }
 
     public override byte[] GetBytes()
     {
-        throw new System.NotImplementedException();
+        using JsonFrameworkWriter writer = CreateWriter();
+        return writer.ToArray();
+    }
+
+    private JsonFrameworkWriter CreateWriter()
+    {
+        JsonFrameworkWriter writer = JsonFrameworkWriter.Create(PluginPool);
+        writer.WriteStartArray();
+        Combine(default, writer);
+        writer.WriteEndArray();
+        return writer;
     }
 
     public override void Combine(SendInfo send, JsonFrameworkWriter writer)
@@ -50,5 +61,11 @@ public class UiCombinedBuilder : BaseBuilder
             BaseBuilder builder = _builders[index];
             builder.Combine(send, writer);
         }
+    }
+
+    protected override void EnterPool()
+    {
+        base.EnterPool();
+        _builders.Clear();
     }
 }
