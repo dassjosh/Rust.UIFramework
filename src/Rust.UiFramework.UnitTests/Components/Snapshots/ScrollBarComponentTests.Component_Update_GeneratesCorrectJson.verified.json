@@ -1,0 +1,11 @@
+﻿{
+  "autoHide": 0,
+  "handleColor": "0 0 0",
+  "handleSprite": "assets/icons/add.png",
+  "highlightColor": "0.502 0 0",
+  "invert": 0,
+  "pressedColor": "0 0 0.502",
+  "size": 30,
+  "trackColor": "0.502 0.502 0",
+  "trackSprite": "assets/icons/subtract.png"
+}

@@ -5,5 +5,6 @@
   "FadeIn": 3.5,
   "Image": "http://example.com/image.png",
   "Material": "assets/content/ui/namefontmaterial.mat",
+  "PlaceholderFor": "parent:name",
   "Type": "UnityEngine.UI.RawImage"
 }

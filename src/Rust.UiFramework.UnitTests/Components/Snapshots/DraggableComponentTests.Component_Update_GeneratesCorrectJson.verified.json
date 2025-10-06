@@ -1,0 +1,16 @@
+﻿{
+  "allowSwapping": 1,
+  "anchorOffset": "0.4 0.5",
+  "dragAlpha": 0.5,
+  "dropAnywhere": 1,
+  "filter": "filter",
+  "keepOnTop": 1,
+  "limitToParent": 1,
+  "maxDistance": 10,
+  "moveToAnchor": "",
+  "parentLimitIndex": 2,
+  "parentPadding": "0.5 0.4",
+  "positionRPC": "2",
+  "rebuildAnchor": "",
+  "type": "Draggable"
+}

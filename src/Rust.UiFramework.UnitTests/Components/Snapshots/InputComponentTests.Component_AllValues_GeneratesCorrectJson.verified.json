@@ -9,6 +9,8 @@
   "fontSize": 24,
   "lineType": "2",
   "needsKeyboard": 1,
+  "placeholderId": "name",
+  "placeholderParentId": "name",
   "text": "text 123",
   "type": "UnityEngine.UI.InputField",
   "verticalOverflow": "1"

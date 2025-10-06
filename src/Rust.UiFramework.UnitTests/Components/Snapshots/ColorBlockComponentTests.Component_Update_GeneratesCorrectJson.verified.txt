@@ -1,0 +1,5 @@
+﻿"highlightedColor": "1 0 0",
+"pressedColor": "0 0.502 0",
+"selectedColor": "0 0 1",
+"colorMultiplier": 0.5,
+"fadeDuration": 1.5

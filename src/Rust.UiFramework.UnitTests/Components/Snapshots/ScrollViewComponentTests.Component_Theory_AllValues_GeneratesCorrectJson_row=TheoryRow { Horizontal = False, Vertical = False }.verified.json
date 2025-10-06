@@ -8,8 +8,10 @@
   },
   "decelerationRate": 200,
   "elasticity": 100,
+  "horizontalNormalizedPosition": 0.1,
   "inertia": 1,
   "movementType": "1",
   "scrollSensitivity": 300,
-  "type": "UnityEngine.UI.ScrollView"
+  "type": "UnityEngine.UI.ScrollView",
+  "verticalNormalizedPosition": 0.2
 }

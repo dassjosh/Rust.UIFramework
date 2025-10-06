@@ -58,7 +58,7 @@ public class RawImageComponent : CoreComponent, IGraphicalComponent
                 }
                 else if(image.StartsWith("assets/", StringComparison.OrdinalIgnoreCase))
                 {
-                    writer.AddField(JsonDefaults.BaseImage.SpriteName, image, JsonDefaults.RawImage.TextureValue);
+                    writer.AddFieldRaw(JsonDefaults.BaseImage.SpriteName, image);
                 }
                 else
                 {

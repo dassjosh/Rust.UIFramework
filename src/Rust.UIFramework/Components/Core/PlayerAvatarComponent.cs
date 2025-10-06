@@ -19,7 +19,6 @@ public class PlayerAvatarComponent : RawImageComponent
 
     protected override void WriteComponentFields(JsonFrameworkWriter writer, SerializeMode mode)
     {
-        base.WriteComponentFields(writer, mode);
         if (_steamId.ShouldSerialize(mode) || _avatarType.ShouldSerialize(mode))
         {
             switch (AvatarType)
@@ -34,13 +33,9 @@ public class PlayerAvatarComponent : RawImageComponent
                     if (!string.IsNullOrEmpty(avatarUrl))
                     {
                         string img = Singleton<UiImageStorage>.Instance.Get(UiFrameworkPlugin.Instance, avatarUrl);
-                        if (img.StartsWith("http"))
+                        if (img.StartsWith("http") || uint.TryParse(img, out uint _))
                         {
-                            writer.AddFieldRaw(JsonDefaults.Image.UrlName, img);
-                        }
-                        else if (uint.TryParse(img, out uint _))
-                        {
-                            writer.AddFieldRaw(JsonDefaults.Image.PngName, img);
+                            Image = img;
                         }
                         else
                         {
@@ -54,6 +49,9 @@ public class PlayerAvatarComponent : RawImageComponent
 
                     break;
             }
+            
+            //Needs to be after so we don't duplicate URL fields.
+            base.WriteComponentFields(writer, mode);
         }
     }
     

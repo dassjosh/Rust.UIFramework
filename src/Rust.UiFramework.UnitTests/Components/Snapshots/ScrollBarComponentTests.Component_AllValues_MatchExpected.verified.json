@@ -1,10 +1,10 @@
 ﻿{
-  "AutoHide": true,
+  "AutoHide": false,
   "ComponentType": "ScrollBar",
   "HandleColor": "#000000FF",
   "HandleSprite": "assets/icons/add.png",
   "HighlightColor": "#800000FF",
-  "Invert": true,
+  "Invert": false,
   "PressedColor": "#000080FF",
   "Size": 30.0,
   "TrackColor": "#808000FF",

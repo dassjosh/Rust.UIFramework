@@ -9,7 +9,6 @@ using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Offsets;
-using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.Types;
@@ -131,15 +130,6 @@ public sealed class JsonFrameworkWriter : BasePoolable
         WriteValue(Utf8EnumCache<T>.ToUtf8Number(value));
     }
     
-    public void AddField(in Utf8String name, string value, string defaultValue)
-    {
-        if (value != null && value != defaultValue)
-        {
-            WritePropertyName(name);
-            WriteValue(value);
-        }
-    }
-    
     public void AddField(in Utf8String name, Vector2 value, Vector2 defaultValue)
     {
         if (value != defaultValue)
@@ -176,70 +166,10 @@ public sealed class JsonFrameworkWriter : BasePoolable
         else if(value.HasChanged)
         {
             UiOffset pos = value.Value;
-            WritePropertyName(JsonDefaults.RectTransform.AnchorMinName);
+            WritePropertyName(JsonDefaults.RectTransform.OffsetMinName);
             WriteValue(pos.Min);
-            WritePropertyName(JsonDefaults.RectTransform.AnchorMaxName);
+            WritePropertyName(JsonDefaults.RectTransform.OffsetMaxName);
             WriteValue(pos.Max);
-        }
-    }
-    
-    public void AddField<T>(in Utf8String name, T value, T defaultValue) where T : struct, Enum
-    {
-        if (!EqualityComparer<T>.Default.Equals(value, defaultValue))
-        {
-            WritePropertyName(name);
-            WriteValue(Utf8EnumCache<T>.ToUtf8Number(value));
-        }
-    }
-    
-    public void AddField<T>(in Utf8String name, T? value, T? defaultValue) where T : struct, Enum
-    {
-        if (value.HasValue)
-        {
-            if (defaultValue.HasValue)
-            {
-                AddField(name, value.Value, defaultValue.Value);
-            }
-            else
-            {
-                AddFieldRaw(name, value.Value);
-            }
-        }
-    }
-    
-    public void AddField<T>(in Utf8String name, T? value) where T : struct, Enum
-    {
-        if (value.HasValue)
-        {
-            WritePropertyName(name);
-            WriteValue(Utf8EnumCache<T>.ToUtf8Number(value.Value));
-        }
-    }
-    
-    public void AddField(in Utf8String name, int value, int defaultValue)
-    {
-        if (value != defaultValue)
-        {
-            WritePropertyName(name);
-            WriteValue(value);
-        }
-    }
-    
-    public void AddField(in Utf8String name, float value, float defaultValue)
-    {
-        if (value != defaultValue)
-        {
-            WritePropertyName(name);
-            WriteValue(value);
-        }
-    }
-    
-    public void AddField(in Utf8String name, ulong value, ulong defaultValue)
-    {
-        if (value != defaultValue)
-        {
-            WritePropertyName(name);
-            WriteValue(value);
         }
     }
     
@@ -249,42 +179,6 @@ public sealed class JsonFrameworkWriter : BasePoolable
         {
             WritePropertyName(name);
             WriteValue(value);
-        }
-    }
-    
-    public void AddField(in Utf8String name, UiColor color)
-    {
-        if (color != JsonDefaults.Color.ColorValue)
-        {
-            WritePropertyName(name);
-            WriteValue(color);
-        }
-    }
-    
-    public void AddField(in Utf8String name, UiColor color, UiColor defaultColor)
-    {
-        if (color != defaultColor)
-        {
-            WritePropertyName(name);
-            WriteValue(color);
-        }
-    }
-    
-    public void AddField(in Utf8String name, in UiPadding padding, in UiPadding defaultPadding)
-    {
-        if (padding != defaultPadding)
-        {
-            WritePropertyName(name);
-            WriteValue(padding);
-        }
-    }
-    
-    public void AddField(in Utf8String name, in UiBorderWidth border, in UiBorderWidth defaultBorder)
-    {
-        if (border != defaultBorder)
-        {
-            WritePropertyName(name);
-            WriteValue(border);
         }
     }
     
@@ -519,6 +413,11 @@ public sealed class JsonFrameworkWriter : BasePoolable
     {
         _writer.Write(QuoteChar);
     }
+
+    public void WriteComma()
+    {
+        _writer.Write(CommaChar);
+    }
     
     public void WriteValue(in Utf8String value)
     {
@@ -673,7 +572,7 @@ public sealed class JsonFrameworkWriter : BasePoolable
         _writer = null;
     }
 
-    public void WriteToStream(IUiFrameworkPlugin plugin, Stream stream)
+    public void WriteToStream(Stream stream)
     {
         _writer.WriteToStream(stream);
     }

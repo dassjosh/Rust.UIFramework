@@ -4,7 +4,9 @@
   "ComponentType": "PlayerAvatar",
   "Enabled": true,
   "FadeIn": 3.5,
+  "Image": "https://www.example.com",
   "Material": "assets/content/ui/namefontmaterial.mat",
+  "PlaceholderFor": "parent:name",
   "SteamId": 34621422135410688,
   "Type": "UnityEngine.UI.RawImage"
 }

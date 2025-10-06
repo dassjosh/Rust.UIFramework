@@ -5,5 +5,6 @@
   "FadeIn": 3.5,
   "Image": "assets/content/ui/ui.spashscreen.psd",
   "Material": "assets/content/ui/namefontmaterial.mat",
+  "PlaceholderFor": "parent:name",
   "Type": "UnityEngine.UI.RawImage"
 }

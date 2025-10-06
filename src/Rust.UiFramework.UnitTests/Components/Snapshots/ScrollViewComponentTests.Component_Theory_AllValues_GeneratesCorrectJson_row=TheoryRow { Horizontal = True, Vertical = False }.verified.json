@@ -9,6 +9,7 @@
   "decelerationRate": 200,
   "elasticity": 100,
   "horizontal": 1,
+  "horizontalNormalizedPosition": 0.1,
   "horizontalScrollbar": {
     "autoHide": 1,
     "handleColor": "0 0.502 0",
@@ -23,5 +24,6 @@
   "inertia": 1,
   "movementType": "1",
   "scrollSensitivity": 300,
-  "type": "UnityEngine.UI.ScrollView"
+  "type": "UnityEngine.UI.ScrollView",
+  "verticalNormalizedPosition": 0.2
 }

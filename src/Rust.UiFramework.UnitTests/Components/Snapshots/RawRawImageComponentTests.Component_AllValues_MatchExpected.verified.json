@@ -3,6 +3,8 @@
   "ComponentType": "RawImage",
   "Enabled": true,
   "FadeIn": 3.5,
+  "Image": "https://www.example.com",
   "Material": "assets/content/ui/namefontmaterial.mat",
+  "PlaceholderFor": "parent:name",
   "Type": "UnityEngine.UI.RawImage"
 }

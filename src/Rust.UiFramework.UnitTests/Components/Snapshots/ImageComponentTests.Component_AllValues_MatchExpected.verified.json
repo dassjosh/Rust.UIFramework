@@ -3,7 +3,7 @@
   "ComponentType": "Image",
   "Enabled": true,
   "FadeIn": 1.0,
-  "FillCenter": true,
+  "FillCenter": false,
   "ImageType": "Sliced",
   "Material": "assets/icons/iconmaterial.mat",
   "PlaceholderFor": "parent:name",

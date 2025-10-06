@@ -9,11 +9,12 @@
   "DecelerationRate": 200.0,
   "Elasticity": 100.0,
   "Enabled": true,
+  "HorizontalScrollProgress": 0.1,
   "Inertia": true,
   "MovementType": "Elastic",
   "ScrollSensitivity": 300.0,
   "Type": "UnityEngine.UI.ScrollView",
-  "VerticalScrollProgress": 1.0,
+  "VerticalScrollProgress": 0.2,
   "VerticalScrollbar": {
     "AutoHide": false,
     "ComponentType": "ScrollBar",

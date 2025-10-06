@@ -1,0 +1,9 @@
+﻿{
+  "cellSize": "100 200",
+  "constraint": "2",
+  "constraintCount": 2,
+  "spacing": "40 50",
+  "startAxis": "1",
+  "startCorner": "3",
+  "type": "UnityEngine.UI.GridLayoutGroup"
+}

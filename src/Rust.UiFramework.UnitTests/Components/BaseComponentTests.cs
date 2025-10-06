@@ -1,7 +1,9 @@
+using System.Reflection;
 using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Libraries;
+using Oxide.Ext.UiFramework.Types;
 
 namespace Rust.UiFramework.UnitTests.Components;
 
@@ -78,6 +80,47 @@ public abstract class BasePopulateComponentTests<T>(Action<T> populateComponent)
         
         // Assert
         return Verify(component).IgnoreParametersForVerified();
+    }
+
+    [Fact]
+    public Task Component_Update_GeneratesCorrectJson()
+    {
+        // Arrange
+        using T component = UiPool.Internal.Get<T>();
+        using JsonFrameworkWriter writer = JsonFrameworkWriter.Create(UnitTestHelpers.UnitTestPool);
+        
+        // Act
+        PopulateComponent(component);
+        component.WriteComponent(writer, SerializeMode.Update);
+        
+        // Assert
+        string json = writer.ToString();
+        return VerifyAsJson ? VerifyJson(json) : Verify(json.Replace(",", ",\r\n").Replace(":", ": "));
+    }
+    
+    [Fact]
+    public void Component_TrackedValues_HaveExpectedValues()
+    {
+        // Arrange
+        using T component = UiPool.Internal.Get<T>();
+        
+        // Act
+        var values = component.GetType().GetFields(BindingFlags.Instance | BindingFlags.NonPublic)
+            .Where(f => f.FieldType.IsAssignableTo(typeof(ITrackedValue)))
+            .Select(f => new {Field = f, Tracked = (ITrackedValue)f.GetValue(component)})
+            .ToArray();
+        
+        // Assert
+        values.Should().AllSatisfy(v => v.Tracked.IsDefault.Should().BeTrue($"Is Default: {v.Field.Name}"));
+        values.Should().AllSatisfy(v => v.Tracked.HasChanged.Should().BeFalse($"Has Not Changed Before Populate: {v.Field.Name}"));
+        PopulateComponent(component);
+        values.Should().AllSatisfy(v => v.Tracked.HasChanged.Should().BeTrue($"Has Changed After Populate: {v.Field.Name}"));
+        component.ResetHasChanged();
+        values.Should().AllSatisfy(v => v.Tracked.HasChanged.Should().BeFalse($"Has Not Changed After ResetHasChanged: {v.Field.Name}"));
+        PopulateComponent(component);
+        component.Reset();
+        values.Should().AllSatisfy(v => v.Tracked.IsDefault.Should().BeTrue($"Is Default After Reset: {v.Field.Name}"));
+        values.Should().AllSatisfy(v => v.Tracked.HasChanged.Should().BeFalse($"Has Not Changed After Reset: {v.Field.Name}"));
     }
 }
 

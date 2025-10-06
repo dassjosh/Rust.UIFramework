@@ -21,6 +21,7 @@ public static class ComponentHelpers
         image.Material = UiMaterials.Icons.IconMaterial;
         image.ImageType = Image.Type.Sliced;
         image.PlaceholderFor = new UiReference("parent", "name");
+        image.FillCenter = false;
     }
 
     public static void PopulateButton(ButtonComponent button)
@@ -49,6 +50,7 @@ public static class ComponentHelpers
         text.Align = TextAnchor.UpperRight;
         text.Text = "text 123";
         text.VerticalOverflow = VerticalWrapMode.Overflow;
+        text.PlaceholderFor = new UiReference("parent", "name");
     }
 
     public static void PopulateInput(InputComponent input)
@@ -58,6 +60,7 @@ public static class ComponentHelpers
         input.Command = "command";
         input.Mode = InputMode.NeedsKeyboard | InputMode.AutoFocus;
         input.LineType = InputField.LineType.MultiLineNewline;
+        input.Placeholder = new UiReference("parent", "name");
     }
 
     public static void PopulateRawImage(RawImageComponent image)
@@ -65,6 +68,8 @@ public static class ComponentHelpers
         image.Color = UiColors.Yellow;
         image.FadeIn = 3.5f;
         image.Material = UiMaterials.Content.Ui.NameFontMaterial;
+        image.Image = "https://www.example.com";
+        image.PlaceholderFor = new UiReference("parent", "name");
     }
     
     public static void PopulatePlayerAvatar(PlayerAvatarComponent avatar)
@@ -81,6 +86,8 @@ public static class ComponentHelpers
         scrollView.Inertia = true;
         scrollView.DecelerationRate = 200f;
         scrollView.ScrollSensitivity = 300f;
+        scrollView.HorizontalScrollProgress = 0.1f;
+        scrollView.VerticalScrollProgress = 0.2f;
         scrollView.UpdateContentTransform(new UiPosition(0.1f, 0.2f, 0.3f, 0.4f), new UiOffset(100, 200, 300, 400), new Vector2(0.1f, 0.2f));
     }
 

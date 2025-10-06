@@ -4,7 +4,7 @@ using Oxide.Ext.UiFramework.Enums;
 
 namespace Oxide.Ext.UiFramework.Types;
 
-public class TrackedValue<T>
+public class TrackedValue<T> : ITrackedValue
 {
     private T _value;
     private T _defaultValue;
@@ -94,4 +94,10 @@ public class TrackedValue<T>
         HasChanged = false;
         _value = _defaultValue;
     }
+}
+
+public interface ITrackedValue
+{
+    bool HasChanged { get; }
+    bool IsDefault { get; }
 }

@@ -1,0 +1,18 @@
+﻿{
+  "align": "2",
+  "characterLimit": 16,
+  "color": "0 0.502 0",
+  "command": "command",
+  "fadeIn": 2,
+  "font": "permanentmarker.ttf",
+  "fontSize": 24,
+  "hudMenuInput": 0,
+  "lineType": "2",
+  "password": 0,
+  "placeholderId": "name",
+  "placeholderParentId": "name",
+  "readOnly": 0,
+  "text": "text 123",
+  "type": "UnityEngine.UI.InputField",
+  "verticalOverflow": "1"
+}

@@ -3,7 +3,7 @@
   "ComponentType": "ItemIcon",
   "Enabled": true,
   "FadeIn": 1.0,
-  "FillCenter": true,
+  "FillCenter": false,
   "ImageType": "Sliced",
   "ItemId": 123,
   "Material": "assets/icons/iconmaterial.mat",

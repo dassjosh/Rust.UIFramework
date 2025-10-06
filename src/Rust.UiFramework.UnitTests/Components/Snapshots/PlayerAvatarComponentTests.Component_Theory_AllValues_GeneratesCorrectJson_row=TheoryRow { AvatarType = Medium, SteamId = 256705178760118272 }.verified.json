@@ -2,6 +2,8 @@
   "color": "1 0.9216 0.0157",
   "fadeIn": 3.5,
   "material": "assets/content/ui/namefontmaterial.mat",
+  "placeholderParentId": "name",
   "steamid": "256705178760118272",
-  "type": "UnityEngine.UI.RawImage"
+  "type": "UnityEngine.UI.RawImage",
+  "url": "https://www.example.com"
 }

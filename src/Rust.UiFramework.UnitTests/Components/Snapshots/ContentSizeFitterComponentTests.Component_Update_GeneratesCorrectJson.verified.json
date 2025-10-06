@@ -1,0 +1,5 @@
+﻿{
+  "horizontalFit": "2",
+  "type": "UnityEngine.UI.ContentSizeFitter",
+  "verticalFit": "2"
+}

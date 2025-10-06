@@ -34,35 +34,6 @@ public abstract class BaseUiElementsTests<T> where T : BaseUiComponent, new()
         return ConfigureVerify(Verify(element), null);
     }
 
-    [Fact(Skip = "Fix later")]
-    public void UiUpdateable_Swap_SwapsCurrentAndPreviousAndEquals()
-    {
-        for (int i = 0; i < 25; i++)
-        {
-            // //Arrange
-            // T element = GetElement();
-            // Permutations.PopulateObject(element);
-            //
-            // //Act
-            // UpdatableBuilder builder = UpdatableBuilder.Create(UnitTestHelpers.Plugin);
-            // UiUpdatable<T> updatable = builder.AddUpdatable(element);
-            //
-            // //Assert
-            // updatable.Current.AreEquivalent(element).Should().BeTrue();
-            // updatable.Current.AreEquivalent(updatable._previous).Should().BeTrue();
-            // Permutations.PopulateObject(updatable.Current);
-            // updatable.Swap();
-            // updatable.Current.AreEquivalent(updatable._previous).Should().BeTrue();
-            // Permutations.PopulateObject(updatable.Current);
-            // updatable.Swap();
-            // updatable.Current.AreEquivalent(updatable._previous).Should().BeTrue();
-            //
-            // element.Dispose();
-            // updatable.Dispose();
-            // builder.Dispose();
-        }
-    }
-
     protected static T GetElement()
     {
         T element = UiPool.Internal.Get<T>();

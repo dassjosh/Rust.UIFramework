@@ -36,7 +36,7 @@ public abstract class BaseAnimation : BasePoolable
         Id = AnimationId.GetNextId();
         Plugin = plugin;
         Reference = reference;
-        Duration = duration;
+        Duration = duration ?? throw new ArgumentNullException(nameof(duration));
         UpdateState(AnimationState.Init);
     }
 

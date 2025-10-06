@@ -10,6 +10,8 @@
   "FontSize": 24,
   "LineType": "MultiLineNewline",
   "Mode": "NeedsKeyboard, AutoFocus",
+  "Placeholder": "parent:name",
+  "PlaceholderFor": "parent:name",
   "Text": "text 123",
   "Type": "UnityEngine.UI.InputField",
   "VerticalOverflow": "Overflow"
