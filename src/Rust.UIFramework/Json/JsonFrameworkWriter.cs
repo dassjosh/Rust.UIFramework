@@ -564,6 +564,12 @@ public sealed class JsonFrameworkWriter : BasePoolable
     }
     #endregion
 
+    public void ResetCommaState()
+    {
+        _objectComma = false;
+        _propertyComma = false;
+    }
+
     protected override void EnterPool()
     {
         _objectComma = false;
