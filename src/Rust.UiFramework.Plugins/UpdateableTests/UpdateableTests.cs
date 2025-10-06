@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Oxide.Ext.UiFramework.Builder;
+﻿using System.Linq;
 using Oxide.Ext.UiFramework.Builder.UI;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
@@ -11,7 +9,6 @@ using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.Types;
 using Oxide.Ext.UiFramework.UiElements;
-using Oxide.Plugins;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = Oxide.Core.Random;
@@ -95,11 +92,9 @@ public class UpdateableTests : RustPlugin, IUiFrameworkPlugin
         UiScrollView scroll = builder.ScrollView(body, UiPosition.Full, default, ScrollRect.MovementType.Clamped);
         scroll.AddVerticalScrollBar();
         scroll.UpdateContentTransform(UiPosition.Full, default, new Vector2(0f, 1f));
-
-        //Hack to select the ScrollView___Content GameObject
-        UiSection section = builder.Section(scroll).SetName($"{scroll.Reference.Name}___Content").SetUpdate(UpdateMode.Update).SetPadding(new UiPadding(20));
-        builder.ContentSizeFitter(section).SetVerticalFit(ContentSizeFitter.FitMode.PreferredSize);
-        GridLayoutComponent layout = builder.GridLayout(section).SetCellSize(new Vector2(150f, 150f)).SetSpacing(new Vector2(10f, 10f)).SetPadding(new UiPadding(20, 20));
+        
+        (UiSection scrollContent, GridLayoutComponent layout) = builder.GridLayout(scroll);
+        layout.SetCellSize(new Vector2(150f, 150f)).SetSpacing(new Vector2(10f, 10f)).SetPadding(new UiPadding(20, 20));
         
         //UpdatableBuilder updateable = state.Builder = UpdatableBuilder.Create(this);
 
