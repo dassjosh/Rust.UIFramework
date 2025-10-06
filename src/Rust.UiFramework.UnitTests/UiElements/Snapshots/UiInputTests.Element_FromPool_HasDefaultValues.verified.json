@@ -1,8 +1,10 @@
 ﻿{
   "Active": true,
+  "Color": "#FFFFFFFF",
   "Enabled": true,
   "FontSize": 14,
   "Input": {
+    "Color": "#FFFFFFFF",
     "ComponentType": "Input",
     "Enabled": true,
     "FontSize": 14,

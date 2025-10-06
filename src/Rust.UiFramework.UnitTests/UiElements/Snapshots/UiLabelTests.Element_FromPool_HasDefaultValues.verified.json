@@ -1,8 +1,10 @@
 ﻿{
   "Active": true,
+  "Color": "#FFFFFFFF",
   "Enabled": true,
   "FontSize": 14,
   "Text": {
+    "Color": "#FFFFFFFF",
     "ComponentType": "Text",
     "Enabled": true,
     "FontSize": 14,

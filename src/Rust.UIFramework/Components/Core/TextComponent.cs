@@ -9,7 +9,7 @@ namespace Oxide.Ext.UiFramework.Components;
 
 public class TextComponent : CoreComponent, IGraphicalComponent
 {
-    private readonly TrackedValue<UiColor> _color = new();
+    private readonly TrackedValue<UiColor> _color = new(JsonDefaults.Color.ColorValue);
     private readonly TrackedValue<float> _fadeIn = new(JsonDefaults.Common.FadeIn);
     private readonly TrackedValue<int> _fontSize = new(JsonDefaults.Text.FontSize);
     private readonly TrackedValue<string> _font = new();
