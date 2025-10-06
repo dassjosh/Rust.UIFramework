@@ -55,7 +55,7 @@ public partial class BaseUiBuilder
     public T Update<T>(string name) where T : BaseUiComponent, new()
     {
         if (string.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
-        T component = PluginPool.Get<T>().SetUpdate(UpdateMode.Update);
+        T component = PluginPool.Get<T>().SetUpdate(UpdateMode.Update).SetName(name);
         Components.Add(component);
         return component;
     }
