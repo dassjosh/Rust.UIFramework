@@ -51,6 +51,21 @@
   {
     "components": [
       {
+        "color": "0 0.502 0",
+        "type": "UnityEngine.UI.Image"
+      },
+      {
+        "offsetmax": "0 0",
+        "type": "RectTransform"
+      }
+    ],
+    "destroyUi": "UI",
+    "name": "UI",
+    "parent": "Overlay"
+  },
+  {
+    "components": [
+      {
         "color": "0 0 1",
         "command": "command",
         "type": "UnityEngine.UI.Button"
@@ -62,7 +77,7 @@
         "type": "RectTransform"
       }
     ],
-    "name": "UI_4",
+    "name": "UI_2",
     "parent": "UI"
   },
   {
@@ -76,23 +91,8 @@
         "type": "RectTransform"
       }
     ],
-    "name": "UI_5",
-    "parent": "UI_4"
-  },
-  {
-    "components": [
-      {
-        "color": "0 0.502 0",
-        "type": "UnityEngine.UI.Image"
-      },
-      {
-        "offsetmax": "0 0",
-        "type": "RectTransform"
-      }
-    ],
-    "destroyUi": "UI",
-    "name": "UI",
-    "parent": "Overlay"
+    "name": "UI_3",
+    "parent": "UI_2"
   },
   {
     "components": [

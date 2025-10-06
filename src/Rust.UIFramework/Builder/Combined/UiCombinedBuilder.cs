@@ -60,7 +60,8 @@ public class UiCombinedBuilder : BaseBuilder
         {
             BaseBuilder builder = _builders[index];
             builder.Combine(send, writer);
-            if (index != _builders.Count)
+            writer.ResetCommaState();
+            if (index != _builders.Count - 1)
             {
                 writer.WriteComma();
             }

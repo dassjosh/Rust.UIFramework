@@ -2,6 +2,16 @@
   {
     "components": [
       {
+        "color": "1 0.6471 0",
+        "type": "UnityEngine.UI.Image"
+      }
+    ],
+    "name": "panel",
+    "update": 1
+  },
+  {
+    "components": [
+      {
         "color": "1 0 0",
         "type": "UnityEngine.UI.Image"
       },
@@ -51,37 +61,6 @@
   {
     "components": [
       {
-        "color": "0 0 1",
-        "command": "command",
-        "type": "UnityEngine.UI.Button"
-      },
-      {
-        "anchormax": "0.75 0.75",
-        "anchormin": "0.25 0.25",
-        "offsetmax": "0 0",
-        "type": "RectTransform"
-      }
-    ],
-    "name": "UI_4",
-    "parent": "UI"
-  },
-  {
-    "components": [
-      {
-        "sprite": "sprite",
-        "type": "UnityEngine.UI.Image"
-      },
-      {
-        "offsetmax": "0 0",
-        "type": "RectTransform"
-      }
-    ],
-    "name": "UI_5",
-    "parent": "UI_4"
-  },
-  {
-    "components": [
-      {
         "color": "0 0.502 0",
         "type": "UnityEngine.UI.Image"
       },
@@ -97,11 +76,32 @@
   {
     "components": [
       {
-        "color": "1 0.6471 0",
-        "type": "UnityEngine.UI.Image"
+        "color": "0 0 1",
+        "command": "command",
+        "type": "UnityEngine.UI.Button"
+      },
+      {
+        "anchormax": "0.75 0.75",
+        "anchormin": "0.25 0.25",
+        "offsetmax": "0 0",
+        "type": "RectTransform"
       }
     ],
-    "name": "panel",
-    "update": 1
+    "name": "UI_2",
+    "parent": "UI"
+  },
+  {
+    "components": [
+      {
+        "sprite": "sprite",
+        "type": "UnityEngine.UI.Image"
+      },
+      {
+        "offsetmax": "0 0",
+        "type": "RectTransform"
+      }
+    ],
+    "name": "UI_3",
+    "parent": "UI_2"
   }
 ]
