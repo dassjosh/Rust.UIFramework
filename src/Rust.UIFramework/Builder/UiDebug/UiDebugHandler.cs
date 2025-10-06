@@ -26,7 +26,7 @@ internal static class UiDebugHandler
         if (options.Mode.HasFlag(UiDebugModes.File))
         {
             using FileStream stream = GetDebugStream(plugin, in options);
-            writer.WriteToStream(plugin, stream);
+            writer.WriteToStream(stream);
             stream.Flush(true);
         }
     }
