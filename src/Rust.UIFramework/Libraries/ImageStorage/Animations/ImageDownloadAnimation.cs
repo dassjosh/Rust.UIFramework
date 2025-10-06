@@ -27,7 +27,7 @@ public class ImageDownloadAnimation : BaseAnimation
 
     private void Init(IAnimationBuilder builder, ITriggeredDuration duration, in UiReference reference, ImageDownloadOptions options)
     {
-        base.Init(builder.Plugin, reference, _duration);
+        base.Init(builder.Plugin, reference, duration);
         _duration = duration;
         _timeoutImage = options.AutomaticUpdate.TimeoutImageNameOrUrl;
         _failedImage = options.FailedImageNameOrUrl;
