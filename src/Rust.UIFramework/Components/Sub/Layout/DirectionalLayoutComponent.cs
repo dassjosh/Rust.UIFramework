@@ -4,7 +4,7 @@ using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-public abstract class BaseDirectionalLayoutComponent : BaseLayoutComponent
+public class DirectionalLayoutComponent : BaseLayoutComponent
 {
     private readonly TrackedValue<float> _spacing = new(JsonDefaults.DirectionalLayout.Spacing);
     private readonly TrackedValue<bool> _childForceExpandWidth = new(JsonDefaults.DirectionalLayout.ChildForceExpandWidth);
@@ -13,6 +13,7 @@ public abstract class BaseDirectionalLayoutComponent : BaseLayoutComponent
     private readonly TrackedValue<bool> _childControlHeight = new(JsonDefaults.DirectionalLayout.ChildControlHeight);
     private readonly TrackedValue<bool> _childScaleWidth = new(JsonDefaults.DirectionalLayout.ChildScaleWidth);
     private readonly TrackedValue<bool> _childScaleHeight = new(JsonDefaults.DirectionalLayout.ChildScaleHeight);
+    private readonly TrackedValue<LayoutDirection> _layoutDirection = new();
     
     public float Spacing { get => _spacing.Value; set => _spacing.Value = value; }
     public bool ChildForceExpandWidth { get => _childForceExpandWidth.Value; set => _childForceExpandWidth.Value = value; }
@@ -21,6 +22,10 @@ public abstract class BaseDirectionalLayoutComponent : BaseLayoutComponent
     public bool ChildControlHeight { get => _childControlHeight.Value; set => _childControlHeight.Value = value; }
     public bool ChildScaleWidth { get => _childScaleWidth.Value; set => _childScaleWidth.Value = value; }
     public bool ChildScaleHeight { get => _childScaleHeight.Value; set => _childScaleHeight.Value = value; }
+    public LayoutDirection Direction { get => _layoutDirection.Value; set => _layoutDirection.Value = value; }
+    
+    public override Utf8String Type => Direction == LayoutDirection.Horizontal ? JsonDefaults.DirectionalLayout.HorizontalType : JsonDefaults.DirectionalLayout.VerticalType;
+    public override ComponentType ComponentType => ComponentType.DirectionalLayout;
 
     protected override void WriteComponentFields(JsonFrameworkWriter writer, SerializeMode mode)
     {
@@ -33,9 +38,64 @@ public abstract class BaseDirectionalLayoutComponent : BaseLayoutComponent
         writer.AddField(JsonDefaults.DirectionalLayout.ChildScaleHeightName, _childScaleHeight, mode);
     }
 
+    public DirectionalLayoutComponent SetSpacing(float spacing)
+    {
+        Spacing = spacing;
+        return this;
+    }
+
+    public DirectionalLayoutComponent SetChildForceExpandWidth(bool childForceExpandWidth)
+    {
+        ChildForceExpandWidth = childForceExpandWidth;
+        return this;
+    }
+    
+    public DirectionalLayoutComponent SetChildForceExpandHeight(bool childForceExpandHeight)
+    {
+        ChildForceExpandHeight = childForceExpandHeight;
+        return this;
+    }
+
+    public DirectionalLayoutComponent SetChildControlWidth(bool childControlWidth)
+    {
+        ChildControlWidth = childControlWidth;
+        return this;
+    }
+
+    public DirectionalLayoutComponent SetChildControlHeight(bool childControlHeight)
+    {
+        ChildControlHeight = childControlHeight;
+        return this;
+    }
+
+    public DirectionalLayoutComponent SetChildScaleWidth(bool childScaleWidth)
+    {
+        ChildScaleWidth = childScaleWidth;
+        return this;
+    }
+
+    public DirectionalLayoutComponent SetChildScaleHeight(bool childScaleHeight)
+    {
+        ChildScaleHeight = childScaleHeight;
+        return this;
+    }
+    
+    public DirectionalLayoutComponent SetLayoutDirection(LayoutDirection layoutDirection)
+    {
+        Direction = layoutDirection;
+        return this;
+    }
+
     public override bool HasChanged()
     {
-        return _spacing.HasChanged || _childForceExpandWidth.HasChanged || _childForceExpandHeight.HasChanged || _childControlWidth.HasChanged || _childControlHeight.HasChanged || _childScaleWidth.HasChanged || _childScaleHeight.HasChanged;
+        return _spacing.HasChanged
+               || _childForceExpandWidth.HasChanged
+               || _childForceExpandHeight.HasChanged
+               || _childControlWidth.HasChanged
+               || _childControlHeight.HasChanged
+               || _childScaleWidth.HasChanged
+               || _childScaleHeight.HasChanged
+               || _layoutDirection.HasChanged;
     }
     
     public override void ResetHasChanged()
@@ -47,17 +107,19 @@ public abstract class BaseDirectionalLayoutComponent : BaseLayoutComponent
         _childControlHeight.ResetHasChanged();
         _childScaleWidth.ResetHasChanged();
         _childScaleHeight.ResetHasChanged();
+        _layoutDirection.ResetHasChanged();
     }
 
     public override void Reset()
     {
         base.Reset();
-        Spacing = JsonDefaults.DirectionalLayout.Spacing;
-        ChildForceExpandWidth = JsonDefaults.DirectionalLayout.ChildForceExpandWidth;
-        ChildForceExpandHeight = JsonDefaults.DirectionalLayout.ChildForceExpandHeight;
-        ChildControlWidth = JsonDefaults.DirectionalLayout.ChildControlWidth;
-        ChildControlHeight = JsonDefaults.DirectionalLayout.ChildControlHeight;
-        ChildScaleWidth = JsonDefaults.DirectionalLayout.ChildScaleWidth;
-        ChildScaleHeight = JsonDefaults.DirectionalLayout.ChildScaleHeight;
+        _spacing.Reset();
+        _childForceExpandWidth.Reset();
+        _childForceExpandHeight.Reset();
+        _childControlWidth.Reset();
+        _childControlHeight.Reset();
+        _childScaleWidth.Reset();
+        _childScaleHeight.Reset();
+        _layoutDirection.Reset();
     }
 }

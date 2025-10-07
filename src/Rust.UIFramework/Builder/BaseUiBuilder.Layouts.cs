@@ -1,4 +1,5 @@
-﻿using Oxide.Ext.UiFramework.Layouts;
+﻿using Oxide.Ext.UiFramework.Enums;
+using Oxide.Ext.UiFramework.Layouts;
 using Oxide.Ext.UiFramework.Layouts.GridPositions;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;

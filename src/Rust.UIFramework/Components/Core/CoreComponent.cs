@@ -64,11 +64,8 @@ public abstract class CoreComponent : BaseTypedComponent, ICoreComponent
             case ComponentType.Slot:
                 subComponent = PluginPool.Get<SlotComponent>();
                 break;
-            case ComponentType.HorizontalLayout:
-                subComponent = PluginPool.Get<HorizontalLayoutComponent>();
-                break;
-            case ComponentType.VerticalLayout:
-                subComponent = PluginPool.Get<VerticalLayoutComponent>();
+            case ComponentType.DirectionalLayout:
+                subComponent = PluginPool.Get<DirectionalLayoutComponent>();
                 break;
             case ComponentType.GridLayout:
                 subComponent = PluginPool.Get<GridLayoutComponent>();

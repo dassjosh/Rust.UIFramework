@@ -3,7 +3,7 @@
   "Card": {
     "CardType": "SmallTransparent",
     "Color": "#808080FF",
-    "ComponentType": "CoreEnd",
+    "ComponentType": "PlayingCard",
     "Enabled": true,
     "FadeIn": 1.5,
     "Material": "assets/icons/iconmaterial.mat",

@@ -11,7 +11,7 @@
   "ScrollView": {
     "ComponentType": "ScrollView",
     "ContentTransform": {
-      "ComponentType": "ScrollView",
+      "ComponentType": "ScrollViewContent",
       "Pivot": "0.5 0.5",
       "Position": "(0, 0) (1, 1)"
     },

@@ -2,7 +2,7 @@
   "Active": true,
   "Card": {
     "Color": "#FFFFFFFF",
-    "ComponentType": "CoreEnd",
+    "ComponentType": "PlayingCard",
     "Enabled": true,
     "Material": "assets/content/ui/namefontmaterial.mat",
     "Type": "UnityEngine.UI.RawImage"

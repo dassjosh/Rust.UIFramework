@@ -211,7 +211,14 @@ public static class Permutations
             int numSub = Random.Next(0, 3);
             for (int i = 0; i < numSub; i++)
             {
-                SubComponent sub = core.GetOrAddSubComponentByType((ComponentType)Random.Next((int)ComponentType.SubStart, (int)ComponentType.SubEnd + 1));
+                ComponentType type = (ComponentType)Random.Next((int)ComponentTypeExt.SubStart, (int)ComponentTypeExt.SubEnd + 1);
+                if (!Enum.IsDefined(type))
+                {
+                    i--;
+                    continue;
+                }
+                
+                SubComponent sub = core.GetOrAddSubComponentByType(type);
                 PopulateObject(sub);
             }
         }

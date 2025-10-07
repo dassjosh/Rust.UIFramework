@@ -65,8 +65,9 @@ public static class SubComponentHelpers
         layout.ConstraintCount = 2;
     }
 
-    public static void PopulateDirectionalLayout(BaseDirectionalLayoutComponent layout)
+    public static void PopulateDirectionalLayout(DirectionalLayoutComponent layout)
     {
+        layout.Direction = LayoutDirection.Horizontal;
         layout.Spacing = 10;
         layout.ChildForceExpandWidth = false;
         layout.ChildForceExpandHeight = false;

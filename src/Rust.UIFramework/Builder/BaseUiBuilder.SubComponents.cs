@@ -82,10 +82,11 @@ public abstract partial class BaseUiBuilder
     }
     #endregion
 
-    #region Horizontal Layout
-    public HorizontalLayoutComponent HorizontalLayout(BaseUiComponent component) => component.GetOrAddLayoutComponent<HorizontalLayoutComponent>();
+    #region Directional Layout
+    public DirectionalLayoutComponent DirectionalLayout(BaseUiComponent component, LayoutDirection direction) => component.GetOrAddLayoutComponent<DirectionalLayoutComponent>().SetLayoutDirection(direction);
     
-    public HorizontalLayoutComponent HorizontalLayout(BaseUiComponent component,
+    public DirectionalLayoutComponent DirectionalLayout(BaseUiComponent component,
+        LayoutDirection direction,
         float spacing = JsonDefaults.DirectionalLayout.Spacing,
         TextAnchor childAlignment = JsonDefaults.Layout.ChildAlignment,
         bool childForceExpandWidth = JsonDefaults.DirectionalLayout.ChildForceExpandWidth,
@@ -96,7 +97,7 @@ public abstract partial class BaseUiBuilder
         bool childScaleHeight = JsonDefaults.DirectionalLayout.ChildScaleHeight,
         in UiPadding padding = default)
     {
-        HorizontalLayoutComponent layout = component.GetOrAddLayoutComponent<HorizontalLayoutComponent>();
+        DirectionalLayoutComponent layout = DirectionalLayout(component, direction);
         layout.Spacing = spacing;
         layout.ChildAlignment = childAlignment;
         layout.ChildForceExpandWidth = childForceExpandWidth;
@@ -109,14 +110,15 @@ public abstract partial class BaseUiBuilder
         return layout;
     }
     
-    public UiTuple<UiSection, HorizontalLayoutComponent> HorizontalLayout(UiScrollView scroll, AutoSizeDirection autoSize = AutoSizeDirection.Horizontal)
+    public UiTuple<UiSection, DirectionalLayoutComponent> DirectionalLayout(UiScrollView scroll, LayoutDirection direction, AutoSizeDirection autoSize = AutoSizeDirection.Horizontal)
     {
         UiSection section = AutoSizedScrollView(scroll, autoSize);
-        HorizontalLayoutComponent layout = HorizontalLayout(section);
+        DirectionalLayoutComponent layout = DirectionalLayout(section, direction);
         return UiTuple.Create(section, layout);
     }
     
-    public UiTuple<UiSection, HorizontalLayoutComponent> HorizontalLayout(UiScrollView scroll,
+    public UiTuple<UiSection, DirectionalLayoutComponent> DirectionalLayout(UiScrollView scroll,
+        LayoutDirection direction,
         float spacing = JsonDefaults.DirectionalLayout.Spacing,
         TextAnchor childAlignment = JsonDefaults.Layout.ChildAlignment,
         bool childForceExpandWidth = JsonDefaults.DirectionalLayout.ChildForceExpandWidth,
@@ -129,59 +131,7 @@ public abstract partial class BaseUiBuilder
         AutoSizeDirection autoSize = AutoSizeDirection.Horizontal)
     {
         UiSection section = AutoSizedScrollView(scroll, autoSize);
-        HorizontalLayoutComponent layout = HorizontalLayout(section, spacing, childAlignment, childForceExpandWidth, childForceExpandHeight, childControlWidth, childControlHeight, childScaleWidth, childScaleHeight, padding);
-        return UiTuple.Create(section, layout);
-    }
-    #endregion
-    
-    #region Vertical Layout
-    public VerticalLayoutComponent VerticalLayout(BaseUiComponent component) => component.GetOrAddLayoutComponent<VerticalLayoutComponent>();
-    
-    public VerticalLayoutComponent VerticalLayout(BaseUiComponent component,
-        float spacing = JsonDefaults.DirectionalLayout.Spacing,
-        TextAnchor childAlignment = JsonDefaults.Layout.ChildAlignment,
-        bool childForceExpandWidth = JsonDefaults.DirectionalLayout.ChildForceExpandWidth,
-        bool childForceExpandHeight = JsonDefaults.DirectionalLayout.ChildForceExpandHeight,
-        bool childControlWidth = JsonDefaults.DirectionalLayout.ChildControlWidth,
-        bool childControlHeight = JsonDefaults.DirectionalLayout.ChildControlHeight,
-        bool childScaleWidth = JsonDefaults.DirectionalLayout.ChildScaleWidth,
-        bool childScaleHeight = JsonDefaults.DirectionalLayout.ChildScaleHeight,
-        in UiPadding padding = default)
-    {
-        VerticalLayoutComponent layout = component.GetOrAddLayoutComponent<VerticalLayoutComponent>();
-        layout.Spacing = spacing;
-        layout.ChildAlignment = childAlignment;
-        layout.ChildForceExpandWidth = childForceExpandWidth;
-        layout.ChildForceExpandHeight = childForceExpandHeight;
-        layout.ChildControlWidth = childControlWidth;
-        layout.ChildControlHeight = childControlHeight;
-        layout.ChildScaleWidth = childScaleWidth;
-        layout.ChildScaleHeight = childScaleHeight;
-        layout.Padding = padding;
-        return layout;
-    }
-
-    public UiTuple<UiSection, VerticalLayoutComponent> VerticalLayout(UiScrollView scroll, AutoSizeDirection autoSize = AutoSizeDirection.Vertical)
-    {
-        UiSection section = AutoSizedScrollView(scroll, autoSize);
-        VerticalLayoutComponent layout = VerticalLayout(section);
-        return UiTuple.Create(section, layout);
-    }
-    
-    public UiTuple<UiSection, VerticalLayoutComponent> VerticalLayout(UiScrollView scroll,
-        float spacing = JsonDefaults.DirectionalLayout.Spacing,
-        TextAnchor childAlignment = JsonDefaults.Layout.ChildAlignment,
-        bool childForceExpandWidth = JsonDefaults.DirectionalLayout.ChildForceExpandWidth,
-        bool childForceExpandHeight = JsonDefaults.DirectionalLayout.ChildForceExpandHeight,
-        bool childControlWidth = JsonDefaults.DirectionalLayout.ChildControlWidth,
-        bool childControlHeight = JsonDefaults.DirectionalLayout.ChildControlHeight,
-        bool childScaleWidth = JsonDefaults.DirectionalLayout.ChildScaleWidth,
-        bool childScaleHeight = JsonDefaults.DirectionalLayout.ChildScaleHeight,
-        in UiPadding padding = default,
-        AutoSizeDirection autoSize = AutoSizeDirection.Vertical)
-    {
-        UiSection section = AutoSizedScrollView(scroll, autoSize);
-        VerticalLayoutComponent layout = VerticalLayout(section, spacing, childAlignment, childForceExpandWidth, childForceExpandHeight, childControlWidth, childControlHeight, childScaleWidth, childScaleHeight, padding);
+        DirectionalLayoutComponent layout = DirectionalLayout(section, direction, spacing, childAlignment, childForceExpandWidth, childForceExpandHeight, childControlWidth, childControlHeight, childScaleWidth, childScaleHeight, padding);
         return UiTuple.Create(section, layout);
     }
     #endregion

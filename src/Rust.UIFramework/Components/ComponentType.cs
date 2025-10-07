@@ -1,4 +1,7 @@
-﻿namespace Oxide.Ext.UiFramework.Components;
+﻿using System;
+using System.Linq;
+
+namespace Oxide.Ext.UiFramework.Components;
 
 public enum ComponentType : ushort
 {
@@ -21,20 +24,12 @@ public enum ComponentType : ushort
    Countdown = 104,
    Draggable = 105,
    Slot = 106,
-   HorizontalLayout = 107,
-   VerticalLayout = 108,
-   GridLayout = 109,
-   ContentSizeFitter = 110,
-   LayoutElement = 111,
+   DirectionalLayout = 107,
+   GridLayout = 108,
+   ContentSizeFitter = 109,
+   LayoutElement = 110,
    
    ColorBlock = 1000,
    ScrollBar = 1001,
    ScrollViewContent = 1002,
-   
-   CoreStart = Empty,
-   CoreEnd = PlayingCard,
-   SubStart = RectTransform,
-   SubEnd = LayoutElement,
-   ChildStart = ColorBlock,
-   ChildEnd = ScrollViewContent,
 }

@@ -1,4 +1,4 @@
-﻿namespace Oxide.Ext.UiFramework.Layouts;
+﻿namespace Oxide.Ext.UiFramework.Enums;
 
 public enum LayoutDirection : byte
 {
