@@ -17,7 +17,7 @@ public class ScrollViewContentComponent : ChildComponent
     public UiOffset Offset { get => _offset.Value; set => _offset.Value = value; }
     public Vector2 Pivot { get => _pivot.Value; set => _pivot.Value = value; }
     
-    public override ComponentType ComponentType => ComponentType.ScrollView;
+    public override ComponentType ComponentType => ComponentType.ScrollViewContent;
     
     public override void WriteComponent(JsonFrameworkWriter writer, SerializeMode mode)
     {
