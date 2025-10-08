@@ -24,7 +24,7 @@ internal static class CuiHelper_AddUi_Patch
     
     internal static void Patch()
     {
-        if (!UiFrameworkConfig.Instance.Harmony.PatchAddUiMethod)
+        if (UiFrameworkConfig.Instance.Harmony.PatchAddUiMethod)
         {
             foreach (ToggleablePatch patch in Patches)
             {
