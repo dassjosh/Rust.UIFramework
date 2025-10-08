@@ -28,11 +28,11 @@ internal static class UiBorderWidthCache
         StringBuilder builder = UiPool.Internal.GetStringBuilder();
         builder.Append(FormatCache<float>.ToString(border.Left, Format));
         builder.Append(Space);
-        builder.Append(FormatCache<float>.ToString(border.Top, Format));
+        builder.Append(FormatCache<float>.ToString(border.Bottom, Format));
         builder.Append(Space);
         builder.Append(FormatCache<float>.ToString(border.Right, Format));
         builder.Append(Space);
-        builder.Append(FormatCache<float>.ToString(border.Bottom, Format));
+        builder.Append(FormatCache<float>.ToString(border.Top, Format));
         return UiPool.Internal.ToStringAndFree(builder);
     }
 }
