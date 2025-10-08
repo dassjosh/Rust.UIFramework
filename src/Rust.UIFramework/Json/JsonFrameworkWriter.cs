@@ -130,6 +130,12 @@ public sealed class JsonFrameworkWriter : BasePoolable
         WriteValue(Utf8EnumCache<T>.ToUtf8Number(value));
     }
     
+    public void AddFieldRaw(in Utf8String name, in UiBorderWidth value)
+    {
+        WritePropertyName(name);
+        WriteValue(value);
+    }
+    
     public void AddField(in Utf8String name, Vector2 value, Vector2 defaultValue)
     {
         if (value != defaultValue)
@@ -228,15 +234,6 @@ public sealed class JsonFrameworkWriter : BasePoolable
     }
     
     public void AddField(in Utf8String name, TrackedValue<UiColor> value, SerializeMode mode)
-    {
-        if (value.ShouldSerialize(mode))
-        {
-            WritePropertyName(name);
-            WriteValue(value.Value);
-        }
-    }
-    
-    public void AddField(in Utf8String name, TrackedValue<UiBorderWidth> value, SerializeMode mode)
     {
         if (value.ShouldSerialize(mode))
         {
