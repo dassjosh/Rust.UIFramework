@@ -125,7 +125,7 @@ public static class JsonDefaults
         public const bool FillCenter = true;
         
         public static readonly Utf8String SliceName = "slice";
-        public static readonly UiBorderWidth Slice = UiBorderWidth.One;
+        public static readonly UiBorderWidth Slice = UiBorderWidth.Empty;
     }
 
     public static class ItemIcon
