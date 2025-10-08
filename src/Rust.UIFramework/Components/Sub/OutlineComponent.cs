@@ -9,7 +9,7 @@ namespace Oxide.Ext.UiFramework.Components;
 public class OutlineComponent : SubComponent
 {
     private readonly TrackedValue<UiColor> _color = new();
-    private readonly TrackedValue<Vector2> _distance = new(JsonDefaults.Outline.Distance);
+    private readonly TrackedValue<Vector2> _distance = new(JsonDefaults.Outline.Distance, JsonDefaults.Outline.FpDistance);
     private readonly TrackedValue<bool> _useGraphicAlpha = new();
     
     public UiColor Color { get => _color.Value; set => _color.Value = value; }

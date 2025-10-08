@@ -7,7 +7,8 @@ namespace Oxide.Ext.UiFramework.Types;
 public class TrackedValue<T> : ITrackedValue
 {
     private T _value;
-    private T _defaultValue;
+    private readonly T _frameworkDefault;
+    private readonly T _serializationDefault;
 
     /// <summary>
     /// Gets a value indicating whether the Value property has been set
@@ -21,10 +22,16 @@ public class TrackedValue<T> : ITrackedValue
         private set;
     }
 
-    public bool IsDefault
+    public bool IsFrameworkDefault
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        get => EqualityComparer<T>.Default.Equals(_value, _defaultValue);
+        get => EqualityComparer<T>.Default.Equals(_value, _frameworkDefault);
+    }
+    
+    public bool IsSerializationDefault
+    {
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        get => EqualityComparer<T>.Default.Equals(_value, _serializationDefault);
     }
 
     /// <summary>
@@ -42,6 +49,19 @@ public class TrackedValue<T> : ITrackedValue
             HasChanged = true;
         }
     }
+    
+    /// <summary>
+    /// Initializes a new instance of the TrackedValue class with a specified value.
+    /// </summary>
+    /// <param name="frameworkDefault">The default value to assign on Reset().</param>
+    /// <param name="serializationDefault">The default value for CUI serialization.</param>
+    public TrackedValue(T frameworkDefault, T serializationDefault)
+    {
+        _frameworkDefault = frameworkDefault;
+        _serializationDefault = serializationDefault;
+        _value = frameworkDefault;
+        HasChanged = false;
+    }
 
     /// <summary>
     /// Initializes a new instance of the TrackedValue class with a specified value.
@@ -49,7 +69,7 @@ public class TrackedValue<T> : ITrackedValue
     /// <param name="defaultValue">The default value to assign.</param>
     public TrackedValue(T defaultValue)
     {
-        _defaultValue = _value = defaultValue;
+        _serializationDefault = _frameworkDefault = _value = defaultValue;
         HasChanged = false;
     }
         
@@ -68,7 +88,7 @@ public class TrackedValue<T> : ITrackedValue
         switch (mode)
         {
             case SerializeMode.Create:
-                return !IsDefault;
+                return !IsSerializationDefault;
             case SerializeMode.Update:
                 return HasChanged;
             default:
@@ -84,20 +104,15 @@ public class TrackedValue<T> : ITrackedValue
         HasChanged = false;
     }
 
-    public void OverrideDefault(T @default)
-    {
-        _defaultValue = @default;
-    }
-
     public void Reset()
     {
         HasChanged = false;
-        _value = _defaultValue;
+        _value = _frameworkDefault;
     }
 }
 
 public interface ITrackedValue
 {
     bool HasChanged { get; }
-    bool IsDefault { get; }
+    bool IsFrameworkDefault { get; }
 }
