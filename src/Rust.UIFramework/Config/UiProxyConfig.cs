@@ -2,7 +2,7 @@
 
 namespace Oxide.Ext.UiFramework.Config;
 
-public class UiProxyConfig
+internal class UiProxyConfig
 {
     [JsonProperty("Enable Proxy")]
     public bool EnableProxy { get; set; }

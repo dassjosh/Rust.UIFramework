@@ -2,7 +2,7 @@
 
 namespace Oxide.Ext.UiFramework.Config;
 
-public class UiFontConfig
+internal class UiFontConfig
 {
     [JsonProperty("Default Font")]
     public string DefaultFont { get; set; }

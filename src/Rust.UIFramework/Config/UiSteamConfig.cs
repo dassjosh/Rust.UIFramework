@@ -2,7 +2,7 @@
 
 namespace Oxide.Ext.UiFramework.Config;
 
-public class UiSteamConfig
+internal class UiSteamConfig
 {
     [JsonProperty("Steamworks API Key")]
     public string ApiKey { get; set; }

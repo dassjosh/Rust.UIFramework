@@ -2,7 +2,7 @@
 
 namespace Oxide.Ext.UiFramework.Config;
 
-public class UiImageStorageConfig
+internal class UiImageStorageConfig
 {
     [JsonProperty("Max Concurrent Image Downloads")]
     public int MaxConcurrentDownloads { get; set; }
