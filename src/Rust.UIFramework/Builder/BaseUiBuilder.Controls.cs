@@ -475,6 +475,7 @@ public partial class BaseUiBuilder
     #endregion
         
     #region Border
+    [Obsolete("Use Border(UiReference parent, UiBorderWidth width, UiColor? color = default) instead")]
     public UiBorder Border(in UiReference parent, UiColor color, in UiBorderWidth width, BorderMode border = BorderMode.All)
     {
         UiBorder control = UiBorder.Create(this, parent, color, width, border);

@@ -30,6 +30,12 @@ internal class UiFrameworkConfig : ConfigFile
     public UiImageStorageConfig ImageStorage { get; set; }
     
     /// <summary>
+    /// UiFramework Image DB Options
+    /// </summary>
+    [JsonProperty("ImageDB")]
+    public UiImageDbConfig ImageDb { get; set; }
+    
+    /// <summary>
     /// UiFramework Image Storage Options
     /// </summary>
     [JsonProperty("Animations")]
@@ -121,6 +127,13 @@ internal class UiFrameworkConfig : ConfigFile
         {
             MaxConcurrentDownloads = ImageStorage?.MaxConcurrentDownloads ?? 5,
             MaxDownloadAttempts = ImageStorage?.MaxDownloadAttempts ?? 3,
+        };
+
+        ImageDb = new UiImageDbConfig
+        {
+            Enabled = ImageDb?.Enabled ?? true,
+            CacheSize = 25 * 1024 * 1024,
+            UnusedImageMaxDays = 30
         };
         
         Steam = new UiSteamConfig

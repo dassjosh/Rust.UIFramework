@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using HarmonyLib;
 using Network;
+using Oxide.Core;
 using Oxide.Core.Libraries.Covalence;
 using Oxide.Core.Plugins;
 using Oxide.Ext.UiFramework.Animation;
@@ -23,6 +26,7 @@ internal class UiFrameworkPlugin : BaseUiFrameworkPlugin, IUiFrameworkPlugin
     public readonly PluginId PluginId;
     private readonly object _true = true;
     public UiPluginPool PluginPool { get; set; } = UiPool.Internal;
+    public HarmonyLib.Harmony Harmony => HarmonyInstance;
     
     public UiFrameworkPlugin()
     {
@@ -47,14 +51,16 @@ internal class UiFrameworkPlugin : BaseUiFrameworkPlugin, IUiFrameworkPlugin
         IconsLib.RegisterIcons<Icons>(this, @enum => string.Format(DefaultIconFormats.RustIconsFormat, (int)@enum), icon => icon.SetMaterial(UiMaterials.Icons.IconMaterial));
         IconsLib.RegisterIcons<FontAwesomeRegularIcons>(this, @enum => string.Format(DefaultIconFormats.FontAwesomeRegularFormat, @enum), icon => icon.SetMaterial(UiMaterials.Icons.IconMaterial));
         IconsLib.RegisterIcons<FontAwesomeSolidIcons>(this, @enum => string.Format(DefaultIconFormats.FontAwesomeSolidFormat, @enum), icon => icon.SetMaterial(UiMaterials.Icons.IconMaterial));
+        
+        BaseUiFrameworkLibrary.ProcessOnInit();
     }
 
     // ReSharper disable once UnusedMember.Local
     [HookMethod(nameof(OnServerInitialized))]
     internal void OnServerInitialized()
     {
-        BaseUiFrameworkLibrary.ProcessOnServerInitialized();
         UiHarmony.Initialize();
+        BaseUiFrameworkLibrary.ProcessOnServerInitialized();
     }
     
     // ReSharper disable once UnusedMember.Local
@@ -64,6 +70,7 @@ internal class UiFrameworkPlugin : BaseUiFrameworkPlugin, IUiFrameworkPlugin
         Singleton<DataHandler>.Instance.OnServerSave();
         BaseMemoryCache.ExpireCaches();
         Singleton<ImageUpdateAnimations>.Instance.CleanupOldUpdates();
+        BaseUiFrameworkLibrary.ProcessOnServerSave();
     }
     
     // ReSharper disable once UnusedMember.Local
@@ -103,9 +110,15 @@ internal class UiFrameworkPlugin : BaseUiFrameworkPlugin, IUiFrameworkPlugin
     [HookMethod(nameof(OnEntitySpawned))]
     private void OnEntitySpawned(CommunityEntity entity)
     {
-        ImageStorageData.Instance.OnCommunityEntityLoaded();
-        Singleton<UiImageStorage>.Instance.OnCommunityEntitySpawned();
-        Unsubscribe(nameof(OnEntitySpawned));
+        try
+        {
+            BaseUiFrameworkLibrary.ProcessOnCommunityEntitySpawned(entity);
+            Unsubscribe(nameof(OnEntitySpawned));
+        }
+        catch (Exception ex)
+        {
+            PrintError(ex.ToString());
+        }
     }
     
     // ReSharper disable once UnusedMember.Local

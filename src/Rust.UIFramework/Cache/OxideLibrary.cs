@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Runtime.CompilerServices;
 using Oxide.Core;
+using Oxide.Core.Extensions;
 using Oxide.Core.Libraries;
 using Oxide.Core.Libraries.Covalence;
 using Oxide.Plugins;
@@ -46,4 +47,20 @@ internal static class OxideLibrary
     internal static void LogException(string message, Exception exception) => Console.WriteLine($"{message}\n{exception}");
 #endif
 
+    internal static ExtensionManager ExtensionManager;
+    
+    internal static T GetLibrary<T>(string name)
+    {
+        if (ExtensionManager == null)
+        {
+            return default;
+        }
+        
+        if (ExtensionManager.GetLibrary(name) is T lib)
+        {
+            return lib;
+        }
+        
+        throw new Exception($"Library {name} not found");
+    }
 }

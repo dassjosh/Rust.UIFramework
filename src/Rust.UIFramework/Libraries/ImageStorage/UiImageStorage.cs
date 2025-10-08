@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using Ionic.Crc;
 using Oxide.Core;
 using Oxide.Core.Plugins;
+using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Constants;
 using Oxide.Ext.UiFramework.Data;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Exceptions;
 using Oxide.Ext.UiFramework.Extensions;
+using Oxide.Ext.UiFramework.Helpers;
 using Oxide.Ext.UiFramework.Logging;
 using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Types;
@@ -18,8 +19,8 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
 {
     private readonly ImageStorageData _data = ImageStorageData.Instance;
     private readonly ImageDownloader _downloader;
+    private readonly IImageDatabase _db = OxideLibrary.GetLibrary<IImageDatabase>(nameof(IImageDatabase));
     private readonly IUiLogger<UiImageStorage> _logger = Singleton<UiLoggerFactory>.Instance.CreateExtensionLogger<UiImageStorage>();
-    private readonly CRC32 _crc = new();
     
     public bool IsReady { get; private set; }
     
@@ -53,7 +54,7 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
         ImageId id = _data.Get(pluginId, nameOrUrl);
         if (id.IsValid)
         {
-            return id.Id;
+            return id.ToString();
         }
 
         if (nameOrUrl.StartsWith("http", StringComparison.OrdinalIgnoreCase))
@@ -95,6 +96,7 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
         if (id.IsValid)
         {
             _data.AddPluginImage(pluginId, name, id);
+            _db.OnImageRegistered(id);
             return RegisterResult.Success;
         }
         
@@ -113,8 +115,9 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
         if (image == null) throw new ArgumentNullException(nameof(image));
         
         ImageId id = _data.Get(plugin.Id(), name);
-        if (id.IsValid && id.TryGetCrc(out uint crc) && crc == GetCRC(image))
+        if (id.IsValid && id.Id == Crc.GetCRC(image))
         {
+            _db.OnImageRegistered(id);
             error = RegisterImageErrorCode.AlreadyRegistered;
             return false;
         }
@@ -170,7 +173,7 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
         Singleton<ImageUpdateAnimations>.Instance.OnDownloadCompleted(request.Url, false, default);
     }
 
-    private static ImageId ProcessImage(byte[] image, out RegisterImageErrorCode error)
+    private ImageId ProcessImage(byte[] image, out RegisterImageErrorCode error)
     {
         if (image == null || image.Length == 0)
         {
@@ -183,33 +186,34 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
             error = RegisterImageErrorCode.InvalidImageType;
             return default;
         }
+
+        ImageId id = StoreImage(image);
+        if (!id.IsValid)
+        {
+            error = RegisterImageErrorCode.DbStorageFailed;
+            return default;
+        }
         
         error = RegisterImageErrorCode.None;
-        return StoreImage(image);
+        return id;
     }
 
     private static bool IsValidRustPng(byte[] image) => image.AsSpan().StartsWith(SignaturePNG);
     private static bool IsValidJpegImage(byte[] image) => image is [0xFF, 0xD8, ..];
-    private static ImageId StoreImage(byte[] image)
+    private ImageId StoreImage(byte[] image)
     {
-#if !SERVER
-        return new ImageId(Core.Random.Range(0, int.MaxValue).ToString());
+#if SERVER
+        return _db.Store(image);
 #else
-        return new ImageId(FileStorage.server.Store(image, FileStorage.Type.png, CommunityEntity.ServerInstance.net.ID).ToString());
+       return new ImageId((uint)Core.Random.Range(0, int.MaxValue));
 #endif
     }
-    
-    private uint GetCRC(byte[] data)
-    {
-        _crc.Reset();
-        _crc.SlurpBlock(data, 0, data.Length);
-        _crc.UpdateCRC((byte) FileStorage.Type.png);
-        return (uint) _crc.Crc32Result;
-    }
 
-    internal void OnCommunityEntitySpawned()
+    protected override void OnCommunityEntitySpawned(CommunityEntity entity)
     {
         IsReady = true;
+        ImageStorageData.Instance.OnCommunityEntityLoaded(_db.GetSaveVersion(entity));
+        RegisterImage(UiFrameworkPlugin.Instance, UiImages.White1x1Name, UiImages.White1x1Base64);
         Interface.Oxide.CallHook(UiFrameworkHooks.OnUiImageStorageReady);
     }
 

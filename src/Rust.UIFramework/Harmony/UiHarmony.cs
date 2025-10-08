@@ -1,8 +1,16 @@
-﻿namespace Oxide.Ext.UiFramework.Harmony;
+﻿using Oxide.Ext.UiFramework.Plugins;
+
+namespace Oxide.Ext.UiFramework.Harmony;
 
 internal static class UiHarmony
 {
-    internal static readonly HarmonyLib.Harmony Harmony = new(UiFrameworkExtension.Instance.Name); 
+    internal static HarmonyLib.Harmony Harmony => UiFrameworkPlugin.Instance.Harmony;
+
+    static UiHarmony()
+    {
+        //HarmonyLib.Harmony.DEBUG = true;
+    }
+    
     internal static void Initialize()
     {
         CuiHelper_AddUi_Patch.Patch();

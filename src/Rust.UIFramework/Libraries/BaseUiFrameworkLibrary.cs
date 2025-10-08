@@ -14,6 +14,8 @@ public abstract class BaseUiFrameworkLibrary : Library
         Libraries.Add(this);
     }
 
+    protected virtual void OnInit() {}
+    protected virtual void OnCommunityEntitySpawned(CommunityEntity entity) {}
     protected virtual void OnServerInitialized() {}
     protected virtual void OnPluginLoaded(Plugin plugin){}
     protected virtual void OnPluginUnloaded(Plugin plugin){}
@@ -21,7 +23,24 @@ public abstract class BaseUiFrameworkLibrary : Library
     protected virtual void OnPluginUnloaded(IUiFrameworkPlugin plugin){}
     protected virtual void OnPlayerConnected(BasePlayer player){}
     protected virtual void OnPlayerDisconnected(BasePlayer player){}
+    protected virtual void OnServerSave(){}
     protected virtual void OnServerShutdown(){}
+    
+    internal static void ProcessOnInit()
+    {
+        foreach (BaseUiFrameworkLibrary library in Libraries)
+        {
+            library.OnInit();
+        }
+    }
+    
+    internal static void ProcessOnCommunityEntitySpawned(CommunityEntity entity)
+    {
+        foreach (BaseUiFrameworkLibrary library in Libraries)
+        {
+            library.OnCommunityEntitySpawned(entity);
+        }
+    }
     
     internal static void ProcessOnServerInitialized()
     {
@@ -76,6 +95,14 @@ public abstract class BaseUiFrameworkLibrary : Library
         foreach (BaseUiFrameworkLibrary library in Libraries)
         {
             library.OnPlayerDisconnected(player);
+        }
+    }
+    
+    internal static void ProcessOnServerSave()
+    {
+        foreach (BaseUiFrameworkLibrary library in Libraries)
+        {
+            library.OnServerSave();
         }
     }
     

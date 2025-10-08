@@ -472,6 +472,8 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
     private KeyFramePositionAnimator _animator;
     private AnimationReference _animationReference;
 
+    private const string BorderTest = nameof(BorderTest);
+
     private readonly ImageDownloadOptions _downloadOptions = new()
     {
         FailedImageNameOrUrl = ErrorImage,
@@ -496,6 +498,11 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
         _animator.AddKeyFrame(70f, new UiPosition(0.25f, 0.25f, 0.25f, 0.25f));
         _animator.AddKeyFrame(80f, UiPosition.MiddleLeft);
         _animator.AddKeyFrame(90f, UiPosition.MiddleRight);
+
+        if (!_storage.RegisterImage(this, BorderTest, Convert.FromBase64String("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+ip1sAAAAASUVORK5CYII="), out var error))
+        {
+            PrintError($"Failed to register image: {error}");
+        }
     }
     
     public void CreateUi(BasePlayer player)
@@ -527,6 +534,8 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
         //builder.SetCurrentFont(UiFontCache.RobotomonoRegular);
         builder.NeedsKeyboard();
         builder.NeedsMouse();
+
+        builder.NineSlice(builder.Root).SetPosition(UiPosition.Full).SetPng(_storage.Get(this, BorderTest)).SetSlice(new UiBorderWidth(1, 2, 4, 8)).SetColor(UiColors.Green);
         
         UiSection titleBar = builder.Section(builder.Root, new UiPosition(0, 0.95f, 1, 1));
         builder.Label(titleBar, new UiPosition(0.4f, 0, 0.6f, 1), default, "Asset Browser", 14, _textColor);
@@ -587,14 +596,7 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
 
         //builder.ImageStorage(body, UiPosition.Full, default, "https://rust-images.joshdass.dev/rust-icons/61504.png", _downloadOptions);
         
-        string json = builder.GetJsonString();
-        
-        string dir = Path.Combine(Interface.Oxide.LogDirectory, Name);
-        Directory.CreateDirectory(dir);
-        
-        File.WriteAllText(Path.Combine(dir, "json.json"), json);
-        
-        builder.AddUi(player);
+        builder.AddUiDebug(player, new UiDebugOptions("main"));
     }
 
     //private readonly GridPosition _selectTypeGrid = new GridPositionBuilder(ImageColumns, ImageRows).SetPadding(0.0025f).Build();

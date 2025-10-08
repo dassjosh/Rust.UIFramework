@@ -5,5 +5,6 @@ public enum RegisterImageErrorCode
     None,
     AlreadyRegistered,
     EmptyImage,
-    InvalidImageType
+    InvalidImageType,
+    DbStorageFailed
 }

@@ -1,11 +1,12 @@
+using Oxide.Ext.UiFramework.Cache;
 using ProtoBuf;
 
 namespace Oxide.Ext.UiFramework.Libraries;
 
 
 [ProtoContract]
-internal readonly record struct ImageId([property: ProtoMember(1)] string Id)
+internal readonly record struct ImageId([property: ProtoMember(1)] uint Id)
 {
-    public bool IsValid => !string.IsNullOrEmpty(Id);
-    public bool TryGetCrc(out uint crc) => uint.TryParse(Id, out crc);
+    public bool IsValid => Id > 0;
+    public override string ToString() => StringCache<uint>.ToString(Id);
 }

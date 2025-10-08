@@ -1,4 +1,5 @@
-﻿using Oxide.Ext.UiFramework.Builder;
+﻿using System;
+using Oxide.Ext.UiFramework.Builder;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Offsets;
@@ -8,6 +9,7 @@ using Oxide.Ext.UiFramework.UiElements;
 
 namespace Oxide.Ext.UiFramework.Controls;
 
+[Obsolete("Use UiNineSlice Border(UiReference parent, UiBorderWidth width, UiColor? color = default) instead")]
 public class UiBorder : BaseUiControl
 {
     public UiPanel Left;

@@ -3,6 +3,7 @@ using System.Reflection;
 using Oxide.Core;
 using Oxide.Core.Extensions;
 using Oxide.Ext.UiFramework.Animation;
+using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Config;
 using Oxide.Ext.UiFramework.Data;
 using Oxide.Ext.UiFramework.Libraries;
@@ -39,7 +40,18 @@ public class UiFrameworkExtension : Extension
         GlobalLogger = Singleton<UiLoggerFactory>.Instance.CreateGlobalLogger();
         GlobalLogger.Info($"Using UiFramework v{Version}");
         Singleton<DataHandler>.Instance.LoadAll();
+        OxideLibrary.ExtensionManager = Manager;
         Manager.RegisterPluginLoader(new UiFrameworkExtPluginLoader());
+        if (UiFrameworkConfig.Instance.ImageDb.Enabled)
+        {
+            GlobalLogger.Debug("Using {0} Image DB", nameof(UiImageDatabase));
+            Manager.RegisterLibrary(nameof(IImageDatabase), Singleton<UiImageDatabase>.Instance);
+        }
+        else
+        {
+            GlobalLogger.Debug("Using {0} Image DB", nameof(UiImageStorage));
+            Manager.RegisterLibrary(nameof(IImageDatabase), Singleton<UiImageStorage>.Instance);
+        }
         Manager.RegisterLibrary(nameof(UiImageStorage), Singleton<UiImageStorage>.Instance);
         Manager.RegisterLibrary(nameof(UiCommands), Singleton<UiCommands>.Instance);
         Manager.RegisterLibrary(nameof(UiNameStore), Singleton<UiNameStore>.Instance);

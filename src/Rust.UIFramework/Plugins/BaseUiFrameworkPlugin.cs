@@ -6,6 +6,7 @@ using Oxide.Core.Plugins;
 using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Types;
+using Oxide.Plugins;
 
 namespace Oxide.Ext.UiFramework.Plugins;
 
@@ -16,9 +17,11 @@ internal class BaseUiFrameworkPlugin : CSPlugin
     protected readonly Oxide.Core.Libraries.Plugins Plugins = OxideLibrary.Plugins;
     protected readonly Permission Permission = OxideLibrary.Permission;
     protected readonly UiIconLib IconsLib = Singleton<UiIconLib>.Instance;
+    protected readonly PluginTimers Timers;
 
     protected BaseUiFrameworkPlugin()
     {
+        Timers = new PluginTimers(this);
         Author = UiFrameworkExtension.Instance.Author;
         Version = UiFrameworkExtension.Instance.Version;
     }

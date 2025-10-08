@@ -65,7 +65,7 @@ public class ImageDownloadAnimation : BaseAnimation
         string image = _state switch
         {
             DownloadState.InProgress or DownloadState.Failed => _failedImage,
-            DownloadState.Success => _id.Id,
+            DownloadState.Success => _id.ToString(),
             DownloadState.Timeout => _timeoutImage ?? _failedImage,
         };
         SetImage(writer, image);

@@ -54,6 +54,7 @@ public class JsonFrameworkWriterTests
         writer.AddFieldRaw((Utf8String)"UiColorRaw", UiColor.ParseHexColor("#7F7F7F7F"));
         writer.AddFieldRaw((Utf8String)"Vector2Raw", new Vector2(100, 200));
         writer.AddFieldRaw((Utf8String)"EnumRaw", TextAnchor.UpperCenter);
+        writer.AddFieldRaw((Utf8String)"UiBorderWidth", new UiBorderWidth(1, 2, 4, 8));
         
         writer.AddField((Utf8String)"TextAnchorEnumCreateIsDefault", textAnchor, SerializeMode.Create);
         textAnchor.Value = TextAnchor.MiddleCenter;
@@ -124,13 +125,6 @@ public class JsonFrameworkWriterTests
         // writer.AddField((Utf8String)"UiPositionUpdateHasChanged", trackedUiPosition, SerializeMode.Update);
         // trackedUiPosition.ResetHasChanged();
         // writer.AddField((Utf8String)"UiPositionpdateHasNotChanged", trackedUiPosition, SerializeMode.Update);
-        
-        writer.AddField((Utf8String)"UiBorderWidthCreateIsDefault", trackedBorderWidth, SerializeMode.Create);
-        trackedBorderWidth.Value = new UiBorderWidth(1, 2, 3, 4);
-        writer.AddField((Utf8String)"UiBorderWidthCreateIsNotDefault", trackedBorderWidth, SerializeMode.Create);
-        writer.AddField((Utf8String)"UiBorderWidthUpdateHasChanged", trackedBorderWidth, SerializeMode.Update);
-        trackedBorderWidth.ResetHasChanged();
-        writer.AddField((Utf8String)"UiBorderWidthUpdateHasNotChanged", trackedBorderWidth, SerializeMode.Update);
         
         writer.AddField((Utf8String)"UiRotationCreateIsDefault", trackedRotation, SerializeMode.Create);
         trackedRotation.Value = new UiRotation(30);

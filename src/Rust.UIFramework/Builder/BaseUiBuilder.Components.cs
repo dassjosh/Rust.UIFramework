@@ -2,6 +2,7 @@
 using System.Runtime.CompilerServices;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
+using Oxide.Ext.UiFramework.Constants;
 using Oxide.Ext.UiFramework.Controls;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Exceptions;
@@ -9,6 +10,7 @@ using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Layouts;
 using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Offsets;
+using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.Types;
 using Oxide.Ext.UiFramework.UiElements;
@@ -465,5 +467,10 @@ public partial class BaseUiBuilder
     {
         return Component<UiNineSlice>(layout).Init(png, slice, fillCenter, color ?? UiColors.White, type);
     }
+    
+    public UiNineSlice Border(in UiReference parent, in UiBorderWidth width, UiColor? color = default)
+        => NineSlice(parent, UiPosition.Full, default, Singleton<UiImageStorage>.Instance.Get(UiFrameworkPlugin.Instance, UiImages.White1x1Name), width, false, color ?? UiColors.White, Image.Type.Sliced);
+    public UiNineSlice Border(in UiReference parent, in UiPosition position, in UiOffset offset, in UiBorderWidth width, UiColor? color = default)
+        => NineSlice(parent, position, offset, Singleton<UiImageStorage>.Instance.Get(UiFrameworkPlugin.Instance, UiImages.White1x1Name), width, false, color ?? UiColors.White, Image.Type.Sliced);
     #endregion
 }

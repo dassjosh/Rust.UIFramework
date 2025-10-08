@@ -62,9 +62,8 @@ internal class ImageStorageData : BaseDataFile<ImageStorageData>
         return default;
     }
 
-    internal void OnCommunityEntityLoaded()
+    internal void OnCommunityEntityLoaded(SaveVersion saveVersion)
     {
-        SaveVersion saveVersion = new(CommunityEntity.ServerInstance.net.ID.Value);
         if (saveVersion != _saveVersion)
         {
             Wipe();

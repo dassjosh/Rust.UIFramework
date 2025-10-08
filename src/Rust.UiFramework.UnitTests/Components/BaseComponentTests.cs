@@ -111,7 +111,7 @@ public abstract class BasePopulateComponentTests<T>(Action<T> populateComponent)
             .ToArray();
         
         // Assert
-        values.Should().AllSatisfy(v => v.Tracked.IsDefault.Should().BeTrue($"Is Default: {v.Field.Name}"));
+        values.Should().AllSatisfy(v => v.Tracked.IsFrameworkDefault.Should().BeTrue($"Is Default: {v.Field.Name}"));
         values.Should().AllSatisfy(v => v.Tracked.HasChanged.Should().BeFalse($"Has Not Changed Before Populate: {v.Field.Name}"));
         PopulateComponent(component);
         values.Should().AllSatisfy(v => v.Tracked.HasChanged.Should().BeTrue($"Has Changed After Populate: {v.Field.Name}"));
@@ -119,7 +119,7 @@ public abstract class BasePopulateComponentTests<T>(Action<T> populateComponent)
         values.Should().AllSatisfy(v => v.Tracked.HasChanged.Should().BeFalse($"Has Not Changed After ResetHasChanged: {v.Field.Name}"));
         PopulateComponent(component);
         component.Reset();
-        values.Should().AllSatisfy(v => v.Tracked.IsDefault.Should().BeTrue($"Is Default After Reset: {v.Field.Name}"));
+        values.Should().AllSatisfy(v => v.Tracked.IsFrameworkDefault.Should().BeTrue($"Is Default After Reset: {v.Field.Name}"));
         values.Should().AllSatisfy(v => v.Tracked.HasChanged.Should().BeFalse($"Has Not Changed After Reset: {v.Field.Name}"));
     }
 }
