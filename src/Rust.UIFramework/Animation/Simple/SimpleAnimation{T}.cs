@@ -26,7 +26,6 @@ public abstract class SimpleAnimation<T> : BaseAnimation
     public override void WriteAnimation(JsonFrameworkWriter writer, float elapsedPercentage)
     {
         writer.WriteStartObject();
-        writer.AddFieldRaw(JsonDefaults.Common.ParentName, Reference.Parent);
         writer.AddFieldRaw(JsonDefaults.Common.ComponentName, Reference.Name);
         writer.AddFieldRaw(JsonDefaults.Common.Update, true);
         writer.WritePropertyName(JsonDefaults.Common.ComponentsName);
