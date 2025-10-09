@@ -32,7 +32,7 @@ public static class SubComponentHelpers
         draggable.ParentPadding = new Vector2(0.5f, 0.4f);
         draggable.AnchorOffset = new Vector2(0.4f, 0.5f);
         draggable.KeepOnTop = true;
-        draggable.PositionRpc = DraggablePositionSendType.Relative;
+        draggable.PositionRpc = CommunityEntity.DraggablePositionSendType.Relative;
         draggable.MoveToAnchor = true;
         draggable.RebuildAnchor = true;
     }

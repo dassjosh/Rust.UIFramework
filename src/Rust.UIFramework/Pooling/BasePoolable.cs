@@ -14,6 +14,18 @@ public abstract class BasePoolable : IPoolable
     internal UiPluginPool PluginPool;
     UiPluginPool IPoolable.PluginPool => PluginPool;
 
+#if UNIT_TESTS
+    private readonly string _createdStack = Environment.StackTrace;
+    
+    ~BasePoolable()
+    {
+        if (CanPool)
+        {
+            Console.WriteLine($"\n{new string('=', 30)}\nLeaked: {GetType().Name}\n{_createdStack}");
+        }
+    }
+#endif
+
     internal void OnInitInternal(IPool<BasePoolable> pool)
     {
         _pool = pool;
