@@ -140,13 +140,17 @@ public partial class BaseUiBuilder
         
     public UiRawImage ImageFileStorage(in UiReference parent, in UiPosition pos, in UiOffset offset, string png, UiColor color)
     {
-        if (!uint.TryParse(png, out uint _))
+        UiRawImage image;
+        if (uint.TryParse(png, out uint _))
+        {
+            image = UiRawImage.CreateFileImage(pos, offset, color, png);
+        }
+        else
         {
             Interface.Oxide.LogWarning($"Image PNG '{png}' is not a valid uint. If trying to use a url please use WebImage instead.");
-            return UiRawImage.CreateDefault(pos, offset);
+            image = UiRawImage.CreateDefault(pos, offset);
         }
 
-        UiRawImage image = UiRawImage.CreateFileImage(pos, offset, color, png);
         AddComponent(image, parent);
         return image;
     }
