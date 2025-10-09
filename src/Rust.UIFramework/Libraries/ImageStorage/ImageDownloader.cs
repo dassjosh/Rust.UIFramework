@@ -100,14 +100,6 @@ internal class ImageDownloader
         return new RegisterResult(true, state.HasCompleted, state.HadDownloadError, state.InProgress);
     }
 
-    internal void BulkAddRequests(PluginId pluginId, List<BulkUrlImageRequest> requests)
-    {
-        foreach (BulkUrlImageRequest request in requests)
-        {
-            AddRequest(pluginId, request.Name, request.Url);
-        }
-    }
-
     internal bool IsDownloading(string url)
     {
         return _urlState.TryGetValue(url, out DownloadState state) && state.InProgress;

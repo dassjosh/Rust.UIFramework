@@ -132,21 +132,6 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
         return true;
     }
 
-    public void BulkRegisterImages(IUiFrameworkPlugin plugin, List<BulkUrlImageRequest> images)
-    {
-        CommunityEntityNotReadyException.ThrowIfNotReady();
-        _downloader.BulkAddRequests(plugin.Id(), images);
-    }
-    
-    public void BulkRegisterImages(IUiFrameworkPlugin plugin, List<BulkByteImageRequest> images)
-    {
-        CommunityEntityNotReadyException.ThrowIfNotReady();
-        foreach (BulkByteImageRequest request in images)
-        {
-            RegisterImage(plugin, request.Name, request.Image, out RegisterImageErrorCode _);
-        }
-    }
-
     public bool IsDownloading(string url)
     {
         return _downloader.IsDownloading(url);
