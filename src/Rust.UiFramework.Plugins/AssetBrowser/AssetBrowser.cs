@@ -508,7 +508,7 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
         UiBuilder builder;
         if (isInitial)
         {
-            builder = UiBuilder.Create(this, new UiReference(UiLayer.Overlay, UiName), UiPosition.MiddleMiddle, new UiOffset(500, 400), _bodyColor);
+            builder = UiBuilder.Create(this, new UiReference(UiLayer.Overlay, UiName), UiPosition.MiddleMiddle, new UiOffset(600, 500), _bodyColor);
 
             //builder = UiBuilder.Create(this, new UiReference(UiLayer.Overlay, UiName), UiPosition.MiddleMiddle, default, _bodyColor);
 
@@ -519,7 +519,7 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
         else
         {
             //builder = UiBuilder.Create(UiPosition.MiddleMiddle, new UiOffset(500, 400), _bodyColor, UiName);
-            builder = UiBuilder.Create(this, new UiReference(UiLayer.Overlay, UiName), UiPosition.MiddleMiddle, new UiOffset(500, 400), _bodyColor);
+            builder = UiBuilder.Create(this, new UiReference(UiLayer.Overlay, UiName), UiPosition.MiddleMiddle, new UiOffset(600, 500), _bodyColor);
         }
         
         _animationReference = builder.Root;
@@ -718,9 +718,9 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
         foreach (KeyValuePair<string, string> pair in folder.Files)
         {
             //Puts($"{pair.Key}: {_imageGrid.ToPosition()}");
-            UiButton button = builder.Button(scroll, _imageGrid, default, _buttonColor, _uiCommands.SelectAsset.Build(pair.Value));
-            UiItemIcon icon = builder.ItemIcon(button, UiPosition.Full, default, int.Parse(pair.Value), color: UiColors.White);
-            icon.SetMaterial(UiMaterials.Content.Ui.NameFontMaterial);
+            UiButton button = builder.Button(scroll, _imageGrid, default, UiColors.Black, _uiCommands.SelectAsset.Build(pair.Value));
+            UiItemIcon icon = builder.ItemIcon(button, UiPosition.Full, default, int.Parse(pair.Value), 0, color: UiColors.White).SetPadding(new UiPadding(20));
+            //icon.SetMaterial(UiMaterials.Content.Ui.NameFontMaterial);
             _imageGrid.MoveCols(1);
         }
     }

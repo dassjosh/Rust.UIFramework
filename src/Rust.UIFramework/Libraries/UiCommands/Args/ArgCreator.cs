@@ -111,8 +111,8 @@ internal static class ArgCreator
 
     private static IArgHandler CreatePluginArgHandler<T>(PluginId pluginId, Type type)
     {
-        if(typeof(INamedStore).IsAssignableFrom(type)) return new ArgHandler<T>(span => (T)Singleton<UiNameStore>.Instance.GetOrCreateStore<T>(pluginId, span.ToString()) , (writer, arg) => writer.Append(((INamedStore)arg).Name));
-        if(typeof(IPlayerStore).IsAssignableFrom(type)) return new ArgHandler<T>(span => (T)Singleton<UiPlayerStore>.Instance.GetOrCreateStore<T>(pluginId, ulong.Parse(span)) , (writer, arg) => writer.Append(((IPlayerStore)arg).PlayerId));
+        if(typeof(INamedStore).IsAssignableFrom(type)) return new ArgHandler<T>(span => (T)Singleton<UiNameStore>.Instance.GetOrCreateStore(pluginId, span.ToString()) , (writer, arg) => writer.Append(((INamedStore)arg).Name));
+        if(typeof(IPlayerStore).IsAssignableFrom(type)) return new ArgHandler<T>(span => (T)Singleton<UiPlayerStore>.Instance.GetOrCreateStore(pluginId, ulong.Parse(span)) , (writer, arg) => writer.Append(((IPlayerStore)arg).PlayerId));
         return null;
     }
     

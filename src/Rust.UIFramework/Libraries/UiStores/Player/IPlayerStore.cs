@@ -2,5 +2,5 @@
 
 public interface IPlayerStore
 {
-    public ulong PlayerId { get; set; }
+    public ulong PlayerId { get; }
 }
