@@ -17,7 +17,7 @@ public class DraggableComponent : SubComponent
     private readonly TrackedValue<Vector2> _parentPadding = new(JsonDefaults.Draggable.ParentPadding);
     private readonly TrackedValue<Vector2> _anchorOffset = new(JsonDefaults.Draggable.AnchorOffset);
     private readonly TrackedValue<bool> _keepOnTop = new(JsonDefaults.Draggable.KeepOnTop);
-    private readonly TrackedValue<DraggablePositionSendType?> _positionRpc = new(JsonDefaults.Draggable.PositionRpc);
+    private readonly TrackedValue<CommunityEntity.DraggablePositionSendType?> _positionRpc = new(JsonDefaults.Draggable.PositionRpc);
     private readonly TrackedValue<bool> _moveToAnchor = new(JsonDefaults.Draggable.MoveToAnchor);
     private readonly TrackedValue<bool> _rebuildAnchor = new(JsonDefaults.Draggable.RebuildAnchor);
     
@@ -31,7 +31,7 @@ public class DraggableComponent : SubComponent
     public Vector2 ParentPadding { get => _parentPadding.Value; set => _parentPadding.Value = value; }
     public Vector2 AnchorOffset { get => _anchorOffset.Value; set => _anchorOffset.Value = value; }
     public bool KeepOnTop { get => _keepOnTop.Value; set => _keepOnTop.Value = value; }
-    public DraggablePositionSendType? PositionRpc { get => _positionRpc.Value; set => _positionRpc.Value = value; }
+    public CommunityEntity.DraggablePositionSendType? PositionRpc { get => _positionRpc.Value; set => _positionRpc.Value = value; }
     public bool MoveToAnchor { get => _moveToAnchor.Value; set => _moveToAnchor.Value = value; }
     public bool RebuildAnchor { get => _rebuildAnchor.Value; set => _rebuildAnchor.Value = value; }
 
@@ -116,7 +116,7 @@ public class DraggableComponent : SubComponent
         return this;
     }
     
-    public DraggableComponent SetPositionRpc(DraggablePositionSendType positionRpc)
+    public DraggableComponent SetPositionRpc(CommunityEntity.DraggablePositionSendType positionRpc)
     {
         PositionRpc = positionRpc;
         return this;

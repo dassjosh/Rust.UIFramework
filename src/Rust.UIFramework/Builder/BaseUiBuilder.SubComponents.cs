@@ -51,7 +51,7 @@ public abstract partial class BaseUiBuilder
         Vector2? parentPadding = null,
         Vector2? anchorOffset = null,
         bool keepOnTop = JsonDefaults.Draggable.KeepOnTop,
-        DraggablePositionSendType? positionRpc = null,
+        CommunityEntity.DraggablePositionSendType? positionRpc = null,
         bool moveToAnchor = JsonDefaults.Draggable.MoveToAnchor,
         bool rebuildAnchor = JsonDefaults.Draggable.RebuildAnchor)
     {

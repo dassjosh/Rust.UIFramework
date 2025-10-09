@@ -291,7 +291,7 @@ public static class JsonDefaults
         public const bool KeepOnTop = false;
         
         public static readonly Utf8String PositionRpcName = "positionRPC";
-        public static readonly DraggablePositionSendType? PositionRpc = null;
+        public static readonly CommunityEntity.DraggablePositionSendType? PositionRpc = null;
         
         public static readonly Utf8String MoveToAnchorName = "moveToAnchor";
         public const bool MoveToAnchor = false;
