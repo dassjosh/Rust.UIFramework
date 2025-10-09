@@ -25,7 +25,7 @@ public class UiCombinedBuilderTests
         BaseBuilder[] builders = [CreateBuilder1(), CreateBuilder2(), CreateBuilder3()];
         
         // Act
-        UiCombinedBuilder combined = UiCombinedBuilder.Create(UnitTestHelpers.Plugin);
+        using UiCombinedBuilder combined = UiCombinedBuilder.Create(UnitTestHelpers.Plugin);
         for(int i = 0; i < builders.Length; i++)
         {
             combined.Add(builders[(offset + i) % builders.Length]);

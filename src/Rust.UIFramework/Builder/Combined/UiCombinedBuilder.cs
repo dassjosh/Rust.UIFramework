@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Network;
+using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Plugins;
 
@@ -71,6 +72,7 @@ public class UiCombinedBuilder : BaseBuilder
     protected override void EnterPool()
     {
         base.EnterPool();
+        _builders.TryFreeValues();
         _builders.Clear();
     }
 }
