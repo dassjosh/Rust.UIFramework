@@ -226,7 +226,7 @@ public sealed class JsonFrameworkWriter : BasePoolable
     
     public void AddField(in Utf8String name, TrackedValue<string> value, SerializeMode mode)
     {
-        if (value.ShouldSerialize(mode))
+        if (value.ShouldSerialize(mode) && value.Value != null)
         {
             WritePropertyName(name);
             WriteValue(value.Value);
