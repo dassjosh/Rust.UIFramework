@@ -92,6 +92,11 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
     {
         InvalidPluginIdException.ThrowIfInvalidPluginId(pluginId); 
         CommunityEntityNotReadyException.ThrowIfNotReady();
+        if (!IsValidUrl(url))
+        {
+            throw new InvalidUrlException(url);
+        }
+        
         ImageId id = _data.GetByUrl(url);
         if (id.IsValid)
         {
@@ -194,11 +199,13 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
 #endif
     }
 
+    private bool IsValidUrl(string url) => url.StartsWith("http", StringComparison.OrdinalIgnoreCase);
+
     protected override void OnCommunityEntitySpawned(CommunityEntity entity)
     {
         IsReady = true;
         ImageStorageData.Instance.OnCommunityEntityLoaded(_db.GetSaveVersion(entity));
-        RegisterImage(UiFrameworkPlugin.Instance, UiImages.White1x1Name, UiImages.White1x1Base64);
+        RegisterImage(UiFrameworkPlugin.Instance, UiImages.White1x1Name, Convert.FromBase64String(UiImages.White1x1Base64), out RegisterImageErrorCode _);
         Interface.Oxide.CallHook(UiFrameworkHooks.OnUiImageStorageReady);
     }
 
