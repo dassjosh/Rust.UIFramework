@@ -9,12 +9,12 @@ namespace Oxide.Ext.UiFramework.Components;
 
 public class ImageComponent : CoreComponent, IGraphicalComponent
 {
-    private readonly TrackedValue<string> _sprite = new();
+    private readonly TrackedValue<string> _sprite = new(null, JsonDefaults.BaseImage.Sprite);
     private readonly TrackedValue<float> _fadein = new(JsonDefaults.Common.FadeIn);
-    private readonly TrackedValue<string> _material = new();
+    private readonly TrackedValue<string> _material = new(null, JsonDefaults.BaseImage.Material);
     private readonly TrackedValue<UiColor> _color = new(JsonDefaults.Color.ColorValue);
     private readonly TrackedValue<Image.Type> _imageType = new(JsonDefaults.Image.ImageType);
-    protected readonly TrackedValue<bool> _fillCenter = new(JsonDefaults.Image.FillCenter);
+    private readonly TrackedValue<bool> _fillCenter = new(JsonDefaults.Image.FillCenter);
     private readonly TrackedValue<UiReference> _placeholderFor = new();
     
     public UiColor Color { get => _color.Value; set => _color.Value = value; }

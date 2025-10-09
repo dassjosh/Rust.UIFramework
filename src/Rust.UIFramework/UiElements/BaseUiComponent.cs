@@ -14,8 +14,8 @@ namespace Oxide.Ext.UiFramework.UiElements;
 
 public abstract class BaseUiComponent : BasePoolable
 {
-    private readonly TrackedValue<float> _fadeOut = new();
-    private readonly TrackedValue<bool> _active = new(true);
+    private readonly TrackedValue<float> _fadeOut = new(JsonDefaults.Common.FadeOut);
+    private readonly TrackedValue<bool> _active = new(JsonDefaults.Common.Active);
     
     public UiReference Reference;
     public float FadeOut { get => _fadeOut.Value; set => _fadeOut.Value = value; }

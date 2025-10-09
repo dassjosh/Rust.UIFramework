@@ -10,7 +10,7 @@ public class RectTransformComponent : SubComponent
 {
     private readonly TrackedValue<UiPosition> _position = new(UiPosition.Full);
     private readonly TrackedValue<UiOffset> _offset = new();
-    private readonly TrackedValue<UiRotation> _rotation = new();
+    private readonly TrackedValue<UiRotation> _rotation = new(JsonDefaults.RectTransform.Rotation);
     private readonly TrackedValue<UiPadding> _padding = new();
     private readonly TrackedValue<string> _changeParent = new();
     private readonly TrackedValue<int> _transformIndex = new(JsonDefaults.RectTransform.SetTransformIndex);
@@ -38,6 +38,7 @@ public class RectTransformComponent : SubComponent
         
         writer.AddField(_offset, mode);
         writer.AddField(JsonDefaults.RectTransform.RotationName, _rotation, mode);
+        writer.AddField(JsonDefaults.RectTransform.SetParentName, _changeParent, mode);
         writer.AddField(JsonDefaults.RectTransform.SetTransformIndexName, _transformIndex, mode);
     }
     

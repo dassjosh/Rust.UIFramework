@@ -51,7 +51,7 @@ public static class JsonDefaults
         public static readonly Vector2 OffsetMax = new(1, 1);
         
         public static readonly Utf8String RotationName = "rotation";
-        public const float Rotation = 0;
+        public static readonly UiRotation Rotation = new(0);
         
         public static readonly Utf8String SetParentName = "setParent";
         

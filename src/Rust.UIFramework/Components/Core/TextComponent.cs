@@ -12,7 +12,7 @@ public class TextComponent : CoreComponent, IGraphicalComponent
     private readonly TrackedValue<UiColor> _color = new(JsonDefaults.Color.ColorValue);
     private readonly TrackedValue<float> _fadeIn = new(JsonDefaults.Common.FadeIn);
     private readonly TrackedValue<int> _fontSize = new(JsonDefaults.Text.FontSize);
-    private readonly TrackedValue<string> _font = new();
+    private readonly TrackedValue<string> _font = new(null, JsonDefaults.Text.FontValue);
     private readonly TrackedValue<TextAnchor> _align = new(JsonDefaults.Text.Align);
     private readonly TrackedValue<string> _text = new();
     private readonly TrackedValue<VerticalWrapMode> _verticalOverflow = new(JsonDefaults.Text.VerticalOverflow);
