@@ -59,6 +59,6 @@ public class UiLabel : BaseUiText<UiLabel>
         return countdown;
     }
 
-    [Obsolete]
+    [Obsolete("Use AddCountdown(float startTime, float endTime, string command, float step = JsonDefaults.Countdown.Step,  float interval = JsonDefaults.Countdown.Interval, TimerFormat timerFormat = JsonDefaults.Countdown.TimerFormat, string numberFormat = JsonDefaults.Countdown.NumberFormat, bool destroyIfDone = JsonDefaults.Countdown.DestroyIfDone) Instead")]
     public CountdownComponent AddCountdown(float startTime, float endTime, float step, float interval, TimerFormat timerFormat, string numberFormat, bool destroyIfDone, string command) => AddCountdown(startTime, endTime, command, step, interval, timerFormat, numberFormat, destroyIfDone);
 }

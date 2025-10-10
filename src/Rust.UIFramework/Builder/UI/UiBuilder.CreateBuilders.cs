@@ -127,7 +127,7 @@ public partial class UiBuilder
         return Popover(plugin.PluginPool, parent, size, backgroundColor, position, menuSprite, outlineColor);
     }
     
-    private static UiBuilder Popover(UiPluginPool pool, in UiReference parent, Vector2 size, UiColor backgroundColor, PopoverPosition position, string menuSprite, UiColor? outlineColor)
+    private static UiBuilder Popover(UiPluginPool pool, in UiReference parent, Vector2 size, UiColor backgroundColor, PopoverPosition position, string menuSprite, UiColor? outlineColor = null)
     {
         string name = $"{parent.Name}_Popover";
         UiBuilder builder = Create(pool).SetRoot(parent.WithChild(name), out UiSection _);

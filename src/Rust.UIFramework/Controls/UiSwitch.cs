@@ -16,7 +16,7 @@ public class UiSwitch : BaseUiControl
         
     public static UiSwitch CreateSwitch(BaseUiBuilder builder, in UiReference parent, in UiPosition pos, in UiOffset offset, bool isChecked, string command, UiColor? checkedColor, UiColor? uncheckedColor, UiColor? buttonColor)
     {
-        UiSwitch control = CreateControl<UiSwitch>(builder.PluginPool);
+        UiSwitch control = CreateControl<UiSwitch>(builder);
         control.IsChecked = isChecked;
         control.Button = builder.Button(parent, pos, offset, buttonColor ?? UiColors.Clear, command);
         control.Icon = builder.Icon(control.Button, UiPosition.Full, default, isChecked ? Icons.ToggleOn : Icons.ToggleOff, isChecked ? checkedColor ?? UiColors.Rust.Green : uncheckedColor ?? UiColors.Rust.Red);

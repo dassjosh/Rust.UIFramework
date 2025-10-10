@@ -7,7 +7,7 @@ using Oxide.Ext.UiFramework.UiElements;
 
 namespace Oxide.Ext.UiFramework.Controls;
 
-[Obsolete]
+[Obsolete("Use UiTuple<UiPanel, UiPanel> ProgressBar(in UiReference parent, in UiPosition pos, in UiOffset offset, float percentage, UiColor barColor, UiColor backgroundColor, ProgressBarDirection direction = ProgressBarDirection.LeftToRight) Instead")]
 public class UiProgressBar : BaseUiControl
 {
     public UiPanel BackgroundPanel;

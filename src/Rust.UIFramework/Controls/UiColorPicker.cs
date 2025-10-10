@@ -18,7 +18,7 @@ public class UiColorPicker : BaseUiControl
         
     public static UiColorPicker Create(BaseUiBuilder builder, BaseUiComponent parent, in UiPosition pos, in UiOffset offset, UiColor selectedColor, int fontSize, UiColor textColor, UiColor backgroundColor, ICommandBuilder<UiReference> openCommand)
     {
-        UiColorPicker control = CreateControl<UiColorPicker>(builder.PluginPool);
+        UiColorPicker control = CreateControl<UiColorPicker>(builder);
         control.Anchor = builder.Anchor(parent, pos, offset);
         control.Button = builder.Button(parent, pos, offset, backgroundColor, openCommand.Build(control.Anchor.Reference));
         control.Text = builder.Label(control.Button, UiPosition.Full, new UiOffset(5, 0, 0, 0), selectedColor.ToHtmlColor(), fontSize, textColor, TextAnchor.MiddleLeft);

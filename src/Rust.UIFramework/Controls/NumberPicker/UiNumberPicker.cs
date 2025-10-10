@@ -16,7 +16,7 @@ public class UiNumberPicker : BaseNumberPicker<int>
 
     public static UiNumberPicker Create(BaseUiBuilder builder, in UiReference parent, in UiPosition pos, in UiOffset offset, int value, int fontSize, int buttonFontSize, UiColor textColor, UiColor backgroundColor, UiColor buttonColor, UiColor disabledButtonColor, ICommandBuilder<InputArg> command, ICommandBuilder<int> incDecCommand, int minValue, int maxValue, float buttonWidth, TextAnchor align, InputMode mode, NumberPickerMode numberMode, string numberFormat)
     {
-        UiNumberPicker control = CreateControl<UiNumberPicker>(builder.PluginPool);
+        UiNumberPicker control = CreateControl<UiNumberPicker>(builder);
 
         if (numberMode == NumberPickerMode.LeftRight)
         {

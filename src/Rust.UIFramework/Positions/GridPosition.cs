@@ -27,7 +27,7 @@ public class GridPosition : BasePosition
         ApplyPadding();
     }
     
-    [Obsolete]
+    [Obsolete("Use GridPosition(UiPosition initialState, UiPadding padding, float numCols, float numRows) Instead")]
     public GridPosition(float xMin, float yMin, float xMax, float yMax, float horizontalPadding, float verticalPadding, float numCols, float numRows) : base(xMin, yMin, xMax, yMax)
     {
         NumCols = numCols;

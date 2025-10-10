@@ -19,7 +19,7 @@ public class UiButtonGroup : BaseUiControl
         
     public static UiButtonGroup Create(BaseUiBuilder builder, in UiReference parent, in UiPosition pos, in UiOffset offset, List<ButtonGroupData> buttons, int textSize, UiColor textColor, UiColor buttonColor, UiColor activeButtonColor)
     {
-        UiButtonGroup control = CreateControl<UiButtonGroup>(builder.PluginPool);
+        UiButtonGroup control = CreateControl<UiButtonGroup>(builder);
         control.Layout = builder.DirectionalLayout(parent, pos, offset, buttons.Count);
         
         for (int i = 0; i < buttons.Count; i++)

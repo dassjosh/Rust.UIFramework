@@ -20,7 +20,7 @@ public class UiIncrementalNumberPicker<T> : BaseNumberPicker<T> where T : struct
 
     public static UiIncrementalNumberPicker<T> Create(BaseUiBuilder builder, in UiReference parent, in UiPosition pos, in UiOffset offset, T value, IList<T> increments, int fontSize, UiColor textColor, UiColor backgroundColor, UiColor buttonColor, UiColor disabledButtonColor, ICommandBuilder<InputArg> command, ICommandBuilder<T> buttonCommand, TextAnchor align, InputMode mode, T minValue, T maxValue, float buttonWidth, string incrementFormat, string numberFormat)
     {
-        UiIncrementalNumberPicker<T> control = CreateControl<UiIncrementalNumberPicker<T>>(builder.PluginPool);
+        UiIncrementalNumberPicker<T> control = CreateControl<UiIncrementalNumberPicker<T>>(builder);
         int incrementCount = increments.Count;
             
         control.CreateLeftRightPicker(builder, parent, pos, offset, value, fontSize, textColor, backgroundColor, command, mode, buttonWidth * incrementCount, align, numberFormat);

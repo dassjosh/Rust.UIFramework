@@ -40,7 +40,7 @@ public class UiCalenderPicker : BaseUiControl
         
     public static UiCalenderPicker Create(BaseUiBuilder builder, in UiReference reference, in UiPosition pos, in UiOffset offset, DateTime date, int fontSize, UiColor textColor, UiColor buttonColor, UiColor selectedDateColor, ICommandBuilder<DateTime> changeCommand, string buttonSprite)
     {
-        UiCalenderPicker control = CreateControl<UiCalenderPicker>(builder.PluginPool);
+        UiCalenderPicker control = CreateControl<UiCalenderPicker>(builder);
         control.CreateCalender(builder, in reference, in pos, in offset, date, fontSize, textColor, buttonColor, selectedDateColor, changeCommand, buttonSprite);
         return control;
     }

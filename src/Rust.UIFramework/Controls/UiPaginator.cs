@@ -21,7 +21,7 @@ public class UiPaginator : BaseUiControl
 
     public static UiPaginator Create(BaseUiBuilder builder, BaseUiLayout layout, int numElements, int currentPage, int maxPage, int fontSize, UiColor textColor, UiColor buttonColor, UiColor activePageColor, ICommandBuilder<int> command, UiColor? disabledColorMultiplier)
     {
-        UiPaginator control = CreateControl<UiPaginator>(builder.PluginPool);
+        UiPaginator control = CreateControl<UiPaginator>(builder);
         
         int pageButtons = numElements - 5;
 

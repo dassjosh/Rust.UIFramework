@@ -15,7 +15,7 @@ public class UiPicker : BaseUiControl
 
     public static UiPicker Create(BaseUiBuilder builder, BaseUiLayout layout, string value, int fontSize, UiColor textColor, UiColor backgroundColor, string incrementCommand, string decrementCommand)
     {
-        UiPicker control = CreateControl<UiPicker>(builder.PluginPool);
+        UiPicker control = CreateControl<UiPicker>(builder);
         
         control.Next =  builder.IconButton(layout, backgroundColor, Icons.ChevronDown, decrementCommand, textColor);
         control.Value = builder.Label(layout, value, fontSize, textColor);

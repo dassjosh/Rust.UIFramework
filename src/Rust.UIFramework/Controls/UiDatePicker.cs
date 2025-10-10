@@ -20,7 +20,7 @@ public class UiDatePicker : BaseUiControl
         
     public static UiDatePicker Create(BaseUiBuilder builder, in UiReference parent, in UiPosition pos, in UiOffset offset, DateTime date, int fontSize, UiColor textColor, UiColor backgroundColor, ICommandBuilder<UiReference> openCommand, string displayFormat = "MM/dd/yyyy")
     {
-        UiDatePicker control = CreateControl<UiDatePicker>(builder.PluginPool);
+        UiDatePicker control = CreateControl<UiDatePicker>(builder);
             
         control.Anchor = builder.Anchor(parent, pos, offset);
         control.Command = builder.Button(parent, pos, offset, backgroundColor, openCommand.Build(control.Anchor.Reference));

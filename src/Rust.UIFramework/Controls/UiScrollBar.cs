@@ -20,7 +20,7 @@ public class UiScrollBar : BaseUiControl
 
     public static UiScrollBar Create(BaseUiBuilder builder, in UiReference parent, in UiPosition position, in UiOffset offset, int currentPage, int maxPage, UiColor barColor, UiColor backgroundColor, ICommandBuilder<int> command, ScrollbarDirection direction, string sprite)
     {
-        UiScrollBar control = CreateControl<UiScrollBar>(builder.PluginPool);
+        UiScrollBar control = CreateControl<UiScrollBar>(builder);
             
         control.Background = builder.Panel(parent, position, offset, backgroundColor).SetSpriteMaterialImage(sprite, null, Image.Type.Sliced);
         UiDirectionalLayout layout = builder.DirectionalLayout(parent, position, offset, maxPage + 1, direction == ScrollbarDirection.Horizontal ? LayoutDirection.Horizontal : LayoutDirection.Vertical);
