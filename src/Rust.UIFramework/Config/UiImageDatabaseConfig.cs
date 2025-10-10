@@ -1,14 +1,15 @@
 ﻿using Newtonsoft.Json;
+using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Config;
 
-public class UiImageDbConfig
+public class UiImageDatabaseConfig
 {
-    [JsonProperty("Enable Image DB")]
+    [JsonProperty("Enable Image Database")]
     public bool Enabled { get; set; }
     
-    [JsonProperty("In Memory Image Cache Size (Bytes)")]
-    public ulong CacheSize { get; set; }
+    [JsonProperty("In Memory Cache Size")]
+    public MemorySize CacheSize { get; set; }
     
     [JsonProperty("How long before removing unused images (Days)")]
     public uint UnusedImageMaxDays { get; set; }

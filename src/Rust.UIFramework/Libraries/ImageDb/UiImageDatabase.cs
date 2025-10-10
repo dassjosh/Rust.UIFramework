@@ -33,7 +33,7 @@ internal class UiImageDatabase : BaseUiFrameworkLibrary, ISingleton, IImageDatab
                 _db.Execute("CREATE TABLE data ( crc INTEGER PRIMARY KEY, image BLOB)");
             }
         
-            _cache = new LruDictionary<ImageId, CachedImage>(UiFrameworkConfig.Instance.ImageDb.CacheSize);
+            _cache = new LruDictionary<ImageId, CachedImage>(UiFrameworkConfig.Instance.ImageDb.CacheSize.Bytes);
         }
 #endif
     }

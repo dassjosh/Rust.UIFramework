@@ -7,6 +7,7 @@ using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Constants;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Logging;
+using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Config;
 
@@ -33,7 +34,7 @@ internal class UiFrameworkConfig : ConfigFile
     /// UiFramework Image DB Options
     /// </summary>
     [JsonProperty("ImageDB")]
-    public UiImageDbConfig ImageDb { get; set; }
+    public UiImageDatabaseConfig ImageDb { get; set; }
     
     /// <summary>
     /// UiFramework Image Storage Options
@@ -129,10 +130,10 @@ internal class UiFrameworkConfig : ConfigFile
             MaxDownloadAttempts = ImageStorage?.MaxDownloadAttempts ?? 3,
         };
 
-        ImageDb = new UiImageDbConfig
+        ImageDb = new UiImageDatabaseConfig
         {
             Enabled = ImageDb?.Enabled ?? true,
-            CacheSize = 25 * 1024 * 1024,
+            CacheSize = new MemorySize(25 * 1024 * 1024),
             UnusedImageMaxDays = 30
         };
         
