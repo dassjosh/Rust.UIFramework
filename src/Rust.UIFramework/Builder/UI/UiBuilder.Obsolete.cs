@@ -11,6 +11,8 @@ using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Builder.UI;
 
+#pragma warning disable S1133 // SonarCube Obsolete remove one day
+
 public partial class UiBuilder
 {
     #region Create
@@ -108,7 +110,7 @@ public partial class UiBuilder
     [Obsolete("Use UiBuilder.Popover(UiPluginPool pool, in UiReference parent, Vector2 size, UiColor backgroundColor, PopoverPosition position, string menuSprite, UiColor? outlineColor = null) Instead")]
     public static UiBuilder Popover(in UiReference parent, Vector2 size, UiColor backgroundColor, PopoverPosition position = PopoverPosition.Bottom, string menuSprite = UiSprites.Content.Ui.UiBackgroundRounded)
     {
-        return Popover(UiFrameworkPool.Pool, parent, size, backgroundColor, position, menuSprite, null);
+        return Popover(UiFrameworkPool.Pool, parent, size, backgroundColor, position, menuSprite);
     }
     #endregion
 }

@@ -9,6 +9,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 #pragma warning disable CS0612 // Type or member is obsolete
+#pragma warning disable S1133 // SonarCube Obsolete remove one day
 
 namespace Oxide.Ext.UiFramework.Builder;
 
