@@ -23,7 +23,6 @@ internal class UiImageDatabase : BaseUiFrameworkLibrary, ISingleton, IImageDatab
     
     private UiImageDatabase()
     {
-#if SERVER
         if (UiFrameworkConfig.Instance.ImageDb.Enabled)
         {
             string dbPath = Path.Combine(PathConstants.DataFolder, "images.db");
@@ -36,7 +35,6 @@ internal class UiImageDatabase : BaseUiFrameworkLibrary, ISingleton, IImageDatab
         
             _cache = new LruDictionary<ImageId, CachedImage>(UiFrameworkConfig.Instance.ImageDb.CacheSize.Bytes);
         }
-#endif
     }
     
     public byte[] Get(ImageId id)
