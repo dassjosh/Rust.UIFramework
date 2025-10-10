@@ -1,5 +1,4 @@
-﻿using Oxide.Core;
-using Oxide.Ext.UiFramework.Colors;
+﻿using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Offsets;

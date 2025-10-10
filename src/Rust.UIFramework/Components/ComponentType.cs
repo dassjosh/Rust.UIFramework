@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-
-namespace Oxide.Ext.UiFramework.Components;
+﻿namespace Oxide.Ext.UiFramework.Components;
 
 public enum ComponentType : ushort
 {

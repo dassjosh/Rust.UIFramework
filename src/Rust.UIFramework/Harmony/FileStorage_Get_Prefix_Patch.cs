@@ -1,7 +1,6 @@
 ﻿using System.Reflection;
 using HarmonyLib;
 using Oxide.Ext.UiFramework.Libraries;
-using Oxide.Ext.UiFramework.Logging;
 using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Harmony;

@@ -1,14 +1,3 @@
-using System.Text;
-using Facepunch;
-using Oxide.Ext.UiFramework;
-using Oxide.Ext.UiFramework.Benchmarks;
-using Oxide.Ext.UiFramework.Config;
-using Oxide.Ext.UiFramework.Extensions;
-using Oxide.Ext.UiFramework.Libraries;
-using Oxide.Ext.UiFramework.Logging;
-using Oxide.Ext.UiFramework.Threading;
-using Oxide.Ext.UiFramework.Types;
-
 namespace Rust.UiFramework.Benchmarks;
 
 #if BENCHMARKS || DEBUG
@@ -21,6 +10,16 @@ using Oxide.Ext.UiFramework.Positions;
 using Oxide.Game.Rust.Cui;
 using Oxide.Ext.UiFramework.Builder.Cached;
 using Oxide.Ext.UiFramework.Builder.UI;
+using System.Text;
+using Oxide.Ext.UiFramework;
+using Oxide.Ext.UiFramework.Benchmarks;
+using Oxide.Ext.UiFramework.Config;
+using Oxide.Ext.UiFramework.Extensions;
+using Oxide.Ext.UiFramework.Libraries;
+using Oxide.Ext.UiFramework.Logging;
+using Oxide.Ext.UiFramework.Threading;
+using Oxide.Ext.UiFramework.Types;
+using Facepunch;
 
 [MemoryDiagnoser]
 public class Benchmarks
@@ -101,7 +100,7 @@ public class Benchmarks
         return GetOxideContainer();
     }
 
-    [Benchmark(Baseline = false)]
+    //[Benchmark(Baseline = false)]
     public UiBuilder UiFramework_CreateContainer()
     {
         UiBuilder builder = GetFrameworkBuilder();
@@ -136,7 +135,7 @@ public class Benchmarks
         return count;
     }
 
-    [Benchmark]
+    //[Benchmark]
     public void UiFramework_Writer()
     {
         UiBuilder builder = _builder;
@@ -168,7 +167,7 @@ public class Benchmarks
         builder.AddUi(default(SendInfo));
     }
     
-    [Benchmark(Baseline = true)]
+    //[Benchmark(Baseline = true)]
     public UiBuilder UiFramework_Async()
     {
         UiBuilder builder = GetFrameworkBuilder();
@@ -184,7 +183,7 @@ public class Benchmarks
         builder.AddUiAsync(_connection);
     }
     
-    [Benchmark(Baseline = false)]
+    //[Benchmark(Baseline = false)]
     public void UiFramework_Full()
     {
         UiBuilder builder = GetFrameworkBuilder();
