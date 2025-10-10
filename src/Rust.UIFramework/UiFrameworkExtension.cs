@@ -49,8 +49,8 @@ public class UiFrameworkExtension : Extension
         }
         else
         {
-            GlobalLogger.Debug("Using {0} Image DB", nameof(UiImageStorage));
-            Manager.RegisterLibrary(nameof(IImageDatabase), Singleton<UiImageStorage>.Instance);
+            GlobalLogger.Debug("Using {0} Image DB", nameof(UiFileStorageDatabase));
+            Manager.RegisterLibrary(nameof(IImageDatabase), Singleton<UiFileStorageDatabase>.Instance);
         }
         Manager.RegisterLibrary(nameof(UiImageStorage), Singleton<UiImageStorage>.Instance);
         Manager.RegisterLibrary(nameof(UiCommands), Singleton<UiCommands>.Instance);
