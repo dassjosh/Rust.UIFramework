@@ -7,23 +7,26 @@ namespace Oxide.Ext.UiFramework.Components;
 
 public class NineSliceComponent : ImageComponent
 {
-    public string Png;
-    public UiBorderWidth Slice;
+    private readonly TrackedValue<string> _png = new();
+    private readonly TrackedValue<UiBorderWidth> _slice = new(JsonDefaults.Image.Slice);
+    
+    public string Png { get => _png.Value; set => _png.Value = value; }
+    public UiBorderWidth Slice { get => _slice.Value; set => _slice.Value = value; }
     
     public override ComponentType ComponentType => ComponentType.NineSlice;
 
     protected override void WriteComponentFields(JsonFrameworkWriter writer, SerializeMode mode)
     {
         base.WriteComponentFields(writer, mode);
-        writer.AddFieldRaw(JsonDefaults.Image.PngName, Png);
-        writer.AddFieldRaw(JsonDefaults.Image.SliceName, Slice);
+        writer.AddField(JsonDefaults.Image.PngName, _png, mode);
+        writer.AddField(JsonDefaults.Image.SliceName, _slice, mode);
     }
 
     public override void Reset()
     {
         base.Reset();
-        Png = null;
-        Slice = JsonDefaults.Image.Slice;
+        _png.Reset();
+        _slice.Reset();
         FillCenter = false;
         ImageType = Image.Type.Sliced;
     }
