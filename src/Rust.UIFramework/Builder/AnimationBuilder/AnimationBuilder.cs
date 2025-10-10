@@ -11,8 +11,6 @@ namespace Oxide.Ext.UiFramework.Builder;
 
 public class AnimationBuilder : BaseBuilder, IAnimationBuilder
 {
-    public IUiFrameworkPlugin Plugin { get; private set; }
-    
     private readonly List<BaseAnimation> _animations = [];
 
     public static AnimationBuilder Create(IUiFrameworkPlugin plugin)

@@ -66,6 +66,7 @@ public class ImageDownloadAnimation : BaseAnimation
             DownloadState.InProgress or DownloadState.Failed => _failedImage,
             DownloadState.Success => _id.ToString(),
             DownloadState.Timeout => _timeoutImage ?? _failedImage,
+            _ => throw new ArgumentOutOfRangeException()
         };
         SetImage(writer, image);
         

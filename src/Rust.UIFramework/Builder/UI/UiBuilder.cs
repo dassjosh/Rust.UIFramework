@@ -21,9 +21,9 @@ public partial class UiBuilder : BaseUiBuilder, IAnimationBuilder
     private readonly List<BaseAnimation> _animations = [];
         
     #region Setup
-    public UiBuilder Init(IUiFrameworkPlugin plugin)
+    public new UiBuilder Init(IUiFrameworkPlugin plugin)
     {
-        Plugin = plugin;
+        base.Init(plugin);
         return this;
     }
     

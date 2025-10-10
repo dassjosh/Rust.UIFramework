@@ -182,7 +182,7 @@ public class GridPositionBuilder
     public GridPosition Build()
     {
         GetPosition(out float xMin, out float yMin, out float xMax, out float yMax);
-        return new GridPosition(xMin, yMin, xMax, yMax, _horizontalPadding, _verticalPadding, _numCols / _colWidth, _numRows/ _rowHeight);
+        return new GridPosition(new UiPosition(xMin, yMin, xMax, yMax), new UiPadding(_horizontalPadding, _verticalPadding), _numCols / _colWidth, _numRows/ _rowHeight);
     }
 
     public UiPosition BuildPosition()

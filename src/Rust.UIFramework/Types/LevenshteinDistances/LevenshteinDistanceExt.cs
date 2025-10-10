@@ -13,7 +13,9 @@ public static class LevenshteinDistanceExt
         return interpolator.GetFrame(value);
     }
 
+#pragma warning disable EPS05
     private static LevenshteinDistance CreateNew(LevenshteinDistanceKey ldk) => new(ldk.Start, ldk.End);
+#pragma warning restore EPS05
 
     private readonly record struct LevenshteinDistanceKey(string Start, string End);
 }

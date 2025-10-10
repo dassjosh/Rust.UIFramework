@@ -15,12 +15,12 @@ public class UiColorPickerMenu : BaseUiControl
     private const int MenuPadding = 4;
     private const int ItemPadding = 2;
 
-    private float _width;
-    private float _height;
+    //private float _width;
+    //private float _height;
 
     //private int _colorLabelWidth;
-    private float _colorInputWidth;
-    private float _hexInputWidth;
+    //private float _colorInputWidth;
+    //private float _hexInputWidth;
         
     // public static UiColorPickerMenu Create(string parentName, UiColor selectedColor, int fontSize, UiColor textColor, UiColor buttonColor, UiColor backgroundColor, UiColor pickerBackgroundColor, UiColor pickerDisabledColor, string command, ColorPickerMode mode, PopoverPosition position, string menuSprite, InputMode inputMode)
     // {

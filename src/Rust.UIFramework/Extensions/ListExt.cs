@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using Oxide.Ext.UiFramework.Pooling;
 using Unity.Collections.LowLevel.Unsafe;
@@ -82,10 +83,14 @@ public static class ListExt
         return list.GetInternalArray().AsSpan(0, list.Count);
     }
     
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
+    // ReSharper disable once ClassNeverInstantiated.Local
     private sealed class PrivateList<T>
     {
+#pragma warning disable CS0649 // Field is never assigned to, and will always have its default value
         internal T[] _items;
         internal int _size;
         internal int _version;
+#pragma warning restore CS0649 // Field is never assigned to, and will always have its default value
     }
 }
