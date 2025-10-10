@@ -26,6 +26,8 @@ internal class ImageDbData : BaseDataFile<ImageDbData>
         _storedImages.TryRemove(id, out DateTime _);
         OnDataChanged();
     }
+    
+    public IEnumerable<ImageId> GetAllImages() => _storedImages.Keys;
 
     public IEnumerable<ImageId> GetExpiredImages() => _storedImages
         .Where(x => x.Value + TimeSpan.FromDays(UiFrameworkConfig.Instance.ImageDb.UnusedImageMaxDays) < DateTime.UtcNow)

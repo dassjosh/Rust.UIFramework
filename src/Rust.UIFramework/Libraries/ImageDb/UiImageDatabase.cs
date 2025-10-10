@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Facepunch.Sqlite;
 using Oxide.Ext.UiFramework.Config;
 using Oxide.Ext.UiFramework.Constants;
@@ -14,7 +16,7 @@ namespace Oxide.Ext.UiFramework.Libraries;
 
 internal class UiImageDatabase : BaseUiFrameworkLibrary, ISingleton, IImageDatabase
 {
-    private readonly ImageDb _db;
+    private readonly ImageDatabase _db;
     private readonly LruDictionary<ImageId, CachedImage> _cache;
     private readonly ImageDbData _data = ImageDbData.Instance;
     private readonly IUiLogger<UiImageDatabase> _logger = Singleton<UiLoggerFactory>.Instance.CreateExtensionLogger<UiImageDatabase>();
@@ -25,11 +27,10 @@ internal class UiImageDatabase : BaseUiFrameworkLibrary, ISingleton, IImageDatab
         if (UiFrameworkConfig.Instance.ImageDb.Enabled)
         {
             string dbPath = Path.Combine(PathConstants.DataFolder, "images.db");
-            _db = new ImageDb();
+            _db = new ImageDatabase();
             _db.Open(dbPath);
             if (!_db.TableExists("data"))
             {
-                _logger.Debug("Creating Image DB Table");
                 _db.Execute("CREATE TABLE data ( crc INTEGER PRIMARY KEY, image BLOB)");
             }
         
@@ -96,12 +97,12 @@ internal class UiImageDatabase : BaseUiFrameworkLibrary, ISingleton, IImageDatab
     {
         foreach (ImageId id in _data.GetExpiredImages())
         {
-            RemoveExpiredImage(id);
+            RemoveImage(id);
             yield return null;
         }
     }
 
-    private void RemoveExpiredImage(ImageId id)
+    private void RemoveImage(ImageId id)
     {
         try
         {
@@ -122,12 +123,42 @@ internal class UiImageDatabase : BaseUiFrameworkLibrary, ISingleton, IImageDatab
     protected override void OnServerInitialized()
     {
         ServerMgr.Instance.StartCoroutine(ClearExpiredImages());
+        SyncData();
+    }
+
+    private void SyncData()
+    {
+        HashSet<uint> savedCrcs = _db.GetAllCrc();
+        foreach (ImageId id in _data.GetAllImages())
+        {
+            if (!savedCrcs.Contains(id.Id))
+            {
+                _data.Remove(id);
+            }
+        }
+
+        foreach (uint crc in savedCrcs)
+        {
+            if (!_data.IsStored(new ImageId(crc)))
+            {
+                RemoveImage(new ImageId(crc));
+            }
+        }
     }
 
     protected override void OnServerSave() => _cache.ClampToSize();
     protected override void OnServerShutdown() => _db.Close();
-    
-    private sealed class ImageDb : Database;
+
+    private sealed class ImageDatabase : Database
+    {
+        public HashSet<uint> GetAllCrc()
+        {
+            IntPtr stmHandle = Prepare("SELECT crc FROM data");
+            List<uint> crcs = [];
+            ExecuteAndReadQueryResults(stmHandle, crcs, ptr => GetColumnValue<uint>(ptr, 0));
+            return crcs.ToHashSet();
+        }
+    }
     
     private readonly struct CachedImage(byte[] data) : ICacheSize
     {
