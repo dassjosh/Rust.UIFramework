@@ -1,6 +1,7 @@
 ﻿using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
+using Oxide.Ext.UiFramework.Constants;
 using Oxide.Ext.UiFramework.UiElements;
 using Rust.UiFramework.UnitTests.Global.Generators;
 using UnityEngine;
@@ -16,7 +17,7 @@ public class UiLabelTests() : BaseTheoryUiElementsTests<UiLabel, UiLabelTests.Th
         Color = UiColors.Gray,
         FadeIn = 1.5f,
         FontSize = 20,
-        Font = UiFontCache.Lcd,
+        Font = UiFonts.Lcd,
         Align = TextAnchor.MiddleCenter,
         Text = "text",
         VerticalOverflow = VerticalWrapMode.Overflow,
