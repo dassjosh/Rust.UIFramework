@@ -58,6 +58,7 @@ public sealed class JsonFrameworkWriter : BasePoolable
         return writer;
     }
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private void OnDepthIncrease()
     {
         if (_objectComma)
@@ -69,6 +70,7 @@ public sealed class JsonFrameworkWriter : BasePoolable
         _propertyComma = false;
     }
         
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private void OnDepthDecrease()
     {
         _objectComma = true;
@@ -372,6 +374,7 @@ public sealed class JsonFrameworkWriter : BasePoolable
     #endregion
         
     #region Writing
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     
     public void WriteStartArray()
     {
@@ -379,18 +382,21 @@ public sealed class JsonFrameworkWriter : BasePoolable
         _writer.Write(ArrayStartChar);
     }
         
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void WriteEndArray()
     {
         _writer.Write(ArrayEndChar);
         OnDepthDecrease();
     }
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void WriteStartObject()
     {
         OnDepthIncrease();
         _writer.Write(ObjectStartChar);
     }
         
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void WriteEndObject()
     {
         _writer.Write(ObjectEndChar);
@@ -419,11 +425,13 @@ public sealed class JsonFrameworkWriter : BasePoolable
         _writer.Write(QuoteChar);
     }
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void WriteComma()
     {
         _writer.Write(CommaChar);
     }
     
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void WriteValue(in Utf8String value)
     {
         WriteQuote();
@@ -431,26 +439,31 @@ public sealed class JsonFrameworkWriter : BasePoolable
         WriteQuote();
     }
     
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void WriteValue(bool value)
     {
         _writer.Write(value ? True : False);
     }
         
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void WriteValue(int value)
     {
         _writer.Write(Utf8StringCache<int>.ToString(value));
     }
         
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void WriteValue(float value)
     {
         _writer.Write(Utf8StringCache<float>.ToString(value));
     }
         
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void WriteValue(ulong value)
     {
         _writer.Write(Utf8StringCache<ulong>.ToString(value));
     }
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void WriteValue(string value)
     {
         _writer.Write(QuoteChar);
@@ -458,6 +471,7 @@ public sealed class JsonFrameworkWriter : BasePoolable
         _writer.Write(QuoteChar);
     }
     
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void WriteValue(Vector2 pos)
     {
         _writer.Write(QuoteChar);
@@ -465,6 +479,7 @@ public sealed class JsonFrameworkWriter : BasePoolable
         _writer.Write(QuoteChar);
     }
         
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void WriteValue(UiColor color)
     {
         _writer.Write(QuoteChar);
@@ -472,6 +487,7 @@ public sealed class JsonFrameworkWriter : BasePoolable
         _writer.Write(QuoteChar);
     }
     
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void WriteValue(in UiPadding padding)
     {
         _writer.Write(QuoteChar);
@@ -479,6 +495,7 @@ public sealed class JsonFrameworkWriter : BasePoolable
         _writer.Write(QuoteChar);
     }
     
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void WriteValue(in UiBorderWidth border)
     {
         _writer.Write(QuoteChar);
@@ -486,6 +503,7 @@ public sealed class JsonFrameworkWriter : BasePoolable
         _writer.Write(QuoteChar);
     }
         
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void WriteBlankValue()
     {
         _writer.Write(QuoteChar);
