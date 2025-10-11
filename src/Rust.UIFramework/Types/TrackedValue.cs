@@ -115,4 +115,5 @@ public interface ITrackedValue
 {
     bool HasChanged { get; }
     bool IsFrameworkDefault { get; }
+    bool IsSerializationDefault { get; }
 }
