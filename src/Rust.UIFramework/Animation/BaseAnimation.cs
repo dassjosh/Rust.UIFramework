@@ -252,15 +252,20 @@ public abstract class BaseAnimation : BasePoolable
         {
             PluginPool.FreeList(Send.connections);
         }
-
-        Duration.TryReturnToPool();
-
+        
         Id = default;
+        Plugin = null;
         Reference = default;
-        Duration = null;
         Send = default;
+        Duration.TryReturnToPool();
+        Duration = null;
+        Progressor?.TryReturnToPool();
+        Progressor = null;
+        UpdateState(AnimationState.Pooled);
+        PlayerId = 0;
         _events.TryFreeValues();
         TriggeredTracker?.TryDispose();
-        UpdateState(AnimationState.Pooled);
+        TriggeredTracker = null;
+        TimeoutAction = default;
     }
 }
