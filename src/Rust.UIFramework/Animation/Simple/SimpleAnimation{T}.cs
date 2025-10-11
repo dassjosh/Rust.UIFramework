@@ -42,5 +42,6 @@ public abstract class SimpleAnimation<T> : BaseAnimation
     {
         base.EnterPool();
         Animator.TryReturnToPool();
+        Animator = null;
     }
 }
