@@ -143,7 +143,7 @@ public class DebugLogger
     /// </summary>
     /// <param name="name">Name of the field</param>
     /// <param name="value">Value of the field</param>
-    public void AppendFieldEnum<T>(string name, T value)  where T : struct, Enum, IComparable, IFormattable, IConvertible => AppendField(name, FastEnumCache<T>.ToString(value));
+    public void AppendFieldEnum<T>(string name, T value) where T : unmanaged, Enum, IComparable, IFormattable, IConvertible => AppendField(name, FastEnumCache<T>.ToString(value));
 
     /// <summary>
     /// Appends a field with the given name and int amount over int total value
