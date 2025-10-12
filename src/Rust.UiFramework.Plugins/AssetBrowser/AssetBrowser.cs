@@ -472,8 +472,8 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
 
     private readonly ImageDownloadOptions _downloadOptions = new()
     {
-        FailedImageNameOrUrl = ErrorImage,
-        AutomaticUpdate = new ImageAutomaticUpdateOptions
+        FallbackImageNameOrUrl = ErrorImage,
+        AutomaticUpdate = new ImageAnimationOptions
         {
             DownloadingImageNameOrUrl = LoadingImage,
             EnableAutoImageUpdate = true,

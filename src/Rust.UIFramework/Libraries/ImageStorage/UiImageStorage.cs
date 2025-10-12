@@ -61,18 +61,18 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
             RegisterResult result = RegisterImage(pluginId, nameOrUrl);
             if (result is { HadDownloadError: false, DownloadInProgress: true })
             {
-                ImageAutomaticUpdateOptions automaticUpdate = options.AutomaticUpdate;
-                if (automaticUpdate is { EnableAutoImageUpdate: true } && !string.IsNullOrEmpty(automaticUpdate.DownloadingImageNameOrUrl) && nameOrUrl != automaticUpdate.DownloadingImageNameOrUrl)
-                {
-                    return Get(pluginId, automaticUpdate.DownloadingImageNameOrUrl, options);
-                }
+                // ImageDownloadAnimationOptions automaticUpdate = options.AutomaticUpdate;
+                // if (automaticUpdate is { EnableAutoImageUpdate: true } && !string.IsNullOrEmpty(automaticUpdate.DownloadingImageNameOrUrl) && nameOrUrl != automaticUpdate.DownloadingImageNameOrUrl)
+                // {
+                //     return Get(pluginId, automaticUpdate.DownloadingImageNameOrUrl, options);
+                // }
 
                 return nameOrUrl;
             }
 
-            if (result.HadDownloadError && !string.IsNullOrEmpty(options.FailedImageNameOrUrl) && nameOrUrl != options.FailedImageNameOrUrl)
+            if (result.HadDownloadError && !string.IsNullOrEmpty(options.FallbackImageNameOrUrl) && nameOrUrl != options.FallbackImageNameOrUrl)
             {
-                return Get(pluginId, options.FailedImageNameOrUrl, null);
+                return Get(pluginId, options.FallbackImageNameOrUrl, null);
             }
             
             _logger.Debug("Image had an error downloading and no fallback image registered for plugin: {0} name: {1}. Using not found image.", pluginId.FullName(), nameOrUrl);

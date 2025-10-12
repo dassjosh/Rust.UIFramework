@@ -18,18 +18,18 @@ public class ImageDownloadAnimation : BaseAnimation
 
     private enum DownloadState { InProgress, Failed, Success, Timeout }
     
-    internal static ImageDownloadAnimation Create(IAnimationBuilder builder, ITriggeredDuration duration, in UiReference reference, ImageDownloadOptions options)
+    internal static ImageDownloadAnimation Create(IAnimationBuilder builder, ITriggeredDuration duration, in UiReference reference, ImageAnimationOptions options)
     {
         ImageDownloadAnimation animation = builder.PluginPool.Get<ImageDownloadAnimation>();
         animation.Init(builder, duration, reference, options);
         return animation;
     }
 
-    private void Init(IAnimationBuilder builder, ITriggeredDuration duration, in UiReference reference, ImageDownloadOptions options)
+    private void Init(IAnimationBuilder builder, ITriggeredDuration duration, in UiReference reference, ImageAnimationOptions options)
     {
         base.Init(builder.Plugin, reference, duration);
         _duration = duration;
-        _timeoutImage = options.AutomaticUpdate.TimeoutImageNameOrUrl;
+        _timeoutImage = options.TimeoutImageNameOrUrl;
         _failedImage = options.FailedImageNameOrUrl;
     }
 
@@ -98,6 +98,7 @@ public class ImageDownloadAnimation : BaseAnimation
     protected override void EnterPool()
     {
         base.EnterPool();
+        _id = default;
         _state = DownloadState.InProgress;
         _timeoutImage = null;
         _failedImage = null;
