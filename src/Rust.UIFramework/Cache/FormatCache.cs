@@ -4,6 +4,8 @@ using System.Globalization;
 
 namespace Oxide.Ext.UiFramework.Cache;
 
+#pragma warning disable S2743 // Static is not shared across generics
+
 public static class FormatCache<T> where T : IFormattable
 {
     private static readonly ConcurrentDictionary<FormatKey, string> Cache = new();

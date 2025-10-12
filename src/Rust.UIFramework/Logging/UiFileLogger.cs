@@ -41,7 +41,7 @@ internal class UiFileLogger : IOutputLogger
         DateTime.Now.TryFormat(out ReadOnlySpan<char> written, _dateTimeFormat);
         sb.Append(written);
         sb.Append(" [");
-        sb.Append(EnumCache<UiLogLevel>.ToString(level));
+        sb.Append(FastEnumCache<UiLogLevel>.ToString(level));
         sb.Append("] ");
         
         if (type != null)

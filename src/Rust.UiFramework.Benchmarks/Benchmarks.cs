@@ -82,6 +82,9 @@ public class Benchmarks
         
         Singleton<SendHandler>.Instance.WaitUntilFinished();
         
+        System.GC.Collect();
+        System.GC.WaitForPendingFinalizers();
+        
         if (Singleton<UiPool>.Instance.CheckForLeaks())
         {
             DebugLogger logger = new();

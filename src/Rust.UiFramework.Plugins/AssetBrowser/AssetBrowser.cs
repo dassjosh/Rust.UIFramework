@@ -117,7 +117,7 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
         HashSet<string> itemsNames = new();
         foreach (ItemDefinition def in ItemManager.itemList)
         {
-            Folder folder = _items.GetOrCreateFolder(EnumCache<ItemCategory>.ToString(def.category));
+            Folder folder = _items.GetOrCreateFolder(FastEnumCache<ItemCategory>.ToString(def.category));
             string name = def.displayName.english;
             if (!itemsNames.Add(name))
             {
@@ -408,7 +408,7 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
                 return string.Empty;
             }
 
-            return $"{EnumCache<AssetType>.ToString(Type)}/{Path}";
+            return $"{FastEnumCache<AssetType>.ToString(Type)}/{Path}";
         }
 
         private void OnPathChanged()
@@ -600,7 +600,7 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
             Puts(_uiCommands.SelectAssetType.Build(state, type));
             UiButton button = builder.Button(root, _imageGrid, default, _buttonColor, _uiCommands.SelectAssetType.Build(state, type));
             builder.ImageSprite(button, UiPosition.Full, default, UiSprites.Icons.Folder, UiColors.White);
-            builder.Label(button, UiPosition.Full, default, EnumCache<AssetType>.ToString(type), 14, _textColor).AddOutline(UiColors.Black);
+            builder.Label(button, UiPosition.Full, default, FastEnumCache<AssetType>.ToString(type), 14, _textColor).AddOutline(UiColors.Black);
             _imageGrid.MoveCols(1);
         }
     }
@@ -676,18 +676,18 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
         
         if (!state.CardType.HasValue)
         {
-            foreach (UiCardType type in EnumCache<UiCardType>.GetValues())
+            foreach (UiCardType type in FastEnumCache<UiCardType>.GetValues())
             {
-                string name = EnumCache<UiCardType>.ToString(type);
+                string name = FastEnumCache<UiCardType>.ToString(type);
                 UiButton button = builder.SpriteButton(grid, _buttonColor, UiSprites.Icons.Folder, _uiCommands.PathInto.Build(state, name));
                 builder.Label(button, UiPosition.Full, default, name, 12, _textColor).AddOutline(UiColors.Black);
             }
             return;
         }
 
-        foreach (UiSuit suit in EnumCache<UiSuit>.GetValues())
+        foreach (UiSuit suit in FastEnumCache<UiSuit>.GetValues())
         {
-            foreach (UiRank rank in EnumCache<UiRank>.GetValues())
+            foreach (UiRank rank in FastEnumCache<UiRank>.GetValues())
             {
                 PlayingCardData card = new(suit, rank);
                 string spritePath = UiPlayingCards.GetPlayingCard(suit, rank, state.CardType.Value);
@@ -727,7 +727,7 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
     {
         UiGridLayout layout =  builder.GridLayout(root, new UiPosition(0, 0.075f, 1, 1), default, ImageColumns, ImageRows, default, LayoutPadding);
         
-        IReadOnlyCollection<T> values = EnumCache<T>.GetValues();
+        IReadOnlyCollection<T> values = FastEnumCache<T>.GetValues();
         int maxPage = UiHelpers.CalculateMaxPage(values.Count, TotalImages);
         
         Puts($"{values.Count} {TotalImages} {maxPage}");

@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
+// ReSharper disable StaticMemberInGenericType
+#pragma warning disable S2743 // Static is not shared across generics
+#pragma warning disable S3963 // Static constructor
+
 namespace Oxide.Ext.UiFramework.Cache;
 
 public static class EnumCache<T> where T : Enum
@@ -28,4 +32,5 @@ public static class EnumCache<T> where T : Enum
     public static string ToLower(T value) => LowerStrings[value];
     public static string ToNumber(T value) => NumberStrings[value];
     public static IReadOnlyCollection<T> GetValues() => EnumValues;
+    
 }

@@ -4,7 +4,6 @@ using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Types;
-using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Cache;
 
@@ -25,18 +24,18 @@ internal static class UiColorCache
         writer.Write(color);
     }
 
-    private static string GetColor(Color color)
+    private static string GetColor(UiColor color)
     {
         StringBuilder builder = UiPool.Internal.GetStringBuilder();
-        builder.Append(FormatCache<float>.ToString(color.r, Format));
+        builder.Append(FormatCache<float>.ToString(color.RedFloat, Format));
         builder.Append(Space);
-        builder.Append(FormatCache<float>.ToString(color.g, Format));
+        builder.Append(FormatCache<float>.ToString(color.GreenFloat, Format));
         builder.Append(Space);
-        builder.Append(FormatCache<float>.ToString(color.b, Format));
-        if (color.a < 1f)
+        builder.Append(FormatCache<float>.ToString(color.BlueFloat, Format));
+        if (color.AlphaFloat < 1f)
         {
             builder.Append(Space);
-            builder.Append(FormatCache<float>.ToString(color.a, Format));
+            builder.Append(FormatCache<float>.ToString(color.AlphaFloat, Format));
         }
 
         return UiPool.Internal.ToStringAndFree(builder);

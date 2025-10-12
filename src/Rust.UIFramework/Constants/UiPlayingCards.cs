@@ -33,7 +33,7 @@ public static class UiPlayingCards
         {
             UiRank.Joker => GetJokerPath(card),
             UiRank.Back => GetBackPath(card),
-            _ => string.Format(GetCardFormat(card.Type), EnumCache<UiSuit>.ToLower(card.Suit), GetRankName(card.Rank))
+            _ => string.Format(GetCardFormat(card.Type), FastEnumCache<UiSuit>.ToLower(card.Suit), GetRankName(card.Rank))
         };
     }
 
