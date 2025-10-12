@@ -106,7 +106,7 @@ public partial class BaseUiBuilder
     #region Image
     public UiImage ImageSprite(in UiReference parent)
     {
-        return Component<UiImage>(parent);
+        return Component<UiImage>(parent).SetMaterial(UiMaterials.Content.Ui.NameFontMaterial);
     }
     
     public UiImage ImageSprite(in UiReference parent, in UiPosition pos, in UiOffset offset, string sprite, UiColor? color = default)
