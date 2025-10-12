@@ -119,6 +119,25 @@ public class ConcurrentList<T> : IList<T>
             _lock.ExitWriteLock();
         }
     }
+
+    public bool TryAdd(T item)
+    {
+        _lock.EnterWriteLock();
+        try
+        {
+            if (!_list.Contains(item))
+            {
+                _list.Add(item);
+                return true;
+            }
+
+            return false;
+        }
+        finally
+        {
+            _lock.ExitWriteLock();
+        }
+    }
     
     public void Clear()
     {

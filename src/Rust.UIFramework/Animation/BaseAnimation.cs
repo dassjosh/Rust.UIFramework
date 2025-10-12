@@ -26,6 +26,7 @@ public abstract class BaseAnimation : BasePoolable
     internal ulong PlayerId { get; private set; }
     private readonly List<IAnimationEvent> _events = [];
     public bool IsCompleted => State is AnimationState.Completed or AnimationState.Cancelled;
+    public bool IsActive => State is AnimationState.Queued or AnimationState.Running;
     public bool IsDelayed => TriggeredTracker is { IsTriggeredOrTimedOut: false } || Duration.IsDelayed;
     
     protected TriggeredTimeoutTracker TriggeredTracker;
@@ -65,7 +66,7 @@ public abstract class BaseAnimation : BasePoolable
     public BaseAnimation ComesAfter(BaseAnimation animation, in TimeSpan? timeout = null, TimeoutAnimationAction action = TimeoutAnimationAction.StartAnimation)
     {
         animation.AddEvent(StartAnimationAfterEvent.Create(this));
-        TriggeredTracker = TriggeredTimeoutTracker.Create(PluginPool, timeout ?? TimeSpan.FromMinutes(1));
+        TriggeredTracker = TriggeredTimeoutTracker.Create(PluginPool, timeout ?? TimeSpan.FromMinutes(1), TriggerDelayTimeout);
         TimeoutAction = action;
         return this;
     }
@@ -81,10 +82,22 @@ public abstract class BaseAnimation : BasePoolable
     
     public void TriggerDelayComplete()
     {
-        if (State is AnimationState.Queued or AnimationState.Running)
+        if (IsActive)
         {
             TriggeredTracker?.Trigger();
             OnStarted();
+        }
+    }
+
+    public void TriggerDelayTimeout()
+    {
+        if (IsActive)
+        {
+            OnStarted();
+            if (TimeoutAction == TimeoutAnimationAction.CancelAnimation)
+            {
+                Cancel();
+            }
         }
     }
     
@@ -158,12 +171,6 @@ public abstract class BaseAnimation : BasePoolable
         if (TriggeredTracker != null)
         {
             TriggeredTracker.OnTick(currentTime);
-            if (TriggeredTracker.HasTimedOut && TimeoutAction == TimeoutAnimationAction.CancelAnimation)
-            {
-                Cancel();
-                return;
-            }
-            
             if (!TriggeredTracker.IsTriggeredOrTimedOut)
             {
                 return;

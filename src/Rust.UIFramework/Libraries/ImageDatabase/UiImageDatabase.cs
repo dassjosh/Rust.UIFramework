@@ -23,18 +23,15 @@ internal class UiImageDatabase : BaseUiFrameworkLibrary, ISingleton, IImageDatab
     
     private UiImageDatabase()
     {
-        if (UiFrameworkConfig.Instance.ImageDb.Enabled)
+        string dbPath = Path.Combine(PathConstants.DataFolder, "images.db");
+        _db = new ImageDatabase();
+        _db.Open(dbPath);
+        if (!_db.TableExists("data"))
         {
-            string dbPath = Path.Combine(PathConstants.DataFolder, "images.db");
-            _db = new ImageDatabase();
-            _db.Open(dbPath);
-            if (!_db.TableExists("data"))
-            {
-                _db.Execute("CREATE TABLE data ( crc INTEGER PRIMARY KEY, image BLOB)");
-            }
-        
-            _cache = new LruDictionary<ImageId, CachedImage>(UiFrameworkConfig.Instance.ImageDb.CacheSize.Bytes);
+            _db.Execute("CREATE TABLE data ( crc INTEGER PRIMARY KEY, image BLOB)");
         }
+        
+        _cache = new LruDictionary<ImageId, CachedImage>(UiFrameworkConfig.Instance.ImageDatabase.CacheSize.Bytes);
     }
     
     public byte[] Get(ImageId id)

@@ -11,26 +11,15 @@ using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Libraries;
 
-internal readonly record struct DownloadRequest(PluginId PluginId, string Name, string Url);
-internal readonly record struct CompletedDownload(DownloadRequest Request, byte[] Data);
-
-public readonly record struct RegisterResult(bool IsNewlyRegistered, bool HasDownloadedSuccessfully, bool HadDownloadError, bool DownloadInProgress)
-{
-    internal static readonly RegisterResult Success = new(false, true, false, false);
-}
-
 /// <summary>
 /// Handles concurrent downloading of images
 /// </summary>
 internal class ImageDownloader
 {
     private readonly HttpClient _httpClient;
-    private readonly ConcurrentQueue<DownloadRequest> _requestQueue = new();
-    private readonly ConcurrentDictionary<string, DownloadState> _urlState = new();
+    private readonly ConcurrentQueue<UrlDownloadState> _requestQueue = [];
+    private readonly ConcurrentDictionary<string, UrlDownloadState> _urlRequests = new();
     private readonly CancellationTokenSource _cancellationTokenSource = new();
-    private readonly IImageStorageBehavior _storage;
-    private static readonly int MaxConcurrentDownloads = UiFrameworkConfig.Instance.ImageStorage.MaxConcurrentDownloads;
-    private static readonly int MaxDownloadAttempts = UiFrameworkConfig.Instance.ImageStorage.MaxDownloadAttempts;
     private readonly object _taskLock = new();
     private int _activeWorkerCount;
     private readonly IUiLogger<ImageDownloader> _logger = Singleton<UiLoggerFactory>.Instance.CreateExtensionLogger<ImageDownloader>();
@@ -38,10 +27,8 @@ internal class ImageDownloader
     /// <summary>
     /// Initializes a new instance of the ImageDownloader class
     /// </summary>
-    public ImageDownloader(IImageStorageBehavior storage)
+    public ImageDownloader()
     {
-        _storage = storage;
-        
         HttpClientHandler handler = new()
         {
             AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate,
@@ -72,37 +59,41 @@ internal class ImageDownloader
     /// <param name="name">The name for the downloaded image</param>
     /// <param name="url">The URL to download the image from</param>
     /// <returns>True if the request was added, false if it already existed or failed too many times</returns>
-    internal RegisterResult AddRequest(PluginId pluginId, string name, string url)
+    internal DownloadImageRequest AddRequest(PluginId pluginId, string name, string url)
     {
         if (!pluginId.IsValid) throw new ArgumentNullException(nameof(pluginId));
         if (string.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
         if (string.IsNullOrEmpty(url)) throw new ArgumentNullException(nameof(url));
-
-        DownloadRequest request = new(pluginId, name, url);
-        if (_urlState.TryGetValue(url, out DownloadState state))
-        {
-            if (state.InProgress || state.HasCompleted || state.IsOutOfAttempts)
-            {
-                return new RegisterResult(false, state.HasCompleted, state.HadDownloadError, state.InProgress);
-            }
-        }
-        else
-        {
-            state = new DownloadState();
-            _urlState.TryAdd(url, state);
-        }
-
-        _requestQueue.Enqueue(request);
         
+        UrlDownloadState state = _urlRequests.GetOrAdd(url, u => new UrlDownloadState(u));
+        DownloadImageRequest request = new(pluginId, name, state);
+        if (state.IsCompleted || state.IsOutOfAttempts)
+        {
+            return request;
+        }
+        
+        state.AddRequest(request);
+        _requestQueue.Enqueue(state);
         EnsureWorkersRunning();
-                
-        return new RegisterResult(true, state.HasCompleted, state.HadDownloadError, state.InProgress);
+        return request;
     }
 
-    internal bool IsDownloading(string url)
+    internal DownloadImageRequest AddStoredImageRequest(PluginId pluginId, string name, string url, ImageId imageId)
     {
-        return _urlState.TryGetValue(url, out DownloadState state) && state.InProgress;
+        if (!pluginId.IsValid) throw new ArgumentNullException(nameof(pluginId));
+        if (string.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
+        if (string.IsNullOrEmpty(url)) throw new ArgumentNullException(nameof(url));
+        
+        UrlDownloadState state = _urlRequests.GetOrAdd(url, u => new UrlDownloadState(u));
+        if (!state.IsCompleted)
+        {
+            state.OnImageStored(imageId);
+        }
+        
+        return new DownloadImageRequest(pluginId, name, state);
     }
+
+    internal bool IsDownloading(string url) => _urlRequests.TryGetValue(url, out UrlDownloadState state) && state.IsDownloading;
 
     /// <summary>
     /// Ensures that worker tasks are running if needed
@@ -114,25 +105,25 @@ internal class ImageDownloader
         lock (_taskLock)
         {
             // Only start new workers if we're below the maximum and queue has items
-            if (_activeWorkerCount >= MaxConcurrentDownloads || _requestQueue.IsEmpty)
+            if (_activeWorkerCount >= UiFrameworkConfig.Instance.ImageStorage.MaxConcurrentDownloads || _requestQueue.IsEmpty)
             {
                 return;
             }
             
             // Calculate how many new workers we need
-            int workersToStart = Math.Min(MaxConcurrentDownloads - _activeWorkerCount, _requestQueue.Count);
+            int workersToStart = Math.Min(UiFrameworkConfig.Instance.ImageStorage.MaxConcurrentDownloads - _activeWorkerCount, _requestQueue.Count);
             for (int i = 0; i < workersToStart; i++)
             {
 #pragma warning disable EPC13
                 Task.Factory.StartNew(
                     () => ProcessDownloadQueue(_cancellationTokenSource.Token),
                     _cancellationTokenSource.Token,
-                    TaskCreationOptions.LongRunning,
+                    TaskCreationOptions.None,
                     TaskScheduler.Default);
 #pragma warning restore EPC13
                     
                 Interlocked.Increment(ref _activeWorkerCount);
-                _logger.Debug("Started new worker task. Active workers: {0}/{1}", _activeWorkerCount, MaxConcurrentDownloads);
+                _logger.Debug("Started new worker task. Active workers: {0}/{1}", _activeWorkerCount, UiFrameworkConfig.Instance.ImageStorage.MaxConcurrentDownloads);
             }
         }
     }
@@ -145,24 +136,23 @@ internal class ImageDownloader
     {
         try
         {
-            while (!cancellationToken.IsCancellationRequested && _requestQueue.TryDequeue(out DownloadRequest request))
+            while (!cancellationToken.IsCancellationRequested && _requestQueue.TryDequeue(out UrlDownloadState request))
             {
-                DownloadState state = _urlState[request.Url];
-                if (state.HasCompleted)
+                if (request.IsCompleted)
                 {
                     _logger.Debug("Skipping url: {0} as it has already been downloaded", request.Url);
                     continue;
                 }
                 
-                if (state.IsOutOfAttempts)
+                if (request.IsOutOfAttempts)
                 {
-                    _logger.Debug("Skipping url: {0} as it is greater than max attempts {1}", request.Url, MaxDownloadAttempts);
+                    _logger.Debug("Skipping url: {0} as it is greater than max attempts {1}", request.Url, UiFrameworkConfig.Instance.ImageStorage.MaxDownloadAttempts);
                     continue;
                 }
                 
                 try
                 {
-                    await DownloadImageAsync(request, state, cancellationToken);
+                    await DownloadImageAsync(request, cancellationToken);
                 }
                 catch (OperationCanceledException)
                 {
@@ -170,9 +160,10 @@ internal class ImageDownloader
                     if(cancellationToken.IsCancellationRequested)
                     {
                         _logger.Debug("Worker task shutting down due to cancellation. Active workers: {0}", _activeWorkerCount);
+                        return;
                     }
 
-                    // Failed because of timeout. Requeue the request
+                    // Failed because of http timeout. Requeue the request
                     _requestQueue.Enqueue(request);
                     _logger.Debug("A timeout occured during download for request: {0}", request.Url);
                 }
@@ -192,60 +183,36 @@ internal class ImageDownloader
     /// <summary>
     /// Downloads an image from the specified URL
     /// </summary>
-    /// <param name="request">The download request</param>
-    /// <param name="state"></param>
+    /// <param name="state">The download request</param>
     /// <param name="cancellationToken">Token to monitor for cancellation</param>
     /// <returns>True if download was successful, otherwise false</returns>
-    private async ValueTask<bool> DownloadImageAsync(DownloadRequest request, DownloadState state, CancellationToken cancellationToken)
+    private async ValueTask<bool> DownloadImageAsync(UrlDownloadState state, CancellationToken cancellationToken)
     {
         try
         {
             // Download the image
-            using HttpResponseMessage response = await _httpClient.GetAsync(request.Url, cancellationToken);
+            state.OnDownloadStarted();
+            using HttpResponseMessage response = await _httpClient.GetAsync(state.Url, cancellationToken);
             if (response.IsSuccessStatusCode)
             {
                 byte[] data = await response.Content.ReadAsByteArrayAsync();
-                _storage.OnDownloadComplete(new CompletedDownload(request, data));
-                state.OnDownloadComplete();
+                state.OnDownloadComplete(data);
                 return true;
             }
             
-            _logger.Error($"Failed to download image. Plugin: {request.PluginId} Url: {request.Url}. Attempt: {state.Attempts} Status Code: {response.StatusCode}. Message: {await response.Content.ReadAsStringAsync()}");
+            _logger.Error($"Failed to download image. Plugin: {state.GetFirstPluginId()} Url: {state.Url}. Attempt: {state.Attempts} Status Code: {response.StatusCode}. Message: {await response.Content.ReadAsStringAsync()}");
         }
         catch (Exception ex) when (ex is not OperationCanceledException)
         {
-            _logger.Exception($"An error occured downloading image. Plugin: {request.PluginId} Url: {request.Url} Attempt: {state.Attempts}", ex);
+            _logger.Exception($"An error occured downloading image. Plugin: {state.GetFirstPluginId()} Url: {state.Url} Attempt: {state.Attempts}", ex);
         }
 
         state.OnDownloadFailed();
-        Singleton<UiImageStorage>.Instance.OnImageDownloadFailed(request);
         return false;
     }
     
     internal void OnServerShutdown()
     {
         _cancellationTokenSource.Cancel();
-    }
-
-    private sealed class DownloadState
-    {
-        public int Attempts = 1;
-        public bool InProgress = true;
-        public bool HasCompleted;
-
-        public bool HadDownloadError => Attempts > 1;
-        public bool IsOutOfAttempts => Attempts > MaxDownloadAttempts;
-        
-        public void OnDownloadFailed()
-        {
-            Attempts += 1;
-            InProgress = false;
-        }
-
-        public void OnDownloadComplete()
-        {
-            InProgress = false;
-            HasCompleted = true;
-        }
     }
 }

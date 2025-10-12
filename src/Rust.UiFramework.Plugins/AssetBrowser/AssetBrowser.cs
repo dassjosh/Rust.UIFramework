@@ -473,13 +473,14 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
     private readonly ImageDownloadOptions _downloadOptions = new()
     {
         FallbackImageNameOrUrl = ErrorImage,
-        AutomaticUpdate = new ImageAnimationOptions
-        {
-            DownloadingImageNameOrUrl = LoadingImage,
-            EnableAutoImageUpdate = true,
-            TimeoutImageNameOrUrl = WarningImage,
-            Timeout = TimeSpan.FromSeconds(5)
-        }
+    };
+
+    private readonly ImageAnimationOptions _downloadAnimation = new()
+    {
+        DownloadingImageNameOrUrl = LoadingImage,
+        TimeoutImageNameOrUrl = WarningImage,
+        FailedImageNameOrUrl = ErrorImage,
+        Timeout = TimeSpan.FromSeconds(5)
     };
 
     public void UiInit()

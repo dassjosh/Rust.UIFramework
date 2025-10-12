@@ -2,6 +2,7 @@
 
 public enum TimeoutAnimationAction : byte
 {
+    None,
     StartAnimation,
     CancelAnimation
 }

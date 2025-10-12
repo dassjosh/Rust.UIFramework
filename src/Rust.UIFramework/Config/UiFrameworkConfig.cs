@@ -34,7 +34,7 @@ internal class UiFrameworkConfig : ConfigFile
     /// UiFramework Image DB Options
     /// </summary>
     [JsonProperty("ImageDB")]
-    public UiImageDatabaseConfig ImageDb { get; set; }
+    public UiImageDatabaseConfig ImageDatabase { get; set; }
     
     /// <summary>
     /// UiFramework Image Storage Options
@@ -84,12 +84,12 @@ internal class UiFrameworkConfig : ConfigFile
 
     internal static void LoadConfig()
     {
-#if !SERVER
-        new UiFrameworkConfig(null);
-#else
+#if SERVER
         string configPath = Path.Combine(PathConstants.ConfigFolder, "UiFramework.json");
         UiFrameworkConfig config = File.Exists(configPath) ? Load<UiFrameworkConfig>(configPath) : new UiFrameworkConfig(configPath);
         config.Save();
+#else
+        new UiFrameworkConfig(null);
 #endif
 
     }
@@ -130,9 +130,9 @@ internal class UiFrameworkConfig : ConfigFile
             MaxDownloadAttempts = ImageStorage?.MaxDownloadAttempts ?? 3,
         };
 
-        ImageDb = new UiImageDatabaseConfig
+        ImageDatabase = new UiImageDatabaseConfig
         {
-            Enabled = ImageDb?.Enabled ?? true,
+            Enabled = ImageDatabase?.Enabled ?? true,
             CacheSize = new MemorySize(25 * 1024 * 1024),
             UnusedImageMaxDays = 30
         };

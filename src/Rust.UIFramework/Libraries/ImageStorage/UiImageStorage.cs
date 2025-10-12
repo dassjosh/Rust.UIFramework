@@ -20,6 +20,7 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
     private readonly ImageDownloader _downloader;
     private readonly IImageDatabase _db = OxideLibrary.GetLibrary<IImageDatabase>(nameof(IImageDatabase));
     private readonly IUiLogger<UiImageStorage> _logger = Singleton<UiLoggerFactory>.Instance.CreateExtensionLogger<UiImageStorage>();
+    private readonly IImageStorageBehavior _storage;
     
     public bool IsReady { get; private set; }
     
@@ -27,20 +28,21 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
 
     private UiImageStorage()
     {
-#if !SERVER
-        _downloader = new ImageDownloader(Singleton<ImageStorageBehavior>.Instance);
+        _downloader = new ImageDownloader();
+#if SERVER
+        _storage = SingletonBehavior<ImageStorageBehavior>.Instance;
 #else
-        _downloader = new ImageDownloader(SingletonBehavior<ImageStorageBehavior>.Instance);
+        _storage = Singleton<ImageStorageBehavior>.Instance;
 #endif
     }
 
     public string Get(IUiFrameworkPlugin plugin, string nameOrUrl, ImageDownloadOptions options = null)
     {
-#if !SERVER
-        return nameOrUrl;
-#else
+#if SERVER
         if (plugin == null) throw new ArgumentNullException(nameof(plugin));
         return Get(plugin.Id(), nameOrUrl, options);
+#else
+        return nameOrUrl;
 #endif
     }
     
@@ -58,8 +60,8 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
 
         if (nameOrUrl.StartsWith("http", StringComparison.OrdinalIgnoreCase))
         {
-            RegisterResult result = RegisterImage(pluginId, nameOrUrl);
-            if (result is { HadDownloadError: false, DownloadInProgress: true })
+            DownloadImageRequest request = RegisterImage(pluginId, nameOrUrl);
+            if (request.UrlState is { HadDownloadError: false, IsDownloading: true })
             {
                 // ImageDownloadAnimationOptions automaticUpdate = options.AutomaticUpdate;
                 // if (automaticUpdate is { EnableAutoImageUpdate: true } && !string.IsNullOrEmpty(automaticUpdate.DownloadingImageNameOrUrl) && nameOrUrl != automaticUpdate.DownloadingImageNameOrUrl)
@@ -70,7 +72,7 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
                 return nameOrUrl;
             }
 
-            if (result.HadDownloadError && !string.IsNullOrEmpty(options.FallbackImageNameOrUrl) && nameOrUrl != options.FallbackImageNameOrUrl)
+            if (request.UrlState.HadDownloadError && !string.IsNullOrEmpty(options.FallbackImageNameOrUrl) && nameOrUrl != options.FallbackImageNameOrUrl)
             {
                 return Get(pluginId, options.FallbackImageNameOrUrl, null);
             }
@@ -85,9 +87,9 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
         return Get(UiFrameworkPlugin.Instance, UiImageDefaults.NotFound);
     }
 
-    public void RegisterImage(IUiFrameworkPlugin plugin, string name, string url) => RegisterImage(plugin.Id(), name, url);
+    public DownloadImageRequest RegisterImage(IUiFrameworkPlugin plugin, string name, string url) => RegisterImage(plugin.Id(), name, url);
     
-    internal RegisterResult RegisterImage(PluginId pluginId, string name, string url)
+    internal DownloadImageRequest RegisterImage(PluginId pluginId, string name, string url)
     {
         InvalidPluginIdException.ThrowIfInvalidPluginId(pluginId); 
         CommunityEntityNotReadyException.ThrowIfNotReady();
@@ -101,15 +103,15 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
         {
             _data.AddPluginImage(pluginId, name, id);
             _db.OnImageRegistered(id);
-            return RegisterResult.Success;
+            return _downloader.AddStoredImageRequest(pluginId, name, url, id);
         }
         
         return _downloader.AddRequest(pluginId, name, url);
     }
     
-    public void RegisterImage(IUiFrameworkPlugin plugin, string url) => RegisterImage(plugin, url, url);
+    public DownloadImageRequest RegisterImage(IUiFrameworkPlugin plugin, string url) => RegisterImage(plugin, url, url);
 
-    internal RegisterResult RegisterImage(PluginId plugin, string url) => RegisterImage(plugin, url, url);
+    internal DownloadImageRequest RegisterImage(PluginId plugin, string url) => RegisterImage(plugin, url, url);
 
     public bool RegisterImage(IUiFrameworkPlugin plugin, string name, byte[] image, out RegisterImageErrorCode error)
     {
@@ -141,25 +143,24 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
         return _downloader.IsDownloading(url);
     }
 
-    internal void OnImageDownloaded(in CompletedDownload download)
+    internal void OnDownloadCompleted(DownloadImageRequest request) => _storage.OnDownloadCompleted(request);
+    
+    internal void StoreDownloadedImage(DownloadImageRequest download)
     {
-        DownloadRequest request = download.Request;
-        byte[] image = download.Data;
+        UrlDownloadState state = download.UrlState;
+        byte[] image = state.Image;
         ImageId imageId = ProcessImage(image, out RegisterImageErrorCode error);
         if (!imageId.IsValid)
         {
-            _logger.Warning("Failed to download image from url: {0} Error: {1}", request.Url, error);
+            _logger.Warning("Failed to download image from url: {0} Error: {1}", state.Url, error);
             return;
         }
         
-        _data.AddPluginImage(request.PluginId, request.Name, imageId);
-        _data.AddUrlImage(request.Url, imageId);
-        Singleton<ImageUpdateAnimations>.Instance.OnDownloadCompleted(download.Request.Url, true, imageId);
-    }
-
-    internal void OnImageDownloadFailed(in DownloadRequest request)
-    {
-        Singleton<ImageUpdateAnimations>.Instance.OnDownloadCompleted(request.Url, false, default);
+        state.OnImageStored(imageId);
+        
+        _data.AddPluginImage(download.PluginId, download.Name, imageId);
+        _data.AddUrlImage(state.Url, imageId);
+        Singleton<ImageUpdateAnimations>.Instance.OnDownloadCompleted(state.Url, true, imageId);
     }
 
     private ImageId ProcessImage(byte[] image, out RegisterImageErrorCode error)
@@ -194,7 +195,7 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
 #if SERVER
         return _db.Store(image);
 #else
-       return new ImageId((uint)Core.Random.Range(0, int.MaxValue));
+        return new ImageId((uint)Core.Random.Range(0, int.MaxValue));
 #endif
     }
 

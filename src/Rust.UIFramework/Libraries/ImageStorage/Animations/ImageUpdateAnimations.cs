@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using Oxide.Ext.UiFramework.Animation;
-using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Types;
+using Oxide.Ext.UiFramework.UiElements;
 
 namespace Oxide.Ext.UiFramework.Libraries;
 
@@ -15,12 +15,28 @@ internal class ImageUpdateAnimations : ISingleton
 
     internal void QueueUpdate(string url, ImageDownloadAnimation animation)
     {
+        CancelPreviousUpdates(animation.PlayerId, animation.Reference);
         if (!_queuedUpdates.TryGetValue(url, out ImageDownloadAnimations updates))
         {
             _queuedUpdates[url] = updates = UiPool.Internal.Get<ImageDownloadAnimations>();
         }
         
         updates.Add(animation);
+    }
+
+    private void CancelPreviousUpdates(ulong playerId, in UiReference reference)
+    {
+        foreach (ImageDownloadAnimations animation in _queuedUpdates.Values)
+        {
+            foreach (ImageAnimationData data in animation.QueuedAnimations)
+            {
+                if (data.Animation.PlayerId == playerId && data.Animation.Reference == reference)
+                {
+                    data.Cancel();
+                    animation.QueuedAnimations.Remove(data);
+                }
+            }
+        }
     }
 
     internal void OnDownloadCompleted(string url, bool success, ImageId id)
@@ -83,7 +99,7 @@ internal class ImageUpdateAnimations : ISingleton
     {
         public readonly ImageDownloadAnimation Animation = Animation;
         public readonly AnimationId Id = Animation.Id;
-        public bool IsAnimationValid => Animation.Id.IsValid && Id.IsValid && Animation.Id == Id && Animation.State == AnimationState.Running;
+        public bool IsAnimationValid => Animation.Id.IsValid && Id.IsValid && Animation.Id == Id && Animation.IsActive;
 
         public void OnImageDownloadedSuccessfully(ImageId id)
         {

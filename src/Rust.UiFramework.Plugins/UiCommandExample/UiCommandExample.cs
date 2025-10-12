@@ -1,8 +1,10 @@
 ﻿using System;
 using Oxide.Ext.UiFramework.Builder.UI;
 using Oxide.Ext.UiFramework.Colors;
+using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Positions;
+using Oxide.Ext.UiFramework.UiElements;
 using Oxide.Plugins;
 
 namespace Oxide.Ext.UiFramework.Plugins.UiCommandExample;
@@ -44,7 +46,7 @@ public class UiCommandExample : RustPlugin, IUiFrameworkPlugin
     
     public void CreateUi(BasePlayer player, UiState state, BuildingPrivlidge priv)
     {
-        UiBuilder builder = UiBuilder.Create(UiPosition.Full, default, UiColors.White, "UiName");
+        UiBuilder builder = UiBuilder.Create(this, new UiReference(UiLayer.Overlay,  "UiName"), UiPosition.Full, default, UiColors.White);
         builder.Button(builder.Root, UiPosition.Full, default, UiColors.Clear, _doTheThingBuilder.Build(state, new MyCustomArg(ulong.MaxValue), 1, false, priv, DateTime.Now));
         builder.AddUi(player);
     }

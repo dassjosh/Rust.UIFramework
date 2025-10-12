@@ -67,10 +67,10 @@ public static class AnimationExt
     public static TextAnimation AnimateText(this IAnimationBuilder builder, in AnimationReference reference, string start, string end, float duration, float delay = 0f, TextFormatter formatter = null)
         => AnimateText(builder, in reference, StringLerpAnimator.Create(builder.PluginPool, start, end), builder.DefaultDuration(duration, delay), formatter);
     
-    public static ImageDownloadAnimation AnimateImageDownload(this IAnimationBuilder builder, in UiReference reference, string url, ImageDownloadOptions options) 
-        => AnimateImageDownload(builder, TriggeredDuration.Create(builder, options.AutomaticUpdate.Timeout), in reference, url, options);
+    public static ImageDownloadAnimation AnimateImageDownload(this IAnimationBuilder builder, in UiReference reference, string url, ImageAnimationOptions options) 
+        => AnimateImageDownload(builder, TriggeredDuration.Create(builder, options.Timeout), in reference, url, options);
 
-    public static ImageDownloadAnimation AnimateImageDownload(this IAnimationBuilder builder, ITriggeredDuration duration, in UiReference reference, string url, ImageDownloadOptions options)
+    public static ImageDownloadAnimation AnimateImageDownload(this IAnimationBuilder builder, ITriggeredDuration duration, in UiReference reference, string url, ImageAnimationOptions options)
     {
         ImageDownloadAnimation animation = ImageDownloadAnimation.Create(builder, duration, reference, options);
         builder.AddAnimation(animation);

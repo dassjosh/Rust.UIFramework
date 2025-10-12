@@ -34,8 +34,19 @@ public partial class UiBuilder
     /// <param name="mode">Update mode to use</param>
     /// <param name="namingMode">Mode to use when naming UI Elements</param>
     /// <returns></returns>
-    public static UiBuilder CreateUpdate(IUiFrameworkPlugin plugin, string rootName = null, UpdateMode mode = UpdateMode.Update, NamingMode namingMode = NamingMode.Reference) => Create(plugin).SetName(rootName).SetUpdateMode(mode).SetNamingMode(namingMode);
-
+    public static UiBuilder CreateUpdate(IUiFrameworkPlugin plugin, string rootName = null, UpdateMode mode = UpdateMode.Update, NamingMode namingMode = NamingMode.Child) => Create(plugin).SetName(rootName).SetUpdateMode(mode).SetNamingMode(namingMode);
+    
+    /// <summary>
+    /// Creates a UiBuilder to replace existing UI Elements
+    /// </summary>
+    /// <param name="plugin"></param>
+    /// <param name="mode">Update mode to use</param>
+    /// <param name="namingMode">Mode to use when naming UI Elements</param>
+    /// <returns></returns>
+    public static UiBuilder CreateReplace(IUiFrameworkPlugin plugin, UpdateMode mode = UpdateMode.Replace, NamingMode namingMode = NamingMode.Reference) => Create(plugin).SetUpdateMode(mode).SetNamingMode(namingMode);
+    
+    public static UiBuilder Create(IUiFrameworkPlugin plugin, UpdateMode mode, NamingMode namingMode) => Create(plugin).SetUpdateMode(mode).SetNamingMode(namingMode);
+    
     /// <summary>
     /// Creates a UiBuilder that is designed to be a popup modal
     /// </summary>
@@ -61,6 +72,7 @@ public partial class UiBuilder
     /// <param name="modalBackgroundColor">Color of the fullscreen background</param>
     /// <param name="backgroundMaterial">Material of the full-screen background</param>
     /// <param name="closeCommand">Command to run when the user clicks outside the modal</param>
+    /// <param name="buttonType"></param>
     /// <returns></returns>
     public static UiBuilder CreateModal(IUiFrameworkPlugin plugin, in UiReference reference, in UiOffset modalSize, UiColor modalColor, UiColor modalBackgroundColor, string backgroundMaterial = null, string closeCommand = null, ButtonType buttonType = ButtonType.Close)
     {
@@ -87,6 +99,7 @@ public partial class UiBuilder
     /// <param name="offset">Offset of the UI</param>
     /// <param name="color">Color of the UI</param>
     /// <param name="closeCommand">Command to run when outside the UI is clicked</param>
+    /// <param name="buttonType"></param>
     /// <returns></returns>
     public static UiBuilder CreateRootWithOutsideClose(IUiFrameworkPlugin plugin, in UiReference reference, in UiPosition pos, in UiOffset offset, UiColor color, string closeCommand = null, ButtonType buttonType = ButtonType.Command)
     {

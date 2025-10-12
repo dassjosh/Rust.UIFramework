@@ -29,11 +29,16 @@ public class TriggeredDuration : BasePoolable, ITriggeredDuration
     public virtual void Trigger()
     {
         TimeoutDelay.Trigger();
+        SetAsCompleted();
+    }
+
+    private void SetAsCompleted()
+    {
         IsCompleted = true;
         IsDelayed = false;
         HasChanged = true;
     }
-    
+
     public virtual void OnStarted(float startTime)
     {
         TimeoutDelay.Start(startTime);
