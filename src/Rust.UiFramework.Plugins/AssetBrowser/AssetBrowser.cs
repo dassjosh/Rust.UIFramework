@@ -349,8 +349,9 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
         private int FolderIndex = 0;
         public UiCardType? CardType { get; set; }
         
-        public UiState()
+        public UiState(ulong playerId)
         {
+            PlayerId = playerId;
             //SetType(AssetType.Texture);
         }
         
@@ -494,6 +495,7 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
         _animator.AddKeyFrame(70f, new UiPosition(0.25f, 0.25f, 0.25f, 0.25f));
         _animator.AddKeyFrame(80f, UiPosition.MiddleLeft);
         _animator.AddKeyFrame(90f, UiPosition.MiddleRight);
+        _store.RegisterStore(this, playerId => new UiState(playerId));
     }
     
     public void CreateUi(BasePlayer player)
@@ -503,6 +505,8 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
 
     private void CreateUi(BasePlayer player, UiState state, bool isInitial = false)
     {
+        Puts("A");
+
         UiBuilder builder;
         if (isInitial)
         {
@@ -520,6 +524,8 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
             builder = UiBuilder.Create(this, new UiReference(UiLayer.Overlay, UiName), UiPosition.MiddleMiddle, new UiOffset(600, 500), _bodyColor);
         }
         
+        Puts("B");
+
         _animationReference = builder.Root;
         
         //builder.SetCurrentFont(UiFontCache.RobotomonoRegular);
@@ -537,22 +543,35 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
         UiSection pathBar = builder.Section(builder.Root, new UiPosition(0, 0.9f, 1, 0.95f), new UiOffset(1, 1, -1, -1));
         UiPanel pathPanel = builder.Panel(pathBar, new UiPosition(0.1f, 0, .9f, 1), default, _pathBarColor);
         
+        Puts("C");
+
+        
         string path = state.GetDisplayPath();
+        Puts("D");
         if (!string.IsNullOrWhiteSpace(path))
         {
+            Puts("D1");
             builder.Label(pathPanel, UiPosition.Full, new UiOffset(2, 0, 0, 0), path,14, _textColor, TextAnchor.MiddleLeft);
         }
 
+        Puts("D2");
         if (state.Type != AssetType.None)
         {
+            Puts("D3");
             builder.IconButton(pathBar, new UiPosition(0.00f, 0, 0.05f, 1), default, _spriteColor, Icons.ChevronLeft, _uiCommands.PrevFolder.Build(state));
+            Puts("D4");
             builder.IconButton(pathBar, new UiPosition(0.05f, 0, 0.1f, 1), default, _spriteColor, Icons.ChevronRight, _uiCommands.NextFolder.Build(state));
         }
         
+        Puts("D5");
         builder.SpriteButton(pathBar, new UiPosition(0.90f, 0, 0.95f, 1), default, _spriteColor, UiSprites.Icons.FolderUp, _uiCommands.PathUp.Build(state));
+        
+        Puts("D6");
         
         UiSection body = builder.Section(builder.Root, new UiPosition(0, 0, 1, 0.90f), new UiPadding(2).ToOffset());
         
+        Puts("E");
+
         switch (state.Type)
         {
             case AssetType.None:
@@ -585,6 +604,8 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
                 break;
         }
 
+        Puts("F");
+        
         //builder.ImageStorage(body, UiPosition.Full, default, "https://rust-images.joshdass.dev/rust-icons/61504.png", _downloadOptions);
         
         builder.AddUiDebug(player, new UiDebugOptions("main"));

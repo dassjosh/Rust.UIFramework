@@ -67,9 +67,9 @@ public class UiPlayerStore : BaseUiFrameworkLibrary, ISingleton
         _stores.Remove(new PluginPlayerStore(plugin.Id(), playerId));
     }
 
-    public T GetOrCreateStore<T>(IUiFrameworkPlugin plugin, BasePlayer player) where T : class, IPlayerStore, new() => GetOrCreateStore<T>(plugin, player.userID.Get());
+    public T GetOrCreateStore<T>(IUiFrameworkPlugin plugin, BasePlayer player) where T : class, IPlayerStore => GetOrCreateStore<T>(plugin, player.userID.Get());
 
-    public T GetOrCreateStore<T>(IUiFrameworkPlugin plugin, ulong playerId) where T : class, IPlayerStore, new() => (T)GetOrCreateStore(plugin.Id(), playerId);
+    public T GetOrCreateStore<T>(IUiFrameworkPlugin plugin, ulong playerId) where T : class, IPlayerStore => (T)GetOrCreateStore(plugin.Id(), playerId);
     
     internal IPlayerStore GetOrCreateStore(PluginId pluginId, ulong playerId)
     {
