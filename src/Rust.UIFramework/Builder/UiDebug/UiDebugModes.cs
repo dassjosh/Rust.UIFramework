@@ -7,5 +7,5 @@ public enum UiDebugModes : byte
 {
     Console = 1 << 0,
     File = 1 << 1,
-    Append = 1 << 2,
+    AppendFile = 1 << 2,
 }

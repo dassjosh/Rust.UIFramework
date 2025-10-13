@@ -45,7 +45,7 @@ internal static class UiDebugHandler
     {
         string path = Path.Join(OxideLibrary.LogFolder, UiFrameworkExtension.Instance.Name, plugin.Name);
         Directory.CreateDirectory(path);
-        return new FileStream(Path.Join(path, $"{options.Identifier}.txt"), options.Mode.HasFlag(UiDebugModes.Append) ? FileMode.Append : FileMode.Create, FileAccess.Write);
+        return new FileStream(Path.Join(path, $"{options.Identifier}.txt"), options.Mode.HasFlag(UiDebugModes.AppendFile) ? FileMode.Append : FileMode.Create, FileAccess.Write);
     }
 
     public static void WriteToConsole(string json, in UiDebugOptions options)
