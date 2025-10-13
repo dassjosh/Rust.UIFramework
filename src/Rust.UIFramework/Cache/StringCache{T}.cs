@@ -9,13 +9,8 @@ public static class StringCache<T>
     
     public static string ToString(T value)
     {
-        if (!Cache.TryGetValue(value, out string text))
-        {
-            text = value.ToString();
-            Cache[value] = text;
-        }
-
-        return text;
+        return Cache.GetOrAdd(value, ValueFactory);
+        static string ValueFactory(T v) => v.ToString();
     }
     
     [Obsolete("Use FormatCache<T>.ToString() instead.")]
