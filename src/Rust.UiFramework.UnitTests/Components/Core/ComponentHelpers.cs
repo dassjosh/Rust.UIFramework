@@ -5,6 +5,7 @@ using Oxide.Ext.UiFramework.Constants;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
+using Oxide.Ext.UiFramework.Types;
 using Oxide.Ext.UiFramework.UiElements;
 using UnityEngine;
 using UnityEngine.UI;
@@ -22,6 +23,12 @@ public static class ComponentHelpers
         image.ImageType = Image.Type.Sliced;
         image.PlaceholderFor = new UiReference("parent", "name");
         image.FillCenter = false;
+    } 
+    
+    public static void PopulateNineSlice(NineSliceComponent slice)
+    {
+        slice.Png = "png";
+        slice.Slice = new UiBorderWidth(1, 2, 4, 8);
     }
 
     public static void PopulateButton(ButtonComponent button)

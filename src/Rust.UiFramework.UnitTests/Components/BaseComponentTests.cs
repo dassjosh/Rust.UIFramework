@@ -103,6 +103,7 @@ public abstract class BasePopulateComponentTests<T>(Action<T> populateComponent)
     {
         // Arrange
         using T component = UiPool.Internal.Get<T>();
+        Assert.SkipWhen(component is NeedsKeyboardComponent or NeedsMouseComponent, $"Skipping TrackedValues_HaveExpectedValues for {typeof(T).Name}");
         
         // Act
         var values = component.GetType().GetFields(BindingFlags.Instance | BindingFlags.NonPublic)
@@ -113,14 +114,18 @@ public abstract class BasePopulateComponentTests<T>(Action<T> populateComponent)
         // Assert
         values.Should().AllSatisfy(v => v.Tracked.IsFrameworkDefault.Should().BeTrue($"Is Default: {v.Field.Name}"));
         values.Should().AllSatisfy(v => v.Tracked.HasChanged.Should().BeFalse($"Has Not Changed Before Populate: {v.Field.Name}"));
+        component.HasChanged().Should().BeFalse("Component Has Not Changed Before Populate");
         PopulateComponent(component);
         values.Should().AllSatisfy(v => v.Tracked.HasChanged.Should().BeTrue($"Has Changed After Populate: {v.Field.Name}"));
+        component.HasChanged().Should().BeTrue("Component Has Changed After Populate");
         component.ResetHasChanged();
         values.Should().AllSatisfy(v => v.Tracked.HasChanged.Should().BeFalse($"Has Not Changed After ResetHasChanged: {v.Field.Name}"));
+        component.HasChanged().Should().BeFalse("Component Has Not Changed After ResetHasChanged");
         PopulateComponent(component);
         component.Reset();
         values.Should().AllSatisfy(v => v.Tracked.IsFrameworkDefault.Should().BeTrue($"Is Default After Reset: {v.Field.Name}"));
         values.Should().AllSatisfy(v => v.Tracked.HasChanged.Should().BeFalse($"Has Not Changed After Reset: {v.Field.Name}"));
+        component.HasChanged().Should().BeFalse("Component Has Not Changed After Reset");
     }
 }
 

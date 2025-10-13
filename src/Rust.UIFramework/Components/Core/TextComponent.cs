@@ -46,6 +46,19 @@ public class TextComponent : CoreComponent, IGraphicalComponent
         }
     }
     
+    public override bool HasChanged()
+    {
+        return base.HasChanged() 
+               || _color.HasChanged 
+               || _fadeIn.HasChanged 
+               || _fontSize.HasChanged 
+               || _font.HasChanged 
+               || _align.HasChanged 
+               || _text.HasChanged 
+               || _verticalOverflow.HasChanged 
+               || _placeholderFor.HasChanged;
+    }
+    
     public override void ResetHasChanged()
     {
         base.ResetHasChanged();

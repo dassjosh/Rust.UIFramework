@@ -21,6 +21,20 @@ public class NineSliceComponent : ImageComponent
         writer.AddField(JsonDefaults.Image.PngName, _png, mode);
         writer.AddField(JsonDefaults.Image.SliceName, _slice, mode);
     }
+    
+    public override bool HasChanged()
+    {
+        return base.HasChanged() 
+               || _png.HasChanged 
+               || _slice.HasChanged;
+    }
+    
+    public override void ResetHasChanged()
+    {
+        base.ResetHasChanged();
+        _png.ResetHasChanged();
+        _slice.ResetHasChanged();
+    }
 
     public override void Reset()
     {
@@ -29,5 +43,6 @@ public class NineSliceComponent : ImageComponent
         _slice.Reset();
         FillCenter = false;
         ImageType = Image.Type.Sliced;
+        base.ResetHasChanged();
     }
 }

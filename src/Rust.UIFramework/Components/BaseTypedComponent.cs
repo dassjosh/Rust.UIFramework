@@ -6,7 +6,7 @@ namespace Oxide.Ext.UiFramework.Components;
 
 public abstract class BaseTypedComponent : BaseComponent
 {
-    private TrackedValue<bool> _enabled = new(true);
+    private readonly TrackedValue<bool> _enabled = new(true);
     
     public bool Enabled { get => _enabled.Value; set => _enabled.Value = value; }
     public abstract Utf8String Type { get; }
@@ -22,5 +22,9 @@ public abstract class BaseTypedComponent : BaseComponent
     
     protected abstract void WriteComponentFields(JsonFrameworkWriter writer, SerializeMode mode);
     
-    public override void Reset() => Enabled = true;
+    public override bool HasChanged() => _enabled.HasChanged;
+    
+    public override void ResetHasChanged() => _enabled.ResetHasChanged();
+
+    public override void Reset() => _enabled.Reset();
 }

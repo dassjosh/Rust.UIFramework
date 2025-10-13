@@ -42,6 +42,18 @@ public class ImageComponent : CoreComponent, IGraphicalComponent
         }
     }
     
+    public override bool HasChanged()
+    {
+        return base.HasChanged() 
+               || _color.HasChanged 
+               || _fadein.HasChanged 
+               || _sprite.HasChanged 
+               || _material.HasChanged 
+               || _imageType.HasChanged 
+               || _fillCenter.HasChanged 
+               || _placeholderFor.HasChanged;
+    }
+    
     public override void ResetHasChanged()
     {
         base.ResetHasChanged();

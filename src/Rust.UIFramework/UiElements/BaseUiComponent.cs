@@ -126,6 +126,8 @@ public abstract class BaseUiComponent : BasePoolable
 
     protected override void EnterPool() => Reset();
 
+    public bool HasChanged() => _component.HasChanged() || _fadeOut.HasChanged || _active.HasChanged;
+    
     public void ResetHasChanged()
     {
         _component.ResetHasChanged();

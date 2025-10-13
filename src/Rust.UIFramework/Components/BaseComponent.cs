@@ -9,6 +9,7 @@ public abstract class BaseComponent : BasePoolable
     public abstract ComponentType ComponentType { get; }
     protected BaseComponent() => EnterPool();
     public abstract void WriteComponent(JsonFrameworkWriter writer, SerializeMode mode);
+    public abstract bool HasChanged();
     public abstract void ResetHasChanged();
     protected sealed override void EnterPool() => Reset();
     public abstract void Reset();

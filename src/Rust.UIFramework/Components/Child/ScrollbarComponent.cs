@@ -43,6 +43,16 @@ public class ScrollbarComponent : ChildComponent
         writer.AddField(JsonDefaults.ScrollBar.TrackColorName, _trackColor, mode);
         writer.WriteEndObject();
     }
+    
+    public override bool HasChanged() => _invert.HasChanged 
+                                         || _autoHide.HasChanged 
+                                         || _handleSprite.HasChanged 
+                                         || _trackSprite.HasChanged 
+                                         || _size.HasChanged 
+                                         || _handleColor.HasChanged 
+                                         || _highlightColor.HasChanged 
+                                         || _pressedColor.HasChanged 
+                                         || _trackColor.HasChanged;
 
     public override void ResetHasChanged()
     {

@@ -105,6 +105,18 @@ public class ScrollViewComponent : CoreComponent
             bar.TrackColor = trackColor.Value;
         }
     }
+    
+    public override bool HasChanged()
+    {
+        return base.HasChanged() 
+               || _movementType.HasChanged 
+               || _elasticity.HasChanged 
+               || _inertia.HasChanged 
+               || _decelerationRate.HasChanged 
+               || _scrollSensitivity.HasChanged 
+               || _horizontalScrollProgress.HasChanged 
+               || _verticalScrollProgress.HasChanged;
+    }
 
     public override void ResetHasChanged()
     {

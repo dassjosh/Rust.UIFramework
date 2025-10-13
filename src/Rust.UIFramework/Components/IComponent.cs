@@ -7,6 +7,8 @@ namespace Oxide.Ext.UiFramework.Components;
 public interface IComponent
 {
     void WriteComponent(JsonFrameworkWriter writer, SerializeMode mode);
+    bool HasChanged();
+    void ResetHasChanged();
     void Reset();
 }
 

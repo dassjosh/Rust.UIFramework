@@ -21,6 +21,13 @@ public class ItemIconComponent : ImageComponent
         writer.AddField(JsonDefaults.ItemIcon.SkinIdName, _skinId, mode);
     }
     
+    public override bool HasChanged()
+    {
+        return base.HasChanged() 
+               || _itemId.HasChanged 
+               || _skinId.HasChanged;
+    }
+    
     public override void ResetHasChanged()
     {
         base.ResetHasChanged();

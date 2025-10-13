@@ -68,6 +68,16 @@ public class InputComponent : TextComponent
         }
     }
     
+    public override bool HasChanged()
+    {
+        return base.HasChanged() 
+               || _charsLimit.HasChanged 
+               || _command.HasChanged 
+               || _mode.HasChanged 
+               || _lineType.HasChanged 
+               || _placeholder.HasChanged;
+    }
+    
     public override void ResetHasChanged()
     {
         base.ResetHasChanged();

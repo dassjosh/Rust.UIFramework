@@ -218,6 +218,24 @@ public abstract class CoreComponent : BaseTypedComponent, ICoreComponent
             }
         }
     }
+    
+    public override bool HasChanged()
+    {
+        if (base.HasChanged())
+        {
+            return true;
+        }
+        
+        for (int i = 0; i < SubComponents.Count; i++)
+        {
+            if (SubComponents[i].HasChanged())
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
 
     public override void ResetHasChanged()
     {
