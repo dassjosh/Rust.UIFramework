@@ -125,7 +125,7 @@ public sealed class JsonFrameworkWriter : BasePoolable
         WriteValue(value);
     }
     
-    public void AddFieldRaw<T>(in Utf8String name, T value) where T : struct, Enum
+    public void AddFieldRaw<T>(in Utf8String name, T value) where T : unmanaged, Enum
     {
         WritePropertyName(name);
         WriteValue(Utf8EnumCache<T>.ToUtf8Number(value));
@@ -270,7 +270,7 @@ public sealed class JsonFrameworkWriter : BasePoolable
         }
     }
     
-    public void AddField<T>(in Utf8String name, TrackedValue<T> value, SerializeMode mode) where T : struct, Enum
+    public void AddField<T>(in Utf8String name, TrackedValue<T> value, SerializeMode mode) where T : unmanaged, Enum
     {
         if (value.ShouldSerialize(mode))
         {
@@ -279,7 +279,7 @@ public sealed class JsonFrameworkWriter : BasePoolable
         }
     }
     
-    public void AddField<T>(in Utf8String name, TrackedValue<T?> value, SerializeMode mode) where T : struct, Enum
+    public void AddField<T>(in Utf8String name, TrackedValue<T?> value, SerializeMode mode) where T : unmanaged, Enum
     {
         if (value.ShouldSerialize(mode))
         {

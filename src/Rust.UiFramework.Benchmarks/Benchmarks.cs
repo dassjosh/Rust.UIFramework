@@ -1,3 +1,6 @@
+using Oxide.Ext.UiFramework.Cache;
+using Oxide.Ext.UiFramework.Enums;
+
 namespace Rust.UiFramework.Benchmarks;
 
 #if BENCHMARKS || DEBUG
@@ -96,6 +99,18 @@ public class Benchmarks
             Console.WriteLine("No leaks found");
         }
     }
+
+    [Benchmark(Baseline = true)]
+    public string FastEnumCache()
+    {
+        return FastEnumCache<UiLayer>.ToString(UiLayer.Contacts);
+    }
+    
+    [Benchmark()]
+    public string EnumCache()
+    {
+        return EnumCache<UiLayer>.ToString(UiLayer.Contacts);
+    }
     
     //[Benchmark]
     public CuiElementContainer Oxide_CreateContainer()
@@ -117,7 +132,7 @@ public class Benchmarks
         return _oxideContainer.ToJson();
     }
     
-    [Benchmark]
+    //[Benchmark]
     public JsonFrameworkWriter UiFramework_CreateJson()
     {
         JsonFrameworkWriter writer = _builder.CreateWriter();
