@@ -22,19 +22,19 @@ public class UiScrollBar : BaseUiControl
     {
         UiScrollBar control = CreateControl<UiScrollBar>(builder);
             
-        control.Background = builder.Panel(parent, position, offset, backgroundColor).SetSpriteMaterialImage(sprite, null, Image.Type.Sliced);
+        control.Background = builder.Panel(parent, position, offset, backgroundColor).SetSprite(sprite).SetImageType(Image.Type.Sliced);
         UiDirectionalLayout layout = builder.DirectionalLayout(parent, position, offset, maxPage + 1, direction == ScrollbarDirection.Horizontal ? LayoutDirection.Horizontal : LayoutDirection.Vertical);
         
         for (int i = 0; i <= maxPage; i++)
         {
             if (i != currentPage)
             {
-                UiButton button = builder.Button(layout, backgroundColor, command.Build(i)).SetSpriteMaterialImage(sprite, null, Image.Type.Sliced);
+                UiButton button = builder.Button(layout, backgroundColor, command.Build(i)).SetSprite(sprite).SetImageType(Image.Type.Sliced);
                 control.ScrollButtons.Add(button);
             }
             else
             {
-                control.ScrollBar = builder.Panel(layout, barColor).SetSpriteMaterialImage(sprite, null, Image.Type.Sliced);
+                control.ScrollBar = builder.Panel(layout, barColor).SetSprite(sprite).SetImageType(Image.Type.Sliced);
             }
         }
 
@@ -43,12 +43,12 @@ public class UiScrollBar : BaseUiControl
 
     public void SetSpriteMaterialImage(string sprite = null, string material = null, Image.Type type = Image.Type.Simple)
     {
-        Background.SetSpriteMaterialImage(sprite, material, type);
-        ScrollBar.SetSpriteMaterialImage(sprite, material, type);
+        Background.SetSprite(sprite).SetMaterial(material).SetImageType(type);
+        ScrollBar.SetSprite(sprite).SetMaterial(material).SetImageType(type);
         for (int index = 0; index < ScrollButtons.Count; index++)
         {
             UiButton button = ScrollButtons[index];
-            button.SetSpriteMaterialImage(sprite, material, type);
+            button.SetSprite(sprite).SetMaterial(material).SetImageType(type);
         }
     }
         

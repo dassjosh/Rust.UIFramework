@@ -1,14 +1,12 @@
-﻿using Oxide.Ext.UiFramework.Json;
-using Oxide.Ext.UiFramework.Types;
+﻿using Oxide.Ext.UiFramework.Interfaces;
 using Oxide.Ext.UiFramework.UiElements;
-using UnityEngine;
+using Rust.UiFramework.SourceGenerators.Attributes;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-public abstract class BaseLayoutComponent : SubComponent
+[GenerateComponent(typeof(ILayoutComponent))]
+public abstract partial class BaseLayoutComponent : SubComponent, ILayoutComponent
 {
-    public TextAnchor ChildAlignment;
-    public UiPadding Padding;
     public BaseUiComponent Owner { get; internal set; }
     public UiReference Reference => Owner.Reference;
     
@@ -17,8 +15,6 @@ public abstract class BaseLayoutComponent : SubComponent
     public override void Reset()
     {
         base.Reset();
-        ChildAlignment = JsonDefaults.Layout.ChildAlignment;
-        Padding = default;
         Owner = null;
     }
 }

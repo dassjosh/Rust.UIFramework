@@ -1,7 +1,9 @@
 ﻿using Oxide.Ext.UiFramework.UiElements;
+using Rust.UiFramework.SourceGenerators.Attributes;
 
 namespace Oxide.Ext.UiFramework.Interfaces;
 
+[IncludeInParent]
 public interface ISprite
 {
     string Sprite { get; set; }

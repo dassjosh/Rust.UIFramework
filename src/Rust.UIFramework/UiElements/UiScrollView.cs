@@ -1,38 +1,31 @@
 ﻿using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Enums;
+using Oxide.Ext.UiFramework.Interfaces;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
+using Rust.UiFramework.SourceGenerators.Attributes;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-public class UiScrollView : BaseUiComponent
+[GenerateUiElement(typeof(IUiScrollView))]
+public partial class UiScrollView : BaseUiComponent, IUiScrollView
 {
     public readonly ScrollViewComponent ScrollView;
 
+    public ScrollbarComponent HorizontalScrollbar => ScrollView.HorizontalScrollbar;
+    public ScrollbarComponent VerticalScrollbar => ScrollView.VerticalScrollbar;
+    
     public UiScrollView() : this(new ScrollViewComponent()) { }
 
     private UiScrollView(ScrollViewComponent component) : base(component)
     {
         ScrollView = component;
     }
-
-    public ScrollRect.MovementType MovementType { get => ScrollView.MovementType; set => ScrollView.MovementType = value; }
-    public float Elasticity { get => ScrollView.Elasticity; set => ScrollView.Elasticity = value; }
-    public bool Inertia { get => ScrollView.Inertia; set => ScrollView.Inertia = value; }
-    public float DecelerationRate { get => ScrollView.DecelerationRate; set => ScrollView.DecelerationRate = value; }
-    public float ScrollSensitivity { get => ScrollView.ScrollSensitivity; set => ScrollView.ScrollSensitivity = value; }
-    public float HorizontalScrollProgress { get => ScrollView.HorizontalScrollProgress; set => ScrollView.HorizontalScrollProgress = value; }
-    public float VerticalScrollProgress { get => ScrollView.VerticalScrollProgress; set => ScrollView.VerticalScrollProgress = value; }
-    public UiPosition ContentPosition { get => GetOrCreateContentTransform().Position; set => GetOrCreateContentTransform().Position = value; }
-    public UiOffset ContentOffset { get => GetOrCreateContentTransform().Offset; set => GetOrCreateContentTransform().Offset = value; }
-    public Vector2 ContentPivot { get => GetOrCreateContentTransform().Pivot; set => GetOrCreateContentTransform().Pivot = value; }
-    public ScrollbarComponent HorizontalScrollbar => ScrollView.HorizontalScrollbar;
-    public ScrollbarComponent VerticalScrollbar => ScrollView.VerticalScrollbar;
-
+    
     public UiScrollView Init(ScrollRect.MovementType movementType, float elasticity, bool inertia, float decelerationRate, float scrollSensitivity)
     {
         MovementType = movementType;
@@ -63,66 +56,6 @@ public class UiScrollView : BaseUiComponent
         UiColor? handleColor = null, UiColor? highlightColor = null, UiColor? pressedColor = null, UiColor? trackColor = null)
     {
         return ScrollView.AddVerticalScrollBar(invert, autoHide, handleSprite, trackSprite, size, handleColor, highlightColor, pressedColor, trackColor);
-    }
-
-    public UiScrollView SetElasticity(float elasticity)
-    {
-        Elasticity = elasticity;
-        return this;
-    }
-
-    public UiScrollView SetInertia(bool inertia)
-    {
-        Inertia = inertia;
-        return this;
-    }
-
-    public UiScrollView SetDecelerationRate(float decelerationRate)
-    {
-        DecelerationRate = decelerationRate;
-        return this;
-    }
-
-    public UiScrollView SetScrollSensitivity(float scrollSensitivity)
-    {
-        ScrollSensitivity = scrollSensitivity;
-        return this;
-    }
-    
-    public UiScrollView SetHorizontalScrollProgress(float progress)
-    {
-        HorizontalScrollProgress = progress;
-        return this;
-    }
-    
-    public UiScrollView SetVerticalScrollProgress(float progress)
-    {
-        VerticalScrollProgress = progress;
-        return this;
-    }
-
-    public UiScrollView SetMovementType(ScrollRect.MovementType movementType)
-    {
-        MovementType = movementType;
-        return this;
-    }
-    
-    public UiScrollView SetContentPosition(in UiPosition position)
-    {
-        ContentPosition = position;
-        return this;
-    }
-    
-    public UiScrollView SetContentOffset(in UiOffset offset)
-    {
-        ContentOffset = offset;
-        return this;
-    }
-    
-    public UiScrollView SetContentPivot(in Vector2 pivot)
-    {
-        ContentPivot = pivot;
-        return this;
     }
 
     public UiScrollView SetHorizontalScrollbar()

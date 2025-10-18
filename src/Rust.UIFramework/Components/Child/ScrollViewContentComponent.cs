@@ -1,22 +1,18 @@
 ﻿using Oxide.Ext.UiFramework.Enums;
+using Oxide.Ext.UiFramework.Interfaces;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.Types;
+using Rust.UiFramework.SourceGenerators.Attributes;
 using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-public class ScrollViewContentComponent : ChildComponent
+[GenerateComponent(typeof(IScrollViewContentComponent))]
+[GenerateBuilderMethods]
+public partial class ScrollViewContentComponent : ChildComponent, IScrollViewContentComponent
 {
-    private readonly TrackedValue<UiPosition> _position = new(UiPosition.Full);
-    private readonly TrackedValue<UiOffset> _offset = new();
-    private readonly TrackedValue<Vector2> _pivot = new(JsonDefaults.ScrollView.Pivot);
-    
-    public UiPosition Position { get => _position.Value; set => _position.Value = value; }
-    public UiOffset Offset { get => _offset.Value; set => _offset.Value = value; }
-    public Vector2 Pivot { get => _pivot.Value; set => _pivot.Value = value; }
-    
     public override ComponentType ComponentType => ComponentType.ScrollViewContent;
     
     public override void WriteComponent(JsonFrameworkWriter writer, SerializeMode mode)
@@ -28,17 +24,6 @@ public class ScrollViewContentComponent : ChildComponent
         writer.WriteEndObject();
     }
     
-    public override bool HasChanged() => _position.HasChanged 
-                                         || _offset.HasChanged 
-                                         || _pivot.HasChanged;
-
-    public override void ResetHasChanged()
-    {
-        _position.ResetHasChanged();
-        _offset.ResetHasChanged();
-        _pivot.ResetHasChanged();
-    }
-
     public void UpdateContentTransform(in UiPosition? position = null, in UiOffset? offset = null, in Vector2? pivot = null)
     {
         if (position.HasValue)
@@ -55,12 +40,5 @@ public class ScrollViewContentComponent : ChildComponent
         {
             Pivot = pivot.Value;
         }
-    }
-
-    public override void Reset()
-    {
-        _position.Reset();
-        _offset.Reset();
-        _pivot.Reset();
     }
 }

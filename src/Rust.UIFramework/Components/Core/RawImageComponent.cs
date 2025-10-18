@@ -1,27 +1,16 @@
 ﻿using System;
-using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Enums;
+using Oxide.Ext.UiFramework.Interfaces;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Logging;
 using Oxide.Ext.UiFramework.Types;
-using Oxide.Ext.UiFramework.UiElements;
+using Rust.UiFramework.SourceGenerators.Attributes;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-public class RawImageComponent : CoreComponent, IGraphicalComponent
+[GenerateComponent(typeof(IRawImageComponent))]
+public partial class RawImageComponent : CoreComponent, IRawImageComponent, IGraphicalComponent
 {
-    private readonly TrackedValue<UiColor> _color = new();
-    private readonly TrackedValue<float> _fadeIn = new(JsonDefaults.Common.FadeIn);
-    private readonly TrackedValue<string> _image = new();
-    private readonly TrackedValue<string> _material = new();
-    private readonly TrackedValue<UiReference> _placeholderFor = new();
-    
-    public UiColor Color { get => _color.Value; set => _color.Value = value; }
-    public float FadeIn { get => _fadeIn.Value; set => _fadeIn.Value = value; }
-    public string Image { get => _image.Value; set => _image.Value = value; }
-    public string Material { get => _material.Value; set => _material.Value = value; }
-    public UiReference PlaceholderFor { get => _placeholderFor.Value; set => _placeholderFor.Value = value; }
-    
     [Obsolete("Please use Image instead")]
     public string Url { get => Image; set => Image = value; }
     [Obsolete("Please use Image instead")]
@@ -66,35 +55,5 @@ public class RawImageComponent : CoreComponent, IGraphicalComponent
                 }
             }
         }
-    }
-    
-    public override bool HasChanged()
-    {
-        return base.HasChanged() 
-               || _color.HasChanged 
-               || _fadeIn.HasChanged 
-               || _image.HasChanged 
-               || _material.HasChanged 
-               || _placeholderFor.HasChanged;
-    }
-    
-    public override void ResetHasChanged()
-    {
-        base.ResetHasChanged();
-        _color.ResetHasChanged();
-        _fadeIn.ResetHasChanged();
-        _image.ResetHasChanged();
-        _material.ResetHasChanged();
-        _placeholderFor.ResetHasChanged();
-    }
-
-    public override void Reset()
-    {
-        base.Reset();
-        _color.Reset();
-        _fadeIn.Reset();
-        _image.Reset();
-        _material.Reset();
-        _placeholderFor.Reset();
     }
 }

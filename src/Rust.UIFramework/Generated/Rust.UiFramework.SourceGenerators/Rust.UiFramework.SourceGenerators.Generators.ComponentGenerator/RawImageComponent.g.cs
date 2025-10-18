@@ -1,0 +1,47 @@
+﻿using Oxide.Ext.UiFramework.Types;
+using Oxide.Ext.UiFramework.Json;
+using Oxide.Ext.UiFramework.Interfaces;
+
+namespace Oxide.Ext.UiFramework.Components;
+public partial class RawImageComponent : IRawImageComponentTrackable
+{
+	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> _color = new();
+	private readonly Oxide.Ext.UiFramework.Types.Tracked<float> _fadeIn = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Common.FadeIn);
+	private readonly Oxide.Ext.UiFramework.Types.Tracked<string> _image = new();
+	private readonly Oxide.Ext.UiFramework.Types.Tracked<string> _material = new();
+	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.UiElements.UiReference> _placeholderFor = new();
+
+	public Oxide.Ext.UiFramework.Colors.UiColor Color { get => _color.Value; set => _color.Value = value; }
+	public float FadeIn { get => _fadeIn.Value; set => _fadeIn.Value = value; }
+	public string Image { get => _image.Value; set => _image.Value = value; }
+	public string Material { get => _material.Value; set => _material.Value = value; }
+	public Oxide.Ext.UiFramework.UiElements.UiReference PlaceholderFor { get => _placeholderFor.Value; set => _placeholderFor.Value = value; }
+	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> IRawImageComponentTrackable.Color => _color;
+	Oxide.Ext.UiFramework.Types.Tracked<float> IRawImageComponentTrackable.FadeIn => _fadeIn;
+	Oxide.Ext.UiFramework.Types.Tracked<string> IRawImageComponentTrackable.Image => _image;
+	Oxide.Ext.UiFramework.Types.Tracked<string> IRawImageComponentTrackable.Material => _material;
+	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.UiElements.UiReference> IRawImageComponentTrackable.PlaceholderFor => _placeholderFor;
+
+	public IRawImageComponentTrackable AsTrackable() => this;
+	protected override bool HasChangedGenerated() => base.HasChangedGenerated() || (_color.HasChanged || _fadeIn.HasChanged || _image.HasChanged || _material.HasChanged || _placeholderFor.HasChanged);
+	protected override void ResetHasChangedGenerated()
+	{
+		base.ResetHasChangedGenerated();
+		_color.ResetHasChanged();
+		_fadeIn.ResetHasChanged();
+		_image.ResetHasChanged();
+		_material.ResetHasChanged();
+		_placeholderFor.ResetHasChanged();
+	}
+	protected override void ResetGenerated()
+	{
+		base.ResetGenerated();
+		_color.Reset();
+		_fadeIn.Reset();
+		_image.Reset();
+		_material.Reset();
+		_placeholderFor.Reset();
+	}
+}
+
+

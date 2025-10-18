@@ -1,26 +1,15 @@
 ﻿using System;
 using Oxide.Ext.UiFramework.Enums;
+using Oxide.Ext.UiFramework.Interfaces;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Types;
-using Oxide.Ext.UiFramework.UiElements;
-using UnityEngine.UI;
+using Rust.UiFramework.SourceGenerators.Attributes;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-public class InputComponent : TextComponent
+[GenerateComponent(typeof(IInputComponent))]
+public partial class InputComponent : TextComponent, IInputComponent
 {
-    private readonly TrackedValue<int> _charsLimit = new(JsonDefaults.Input.CharacterLimit);
-    private readonly TrackedValue<string> _command = new();
-    private readonly TrackedValue<InputMode> _mode = new(JsonDefaults.Input.Mode);
-    private readonly TrackedValue<InputField.LineType> _lineType = new(JsonDefaults.Input.LineType);
-    private readonly TrackedValue<UiReference> _placeholder = new();
-    
-    public int CharsLimit { get => _charsLimit.Value; set => _charsLimit.Value = value; } 
-    public string Command { get => _command.Value; set => _command.Value = value; }
-    public InputMode Mode { get => _mode.Value; set => _mode.Value = value; }
-    public InputField.LineType LineType { get => _lineType.Value; set => _lineType.Value = value; }
-    public UiReference Placeholder { get => _placeholder.Value; set => _placeholder.Value = value; }
-
     public override Utf8String Type => JsonDefaults.Input.Type;
     public override ComponentType ComponentType => ComponentType.Input;
 
@@ -66,35 +55,5 @@ public class InputComponent : TextComponent
         {
             Mode &= ~mode;
         }
-    }
-    
-    public override bool HasChanged()
-    {
-        return base.HasChanged() 
-               || _charsLimit.HasChanged 
-               || _command.HasChanged 
-               || _mode.HasChanged 
-               || _lineType.HasChanged 
-               || _placeholder.HasChanged;
-    }
-    
-    public override void ResetHasChanged()
-    {
-        base.ResetHasChanged();
-        _charsLimit.ResetHasChanged();
-        _command.ResetHasChanged();
-        _mode.ResetHasChanged();
-        _lineType.ResetHasChanged();
-        _placeholder.ResetHasChanged();
-    }
-
-    public override void Reset()
-    {
-        base.Reset();
-        _charsLimit.Reset();
-        _command.Reset();
-        _mode.Reset();
-        _lineType.Reset();
-        _placeholder.Reset();
     }
 }

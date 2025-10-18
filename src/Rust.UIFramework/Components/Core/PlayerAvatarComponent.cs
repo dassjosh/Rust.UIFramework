@@ -1,20 +1,17 @@
 ﻿using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Enums;
+using Oxide.Ext.UiFramework.Interfaces;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Types;
+using Rust.UiFramework.SourceGenerators.Attributes;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-public class PlayerAvatarComponent : RawImageComponent
+[GenerateComponent(typeof(IPlayerAvatarComponent))]
+public partial class PlayerAvatarComponent : RawImageComponent, IPlayerAvatarComponent
 {
-    private readonly TrackedValue<ulong> _steamId = new();
-    private readonly TrackedValue<AvatarType> _avatarType = new(AvatarType.Medium);
-    
-    public ulong SteamId { get => _steamId.Value; set => _steamId.Value = value; }
-    public AvatarType AvatarType { get => _avatarType.Value; set => _avatarType.Value = value; }
-    
     public override ComponentType ComponentType => ComponentType.PlayerAvatar;
 
     protected override void WriteComponentFields(JsonFrameworkWriter writer, SerializeMode mode)
@@ -53,26 +50,5 @@ public class PlayerAvatarComponent : RawImageComponent
             //Needs to be after so we don't duplicate URL fields.
             base.WriteComponentFields(writer, mode);
         }
-    }
-    
-    public override bool HasChanged()
-    {
-        return base.HasChanged() 
-               || _steamId.HasChanged 
-               || _avatarType.HasChanged;
-    }
-    
-    public override void ResetHasChanged()
-    {
-        base.ResetHasChanged();
-        _steamId.ResetHasChanged();
-        _avatarType.ResetHasChanged();
-    }
-
-    public override void Reset()
-    {
-        base.Reset();
-        _steamId.Reset();
-        _avatarType.Reset();
     }
 }

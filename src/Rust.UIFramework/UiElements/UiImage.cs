@@ -1,9 +1,15 @@
-﻿using Oxide.Ext.UiFramework.Colors;
+﻿using System;
+using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
+using Oxide.Ext.UiFramework.Interfaces;
+using Rust.UiFramework.SourceGenerators.Attributes;
+
+using ImageType = UnityEngine.UI.Image.Type;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-public class UiImage : BaseUiImage<UiImage>
+[GenerateUiElement(typeof(IUiImage))]
+public partial class UiImage : BaseUiComponent, IUiImage
 {
     public readonly ImageComponent Image;
 
@@ -20,4 +26,15 @@ public class UiImage : BaseUiImage<UiImage>
         Sprite = sprite;
         return this;
     }
+    
+    [Obsolete("Use SetSprite().SetMaterial().SetImageType() instead.")]
+    public UiImage SetSpriteMaterialImage(string sprite = null, string material = null, ImageType type = ImageType.Simple)
+    {
+        Sprite = sprite;
+        Material = material;
+        ImageType = type;
+        return this;
+    }
+    
+    public UiImage SetPlaceholderFor(UiInput input) => SetPlaceholderFor(input.Reference);
 }

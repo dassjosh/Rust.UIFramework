@@ -4,16 +4,14 @@ using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Interfaces;
 using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Types;
+using Rust.UiFramework.SourceGenerators.Attributes;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-public class UiIcon : BaseUiComponent, IMaterial<UiIcon>, IFadeIn<UiIcon>, IUiColor<UiIcon>
+[GenerateUiElement(typeof(IUiIcon))]
+public partial class UiIcon : BaseUiComponent, IUiIcon
 {
     public readonly RawImageComponent RawImage;
-
-    public string Material { get => RawImage.Material; set => RawImage.Material = value; }
-    public float FadeIn { get => RawImage.FadeIn; set => RawImage.FadeIn = value; }
-    public UiColor Color { get => RawImage.Color; set => RawImage.Color = value; }
     
     public UiIcon() : this(new RawImageComponent()) { }
 
@@ -26,24 +24,6 @@ public class UiIcon : BaseUiComponent, IMaterial<UiIcon>, IFadeIn<UiIcon>, IUiCo
     {
         Color = color;
         SetIcon(icon);
-        return this;
-    }
-    
-    public UiIcon SetColor(UiColor color)
-    {
-        Color = color;
-        return this;
-    }
-    
-    public UiIcon SetMaterial(string material)
-    {
-        Material = material;
-        return this;
-    }
-        
-    public UiIcon SetFadeIn(float duration)
-    {
-        FadeIn = duration;
         return this;
     }
     

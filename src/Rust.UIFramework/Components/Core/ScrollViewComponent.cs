@@ -1,32 +1,18 @@
 ﻿using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Enums;
+using Oxide.Ext.UiFramework.Interfaces;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.Types;
+using Rust.UiFramework.SourceGenerators.Attributes;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-public class ScrollViewComponent : CoreComponent
+[GenerateComponent(typeof(IScrollViewComponent))]
+public partial class ScrollViewComponent : CoreComponent, IScrollViewComponent
 {
-    private readonly TrackedValue<ScrollRect.MovementType> _movementType = new(JsonDefaults.ScrollView.MovementType);
-    private readonly TrackedValue<float> _elasticity = new(JsonDefaults.ScrollView.Elasticity);
-    private readonly TrackedValue<bool> _inertia = new(JsonDefaults.ScrollView.Inertia);
-    private readonly TrackedValue<float> _decelerationRate = new(JsonDefaults.ScrollView.DecelerationRate);
-    private readonly TrackedValue<float> _scrollSensitivity = new(JsonDefaults.ScrollView.ScrollSensitivity);
-    private readonly TrackedValue<float> _horizontalScrollProgress = new(JsonDefaults.ScrollView.HorizontalScrollProgress);
-    private readonly TrackedValue<float> _verticalScrollProgress = new(JsonDefaults.ScrollView.VerticalScrollProgress);
-    
-    public ScrollRect.MovementType MovementType { get => _movementType.Value; set => _movementType.Value = value; }
-    public float Elasticity { get => _elasticity.Value; set => _elasticity.Value = value; }
-    public bool Inertia { get => _inertia.Value; set => _inertia.Value = value; }
-    public float DecelerationRate { get => _decelerationRate.Value; set => _decelerationRate.Value = value; }
-    public float ScrollSensitivity { get => _scrollSensitivity.Value; set => _scrollSensitivity.Value = value; }
-    public float HorizontalScrollProgress { get => _horizontalScrollProgress.Value; set => _horizontalScrollProgress.Value = value; }
-    public float VerticalScrollProgress { get => _verticalScrollProgress.Value; set => _verticalScrollProgress.Value = value; }
-    
     public ScrollViewContentComponent ContentTransform { get; private set; }
     public ScrollbarComponent HorizontalScrollbar { get; private set; }
     public ScrollbarComponent VerticalScrollbar { get; private set; }
@@ -109,13 +95,9 @@ public class ScrollViewComponent : CoreComponent
     public override bool HasChanged()
     {
         return base.HasChanged() 
-               || _movementType.HasChanged 
-               || _elasticity.HasChanged 
-               || _inertia.HasChanged 
-               || _decelerationRate.HasChanged 
-               || _scrollSensitivity.HasChanged 
-               || _horizontalScrollProgress.HasChanged 
-               || _verticalScrollProgress.HasChanged;
+               || (ContentTransform?.HasChanged() ?? false)
+               || (HorizontalScrollbar?.HasChanged() ?? false)
+               || (VerticalScrollbar?.HasChanged() ?? false);
     }
 
     public override void ResetHasChanged()
@@ -124,13 +106,6 @@ public class ScrollViewComponent : CoreComponent
         ContentTransform?.ResetHasChanged();
         HorizontalScrollbar?.ResetHasChanged();
         VerticalScrollbar?.ResetHasChanged();
-        _movementType.ResetHasChanged();
-        _elasticity.ResetHasChanged();
-        _inertia.ResetHasChanged();
-        _decelerationRate.ResetHasChanged();
-        _scrollSensitivity.ResetHasChanged();
-        _horizontalScrollProgress.ResetHasChanged();
-        _verticalScrollProgress.ResetHasChanged();
     }
 
     public override void Reset()
@@ -142,12 +117,5 @@ public class ScrollViewComponent : CoreComponent
         HorizontalScrollbar = null;
         VerticalScrollbar?.Dispose();
         VerticalScrollbar = null;
-        _movementType.Reset();
-        _elasticity.Reset();
-        _inertia.Reset();
-        _decelerationRate.Reset();
-        _scrollSensitivity.Reset();
-        _horizontalScrollProgress.Reset();
-        _verticalScrollProgress.Reset();
     }
 }

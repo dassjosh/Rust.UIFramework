@@ -1,17 +1,14 @@
 ﻿using Oxide.Ext.UiFramework.Enums;
+using Oxide.Ext.UiFramework.Interfaces;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Types;
+using Rust.UiFramework.SourceGenerators.Attributes;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-public class ItemIconComponent : ImageComponent
+[GenerateComponent(typeof(IItemIconComponent))]
+public partial class ItemIconComponent : ImageComponent, IItemIconComponent
 {
-    private readonly TrackedValue<int> _itemId = new();
-    private readonly TrackedValue<ulong> _skinId = new();
-    
-    public int ItemId { get => _itemId.Value; set => _itemId.Value = value; }
-    public ulong SkinId { get => _skinId.Value; set => _skinId.Value = value; }
-    
     public override ComponentType ComponentType => ComponentType.ItemIcon;
 
     protected override void WriteComponentFields(JsonFrameworkWriter writer, SerializeMode mode)
@@ -19,26 +16,5 @@ public class ItemIconComponent : ImageComponent
         base.WriteComponentFields(writer, mode);
         writer.AddField(JsonDefaults.ItemIcon.ItemIdName, _itemId, mode);
         writer.AddField(JsonDefaults.ItemIcon.SkinIdName, _skinId, mode);
-    }
-    
-    public override bool HasChanged()
-    {
-        return base.HasChanged() 
-               || _itemId.HasChanged 
-               || _skinId.HasChanged;
-    }
-    
-    public override void ResetHasChanged()
-    {
-        base.ResetHasChanged();
-        _itemId.ResetHasChanged();
-        _skinId.ResetHasChanged();
-    }
-
-    public override void Reset()
-    {
-        base.Reset();
-        _itemId.Reset();
-        _skinId.Reset();
     }
 }

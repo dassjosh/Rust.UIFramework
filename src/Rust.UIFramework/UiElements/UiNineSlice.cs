@@ -1,15 +1,18 @@
-﻿using Oxide.Ext.UiFramework.Colors;
+﻿using System;
+using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
+using Oxide.Ext.UiFramework.Interfaces;
 using Oxide.Ext.UiFramework.Types;
+using Rust.UiFramework.SourceGenerators.Attributes;
 using UnityEngine.UI;
+
+using ImageType = UnityEngine.UI.Image.Type;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-public class UiNineSlice : BaseUiImage<UiNineSlice>
+[GenerateUiElement(typeof(IUiNineSlice))]
+public partial class UiNineSlice : BaseUiComponent, IUiNineSlice
 {
-    public string Png { get => Image.Png; set => Image.Png = value; }
-    public UiBorderWidth Slice { get => Image.Slice; set => Image.Slice = value; }
-    
     public readonly NineSliceComponent Image;
     
     public UiNineSlice() : this(new NineSliceComponent()) { }
@@ -28,22 +31,15 @@ public class UiNineSlice : BaseUiImage<UiNineSlice>
         ImageType = type;
         return this;
     }
-
-    public UiNineSlice SetPng(string png)
+    
+    [Obsolete("Use SetSprite().SetMaterial().SetImageType() instead.")]
+    public UiNineSlice SetSpriteMaterialImage(string sprite = null, string material = null, ImageType type = ImageType.Simple)
     {
-        Png = png;
+        Sprite = sprite;
+        Material = material;
+        ImageType = type;
         return this;
     }
     
-    public UiNineSlice SetSlice(in UiBorderWidth slice)
-    {
-        Slice = slice;
-        return this;
-    }
-    
-    public UiNineSlice SetFillCenter(bool fillCenter)
-    {
-        FillCenter = fillCenter;
-        return this;
-    }
+    public UiNineSlice SetPlaceholderFor(UiInput input) => SetPlaceholderFor(input.Reference);
 }

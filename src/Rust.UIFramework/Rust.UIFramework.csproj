@@ -12,6 +12,8 @@
         <TargetFrameworks>net48;netstandard2.1;netcoreapp3.0</TargetFrameworks>
         <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
         <SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>
+        <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+        <CompilerGeneratedFilesOutputPath>.\Generated</CompilerGeneratedFilesOutputPath>
     </PropertyGroup>
     
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|Oxide' ">
@@ -131,6 +133,8 @@
       <Content Include="..\..\README.md">
         <Link>README.md</Link>
       </Content>
+      <Compile Remove="$(CompilerGeneratedFilesOutputPath)/**/*.cs" />
+      <Content Include="$(CompilerGeneratedFilesOutputPath)/Rust.UiFramework.SourceGenerators/**/*.cs" />
     </ItemGroup>
     
     <ItemGroup>
@@ -156,6 +160,47 @@
         <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
             <_Parameter1>Rust.UiFramework.UnitTests</_Parameter1>
         </AssemblyAttribute>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Rust.UiFramework.SourceGenerators\Rust.UiFramework.SourceGenerators.csproj" 
+                        OutputItemType="Analyzer" ReferenceOutputAssembly="false"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Include="..\Rust.UiFramework.SourceGenerators\Attributes\PropertyNameAttribute.cs">
+        <Link>Attributes\PropertyNameAttribute.cs</Link>
+      </Compile>
+      <Compile Include="..\Rust.UiFramework.SourceGenerators\Attributes\PropertyTargetAttribute.cs">
+        <Link>Attributes\PropertyTargetAttribute.cs</Link>
+      </Compile>
+      <Compile Include="..\Rust.UiFramework.SourceGenerators\Attributes\GenerateBuilderMethodsAttribute.cs">
+        <Link>Attributes\GenerateBuilderMethodsAttribute.cs</Link>
+      </Compile>
+      <Compile Include="..\Rust.UiFramework.SourceGenerators\Attributes\GenerateComponentAttribute.cs">
+        <Link>Attributes\GenerateComponentAttribute.cs</Link>
+      </Compile>
+      <Compile Include="..\Rust.UiFramework.SourceGenerators\Attributes\GenerateUiElementAttribute.cs">
+        <Link>Attributes\GenerateUiElementAttribute.cs</Link>
+      </Compile>
+      <Compile Include="..\Rust.UiFramework.SourceGenerators\Attributes\IncludeInParentAttribute.cs">
+        <Link>Attributes\IncludeInParentAttribute.cs</Link>
+      </Compile>
+      <Compile Include="..\Rust.UiFramework.SourceGenerators\Attributes\SkipBuilderAttribute.cs">
+        <Link>Attributes\SkipBuilderAttribute.cs</Link>
+      </Compile>
+      <Compile Include="..\Rust.UiFramework.SourceGenerators\Attributes\SkipComponentFieldAttribute.cs">
+        <Link>Attributes\SkipComponentFieldAttribute.cs</Link>
+      </Compile>
+      <Compile Include="..\Rust.UiFramework.SourceGenerators\Attributes\SkipPropertyAttribute.cs">
+        <Link>Attributes\SkipPropertyAttribute.cs</Link>
+      </Compile>
+      <Compile Include="..\Rust.UiFramework.SourceGenerators\Attributes\TrackedAttribute.cs">
+        <Link>Attributes\TrackedAttribute.cs</Link>
+      </Compile>
+      <Compile Include="..\Rust.UiFramework.SourceGenerators\Attributes\TrackedDefaultsAttribute.cs">
+        <Link>Attributes\TrackedDefaultsAttribute.cs</Link>
+      </Compile>
     </ItemGroup>
 
     <PropertyGroup>

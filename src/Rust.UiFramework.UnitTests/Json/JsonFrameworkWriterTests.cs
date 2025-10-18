@@ -28,19 +28,19 @@ public class JsonFrameworkWriterTests
         // Arrange
         using JsonFrameworkWriter writer = JsonFrameworkWriter.Create(UnitTestHelpers.UnitTestPool);
         
-        TrackedValue<TextAnchor> textAnchor = new();
-        TrackedValue<TextAnchor?> nullableTextAnchor = new();
-        TrackedValue<string> trackedString = new("123");
-        TrackedValue<int> trackedInt = new(234);
-        TrackedValue<ulong> trackedUlong = new();
-        TrackedValue<float> trackedFloat = new();
-        TrackedValue<bool> trackedBool = new(false);
-        TrackedValue<UiColor> trackedUiColor = new(UiColors.White);
-        TrackedValue<Vector2> trackedVector2 = new(new Vector2(100, 200));
-        TrackedValue<UiPosition> trackedUiPosition = new(UiPosition.Full);
-        TrackedValue<UiOffset> trackedUiOffset = new(UiOffset.Scaled);
-        TrackedValue<UiBorderWidth> trackedBorderWidth = new();
-        TrackedValue<UiRotation> trackedRotation = new();
+        Tracked<TextAnchor> textAnchor = new();
+        Tracked<TextAnchor?> nullableTextAnchor = new();
+        Tracked<string> trackedString = new("123");
+        Tracked<int> trackedInt = new(234);
+        Tracked<ulong> trackedUlong = new();
+        Tracked<float> trackedFloat = new();
+        Tracked<bool> trackedBool = new(false);
+        Tracked<UiColor> trackedUiColor = new(UiColors.White);
+        Tracked<Vector2> trackedVector2 = new(new Vector2(100, 200));
+        Tracked<UiPosition> trackedUiPosition = new(UiPosition.Full);
+        Tracked<UiOffset> trackedUiOffset = new(UiOffset.Scaled);
+        Tracked<UiBorderWidth> trackedBorderWidth = new();
+        Tracked<UiRotation> trackedRotation = new();
         
         // Act
         writer.WriteStartObject();

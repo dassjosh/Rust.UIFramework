@@ -1,8 +1,10 @@
 ﻿using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.UiElements;
+using Rust.UiFramework.SourceGenerators.Attributes;
 
 namespace Oxide.Ext.UiFramework.Interfaces;
 
+[IncludeInParent]
 public interface IUiColor
 {
     UiColor Color { get; set; }
