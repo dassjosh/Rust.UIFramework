@@ -3,7 +3,6 @@
 namespace Oxide.Ext.UiFramework.Interfaces;
 public interface ITextComponentTrackable : IBaseTypedComponentTrackable
 {
-
 	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> Color { get; }
 	Oxide.Ext.UiFramework.Types.Tracked<float> FadeIn { get; }
 	Oxide.Ext.UiFramework.Types.Tracked<int> FontSize { get; }
@@ -12,7 +11,6 @@ public interface ITextComponentTrackable : IBaseTypedComponentTrackable
 	Oxide.Ext.UiFramework.Types.Tracked<string> Text { get; }
 	Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.VerticalWrapMode> VerticalOverflow { get; }
 	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.UiElements.UiReference> PlaceholderFor { get; }
-
 }
 
 

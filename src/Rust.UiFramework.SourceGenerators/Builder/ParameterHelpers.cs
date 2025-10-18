@@ -28,6 +28,12 @@ internal static class ParameterHelpers
         return modifier;
     }
     
+    public static T This<T>(this T modifier) where T : IParameterModifier
+    {
+        modifier.Modifiers |= ParameterModifiers.This;
+        return modifier;
+    }
+    
     public static string GetModifiers(this IParameterModifier modifier)
     {
         StringBuilder sb = new();
@@ -46,6 +52,10 @@ internal static class ParameterHelpers
         if (modifier.Modifiers.HasFlag(ParameterModifiers.Readonly))
         {
             sb.Append("readonly ");
+        }
+        if (modifier.Modifiers.HasFlag(ParameterModifiers.This))
+        {
+            sb.Append("this ");
         }
         return sb.ToString();
     }

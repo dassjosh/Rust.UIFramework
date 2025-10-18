@@ -26,7 +26,7 @@ public class UiElementGenerator : IIncrementalGenerator
         {
             (Compilation compilation, ImmutableArray<ClassDeclarationSyntax> classes) = source;
 
-            INamedTypeSymbol tracked = classes.GetTrackedType(compilation);
+            INamedTypeSymbol tracked = SymbolCache.GetTracked(compilation);
             
             foreach (ClassDeclarationSyntax @class in classes)
             {

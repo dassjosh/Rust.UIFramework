@@ -3,9 +3,7 @@
 namespace Oxide.Ext.UiFramework.Interfaces;
 public interface IUiImageTrackable : IBaseUiComponentTrackable
 {
-
 	IImageComponentTrackable Image { get; }
-
 }
 
 

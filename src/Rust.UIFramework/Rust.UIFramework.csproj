@@ -168,6 +168,9 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Compile Include="..\Rust.UiFramework.SourceGenerators\Attributes\FastEnumAttribute.cs">
+        <Link>Attributes\FastEnumAttribute.cs</Link>
+      </Compile>
       <Compile Include="..\Rust.UiFramework.SourceGenerators\Attributes\PropertyNameAttribute.cs">
         <Link>Attributes\PropertyNameAttribute.cs</Link>
       </Compile>

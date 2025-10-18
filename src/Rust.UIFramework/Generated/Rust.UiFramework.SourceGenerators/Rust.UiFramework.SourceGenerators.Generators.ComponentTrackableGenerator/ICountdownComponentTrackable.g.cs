@@ -3,7 +3,6 @@
 namespace Oxide.Ext.UiFramework.Interfaces;
 public interface ICountdownComponentTrackable : IBaseTypedComponentTrackable
 {
-
 	Oxide.Ext.UiFramework.Types.Tracked<float> StartTime { get; }
 	Oxide.Ext.UiFramework.Types.Tracked<float> EndTime { get; }
 	Oxide.Ext.UiFramework.Types.Tracked<float> Step { get; }
@@ -12,7 +11,6 @@ public interface ICountdownComponentTrackable : IBaseTypedComponentTrackable
 	Oxide.Ext.UiFramework.Types.Tracked<string> NumberFormat { get; }
 	Oxide.Ext.UiFramework.Types.Tracked<bool> DestroyIfDone { get; }
 	Oxide.Ext.UiFramework.Types.Tracked<string> Command { get; }
-
 }
 
 

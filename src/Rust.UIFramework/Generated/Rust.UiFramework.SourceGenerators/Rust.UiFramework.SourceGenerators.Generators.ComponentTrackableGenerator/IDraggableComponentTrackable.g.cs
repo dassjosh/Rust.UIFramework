@@ -3,7 +3,6 @@
 namespace Oxide.Ext.UiFramework.Interfaces;
 public interface IDraggableComponentTrackable : IBaseTypedComponentTrackable
 {
-
 	Oxide.Ext.UiFramework.Types.Tracked<bool> LimitToParent { get; }
 	Oxide.Ext.UiFramework.Types.Tracked<float> MaxDistance { get; }
 	Oxide.Ext.UiFramework.Types.Tracked<bool> AllowSwapping { get; }
@@ -17,7 +16,6 @@ public interface IDraggableComponentTrackable : IBaseTypedComponentTrackable
 	Oxide.Ext.UiFramework.Types.Tracked<CommunityEntity.DraggablePositionSendType?> PositionRpc { get; }
 	Oxide.Ext.UiFramework.Types.Tracked<bool> MoveToAnchor { get; }
 	Oxide.Ext.UiFramework.Types.Tracked<bool> RebuildAnchor { get; }
-
 }
 
 

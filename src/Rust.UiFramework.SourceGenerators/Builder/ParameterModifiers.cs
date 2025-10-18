@@ -10,4 +10,5 @@ public enum ParameterModifiers : byte
     Out = 1 << 1,
     In = 1 << 2,
     Readonly = 1 << 3,
+    This = 1 << 4
 }

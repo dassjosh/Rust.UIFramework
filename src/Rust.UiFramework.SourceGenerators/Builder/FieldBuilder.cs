@@ -13,6 +13,7 @@ public class FieldBuilder : IBuildable, IAccessModifiers, IKeywords
     private string _name;
 
     private List<string> _initialize;
+    private List<string> _equals;
 
     public FieldBuilder Type(INamedTypeSymbol symbol) => Type(symbol.ToString());
     
@@ -34,6 +35,13 @@ public class FieldBuilder : IBuildable, IAccessModifiers, IKeywords
         _initialize.AddRange(args);
         return this;
     }
+
+    public FieldBuilder Equals(params string[] args)
+    {
+        _equals ??= [];
+        _equals.AddRange(args);
+        return this;
+    }
     
     public string Build(int indent)
     {
@@ -47,6 +55,12 @@ public class FieldBuilder : IBuildable, IAccessModifiers, IKeywords
             sb.Append(" = new(");
             sb.Append(string.Join(", ", _initialize));
             sb.Append(')');
+        }
+        
+        if (_equals is not null)
+        {
+            sb.Append(" = ");
+            sb.Append(string.Join(", ", _equals));
         }
         sb.Append(';');
         sb.AppendLine();

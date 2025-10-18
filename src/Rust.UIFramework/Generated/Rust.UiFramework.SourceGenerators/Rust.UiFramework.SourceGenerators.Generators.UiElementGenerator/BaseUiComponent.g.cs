@@ -26,7 +26,6 @@ public partial class BaseUiComponent : IBaseUiComponentTrackable
 	public Oxide.Ext.UiFramework.Types.UiPadding Padding { get => RectTransform.Padding; set => RectTransform.Padding = value; }
 	Oxide.Ext.UiFramework.Types.Tracked<float> IBaseUiComponentTrackable.FadeOut => _fadeOut;
 	Oxide.Ext.UiFramework.Types.Tracked<bool> IBaseUiComponentTrackable.Active => _active;
-
 }
 
 

@@ -94,12 +94,10 @@ public static class GeneratorHelpers
         }
     }
 
-    public static INamedTypeSymbol GetTrackedType(this ImmutableArray<ClassDeclarationSyntax> classes, Compilation compilation)
+    public static IEnumerable<IFieldSymbol> GetEnumValues(this INamedTypeSymbol @enum)
     {
-        ClassDeclarationSyntax tracked = classes.FirstOrDefault(c => c.Identifier.Text == "Tracked" && c.TypeParameterList is not null && c.TypeParameterList.Parameters.Count == 1);
-        SemanticModel model = compilation.GetSemanticModel(tracked.SyntaxTree);
-        return model.GetDeclaredSymbol(tracked) as INamedTypeSymbol;
-    } 
+        return @enum.GetMembers().OfType<IFieldSymbol>().Where(f => f.IsConst);
+    }
     
     public static string GetTrackableInterface(this ITypeSymbol symbol)
     {
@@ -120,12 +118,7 @@ public static class GeneratorHelpers
     public static string GetConstructorString(this AttributeData attribute, int index, string defaultValue = "")
     {
         object value = attribute.GetConstructorValue(index);
-        if (value is null)
-        {
-            return defaultValue;
-        }
-
-        return value.ToString();
+        return value is null ? defaultValue : value.ToString();
     }
     
     private static object GetConstructorValue(this AttributeData attribute, int index)

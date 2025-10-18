@@ -1,6 +1,5 @@
 ﻿using System.Collections.Immutable;
 using System.Linq;
-using System.Text;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Rust.UiFramework.SourceGenerators.Attributes;
@@ -26,7 +25,7 @@ public class ComponentTrackableGenerator : IIncrementalGenerator
         {
             (Compilation compilation, ImmutableArray<ClassDeclarationSyntax> classes) = source;
 
-            INamedTypeSymbol tracked = classes.GetTrackedType(compilation);
+            INamedTypeSymbol tracked = SymbolCache.GetTracked(compilation);
             
             foreach (ClassDeclarationSyntax @class in classes)
             {

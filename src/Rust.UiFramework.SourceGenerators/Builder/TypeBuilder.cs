@@ -15,6 +15,7 @@ public class TypeBuilder : IType, IAccessModifiers, IKeywords, IBuildable
     private readonly List<FieldBuilder> _fields = [];
     private readonly List<PropertyBuilder> _properties = [];
     private readonly List<MethodBuilder> _methods = [];
+    private readonly List<TypeBuilder> _types = [];
 
     private string _name;
     
@@ -92,6 +93,14 @@ public class TypeBuilder : IType, IAccessModifiers, IKeywords, IBuildable
     }
     
     public TypeBuilder Methods<T>(IEnumerable<T> fields, Func<T, bool> filter, Action<T, MethodBuilder> method) => Methods(fields.Where(filter), method);
+    
+    public TypeBuilder Type(Action<TypeBuilder> type)
+    {
+        TypeBuilder builder = new();
+        type(builder);
+        _types.Add(builder);
+        return this;
+    }
 
     public string Build(int indent)
     {
@@ -114,30 +123,33 @@ public class TypeBuilder : IType, IAccessModifiers, IKeywords, IBuildable
         sb.Append('\t', indent);
         sb.AppendLine("{");
 
-        foreach (FieldBuilder field in _fields)
-        {
-            //sb.Append('\t', indent + 1);
-            sb.Append(field.Build(indent + 1));
-        }
-        
-        sb.AppendLine();
-        
-        foreach (PropertyBuilder property in _properties)
-        {
-            // sb.Append('\t', indent + 1);
-            sb.Append(property.Build(indent + 1));
-        }
-        
-        sb.AppendLine();
-        
-        foreach (MethodBuilder method in _methods)
-        {
-            //sb.Append('\t', indent + 1);
-            sb.Append(method.Build(indent + 1));
-        }
+        bool hasAdded = ProcessBuildable(_fields, sb, indent, false);
+        hasAdded = ProcessBuildable(_properties, sb, indent, hasAdded);
+        hasAdded = ProcessBuildable(_methods, sb, indent, hasAdded);
+        hasAdded = ProcessBuildable(_types, sb, indent, hasAdded);
         
         sb.Append('\t', indent);
         sb.AppendLine("}");
         return sb.ToString();
+    }
+
+    private bool ProcessBuildable<T>(List<T> buildables, StringBuilder sb, int indent, bool hasAdded) where T : IBuildable
+    {
+        if (buildables.Count != 0)
+        {
+            if (hasAdded)
+            {
+                sb.AppendLine();
+            }
+            
+            foreach (T buildable in buildables)
+            {
+                sb.Append(buildable.Build(indent + 1));
+            }
+
+            return true;
+        }
+
+        return false;
     }
 }
