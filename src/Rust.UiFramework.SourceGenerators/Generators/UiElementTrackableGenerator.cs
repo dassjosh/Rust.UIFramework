@@ -61,36 +61,6 @@ public class UiElementTrackableGenerator : IIncrementalGenerator
                 .If(!genData.SkipComponentField, i => i.Property(property => property.Type(genData.ComponentField.Type.GetTrackableInterface()).Name(genData.ComponentField.Name).Get()))
                 .EndIf())
             .Build();
-        
-        // StringBuilder sb = new();
-        //
-        // sb.AppendLine("using Oxide.Ext.UiFramework.Types;");
-        // sb.AppendLine();
-        //
-        // sb.AppendLine("namespace Oxide.Ext.UiFramework.Interfaces;");
-        // sb.AppendLine();
-        //
-        // sb.Append($"public interface {genData.InterfaceName}");
-        // if (genData.ParentElement is not null)
-        // {
-        //     sb.Append($" : {genData.ParentElement.GetTrackableInterface()}");
-        // }
-        // sb.AppendLine();
-        //
-        // sb.AppendLine("{");
-        // foreach (PropertyData data in genData.Properties.Where(p => p.IsTracked))
-        // {
-        //     sb.AppendLine($"\t{genData.TrackedType.Construct(data.Type)} {data.Name} {{ get; }}");
-        // }
-        //
-        // if (!genData.SkipComponentField)
-        // {
-        //     sb.AppendLine($"\t{genData.ComponentField.Type.GetTrackableInterface()} {genData.ComponentField.Name} {{ get; }}");
-        // }
-        //
-        // sb.AppendLine("}");
-        //
-        // return sb.ToString();
     }
 
     private sealed class GeneratorData

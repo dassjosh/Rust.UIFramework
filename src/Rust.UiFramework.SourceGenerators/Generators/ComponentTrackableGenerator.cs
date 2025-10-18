@@ -58,30 +58,6 @@ public class ComponentTrackableGenerator : IIncrementalGenerator
                 //Tracked Properties
                 .Properties(genData.Properties, (data, property) => property.Type(genData.TrackedType.Construct(data.Type)).Name(data.Name).Get()))
             .Build();
-
-        // StringBuilder sb = new();
-        //
-        // sb.AppendLine("using Oxide.Ext.UiFramework.Types;");
-        // sb.AppendLine();
-        //
-        // sb.AppendLine("namespace Oxide.Ext.UiFramework.Interfaces;");
-        // sb.AppendLine();
-        //
-        // sb.Append($"public interface {genData.InterfaceName}");
-        // if (genData.ParentComponent is not null)
-        // {
-        //     sb.Append($" : {genData.ParentComponent.GetTrackableInterface()}");
-        // }
-        // sb.AppendLine();
-        //
-        // sb.AppendLine("{");
-        // foreach (PropertyData data in genData.Properties)
-        // {
-        //     sb.AppendLine($"\t{genData.TrackedType.Construct(data.Type)} {data.Name} {{ get; }}");
-        // }
-        // sb.AppendLine("}");
-        //
-        // return sb.ToString();
     }
 
     private sealed class GeneratorData
