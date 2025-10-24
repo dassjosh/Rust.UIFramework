@@ -7,5 +7,5 @@ namespace Oxide.Ext.UiFramework.Interfaces;
 public interface IAnimationBuilder : IPoolable
 {
     IUiFrameworkPlugin Plugin { get; }
-    internal void AddAnimation(BaseAnimation animation);
+    void AddAnimation(ISendableAnimation animation);
 }

@@ -83,7 +83,7 @@ public abstract partial class BaseUiBuilder
     #endregion
 
     #region Directional Layout
-    public DirectionalLayoutComponent DirectionalLayout(BaseUiComponent component, LayoutDirection direction) => component.GetOrAddLayoutComponent<DirectionalLayoutComponent>().SetLayoutDirection(direction);
+    public DirectionalLayoutComponent DirectionalLayout(BaseUiComponent component, LayoutDirection direction) => component.GetOrAddLayoutComponent<DirectionalLayoutComponent>().SetDirection(direction);
     
     public DirectionalLayoutComponent DirectionalLayout(BaseUiComponent component,
         LayoutDirection direction,

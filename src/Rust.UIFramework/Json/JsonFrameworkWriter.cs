@@ -4,10 +4,10 @@ using System.Runtime.CompilerServices;
 using Network;
 using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Colors;
-using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Enums;
-using Oxide.Ext.UiFramework.Libraries;
+using Oxide.Ext.UiFramework.Interfaces;
 using Oxide.Ext.UiFramework.Offsets;
+using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.Types;
@@ -51,9 +51,9 @@ public sealed class JsonFrameworkWriter : BasePoolable
         _writer = PluginPool.Get<JsonUtf8Writer>();
     }
 
-    public static JsonFrameworkWriter Create(UiPluginPool pool)
+    public static JsonFrameworkWriter Create(IUiFrameworkPlugin plugin)
     {
-        JsonFrameworkWriter writer = pool.Get<JsonFrameworkWriter>();
+        JsonFrameworkWriter writer = plugin.PluginPool.Get<JsonFrameworkWriter>();
         writer.Init();
         return writer;
     }
@@ -146,7 +146,7 @@ public sealed class JsonFrameworkWriter : BasePoolable
         }
     }
 
-    public void AddField(TrackedValue<UiPosition> value, SerializeMode mode)
+    public void AddField(Tracked<UiPosition> value, SerializeMode mode)
     {
         if (mode == SerializeMode.Create)
         {
@@ -163,7 +163,7 @@ public sealed class JsonFrameworkWriter : BasePoolable
         }
     }
     
-    public void AddField(TrackedValue<UiOffset> value, SerializeMode mode)
+    public void AddField(Tracked<UiOffset> value, SerializeMode mode)
     {
         if (mode == SerializeMode.Create)
         {
@@ -189,7 +189,7 @@ public sealed class JsonFrameworkWriter : BasePoolable
         }
     }
     
-    public void AddField(in Utf8String name, TrackedValue<bool> value, SerializeMode mode)
+    public void AddField(in Utf8String name, Tracked<bool> value, SerializeMode mode)
     {
         if (value.ShouldSerialize(mode))
         {
@@ -198,7 +198,7 @@ public sealed class JsonFrameworkWriter : BasePoolable
         }
     }
     
-    public void AddField(in Utf8String name, TrackedValue<int> value, SerializeMode mode)
+    public void AddField(in Utf8String name, Tracked<int> value, SerializeMode mode)
     {
         if (value.ShouldSerialize(mode))
         {
@@ -207,7 +207,7 @@ public sealed class JsonFrameworkWriter : BasePoolable
         }
     }
     
-    public void AddField(in Utf8String name, TrackedValue<ulong> value, SerializeMode mode)
+    public void AddField(in Utf8String name, Tracked<ulong> value, SerializeMode mode)
     {
         if (value.ShouldSerialize(mode))
         {
@@ -216,7 +216,7 @@ public sealed class JsonFrameworkWriter : BasePoolable
         }
     }
     
-    public void AddField(in Utf8String name, TrackedValue<float> value, SerializeMode mode)
+    public void AddField(in Utf8String name, Tracked<float> value, SerializeMode mode)
     {
         if (value.ShouldSerialize(mode))
         {
@@ -225,7 +225,7 @@ public sealed class JsonFrameworkWriter : BasePoolable
         }
     }
     
-    public void AddField(in Utf8String name, TrackedValue<string> value, SerializeMode mode)
+    public void AddField(in Utf8String name, Tracked<string> value, SerializeMode mode)
     {
         if (value.ShouldSerialize(mode) && value.Value != null)
         {
@@ -234,7 +234,7 @@ public sealed class JsonFrameworkWriter : BasePoolable
         }
     }
     
-    public void AddField(in Utf8String name, TrackedValue<UiColor> value, SerializeMode mode)
+    public void AddField(in Utf8String name, Tracked<UiColor> value, SerializeMode mode)
     {
         if (value.ShouldSerialize(mode))
         {
@@ -243,7 +243,7 @@ public sealed class JsonFrameworkWriter : BasePoolable
         }
     }
     
-    public void AddField(in Utf8String name, TrackedValue<UiRotation> value, SerializeMode mode)
+    public void AddField(in Utf8String name, Tracked<UiRotation> value, SerializeMode mode)
     {
         if (value.ShouldSerialize(mode))
         {
@@ -252,7 +252,7 @@ public sealed class JsonFrameworkWriter : BasePoolable
         }
     }
     
-    public void AddField(in Utf8String name, TrackedValue<Vector2> value, SerializeMode mode)
+    public void AddField(in Utf8String name, Tracked<Vector2> value, SerializeMode mode)
     {
         if (value.ShouldSerialize(mode))
         {
@@ -261,7 +261,7 @@ public sealed class JsonFrameworkWriter : BasePoolable
         }
     }
     
-    public void AddField(in Utf8String name, TrackedValue<UiBorderWidth> value, SerializeMode mode)
+    public void AddField(in Utf8String name, Tracked<UiBorderWidth> value, SerializeMode mode)
     {
         if (value.ShouldSerialize(mode))
         {
@@ -270,7 +270,7 @@ public sealed class JsonFrameworkWriter : BasePoolable
         }
     }
     
-    public void AddField<T>(in Utf8String name, TrackedValue<T> value, SerializeMode mode) where T : unmanaged, Enum
+    public void AddField<T>(in Utf8String name, Tracked<T> value, SerializeMode mode) where T : unmanaged, Enum
     {
         if (value.ShouldSerialize(mode))
         {
@@ -279,7 +279,7 @@ public sealed class JsonFrameworkWriter : BasePoolable
         }
     }
     
-    public void AddField<T>(in Utf8String name, TrackedValue<T?> value, SerializeMode mode) where T : unmanaged, Enum
+    public void AddField<T>(in Utf8String name, Tracked<T?> value, SerializeMode mode) where T : unmanaged, Enum
     {
         if (value.ShouldSerialize(mode))
         {
@@ -345,7 +345,7 @@ public sealed class JsonFrameworkWriter : BasePoolable
         }
     }
     
-    public void AddTextField(in Utf8String name, TrackedValue<string> value, SerializeMode mode)
+    public void AddTextField(in Utf8String name, Tracked<string> value, SerializeMode mode)
     {
         if (value.ShouldSerialize(mode))
         {
@@ -363,7 +363,7 @@ public sealed class JsonFrameworkWriter : BasePoolable
         }
     }
     
-    public void AddCommand(in Utf8String name, TrackedValue<string> value, SerializeMode mode)
+    public void AddCommand(in Utf8String name, Tracked<string> value, SerializeMode mode)
     {
         if (value.ShouldSerialize(mode))
         {

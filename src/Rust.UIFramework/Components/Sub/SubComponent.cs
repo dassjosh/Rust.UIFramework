@@ -1,7 +1,8 @@
-﻿namespace Oxide.Ext.UiFramework.Components;
+﻿using Oxide.Ext.UiFramework.Interfaces;
+
+namespace Oxide.Ext.UiFramework.Components;
 
 public abstract class SubComponent : BaseTypedComponent, ISubComponent
 {
     public abstract bool AllowMultiple { get; }
-    public abstract bool HasChanged();
 }

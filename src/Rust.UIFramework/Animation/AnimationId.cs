@@ -8,8 +8,5 @@ public readonly record struct AnimationId(long Id)
 
     private static long _nextAnimationId;
     
-    internal static AnimationId GetNextId()
-    {
-        return new AnimationId(Interlocked.Increment(ref _nextAnimationId));
-    }
+    internal static AnimationId GetNextId() => new(Interlocked.Increment(ref _nextAnimationId));
 }

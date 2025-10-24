@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rust.UiFramework.Plugins", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rust.UiFramework.UnitTests", "Rust.UiFramework.UnitTests\Rust.UiFramework.UnitTests.csproj", "{6D5681D6-15DF-41DF-8A1F-03A923F592F1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rust.UiFramework.SourceGenerators", "Rust.UiFramework.SourceGenerators\Rust.UiFramework.SourceGenerators.csproj", "{26704024-E6B8-488A-B781-81C4D96101D9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Release|Oxide = Release|Oxide
@@ -41,5 +43,13 @@ Global
 		{6D5681D6-15DF-41DF-8A1F-03A923F592F1}.Release|Oxide.ActiveCfg = Release|Oxide
 		{6D5681D6-15DF-41DF-8A1F-03A923F592F1}.Unit Tests|Oxide.ActiveCfg = Unit Tests|Oxide
 		{6D5681D6-15DF-41DF-8A1F-03A923F592F1}.Unit Tests|Oxide.Build.0 = Unit Tests|Oxide
+		{26704024-E6B8-488A-B781-81C4D96101D9}.Release|Oxide.ActiveCfg = Release|Any CPU
+		{26704024-E6B8-488A-B781-81C4D96101D9}.Release|Oxide.Build.0 = Release|Any CPU
+		{26704024-E6B8-488A-B781-81C4D96101D9}.Debug|Oxide.ActiveCfg = Debug|Any CPU
+		{26704024-E6B8-488A-B781-81C4D96101D9}.Debug|Oxide.Build.0 = Debug|Any CPU
+		{26704024-E6B8-488A-B781-81C4D96101D9}.Benchmarks|Oxide.ActiveCfg = Debug|Any CPU
+		{26704024-E6B8-488A-B781-81C4D96101D9}.Benchmarks|Oxide.Build.0 = Debug|Any CPU
+		{26704024-E6B8-488A-B781-81C4D96101D9}.Unit Tests|Oxide.ActiveCfg = Debug|Any CPU
+		{26704024-E6B8-488A-B781-81C4D96101D9}.Unit Tests|Oxide.Build.0 = Debug|Any CPU
 	EndGlobalSection
 EndGlobal

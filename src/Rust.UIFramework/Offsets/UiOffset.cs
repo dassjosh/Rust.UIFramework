@@ -232,6 +232,10 @@ public readonly struct UiOffset(float xMin, float yMin, float xMax, float yMax) 
     public static UiOffset Lerp(in UiOffset a, in UiOffset b, float t) => new(Vector2.Lerp(a.Min, b.Min, t), Vector2.Lerp(a.Max, b.Max, t));
     public static UiOffset LerpUnclamped(in UiOffset a, in UiOffset b, float t) => new(Vector2.LerpUnclamped(a.Min, b.Min, t), Vector2.LerpUnclamped(a.Max, b.Max, t));
     
+#pragma warning disable EPS05
+    public static UiOffset Lerp(UiOffset a, UiOffset b, float t) => new(Vector2.Lerp(a.Min, b.Min, t), Vector2.Lerp(a.Max, b.Max, t));
+    public static UiOffset LerpUnclamped(UiOffset a, UiOffset b, float t) => new(Vector2.LerpUnclamped(a.Min, b.Min, t), Vector2.LerpUnclamped(a.Max, b.Max, t));
+#pragma warning restore EPS05
     #endregion
 
     #region Operators

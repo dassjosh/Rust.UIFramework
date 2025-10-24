@@ -2,16 +2,17 @@
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Enums;
+using Oxide.Ext.UiFramework.Interfaces;
 using Oxide.Ext.UiFramework.Json;
+using Rust.UiFramework.SourceGenerators.Attributes;
 using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-public class UiLabel : BaseUiText<UiLabel>
+[GenerateUiElement(typeof(IUiLabel))]
+public partial class UiLabel : BaseUiComponent, IUiLabel
 {
     public readonly TextComponent Text;
-    
-    public UiReference PlaceholderFor { get => Text.PlaceholderFor; set => Text.PlaceholderFor = value; }
 
     public UiLabel() : this(new TextComponent()) { }
 
@@ -27,12 +28,6 @@ public class UiLabel : BaseUiText<UiLabel>
         Color = color;
         Align = align;
         Font = font;
-        return this;
-    }
-
-    public UiLabel SetPlaceholderFor(in UiReference placeholder)
-    {
-        PlaceholderFor = placeholder;
         return this;
     }
 

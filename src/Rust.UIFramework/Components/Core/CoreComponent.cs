@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Exceptions;
 using Oxide.Ext.UiFramework.Extensions;
+using Oxide.Ext.UiFramework.Interfaces;
 using Oxide.Ext.UiFramework.Json;
 
 namespace Oxide.Ext.UiFramework.Components;
@@ -218,9 +219,28 @@ public abstract class CoreComponent : BaseTypedComponent, ICoreComponent
             }
         }
     }
+    
+    public override bool HasChanged()
+    {
+        if (base.HasChanged())
+        {
+            return true;
+        }
+        
+        for (int i = 0; i < SubComponents.Count; i++)
+        {
+            if (SubComponents[i].HasChanged())
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
 
     public override void ResetHasChanged()
     {
+        base.ResetHasChanged();
         for (int i = 0; i < SubComponents.Count; i++)
         {
             SubComponents[i].ResetHasChanged();

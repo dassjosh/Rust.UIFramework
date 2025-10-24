@@ -218,8 +218,14 @@ public readonly struct UiPosition(float xMin, float yMin, float xMax, float yMax
         return this + padding;
     }
     
+
     public static UiPosition Lerp(in UiPosition a, in UiPosition b, float t) => new(Vector2.Lerp(a.Min, b.Min, t), Vector2.Lerp(a.Max, b.Max, t));
     public static UiPosition LerpUnclamped(in UiPosition a, in UiPosition b, float t) => new(Vector2.LerpUnclamped(a.Min, b.Min, t), Vector2.LerpUnclamped(a.Max, b.Max, t));
+    
+#pragma warning disable EPS05
+    public static UiPosition Lerp(UiPosition a, UiPosition b, float t) => new(Vector2.Lerp(a.Min, b.Min, t), Vector2.Lerp(a.Max, b.Max, t));
+    public static UiPosition LerpUnclamped(UiPosition a, UiPosition b, float t) => new(Vector2.LerpUnclamped(a.Min, b.Min, t), Vector2.LerpUnclamped(a.Max, b.Max, t));
+#pragma warning restore EPS05
 
     public static bool operator ==(UiPosition left, UiPosition right) => left.Equals(right);
     public static bool operator !=(UiPosition left, UiPosition right) => !(left == right);

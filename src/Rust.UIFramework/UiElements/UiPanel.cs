@@ -1,8 +1,14 @@
-﻿using Oxide.Ext.UiFramework.Components;
+﻿using System;
+using Oxide.Ext.UiFramework.Components;
+using Oxide.Ext.UiFramework.Interfaces;
+using Rust.UiFramework.SourceGenerators.Attributes;
+
+using ImageType = UnityEngine.UI.Image.Type;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-public class UiPanel : BaseUiImage<UiPanel>
+[GenerateUiElement(typeof(IUiPanel))]
+public partial class UiPanel : BaseUiComponent, IUiPanel
 {
     public readonly ImageComponent Image;
 
@@ -12,4 +18,15 @@ public class UiPanel : BaseUiImage<UiPanel>
     {
         Image = component;
     }
+    
+    [Obsolete("Use SetSprite().SetMaterial().SetImageType() instead.")]
+    public UiPanel SetSpriteMaterialImage(string sprite = null, string material = null, ImageType type = ImageType.Simple)
+    {
+        Sprite = sprite;
+        Material = material;
+        ImageType = type;
+        return this;
+    }
+    
+    public UiPanel SetPlaceholderFor(UiInput input) => SetPlaceholderFor(input.Reference);
 }

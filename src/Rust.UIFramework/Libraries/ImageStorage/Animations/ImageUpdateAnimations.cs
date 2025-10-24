@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using Oxide.Ext.UiFramework.Animation;
-using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Types;
+using Oxide.Ext.UiFramework.UiElements;
 
 namespace Oxide.Ext.UiFramework.Libraries;
 
@@ -13,14 +13,30 @@ internal class ImageUpdateAnimations : ISingleton
     
     private ImageUpdateAnimations() { }
 
-    internal void QueueUpdate(string url, ImageDownloadAnimation animation)
+    internal void QueueUpdate(string url, IElementAnimation<UiRawImage> animation, ImageAnimationOptions options)
     {
+        CancelPreviousUpdates(animation.SinglePlayerId(), animation.Element.Reference);
         if (!_queuedUpdates.TryGetValue(url, out ImageDownloadAnimations updates))
         {
             _queuedUpdates[url] = updates = UiPool.Internal.Get<ImageDownloadAnimations>();
         }
         
-        updates.Add(animation);
+        updates.Add(animation, options);
+    }
+
+    private void CancelPreviousUpdates(ulong playerId, in UiReference reference)
+    {
+        foreach (ImageDownloadAnimations animation in _queuedUpdates.Values)
+        {
+            foreach (ImageAnimationData data in animation.QueuedAnimations)
+            {
+                if (data.Animation.Id.IsValid && data.Animation.SinglePlayerId() == playerId && data.Animation.Element.Reference.Name == reference.Name)
+                {
+                    data.Cancel();
+                    animation.QueuedAnimations.Remove(data);
+                }
+            }
+        }
     }
 
     internal void OnDownloadCompleted(string url, bool success, ImageId id)
@@ -63,9 +79,9 @@ internal class ImageUpdateAnimations : ISingleton
         public readonly ConcurrentList<ImageAnimationData> QueuedAnimations = [];
         public DateTime CreatedAt;
 
-        public void Add(ImageDownloadAnimation animation)
+        public void Add(IElementAnimation<UiRawImage> animation, ImageAnimationOptions options)
         {
-            QueuedAnimations.Add(new ImageAnimationData(animation));
+            QueuedAnimations.Add(new ImageAnimationData(animation, options));
         }
 
         protected override void LeavePool()
@@ -79,17 +95,17 @@ internal class ImageUpdateAnimations : ISingleton
         }
     }
 
-    private readonly record struct ImageAnimationData(ImageDownloadAnimation Animation)
+    private readonly record struct ImageAnimationData(IElementAnimation<UiRawImage> Animation, ImageAnimationOptions Options)
     {
-        public readonly ImageDownloadAnimation Animation = Animation;
         public readonly AnimationId Id = Animation.Id;
-        public bool IsAnimationValid => Animation.Id.IsValid && Id.IsValid && Animation.Id == Id && Animation.State == AnimationState.Running;
+        public bool IsAnimationValid => Animation.Id.IsValid && Id.IsValid && Animation.Id == Id;
 
         public void OnImageDownloadedSuccessfully(ImageId id)
         {
             if (IsAnimationValid)
             {
-                Animation.OnImageDownloadedSuccessfully(id);
+                Animation.Element.Image = id.ToString();
+                Animation.CompleteAnimation();
             }
         }
 
@@ -97,7 +113,8 @@ internal class ImageUpdateAnimations : ISingleton
         {
             if (IsAnimationValid)
             {
-                Animation.OnImageDownloadFailed();
+                Animation.Element.Image = Singleton<UiImageStorage>.Instance.Get(Animation.Plugin, Options.FailedImageNameOrUrl);
+                Animation.CompleteAnimation();
             }
         }
 
@@ -105,7 +122,7 @@ internal class ImageUpdateAnimations : ISingleton
         {
             if (IsAnimationValid)
             {
-                Animation.Cancel();
+                Animation.CancelAnimation();
             }
         }
     }

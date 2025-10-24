@@ -8,6 +8,7 @@ using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Interfaces;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Layouts;
+using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Types;
 using Oxide.Ext.UiFramework.UiElements;
 
@@ -51,7 +52,7 @@ public abstract partial class BaseUiBuilder : BaseBuilder
         
     public JsonFrameworkWriter CreateWriter()
     {
-        JsonFrameworkWriter writer = JsonFrameworkWriter.Create(PluginPool);
+        JsonFrameworkWriter writer = JsonFrameworkWriter.Create(Plugin ?? UiFrameworkPlugin.Instance);
         writer.WriteStartArray();
         WriteComponentsInternal(writer);
         writer.WriteEndArray();

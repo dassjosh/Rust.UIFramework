@@ -9,7 +9,13 @@ public abstract class BaseComponent : BasePoolable
     public abstract ComponentType ComponentType { get; }
     protected BaseComponent() => EnterPool();
     public abstract void WriteComponent(JsonFrameworkWriter writer, SerializeMode mode);
-    public abstract void ResetHasChanged();
     protected sealed override void EnterPool() => Reset();
-    public abstract void Reset();
+
+    protected virtual bool HasChangedGenerated() => false;
+    protected virtual void ResetHasChangedGenerated() {}
+    protected virtual void ResetGenerated() {}
+
+    public virtual bool HasChanged() => HasChangedGenerated();
+    public virtual void ResetHasChanged() => ResetHasChangedGenerated();
+    public virtual void Reset() => ResetGenerated();
 }

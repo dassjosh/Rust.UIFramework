@@ -48,7 +48,7 @@ public class UiCombinedBuilder : BaseBuilder
 
     private JsonFrameworkWriter CreateWriter(SendInfo send)
     {
-        JsonFrameworkWriter writer = JsonFrameworkWriter.Create(PluginPool);
+        JsonFrameworkWriter writer = JsonFrameworkWriter.Create(Plugin ?? UiFrameworkPlugin.Instance);
         writer.WriteStartArray();
         Combine(send, writer);
         writer.WriteEndArray();

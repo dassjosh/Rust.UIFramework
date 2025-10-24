@@ -30,6 +30,6 @@ internal class ImageDbData : BaseDataFile<ImageDbData>
     public IEnumerable<ImageId> GetAllImages() => _storedImages.Keys;
 
     public IEnumerable<ImageId> GetExpiredImages() => _storedImages
-        .Where(x => x.Value + TimeSpan.FromDays(UiFrameworkConfig.Instance.ImageDb.UnusedImageMaxDays) < DateTime.UtcNow)
+        .Where(x => x.Value + TimeSpan.FromDays(UiFrameworkConfig.Instance.ImageDatabase.UnusedImageMaxDays) < DateTime.UtcNow)
         .Select(x => x.Key);
 }

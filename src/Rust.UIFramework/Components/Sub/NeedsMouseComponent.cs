@@ -11,5 +11,4 @@ public class NeedsMouseComponent : SubComponent
     public override bool AllowMultiple => false;
     protected override void WriteComponentFields(JsonFrameworkWriter writer, SerializeMode mode) { }
     public override bool HasChanged() => false;
-    public override void ResetHasChanged() { }
 }

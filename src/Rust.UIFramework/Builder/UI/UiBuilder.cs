@@ -18,7 +18,7 @@ public partial class UiBuilder : BaseUiBuilder, IAnimationBuilder
     public BaseUiComponent Root;
     
     private BaseUiComponent _actualRoot;
-    private readonly List<BaseAnimation> _animations = [];
+    private readonly List<ISendableAnimation> _animations = [];
         
     #region Setup
     public new UiBuilder Init(IUiFrameworkPlugin plugin)
@@ -174,16 +174,16 @@ public partial class UiBuilder : BaseUiBuilder, IAnimationBuilder
     #endregion
 
     #region Animations
-    void IAnimationBuilder.AddAnimation(BaseAnimation animation) => _animations.Add(animation);
+    void IAnimationBuilder.AddAnimation(ISendableAnimation animation) => _animations.Add(animation);
     
     protected override void OnUiSent(SendInfo send)
     {
         Singleton<AnimationTracker>.Instance.RemoveUiForSend(send, RootName);
         for (int index = 0; index < _animations.Count; index++)
         {
-            BaseAnimation animation = _animations[index];
+            ISendableAnimation animation = _animations[index];
             Singleton<AnimationHandler>.Instance.EnqueueAnimation(animation, SendInfoBuilder.GetForAnimations(send));
-            Singleton<AnimationTracker>.Instance.OnAnimatedPanelCreated(send, RootName, animation.Reference.Name, animation.Id);
+            Singleton<AnimationTracker>.Instance.OnAnimationQueued(animation, send, RootName);
         }
     }
     #endregion

@@ -2,21 +2,18 @@
 using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Exceptions.UiElements;
+using Oxide.Ext.UiFramework.Interfaces;
 using Oxide.Ext.UiFramework.Libraries;
+using Rust.UiFramework.SourceGenerators.Attributes;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-public class UiInput : BaseUiText<UiInput>
+[GenerateUiElement(typeof(IUiInput))]
+public partial class UiInput : BaseUiComponent, IUiInput
 {
     public readonly InputComponent Input;
-
-    public int CharsLimit { get => Input.CharsLimit; set => Input.CharsLimit = value; }
-    public string Command { get => Input.Command; set => Input.Command = value; }
-    public InputMode Mode { get => Input.Mode; set => Input.Mode = value; }
-    public InputField.LineType LineType { get => Input.LineType; set => Input.LineType = value; }
-    public UiReference Placeholder { get => Input.Placeholder; set => Input.Placeholder = value; }
     
     public UiInput() : this(new InputComponent()) { }
 
@@ -36,12 +33,6 @@ public class UiInput : BaseUiText<UiInput>
         CharsLimit = charsLimit;
         Mode = mode;
         LineType = lineType;
-        return this;
-    }
-    
-    public UiInput SetCharsLimit(int limit)
-    {
-        CharsLimit = limit;
         return this;
     }
 
@@ -80,30 +71,12 @@ public class UiInput : BaseUiText<UiInput>
 
         return this;
     }
-
-    public UiInput SetLineType(InputField.LineType lineType)
-    {
-        LineType = lineType;
-        return this;
-    }
-    
-    public UiInput SetCommand(string command)
-    {
-        Command = command;
-        return this;
-    }
     
     public UiInput SetCommand(ICommandBuilder<InputArg> command) => SetCommand(command.Build(InputArg.Empty));
     
     public UiInput SetInputMode(InputMode mode)
     {
         Mode = mode;
-        return this;
-    }
-
-    public UiInput SetPlaceholder(in UiReference placeholder)
-    {
-        Placeholder = placeholder;
         return this;
     }
     

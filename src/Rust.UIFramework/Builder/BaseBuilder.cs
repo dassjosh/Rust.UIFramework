@@ -221,12 +221,12 @@ public abstract class BaseBuilder : BasePoolable
     #endregion
 
     #region Pooling
-    protected static void ClearAnimationList(List<BaseAnimation> animations)
+    protected static void ClearAnimationList(List<ISendableAnimation> animations)
     {
         int count = animations.Count;
         for (int index = 0; index < count; index++)
         {
-            BaseAnimation animation = animations[index];
+            ISendableAnimation animation = animations[index];
             if (animation.State == AnimationState.Init)
             {
                 animation.Dispose();

@@ -1,0 +1,10 @@
+﻿{
+  "Color": "#FFFFFFFF",
+  "ComponentType": "NineSlice",
+  "Enabled": true,
+  "FillCenter": false,
+  "ImageType": "Sliced",
+  "Png": "png",
+  "Slice": "1 2 4 8",
+  "Type": "UnityEngine.UI.Image"
+}

@@ -204,7 +204,7 @@ public static class Permutations
 
         if (obj is BaseUiComponent component)
         {
-            PopulateObject(component._component);
+            PopulateObject(component.Component);
         } 
         else if (obj is CoreComponent core)
         {

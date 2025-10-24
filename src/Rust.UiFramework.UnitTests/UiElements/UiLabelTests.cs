@@ -30,8 +30,8 @@ public class UiLabelTests() : BaseTheoryUiElementsTests<UiLabel, UiLabelTests.Th
             .SetFadeIn(Text.FadeIn)
             .SetFontSize(Text.FontSize)
             .SetFont(Text.Font)
-            .SetTextAlign(row.Align)
-            .SetText(Text.Text)
+            .SetAlign(row.Align)
+            .SetTextValue(Text.Text)
             .SetVerticalOverflow(row.VerticalOverflow);
     }
 

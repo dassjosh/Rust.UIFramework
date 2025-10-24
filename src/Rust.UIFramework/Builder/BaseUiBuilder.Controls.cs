@@ -190,21 +190,18 @@ public partial class BaseUiBuilder
     public UiTuple<UiButton, UiRawImage> ImageStorageButton(in UiReference parent, in UiPosition pos, in UiOffset offset, string nameOrUrl, string command, UiColor? buttonColor = default, ButtonType type = ButtonType.Command, ImageDownloadOptions options = null, UiColor? imageColor = default)
     {
         UiTuple<UiButton, UiRawImage> control = RawImageButton(parent, pos, offset, Singleton<UiImageStorage>.Instance.Get(Plugin, nameOrUrl, options), command, buttonColor, type, imageColor);
-        control.Item2.HandleImageDownloadUpdate(this, nameOrUrl, options);
         return control;
     }
 
     public UiTuple<UiButton, UiRawImage> ImageStorageButton(BaseUiLayout layout, string nameOrUrl, string command, UiColor? buttonColor = default, ButtonType type = ButtonType.Command, ImageDownloadOptions options = null, UiColor? imageColor = default)
     {
         UiTuple<UiButton, UiRawImage> control =  RawImageButton(layout, Singleton<UiImageStorage>.Instance.Get(Plugin, nameOrUrl, options), command, buttonColor, type, imageColor);
-        control.Item2.HandleImageDownloadUpdate(this, nameOrUrl, options);
         return control;
     }
     
     public UiTuple<UiButton, UiRawImage> ImageStorageButton(BaseLayoutComponent layout, string nameOrUrl, string command, UiColor? buttonColor = default, ButtonType type = ButtonType.Command, ImageDownloadOptions options = null, UiColor? imageColor = default)
     {
         UiTuple<UiButton, UiRawImage> control =  RawImageButton(layout, Singleton<UiImageStorage>.Instance.Get(Plugin, nameOrUrl, options), command, buttonColor, type, imageColor);
-        control.Item2.HandleImageDownloadUpdate(this, nameOrUrl, options);
         return control;
     }
     #endregion

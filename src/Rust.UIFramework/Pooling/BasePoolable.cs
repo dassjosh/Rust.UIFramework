@@ -8,8 +8,9 @@ namespace Oxide.Ext.UiFramework.Pooling;
 /// </summary>
 public abstract class BasePoolable : IPoolable
 {
-    private bool _disposed;
-    internal bool CanPool => _pool != null && !_disposed;
+    public bool IsPooled { get; private set; }
+
+    internal bool CanPool => _pool != null && !IsPooled;
     private IPool<BasePoolable> _pool;
     internal UiPluginPool PluginPool;
     UiPluginPool IPoolable.PluginPool => PluginPool;
@@ -43,12 +44,12 @@ public abstract class BasePoolable : IPoolable
     internal void EnterPoolInternal()
     {
         EnterPool();
-        _disposed = true;
+        IsPooled = true;
     }
 
     internal void LeavePoolInternal()
     {
-        _disposed = false;
+        IsPooled = false;
         LeavePool();
     }
 
@@ -71,7 +72,7 @@ public abstract class BasePoolable : IPoolable
 
     public void TryDispose()
     {
-        if (CanPool && !_disposed)
+        if (CanPool && !IsPooled)
         {
             Dispose();
         }
@@ -84,7 +85,7 @@ public abstract class BasePoolable : IPoolable
             return;
         }
 
-        if (_disposed)
+        if (IsPooled)
         {
             throw new ObjectDisposedException(GetType().Name);
         }

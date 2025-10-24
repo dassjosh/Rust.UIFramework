@@ -6,4 +6,5 @@ namespace Oxide.Ext.UiFramework.Pooling;
 public interface IPoolable : IDisposable
 {
     UiPluginPool PluginPool { get; }
+    bool IsPooled { get; }
 }

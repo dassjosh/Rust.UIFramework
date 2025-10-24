@@ -1,14 +1,14 @@
 ﻿using Oxide.Ext.UiFramework.Builder;
-using Oxide.Ext.UiFramework.Libraries;
+using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Pooling;
 
 namespace Oxide.Ext.UiFramework.Animation;
 
-public sealed class DestroyUiAfterEvent : BasePoolable, IAnimationCompleted
+public sealed class DestroyUiAfterEvent : BasePoolable, IAnimationEvent
 {
     public string Name;
     
-    public static DestroyUiAfterEvent Create(UiPluginPool pool, string name) => pool.Get<DestroyUiAfterEvent>().Init(name);
+    public static DestroyUiAfterEvent Create(IUiFrameworkPlugin plugin, string name) => plugin.PluginPool.Get<DestroyUiAfterEvent>().Init(name);
 
     private DestroyUiAfterEvent Init(string name)
     {
@@ -16,11 +16,16 @@ public sealed class DestroyUiAfterEvent : BasePoolable, IAnimationCompleted
         return this;
     }
     
-    public void OnAnimationCompleted(BaseAnimation animation)
+    public bool IsForEvent(AnimationEventType type) => type == AnimationEventType.OnRemoved;
+    public void OnAnimationEvent(IAnimation animation, AnimationEventType type)
     {
-        BaseBuilder.DestroyUi(animation.Send, Name);
+        ISendableAnimation sendable = animation.GetSendable();
+        if (sendable is not null)
+        {
+            BaseBuilder.DestroyUi(sendable.Send, Name);
+        }
     }
-
+    
     protected override void EnterPool()
     {
         Name = default;

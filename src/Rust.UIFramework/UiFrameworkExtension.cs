@@ -42,7 +42,7 @@ public class UiFrameworkExtension : Extension
         Singleton<DataHandler>.Instance.LoadAll();
         OxideLibrary.ExtensionManager = Manager;
         Manager.RegisterPluginLoader(new UiFrameworkExtPluginLoader());
-        if (UiFrameworkConfig.Instance.ImageDb.Enabled)
+        if (UiFrameworkConfig.Instance.ImageDatabase.Enabled)
         {
             GlobalLogger.Debug("Using {0} Image DB", nameof(UiImageDatabase));
             Manager.RegisterLibrary(nameof(IImageDatabase), Singleton<UiImageDatabase>.Instance);

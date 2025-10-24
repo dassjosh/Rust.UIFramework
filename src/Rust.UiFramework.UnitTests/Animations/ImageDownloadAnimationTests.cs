@@ -9,20 +9,20 @@ namespace Rust.UiFramework.UnitTests.Animations;
 
 public class ImageDownloadAnimationTests
 {
-    [Fact(Skip = "Skipping for now")]
-    public void DownloadImageAnimation_DoesNotError()
-    {
-        // Arrange
-        UiBuilder builder = UiBuilder.Create(UnitTestHelpers.Plugin, new UiReference("parent", "name"), UiPosition.Full, default, UiColors.Red);
-        builder.AnimateImageDownload(builder.Root, "www.example.com", new ImageDownloadOptions
-        {
-            FailedImageNameOrUrl = "www.failed.com",
-            AutomaticUpdate = new ImageAutomaticUpdateOptions
-            {
-                TimeoutImageNameOrUrl = "www.timeout.com",
-                EnableAutoImageUpdate = true,
-                DownloadingImageNameOrUrl = "www.download.com"
-            }
-        });
-    }
+    // [Fact(Skip = "Skipping for now")]
+    // public void DownloadImageAnimation_DoesNotError()
+    // {
+    //     // Arrange
+    //     UiBuilder builder = UiBuilder.Create(UnitTestHelpers.Plugin, new UiReference("parent", "name"), UiPosition.Full, default, UiColors.Red);
+    //     builder.AnimateImageDownload(builder.Root, "www.example.com", new ImageDownloadOptions
+    //     {
+    //         FallbackImageNameOrUrl = "www.failed.com",
+    //         AutomaticUpdate = new ImageAnimationOptions
+    //         {
+    //             TimeoutImageNameOrUrl = "www.timeout.com",
+    //             EnableAutoImageUpdate = true,
+    //             DownloadingImageNameOrUrl = "www.download.com"
+    //         }
+    //     });
+    // }
 }

@@ -3,20 +3,14 @@ using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Interfaces;
 using Oxide.Ext.UiFramework.Types;
+using Rust.UiFramework.SourceGenerators.Attributes;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-public class UiPlayingCard : BaseUiComponent, IMaterial<UiPlayingCard>, IFadeIn<UiPlayingCard>, IUiColor<UiPlayingCard>
+[GenerateUiElement(typeof(IUiPlayingCard))]
+public partial class UiPlayingCard : BaseUiComponent, IUiPlayingCard
 {
     public readonly PlayingCardComponent Card;
-
-    public string Material { get => Card.Material; set => Card.Material = value; }
-    public float FadeIn { get => Card.FadeIn; set => Card.FadeIn = value; }
-    public UiColor Color { get => Card.Color; set => Card.Color = value; }
-    
-    public UiSuit Suit { get => Card.Suit; set => Card.Suit = value; }
-    public UiRank Rank { get => Card.Rank; set => Card.Rank = value; }
-    public UiCardType CardType { get => Card.CardType; set => Card.CardType = value; }
     
     public UiPlayingCard() : this(new PlayingCardComponent()) { }
 
@@ -31,42 +25,6 @@ public class UiPlayingCard : BaseUiComponent, IMaterial<UiPlayingCard>, IFadeIn<
         Rank = card.Rank;
         Suit = card.Suit;
         CardType = type;
-        return this;
-    }
-    
-    public UiPlayingCard SetMaterial(string material)
-    {
-        Material = material;
-        return this;
-    }
-    
-    public UiPlayingCard SetColor(UiColor color)
-    {
-        Color = color;
-        return this;
-    }
-        
-    public UiPlayingCard SetFadeIn(float duration)
-    {
-        FadeIn = duration;
-        return this;
-    }
-    
-    public UiPlayingCard SetSuit(UiSuit suit)
-    {
-        Suit = suit;
-        return this;
-    }
-    
-    public UiPlayingCard SetRank(UiRank rank)
-    {
-        Rank = rank;
-        return this;
-    }
-    
-    public UiPlayingCard SetCardType(UiCardType cardType)
-    {
-        CardType = cardType;
         return this;
     }
 }
