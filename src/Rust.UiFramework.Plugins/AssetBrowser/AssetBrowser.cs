@@ -723,7 +723,7 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
         }
     }
     
-    private void CreateIcons<T>(UiBuilder builder, UiReference root, UiState state, Func<T, bool> filter) where T : struct, Enum
+    private void CreateIcons<T>(UiBuilder builder, UiReference root, UiState state, Func<T, bool> filter) where T : unmanaged, Enum
     {
         UiGridLayout layout =  builder.GridLayout(root, new UiPosition(0, 0.075f, 1, 1), default, ImageColumns, ImageRows, default, LayoutPadding);
         

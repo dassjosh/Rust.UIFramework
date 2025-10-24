@@ -10,8 +10,8 @@
         "type": "RectTransform"
       }
     ],
-    "destroyUi": "UI",
-    "name": "UI",
+    "destroyUi": "UI2",
+    "name": "UI2",
     "parent": "Overlay"
   },
   {
@@ -28,12 +28,13 @@
         "type": "RectTransform"
       }
     ],
-    "name": "UI_2",
-    "parent": "UI"
+    "name": "UI2_2",
+    "parent": "UI2"
   },
   {
     "components": [
       {
+        "material": "assets/content/ui/namefontmaterial.mat",
         "sprite": "sprite",
         "type": "UnityEngine.UI.Image"
       },
@@ -42,8 +43,8 @@
         "type": "RectTransform"
       }
     ],
-    "name": "UI_3",
-    "parent": "UI_2"
+    "name": "UI2_3",
+    "parent": "UI2_2"
   },
   {
     "components": [
@@ -66,8 +67,8 @@
         "type": "RectTransform"
       }
     ],
-    "destroyUi": "UI",
-    "name": "UI",
+    "destroyUi": "UI1",
+    "name": "UI1",
     "parent": "Overlay"
   },
   {
@@ -84,8 +85,8 @@
         "type": "RectTransform"
       }
     ],
-    "name": "UI_2",
-    "parent": "UI"
+    "name": "UI1_2",
+    "parent": "UI1"
   },
   {
     "components": [
@@ -101,7 +102,7 @@
         "type": "RectTransform"
       }
     ],
-    "name": "UI_3",
-    "parent": "UI_2"
+    "name": "UI1_3",
+    "parent": "UI1_2"
   }
 ]

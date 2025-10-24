@@ -1,6 +1,6 @@
 ﻿namespace Oxide.Ext.UiFramework.Enums;
 
-public enum TimerFormat : byte
+public enum TimerFormat
 {
     None,
     SecondsHundreth,

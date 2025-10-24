@@ -14,9 +14,9 @@ internal static class Utf8EnumCache<T> where T : unmanaged, Enum
 
     static Utf8EnumCache()
     {
-        if (Enum.GetUnderlyingType(typeof(T)) != typeof(byte))
+        if (Enum.GetUnderlyingType(typeof(T)) != typeof(int))
         {
-            throw new Exception($"Cannot use enum {typeof(T).Name} with FastEnumCache<T> enum underlying type must be byte.");
+            throw new Exception($"Cannot use enum {typeof(T).Name} with FastEnumCache<T> enum underlying type must be int.");
         }
         
         T[] values = Enum.GetValues(typeof(T)).Cast<T>().ToArray();

@@ -37,14 +37,14 @@ public class UiCombinedBuilderTests
 
     private BaseBuilder CreateBuilder1()
     {
-        UiBuilder builder = UiBuilder.Create(UnitTestHelpers.Plugin, new UiReference(UiLayer.Overlay, "UI"), UiPosition.Full, default, UiColors.Red);
+        UiBuilder builder = UiBuilder.Create(UnitTestHelpers.Plugin, new UiReference(UiLayer.Overlay, "UI1"), UiPosition.Full, default, UiColors.Red);
         builder.TextButton(builder.Root, new UiPosition(0.25f, 0.25f, 0.75f, 0.75f), default, "Text", 14, UiColors.White, UiColors.Red, "command");
         return builder;
     }
 
     private BaseBuilder CreateBuilder2()
     {
-        UiBuilder builder = UiBuilder.Create(UnitTestHelpers.Plugin, new UiReference(UiLayer.Overlay, "UI"), UiPosition.Full, default, UiColors.Green);
+        UiBuilder builder = UiBuilder.Create(UnitTestHelpers.Plugin, new UiReference(UiLayer.Overlay, "UI2"), UiPosition.Full, default, UiColors.Green);
         builder.SpriteButton(builder.Root, new UiPosition(0.25f, 0.25f, 0.75f, 0.75f), default, UiColors.Blue, "sprite", "command");
         return builder.ToCachedBuilder();
     }
