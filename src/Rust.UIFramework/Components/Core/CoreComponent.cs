@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Exceptions;
 using Oxide.Ext.UiFramework.Extensions;
@@ -8,19 +9,20 @@ using Oxide.Ext.UiFramework.Json;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-public abstract class CoreComponent : BaseTypedComponent, ICoreComponent
+public abstract class CoreComponent : BaseTypedComponent, ICoreComponent, ISubComponent
 {
-    internal readonly List<SubComponent> SubComponents = [];
+    internal readonly List<ISubComponent> SubComponents = [];
+    public bool AllowMultiple => false;
     
-    public T GetOrAddSubComponent<T>() where T : SubComponent, new() => GetSubComponent<T>() ?? AddSubComponentInternal<T>();
+    public T GetOrAddSubComponent<T>() where T : BaseComponent, ISubComponent, new() => GetSubComponent<T>() ?? AddSubComponentInternal<T>();
 
-    public T AddSubComponent<T>(bool ignoreIfExists = false) where T : SubComponent, new()
+    public T AddSubComponent<T>(bool ignoreIfExists = false) where T : BaseComponent, ISubComponent, new()
     {
         if (SubComponents.Count != 0 && GetSubComponent<T>() is { } component)
         {
             if (ignoreIfExists)
             {
-                return null;
+                return default;
             }
 
             if (!component.AllowMultiple)
@@ -32,59 +34,26 @@ public abstract class CoreComponent : BaseTypedComponent, ICoreComponent
         return AddSubComponentInternal<T>();
     }
 
-    private T AddSubComponentInternal<T>() where T : SubComponent, new()
+    private T AddSubComponentInternal<T>() where T : BaseComponent, ISubComponent, new()
     {
         T subComponent = PluginPool.Get<T>();
+        if (subComponent is IGraphicalComponent && (this is IGraphicalComponent || SubComponents.OfType<IGraphicalComponent>().Any()))
+        {
+            throw new UiFrameworkException("Multiple instances of a graphical subcomponent are not allowed per UI element.");
+        }
+        
         SubComponents.Add(subComponent);
         return subComponent;
     }
     
-    protected SubComponent AddSubComponentInternal(ComponentType type)
+    protected ISubComponent AddSubComponentInternal(ComponentType type)
     {
-        SubComponent subComponent;
-        switch (type)
-        {
-            case ComponentType.RectTransform:
-                subComponent = PluginPool.Get<RectTransformComponent>();
-                break;
-            case ComponentType.NeedsKeyboard:
-                subComponent = PluginPool.Get<NeedsKeyboardComponent>();
-                break;
-            case ComponentType.NeedsMouse:
-                subComponent = PluginPool.Get<NeedsMouseComponent>();
-                break;
-            case ComponentType.Outline:
-                subComponent = PluginPool.Get<OutlineComponent>();
-                break;
-            case ComponentType.Countdown:
-                subComponent = PluginPool.Get<CountdownComponent>();
-                break;
-            case ComponentType.Draggable:
-                subComponent = PluginPool.Get<DraggableComponent>();
-                break;
-            case ComponentType.Slot:
-                subComponent = PluginPool.Get<SlotComponent>();
-                break;
-            case ComponentType.DirectionalLayout:
-                subComponent = PluginPool.Get<DirectionalLayoutComponent>();
-                break;
-            case ComponentType.GridLayout:
-                subComponent = PluginPool.Get<GridLayoutComponent>();
-                break;
-            case ComponentType.ContentSizeFitter:
-                subComponent = PluginPool.Get<ContentSizeFitterComponent>();
-                break;
-            case ComponentType.LayoutElement:
-                subComponent = PluginPool.Get<LayoutElementComponent>();
-                break;
-            default:
-                throw new ArgumentOutOfRangeException(nameof(type), type, null);
-        }
+        ISubComponent subComponent = type.GetSubComponent(PluginPool);
         SubComponents.Add(subComponent);
         return subComponent;
     }
 
-    public T GetSubComponent<T>() where T : SubComponent
+    public T GetSubComponent<T>() where T : ISubComponent
     {
         for (int index = 0; index < SubComponents.Count; index++)
         {
@@ -94,10 +63,10 @@ public abstract class CoreComponent : BaseTypedComponent, ICoreComponent
             }
         }
 
-        return null;
+        return default;
     }
     
-    public T GetSubComponent<T>(Predicate<T> predicate) where T : SubComponent
+    public T GetSubComponent<T>(Predicate<T> predicate) where T : ISubComponent
     {
         for (int index = 0; index < SubComponents.Count; index++)
         {
@@ -107,14 +76,14 @@ public abstract class CoreComponent : BaseTypedComponent, ICoreComponent
             }
         }
 
-        return null;
+        return default;
     }
 
-    internal SubComponent GetSubComponentByType(ComponentType type)
+    internal ISubComponent GetSubComponentByType(ComponentType type)
     {
         for (int index = 0; index < SubComponents.Count; index++)
         {
-            SubComponent subComponent = SubComponents[index];
+            ISubComponent subComponent = SubComponents[index];
             if (subComponent.ComponentType == type)
             {
                 return subComponent;
@@ -124,9 +93,9 @@ public abstract class CoreComponent : BaseTypedComponent, ICoreComponent
         return null;
     }
 
-    internal SubComponent GetOrAddSubComponentByType(ComponentType type) => GetSubComponentByType(type) ?? AddSubComponentInternal(type);
+    internal ISubComponent GetOrAddSubComponentByType(ComponentType type) => GetSubComponentByType(type) ?? AddSubComponentInternal(type);
 
-    public IEnumerable<T> GetSubComponents<T>() where T : SubComponent
+    public IEnumerable<T> GetSubComponents<T>() where T : ISubComponent
     {
         for (int index = 0; index < SubComponents.Count; index++)
         {
@@ -137,11 +106,11 @@ public abstract class CoreComponent : BaseTypedComponent, ICoreComponent
         }
     }
 
-    public void RemoveSubComponents<T>() where T : SubComponent
+    public void RemoveSubComponents<T>() where T : ISubComponent
     {
         for (int index = SubComponents.Count - 1; index >= 0; index--)
         {
-            SubComponent component = SubComponents[index];
+            ISubComponent component = SubComponents[index];
             if (component is T)
             {
                 component.TryDispose();
@@ -150,11 +119,11 @@ public abstract class CoreComponent : BaseTypedComponent, ICoreComponent
         }
     }
     
-    public void RemoveSubComponents<T>(Predicate<T> predicate) where T : SubComponent
+    public void RemoveSubComponents<T>(Predicate<T> predicate) where T : ISubComponent
     {
         for (int index = SubComponents.Count - 1; index >= 0; index--)
         {
-            SubComponent subComponent = SubComponents[index];
+            ISubComponent subComponent = SubComponents[index];
             if (subComponent is T component && predicate(component))
             {
                 subComponent.TryDispose();
@@ -163,7 +132,7 @@ public abstract class CoreComponent : BaseTypedComponent, ICoreComponent
         }
     }
     
-    public void RemoveSubComponent<T>() where T : SubComponent
+    public void RemoveSubComponent<T>() where T : ISubComponent
     {
         int index = SubComponents.FindIndex(sc => sc is T);
         if (index != -1)
@@ -173,7 +142,7 @@ public abstract class CoreComponent : BaseTypedComponent, ICoreComponent
         }
     }
     
-    public void RemoveSubComponent<T>(Predicate<T> predicate) where T : SubComponent
+    public void RemoveSubComponent<T>(Predicate<T> predicate) where T : ISubComponent
     {
         int index = SubComponents.FindIndex(sc => sc is T component && predicate(component));
         if (index != -1)
@@ -183,7 +152,7 @@ public abstract class CoreComponent : BaseTypedComponent, ICoreComponent
         }
     }
 
-    public void RemoveSubComponent(SubComponent subComponent)
+    public void RemoveSubComponent(ISubComponent subComponent)
     {
         if (SubComponents.Remove(subComponent))
         {
@@ -208,7 +177,7 @@ public abstract class CoreComponent : BaseTypedComponent, ICoreComponent
             {
                 for (int i = 0; i < SubComponents.Count; i++)
                 {
-                    SubComponent component = SubComponents[i];
+                    ISubComponent component = SubComponents[i];
                     if (component.HasChanged())
                     {
                         component.WriteComponent(writer, mode);
@@ -251,5 +220,5 @@ public abstract class CoreComponent : BaseTypedComponent, ICoreComponent
     {
         base.Reset();
         SubComponents.FreeValues();
-    } 
+    }
 }

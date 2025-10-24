@@ -7,4 +7,6 @@ public interface IPoolable : IDisposable
 {
     UiPluginPool PluginPool { get; }
     bool IsPooled { get; }
+
+    void TryDispose();
 }

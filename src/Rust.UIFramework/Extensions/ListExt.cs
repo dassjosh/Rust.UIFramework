@@ -9,7 +9,7 @@ namespace Oxide.Ext.UiFramework.Extensions;
 
 public static class ListExt
 {
-    public static void FreeValues<T>(this List<T> list) where T : BasePoolable
+    public static void FreeValues<T>(this List<T> list) where T : IPoolable
     {
         if (list == null)
         {

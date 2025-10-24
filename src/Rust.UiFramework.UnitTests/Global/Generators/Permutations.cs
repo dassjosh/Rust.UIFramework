@@ -3,6 +3,7 @@ using System.Text;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Extensions;
+using Oxide.Ext.UiFramework.Interfaces;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.Types;
@@ -218,7 +219,7 @@ public static class Permutations
                     continue;
                 }
                 
-                SubComponent sub = core.GetOrAddSubComponentByType(type);
+                ISubComponent sub = core.GetOrAddSubComponentByType(type);
                 PopulateObject(sub);
             }
         }

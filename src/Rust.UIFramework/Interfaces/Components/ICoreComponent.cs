@@ -5,10 +5,10 @@ namespace Oxide.Ext.UiFramework.Interfaces;
 
 public interface ICoreComponent : IComponent
 {
-    T AddSubComponent<T>(bool ignoreIfExists = false) where T : SubComponent, new();
-    T GetSubComponent<T>() where T : SubComponent;
-    IEnumerable<T> GetSubComponents<T>() where T : SubComponent;
-    void RemoveSubComponents<T>() where T : SubComponent;
-    void RemoveSubComponent<T>() where T : SubComponent;
-    void RemoveSubComponent(SubComponent subComponent);   
+    T AddSubComponent<T>(bool ignoreIfExists = false) where T : BaseComponent, ISubComponent, new();
+    T GetSubComponent<T>() where T : ISubComponent;
+    IEnumerable<T> GetSubComponents<T>() where T : ISubComponent;
+    void RemoveSubComponents<T>() where T : ISubComponent;
+    void RemoveSubComponent<T>() where T : ISubComponent;
+    void RemoveSubComponent(ISubComponent subComponent);   
 }
