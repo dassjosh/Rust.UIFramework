@@ -5,7 +5,7 @@ using Rust.UiFramework.SourceGenerators.Attributes;
 
 namespace Oxide.Ext.UiFramework.Interfaces;
 
-public interface IPlayingCardComponent
+public interface IPlayingCardComponent : ICoreComponent
 {
     UiSuit Suit { get; set; }
     UiRank Rank { get; set; }

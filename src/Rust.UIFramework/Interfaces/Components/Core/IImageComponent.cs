@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.Interfaces;
 
-public interface IImageComponent
+public interface IImageComponent : ICoreComponent
 {
     [TrackedDefaults(typeof(JsonDefaults.Color), nameof(JsonDefaults.Color.ColorValue))]
     UiColor Color { get; set; }

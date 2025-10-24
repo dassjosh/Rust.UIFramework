@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Interfaces;
 
-public interface ITextComponent
+public interface ITextComponent : ICoreComponent
 {
     [TrackedDefaults(typeof(JsonDefaults.Color), nameof(JsonDefaults.Color.ColorValue))]
     UiColor Color { get; set; }

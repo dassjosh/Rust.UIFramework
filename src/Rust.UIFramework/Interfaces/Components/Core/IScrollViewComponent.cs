@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.Interfaces;
 
-public interface IScrollViewComponent
+public interface IScrollViewComponent : ICoreComponent
 {
     [TrackedDefaults(typeof(JsonDefaults.ScrollView), nameof(JsonDefaults.ScrollView.MovementType))]
     ScrollRect.MovementType MovementType { get; set; }

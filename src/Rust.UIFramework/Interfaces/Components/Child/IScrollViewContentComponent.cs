@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Interfaces;
 
-public interface IScrollViewContentComponent
+public interface IScrollViewContentComponent : IChildComponent
 {
     [TrackedDefaults(typeof(UiPosition), nameof(UiPosition.Full))]
     public UiPosition Position { get; set; }

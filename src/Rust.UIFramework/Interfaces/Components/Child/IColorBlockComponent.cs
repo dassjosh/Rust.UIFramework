@@ -4,7 +4,7 @@ using Rust.UiFramework.SourceGenerators.Attributes;
 
 namespace Oxide.Ext.UiFramework.Interfaces;
 
-public interface IColorBlockComponent
+public interface IColorBlockComponent : IChildComponent
 {
     [TrackedDefaults(typeof(JsonDefaults.ColorBlock), nameof(JsonDefaults.ColorBlock.HighlightedColor))]
     UiColor HighlightedColor { get; set; }

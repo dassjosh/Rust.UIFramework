@@ -6,7 +6,7 @@ using Rust.UiFramework.SourceGenerators.Attributes;
 
 namespace Oxide.Ext.UiFramework.Interfaces;
 
-public interface IRectTransformComponent
+public interface IRectTransformComponent : ISubComponent
 {
     [TrackedDefaults(typeof(UiPosition), nameof(UiPosition.Full))]
     UiPosition Position { get; set; }

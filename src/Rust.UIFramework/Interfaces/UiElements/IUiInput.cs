@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.Interfaces;
 
-public interface IUiInput : IUiBaseText, IFadeIn<UiInput>, IUiColor<UiInput>
+public interface IUiInput : IUiText, IFadeIn<UiInput>, IUiColor<UiInput>
 {
     int CharsLimit { get; set; }
     string Command { get; set; }

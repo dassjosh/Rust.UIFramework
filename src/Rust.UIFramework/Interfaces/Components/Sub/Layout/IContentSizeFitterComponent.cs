@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.Interfaces;
 
-public interface IContentSizeFitterComponent
+public interface IContentSizeFitterComponent : ISubComponent
 {
     [TrackedDefaults(typeof(JsonDefaults.ContentSizeFitterData), nameof(JsonDefaults.ContentSizeFitterData.HorizontalFit))]
     public ContentSizeFitter.FitMode HorizontalFit { get; set; }

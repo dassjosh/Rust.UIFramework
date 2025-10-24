@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Oxide.Ext.UiFramework.Interfaces;
 
 [IncludeInParent]
-public interface IUiBaseText : IBaseUiComponent
+public interface IUiText : IBaseUiComponent
 {
     int FontSize { get; set; }
     string Font { get; set; }

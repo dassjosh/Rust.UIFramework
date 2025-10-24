@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Interfaces;
 
-public interface ILayoutComponent
+public interface ILayoutComponent : ISubComponent
 {
     [TrackedDefaults(typeof(JsonDefaults.Layout), nameof(JsonDefaults.Layout.ChildAlignment))]
     TextAnchor ChildAlignment { get; set; }

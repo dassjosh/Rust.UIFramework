@@ -2,7 +2,7 @@
 
 namespace Oxide.Ext.UiFramework.Interfaces;
 
-public interface IUiLabel : IUiBaseText, IFadeIn<UiLabel>, IUiColor<UiLabel>
+public interface IUiLabel : IUiText, IFadeIn<UiLabel>, IUiColor<UiLabel>
 {
     UiReference PlaceholderFor { get; set; }
 }

@@ -4,7 +4,7 @@ using Rust.UiFramework.SourceGenerators.Attributes;
 
 namespace Oxide.Ext.UiFramework.Interfaces;
 
-public interface IScrollbarComponent
+public interface IScrollbarComponent : IChildComponent
 {
     [TrackedDefaults(typeof(JsonDefaults.ScrollBar), nameof(JsonDefaults.ScrollBar.Invert))]
     bool Invert { get; set; }

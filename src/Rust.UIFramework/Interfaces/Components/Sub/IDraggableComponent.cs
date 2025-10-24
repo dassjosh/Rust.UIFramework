@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Interfaces;
 
-public interface IDraggableComponent
+public interface IDraggableComponent : ISubComponent
 {
     [TrackedDefaults(typeof(JsonDefaults.Draggable), nameof(JsonDefaults.Draggable.LimitToParent))]
     bool LimitToParent { get; set; }

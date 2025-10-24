@@ -4,7 +4,7 @@ using Rust.UiFramework.SourceGenerators.Attributes;
 
 namespace Oxide.Ext.UiFramework.Interfaces;
 
-public interface ICountdownComponent
+public interface ICountdownComponent : ISubComponent
 {
     [TrackedDefaults(typeof(JsonDefaults.Countdown), nameof(JsonDefaults.Countdown.StartTime))]
     float StartTime { get; set; }

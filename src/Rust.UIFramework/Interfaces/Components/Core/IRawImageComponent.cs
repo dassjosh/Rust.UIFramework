@@ -5,7 +5,7 @@ using Rust.UiFramework.SourceGenerators.Attributes;
 
 namespace Oxide.Ext.UiFramework.Interfaces;
 
-public interface IRawImageComponent
+public interface IRawImageComponent : ICoreComponent
 {
     UiColor Color { get; set; }
     [TrackedDefaults(typeof(JsonDefaults.Common), nameof(JsonDefaults.Common.FadeIn))]

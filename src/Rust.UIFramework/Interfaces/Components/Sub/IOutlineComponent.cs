@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Interfaces;
 
-public interface IOutlineComponent
+public interface IOutlineComponent : ISubComponent
 {
     UiColor Color { get; set; }
     

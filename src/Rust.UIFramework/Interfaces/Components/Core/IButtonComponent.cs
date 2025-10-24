@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.Interfaces;
 
-public interface IButtonComponent
+public interface IButtonComponent : ICoreComponent
 {
     string Command { get; set; }
     [TrackedDefaults(typeof(JsonDefaults.Color), nameof(JsonDefaults.Color.ColorValue))]

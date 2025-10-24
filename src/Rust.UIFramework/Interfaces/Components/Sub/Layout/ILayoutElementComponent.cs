@@ -3,7 +3,7 @@ using Rust.UiFramework.SourceGenerators.Attributes;
 
 namespace Oxide.Ext.UiFramework.Interfaces;
 
-public interface ILayoutElementComponent
+public interface ILayoutElementComponent : ISubComponent
 {
     [TrackedDefaults(typeof(JsonDefaults.LayoutElement), nameof(JsonDefaults.LayoutElement.PreferredWidth))]
     float PreferredWidth { get; set; }
