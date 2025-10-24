@@ -7,7 +7,7 @@ namespace Oxide.Ext.UiFramework.Types;
 public class Tracked<T> : ITracked<T>, ITracked
 {
     private T _value;
-    private readonly T _frameworkDefault;
+    private readonly T _defaultValue;
     private readonly T _serializationDefault;
 
     /// <summary>
@@ -22,10 +22,10 @@ public class Tracked<T> : ITracked<T>, ITracked
         private set;
     }
 
-    public bool IsFrameworkDefault
+    public bool IsDefaultValue
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        get => EqualityComparer<T>.Default.Equals(_value, _frameworkDefault);
+        get => EqualityComparer<T>.Default.Equals(_value, _defaultValue);
     }
     
     public bool IsSerializationDefault
@@ -57,7 +57,7 @@ public class Tracked<T> : ITracked<T>, ITracked
     /// <param name="serializationDefault">The default value for CUI serialization.</param>
     public Tracked(T frameworkDefault, T serializationDefault)
     {
-        _frameworkDefault = frameworkDefault;
+        _defaultValue = frameworkDefault;
         _serializationDefault = serializationDefault;
         _value = frameworkDefault;
         HasChanged = false;
@@ -69,7 +69,7 @@ public class Tracked<T> : ITracked<T>, ITracked
     /// <param name="defaultValue">The default value to assign.</param>
     public Tracked(T defaultValue)
     {
-        _serializationDefault = _frameworkDefault = _value = defaultValue;
+        _serializationDefault = _defaultValue = _value = defaultValue;
         HasChanged = false;
     }
         
@@ -82,12 +82,15 @@ public class Tracked<T> : ITracked<T>, ITracked
         HasChanged = false;
     }
 
-    public void UpdateIfChanged(T value)
+    public bool SetProperty(T value)
     {
         if (!EqualityComparer<T>.Default.Equals(_value, value))
         {
             Value = value;
+            return true;
         }
+
+        return false;
     }
     
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -115,7 +118,7 @@ public class Tracked<T> : ITracked<T>, ITracked
     public void Reset()
     {
         HasChanged = false;
-        _value = _frameworkDefault;
+        _value = _defaultValue;
     }
 }
 
@@ -127,6 +130,6 @@ public interface ITracked<T>
 public interface ITracked
 {
     bool HasChanged { get; }
-    bool IsFrameworkDefault { get; }
+    bool IsDefaultValue { get; }
     bool IsSerializationDefault { get; }
 }

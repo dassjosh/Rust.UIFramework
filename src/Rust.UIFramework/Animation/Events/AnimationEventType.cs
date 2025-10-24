@@ -2,8 +2,12 @@
 
 public enum AnimationEventType : byte
 {
-    Repeat,
-    Completed,
-    Removed,
-    Canceled
+    OnQueued,
+    OnDelayed,
+    OnStarted,
+    OnRepeat,
+    OnCompleted,
+    OnCanceled,
+    OnTimeout,
+    OnRemoved
 }

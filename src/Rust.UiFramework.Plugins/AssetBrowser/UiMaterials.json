@@ -15396,6 +15396,43 @@
                         }
                       }
                     },
+                    "warhammer_dlc_large_wood_box": {
+                      "Name": "warhammer_dlc_large_wood_box",
+                      "Path": "assets/prefabs/deployable/large wood storage/skins/warhammer_dlc_large_wood_box",
+                      "Files": {},
+                      "SubFolders": {
+                        "krieg_storage_horizontal": {
+                          "Name": "krieg_storage_horizontal",
+                          "Path": "assets/prefabs/deployable/large wood storage/skins/warhammer_dlc_large_wood_box/krieg_storage_horizontal",
+                          "Files": {},
+                          "SubFolders": {
+                            "model": {
+                              "Name": "model",
+                              "Path": "assets/prefabs/deployable/large wood storage/skins/warhammer_dlc_large_wood_box/krieg_storage_horizontal/model",
+                              "Files": {
+                                "KriegStorageHorizontal": "assets/prefabs/deployable/large wood storage/skins/warhammer_dlc_large_wood_box/krieg_storage_horizontal/model/krieg_storage_horizontal.mat"
+                              },
+                              "SubFolders": {}
+                            }
+                          }
+                        },
+                        "krieg_storage_vertical": {
+                          "Name": "krieg_storage_vertical",
+                          "Path": "assets/prefabs/deployable/large wood storage/skins/warhammer_dlc_large_wood_box/krieg_storage_vertical",
+                          "Files": {},
+                          "SubFolders": {
+                            "model": {
+                              "Name": "model",
+                              "Path": "assets/prefabs/deployable/large wood storage/skins/warhammer_dlc_large_wood_box/krieg_storage_vertical/model",
+                              "Files": {
+                                "KriegStorageVertical": "assets/prefabs/deployable/large wood storage/skins/warhammer_dlc_large_wood_box/krieg_storage_vertical/model/krieg_storage_vertical.mat"
+                              },
+                              "SubFolders": {}
+                            }
+                          }
+                        }
+                      }
+                    },
                     "medieval_large_wood_box": {
                       "Name": "medieval_large_wood_box",
                       "Path": "assets/prefabs/deployable/large wood storage/skins/medieval_large_wood_box",
@@ -21060,8 +21097,14 @@
                       "Files": {
                         "CarvablePumpkin": "assets/prefabs/misc/halloween/carvablepumpkin/materials/carvable_pumpkin.mat",
                         "CarvablePumpkinEmission": "assets/prefabs/misc/halloween/carvablepumpkin/materials/carvable_pumpkin_emission.mat",
+                        "CarvablePumpkinEmissionSkinviewer1": "assets/prefabs/misc/halloween/carvablepumpkin/materials/carvable_pumpkin_emission_skinviewer1.mat",
+                        "CarvablePumpkinEmissionSkinviewer2": "assets/prefabs/misc/halloween/carvablepumpkin/materials/carvable_pumpkin_emission_skinviewer2.mat",
+                        "CarvablePumpkinEmissionSkinviewer3": "assets/prefabs/misc/halloween/carvablepumpkin/materials/carvable_pumpkin_emission_skinviewer3.mat",
                         "CarvablePumpkinInner": "assets/prefabs/misc/halloween/carvablepumpkin/materials/carvable_pumpkin_inner.mat",
                         "CarvablePumpkinInnerEmission": "assets/prefabs/misc/halloween/carvablepumpkin/materials/carvable_pumpkin_inner_emission.mat",
+                        "CarvablePumpkinInnerEmissionSkinviewer1": "assets/prefabs/misc/halloween/carvablepumpkin/materials/carvable_pumpkin_inner_emission_skinviewer1.mat",
+                        "CarvablePumpkinInnerEmissionSkinviewer2": "assets/prefabs/misc/halloween/carvablepumpkin/materials/carvable_pumpkin_inner_emission_skinviewer2.mat",
+                        "CarvablePumpkinInnerEmissionSkinviewer3": "assets/prefabs/misc/halloween/carvablepumpkin/materials/carvable_pumpkin_inner_emission_skinviewer3.mat",
                         "CarvablePumpkinLod": "assets/prefabs/misc/halloween/carvablepumpkin/materials/carvable_pumpkin_lod.mat",
                         "CarvablePumpkinLodEmission": "assets/prefabs/misc/halloween/carvablepumpkin/materials/carvable_pumpkin_lod_emission.mat"
                       },
@@ -23777,6 +23820,46 @@
                           "SubFolders": {}
                         }
                       }
+                    }
+                  }
+                }
+              }
+            },
+            "warhammer": {
+              "Name": "warhammer",
+              "Path": "assets/prefabs/weapons/warhammer",
+              "Files": {},
+              "SubFolders": {
+                "krieg chainsword": {
+                  "Name": "krieg chainsword",
+                  "Path": "assets/prefabs/weapons/warhammer/krieg chainsword",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/prefabs/weapons/warhammer/krieg chainsword/materials",
+                      "Files": {
+                        "Kriegchain": "assets/prefabs/weapons/warhammer/krieg chainsword/materials/kriegchain.mat",
+                        "Kriegchainsword": "assets/prefabs/weapons/warhammer/krieg chainsword/materials/kriegchainsword.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
+                "krieg shotgun": {
+                  "Name": "krieg shotgun",
+                  "Path": "assets/prefabs/weapons/warhammer/krieg shotgun",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/prefabs/weapons/warhammer/krieg shotgun/materials",
+                      "Files": {
+                        "MKriegshbarrel": "assets/prefabs/weapons/warhammer/krieg shotgun/materials/m_kriegshbarrel.mat",
+                        "MKriegshreceiver": "assets/prefabs/weapons/warhammer/krieg shotgun/materials/m_kriegshreceiver.mat",
+                        "MKriegshStock": "assets/prefabs/weapons/warhammer/krieg shotgun/materials/m_kriegshstock.mat"
+                      },
+                      "SubFolders": {}
                     }
                   }
                 }
@@ -27152,6 +27235,26 @@
                     }
                   }
                 },
+                "warhammer": {
+                  "Name": "warhammer",
+                  "Path": "assets/prefabs/clothes/suit.hazmat/warhammer",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/prefabs/clothes/suit.hazmat/warhammer/materials",
+                      "Files": {
+                        "KrieghazmatBackpack": "assets/prefabs/clothes/suit.hazmat/warhammer/materials/krieghazmat_backpack.mat",
+                        "KrieghazmatGloves": "assets/prefabs/clothes/suit.hazmat/warhammer/materials/krieghazmat_gloves.mat",
+                        "KrieghazmatHead": "assets/prefabs/clothes/suit.hazmat/warhammer/materials/krieghazmat_head.mat",
+                        "KrieghazmatLod3": "assets/prefabs/clothes/suit.hazmat/warhammer/materials/krieghazmat_lod3.mat",
+                        "KrieghazmatPants": "assets/prefabs/clothes/suit.hazmat/warhammer/materials/krieghazmat_pants.mat",
+                        "KrieghazmatTorso": "assets/prefabs/clothes/suit.hazmat/warhammer/materials/krieghazmat_torso.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
                 "lumberjack": {
                   "Name": "lumberjack",
                   "Path": "assets/prefabs/clothes/suit.hazmat/lumberjack",
@@ -28196,6 +28299,21 @@
                   "Path": "assets/prefabs/clothes/pants.knightsarmour/materials",
                   "Files": {
                     "Knightsarmourskirt": "assets/prefabs/clothes/pants.knightsarmour/materials/knightsarmourskirt.mat"
+                  },
+                  "SubFolders": {}
+                }
+              }
+            },
+            "backpack.krieg": {
+              "Name": "backpack.krieg",
+              "Path": "assets/prefabs/clothes/backpack.krieg",
+              "Files": {},
+              "SubFolders": {
+                "material": {
+                  "Name": "material",
+                  "Path": "assets/prefabs/clothes/backpack.krieg/material",
+                  "Files": {
+                    "Kriegbackpack": "assets/prefabs/clothes/backpack.krieg/material/kriegbackpack.mat"
                   },
                   "SubFolders": {}
                 }

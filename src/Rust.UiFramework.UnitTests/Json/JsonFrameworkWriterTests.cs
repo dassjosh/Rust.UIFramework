@@ -14,7 +14,7 @@ public class JsonFrameworkWriterTests
     public void JsonFrameworkWriter_Create_IsNotNull()
     {
         // Arrange
-        using JsonFrameworkWriter writer = JsonFrameworkWriter.Create(UnitTestHelpers.UnitTestPool);
+        using JsonFrameworkWriter writer = JsonFrameworkWriter.Create(UnitTestHelpers.Plugin);
         
         // Act
         
@@ -26,7 +26,7 @@ public class JsonFrameworkWriterTests
     public async Task CommonFields_Serialize_ToCorrectJson()
     {
         // Arrange
-        using JsonFrameworkWriter writer = JsonFrameworkWriter.Create(UnitTestHelpers.UnitTestPool);
+        using JsonFrameworkWriter writer = JsonFrameworkWriter.Create(UnitTestHelpers.Plugin);
         
         Tracked<TextAnchor> textAnchor = new();
         Tracked<TextAnchor?> nullableTextAnchor = new();
@@ -148,7 +148,7 @@ public class JsonFrameworkWriterTests
     public async Task UserInputString_Serializes_ToCorrectJson(string value)
     {
         // Arrange
-        using JsonFrameworkWriter writer = JsonFrameworkWriter.Create(UnitTestHelpers.UnitTestPool);
+        using JsonFrameworkWriter writer = JsonFrameworkWriter.Create(UnitTestHelpers.Plugin);
         
         // Act
         writer.WriteStartObject();
@@ -170,7 +170,7 @@ public class JsonFrameworkWriterTests
     public async Task CommandInputString_Serializes_ToCorrectJson(string value)
     {
         // Arrange
-        using JsonFrameworkWriter writer = JsonFrameworkWriter.Create(UnitTestHelpers.UnitTestPool);
+        using JsonFrameworkWriter writer = JsonFrameworkWriter.Create(UnitTestHelpers.Plugin);
         
         // Act
         writer.WriteStartObject();

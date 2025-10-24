@@ -5,7 +5,9 @@ public enum AnimationState : byte
     Pooled,
     Init,
     Queued,
+    Delayed,
     Running,
     Completed,
-    Cancelled
+    Cancelled,
+    Timeout
 }

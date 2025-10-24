@@ -11,7 +11,7 @@ namespace Oxide.Ext.UiFramework.Builder;
 
 public class AnimationBuilder : BaseBuilder, IAnimationBuilder
 {
-    private readonly List<BaseAnimation> _animations = [];
+    private readonly List<ISendableAnimation> _animations = [];
 
     public static AnimationBuilder Create(IUiFrameworkPlugin plugin)
     {
@@ -20,15 +20,15 @@ public class AnimationBuilder : BaseBuilder, IAnimationBuilder
         return builder;
     }
 
-    void IAnimationBuilder.AddAnimation(BaseAnimation animation) => _animations.Add(animation);
+    void IAnimationBuilder.AddAnimation(ISendableAnimation animation) => _animations.Add(animation);
 
     internal override void SendUi(SendInfo send, in UiDebugOptions? options)
     {
         for (int index = 0; index < _animations.Count; index++)
         {
-            BaseAnimation animation = _animations[index];
+            ISendableAnimation animation = _animations[index];
             Singleton<AnimationHandler>.Instance.EnqueueAnimation(animation, SendInfoBuilder.GetForAnimations(send));
-            Singleton<AnimationTracker>.Instance.OnAnimatedPanelCreated(send, string.Empty, animation.Reference.Name, animation.Id);
+            Singleton<AnimationTracker>.Instance.OnAnimationQueued(animation, send, string.Empty);
         }
     }
 

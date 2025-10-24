@@ -467,8 +467,7 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
     private readonly UiColor _buttonColor = "#83838340";
     private readonly UiColor _pathBarColor = "#1D201F96";
     private readonly UiColor _spriteColor = "#BAB1A8FF";
-    private KeyFramePositionAnimator _animator;
-    private AnimationReference _animationReference;
+    private KeyFrameAnimator<UiPosition> _animator;
 
     private readonly ImageDownloadOptions _downloadOptions = new()
     {
@@ -485,7 +484,7 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
 
     public void UiInit()
     {
-        _animator = new KeyFramePositionAnimator(UiPosition.MiddleLeft, UiPosition.MiddleMiddle);
+        _animator = new KeyFrameAnimator<UiPosition>(UiPosition.MiddleLeft, UiPosition.MiddleMiddle);
         _animator.AddKeyFrame(10f, new UiPosition(0.25f, 0.75f, 0.25f, 0.75f));
         _animator.AddKeyFrame(20f, UiPosition.TopMiddle);
         _animator.AddKeyFrame(30f, new UiPosition(0.75f, 0.75f, 0.75f, 0.75f));
@@ -520,8 +519,6 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
             //builder = UiBuilder.Create(UiPosition.MiddleMiddle, new UiOffset(500, 400), _bodyColor, UiName);
             builder = UiBuilder.Create(this, new UiReference(UiLayer.Overlay, UiName), UiPosition.MiddleMiddle, new UiOffset(600, 500), _bodyColor);
         }
-        
-        _animationReference = builder.Root;
         
         //builder.SetCurrentFont(UiFontCache.RobotomonoRegular);
         builder.NeedsKeyboard();

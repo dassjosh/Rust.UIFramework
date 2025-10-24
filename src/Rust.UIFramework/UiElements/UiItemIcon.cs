@@ -2,7 +2,6 @@
 using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Interfaces;
 using Rust.UiFramework.SourceGenerators.Attributes;
-using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 

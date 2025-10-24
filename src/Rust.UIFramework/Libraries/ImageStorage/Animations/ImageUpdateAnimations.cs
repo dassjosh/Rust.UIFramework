@@ -13,15 +13,15 @@ internal class ImageUpdateAnimations : ISingleton
     
     private ImageUpdateAnimations() { }
 
-    internal void QueueUpdate(string url, ImageDownloadAnimation animation)
+    internal void QueueUpdate(string url, IElementAnimation<UiRawImage> animation, ImageAnimationOptions options)
     {
-        CancelPreviousUpdates(animation.PlayerId, animation.Reference);
+        CancelPreviousUpdates(animation.SinglePlayerId(), animation.Element.Reference);
         if (!_queuedUpdates.TryGetValue(url, out ImageDownloadAnimations updates))
         {
             _queuedUpdates[url] = updates = UiPool.Internal.Get<ImageDownloadAnimations>();
         }
         
-        updates.Add(animation);
+        updates.Add(animation, options);
     }
 
     private void CancelPreviousUpdates(ulong playerId, in UiReference reference)
@@ -30,7 +30,7 @@ internal class ImageUpdateAnimations : ISingleton
         {
             foreach (ImageAnimationData data in animation.QueuedAnimations)
             {
-                if (data.Animation.PlayerId == playerId && data.Animation.Reference == reference)
+                if (data.Animation.Id.IsValid && data.Animation.SinglePlayerId() == playerId && data.Animation.Element.Reference.Name == reference.Name)
                 {
                     data.Cancel();
                     animation.QueuedAnimations.Remove(data);
@@ -79,9 +79,9 @@ internal class ImageUpdateAnimations : ISingleton
         public readonly ConcurrentList<ImageAnimationData> QueuedAnimations = [];
         public DateTime CreatedAt;
 
-        public void Add(ImageDownloadAnimation animation)
+        public void Add(IElementAnimation<UiRawImage> animation, ImageAnimationOptions options)
         {
-            QueuedAnimations.Add(new ImageAnimationData(animation));
+            QueuedAnimations.Add(new ImageAnimationData(animation, options));
         }
 
         protected override void LeavePool()
@@ -95,17 +95,17 @@ internal class ImageUpdateAnimations : ISingleton
         }
     }
 
-    private readonly record struct ImageAnimationData(ImageDownloadAnimation Animation)
+    private readonly record struct ImageAnimationData(IElementAnimation<UiRawImage> Animation, ImageAnimationOptions Options)
     {
-        public readonly ImageDownloadAnimation Animation = Animation;
         public readonly AnimationId Id = Animation.Id;
-        public bool IsAnimationValid => Animation.Id.IsValid && Id.IsValid && Animation.Id == Id && Animation.IsActive;
+        public bool IsAnimationValid => Animation.Id.IsValid && Id.IsValid && Animation.Id == Id;
 
         public void OnImageDownloadedSuccessfully(ImageId id)
         {
             if (IsAnimationValid)
             {
-                Animation.OnImageDownloadedSuccessfully(id);
+                Animation.Element.Image = id.ToString();
+                Animation.CompleteAnimation();
             }
         }
 
@@ -113,7 +113,8 @@ internal class ImageUpdateAnimations : ISingleton
         {
             if (IsAnimationValid)
             {
-                Animation.OnImageDownloadFailed();
+                Animation.Element.Image = Singleton<UiImageStorage>.Instance.Get(Animation.Plugin, Options.FailedImageNameOrUrl);
+                Animation.CompleteAnimation();
             }
         }
 
@@ -121,7 +122,7 @@ internal class ImageUpdateAnimations : ISingleton
         {
             if (IsAnimationValid)
             {
-                Animation.Cancel();
+                Animation.CancelAnimation();
             }
         }
     }

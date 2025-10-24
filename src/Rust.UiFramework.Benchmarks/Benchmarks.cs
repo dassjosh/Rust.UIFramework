@@ -1,3 +1,5 @@
+using System.Collections.ObjectModel;
+
 namespace Rust.UiFramework.Benchmarks;
 
 #if BENCHMARKS || DEBUG
@@ -103,7 +105,7 @@ public class Benchmarks
         return GetOxideContainer();
     }
 
-    //[Benchmark(Baseline = false)]
+    [Benchmark(Baseline = false)]
     public UiBuilder UiFramework_CreateContainer()
     {
         UiBuilder builder = GetFrameworkBuilder();
@@ -117,7 +119,7 @@ public class Benchmarks
         return _oxideContainer.ToJson();
     }
     
-    [Benchmark]
+    //[Benchmark]
     public JsonFrameworkWriter UiFramework_CreateJson()
     {
         JsonFrameworkWriter writer = _builder.CreateWriter();
@@ -138,7 +140,7 @@ public class Benchmarks
         return count;
     }
 
-    //[Benchmark]
+    [Benchmark]
     public void UiFramework_Writer()
     {
         UiBuilder builder = _builder;

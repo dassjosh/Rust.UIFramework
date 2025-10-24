@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Network;
-using Oxide.Ext.UiFramework.Config;
+using Oxide.Ext.UiFramework.Animation;
 using Oxide.Ext.UiFramework.Libraries;
 
 namespace Oxide.Ext.UiFramework.Builder;
@@ -50,7 +50,7 @@ internal static class SendInfoBuilder
 
     internal static SendInfo GetForAnimations(SendInfo info)
     {
-        sbyte channel = UiFrameworkConfig.Instance.Animations.Enabled ? AnimationsChannel : UiChannel;
+        sbyte channel = AnimationTime.AnimationsEnabled ? AnimationsChannel : UiChannel;
         if (info.connection != null)
         {
             return new SendInfo(info.connection)

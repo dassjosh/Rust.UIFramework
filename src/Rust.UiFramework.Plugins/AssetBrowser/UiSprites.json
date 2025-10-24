@@ -2146,6 +2146,29 @@
                         }
                       }
                     },
+                    "warhammer_dlc_large_wood_box": {
+                      "Name": "warhammer_dlc_large_wood_box",
+                      "Path": "assets/prefabs/deployable/large wood storage/skins/warhammer_dlc_large_wood_box",
+                      "Files": {},
+                      "SubFolders": {
+                        "krieg_storage_horizontal": {
+                          "Name": "krieg_storage_horizontal",
+                          "Path": "assets/prefabs/deployable/large wood storage/skins/warhammer_dlc_large_wood_box/krieg_storage_horizontal",
+                          "Files": {
+                            "KriegStorageHorizontalIcon": "assets/prefabs/deployable/large wood storage/skins/warhammer_dlc_large_wood_box/krieg_storage_horizontal/krieg_storage_horizontal.icon.png"
+                          },
+                          "SubFolders": {}
+                        },
+                        "krieg_storage_vertical": {
+                          "Name": "krieg_storage_vertical",
+                          "Path": "assets/prefabs/deployable/large wood storage/skins/warhammer_dlc_large_wood_box/krieg_storage_vertical",
+                          "Files": {
+                            "KriegStorageVerticalIcon": "assets/prefabs/deployable/large wood storage/skins/warhammer_dlc_large_wood_box/krieg_storage_vertical/krieg_storage_vertical.icon.png"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    },
                     "medieval_large_wood_box": {
                       "Name": "medieval_large_wood_box",
                       "Path": "assets/prefabs/deployable/large wood storage/skins/medieval_large_wood_box",
@@ -3557,6 +3580,14 @@
                   },
                   "SubFolders": {}
                 },
+                "warhammer": {
+                  "Name": "warhammer",
+                  "Path": "assets/prefabs/clothes/suit.hazmat/warhammer",
+                  "Files": {
+                    "KriegHazmatIcon": "assets/prefabs/clothes/suit.hazmat/warhammer/krieg.hazmat.icon.png"
+                  },
+                  "SubFolders": {}
+                },
                 "lumberjack": {
                   "Name": "lumberjack",
                   "Path": "assets/prefabs/clothes/suit.hazmat/lumberjack",
@@ -4198,6 +4229,14 @@
                 "JacketSnow": "assets/prefabs/clothes/jacket.snow/jacket_snow.png",
                 "JacketSnowBlackItemSkinIcon": "assets/prefabs/clothes/jacket.snow/jacket.snow.black.itemskin.icon.png",
                 "JacketSnowWoodlandItemSkinIcon": "assets/prefabs/clothes/jacket.snow/jacket.snow.woodland.itemskin.icon.png"
+              },
+              "SubFolders": {}
+            },
+            "backpack.krieg": {
+              "Name": "backpack.krieg",
+              "Path": "assets/prefabs/clothes/backpack.krieg",
+              "Files": {
+                "KriegbackpackWearableIcon": "assets/prefabs/clothes/backpack.krieg/kriegbackpack.wearable.icon.png"
               },
               "SubFolders": {}
             },
@@ -5205,6 +5244,29 @@
                       "SubFolders": {}
                     }
                   }
+                }
+              }
+            },
+            "warhammer": {
+              "Name": "warhammer",
+              "Path": "assets/prefabs/weapons/warhammer",
+              "Files": {},
+              "SubFolders": {
+                "krieg chainsword": {
+                  "Name": "krieg chainsword",
+                  "Path": "assets/prefabs/weapons/warhammer/krieg chainsword",
+                  "Files": {
+                    "KriegChainswordIcon": "assets/prefabs/weapons/warhammer/krieg chainsword/krieg_chainsword.icon.png"
+                  },
+                  "SubFolders": {}
+                },
+                "krieg shotgun": {
+                  "Name": "krieg shotgun",
+                  "Path": "assets/prefabs/weapons/warhammer/krieg shotgun",
+                  "Files": {
+                    "KriegShotgunIcon": "assets/prefabs/weapons/warhammer/krieg shotgun/krieg.shotgun.icon.png"
+                  },
+                  "SubFolders": {}
                 }
               }
             },

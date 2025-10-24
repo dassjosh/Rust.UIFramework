@@ -1,5 +1,4 @@
 ﻿using System;
-using Oxide.Ext.UiFramework.Animation;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Enums;
@@ -131,5 +130,4 @@ public abstract partial class BaseUiComponent : BasePoolable, IBaseUiComponent
     }
 
     public static implicit operator UiReference(BaseUiComponent component) => component.Reference;
-    public static implicit operator AnimationReference(BaseUiComponent component) => new(component.Reference, component.Component.Type);
 }

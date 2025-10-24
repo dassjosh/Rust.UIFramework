@@ -17,8 +17,12 @@ public class InvalidAnimationStateException : BaseUiFrameworkException
             case AnimationState.Queued:
                 if (currentState != AnimationState.Init) ThrowExpectedException(currentState, newState, AnimationState.Init);
                 break;
-            case AnimationState.Running:
+            case AnimationState.Delayed:
                 if (currentState != AnimationState.Queued) ThrowExpectedException(currentState, newState, AnimationState.Queued);
+                break;
+            case AnimationState.Running:
+                if (currentState != AnimationState.Queued && currentState != AnimationState.Delayed) 
+                    throw new InvalidAnimationStateException($"Tried change animation state to {newState} but animation is in the {currentState} state. Expected animation to be in the {AnimationState.Queued} or {AnimationState.Delayed} state.");
                 break;
             case AnimationState.Completed:
                 if (currentState != AnimationState.Running && currentState != AnimationState.Queued) 
@@ -27,8 +31,12 @@ public class InvalidAnimationStateException : BaseUiFrameworkException
             case AnimationState.Cancelled:
                 if (currentState == AnimationState.Pooled) ThrowNotExpectedException(currentState, newState);
                 break;
+            case AnimationState.Timeout:
+                if (currentState == AnimationState.Pooled) ThrowNotExpectedException(currentState, newState);
+                break;
             case AnimationState.Pooled:
-                if(currentState != AnimationState.Cancelled && currentState != AnimationState.Completed) ThrowNotExpectedException(currentState, newState);
+                if(currentState != AnimationState.Cancelled && currentState != AnimationState.Completed && currentState != AnimationState.Timeout) 
+                    throw new InvalidAnimationStateException($"Tried change animation state to {newState} but animation is in the {currentState} state. Expected animation to be in the {AnimationState.Cancelled} or {AnimationState.Completed} or {AnimationState.Timeout} state.");
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);

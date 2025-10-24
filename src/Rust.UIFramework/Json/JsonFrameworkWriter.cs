@@ -4,11 +4,10 @@ using System.Runtime.CompilerServices;
 using Network;
 using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Colors;
-using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Interfaces;
-using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Offsets;
+using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.Types;
@@ -52,9 +51,9 @@ public sealed class JsonFrameworkWriter : BasePoolable
         _writer = PluginPool.Get<JsonUtf8Writer>();
     }
 
-    public static JsonFrameworkWriter Create(UiPluginPool pool)
+    public static JsonFrameworkWriter Create(IUiFrameworkPlugin plugin)
     {
-        JsonFrameworkWriter writer = pool.Get<JsonFrameworkWriter>();
+        JsonFrameworkWriter writer = plugin.PluginPool.Get<JsonFrameworkWriter>();
         writer.Init();
         return writer;
     }

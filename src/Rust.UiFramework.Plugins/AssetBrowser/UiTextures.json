@@ -16541,6 +16541,75 @@
                 }
               }
             },
+            "warhammer": {
+              "Name": "warhammer",
+              "Path": "assets/prefabs/weapons/warhammer",
+              "Files": {},
+              "SubFolders": {
+                "krieg shotgun": {
+                  "Name": "krieg shotgun",
+                  "Path": "assets/prefabs/weapons/warhammer/krieg shotgun",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/prefabs/weapons/warhammer/krieg shotgun/materials",
+                      "Files": {},
+                      "SubFolders": {
+                        "textures": {
+                          "Name": "textures",
+                          "Path": "assets/prefabs/weapons/warhammer/krieg shotgun/materials/textures",
+                          "Files": {
+                            "KriegshbarrelAlbedo": "assets/prefabs/weapons/warhammer/krieg shotgun/materials/textures/kriegshbarrel_albedo.tga",
+                            "KriegshbarrelAo": "assets/prefabs/weapons/warhammer/krieg shotgun/materials/textures/kriegshbarrel_ao.tga",
+                            "KriegshbarrelMetallic": "assets/prefabs/weapons/warhammer/krieg shotgun/materials/textures/kriegshbarrel_metallic.tga",
+                            "KriegshbarrelNormal": "assets/prefabs/weapons/warhammer/krieg shotgun/materials/textures/kriegshbarrel_normal.tga",
+                            "KriegshreceiverAlbedo": "assets/prefabs/weapons/warhammer/krieg shotgun/materials/textures/kriegshreceiver_albedo.tga",
+                            "KriegshreceiverAo": "assets/prefabs/weapons/warhammer/krieg shotgun/materials/textures/kriegshreceiver_ao.tga",
+                            "KriegshreceiverMetallic": "assets/prefabs/weapons/warhammer/krieg shotgun/materials/textures/kriegshreceiver_metallic.tga",
+                            "KriegshreceiverNormal": "assets/prefabs/weapons/warhammer/krieg shotgun/materials/textures/kriegshreceiver_normal.tga",
+                            "KriegshStockAlbedo": "assets/prefabs/weapons/warhammer/krieg shotgun/materials/textures/kriegshstock_albedo.tga",
+                            "KriegshStockAo": "assets/prefabs/weapons/warhammer/krieg shotgun/materials/textures/kriegshstock_ao.tga",
+                            "KriegshStockMetallic": "assets/prefabs/weapons/warhammer/krieg shotgun/materials/textures/kriegshstock_metallic.tga",
+                            "KriegshStockNormal": "assets/prefabs/weapons/warhammer/krieg shotgun/materials/textures/kriegshstock_normal.tga"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    }
+                  }
+                },
+                "krieg chainsword": {
+                  "Name": "krieg chainsword",
+                  "Path": "assets/prefabs/weapons/warhammer/krieg chainsword",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/prefabs/weapons/warhammer/krieg chainsword/materials",
+                      "Files": {},
+                      "SubFolders": {
+                        "textures": {
+                          "Name": "textures",
+                          "Path": "assets/prefabs/weapons/warhammer/krieg chainsword/materials/textures",
+                          "Files": {
+                            "MKriegchainAlbedo": "assets/prefabs/weapons/warhammer/krieg chainsword/materials/textures/m_kriegchain_albedo.tga",
+                            "MKriegchainAo": "assets/prefabs/weapons/warhammer/krieg chainsword/materials/textures/m_kriegchain_ao.tga",
+                            "MKriegchainMetallic": "assets/prefabs/weapons/warhammer/krieg chainsword/materials/textures/m_kriegchain_metallic.tga",
+                            "MKriegchainNormal": "assets/prefabs/weapons/warhammer/krieg chainsword/materials/textures/m_kriegchain_normal.tga",
+                            "MKriegchainswordAlbedo": "assets/prefabs/weapons/warhammer/krieg chainsword/materials/textures/m_kriegchainsword_albedo.tga",
+                            "MKriegchainswordAo": "assets/prefabs/weapons/warhammer/krieg chainsword/materials/textures/m_kriegchainsword_ao.tga",
+                            "MKriegchainswordMetallic": "assets/prefabs/weapons/warhammer/krieg chainsword/materials/textures/m_kriegchainsword_metallic.tga",
+                            "MKriegchainswordNormal": "assets/prefabs/weapons/warhammer/krieg chainsword/materials/textures/m_kriegchainsword_normal.tga"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
             "l96": {
               "Name": "l96",
               "Path": "assets/prefabs/weapons/l96",
@@ -20177,7 +20246,10 @@
                         "CarvablePumpkinTiledEmissive": "assets/prefabs/misc/halloween/carvablepumpkin/textures/carvable_pumpkin_tiled_emissive.tga",
                         "CarvablePumpkinTiledMetalrough": "assets/prefabs/misc/halloween/carvablepumpkin/textures/carvable_pumpkin_tiled_metalrough.tga",
                         "CarvablePumpkinTiledNormal": "assets/prefabs/misc/halloween/carvablepumpkin/textures/carvable_pumpkin_tiled_normal.tga",
-                        "EmissionRamp": "assets/prefabs/misc/halloween/carvablepumpkin/textures/emission_ramp.tga"
+                        "EmissionRamp": "assets/prefabs/misc/halloween/carvablepumpkin/textures/emission_ramp.tga",
+                        "Pumpkin1": "assets/prefabs/misc/halloween/carvablepumpkin/textures/pumpkin1.png",
+                        "Pumpkin2": "assets/prefabs/misc/halloween/carvablepumpkin/textures/pumpkin2.png",
+                        "Pumpkin4": "assets/prefabs/misc/halloween/carvablepumpkin/textures/pumpkin4.png"
                       },
                       "SubFolders": {}
                     }
@@ -21570,6 +21642,49 @@
                                 "JungleDlcVerticalStorageAo": "assets/prefabs/deployable/large wood storage/skins/jungle_dlc_large_wood_box/jungle_dlc_storage_vertical/materials/jungle_dlc_vertical_storage_ao.tga",
                                 "JungleDlcVerticalStorageMetalsmooth": "assets/prefabs/deployable/large wood storage/skins/jungle_dlc_large_wood_box/jungle_dlc_storage_vertical/materials/jungle_dlc_vertical_storage_metalsmooth.tga",
                                 "JungleDlcVerticalStorageNormal": "assets/prefabs/deployable/large wood storage/skins/jungle_dlc_large_wood_box/jungle_dlc_storage_vertical/materials/jungle_dlc_vertical_storage_normal.tga"
+                              },
+                              "SubFolders": {}
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "warhammer_dlc_large_wood_box": {
+                      "Name": "warhammer_dlc_large_wood_box",
+                      "Path": "assets/prefabs/deployable/large wood storage/skins/warhammer_dlc_large_wood_box",
+                      "Files": {},
+                      "SubFolders": {
+                        "krieg_storage_horizontal": {
+                          "Name": "krieg_storage_horizontal",
+                          "Path": "assets/prefabs/deployable/large wood storage/skins/warhammer_dlc_large_wood_box/krieg_storage_horizontal",
+                          "Files": {},
+                          "SubFolders": {
+                            "model": {
+                              "Name": "model",
+                              "Path": "assets/prefabs/deployable/large wood storage/skins/warhammer_dlc_large_wood_box/krieg_storage_horizontal/model",
+                              "Files": {
+                                "KriegStorageHorizontalAo": "assets/prefabs/deployable/large wood storage/skins/warhammer_dlc_large_wood_box/krieg_storage_horizontal/model/krieg_storage_horizontal_ao.tga",
+                                "KriegStorageHorizontalDiffuse": "assets/prefabs/deployable/large wood storage/skins/warhammer_dlc_large_wood_box/krieg_storage_horizontal/model/krieg_storage_horizontal_diffuse.tga",
+                                "KriegStorageHorizontalNormal": "assets/prefabs/deployable/large wood storage/skins/warhammer_dlc_large_wood_box/krieg_storage_horizontal/model/krieg_storage_horizontal_normal.tga",
+                                "KriegStorageHorizontalSpecular": "assets/prefabs/deployable/large wood storage/skins/warhammer_dlc_large_wood_box/krieg_storage_horizontal/model/krieg_storage_horizontal_specular.tga"
+                              },
+                              "SubFolders": {}
+                            }
+                          }
+                        },
+                        "krieg_storage_vertical": {
+                          "Name": "krieg_storage_vertical",
+                          "Path": "assets/prefabs/deployable/large wood storage/skins/warhammer_dlc_large_wood_box/krieg_storage_vertical",
+                          "Files": {},
+                          "SubFolders": {
+                            "model": {
+                              "Name": "model",
+                              "Path": "assets/prefabs/deployable/large wood storage/skins/warhammer_dlc_large_wood_box/krieg_storage_vertical/model",
+                              "Files": {
+                                "KriegStorageVerticalAo": "assets/prefabs/deployable/large wood storage/skins/warhammer_dlc_large_wood_box/krieg_storage_vertical/model/krieg_storage_vertical_ao.tga",
+                                "KriegStorageVerticalDiffuse": "assets/prefabs/deployable/large wood storage/skins/warhammer_dlc_large_wood_box/krieg_storage_vertical/model/krieg_storage_vertical_diffuse.tga",
+                                "KriegStorageVerticalNormal": "assets/prefabs/deployable/large wood storage/skins/warhammer_dlc_large_wood_box/krieg_storage_vertical/model/krieg_storage_vertical_normal.tga",
+                                "KriegStorageVerticalSpecular": "assets/prefabs/deployable/large wood storage/skins/warhammer_dlc_large_wood_box/krieg_storage_vertical/model/krieg_storage_vertical_specular.tga"
                               },
                               "SubFolders": {}
                             }
@@ -25273,6 +25388,47 @@
                     }
                   }
                 },
+                "warhammer": {
+                  "Name": "warhammer",
+                  "Path": "assets/prefabs/clothes/suit.hazmat/warhammer",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/prefabs/clothes/suit.hazmat/warhammer/materials",
+                      "Files": {
+                        "KrieghazmatbackpackAlbedo": "assets/prefabs/clothes/suit.hazmat/warhammer/materials/krieghazmatbackpack_albedo.png",
+                        "KrieghazmatbackpackAo": "assets/prefabs/clothes/suit.hazmat/warhammer/materials/krieghazmatbackpack_ao.png",
+                        "KrieghazmatbackpackFuzzMask": "assets/prefabs/clothes/suit.hazmat/warhammer/materials/krieghazmatbackpack_fuzzmask.png",
+                        "KrieghazmatbackpackMetallic": "assets/prefabs/clothes/suit.hazmat/warhammer/materials/krieghazmatbackpack_metallic.png",
+                        "KrieghazmatbackpackNormal": "assets/prefabs/clothes/suit.hazmat/warhammer/materials/krieghazmatbackpack_normal.png",
+                        "KrieghazmatglovesAlbedo": "assets/prefabs/clothes/suit.hazmat/warhammer/materials/krieghazmatgloves_albedo.png",
+                        "KrieghazmatglovesAo": "assets/prefabs/clothes/suit.hazmat/warhammer/materials/krieghazmatgloves_ao.png",
+                        "KrieghazmatglovesMetallic": "assets/prefabs/clothes/suit.hazmat/warhammer/materials/krieghazmatgloves_metallic.png",
+                        "KrieghazmatglovesNormal": "assets/prefabs/clothes/suit.hazmat/warhammer/materials/krieghazmatgloves_normal.png",
+                        "KrieghazmatHelmetAlbedo": "assets/prefabs/clothes/suit.hazmat/warhammer/materials/krieghazmat_helmet_albedo.png",
+                        "KrieghazmatHelmetAo": "assets/prefabs/clothes/suit.hazmat/warhammer/materials/krieghazmat_helmet_ao.png",
+                        "KrieghazmatHelmetMetallic": "assets/prefabs/clothes/suit.hazmat/warhammer/materials/krieghazmat_helmet_metallic.png",
+                        "KrieghazmatHelmetNormal": "assets/prefabs/clothes/suit.hazmat/warhammer/materials/krieghazmat_helmet_normal.png",
+                        "KrieghazmatLod3Albedo": "assets/prefabs/clothes/suit.hazmat/warhammer/materials/krieghazmat_lod3_albedo.png",
+                        "KrieghazmatLod3Ao": "assets/prefabs/clothes/suit.hazmat/warhammer/materials/krieghazmat_lod3_ao.png",
+                        "KrieghazmatLod3Metallic": "assets/prefabs/clothes/suit.hazmat/warhammer/materials/krieghazmat_lod3_metallic.png",
+                        "KrieghazmatLod3Normal": "assets/prefabs/clothes/suit.hazmat/warhammer/materials/krieghazmat_lod3_normal.png",
+                        "KrieghazmatpantsAlbedo": "assets/prefabs/clothes/suit.hazmat/warhammer/materials/krieghazmatpants_albedo.png",
+                        "KrieghazmatpantsAo": "assets/prefabs/clothes/suit.hazmat/warhammer/materials/krieghazmatpants_ao.png",
+                        "KrieghazmatpantsFuzzMask": "assets/prefabs/clothes/suit.hazmat/warhammer/materials/krieghazmatpants_fuzzmask.png",
+                        "KrieghazmatpantsMetallic": "assets/prefabs/clothes/suit.hazmat/warhammer/materials/krieghazmatpants_metallic.png",
+                        "KrieghazmatpantsNormal": "assets/prefabs/clothes/suit.hazmat/warhammer/materials/krieghazmatpants_normal.png",
+                        "KrieghazmatTorsoAlbedo": "assets/prefabs/clothes/suit.hazmat/warhammer/materials/krieghazmattorso_albedo.png",
+                        "KrieghazmatTorsoAo": "assets/prefabs/clothes/suit.hazmat/warhammer/materials/krieghazmattorso_ao.png",
+                        "KrieghazmatTorsoFuzzMask": "assets/prefabs/clothes/suit.hazmat/warhammer/materials/krieghazmattorso_fuzzmask.png",
+                        "KrieghazmatTorsoMetallic": "assets/prefabs/clothes/suit.hazmat/warhammer/materials/krieghazmattorso_metallic.png",
+                        "KrieghazmatTorsoNormal": "assets/prefabs/clothes/suit.hazmat/warhammer/materials/krieghazmattorso_normal.png"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
                 "lumberjack": {
                   "Name": "lumberjack",
                   "Path": "assets/prefabs/clothes/suit.hazmat/lumberjack",
@@ -26451,6 +26607,24 @@
                     "KnightTorsoAo": "assets/prefabs/clothes/vest.knightsarmour/textures/knighttorso_ao.tga",
                     "KnightTorsoMetallic": "assets/prefabs/clothes/vest.knightsarmour/textures/knighttorso_metallic.tga",
                     "KnightTorsoNormal": "assets/prefabs/clothes/vest.knightsarmour/textures/knighttorso_normal.tga"
+                  },
+                  "SubFolders": {}
+                }
+              }
+            },
+            "backpack.krieg": {
+              "Name": "backpack.krieg",
+              "Path": "assets/prefabs/clothes/backpack.krieg",
+              "Files": {},
+              "SubFolders": {
+                "material": {
+                  "Name": "material",
+                  "Path": "assets/prefabs/clothes/backpack.krieg/material",
+                  "Files": {
+                    "KriegbackpackAlbedo": "assets/prefabs/clothes/backpack.krieg/material/kriegbackpack_albedo.png",
+                    "KriegbackpackAo": "assets/prefabs/clothes/backpack.krieg/material/kriegbackpack_ao.png",
+                    "KriegbackpackMetallic": "assets/prefabs/clothes/backpack.krieg/material/kriegbackpack_metallic.png",
+                    "KriegbackpackNormal": "assets/prefabs/clothes/backpack.krieg/material/kriegbackpack_normal.png"
                   },
                   "SubFolders": {}
                 }
@@ -30962,16 +31136,16 @@
                         "FloorTreeRootsDiff": "assets/prefabs/wallpaper/skins/2025-10_halloween/textures/floor_tree_roots_diff.tga",
                         "FloorTreeRootsNrm": "assets/prefabs/wallpaper/skins/2025-10_halloween/textures/floor_tree_roots_nrm.tga",
                         "FloorTreeRootsSpec": "assets/prefabs/wallpaper/skins/2025-10_halloween/textures/floor_tree_roots_spec.tga",
-                        "WallHalloweenBatsAlbedo": "assets/prefabs/wallpaper/skins/2025-10_halloween/textures/wall_halloween_bats_albedo.tga",
                         "WallHalloweenBatsAo": "assets/prefabs/wallpaper/skins/2025-10_halloween/textures/wall_halloween_bats_ao.tga",
+                        "WallHalloweenBatsDiff": "assets/prefabs/wallpaper/skins/2025-10_halloween/textures/wall_halloween_bats_diff.tga",
                         "WallHalloweenBatsEmissive": "assets/prefabs/wallpaper/skins/2025-10_halloween/textures/wall_halloween_bats_emissive.tga",
-                        "WallHalloweenBatsNormal": "assets/prefabs/wallpaper/skins/2025-10_halloween/textures/wall_halloween_bats_normal.tga",
-                        "WallHalloweenBatsSpecGloss": "assets/prefabs/wallpaper/skins/2025-10_halloween/textures/wall_halloween_bats_specgloss.tga",
-                        "WallHalloweenMuertosAAlbedo": "assets/prefabs/wallpaper/skins/2025-10_halloween/textures/wall_halloween_muertos_a_albedo.tga",
+                        "WallHalloweenBatsNrm": "assets/prefabs/wallpaper/skins/2025-10_halloween/textures/wall_halloween_bats_nrm.tga",
+                        "WallHalloweenBatsSpec": "assets/prefabs/wallpaper/skins/2025-10_halloween/textures/wall_halloween_bats_spec.tga",
                         "WallHalloweenMuertosAAo": "assets/prefabs/wallpaper/skins/2025-10_halloween/textures/wall_halloween_muertos_a_ao.tga",
+                        "WallHalloweenMuertosADiff": "assets/prefabs/wallpaper/skins/2025-10_halloween/textures/wall_halloween_muertos_a_diff.tga",
                         "WallHalloweenMuertosAEmissive": "assets/prefabs/wallpaper/skins/2025-10_halloween/textures/wall_halloween_muertos_a_emissive.tga",
-                        "WallHalloweenMuertosANormal": "assets/prefabs/wallpaper/skins/2025-10_halloween/textures/wall_halloween_muertos_a_normal.tga",
-                        "WallHalloweenMuertosASpecGloss": "assets/prefabs/wallpaper/skins/2025-10_halloween/textures/wall_halloween_muertos_a_specgloss.tga"
+                        "WallHalloweenMuertosANrm": "assets/prefabs/wallpaper/skins/2025-10_halloween/textures/wall_halloween_muertos_a_nrm.tga",
+                        "WallHalloweenMuertosASpec": "assets/prefabs/wallpaper/skins/2025-10_halloween/textures/wall_halloween_muertos_a_spec.tga"
                       },
                       "SubFolders": {}
                     }

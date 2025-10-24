@@ -57,7 +57,7 @@ public abstract class BasePopulateComponentTests<T>(Action<T> populateComponent)
     {
         // Arrange
         using T component = UiPool.Internal.Get<T>();
-        using JsonFrameworkWriter writer = JsonFrameworkWriter.Create(UnitTestHelpers.UnitTestPool);
+        using JsonFrameworkWriter writer = JsonFrameworkWriter.Create(UnitTestHelpers.Plugin);
         
         // Act
         PopulateComponent(component);
@@ -87,7 +87,7 @@ public abstract class BasePopulateComponentTests<T>(Action<T> populateComponent)
     {
         // Arrange
         using T component = UiPool.Internal.Get<T>();
-        using JsonFrameworkWriter writer = JsonFrameworkWriter.Create(UnitTestHelpers.UnitTestPool);
+        using JsonFrameworkWriter writer = JsonFrameworkWriter.Create(UnitTestHelpers.Plugin);
         
         // Act
         PopulateComponent(component);
@@ -112,7 +112,7 @@ public abstract class BasePopulateComponentTests<T>(Action<T> populateComponent)
             .ToArray();
         
         // Assert
-        values.Should().AllSatisfy(v => v.Tracked.IsFrameworkDefault.Should().BeTrue($"Is Default: {v.Field.Name}"));
+        values.Should().AllSatisfy(v => v.Tracked.IsDefaultValue.Should().BeTrue($"Is Default: {v.Field.Name}"));
         values.Should().AllSatisfy(v => v.Tracked.HasChanged.Should().BeFalse($"Has Not Changed Before Populate: {v.Field.Name}"));
         component.HasChanged().Should().BeFalse("Component Has Not Changed Before Populate");
         PopulateComponent(component);
@@ -123,7 +123,7 @@ public abstract class BasePopulateComponentTests<T>(Action<T> populateComponent)
         component.HasChanged().Should().BeFalse("Component Has Not Changed After ResetHasChanged");
         PopulateComponent(component);
         component.Reset();
-        values.Should().AllSatisfy(v => v.Tracked.IsFrameworkDefault.Should().BeTrue($"Is Default After Reset: {v.Field.Name}"));
+        values.Should().AllSatisfy(v => v.Tracked.IsDefaultValue.Should().BeTrue($"Is Default After Reset: {v.Field.Name}"));
         values.Should().AllSatisfy(v => v.Tracked.HasChanged.Should().BeFalse($"Has Not Changed After Reset: {v.Field.Name}"));
         component.HasChanged().Should().BeFalse("Component Has Not Changed After Reset");
     }
@@ -153,7 +153,7 @@ public abstract class BaseTheoryComponentTests<TComponent, TTheoryRow>(Action<TC
     {
         // Arrange
         using TComponent component = UiPool.Internal.Get<TComponent>();
-        using JsonFrameworkWriter writer = JsonFrameworkWriter.Create(UnitTestHelpers.UnitTestPool);
+        using JsonFrameworkWriter writer = JsonFrameworkWriter.Create(UnitTestHelpers.Plugin);
         
         // Act
         PopulateComponent(component);

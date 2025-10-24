@@ -206,6 +206,10 @@
       </Compile>
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Animation\Advanced\" />
+    </ItemGroup>
+
     <PropertyGroup>
         <MSBuildWarningsAsMessages>
             MSB3277;

@@ -11,8 +11,8 @@ class Program
 {
     static void Main(string[] args)
     {
-        Benchmarks benchmarks = new();
-        benchmarks.Setup();
+        //Benchmarks benchmarks = new();
+       // benchmarks.Setup();
 #if BENCHMARKS
 
         

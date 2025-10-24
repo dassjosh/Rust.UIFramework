@@ -1,28 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using Oxide.Ext.UiFramework.Colors;
-using Oxide.Ext.UiFramework.Offsets;
-using Oxide.Ext.UiFramework.Positions;
-using Oxide.Ext.UiFramework.Types;
 using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Animation;
 
-public class KeyFrameColorAnimator(UiColor startColor, UiColor endColor) : KeyFrameAnimator<UiColor>(startColor, endColor, UiColor.Lerp);
-public class KeyFrameOffsetAnimator(UiOffset startOffset, UiOffset endOffset) : KeyFrameAnimator<UiOffset>(startOffset, endOffset, (start, end, t) => UiOffset.LerpUnclamped(start, end, t));
-public class KeyFramePositionAnimator(UiPosition startPosition, UiPosition endPosition) : KeyFrameAnimator<UiPosition>(startPosition, endPosition, (start, end, t) => UiPosition.LerpUnclamped(start, end, t));
-public class KeyFrameStringAnimator(string start, string end) : KeyFrameAnimator<string>(start, end, LevenshteinDistanceExt.Lerp);
-
-public abstract class KeyFrameAnimator<T> : ISimpleAnimator<T>
+public class KeyFrameAnimator<T> : IAnimator<T>
 {
     private readonly SortedList<float, T> _keyFrames = [];
-    private readonly Func<T, T, float, T> _lerp;
+    private readonly UiLerp<T> _lerp;
 
-    protected KeyFrameAnimator(T start, T end, Func<T, T, float, T> lerp)
+    public KeyFrameAnimator(T start, T end) : this(start, end, UiLerp.GetDefault<T>()) { }
+    
+    public KeyFrameAnimator(T start, T end, UiLerp<T> lerp)
     {
-        _lerp = lerp;
         AddKeyFrame(0, start);
         AddKeyFrame(100, end);
+        _lerp = lerp ?? throw new ArgumentNullException(nameof(lerp), "lerp cannot be null. Please pass a valid lerp function.");;
     }
 
     public void AddKeyFrame(float percentage, T value)
