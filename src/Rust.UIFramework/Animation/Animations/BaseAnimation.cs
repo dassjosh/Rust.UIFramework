@@ -205,7 +205,7 @@ public abstract class BaseAnimation : BasePoolable, IAnimation
     {
         if (!AnimationTime.AnimationsEnabled)
         {
-            return 1;
+            return AnimationConstants.CompletedProgress;
         }
         
         if (Duration != null)
@@ -218,7 +218,7 @@ public abstract class BaseAnimation : BasePoolable, IAnimation
             return progress;
         }
         
-        return Parent?.GetProgress() ?? 0;
+        return Parent?.GetProgress() ?? AnimationConstants.NoProgress;
     }
 
     public virtual ISendableAnimation GetSendable()
