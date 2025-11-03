@@ -9,7 +9,7 @@ public interface IOutlineComponent : ISubComponent
 {
     UiColor Color { get; set; }
     
-    [TrackedDefaults(typeof(JsonDefaults.Outline), nameof(JsonDefaults.Outline.Distance))]
+    [TrackedDefaults(typeof(JsonDefaults.Outline), nameof(JsonDefaults.Outline.Distance), typeof(JsonDefaults.Outline), nameof(JsonDefaults.Outline.FpDistance))]
     Vector2 Distance { get; set; }
     
     bool UseGraphicAlpha { get; set; }

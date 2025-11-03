@@ -34,7 +34,6 @@
   {
     "components": [
       {
-        "material": "assets/content/ui/namefontmaterial.mat",
         "sprite": "sprite",
         "type": "UnityEngine.UI.Image"
       },
