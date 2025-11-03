@@ -80,13 +80,15 @@ public static class AnimationExt
     public static T PingPong<T>(this T animation) where T : IAnimation => animation.WithEasing(animation.Easing.PingPong());
     public static T PingPong<T>(this T animation, float frequency) where T : IAnimation => animation.WithEasing(animation.Easing.PingPong(frequency));
     public static T Reverse<T>(this T animation) where T : IAnimation => animation.WithEasing(animation.Easing.Reverse());
-    public static T Repeat<T>(this T animation, float repeats) where T : IAnimation => animation.WithEasing(animation.Easing.Repeat(repeats));
+    public static T RepeatEasing<T>(this T animation, float repeats) where T : IAnimation => animation.WithEasing(animation.Easing.Repeat(repeats));
     public static T Offset<T>(this T animation, float offset) where T : IAnimation => animation.WithEasing(animation.Easing.Offset(offset));
     public static T Scaled<T>(this T animation, float min, float max) where T : IAnimation => animation.WithEasing(animation.Easing.Scaled(min, max));
     public static T FreezeBefore<T>(this T animation, float freezePoint) where T : IAnimation => animation.WithEasing(animation.Easing.FreezeBefore(freezePoint));
     public static T FreezeAfter<T>(this T animation, float freezePoint) where T : IAnimation => animation.WithEasing(animation.Easing.FreezeAfter(freezePoint));
     public static T Blend<T>(this T animation, Easing end, float blendFactor) where T : IAnimation => animation.WithEasing(animation.Easing.Blend(end, blendFactor));
     public static T Blend<T>(this T animation, Easing start, Easing end, float blendFactor) where T : IAnimation => animation.WithEasing(start.Blend(end, blendFactor));
+    public static T Clamp01<T>(this T animation) where T : IAnimation => animation.WithEasing(animation.Easing.Clamp01());
+    public static T Clamp<T>(this T animation, float min, float max) where T : IAnimation => animation.WithEasing(animation.Easing.Clamp(min, max));
     
     public static T DestroyAfter<T, TElement>(this T animation) 
         where T : IElementAnimation<TElement> 
@@ -166,7 +168,7 @@ public static class AnimationExt
             yield return type;
         }
 
-        foreach (T child in animation.Children.SelectMany(c => c.AllOfType<T>()))
+        foreach (T child in animation.Children.SelectMany(static c => c.AllOfType<T>()))
         {
             yield return child;
         }

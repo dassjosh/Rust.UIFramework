@@ -19,8 +19,8 @@ public static class EasingExt
     public static Easing FreezeBefore(this Easing easing, float freezePercentage) => t => t >= freezePercentage ? easing(t) : easing(0);
     public static Easing Blend(this Easing a, Easing b, float blendFactor) => t => a(t) * (1f - blendFactor) + b(t) * blendFactor;
     
-    public static Easing Clamped(this Easing easing) => t => Mathf.Clamp01(easing(t));
-    public static Easing Clamped(this Easing easing, float min, float max) => t => Mathf.Clamp(easing(t), min, max);
+    public static Easing Clamp01(this Easing easing) => t => Mathf.Clamp01(easing(t));
+    public static Easing Clamp(this Easing easing, float min, float max) => t => Mathf.Clamp(easing(t), min, max);
     
     public static float[] Sample(this Easing easing, int steps = 100)
     {

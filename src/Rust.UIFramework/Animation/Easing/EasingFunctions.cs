@@ -8,8 +8,8 @@ namespace Oxide.Ext.UiFramework.Animation;
 /// </summary>
 public static class EasingFunctions
 {
-    internal const float PI = (float)Math.PI;
-    internal const float BackOvershoot = 1.70158f;
+    private const float PI = (float)Math.PI;
+    private const float BackOvershoot = 1.70158f;
 
     public static readonly Easing Linear = t => t;
     public static readonly Easing Quad = t => t * t;
