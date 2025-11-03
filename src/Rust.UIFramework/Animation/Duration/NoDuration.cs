@@ -11,5 +11,5 @@ public class NoDuration : IAnimationDuration
 
     public void OnTick() { }
     public void OnStarted() { }
-    public void Restart(float delay) { }
+    public void Restart(float delay = 0f) { }
 }

@@ -9,9 +9,4 @@ public abstract class BaseInterpolator : BasePoolable, IAnimationInterpolator
     public virtual void OnStarted() { }
 
     public abstract void OnTick(float progress);
-
-    protected override void EnterPool()
-    {
-        base.EnterPool();
-    }
 }
