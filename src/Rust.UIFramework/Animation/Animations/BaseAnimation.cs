@@ -133,7 +133,7 @@ public abstract class BaseAnimation : BasePoolable, IAnimation
         if (Repeat is not null && Repeat.OnRepeat())
         {
             Duration.Restart(Repeat.RepeatDelay);
-            Events.OnEvent(AnimationEventType.OnRepeat, this);
+            Events.OnEvent(AnimationEventType.Repeat, this);
         }
     }
     
@@ -157,22 +157,22 @@ public abstract class BaseAnimation : BasePoolable, IAnimation
         switch (State)
         {
             case AnimationState.Queued:
-                Events.OnEvent(AnimationEventType.OnQueued, this);
+                Events.OnEvent(AnimationEventType.Queued, this);
                 break;
             case AnimationState.Delayed:
-                Events.OnEvent(AnimationEventType.OnDelayed, this);
+                Events.OnEvent(AnimationEventType.Delayed, this);
                 break;
             case AnimationState.Running:
-                Events.OnEvent(AnimationEventType.OnStarted, this);
+                Events.OnEvent(AnimationEventType.Started, this);
                 break;
             case AnimationState.Completed:
-                Events.OnEvent(AnimationEventType.OnCompleted, this);
+                Events.OnEvent(AnimationEventType.Completed, this);
                 break;
             case AnimationState.Cancelled:
-                Events.OnEvent(AnimationEventType.OnCanceled, this);
+                Events.OnEvent(AnimationEventType.Canceled, this);
                 break;
             case AnimationState.Timeout:
-                Events.OnEvent(AnimationEventType.OnTimeout, this);
+                Events.OnEvent(AnimationEventType.Timeout, this);
                 break;
         }
 
@@ -243,7 +243,7 @@ public abstract class BaseAnimation : BasePoolable, IAnimation
     public override void Dispose()
     {
         Singleton<AnimationTracker>.Instance.OnAnimationCompleted(Id);
-        Events.OnEvent(AnimationEventType.OnRemoved, this);
+        Events.OnEvent(AnimationEventType.Finalized, this);
         base.Dispose();
     }
 

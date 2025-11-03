@@ -95,7 +95,7 @@ public static class AnimationExt
     public static T DestroyAfter<T>(this T animation, in UiReference destroyTarget) where T : IAnimation => animation.DestroyAfter(destroyTarget.Name);
     public static T DestroyAfter<T>(this T animation, string name) where T : IAnimation
     {
-        animation.OnRemoved(a =>
+        animation.OnFinalized(a =>
         {
             BaseBuilder.DestroyUi(a.GetSendable().Send, name);
         });
@@ -108,14 +108,14 @@ public static class AnimationExt
         return animation;
     }
     
-    public static T OnQueued<T>(this T animation, Action<T> callback) where T : IAnimation => animation.On(AnimationEventType.OnQueued, callback);
-    public static T OnDelayed<T>(this T animation, Action<T> callback) where T : IAnimation => animation.On(AnimationEventType.OnDelayed, callback);
-    public static T OnStarted<T>(this T animation, Action<T> callback) where T : IAnimation => animation.On(AnimationEventType.OnStarted, callback);
-    public static T OnRepeat<T>(this T animation, Action<T> callback) where T : IAnimation => animation.On(AnimationEventType.OnRepeat, callback);
-    public static T OnCompleted<T>(this T animation, Action<T> callback) where T : IAnimation => animation.On(AnimationEventType.OnCompleted, callback);
-    public static T OnCanceled<T>(this T animation, Action<T> callback) where T : IAnimation => animation.On(AnimationEventType.OnCanceled, callback);
-    public static T OnTimeout<T>(this T animation, Action<T> callback) where T : IAnimation => animation.On(AnimationEventType.OnTimeout, callback);
-    public static T OnRemoved<T>(this T animation, Action<T> callback) where T : IAnimation => animation.On(AnimationEventType.OnRemoved, callback);
+    public static T OnQueued<T>(this T animation, Action<T> callback) where T : IAnimation => animation.On(AnimationEventType.Queued, callback);
+    public static T OnDelayed<T>(this T animation, Action<T> callback) where T : IAnimation => animation.On(AnimationEventType.Delayed, callback);
+    public static T OnStarted<T>(this T animation, Action<T> callback) where T : IAnimation => animation.On(AnimationEventType.Started, callback);
+    public static T OnRepeat<T>(this T animation, Action<T> callback) where T : IAnimation => animation.On(AnimationEventType.Repeat, callback);
+    public static T OnCompleted<T>(this T animation, Action<T> callback) where T : IAnimation => animation.On(AnimationEventType.Completed, callback);
+    public static T OnCanceled<T>(this T animation, Action<T> callback) where T : IAnimation => animation.On(AnimationEventType.Canceled, callback);
+    public static T OnTimeout<T>(this T animation, Action<T> callback) where T : IAnimation => animation.On(AnimationEventType.Timeout, callback);
+    public static T OnFinalized<T>(this T animation, Action<T> callback) where T : IAnimation => animation.On(AnimationEventType.Finalized, callback);
 
 
     public static T WithDuration<T>(this T animation, IAnimationDuration duration) where T : IAnimation

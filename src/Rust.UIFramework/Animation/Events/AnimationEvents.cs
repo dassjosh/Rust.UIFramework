@@ -42,7 +42,7 @@ public class AnimationEvents : IAnimationEvents
             }
         }
 
-        if (type == AnimationEventType.OnRemoved)
+        if (type == AnimationEventType.Finalized)
         {
             _events.TryFreeValues();
         }
