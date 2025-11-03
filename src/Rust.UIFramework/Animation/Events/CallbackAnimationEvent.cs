@@ -1,4 +1,5 @@
 ﻿using System;
+using Oxide.Ext.UiFramework.Logging;
 using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Pooling;
 
@@ -21,7 +22,14 @@ public class CallbackAnimationEvent : BasePoolable, IAnimationEvent
 
     public void OnAnimationEvent(IAnimation animation, AnimationEventType type)
     {
-        _callback?.Invoke(animation);
+        try
+        {
+            _callback?.Invoke(animation);
+        }
+        catch (Exception ex)
+        {
+            UiFrameworkExtension.GlobalLogger.Exception("An error occured in {0} animation event callback", _type, ex);
+        }
     }
 
     protected override void EnterPool()
