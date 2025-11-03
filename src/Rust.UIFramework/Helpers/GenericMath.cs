@@ -88,6 +88,16 @@ public static class GenericMath
     /// <param name="b">The second value.</param>
     /// <returns>The result of the bitwise OR operation.</returns>
     public static T Or<T>(T a, T b) => MathOperations<T>.Or(a, b);
+    
+    /// <summary>
+    /// Lerps between two generic numeric values
+    /// </summary>
+    /// <param name="start">Start value</param>
+    /// <param name="end">End value</param>
+    /// <param name="t">Duration</param>
+    /// <typeparam name="T">Generic numeric type</typeparam>
+    /// <returns>Lerped value</returns>
+    public static T Lerp<T>(T start, T end, float t) => MathOperations<T>.Lerp(start, end, t);
 
     /// <summary>
     /// Helper class that caches the compiled expression trees for each operation.
@@ -103,6 +113,7 @@ public static class GenericMath
         private static readonly Func<T, T, T> _or;
         private static readonly Func<T, T, bool> _hasMask;
         private static readonly Func<T, bool> _isZero;
+        private static readonly Func<T, T, float, T> _lerp;
 
         static MathOperations()
         {
@@ -116,6 +127,7 @@ public static class GenericMath
             // Create parameter expressions
             ParameterExpression paramA = Expression.Parameter(type, "a");
             ParameterExpression paramB = Expression.Parameter(type, "b");
+            ParameterExpression paramProgress = Expression.Parameter(typeof(float), "t");
                 
             // Create operation expressions
             _add = CompileOperation(Expression.Add(paramA, paramB));
@@ -125,6 +137,7 @@ public static class GenericMath
             _and = CompileOperation(Expression.And(paramA, paramB));
             _or = CompileOperation(Expression.Or(paramA, paramB));
             _hasMask = Expression.Lambda<Func<T, T, bool>>(Expression.Equal(Expression.And(paramA, paramB), paramB), paramA, paramB).Compile();
+            _lerp = Expression.Lambda<Func<T, T, float, T>>(Expression.Add(paramA, Expression.Multiply(Expression.Subtract(paramB, paramA), paramProgress))).Compile();
                 
             // Create zero comparison
             ConstantExpression zero = Expression.Constant(GetZeroValue(type), type);
@@ -178,5 +191,6 @@ public static class GenericMath
         public static T And(T a, T b) => _and(a, b);
         public static T Or(T a, T b) => _or(a, b);
         public static bool HasMask(T a, T b) => _hasMask(a, b);
+        public static T Lerp(T a, T b, float t) => _lerp(a, b, t);
     }
 }
