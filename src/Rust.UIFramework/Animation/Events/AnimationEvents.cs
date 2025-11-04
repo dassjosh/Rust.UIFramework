@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using Oxide.Ext.UiFramework.Extensions;
+using Oxide.Ext.UiFramework.Logging;
 
 namespace Oxide.Ext.UiFramework.Animation;
 
-public class AnimationEvents : IAnimationEvents
+public class AnimationEvents(IAnimation animation) : IAnimationEvents
 {
     private readonly List<IAnimationEvent> _events = [];
 
@@ -31,8 +32,9 @@ public class AnimationEvents : IAnimationEvents
         }
     }
 
-    public void OnEvent(AnimationEventType type, IAnimation animation)
+    public void OnEvent(AnimationEventType type)
     {
+        UiFrameworkExtension.GlobalLogger.Debug($"{nameof(AnimationEvents)}.{nameof(OnEvent)} ID: {{0}} Event: {{1}}", animation.Id, type);
         for (int index = 0; index < _events.Count; index++)
         {
             IAnimationEvent @event = _events[index];

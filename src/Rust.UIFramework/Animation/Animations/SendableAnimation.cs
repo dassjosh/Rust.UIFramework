@@ -21,7 +21,7 @@ public abstract class SendableAnimation : BaseAnimation, ISendableAnimation
                 return;
             }
 
-            throw new AnimationException($"{nameof(ISendableAnimation)}.{nameof(Send)} cannot be called after it has been set.");
+            throw new AnimationException($"{nameof(ISendableAnimation)}.{nameof(Send)}.set cannot be called after it has been set.");
         }
     }
 
@@ -56,17 +56,27 @@ public abstract class SendableAnimation : BaseAnimation, ISendableAnimation
 
     public void RemovePlayer(ulong playerId)
     {
-        for (int index = Send.connections.Count - 1; index >= 0; index--)
+        if (Send.connections != null)
         {
-            Connection connection = Send.connections[index];
-            if (connection.userid == playerId)
+            for (int index = Send.connections.Count - 1; index >= 0; index--)
             {
-                Send.connections.RemoveAt(index);
-                break;
+                Connection connection = Send.connections[index];
+                if (connection.userid == playerId)
+                {
+                    Send.connections.RemoveAt(index);
+                    break;
+                }
             }
+
+            if (Send.connections.Count == 0)
+            {
+                CancelAnimation();
+            }
+
+            return;
         }
 
-        if (Send.connections.Count == 0)
+        if (Send.connection.userid == playerId)
         {
             CancelAnimation();
         }

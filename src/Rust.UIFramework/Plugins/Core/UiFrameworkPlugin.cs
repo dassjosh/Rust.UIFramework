@@ -66,7 +66,7 @@ internal class UiFrameworkPlugin : BaseUiFrameworkPlugin, IUiFrameworkPlugin
     {
         Singleton<DataHandler>.Instance.OnServerSave();
         BaseMemoryCache.ExpireCaches();
-        Singleton<ImageUpdateAnimations>.Instance.CleanupOldUpdates();
+        Singleton<ImageDownloadAnimationHandler>.Instance.CleanupOldUpdates();
         BaseUiFrameworkLibrary.ProcessOnServerSave();
     }
     

@@ -55,6 +55,13 @@ public static class AnimationExt
         animation.Delay = trigger = TriggerDelayAnimation.Create(animation.Plugin);
         return UiTuple.Create(animation, trigger);
     }
+    
+    public static T TimeoutDelay<T>(this T animation, float timeout) where T : IAnimation
+    {
+        animation.Timeout(timeout);
+        animation.Delay ??= InfiniteDelay.Create(animation.Plugin);
+        return animation;
+    }
 
     public static T Duration<T>(this T animation, float seconds) where T : IAnimation
     {
@@ -71,9 +78,10 @@ public static class AnimationExt
         return animation;
     }
     
-    public static T Bezier<T>(this T animation, in BezierEasing points) where T : IAnimation => animation.WithEasing(points);
+    public static T Bezier<T>(this T animation, CubicBezier points) where T : IAnimation => animation.WithEasing(points);
     public static T Linear<T>(this T animation) where T : IAnimation => animation.WithEasing(EasingFunctions.Linear);
-    public static T Ease<T>(this T animation) where T : IAnimation => animation.WithEasing(BezierEasing.Ease);
+    public static T Ease<T>(this T animation) where T : IAnimation => animation.WithEasing(EasingFunctions.Ease);
+    public static T EaseIn<T>(this T animation) where T : IAnimation => animation.WithEasing(EasingFunctions.EaseIn);
     
     public static T Out<T>(this T animation) where T : IAnimation => animation.WithEasing(animation.Easing.Out());
     public static T InOut<T>(this T animation) where T : IAnimation => animation.WithEasing(animation.Easing.InOut());

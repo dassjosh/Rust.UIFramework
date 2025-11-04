@@ -50,6 +50,8 @@ internal class ImageDownloader
         {
             Timeout = TimeSpan.FromSeconds(30)
         };
+        
+        _httpClient.DefaultRequestHeaders.Add("user-agent", $"Rust UiFramework (https://github.com/dassjosh/Rust.UIFramework, v{UiFrameworkExtension.Instance.Version})");
     }
 
     /// <summary>
@@ -73,8 +75,13 @@ internal class ImageDownloader
         }
         
         state.AddRequest(request);
-        _requestQueue.Enqueue(state);
-        EnsureWorkersRunning();
+        if (!state.IsDownloading)
+        {
+            state.OnDownloadQueued();
+            _requestQueue.Enqueue(state);
+            EnsureWorkersRunning();
+        }
+
         return request;
     }
 
@@ -197,17 +204,19 @@ internal class ImageDownloader
             {
                 byte[] data = await response.Content.ReadAsByteArrayAsync();
                 state.OnDownloadComplete(data);
+                _logger.Debug("Image Downloaded Successfully. Plugin: {0} Url: {1} Attempt: {2}", state.GetFirstPluginId(), state.Url, state.Attempts);
                 return true;
             }
-            
-            _logger.Error($"Failed to download image. Plugin: {state.GetFirstPluginId()} Url: {state.Url}. Attempt: {state.Attempts} Status Code: {response.StatusCode}. Message: {await response.Content.ReadAsStringAsync()}");
+
+            string message = await response.Content.ReadAsStringAsync();
+            _logger.Error($"Failed to download image. Plugin: {state.GetFirstPluginId()} Url: {state.Url}. Attempt: {state.Attempts} Status Code: {response.StatusCode}. Message:\n{message}");
+            state.OnDownloadFailed(response.StatusCode, message);
         }
         catch (Exception ex) when (ex is not OperationCanceledException)
         {
             _logger.Exception($"An error occured downloading image. Plugin: {state.GetFirstPluginId()} Url: {state.Url} Attempt: {state.Attempts}", ex);
         }
-
-        state.OnDownloadFailed();
+        
         return false;
     }
     

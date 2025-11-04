@@ -32,10 +32,14 @@ public static class AnimationBuilderExt
     
     public static IElementAnimation<UiRawImage> AnimateDownload(this IAnimationBuilder builder, UiRawImage image)
     {
-        if (image.Image.StartsWith("http", StringComparison.OrdinalIgnoreCase) && Singleton<UiImageStorage>.Instance.IsDownloading(image.Image))
+        string url = image.Image;
+        if (url.IsValidUrl() && Singleton<UiImageStorage>.Instance.IsDownloading(url))
         {
-            IElementAnimation<UiRawImage> animation = builder.Animate(image);
-            Singleton<ImageUpdateAnimations>.Instance.QueueUpdate(image.Image, animation, null);
+            IElementAnimation<UiRawImage> animation = builder.Animate(image)
+                .OnQueued(a =>
+                {
+                    Singleton<ImageDownloadAnimationHandler>.Instance.QueueUpdate(url, a, null);
+                });
             return animation;
         }
 
@@ -44,7 +48,8 @@ public static class AnimationBuilderExt
     
     public static IElementAnimation<UiRawImage> AnimateDownload(this IAnimationBuilder builder, UiRawImage image, ImageAnimationOptions options)
     {
-        if (image.Image.StartsWith("http", StringComparison.OrdinalIgnoreCase) && Singleton<UiImageStorage>.Instance.IsDownloading(image.Image))
+        string url = image.Image;
+        if (url.IsValidUrl() && Singleton<UiImageStorage>.Instance.IsDownloading(url))
         {
             if (!string.IsNullOrEmpty(options.DownloadingImageNameOrUrl))
             {
@@ -56,11 +61,9 @@ public static class AnimationBuilderExt
             string timeoutImage = !string.IsNullOrEmpty(options.TimeoutImageNameOrUrl) ? options.TimeoutImageNameOrUrl : options.FailedImageNameOrUrl;
 
             IElementAnimation<UiRawImage> animation = builder.Animate(image)
-                .Timeout(timeout)
-                .Delay(timeout)
-                .OnTimeout(a => a.Element.Image = timeoutImage);
-            
-            Singleton<ImageUpdateAnimations>.Instance.QueueUpdate(image.Image, animation, options);
+                .OnQueued(a => Singleton<ImageDownloadAnimationHandler>.Instance.QueueUpdate(url, a, options))
+                .OnTimeout(a => a.Element.Image = timeoutImage)
+                .TimeoutDelay(timeout);
 
             return animation;
         }

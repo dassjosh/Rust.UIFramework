@@ -36,7 +36,7 @@ public abstract class BasePoolable : IPoolable
     
     internal virtual void OnInit() {}
     
-    internal void OverridePluginPool(UiPluginPool pluginPool)
+    internal virtual void OverridePluginPool(UiPluginPool pluginPool)
     {
         PluginPool = pluginPool;
     }

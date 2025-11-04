@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Exceptions;
 using Oxide.Ext.UiFramework.Extensions;
+using Oxide.Ext.UiFramework.Logging;
 using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Types;
@@ -19,12 +21,17 @@ public abstract class BaseAnimation : BasePoolable, IAnimation
     public IAnimationInterpolator Interpolator { get; set; }
     public IAnimationDelay Delay { get; set; }
     public IAnimationTimeout Timeout { get; set; }
-    public IAnimationEvents Events { get; } = new AnimationEvents();
+    public IAnimationEvents Events { get; }
     public IAnimation Parent { get; private set;  }
     public virtual bool HasChanged => Interpolator?.HasChanged ?? false;
 
     public IReadOnlyList<IAnimation> Children => _children;
     private readonly List<BaseAnimation> _children = [];
+
+    protected BaseAnimation()
+    {
+        Events = new AnimationEvents(this);
+    }
     
     protected void Init(IUiFrameworkPlugin plugin)
     {
@@ -62,24 +69,6 @@ public abstract class BaseAnimation : BasePoolable, IAnimation
         }
         
         TickCleanup();
-    }
-
-    protected virtual void TickCleanup()
-    {
-        for (int index = _children.Count - 1; index >= 0; index--)
-        {
-            BaseAnimation child = _children[index];
-            if (child.State > AnimationState.Running)
-            {
-                child.Dispose();
-                _children.RemoveAt(index);
-            }
-        }
-
-        if (Duration is { IsCompleted : true } || Interpolator == null && _children.Count == 0)
-        {
-            CompleteAnimation();
-        }
     }
     
     protected virtual bool TickDelay()
@@ -124,7 +113,9 @@ public abstract class BaseAnimation : BasePoolable, IAnimation
             return;
         }
         
+        float previous = Duration.ElapsedPercentage;
         Duration.OnTick();
+        UiFrameworkExtension.GlobalLogger.Debug("Animation {0} TickDuration {1:0.00} -> {2:0.00}. IsCompleted: {3}", Id.Id, previous, Duration.ElapsedPercentage, Duration.IsCompleted);
         if (!Duration.IsCompleted)
         {
             return;
@@ -133,7 +124,7 @@ public abstract class BaseAnimation : BasePoolable, IAnimation
         if (Repeat is not null && Repeat.OnRepeat())
         {
             Duration.Restart(Repeat.RepeatDelay);
-            Events.OnEvent(AnimationEventType.Repeat, this);
+            Events.OnEvent(AnimationEventType.Repeat);
         }
     }
     
@@ -148,34 +139,79 @@ public abstract class BaseAnimation : BasePoolable, IAnimation
             child.OnTick();
         }
     }
+    
+    protected virtual void TickCleanup()
+    {
+        for (int index = _children.Count - 1; index >= 0; index--)
+        {
+            BaseAnimation child = _children[index];
+            if (child.State > AnimationState.Running)
+            {
+                child.Dispose();
+                _children.RemoveAt(index);
+            }
+        }
+        
+        UiFrameworkExtension.GlobalLogger.Debug("Animation {0} TickCleanup", Id.Id);
+
+        if (State < AnimationState.Completed && (Duration is { IsCompleted : true } || Interpolator == null) && _children.Count == 0)
+        {
+            CompleteAnimation();
+        }
+    }
 
     public void ChangeState(AnimationState newState)
     {
         InvalidAnimationStateException.ThrowIfInvalidState(State, newState);
-        State = newState;
 
+        //Don't allow changing states once we hit Completed, Canceled, or Timeout
+        switch (State)
+        {
+            case AnimationState.Completed:
+            case AnimationState.Cancelled:
+            case AnimationState.Timeout:
+                return;
+        }
+        
+        UiFrameworkExtension.GlobalLogger.Debug("Animation {0} changed state {1} -> {2}", Id, State, newState);
+        State = newState;
+        
         switch (State)
         {
             case AnimationState.Queued:
-                Events.OnEvent(AnimationEventType.Queued, this);
+                Events.OnEvent(AnimationEventType.Queued);
+                ChangeChildState();
                 break;
             case AnimationState.Delayed:
-                Events.OnEvent(AnimationEventType.Delayed, this);
+                Events.OnEvent(AnimationEventType.Delayed);
                 break;
             case AnimationState.Running:
-                Events.OnEvent(AnimationEventType.Started, this);
+                Events.OnEvent(AnimationEventType.Started);
                 break;
             case AnimationState.Completed:
-                Events.OnEvent(AnimationEventType.Completed, this);
+                Events.OnEvent(AnimationEventType.Completed);
+                Events.OnEvent(AnimationEventType.Finalized);
                 break;
             case AnimationState.Cancelled:
-                Events.OnEvent(AnimationEventType.Canceled, this);
+                Events.OnEvent(AnimationEventType.Canceled);
+                Events.OnEvent(AnimationEventType.Finalized);
+                ChangeChildState();
                 break;
             case AnimationState.Timeout:
-                Events.OnEvent(AnimationEventType.Timeout, this);
+                Events.OnEvent(AnimationEventType.Timeout);
+                Events.OnEvent(AnimationEventType.Finalized);
+                ChangeChildState();
                 break;
+            case AnimationState.Pooled:
+            case AnimationState.Init:
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(newState), newState.ToString());
         }
+    }
 
+    private void ChangeChildState()
+    {
         for (int index = 0; index < _children.Count; index++)
         {
             IAnimation child = _children[index];
@@ -186,20 +222,9 @@ public abstract class BaseAnimation : BasePoolable, IAnimation
         }
     }
 
-    public virtual void CompleteAnimation()
-    {
-        ChangeState(AnimationState.Completed);
-    }
-
-    public virtual void CancelAnimation()
-    {
-        ChangeState(AnimationState.Cancelled);
-    }
-
-    public virtual void TimeoutAnimation()
-    {
-        ChangeState(AnimationState.Timeout);
-    }
+    public virtual void CompleteAnimation() => ChangeState(AnimationState.Completed);
+    public virtual void CancelAnimation() => ChangeState(AnimationState.Cancelled);
+    public virtual void TimeoutAnimation() => ChangeState(AnimationState.Timeout);
 
     public virtual float GetProgress()
     {
@@ -207,18 +232,26 @@ public abstract class BaseAnimation : BasePoolable, IAnimation
         {
             return AnimationConstants.CompletedProgress;
         }
-        
+
+        float progress;
         if (Duration != null)
         {
-            float progress = Duration.ElapsedPercentage;
-            if (Easing != null)
+            progress = Duration.ElapsedPercentage;
+            if (Easing == null)
             {
-                progress = Easing(progress);
+                UiFrameworkExtension.GlobalLogger.Debug("Animation {0} GetProgress {1:0.00}%", Id.Id, progress * 100f);
+                return progress;
             }
+            
+            float previous = progress;
+            progress = Easing(progress);
+            UiFrameworkExtension.GlobalLogger.Debug("Animation {0} GetProgress Easing {1:0.00}% -> {2:0.00}%", Id.Id, previous * 100f, progress * 100f);
             return progress;
         }
         
-        return Parent?.GetProgress() ?? AnimationConstants.NoProgress;
+        progress = Parent?.GetProgress() ?? AnimationConstants.NoProgress;
+        UiFrameworkExtension.GlobalLogger.Debug("Animation {0} Parent GetProgress {1:0.00}%", Id.Id, progress * 100f);
+        return progress;
     }
 
     public virtual ISendableAnimation GetSendable()
@@ -242,8 +275,7 @@ public abstract class BaseAnimation : BasePoolable, IAnimation
     
     public override void Dispose()
     {
-        Singleton<AnimationTracker>.Instance.OnAnimationCompleted(Id);
-        Events.OnEvent(AnimationEventType.Finalized, this);
+        Singleton<AnimationTracker>.Instance.OnAnimationFinalized(Id);
         base.Dispose();
     }
 

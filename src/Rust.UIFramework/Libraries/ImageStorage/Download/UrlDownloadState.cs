@@ -1,4 +1,6 @@
-﻿using Oxide.Ext.UiFramework.Config;
+﻿using System.Net;
+using Oxide.Ext.UiFramework.Config;
+using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Types;
 
@@ -12,43 +14,60 @@ public sealed class UrlDownloadState(string url)
 
     public byte[] Image { get; private set; }
     internal ImageId ImageId { get; private set; }
+
+    public HttpStatusCode StatusCode { get; private set; }
+    public string Message { get; private set; }
+    public RegisterImageErrorCode ErrorCode { get; private set; }
     
-    private readonly ConcurrentList<DownloadImageRequest> _urlRequests = [];
+    internal readonly ConcurrentList<DownloadImageRequest> URLRequests = [];
 
     public bool IsDownloading => State is DownloadState.InProgress or DownloadState.Queued;
     public bool IsCompleted => State is DownloadState.Completed or DownloadState.Stored;
     public bool HadDownloadError => State == DownloadState.Failed || Attempts > 0;
     public bool IsOutOfAttempts => Attempts >= UiFrameworkConfig.Instance.ImageStorage.MaxDownloadAttempts;
-    internal PluginId GetFirstPluginId() => _urlRequests.Count != 0 ? _urlRequests[0].PluginId : default;
-    internal void AddRequest(DownloadImageRequest request) => _urlRequests.TryAdd(request);
+    internal PluginId GetFirstPluginId() => URLRequests.Count != 0 ? URLRequests[0].PluginId : default;
+    internal void AddRequest(DownloadImageRequest request) => URLRequests.TryAdd(request);
+    public void OnDownloadQueued() => State = DownloadState.Queued;
     public void OnDownloadStarted() => State = DownloadState.InProgress;
 
-    public void OnDownloadFailed()
+    public void OnDownloadFailed(HttpStatusCode code, string message)
     {
         Attempts += 1;
         State = DownloadState.Failed;
-        foreach (DownloadImageRequest request in _urlRequests)
+        StatusCode = code;
+        Message = message;
+        foreach (DownloadImageRequest request in URLRequests)
         {
             request.ExecuteOnDownloadFailed();
         }
-        Singleton<ImageUpdateAnimations>.Instance.OnDownloadCompleted(Url, false, default);
-        _urlRequests.Clear();
+        Singleton<ImageDownloadAnimationHandler>.Instance.OnDownloadCompleted(Url, false, default);
+        URLRequests.Clear();
     }
 
     public void OnDownloadComplete(byte[] image)
     {
         State = DownloadState.Completed;
         Image = image;
+        StatusCode = HttpStatusCode.OK;
+        Message = null;
+        Singleton<UiImageStorage>.Instance.OnDownloadCompleted(this);
     }
 
     internal void OnImageStored(ImageId imageId)
     {
         ImageId = imageId;
         State = DownloadState.Stored;
-        foreach (DownloadImageRequest request in _urlRequests)
+        URLRequests.Clear();
+    }
+
+    internal void OnInvalidImage(RegisterImageErrorCode code)
+    {
+        ErrorCode = code;
+        foreach (DownloadImageRequest request in URLRequests)
         {
-            request.ExecuteOnDownloadCompleted(imageId.ToString());
+            request.ExecuteOnInvalidImage();
         }
-        _urlRequests.Clear();
+        Singleton<ImageDownloadAnimationHandler>.Instance.OnDownloadCompleted(Url, false, default);
+        URLRequests.Clear();
     }
 }

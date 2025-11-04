@@ -9,14 +9,14 @@ using System.Collections.Concurrent;
 /// </summary>
 internal class ImageStorageBehavior : FacepunchBehaviour, IImageStorageBehavior
 {
-    private readonly ConcurrentQueue<DownloadImageRequest> _completed = new();
+    private readonly ConcurrentQueue<UrlDownloadState> _completed = new();
 
     private void Awake()
     {
         enabled = false;
     }
     
-    public void OnDownloadCompleted(DownloadImageRequest download)
+    public void OnDownloadCompleted(UrlDownloadState download)
     {
         _completed.Enqueue(download);
         enabled = true;
@@ -24,7 +24,7 @@ internal class ImageStorageBehavior : FacepunchBehaviour, IImageStorageBehavior
     
     private void Update()
     {
-        if (_completed.TryDequeue(out DownloadImageRequest download))
+        if (_completed.TryDequeue(out UrlDownloadState download))
         {
             Singleton<UiImageStorage>.Instance.StoreDownloadedImage(download);
             return;
@@ -38,7 +38,7 @@ internal class ImageStorageBehavior : ISingleton, IImageStorageBehavior
 {
     private ImageStorageBehavior() { }
     
-    public void OnDownloadCompleted(DownloadImageRequest download)
+    public void OnDownloadCompleted(UrlDownloadState download)
     {
         Singleton<UiImageStorage>.Instance.StoreDownloadedImage(download);
     }
@@ -47,5 +47,5 @@ internal class ImageStorageBehavior : ISingleton, IImageStorageBehavior
 
 internal interface IImageStorageBehavior
 {
-    void OnDownloadCompleted(DownloadImageRequest download);
+    void OnDownloadCompleted(UrlDownloadState download);
 }

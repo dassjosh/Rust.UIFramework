@@ -9,4 +9,6 @@ public readonly record struct AnimationId(long Id)
     private static long _nextAnimationId;
     
     internal static AnimationId GetNextId() => new(Interlocked.Increment(ref _nextAnimationId));
+    
+    public override string ToString() => Id.ToString();
 }

@@ -1,8 +1,13 @@
 ﻿using System;
+using System.Net;
+using Oxide.Ext.UiFramework.Enums;
+using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Logging;
 using Oxide.Ext.UiFramework.Plugins;
 
 namespace Oxide.Ext.UiFramework.Libraries;
+
+public record DownloadFailedEventArgs(HttpStatusCode Code, string Message);
 
 public sealed class DownloadImageRequest
 {
@@ -10,8 +15,9 @@ public sealed class DownloadImageRequest
     public readonly string Name;
     public readonly UrlDownloadState UrlState;
 
-    private event Action<string> OnDownloadCompleted;
-    private event Action OnDownloadFailed;
+    private DownloadEvent<string> _downloadCompletedEvent;
+    private DownloadEvent<DownloadFailedEventArgs> _downloadFailedEvent;
+    private DownloadEvent<RegisterImageErrorCode> _invalidImageEvent;
 
     internal DownloadImageRequest(PluginId pluginId, string name, UrlDownloadState urlState)
     {
@@ -22,49 +28,60 @@ public sealed class DownloadImageRequest
 
     public void AddOnDownloadCompletedCallback(Action<string> callback)
     {
-        if (UrlState.State == DownloadState.Completed)
+        _downloadCompletedEvent ??= new DownloadEvent<string>();
+        _downloadCompletedEvent.AddCallback(callback);
+        
+        if (UrlState.State == DownloadState.Stored)
         {
             callback(UrlState.ImageId.ToString());
         }
-        else
+    }
+
+    public void AddOnDownloadFailedCallback(Action<DownloadFailedEventArgs> callback)
+    {
+        _downloadFailedEvent ??= new DownloadEvent<DownloadFailedEventArgs>();
+        _downloadFailedEvent.AddCallback(callback);
+        
+        if (UrlState.State == DownloadState.Failed)
         {
-            OnDownloadCompleted += callback;
+            ExecuteOnDownloadFailed();
+        }
+    }
+    
+    public void AddOnInvalidImageCallback(Action<RegisterImageErrorCode> callback)
+    {
+        _invalidImageEvent ??= new DownloadEvent<RegisterImageErrorCode>();
+        _invalidImageEvent.AddCallback(callback);
+        
+        if (UrlState.State == DownloadState.Completed && UrlState.ErrorCode != RegisterImageErrorCode.None)
+        {
+            ExecuteOnInvalidImage();
         }
     }
 
-    public void AddOnDownloadFailedCallback(Action callback)
-    {
-        if (UrlState.State == DownloadState.Failed && UrlState.IsOutOfAttempts)
-        {
-            callback();
-        }
-        else
-        {
-            OnDownloadFailed += callback;
-        }
-    }
+    internal void ExecuteOnDownloadCompleted() => _downloadCompletedEvent?.Invoke(PluginId, Name, UrlState.Url, UrlState.ImageId.Id.ToString());
+    internal void ExecuteOnDownloadFailed() => _downloadFailedEvent?.Invoke(PluginId, Name, UrlState.Url, new DownloadFailedEventArgs(UrlState.StatusCode, UrlState.Message));
+    internal void ExecuteOnInvalidImage() => _invalidImageEvent?.Invoke(PluginId, Name, UrlState.Url, UrlState.ErrorCode);
 
-    internal void ExecuteOnDownloadCompleted(string imageId)
+    private sealed class DownloadEvent<T>
     {
-        try
-        {
-            OnDownloadCompleted?.Invoke(imageId);
-        }
-        catch (Exception ex)
-        {
-            UiFrameworkExtension.GlobalLogger.Exception("An error occured during OnDownloadCompleted callback. Plugin: {0} Name: {1} Url: {2}", PluginId, Name, UrlState.Url, ex);
-        }
-    }
+        private event Action<T> Event;
 
-    internal void ExecuteOnDownloadFailed()
-    {
-        try
+        public void AddCallback(Action<T> callback) => Event += callback;
+        public void Invoke(PluginId id, string name, string url, T arg)
         {
-            OnDownloadFailed?.Invoke();
-        }
-        catch (Exception ex)
-        {
-            UiFrameworkExtension.GlobalLogger.Exception("An error occured during OnDownloadCompleted callback. Plugin: {0} Name: {1} Url: {2}", PluginId, Name, UrlState.Url, ex);
+            try
+            {
+                Event?.Invoke(arg);
+            }
+            catch (Exception ex)
+            {
+                UiFrameworkExtension.GlobalLogger.Exception("An error occured during event callback for type: {0}. Plugin: {1} Name: {2} Url: {3}", typeof(T).GetRealTypeName(), id, name, url, ex);
+            }
+            finally
+            {
+                Event = null;
+            }
         }
     }
 }

@@ -28,6 +28,7 @@ public class ElementAnimation<T> : SendableAnimation, IElementAnimation<T> where
         base.Init(plugin);
         Element.Name = name;
         Element.Update = UpdateMode.Update;
+        Element.OverridePluginPool(plugin.PluginPool);
         return this;
     }
     

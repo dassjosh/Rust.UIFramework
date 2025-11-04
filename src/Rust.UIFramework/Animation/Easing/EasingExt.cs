@@ -6,7 +6,6 @@ public delegate float Easing(float t);
 
 public static class EasingExt
 {
-    public static Easing In(this Easing easing) => easing;
     public static Easing Out(this Easing easing) => t => 1f - easing(1f - t);
     public static Easing InOut(this Easing easing) => t => t < 0.5f ? easing(t * 2f) / 2f : 1f - easing((1f - t) * 2f) / 2f;
     public static Easing PingPong(this Easing easing) => t => t < 0.5f ? easing(t * 2f) : 1f - easing((1f - t) * 2f);

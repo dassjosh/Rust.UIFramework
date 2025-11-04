@@ -25,18 +25,14 @@ public class InvalidAnimationStateException : BaseUiFrameworkException
                     throw new InvalidAnimationStateException($"Tried change animation state to {newState} but animation is in the {currentState} state. Expected animation to be in the {AnimationState.Queued} or {AnimationState.Delayed} state.");
                 break;
             case AnimationState.Completed:
-                if (currentState != AnimationState.Running && currentState != AnimationState.Queued) 
-                    throw new InvalidAnimationStateException($"Tried change animation state to {newState} but animation is in the {currentState} state. Expected animation to be in the {AnimationState.Running} or {AnimationState.Queued} state.");
+                if (currentState != AnimationState.Running && currentState != AnimationState.Queued && currentState != AnimationState.Delayed) 
+                    throw new InvalidAnimationStateException($"Tried change animation state to {newState} but animation is in the {currentState} state. Expected animation to be in the {AnimationState.Running}, {AnimationState.Queued}, or {AnimationState.Delayed} state.");
                 break;
             case AnimationState.Cancelled:
                 if (currentState == AnimationState.Pooled) ThrowNotExpectedException(currentState, newState);
                 break;
             case AnimationState.Timeout:
                 if (currentState == AnimationState.Pooled) ThrowNotExpectedException(currentState, newState);
-                break;
-            case AnimationState.Pooled:
-                if(currentState != AnimationState.Cancelled && currentState != AnimationState.Completed && currentState != AnimationState.Timeout) 
-                    throw new InvalidAnimationStateException($"Tried change animation state to {newState} but animation is in the {currentState} state. Expected animation to be in the {AnimationState.Cancelled} or {AnimationState.Completed} or {AnimationState.Timeout} state.");
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);

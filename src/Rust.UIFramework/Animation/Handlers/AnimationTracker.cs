@@ -61,7 +61,7 @@ internal class AnimationTracker : ISingleton
         return playerPanels;
     }
 
-    public void OnAnimationCompleted(AnimationId id)
+    public void OnAnimationFinalized(AnimationId id)
     {
         if (_animatedPlayers.TryGetValue(id, out List<PlayerPanel> playerPanels))
         {

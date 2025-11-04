@@ -38,9 +38,7 @@ internal class AnimationData
         animations.AddAnimation(animation);
     }
     
-    public void RemoveAnimation(AnimationId id) => RemoveAnimationInternal(id);
-
-    private void RemoveAnimationInternal(AnimationId id, bool callOnRemoved = true)
+    public void RemoveAnimation(AnimationId id)
     {
         if (!id.IsValid)
         {
@@ -61,9 +59,9 @@ internal class AnimationData
             _groupAnimations.TryRemove(id, out ISendableAnimation _);
         }
 
-        if (callOnRemoved)
+        if (id == animation.Id)
         {
-            animation.Dispose();
+            animation.TryDispose();
         }
     }
 
@@ -96,8 +94,8 @@ internal class AnimationData
         {
             if (animation is IPoolable { IsPooled: true } || id != animation.Id)
             {
-                //Somehow the animation was disposed and we didn't remove it. Remove the animation and don't fire events.
-                RemoveAnimationInternal(animation.Id, false);
+                //Somehow the animation was disposed and we didn't remove it.
+                RemoveAnimation(animation.Id);
                 continue;
             }
 
@@ -134,7 +132,7 @@ internal class AnimationData
         {
             if (animation.Plugin == plugin)
             {
-                RemoveAnimationInternal(animation.Id, false);
+                RemoveAnimation(animation.Id);
             }
         }
     }

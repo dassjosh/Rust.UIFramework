@@ -1,6 +1,6 @@
 ﻿namespace Oxide.Ext.UiFramework.Enums;
 
-public enum RegisterImageErrorCode
+public enum RegisterImageErrorCode : byte
 {
     None,
     AlreadyRegistered,

@@ -58,17 +58,11 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
             return id.ToString();
         }
 
-        if (nameOrUrl.StartsWith("http", StringComparison.OrdinalIgnoreCase))
+        if (nameOrUrl.IsValidUrl())
         {
             DownloadImageRequest request = RegisterImage(pluginId, nameOrUrl);
             if (request.UrlState is { HadDownloadError: false, IsDownloading: true })
             {
-                // ImageDownloadAnimationOptions automaticUpdate = options.AutomaticUpdate;
-                // if (automaticUpdate is { EnableAutoImageUpdate: true } && !string.IsNullOrEmpty(automaticUpdate.DownloadingImageNameOrUrl) && nameOrUrl != automaticUpdate.DownloadingImageNameOrUrl)
-                // {
-                //     return Get(pluginId, automaticUpdate.DownloadingImageNameOrUrl, options);
-                // }
-
                 return nameOrUrl;
             }
 
@@ -81,8 +75,15 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
             
             return Get(UiFrameworkPlugin.Instance, UiImageDefaults.NotFound);
         }
-        
-        _logger.Debug("Failed to get image for plugin: {0} name: {1}", pluginId.FullName(), nameOrUrl);
+
+        if (nameOrUrl.StartsWith("www.", StringComparison.OrdinalIgnoreCase))
+        {
+            _logger.Warning("URL's must start with http:// or https://. Url: {0}", nameOrUrl);
+        }
+        else
+        {
+            _logger.Debug("Failed to get image for plugin: {0} name: {1}", pluginId.FullName(), nameOrUrl);
+        }
         
         return Get(UiFrameworkPlugin.Instance, UiImageDefaults.NotFound);
     }
@@ -93,7 +94,7 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
     {
         InvalidPluginIdException.ThrowIfInvalidPluginId(pluginId); 
         CommunityEntityNotReadyException.ThrowIfNotReady();
-        if (!IsValidUrl(url))
+        if (!url.IsValidUrl())
         {
             throw new InvalidUrlException(url);
         }
@@ -113,7 +114,7 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
 
     internal DownloadImageRequest RegisterImage(PluginId plugin, string url) => RegisterImage(plugin, url, url);
 
-    public bool RegisterImage(IUiFrameworkPlugin plugin, string name, byte[] image, out RegisterImageErrorCode error)
+    public RegisterImageErrorCode RegisterImage(IUiFrameworkPlugin plugin, string name, byte[] image)
     {
         CommunityEntityNotReadyException.ThrowIfNotReady();
         if (plugin == null) throw new ArgumentNullException(nameof(plugin));
@@ -124,43 +125,43 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
         if (id.IsValid && id.Id == Crc.GetCRC(image))
         {
             _db.OnImageRegistered(id);
-            error = RegisterImageErrorCode.AlreadyRegistered;
-            return false;
+            return RegisterImageErrorCode.AlreadyRegistered;
         }
         
-        ImageId imageId = ProcessImage(image, out error);
-        if (!imageId.IsValid)
-        {
-            return false;
-        }
-        
-        _data.AddPluginImage(plugin.Id(), name, imageId);
-        return true;
-    }
-
-    public bool IsDownloading(string url)
-    {
-        return _downloader.IsDownloading(url);
-    }
-
-    internal void OnDownloadCompleted(DownloadImageRequest request) => _storage.OnDownloadCompleted(request);
-    
-    internal void StoreDownloadedImage(DownloadImageRequest download)
-    {
-        UrlDownloadState state = download.UrlState;
-        byte[] image = state.Image;
         ImageId imageId = ProcessImage(image, out RegisterImageErrorCode error);
         if (!imageId.IsValid)
         {
-            _logger.Warning("Failed to download image from url: {0} Error: {1}", state.Url, error);
+            return error;
+        }
+        
+        _data.AddPluginImage(plugin.Id(), name, imageId);
+        return RegisterImageErrorCode.None;
+    }
+
+    public bool IsDownloading(string url) => _downloader.IsDownloading(url);
+
+    internal void OnDownloadCompleted(UrlDownloadState request) => _storage.OnDownloadCompleted(request);
+    
+    internal void StoreDownloadedImage(UrlDownloadState download)
+    {
+        byte[] image = download.Image;
+        ImageId imageId = ProcessImage(image, out RegisterImageErrorCode error);
+        if (!imageId.IsValid)
+        {
+            _logger.Error("Failed to download image from url: {0} Error: {1}", download.Url, error);
+            download.OnInvalidImage(error);
             return;
         }
         
-        state.OnImageStored(imageId);
+        _data.AddUrlImage(download.Url, imageId);
+        foreach (DownloadImageRequest request in download.URLRequests)
+        {
+            _data.AddPluginImage(request.PluginId, request.Name, imageId);
+            request.ExecuteOnDownloadCompleted();
+        }
         
-        _data.AddPluginImage(download.PluginId, download.Name, imageId);
-        _data.AddUrlImage(state.Url, imageId);
-        Singleton<ImageUpdateAnimations>.Instance.OnDownloadCompleted(state.Url, true, imageId);
+        download.OnImageStored(imageId);
+        Singleton<ImageDownloadAnimationHandler>.Instance.OnDownloadCompleted(download.Url, true, imageId);
     }
 
     private ImageId ProcessImage(byte[] image, out RegisterImageErrorCode error)
@@ -199,13 +200,11 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
 #endif
     }
 
-    private bool IsValidUrl(string url) => url.StartsWith("http", StringComparison.OrdinalIgnoreCase);
-
     protected override void OnCommunityEntitySpawned(CommunityEntity entity)
     {
         IsReady = true;
         ImageStorageData.Instance.OnCommunityEntityLoaded(_db.GetSaveVersion(entity));
-        RegisterImage(UiFrameworkPlugin.Instance, UiImages.White1x1Name, Convert.FromBase64String(UiImages.White1x1Base64), out RegisterImageErrorCode _);
+        RegisterImage(UiFrameworkPlugin.Instance, UiImages.White1x1Name, Convert.FromBase64String(UiImages.White1x1Base64));
         Interface.Oxide.CallHook(UiFrameworkHooks.OnUiImageStorageReady);
     }
 

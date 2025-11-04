@@ -4,6 +4,7 @@ using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Interfaces;
 using Oxide.Ext.UiFramework.Json;
+using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Pooling;
 using Rust.UiFramework.SourceGenerators.Attributes;
 using UnityEngine;
@@ -107,6 +108,11 @@ public abstract partial class BaseUiComponent : BasePoolable, IBaseUiComponent
     }
 
     internal override void OnInit() => Component.OverridePluginPool(PluginPool);
+    internal override void OverridePluginPool(UiPluginPool pluginPool)
+    {
+        base.OverridePluginPool(pluginPool);
+        Component.OverridePluginPool(pluginPool);
+    }
 
     protected override void EnterPool() => Reset();
 

@@ -111,7 +111,7 @@ internal class AnimationHandler : ISingleton
 
     private void ProcessAnimation(AnimationId id, ISendableAnimation animation, JsonFrameworkWriter writer)
     {
-        _logger.Debug("Processing Animation {0}", id);
+        _logger.Debug("Processing Animation {0}", id.Id);
 
         try
         {
@@ -123,6 +123,7 @@ internal class AnimationHandler : ISingleton
                 }
                 
                 animation.OnTick();
+                UiFrameworkExtension.GlobalLogger.Debug($"{nameof(AnimationHandler)}.{nameof(ProcessAnimation)} ID: {{0}} HasChanged: {{1}}", id.Id, animation.HasChanged);
                 if (animation.HasChanged)
                 {
                     animation.Serialize(writer);
