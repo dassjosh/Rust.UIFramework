@@ -23,6 +23,8 @@ public static class AnimationBuilderExt
         return animation;
     }
     
+    public static IElementAnimation<T> Animate<T>(this IAnimationBuilder builder, in UiReference reference) where T : BaseUiComponent, new() => builder.Animate<T>(reference.Name);
+    
     public static IElementAnimation<T> Animate<T>(this IAnimationBuilder builder, string name) where T : BaseUiComponent, new()
     {
         ElementAnimation<T> animation = ElementAnimation<T>.Create(builder.Plugin, name);
