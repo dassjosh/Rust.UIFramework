@@ -14,6 +14,7 @@ public static class EasingFunctions
     public static readonly Easing Ease = new CubicBezier(0.25, .1, 0.25, 1);
     public static readonly Easing EaseIn = new CubicBezier(0.42,0,1,1);
     public static readonly Easing SharpCurve = new CubicBezier(0.4, 0.0, 0.2, 1.0);
+    public static readonly Easing Pulse = new CubicBezier(0, 0, 0.2, 1);
     public static readonly Easing Linear = t => t;
     public static readonly Easing Quad = t => t * t;
     public static readonly Easing Cubic = t => t * t * t;
