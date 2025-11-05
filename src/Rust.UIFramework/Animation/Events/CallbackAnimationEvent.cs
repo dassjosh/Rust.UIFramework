@@ -5,14 +5,14 @@ using Oxide.Ext.UiFramework.Pooling;
 
 namespace Oxide.Ext.UiFramework.Animation;
 
-public class CallbackAnimationEvent : BasePoolable, IAnimationEvent
+public class CallbackAnimationEvent<T> : BasePoolable, IAnimationEvent where T : IAnimation
 {
     private AnimationEventType _type;
-    private Action<IAnimation> _callback;
+    private Action<T> _callback;
     
-    public static CallbackAnimationEvent Create(IUiFrameworkPlugin plugin, AnimationEventType type, Action<IAnimation> callback)
+    public static CallbackAnimationEvent<T> Create(IUiFrameworkPlugin plugin, AnimationEventType type, Action<T> callback)
     {
-        CallbackAnimationEvent @event = plugin.PluginPool.Get<CallbackAnimationEvent>();
+        CallbackAnimationEvent<T> @event = plugin.PluginPool.Get<CallbackAnimationEvent<T>>();
         @event._type = type;
         @event._callback = callback;
         return @event;
@@ -24,7 +24,7 @@ public class CallbackAnimationEvent : BasePoolable, IAnimationEvent
     {
         try
         {
-            _callback?.Invoke(animation);
+            _callback?.Invoke((T)animation);
         }
         catch (Exception ex)
         {
