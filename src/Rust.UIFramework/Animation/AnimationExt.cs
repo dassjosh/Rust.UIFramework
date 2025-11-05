@@ -59,7 +59,13 @@ public static class AnimationExt
     public static T TimeoutDelay<T>(this T animation, float timeout) where T : IAnimation
     {
         animation.Timeout(timeout);
-        animation.Delay ??= InfiniteDelay.Create(animation.Plugin);
+        animation.InfiniteDelay();
+        return animation;
+    }
+    
+    public static T InfiniteDelay<T>(this T animation) where T : IAnimation
+    {
+        animation.Delay ??= InfiniteAnimationDelay.Create(animation.Plugin);
         return animation;
     }
 
@@ -67,6 +73,12 @@ public static class AnimationExt
     {
         animation.Duration ??= AnimationDuration.Create(animation.Plugin);
         animation.Duration.Duration = seconds;
+        return animation;
+    }
+    
+    public static T NoDuration<T>(this T animation) where T : IAnimation
+    {
+        animation.Duration ??= InfiniteAnimationDuration.Default;
         return animation;
     }
     
@@ -79,6 +91,7 @@ public static class AnimationExt
     }
     
     public static T Bezier<T>(this T animation, CubicBezier points) where T : IAnimation => animation.WithEasing(points);
+    public static T Easing<T>(this T animation, Easing easing) where T : IAnimation => animation.WithEasing(easing);
     public static T Linear<T>(this T animation) where T : IAnimation => animation.WithEasing(EasingFunctions.Linear);
     public static T Ease<T>(this T animation) where T : IAnimation => animation.WithEasing(EasingFunctions.Ease);
     public static T EaseIn<T>(this T animation) where T : IAnimation => animation.WithEasing(EasingFunctions.EaseIn);
@@ -114,7 +127,7 @@ public static class AnimationExt
     
     public static T On<T>(this T animation, AnimationEventType type, Action<T> callback) where T : IAnimation
     {
-        animation.Events.AddEvent(CallbackAnimationEvent.Create(animation.Plugin, type, animate => callback((T)animate)));
+        animation.Events.AddEvent(CallbackAnimationEvent<T>.Create(animation.Plugin, type, callback));
         return animation;
     }
     
