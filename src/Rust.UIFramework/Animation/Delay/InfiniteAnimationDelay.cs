@@ -3,11 +3,11 @@ using Oxide.Ext.UiFramework.Pooling;
 
 namespace Oxide.Ext.UiFramework.Animation;
 
-public class InfiniteDelay : BasePoolable, IAnimationDelay
+public class InfiniteAnimationDelay : BasePoolable, IAnimationDelay
 {
     public bool IsDelayed => true;
     
-    public static InfiniteDelay Create(IUiFrameworkPlugin plugin) => plugin.PluginPool.Get<InfiniteDelay>(); 
+    public static InfiniteAnimationDelay Create(IUiFrameworkPlugin plugin) => plugin.PluginPool.Get<InfiniteAnimationDelay>(); 
     
     public void OnStarted() {}
     public void OnTick() { }
