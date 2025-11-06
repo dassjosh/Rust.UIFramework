@@ -24,6 +24,7 @@ internal class UiSendRequest : BaseUiRequest, IUiRequest
     public virtual void SendRequest()
     {
         Builder.SendUi(Send, null);
+        Builder.SendAnimations(Send);
     }
     
     protected override void EnterPool()

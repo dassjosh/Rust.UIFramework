@@ -21,8 +21,10 @@ public class AnimationBuilder : BaseBuilder, IAnimationBuilder
     }
 
     void IAnimationBuilder.AddAnimation(ISendableAnimation animation) => _animations.Add(animation);
+    
+    internal override void SendUi(SendInfo send, in UiDebugOptions? options) { }
 
-    internal override void SendUi(SendInfo send, in UiDebugOptions? options)
+    internal override void SendAnimations(SendInfo send)
     {
         for (int index = 0; index < _animations.Count; index++)
         {
@@ -33,10 +35,7 @@ public class AnimationBuilder : BaseBuilder, IAnimationBuilder
     }
 
     public override byte[] GetBytes() => throw new NotSupportedException($"Cannot get bytes for an {nameof(AnimationBuilder)}");
-    public override void Combine(SendInfo send, JsonFrameworkWriter writer)
-    {
-        SendUi(send, null);
-    }
+    public override void Combine(SendInfo send, JsonFrameworkWriter writer) { }
 
     protected override void EnterPool()
     {

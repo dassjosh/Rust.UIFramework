@@ -25,6 +25,7 @@ internal class UiDebugSendRequest : UiSendRequest
     public override void SendRequest()
     {
         Builder.SendUi(Send, Options);
+        Builder.SendAnimations(Send);
     }
 
     protected override void EnterPool()

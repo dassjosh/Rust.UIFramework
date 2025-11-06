@@ -40,6 +40,14 @@ public class UiCombinedBuilder : BaseBuilder
         AddUi(send, writer, options);
     }
 
+    internal override void SendAnimations(SendInfo send)
+    {
+        foreach (BaseBuilder builder in _builders)
+        {
+            builder.SendAnimations(send);
+        }
+    }
+
     public override byte[] GetBytes()
     {
         using JsonFrameworkWriter writer = CreateWriter(default);

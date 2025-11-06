@@ -29,6 +29,8 @@ public class UpdateBuilder : BaseUiBuilder
         NamingMode = NamingMode.Reference;
     }
 
+    internal override void SendAnimations(SendInfo send) { }
+
     public override void Combine(SendInfo send, JsonFrameworkWriter writer)
     {
         throw new NotSupportedException("Combine is not supported for UpdateBuilder");

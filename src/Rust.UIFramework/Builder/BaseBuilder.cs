@@ -111,6 +111,7 @@ public abstract class BaseBuilder : BasePoolable
     }
 
     internal abstract void SendUi(SendInfo send, in UiDebugOptions? options);
+    internal abstract void SendAnimations(SendInfo send);
 
     internal void AddUi(SendInfo send, JsonFrameworkWriter writer, in UiDebugOptions? options)
     {

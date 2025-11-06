@@ -28,4 +28,6 @@ public class CachedUiBuilder : BaseBuilder
     {
         AddUi(send, GetBytes(), options);
     }
+
+    internal override void SendAnimations(SendInfo send) { }
 }

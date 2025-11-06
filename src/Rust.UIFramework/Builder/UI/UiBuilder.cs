@@ -175,8 +175,8 @@ public partial class UiBuilder : BaseUiBuilder, IAnimationBuilder
 
     #region Animations
     void IAnimationBuilder.AddAnimation(ISendableAnimation animation) => _animations.Add(animation);
-    
-    protected override void OnUiSent(SendInfo send)
+
+    internal override void SendAnimations(SendInfo send)
     {
         Singleton<AnimationTracker>.Instance.RemoveUiForSend(send, RootName);
         for (int index = 0; index < _animations.Count; index++)

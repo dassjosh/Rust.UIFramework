@@ -47,7 +47,6 @@ public abstract partial class BaseUiBuilder : BaseBuilder
         JsonFrameworkWriter writer = CreateWriter();
         AddUi(send, writer, options);
         writer.Dispose();
-        OnUiSent(send);
     }
         
     public JsonFrameworkWriter CreateWriter()
@@ -75,8 +74,6 @@ public abstract partial class BaseUiBuilder : BaseBuilder
             array[index].WriteElement(writer);
         }
     }
-    
-    protected virtual void OnUiSent(SendInfo send) {}
 
     private void PreprocessElements()
     {
