@@ -15,6 +15,11 @@ internal class AnimationTracker : ISingleton
     
     public void OnAnimationQueued(IAnimation animation, SendInfo send, string rootName)
     {
+        if (animation is IElementAnimation { Tracked: false })
+        {
+            return;
+        }
+        
         if (send.connections == null)
         {
             OnAnimationQueued(animation, send.connection.userid, rootName);
@@ -32,12 +37,16 @@ internal class AnimationTracker : ISingleton
     private void OnAnimationQueued(IAnimation animation, ulong playerId, string rootName)
     {
         List<PlayerPanel> animationPanels = GetAnimationPanels(animation.Id);
-        foreach (IElementAnimation element in animation.AllOfType<IElementAnimation>())
+        List<IElementAnimation> elements = UiPool.Internal.GetList<IElementAnimation>();
+        animation.AllOfType(elements);
+        for (int index = 0; index < elements.Count; index++)
         {
+            IElementAnimation element = elements[index];
             PlayerPanel playerPanel = new(playerId, element.Reference);
             AddPlayerPanel(animation.Id, playerPanel, animationPanels);
         }
-        
+        UiPool.Internal.FreeList(elements);
+
         if (!string.IsNullOrEmpty(rootName))
         {
             PlayerPanel rootPlayerPanel = new(playerId, rootName);
@@ -65,10 +74,12 @@ internal class AnimationTracker : ISingleton
     {
         if (_animatedPlayers.TryGetValue(id, out List<PlayerPanel> playerPanels))
         {
-            foreach (PlayerPanel playerPanel in playerPanels)
+            for (int index = 0; index < playerPanels.Count; index++)
             {
+                PlayerPanel playerPanel = playerPanels[index];
                 _playerPanels.TryRemove(playerPanel, out AnimationId _);
             }
+
             UiPool.Internal.FreeList(playerPanels);
         }
     }

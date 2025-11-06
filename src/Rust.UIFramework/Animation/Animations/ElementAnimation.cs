@@ -11,6 +11,7 @@ public class ElementAnimation<T> : SendableAnimation, IElementAnimation<T> where
 {
     public T Element { get; } = new();
     private T _sourceElement;
+    public bool Tracked { get; set; } = true;
     public override bool HasChanged => base.HasChanged || Element.HasChanged();
     public string Reference => Element.Name;
 

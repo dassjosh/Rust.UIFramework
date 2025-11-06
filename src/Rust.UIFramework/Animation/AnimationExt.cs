@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Oxide.Ext.UiFramework.Builder;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Extensions;
@@ -20,7 +19,7 @@ public static class AnimationExt
         }
         else
         {
-            target.OnCompleted(_ => trigger.Trigger());
+            target.OnFinalized(_ => trigger.Trigger());
         }
 
         target.Timeout(timeout ?? 15f, action);
@@ -79,6 +78,12 @@ public static class AnimationExt
     public static T NoDuration<T>(this T animation) where T : IAnimation
     {
         animation.Duration ??= InfiniteAnimationDuration.Default;
+        return animation;
+    }
+    
+    public static T Infinite<T>(this T animation) where T : IAnimation
+    {
+        animation.Repeat ??= InfiniteAnimationRepeat.Default;
         return animation;
     }
     
@@ -182,17 +187,24 @@ public static class AnimationExt
         return animation;
     }
 
-    public static IEnumerable<T> AllOfType<T>(this IAnimation animation) where T : IAnimation
+    public static void AllOfType<T>(this IAnimation animation, List<T> types) where T : IAnimation
     {
         if (animation is T type)
         {
-            yield return type;
+            types.Add(type);
         }
 
-        foreach (T child in animation.Children.SelectMany(static c => c.AllOfType<T>()))
+        for (int index = 0; index < animation.Children.Count; index++)
         {
-            yield return child;
+            IAnimation child = animation.Children[index];
+            child.AllOfType(types);
         }
+    }
+    
+    public static T SetTracked<T>(this T animation, bool tracked) where T : IElementAnimation
+    {
+        animation.Tracked = tracked;
+        return animation;
     }
 
     internal static bool IsSinglePlayer(this ISendableAnimation animation) => animation.Send.connection != null;
