@@ -1,5 +1,4 @@
-﻿using System;
-using Oxide.Ext.UiFramework.Animation;
+﻿using Oxide.Ext.UiFramework.Animation;
 using Oxide.Ext.UiFramework.Interfaces;
 using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Types;
