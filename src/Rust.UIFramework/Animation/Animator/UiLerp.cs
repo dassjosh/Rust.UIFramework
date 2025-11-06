@@ -18,6 +18,8 @@ public static class UiLerp
         if (type == typeof(UiOffset)) return (UiLerp<T>)(object)(UiLerp<UiOffset>)UiOffset.LerpUnclamped;
         if (type == typeof(UiColor)) return (UiLerp<T>)(object)(UiLerp<UiColor>)UiColor.Lerp;
         if (type == typeof(UiRotation)) return (UiLerp<T>)(object)(UiLerp<UiRotation>)UiRotation.LerpUnclamped;
+        if (type == typeof(UiScale)) return (UiLerp<T>)(object)(UiLerp<UiScale>)UiScale.Lerp;
+        if (type == typeof(UiPadding)) return (UiLerp<T>)(object)(UiLerp<UiPadding>)UiPadding.Lerp;
         if (type == typeof(string)) return (UiLerp<T>)(object)(UiLerp<string>)LevenshteinDistanceExt.Lerp;
         switch (type.GetTypeCode())
         {

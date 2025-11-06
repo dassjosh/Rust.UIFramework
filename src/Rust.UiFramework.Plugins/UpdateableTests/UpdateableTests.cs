@@ -87,7 +87,7 @@ public class UpdateableTests : RustPlugin, IUiFrameworkPlugin
         UiPanel header = builder.Panel(builder.Root, new UiPosition(0, 0.95f, 1, 1), default, UiColors.PanelSecondary);
         builder.TextButton(header, new UiPosition(0.95f, 0f, 1, 1), default, "X", 14, UiColors.White, UiColors.Rust.Red, _close.Build(state));
 
-        UiPanel body = builder.Panel(builder.Root, new UiPosition(0, 0, 1, 0.945f), default, UiColors.PanelTertiary).SetPadding(new UiPadding(10));
+        UiPanel body = builder.Panel(builder.Root, new UiPosition(0, 0, 1, 0.945f), default, UiColors.PanelTertiary).SetOffsetPadding(new UiPadding(10));
 
         UiScrollView scroll = builder.ScrollView(body, UiPosition.Full, default, ScrollRect.MovementType.Clamped);
         scroll.AddVerticalScrollBar();

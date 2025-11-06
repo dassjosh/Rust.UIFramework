@@ -38,6 +38,11 @@ public readonly struct UiPosition(float xMin, float yMin, float xMax, float yMax
     public float YMin => Min.y;
     public float XMax => Max.x;
     public float YMax => Max.y;
+    
+    public Vector2 Size => Max - Min;
+    public Vector2 Center => (Min + Max) * 0.5f;
+    public float Width => Max.x - Min.x;
+    public float Height => Max.y - Min.y;
 
     public UiPosition(Vector2 min, Vector2 max) : this(min.x, min.y, max.x, max.y) { }
 
@@ -218,6 +223,28 @@ public readonly struct UiPosition(float xMin, float yMin, float xMax, float yMax
         return this + padding;
     }
     
+    [Pure]
+    public UiPosition Scale(in UiScale scale)
+    {
+        if (!scale.HasScale)
+        {
+            return this;
+        }
+
+        Vector2 center = Center;
+        float centerX = center.x;
+        float centerY = center.y;
+        
+        float scaledWidth = Width * 0.5f * scale.Horizontal;
+        float scaledHeight = Height * 0.5f * scale.Vertical;
+        
+        return new UiPosition(
+            centerX - scaledWidth,
+            centerY - scaledHeight,
+            centerX + scaledWidth,
+            centerY + scaledHeight
+        );
+    }
 
     public static UiPosition Lerp(in UiPosition a, in UiPosition b, float t) => new(Vector2.Lerp(a.Min, b.Min, t), Vector2.Lerp(a.Max, b.Max, t));
     public static UiPosition LerpUnclamped(in UiPosition a, in UiPosition b, float t) => new(Vector2.LerpUnclamped(a.Min, b.Min, t), Vector2.LerpUnclamped(a.Max, b.Max, t));

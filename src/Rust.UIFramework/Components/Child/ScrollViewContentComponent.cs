@@ -17,8 +17,8 @@ public partial class ScrollViewContentComponent : ChildComponent, IScrollViewCon
     public override void WriteComponent(JsonFrameworkWriter writer, SerializeMode mode)
     {
         writer.WriteStartObject();
-        writer.AddField(_position, mode);
-        writer.AddField(_offset, mode);
+        writer.AddField(Position, mode);
+        writer.AddField(Offset, mode);
         writer.AddField(JsonDefaults.ScrollView.PivotName, _pivot, mode);
         writer.WriteEndObject();
     }

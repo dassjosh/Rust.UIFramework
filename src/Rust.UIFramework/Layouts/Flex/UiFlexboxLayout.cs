@@ -197,7 +197,7 @@ public class UiFlexBoxLayout : BaseUiLayout
             _ => throw new ArgumentOutOfRangeException(nameof(Direction)),
         };
 
-        state.Element.SetPosition(position).SetPadding(Padding);
+        state.Element.SetPosition(position).SetOffsetPadding(Padding);
     }
 
     private (float crossStart, float crossEnd) CalculateCrossAlignment(int lineIndex, float crossAxisSize)

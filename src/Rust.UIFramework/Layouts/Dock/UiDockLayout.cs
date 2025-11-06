@@ -34,7 +34,7 @@ public class UiDockLayout : BaseUiLayout
         foreach (LayoutState state in Elements)
         {
             UiPosition dockedPosition = CalculateDockedPosition(state, ref remainingArea);
-            state.Element.SetPosition(dockedPosition).SetPadding(Padding);
+            state.Element.SetPosition(dockedPosition).SetOffsetPadding(Padding);
         }
     }
 

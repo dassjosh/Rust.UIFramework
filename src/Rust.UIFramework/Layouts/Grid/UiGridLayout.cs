@@ -76,7 +76,7 @@ public class UiGridLayout : BaseUiLayout, IFixedElementsLayout
             {
                 GridElement element = row.Elements[index];
                 UiPosition pos = GetUiPosition(currentCol, currentRow, element.ColSpan, scale);
-                element.Element.SetPosition(pos).SetPadding(Padding);
+                element.Element.SetPosition(pos).SetOffsetPadding(Padding);
                 currentCol += element.ColSpan;
                 elementIndex++;
             }

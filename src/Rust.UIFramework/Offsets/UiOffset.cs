@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics.Contracts;
 using Oxide.Ext.UiFramework.Types;
 using UnityEngine;
@@ -14,6 +14,7 @@ public readonly struct UiOffset(float xMin, float yMin, float xMax, float yMax) 
     public readonly Vector2 Max = new(xMax, yMax);
 
     public Vector2 Size => Max - Min;
+    public Vector2 Center => (Min + Max) * 0.5f;
     public float Width => Max.x - Min.x;
     public float Height => Max.y - Min.y;
 
@@ -227,6 +228,29 @@ public readonly struct UiOffset(float xMin, float yMin, float xMax, float yMax) 
     public UiOffset WithPadding(in UiPadding padding)
     {
         return this + padding;
+    }
+    
+    [Pure]
+    public UiOffset Scale(in UiScale scale)
+    {
+        if (!scale.HasScale)
+        {
+            return this;
+        }
+
+        Vector2 center = Center;
+        float centerX = center.x;
+        float centerY = center.y;
+        
+        float scaledWidth = Width * 0.5f * scale.Horizontal;
+        float scaledHeight = Height * 0.5f * scale.Vertical;
+        
+        return new UiOffset(
+            centerX - scaledWidth,
+            centerY - scaledHeight,
+            centerX + scaledWidth,
+            centerY + scaledHeight
+        );
     }
     
     public static UiOffset Lerp(in UiOffset a, in UiOffset b, float t) => new(Vector2.Lerp(a.Min, b.Min, t), Vector2.Lerp(a.Max, b.Max, t));

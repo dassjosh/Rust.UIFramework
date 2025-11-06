@@ -146,37 +146,35 @@ public sealed class JsonFrameworkWriter : BasePoolable
         }
     }
 
-    public void AddField(Tracked<UiPosition> value, SerializeMode mode)
+    public void AddField(in UiPosition value, SerializeMode mode)
     {
         if (mode == SerializeMode.Create)
         {
-            AddField(JsonDefaults.RectTransform.AnchorMinName, value.Value.Min, JsonDefaults.RectTransform.AnchorMin);
-            AddField(JsonDefaults.RectTransform.AnchorMaxName, value.Value.Max, JsonDefaults.RectTransform.AnchorMax);
+            AddField(JsonDefaults.RectTransform.AnchorMinName, value.Min, JsonDefaults.RectTransform.AnchorMin);
+            AddField(JsonDefaults.RectTransform.AnchorMaxName, value.Max, JsonDefaults.RectTransform.AnchorMax);
         }
-        else if(value.HasChanged)
+        else
         {
-            UiPosition pos = value.Value;
             WritePropertyName(JsonDefaults.RectTransform.AnchorMinName);
-            WriteValue(pos.Min);
+            WriteValue(value.Min);
             WritePropertyName(JsonDefaults.RectTransform.AnchorMaxName);
-            WriteValue(pos.Max);
+            WriteValue(value.Max);
         }
     }
     
-    public void AddField(Tracked<UiOffset> value, SerializeMode mode)
-    {
+    public void AddField(in UiOffset value, SerializeMode mode)
+    { 
         if (mode == SerializeMode.Create)
         {
-            AddField(JsonDefaults.RectTransform.OffsetMinName, value.Value.Min, JsonDefaults.RectTransform.OffsetMin);
-            AddField(JsonDefaults.RectTransform.OffsetMaxName, value.Value.Max, JsonDefaults.RectTransform.OffsetMax);
+            AddField(JsonDefaults.RectTransform.OffsetMinName, value.Min, JsonDefaults.RectTransform.OffsetMin);
+            AddField(JsonDefaults.RectTransform.OffsetMaxName, value.Max, JsonDefaults.RectTransform.OffsetMax);
         }
-        else if(value.HasChanged)
+        else
         {
-            UiOffset pos = value.Value;
             WritePropertyName(JsonDefaults.RectTransform.OffsetMinName);
-            WriteValue(pos.Min);
+            WriteValue(value.Min);
             WritePropertyName(JsonDefaults.RectTransform.OffsetMaxName);
-            WriteValue(pos.Max);
+            WriteValue(value.Max);
         }
     }
     

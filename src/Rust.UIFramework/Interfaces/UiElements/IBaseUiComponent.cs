@@ -42,8 +42,17 @@ public interface IBaseUiComponent
     UiOffset Offset { get; set; }
     
     [PropertyTarget(nameof(BaseUiComponent.RectTransform), PropertyTargetType.Property)]
-    UiRotation Rotation { get; set; }
+    UiPadding PositionPadding { get; set; }
     
     [PropertyTarget(nameof(BaseUiComponent.RectTransform), PropertyTargetType.Property)]
-    UiPadding Padding { get; set; }
+    UiPadding OffsetPadding { get; set; }
+    
+    [PropertyTarget(nameof(BaseUiComponent.RectTransform), PropertyTargetType.Property)]
+    UiScale PositionScale { get; set; }
+    
+    [PropertyTarget(nameof(BaseUiComponent.RectTransform), PropertyTargetType.Property)]
+    UiScale OffsetScale { get; set; }
+    
+    [PropertyTarget(nameof(BaseUiComponent.RectTransform), PropertyTargetType.Property)]
+    UiRotation Rotation { get; set; }
 }

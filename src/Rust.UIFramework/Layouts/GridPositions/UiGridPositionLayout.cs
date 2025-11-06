@@ -42,7 +42,7 @@ public class UiGridPositionLayout : BaseUiLayout, IFixedElementsLayout
         for (int index = 0; index < Elements.Count; index++)
         {
             BaseUiComponent element = Elements[index];
-            element.SetPosition(Grid.ToPosition()).SetPadding(Padding);
+            element.SetPosition(Grid.ToPosition()).SetOffsetPadding(Padding);
             switch (MoveMode)
             {
                 case GridMoveMode.Column:

@@ -4,6 +4,7 @@ using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
+using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Types;
 
@@ -48,6 +49,25 @@ public readonly record struct UiPadding(float Left, float Bottom, float Right, f
         return success;
     }
     
-    public override string ToString() => $"{Left} {Top} {Right} {Bottom}";
+    public static UiPadding Lerp(in UiPadding start, in UiPadding end, float progress)
+    {
+        return new UiPadding(
+            Mathf.LerpUnclamped(start.Left, end.Left, progress), 
+            Mathf.LerpUnclamped(start.Top, end.Top, progress), 
+            Mathf.LerpUnclamped(start.Right, end.Right, progress), 
+            Mathf.LerpUnclamped(start.Bottom, end.Bottom, progress));
+    }
     
+#pragma warning disable EPS05
+    public static UiPadding Lerp(UiPadding start, UiPadding end, float progress)
+    {
+        return new UiPadding(
+            Mathf.LerpUnclamped(start.Left, end.Left, progress), 
+            Mathf.LerpUnclamped(start.Top, end.Top, progress), 
+            Mathf.LerpUnclamped(start.Right, end.Right, progress), 
+            Mathf.LerpUnclamped(start.Bottom, end.Bottom, progress));
+    }
+#pragma warning restore EPS05
+    
+    public override string ToString() => $"{Left} {Top} {Right} {Bottom}";
 }

@@ -1,6 +1,7 @@
 ﻿using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Offsets;
+using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.Types;
 using UnityEngine;
 using UnityEngine.UI;
@@ -49,6 +50,8 @@ public static class JsonDefaults
         public static readonly Vector2 OffsetMin = new(0, 0);
         public static readonly Utf8String OffsetMaxName = "offsetmax";
         public static readonly Vector2 OffsetMax = new(1, 1);
+
+        public static readonly UiOffset FpOffset = new(0, 0, 1, 1);
         
         public static readonly Utf8String RotationName = "rotation";
         public static readonly UiRotation Rotation = new(0);
@@ -57,6 +60,8 @@ public static class JsonDefaults
         
         public static readonly Utf8String SetTransformIndexName = "setTransformIndex";
         public const int SetTransformIndex = -1;
+        
+        public static readonly UiScale Scale = new(1, 1);
     }
 
     public static class Color

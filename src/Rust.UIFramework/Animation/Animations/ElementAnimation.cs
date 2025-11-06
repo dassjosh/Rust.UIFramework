@@ -65,5 +65,6 @@ public class ElementAnimation<T> : SendableAnimation, IElementAnimation<T> where
         base.EnterPool();
         Element.Reset();
         _sourceElement = null;
+        Tracked = true;
     }
 }

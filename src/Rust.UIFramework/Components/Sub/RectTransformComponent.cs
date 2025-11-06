@@ -1,6 +1,8 @@
 ﻿using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Interfaces;
 using Oxide.Ext.UiFramework.Json;
+using Oxide.Ext.UiFramework.Offsets;
+using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.Types;
 using Rust.UiFramework.SourceGenerators.Attributes;
 
@@ -13,18 +15,21 @@ public partial class RectTransformComponent : SubComponent, IRectTransformCompon
     public override Utf8String Type => JsonDefaults.Common.RectTransformName;
     public override ComponentType ComponentType => ComponentType.RectTransform;
     public override bool AllowMultiple => false;
-
-
+    
     protected override void WriteComponentFields(JsonFrameworkWriter writer, SerializeMode mode)
     {
-        writer.AddField(_position, mode);
-
-        if (_padding.ShouldSerialize(mode))
+        if (_position.ShouldSerialize(mode) || _positionPadding.ShouldSerialize(mode) || _positionScale.ShouldSerialize(mode))
         {
-            Offset += _padding.Value;
+            UiPosition position = Position.Scale(_positionScale.Value).WithPadding(PositionPadding);
+            writer.AddField(position, mode);
         }
         
-        writer.AddField(_offset, mode);
+        if (_offset.ShouldSerialize(mode) || _offsetPadding.ShouldSerialize(mode) || _offsetScale.ShouldSerialize(mode))
+        {
+            UiOffset offset = Offset.Scale(OffsetScale).WithPadding(OffsetPadding);
+            writer.AddField(offset, mode);
+        }
+        
         writer.AddField(JsonDefaults.RectTransform.RotationName, _rotation, mode);
         writer.AddField(JsonDefaults.RectTransform.SetParentName, _changeParent, mode);
         writer.AddField(JsonDefaults.RectTransform.SetTransformIndexName, _transformIndex, mode);

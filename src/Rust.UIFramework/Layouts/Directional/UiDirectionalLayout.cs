@@ -66,7 +66,7 @@ public class UiDirectionalLayout : BaseUiLayout, IFixedElementsLayout
         for (int index = 0; index < Elements.Count; index++)
         {
             LayoutState state = Elements[index];
-            state.Element.SetPosition(GetUiPosition(state, currentElement, totalSpan, scale)).SetPadding(Padding);
+            state.Element.SetPosition(GetUiPosition(state, currentElement, totalSpan, scale)).SetOffsetPadding(Padding);
             currentElement += state.ElementSpan;
         }
 

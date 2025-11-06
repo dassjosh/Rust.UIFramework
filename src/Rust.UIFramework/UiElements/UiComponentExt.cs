@@ -64,9 +64,16 @@ public static class UiComponentExt
     }
     
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static T SetPadding<T>(this T component, in UiPadding padding) where T : BaseUiComponent
+    public static T SetPositionPadding<T>(this T component, in UiPadding padding) where T : BaseUiComponent
     {
-        component.Padding = padding;
+        component.PositionPadding = padding;
+        return component;
+    }
+    
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static T SetOffsetPadding<T>(this T component, in UiPadding padding) where T : BaseUiComponent
+    {
+        component.OffsetPadding = padding;
         return component;
     }
     
@@ -95,6 +102,20 @@ public static class UiComponentExt
     public static T SetUpdate<T>(this T component, UpdateMode mode) where T : BaseUiComponent
     {
         component.Update = mode;
+        return component;
+    }
+    
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static T SetPositionScale<T>(this T component, UiScale scale) where T : BaseUiComponent
+    {
+        component.PositionScale = scale;
+        return component;
+    }
+    
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static T SetOffsetScale<T>(this T component, UiScale scale) where T : BaseUiComponent
+    {
+        component.OffsetScale = scale;
         return component;
     }
 }
