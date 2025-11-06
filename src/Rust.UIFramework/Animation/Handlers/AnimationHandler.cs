@@ -35,7 +35,6 @@ internal class AnimationHandler : ISingleton
     public void EnqueueAnimation(ISendableAnimation animation, SendInfo send)
     {
         if (animation == null) throw new ArgumentNullException(nameof(animation));
-
         animation.Send = send;
         animation.ChangeState(AnimationState.Queued);
         _data.EnqueueAnimation(animation);
