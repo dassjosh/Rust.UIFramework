@@ -9,13 +9,13 @@ public class KeyFrameAnimator<T> : IAnimator<T>
     private readonly SortedList<float, T> _keyFrames = [];
     private readonly UiLerp<T> _lerp;
 
-    public KeyFrameAnimator(T start, T end) : this(start, end, UiLerp.GetDefault<T>()) { }
+    public KeyFrameAnimator(T start, T end) : this(start, end, UiLerp.GetDefaultOrError<T>()) { }
     
     public KeyFrameAnimator(T start, T end, UiLerp<T> lerp)
     {
         AddKeyFrame(0, start);
         AddKeyFrame(100, end);
-        _lerp = lerp ?? throw new ArgumentNullException(nameof(lerp), "lerp cannot be null. Please pass a valid lerp function.");;
+        _lerp = lerp ?? throw new ArgumentNullException(nameof(lerp), "lerp cannot be null. Please pass a valid lerp function.");
     }
 
     public void AddKeyFrame(float percentage, T value)

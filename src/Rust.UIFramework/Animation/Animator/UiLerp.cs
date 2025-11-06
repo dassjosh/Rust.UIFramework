@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Offsets;
@@ -33,8 +33,6 @@ public static class UiLerp
         [typeof(decimal)] = (UiLerp<decimal>)((start, end, t) => start + (end - start) * (decimal)t)
     };
         
-    public static UiLerp<T> GetDefault<T>()
-    {
-        return Cache.TryGetValue(typeof(T), out object cached) ? (UiLerp<T>)cached : null;
-    }
+    public static UiLerp<T> GetDefault<T>() => Cache.TryGetValue(typeof(T), out object cached) ? (UiLerp<T>)cached : null;
+    public static UiLerp<T> GetDefaultOrError<T>() => Cache.TryGetValue(typeof(T), out object cached) ? (UiLerp<T>)cached : throw new ArgumentNullException(typeof(T).Name, $"No default lerp function found for type {typeof(T)}. Please pass a lerp function manually.");
 }

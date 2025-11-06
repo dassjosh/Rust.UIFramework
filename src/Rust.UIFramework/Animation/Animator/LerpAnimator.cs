@@ -11,7 +11,7 @@ public class LerpAnimator<T> : BasePoolable, IAnimator<T>
     public UiLerp<T> Lerp;
 
     public LerpAnimator() { }
-    public LerpAnimator(T start, T end) : this(start, end, UiLerp.GetDefault<T>() ?? throw new ArgumentNullException(null, $"No default lerp function found for type {typeof(T)}. Please pass a lerp function manually.")) { }
+    public LerpAnimator(T start, T end) : this(start, end, UiLerp.GetDefaultOrError<T>()) { }
     public LerpAnimator(T start, T end, UiLerp<T> lerp)
     {
         Start = start;

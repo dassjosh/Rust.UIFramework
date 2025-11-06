@@ -10,7 +10,7 @@ public class FormattableLerpAnimator<T> : LerpAnimator<T>, IAnimator<string> whe
     
     public FormattableLerpAnimator() { }
     
-    public FormattableLerpAnimator(T start, T end, string format = null, IFormatProvider formatProvider = null) : this(start, end, UiLerp.GetDefault<T>(), format, formatProvider) { }
+    public FormattableLerpAnimator(T start, T end, string format = null, IFormatProvider formatProvider = null) : this(start, end, UiLerp.GetDefaultOrError<T>(), format, formatProvider) { }
 
     public FormattableLerpAnimator(T start, T end, UiLerp<T> lerp, string format = null, IFormatProvider formatProvider = null) : base(start, end, lerp)
     {
