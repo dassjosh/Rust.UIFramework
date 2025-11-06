@@ -128,7 +128,7 @@ internal class AnimationData
     
     internal void OnPluginUnloaded(IUiFrameworkPlugin plugin)
     {
-        foreach (ISendableAnimation animation in _groupAnimations.Values)
+        foreach (ISendableAnimation animation in _animations.Values)
         {
             if (animation.Plugin == plugin)
             {
