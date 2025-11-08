@@ -15,6 +15,7 @@ public partial class DirectionalLayoutComponent : BaseLayoutComponent, IDirectio
 
     protected override void WriteComponentFields(JsonFrameworkWriter writer, SerializeMode mode)
     {
+        base.WriteComponentFields(writer, mode);
         writer.AddField(JsonDefaults.DirectionalLayout.SpacingName, _spacing, mode);
         writer.AddField(JsonDefaults.DirectionalLayout.ChildForceExpandWidthName, _childForceExpandWidth, mode);
         writer.AddField(JsonDefaults.DirectionalLayout.ChildForceExpandHeightName, _childForceExpandHeight, mode);

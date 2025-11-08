@@ -15,6 +15,7 @@ public partial class GridLayoutComponent : BaseLayoutComponent, IGridLayoutCompo
     
     protected override void WriteComponentFields(JsonFrameworkWriter writer, SerializeMode mode)
     {
+        base.WriteComponentFields(writer, mode);
         writer.AddField(JsonDefaults.GridLayout.CellSizeName, _cellSize, mode);
         writer.AddField(JsonDefaults.GridLayout.SpacingName, _spacing, mode);
         writer.AddField(JsonDefaults.GridLayout.StartCornerName, _startCorner, mode);
