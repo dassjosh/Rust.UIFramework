@@ -3169,6 +3169,14 @@
               },
               "SubFolders": {}
             },
+            "minifridge": {
+              "Name": "minifridge",
+              "Path": "assets/prefabs/deployable/minifridge",
+              "Files": {
+                "MinifridgeDeployedIcon": "assets/prefabs/deployable/minifridge/minifridge.deployed.icon.png"
+              },
+              "SubFolders": {}
+            },
             "oil jack": {
               "Name": "oil jack",
               "Path": "assets/prefabs/deployable/oil jack",
@@ -3577,6 +3585,14 @@
                   "Path": "assets/prefabs/clothes/suit.hazmat/twitch",
                   "Files": {
                     "HazmatSuitTwitchIcon": "assets/prefabs/clothes/suit.hazmat/twitch/hazmat_suit_twitch.icon.png"
+                  },
+                  "SubFolders": {}
+                },
+                "kick": {
+                  "Name": "kick",
+                  "Path": "assets/prefabs/clothes/suit.hazmat/kick",
+                  "Files": {
+                    "KickHazmatIcon": "assets/prefabs/clothes/suit.hazmat/kick/kick.hazmat.icon.png"
                   },
                   "SubFolders": {}
                 },
@@ -5517,13 +5533,28 @@
                 "RocketLauncherIcon": "assets/prefabs/weapons/rocketlauncher/rocket_launcher.icon.png"
               },
               "SubFolders": {
-                "cny_dragonlauncher": {
-                  "Name": "cny_dragonlauncher",
-                  "Path": "assets/prefabs/weapons/rocketlauncher/cny_dragonlauncher",
-                  "Files": {
-                    "RocketLauncherDragonWorldModelIcon": "assets/prefabs/weapons/rocketlauncher/cny_dragonlauncher/rocket_launcher_dragon.worldmodel.icon.png"
-                  },
-                  "SubFolders": {}
+                "skins": {
+                  "Name": "skins",
+                  "Path": "assets/prefabs/weapons/rocketlauncher/skins",
+                  "Files": {},
+                  "SubFolders": {
+                    "cny_dragonlauncher": {
+                      "Name": "cny_dragonlauncher",
+                      "Path": "assets/prefabs/weapons/rocketlauncher/skins/cny_dragonlauncher",
+                      "Files": {
+                        "RocketLauncherDragonWorldModelIcon": "assets/prefabs/weapons/rocketlauncher/skins/cny_dragonlauncher/rocket_launcher_dragon.worldmodel.icon.png"
+                      },
+                      "SubFolders": {}
+                    },
+                    "rpg7": {
+                      "Name": "rpg7",
+                      "Path": "assets/prefabs/weapons/rocketlauncher/skins/rpg7",
+                      "Files": {
+                        "Rpg7Icon": "assets/prefabs/weapons/rocketlauncher/skins/rpg7/rpg7.icon.png"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
                 }
               }
             },
@@ -7519,9 +7550,13 @@
                       "Path": "assets/prefabs/wallpaper/skins/2025-10_halloween/icons",
                       "Files": {
                         "CeilingPaperCobwebWoodIcon": "assets/prefabs/wallpaper/skins/2025-10_halloween/icons/ceilingpaper.cobweb.wood.icon.png",
+                        "CeilingPaperCobwebWoodStoreIcon": "assets/prefabs/wallpaper/skins/2025-10_halloween/icons/ceilingpaper.cobweb.wood.store.icon.png",
                         "FloorPaperTreeRootsIcon": "assets/prefabs/wallpaper/skins/2025-10_halloween/icons/floorpaper.tree.roots.icon.png",
+                        "FloorPaperTreeRootsStoreIcon": "assets/prefabs/wallpaper/skins/2025-10_halloween/icons/floorpaper.tree.roots.store.icon.png",
                         "WallPaperDiadelosmuertosIcon": "assets/prefabs/wallpaper/skins/2025-10_halloween/icons/wallpaper.diadelosmuertos.icon.png",
-                        "WallPaperHalloweenbatsIcon": "assets/prefabs/wallpaper/skins/2025-10_halloween/icons/wallpaper.halloweenbats.icon.png"
+                        "WallPaperDiadelosmuertosStoreIcon": "assets/prefabs/wallpaper/skins/2025-10_halloween/icons/wallpaper.diadelosmuertos.store.icon.png",
+                        "WallPaperHalloweenbatsIcon": "assets/prefabs/wallpaper/skins/2025-10_halloween/icons/wallpaper.halloweenbats.icon.png",
+                        "WallPaperHalloweenbatsStoreIcon": "assets/prefabs/wallpaper/skins/2025-10_halloween/icons/wallpaper.halloweenbats.store.icon.png"
                       },
                       "SubFolders": {}
                     }
@@ -9103,6 +9138,7 @@
               "Path": "assets/content/vehicles/mlrs",
               "Files": {
                 "AimingModuleWorldModelIcon": "assets/content/vehicles/mlrs/aiming_module.worldmodel.icon.png",
+                "MlrsEntityIcon": "assets/content/vehicles/mlrs/mlrs.entity.icon.png",
                 "RocketMlrsWorldModelIcon": "assets/content/vehicles/mlrs/rocket_mlrs.worldmodel.icon.png"
               },
               "SubFolders": {}
@@ -9112,6 +9148,14 @@
               "Path": "assets/content/vehicles/attackhelicopter",
               "Files": {
                 "AttackHelicopterIcon": "assets/content/vehicles/attackhelicopter/attackhelicopter.icon.png"
+              },
+              "SubFolders": {}
+            },
+            "ball": {
+              "Name": "ball",
+              "Path": "assets/content/vehicles/ball",
+              "Files": {
+                "BallEntityIcon": "assets/content/vehicles/ball/ball.entity.icon.png"
               },
               "SubFolders": {}
             },
@@ -9197,6 +9241,14 @@
                   "Path": "assets/content/vehicles/boats/kayak",
                   "Files": {
                     "KayakIcon": "assets/content/vehicles/boats/kayak/kayak.icon.png"
+                  },
+                  "SubFolders": {}
+                },
+                "rhib": {
+                  "Name": "rhib",
+                  "Path": "assets/content/vehicles/boats/rhib",
+                  "Files": {
+                    "RhibIcon": "assets/content/vehicles/boats/rhib/rhib.icon.png"
                   },
                   "SubFolders": {}
                 },
@@ -9294,6 +9346,14 @@
                   },
                   "SubFolders": {}
                 },
+                "caboose": {
+                  "Name": "caboose",
+                  "Path": "assets/content/vehicles/trains/caboose",
+                  "Files": {
+                    "TraincabooseEntityIcon": "assets/content/vehicles/trains/caboose/traincaboose.entity.icon.png"
+                  },
+                  "SubFolders": {}
+                },
                 "wagons": {
                   "Name": "wagons",
                   "Path": "assets/content/vehicles/trains/wagons",
@@ -9344,6 +9404,15 @@
               "Path": "assets/content/vehicles/scrap heli carrier",
               "Files": {
                 "ScrapTransportHelicopterIcon": "assets/content/vehicles/scrap heli carrier/scraptransporthelicopter.icon.png"
+              },
+              "SubFolders": {}
+            },
+            "sedan_a": {
+              "Name": "sedan_a",
+              "Path": "assets/content/vehicles/sedan_a",
+              "Files": {
+                "SedanEntityIcon": "assets/content/vehicles/sedan_a/sedan.entity.icon.png",
+                "SedanTestEntityIcon": "assets/content/vehicles/sedan_a/sedantest.entity.icon.png"
               },
               "SubFolders": {}
             },

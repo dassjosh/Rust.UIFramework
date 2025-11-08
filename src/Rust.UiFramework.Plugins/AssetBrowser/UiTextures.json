@@ -15837,26 +15837,88 @@
               "Path": "assets/prefabs/weapons/rocketlauncher",
               "Files": {},
               "SubFolders": {
-                "cny_dragonlauncher": {
-                  "Name": "cny_dragonlauncher",
-                  "Path": "assets/prefabs/weapons/rocketlauncher/cny_dragonlauncher",
+                "skins": {
+                  "Name": "skins",
+                  "Path": "assets/prefabs/weapons/rocketlauncher/skins",
                   "Files": {},
                   "SubFolders": {
-                    "model": {
-                      "Name": "model",
-                      "Path": "assets/prefabs/weapons/rocketlauncher/cny_dragonlauncher/model",
+                    "cny_dragonlauncher": {
+                      "Name": "cny_dragonlauncher",
+                      "Path": "assets/prefabs/weapons/rocketlauncher/skins/cny_dragonlauncher",
                       "Files": {},
                       "SubFolders": {
-                        "materials": {
-                          "Name": "materials",
-                          "Path": "assets/prefabs/weapons/rocketlauncher/cny_dragonlauncher/model/materials",
-                          "Files": {
-                            "CnyDragonlauncherAlbedo": "assets/prefabs/weapons/rocketlauncher/cny_dragonlauncher/model/materials/cny_dragonlauncher_albedo.tga",
-                            "CnyDragonlauncherAo": "assets/prefabs/weapons/rocketlauncher/cny_dragonlauncher/model/materials/cny_dragonlauncher_ao.tga",
-                            "CnyDragonlauncherMetallic": "assets/prefabs/weapons/rocketlauncher/cny_dragonlauncher/model/materials/cny_dragonlauncher_metallic.tga",
-                            "CnyDragonlauncherNormal": "assets/prefabs/weapons/rocketlauncher/cny_dragonlauncher/model/materials/cny_dragonlauncher_normal.tga"
-                          },
-                          "SubFolders": {}
+                        "model": {
+                          "Name": "model",
+                          "Path": "assets/prefabs/weapons/rocketlauncher/skins/cny_dragonlauncher/model",
+                          "Files": {},
+                          "SubFolders": {
+                            "materials": {
+                              "Name": "materials",
+                              "Path": "assets/prefabs/weapons/rocketlauncher/skins/cny_dragonlauncher/model/materials",
+                              "Files": {
+                                "CnyDragonlauncherAlbedo": "assets/prefabs/weapons/rocketlauncher/skins/cny_dragonlauncher/model/materials/cny_dragonlauncher_albedo.tga",
+                                "CnyDragonlauncherAo": "assets/prefabs/weapons/rocketlauncher/skins/cny_dragonlauncher/model/materials/cny_dragonlauncher_ao.tga",
+                                "CnyDragonlauncherMetallic": "assets/prefabs/weapons/rocketlauncher/skins/cny_dragonlauncher/model/materials/cny_dragonlauncher_metallic.tga",
+                                "CnyDragonlauncherNormal": "assets/prefabs/weapons/rocketlauncher/skins/cny_dragonlauncher/model/materials/cny_dragonlauncher_normal.tga"
+                              },
+                              "SubFolders": {}
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "rpg7": {
+                      "Name": "rpg7",
+                      "Path": "assets/prefabs/weapons/rocketlauncher/skins/rpg7",
+                      "Files": {},
+                      "SubFolders": {
+                        "ammo": {
+                          "Name": "ammo",
+                          "Path": "assets/prefabs/weapons/rocketlauncher/skins/rpg7/ammo",
+                          "Files": {},
+                          "SubFolders": {
+                            "materials": {
+                              "Name": "materials",
+                              "Path": "assets/prefabs/weapons/rocketlauncher/skins/rpg7/ammo/materials",
+                              "Files": {
+                                "RpgRocketHvAlbedoTransparency": "assets/prefabs/weapons/rocketlauncher/skins/rpg7/ammo/materials/rpg_rocket_hv_albedotransparency.png",
+                                "RpgRocketHvAo": "assets/prefabs/weapons/rocketlauncher/skins/rpg7/ammo/materials/rpg_rocket_hv_ao.png",
+                                "RpgRocketHvMetallicSmoothness": "assets/prefabs/weapons/rocketlauncher/skins/rpg7/ammo/materials/rpg_rocket_hv_metallicsmoothness.png",
+                                "RpgRocketHvNormal": "assets/prefabs/weapons/rocketlauncher/skins/rpg7/ammo/materials/rpg_rocket_hv_normal.png",
+                                "RpgRocketIncendiaryAlbedo": "assets/prefabs/weapons/rocketlauncher/skins/rpg7/ammo/materials/rpg_rocket_incendiary_albedo.tga",
+                                "RpgRocketIncendiaryAo": "assets/prefabs/weapons/rocketlauncher/skins/rpg7/ammo/materials/rpg_rocket_incendiary_ao.tga",
+                                "RpgRocketIncendiaryMetallicSmoothness": "assets/prefabs/weapons/rocketlauncher/skins/rpg7/ammo/materials/rpg_rocket_incendiary_metallicsmoothness.tga",
+                                "RpgRocketIncendiaryNormal": "assets/prefabs/weapons/rocketlauncher/skins/rpg7/ammo/materials/rpg_rocket_incendiary_normal.tga",
+                                "RpgRocketStandardAlbedo": "assets/prefabs/weapons/rocketlauncher/skins/rpg7/ammo/materials/rpg_rocket_standard_albedo.tga",
+                                "RpgRocketStandardAo": "assets/prefabs/weapons/rocketlauncher/skins/rpg7/ammo/materials/rpg_rocket_standard_ao.tga",
+                                "RpgRocketStandardMetallicSmoothness": "assets/prefabs/weapons/rocketlauncher/skins/rpg7/ammo/materials/rpg_rocket_standard_metallicsmoothness.tga",
+                                "RpgRocketStandardNormal": "assets/prefabs/weapons/rocketlauncher/skins/rpg7/ammo/materials/rpg_rocket_standard_normal.tga"
+                              },
+                              "SubFolders": {}
+                            }
+                          }
+                        },
+                        "model": {
+                          "Name": "model",
+                          "Path": "assets/prefabs/weapons/rocketlauncher/skins/rpg7/model",
+                          "Files": {},
+                          "SubFolders": {
+                            "materials": {
+                              "Name": "materials",
+                              "Path": "assets/prefabs/weapons/rocketlauncher/skins/rpg7/model/materials",
+                              "Files": {
+                                "VRpgAAo": "assets/prefabs/weapons/rocketlauncher/skins/rpg7/model/materials/v_rpg_a_ao.tga",
+                                "VRpgADiffuse": "assets/prefabs/weapons/rocketlauncher/skins/rpg7/model/materials/v_rpg_a_diffuse.tga",
+                                "VRpgANormal": "assets/prefabs/weapons/rocketlauncher/skins/rpg7/model/materials/v_rpg_a_normal.tga",
+                                "VRpgASpecular": "assets/prefabs/weapons/rocketlauncher/skins/rpg7/model/materials/v_rpg_a_specular.tga",
+                                "VRpgBAo": "assets/prefabs/weapons/rocketlauncher/skins/rpg7/model/materials/v_rpg_b_ao.tga",
+                                "VRpgBDiffuse": "assets/prefabs/weapons/rocketlauncher/skins/rpg7/model/materials/v_rpg_b_diffuse.tga",
+                                "VRpgBNormal": "assets/prefabs/weapons/rocketlauncher/skins/rpg7/model/materials/v_rpg_b_normal.tga",
+                                "VRpgBSpecular": "assets/prefabs/weapons/rocketlauncher/skins/rpg7/model/materials/v_rpg_b_specular.tga"
+                              },
+                              "SubFolders": {}
+                            }
+                          }
                         }
                       }
                     }
@@ -16695,7 +16757,6 @@
                                 "M15SlideSpecular": "assets/prefabs/weapons/semi auto pistol/skins/pistol_a_m15/model/materials/m15_slide_specular.tga",
                                 "M15WorldModelAo": "assets/prefabs/weapons/semi auto pistol/skins/pistol_a_m15/model/materials/m15_worldmodel_ao.tga",
                                 "M15WorldModelDiffuse": "assets/prefabs/weapons/semi auto pistol/skins/pistol_a_m15/model/materials/m15_worldmodel_diffuse.tga",
-                                "M15WorldModelEmissive": "assets/prefabs/weapons/semi auto pistol/skins/pistol_a_m15/model/materials/m15_worldmodel_emissive.tga",
                                 "M15WorldModelNormal": "assets/prefabs/weapons/semi auto pistol/skins/pistol_a_m15/model/materials/m15_worldmodel_normal.tga",
                                 "M15WorldModelSpecular": "assets/prefabs/weapons/semi auto pistol/skins/pistol_a_m15/model/materials/m15_worldmodel_specular.tga"
                               },
@@ -23937,6 +23998,33 @@
                 }
               }
             },
+            "minifridge": {
+              "Name": "minifridge",
+              "Path": "assets/prefabs/deployable/minifridge",
+              "Files": {},
+              "SubFolders": {
+                "materials": {
+                  "Name": "materials",
+                  "Path": "assets/prefabs/deployable/minifridge/materials",
+                  "Files": {},
+                  "SubFolders": {
+                    "textures": {
+                      "Name": "textures",
+                      "Path": "assets/prefabs/deployable/minifridge/materials/textures",
+                      "Files": {
+                        "MinifridgeAlbedo": "assets/prefabs/deployable/minifridge/materials/textures/minifridge_albedo.tga",
+                        "MinifridgeAo": "assets/prefabs/deployable/minifridge/materials/textures/minifridge_ao.tga",
+                        "MinifridgeEmission": "assets/prefabs/deployable/minifridge/materials/textures/minifridge_emission.tga",
+                        "MinifridgeFuzz": "assets/prefabs/deployable/minifridge/materials/textures/minifridge_fuzz.tga",
+                        "MinifridgeMetallic": "assets/prefabs/deployable/minifridge/materials/textures/minifridge_metallic.tga",
+                        "MinifridgeNormal": "assets/prefabs/deployable/minifridge/materials/textures/minifridge_normal.tga"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                }
+              }
+            },
             "frankensteintable": {
               "Name": "frankensteintable",
               "Path": "assets/prefabs/deployable/frankensteintable",
@@ -25385,6 +25473,50 @@
                           "SubFolders": {}
                         }
                       }
+                    }
+                  }
+                },
+                "kick": {
+                  "Name": "kick",
+                  "Path": "assets/prefabs/clothes/suit.hazmat/kick",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/prefabs/clothes/suit.hazmat/kick/materials",
+                      "Files": {
+                        "KickhazmatGlovesAlbedo": "assets/prefabs/clothes/suit.hazmat/kick/materials/kickhazmat_gloves_albedo.png",
+                        "KickhazmatGlovesAo": "assets/prefabs/clothes/suit.hazmat/kick/materials/kickhazmat_gloves_ao.png",
+                        "KickhazmatGlovesMetallic": "assets/prefabs/clothes/suit.hazmat/kick/materials/kickhazmat_gloves_metallic.png",
+                        "KickhazmatGlovesNormal": "assets/prefabs/clothes/suit.hazmat/kick/materials/kickhazmat_gloves_normal.png",
+                        "KickhazmatHeadAlbedo": "assets/prefabs/clothes/suit.hazmat/kick/materials/kickhazmat_head_albedo.png",
+                        "KickhazmatHeadAnisolevel": "assets/prefabs/clothes/suit.hazmat/kick/materials/kickhazmat_head_anisolevel.png",
+                        "KickhazmatHeadAnisotangent": "assets/prefabs/clothes/suit.hazmat/kick/materials/kickhazmat_head_anisotangent.png",
+                        "KickhazmatHeadAo": "assets/prefabs/clothes/suit.hazmat/kick/materials/kickhazmat_head_ao.png",
+                        "KickhazmatHeadMetallic": "assets/prefabs/clothes/suit.hazmat/kick/materials/kickhazmat_head_metallic.png",
+                        "KickhazmatHeadNormal": "assets/prefabs/clothes/suit.hazmat/kick/materials/kickhazmat_head_normal.png",
+                        "KickhazmatLod3Albedo": "assets/prefabs/clothes/suit.hazmat/kick/materials/kickhazmat_lod3_albedo.tga",
+                        "KickhazmatLod3Ao": "assets/prefabs/clothes/suit.hazmat/kick/materials/kickhazmat_lod3_ao.tga",
+                        "KickhazmatLod3Metallic": "assets/prefabs/clothes/suit.hazmat/kick/materials/kickhazmat_lod3_metallic.tga",
+                        "KickhazmatLod3Normal": "assets/prefabs/clothes/suit.hazmat/kick/materials/kickhazmat_lod3_normal.tga",
+                        "KickhazmatPantsAlbedo": "assets/prefabs/clothes/suit.hazmat/kick/materials/kickhazmat_pants_albedo.png",
+                        "KickhazmatPantsAnisolevel": "assets/prefabs/clothes/suit.hazmat/kick/materials/kickhazmat_pants_anisolevel.png",
+                        "KickhazmatPantsAnisotangent": "assets/prefabs/clothes/suit.hazmat/kick/materials/kickhazmat_pants_anisotangent.png",
+                        "KickhazmatPantsAo": "assets/prefabs/clothes/suit.hazmat/kick/materials/kickhazmat_pants_ao.png",
+                        "KickhazmatPantsMetallic": "assets/prefabs/clothes/suit.hazmat/kick/materials/kickhazmat_pants_metallic.png",
+                        "KickhazmatPantsNormal": "assets/prefabs/clothes/suit.hazmat/kick/materials/kickhazmat_pants_normal.png",
+                        "KickhazmatTanksAlbedo": "assets/prefabs/clothes/suit.hazmat/kick/materials/kickhazmat_tanks_albedo.png",
+                        "KickhazmatTanksAo": "assets/prefabs/clothes/suit.hazmat/kick/materials/kickhazmat_tanks_ao.png",
+                        "KickhazmatTanksMetallic": "assets/prefabs/clothes/suit.hazmat/kick/materials/kickhazmat_tanks_metallic.png",
+                        "KickhazmatTanksNormal": "assets/prefabs/clothes/suit.hazmat/kick/materials/kickhazmat_tanks_normal.png",
+                        "KickhazmatTorsoAlbedo": "assets/prefabs/clothes/suit.hazmat/kick/materials/kickhazmat_torso_albedo.png",
+                        "KickhazmatTorsoAnisolevel": "assets/prefabs/clothes/suit.hazmat/kick/materials/kickhazmat_torso_anisolevel.png",
+                        "KickhazmatTorsoAnisotangent": "assets/prefabs/clothes/suit.hazmat/kick/materials/kickhazmat_torso_anisotangent.png",
+                        "KickhazmatTorsoAo": "assets/prefabs/clothes/suit.hazmat/kick/materials/kickhazmat_torso_ao.png",
+                        "KickhazmatTorsoMetallic": "assets/prefabs/clothes/suit.hazmat/kick/materials/kickhazmat_torso_metallic.png",
+                        "KickhazmatTorsoNormal": "assets/prefabs/clothes/suit.hazmat/kick/materials/kickhazmat_torso_normal.png"
+                      },
+                      "SubFolders": {}
                     }
                   }
                 },
@@ -28895,6 +29027,32 @@
                 }
               }
             },
+            "planner": {
+              "Name": "planner",
+              "Path": "assets/prefabs/tools/planner",
+              "Files": {},
+              "SubFolders": {
+                "textures": {
+                  "Name": "textures",
+                  "Path": "assets/prefabs/tools/planner/textures",
+                  "Files": {
+                    "BuildingPlannerAlbedo": "assets/prefabs/tools/planner/textures/building_planner_albedo.tga",
+                    "BuildingPlannerAo": "assets/prefabs/tools/planner/textures/building_planner_ao.tga",
+                    "BuildingPlannerMetalsmooth": "assets/prefabs/tools/planner/textures/building_planner_metalsmooth.tga",
+                    "BuildingPlannerNormal": "assets/prefabs/tools/planner/textures/building_planner_normal.tga"
+                  },
+                  "SubFolders": {}
+                },
+                "model": {
+                  "Name": "model",
+                  "Path": "assets/prefabs/tools/planner/model",
+                  "Files": {
+                    "ConstructionPlansDiff": "assets/prefabs/tools/planner/model/construction_plans_diff.tga"
+                  },
+                  "SubFolders": {}
+                }
+              }
+            },
             "c4": {
               "Name": "c4",
               "Path": "assets/prefabs/tools/c4",
@@ -28939,21 +29097,6 @@
                     "LumberjackPickNormal": "assets/prefabs/tools/lumberjack_tools/textures/lumberjack_pick_normal.tga",
                     "LumberjackPickSpec": "assets/prefabs/tools/lumberjack_tools/textures/lumberjack_pick_spec.tga",
                     "RopeMask": "assets/prefabs/tools/lumberjack_tools/textures/ropemask.tga"
-                  },
-                  "SubFolders": {}
-                }
-              }
-            },
-            "planner": {
-              "Name": "planner",
-              "Path": "assets/prefabs/tools/planner",
-              "Files": {},
-              "SubFolders": {
-                "model": {
-                  "Name": "model",
-                  "Path": "assets/prefabs/tools/planner/model",
-                  "Files": {
-                    "ConstructionPlansDiff": "assets/prefabs/tools/planner/model/construction_plans_diff.tga"
                   },
                   "SubFolders": {}
                 }

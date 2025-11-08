@@ -17029,6 +17029,39 @@
                 }
               }
             },
+            "windmill": {
+              "Name": "windmill",
+              "Path": "assets/prefabs/deployable/windmill",
+              "Files": {},
+              "SubFolders": {
+                "models": {
+                  "Name": "models",
+                  "Path": "assets/prefabs/deployable/windmill/models",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/prefabs/deployable/windmill/models/materials",
+                      "Files": {
+                        "ConcMetalStainsDiffuse": "assets/prefabs/deployable/windmill/models/materials/conc_metal_stains_diffuse.mat",
+                        "ConcMetalStainsQuarry": "assets/prefabs/deployable/windmill/models/materials/conc_metal_stains_quarry.mat",
+                        "CopperWiresWindmill": "assets/prefabs/deployable/windmill/models/materials/copper_wires_windmill.mat",
+                        "CorrugatedAWindmill": "assets/prefabs/deployable/windmill/models/materials/corrugated_a_windmill.mat",
+                        "MetalBeamBDiff": "assets/prefabs/deployable/windmill/models/materials/metal_beam_b_diff.mat",
+                        "MetalBeamBOiljack": "assets/prefabs/deployable/windmill/models/materials/metal_beam_b_oiljack.mat",
+                        "MetalBeamOiljack": "assets/prefabs/deployable/windmill/models/materials/metal_beam_oiljack.mat",
+                        "RopeQuarry": "assets/prefabs/deployable/windmill/models/materials/rope_quarry.mat",
+                        "WindmillLod": "assets/prefabs/deployable/windmill/models/materials/windmill_lod.mat",
+                        "WindmillLodDiff": "assets/prefabs/deployable/windmill/models/materials/windmill_lod_diff.mat",
+                        "WoodPillarQuarry": "assets/prefabs/deployable/windmill/models/materials/wood_pillar_quarry.mat",
+                        "WoodplanksWindmill": "assets/prefabs/deployable/windmill/models/materials/woodplanks_windmill.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                }
+              }
+            },
             "quarry": {
               "Name": "quarry",
               "Path": "assets/prefabs/deployable/quarry",
@@ -17112,33 +17145,6 @@
                     "PfxWhispySmoke": "assets/prefabs/deployable/cookingworkbench/effects/pfx_whispy_smoke.mat"
                   },
                   "SubFolders": {}
-                }
-              }
-            },
-            "windmill": {
-              "Name": "windmill",
-              "Path": "assets/prefabs/deployable/windmill",
-              "Files": {},
-              "SubFolders": {
-                "models": {
-                  "Name": "models",
-                  "Path": "assets/prefabs/deployable/windmill/models",
-                  "Files": {},
-                  "SubFolders": {
-                    "materials": {
-                      "Name": "materials",
-                      "Path": "assets/prefabs/deployable/windmill/models/materials",
-                      "Files": {
-                        "CopperWiresWindmill": "assets/prefabs/deployable/windmill/models/materials/copper_wires_windmill.mat",
-                        "CorrugatedAWindmill": "assets/prefabs/deployable/windmill/models/materials/corrugated_a_windmill.mat",
-                        "MetalBeamBOiljack": "assets/prefabs/deployable/windmill/models/materials/metal_beam_b_oiljack.mat",
-                        "MetalBeamOiljack": "assets/prefabs/deployable/windmill/models/materials/metal_beam_oiljack.mat",
-                        "WindmillLod": "assets/prefabs/deployable/windmill/models/materials/windmill_lod.mat",
-                        "WoodplanksWindmill": "assets/prefabs/deployable/windmill/models/materials/woodplanks_windmill.mat"
-                      },
-                      "SubFolders": {}
-                    }
-                  }
                 }
               }
             },
@@ -17823,6 +17829,21 @@
                   "Files": {
                     "MailBox": "assets/prefabs/deployable/mailbox/materials/mailbox.mat",
                     "Red": "assets/prefabs/deployable/mailbox/materials/red.mat"
+                  },
+                  "SubFolders": {}
+                }
+              }
+            },
+            "minifridge": {
+              "Name": "minifridge",
+              "Path": "assets/prefabs/deployable/minifridge",
+              "Files": {},
+              "SubFolders": {
+                "materials": {
+                  "Name": "materials",
+                  "Path": "assets/prefabs/deployable/minifridge/materials",
+                  "Files": {
+                    "Minifridge": "assets/prefabs/deployable/minifridge/materials/minifridge.mat"
                   },
                   "SubFolders": {}
                 }
@@ -23261,33 +23282,80 @@
               "Path": "assets/prefabs/weapons/rocketlauncher",
               "Files": {},
               "SubFolders": {
-                "cny_dragonlauncher": {
-                  "Name": "cny_dragonlauncher",
-                  "Path": "assets/prefabs/weapons/rocketlauncher/cny_dragonlauncher",
+                "skins": {
+                  "Name": "skins",
+                  "Path": "assets/prefabs/weapons/rocketlauncher/skins",
                   "Files": {},
                   "SubFolders": {
-                    "model": {
-                      "Name": "model",
-                      "Path": "assets/prefabs/weapons/rocketlauncher/cny_dragonlauncher/model",
+                    "cny_dragonlauncher": {
+                      "Name": "cny_dragonlauncher",
+                      "Path": "assets/prefabs/weapons/rocketlauncher/skins/cny_dragonlauncher",
                       "Files": {},
                       "SubFolders": {
-                        "materials": {
-                          "Name": "materials",
-                          "Path": "assets/prefabs/weapons/rocketlauncher/cny_dragonlauncher/model/materials",
+                        "model": {
+                          "Name": "model",
+                          "Path": "assets/prefabs/weapons/rocketlauncher/skins/cny_dragonlauncher/model",
+                          "Files": {},
+                          "SubFolders": {
+                            "materials": {
+                              "Name": "materials",
+                              "Path": "assets/prefabs/weapons/rocketlauncher/skins/cny_dragonlauncher/model/materials",
+                              "Files": {
+                                "CnyDragonlauncher": "assets/prefabs/weapons/rocketlauncher/skins/cny_dragonlauncher/model/materials/cny_dragonlauncher.mat"
+                              },
+                              "SubFolders": {}
+                            }
+                          }
+                        },
+                        "effects": {
+                          "Name": "effects",
+                          "Path": "assets/prefabs/weapons/rocketlauncher/skins/cny_dragonlauncher/effects",
                           "Files": {
-                            "CnyDragonlauncher": "assets/prefabs/weapons/rocketlauncher/cny_dragonlauncher/model/materials/cny_dragonlauncher.mat"
+                            "FlameRocketlauncherCone": "assets/prefabs/weapons/rocketlauncher/skins/cny_dragonlauncher/effects/flame-rocketlauncher-cone.mat"
                           },
                           "SubFolders": {}
                         }
                       }
                     },
-                    "effects": {
-                      "Name": "effects",
-                      "Path": "assets/prefabs/weapons/rocketlauncher/cny_dragonlauncher/effects",
-                      "Files": {
-                        "FlameRocketlauncherCone": "assets/prefabs/weapons/rocketlauncher/cny_dragonlauncher/effects/flame-rocketlauncher-cone.mat"
-                      },
-                      "SubFolders": {}
+                    "rpg7": {
+                      "Name": "rpg7",
+                      "Path": "assets/prefabs/weapons/rocketlauncher/skins/rpg7",
+                      "Files": {},
+                      "SubFolders": {
+                        "ammo": {
+                          "Name": "ammo",
+                          "Path": "assets/prefabs/weapons/rocketlauncher/skins/rpg7/ammo",
+                          "Files": {},
+                          "SubFolders": {
+                            "materials": {
+                              "Name": "materials",
+                              "Path": "assets/prefabs/weapons/rocketlauncher/skins/rpg7/ammo/materials",
+                              "Files": {
+                                "RpgRocketHv": "assets/prefabs/weapons/rocketlauncher/skins/rpg7/ammo/materials/rpg_rocket_hv.mat",
+                                "RpgRocketIncendiary": "assets/prefabs/weapons/rocketlauncher/skins/rpg7/ammo/materials/rpg_rocket_incendiary.mat",
+                                "RpgRocketStandard": "assets/prefabs/weapons/rocketlauncher/skins/rpg7/ammo/materials/rpg_rocket_standard.mat"
+                              },
+                              "SubFolders": {}
+                            }
+                          }
+                        },
+                        "model": {
+                          "Name": "model",
+                          "Path": "assets/prefabs/weapons/rocketlauncher/skins/rpg7/model",
+                          "Files": {},
+                          "SubFolders": {
+                            "materials": {
+                              "Name": "materials",
+                              "Path": "assets/prefabs/weapons/rocketlauncher/skins/rpg7/model/materials",
+                              "Files": {
+                                "VRpgA": "assets/prefabs/weapons/rocketlauncher/skins/rpg7/model/materials/v_rpg_a.mat",
+                                "VRpgB": "assets/prefabs/weapons/rocketlauncher/skins/rpg7/model/materials/v_rpg_b.mat"
+                              },
+                              "SubFolders": {}
+                            }
+                          }
+                        }
+                      }
                     }
                   }
                 },
@@ -26070,6 +26138,29 @@
                 }
               }
             },
+            "planner": {
+              "Name": "planner",
+              "Path": "assets/prefabs/tools/planner",
+              "Files": {},
+              "SubFolders": {
+                "model": {
+                  "Name": "model",
+                  "Path": "assets/prefabs/tools/planner/model",
+                  "Files": {
+                    "BuildingPlannerViewModel": "assets/prefabs/tools/planner/model/building_planner_viewmodel.mat"
+                  },
+                  "SubFolders": {}
+                },
+                "materials": {
+                  "Name": "materials",
+                  "Path": "assets/prefabs/tools/planner/materials",
+                  "Files": {
+                    "ConstructionPlans": "assets/prefabs/tools/planner/materials/construction_plans.mat"
+                  },
+                  "SubFolders": {}
+                }
+              }
+            },
             "c4": {
               "Name": "c4",
               "Path": "assets/prefabs/tools/c4",
@@ -26116,21 +26207,6 @@
                       "SubFolders": {}
                     }
                   }
-                }
-              }
-            },
-            "planner": {
-              "Name": "planner",
-              "Path": "assets/prefabs/tools/planner",
-              "Files": {},
-              "SubFolders": {
-                "model": {
-                  "Name": "model",
-                  "Path": "assets/prefabs/tools/planner/model",
-                  "Files": {
-                    "ConstructionPlans": "assets/prefabs/tools/planner/model/construction_plans.mat"
-                  },
-                  "SubFolders": {}
                 }
               }
             },
@@ -27230,6 +27306,26 @@
                         "FrontierhazmatLegs": "assets/prefabs/clothes/suit.hazmat/frontier/materials/frontierhazmat_legs.mat",
                         "FrontierhazmatLod3": "assets/prefabs/clothes/suit.hazmat/frontier/materials/frontierhazmat_lod3.mat",
                         "FrontierhazmatMantlehairCards": "assets/prefabs/clothes/suit.hazmat/frontier/materials/frontierhazmat_mantlehaircards.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
+                "kick": {
+                  "Name": "kick",
+                  "Path": "assets/prefabs/clothes/suit.hazmat/kick",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/prefabs/clothes/suit.hazmat/kick/materials",
+                      "Files": {
+                        "KickhazmatGloves": "assets/prefabs/clothes/suit.hazmat/kick/materials/kickhazmat_gloves.mat",
+                        "KickhazmatHead": "assets/prefabs/clothes/suit.hazmat/kick/materials/kickhazmat_head.mat",
+                        "KickhazmatLod3": "assets/prefabs/clothes/suit.hazmat/kick/materials/kickhazmat_lod3.mat",
+                        "KickhazmatPants": "assets/prefabs/clothes/suit.hazmat/kick/materials/kickhazmat_pants.mat",
+                        "KickhazmatTanks": "assets/prefabs/clothes/suit.hazmat/kick/materials/kickhazmat_tanks.mat",
+                        "KickhazmatTorso": "assets/prefabs/clothes/suit.hazmat/kick/materials/kickhazmat_torso.mat"
                       },
                       "SubFolders": {}
                     }
