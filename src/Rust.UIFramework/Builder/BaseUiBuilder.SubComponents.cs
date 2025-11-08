@@ -190,8 +190,8 @@ public abstract partial class BaseUiBuilder
     public ContentSizeFitterComponent ContentSizeFitter(BaseUiComponent component) => component.GetOrAddSubComponent<ContentSizeFitterComponent>();
 
     public ContentSizeFitterComponent ContentSizeFitter(BaseUiComponent component,
-        ContentSizeFitter.FitMode horizontalFit = JsonDefaults.ContentSizeFitterData.HorizontalFit,
-        ContentSizeFitter.FitMode verticalFit = JsonDefaults.ContentSizeFitterData.VerticalFit)
+        FitMode horizontalFit = JsonDefaults.ContentSizeFitterData.HorizontalFit,
+        FitMode verticalFit = JsonDefaults.ContentSizeFitterData.VerticalFit)
     {
         ContentSizeFitterComponent layout = component.GetOrAddSubComponent<ContentSizeFitterComponent>();
         layout.HorizontalFit = horizontalFit;

@@ -268,6 +268,15 @@ public sealed class JsonFrameworkWriter : BasePoolable
         }
     }
     
+    public void AddField(in Utf8String name, Tracked<UiPadding> value, SerializeMode mode)
+    {
+        if (value.ShouldSerialize(mode))
+        {
+            WritePropertyName(name);
+            WriteValue(value.Value);
+        }
+    }
+    
     public void AddField<T>(in Utf8String name, Tracked<T> value, SerializeMode mode) where T : unmanaged, Enum
     {
         if (value.ShouldSerialize(mode))

@@ -28,7 +28,7 @@ public abstract class BaseNumberPicker<T> : BaseUiControl where T : struct, ICon
     {
         Background = builder.Panel(parent, pos, offset, backgroundColor);
         string displayValue = string.IsNullOrEmpty(numberFormat) ? StringCache<T>.ToString(value) : FormatCache<T>.ToString(value, numberFormat);
-        Input = builder.Input(Background, UiPosition.Full, JsonDefaults.Common.TextPadding, displayValue, fontSize, textColor, command, mode: mode, align: align);
+        Input = builder.Input(Background, UiPosition.Full, default, displayValue, fontSize, textColor, command, mode: mode, align: align).SetOffsetPadding(JsonDefaults.Common.TextPadding);
     }
 
     protected override void EnterPool()

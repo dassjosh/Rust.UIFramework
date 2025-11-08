@@ -1,6 +1,7 @@
 ﻿using System.Runtime.CompilerServices;
 using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Enums;
+using Oxide.Ext.UiFramework.Layouts;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.Types;
@@ -116,6 +117,13 @@ public static class UiComponentExt
     public static T SetOffsetScale<T>(this T component, UiScale scale) where T : BaseUiComponent
     {
         component.OffsetScale = scale;
+        return component;
+    }
+    
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static T SetLayout<T>(this T component, BaseUiLayout layout) where T : BaseUiComponent
+    {
+        layout.AddElement(component);
         return component;
     }
 }
