@@ -34,8 +34,8 @@ public static class JsonDefaults
         public static readonly Utf8String EnabledName = "enabled";
         public static readonly Utf8String PlaceholderInputId = "placeholderParentId";
         
-        public static readonly UiPadding TextPadding = new(2, 0, -2, 0);
-        public static readonly UiPadding Padding = new(2, 2, -2, -2);
+        public static readonly UiPadding TextPadding = new(2, 0);
+        public static readonly UiPadding Padding = new(2);
     }
 
     public static class RectTransform
