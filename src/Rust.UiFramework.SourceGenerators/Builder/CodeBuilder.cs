@@ -44,6 +44,17 @@ public class CodeBuilder
         return this;
     }
 
+    public CodeBuilder Add<T>(IEnumerable<T> parameters, Action<T, TypeBuilder> types)
+    {
+        foreach (T data in parameters)
+        {
+            TypeBuilder builder = new();
+            types(data, builder);
+            _buildables.Add(builder);
+        }
+        return this;
+    }
+    
     public string Build()
     {
         StringBuilder sb = new();

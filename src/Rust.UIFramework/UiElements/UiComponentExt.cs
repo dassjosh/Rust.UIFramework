@@ -105,6 +105,12 @@ public static class UiComponentExt
         component.Update = mode;
         return component;
     }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static T Update<T>(this T component) where T : BaseUiComponent => component.SetUpdate(UpdateMode.Update);
+    
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static T Replace<T>(this T component) where T : BaseUiComponent => component.SetUpdate(UpdateMode.Replace);
     
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T SetPositionScale<T>(this T component, UiScale scale) where T : BaseUiComponent

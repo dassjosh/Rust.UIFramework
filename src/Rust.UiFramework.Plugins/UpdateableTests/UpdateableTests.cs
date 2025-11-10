@@ -29,7 +29,7 @@ public class UpdateableTests : RustPlugin, IUiFrameworkPlugin
     private void Init()
     {
         _ins = this;
-       _close = _commands.RegisterCommand<UiState>(this, CloseCommand);
+       (_, _close) = _commands.RegisterCommand(this, CloseCommand);
     }
 
     private void OnServerInitialized()
@@ -77,7 +77,7 @@ public class UpdateableTests : RustPlugin, IUiFrameworkPlugin
     private const string UiName = "UiUpdateableTests";
     //private readonly GridPosition _grid = new GridPositionBuilder(3, 3).SetPadding(0.01f).Build();
     private readonly UiColor[] _colors = {UiColors.Red, UiColors.Orange, UiColors.Yellow, UiColors.Green, UiColors.Blue, UiColors.Purple, UiColors.Gray, UiColors.Black, UiColors.White};
-    private ICommandBuilder<UiState> _close;
+    private ICommandBuilder _close;
 
     private void CreateUi(BasePlayer player, UiState state)
     {
@@ -85,7 +85,7 @@ public class UpdateableTests : RustPlugin, IUiFrameworkPlugin
         UiBuilder builder = UiBuilder.Create(this, new UiReference(UiLayer.Overlay, UiName), UiPosition.MiddleMiddle, new UiOffset(400, 400), UiColors.Panel);
         builder.NeedsMouse();
         UiPanel header = builder.Panel(builder.Root, new UiPosition(0, 0.95f, 1, 1), default, UiColors.PanelSecondary);
-        builder.TextButton(header, new UiPosition(0.95f, 0f, 1, 1), default, "X", 14, UiColors.White, UiColors.Rust.Red, _close.Build(state));
+        builder.TextButton(header, new UiPosition(0.95f, 0f, 1, 1), default, "X", 14, UiColors.White, UiColors.Rust.Red, _close.Build());
 
         UiPanel body = builder.Panel(builder.Root, new UiPosition(0, 0, 1, 0.945f), default, UiColors.PanelTertiary).SetOffsetPadding(new UiPadding(10));
 
@@ -112,9 +112,10 @@ public class UpdateableTests : RustPlugin, IUiFrameworkPlugin
     }
 
     [UiCommand]
-    private void CloseCommand(BasePlayer player, UiState state)
+    private void CloseCommand(ExecutionData data)
     {
-        state.StopTimer();
+        UiState store = data.GetStore<UiState>();
+        store.StopTimer();
         UiBuilder.DestroyUi(UiName);
     }
 }

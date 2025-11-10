@@ -6,41 +6,23 @@ using Rust.UiFramework.SourceGenerators.Attributes;
 using Rust.UiFramework.SourceGenerators.Builder;
 using Rust.UiFramework.SourceGenerators.Helpers;
 
-namespace Rust.UiFramework.SourceGenerators.Generators;
+namespace Rust.UiFramework.SourceGenerators.Generators.Elements;
 
 [Generator]
-public class UiElementGenerator : IIncrementalGenerator
+public class UiElementGenerator : BaseGenerator, IIncrementalGenerator
 {
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
-        IncrementalValuesProvider<ClassDeclarationSyntax> classDeclarations = context.SyntaxProvider
-            .CreateSyntaxProvider(
-                predicate: static (s, _) => s is ClassDeclarationSyntax,
-                transform: static (ctx, _) => (ClassDeclarationSyntax)ctx.Node)
-            .Where(static m => m is not null);
-
-        IncrementalValueProvider<(Compilation Left, ImmutableArray<ClassDeclarationSyntax> Right)> compilationAndClasses = context.CompilationProvider.Combine(classDeclarations.Collect());
-
-        context.RegisterSourceOutput(compilationAndClasses, (spc, source) =>
+        context.Register<ClassDeclarationSyntax, GenerateUiElementAttribute>((spc, compilation, @class, classSymbol, attribute) =>
         {
-            (Compilation compilation, ImmutableArray<ClassDeclarationSyntax> classes) = source;
-
-            INamedTypeSymbol tracked = SymbolCache.GetTracked(compilation);
-            
-            foreach (ClassDeclarationSyntax @class in classes)
+            if (attribute?.ConstructorArguments[0].Value is not INamedTypeSymbol interfaceType)
             {
-                SemanticModel model = compilation.GetSemanticModel(@class.SyntaxTree);
-                INamedTypeSymbol classSymbol = model.GetDeclaredSymbol(@class) as INamedTypeSymbol;
-                
-                AttributeData attribute = classSymbol?.GetAttribute<GenerateUiElementAttribute>();
-                if (attribute?.ConstructorArguments[0].Value is not INamedTypeSymbol interfaceType)
-                {
-                    continue;
-                }
-
-                GeneratorData data = new(classSymbol, interfaceType, tracked);
-                spc.AddSource($"{classSymbol.Name}.g.cs", GenerateElement(classSymbol, data));
+                return;
             }
+            
+            InitializeCache(compilation);
+            GeneratorData data = new(classSymbol, interfaceType);
+            spc.AddSource($"{classSymbol.Name}.g.cs", GenerateElement(classSymbol, data));
         });
     }
     
@@ -53,7 +35,7 @@ public class UiElementGenerator : IIncrementalGenerator
                 .Implements(genData.ClassSymbol.GetTrackableInterface())
                 
                 //Private Tracked Fields
-                .Fields(genData.Properties, (data, field) => field.Private().Readonly().Type(genData.TrackedType.Construct(data.Type)).Name(data.Name.ToPrivateField()).New(data.GetPropertyDefaults()))
+                .Fields(genData.Properties, (data, field) => field.Private().Readonly().Type(SymbolCache.Types.Tracked.Symbol.Construct(data.Type)).Name(data.Name.ToPrivateField()).New(data.GetPropertyDefaults()))
                
                 //Public Properties Setting Component Fields
                 .Properties(genData.Properties, (data, property) => property.Public().Type(data.TypeName).Name(data.Name)
@@ -64,7 +46,7 @@ public class UiElementGenerator : IIncrementalGenerator
                     .EndIf())
                
                 //Public Tracked Explicit Interface Implementation Properties
-                .Properties(genData.Properties, data => data.IsTracked, (data, property) => property.Type(genData.TrackedType.Construct(data.Type))
+                .Properties(genData.Properties, data => data.IsTracked, (data, property) => property.Type(SymbolCache.Types.Tracked.Symbol.Construct(data.Type))
                     .Name($"{genData.ClassSymbol.GetTrackableInterface()}.{data.Name}").Get(data.Name.ToPrivateField()))
                 
                 //AsTrackable for Component and Element
@@ -90,13 +72,11 @@ public class UiElementGenerator : IIncrementalGenerator
         public readonly string ComponentFieldName;
         public readonly PropertyData[] Properties;
         public readonly bool SkipBuilder;
-        public readonly INamedTypeSymbol TrackedType;
         public readonly IFieldSymbol ComponentField;
 
-        public GeneratorData(INamedTypeSymbol classSymbol, INamedTypeSymbol interfaceType, INamedTypeSymbol trackedType)
+        public GeneratorData(INamedTypeSymbol classSymbol, INamedTypeSymbol interfaceType)
         {
             ClassSymbol = classSymbol;
-            TrackedType = trackedType;
             ComponentFieldName = classSymbol.GetMembers().OfType<IFieldSymbol>().FirstOrDefault()?.Name;
             Properties = interfaceType.GetProperties().Select(p => new PropertyData(p)).ToArray();
             SkipBuilder = interfaceType.HasAttribute<SkipBuilderAttribute>();

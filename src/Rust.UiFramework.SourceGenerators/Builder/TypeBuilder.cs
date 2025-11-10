@@ -2,26 +2,48 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.CodeAnalysis;
 
 namespace Rust.UiFramework.SourceGenerators.Builder;
 
-public class TypeBuilder : IType, IAccessModifiers, IKeywords, IBuildable
+public class TypeBuilder : IType, IAccessModifiers, IKeywords, IBuildable, IGenerics
 {
     AccessModifiers IAccessModifiers.AccessModifiers { get; set; }
     Keywords IKeywords.Keywords { get; set; }
     Type IType.Type { get; set; }
+    GenericsBuilder IGenerics.Generics => _generics;
     
+    private string _extends;
     private readonly List<string> _implements = [];
     private readonly List<FieldBuilder> _fields = [];
     private readonly List<PropertyBuilder> _properties = [];
     private readonly List<MethodBuilder> _methods = [];
     private readonly List<TypeBuilder> _types = [];
+    private List<ParameterBuilder> _parameters;
+    private List<string> _extendsParameters;
+    private GenericsBuilder _generics;
 
     private string _name;
     
     public TypeBuilder Name(string name)
     {
         _name = name;
+        return this;
+    }
+    
+    public TypeBuilder AddGenerics(Action<GenericsBuilder> generics)
+    {
+        GenericsBuilder builder = new();
+        generics(builder);
+        _generics = builder;
+        return this;
+    }
+    
+    public TypeBuilder AddGenerics(Action<GenericsBuilder> generics, out GenericsBuilder builder)
+    {
+        builder = new GenericsBuilder();
+        generics(builder);
+        _generics = builder;
         return this;
     }
     
@@ -33,7 +55,23 @@ public class TypeBuilder : IType, IAccessModifiers, IKeywords, IBuildable
 
     public TypeBuilder Extends(string parent)
     {
-        _implements.Insert(0, parent);
+        _extends = parent;
+        return this;
+    }
+
+    public TypeBuilder Extends(INamedTypeSymbol parent) => Extends(parent.ToString());
+    
+    public TypeBuilder AddExtendParameter(string parameter)
+    {
+        _extendsParameters ??= [];
+        _extendsParameters.Add(parameter);
+        return this;
+    }
+    
+    public TypeBuilder AddExtendParameters(IEnumerable<string> parameters)
+    {
+        _extendsParameters ??= [];
+        _extendsParameters.AddRange(parameters);
         return this;
     }
     
@@ -101,6 +139,29 @@ public class TypeBuilder : IType, IAccessModifiers, IKeywords, IBuildable
         _types.Add(builder);
         return this;
     }
+    
+    public TypeBuilder AddParameter(Action<ParameterBuilder> parameter)
+    {
+        ParameterBuilder builder = new();
+        parameter(builder);
+        _parameters ??= [];
+        _parameters.Add(builder);
+        return this;
+    }
+    
+    public TypeBuilder AddParameters<T>(IEnumerable<T> parameters, Action<T, ParameterBuilder> parameter)
+    {
+        foreach (T data in parameters)
+        {
+            ParameterBuilder builder = new();
+            parameter(data, builder);
+            _parameters ??= [];
+            _parameters.Add(builder);
+        }
+        return this;
+    }
+    
+    public IEnumerable<ParameterBuilder> EnumerateParameters() => _parameters;
 
     public string Build(int indent)
     {
@@ -111,10 +172,42 @@ public class TypeBuilder : IType, IAccessModifiers, IKeywords, IBuildable
         sb.Append(this.GetDeclaredType());
         sb.Append(' ');
         sb.Append(_name);
+        if (_generics != null)
+        {
+            sb.Append($"<{_generics.Build(0)}>");
+        }
 
-        if (_implements.Count != 0)
+        if (_parameters != null)
+        {
+            sb.Append('(');
+            sb.Append(string.Join(", ", _parameters.Select(p => p.Build(indent))));
+            sb.Append(')');
+        }
+
+        if (!string.IsNullOrEmpty(_extends) || _implements.Count != 0)
         {
             sb.Append(" : ");
+        }
+        
+        if (!string.IsNullOrEmpty(_extends))
+        {
+            sb.Append(_extends);
+            
+            if (_extendsParameters != null)
+            {
+                sb.Append('(');
+                sb.Append(string.Join(", ", _extendsParameters));
+                sb.Append(')');
+            }
+        }
+        
+        if (_implements.Count != 0)
+        {
+            if (!string.IsNullOrEmpty(_extends))
+            {
+                sb.Append(", ");
+            }
+            
             sb.Append(string.Join(", ", _implements));
         }
 
@@ -123,17 +216,18 @@ public class TypeBuilder : IType, IAccessModifiers, IKeywords, IBuildable
         sb.Append('\t', indent);
         sb.AppendLine("{");
 
-        bool hasAdded = ProcessBuildable(_fields, sb, indent, false);
-        hasAdded = ProcessBuildable(_properties, sb, indent, hasAdded);
-        hasAdded = ProcessBuildable(_methods, sb, indent, hasAdded);
-        hasAdded = ProcessBuildable(_types, sb, indent, hasAdded);
+        bool hasAdded = false;
+        ProcessBuildable(_fields, sb, indent, ref hasAdded);
+        ProcessBuildable(_properties, sb, indent, ref hasAdded);
+        ProcessBuildable(_methods, sb, indent, ref hasAdded);
+        ProcessBuildable(_types, sb, indent, ref hasAdded);
         
         sb.Append('\t', indent);
         sb.AppendLine("}");
         return sb.ToString();
     }
 
-    private bool ProcessBuildable<T>(List<T> buildables, StringBuilder sb, int indent, bool hasAdded) where T : IBuildable
+    private void ProcessBuildable<T>(List<T> buildables, StringBuilder sb, int indent, ref bool hasAdded) where T : IBuildable
     {
         if (buildables.Count != 0)
         {
@@ -147,9 +241,7 @@ public class TypeBuilder : IType, IAccessModifiers, IKeywords, IBuildable
                 sb.Append(buildable.Build(indent + 1));
             }
 
-            return true;
+            hasAdded = true;
         }
-
-        return false;
     }
 }

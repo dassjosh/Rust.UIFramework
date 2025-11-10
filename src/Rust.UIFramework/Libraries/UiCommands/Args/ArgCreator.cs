@@ -15,6 +15,7 @@ internal static class ArgCreator
     private static readonly Dictionary<Type, IArgHandler> BuiltInHandlers = new();
     private static readonly Dictionary<PluginArgHandler, IArgHandler> PluginHandlers = new();
     
+    internal static IArgHandler[] CreateArgHandler(PluginId pluginId) => [];
     internal static IArgHandler[] CreateArgHandler<T0>(PluginId pluginId) => [GetArgHandler<T0>(pluginId)];
     internal static IArgHandler[] CreateArgHandler<T0, T1>(PluginId pluginId) => [GetArgHandler<T0>(pluginId), GetArgHandler<T1>(pluginId)];
     internal static IArgHandler[] CreateArgHandler<T0, T1, T2>(PluginId pluginId) => [GetArgHandler<T0>(pluginId), GetArgHandler<T1>(pluginId), GetArgHandler<T2>(pluginId)];

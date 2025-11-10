@@ -1,21 +1,19 @@
 ﻿using System;
 using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Logging;
-using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Libraries;
 
-internal class CooldownHandler(PluginId pluginId, string method, float cooldown, string errorMessage, OnPlayerCooldown onCooldown) : ICooldownHandler
+internal class CooldownHandler(RegisteredCommand command, float cooldown, string errorMessage) : ICooldownHandler
 {
     private readonly UiMemoryCache<ulong> _cooldownExpires = new(TimeSpan.FromSeconds(cooldown));
     private static readonly IUiLogger<CooldownHandler> Logger = Singleton<UiLoggerFactory>.Instance.CreateExtensionLogger<CooldownHandler>();
 
     public bool IsOnCooldown(BasePlayer player)
     {
-        if(_cooldownExpires.TryGetExpiresIn(player.userID, out float remaining))
+        if(_cooldownExpires.TryGetExpiresIn(player.userID, out float _))
         {
-            HandleCallback(player, remaining);
             return true;
         }
         
@@ -23,21 +21,23 @@ internal class CooldownHandler(PluginId pluginId, string method, float cooldown,
         return false;
     }
 
-    private void HandleCallback(BasePlayer player, float remaining)
+    public float GetRemainingSeconds(BasePlayer player) => _cooldownExpires.TryGetExpiresIn(player.userID, out float remaining) ? remaining : 0;
+
+    public void OnCooldown(BasePlayer player, float remaining)
     {
         try
         {
-            if (onCooldown != null)
+            if (command.OnPlayerCooldown != null)
             {
-                onCooldown(player, cooldown, remaining, errorMessage);
+                command.OnPlayerCooldown(player, cooldown, remaining, errorMessage);
                 return;
             }
 
-            Singleton<UiCommands>.Instance.OnPlayerCooldown(pluginId, player, method, cooldown, remaining, errorMessage);
+            Singleton<UiCommands>.Instance.OnPlayerCooldown(command.PluginId, player, command.Delegate.Method, cooldown, remaining, errorMessage);
         }
         catch (Exception ex)
         {
-            Logger.Exception($"{nameof(HandleCallback)} An error occured during callback", ex);
+            Logger.Exception($"{nameof(OnCooldown)} An error occured during callback", ex);
         }
     }
 }

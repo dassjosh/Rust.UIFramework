@@ -6,36 +6,27 @@ using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Libraries;
 
-internal class PermissionHandler(PluginId pluginId, string method, string[] permissions, PermissionMode mode, string errorMessage, OnPlayerNoPermission noPermission) : IPermissionHandler
+internal class PermissionHandler(RegisteredCommand command, string[] permissions, PermissionMode mode, string errorMessage) : IPermissionHandler
 {
     private static readonly IUiLogger<PermissionHandler> Logger = Singleton<UiLoggerFactory>.Instance.CreateExtensionLogger<PermissionHandler>();
     
-    public bool HasPermission(BasePlayer player)
-    {
-        if (CheckPlayerPermissions(player))
-        {
-            return true;
-        }
+    public bool HasPermission(BasePlayer player) => CheckPlayerPermissions(player);
 
-        HandleCallback(player);
-        return false;
-    }
-
-    private void HandleCallback(BasePlayer player)
+    public void OnNoPermission(BasePlayer player)
     {
         try
         {
-            if (noPermission != null)
+            if (command.OnPlayerNoPermission != null)
             {
-                noPermission(player, errorMessage);
+                command.OnPlayerNoPermission(player, errorMessage);
                 return;
             }
 
-            Singleton<UiCommands>.Instance.OnPlayerNoPermission(pluginId, player, method, errorMessage);
+            Singleton<UiCommands>.Instance.OnPlayerNoPermission(command.PluginId, player, command.Delegate.Method, errorMessage);
         }
         catch (Exception ex)
         {
-            Logger.Exception($"{nameof(HandleCallback)} An error occured during callback", ex);
+            Logger.Exception($"{nameof(OnNoPermission)} An error occured during callback", ex);
         }
     }
 

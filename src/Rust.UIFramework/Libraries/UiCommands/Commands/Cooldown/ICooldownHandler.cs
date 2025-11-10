@@ -1,6 +1,8 @@
 ﻿namespace Oxide.Ext.UiFramework.Libraries;
 
-internal interface ICooldownHandler
+public interface ICooldownHandler
 {
     bool IsOnCooldown(BasePlayer player);
+    float GetRemainingSeconds(BasePlayer player);
+    void OnCooldown(BasePlayer player, float remaining);
 }

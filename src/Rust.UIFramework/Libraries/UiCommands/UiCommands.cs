@@ -7,20 +7,22 @@ using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Logging;
 using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Types;
+using Rust.UiFramework.SourceGenerators.Attributes;
 
 // ReSharper disable CoVariantArrayConversion
 
 namespace Oxide.Ext.UiFramework.Libraries;
 
-public delegate void OnPluginNoPermission(BasePlayer player, string method, string errorMessage);
-public delegate void OnPluginCooldown(BasePlayer player, string method, float cooldown, float remaining, string errorMessage);
-public delegate void OnPluginProtectionFailed(BasePlayer player, string method);
+public delegate void OnPluginNoPermission(BasePlayer player, MethodInfo method, string errorMessage);
+public delegate void OnPluginCooldown(BasePlayer player, MethodInfo method, float cooldown, float remaining, string errorMessage);
+public delegate void OnPluginProtectionFailed(BasePlayer player, MethodInfo method);
 
 public delegate void OnPlayerNoPermission(BasePlayer player, string errorMessage);
 public delegate void OnPlayerCooldown(BasePlayer player, float cooldown, float remaining, string errorMessage);
 public delegate void OnPlayerProtectionFailed(BasePlayer player);
 
-public class UiCommands : BaseUiFrameworkLibrary, ISingleton
+[GenerateRegisterCommands]
+public partial class UiCommands : BaseUiFrameworkLibrary, ISingleton
 {
     public const string NullArg = "null";
     public const char StartQuote = '“';
@@ -33,100 +35,31 @@ public class UiCommands : BaseUiFrameworkLibrary, ISingleton
     private readonly IUiLogger<UiCommands> _logger = Singleton<UiLoggerFactory>.Instance.CreateExtensionLogger<UiCommands>();
 
     private UiCommands() { }
-    
-    public ICommandBuilder RegisterCommand(IUiFrameworkPlugin plugin, Action<BasePlayer> method, CommandOptions options = null)
-    {
-        ParseCommand(plugin, method.Method, options, out PluginId _, out CommandId command, out ICommandProtection protection, out ICooldownHandler cooldown, out IPermissionHandler permission);
-        _commands[command] = new CommandParser(plugin, method, protection, cooldown, permission);
-        return new CommandBuilder(command.GetCommand(), protection);
-    }
 
-    public ICommandBuilder<T0> RegisterCommand<T0>(IUiFrameworkPlugin plugin, Action<BasePlayer, T0> method, CommandOptions options = null)
-    {
-        ParseCommand(plugin, method.Method, options, out PluginId pluginId, out CommandId command, out ICommandProtection protection, out ICooldownHandler cooldown, out IPermissionHandler permission);
-        IArgHandler[] argHandler = ArgCreator.CreateArgHandler<T0>(pluginId);
-        _commands[command] = new CommandParser<T0>(plugin, method, protection, cooldown, permission, argHandler);
-        return new CommandBuilder<T0>(command.GetCommand(), protection, argHandler);
-    }
-
-    public ICommandBuilder<T0, T1> RegisterCommand<T0, T1>(IUiFrameworkPlugin plugin, Action<BasePlayer, T0, T1> method, CommandOptions options = null)
-    {
-        ParseCommand(plugin, method.Method, options, out PluginId pluginId, out CommandId command, out ICommandProtection protection, out ICooldownHandler cooldown, out IPermissionHandler permission);
-        IArgHandler[] argHandler = ArgCreator.CreateArgHandler<T0, T1>(pluginId);
-        _commands[command] = new CommandParser<T0, T1>(plugin, method, protection, cooldown, permission, argHandler);
-        return new CommandBuilder<T0, T1>(command.GetCommand(), protection, argHandler);
-    }
-
-    public ICommandBuilder<T0, T1, T2> RegisterCommand<T0, T1, T2>(IUiFrameworkPlugin plugin, Action<BasePlayer, T0, T1, T2> method, CommandOptions options = null)
-    {
-        ParseCommand(plugin, method.Method, options, out PluginId pluginId, out CommandId command, out ICommandProtection protection, out ICooldownHandler cooldown, out IPermissionHandler permission);
-        IArgHandler[] argHandler = ArgCreator.CreateArgHandler<T0, T1, T2>(pluginId);
-        _commands[command] = new CommandParser<T0, T1, T2>(plugin, method, protection, cooldown, permission, argHandler);
-        return new CommandBuilder<T0, T1, T2>(command.GetCommand(), protection, argHandler);
-    }
-
-    public ICommandBuilder<T0, T1, T2, T3> RegisterCommand<T0, T1, T2, T3>(IUiFrameworkPlugin plugin, Action<BasePlayer, T0, T1, T2, T3> method, CommandOptions options = null)
-    {
-        ParseCommand(plugin, method.Method, options, out PluginId pluginId, out CommandId command, out ICommandProtection protection, out ICooldownHandler cooldown, out IPermissionHandler permission);
-        IArgHandler[] argHandler = ArgCreator.CreateArgHandler<T0, T1, T2, T3>(pluginId);
-        _commands[command] = new CommandParser<T0, T1, T2, T3>(plugin, method, protection, cooldown, permission, argHandler);
-        return new CommandBuilder<T0, T1, T2, T3>(command.GetCommand(), protection, argHandler);
-    }
-
-    public ICommandBuilder<T0, T1, T2, T3, T4> RegisterCommand<T0, T1, T2, T3, T4>(IUiFrameworkPlugin plugin, Action<BasePlayer, T0, T1, T2, T3, T4> method, CommandOptions options = null)
-    {
-        ParseCommand(plugin, method.Method, options, out PluginId pluginId, out CommandId command, out ICommandProtection protection, out ICooldownHandler cooldown, out IPermissionHandler permission);
-        IArgHandler[] argHandler = ArgCreator.CreateArgHandler<T0, T1, T2, T3, T4>(pluginId);
-        _commands[command] = new CommandParser<T0, T1, T2, T3, T4>(plugin, method, protection, cooldown, permission, argHandler);
-        return new CommandBuilder<T0, T1, T2, T3, T4>(command.GetCommand(), protection, argHandler);
-    }
-
-    public ICommandBuilder<T0, T1, T2, T3, T4, T5> RegisterCommand<T0, T1, T2, T3, T4, T5>(IUiFrameworkPlugin plugin, Action<BasePlayer, T0, T1, T2, T3, T4, T5> method, CommandOptions options = null)
-    {
-        ParseCommand(plugin, method.Method, options, out PluginId pluginId, out CommandId command, out ICommandProtection protection, out ICooldownHandler cooldown, out IPermissionHandler permission);
-        IArgHandler[] argHandler = ArgCreator.CreateArgHandler<T0, T1, T2, T3, T4, T5>(pluginId);
-        _commands[command] = new CommandParser<T0, T1, T2, T3, T4, T5>(plugin, method, protection, cooldown, permission, argHandler);
-        return new CommandBuilder<T0, T1, T2, T3, T4, T5>(command.GetCommand(), protection, argHandler);
-    }
-
-    public ICommandBuilder<T0, T1, T2, T3, T4, T5, T6> RegisterCommand<T0, T1, T2, T3, T4, T5, T6>(IUiFrameworkPlugin plugin, Action<BasePlayer, T0, T1, T2, T3, T4, T5, T6> method, CommandOptions options = null)
-    {
-        ParseCommand(plugin, method.Method, options, out PluginId pluginId, out CommandId command, out ICommandProtection protection, out ICooldownHandler cooldown, out IPermissionHandler permission);
-        IArgHandler[] argHandler = ArgCreator.CreateArgHandler<T0, T1, T2, T3, T4, T5, T6>(pluginId);
-        _commands[command] = new CommandParser<T0, T1, T2, T3, T4, T5, T6>(plugin, method, protection, cooldown, permission, argHandler);
-        return new CommandBuilder<T0, T1, T2, T3, T4, T5, T6>(command.GetCommand(), protection, argHandler);
-    }
-
-    public ICommandBuilder<T0, T1, T2, T3, T4, T5, T6, T7> RegisterCommand<T0, T1, T2, T3, T4, T5, T6, T7>(IUiFrameworkPlugin plugin, Action<BasePlayer, T0, T1, T2, T3, T4, T5, T6, T7> method, CommandOptions options = null)
-    {
-        ParseCommand(plugin, method.Method, options, out PluginId pluginId, out CommandId command, out ICommandProtection protection, out ICooldownHandler cooldown, out IPermissionHandler permission);
-        IArgHandler[] argHandler = ArgCreator.CreateArgHandler<T0, T1, T2, T3, T4, T5, T6, T7>(pluginId);
-        _commands[command] = new CommandParser<T0, T1, T2, T3, T4, T5, T6, T7>(plugin, method, protection, cooldown, permission, argHandler);
-        return new CommandBuilder<T0, T1, T2, T3, T4, T5, T6, T7>(command.GetCommand(), protection, argHandler);
-    }
-
-    private void ParseCommand(IUiFrameworkPlugin plugin, MethodInfo method, CommandOptions options, out PluginId pluginId, out CommandId command, out ICommandProtection protection, out ICooldownHandler cooldown, out IPermissionHandler permission)
+    private RegisteredCommand ParseCommand(IUiFrameworkPlugin plugin, Delegate @delegate, IArgHandler[] handlers)
     {
         if (plugin == null) throw new ArgumentNullException(nameof(plugin));
-        if (method == null) throw new ArgumentNullException(nameof(method));
-        pluginId = plugin.Id();
+        if (@delegate == null) throw new ArgumentNullException(nameof(@delegate));
+        PluginId pluginId = plugin.Id();
+        MethodInfo method = @delegate.Method;
         UiCommandAttribute attribute = method.GetCustomAttribute<UiCommandAttribute>();
         if (attribute == null)
         {
             throw new MissingUiCommandAttributeException(pluginId, method);
         }
         
-        command = new CommandId(_idHandler.GetId(pluginId, method));
-        if (_commands.ContainsKey(command))
+        CommandId commandId = new(_idHandler.GetId(pluginId, method));
+        if (_commands.ContainsKey(commandId))
         {
             throw new DuplicateUiCommandRegistrationException(pluginId, method);
         }
-
-        options ??= CommandOptions.Default;
-        cooldown = CreateCooldown(pluginId, method, options);
-        permission = CreatePermission(pluginId, method, options);
-        protection = CreateProtection(pluginId, method, options);
+        
+        RegisteredCommand command = new(plugin, commandId, @delegate, attribute, handlers);
+        CreateCooldown(command);
+        CreatePermission(command);
+        CreateProtection(command);
         _logger.Debug("Registered UiCommand. Plugin: {0}, Method: {1}({2})", plugin.FullName(), method.Name, string.Join(", ", method.GetParameters().Select(p => $"{p.ParameterType.Name} {p.Name}")));
+        return command;
     }
 
     public void RegisterPluginNoPermissionCallback(IUiFrameworkPlugin plugin, OnPluginNoPermission callback)
@@ -180,7 +113,7 @@ public class UiCommands : BaseUiFrameworkLibrary, ISingleton
         _commands[commandId]?.RunCommand(player, tokenizer);
     }
     
-    internal void OnPlayerNoPermission(PluginId pluginId, BasePlayer player, string method, string errorMessage)
+    internal void OnPlayerNoPermission(PluginId pluginId, BasePlayer player, MethodInfo method, string errorMessage)
     {
         if (_callbacks.TryGetValue(pluginId, out PluginCallbacks callback) && callback.PlayerNoPermission != null)
         {
@@ -188,7 +121,7 @@ public class UiCommands : BaseUiFrameworkLibrary, ISingleton
         }
     }
     
-    internal void OnPlayerCooldown(PluginId pluginId, BasePlayer player, string method, float cooldown, float remaining, string errorMessage)
+    internal void OnPlayerCooldown(PluginId pluginId, BasePlayer player, MethodInfo method, float cooldown, float remaining, string errorMessage)
     {
         if (_callbacks.TryGetValue(pluginId, out PluginCallbacks callback) && callback.PlayerOnCooldown != null)
         {
@@ -196,7 +129,7 @@ public class UiCommands : BaseUiFrameworkLibrary, ISingleton
         }
     }
     
-    internal void OnProtectionValidationFailed(PluginId pluginId, BasePlayer player, string method)
+    internal void OnProtectionValidationFailed(PluginId pluginId, BasePlayer player, MethodInfo method)
     {
         if (_callbacks.TryGetValue(pluginId, out PluginCallbacks callback) && callback.ProtectionValidationFailed != null)
         {
@@ -204,29 +137,35 @@ public class UiCommands : BaseUiFrameworkLibrary, ISingleton
         }
     }
 
-    private static ICooldownHandler CreateCooldown(PluginId pluginId, MethodInfo method, CommandOptions options)
+    private static void CreateCooldown(RegisteredCommand command)
     {
-        UiCooldownAttribute cooldown = method.GetCustomAttribute<UiCooldownAttribute>();
-        return cooldown != null ? new CooldownHandler(pluginId, method.Name, cooldown.Cooldown, cooldown.ErrorMessage, options.OnPlayerCooldown) : null;
+        UiCooldownAttribute cooldown = command.Delegate.Method.GetCustomAttribute<UiCooldownAttribute>();
+        if (cooldown != null)
+        {
+            command.SetCooldown(new CooldownHandler(command, cooldown.Cooldown, cooldown.ErrorMessage));
+        }
     }
     
-    private static IPermissionHandler CreatePermission(PluginId pluginId, MethodInfo method, CommandOptions options)
+    private static void CreatePermission(RegisteredCommand command)
     {
-        UiPermissionAttribute permission = method.GetCustomAttribute<UiPermissionAttribute>();
-        return permission != null ? new PermissionHandler(pluginId, method.Name, permission.Permissions, permission.Mode, permission.ErrorMessage, options.OnPlayerNoPermission) : null;
+        UiPermissionAttribute permission = command.Delegate.Method.GetCustomAttribute<UiPermissionAttribute>();
+        if (permission != null)
+        {
+            command.SetPermission(new PermissionHandler(command, permission.Permissions, permission.Mode, permission.ErrorMessage));
+        }
     }
 
-    private static ICommandProtection CreateProtection(PluginId pluginId, MethodInfo method, CommandOptions options)
+    private static void CreateProtection(RegisteredCommand command)
     {
-        UiProtectionAttribute protection = method.GetCustomAttribute<UiProtectionAttribute>();
+        UiProtectionAttribute protection = command.Delegate.Method.GetCustomAttribute<UiProtectionAttribute>();
         ProtectionType type = protection?.Protection ?? ProtectionType.Simple;
-        return type switch
+        command.SetProtection(type switch
         {
-            ProtectionType.Simple => new SimpleProtection(pluginId, method.Name, options.OnPlayerProtectionFailed),
-            ProtectionType.Advanced => new AdvancedProtection(pluginId, method.Name, protection!.ProtectionKeyLifetime, protection.MultiUse, options.OnPlayerProtectionFailed),
-            ProtectionType.Extreme => new ExtremeProtection(pluginId, method.Name, protection!.ProtectionKeyLifetime, protection.MultiUse, options.OnPlayerProtectionFailed),
+            ProtectionType.Simple => new SimpleProtection(command),
+            ProtectionType.Advanced => new AdvancedProtection(command, protection!.ProtectionKeyLifetime, protection.MultiUse),
+            ProtectionType.Extreme => new ExtremeProtection(command, protection!.ProtectionKeyLifetime, protection.MultiUse),
             _ => null
-        };
+        });
     }
 
     private sealed class PluginCallbacks

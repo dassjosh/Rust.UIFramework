@@ -3,7 +3,7 @@ using Oxide.Ext.UiFramework.Exceptions;
 
 namespace Oxide.Ext.UiFramework.Libraries;
 
-internal ref struct UiCommandTokenizer(string str)
+public ref struct UiCommandTokenizer(string str)
 {
     private ReadOnlySpan<char> _remaining = str;
     

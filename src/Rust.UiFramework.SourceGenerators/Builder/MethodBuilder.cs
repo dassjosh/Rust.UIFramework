@@ -6,15 +6,16 @@ using Microsoft.CodeAnalysis;
 
 namespace Rust.UiFramework.SourceGenerators.Builder;
 
-public class MethodBuilder : IBuildable, IAccessModifiers, IKeywords
+public class MethodBuilder : IBuildable, IAccessModifiers, IKeywords, IGenerics
 {
     AccessModifiers IAccessModifiers.AccessModifiers { get; set; }
     Keywords IKeywords.Keywords { get; set; }
-    
+    public GenericsBuilder Generics { get; private set; }
+
     private string _name;
     private string _returnType;
     private string _body;
-    
+
     private readonly List<ParameterBuilder> _parameters = [];
     
     public MethodBuilder Returns(INamedTypeSymbol symbol) => Returns(symbol.ToString());
@@ -24,10 +25,22 @@ public class MethodBuilder : IBuildable, IAccessModifiers, IKeywords
         _returnType = type;
         return this;
     }
+
+    public MethodBuilder Void() => Returns("void");
     
     public MethodBuilder Name(string name)
     {
         _name = name;
+        return this;
+    }
+
+    public MethodBuilder AddGenerics(Action<GenericsBuilder> generics) => AddGenerics(generics, out GenericsBuilder _);
+
+    public MethodBuilder AddGenerics(Action<GenericsBuilder> generics, out GenericsBuilder builder)
+    {
+        builder = new GenericsBuilder();
+        generics(builder);
+        Generics = builder;
         return this;
     }
 
@@ -49,6 +62,8 @@ public class MethodBuilder : IBuildable, IAccessModifiers, IKeywords
         }
         return this;
     }
+    
+    public IEnumerable<ParameterBuilder> Parameters => _parameters.Select(p => p);
     
     public MethodBuilder Body(string body)
     {
@@ -81,12 +96,20 @@ public class MethodBuilder : IBuildable, IAccessModifiers, IKeywords
         }
 
         sb.Append(_name);
+        if (Generics != null && Generics.Count != 0)
+        {
+            sb.Append($"<{Generics.Build(0)}>");
+        }
 
         sb.Append('(');
         sb.Append(string.Join(", ", _parameters.Select(p => p.Build(indent))));
         sb.Append(')');
-        
-        if (CanLambda())
+
+        if (_body == null)
+        {
+            sb.Append(";");
+        }
+        else if (CanLambda())
         {
             sb.Append(" => ");
             if (_body.StartsWith("return "))

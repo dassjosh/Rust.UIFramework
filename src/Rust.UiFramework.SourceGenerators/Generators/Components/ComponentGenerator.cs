@@ -6,41 +6,23 @@ using Rust.UiFramework.SourceGenerators.Attributes;
 using Rust.UiFramework.SourceGenerators.Builder;
 using Rust.UiFramework.SourceGenerators.Helpers;
 
-namespace Rust.UiFramework.SourceGenerators.Generators;
+namespace Rust.UiFramework.SourceGenerators.Generators.Components;
 
 [Generator]
-public class ComponentGenerator : IIncrementalGenerator
+public class ComponentGenerator : BaseGenerator, IIncrementalGenerator
 {
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
-        IncrementalValuesProvider<ClassDeclarationSyntax> classDeclarations = context.SyntaxProvider
-            .CreateSyntaxProvider(
-                predicate: static (s, _) => s is ClassDeclarationSyntax,
-                transform: static (ctx, _) => (ClassDeclarationSyntax)ctx.Node)
-            .Where(static m => m is not null);
-
-        IncrementalValueProvider<(Compilation Left, ImmutableArray<ClassDeclarationSyntax> Right)> compilationAndClasses = context.CompilationProvider.Combine(classDeclarations.Collect());
-
-        context.RegisterSourceOutput(compilationAndClasses, (spc, source) =>
+        context.Register<ClassDeclarationSyntax, GenerateComponentAttribute>((spc, compilation, @class, classSymbol, attribute) =>
         {
-            (Compilation compilation, ImmutableArray<ClassDeclarationSyntax> classes) = source;
-
-            INamedTypeSymbol tracked = SymbolCache.GetTracked(compilation);
-            
-            foreach (ClassDeclarationSyntax @class in classes)
+            if (attribute?.ConstructorArguments[0].Value is not INamedTypeSymbol interfaceType)
             {
-                SemanticModel model = compilation.GetSemanticModel(@class.SyntaxTree);
-                INamedTypeSymbol classSymbol = model.GetDeclaredSymbol(@class) as INamedTypeSymbol;
-
-                AttributeData attribute = classSymbol?.GetAttribute<GenerateComponentAttribute>();
-                if (attribute?.ConstructorArguments[0].Value is not INamedTypeSymbol interfaceType)
-                {
-                    continue;
-                }
-
-                GeneratorData data = new(classSymbol, interfaceType, tracked);
-                spc.AddSource($"{classSymbol.Name}.g.cs", GenerateComponent(classSymbol, data));
+                return;
             }
+            
+            InitializeCache(compilation);
+            GeneratorData data = new(classSymbol, interfaceType);
+            spc.AddSource($"{classSymbol.Name}.g.cs", GenerateComponent(classSymbol, data));
         });
     }
     
@@ -55,7 +37,7 @@ public class ComponentGenerator : IIncrementalGenerator
 
                     //Private Tracked Fields
                     .Fields(genData.Properties, (data, field) =>
-                        field.Private().Readonly().Type(genData.TrackedType.Construct(data.Type)).Name(data.PrivateFieldName).New(data.GetPropertyDefaults()))
+                        field.Private().Readonly().Type(SymbolCache.Types.Tracked.Symbol.Construct(data.Type)).Name(data.PrivateFieldName).New(data.GetPropertyDefaults()))
 
                     //Public Properties
                     .Properties(genData.Properties, (data, property) => property.Public().Type(data.Type).Name(data.Name)
@@ -63,7 +45,7 @@ public class ComponentGenerator : IIncrementalGenerator
                         .Set($"{data.PrivateFieldName}.Value = value"))
 
                     //Explicit Tracked Interface Implementation Properties
-                    .Properties(genData.Properties, (data, property) => property.Type(genData.TrackedType.Construct(data.Type)).Name($"{genData.InterfaceName}.{data.Name}")
+                    .Properties(genData.Properties, (data, property) => property.Type(SymbolCache.Types.Tracked.Symbol.Construct(data.Type)).Name($"{genData.InterfaceName}.{data.Name}")
                         .Get(data.PrivateFieldName))
 
                     //Builder Methods
@@ -105,16 +87,14 @@ public class ComponentGenerator : IIncrementalGenerator
         public readonly PropertyData[] Properties;
         public readonly bool GenerateBuilderMethods;
         public readonly INamedTypeSymbol ParentComponent;
-        public readonly INamedTypeSymbol TrackedType;
 
-        public GeneratorData(INamedTypeSymbol classSymbol, INamedTypeSymbol interfaceType, INamedTypeSymbol trackedType)
+        public GeneratorData(INamedTypeSymbol classSymbol, INamedTypeSymbol interfaceType)
         {
             ClassSymbol = classSymbol;
             InterfaceName = classSymbol.GetTrackableInterface();
             Properties = interfaceType.GetProperties().Select(p => new PropertyData(p)).ToArray();
             GenerateBuilderMethods = classSymbol.HasAttribute<GenerateBuilderMethodsAttribute>();
             ParentComponent = classSymbol.GetParentWithAttribute<GenerateComponentAttribute>(s => !s.IsAbstract);
-            TrackedType = trackedType;
         }
     }
     

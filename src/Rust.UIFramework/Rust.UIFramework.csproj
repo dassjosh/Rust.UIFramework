@@ -172,6 +172,9 @@
       <Compile Include="..\Rust.UiFramework.SourceGenerators\Attributes\FastEnumAttribute.cs">
         <Link>Attributes\FastEnumAttribute.cs</Link>
       </Compile>
+      <Compile Include="..\Rust.UiFramework.SourceGenerators\Attributes\GenerateRegisterCommandsAttribute.cs">
+        <Link>Attributes\GenerateRegisterCommandsAttribute.cs</Link>
+      </Compile>
       <Compile Include="..\Rust.UiFramework.SourceGenerators\Attributes\PropertyNameAttribute.cs">
         <Link>Attributes\PropertyNameAttribute.cs</Link>
       </Compile>
@@ -205,6 +208,10 @@
       <Compile Include="..\Rust.UiFramework.SourceGenerators\Attributes\TrackedDefaultsAttribute.cs">
         <Link>Attributes\TrackedDefaultsAttribute.cs</Link>
       </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Generated\Rust.UiFramework.SourceGenerators\" />
     </ItemGroup>
 
     <PropertyGroup>

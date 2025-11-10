@@ -1,192 +1,37 @@
 ﻿using System;
-using Oxide.Ext.UiFramework.Plugins;
+using System.Threading.Tasks;
+using Oxide.Ext.UiFramework.Extensions;
 
 namespace Oxide.Ext.UiFramework.Libraries;
 
-internal class CommandParser(IUiFrameworkPlugin plugin, Action<BasePlayer> method, ICommandProtection protection, ICooldownHandler cooldown, IPermissionHandler permission) 
-    : BaseCommandParser(plugin, method.Method, protection, cooldown, permission, [])
+internal class CommandParser(ICommandParserData command) : BaseCommandParser(command)
 {
-    protected override void RunCommandInternal(BasePlayer player, UiCommandTokenizer args)
+    protected override void RunCommandInternal(ExecutionData data, UiCommandTokenizer args)
     {
-        try
+        switch (Command.Mode)
         {
-            method(player);
-        }
-        catch (Exception ex)
-        {
-            LogException(ex);
-        }
-    }
-}
-
-internal class CommandParser<T0>(IUiFrameworkPlugin plugin, Action<BasePlayer, T0> method, ICommandProtection protection, ICooldownHandler cooldown, IPermissionHandler permission, IArgReader[] readers)
-    : BaseCommandParser(plugin, method.Method, protection, cooldown, permission, readers)
-{
-    protected override void RunCommandInternal(BasePlayer player, UiCommandTokenizer args)
-    {
-        ArgReaderIterator iterator = GetReader();
-        T0 arg0 = iterator.ParseNext<T0>(ref args);
-        try
-        {
-            method(player, arg0);
-        }
-        catch (Exception ex)
-        {
-            LogException(ex);
-        }
-    }
-}
-
-internal class CommandParser<T0, T1>(IUiFrameworkPlugin plugin, Action<BasePlayer, T0, T1> method, ICommandProtection protection, ICooldownHandler cooldown, IPermissionHandler permission, IArgReader[] readers)
-    : BaseCommandParser(plugin, method.Method, protection, cooldown, permission, readers)
-{
-    protected override void RunCommandInternal(BasePlayer player, UiCommandTokenizer args)
-    {
-        ArgReaderIterator iterator = GetReader();
-        T0 arg0 = iterator.ParseNext<T0>(ref args);
-        T1 arg1 = iterator.ParseNext<T1>(ref args);
-        try
-        {
-            method(player, arg0, arg1);
-        }
-        catch (Exception ex)
-        {
-            LogException(ex);
-        }
-    }
-}
-
-internal class CommandParser<T0, T1, T2>(IUiFrameworkPlugin plugin, Action<BasePlayer, T0, T1, T2> method, ICommandProtection protection, ICooldownHandler cooldown, IPermissionHandler permission, IArgReader[] readers)
-    : BaseCommandParser(plugin, method.Method, protection, cooldown, permission, readers)
-{
-    protected override void RunCommandInternal(BasePlayer player, UiCommandTokenizer args)
-    {
-        ArgReaderIterator iterator = GetReader();
-        T0 arg0 = iterator.ParseNext<T0>(ref args);
-        T1 arg1 = iterator.ParseNext<T1>(ref args);
-        T2 arg2 = iterator.ParseNext<T2>(ref args);
-        try
-        {
-            method(player, arg0, arg1, arg2);
-        }
-        catch (Exception ex)
-        {
-            LogException(ex);
-        }
-    }
-}
-
-internal class CommandParser<T0, T1, T2, T3>(IUiFrameworkPlugin plugin, Action<BasePlayer, T0, T1, T2, T3> method, ICommandProtection protection, ICooldownHandler cooldown, IPermissionHandler permission, IArgReader[] readers)
-    : BaseCommandParser(plugin, method.Method, protection, cooldown, permission, readers)
-{
-    protected override void RunCommandInternal(BasePlayer player, UiCommandTokenizer args)
-    {
-        ArgReaderIterator iterator = GetReader();
-        T0 arg0 = iterator.ParseNext<T0>(ref args);
-        T1 arg1 = iterator.ParseNext<T1>(ref args);
-        T2 arg2 = iterator.ParseNext<T2>(ref args);
-        T3 arg3 = iterator.ParseNext<T3>(ref args);
-        try
-        {
-            method(player, arg0, arg1, arg2, arg3);
-        }
-        catch (Exception ex)
-        {
-            LogException(ex);
-        }
-    }
-}
-
-internal class CommandParser<T0, T1, T2, T3, T4>(IUiFrameworkPlugin plugin, Action<BasePlayer, T0, T1, T2, T3, T4> method, ICommandProtection protection, ICooldownHandler cooldown, IPermissionHandler permission, IArgReader[] readers)
-    : BaseCommandParser(plugin, method.Method, protection, cooldown, permission, readers)
-{
-    protected override void RunCommandInternal(BasePlayer player, UiCommandTokenizer args)
-    {
-        ArgReaderIterator iterator = GetReader();
-        T0 arg0 = iterator.ParseNext<T0>(ref args);
-        T1 arg1 = iterator.ParseNext<T1>(ref args);
-        T2 arg2 = iterator.ParseNext<T2>(ref args);
-        T3 arg3 = iterator.ParseNext<T3>(ref args);
-        T4 arg4 = iterator.ParseNext<T4>(ref args);
-        try
-        {
-            method(player, arg0, arg1, arg2, arg3, arg4);
-        }
-        catch (Exception ex)
-        {
-            LogException(ex);
-        }
-    }
-}
-
-internal class CommandParser<T0, T1, T2, T3, T4, T5>(IUiFrameworkPlugin plugin, Action<BasePlayer, T0, T1, T2, T3, T4, T5> method, ICommandProtection protection, ICooldownHandler cooldown, IPermissionHandler permission, IArgReader[] readers)
-    : BaseCommandParser(plugin, method.Method, protection, cooldown, permission, readers)
-{
-    protected override void RunCommandInternal(BasePlayer player, UiCommandTokenizer args)
-    {
-        ArgReaderIterator iterator = GetReader();
-        T0 arg0 = iterator.ParseNext<T0>(ref args);
-        T1 arg1 = iterator.ParseNext<T1>(ref args);
-        T2 arg2 = iterator.ParseNext<T2>(ref args);
-        T3 arg3 = iterator.ParseNext<T3>(ref args);
-        T4 arg4 = iterator.ParseNext<T4>(ref args);
-        T5 arg5 = iterator.ParseNext<T5>(ref args);
-        try
-        {
-            method(player, arg0, arg1, arg2, arg3, arg4, arg5);
-        }
-        catch (Exception ex)
-        {
-            LogException(ex);
-        }
-    }
-}
-
-internal class CommandParser<T0, T1, T2, T3, T4, T5, T6>(IUiFrameworkPlugin plugin, Action<BasePlayer, T0, T1, T2, T3, T4, T5, T6> method, ICommandProtection protection, ICooldownHandler cooldown, IPermissionHandler permission, IArgReader[] readers)
-    : BaseCommandParser(plugin, method.Method, protection, cooldown, permission, readers)
-{
-    protected override void RunCommandInternal(BasePlayer player, UiCommandTokenizer args)
-    {
-        ArgReaderIterator iterator = GetReader();
-        T0 arg0 = iterator.ParseNext<T0>(ref args);
-        T1 arg1 = iterator.ParseNext<T1>(ref args);
-        T2 arg2 = iterator.ParseNext<T2>(ref args);
-        T3 arg3 = iterator.ParseNext<T3>(ref args);
-        T4 arg4 = iterator.ParseNext<T4>(ref args);
-        T5 arg5 = iterator.ParseNext<T5>(ref args);
-        T6 arg6 = iterator.ParseNext<T6>(ref args);
-        try
-        {
-            method(player, arg0, arg1, arg2, arg3, arg4, arg5, arg6);
-        }
-        catch (Exception ex)
-        {
-            LogException(ex);
-        }
-    }
-}
-
-internal class CommandParser<T0, T1, T2, T3, T4, T5, T6, T7>(IUiFrameworkPlugin plugin, Action<BasePlayer, T0, T1, T2, T3, T4, T5, T6, T7> method, ICommandProtection protection, ICooldownHandler cooldown, IPermissionHandler permission, IArgReader[] readers)
-    : BaseCommandParser(plugin, method.Method, protection, cooldown, permission, readers)
-{
-    protected override void RunCommandInternal(BasePlayer player, UiCommandTokenizer args)
-    {
-        ArgReaderIterator iterator = GetReader();
-        T0 arg0 = iterator.ParseNext<T0>(ref args);
-        T1 arg1 = iterator.ParseNext<T1>(ref args);
-        T2 arg2 = iterator.ParseNext<T2>(ref args);
-        T3 arg3 = iterator.ParseNext<T3>(ref args);
-        T4 arg4 = iterator.ParseNext<T4>(ref args);
-        T5 arg5 = iterator.ParseNext<T5>(ref args);
-        T6 arg6 = iterator.ParseNext<T6>(ref args);
-        T7 arg7 = iterator.ParseNext<T7>(ref args);
-        try
-        {
-            method(player, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7);
-        }
-        catch (Exception ex)
-        {
-            LogException(ex);
+            case ExecutorMode.Void:
+                try
+                {
+                    ((Action<ExecutionData>)Command.Delegate)(data);
+                }
+                catch (Exception ex)
+                {
+                    LogException(ex);
+                }
+                finally
+                {
+                    data.TryDispose();
+                }
+                break;
+            case ExecutorMode.Task:
+                TaskExt.RunSafely(((Func<ExecutionData, Task>)Command.Delegate)(data), LogException, data);
+                break;
+            case ExecutorMode.ValueTask:
+                TaskExt.RunSafely(((Func<ExecutionData, ValueTask>)Command.Delegate)(data), LogException, data);
+                break;
+            case ExecutorMode.UniTask:
+                break;
         }
     }
 }

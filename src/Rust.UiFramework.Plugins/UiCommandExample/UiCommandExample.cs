@@ -18,11 +18,11 @@ public class UiCommandExample : RustPlugin, IUiFrameworkPlugin
     
     public UiPluginPool PluginPool { get; set; }
 
-    private ICommandBuilder<UiState, MyCustomArg, int, bool, BuildingPrivlidge, DateTime> _doTheThingBuilder;
+    private ICommandBuilder<MyCustomArg, int, bool, BuildingPrivlidge, DateTime> _doTheThingBuilder;
     
     private void Init()
     {
-        _doTheThingBuilder = _uiCommands.RegisterCommand<UiState, MyCustomArg, int, bool, BuildingPrivlidge, DateTime>(this, HandleDoTheThing);
+        (_, _doTheThingBuilder) = _uiCommands.RegisterCommand<MyCustomArg, int, bool, BuildingPrivlidge, DateTime>(this, HandleDoTheThing);
         _uiCommands.RegisterPluginPlayerCooldownCallback(this, (player, method, cooldown, remaining, errorMessage) => //[Optional]
         {
             //Show UI about being on cooldown
@@ -47,7 +47,7 @@ public class UiCommandExample : RustPlugin, IUiFrameworkPlugin
     public void CreateUi(BasePlayer player, UiState state, BuildingPrivlidge priv)
     {
         UiBuilder builder = UiBuilder.Create(this, new UiReference(UiLayer.Overlay,  "UiName"), UiPosition.Full, default, UiColors.White);
-        builder.Button(builder.Root, UiPosition.Full, default, UiColors.Clear, _doTheThingBuilder.Build(state, new MyCustomArg(ulong.MaxValue), 1, false, priv, DateTime.Now));
+        builder.Button(builder.Root, UiPosition.Full, default, UiColors.Clear, _doTheThingBuilder.Build(new MyCustomArg(ulong.MaxValue), 1, false, priv, DateTime.Now));
         builder.AddUi(player);
     }
     
@@ -55,9 +55,10 @@ public class UiCommandExample : RustPlugin, IUiFrameworkPlugin
     [UiProtection(ProtectionType.Simple, 3600f)]
     [UiCooldown(1f, "You are on cooldown")]
     [UiPermission(permissions: new[] {"test.admin"}, PermissionMode.RequireAll, "You don't have permission")]
-    public void HandleDoTheThing(BasePlayer player, UiState state, MyCustomArg custom, int a, bool b, BuildingPrivlidge id, DateTime c)
+    public void HandleDoTheThing(ExecutionData data, MyCustomArg custom, int a, bool b, BuildingPrivlidge id, DateTime c)
     {
-        
+        BasePlayer player = data.Player;
+        UiState state = data.GetStore<UiState>();
     }
 
     public class MyCustomArg

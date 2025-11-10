@@ -9,14 +9,18 @@ public static class PartialCommand
 {
     private static readonly Dictionary<WriterKey, IArgWriter[]> TypedWriters = new();
 
-    internal static ICommandBuilder<T> Create<T>(string command) => Create<T>(UiFrameworkPlugin.Instance.PluginId, command);
-    internal static ICommandBuilder<T0, T1> Create<T0, T1>(string command) => Create<T0, T1>(UiFrameworkPlugin.Instance.PluginId, command);
+    internal static ICommandBuilder<T> Create<T>(string command) => Create<T>(UiFrameworkPlugin.Instance, command);
+    internal static ICommandBuilder<T0, T1> Create<T0, T1>(string command) => Create<T0, T1>(UiFrameworkPlugin.Instance, command);
 
-    public static ICommandBuilder<T> Create<T>(IUiFrameworkPlugin plugin, string command) => Create<T>(plugin.Id(), command);
-    public static ICommandBuilder<T0, T1> Create<T0, T1>(IUiFrameworkPlugin plugin, string command)=> Create<T0, T1>(plugin.Id(), command);
-    
-    private static ICommandBuilder<T> Create<T>(PluginId plugin, string command) => new CommandBuilder<T>(command, null, GetWriters<T>(plugin));
-    private static ICommandBuilder<T0, T1> Create<T0, T1>(PluginId plugin, string command) => new CommandBuilder<T0, T1>(command, null, GetWriters<T0, T1>(plugin));
+    public static ICommandBuilder<T> Create<T>(IUiFrameworkPlugin plugin, string command)
+    {
+        return new CommandBuilder<T>(new PartialWriterCommand(plugin, command, GetWriters<T>(plugin.Id())));
+    }
+
+    public static ICommandBuilder<T0, T1> Create<T0, T1>(IUiFrameworkPlugin plugin, string command)
+    {
+        return new CommandBuilder<T0, T1>(new PartialWriterCommand(plugin, command, GetWriters<T0, T1>(plugin.Id())));
+    }
     
     private static IArgWriter[] GetWriters<T0>(PluginId plugin)
     {
@@ -27,6 +31,15 @@ public static class PartialCommand
         }
         
         return writers;
+    }
+
+    private sealed class PartialWriterCommand(IUiFrameworkPlugin plugin, string command, IArgWriter[] writers) : ICommandBuilderData
+    {
+        public IUiFrameworkPlugin Plugin { get; } = plugin;
+        public string Command { get; } = command;
+
+        public IArgWriter[] Writers { get; } = writers;
+        public ICommandProtection Protection => null;
     }
     
     private static IArgWriter[] GetWriters<T0, T1>(PluginId plugin)

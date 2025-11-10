@@ -1,6 +1,7 @@
 ﻿namespace Oxide.Ext.UiFramework.Libraries;
 
-internal interface IPermissionHandler
+public interface IPermissionHandler
 {
     bool HasPermission(BasePlayer player);
+    void OnNoPermission(BasePlayer player);
 }

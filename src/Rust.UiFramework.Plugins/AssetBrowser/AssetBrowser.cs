@@ -10,8 +10,10 @@ using Oxide.Ext.UiFramework.Builder;
 using Oxide.Ext.UiFramework.Builder.UI;
 using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Colors;
+using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Constants;
 using Oxide.Ext.UiFramework.Enums;
+using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Layouts;
 using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Offsets;
@@ -50,7 +52,7 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
     
     public UiPluginPool PluginPool { get; set; }
     
-    public enum AssetType
+    public enum AssetType : byte
     {
         None,
         Sprite,
@@ -117,7 +119,7 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
         HashSet<string> itemsNames = new();
         foreach (ItemDefinition def in ItemManager.itemList)
         {
-            Folder folder = _items.GetOrCreateFolder(FastEnumCache<ItemCategory>.ToString(def.category));
+            Folder folder = _items.GetOrCreateFolder(EnumCache<ItemCategory>.ToString(def.category));
             string name = def.displayName.english;
             if (!itemsNames.Add(name))
             {
@@ -497,6 +499,46 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
         _animator.AddKeyFrame(90f, UiPosition.MiddleRight);
         _store.RegisterStore(this, playerId => new UiState(playerId));
     }
+
+    private void CreateUiTest(BasePlayer player)
+    {
+        // UiBuilder builder = UiBuilder.Create(this, new UiReference(UiLayer.Overlay, UiName), UiPosition.MiddleMiddle, new UiOffset(-121.31f, 69.21f, 121.31f, 110.79f), _bodyColor);
+        //
+        // builder.DirectionalLayout(builder.Root, LayoutDirection.Horizontal, 0, TextAnchor.UpperLeft, false, false, false, true, true, true);
+        //
+        // //var panel = builder.Panel(builder.Root, new UiPosition(0f, 0, 0.1f, 1), default, UiColors.Green);
+        // //builder.LayoutElement(panel, 50, 50, 50, 50, 50, 50);
+        //
+        // var label = builder.Label(builder.Root, new UiPosition(0.1f, 0, 1, 1), default, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris suscipit leo in enim egestas rhoncus. Ut aliquam ante vitae sagittis semper. Cras id vestibulum risus, vel malesuada velit. Cras auctor facilisis purus eget tempor. Suspendisse convallis vehicula tempus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus efficitur risus sed metus pulvinar fringilla. Ut nec placerat ligula. Curabitur faucibus velit eget felis placerat pulvinar. Sed semper pulvinar mi. Maecenas blandit mi mauris, ut ornare tellus finibus sit amet. Vestibulum sed mi sem. Vestibulum ac purus pellentesque, vestibulum tellus id, scelerisque ligula. Sed consequat cursus nisi id fermentum. Suspendisse potenti. Vivamus. ", 14, UiColors.White);
+        // label.VerticalOverflow = VerticalWrapMode.Overflow;
+        //
+        // //builder.DirectionalLayout(label.Item1, LayoutDirection.Vertical, 0, TextAnchor.MiddleCenter, false, true);
+        // builder.LayoutElement(label, 250, 100, 250, 100, 250, 1000f);
+        //
+        // builder.ContentSizeFitter(label, ContentSizeFitter.FitMode.MinSize, ContentSizeFitter.FitMode.PreferredSize);
+        // builder.ContentSizeFitter(builder.Root, ContentSizeFitter.FitMode.MinSize, ContentSizeFitter.FitMode.PreferredSize);
+        // //builder.ContentSizeFitter(label, ContentSizeFitter.FitMode.PreferredSize, ContentSizeFitter.FitMode.PreferredSize);
+
+        UiBuilder builder = UiBuilder.Create(this, new UiReference(UiLayer.Overlay, UiName), UiPosition.MiddleMiddle, new UiOffset(400, 100), new UiColor(0.1f, 0.1f, 0.1f, 0.8f));
+        
+        UiPanel rootPanel = builder.Root as UiPanel;
+        rootPanel.ImageType = Image.Type.Sliced;
+        builder.DirectionalLayout(rootPanel, LayoutDirection.Horizontal, 50f, TextAnchor.MiddleLeft, true, true, true, true, true, true).SetPadding(new UiPadding(10)).SetSpacing(10f);
+       // builder.LayoutElement(rootPanel).SetFlexibleHeight(1);
+        
+        UiImage icon = builder.ImageSprite(rootPanel).SetSprite(UiSprites.Icons.Info).SetColor(UiColors.Blue);
+        builder.LayoutElement(icon).SetPreferredWidth(32).SetPreferredHeight(32);
+        builder.ContentSizeFitter(icon, ContentSizeFitter.FitMode.PreferredSize, ContentSizeFitter.FitMode.PreferredSize);
+
+        UiLabel label = builder.Label(rootPanel).SetFontSize(18).SetColor(UiColors.White)
+            .SetTextValue("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris suscipit leo in enim egestas rhoncus. Ut aliquam ante vitae sagittis semper. Cras id vestibulum risus, vel malesuada velit. Cras auctor facilisis purus eget tempor. Suspendisse convallis vehicula tempus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus efficitur risus sed metus pulvinar fringilla. Ut nec placerat ligula. Curabitur faucibus velit eget felis placerat pulvinar. Sed semper pulvinar mi. Maecenas blandit mi mauris, ut ornare tellus finibus sit amet. Vestibulum sed mi sem. Vestibulum ac purus pellentesque, vestibulum tellus id, scelerisque ligula. Sed consequat cursus nisi id fermentum. Suspendisse potenti. Vivamus. ");
+        label.VerticalOverflow = VerticalWrapMode.Overflow;
+
+        builder.LayoutElement(label);
+        builder.ContentSizeFitter(label, ContentSizeFitter.FitMode.Unconstrained, ContentSizeFitter.FitMode.PreferredSize);
+        
+        builder.AddUiDebug(player, new UiDebugOptions("test"));
+    }
     
     public void CreateUi(BasePlayer player)
     {
@@ -505,15 +547,35 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
 
     private void CreateUi(BasePlayer player, UiState state, bool isInitial = false)
     {
+        Puts("A");
         UiBuilder builder;
         if (isInitial)
         {
+            //builder = UiBuilder.Create(this, new UiReference(UiLayer.Overlay, UiName), new UiPosition(0.5f, -0.5f, 0.5f, -0.5f), new UiOffset(600, 500), _bodyColor);
             builder = UiBuilder.Create(this, new UiReference(UiLayer.Overlay, UiName), UiPosition.MiddleMiddle, new UiOffset(600, 500), _bodyColor);
+
+            UiPanel panel = builder.Root as UiPanel;
+
+            // builder.Animate(panel)
+            //     .AnimateField(static p => p.RectTransform.AsTrackable().Rotation)
+            //     .Lerp(UiRotation.Zero, UiRotation.Full)
+            //     .Duration(5f)
+            //     .Linear()
+            //     .RepeatEasing(5);
+
+            //
+            // builder.Animate(panel)
+            //     .Duration(5f)
+            //     .AnimateField(p => p.RectTransform.AsTrackable().Position)
+            //         .Lerp(new UiPosition(0.5f, -0.5f, 0.5f, -0.5f), UiPosition.MiddleMiddle)
+            //         .Duration(6f)
+            //         .Ease()
+            //   ;
 
             //builder = UiBuilder.Create(this, new UiReference(UiLayer.Overlay, UiName), UiPosition.MiddleMiddle, default, _bodyColor);
 
             //var pos1= builder.AnimatePosition(builder.Root, UiPosition.MiddleMiddle, 2f, delay: 0f).WithAnimator(_animator);
-           // builder.AnimateOffset(builder.Root, new UiOffset(500, 400), .35f);
+            // builder.AnimateOffset(builder.Root, new UiOffset(500, 400), .35f);
             //builder.AnimateColor(builder.Root, _bodyColor.WithAlpha(0f), _bodyColor, .5f);
         }
         else
@@ -521,7 +583,7 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
             //builder = UiBuilder.Create(UiPosition.MiddleMiddle, new UiOffset(500, 400), _bodyColor, UiName);
             builder = UiBuilder.Create(this, new UiReference(UiLayer.Overlay, UiName), UiPosition.MiddleMiddle, new UiOffset(600, 500), _bodyColor);
         }
-        
+        Puts("B");
         //builder.SetCurrentFont(UiFontCache.RobotomonoRegular);
         builder.NeedsKeyboard();
         builder.NeedsMouse();
@@ -537,22 +599,33 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
         UiSection pathBar = builder.Section(builder.Root, new UiPosition(0, 0.9f, 1, 0.95f), new UiOffset(1, 1, -1, -1));
         UiPanel pathPanel = builder.Panel(pathBar, new UiPosition(0.1f, 0, .9f, 1), default, _pathBarColor);
         
+        Puts("C");
         string path = state.GetDisplayPath();
+        Puts("C1");
         if (!string.IsNullOrWhiteSpace(path))
         {
+            Puts("C2");
             builder.Label(pathPanel, UiPosition.Full, new UiOffset(2, 0, 0, 0), path,14, _textColor, TextAnchor.MiddleLeft);
         }
 
+        Puts("C3");
         if (state.Type != AssetType.None)
         {
-            builder.IconButton(pathBar, new UiPosition(0.00f, 0, 0.05f, 1), default, _spriteColor, Icons.ChevronLeft, _uiCommands.PrevFolder.Build(state));
-            builder.IconButton(pathBar, new UiPosition(0.05f, 0, 0.1f, 1), default, _spriteColor, Icons.ChevronRight, _uiCommands.NextFolder.Build(state));
+            Puts("C$");
+            builder.IconButton(pathBar, new UiPosition(0.00f, 0, 0.05f, 1), default, _spriteColor, Icons.ChevronLeft, _uiCommands.PrevFolder.Build());
+            builder.IconButton(pathBar, new UiPosition(0.05f, 0, 0.1f, 1), default, _spriteColor, Icons.ChevronRight, _uiCommands.NextFolder.Build());
         }
         
-        builder.SpriteButton(pathBar, new UiPosition(0.90f, 0, 0.95f, 1), default, _spriteColor, UiSprites.Icons.FolderUp, _uiCommands.PathUp.Build(state));
+        Puts("C5");
+        builder.SpriteButton(pathBar, new UiPosition(0.90f, 0, 0.95f, 1), default, _spriteColor, UiSprites.Icons.FolderUp, _uiCommands.PathUp.Build());
         
+        Puts("C6");
         UiSection body = builder.Section(builder.Root, new UiPosition(0, 0, 1, 0.90f), new UiPadding(2).ToOffset());
+
+        UiRawImage image = builder.ImageStorage(body, UiPosition.Full, default, "http://www.i4ani.com/#/home?1", _downloadOptions);
+        builder.AnimateDownload(image, _downloadAnimation);
         
+        Puts("D");
         switch (state.Type)
         {
             case AssetType.None:
@@ -585,9 +658,15 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
                 break;
         }
 
+        Puts("E");
         //builder.ImageStorage(body, UiPosition.Full, default, "https://rust-images.joshdass.dev/rust-icons/61504.png", _downloadOptions);
         
         builder.AddUiDebug(player, new UiDebugOptions("main"));
+
+        if (isInitial)
+        {
+            timer.In(0.0001f, () => CreateUi(player, state, false));
+        }
     }
 
     //private readonly GridPosition _selectTypeGrid = new GridPositionBuilder(ImageColumns, ImageRows).SetPadding(0.0025f).Build();
@@ -597,8 +676,8 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
         _imageGrid.Reset();
         foreach (AssetType type in Enum.GetValues(typeof(AssetType)).Cast<AssetType>().Where(at => at != AssetType.None))
         {
-            Puts(_uiCommands.SelectAssetType.Build(state, type));
-            UiButton button = builder.Button(root, _imageGrid, default, _buttonColor, _uiCommands.SelectAssetType.Build(state, type));
+            Puts(_uiCommands.SelectAssetType.Build(type));
+            UiButton button = builder.Button(root, _imageGrid, default, _buttonColor, _uiCommands.SelectAssetType.Build(type));
             builder.ImageSprite(button, UiPosition.Full, default, UiSprites.Icons.Folder, UiColors.White);
             builder.Label(button, UiPosition.Full, default, FastEnumCache<AssetType>.ToString(type), 14, _textColor).AddOutline(UiColors.Black);
             _imageGrid.MoveCols(1);
@@ -622,7 +701,7 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
         
         foreach (string name in folder.Subfolders.Keys)
         {
-            UiButton button = builder.SpriteButton(scroll, _imageGrid, default, _buttonColor, UiSprites.Icons.Folder, _uiCommands.PathInto.Build(state, name));
+            UiButton button = builder.SpriteButton(scroll, _imageGrid, default, _buttonColor, UiSprites.Icons.Folder, _uiCommands.PathInto.Build(name));
             builder.Label(button, UiPosition.Full, default, name, 12, _textColor).AddOutline(UiColors.Black);
             _imageGrid.MoveCols(1);
         }
@@ -653,7 +732,7 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
         
         foreach (string name in folder.Subfolders.Keys)
         {
-            UiButton button = builder.SpriteButton(scroll, _imageGrid, default, _buttonColor, UiSprites.Icons.Folder, _uiCommands.PathInto.Build(state, name));
+            UiButton button = builder.SpriteButton(scroll, _imageGrid, default, _buttonColor, UiSprites.Icons.Folder, _uiCommands.PathInto.Build(name));
             //Puts($"{name}: {_imageGrid.ToPosition()}");
             builder.Label(button, UiPosition.Full, default, name, 12, _textColor).AddOutline(UiColors.Black);
             _imageGrid.MoveCols(1);
@@ -679,7 +758,7 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
             foreach (UiCardType type in FastEnumCache<UiCardType>.GetValues())
             {
                 string name = FastEnumCache<UiCardType>.ToString(type);
-                UiButton button = builder.SpriteButton(grid, _buttonColor, UiSprites.Icons.Folder, _uiCommands.PathInto.Build(state, name));
+                UiButton button = builder.SpriteButton(grid, _buttonColor, UiSprites.Icons.Folder, _uiCommands.PathInto.Build(name));
                 builder.Label(button, UiPosition.Full, default, name, 12, _textColor).AddOutline(UiColors.Black);
             }
             return;
@@ -707,7 +786,7 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
         
         foreach (string name in folder.Subfolders.Keys)
         {
-            UiButton button = builder.SpriteButton(scroll, _imageGrid, default, _buttonColor, UiSprites.Icons.Folder, _uiCommands.PathInto.Build(state, name));
+            UiButton button = builder.SpriteButton(scroll, _imageGrid, default, _buttonColor, UiSprites.Icons.Folder, _uiCommands.PathInto.Build(name));
             //Puts($"{name}: {_imageGrid.ToPosition()}");
             builder.Label(button, UiPosition.Full, default, name, 12, _textColor).AddOutline(UiColors.Black);
             _imageGrid.MoveCols(1);
@@ -717,7 +796,7 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
         {
             //Puts($"{pair.Key}: {_imageGrid.ToPosition()}");
             UiButton button = builder.Button(scroll, _imageGrid, default, UiColors.Black, _uiCommands.SelectAsset.Build(pair.Value));
-            UiItemIcon icon = builder.ItemIcon(button, UiPosition.Full, default, int.Parse(pair.Value), 0, color: UiColors.White).SetPadding(new UiPadding(20));
+            UiItemIcon icon = builder.ItemIcon(button, UiPosition.Full, default, int.Parse(pair.Value), 0, color: UiColors.White).SetOffsetPadding(new UiPadding(20));
             //icon.SetMaterial(UiMaterials.Content.Ui.NameFontMaterial);
             _imageGrid.MoveCols(1);
         }
@@ -727,7 +806,7 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
     {
         UiGridLayout layout =  builder.GridLayout(root, new UiPosition(0, 0.075f, 1, 1), default, ImageColumns, ImageRows, default, LayoutPadding);
         
-        IReadOnlyCollection<T> values = FastEnumCache<T>.GetValues();
+        IReadOnlyCollection<T> values = EnumCache<T>.GetValues();
         int maxPage = UiHelpers.CalculateMaxPage(values.Count, TotalImages);
         
         Puts($"{values.Count} {TotalImages} {maxPage}");
@@ -744,7 +823,7 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
         }
         
         UiDirectionalLayout paginationLayout = builder.DirectionalLayout(root, new UiPosition(0, 0, 1, 0.075f), default, 15, padding: LayoutPadding, direction: LayoutDirection.Horizontal);
-        builder.Paginator(paginationLayout, state.Page, maxPage, 14, _textColor, UiColors.ButtonSecondary, UiColors.ButtonPrimary, _uiCommands.ChangePage.Partial(state));
+        builder.Paginator(paginationLayout, state.Page, maxPage, 14, _textColor, UiColors.ButtonSecondary, UiColors.ButtonPrimary, _uiCommands.ChangePage);
     }
     
     private readonly GridPosition _fontGrid = new GridPositionBuilder(1, 8).SetPadding(0.01f).Build();
@@ -803,7 +882,7 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
 
     [UiCommand]
     [UiProtection(ProtectionType.None)]
-    private void CloseCommand(BasePlayer player)
+    private void CloseCommand(ExecutionData data)
     {
         //AnimationBuilder builder = AnimationBuilder.Create(this);
         
@@ -818,44 +897,50 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
     
     [UiCommand]
     [UiProtection(ProtectionType.Advanced)]
-    private void SelectAssetType(BasePlayer player, UiState state, AssetType type)
+    private void SelectAssetType(ExecutionData data, AssetType type)
     {
+        UiState state = data.GetStore<UiState>();
         state.SetType(type);
-        CreateUi(player, state);
+        CreateUi(data.Player, state);
     }
     
     [UiCommand]
     [UiProtection(ProtectionType.Extreme)]
-    private void PathUp(BasePlayer player, UiState state)
+    private void PathUp(ExecutionData data)
     {
+        UiState state = data.GetStore<UiState>();
         state.PathUp();
-        CreateUi(player, state);
+        CreateUi(data.Player, state);
     }
     
     [UiCommand]
-    private void NextFolder(BasePlayer player, UiState state)
+    private void NextFolder(ExecutionData data)
     {
+        UiState state = data.GetStore<UiState>();
         state.NextFolder();
-        CreateUi(player, state);
+        CreateUi(data.Player, state);
     }
     
     [UiCommand]
-    private void PrevFolder(BasePlayer player, UiState state)
+    private void PrevFolder(ExecutionData data)
     {
+        UiState state = data.GetStore<UiState>();
         state.PrevFolder();
-        CreateUi(player, state);
+        CreateUi(data.Player, state);
     }
     
     [UiCommand]
-    private void PathInto(BasePlayer player, UiState state, string path)
+    private void PathInto(ExecutionData data, string path)
     {
+        UiState state = data.GetStore<UiState>();
         state.PathInto(path);
-        CreateUi(player, state);
+        CreateUi(data.Player, state);
     }
     
     [UiCommand]
-    private void SelectAsset(BasePlayer player, string text)
+    private void SelectAsset(ExecutionData data, string text)
     {
+        BasePlayer player = data.Player;
         player.SendConsoleCommand($"echo \"{text}\"");
         player.ChatMessage($"\"{text}\"");
         Puts(text);
@@ -866,41 +951,43 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
     }
     
     [UiCommand]
-    private void ChangePage(BasePlayer player, UiState state, int page)
+    private void ChangePage(ExecutionData data, int page)
     {
+        UiState state = data.GetStore<UiState>();
         state.Page = page;
-        CreateUi(player, state);
+        CreateUi(data.Player, state);
     }
     
     [UiCommand]
-    private void InputTest(BasePlayer player, UiState state, InputArg input)
+    private void InputTest(ExecutionData data, InputArg input)
     {
-        CreateUi(player, state);
+        UiState state = data.GetStore<UiState>();
+        CreateUi(data.Player, state);
     }
 
     private sealed class UiCommandHandler
     {
         public readonly ICommandBuilder CloseUi;
-        public readonly ICommandBuilder<UiState, AssetType> SelectAssetType;
-        public readonly ICommandBuilder<UiState> PathUp;
-        public readonly ICommandBuilder<UiState> NextFolder;
-        public readonly ICommandBuilder<UiState> PrevFolder;
-        public readonly ICommandBuilder<UiState, string> PathInto;
+        public readonly ICommandBuilder<AssetType> SelectAssetType;
+        public readonly ICommandBuilder PathUp;
+        public readonly ICommandBuilder NextFolder;
+        public readonly ICommandBuilder PrevFolder;
+        public readonly ICommandBuilder<string> PathInto;
         public readonly ICommandBuilder<string> SelectAsset;
-        public readonly ICommandBuilder<UiState, int> ChangePage;
-        public readonly ICommandBuilder<UiState, InputArg> InputTest;
+        public readonly ICommandBuilder<int> ChangePage;
+        public readonly ICommandBuilder<InputArg> InputTest;
 
         public UiCommandHandler(AssetBrowser plugin)
         {
-            CloseUi = plugin._commands.RegisterCommand(plugin, plugin.CloseCommand);
-            SelectAssetType = plugin._commands.RegisterCommand<UiState, AssetType>(plugin, plugin.SelectAssetType);
-            PathUp = plugin._commands.RegisterCommand<UiState>(plugin, plugin.PathUp);
-            NextFolder = plugin._commands.RegisterCommand<UiState>(plugin, plugin.NextFolder);
-            PrevFolder = plugin._commands.RegisterCommand<UiState>(plugin, plugin.PrevFolder);
-            PathInto = plugin._commands.RegisterCommand<UiState, string>(plugin, plugin.PathInto);
-            SelectAsset = plugin._commands.RegisterCommand<string>(plugin, plugin.SelectAsset);
-            ChangePage = plugin._commands.RegisterCommand<UiState, int>(plugin, plugin.ChangePage);
-            InputTest = plugin._commands.RegisterCommand<UiState, InputArg>(plugin, plugin.InputTest);
+            (_, CloseUi) = plugin._commands.RegisterCommand(plugin, plugin.CloseCommand);
+            (_, SelectAssetType) = plugin._commands.RegisterCommand<AssetType>(plugin, plugin.SelectAssetType);
+            (_, PathUp) = plugin._commands.RegisterCommand(plugin, plugin.PathUp);
+            (_, NextFolder) = plugin._commands.RegisterCommand(plugin, plugin.NextFolder);
+            (_, PrevFolder) = plugin._commands.RegisterCommand(plugin, plugin.PrevFolder);
+            (_, PathInto) = plugin._commands.RegisterCommand<string>(plugin, plugin.PathInto);
+            (_, SelectAsset) = plugin._commands.RegisterCommand<string>(plugin, plugin.SelectAsset);
+            (_, ChangePage) = plugin._commands.RegisterCommand<int>(plugin, plugin.ChangePage);
+            (_, InputTest) = plugin._commands.RegisterCommand<InputArg>(plugin, plugin.InputTest);
         }
     }
     #endregion

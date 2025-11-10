@@ -10,6 +10,7 @@ public class ParameterBuilder : IBuildable, IParameterModifier
     
     private string _type;
     private string _name;
+    private string _defaultValue;
     
     public ParameterBuilder Type(string type)
     {
@@ -27,6 +28,14 @@ public class ParameterBuilder : IBuildable, IParameterModifier
         _name = name;
         return this;
     }
+
+    public ParameterBuilder DefaultValue(string value)
+    {
+        _defaultValue = value;
+        return this;
+    }
+
+    public string GetName() => _name;
     
     public string Build(int indent)
     {
@@ -35,6 +44,13 @@ public class ParameterBuilder : IBuildable, IParameterModifier
         sb.Append(_type);
         sb.Append(' ');
         sb.Append(_name.ToCamelCase());
+
+        if (!string.IsNullOrEmpty(_defaultValue))
+        {
+            sb.Append(" = ");
+            sb.Append(_defaultValue);
+        }
+        
         return sb.ToString();
     }
 }
