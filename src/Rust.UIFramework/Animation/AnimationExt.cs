@@ -10,156 +10,158 @@ namespace Oxide.Ext.UiFramework.Animation;
 
 public static class AnimationExt
 {
-    public static AnimationRef<T> ComesAfter<T>(this in AnimationRef<T> animation, in AnimationRef<IAnimation> target, bool includeRepeats = false, float? timeout = null, AnimationTimeoutAction action = AnimationTimeoutAction.StartAnimation) where T : class, IAnimation
+    extension<T>(in AnimationRef<T> animation) where T : class, IAnimation
     {
-        if (animation.IsValid)
+        public AnimationRef<T> ComesAfter(in AnimationRef<IAnimation> target, bool includeRepeats = false, float? timeout = null, AnimationTimeoutAction action = AnimationTimeoutAction.StartAnimation)
         {
-            TriggerDelayAnimation trigger = TriggerDelay(animation);
-            if (!target.IsValid)
+            if (animation.IsValid)
             {
-                trigger.Trigger();
-            }
-            else if (!includeRepeats && target.Animation.Repeat is { Repeats: > 0 })
-            {
-                target.OnRepeat(_ => trigger.Trigger());
-            }
-            else
-            {
-                target.OnFinalized(_ => trigger.Trigger());
+                TriggerDelayAnimation trigger = TriggerDelay(animation);
+                if (!target.IsValid)
+                {
+                    trigger.Trigger();
+                }
+                else if (!includeRepeats && target.Animation.Repeat is { Repeats: > 0 })
+                {
+                    target.OnRepeat(_ => trigger.Trigger());
+                }
+                else
+                {
+                    target.OnFinalized(_ => trigger.Trigger());
+                }
+
+                target.Timeout(timeout ?? 15f, action);
             }
 
-            target.Timeout(timeout ?? 15f, action);
+            return animation;
         }
 
-        return animation;
-    }
-
-    public static AnimationRef<T> Repeat<T>(this in AnimationRef<T> animation, int repeats, float repeatDelay = 0f) where T : class, IAnimation
-    {
-        if (animation.IsValid)
+        public AnimationRef<T> Repeat(int repeats, float repeatDelay = 0f)
         {
-            animation.Animation.Repeat ??= AnimationRepeat.Create(animation.Plugin);
-            animation.Animation.Repeat.Repeats = repeats;
-            animation.Animation.Repeat.RepeatDelay = repeatDelay;
-        }
-
-        return animation;
-    }
-    
-    public static AnimationRef<T> Delay<T>(this in AnimationRef<T> animation, float delay) where T : class, IAnimation
-    {
-        if (animation.IsValid)
-        {
-            animation.Animation.Delay ??= TimeDelayAnimation.Create(animation.Plugin);
-            if (animation.Animation.Delay is TimeDelayAnimation time)
+            if (animation.IsValid)
             {
-                time.Delay = delay;
+                animation.Animation.Repeat ??= AnimationRepeat.Create(animation.Plugin);
+                animation.Animation.Repeat.Repeats = repeats;
+                animation.Animation.Repeat.RepeatDelay = repeatDelay;
             }
+
+            return animation;
         }
 
-        return animation;
-    }
-    
-    public static UiTuple<AnimationRef<T>, TriggerDelayAnimation> TriggerDelay<T>(this in AnimationRef<T> animation) where T : class, IAnimation
-    {
-        if (!animation.IsValid)
+        public AnimationRef<T> Delay(float delay)
         {
-            return UiTuple.Create(animation, (TriggerDelayAnimation)null);
+            if (animation.IsValid)
+            {
+                animation.Animation.Delay ??= TimeDelayAnimation.Create(animation.Plugin);
+                if (animation.Animation.Delay is TimeDelayAnimation time)
+                {
+                    time.Delay = delay;
+                }
+            }
+
+            return animation;
         }
+
+        public UiTuple<AnimationRef<T>, TriggerDelayAnimation> TriggerDelay()
+        {
+            if (!animation.IsValid)
+            {
+                return UiTuple.Create(animation, (TriggerDelayAnimation)null);
+            }
         
-        if (animation.Animation.Delay is TriggerDelayAnimation trigger)
-        {
+            if (animation.Animation.Delay is TriggerDelayAnimation trigger)
+            {
+                return UiTuple.Create(animation, trigger);
+            }
+        
+            animation.Animation.Delay = trigger = TriggerDelayAnimation.Create(animation.Plugin);
             return UiTuple.Create(animation, trigger);
         }
-        
-        animation.Animation.Delay = trigger = TriggerDelayAnimation.Create(animation.Plugin);
-        return UiTuple.Create(animation, trigger);
-    }
-    
-    public static AnimationRef<T> TimeoutDelay<T>(this in AnimationRef<T> animation, float timeout) where T : class, IAnimation
-    {
-        if (animation.IsValid)
+
+        public AnimationRef<T> TimeoutDelay(float timeout)
         {
-            animation.Timeout(timeout).InfiniteDelay();
+            if (animation.IsValid)
+            {
+                animation.Timeout(timeout).InfiniteDelay();
+            }
+
+            return animation;
         }
 
-        return animation;
-    }
-    
-    public static AnimationRef<T> InfiniteDelay<T>(this in AnimationRef<T> animation) where T : class, IAnimation
-    {
-        if (animation.IsValid)
+        public AnimationRef<T> InfiniteDelay()
         {
-            animation.Animation.Delay ??= InfiniteAnimationDelay.Create(animation.Plugin);
+            if (animation.IsValid)
+            {
+                animation.Animation.Delay ??= InfiniteAnimationDelay.Create(animation.Plugin);
+            }
+
+            return animation;
         }
 
-        return animation;
-    }
-
-    public static AnimationRef<T> Duration<T>(this in AnimationRef<T> animation, float seconds) where T : class, IAnimation
-    {
-        if (animation.IsValid)
+        public AnimationRef<T> Duration(float seconds)
         {
-            animation.Animation.Duration ??= AnimationDuration.Create(animation.Plugin);
-            animation.Animation.Duration.Duration = seconds;
+            if (animation.IsValid)
+            {
+                animation.Animation.Duration ??= AnimationDuration.Create(animation.Plugin);
+                animation.Animation.Duration.Duration = seconds;
+            }
+
+            return animation;
         }
 
-        return animation;
-    }
-    
-    public static AnimationRef<T> NoDuration<T>(this in AnimationRef<T> animation) where T : class, IAnimation
-    {
-        if (animation.IsValid)
+        public AnimationRef<T> NoDuration()
         {
-            animation.Animation.Duration ??= InfiniteAnimationDuration.Default;
+            if (animation.IsValid)
+            {
+                animation.Animation.Duration ??= InfiniteAnimationDuration.Default;
+            }
+
+            return animation;
         }
 
-        return animation;
-    }
-    
-    public static AnimationRef<T> Infinite<T>(this in AnimationRef<T> animation) where T : class, IAnimation
-    {
-        if (animation.IsValid)
+        public AnimationRef<T> Infinite()
         {
-            animation.Animation.Repeat ??= InfiniteAnimationRepeat.Default;
+            if (animation.IsValid)
+            {
+                animation.Animation.Repeat ??= InfiniteAnimationRepeat.Default;
+            }
+
+            return animation;
         }
 
-        return animation;
-    }
-    
-    public static AnimationRef<T> Timeout<T>(this in AnimationRef<T> animation, float seconds, AnimationTimeoutAction action = AnimationTimeoutAction.CancelAnimation) where T : class, IAnimation
-    {
-        if (animation.IsValid)
+        public AnimationRef<T> Timeout(float seconds, AnimationTimeoutAction action = AnimationTimeoutAction.CancelAnimation)
         {
-            animation.Animation.Timeout ??= AnimationTimeout.Create(animation.Plugin);
-            animation.Animation.Timeout.Timeout = seconds;
-            animation.Animation.Timeout.Action = action;
+            if (animation.IsValid)
+            {
+                animation.Animation.Timeout ??= AnimationTimeout.Create(animation.Plugin);
+                animation.Animation.Timeout.Timeout = seconds;
+                animation.Animation.Timeout.Action = action;
+            }
+
+            return animation;
         }
 
-        return animation;
+        public AnimationRef<T> Bezier(CubicBezier points) => animation.WithEasing(points);
+        public AnimationRef<T> Easing(Easing easing) => animation.WithEasing(easing);
+        public AnimationRef<T> Linear() => animation.WithEasing(EasingFunctions.Linear);
+        public AnimationRef<T> Ease() => animation.WithEasing(EasingFunctions.Ease);
+        public AnimationRef<T> EaseIn() => animation.WithEasing(EasingFunctions.EaseIn);
+        public AnimationRef<T> Out() => animation.WithEasing(animation.Easing.Out());
+        public AnimationRef<T> InOut() => animation.WithEasing(animation.Easing.InOut());
+        public AnimationRef<T> PingPong() => animation.WithEasing(animation.Easing.PingPong());
+        public AnimationRef<T> PingPong(float frequency) => animation.WithEasing(animation.Easing.PingPong(frequency));
+        public AnimationRef<T> Reverse() => animation.WithEasing(animation.Easing.Reverse());
+        public AnimationRef<T> RepeatEasing(float repeats) => animation.WithEasing(animation.Easing.Repeat(repeats));
+        public AnimationRef<T> Offset(float offset) => animation.WithEasing(animation.Easing.Offset(offset));
+        public AnimationRef<T> Scaled(float min, float max) => animation.WithEasing(animation.Easing.Scaled(min, max));
+        public AnimationRef<T> FreezeBefore(float freezePoint) => animation.WithEasing(animation.Easing.FreezeBefore(freezePoint));
+        public AnimationRef<T> FreezeAfter(float freezePoint) => animation.WithEasing(animation.Easing.FreezeAfter(freezePoint));
+        public AnimationRef<T> Blend(Easing end, float blendFactor) => animation.WithEasing(animation.Easing.Blend(end, blendFactor));
+        public AnimationRef<T> Blend(Easing start, Easing end, float blendFactor) => animation.WithEasing(start.Blend(end, blendFactor));
+        public AnimationRef<T> Clamp01() => animation.WithEasing(animation.Easing.Clamp01());
+        public AnimationRef<T> Clamp(float min, float max) => animation.WithEasing(animation.Easing.Clamp(min, max));
     }
-    
-    public static AnimationRef<T> Bezier<T>(this in AnimationRef<T> animation, CubicBezier points) where T : class, IAnimation => animation.WithEasing(points);
-    public static AnimationRef<T> Easing<T>(this in AnimationRef<T> animation, Easing easing) where T : class, IAnimation => animation.WithEasing(easing);
-    public static AnimationRef<T> Linear<T>(this in AnimationRef<T> animation) where T : class, IAnimation => animation.WithEasing(EasingFunctions.Linear);
-    public static AnimationRef<T> Ease<T>(this in AnimationRef<T> animation) where T : class, IAnimation => animation.WithEasing(EasingFunctions.Ease);
-    public static AnimationRef<T> EaseIn<T>(this in AnimationRef<T> animation) where T : class, IAnimation => animation.WithEasing(EasingFunctions.EaseIn);
-    
-    public static AnimationRef<T> Out<T>(this in AnimationRef<T> animation) where T : class, IAnimation => animation.WithEasing(animation.Easing.Out());
-    public static AnimationRef<T> InOut<T>(this in AnimationRef<T> animation) where T : class, IAnimation => animation.WithEasing(animation.Easing.InOut());
-    public static AnimationRef<T> PingPong<T>(this in AnimationRef<T> animation) where T : class, IAnimation => animation.WithEasing(animation.Easing.PingPong());
-    public static AnimationRef<T> PingPong<T>(this in AnimationRef<T> animation, float frequency) where T : class, IAnimation => animation.WithEasing(animation.Easing.PingPong(frequency));
-    public static AnimationRef<T> Reverse<T>(this in AnimationRef<T> animation) where T : class, IAnimation => animation.WithEasing(animation.Easing.Reverse());
-    public static AnimationRef<T> RepeatEasing<T>(this in AnimationRef<T> animation, float repeats) where T : class, IAnimation => animation.WithEasing(animation.Easing.Repeat(repeats));
-    public static AnimationRef<T> Offset<T>(this in AnimationRef<T> animation, float offset) where T : class, IAnimation => animation.WithEasing(animation.Easing.Offset(offset));
-    public static AnimationRef<T> Scaled<T>(this in AnimationRef<T> animation, float min, float max) where T : class, IAnimation => animation.WithEasing(animation.Easing.Scaled(min, max));
-    public static AnimationRef<T> FreezeBefore<T>(this in AnimationRef<T> animation, float freezePoint) where T : class, IAnimation => animation.WithEasing(animation.Easing.FreezeBefore(freezePoint));
-    public static AnimationRef<T> FreezeAfter<T>(this in AnimationRef<T> animation, float freezePoint) where T : class, IAnimation => animation.WithEasing(animation.Easing.FreezeAfter(freezePoint));
-    public static AnimationRef<T> Blend<T>(this in AnimationRef<T> animation, Easing end, float blendFactor) where T : class, IAnimation => animation.WithEasing(animation.Easing.Blend(end, blendFactor));
-    public static AnimationRef<T> Blend<T>(this in AnimationRef<T> animation, Easing start, Easing end, float blendFactor) where T : class, IAnimation => animation.WithEasing(start.Blend(end, blendFactor));
-    public static AnimationRef<T> Clamp01<T>(this in AnimationRef<T> animation) where T : class, IAnimation => animation.WithEasing(animation.Easing.Clamp01());
-    public static AnimationRef<T> Clamp<T>(this in AnimationRef<T> animation, float min, float max) where T : class, IAnimation => animation.WithEasing(animation.Easing.Clamp(min, max));
-    
+
     public static AnimationRef<T> DestroyAfter<T, TElement>(this in AnimationRef<T> animation) 
         where T : class,IElementAnimation<TElement> 
         where TElement : BaseUiComponent, new()
@@ -172,101 +174,105 @@ public static class AnimationExt
         return animation;
     }
 
-    public static AnimationRef<T> DestroyAfter<T>(this in AnimationRef<T> animation, in UiReference destroyTarget) where T : class, IAnimation => animation.DestroyAfter(destroyTarget.Name);
-    public static AnimationRef<T> DestroyAfter<T>(this in AnimationRef<T> animation, string name) where T : class, IAnimation
+    extension<T>(in AnimationRef<T> animation) where T : class, IAnimation
     {
-        animation.OnFinalized(a =>
+        public AnimationRef<T> DestroyAfter(in UiReference destroyTarget) => animation.DestroyAfter(destroyTarget.Name);
+
+        public AnimationRef<T> DestroyAfter(string name)
         {
-            BaseBuilder.DestroyUi(a.GetSendable().Send, name);
-        });
-        return animation;
-    }
-    
-    public static AnimationRef<T> On<T>(this in AnimationRef<T> animation, AnimationEventType type, Action<T> callback) where T : class, IAnimation
-    {
-        if (animation.IsValid)
-        {
-            animation.Animation.Events.AddEvent(CallbackAnimationEvent<T>.Create(animation.Plugin, type, callback));
+            animation.OnFinalized(a =>
+            {
+                BaseBuilder.DestroyUi(a.GetSendable().Send, name);
+            });
+            return animation;
         }
 
-        return animation;
-    }
-    
-    public static AnimationRef<T> OnQueued<T>(this in AnimationRef<T> animation, Action<T> callback) where T : class, IAnimation => animation.On(AnimationEventType.Queued, callback);
-    public static AnimationRef<T> OnDelayed<T>(this in AnimationRef<T> animation, Action<T> callback) where T : class, IAnimation => animation.On(AnimationEventType.Delayed, callback);
-    public static AnimationRef<T> OnStarted<T>(this in AnimationRef<T> animation, Action<T> callback) where T : class, IAnimation => animation.On(AnimationEventType.Started, callback);
-    public static AnimationRef<T> OnRepeat<T>(this in AnimationRef<T> animation, Action<T> callback) where T : class, IAnimation => animation.On(AnimationEventType.Repeat, callback);
-    public static AnimationRef<T> OnCompleted<T>(this in AnimationRef<T> animation, Action<T> callback) where T : class, IAnimation => animation.On(AnimationEventType.Completed, callback);
-    public static AnimationRef<T> OnCanceled<T>(this in AnimationRef<T> animation, Action<T> callback) where T : class, IAnimation => animation.On(AnimationEventType.Canceled, callback);
-    public static AnimationRef<T> OnTimeout<T>(this in AnimationRef<T> animation, Action<T> callback) where T : class, IAnimation => animation.On(AnimationEventType.Timeout, callback);
-    public static AnimationRef<T> OnFinalized<T>(this in AnimationRef<T> animation, Action<T> callback) where T : class, IAnimation => animation.On(AnimationEventType.Finalized, callback);
-
-
-    public static AnimationRef<T> WithDuration<T>(this in AnimationRef<T> animation, IAnimationDuration duration) where T : class, IAnimation
-    {
-        if (animation.IsValid)
+        public AnimationRef<T> On(AnimationEventType type, Action<T> callback)
         {
-            animation.Animation.Duration.TryReturnToPool();
-            animation.Animation.Duration = duration;
+            if (animation.IsValid)
+            {
+                animation.Animation.Events.AddEvent(CallbackAnimationEvent<T>.Create(animation.Plugin, type, callback));
+            }
+
+            return animation;
         }
 
-        return animation;
-    }
-    
-    public static AnimationRef<T> WithRepeat<T>(this in AnimationRef<T> animation, IAnimationRepeat repeat) where T : class, IAnimation
-    {
-        if (animation.IsValid)
+        public AnimationRef<T> OnQueued(Action<T> callback) => animation.On(AnimationEventType.Queued, callback);
+        public AnimationRef<T> OnDelayed(Action<T> callback) => animation.On(AnimationEventType.Delayed, callback);
+        public AnimationRef<T> OnStarted(Action<T> callback) => animation.On(AnimationEventType.Started, callback);
+        public AnimationRef<T> OnRepeat(Action<T> callback) => animation.On(AnimationEventType.Repeat, callback);
+        public AnimationRef<T> OnCompleted(Action<T> callback) => animation.On(AnimationEventType.Completed, callback);
+        public AnimationRef<T> OnCanceled(Action<T> callback) => animation.On(AnimationEventType.Canceled, callback);
+        public AnimationRef<T> OnTimeout(Action<T> callback) => animation.On(AnimationEventType.Timeout, callback);
+        public AnimationRef<T> OnFinalized(Action<T> callback) => animation.On(AnimationEventType.Finalized, callback);
+
+        public AnimationRef<T> WithDuration(IAnimationDuration duration)
         {
-            animation.Animation.Repeat.TryReturnToPool();
-            animation.Animation.Repeat = repeat;
+            if (animation.IsValid)
+            {
+                animation.Animation.Duration.TryReturnToPool();
+                animation.Animation.Duration = duration;
+            }
+
+            return animation;
         }
 
-        return animation;
-    }
-    
-    public static AnimationRef<T> WithEasing<T>(this in AnimationRef<T> animation, Easing easing) where T : class, IAnimation
-    {
-        if (animation.IsValid)
+        public AnimationRef<T> WithRepeat(IAnimationRepeat repeat)
         {
-            animation.Animation.Easing = easing;
+            if (animation.IsValid)
+            {
+                animation.Animation.Repeat.TryReturnToPool();
+                animation.Animation.Repeat = repeat;
+            }
+
+            return animation;
         }
 
-        return animation;
-    }
-    
-    public static AnimationRef<T> WithInterpolator<T>(this in AnimationRef<T> animation, IAnimationInterpolator interpolator) where T : class, IAnimation
-    {
-        if (animation.IsValid)
+        public AnimationRef<T> WithEasing(Easing easing)
         {
-            animation.Animation.Interpolator.TryReturnToPool();
-            animation.Animation.Interpolator = interpolator;
+            if (animation.IsValid)
+            {
+                animation.Animation.Easing = easing;
+            }
+
+            return animation;
         }
 
-        return animation;
-    }
-    
-    public static AnimationRef<T> WithDelay<T>(this in AnimationRef<T> animation, IAnimationDelay delay) where T : class, IAnimation
-    {
-        if (animation.IsValid)
+        public AnimationRef<T> WithInterpolator(IAnimationInterpolator interpolator)
         {
-            animation.Animation.Delay.TryReturnToPool();
-            animation.Animation.Delay = delay;
+            if (animation.IsValid)
+            {
+                animation.Animation.Interpolator.TryReturnToPool();
+                animation.Animation.Interpolator = interpolator;
+            }
+
+            return animation;
         }
 
-        return animation;
-    }
-    
-    public static AnimationRef<T> WithTimeout<T>(this in AnimationRef<T> animation, IAnimationTimeout timeout) where T : class, IAnimation
-    {
-        if (animation.IsValid)
+        public AnimationRef<T> WithDelay(IAnimationDelay delay)
         {
-            animation.Animation.Timeout.TryReturnToPool();
-            animation.Animation.Timeout = timeout;
+            if (animation.IsValid)
+            {
+                animation.Animation.Delay.TryReturnToPool();
+                animation.Animation.Delay = delay;
+            }
+
+            return animation;
         }
 
-        return animation;
+        public AnimationRef<T> WithTimeout(IAnimationTimeout timeout)
+        {
+            if (animation.IsValid)
+            {
+                animation.Animation.Timeout.TryReturnToPool();
+                animation.Animation.Timeout = timeout;
+            }
+
+            return animation;
+        }
     }
-    
+
+
     public static AnimationRef<T> SetTracked<T>(this in AnimationRef<T> animation, bool tracked) where T : class, IElementAnimation
     {
         if (animation.IsValid)
@@ -291,6 +297,9 @@ public static class AnimationExt
         }
     }
 
-    internal static bool IsSinglePlayer(this ISendableAnimation animation) => animation.Send.connection != null;
-    internal static ulong SinglePlayerId(this ISendableAnimation animation) => animation.Send.connection.userid;
+    extension(ISendableAnimation animation)
+    {
+        internal bool IsSinglePlayer() => animation.Send.connection != null;
+        internal ulong SinglePlayerId() => animation.Send.connection.userid;
+    }
 }

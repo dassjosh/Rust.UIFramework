@@ -9,36 +9,39 @@ namespace Oxide.Ext.UiFramework.Extensions;
 
 public static class OxideCuiExt
 {
-    public static void AddUiAsync(this CuiElementContainer container, BasePlayer player, string destroyUiName = null)
+    extension(CuiElementContainer container)
     {
-        SendInfo send = SendInfoBuilder.Get(player);
-        AddUiAsync(container, send, destroyUiName);
+        public void AddUiAsync(BasePlayer player, string destroyUiName = null)
+        {
+            SendInfo send = SendInfoBuilder.Get(player);
+            AddUiAsync(container, send, destroyUiName);
+        }
+
+        public void AddUiAsync(Connection connection, string destroyUiName = null)
+        {
+            SendInfo send = SendInfoBuilder.Get(connection);
+            AddUiAsync(container, send, destroyUiName);
+        }
+
+        public void AddUiAsync(IEnumerable<Connection> connections, string destroyUiName = null)
+        {
+            SendInfo send = SendInfoBuilder.Get(connections);
+            AddUiAsync(container, send, destroyUiName);
+        }
+
+        public void AddUiAsync(string destroyUiName = null)
+        {
+            SendInfo send = SendInfoBuilder.Get(Net.sv.connections);
+            AddUiAsync(container, send, destroyUiName);
+        }
+
+        public void AddUiAsync(SendInfo send, string destroyUiName = null)
+        {
+            OxideCuiContainerRequest request = OxideCuiContainerRequest.Create(container, send, destroyUiName);
+            Singleton<SendHandler>.Instance.Enqueue(request);
+        }
     }
-    
-    public static void AddUiAsync(this CuiElementContainer container, Connection connection, string destroyUiName = null)
-    {
-        SendInfo send = SendInfoBuilder.Get(connection);
-        AddUiAsync(container, send, destroyUiName);
-    }
-    
-    public static void AddUiAsync(this CuiElementContainer container, IEnumerable<Connection> connections, string destroyUiName = null)
-    {
-        SendInfo send = SendInfoBuilder.Get(connections);
-        AddUiAsync(container, send, destroyUiName);
-    }
-    
-    public static void AddUiAsync(this CuiElementContainer container, string destroyUiName = null)
-    {
-        SendInfo send = SendInfoBuilder.Get(Net.sv.connections);
-        AddUiAsync(container, send, destroyUiName);
-    }
-    
-    public static void AddUiAsync(this CuiElementContainer container, SendInfo send, string destroyUiName = null)
-    {
-        OxideCuiContainerRequest request = OxideCuiContainerRequest.Create(container, send, destroyUiName);
-        Singleton<SendHandler>.Instance.Enqueue(request);
-    }
-    
+
     public static void DestroyUi(Connection connection, string destroyUiName = null)
     {
         SendInfo send = SendInfoBuilder.Get(connection);

@@ -4,26 +4,29 @@ namespace Oxide.Ext.UiFramework.Extensions;
 
 internal static class StringExt
 {
-    internal static bool TryParseBool(this string input, out bool value)
+    extension(string input)
     {
-        if (bool.TryParse(input, out value))
+        internal bool TryParseBool(out bool value)
         {
-            return true;
+            if (bool.TryParse(input, out value))
+            {
+                return true;
+            }
+
+            if (char.IsNumber(input[0]))
+            {
+                value = input[0] != '0';
+                return true;
+            }
+
+            return false;
         }
 
-        if (char.IsNumber(input[0]))
+        internal bool TryParseInt(out int value) => int.TryParse(input, out value);
+
+        internal bool IsValidUrl()
         {
-            value = input[0] != '0';
-            return true;
+            return !string.IsNullOrEmpty(input) && input.StartsWith("http", StringComparison.OrdinalIgnoreCase);
         }
-
-        return false;
-    }
-
-    internal static bool TryParseInt(this string input, out int value) => int.TryParse(input, out value);
-
-    internal static bool IsValidUrl(this string url)
-    {
-        return !string.IsNullOrEmpty(url) && url.StartsWith("http", StringComparison.OrdinalIgnoreCase);
     }
 }

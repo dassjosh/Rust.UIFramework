@@ -98,7 +98,7 @@ internal class ImageDownloadAnimationHandler : ISingleton
             return this;
         }
 
-        public void Add(AnimationRef<IElementAnimation<UiRawImage>> animation, ImageAnimationOptions options)
+        public void Add(in AnimationRef<IElementAnimation<UiRawImage>> animation, ImageAnimationOptions options)
         {
             QueuedAnimations.Add(new ImageAnimationData(animation, options));
         }

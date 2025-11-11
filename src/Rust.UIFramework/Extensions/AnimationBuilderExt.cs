@@ -8,67 +8,70 @@ namespace Oxide.Ext.UiFramework.Extensions;
 
 public static class AnimationBuilderExt
 {
-    public static AnimationRef<IAnimationGroup> AnimateGroup(this IAnimationBuilder builder)
+    extension(IAnimationBuilder builder)
     {
-        AnimationGroup group = AnimationGroup.Create(builder.Plugin);
-        builder.AddAnimation(group);
-        return new AnimationRef<IAnimationGroup>(group);
-    }
-    
-    public static AnimationRef<IElementAnimation<T>> Animate<T>(this IAnimationBuilder builder, T element) where T : BaseUiComponent, new()
-    {
-        ElementAnimation<T> animation = ElementAnimation<T>.Create(builder.Plugin, element);
-        builder.AddAnimation(animation);
-        return new AnimationRef<IElementAnimation<T>>(animation);
-    }
-    
-    public static AnimationRef<IElementAnimation<T>> Animate<T>(this IAnimationBuilder builder, in UiReference reference) where T : BaseUiComponent, new() => builder.Animate<T>(reference.Name);
-    
-    public static AnimationRef<IElementAnimation<T>> Animate<T>(this IAnimationBuilder builder, string name) where T : BaseUiComponent, new()
-    {
-        ElementAnimation<T> animation = ElementAnimation<T>.Create(builder.Plugin, name);
-        builder.AddAnimation(animation);
-        return new AnimationRef<IElementAnimation<T>>(animation);
-    }
-    
-    public static AnimationRef<IElementAnimation<UiRawImage>> AnimateDownload(this IAnimationBuilder builder, UiRawImage image)
-    {
-        string url = image.Image;
-        if (url.IsValidUrl() && Singleton<UiImageStorage>.Instance.IsDownloading(url))
+        public AnimationRef<IAnimationGroup> AnimateGroup()
         {
-            AnimationRef<IElementAnimation<UiRawImage>> animation = builder.Animate(image)
-                .OnQueued(a =>
-                {
-                    Singleton<ImageDownloadAnimationHandler>.Instance.QueueUpdate(url, new AnimationRef<IElementAnimation<UiRawImage>>(a), null);
-                });
-            return animation;
+            AnimationGroup group = AnimationGroup.Create(builder.Plugin);
+            builder.AddAnimation(group);
+            return new AnimationRef<IAnimationGroup>(group);
         }
 
-        return default;
-    }
-    
-    public static AnimationRef<IElementAnimation<UiRawImage>> AnimateDownload(this IAnimationBuilder builder, UiRawImage image, ImageAnimationOptions options)
-    {
-        string url = image.Image;
-        if (url.IsValidUrl() && Singleton<UiImageStorage>.Instance.IsDownloading(url))
+        public AnimationRef<IElementAnimation<T>> Animate<T>(T element) where T : BaseUiComponent, new()
         {
-            if (!string.IsNullOrEmpty(options.DownloadingImageNameOrUrl))
+            ElementAnimation<T> animation = ElementAnimation<T>.Create(builder.Plugin, element);
+            builder.AddAnimation(animation);
+            return new AnimationRef<IElementAnimation<T>>(animation);
+        }
+
+        public AnimationRef<IElementAnimation<T>> Animate<T>(in UiReference reference) where T : BaseUiComponent, new() => builder.Animate<T>(reference.Name);
+
+        public AnimationRef<IElementAnimation<T>> Animate<T>(string name) where T : BaseUiComponent, new()
+        {
+            ElementAnimation<T> animation = ElementAnimation<T>.Create(builder.Plugin, name);
+            builder.AddAnimation(animation);
+            return new AnimationRef<IElementAnimation<T>>(animation);
+        }
+
+        public AnimationRef<IElementAnimation<UiRawImage>> AnimateDownload(UiRawImage image)
+        {
+            string url = image.Image;
+            if (url.IsValidUrl() && Singleton<UiImageStorage>.Instance.IsDownloading(url))
             {
-                image.Image = Singleton<UiImageStorage>.Instance.Get(builder.Plugin, options.DownloadingImageNameOrUrl);
+                AnimationRef<IElementAnimation<UiRawImage>> animation = builder.Animate(image)
+                    .OnQueued(a =>
+                    {
+                        Singleton<ImageDownloadAnimationHandler>.Instance.QueueUpdate(url, new AnimationRef<IElementAnimation<UiRawImage>>(a), null);
+                    });
+                return animation;
             }
 
-            float timeout = (float)options.Timeout.TotalSeconds;
-            
-            string timeoutImage = !string.IsNullOrEmpty(options.TimeoutImageNameOrUrl) ? options.TimeoutImageNameOrUrl : options.FailedImageNameOrUrl;
-
-            AnimationRef<IElementAnimation<UiRawImage>> animation = builder.Animate(image)
-                .OnQueued(a => Singleton<ImageDownloadAnimationHandler>.Instance.QueueUpdate(url, new AnimationRef<IElementAnimation<UiRawImage>>(a), options))
-                .OnTimeout(a => a.Element.Image = timeoutImage)
-                .TimeoutDelay(timeout);
-
-            return animation;
+            return default;
         }
 
-        return default;
+        public AnimationRef<IElementAnimation<UiRawImage>> AnimateDownload(UiRawImage image, ImageAnimationOptions options)
+        {
+            string url = image.Image;
+            if (url.IsValidUrl() && Singleton<UiImageStorage>.Instance.IsDownloading(url))
+            {
+                if (!string.IsNullOrEmpty(options.DownloadingImageNameOrUrl))
+                {
+                    image.Image = Singleton<UiImageStorage>.Instance.Get(builder.Plugin, options.DownloadingImageNameOrUrl);
+                }
+
+                float timeout = (float)options.Timeout.TotalSeconds;
+            
+                string timeoutImage = !string.IsNullOrEmpty(options.TimeoutImageNameOrUrl) ? options.TimeoutImageNameOrUrl : options.FailedImageNameOrUrl;
+
+                AnimationRef<IElementAnimation<UiRawImage>> animation = builder.Animate(image)
+                    .OnQueued(a => Singleton<ImageDownloadAnimationHandler>.Instance.QueueUpdate(url, new AnimationRef<IElementAnimation<UiRawImage>>(a), options))
+                    .OnTimeout(a => a.Element.Image = timeoutImage)
+                    .TimeoutDelay(timeout);
+
+                return animation;
+            }
+
+            return default;
+        }
     }
 }

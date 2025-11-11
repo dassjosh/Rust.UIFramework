@@ -26,63 +26,66 @@ public static class ListExt
         list.Clear();
     }
 
-    public static void TryFreeValues<T>(this List<T> list)
+    extension<T>(List<T> list)
     {
-        if (list == null)
+        public void TryFreeValues()
         {
-            return;
-        }
-        
-        int count = list.Count;
-        T[] array = list.GetInternalArray();
-        for (int index = 0; index < count; index++)
-        {
-            array[index].TryReturnToPool();
-        }
-        
-        list.Clear();
-    }
-
-    public static void RemoveSequentialDuplicates<T>(this List<T> list)
-    {
-        for (int i = list.Count - 1; i > 0;)
-        {
-            int prevIndex = i - 1;
-            if (list[i].Equals(list[prevIndex]))
+            if (list == null)
             {
-                list.RemoveAt(i);
+                return;
             }
-            else
+        
+            int count = list.Count;
+            T[] array = list.GetInternalArray();
+            for (int index = 0; index < count; index++)
             {
-                i = prevIndex;
+                array[index].TryReturnToPool();
             }
+        
+            list.Clear();
+        }
+
+        public void RemoveSequentialDuplicates()
+        {
+            for (int i = list.Count - 1; i > 0;)
+            {
+                int prevIndex = i - 1;
+                if (list[i].Equals(list[prevIndex]))
+                {
+                    list.RemoveAt(i);
+                }
+                else
+                {
+                    i = prevIndex;
+                }
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        internal T[] GetInternalArray()
+        {
+            return list.GetPrivateFieldsUnsafe()._items;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private PrivateList<T> GetPrivateFieldsUnsafe()
+        {
+            return list == null ? throw new ArgumentNullException(nameof(list)) : UnsafeUtility.As<List<T>, PrivateList<T>>(ref list);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public ReadOnlySpan<T> GetAsReadOnlySpan()
+        {
+            return list.GetInternalArray().AsSpan(0, list.Count);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Span<T> GetAsSpan()
+        {
+            return list.GetInternalArray().AsSpan(0, list.Count);
         }
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static T[] GetInternalArray<T>(this List<T> list)
-    {
-        return list.GetPrivateFieldsUnsafe()._items;
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static PrivateList<T> GetPrivateFieldsUnsafe<T>(this List<T> list)
-    {
-        return list == null ? throw new ArgumentNullException(nameof(list)) : UnsafeUtility.As<List<T>, PrivateList<T>>(ref list);
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ReadOnlySpan<T> GetAsReadOnlySpan<T>(this List<T> list)
-    {
-        return list.GetInternalArray().AsSpan(0, list.Count);
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static Span<T> GetAsSpan<T>(this List<T> list)
-    {
-        return list.GetInternalArray().AsSpan(0, list.Count);
-    }
-    
     [SuppressMessage("ReSharper", "InconsistentNaming")]
     // ReSharper disable once ClassNeverInstantiated.Local
     private sealed class PrivateList<T>

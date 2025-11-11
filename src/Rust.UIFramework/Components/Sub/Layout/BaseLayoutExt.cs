@@ -5,15 +5,18 @@ namespace Oxide.Ext.UiFramework.Components;
 
 public static class BaseLayoutExt
 {
-    public static T SetChildAlignment<T>(this T layout, TextAnchor childAlignment) where T : BaseLayoutComponent
+    extension<T>(T layout) where T : BaseLayoutComponent
     {
-        layout.ChildAlignment = childAlignment;
-        return layout;
-    }
-    
-    public static T SetPadding<T>(this T layout, in UiPadding padding) where T : BaseLayoutComponent 
-    {
-        layout.Padding = padding;
-        return layout;
+        public T SetChildAlignment(TextAnchor childAlignment)
+        {
+            layout.ChildAlignment = childAlignment;
+            return layout;
+        }
+
+        public T SetPadding(in UiPadding padding)
+        {
+            layout.Padding = padding;
+            return layout;
+        }
     }
 }

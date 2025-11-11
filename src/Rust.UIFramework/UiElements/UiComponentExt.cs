@@ -11,125 +11,128 @@ namespace Oxide.Ext.UiFramework.UiElements;
 
 public static class UiComponentExt
 {
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static T SetName<T>(this T component, string name) where T : BaseUiComponent
+    extension<T>(T component) where T : BaseUiComponent
     {
-        component.Name = name;
-        return component;
-    }
-    
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static T SetParent<T>(this T component, string parent) where T : BaseUiComponent
-    {
-        component.Parent = parent;
-        return component;
-    }
-    
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static T SetParent<T>(this T component, UiLayer layer) where T : BaseUiComponent => SetParent(component, UiLayerCache.GetLayer(layer));
-    
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static T SetReference<T>(this T component, in UiReference reference) where T : BaseUiComponent
-    {
-        component.Reference = reference;
-        return component;
-    }
-    
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static T SetPosition<T>(this T component, in UiPosition position) where T : BaseUiComponent
-    {
-        component.Position = position;
-        return component;
-    }
-    
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static T SetPosition<T>(this T component, in UiPosition position, in UiOffset offset) where T : BaseUiComponent
-    {
-        component.Position = position;
-        component.Offset = offset;
-        return component; 
-    }
-    
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static T SetOffset<T>(this T component, in UiOffset offset) where T : BaseUiComponent
-    {
-        component.Offset = offset;
-        return component;
-    }
-    
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static T SetRotation<T>(this T component, UiRotation rotation) where T : BaseUiComponent
-    {
-        component.Rotation = rotation;
-        return component;
-    }
-    
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static T SetPositionPadding<T>(this T component, in UiPadding padding) where T : BaseUiComponent
-    {
-        component.PositionPadding = padding;
-        return component;
-    }
-    
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static T SetOffsetPadding<T>(this T component, in UiPadding padding) where T : BaseUiComponent
-    {
-        component.OffsetPadding = padding;
-        return component;
-    }
-    
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static T SetEnabled<T>(this T component, bool enabled) where T : BaseUiComponent
-    {
-        component.Enabled = enabled;
-        return component;
-    }
-    
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static T SetActive<T>(this T component, bool active) where T : BaseUiComponent
-    {
-        component.Active = active;
-        return component;
-    }
-    
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static T SetFadeOut<T>(this T component, float duration) where T : BaseUiComponent
-    {
-        component.FadeOut = duration;
-        return component;
-    }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public T SetName(string name)
+        {
+            component.Name = name;
+            return component;
+        }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static T SetUpdate<T>(this T component, UpdateMode mode) where T : BaseUiComponent
-    {
-        component.Update = mode;
-        return component;
-    }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public T SetParent(string parent)
+        {
+            component.Parent = parent;
+            return component;
+        }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static T Update<T>(this T component) where T : BaseUiComponent => component.SetUpdate(UpdateMode.Update);
-    
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static T Replace<T>(this T component) where T : BaseUiComponent => component.SetUpdate(UpdateMode.Replace);
-    
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static T SetPositionScale<T>(this T component, UiScale scale) where T : BaseUiComponent
-    {
-        component.PositionScale = scale;
-        return component;
-    }
-    
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static T SetOffsetScale<T>(this T component, UiScale scale) where T : BaseUiComponent
-    {
-        component.OffsetScale = scale;
-        return component;
-    }
-    
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static T SetLayout<T>(this T component, BaseUiLayout layout) where T : BaseUiComponent
-    {
-        layout.AddElement(component);
-        return component;
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public T SetParent(UiLayer layer) => SetParent(component, UiLayerCache.GetLayer(layer));
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public T SetReference(in UiReference reference)
+        {
+            component.Reference = reference;
+            return component;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public T SetPosition(in UiPosition position)
+        {
+            component.Position = position;
+            return component;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public T SetPosition(in UiPosition position, in UiOffset offset)
+        {
+            component.Position = position;
+            component.Offset = offset;
+            return component; 
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public T SetOffset(in UiOffset offset)
+        {
+            component.Offset = offset;
+            return component;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public T SetRotation(UiRotation rotation)
+        {
+            component.Rotation = rotation;
+            return component;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public T SetPositionPadding(in UiPadding padding)
+        {
+            component.PositionPadding = padding;
+            return component;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public T SetOffsetPadding(in UiPadding padding)
+        {
+            component.OffsetPadding = padding;
+            return component;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public T SetEnabled(bool enabled)
+        {
+            component.Enabled = enabled;
+            return component;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public T SetActive(bool active)
+        {
+            component.Active = active;
+            return component;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public T SetFadeOut(float duration)
+        {
+            component.FadeOut = duration;
+            return component;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public T SetUpdate(UpdateMode mode)
+        {
+            component.Update = mode;
+            return component;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public T Update() => component.SetUpdate(UpdateMode.Update);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public T Replace() => component.SetUpdate(UpdateMode.Replace);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public T SetPositionScale(UiScale scale)
+        {
+            component.PositionScale = scale;
+            return component;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public T SetOffsetScale(UiScale scale)
+        {
+            component.OffsetScale = scale;
+            return component;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        internal T SetLayout(BaseUiLayout layout)
+        {
+            layout.AddElement(component);
+            return component;
+        }
     }
 }

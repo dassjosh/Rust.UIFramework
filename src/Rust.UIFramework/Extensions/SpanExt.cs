@@ -11,132 +11,138 @@ namespace Oxide.Ext.UiFramework.Extensions;
 public static class SpanExt
 {
     private static readonly ThreadLocal<char[]> Buffer = new(() => new char[128]);
-        
-    /// <summary>
-    /// Parses the next string from the input splitting on the token
-    /// </summary>
-    /// <param name="input">Input string</param>
-    /// <param name="token">Token to split on</param>
-    /// <param name="remaining">Remaining text of the span</param>
-    /// <param name="parsed">The parsed string</param>
-    /// <returns>True if successfully parsed; false otherwise</returns>
-    public static bool TryParseNextString(this ReadOnlySpan<char> input, ReadOnlySpan<char> token, out ReadOnlySpan<char> remaining, out ReadOnlySpan<char> parsed)
-    {
-        if (input.Length == 0)
-        {
-            remaining = ReadOnlySpan<char>.Empty;
-            parsed = ReadOnlySpan<char>.Empty;
-            return false;
-        }
 
-        int end = input.IndexOf(token);
-        if (end == -1)
+    /// <param name="input">Input string</param>
+    extension(ReadOnlySpan<char> input)
+    {
+        /// <summary>
+        /// Parses the next string from the input splitting on the token
+        /// </summary>
+        /// <param name="token">Token to split on</param>
+        /// <param name="remaining">Remaining text of the span</param>
+        /// <param name="parsed">The parsed string</param>
+        /// <returns>True if successfully parsed; false otherwise</returns>
+        public bool TryParseNextString(ReadOnlySpan<char> token, out ReadOnlySpan<char> remaining, out ReadOnlySpan<char> parsed)
         {
-            remaining = ReadOnlySpan<char>.Empty;
-            parsed = input;
+            if (input.Length == 0)
+            {
+                remaining = ReadOnlySpan<char>.Empty;
+                parsed = ReadOnlySpan<char>.Empty;
+                return false;
+            }
+
+            int end = input.IndexOf(token);
+            if (end == -1)
+            {
+                remaining = ReadOnlySpan<char>.Empty;
+                parsed = input;
+                return true;
+            }
+
+            remaining = input[(end + token.Length)..];
+            parsed = input[..end];
             return true;
         }
 
-        remaining = input[(end + token.Length)..];
-        parsed = input[..end];
-        return true;
-    }
-
-    public static bool TryParseNextFloat(this ReadOnlySpan<char> input, ReadOnlySpan<char> token, out ReadOnlySpan<char> remaining, out float parsed)
-    {
-        parsed = default;
-        return input.TryParseNextString(token, out remaining, out ReadOnlySpan<char> parsedStr) && float.TryParse(parsedStr, out parsed);
-    }
-    
-    public static bool TryParseNextInt(this ReadOnlySpan<char> input, ReadOnlySpan<char> token, out ReadOnlySpan<char> remaining, out int parsed)
-    {
-        parsed = default;
-        return input.TryParseNextString(token, out remaining, out ReadOnlySpan<char> parsedStr) && int.TryParse(parsedStr, out parsed);
-    }
-    
-    public static bool TryParseNextLong(this ReadOnlySpan<char> input, ReadOnlySpan<char> token, out ReadOnlySpan<char> remaining, out long parsed)
-    {
-        parsed = default;
-        return input.TryParseNextString(token, out remaining, out ReadOnlySpan<char> parsedStr) && long.TryParse(parsedStr, out parsed);
-    }
-    
-    public static bool TryParseNextUlong(this ReadOnlySpan<char> input, ReadOnlySpan<char> token, out ReadOnlySpan<char> remaining, out ulong parsed)
-    {
-        parsed = default;
-        return input.TryParseNextString(token, out remaining, out ReadOnlySpan<char> parsedStr) && ulong.TryParse(parsedStr, out parsed);
-    }
-        
-    public static void ParseNextString(this ReadOnlySpan<char> input, ReadOnlySpan<char> token, out ReadOnlySpan<char> result, out ReadOnlySpan<char> remaining)
-    {
-        if (input.Length == 0)
+        public bool TryParseNextFloat(ReadOnlySpan<char> token, out ReadOnlySpan<char> remaining, out float parsed)
         {
-            throw new IndexOutOfRangeException();
+            parsed = default;
+            return input.TryParseNextString(token, out remaining, out ReadOnlySpan<char> parsedStr) && float.TryParse(parsedStr, out parsed);
         }
 
-        int end = input.IndexOf(token);
-        if (end == -1)
+        public bool TryParseNextInt(ReadOnlySpan<char> token, out ReadOnlySpan<char> remaining, out int parsed)
         {
-            remaining = ReadOnlySpan<char>.Empty;
-            result = input;
-            return;
+            parsed = default;
+            return input.TryParseNextString(token, out remaining, out ReadOnlySpan<char> parsedStr) && int.TryParse(parsedStr, out parsed);
         }
 
-        remaining = input[(end + token.Length)..];
-        result = input[..end];
+        public bool TryParseNextLong(ReadOnlySpan<char> token, out ReadOnlySpan<char> remaining, out long parsed)
+        {
+            parsed = default;
+            return input.TryParseNextString(token, out remaining, out ReadOnlySpan<char> parsedStr) && long.TryParse(parsedStr, out parsed);
+        }
+
+        public bool TryParseNextUlong(ReadOnlySpan<char> token, out ReadOnlySpan<char> remaining, out ulong parsed)
+        {
+            parsed = default;
+            return input.TryParseNextString(token, out remaining, out ReadOnlySpan<char> parsedStr) && ulong.TryParse(parsedStr, out parsed);
+        }
+
+        public void ParseNextString(ReadOnlySpan<char> token, out ReadOnlySpan<char> result, out ReadOnlySpan<char> remaining)
+        {
+            if (input.Length == 0)
+            {
+                throw new IndexOutOfRangeException();
+            }
+
+            int end = input.IndexOf(token);
+            if (end == -1)
+            {
+                remaining = ReadOnlySpan<char>.Empty;
+                result = input;
+                return;
+            }
+
+            remaining = input[(end + token.Length)..];
+            result = input[..end];
+        }
+
+        public float ParseNextFloat(ReadOnlySpan<char> token, out ReadOnlySpan<char> remaining)
+        {
+            input.ParseNextString(token, out remaining, out ReadOnlySpan<char> parsed);
+            return float.Parse(parsed);
+        }
+
+        public int ParseNextInt(ReadOnlySpan<char> token, out ReadOnlySpan<char> remaining)
+        {
+            input.ParseNextString(token, out remaining, out ReadOnlySpan<char> parsed);
+            return int.Parse(parsed);
+        }
+
+        public long ParseNextLong(ReadOnlySpan<char> token, out ReadOnlySpan<char> remaining)
+        {
+            input.ParseNextString(token, out remaining, out ReadOnlySpan<char> parsed);
+            return long.Parse(parsed);
+        }
+
+        public ulong ParseNextUlong(ReadOnlySpan<char> token, out ReadOnlySpan<char> remaining)
+        {
+            input.ParseNextString(token, out remaining, out ReadOnlySpan<char> parsed);
+            return ulong.Parse(parsed);
+        }
     }
-    
-    public static float ParseNextFloat(this ReadOnlySpan<char> input, ReadOnlySpan<char> token, out ReadOnlySpan<char> remaining)
+
+    extension(Span<char> span)
     {
-        input.ParseNextString(token, out remaining, out ReadOnlySpan<char> parsed);
-        return float.Parse(parsed);
-    }
-    
-    public static int ParseNextInt(this ReadOnlySpan<char> input, ReadOnlySpan<char> token, out ReadOnlySpan<char> remaining)
-    {
-        input.ParseNextString(token, out remaining, out ReadOnlySpan<char> parsed);
-        return int.Parse(parsed);
-    }
-    
-    public static long ParseNextLong(this ReadOnlySpan<char> input, ReadOnlySpan<char> token, out ReadOnlySpan<char> remaining)
-    {
-        input.ParseNextString(token, out remaining, out ReadOnlySpan<char> parsed);
-        return long.Parse(parsed);
-    }
-    
-    public static ulong ParseNextUlong(this ReadOnlySpan<char> input, ReadOnlySpan<char> token, out ReadOnlySpan<char> remaining)
-    {
-        input.ParseNextString(token, out remaining, out ReadOnlySpan<char> parsed);
-        return ulong.Parse(parsed);
-    }
-    
-    public static void Write(this Span<char> span, float value, out Span<char> remaining)
-    {
-        value.TryFormat(span, out int charsWritten);
-        remaining = span[charsWritten..];
-    }
-    
-    public static void Write(this Span<char> span, int value, out Span<char> remaining)
-    {
-        value.TryFormat(span, out int charsWritten);
-        remaining = span[charsWritten..];
-    }
-    
-    public static void Write(this Span<char> span, long value, out Span<char> remaining)
-    {
-        value.TryFormat(span, out int charsWritten);
-        remaining = span[charsWritten..];
-    }
-    
-    public static void Write(this Span<char> span, ulong value, out Span<char> remaining)
-    {
-        value.TryFormat(span, out int charsWritten);
-        remaining = span[charsWritten..];
-    }
-    
-    public static void Write(this Span<char> span, char value, out Span<char> remaining)
-    {
-        span[0] = value;
-        remaining = span[1..];
+        public void Write(float value, out Span<char> remaining)
+        {
+            value.TryFormat(span, out int charsWritten);
+            remaining = span[charsWritten..];
+        }
+
+        public void Write(int value, out Span<char> remaining)
+        {
+            value.TryFormat(span, out int charsWritten);
+            remaining = span[charsWritten..];
+        }
+
+        public void Write(long value, out Span<char> remaining)
+        {
+            value.TryFormat(span, out int charsWritten);
+            remaining = span[charsWritten..];
+        }
+
+        public void Write(ulong value, out Span<char> remaining)
+        {
+            value.TryFormat(span, out int charsWritten);
+            remaining = span[charsWritten..];
+        }
+
+        public void Write(char value, out Span<char> remaining)
+        {
+            span[0] = value;
+            remaining = span[1..];
+        }
     }
 
     public static void WriteSpace(Span<char> span, out Span<char> remaining) => span.Write(' ', out remaining);

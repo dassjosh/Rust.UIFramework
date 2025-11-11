@@ -8,256 +8,259 @@ namespace Oxide.Ext.UiFramework.Extensions;
 
 public static class StringBuilderExt
 {
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static void AppendSpan(this StringBuilder sb, byte value)
+    extension(StringBuilder sb)
     {
-        if (value.TryFormat(out ReadOnlySpan<char> written))
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void AppendSpan(byte value)
         {
-            sb.Append(written);
+            if (value.TryFormat(out ReadOnlySpan<char> written))
+            {
+                sb.Append(written);
+            }
+            else
+            {
+                sb.Append(value);
+            }
         }
-        else
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void AppendSpan(sbyte value)
+        {
+            if (value.TryFormat(out ReadOnlySpan<char> written))
+            {
+                sb.Append(written);
+            }
+            else
+            {
+                sb.Append(value);
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void AppendSpan(short value)
+        {
+            if (value.TryFormat(out ReadOnlySpan<char> written))
+            {
+                sb.Append(written);
+            }
+            else
+            {
+                sb.Append(value);
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void AppendSpan(ushort value)
+        {
+            if (value.TryFormat(out ReadOnlySpan<char> written))
+            {
+                sb.Append(written);
+            }
+            else
+            {
+                sb.Append(value);
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void AppendSpan(int value)
+        {
+            if (value.TryFormat(out ReadOnlySpan<char> written))
+            {
+                sb.Append(written);
+            }
+            else
+            {
+                sb.Append(value);
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void AppendSpan(uint value)
+        {
+            if (value.TryFormat(out ReadOnlySpan<char> written))
+            {
+                sb.Append(written);
+            }
+            else
+            {
+                sb.Append(value);
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void AppendSpan(long value)
+        {
+            if (value.TryFormat(out ReadOnlySpan<char> written))
+            {
+                sb.Append(written);
+            }
+            else
+            {
+                sb.Append(value);
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void AppendSpan(ulong value)
+        {
+            if (value.TryFormat(out ReadOnlySpan<char> written))
+            {
+                sb.Append(written);
+            }
+            else
+            {
+                sb.Append(value);
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void AppendSpan(float value)
+        {
+            if (value.TryFormat(out ReadOnlySpan<char> written))
+            {
+                sb.Append(written);
+            }
+            else
+            {
+                sb.Append(value);
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void AppendSpan(double value)
+        {
+            if (value.TryFormat(out ReadOnlySpan<char> written))
+            {
+                sb.Append(written);
+            }
+            else
+            {
+                sb.Append(value);
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void AppendSpan(decimal value)
+        {
+            if (value.TryFormat(out ReadOnlySpan<char> written))
+            {
+                sb.Append(written);
+            }
+            else
+            {
+                sb.Append(value);
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void AppendSpan(DateTime value)
+        {
+            if (value.TryFormat(out ReadOnlySpan<char> written))
+            {
+                sb.Append(written);
+            }
+            else
+            {
+                sb.Append(value);
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void AppendSpan(DateTimeOffset value)
+        {
+            if (value.TryFormat(out ReadOnlySpan<char> written))
+            {
+                sb.Append(written);
+            }
+            else
+            {
+                sb.Append(value);
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void AppendSpan(TimeSpan value)
+        {
+            if (value.TryFormat(out ReadOnlySpan<char> written))
+            {
+                sb.Append(written);
+            }
+            else
+            {
+                sb.Append(value);
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void AppendSpan(char value)
         {
             sb.Append(value);
         }
-    }
-    
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static void AppendSpan(this StringBuilder sb, sbyte value)
-    {
-        if (value.TryFormat(out ReadOnlySpan<char> written))
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void AppendSpan(UiColor value)
         {
-            sb.Append(written);
+            if (value.TryFormat(out ReadOnlySpan<char> written))
+            {
+                sb.Append(written);
+            }
+            else
+            {
+                sb.Append(value.ToHexRGBA());
+            }
         }
-        else
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void AppendSpan(UiRotation value)
         {
-            sb.Append(value);
+            if (value.Rotation.TryFormat(out ReadOnlySpan<char> written))
+            {
+                sb.Append(written);
+            }
+            else
+            {
+                sb.Append(value.Rotation);
+            }
         }
-    }
-    
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static void AppendSpan(this StringBuilder sb, short value)
-    {
-        if (value.TryFormat(out ReadOnlySpan<char> written))
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void AppendSpan(in UiPadding value)
         {
-            sb.Append(written);
+            if (value.TryFormat(out ReadOnlySpan<char> written))
+            {
+                sb.Append(written);
+            }
+            else
+            {
+                sb.Append(value);
+            }
         }
-        else
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void AppendSpan(UiScale value)
         {
-            sb.Append(value);
+            if (value.TryFormat(out ReadOnlySpan<char> written))
+            {
+                sb.Append(written);
+            }
+            else
+            {
+                sb.Append(value);
+            }
         }
-    }
-    
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static void AppendSpan(this StringBuilder sb, ushort value)
-    {
-        if (value.TryFormat(out ReadOnlySpan<char> written))
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void AppendSpan(in UiBorderWidth value)
         {
-            sb.Append(written);
-        }
-        else
-        {
-            sb.Append(value);
-        }
-    }
-    
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static void AppendSpan(this StringBuilder sb, int value)
-    {
-        if (value.TryFormat(out ReadOnlySpan<char> written))
-        {
-            sb.Append(written);
-        }
-        else
-        {
-            sb.Append(value);
-        }
-    }
-    
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static void AppendSpan(this StringBuilder sb, uint value)
-    {
-        if (value.TryFormat(out ReadOnlySpan<char> written))
-        {
-            sb.Append(written);
-        }
-        else
-        {
-            sb.Append(value);
-        }
-    }
-    
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static void AppendSpan(this StringBuilder sb, long value)
-    {
-        if (value.TryFormat(out ReadOnlySpan<char> written))
-        {
-            sb.Append(written);
-        }
-        else
-        {
-            sb.Append(value);
-        }
-    }
-    
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static void AppendSpan(this StringBuilder sb, ulong value)
-    {
-        if (value.TryFormat(out ReadOnlySpan<char> written))
-        {
-            sb.Append(written);
-        }
-        else
-        {
-            sb.Append(value);
-        }
-    }
-    
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static void AppendSpan(this StringBuilder sb, float value)
-    {
-        if (value.TryFormat(out ReadOnlySpan<char> written))
-        {
-            sb.Append(written);
-        }
-        else
-        {
-            sb.Append(value);
-        }
-    }
-    
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static void AppendSpan(this StringBuilder sb, double value)
-    {
-        if (value.TryFormat(out ReadOnlySpan<char> written))
-        {
-            sb.Append(written);
-        }
-        else
-        {
-            sb.Append(value);
-        }
-    }
-    
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static void AppendSpan(this StringBuilder sb, decimal value)
-    {
-        if (value.TryFormat(out ReadOnlySpan<char> written))
-        {
-            sb.Append(written);
-        }
-        else
-        {
-            sb.Append(value);
-        }
-    }
-    
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static void AppendSpan(this StringBuilder sb, DateTime value)
-    {
-        if (value.TryFormat(out ReadOnlySpan<char> written))
-        {
-            sb.Append(written);
-        }
-        else
-        {
-            sb.Append(value);
-        }
-    }
-    
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static void AppendSpan(this StringBuilder sb, DateTimeOffset value)
-    {
-        if (value.TryFormat(out ReadOnlySpan<char> written))
-        {
-            sb.Append(written);
-        }
-        else
-        {
-            sb.Append(value);
-        }
-    }
-    
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static void AppendSpan(this StringBuilder sb, TimeSpan value)
-    {
-        if (value.TryFormat(out ReadOnlySpan<char> written))
-        {
-            sb.Append(written);
-        }
-        else
-        {
-            sb.Append(value);
-        }
-    }
-    
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static void AppendSpan(this StringBuilder sb, char value)
-    {
-        sb.Append(value);
-    }
-    
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static void AppendSpan(this StringBuilder sb, UiColor value)
-    {
-        if (value.TryFormat(out ReadOnlySpan<char> written))
-        {
-            sb.Append(written);
-        }
-        else
-        {
-            sb.Append(value.ToHexRGBA());
-        }
-    }
-    
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static void AppendSpan(this StringBuilder sb, UiRotation value)
-    {
-        if (value.Rotation.TryFormat(out ReadOnlySpan<char> written))
-        {
-            sb.Append(written);
-        }
-        else
-        {
-            sb.Append(value.Rotation);
-        }
-    }
-    
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static void AppendSpan(this StringBuilder sb, in UiPadding value)
-    {
-        if (value.TryFormat(out ReadOnlySpan<char> written))
-        {
-            sb.Append(written);
-        }
-        else
-        {
-            sb.Append(value);
-        }
-    }
-    
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static void AppendSpan(this StringBuilder sb, UiScale value)
-    {
-        if (value.TryFormat(out ReadOnlySpan<char> written))
-        {
-            sb.Append(written);
-        }
-        else
-        {
-            sb.Append(value);
-        }
-    }
-    
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static void AppendSpan(this StringBuilder sb, in UiBorderWidth value)
-    {
-        if (value.TryFormat(out ReadOnlySpan<char> written))
-        {
-            sb.Append(written);
-        }
-        else
-        {
-            sb.Append(value);
+            if (value.TryFormat(out ReadOnlySpan<char> written))
+            {
+                sb.Append(written);
+            }
+            else
+            {
+                sb.Append(value);
+            }
         }
     }
 }

@@ -3,6 +3,7 @@ using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.UiElements;
+using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Layouts;
 
@@ -42,7 +43,7 @@ public abstract class BaseUiLayout : BasePoolable
     
     protected void ScaleScrollView(LayoutDirection direction, float scale)
     {
-        if (ScrollView != null && scale != 1f)
+        if (ScrollView != null && !Mathf.Approximately(scale, 1f))
         {
             UiPosition position = ScrollView.ScrollView.ContentTransform.Position;
             switch (direction)

@@ -6,6 +6,7 @@ using Oxide.Ext.UiFramework.Animation;
 using Oxide.Ext.UiFramework.Constants;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Json;
+using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Threading;
@@ -191,6 +192,10 @@ public abstract class BaseBuilder : BasePoolable
         
         Singleton<AnimationTracker>.Instance.RemoveUiForSend(send, name);
         Singleton<SendHandler>.Instance.Enqueue(UiDestroyRequest.Create(name, send));
+        if (send.connections != null)
+        {
+            UiPool.Internal.FreeList(send.connections);
+        }
     }
     #endregion
 

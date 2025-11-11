@@ -66,8 +66,7 @@ public class UiGridLayout : BaseUiLayout, IFixedElementsLayout
         int numRows = rows.Count;
         float scale = GetScrollViewScale(numRows, NumRows);
         float currentRow = GetRowOffset(numRows) * scale;
-
-        int elementIndex = 0;
+        
         for (int i = 0; i < numRows; i++)
         {
             GridRow row = rows[i];
@@ -78,7 +77,6 @@ public class UiGridLayout : BaseUiLayout, IFixedElementsLayout
                 UiPosition pos = GetUiPosition(currentCol, currentRow, element.ColSpan, scale);
                 element.Element.SetPosition(pos).SetOffsetPadding(Padding);
                 currentCol += element.ColSpan;
-                elementIndex++;
             }
 
             currentRow += 1f;
