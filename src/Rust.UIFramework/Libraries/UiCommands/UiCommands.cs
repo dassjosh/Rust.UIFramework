@@ -9,8 +9,6 @@ using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Types;
 using Rust.UiFramework.SourceGenerators.Attributes;
 
-// ReSharper disable CoVariantArrayConversion
-
 namespace Oxide.Ext.UiFramework.Libraries;
 
 public delegate void OnPluginNoPermission(BasePlayer player, MethodInfo method, string errorMessage);
@@ -62,20 +60,9 @@ public partial class UiCommands : BaseUiFrameworkLibrary, ISingleton
         return command;
     }
 
-    public void RegisterPluginNoPermissionCallback(IUiFrameworkPlugin plugin, OnPluginNoPermission callback)
-    {
-        GetCallbacks(plugin).PlayerNoPermission = callback;
-    }
-    
-    public void RegisterPluginPlayerCooldownCallback(IUiFrameworkPlugin plugin, OnPluginCooldown callback)
-    {
-        GetCallbacks(plugin).PlayerOnCooldown = callback;
-    }
-    
-    public void RegisterPluginValidationFailedCallback(IUiFrameworkPlugin plugin, OnPluginProtectionFailed callback)
-    {
-        GetCallbacks(plugin).ProtectionValidationFailed = callback;
-    }
+    public void RegisterPluginNoPermissionCallback(IUiFrameworkPlugin plugin, OnPluginNoPermission callback) => GetCallbacks(plugin).PlayerNoPermission = callback;
+    public void RegisterPluginPlayerCooldownCallback(IUiFrameworkPlugin plugin, OnPluginCooldown callback) => GetCallbacks(plugin).PlayerOnCooldown = callback;
+    public void RegisterPluginValidationFailedCallback(IUiFrameworkPlugin plugin, OnPluginProtectionFailed callback) => GetCallbacks(plugin).ProtectionValidationFailed = callback;
 
     private PluginCallbacks GetCallbacks(IUiFrameworkPlugin plugin)
     {
@@ -109,7 +96,14 @@ public partial class UiCommands : BaseUiFrameworkLibrary, ISingleton
     internal void OnCommandReceived(BasePlayer player, UiCommandTokenizer tokenizer)
     {
         tokenizer.GetNext(); // Skip UiCommandName
-        CommandId commandId = new(uint.Parse(tokenizer.GetNext()));
+        ReadOnlySpan<char> span = tokenizer.GetNext();
+        if (!uint.TryParse(span, out uint id))
+        {
+            _logger.Debug($"{nameof(OnCommandReceived)} Invalid command id: {{0}}", span.ToString());
+            return;
+        }
+        
+        CommandId commandId = new(id);
         _commands[commandId]?.RunCommand(player, tokenizer);
     }
     

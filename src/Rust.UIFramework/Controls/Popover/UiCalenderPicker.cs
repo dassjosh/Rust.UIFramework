@@ -137,7 +137,7 @@ public class UiCalenderPicker : BaseUiControl
 
     private void StyleButton(UiButton button, string buttonSprite)
     {
-        button.SetSprite(buttonSprite).SetImageType( Image.Type.Sliced);
+        button.SetSprite(buttonSprite).SetImageType(Image.Type.Sliced);
     }
 
     protected override void LeavePool()

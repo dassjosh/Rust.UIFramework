@@ -4,7 +4,7 @@ internal class CommandBuilder : BaseCommandBuilder, ICommandBuilder
 {
     private readonly string _staticCommand;
     
-    public CommandBuilder(ICommandBuilderData data) : base(data)
+    public CommandBuilder(ICommandBuilderData data) : base(data, default)
     {
         _staticCommand = data.Protection switch
         {

@@ -2,6 +2,7 @@
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Rust.UiFramework.SourceGenerators.Builder;
+using Rust.UiFramework.SourceGenerators.Constants;
 using Rust.UiFramework.SourceGenerators.Extensions;
 using Rust.UiFramework.SourceGenerators.Helpers;
 
@@ -15,16 +16,16 @@ public class ICommandBuilderGenerator : BaseGenerator, IIncrementalGenerator
         context.Register<InterfaceDeclarationSyntax>(c => c.Name.Equals("ICommandBuilder") && c.ContainingNamespace.ToString() == "Oxide.Ext.UiFramework.Libraries", (spc, compilation, @class, classSymbol) =>
         {
             InitializeCache(compilation);
-            spc.AddSource($"{classSymbol.Name}.g.cs", GenerateParser(classSymbol, 10));
+            spc.AddSource($"{classSymbol.Name}.g.cs", GenerateParser(classSymbol));
         });
     }
     
-    private string GenerateParser(INamedTypeSymbol classSymbol, int maxArgs)
+    private string GenerateParser(INamedTypeSymbol classSymbol)
     {
         return new CodeBuilder()
             .Usings(["Oxide.Ext.UiFramework.Extensions"])
             .Namespace(classSymbol.ContainingNamespace)
-            .Add(Enumerable.Range(1, maxArgs), (args, t) =>
+            .Add(Enumerable.Range(1, UiCommands.MaxArgs), (args, t) =>
             {
                 t.Public().Interface().Name(classSymbol.Name)
                     .AddGenerics(g => g.Generics(Enumerable.Range(0, args)), out GenericsBuilder generics)

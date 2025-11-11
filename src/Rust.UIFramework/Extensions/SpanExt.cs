@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using Oxide.Ext.UiFramework.Colors;
+using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Extensions;
 
@@ -107,6 +108,38 @@ public static class SpanExt
         input.ParseNextString(token, out remaining, out ReadOnlySpan<char> parsed);
         return ulong.Parse(parsed);
     }
+    
+    public static void Write(this Span<char> span, float value, out Span<char> remaining)
+    {
+        value.TryFormat(span, out int charsWritten);
+        remaining = span[charsWritten..];
+    }
+    
+    public static void Write(this Span<char> span, int value, out Span<char> remaining)
+    {
+        value.TryFormat(span, out int charsWritten);
+        remaining = span[charsWritten..];
+    }
+    
+    public static void Write(this Span<char> span, long value, out Span<char> remaining)
+    {
+        value.TryFormat(span, out int charsWritten);
+        remaining = span[charsWritten..];
+    }
+    
+    public static void Write(this Span<char> span, ulong value, out Span<char> remaining)
+    {
+        value.TryFormat(span, out int charsWritten);
+        remaining = span[charsWritten..];
+    }
+    
+    public static void Write(this Span<char> span, char value, out Span<char> remaining)
+    {
+        span[0] = value;
+        remaining = span[1..];
+    }
+
+    public static void WriteSpace(Span<char> span, out Span<char> remaining) => span.Write(' ', out remaining);
 
     /// <summary>
     /// Tries to write the formatted values to out span
@@ -424,6 +457,70 @@ public static class SpanExt
 
         value.AlphaB.TryFormat(span[6..], out int _, format);
         written = span[..8];
+        return true;
+    }
+    
+    /// <summary>
+    /// Tries to write the formatted values to out span
+    /// </summary>
+    /// <param name="value">Value to be formatted</param>
+    /// <param name="written">Span the format is written to</param>
+    /// <returns>true if the format was successful; false otherwise</returns>
+    public static bool TryFormat(this in UiPadding value, out ReadOnlySpan<char> written)
+    {
+        Span<char> span = Buffer.Value.AsSpan();
+        Span<char> original = span;
+
+        span.Write(value.Left, out span);
+        span.Write(' ', out span);
+        span.Write(value.Top, out span);
+        span.Write(' ', out span);
+        span.Write(value.Right, out span);
+        span.Write(' ', out span);
+        span.Write(value.Bottom, out span);
+        
+        written = original[..^span.Length];
+        return true;
+    }
+    
+    /// <summary>
+    /// Tries to write the formatted values to out span
+    /// </summary>
+    /// <param name="value">Value to be formatted</param>
+    /// <param name="written">Span the format is written to</param>
+    /// <returns>true if the format was successful; false otherwise</returns>
+    public static bool TryFormat(this UiScale value, out ReadOnlySpan<char> written)
+    {
+        Span<char> span = Buffer.Value.AsSpan();
+        Span<char> original = span;
+
+        span.Write(value.Horizontal, out span);
+        span.Write(' ', out span);
+        span.Write(value.Vertical, out span);
+        written = original[..^span.Length];
+        return true;
+    }
+    
+    /// <summary>
+    /// Tries to write the formatted values to out span
+    /// </summary>
+    /// <param name="value">Value to be formatted</param>
+    /// <param name="written">Span the format is written to</param>
+    /// <returns>true if the format was successful; false otherwise</returns>
+    public static bool TryFormat(this in UiBorderWidth value, out ReadOnlySpan<char> written)
+    {
+        Span<char> span = Buffer.Value.AsSpan();
+        Span<char> original = span;
+
+        span.Write(value.Left, out span);
+        span.Write(' ', out span);
+        span.Write(value.Top, out span);
+        span.Write(' ', out span);
+        span.Write(value.Right, out span);
+        span.Write(' ', out span);
+        span.Write(value.Bottom, out span);
+        
+        written = original[..^span.Length];
         return true;
     }
 }

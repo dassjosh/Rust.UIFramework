@@ -1,14 +1,20 @@
 ﻿namespace Oxide.Ext.UiFramework.Libraries;
 
-internal class BaseCommandBuilder(ICommandBuilderData data, int argIndex = 0, string partialArgs = null)
+internal class BaseCommandBuilder(ICommandBuilderData data, PartialArgs? partial)
 {
     protected readonly ICommandBuilderData Data = data;
 
     protected ArgWriterIterator StartBuilding()
     {
         UiArgWriter argWriter = new();
-        argWriter.Append(partialArgs);
-        ArgWriterIterator iterator = new(argWriter, Data.Writers, argIndex);
+        int index = 0;
+        if (partial.HasValue)
+        {
+            argWriter.Append(partial.Value.Args);
+            index = partial.Value.Index;
+        }
+        
+        ArgWriterIterator iterator = new(argWriter, Data.Writers, index);
         return iterator;
     }
     

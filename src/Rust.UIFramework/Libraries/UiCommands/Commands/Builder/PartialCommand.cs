@@ -32,15 +32,6 @@ public static class PartialCommand
         
         return writers;
     }
-
-    private sealed class PartialWriterCommand(IUiFrameworkPlugin plugin, string command, IArgWriter[] writers) : ICommandBuilderData
-    {
-        public IUiFrameworkPlugin Plugin { get; } = plugin;
-        public string Command { get; } = command;
-
-        public IArgWriter[] Writers { get; } = writers;
-        public ICommandProtection Protection => null;
-    }
     
     private static IArgWriter[] GetWriters<T0, T1>(PluginId plugin)
     {
@@ -51,6 +42,15 @@ public static class PartialCommand
         }
         
         return writers;
+    }
+    
+    private sealed class PartialWriterCommand(IUiFrameworkPlugin plugin, string command, IArgWriter[] writers) : ICommandBuilderData
+    {
+        public IUiFrameworkPlugin Plugin { get; } = plugin;
+        public string Command { get; } = command;
+
+        public IArgWriter[] Writers { get; } = writers;
+        public ICommandProtection Protection => null;
     }
 
     private readonly record struct WriterKey(Type T0, Type T1);

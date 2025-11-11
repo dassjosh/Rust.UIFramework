@@ -73,6 +73,7 @@ namespace Rust.UiFramework.SourceGenerators.Helpers
                 public readonly FrameworkSymbolCache RegisteredCommand = new("Libraries.RegisteredCommand");
                 public readonly FrameworkSymbolCache ArgWriterIterator = new("Libraries.ArgWriterIterator");
                 public readonly FrameworkSymbolCache ArgReaderIterator = new("Libraries.ArgReaderIterator");
+                public readonly FrameworkSymbolCache PartialArgs = new("Libraries.PartialArgs");
 
                 public UiCommandsCache(Compilation compilation)
                 {

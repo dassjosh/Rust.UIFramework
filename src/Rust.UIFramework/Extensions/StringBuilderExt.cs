@@ -2,6 +2,7 @@
 using System.Runtime.CompilerServices;
 using System.Text;
 using Oxide.Ext.UiFramework.Colors;
+using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Extensions;
 
@@ -205,6 +206,58 @@ public static class StringBuilderExt
         else
         {
             sb.Append(value.ToHexRGBA());
+        }
+    }
+    
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static void AppendSpan(this StringBuilder sb, UiRotation value)
+    {
+        if (value.Rotation.TryFormat(out ReadOnlySpan<char> written))
+        {
+            sb.Append(written);
+        }
+        else
+        {
+            sb.Append(value.Rotation);
+        }
+    }
+    
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static void AppendSpan(this StringBuilder sb, in UiPadding value)
+    {
+        if (value.TryFormat(out ReadOnlySpan<char> written))
+        {
+            sb.Append(written);
+        }
+        else
+        {
+            sb.Append(value);
+        }
+    }
+    
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static void AppendSpan(this StringBuilder sb, UiScale value)
+    {
+        if (value.TryFormat(out ReadOnlySpan<char> written))
+        {
+            sb.Append(written);
+        }
+        else
+        {
+            sb.Append(value);
+        }
+    }
+    
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static void AppendSpan(this StringBuilder sb, in UiBorderWidth value)
+    {
+        if (value.TryFormat(out ReadOnlySpan<char> written))
+        {
+            sb.Append(written);
+        }
+        else
+        {
+            sb.Append(value);
         }
     }
 }

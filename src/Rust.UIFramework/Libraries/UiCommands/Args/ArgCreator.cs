@@ -24,17 +24,14 @@ internal static class ArgCreator
     internal static IArgHandler[] CreateArgHandler<T0, T1, T2, T3, T4, T5>(PluginId pluginId) => [GetArgHandler<T0>(pluginId), GetArgHandler<T1>(pluginId), GetArgHandler<T2>(pluginId), GetArgHandler<T3>(pluginId), GetArgHandler<T4>(pluginId), GetArgHandler<T5>(pluginId)];
     internal static IArgHandler[] CreateArgHandler<T0, T1, T2, T3, T4, T5, T6>(PluginId pluginId) => [GetArgHandler<T0>(pluginId), GetArgHandler<T1>(pluginId), GetArgHandler<T2>(pluginId), GetArgHandler<T3>(pluginId), GetArgHandler<T4>(pluginId), GetArgHandler<T5>(pluginId), GetArgHandler<T6>(pluginId)];
     internal static IArgHandler[] CreateArgHandler<T0, T1, T2, T3, T4, T5, T6, T7>(PluginId pluginId) => [GetArgHandler<T0>(pluginId), GetArgHandler<T1>(pluginId), GetArgHandler<T2>(pluginId), GetArgHandler<T3>(pluginId), GetArgHandler<T4>(pluginId), GetArgHandler<T5>(pluginId), GetArgHandler<T6>(pluginId), GetArgHandler<T7>(pluginId)];
+    internal static IArgHandler[] CreateArgHandler<T0, T1, T2, T3, T4, T5, T6, T7, T8>(PluginId pluginId) => [GetArgHandler<T0>(pluginId), GetArgHandler<T1>(pluginId), GetArgHandler<T2>(pluginId), GetArgHandler<T3>(pluginId), GetArgHandler<T4>(pluginId), GetArgHandler<T5>(pluginId), GetArgHandler<T6>(pluginId), GetArgHandler<T7>(pluginId), GetArgHandler<T8>(pluginId)];
+    internal static IArgHandler[] CreateArgHandler<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9>(PluginId pluginId) => [GetArgHandler<T0>(pluginId), GetArgHandler<T1>(pluginId), GetArgHandler<T2>(pluginId), GetArgHandler<T3>(pluginId), GetArgHandler<T4>(pluginId), GetArgHandler<T5>(pluginId), GetArgHandler<T6>(pluginId), GetArgHandler<T7>(pluginId), GetArgHandler<T8>(pluginId), GetArgHandler<T9>(pluginId)];
 
     private static IArgHandler GetArgHandler<T>(PluginId pluginId)
     {
         Type type = typeof(T);
         PluginArgHandler pluginReader = new(pluginId, type);
-        if (PluginHandlers.TryGetValue(pluginReader, out IArgHandler handler))
-        {
-            return handler;
-        }
-
-        if (BuiltInHandlers.TryGetValue(type, out handler))
+        if (PluginHandlers.TryGetValue(pluginReader, out IArgHandler handler) || BuiltInHandlers.TryGetValue(type, out handler))
         {
             return handler;
         }
@@ -103,6 +100,14 @@ internal static class ArgCreator
         if (type == typeof(UiColor)) return new ArgHandler<UiColor>(UiColor.ParseHexColor, (writer, arg) => writer.Append(arg));
         if (type == typeof(UiColor?)) return new ArgHandler<UiColor?>(span => span is UiCommands.NullArg ? null : UiColor.ParseHexColor(span), (writer, arg) => writer.Append(arg));
         if (type == typeof(InputArg)) return new InputArgHandler();
+        if (type == typeof(UiRotation)) return new ArgHandler<UiRotation>(UiRotation.Parse, (writer, arg) => writer.Append(arg));
+        if (type == typeof(UiRotation?)) return new ArgHandler<UiRotation?>(span => span is UiCommands.NullArg ? null : UiRotation.Parse(span), (writer, arg) => writer.Append(arg));
+        if (type == typeof(UiPadding)) return new ArgHandler<UiPadding>(UiPadding.Parse, (writer, arg) => writer.Append(arg));
+        if (type == typeof(UiPadding?)) return new ArgHandler<UiPadding?>(span => span is UiCommands.NullArg ? null : UiPadding.Parse(span), (writer, arg) => writer.Append(arg));
+        if (type == typeof(UiScale)) return new ArgHandler<UiScale>(UiScale.Parse, (writer, arg) => writer.Append(arg));
+        if (type == typeof(UiScale?)) return new ArgHandler<UiScale?>(span => span is UiCommands.NullArg ? null : UiScale.Parse(span), (writer, arg) => writer.Append(arg));
+        if (type == typeof(UiBorderWidth)) return new ArgHandler<UiBorderWidth>(UiBorderWidth.Parse, (writer, arg) => writer.Append(arg));
+        if (type == typeof(UiBorderWidth?)) return new ArgHandler<UiBorderWidth?>(span => span is UiCommands.NullArg ? null : UiBorderWidth.Parse(span), (writer, arg) => writer.Append(arg));
         if (type == typeof(BasePlayer)) return Singleton<BasePlayerHandler>.Instance;
         if (typeof(BaseNetworkable).IsAssignableFrom(type)) return new BaseNetworkableHandler<T>();
         if (type.IsEnum) return new EnumHandler<T>();

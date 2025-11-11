@@ -26,6 +26,15 @@ public class GenericsBuilder : IBuildable, IEnumerable<string>
         _generics.AddRange(generic.Select(g => $"T{g}"));
         return this;
     }
+    
+    public GenericsBuilder Generics(int count)
+    {
+        for (int i = 0; i < count; i++)
+        {
+            _generics.Add($"T{i}");
+        }
+        return this;
+    }
 
     public string GetGeneric(int index)
     {

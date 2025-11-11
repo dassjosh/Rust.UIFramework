@@ -5,6 +5,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Rust.UiFramework.SourceGenerators.Attributes;
 using Rust.UiFramework.SourceGenerators.Builder;
+using Rust.UiFramework.SourceGenerators.Constants;
 using Rust.UiFramework.SourceGenerators.Enums;
 using Rust.UiFramework.SourceGenerators.Extensions;
 using Rust.UiFramework.SourceGenerators.Helpers;
@@ -19,17 +20,17 @@ public class RegisterCommandsGenerator : BaseGenerator, IIncrementalGenerator
         context.Register<ClassDeclarationSyntax, GenerateRegisterCommandsAttribute>((spc, compilation, @class, classSymbol, attribute) =>
         {
             InitializeCache(compilation);
-            spc.AddSource($"{classSymbol.Name}.g.cs", GenerateRegisterCommands(classSymbol, 8));
+            spc.AddSource($"{classSymbol.Name}.g.cs", GenerateRegisterCommands(classSymbol));
         });
     }
     
-    private string GenerateRegisterCommands(INamedTypeSymbol classSymbol, int maxArgs)
+    private string GenerateRegisterCommands(INamedTypeSymbol classSymbol)
     {
         var methods = Enum.GetValues(typeof(ExecutorMode))
             .Cast<ExecutorMode>()
             .Where(mode => mode != ExecutorMode.UniTask)
             .SelectMany(
-                _ => Enumerable.Range(0, maxArgs),
+                _ => Enumerable.Range(0, UiCommands.MaxArgs + 1),
                 (mode, arg) => new { mode, arg }
             );
         
@@ -39,7 +40,7 @@ public class RegisterCommandsGenerator : BaseGenerator, IIncrementalGenerator
             .Add(t => t.Public().Partial().Class().Name("UiCommands")
                 .Methods(methods, (d, m) =>
                 {
-                    m.Public().Name("RegisterCommand").AddGenerics(g => g.Generics(Enumerable.Range(0, d.arg)), out GenericsBuilder generics).Returns(GetReturnType(generics))
+                    m.Public().Name("RegisterCommand").AddGenerics(g => g.Generics(d.arg), out GenericsBuilder generics).Returns(GetReturnType(generics))
                         .AddParameter(p => p.Type(SymbolCache.Plugins.IUiFrameworkPlugin.Symbol).Name("plugin"))
                         .AddParameter(p => p.Type(GetMethodType(d.mode, generics)).Name("method"))
                         .Body(GenerateBody(generics));
@@ -72,7 +73,7 @@ public class RegisterCommandsGenerator : BaseGenerator, IIncrementalGenerator
     private string GenerateBody(GenericsBuilder generics)
     {
         string argHandlerGenerics = string.Empty;
-        if(generics.Any())
+        if(generics.Count != 0)
         {
             argHandlerGenerics = $"<{generics.Build(0)}>";
         }
