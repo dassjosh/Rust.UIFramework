@@ -40,7 +40,7 @@ public class AnimationEvents(IAnimation animation) : IAnimationEvents
             IAnimationEvent @event = _events[index];
             if (@event.IsForEvent(type))
             {
-                @event.OnAnimationEvent(animation, type);
+                @event.OnAnimationEvent(new AnimationRef<IAnimation>(animation), type);
             }
         }
 

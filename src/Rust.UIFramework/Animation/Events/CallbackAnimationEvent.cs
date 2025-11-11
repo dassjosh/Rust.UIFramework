@@ -5,7 +5,7 @@ using Oxide.Ext.UiFramework.Pooling;
 
 namespace Oxide.Ext.UiFramework.Animation;
 
-public class CallbackAnimationEvent<T> : BasePoolable, IAnimationEvent where T : IAnimation
+public class CallbackAnimationEvent<T> : BasePoolable, IAnimationEvent where T : class, IAnimation
 {
     private AnimationEventType _type;
     private Action<T> _callback;
@@ -20,11 +20,16 @@ public class CallbackAnimationEvent<T> : BasePoolable, IAnimationEvent where T :
     
     public bool IsForEvent(AnimationEventType type) => _type == type;
 
-    public void OnAnimationEvent(IAnimation animation, AnimationEventType type)
+    public void OnAnimationEvent(in AnimationRef<IAnimation> animation, AnimationEventType type)
     {
+        if (!animation.IsValid)
+        {
+            return;
+        }
+        
         try
         {
-            _callback?.Invoke((T)animation);
+            _callback?.Invoke((T)animation.Animation);
         }
         catch (Exception ex)
         {

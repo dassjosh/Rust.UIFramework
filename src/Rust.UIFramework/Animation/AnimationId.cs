@@ -2,13 +2,10 @@
 
 namespace Oxide.Ext.UiFramework.Animation;
 
-public readonly record struct AnimationId(long Id)
+public readonly record struct AnimationId(int Id)
 {
     public bool IsValid => Id != 0;
-
-    private static long _nextAnimationId;
-    
+    private static int _nextAnimationId;
     internal static AnimationId GetNextId() => new(Interlocked.Increment(ref _nextAnimationId));
-    
     public override string ToString() => Id.ToString();
 }

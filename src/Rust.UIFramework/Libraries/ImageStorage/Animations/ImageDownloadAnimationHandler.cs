@@ -14,10 +14,10 @@ internal class ImageDownloadAnimationHandler : ISingleton
     
     private ImageDownloadAnimationHandler() { }
 
-    internal void QueueUpdate(string url, IElementAnimation<UiRawImage> animation, ImageAnimationOptions options)
+    internal void QueueUpdate(string url, in AnimationRef<IElementAnimation<UiRawImage>> animation, ImageAnimationOptions options)
     {
         UiFrameworkExtension.GlobalLogger.Debug($"{nameof(QueueUpdate)}: Url: {{0}} Animation: {{1}}", url, animation.Id);
-        CancelPreviousUpdates(animation.SinglePlayerId(), animation.Element.Reference);
+        CancelPreviousUpdates(animation.Animation.SinglePlayerId(), animation.Animation.Element.Reference);
         if (!_queuedUpdates.TryGetValue(url, out ImageDownloadAnimations updates))
         {
             _queuedUpdates[url] = updates = UiPool.Internal.Get<ImageDownloadAnimations>().Init(url);
@@ -32,13 +32,13 @@ internal class ImageDownloadAnimationHandler : ISingleton
         {
             foreach (ImageAnimationData data in animation.QueuedAnimations)
             {
-                if (!data.IsAnimationValid)
+                if (!data.Animation.IsValid)
                 {
                     animation.QueuedAnimations.Remove(data);
                     continue;
                 }
                 
-                if (data.Animation.SinglePlayerId() == playerId && data.Animation.Element.Reference.Name == reference.Name)
+                if (data.Animation.Animation.SinglePlayerId() == playerId && data.Animation.Animation.Element.Reference.Name == reference.Name)
                 {
                     UiFrameworkExtension.GlobalLogger.Debug($"{nameof(CancelPreviousUpdates)}: Cancel Download Animation Url: {{0}} Animation: {{1}} Player: {{2}}", animation.Url, data.Animation.Id, playerId);
                     data.Cancel();
@@ -98,7 +98,7 @@ internal class ImageDownloadAnimationHandler : ISingleton
             return this;
         }
 
-        public void Add(IElementAnimation<UiRawImage> animation, ImageAnimationOptions options)
+        public void Add(AnimationRef<IElementAnimation<UiRawImage>> animation, ImageAnimationOptions options)
         {
             QueuedAnimations.Add(new ImageAnimationData(animation, options));
         }
@@ -115,42 +115,36 @@ internal class ImageDownloadAnimationHandler : ISingleton
         }
     }
 
-    private readonly record struct ImageAnimationData(IElementAnimation<UiRawImage> Animation, ImageAnimationOptions Options)
+    private readonly record struct ImageAnimationData(AnimationRef<IElementAnimation<UiRawImage>> Animation, ImageAnimationOptions Options)
     {
-        public readonly AnimationId Id = Animation.Id;
-        public bool IsAnimationValid => Animation.Id.IsValid && Id.IsValid && Animation.Id == Id;
-
         public void OnImageDownloadedSuccessfully(ImageId id)
         {
-            UiFrameworkExtension.GlobalLogger.Debug("Image downloaded successfully: {0} Animation: {1} IsValid: {2}", id.Id, Id, IsAnimationValid);
-            if (IsAnimationValid)
+            UiFrameworkExtension.GlobalLogger.Debug("Image downloaded successfully: {0} Animation: {1} IsValid: {2}", id.Id, Animation.Id, Animation.IsValid);
+            if (Animation.IsValid)
             {
-                Animation.Element.Image = id.ToString();
-                Animation.CompleteAnimation();
+                Animation.Animation.Element.Image = id.ToString();
+                Animation.Animation.CompleteAnimation();
             }
         }
 
         public void OnImageDownloadFailed()
         {
-            UiFrameworkExtension.GlobalLogger.Debug("Image downloaded failed. Animation: {0} IsValid: {1}", Id, IsAnimationValid);
-            if (IsAnimationValid)
+            UiFrameworkExtension.GlobalLogger.Debug("Image downloaded failed. Animation: {0} IsValid: {1}", Animation.Id, Animation.IsValid);
+            if (Animation.IsValid)
             {
                 if (Options != null)
                 {
-                    Animation.Element.Image = Singleton<UiImageStorage>.Instance.Get(Animation.Plugin, Options.FailedImageNameOrUrl);
+                    Animation.Animation.Element.Image = Singleton<UiImageStorage>.Instance.Get(Animation.Plugin, Options.FailedImageNameOrUrl);
                 }
                 
-                Animation.CompleteAnimation();
+                Animation.Animation.CompleteAnimation();
             }
         }
 
         public void Cancel()
         {
-            UiFrameworkExtension.GlobalLogger.Debug("Image downloaded animation cancelled Animation: {0} IsValid: {1}", Id, IsAnimationValid);
-            if (IsAnimationValid)
-            {
-                Animation.CancelAnimation();
-            }
+            UiFrameworkExtension.GlobalLogger.Debug("Image downloaded animation cancelled Animation: {0} IsValid: {1}", Animation.Id, Animation.IsValid);
+            Animation.CancelAnimation();
         }
     }
 }

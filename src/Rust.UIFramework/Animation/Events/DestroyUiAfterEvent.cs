@@ -17,9 +17,14 @@ public sealed class DestroyUiAfterEvent : BasePoolable, IAnimationEvent
     }
     
     public bool IsForEvent(AnimationEventType type) => type == AnimationEventType.Finalized;
-    public void OnAnimationEvent(IAnimation animation, AnimationEventType type)
+    public void OnAnimationEvent(in AnimationRef<IAnimation> animation, AnimationEventType type)
     {
-        ISendableAnimation sendable = animation.GetSendable();
+        if (!animation.IsValid)
+        {
+            return;
+        }
+        
+        ISendableAnimation sendable = animation.Animation.GetSendable();
         if (sendable is not null)
         {
             BaseBuilder.DestroyUi(sendable.Send, Name);
