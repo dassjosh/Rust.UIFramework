@@ -2,6 +2,6 @@
 
 public static class AnimationConstants
 {
-    public static float NoProgress = 0;
-    public static float CompletedProgress = 1;
+    public const float NoProgress = 0;
+    public const float CompletedProgress = 1;
 }
