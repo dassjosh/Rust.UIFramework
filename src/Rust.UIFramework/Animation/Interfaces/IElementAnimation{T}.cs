@@ -5,5 +5,5 @@ namespace Oxide.Ext.UiFramework.Animation;
 public interface IElementAnimation<out T> : IElementAnimation where T : BaseUiComponent
 {
     T Element { get; }
-    FieldAnimation<TField> AnimateField<TField>(FieldSelector<TField, T> selector);
+    AnimationRef<IFieldAnimation<TField>> AnimateField<TField>(FieldSelector<TField, T> selector);
 }

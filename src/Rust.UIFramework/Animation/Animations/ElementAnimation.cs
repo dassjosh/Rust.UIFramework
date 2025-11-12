@@ -39,7 +39,7 @@ public class ElementAnimation<T> : SendableAnimation, IElementAnimation<T> where
         return this;
     }
     
-    public FieldAnimation<TField> AnimateField<TField>(FieldSelector<TField, T> selector)
+    public AnimationRef<IFieldAnimation<TField>> AnimateField<TField>(FieldSelector<TField, T> selector)
     {
         Tracked<TField> field = selector(Element);
         if (_sourceElement != null)

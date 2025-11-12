@@ -302,4 +302,9 @@ public static class AnimationExt
         internal bool IsSinglePlayer() => animation.Send.connection != null;
         internal ulong SinglePlayerId() => animation.Send.connection.userid;
     }
+    
+    extension<T>(AnimationRef<IElementAnimation<T>> animation) where T : BaseUiComponent
+    {
+        public AnimationRef<IFieldAnimation<TField>> AnimateField<TField>(FieldSelector<TField, T> selector) => animation.AnimateField(selector);
+    }
 }
