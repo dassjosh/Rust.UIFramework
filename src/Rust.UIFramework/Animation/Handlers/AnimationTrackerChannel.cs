@@ -38,6 +38,7 @@ public class AnimationTrackerChannel : ISingleton
             
             try
             {
+#if SERVER
                 if (request.Builder is BaseUiBuilder builder)
                 {
                     SendInfo send = request.Send;
@@ -51,6 +52,7 @@ public class AnimationTrackerChannel : ISingleton
                         }
                     }
                 }
+#endif
             }
             catch(Exception ex) when (ex is not OperationCanceledException)
             {

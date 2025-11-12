@@ -1,5 +1,6 @@
 using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Enums;
+using Oxide.Ext.UiFramework.UiElements;
 
 namespace Rust.UiFramework.Benchmarks;
 
@@ -340,8 +341,8 @@ public class Benchmarks
 
     private UiBuilder GetFrameworkBuilder()
     {
-        UiBuilder builder = UiBuilder.Create(UiPosition.Full, UiColors.Clear, "123");
-        for (int i = 0; i < Iterations - 1; i++)
+        UiBuilder builder = UiBuilder.Create(BenchmarkHelpers.Plugin, new UiReference(UiLayer.Overlay, "Name"), UiPosition.Full, default);
+        for (int i = 0; i < Iterations; i++)
         {
             int mode = i % 7;
             switch (mode)

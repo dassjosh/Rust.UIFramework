@@ -157,7 +157,7 @@ public static class Permutations
         if (type == typeof(UiPadding)) return new UiPadding(GetRandomInt(0, 10), GetRandomInt(0, 10), GetRandomInt(0, 10), GetRandomInt(0, 10));
         if (type == typeof(UiRotation)) return new UiRotation(GetRandomInt(0, 360));
         if (type.IsAssignableTo(typeof(Enum))) return GenerateEnum(type);
-        if (type.IsNullable()) return Random.NextSingle() < 0.25f ? null : RandomValue(type.GetNullableType());
+        if (type.IsNullable) return Random.NextSingle() < 0.25f ? null : RandomValue(type.GetNullableType());
         throw new Exception($"Type {type} is not supported");
     }
 

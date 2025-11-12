@@ -4,7 +4,7 @@
         <Nullable>disable</Nullable>
         <IsPackable>false</IsPackable>
         <ImplicitUsings>enable</ImplicitUsings>
-        <LangVersion>13</LangVersion>
+        <LangVersion>14</LangVersion>
         <Configurations>Release;Benchmarks;Debug;Unit Tests</Configurations>
         <Platforms>Oxide</Platforms>
         <TargetFramework>net9.0</TargetFramework>
