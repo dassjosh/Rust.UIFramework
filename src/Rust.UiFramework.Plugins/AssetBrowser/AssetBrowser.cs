@@ -537,7 +537,7 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
         builder.LayoutElement(label);
         builder.ContentSizeFitter(label, ContentSizeFitter.FitMode.Unconstrained, ContentSizeFitter.FitMode.PreferredSize);
         
-        builder.AddUiDebug(player, new UiDebugOptions("test"));
+        builder.AddUi(player, new UiDebugOptions("test"));
     }
     
     public void CreateUi(BasePlayer player)
@@ -661,7 +661,7 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
         Puts("E");
         //builder.ImageStorage(body, UiPosition.Full, default, "https://rust-images.joshdass.dev/rust-icons/61504.png", _downloadOptions);
         
-        builder.AddUiDebug(player, new UiDebugOptions("main"));
+        builder.AddUi(player, new UiDebugOptions("main"));
 
         if (isInitial)
         {
@@ -709,7 +709,9 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
         foreach (KeyValuePair<string, string> pair in folder.Files)
         {
             //Puts($"{pair.Key}: {_imageGrid.ToPosition()}");
-            UiButton button = builder.Button(scroll, _imageGrid, default, _buttonColor, _uiCommands.SelectAsset.Build(pair.Value));
+            UiButton button = builder.Button(scroll, _imageGrid, default, _buttonColor, null);
+            var anchor = builder.Anchor(scroll, _imageGrid, default);
+            button.SetCommand(_uiCommands.PopoverTest.Build(anchor));
             if (state.Type == AssetType.Sprite)
             {
                 UiImage sprite = builder.ImageSprite(button, UiPosition.Full, default, pair.Value, UiColors.White);
@@ -951,6 +953,48 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
     }
     
     [UiCommand]
+    private void PopoverTest(ExecutionData data, UiReference parent)
+    {
+        BasePlayer player = data.Player;
+
+        string name = $"{parent.Name}_Popover";
+        UiBuilder builder = UiBuilder.Create(this, parent.WithChild(name), UiPosition.Full, default);
+
+       //BaseUiComponent anchorElement = builder.Root;
+
+        PopoverPosition position = PopoverPosition.Bottom;
+        Vector2 size = new Vector2(100, 200);
+        string menuSprite = UiSprites.Content.Ui.UiBackgroundRounded;
+        UiColor? outlineColor = null;
+        UiColor backgroundColor = UiColors.PanelTertiary;
+        
+        UiPosition anchor = position switch
+        {
+            PopoverPosition.Top or PopoverPosition.Left => UiPosition.TopLeft,
+            PopoverPosition.Right => UiPosition.TopRight,
+            PopoverPosition.Bottom => UiPosition.BottomLeft,
+            _ => throw new ArgumentOutOfRangeException(nameof(position), position, null)
+        };
+        
+        UiOffset offset = position switch
+        {
+            PopoverPosition.Top => new UiOffset(0, 1, 1 + size.x, size.y),
+            PopoverPosition.Left => new UiOffset(-size.x, -size.y - 1, 0, -1),
+            PopoverPosition.Right => new UiOffset(0, -size.y - 1, size.x, -1),
+            PopoverPosition.Bottom => new UiOffset(1, -size.y, 1 + size.x, 0),
+            _ => throw new ArgumentOutOfRangeException(nameof(position), position, null)
+        };
+        
+        builder.Button(builder.Root, new UiPosition(-10000, -10000, 10000, 10000), default, UiColors.Red.WithAlpha(0.5f), name, ButtonType.Close);
+        UiPanel background = builder.Panel(builder.Root, anchor, offset, backgroundColor).SetSprite(menuSprite).SetImageType(Image.Type.Sliced);
+        background.AddOutline(outlineColor ?? UiColors.Black.WithAlpha(0.75f));
+        builder.OverrideRoot(background);
+        
+        //UiBuilder builder = UiBuilder.Popover(this, reference,), UiColors.PanelTertiary);
+        builder.AddUi(player, new UiDebugOptions("popover"));
+    }
+    
+    [UiCommand]
     private void ChangePage(ExecutionData data, int page)
     {
         UiState state = data.GetStore<UiState>();
@@ -974,6 +1018,7 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
         public readonly ICommandBuilder PrevFolder;
         public readonly ICommandBuilder<string> PathInto;
         public readonly ICommandBuilder<string> SelectAsset;
+        public readonly ICommandBuilder<UiReference> PopoverTest;
         public readonly ICommandBuilder<int> ChangePage;
         public readonly ICommandBuilder<InputArg> InputTest;
 
@@ -986,6 +1031,7 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
             (_, PrevFolder) = plugin._commands.RegisterCommand(plugin, plugin.PrevFolder);
             (_, PathInto) = plugin._commands.RegisterCommand<string>(plugin, plugin.PathInto);
             (_, SelectAsset) = plugin._commands.RegisterCommand<string>(plugin, plugin.SelectAsset);
+            (_, PopoverTest) = plugin._commands.RegisterCommand<UiReference>(plugin, plugin.PopoverTest);
             (_, ChangePage) = plugin._commands.RegisterCommand<int>(plugin, plugin.ChangePage);
             (_, InputTest) = plugin._commands.RegisterCommand<InputArg>(plugin, plugin.InputTest);
         }

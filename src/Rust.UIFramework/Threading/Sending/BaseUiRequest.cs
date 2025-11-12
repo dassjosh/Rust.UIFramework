@@ -6,7 +6,7 @@ namespace Oxide.Ext.UiFramework.Threading;
 
 public abstract class BaseUiRequest : BasePoolable
 {
-    protected SendInfo Send;
+    public SendInfo Send;
 
     protected void Init(SendInfo send)
     {

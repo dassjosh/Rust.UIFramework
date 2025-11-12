@@ -53,6 +53,11 @@ public abstract class CoreComponent : BaseTypedComponent, ICoreComponent, ISubCo
         return subComponent;
     }
 
+    public void AddSubComponent(ISubComponent component)
+    {
+        SubComponents.Add(component);
+    }
+
     public T GetSubComponent<T>() where T : ISubComponent
     {
         for (int index = 0; index < SubComponents.Count; index++)
@@ -134,22 +139,12 @@ public abstract class CoreComponent : BaseTypedComponent, ICoreComponent, ISubCo
     
     public void RemoveSubComponent<T>() where T : ISubComponent
     {
-        int index = SubComponents.FindIndex(sc => sc is T);
-        if (index != -1)
-        {
-            SubComponents[index].TryDispose();
-            SubComponents.RemoveAt(index);
-        }
+        RemoveSubComponentAtIndex(SubComponents.FindIndex(sc => sc is T));
     }
-    
+
     public void RemoveSubComponent<T>(Predicate<T> predicate) where T : ISubComponent
     {
-        int index = SubComponents.FindIndex(sc => sc is T component && predicate(component));
-        if (index != -1)
-        {
-            SubComponents[index].TryDispose();
-            SubComponents.RemoveAt(index);
-        }
+        RemoveSubComponentAtIndex(SubComponents.FindIndex(sc => sc is T component && predicate(component)));
     }
 
     public void RemoveSubComponent(ISubComponent subComponent)
@@ -157,6 +152,20 @@ public abstract class CoreComponent : BaseTypedComponent, ICoreComponent, ISubCo
         if (SubComponents.Remove(subComponent))
         {
             subComponent.TryDispose();
+        }
+    }
+
+    public void RemoveSubComponent(ComponentType type)
+    {
+        RemoveSubComponentAtIndex(SubComponents.FindIndex(sc => sc.ComponentType == type));
+    }
+    
+    private void RemoveSubComponentAtIndex(int index)
+    {
+        if (index > -1)
+        {
+            SubComponents[index].TryDispose();
+            SubComponents.RemoveAt(index);
         }
     }
 

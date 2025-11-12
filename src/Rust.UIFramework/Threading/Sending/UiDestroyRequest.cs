@@ -8,17 +8,13 @@ public class UiDestroyRequest : BaseUiRequest, IUiRequest
 {
     public string Name;
     
-    public static UiDestroyRequest Create(string name, SendInfo send)
-    {
-        UiDestroyRequest request = UiPool.Internal.Get<UiDestroyRequest>();
-        request.Init(name, send);
-        return request;
-    }
-    
-    private void Init(string name, SendInfo send)
+    public static UiDestroyRequest Create(string name, SendInfo send) => UiPool.Internal.Get<UiDestroyRequest>().Init(name, send);
+
+    private UiDestroyRequest Init(string name, SendInfo send)
     {
         base.Init(send);
         Name = name;
+        return this;
     }
     
     public void SendRequest()

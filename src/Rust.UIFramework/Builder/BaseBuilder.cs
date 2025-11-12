@@ -33,11 +33,11 @@ public abstract class BaseBuilder : BasePoolable
     }
     
     #region Add UI
-    public void AddUi(BasePlayer player)
+    public void AddUi(BasePlayer player, in UiDebugOptions? options = default)
     {
         if (player && player.IsConnected)
         {
-            AddUi(SendInfoBuilder.Get(player));
+            AddUi(SendInfoBuilder.Get(player), options);
         }
         else
         {
@@ -45,11 +45,11 @@ public abstract class BaseBuilder : BasePoolable
         }
     }
 
-    public void AddUi(Connection connection)
+    public void AddUi(Connection connection, in UiDebugOptions? options = default)
     {
         if (connection is { connected: true })
         {
-            AddUi(SendInfoBuilder.Get(connection));
+            AddUi(SendInfoBuilder.Get(connection), options);
         }
         else
         {
@@ -57,59 +57,12 @@ public abstract class BaseBuilder : BasePoolable
         }
     }
 
-    public void AddUi(IEnumerable<Connection> connections)
-    {
-        AddUi(SendInfoBuilder.Get(connections));
-    }
+    public void AddUi(IEnumerable<Connection> connections, in UiDebugOptions? options = default) => AddUi(SendInfoBuilder.Get(connections), options);
 
-    public void AddUi()
-    {
-        AddUi(SendInfoBuilder.Get(Net.sv.connections));
-    }
+    public void AddUi(in UiDebugOptions? options = default) => AddUi(SendInfoBuilder.Get(Net.sv.connections), options);
 
-    public void AddUi(SendInfo send)
-    {
-        Singleton<SendHandler>.Instance.Enqueue(UiSendRequest.Create(this, send));
-    }
+    public void AddUi(SendInfo send, in UiDebugOptions? options = default) => Singleton<SendHandler>.Instance.Enqueue(UiSendRequest.Create(this, send, options));
 
-    public void AddUiDebug(BasePlayer player, in UiDebugOptions options)
-    {
-        if (player && player.IsConnected)
-        {
-            AddUiDebug(SendInfoBuilder.Get(player), options);
-        }
-        else
-        {
-            TryDispose();
-        }
-    }
-
-    public void AddUiDebug(Connection connection, in UiDebugOptions options)
-    {
-        if (connection is { connected: true })
-        {
-            AddUiDebug(SendInfoBuilder.Get(connection), options);
-        }
-        else
-        {
-            TryDispose();
-        }
-    }
-
-    public void AddUiDebug(IEnumerable<Connection> connections, in UiDebugOptions options)
-    {
-        AddUiDebug(SendInfoBuilder.Get(connections), options);
-    }
-
-    public void AddUiDebug(in UiDebugOptions options)
-    {
-        AddUiDebug(SendInfoBuilder.Get(Net.sv.connections), options);
-    }
-    
-    public void AddUiDebug(SendInfo send, in UiDebugOptions options)
-    {
-        Singleton<SendHandler>.Instance.Enqueue(UiDebugSendRequest.Create(this, send, options));
-    }
 
     internal abstract void SendUi(SendInfo send, in UiDebugOptions? options);
     internal abstract void SendAnimations(SendInfo send);
@@ -192,10 +145,6 @@ public abstract class BaseBuilder : BasePoolable
         
         Singleton<AnimationTracker>.Instance.RemoveUiForSend(send, name);
         Singleton<SendHandler>.Instance.Enqueue(UiDestroyRequest.Create(name, send));
-        if (send.connections != null)
-        {
-            UiPool.Internal.FreeList(send.connections);
-        }
     }
     #endregion
 

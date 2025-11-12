@@ -9,18 +9,14 @@ internal class OxideCuiContainerRequest : BaseUiRequest, IUiRequest
     private CuiElementContainer _container;
     private string _destroyUiName;
     
-    public static OxideCuiContainerRequest Create(CuiElementContainer container, SendInfo send, string destroyUiName)
-    {
-        OxideCuiContainerRequest request = UiPool.Internal.Get<OxideCuiContainerRequest>();
-        request.Init(container, send, destroyUiName);
-        return request;
-    }
-    
-    private void Init(CuiElementContainer container, SendInfo send, string destroyUiName)
+    public static OxideCuiContainerRequest Create(CuiElementContainer container, SendInfo send, string destroyUiName) => UiPool.Internal.Get<OxideCuiContainerRequest>().Init(container, send, destroyUiName);
+
+    private OxideCuiContainerRequest Init(CuiElementContainer container, SendInfo send, string destroyUiName)
     {
         base.Init(send);
         _container = container;
         _destroyUiName = destroyUiName;
+        return this;
     }
     
     public void SendRequest()

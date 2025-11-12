@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Network;
 using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Config;
@@ -30,6 +31,11 @@ public abstract partial class BaseUiBuilder : BaseBuilder
     protected INamingCache NamingCache = Singleton<UiNamingCache>.Instance.Default;
     
     private static readonly string GlobalFont = UiFrameworkConfig.Instance.Font.DefaultFont;
+
+    public ReadOnlySpan<BaseUiComponent> ComponentAsReadonly() => Components.GetAsReadOnlySpan();
+    public ReadOnlySpan<BaseUiControl> ControlAsReadonly() => Controls.GetAsReadOnlySpan();
+    public ReadOnlySpan<BaseUiComponent> AnchorAsReadonly() => Anchors.GetAsReadOnlySpan();
+    public ReadOnlySpan<BaseUiLayout> LayoutAsReadonly() => Layouts.GetAsReadOnlySpan();
         
     public void SetCurrentFont(UiFont font) => SetCurrentFont(UiFontCache.GetUiFont(font));
     public void SetCurrentFont(string font) => Font = font;

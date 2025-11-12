@@ -78,6 +78,7 @@ public class UiFrameworkExtension : Extension
         Singleton<DataHandler>.Instance.Shutdown();
         Singleton<SendHandler>.Instance.OnServerShutdown();
         Singleton<AnimationHandler>.Instance.OnServerShutdown();
+        Singleton<AnimationTrackerChannel>.Instance.OnServerShutdown();
         Singleton<UiLoggerFactory>.Instance.OnServerShutdown();
     }
 }

@@ -107,6 +107,16 @@ public abstract partial class BaseUiComponent : BasePoolable, IBaseUiComponent
         }
     }
 
+    public void ShareSubComponent(ISubComponent component)
+    {
+        Component.RemoveSubComponent(component.ComponentType);
+        Component.AddSubComponent(component);
+        if (component is RectTransformComponent rect)
+        {
+            _rectTransform = rect;
+        }
+    }
+
     internal override void OnInit() => Component.OverridePluginPool(PluginPool);
     internal override void OverridePluginPool(UiPluginPool pluginPool)
     {

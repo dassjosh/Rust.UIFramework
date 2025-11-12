@@ -221,10 +221,13 @@ public partial class BaseUiBuilder
         UiReferenceException.ThrowIfInvalidReference(reference);
         UiSection section = PluginPool.Get<UiSection>();
         Anchors.Add(section);
-        Naming.SetAnchorName(section, reference, NamingMode, NamingCache, Components.Count);
-        if (!string.IsNullOrEmpty(anchorName))
+        if (string.IsNullOrEmpty(anchorName))
         {
-            section.Name = anchorName;
+            Naming.SetAnchorName(section, reference, NamingMode, NamingCache, Components.Count);
+        }
+        else
+        {
+            section.Reference = new UiReference(reference.Parent, anchorName);
         }
         return section;
     }
@@ -232,6 +235,23 @@ public partial class BaseUiBuilder
     public UiSection Anchor(in UiReference parent, in UiPosition pos, in UiOffset offset = default, string anchorName = null)
     {
         return Anchor(parent, anchorName).SetPosition(pos, offset);
+    }
+
+    public UiSection AnchorV2(BaseUiComponent component, string anchorName = null)
+    {
+        if (component == null) throw new ArgumentNullException(nameof(component));
+        UiSection section = PluginPool.Get<UiSection>();
+        Anchors.Add(section);
+        if (string.IsNullOrEmpty(anchorName))
+        {
+            Naming.SetAnchorName(section, component.Reference, NamingMode, NamingCache, Components.Count);
+        }
+        else
+        {
+            section.Reference = new UiReference(component.Parent, anchorName);
+        }
+        section.ShareSubComponent(component.RectTransform);
+        return section;
     }
     #endregion
 

@@ -9,17 +9,13 @@ internal class OxideCuiElementsRequest : BaseUiRequest, IUiRequest
 {
     private List<CuiElement> _elements;
     
-    public static OxideCuiElementsRequest Create(List<CuiElement> elements, SendInfo send)
-    {
-        OxideCuiElementsRequest request = UiPool.Internal.Get<OxideCuiElementsRequest>();
-        request.Init(elements, send);
-        return request;
-    }
-    
-    private void Init(List<CuiElement> elements, SendInfo send)
+    public static OxideCuiElementsRequest Create(List<CuiElement> elements, SendInfo send) => UiPool.Internal.Get<OxideCuiElementsRequest>().Init(elements, send);
+
+    private OxideCuiElementsRequest Init(List<CuiElement> elements, SendInfo send)
     {
         base.Init(send);
         _elements = elements;
+        return this;
     }
     
     public void SendRequest()

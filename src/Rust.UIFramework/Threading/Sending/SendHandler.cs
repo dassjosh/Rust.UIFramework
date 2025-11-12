@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Threading;
+using Oxide.Ext.UiFramework.Animation;
 using Oxide.Ext.UiFramework.Logging;
 using Oxide.Ext.UiFramework.Types;
 
@@ -61,7 +62,14 @@ internal class SendHandler : ISingleton
             }
             finally
             {
-                request.Dispose();
+                if (request is UiSendRequest send)
+                {
+                    Singleton<AnimationTrackerChannel>.Instance.Writer.TryWrite(send);
+                }
+                else
+                {
+                    request.Dispose();
+                }
             }
         }
 
