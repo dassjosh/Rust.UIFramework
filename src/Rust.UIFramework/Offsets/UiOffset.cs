@@ -1,10 +1,14 @@
 using System;
 using System.Diagnostics.Contracts;
+using Newtonsoft.Json;
+using Oxide.Ext.UiFramework.Extensions;
+using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Types;
 using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Offsets;
 
+[JsonConverter(typeof(UiOffsetConverter))]
 public readonly struct UiOffset(float xMin, float yMin, float xMax, float yMax) : IEquatable<UiOffset>
 {
     public static readonly UiOffset None = new(0, 0, 0, 0);
@@ -17,6 +21,10 @@ public readonly struct UiOffset(float xMin, float yMin, float xMax, float yMax) 
     public Vector2 Center => (Min + Max) * 0.5f;
     public float Width => Max.x - Min.x;
     public float Height => Max.y - Min.y;
+    public float XMin => Min.x;
+    public float YMin => Min.y;
+    public float XMax => Max.x;
+    public float YMax => Max.y;
 
     public UiOffset(float size) : this(size, size) { }
     
@@ -269,10 +277,29 @@ public readonly struct UiOffset(float xMin, float yMin, float xMax, float yMax) 
 
     #endregion
     
+    public static UiOffset Parse(string str, string token = " ") => Parse(str.AsSpan(), token);
+
+    public static UiOffset Parse(ReadOnlySpan<char> span, ReadOnlySpan<char> token = " ")
+    {
+        (float xMin, float yMin, float xMax, float yMax) = span.ParseFourFloats(token);
+        return new UiOffset(xMin, yMin, xMax, yMax);
+    }
+
+    public static bool TryParse(string str, out UiOffset offset, string token = " ") => TryParse(str.AsSpan(), out offset, token);
+
+    public static bool TryParse(ReadOnlySpan<char> span, out UiOffset offset, ReadOnlySpan<char> token = " ")
+    {
+        bool success = span.TryParseFourFloats(token, out (float xMin, float yMin, float xMax, float yMax) parsed);
+        offset = success ? new UiOffset(parsed.xMin, parsed.yMin, parsed.xMax, parsed.yMax) : default;
+        return success;
+    }
+    
     public override string ToString()
     {
         return $"({Min.x:0}, {Min.y:0}) ({Max.x:0}, {Max.y:0})";
     }
+    
+    public string ToJsonString() => $"{Min.x} {Min.y} {Max.x} {Max.y}";
 
     public bool Equals(UiOffset other) => Min.Equals(other.Min) && Max.Equals(other.Max);
 

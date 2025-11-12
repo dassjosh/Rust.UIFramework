@@ -1,10 +1,14 @@
 using System;
 using System.Diagnostics.Contracts;
+using Newtonsoft.Json;
+using Oxide.Ext.UiFramework.Extensions;
+using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Types;
 using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Positions;
 
+[JsonConverter(typeof(UiPositionConverter))]
 public readonly struct UiPosition(float xMin, float yMin, float xMax, float yMax) : IEquatable<UiPosition>
 {
     public static readonly UiPosition None = new(0, 0, 0, 0);
@@ -254,6 +258,23 @@ public readonly struct UiPosition(float xMin, float yMin, float xMax, float yMax
     public static UiPosition LerpUnclamped(UiPosition a, UiPosition b, float t) => new(Vector2.LerpUnclamped(a.Min, b.Min, t), Vector2.LerpUnclamped(a.Max, b.Max, t));
 #pragma warning restore EPS05
 
+    public static UiPosition Parse(string str, string token = " ") => Parse(str.AsSpan(), token);
+
+    public static UiPosition Parse(ReadOnlySpan<char> span, ReadOnlySpan<char> token = " ")
+    {
+        (float xMin, float yMin, float xMax, float yMax) = span.ParseFourFloats(token);
+        return new UiPosition(xMin, yMin, xMax, yMax);
+    }
+
+    public static bool TryParse(string str, out UiPosition position, string token = " ") => TryParse(str.AsSpan(), out position, token);
+
+    public static bool TryParse(ReadOnlySpan<char> span, out UiPosition position, ReadOnlySpan<char> token = " ")
+    {
+        bool success = span.TryParseFourFloats(token, out (float xMin, float yMin, float xMax, float yMax) parsed);
+        position = success ? new UiPosition(parsed.xMin, parsed.yMin, parsed.xMax, parsed.yMax) : default;
+        return success;
+    }
+    
     public static bool operator ==(UiPosition left, UiPosition right) => left.Equals(right);
     public static bool operator !=(UiPosition left, UiPosition right) => !(left == right);
     public static UiPosition operator +(UiPosition lhs, UiPosition rhs) => new(lhs.Min.x + rhs.Min.x, lhs.Min.y + rhs.Min.y, lhs.Max.x - rhs.Max.x, lhs.Max.y - rhs.Max.y);
@@ -263,4 +284,5 @@ public readonly struct UiPosition(float xMin, float yMin, float xMax, float yMax
     public override bool Equals(object obj) => obj is UiPosition other && Equals(other);
     public override int GetHashCode() => HashCode.Combine(Min, Max);
     public override string ToString() => $"({Min.x:0.####}, {Min.y:0.####}) ({Max.x:0.####}, {Max.y:0.####})";
+    public string ToJsonString() => $"{Min.x} {Min.y} {Max.x} {Max.y}";
 }

@@ -1,30 +1,30 @@
 ﻿using System;
+using Newtonsoft.Json;
 using Oxide.Ext.UiFramework.Extensions;
+using Oxide.Ext.UiFramework.Json;
 using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Types;
 
+[JsonConverter(typeof(UiScaleConverter))]
 public readonly record struct UiScale(float Horizontal, float Vertical)
 {
     public bool HasScale => !Mathf.Approximately(Horizontal, 1f) || !Mathf.Approximately(Vertical, 1f);
     
-    public static UiScale Parse(string str) => Parse(str.AsSpan());
+    public static UiScale Parse(string str, string token = " ") => Parse(str.AsSpan(), token);
 
-    public static UiScale Parse(ReadOnlySpan<char> span)
+    public static UiScale Parse(ReadOnlySpan<char> span, ReadOnlySpan<char> token = " ")
     {
-        float horizontal = span.ParseNextFloat(" ", out span);
-        float vertical = span.ParseNextFloat(" ", out span);
+        (float horizontal, float vertical) = span.ParseTwoFloats(token);
         return new UiScale(horizontal, vertical);
     }
 
-    public static bool TryParse(string str, out UiScale scale) => TryParse(str.AsSpan(), out scale);
+    public static bool TryParse(string str, out UiScale scale, string token = " ") => TryParse(str.AsSpan(), out scale, token);
 
-    public static bool TryParse(ReadOnlySpan<char> span, out UiScale scale)
+    public static bool TryParse(ReadOnlySpan<char> span, out UiScale scale, ReadOnlySpan<char> token = " ")
     {
-        bool horizontalParsed = span.TryParseNextFloat(" ", out span, out float horizontal);
-        bool verticalParsed = span.TryParseNextFloat(" ", out span, out float vertical);
-        bool success = horizontalParsed && verticalParsed;
-        scale = success ? new UiScale(horizontal, vertical) : default;
+        bool success = span.TryParseTwoFloats(token, out (float horizontal, float vertical) parsed);
+        scale = success ? new UiScale(parsed.horizontal, parsed.vertical) : default;
         return success;
     }
     
@@ -32,4 +32,6 @@ public readonly record struct UiScale(float Horizontal, float Vertical)
     {
         return new UiScale(Mathf.Lerp(start.Horizontal, end.Horizontal, progress), Mathf.Lerp(start.Vertical, end.Vertical, progress));
     }
+
+    public override string ToString() => $"{Horizontal} {Vertical}";
 }

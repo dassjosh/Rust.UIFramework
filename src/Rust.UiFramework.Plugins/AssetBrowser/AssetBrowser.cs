@@ -556,12 +556,12 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
 
             UiPanel panel = builder.Root as UiPanel;
 
-            // builder.Animate(panel)
-            //     .AnimateField(static p => p.RectTransform.AsTrackable().Rotation)
-            //     .Lerp(UiRotation.Zero, UiRotation.Full)
-            //     .Duration(5f)
-            //     .Linear()
-            //     .RepeatEasing(5);
+            builder.Animate(panel)
+                .AnimateField(static p => p.RectTransform.AsTrackable().Rotation)
+                .Lerp(UiRotation.Zero, UiRotation.Full)
+                .Duration(5f)
+                .Linear()
+                .RepeatEasing(5);
 
             //
             // builder.Animate(panel)
@@ -574,9 +574,9 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
 
             //builder = UiBuilder.Create(this, new UiReference(UiLayer.Overlay, UiName), UiPosition.MiddleMiddle, default, _bodyColor);
 
-            //var pos1= builder.AnimatePosition(builder.Root, UiPosition.MiddleMiddle, 2f, delay: 0f).WithAnimator(_animator);
-            // builder.AnimateOffset(builder.Root, new UiOffset(500, 400), .35f);
-            //builder.AnimateColor(builder.Root, _bodyColor.WithAlpha(0f), _bodyColor, .5f);
+            // var pos1= builder.AnimatePosition(builder.Root, UiPosition.MiddleMiddle, 2f, delay: 0f).WithAnimator(_animator);
+            //  builder.AnimateOffset(builder.Root, new UiOffset(500, 400), .35f);
+            // builder.AnimateColor(builder.Root, _bodyColor.WithAlpha(0f), _bodyColor, .5f);
         }
         else
         {

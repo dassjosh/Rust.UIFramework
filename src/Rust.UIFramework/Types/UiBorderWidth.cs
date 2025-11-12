@@ -25,27 +25,20 @@ public readonly struct UiBorderWidth(float left, float top, float right, float b
 
     public bool IsEmpty() => Left == 0 || Top == 0 || Right == 0 || Bottom == 0;
 
-    public static UiBorderWidth Parse(string str) => Parse(str.AsSpan());
+    public static UiBorderWidth Parse(string str, string token = " ") => Parse(str.AsSpan(), token);
 
-    public static UiBorderWidth Parse(ReadOnlySpan<char> span)
+    public static UiBorderWidth Parse(ReadOnlySpan<char> span, ReadOnlySpan<char> token = " ")
     {
-        float left = span.ParseNextFloat(" ", out span);
-        float top = span.ParseNextFloat(" ", out span);
-        float right = span.ParseNextFloat(" ", out span);
-        float bottom = span.ParseNextFloat(" ", out span);
+        (float left, float top, float right, float bottom) = span.ParseFourFloats(token);
         return new UiBorderWidth(left, top, right, bottom);
     }
-    
-    public static bool TryParse(string str, out UiBorderWidth border) => TryParse(str.AsSpan(), out border);
-    
-    public static bool TryParse(ReadOnlySpan<char> span, out UiBorderWidth border)
+
+    public static bool TryParse(string str, out UiBorderWidth padding, string token = " ") => TryParse(str.AsSpan(), out padding, token);
+
+    public static bool TryParse(ReadOnlySpan<char> span, out UiBorderWidth padding, ReadOnlySpan<char> token = " ")
     {
-        bool leftParsed = span.TryParseNextFloat(" ", out span, out float left);
-        bool topParsed = span.TryParseNextFloat(" ", out span, out float top);
-        bool rightParsed = span.TryParseNextFloat(" ", out span, out float right);
-        bool bottomParsed = span.TryParseNextFloat(" ", out span, out float bottom);
-        bool success = leftParsed && topParsed && rightParsed && bottomParsed;
-        border = success ? new UiBorderWidth(left, top, right, bottom) : default;
+        bool success = span.TryParseFourFloats(token, out (float left, float top, float right, float bottom) parsed);
+        padding = success ? new UiBorderWidth(parsed.left, parsed.top, parsed.right, parsed.bottom) : default;
         return success;
     }
     

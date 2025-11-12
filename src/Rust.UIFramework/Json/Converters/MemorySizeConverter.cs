@@ -16,7 +16,7 @@ public class MemorySizeConverter : JsonConverter
         string value = reader.Value.ToString();
         if (!MemorySize.TryParse(value, out MemorySize size))
         {
-            throw new JsonException($"MemorySize {value} is not in the correct format. Please make sure you have numbers followed by B, KB, MB, or GB. EX: \"100B\" or \"50KB\" or \"25MG\" or \"1GB\"");
+            throw new JsonException($"MemorySize {value} is not in the correct format. Please make sure you have numbers followed by B, KB, MB, or GB. EX: \"100B\" or \"50KB\" or \"25MB\" or \"1GB\"");
         }
 
         return size;

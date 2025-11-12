@@ -100,14 +100,8 @@ internal static class ArgCreator
         if (type == typeof(UiColor)) return new ArgHandler<UiColor>(UiColor.ParseHexColor, (writer, arg) => writer.Append(arg));
         if (type == typeof(UiColor?)) return new ArgHandler<UiColor?>(span => span is UiCommands.NullArg ? null : UiColor.ParseHexColor(span), (writer, arg) => writer.Append(arg));
         if (type == typeof(InputArg)) return new InputArgHandler();
-        if (type == typeof(UiRotation)) return new ArgHandler<UiRotation>(UiRotation.Parse, (writer, arg) => writer.Append(arg));
-        if (type == typeof(UiRotation?)) return new ArgHandler<UiRotation?>(span => span is UiCommands.NullArg ? null : UiRotation.Parse(span), (writer, arg) => writer.Append(arg));
-        if (type == typeof(UiPadding)) return new ArgHandler<UiPadding>(UiPadding.Parse, (writer, arg) => writer.Append(arg));
-        if (type == typeof(UiPadding?)) return new ArgHandler<UiPadding?>(span => span is UiCommands.NullArg ? null : UiPadding.Parse(span), (writer, arg) => writer.Append(arg));
-        if (type == typeof(UiScale)) return new ArgHandler<UiScale>(UiScale.Parse, (writer, arg) => writer.Append(arg));
-        if (type == typeof(UiScale?)) return new ArgHandler<UiScale?>(span => span is UiCommands.NullArg ? null : UiScale.Parse(span), (writer, arg) => writer.Append(arg));
-        if (type == typeof(UiBorderWidth)) return new ArgHandler<UiBorderWidth>(UiBorderWidth.Parse, (writer, arg) => writer.Append(arg));
-        if (type == typeof(UiBorderWidth?)) return new ArgHandler<UiBorderWidth?>(span => span is UiCommands.NullArg ? null : UiBorderWidth.Parse(span), (writer, arg) => writer.Append(arg));
+        if (type == typeof(UiRotation) || type == typeof(UiRotation?) || type == typeof(UiPadding) || type == typeof(UiPadding?) 
+            || type == typeof(UiScale) || type == typeof(UiScale?) || type == typeof(UiBorderWidth) || type == typeof(UiBorderWidth?)) return Singleton<UiFrameworkHandler>.Instance;
         if (type == typeof(BasePlayer)) return Singleton<BasePlayerHandler>.Instance;
         if (typeof(BaseNetworkable).IsAssignableFrom(type)) return new BaseNetworkableHandler<T>();
         if (type.IsEnum) return new EnumHandler<T>();

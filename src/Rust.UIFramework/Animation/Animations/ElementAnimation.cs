@@ -50,7 +50,7 @@ public class ElementAnimation<T> : SendableAnimation, IElementAnimation<T> where
 
         FieldAnimation<TField> animated = FieldAnimation<TField>.Create(Plugin, field);
         AddChildAnimation(animated);
-        return animated;
+        return new AnimationRef<IFieldAnimation<TField>>(animated);
     }
 
     public override void Serialize(JsonFrameworkWriter writer)

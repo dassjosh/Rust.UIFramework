@@ -110,6 +110,42 @@ public static class SpanExt
             input.ParseNextString(token, out remaining, out ReadOnlySpan<char> parsed);
             return ulong.Parse(parsed);
         }
+        
+        public (float, float) ParseTwoFloats(ReadOnlySpan<char> token)
+        {
+            float first = input.ParseNextFloat(token, out input);
+            float second = input.ParseNextFloat(token, out input);
+            return (first, second);
+        }
+        
+        public bool TryParseTwoFloats(ReadOnlySpan<char> token, out (float, float) parsed)
+        {
+            bool firstParsed = input.TryParseNextFloat(token, out input, out float first);
+            bool secondParsed = input.TryParseNextFloat(token, out input, out float second);
+            bool success = firstParsed && secondParsed;
+            parsed = success ? (first, second) : default;
+            return success;
+        }
+        
+        public (float, float, float, float) ParseFourFloats(ReadOnlySpan<char> token)
+        {
+            float first = input.ParseNextFloat(token, out input);
+            float second = input.ParseNextFloat(token, out input);
+            float third = input.ParseNextFloat(token, out input);
+            float forth = input.ParseNextFloat(token, out input);
+            return (first, second, third, forth);
+        }
+        
+        public bool TryParseFourFloats(ReadOnlySpan<char> token, out (float, float, float, float) parsed)
+        {
+            bool firstParsed = input.TryParseNextFloat(token, out input, out float first);
+            bool secondParsed = input.TryParseNextFloat(token, out input, out float second);
+            bool thirdParsed = input.TryParseNextFloat(token, out input, out float third);
+            bool fourthParsed = input.TryParseNextFloat(token, out input, out float fourth);
+            bool success = firstParsed && secondParsed && thirdParsed && fourthParsed;
+            parsed = success ? (first, second, third, fourth) : default;
+            return success;
+        }
     }
 
     extension(Span<char> span)
