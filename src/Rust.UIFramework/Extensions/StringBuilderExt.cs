@@ -210,57 +210,5 @@ public static class StringBuilderExt
                 sb.Append(value.ToHexRGBA());
             }
         }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void AppendSpan(UiRotation value)
-        {
-            if (value.Rotation.TryFormat(out ReadOnlySpan<char> written))
-            {
-                sb.Append(written);
-            }
-            else
-            {
-                sb.Append(value.Rotation);
-            }
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void AppendSpan(in UiPadding value)
-        {
-            if (value.TryFormat(out ReadOnlySpan<char> written))
-            {
-                sb.Append(written);
-            }
-            else
-            {
-                sb.Append(value);
-            }
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void AppendSpan(UiScale value)
-        {
-            if (value.TryFormat(out ReadOnlySpan<char> written))
-            {
-                sb.Append(written);
-            }
-            else
-            {
-                sb.Append(value);
-            }
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void AppendSpan(in UiBorderWidth value)
-        {
-            if (value.TryFormat(out ReadOnlySpan<char> written))
-            {
-                sb.Append(written);
-            }
-            else
-            {
-                sb.Append(value);
-            }
-        }
     }
 }

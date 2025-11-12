@@ -3,7 +3,6 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Libraries;
-using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Extensions;
 
@@ -235,54 +234,6 @@ internal static class StringBuilderArgExt
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal void AppendArg(in UiColor? value)
-        {
-            if (!value.HasValue)
-            {
-                sb.Append(UiCommands.NullArg);
-                return;
-            }
-        
-            sb.AppendSpan(value.Value);
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal void AppendArg(in UiRotation? value)
-        {
-            if (!value.HasValue)
-            {
-                sb.Append(UiCommands.NullArg);
-                return;
-            }
-        
-            sb.AppendSpan(value.Value.Rotation);
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal void AppendArg(in UiPadding? value)
-        {
-            if (!value.HasValue)
-            {
-                sb.Append(UiCommands.NullArg);
-                return;
-            }
-        
-            sb.AppendSpan(value.Value);
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal void AppendArg(in UiScale? value)
-        {
-            if (!value.HasValue)
-            {
-                sb.Append(UiCommands.NullArg);
-                return;
-            }
-        
-            sb.AppendSpan(value.Value);
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal void AppendArg(in UiBorderWidth? value)
         {
             if (!value.HasValue)
             {

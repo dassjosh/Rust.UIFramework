@@ -3,7 +3,6 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Extensions;
-using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Libraries;
 
@@ -124,30 +123,6 @@ public readonly ref struct UiArgWriter()
     
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void Append(UiColor? color) => _sb.AppendArg(color);
-    
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Append(UiRotation rotation) => _sb.AppendSpan(rotation);
-    
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Append(UiRotation? rotation) => _sb.AppendArg(rotation);
-    
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Append(in UiPadding padding) => _sb.AppendSpan(padding);
-    
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Append(in UiPadding? padding) => _sb.AppendArg(padding);
-    
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Append(UiScale scale) => _sb.AppendSpan(scale);
-    
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Append(UiScale? scale) => _sb.AppendArg(scale);
-    
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Append(in UiBorderWidth width) => _sb.AppendSpan(width);
-    
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Append(in UiBorderWidth? width) => _sb.AppendArg(width);
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void AppendStartQuote() => _sb.Append(UiCommands.StartQuote);
