@@ -7,6 +7,7 @@ using Rust.UiFramework.SourceGenerators.Attributes;
 namespace Oxide.Ext.UiFramework.Components;
 
 [GenerateComponent(typeof(IImageComponent))]
+[GenerateBuilderMethods]
 public partial class ImageComponent : CoreComponent, IImageComponent, IGraphicalComponent
 {
     public override Utf8String Type => JsonDefaults.Image.Type;

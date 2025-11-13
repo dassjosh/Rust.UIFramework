@@ -10,6 +10,7 @@ using Rust.UiFramework.SourceGenerators.Attributes;
 namespace Oxide.Ext.UiFramework.Components;
 
 [GenerateComponent(typeof(IPlayerAvatarComponent))]
+[GenerateBuilderMethods]
 public partial class PlayerAvatarComponent : RawImageComponent, IPlayerAvatarComponent
 {
     public override ComponentType ComponentType => ComponentType.PlayerAvatar;

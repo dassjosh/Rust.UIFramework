@@ -22,6 +22,31 @@ public partial class InputComponent : IInputComponentTrackable
 	Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.InputField.LineType> IInputComponentTrackable.LineType => _lineType;
 	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.UiElements.UiReference> IInputComponentTrackable.Placeholder => _placeholder;
 
+	public Oxide.Ext.UiFramework.Components.InputComponent SetCharsLimit(int charsLimit)
+	{
+		CharsLimit = charsLimit;
+		return this;
+	}
+	public Oxide.Ext.UiFramework.Components.InputComponent SetCommand(string command)
+	{
+		Command = command;
+		return this;
+	}
+	public Oxide.Ext.UiFramework.Components.InputComponent SetMode(Oxide.Ext.UiFramework.Enums.InputMode mode)
+	{
+		Mode = mode;
+		return this;
+	}
+	public Oxide.Ext.UiFramework.Components.InputComponent SetLineType(UnityEngine.UI.InputField.LineType lineType)
+	{
+		LineType = lineType;
+		return this;
+	}
+	public Oxide.Ext.UiFramework.Components.InputComponent SetPlaceholder(in Oxide.Ext.UiFramework.UiElements.UiReference placeholder)
+	{
+		Placeholder = placeholder;
+		return this;
+	}
 	public new IInputComponentTrackable AsTrackable() => this;
 	protected override bool HasChangedGenerated() => base.HasChangedGenerated() || (_charsLimit.HasChanged || _command.HasChanged || _mode.HasChanged || _lineType.HasChanged || _placeholder.HasChanged);
 	protected override void ResetHasChangedGenerated()

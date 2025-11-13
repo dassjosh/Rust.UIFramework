@@ -13,6 +13,16 @@ public partial class PlayerAvatarComponent : IPlayerAvatarComponentTrackable
 	Oxide.Ext.UiFramework.Types.Tracked<ulong> IPlayerAvatarComponentTrackable.SteamId => _steamId;
 	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Enums.AvatarType> IPlayerAvatarComponentTrackable.AvatarType => _avatarType;
 
+	public Oxide.Ext.UiFramework.Components.PlayerAvatarComponent SetSteamId(ulong steamId)
+	{
+		SteamId = steamId;
+		return this;
+	}
+	public Oxide.Ext.UiFramework.Components.PlayerAvatarComponent SetAvatarType(Oxide.Ext.UiFramework.Enums.AvatarType avatarType)
+	{
+		AvatarType = avatarType;
+		return this;
+	}
 	public new IPlayerAvatarComponentTrackable AsTrackable() => this;
 	protected override bool HasChangedGenerated() => base.HasChangedGenerated() || (_steamId.HasChanged || _avatarType.HasChanged);
 	protected override void ResetHasChangedGenerated()

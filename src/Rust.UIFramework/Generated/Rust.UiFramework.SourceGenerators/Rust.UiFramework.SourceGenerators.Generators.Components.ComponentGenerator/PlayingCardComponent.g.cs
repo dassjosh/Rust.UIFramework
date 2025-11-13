@@ -25,6 +25,36 @@ public partial class PlayingCardComponent : IPlayingCardComponentTrackable
 	Oxide.Ext.UiFramework.Types.Tracked<string> IPlayingCardComponentTrackable.Material => _material;
 	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> IPlayingCardComponentTrackable.Color => _color;
 
+	public Oxide.Ext.UiFramework.Components.PlayingCardComponent SetSuit(Oxide.Ext.UiFramework.Enums.UiSuit suit)
+	{
+		Suit = suit;
+		return this;
+	}
+	public Oxide.Ext.UiFramework.Components.PlayingCardComponent SetRank(Oxide.Ext.UiFramework.Enums.UiRank rank)
+	{
+		Rank = rank;
+		return this;
+	}
+	public Oxide.Ext.UiFramework.Components.PlayingCardComponent SetCardType(Oxide.Ext.UiFramework.Enums.UiCardType cardType)
+	{
+		CardType = cardType;
+		return this;
+	}
+	public Oxide.Ext.UiFramework.Components.PlayingCardComponent SetFadeIn(float fadeIn)
+	{
+		FadeIn = fadeIn;
+		return this;
+	}
+	public Oxide.Ext.UiFramework.Components.PlayingCardComponent SetMaterial(string material)
+	{
+		Material = material;
+		return this;
+	}
+	public Oxide.Ext.UiFramework.Components.PlayingCardComponent SetColor(Oxide.Ext.UiFramework.Colors.UiColor color)
+	{
+		Color = color;
+		return this;
+	}
 	public IPlayingCardComponentTrackable AsTrackable() => this;
 	protected override bool HasChangedGenerated() => base.HasChangedGenerated() || (_suit.HasChanged || _rank.HasChanged || _cardType.HasChanged || _fadeIn.HasChanged || _material.HasChanged || _color.HasChanged);
 	protected override void ResetHasChangedGenerated()

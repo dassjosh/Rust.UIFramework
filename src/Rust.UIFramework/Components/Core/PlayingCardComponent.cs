@@ -8,6 +8,7 @@ using Rust.UiFramework.SourceGenerators.Attributes;
 namespace Oxide.Ext.UiFramework.Components;
 
 [GenerateComponent(typeof(IPlayingCardComponent))]
+[GenerateBuilderMethods]
 public partial class PlayingCardComponent : CoreComponent, IPlayingCardComponent, IGraphicalComponent
 {
     public override Utf8String Type => UiPlayingCards.GetComponentType(Rank, CardType);

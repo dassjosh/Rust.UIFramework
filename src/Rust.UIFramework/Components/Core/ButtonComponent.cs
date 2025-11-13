@@ -8,6 +8,7 @@ using Rust.UiFramework.SourceGenerators.Attributes;
 namespace Oxide.Ext.UiFramework.Components;
 
 [GenerateComponent(typeof(IButtonComponent))]
+[GenerateBuilderMethods]
 public partial class ButtonComponent : CoreComponent, IButtonComponent, IGraphicalComponent
 {
     public ButtonType ButtonType;

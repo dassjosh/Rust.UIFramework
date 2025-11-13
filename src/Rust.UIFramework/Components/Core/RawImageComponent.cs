@@ -9,6 +9,7 @@ using Rust.UiFramework.SourceGenerators.Attributes;
 namespace Oxide.Ext.UiFramework.Components;
 
 [GenerateComponent(typeof(IRawImageComponent))]
+[GenerateBuilderMethods]
 public partial class RawImageComponent : CoreComponent, IRawImageComponent, IGraphicalComponent
 {
     [Obsolete("Please use Image instead")]

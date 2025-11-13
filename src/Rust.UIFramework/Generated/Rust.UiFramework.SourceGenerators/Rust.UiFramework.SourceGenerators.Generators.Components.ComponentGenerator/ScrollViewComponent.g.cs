@@ -28,6 +28,41 @@ public partial class ScrollViewComponent : IScrollViewComponentTrackable
 	Oxide.Ext.UiFramework.Types.Tracked<float> IScrollViewComponentTrackable.HorizontalScrollProgress => _horizontalScrollProgress;
 	Oxide.Ext.UiFramework.Types.Tracked<float> IScrollViewComponentTrackable.VerticalScrollProgress => _verticalScrollProgress;
 
+	public Oxide.Ext.UiFramework.Components.ScrollViewComponent SetMovementType(UnityEngine.UI.ScrollRect.MovementType movementType)
+	{
+		MovementType = movementType;
+		return this;
+	}
+	public Oxide.Ext.UiFramework.Components.ScrollViewComponent SetElasticity(float elasticity)
+	{
+		Elasticity = elasticity;
+		return this;
+	}
+	public Oxide.Ext.UiFramework.Components.ScrollViewComponent SetInertia(bool inertia)
+	{
+		Inertia = inertia;
+		return this;
+	}
+	public Oxide.Ext.UiFramework.Components.ScrollViewComponent SetDecelerationRate(float decelerationRate)
+	{
+		DecelerationRate = decelerationRate;
+		return this;
+	}
+	public Oxide.Ext.UiFramework.Components.ScrollViewComponent SetScrollSensitivity(float scrollSensitivity)
+	{
+		ScrollSensitivity = scrollSensitivity;
+		return this;
+	}
+	public Oxide.Ext.UiFramework.Components.ScrollViewComponent SetHorizontalScrollProgress(float horizontalScrollProgress)
+	{
+		HorizontalScrollProgress = horizontalScrollProgress;
+		return this;
+	}
+	public Oxide.Ext.UiFramework.Components.ScrollViewComponent SetVerticalScrollProgress(float verticalScrollProgress)
+	{
+		VerticalScrollProgress = verticalScrollProgress;
+		return this;
+	}
 	public IScrollViewComponentTrackable AsTrackable() => this;
 	protected override bool HasChangedGenerated() => base.HasChangedGenerated() || (_movementType.HasChanged || _elasticity.HasChanged || _inertia.HasChanged || _decelerationRate.HasChanged || _scrollSensitivity.HasChanged || _horizontalScrollProgress.HasChanged || _verticalScrollProgress.HasChanged);
 	protected override void ResetHasChangedGenerated()

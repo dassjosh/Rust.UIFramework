@@ -7,6 +7,7 @@ using Rust.UiFramework.SourceGenerators.Attributes;
 namespace Oxide.Ext.UiFramework.Components;
 
 [GenerateComponent(typeof(ITextComponent))]
+[GenerateBuilderMethods]
 public partial class TextComponent : CoreComponent, IGraphicalComponent, ITextComponent
 {
     public override Utf8String Type => JsonDefaults.Text.Type;

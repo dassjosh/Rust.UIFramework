@@ -11,6 +11,7 @@ using UnityEngine;
 namespace Oxide.Ext.UiFramework.Components;
 
 [GenerateComponent(typeof(IScrollViewComponent))]
+[GenerateBuilderMethods]
 public partial class ScrollViewComponent : CoreComponent, IScrollViewComponent
 {
     public ScrollViewContentComponent ContentTransform { get; private set; }

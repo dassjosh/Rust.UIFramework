@@ -6,6 +6,7 @@ using Rust.UiFramework.SourceGenerators.Attributes;
 namespace Oxide.Ext.UiFramework.Components;
 
 [GenerateComponent(typeof(IItemIconComponent))]
+[GenerateBuilderMethods]
 public partial class ItemIconComponent : ImageComponent, IItemIconComponent
 {
     public override ComponentType ComponentType => ComponentType.ItemIcon;

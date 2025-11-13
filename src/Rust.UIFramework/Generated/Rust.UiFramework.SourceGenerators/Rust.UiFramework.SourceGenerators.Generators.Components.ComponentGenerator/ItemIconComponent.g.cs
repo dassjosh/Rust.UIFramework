@@ -13,6 +13,16 @@ public partial class ItemIconComponent : IItemIconComponentTrackable
 	Oxide.Ext.UiFramework.Types.Tracked<int> IItemIconComponentTrackable.ItemId => _itemId;
 	Oxide.Ext.UiFramework.Types.Tracked<ulong> IItemIconComponentTrackable.SkinId => _skinId;
 
+	public Oxide.Ext.UiFramework.Components.ItemIconComponent SetItemId(int itemId)
+	{
+		ItemId = itemId;
+		return this;
+	}
+	public Oxide.Ext.UiFramework.Components.ItemIconComponent SetSkinId(ulong skinId)
+	{
+		SkinId = skinId;
+		return this;
+	}
 	public new IItemIconComponentTrackable AsTrackable() => this;
 	protected override bool HasChangedGenerated() => base.HasChangedGenerated() || (_itemId.HasChanged || _skinId.HasChanged);
 	protected override void ResetHasChangedGenerated()

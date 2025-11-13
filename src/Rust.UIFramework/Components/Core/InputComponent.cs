@@ -8,6 +8,7 @@ using Rust.UiFramework.SourceGenerators.Attributes;
 namespace Oxide.Ext.UiFramework.Components;
 
 [GenerateComponent(typeof(IInputComponent))]
+[GenerateBuilderMethods]
 public partial class InputComponent : TextComponent, IInputComponent
 {
     public override Utf8String Type => JsonDefaults.Input.Type;

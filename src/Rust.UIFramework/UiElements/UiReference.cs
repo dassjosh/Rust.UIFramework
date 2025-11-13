@@ -30,7 +30,7 @@ public readonly struct UiReference(string parent, string name) : IEquatable<UiRe
 
     public bool IsValidParent() => !string.IsNullOrEmpty(Parent);
     public bool IsValidName() => !string.IsNullOrEmpty(Name);
-    public bool IsValidReference() => IsValidParent() && !string.IsNullOrEmpty(Name);
+    public bool IsValidReference() => IsValidParent() && IsValidName();
 
     public bool Equals(UiReference other) => Parent == other.Parent && Name == other.Name;
     public override bool Equals(object obj) => obj is UiReference other && Equals(other);

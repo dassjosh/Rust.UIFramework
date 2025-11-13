@@ -7,6 +7,7 @@ using UnityEngine.UI;
 namespace Oxide.Ext.UiFramework.Components;
 
 [GenerateComponent(typeof(INineSliceComponent))]
+[GenerateBuilderMethods]
 public partial class NineSliceComponent : ImageComponent, INineSliceComponent
 {
     public override ComponentType ComponentType => ComponentType.NineSlice;

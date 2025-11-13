@@ -31,6 +31,46 @@ public partial class TextComponent : ITextComponentTrackable
 	Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.VerticalWrapMode> ITextComponentTrackable.VerticalOverflow => _verticalOverflow;
 	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.UiElements.UiReference> ITextComponentTrackable.PlaceholderFor => _placeholderFor;
 
+	public Oxide.Ext.UiFramework.Components.TextComponent SetColor(Oxide.Ext.UiFramework.Colors.UiColor color)
+	{
+		Color = color;
+		return this;
+	}
+	public Oxide.Ext.UiFramework.Components.TextComponent SetFadeIn(float fadeIn)
+	{
+		FadeIn = fadeIn;
+		return this;
+	}
+	public Oxide.Ext.UiFramework.Components.TextComponent SetFontSize(int fontSize)
+	{
+		FontSize = fontSize;
+		return this;
+	}
+	public Oxide.Ext.UiFramework.Components.TextComponent SetFont(string font)
+	{
+		Font = font;
+		return this;
+	}
+	public Oxide.Ext.UiFramework.Components.TextComponent SetAlign(UnityEngine.TextAnchor align)
+	{
+		Align = align;
+		return this;
+	}
+	public Oxide.Ext.UiFramework.Components.TextComponent SetText(string text)
+	{
+		Text = text;
+		return this;
+	}
+	public Oxide.Ext.UiFramework.Components.TextComponent SetVerticalOverflow(UnityEngine.VerticalWrapMode verticalOverflow)
+	{
+		VerticalOverflow = verticalOverflow;
+		return this;
+	}
+	public Oxide.Ext.UiFramework.Components.TextComponent SetPlaceholderFor(in Oxide.Ext.UiFramework.UiElements.UiReference placeholderFor)
+	{
+		PlaceholderFor = placeholderFor;
+		return this;
+	}
 	public ITextComponentTrackable AsTrackable() => this;
 	protected override bool HasChangedGenerated() => base.HasChangedGenerated() || (_color.HasChanged || _fadeIn.HasChanged || _fontSize.HasChanged || _font.HasChanged || _align.HasChanged || _text.HasChanged || _verticalOverflow.HasChanged || _placeholderFor.HasChanged);
 	protected override void ResetHasChangedGenerated()

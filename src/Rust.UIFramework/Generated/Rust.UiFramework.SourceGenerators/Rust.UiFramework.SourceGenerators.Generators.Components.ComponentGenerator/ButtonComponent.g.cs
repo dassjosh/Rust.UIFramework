@@ -25,6 +25,36 @@ public partial class ButtonComponent : IButtonComponentTrackable
 	Oxide.Ext.UiFramework.Types.Tracked<string> IButtonComponentTrackable.Material => _material;
 	Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.Image.Type> IButtonComponentTrackable.ImageType => _imageType;
 
+	public Oxide.Ext.UiFramework.Components.ButtonComponent SetCommand(string command)
+	{
+		Command = command;
+		return this;
+	}
+	public Oxide.Ext.UiFramework.Components.ButtonComponent SetColor(Oxide.Ext.UiFramework.Colors.UiColor color)
+	{
+		Color = color;
+		return this;
+	}
+	public Oxide.Ext.UiFramework.Components.ButtonComponent SetFadeIn(float fadeIn)
+	{
+		FadeIn = fadeIn;
+		return this;
+	}
+	public Oxide.Ext.UiFramework.Components.ButtonComponent SetSprite(string sprite)
+	{
+		Sprite = sprite;
+		return this;
+	}
+	public Oxide.Ext.UiFramework.Components.ButtonComponent SetMaterial(string material)
+	{
+		Material = material;
+		return this;
+	}
+	public Oxide.Ext.UiFramework.Components.ButtonComponent SetImageType(UnityEngine.UI.Image.Type imageType)
+	{
+		ImageType = imageType;
+		return this;
+	}
 	public IButtonComponentTrackable AsTrackable() => this;
 	protected override bool HasChangedGenerated() => base.HasChangedGenerated() || (_command.HasChanged || _color.HasChanged || _fadeIn.HasChanged || _sprite.HasChanged || _material.HasChanged || _imageType.HasChanged);
 	protected override void ResetHasChangedGenerated()

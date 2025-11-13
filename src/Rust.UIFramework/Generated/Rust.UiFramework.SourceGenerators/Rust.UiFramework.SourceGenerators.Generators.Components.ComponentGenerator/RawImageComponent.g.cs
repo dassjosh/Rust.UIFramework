@@ -22,6 +22,31 @@ public partial class RawImageComponent : IRawImageComponentTrackable
 	Oxide.Ext.UiFramework.Types.Tracked<string> IRawImageComponentTrackable.Material => _material;
 	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.UiElements.UiReference> IRawImageComponentTrackable.PlaceholderFor => _placeholderFor;
 
+	public Oxide.Ext.UiFramework.Components.RawImageComponent SetColor(Oxide.Ext.UiFramework.Colors.UiColor color)
+	{
+		Color = color;
+		return this;
+	}
+	public Oxide.Ext.UiFramework.Components.RawImageComponent SetFadeIn(float fadeIn)
+	{
+		FadeIn = fadeIn;
+		return this;
+	}
+	public Oxide.Ext.UiFramework.Components.RawImageComponent SetImage(string image)
+	{
+		Image = image;
+		return this;
+	}
+	public Oxide.Ext.UiFramework.Components.RawImageComponent SetMaterial(string material)
+	{
+		Material = material;
+		return this;
+	}
+	public Oxide.Ext.UiFramework.Components.RawImageComponent SetPlaceholderFor(in Oxide.Ext.UiFramework.UiElements.UiReference placeholderFor)
+	{
+		PlaceholderFor = placeholderFor;
+		return this;
+	}
 	public IRawImageComponentTrackable AsTrackable() => this;
 	protected override bool HasChangedGenerated() => base.HasChangedGenerated() || (_color.HasChanged || _fadeIn.HasChanged || _image.HasChanged || _material.HasChanged || _placeholderFor.HasChanged);
 	protected override void ResetHasChangedGenerated()

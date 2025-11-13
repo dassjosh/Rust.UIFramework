@@ -13,6 +13,16 @@ public partial class NineSliceComponent : INineSliceComponentTrackable
 	Oxide.Ext.UiFramework.Types.Tracked<string> INineSliceComponentTrackable.Png => _png;
 	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Types.UiBorderWidth> INineSliceComponentTrackable.Slice => _slice;
 
+	public Oxide.Ext.UiFramework.Components.NineSliceComponent SetPng(string png)
+	{
+		Png = png;
+		return this;
+	}
+	public Oxide.Ext.UiFramework.Components.NineSliceComponent SetSlice(in Oxide.Ext.UiFramework.Types.UiBorderWidth slice)
+	{
+		Slice = slice;
+		return this;
+	}
 	public new INineSliceComponentTrackable AsTrackable() => this;
 	protected override bool HasChangedGenerated() => base.HasChangedGenerated() || (_png.HasChanged || _slice.HasChanged);
 	protected override void ResetHasChangedGenerated()

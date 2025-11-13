@@ -28,6 +28,41 @@ public partial class ImageComponent : IImageComponentTrackable
 	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.UiElements.UiReference> IImageComponentTrackable.PlaceholderFor => _placeholderFor;
 	Oxide.Ext.UiFramework.Types.Tracked<bool> IImageComponentTrackable.FillCenter => _fillCenter;
 
+	public Oxide.Ext.UiFramework.Components.ImageComponent SetColor(Oxide.Ext.UiFramework.Colors.UiColor color)
+	{
+		Color = color;
+		return this;
+	}
+	public Oxide.Ext.UiFramework.Components.ImageComponent SetFadeIn(float fadeIn)
+	{
+		FadeIn = fadeIn;
+		return this;
+	}
+	public Oxide.Ext.UiFramework.Components.ImageComponent SetSprite(string sprite)
+	{
+		Sprite = sprite;
+		return this;
+	}
+	public Oxide.Ext.UiFramework.Components.ImageComponent SetMaterial(string material)
+	{
+		Material = material;
+		return this;
+	}
+	public Oxide.Ext.UiFramework.Components.ImageComponent SetImageType(UnityEngine.UI.Image.Type imageType)
+	{
+		ImageType = imageType;
+		return this;
+	}
+	public Oxide.Ext.UiFramework.Components.ImageComponent SetPlaceholderFor(in Oxide.Ext.UiFramework.UiElements.UiReference placeholderFor)
+	{
+		PlaceholderFor = placeholderFor;
+		return this;
+	}
+	public Oxide.Ext.UiFramework.Components.ImageComponent SetFillCenter(bool fillCenter)
+	{
+		FillCenter = fillCenter;
+		return this;
+	}
 	public IImageComponentTrackable AsTrackable() => this;
 	protected override bool HasChangedGenerated() => base.HasChangedGenerated() || (_color.HasChanged || _fadeIn.HasChanged || _sprite.HasChanged || _material.HasChanged || _imageType.HasChanged || _placeholderFor.HasChanged || _fillCenter.HasChanged);
 	protected override void ResetHasChangedGenerated()
