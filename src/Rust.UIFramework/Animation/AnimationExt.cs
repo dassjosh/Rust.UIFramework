@@ -305,6 +305,6 @@ public static class AnimationExt
     
     extension<T>(AnimationRef<IElementAnimation<T>> animation) where T : BaseUiComponent
     {
-        public AnimationRef<IFieldAnimation<TField>> AnimateField<TField>(FieldSelector<TField, T> selector) => animation.AnimateField(selector);
+        public AnimationRef<IFieldAnimation<TField>> AnimateField<TField>(FieldSelector<TField, T> selector) => animation.IsValid ? animation.Animation.AnimateField(selector) : default;
     }
 }
