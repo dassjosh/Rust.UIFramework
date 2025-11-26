@@ -275,7 +275,7 @@ public static class JsonDefaults
         public const bool AllowSwapping = false;
         
         public static readonly Utf8String DropAnywhereName = "dropAnywhere";
-        public const bool DropAnywhere = false;
+        public const bool DropAnywhere = true;
         
         public static readonly Utf8String DragAlphaName = "dragAlpha";
         public const float DragAlpha = 1f;
