@@ -7,6 +7,7 @@ using Rust.UiFramework.SourceGenerators.Attributes;
 namespace Oxide.Ext.UiFramework.Components;
 
 [GenerateComponent(typeof(ITypedComponent))]
+[GenerateBuilderMethods]
 public abstract partial class BaseTypedComponent : BaseComponent, ITypedComponent
 {
     public abstract Utf8String Type { get; }

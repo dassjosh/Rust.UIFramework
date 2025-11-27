@@ -10,6 +10,11 @@ public partial class BaseTypedComponent : IBaseTypedComponentTrackable
 	public bool Enabled { get => _enabled.Value; set => _enabled.Value = value; }
 	Oxide.Ext.UiFramework.Types.Tracked<bool> IBaseTypedComponentTrackable.Enabled => _enabled;
 
+	public Oxide.Ext.UiFramework.Components.BaseTypedComponent SetEnabled(bool enabled)
+	{
+		Enabled = enabled;
+		return this;
+	}
 	protected override bool HasChangedGenerated() => base.HasChangedGenerated() || (_enabled.HasChanged);
 	protected override void ResetHasChangedGenerated()
 	{
