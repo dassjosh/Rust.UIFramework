@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using Oxide.Core;
+using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Logging;
 
@@ -33,7 +34,7 @@ public static class Singleton<T> where T : ISingleton
         }
         catch(Exception ex)
         {
-            Interface.Oxide.LogException($"An error occured in Singleton<{typeof(T).GetRealTypeName()}>", ex);
+            OxideLibrary.LogException($"An error occured in Singleton<{typeof(T).GetRealTypeName()}>", ex);
             UiFrameworkExtension.GlobalLogger.Exception("An error occured in Singleton<{0}>", typeof(T).GetRealTypeName(), ex);
             throw;
         }

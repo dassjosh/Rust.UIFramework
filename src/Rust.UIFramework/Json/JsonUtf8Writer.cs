@@ -11,7 +11,7 @@ using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Json;
 
-public sealed class JsonUtf8Writer : BasePoolable
+public sealed class JsonUtf8Writer
 {
     private const int SegmentSize = 4096;
 
@@ -185,12 +185,12 @@ public sealed class JsonUtf8Writer : BasePoolable
         return Encoding.UTF8.GetString(ToArray());
     }
 
-    protected override void LeavePool()
+    internal void Init()
     {
         _buffer = ArrayPool<byte>.Shared.Rent(SegmentSize);
     }
 
-    protected override void EnterPool()
+    internal void Reset()
     {
         for (int index = 0; index < _segments.Count; index++)
         {

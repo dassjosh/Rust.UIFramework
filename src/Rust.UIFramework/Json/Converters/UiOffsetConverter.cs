@@ -22,8 +22,5 @@ public class UiOffsetConverter : JsonConverter
         };
     }
 
-    public override bool CanConvert(Type objectType)
-    {
-        return objectType == typeof(UiOffset);
-    }
+    public override bool CanConvert(Type objectType) => objectType == typeof(UiOffset);
 }

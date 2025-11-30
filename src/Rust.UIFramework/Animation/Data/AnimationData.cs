@@ -23,13 +23,12 @@ internal class AnimationData
     public void EnqueueAnimation(ISendableAnimation animation)
     {
         _animations[animation.Id] = animation;
-        if (!animation.IsSinglePlayer())
+        if (!animation.TryGetSinglePlayer(out ulong playerId))
         {
             _groupAnimations[animation.Id] = animation;
             return;
         }
-
-        ulong playerId = animation.SinglePlayerId();
+        
         if (!_playerAnimations.TryGetValue(playerId, out PlayerAnimationData animations))
         {
             _playerAnimations[playerId] = animations = PlayerAnimationData.Create(animation);
@@ -67,12 +66,11 @@ internal class AnimationData
 
     private void RemoveSinglePlayerAnimation(ISendableAnimation animation)
     {
-        if (!animation.IsSinglePlayer())
+        if (!animation.TryGetSinglePlayer(out ulong playerId))
         {
             return;
         }
         
-        ulong playerId = animation.SinglePlayerId();
         if (!_playerAnimations.TryGetValue(playerId, out PlayerAnimationData animations))
         {
             return;

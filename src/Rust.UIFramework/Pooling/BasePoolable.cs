@@ -1,4 +1,7 @@
 using System;
+using System.Collections.Generic;
+using Newtonsoft.Json;
+using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Libraries;
 
 namespace Oxide.Ext.UiFramework.Pooling;
@@ -15,14 +18,18 @@ public abstract class BasePoolable : IPoolable
     internal UiPluginPool PluginPool;
     UiPluginPool IPoolable.PluginPool => PluginPool;
 
-#if UNIT_TESTS
+#if DEBUG
     private readonly string _createdStack = Environment.StackTrace;
+    private string _lastGetStack;
+    private DateTime _lastGetTime;
+    private string _lastPooledStack;
+    private DateTime _lastPooledTime;
     
     ~BasePoolable()
     {
         if (CanPool)
         {
-            Console.WriteLine($"\n{new string('=', 30)}\nLeaked: {GetType().Name}\n{_createdStack}");
+            OxideLibrary.LogWarning($"\n{new string('=', 30)}\nLeaked: {GetType().Name}\n{_createdStack}\n\n{_lastGetStack}\n\n{_lastPooledStack}");
         }
     }
 #endif
@@ -51,6 +58,10 @@ public abstract class BasePoolable : IPoolable
     {
         IsPooled = false;
         LeavePool();
+#if DEBUG
+        _lastGetStack = Environment.StackTrace;
+        _lastGetTime = DateTime.Now;
+#endif
     }
 
     /// <summary>
@@ -84,12 +95,16 @@ public abstract class BasePoolable : IPoolable
         {
             return;
         }
-
+        
         if (IsPooled)
         {
             throw new ObjectDisposedException(GetType().Name);
         }
-            
+#if DEBUG
+        _lastPooledStack = Environment.StackTrace;
+        _lastPooledTime = DateTime.Now;
+#endif
+        
         _pool.Free(this);
     }
 }

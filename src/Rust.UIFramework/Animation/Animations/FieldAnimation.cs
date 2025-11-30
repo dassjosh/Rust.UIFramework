@@ -16,7 +16,7 @@ public class FieldAnimation<TField> : BaseAnimation, IFieldAnimation<TField>
     {
         base.Init(plugin);
         Field = field;
-        Interpolator = Interpolator<TField>.Create(plugin, field);
+        Interpolator = AnimationInterpolator<TField>.Create(plugin, field);
         return this;
     }
     

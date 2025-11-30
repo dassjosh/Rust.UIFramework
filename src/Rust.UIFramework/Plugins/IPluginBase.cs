@@ -31,4 +31,17 @@ public interface IPluginBase
     /// Version of the plugin
     /// </summary>
     VersionNumber Version { get; }
+    
+    /// <summary>
+    /// Whether the plugin is loaded
+    /// </summary>
+    bool IsLoaded { get; }
+}
+
+public static class IPluginBaseExt
+{
+    extension(IPluginBase plugin)
+    {
+        public bool IsValid => plugin is { IsLoaded: true };
+    }
 }

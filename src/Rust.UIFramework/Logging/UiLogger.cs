@@ -29,6 +29,15 @@ public class UiLogger : IUiLogger
         _handler = handler;
         _type = type;
     }
+    
+    /// <summary>
+    /// Creates a new logger with the given log level
+    /// </summary>
+    /// <param name="logLevel">Log level of the logger</param>
+    /// <param name="config">Configuration for the logger</param>
+    /// <param name="handler">Handler for the logger</param>
+    /// <param name="type">Type of the logger</param>
+    internal UiLogger(UiLogLevel logLevel, IUiLoggingConfig config, UiLogHandler handler, Type type) : this(logLevel, config, handler, type?.GetRealTypeName()) { }
 
     /// <inheritdoc/>
     public void Log(UiLogLevel level, string log, object[] args, Exception exception = null)
@@ -78,5 +87,5 @@ public class UiLogger : IUiLogger
 
 public class UiLogger<T> : UiLogger, IUiLogger<T>
 {
-    internal UiLogger(UiLogLevel logLevel, IUiLoggingConfig config, UiLogHandler handler) : base(logLevel, config, handler, typeof(T).GetRealTypeName()) { }
+    internal UiLogger(UiLogLevel logLevel, IUiLoggingConfig config, UiLogHandler handler) : base(logLevel, config, handler, typeof(T)) { }
 }

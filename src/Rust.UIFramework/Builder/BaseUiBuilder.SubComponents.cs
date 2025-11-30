@@ -226,14 +226,18 @@ public abstract partial class BaseUiBuilder
     #endregion
 
     #region Layout Helpers
-    public UiSection AutoSizedScrollView(UiScrollView scrollView, AutoSizeDirection direction)
+    public UiSection AutoSizedScrollView(UiScrollView scrollView, AutoSizeDirection direction) => AutoSizedScrollView<UiSection>(scrollView, direction);
+    
+    public T AutoSizedScrollView<T>(UiScrollView scrollView, AutoSizeDirection direction) where T : BaseUiComponent, new()
     {
-        UiSection section = SelectScrollViewContent(scrollView);
+        T section = SelectScrollViewContent<T>(scrollView);
         ContentSizeFitter(section)
             .SetHorizontalFit(direction.HasFlag(AutoSizeDirection.Horizontal) ? FitMode.PreferredSize : FitMode.Unconstrained)
             .SetVerticalFit(direction.HasFlag(AutoSizeDirection.Vertical) ? FitMode.PreferredSize : FitMode.Unconstrained);
         return section;
     }
+
+    public UiSection SelectScrollViewContent(UiScrollView scroll) => SelectScrollViewContent<UiSection>(scroll);
     
     /// <summary>
     /// Select the ScrollView___Content GameObject on the client to be able to modify.
@@ -241,9 +245,9 @@ public abstract partial class BaseUiBuilder
     /// </summary>
     /// <param name="scroll"></param>
     /// <returns></returns>
-    public UiSection SelectScrollViewContent(UiScrollView scroll)
+    public T SelectScrollViewContent<T>(UiScrollView scroll) where T : BaseUiComponent, new()
     {
-        return Section(scroll).SetName(Singleton<ScrollViewContentCache>.Instance.GetContentName(scroll.Reference.Name)).SetUpdate(UpdateMode.Update);
+        return Component<T>(scroll).SetName(Singleton<ScrollViewContentCache>.Instance.GetContentName(scroll.Reference.Name)).SetUpdate(UpdateMode.Update);
     }
     #endregion
 }

@@ -1,7 +1,8 @@
 ﻿using System;
 using Newtonsoft.Json;
+using Oxide.Ext.UiFramework.Colors;
 
-namespace Oxide.Ext.UiFramework.Colors;
+namespace Oxide.Ext.UiFramework.Json;
 
 public class UiColorConverter : JsonConverter
 {

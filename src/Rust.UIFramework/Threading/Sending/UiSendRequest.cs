@@ -1,6 +1,9 @@
 ﻿using Network;
+using Oxide.Ext.UiFramework.Animation;
 using Oxide.Ext.UiFramework.Builder;
 using Oxide.Ext.UiFramework.Libraries;
+using Oxide.Ext.UiFramework.Threading.UiChannel;
+using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Threading;
 
@@ -27,6 +30,15 @@ internal class UiSendRequest : BaseUiRequest, IUiRequest
     {
         Builder.SendUi(Send, Options);
         Builder.SendAnimations(Send);
+    }
+    
+    public override IUiChannel GetChannel(int index)
+    {
+        return base.GetChannel(index) ?? index switch
+        {
+            1 => (IUiChannel)Singleton<AnimationTrackerChannel>.Instance,
+            _ => null
+        };
     }
     
     protected override void EnterPool()

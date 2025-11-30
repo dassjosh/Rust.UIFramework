@@ -11,19 +11,35 @@ class Program
 {
     static void Main(string[] args)
     {
-        //Benchmarks benchmarks = new();
-       // benchmarks.Setup();
-#if BENCHMARKS
+        // Benchmarks benchmarks = new();
+        // benchmarks.Setup();
+        // while (true)
+        // {
+        //     var a = Task.Run(() =>
+        //     {
+        //         for (int i = 0; i < 65536; i++)
+        //         {
+        //             benchmarks.UiFramework_Async();
+        //         }
+        //     });
+        //     
+        //     var b = Task.Run(() =>
+        //     {
+        //         for (int i = 0; i < 65536; i++)
+        //         {
+        //             benchmarks.UiFramework_CreateContainer();
+        //         }
+        //     });
+        //
+        //     Task.WaitAll(a, b);
+        // }
 
-        
+#if BENCHMARKS
         ManualConfig config = DefaultConfig.Instance.AddJob(Job.Default
             .WithToolchain(InProcessEmitToolchain.Instance)
             .WithIterationCount(10))
             .WithOptions(ConfigOptions.DisableOptimizationsValidator);
         BenchmarkRunner.Run<Benchmarks>(config, args);
-#elif DEBUG
-        
-        
 #endif
     }
 }

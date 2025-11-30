@@ -31,6 +31,7 @@ internal static class UnitTestHelpers
         public string Description => "Unit Test Description";
         public string Author => "MJSU";
         public VersionNumber Version => new(1, 0, 0);
+        public bool IsLoaded => true;
         public UiPluginPool PluginPool { get; set; }
     }
 }

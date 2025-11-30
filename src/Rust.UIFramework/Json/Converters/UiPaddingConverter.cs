@@ -21,8 +21,5 @@ public class UiPaddingConverter : JsonConverter
         };
     }
 
-    public override bool CanConvert(Type objectType)
-    {
-        return objectType == typeof(UiPadding);
-    }
+    public override bool CanConvert(Type objectType) => objectType == typeof(UiPadding);
 }

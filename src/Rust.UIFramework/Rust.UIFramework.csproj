@@ -5,8 +5,8 @@
         <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
         <AssemblyName>Oxide.Ext.UiFramework</AssemblyName>
         <RootNamespace>Oxide.Ext.UiFramework</RootNamespace>
-        <Configurations>Release;Debug;Benchmarks;Unit Tests</Configurations>
-        <Platforms>Oxide</Platforms>
+        <Configurations>Debug;Release</Configurations>
+        <Platforms>Unit Tests;UiFramework;Benchmarks</Platforms>
         <AssemblyVersion>$(VERSION)</AssemblyVersion>
         <FileVersion>$(VERSION)</FileVersion>
         <TargetFrameworks>net48;netstandard2.1;netcoreapp3.0</TargetFrameworks>
@@ -15,26 +15,6 @@
         <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
         <CompilerGeneratedFilesOutputPath>.\Generated</CompilerGeneratedFilesOutputPath>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    </PropertyGroup>
-    
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|Oxide' ">
-      <DefineConstants>TRACE;DEBUG;OXIDE;SERVER;</DefineConstants>
-    </PropertyGroup>
-    
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|Oxide' ">
-      <DefineConstants>TRACE;OXIDE;SERVER;</DefineConstants>
-      <NoWarn>1701;1702;</NoWarn>
-    </PropertyGroup>
-
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Benchmarks|Oxide' ">
-      <DefineConstants>TRACE;BENCHMARKS;OXIDE;</DefineConstants>
-      <Optimize>true</Optimize>
-      <NoWarn>1701;1702;EPS06</NoWarn>
-    </PropertyGroup>
-
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Unit Tests|Oxide' ">
-      <DefineConstants>TRACE; UNIT_TESTS;</DefineConstants>
-      <NoWarn>1701;1702;EPS06</NoWarn>
     </PropertyGroup>
     
     <ItemGroup>
@@ -230,6 +210,30 @@
         <MSBuildWarningsAsMessages>
             MSB3277;
         </MSBuildWarningsAsMessages>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|Benchmarks' ">
+      <DefineConstants>TRACE;DEBUG;BENCHMARKS</DefineConstants>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|UiFramework' ">
+      <DefineConstants>TRACE;DEBUG</DefineConstants>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|Unit Tests' ">
+      <DefineConstants>TRACE;DEBUG;UNIT_TESTS</DefineConstants>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|Benchmarks' ">
+      <DefineConstants>TRACE;BENCHMARKS</DefineConstants>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|UiFramework' ">
+      <DefineConstants>TRACE;SERVER</DefineConstants>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|Unit Tests' ">
+      <DefineConstants>TRACE;UNIT_TESTS</DefineConstants>
     </PropertyGroup>
 
 

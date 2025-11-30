@@ -31,9 +31,9 @@ public class ImageDownloadAnimationTests
         //     
         // builder.Animate(panel).Duration(5f).AnimateField(p => p.RectTransform.AsTrackable().Position).Lerp(new UiPosition(0.5f, -0.5f, 0.5f, -0.5f), UiPosition.MiddleMiddle).Ease();
 
-        Easing a = EasingFunctions.Ease;
-        Easing b = new ConfigurableBezier(new Vector2(0, 0), new Vector2(0.25f, 0.1f), new Vector2(0.25f, 1f), new Vector2(1f, 1f)).ToEasing();
-        Easing c = new ConfigurableBezier(new Vector2(0,0), new Vector2(0.05f, 0), new Vector2(0.133333f, 0.06f), new Vector2(0.166666f, 0.4f), new Vector2(0.208333f, 0.82f), new Vector2(0.25f, 1), new Vector2(1, 1)).ToEasing();
+        Oxide.Ext.UiFramework.Animation.TimingFunction a = TimingFunctions.Ease;
+        Oxide.Ext.UiFramework.Animation.TimingFunction b = new ConfigurableBezier(new Vector2(0, 0), new Vector2(0.25f, 0.1f), new Vector2(0.25f, 1f), new Vector2(1f, 1f)).ToTiming();
+        Oxide.Ext.UiFramework.Animation.TimingFunction c = new ConfigurableBezier(new Vector2(0,0), new Vector2(0.05f, 0), new Vector2(0.133333f, 0.06f), new Vector2(0.166666f, 0.4f), new Vector2(0.208333f, 0.82f), new Vector2(0.25f, 1), new Vector2(1, 1)).ToTiming();
 
         var sampleA = a.Sample();
         var sampleB = b.Sample();

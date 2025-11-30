@@ -4,7 +4,7 @@ using Oxide.Ext.UiFramework.Libraries;
 
 namespace Oxide.Ext.UiFramework.Threading;
 
-public class UiDestroyRequest : BaseUiRequest, IUiRequest
+internal class UiDestroyRequest : BaseUiRequest, IUiRequest
 {
     public string Name;
     

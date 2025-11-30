@@ -4,14 +4,17 @@ using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 using Newtonsoft.Json;
+using Oxide.Ext.UiFramework.Animation;
 using Oxide.Ext.UiFramework.Exceptions;
+using Oxide.Ext.UiFramework.Json;
+using Oxide.Ext.UiFramework.Types;
 using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Colors;
 
 [JsonConverter(typeof(UiColorConverter))]
 [DebuggerDisplay("{ToHtmlColor()}")]
-public readonly struct UiColor : IEquatable<UiColor>
+public readonly struct UiColor : IEquatable<UiColor>, IUiConvertable<UiColor, UiOpacity>
 {
     #region Fields
     public readonly byte RedB;
@@ -100,35 +103,23 @@ public readonly struct UiColor : IEquatable<UiColor>
 
     #region Modifiers
     [Pure]
-    public UiColor WithAlpha(byte alpha)
-    {
-        return new UiColor(RedB, GreenB, BlueB, alpha);
-    }
-        
-    [Pure]
-    public UiColor WithAlpha(string hex)
-    {
-        return WithAlpha(byte.Parse(hex, NumberStyles.HexNumber));
-    }
+    public UiColor WithAlpha(byte alpha) => new(RedB, GreenB, BlueB, alpha);
 
     [Pure]
-    public UiColor WithAlpha(int alpha)
-    {
-        return WithAlpha((byte)Mathf.Clamp(alpha, 0, byte.MaxValue));
-    }
+    public UiColor WithAlpha(string hex) => WithAlpha(byte.Parse(hex, NumberStyles.HexNumber));
 
     [Pure]
-    public UiColor WithAlpha(float alpha)
-    {
-        return WithAlpha((byte)Mathf.Clamp(alpha * 255f, 0, byte.MaxValue));
-    }
-        
+    public UiColor WithAlpha(int alpha) => WithAlpha((byte)Mathf.Clamp(alpha, 0, byte.MaxValue));
+
     [Pure]
-    public UiColor MultiplyAlpha(float alpha)
-    {
-        return WithAlpha((byte)Mathf.Clamp(AlphaB * alpha, 0, byte.MaxValue));
-    }
-        
+    public UiColor WithAlpha(float alpha) => WithAlpha((byte)Mathf.Clamp(alpha * 255f, 0, byte.MaxValue));
+    
+    [Pure]
+    public UiColor WithOpacity(UiOpacity opacity) => MultiplyAlpha(opacity.Value);
+
+    [Pure]
+    public UiColor MultiplyAlpha(float alpha) => WithAlpha((byte)Mathf.Clamp(AlphaB * alpha, 0, byte.MaxValue));
+
     [Pure]
     public UiColor ToGrayScale()
     {
@@ -174,6 +165,8 @@ public readonly struct UiColor : IEquatable<UiColor>
     {
         return start + (end - start) * value;
     }
+    
+    UiColor IUiConvertable<UiColor, UiOpacity>.Convert(UiOpacity from) => WithOpacity(from);
     #endregion
 
     #region Formats

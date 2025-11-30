@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Diagnostics.Contracts;
 using Newtonsoft.Json;
-using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Json;
+using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Types;
 
 [JsonConverter(typeof(UiRotationConverter))]
-public readonly struct UiRotation(float rotation) : IEquatable<UiRotation>
+public readonly record struct UiRotation(float Rotation)
 {
     public static readonly UiRotation Zero = new(0);
     public static readonly UiRotation Twelfth = new(FullRotation / 12);
@@ -24,8 +24,6 @@ public readonly struct UiRotation(float rotation) : IEquatable<UiRotation>
     public static readonly UiRotation Full = new(FullRotation);
 
     private const float FullRotation = 360f;
-    
-    public readonly float Rotation = rotation;
 
     [Pure]
     public UiRotation RotateRight(float rotation) => new(Rotation + rotation);
@@ -45,8 +43,8 @@ public readonly struct UiRotation(float rotation) : IEquatable<UiRotation>
     [Pure]
     public UiRotation Reverse() => (this + Half).Normalize();
 
-    public static UiRotation Lerp(UiRotation a, UiRotation b, float t) => new(FloatExt.Lerp(a.Rotation, b.Rotation, t));
-    public static UiRotation LerpUnclamped(UiRotation a, UiRotation b, float t) => new(FloatExt.LerpUnclamped(a.Rotation, b.Rotation, t));
+    public static UiRotation Lerp(UiRotation a, UiRotation b, float t) => new(Mathf.Lerp(a.Rotation, b.Rotation, t));
+    public static UiRotation LerpUnclamped(UiRotation a, UiRotation b, float t) => new(Mathf.LerpUnclamped(a.Rotation, b.Rotation, t));
     
     public static UiRotation Parse(string str) => new(float.Parse(str));
     public static UiRotation Parse(ReadOnlySpan<char> span) => new(float.Parse(span));
@@ -65,16 +63,34 @@ public readonly struct UiRotation(float rotation) : IEquatable<UiRotation>
     }
 
     public static UiRotation operator +(UiRotation lhs, UiRotation rhs) => new(lhs.Rotation + rhs.Rotation);
+    public static UiRotation operator +(UiRotation lhs, float rhs) => new(lhs.Rotation + rhs);
     public static UiRotation operator -(UiRotation lhs, UiRotation rhs) => new(lhs.Rotation - rhs.Rotation);
+    public static UiRotation operator -(UiRotation lhs, float rhs) => new(lhs.Rotation - rhs);
     public static UiRotation operator *(UiRotation lhs, float rhs) => new(lhs.Rotation * rhs);
     public static UiRotation operator *(UiRotation lhs, UiRotation rhs) => new(lhs.Rotation * (rhs.Rotation / Full.Rotation));
     public static UiRotation operator /(UiRotation lhs, float rhs) => new(lhs.Rotation / rhs);
-    public static UiRotation operator /(UiRotation lhs, UiRotation rhs) => new((lhs.Rotation * Full.Rotation) / rhs.Rotation);
-    public static bool operator ==(UiRotation lhs, UiRotation rhs) => lhs.Equals(rhs);
-    public static bool operator !=(UiRotation lhs, UiRotation rhs) => !(lhs == rhs);
+    public static UiRotation operator /(UiRotation lhs, UiRotation rhs) => new(lhs.Rotation * Full.Rotation / rhs.Rotation);
+    public static UiRotation operator -(UiRotation rotation) => new(-rotation.Rotation);
+    public override string ToString() => $"{Rotation}°";
+}
 
-    public bool Equals(UiRotation other) => Rotation.Equals(other.Rotation);
-    public override bool Equals(object obj) => obj is UiRotation other && Equals(other);
-    public override int GetHashCode() => Rotation.GetHashCode();
-    public override string ToString() => Rotation.ToString();
+public static class UiRotationExt
+{
+    extension(int value)
+    {
+        public UiRotation Degrees() => new(value);
+        public UiRotation Radians() => new(value * Mathf.Rad2Deg);
+    }
+    
+    extension(float value)
+    {
+        public UiRotation Degrees() => new(value);
+        public UiRotation Radians() => new(value * Mathf.Rad2Deg);
+    }
+    
+    extension(double value)
+    {
+        public UiRotation Degrees() => new((float)value);
+        public UiRotation Radians() => new((float)(value * Mathf.Rad2Deg));
+    }
 }

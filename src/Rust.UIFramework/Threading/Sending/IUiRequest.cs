@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Oxide.Ext.UiFramework.Threading.UiChannel;
 
 namespace Oxide.Ext.UiFramework.Threading;
 
-public interface IUiRequest : IDisposable
+internal interface IUiRequest : IChannelObject
 {
     public void SendRequest();
 }

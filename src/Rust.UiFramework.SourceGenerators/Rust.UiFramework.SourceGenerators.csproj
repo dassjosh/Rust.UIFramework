@@ -11,6 +11,8 @@
 
         <RootNamespace>Rust.UiFramework.SourceGenerators</RootNamespace>
         <PackageId>Rust.UiFramework.SourceGenerators</PackageId>
+        <Configurations>Debug;Release;Benchmarks Debug</Configurations>
+        <Platforms>AnyCPU;UiFramework;Unit Tests;Benchmarks</Platforms>
     </PropertyGroup>
 
     <ItemGroup>

@@ -60,7 +60,8 @@ public static class JsonDefaults
         public static readonly Utf8String SetTransformIndexName = "setTransformIndex";
         public const int SetTransformIndex = -1;
         
-        public static readonly UiScale Scale = new(1, 1);
+        public static readonly UiScale Scale = UiScale.Default;
+        public static readonly UiTranslate Translate = UiTranslate.DistanceDefault;
     }
 
     public static class Color

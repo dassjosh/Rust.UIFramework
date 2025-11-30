@@ -107,7 +107,7 @@ internal class UiFrameworkConfig : ConfigFile
         }
         catch (Exception ex)
         {
-            Interface.Oxide.LogException($"[UiFramework] Failed to load config file. Using default config. {ex}", ex);
+            OxideLibrary.LogException($"[UiFramework] Failed to load config file. Using default config. {ex}", ex);
             ApplyDefaults();
         }
     }

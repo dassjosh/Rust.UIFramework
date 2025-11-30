@@ -20,7 +20,7 @@ public class UiBorder : BaseUiControl
     public static UiBorder Create(BaseUiBuilder builder, in UiReference parent, UiColor color, in UiBorderWidth width, BorderMode border = BorderMode.All)
     {
         UiBorder control = CreateControl<UiBorder>(builder);
-        if (width.IsEmpty())
+        if (width.IsDefault())
         {
             return control;
         }

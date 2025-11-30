@@ -135,6 +135,17 @@ public abstract class BasePool<TPooled, TPool> : IPool<TPooled>
 
         lock (_lock)
         {
+#if DEBUG
+            for (int index = 0; index < _pool.Length; index++)
+            {
+                TPooled pooled = _pool[index];
+                if (pooled == item)
+                {
+                    throw new Exception();
+                }
+            }
+#endif
+
             if (_index != 0)
             {
                 _pool[--_index] = item;

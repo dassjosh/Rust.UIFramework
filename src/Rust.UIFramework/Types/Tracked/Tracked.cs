@@ -121,15 +121,3 @@ public class Tracked<T> : ITracked<T>, ITracked
         _value = _defaultValue;
     }
 }
-
-public interface ITracked<T>
-{
-    T Value { get; set; }
-}
-
-public interface ITracked
-{
-    bool HasChanged { get; }
-    bool IsDefaultValue { get; }
-    bool IsSerializationDefault { get; }
-}

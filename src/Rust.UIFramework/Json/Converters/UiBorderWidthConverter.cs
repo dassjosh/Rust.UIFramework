@@ -21,8 +21,5 @@ public class UiBorderWidthConverter : JsonConverter
         };
     }
 
-    public override bool CanConvert(Type objectType)
-    {
-        return objectType == typeof(UiBorderWidth);
-    }
+    public override bool CanConvert(Type objectType) => objectType == typeof(UiBorderWidth);
 }

@@ -12,7 +12,7 @@ public interface IAnimation : IAnimationTick, IAnimationStarted, IPoolable
     AnimationState State { get; }
     IAnimationDuration Duration { get; set; }
     IAnimationRepeat Repeat { get; set; }
-    Easing Easing { get; set; }
+    TimingFunction Timing { get; set; }
     IAnimationInterpolator Interpolator { get; set; }
     IAnimationDelay Delay { get; set; }
     IAnimationTimeout Timeout { get; set; }

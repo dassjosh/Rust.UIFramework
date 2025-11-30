@@ -43,19 +43,15 @@ public sealed class JsonFrameworkWriter : BasePoolable
 
     private bool _propertyComma;
     private bool _objectComma;
-        
-    private JsonUtf8Writer _writer;
 
-    private void Init()
-    {
-        _writer = PluginPool.Get<JsonUtf8Writer>();
-    }
+    private readonly JsonUtf8Writer _writer = new();
 
-    public static JsonFrameworkWriter Create(IUiFrameworkPlugin plugin)
+    public static JsonFrameworkWriter Create(IUiFrameworkPlugin plugin) => plugin.PluginPool.Get<JsonFrameworkWriter>().Init();
+
+    private JsonFrameworkWriter Init()
     {
-        JsonFrameworkWriter writer = plugin.PluginPool.Get<JsonFrameworkWriter>();
-        writer.Init();
-        return writer;
+        _writer.Init();
+        return this;
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -88,24 +84,6 @@ public sealed class JsonFrameworkWriter : BasePoolable
         WritePropertyName(name);
         WriteValue(value);
     }
-    
-    public void AddFieldRaw(in Utf8String name, int value)
-    {
-        WritePropertyName(name);
-        WriteValue(value);
-    }
-    
-    public void AddFieldRaw(in Utf8String name, ulong value)
-    {
-        WritePropertyName(name);
-        WriteValue(value);
-    }
-    
-    public void AddFieldRaw(in Utf8String name, float value)
-    {
-        WritePropertyName(name);
-        WriteValue(value);
-    }
 
     public void AddFieldRaw(in Utf8String name, bool value)
     {
@@ -119,25 +97,13 @@ public sealed class JsonFrameworkWriter : BasePoolable
         WriteValue(color);
     }
     
-    public void AddFieldRaw(in Utf8String name, Vector2 value)
-    {
-        WritePropertyName(name);
-        WriteValue(value);
-    }
-    
-    public void AddFieldRaw<T>(in Utf8String name, T value) where T : unmanaged, Enum
+    private void AddFieldRaw<T>(in Utf8String name, T value) where T : unmanaged, Enum
     {
         WritePropertyName(name);
         WriteValue(Utf8EnumCache<T>.ToUtf8Number(value));
     }
     
-    public void AddFieldRaw(in Utf8String name, in UiBorderWidth value)
-    {
-        WritePropertyName(name);
-        WriteValue(value);
-    }
-    
-    public void AddField(in Utf8String name, Vector2 value, Vector2 defaultValue)
+    private void AddField(in Utf8String name, Vector2 value, Vector2 defaultValue)
     {
         if (value != defaultValue)
         {
@@ -604,8 +570,7 @@ public sealed class JsonFrameworkWriter : BasePoolable
     {
         _objectComma = false;
         _propertyComma = false;
-        _writer.Dispose();
-        _writer = null;
+        _writer.Reset();
     }
 
     public void WriteToStream(Stream stream)

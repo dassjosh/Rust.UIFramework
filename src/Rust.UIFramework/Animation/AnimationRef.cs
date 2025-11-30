@@ -4,20 +4,32 @@ using Oxide.Ext.UiFramework.Plugins;
 
 namespace Oxide.Ext.UiFramework.Animation;
 
-public readonly struct AnimationRef<T>(T animation) where T : class, IAnimation
+public readonly record struct AnimationRef<T>(T Animation) where T : class, IAnimation
 {
-    public readonly AnimationId Id = animation.Id.IsValid ? animation.Id : throw new AnimationException("Animation is no longer valid.");
+    public readonly AnimationId Id = Animation.Id.IsValid ? Animation.Id : throw new AnimationException("Animation is no longer valid.");
 
-    public T Animation { [MethodImpl(MethodImplOptions.AggressiveInlining)] get => IsValid ? animation : throw new AnimationException($"Animation ID: {Id} is no longer valid."); } 
-    public bool IsValid { [MethodImpl(MethodImplOptions.AggressiveInlining)] get => animation is not null && animation.Id == Id; }
+    public T Animation { [MethodImpl(MethodImplOptions.AggressiveInlining)] get => IsValid ? Animation : throw new AnimationException($"Animation ID: {Id} is no longer valid."); } 
+    public bool IsValid { [MethodImpl(MethodImplOptions.AggressiveInlining)] get => Animation is not null && Animation.Id == Id; }
     public IUiFrameworkPlugin Plugin { [MethodImpl(MethodImplOptions.AggressiveInlining)] get => Animation.Plugin; }
-    internal Easing Easing => IsValid ? Animation.Easing : EasingFunctions.Linear;
+    internal TimingFunction TimingFunction => IsValid ? Animation.Timing : TimingFunctions.Linear;
 
+    public bool TryGetAnimation(out T animation)
+    {
+        if (IsValid)
+        {
+            animation = Animation;
+            return true;
+        }
+
+        animation = default;
+        return false;
+    }
+    
     public void CancelAnimation()
     {
         if (IsValid)
         {
-            animation.CancelAnimation();
+            Animation.CancelAnimation();
         }
     }
     
@@ -25,7 +37,7 @@ public readonly struct AnimationRef<T>(T animation) where T : class, IAnimation
     {
         if (IsValid)
         {
-            animation.CompleteAnimation();
+            Animation.CompleteAnimation();
         }
     }
     
@@ -33,7 +45,7 @@ public readonly struct AnimationRef<T>(T animation) where T : class, IAnimation
     {
         if (IsValid)
         {
-            animation.TimeoutAnimation();
+            Animation.TimeoutAnimation();
         }
     }
 }

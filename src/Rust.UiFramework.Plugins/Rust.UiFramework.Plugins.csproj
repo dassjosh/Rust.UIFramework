@@ -5,23 +5,10 @@
         <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
         <AssemblyName>Oxide.Ext.UiFramework.Plugins</AssemblyName>
         <RootNamespace>Oxide.Ext.UiFramework.Plugins</RootNamespace>
-        <Configurations>Release;Debug;Benchmarks;Unit Tests</Configurations>
-        <Platforms>Oxide</Platforms>
+        <Configurations>Debug;Release</Configurations>
+        <Platforms>Unit Tests;UiFramework;Benchmarks</Platforms>
         <TargetFrameworks>net48;</TargetFrameworks>
         <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
-    </PropertyGroup>
-
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|Oxide' ">
-        <DefineConstants>TRACE;DEBUG;OXIDE</DefineConstants>
-    </PropertyGroup>
-
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|Oxide' ">
-        <DefineConstants>TRACE;OXIDE</DefineConstants>
-    </PropertyGroup>
-
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Benchmarks|Oxide' ">
-        <DefineConstants>TRACE;BENCHMARKS;OXIDE</DefineConstants>
-        <Optimize>true</Optimize>
     </PropertyGroup>
 
     <ItemGroup>

@@ -38,7 +38,7 @@ public enum AnimationEventType : byte
     Timeout,
     
     /// <summary>
-    /// Animation has been finalized. Either the animation was completed, was canceled, or timed out
+    /// Animation has been finalized. Either the animation was completed, canceled, or timed out
     /// </summary>
     Finalized
 }

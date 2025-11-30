@@ -44,16 +44,10 @@ public class ConfigurableBezier
     }
     
     // Evaluate only the Y value at parameter t
-    public float GetY(float t)
-    {
-        return Get(_controlPointsY, t);
-    }
+    public float GetY(float t) => Get(_controlPointsY, t);
 
     // Evaluate only the X value at parameter t
-    public float BezierX(float t)
-    {
-        return Get(_controlPointsX, t);
-    }
+    public float BezierX(float t) => Get(_controlPointsX, t);
 
     // Evaluate Y value given an X input using Newton-Raphson iteration
     public float SolveY(float t)
@@ -84,8 +78,7 @@ public class ConfigurableBezier
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static float Lerp(float start, float end, float t) => start + (end - start) * t;
-
-
-    public static implicit operator Easing(ConfigurableBezier bezier) => bezier.SolveY;
-    public Easing ToEasing() => SolveY;
+    
+    public static implicit operator TimingFunction(ConfigurableBezier bezier) => bezier.SolveY;
+    public TimingFunction ToTiming() => SolveY;
 }

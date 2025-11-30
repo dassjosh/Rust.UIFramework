@@ -3,7 +3,7 @@
   "AllowSwapping": false,
   "ComponentType": "Draggable",
   "DragAlpha": 1.0,
-  "DropAnywhere": false,
+  "DropAnywhere": true,
   "Enabled": true,
   "KeepOnTop": false,
   "LimitToParent": false,

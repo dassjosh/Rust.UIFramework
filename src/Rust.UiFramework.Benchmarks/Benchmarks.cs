@@ -4,7 +4,7 @@ using Oxide.Ext.UiFramework.UiElements;
 
 namespace Rust.UiFramework.Benchmarks;
 
-#if BENCHMARKS || DEBUG
+#if (BENCHMARKS)
 using BenchmarkDotNet.Attributes;
 using Network;
 using Oxide.Ext.UiFramework.Builder;
@@ -101,30 +101,22 @@ public class Benchmarks
         }
     }
 
-    [Benchmark(Baseline = true)]
-    public string FastEnumCache()
-    {
-        return FastEnumCache<UiLayer>.ToString(UiLayer.Contacts);
-    }
-    
-    [Benchmark()]
-    public string EnumCache()
-    {
-        return EnumCache<UiLayer>.ToString(UiLayer.Contacts);
-    }
+    // [Benchmark(Baseline = true)]
+    // public string FastEnumCache()
+    // {
+    //     return FastEnumCache<UiLayer>.ToString(UiLayer.Contacts);
+    // }
+    //
+    // [Benchmark()]
+    // public string EnumCache()
+    // {
+    //     return EnumCache<UiLayer>.ToString(UiLayer.Contacts);
+    // }
     
     //[Benchmark]
     public CuiElementContainer Oxide_CreateContainer()
     {
         return GetOxideContainer();
-    }
-
-    //[Benchmark(Baseline = false)]
-    public UiBuilder UiFramework_CreateContainer()
-    {
-        UiBuilder builder = GetFrameworkBuilder();
-        builder.Dispose();
-        return builder;
     }
     
     //[Benchmark]
@@ -186,48 +178,56 @@ public class Benchmarks
         builder.AddUi(default(SendInfo));
     }
     
-    //[Benchmark(Baseline = true)]
+    [Benchmark(Baseline = true)]
     public UiBuilder UiFramework_Async()
     {
         UiBuilder builder = GetFrameworkBuilder();
-        //builder.AddUi(default(SendInfo));
+        builder.AddUi(default(SendInfo));
+        //builder.Dispose();
+        return builder;
+    }
+    
+    [Benchmark(Baseline = false)]
+    public UiBuilder UiFramework_CreateContainer()
+    {
+        UiBuilder builder = GetFrameworkBuilder();
         builder.Dispose();
         return builder;
     }
     
-    //[Benchmark]
-    public void Oxide_Async()
-    {
-        CuiElementContainer builder = GetOxideContainer();
-        builder.AddUiAsync(_connection);
-    }
-    
-    //[Benchmark(Baseline = false)]
-    public void UiFramework_Full()
-    {
-        UiBuilder builder = GetFrameworkBuilder();
-        JsonFrameworkWriter writer = builder.CreateWriter();
-        BenchmarkNetWrite write = Pool.Get<BenchmarkNetWrite>();
-        writer.WriteToNetwork(write);
-        writer.Dispose();
-        Pool.Free(ref write);
-        builder.Dispose();
-    }
-    
-    //[Benchmark(Baseline = false)]
-    public byte[] Oxide_Full()
-    {
-        CuiElementContainer builder = GetOxideContainer();
-        string json = builder.ToJson();
-        return Encoding.UTF8.GetBytes(json);
-    }
+    // [Benchmark]
+    // public void Oxide_Async()
+    // {
+    //     CuiElementContainer builder = GetOxideContainer();
+    //     builder.AddUiAsync(_connection);
+    // }
+    //
+    // [Benchmark(Baseline = false)]
+    // public void UiFramework_Full()
+    // {
+    //     UiBuilder builder = GetFrameworkBuilder();
+    //     JsonFrameworkWriter writer = builder.CreateWriter();
+    //     BenchmarkNetWrite write = Pool.Get<BenchmarkNetWrite>();
+    //     writer.WriteToNetwork(write);
+    //     writer.Dispose();
+    //     Pool.Free(ref write);
+    //     builder.Dispose();
+    // }
+    //
+    // [Benchmark(Baseline = false)]
+    // public byte[] Oxide_Full()
+    // {
+    //     CuiElementContainer builder = GetOxideContainer();
+    //     string json = builder.ToJson();
+    //     return Encoding.UTF8.GetBytes(json);
+    // }
     
     public CuiElementContainer GetOxideContainer()
     {
         CuiElementContainer container = new();
         for (int i = 0; i < Iterations; i++)
         {
-            int mode = _random.Next(7);
+            int mode = i % 7;
             switch (mode)
             {
                 case 0:

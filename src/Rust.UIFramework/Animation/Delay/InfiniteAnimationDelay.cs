@@ -1,13 +1,12 @@
-﻿using Oxide.Ext.UiFramework.Plugins;
-using Oxide.Ext.UiFramework.Pooling;
+﻿namespace Oxide.Ext.UiFramework.Animation;
 
-namespace Oxide.Ext.UiFramework.Animation;
-
-public class InfiniteAnimationDelay : BasePoolable, IAnimationDelay
+public class InfiniteAnimationDelay : IAnimationDelay
 {
     public bool IsDelayed => true;
+
+    public static readonly InfiniteAnimationDelay Instance = new();
     
-    public static InfiniteAnimationDelay Create(IUiFrameworkPlugin plugin) => plugin.PluginPool.Get<InfiniteAnimationDelay>(); 
+    private InfiniteAnimationDelay() { }
     
     public void OnStarted() {}
     public void OnTick() { }

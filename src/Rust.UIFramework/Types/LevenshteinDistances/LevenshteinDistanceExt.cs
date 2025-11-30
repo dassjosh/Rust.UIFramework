@@ -5,12 +5,15 @@ namespace Oxide.Ext.UiFramework.Types;
 public static class LevenshteinDistanceExt
 {
     private static readonly ConcurrentDictionary<LevenshteinDistanceKey, LevenshteinDistance> Interpolators = new();
-    
-    public static string Lerp(string start, string end, float value)
+
+    extension(LevenshteinDistance)
     {
-        LevenshteinDistanceKey key = new(start, end);
-        LevenshteinDistance interpolator = Interpolators.GetOrAdd(key, CreateNew);
-        return interpolator.GetFrame(value);
+        public static string Lerp(string start, string end, float value)
+        {
+            LevenshteinDistanceKey key = new(start, end);
+            LevenshteinDistance interpolator = Interpolators.GetOrAdd(key, CreateNew);
+            return interpolator.GetFrame(value);
+        }
     }
 
 #pragma warning disable EPS05

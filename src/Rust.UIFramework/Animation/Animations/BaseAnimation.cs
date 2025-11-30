@@ -17,7 +17,7 @@ public abstract class BaseAnimation : BasePoolable, IAnimation
     public AnimationState State { get; private set; }
     public IAnimationDuration Duration { get; set; }
     public IAnimationRepeat Repeat { get; set; }
-    public Easing Easing { get; set; }
+    public TimingFunction Timing { get; set; }
     public IAnimationInterpolator Interpolator { get; set; }
     public IAnimationDelay Delay { get; set; }
     public IAnimationTimeout Timeout { get; set; }
@@ -237,15 +237,15 @@ public abstract class BaseAnimation : BasePoolable, IAnimation
         if (Duration != null)
         {
             progress = Duration.ElapsedPercentage;
-            if (Easing == null)
+            if (Timing == null)
             {
                 UiFrameworkExtension.GlobalLogger.Debug("Animation {0} GetProgress {1:0.00}%", Id.Id, progress * 100f);
                 return progress;
             }
             
             float previous = progress;
-            progress = Easing(progress);
-            UiFrameworkExtension.GlobalLogger.Debug("Animation {0} GetProgress Easing {1:0.00}% -> {2:0.00}%", Id.Id, previous * 100f, progress * 100f);
+            progress = Timing(progress);
+            UiFrameworkExtension.GlobalLogger.Debug("Animation {0} GetProgress Timing {1:0.00}% -> {2:0.00}%", Id.Id, previous * 100f, progress * 100f);
             return progress;
         }
         
@@ -289,7 +289,7 @@ public abstract class BaseAnimation : BasePoolable, IAnimation
         Duration = default;
         Repeat.TryReturnToPool();
         Repeat = default;
-        Easing = default;
+        Timing = default;
         Interpolator.TryReturnToPool();
         Interpolator = default;
         Delay.TryReturnToPool();

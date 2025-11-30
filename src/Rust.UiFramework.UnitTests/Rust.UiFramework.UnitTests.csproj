@@ -5,17 +5,11 @@
         <IsPackable>false</IsPackable>
         <ImplicitUsings>enable</ImplicitUsings>
         <LangVersion>14</LangVersion>
-        <Configurations>Release;Benchmarks;Debug;Unit Tests</Configurations>
-        <Platforms>Oxide</Platforms>
+        <Configurations>Debug;Release</Configurations>
+        <Platforms>Unit Tests;Benchmarks;UiFramework</Platforms>
         <TargetFramework>net9.0</TargetFramework>
         <OutputType>Library</OutputType>
         <DebugType>portable</DebugType>
-    </PropertyGroup>
-
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Unit Tests|Oxide' ">
-      <DefineConstants>TRACE; UNIT_TESTS</DefineConstants>
-      <PlatformTarget>x64</PlatformTarget>
-      <OutputPath>bin\Oxide\UnitTests\</OutputPath>
     </PropertyGroup>
 
     <ItemGroup>

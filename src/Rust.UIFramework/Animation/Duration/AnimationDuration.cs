@@ -11,7 +11,13 @@ public class AnimationDuration : BasePoolable, IAnimationDuration
 
     private float _startTime;
     
-    public static IAnimationDuration Create(IUiFrameworkPlugin plugin) => plugin.PluginPool.Get<AnimationDuration>();
+    public static AnimationDuration Create(IUiFrameworkPlugin plugin, float duration) => plugin.PluginPool.Get<AnimationDuration>().Init(duration);
+
+    protected AnimationDuration Init(float duration)
+    {
+        Duration = duration;
+        return this;
+    }
     
     public void OnStarted()
     {

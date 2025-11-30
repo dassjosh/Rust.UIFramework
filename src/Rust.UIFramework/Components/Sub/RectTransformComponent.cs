@@ -18,15 +18,21 @@ public partial class RectTransformComponent : SubComponent, IRectTransformCompon
     
     protected override void WriteComponentFields(JsonFrameworkWriter writer, SerializeMode mode)
     {
-        if (_position.ShouldSerialize(mode) || _positionPadding.ShouldSerialize(mode) || _positionScale.ShouldSerialize(mode))
+        if (_position.ShouldSerialize(mode) 
+            || _positionPadding.ShouldSerialize(mode) 
+            || _positionScale.ShouldSerialize(mode) 
+            || _positionTranslate.ShouldSerialize(mode))
         {
-            UiPosition position = Position.Scale(_positionScale.Value).WithPadding(PositionPadding);
+            UiPosition position = Position.Translate(PositionTranslate).Scale(PositionScale).WithPadding(PositionPadding);
             writer.AddField(position, mode);
         }
         
-        if (_offset.ShouldSerialize(mode) || _offsetPadding.ShouldSerialize(mode) || _offsetScale.ShouldSerialize(mode))
+        if (_offset.ShouldSerialize(mode) 
+            || _offsetPadding.ShouldSerialize(mode) 
+            || _offsetScale.ShouldSerialize(mode) 
+            || _offsetTranslate.ShouldSerialize(mode))
         {
-            UiOffset offset = Offset.Scale(OffsetScale).WithPadding(OffsetPadding);
+            UiOffset offset = Offset.Translate(OffsetTranslate).Scale(OffsetScale).WithPadding(OffsetPadding);
             writer.AddField(offset, mode);
         }
         

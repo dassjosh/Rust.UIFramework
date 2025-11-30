@@ -11,7 +11,14 @@ public class AnimationTimeout : BasePoolable, IAnimationTimeout
     public bool HasTimedOut => AnimationTime.CurrentTime - _startTime >= Timeout;
     private float _startTime;
     
-    public static AnimationTimeout Create(IUiFrameworkPlugin plugin) => plugin.PluginPool.Get<AnimationTimeout>();
+    public static AnimationTimeout Create(IUiFrameworkPlugin plugin, float timeout, AnimationTimeoutAction action) => plugin.PluginPool.Get<AnimationTimeout>().Init(timeout, action);
+    
+    protected AnimationTimeout Init(float timeout, AnimationTimeoutAction action)
+    {
+        Timeout = timeout;
+        Action = action;
+        return this;
+    }
     
     public void OnTick() { }
 

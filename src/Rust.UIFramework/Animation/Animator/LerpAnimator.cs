@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Pooling;
 
@@ -18,6 +19,8 @@ public class LerpAnimator<T> : BasePoolable, IAnimator<T>
         End = end;   
         Lerp = lerp ?? throw new ArgumentNullException(nameof(lerp), "lerp cannot be null. Please pass a valid lerp function.");
     }
+
+    public static LerpAnimator<T> Create(IUiFrameworkPlugin plugin, T start, T end) => Create(plugin, start, end, UiLerp.GetDefaultOrError<T>());
     
     public static LerpAnimator<T> Create(IUiFrameworkPlugin plugin, T start, T end, UiLerp<T> lerp)
         => plugin.PluginPool.Get<LerpAnimator<T>>().Init(start, end, lerp);
@@ -38,4 +41,12 @@ public class LerpAnimator<T> : BasePoolable, IAnimator<T>
         End = default;
         Lerp = null;
     }
-} 
+}
+
+public static class LerpAnimator
+{
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static LerpAnimator<T> Create<T>(IUiFrameworkPlugin plugin, T start, T end) => LerpAnimator<T>.Create(plugin, start, end);
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static LerpAnimator<T> Create<T>(IUiFrameworkPlugin plugin, T start, T end, UiLerp<T> lerp) => LerpAnimator<T>.Create(plugin, start, end, lerp);
+}

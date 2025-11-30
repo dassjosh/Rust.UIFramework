@@ -21,8 +21,5 @@ public class UiRotationConverter : JsonConverter
         };
     }
 
-    public override bool CanConvert(Type objectType)
-    {
-        return objectType == typeof(UiRotation);
-    }
+    public override bool CanConvert(Type objectType) => objectType == typeof(UiRotation);
 }

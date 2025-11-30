@@ -4,7 +4,7 @@ using Oxide.Core;
 using Oxide.Ext.UiFramework.Builder;
 using Oxide.Ext.UiFramework.Config;
 using Oxide.Ext.UiFramework.Threading;
-using Oxide.Ext.UiFramework.Types;
+using Oxide.Ext.UiFramework.Threading.UiChannel;
 using Oxide.Game.Rust.Cui;
 
 namespace Oxide.Ext.UiFramework.Harmony;
@@ -59,8 +59,7 @@ internal static class CuiHelper_AddUi_Patch
         {
             return false;
         }
-        OxideCuiElementsRequest request = OxideCuiElementsRequest.Create(elements, SendInfoBuilder.Get(player));
-        Singleton<SendHandler>.Instance.Enqueue(request);
+        OxideCuiElementsRequest.Create(elements, SendInfoBuilder.Get(player)).Enqueue();
         return false;
     }
     
@@ -70,8 +69,7 @@ internal static class CuiHelper_AddUi_Patch
         {
             return false;
         }
-        OxideCuiJsonRequest request = OxideCuiJsonRequest.Create(json, SendInfoBuilder.Get(player));
-        Singleton<SendHandler>.Instance.Enqueue(request);
+        OxideCuiJsonRequest.Create(json, SendInfoBuilder.Get(player)).Enqueue();
         return false;
     }
 }

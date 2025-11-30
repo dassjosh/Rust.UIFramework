@@ -8,7 +8,14 @@ public class AnimationRepeat : BasePoolable, IAnimationRepeat
     public int Repeats { get; set; }
     public float RepeatDelay { get; set; }
     
-    public static AnimationRepeat Create(IUiFrameworkPlugin plugin) => plugin.PluginPool.Get<AnimationRepeat>();
+    public static AnimationRepeat Create(IUiFrameworkPlugin plugin, int repeats, float repeatDelay) => plugin.PluginPool.Get<AnimationRepeat>().Init(repeats, repeatDelay);
+    
+    protected AnimationRepeat Init(int repeats, float repeatDelay)
+    {
+        Repeats = repeats;
+        RepeatDelay = repeatDelay;
+        return this;
+    }
     
     public bool OnRepeat()
     {

@@ -26,6 +26,12 @@ public interface IRectTransformComponent : ISubComponent
     [TrackedDefaults(typeof(JsonDefaults.RectTransform), nameof(JsonDefaults.RectTransform.Scale))]
     UiScale OffsetScale { get; set; }
     
+    [TrackedDefaults(typeof(JsonDefaults.RectTransform), nameof(JsonDefaults.RectTransform.Translate))]
+    UiTranslate PositionTranslate { get; set; }
+    
+    [TrackedDefaults(typeof(JsonDefaults.RectTransform), nameof(JsonDefaults.RectTransform.Translate))]
+    UiTranslate OffsetTranslate { get; set; }
+    
     [TrackedDefaults(typeof(JsonDefaults.RectTransform), nameof(JsonDefaults.RectTransform.Rotation))]
     UiRotation Rotation { get; set; }
     

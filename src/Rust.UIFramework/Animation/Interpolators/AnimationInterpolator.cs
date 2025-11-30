@@ -4,15 +4,15 @@ using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Animation;
 
-public class Interpolator<T> : BaseInterpolator, IAnimationInterpolator<T>
+public class AnimationInterpolator<T> : BaseAnimationInterpolator, IAnimationInterpolator<T>
 {
     public override bool HasChanged => Field.HasChanged;
     public Tracked<T> Field { get; private set; }
     public IAnimator<T> Animator { get; set; }
     
-    public static Interpolator<T> Create(IUiFrameworkPlugin plugin, Tracked<T> field) => plugin.PluginPool.Get<Interpolator<T>>().Init(field);
+    public static AnimationInterpolator<T> Create(IUiFrameworkPlugin plugin, Tracked<T> field) => plugin.PluginPool.Get<AnimationInterpolator<T>>().Init(field);
     
-    protected Interpolator<T> Init(Tracked<T> field)
+    protected AnimationInterpolator<T> Init(Tracked<T> field)
     {
         Field = field;
         return this;

@@ -2,7 +2,7 @@
 using Network;
 using Oxide.Ext.UiFramework.Builder;
 using Oxide.Ext.UiFramework.Threading;
-using Oxide.Ext.UiFramework.Types;
+using Oxide.Ext.UiFramework.Threading.UiChannel;
 using Oxide.Game.Rust.Cui;
 
 namespace Oxide.Ext.UiFramework.Extensions;
@@ -13,14 +13,20 @@ public static class OxideCuiExt
     {
         public void AddUiAsync(BasePlayer player, string destroyUiName = null)
         {
-            SendInfo send = SendInfoBuilder.Get(player);
-            AddUiAsync(container, send, destroyUiName);
+            if (player && player.IsConnected)
+            {
+                SendInfo send = SendInfoBuilder.Get(player);
+                AddUiAsync(container, send, destroyUiName);
+            }
         }
 
         public void AddUiAsync(Connection connection, string destroyUiName = null)
         {
-            SendInfo send = SendInfoBuilder.Get(connection);
-            AddUiAsync(container, send, destroyUiName);
+            if (connection is { connected: true })
+            {
+                SendInfo send = SendInfoBuilder.Get(connection);
+                AddUiAsync(container, send, destroyUiName);
+            }
         }
 
         public void AddUiAsync(IEnumerable<Connection> connections, string destroyUiName = null)
@@ -37,15 +43,17 @@ public static class OxideCuiExt
 
         public void AddUiAsync(SendInfo send, string destroyUiName = null)
         {
-            OxideCuiContainerRequest request = OxideCuiContainerRequest.Create(container, send, destroyUiName);
-            Singleton<SendHandler>.Instance.Enqueue(request);
+            OxideCuiContainerRequest.Create(container, send, destroyUiName).Enqueue();
         }
     }
 
     public static void DestroyUi(Connection connection, string destroyUiName = null)
     {
-        SendInfo send = SendInfoBuilder.Get(connection);
-        DestroyUi(send, destroyUiName);
+        if (connection is { connected: true })
+        {
+            SendInfo send = SendInfoBuilder.Get(connection);
+            DestroyUi(send, destroyUiName);
+        }
     }
     
     public static void DestroyUi(IEnumerable<Connection> connections, string destroyUiName = null)
@@ -60,8 +68,5 @@ public static class OxideCuiExt
         DestroyUi(send, destroyUiName);
     }
     
-    public static void DestroyUi(SendInfo send, string destroyUiName)
-    {
-        BaseBuilder.DestroyUi(send, destroyUiName);
-    }
+    public static void DestroyUi(SendInfo send, string destroyUiName) => BaseBuilder.DestroyUi(send, destroyUiName);
 }

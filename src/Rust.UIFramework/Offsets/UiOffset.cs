@@ -261,6 +261,17 @@ public readonly struct UiOffset(float xMin, float yMin, float xMax, float yMax) 
         );
     }
     
+    public UiOffset Translate(in UiTranslate translate)
+    {
+        if (!translate.HasTranslate)
+        {
+            return this;
+        }
+
+        (Vector2 min, Vector2 max) = translate.Apply(Min, Max);
+        return new UiOffset(min, max);
+    }
+    
     public static UiOffset Lerp(in UiOffset a, in UiOffset b, float t) => new(Vector2.Lerp(a.Min, b.Min, t), Vector2.Lerp(a.Max, b.Max, t));
     public static UiOffset LerpUnclamped(in UiOffset a, in UiOffset b, float t) => new(Vector2.LerpUnclamped(a.Min, b.Min, t), Vector2.LerpUnclamped(a.Max, b.Max, t));
     

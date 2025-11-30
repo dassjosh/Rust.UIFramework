@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using Network;
 using Oxide.Ext.UiFramework.Animation;
 using Oxide.Ext.UiFramework.Logging;
 using Oxide.Ext.UiFramework.Pooling;
@@ -17,7 +18,18 @@ internal class ImageDownloadAnimationHandler : ISingleton
     internal void QueueUpdate(string url, in AnimationRef<IElementAnimation<UiRawImage>> animation, ImageAnimationOptions options)
     {
         UiFrameworkExtension.GlobalLogger.Debug($"{nameof(QueueUpdate)}: Url: {{0}} Animation: {{1}}", url, animation.Id);
-        CancelPreviousUpdates(animation.Animation.SinglePlayerId(), animation.Animation.Element.Reference);
+        if (animation.Animation.TryGetSinglePlayer(out ulong playerId))
+        {
+            CancelPreviousUpdates(playerId, animation.Animation.Element.Reference);
+        }
+        else
+        {
+            foreach (Connection connection in animation.Animation.Send.connections)
+            {
+                CancelPreviousUpdates(connection.userid, animation.Animation.Element.Reference);
+            }
+        }
+       
         if (!_queuedUpdates.TryGetValue(url, out ImageDownloadAnimations updates))
         {
             _queuedUpdates[url] = updates = UiPool.Internal.Get<ImageDownloadAnimations>().Init(url);
@@ -38,7 +50,7 @@ internal class ImageDownloadAnimationHandler : ISingleton
                     continue;
                 }
                 
-                if (data.Animation.Animation.SinglePlayerId() == playerId && data.Animation.Animation.Element.Reference.Name == reference.Name)
+                if (data.Animation.Animation.TryGetSinglePlayer(out ulong animationPlayerId) && animationPlayerId == playerId && data.Animation.Animation.Element.Reference.Name == reference.Name)
                 {
                     UiFrameworkExtension.GlobalLogger.Debug($"{nameof(CancelPreviousUpdates)}: Cancel Download Animation Url: {{0}} Animation: {{1}} Player: {{2}}", animation.Url, data.Animation.Id, playerId);
                     data.Cancel();

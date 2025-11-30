@@ -27,7 +27,7 @@ public class CubicBezier
 
     public CubicBezier(double x1, double y1, double x2, double y2) : this((float)x1, (float)y1, (float)x2, (float)y2) { }
 
-    public float GetBezierResult(float t)
+    public float Evaluate(float t)
     {
         float x = t;
         for (int i = 0; i < 4; i++)
@@ -49,6 +49,6 @@ public class CubicBezier
     private float BezierY(float t) => ((_ay * t + _by) * t + _cy) * t;
     private float BezierXDerivative(float t) => (3f * _ax * t + 2f * _bx) * t + _cx;
 
-    public static implicit operator Easing(CubicBezier bezier) => bezier.GetBezierResult;
-    public Easing ToEasing() => GetBezierResult;
+    public static implicit operator TimingFunction(CubicBezier bezier) => bezier.Evaluate;
+    public TimingFunction ToTiming() => Evaluate;
 }

@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Types;
 
-internal class LevenshteinDistance(string start, string end)
+public class LevenshteinDistance(string start, string end)
 {
     private int FrameCount => _frames.Count;
     private readonly List<string> _frames = Generate(start, end);

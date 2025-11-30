@@ -10,6 +10,7 @@ using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Threading;
+using Oxide.Ext.UiFramework.Threading.UiChannel;
 using Oxide.Ext.UiFramework.Types;
 
 #if BENCHMARKS
@@ -61,7 +62,7 @@ public abstract class BaseBuilder : BasePoolable
 
     public void AddUi(in UiDebugOptions? options = default) => AddUi(SendInfoBuilder.Get(Net.sv.connections), options);
 
-    public void AddUi(SendInfo send, in UiDebugOptions? options = default) => Singleton<SendHandler>.Instance.Enqueue(UiSendRequest.Create(this, send, options));
+    public void AddUi(SendInfo send, in UiDebugOptions? options = default) => UiSendRequest.Create(this, send, options).Enqueue();
 
 
     internal abstract void SendUi(SendInfo send, in UiDebugOptions? options);
@@ -144,7 +145,7 @@ public abstract class BaseBuilder : BasePoolable
         }
         
         Singleton<AnimationTracker>.Instance.RemoveUiForSend(send, name);
-        Singleton<SendHandler>.Instance.Enqueue(UiDestroyRequest.Create(name, send));
+        UiDestroyRequest.Create(name, send).Enqueue();
     }
     #endregion
 

@@ -22,8 +22,5 @@ public class MemorySizeConverter : JsonConverter
         return size;
     }
 
-    public override bool CanConvert(Type objectType)
-    {
-        return objectType == typeof(MemorySize);
-    }
+    public override bool CanConvert(Type objectType) => objectType == typeof(MemorySize);
 }

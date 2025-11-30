@@ -30,3 +30,8 @@ public class CustomAnimator<T> : BasePoolable, IAnimator<T>
         _func = null;
     }
 }
+
+public static class CustomAnimator
+{
+    public static CustomAnimator<T> Create<T>(IUiFrameworkPlugin plugin, Func<float, T> func) => CustomAnimator<T>.Create(plugin, func);
+}

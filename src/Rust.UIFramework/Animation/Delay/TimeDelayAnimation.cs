@@ -10,7 +10,13 @@ public class TimeDelayAnimation : BasePoolable, ITimedDelayAnimation
 
     private float _startTime;
     
-    public static TimeDelayAnimation Create(IUiFrameworkPlugin plugin) => plugin.PluginPool.Get<TimeDelayAnimation>(); 
+    public static TimeDelayAnimation Create(IUiFrameworkPlugin plugin, float delay) => plugin.PluginPool.Get<TimeDelayAnimation>().Init(delay); 
+    
+    protected TimeDelayAnimation Init(float delay)
+    {
+        Delay = delay;
+        return this;
+    }
     
     public void OnStarted() => _startTime = AnimationTime.CurrentTime;
     public void OnTick() { }
