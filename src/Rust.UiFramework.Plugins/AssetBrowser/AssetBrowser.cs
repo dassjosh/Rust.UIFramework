@@ -487,16 +487,18 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
 
     public void UiInit()
     {
-        _animator = new KeyFrameAnimator<UiPosition>(UiPosition.MiddleLeft, UiPosition.MiddleMiddle);
-        _animator.AddKeyFrame(10f, new UiPosition(0.25f, 0.75f, 0.25f, 0.75f));
-        _animator.AddKeyFrame(20f, UiPosition.TopMiddle);
-        _animator.AddKeyFrame(30f, new UiPosition(0.75f, 0.75f, 0.75f, 0.75f));
-        _animator.AddKeyFrame(40f, UiPosition.MiddleRight);
-        _animator.AddKeyFrame(50f, new UiPosition(0.75f, 0.25f, 0.75f, 0.25f));
-        _animator.AddKeyFrame(60f, UiPosition.BottomMiddle);
-        _animator.AddKeyFrame(70f, new UiPosition(0.25f, 0.25f, 0.25f, 0.25f));
-        _animator.AddKeyFrame(80f, UiPosition.MiddleLeft);
-        _animator.AddKeyFrame(90f, UiPosition.MiddleRight);
+        _animator = new KeyFrameAnimator<UiPosition>()
+            .From(UiPosition.MiddleLeft)
+            .AddFrame(10f, new UiPosition(0.25f, 0.75f, 0.25f, 0.75f))
+            .AddFrame(20f, UiPosition.TopMiddle)
+            .AddFrame(30f, new UiPosition(0.75f, 0.75f, 0.75f, 0.75f))
+            .AddFrame(40f, UiPosition.MiddleRight)
+            .AddFrame(50f, new UiPosition(0.75f, 0.25f, 0.75f, 0.25f))
+            .AddFrame(60f, UiPosition.BottomMiddle)
+            .AddFrame(70f, new UiPosition(0.25f, 0.25f, 0.25f, 0.25f))
+            .AddFrame(80f, UiPosition.MiddleLeft)
+            .AddFrame(90f, UiPosition.MiddleRight)
+            .To(UiPosition.MiddleMiddle);
         _store.RegisterStore(this, playerId => new UiState(playerId));
     }
 
@@ -561,7 +563,7 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
                 .Lerp(UiRotation.Zero, UiRotation.Full)
                 .Duration(5f)
                 .Linear()
-                .RepeatEasing(5);
+                .RepeatTiming(5);
 
             //
             // builder.Animate(panel)
