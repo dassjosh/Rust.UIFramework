@@ -15,6 +15,8 @@ public static class SpanExt
     /// <param name="input">Input string</param>
     extension(ReadOnlySpan<char> input)
     {
+        public bool IsEmptyOrWhitespace => input.IsEmpty || input.IsWhiteSpace();
+        
         /// <summary>
         /// Parses the next string from the input splitting on the token
         /// </summary>
