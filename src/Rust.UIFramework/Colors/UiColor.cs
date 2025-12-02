@@ -1,10 +1,9 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 using Newtonsoft.Json;
-using Oxide.Ext.UiFramework.Animation;
 using Oxide.Ext.UiFramework.Exceptions;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Types;
@@ -67,6 +66,7 @@ public readonly struct UiColor : IEquatable<UiColor>, IUiConvertable<UiColor, Ui
         (byte)Mathf.Clamp(alpha, 0, byte.MaxValue)) { }
         
     public UiColor(Color color) : this(color.r, color.g, color.b, color.a) { }
+    public UiColor(Color color, float alpha) : this(color.r, color.g, color.b, alpha) { }
         
     public UiColor(float red, float green, float blue, float alpha = 1f) : this(Mathf.RoundToInt(red * 255f), Mathf.RoundToInt(green * 255f), Mathf.RoundToInt(blue * 255f), Mathf.RoundToInt(alpha * 255f)) {}
     #endregion
@@ -121,10 +121,93 @@ public readonly struct UiColor : IEquatable<UiColor>, IUiConvertable<UiColor, Ui
     public UiColor MultiplyAlpha(float alpha) => WithAlpha((byte)Mathf.Clamp(AlphaB * alpha, 0, byte.MaxValue));
 
     [Pure]
-    public UiColor ToGrayScale()
+    public float GrayScaleFloat() => 0.299f * RedFloat + 0.587f * GreenFloat + 0.114f * BlueFloat;
+    
+    [Pure]
+    public UiColor GrayScale() => GrayScale(1f);
+
+    [Pure]
+    public UiColor GrayScale(float amount)
     {
-        float scale = ((Color)this).grayscale;
-        return new UiColor(new Color(scale, scale, scale));
+        amount = Mathf.Clamp01(amount);
+        float gray = GrayScaleFloat();
+        UiColor grayColor = new(gray, gray, gray, AlphaFloat);
+        return Lerp(this, grayColor, amount);
+    }
+    
+    [Pure]
+    public UiColor Contrast(float amount)
+    {
+        amount = Mathf.Clamp(amount, 0, 2f);
+        float factor = 259f * (amount + 255f) / (255f * (259f - amount));
+
+        float r = ApplyContrast(RedFloat);
+        float g = ApplyContrast(GreenFloat);
+        float b = ApplyContrast(BlueFloat);
+        
+        return new UiColor(r, g, b, AlphaFloat);
+
+        float ApplyContrast(float c)
+        {
+            c = Mathf.Clamp01(c);
+            return Mathf.Clamp01((factor * (c - 0.5f)) + 0.5f);
+        }
+    }
+    
+    [Pure]
+    public UiColor HueRotate(float degrees)
+    {
+        Color.RGBToHSV(this, out float h, out float s, out float v);
+        h = (h * 360f + degrees) % 360f / 360f;
+        if (h < 0) h += 1f;
+        return new UiColor(Color.HSVToRGB(h, s, v), AlphaFloat);
+    }
+    
+    [Pure]
+    public UiColor Invert() => new(1f - RedFloat, 1f - GreenFloat, 1f - BlueFloat, AlphaFloat);
+
+    [Pure]
+    public UiColor Invert(float amount)
+    {
+        amount = Mathf.Clamp01(amount);
+        if (amount <= 0f) return this;
+        
+        float r = Mathf.Lerp(RedFloat, 1f - RedFloat, amount);
+        float g = Mathf.Lerp(GreenFloat, 1f - GreenFloat, amount);
+        float b = Mathf.Lerp(BlueFloat, 1f - BlueFloat, amount);
+        
+        return new UiColor(r, g, b, AlphaFloat);
+    }
+    
+    [Pure]
+    public UiColor Saturate(float amount)
+    {
+        amount = Mathf.Clamp01(amount);
+        Color.RGBToHSV(this, out float h, out float s, out float v);
+        return new UiColor(Color.HSVToRGB(h, Mathf.Lerp(0f, s, amount), v), AlphaFloat);
+    }
+    
+    [Pure]
+    public UiColor Desaturate(float amount) => Saturate(1f - amount);
+    
+    [Pure]
+    public UiColor Sepia() => Sepia(1f);
+    
+    [Pure]
+    public UiColor Sepia(float amount)
+    {
+        amount = Mathf.Clamp01(amount);
+        if (amount <= 0f) return this;
+        
+        // Calculate grayscale using standard weights
+        float gray = GrayScaleFloat();
+        
+        // Apply sepia tone
+        float r = Mathf.Lerp(RedFloat, Mathf.Clamp01(gray * 1.351f), amount);
+        float g = Mathf.Lerp(GreenFloat, Mathf.Clamp01(gray * 0.954f), amount);
+        float b = Mathf.Lerp(BlueFloat, Mathf.Clamp01(gray * 0.554f), amount);
+        
+        return new UiColor(r, g, b, AlphaFloat);
     }
 
     [Pure]
@@ -150,22 +233,12 @@ public readonly struct UiColor : IEquatable<UiColor>, IUiConvertable<UiColor, Ui
     }
         
     [Pure]
-    public static UiColor Lerp(UiColor start, UiColor end, float value)
-    {
-        return LerpUnclamped(start, end, Mathf.Clamp01(value));
-    }
-    
-    [Pure]
-    public static UiColor LerpUnclamped(UiColor start, UiColor end, float value)
-    {
-        return new UiColor(LerpField(start.RedFloat, end.RedFloat, value), LerpField(start.GreenFloat, end.GreenFloat, value), LerpField(start.BlueFloat, end.BlueFloat, value), LerpField(start.AlphaFloat, end.AlphaFloat, value));
-    }
+    public static UiColor Lerp(UiColor start, UiColor end, float value) => LerpUnclamped(start, end, Mathf.Clamp01(value));
 
-    private static float LerpField(float start, float end, float value)
-    {
-        return start + (end - start) * value;
-    }
-    
+    [Pure]
+    public static UiColor LerpUnclamped(UiColor start, UiColor end, float value) 
+        => new(Mathf.Lerp(start.RedFloat, end.RedFloat, value), Mathf.Lerp(start.GreenFloat, end.GreenFloat, value), Mathf.Lerp(start.BlueFloat, end.BlueFloat, value), Mathf.Lerp(start.AlphaFloat, end.AlphaFloat, value));
+
     UiColor IUiConvertable<UiColor, UiOpacity>.Convert(UiOpacity from) => WithOpacity(from);
     #endregion
 
