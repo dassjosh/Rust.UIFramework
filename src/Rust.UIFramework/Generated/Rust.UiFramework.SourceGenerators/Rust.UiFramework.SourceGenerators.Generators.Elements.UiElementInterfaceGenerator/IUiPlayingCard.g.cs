@@ -1,0 +1,16 @@
+﻿using Oxide.Ext.UiFramework.Types;
+
+namespace Oxide.Ext.UiFramework.Interfaces;
+
+public interface IUiPlayingCard : Oxide.Ext.UiFramework.Interfaces.IMaterial<Oxide.Ext.UiFramework.UiElements.UiPlayingCard>, Oxide.Ext.UiFramework.Interfaces.IFadeIn<Oxide.Ext.UiFramework.UiElements.UiPlayingCard>, Oxide.Ext.UiFramework.Interfaces.IUiColor<Oxide.Ext.UiFramework.UiElements.UiPlayingCard>, IBaseUiComponent
+{
+	Oxide.Ext.UiFramework.Enums.UiSuit Suit { get; }
+	Oxide.Ext.UiFramework.Enums.UiRank Rank { get; }
+	Oxide.Ext.UiFramework.Enums.UiCardType CardType { get; }
+
+	Oxide.Ext.UiFramework.UiElements.UiPlayingCard SetSuit(Oxide.Ext.UiFramework.Enums.UiSuit suit);
+	Oxide.Ext.UiFramework.UiElements.UiPlayingCard SetRank(Oxide.Ext.UiFramework.Enums.UiRank rank);
+	Oxide.Ext.UiFramework.UiElements.UiPlayingCard SetCardType(Oxide.Ext.UiFramework.Enums.UiCardType cardType);
+}
+
+

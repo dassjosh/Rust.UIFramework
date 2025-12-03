@@ -1,6 +1,7 @@
 ﻿using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Interfaces;
+
 public interface IScrollViewComponentTrackable : IBaseTypedComponentTrackable
 {
 	Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.ScrollRect.MovementType> MovementType { get; }

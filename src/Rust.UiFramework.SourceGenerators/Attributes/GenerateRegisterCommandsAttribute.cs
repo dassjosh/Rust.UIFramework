@@ -3,7 +3,4 @@
 namespace Rust.UiFramework.SourceGenerators.Attributes;
 
 [AttributeUsage(AttributeTargets.Class)]
-public class GenerateRegisterCommandsAttribute : Attribute
-{
-    
-}
+public class GenerateRegisterCommandsAttribute : Attribute;

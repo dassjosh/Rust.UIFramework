@@ -65,6 +65,20 @@ public static class UiComponentExt
             component.Rotation = rotation;
             return component;
         }
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public T SetPositionTranslate(in UiTranslate translate)
+        {
+            component.PositionTranslate = translate;
+            return component;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public T SetOffsetTranslate(in UiTranslate translate)
+        {
+            component.OffsetTranslate = translate;
+            return component;
+        }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public T SetPositionPadding(in UiPadding padding)

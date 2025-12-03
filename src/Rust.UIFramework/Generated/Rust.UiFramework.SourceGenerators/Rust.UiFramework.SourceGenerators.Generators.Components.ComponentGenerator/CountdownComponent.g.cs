@@ -3,6 +3,7 @@ using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Interfaces;
 
 namespace Oxide.Ext.UiFramework.Components;
+
 public partial class CountdownComponent : ICountdownComponent, ICountdownComponentTrackable
 {
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<float> _startTime = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Countdown.StartTime);

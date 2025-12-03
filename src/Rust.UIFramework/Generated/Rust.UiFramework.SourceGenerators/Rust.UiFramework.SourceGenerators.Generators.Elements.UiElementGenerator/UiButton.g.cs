@@ -3,7 +3,8 @@ using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Interfaces;
 
 namespace Oxide.Ext.UiFramework.UiElements;
-public partial class UiButton : IUiButtonTrackable
+
+public partial class UiButton : IUiButton, IUiButtonTrackable
 {
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<string> _command = new();
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Enums.ButtonType> _buttonType = new();
@@ -18,18 +19,18 @@ public partial class UiButton : IUiButtonTrackable
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<float> _fadeIn = new();
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> _color = new();
 
-	public string Command { get => Button.Command; set => Button.Command = value; }
-	public Oxide.Ext.UiFramework.Enums.ButtonType ButtonType { get => Button.ButtonType; set => Button.ButtonType = value; }
-	public Oxide.Ext.UiFramework.Colors.UiColor HighlightedColor { get => GetOrAddColorBlock().HighlightedColor; set => GetOrAddColorBlock().HighlightedColor = value; }
-	public Oxide.Ext.UiFramework.Colors.UiColor PressedColor { get => GetOrAddColorBlock().PressedColor; set => GetOrAddColorBlock().PressedColor = value; }
-	public Oxide.Ext.UiFramework.Colors.UiColor SelectedColor { get => GetOrAddColorBlock().SelectedColor; set => GetOrAddColorBlock().SelectedColor = value; }
-	public float ColorMultiplier { get => GetOrAddColorBlock().ColorMultiplier; set => GetOrAddColorBlock().ColorMultiplier = value; }
-	public float FadeDuration { get => GetOrAddColorBlock().FadeDuration; set => GetOrAddColorBlock().FadeDuration = value; }
-	public UnityEngine.UI.Image.Type ImageType { get => Button.ImageType; set => Button.ImageType = value; }
-	public string Sprite { get => Button.Sprite; set => Button.Sprite = value; }
-	public string Material { get => Button.Material; set => Button.Material = value; }
-	public float FadeIn { get => Button.FadeIn; set => Button.FadeIn = value; }
-	public Oxide.Ext.UiFramework.Colors.UiColor Color { get => Button.Color; set => Button.Color = value; }
+	public partial string Command { get => Button.Command; set => Button.Command = value; }
+	public partial Oxide.Ext.UiFramework.Enums.ButtonType ButtonType { get => Button.ButtonType; set => Button.ButtonType = value; }
+	public partial Oxide.Ext.UiFramework.Colors.UiColor HighlightedColor { get => GetOrAddColorBlock().HighlightedColor; set => GetOrAddColorBlock().HighlightedColor = value; }
+	public partial Oxide.Ext.UiFramework.Colors.UiColor PressedColor { get => GetOrAddColorBlock().PressedColor; set => GetOrAddColorBlock().PressedColor = value; }
+	public partial Oxide.Ext.UiFramework.Colors.UiColor SelectedColor { get => GetOrAddColorBlock().SelectedColor; set => GetOrAddColorBlock().SelectedColor = value; }
+	public partial float ColorMultiplier { get => GetOrAddColorBlock().ColorMultiplier; set => GetOrAddColorBlock().ColorMultiplier = value; }
+	public partial float FadeDuration { get => GetOrAddColorBlock().FadeDuration; set => GetOrAddColorBlock().FadeDuration = value; }
+	public partial UnityEngine.UI.Image.Type ImageType { get => Button.ImageType; set => Button.ImageType = value; }
+	public partial string Sprite { get => Button.Sprite; set => Button.Sprite = value; }
+	public partial string Material { get => Button.Material; set => Button.Material = value; }
+	public partial float FadeIn { get => Button.FadeIn; set => Button.FadeIn = value; }
+	public partial Oxide.Ext.UiFramework.Colors.UiColor Color { get => Button.Color; set => Button.Color = value; }
 	IButtonComponentTrackable IUiButtonTrackable.Button => Button.AsTrackable();
 
 	public IUiButtonTrackable AsTrackable() => this;

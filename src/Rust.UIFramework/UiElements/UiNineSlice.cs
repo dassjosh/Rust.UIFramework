@@ -10,9 +10,20 @@ using ImageType = UnityEngine.UI.Image.Type;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-[GenerateUiElement(typeof(IUiNineSlice))]
-public partial class UiNineSlice : BaseUiComponent, IUiNineSlice
+[GenerateUiElement]
+[GenerateBuilderMethods]
+public partial class UiNineSlice : BaseUiComponent, IImageType<UiNineSlice>, ISprite<UiNineSlice>, IMaterial<UiNineSlice>, IFadeIn<UiNineSlice>, IUiColor<UiNineSlice>
 {
+    public partial string Png { get; set; }
+    public partial UiBorderWidth Slice { get; set; }
+    public partial UiReference PlaceholderFor { get; set; }
+    public partial bool FillCenter { get; set; }
+    public partial Image.Type ImageType { get; set; }
+    public partial string Sprite { get; set; }
+    public partial string Material { get; set; }
+    public partial float FadeIn { get; set; }
+    public partial UiColor Color { get; set; }
+    
     public readonly NineSliceComponent Image;
     
     public UiNineSlice() : this(new NineSliceComponent()) { }

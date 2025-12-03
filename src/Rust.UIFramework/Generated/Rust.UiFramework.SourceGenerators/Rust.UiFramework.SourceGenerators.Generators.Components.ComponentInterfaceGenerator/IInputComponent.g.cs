@@ -1,6 +1,7 @@
 ﻿using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Interfaces;
+
 public interface IInputComponent : ITextComponent
 {
 	int CharsLimit { get; set; }
@@ -8,6 +9,12 @@ public interface IInputComponent : ITextComponent
 	Oxide.Ext.UiFramework.Enums.InputMode Mode { get; set; }
 	UnityEngine.UI.InputField.LineType LineType { get; set; }
 	Oxide.Ext.UiFramework.UiElements.UiReference Placeholder { get; set; }
+
+	Oxide.Ext.UiFramework.Components.InputComponent SetCharsLimit(int charsLimit);
+	Oxide.Ext.UiFramework.Components.InputComponent SetCommand(string command);
+	Oxide.Ext.UiFramework.Components.InputComponent SetMode(Oxide.Ext.UiFramework.Enums.InputMode mode);
+	Oxide.Ext.UiFramework.Components.InputComponent SetLineType(UnityEngine.UI.InputField.LineType lineType);
+	Oxide.Ext.UiFramework.Components.InputComponent SetPlaceholder(in Oxide.Ext.UiFramework.UiElements.UiReference placeholder);
 }
 
 

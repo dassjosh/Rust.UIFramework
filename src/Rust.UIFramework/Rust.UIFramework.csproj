@@ -182,17 +182,8 @@
       <Compile Include="..\Rust.UiFramework.SourceGenerators\Attributes\GenerateUiElementAttribute.cs">
         <Link>Attributes\GenerateUiElementAttribute.cs</Link>
       </Compile>
-      <Compile Include="..\Rust.UiFramework.SourceGenerators\Attributes\IncludeInParentAttribute.cs">
-        <Link>Attributes\IncludeInParentAttribute.cs</Link>
-      </Compile>
       <Compile Include="..\Rust.UiFramework.SourceGenerators\Attributes\SkipBuilderAttribute.cs">
         <Link>Attributes\SkipBuilderAttribute.cs</Link>
-      </Compile>
-      <Compile Include="..\Rust.UiFramework.SourceGenerators\Attributes\SkipComponentFieldAttribute.cs">
-        <Link>Attributes\SkipComponentFieldAttribute.cs</Link>
-      </Compile>
-      <Compile Include="..\Rust.UiFramework.SourceGenerators\Attributes\SkipPropertyAttribute.cs">
-        <Link>Attributes\SkipPropertyAttribute.cs</Link>
       </Compile>
       <Compile Include="..\Rust.UiFramework.SourceGenerators\Attributes\TrackedAttribute.cs">
         <Link>Attributes\TrackedAttribute.cs</Link>
@@ -204,7 +195,6 @@
 
     <ItemGroup>
       <Folder Include="Generated\Rust.UiFramework.SourceGenerators\" />
-      <Folder Include="Interfaces\Components\Sub\" />
     </ItemGroup>
 
     <PropertyGroup>

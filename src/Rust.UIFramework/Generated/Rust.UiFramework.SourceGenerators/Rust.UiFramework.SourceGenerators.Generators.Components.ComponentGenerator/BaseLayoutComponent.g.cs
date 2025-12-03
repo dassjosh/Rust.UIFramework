@@ -3,6 +3,7 @@ using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Interfaces;
 
 namespace Oxide.Ext.UiFramework.Components;
+
 public partial class BaseLayoutComponent : IBaseLayoutComponent, IBaseLayoutComponentTrackable
 {
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.TextAnchor> _childAlignment = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Layout.ChildAlignment);

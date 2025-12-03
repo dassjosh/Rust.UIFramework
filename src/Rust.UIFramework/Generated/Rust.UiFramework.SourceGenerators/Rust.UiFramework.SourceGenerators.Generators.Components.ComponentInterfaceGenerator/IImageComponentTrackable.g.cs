@@ -1,6 +1,7 @@
 ﻿using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Interfaces;
+
 public interface IImageComponentTrackable : IBaseTypedComponentTrackable
 {
 	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> Color { get; }

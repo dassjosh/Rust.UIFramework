@@ -9,9 +9,20 @@ using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-[GenerateUiElement(typeof(IUiLabel))]
-public partial class UiLabel : BaseUiComponent, IUiLabel
+[GenerateUiElement]
+[GenerateBuilderMethods]
+public partial class UiLabel : BaseUiComponent, IFadeIn<UiLabel>, IUiColor<UiLabel>
 {
+    public partial int FontSize { get; set; }
+    public partial string Font { get; set; }
+    public partial TextAnchor Align { get; set; }
+    [PropertyName(nameof(TextComponent.Text))]
+    public partial string TextValue { get; set; }
+    public partial VerticalWrapMode VerticalOverflow { get; set; }
+    public partial UiReference PlaceholderFor { get; set; }
+    public partial float FadeIn { get; set; }
+    public partial UiColor Color { get; set; }
+    
     public readonly TextComponent Text;
 
     public UiLabel() : this(new TextComponent()) { }

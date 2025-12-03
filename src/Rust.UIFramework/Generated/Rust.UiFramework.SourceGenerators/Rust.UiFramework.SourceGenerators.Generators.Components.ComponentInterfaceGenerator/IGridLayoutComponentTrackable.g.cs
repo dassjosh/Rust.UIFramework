@@ -1,6 +1,7 @@
 ﻿using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Interfaces;
+
 public interface IGridLayoutComponentTrackable : IBaseLayoutComponentTrackable
 {
 	Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.Vector2> CellSize { get; }

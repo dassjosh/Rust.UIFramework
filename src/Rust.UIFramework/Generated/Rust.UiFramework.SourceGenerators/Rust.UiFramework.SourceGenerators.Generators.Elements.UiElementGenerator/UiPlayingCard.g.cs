@@ -3,7 +3,8 @@ using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Interfaces;
 
 namespace Oxide.Ext.UiFramework.UiElements;
-public partial class UiPlayingCard : IUiPlayingCardTrackable
+
+public partial class UiPlayingCard : IUiPlayingCard, IUiPlayingCardTrackable
 {
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Enums.UiSuit> _suit = new();
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Enums.UiRank> _rank = new();
@@ -12,12 +13,12 @@ public partial class UiPlayingCard : IUiPlayingCardTrackable
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<float> _fadeIn = new();
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> _color = new();
 
-	public Oxide.Ext.UiFramework.Enums.UiSuit Suit { get => Card.Suit; set => Card.Suit = value; }
-	public Oxide.Ext.UiFramework.Enums.UiRank Rank { get => Card.Rank; set => Card.Rank = value; }
-	public Oxide.Ext.UiFramework.Enums.UiCardType CardType { get => Card.CardType; set => Card.CardType = value; }
-	public string Material { get => Card.Material; set => Card.Material = value; }
-	public float FadeIn { get => Card.FadeIn; set => Card.FadeIn = value; }
-	public Oxide.Ext.UiFramework.Colors.UiColor Color { get => Card.Color; set => Card.Color = value; }
+	public partial Oxide.Ext.UiFramework.Enums.UiSuit Suit { get => Card.Suit; set => Card.Suit = value; }
+	public partial Oxide.Ext.UiFramework.Enums.UiRank Rank { get => Card.Rank; set => Card.Rank = value; }
+	public partial Oxide.Ext.UiFramework.Enums.UiCardType CardType { get => Card.CardType; set => Card.CardType = value; }
+	public partial string Material { get => Card.Material; set => Card.Material = value; }
+	public partial float FadeIn { get => Card.FadeIn; set => Card.FadeIn = value; }
+	public partial Oxide.Ext.UiFramework.Colors.UiColor Color { get => Card.Color; set => Card.Color = value; }
 	IPlayingCardComponentTrackable IUiPlayingCardTrackable.Card => Card.AsTrackable();
 
 	public IUiPlayingCardTrackable AsTrackable() => this;

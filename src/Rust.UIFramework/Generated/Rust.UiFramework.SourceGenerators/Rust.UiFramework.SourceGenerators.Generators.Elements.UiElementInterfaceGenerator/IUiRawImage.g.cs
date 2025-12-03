@@ -1,0 +1,14 @@
+﻿using Oxide.Ext.UiFramework.Types;
+
+namespace Oxide.Ext.UiFramework.Interfaces;
+
+public interface IUiRawImage : Oxide.Ext.UiFramework.Interfaces.IMaterial<Oxide.Ext.UiFramework.UiElements.UiRawImage>, Oxide.Ext.UiFramework.Interfaces.IFadeIn<Oxide.Ext.UiFramework.UiElements.UiRawImage>, Oxide.Ext.UiFramework.Interfaces.IUiColor<Oxide.Ext.UiFramework.UiElements.UiRawImage>, IBaseUiComponent
+{
+	string Image { get; }
+	Oxide.Ext.UiFramework.UiElements.UiReference PlaceholderFor { get; }
+
+	Oxide.Ext.UiFramework.UiElements.UiRawImage SetImage(string image);
+	Oxide.Ext.UiFramework.UiElements.UiRawImage SetPlaceholderFor(in Oxide.Ext.UiFramework.UiElements.UiReference placeholderFor);
+}
+
+

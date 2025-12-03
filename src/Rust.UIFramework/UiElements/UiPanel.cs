@@ -1,15 +1,24 @@
 ﻿using System;
+using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Interfaces;
 using Rust.UiFramework.SourceGenerators.Attributes;
-
 using ImageType = UnityEngine.UI.Image.Type;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-[GenerateUiElement(typeof(IUiPanel))]
-public partial class UiPanel : BaseUiComponent, IUiPanel
+[GenerateUiElement]
+[GenerateBuilderMethods]
+public partial class UiPanel : BaseUiComponent, IImageType<UiPanel>, ISprite<UiPanel>, IMaterial<UiPanel>, IFadeIn<UiPanel>, IUiColor<UiPanel>
 {
+    public partial UiReference PlaceholderFor { get; set; }
+    public partial bool FillCenter { get; set; }
+    public partial ImageType ImageType { get; set; }
+    public partial string Sprite { get; set; }
+    public partial string Material { get; set; }
+    public partial float FadeIn { get; set; }
+    public partial UiColor Color { get; set; }
+    
     public readonly ImageComponent Image;
 
     public UiPanel() : this(new ImageComponent()) { }

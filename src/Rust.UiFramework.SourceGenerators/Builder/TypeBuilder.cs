@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using System.Text;
 using Microsoft.CodeAnalysis;
@@ -50,6 +51,12 @@ public class TypeBuilder : IType, IAccessModifiers, IKeywords, IBuildable, IGene
     public TypeBuilder Implements(string @interface)
     {
         _implements.Add(@interface);
+        return this;
+    }
+    
+    public TypeBuilder Implements(ImmutableArray<INamedTypeSymbol> interfaces)
+    {
+        _implements.AddRange(interfaces.Select(i => i.ToString()));
         return this;
     }
 

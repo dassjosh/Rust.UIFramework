@@ -9,9 +9,34 @@ using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-[GenerateUiElement(typeof(IUiButton))]
-public partial class UiButton : BaseUiComponent, IUiButton
+[GenerateUiElement]
+[GenerateBuilderMethods]
+public partial class UiButton : BaseUiComponent, IImageType<UiButton>, ISprite<UiButton>, IMaterial<UiButton>, IFadeIn<UiButton>, IUiColor<UiButton>
 {
+    [SkipBuilder]
+    public partial string Command { get; set; }
+    public partial ButtonType ButtonType { get; set; }
+    
+    [PropertyTarget(nameof(GetOrAddColorBlock), PropertyTargetType.Method)]
+    public partial UiColor HighlightedColor { get; set; }
+    
+    [PropertyTarget(nameof(GetOrAddColorBlock), PropertyTargetType.Method)]
+    public partial UiColor PressedColor { get; set; }
+    
+    [PropertyTarget(nameof(GetOrAddColorBlock), PropertyTargetType.Method)]
+    public partial UiColor SelectedColor { get; set; }
+    
+    [PropertyTarget(nameof(GetOrAddColorBlock), PropertyTargetType.Method)]
+    public partial float ColorMultiplier { get; set; }
+    
+    [PropertyTarget(nameof(GetOrAddColorBlock), PropertyTargetType.Method)]
+    public partial float FadeDuration { get; set; }
+    public partial Image.Type ImageType { get; set; }
+    public partial string Sprite { get; set; }
+    public partial string Material { get; set; }
+    public partial float FadeIn { get; set; }
+    public partial UiColor Color { get; set; }
+    
     public readonly ButtonComponent Button;
     public ColorBlockComponent ColorBlock => Button.ColorBlock;
     

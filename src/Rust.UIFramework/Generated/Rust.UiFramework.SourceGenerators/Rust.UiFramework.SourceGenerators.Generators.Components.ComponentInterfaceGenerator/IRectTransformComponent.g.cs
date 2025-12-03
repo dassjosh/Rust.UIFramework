@@ -1,6 +1,7 @@
 ﻿using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Interfaces;
+
 public interface IRectTransformComponent : IBaseTypedComponent
 {
 	Oxide.Ext.UiFramework.Positions.UiPosition Position { get; set; }
@@ -14,6 +15,18 @@ public interface IRectTransformComponent : IBaseTypedComponent
 	Oxide.Ext.UiFramework.Types.UiRotation Rotation { get; set; }
 	string ChangeParent { get; set; }
 	int TransformIndex { get; set; }
+
+	Oxide.Ext.UiFramework.Components.RectTransformComponent SetPosition(in Oxide.Ext.UiFramework.Positions.UiPosition position);
+	Oxide.Ext.UiFramework.Components.RectTransformComponent SetOffset(in Oxide.Ext.UiFramework.Offsets.UiOffset offset);
+	Oxide.Ext.UiFramework.Components.RectTransformComponent SetPositionPadding(in Oxide.Ext.UiFramework.Types.UiPadding positionPadding);
+	Oxide.Ext.UiFramework.Components.RectTransformComponent SetOffsetPadding(in Oxide.Ext.UiFramework.Types.UiPadding offsetPadding);
+	Oxide.Ext.UiFramework.Components.RectTransformComponent SetPositionScale(Oxide.Ext.UiFramework.Types.UiScale positionScale);
+	Oxide.Ext.UiFramework.Components.RectTransformComponent SetOffsetScale(Oxide.Ext.UiFramework.Types.UiScale offsetScale);
+	Oxide.Ext.UiFramework.Components.RectTransformComponent SetPositionTranslate(in Oxide.Ext.UiFramework.Types.UiTranslate positionTranslate);
+	Oxide.Ext.UiFramework.Components.RectTransformComponent SetOffsetTranslate(in Oxide.Ext.UiFramework.Types.UiTranslate offsetTranslate);
+	Oxide.Ext.UiFramework.Components.RectTransformComponent SetRotation(Oxide.Ext.UiFramework.Types.UiRotation rotation);
+	Oxide.Ext.UiFramework.Components.RectTransformComponent SetChangeParent(string changeParent);
+	Oxide.Ext.UiFramework.Components.RectTransformComponent SetTransformIndex(int transformIndex);
 }
 
 

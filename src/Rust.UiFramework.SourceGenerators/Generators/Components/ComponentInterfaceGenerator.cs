@@ -30,8 +30,18 @@ public class ComponentInterfaceGenerator : BaseGenerator, IIncrementalGenerator
                 .If(genData.ParentComponent is not null, i => i.Implements(genData.ParentComponent.GetInterface()))
                 .EndIf()
                 
-                //Tracked Properties
-                .Properties(genData.Properties, (data, property) => property.Type(data.Type).Name(data.Name).Get().Set()))
+                //Properties
+                .Properties(genData.Properties, (data, property) => property.Type(data.Type).Name(data.Name).Get().Set())
+            
+                //Builder Methods
+                .If(genData.GenerateBuilderMethods, builder => builder.Methods(genData.Properties, data => !data.SkipBuilder, (data, method) =>
+                    method.Returns(genData.ClassSymbol).Name($"Set{data.Name}")
+                        .AddParameter(parameter => parameter.Type(data.Type).Name(data.Name)
+                            .If(data.Type.ShouldBePassedByIn(), p => p.In())
+                            .EndIf())))
+                .EndIf()
+            )
+            
             .Build();
     }
 
@@ -51,17 +61,21 @@ public class ComponentInterfaceGenerator : BaseGenerator, IIncrementalGenerator
 
     private sealed class GeneratorData
     {
+        public readonly INamedTypeSymbol ClassSymbol;
         public readonly string ComponentInterfaceName;
         public readonly string TrackableInterfaceName;
         public readonly PropertyData[] Properties;
         public readonly INamedTypeSymbol ParentComponent;
+        public readonly bool GenerateBuilderMethods;
 
         public GeneratorData(INamedTypeSymbol classSymbol)
         {
+            ClassSymbol = classSymbol;
             ComponentInterfaceName = classSymbol.GetInterface();
             TrackableInterfaceName = classSymbol.GetTrackableInterface();
             Properties = classSymbol.GetProperties().Where(p => p.IsPartialDefinition).Select(p => new PropertyData(p)).ToArray();
             ParentComponent = classSymbol.GetParentWithAttribute<GenerateComponentAttribute>();
+            GenerateBuilderMethods = classSymbol.HasAttribute<GenerateBuilderMethodsAttribute>();
         }
     }
     
@@ -69,5 +83,6 @@ public class ComponentInterfaceGenerator : BaseGenerator, IIncrementalGenerator
     {
         public readonly string Name = property.Name;
         public readonly ITypeSymbol Type = property.Type;
+        public readonly bool SkipBuilder = property.HasAttribute<SkipBuilderAttribute>();
     }
 }

@@ -3,7 +3,8 @@ using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Interfaces;
 
 namespace Oxide.Ext.UiFramework.UiElements;
-public partial class UiScrollView : IUiScrollViewTrackable
+
+public partial class UiScrollView : IUiScrollView, IUiScrollViewTrackable
 {
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.ScrollRect.MovementType> _movementType = new();
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<float> _elasticity = new();
@@ -16,16 +17,16 @@ public partial class UiScrollView : IUiScrollViewTrackable
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Offsets.UiOffset> _contentOffset = new();
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.Vector2> _contentPivot = new();
 
-	public UnityEngine.UI.ScrollRect.MovementType MovementType { get => ScrollView.MovementType; set => ScrollView.MovementType = value; }
-	public float Elasticity { get => ScrollView.Elasticity; set => ScrollView.Elasticity = value; }
-	public bool Inertia { get => ScrollView.Inertia; set => ScrollView.Inertia = value; }
-	public float DecelerationRate { get => ScrollView.DecelerationRate; set => ScrollView.DecelerationRate = value; }
-	public float ScrollSensitivity { get => ScrollView.ScrollSensitivity; set => ScrollView.ScrollSensitivity = value; }
-	public float HorizontalScrollProgress { get => ScrollView.HorizontalScrollProgress; set => ScrollView.HorizontalScrollProgress = value; }
-	public float VerticalScrollProgress { get => ScrollView.VerticalScrollProgress; set => ScrollView.VerticalScrollProgress = value; }
-	public Oxide.Ext.UiFramework.Positions.UiPosition ContentPosition { get => GetOrCreateContentTransform().Position; set => GetOrCreateContentTransform().Position = value; }
-	public Oxide.Ext.UiFramework.Offsets.UiOffset ContentOffset { get => GetOrCreateContentTransform().Offset; set => GetOrCreateContentTransform().Offset = value; }
-	public UnityEngine.Vector2 ContentPivot { get => GetOrCreateContentTransform().Pivot; set => GetOrCreateContentTransform().Pivot = value; }
+	public partial UnityEngine.UI.ScrollRect.MovementType MovementType { get => ScrollView.MovementType; set => ScrollView.MovementType = value; }
+	public partial float Elasticity { get => ScrollView.Elasticity; set => ScrollView.Elasticity = value; }
+	public partial bool Inertia { get => ScrollView.Inertia; set => ScrollView.Inertia = value; }
+	public partial float DecelerationRate { get => ScrollView.DecelerationRate; set => ScrollView.DecelerationRate = value; }
+	public partial float ScrollSensitivity { get => ScrollView.ScrollSensitivity; set => ScrollView.ScrollSensitivity = value; }
+	public partial float HorizontalScrollProgress { get => ScrollView.HorizontalScrollProgress; set => ScrollView.HorizontalScrollProgress = value; }
+	public partial float VerticalScrollProgress { get => ScrollView.VerticalScrollProgress; set => ScrollView.VerticalScrollProgress = value; }
+	public partial Oxide.Ext.UiFramework.Positions.UiPosition ContentPosition { get => GetOrCreateContentTransform().Position; set => GetOrCreateContentTransform().Position = value; }
+	public partial Oxide.Ext.UiFramework.Offsets.UiOffset ContentOffset { get => GetOrCreateContentTransform().Offset; set => GetOrCreateContentTransform().Offset = value; }
+	public partial UnityEngine.Vector2 ContentPivot { get => GetOrCreateContentTransform().Pivot; set => GetOrCreateContentTransform().Pivot = value; }
 	IScrollViewComponentTrackable IUiScrollViewTrackable.ScrollView => ScrollView.AsTrackable();
 
 	public IUiScrollViewTrackable AsTrackable() => this;

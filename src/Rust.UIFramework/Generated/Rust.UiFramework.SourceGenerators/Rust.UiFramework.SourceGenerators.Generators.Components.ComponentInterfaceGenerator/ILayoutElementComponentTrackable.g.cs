@@ -1,6 +1,7 @@
 ﻿using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Interfaces;
+
 public interface ILayoutElementComponentTrackable : IBaseTypedComponentTrackable
 {
 	Oxide.Ext.UiFramework.Types.Tracked<float> PreferredWidth { get; }

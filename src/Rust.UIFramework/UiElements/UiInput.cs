@@ -10,9 +10,26 @@ using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-[GenerateUiElement(typeof(IUiInput))]
-public partial class UiInput : BaseUiComponent, IUiInput
+[GenerateUiElement]
+[GenerateBuilderMethods]
+public partial class UiInput : BaseUiComponent, IFadeIn<UiInput>, IUiColor<UiInput>
 {
+    public partial int FontSize { get; set; }
+    public partial string Font { get; set; }
+    public partial TextAnchor Align { get; set; }
+    
+    [PropertyName(nameof(TextComponent.Text))]
+    public partial string TextValue { get; set; }
+    
+    public partial VerticalWrapMode VerticalOverflow { get; set; }
+    public partial int CharsLimit { get; set; }
+    public partial string Command { get; set; }
+    public partial InputMode Mode { get; set; }
+    public partial InputField.LineType LineType { get; set; }
+    public partial UiReference Placeholder { get; set; }
+    public partial float FadeIn { get; set; }
+    public partial UiColor Color { get; set; }
+    
     public readonly InputComponent Input;
     
     public UiInput() : this(new InputComponent()) { }

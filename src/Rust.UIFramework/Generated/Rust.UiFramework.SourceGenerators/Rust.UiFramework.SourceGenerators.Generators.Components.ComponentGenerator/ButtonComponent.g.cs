@@ -3,6 +3,7 @@ using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Interfaces;
 
 namespace Oxide.Ext.UiFramework.Components;
+
 public partial class ButtonComponent : IButtonComponent, IButtonComponentTrackable
 {
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<string> _command = new();

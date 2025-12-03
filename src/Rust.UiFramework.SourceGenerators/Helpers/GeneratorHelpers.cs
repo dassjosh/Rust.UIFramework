@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using Microsoft.CodeAnalysis;
-using Rust.UiFramework.SourceGenerators.Attributes;
 using Rust.UiFramework.SourceGenerators.Logging;
 
 namespace Rust.UiFramework.SourceGenerators.Helpers;
@@ -98,68 +97,88 @@ public static class GeneratorHelpers
         };
     }
 
-    public static bool HasAttribute<T>(this ISymbol symbol)
+    extension(ISymbol symbol)
     {
-        return symbol.GetAttribute<T>() != null;
-    }
-
-    public static AttributeData GetAttribute<T>(this ISymbol symbol)
-    {
-        string attributeTypeName = typeof(T).Name;
-        AttributeData attribute = symbol.GetAttributes().FirstOrDefault(attr => attr.AttributeClass?.Name == attributeTypeName);
-        return attribute;
-    }
-
-    public static INamedTypeSymbol GetParentWithAttribute<T>(this INamedTypeSymbol symbol, Predicate<INamedTypeSymbol> filter = null)
-    {
-        return symbol.GetBaseTypes().FirstOrDefault(baseType => baseType.HasAttribute<T>() && (filter is null || filter(baseType)));
-    }
-
-    public static IEnumerable<INamedTypeSymbol> GetBaseTypes(this INamedTypeSymbol symbol)
-    {
-        INamedTypeSymbol baseType = symbol.BaseType;
-        
-        while (baseType is not null)
+        public bool HasAttribute<T>()
         {
-            yield return baseType;
-            baseType = baseType.BaseType;
+            return symbol.GetAttribute<T>() != null;
+        }
+
+        public AttributeData GetAttribute<T>()
+        {
+            string attributeTypeName = typeof(T).Name;
+            AttributeData attribute = symbol.GetAttributes().FirstOrDefault(attr => attr.AttributeClass?.Name == attributeTypeName);
+            return attribute;
         }
     }
-    
-    public static IEnumerable<IPropertySymbol> GetProperties(this INamedTypeSymbol interfaceType, bool includeProperties = true)
+
+    extension(INamedTypeSymbol symbol)
     {
-        return GetPropertiesInternal(interfaceType, includeProperties, []);
-    }
-    
-    private static IEnumerable<IPropertySymbol> GetPropertiesInternal(this INamedTypeSymbol interfaceType, bool includeProperties, HashSet<string> included)
-    {
-        if (interfaceType == null || !included.Add(interfaceType.ToString()))
+        public INamedTypeSymbol GetParentWithAttribute<T>(Predicate<INamedTypeSymbol> filter = null)
         {
-            yield break;
+            return symbol.GetBaseTypes().FirstOrDefault(baseType => baseType.HasAttribute<T>() && (filter is null || filter(baseType)));
         }
-        
-        if (includeProperties)
+
+        public IEnumerable<INamedTypeSymbol> GetBaseTypes()
         {
-            foreach (IPropertySymbol property in interfaceType.GetMembers().OfType<IPropertySymbol>().Where(p => !p.HasAttribute<SkipPropertyAttribute>()))
+            INamedTypeSymbol baseType = symbol.BaseType;
+        
+            while (baseType is not null)
             {
-                yield return property;
+                yield return baseType;
+                baseType = baseType.BaseType;
             }
         }
 
-        foreach (INamedTypeSymbol baseInterface in interfaceType.AllInterfaces.Distinct(SymbolEqualityComparer.Default).OfType<INamedTypeSymbol>())
+        public IEnumerable<IPropertySymbol> GetProperties(bool includeProperties = true)
         {
-            foreach (IPropertySymbol symbol in baseInterface.GetPropertiesInternal(baseInterface.HasAttribute<IncludeInParentAttribute>(), included))
+            return GetPropertiesInternal(symbol, includeProperties, []);
+        }
+
+        private IEnumerable<IPropertySymbol> GetPropertiesInternal(bool includeProperties, HashSet<string> included)
+        {
+            if (symbol == null || !included.Add(symbol.ToString()))
             {
-                yield return symbol;
+                yield break;
             }
+        
+            if (includeProperties)
+            {
+                foreach (IPropertySymbol property in symbol.GetMembers().OfType<IPropertySymbol>())
+                {
+                    yield return property;
+                }
+            }
+        }
+
+        public IEnumerable<IFieldSymbol> GetEnumValues()
+        {
+            return symbol.GetMembers().OfType<IFieldSymbol>().Where(f => f.IsConst);
         }
     }
 
-    public static IEnumerable<IFieldSymbol> GetEnumValues(this INamedTypeSymbol @enum)
+    public static bool IsInterfaceImplementation(this IPropertySymbol property)
     {
-        return @enum.GetMembers().OfType<IFieldSymbol>().Where(f => f.IsConst);
+        INamedTypeSymbol containingType = property.ContainingType;
+
+        foreach (INamedTypeSymbol @interface in containingType.AllInterfaces)
+        {
+            foreach (ISymbol member in @interface.GetMembers())
+            {
+                if (member is IPropertySymbol interfaceProperty)
+                {
+                    ISymbol implementation = containingType.FindImplementationForInterfaceMember(interfaceProperty);
+                    if (SymbolEqualityComparer.Default.Equals(implementation, property))
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
     }
-    
+
     public static string GetTrackableInterface(this ITypeSymbol symbol)
     {
         return $"{symbol.GetInterface()}Trackable";

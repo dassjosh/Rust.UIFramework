@@ -1,6 +1,7 @@
 ﻿using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Interfaces;
+
 public interface IScrollViewComponent : IBaseTypedComponent
 {
 	UnityEngine.UI.ScrollRect.MovementType MovementType { get; set; }
@@ -10,6 +11,14 @@ public interface IScrollViewComponent : IBaseTypedComponent
 	float ScrollSensitivity { get; set; }
 	float HorizontalScrollProgress { get; set; }
 	float VerticalScrollProgress { get; set; }
+
+	Oxide.Ext.UiFramework.Components.ScrollViewComponent SetMovementType(UnityEngine.UI.ScrollRect.MovementType movementType);
+	Oxide.Ext.UiFramework.Components.ScrollViewComponent SetElasticity(float elasticity);
+	Oxide.Ext.UiFramework.Components.ScrollViewComponent SetInertia(bool inertia);
+	Oxide.Ext.UiFramework.Components.ScrollViewComponent SetDecelerationRate(float decelerationRate);
+	Oxide.Ext.UiFramework.Components.ScrollViewComponent SetScrollSensitivity(float scrollSensitivity);
+	Oxide.Ext.UiFramework.Components.ScrollViewComponent SetHorizontalScrollProgress(float horizontalScrollProgress);
+	Oxide.Ext.UiFramework.Components.ScrollViewComponent SetVerticalScrollProgress(float verticalScrollProgress);
 }
 
 

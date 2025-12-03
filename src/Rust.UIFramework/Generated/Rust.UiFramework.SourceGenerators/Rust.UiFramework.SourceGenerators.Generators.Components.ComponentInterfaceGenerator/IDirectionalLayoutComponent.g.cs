@@ -1,6 +1,7 @@
 ﻿using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Interfaces;
+
 public interface IDirectionalLayoutComponent : IBaseLayoutComponent
 {
 	float Spacing { get; set; }
@@ -11,6 +12,15 @@ public interface IDirectionalLayoutComponent : IBaseLayoutComponent
 	bool ChildScaleWidth { get; set; }
 	bool ChildScaleHeight { get; set; }
 	Oxide.Ext.UiFramework.Enums.LayoutDirection Direction { get; set; }
+
+	Oxide.Ext.UiFramework.Components.DirectionalLayoutComponent SetSpacing(float spacing);
+	Oxide.Ext.UiFramework.Components.DirectionalLayoutComponent SetChildForceExpandWidth(bool childForceExpandWidth);
+	Oxide.Ext.UiFramework.Components.DirectionalLayoutComponent SetChildForceExpandHeight(bool childForceExpandHeight);
+	Oxide.Ext.UiFramework.Components.DirectionalLayoutComponent SetChildControlWidth(bool childControlWidth);
+	Oxide.Ext.UiFramework.Components.DirectionalLayoutComponent SetChildControlHeight(bool childControlHeight);
+	Oxide.Ext.UiFramework.Components.DirectionalLayoutComponent SetChildScaleWidth(bool childScaleWidth);
+	Oxide.Ext.UiFramework.Components.DirectionalLayoutComponent SetChildScaleHeight(bool childScaleHeight);
+	Oxide.Ext.UiFramework.Components.DirectionalLayoutComponent SetDirection(Oxide.Ext.UiFramework.Enums.LayoutDirection direction);
 }
 
 

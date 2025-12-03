@@ -3,6 +3,7 @@ using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Interfaces;
 
 namespace Oxide.Ext.UiFramework.Components;
+
 public partial class GridLayoutComponent : IGridLayoutComponent, IGridLayoutComponentTrackable
 {
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.Vector2> _cellSize = new(Oxide.Ext.UiFramework.Json.JsonDefaults.GridLayout.CellSize);

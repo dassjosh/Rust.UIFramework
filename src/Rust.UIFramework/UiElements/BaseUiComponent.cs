@@ -5,17 +5,60 @@ using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Interfaces;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Libraries;
+using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Pooling;
+using Oxide.Ext.UiFramework.Positions;
+using Oxide.Ext.UiFramework.Types;
 using Rust.UiFramework.SourceGenerators.Attributes;
 using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-[GenerateUiElement(typeof(IBaseUiComponent))]
-public abstract partial class BaseUiComponent : BasePoolable, IBaseUiComponent
+[GenerateUiElement]
+public abstract partial class BaseUiComponent : BasePoolable
 {
+    public UiReference Reference { get; set; }
     public string Name { get => Reference.Name; set => Reference = Reference.WithName(value); }
     public string Parent { get => Reference.Parent; set => Reference = Reference.WithParent(value); } 
+    public UpdateMode Update { get; set; }
+    
+    [Tracked]
+    [TrackedDefaults(typeof(JsonDefaults.Common), nameof(JsonDefaults.Common.FadeOut))]
+    public partial float FadeOut { get; set; }
+    
+    [Tracked]
+    [TrackedDefaults(typeof(JsonDefaults.Common), nameof(JsonDefaults.Common.Active))]
+    public partial bool Active { get; set; }
+    
+    [PropertyTarget(nameof(Component), PropertyTargetType.Field)]
+    public partial bool Enabled { get; set; }
+    
+    [PropertyTarget(nameof(RectTransform), PropertyTargetType.Property)]
+    public partial UiPosition Position { get; set; }
+    
+    [PropertyTarget(nameof(RectTransform), PropertyTargetType.Property)]
+    public partial UiOffset Offset { get; set; }
+    
+    [PropertyTarget(nameof(RectTransform), PropertyTargetType.Property)]
+    public partial UiTranslate PositionTranslate { get; set; }
+    
+    [PropertyTarget(nameof(RectTransform), PropertyTargetType.Property)]
+    public partial UiTranslate OffsetTranslate { get; set; }
+    
+    [PropertyTarget(nameof(RectTransform), PropertyTargetType.Property)]
+    public partial UiPadding PositionPadding { get; set; }
+    
+    [PropertyTarget(nameof(RectTransform), PropertyTargetType.Property)]
+    public partial UiPadding OffsetPadding { get; set; }
+    
+    [PropertyTarget(nameof(RectTransform), PropertyTargetType.Property)]
+    public partial UiScale PositionScale { get; set; }
+    
+    [PropertyTarget(nameof(RectTransform), PropertyTargetType.Property)]
+    public partial UiScale OffsetScale { get; set; }
+    
+    [PropertyTarget(nameof(RectTransform), PropertyTargetType.Property)]
+    public partial UiRotation Rotation { get; set; }
 
     private RectTransformComponent _rectTransform;
     public RectTransformComponent RectTransform => _rectTransform ??= Component.GetOrAddSubComponent<RectTransformComponent>();

@@ -15,13 +15,8 @@ public class UiElementGenerator : BaseGenerator, IIncrementalGenerator
     {
         context.Register<ClassDeclarationSyntax, GenerateUiElementAttribute>((spc, compilation, @class, classSymbol, attribute) =>
         {
-            if (attribute?.ConstructorArguments[0].Value is not INamedTypeSymbol interfaceType)
-            {
-                return;
-            }
-            
             InitializeCache(compilation);
-            GeneratorData data = new(classSymbol, interfaceType);
+            GeneratorData data = new(classSymbol);
             spc.AddSource($"{classSymbol.Name}.g.cs", GenerateElement(classSymbol, data));
         });
     }
@@ -32,13 +27,14 @@ public class UiElementGenerator : BaseGenerator, IIncrementalGenerator
             .Usings(["Oxide.Ext.UiFramework.Types", "Oxide.Ext.UiFramework.Json", "Oxide.Ext.UiFramework.Interfaces"])
             .Namespace(classSymbol.ContainingNamespace)
             .Add(t => t.Public().Partial().Class().Name(classSymbol.Name)
+                .Implements(genData.ClassSymbol.GetInterface())
                 .Implements(genData.ClassSymbol.GetTrackableInterface())
                 
                 //Private Tracked Fields
-                .Fields(genData.Properties, (data, field) => field.Private().Readonly().Type(SymbolCache.Types.Tracked.Symbol.Construct(data.Type)).Name(data.Name.ToPrivateField()).New(data.GetPropertyDefaults()))
+                .Fields(genData.PartialProperties, (data, field) => field.Private().Readonly().Type(SymbolCache.Types.Tracked.Symbol.Construct(data.Type)).Name(data.Name.ToPrivateField()).New(data.GetPropertyDefaults()))
                
                 //Public Properties Setting Component Fields
-                .Properties(genData.Properties, (data, property) => property.Public().Type(data.TypeName).Name(data.Name)
+                .Properties(genData.PartialProperties, (data, property) => property.Public().Partial().Type(data.TypeName).Name(data.Name)
                     .If(data.IsTracked, p => p.Get($"{data.Name.ToPrivateField()}.Value").Set($"{data.Name.ToPrivateField()}.Value = value"))
                     .ElseIf(data.ComponentPropertyTargetType is PropertyTargetType.Self, p => p.Get().Set())
                     .Else(p => p.Get($"{data.GetPropertyTarget() ?? genData.ComponentFieldName}.{data.GetPropertyName()}")
@@ -46,7 +42,7 @@ public class UiElementGenerator : BaseGenerator, IIncrementalGenerator
                     .EndIf())
                
                 //Public Tracked Explicit Interface Implementation Properties
-                .Properties(genData.Properties, data => data.IsTracked, (data, property) => property.Type(SymbolCache.Types.Tracked.Symbol.Construct(data.Type))
+                .Properties(genData.PartialProperties, data => data.IsTracked, (data, property) => property.Type(SymbolCache.Types.Tracked.Symbol.Construct(data.Type))
                     .Name($"{genData.ClassSymbol.GetTrackableInterface()}.{data.Name}").Get(data.Name.ToPrivateField()))
                 
                 //AsTrackable for Component and Element
@@ -58,7 +54,7 @@ public class UiElementGenerator : BaseGenerator, IIncrementalGenerator
                 .EndIf()
                 
                 //Builder Methods
-                .If(!genData.SkipBuilder, t => t.Methods(genData.Properties, data => !data.SkipBuilder, 
+                .If(genData.GenerateBuilderMethods, t => t.Methods(genData.PartialProperties, data => !data.SkipBuilder, 
                     (data, method) => method.Public().Returns(classSymbol.Name).Name($"Set{data.Name}")
                         .AddParameter(p => p.Type(data.Type).If(data.Type.ShouldBePassedByIn(), p => p.In()).EndIf().Name(data.Name.ToCamelCase()))
                         .Body($"{data.Name} = {data.Name.ToCamelCase()};\nreturn this;")))
@@ -70,17 +66,17 @@ public class UiElementGenerator : BaseGenerator, IIncrementalGenerator
     {
         public readonly INamedTypeSymbol ClassSymbol;
         public readonly string ComponentFieldName;
-        public readonly PropertyData[] Properties;
-        public readonly bool SkipBuilder;
+        public readonly PropertyData[] PartialProperties;
+        public readonly bool GenerateBuilderMethods;
         public readonly IFieldSymbol ComponentField;
 
-        public GeneratorData(INamedTypeSymbol classSymbol, INamedTypeSymbol interfaceType)
+        public GeneratorData(INamedTypeSymbol classSymbol)
         {
             ClassSymbol = classSymbol;
-            ComponentFieldName = classSymbol.GetMembers().OfType<IFieldSymbol>().FirstOrDefault()?.Name;
-            Properties = interfaceType.GetProperties().Select(p => new PropertyData(p)).ToArray();
-            SkipBuilder = interfaceType.HasAttribute<SkipBuilderAttribute>();
-            ComponentField = classSymbol.GetMembers().OfType<IFieldSymbol>().FirstOrDefault();
+            PartialProperties = classSymbol.GetProperties().Where(p => p.IsPartialDefinition).Select(p => new PropertyData(p)).ToArray();
+            GenerateBuilderMethods = classSymbol.HasAttribute<GenerateBuilderMethodsAttribute>();
+            ComponentField = classSymbol.GetMembers().OfType<IFieldSymbol>().FirstOrDefault(f => f.IsReadOnly && f.Type.AllInterfaces.Any(i => i.Name == "IComponent"));
+            ComponentFieldName = ComponentField?.Name;
         }
     }
     

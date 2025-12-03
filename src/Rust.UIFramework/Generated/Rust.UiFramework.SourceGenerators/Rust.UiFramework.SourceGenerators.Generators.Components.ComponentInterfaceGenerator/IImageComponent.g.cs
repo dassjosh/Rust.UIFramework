@@ -1,6 +1,7 @@
 ﻿using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Interfaces;
+
 public interface IImageComponent : IBaseTypedComponent
 {
 	Oxide.Ext.UiFramework.Colors.UiColor Color { get; set; }
@@ -10,6 +11,14 @@ public interface IImageComponent : IBaseTypedComponent
 	UnityEngine.UI.Image.Type ImageType { get; set; }
 	Oxide.Ext.UiFramework.UiElements.UiReference PlaceholderFor { get; set; }
 	bool FillCenter { get; set; }
+
+	Oxide.Ext.UiFramework.Components.ImageComponent SetColor(Oxide.Ext.UiFramework.Colors.UiColor color);
+	Oxide.Ext.UiFramework.Components.ImageComponent SetFadeIn(float fadeIn);
+	Oxide.Ext.UiFramework.Components.ImageComponent SetSprite(string sprite);
+	Oxide.Ext.UiFramework.Components.ImageComponent SetMaterial(string material);
+	Oxide.Ext.UiFramework.Components.ImageComponent SetImageType(UnityEngine.UI.Image.Type imageType);
+	Oxide.Ext.UiFramework.Components.ImageComponent SetPlaceholderFor(in Oxide.Ext.UiFramework.UiElements.UiReference placeholderFor);
+	Oxide.Ext.UiFramework.Components.ImageComponent SetFillCenter(bool fillCenter);
 }
 
 

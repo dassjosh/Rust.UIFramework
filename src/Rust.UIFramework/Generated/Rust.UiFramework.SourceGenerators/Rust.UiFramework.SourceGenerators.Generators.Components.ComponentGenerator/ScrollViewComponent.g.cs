@@ -3,6 +3,7 @@ using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Interfaces;
 
 namespace Oxide.Ext.UiFramework.Components;
+
 public partial class ScrollViewComponent : IScrollViewComponent, IScrollViewComponentTrackable
 {
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.ScrollRect.MovementType> _movementType = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ScrollView.MovementType);

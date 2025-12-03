@@ -4,7 +4,6 @@ using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.Interfaces;
 
-[IncludeInParent]
 public interface IImageType
 {
     Image.Type ImageType { get; set; }

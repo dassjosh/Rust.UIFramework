@@ -8,9 +8,18 @@ using ImageType = UnityEngine.UI.Image.Type;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-[GenerateUiElement(typeof(IUiImage))]
-public partial class UiImage : BaseUiComponent, IUiImage
+[GenerateUiElement]
+[GenerateBuilderMethods]
+public partial class UiImage : BaseUiComponent, IImageType<UiImage>, ISprite<UiImage>, IMaterial<UiImage>, IFadeIn<UiImage>, IUiColor<UiImage>
 {
+    public partial ImageType ImageType { get; set; }
+    public partial string Sprite { get; set; }
+    public partial string Material { get; set; }
+    public partial float FadeIn { get; set; }
+    public partial UiColor Color { get; set; }
+    public partial UiReference PlaceholderFor { get; set; }
+    public partial bool FillCenter { get; set; }
+    
     public readonly ImageComponent Image;
 
     public UiImage() : this(new ImageComponent()) { }

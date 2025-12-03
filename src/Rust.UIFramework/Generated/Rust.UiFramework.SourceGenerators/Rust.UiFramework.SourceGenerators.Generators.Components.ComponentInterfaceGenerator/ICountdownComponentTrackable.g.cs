@@ -1,6 +1,7 @@
 ﻿using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Interfaces;
+
 public interface ICountdownComponentTrackable : IBaseTypedComponentTrackable
 {
 	Oxide.Ext.UiFramework.Types.Tracked<float> StartTime { get; }

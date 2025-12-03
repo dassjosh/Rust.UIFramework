@@ -1,6 +1,7 @@
 ﻿using Oxide.Ext.UiFramework.Extensions;
 
 namespace Oxide.Ext.UiFramework.Libraries;
+
 internal class CommandBuilder<T0>(Oxide.Ext.UiFramework.Libraries.ICommandBuilderData data, Oxide.Ext.UiFramework.Libraries.PartialArgs partial = default) : Oxide.Ext.UiFramework.Libraries.BaseCommandBuilder(data, partial), Oxide.Ext.UiFramework.Libraries.ICommandBuilder<T0>
 {
 	public string Build(T0 arg0)

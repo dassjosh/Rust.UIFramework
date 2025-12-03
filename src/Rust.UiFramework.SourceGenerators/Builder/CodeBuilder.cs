@@ -64,6 +64,7 @@ public class CodeBuilder
         }
         sb.AppendLine();
         sb.AppendLine($"namespace {_namespace};");
+        sb.AppendLine();
 
         foreach (IBuildable buildable in _buildables)
         {

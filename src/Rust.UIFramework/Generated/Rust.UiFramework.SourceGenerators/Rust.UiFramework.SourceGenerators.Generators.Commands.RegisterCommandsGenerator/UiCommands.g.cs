@@ -4,6 +4,7 @@ using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Libraries;
+
 public partial class UiCommands
 {
 	public Oxide.Ext.UiFramework.Types.UiTuple<Oxide.Ext.UiFramework.Libraries.RegisteredCommand, Oxide.Ext.UiFramework.Libraries.ICommandBuilder> RegisterCommand(Oxide.Ext.UiFramework.Plugins.IUiFrameworkPlugin plugin, System.Action<Oxide.Ext.UiFramework.Libraries.ExecutionData> method)

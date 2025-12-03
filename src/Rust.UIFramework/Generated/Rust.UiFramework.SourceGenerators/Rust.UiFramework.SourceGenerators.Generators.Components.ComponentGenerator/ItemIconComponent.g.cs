@@ -3,6 +3,7 @@ using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Interfaces;
 
 namespace Oxide.Ext.UiFramework.Components;
+
 public partial class ItemIconComponent : IItemIconComponent, IItemIconComponentTrackable
 {
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<int> _itemId = new();

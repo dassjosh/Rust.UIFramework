@@ -1,0 +1,25 @@
+﻿using Oxide.Ext.UiFramework.Types;
+
+namespace Oxide.Ext.UiFramework.Interfaces;
+
+public interface IUiButton : Oxide.Ext.UiFramework.Interfaces.IImageType<Oxide.Ext.UiFramework.UiElements.UiButton>, Oxide.Ext.UiFramework.Interfaces.ISprite<Oxide.Ext.UiFramework.UiElements.UiButton>, Oxide.Ext.UiFramework.Interfaces.IMaterial<Oxide.Ext.UiFramework.UiElements.UiButton>, Oxide.Ext.UiFramework.Interfaces.IFadeIn<Oxide.Ext.UiFramework.UiElements.UiButton>, Oxide.Ext.UiFramework.Interfaces.IUiColor<Oxide.Ext.UiFramework.UiElements.UiButton>, IBaseUiComponent
+{
+	string Command { get; }
+	Oxide.Ext.UiFramework.Enums.ButtonType ButtonType { get; }
+	Oxide.Ext.UiFramework.Colors.UiColor HighlightedColor { get; }
+	Oxide.Ext.UiFramework.Colors.UiColor PressedColor { get; }
+	Oxide.Ext.UiFramework.Colors.UiColor SelectedColor { get; }
+	float ColorMultiplier { get; }
+	float FadeDuration { get; }
+	Oxide.Ext.UiFramework.Components.ColorBlockComponent ColorBlock { get; }
+
+	Oxide.Ext.UiFramework.UiElements.UiButton SetCommand(string command);
+	Oxide.Ext.UiFramework.UiElements.UiButton SetButtonType(Oxide.Ext.UiFramework.Enums.ButtonType buttonType);
+	Oxide.Ext.UiFramework.UiElements.UiButton SetHighlightedColor(Oxide.Ext.UiFramework.Colors.UiColor highlightedColor);
+	Oxide.Ext.UiFramework.UiElements.UiButton SetPressedColor(Oxide.Ext.UiFramework.Colors.UiColor pressedColor);
+	Oxide.Ext.UiFramework.UiElements.UiButton SetSelectedColor(Oxide.Ext.UiFramework.Colors.UiColor selectedColor);
+	Oxide.Ext.UiFramework.UiElements.UiButton SetColorMultiplier(float colorMultiplier);
+	Oxide.Ext.UiFramework.UiElements.UiButton SetFadeDuration(float fadeDuration);
+}
+
+

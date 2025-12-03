@@ -3,7 +3,8 @@ using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Interfaces;
 
 namespace Oxide.Ext.UiFramework.UiElements;
-public partial class UiPanel : IUiPanelTrackable
+
+public partial class UiPanel : IUiPanel, IUiPanelTrackable
 {
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.UiElements.UiReference> _placeholderFor = new();
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<bool> _fillCenter = new();
@@ -13,13 +14,13 @@ public partial class UiPanel : IUiPanelTrackable
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<float> _fadeIn = new();
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> _color = new();
 
-	public Oxide.Ext.UiFramework.UiElements.UiReference PlaceholderFor { get => Image.PlaceholderFor; set => Image.PlaceholderFor = value; }
-	public bool FillCenter { get => Image.FillCenter; set => Image.FillCenter = value; }
-	public UnityEngine.UI.Image.Type ImageType { get => Image.ImageType; set => Image.ImageType = value; }
-	public string Sprite { get => Image.Sprite; set => Image.Sprite = value; }
-	public string Material { get => Image.Material; set => Image.Material = value; }
-	public float FadeIn { get => Image.FadeIn; set => Image.FadeIn = value; }
-	public Oxide.Ext.UiFramework.Colors.UiColor Color { get => Image.Color; set => Image.Color = value; }
+	public partial Oxide.Ext.UiFramework.UiElements.UiReference PlaceholderFor { get => Image.PlaceholderFor; set => Image.PlaceholderFor = value; }
+	public partial bool FillCenter { get => Image.FillCenter; set => Image.FillCenter = value; }
+	public partial UnityEngine.UI.Image.Type ImageType { get => Image.ImageType; set => Image.ImageType = value; }
+	public partial string Sprite { get => Image.Sprite; set => Image.Sprite = value; }
+	public partial string Material { get => Image.Material; set => Image.Material = value; }
+	public partial float FadeIn { get => Image.FadeIn; set => Image.FadeIn = value; }
+	public partial Oxide.Ext.UiFramework.Colors.UiColor Color { get => Image.Color; set => Image.Color = value; }
 	IImageComponentTrackable IUiPanelTrackable.Image => Image.AsTrackable();
 
 	public IUiPanelTrackable AsTrackable() => this;

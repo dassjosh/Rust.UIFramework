@@ -1,0 +1,26 @@
+﻿using Oxide.Ext.UiFramework.Types;
+
+namespace Oxide.Ext.UiFramework.Interfaces;
+
+public interface IBaseUiComponent
+{
+	Oxide.Ext.UiFramework.UiElements.UiReference Reference { get; }
+	string Name { get; }
+	string Parent { get; }
+	Oxide.Ext.UiFramework.Enums.UpdateMode Update { get; }
+	float FadeOut { get; }
+	bool Active { get; }
+	bool Enabled { get; }
+	Oxide.Ext.UiFramework.Positions.UiPosition Position { get; }
+	Oxide.Ext.UiFramework.Offsets.UiOffset Offset { get; }
+	Oxide.Ext.UiFramework.Types.UiTranslate PositionTranslate { get; }
+	Oxide.Ext.UiFramework.Types.UiTranslate OffsetTranslate { get; }
+	Oxide.Ext.UiFramework.Types.UiPadding PositionPadding { get; }
+	Oxide.Ext.UiFramework.Types.UiPadding OffsetPadding { get; }
+	Oxide.Ext.UiFramework.Types.UiScale PositionScale { get; }
+	Oxide.Ext.UiFramework.Types.UiScale OffsetScale { get; }
+	Oxide.Ext.UiFramework.Types.UiRotation Rotation { get; }
+	Oxide.Ext.UiFramework.Components.RectTransformComponent RectTransform { get; }
+}
+
+

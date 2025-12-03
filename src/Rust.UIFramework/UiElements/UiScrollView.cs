@@ -11,9 +11,30 @@ using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-[GenerateUiElement(typeof(IUiScrollView))]
-public partial class UiScrollView : BaseUiComponent, IUiScrollView
+[GenerateUiElement]
+[GenerateBuilderMethods]
+public partial class UiScrollView : BaseUiComponent
 {
+    public partial ScrollRect.MovementType MovementType { get; set; }
+    public partial float Elasticity { get; set; }
+    public partial bool Inertia { get; set; }
+    public partial float DecelerationRate { get; set; }
+    public partial float ScrollSensitivity { get; set; }
+    public partial float HorizontalScrollProgress { get; set; }
+    public partial float VerticalScrollProgress { get; set; }
+    
+    [PropertyTarget(nameof(GetOrCreateContentTransform), PropertyTargetType.Method)]
+    [PropertyName(nameof(ScrollViewContentComponent.Position))]
+    public partial UiPosition ContentPosition { get; set; }
+    
+    [PropertyTarget(nameof(GetOrCreateContentTransform), PropertyTargetType.Method)]
+    [PropertyName(nameof(ScrollViewContentComponent.Offset))]
+    public partial UiOffset ContentOffset { get; set; }
+    
+    [PropertyTarget(nameof(GetOrCreateContentTransform), PropertyTargetType.Method)]
+    [PropertyName(nameof(ScrollViewContentComponent.Pivot))]
+    public partial Vector2 ContentPivot { get; set; }
+    
     public readonly ScrollViewComponent ScrollView;
 
     public ScrollbarComponent HorizontalScrollbar => ScrollView.HorizontalScrollbar;

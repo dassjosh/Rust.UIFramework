@@ -3,6 +3,7 @@ using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Interfaces;
 
 namespace Oxide.Ext.UiFramework.Components;
+
 public partial class LayoutElementComponent : ILayoutElementComponent, ILayoutElementComponentTrackable
 {
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<float> _preferredWidth = new(Oxide.Ext.UiFramework.Json.JsonDefaults.LayoutElement.PreferredWidth);

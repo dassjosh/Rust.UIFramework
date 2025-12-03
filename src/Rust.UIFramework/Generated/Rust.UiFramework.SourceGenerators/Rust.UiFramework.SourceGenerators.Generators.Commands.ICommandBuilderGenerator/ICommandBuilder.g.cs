@@ -1,6 +1,7 @@
 ﻿using Oxide.Ext.UiFramework.Extensions;
 
 namespace Oxide.Ext.UiFramework.Libraries;
+
 public interface ICommandBuilder<T0>
 {
 	public string Build(T0 arg0);

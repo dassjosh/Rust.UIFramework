@@ -3,6 +3,7 @@ using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Interfaces;
 
 namespace Oxide.Ext.UiFramework.Components;
+
 public partial class ContentSizeFitterComponent : IContentSizeFitterComponent, IContentSizeFitterComponentTrackable
 {
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.ContentSizeFitter.FitMode> _horizontalFit = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ContentSizeFitterData.HorizontalFit);

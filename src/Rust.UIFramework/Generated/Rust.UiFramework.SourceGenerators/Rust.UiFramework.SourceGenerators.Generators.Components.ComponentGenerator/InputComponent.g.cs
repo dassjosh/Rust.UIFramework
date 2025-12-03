@@ -3,6 +3,7 @@ using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Interfaces;
 
 namespace Oxide.Ext.UiFramework.Components;
+
 public partial class InputComponent : IInputComponent, IInputComponentTrackable
 {
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<int> _charsLimit = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Input.CharacterLimit);

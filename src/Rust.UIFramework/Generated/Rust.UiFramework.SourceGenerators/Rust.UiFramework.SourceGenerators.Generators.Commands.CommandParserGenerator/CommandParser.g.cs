@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Oxide.Ext.UiFramework.Extensions;
 
 namespace Oxide.Ext.UiFramework.Libraries;
+
 internal class CommandParser<T0>(Oxide.Ext.UiFramework.Libraries.ICommandParserData data) : Oxide.Ext.UiFramework.Libraries.BaseCommandParser(data)
 {
 	protected override void RunCommandInternal(Oxide.Ext.UiFramework.Libraries.ExecutionData data, Oxide.Ext.UiFramework.Libraries.UiCommandTokenizer args)

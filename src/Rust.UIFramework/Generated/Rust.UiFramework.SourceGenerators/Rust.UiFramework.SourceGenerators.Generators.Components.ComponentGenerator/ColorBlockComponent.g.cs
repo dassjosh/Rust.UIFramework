@@ -3,6 +3,7 @@ using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Interfaces;
 
 namespace Oxide.Ext.UiFramework.Components;
+
 public partial class ColorBlockComponent : IColorBlockComponent, IColorBlockComponentTrackable
 {
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> _highlightedColor = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ColorBlock.HighlightedColor);

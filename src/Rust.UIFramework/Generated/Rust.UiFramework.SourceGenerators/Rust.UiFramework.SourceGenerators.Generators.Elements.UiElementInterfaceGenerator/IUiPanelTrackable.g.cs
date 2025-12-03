@@ -1,7 +1,8 @@
 ﻿using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Interfaces;
-public interface IUiImageTrackable : IBaseUiComponentTrackable
+
+public interface IUiPanelTrackable : IBaseUiComponentTrackable
 {
 	IImageComponentTrackable Image { get; }
 }

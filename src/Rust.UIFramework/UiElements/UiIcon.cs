@@ -8,9 +8,14 @@ using Rust.UiFramework.SourceGenerators.Attributes;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-[GenerateUiElement(typeof(IUiIcon))]
-public partial class UiIcon : BaseUiComponent, IUiIcon
+[GenerateUiElement]
+[GenerateBuilderMethods]
+public partial class UiIcon : BaseUiComponent, IMaterial<UiIcon>, IFadeIn<UiIcon>, IUiColor<UiIcon>
 {
+    public partial string Material { get; set; }
+    public partial float FadeIn { get; set; }
+    public partial UiColor Color { get; set; }
+    
     public readonly RawImageComponent RawImage;
     
     public UiIcon() : this(new RawImageComponent()) { }

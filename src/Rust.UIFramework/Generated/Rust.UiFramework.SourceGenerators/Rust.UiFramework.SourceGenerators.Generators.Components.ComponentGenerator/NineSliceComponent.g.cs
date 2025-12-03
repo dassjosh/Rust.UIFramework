@@ -3,6 +3,7 @@ using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Interfaces;
 
 namespace Oxide.Ext.UiFramework.Components;
+
 public partial class NineSliceComponent : INineSliceComponent, INineSliceComponentTrackable
 {
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<string> _png = new();

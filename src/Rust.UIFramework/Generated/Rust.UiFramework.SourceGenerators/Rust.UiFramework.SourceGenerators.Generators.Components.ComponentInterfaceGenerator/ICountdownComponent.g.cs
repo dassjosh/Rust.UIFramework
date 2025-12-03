@@ -1,6 +1,7 @@
 ﻿using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Interfaces;
+
 public interface ICountdownComponent : IBaseTypedComponent
 {
 	float StartTime { get; set; }
@@ -11,6 +12,15 @@ public interface ICountdownComponent : IBaseTypedComponent
 	string NumberFormat { get; set; }
 	bool DestroyIfDone { get; set; }
 	string Command { get; set; }
+
+	Oxide.Ext.UiFramework.Components.CountdownComponent SetStartTime(float startTime);
+	Oxide.Ext.UiFramework.Components.CountdownComponent SetEndTime(float endTime);
+	Oxide.Ext.UiFramework.Components.CountdownComponent SetStep(float step);
+	Oxide.Ext.UiFramework.Components.CountdownComponent SetInterval(float interval);
+	Oxide.Ext.UiFramework.Components.CountdownComponent SetTimerFormat(Oxide.Ext.UiFramework.Enums.TimerFormat timerFormat);
+	Oxide.Ext.UiFramework.Components.CountdownComponent SetNumberFormat(string numberFormat);
+	Oxide.Ext.UiFramework.Components.CountdownComponent SetDestroyIfDone(bool destroyIfDone);
+	Oxide.Ext.UiFramework.Components.CountdownComponent SetCommand(string command);
 }
 
 

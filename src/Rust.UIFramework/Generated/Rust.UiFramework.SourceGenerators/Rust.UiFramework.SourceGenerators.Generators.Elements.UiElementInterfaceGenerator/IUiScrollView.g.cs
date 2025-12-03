@@ -1,0 +1,32 @@
+﻿using Oxide.Ext.UiFramework.Types;
+
+namespace Oxide.Ext.UiFramework.Interfaces;
+
+public interface IUiScrollView : IBaseUiComponent
+{
+	UnityEngine.UI.ScrollRect.MovementType MovementType { get; }
+	float Elasticity { get; }
+	bool Inertia { get; }
+	float DecelerationRate { get; }
+	float ScrollSensitivity { get; }
+	float HorizontalScrollProgress { get; }
+	float VerticalScrollProgress { get; }
+	Oxide.Ext.UiFramework.Positions.UiPosition ContentPosition { get; }
+	Oxide.Ext.UiFramework.Offsets.UiOffset ContentOffset { get; }
+	UnityEngine.Vector2 ContentPivot { get; }
+	Oxide.Ext.UiFramework.Components.ScrollbarComponent HorizontalScrollbar { get; }
+	Oxide.Ext.UiFramework.Components.ScrollbarComponent VerticalScrollbar { get; }
+
+	Oxide.Ext.UiFramework.UiElements.UiScrollView SetMovementType(UnityEngine.UI.ScrollRect.MovementType movementType);
+	Oxide.Ext.UiFramework.UiElements.UiScrollView SetElasticity(float elasticity);
+	Oxide.Ext.UiFramework.UiElements.UiScrollView SetInertia(bool inertia);
+	Oxide.Ext.UiFramework.UiElements.UiScrollView SetDecelerationRate(float decelerationRate);
+	Oxide.Ext.UiFramework.UiElements.UiScrollView SetScrollSensitivity(float scrollSensitivity);
+	Oxide.Ext.UiFramework.UiElements.UiScrollView SetHorizontalScrollProgress(float horizontalScrollProgress);
+	Oxide.Ext.UiFramework.UiElements.UiScrollView SetVerticalScrollProgress(float verticalScrollProgress);
+	Oxide.Ext.UiFramework.UiElements.UiScrollView SetContentPosition(in Oxide.Ext.UiFramework.Positions.UiPosition contentPosition);
+	Oxide.Ext.UiFramework.UiElements.UiScrollView SetContentOffset(in Oxide.Ext.UiFramework.Offsets.UiOffset contentOffset);
+	Oxide.Ext.UiFramework.UiElements.UiScrollView SetContentPivot(in UnityEngine.Vector2 contentPivot);
+}
+
+

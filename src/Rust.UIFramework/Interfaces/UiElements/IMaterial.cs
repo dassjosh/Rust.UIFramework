@@ -3,7 +3,6 @@ using Rust.UiFramework.SourceGenerators.Attributes;
 
 namespace Oxide.Ext.UiFramework.Interfaces;
 
-[IncludeInParent]
 public interface IMaterial
 {
     string Material { get; set; }
