@@ -1,4 +1,5 @@
-﻿using Oxide.Ext.UiFramework.Constants;
+﻿using Oxide.Ext.UiFramework.Colors;
+using Oxide.Ext.UiFramework.Constants;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Interfaces;
 using Oxide.Ext.UiFramework.Json;
@@ -7,10 +8,19 @@ using Rust.UiFramework.SourceGenerators.Attributes;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-[GenerateComponent(typeof(IPlayingCardComponent))]
+[GenerateComponent]
 [GenerateBuilderMethods]
-public partial class PlayingCardComponent : CoreComponent, IPlayingCardComponent, IGraphicalComponent
+public partial class PlayingCardComponent : CoreComponent, IGraphicalComponent
 {
+    public partial UiSuit Suit { get; set; }
+    public partial UiRank Rank { get; set; }
+    public partial UiCardType CardType { get; set; }
+    public partial float FadeIn { get; set; }
+    [TrackedDefaults(typeof(UiMaterials.Content.Ui), nameof(UiMaterials.Content.Ui.NameFontMaterial))]
+    public partial string Material { get; set; }
+    [TrackedDefaults(typeof(UiColors), nameof(UiColors.White))]
+    public partial UiColor Color { get; set; }
+    
     public override Utf8String Type => UiPlayingCards.GetComponentType(Rank, CardType);
     public override ComponentType ComponentType => ComponentType.PlayingCard;
 

@@ -3,7 +3,7 @@ using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Interfaces;
 
 namespace Oxide.Ext.UiFramework.Components;
-public partial class RawImageComponent : IRawImageComponentTrackable
+public partial class RawImageComponent : IRawImageComponent, IRawImageComponentTrackable
 {
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> _color = new();
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<float> _fadeIn = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Common.FadeIn);
@@ -11,11 +11,11 @@ public partial class RawImageComponent : IRawImageComponentTrackable
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<string> _material = new();
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.UiElements.UiReference> _placeholderFor = new();
 
-	public Oxide.Ext.UiFramework.Colors.UiColor Color { get => _color.Value; set => _color.Value = value; }
-	public float FadeIn { get => _fadeIn.Value; set => _fadeIn.Value = value; }
-	public string Image { get => _image.Value; set => _image.Value = value; }
-	public string Material { get => _material.Value; set => _material.Value = value; }
-	public Oxide.Ext.UiFramework.UiElements.UiReference PlaceholderFor { get => _placeholderFor.Value; set => _placeholderFor.Value = value; }
+	public partial Oxide.Ext.UiFramework.Colors.UiColor Color { get => _color.Value; set => _color.Value = value; }
+	public partial float FadeIn { get => _fadeIn.Value; set => _fadeIn.Value = value; }
+	public partial string Image { get => _image.Value; set => _image.Value = value; }
+	public partial string Material { get => _material.Value; set => _material.Value = value; }
+	public partial Oxide.Ext.UiFramework.UiElements.UiReference PlaceholderFor { get => _placeholderFor.Value; set => _placeholderFor.Value = value; }
 	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> IRawImageComponentTrackable.Color => _color;
 	Oxide.Ext.UiFramework.Types.Tracked<float> IRawImageComponentTrackable.FadeIn => _fadeIn;
 	Oxide.Ext.UiFramework.Types.Tracked<string> IRawImageComponentTrackable.Image => _image;

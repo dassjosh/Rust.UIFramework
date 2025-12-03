@@ -3,11 +3,11 @@ using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Interfaces;
 
 namespace Oxide.Ext.UiFramework.Components;
-public partial class BaseTypedComponent : IBaseTypedComponentTrackable
+public partial class BaseTypedComponent : IBaseTypedComponent, IBaseTypedComponentTrackable
 {
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<bool> _enabled = new(true);
 
-	public bool Enabled { get => _enabled.Value; set => _enabled.Value = value; }
+	public partial bool Enabled { get => _enabled.Value; set => _enabled.Value = value; }
 	Oxide.Ext.UiFramework.Types.Tracked<bool> IBaseTypedComponentTrackable.Enabled => _enabled;
 
 	public Oxide.Ext.UiFramework.Components.BaseTypedComponent SetEnabled(bool enabled)

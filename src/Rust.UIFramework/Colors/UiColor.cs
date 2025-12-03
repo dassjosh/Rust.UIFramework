@@ -237,7 +237,10 @@ public readonly struct UiColor : IEquatable<UiColor>, IUiConvertable<UiColor, Ui
 
     [Pure]
     public static UiColor LerpUnclamped(UiColor start, UiColor end, float value) 
-        => new(Mathf.Lerp(start.RedFloat, end.RedFloat, value), Mathf.Lerp(start.GreenFloat, end.GreenFloat, value), Mathf.Lerp(start.BlueFloat, end.BlueFloat, value), Mathf.Lerp(start.AlphaFloat, end.AlphaFloat, value));
+        => new(Mathf.LerpUnclamped(start.RedFloat, end.RedFloat, value), 
+            Mathf.LerpUnclamped(start.GreenFloat, end.GreenFloat, value), 
+            Mathf.LerpUnclamped(start.BlueFloat, end.BlueFloat, value), 
+            Mathf.LerpUnclamped(start.AlphaFloat, end.AlphaFloat, value));
 
     UiColor IUiConvertable<UiColor, UiOpacity>.Convert(UiOpacity from) => WithOpacity(from);
     #endregion

@@ -6,10 +6,33 @@ using Rust.UiFramework.SourceGenerators.Attributes;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-[GenerateComponent(typeof(ICountdownComponent))]
+[GenerateComponent]
 [GenerateBuilderMethods]
-public partial class CountdownComponent : SubComponent, ICountdownComponent
+public partial class CountdownComponent : SubComponent
 {
+    [TrackedDefaults(typeof(JsonDefaults.Countdown), nameof(JsonDefaults.Countdown.StartTime))]
+    public partial float StartTime { get; set; }
+    
+    [TrackedDefaults(typeof(JsonDefaults.Countdown), nameof(JsonDefaults.Countdown.EndTime))]
+    public partial float EndTime { get; set; }
+    
+    [TrackedDefaults(typeof(JsonDefaults.Countdown), nameof(JsonDefaults.Countdown.Step))]
+    public partial float Step { get; set; }
+    
+    [TrackedDefaults(typeof(JsonDefaults.Countdown), nameof(JsonDefaults.Countdown.Interval))]
+    public partial float Interval { get; set; }
+    
+    [TrackedDefaults(typeof(JsonDefaults.Countdown), nameof(JsonDefaults.Countdown.TimerFormat))]
+    public partial TimerFormat TimerFormat { get; set; }
+    
+    [TrackedDefaults(typeof(JsonDefaults.Countdown), nameof(JsonDefaults.Countdown.NumberFormat))]
+    public partial string NumberFormat { get; set; }
+    
+    [TrackedDefaults(typeof(JsonDefaults.Countdown), nameof(JsonDefaults.Countdown.DestroyIfDone))]
+    public partial bool DestroyIfDone { get; set; }
+    
+    public partial string Command { get; set; }
+    
     public override Utf8String Type => JsonDefaults.Countdown.Type;
     public override ComponentType ComponentType => ComponentType.Countdown;
     public override bool AllowMultiple => false;

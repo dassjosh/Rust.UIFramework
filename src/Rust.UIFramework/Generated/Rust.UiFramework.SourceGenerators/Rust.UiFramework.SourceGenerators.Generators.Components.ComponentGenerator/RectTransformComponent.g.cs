@@ -3,7 +3,7 @@ using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Interfaces;
 
 namespace Oxide.Ext.UiFramework.Components;
-public partial class RectTransformComponent : IRectTransformComponentTrackable
+public partial class RectTransformComponent : IRectTransformComponent, IRectTransformComponentTrackable
 {
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Positions.UiPosition> _position = new(Oxide.Ext.UiFramework.Positions.UiPosition.Full);
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Offsets.UiOffset> _offset = new(Oxide.Ext.UiFramework.Offsets.UiOffset.None, Oxide.Ext.UiFramework.Json.JsonDefaults.RectTransform.FpOffset);
@@ -17,17 +17,17 @@ public partial class RectTransformComponent : IRectTransformComponentTrackable
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<string> _changeParent = new();
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<int> _transformIndex = new(Oxide.Ext.UiFramework.Json.JsonDefaults.RectTransform.SetTransformIndex);
 
-	public Oxide.Ext.UiFramework.Positions.UiPosition Position { get => _position.Value; set => _position.Value = value; }
-	public Oxide.Ext.UiFramework.Offsets.UiOffset Offset { get => _offset.Value; set => _offset.Value = value; }
-	public Oxide.Ext.UiFramework.Types.UiPadding PositionPadding { get => _positionPadding.Value; set => _positionPadding.Value = value; }
-	public Oxide.Ext.UiFramework.Types.UiPadding OffsetPadding { get => _offsetPadding.Value; set => _offsetPadding.Value = value; }
-	public Oxide.Ext.UiFramework.Types.UiScale PositionScale { get => _positionScale.Value; set => _positionScale.Value = value; }
-	public Oxide.Ext.UiFramework.Types.UiScale OffsetScale { get => _offsetScale.Value; set => _offsetScale.Value = value; }
-	public Oxide.Ext.UiFramework.Types.UiTranslate PositionTranslate { get => _positionTranslate.Value; set => _positionTranslate.Value = value; }
-	public Oxide.Ext.UiFramework.Types.UiTranslate OffsetTranslate { get => _offsetTranslate.Value; set => _offsetTranslate.Value = value; }
-	public Oxide.Ext.UiFramework.Types.UiRotation Rotation { get => _rotation.Value; set => _rotation.Value = value; }
-	public string ChangeParent { get => _changeParent.Value; set => _changeParent.Value = value; }
-	public int TransformIndex { get => _transformIndex.Value; set => _transformIndex.Value = value; }
+	public partial Oxide.Ext.UiFramework.Positions.UiPosition Position { get => _position.Value; set => _position.Value = value; }
+	public partial Oxide.Ext.UiFramework.Offsets.UiOffset Offset { get => _offset.Value; set => _offset.Value = value; }
+	public partial Oxide.Ext.UiFramework.Types.UiPadding PositionPadding { get => _positionPadding.Value; set => _positionPadding.Value = value; }
+	public partial Oxide.Ext.UiFramework.Types.UiPadding OffsetPadding { get => _offsetPadding.Value; set => _offsetPadding.Value = value; }
+	public partial Oxide.Ext.UiFramework.Types.UiScale PositionScale { get => _positionScale.Value; set => _positionScale.Value = value; }
+	public partial Oxide.Ext.UiFramework.Types.UiScale OffsetScale { get => _offsetScale.Value; set => _offsetScale.Value = value; }
+	public partial Oxide.Ext.UiFramework.Types.UiTranslate PositionTranslate { get => _positionTranslate.Value; set => _positionTranslate.Value = value; }
+	public partial Oxide.Ext.UiFramework.Types.UiTranslate OffsetTranslate { get => _offsetTranslate.Value; set => _offsetTranslate.Value = value; }
+	public partial Oxide.Ext.UiFramework.Types.UiRotation Rotation { get => _rotation.Value; set => _rotation.Value = value; }
+	public partial string ChangeParent { get => _changeParent.Value; set => _changeParent.Value = value; }
+	public partial int TransformIndex { get => _transformIndex.Value; set => _transformIndex.Value = value; }
 	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Positions.UiPosition> IRectTransformComponentTrackable.Position => _position;
 	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Offsets.UiOffset> IRectTransformComponentTrackable.Offset => _offset;
 	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Types.UiPadding> IRectTransformComponentTrackable.PositionPadding => _positionPadding;
@@ -70,12 +70,12 @@ public partial class RectTransformComponent : IRectTransformComponentTrackable
 		OffsetScale = offsetScale;
 		return this;
 	}
-	public Oxide.Ext.UiFramework.Components.RectTransformComponent SetPositionTranslate(Oxide.Ext.UiFramework.Types.UiTranslate positionTranslate)
+	public Oxide.Ext.UiFramework.Components.RectTransformComponent SetPositionTranslate(in Oxide.Ext.UiFramework.Types.UiTranslate positionTranslate)
 	{
 		PositionTranslate = positionTranslate;
 		return this;
 	}
-	public Oxide.Ext.UiFramework.Components.RectTransformComponent SetOffsetTranslate(Oxide.Ext.UiFramework.Types.UiTranslate offsetTranslate)
+	public Oxide.Ext.UiFramework.Components.RectTransformComponent SetOffsetTranslate(in Oxide.Ext.UiFramework.Types.UiTranslate offsetTranslate)
 	{
 		OffsetTranslate = offsetTranslate;
 		return this;

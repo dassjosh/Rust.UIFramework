@@ -5,10 +5,13 @@ using Rust.UiFramework.SourceGenerators.Attributes;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-[GenerateComponent(typeof(IItemIconComponent))]
+[GenerateComponent]
 [GenerateBuilderMethods]
-public partial class ItemIconComponent : ImageComponent, IItemIconComponent
+public partial class ItemIconComponent : ImageComponent
 {
+    public partial int ItemId { get; set; }
+    public partial ulong SkinId { get; set; }
+    
     public override ComponentType ComponentType => ComponentType.ItemIcon;
 
     protected override void WriteComponentFields(JsonFrameworkWriter writer, SerializeMode mode)

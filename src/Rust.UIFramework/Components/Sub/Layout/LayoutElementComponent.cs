@@ -6,10 +6,31 @@ using Rust.UiFramework.SourceGenerators.Attributes;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-[GenerateComponent(typeof(ILayoutElementComponent))]
+[GenerateComponent]
 [GenerateBuilderMethods]
-public partial class LayoutElementComponent : SubComponent, ILayoutElementComponent
+public partial class LayoutElementComponent : SubComponent
 {
+    [TrackedDefaults(typeof(JsonDefaults.LayoutElement), nameof(JsonDefaults.LayoutElement.PreferredWidth))]
+    public partial float PreferredWidth { get; set; }
+    
+    [TrackedDefaults(typeof(JsonDefaults.LayoutElement), nameof(JsonDefaults.LayoutElement.PreferredHeight))]
+    public partial float PreferredHeight { get; set; }
+    
+    [TrackedDefaults(typeof(JsonDefaults.LayoutElement), nameof(JsonDefaults.LayoutElement.MinWidth))]
+    public partial float MinWidth { get; set; }
+    
+    [TrackedDefaults(typeof(JsonDefaults.LayoutElement), nameof(JsonDefaults.LayoutElement.MinHeight))]
+    public partial float MinHeight { get; set; }
+    
+    [TrackedDefaults(typeof(JsonDefaults.LayoutElement), nameof(JsonDefaults.LayoutElement.FlexibleWidth))]
+    public partial float FlexibleWidth { get; set; }
+    
+    [TrackedDefaults(typeof(JsonDefaults.LayoutElement), nameof(JsonDefaults.LayoutElement.PreferredWidth))]
+    public partial float FlexibleHeight { get; set; }
+    
+    [TrackedDefaults(typeof(JsonDefaults.LayoutElement), nameof(JsonDefaults.LayoutElement.IgnoreLayout))]
+    public partial bool IgnoreLayout { get; set; }
+    
     public override Utf8String Type => JsonDefaults.LayoutElement.Type;
     public override ComponentType ComponentType => ComponentType.LayoutElement;
     public override bool AllowMultiple => false;

@@ -15,13 +15,8 @@ public class ComponentGenerator : BaseGenerator, IIncrementalGenerator
     {
         context.Register<ClassDeclarationSyntax, GenerateComponentAttribute>((spc, compilation, @class, classSymbol, attribute) =>
         {
-            if (attribute?.ConstructorArguments[0].Value is not INamedTypeSymbol interfaceType)
-            {
-                return;
-            }
-            
             InitializeCache(compilation);
-            GeneratorData data = new(classSymbol, interfaceType);
+            GeneratorData data = new(classSymbol);
             spc.AddSource($"{classSymbol.Name}.g.cs", GenerateComponent(classSymbol, data));
         });
     }
@@ -33,19 +28,19 @@ public class ComponentGenerator : BaseGenerator, IIncrementalGenerator
             .Namespace(classSymbol.ContainingNamespace)
             .Add(t =>
             {
-                t.Public().Partial().Class().Name(classSymbol.Name).Implements(genData.InterfaceName)
+                t.Public().Partial().Class().Name(classSymbol.Name).Implements(genData.ComponentInterfaceName).Implements(genData.TrackableInterfaceName)
 
                     //Private Tracked Fields
                     .Fields(genData.Properties, (data, field) =>
                         field.Private().Readonly().Type(SymbolCache.Types.Tracked.Symbol.Construct(data.Type)).Name(data.PrivateFieldName).New(data.GetPropertyDefaults()))
 
                     //Public Properties
-                    .Properties(genData.Properties, (data, property) => property.Public().Type(data.Type).Name(data.Name)
+                    .Properties(genData.Properties, (data, property) => property.Public().Partial().Type(data.Type).Name(data.Name)
                         .Get($"{data.PrivateFieldName}.Value")
                         .Set($"{data.PrivateFieldName}.Value = value"))
 
                     //Explicit Tracked Interface Implementation Properties
-                    .Properties(genData.Properties, (data, property) => property.Type(SymbolCache.Types.Tracked.Symbol.Construct(data.Type)).Name($"{genData.InterfaceName}.{data.Name}")
+                    .Properties(genData.Properties, (data, property) => property.Type(SymbolCache.Types.Tracked.Symbol.Construct(data.Type)).Name($"{genData.TrackableInterfaceName}.{data.Name}")
                         .Get(data.PrivateFieldName))
 
                     //Builder Methods
@@ -62,7 +57,7 @@ public class ComponentGenerator : BaseGenerator, IIncrementalGenerator
                     .If(!genData.ClassSymbol.IsAbstract, builder => builder.Method(method => method.Public()
                         .If(genData.ParentComponent is not null, m => m.New())
                         .EndIf()
-                        .Returns(genData.InterfaceName).Name("AsTrackable").Body("return this;")))
+                        .Returns(genData.TrackableInterfaceName).Name("AsTrackable").Body("return this;")))
                     .EndIf()
 
                     //HasChangedGenerated Method
@@ -83,16 +78,18 @@ public class ComponentGenerator : BaseGenerator, IIncrementalGenerator
     private sealed class GeneratorData
     {
         public readonly INamedTypeSymbol ClassSymbol;
-        public readonly string InterfaceName;
+        public readonly string ComponentInterfaceName;
+        public readonly string TrackableInterfaceName;
         public readonly PropertyData[] Properties;
         public readonly bool GenerateBuilderMethods;
         public readonly INamedTypeSymbol ParentComponent;
 
-        public GeneratorData(INamedTypeSymbol classSymbol, INamedTypeSymbol interfaceType)
+        public GeneratorData(INamedTypeSymbol classSymbol)
         {
             ClassSymbol = classSymbol;
-            InterfaceName = classSymbol.GetTrackableInterface();
-            Properties = interfaceType.GetProperties().Select(p => new PropertyData(p)).ToArray();
+            ComponentInterfaceName = classSymbol.GetInterface();
+            TrackableInterfaceName = classSymbol.GetTrackableInterface();
+            Properties = classSymbol.GetProperties().Where(p => p.IsPartialDefinition).Select(p => new PropertyData(p)).ToArray();
             GenerateBuilderMethods = classSymbol.HasAttribute<GenerateBuilderMethodsAttribute>();
             ParentComponent = classSymbol.GetParentWithAttribute<GenerateComponentAttribute>(s => !s.IsAbstract);
         }

@@ -7,13 +7,35 @@ using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.Types;
 using Rust.UiFramework.SourceGenerators.Attributes;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-[GenerateComponent(typeof(IScrollViewComponent))]
+[GenerateComponent]
 [GenerateBuilderMethods]
-public partial class ScrollViewComponent : CoreComponent, IScrollViewComponent
+public partial class ScrollViewComponent : CoreComponent
 {
+    [TrackedDefaults(typeof(JsonDefaults.ScrollView), nameof(JsonDefaults.ScrollView.MovementType))]
+    public partial ScrollRect.MovementType MovementType { get; set; }
+    
+    [TrackedDefaults(typeof(JsonDefaults.ScrollView), nameof(JsonDefaults.ScrollView.Elasticity))]
+    public partial float Elasticity { get; set; }
+    
+    [TrackedDefaults(typeof(JsonDefaults.ScrollView), nameof(JsonDefaults.ScrollView.Inertia))]
+    public partial bool Inertia { get; set; }
+    
+    [TrackedDefaults(typeof(JsonDefaults.ScrollView), nameof(JsonDefaults.ScrollView.DecelerationRate))]
+    public partial float DecelerationRate { get; set; }
+    
+    [TrackedDefaults(typeof(JsonDefaults.ScrollView), nameof(JsonDefaults.ScrollView.ScrollSensitivity))]
+    public partial float ScrollSensitivity { get; set; }
+    
+    [TrackedDefaults(typeof(JsonDefaults.ScrollView), nameof(JsonDefaults.ScrollView.HorizontalScrollProgress))]
+    public partial float HorizontalScrollProgress { get; set; }
+    
+    [TrackedDefaults(typeof(JsonDefaults.ScrollView), nameof(JsonDefaults.ScrollView.VerticalScrollProgress))]
+    public partial float VerticalScrollProgress { get; set; }
+    
     public ScrollViewContentComponent ContentTransform { get; private set; }
     public ScrollbarComponent HorizontalScrollbar { get; private set; }
     public ScrollbarComponent VerticalScrollbar { get; private set; }

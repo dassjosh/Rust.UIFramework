@@ -3,7 +3,7 @@ using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Interfaces;
 
 namespace Oxide.Ext.UiFramework.Components;
-public partial class InputComponent : IInputComponentTrackable
+public partial class InputComponent : IInputComponent, IInputComponentTrackable
 {
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<int> _charsLimit = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Input.CharacterLimit);
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<string> _command = new();
@@ -11,11 +11,11 @@ public partial class InputComponent : IInputComponentTrackable
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.InputField.LineType> _lineType = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Input.LineType);
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.UiElements.UiReference> _placeholder = new();
 
-	public int CharsLimit { get => _charsLimit.Value; set => _charsLimit.Value = value; }
-	public string Command { get => _command.Value; set => _command.Value = value; }
-	public Oxide.Ext.UiFramework.Enums.InputMode Mode { get => _mode.Value; set => _mode.Value = value; }
-	public UnityEngine.UI.InputField.LineType LineType { get => _lineType.Value; set => _lineType.Value = value; }
-	public Oxide.Ext.UiFramework.UiElements.UiReference Placeholder { get => _placeholder.Value; set => _placeholder.Value = value; }
+	public partial int CharsLimit { get => _charsLimit.Value; set => _charsLimit.Value = value; }
+	public partial string Command { get => _command.Value; set => _command.Value = value; }
+	public partial Oxide.Ext.UiFramework.Enums.InputMode Mode { get => _mode.Value; set => _mode.Value = value; }
+	public partial UnityEngine.UI.InputField.LineType LineType { get => _lineType.Value; set => _lineType.Value = value; }
+	public partial Oxide.Ext.UiFramework.UiElements.UiReference Placeholder { get => _placeholder.Value; set => _placeholder.Value = value; }
 	Oxide.Ext.UiFramework.Types.Tracked<int> IInputComponentTrackable.CharsLimit => _charsLimit;
 	Oxide.Ext.UiFramework.Types.Tracked<string> IInputComponentTrackable.Command => _command;
 	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Enums.InputMode> IInputComponentTrackable.Mode => _mode;

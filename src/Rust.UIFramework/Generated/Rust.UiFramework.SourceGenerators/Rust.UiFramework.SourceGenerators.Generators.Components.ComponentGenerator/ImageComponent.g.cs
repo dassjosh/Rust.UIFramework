@@ -3,7 +3,7 @@ using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Interfaces;
 
 namespace Oxide.Ext.UiFramework.Components;
-public partial class ImageComponent : IImageComponentTrackable
+public partial class ImageComponent : IImageComponent, IImageComponentTrackable
 {
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> _color = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Color.ColorValue);
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<float> _fadeIn = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Common.FadeIn);
@@ -13,13 +13,13 @@ public partial class ImageComponent : IImageComponentTrackable
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.UiElements.UiReference> _placeholderFor = new();
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<bool> _fillCenter = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Image.FillCenter);
 
-	public Oxide.Ext.UiFramework.Colors.UiColor Color { get => _color.Value; set => _color.Value = value; }
-	public float FadeIn { get => _fadeIn.Value; set => _fadeIn.Value = value; }
-	public string Sprite { get => _sprite.Value; set => _sprite.Value = value; }
-	public string Material { get => _material.Value; set => _material.Value = value; }
-	public UnityEngine.UI.Image.Type ImageType { get => _imageType.Value; set => _imageType.Value = value; }
-	public Oxide.Ext.UiFramework.UiElements.UiReference PlaceholderFor { get => _placeholderFor.Value; set => _placeholderFor.Value = value; }
-	public bool FillCenter { get => _fillCenter.Value; set => _fillCenter.Value = value; }
+	public partial Oxide.Ext.UiFramework.Colors.UiColor Color { get => _color.Value; set => _color.Value = value; }
+	public partial float FadeIn { get => _fadeIn.Value; set => _fadeIn.Value = value; }
+	public partial string Sprite { get => _sprite.Value; set => _sprite.Value = value; }
+	public partial string Material { get => _material.Value; set => _material.Value = value; }
+	public partial UnityEngine.UI.Image.Type ImageType { get => _imageType.Value; set => _imageType.Value = value; }
+	public partial Oxide.Ext.UiFramework.UiElements.UiReference PlaceholderFor { get => _placeholderFor.Value; set => _placeholderFor.Value = value; }
+	public partial bool FillCenter { get => _fillCenter.Value; set => _fillCenter.Value = value; }
 	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> IImageComponentTrackable.Color => _color;
 	Oxide.Ext.UiFramework.Types.Tracked<float> IImageComponentTrackable.FadeIn => _fadeIn;
 	Oxide.Ext.UiFramework.Types.Tracked<string> IImageComponentTrackable.Sprite => _sprite;

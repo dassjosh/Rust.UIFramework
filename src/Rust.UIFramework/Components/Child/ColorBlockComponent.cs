@@ -6,10 +6,25 @@ using Rust.UiFramework.SourceGenerators.Attributes;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-[GenerateComponent(typeof(IColorBlockComponent))]
+[GenerateComponent]
 [GenerateBuilderMethods]
-public partial class ColorBlockComponent : ChildComponent, IColorBlockComponent
+public partial class ColorBlockComponent : ChildComponent
 {
+    [TrackedDefaults(typeof(JsonDefaults.ColorBlock), nameof(JsonDefaults.ColorBlock.HighlightedColor))]
+    public partial UiColor HighlightedColor { get; set; }
+    
+    [TrackedDefaults(typeof(JsonDefaults.ColorBlock), nameof(JsonDefaults.ColorBlock.PressedColor))]
+    public partial UiColor PressedColor { get; set; }
+    
+    [TrackedDefaults(typeof(JsonDefaults.ColorBlock), nameof(JsonDefaults.ColorBlock.SelectedColor))]
+    public partial UiColor SelectedColor { get; set; }
+    
+    [TrackedDefaults(typeof(JsonDefaults.ColorBlock), nameof(JsonDefaults.ColorBlock.ColorMultiplier))]
+    public partial float ColorMultiplier { get; set; }
+    
+    [TrackedDefaults(typeof(JsonDefaults.ColorBlock), nameof(JsonDefaults.ColorBlock.FadeDuration))]
+    public partial float FadeDuration { get; set; }
+    
     public override ComponentType ComponentType => ComponentType.ColorBlock;
 
     public static readonly UiColor DefaultHighlightedColor = JsonDefaults.ColorBlock.HighlightedColor;

@@ -9,10 +9,15 @@ using Rust.UiFramework.SourceGenerators.Attributes;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-[GenerateComponent(typeof(IPlayerAvatarComponent))]
+[GenerateComponent]
 [GenerateBuilderMethods]
-public partial class PlayerAvatarComponent : RawImageComponent, IPlayerAvatarComponent
+public partial class PlayerAvatarComponent : RawImageComponent
 {
+    public partial ulong SteamId { get; set; }
+    
+    [TrackedDefaults(typeof(AvatarType), nameof(AvatarType.Medium))]
+    public partial AvatarType AvatarType { get; set; }
+    
     public override ComponentType ComponentType => ComponentType.PlayerAvatar;
 
     protected override void WriteComponentFields(JsonFrameworkWriter writer, SerializeMode mode)

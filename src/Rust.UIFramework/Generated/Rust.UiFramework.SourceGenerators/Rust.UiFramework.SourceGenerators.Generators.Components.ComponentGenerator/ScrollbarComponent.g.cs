@@ -3,7 +3,7 @@ using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Interfaces;
 
 namespace Oxide.Ext.UiFramework.Components;
-public partial class ScrollbarComponent : IScrollbarComponentTrackable
+public partial class ScrollbarComponent : IScrollbarComponent, IScrollbarComponentTrackable
 {
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<bool> _invert = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ScrollBar.Invert);
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<bool> _autoHide = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ScrollBar.AutoHide);
@@ -15,15 +15,15 @@ public partial class ScrollbarComponent : IScrollbarComponentTrackable
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> _pressedColor = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ScrollBar.PressedColor);
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> _trackColor = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ScrollBar.TrackColor);
 
-	public bool Invert { get => _invert.Value; set => _invert.Value = value; }
-	public bool AutoHide { get => _autoHide.Value; set => _autoHide.Value = value; }
-	public string HandleSprite { get => _handleSprite.Value; set => _handleSprite.Value = value; }
-	public string TrackSprite { get => _trackSprite.Value; set => _trackSprite.Value = value; }
-	public float Size { get => _size.Value; set => _size.Value = value; }
-	public Oxide.Ext.UiFramework.Colors.UiColor HandleColor { get => _handleColor.Value; set => _handleColor.Value = value; }
-	public Oxide.Ext.UiFramework.Colors.UiColor HighlightColor { get => _highlightColor.Value; set => _highlightColor.Value = value; }
-	public Oxide.Ext.UiFramework.Colors.UiColor PressedColor { get => _pressedColor.Value; set => _pressedColor.Value = value; }
-	public Oxide.Ext.UiFramework.Colors.UiColor TrackColor { get => _trackColor.Value; set => _trackColor.Value = value; }
+	public partial bool Invert { get => _invert.Value; set => _invert.Value = value; }
+	public partial bool AutoHide { get => _autoHide.Value; set => _autoHide.Value = value; }
+	public partial string HandleSprite { get => _handleSprite.Value; set => _handleSprite.Value = value; }
+	public partial string TrackSprite { get => _trackSprite.Value; set => _trackSprite.Value = value; }
+	public partial float Size { get => _size.Value; set => _size.Value = value; }
+	public partial Oxide.Ext.UiFramework.Colors.UiColor HandleColor { get => _handleColor.Value; set => _handleColor.Value = value; }
+	public partial Oxide.Ext.UiFramework.Colors.UiColor HighlightColor { get => _highlightColor.Value; set => _highlightColor.Value = value; }
+	public partial Oxide.Ext.UiFramework.Colors.UiColor PressedColor { get => _pressedColor.Value; set => _pressedColor.Value = value; }
+	public partial Oxide.Ext.UiFramework.Colors.UiColor TrackColor { get => _trackColor.Value; set => _trackColor.Value = value; }
 	Oxide.Ext.UiFramework.Types.Tracked<bool> IScrollbarComponentTrackable.Invert => _invert;
 	Oxide.Ext.UiFramework.Types.Tracked<bool> IScrollbarComponentTrackable.AutoHide => _autoHide;
 	Oxide.Ext.UiFramework.Types.Tracked<string> IScrollbarComponentTrackable.HandleSprite => _handleSprite;

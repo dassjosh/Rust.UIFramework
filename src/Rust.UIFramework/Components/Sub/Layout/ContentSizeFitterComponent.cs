@@ -3,13 +3,20 @@ using Oxide.Ext.UiFramework.Interfaces;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Types;
 using Rust.UiFramework.SourceGenerators.Attributes;
+using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-[GenerateComponent(typeof(IContentSizeFitterComponent))]
+[GenerateComponent]
 [GenerateBuilderMethods]
-public partial class ContentSizeFitterComponent : SubComponent, IContentSizeFitterComponent
+public partial class ContentSizeFitterComponent : SubComponent
 {
+    [TrackedDefaults(typeof(JsonDefaults.ContentSizeFitterData), nameof(JsonDefaults.ContentSizeFitterData.HorizontalFit))]
+    public partial ContentSizeFitter.FitMode HorizontalFit { get; set; }
+    
+    [TrackedDefaults(typeof(JsonDefaults.ContentSizeFitterData), nameof(JsonDefaults.ContentSizeFitterData.VerticalFit))]
+    public partial ContentSizeFitter.FitMode VerticalFit { get; set; }
+    
     public override Utf8String Type => JsonDefaults.ContentSizeFitterData.Type;
     public override ComponentType ComponentType => ComponentType.ContentSizeFitter;
     public override bool AllowMultiple => false;

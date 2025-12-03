@@ -3,13 +3,13 @@ using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Interfaces;
 
 namespace Oxide.Ext.UiFramework.Components;
-public partial class ItemIconComponent : IItemIconComponentTrackable
+public partial class ItemIconComponent : IItemIconComponent, IItemIconComponentTrackable
 {
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<int> _itemId = new();
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<ulong> _skinId = new();
 
-	public int ItemId { get => _itemId.Value; set => _itemId.Value = value; }
-	public ulong SkinId { get => _skinId.Value; set => _skinId.Value = value; }
+	public partial int ItemId { get => _itemId.Value; set => _itemId.Value = value; }
+	public partial ulong SkinId { get => _skinId.Value; set => _skinId.Value = value; }
 	Oxide.Ext.UiFramework.Types.Tracked<int> IItemIconComponentTrackable.ItemId => _itemId;
 	Oxide.Ext.UiFramework.Types.Tracked<ulong> IItemIconComponentTrackable.SkinId => _skinId;
 

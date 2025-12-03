@@ -3,7 +3,7 @@ using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Interfaces;
 
 namespace Oxide.Ext.UiFramework.Components;
-public partial class CountdownComponent : ICountdownComponentTrackable
+public partial class CountdownComponent : ICountdownComponent, ICountdownComponentTrackable
 {
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<float> _startTime = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Countdown.StartTime);
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<float> _endTime = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Countdown.EndTime);
@@ -14,14 +14,14 @@ public partial class CountdownComponent : ICountdownComponentTrackable
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<bool> _destroyIfDone = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Countdown.DestroyIfDone);
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<string> _command = new();
 
-	public float StartTime { get => _startTime.Value; set => _startTime.Value = value; }
-	public float EndTime { get => _endTime.Value; set => _endTime.Value = value; }
-	public float Step { get => _step.Value; set => _step.Value = value; }
-	public float Interval { get => _interval.Value; set => _interval.Value = value; }
-	public Oxide.Ext.UiFramework.Enums.TimerFormat TimerFormat { get => _timerFormat.Value; set => _timerFormat.Value = value; }
-	public string NumberFormat { get => _numberFormat.Value; set => _numberFormat.Value = value; }
-	public bool DestroyIfDone { get => _destroyIfDone.Value; set => _destroyIfDone.Value = value; }
-	public string Command { get => _command.Value; set => _command.Value = value; }
+	public partial float StartTime { get => _startTime.Value; set => _startTime.Value = value; }
+	public partial float EndTime { get => _endTime.Value; set => _endTime.Value = value; }
+	public partial float Step { get => _step.Value; set => _step.Value = value; }
+	public partial float Interval { get => _interval.Value; set => _interval.Value = value; }
+	public partial Oxide.Ext.UiFramework.Enums.TimerFormat TimerFormat { get => _timerFormat.Value; set => _timerFormat.Value = value; }
+	public partial string NumberFormat { get => _numberFormat.Value; set => _numberFormat.Value = value; }
+	public partial bool DestroyIfDone { get => _destroyIfDone.Value; set => _destroyIfDone.Value = value; }
+	public partial string Command { get => _command.Value; set => _command.Value = value; }
 	Oxide.Ext.UiFramework.Types.Tracked<float> ICountdownComponentTrackable.StartTime => _startTime;
 	Oxide.Ext.UiFramework.Types.Tracked<float> ICountdownComponentTrackable.EndTime => _endTime;
 	Oxide.Ext.UiFramework.Types.Tracked<float> ICountdownComponentTrackable.Step => _step;

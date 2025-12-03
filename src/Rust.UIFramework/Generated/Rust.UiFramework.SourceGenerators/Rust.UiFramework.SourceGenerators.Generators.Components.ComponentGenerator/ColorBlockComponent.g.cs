@@ -3,7 +3,7 @@ using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Interfaces;
 
 namespace Oxide.Ext.UiFramework.Components;
-public partial class ColorBlockComponent : IColorBlockComponentTrackable
+public partial class ColorBlockComponent : IColorBlockComponent, IColorBlockComponentTrackable
 {
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> _highlightedColor = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ColorBlock.HighlightedColor);
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> _pressedColor = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ColorBlock.PressedColor);
@@ -11,11 +11,11 @@ public partial class ColorBlockComponent : IColorBlockComponentTrackable
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<float> _colorMultiplier = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ColorBlock.ColorMultiplier);
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<float> _fadeDuration = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ColorBlock.FadeDuration);
 
-	public Oxide.Ext.UiFramework.Colors.UiColor HighlightedColor { get => _highlightedColor.Value; set => _highlightedColor.Value = value; }
-	public Oxide.Ext.UiFramework.Colors.UiColor PressedColor { get => _pressedColor.Value; set => _pressedColor.Value = value; }
-	public Oxide.Ext.UiFramework.Colors.UiColor SelectedColor { get => _selectedColor.Value; set => _selectedColor.Value = value; }
-	public float ColorMultiplier { get => _colorMultiplier.Value; set => _colorMultiplier.Value = value; }
-	public float FadeDuration { get => _fadeDuration.Value; set => _fadeDuration.Value = value; }
+	public partial Oxide.Ext.UiFramework.Colors.UiColor HighlightedColor { get => _highlightedColor.Value; set => _highlightedColor.Value = value; }
+	public partial Oxide.Ext.UiFramework.Colors.UiColor PressedColor { get => _pressedColor.Value; set => _pressedColor.Value = value; }
+	public partial Oxide.Ext.UiFramework.Colors.UiColor SelectedColor { get => _selectedColor.Value; set => _selectedColor.Value = value; }
+	public partial float ColorMultiplier { get => _colorMultiplier.Value; set => _colorMultiplier.Value = value; }
+	public partial float FadeDuration { get => _fadeDuration.Value; set => _fadeDuration.Value = value; }
 	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> IColorBlockComponentTrackable.HighlightedColor => _highlightedColor;
 	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> IColorBlockComponentTrackable.PressedColor => _pressedColor;
 	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> IColorBlockComponentTrackable.SelectedColor => _selectedColor;

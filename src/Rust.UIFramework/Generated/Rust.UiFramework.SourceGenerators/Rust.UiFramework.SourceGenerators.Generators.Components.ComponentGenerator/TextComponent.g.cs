@@ -3,7 +3,7 @@ using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Interfaces;
 
 namespace Oxide.Ext.UiFramework.Components;
-public partial class TextComponent : ITextComponentTrackable
+public partial class TextComponent : ITextComponent, ITextComponentTrackable
 {
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> _color = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Color.ColorValue);
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<float> _fadeIn = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Common.FadeIn);
@@ -14,14 +14,14 @@ public partial class TextComponent : ITextComponentTrackable
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.VerticalWrapMode> _verticalOverflow = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Text.VerticalOverflow);
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.UiElements.UiReference> _placeholderFor = new();
 
-	public Oxide.Ext.UiFramework.Colors.UiColor Color { get => _color.Value; set => _color.Value = value; }
-	public float FadeIn { get => _fadeIn.Value; set => _fadeIn.Value = value; }
-	public int FontSize { get => _fontSize.Value; set => _fontSize.Value = value; }
-	public string Font { get => _font.Value; set => _font.Value = value; }
-	public UnityEngine.TextAnchor Align { get => _align.Value; set => _align.Value = value; }
-	public string Text { get => _text.Value; set => _text.Value = value; }
-	public UnityEngine.VerticalWrapMode VerticalOverflow { get => _verticalOverflow.Value; set => _verticalOverflow.Value = value; }
-	public Oxide.Ext.UiFramework.UiElements.UiReference PlaceholderFor { get => _placeholderFor.Value; set => _placeholderFor.Value = value; }
+	public partial Oxide.Ext.UiFramework.Colors.UiColor Color { get => _color.Value; set => _color.Value = value; }
+	public partial float FadeIn { get => _fadeIn.Value; set => _fadeIn.Value = value; }
+	public partial int FontSize { get => _fontSize.Value; set => _fontSize.Value = value; }
+	public partial string Font { get => _font.Value; set => _font.Value = value; }
+	public partial UnityEngine.TextAnchor Align { get => _align.Value; set => _align.Value = value; }
+	public partial string Text { get => _text.Value; set => _text.Value = value; }
+	public partial UnityEngine.VerticalWrapMode VerticalOverflow { get => _verticalOverflow.Value; set => _verticalOverflow.Value = value; }
+	public partial Oxide.Ext.UiFramework.UiElements.UiReference PlaceholderFor { get => _placeholderFor.Value; set => _placeholderFor.Value = value; }
 	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> ITextComponentTrackable.Color => _color;
 	Oxide.Ext.UiFramework.Types.Tracked<float> ITextComponentTrackable.FadeIn => _fadeIn;
 	Oxide.Ext.UiFramework.Types.Tracked<int> ITextComponentTrackable.FontSize => _fontSize;

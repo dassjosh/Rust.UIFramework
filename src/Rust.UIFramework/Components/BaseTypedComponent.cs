@@ -6,10 +6,13 @@ using Rust.UiFramework.SourceGenerators.Attributes;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-[GenerateComponent(typeof(ITypedComponent))]
+[GenerateComponent]
 [GenerateBuilderMethods]
-public abstract partial class BaseTypedComponent : BaseComponent, ITypedComponent
+public abstract partial class BaseTypedComponent : BaseComponent
 {
+    [TrackedDefaults(true)]
+    public partial bool Enabled { get; set; }
+    
     public abstract Utf8String Type { get; }
 
     public override void WriteComponent(JsonFrameworkWriter writer, SerializeMode mode)

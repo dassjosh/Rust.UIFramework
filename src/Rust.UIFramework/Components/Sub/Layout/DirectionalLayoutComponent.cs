@@ -6,10 +6,33 @@ using Rust.UiFramework.SourceGenerators.Attributes;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-[GenerateComponent(typeof(IDirectionalLayoutComponent))]
+[GenerateComponent]
 [GenerateBuilderMethods]
-public partial class DirectionalLayoutComponent : BaseLayoutComponent, IDirectionalLayoutComponent
+public partial class DirectionalLayoutComponent : BaseLayoutComponent
 {
+    [TrackedDefaults(typeof(JsonDefaults.DirectionalLayout), nameof(JsonDefaults.DirectionalLayout.Spacing))]
+    public partial float Spacing { get; set; }
+    
+    [TrackedDefaults(typeof(JsonDefaults.DirectionalLayout), nameof(JsonDefaults.DirectionalLayout.ChildForceExpandWidth))]
+    public partial bool ChildForceExpandWidth { get; set; }
+    
+    [TrackedDefaults(typeof(JsonDefaults.DirectionalLayout), nameof(JsonDefaults.DirectionalLayout.ChildForceExpandHeight))]
+    public partial bool ChildForceExpandHeight { get; set; }
+    
+    [TrackedDefaults(typeof(JsonDefaults.DirectionalLayout), nameof(JsonDefaults.DirectionalLayout.ChildControlWidth))]
+    public partial bool ChildControlWidth { get; set; }
+    
+    [TrackedDefaults(typeof(JsonDefaults.DirectionalLayout), nameof(JsonDefaults.DirectionalLayout.ChildControlHeight))]
+    public partial bool ChildControlHeight { get; set; }
+    
+    [TrackedDefaults(typeof(JsonDefaults.DirectionalLayout), nameof(JsonDefaults.DirectionalLayout.ChildScaleWidth))]
+    public partial bool ChildScaleWidth { get; set; }
+    
+    [TrackedDefaults(typeof(JsonDefaults.DirectionalLayout), nameof(JsonDefaults.DirectionalLayout.ChildScaleHeight))]
+    public partial bool ChildScaleHeight { get; set; }
+    
+    public partial LayoutDirection Direction { get; set; }
+    
     public override Utf8String Type => Direction == LayoutDirection.Horizontal ? JsonDefaults.DirectionalLayout.HorizontalType : JsonDefaults.DirectionalLayout.VerticalType;
     public override ComponentType ComponentType => ComponentType.DirectionalLayout;
 

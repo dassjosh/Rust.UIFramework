@@ -21,7 +21,7 @@ public class UiElementTrackableGenerator : BaseGenerator, IIncrementalGenerator
             
             InitializeCache(compilation);
             GeneratorData data = new(classSymbol, interfaceType);
-            spc.AddSource($"{classSymbol.Name}.g.cs", GenerateInterface(data));
+            spc.AddSource($"{classSymbol.GetTrackableInterface()}.g.cs", GenerateInterface(data));
         });
     }
 

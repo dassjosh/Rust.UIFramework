@@ -6,10 +6,12 @@ using Rust.UiFramework.SourceGenerators.Attributes;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-[GenerateComponent(typeof(ISlotComponent))]
+[GenerateComponent]
 [GenerateBuilderMethods]
-public partial class SlotComponent : SubComponent, ISlotComponent
+public partial class SlotComponent : SubComponent
 {
+    public partial string Filter { get; set; }
+    
     public override Utf8String Type => JsonDefaults.Slot.Type;
     public override ComponentType ComponentType => ComponentType.Slot;
     public override bool AllowMultiple => false;

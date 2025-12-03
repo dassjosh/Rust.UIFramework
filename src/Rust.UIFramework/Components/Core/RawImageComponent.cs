@@ -1,17 +1,26 @@
 ﻿using System;
+using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Interfaces;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Logging;
 using Oxide.Ext.UiFramework.Types;
+using Oxide.Ext.UiFramework.UiElements;
 using Rust.UiFramework.SourceGenerators.Attributes;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-[GenerateComponent(typeof(IRawImageComponent))]
+[GenerateComponent]
 [GenerateBuilderMethods]
-public partial class RawImageComponent : CoreComponent, IRawImageComponent, IGraphicalComponent
+public partial class RawImageComponent : CoreComponent, IGraphicalComponent
 {
+    public partial UiColor Color { get; set; }
+    [TrackedDefaults(typeof(JsonDefaults.Common), nameof(JsonDefaults.Common.FadeIn))]
+    public partial float FadeIn { get; set; }
+    public partial string Image { get; set; }
+    public partial string Material { get; set; }
+    public partial UiReference PlaceholderFor { get; set; }
+    
     [Obsolete("Please use Image instead")]
     public string Url { get => Image; set => Image = value; }
     [Obsolete("Please use Image instead")]

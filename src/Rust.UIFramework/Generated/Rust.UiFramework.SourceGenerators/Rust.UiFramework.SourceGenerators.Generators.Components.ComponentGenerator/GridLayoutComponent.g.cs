@@ -3,7 +3,7 @@ using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Interfaces;
 
 namespace Oxide.Ext.UiFramework.Components;
-public partial class GridLayoutComponent : IGridLayoutComponentTrackable
+public partial class GridLayoutComponent : IGridLayoutComponent, IGridLayoutComponentTrackable
 {
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.Vector2> _cellSize = new(Oxide.Ext.UiFramework.Json.JsonDefaults.GridLayout.CellSize);
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.Vector2> _spacing = new(Oxide.Ext.UiFramework.Json.JsonDefaults.GridLayout.Spacing);
@@ -12,12 +12,12 @@ public partial class GridLayoutComponent : IGridLayoutComponentTrackable
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.GridLayoutGroup.Constraint> _constraint = new(Oxide.Ext.UiFramework.Json.JsonDefaults.GridLayout.Constraint);
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<int> _constraintCount = new(Oxide.Ext.UiFramework.Json.JsonDefaults.GridLayout.ConstraintCount);
 
-	public UnityEngine.Vector2 CellSize { get => _cellSize.Value; set => _cellSize.Value = value; }
-	public UnityEngine.Vector2 Spacing { get => _spacing.Value; set => _spacing.Value = value; }
-	public UnityEngine.UI.GridLayoutGroup.Corner StartCorner { get => _startCorner.Value; set => _startCorner.Value = value; }
-	public UnityEngine.UI.GridLayoutGroup.Axis StartAxis { get => _startAxis.Value; set => _startAxis.Value = value; }
-	public UnityEngine.UI.GridLayoutGroup.Constraint Constraint { get => _constraint.Value; set => _constraint.Value = value; }
-	public int ConstraintCount { get => _constraintCount.Value; set => _constraintCount.Value = value; }
+	public partial UnityEngine.Vector2 CellSize { get => _cellSize.Value; set => _cellSize.Value = value; }
+	public partial UnityEngine.Vector2 Spacing { get => _spacing.Value; set => _spacing.Value = value; }
+	public partial UnityEngine.UI.GridLayoutGroup.Corner StartCorner { get => _startCorner.Value; set => _startCorner.Value = value; }
+	public partial UnityEngine.UI.GridLayoutGroup.Axis StartAxis { get => _startAxis.Value; set => _startAxis.Value = value; }
+	public partial UnityEngine.UI.GridLayoutGroup.Constraint Constraint { get => _constraint.Value; set => _constraint.Value = value; }
+	public partial int ConstraintCount { get => _constraintCount.Value; set => _constraintCount.Value = value; }
 	Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.Vector2> IGridLayoutComponentTrackable.CellSize => _cellSize;
 	Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.Vector2> IGridLayoutComponentTrackable.Spacing => _spacing;
 	Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.GridLayoutGroup.Corner> IGridLayoutComponentTrackable.StartCorner => _startCorner;

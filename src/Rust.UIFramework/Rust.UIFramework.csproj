@@ -204,6 +204,7 @@
 
     <ItemGroup>
       <Folder Include="Generated\Rust.UiFramework.SourceGenerators\" />
+      <Folder Include="Interfaces\Components\Sub\" />
     </ItemGroup>
 
     <PropertyGroup>

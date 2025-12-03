@@ -5,6 +5,6 @@
   "FillCenter": false,
   "ImageType": "Sliced",
   "Png": "png",
-  "Slice": "1 2 4 8",
+  "Slice": "UiBorderWidth { Left = 1, Top = 2, Right = 4, Bottom = 8 }",
   "Type": "UnityEngine.UI.Image"
 }

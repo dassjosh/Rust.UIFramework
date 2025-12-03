@@ -3,7 +3,7 @@ using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Interfaces;
 
 namespace Oxide.Ext.UiFramework.Components;
-public partial class DirectionalLayoutComponent : IDirectionalLayoutComponentTrackable
+public partial class DirectionalLayoutComponent : IDirectionalLayoutComponent, IDirectionalLayoutComponentTrackable
 {
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<float> _spacing = new(Oxide.Ext.UiFramework.Json.JsonDefaults.DirectionalLayout.Spacing);
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<bool> _childForceExpandWidth = new(Oxide.Ext.UiFramework.Json.JsonDefaults.DirectionalLayout.ChildForceExpandWidth);
@@ -14,14 +14,14 @@ public partial class DirectionalLayoutComponent : IDirectionalLayoutComponentTra
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<bool> _childScaleHeight = new(Oxide.Ext.UiFramework.Json.JsonDefaults.DirectionalLayout.ChildScaleHeight);
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Enums.LayoutDirection> _direction = new();
 
-	public float Spacing { get => _spacing.Value; set => _spacing.Value = value; }
-	public bool ChildForceExpandWidth { get => _childForceExpandWidth.Value; set => _childForceExpandWidth.Value = value; }
-	public bool ChildForceExpandHeight { get => _childForceExpandHeight.Value; set => _childForceExpandHeight.Value = value; }
-	public bool ChildControlWidth { get => _childControlWidth.Value; set => _childControlWidth.Value = value; }
-	public bool ChildControlHeight { get => _childControlHeight.Value; set => _childControlHeight.Value = value; }
-	public bool ChildScaleWidth { get => _childScaleWidth.Value; set => _childScaleWidth.Value = value; }
-	public bool ChildScaleHeight { get => _childScaleHeight.Value; set => _childScaleHeight.Value = value; }
-	public Oxide.Ext.UiFramework.Enums.LayoutDirection Direction { get => _direction.Value; set => _direction.Value = value; }
+	public partial float Spacing { get => _spacing.Value; set => _spacing.Value = value; }
+	public partial bool ChildForceExpandWidth { get => _childForceExpandWidth.Value; set => _childForceExpandWidth.Value = value; }
+	public partial bool ChildForceExpandHeight { get => _childForceExpandHeight.Value; set => _childForceExpandHeight.Value = value; }
+	public partial bool ChildControlWidth { get => _childControlWidth.Value; set => _childControlWidth.Value = value; }
+	public partial bool ChildControlHeight { get => _childControlHeight.Value; set => _childControlHeight.Value = value; }
+	public partial bool ChildScaleWidth { get => _childScaleWidth.Value; set => _childScaleWidth.Value = value; }
+	public partial bool ChildScaleHeight { get => _childScaleHeight.Value; set => _childScaleHeight.Value = value; }
+	public partial Oxide.Ext.UiFramework.Enums.LayoutDirection Direction { get => _direction.Value; set => _direction.Value = value; }
 	Oxide.Ext.UiFramework.Types.Tracked<float> IDirectionalLayoutComponentTrackable.Spacing => _spacing;
 	Oxide.Ext.UiFramework.Types.Tracked<bool> IDirectionalLayoutComponentTrackable.ChildForceExpandWidth => _childForceExpandWidth;
 	Oxide.Ext.UiFramework.Types.Tracked<bool> IDirectionalLayoutComponentTrackable.ChildForceExpandHeight => _childForceExpandHeight;

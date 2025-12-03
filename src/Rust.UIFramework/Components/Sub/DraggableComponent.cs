@@ -1,15 +1,53 @@
 ﻿using Oxide.Ext.UiFramework.Enums;
-using Oxide.Ext.UiFramework.Interfaces;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Types;
 using Rust.UiFramework.SourceGenerators.Attributes;
+using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-[GenerateComponent(typeof(IDraggableComponent))]
+[GenerateComponent]
 [GenerateBuilderMethods]
-public partial class DraggableComponent : SubComponent, IDraggableComponent
+public partial class DraggableComponent : SubComponent
 {
+    [TrackedDefaults(typeof(JsonDefaults.Draggable), nameof(JsonDefaults.Draggable.LimitToParent))]
+    public partial bool LimitToParent { get; set; }
+    
+    [TrackedDefaults(typeof(JsonDefaults.Draggable), nameof(JsonDefaults.Draggable.MaxDistance))]
+    public partial float MaxDistance { get; set; }
+    
+    [TrackedDefaults(typeof(JsonDefaults.Draggable), nameof(JsonDefaults.Draggable.AllowSwapping))]
+    public partial bool AllowSwapping { get; set; }
+    
+    [TrackedDefaults(typeof(JsonDefaults.Draggable), nameof(JsonDefaults.Draggable.DropAnywhere))]
+    public partial bool DropAnywhere { get; set; }
+    
+    [TrackedDefaults(typeof(JsonDefaults.Draggable), nameof(JsonDefaults.Draggable.DragAlpha))]
+    public partial float DragAlpha { get; set; }
+    
+    [TrackedDefaults(typeof(JsonDefaults.Draggable), nameof(JsonDefaults.Draggable.ParentLimitIndex))]
+    public partial int ParentLimitIndex { get; set; }
+    
+    public partial string Filter { get; set; }
+    
+    [TrackedDefaults(typeof(JsonDefaults.Draggable), nameof(JsonDefaults.Draggable.ParentPadding))]
+    public partial Vector2 ParentPadding { get; set; }
+    
+    [TrackedDefaults(typeof(JsonDefaults.Draggable), nameof(JsonDefaults.Draggable.AnchorOffset))]
+    public partial Vector2 AnchorOffset { get; set; }
+    
+    [TrackedDefaults(typeof(JsonDefaults.Draggable), nameof(JsonDefaults.Draggable.KeepOnTop))]
+    public partial bool KeepOnTop { get; set; }
+    
+    [TrackedDefaults(typeof(JsonDefaults.Draggable), nameof(JsonDefaults.Draggable.PositionRpc))]
+    public partial CommunityEntity.DraggablePositionSendType? PositionRpc { get; set; }
+    
+    [TrackedDefaults(typeof(JsonDefaults.Draggable), nameof(JsonDefaults.Draggable.MoveToAnchor))]
+    public partial bool MoveToAnchor { get; set; }
+    
+    [TrackedDefaults(typeof(JsonDefaults.Draggable), nameof(JsonDefaults.Draggable.RebuildAnchor))]
+    public partial bool RebuildAnchor { get; set; }
+    
     public override Utf8String Type => JsonDefaults.Draggable.Type;
     public override ComponentType ComponentType => ComponentType.Draggable;
     public override bool AllowMultiple => false;

@@ -3,7 +3,7 @@ using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Interfaces;
 
 namespace Oxide.Ext.UiFramework.Components;
-public partial class LayoutElementComponent : ILayoutElementComponentTrackable
+public partial class LayoutElementComponent : ILayoutElementComponent, ILayoutElementComponentTrackable
 {
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<float> _preferredWidth = new(Oxide.Ext.UiFramework.Json.JsonDefaults.LayoutElement.PreferredWidth);
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<float> _preferredHeight = new(Oxide.Ext.UiFramework.Json.JsonDefaults.LayoutElement.PreferredHeight);
@@ -13,13 +13,13 @@ public partial class LayoutElementComponent : ILayoutElementComponentTrackable
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<float> _flexibleHeight = new(Oxide.Ext.UiFramework.Json.JsonDefaults.LayoutElement.PreferredWidth);
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<bool> _ignoreLayout = new(Oxide.Ext.UiFramework.Json.JsonDefaults.LayoutElement.IgnoreLayout);
 
-	public float PreferredWidth { get => _preferredWidth.Value; set => _preferredWidth.Value = value; }
-	public float PreferredHeight { get => _preferredHeight.Value; set => _preferredHeight.Value = value; }
-	public float MinWidth { get => _minWidth.Value; set => _minWidth.Value = value; }
-	public float MinHeight { get => _minHeight.Value; set => _minHeight.Value = value; }
-	public float FlexibleWidth { get => _flexibleWidth.Value; set => _flexibleWidth.Value = value; }
-	public float FlexibleHeight { get => _flexibleHeight.Value; set => _flexibleHeight.Value = value; }
-	public bool IgnoreLayout { get => _ignoreLayout.Value; set => _ignoreLayout.Value = value; }
+	public partial float PreferredWidth { get => _preferredWidth.Value; set => _preferredWidth.Value = value; }
+	public partial float PreferredHeight { get => _preferredHeight.Value; set => _preferredHeight.Value = value; }
+	public partial float MinWidth { get => _minWidth.Value; set => _minWidth.Value = value; }
+	public partial float MinHeight { get => _minHeight.Value; set => _minHeight.Value = value; }
+	public partial float FlexibleWidth { get => _flexibleWidth.Value; set => _flexibleWidth.Value = value; }
+	public partial float FlexibleHeight { get => _flexibleHeight.Value; set => _flexibleHeight.Value = value; }
+	public partial bool IgnoreLayout { get => _ignoreLayout.Value; set => _ignoreLayout.Value = value; }
 	Oxide.Ext.UiFramework.Types.Tracked<float> ILayoutElementComponentTrackable.PreferredWidth => _preferredWidth;
 	Oxide.Ext.UiFramework.Types.Tracked<float> ILayoutElementComponentTrackable.PreferredHeight => _preferredHeight;
 	Oxide.Ext.UiFramework.Types.Tracked<float> ILayoutElementComponentTrackable.MinWidth => _minWidth;

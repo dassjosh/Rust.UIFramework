@@ -1,14 +1,20 @@
 ﻿using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Interfaces;
 using Oxide.Ext.UiFramework.Json;
+using Oxide.Ext.UiFramework.Types;
 using Oxide.Ext.UiFramework.UiElements;
 using Rust.UiFramework.SourceGenerators.Attributes;
+using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-[GenerateComponent(typeof(ILayoutComponent))]
-public abstract partial class BaseLayoutComponent : SubComponent, ILayoutComponent
+[GenerateComponent]
+public abstract partial class BaseLayoutComponent : SubComponent
 {
+    [TrackedDefaults(typeof(JsonDefaults.Layout), nameof(JsonDefaults.Layout.ChildAlignment))]
+    public partial TextAnchor ChildAlignment { get; set; }
+    public partial UiPadding Padding { get; set; }
+    
     public BaseUiComponent Owner { get; internal set; }
     public UiReference Reference => Owner.Reference;
     

@@ -93,7 +93,7 @@ public static class GeneratorHelpers
 
         return type.Name switch
         {
-            "UiReference" or "UiBorderWidth" or "UiPosition" or "UiOffset" or "UiPadding" or "Vector2" => true,
+            "UiReference" or "UiBorderWidth" or "UiPosition" or "UiOffset" or "UiPadding" or "Vector2" or "UiTranslate" => true,
             _ => false
         };
     }
@@ -162,7 +162,12 @@ public static class GeneratorHelpers
     
     public static string GetTrackableInterface(this ITypeSymbol symbol)
     {
-        return $"I{symbol.Name}Trackable";
+        return $"{symbol.GetInterface()}Trackable";
+    }
+
+    public static string GetInterface(this ITypeSymbol symbol)
+    {
+        return $"I{symbol.Name}";
     }
 
     public static T? GetConstructorValue<T>(this AttributeData attribute, int index) where T : struct, Enum

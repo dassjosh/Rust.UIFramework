@@ -4,13 +4,21 @@ using Oxide.Ext.UiFramework.Interfaces;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Types;
 using Rust.UiFramework.SourceGenerators.Attributes;
+using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-[GenerateComponent(typeof(IButtonComponent))]
+[GenerateComponent]
 [GenerateBuilderMethods]
-public partial class ButtonComponent : CoreComponent, IButtonComponent, IGraphicalComponent
+public partial class ButtonComponent : CoreComponent, IGraphicalComponent
 {
+    public partial string Command { get; set; }
+    [TrackedDefaults(typeof(JsonDefaults.Color), nameof(JsonDefaults.Color.ColorValue))]
+    public partial UiColor Color { get; set; }
+    public partial float FadeIn { get; set; }
+    public partial string Sprite { get; set; }
+    public partial string Material { get; set; }
+    public partial Image.Type ImageType { get; set; }
     public ButtonType ButtonType;
     public ColorBlockComponent ColorBlock { get; private set; }
     public override Utf8String Type => JsonDefaults.Button.Type;

@@ -3,15 +3,15 @@ using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Interfaces;
 
 namespace Oxide.Ext.UiFramework.Components;
-public partial class ScrollViewContentComponent : IScrollViewContentComponentTrackable
+public partial class ScrollViewContentComponent : IScrollViewContentComponent, IScrollViewContentComponentTrackable
 {
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Positions.UiPosition> _position = new(Oxide.Ext.UiFramework.Positions.UiPosition.Full);
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Offsets.UiOffset> _offset = new();
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.Vector2> _pivot = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ScrollView.Pivot);
 
-	public Oxide.Ext.UiFramework.Positions.UiPosition Position { get => _position.Value; set => _position.Value = value; }
-	public Oxide.Ext.UiFramework.Offsets.UiOffset Offset { get => _offset.Value; set => _offset.Value = value; }
-	public UnityEngine.Vector2 Pivot { get => _pivot.Value; set => _pivot.Value = value; }
+	public partial Oxide.Ext.UiFramework.Positions.UiPosition Position { get => _position.Value; set => _position.Value = value; }
+	public partial Oxide.Ext.UiFramework.Offsets.UiOffset Offset { get => _offset.Value; set => _offset.Value = value; }
+	public partial UnityEngine.Vector2 Pivot { get => _pivot.Value; set => _pivot.Value = value; }
 	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Positions.UiPosition> IScrollViewContentComponentTrackable.Position => _position;
 	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Offsets.UiOffset> IScrollViewContentComponentTrackable.Offset => _offset;
 	Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.Vector2> IScrollViewContentComponentTrackable.Pivot => _pivot;

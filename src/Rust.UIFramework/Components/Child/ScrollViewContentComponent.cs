@@ -8,10 +8,17 @@ using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-[GenerateComponent(typeof(IScrollViewContentComponent))]
+[GenerateComponent]
 [GenerateBuilderMethods]
-public partial class ScrollViewContentComponent : ChildComponent, IScrollViewContentComponent
+public partial class ScrollViewContentComponent : ChildComponent
 {
+    [TrackedDefaults(typeof(UiPosition), nameof(UiPosition.Full))]
+    public partial UiPosition Position { get; set; }
+    public partial UiOffset Offset { get; set; }
+    
+    [TrackedDefaults(typeof(JsonDefaults.ScrollView), nameof(JsonDefaults.ScrollView.Pivot))]
+    public partial Vector2 Pivot { get; set; }
+    
     public override ComponentType ComponentType => ComponentType.ScrollViewContent;
     
     public override void WriteComponent(JsonFrameworkWriter writer, SerializeMode mode)

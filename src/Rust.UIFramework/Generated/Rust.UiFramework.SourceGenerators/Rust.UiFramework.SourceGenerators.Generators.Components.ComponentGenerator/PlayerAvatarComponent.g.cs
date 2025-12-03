@@ -3,13 +3,13 @@ using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Interfaces;
 
 namespace Oxide.Ext.UiFramework.Components;
-public partial class PlayerAvatarComponent : IPlayerAvatarComponentTrackable
+public partial class PlayerAvatarComponent : IPlayerAvatarComponent, IPlayerAvatarComponentTrackable
 {
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<ulong> _steamId = new();
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Enums.AvatarType> _avatarType = new(Oxide.Ext.UiFramework.Enums.AvatarType.Medium);
 
-	public ulong SteamId { get => _steamId.Value; set => _steamId.Value = value; }
-	public Oxide.Ext.UiFramework.Enums.AvatarType AvatarType { get => _avatarType.Value; set => _avatarType.Value = value; }
+	public partial ulong SteamId { get => _steamId.Value; set => _steamId.Value = value; }
+	public partial Oxide.Ext.UiFramework.Enums.AvatarType AvatarType { get => _avatarType.Value; set => _avatarType.Value = value; }
 	Oxide.Ext.UiFramework.Types.Tracked<ulong> IPlayerAvatarComponentTrackable.SteamId => _steamId;
 	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Enums.AvatarType> IPlayerAvatarComponentTrackable.AvatarType => _avatarType;
 

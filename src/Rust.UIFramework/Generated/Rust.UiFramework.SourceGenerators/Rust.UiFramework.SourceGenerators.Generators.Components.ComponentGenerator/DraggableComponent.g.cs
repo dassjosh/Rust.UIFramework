@@ -3,7 +3,7 @@ using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Interfaces;
 
 namespace Oxide.Ext.UiFramework.Components;
-public partial class DraggableComponent : IDraggableComponentTrackable
+public partial class DraggableComponent : IDraggableComponent, IDraggableComponentTrackable
 {
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<bool> _limitToParent = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Draggable.LimitToParent);
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<float> _maxDistance = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Draggable.MaxDistance);
@@ -19,19 +19,19 @@ public partial class DraggableComponent : IDraggableComponentTrackable
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<bool> _moveToAnchor = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Draggable.MoveToAnchor);
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<bool> _rebuildAnchor = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Draggable.RebuildAnchor);
 
-	public bool LimitToParent { get => _limitToParent.Value; set => _limitToParent.Value = value; }
-	public float MaxDistance { get => _maxDistance.Value; set => _maxDistance.Value = value; }
-	public bool AllowSwapping { get => _allowSwapping.Value; set => _allowSwapping.Value = value; }
-	public bool DropAnywhere { get => _dropAnywhere.Value; set => _dropAnywhere.Value = value; }
-	public float DragAlpha { get => _dragAlpha.Value; set => _dragAlpha.Value = value; }
-	public int ParentLimitIndex { get => _parentLimitIndex.Value; set => _parentLimitIndex.Value = value; }
-	public string Filter { get => _filter.Value; set => _filter.Value = value; }
-	public UnityEngine.Vector2 ParentPadding { get => _parentPadding.Value; set => _parentPadding.Value = value; }
-	public UnityEngine.Vector2 AnchorOffset { get => _anchorOffset.Value; set => _anchorOffset.Value = value; }
-	public bool KeepOnTop { get => _keepOnTop.Value; set => _keepOnTop.Value = value; }
-	public CommunityEntity.DraggablePositionSendType? PositionRpc { get => _positionRpc.Value; set => _positionRpc.Value = value; }
-	public bool MoveToAnchor { get => _moveToAnchor.Value; set => _moveToAnchor.Value = value; }
-	public bool RebuildAnchor { get => _rebuildAnchor.Value; set => _rebuildAnchor.Value = value; }
+	public partial bool LimitToParent { get => _limitToParent.Value; set => _limitToParent.Value = value; }
+	public partial float MaxDistance { get => _maxDistance.Value; set => _maxDistance.Value = value; }
+	public partial bool AllowSwapping { get => _allowSwapping.Value; set => _allowSwapping.Value = value; }
+	public partial bool DropAnywhere { get => _dropAnywhere.Value; set => _dropAnywhere.Value = value; }
+	public partial float DragAlpha { get => _dragAlpha.Value; set => _dragAlpha.Value = value; }
+	public partial int ParentLimitIndex { get => _parentLimitIndex.Value; set => _parentLimitIndex.Value = value; }
+	public partial string Filter { get => _filter.Value; set => _filter.Value = value; }
+	public partial UnityEngine.Vector2 ParentPadding { get => _parentPadding.Value; set => _parentPadding.Value = value; }
+	public partial UnityEngine.Vector2 AnchorOffset { get => _anchorOffset.Value; set => _anchorOffset.Value = value; }
+	public partial bool KeepOnTop { get => _keepOnTop.Value; set => _keepOnTop.Value = value; }
+	public partial CommunityEntity.DraggablePositionSendType? PositionRpc { get => _positionRpc.Value; set => _positionRpc.Value = value; }
+	public partial bool MoveToAnchor { get => _moveToAnchor.Value; set => _moveToAnchor.Value = value; }
+	public partial bool RebuildAnchor { get => _rebuildAnchor.Value; set => _rebuildAnchor.Value = value; }
 	Oxide.Ext.UiFramework.Types.Tracked<bool> IDraggableComponentTrackable.LimitToParent => _limitToParent;
 	Oxide.Ext.UiFramework.Types.Tracked<float> IDraggableComponentTrackable.MaxDistance => _maxDistance;
 	Oxide.Ext.UiFramework.Types.Tracked<bool> IDraggableComponentTrackable.AllowSwapping => _allowSwapping;
