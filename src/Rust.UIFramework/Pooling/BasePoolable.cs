@@ -1,8 +1,9 @@
 using System;
-using System.Collections.Generic;
-using Newtonsoft.Json;
-using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Libraries;
+
+#if DEBUG
+using Oxide.Ext.UiFramework.Cache;
+#endif
 
 namespace Oxide.Ext.UiFramework.Pooling;
 

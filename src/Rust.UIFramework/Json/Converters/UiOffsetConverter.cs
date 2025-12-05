@@ -1,7 +1,6 @@
 ﻿using System;
 using Newtonsoft.Json;
 using Oxide.Ext.UiFramework.Offsets;
-using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Json;
 

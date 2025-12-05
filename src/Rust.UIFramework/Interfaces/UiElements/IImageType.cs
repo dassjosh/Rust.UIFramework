@@ -1,5 +1,4 @@
 ﻿using Oxide.Ext.UiFramework.UiElements;
-using Rust.UiFramework.SourceGenerators.Attributes;
 using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.Interfaces;

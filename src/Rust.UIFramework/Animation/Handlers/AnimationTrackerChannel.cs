@@ -1,11 +1,14 @@
-﻿using System;
+﻿using Oxide.Ext.UiFramework.Threading;
+using Oxide.Ext.UiFramework.Threading.UiChannel;
+using Oxide.Ext.UiFramework.Types;
+
+#if SERVER
+using System;
 using Network;
 using Oxide.Ext.UiFramework.Builder;
 using Oxide.Ext.UiFramework.Enums;
-using Oxide.Ext.UiFramework.Threading;
-using Oxide.Ext.UiFramework.Threading.UiChannel;
-using Oxide.Ext.UiFramework.Types;
 using Oxide.Ext.UiFramework.UiElements;
+#endif
 
 namespace Oxide.Ext.UiFramework.Animation;
 

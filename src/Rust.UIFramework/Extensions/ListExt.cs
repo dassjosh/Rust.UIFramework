@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using Oxide.Ext.UiFramework.Pooling;
-using Unity.Collections.LowLevel.Unsafe;
 
 namespace Oxide.Ext.UiFramework.Extensions;
 
@@ -70,7 +69,7 @@ public static class ListExt
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private PrivateList<T> GetPrivateFieldsUnsafe()
         {
-            return list == null ? throw new ArgumentNullException(nameof(list)) : UnsafeUtility.As<List<T>, PrivateList<T>>(ref list);
+            return list == null ? throw new ArgumentNullException(nameof(list)) : Unsafe.As<List<T>, PrivateList<T>>(ref list);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

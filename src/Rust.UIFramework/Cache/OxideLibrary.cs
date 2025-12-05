@@ -1,11 +1,14 @@
 ﻿using System;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using Oxide.Core;
 using Oxide.Core.Extensions;
 using Oxide.Core.Libraries;
 using Oxide.Core.Libraries.Covalence;
 using Oxide.Plugins;
+
+#if SERVER
+using System.Linq;
+using System.Runtime.CompilerServices;
+using Oxide.Core;
+#endif
 
 namespace Oxide.Ext.UiFramework.Cache;
 

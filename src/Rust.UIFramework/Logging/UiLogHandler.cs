@@ -1,5 +1,8 @@
 ﻿using System;
+
+#if SERVER
 using Oxide.Ext.UiFramework.Types;
+#endif
 
 namespace Oxide.Ext.UiFramework.Logging;
 

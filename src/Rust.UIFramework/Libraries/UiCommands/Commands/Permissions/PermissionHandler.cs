@@ -1,7 +1,6 @@
 ﻿using System;
 using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Logging;
-using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Libraries;

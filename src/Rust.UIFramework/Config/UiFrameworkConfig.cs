@@ -1,13 +1,16 @@
 ﻿using System;
-using System.IO;
 using Newtonsoft.Json;
-using Oxide.Core;
 using Oxide.Core.Configuration;
 using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Constants;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Logging;
 using Oxide.Ext.UiFramework.Types;
+
+#if SERVER
+using System.IO;
+#endif
+
 
 namespace Oxide.Ext.UiFramework.Config;
 
