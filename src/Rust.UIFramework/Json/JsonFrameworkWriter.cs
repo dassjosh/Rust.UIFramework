@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Buffers.Text;
 using System.IO;
-using System.Runtime.CompilerServices;
 using Network;
 using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Enums;
+using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Interfaces;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Plugins;
@@ -44,6 +45,10 @@ public sealed class JsonFrameworkWriter : BasePoolable
     private bool _propertyComma;
     private bool _objectComma;
 
+    private readonly byte[] _buffer = new byte[32];
+    
+    private enum TextMode : byte {Text, Command}
+
     private readonly JsonUtf8Writer _writer = new();
 
     public static JsonFrameworkWriter Create(IUiFrameworkPlugin plugin) => plugin.PluginPool.Get<JsonFrameworkWriter>().Init();
@@ -54,7 +59,7 @@ public sealed class JsonFrameworkWriter : BasePoolable
         return this;
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+
     private void OnDepthIncrease()
     {
         if (_objectComma)
@@ -66,44 +71,44 @@ public sealed class JsonFrameworkWriter : BasePoolable
         _propertyComma = false;
     }
         
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+
     private void OnDepthDecrease()
     {
         _objectComma = true;
     }
 
     #region Field Handling
-    public void AddFieldRaw(in Utf8String name, in Utf8String value)
+    public void AddFieldRaw(Utf8String name, Utf8String value)
     {
         WritePropertyName(name);
         WriteValue(value);
     }
     
-    public void AddFieldRaw(in Utf8String name, string value)
+    public void AddFieldRaw(Utf8String name, string value)
     {
         WritePropertyName(name);
         WriteValue(value);
     }
 
-    public void AddFieldRaw(in Utf8String name, bool value)
+    public void AddFieldRaw(Utf8String name, bool value)
     {
         WritePropertyName(name);
         WriteValue(value);
     }
     
-    public void AddFieldRaw(in Utf8String name, UiColor color)
+    public void AddFieldRaw(Utf8String name, UiColor color)
     {
         WritePropertyName(name);
         WriteValue(color);
     }
     
-    private void AddFieldRaw<T>(in Utf8String name, T value) where T : unmanaged, Enum
+    private void AddFieldRaw<T>(Utf8String name, T value) where T : unmanaged, Enum
     {
         WritePropertyName(name);
         WriteValue(Utf8EnumCache<T>.ToUtf8Number(value));
     }
     
-    private void AddField(in Utf8String name, Vector2 value, Vector2 defaultValue)
+    private void AddField(Utf8String name, Vector2 value, Vector2 defaultValue)
     {
         if (value != defaultValue)
         {
@@ -144,7 +149,7 @@ public sealed class JsonFrameworkWriter : BasePoolable
         }
     }
     
-    public void AddField(in Utf8String name, bool value, bool defaultValue)
+    public void AddField(Utf8String name, bool value, bool defaultValue)
     {
         if (value != defaultValue)
         {
@@ -153,7 +158,7 @@ public sealed class JsonFrameworkWriter : BasePoolable
         }
     }
     
-    public void AddField(in Utf8String name, Tracked<bool> value, SerializeMode mode)
+    public void AddField(Utf8String name, Tracked<bool> value, SerializeMode mode)
     {
         if (value.ShouldSerialize(mode))
         {
@@ -162,7 +167,7 @@ public sealed class JsonFrameworkWriter : BasePoolable
         }
     }
     
-    public void AddField(in Utf8String name, Tracked<int> value, SerializeMode mode)
+    public void AddField(Utf8String name, Tracked<int> value, SerializeMode mode)
     {
         if (value.ShouldSerialize(mode))
         {
@@ -171,7 +176,7 @@ public sealed class JsonFrameworkWriter : BasePoolable
         }
     }
     
-    public void AddField(in Utf8String name, Tracked<ulong> value, SerializeMode mode)
+    public void AddField(Utf8String name, Tracked<ulong> value, SerializeMode mode)
     {
         if (value.ShouldSerialize(mode))
         {
@@ -180,7 +185,7 @@ public sealed class JsonFrameworkWriter : BasePoolable
         }
     }
     
-    public void AddField(in Utf8String name, Tracked<float> value, SerializeMode mode)
+    public void AddField(Utf8String name, Tracked<float> value, SerializeMode mode)
     {
         if (value.ShouldSerialize(mode))
         {
@@ -189,7 +194,7 @@ public sealed class JsonFrameworkWriter : BasePoolable
         }
     }
     
-    public void AddField(in Utf8String name, Tracked<string> value, SerializeMode mode)
+    public void AddField(Utf8String name, Tracked<string> value, SerializeMode mode)
     {
         if (value.ShouldSerialize(mode) && value.Value != null)
         {
@@ -198,7 +203,7 @@ public sealed class JsonFrameworkWriter : BasePoolable
         }
     }
     
-    public void AddField(in Utf8String name, Tracked<UiColor> value, SerializeMode mode)
+    public void AddField(Utf8String name, Tracked<UiColor> value, SerializeMode mode)
     {
         if (value.ShouldSerialize(mode))
         {
@@ -207,7 +212,7 @@ public sealed class JsonFrameworkWriter : BasePoolable
         }
     }
     
-    public void AddField(in Utf8String name, Tracked<UiRotation> value, SerializeMode mode)
+    public void AddField(Utf8String name, Tracked<UiRotation> value, SerializeMode mode)
     {
         if (value.ShouldSerialize(mode))
         {
@@ -216,7 +221,7 @@ public sealed class JsonFrameworkWriter : BasePoolable
         }
     }
     
-    public void AddField(in Utf8String name, Tracked<Vector2> value, SerializeMode mode)
+    public void AddField(Utf8String name, Tracked<Vector2> value, SerializeMode mode)
     {
         if (value.ShouldSerialize(mode))
         {
@@ -225,7 +230,7 @@ public sealed class JsonFrameworkWriter : BasePoolable
         }
     }
     
-    public void AddField(in Utf8String name, Tracked<UiBorderWidth> value, SerializeMode mode)
+    public void AddField(Utf8String name, Tracked<UiBorderWidth> value, SerializeMode mode)
     {
         if (value.ShouldSerialize(mode))
         {
@@ -234,7 +239,7 @@ public sealed class JsonFrameworkWriter : BasePoolable
         }
     }
     
-    public void AddField(in Utf8String name, Tracked<UiPadding> value, SerializeMode mode)
+    public void AddField(Utf8String name, Tracked<UiPadding> value, SerializeMode mode)
     {
         if (value.ShouldSerialize(mode))
         {
@@ -243,7 +248,7 @@ public sealed class JsonFrameworkWriter : BasePoolable
         }
     }
     
-    public void AddField<T>(in Utf8String name, Tracked<T> value, SerializeMode mode) where T : unmanaged, Enum
+    public void AddField<T>(Utf8String name, Tracked<T> value, SerializeMode mode) where T : unmanaged, Enum
     {
         if (value.ShouldSerialize(mode))
         {
@@ -252,7 +257,7 @@ public sealed class JsonFrameworkWriter : BasePoolable
         }
     }
     
-    public void AddField<T>(in Utf8String name, Tracked<T?> value, SerializeMode mode) where T : unmanaged, Enum
+    public void AddField<T>(Utf8String name, Tracked<T?> value, SerializeMode mode) where T : unmanaged, Enum
     {
         if (value.ShouldSerialize(mode))
         {
@@ -264,7 +269,7 @@ public sealed class JsonFrameworkWriter : BasePoolable
         }
     }
     
-    public void AddComponent(in Utf8String name, IComponent component, SerializeMode mode, bool add)
+    public void AddComponent(Utf8String name, IComponent component, SerializeMode mode, bool add)
     {
         if (add)
         {
@@ -272,7 +277,7 @@ public sealed class JsonFrameworkWriter : BasePoolable
         }
     }
     
-    public void AddComponent(in Utf8String name, IComponent component, SerializeMode mode)
+    public void AddComponent(Utf8String name, IComponent component, SerializeMode mode)
     {
         if (component is null)
         {
@@ -289,13 +294,13 @@ public sealed class JsonFrameworkWriter : BasePoolable
         _propertyComma = propertyComma;
     }
     
-    public void AddKeyField(in Utf8String name)
+    public void AddKeyField(Utf8String name)
     {
         WritePropertyName(name);
         WriteBlankValue();
     }
     
-    public void AddKeyField(in Utf8String name, bool add)
+    public void AddKeyField(Utf8String name, bool add)
     {
         if (add)
         {
@@ -303,13 +308,13 @@ public sealed class JsonFrameworkWriter : BasePoolable
         }
     }
     
-    public void AddTextField(in Utf8String name, string value)
+    public void AddTextField(Utf8String name, string value)
     {
         WritePropertyName(name);
         WriteTextValue(value);
     }
     
-    public void AddTextField(in Utf8String name, string value, string defaultValue)
+    public void AddTextField(Utf8String name, string value, string defaultValue)
     {
         if (value != defaultValue)
         {
@@ -318,7 +323,7 @@ public sealed class JsonFrameworkWriter : BasePoolable
         }
     }
     
-    public void AddTextField(in Utf8String name, Tracked<string> value, SerializeMode mode)
+    public void AddTextField(Utf8String name, Tracked<string> value, SerializeMode mode)
     {
         if (value.ShouldSerialize(mode))
         {
@@ -327,7 +332,7 @@ public sealed class JsonFrameworkWriter : BasePoolable
         }
     }
     
-    public void AddCommand(in Utf8String name, string value, string defaultValue)
+    public void AddCommand(Utf8String name, string value, string defaultValue)
     {
         if (value != null && value != defaultValue)
         {
@@ -336,7 +341,7 @@ public sealed class JsonFrameworkWriter : BasePoolable
         }
     }
     
-    public void AddCommand(in Utf8String name, Tracked<string> value, SerializeMode mode)
+    public void AddCommand(Utf8String name, Tracked<string> value, SerializeMode mode)
     {
         if (value.ShouldSerialize(mode))
         {
@@ -347,36 +352,31 @@ public sealed class JsonFrameworkWriter : BasePoolable
     #endregion
         
     #region Writing
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    
     public void WriteStartArray()
     {
         OnDepthIncrease();
         _writer.Write(ArrayStartChar);
     }
-        
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    
     public void WriteEndArray()
     {
         _writer.Write(ArrayEndChar);
         OnDepthDecrease();
     }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    
     public void WriteStartObject()
     {
         OnDepthIncrease();
         _writer.Write(ObjectStartChar);
     }
-        
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    
     public void WriteEndObject()
     {
         _writer.Write(ObjectEndChar);
         OnDepthDecrease();
     }
 
-    public void WritePropertyName(in Utf8String name)
+    public void WritePropertyName(Utf8String name)
     {
         if (_propertyComma)
         {
@@ -391,52 +391,44 @@ public sealed class JsonFrameworkWriter : BasePoolable
         _writer.Write(name);
         _writer.Write(Separator);
     }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    
     public void WriteQuote()
     {
         _writer.Write(QuoteChar);
     }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    
     public void WriteComma()
     {
         _writer.Write(CommaChar);
     }
     
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void WriteValue(in Utf8String value)
+    public void WriteValue(Utf8String value)
     {
         WriteQuote();
         _writer.Write(value);
         WriteQuote();
     }
     
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void WriteValue(bool value)
     {
         _writer.Write(value ? True : False);
     }
-        
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    
     public void WriteValue(int value)
     {
         _writer.Write(Utf8StringCache<int>.ToString(value));
     }
-        
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    
     public void WriteValue(float value)
     {
         _writer.Write(Utf8StringCache<float>.ToString(value));
     }
-        
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    
     public void WriteValue(ulong value)
     {
         _writer.Write(Utf8StringCache<ulong>.ToString(value));
     }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    
     public void WriteValue(string value)
     {
         _writer.Write(QuoteChar);
@@ -444,15 +436,13 @@ public sealed class JsonFrameworkWriter : BasePoolable
         _writer.Write(QuoteChar);
     }
     
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void WriteValue(Vector2 pos)
     {
         _writer.Write(QuoteChar);
         VectorCache.WriteVector(_writer, pos);
         _writer.Write(QuoteChar);
     }
-        
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    
     public void WriteValue(UiColor color)
     {
         _writer.Write(QuoteChar);
@@ -460,7 +450,6 @@ public sealed class JsonFrameworkWriter : BasePoolable
         _writer.Write(QuoteChar);
     }
     
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void WriteValue(in UiPadding padding)
     {
         _writer.Write(QuoteChar);
@@ -468,88 +457,67 @@ public sealed class JsonFrameworkWriter : BasePoolable
         _writer.Write(QuoteChar);
     }
     
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void WriteValue(in UiBorderWidth border)
     {
         _writer.Write(QuoteChar);
         UiBorderWidthCache.WriteBorderWidth(_writer, border);
         _writer.Write(QuoteChar);
     }
-        
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    
     public void WriteBlankValue()
     {
         _writer.Write(QuoteChar);
         _writer.Write(QuoteChar);
     }
     
-    public void WriteTextValue(string value)
-    {
-        _writer.Write(QuoteChar);
-        if (!string.IsNullOrEmpty(value))
-        {
-            bool isInQuote = false;
-            int i = 0;
-            while (i < value.Length)
-            {
-                char character = value[i];
-                if (char.IsHighSurrogate(character) && i + 1 < value.Length && char.IsLowSurrogate(value[i + 1]))
-                {
-                    _writer.Write(value.AsSpan().Slice(i, 2));
-                    i += 2;
-                    continue;
-                }
+    public void WriteTextValue(string value) => WriteText(value, TextMode.Text);
 
-                switch (character)
-                {
-                    case '\"':
+    public void WriteCommandValue(string value) => WriteText(value, TextMode.Command);
+
+    private void WriteText(string value, TextMode mode)
+    {
+        if (string.IsNullOrEmpty(value))
+        {
+            WriteBlankValue();
+            return;
+        }
+        
+        _writer.Write(QuoteChar);
+        Span<byte> buffer = _buffer;
+        int i = 0;
+        bool isInQuote = false;
+        while (i < value.Length)
+        {
+            char character = value[i];
+            if (char.IsHighSurrogate(character) && i + 1 < value.Length && char.IsLowSurrogate(value[i + 1]))
+            {
+                int written = Utf8Formatter.FormatChar(character, value[i + 1], buffer);
+                _writer.Write(buffer[..written]);
+                i += 2;
+                continue;
+            }
+            switch (character)
+            {
+                case '\"':
+                    if (mode == TextMode.Text)
+                    {
                         isInQuote = !isInQuote;
                         _writer.Write(isInQuote ? EndQuote : StartQuote);
-                        break;
-                    case '\\':
-                        _writer.Write(Backslash);
-                        break;
-                    default:
-                        _writer.Write(character);
-                        break;
-                }
-
-                i += 1;
-            }
-        }
-        _writer.Write(QuoteChar);
-    }
-    
-    public void WriteCommandValue(string value)
-    {
-        _writer.Write(QuoteChar);
-        if (!string.IsNullOrEmpty(value))
-        {
-            int i = 0;
-            while (i < value.Length)
-            {
-                char character = value[i];
-                if (char.IsHighSurrogate(character) && i + 1 < value.Length && char.IsLowSurrogate(value[i + 1]))
-                {
-                    _writer.Write(value.AsSpan().Slice(i, 2));
-                    i += 2;
-                    continue;
-                }
-                switch (character)
-                {
-                    case '\"':
+                    }
+                    else
+                    {
                         _writer.Write(EscapeQuote);
-                        break;
-                    case '\\':
-                        _writer.Write(Backslash);
-                        break;
-                    default:
-                        _writer.Write(character);
-                        break;
-                }
-                
-                i += 1;
+                    }
+                    break;
+                case '\\':
+                    _writer.Write(Backslash);
+                    break;
+                default:
+                    _writer.Write(character);
+                    break;
             }
+                
+            i += 1;
         }
         _writer.Write(QuoteChar);
     }

@@ -188,5 +188,5 @@ public class JsonFrameworkWriterTests
     }
     
     public static TheoryData<string> UserInputString_TheoryData() 
-        => [string.Empty, "123", "a\"b\"c", "\"d\"", "\\e\\", "f\ng\nh", "適当に選んだ日本語文字", "\'i\'", "\tj\t", "\\\\", "1", "\u00E7", "1\U0001F47D", "2\uD83D\uDC7D", "3\"\"", "\"\"4"];
+        => [string.Empty, "123", "a\"b\"c", "\"d\"", "\\e\\", "f\ng\nh", "適当に選んだ日本語文字", "\'i\'", "\tj\t", "\\\\", "1", "\u00E7", "1\U0001F47D", "2\uD83D\uDC7D", "3\"\"", "\"\"4", "€ Ωא"];
 }

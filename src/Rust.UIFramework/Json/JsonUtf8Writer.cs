@@ -1,19 +1,27 @@
 ﻿using System;
 using System.Buffers;
+using System.Buffers.Text;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Text;
 using Network;
-using Oxide.Ext.UiFramework.Cache;
-using Oxide.Ext.UiFramework.Pooling;
+using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Json;
 
 public sealed class JsonUtf8Writer
 {
+    /// <summary>
+    /// Size of the segments used to store the UTF8 JSON string
+    /// </summary>
     private const int SegmentSize = 4096;
+    
+    /// <summary>
+    /// Maximum bytes a single char can be when converted to UTF8
+    /// </summary>
+    private const int CharSize = 3;
 
     private readonly List<SizedArray<byte>> _segments = [];
     
@@ -31,13 +39,8 @@ public sealed class JsonUtf8Writer
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void Write(char character)
     {
-        if (character < 0x7F)
-        {
-            Write((byte)character);
-            return;
-        }
-        
-        Write(Utf8CharCache.ToUtf8String(character).String);
+        CheckForFlush(CharSize);
+        _byteIndex += Utf8Formatter.FormatChar(character, _buffer.AsSpan(_byteIndex));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -57,44 +60,46 @@ public sealed class JsonUtf8Writer
     }
     
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Write(in Utf8String text) => Write(text.String);
+    public void Write(Utf8String text) => Write(text.String);
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Write(string text)
+    public void Write(string text) => Write(text.AsSpan());
+    
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public void Write(ReadOnlySpan<char> text)
     {
-        int length = text.Length;
-        CheckForFlush(length * 2);
+        CheckForFlush(text.Length * CharSize);
+        int written = Encoding.UTF8.GetBytes(text, _buffer.AsSpan(_byteIndex));
+        _byteIndex += written;
+
+        // int length = text.Length;
+        // CheckForFlush(length * CharSize);
+        // int byteIndex = _byteIndex;
+        // Span<byte> buffer = _buffer.AsSpan(byteIndex);
+        // for (int i = 0; i < length; i++)
+        // {
+        //     int written = Utf8Formatter.FormatChar(text[i], buffer);
+        //     buffer = buffer[written..];
+        //     byteIndex += written;
+        // }
+        //
+        // _byteIndex = byteIndex;
+    }
+    
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public void Write(Span<byte> span)
+    {
+        int length = span.Length;
+        CheckForFlush(length);
         
         byte[] buffer = _buffer;
         int byteIndex = _byteIndex;
         for (int i = 0; i < length; i++)
         {
-            char character = text[i];
-            if (character < 0x7F)
-            {
-                buffer[byteIndex++] = (byte)character;
-                continue;
-            }
-
-            byte[] bytes = Utf8CharCache.ToUtf8String(character).String;
-            for (int j = 0; j < bytes.Length; j++)
-            {
-                buffer[byteIndex++] = bytes[i];
-            }
+            buffer[byteIndex++] = span[i];
         }
         
         _byteIndex = byteIndex;
-    }
-    
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Write(ReadOnlySpan<char> text)
-    {
-        int length = text.Length;
-
-        CheckForFlush(length * 2);
-        
-        int encodedLength = Encoding.UTF8.GetBytes(text, _buffer.AsSpan(_byteIndex));
-        _byteIndex += encodedLength;
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
