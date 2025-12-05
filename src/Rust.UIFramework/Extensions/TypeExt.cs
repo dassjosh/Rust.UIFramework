@@ -19,6 +19,8 @@ internal static class TypeExt
         /// <returns>True if type is <see cref="Nullable"/>; false otherwise</returns>
         public bool IsNullable => type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>);
 
+        public bool HasFlags => type.IsEnum && type.IsDefined(typeof(FlagsAttribute));
+
         /// <summary>
         /// Returns if the type is <see cref="Nullable"/>
         /// </summary>
@@ -70,6 +72,11 @@ internal static class TypeExt
             if (type == null)
             {
                 return TypeCode.Empty;
+            }
+
+            if (type.IsEnum)
+            {
+                return Enum.GetUnderlyingType(type).GetTypeCode();
             }
 
             // Handle nullable types

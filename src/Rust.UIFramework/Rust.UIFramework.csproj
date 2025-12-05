@@ -85,7 +85,7 @@
       <Reference Include="System.Net.Http" Condition="'$(TargetFramework)' == 'net48'">
         <HintPath>..\references\System.Net.Http.dll</HintPath>
       </Reference>
-      <Reference Include="System.Runtime.CompilerServices.Unsafe" Condition="'$(TargetFramework)' == 'net48'">
+      <Reference Include="System.Runtime.CompilerServices.Unsafe">
         <HintPath>..\references\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
       </Reference>
       <Reference Include="System.Threading.Channels">
@@ -129,6 +129,7 @@
       </Content>
       <Compile Remove="$(CompilerGeneratedFilesOutputPath)/**/*.cs" />
       <Content Include="$(CompilerGeneratedFilesOutputPath)/Rust.UiFramework.SourceGenerators/**/*.cs" />
+      <Compile Remove="Cache\FastEnumCache{T}.cs" />
     </ItemGroup>
     
     <ItemGroup>

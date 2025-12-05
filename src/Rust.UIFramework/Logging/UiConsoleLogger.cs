@@ -28,7 +28,7 @@ internal class UiConsoleLogger(string pluginName) : IOutputLogger
         sb.Append(pluginName);
         sb.Append("] ");
         sb.Append('[');
-        sb.Append(FastEnumCache<UiLogLevel>.ToString(level));
+        sb.Append(EnumCache<UiLogLevel>.ToString(level));
         sb.Append("] ");
         if (type != null)
         {

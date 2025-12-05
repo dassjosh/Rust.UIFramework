@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Buffers.Text;
 using System.IO;
+using System.Runtime.CompilerServices;
 using Network;
 using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Colors;
@@ -105,7 +106,7 @@ public sealed class JsonFrameworkWriter : BasePoolable
     private void AddFieldRaw<T>(Utf8String name, T value) where T : unmanaged, Enum
     {
         WritePropertyName(name);
-        WriteValue(Utf8EnumCache<T>.ToUtf8Number(value));
+        WriteEnumInternal(value);
     }
     
     private void AddField(Utf8String name, Vector2 value, Vector2 defaultValue)
@@ -253,7 +254,7 @@ public sealed class JsonFrameworkWriter : BasePoolable
         if (value.ShouldSerialize(mode))
         {
             WritePropertyName(name);
-            WriteValue(Utf8EnumCache<T>.ToUtf8Number(value.Value));
+            WriteEnumInternal(value.Value);
         }
     }
     
@@ -577,4 +578,37 @@ public sealed class JsonFrameworkWriter : BasePoolable
     {
         _writer.WriteRaw(span);
     }
+
+    private void WriteEnumInternal<T>(T value) where T : unmanaged, Enum
+    {
+        switch (TypeCache<T>.TypeCode)
+        {
+            case TypeCode.SByte:
+                WriteValue(Unsafe.As<T, sbyte>(ref value));
+                return;
+            case TypeCode.Byte:
+                WriteValue(Unsafe.As<T, byte>(ref value));
+                return;
+            case TypeCode.Int16:
+                WriteValue(Unsafe.As<T, short>(ref value));
+                return;
+            case TypeCode.UInt16:
+                WriteValue(Unsafe.As<T, ushort>(ref value));
+                return;
+            case TypeCode.Int32:
+                WriteValue(Unsafe.As<T, int>(ref value));
+                return;
+            case TypeCode.UInt32:
+                WriteValue(Unsafe.As<T, uint>(ref value));
+                return;
+            case TypeCode.Int64:
+                WriteValue(Unsafe.As<T, long>(ref value));
+                return;
+            case TypeCode.UInt64:
+                WriteValue(Unsafe.As<T, ulong>(ref value));
+                return;
+        }
+        
+        WriteValue(0);
+    } 
 }
