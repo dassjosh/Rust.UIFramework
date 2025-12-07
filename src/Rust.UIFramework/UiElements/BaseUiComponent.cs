@@ -78,20 +78,20 @@ public abstract partial class BaseUiComponent : BasePoolable
     {
         SerializeMode mode = Update == UpdateMode.Update ? SerializeMode.Update : SerializeMode.Create;
         writer.WriteStartObject();
-        writer.AddFieldRaw(JsonDefaults.Common.ComponentName, Reference.Name);
+        writer.AddField(JsonDefaults.Common.ComponentName, Reference.Name);
         if (mode == SerializeMode.Create)
         {
-            writer.AddFieldRaw(JsonDefaults.Common.ParentName, Reference.Parent);
+            writer.AddField(JsonDefaults.Common.ParentName, Reference.Parent);
         }
         writer.AddField(JsonDefaults.Common.FadeOutName, _fadeOut, mode);
         writer.AddField(JsonDefaults.Common.ActiveName, _active, mode);
         switch (Update)
         {
             case UpdateMode.Replace:
-                writer.AddFieldRaw(JsonDefaults.Common.Replace, Reference.Name);
+                writer.AddField(JsonDefaults.Common.Replace, Reference.Name);
                 break;
             case UpdateMode.Update:
-                writer.AddFieldRaw(JsonDefaults.Common.Update, true);
+                writer.AddField(JsonDefaults.Common.Update, true);
                 break;
             case UpdateMode.None:
                 break;

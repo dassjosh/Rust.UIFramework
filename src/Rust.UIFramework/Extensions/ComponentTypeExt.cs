@@ -55,7 +55,8 @@ public static class ComponentTypeExt
             ComponentType.GridLayout => pluginPool.Get<GridLayoutComponent>(),
             ComponentType.ContentSizeFitter => pluginPool.Get<ContentSizeFitterComponent>(),
             ComponentType.LayoutElement => pluginPool.Get<LayoutElementComponent>(),
-            _ => throw new ArgumentOutOfRangeException(nameof(type), type, "Component Type is not a supported SubComponent")
+            ComponentType.ColorBlock or ComponentType.ScrollBar or ComponentType.ScrollViewContent => throw new ArgumentOutOfRangeException(nameof(type), type, "Component Type is not a supported SubComponent"),
+            _ => throw new ArgumentOutOfRangeException(nameof(type), type, $"Component Type is a valid enum value {type}")
         };
     }
 }

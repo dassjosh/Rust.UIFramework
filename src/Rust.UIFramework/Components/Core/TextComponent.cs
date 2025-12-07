@@ -43,7 +43,7 @@ public partial class TextComponent : CoreComponent, IGraphicalComponent
         
         if (_placeholderFor.ShouldSerialize(mode) && PlaceholderFor.IsValidName())
         {
-            writer.AddFieldRaw(JsonDefaults.Common.PlaceholderInputId, PlaceholderFor.Name);
+            writer.AddField(JsonDefaults.Common.PlaceholderInputId, PlaceholderFor.Name);
         }
     }
 }

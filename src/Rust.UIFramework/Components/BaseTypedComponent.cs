@@ -17,7 +17,7 @@ public abstract partial class BaseTypedComponent : BaseComponent
     public override void WriteComponent(JsonFrameworkWriter writer, SerializeMode mode)
     {
         writer.WriteStartObject();
-        writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, Type);
+        writer.AddField(JsonDefaults.Common.ComponentTypeName, Type);
         writer.AddField(JsonDefaults.Common.EnabledName, _enabled, mode);
         WriteComponentFields(writer, mode);
         writer.WriteEndObject();

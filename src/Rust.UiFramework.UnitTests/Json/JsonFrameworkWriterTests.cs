@@ -44,13 +44,13 @@ public class JsonFrameworkWriterTests
         
         // Act
         writer.WriteStartObject();
-        writer.AddFieldRaw((Utf8String)"Utf8StringRaw", (Utf8String)"Value");
-        writer.AddFieldRaw((Utf8String)"StringRaw", "string");
+        writer.AddField((Utf8String)"Utf8StringRaw", (Utf8String)"Value");
+        writer.AddField((Utf8String)"StringRaw", "string");
         //writer.AddFieldRaw((Utf8String)"IntRaw", 123);
         //writer.AddFieldRaw((Utf8String)"UlongRaw", ulong.MaxValue);
         //writer.AddFieldRaw((Utf8String)"FloatRaw", 30.5f);
-        writer.AddFieldRaw((Utf8String)"BoolRaw", true);
-        writer.AddFieldRaw((Utf8String)"UiColorRaw", UiColor.ParseHexColor("#7F7F7F7F"));
+        writer.AddField((Utf8String)"BoolRaw", true);
+        writer.AddField((Utf8String)"UiColorRaw", UiColor.ParseHexColor("#7F7F7F7F"));
         //writer.AddFieldRaw((Utf8String)"Vector2Raw", new Vector2(100, 200));
         //writer.AddFieldRaw((Utf8String)"EnumRaw", TextAnchor.UpperCenter);
         //writer.AddFieldRaw((Utf8String)"UiBorderWidth", new UiBorderWidth(1, 2, 4, 8));
@@ -174,7 +174,7 @@ public class JsonFrameworkWriterTests
         
         // Act
         writer.WriteStartObject();
-        writer.AddCommand((Utf8String)"TextField", value, null);
+        writer.AddCommandField((Utf8String)"TextField", value, null);
         writer.WriteEndObject();
         
         // Assert

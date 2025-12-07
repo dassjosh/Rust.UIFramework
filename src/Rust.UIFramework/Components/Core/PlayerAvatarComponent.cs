@@ -27,7 +27,7 @@ public partial class PlayerAvatarComponent : RawImageComponent
             {
                 case AvatarType.Small:
                 case AvatarType.Medium:
-                    writer.AddFieldRaw(JsonDefaults.PlayerAvatar.SteamIdName, StringCache<ulong>.ToString(SteamId));
+                    writer.AddField(JsonDefaults.PlayerAvatar.SteamIdName, StringCache<ulong>.ToString(SteamId));
                     break;
             
                 case AvatarType.Large:
@@ -41,12 +41,12 @@ public partial class PlayerAvatarComponent : RawImageComponent
                         }
                         else
                         {
-                            writer.AddFieldRaw(JsonDefaults.PlayerAvatar.SteamIdName, StringCache<ulong>.ToString(SteamId));
+                            writer.AddField(JsonDefaults.PlayerAvatar.SteamIdName, StringCache<ulong>.ToString(SteamId));
                         }
                     }
                     else
                     {
-                        writer.AddFieldRaw(JsonDefaults.PlayerAvatar.SteamIdName, StringCache<ulong>.ToString(SteamId));
+                        writer.AddField(JsonDefaults.PlayerAvatar.SteamIdName, StringCache<ulong>.ToString(SteamId));
                     }
 
                     break;

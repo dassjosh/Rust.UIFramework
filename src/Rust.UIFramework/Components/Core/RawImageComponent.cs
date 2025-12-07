@@ -39,7 +39,7 @@ public partial class RawImageComponent : CoreComponent, IGraphicalComponent
         
         if (_placeholderFor.ShouldSerialize(mode) && PlaceholderFor.IsValidName())
         {
-            writer.AddFieldRaw(JsonDefaults.Common.PlaceholderInputId, PlaceholderFor.Name);
+            writer.AddField(JsonDefaults.Common.PlaceholderInputId, PlaceholderFor.Name);
         }
 
         if (_image.ShouldSerialize(mode))
@@ -49,15 +49,15 @@ public partial class RawImageComponent : CoreComponent, IGraphicalComponent
             {
                 if (image.StartsWith("http", StringComparison.OrdinalIgnoreCase))
                 {
-                    writer.AddFieldRaw(JsonDefaults.Image.UrlName, image);
+                    writer.AddField(JsonDefaults.Image.UrlName, image);
                 } 
                 else if (uint.TryParse(image, out uint _))
                 {
-                    writer.AddFieldRaw(JsonDefaults.Image.PngName, image);
+                    writer.AddField(JsonDefaults.Image.PngName, image);
                 }
                 else if(image.StartsWith("assets/", StringComparison.OrdinalIgnoreCase))
                 {
-                    writer.AddFieldRaw(JsonDefaults.BaseImage.SpriteName, image);
+                    writer.AddField(JsonDefaults.BaseImage.SpriteName, image);
                 }
                 else
                 {

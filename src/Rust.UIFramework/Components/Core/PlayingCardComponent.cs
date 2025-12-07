@@ -28,7 +28,7 @@ public partial class PlayingCardComponent : CoreComponent, IGraphicalComponent
     {
         if (_suit.ShouldSerialize(mode) || _rank.ShouldSerialize(mode) || _cardType.ShouldSerialize(mode))
         {
-            writer.AddFieldRaw(JsonDefaults.BaseImage.SpriteName, UiPlayingCards.GetPlayingCard(Suit, Rank, CardType));
+            writer.AddField(JsonDefaults.BaseImage.SpriteName, UiPlayingCards.GetPlayingCard(Suit, Rank, CardType));
         }
         writer.AddField(JsonDefaults.BaseImage.MaterialName, _material, mode);
         writer.AddField(JsonDefaults.Color.ColorName, _color, mode);

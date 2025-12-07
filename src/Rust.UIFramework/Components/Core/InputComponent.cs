@@ -37,7 +37,7 @@ public partial class InputComponent : TextComponent
             writer.AddField(JsonDefaults.Input.AutoFocusName, HasMode(InputMode.AutoFocus), false);
             writer.AddField(JsonDefaults.Input.ReadOnlyName, HasMode(InputMode.ReadOnly), false);
         }
-        else
+        else if(_mode.ShouldSerialize(mode))
         {
             writer.AddField(JsonDefaults.Input.PasswordName, HasMode(InputMode.Password), _mode.ShouldSerialize(mode));
             writer.AddField(JsonDefaults.Input.NeedsKeyboardName, HasMode(InputMode.NeedsKeyboard), _mode.ShouldSerialize(mode));
@@ -46,16 +46,15 @@ public partial class InputComponent : TextComponent
             writer.AddField(JsonDefaults.Input.ReadOnlyName, HasMode(InputMode.ReadOnly), _mode.ShouldSerialize(mode));
         }
 
-        writer.AddCommand(JsonDefaults.Common.CommandName, _command, mode);
+        writer.AddCommandField(JsonDefaults.Common.CommandName, _command, mode);
         if (_placeholder.ShouldSerialize(mode) && Placeholder.IsValidName())
         {
-            writer.AddFieldRaw(JsonDefaults.Input.PlaceholderName, Placeholder.Name);
+            writer.AddField(JsonDefaults.Input.PlaceholderName, Placeholder.Name);
         }
     }
 
     public bool HasMode(InputMode mode) => (Mode & mode) == mode;
-
-    [Obsolete("Use SetMode on UiInput instead")]
+    
     public void SetMode(InputMode mode, bool enabled)
     {
         if (enabled)

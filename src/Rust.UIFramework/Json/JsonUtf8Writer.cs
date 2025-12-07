@@ -17,30 +17,91 @@ public sealed class JsonUtf8Writer
     /// Size of the segments used to store the UTF8 JSON string
     /// </summary>
     private const int SegmentSize = 4096;
-    
-    /// <summary>
-    /// Maximum bytes a single char can be when converted to UTF8
-    /// </summary>
-    private const int CharSize = 3;
 
     private readonly List<SizedArray<byte>> _segments = [];
     
     private int _byteIndex;
     private uint _size;
     private byte[] _buffer;
-    
+
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Write(byte character)
+    public void Write(byte value)
     {
-        CheckForFlush(1);
-        _buffer[_byteIndex++] = character;
+        CheckForFlush(Utf8Sizes.Sbyte);
+        Utf8Formatter.TryFormat(value, _buffer.AsSpan(_byteIndex), out int written);
+        _byteIndex += written;
     }
     
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Write(char character)
+    public void Write(sbyte value)
     {
-        CheckForFlush(CharSize);
-        _byteIndex += Utf8Formatter.FormatChar(character, _buffer.AsSpan(_byteIndex));
+        CheckForFlush(Utf8Sizes.Sbyte);
+        Utf8Formatter.TryFormat(value, _buffer.AsSpan(_byteIndex), out int written);
+        _byteIndex += written;
+    }
+    
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public void Write(short value)
+    {
+        CheckForFlush(Utf8Sizes.Short);
+        Utf8Formatter.TryFormat(value, _buffer.AsSpan(_byteIndex), out int written);
+        _byteIndex += written;
+    }
+    
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public void Write(int value)
+    {
+        CheckForFlush(Utf8Sizes.Int);
+        Utf8Formatter.TryFormat(value, _buffer.AsSpan(_byteIndex), out int written);
+        _byteIndex += written;
+    }
+    
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public void Write(long value)
+    {
+        CheckForFlush(Utf8Sizes.Long);
+        Utf8Formatter.TryFormat(value, _buffer.AsSpan(_byteIndex), out int written);
+        _byteIndex += written;
+    }
+    
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public void Write(ushort value)
+    {
+        CheckForFlush(Utf8Sizes.UShort);
+        Utf8Formatter.TryFormat(value, _buffer.AsSpan(_byteIndex), out int written);
+        _byteIndex += written;
+    }
+    
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public void Write(uint value)
+    {
+        CheckForFlush(Utf8Sizes.UInt);
+        Utf8Formatter.TryFormat(value, _buffer.AsSpan(_byteIndex), out int written);
+        _byteIndex += written;
+    }
+    
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public void Write(ulong value)
+    {
+        CheckForFlush(Utf8Sizes.ULong);
+        Utf8Formatter.TryFormat(value, _buffer.AsSpan(_byteIndex), out int written);
+        _byteIndex += written;
+    }
+    
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public void Write(float value)
+    {
+        CheckForFlush(Utf8Sizes.Float);
+        int written = Utf8Formatter.Format(value, _buffer.AsSpan(_byteIndex));
+        _byteIndex += written;
+    }
+    
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public void Write(float value, int maxFractionDigits)
+    {
+        CheckForFlush(Utf8Sizes.Float);
+        int written = Utf8Formatter.Format(value, maxFractionDigits, _buffer.AsSpan(_byteIndex));
+        _byteIndex += written;
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -60,6 +121,27 @@ public sealed class JsonUtf8Writer
     }
     
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public void WriteChar(byte character)
+    {
+        CheckForFlush(1);
+        _buffer[_byteIndex++] = character;
+    }
+    
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public void WriteChar(char character)
+    {
+        CheckForFlush(Utf8Sizes.Char);
+        _byteIndex += Utf8Formatter.FormatChar(character, _buffer.AsSpan(_byteIndex));
+    }
+    
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public void WriteChar(char highSurrogate, char lowSurrogate)
+    {
+        CheckForFlush(Utf8Sizes.SurrogateChar);
+        _byteIndex += Utf8Formatter.FormatChar(highSurrogate, lowSurrogate, _buffer.AsSpan(_byteIndex));
+    }
+    
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void Write(Utf8String text) => Write(text.String);
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -68,38 +150,9 @@ public sealed class JsonUtf8Writer
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void Write(ReadOnlySpan<char> text)
     {
-        CheckForFlush(text.Length * CharSize);
+        CheckForFlush(text.Length * Utf8Sizes.Char);
         int written = Encoding.UTF8.GetBytes(text, _buffer.AsSpan(_byteIndex));
         _byteIndex += written;
-
-        // int length = text.Length;
-        // CheckForFlush(length * CharSize);
-        // int byteIndex = _byteIndex;
-        // Span<byte> buffer = _buffer.AsSpan(byteIndex);
-        // for (int i = 0; i < length; i++)
-        // {
-        //     int written = Utf8Formatter.FormatChar(text[i], buffer);
-        //     buffer = buffer[written..];
-        //     byteIndex += written;
-        // }
-        //
-        // _byteIndex = byteIndex;
-    }
-    
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Write(Span<byte> span)
-    {
-        int length = span.Length;
-        CheckForFlush(length);
-        
-        byte[] buffer = _buffer;
-        int byteIndex = _byteIndex;
-        for (int i = 0; i < length; i++)
-        {
-            buffer[byteIndex++] = span[i];
-        }
-        
-        _byteIndex = byteIndex;
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]

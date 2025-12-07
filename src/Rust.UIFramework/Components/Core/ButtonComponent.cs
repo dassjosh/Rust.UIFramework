@@ -34,7 +34,7 @@ public partial class ButtonComponent : CoreComponent, IGraphicalComponent
         switch (ButtonType)
         {
             case ButtonType.Command:
-                writer.AddCommand(JsonDefaults.Common.CommandName, _command, mode);
+                writer.AddCommandField(JsonDefaults.Common.CommandName, _command, mode);
                 break;
             case ButtonType.Close:
                 writer.AddField(JsonDefaults.Button.CloseName, _command, mode);

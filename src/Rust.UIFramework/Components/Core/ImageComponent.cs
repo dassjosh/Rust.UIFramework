@@ -46,7 +46,7 @@ public partial class ImageComponent : CoreComponent, IGraphicalComponent
         writer.AddField(JsonDefaults.Image.FillCenterName, _fillCenter, mode);
         if (PlaceholderFor.IsValidName())
         {
-            writer.AddFieldRaw(JsonDefaults.Common.PlaceholderInputId, PlaceholderFor.Name);
+            writer.AddField(JsonDefaults.Common.PlaceholderInputId, PlaceholderFor.Name);
         }
     }
 }

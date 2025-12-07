@@ -11,6 +11,11 @@ class Program
 {
     static void Main(string[] args)
     {
+        if (0f == -0f)
+        {
+            Console.WriteLine("213");
+        }
+        
         // Benchmarks benchmarks = new();
         // benchmarks.Setup();
         // while (true)
