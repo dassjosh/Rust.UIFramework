@@ -411,7 +411,7 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
                 return string.Empty;
             }
 
-            return $"{FastEnumCache<AssetType>.ToString(Type)}/{Path}";
+            return $"{EnumCache<AssetType>.ToString(Type)}/{Path}";
         }
 
         private void OnPathChanged()
@@ -681,7 +681,7 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
             Puts(_uiCommands.SelectAssetType.Build(type));
             UiButton button = builder.Button(root, _imageGrid, default, _buttonColor, _uiCommands.SelectAssetType.Build(type));
             builder.ImageSprite(button, UiPosition.Full, default, UiSprites.Icons.Folder, UiColors.White);
-            builder.Label(button, UiPosition.Full, default, FastEnumCache<AssetType>.ToString(type), 14, _textColor).AddOutline(UiColors.Black);
+            builder.Label(button, UiPosition.Full, default, EnumCache<AssetType>.ToString(type), 14, _textColor).AddOutline(UiColors.Black);
             _imageGrid.MoveCols(1);
         }
     }
@@ -759,18 +759,18 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
         
         if (!state.CardType.HasValue)
         {
-            foreach (UiCardType type in FastEnumCache<UiCardType>.GetValues())
+            foreach (UiCardType type in EnumCache<UiCardType>.GetValues())
             {
-                string name = FastEnumCache<UiCardType>.ToString(type);
+                string name = EnumCache<UiCardType>.ToString(type);
                 UiButton button = builder.SpriteButton(grid, _buttonColor, UiSprites.Icons.Folder, _uiCommands.PathInto.Build(name));
                 builder.Label(button, UiPosition.Full, default, name, 12, _textColor).AddOutline(UiColors.Black);
             }
             return;
         }
 
-        foreach (UiSuit suit in FastEnumCache<UiSuit>.GetValues())
+        foreach (UiSuit suit in EnumCache<UiSuit>.GetValues())
         {
-            foreach (UiRank rank in FastEnumCache<UiRank>.GetValues())
+            foreach (UiRank rank in EnumCache<UiRank>.GetValues())
             {
                 PlayingCardData card = new(suit, rank);
                 string spritePath = UiPlayingCards.GetPlayingCard(suit, rank, state.CardType.Value);
