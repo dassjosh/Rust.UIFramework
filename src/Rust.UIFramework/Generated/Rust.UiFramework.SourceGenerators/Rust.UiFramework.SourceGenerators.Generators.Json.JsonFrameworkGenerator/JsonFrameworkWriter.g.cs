@@ -1,0 +1,378 @@
+﻿
+namespace Oxide.Ext.UiFramework.Json;
+
+public partial class JsonFrameworkWriter
+{
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, byte value)
+	{
+		WritePropertyName(name);
+		WriteValue(value);
+	}
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, sbyte value)
+	{
+		WritePropertyName(name);
+		WriteValue(value);
+	}
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, char value)
+	{
+		WritePropertyName(name);
+		WriteValue(value);
+	}
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, bool value)
+	{
+		WritePropertyName(name);
+		WriteValue(value);
+	}
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, short value)
+	{
+		WritePropertyName(name);
+		WriteValue(value);
+	}
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, ushort value)
+	{
+		WritePropertyName(name);
+		WriteValue(value);
+	}
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, int value)
+	{
+		WritePropertyName(name);
+		WriteValue(value);
+	}
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, uint value)
+	{
+		WritePropertyName(name);
+		WriteValue(value);
+	}
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, long value)
+	{
+		WritePropertyName(name);
+		WriteValue(value);
+	}
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, ulong value)
+	{
+		WritePropertyName(name);
+		WriteValue(value);
+	}
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, float value)
+	{
+		WritePropertyName(name);
+		WriteValue(value);
+	}
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, string value)
+	{
+		WritePropertyName(name);
+		WriteValue(value);
+	}
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, Oxide.Ext.UiFramework.Colors.UiColor value)
+	{
+		WritePropertyName(name);
+		WriteValue(value);
+	}
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, Oxide.Ext.UiFramework.Types.UiRotation value)
+	{
+		WritePropertyName(name);
+		WriteValue(value);
+	}
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, in Oxide.Ext.UiFramework.Types.UiBorderWidth value)
+	{
+		WritePropertyName(name);
+		WriteValue(value);
+	}
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, in Oxide.Ext.UiFramework.Types.UiPadding value)
+	{
+		WritePropertyName(name);
+		WriteValue(value);
+	}
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, in UnityEngine.Vector2 value)
+	{
+		WritePropertyName(name);
+		WriteValue(value);
+	}
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, Oxide.Ext.UiFramework.Types.Utf8String value)
+	{
+		WritePropertyName(name);
+		WriteValue(value);
+	}
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, byte value, byte defaultValue)
+	{
+		if (value != defaultValue)
+		{
+		    WritePropertyName(name);
+		    WriteValue(value);
+		}
+	}
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, sbyte value, sbyte defaultValue)
+	{
+		if (value != defaultValue)
+		{
+		    WritePropertyName(name);
+		    WriteValue(value);
+		}
+	}
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, char value, char defaultValue)
+	{
+		if (value != defaultValue)
+		{
+		    WritePropertyName(name);
+		    WriteValue(value);
+		}
+	}
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, bool value, bool defaultValue)
+	{
+		if (value != defaultValue)
+		{
+		    WritePropertyName(name);
+		    WriteValue(value);
+		}
+	}
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, short value, short defaultValue)
+	{
+		if (value != defaultValue)
+		{
+		    WritePropertyName(name);
+		    WriteValue(value);
+		}
+	}
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, ushort value, ushort defaultValue)
+	{
+		if (value != defaultValue)
+		{
+		    WritePropertyName(name);
+		    WriteValue(value);
+		}
+	}
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, int value, int defaultValue)
+	{
+		if (value != defaultValue)
+		{
+		    WritePropertyName(name);
+		    WriteValue(value);
+		}
+	}
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, uint value, uint defaultValue)
+	{
+		if (value != defaultValue)
+		{
+		    WritePropertyName(name);
+		    WriteValue(value);
+		}
+	}
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, long value, long defaultValue)
+	{
+		if (value != defaultValue)
+		{
+		    WritePropertyName(name);
+		    WriteValue(value);
+		}
+	}
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, ulong value, ulong defaultValue)
+	{
+		if (value != defaultValue)
+		{
+		    WritePropertyName(name);
+		    WriteValue(value);
+		}
+	}
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, float value, float defaultValue)
+	{
+		if (value != defaultValue)
+		{
+		    WritePropertyName(name);
+		    WriteValue(value);
+		}
+	}
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, string value, string defaultValue)
+	{
+		if (value != defaultValue)
+		{
+		    WritePropertyName(name);
+		    WriteValue(value);
+		}
+	}
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, Oxide.Ext.UiFramework.Colors.UiColor value, Oxide.Ext.UiFramework.Colors.UiColor defaultValue)
+	{
+		if (value != defaultValue)
+		{
+		    WritePropertyName(name);
+		    WriteValue(value);
+		}
+	}
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, Oxide.Ext.UiFramework.Types.UiRotation value, Oxide.Ext.UiFramework.Types.UiRotation defaultValue)
+	{
+		if (value != defaultValue)
+		{
+		    WritePropertyName(name);
+		    WriteValue(value);
+		}
+	}
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, in Oxide.Ext.UiFramework.Types.UiBorderWidth value, in Oxide.Ext.UiFramework.Types.UiBorderWidth defaultValue)
+	{
+		if (value != defaultValue)
+		{
+		    WritePropertyName(name);
+		    WriteValue(value);
+		}
+	}
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, in Oxide.Ext.UiFramework.Types.UiPadding value, in Oxide.Ext.UiFramework.Types.UiPadding defaultValue)
+	{
+		if (value != defaultValue)
+		{
+		    WritePropertyName(name);
+		    WriteValue(value);
+		}
+	}
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, in UnityEngine.Vector2 value, in UnityEngine.Vector2 defaultValue)
+	{
+		if (value != defaultValue)
+		{
+		    WritePropertyName(name);
+		    WriteValue(value);
+		}
+	}
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, Oxide.Ext.UiFramework.Types.Utf8String value, Oxide.Ext.UiFramework.Types.Utf8String defaultValue)
+	{
+		if (value != defaultValue)
+		{
+		    WritePropertyName(name);
+		    WriteValue(value);
+		}
+	}
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, Oxide.Ext.UiFramework.Types.Tracked<byte> value, Oxide.Ext.UiFramework.Enums.SerializeMode mode)
+	{
+		if (value.ShouldSerialize(mode))
+		{
+		    WritePropertyName(name);
+		    WriteValue(value.Value);
+		}
+	}
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, Oxide.Ext.UiFramework.Types.Tracked<sbyte> value, Oxide.Ext.UiFramework.Enums.SerializeMode mode)
+	{
+		if (value.ShouldSerialize(mode))
+		{
+		    WritePropertyName(name);
+		    WriteValue(value.Value);
+		}
+	}
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, Oxide.Ext.UiFramework.Types.Tracked<char> value, Oxide.Ext.UiFramework.Enums.SerializeMode mode)
+	{
+		if (value.ShouldSerialize(mode))
+		{
+		    WritePropertyName(name);
+		    WriteValue(value.Value);
+		}
+	}
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, Oxide.Ext.UiFramework.Types.Tracked<bool> value, Oxide.Ext.UiFramework.Enums.SerializeMode mode)
+	{
+		if (value.ShouldSerialize(mode))
+		{
+		    WritePropertyName(name);
+		    WriteValue(value.Value);
+		}
+	}
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, Oxide.Ext.UiFramework.Types.Tracked<short> value, Oxide.Ext.UiFramework.Enums.SerializeMode mode)
+	{
+		if (value.ShouldSerialize(mode))
+		{
+		    WritePropertyName(name);
+		    WriteValue(value.Value);
+		}
+	}
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, Oxide.Ext.UiFramework.Types.Tracked<ushort> value, Oxide.Ext.UiFramework.Enums.SerializeMode mode)
+	{
+		if (value.ShouldSerialize(mode))
+		{
+		    WritePropertyName(name);
+		    WriteValue(value.Value);
+		}
+	}
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, Oxide.Ext.UiFramework.Types.Tracked<int> value, Oxide.Ext.UiFramework.Enums.SerializeMode mode)
+	{
+		if (value.ShouldSerialize(mode))
+		{
+		    WritePropertyName(name);
+		    WriteValue(value.Value);
+		}
+	}
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, Oxide.Ext.UiFramework.Types.Tracked<uint> value, Oxide.Ext.UiFramework.Enums.SerializeMode mode)
+	{
+		if (value.ShouldSerialize(mode))
+		{
+		    WritePropertyName(name);
+		    WriteValue(value.Value);
+		}
+	}
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, Oxide.Ext.UiFramework.Types.Tracked<long> value, Oxide.Ext.UiFramework.Enums.SerializeMode mode)
+	{
+		if (value.ShouldSerialize(mode))
+		{
+		    WritePropertyName(name);
+		    WriteValue(value.Value);
+		}
+	}
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, Oxide.Ext.UiFramework.Types.Tracked<ulong> value, Oxide.Ext.UiFramework.Enums.SerializeMode mode)
+	{
+		if (value.ShouldSerialize(mode))
+		{
+		    WritePropertyName(name);
+		    WriteValue(value.Value);
+		}
+	}
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, Oxide.Ext.UiFramework.Types.Tracked<float> value, Oxide.Ext.UiFramework.Enums.SerializeMode mode)
+	{
+		if (value.ShouldSerialize(mode))
+		{
+		    WritePropertyName(name);
+		    WriteValue(value.Value);
+		}
+	}
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> value, Oxide.Ext.UiFramework.Enums.SerializeMode mode)
+	{
+		if (value.ShouldSerialize(mode))
+		{
+		    WritePropertyName(name);
+		    WriteValue(value.Value);
+		}
+	}
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Types.UiRotation> value, Oxide.Ext.UiFramework.Enums.SerializeMode mode)
+	{
+		if (value.ShouldSerialize(mode))
+		{
+		    WritePropertyName(name);
+		    WriteValue(value.Value);
+		}
+	}
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Types.UiBorderWidth> value, Oxide.Ext.UiFramework.Enums.SerializeMode mode)
+	{
+		if (value.ShouldSerialize(mode))
+		{
+		    WritePropertyName(name);
+		    WriteValue(value.Value);
+		}
+	}
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Types.UiPadding> value, Oxide.Ext.UiFramework.Enums.SerializeMode mode)
+	{
+		if (value.ShouldSerialize(mode))
+		{
+		    WritePropertyName(name);
+		    WriteValue(value.Value);
+		}
+	}
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.Vector2> value, Oxide.Ext.UiFramework.Enums.SerializeMode mode)
+	{
+		if (value.ShouldSerialize(mode))
+		{
+		    WritePropertyName(name);
+		    WriteValue(value.Value);
+		}
+	}
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Types.Utf8String> value, Oxide.Ext.UiFramework.Enums.SerializeMode mode)
+	{
+		if (value.ShouldSerialize(mode))
+		{
+		    WritePropertyName(name);
+		    WriteValue(value.Value);
+		}
+	}
+}
+
+

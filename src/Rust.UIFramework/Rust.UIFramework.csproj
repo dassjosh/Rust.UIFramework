@@ -166,6 +166,9 @@
       <Compile Include="..\Rust.UiFramework.SourceGenerators\Attributes\FastEnumAttribute.cs">
         <Link>Attributes\FastEnumAttribute.cs</Link>
       </Compile>
+      <Compile Include="..\Rust.UiFramework.SourceGenerators\Attributes\GenerateJsonWriterAttribute.cs">
+        <Link>Attributes\GenerateJsonWriterAttribute.cs</Link>
+      </Compile>
       <Compile Include="..\Rust.UiFramework.SourceGenerators\Attributes\GenerateRegisterCommandsAttribute.cs">
         <Link>Attributes\GenerateRegisterCommandsAttribute.cs</Link>
       </Compile>

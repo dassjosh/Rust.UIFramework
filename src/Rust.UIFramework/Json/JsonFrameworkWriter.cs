@@ -1,18 +1,17 @@
 ﻿using System;
-using System.Buffers.Text;
 using System.IO;
 using System.Runtime.CompilerServices;
 using Network;
 using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Enums;
-using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Interfaces;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.Types;
+using Rust.UiFramework.SourceGenerators.Attributes;
 using UnityEngine;
 
 #if BENCHMARKS
@@ -21,7 +20,8 @@ using Oxide.Ext.UiFramework.Benchmarks;
 
 namespace Oxide.Ext.UiFramework.Json;
 
-public sealed class JsonFrameworkWriter : BasePoolable
+[GenerateJsonWriter]
+public sealed partial class JsonFrameworkWriter : BasePoolable
 {
     internal const char StartQuoteString = '“';
     internal const char EndQuoteString = '“';
@@ -36,8 +36,8 @@ public sealed class JsonFrameworkWriter : BasePoolable
     private const byte True = (byte)'1';
     private const byte False = (byte)'0';
     private const byte Space = (byte)' ';
-    private static readonly Utf8String StartQuote = StartQuoteString;
-    private static readonly Utf8String EndQuote = EndQuoteString;
+    private static readonly Utf8String StartQuote = $"{StartQuoteString}";
+    private static readonly Utf8String EndQuote = $"{EndQuoteString}";
     private static readonly Utf8String Separator = "\":";
     private static readonly Utf8String PropertyComma = ",\"";
     
@@ -92,105 +92,12 @@ public sealed class JsonFrameworkWriter : BasePoolable
     #endregion
     
     #region Field Handling
-    public void AddField(Utf8String name, Utf8String value)
-    {
-        WritePropertyName(name);
-        WriteValue(value);
-    }
-    
-    public void AddField(Utf8String name, string value)
-    {
-        WritePropertyName(name);
-        WriteValue(value);
-    }
-    
-    public void AddField(Utf8String name, bool value)
-    {
-        WritePropertyName(name);
-        WriteValue(value);
-    }
-    
-    public void AddField(Utf8String name, byte value)
-    {
-        WritePropertyName(name);
-        WriteValue(value);
-    }
-    
-    public void AddField(Utf8String name, sbyte value)
-    {
-        WritePropertyName(name);
-        WriteValue(value);
-    }
-    
-    public void AddField(Utf8String name, short value)
-    {
-        WritePropertyName(name);
-        WriteValue(value);
-    }
-    
-    public void AddField(Utf8String name, ushort value)
-    {
-        WritePropertyName(name);
-        WriteValue(value);
-    }
-    
-    public void AddField(Utf8String name, int value)
-    {
-        WritePropertyName(name);
-        WriteValue(value);
-    }
-    
-    public void AddField(Utf8String name, uint value)
-    {
-        WritePropertyName(name);
-        WriteValue(value);
-    }
-    
-    public void AddField(Utf8String name, long value)
-    {
-        WritePropertyName(name);
-        WriteValue(value);
-    }
-    
-    public void AddField(Utf8String name, ulong value)
-    {
-        WritePropertyName(name);
-        WriteValue(value);
-    }
-    
-    public void AddField(Utf8String name, float value)
-    {
-        WritePropertyName(name);
-        WriteValue(value);
-    }
-    
-    public void AddField(Utf8String name, UiColor color)
-    {
-        WritePropertyName(name);
-        WriteValue(color);
-    }
-    
-    public void AddField(Utf8String name, Vector2 value)
-    {
-        WritePropertyName(name);
-        WriteValue(value);
-    }
-    
     public void AddField<T>(Utf8String name, T value) where T : unmanaged, Enum
     {
         WritePropertyName(name);
         WriteEnumInternal(value);
     }
     
-    private void AddField(Utf8String name, Vector2 value, Vector2 defaultValue)
-    {
-        if (value != defaultValue)
-        {
-            WritePropertyName(name);
-            WriteValue(value);
-        }
-    }
-
     public void AddField(in UiPosition value, SerializeMode mode)
     {
         if (mode == SerializeMode.Create)
@@ -223,99 +130,9 @@ public sealed class JsonFrameworkWriter : BasePoolable
         }
     }
     
-    public void AddField(Utf8String name, bool value, bool defaultValue)
-    {
-        if (value != defaultValue)
-        {
-            WritePropertyName(name);
-            WriteValue(value);
-        }
-    }
-    
-    public void AddField(Utf8String name, Tracked<bool> value, SerializeMode mode)
-    {
-        if (value.ShouldSerialize(mode))
-        {
-            WritePropertyName(name);
-            WriteValue(value.Value);
-        }
-    }
-    
-    public void AddField(Utf8String name, Tracked<int> value, SerializeMode mode)
-    {
-        if (value.ShouldSerialize(mode))
-        {
-            WritePropertyName(name);
-            WriteValue(value.Value);
-        }
-    }
-    
-    public void AddField(Utf8String name, Tracked<ulong> value, SerializeMode mode)
-    {
-        if (value.ShouldSerialize(mode))
-        {
-            WritePropertyName(name);
-            WriteValue(value.Value);
-        }
-    }
-    
-    public void AddField(Utf8String name, Tracked<float> value, SerializeMode mode)
-    {
-        if (value.ShouldSerialize(mode))
-        {
-            WritePropertyName(name);
-            WriteValue(value.Value);
-        }
-    }
-    
     public void AddField(Utf8String name, Tracked<string> value, SerializeMode mode)
     {
         if (value.ShouldSerialize(mode) && value.Value != null)
-        {
-            WritePropertyName(name);
-            WriteValue(value.Value);
-        }
-    }
-    
-    public void AddField(Utf8String name, Tracked<UiColor> value, SerializeMode mode)
-    {
-        if (value.ShouldSerialize(mode))
-        {
-            WritePropertyName(name);
-            WriteValue(value.Value);
-        }
-    }
-    
-    public void AddField(Utf8String name, Tracked<UiRotation> value, SerializeMode mode)
-    {
-        if (value.ShouldSerialize(mode))
-        {
-            WritePropertyName(name);
-            WriteValue(value.Value.Rotation);
-        }
-    }
-    
-    public void AddField(Utf8String name, Tracked<Vector2> value, SerializeMode mode)
-    {
-        if (value.ShouldSerialize(mode))
-        {
-            WritePropertyName(name);
-            WriteValue(value.Value);
-        }
-    }
-    
-    public void AddField(Utf8String name, Tracked<UiBorderWidth> value, SerializeMode mode)
-    {
-        if (value.ShouldSerialize(mode))
-        {
-            WritePropertyName(name);
-            WriteValue(value.Value);
-        }
-    }
-    
-    public void AddField(Utf8String name, Tracked<UiPadding> value, SerializeMode mode)
-    {
-        if (value.ShouldSerialize(mode))
         {
             WritePropertyName(name);
             WriteValue(value.Value);
@@ -467,16 +284,10 @@ public sealed class JsonFrameworkWriter : BasePoolable
         _writer.Write(Separator);
     }
     
-    public void WriteQuote()
-    {
-        _writer.WriteChar(QuoteChar);
-    }
-    
-    public void WriteComma()
-    {
-        _writer.WriteChar(CommaChar);
-    }
-    
+    public void WriteQuote() => _writer.WriteChar(QuoteChar);
+
+    public void WriteComma() => _writer.WriteChar(CommaChar);
+
     public void WriteValue(Utf8String value)
     {
         WriteQuote();
@@ -572,11 +383,13 @@ public sealed class JsonFrameworkWriter : BasePoolable
         _writer.WriteChar(QuoteChar);
     }
     
-    public void WriteTextValue(string value) => WriteText(value, TextMode.Text);
+    public void WriteTextValue(string value) => WriteTextInternal(value, TextMode.Text);
 
-    public void WriteCommandValue(string value) => WriteText(value, TextMode.Command);
-
-    private void WriteText(string value, TextMode mode)
+    public void WriteCommandValue(string value) => WriteTextInternal(value, TextMode.Command);
+    #endregion
+    
+    #region Internal
+    private void WriteTextInternal(string value, TextMode mode)
     {
         if (string.IsNullOrEmpty(value))
         {
@@ -626,9 +439,7 @@ public sealed class JsonFrameworkWriter : BasePoolable
         }
         _writer.WriteChar(QuoteChar);
     }
-    #endregion
 
-    #region Internal
     private void WriteEnumInternal<T>(T value) where T : unmanaged, Enum
     {
         _writer.WriteChar(QuoteChar);
@@ -667,12 +478,6 @@ public sealed class JsonFrameworkWriter : BasePoolable
     } 
     #endregion
 
-    protected override void EnterPool()
-    {
-        ResetCommaState();
-        _writer.Reset();
-    }
-
     public void WriteToStream(Stream stream) => _writer.WriteToStream(stream);
     public override string ToString() => _writer.ToString();
     public int WriteTo(byte[] buffer) => _writer.WriteToArray(buffer);
@@ -684,4 +489,10 @@ public sealed class JsonFrameworkWriter : BasePoolable
 #endif
 
     public byte[] ToArray() => _writer.ToArray();
+    
+    protected override void EnterPool()
+    {
+        ResetCommaState();
+        _writer.Reset();
+    }
 }
