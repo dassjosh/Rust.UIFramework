@@ -6,13 +6,6 @@ namespace Oxide.Ext.UiFramework.UiElements;
 
 public partial class UiPlayingCard : IUiPlayingCard, IUiPlayingCardTrackable
 {
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Enums.UiSuit> _suit = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Enums.UiRank> _rank = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Enums.UiCardType> _cardType = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<string> _material = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<float> _fadeIn = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> _color = new();
-
 	public partial Oxide.Ext.UiFramework.Enums.UiSuit Suit { get => Card.Suit; set => Card.Suit = value; }
 	public partial Oxide.Ext.UiFramework.Enums.UiRank Rank { get => Card.Rank; set => Card.Rank = value; }
 	public partial Oxide.Ext.UiFramework.Enums.UiCardType CardType { get => Card.CardType; set => Card.CardType = value; }

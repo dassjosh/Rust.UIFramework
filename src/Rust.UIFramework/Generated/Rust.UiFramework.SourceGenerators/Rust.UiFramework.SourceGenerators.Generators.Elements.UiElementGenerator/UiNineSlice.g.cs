@@ -6,16 +6,6 @@ namespace Oxide.Ext.UiFramework.UiElements;
 
 public partial class UiNineSlice : IUiNineSlice, IUiNineSliceTrackable
 {
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<string> _png = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Types.UiBorderWidth> _slice = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.UiElements.UiReference> _placeholderFor = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<bool> _fillCenter = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.Image.Type> _imageType = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<string> _sprite = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<string> _material = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<float> _fadeIn = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> _color = new();
-
 	public partial string Png { get => Image.Png; set => Image.Png = value; }
 	public partial Oxide.Ext.UiFramework.Types.UiBorderWidth Slice { get => Image.Slice; set => Image.Slice = value; }
 	public partial Oxide.Ext.UiFramework.UiElements.UiReference PlaceholderFor { get => Image.PlaceholderFor; set => Image.PlaceholderFor = value; }

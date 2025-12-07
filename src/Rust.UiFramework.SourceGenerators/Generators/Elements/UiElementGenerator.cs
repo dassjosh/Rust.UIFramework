@@ -31,7 +31,7 @@ public class UiElementGenerator : BaseGenerator, IIncrementalGenerator
                 .Implements(genData.ClassSymbol.GetTrackableInterface())
                 
                 //Private Tracked Fields
-                .Fields(genData.PartialProperties, (data, field) => field.Private().Readonly().Type(SymbolCache.Types.Tracked.Symbol.Construct(data.Type)).Name(data.Name.ToPrivateField()).New(data.GetPropertyDefaults()))
+                .Fields(genData.TrackedProperties, (data, field) => field.Private().Readonly().Type(SymbolCache.Types.Tracked.Symbol.Construct(data.Type)).Name(data.Name.ToPrivateField()).New(data.GetPropertyDefaults()))
                
                 //Public Properties Setting Component Fields
                 .Properties(genData.PartialProperties, (data, property) => property.Public().Partial().Type(data.TypeName).Name(data.Name)
@@ -67,6 +67,7 @@ public class UiElementGenerator : BaseGenerator, IIncrementalGenerator
         public readonly INamedTypeSymbol ClassSymbol;
         public readonly string ComponentFieldName;
         public readonly PropertyData[] PartialProperties;
+        public readonly PropertyData[] TrackedProperties;
         public readonly bool GenerateBuilderMethods;
         public readonly IFieldSymbol ComponentField;
 
@@ -74,6 +75,7 @@ public class UiElementGenerator : BaseGenerator, IIncrementalGenerator
         {
             ClassSymbol = classSymbol;
             PartialProperties = classSymbol.GetProperties().Where(p => p.IsPartialDefinition).Select(p => new PropertyData(p)).ToArray();
+            TrackedProperties = classSymbol.GetProperties().Where(p => p.HasAttribute<TrackedAttribute>()).Select(p => new PropertyData(p)).ToArray();
             GenerateBuilderMethods = classSymbol.HasAttribute<GenerateBuilderMethodsAttribute>();
             ComponentField = classSymbol.GetMembers().OfType<IFieldSymbol>().FirstOrDefault(f => f.IsReadOnly && f.Type.AllInterfaces.Any(i => i.Name == "IComponent"));
             ComponentFieldName = ComponentField?.Name;

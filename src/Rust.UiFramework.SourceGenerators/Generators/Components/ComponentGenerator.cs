@@ -44,7 +44,7 @@ public class ComponentGenerator : BaseGenerator, IIncrementalGenerator
                         .Get(data.PrivateFieldName))
 
                     //Builder Methods
-                    .If(genData.GenerateBuilderMethods, builder => builder.Methods(genData.Properties, data => !data.SkipBuilder, (data, method) =>
+                    .If(genData.GenerateBuilderMethods, builder => builder.Methods(genData.BuilderProperties, data => !data.SkipBuilder, (data, method) =>
                         method.Public().Returns(genData.ClassSymbol).Name($"Set{data.Name}")
                             .AddParameter(parameter => parameter.Type(data.Type).Name(data.Name)
                                 .If(data.Type.ShouldBePassedByIn(), p => p.In())
@@ -81,6 +81,7 @@ public class ComponentGenerator : BaseGenerator, IIncrementalGenerator
         public readonly string ComponentInterfaceName;
         public readonly string TrackableInterfaceName;
         public readonly PropertyData[] Properties;
+        public readonly PropertyData[] BuilderProperties;
         public readonly bool GenerateBuilderMethods;
         public readonly INamedTypeSymbol ParentComponent;
 
@@ -90,6 +91,7 @@ public class ComponentGenerator : BaseGenerator, IIncrementalGenerator
             ComponentInterfaceName = classSymbol.GetInterface();
             TrackableInterfaceName = classSymbol.GetTrackableInterface();
             Properties = classSymbol.GetProperties().Where(p => p.IsPartialDefinition).Select(p => new PropertyData(p)).ToArray();
+            BuilderProperties = classSymbol.GetProperties().Where(p => p.IsPartialDefinition || p.HasAttribute<GenerateBuilderMethodAttribute>()).Select(p => new PropertyData(p)).ToArray();
             GenerateBuilderMethods = classSymbol.HasAttribute<GenerateBuilderMethodsAttribute>();
             ParentComponent = classSymbol.GetParentWithAttribute<GenerateComponentAttribute>(s => !s.IsAbstract);
         }

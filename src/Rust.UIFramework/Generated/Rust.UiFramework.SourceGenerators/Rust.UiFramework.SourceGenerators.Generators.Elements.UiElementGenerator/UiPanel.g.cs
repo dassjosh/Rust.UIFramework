@@ -6,14 +6,6 @@ namespace Oxide.Ext.UiFramework.UiElements;
 
 public partial class UiPanel : IUiPanel, IUiPanelTrackable
 {
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.UiElements.UiReference> _placeholderFor = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<bool> _fillCenter = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.Image.Type> _imageType = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<string> _sprite = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<string> _material = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<float> _fadeIn = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> _color = new();
-
 	public partial Oxide.Ext.UiFramework.UiElements.UiReference PlaceholderFor { get => Image.PlaceholderFor; set => Image.PlaceholderFor = value; }
 	public partial bool FillCenter { get => Image.FillCenter; set => Image.FillCenter = value; }
 	public partial UnityEngine.UI.Image.Type ImageType { get => Image.ImageType; set => Image.ImageType = value; }

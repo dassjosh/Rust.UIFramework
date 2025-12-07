@@ -48,6 +48,31 @@ public partial class InputComponent : IInputComponent, IInputComponentTrackable
 		Placeholder = placeholder;
 		return this;
 	}
+	public Oxide.Ext.UiFramework.Components.InputComponent SetIsPassword(bool isPassword)
+	{
+		IsPassword = isPassword;
+		return this;
+	}
+	public Oxide.Ext.UiFramework.Components.InputComponent SetNeedsKeyboard(bool needsKeyboard)
+	{
+		NeedsKeyboard = needsKeyboard;
+		return this;
+	}
+	public Oxide.Ext.UiFramework.Components.InputComponent SetHudNeedsKeyboard(bool hudNeedsKeyboard)
+	{
+		HudNeedsKeyboard = hudNeedsKeyboard;
+		return this;
+	}
+	public Oxide.Ext.UiFramework.Components.InputComponent SetAutoFocus(bool autoFocus)
+	{
+		AutoFocus = autoFocus;
+		return this;
+	}
+	public Oxide.Ext.UiFramework.Components.InputComponent SetReadOnly(bool readOnly)
+	{
+		ReadOnly = readOnly;
+		return this;
+	}
 	public new IInputComponentTrackable AsTrackable() => this;
 	protected override bool HasChangedGenerated() => base.HasChangedGenerated() || (_charsLimit.HasChanged || _command.HasChanged || _mode.HasChanged || _lineType.HasChanged || _placeholder.HasChanged);
 	protected override void ResetHasChangedGenerated()

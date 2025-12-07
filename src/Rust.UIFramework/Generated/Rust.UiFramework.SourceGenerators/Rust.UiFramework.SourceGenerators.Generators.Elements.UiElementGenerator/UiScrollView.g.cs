@@ -6,17 +6,6 @@ namespace Oxide.Ext.UiFramework.UiElements;
 
 public partial class UiScrollView : IUiScrollView, IUiScrollViewTrackable
 {
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.ScrollRect.MovementType> _movementType = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<float> _elasticity = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<bool> _inertia = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<float> _decelerationRate = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<float> _scrollSensitivity = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<float> _horizontalScrollProgress = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<float> _verticalScrollProgress = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Positions.UiPosition> _contentPosition = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Offsets.UiOffset> _contentOffset = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.Vector2> _contentPivot = new();
-
 	public partial UnityEngine.UI.ScrollRect.MovementType MovementType { get => ScrollView.MovementType; set => ScrollView.MovementType = value; }
 	public partial float Elasticity { get => ScrollView.Elasticity; set => ScrollView.Elasticity = value; }
 	public partial bool Inertia { get => ScrollView.Inertia; set => ScrollView.Inertia = value; }

@@ -14,6 +14,11 @@ public interface IUiInput : Oxide.Ext.UiFramework.Interfaces.IFadeIn<Oxide.Ext.U
 	Oxide.Ext.UiFramework.Enums.InputMode Mode { get; }
 	UnityEngine.UI.InputField.LineType LineType { get; }
 	Oxide.Ext.UiFramework.UiElements.UiReference Placeholder { get; }
+	bool IsPassword { get; }
+	bool NeedsKeyboard { get; }
+	bool HudNeedsKeyboard { get; }
+	bool AutoFocus { get; }
+	bool ReadOnly { get; }
 
 	Oxide.Ext.UiFramework.UiElements.UiInput SetFontSize(int fontSize);
 	Oxide.Ext.UiFramework.UiElements.UiInput SetFont(string font);
@@ -25,6 +30,11 @@ public interface IUiInput : Oxide.Ext.UiFramework.Interfaces.IFadeIn<Oxide.Ext.U
 	Oxide.Ext.UiFramework.UiElements.UiInput SetMode(Oxide.Ext.UiFramework.Enums.InputMode mode);
 	Oxide.Ext.UiFramework.UiElements.UiInput SetLineType(UnityEngine.UI.InputField.LineType lineType);
 	Oxide.Ext.UiFramework.UiElements.UiInput SetPlaceholder(in Oxide.Ext.UiFramework.UiElements.UiReference placeholder);
+	Oxide.Ext.UiFramework.UiElements.UiInput SetIsPassword(bool isPassword);
+	Oxide.Ext.UiFramework.UiElements.UiInput SetNeedsKeyboard(bool needsKeyboard);
+	Oxide.Ext.UiFramework.UiElements.UiInput SetHudNeedsKeyboard(bool hudNeedsKeyboard);
+	Oxide.Ext.UiFramework.UiElements.UiInput SetAutoFocus(bool autoFocus);
+	Oxide.Ext.UiFramework.UiElements.UiInput SetReadOnly(bool readOnly);
 }
 
 

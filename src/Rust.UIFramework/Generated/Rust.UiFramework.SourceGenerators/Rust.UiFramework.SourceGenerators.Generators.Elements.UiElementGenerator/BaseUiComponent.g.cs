@@ -8,16 +8,6 @@ public partial class BaseUiComponent : IBaseUiComponent, IBaseUiComponentTrackab
 {
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<float> _fadeOut = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Common.FadeOut);
 	private readonly Oxide.Ext.UiFramework.Types.Tracked<bool> _active = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Common.Active);
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<bool> _enabled = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Positions.UiPosition> _position = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Offsets.UiOffset> _offset = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Types.UiTranslate> _positionTranslate = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Types.UiTranslate> _offsetTranslate = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Types.UiPadding> _positionPadding = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Types.UiPadding> _offsetPadding = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Types.UiScale> _positionScale = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Types.UiScale> _offsetScale = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Types.UiRotation> _rotation = new();
 
 	public partial float FadeOut { get => _fadeOut.Value; set => _fadeOut.Value = value; }
 	public partial bool Active { get => _active.Value; set => _active.Value = value; }

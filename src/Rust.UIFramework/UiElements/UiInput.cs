@@ -30,6 +30,12 @@ public partial class UiInput : BaseUiComponent, IFadeIn<UiInput>, IUiColor<UiInp
     public partial float FadeIn { get; set; }
     public partial UiColor Color { get; set; }
     
+    public partial bool IsPassword { get; set; }
+    public partial bool NeedsKeyboard { get; set; }
+    public partial bool HudNeedsKeyboard { get; set; }
+    public partial bool AutoFocus { get; set; }
+    public partial bool ReadOnly { get; set; }
+    
     public readonly InputComponent Input;
     
     public UiInput() : this(new InputComponent()) { }
@@ -53,49 +59,15 @@ public partial class UiInput : BaseUiComponent, IFadeIn<UiInput>, IUiColor<UiInp
         return this;
     }
 
-    public UiInput SetIsPassword(bool isPassword) => SetMode(InputMode.Password, isPassword);
-
-    public UiInput SetIsReadonly(bool isReadonly) => SetMode(InputMode.ReadOnly, isReadonly);
-
-    public UiInput SetAutoFocus(bool autoFocus) => SetMode(InputMode.AutoFocus, autoFocus);
-
-    /// <summary>
-    /// Sets if the input should block keyboard input when focused.
-    /// This should not be used when the loot panel / crafting UI is open. Use SetNeedsHudKeyboard instead
-    /// </summary>
-    /// <param name="needsKeyboard"></param>
-    public UiInput SetNeedsKeyboard(bool needsKeyboard) => SetMode(InputMode.NeedsKeyboard, needsKeyboard);
-
-    /// <summary>
-    /// Sets if the input should block keyboard input when focused on a loot panel / crafting ui.
-    /// This should only be used if a loot panel / crafting ui is open when displaying the UI.
-    /// </summary>
-    /// <param name="needsKeyboard"></param>
-    public UiInput SetHudNeedsKeyboard(bool needsKeyboard) => SetMode(InputMode.HudNeedsKeyboard, needsKeyboard);
-
     public bool HasMode(InputMode mode) => Input.HasMode(mode);
     
     public UiInput SetMode(InputMode mode, bool enabled)
     {
-        if (enabled)
-        {
-            Mode |= mode;
-        }
-        else
-        {
-            Mode &= ~mode;
-        }
-
+        Input.SetMode(mode, enabled);
         return this;
     }
     
     public UiInput SetCommand(ICommandBuilder<InputArg> command) => SetCommand(command.Build(InputArg.Empty));
-    
-    public UiInput SetInputMode(InputMode mode)
-    {
-        Mode = mode;
-        return this;
-    }
     
     public UiInput SetPlaceholder<T>(T placeholder) where T : BaseUiComponent 
     {

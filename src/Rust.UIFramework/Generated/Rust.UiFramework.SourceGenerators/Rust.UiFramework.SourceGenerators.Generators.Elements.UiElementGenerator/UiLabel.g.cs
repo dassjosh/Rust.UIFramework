@@ -6,15 +6,6 @@ namespace Oxide.Ext.UiFramework.UiElements;
 
 public partial class UiLabel : IUiLabel, IUiLabelTrackable
 {
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<int> _fontSize = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<string> _font = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.TextAnchor> _align = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<string> _textValue = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.VerticalWrapMode> _verticalOverflow = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.UiElements.UiReference> _placeholderFor = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<float> _fadeIn = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> _color = new();
-
 	public partial int FontSize { get => Text.FontSize; set => Text.FontSize = value; }
 	public partial string Font { get => Text.Font; set => Text.Font = value; }
 	public partial UnityEngine.TextAnchor Align { get => Text.Align; set => Text.Align = value; }

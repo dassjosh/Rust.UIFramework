@@ -21,6 +21,17 @@ public partial class InputComponent : TextComponent
     public partial InputField.LineType LineType { get; set; }
     public partial UiReference Placeholder { get; set; }
     
+    [GenerateBuilderMethod]
+    public bool IsPassword { get => HasMode(InputMode.Password); set => SetMode(InputMode.Password, value); }
+    [GenerateBuilderMethod]
+    public bool NeedsKeyboard { get => HasMode(InputMode.NeedsKeyboard); set => SetMode(InputMode.NeedsKeyboard, value); }
+    [GenerateBuilderMethod]
+    public bool HudNeedsKeyboard { get => HasMode(InputMode.HudNeedsKeyboard); set => SetMode(InputMode.HudNeedsKeyboard, value); }
+    [GenerateBuilderMethod]
+    public bool AutoFocus { get => HasMode(InputMode.AutoFocus); set => SetMode(InputMode.AutoFocus, value); }
+    [GenerateBuilderMethod]
+    public bool ReadOnly { get => HasMode(InputMode.ReadOnly); set => SetMode(InputMode.ReadOnly, value); }
+    
     public override Utf8String Type => JsonDefaults.Input.Type;
     public override ComponentType ComponentType => ComponentType.Input;
 
@@ -31,19 +42,19 @@ public partial class InputComponent : TextComponent
         writer.AddField(JsonDefaults.Input.LineTypeName, _lineType, mode);
         if (mode == SerializeMode.Create)
         {
-            writer.AddField(JsonDefaults.Input.PasswordName, HasMode(InputMode.Password), false);
-            writer.AddField(JsonDefaults.Input.NeedsKeyboardName, HasMode(InputMode.NeedsKeyboard), false);
-            writer.AddField(JsonDefaults.Input.NeedsHudKeyboardName, HasMode(InputMode.HudNeedsKeyboard), false);
-            writer.AddField(JsonDefaults.Input.AutoFocusName, HasMode(InputMode.AutoFocus), false);
-            writer.AddField(JsonDefaults.Input.ReadOnlyName, HasMode(InputMode.ReadOnly), false);
+            writer.AddField(JsonDefaults.Input.PasswordName, IsPassword, false);
+            writer.AddField(JsonDefaults.Input.NeedsKeyboardName, NeedsKeyboard, false);
+            writer.AddField(JsonDefaults.Input.NeedsHudKeyboardName, HudNeedsKeyboard, false);
+            writer.AddField(JsonDefaults.Input.AutoFocusName, AutoFocus, false);
+            writer.AddField(JsonDefaults.Input.ReadOnlyName, ReadOnly, false);
         }
         else if(_mode.ShouldSerialize(mode))
         {
-            writer.AddField(JsonDefaults.Input.PasswordName, HasMode(InputMode.Password), _mode.ShouldSerialize(mode));
-            writer.AddField(JsonDefaults.Input.NeedsKeyboardName, HasMode(InputMode.NeedsKeyboard), _mode.ShouldSerialize(mode));
-            writer.AddField(JsonDefaults.Input.NeedsHudKeyboardName, HasMode(InputMode.HudNeedsKeyboard), _mode.ShouldSerialize(mode));
-            writer.AddField(JsonDefaults.Input.AutoFocusName, HasMode(InputMode.AutoFocus), _mode.ShouldSerialize(mode));
-            writer.AddField(JsonDefaults.Input.ReadOnlyName, HasMode(InputMode.ReadOnly), _mode.ShouldSerialize(mode));
+            writer.AddField(JsonDefaults.Input.PasswordName, IsPassword, _mode.ShouldSerialize(mode));
+            writer.AddField(JsonDefaults.Input.NeedsKeyboardName, NeedsKeyboard, _mode.ShouldSerialize(mode));
+            writer.AddField(JsonDefaults.Input.NeedsHudKeyboardName, HudNeedsKeyboard, _mode.ShouldSerialize(mode));
+            writer.AddField(JsonDefaults.Input.AutoFocusName, AutoFocus, _mode.ShouldSerialize(mode));
+            writer.AddField(JsonDefaults.Input.ReadOnlyName, ReadOnly, _mode.ShouldSerialize(mode));
         }
 
         writer.AddCommandField(JsonDefaults.Common.CommandName, _command, mode);

@@ -6,12 +6,6 @@ namespace Oxide.Ext.UiFramework.UiElements;
 
 public partial class UiRawImage : IUiRawImage, IUiRawImageTrackable
 {
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<string> _image = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.UiElements.UiReference> _placeholderFor = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<string> _material = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<float> _fadeIn = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> _color = new();
-
 	public partial string Image { get => RawImage.Image; set => RawImage.Image = value; }
 	public partial Oxide.Ext.UiFramework.UiElements.UiReference PlaceholderFor { get => RawImage.PlaceholderFor; set => RawImage.PlaceholderFor = value; }
 	public partial string Material { get => RawImage.Material; set => RawImage.Material = value; }

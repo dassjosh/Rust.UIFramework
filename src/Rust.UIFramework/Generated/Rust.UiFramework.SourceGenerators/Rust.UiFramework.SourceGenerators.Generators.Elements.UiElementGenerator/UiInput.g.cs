@@ -6,19 +6,6 @@ namespace Oxide.Ext.UiFramework.UiElements;
 
 public partial class UiInput : IUiInput, IUiInputTrackable
 {
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<int> _fontSize = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<string> _font = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.TextAnchor> _align = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<string> _textValue = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.VerticalWrapMode> _verticalOverflow = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<int> _charsLimit = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<string> _command = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Enums.InputMode> _mode = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.InputField.LineType> _lineType = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.UiElements.UiReference> _placeholder = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<float> _fadeIn = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> _color = new();
-
 	public partial int FontSize { get => Input.FontSize; set => Input.FontSize = value; }
 	public partial string Font { get => Input.Font; set => Input.Font = value; }
 	public partial UnityEngine.TextAnchor Align { get => Input.Align; set => Input.Align = value; }
@@ -31,6 +18,11 @@ public partial class UiInput : IUiInput, IUiInputTrackable
 	public partial Oxide.Ext.UiFramework.UiElements.UiReference Placeholder { get => Input.Placeholder; set => Input.Placeholder = value; }
 	public partial float FadeIn { get => Input.FadeIn; set => Input.FadeIn = value; }
 	public partial Oxide.Ext.UiFramework.Colors.UiColor Color { get => Input.Color; set => Input.Color = value; }
+	public partial bool IsPassword { get => Input.IsPassword; set => Input.IsPassword = value; }
+	public partial bool NeedsKeyboard { get => Input.NeedsKeyboard; set => Input.NeedsKeyboard = value; }
+	public partial bool HudNeedsKeyboard { get => Input.HudNeedsKeyboard; set => Input.HudNeedsKeyboard = value; }
+	public partial bool AutoFocus { get => Input.AutoFocus; set => Input.AutoFocus = value; }
+	public partial bool ReadOnly { get => Input.ReadOnly; set => Input.ReadOnly = value; }
 	IInputComponentTrackable IUiInputTrackable.Input => Input.AsTrackable();
 
 	public IUiInputTrackable AsTrackable() => this;
@@ -92,6 +84,31 @@ public partial class UiInput : IUiInput, IUiInputTrackable
 	public UiInput SetColor(Oxide.Ext.UiFramework.Colors.UiColor color)
 	{
 		Color = color;
+		return this;
+	}
+	public UiInput SetIsPassword(bool isPassword)
+	{
+		IsPassword = isPassword;
+		return this;
+	}
+	public UiInput SetNeedsKeyboard(bool needsKeyboard)
+	{
+		NeedsKeyboard = needsKeyboard;
+		return this;
+	}
+	public UiInput SetHudNeedsKeyboard(bool hudNeedsKeyboard)
+	{
+		HudNeedsKeyboard = hudNeedsKeyboard;
+		return this;
+	}
+	public UiInput SetAutoFocus(bool autoFocus)
+	{
+		AutoFocus = autoFocus;
+		return this;
+	}
+	public UiInput SetReadOnly(bool readOnly)
+	{
+		ReadOnly = readOnly;
 		return this;
 	}
 }

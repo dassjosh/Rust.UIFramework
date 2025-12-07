@@ -6,14 +6,6 @@ namespace Oxide.Ext.UiFramework.UiElements;
 
 public partial class UiItemIcon : IUiItemIcon, IUiItemIconTrackable
 {
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<int> _itemId = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<ulong> _skinId = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.Image.Type> _imageType = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<string> _sprite = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<string> _material = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<float> _fadeIn = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> _color = new();
-
 	public partial int ItemId { get => Icon.ItemId; set => Icon.ItemId = value; }
 	public partial ulong SkinId { get => Icon.SkinId; set => Icon.SkinId = value; }
 	public partial UnityEngine.UI.Image.Type ImageType { get => Icon.ImageType; set => Icon.ImageType = value; }

@@ -6,19 +6,6 @@ namespace Oxide.Ext.UiFramework.UiElements;
 
 public partial class UiButton : IUiButton, IUiButtonTrackable
 {
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<string> _command = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Enums.ButtonType> _buttonType = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> _highlightedColor = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> _pressedColor = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> _selectedColor = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<float> _colorMultiplier = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<float> _fadeDuration = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.Image.Type> _imageType = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<string> _sprite = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<string> _material = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<float> _fadeIn = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> _color = new();
-
 	public partial string Command { get => Button.Command; set => Button.Command = value; }
 	public partial Oxide.Ext.UiFramework.Enums.ButtonType ButtonType { get => Button.ButtonType; set => Button.ButtonType = value; }
 	public partial Oxide.Ext.UiFramework.Colors.UiColor HighlightedColor { get => GetOrAddColorBlock().HighlightedColor; set => GetOrAddColorBlock().HighlightedColor = value; }

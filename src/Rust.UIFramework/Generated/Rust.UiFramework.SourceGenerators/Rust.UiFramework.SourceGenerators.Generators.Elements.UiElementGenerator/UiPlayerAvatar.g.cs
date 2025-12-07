@@ -6,12 +6,6 @@ namespace Oxide.Ext.UiFramework.UiElements;
 
 public partial class UiPlayerAvatar : IUiPlayerAvatar, IUiPlayerAvatarTrackable
 {
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<ulong> _steamId = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Enums.AvatarType> _avatarType = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<string> _material = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<float> _fadeIn = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> _color = new();
-
 	public partial ulong SteamId { get => Avatar.SteamId; set => Avatar.SteamId = value; }
 	public partial Oxide.Ext.UiFramework.Enums.AvatarType AvatarType { get => Avatar.AvatarType; set => Avatar.AvatarType = value; }
 	public partial string Material { get => Avatar.Material; set => Avatar.Material = value; }

@@ -6,14 +6,6 @@ namespace Oxide.Ext.UiFramework.UiElements;
 
 public partial class UiImage : IUiImage, IUiImageTrackable
 {
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.Image.Type> _imageType = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<string> _sprite = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<string> _material = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<float> _fadeIn = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> _color = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.UiElements.UiReference> _placeholderFor = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<bool> _fillCenter = new();
-
 	public partial UnityEngine.UI.Image.Type ImageType { get => Image.ImageType; set => Image.ImageType = value; }
 	public partial string Sprite { get => Image.Sprite; set => Image.Sprite = value; }
 	public partial string Material { get => Image.Material; set => Image.Material = value; }
