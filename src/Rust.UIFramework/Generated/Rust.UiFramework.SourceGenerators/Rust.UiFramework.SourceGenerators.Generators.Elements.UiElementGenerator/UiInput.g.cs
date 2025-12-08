@@ -19,7 +19,7 @@ public partial class UiInput : IUiInput, IUiInputTrackable
 	public partial float FadeIn { get => Input.FadeIn; set => Input.FadeIn = value; }
 	public partial Oxide.Ext.UiFramework.Colors.UiColor Color { get => Input.Color; set => Input.Color = value; }
 	public partial bool IsPassword { get => Input.IsPassword; set => Input.IsPassword = value; }
-	public partial bool NeedsKeyboard { get => Input.NeedsKeyboard; set => Input.NeedsKeyboard = value; }
+	public partial bool UiNeedsKeyboard { get => Input.NeedsKeyboard; set => Input.NeedsKeyboard = value; }
 	public partial bool HudNeedsKeyboard { get => Input.HudNeedsKeyboard; set => Input.HudNeedsKeyboard = value; }
 	public partial bool AutoFocus { get => Input.AutoFocus; set => Input.AutoFocus = value; }
 	public partial bool ReadOnly { get => Input.ReadOnly; set => Input.ReadOnly = value; }
@@ -91,9 +91,9 @@ public partial class UiInput : IUiInput, IUiInputTrackable
 		IsPassword = isPassword;
 		return this;
 	}
-	public UiInput SetNeedsKeyboard(bool needsKeyboard)
+	public UiInput SetUiNeedsKeyboard(bool uiNeedsKeyboard)
 	{
-		NeedsKeyboard = needsKeyboard;
+		UiNeedsKeyboard = uiNeedsKeyboard;
 		return this;
 	}
 	public UiInput SetHudNeedsKeyboard(bool hudNeedsKeyboard)
