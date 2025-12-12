@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using Oxide.Ext.UiFramework.Plugins;
+using Oxide.Ext.UiFramework.Pooling;
 
 namespace Oxide.Ext.UiFramework.Types;
 
-public class ConcurrentList<T> : IList<T>
+public class ConcurrentList<T> : IList<T>, IReadOnlyList<T>
 {
     private readonly List<T> _list = [];
     private readonly ReaderWriterLockSlim _lock = new();
@@ -178,62 +180,31 @@ public class ConcurrentList<T> : IList<T>
         }
     }
 
+    public IEnumerable<T> GetPooledEnumerator(IUiFrameworkPlugin plugin)
+    {
+        _lock.EnterReadLock();
+        try
+        {
+            return PooledCopyListEnumerator<T>.Create(plugin, this);
+        }
+        finally
+        {
+            _lock.ExitReadLock();
+        }
+    }
+
     public IEnumerator<T> GetEnumerator()
     {
-        return new Enumerator(this);
-    }
-
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-        return GetEnumerator();
-    }
-    
-    private sealed class Enumerator : IEnumerator<T>
-    {
-        private readonly ConcurrentList<T> _concurrentList;
-        private int _currentIndex;
-
-        internal Enumerator(ConcurrentList<T> list)
+        _lock.EnterReadLock();
+        try
         {
-            _concurrentList = list;
-            _currentIndex = -1;
+            return new PooledCopyListEnumerator<T>(this);
         }
-
-        public T Current { get; private set; }
-
-        object IEnumerator.Current => Current;
-
-        public void Dispose() { }
-
-        public bool MoveNext()
+        finally
         {
-            int nextIndex = _currentIndex + 1;
-            
-            _concurrentList._lock.EnterReadLock();
-            try
-            {
-                if (nextIndex < _concurrentList._list.Count)
-                {
-                    Current = _concurrentList._list[nextIndex];
-                    _currentIndex = nextIndex;
-                    return true;
-                }
-                else
-                {
-                    Current = default;
-                    return false;
-                }
-            }
-            finally
-            {
-                _concurrentList._lock.ExitReadLock();
-            }
-        }
-
-        public void Reset()
-        {
-            _currentIndex = -1;
-            Current = default;
+            _lock.ExitReadLock();
         }
     }
+
+    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 }

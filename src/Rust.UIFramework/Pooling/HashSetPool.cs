@@ -6,7 +6,7 @@ namespace Oxide.Ext.UiFramework.Pooling;
 /// Represents a pool for <see cref="HashSet{T}"/>
 /// </summary>
 /// <typeparam name="T">Type that will be in the HashSet</typeparam>
-internal class HashSetPool<T> : BasePool<HashSet<T>, HashSetPool<T>>
+internal class HashSetPool<T> : BaseObjectPool<HashSet<T>, HashSetPool<T>>
 {
     protected override PoolSize GetPoolSize(PoolSettings settings) => settings.HashSetPoolSize;
     protected override HashSet<T> CreateNew() => [];

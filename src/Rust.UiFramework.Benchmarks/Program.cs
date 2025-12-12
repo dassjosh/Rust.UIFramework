@@ -11,13 +11,12 @@ class Program
 {
     static void Main(string[] args)
     {
-        if (0f == -0f)
-        {
-            Console.WriteLine("213");
-        }
         
-        // Benchmarks benchmarks = new();
-        // benchmarks.Setup();
+        Benchmarks benchmarks = new();
+        benchmarks.Setup();
+        benchmarks.UiFramework_Async();
+        benchmarks.UiFramework_Async();
+        benchmarks.UiFramework_Async();
         // while (true)
         // {
         //     var a = Task.Run(() =>

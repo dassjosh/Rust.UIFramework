@@ -1,4 +1,5 @@
-﻿using System.Collections.Concurrent;
+﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -58,6 +59,20 @@ public class UiPluginPool : IDebugLoggable
     /// <typeparam name="T">Type of object being freed</typeparam>
     internal void Free<T>(T value) where T : BasePoolable, new() => ObjectPool<T>.ForPlugin(this).Free(value);
 
+    /// <summary>
+    /// Returns a pooled <see cref="UiPooledArray{T}"/>
+    /// </summary>
+    /// <typeparam name="T">Type for the Array</typeparam>
+    /// <returns>Pooled Array</returns>
+    public UiPooledArray<T> GetArray<T>(int minSize) => ArrayPool<T>.ForPlugin(this).Get(minSize);
+
+    /// <summary>
+    /// Free's a pooled <see cref="UiPooledArray{T}"/>
+    /// </summary>
+    /// <param name="array">Array to be freed</param>
+    /// <typeparam name="T">Type of the Array</typeparam>
+    public void FreeArray<T>(UiPooledArray<T> array) => ArrayPool<T>.ForPlugin(this).Free(array);
+    
     /// <summary>
     /// Returns a pooled <see cref="List{T}"/>
     /// </summary>

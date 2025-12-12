@@ -1,40 +1,66 @@
 ﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
 using Oxide.Ext.UiFramework.Enums;
+using Oxide.Ext.UiFramework.Extensions;
+using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Pooling;
+using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Animation;
 
-internal class AnimationData
+internal class AnimationData : ISingleton
 {
-    private readonly ConcurrentDictionary<AnimationId, ISendableAnimation> _animations = new();
+    private readonly ConcurrentDictionary<AnimationId, IAnimation> _allAnimations = new();
     private readonly ConcurrentDictionary<AnimationId, ISendableAnimation> _groupAnimations = new();
     private readonly ConcurrentDictionary<ulong, PlayerAnimationData> _playerAnimations = new();
 
-    public IEnumerable<PlayerAnimationData> PlayerAnimations => _playerAnimations.Values;
-
-    public IEnumerable<KeyValuePair<AnimationId, ISendableAnimation>> GroupAnimations => _groupAnimations;
-
-    public int Count => _animations.Count;
+    internal ConcurrentDictionary<AnimationId, ISendableAnimation> GroupAnimations => _groupAnimations;
+    internal ConcurrentDictionary<ulong, PlayerAnimationData> PlayerAnimations => _playerAnimations;
     
-    public ISendableAnimation GetAnimation(AnimationId id) => _animations.GetValueOrDefault(id);
+    public int Count => _allAnimations.Count;
+
+    private AnimationData() { }
     
-    public void EnqueueAnimation(ISendableAnimation animation)
+    public IAnimation GetAnimation(AnimationId id) => _allAnimations.GetValueOrDefault(id);
+    public bool TryGetAnimation(AnimationId id, out IAnimation animation) => _allAnimations.TryGetValue(id, out animation);
+    
+    public ISendableAnimation GetSendableAnimation(AnimationId id) => _allAnimations.GetValueOrDefault(id) as ISendableAnimation;
+    public bool TryGetSendableAnimation(AnimationId id, out ISendableAnimation sendable)
     {
-        _animations[animation.Id] = animation;
-        if (!animation.TryGetSinglePlayer(out ulong playerId))
+        if (_allAnimations.TryGetValue(id, out IAnimation animation) && animation is ISendableAnimation send)
         {
-            _groupAnimations[animation.Id] = animation;
+            sendable = send;
+            return true;
+        }
+
+        sendable = default;
+        return false;
+    }
+
+    public void AddAnimation(IAnimation animation)
+    {
+        _allAnimations[animation.Id] = animation;
+        if (animation is ISendableAnimation sendable)
+        {
+            AddAnimation(sendable);
+        }   
+    }
+    
+    private void AddAnimation(ISendableAnimation animation)
+    {
+        if (animation.TryGetSinglePlayer(out ulong playerId))
+        {
+            if (!_playerAnimations.TryGetValue(playerId, out PlayerAnimationData animations))
+            {
+                _playerAnimations[playerId] = animations = PlayerAnimationData.Create(animation);
+            }
+
+            animations.AddAnimation(animation);
             return;
         }
-        
-        if (!_playerAnimations.TryGetValue(playerId, out PlayerAnimationData animations))
-        {
-            _playerAnimations[playerId] = animations = PlayerAnimationData.Create(animation);
-        }
 
-        animations.AddAnimation(animation);
+        _groupAnimations[animation.Id] = animation;
     }
     
     public void RemoveAnimation(AnimationId id)
@@ -44,20 +70,23 @@ internal class AnimationData
             return;
         }
 
-        if (!_animations.TryRemove(id, out ISendableAnimation animation))
+        if (!_allAnimations.TryRemove(id, out IAnimation animation))
         {
             return;
         }
-        
-        if (animation.IsSinglePlayer())
-        {
-            RemoveSinglePlayerAnimation(animation);
-        }
-        else
-        {
-            _groupAnimations.TryRemove(id, out ISendableAnimation _);
-        }
 
+        if (animation is ISendableAnimation sendable)
+        {
+            if (sendable.IsSinglePlayer())
+            {
+                RemoveSinglePlayerAnimation(sendable);
+            }
+            else
+            {
+                _groupAnimations.TryRemove(id, out ISendableAnimation _);
+            }
+        }
+        
         if (id == animation.Id)
         {
             animation.TryDispose();
@@ -88,7 +117,7 @@ internal class AnimationData
 
     public void CleanupCompletedAnimations()
     {
-        foreach ((AnimationId id, ISendableAnimation animation) in _animations)
+        foreach ((AnimationId id, IAnimation animation) in _allAnimations.GetEnumeratorPooled(UiFrameworkPlugin.Instance))
         {
             if (animation is IPoolable { IsPooled: true } || id != animation.Id)
             {
@@ -126,7 +155,7 @@ internal class AnimationData
     
     internal void OnPluginUnloaded(IUiFrameworkPlugin plugin)
     {
-        foreach (ISendableAnimation animation in _animations.Values)
+        foreach (IAnimation animation in _allAnimations.Values)
         {
             if (animation.Plugin == plugin)
             {

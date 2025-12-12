@@ -13,6 +13,11 @@ public class PoolSettings
     /// <summary>
     /// Size of the <see cref="HashPool{TKey,TValue}"/>
     /// </summary>
+    public PoolSize ArrayPoolSize { get; set; } = new(InitialSize, CollectionMaxSize);
+    
+    /// <summary>
+    /// Size of the <see cref="HashPool{TKey,TValue}"/>
+    /// </summary>
     public PoolSize HashPoolSize { get; set; } = new(InitialSize, CollectionMaxSize);
         
     /// <summary>

@@ -1,7 +1,12 @@
 ﻿{
+  "AutoFocus": false,
   "Color": "#FFFFFFFF",
   "ComponentType": "Input",
   "Enabled": true,
   "FontSize": 14,
+  "HudNeedsKeyboard": false,
+  "IsPassword": false,
+  "NeedsKeyboard": false,
+  "ReadOnly": false,
   "Type": "UnityEngine.UI.InputField"
 }

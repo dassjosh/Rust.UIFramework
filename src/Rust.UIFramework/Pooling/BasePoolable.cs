@@ -15,7 +15,7 @@ public abstract class BasePoolable : IPoolable
     public bool IsPooled { get; private set; }
 
     internal bool CanPool => _pool != null && !IsPooled;
-    private IPool<BasePoolable> _pool;
+    private IObjectPool<BasePoolable> _pool;
     internal UiPluginPool PluginPool;
     UiPluginPool IPoolable.PluginPool => PluginPool;
 
@@ -35,7 +35,7 @@ public abstract class BasePoolable : IPoolable
     }
 #endif
 
-    internal void OnInitInternal(IPool<BasePoolable> pool)
+    internal void OnInitInternal(IObjectPool<BasePoolable> pool)
     {
         _pool = pool;
         PluginPool = pool.PluginPool;
@@ -90,7 +90,7 @@ public abstract class BasePoolable : IPoolable
         }
     }
     
-    public virtual void Dispose()
+    public void Dispose()
     {
         if (_pool == null)
         {

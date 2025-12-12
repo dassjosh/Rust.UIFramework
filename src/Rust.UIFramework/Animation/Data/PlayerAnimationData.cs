@@ -8,7 +8,7 @@ namespace Oxide.Ext.UiFramework.Animation;
 internal sealed class PlayerAnimationData : BasePoolable
 {
     public SendInfo Send;
-    public readonly ConcurrentDictionary<AnimationId, ISendableAnimation> Animations = new();
+    internal readonly ConcurrentDictionary<AnimationId, ISendableAnimation> Animations = new();
     public bool IsEmpty => Animations.Count == 0;
 
     public static PlayerAnimationData Create(ISendableAnimation animation) => UiPool.Internal.Get<PlayerAnimationData>().Init(animation.Send);

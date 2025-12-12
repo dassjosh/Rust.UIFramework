@@ -24,6 +24,7 @@ public abstract class BaseAnimation : BasePoolable, IAnimation
     public IAnimationEvents Events { get; }
     public IAnimation Parent { get; private set;  }
     public virtual bool HasChanged => Interpolator?.HasChanged ?? false;
+    public AnimationCancelOption CancelOption { get; set; }
 
     public IReadOnlyList<IAnimation> Children => _children;
     private readonly List<BaseAnimation> _children = [];
@@ -38,6 +39,7 @@ public abstract class BaseAnimation : BasePoolable, IAnimation
         Id = AnimationId.GetNextId();
         Plugin = plugin;
         ChangeState(AnimationState.Init);
+        Singleton<AnimationData>.Instance.AddAnimation(this);
     }
     
     public virtual void OnStarted()
@@ -64,6 +66,11 @@ public abstract class BaseAnimation : BasePoolable, IAnimation
         }
 
         if (State == AnimationState.Running)
+        {
+            TickDuration();
+            TickAnimation();
+        }
+        else if (State == AnimationState.Cancelled && CancelOption != AnimationCancelOption.NoTick)
         {
             TickAnimation();
         }
@@ -130,13 +137,15 @@ public abstract class BaseAnimation : BasePoolable, IAnimation
     
     protected virtual void TickAnimation()
     {
-        TickDuration();
         Interpolator?.OnTick(GetProgress());
 
-        for (int index = 0; index < _children.Count; index++)
+        if (State == AnimationState.Running || (State == AnimationState.Cancelled && CancelOption == AnimationCancelOption.TickAll))
         {
-            IAnimation child = _children[index];
-            child.OnTick();
+            for (int index = 0; index < _children.Count; index++)
+            {
+                IAnimation child = _children[index];
+                child.OnTick();
+            }
         }
     }
     
@@ -228,7 +237,7 @@ public abstract class BaseAnimation : BasePoolable, IAnimation
 
     public virtual float GetProgress()
     {
-        if (!AnimationTime.AnimationsEnabled)
+        if (!AnimationTime.AnimationsEnabled || State == AnimationState.Cancelled && CancelOption != AnimationCancelOption.NoTick)
         {
             return AnimationConstants.CompletedProgress;
         }
@@ -272,16 +281,10 @@ public abstract class BaseAnimation : BasePoolable, IAnimation
     {
         _children.Remove(animation);
     }
-    
-    public override void Dispose()
-    {
-        Singleton<AnimationTracker>.Instance.OnAnimationFinalized(Id);
-        base.Dispose();
-    }
 
     protected override void EnterPool()
     {
-        base.EnterPool();
+        Singleton<AnimationTracker>.Instance.OnAnimationFinalized(Id);
         Id = default;
         Plugin = default;
         State = default;
@@ -298,5 +301,6 @@ public abstract class BaseAnimation : BasePoolable, IAnimation
         Timeout = default;
         Parent = default;
         _children.TryFreeValues();
+        CancelOption = default;
     }
 }

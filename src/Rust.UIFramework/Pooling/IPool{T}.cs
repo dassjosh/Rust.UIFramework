@@ -4,7 +4,7 @@ namespace Oxide.Ext.UiFramework.Pooling;
 /// Represents a pool of type T
 /// </summary>
 /// <typeparam name="T">Type to be pooled</typeparam>
-internal interface IPool<T> : IPool
+internal interface IObjectPool<T> : IPool
 {
     /// <summary>
     /// Returns the Pooled type or a new instance if pool is empty.

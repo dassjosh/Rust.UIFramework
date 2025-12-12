@@ -32,7 +32,7 @@ public partial class UiInput : BaseUiComponent, IFadeIn<UiInput>, IUiColor<UiInp
     
     public partial bool IsPassword { get; set; }
     [PropertyName(nameof(InputComponent.NeedsKeyboard))]
-    public partial bool UiNeedsKeyboard { get; set; }
+    public partial bool InputNeedsKeyboard { get; set; }
     public partial bool HudNeedsKeyboard { get; set; }
     public partial bool AutoFocus { get; set; }
     public partial bool ReadOnly { get; set; }

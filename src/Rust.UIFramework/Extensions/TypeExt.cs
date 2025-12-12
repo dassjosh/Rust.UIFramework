@@ -45,7 +45,7 @@ internal static class TypeExt
 
         public string GetRealTypeName()
         {
-            if (!type.IsGenericType)
+            if (!type.IsGenericTypeDefinition)
             {
                 return type.Name;
             }

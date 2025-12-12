@@ -36,7 +36,7 @@ public sealed class UrlDownloadState(string url)
         State = DownloadState.Failed;
         StatusCode = code;
         Message = message;
-        foreach (DownloadImageRequest request in URLRequests)
+        foreach (DownloadImageRequest request in URLRequests.GetPooledEnumerator(UiFrameworkPlugin.Instance))
         {
             request.ExecuteOnDownloadFailed();
         }
@@ -63,7 +63,7 @@ public sealed class UrlDownloadState(string url)
     internal void OnInvalidImage(RegisterImageErrorCode code)
     {
         ErrorCode = code;
-        foreach (DownloadImageRequest request in URLRequests)
+        foreach (DownloadImageRequest request in URLRequests.GetPooledEnumerator(UiFrameworkPlugin.Instance))
         {
             request.ExecuteOnInvalidImage();
         }

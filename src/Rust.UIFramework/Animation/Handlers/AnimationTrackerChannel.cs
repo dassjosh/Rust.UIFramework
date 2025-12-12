@@ -7,6 +7,7 @@ using System;
 using Network;
 using Oxide.Ext.UiFramework.Builder;
 using Oxide.Ext.UiFramework.Enums;
+using Oxide.Ext.UiFramework.Interfaces;
 using Oxide.Ext.UiFramework.UiElements;
 #endif
 
@@ -26,7 +27,7 @@ internal class AnimationTrackerChannel : BaseUiChannel<UiSendRequest>, ISingleto
             for (int index = 0; index < span.Length; index++)
             {
                 BaseUiComponent component = span[index];
-                if (component.Update is not UpdateMode.Update)
+                if (component.Update is not UpdateMode.Update || component is IBaseUiComponentTrackable trackable && trackable.Active.HasChanged && !trackable.Active.Value)
                 {
                     Singleton<AnimationTracker>.Instance.RemoveUiForSend(send, component.Name);
                 }

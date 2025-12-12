@@ -20,6 +20,7 @@ public interface IAnimation : IAnimationTick, IAnimationStarted, IPoolable
     IAnimation Parent { get; }
     IReadOnlyList<IAnimation> Children { get; }
     bool HasChanged { get; }
+    AnimationCancelOption CancelOption { get; set; }
     float GetProgress();
     ISendableAnimation GetSendable();
     void ChangeState(AnimationState newState);

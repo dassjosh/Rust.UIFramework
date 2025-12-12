@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Network;
 using Oxide.Ext.UiFramework.Animation;
+using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Interfaces;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Plugins;
@@ -12,6 +13,7 @@ namespace Oxide.Ext.UiFramework.Builder;
 public class AnimationBuilder : BaseBuilder, IAnimationBuilder
 {
     private readonly List<ISendableAnimation> _animations = [];
+    private readonly List<ICancelAnimationRequest> _cancelAnimations = [];
 
     public static AnimationBuilder Create(IUiFrameworkPlugin plugin)
     {
@@ -21,11 +23,18 @@ public class AnimationBuilder : BaseBuilder, IAnimationBuilder
     }
 
     void IAnimationBuilder.AddAnimation(ISendableAnimation animation) => _animations.Add(animation);
-    
+    void IAnimationBuilder.CancelAnimation(ICancelAnimationRequest cancel) => _cancelAnimations.Add(cancel);
+
     internal override void SendUi(SendInfo send, in UiDebugOptions? options) { }
 
     internal override void SendAnimations(SendInfo send)
     {
+        for (int index = 0; index < _cancelAnimations.Count; index++)
+        {
+            ICancelAnimationRequest cancel = _cancelAnimations[index];
+            Animations.CancelAnimations(send, cancel);
+        }
+        
         for (int index = 0; index < _animations.Count; index++)
         {
             ISendableAnimation animation = _animations[index];
@@ -40,6 +49,7 @@ public class AnimationBuilder : BaseBuilder, IAnimationBuilder
     protected override void EnterPool()
     {
         ClearAnimationList(_animations);
+        _cancelAnimations.TryFreeValues();
         Plugin = null;
     }
 }

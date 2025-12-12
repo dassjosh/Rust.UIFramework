@@ -139,6 +139,16 @@ public static class AnimationExt
 
             return animation;
         }
+        
+        public AnimationRef<T> WithCancelOption(AnimationCancelOption option)
+        {
+            if (animation.IsValid)
+            {
+                animation.Animation.CancelOption = option;
+            }
+
+            return animation;
+        }
 
         public AnimationRef<T> WithDuration(IAnimationDuration duration)
         {

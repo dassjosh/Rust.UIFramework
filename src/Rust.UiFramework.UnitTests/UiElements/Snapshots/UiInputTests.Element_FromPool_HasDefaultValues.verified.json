@@ -1,13 +1,23 @@
 ﻿{
   "Active": true,
+  "AutoFocus": false,
   "Color": "#FFFFFFFF",
   "Enabled": true,
   "FontSize": 14,
+  "HudNeedsKeyboard": false,
   "Input": {
+    "AutoFocus": false,
     "Color": "#FFFFFFFF",
     "ComponentType": "Input",
     "Enabled": true,
     "FontSize": 14,
+    "HudNeedsKeyboard": false,
+    "IsPassword": false,
+    "NeedsKeyboard": false,
+    "ReadOnly": false,
     "Type": "UnityEngine.UI.InputField"
-  }
+  },
+  "InputNeedsKeyboard": false,
+  "IsPassword": false,
+  "ReadOnly": false
 }

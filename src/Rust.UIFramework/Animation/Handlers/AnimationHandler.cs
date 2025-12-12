@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using Network;
 using Oxide.Ext.UiFramework.Config;
 using Oxide.Ext.UiFramework.Constants;
 using Oxide.Ext.UiFramework.Enums;
+using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Logging;
 using Oxide.Ext.UiFramework.Plugins;
@@ -15,7 +17,6 @@ namespace Oxide.Ext.UiFramework.Animation;
 
 internal class AnimationHandler : ISingleton
 {
-    private readonly AnimationData _data = new();
     private readonly CancellationTokenSource _cancellationTokenSource = new();
     private readonly AutoResetEvent _reset = new(false);
     private int _sendCount;
@@ -29,15 +30,12 @@ internal class AnimationHandler : ISingleton
         };
         thread.Start(_cancellationTokenSource.Token);
     }
-
-    public ISendableAnimation GetAnimation(AnimationId id) => _data.GetAnimation(id);
     
     public void EnqueueAnimation(ISendableAnimation animation, SendInfo send)
     {
         if (animation == null) throw new ArgumentNullException(nameof(animation));
         animation.Send = send;
         animation.ChangeState(AnimationState.Queued);
-        _data.EnqueueAnimation(animation);
         _reset.Set();
         _logger.Debug("Adding animation {0}", animation.Id);
     }
@@ -54,12 +52,12 @@ internal class AnimationHandler : ISingleton
                 float startTime = Time.realtimeSinceStartup;
                 AnimationTime.UpdateTime(startTime, isPaused);
                 isPaused = false;
-                _logger.Debug("Processing {0} animations", _data.Count);
+                _logger.Debug("Processing {0} animations", Singleton<AnimationData>.Instance.Count);
                 ProcessAnimations();
-                _logger.Debug("Processed animations. {0} remaining", _data.Count);
+                _logger.Debug("Processed animations. {0} remaining", Singleton<AnimationData>.Instance.Count);
                 float endTime = Time.realtimeSinceStartup;
                 
-                if (_data.Count == 0)
+                if (Singleton<AnimationData>.Instance.Count == 0)
                 {
                     _sendCount++;
                     int timeout = GetSleepDuration();
@@ -87,30 +85,30 @@ internal class AnimationHandler : ISingleton
     
     private void ProcessAnimations()
     {
-        foreach (PlayerAnimationData playerAnimations in _data.PlayerAnimations)
+        foreach ((_, PlayerAnimationData playerAnimations) in Singleton<AnimationData>.Instance.PlayerAnimations.GetEnumeratorPooled(UiFrameworkPlugin.Instance))
         {
             JsonFrameworkWriter writer = Create();
-            foreach ((AnimationId id, ISendableAnimation animation) in playerAnimations.Animations)
+            foreach ((_, ISendableAnimation animation) in playerAnimations.Animations.GetEnumeratorPooled(UiFrameworkPlugin.Instance))
             {
-                ProcessAnimation(id, animation, writer);
+                ProcessAnimation(animation, writer);
             }
-            
+
             SendAnimations(writer, playerAnimations.Send);
         }
         
-        foreach ((AnimationId id, ISendableAnimation animation) in _data.GroupAnimations)
+        foreach ((_, ISendableAnimation animation) in Singleton<AnimationData>.Instance.GroupAnimations.GetEnumeratorPooled(UiFrameworkPlugin.Instance))
         {
             JsonFrameworkWriter writer = Create();
-            ProcessAnimation(id, animation, writer);
+            ProcessAnimation(animation, writer);
             SendAnimations(writer, animation.Send);
         }
-        
-        _data.CleanupCompletedAnimations();
+
+        Singleton<AnimationData>.Instance.CleanupCompletedAnimations();
     }
 
-    private void ProcessAnimation(AnimationId id, ISendableAnimation animation, JsonFrameworkWriter writer)
+    private void ProcessAnimation(ISendableAnimation animation, JsonFrameworkWriter writer)
     {
-        _logger.Debug("Processing Animation {0}", id.Id);
+        _logger.Debug("Processing Animation {0}", animation.Id);
 
         try
         {
@@ -122,7 +120,7 @@ internal class AnimationHandler : ISingleton
                 }
                 
                 animation.OnTick();
-                UiFrameworkExtension.GlobalLogger.Debug($"{nameof(AnimationHandler)}.{nameof(ProcessAnimation)} ID: {{0}} HasChanged: {{1}}", id.Id, animation.HasChanged);
+                UiFrameworkExtension.GlobalLogger.Debug($"{nameof(AnimationHandler)}.{nameof(ProcessAnimation)} ID: {{0}} HasChanged: {{1}}", animation.Id, animation.HasChanged);
                 if (animation.HasChanged)
                 {
                     animation.Serialize(writer);
@@ -167,7 +165,7 @@ internal class AnimationHandler : ISingleton
         return 25 + (1 << _sendCount);
     }
 
-    public void OnPlayerDisconnected(ulong playerId) => _data.OnPlayerDisconnected(playerId);
-    internal void OnPluginUnloaded(IUiFrameworkPlugin plugin) => _data.OnPluginUnloaded(plugin);
+    public void OnPlayerDisconnected(ulong playerId) => Singleton<AnimationData>.Instance.OnPlayerDisconnected(playerId);
+    internal void OnPluginUnloaded(IUiFrameworkPlugin plugin) => Singleton<AnimationData>.Instance.OnPluginUnloaded(plugin);
     internal void OnServerShutdown() => _cancellationTokenSource.Cancel();
 }

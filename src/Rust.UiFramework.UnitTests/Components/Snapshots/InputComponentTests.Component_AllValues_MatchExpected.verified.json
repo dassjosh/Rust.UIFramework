@@ -1,5 +1,6 @@
 ﻿{
   "Align": "UpperRight",
+  "AutoFocus": true,
   "CharsLimit": 16,
   "Color": "#008000FF",
   "Command": "command",
@@ -8,10 +9,14 @@
   "FadeIn": 2.0,
   "Font": "permanentmarker.ttf",
   "FontSize": 24,
+  "HudNeedsKeyboard": false,
+  "IsPassword": false,
   "LineType": "MultiLineNewline",
   "Mode": "NeedsKeyboard, AutoFocus",
+  "NeedsKeyboard": true,
   "Placeholder": "parent:name",
   "PlaceholderFor": "parent:name",
+  "ReadOnly": false,
   "Text": "text 123",
   "Type": "UnityEngine.UI.InputField",
   "VerticalOverflow": "Overflow"

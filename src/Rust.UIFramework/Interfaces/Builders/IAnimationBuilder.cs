@@ -8,4 +8,5 @@ public interface IAnimationBuilder : IPoolable
 {
     IUiFrameworkPlugin Plugin { get; }
     void AddAnimation(ISendableAnimation animation);
+    void CancelAnimation(ICancelAnimationRequest cancel);
 }

@@ -73,5 +73,24 @@ public static class AnimationBuilderExt
 
             return default;
         }
+        
+        public void CancelAnimation(string name)
+        {
+            builder.CancelAnimation(new CancelAnimationRequest(name));
+        }
+        
+        public void CancelAnimation(in UiReference reference)
+        {
+            if (reference.IsValidName())
+            {
+                builder.CancelAnimation(reference.Name);
+            }
+        }
+        
+        public T CancelAnimation<T>(T element) where T : BaseUiComponent, new()
+        {
+            builder.CancelAnimation(element.Reference);
+            return element;
+        }
     }
 }

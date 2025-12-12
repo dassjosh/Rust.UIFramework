@@ -3,6 +3,7 @@ using Network;
 using Oxide.Ext.UiFramework.Animation;
 using Oxide.Ext.UiFramework.Builder.Cached;
 using Oxide.Ext.UiFramework.Enums;
+using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Interfaces;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Offsets;
@@ -19,6 +20,7 @@ public partial class UiBuilder : BaseUiBuilder, IAnimationBuilder
     
     private BaseUiComponent _actualRoot;
     private readonly List<ISendableAnimation> _animations = [];
+    private readonly List<ICancelAnimationRequest> _cancelAnimations = [];
         
     #region Setup
     public new UiBuilder Init(IUiFrameworkPlugin plugin)
@@ -175,9 +177,16 @@ public partial class UiBuilder : BaseUiBuilder, IAnimationBuilder
 
     #region Animations
     void IAnimationBuilder.AddAnimation(ISendableAnimation animation) => _animations.Add(animation);
+    void IAnimationBuilder.CancelAnimation(ICancelAnimationRequest cancel) => _cancelAnimations.Add(cancel);
 
     internal override void SendAnimations(SendInfo send)
     {
+        for (int index = 0; index < _cancelAnimations.Count; index++)
+        {
+            ICancelAnimationRequest cancel = _cancelAnimations[index];
+            Animations.CancelAnimations(send, cancel);
+        }
+        
         Singleton<AnimationTracker>.Instance.RemoveUiForSend(send, RootName);
         for (int index = 0; index < _animations.Count; index++)
         {
@@ -201,6 +210,7 @@ public partial class UiBuilder : BaseUiBuilder, IAnimationBuilder
         base.EnterPool();
         Root = null;
         _actualRoot = null;
+        _cancelAnimations.TryFreeValues();
     }
     
     protected override void LeavePool()
