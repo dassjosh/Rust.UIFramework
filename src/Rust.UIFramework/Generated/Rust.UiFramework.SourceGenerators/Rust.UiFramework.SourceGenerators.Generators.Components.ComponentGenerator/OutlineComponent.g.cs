@@ -22,7 +22,7 @@ public partial class OutlineComponent : IOutlineComponent, IOutlineComponentTrac
 		Color = color;
 		return this;
 	}
-	public Oxide.Ext.UiFramework.Components.OutlineComponent SetDistance(in UnityEngine.Vector2 distance)
+	public Oxide.Ext.UiFramework.Components.OutlineComponent SetDistance(UnityEngine.Vector2 distance)
 	{
 		Distance = distance;
 		return this;

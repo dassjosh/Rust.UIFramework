@@ -11,8 +11,8 @@ public interface IGridLayoutComponent : IBaseLayoutComponent
 	UnityEngine.UI.GridLayoutGroup.Constraint Constraint { get; set; }
 	int ConstraintCount { get; set; }
 
-	Oxide.Ext.UiFramework.Components.GridLayoutComponent SetCellSize(in UnityEngine.Vector2 cellSize);
-	Oxide.Ext.UiFramework.Components.GridLayoutComponent SetSpacing(in UnityEngine.Vector2 spacing);
+	Oxide.Ext.UiFramework.Components.GridLayoutComponent SetCellSize(UnityEngine.Vector2 cellSize);
+	Oxide.Ext.UiFramework.Components.GridLayoutComponent SetSpacing(UnityEngine.Vector2 spacing);
 	Oxide.Ext.UiFramework.Components.GridLayoutComponent SetStartCorner(UnityEngine.UI.GridLayoutGroup.Corner startCorner);
 	Oxide.Ext.UiFramework.Components.GridLayoutComponent SetStartAxis(UnityEngine.UI.GridLayoutGroup.Axis startAxis);
 	Oxide.Ext.UiFramework.Components.GridLayoutComponent SetConstraint(UnityEngine.UI.GridLayoutGroup.Constraint constraint);

@@ -64,7 +64,7 @@ public partial class UiScrollView : IUiScrollView, IUiScrollViewTrackable
 		ContentOffset = contentOffset;
 		return this;
 	}
-	public UiScrollView SetContentPivot(in UnityEngine.Vector2 contentPivot)
+	public UiScrollView SetContentPivot(UnityEngine.Vector2 contentPivot)
 	{
 		ContentPivot = contentPivot;
 		return this;

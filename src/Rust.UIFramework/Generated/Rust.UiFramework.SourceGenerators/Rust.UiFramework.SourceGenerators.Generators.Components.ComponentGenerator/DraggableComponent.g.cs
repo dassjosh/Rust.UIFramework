@@ -82,12 +82,12 @@ public partial class DraggableComponent : IDraggableComponent, IDraggableCompone
 		Filter = filter;
 		return this;
 	}
-	public Oxide.Ext.UiFramework.Components.DraggableComponent SetParentPadding(in UnityEngine.Vector2 parentPadding)
+	public Oxide.Ext.UiFramework.Components.DraggableComponent SetParentPadding(UnityEngine.Vector2 parentPadding)
 	{
 		ParentPadding = parentPadding;
 		return this;
 	}
-	public Oxide.Ext.UiFramework.Components.DraggableComponent SetAnchorOffset(in UnityEngine.Vector2 anchorOffset)
+	public Oxide.Ext.UiFramework.Components.DraggableComponent SetAnchorOffset(UnityEngine.Vector2 anchorOffset)
 	{
 		AnchorOffset = anchorOffset;
 		return this;

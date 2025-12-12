@@ -25,8 +25,8 @@ public interface IDraggableComponent : IBaseTypedComponent
 	Oxide.Ext.UiFramework.Components.DraggableComponent SetDragAlpha(float dragAlpha);
 	Oxide.Ext.UiFramework.Components.DraggableComponent SetParentLimitIndex(int parentLimitIndex);
 	Oxide.Ext.UiFramework.Components.DraggableComponent SetFilter(string filter);
-	Oxide.Ext.UiFramework.Components.DraggableComponent SetParentPadding(in UnityEngine.Vector2 parentPadding);
-	Oxide.Ext.UiFramework.Components.DraggableComponent SetAnchorOffset(in UnityEngine.Vector2 anchorOffset);
+	Oxide.Ext.UiFramework.Components.DraggableComponent SetParentPadding(UnityEngine.Vector2 parentPadding);
+	Oxide.Ext.UiFramework.Components.DraggableComponent SetAnchorOffset(UnityEngine.Vector2 anchorOffset);
 	Oxide.Ext.UiFramework.Components.DraggableComponent SetKeepOnTop(bool keepOnTop);
 	Oxide.Ext.UiFramework.Components.DraggableComponent SetPositionRpc(CommunityEntity.DraggablePositionSendType? positionRpc);
 	Oxide.Ext.UiFramework.Components.DraggableComponent SetMoveToAnchor(bool moveToAnchor);

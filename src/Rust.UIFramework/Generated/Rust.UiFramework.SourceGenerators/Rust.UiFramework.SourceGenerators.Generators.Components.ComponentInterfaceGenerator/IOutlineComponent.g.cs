@@ -9,7 +9,7 @@ public interface IOutlineComponent : IBaseTypedComponent
 	bool UseGraphicAlpha { get; set; }
 
 	Oxide.Ext.UiFramework.Components.OutlineComponent SetColor(Oxide.Ext.UiFramework.Colors.UiColor color);
-	Oxide.Ext.UiFramework.Components.OutlineComponent SetDistance(in UnityEngine.Vector2 distance);
+	Oxide.Ext.UiFramework.Components.OutlineComponent SetDistance(UnityEngine.Vector2 distance);
 	Oxide.Ext.UiFramework.Components.OutlineComponent SetUseGraphicAlpha(bool useGraphicAlpha);
 }
 

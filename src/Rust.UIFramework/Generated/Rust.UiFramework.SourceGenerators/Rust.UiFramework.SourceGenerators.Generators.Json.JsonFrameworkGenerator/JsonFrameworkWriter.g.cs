@@ -83,7 +83,7 @@ public partial class JsonFrameworkWriter
 		WritePropertyName(name);
 		WriteValue(value);
 	}
-	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, in UnityEngine.Vector2 value)
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, UnityEngine.Vector2 value)
 	{
 		WritePropertyName(name);
 		WriteValue(value);
@@ -221,7 +221,7 @@ public partial class JsonFrameworkWriter
 		    WriteValue(value);
 		}
 	}
-	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, in UnityEngine.Vector2 value, in UnityEngine.Vector2 defaultValue)
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, UnityEngine.Vector2 value, UnityEngine.Vector2 defaultValue)
 	{
 		if (value != defaultValue)
 		{

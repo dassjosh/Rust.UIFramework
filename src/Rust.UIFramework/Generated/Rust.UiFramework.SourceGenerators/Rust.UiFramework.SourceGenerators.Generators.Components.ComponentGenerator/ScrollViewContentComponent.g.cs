@@ -27,7 +27,7 @@ public partial class ScrollViewContentComponent : IScrollViewContentComponent, I
 		Offset = offset;
 		return this;
 	}
-	public Oxide.Ext.UiFramework.Components.ScrollViewContentComponent SetPivot(in UnityEngine.Vector2 pivot)
+	public Oxide.Ext.UiFramework.Components.ScrollViewContentComponent SetPivot(UnityEngine.Vector2 pivot)
 	{
 		Pivot = pivot;
 		return this;

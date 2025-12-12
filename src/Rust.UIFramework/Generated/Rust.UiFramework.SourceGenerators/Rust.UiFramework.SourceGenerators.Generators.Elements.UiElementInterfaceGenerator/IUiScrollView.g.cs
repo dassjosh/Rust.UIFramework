@@ -26,7 +26,7 @@ public interface IUiScrollView : IBaseUiComponent
 	Oxide.Ext.UiFramework.UiElements.UiScrollView SetVerticalScrollProgress(float verticalScrollProgress);
 	Oxide.Ext.UiFramework.UiElements.UiScrollView SetContentPosition(in Oxide.Ext.UiFramework.Positions.UiPosition contentPosition);
 	Oxide.Ext.UiFramework.UiElements.UiScrollView SetContentOffset(in Oxide.Ext.UiFramework.Offsets.UiOffset contentOffset);
-	Oxide.Ext.UiFramework.UiElements.UiScrollView SetContentPivot(in UnityEngine.Vector2 contentPivot);
+	Oxide.Ext.UiFramework.UiElements.UiScrollView SetContentPivot(UnityEngine.Vector2 contentPivot);
 }
 
 

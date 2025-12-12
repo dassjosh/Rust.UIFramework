@@ -26,12 +26,12 @@ public partial class GridLayoutComponent : IGridLayoutComponent, IGridLayoutComp
 	Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.GridLayoutGroup.Constraint> IGridLayoutComponentTrackable.Constraint => _constraint;
 	Oxide.Ext.UiFramework.Types.Tracked<int> IGridLayoutComponentTrackable.ConstraintCount => _constraintCount;
 
-	public Oxide.Ext.UiFramework.Components.GridLayoutComponent SetCellSize(in UnityEngine.Vector2 cellSize)
+	public Oxide.Ext.UiFramework.Components.GridLayoutComponent SetCellSize(UnityEngine.Vector2 cellSize)
 	{
 		CellSize = cellSize;
 		return this;
 	}
-	public Oxide.Ext.UiFramework.Components.GridLayoutComponent SetSpacing(in UnityEngine.Vector2 spacing)
+	public Oxide.Ext.UiFramework.Components.GridLayoutComponent SetSpacing(UnityEngine.Vector2 spacing)
 	{
 		Spacing = spacing;
 		return this;

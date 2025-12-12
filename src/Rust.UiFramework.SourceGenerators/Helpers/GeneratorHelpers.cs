@@ -83,18 +83,58 @@ public static class GeneratorHelpers
 
     public static string ToPrivateField(this string value) => $"_{value.ToCamelCase()}";
     
-    public static bool ShouldBePassedByIn(this ITypeSymbol type)
+    extension(ITypeSymbol type)
     {
-        if (!type.IsValueType)
+        public bool ShouldBePassedByIn()
         {
-            return false;
+            if (!type.IsValueType || type.TypeKind != TypeKind.Struct || !type.IsReadOnly)
+            {
+                return false;
+            }
+
+            const int useInMinSize = 16;
+            return type.CalculateObjectSize() >= useInMinSize;
         }
 
-        return type.Name switch
+        public int CalculateObjectSize()
         {
-            "UiReference" or "UiBorderWidth" or "UiPosition" or "UiOffset" or "UiPadding" or "Vector2" or "UiTranslate" => true,
-            _ => false
-        };
+            const int x64Alignment = 8;
+            int offset = 0;
+            int maxAlignment = 1;
+
+            foreach (IFieldSymbol field in type.GetMembers().OfType<IFieldSymbol>())
+            {
+                if (field.IsConst || field.IsStatic)
+                {
+                    continue;
+                }
+                
+                int size = field.Type.GetSpecialTypeSize();
+                int alignment = Math.Min(size, x64Alignment); // x64 max alignment
+                maxAlignment = Math.Max(maxAlignment, alignment);
+
+                // Align offset
+                offset = (offset + alignment - 1) / alignment * alignment;
+                offset += size;
+            }
+
+            // Round up to struct alignment
+            offset = (offset + maxAlignment - 1) / maxAlignment * maxAlignment;
+            return offset;
+        }
+
+        public int GetSpecialTypeSize()
+        {
+            return type.SpecialType switch
+            {
+                SpecialType.System_Byte or SpecialType.System_SByte => 1,
+                SpecialType.System_Int16 or SpecialType.System_UInt16 => 2,
+                SpecialType.System_Int32 or SpecialType.System_UInt32 or SpecialType.System_Single => 4,
+                SpecialType.System_Int64 or SpecialType.System_UInt64 or SpecialType.System_Double => 8,
+                SpecialType.System_Boolean => 1,
+                _ => 8 // assume reference or unknown type
+            };
+        }
     }
 
     extension(ISymbol symbol)

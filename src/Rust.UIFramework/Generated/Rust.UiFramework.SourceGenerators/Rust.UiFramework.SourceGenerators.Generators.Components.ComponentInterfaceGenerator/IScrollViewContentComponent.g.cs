@@ -10,7 +10,7 @@ public interface IScrollViewContentComponent
 
 	Oxide.Ext.UiFramework.Components.ScrollViewContentComponent SetPosition(in Oxide.Ext.UiFramework.Positions.UiPosition position);
 	Oxide.Ext.UiFramework.Components.ScrollViewContentComponent SetOffset(in Oxide.Ext.UiFramework.Offsets.UiOffset offset);
-	Oxide.Ext.UiFramework.Components.ScrollViewContentComponent SetPivot(in UnityEngine.Vector2 pivot);
+	Oxide.Ext.UiFramework.Components.ScrollViewContentComponent SetPivot(UnityEngine.Vector2 pivot);
 }
 
 
