@@ -113,31 +113,4 @@ public partial class ScrollViewComponent : CoreComponent
             bar.TrackColor = trackColor.Value;
         }
     }
-    
-    public override bool HasChanged()
-    {
-        return base.HasChanged() 
-               || (ContentTransform?.HasChanged() ?? false)
-               || (HorizontalScrollbar?.HasChanged() ?? false)
-               || (VerticalScrollbar?.HasChanged() ?? false);
-    }
-
-    public override void ResetHasChanged()
-    {
-        base.ResetHasChanged();
-        ContentTransform?.ResetHasChanged();
-        HorizontalScrollbar?.ResetHasChanged();
-        VerticalScrollbar?.ResetHasChanged();
-    }
-
-    public override void Reset()
-    {
-        base.Reset();
-        ContentTransform?.Dispose();
-        ContentTransform = null;
-        HorizontalScrollbar?.Dispose();
-        HorizontalScrollbar = null;
-        VerticalScrollbar?.Dispose();
-        VerticalScrollbar = null;
-    }
 }

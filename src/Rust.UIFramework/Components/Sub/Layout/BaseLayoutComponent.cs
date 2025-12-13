@@ -26,10 +26,9 @@ public abstract partial class BaseLayoutComponent : SubComponent
     }
 
     public static implicit operator UiReference(BaseLayoutComponent layout) => layout.Reference;
-    
-    public override void Reset()
+
+    protected override void OnReset()
     {
-        base.Reset();
         Owner = null;
     }
 }

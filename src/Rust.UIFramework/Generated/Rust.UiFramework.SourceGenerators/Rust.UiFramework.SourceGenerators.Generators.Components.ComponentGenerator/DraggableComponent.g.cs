@@ -6,19 +6,19 @@ namespace Oxide.Ext.UiFramework.Components;
 
 public partial class DraggableComponent : IDraggableComponent, IDraggableComponentTrackable
 {
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<bool> _limitToParent = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Draggable.LimitToParent);
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<float> _maxDistance = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Draggable.MaxDistance);
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<bool> _allowSwapping = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Draggable.AllowSwapping);
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<bool> _dropAnywhere = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Draggable.DropAnywhere);
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<float> _dragAlpha = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Draggable.DragAlpha);
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<int> _parentLimitIndex = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Draggable.ParentLimitIndex);
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<string> _filter = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.Vector2> _parentPadding = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Draggable.ParentPadding);
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.Vector2> _anchorOffset = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Draggable.AnchorOffset);
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<bool> _keepOnTop = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Draggable.KeepOnTop);
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<CommunityEntity.DraggablePositionSendType?> _positionRpc = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Draggable.PositionRpc);
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<bool> _moveToAnchor = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Draggable.MoveToAnchor);
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<bool> _rebuildAnchor = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Draggable.RebuildAnchor);
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<bool> _limitToParent = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Draggable.LimitToParent);
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<float> _maxDistance = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Draggable.MaxDistance);
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<bool> _allowSwapping = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Draggable.AllowSwapping);
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<bool> _dropAnywhere = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Draggable.DropAnywhere);
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<float> _dragAlpha = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Draggable.DragAlpha);
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<int> _parentLimitIndex = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Draggable.ParentLimitIndex);
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<string> _filter = new();
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.Vector2> _parentPadding = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Draggable.ParentPadding);
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.Vector2> _anchorOffset = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Draggable.AnchorOffset);
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<bool> _keepOnTop = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Draggable.KeepOnTop);
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<CommunityEntity.DraggablePositionSendType?> _positionRpc = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Draggable.PositionRpc);
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<bool> _moveToAnchor = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Draggable.MoveToAnchor);
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<bool> _rebuildAnchor = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Draggable.RebuildAnchor);
 
 	public partial bool LimitToParent { get => _limitToParent.Value; set => _limitToParent.Value = value; }
 	public partial float MaxDistance { get => _maxDistance.Value; set => _maxDistance.Value = value; }
@@ -113,10 +113,10 @@ public partial class DraggableComponent : IDraggableComponent, IDraggableCompone
 		return this;
 	}
 	public IDraggableComponentTrackable AsTrackable() => this;
-	protected override bool HasChangedGenerated() => base.HasChangedGenerated() || (_limitToParent.HasChanged || _maxDistance.HasChanged || _allowSwapping.HasChanged || _dropAnywhere.HasChanged || _dragAlpha.HasChanged || _parentLimitIndex.HasChanged || _filter.HasChanged || _parentPadding.HasChanged || _anchorOffset.HasChanged || _keepOnTop.HasChanged || _positionRpc.HasChanged || _moveToAnchor.HasChanged || _rebuildAnchor.HasChanged);
-	protected override void ResetHasChangedGenerated()
+	public override bool HasChanged() => false || (_limitToParent.HasChanged || _maxDistance.HasChanged || _allowSwapping.HasChanged || _dropAnywhere.HasChanged || _dragAlpha.HasChanged || _parentLimitIndex.HasChanged || _filter.HasChanged || _parentPadding.HasChanged || _anchorOffset.HasChanged || _keepOnTop.HasChanged || _positionRpc.HasChanged || _moveToAnchor.HasChanged || _rebuildAnchor.HasChanged) || base.HasChanged();
+	public override void ResetHasChanged()
 	{
-		base.ResetHasChangedGenerated();
+		base.ResetHasChanged();
 		_limitToParent.ResetHasChanged();
 		_maxDistance.ResetHasChanged();
 		_allowSwapping.ResetHasChanged();
@@ -131,9 +131,9 @@ public partial class DraggableComponent : IDraggableComponent, IDraggableCompone
 		_moveToAnchor.ResetHasChanged();
 		_rebuildAnchor.ResetHasChanged();
 	}
-	protected override void ResetGenerated()
+	public override void Reset()
 	{
-		base.ResetGenerated();
+		base.Reset();
 		_limitToParent.Reset();
 		_maxDistance.Reset();
 		_allowSwapping.Reset();

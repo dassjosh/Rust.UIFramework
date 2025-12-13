@@ -87,7 +87,6 @@ public static class EnumCache<T> where T : Enum
         private readonly Dictionary<T, string> CachedStrings = new();
         private readonly Dictionary<T, string> LowerStrings = new();
         private readonly Dictionary<T, string> NumberStrings = new();
-
         
         public EnumCacheImpl()
         {

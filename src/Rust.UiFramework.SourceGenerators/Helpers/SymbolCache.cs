@@ -25,6 +25,7 @@ public class SymbolCache
     public readonly DotNetSymbolCache Vector2 = new("UnityEngine.Vector2");
 
     public readonly EnumCache Enums;
+    public readonly InterfacesCache Interfaces;
     public readonly LibrariesCache Libraries;
     public readonly PluginsCache Plugins;
     public readonly TypesCache Types;
@@ -32,6 +33,7 @@ public class SymbolCache
     public SymbolCache(Compilation compilation)
     {
         Enums = new EnumCache(compilation);
+        Interfaces = new InterfacesCache(compilation);
         Libraries = new LibrariesCache(compilation);
         Plugins = new PluginsCache(compilation);
         Types = new TypesCache(compilation);
@@ -126,6 +128,16 @@ public class SymbolCache
         public readonly FrameworkSymbolCache SerializeMode = new("Enums.SerializeMode");
         
         public EnumCache(Compilation compilation)
+        {
+            InitializeSymbols(this, compilation);
+        }
+    }
+    
+    public class InterfacesCache
+    {
+        public readonly FrameworkSymbolCache IChildComponent = new("Interfaces.IChildComponent");
+        
+        public InterfacesCache(Compilation compilation)
         {
             InitializeSymbols(this, compilation);
         }

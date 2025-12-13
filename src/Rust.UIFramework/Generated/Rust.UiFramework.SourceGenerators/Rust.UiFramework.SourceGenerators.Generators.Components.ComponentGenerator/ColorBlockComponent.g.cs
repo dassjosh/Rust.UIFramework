@@ -6,11 +6,11 @@ namespace Oxide.Ext.UiFramework.Components;
 
 public partial class ColorBlockComponent : IColorBlockComponent, IColorBlockComponentTrackable
 {
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> _highlightedColor = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ColorBlock.HighlightedColor);
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> _pressedColor = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ColorBlock.PressedColor);
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> _selectedColor = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ColorBlock.SelectedColor);
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<float> _colorMultiplier = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ColorBlock.ColorMultiplier);
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<float> _fadeDuration = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ColorBlock.FadeDuration);
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> _highlightedColor = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ColorBlock.HighlightedColor);
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> _pressedColor = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ColorBlock.PressedColor);
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> _selectedColor = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ColorBlock.SelectedColor);
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<float> _colorMultiplier = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ColorBlock.ColorMultiplier);
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<float> _fadeDuration = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ColorBlock.FadeDuration);
 
 	public partial Oxide.Ext.UiFramework.Colors.UiColor HighlightedColor { get => _highlightedColor.Value; set => _highlightedColor.Value = value; }
 	public partial Oxide.Ext.UiFramework.Colors.UiColor PressedColor { get => _pressedColor.Value; set => _pressedColor.Value = value; }
@@ -49,19 +49,19 @@ public partial class ColorBlockComponent : IColorBlockComponent, IColorBlockComp
 		return this;
 	}
 	public IColorBlockComponentTrackable AsTrackable() => this;
-	protected override bool HasChangedGenerated() => base.HasChangedGenerated() || (_highlightedColor.HasChanged || _pressedColor.HasChanged || _selectedColor.HasChanged || _colorMultiplier.HasChanged || _fadeDuration.HasChanged);
-	protected override void ResetHasChangedGenerated()
+	public override bool HasChanged() => false || (_highlightedColor.HasChanged || _pressedColor.HasChanged || _selectedColor.HasChanged || _colorMultiplier.HasChanged || _fadeDuration.HasChanged) || base.HasChanged();
+	public override void ResetHasChanged()
 	{
-		base.ResetHasChangedGenerated();
+		base.ResetHasChanged();
 		_highlightedColor.ResetHasChanged();
 		_pressedColor.ResetHasChanged();
 		_selectedColor.ResetHasChanged();
 		_colorMultiplier.ResetHasChanged();
 		_fadeDuration.ResetHasChanged();
 	}
-	protected override void ResetGenerated()
+	public override void Reset()
 	{
-		base.ResetGenerated();
+		base.Reset();
 		_highlightedColor.Reset();
 		_pressedColor.Reset();
 		_selectedColor.Reset();

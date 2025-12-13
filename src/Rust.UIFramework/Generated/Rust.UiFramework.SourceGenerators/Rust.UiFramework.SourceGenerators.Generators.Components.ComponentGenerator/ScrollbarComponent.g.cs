@@ -6,15 +6,15 @@ namespace Oxide.Ext.UiFramework.Components;
 
 public partial class ScrollbarComponent : IScrollbarComponent, IScrollbarComponentTrackable
 {
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<bool> _invert = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ScrollBar.Invert);
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<bool> _autoHide = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ScrollBar.AutoHide);
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<string> _handleSprite = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<string> _trackSprite = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<float> _size = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ScrollBar.Size);
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> _handleColor = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ScrollBar.HandleColor);
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> _highlightColor = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ScrollBar.HighlightColor);
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> _pressedColor = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ScrollBar.PressedColor);
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> _trackColor = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ScrollBar.TrackColor);
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<bool> _invert = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ScrollBar.Invert);
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<bool> _autoHide = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ScrollBar.AutoHide);
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<string> _handleSprite = new();
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<string> _trackSprite = new();
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<float> _size = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ScrollBar.Size);
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> _handleColor = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ScrollBar.HandleColor);
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> _highlightColor = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ScrollBar.HighlightColor);
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> _pressedColor = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ScrollBar.PressedColor);
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> _trackColor = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ScrollBar.TrackColor);
 
 	public partial bool Invert { get => _invert.Value; set => _invert.Value = value; }
 	public partial bool AutoHide { get => _autoHide.Value; set => _autoHide.Value = value; }
@@ -81,10 +81,10 @@ public partial class ScrollbarComponent : IScrollbarComponent, IScrollbarCompone
 		return this;
 	}
 	public IScrollbarComponentTrackable AsTrackable() => this;
-	protected override bool HasChangedGenerated() => base.HasChangedGenerated() || (_invert.HasChanged || _autoHide.HasChanged || _handleSprite.HasChanged || _trackSprite.HasChanged || _size.HasChanged || _handleColor.HasChanged || _highlightColor.HasChanged || _pressedColor.HasChanged || _trackColor.HasChanged);
-	protected override void ResetHasChangedGenerated()
+	public override bool HasChanged() => false || (_invert.HasChanged || _autoHide.HasChanged || _handleSprite.HasChanged || _trackSprite.HasChanged || _size.HasChanged || _handleColor.HasChanged || _highlightColor.HasChanged || _pressedColor.HasChanged || _trackColor.HasChanged) || base.HasChanged();
+	public override void ResetHasChanged()
 	{
-		base.ResetHasChangedGenerated();
+		base.ResetHasChanged();
 		_invert.ResetHasChanged();
 		_autoHide.ResetHasChanged();
 		_handleSprite.ResetHasChanged();
@@ -95,9 +95,9 @@ public partial class ScrollbarComponent : IScrollbarComponent, IScrollbarCompone
 		_pressedColor.ResetHasChanged();
 		_trackColor.ResetHasChanged();
 	}
-	protected override void ResetGenerated()
+	public override void Reset()
 	{
-		base.ResetGenerated();
+		base.Reset();
 		_invert.Reset();
 		_autoHide.Reset();
 		_handleSprite.Reset();

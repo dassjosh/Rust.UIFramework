@@ -6,14 +6,14 @@ namespace Oxide.Ext.UiFramework.Components;
 
 public partial class TextComponent : ITextComponent, ITextComponentTrackable
 {
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> _color = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Color.ColorValue);
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<float> _fadeIn = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Common.FadeIn);
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<int> _fontSize = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Text.FontSize);
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<string> _font = new(null, Oxide.Ext.UiFramework.Json.JsonDefaults.Text.FontValue);
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.TextAnchor> _align = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Text.Align);
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<string> _text = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.VerticalWrapMode> _verticalOverflow = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Text.VerticalOverflow);
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.UiElements.UiReference> _placeholderFor = new();
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> _color = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Color.ColorValue);
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<float> _fadeIn = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Common.FadeIn);
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<int> _fontSize = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Text.FontSize);
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<string> _font = new(null, Oxide.Ext.UiFramework.Json.JsonDefaults.Text.FontValue);
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.TextAnchor> _align = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Text.Align);
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<string> _text = new();
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.VerticalWrapMode> _verticalOverflow = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Text.VerticalOverflow);
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.UiElements.UiReference> _placeholderFor = new();
 
 	public partial Oxide.Ext.UiFramework.Colors.UiColor Color { get => _color.Value; set => _color.Value = value; }
 	public partial float FadeIn { get => _fadeIn.Value; set => _fadeIn.Value = value; }
@@ -73,10 +73,10 @@ public partial class TextComponent : ITextComponent, ITextComponentTrackable
 		return this;
 	}
 	public ITextComponentTrackable AsTrackable() => this;
-	protected override bool HasChangedGenerated() => base.HasChangedGenerated() || (_color.HasChanged || _fadeIn.HasChanged || _fontSize.HasChanged || _font.HasChanged || _align.HasChanged || _text.HasChanged || _verticalOverflow.HasChanged || _placeholderFor.HasChanged);
-	protected override void ResetHasChangedGenerated()
+	public override bool HasChanged() => false || (_color.HasChanged || _fadeIn.HasChanged || _fontSize.HasChanged || _font.HasChanged || _align.HasChanged || _text.HasChanged || _verticalOverflow.HasChanged || _placeholderFor.HasChanged) || base.HasChanged();
+	public override void ResetHasChanged()
 	{
-		base.ResetHasChangedGenerated();
+		base.ResetHasChanged();
 		_color.ResetHasChanged();
 		_fadeIn.ResetHasChanged();
 		_fontSize.ResetHasChanged();
@@ -86,9 +86,9 @@ public partial class TextComponent : ITextComponent, ITextComponentTrackable
 		_verticalOverflow.ResetHasChanged();
 		_placeholderFor.ResetHasChanged();
 	}
-	protected override void ResetGenerated()
+	public override void Reset()
 	{
-		base.ResetGenerated();
+		base.Reset();
 		_color.Reset();
 		_fadeIn.Reset();
 		_fontSize.Reset();

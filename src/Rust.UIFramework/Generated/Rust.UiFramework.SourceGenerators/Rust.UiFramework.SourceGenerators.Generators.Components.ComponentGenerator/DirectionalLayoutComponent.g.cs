@@ -6,14 +6,14 @@ namespace Oxide.Ext.UiFramework.Components;
 
 public partial class DirectionalLayoutComponent : IDirectionalLayoutComponent, IDirectionalLayoutComponentTrackable
 {
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<float> _spacing = new(Oxide.Ext.UiFramework.Json.JsonDefaults.DirectionalLayout.Spacing);
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<bool> _childForceExpandWidth = new(Oxide.Ext.UiFramework.Json.JsonDefaults.DirectionalLayout.ChildForceExpandWidth);
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<bool> _childForceExpandHeight = new(Oxide.Ext.UiFramework.Json.JsonDefaults.DirectionalLayout.ChildForceExpandHeight);
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<bool> _childControlWidth = new(Oxide.Ext.UiFramework.Json.JsonDefaults.DirectionalLayout.ChildControlWidth);
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<bool> _childControlHeight = new(Oxide.Ext.UiFramework.Json.JsonDefaults.DirectionalLayout.ChildControlHeight);
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<bool> _childScaleWidth = new(Oxide.Ext.UiFramework.Json.JsonDefaults.DirectionalLayout.ChildScaleWidth);
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<bool> _childScaleHeight = new(Oxide.Ext.UiFramework.Json.JsonDefaults.DirectionalLayout.ChildScaleHeight);
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Enums.LayoutDirection> _direction = new();
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<float> _spacing = new(Oxide.Ext.UiFramework.Json.JsonDefaults.DirectionalLayout.Spacing);
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<bool> _childForceExpandWidth = new(Oxide.Ext.UiFramework.Json.JsonDefaults.DirectionalLayout.ChildForceExpandWidth);
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<bool> _childForceExpandHeight = new(Oxide.Ext.UiFramework.Json.JsonDefaults.DirectionalLayout.ChildForceExpandHeight);
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<bool> _childControlWidth = new(Oxide.Ext.UiFramework.Json.JsonDefaults.DirectionalLayout.ChildControlWidth);
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<bool> _childControlHeight = new(Oxide.Ext.UiFramework.Json.JsonDefaults.DirectionalLayout.ChildControlHeight);
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<bool> _childScaleWidth = new(Oxide.Ext.UiFramework.Json.JsonDefaults.DirectionalLayout.ChildScaleWidth);
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<bool> _childScaleHeight = new(Oxide.Ext.UiFramework.Json.JsonDefaults.DirectionalLayout.ChildScaleHeight);
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Enums.LayoutDirection> _direction = new();
 
 	public partial float Spacing { get => _spacing.Value; set => _spacing.Value = value; }
 	public partial bool ChildForceExpandWidth { get => _childForceExpandWidth.Value; set => _childForceExpandWidth.Value = value; }
@@ -73,10 +73,10 @@ public partial class DirectionalLayoutComponent : IDirectionalLayoutComponent, I
 		return this;
 	}
 	public IDirectionalLayoutComponentTrackable AsTrackable() => this;
-	protected override bool HasChangedGenerated() => base.HasChangedGenerated() || (_spacing.HasChanged || _childForceExpandWidth.HasChanged || _childForceExpandHeight.HasChanged || _childControlWidth.HasChanged || _childControlHeight.HasChanged || _childScaleWidth.HasChanged || _childScaleHeight.HasChanged || _direction.HasChanged);
-	protected override void ResetHasChangedGenerated()
+	public override bool HasChanged() => false || (_spacing.HasChanged || _childForceExpandWidth.HasChanged || _childForceExpandHeight.HasChanged || _childControlWidth.HasChanged || _childControlHeight.HasChanged || _childScaleWidth.HasChanged || _childScaleHeight.HasChanged || _direction.HasChanged) || base.HasChanged();
+	public override void ResetHasChanged()
 	{
-		base.ResetHasChangedGenerated();
+		base.ResetHasChanged();
 		_spacing.ResetHasChanged();
 		_childForceExpandWidth.ResetHasChanged();
 		_childForceExpandHeight.ResetHasChanged();
@@ -86,9 +86,9 @@ public partial class DirectionalLayoutComponent : IDirectionalLayoutComponent, I
 		_childScaleHeight.ResetHasChanged();
 		_direction.ResetHasChanged();
 	}
-	protected override void ResetGenerated()
+	public override void Reset()
 	{
-		base.ResetGenerated();
+		base.Reset();
 		_spacing.Reset();
 		_childForceExpandWidth.Reset();
 		_childForceExpandHeight.Reset();

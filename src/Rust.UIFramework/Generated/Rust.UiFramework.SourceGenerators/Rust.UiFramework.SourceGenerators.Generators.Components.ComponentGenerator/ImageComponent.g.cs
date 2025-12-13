@@ -6,13 +6,13 @@ namespace Oxide.Ext.UiFramework.Components;
 
 public partial class ImageComponent : IImageComponent, IImageComponentTrackable
 {
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> _color = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Color.ColorValue);
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<float> _fadeIn = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Common.FadeIn);
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<string> _sprite = new(null, Oxide.Ext.UiFramework.Json.JsonDefaults.BaseImage.Sprite);
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<string> _material = new(null, Oxide.Ext.UiFramework.Json.JsonDefaults.BaseImage.Material);
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.Image.Type> _imageType = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Image.ImageType);
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.UiElements.UiReference> _placeholderFor = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<bool> _fillCenter = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Image.FillCenter);
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> _color = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Color.ColorValue);
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<float> _fadeIn = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Common.FadeIn);
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<string> _sprite = new(null, Oxide.Ext.UiFramework.Json.JsonDefaults.BaseImage.Sprite);
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<string> _material = new(null, Oxide.Ext.UiFramework.Json.JsonDefaults.BaseImage.Material);
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.Image.Type> _imageType = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Image.ImageType);
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.UiElements.UiReference> _placeholderFor = new();
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<bool> _fillCenter = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Image.FillCenter);
 
 	public partial Oxide.Ext.UiFramework.Colors.UiColor Color { get => _color.Value; set => _color.Value = value; }
 	public partial float FadeIn { get => _fadeIn.Value; set => _fadeIn.Value = value; }
@@ -65,10 +65,10 @@ public partial class ImageComponent : IImageComponent, IImageComponentTrackable
 		return this;
 	}
 	public IImageComponentTrackable AsTrackable() => this;
-	protected override bool HasChangedGenerated() => base.HasChangedGenerated() || (_color.HasChanged || _fadeIn.HasChanged || _sprite.HasChanged || _material.HasChanged || _imageType.HasChanged || _placeholderFor.HasChanged || _fillCenter.HasChanged);
-	protected override void ResetHasChangedGenerated()
+	public override bool HasChanged() => false || (_color.HasChanged || _fadeIn.HasChanged || _sprite.HasChanged || _material.HasChanged || _imageType.HasChanged || _placeholderFor.HasChanged || _fillCenter.HasChanged) || base.HasChanged();
+	public override void ResetHasChanged()
 	{
-		base.ResetHasChangedGenerated();
+		base.ResetHasChanged();
 		_color.ResetHasChanged();
 		_fadeIn.ResetHasChanged();
 		_sprite.ResetHasChanged();
@@ -77,9 +77,9 @@ public partial class ImageComponent : IImageComponent, IImageComponentTrackable
 		_placeholderFor.ResetHasChanged();
 		_fillCenter.ResetHasChanged();
 	}
-	protected override void ResetGenerated()
+	public override void Reset()
 	{
-		base.ResetGenerated();
+		base.Reset();
 		_color.Reset();
 		_fadeIn.Reset();
 		_sprite.Reset();

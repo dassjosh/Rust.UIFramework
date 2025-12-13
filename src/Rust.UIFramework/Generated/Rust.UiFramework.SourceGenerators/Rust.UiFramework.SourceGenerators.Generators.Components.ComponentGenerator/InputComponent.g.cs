@@ -6,11 +6,11 @@ namespace Oxide.Ext.UiFramework.Components;
 
 public partial class InputComponent : IInputComponent, IInputComponentTrackable
 {
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<int> _charsLimit = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Input.CharacterLimit);
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<string> _command = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Enums.InputMode> _mode = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Input.Mode);
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.InputField.LineType> _lineType = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Input.LineType);
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.UiElements.UiReference> _placeholder = new();
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<int> _charsLimit = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Input.CharacterLimit);
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<string> _command = new();
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Enums.InputMode> _mode = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Input.Mode);
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.InputField.LineType> _lineType = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Input.LineType);
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.UiElements.UiReference> _placeholder = new();
 
 	public partial int CharsLimit { get => _charsLimit.Value; set => _charsLimit.Value = value; }
 	public partial string Command { get => _command.Value; set => _command.Value = value; }
@@ -74,19 +74,19 @@ public partial class InputComponent : IInputComponent, IInputComponentTrackable
 		return this;
 	}
 	public new IInputComponentTrackable AsTrackable() => this;
-	protected override bool HasChangedGenerated() => base.HasChangedGenerated() || (_charsLimit.HasChanged || _command.HasChanged || _mode.HasChanged || _lineType.HasChanged || _placeholder.HasChanged);
-	protected override void ResetHasChangedGenerated()
+	public override bool HasChanged() => false || (_charsLimit.HasChanged || _command.HasChanged || _mode.HasChanged || _lineType.HasChanged || _placeholder.HasChanged) || base.HasChanged();
+	public override void ResetHasChanged()
 	{
-		base.ResetHasChangedGenerated();
+		base.ResetHasChanged();
 		_charsLimit.ResetHasChanged();
 		_command.ResetHasChanged();
 		_mode.ResetHasChanged();
 		_lineType.ResetHasChanged();
 		_placeholder.ResetHasChanged();
 	}
-	protected override void ResetGenerated()
+	public override void Reset()
 	{
-		base.ResetGenerated();
+		base.Reset();
 		_charsLimit.Reset();
 		_command.Reset();
 		_mode.Reset();

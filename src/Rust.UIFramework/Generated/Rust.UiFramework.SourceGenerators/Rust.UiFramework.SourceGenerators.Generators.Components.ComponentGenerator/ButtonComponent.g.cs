@@ -6,12 +6,12 @@ namespace Oxide.Ext.UiFramework.Components;
 
 public partial class ButtonComponent : IButtonComponent, IButtonComponentTrackable
 {
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<string> _command = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> _color = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Color.ColorValue);
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<float> _fadeIn = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<string> _sprite = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<string> _material = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.Image.Type> _imageType = new();
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<string> _command = new();
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> _color = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Color.ColorValue);
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<float> _fadeIn = new();
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<string> _sprite = new();
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<string> _material = new();
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.Image.Type> _imageType = new();
 
 	public partial string Command { get => _command.Value; set => _command.Value = value; }
 	public partial Oxide.Ext.UiFramework.Colors.UiColor Color { get => _color.Value; set => _color.Value = value; }
@@ -57,26 +57,29 @@ public partial class ButtonComponent : IButtonComponent, IButtonComponentTrackab
 		return this;
 	}
 	public IButtonComponentTrackable AsTrackable() => this;
-	protected override bool HasChangedGenerated() => base.HasChangedGenerated() || (_command.HasChanged || _color.HasChanged || _fadeIn.HasChanged || _sprite.HasChanged || _material.HasChanged || _imageType.HasChanged);
-	protected override void ResetHasChangedGenerated()
+	public override bool HasChanged() => false || (_command.HasChanged || _color.HasChanged || _fadeIn.HasChanged || _sprite.HasChanged || _material.HasChanged || _imageType.HasChanged) || ((ColorBlock?.HasChanged() ?? false)) || base.HasChanged();
+	public override void ResetHasChanged()
 	{
-		base.ResetHasChangedGenerated();
+		base.ResetHasChanged();
 		_command.ResetHasChanged();
 		_color.ResetHasChanged();
 		_fadeIn.ResetHasChanged();
 		_sprite.ResetHasChanged();
 		_material.ResetHasChanged();
 		_imageType.ResetHasChanged();
+		ColorBlock?.ResetHasChanged();
 	}
-	protected override void ResetGenerated()
+	public override void Reset()
 	{
-		base.ResetGenerated();
+		base.Reset();
 		_command.Reset();
 		_color.Reset();
 		_fadeIn.Reset();
 		_sprite.Reset();
 		_material.Reset();
 		_imageType.Reset();
+		ColorBlock?.TryDispose();
+		ColorBlock = null;
 	}
 }
 

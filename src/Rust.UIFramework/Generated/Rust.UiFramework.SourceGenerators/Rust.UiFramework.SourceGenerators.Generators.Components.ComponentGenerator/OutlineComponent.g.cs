@@ -6,9 +6,9 @@ namespace Oxide.Ext.UiFramework.Components;
 
 public partial class OutlineComponent : IOutlineComponent, IOutlineComponentTrackable
 {
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> _color = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.Vector2> _distance = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Outline.Distance, Oxide.Ext.UiFramework.Json.JsonDefaults.Outline.FpDistance);
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<bool> _useGraphicAlpha = new();
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> _color = new();
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.Vector2> _distance = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Outline.Distance, Oxide.Ext.UiFramework.Json.JsonDefaults.Outline.FpDistance);
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<bool> _useGraphicAlpha = new();
 
 	public partial Oxide.Ext.UiFramework.Colors.UiColor Color { get => _color.Value; set => _color.Value = value; }
 	public partial UnityEngine.Vector2 Distance { get => _distance.Value; set => _distance.Value = value; }
@@ -33,17 +33,17 @@ public partial class OutlineComponent : IOutlineComponent, IOutlineComponentTrac
 		return this;
 	}
 	public IOutlineComponentTrackable AsTrackable() => this;
-	protected override bool HasChangedGenerated() => base.HasChangedGenerated() || (_color.HasChanged || _distance.HasChanged || _useGraphicAlpha.HasChanged);
-	protected override void ResetHasChangedGenerated()
+	public override bool HasChanged() => false || (_color.HasChanged || _distance.HasChanged || _useGraphicAlpha.HasChanged) || base.HasChanged();
+	public override void ResetHasChanged()
 	{
-		base.ResetHasChangedGenerated();
+		base.ResetHasChanged();
 		_color.ResetHasChanged();
 		_distance.ResetHasChanged();
 		_useGraphicAlpha.ResetHasChanged();
 	}
-	protected override void ResetGenerated()
+	public override void Reset()
 	{
-		base.ResetGenerated();
+		base.Reset();
 		_color.Reset();
 		_distance.Reset();
 		_useGraphicAlpha.Reset();

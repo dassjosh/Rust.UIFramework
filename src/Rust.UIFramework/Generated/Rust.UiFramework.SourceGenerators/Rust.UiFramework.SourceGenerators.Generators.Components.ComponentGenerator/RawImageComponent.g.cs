@@ -6,11 +6,11 @@ namespace Oxide.Ext.UiFramework.Components;
 
 public partial class RawImageComponent : IRawImageComponent, IRawImageComponentTrackable
 {
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> _color = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<float> _fadeIn = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Common.FadeIn);
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<string> _image = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<string> _material = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.UiElements.UiReference> _placeholderFor = new();
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> _color = new();
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<float> _fadeIn = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Common.FadeIn);
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<string> _image = new();
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<string> _material = new();
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.UiElements.UiReference> _placeholderFor = new();
 
 	public partial Oxide.Ext.UiFramework.Colors.UiColor Color { get => _color.Value; set => _color.Value = value; }
 	public partial float FadeIn { get => _fadeIn.Value; set => _fadeIn.Value = value; }
@@ -49,19 +49,19 @@ public partial class RawImageComponent : IRawImageComponent, IRawImageComponentT
 		return this;
 	}
 	public IRawImageComponentTrackable AsTrackable() => this;
-	protected override bool HasChangedGenerated() => base.HasChangedGenerated() || (_color.HasChanged || _fadeIn.HasChanged || _image.HasChanged || _material.HasChanged || _placeholderFor.HasChanged);
-	protected override void ResetHasChangedGenerated()
+	public override bool HasChanged() => false || (_color.HasChanged || _fadeIn.HasChanged || _image.HasChanged || _material.HasChanged || _placeholderFor.HasChanged) || base.HasChanged();
+	public override void ResetHasChanged()
 	{
-		base.ResetHasChangedGenerated();
+		base.ResetHasChanged();
 		_color.ResetHasChanged();
 		_fadeIn.ResetHasChanged();
 		_image.ResetHasChanged();
 		_material.ResetHasChanged();
 		_placeholderFor.ResetHasChanged();
 	}
-	protected override void ResetGenerated()
+	public override void Reset()
 	{
-		base.ResetGenerated();
+		base.Reset();
 		_color.Reset();
 		_fadeIn.Reset();
 		_image.Reset();

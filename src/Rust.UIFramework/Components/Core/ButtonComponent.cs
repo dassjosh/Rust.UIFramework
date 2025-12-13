@@ -56,20 +56,9 @@ public partial class ButtonComponent : CoreComponent, IGraphicalComponent
         if(fadeDuration.HasValue) colors.FadeDuration = fadeDuration.Value;
         return colors;
     }
-    
-    public override bool HasChanged() => base.HasChanged() || (ColorBlock?.HasChanged() ?? false);
 
-    public override void ResetHasChanged()
+    protected override void OnReset()
     {
-        base.ResetHasChanged();
-        ColorBlock?.ResetHasChanged();
-    }
-
-    public override void Reset()
-    {
-        base.Reset();
-        ColorBlock?.TryDispose();
-        ColorBlock = null;
         ButtonType = ButtonType.Command;
     }
 }

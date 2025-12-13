@@ -6,14 +6,14 @@ namespace Oxide.Ext.UiFramework.Components;
 
 public partial class CountdownComponent : ICountdownComponent, ICountdownComponentTrackable
 {
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<float> _startTime = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Countdown.StartTime);
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<float> _endTime = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Countdown.EndTime);
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<float> _step = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Countdown.Step);
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<float> _interval = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Countdown.Interval);
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Enums.TimerFormat> _timerFormat = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Countdown.TimerFormat);
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<string> _numberFormat = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Countdown.NumberFormat);
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<bool> _destroyIfDone = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Countdown.DestroyIfDone);
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<string> _command = new();
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<float> _startTime = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Countdown.StartTime);
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<float> _endTime = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Countdown.EndTime);
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<float> _step = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Countdown.Step);
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<float> _interval = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Countdown.Interval);
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Enums.TimerFormat> _timerFormat = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Countdown.TimerFormat);
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<string> _numberFormat = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Countdown.NumberFormat);
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<bool> _destroyIfDone = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Countdown.DestroyIfDone);
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<string> _command = new();
 
 	public partial float StartTime { get => _startTime.Value; set => _startTime.Value = value; }
 	public partial float EndTime { get => _endTime.Value; set => _endTime.Value = value; }
@@ -73,10 +73,10 @@ public partial class CountdownComponent : ICountdownComponent, ICountdownCompone
 		return this;
 	}
 	public ICountdownComponentTrackable AsTrackable() => this;
-	protected override bool HasChangedGenerated() => base.HasChangedGenerated() || (_startTime.HasChanged || _endTime.HasChanged || _step.HasChanged || _interval.HasChanged || _timerFormat.HasChanged || _numberFormat.HasChanged || _destroyIfDone.HasChanged || _command.HasChanged);
-	protected override void ResetHasChangedGenerated()
+	public override bool HasChanged() => false || (_startTime.HasChanged || _endTime.HasChanged || _step.HasChanged || _interval.HasChanged || _timerFormat.HasChanged || _numberFormat.HasChanged || _destroyIfDone.HasChanged || _command.HasChanged) || base.HasChanged();
+	public override void ResetHasChanged()
 	{
-		base.ResetHasChangedGenerated();
+		base.ResetHasChanged();
 		_startTime.ResetHasChanged();
 		_endTime.ResetHasChanged();
 		_step.ResetHasChanged();
@@ -86,9 +86,9 @@ public partial class CountdownComponent : ICountdownComponent, ICountdownCompone
 		_destroyIfDone.ResetHasChanged();
 		_command.ResetHasChanged();
 	}
-	protected override void ResetGenerated()
+	public override void Reset()
 	{
-		base.ResetGenerated();
+		base.Reset();
 		_startTime.Reset();
 		_endTime.Reset();
 		_step.Reset();

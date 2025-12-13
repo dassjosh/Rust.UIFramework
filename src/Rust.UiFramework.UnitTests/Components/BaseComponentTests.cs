@@ -107,7 +107,7 @@ public abstract class BasePopulateComponentTests<T>(Action<T> populateComponent)
         
         // Act
         var values = component.GetType().GetFields(BindingFlags.Instance | BindingFlags.NonPublic)
-            .Where(f => f.FieldType.IsAssignableTo(typeof(ITracked)))
+            .Where(f => f.DeclaringType == component.GetType() && f.FieldType.IsAssignableTo(typeof(ITracked)))
             .Select(f => new {Field = f, Tracked = (ITracked)f.GetValue(component)})
             .ToArray();
         

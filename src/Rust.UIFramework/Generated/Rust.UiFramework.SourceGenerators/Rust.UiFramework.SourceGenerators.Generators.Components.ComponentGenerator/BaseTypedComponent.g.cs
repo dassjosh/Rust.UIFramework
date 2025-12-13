@@ -6,7 +6,7 @@ namespace Oxide.Ext.UiFramework.Components;
 
 public partial class BaseTypedComponent : IBaseTypedComponent, IBaseTypedComponentTrackable
 {
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<bool> _enabled = new(true);
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<bool> _enabled = new(true);
 
 	public partial bool Enabled { get => _enabled.Value; set => _enabled.Value = value; }
 	Oxide.Ext.UiFramework.Types.Tracked<bool> IBaseTypedComponentTrackable.Enabled => _enabled;
@@ -16,15 +16,15 @@ public partial class BaseTypedComponent : IBaseTypedComponent, IBaseTypedCompone
 		Enabled = enabled;
 		return this;
 	}
-	protected override bool HasChangedGenerated() => base.HasChangedGenerated() || (_enabled.HasChanged);
-	protected override void ResetHasChangedGenerated()
+	public override bool HasChanged() => false || (_enabled.HasChanged) || base.HasChanged();
+	public override void ResetHasChanged()
 	{
-		base.ResetHasChangedGenerated();
+		base.ResetHasChanged();
 		_enabled.ResetHasChanged();
 	}
-	protected override void ResetGenerated()
+	public override void Reset()
 	{
-		base.ResetGenerated();
+		base.Reset();
 		_enabled.Reset();
 	}
 }

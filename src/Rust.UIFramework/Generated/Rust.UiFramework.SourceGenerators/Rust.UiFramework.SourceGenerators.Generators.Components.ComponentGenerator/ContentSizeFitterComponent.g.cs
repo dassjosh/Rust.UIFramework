@@ -6,8 +6,8 @@ namespace Oxide.Ext.UiFramework.Components;
 
 public partial class ContentSizeFitterComponent : IContentSizeFitterComponent, IContentSizeFitterComponentTrackable
 {
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.ContentSizeFitter.FitMode> _horizontalFit = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ContentSizeFitterData.HorizontalFit);
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.ContentSizeFitter.FitMode> _verticalFit = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ContentSizeFitterData.VerticalFit);
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.ContentSizeFitter.FitMode> _horizontalFit = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ContentSizeFitterData.HorizontalFit);
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.ContentSizeFitter.FitMode> _verticalFit = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ContentSizeFitterData.VerticalFit);
 
 	public partial UnityEngine.UI.ContentSizeFitter.FitMode HorizontalFit { get => _horizontalFit.Value; set => _horizontalFit.Value = value; }
 	public partial UnityEngine.UI.ContentSizeFitter.FitMode VerticalFit { get => _verticalFit.Value; set => _verticalFit.Value = value; }
@@ -25,16 +25,16 @@ public partial class ContentSizeFitterComponent : IContentSizeFitterComponent, I
 		return this;
 	}
 	public IContentSizeFitterComponentTrackable AsTrackable() => this;
-	protected override bool HasChangedGenerated() => base.HasChangedGenerated() || (_horizontalFit.HasChanged || _verticalFit.HasChanged);
-	protected override void ResetHasChangedGenerated()
+	public override bool HasChanged() => false || (_horizontalFit.HasChanged || _verticalFit.HasChanged) || base.HasChanged();
+	public override void ResetHasChanged()
 	{
-		base.ResetHasChangedGenerated();
+		base.ResetHasChanged();
 		_horizontalFit.ResetHasChanged();
 		_verticalFit.ResetHasChanged();
 	}
-	protected override void ResetGenerated()
+	public override void Reset()
 	{
-		base.ResetGenerated();
+		base.Reset();
 		_horizontalFit.Reset();
 		_verticalFit.Reset();
 	}

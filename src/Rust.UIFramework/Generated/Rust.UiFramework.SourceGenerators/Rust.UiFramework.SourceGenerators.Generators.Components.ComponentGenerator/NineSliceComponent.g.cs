@@ -6,8 +6,8 @@ namespace Oxide.Ext.UiFramework.Components;
 
 public partial class NineSliceComponent : INineSliceComponent, INineSliceComponentTrackable
 {
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<string> _png = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Types.UiBorderWidth> _slice = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Image.Slice);
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<string> _png = new();
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Types.UiBorderWidth> _slice = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Image.Slice);
 
 	public partial string Png { get => _png.Value; set => _png.Value = value; }
 	public partial Oxide.Ext.UiFramework.Types.UiBorderWidth Slice { get => _slice.Value; set => _slice.Value = value; }
@@ -25,16 +25,16 @@ public partial class NineSliceComponent : INineSliceComponent, INineSliceCompone
 		return this;
 	}
 	public new INineSliceComponentTrackable AsTrackable() => this;
-	protected override bool HasChangedGenerated() => base.HasChangedGenerated() || (_png.HasChanged || _slice.HasChanged);
-	protected override void ResetHasChangedGenerated()
+	public override bool HasChanged() => false || (_png.HasChanged || _slice.HasChanged) || base.HasChanged();
+	public override void ResetHasChanged()
 	{
-		base.ResetHasChangedGenerated();
+		base.ResetHasChanged();
 		_png.ResetHasChanged();
 		_slice.ResetHasChanged();
 	}
-	protected override void ResetGenerated()
+	public override void Reset()
 	{
-		base.ResetGenerated();
+		base.Reset();
 		_png.Reset();
 		_slice.Reset();
 	}

@@ -6,9 +6,9 @@ namespace Oxide.Ext.UiFramework.Components;
 
 public partial class ScrollViewContentComponent : IScrollViewContentComponent, IScrollViewContentComponentTrackable
 {
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Positions.UiPosition> _position = new(Oxide.Ext.UiFramework.Positions.UiPosition.Full);
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Offsets.UiOffset> _offset = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.Vector2> _pivot = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ScrollView.Pivot);
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Positions.UiPosition> _position = new(Oxide.Ext.UiFramework.Positions.UiPosition.Full);
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Offsets.UiOffset> _offset = new();
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.Vector2> _pivot = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ScrollView.Pivot);
 
 	public partial Oxide.Ext.UiFramework.Positions.UiPosition Position { get => _position.Value; set => _position.Value = value; }
 	public partial Oxide.Ext.UiFramework.Offsets.UiOffset Offset { get => _offset.Value; set => _offset.Value = value; }
@@ -33,17 +33,17 @@ public partial class ScrollViewContentComponent : IScrollViewContentComponent, I
 		return this;
 	}
 	public IScrollViewContentComponentTrackable AsTrackable() => this;
-	protected override bool HasChangedGenerated() => base.HasChangedGenerated() || (_position.HasChanged || _offset.HasChanged || _pivot.HasChanged);
-	protected override void ResetHasChangedGenerated()
+	public override bool HasChanged() => false || (_position.HasChanged || _offset.HasChanged || _pivot.HasChanged) || base.HasChanged();
+	public override void ResetHasChanged()
 	{
-		base.ResetHasChangedGenerated();
+		base.ResetHasChanged();
 		_position.ResetHasChanged();
 		_offset.ResetHasChanged();
 		_pivot.ResetHasChanged();
 	}
-	protected override void ResetGenerated()
+	public override void Reset()
 	{
-		base.ResetGenerated();
+		base.Reset();
 		_position.Reset();
 		_offset.Reset();
 		_pivot.Reset();

@@ -7,8 +7,8 @@ namespace Oxide.Ext.UiFramework.Types;
 public class Tracked<T> : ITracked<T>, ITracked
 {
     private T _value;
-    private readonly T _defaultValue;
-    private readonly T _serializationDefault;
+    private T _defaultValue;
+    private T _serializationDefault;
 
     /// <summary>
     /// Gets a value indicating whether the Value property has been set
@@ -91,6 +91,16 @@ public class Tracked<T> : ITracked<T>, ITracked
         }
 
         return false;
+    }
+
+    public void OverrideDefault(T value)
+    {
+        _defaultValue = value;
+    }
+
+    public void OverrideSerializationDefault(T value)
+    {
+        _serializationDefault = value;
     }
     
     [MethodImpl(MethodImplOptions.AggressiveInlining)]

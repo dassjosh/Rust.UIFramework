@@ -6,8 +6,8 @@ namespace Oxide.Ext.UiFramework.Components;
 
 public partial class ItemIconComponent : IItemIconComponent, IItemIconComponentTrackable
 {
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<int> _itemId = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<ulong> _skinId = new();
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<int> _itemId = new();
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<ulong> _skinId = new();
 
 	public partial int ItemId { get => _itemId.Value; set => _itemId.Value = value; }
 	public partial ulong SkinId { get => _skinId.Value; set => _skinId.Value = value; }
@@ -25,16 +25,16 @@ public partial class ItemIconComponent : IItemIconComponent, IItemIconComponentT
 		return this;
 	}
 	public new IItemIconComponentTrackable AsTrackable() => this;
-	protected override bool HasChangedGenerated() => base.HasChangedGenerated() || (_itemId.HasChanged || _skinId.HasChanged);
-	protected override void ResetHasChangedGenerated()
+	public override bool HasChanged() => false || (_itemId.HasChanged || _skinId.HasChanged) || base.HasChanged();
+	public override void ResetHasChanged()
 	{
-		base.ResetHasChangedGenerated();
+		base.ResetHasChanged();
 		_itemId.ResetHasChanged();
 		_skinId.ResetHasChanged();
 	}
-	protected override void ResetGenerated()
+	public override void Reset()
 	{
-		base.ResetGenerated();
+		base.Reset();
 		_itemId.Reset();
 		_skinId.Reset();
 	}

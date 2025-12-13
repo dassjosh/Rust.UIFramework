@@ -6,7 +6,7 @@ namespace Oxide.Ext.UiFramework.Components;
 
 public partial class SlotComponent : ISlotComponent, ISlotComponentTrackable
 {
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<string> _filter = new();
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<string> _filter = new();
 
 	public partial string Filter { get => _filter.Value; set => _filter.Value = value; }
 	Oxide.Ext.UiFramework.Types.Tracked<string> ISlotComponentTrackable.Filter => _filter;
@@ -17,15 +17,15 @@ public partial class SlotComponent : ISlotComponent, ISlotComponentTrackable
 		return this;
 	}
 	public ISlotComponentTrackable AsTrackable() => this;
-	protected override bool HasChangedGenerated() => base.HasChangedGenerated() || (_filter.HasChanged);
-	protected override void ResetHasChangedGenerated()
+	public override bool HasChanged() => false || (_filter.HasChanged) || base.HasChanged();
+	public override void ResetHasChanged()
 	{
-		base.ResetHasChangedGenerated();
+		base.ResetHasChanged();
 		_filter.ResetHasChanged();
 	}
-	protected override void ResetGenerated()
+	public override void Reset()
 	{
-		base.ResetGenerated();
+		base.Reset();
 		_filter.Reset();
 	}
 }

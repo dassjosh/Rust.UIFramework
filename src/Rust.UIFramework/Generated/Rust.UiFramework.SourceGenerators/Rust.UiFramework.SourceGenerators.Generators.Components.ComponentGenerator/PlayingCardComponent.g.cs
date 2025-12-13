@@ -6,12 +6,12 @@ namespace Oxide.Ext.UiFramework.Components;
 
 public partial class PlayingCardComponent : IPlayingCardComponent, IPlayingCardComponentTrackable
 {
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Enums.UiSuit> _suit = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Enums.UiRank> _rank = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Enums.UiCardType> _cardType = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<float> _fadeIn = new();
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<string> _material = new(Oxide.Ext.UiFramework.Constants.UiMaterials.Content.Ui.NameFontMaterial);
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> _color = new(Oxide.Ext.UiFramework.Colors.UiColors.White);
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Enums.UiSuit> _suit = new();
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Enums.UiRank> _rank = new();
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Enums.UiCardType> _cardType = new();
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<float> _fadeIn = new();
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<string> _material = new(Oxide.Ext.UiFramework.Constants.UiMaterials.Content.Ui.NameFontMaterial);
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> _color = new(Oxide.Ext.UiFramework.Colors.UiColors.White);
 
 	public partial Oxide.Ext.UiFramework.Enums.UiSuit Suit { get => _suit.Value; set => _suit.Value = value; }
 	public partial Oxide.Ext.UiFramework.Enums.UiRank Rank { get => _rank.Value; set => _rank.Value = value; }
@@ -57,10 +57,10 @@ public partial class PlayingCardComponent : IPlayingCardComponent, IPlayingCardC
 		return this;
 	}
 	public IPlayingCardComponentTrackable AsTrackable() => this;
-	protected override bool HasChangedGenerated() => base.HasChangedGenerated() || (_suit.HasChanged || _rank.HasChanged || _cardType.HasChanged || _fadeIn.HasChanged || _material.HasChanged || _color.HasChanged);
-	protected override void ResetHasChangedGenerated()
+	public override bool HasChanged() => false || (_suit.HasChanged || _rank.HasChanged || _cardType.HasChanged || _fadeIn.HasChanged || _material.HasChanged || _color.HasChanged) || base.HasChanged();
+	public override void ResetHasChanged()
 	{
-		base.ResetHasChangedGenerated();
+		base.ResetHasChanged();
 		_suit.ResetHasChanged();
 		_rank.ResetHasChanged();
 		_cardType.ResetHasChanged();
@@ -68,9 +68,9 @@ public partial class PlayingCardComponent : IPlayingCardComponent, IPlayingCardC
 		_material.ResetHasChanged();
 		_color.ResetHasChanged();
 	}
-	protected override void ResetGenerated()
+	public override void Reset()
 	{
-		base.ResetGenerated();
+		base.Reset();
 		_suit.Reset();
 		_rank.Reset();
 		_cardType.Reset();

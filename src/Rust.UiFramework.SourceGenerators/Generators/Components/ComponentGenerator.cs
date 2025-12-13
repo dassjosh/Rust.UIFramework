@@ -16,7 +16,7 @@ public class ComponentGenerator : BaseGenerator, IIncrementalGenerator
         context.Register<ClassDeclarationSyntax, GenerateComponentAttribute>((spc, compilation, @class, classSymbol, attribute) =>
         {
             InitializeCache(compilation);
-            GeneratorData data = new(classSymbol);
+            GeneratorData data = new(classSymbol, SymbolCache);
             spc.AddSource($"{classSymbol.Name}.g.cs", GenerateComponent(classSymbol, data));
         });
     }
@@ -32,7 +32,7 @@ public class ComponentGenerator : BaseGenerator, IIncrementalGenerator
 
                     //Private Tracked Fields
                     .Fields(genData.Properties, (data, field) =>
-                        field.Private().Readonly().Type(SymbolCache.Types.Tracked.Symbol.Construct(data.Type)).Name(data.PrivateFieldName).New(data.GetPropertyDefaults()))
+                        field.Protected().Readonly().Type(SymbolCache.Types.Tracked.Symbol.Construct(data.Type)).Name(data.PrivateFieldName).New(data.GetPropertyDefaults()))
 
                     //Public Properties
                     .Properties(genData.Properties, (data, property) => property.Public().Partial().Type(data.Type).Name(data.Name)
@@ -61,16 +61,24 @@ public class ComponentGenerator : BaseGenerator, IIncrementalGenerator
                     .EndIf()
 
                     //HasChangedGenerated Method
-                    .Method(method => method.Protected().Override().Returns("bool").Name("HasChangedGenerated")
-                        .Body(statement => statement.Return("base.HasChangedGenerated()").Or(genData.Properties.Select(data => $"{data.PrivateFieldName}.HasChanged")).Semicolon()))
+                    .Method(method => method.Public().Override().Returns("bool").Name("HasChanged")
+                        .Body(statement => statement.Return("false")
+                            .Or(genData.Properties.Select(data => $"{data.PrivateFieldName}.HasChanged"))
+                            .Or(genData.ChildComponentsProperties.Select(data => $"({data.Name}?.HasChanged() ?? false)"))
+                            .Or("base.HasChanged()").Semicolon()))
 
                     //ResetHasChangedGenerated Method
-                    .Method(method => method.Protected().Override().Name("ResetHasChangedGenerated")
-                        .Body(statement => statement.Invoke("base.ResetHasChangedGenerated()").Invoke(genData.Properties.Select(data => $"{data.PrivateFieldName}.ResetHasChanged()"))))
+                    .Method(method => method.Public().Override().Name("ResetHasChanged")
+                        .Body(statement => statement.Invoke("base.ResetHasChanged()")
+                            .Invoke(genData.Properties.Select(data => $"{data.PrivateFieldName}.ResetHasChanged()"))
+                            .Invoke(genData.ChildComponentsProperties.Select(data => $"{data.Name}?.ResetHasChanged()"))))
 
                     //ResetGenerated Method
-                    .Method(method => method.Protected().Override().Name("ResetGenerated")
-                        .Body(statement => statement.Invoke("base.ResetGenerated()").Invoke(genData.Properties.Select(data => $"{data.PrivateFieldName}.Reset()"))));
+                    .Method(method => method.Public().Override().Name("Reset")
+                        .Body(statement => statement.Invoke("base.Reset()")
+                            .Invoke(genData.Properties.Select(data => $"{data.PrivateFieldName}.Reset()"))
+                            .Invoke(genData.ChildComponentsProperties.Select(data => $"{data.Name}?.TryDispose()"))
+                            .Invoke(genData.ChildComponentsProperties.Select(data => $"{data.Name} = null"))));
 
             }).Build();
     }
@@ -82,10 +90,11 @@ public class ComponentGenerator : BaseGenerator, IIncrementalGenerator
         public readonly string TrackableInterfaceName;
         public readonly PropertyData[] Properties;
         public readonly PropertyData[] BuilderProperties;
+        public readonly PropertyData[] ChildComponentsProperties;
         public readonly bool GenerateBuilderMethods;
         public readonly INamedTypeSymbol ParentComponent;
 
-        public GeneratorData(INamedTypeSymbol classSymbol)
+        public GeneratorData(INamedTypeSymbol classSymbol, SymbolCache symbolCache)
         {
             ClassSymbol = classSymbol;
             ComponentInterfaceName = classSymbol.GetInterface();
@@ -94,6 +103,7 @@ public class ComponentGenerator : BaseGenerator, IIncrementalGenerator
             BuilderProperties = classSymbol.GetProperties().Where(p => p.IsPartialDefinition || p.HasAttribute<GenerateBuilderMethodAttribute>()).Select(p => new PropertyData(p)).ToArray();
             GenerateBuilderMethods = classSymbol.HasAttribute<GenerateBuilderMethodsAttribute>();
             ParentComponent = classSymbol.GetParentWithAttribute<GenerateComponentAttribute>(s => !s.IsAbstract);
+            ChildComponentsProperties = classSymbol.GetProperties().Where(p => p.Type.AllInterfaces.Any(i => SymbolEqualityComparer.Default.Equals(i, symbolCache.Interfaces.IChildComponent.Symbol))).Select(p => new PropertyData(p)).ToArray();
         }
     }
     

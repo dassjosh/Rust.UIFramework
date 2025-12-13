@@ -23,9 +23,11 @@ public class StatementBuilder : IStatement, IBuildable
     
     public StatementBuilder Or(IEnumerable<string> values)
     {
-        _sb.Append(" || (");
-        _sb.Append(string.Join(" || ", values));
-        _sb.Append(')');
+        if (TryCombineValues(values, " || ", out string combined))
+        {
+            _sb.Append(" || ");
+            _sb.Append(combined);
+        }
         return this;
     }
     
@@ -38,9 +40,11 @@ public class StatementBuilder : IStatement, IBuildable
     
     public StatementBuilder And(IEnumerable<string> values)
     {
-        _sb.Append(" && (");
-        _sb.Append(string.Join(" && ", values));
-        _sb.Append(')');
+        if (TryCombineValues(values, " && ", out string combined))
+        {
+            _sb.Append(" || ");
+            _sb.Append(combined);
+        }
         return this;
     }
 
@@ -58,6 +62,18 @@ public class StatementBuilder : IStatement, IBuildable
             Invoke(value);
         }
         return this;
+    }
+
+    private bool TryCombineValues(IEnumerable<string> values, string seperator, out string combined)
+    {
+        combined = string.Join(seperator, values);
+        if (!string.IsNullOrEmpty(combined))
+        {
+            combined = $"({combined})";
+            return true;
+        }
+
+        return false;
     }
 
     public StatementBuilder Semicolon()
