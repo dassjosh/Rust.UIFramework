@@ -3,6 +3,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Rust.UiFramework.SourceGenerators.Attributes;
 using Rust.UiFramework.SourceGenerators.Builder;
+using Rust.UiFramework.SourceGenerators.Extensions;
 using Rust.UiFramework.SourceGenerators.Helpers;
 
 namespace Rust.UiFramework.SourceGenerators.Generators.Components;
@@ -14,7 +15,7 @@ public class ComponentInterfaceGenerator : BaseGenerator, IIncrementalGenerator
     {
         context.Register<ClassDeclarationSyntax, GenerateComponentAttribute>((spc, compilation, @class, classSymbol, attribute) =>
         {
-            InitializeCache(compilation);
+            SymbolCache.Initialize(compilation);
             GeneratorData data = new(classSymbol);
             spc.AddSource($"{data.ComponentInterfaceName}.g.cs", GenerateInterface(data));
             spc.AddSource($"{data.TrackableInterfaceName}.g.cs", GenerateTrackableInterface(data));
@@ -24,7 +25,6 @@ public class ComponentInterfaceGenerator : BaseGenerator, IIncrementalGenerator
     private string GenerateInterface(GeneratorData genData)
     {
         return new CodeBuilder()
-            .Using("Oxide.Ext.UiFramework.Types")
             .Namespace("Oxide.Ext.UiFramework.Interfaces")
             .Add(t => t.Public().Interface().Name(genData.ComponentInterfaceName)
                 .If(genData.ParentComponent is not null, i => i.Implements(genData.ParentComponent.GetInterface()))
@@ -34,7 +34,7 @@ public class ComponentInterfaceGenerator : BaseGenerator, IIncrementalGenerator
                 .Properties(genData.Properties, (data, property) => property.Type(data.Type).Name(data.Name).Get().Set())
             
                 //Builder Methods
-                .If(genData.GenerateBuilderMethods, builder => builder.Methods(genData.Properties, data => !data.SkipBuilder, (data, method) =>
+                .If(genData.GenerateBuilderMethods && !genData.ClassSymbol.IsAbstract, builder => builder.Methods(genData.Properties, data => !data.SkipBuilder, (data, method) =>
                     method.Returns(genData.ClassSymbol).Name($"Set{data.Name}")
                         .AddParameter(parameter => parameter.Type(data.Type).Name(data.Name)
                             .If(data.Type.ShouldBePassedByIn(), p => p.In())
@@ -55,7 +55,7 @@ public class ComponentInterfaceGenerator : BaseGenerator, IIncrementalGenerator
                 .EndIf()
                 
                 //Tracked Properties
-                .Properties(genData.Properties, (data, property) => property.Type(SymbolCache.Types.Tracked.Symbol.Construct(data.Type)).Name(data.Name).Get()))
+                .Properties(genData.Properties, (data, property) => property.Type(SymbolCache.Instance.Types.Tracked.Symbol.Construct(data.Type)).Name(data.Name).Get()))
             .Build();
     }
 

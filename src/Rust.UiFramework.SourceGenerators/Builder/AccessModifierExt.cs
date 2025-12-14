@@ -4,30 +4,33 @@ namespace Rust.UiFramework.SourceGenerators.Builder;
 
 internal static class AccessModifierExt 
 {
-    public static T Public<T>(this T accessModifiers) where T : IAccessModifiers
+    extension<T>(T accessModifiers) where T : IAccessModifiers
     {
-        accessModifiers.AccessModifiers |= AccessModifiers.Public;
-        return accessModifiers;
+        public T Public()
+        {
+            accessModifiers.AccessModifiers |= AccessModifiers.Public;
+            return accessModifiers;
+        }
+
+        public T Private()
+        {
+            accessModifiers.AccessModifiers |= AccessModifiers.Private;
+            return accessModifiers;
+        }
+
+        public T Protected()
+        {
+            accessModifiers.AccessModifiers |= AccessModifiers.Protected;
+            return accessModifiers;
+        }
+
+        public T Internal()
+        {
+            accessModifiers.AccessModifiers |= AccessModifiers.Internal;
+            return accessModifiers;
+        }
     }
-    
-    public static T Private<T>(this T accessModifiers) where T : IAccessModifiers
-    {
-        accessModifiers.AccessModifiers |= AccessModifiers.Private;
-        return accessModifiers;
-    }
-    
-    public static T Protected<T>(this T accessModifiers) where T : IAccessModifiers
-    {
-        accessModifiers.AccessModifiers |= AccessModifiers.Protected;
-        return accessModifiers;
-    }
-    
-    public static T Internal<T>(this T accessModifiers) where T : IAccessModifiers
-    {
-        accessModifiers.AccessModifiers |= AccessModifiers.Internal;
-        return accessModifiers;
-    }
-    
+
     public static string GetAccessModifiers(this IAccessModifiers accessModifiers)
     {
         StringBuilder sb = new();

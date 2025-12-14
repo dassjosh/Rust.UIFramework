@@ -17,7 +17,7 @@ public class CommandBuilderGenerator : BaseGenerator, IIncrementalGenerator
     {
         context.Register<ClassDeclarationSyntax>(c => c.Name.Equals("CommandBuilder") && c.ContainingNamespace.ToString() == "Oxide.Ext.UiFramework.Libraries", (spc, compilation, @class, classSymbol) =>
         {
-            InitializeCache(compilation);
+            SymbolCache.Initialize(compilation);
             spc.AddSource($"{classSymbol.Name}.g.cs", GenerateParser(classSymbol));
         });
     }
@@ -31,15 +31,15 @@ public class CommandBuilderGenerator : BaseGenerator, IIncrementalGenerator
             {
                 t.Internal().Class().Name(classSymbol.Name)
                     .AddGenerics(g => g.Generics(Enumerable.Range(0, args)), out GenericsBuilder generics)
-                    .AddParameter(p => p.Type(SymbolCache.Libraries.UiCommands.ICommandBuilderData.Symbol).Name("data"))
-                    .AddParameter(p => p.Type(SymbolCache.Libraries.UiCommands.PartialArgs.Symbol).Name("partial").DefaultValue("default"))
-                    .Extends(SymbolCache.Libraries.UiCommands.BaseCommandBuilder.Symbol)
-                    .Implements(SymbolCache.Libraries.UiCommands.ICommandBuilder.Symbol.AsGeneric(generics))
+                    .AddParameter(p => p.Type(SymbolCache.Instance.Libraries.UiCommands.ICommandBuilderData.Symbol).Name("data"))
+                    .AddParameter(p => p.Type(SymbolCache.Instance.Libraries.UiCommands.PartialArgs.Symbol).Name("partial").DefaultValue("default"))
+                    .Extends(SymbolCache.Instance.Libraries.UiCommands.BaseCommandBuilder.Symbol)
+                    .Implements(SymbolCache.Instance.Libraries.UiCommands.ICommandBuilder.Symbol.AsGeneric(generics))
                     .AddExtendParameter("data")
                     .AddExtendParameter("partial")
                     
                     //Build Method
-                    .Method(m => m.Public().Returns(SymbolCache.String.Symbol).Name("Build")
+                    .Method(m => m.Public().Returns(SymbolCache.Instance.String.Symbol).Name("Build")
                         .AddParameters(generics, (g, p) => p.Type(g).Name($"arg{g[1..]}"))
                         .Body(GenerateBuildBody(m.Parameters)))
                     
@@ -55,7 +55,7 @@ public class CommandBuilderGenerator : BaseGenerator, IIncrementalGenerator
     private string GenerateBuildBody(IEnumerable<ParameterBuilder> parameters)
     {
         StringBuilder sb = new();
-        sb.AppendLine($"{SymbolCache.Libraries.UiCommands.ArgWriterIterator.Symbol} writer = StartBuilding();");
+        sb.AppendLine($"{SymbolCache.Instance.Libraries.UiCommands.ArgWriterIterator.Symbol} writer = StartBuilding();");
         sb.AppendLine($"writer.WriteArgs({string.Join(", ", parameters.Select(p => p.GetName()))});");
         sb.AppendLine("return FinishBuilding(writer);");
         return sb.ToString();
@@ -63,15 +63,15 @@ public class CommandBuilderGenerator : BaseGenerator, IIncrementalGenerator
 
     private string GeneratePartialReturnType(GenericsBuilder generics, int args)
     {
-        return SymbolCache.Libraries.UiCommands.ICommandBuilder.Symbol.AsGeneric(generics.Skip(args));
+        return SymbolCache.Instance.Libraries.UiCommands.ICommandBuilder.Symbol.AsGeneric(generics.Skip(args));
     }
 
     private string GeneratePartialBody(IEnumerable<ParameterBuilder> parameters, GenericsBuilder generics, int args)
     {
         StringBuilder sb = new();
-        sb.AppendLine($"{SymbolCache.Libraries.UiCommands.ArgWriterIterator.Symbol} writer = StartBuilding();");
+        sb.AppendLine($"{SymbolCache.Instance.Libraries.UiCommands.ArgWriterIterator.Symbol} writer = StartBuilding();");
         sb.AppendLine($"writer.WriteArgs({string.Join(", ", parameters.Select(p => p.GetName()))});");
-        sb.AppendLine($"return new {SymbolCache.Libraries.UiCommands.CommandBuilder.Symbol.AsGeneric(generics.Skip(args))}(Data, new {SymbolCache.Libraries.UiCommands.PartialArgs.Symbol}(writer));");
+        sb.AppendLine($"return new {SymbolCache.Instance.Libraries.UiCommands.CommandBuilder.Symbol.AsGeneric(generics.Skip(args))}(Data, new {SymbolCache.Instance.Libraries.UiCommands.PartialArgs.Symbol}(writer));");
         return sb.ToString();
     }
 }

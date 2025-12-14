@@ -4,36 +4,39 @@ namespace Rust.UiFramework.SourceGenerators.Builder;
 
 internal static class ParameterHelpers
 {
-    public static T Ref<T>(this T modifier) where T : IParameterModifier
+    extension<T>(T modifier) where T : IParameterModifier
     {
-        modifier.Modifiers |= ParameterModifiers.Ref;
-        return modifier;
+        public T Ref()
+        {
+            modifier.Modifiers |= ParameterModifiers.Ref;
+            return modifier;
+        }
+
+        public T Out()
+        {
+            modifier.Modifiers |= ParameterModifiers.Out;
+            return modifier;
+        }
+
+        public T In()
+        {
+            modifier.Modifiers |= ParameterModifiers.In;
+            return modifier;
+        }
+
+        public T Readonly()
+        {
+            modifier.Modifiers |= ParameterModifiers.Readonly;
+            return modifier;
+        }
+
+        public T This()
+        {
+            modifier.Modifiers |= ParameterModifiers.This;
+            return modifier;
+        }
     }
-    
-    public static T Out<T>(this T modifier) where T : IParameterModifier
-    {
-        modifier.Modifiers |= ParameterModifiers.Out;
-        return modifier;
-    }
-    
-    public static T In<T>(this T modifier) where T : IParameterModifier
-    {
-        modifier.Modifiers |= ParameterModifiers.In;
-        return modifier;
-    }
-    
-    public static T Readonly<T>(this T modifier) where T : IParameterModifier
-    {
-        modifier.Modifiers |= ParameterModifiers.Readonly;
-        return modifier;
-    }
-    
-    public static T This<T>(this T modifier) where T : IParameterModifier
-    {
-        modifier.Modifiers |= ParameterModifiers.This;
-        return modifier;
-    }
-    
+
     public static string GetModifiers(this IParameterModifier modifier)
     {
         StringBuilder sb = new();

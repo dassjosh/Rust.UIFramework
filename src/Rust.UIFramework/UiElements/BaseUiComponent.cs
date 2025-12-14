@@ -15,11 +15,16 @@ using UnityEngine;
 namespace Oxide.Ext.UiFramework.UiElements;
 
 [GenerateUiElement]
+[GenerateBuilderMethods]
 public abstract partial class BaseUiComponent : BasePoolable
 {
+    [GenerateBuilderMethod]
     public UiReference Reference { get; set; }
+    [GenerateBuilderMethod]
     public string Name { get => Reference.Name; set => Reference = Reference.WithName(value); }
+    [GenerateBuilderMethod]
     public string Parent { get => Reference.Parent; set => Reference = Reference.WithParent(value); } 
+    [GenerateBuilderMethod]
     public UpdateMode Update { get; set; }
     
     [Tracked]

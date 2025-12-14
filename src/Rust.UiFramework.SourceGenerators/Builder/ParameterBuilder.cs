@@ -1,16 +1,19 @@
-﻿using System.Text;
+﻿using System.Collections.Generic;
+using System.Text;
 using Microsoft.CodeAnalysis;
-using Rust.UiFramework.SourceGenerators.Helpers;
+using Rust.UiFramework.SourceGenerators.Extensions;
 
 namespace Rust.UiFramework.SourceGenerators.Builder;
 
-public class ParameterBuilder : IBuildable, IParameterModifier
+public class ParameterBuilder : IBuildable, IParameterModifier, IAttributes
 {
     ParameterModifiers IParameterModifier.Modifiers { get; set; }
+    List<AttributeBuilder> IAttributes.Attributes => _attributes;
     
     private string _type;
     private string _name;
     private string _defaultValue;
+    private readonly List<AttributeBuilder> _attributes = [];
     
     public ParameterBuilder Type(string type)
     {
@@ -40,6 +43,7 @@ public class ParameterBuilder : IBuildable, IParameterModifier
     public string Build(int indent)
     {
         StringBuilder sb = new();
+        this.BuildAttributes(sb, indent, " ");
         sb.Append(this.GetModifiers());
         sb.Append(_type);
         sb.Append(' ');

@@ -19,7 +19,7 @@ public class RegisterCommandsGenerator : BaseGenerator, IIncrementalGenerator
     {
         context.Register<ClassDeclarationSyntax, GenerateRegisterCommandsAttribute>((spc, compilation, @class, classSymbol, attribute) =>
         {
-            InitializeCache(compilation);
+            SymbolCache.Initialize(compilation);
             spc.AddSource($"{classSymbol.Name}.g.cs", GenerateRegisterCommands(classSymbol));
         });
     }
@@ -41,7 +41,7 @@ public class RegisterCommandsGenerator : BaseGenerator, IIncrementalGenerator
                 .Methods(methods, (d, m) =>
                 {
                     m.Public().Name("RegisterCommand").AddGenerics(g => g.Generics(d.arg), out GenericsBuilder generics).Returns(GetReturnType(generics))
-                        .AddParameter(p => p.Type(SymbolCache.Plugins.IUiFrameworkPlugin.Symbol).Name("plugin"))
+                        .AddParameter(p => p.Type(SymbolCache.Instance.Plugins.IUiFrameworkPlugin.Symbol).Name("plugin"))
                         .AddParameter(p => p.Type(GetMethodType(d.mode, generics)).Name("method"))
                         .Body(GenerateBody(generics));
                 })
@@ -50,7 +50,7 @@ public class RegisterCommandsGenerator : BaseGenerator, IIncrementalGenerator
 
     private string GetReturnType(GenericsBuilder generics)
     {
-        return SymbolCache.Types.UiTuple.Symbol.AsGeneric([SymbolCache.Libraries.UiCommands.RegisteredCommand.Symbol.ToString(), SymbolCache.Libraries.UiCommands.ICommandBuilder.Symbol.AsGeneric(generics)]);
+        return SymbolCache.Instance.Types.UiTuple.Symbol.AsGeneric([SymbolCache.Instance.Libraries.UiCommands.RegisteredCommand.Symbol.ToString(), SymbolCache.Instance.Libraries.UiCommands.ICommandBuilder.Symbol.AsGeneric(generics)]);
     }
     
     private string GetMethodType(ExecutorMode mode, GenericsBuilder generics)
@@ -58,11 +58,11 @@ public class RegisterCommandsGenerator : BaseGenerator, IIncrementalGenerator
         switch (mode)
         {
             case ExecutorMode.Void:
-                return SymbolCache.Action.Symbol.AsGeneric([SymbolCache.Libraries.UiCommands.ExecutionData.Symbol.ToString(), ..generics]);
+                return SymbolCache.Instance.Action.Symbol.AsGeneric([SymbolCache.Instance.Libraries.UiCommands.ExecutionData.Symbol.ToString(), ..generics]);
             case ExecutorMode.Task:
-                return SymbolCache.Func.Symbol.AsGeneric([SymbolCache.Libraries.UiCommands.ExecutionData.Symbol.ToString(), ..generics, SymbolCache.Task.Symbol.ToString()]);
+                return SymbolCache.Instance.Func.Symbol.AsGeneric([SymbolCache.Instance.Libraries.UiCommands.ExecutionData.Symbol.ToString(), ..generics, SymbolCache.Instance.Task.Symbol.ToString()]);
             case ExecutorMode.ValueTask:
-                return SymbolCache.Func.Symbol.AsGeneric([SymbolCache.Libraries.UiCommands.ExecutionData.Symbol.ToString(), ..generics, SymbolCache.ValueTask.Symbol.ToString()]);
+                return SymbolCache.Instance.Func.Symbol.AsGeneric([SymbolCache.Instance.Libraries.UiCommands.ExecutionData.Symbol.ToString(), ..generics, SymbolCache.Instance.ValueTask.Symbol.ToString()]);
             //case ExecutorMode.UniTask:
                // break;
             default:
@@ -79,10 +79,10 @@ public class RegisterCommandsGenerator : BaseGenerator, IIncrementalGenerator
         }
         
         StringBuilder sb = new();
-        sb.AppendLine($"{SymbolCache.Libraries.UiCommands.RegisteredCommand.Symbol} command = ParseCommand(plugin, method, ArgCreator.CreateArgHandler{argHandlerGenerics}(plugin.Id()));");
-        sb.AppendLine($"_commands[command.Id] = new {SymbolCache.Libraries.UiCommands.CommandParser.Symbol.AsGeneric(generics)}(command);");
-        sb.AppendLine($"{SymbolCache.Libraries.UiCommands.ICommandBuilder.Symbol.AsGeneric(generics)} builder = new {SymbolCache.Libraries.UiCommands.CommandBuilder.Symbol.AsGeneric(generics)}(command);");
-        sb.AppendLine($"return {SymbolCache.Types.StaticUiTuple.Symbol}.Create(command, builder);");
+        sb.AppendLine($"{SymbolCache.Instance.Libraries.UiCommands.RegisteredCommand.Symbol} command = ParseCommand(plugin, method, ArgCreator.CreateArgHandler{argHandlerGenerics}(plugin.Id()));");
+        sb.AppendLine($"_commands[command.Id] = new {SymbolCache.Instance.Libraries.UiCommands.CommandParser.Symbol.AsGeneric(generics)}(command);");
+        sb.AppendLine($"{SymbolCache.Instance.Libraries.UiCommands.ICommandBuilder.Symbol.AsGeneric(generics)} builder = new {SymbolCache.Instance.Libraries.UiCommands.CommandBuilder.Symbol.AsGeneric(generics)}(command);");
+        sb.AppendLine($"return {SymbolCache.Instance.Types.StaticUiTuple.Symbol}.Create(command, builder);");
         return sb.ToString();
     }
 }

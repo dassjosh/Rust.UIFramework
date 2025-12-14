@@ -7,15 +7,18 @@ using Microsoft.CodeAnalysis;
 
 namespace Rust.UiFramework.SourceGenerators.Builder;
 
-public class TypeBuilder : IType, IAccessModifiers, IKeywords, IBuildable, IGenerics
+public class TypeBuilder : IType, IAccessModifiers, IKeywords, IBuildable, IGenerics, IAttributes
 {
     AccessModifiers IAccessModifiers.AccessModifiers { get; set; }
     Keywords IKeywords.Keywords { get; set; }
     Type IType.Type { get; set; }
     GenericsBuilder IGenerics.Generics => _generics;
-    
+    List<AttributeBuilder> IAttributes.Attributes => _attributes;
+
+    private readonly List<AttributeBuilder> _attributes = [];
     private string _extends;
     private readonly List<string> _implements = [];
+    private readonly List<WhereBuilder> _where = [];
     private readonly List<FieldBuilder> _fields = [];
     private readonly List<PropertyBuilder> _properties = [];
     private readonly List<MethodBuilder> _methods = [];
@@ -29,6 +32,14 @@ public class TypeBuilder : IType, IAccessModifiers, IKeywords, IBuildable, IGene
     public TypeBuilder Name(string name)
     {
         _name = name;
+        return this;
+    }
+    
+    public TypeBuilder AddGeneric(string type, out string generic)
+    {
+        _generics ??= new GenericsBuilder();
+        _generics.Generic(type);
+        generic = type;
         return this;
     }
     
@@ -81,7 +92,15 @@ public class TypeBuilder : IType, IAccessModifiers, IKeywords, IBuildable, IGene
         _extendsParameters.AddRange(parameters);
         return this;
     }
-    
+
+    public TypeBuilder Where(Action<WhereBuilder> where)
+    {
+        WhereBuilder builder = new();
+        _where.Add(builder);
+        where(builder);
+        return this;
+    }
+
     public TypeBuilder Field(Action<FieldBuilder> field)
     {
         FieldBuilder builder = new();
@@ -147,6 +166,15 @@ public class TypeBuilder : IType, IAccessModifiers, IKeywords, IBuildable, IGene
         return this;
     }
     
+    public TypeBuilder Extension(Action<TypeBuilder> type)
+    {
+        TypeBuilder builder = new();
+        builder.Extension();
+        type(builder);
+        _types.Add(builder);
+        return this;
+    }
+    
     public TypeBuilder AddParameter(Action<ParameterBuilder> parameter)
     {
         ParameterBuilder builder = new();
@@ -167,12 +195,11 @@ public class TypeBuilder : IType, IAccessModifiers, IKeywords, IBuildable, IGene
         }
         return this;
     }
-    
-    public IEnumerable<ParameterBuilder> EnumerateParameters() => _parameters;
 
     public string Build(int indent)
     {
         StringBuilder sb = new();
+        this.BuildAttributes(sb, indent, "\n");
         sb.Append('\t', indent);
         sb.Append(this.GetAccessModifiers());
         sb.Append(this.GetKeywords());
@@ -218,23 +245,28 @@ public class TypeBuilder : IType, IAccessModifiers, IKeywords, IBuildable, IGene
             sb.Append(string.Join(", ", _implements));
         }
 
+        foreach (WhereBuilder builder in _where)
+        {
+            sb.Append(builder.Build(indent));
+        }
+
         sb.AppendLine();
         
         sb.Append('\t', indent);
         sb.AppendLine("{");
 
         bool hasAdded = false;
-        ProcessBuildable(_fields, sb, indent, ref hasAdded);
-        ProcessBuildable(_properties, sb, indent, ref hasAdded);
-        ProcessBuildable(_methods, sb, indent, ref hasAdded);
-        ProcessBuildable(_types, sb, indent, ref hasAdded);
+        ProcessBuildable(_fields, sb, indent, ref hasAdded, false);
+        ProcessBuildable(_properties, sb, indent, ref hasAdded, false);
+        ProcessBuildable(_methods, sb, indent, ref hasAdded, !this.IsType(Builder.Type.Interface));
+        ProcessBuildable(_types, sb, indent, ref hasAdded, !this.IsType(Builder.Type.Interface));
         
         sb.Append('\t', indent);
         sb.AppendLine("}");
         return sb.ToString();
     }
 
-    private void ProcessBuildable<T>(List<T> buildables, StringBuilder sb, int indent, ref bool hasAdded) where T : IBuildable
+    private void ProcessBuildable<T>(List<T> buildables, StringBuilder sb, int indent, ref bool hasAdded, bool spaceBetween) where T : IBuildable
     {
         if (buildables.Count != 0)
         {
@@ -242,9 +274,15 @@ public class TypeBuilder : IType, IAccessModifiers, IKeywords, IBuildable, IGene
             {
                 sb.AppendLine();
             }
-            
-            foreach (T buildable in buildables)
+
+            for (int index = 0; index < buildables.Count; index++)
             {
+                T buildable = buildables[index];
+                if (spaceBetween && index != 0)
+                {
+                    sb.AppendLine();
+                }
+
                 sb.Append(buildable.Build(indent + 1));
             }
 

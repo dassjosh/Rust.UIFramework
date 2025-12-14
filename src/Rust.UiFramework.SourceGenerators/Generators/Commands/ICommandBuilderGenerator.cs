@@ -15,7 +15,7 @@ public class ICommandBuilderGenerator : BaseGenerator, IIncrementalGenerator
     {
         context.Register<InterfaceDeclarationSyntax>(c => c.Name.Equals("ICommandBuilder") && c.ContainingNamespace.ToString() == "Oxide.Ext.UiFramework.Libraries", (spc, compilation, @class, classSymbol) =>
         {
-            InitializeCache(compilation);
+            SymbolCache.Initialize(compilation);
             spc.AddSource($"{classSymbol.Name}.g.cs", GenerateParser(classSymbol));
         });
     }
@@ -31,7 +31,7 @@ public class ICommandBuilderGenerator : BaseGenerator, IIncrementalGenerator
                     .AddGenerics(g => g.Generics(Enumerable.Range(0, args)), out GenericsBuilder generics)
                     
                     //Build Method
-                    .Method(m => m.Public().Returns(SymbolCache.String.Symbol).Name("Build")
+                    .Method(m => m.Public().Returns(SymbolCache.Instance.String.Symbol).Name("Build")
                         .AddParameters(generics, (g, p) => p.Type(g).Name($"arg{g[1..]}")))
                     
                     //Partial Methods
@@ -44,6 +44,6 @@ public class ICommandBuilderGenerator : BaseGenerator, IIncrementalGenerator
 
     private string GeneratePartialReturnType(GenericsBuilder generics, int args)
     {
-        return SymbolCache.Libraries.UiCommands.ICommandBuilder.Symbol.AsGeneric(generics.Skip(args));
+        return SymbolCache.Instance.Libraries.UiCommands.ICommandBuilder.Symbol.AsGeneric(generics.Skip(args));
     }
 }

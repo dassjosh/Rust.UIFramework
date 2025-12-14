@@ -2,8 +2,23 @@
 
 public static class StringExt
 {
-    public static bool ContainsAny(this string str, char[] chars)
+    extension(string value)
     {
-        return str.IndexOfAny(chars) >= 0;
+        public string ToCamelCase()
+        {
+            if (string.IsNullOrEmpty(value))
+            {
+                return value;
+            }
+        
+            return char.ToLower(value[0]) + value[1..];
+        }
+
+
+        
+        public bool ContainsAny(char[] chars)
+        {
+            return value.IndexOfAny(chars) >= 0;
+        }
     }
 }

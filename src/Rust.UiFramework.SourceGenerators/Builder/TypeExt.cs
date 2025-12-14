@@ -2,36 +2,47 @@
 
 internal static class TypeExt
 {
-    public static T Class<T>(this T type) where T : IType
+    extension<T>(T type) where T : IType
     {
-        type.Type = Type.Class;
-        return type;
+        public T Class()
+        {
+            type.Type = Type.Class;
+            return type;
+        }
+
+        public T Struct()
+        {
+            type.Type = Type.Struct;
+            return type;
+        }
+
+        public T Interface()
+        {
+            type.Type = Type.Interface;
+            return type;
+        }
+
+        public T Enum()
+        {
+            type.Type = Type.Enum;
+            return type;
+        }
+
+        public T Delegate()
+        {
+            type.Type = Type.Delegate;
+            return type;
+        }
+
+        public T Extension()
+        {
+            type.Type = Type.Extension;
+            return type;
+        }
+
+        public bool IsType(Type matchType) => type.Type == matchType;
     }
-    
-    public static T Struct<T>(this T type) where T : IType
-    {
-        type.Type = Type.Struct;
-        return type;
-    }
-    
-    public static T Interface<T>(this T type) where T : IType
-    {
-        type.Type = Type.Interface;
-        return type;
-    }
-    
-    public static T Enum<T>(this T type) where T : IType
-    {
-        type.Type = Type.Enum;
-        return type;
-    }
-    
-    public static T Delegate<T>(this T type) where T : IType
-    {
-        type.Type = Type.Delegate;
-        return type;
-    }
-    
+
     public static string GetDeclaredType(this IType type)
     {
         switch (type.Type)
@@ -46,6 +57,8 @@ internal static class TypeExt
                 return "enum";
             case Type.Delegate:
                 return "delegate";
+            case Type.Extension:
+                return "extension";
             default:
                 return "";
         }

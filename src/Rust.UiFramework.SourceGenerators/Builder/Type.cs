@@ -8,4 +8,5 @@ public enum Type : byte
     Interface,
     Enum,
     Delegate,
+    Extension
 }

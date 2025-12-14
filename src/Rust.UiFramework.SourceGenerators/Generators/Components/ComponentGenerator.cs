@@ -4,6 +4,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Rust.UiFramework.SourceGenerators.Attributes;
 using Rust.UiFramework.SourceGenerators.Builder;
+using Rust.UiFramework.SourceGenerators.Extensions;
 using Rust.UiFramework.SourceGenerators.Helpers;
 
 namespace Rust.UiFramework.SourceGenerators.Generators.Components;
@@ -15,8 +16,8 @@ public class ComponentGenerator : BaseGenerator, IIncrementalGenerator
     {
         context.Register<ClassDeclarationSyntax, GenerateComponentAttribute>((spc, compilation, @class, classSymbol, attribute) =>
         {
-            InitializeCache(compilation);
-            GeneratorData data = new(classSymbol, SymbolCache);
+            SymbolCache.Initialize(compilation);
+            GeneratorData data = new(classSymbol);
             spc.AddSource($"{classSymbol.Name}.g.cs", GenerateComponent(classSymbol, data));
         });
     }
@@ -24,7 +25,7 @@ public class ComponentGenerator : BaseGenerator, IIncrementalGenerator
     private string GenerateComponent(INamedTypeSymbol classSymbol, GeneratorData genData)
     {
         return new CodeBuilder()
-            .Usings(["Oxide.Ext.UiFramework.Types", "Oxide.Ext.UiFramework.Json", "Oxide.Ext.UiFramework.Interfaces"])
+            .Usings(["Oxide.Ext.UiFramework.Interfaces"])
             .Namespace(classSymbol.ContainingNamespace)
             .Add(t =>
             {
@@ -32,7 +33,7 @@ public class ComponentGenerator : BaseGenerator, IIncrementalGenerator
 
                     //Private Tracked Fields
                     .Fields(genData.Properties, (data, field) =>
-                        field.Protected().Readonly().Type(SymbolCache.Types.Tracked.Symbol.Construct(data.Type)).Name(data.PrivateFieldName).New(data.GetPropertyDefaults()))
+                        field.Protected().Readonly().Type(SymbolCache.Instance.Types.Tracked.Symbol.Construct(data.Type)).Name(data.PrivateFieldName).New(data.GetPropertyDefaults()))
 
                     //Public Properties
                     .Properties(genData.Properties, (data, property) => property.Public().Partial().Type(data.Type).Name(data.Name)
@@ -40,18 +41,8 @@ public class ComponentGenerator : BaseGenerator, IIncrementalGenerator
                         .Set($"{data.PrivateFieldName}.Value = value"))
 
                     //Explicit Tracked Interface Implementation Properties
-                    .Properties(genData.Properties, (data, property) => property.Type(SymbolCache.Types.Tracked.Symbol.Construct(data.Type)).Name($"{genData.TrackableInterfaceName}.{data.Name}")
+                    .Properties(genData.Properties, (data, property) => property.Type(SymbolCache.Instance.Types.Tracked.Symbol.Construct(data.Type)).Name($"{genData.TrackableInterfaceName}.{data.Name}")
                         .Get(data.PrivateFieldName))
-
-                    //Builder Methods
-                    .If(genData.GenerateBuilderMethods, builder => builder.Methods(genData.BuilderProperties, data => !data.SkipBuilder, (data, method) =>
-                        method.Public().Returns(genData.ClassSymbol).Name($"Set{data.Name}")
-                            .AddParameter(parameter => parameter.Type(data.Type).Name(data.Name)
-                                .If(data.Type.ShouldBePassedByIn(), p => p.In())
-                                .EndIf())
-                            .Body($"{data.Name} = {data.Name.ToCamelCase()};" +
-                                  $"\nreturn this;")))
-                    .EndIf()
 
                     //As Trackable Method
                     .If(!genData.ClassSymbol.IsAbstract, builder => builder.Method(method => method.Public()
@@ -89,21 +80,17 @@ public class ComponentGenerator : BaseGenerator, IIncrementalGenerator
         public readonly string ComponentInterfaceName;
         public readonly string TrackableInterfaceName;
         public readonly PropertyData[] Properties;
-        public readonly PropertyData[] BuilderProperties;
         public readonly PropertyData[] ChildComponentsProperties;
-        public readonly bool GenerateBuilderMethods;
         public readonly INamedTypeSymbol ParentComponent;
 
-        public GeneratorData(INamedTypeSymbol classSymbol, SymbolCache symbolCache)
+        public GeneratorData(INamedTypeSymbol classSymbol)
         {
             ClassSymbol = classSymbol;
             ComponentInterfaceName = classSymbol.GetInterface();
             TrackableInterfaceName = classSymbol.GetTrackableInterface();
             Properties = classSymbol.GetProperties().Where(p => p.IsPartialDefinition).Select(p => new PropertyData(p)).ToArray();
-            BuilderProperties = classSymbol.GetProperties().Where(p => p.IsPartialDefinition || p.HasAttribute<GenerateBuilderMethodAttribute>()).Select(p => new PropertyData(p)).ToArray();
-            GenerateBuilderMethods = classSymbol.HasAttribute<GenerateBuilderMethodsAttribute>();
             ParentComponent = classSymbol.GetParentWithAttribute<GenerateComponentAttribute>(s => !s.IsAbstract);
-            ChildComponentsProperties = classSymbol.GetProperties().Where(p => p.Type.AllInterfaces.Any(i => SymbolEqualityComparer.Default.Equals(i, symbolCache.Interfaces.IChildComponent.Symbol))).Select(p => new PropertyData(p)).ToArray();
+            ChildComponentsProperties = classSymbol.GetProperties().Where(p => p.Type.HasInterface("IComponent")).Select(p => new PropertyData(p)).ToArray();
         }
     }
     
@@ -111,7 +98,7 @@ public class ComponentGenerator : BaseGenerator, IIncrementalGenerator
     {
         public readonly string Name = property.Name;
         public readonly ITypeSymbol Type = property.Type;
-        public readonly string PrivateFieldName = property.Name.ToPrivateField();
+        public readonly string PrivateFieldName = property.ToPrivateField();
         public readonly AttributeData TrackedDefaults = property.GetAttribute<TrackedDefaultsAttribute>();
         public readonly bool SkipBuilder = property.HasAttribute<SkipBuilderAttribute>();
         

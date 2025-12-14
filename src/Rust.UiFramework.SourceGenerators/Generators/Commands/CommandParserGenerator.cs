@@ -16,7 +16,7 @@ public class CommandParserGenerator : BaseGenerator, IIncrementalGenerator
     {
         context.Register<ClassDeclarationSyntax>(c => c.Name.Equals("CommandParser") && c.ContainingNamespace.ToString() == "Oxide.Ext.UiFramework.Libraries", (spc, compilation, @class, classSymbol) =>
         {
-            InitializeCache(compilation);
+            SymbolCache.Initialize(compilation);
             spc.AddSource($"{classSymbol.Name}.g.cs", GenerateParser(classSymbol));
         });
     }
@@ -30,13 +30,13 @@ public class CommandParserGenerator : BaseGenerator, IIncrementalGenerator
             {
                 t.Internal().Class().Name(classSymbol.Name)
                     .AddGenerics(g => g.Generics(Enumerable.Range(0, args)), out GenericsBuilder generics)
-                    .AddParameter(p => p.Type(SymbolCache.Libraries.UiCommands.ICommandParserData.Symbol).Name("data"))
-                    .Extends(SymbolCache.Libraries.UiCommands.BaseCommandParser.Symbol).AddExtendParameter("data")
+                    .AddParameter(p => p.Type(SymbolCache.Instance.Libraries.UiCommands.ICommandParserData.Symbol).Name("data"))
+                    .Extends(SymbolCache.Instance.Libraries.UiCommands.BaseCommandParser.Symbol).AddExtendParameter("data")
                     
                     //Run Command Method
                     .Method(m => m.Protected().Override().Void().Name("RunCommandInternal")
-                        .AddParameter(p => p.Type(SymbolCache.Libraries.UiCommands.ExecutionData.Symbol).Name("data"))
-                        .AddParameter(p => p.Type(SymbolCache.Libraries.UiCommands.UiCommandTokenizer.Symbol).Name("args"))
+                        .AddParameter(p => p.Type(SymbolCache.Instance.Libraries.UiCommands.ExecutionData.Symbol).Name("data"))
+                        .AddParameter(p => p.Type(SymbolCache.Instance.Libraries.UiCommands.UiCommandTokenizer.Symbol).Name("args"))
                         .Body(GenerateBody(generics, args)));
 
             }).Build();
@@ -47,7 +47,7 @@ public class CommandParserGenerator : BaseGenerator, IIncrementalGenerator
         string parameterString = string.Join(", ", Enumerable.Range(0, args).Select(i => $"arg{i}"));
         
         StringBuilder sb = new();
-        sb.AppendLine($"{SymbolCache.Libraries.UiCommands.ArgReaderIterator.Symbol} iterator = GetReader();");
+        sb.AppendLine($"{SymbolCache.Instance.Libraries.UiCommands.ArgReaderIterator.Symbol} iterator = GetReader();");
         for (int i = 0; i < args; i++)
         {
             sb.AppendLine($"T{i} arg{i} = iterator.ParseNext<T{i}>(ref args);");
@@ -58,7 +58,7 @@ public class CommandParserGenerator : BaseGenerator, IIncrementalGenerator
         sb.AppendLine("\tcase ExecutorMode.Void:");
         sb.AppendLine($"\t\ttry");
         sb.AppendLine($"\t\t{{");
-        sb.AppendLine($"\t\t\t(({SymbolCache.Action.Symbol.AsGeneric([SymbolCache.Libraries.UiCommands.ExecutionData.Symbol.ToString(), ..generics])})Command.Delegate)(data, {parameterString});");
+        sb.AppendLine($"\t\t\t(({SymbolCache.Instance.Action.Symbol.AsGeneric([SymbolCache.Instance.Libraries.UiCommands.ExecutionData.Symbol.ToString(), ..generics])})Command.Delegate)(data, {parameterString});");
         sb.AppendLine($"\t\t}}");
         sb.AppendLine($"\t\tcatch (Exception ex)");
         sb.AppendLine($"\t\t{{");
@@ -70,10 +70,10 @@ public class CommandParserGenerator : BaseGenerator, IIncrementalGenerator
         sb.AppendLine($"\t\t}}");
         sb.AppendLine("\t\tbreak;");
         sb.AppendLine("\tcase ExecutorMode.Task:");
-        sb.AppendLine($"\t\tTaskExt.RunSafely((({SymbolCache.Func.Symbol.AsGeneric([SymbolCache.Libraries.UiCommands.ExecutionData.Symbol.ToString(), ..generics, SymbolCache.Task.Symbol.ToString()])})Command.Delegate)(data, {parameterString}), OnException, data);");
+        sb.AppendLine($"\t\tTaskExt.RunSafely((({SymbolCache.Instance.Func.Symbol.AsGeneric([SymbolCache.Instance.Libraries.UiCommands.ExecutionData.Symbol.ToString(), ..generics, SymbolCache.Instance.Task.Symbol.ToString()])})Command.Delegate)(data, {parameterString}), OnException, data);");
         sb.AppendLine("\t\tbreak;");
         sb.AppendLine("\tcase ExecutorMode.ValueTask:");
-        sb.AppendLine($"\t\tTaskExt.RunSafely((({SymbolCache.Func.Symbol.AsGeneric([SymbolCache.Libraries.UiCommands.ExecutionData.Symbol.ToString(), ..generics, SymbolCache.ValueTask.Symbol.ToString()])})Command.Delegate)(data, {parameterString}), OnException, data);");
+        sb.AppendLine($"\t\tTaskExt.RunSafely((({SymbolCache.Instance.Func.Symbol.AsGeneric([SymbolCache.Instance.Libraries.UiCommands.ExecutionData.Symbol.ToString(), ..generics, SymbolCache.Instance.ValueTask.Symbol.ToString()])})Command.Delegate)(data, {parameterString}), OnException, data);");
         sb.AppendLine("\t\tbreak;");
         sb.AppendLine("\tcase ExecutorMode.UniTask:");
         sb.AppendLine("\t\tbreak;");

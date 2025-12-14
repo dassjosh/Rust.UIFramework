@@ -3,6 +3,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Rust.UiFramework.SourceGenerators.Attributes;
 using Rust.UiFramework.SourceGenerators.Builder;
+using Rust.UiFramework.SourceGenerators.Extensions;
 using Rust.UiFramework.SourceGenerators.Helpers;
 
 namespace Rust.UiFramework.SourceGenerators.Generators.Json;
@@ -14,8 +15,8 @@ public class JsonFrameworkGenerator : BaseGenerator, IIncrementalGenerator
     {
         context.Register<ClassDeclarationSyntax, GenerateJsonWriterAttribute>((spc, compilation, @class, classSymbol, attribute) =>
         {
-            InitializeCache(compilation);
-            GeneratorData data = new(SymbolCache);
+            SymbolCache.Initialize(compilation);
+            GeneratorData data = new();
             spc.AddSource($"{classSymbol.Name}.g.cs", GenerateJsonWriter(classSymbol, data));
         });
     }
@@ -23,7 +24,6 @@ public class JsonFrameworkGenerator : BaseGenerator, IIncrementalGenerator
     private string GenerateJsonWriter(INamedTypeSymbol classSymbol, GeneratorData genData)
     {
         return new CodeBuilder()
-            //.Usings(["Oxide.Ext.UiFramework.Types", "Oxide.Ext.UiFramework.Json", "Oxide.Ext.UiFramework.Interfaces"])
             .Namespace(classSymbol.ContainingNamespace)
             .Add(t =>
             {
@@ -31,7 +31,7 @@ public class JsonFrameworkGenerator : BaseGenerator, IIncrementalGenerator
 
                     .Methods(genData.AddFieldTypes, (type, method) =>
                         method.Public().Void().Name("AddField")
-                            .AddParameter(parameter => parameter.Type(SymbolCache.Types.Utf8String.Symbol).Name("name"))
+                            .AddParameter(parameter => parameter.Type(SymbolCache.Instance.Types.Utf8String.Symbol).Name("name"))
                             .AddParameter(parameter => parameter.Type(type).Name("value")
                                 .If(type.ShouldBePassedByIn(), p => p.In())
                                 .EndIf())
@@ -42,7 +42,7 @@ public class JsonFrameworkGenerator : BaseGenerator, IIncrementalGenerator
                     
                     .Methods(genData.AddDefaultValueTypes, (type, method) =>
                         method.Public().Void().Name("AddField")
-                            .AddParameter(parameter => parameter.Type(SymbolCache.Types.Utf8String.Symbol).Name("name"))
+                            .AddParameter(parameter => parameter.Type(SymbolCache.Instance.Types.Utf8String.Symbol).Name("name"))
                             .AddParameter(parameter => parameter.Type(type).Name("value")
                                 .If(type.ShouldBePassedByIn(), p => p.In())
                                 .EndIf())
@@ -59,9 +59,9 @@ public class JsonFrameworkGenerator : BaseGenerator, IIncrementalGenerator
                             
                     .Methods(genData.AddTrackedTypes, (type, method) =>
                         method.Public().Void().Name("AddField")
-                            .AddParameter(parameter => parameter.Type(SymbolCache.Types.Utf8String.Symbol).Name("name"))
-                            .AddParameter(parameter => parameter.Type(SymbolCache.Types.Tracked.Symbol.Construct(type)).Name("value"))
-                            .AddParameter(parameter => parameter.Type(SymbolCache.Enums.SerializeMode.Symbol).Name("mode"))
+                            .AddParameter(parameter => parameter.Type(SymbolCache.Instance.Types.Utf8String.Symbol).Name("name"))
+                            .AddParameter(parameter => parameter.Type(SymbolCache.Instance.Types.Tracked.Symbol.Construct(type)).Name("value"))
+                            .AddParameter(parameter => parameter.Type(SymbolCache.Instance.Enums.SerializeMode.Symbol).Name("mode"))
                             .Body("""
                                   if (value.ShouldSerialize(mode))
                                   {
@@ -79,8 +79,9 @@ public class JsonFrameworkGenerator : BaseGenerator, IIncrementalGenerator
         public readonly INamedTypeSymbol[] AddDefaultValueTypes;
         public readonly INamedTypeSymbol[] AddTrackedTypes;
 
-        public GeneratorData(SymbolCache cache)
+        public GeneratorData()
         {
+            SymbolCache cache = SymbolCache.Instance;
             CommonFieldTypes = [cache.Byte.Symbol, cache.SByte.Symbol, cache.Char.Symbol, cache.Bool.Symbol, cache.Int16.Symbol, cache.UInt16.Symbol, cache.Int32.Symbol, cache.UInt32.Symbol, cache.Int64.Symbol, 
                 cache.UInt64.Symbol, cache.Float.Symbol, cache.String.Symbol, cache.Types.UiColor.Symbol, cache.Types.UiRotation.Symbol, cache.Types.UiBorderWidth.Symbol, cache.Types.UiPadding.Symbol,
                 cache.Vector2.Symbol, cache.Types.Utf8String.Symbol];

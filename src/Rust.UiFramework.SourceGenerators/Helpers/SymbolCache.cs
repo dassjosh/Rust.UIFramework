@@ -23,12 +23,16 @@ public class SymbolCache
     public readonly DotNetSymbolCache Task = new("System.Threading.Tasks.Task");
     public readonly DotNetSymbolCache ValueTask = new("System.Threading.Tasks.ValueTask");
     public readonly DotNetSymbolCache Vector2 = new("UnityEngine.Vector2");
+    public readonly DotNetSymbolCache MethodImpl = new("System.Runtime.CompilerServices.MethodImplAttribute");
+    public readonly DotNetSymbolCache MethodImplOptions = new("System.Runtime.CompilerServices.MethodImplOptions");
 
     public readonly EnumCache Enums;
     public readonly InterfacesCache Interfaces;
     public readonly LibrariesCache Libraries;
     public readonly PluginsCache Plugins;
     public readonly TypesCache Types;
+
+    public static SymbolCache Instance;
 
     public SymbolCache(Compilation compilation)
     {
@@ -41,6 +45,8 @@ public class SymbolCache
         InitializeSymbols(this, compilation);
     }
 
+    public static void Initialize(Compilation compilation) => Instance ??= new SymbolCache(compilation);
+    
     private static void InitializeSymbols(object instance, Compilation compilation)
     {
         FieldInfo[] fields = instance.GetType().GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
@@ -135,6 +141,7 @@ public class SymbolCache
     
     public class InterfacesCache
     {
+        public readonly FrameworkSymbolCache IComponent = new("Interfaces.IComponent");
         public readonly FrameworkSymbolCache IChildComponent = new("Interfaces.IChildComponent");
         
         public InterfacesCache(Compilation compilation)

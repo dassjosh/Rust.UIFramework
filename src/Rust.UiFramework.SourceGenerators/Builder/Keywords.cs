@@ -3,7 +3,7 @@
 namespace Rust.UiFramework.SourceGenerators.Builder;
 
 [Flags]
-public enum Keywords : ushort
+public enum Keywords
 {
     None        = 0,
     Static      = 1 << 0,
