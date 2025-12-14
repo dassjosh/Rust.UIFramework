@@ -7,15 +7,15 @@ using Microsoft.CodeAnalysis;
 
 namespace Rust.UiFramework.SourceGenerators.Builder;
 
-public class TypeBuilder : IType, IAccessModifiers, IKeywords, IBuildable, IGenerics, IAttributes
+public class TypeBuilder : IType, IAccessModifiers, IKeywords, IBuildable, IGenerics, IAttributes, IParameters
 {
     AccessModifiers IAccessModifiers.AccessModifiers { get; set; }
     Keywords IKeywords.Keywords { get; set; }
     Type IType.Type { get; set; }
-    GenericsBuilder IGenerics.Generics => _generics;
-    List<AttributeBuilder> IAttributes.Attributes => _attributes;
-
-    private readonly List<AttributeBuilder> _attributes = [];
+    GenericsBuilder IGenerics.Generics { get; set; }
+    List<AttributeBuilder> IAttributes.Attributes { get; set; }
+    List<ParameterBuilder> IParameters.Parameters { get; set; }
+    
     private string _extends;
     private readonly List<string> _implements = [];
     private readonly List<WhereBuilder> _where = [];
@@ -23,39 +23,13 @@ public class TypeBuilder : IType, IAccessModifiers, IKeywords, IBuildable, IGene
     private readonly List<PropertyBuilder> _properties = [];
     private readonly List<MethodBuilder> _methods = [];
     private readonly List<TypeBuilder> _types = [];
-    private List<ParameterBuilder> _parameters;
     private List<string> _extendsParameters;
-    private GenericsBuilder _generics;
 
     private string _name;
     
     public TypeBuilder Name(string name)
     {
         _name = name;
-        return this;
-    }
-    
-    public TypeBuilder AddGeneric(string type, out string generic)
-    {
-        _generics ??= new GenericsBuilder();
-        _generics.Generic(type);
-        generic = type;
-        return this;
-    }
-    
-    public TypeBuilder AddGenerics(Action<GenericsBuilder> generics)
-    {
-        GenericsBuilder builder = new();
-        generics(builder);
-        _generics = builder;
-        return this;
-    }
-    
-    public TypeBuilder AddGenerics(Action<GenericsBuilder> generics, out GenericsBuilder builder)
-    {
-        builder = new GenericsBuilder();
-        generics(builder);
-        _generics = builder;
         return this;
     }
     
@@ -137,7 +111,7 @@ public class TypeBuilder : IType, IAccessModifiers, IKeywords, IBuildable, IGene
         return this;
     }
     
-    public TypeBuilder Properties<T>(IEnumerable<T> fields, Func<T, bool> filter, Action<T, PropertyBuilder> property) => Properties(fields.Where(filter), property);
+    public TypeBuilder Properties<T>(IEnumerable<T> properties, Func<T, bool> filter, Action<T, PropertyBuilder> property) => Properties(properties.Where(filter), property);
 
     public TypeBuilder Method(Action<MethodBuilder> method)
     {
@@ -156,7 +130,7 @@ public class TypeBuilder : IType, IAccessModifiers, IKeywords, IBuildable, IGene
         return this;
     }
     
-    public TypeBuilder Methods<T>(IEnumerable<T> fields, Func<T, bool> filter, Action<T, MethodBuilder> method) => Methods(fields.Where(filter), method);
+    public TypeBuilder Methods<T>(IEnumerable<T> methods, Func<T, bool> filter, Action<T, MethodBuilder> method) => Methods(methods.Where(filter), method);
     
     public TypeBuilder Type(Action<TypeBuilder> type)
     {
@@ -174,49 +148,19 @@ public class TypeBuilder : IType, IAccessModifiers, IKeywords, IBuildable, IGene
         _types.Add(builder);
         return this;
     }
-    
-    public TypeBuilder AddParameter(Action<ParameterBuilder> parameter)
-    {
-        ParameterBuilder builder = new();
-        parameter(builder);
-        _parameters ??= [];
-        _parameters.Add(builder);
-        return this;
-    }
-    
-    public TypeBuilder AddParameters<T>(IEnumerable<T> parameters, Action<T, ParameterBuilder> parameter)
-    {
-        foreach (T data in parameters)
-        {
-            ParameterBuilder builder = new();
-            parameter(data, builder);
-            _parameters ??= [];
-            _parameters.Add(builder);
-        }
-        return this;
-    }
 
     public string Build(int indent)
     {
         StringBuilder sb = new();
         this.BuildAttributes(sb, indent, "\n");
         sb.Append('\t', indent);
-        sb.Append(this.GetAccessModifiers());
-        sb.Append(this.GetKeywords());
-        sb.Append(this.GetDeclaredType());
+        this.BuildAccessModifiers(sb);
+        this.BuildKeywords(sb);
+        this.BuildDeclaredType(sb);
         sb.Append(' ');
         sb.Append(_name);
-        if (_generics != null)
-        {
-            sb.Append($"<{_generics.Build(0)}>");
-        }
-
-        if (_parameters != null)
-        {
-            sb.Append('(');
-            sb.Append(string.Join(", ", _parameters.Select(p => p.Build(indent))));
-            sb.Append(')');
-        }
+        this.BuildGenerics(sb);
+        this.BuildParameters(sb, indent);
 
         if (!string.IsNullOrEmpty(_extends) || _implements.Count != 0)
         {

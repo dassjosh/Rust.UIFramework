@@ -10,6 +10,7 @@ public static class IAttributesExt
         public T AddAttribute(Action<AttributeBuilder> attribute)
         {
             AttributeBuilder builder = new();
+            attributes.Attributes ??= [];
             attributes.Attributes.Add(builder);
             attribute(builder);
             return attributes;
@@ -17,10 +18,13 @@ public static class IAttributesExt
 
         public void BuildAttributes(StringBuilder sb, int indent, string separator)
         {
-            foreach (AttributeBuilder builder in attributes.Attributes)
+            if (attributes.Attributes is { Count: > 0 })
             {
-                sb.Append(builder.Build(indent));
-                sb.Append(separator);
+                foreach (AttributeBuilder builder in attributes.Attributes)
+                {
+                    sb.Append(builder.Build(indent));
+                    sb.Append(separator);
+                }
             }
         }
     }

@@ -2,5 +2,5 @@
 
 public interface IGenerics
 {
-    GenericsBuilder Generics { get;}
+    GenericsBuilder Generics { get; set; }
 }

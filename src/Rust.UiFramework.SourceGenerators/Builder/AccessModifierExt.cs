@@ -2,7 +2,7 @@
 
 namespace Rust.UiFramework.SourceGenerators.Builder;
 
-internal static class AccessModifierExt 
+internal static class AccessModifierExt
 {
     extension<T>(T accessModifiers) where T : IAccessModifiers
     {
@@ -29,27 +29,25 @@ internal static class AccessModifierExt
             accessModifiers.AccessModifiers |= AccessModifiers.Internal;
             return accessModifiers;
         }
-    }
 
-    public static string GetAccessModifiers(this IAccessModifiers accessModifiers)
-    {
-        StringBuilder sb = new();
-        if (accessModifiers.AccessModifiers.HasFlag(AccessModifiers.Public))
+        public void BuildAccessModifiers(StringBuilder sb)
         {
-            sb.Append("public ");
+            if (accessModifiers.AccessModifiers.HasFlag(AccessModifiers.Public))
+            {
+                sb.Append("public ");
+            }
+            else if (accessModifiers.AccessModifiers.HasFlag(AccessModifiers.Private))
+            {
+                sb.Append("private ");
+            }
+            else if (accessModifiers.AccessModifiers.HasFlag(AccessModifiers.Protected))
+            {
+                sb.Append("protected ");
+            }
+            else if (accessModifiers.AccessModifiers.HasFlag(AccessModifiers.Internal))
+            {
+                sb.Append("internal ");
+            }
         }
-        else if (accessModifiers.AccessModifiers.HasFlag(AccessModifiers.Private))
-        {
-            sb.Append("private ");
-        }
-        else if (accessModifiers.AccessModifiers.HasFlag(AccessModifiers.Protected))
-        {
-            sb.Append("protected ");
-        }
-        else if (accessModifiers.AccessModifiers.HasFlag(AccessModifiers.Internal))
-        {
-            sb.Append("internal ");
-        }
-        return sb.ToString();
     }
 }

@@ -101,75 +101,73 @@ internal static class KeywordExt
             type.Keywords |= Keywords.Partial;
             return type;
         }
-    }
-
-    public static string GetKeywords(this IKeywords keywords)
-    {
-        StringBuilder sb = new();
-        if (keywords.Keywords.HasFlag(Keywords.Static))
+        
+        public void BuildKeywords(StringBuilder sb)
         {
-            sb.Append("static ");
+            if (type.Keywords.HasFlag(Keywords.Static))
+            {
+                sb.Append("static ");
+            }
+            if (type.Keywords.HasFlag(Keywords.Extern))
+            {
+                sb.Append("extern ");
+            }
+            if (type.Keywords.HasFlag(Keywords.Unsafe))
+            {
+                sb.Append("unsafe ");
+            }
+            if (type.Keywords.HasFlag(Keywords.Abstract))
+            {
+                sb.Append("abstract ");
+            }
+            if (type.Keywords.HasFlag(Keywords.Virtual))
+            {
+                sb.Append("virtual ");
+            }
+            if (type.Keywords.HasFlag(Keywords.Override))
+            {
+                sb.Append("override ");
+            }
+            if (type.Keywords.HasFlag(Keywords.Sealed))
+            {
+                sb.Append("sealed ");
+            }
+            if (type.Keywords.HasFlag(Keywords.Async))
+            {
+                sb.Append("async ");
+            }
+            if (type.Keywords.HasFlag(Keywords.New))
+            {
+                sb.Append("new ");
+            }
+            if (type.Keywords.HasFlag(Keywords.Readonly))
+            {
+                sb.Append("readonly ");
+            }
+            if (type.Keywords.HasFlag(Keywords.Volatile))
+            {
+                sb.Append("volatile ");
+            }
+            if (type.Keywords.HasFlag(Keywords.Const))
+            {
+                sb.Append("const ");
+            }
+            if (type.Keywords.HasFlag(Keywords.Event))
+            {
+                sb.Append("event ");
+            }
+            if (type.Keywords.HasFlag(Keywords.In))
+            {
+                sb.Append("in ");
+            }
+            if (type.Keywords.HasFlag(Keywords.Out))
+            {
+                sb.Append("out ");
+            }
+            if (type.Keywords.HasFlag(Keywords.Partial))
+            {
+                sb.Append("partial ");
+            }
         }
-        if (keywords.Keywords.HasFlag(Keywords.Extern))
-        {
-            sb.Append("extern ");
-        }
-        if (keywords.Keywords.HasFlag(Keywords.Unsafe))
-        {
-            sb.Append("unsafe ");
-        }
-        if (keywords.Keywords.HasFlag(Keywords.Abstract))
-        {
-            sb.Append("abstract ");
-        }
-        if (keywords.Keywords.HasFlag(Keywords.Virtual))
-        {
-            sb.Append("virtual ");
-        }
-        if (keywords.Keywords.HasFlag(Keywords.Override))
-        {
-            sb.Append("override ");
-        }
-        if (keywords.Keywords.HasFlag(Keywords.Sealed))
-        {
-            sb.Append("sealed ");
-        }
-        if (keywords.Keywords.HasFlag(Keywords.Async))
-        {
-            sb.Append("async ");
-        }
-        if (keywords.Keywords.HasFlag(Keywords.New))
-        {
-            sb.Append("new ");
-        }
-        if (keywords.Keywords.HasFlag(Keywords.Readonly))
-        {
-            sb.Append("readonly ");
-        }
-        if (keywords.Keywords.HasFlag(Keywords.Volatile))
-        {
-            sb.Append("volatile ");
-        }
-        if (keywords.Keywords.HasFlag(Keywords.Const))
-        {
-            sb.Append("const ");
-        }
-        if (keywords.Keywords.HasFlag(Keywords.Event))
-        {
-            sb.Append("event ");
-        }
-        if (keywords.Keywords.HasFlag(Keywords.In))
-        {
-            sb.Append("in ");
-        }
-        if (keywords.Keywords.HasFlag(Keywords.Out))
-        {
-            sb.Append("out ");
-        }
-        if (keywords.Keywords.HasFlag(Keywords.Partial))
-        {
-            sb.Append("partial ");
-        }
-        return sb.ToString();
     }
 }

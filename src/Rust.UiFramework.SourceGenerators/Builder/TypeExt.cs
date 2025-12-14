@@ -1,4 +1,6 @@
-﻿namespace Rust.UiFramework.SourceGenerators.Builder;
+﻿using System.Text;
+
+namespace Rust.UiFramework.SourceGenerators.Builder;
 
 internal static class TypeExt
 {
@@ -41,26 +43,30 @@ internal static class TypeExt
         }
 
         public bool IsType(Type matchType) => type.Type == matchType;
-    }
-
-    public static string GetDeclaredType(this IType type)
-    {
-        switch (type.Type)
+        
+        public void BuildDeclaredType(StringBuilder sb)
         {
-            case Type.Class:
-                return "class";
-            case Type.Struct:
-                return "struct";
-            case Type.Interface:
-                return "interface";
-            case Type.Enum:
-                return "enum";
-            case Type.Delegate:
-                return "delegate";
-            case Type.Extension:
-                return "extension";
-            default:
-                return "";
+            switch (type.Type)
+            {
+                case Type.Class:
+                    sb.Append("class");
+                    break;
+                case Type.Struct:
+                    sb.Append("struct");
+                    break;
+                case Type.Interface:
+                    sb.Append("interface");
+                    break;
+                case Type.Enum:
+                    sb.Append("enum");
+                    break;
+                case Type.Delegate:
+                    sb.Append("delegate");
+                    break;
+                case Type.Extension:
+                    sb.Append("extension");
+                    break;
+            }
         }
     }
 }

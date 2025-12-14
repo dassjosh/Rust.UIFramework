@@ -60,8 +60,8 @@ public class PropertyBuilder : IBuildable, IAccessModifiers, IKeywords
     {
         StringBuilder sb = new();
         sb.Append('\t', indent);
-        sb.Append(this.GetAccessModifiers());
-        sb.Append(this.GetKeywords());
+        this.BuildAccessModifiers(sb);
+        this.BuildKeywords(sb);
         sb.Append($"{_type} {_name}");
 
         if (CanLambda())

@@ -6,20 +6,18 @@ using Microsoft.CodeAnalysis;
 
 namespace Rust.UiFramework.SourceGenerators.Builder;
 
-public class MethodBuilder : IBuildable, IAccessModifiers, IKeywords, IGenerics, IAttributes
+public class MethodBuilder : IBuildable, IAccessModifiers, IKeywords, IGenerics, IAttributes, IParameters
 {
     AccessModifiers IAccessModifiers.AccessModifiers { get; set; }
     Keywords IKeywords.Keywords { get; set; }
-    GenericsBuilder IGenerics.Generics => _generics;
-    List<AttributeBuilder> IAttributes.Attributes => _attributes;
+    GenericsBuilder IGenerics.Generics { get; set; }
+    List<ParameterBuilder> IParameters.Parameters { get; set; } = [];
+    List<AttributeBuilder> IAttributes.Attributes { get; set; }
 
     private string _name;
     private string _returnType;
     private string _body;
-    private GenericsBuilder _generics;
     private readonly List<WhereBuilder> _where = [];
-    private readonly List<ParameterBuilder> _parameters = [];
-    private readonly List<AttributeBuilder> _attributes = [];
     
     public MethodBuilder Returns(INamedTypeSymbol symbol) => Returns(symbol.ToString());
     
@@ -36,37 +34,6 @@ public class MethodBuilder : IBuildable, IAccessModifiers, IKeywords, IGenerics,
         _name = name;
         return this;
     }
-
-    public MethodBuilder AddGenerics(Action<GenericsBuilder> generics) => AddGenerics(generics, out GenericsBuilder _);
-
-    public MethodBuilder AddGenerics(Action<GenericsBuilder> generics, out GenericsBuilder builder)
-    {
-        builder = new GenericsBuilder();
-        generics(builder);
-        _generics = builder;
-        return this;
-    }
-
-    public MethodBuilder AddParameter(Action<ParameterBuilder> parameter)
-    {
-        ParameterBuilder builder = new();
-        parameter(builder);
-        _parameters.Add(builder);
-        return this;
-    }
-    
-    public MethodBuilder AddParameters<T>(IEnumerable<T> parameters, Action<T, ParameterBuilder> parameter)
-    {
-        foreach (T data in parameters)
-        {
-            ParameterBuilder builder = new();
-            parameter(data, builder);
-            _parameters.Add(builder);
-        }
-        return this;
-    }
-    
-    public IEnumerable<ParameterBuilder> Parameters => _parameters.Select(p => p);
     
     public MethodBuilder Where(Action<WhereBuilder> where)
     {
@@ -95,8 +62,8 @@ public class MethodBuilder : IBuildable, IAccessModifiers, IKeywords, IGenerics,
         StringBuilder sb = new();
         this.BuildAttributes(sb, indent, "\r\n");
         sb.Append('\t', indent);
-        sb.Append(this.GetAccessModifiers());
-        sb.Append(this.GetKeywords());
+        this.BuildAccessModifiers(sb);
+        this.BuildKeywords(sb);
         if (!string.IsNullOrEmpty(_returnType))
         {
             sb.Append(_returnType);
@@ -108,14 +75,8 @@ public class MethodBuilder : IBuildable, IAccessModifiers, IKeywords, IGenerics,
         }
 
         sb.Append(_name);
-        if (_generics != null && _generics.Count != 0)
-        {
-            sb.Append($"<{_generics.Build(0)}>");
-        }
-
-        sb.Append('(');
-        sb.Append(string.Join(", ", _parameters.Select(p => p.Build(indent))));
-        sb.Append(')');
+        this.BuildGenerics(sb);
+        this.BuildParameters(sb, indent);
         
         foreach (WhereBuilder builder in _where)
         {

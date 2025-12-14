@@ -2,7 +2,7 @@
 
 namespace Rust.UiFramework.SourceGenerators.Builder;
 
-public interface IAttributes
+public interface IParameters
 {
-    List<AttributeBuilder> Attributes { get; set; }
+    List<ParameterBuilder> Parameters { get; set; }
 }
