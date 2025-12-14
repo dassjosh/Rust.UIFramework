@@ -6,18 +6,18 @@ using Microsoft.CodeAnalysis;
 
 namespace Rust.UiFramework.SourceGenerators.Builder;
 
-public class MethodBuilder : IBuildable, IAccessModifiers, IKeywords, IGenerics, IAttributes, IParameters
+public class MethodBuilder : IBuildable, IAccessModifiers, IKeywords, IGenerics, IAttributes, IParameters, IWhereBuildable
 {
     AccessModifiers IAccessModifiers.AccessModifiers { get; set; }
     Keywords IKeywords.Keywords { get; set; }
     GenericsBuilder IGenerics.Generics { get; set; }
     List<ParameterBuilder> IParameters.Parameters { get; set; } = [];
     List<AttributeBuilder> IAttributes.Attributes { get; set; }
+    List<WhereBuilder> IWhereBuildable.Where { get; set; }
 
     private string _name;
     private string _returnType;
     private string _body;
-    private readonly List<WhereBuilder> _where = [];
     
     public MethodBuilder Returns(INamedTypeSymbol symbol) => Returns(symbol.ToString());
     
@@ -32,14 +32,6 @@ public class MethodBuilder : IBuildable, IAccessModifiers, IKeywords, IGenerics,
     public MethodBuilder Name(string name)
     {
         _name = name;
-        return this;
-    }
-    
-    public MethodBuilder Where(Action<WhereBuilder> where)
-    {
-        WhereBuilder builder = new();
-        _where.Add(builder);
-        where(builder);
         return this;
     }
     
@@ -77,11 +69,7 @@ public class MethodBuilder : IBuildable, IAccessModifiers, IKeywords, IGenerics,
         sb.Append(_name);
         this.BuildGenerics(sb);
         this.BuildParameters(sb, indent);
-        
-        foreach (WhereBuilder builder in _where)
-        {
-            sb.Append(builder.Build(indent));
-        }
+        this.BuildWhere(sb, indent);
 
         if (_body == null)
         {
@@ -122,13 +110,5 @@ public class MethodBuilder : IBuildable, IAccessModifiers, IKeywords, IGenerics,
         return sb.ToString();
     }
 
-    private bool CanLambda()
-    {
-        if (_body.Count(c => c == ';') > 1)
-        {
-            return false;
-        }
-
-        return true;
-    }
+    private bool CanLambda() => _body.Count(c => c == ';') <= 1;
 }

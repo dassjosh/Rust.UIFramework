@@ -11,42 +11,49 @@ public static class WhereConstraintExt
     {
         public T Class()
         {
+            builder.Constraints ??= [];
             builder.Constraints.Add(WhereConstraint.Class);
             return builder;
         }
     
         public T Struct()
         {
+            builder.Constraints ??= [];
             builder.Constraints.Add(WhereConstraint.Struct);
             return builder;
         }
     
         public T Unmanaged()
         {
+            builder.Constraints ??= [];
             builder.Constraints.Add(WhereConstraint.Unmanaged);
             return builder;
         }
     
         public T New()
         {
+            builder.Constraints ??= [];
             builder.Constraints.Add(WhereConstraint.New);
             return builder;
         }
     
         public T NotNull()
         {
+            builder.Constraints ??= [];
             builder.Constraints.Add(WhereConstraint.NotNull);
             return builder;
         }
     
         public T AllowsRefStruct()
         {
+            builder.Constraints ??= [];
             builder.Constraints.Add(WhereConstraint.AllowsRefStruct);
             return builder;
         }
 
         public T Constrain(string type)
         {
+            builder.TypeConstraints ??= [];
             builder.TypeConstraints.Add(type);
             return builder;
         }
@@ -55,17 +62,19 @@ public static class WhereConstraintExt
         
         public string GetConstraints()
         {
-            return string.Join(", ", builder.GetPrefixConstraints().Concat(builder.TypeConstraints).Concat(builder.GetSuffixConstraints()));
+            return string.Join(", ", builder.GetPrefixConstraints()
+                .Concat(builder.TypeConstraints ?? [])
+                .Concat(builder.GetSuffixConstraints()));
         }
     
         private IEnumerable<string> GetPrefixConstraints()
         {
-            return builder.Constraints.Where(c => c is not WhereConstraint.New).Select(GetConstraintsText);
+            return builder.Constraints?.Where(c => c is not WhereConstraint.New).Select(GetConstraintsText) ?? [];
         }
 
         private IEnumerable<string> GetSuffixConstraints()
         {
-            return builder.Constraints.Where(c => c is WhereConstraint.New).Select(GetConstraintsText);
+            return builder.Constraints?.Where(c => c is WhereConstraint.New).Select(GetConstraintsText) ?? [];
         }
     }
     

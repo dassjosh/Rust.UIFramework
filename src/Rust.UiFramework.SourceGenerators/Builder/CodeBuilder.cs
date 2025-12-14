@@ -11,11 +11,8 @@ public class CodeBuilder
     private string _namespace;
     private readonly List<IBuildable> _buildables = [];
     
-    public static CodeBuilder Create()
-    {
-        return new CodeBuilder();
-    }
-    
+    public static CodeBuilder Create() => new();
+
     public CodeBuilder Using(string @using)
     {
         _usings.Add(@using);

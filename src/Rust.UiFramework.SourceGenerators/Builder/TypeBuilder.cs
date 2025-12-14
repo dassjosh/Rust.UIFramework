@@ -7,7 +7,7 @@ using Microsoft.CodeAnalysis;
 
 namespace Rust.UiFramework.SourceGenerators.Builder;
 
-public class TypeBuilder : IType, IAccessModifiers, IKeywords, IBuildable, IGenerics, IAttributes, IParameters
+public class TypeBuilder : IType, IAccessModifiers, IKeywords, IBuildable, IGenerics, IAttributes, IParameters, IWhereBuildable
 {
     AccessModifiers IAccessModifiers.AccessModifiers { get; set; }
     Keywords IKeywords.Keywords { get; set; }
@@ -15,10 +15,10 @@ public class TypeBuilder : IType, IAccessModifiers, IKeywords, IBuildable, IGene
     GenericsBuilder IGenerics.Generics { get; set; }
     List<AttributeBuilder> IAttributes.Attributes { get; set; }
     List<ParameterBuilder> IParameters.Parameters { get; set; }
+    List<WhereBuilder> IWhereBuildable.Where { get; set; }
     
     private string _extends;
     private readonly List<string> _implements = [];
-    private readonly List<WhereBuilder> _where = [];
     private readonly List<FieldBuilder> _fields = [];
     private readonly List<PropertyBuilder> _properties = [];
     private readonly List<MethodBuilder> _methods = [];
@@ -64,14 +64,6 @@ public class TypeBuilder : IType, IAccessModifiers, IKeywords, IBuildable, IGene
     {
         _extendsParameters ??= [];
         _extendsParameters.AddRange(parameters);
-        return this;
-    }
-
-    public TypeBuilder Where(Action<WhereBuilder> where)
-    {
-        WhereBuilder builder = new();
-        _where.Add(builder);
-        where(builder);
         return this;
     }
 
@@ -189,10 +181,7 @@ public class TypeBuilder : IType, IAccessModifiers, IKeywords, IBuildable, IGene
             sb.Append(string.Join(", ", _implements));
         }
 
-        foreach (WhereBuilder builder in _where)
-        {
-            sb.Append(builder.Build(indent));
-        }
+        this.BuildWhere(sb, indent);
 
         sb.AppendLine();
         
@@ -210,7 +199,7 @@ public class TypeBuilder : IType, IAccessModifiers, IKeywords, IBuildable, IGene
         return sb.ToString();
     }
 
-    private void ProcessBuildable<T>(List<T> buildables, StringBuilder sb, int indent, ref bool hasAdded, bool spaceBetween) where T : IBuildable
+    private static void ProcessBuildable<T>(List<T> buildables, StringBuilder sb, int indent, ref bool hasAdded, bool spaceBetween) where T : IBuildable
     {
         if (buildables.Count != 0)
         {
