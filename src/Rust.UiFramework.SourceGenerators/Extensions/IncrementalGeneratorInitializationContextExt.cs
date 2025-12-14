@@ -46,22 +46,11 @@ public static class IncrementalGeneratorInitializationContextExt
                     catch (Exception ex)
                     {
                         spc.ReportDiagnostic(Diagnostic.Create(ErrorDiagnostic, Location.None, $"{ex.StackTrace}"));
-                       // throw;
                     }
                 }
             }
         });
     }
-
-
-    private static readonly DiagnosticDescriptor ErrorDiagnostic =
-        new(
-            id: "UIS001",
-            title: "Source Generator Exception",
-            messageFormat: "An error occurred in the source generator: {0}",
-            category: "SourceGenerator",
-            DiagnosticSeverity.Error, true);
-
     
     public static void Register<T>(this IncrementalGeneratorInitializationContext context, Predicate<INamedTypeSymbol> predicate,
         Action<SourceProductionContext, Compilation, T, INamedTypeSymbol> callback) 
@@ -81,9 +70,25 @@ public static class IncrementalGeneratorInitializationContextExt
                 LoggingHelper.Log($"{symbol.Name} - {symbol.ContainingNamespace}");
                 if (predicate.Invoke(symbol))
                 {
-                    callback(spc, compilation, node, symbol);
+                    try
+                    {
+                        callback(spc, compilation, node, symbol);
+                    }
+                    catch (Exception ex)
+                    {
+                        spc.ReportDiagnostic(Diagnostic.Create(ErrorDiagnostic, Location.None, $"{ex.StackTrace}"));
+                    }
                 }
             }
         });
+        
     }
+    
+    private static readonly DiagnosticDescriptor ErrorDiagnostic =
+        new(
+            id: "UIS001",
+            title: "Source Generator Exception",
+            messageFormat: "An error occurred in the source generator: {0}",
+            category: "SourceGenerator",
+            DiagnosticSeverity.Error, true);
 }

@@ -161,21 +161,17 @@ public class SymbolCache
 
     public sealed class FrameworkSymbolCache(string type) : BaseSymbolCacheData
     {
-        protected override INamedTypeSymbol RegisterInternal(Compilation compilation) =>
-            compilation.GetTypeByMetadataName($"Oxide.Ext.UiFramework.{type}")
-            ?? throw new InvalidOperationException($"Failed to find symbol 'Oxide.Ext.UiFramework.{type}'");
+        protected override INamedTypeSymbol RegisterInternal(Compilation compilation)
+            => compilation.GetTypeByMetadataName($"Oxide.Ext.UiFramework.{type}") ?? throw new InvalidOperationException($"Failed to find symbol 'Oxide.Ext.UiFramework.{type}'");
     }
 
     public sealed class SpecialSymbolCache(SpecialType type) : BaseSymbolCacheData
     {
-        protected override INamedTypeSymbol RegisterInternal(Compilation compilation) =>
-            compilation.GetSpecialType(type);
+        protected override INamedTypeSymbol RegisterInternal(Compilation compilation) => compilation.GetSpecialType(type);
     }
 
     public sealed class DotNetSymbolCache(string type) : BaseSymbolCacheData
     {
-        protected override INamedTypeSymbol RegisterInternal(Compilation compilation) =>
-            compilation.GetTypeByMetadataName(type)
-            ?? throw new InvalidOperationException($"Failed to find symbol '{type}'");
+        protected override INamedTypeSymbol RegisterInternal(Compilation compilation) => compilation.GetTypeByMetadataName(type) ?? throw new InvalidOperationException($"Failed to find symbol '{type}'");
     }
 }

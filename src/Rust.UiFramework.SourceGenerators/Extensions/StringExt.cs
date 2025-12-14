@@ -13,8 +13,6 @@ public static class StringExt
         
             return char.ToLower(value[0]) + value[1..];
         }
-
-
         
         public bool ContainsAny(char[] chars)
         {
