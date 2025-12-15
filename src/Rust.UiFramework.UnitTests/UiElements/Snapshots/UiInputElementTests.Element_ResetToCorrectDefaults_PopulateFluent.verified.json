@@ -1,9 +1,0 @@
-﻿{
-  "Enabled": true,
-  "FontSize": 14,
-  "Input": {
-    "Enabled": true,
-    "FontSize": 14,
-    "Type": "UnityEngine.UI.InputField"
-  }
-}

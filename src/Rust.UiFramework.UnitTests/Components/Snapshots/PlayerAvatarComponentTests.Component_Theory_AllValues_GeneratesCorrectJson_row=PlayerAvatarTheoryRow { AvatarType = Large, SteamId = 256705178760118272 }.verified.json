@@ -1,7 +1,0 @@
-﻿{
-  "type": "UnityEngine.UI.RawImage",
-  "url": "https://avatars.steamstatic.com/Test Avatar_full.jpg",
-  "material": "assets/content/ui/namefontmaterial.mat",
-  "fadeIn": 3.5,
-  "color": "1 0.9216 0.0157"
-}

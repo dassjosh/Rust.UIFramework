@@ -1,9 +1,0 @@
-﻿{
-  "Button": {
-    "Color": "#FFFFFFFF",
-    "Enabled": true,
-    "Type": "UnityEngine.UI.Button"
-  },
-  "Color": "#FFFFFFFF",
-  "Enabled": true
-}

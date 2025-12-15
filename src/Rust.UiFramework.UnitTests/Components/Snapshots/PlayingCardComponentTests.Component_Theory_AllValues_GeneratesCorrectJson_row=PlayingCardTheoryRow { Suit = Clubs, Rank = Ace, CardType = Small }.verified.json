@@ -1,7 +1,0 @@
-﻿{
-  "type": "UnityEngine.UI.Image",
-  "sprite": "assets/content/ui/gameui/cardgames/deck_small/clubs/ace_small_clubs.png",
-  "material": "assets/content/ui/uibackgroundblur.mat",
-  "fadeIn": 1.5,
-  "color": "1 0.6471 0"
-}

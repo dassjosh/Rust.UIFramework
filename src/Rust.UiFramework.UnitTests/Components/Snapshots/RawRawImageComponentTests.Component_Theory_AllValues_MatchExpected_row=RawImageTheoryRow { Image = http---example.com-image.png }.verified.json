@@ -1,8 +1,0 @@
-﻿{
-  "Color": "#FFEB04FF",
-  "Enabled": true,
-  "FadeIn": 3.5,
-  "Image": "http://example.com/image.png",
-  "Material": "assets/content/ui/namefontmaterial.mat",
-  "Type": "UnityEngine.UI.RawImage"
-}

@@ -1,8 +1,0 @@
-﻿{
-  "Color": "#FFEB04FF",
-  "Enabled": true,
-  "FadeIn": 3.5,
-  "Material": "assets/content/ui/namefontmaterial.mat",
-  "SteamId": 256705178760118272,
-  "Type": "UnityEngine.UI.RawImage"
-}

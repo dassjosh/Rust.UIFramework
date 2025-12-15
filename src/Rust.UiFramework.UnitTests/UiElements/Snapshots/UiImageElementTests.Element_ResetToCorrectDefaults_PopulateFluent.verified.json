@@ -1,9 +1,0 @@
-﻿{
-  "Color": "#FFFFFFFF",
-  "Enabled": true,
-  "Image": {
-    "Color": "#FFFFFFFF",
-    "Enabled": true,
-    "Type": "UnityEngine.UI.Image"
-  }
-}

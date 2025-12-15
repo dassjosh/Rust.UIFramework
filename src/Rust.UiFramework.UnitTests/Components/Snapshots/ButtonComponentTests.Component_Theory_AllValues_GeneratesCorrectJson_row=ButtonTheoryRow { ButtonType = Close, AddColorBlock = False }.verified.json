@@ -1,9 +1,0 @@
-﻿{
-  "type": "UnityEngine.UI.Button",
-  "close": "command",
-  "sprite": "assets/content/ui/ui.background.rounded.png",
-  "material": "assets/icons/iconmaterial.mat",
-  "fadeIn": 1,
-  "color": "1 0 0",
-  "imagetype": "1"
-}
