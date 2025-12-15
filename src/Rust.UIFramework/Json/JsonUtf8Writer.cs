@@ -215,6 +215,7 @@ public sealed class JsonUtf8Writer
     internal void WriteToNetwork(Benchmarks.BenchmarkNetWrite write)
     {
         Flush();
+        write.Start(_size);
         WriteToNetwork((Stream)write);
     }
 #endif

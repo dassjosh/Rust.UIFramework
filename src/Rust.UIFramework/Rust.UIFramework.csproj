@@ -76,13 +76,13 @@
       <Reference Include="Rust.UI">
         <HintPath>..\references\Rust.UI.dll</HintPath>
       </Reference>
-      <Reference Include="System" Condition="'$(TargetFramework)' == 'net48'">
+      <Reference Include="System">
         <HintPath>..\references\System.dll</HintPath>
       </Reference>
-      <Reference Include="System.Core" Condition="'$(TargetFramework)' == 'net48'">
+      <Reference Include="System.Core">
         <HintPath>..\references\System.Core.dll</HintPath>
       </Reference>
-      <Reference Include="System.Net.Http" Condition="'$(TargetFramework)' == 'net48'">
+      <Reference Include="System.Net.Http">
         <HintPath>..\references\System.Net.Http.dll</HintPath>
       </Reference>
       <Reference Include="System.Runtime.CompilerServices.Unsafe">
@@ -91,7 +91,7 @@
       <Reference Include="System.Threading.Channels">
         <HintPath>..\references\System.Threading.Channels.dll</HintPath>
       </Reference>
-      <Reference Include="System.Threading.Tasks.Extensions" Condition="'$(TargetFramework)' == 'net48'">
+      <Reference Include="System.Threading.Tasks.Extensions">
         <HintPath>..\references\System.Threading.Tasks.Extensions.dll</HintPath>
       </Reference>
       <Reference Include="UnityEngine">
