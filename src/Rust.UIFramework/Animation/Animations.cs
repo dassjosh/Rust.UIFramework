@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Network;
 using Oxide.Ext.UiFramework.Libraries;
+using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Animation;
@@ -32,6 +33,32 @@ public static class Animations
 
         sendable = default;
         return false;
+    }
+
+    public static void CancelAnimation(AnimationId id)
+    {
+        if (TryGetAnimation(id, out AnimationRef<IAnimation> animation))
+        {
+            animation.CancelAnimation();
+        }
+    }
+
+    public static void CancelPluginAnimations(IUiFrameworkPlugin plugin)
+    {
+        Singleton<AnimationData>.Instance.CancelPluginAnimations(plugin);
+    }
+    
+    public static void CancelPlayerAnimations(IUiFrameworkPlugin plugin, ulong playerId)
+    {
+        Singleton<AnimationData>.Instance.CancelPlayerAnimations(plugin, playerId);
+    }
+    
+    public static void CancelPlayerAnimations(IUiFrameworkPlugin plugin, BasePlayer player) 
+    {
+        if (player)
+        {
+            CancelPlayerAnimations(plugin, player.userID);
+        }
     }
 
     internal static void CancelAnimations(SendInfo send, ICancelAnimationRequest request)

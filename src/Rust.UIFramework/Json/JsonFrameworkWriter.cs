@@ -36,8 +36,8 @@ public sealed partial class JsonFrameworkWriter : BasePoolable
     private const byte True = (byte)'1';
     private const byte False = (byte)'0';
     private const byte Space = (byte)' ';
-    private static readonly Utf8String StartQuote = $"{StartQuoteString}";
-    private static readonly Utf8String EndQuote = $"{EndQuoteString}";
+    private static readonly Utf8String StartQuote = Utf8String.FromChar(StartQuoteString);
+    private static readonly Utf8String EndQuote = Utf8String.FromChar(EndQuoteString);
     private static readonly Utf8String Separator = "\":";
     private static readonly Utf8String PropertyComma = ",\"";
     
@@ -60,7 +60,6 @@ public sealed partial class JsonFrameworkWriter : BasePoolable
     }
 
     #region Comma Handling
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private void OnDepthIncrease()
     {
         if (_objectComma)
@@ -88,10 +87,9 @@ public sealed partial class JsonFrameworkWriter : BasePoolable
 
     #region Raw
     public void WriteRaw(ReadOnlySpan<byte> span) => _writer.WriteRaw(span);
-
     #endregion
     
-    #region Field Handling
+    #region Specialised Field Handling
     public void AddField<T>(Utf8String name, T value) where T : unmanaged, Enum
     {
         WritePropertyName(name);
@@ -189,7 +187,7 @@ public sealed partial class JsonFrameworkWriter : BasePoolable
     public void AddKeyField(Utf8String name)
     {
         WritePropertyName(name);
-        WriteBlankValue();
+        WriteEmptyString();
     }
     
     public void AddKeyField(Utf8String name, bool add)
@@ -244,24 +242,28 @@ public sealed partial class JsonFrameworkWriter : BasePoolable
     #endregion
         
     #region Writing
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void WriteStartArray()
     {
         OnDepthIncrease();
         _writer.WriteChar(ArrayStartChar);
     }
     
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void WriteEndArray()
     {
         _writer.WriteChar(ArrayEndChar);
         OnDepthDecrease();
     }
     
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void WriteStartObject()
     {
         OnDepthIncrease();
         _writer.WriteChar(ObjectStartChar);
     }
     
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void WriteEndObject()
     {
         _writer.WriteChar(ObjectEndChar);
@@ -272,7 +274,7 @@ public sealed partial class JsonFrameworkWriter : BasePoolable
     {
         if (_propertyComma)
         {
-            _writer.Write(PropertyComma);
+            _writer.WriteString(PropertyComma);
         }
         else
         {
@@ -280,18 +282,20 @@ public sealed partial class JsonFrameworkWriter : BasePoolable
             WriteQuote();
         }
             
-        _writer.Write(name);
-        _writer.Write(Separator);
+        _writer.WriteString(name);
+        _writer.WriteString(Separator);
     }
     
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void WriteQuote() => _writer.WriteChar(QuoteChar);
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void WriteComma() => _writer.WriteChar(CommaChar);
 
     public void WriteValue(Utf8String value)
     {
         WriteQuote();
-        _writer.Write(value);
+        _writer.WriteString(value);
         WriteQuote();
     }
     
@@ -309,14 +313,14 @@ public sealed partial class JsonFrameworkWriter : BasePoolable
     public void WriteValue(string value)
     {
         _writer.WriteChar(QuoteChar);
-        _writer.Write(value);
+        _writer.WriteString(value);
         _writer.WriteChar(QuoteChar);
     }
     
     public void WriteValue(ReadOnlySpan<char> value)
     {
         _writer.WriteChar(QuoteChar);
-        _writer.Write(value);
+        _writer.WriteString(value);
         _writer.WriteChar(QuoteChar);
     }
     
@@ -331,6 +335,30 @@ public sealed partial class JsonFrameworkWriter : BasePoolable
         _writer.Write(pos.x);
         _writer.WriteChar(Space);
         _writer.Write(pos.y);
+        _writer.WriteChar(QuoteChar);
+    }
+    
+    public void WriteValue(Vector3 pos)
+    {
+        _writer.WriteChar(QuoteChar);
+        _writer.Write(pos.x);
+        _writer.WriteChar(Space);
+        _writer.Write(pos.y);
+        _writer.WriteChar(QuoteChar);
+        _writer.Write(pos.z);
+        _writer.WriteChar(QuoteChar);
+    }
+    
+    public void WriteValue(Vector4 pos)
+    {
+        _writer.WriteChar(QuoteChar);
+        _writer.Write(pos.x);
+        _writer.WriteChar(Space);
+        _writer.Write(pos.y);
+        _writer.WriteChar(QuoteChar);
+        _writer.Write(pos.z);
+        _writer.WriteChar(QuoteChar);
+        _writer.Write(pos.w);
         _writer.WriteChar(QuoteChar);
     }
     
@@ -377,7 +405,7 @@ public sealed partial class JsonFrameworkWriter : BasePoolable
         _writer.WriteChar(QuoteChar);
     }
     
-    public void WriteBlankValue()
+    public void WriteEmptyString()
     {
         _writer.WriteChar(QuoteChar);
         _writer.WriteChar(QuoteChar);
@@ -393,7 +421,7 @@ public sealed partial class JsonFrameworkWriter : BasePoolable
     {
         if (string.IsNullOrEmpty(value))
         {
-            WriteBlankValue();
+            WriteEmptyString();
             return;
         }
         
@@ -420,15 +448,15 @@ public sealed partial class JsonFrameworkWriter : BasePoolable
                     if (mode == TextMode.Text)
                     {
                         isInQuote = !isInQuote;
-                        _writer.Write(isInQuote ? EndQuote : StartQuote);
+                        _writer.WriteString(isInQuote ? EndQuote : StartQuote);
                     }
                     else
                     {
-                        _writer.Write(EscapeQuote);
+                        _writer.WriteString(EscapeQuote);
                     }
                     break;
                 case '\\':
-                    _writer.Write(Backslash);
+                    _writer.WriteString(Backslash);
                     break;
                 default:
                     _writer.WriteChar(character);

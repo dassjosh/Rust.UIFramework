@@ -175,7 +175,7 @@ public class Benchmarks
         builder.AddUi(default(SendInfo));
     }
     
-    [Benchmark(Baseline = true)]
+    //[Benchmark(Baseline = true)]
     public UiBuilder UiFramework_Async()
     {
         UiBuilder builder = GetFrameworkBuilder();

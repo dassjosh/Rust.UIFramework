@@ -23,6 +23,8 @@ public class SymbolCache
     public readonly DotNetSymbolCache Task = new("System.Threading.Tasks.Task");
     public readonly DotNetSymbolCache ValueTask = new("System.Threading.Tasks.ValueTask");
     public readonly DotNetSymbolCache Vector2 = new("UnityEngine.Vector2");
+    public readonly DotNetSymbolCache Vector3 = new("UnityEngine.Vector3");
+    public readonly DotNetSymbolCache Vector4 = new("UnityEngine.Vector4");
     public readonly DotNetSymbolCache MethodImpl = new("System.Runtime.CompilerServices.MethodImplAttribute");
     public readonly DotNetSymbolCache MethodImplOptions = new("System.Runtime.CompilerServices.MethodImplOptions");
 

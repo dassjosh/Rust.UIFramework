@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Buffers.Text;
 using System.Diagnostics;
 using System.Text;
+using Oxide.Ext.UiFramework.Extensions;
 
 namespace Oxide.Ext.UiFramework.Types;
 
@@ -14,7 +16,6 @@ public readonly struct Utf8String(byte[] str) : IEquatable<Utf8String>
 
     public override string ToString() => Encoding.UTF8.GetString(String);
     public static implicit operator Utf8String(string str) => new(Encoding.UTF8.GetBytes(str));
-    //public static implicit operator Utf8String(char value) => value.ToString();
 
     public bool Equals(Utf8String other) => String != null && other.String != null && String.SequenceEqual(other.String);
     public override bool Equals(object obj) => obj is Utf8String other && Equals(other);
@@ -22,4 +23,12 @@ public readonly struct Utf8String(byte[] str) : IEquatable<Utf8String>
     
     public static bool operator ==(Utf8String left, Utf8String right) => left.Equals(right);
     public static bool operator !=(Utf8String left, Utf8String right) => !(left == right);
+
+    public static Utf8String FromChar(char value)
+    {
+        int size = Utf8Formatter.GetCharSize(value);
+        byte[] str = new byte[size];
+        Utf8Formatter.FormatChar(value, str);
+        return new Utf8String(str);
+    }
 }

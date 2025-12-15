@@ -12,6 +12,22 @@ public static class Utf8FormatterExt
     extension(Utf8Formatter)
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static int GetCharSize(char c)
+        {
+            if (c <= 0x7F)
+            {
+                return 1;
+            }
+
+            if (c <= 0x7FF)
+            {
+                return 2;
+            }
+
+            return 3;
+        }
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int FormatChar(char c, Span<byte> buffer)
         {
             if (c <= 0x7F)

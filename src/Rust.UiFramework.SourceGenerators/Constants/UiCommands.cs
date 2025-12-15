@@ -1,6 +1,6 @@
 ﻿namespace Rust.UiFramework.SourceGenerators.Constants;
 
-public class UiCommands
+public static class UiCommands
 {
     public const int MaxArgs = 10;
 }

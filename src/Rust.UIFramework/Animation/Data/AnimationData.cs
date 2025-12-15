@@ -152,10 +152,10 @@ internal class AnimationData : ISingleton
             animation.RemovePlayer(playerId);
         }
     }
-    
-    internal void OnPluginUnloaded(IUiFrameworkPlugin plugin)
+
+    public void CancelPluginAnimations(IUiFrameworkPlugin plugin)
     {
-        foreach (IAnimation animation in _allAnimations.Values)
+        foreach ((_, IAnimation animation) in _allAnimations.GetEnumeratorPooled(UiFrameworkPlugin.Instance))
         {
             if (animation.Plugin == plugin)
             {
@@ -163,4 +163,17 @@ internal class AnimationData : ISingleton
             }
         }
     }
+    
+    public void CancelPlayerAnimations(IUiFrameworkPlugin plugin, ulong playerId)
+    {
+        foreach ((_, IAnimation animation) in _allAnimations.GetEnumeratorPooled(UiFrameworkPlugin.Instance))
+        {
+            if (animation.Plugin == plugin && animation is ISendableAnimation sendable)
+            {
+                sendable.RemovePlayer(playerId);
+            }
+        }
+    }
+
+    internal void OnPluginUnloaded(IUiFrameworkPlugin plugin) => CancelPluginAnimations(plugin);
 }

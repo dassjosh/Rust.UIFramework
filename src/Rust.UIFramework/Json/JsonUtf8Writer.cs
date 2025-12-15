@@ -18,7 +18,7 @@ public sealed class JsonUtf8Writer
     /// </summary>
     private const int SegmentSize = 4096;
 
-    private readonly List<SizedArray<byte>> _segments = [];
+    private readonly List<SizedArray> _segments = [];
     
     private int _byteIndex;
     private uint _size;
@@ -142,13 +142,13 @@ public sealed class JsonUtf8Writer
     }
     
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Write(Utf8String text) => Write(text.String);
+    public void WriteString(Utf8String text) => Write(text.String);
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Write(string text) => Write(text.AsSpan());
+    public void WriteString(string text) => WriteString(text.AsSpan());
     
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Write(ReadOnlySpan<char> text)
+    public void WriteString(ReadOnlySpan<char> text)
     {
         CheckForFlush(text.Length * Utf8Sizes.Char);
         int written = Encoding.UTF8.GetBytes(text, _buffer.AsSpan(_byteIndex));
@@ -173,7 +173,7 @@ public sealed class JsonUtf8Writer
         }
         
         _size += (uint)_byteIndex;
-        _segments.Add(new SizedArray<byte>(_buffer, _byteIndex));
+        _segments.Add(new SizedArray(_buffer, _byteIndex));
         _byteIndex = 0;
         _buffer = ArrayPool<byte>.Shared.Rent(rentSize);
     }
@@ -185,7 +185,7 @@ public sealed class JsonUtf8Writer
         int writeIndex = 0;
         for (int i = 0; i < _segments.Count; i++)
         {
-            SizedArray<byte> segment = _segments[i];
+            SizedArray segment = _segments[i];
             Buffer.BlockCopy(segment.Array, 0, bytes, writeIndex, segment.Size);
             writeIndex += segment.Size;
         }
@@ -198,7 +198,7 @@ public sealed class JsonUtf8Writer
         Flush();
         for (int i = 0; i < _segments.Count; i++)
         {
-            SizedArray<byte> segment = _segments[i];
+            SizedArray segment = _segments[i];
             stream.Write(segment.Array, 0, segment.Size);
         }
     }
@@ -225,7 +225,7 @@ public sealed class JsonUtf8Writer
         int count = _segments.Count;
         for (int i = 0; i < count; i++)
         {
-            SizedArray<byte> segment = _segments[i];
+            SizedArray segment = _segments[i];
             write.Write(segment.Array, 0, segment.Size);
         }
     }
@@ -270,5 +270,11 @@ public sealed class JsonUtf8Writer
             _byteIndex += span.Length;
         }
         Flush();
+    }
+
+    private readonly struct SizedArray(byte[] array, int size)
+    {
+        public readonly byte[] Array = array;
+        public readonly int Size = size;
     }
 }

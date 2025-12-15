@@ -109,6 +109,18 @@ public partial class JsonFrameworkWriter
 		WriteValue(value);
 	}
 
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, UnityEngine.Vector3 value)
+	{
+		WritePropertyName(name);
+		WriteValue(value);
+	}
+
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, UnityEngine.Vector4 value)
+	{
+		WritePropertyName(name);
+		WriteValue(value);
+	}
+
 	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, Oxide.Ext.UiFramework.Types.Utf8String value)
 	{
 		WritePropertyName(name);
@@ -268,6 +280,24 @@ public partial class JsonFrameworkWriter
 		}
 	}
 
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, UnityEngine.Vector3 value, UnityEngine.Vector3 defaultValue)
+	{
+		if (value != defaultValue)
+		{
+		    WritePropertyName(name);
+		    WriteValue(value);
+		}
+	}
+
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, UnityEngine.Vector4 value, UnityEngine.Vector4 defaultValue)
+	{
+		if (value != defaultValue)
+		{
+		    WritePropertyName(name);
+		    WriteValue(value);
+		}
+	}
+
 	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, Oxide.Ext.UiFramework.Types.Utf8String value, Oxide.Ext.UiFramework.Types.Utf8String defaultValue)
 	{
 		if (value != defaultValue)
@@ -413,6 +443,24 @@ public partial class JsonFrameworkWriter
 	}
 
 	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.Vector2> value, Oxide.Ext.UiFramework.Enums.SerializeMode mode)
+	{
+		if (value.ShouldSerialize(mode))
+		{
+		    WritePropertyName(name);
+		    WriteValue(value.Value);
+		}
+	}
+
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.Vector3> value, Oxide.Ext.UiFramework.Enums.SerializeMode mode)
+	{
+		if (value.ShouldSerialize(mode))
+		{
+		    WritePropertyName(name);
+		    WriteValue(value.Value);
+		}
+	}
+
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.Vector4> value, Oxide.Ext.UiFramework.Enums.SerializeMode mode)
 	{
 		if (value.ShouldSerialize(mode))
 		{
