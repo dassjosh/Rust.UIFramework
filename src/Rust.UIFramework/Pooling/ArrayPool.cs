@@ -101,12 +101,13 @@ internal class ArrayPool<T> : BasePool<UiPooledArray<T>, ArrayPool<T>>
     private sealed class ArrayPoolInternal : BaseObjectPool<UiPooledArray<T>, ArrayPoolInternal>, IObjectPool<BasePoolable>
     {
         private uint _size;
+        
         protected override PoolSize GetPoolSize(PoolSettings settings) => settings.ArrayPoolSize;
 
         internal void InitArrayPool(UiPluginPool pool, uint size)
         {
-            InitPool(pool);
             _size = size;
+            InitPool(pool);
         }
 
         protected override UiPooledArray<T> CreateNew()
@@ -141,7 +142,7 @@ internal class ArrayPool<T> : BasePool<UiPooledArray<T>, ArrayPool<T>>
                 return;
             }
 
-            throw new NotSupportedException($"Cannot Free item {item.GetType().GetRealTypeName()} to pool {nameof(ArrayPoolInternal)}");
+            throw new NotSupportedException($"Cannot Free item {item.GetType().GetRealTypeName()} to pool {GetType().GetRealTypeName()}");
         }
     }
 }

@@ -1,17 +1,16 @@
 using System;
 using System.Text;
-using System.Threading;
 using Oxide.Ext.UiFramework.Cache;
+using Oxide.Ext.UiFramework.Libraries;
+using Oxide.Ext.UiFramework.Plugins;
 
 namespace Oxide.Ext.UiFramework.Logging;
 
 /// <summary>
 /// Represents a Console Logger for Ui Framework
 /// </summary>
-internal class UiConsoleLogger(string pluginName) : IOutputLogger
+internal class UiConsoleLogger(PluginId pluginId) : IOutputLogger
 {
-    private static readonly ThreadLocal<StringBuilder> Builder = new(() => new StringBuilder());
-
     /// <summary>
     /// Adds a message to the server console
     /// </summary>
@@ -22,10 +21,10 @@ internal class UiConsoleLogger(string pluginName) : IOutputLogger
     /// <param name="ex"></param>
     public void AddMessage(UiLogLevel level, string type, string log, object[] args, Exception ex)
     {
-        StringBuilder sb = Builder.Value;
+        StringBuilder sb = UiPool.Internal.GetStringBuilder();
         sb.Clear();
         sb.Append('[');
-        sb.Append(pluginName);
+        sb.Append(pluginId.Id);
         sb.Append("] ");
         sb.Append('[');
         sb.Append(EnumCache<UiLogLevel>.ToString(level));
@@ -65,6 +64,8 @@ internal class UiConsoleLogger(string pluginName) : IOutputLogger
             case UiLogLevel.Off:
                 break;
         }
+        
+        UiPool.Internal.FreeStringBuilder(sb);
     }
 
     public void OnShutdown() {}

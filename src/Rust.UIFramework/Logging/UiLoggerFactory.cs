@@ -69,7 +69,7 @@ public sealed class UiLoggerFactory : ISingleton
     {
         if (!_handlers.TryGetValue(plugin, out UiLogHandler handler))
         {
-            _handlers[plugin] = handler = new UiLogHandler(plugin.Id, config, isExtension);
+            _handlers[plugin] = handler = new UiLogHandler(plugin, config, isExtension);
         }
         return handler;
     }

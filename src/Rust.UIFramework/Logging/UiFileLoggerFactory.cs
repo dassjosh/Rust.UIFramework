@@ -1,6 +1,10 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading;
+using Oxide.Ext.UiFramework.Cache;
+using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Logging;
@@ -9,6 +13,7 @@ internal sealed class UiFileLoggerFactory : ISingleton
 {
     private readonly Thread _writerThread;
     private readonly List<UiFileLogger> _loggers = [];
+    private readonly ConcurrentDictionary<PluginId, UiFileLogger> _fileLoggers = [];
     private readonly AutoResetEvent _reset = new(false);
     private bool _exit;
 
@@ -22,10 +27,14 @@ internal sealed class UiFileLoggerFactory : ISingleton
         _writerThread.Start();
     }
 
-    public UiFileLogger CreateLogger(string pluginName, string dateTimeFormat)
+    public UiFileLogger CreateLogger(PluginId pluginId, string dateTimeFormat)
     {
-        UiFileLogger logger = new(pluginName, dateTimeFormat, _reset);
-        _loggers.Add(logger);
+        if (!_fileLoggers.TryGetValue(pluginId, out UiFileLogger logger))
+        {
+            _fileLoggers[pluginId] = logger = new UiFileLogger(pluginId, dateTimeFormat, _reset);
+            _loggers.Add(logger);
+        }
+        
         return logger;
     }
         
@@ -59,6 +68,9 @@ internal sealed class UiFileLoggerFactory : ISingleton
 
     internal void RemoveLogger(UiFileLogger logger)
     {
-        _loggers.Remove(logger);
+        if (_fileLoggers.TryRemove(logger.PluginId, out _))
+        {
+            _loggers.Remove(logger);
+        }
     }
 }

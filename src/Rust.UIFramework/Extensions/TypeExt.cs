@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Text;
 using Oxide.Ext.UiFramework.Libraries;
 
@@ -20,6 +21,8 @@ internal static class TypeExt
         public bool IsNullable => type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>);
 
         public bool HasFlags => type.IsEnum && type.IsDefined(typeof(FlagsAttribute));
+        
+        public static bool IsUnmanaged<T>() => !RuntimeHelpers.IsReferenceOrContainsReferences<T>();
 
         /// <summary>
         /// Returns if the type is <see cref="Nullable"/>
@@ -45,13 +48,27 @@ internal static class TypeExt
 
         public string GetRealTypeName()
         {
-            if (!type.IsGenericTypeDefinition)
+            if (!type.IsGenericType)
             {
                 return type.Name;
             }
 
             StringBuilder sb = UiPool.Internal.GetStringBuilder();
-            sb.Append(type.Name.AsSpan()[..type.Name.IndexOf('`')]);
+            if (type.DeclaringType is not null)
+            {
+                sb.Append(type.DeclaringType.GetRealTypeName());
+                sb.Append('.');
+            }
+
+            if (type.Name.Contains('`'))
+            {
+                sb.Append(type.Name.AsSpan()[..type.Name.IndexOf('`')]);
+            }
+            else
+            {
+                sb.Append(type.Name);
+            }
+            
             sb.Append('<');
             Type[] args = type.GetGenericArguments();
             for (int index = 0; index < args.Length; index++)

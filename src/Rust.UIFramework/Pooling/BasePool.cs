@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Concurrent;
+using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Exceptions;
 using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Libraries;
@@ -40,8 +41,8 @@ public abstract class BasePool<TPooled, TPool> : IPool, IDebugLoggable
             }
             PluginPool = pluginPool;
             pluginPool.AddPool(this);
-            OnInit(pluginPool);
             _isInitialized = true;
+            OnInit(pluginPool);
             UiFrameworkExtension.GlobalLogger.Debug("Creating Pool. Plugin ID: {0} Type: {1}", pluginPool.PluginName, GetType().GetRealTypeName());
         }
     }
@@ -112,16 +113,16 @@ public abstract class BaseObjectPool<TPooled, TPool> : BasePool<TPooled, TPool>,
     where TPooled : class
     where TPool : BasePool<TPooled, TPool>, new()
 {
-    private PoolSize Size;
+    private PoolSize _size;
     private TPooled[] _pool;
     private int _index;
     private LeakHandler _leakHandler;
 
     protected override void OnInit(UiPluginPool pluginPool)
     {
-        Size = GetPoolSize(pluginPool.Settings);
-        InvalidPoolException.ThrowIfInvalidPoolSize(Size);
-        _pool = new TPooled[Size.StartingSize];
+        _size = GetPoolSize(pluginPool.Settings);
+        InvalidPoolException.ThrowIfInvalidPoolSize(_size);
+        _pool = new TPooled[_size.StartingSize];
     }
     
     /// <summary>
@@ -141,9 +142,9 @@ public abstract class BaseObjectPool<TPooled, TPool> : BasePool<TPooled, TPool>,
         lock (Lock)
         {
             int index = _index;
-            if (index == _pool.Length && Size.CanResize(_pool.Length))
+            if (index == _pool.Length && _size.CanResize(_pool.Length))
             {
-                int nextSize = Pooling.PoolSize.GetNextSize(_pool.Length);
+                int nextSize = PoolSize.GetNextSize(_pool.Length);
                 UiFrameworkExtension.GlobalLogger.Debug("{0} Resizing Pool {1} Current Size: {2} Next Size: {3}", PluginPool.PluginName, GetType(), _pool.Length, nextSize);
                 Array.Resize(ref _pool, nextSize);
             }

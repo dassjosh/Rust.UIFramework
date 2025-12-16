@@ -12,6 +12,7 @@ public class UiPooledArray<T> : BasePoolable, IList<T>, IReadOnlyList<T>
     public int Count => _length < 0 ? _array.Length : _length;
     public bool IsReadOnly => _array.IsReadOnly;
     private int _length = -1;
+    private static readonly bool ClearArray = !Type.IsUnmanaged<T>();
     
     internal static readonly UiPooledArray<T> Empty = new(0);
     
@@ -46,11 +47,17 @@ public class UiPooledArray<T> : BasePoolable, IList<T>, IReadOnlyList<T>
     }
     
     public static implicit operator T[](UiPooledArray<T> pooledArray) => pooledArray._array;
-    public Span<T> AsSpan() => _array.AsSpan();
-    public Span<T> AsSpan(int start) => _array.AsSpan(start);
+    public Span<T> AsSpan() => _array.AsSpan(0, Count);
+    public Span<T> AsSpan(Range range) => _array.AsSpan(range);
+    public ReadOnlySpan<T> AsReadOnlySpan() => AsSpan();
+    public ReadOnlySpan<T> AsReadOnlySpan(Range range) => AsSpan(range);
 
     protected override void EnterPool()
     {
-        _array.Clear();
+        _length = -1;
+        if (ClearArray)
+        {
+            Clear();
+        }
     }
 }
