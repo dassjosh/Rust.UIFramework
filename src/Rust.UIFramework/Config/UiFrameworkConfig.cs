@@ -11,7 +11,6 @@ using Oxide.Ext.UiFramework.Types;
 using System.IO;
 #endif
 
-
 namespace Oxide.Ext.UiFramework.Config;
 
 /// <summary>

@@ -185,7 +185,7 @@ public class ConcurrentList<T> : IList<T>, IReadOnlyList<T>
         _lock.EnterReadLock();
         try
         {
-            return PooledCopyListEnumerator<T>.Create(plugin, this);
+            return PooledListEnumerator<T>.Create(plugin, this);
         }
         finally
         {
@@ -198,7 +198,7 @@ public class ConcurrentList<T> : IList<T>, IReadOnlyList<T>
         _lock.EnterReadLock();
         try
         {
-            return new PooledCopyListEnumerator<T>(this);
+            return new PooledListEnumerator<T>(this);
         }
         finally
         {

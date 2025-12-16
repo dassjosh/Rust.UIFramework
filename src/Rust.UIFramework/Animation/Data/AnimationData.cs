@@ -155,7 +155,7 @@ internal class AnimationData : ISingleton
 
     public void CancelPluginAnimations(IUiFrameworkPlugin plugin)
     {
-        foreach ((_, IAnimation animation) in _allAnimations.GetEnumeratorPooled(UiFrameworkPlugin.Instance))
+        foreach (IAnimation animation in _allAnimations.GetEnumeratorPooled(UiFrameworkPlugin.Instance).Values)
         {
             if (animation.Plugin == plugin)
             {
@@ -166,7 +166,7 @@ internal class AnimationData : ISingleton
     
     public void CancelPlayerAnimations(IUiFrameworkPlugin plugin, ulong playerId)
     {
-        foreach ((_, IAnimation animation) in _allAnimations.GetEnumeratorPooled(UiFrameworkPlugin.Instance))
+        foreach (IAnimation animation in _allAnimations.GetEnumeratorPooled(UiFrameworkPlugin.Instance).Values)
         {
             if (animation.Plugin == plugin && animation is ISendableAnimation sendable)
             {

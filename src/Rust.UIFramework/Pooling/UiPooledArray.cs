@@ -9,8 +9,9 @@ namespace Oxide.Ext.UiFramework.Pooling;
 public class UiPooledArray<T> : BasePoolable, IList<T>, IReadOnlyList<T>
 {
     private readonly T[] _array;
-    public int Count { [MethodImpl(MethodImplOptions.AggressiveInlining)] get => _array.Length; }
+    public int Count => _length < 0 ? _array.Length : _length;
     public bool IsReadOnly => _array.IsReadOnly;
+    private int _length = -1;
     
     internal static readonly UiPooledArray<T> Empty = new(0);
     
@@ -29,6 +30,12 @@ public class UiPooledArray<T> : BasePoolable, IList<T>, IReadOnlyList<T>
     public void CopyTo(T[] array, int arrayIndex) => _array.CopyTo(array, arrayIndex);
     public IEnumerator<T> GetEnumerator() => ((IEnumerable<T>)_array).GetEnumerator();
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
+    public UiPooledArray<T> WithLength(int length)
+    {
+        _length = length;
+        return this;
+    }
 
     public T this[int index]
     {

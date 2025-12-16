@@ -85,10 +85,10 @@ internal class AnimationHandler : ISingleton
     
     private void ProcessAnimations()
     {
-        foreach ((_, PlayerAnimationData playerAnimations) in Singleton<AnimationData>.Instance.PlayerAnimations.GetEnumeratorPooled(UiFrameworkPlugin.Instance))
+        foreach (PlayerAnimationData playerAnimations in Singleton<AnimationData>.Instance.PlayerAnimations.GetEnumeratorPooled(UiFrameworkPlugin.Instance).Values)
         {
             JsonFrameworkWriter writer = Create();
-            foreach ((_, ISendableAnimation animation) in playerAnimations.Animations.GetEnumeratorPooled(UiFrameworkPlugin.Instance))
+            foreach (ISendableAnimation animation in playerAnimations.Animations.GetEnumeratorPooled(UiFrameworkPlugin.Instance).Values)
             {
                 ProcessAnimation(animation, writer);
             }
@@ -96,7 +96,7 @@ internal class AnimationHandler : ISingleton
             SendAnimations(writer, playerAnimations.Send);
         }
         
-        foreach ((_, ISendableAnimation animation) in Singleton<AnimationData>.Instance.GroupAnimations.GetEnumeratorPooled(UiFrameworkPlugin.Instance))
+        foreach (ISendableAnimation animation in Singleton<AnimationData>.Instance.GroupAnimations.GetEnumeratorPooled(UiFrameworkPlugin.Instance).Values)
         {
             JsonFrameworkWriter writer = Create();
             ProcessAnimation(animation, writer);
