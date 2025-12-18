@@ -15,10 +15,7 @@ public abstract class BaseComponent : BasePoolable, IComponent
     public virtual bool HasChanged() => false;
     public virtual void ResetHasChanged() {}
 
-    public virtual void Reset()
-    {
-        OnReset();
-    }
+    public virtual void Reset() => OnReset();
 
     protected virtual void OnReset() {}
 }

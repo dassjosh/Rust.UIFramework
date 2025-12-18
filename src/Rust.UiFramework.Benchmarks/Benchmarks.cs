@@ -143,7 +143,7 @@ public class Benchmarks
         return count;
     }
 
-    //[Benchmark]
+    [Benchmark]
     public void UiFramework_Writer()
     {
         UiBuilder builder = _builder;
@@ -160,7 +160,7 @@ public class Benchmarks
         //writer.Dispose();
     }
     
-    [Benchmark]
+   // [Benchmark]
     public void UiFramework_Network()
     {
         BenchmarkNetWrite write = Pool.Get<BenchmarkNetWrite>();
