@@ -17,6 +17,7 @@ public partial class UiImage : IUiImage, IUiImageTrackable
 	public partial bool FillCenter { get => Image.FillCenter; set => Image.FillCenter = value; }
 	IImageComponentTrackable IUiImageTrackable.Image => Image.AsTrackable();
 
+	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 	public IUiImageTrackable AsTrackable() => this;
 }
 

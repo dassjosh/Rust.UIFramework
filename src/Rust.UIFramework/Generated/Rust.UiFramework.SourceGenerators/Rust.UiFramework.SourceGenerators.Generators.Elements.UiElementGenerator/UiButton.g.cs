@@ -22,6 +22,7 @@ public partial class UiButton : IUiButton, IUiButtonTrackable
 	public partial Oxide.Ext.UiFramework.Colors.UiColor Color { get => Button.Color; set => Button.Color = value; }
 	IButtonComponentTrackable IUiButtonTrackable.Button => Button.AsTrackable();
 
+	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 	public IUiButtonTrackable AsTrackable() => this;
 }
 

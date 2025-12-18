@@ -16,6 +16,7 @@ public partial class UiPlayingCard : IUiPlayingCard, IUiPlayingCardTrackable
 	public partial Oxide.Ext.UiFramework.Colors.UiColor Color { get => Card.Color; set => Card.Color = value; }
 	IPlayingCardComponentTrackable IUiPlayingCardTrackable.Card => Card.AsTrackable();
 
+	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 	public IUiPlayingCardTrackable AsTrackable() => this;
 }
 

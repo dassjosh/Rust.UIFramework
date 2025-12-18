@@ -19,6 +19,7 @@ public partial class UiNineSlice : IUiNineSlice, IUiNineSliceTrackable
 	public partial Oxide.Ext.UiFramework.Colors.UiColor Color { get => Image.Color; set => Image.Color = value; }
 	INineSliceComponentTrackable IUiNineSliceTrackable.Image => Image.AsTrackable();
 
+	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 	public IUiNineSliceTrackable AsTrackable() => this;
 }
 

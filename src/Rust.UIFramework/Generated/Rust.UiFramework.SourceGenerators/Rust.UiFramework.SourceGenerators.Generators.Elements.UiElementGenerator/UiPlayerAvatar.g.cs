@@ -15,6 +15,7 @@ public partial class UiPlayerAvatar : IUiPlayerAvatar, IUiPlayerAvatarTrackable
 	public partial Oxide.Ext.UiFramework.Colors.UiColor Color { get => Avatar.Color; set => Avatar.Color = value; }
 	IPlayerAvatarComponentTrackable IUiPlayerAvatarTrackable.Avatar => Avatar.AsTrackable();
 
+	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 	public IUiPlayerAvatarTrackable AsTrackable() => this;
 }
 

@@ -1,6 +1,5 @@
 ﻿using System.Collections.Immutable;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Rust.UiFramework.SourceGenerators.Attributes;
@@ -9,54 +8,38 @@ using Rust.UiFramework.SourceGenerators.Builder.Extensions;
 using Rust.UiFramework.SourceGenerators.Extensions;
 using Rust.UiFramework.SourceGenerators.Helpers;
 
-namespace Rust.UiFramework.SourceGenerators.Generators.Elements;
+namespace Rust.UiFramework.SourceGenerators.Generators.Animations;
 
 [Generator]
-public class UiElementGenerator : BaseGenerator, IIncrementalGenerator
+public class FieldAnimationsGenerator : BaseGenerator, IIncrementalGenerator
 {
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
         context.Register<ClassDeclarationSyntax, GenerateUiElementAttribute>((spc, compilation, @class, classSymbol, attribute) =>
         {
-            SymbolCache.Initialize(compilation);
-            GeneratorData data = new(classSymbol);
-            spc.AddSource($"{classSymbol.Name}.g.cs", GenerateElement(classSymbol, data));
+            if (!classSymbol.IsAbstract)
+            {
+                SymbolCache.Initialize(compilation);
+                GeneratorData data = new(classSymbol);
+                spc.AddSource($"{classSymbol.Name}.g.cs", GenerateElement(classSymbol, data));
+            }
+
         });
     }
     
     private string GenerateElement(INamedTypeSymbol classSymbol, GeneratorData genData)
     {
         return new CodeBuilder()
-            .Usings(["Oxide.Ext.UiFramework.Interfaces"])
-            .Namespace(classSymbol.ContainingNamespace)
-            .Add(t => t.Public().Partial().Class().Name(classSymbol.Name)
-                .Implements(genData.Symbol.GetInterface())
-                .Implements(genData.Symbol.GetTrackableInterface())
+            .Usings([])
+            .Namespace("Oxide.Ext.UiFramework.Animation")
+            .Add(t => t.Public().Static().Class().Name($"ElementAnimation{classSymbol.ToExtensionClass()}")
+                .Extension(e => e
+                    .AddParameter(p => p.Type(SymbolCache.Instance.Animations.AnimationRef.Symbol.Construct(SymbolCache.Instance.Animations.IElementAnimation.Symbol.Construct(classSymbol)))
+                        .Name("animation"))
                 
-                //Private Tracked Fields
-                .Fields(genData.TrackedProperties, (data, field) => field.Private().Readonly().Type(SymbolCache.Instance.Types.Tracked.Symbol.Construct(data.Type)).Name(data.Symbol.ToPrivateField()).New(data.GetPropertyDefaults()))
-               
-                //Public Properties Setting Component Fields
-                .Properties(genData.PartialProperties, (data, property) => property.Public().Partial().Type(data.TypeName).Name(data.Name)
-                    .If(data.IsTracked, p => p.Get($"{data.Symbol.ToPrivateField()}.Value").Set($"{data.Symbol.ToPrivateField()}.Value = value"))
-                    .ElseIf(data.ComponentPropertyTargetType is PropertyTargetType.Self, p => p.Get().Set())
-                    .Else(p => p.Get($"{data.GetPropertyTarget() ?? genData.ComponentFieldName}.{data.GetPropertyName()}")
-                        .Set($"{data.GetPropertyTarget() ?? genData.ComponentFieldName}.{data.GetPropertyName()} = value"))
-                    .EndIf())
-               
-                //Public Tracked Explicit Interface Implementation Properties
-                .Properties(genData.PartialProperties, data => data.IsTracked, (data, property) => property.Type(SymbolCache.Instance.Types.Tracked.Symbol.Construct(data.Type))
-                    .Name($"{genData.Symbol.GetTrackableInterface()}.{data.Name}").Get(data.Symbol.ToPrivateField()))
-                
-                //AsTrackable for Component and Element
-                .If(!genData.Symbol.IsAbstract, t => t.Property(p => 
-                    p.Type(genData.ComponentField.Type.GetTrackableInterface())
-                        .Name($"{genData.Symbol.GetTrackableInterface()}.{genData.ComponentField.Name}")
-                        .Get($"{genData.ComponentFieldName}.AsTrackable()"))
-                    .Method(m => m.Public().Name("AsTrackable").Returns(genData.Symbol.GetTrackableInterface()).Body("return this;")
-                        .AddAttribute(a => a.Type(SymbolCache.Instance.MethodImpl.Symbol).AddParameter(MethodImplOptions.AggressiveInlining.ToParameterValue()))))
-                .EndIf()
-            )
+                    .Methods(genData.PartialProperties, (p, m) => m.Public().Returns(SymbolCache.Instance.Animations.AnimationRef.Symbol.Construct(SymbolCache.Instance.Animations.IFieldAnimation.Symbol.Construct(p.Type))).Name($"Animate{p.Name}")
+                        .Body($"return animation.AnimateField(static a => a.AsTrackable().{genData.ComponentField.Name}.{p.Name});"))
+                ))
             .Build();
     }
 
@@ -71,9 +54,10 @@ public class UiElementGenerator : BaseGenerator, IIncrementalGenerator
         public GeneratorData(INamedTypeSymbol symbol)
         {
             Symbol = symbol;
-            PartialProperties = symbol.GetProperties(p => p.IsPartialDefinition).Select(p => new PropertyData(p)).ToArray();
-            TrackedProperties = symbol.GetProperties(p => p.HasAttribute<TrackedAttribute>()).Select(p => new PropertyData(p)).ToArray();
             ComponentField = symbol.GetFields().FirstOrDefault(f => f.IsReadOnly && f.Type.HasInterface("IComponent"));
+            PartialProperties = ComponentField.Type.GetProperties(p => p.IsPartialDefinition).Select(p => new PropertyData(p)).ToArray();
+            TrackedProperties = symbol.GetProperties(p => p.HasAttribute<TrackedAttribute>()).Select(p => new PropertyData(p)).ToArray();
+            
             ComponentFieldName = ComponentField?.Name;
         }
     }

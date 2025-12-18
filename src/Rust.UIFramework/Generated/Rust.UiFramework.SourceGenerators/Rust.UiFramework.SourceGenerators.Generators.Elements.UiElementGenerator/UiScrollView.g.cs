@@ -20,6 +20,7 @@ public partial class UiScrollView : IUiScrollView, IUiScrollViewTrackable
 	public partial UnityEngine.Vector2 ContentPivot { get => GetOrCreateContentTransform().Pivot; set => GetOrCreateContentTransform().Pivot = value; }
 	IScrollViewComponentTrackable IUiScrollViewTrackable.ScrollView => ScrollView.AsTrackable();
 
+	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 	public IUiScrollViewTrackable AsTrackable() => this;
 }
 

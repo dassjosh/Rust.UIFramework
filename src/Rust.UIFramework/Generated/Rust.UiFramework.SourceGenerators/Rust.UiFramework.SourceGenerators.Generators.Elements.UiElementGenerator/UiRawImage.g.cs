@@ -15,6 +15,7 @@ public partial class UiRawImage : IUiRawImage, IUiRawImageTrackable
 	public partial Oxide.Ext.UiFramework.Colors.UiColor Color { get => RawImage.Color; set => RawImage.Color = value; }
 	IRawImageComponentTrackable IUiRawImageTrackable.RawImage => RawImage.AsTrackable();
 
+	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 	public IUiRawImageTrackable AsTrackable() => this;
 }
 

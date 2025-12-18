@@ -1,4 +1,7 @@
-﻿using Oxide.Ext.UiFramework.Offsets;
+﻿using System;
+using Oxide.Ext.UiFramework.Enums;
+using Oxide.Ext.UiFramework.Interfaces;
+using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.Types;
 using Oxide.Ext.UiFramework.UiElements;
@@ -9,12 +12,86 @@ public static class ElementAnimationExt
 {
     extension<T>(in AnimationRef<IElementAnimation<T>> animation) where T : BaseUiComponent
     {
+        public AnimationRef<IFieldAnimation<bool>> AnimateActive()
+        {
+            if (animation.IsValid)
+            {
+                return animation.AnimateField(static a => ((IBaseUiComponentTrackable)a).Active);
+            }
+            return default;
+        }
+
+        public AnimationRef<IFieldAnimation<bool>> AnimateEnabled()
+        {
+            if (animation.IsValid)
+            {
+                return animation.AnimateField(static a => ((IBaseTypedComponentTrackable)a.Component).Enabled);
+            }
+            return default;
+        }
+
+        public AnimationRef<IFieldAnimation<UiPosition>> AnimatePosition()
+        {
+            if (animation.IsValid)
+            {
+                return animation.AnimateField(static a => a.RectTransform.AsTrackable().Position);
+            }
+            return default;
+        }
+
+        public AnimationRef<IFieldAnimation<UiOffset>> AnimateOffset()
+        {
+            if (animation.IsValid)
+            {
+                return animation.AnimateField(static a => a.RectTransform.AsTrackable().Offset);
+            }
+            return default;
+        }
+
+        public AnimationRef<IFieldAnimation<UiRotation>> AnimateRotation()
+        {
+            if (animation.IsValid)
+            {
+                return animation.AnimateField(static a => a.RectTransform.AsTrackable().Rotation);
+            }
+            return default;
+        }
+        
+        public AnimationRef<IFieldAnimation<UiScale>> AnimateScale(PositionField target)
+        {
+            return target switch
+            {
+                PositionField.Position => animation.AnimateField(static a => a.RectTransform.AsTrackable().PositionScale),
+                PositionField.Offset => animation.AnimateField(static a => a.RectTransform.AsTrackable().OffsetScale),
+                _ => throw new ArgumentOutOfRangeException(nameof(target), target, null)
+            };
+        }
+        
+        public AnimationRef<IFieldAnimation<UiTranslate>> AnimateTranslate(PositionField target)
+        {
+            return target switch
+            {
+                PositionField.Position => animation.AnimateField(static a => a.RectTransform.AsTrackable().PositionTranslate),
+                PositionField.Offset => animation.AnimateField(static a => a.RectTransform.AsTrackable().OffsetTranslate),
+                _ => throw new ArgumentOutOfRangeException(nameof(target), target, null)
+            };
+        }
+        
+        public AnimationRef<IFieldAnimation<UiPadding>> AnimatePadding(PositionField target)
+        {
+            return target switch
+            {
+                PositionField.Position => animation.AnimateField(static a => a.RectTransform.AsTrackable().PositionPadding),
+                PositionField.Offset => animation.AnimateField(static a => a.RectTransform.AsTrackable().OffsetPadding),
+                _ => throw new ArgumentOutOfRangeException(nameof(target), target, null)
+            };
+        }
+        
         public AnimationRef<IFieldAnimation<UiPosition>> Slide(in UiPosition start, in UiPosition end)
         {
             if (animation.IsValid)
             {
-                return animation.AnimateField(a => a.RectTransform.AsTrackable().Position)
-                    .Lerp(start, end);
+                return animation.AnimatePosition().Lerp(start, end);
             }
             return default;
         }
@@ -23,28 +100,16 @@ public static class ElementAnimationExt
         {
             if (animation.IsValid)
             {
-                return animation.AnimateField(a => a.RectTransform.AsTrackable().Offset)
-                    .Lerp(start, end);
+                return animation.AnimateOffset().Lerp(start, end);
             }
             return default;
         }
         
-        public AnimationRef<IFieldAnimation<UiScale>> ScalePosition(in UiScale start, in UiScale end)
+        public AnimationRef<IFieldAnimation<UiScale>> Scale(in UiScale start, in UiScale end, PositionField target)
         {
             if (animation.IsValid)
             {
-                return animation.AnimateField(a => a.RectTransform.AsTrackable().PositionScale)
-                    .Lerp(start, end);
-            }
-            return default;
-        }
-        
-        public AnimationRef<IFieldAnimation<UiScale>> ScaleOffset(in UiScale start, in UiScale end)
-        {
-            if (animation.IsValid)
-            {
-                return animation.AnimateField(a => a.RectTransform.AsTrackable().OffsetScale)
-                    .Lerp(start, end);
+                return animation.AnimateScale(target).Lerp(start, end);
             }
             return default;
         }
@@ -53,28 +118,18 @@ public static class ElementAnimationExt
         {
             if (animation.IsValid)
             {
-                return animation.AnimateField(a => a.RectTransform.AsTrackable().Rotation)
-                    .Lerp(start, end);
+                return animation.AnimateRotation().Lerp(start, end);
             }
             return default;
         }
 
         public AnimationRef<IFieldAnimation<UiRotation>> Spin() => animation.Spin(UiRotation.Zero, UiRotation.Full);
         
-        public AnimationRef<IFieldAnimation<UiScale>> PulsePosition(UiScale pulsedSize)
+        public AnimationRef<IFieldAnimation<UiScale>> PulsePosition(UiScale pulsedSize, PositionField target)
         {
             if (animation.IsValid)
             {
-                return animation.ScalePosition(UiScale.Default, pulsedSize).Linear().PingPong();
-            }
-            return default;
-        }
-        
-        public AnimationRef<IFieldAnimation<UiScale>> PulseOffset(UiScale pulsedSize)
-        {
-            if (animation.IsValid)
-            {
-                return animation.ScaleOffset(UiScale.Default, pulsedSize).Ease().InOut().PingPong();
+                return animation.Scale(UiScale.Default, pulsedSize, target).Linear().PingPong();
             }
             return default;
         }
@@ -83,7 +138,7 @@ public static class ElementAnimationExt
         {
             if (animation.IsValid)
             {
-                return animation.AnimateField(a => a.RectTransform.AsTrackable().OffsetTranslate).ShakeX();
+                return animation.AnimateTranslate(PositionField.Offset).ShakeX();
             }
             return default;
         }
@@ -92,29 +147,17 @@ public static class ElementAnimationExt
         {
             if (animation.IsValid)
             {
-                return animation.AnimateField(a => a.RectTransform.AsTrackable().OffsetTranslate).ShakeY();
+                return animation.AnimateTranslate(PositionField.Offset).ShakeY();
             }
             return default;
         }
         
-        public UiTuple<AnimationRef<IFieldAnimation<UiTranslate>>, AnimationRef<IFieldAnimation<UiRotation>>> WobblePosition()
+        public UiTuple<AnimationRef<IFieldAnimation<UiTranslate>>, AnimationRef<IFieldAnimation<UiRotation>>> Wobble(PositionField target)
         {
             if (animation.IsValid)
             {
-                return UiTuple.Create(animation.AnimateField(a => a.RectTransform.AsTrackable().PositionTranslate).Wobble(),
-                    animation.AnimateField(a => a.RectTransform.AsTrackable().Rotation).Wobble());
-            }
-            return default;
-        }
-        
-        public UiTuple<AnimationRef<IFieldAnimation<UiTranslate>>, AnimationRef<IFieldAnimation<UiRotation>>> WobbleOffset()
-        {
-            if (animation.IsValid)
-            {
-                return UiTuple.Create(
-                    animation.AnimateField(a => a.RectTransform.AsTrackable().OffsetTranslate).Wobble(),
-                    animation.AnimateField(a => a.RectTransform.AsTrackable().Rotation).Wobble()
-                    );
+                return UiTuple.Create(animation.AnimateTranslate(target).Wobble(),
+                    animation.AnimateRotation().Wobble());
             }
             return default;
         }
@@ -124,8 +167,8 @@ public static class ElementAnimationExt
             if (animation.IsValid)
             {
                 return UiTuple.Create(
-                    animation.AnimateField(a => a.RectTransform.AsTrackable().OffsetTranslate).HeadShake(),
-                    animation.AnimateField(a => a.RectTransform.AsTrackable().Rotation).HeadShake()
+                    animation.AnimateTranslate(PositionField.Offset).HeadShake(),
+                    animation.AnimateRotation().HeadShake()
                     );
             }
             return default;

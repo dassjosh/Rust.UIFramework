@@ -45,7 +45,10 @@ public static class IncrementalGeneratorInitializationContextExt
                     }
                     catch (Exception ex)
                     {
-                        spc.ReportDiagnostic(Diagnostic.Create(ErrorDiagnostic, Location.None, $"{ex.StackTrace}"));
+                        foreach (string s in ex.ToString().Split('\n'))
+                        {
+                            spc.ReportDiagnostic(Diagnostic.Create(ErrorDiagnostic, Location.None, s));
+                        }
                     }
                 }
             }
@@ -63,11 +66,8 @@ public static class IncrementalGeneratorInitializationContextExt
             foreach (T node in nodes)
             {
                 SemanticModel model = compilation.GetSemanticModel(node.SyntaxTree);
-#pragma warning disable RS1039
                 INamedTypeSymbol symbol = model.GetDeclaredSymbol(node) as INamedTypeSymbol;
-#pragma warning restore RS1039
-
-                LoggingHelper.Log($"{symbol.Name} - {symbol.ContainingNamespace}");
+                
                 if (predicate.Invoke(symbol))
                 {
                     try
@@ -76,7 +76,10 @@ public static class IncrementalGeneratorInitializationContextExt
                     }
                     catch (Exception ex)
                     {
-                        spc.ReportDiagnostic(Diagnostic.Create(ErrorDiagnostic, Location.None, $"{ex.StackTrace}"));
+                        foreach (string s in ex.ToString().Split('\n'))
+                        {
+                            spc.ReportDiagnostic(Diagnostic.Create(ErrorDiagnostic, Location.None, s));
+                        }
                     }
                 }
             }

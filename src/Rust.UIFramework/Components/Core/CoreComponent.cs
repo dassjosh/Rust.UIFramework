@@ -12,7 +12,7 @@ namespace Oxide.Ext.UiFramework.Components;
 public abstract class CoreComponent : BaseTypedComponent, ICoreComponent, ISubComponent
 {
     internal readonly List<ISubComponent> SubComponents = [];
-    public bool AllowMultiple => false;
+    public bool AllowMultiple => this is not IGraphicalComponent;
     
     public T GetOrAddSubComponent<T>() where T : BaseComponent, ISubComponent, new() => GetSubComponent<T>() ?? AddSubComponentInternal<T>();
 

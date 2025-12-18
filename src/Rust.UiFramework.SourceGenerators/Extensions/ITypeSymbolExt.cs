@@ -114,6 +114,11 @@ public static class ITypeSymbolExt
             return symbol.GetMembers().OfType<IFieldSymbol>().Where(f => f.IsConst);
         }
         
+        public string AsGeneric(string generic)
+        {
+            return $"{symbol.ContainingNamespace}.{symbol.Name}<{generic}>";
+        }
+        
         public string AsGeneric(IEnumerable<string> generics)
         {
             string[] genArray = generics.ToArray();

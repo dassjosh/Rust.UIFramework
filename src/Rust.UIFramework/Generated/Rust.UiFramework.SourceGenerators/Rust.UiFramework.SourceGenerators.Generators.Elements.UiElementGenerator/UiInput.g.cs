@@ -27,6 +27,7 @@ public partial class UiInput : IUiInput, IUiInputTrackable
 	public partial bool ReadOnly { get => Input.ReadOnly; set => Input.ReadOnly = value; }
 	IInputComponentTrackable IUiInputTrackable.Input => Input.AsTrackable();
 
+	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 	public IUiInputTrackable AsTrackable() => this;
 }
 

@@ -13,6 +13,7 @@ public partial class UiIcon : IUiIcon, IUiIconTrackable
 	public partial Oxide.Ext.UiFramework.Colors.UiColor Color { get => RawImage.Color; set => RawImage.Color = value; }
 	IRawImageComponentTrackable IUiIconTrackable.RawImage => RawImage.AsTrackable();
 
+	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 	public IUiIconTrackable AsTrackable() => this;
 }
 

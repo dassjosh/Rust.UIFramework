@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using Microsoft.CodeAnalysis;
+using Rust.UiFramework.SourceGenerators.Logging;
 
 namespace Rust.UiFramework.SourceGenerators.Helpers;
 
@@ -28,21 +29,25 @@ public class SymbolCache
     public readonly DotNetSymbolCache MethodImpl = new("System.Runtime.CompilerServices.MethodImplAttribute");
     public readonly DotNetSymbolCache MethodImplOptions = new("System.Runtime.CompilerServices.MethodImplOptions");
 
+    public readonly AnimationCache Animations;
     public readonly EnumCache Enums;
     public readonly InterfacesCache Interfaces;
     public readonly LibrariesCache Libraries;
     public readonly PluginsCache Plugins;
     public readonly TypesCache Types;
+    public readonly UiElementsCache UiElements;
 
     public static SymbolCache Instance;
 
     public SymbolCache(Compilation compilation)
     {
-        Enums = new EnumCache(compilation);
+        Animations = new AnimationCache(compilation);
         Interfaces = new InterfacesCache(compilation);
         Libraries = new LibrariesCache(compilation);
         Plugins = new PluginsCache(compilation);
         Types = new TypesCache(compilation);
+        Enums = new EnumCache(compilation);
+        UiElements = new UiElementsCache(compilation);
 
         InitializeSymbols(this, compilation);
     }
@@ -68,6 +73,18 @@ public class SymbolCache
                     InitializeSymbols(value, compilation);
                     break;
             }
+        }
+    }
+    
+    public class AnimationCache
+    {
+        public readonly FrameworkSymbolCache AnimationRef = new("Animation.AnimationRef`1");
+        public readonly FrameworkSymbolCache IElementAnimation = new("Animation.IElementAnimation`1");
+        public readonly FrameworkSymbolCache IFieldAnimation = new("Animation.IFieldAnimation`1");
+
+        public AnimationCache(Compilation compilation)
+        {
+            InitializeSymbols(this, compilation);
         }
     }
 
@@ -126,6 +143,16 @@ public class SymbolCache
         public readonly FrameworkSymbolCache UiColor = new("Colors.UiColor");
 
         public TypesCache(Compilation compilation)
+        {
+            InitializeSymbols(this, compilation);
+        }
+    }
+    
+    public class UiElementsCache
+    {
+        public readonly FrameworkSymbolCache BaseUiComponent = new("UiElements.BaseUiComponent");
+
+        public UiElementsCache(Compilation compilation)
         {
             InitializeSymbols(this, compilation);
         }

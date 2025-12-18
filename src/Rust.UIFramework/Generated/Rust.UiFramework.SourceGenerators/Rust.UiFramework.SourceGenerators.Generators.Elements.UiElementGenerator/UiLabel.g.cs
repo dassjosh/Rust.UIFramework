@@ -18,6 +18,7 @@ public partial class UiLabel : IUiLabel, IUiLabelTrackable
 	public partial Oxide.Ext.UiFramework.Colors.UiColor Color { get => Text.Color; set => Text.Color = value; }
 	ITextComponentTrackable IUiLabelTrackable.Text => Text.AsTrackable();
 
+	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 	public IUiLabelTrackable AsTrackable() => this;
 }
 
