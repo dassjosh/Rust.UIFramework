@@ -4,7 +4,9 @@ namespace Oxide.Ext.UiFramework.Pooling;
 
 public abstract class BasePooledListEnumerator<T> : BasePooledEnumerator<T>
 {
+#pragma warning disable UIFPOOL01
     protected IList<T> List;
+#pragma warning restore UIFPOOL01
     private int _currentIndex = -1;
     public override T Current { get; protected set; }
     

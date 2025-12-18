@@ -146,5 +146,10 @@ public class UiGridLayout : BaseUiLayout, IFixedElementsLayout
     {
         base.EnterPool();
         Elements.Clear();
+        ColumnAlignment = default;
+        RowAlignment = default;
+        NumRows = default;
+        NumCols = default;
+        Padding = default;
     }
 }

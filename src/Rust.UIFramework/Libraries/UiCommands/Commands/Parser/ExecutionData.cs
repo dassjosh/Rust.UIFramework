@@ -33,5 +33,6 @@ public class ExecutionData : BasePoolable
         Player = null;
         IsOnCooldown = true;
         HasPermission = false;
+        RemainingCooldown = default;
     }
 }

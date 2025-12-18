@@ -108,17 +108,19 @@ public abstract partial class BaseUiBuilder : BaseBuilder
         Layouts.FreeValues();
     }
     
+    protected override void LeavePool()
+    {
+        base.LeavePool();
+        Font = GlobalFont;
+        UpdateMode = UpdateMode.None;
+        NamingMode = NamingMode.Child;
+    }
+    
     protected override void EnterPool()
     {
         base.EnterPool();
         FreeComponents();
         Naming = Singleton<DefaultNamingStrategy>.Instance;
         NamingCache = Singleton<UiNamingCache>.Instance.Default;
-    }
-    
-    protected override void LeavePool()
-    {
-        base.LeavePool();
-        Font = GlobalFont;
     }
 }

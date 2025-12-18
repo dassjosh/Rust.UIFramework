@@ -5,4 +5,5 @@
 
 Rule ID | Category | Severity | Notes
 --------|----------|----------|--------------------
+UIFPOOL01 | Usage | Warning | PoolResetAnalyzer
 UIS001 | SourceGenerator | Error | ErrorDescription

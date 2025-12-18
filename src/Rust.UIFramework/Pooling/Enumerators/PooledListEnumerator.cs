@@ -5,16 +5,13 @@ namespace Oxide.Ext.UiFramework.Pooling;
 
 public sealed class PooledListEnumerator<T> : BasePooledListEnumerator<T>
 {
-    public PooledListEnumerator()
-    {
-        List = [];
-    }
-        
+    public PooledListEnumerator() { }
+    
     internal PooledListEnumerator(ICollection<T> list)
     {
         List = new List<T>(list);
     }
-        
+    
     public static PooledListEnumerator<T> Create(IUiFrameworkPlugin plugin, IList<T> list) => plugin.PluginPool.Get<PooledListEnumerator<T>>().Init(list);
 
     private PooledListEnumerator<T> Init(IList<T> list)
@@ -26,10 +23,16 @@ public sealed class PooledListEnumerator<T> : BasePooledListEnumerator<T>
         
         return this;
     }
-    
+
+    protected override void LeavePool()
+    {
+        base.LeavePool();
+        List = PluginPool.GetList<T>();
+    }
+
     protected override void EnterPool()
     {
         base.EnterPool();
-        List.Clear();
+        PluginPool.FreeList((List<T>)List);
     }
 }

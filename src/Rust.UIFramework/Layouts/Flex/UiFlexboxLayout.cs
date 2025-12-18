@@ -264,6 +264,13 @@ public class UiFlexBoxLayout : BaseUiLayout
     protected override void EnterPool()
     {
         base.EnterPool();
+        AlignItems = default;
+        Direction = default;
+        Wrap = default;
+        DefaultJustifyContent = default;
+        Padding = default;
+        Gap = default;
+        
         for (int index = 0; index < _lines.Count; index++)
         {
             PluginPool.FreeList(_lines[index]);

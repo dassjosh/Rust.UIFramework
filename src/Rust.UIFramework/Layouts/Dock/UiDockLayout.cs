@@ -76,6 +76,7 @@ public class UiDockLayout : BaseUiLayout
     {
         base.EnterPool();
         Elements.Clear();
+        Padding = default;
     }
 
     public readonly struct LayoutState(BaseUiComponent element, DockPosition dockPosition, float dockSize)

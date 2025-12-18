@@ -522,5 +522,7 @@ public sealed partial class JsonFrameworkWriter : BasePoolable
     {
         ResetCommaState();
         _writer.Reset();
+        _propertyComma = false;
+        _objectComma = false;
     }
 }

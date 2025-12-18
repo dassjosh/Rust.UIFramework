@@ -98,5 +98,9 @@ public class UiDirectionalLayout : BaseUiLayout, IFixedElementsLayout
     {
         base.EnterPool();
         Elements.Clear();
+        NumElements = default;
+        Direction = default;
+        Padding = default;
+        Alignment = default;
     }
 }

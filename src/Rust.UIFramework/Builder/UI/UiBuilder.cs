@@ -212,13 +212,6 @@ public partial class UiBuilder : BaseUiBuilder, IAnimationBuilder
         _actualRoot = null;
         _cancelAnimations.TryFreeValues();
     }
-    
-    protected override void LeavePool()
-    {
-        base.LeavePool();
-        UpdateMode = UpdateMode.None;
-        NamingMode = NamingMode.Child;
-    }
 
     #endregion
 }

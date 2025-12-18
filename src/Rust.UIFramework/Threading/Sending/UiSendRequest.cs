@@ -46,5 +46,6 @@ internal class UiSendRequest : BaseUiRequest, IUiRequest
         base.EnterPool();
         Builder.TryDispose();
         Builder = null;
+        Options = null;
     }
 }

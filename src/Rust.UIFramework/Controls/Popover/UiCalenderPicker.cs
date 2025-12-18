@@ -155,6 +155,8 @@ public class UiCalenderPicker : BaseUiControl
         PreviousMonth = null;        
         NextYear = null;
         NextMonth = null;
+        _firstOfTheMonth = default;
+        _nextMonth = default;
         PluginPool.FreeList(DateButtons);
     }
 }

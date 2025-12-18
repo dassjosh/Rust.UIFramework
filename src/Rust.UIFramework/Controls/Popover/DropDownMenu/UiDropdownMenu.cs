@@ -18,7 +18,7 @@ public class UiDropdownMenu : BaseUiControl
 {
     public UiSection ScrollBarSection;
     public UiScrollBar ScrollBar;
-    public List<UiDropdownMenuItem> Items = [];
+    public readonly List<UiDropdownMenuItem> Items = [];
         
     public static UiDropdownMenu Create(BaseUiBuilder builder, in UiReference reference, in UiPosition position, in UiOffset offset, List<DropdownMenuData> items, int fontSize, UiColor textColor, UiColor backgroundColor, DropdownMenuScrollMode scrollMode, ICommandBuilder<int> pageCommand = null, int page = 0, int maxValuesPerPage = 100, in UiPadding? padding = null)
     {

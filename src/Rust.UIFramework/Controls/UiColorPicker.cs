@@ -11,18 +11,18 @@ namespace Oxide.Ext.UiFramework.Controls;
 
 public class UiColorPicker : BaseUiControl
 {
-    public UiSection Anchor;
-    public UiButton Button;
-    public UiLabel Text;
-    public UiPanel Color;
-        
-    public static UiColorPicker Create(BaseUiBuilder builder, BaseUiComponent parent, in UiPosition pos, in UiOffset offset, UiColor selectedColor, int fontSize, UiColor textColor, UiColor backgroundColor, ICommandBuilder<UiReference> openCommand)
-    {
-        UiColorPicker control = CreateControl<UiColorPicker>(builder);
-        control.Anchor = builder.Anchor(parent, pos, offset);
-        control.Button = builder.Button(parent, pos, offset, backgroundColor, openCommand.Build(control.Anchor.Reference));
-        control.Text = builder.Label(control.Button, UiPosition.Full, new UiOffset(5, 0, 0, 0), selectedColor.ToHtmlColor(), fontSize, textColor, TextAnchor.MiddleLeft);
-        control.Color = builder.Panel(control.Button, UiPosition.Full.SliceHorizontal(1f - (pos.Max.y - pos.Min.y), 1), new UiOffset(-4, 4, -4, -4), selectedColor);
-        return control;
-    }
+    // public UiSection Anchor;
+    // public UiButton Button;
+    // public UiLabel Text;
+    // public UiPanel Color;
+    //     
+    // public static UiColorPicker Create(BaseUiBuilder builder, BaseUiComponent parent, in UiPosition pos, in UiOffset offset, UiColor selectedColor, int fontSize, UiColor textColor, UiColor backgroundColor, ICommandBuilder<UiReference> openCommand)
+    // {
+    //     UiColorPicker control = CreateControl<UiColorPicker>(builder);
+    //     control.Anchor = builder.Anchor(parent, pos, offset);
+    //     control.Button = builder.Button(parent, pos, offset, backgroundColor, openCommand.Build(control.Anchor.Reference));
+    //     control.Text = builder.Label(control.Button, UiPosition.Full, new UiOffset(5, 0, 0, 0), selectedColor.ToHtmlColor(), fontSize, textColor, TextAnchor.MiddleLeft);
+    //     control.Color = builder.Panel(control.Button, UiPosition.Full.SliceHorizontal(1f - (pos.Max.y - pos.Min.y), 1), new UiOffset(-4, 4, -4, -4), selectedColor);
+    //     return control;
+    // }
 }

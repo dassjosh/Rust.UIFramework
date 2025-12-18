@@ -11,7 +11,7 @@ public class StringFormatAnimator : BasePoolable, IAnimator<string>
     private string _format;
     private IFormatProvider _provider;
     private readonly List<object> _animators = [];
-    private object[] _values;
+    private UiPooledArray<object> _values;
 
     public StringFormatAnimator() { }
 
@@ -20,7 +20,7 @@ public class StringFormatAnimator : BasePoolable, IAnimator<string>
         _format = format;
         _provider = provider;
         _animators.AddRange(animators);
-        _values = new object[_animators.Count];
+        _values = new UiPooledArray<object>(_animators.Count);
     }
 
     public static StringFormatAnimator Create(IUiFrameworkPlugin plugin, string format, IFormatProvider provider, IEnumerable<object> animators)
@@ -31,10 +31,7 @@ public class StringFormatAnimator : BasePoolable, IAnimator<string>
         _format = format ?? throw new ArgumentNullException(nameof(format));
         _provider = provider;
         _animators.AddRange(animators);
-        if (_values.Length < _animators.Count)
-        {
-            _values = new object[_animators.Count];
-        }
+        _values = PluginPool.GetArray<object>(_animators.Count);
         return this;
     }
 
@@ -61,6 +58,6 @@ public class StringFormatAnimator : BasePoolable, IAnimator<string>
         _format = null;
         _provider = null;
         _animators.TryFreeValues();
-        _values.Clear();
+        _values.TryDispose();
     }
 }

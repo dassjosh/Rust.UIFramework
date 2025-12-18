@@ -5,15 +5,15 @@ namespace Oxide.Ext.UiFramework.Controls.Popover;
 
 public class UiColorPickerMenu : BaseUiControl
 {
-    public UiPanel HexInputBackground;
-    public UiInput HexInput;
-    public UiNumberPicker RedPicker;
-    public UiNumberPicker GreenPicker;
-    public UiNumberPicker BluePicker;
-    public UiNumberPicker AlphaPicker;
-        
-    private const int MenuPadding = 4;
-    private const int ItemPadding = 2;
+    // public UiPanel HexInputBackground;
+    // public UiInput HexInput;
+    // public UiNumberPicker RedPicker;
+    // public UiNumberPicker GreenPicker;
+    // public UiNumberPicker BluePicker;
+    // public UiNumberPicker AlphaPicker;
+    //     
+    // private const int MenuPadding = 4;
+    // private const int ItemPadding = 2;
 
     //private float _width;
     //private float _height;

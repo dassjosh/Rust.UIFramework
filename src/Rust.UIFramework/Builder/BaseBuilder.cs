@@ -194,6 +194,7 @@ public abstract class BaseBuilder : BasePoolable
     protected override void EnterPool()
     {
         RootName = null;
+        Plugin = null;
     }
     #endregion
 }

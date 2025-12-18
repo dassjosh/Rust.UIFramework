@@ -61,5 +61,6 @@ public class UiGridPositionLayout : BaseUiLayout, IFixedElementsLayout
         Grid = null;
         Elements.Clear();
         MoveMode = GridMoveMode.Column;
+        Padding = default;
     }
 }
