@@ -1352,6 +1352,20 @@
                 }
               }
             },
+            "birthday_balloons_2025": {
+              "Name": "birthday_balloons_2025",
+              "Path": "assets/prefabs/misc/birthday_balloons_2025",
+              "Files": {
+                "CircleBalloonIcon": "assets/prefabs/misc/birthday_balloons_2025/circle_balloon.icon.png",
+                "HeartBalloonIcon": "assets/prefabs/misc/birthday_balloons_2025/heart_balloon.icon.png",
+                "LatexBalloonIcon": "assets/prefabs/misc/birthday_balloons_2025/latex_balloon.icon.png",
+                "LatexClumpBalloonsIcon": "assets/prefabs/misc/birthday_balloons_2025/latex_clump_balloons.icon.png",
+                "MixedClumpBalloonsIcon": "assets/prefabs/misc/birthday_balloons_2025/mixed_clump_balloons.icon.png",
+                "SpeechbubbleBalloonIcon": "assets/prefabs/misc/birthday_balloons_2025/speechbubble_balloon.icon.png",
+                "StarBalloonIcon": "assets/prefabs/misc/birthday_balloons_2025/star_balloon.icon.png"
+              },
+              "SubFolders": {}
+            },
             "confetticannon": {
               "Name": "confetticannon",
               "Path": "assets/prefabs/misc/confetticannon",
@@ -3201,6 +3215,14 @@
               },
               "SubFolders": {}
             },
+            "neonsigntr": {
+              "Name": "neonsigntr",
+              "Path": "assets/prefabs/deployable/neonsigntr",
+              "Files": {
+                "NeonSigntrIcon": "assets/prefabs/deployable/neonsigntr/neonsigntr.icon.png"
+              },
+              "SubFolders": {}
+            },
             "vendingmachine": {
               "Name": "vendingmachine",
               "Path": "assets/prefabs/deployable/vendingmachine",
@@ -3228,7 +3250,16 @@
                 "SofaItemIcon": "assets/prefabs/deployable/sofa/sofa.item.icon.png",
                 "SofaPatternDeployedIcon": "assets/prefabs/deployable/sofa/sofa.pattern.deployed.icon.png"
               },
-              "SubFolders": {}
+              "SubFolders": {
+                "twitch_rivals": {
+                  "Name": "twitch_rivals",
+                  "Path": "assets/prefabs/deployable/sofa/twitch_rivals",
+                  "Files": {
+                    "TwitchRivalsSofa": "assets/prefabs/deployable/sofa/twitch_rivals/twitch_rivals_sofa.png"
+                  },
+                  "SubFolders": {}
+                }
+              }
             },
             "planters": {
               "Name": "planters",
@@ -3962,7 +3993,24 @@
               "Files": {
                 "HatCandle": "assets/prefabs/clothes/hat.candle/hat_candle.png"
               },
-              "SubFolders": {}
+              "SubFolders": {
+                "skins": {
+                  "Name": "skins",
+                  "Path": "assets/prefabs/clothes/hat.candle/skins",
+                  "Files": {},
+                  "SubFolders": {
+                    "birthday_candle_hat": {
+                      "Name": "birthday_candle_hat",
+                      "Path": "assets/prefabs/clothes/hat.candle/skins/birthday_candle_hat",
+                      "Files": {
+                        "HatCandleBirthday": "assets/prefabs/clothes/hat.candle/skins/birthday_candle_hat/hat_candle_birthday.png",
+                        "HatCandleBirthdayStore": "assets/prefabs/clothes/hat.candle/skins/birthday_candle_hat/hat_candle_birthday.store.png"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                }
+              }
             },
             "hat.cap": {
               "Name": "hat.cap",
@@ -4905,7 +4953,8 @@
               "Path": "assets/prefabs/weapons/chocolate_cake",
               "Files": {
                 "BirthdayCake10Icon": "assets/prefabs/weapons/chocolate_cake/birthday_cake_10.icon.png",
-                "BirthdayCake11Icon": "assets/prefabs/weapons/chocolate_cake/birthday_cake_11.icon.png"
+                "BirthdayCake11Icon": "assets/prefabs/weapons/chocolate_cake/birthday_cake_11.icon.png",
+                "BirthdayCake12Icon": "assets/prefabs/weapons/chocolate_cake/birthday_cake_12.icon.png"
               },
               "SubFolders": {}
             },
@@ -5316,7 +5365,24 @@
               "Files": {
                 "Lr300Icon": "assets/prefabs/weapons/lr300/lr300.icon.png"
               },
-              "SubFolders": {}
+              "SubFolders": {
+                "skins": {
+                  "Name": "skins",
+                  "Path": "assets/prefabs/weapons/lr300/skins",
+                  "Files": {},
+                  "SubFolders": {
+                    "space": {
+                      "Name": "space",
+                      "Path": "assets/prefabs/weapons/lr300/skins/space",
+                      "Files": {
+                        "Lr300SpaceIcon": "assets/prefabs/weapons/lr300/skins/space/lr300.space.icon.png",
+                        "Lr300SpaceStoreIcon": "assets/prefabs/weapons/lr300/skins/space/lr300.space.store.icon.png"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                }
+              }
             },
             "m249": {
               "Name": "m249",
@@ -7642,6 +7708,26 @@
                     }
                   }
                 },
+                "2025-12_xmas": {
+                  "Name": "2025-12_xmas",
+                  "Path": "assets/prefabs/wallpaper/skins/2025-12_xmas",
+                  "Files": {},
+                  "SubFolders": {
+                    "icons": {
+                      "Name": "icons",
+                      "Path": "assets/prefabs/wallpaper/skins/2025-12_xmas/icons",
+                      "Files": {
+                        "CeilingPaperXmasPlasterMouldedIcon": "assets/prefabs/wallpaper/skins/2025-12_xmas/icons/ceilingpaper.xmas.plaster.moulded.icon.png",
+                        "CeilingPaperXmasPlasterMouldedStoreIcon": "assets/prefabs/wallpaper/skins/2025-12_xmas/icons/ceilingpaper.xmas.plaster.moulded.store.icon.png",
+                        "FloorPaperXmasTilesAIcon": "assets/prefabs/wallpaper/skins/2025-12_xmas/icons/floorpaper.xmas.tiles.a.icon.png",
+                        "FloorPaperXmasTilesAStoreIcon": "assets/prefabs/wallpaper/skins/2025-12_xmas/icons/floorpaper.xmas.tiles.a.store.icon.png",
+                        "WallPaperAssortedgiftwrapIcon": "assets/prefabs/wallpaper/skins/2025-12_xmas/icons/wallpaper.assortedgiftwrap.icon.png",
+                        "WallPaperAssortedgiftwrapStoreIcon": "assets/prefabs/wallpaper/skins/2025-12_xmas/icons/wallpaper.assortedgiftwrap.store.icon.png"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
                 "2025-01_lny25": {
                   "Name": "2025-01_lny25",
                   "Path": "assets/prefabs/wallpaper/skins/2025-01_lny25",
@@ -7719,6 +7805,22 @@
                         "WallPaperJungleAnimals": "assets/prefabs/wallpaper/skins/2025-05_jungledlc/icons/wallpaper_jungle_animals.png",
                         "WallPaperJungleLeaves": "assets/prefabs/wallpaper/skins/2025-05_jungledlc/icons/wallpaper_jungle_leaves.png",
                         "WallPaperJungleSigil": "assets/prefabs/wallpaper/skins/2025-05_jungledlc/icons/wallpaper_jungle_sigil.png"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
+                "2025-12_twitch_rivals": {
+                  "Name": "2025-12_twitch_rivals",
+                  "Path": "assets/prefabs/wallpaper/skins/2025-12_twitch_rivals",
+                  "Files": {},
+                  "SubFolders": {
+                    "icons": {
+                      "Name": "icons",
+                      "Path": "assets/prefabs/wallpaper/skins/2025-12_twitch_rivals/icons",
+                      "Files": {
+                        "WallPaperTwitchrivals2025BlackIcon": "assets/prefabs/wallpaper/skins/2025-12_twitch_rivals/icons/wallpaper.twitchrivals2025.black.icon.png",
+                        "WallPaperTwitchrivals2025PurpleIcon": "assets/prefabs/wallpaper/skins/2025-12_twitch_rivals/icons/wallpaper.twitchrivals2025.purple.icon.png"
                       },
                       "SubFolders": {}
                     }
@@ -8202,6 +8304,14 @@
               "Path": "assets/prefabs/dlc/pack_sitems",
               "Files": {},
               "SubFolders": {
+                "balloon_pack": {
+                  "Name": "balloon_pack",
+                  "Path": "assets/prefabs/dlc/pack_sitems/balloon_pack",
+                  "Files": {
+                    "StoreIconBalloonPack": "assets/prefabs/dlc/pack_sitems/balloon_pack/store-icon_balloon_pack.png"
+                  },
+                  "SubFolders": {}
+                },
                 "decor_lighting_pack": {
                   "Name": "decor_lighting_pack",
                   "Path": "assets/prefabs/dlc/pack_sitems/decor_lighting_pack",

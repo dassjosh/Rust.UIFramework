@@ -7124,6 +7124,7 @@
                 "VfxFlashbangSparks": "assets/content/effects/explosions/vfx_flashbang_sparks.mat",
                 "VfxShockwave": "assets/content/effects/explosions/vfx_shockwave.mat",
                 "VfxShockwave2": "assets/content/effects/explosions/vfx_shockwave2.mat",
+                "VfxShockwaveBalloonPop": "assets/content/effects/explosions/vfx_shockwave_balloon_pop.mat",
                 "VfxShockwaveHarder": "assets/content/effects/explosions/vfx_shockwave_harder.mat",
                 "VfxShockwaveHarder2": "assets/content/effects/explosions/vfx_shockwave_harder2.mat",
                 "VfxShockwaveRamImpact": "assets/content/effects/explosions/vfx_shockwave_ram_impact.mat"
@@ -12821,6 +12822,7 @@
                         "RobotoCondensedBoldSdfChat": "assets/content/ui/fonts/_robotocondensed/materials/robotocondensed-bold sdf - chat.mat",
                         "RobotoCondensedBoldSdfIoEntityInfo": "assets/content/ui/fonts/_robotocondensed/materials/robotocondensed-bold sdf - ioentity info.mat",
                         "RobotoCondensedBoldSdfLit": "assets/content/ui/fonts/_robotocondensed/materials/robotocondensed-bold sdf - lit.mat",
+                        "RobotoCondensedBoldSdfLitDepthoffset": "assets/content/ui/fonts/_robotocondensed/materials/robotocondensed-bold sdf - lit depthoffset.mat",
                         "RobotoCondensedBoldSdfOutline": "assets/content/ui/fonts/_robotocondensed/materials/robotocondensed-bold sdf - outline.mat",
                         "RobotoCondensedBoldSdfOutline2": "assets/content/ui/fonts/_robotocondensed/materials/robotocondensed-bold sdf - outline 2.mat",
                         "RobotoCondensedBoldSdfOutlineBold": "assets/content/ui/fonts/_robotocondensed/materials/robotocondensed-bold sdf - outline bold.mat",
@@ -12853,6 +12855,21 @@
                       "Path": "assets/content/ui/fonts/_roboto/materials",
                       "Files": {
                         "RobotoRegularDropShadowSdf": "assets/content/ui/fonts/_roboto/materials/roboto-regular dropshadow sdf.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
+                "superchiby": {
+                  "Name": "superchiby",
+                  "Path": "assets/content/ui/fonts/superchiby",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/content/ui/fonts/superchiby/materials",
+                      "Files": {
+                        "SuperChibySdfLitDepthoffset": "assets/content/ui/fonts/superchiby/materials/super chiby sdf - lit depthoffset.mat"
                       },
                       "SubFolders": {}
                     }
@@ -14732,6 +14749,8 @@
               "Path": "assets/content/building/materials",
               "Files": {
                 "AtlasBrickSkin": "assets/content/building/materials/atlas_brick_skin.mat",
+                "AtlasSpaceStationA": "assets/content/building/materials/atlas_space_station_a.mat",
+                "AtlasSpaceStationB": "assets/content/building/materials/atlas_space_station_b.mat",
                 "AtlasToptier": "assets/content/building/materials/atlas_toptier.mat",
                 "AtlasToptierDecal": "assets/content/building/materials/atlas_toptier_decal.mat",
                 "AtlasTwig": "assets/content/building/materials/atlas_twig.mat",
@@ -17912,6 +17931,23 @@
                 }
               }
             },
+            "neonsigntr": {
+              "Name": "neonsigntr",
+              "Path": "assets/prefabs/deployable/neonsigntr",
+              "Files": {},
+              "SubFolders": {
+                "material": {
+                  "Name": "material",
+                  "Path": "assets/prefabs/deployable/neonsigntr/material",
+                  "Files": {
+                    "Neontrbody": "assets/prefabs/deployable/neonsigntr/material/neontrbody.mat",
+                    "NeontrOff": "assets/prefabs/deployable/neonsigntr/material/neontr off.mat",
+                    "NeontrOn": "assets/prefabs/deployable/neonsigntr/material/neontr on.mat"
+                  },
+                  "SubFolders": {}
+                }
+              }
+            },
             "planter_bottle": {
               "Name": "planter_bottle",
               "Path": "assets/prefabs/deployable/planter_bottle",
@@ -18353,6 +18389,28 @@
                     "TunacanWallLight": "assets/prefabs/deployable/tuna can wall lamp/materials/tunacan_walllight.mat"
                   },
                   "SubFolders": {}
+                }
+              }
+            },
+            "sofa": {
+              "Name": "sofa",
+              "Path": "assets/prefabs/deployable/sofa",
+              "Files": {},
+              "SubFolders": {
+                "twitch_rivals": {
+                  "Name": "twitch_rivals",
+                  "Path": "assets/prefabs/deployable/sofa/twitch_rivals",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/prefabs/deployable/sofa/twitch_rivals/materials",
+                      "Files": {
+                        "TwitchRivalsSofa": "assets/prefabs/deployable/sofa/twitch_rivals/materials/twitch_rivals_sofa.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
                 }
               }
             },
@@ -20077,6 +20135,45 @@
                       "Files": {
                         "Balloons": "assets/prefabs/misc/balloons/models/materials/balloons.mat",
                         "Balloons7thbirthday": "assets/prefabs/misc/balloons/models/materials/balloons_7thbirthday.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                }
+              }
+            },
+            "birthday_balloons_2025": {
+              "Name": "birthday_balloons_2025",
+              "Path": "assets/prefabs/misc/birthday_balloons_2025",
+              "Files": {},
+              "SubFolders": {
+                "materials": {
+                  "Name": "materials",
+                  "Path": "assets/prefabs/misc/birthday_balloons_2025/materials",
+                  "Files": {
+                    "BalloonsGibsGroundFoil": "assets/prefabs/misc/birthday_balloons_2025/materials/balloons_gibs_ground_foil.mat",
+                    "BalloonsGibsGroundLatex": "assets/prefabs/misc/birthday_balloons_2025/materials/balloons_gibs_ground_latex.mat",
+                    "BalloonsGibsGroundSpeech": "assets/prefabs/misc/birthday_balloons_2025/materials/balloons_gibs_ground_speech.mat",
+                    "BirthdayBalloonsClumps": "assets/prefabs/misc/birthday_balloons_2025/materials/birthday_balloons_clumps.mat",
+                    "BirthdayBalloonsClumpsGibs": "assets/prefabs/misc/birthday_balloons_2025/materials/birthday_balloons_clumps_gibs.mat",
+                    "BirthdayBalloonsGibs": "assets/prefabs/misc/birthday_balloons_2025/materials/birthday_balloons_gibs.mat",
+                    "BirthdayBalloonsGibsSpeech": "assets/prefabs/misc/birthday_balloons_2025/materials/birthday_balloons_gibs_speech.mat",
+                    "BirthdayBalloonsSingles": "assets/prefabs/misc/birthday_balloons_2025/materials/birthday_balloons_singles.mat",
+                    "BirthdayBalloonsSinglesGibsPfx": "assets/prefabs/misc/birthday_balloons_2025/materials/birthday_balloons_singles_gibs_pfx.mat",
+                    "BirthdayBalloonsSinglesMetallic": "assets/prefabs/misc/birthday_balloons_2025/materials/birthday_balloons_singles_metallic.mat",
+                    "BirthdayBalloonsString": "assets/prefabs/misc/birthday_balloons_2025/materials/birthday_balloons_string.mat"
+                  },
+                  "SubFolders": {
+                    "3d_turntable_materials": {
+                      "Name": "3d_turntable_materials",
+                      "Path": "assets/prefabs/misc/birthday_balloons_2025/materials/3d_turntable_materials",
+                      "Files": {
+                        "BirthdayBalloonsClumpsTurntable": "assets/prefabs/misc/birthday_balloons_2025/materials/3d_turntable_materials/birthday_balloons_clumps_turntable.mat",
+                        "BirthdayBalloonsSinglesCircle": "assets/prefabs/misc/birthday_balloons_2025/materials/3d_turntable_materials/birthday_balloons_singles_circle.mat",
+                        "BirthdayBalloonsSinglesHeart": "assets/prefabs/misc/birthday_balloons_2025/materials/3d_turntable_materials/birthday_balloons_singles_heart.mat",
+                        "BirthdayBalloonsSinglesLatex": "assets/prefabs/misc/birthday_balloons_2025/materials/3d_turntable_materials/birthday_balloons_singles_latex.mat",
+                        "BirthdayBalloonsSinglesSpeechBubble": "assets/prefabs/misc/birthday_balloons_2025/materials/3d_turntable_materials/birthday_balloons_singles_speech_bubble.mat",
+                        "BirthdayBalloonsSinglesStar": "assets/prefabs/misc/birthday_balloons_2025/materials/3d_turntable_materials/birthday_balloons_singles_star.mat"
                       },
                       "SubFolders": {}
                     }
@@ -22989,6 +23086,7 @@
                     "BirthdayCake10": "assets/prefabs/weapons/chocolate_cake/material/birthday_cake_10.mat",
                     "BirthdayCake10Candles": "assets/prefabs/weapons/chocolate_cake/material/birthday_cake_10_candles.mat",
                     "BirthdayCake11": "assets/prefabs/weapons/chocolate_cake/material/birthday_cake_11.mat",
+                    "BirthdayCake12": "assets/prefabs/weapons/chocolate_cake/material/birthday_cake_12.mat",
                     "ChocolateCake": "assets/prefabs/weapons/chocolate_cake/material/chocolate_cake.mat"
                   },
                   "SubFolders": {
@@ -23103,6 +23201,73 @@
                         "Heatshield": "assets/prefabs/weapons/lr300/model/materials/heatshield.mat"
                       },
                       "SubFolders": {}
+                    }
+                  }
+                },
+                "skins": {
+                  "Name": "skins",
+                  "Path": "assets/prefabs/weapons/lr300/skins",
+                  "Files": {},
+                  "SubFolders": {
+                    "space": {
+                      "Name": "space",
+                      "Path": "assets/prefabs/weapons/lr300/skins/space",
+                      "Files": {},
+                      "SubFolders": {
+                        "model": {
+                          "Name": "model",
+                          "Path": "assets/prefabs/weapons/lr300/skins/space/model",
+                          "Files": {
+                            "TempMaterialDeleteMe": "assets/prefabs/weapons/lr300/skins/space/model/temp material delete me.mat"
+                          },
+                          "SubFolders": {
+                            "materials": {
+                              "Name": "materials",
+                              "Path": "assets/prefabs/weapons/lr300/skins/space/model/materials",
+                              "Files": {
+                                "Lr300gripassembly": "assets/prefabs/weapons/lr300/skins/space/model/materials/lr300gripassembly.mat",
+                                "Lr300magazine": "assets/prefabs/weapons/lr300/skins/space/model/materials/lr300magazine.mat",
+                                "Lr300receiver": "assets/prefabs/weapons/lr300/skins/space/model/materials/lr300receiver.mat",
+                                "Lr300sights": "assets/prefabs/weapons/lr300/skins/space/model/materials/lr300sights.mat",
+                                "Lr300Stock": "assets/prefabs/weapons/lr300/skins/space/model/materials/lr300stock.mat",
+                                "WLr300": "assets/prefabs/weapons/lr300/skins/space/model/materials/w_lr300.mat"
+                              },
+                              "SubFolders": {
+                                "effects": {
+                                  "Name": "effects",
+                                  "Path": "assets/prefabs/weapons/lr300/skins/space/model/materials/effects",
+                                  "Files": {
+                                    "LcdBurstmodeOff": "assets/prefabs/weapons/lr300/skins/space/model/materials/effects/lcd_burstmode_off.mat",
+                                    "LcdBurstmodeOn": "assets/prefabs/weapons/lr300/skins/space/model/materials/effects/lcd_burstmode_on.mat",
+                                    "LcdLowAmmoOff": "assets/prefabs/weapons/lr300/skins/space/model/materials/effects/lcd_lowammo_off.mat",
+                                    "LcdLowAmmoOn": "assets/prefabs/weapons/lr300/skins/space/model/materials/effects/lcd_lowammo_on.mat",
+                                    "Lr300LcdGlass": "assets/prefabs/weapons/lr300/skins/space/model/materials/effects/lr300 lcd glass.mat"
+                                  },
+                                  "SubFolders": {}
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "fakeuiassets": {
+                          "Name": "fakeuiassets",
+                          "Path": "assets/prefabs/weapons/lr300/skins/space/fakeuiassets",
+                          "Files": {
+                            "Lcdreadout0": "assets/prefabs/weapons/lr300/skins/space/fakeuiassets/lcdreadout_0.mat",
+                            "Lcdreadout1": "assets/prefabs/weapons/lr300/skins/space/fakeuiassets/lcdreadout_1.mat",
+                            "Lcdreadout2": "assets/prefabs/weapons/lr300/skins/space/fakeuiassets/lcdreadout_2.mat",
+                            "Lcdreadout3": "assets/prefabs/weapons/lr300/skins/space/fakeuiassets/lcdreadout_3.mat",
+                            "Lcdreadout4": "assets/prefabs/weapons/lr300/skins/space/fakeuiassets/lcdreadout_4.mat",
+                            "Lcdreadout5": "assets/prefabs/weapons/lr300/skins/space/fakeuiassets/lcdreadout_5.mat",
+                            "Lcdreadout6": "assets/prefabs/weapons/lr300/skins/space/fakeuiassets/lcdreadout_6.mat",
+                            "Lcdreadout7": "assets/prefabs/weapons/lr300/skins/space/fakeuiassets/lcdreadout_7.mat",
+                            "Lcdreadout8": "assets/prefabs/weapons/lr300/skins/space/fakeuiassets/lcdreadout_8.mat",
+                            "Lcdreadout8Black": "assets/prefabs/weapons/lr300/skins/space/fakeuiassets/lcdreadout_8_black.mat",
+                            "Lcdreadout9": "assets/prefabs/weapons/lr300/skins/space/fakeuiassets/lcdreadout_9.mat"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
                     }
                   }
                 }
@@ -27523,6 +27688,38 @@
               },
               "SubFolders": {}
             },
+            "hat.candle": {
+              "Name": "hat.candle",
+              "Path": "assets/prefabs/clothes/hat.candle",
+              "Files": {
+                "CandleHat": "assets/prefabs/clothes/hat.candle/candlehat.mat",
+                "CandleHatLit": "assets/prefabs/clothes/hat.candle/candlehat_lit.mat"
+              },
+              "SubFolders": {
+                "skins": {
+                  "Name": "skins",
+                  "Path": "assets/prefabs/clothes/hat.candle/skins",
+                  "Files": {},
+                  "SubFolders": {
+                    "birthday_candle_hat": {
+                      "Name": "birthday_candle_hat",
+                      "Path": "assets/prefabs/clothes/hat.candle/skins/birthday_candle_hat",
+                      "Files": {},
+                      "SubFolders": {
+                        "materials": {
+                          "Name": "materials",
+                          "Path": "assets/prefabs/clothes/hat.candle/skins/birthday_candle_hat/materials",
+                          "Files": {
+                            "BirthdayCandleHat": "assets/prefabs/clothes/hat.candle/skins/birthday_candle_hat/materials/birthday_candle_hat.mat"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
             "suit.heavyscientist": {
               "Name": "suit.heavyscientist",
               "Path": "assets/prefabs/clothes/suit.heavyscientist",
@@ -27600,15 +27797,6 @@
               "Files": {
                 "BurlapheadWraps02": "assets/prefabs/clothes/hat.burlap.wrap/burlapheadwraps_02.mat",
                 "HatBurlapWrap": "assets/prefabs/clothes/hat.burlap.wrap/hat.burlap.wrap.mat"
-              },
-              "SubFolders": {}
-            },
-            "hat.candle": {
-              "Name": "hat.candle",
-              "Path": "assets/prefabs/clothes/hat.candle",
-              "Files": {
-                "CandleHat": "assets/prefabs/clothes/hat.candle/candlehat.mat",
-                "CandleHatLit": "assets/prefabs/clothes/hat.candle/candlehat_lit.mat"
               },
               "SubFolders": {}
             },
@@ -30531,6 +30719,24 @@
                     }
                   }
                 },
+                "2025-12_xmas": {
+                  "Name": "2025-12_xmas",
+                  "Path": "assets/prefabs/wallpaper/skins/2025-12_xmas",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/prefabs/wallpaper/skins/2025-12_xmas/materials",
+                      "Files": {
+                        "CeilingXmasPlasterMoulded": "assets/prefabs/wallpaper/skins/2025-12_xmas/materials/ceiling_xmas_plaster_moulded.mat",
+                        "FloorXmasTilesA": "assets/prefabs/wallpaper/skins/2025-12_xmas/materials/floor_xmas_tiles_a.mat",
+                        "FloorXmasTilesB": "assets/prefabs/wallpaper/skins/2025-12_xmas/materials/floor_xmas_tiles_b.mat",
+                        "WallAssortedGiftwrap": "assets/prefabs/wallpaper/skins/2025-12_xmas/materials/wall_assorted_giftwrap.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
                 "2025-05_jungledlc": {
                   "Name": "2025-05_jungledlc",
                   "Path": "assets/prefabs/wallpaper/skins/2025-05_jungledlc",
@@ -30564,6 +30770,22 @@
                         "Lny25PanelAWallPaper": "assets/prefabs/wallpaper/skins/2025-01_lny25/materials/lny25_panel_a_wallpaper.mat",
                         "Lny25PanelBWallPaper": "assets/prefabs/wallpaper/skins/2025-01_lny25/materials/lny25_panel_b_wallpaper.mat",
                         "Lny25PanelCWallPaper": "assets/prefabs/wallpaper/skins/2025-01_lny25/materials/lny25_panel_c_wallpaper.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
+                "2025-12_twitch_rivals": {
+                  "Name": "2025-12_twitch_rivals",
+                  "Path": "assets/prefabs/wallpaper/skins/2025-12_twitch_rivals",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/prefabs/wallpaper/skins/2025-12_twitch_rivals/materials",
+                      "Files": {
+                        "TwitchRivals2025BlackWallPaper": "assets/prefabs/wallpaper/skins/2025-12_twitch_rivals/materials/twitch_rivals_2025_black_wallpaper.mat",
+                        "TwitchRivals2025PurpleWallPaper": "assets/prefabs/wallpaper/skins/2025-12_twitch_rivals/materials/twitch_rivals_2025_purple_wallpaper.mat"
                       },
                       "SubFolders": {}
                     }

@@ -5505,6 +5505,14 @@
                 "AtlasFrontierSkinDiff": "assets/content/building/textures/atlas_frontier_skin_diff.tga",
                 "AtlasFrontierSkinNrm": "assets/content/building/textures/atlas_frontier_skin_nrm.tga",
                 "AtlasFrontierSkinSpec": "assets/content/building/textures/atlas_frontier_skin_spec.tga",
+                "AtlasSpaceStationAAo": "assets/content/building/textures/atlas_space_station_a_ao.tga",
+                "AtlasSpaceStationADiff": "assets/content/building/textures/atlas_space_station_a_diff.tga",
+                "AtlasSpaceStationANrm": "assets/content/building/textures/atlas_space_station_a_nrm.tga",
+                "AtlasSpaceStationASpec": "assets/content/building/textures/atlas_space_station_a_spec.tga",
+                "AtlasSpaceStationBAo": "assets/content/building/textures/atlas_space_station_b_ao.tga",
+                "AtlasSpaceStationBDiff": "assets/content/building/textures/atlas_space_station_b_diff.tga",
+                "AtlasSpaceStationBNrm": "assets/content/building/textures/atlas_space_station_b_nrm.tga",
+                "AtlasSpaceStationBSpec": "assets/content/building/textures/atlas_space_station_b_spec.tga",
                 "AtlasToptierAo": "assets/content/building/textures/atlas_toptier_ao.tga",
                 "AtlasToptierDiff": "assets/content/building/textures/atlas_toptier_diff.tga",
                 "AtlasToptierNrm": "assets/content/building/textures/atlas_toptier_nrm.tga",
@@ -15399,6 +15407,11 @@
                     "BirthdayCake11Metalsmooth": "assets/prefabs/weapons/chocolate_cake/material/birthday_cake_11_metalsmooth.tga",
                     "BirthdayCake11Normal": "assets/prefabs/weapons/chocolate_cake/material/birthday_cake_11_normal.tga",
                     "BirthdayCake11TransmissionMask": "assets/prefabs/weapons/chocolate_cake/material/birthday_cake_11_transmission_mask.tga",
+                    "BirthdayCake12Albedo": "assets/prefabs/weapons/chocolate_cake/material/birthday_cake_12_albedo.tga",
+                    "BirthdayCake12Ao": "assets/prefabs/weapons/chocolate_cake/material/birthday_cake_12_ao.tga",
+                    "BirthdayCake12MetallicSmoothness": "assets/prefabs/weapons/chocolate_cake/material/birthday_cake_12_metallicsmoothness.tga",
+                    "BirthdayCake12Normal": "assets/prefabs/weapons/chocolate_cake/material/birthday_cake_12_normal.tga",
+                    "BirthdayCake12TransmissionMask": "assets/prefabs/weapons/chocolate_cake/material/birthday_cake_12_transmission_mask.tga",
                     "ChocolateCakeAlbedo": "assets/prefabs/weapons/chocolate_cake/material/chocolate_cake_albedo.tga",
                     "ChocolateCakeAo": "assets/prefabs/weapons/chocolate_cake/material/chocolate_cake_ao.tga",
                     "ChocolateCakeMetalrough": "assets/prefabs/weapons/chocolate_cake/material/chocolate_cake_metalrough.tga",
@@ -15527,6 +15540,84 @@
                         "HeatshieldSpecular": "assets/prefabs/weapons/lr300/model/materials/heatshield_specular.tga"
                       },
                       "SubFolders": {}
+                    }
+                  }
+                },
+                "skins": {
+                  "Name": "skins",
+                  "Path": "assets/prefabs/weapons/lr300/skins",
+                  "Files": {},
+                  "SubFolders": {
+                    "space": {
+                      "Name": "space",
+                      "Path": "assets/prefabs/weapons/lr300/skins/space",
+                      "Files": {},
+                      "SubFolders": {
+                        "model": {
+                          "Name": "model",
+                          "Path": "assets/prefabs/weapons/lr300/skins/space/model",
+                          "Files": {},
+                          "SubFolders": {
+                            "materials": {
+                              "Name": "materials",
+                              "Path": "assets/prefabs/weapons/lr300/skins/space/model/materials",
+                              "Files": {},
+                              "SubFolders": {
+                                "effects": {
+                                  "Name": "effects",
+                                  "Path": "assets/prefabs/weapons/lr300/skins/space/model/materials/effects",
+                                  "Files": {
+                                    "LcdBurstmode": "assets/prefabs/weapons/lr300/skins/space/model/materials/effects/lcd_burstmode.png",
+                                    "LcdLowAmmo": "assets/prefabs/weapons/lr300/skins/space/model/materials/effects/lcd_lowammo.png"
+                                  },
+                                  "SubFolders": {}
+                                },
+                                "textures": {
+                                  "Name": "textures",
+                                  "Path": "assets/prefabs/weapons/lr300/skins/space/model/materials/textures",
+                                  "Files": {
+                                    "Lr300gripassemblyAlbedo": "assets/prefabs/weapons/lr300/skins/space/model/materials/textures/lr300gripassembly_albedo.tga",
+                                    "Lr300gripassemblyAo": "assets/prefabs/weapons/lr300/skins/space/model/materials/textures/lr300gripassembly_ao.tga",
+                                    "Lr300gripassemblyEmission": "assets/prefabs/weapons/lr300/skins/space/model/materials/textures/lr300gripassembly_emission.tga",
+                                    "Lr300gripassemblyMetallic": "assets/prefabs/weapons/lr300/skins/space/model/materials/textures/lr300gripassembly_metallic.tga",
+                                    "Lr300gripassemblyNormal": "assets/prefabs/weapons/lr300/skins/space/model/materials/textures/lr300gripassembly_normal.tga",
+                                    "Lr300magazineAlbedo": "assets/prefabs/weapons/lr300/skins/space/model/materials/textures/lr300magazine_albedo.tga",
+                                    "Lr300magazineAo": "assets/prefabs/weapons/lr300/skins/space/model/materials/textures/lr300magazine_ao.tga",
+                                    "Lr300magazineMetallic": "assets/prefabs/weapons/lr300/skins/space/model/materials/textures/lr300magazine_metallic.tga",
+                                    "Lr300magazineNormal": "assets/prefabs/weapons/lr300/skins/space/model/materials/textures/lr300magazine_normal.tga",
+                                    "Lr300receiverAlbedo": "assets/prefabs/weapons/lr300/skins/space/model/materials/textures/lr300receiver_albedo.tga",
+                                    "Lr300receiverAo": "assets/prefabs/weapons/lr300/skins/space/model/materials/textures/lr300receiver_ao.tga",
+                                    "Lr300receiverMetallic": "assets/prefabs/weapons/lr300/skins/space/model/materials/textures/lr300receiver_metallic.tga",
+                                    "Lr300receiverNormal": "assets/prefabs/weapons/lr300/skins/space/model/materials/textures/lr300receiver_normal.tga",
+                                    "Lr300sightsAlbedo": "assets/prefabs/weapons/lr300/skins/space/model/materials/textures/lr300sights_albedo.tga",
+                                    "Lr300sightsAo": "assets/prefabs/weapons/lr300/skins/space/model/materials/textures/lr300sights_ao.tga",
+                                    "Lr300sightsEmission": "assets/prefabs/weapons/lr300/skins/space/model/materials/textures/lr300sights_emission.tga",
+                                    "Lr300sightsMetallic": "assets/prefabs/weapons/lr300/skins/space/model/materials/textures/lr300sights_metallic.tga",
+                                    "Lr300sightsNormal": "assets/prefabs/weapons/lr300/skins/space/model/materials/textures/lr300sights_normal.tga",
+                                    "Lr300StockAlbedo": "assets/prefabs/weapons/lr300/skins/space/model/materials/textures/lr300stock_albedo.tga",
+                                    "Lr300StockAo": "assets/prefabs/weapons/lr300/skins/space/model/materials/textures/lr300stock_ao.tga",
+                                    "Lr300StockMetallic": "assets/prefabs/weapons/lr300/skins/space/model/materials/textures/lr300stock_metallic.tga",
+                                    "Lr300StockNormal": "assets/prefabs/weapons/lr300/skins/space/model/materials/textures/lr300stock_normal.tga",
+                                    "WLr300SpaceAlbedo": "assets/prefabs/weapons/lr300/skins/space/model/materials/textures/w_lr300_space_albedo.tga",
+                                    "WLr300SpaceAo": "assets/prefabs/weapons/lr300/skins/space/model/materials/textures/w_lr300_space_ao.tga",
+                                    "WLr300SpaceMetallic": "assets/prefabs/weapons/lr300/skins/space/model/materials/textures/w_lr300_space_metallic.tga",
+                                    "WLr300SpaceNormal": "assets/prefabs/weapons/lr300/skins/space/model/materials/textures/w_lr300_space_normal.tga"
+                                  },
+                                  "SubFolders": {}
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "fakeuiassets": {
+                          "Name": "fakeuiassets",
+                          "Path": "assets/prefabs/weapons/lr300/skins/space/fakeuiassets",
+                          "Files": {
+                            "Numberreadout": "assets/prefabs/weapons/lr300/skins/space/fakeuiassets/numberreadout.png"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
                     }
                   }
                 }
@@ -19329,6 +19420,30 @@
                 }
               }
             },
+            "birthday_balloons_2025": {
+              "Name": "birthday_balloons_2025",
+              "Path": "assets/prefabs/misc/birthday_balloons_2025",
+              "Files": {},
+              "SubFolders": {
+                "materials": {
+                  "Name": "materials",
+                  "Path": "assets/prefabs/misc/birthday_balloons_2025/materials",
+                  "Files": {
+                    "BirthdayBalloonsClumpsAlbedoTransparency": "assets/prefabs/misc/birthday_balloons_2025/materials/birthday_balloons_clumps_albedotransparency.png",
+                    "BirthdayBalloonsClumpsAo": "assets/prefabs/misc/birthday_balloons_2025/materials/birthday_balloons_clumps_ao.png",
+                    "BirthdayBalloonsClumpsMetallicSmoothness": "assets/prefabs/misc/birthday_balloons_2025/materials/birthday_balloons_clumps_metallicsmoothness.png",
+                    "BirthdayBalloonsClumpsNormal": "assets/prefabs/misc/birthday_balloons_2025/materials/birthday_balloons_clumps_normal.png",
+                    "BirthdayBalloonsClumpsTranslucency": "assets/prefabs/misc/birthday_balloons_2025/materials/birthday_balloons_clumps_translucency.png",
+                    "BirthdayBalloonsSinglesAlbedoTransparency": "assets/prefabs/misc/birthday_balloons_2025/materials/birthday_balloons_singles_albedotransparency.png",
+                    "BirthdayBalloonsSinglesAo": "assets/prefabs/misc/birthday_balloons_2025/materials/birthday_balloons_singles_ao.png",
+                    "BirthdayBalloonsSinglesMetallicSmoothness": "assets/prefabs/misc/birthday_balloons_2025/materials/birthday_balloons_singles_metallicsmoothness.png",
+                    "BirthdayBalloonsSinglesNormal": "assets/prefabs/misc/birthday_balloons_2025/materials/birthday_balloons_singles_normal.png",
+                    "BirthdayBalloonsSinglesTranslucency": "assets/prefabs/misc/birthday_balloons_2025/materials/birthday_balloons_singles_translucency.png"
+                  },
+                  "SubFolders": {}
+                }
+              }
+            },
             "pinata": {
               "Name": "pinata",
               "Path": "assets/prefabs/misc/pinata",
@@ -22787,6 +22902,31 @@
                 }
               }
             },
+            "neonsigntr": {
+              "Name": "neonsigntr",
+              "Path": "assets/prefabs/deployable/neonsigntr",
+              "Files": {},
+              "SubFolders": {
+                "material": {
+                  "Name": "material",
+                  "Path": "assets/prefabs/deployable/neonsigntr/material",
+                  "Files": {},
+                  "SubFolders": {
+                    "textures": {
+                      "Name": "textures",
+                      "Path": "assets/prefabs/deployable/neonsigntr/material/textures",
+                      "Files": {
+                        "BodyAlbedoTransparency": "assets/prefabs/deployable/neonsigntr/material/textures/body_albedotransparency.tga",
+                        "BodyAo": "assets/prefabs/deployable/neonsigntr/material/textures/body_ao.tga",
+                        "BodyMetallicSmoothness": "assets/prefabs/deployable/neonsigntr/material/textures/body_metallicsmoothness.tga",
+                        "BodyNormal": "assets/prefabs/deployable/neonsigntr/material/textures/body_normal.tga"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                }
+              }
+            },
             "bodybags": {
               "Name": "bodybags",
               "Path": "assets/prefabs/deployable/bodybags",
@@ -24763,6 +24903,31 @@
                 }
               }
             },
+            "sofa": {
+              "Name": "sofa",
+              "Path": "assets/prefabs/deployable/sofa",
+              "Files": {},
+              "SubFolders": {
+                "twitch_rivals": {
+                  "Name": "twitch_rivals",
+                  "Path": "assets/prefabs/deployable/sofa/twitch_rivals",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/prefabs/deployable/sofa/twitch_rivals/materials",
+                      "Files": {
+                        "TwitchRivalSofaAo": "assets/prefabs/deployable/sofa/twitch_rivals/materials/twitch_rival_sofa_ao.tga",
+                        "TwitchRivalSofaDiff": "assets/prefabs/deployable/sofa/twitch_rivals/materials/twitch_rival_sofa_diff.tga",
+                        "TwitchRivalSofaNrm": "assets/prefabs/deployable/sofa/twitch_rivals/materials/twitch_rival_sofa_nrm.tga",
+                        "TwitchRivalSofaSpec": "assets/prefabs/deployable/sofa/twitch_rivals/materials/twitch_rival_sofa_spec.tga"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                }
+              }
+            },
             "modular car lift": {
               "Name": "modular car lift",
               "Path": "assets/prefabs/deployable/modular car lift",
@@ -25768,6 +25933,45 @@
               },
               "SubFolders": {}
             },
+            "hat.candle": {
+              "Name": "hat.candle",
+              "Path": "assets/prefabs/clothes/hat.candle",
+              "Files": {
+                "CandleHatColor": "assets/prefabs/clothes/hat.candle/candlehat_color.tga",
+                "CandleHatEmissive": "assets/prefabs/clothes/hat.candle/candlehat_emissive.tga",
+                "CandleHatMetalness": "assets/prefabs/clothes/hat.candle/candlehat_metalness.tga",
+                "CandleHatNormal": "assets/prefabs/clothes/hat.candle/candlehat_normal.tga",
+                "CandleHatOcclusion": "assets/prefabs/clothes/hat.candle/candlehat_occlusion.tga"
+              },
+              "SubFolders": {
+                "skins": {
+                  "Name": "skins",
+                  "Path": "assets/prefabs/clothes/hat.candle/skins",
+                  "Files": {},
+                  "SubFolders": {
+                    "birthday_candle_hat": {
+                      "Name": "birthday_candle_hat",
+                      "Path": "assets/prefabs/clothes/hat.candle/skins/birthday_candle_hat",
+                      "Files": {},
+                      "SubFolders": {
+                        "materials": {
+                          "Name": "materials",
+                          "Path": "assets/prefabs/clothes/hat.candle/skins/birthday_candle_hat/materials",
+                          "Files": {
+                            "BirthdayCandleHatAlbedo": "assets/prefabs/clothes/hat.candle/skins/birthday_candle_hat/materials/birthday_candle_hat_albedo.tga",
+                            "BirthdayCandleHatAo": "assets/prefabs/clothes/hat.candle/skins/birthday_candle_hat/materials/birthday_candle_hat_ao.tga",
+                            "BirthdayCandleHatMetallicSmoothness": "assets/prefabs/clothes/hat.candle/skins/birthday_candle_hat/materials/birthday_candle_hat_metallicsmoothness.tga",
+                            "BirthdayCandleHatNormal": "assets/prefabs/clothes/hat.candle/skins/birthday_candle_hat/materials/birthday_candle_hat_normal.tga",
+                            "BirthdayCandleHatTransmissionMask": "assets/prefabs/clothes/hat.candle/skins/birthday_candle_hat/materials/birthday_candle_hat_transmission_mask.tga"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
             "halloween.mummy": {
               "Name": "halloween.mummy",
               "Path": "assets/prefabs/clothes/halloween.mummy",
@@ -25882,18 +26086,6 @@
                 "BurlapTrousersAlbedo": "assets/prefabs/clothes/pants.burlap/burlap_trousers_albedo.tga",
                 "BurlapTrousersNormals": "assets/prefabs/clothes/pants.burlap/burlap_trousers_normals.tga",
                 "BurlapTrousersOcclusion": "assets/prefabs/clothes/pants.burlap/burlap_trousers_occlusion.tga"
-              },
-              "SubFolders": {}
-            },
-            "hat.candle": {
-              "Name": "hat.candle",
-              "Path": "assets/prefabs/clothes/hat.candle",
-              "Files": {
-                "CandleHatColor": "assets/prefabs/clothes/hat.candle/candlehat_color.tga",
-                "CandleHatEmissive": "assets/prefabs/clothes/hat.candle/candlehat_emissive.tga",
-                "CandleHatMetalness": "assets/prefabs/clothes/hat.candle/candlehat_metalness.tga",
-                "CandleHatNormal": "assets/prefabs/clothes/hat.candle/candlehat_normal.tga",
-                "CandleHatOcclusion": "assets/prefabs/clothes/hat.candle/candlehat_occlusion.tga"
               },
               "SubFolders": {}
             },
@@ -31294,6 +31486,38 @@
                     }
                   }
                 },
+                "2025-12_xmas": {
+                  "Name": "2025-12_xmas",
+                  "Path": "assets/prefabs/wallpaper/skins/2025-12_xmas",
+                  "Files": {},
+                  "SubFolders": {
+                    "textures": {
+                      "Name": "textures",
+                      "Path": "assets/prefabs/wallpaper/skins/2025-12_xmas/textures",
+                      "Files": {
+                        "CeilingXmasPlasterMouldedAo": "assets/prefabs/wallpaper/skins/2025-12_xmas/textures/ceiling_xmas_plaster_moulded_ao.tga",
+                        "CeilingXmasPlasterMouldedDiff": "assets/prefabs/wallpaper/skins/2025-12_xmas/textures/ceiling_xmas_plaster_moulded_diff.tga",
+                        "CeilingXmasPlasterMouldedEmissive": "assets/prefabs/wallpaper/skins/2025-12_xmas/textures/ceiling_xmas_plaster_moulded_emissive.tga",
+                        "CeilingXmasPlasterMouldedEmissiveMask": "assets/prefabs/wallpaper/skins/2025-12_xmas/textures/ceiling_xmas_plaster_moulded_emissive_mask.tga",
+                        "CeilingXmasPlasterMouldedNrm": "assets/prefabs/wallpaper/skins/2025-12_xmas/textures/ceiling_xmas_plaster_moulded_nrm.tga",
+                        "CeilingXmasPlasterMouldedSpec": "assets/prefabs/wallpaper/skins/2025-12_xmas/textures/ceiling_xmas_plaster_moulded_spec.tga",
+                        "FloorXmasTilesAAo": "assets/prefabs/wallpaper/skins/2025-12_xmas/textures/floor_xmas_tiles_a_ao.tga",
+                        "FloorXmasTilesADiff": "assets/prefabs/wallpaper/skins/2025-12_xmas/textures/floor_xmas_tiles_a_diff.tga",
+                        "FloorXmasTilesANrm": "assets/prefabs/wallpaper/skins/2025-12_xmas/textures/floor_xmas_tiles_a_nrm.tga",
+                        "FloorXmasTilesASpec": "assets/prefabs/wallpaper/skins/2025-12_xmas/textures/floor_xmas_tiles_a_spec.tga",
+                        "FloorXmasTilesBAo": "assets/prefabs/wallpaper/skins/2025-12_xmas/textures/floor_xmas_tiles_b_ao.tga",
+                        "FloorXmasTilesBDiff": "assets/prefabs/wallpaper/skins/2025-12_xmas/textures/floor_xmas_tiles_b_diff.tga",
+                        "FloorXmasTilesBNrm": "assets/prefabs/wallpaper/skins/2025-12_xmas/textures/floor_xmas_tiles_b_nrm.tga",
+                        "FloorXmasTilesBSpec": "assets/prefabs/wallpaper/skins/2025-12_xmas/textures/floor_xmas_tiles_b_spec.tga",
+                        "WallAssortedGiftwrapAo": "assets/prefabs/wallpaper/skins/2025-12_xmas/textures/wall_assorted_giftwrap_ao.tga",
+                        "WallAssortedGiftwrapDiff": "assets/prefabs/wallpaper/skins/2025-12_xmas/textures/wall_assorted_giftwrap_diff.tga",
+                        "WallAssortedGiftwrapNrm": "assets/prefabs/wallpaper/skins/2025-12_xmas/textures/wall_assorted_giftwrap_nrm.tga",
+                        "WallAssortedGiftwrapSpec": "assets/prefabs/wallpaper/skins/2025-12_xmas/textures/wall_assorted_giftwrap_spec.tga"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
                 "2025-05_jungledlc": {
                   "Name": "2025-05_jungledlc",
                   "Path": "assets/prefabs/wallpaper/skins/2025-05_jungledlc",
@@ -31357,6 +31581,28 @@
                         "Lny25PanelCDiff": "assets/prefabs/wallpaper/skins/2025-01_lny25/textures/lny25_panel_c_diff.tga",
                         "Lny25PanelCNrm": "assets/prefabs/wallpaper/skins/2025-01_lny25/textures/lny25_panel_c_nrm.tga",
                         "Lny25PanelCSpec": "assets/prefabs/wallpaper/skins/2025-01_lny25/textures/lny25_panel_c_spec.tga"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
+                "2025-12_twitch_rivals": {
+                  "Name": "2025-12_twitch_rivals",
+                  "Path": "assets/prefabs/wallpaper/skins/2025-12_twitch_rivals",
+                  "Files": {},
+                  "SubFolders": {
+                    "textures": {
+                      "Name": "textures",
+                      "Path": "assets/prefabs/wallpaper/skins/2025-12_twitch_rivals/textures",
+                      "Files": {
+                        "TwitchRivals2025BlackAlbedo": "assets/prefabs/wallpaper/skins/2025-12_twitch_rivals/textures/twitch_rivals_2025_black_albedo.tga",
+                        "TwitchRivals2025BlackAo": "assets/prefabs/wallpaper/skins/2025-12_twitch_rivals/textures/twitch_rivals_2025_black_ao.tga",
+                        "TwitchRivals2025BlackNormal": "assets/prefabs/wallpaper/skins/2025-12_twitch_rivals/textures/twitch_rivals_2025_black_normal.tga",
+                        "TwitchRivals2025BlackSpecGloss": "assets/prefabs/wallpaper/skins/2025-12_twitch_rivals/textures/twitch_rivals_2025_black_specgloss.tga",
+                        "TwitchRivals2025PurpleAlbedo": "assets/prefabs/wallpaper/skins/2025-12_twitch_rivals/textures/twitch_rivals_2025_purple_albedo.tga",
+                        "TwitchRivals2025PurpleAo": "assets/prefabs/wallpaper/skins/2025-12_twitch_rivals/textures/twitch_rivals_2025_purple_ao.tga",
+                        "TwitchRivals2025PurpleNormal": "assets/prefabs/wallpaper/skins/2025-12_twitch_rivals/textures/twitch_rivals_2025_purple_normal.tga",
+                        "TwitchRivals2025PurpleSpecGloss": "assets/prefabs/wallpaper/skins/2025-12_twitch_rivals/textures/twitch_rivals_2025_purple_specgloss.tga"
                       },
                       "SubFolders": {}
                     }
