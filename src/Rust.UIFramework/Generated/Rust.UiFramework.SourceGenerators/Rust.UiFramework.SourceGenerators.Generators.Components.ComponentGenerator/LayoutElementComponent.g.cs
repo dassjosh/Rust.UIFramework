@@ -10,10 +10,10 @@ public partial class LayoutElementComponent : ILayoutElementComponent, ILayoutEl
 {
 	protected readonly Oxide.Ext.UiFramework.Types.Tracked<float> _preferredWidth = new(Oxide.Ext.UiFramework.Json.JsonDefaults.LayoutElement.PreferredWidth);
 	protected readonly Oxide.Ext.UiFramework.Types.Tracked<float> _preferredHeight = new(Oxide.Ext.UiFramework.Json.JsonDefaults.LayoutElement.PreferredHeight);
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<float> _minWidth = new(Oxide.Ext.UiFramework.Json.JsonDefaults.LayoutElement.MinWidth);
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<float> _minHeight = new(Oxide.Ext.UiFramework.Json.JsonDefaults.LayoutElement.MinHeight);
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<float> _flexibleWidth = new(Oxide.Ext.UiFramework.Json.JsonDefaults.LayoutElement.FlexibleWidth);
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<float> _flexibleHeight = new(Oxide.Ext.UiFramework.Json.JsonDefaults.LayoutElement.PreferredWidth);
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<float> _minWidth = new(Oxide.Ext.UiFramework.Json.JsonDefaults.LayoutElement.MinWidth, Oxide.Ext.UiFramework.Json.JsonDefaults.LayoutElement.FpMinWidth);
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<float> _minHeight = new(Oxide.Ext.UiFramework.Json.JsonDefaults.LayoutElement.MinHeight, Oxide.Ext.UiFramework.Json.JsonDefaults.LayoutElement.FpMinHeight);
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<float> _flexibleWidth = new(Oxide.Ext.UiFramework.Json.JsonDefaults.LayoutElement.FlexibleWidth, Oxide.Ext.UiFramework.Json.JsonDefaults.LayoutElement.FpFlexibleWidth);
+	protected readonly Oxide.Ext.UiFramework.Types.Tracked<float> _flexibleHeight = new(Oxide.Ext.UiFramework.Json.JsonDefaults.LayoutElement.FlexibleHeight, Oxide.Ext.UiFramework.Json.JsonDefaults.LayoutElement.FpFlexibleHeight);
 	protected readonly Oxide.Ext.UiFramework.Types.Tracked<bool> _ignoreLayout = new(Oxide.Ext.UiFramework.Json.JsonDefaults.LayoutElement.IgnoreLayout);
 
 	public partial float PreferredWidth { get => _preferredWidth.Value; set => _preferredWidth.Value = value; }

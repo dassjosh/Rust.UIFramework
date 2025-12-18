@@ -386,22 +386,26 @@ public static class JsonDefaults
         public static readonly Utf8String Type = "UnityEngine.UI.LayoutElement";
         
         public static readonly Utf8String PreferredWidthName = "preferredWidth";
-        public const float PreferredWidth = 0f;
+        public const float PreferredWidth = -1f;
         
         public static readonly Utf8String PreferredHeightName = "preferredHeight";
-        public const float PreferredHeight = 0f;
+        public const float PreferredHeight = -1f;
         
         public static readonly Utf8String MinWidthName = "minWidth";
-        public const float MinWidth = 0f;
+        public const float MinWidth = -1f;
+        public const float FpMinWidth = 0f;
         
         public static readonly Utf8String MinHeightName = "minHeight";
-        public const float MinHeight = 0f;
+        public const float MinHeight = -1f;
+        public const float FpMinHeight = 0f;
         
         public static readonly Utf8String FlexibleWidthName = "flexibleWidth";
-        public const float FlexibleWidth = 0f;
+        public const float FlexibleWidth = -1f;
+        public const float FpFlexibleWidth = 0f;
         
         public static readonly Utf8String FlexibleHeightName = "flexibleHeight";
-        public const float FlexibleHeight = 0f;
+        public const float FlexibleHeight = -1f;
+        public const float FpFlexibleHeight = 0f;
         
         public static readonly Utf8String IgnoreLayoutName = "ignoreLayout";
         public const bool IgnoreLayout = false;

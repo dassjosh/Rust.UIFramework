@@ -15,16 +15,16 @@ public partial class LayoutElementComponent : SubComponent
     [TrackedDefaults(typeof(JsonDefaults.LayoutElement), nameof(JsonDefaults.LayoutElement.PreferredHeight))]
     public partial float PreferredHeight { get; set; }
     
-    [TrackedDefaults(typeof(JsonDefaults.LayoutElement), nameof(JsonDefaults.LayoutElement.MinWidth))]
+    [TrackedDefaults(typeof(JsonDefaults.LayoutElement), nameof(JsonDefaults.LayoutElement.MinWidth), typeof(JsonDefaults.LayoutElement), nameof(JsonDefaults.LayoutElement.FpMinWidth))]
     public partial float MinWidth { get; set; }
     
-    [TrackedDefaults(typeof(JsonDefaults.LayoutElement), nameof(JsonDefaults.LayoutElement.MinHeight))]
+    [TrackedDefaults(typeof(JsonDefaults.LayoutElement), nameof(JsonDefaults.LayoutElement.MinHeight), typeof(JsonDefaults.LayoutElement), nameof(JsonDefaults.LayoutElement.FpMinHeight))]
     public partial float MinHeight { get; set; }
     
-    [TrackedDefaults(typeof(JsonDefaults.LayoutElement), nameof(JsonDefaults.LayoutElement.FlexibleWidth))]
+    [TrackedDefaults(typeof(JsonDefaults.LayoutElement), nameof(JsonDefaults.LayoutElement.FlexibleWidth), typeof(JsonDefaults.LayoutElement), nameof(JsonDefaults.LayoutElement.FpFlexibleWidth))]
     public partial float FlexibleWidth { get; set; }
     
-    [TrackedDefaults(typeof(JsonDefaults.LayoutElement), nameof(JsonDefaults.LayoutElement.PreferredWidth))]
+    [TrackedDefaults(typeof(JsonDefaults.LayoutElement), nameof(JsonDefaults.LayoutElement.FlexibleHeight), typeof(JsonDefaults.LayoutElement), nameof(JsonDefaults.LayoutElement.FpFlexibleHeight))]
     public partial float FlexibleHeight { get; set; }
     
     [TrackedDefaults(typeof(JsonDefaults.LayoutElement), nameof(JsonDefaults.LayoutElement.IgnoreLayout))]
