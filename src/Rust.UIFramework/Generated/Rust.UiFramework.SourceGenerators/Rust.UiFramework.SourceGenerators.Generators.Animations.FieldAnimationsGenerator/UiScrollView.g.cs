@@ -7,7 +7,7 @@ namespace Oxide.Ext.UiFramework.Animation;
 
 public static class ElementAnimationUiScrollViewExt
 {
-	extension (Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IElementAnimation<Oxide.Ext.UiFramework.UiElements.UiScrollView>> animation)
+	extension(Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IElementAnimation<Oxide.Ext.UiFramework.UiElements.UiScrollView>> animation)
 	{
 		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<UnityEngine.UI.ScrollRect.MovementType>> AnimateMovementType() => animation.AnimateField(static a => a.AsTrackable().ScrollView.MovementType);
 

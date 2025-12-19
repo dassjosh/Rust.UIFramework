@@ -7,7 +7,7 @@ namespace Oxide.Ext.UiFramework.Components;
 
 public static partial class BaseTypedComponentExt
 {
-	extension <T>(T component) where T : Oxide.Ext.UiFramework.Components.BaseTypedComponent
+	extension<T>(T component) where T : Oxide.Ext.UiFramework.Components.BaseTypedComponent
 	{
 		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 		public T SetEnabled(bool enabled)

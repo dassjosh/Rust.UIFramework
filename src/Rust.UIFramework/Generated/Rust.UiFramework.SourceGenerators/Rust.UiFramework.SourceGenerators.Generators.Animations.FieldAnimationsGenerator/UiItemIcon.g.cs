@@ -7,7 +7,7 @@ namespace Oxide.Ext.UiFramework.Animation;
 
 public static class ElementAnimationUiItemIconExt
 {
-	extension (Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IElementAnimation<Oxide.Ext.UiFramework.UiElements.UiItemIcon>> animation)
+	extension(Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IElementAnimation<Oxide.Ext.UiFramework.UiElements.UiItemIcon>> animation)
 	{
 		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<int>> AnimateItemId() => animation.AnimateField(static a => a.AsTrackable().Icon.ItemId);
 

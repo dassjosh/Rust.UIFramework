@@ -7,7 +7,7 @@ namespace Oxide.Ext.UiFramework.UiElements;
 
 public static partial class BaseUiComponentExt
 {
-	extension <T>(T component) where T : Oxide.Ext.UiFramework.UiElements.BaseUiComponent
+	extension<T>(T component) where T : Oxide.Ext.UiFramework.UiElements.BaseUiComponent
 	{
 		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 		public T SetReference(in Oxide.Ext.UiFramework.UiElements.UiReference reference)

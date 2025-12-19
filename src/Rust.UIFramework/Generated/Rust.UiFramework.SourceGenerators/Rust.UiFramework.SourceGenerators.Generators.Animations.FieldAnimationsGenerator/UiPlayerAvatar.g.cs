@@ -7,7 +7,7 @@ namespace Oxide.Ext.UiFramework.Animation;
 
 public static class ElementAnimationUiPlayerAvatarExt
 {
-	extension (Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IElementAnimation<Oxide.Ext.UiFramework.UiElements.UiPlayerAvatar>> animation)
+	extension(Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IElementAnimation<Oxide.Ext.UiFramework.UiElements.UiPlayerAvatar>> animation)
 	{
 		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<ulong>> AnimateSteamId() => animation.AnimateField(static a => a.AsTrackable().Avatar.SteamId);
 

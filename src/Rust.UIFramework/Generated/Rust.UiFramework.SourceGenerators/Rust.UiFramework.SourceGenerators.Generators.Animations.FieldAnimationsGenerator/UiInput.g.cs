@@ -7,7 +7,7 @@ namespace Oxide.Ext.UiFramework.Animation;
 
 public static class ElementAnimationUiInputExt
 {
-	extension (Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IElementAnimation<Oxide.Ext.UiFramework.UiElements.UiInput>> animation)
+	extension(Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IElementAnimation<Oxide.Ext.UiFramework.UiElements.UiInput>> animation)
 	{
 		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<int>> AnimateCharsLimit() => animation.AnimateField(static a => a.AsTrackable().Input.CharsLimit);
 

@@ -152,8 +152,11 @@ public class TypeBuilder : IType, IAccessModifiers, IKeywords, IBuildable, IGene
         this.BuildAccessModifiers(sb);
         this.BuildKeywords(sb);
         this.BuildDeclaredType(sb);
-        sb.Append(' ');
-        sb.Append(_name);
+        if (!string.IsNullOrEmpty(_name))
+        {
+            sb.Append(' ');
+            sb.Append(_name);
+        }
         this.BuildGenerics(sb);
         this.BuildParameters(sb, indent);
 
