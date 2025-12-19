@@ -1,4 +1,5 @@
 ﻿using System;
+using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Plugins;
@@ -33,13 +34,13 @@ public class ElementAnimation<T> : SendableAnimation, IElementAnimation<T> where
         return this;
     }
     
-    public ElementAnimation<T> InitialState(Action<T> initialize)
+    public IElementAnimation<T> InitialState(Action<T> initialize)
     {
         initialize(Element);
         return this;
     }
     
-    public AnimationRef<IFieldAnimation<TField>> AnimateField<TField>(FieldSelector<TField, T> selector)
+    public AnimationRef<IFieldAnimation<TField>> AnimateField<TField>(ElementFieldSelector<TField, T> selector)
     {
         Tracked<TField> field = selector(Element);
         if (_sourceElement != null)
@@ -51,6 +52,20 @@ public class ElementAnimation<T> : SendableAnimation, IElementAnimation<T> where
         FieldAnimation<TField> animated = FieldAnimation<TField>.Create(Plugin, field);
         AddChildAnimation(animated);
         return new AnimationRef<IFieldAnimation<TField>>(animated);
+    }
+    
+    public AnimationRef<IComponentAnimation<TComponent>> AnimateComponent<TComponent>(ComponentSelector<TComponent, T> selector) where TComponent : BaseComponent
+    {
+        TComponent component = selector(Element);
+        TComponent source = null;
+        if (_sourceElement != null)
+        {
+            source = selector(_sourceElement);
+        }
+
+        ComponentAnimation<TComponent> animated = ComponentAnimation<TComponent>.Create(Plugin, component, source);
+        AddChildAnimation(animated);
+        return new AnimationRef<IComponentAnimation<TComponent>>(animated);
     }
 
     public override void Serialize(JsonFrameworkWriter writer)

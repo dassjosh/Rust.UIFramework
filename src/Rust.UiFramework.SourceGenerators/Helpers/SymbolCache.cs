@@ -80,6 +80,7 @@ public class SymbolCache
     {
         public readonly FrameworkSymbolCache AnimationRef = new("Animation.AnimationRef`1");
         public readonly FrameworkSymbolCache IElementAnimation = new("Animation.IElementAnimation`1");
+        public readonly FrameworkSymbolCache IComponentAnimation = new("Animation.IComponentAnimation`1");
         public readonly FrameworkSymbolCache IFieldAnimation = new("Animation.IFieldAnimation`1");
 
         public AnimationCache(Compilation compilation)

@@ -13,8 +13,8 @@ public partial class SlotComponent : ISlotComponent, ISlotComponentTrackable
 	public partial string Filter { get => _filter.Value; set => _filter.Value = value; }
 	Oxide.Ext.UiFramework.Types.Tracked<string> ISlotComponentTrackable.Filter => _filter;
 
-	public ISlotComponentTrackable AsTrackable() => this;
-
+	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+	internal ISlotComponentTrackable AsTrackable() => this;
 	public override bool HasChanged() => false || (_filter.HasChanged) || base.HasChanged();
 
 	public override void ResetHasChanged()

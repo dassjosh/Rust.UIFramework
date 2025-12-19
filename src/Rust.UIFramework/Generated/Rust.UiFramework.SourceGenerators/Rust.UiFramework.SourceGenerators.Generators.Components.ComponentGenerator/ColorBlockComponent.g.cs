@@ -25,8 +25,8 @@ public partial class ColorBlockComponent : IColorBlockComponent, IColorBlockComp
 	Oxide.Ext.UiFramework.Types.Tracked<float> IColorBlockComponentTrackable.ColorMultiplier => _colorMultiplier;
 	Oxide.Ext.UiFramework.Types.Tracked<float> IColorBlockComponentTrackable.FadeDuration => _fadeDuration;
 
-	public IColorBlockComponentTrackable AsTrackable() => this;
-
+	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+	internal IColorBlockComponentTrackable AsTrackable() => this;
 	public override bool HasChanged() => false || (_highlightedColor.HasChanged || _pressedColor.HasChanged || _selectedColor.HasChanged || _colorMultiplier.HasChanged || _fadeDuration.HasChanged) || base.HasChanged();
 
 	public override void ResetHasChanged()

@@ -34,8 +34,8 @@ public partial class CountdownComponent : ICountdownComponent, ICountdownCompone
 	Oxide.Ext.UiFramework.Types.Tracked<bool> ICountdownComponentTrackable.DestroyIfDone => _destroyIfDone;
 	Oxide.Ext.UiFramework.Types.Tracked<string> ICountdownComponentTrackable.Command => _command;
 
-	public ICountdownComponentTrackable AsTrackable() => this;
-
+	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+	internal ICountdownComponentTrackable AsTrackable() => this;
 	public override bool HasChanged() => false || (_startTime.HasChanged || _endTime.HasChanged || _step.HasChanged || _interval.HasChanged || _timerFormat.HasChanged || _numberFormat.HasChanged || _destroyIfDone.HasChanged || _command.HasChanged) || base.HasChanged();
 
 	public override void ResetHasChanged()

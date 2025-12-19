@@ -28,8 +28,8 @@ public partial class PlayingCardComponent : IPlayingCardComponent, IPlayingCardC
 	Oxide.Ext.UiFramework.Types.Tracked<string> IPlayingCardComponentTrackable.Material => _material;
 	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> IPlayingCardComponentTrackable.Color => _color;
 
-	public IPlayingCardComponentTrackable AsTrackable() => this;
-
+	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+	internal IPlayingCardComponentTrackable AsTrackable() => this;
 	public override bool HasChanged() => false || (_suit.HasChanged || _rank.HasChanged || _cardType.HasChanged || _fadeIn.HasChanged || _material.HasChanged || _color.HasChanged) || base.HasChanged();
 
 	public override void ResetHasChanged()

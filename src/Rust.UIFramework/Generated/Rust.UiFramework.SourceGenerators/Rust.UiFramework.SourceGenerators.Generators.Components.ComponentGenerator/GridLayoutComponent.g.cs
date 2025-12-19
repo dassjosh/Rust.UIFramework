@@ -28,8 +28,8 @@ public partial class GridLayoutComponent : IGridLayoutComponent, IGridLayoutComp
 	Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.GridLayoutGroup.Constraint> IGridLayoutComponentTrackable.Constraint => _constraint;
 	Oxide.Ext.UiFramework.Types.Tracked<int> IGridLayoutComponentTrackable.ConstraintCount => _constraintCount;
 
-	public IGridLayoutComponentTrackable AsTrackable() => this;
-
+	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+	internal IGridLayoutComponentTrackable AsTrackable() => this;
 	public override bool HasChanged() => false || (_cellSize.HasChanged || _spacing.HasChanged || _startCorner.HasChanged || _startAxis.HasChanged || _constraint.HasChanged || _constraintCount.HasChanged) || base.HasChanged();
 
 	public override void ResetHasChanged()

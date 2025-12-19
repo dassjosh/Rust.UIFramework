@@ -31,8 +31,8 @@ public partial class LayoutElementComponent : ILayoutElementComponent, ILayoutEl
 	Oxide.Ext.UiFramework.Types.Tracked<float> ILayoutElementComponentTrackable.FlexibleHeight => _flexibleHeight;
 	Oxide.Ext.UiFramework.Types.Tracked<bool> ILayoutElementComponentTrackable.IgnoreLayout => _ignoreLayout;
 
-	public ILayoutElementComponentTrackable AsTrackable() => this;
-
+	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+	internal ILayoutElementComponentTrackable AsTrackable() => this;
 	public override bool HasChanged() => false || (_preferredWidth.HasChanged || _preferredHeight.HasChanged || _minWidth.HasChanged || _minHeight.HasChanged || _flexibleWidth.HasChanged || _flexibleHeight.HasChanged || _ignoreLayout.HasChanged) || base.HasChanged();
 
 	public override void ResetHasChanged()

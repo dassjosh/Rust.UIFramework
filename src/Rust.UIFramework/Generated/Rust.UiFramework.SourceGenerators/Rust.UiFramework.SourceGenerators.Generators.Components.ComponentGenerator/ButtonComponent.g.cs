@@ -28,8 +28,8 @@ public partial class ButtonComponent : IButtonComponent, IButtonComponentTrackab
 	Oxide.Ext.UiFramework.Types.Tracked<string> IButtonComponentTrackable.Material => _material;
 	Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.Image.Type> IButtonComponentTrackable.ImageType => _imageType;
 
-	public IButtonComponentTrackable AsTrackable() => this;
-
+	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+	internal IButtonComponentTrackable AsTrackable() => this;
 	public override bool HasChanged() => false || (_command.HasChanged || _color.HasChanged || _fadeIn.HasChanged || _sprite.HasChanged || _material.HasChanged || _imageType.HasChanged) || ((ColorBlock?.HasChanged() ?? false)) || base.HasChanged();
 
 	public override void ResetHasChanged()

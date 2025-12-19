@@ -217,9 +217,42 @@ public class TypeBuilder : IType, IAccessModifiers, IKeywords, IBuildable, IGene
             for (int index = 0; index < buildables.Count; index++)
             {
                 T buildable = buildables[index];
+               
                 if (spaceBetween && index != 0)
                 {
-                    sb.AppendLine();
+                    T previous = buildables[index - 1];
+                    if (buildable is not MethodBuilder builder || !builder.CanLambda() || previous is MethodBuilder prevBuilder && !prevBuilder.CanLambda())
+                    {
+                        sb.AppendLine();
+                    }
+                }
+
+                sb.Append(buildable.Build(indent + 1));
+            }
+
+            hasAdded = true;
+        }
+    }
+    
+    private static void ProcessBuildable(List<MethodBuilder> buildables, StringBuilder sb, int indent, ref bool hasAdded, bool spaceBetween)
+    {
+        if (buildables.Count != 0)
+        {
+            if (hasAdded)
+            {
+                sb.AppendLine();
+            }
+
+            for (int index = 0; index < buildables.Count; index++)
+            {
+                MethodBuilder buildable = buildables[index];
+                if (spaceBetween && index != 0)
+                {
+                    MethodBuilder previous = buildables[index - 1];
+                    if (!buildable.CanLambda() || !previous.CanLambda())
+                    {
+                        sb.AppendLine();
+                    }
                 }
 
                 sb.Append(buildable.Build(indent + 1));

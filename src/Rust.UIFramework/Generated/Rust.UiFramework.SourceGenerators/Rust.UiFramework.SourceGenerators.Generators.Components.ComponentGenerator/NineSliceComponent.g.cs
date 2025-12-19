@@ -16,8 +16,8 @@ public partial class NineSliceComponent : INineSliceComponent, INineSliceCompone
 	Oxide.Ext.UiFramework.Types.Tracked<string> INineSliceComponentTrackable.Png => _png;
 	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Types.UiBorderWidth> INineSliceComponentTrackable.Slice => _slice;
 
-	public new INineSliceComponentTrackable AsTrackable() => this;
-
+	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+	internal new INineSliceComponentTrackable AsTrackable() => this;
 	public override bool HasChanged() => false || (_png.HasChanged || _slice.HasChanged) || base.HasChanged();
 
 	public override void ResetHasChanged()

@@ -16,7 +16,7 @@ public partial class UiPlayerAvatar : IUiPlayerAvatar, IUiPlayerAvatarTrackable
 	IPlayerAvatarComponentTrackable IUiPlayerAvatarTrackable.Avatar => Avatar.AsTrackable();
 
 	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-	public IUiPlayerAvatarTrackable AsTrackable() => this;
+	internal IUiPlayerAvatarTrackable AsTrackable() => this;
 }
 
 

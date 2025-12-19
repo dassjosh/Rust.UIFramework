@@ -5,18 +5,14 @@
 
 namespace Oxide.Ext.UiFramework.Animation;
 
-public static class ElementAnimationUiInputExt
+public static class UiInputAnimationExt
 {
 	extension(Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IElementAnimation<Oxide.Ext.UiFramework.UiElements.UiInput>> animation)
 	{
 		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<int>> AnimateCharsLimit() => animation.AnimateField(static a => a.AsTrackable().Input.CharsLimit);
-
 		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<string>> AnimateCommand() => animation.AnimateField(static a => a.AsTrackable().Input.Command);
-
 		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<Oxide.Ext.UiFramework.Enums.InputMode>> AnimateMode() => animation.AnimateField(static a => a.AsTrackable().Input.Mode);
-
 		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<UnityEngine.UI.InputField.LineType>> AnimateLineType() => animation.AnimateField(static a => a.AsTrackable().Input.LineType);
-
 		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<Oxide.Ext.UiFramework.UiElements.UiReference>> AnimatePlaceholder() => animation.AnimateField(static a => a.AsTrackable().Input.Placeholder);
 	}
 }

@@ -31,8 +31,8 @@ public partial class ScrollViewComponent : IScrollViewComponent, IScrollViewComp
 	Oxide.Ext.UiFramework.Types.Tracked<float> IScrollViewComponentTrackable.HorizontalScrollProgress => _horizontalScrollProgress;
 	Oxide.Ext.UiFramework.Types.Tracked<float> IScrollViewComponentTrackable.VerticalScrollProgress => _verticalScrollProgress;
 
-	public IScrollViewComponentTrackable AsTrackable() => this;
-
+	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+	internal IScrollViewComponentTrackable AsTrackable() => this;
 	public override bool HasChanged() => false || (_movementType.HasChanged || _elasticity.HasChanged || _inertia.HasChanged || _decelerationRate.HasChanged || _scrollSensitivity.HasChanged || _horizontalScrollProgress.HasChanged || _verticalScrollProgress.HasChanged) || ((ContentTransform?.HasChanged() ?? false) || (HorizontalScrollbar?.HasChanged() ?? false) || (VerticalScrollbar?.HasChanged() ?? false)) || base.HasChanged();
 
 	public override void ResetHasChanged()

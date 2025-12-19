@@ -43,8 +43,8 @@ public partial class RectTransformComponent : IRectTransformComponent, IRectTran
 	Oxide.Ext.UiFramework.Types.Tracked<string> IRectTransformComponentTrackable.ChangeParent => _changeParent;
 	Oxide.Ext.UiFramework.Types.Tracked<int> IRectTransformComponentTrackable.TransformIndex => _transformIndex;
 
-	public IRectTransformComponentTrackable AsTrackable() => this;
-
+	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+	internal IRectTransformComponentTrackable AsTrackable() => this;
 	public override bool HasChanged() => false || (_position.HasChanged || _offset.HasChanged || _positionPadding.HasChanged || _offsetPadding.HasChanged || _positionScale.HasChanged || _offsetScale.HasChanged || _positionTranslate.HasChanged || _offsetTranslate.HasChanged || _rotation.HasChanged || _changeParent.HasChanged || _transformIndex.HasChanged) || base.HasChanged();
 
 	public override void ResetHasChanged()

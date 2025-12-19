@@ -16,8 +16,8 @@ public partial class ContentSizeFitterComponent : IContentSizeFitterComponent, I
 	Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.ContentSizeFitter.FitMode> IContentSizeFitterComponentTrackable.HorizontalFit => _horizontalFit;
 	Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.ContentSizeFitter.FitMode> IContentSizeFitterComponentTrackable.VerticalFit => _verticalFit;
 
-	public IContentSizeFitterComponentTrackable AsTrackable() => this;
-
+	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+	internal IContentSizeFitterComponentTrackable AsTrackable() => this;
 	public override bool HasChanged() => false || (_horizontalFit.HasChanged || _verticalFit.HasChanged) || base.HasChanged();
 
 	public override void ResetHasChanged()

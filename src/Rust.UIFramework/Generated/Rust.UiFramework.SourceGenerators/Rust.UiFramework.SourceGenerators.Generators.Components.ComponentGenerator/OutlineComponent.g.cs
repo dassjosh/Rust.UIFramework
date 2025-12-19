@@ -19,8 +19,8 @@ public partial class OutlineComponent : IOutlineComponent, IOutlineComponentTrac
 	Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.Vector2> IOutlineComponentTrackable.Distance => _distance;
 	Oxide.Ext.UiFramework.Types.Tracked<bool> IOutlineComponentTrackable.UseGraphicAlpha => _useGraphicAlpha;
 
-	public IOutlineComponentTrackable AsTrackable() => this;
-
+	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+	internal IOutlineComponentTrackable AsTrackable() => this;
 	public override bool HasChanged() => false || (_color.HasChanged || _distance.HasChanged || _useGraphicAlpha.HasChanged) || base.HasChanged();
 
 	public override void ResetHasChanged()

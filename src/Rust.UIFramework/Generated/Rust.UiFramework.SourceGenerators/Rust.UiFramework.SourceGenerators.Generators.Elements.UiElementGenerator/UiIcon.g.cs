@@ -14,7 +14,7 @@ public partial class UiIcon : IUiIcon, IUiIconTrackable
 	IRawImageComponentTrackable IUiIconTrackable.RawImage => RawImage.AsTrackable();
 
 	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-	public IUiIconTrackable AsTrackable() => this;
+	internal IUiIconTrackable AsTrackable() => this;
 }
 
 

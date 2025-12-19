@@ -2,6 +2,12 @@
   "AllowMultiple": false,
   "ComponentType": "LayoutElement",
   "Enabled": true,
+  "FlexibleHeight": -1.0,
+  "FlexibleWidth": -1.0,
   "IgnoreLayout": false,
+  "MinHeight": -1.0,
+  "MinWidth": -1.0,
+  "PreferredHeight": -1.0,
+  "PreferredWidth": -1.0,
   "Type": "UnityEngine.UI.LayoutElement"
 }

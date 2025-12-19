@@ -37,8 +37,8 @@ public partial class ScrollbarComponent : IScrollbarComponent, IScrollbarCompone
 	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> IScrollbarComponentTrackable.PressedColor => _pressedColor;
 	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> IScrollbarComponentTrackable.TrackColor => _trackColor;
 
-	public IScrollbarComponentTrackable AsTrackable() => this;
-
+	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+	internal IScrollbarComponentTrackable AsTrackable() => this;
 	public override bool HasChanged() => false || (_invert.HasChanged || _autoHide.HasChanged || _handleSprite.HasChanged || _trackSprite.HasChanged || _size.HasChanged || _handleColor.HasChanged || _highlightColor.HasChanged || _pressedColor.HasChanged || _trackColor.HasChanged) || base.HasChanged();
 
 	public override void ResetHasChanged()

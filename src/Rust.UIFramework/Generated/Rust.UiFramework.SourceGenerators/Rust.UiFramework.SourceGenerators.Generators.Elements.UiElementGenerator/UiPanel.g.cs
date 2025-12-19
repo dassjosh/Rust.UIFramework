@@ -18,7 +18,7 @@ public partial class UiPanel : IUiPanel, IUiPanelTrackable
 	IImageComponentTrackable IUiPanelTrackable.Image => Image.AsTrackable();
 
 	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-	public IUiPanelTrackable AsTrackable() => this;
+	internal IUiPanelTrackable AsTrackable() => this;
 }
 
 

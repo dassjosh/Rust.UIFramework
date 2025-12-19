@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Oxide.Ext.UiFramework.Builder;
+using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Types;
@@ -259,8 +260,34 @@ public static class AnimationExt
     
     extension<T>(AnimationRef<IElementAnimation<T>> animation) where T : BaseUiComponent
     {
-        public AnimationRef<IFieldAnimation<TField>> AnimateField<TField>(FieldSelector<TField, T> selector) => animation.IsValid ? animation.Animation.AnimateField(selector) : default;
+        public AnimationRef<IElementAnimation<T>> InitialState(Action<T> initialize)
+        {
+            if (animation.IsValid)
+            {
+                animation.Animation.InitialState(initialize);
+            }
+            
+            return animation;
+        }
+
+        public AnimationRef<IFieldAnimation<TField>> AnimateField<TField>(ElementFieldSelector<TField, T> selector) => animation.IsValid ? animation.Animation.AnimateField(selector) : default;
+        public AnimationRef<IComponentAnimation<TComponent>> AnimateComponent<TComponent>(ComponentSelector<TComponent, T> selector) where TComponent : BaseComponent => animation.IsValid ? animation.Animation.AnimateComponent(selector) : default;
         
         public AnimationRef<IElementAnimation<T>> DestroyAfter() => animation.IsValid ? animation.DestroyAfter(animation.Animation.Element.Reference) : animation;
+    }
+    
+    extension<T>(AnimationRef<IComponentAnimation<T>> animation) where T : BaseComponent
+    {
+        public AnimationRef<IFieldAnimation<TField>> AnimateField<TField>(ComponentFieldSelector<TField, T> selector) => animation.IsValid ? animation.Animation.AnimateField(selector) : default;
+        
+        public AnimationRef<IComponentAnimation<T>> InitialState(Action<T> initialize)
+        {
+            if (animation.IsValid)
+            {
+                animation.Animation.InitialState(initialize);
+            }
+            
+            return animation;
+        }
     }
 }

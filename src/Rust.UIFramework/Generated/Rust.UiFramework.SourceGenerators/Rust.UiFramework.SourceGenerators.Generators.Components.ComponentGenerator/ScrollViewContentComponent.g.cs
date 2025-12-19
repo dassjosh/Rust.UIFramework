@@ -19,8 +19,8 @@ public partial class ScrollViewContentComponent : IScrollViewContentComponent, I
 	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Offsets.UiOffset> IScrollViewContentComponentTrackable.Offset => _offset;
 	Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.Vector2> IScrollViewContentComponentTrackable.Pivot => _pivot;
 
-	public IScrollViewContentComponentTrackable AsTrackable() => this;
-
+	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+	internal IScrollViewContentComponentTrackable AsTrackable() => this;
 	public override bool HasChanged() => false || (_position.HasChanged || _offset.HasChanged || _pivot.HasChanged) || base.HasChanged();
 
 	public override void ResetHasChanged()

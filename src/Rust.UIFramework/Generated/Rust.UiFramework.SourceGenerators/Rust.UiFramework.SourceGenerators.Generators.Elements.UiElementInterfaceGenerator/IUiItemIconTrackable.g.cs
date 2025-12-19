@@ -5,7 +5,7 @@
 
 namespace Oxide.Ext.UiFramework.Interfaces;
 
-public interface IUiItemIconTrackable : IBaseUiComponentTrackable
+internal interface IUiItemIconTrackable : IBaseUiComponentTrackable
 {
 	IItemIconComponentTrackable Icon { get; }
 }

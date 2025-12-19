@@ -19,7 +19,7 @@ public partial class UiLabel : IUiLabel, IUiLabelTrackable
 	ITextComponentTrackable IUiLabelTrackable.Text => Text.AsTrackable();
 
 	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-	public IUiLabelTrackable AsTrackable() => this;
+	internal IUiLabelTrackable AsTrackable() => this;
 }
 
 

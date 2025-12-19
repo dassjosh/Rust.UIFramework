@@ -5,7 +5,7 @@
 
 namespace Oxide.Ext.UiFramework.Interfaces;
 
-public interface IUiLabelTrackable : IBaseUiComponentTrackable
+internal interface IUiLabelTrackable : IBaseUiComponentTrackable
 {
 	ITextComponentTrackable Text { get; }
 }

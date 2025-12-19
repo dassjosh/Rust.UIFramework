@@ -1,5 +1,6 @@
 ﻿using System.Collections.Immutable;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Rust.UiFramework.SourceGenerators.Attributes;
@@ -46,10 +47,11 @@ public class ComponentGenerator : BaseGenerator, IIncrementalGenerator
                         .Get(data.PrivateFieldName))
 
                     //As Trackable Method
-                    .If(!genData.ClassSymbol.IsAbstract, builder => builder.Method(method => method.Public()
+                    .If(!genData.ClassSymbol.IsAbstract, builder => builder.Method(method => method.Internal()
                         .If(genData.ParentComponent is not null, m => m.New())
                         .EndIf()
-                        .Returns(genData.TrackableInterfaceName).Name("AsTrackable").Body("return this;")))
+                        .Returns(genData.TrackableInterfaceName).Name("AsTrackable").Body("return this;")
+                        .AddAttribute(a => a.Type(SymbolCache.Instance.MethodImpl.Symbol).AddParameter(MethodImplOptions.AggressiveInlining.ToParameterValue()))))
                     .EndIf()
 
                     //HasChangedGenerated Method

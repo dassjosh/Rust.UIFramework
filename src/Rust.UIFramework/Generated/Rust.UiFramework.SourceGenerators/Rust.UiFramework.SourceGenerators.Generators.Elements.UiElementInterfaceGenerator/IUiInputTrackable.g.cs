@@ -5,7 +5,7 @@
 
 namespace Oxide.Ext.UiFramework.Interfaces;
 
-public interface IUiInputTrackable : IBaseUiComponentTrackable
+internal interface IUiInputTrackable : IBaseUiComponentTrackable
 {
 	IInputComponentTrackable Input { get; }
 }

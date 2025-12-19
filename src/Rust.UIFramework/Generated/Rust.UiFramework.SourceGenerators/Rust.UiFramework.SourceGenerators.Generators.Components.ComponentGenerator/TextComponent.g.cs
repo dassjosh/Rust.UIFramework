@@ -34,8 +34,8 @@ public partial class TextComponent : ITextComponent, ITextComponentTrackable
 	Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.VerticalWrapMode> ITextComponentTrackable.VerticalOverflow => _verticalOverflow;
 	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.UiElements.UiReference> ITextComponentTrackable.PlaceholderFor => _placeholderFor;
 
-	public ITextComponentTrackable AsTrackable() => this;
-
+	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+	internal ITextComponentTrackable AsTrackable() => this;
 	public override bool HasChanged() => false || (_color.HasChanged || _fadeIn.HasChanged || _fontSize.HasChanged || _font.HasChanged || _align.HasChanged || _text.HasChanged || _verticalOverflow.HasChanged || _placeholderFor.HasChanged) || base.HasChanged();
 
 	public override void ResetHasChanged()

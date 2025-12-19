@@ -23,7 +23,7 @@ public partial class UiButton : IUiButton, IUiButtonTrackable
 	IButtonComponentTrackable IUiButtonTrackable.Button => Button.AsTrackable();
 
 	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-	public IUiButtonTrackable AsTrackable() => this;
+	internal IUiButtonTrackable AsTrackable() => this;
 }
 
 

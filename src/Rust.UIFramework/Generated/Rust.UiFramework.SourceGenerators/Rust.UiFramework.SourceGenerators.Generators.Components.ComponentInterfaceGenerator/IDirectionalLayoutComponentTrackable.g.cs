@@ -6,7 +6,7 @@ using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Interfaces;
 
-public interface IDirectionalLayoutComponentTrackable : IBaseLayoutComponentTrackable
+internal interface IDirectionalLayoutComponentTrackable : IBaseLayoutComponentTrackable
 {
 	Oxide.Ext.UiFramework.Types.Tracked<float> Spacing { get; }
 	Oxide.Ext.UiFramework.Types.Tracked<bool> ChildForceExpandWidth { get; }

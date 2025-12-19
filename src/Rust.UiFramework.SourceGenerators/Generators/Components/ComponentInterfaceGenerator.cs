@@ -51,7 +51,7 @@ public class ComponentInterfaceGenerator : BaseGenerator, IIncrementalGenerator
         return new CodeBuilder()
             .Using("Oxide.Ext.UiFramework.Types")
             .Namespace("Oxide.Ext.UiFramework.Interfaces")
-            .Add(t => t.Public().Interface().Name(genData.TrackableInterfaceName)
+            .Add(t => t.Internal().Interface().Name(genData.TrackableInterfaceName)
                 .If(genData.ParentComponent is not null, i => i.Implements(genData.ParentComponent.GetTrackableInterface()))
                 .EndIf()
                 

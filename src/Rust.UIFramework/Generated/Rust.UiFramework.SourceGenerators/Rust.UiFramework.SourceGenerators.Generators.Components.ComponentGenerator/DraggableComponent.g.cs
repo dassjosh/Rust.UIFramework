@@ -49,8 +49,8 @@ public partial class DraggableComponent : IDraggableComponent, IDraggableCompone
 	Oxide.Ext.UiFramework.Types.Tracked<bool> IDraggableComponentTrackable.MoveToAnchor => _moveToAnchor;
 	Oxide.Ext.UiFramework.Types.Tracked<bool> IDraggableComponentTrackable.RebuildAnchor => _rebuildAnchor;
 
-	public IDraggableComponentTrackable AsTrackable() => this;
-
+	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+	internal IDraggableComponentTrackable AsTrackable() => this;
 	public override bool HasChanged() => false || (_limitToParent.HasChanged || _maxDistance.HasChanged || _allowSwapping.HasChanged || _dropAnywhere.HasChanged || _dragAlpha.HasChanged || _parentLimitIndex.HasChanged || _filter.HasChanged || _parentPadding.HasChanged || _anchorOffset.HasChanged || _keepOnTop.HasChanged || _positionRpc.HasChanged || _moveToAnchor.HasChanged || _rebuildAnchor.HasChanged) || base.HasChanged();
 
 	public override void ResetHasChanged()

@@ -16,8 +16,8 @@ public partial class ItemIconComponent : IItemIconComponent, IItemIconComponentT
 	Oxide.Ext.UiFramework.Types.Tracked<int> IItemIconComponentTrackable.ItemId => _itemId;
 	Oxide.Ext.UiFramework.Types.Tracked<ulong> IItemIconComponentTrackable.SkinId => _skinId;
 
-	public new IItemIconComponentTrackable AsTrackable() => this;
-
+	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+	internal new IItemIconComponentTrackable AsTrackable() => this;
 	public override bool HasChanged() => false || (_itemId.HasChanged || _skinId.HasChanged) || base.HasChanged();
 
 	public override void ResetHasChanged()

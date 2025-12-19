@@ -16,7 +16,7 @@ public partial class UiRawImage : IUiRawImage, IUiRawImageTrackable
 	IRawImageComponentTrackable IUiRawImageTrackable.RawImage => RawImage.AsTrackable();
 
 	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-	public IUiRawImageTrackable AsTrackable() => this;
+	internal IUiRawImageTrackable AsTrackable() => this;
 }
 
 

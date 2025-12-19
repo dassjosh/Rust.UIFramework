@@ -46,9 +46,8 @@ public class UiElementInterfaceGenerator : BaseGenerator, IIncrementalGenerator
     private string GenerateTrackableInterface(GeneratorData genData)
     {
         return new CodeBuilder()
-            //.Using("Oxide.Ext.UiFramework.Types")
             .Namespace("Oxide.Ext.UiFramework.Interfaces")
-            .Add(t => t.Public().Interface().Name(genData.Symbol.GetTrackableInterface())
+            .Add(t => t.Internal().Interface().Name(genData.Symbol.GetTrackableInterface())
                 .If(genData.ParentElement is not null, i => i.Implements(genData.ParentElement.GetTrackableInterface()))
                 .EndIf()
                 

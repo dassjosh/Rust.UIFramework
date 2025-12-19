@@ -31,8 +31,8 @@ public partial class ImageComponent : IImageComponent, IImageComponentTrackable
 	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.UiElements.UiReference> IImageComponentTrackable.PlaceholderFor => _placeholderFor;
 	Oxide.Ext.UiFramework.Types.Tracked<bool> IImageComponentTrackable.FillCenter => _fillCenter;
 
-	public IImageComponentTrackable AsTrackable() => this;
-
+	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+	internal IImageComponentTrackable AsTrackable() => this;
 	public override bool HasChanged() => false || (_color.HasChanged || _fadeIn.HasChanged || _sprite.HasChanged || _material.HasChanged || _imageType.HasChanged || _placeholderFor.HasChanged || _fillCenter.HasChanged) || base.HasChanged();
 
 	public override void ResetHasChanged()

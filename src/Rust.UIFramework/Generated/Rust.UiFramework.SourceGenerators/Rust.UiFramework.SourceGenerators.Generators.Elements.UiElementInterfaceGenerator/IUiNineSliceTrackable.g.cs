@@ -5,7 +5,7 @@
 
 namespace Oxide.Ext.UiFramework.Interfaces;
 
-public interface IUiNineSliceTrackable : IBaseUiComponentTrackable
+internal interface IUiNineSliceTrackable : IBaseUiComponentTrackable
 {
 	INineSliceComponentTrackable Image { get; }
 }

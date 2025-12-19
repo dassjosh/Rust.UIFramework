@@ -53,7 +53,7 @@ public class UiElementGenerator : BaseGenerator, IIncrementalGenerator
                     p.Type(genData.ComponentField.Type.GetTrackableInterface())
                         .Name($"{genData.Symbol.GetTrackableInterface()}.{genData.ComponentField.Name}")
                         .Get($"{genData.ComponentFieldName}.AsTrackable()"))
-                    .Method(m => m.Public().Name("AsTrackable").Returns(genData.Symbol.GetTrackableInterface()).Body("return this;")
+                    .Method(m => m.Internal().Name("AsTrackable").Returns(genData.Symbol.GetTrackableInterface()).Body("return this;")
                         .AddAttribute(a => a.Type(SymbolCache.Instance.MethodImpl.Symbol).AddParameter(MethodImplOptions.AggressiveInlining.ToParameterValue()))))
                 .EndIf()
             )

@@ -17,7 +17,7 @@ public partial class UiPlayingCard : IUiPlayingCard, IUiPlayingCardTrackable
 	IPlayingCardComponentTrackable IUiPlayingCardTrackable.Card => Card.AsTrackable();
 
 	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-	public IUiPlayingCardTrackable AsTrackable() => this;
+	internal IUiPlayingCardTrackable AsTrackable() => this;
 }
 
 

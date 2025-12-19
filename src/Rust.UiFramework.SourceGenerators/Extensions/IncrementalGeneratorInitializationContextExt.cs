@@ -66,7 +66,9 @@ public static class IncrementalGeneratorInitializationContextExt
             foreach (T node in nodes)
             {
                 SemanticModel model = compilation.GetSemanticModel(node.SyntaxTree);
+#pragma warning disable RS1039
                 INamedTypeSymbol symbol = model.GetDeclaredSymbol(node) as INamedTypeSymbol;
+#pragma warning restore RS1039
                 
                 if (predicate.Invoke(symbol))
                 {

@@ -113,5 +113,5 @@ public class MethodBuilder : IBuildable, IAccessModifiers, IKeywords, IGenerics,
         return sb.ToString();
     }
 
-    private bool CanLambda() => _body.Count(c => c == ';') <= 1;
+    public bool CanLambda() => _body.Count(c => c == ';') <= 1;
 }

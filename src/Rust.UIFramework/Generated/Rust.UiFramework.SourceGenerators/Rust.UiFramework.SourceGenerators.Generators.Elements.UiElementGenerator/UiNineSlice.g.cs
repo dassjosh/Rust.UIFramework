@@ -20,7 +20,7 @@ public partial class UiNineSlice : IUiNineSlice, IUiNineSliceTrackable
 	INineSliceComponentTrackable IUiNineSliceTrackable.Image => Image.AsTrackable();
 
 	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-	public IUiNineSliceTrackable AsTrackable() => this;
+	internal IUiNineSliceTrackable AsTrackable() => this;
 }
 
 

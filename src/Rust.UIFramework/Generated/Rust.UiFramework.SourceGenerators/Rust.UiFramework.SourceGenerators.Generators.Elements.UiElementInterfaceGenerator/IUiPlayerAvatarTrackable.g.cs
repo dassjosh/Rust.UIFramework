@@ -5,7 +5,7 @@
 
 namespace Oxide.Ext.UiFramework.Interfaces;
 
-public interface IUiPlayerAvatarTrackable : IBaseUiComponentTrackable
+internal interface IUiPlayerAvatarTrackable : IBaseUiComponentTrackable
 {
 	IPlayerAvatarComponentTrackable Avatar { get; }
 }

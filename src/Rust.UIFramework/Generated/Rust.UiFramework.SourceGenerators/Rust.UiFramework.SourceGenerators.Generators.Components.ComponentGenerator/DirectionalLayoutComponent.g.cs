@@ -34,8 +34,8 @@ public partial class DirectionalLayoutComponent : IDirectionalLayoutComponent, I
 	Oxide.Ext.UiFramework.Types.Tracked<bool> IDirectionalLayoutComponentTrackable.ChildScaleHeight => _childScaleHeight;
 	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Enums.LayoutDirection> IDirectionalLayoutComponentTrackable.Direction => _direction;
 
-	public IDirectionalLayoutComponentTrackable AsTrackable() => this;
-
+	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+	internal IDirectionalLayoutComponentTrackable AsTrackable() => this;
 	public override bool HasChanged() => false || (_spacing.HasChanged || _childForceExpandWidth.HasChanged || _childForceExpandHeight.HasChanged || _childControlWidth.HasChanged || _childControlHeight.HasChanged || _childScaleWidth.HasChanged || _childScaleHeight.HasChanged || _direction.HasChanged) || base.HasChanged();
 
 	public override void ResetHasChanged()

@@ -25,8 +25,8 @@ public partial class InputComponent : IInputComponent, IInputComponentTrackable
 	Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.InputField.LineType> IInputComponentTrackable.LineType => _lineType;
 	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.UiElements.UiReference> IInputComponentTrackable.Placeholder => _placeholder;
 
-	public new IInputComponentTrackable AsTrackable() => this;
-
+	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+	internal new IInputComponentTrackable AsTrackable() => this;
 	public override bool HasChanged() => false || (_charsLimit.HasChanged || _command.HasChanged || _mode.HasChanged || _lineType.HasChanged || _placeholder.HasChanged) || base.HasChanged();
 
 	public override void ResetHasChanged()

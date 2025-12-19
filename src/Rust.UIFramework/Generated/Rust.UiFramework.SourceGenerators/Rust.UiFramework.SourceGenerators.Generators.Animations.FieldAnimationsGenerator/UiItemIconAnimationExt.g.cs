@@ -5,12 +5,11 @@
 
 namespace Oxide.Ext.UiFramework.Animation;
 
-public static class ElementAnimationUiItemIconExt
+public static class UiItemIconAnimationExt
 {
 	extension(Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IElementAnimation<Oxide.Ext.UiFramework.UiElements.UiItemIcon>> animation)
 	{
 		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<int>> AnimateItemId() => animation.AnimateField(static a => a.AsTrackable().Icon.ItemId);
-
 		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<ulong>> AnimateSkinId() => animation.AnimateField(static a => a.AsTrackable().Icon.SkinId);
 	}
 }

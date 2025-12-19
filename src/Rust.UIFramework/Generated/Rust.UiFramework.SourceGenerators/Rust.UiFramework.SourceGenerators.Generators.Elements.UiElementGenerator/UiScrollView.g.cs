@@ -21,7 +21,7 @@ public partial class UiScrollView : IUiScrollView, IUiScrollViewTrackable
 	IScrollViewComponentTrackable IUiScrollViewTrackable.ScrollView => ScrollView.AsTrackable();
 
 	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-	public IUiScrollViewTrackable AsTrackable() => this;
+	internal IUiScrollViewTrackable AsTrackable() => this;
 }
 
 

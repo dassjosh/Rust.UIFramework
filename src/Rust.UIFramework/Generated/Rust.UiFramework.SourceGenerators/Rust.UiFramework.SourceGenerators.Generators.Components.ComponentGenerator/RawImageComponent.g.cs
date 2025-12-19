@@ -25,8 +25,8 @@ public partial class RawImageComponent : IRawImageComponent, IRawImageComponentT
 	Oxide.Ext.UiFramework.Types.Tracked<string> IRawImageComponentTrackable.Material => _material;
 	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.UiElements.UiReference> IRawImageComponentTrackable.PlaceholderFor => _placeholderFor;
 
-	public IRawImageComponentTrackable AsTrackable() => this;
-
+	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+	internal IRawImageComponentTrackable AsTrackable() => this;
 	public override bool HasChanged() => false || (_color.HasChanged || _fadeIn.HasChanged || _image.HasChanged || _material.HasChanged || _placeholderFor.HasChanged) || base.HasChanged();
 
 	public override void ResetHasChanged()

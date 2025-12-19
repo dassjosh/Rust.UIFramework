@@ -6,7 +6,7 @@ using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Interfaces;
 
-public interface IInputComponentTrackable : ITextComponentTrackable
+internal interface IInputComponentTrackable : ITextComponentTrackable
 {
 	Oxide.Ext.UiFramework.Types.Tracked<int> CharsLimit { get; }
 	Oxide.Ext.UiFramework.Types.Tracked<string> Command { get; }

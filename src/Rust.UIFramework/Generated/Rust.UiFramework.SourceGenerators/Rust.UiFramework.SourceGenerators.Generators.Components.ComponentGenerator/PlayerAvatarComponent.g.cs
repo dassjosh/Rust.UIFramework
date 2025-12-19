@@ -16,8 +16,8 @@ public partial class PlayerAvatarComponent : IPlayerAvatarComponent, IPlayerAvat
 	Oxide.Ext.UiFramework.Types.Tracked<ulong> IPlayerAvatarComponentTrackable.SteamId => _steamId;
 	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Enums.AvatarType> IPlayerAvatarComponentTrackable.AvatarType => _avatarType;
 
-	public new IPlayerAvatarComponentTrackable AsTrackable() => this;
-
+	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+	internal new IPlayerAvatarComponentTrackable AsTrackable() => this;
 	public override bool HasChanged() => false || (_steamId.HasChanged || _avatarType.HasChanged) || base.HasChanged();
 
 	public override void ResetHasChanged()

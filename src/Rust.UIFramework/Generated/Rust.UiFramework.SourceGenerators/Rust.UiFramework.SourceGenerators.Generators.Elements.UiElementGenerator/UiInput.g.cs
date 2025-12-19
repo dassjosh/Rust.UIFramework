@@ -28,7 +28,7 @@ public partial class UiInput : IUiInput, IUiInputTrackable
 	IInputComponentTrackable IUiInputTrackable.Input => Input.AsTrackable();
 
 	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-	public IUiInputTrackable AsTrackable() => this;
+	internal IUiInputTrackable AsTrackable() => this;
 }
 
 
