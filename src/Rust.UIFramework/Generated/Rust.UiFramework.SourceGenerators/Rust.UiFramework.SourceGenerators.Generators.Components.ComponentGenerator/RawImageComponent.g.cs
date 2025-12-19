@@ -6,7 +6,7 @@ using Oxide.Ext.UiFramework.Interfaces;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-public partial class RawImageComponent : IRawImageComponent, IRawImageComponentTrackable
+public partial class RawImageComponent : IRawImageComponent
 {
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> ColorTracked = new();
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<float> FadeInTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Common.FadeIn);
@@ -19,14 +19,7 @@ public partial class RawImageComponent : IRawImageComponent, IRawImageComponentT
 	public partial string Image { get => ImageTracked.Value; set => ImageTracked.Value = value; }
 	public partial string Material { get => MaterialTracked.Value; set => MaterialTracked.Value = value; }
 	public partial Oxide.Ext.UiFramework.UiElements.UiReference PlaceholderFor { get => PlaceholderForTracked.Value; set => PlaceholderForTracked.Value = value; }
-	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> IRawImageComponentTrackable.Color => ColorTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<float> IRawImageComponentTrackable.FadeIn => FadeInTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<string> IRawImageComponentTrackable.Image => ImageTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<string> IRawImageComponentTrackable.Material => MaterialTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.UiElements.UiReference> IRawImageComponentTrackable.PlaceholderFor => PlaceholderForTracked;
 
-	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-	internal IRawImageComponentTrackable AsTrackable() => this;
 	public override bool HasChanged() => false || (ColorTracked.HasChanged || FadeInTracked.HasChanged || ImageTracked.HasChanged || MaterialTracked.HasChanged || PlaceholderForTracked.HasChanged) || base.HasChanged();
 
 	public override void ResetHasChanged()

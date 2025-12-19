@@ -6,7 +6,7 @@ using Oxide.Ext.UiFramework.Interfaces;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-public partial class LayoutElementComponent : ILayoutElementComponent, ILayoutElementComponentTrackable
+public partial class LayoutElementComponent : ILayoutElementComponent
 {
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<float> PreferredWidthTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.LayoutElement.PreferredWidth);
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<float> PreferredHeightTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.LayoutElement.PreferredHeight);
@@ -23,16 +23,7 @@ public partial class LayoutElementComponent : ILayoutElementComponent, ILayoutEl
 	public partial float FlexibleWidth { get => FlexibleWidthTracked.Value; set => FlexibleWidthTracked.Value = value; }
 	public partial float FlexibleHeight { get => FlexibleHeightTracked.Value; set => FlexibleHeightTracked.Value = value; }
 	public partial bool IgnoreLayout { get => IgnoreLayoutTracked.Value; set => IgnoreLayoutTracked.Value = value; }
-	Oxide.Ext.UiFramework.Types.Tracked<float> ILayoutElementComponentTrackable.PreferredWidth => PreferredWidthTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<float> ILayoutElementComponentTrackable.PreferredHeight => PreferredHeightTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<float> ILayoutElementComponentTrackable.MinWidth => MinWidthTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<float> ILayoutElementComponentTrackable.MinHeight => MinHeightTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<float> ILayoutElementComponentTrackable.FlexibleWidth => FlexibleWidthTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<float> ILayoutElementComponentTrackable.FlexibleHeight => FlexibleHeightTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<bool> ILayoutElementComponentTrackable.IgnoreLayout => IgnoreLayoutTracked;
 
-	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-	internal ILayoutElementComponentTrackable AsTrackable() => this;
 	public override bool HasChanged() => false || (PreferredWidthTracked.HasChanged || PreferredHeightTracked.HasChanged || MinWidthTracked.HasChanged || MinHeightTracked.HasChanged || FlexibleWidthTracked.HasChanged || FlexibleHeightTracked.HasChanged || IgnoreLayoutTracked.HasChanged) || base.HasChanged();
 
 	public override void ResetHasChanged()

@@ -6,7 +6,7 @@ using Oxide.Ext.UiFramework.Interfaces;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-public partial class DraggableComponent : IDraggableComponent, IDraggableComponentTrackable
+public partial class DraggableComponent : IDraggableComponent
 {
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<bool> LimitToParentTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Draggable.LimitToParent);
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<float> MaxDistanceTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Draggable.MaxDistance);
@@ -35,22 +35,7 @@ public partial class DraggableComponent : IDraggableComponent, IDraggableCompone
 	public partial CommunityEntity.DraggablePositionSendType? PositionRpc { get => PositionRpcTracked.Value; set => PositionRpcTracked.Value = value; }
 	public partial bool MoveToAnchor { get => MoveToAnchorTracked.Value; set => MoveToAnchorTracked.Value = value; }
 	public partial bool RebuildAnchor { get => RebuildAnchorTracked.Value; set => RebuildAnchorTracked.Value = value; }
-	Oxide.Ext.UiFramework.Types.Tracked<bool> IDraggableComponentTrackable.LimitToParent => LimitToParentTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<float> IDraggableComponentTrackable.MaxDistance => MaxDistanceTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<bool> IDraggableComponentTrackable.AllowSwapping => AllowSwappingTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<bool> IDraggableComponentTrackable.DropAnywhere => DropAnywhereTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<float> IDraggableComponentTrackable.DragAlpha => DragAlphaTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<int> IDraggableComponentTrackable.ParentLimitIndex => ParentLimitIndexTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<string> IDraggableComponentTrackable.Filter => FilterTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.Vector2> IDraggableComponentTrackable.ParentPadding => ParentPaddingTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.Vector2> IDraggableComponentTrackable.AnchorOffset => AnchorOffsetTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<bool> IDraggableComponentTrackable.KeepOnTop => KeepOnTopTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<CommunityEntity.DraggablePositionSendType?> IDraggableComponentTrackable.PositionRpc => PositionRpcTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<bool> IDraggableComponentTrackable.MoveToAnchor => MoveToAnchorTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<bool> IDraggableComponentTrackable.RebuildAnchor => RebuildAnchorTracked;
 
-	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-	internal IDraggableComponentTrackable AsTrackable() => this;
 	public override bool HasChanged() => false || (LimitToParentTracked.HasChanged || MaxDistanceTracked.HasChanged || AllowSwappingTracked.HasChanged || DropAnywhereTracked.HasChanged || DragAlphaTracked.HasChanged || ParentLimitIndexTracked.HasChanged || FilterTracked.HasChanged || ParentPaddingTracked.HasChanged || AnchorOffsetTracked.HasChanged || KeepOnTopTracked.HasChanged || PositionRpcTracked.HasChanged || MoveToAnchorTracked.HasChanged || RebuildAnchorTracked.HasChanged) || base.HasChanged();
 
 	public override void ResetHasChanged()

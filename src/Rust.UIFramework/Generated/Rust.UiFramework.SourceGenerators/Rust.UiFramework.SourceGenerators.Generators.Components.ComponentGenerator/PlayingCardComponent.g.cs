@@ -6,7 +6,7 @@ using Oxide.Ext.UiFramework.Interfaces;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-public partial class PlayingCardComponent : IPlayingCardComponent, IPlayingCardComponentTrackable
+public partial class PlayingCardComponent : IPlayingCardComponent
 {
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Enums.UiSuit> SuitTracked = new();
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Enums.UiRank> RankTracked = new();
@@ -21,15 +21,7 @@ public partial class PlayingCardComponent : IPlayingCardComponent, IPlayingCardC
 	public partial float FadeIn { get => FadeInTracked.Value; set => FadeInTracked.Value = value; }
 	public partial string Material { get => MaterialTracked.Value; set => MaterialTracked.Value = value; }
 	public partial Oxide.Ext.UiFramework.Colors.UiColor Color { get => ColorTracked.Value; set => ColorTracked.Value = value; }
-	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Enums.UiSuit> IPlayingCardComponentTrackable.Suit => SuitTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Enums.UiRank> IPlayingCardComponentTrackable.Rank => RankTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Enums.UiCardType> IPlayingCardComponentTrackable.CardType => CardTypeTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<float> IPlayingCardComponentTrackable.FadeIn => FadeInTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<string> IPlayingCardComponentTrackable.Material => MaterialTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> IPlayingCardComponentTrackable.Color => ColorTracked;
 
-	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-	internal IPlayingCardComponentTrackable AsTrackable() => this;
 	public override bool HasChanged() => false || (SuitTracked.HasChanged || RankTracked.HasChanged || CardTypeTracked.HasChanged || FadeInTracked.HasChanged || MaterialTracked.HasChanged || ColorTracked.HasChanged) || base.HasChanged();
 
 	public override void ResetHasChanged()

@@ -6,7 +6,7 @@ using Oxide.Ext.UiFramework.Interfaces;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-public partial class InputComponent : IInputComponent, IInputComponentTrackable
+public partial class InputComponent : IInputComponent
 {
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<int> CharsLimitTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Input.CharacterLimit);
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<string> CommandTracked = new();
@@ -19,14 +19,7 @@ public partial class InputComponent : IInputComponent, IInputComponentTrackable
 	public partial Oxide.Ext.UiFramework.Enums.InputMode Mode { get => ModeTracked.Value; set => ModeTracked.Value = value; }
 	public partial UnityEngine.UI.InputField.LineType LineType { get => LineTypeTracked.Value; set => LineTypeTracked.Value = value; }
 	public partial Oxide.Ext.UiFramework.UiElements.UiReference Placeholder { get => PlaceholderTracked.Value; set => PlaceholderTracked.Value = value; }
-	Oxide.Ext.UiFramework.Types.Tracked<int> IInputComponentTrackable.CharsLimit => CharsLimitTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<string> IInputComponentTrackable.Command => CommandTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Enums.InputMode> IInputComponentTrackable.Mode => ModeTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.InputField.LineType> IInputComponentTrackable.LineType => LineTypeTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.UiElements.UiReference> IInputComponentTrackable.Placeholder => PlaceholderTracked;
 
-	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-	internal new IInputComponentTrackable AsTrackable() => this;
 	public override bool HasChanged() => false || (CharsLimitTracked.HasChanged || CommandTracked.HasChanged || ModeTracked.HasChanged || LineTypeTracked.HasChanged || PlaceholderTracked.HasChanged) || base.HasChanged();
 
 	public override void ResetHasChanged()

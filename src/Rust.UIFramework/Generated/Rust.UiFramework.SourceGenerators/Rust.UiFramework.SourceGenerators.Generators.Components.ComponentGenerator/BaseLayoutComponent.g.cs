@@ -6,15 +6,13 @@ using Oxide.Ext.UiFramework.Interfaces;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-public partial class BaseLayoutComponent : IBaseLayoutComponent, IBaseLayoutComponentTrackable
+public partial class BaseLayoutComponent : IBaseLayoutComponent
 {
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.TextAnchor> ChildAlignmentTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Layout.ChildAlignment);
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Types.UiPadding> PaddingTracked = new();
 
 	public partial UnityEngine.TextAnchor ChildAlignment { get => ChildAlignmentTracked.Value; set => ChildAlignmentTracked.Value = value; }
 	public partial Oxide.Ext.UiFramework.Types.UiPadding Padding { get => PaddingTracked.Value; set => PaddingTracked.Value = value; }
-	Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.TextAnchor> IBaseLayoutComponentTrackable.ChildAlignment => ChildAlignmentTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Types.UiPadding> IBaseLayoutComponentTrackable.Padding => PaddingTracked;
 
 	public override bool HasChanged() => false || (ChildAlignmentTracked.HasChanged || PaddingTracked.HasChanged) || base.HasChanged();
 

@@ -6,7 +6,7 @@ using Oxide.Ext.UiFramework.Interfaces;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-public partial class UiNineSlice : IUiNineSlice, IUiNineSliceTrackable
+public partial class UiNineSlice : IUiNineSlice
 {
 	public partial string Png { get => Image.Png; set => Image.Png = value; }
 	public partial Oxide.Ext.UiFramework.Types.UiBorderWidth Slice { get => Image.Slice; set => Image.Slice = value; }
@@ -17,10 +17,6 @@ public partial class UiNineSlice : IUiNineSlice, IUiNineSliceTrackable
 	public partial string Material { get => Image.Material; set => Image.Material = value; }
 	public partial float FadeIn { get => Image.FadeIn; set => Image.FadeIn = value; }
 	public partial Oxide.Ext.UiFramework.Colors.UiColor Color { get => Image.Color; set => Image.Color = value; }
-	INineSliceComponentTrackable IUiNineSliceTrackable.Image => Image.AsTrackable();
-
-	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-	internal IUiNineSliceTrackable AsTrackable() => this;
 }
 
 

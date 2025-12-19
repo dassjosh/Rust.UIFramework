@@ -6,7 +6,7 @@ using Oxide.Ext.UiFramework.Interfaces;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-public partial class ImageComponent : IImageComponent, IImageComponentTrackable
+public partial class ImageComponent : IImageComponent
 {
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> ColorTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Color.ColorValue);
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<float> FadeInTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Common.FadeIn);
@@ -23,16 +23,7 @@ public partial class ImageComponent : IImageComponent, IImageComponentTrackable
 	public partial UnityEngine.UI.Image.Type ImageType { get => ImageTypeTracked.Value; set => ImageTypeTracked.Value = value; }
 	public partial Oxide.Ext.UiFramework.UiElements.UiReference PlaceholderFor { get => PlaceholderForTracked.Value; set => PlaceholderForTracked.Value = value; }
 	public partial bool FillCenter { get => FillCenterTracked.Value; set => FillCenterTracked.Value = value; }
-	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> IImageComponentTrackable.Color => ColorTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<float> IImageComponentTrackable.FadeIn => FadeInTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<string> IImageComponentTrackable.Sprite => SpriteTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<string> IImageComponentTrackable.Material => MaterialTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.Image.Type> IImageComponentTrackable.ImageType => ImageTypeTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.UiElements.UiReference> IImageComponentTrackable.PlaceholderFor => PlaceholderForTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<bool> IImageComponentTrackable.FillCenter => FillCenterTracked;
 
-	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-	internal IImageComponentTrackable AsTrackable() => this;
 	public override bool HasChanged() => false || (ColorTracked.HasChanged || FadeInTracked.HasChanged || SpriteTracked.HasChanged || MaterialTracked.HasChanged || ImageTypeTracked.HasChanged || PlaceholderForTracked.HasChanged || FillCenterTracked.HasChanged) || base.HasChanged();
 
 	public override void ResetHasChanged()

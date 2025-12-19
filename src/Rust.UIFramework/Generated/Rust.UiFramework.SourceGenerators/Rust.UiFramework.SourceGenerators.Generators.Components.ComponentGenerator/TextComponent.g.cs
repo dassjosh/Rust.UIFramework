@@ -6,7 +6,7 @@ using Oxide.Ext.UiFramework.Interfaces;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-public partial class TextComponent : ITextComponent, ITextComponentTrackable
+public partial class TextComponent : ITextComponent
 {
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> ColorTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Color.ColorValue);
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<float> FadeInTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Common.FadeIn);
@@ -25,17 +25,7 @@ public partial class TextComponent : ITextComponent, ITextComponentTrackable
 	public partial string Text { get => TextTracked.Value; set => TextTracked.Value = value; }
 	public partial UnityEngine.VerticalWrapMode VerticalOverflow { get => VerticalOverflowTracked.Value; set => VerticalOverflowTracked.Value = value; }
 	public partial Oxide.Ext.UiFramework.UiElements.UiReference PlaceholderFor { get => PlaceholderForTracked.Value; set => PlaceholderForTracked.Value = value; }
-	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> ITextComponentTrackable.Color => ColorTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<float> ITextComponentTrackable.FadeIn => FadeInTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<int> ITextComponentTrackable.FontSize => FontSizeTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<string> ITextComponentTrackable.Font => FontTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.TextAnchor> ITextComponentTrackable.Align => AlignTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<string> ITextComponentTrackable.Text => TextTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.VerticalWrapMode> ITextComponentTrackable.VerticalOverflow => VerticalOverflowTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.UiElements.UiReference> ITextComponentTrackable.PlaceholderFor => PlaceholderForTracked;
 
-	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-	internal ITextComponentTrackable AsTrackable() => this;
 	public override bool HasChanged() => false || (ColorTracked.HasChanged || FadeInTracked.HasChanged || FontSizeTracked.HasChanged || FontTracked.HasChanged || AlignTracked.HasChanged || TextTracked.HasChanged || VerticalOverflowTracked.HasChanged || PlaceholderForTracked.HasChanged) || base.HasChanged();
 
 	public override void ResetHasChanged()

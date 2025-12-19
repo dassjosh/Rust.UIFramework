@@ -6,18 +6,14 @@ using Oxide.Ext.UiFramework.Interfaces;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-public partial class ContentSizeFitterComponent : IContentSizeFitterComponent, IContentSizeFitterComponentTrackable
+public partial class ContentSizeFitterComponent : IContentSizeFitterComponent
 {
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.ContentSizeFitter.FitMode> HorizontalFitTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ContentSizeFitterData.HorizontalFit);
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.ContentSizeFitter.FitMode> VerticalFitTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ContentSizeFitterData.VerticalFit);
 
 	public partial UnityEngine.UI.ContentSizeFitter.FitMode HorizontalFit { get => HorizontalFitTracked.Value; set => HorizontalFitTracked.Value = value; }
 	public partial UnityEngine.UI.ContentSizeFitter.FitMode VerticalFit { get => VerticalFitTracked.Value; set => VerticalFitTracked.Value = value; }
-	Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.ContentSizeFitter.FitMode> IContentSizeFitterComponentTrackable.HorizontalFit => HorizontalFitTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.ContentSizeFitter.FitMode> IContentSizeFitterComponentTrackable.VerticalFit => VerticalFitTracked;
 
-	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-	internal IContentSizeFitterComponentTrackable AsTrackable() => this;
 	public override bool HasChanged() => false || (HorizontalFitTracked.HasChanged || VerticalFitTracked.HasChanged) || base.HasChanged();
 
 	public override void ResetHasChanged()

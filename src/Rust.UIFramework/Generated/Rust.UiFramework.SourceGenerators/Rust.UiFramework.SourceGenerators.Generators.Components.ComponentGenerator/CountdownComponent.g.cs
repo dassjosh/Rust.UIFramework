@@ -6,7 +6,7 @@ using Oxide.Ext.UiFramework.Interfaces;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-public partial class CountdownComponent : ICountdownComponent, ICountdownComponentTrackable
+public partial class CountdownComponent : ICountdownComponent
 {
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<float> StartTimeTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Countdown.StartTime);
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<float> EndTimeTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Countdown.EndTime);
@@ -25,17 +25,7 @@ public partial class CountdownComponent : ICountdownComponent, ICountdownCompone
 	public partial string NumberFormat { get => NumberFormatTracked.Value; set => NumberFormatTracked.Value = value; }
 	public partial bool DestroyIfDone { get => DestroyIfDoneTracked.Value; set => DestroyIfDoneTracked.Value = value; }
 	public partial string Command { get => CommandTracked.Value; set => CommandTracked.Value = value; }
-	Oxide.Ext.UiFramework.Types.Tracked<float> ICountdownComponentTrackable.StartTime => StartTimeTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<float> ICountdownComponentTrackable.EndTime => EndTimeTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<float> ICountdownComponentTrackable.Step => StepTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<float> ICountdownComponentTrackable.Interval => IntervalTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Enums.TimerFormat> ICountdownComponentTrackable.TimerFormat => TimerFormatTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<string> ICountdownComponentTrackable.NumberFormat => NumberFormatTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<bool> ICountdownComponentTrackable.DestroyIfDone => DestroyIfDoneTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<string> ICountdownComponentTrackable.Command => CommandTracked;
 
-	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-	internal ICountdownComponentTrackable AsTrackable() => this;
 	public override bool HasChanged() => false || (StartTimeTracked.HasChanged || EndTimeTracked.HasChanged || StepTracked.HasChanged || IntervalTracked.HasChanged || TimerFormatTracked.HasChanged || NumberFormatTracked.HasChanged || DestroyIfDoneTracked.HasChanged || CommandTracked.HasChanged) || base.HasChanged();
 
 	public override void ResetHasChanged()

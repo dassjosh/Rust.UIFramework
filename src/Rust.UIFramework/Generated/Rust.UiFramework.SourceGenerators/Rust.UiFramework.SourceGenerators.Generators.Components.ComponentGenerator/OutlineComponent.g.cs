@@ -6,7 +6,7 @@ using Oxide.Ext.UiFramework.Interfaces;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-public partial class OutlineComponent : IOutlineComponent, IOutlineComponentTrackable
+public partial class OutlineComponent : IOutlineComponent
 {
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> ColorTracked = new();
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.Vector2> DistanceTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Outline.Distance, Oxide.Ext.UiFramework.Json.JsonDefaults.Outline.FpDistance);
@@ -15,12 +15,7 @@ public partial class OutlineComponent : IOutlineComponent, IOutlineComponentTrac
 	public partial Oxide.Ext.UiFramework.Colors.UiColor Color { get => ColorTracked.Value; set => ColorTracked.Value = value; }
 	public partial UnityEngine.Vector2 Distance { get => DistanceTracked.Value; set => DistanceTracked.Value = value; }
 	public partial bool UseGraphicAlpha { get => UseGraphicAlphaTracked.Value; set => UseGraphicAlphaTracked.Value = value; }
-	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> IOutlineComponentTrackable.Color => ColorTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.Vector2> IOutlineComponentTrackable.Distance => DistanceTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<bool> IOutlineComponentTrackable.UseGraphicAlpha => UseGraphicAlphaTracked;
 
-	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-	internal IOutlineComponentTrackable AsTrackable() => this;
 	public override bool HasChanged() => false || (ColorTracked.HasChanged || DistanceTracked.HasChanged || UseGraphicAlphaTracked.HasChanged) || base.HasChanged();
 
 	public override void ResetHasChanged()

@@ -6,7 +6,7 @@ using Oxide.Ext.UiFramework.Interfaces;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-public partial class BaseUiComponent : IBaseUiComponent, IBaseUiComponentTrackable
+public partial class BaseUiComponent : IBaseUiComponent
 {
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<float> FadeOutTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Common.FadeOut);
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<bool> ActiveTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Common.Active);
@@ -23,8 +23,6 @@ public partial class BaseUiComponent : IBaseUiComponent, IBaseUiComponentTrackab
 	public partial Oxide.Ext.UiFramework.Types.UiScale PositionScale { get => RectTransform.PositionScale; set => RectTransform.PositionScale = value; }
 	public partial Oxide.Ext.UiFramework.Types.UiScale OffsetScale { get => RectTransform.OffsetScale; set => RectTransform.OffsetScale = value; }
 	public partial Oxide.Ext.UiFramework.Types.UiRotation Rotation { get => RectTransform.Rotation; set => RectTransform.Rotation = value; }
-	Oxide.Ext.UiFramework.Types.Tracked<float> IBaseUiComponentTrackable.FadeOut => FadeOutTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<bool> IBaseUiComponentTrackable.Active => ActiveTracked;
 }
 
 

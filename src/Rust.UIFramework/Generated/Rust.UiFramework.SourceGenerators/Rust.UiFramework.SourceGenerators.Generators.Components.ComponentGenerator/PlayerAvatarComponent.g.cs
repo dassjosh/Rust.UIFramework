@@ -6,18 +6,14 @@ using Oxide.Ext.UiFramework.Interfaces;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-public partial class PlayerAvatarComponent : IPlayerAvatarComponent, IPlayerAvatarComponentTrackable
+public partial class PlayerAvatarComponent : IPlayerAvatarComponent
 {
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<ulong> SteamIdTracked = new();
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Enums.AvatarType> AvatarTypeTracked = new(Oxide.Ext.UiFramework.Enums.AvatarType.Medium);
 
 	public partial ulong SteamId { get => SteamIdTracked.Value; set => SteamIdTracked.Value = value; }
 	public partial Oxide.Ext.UiFramework.Enums.AvatarType AvatarType { get => AvatarTypeTracked.Value; set => AvatarTypeTracked.Value = value; }
-	Oxide.Ext.UiFramework.Types.Tracked<ulong> IPlayerAvatarComponentTrackable.SteamId => SteamIdTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Enums.AvatarType> IPlayerAvatarComponentTrackable.AvatarType => AvatarTypeTracked;
 
-	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-	internal new IPlayerAvatarComponentTrackable AsTrackable() => this;
 	public override bool HasChanged() => false || (SteamIdTracked.HasChanged || AvatarTypeTracked.HasChanged) || base.HasChanged();
 
 	public override void ResetHasChanged()

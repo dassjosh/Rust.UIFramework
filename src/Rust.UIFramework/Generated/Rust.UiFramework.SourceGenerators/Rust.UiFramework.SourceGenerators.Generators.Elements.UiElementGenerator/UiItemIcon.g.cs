@@ -6,7 +6,7 @@ using Oxide.Ext.UiFramework.Interfaces;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-public partial class UiItemIcon : IUiItemIcon, IUiItemIconTrackable
+public partial class UiItemIcon : IUiItemIcon
 {
 	public partial int ItemId { get => Icon.ItemId; set => Icon.ItemId = value; }
 	public partial ulong SkinId { get => Icon.SkinId; set => Icon.SkinId = value; }
@@ -15,10 +15,6 @@ public partial class UiItemIcon : IUiItemIcon, IUiItemIconTrackable
 	public partial string Material { get => Icon.Material; set => Icon.Material = value; }
 	public partial float FadeIn { get => Icon.FadeIn; set => Icon.FadeIn = value; }
 	public partial Oxide.Ext.UiFramework.Colors.UiColor Color { get => Icon.Color; set => Icon.Color = value; }
-	IItemIconComponentTrackable IUiItemIconTrackable.Icon => Icon.AsTrackable();
-
-	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-	internal IUiItemIconTrackable AsTrackable() => this;
 }
 
 

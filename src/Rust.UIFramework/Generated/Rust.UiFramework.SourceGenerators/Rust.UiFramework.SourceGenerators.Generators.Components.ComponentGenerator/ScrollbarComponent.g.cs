@@ -6,7 +6,7 @@ using Oxide.Ext.UiFramework.Interfaces;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-public partial class ScrollbarComponent : IScrollbarComponent, IScrollbarComponentTrackable
+public partial class ScrollbarComponent : IScrollbarComponent
 {
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<bool> InvertTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ScrollBar.Invert);
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<bool> AutoHideTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ScrollBar.AutoHide);
@@ -27,18 +27,7 @@ public partial class ScrollbarComponent : IScrollbarComponent, IScrollbarCompone
 	public partial Oxide.Ext.UiFramework.Colors.UiColor HighlightColor { get => HighlightColorTracked.Value; set => HighlightColorTracked.Value = value; }
 	public partial Oxide.Ext.UiFramework.Colors.UiColor PressedColor { get => PressedColorTracked.Value; set => PressedColorTracked.Value = value; }
 	public partial Oxide.Ext.UiFramework.Colors.UiColor TrackColor { get => TrackColorTracked.Value; set => TrackColorTracked.Value = value; }
-	Oxide.Ext.UiFramework.Types.Tracked<bool> IScrollbarComponentTrackable.Invert => InvertTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<bool> IScrollbarComponentTrackable.AutoHide => AutoHideTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<string> IScrollbarComponentTrackable.HandleSprite => HandleSpriteTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<string> IScrollbarComponentTrackable.TrackSprite => TrackSpriteTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<float> IScrollbarComponentTrackable.Size => SizeTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> IScrollbarComponentTrackable.HandleColor => HandleColorTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> IScrollbarComponentTrackable.HighlightColor => HighlightColorTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> IScrollbarComponentTrackable.PressedColor => PressedColorTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> IScrollbarComponentTrackable.TrackColor => TrackColorTracked;
 
-	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-	internal IScrollbarComponentTrackable AsTrackable() => this;
 	public override bool HasChanged() => false || (InvertTracked.HasChanged || AutoHideTracked.HasChanged || HandleSpriteTracked.HasChanged || TrackSpriteTracked.HasChanged || SizeTracked.HasChanged || HandleColorTracked.HasChanged || HighlightColorTracked.HasChanged || PressedColorTracked.HasChanged || TrackColorTracked.HasChanged) || base.HasChanged();
 
 	public override void ResetHasChanged()

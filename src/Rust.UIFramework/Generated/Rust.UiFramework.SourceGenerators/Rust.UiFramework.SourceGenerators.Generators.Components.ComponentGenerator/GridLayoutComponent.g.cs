@@ -6,7 +6,7 @@ using Oxide.Ext.UiFramework.Interfaces;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-public partial class GridLayoutComponent : IGridLayoutComponent, IGridLayoutComponentTrackable
+public partial class GridLayoutComponent : IGridLayoutComponent
 {
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.Vector2> CellSizeTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.GridLayout.CellSize);
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.Vector2> SpacingTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.GridLayout.Spacing);
@@ -21,15 +21,7 @@ public partial class GridLayoutComponent : IGridLayoutComponent, IGridLayoutComp
 	public partial UnityEngine.UI.GridLayoutGroup.Axis StartAxis { get => StartAxisTracked.Value; set => StartAxisTracked.Value = value; }
 	public partial UnityEngine.UI.GridLayoutGroup.Constraint Constraint { get => ConstraintTracked.Value; set => ConstraintTracked.Value = value; }
 	public partial int ConstraintCount { get => ConstraintCountTracked.Value; set => ConstraintCountTracked.Value = value; }
-	Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.Vector2> IGridLayoutComponentTrackable.CellSize => CellSizeTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.Vector2> IGridLayoutComponentTrackable.Spacing => SpacingTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.GridLayoutGroup.Corner> IGridLayoutComponentTrackable.StartCorner => StartCornerTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.GridLayoutGroup.Axis> IGridLayoutComponentTrackable.StartAxis => StartAxisTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.GridLayoutGroup.Constraint> IGridLayoutComponentTrackable.Constraint => ConstraintTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<int> IGridLayoutComponentTrackable.ConstraintCount => ConstraintCountTracked;
 
-	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-	internal IGridLayoutComponentTrackable AsTrackable() => this;
 	public override bool HasChanged() => false || (CellSizeTracked.HasChanged || SpacingTracked.HasChanged || StartCornerTracked.HasChanged || StartAxisTracked.HasChanged || ConstraintTracked.HasChanged || ConstraintCountTracked.HasChanged) || base.HasChanged();
 
 	public override void ResetHasChanged()

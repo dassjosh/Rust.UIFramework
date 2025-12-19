@@ -6,7 +6,7 @@ using Oxide.Ext.UiFramework.Interfaces;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-public partial class DirectionalLayoutComponent : IDirectionalLayoutComponent, IDirectionalLayoutComponentTrackable
+public partial class DirectionalLayoutComponent : IDirectionalLayoutComponent
 {
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<float> SpacingTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.DirectionalLayout.Spacing);
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<bool> ChildForceExpandWidthTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.DirectionalLayout.ChildForceExpandWidth);
@@ -25,17 +25,7 @@ public partial class DirectionalLayoutComponent : IDirectionalLayoutComponent, I
 	public partial bool ChildScaleWidth { get => ChildScaleWidthTracked.Value; set => ChildScaleWidthTracked.Value = value; }
 	public partial bool ChildScaleHeight { get => ChildScaleHeightTracked.Value; set => ChildScaleHeightTracked.Value = value; }
 	public partial Oxide.Ext.UiFramework.Enums.LayoutDirection Direction { get => DirectionTracked.Value; set => DirectionTracked.Value = value; }
-	Oxide.Ext.UiFramework.Types.Tracked<float> IDirectionalLayoutComponentTrackable.Spacing => SpacingTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<bool> IDirectionalLayoutComponentTrackable.ChildForceExpandWidth => ChildForceExpandWidthTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<bool> IDirectionalLayoutComponentTrackable.ChildForceExpandHeight => ChildForceExpandHeightTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<bool> IDirectionalLayoutComponentTrackable.ChildControlWidth => ChildControlWidthTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<bool> IDirectionalLayoutComponentTrackable.ChildControlHeight => ChildControlHeightTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<bool> IDirectionalLayoutComponentTrackable.ChildScaleWidth => ChildScaleWidthTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<bool> IDirectionalLayoutComponentTrackable.ChildScaleHeight => ChildScaleHeightTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Enums.LayoutDirection> IDirectionalLayoutComponentTrackable.Direction => DirectionTracked;
 
-	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-	internal IDirectionalLayoutComponentTrackable AsTrackable() => this;
 	public override bool HasChanged() => false || (SpacingTracked.HasChanged || ChildForceExpandWidthTracked.HasChanged || ChildForceExpandHeightTracked.HasChanged || ChildControlWidthTracked.HasChanged || ChildControlHeightTracked.HasChanged || ChildScaleWidthTracked.HasChanged || ChildScaleHeightTracked.HasChanged || DirectionTracked.HasChanged) || base.HasChanged();
 
 	public override void ResetHasChanged()

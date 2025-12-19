@@ -6,7 +6,7 @@ using Oxide.Ext.UiFramework.Interfaces;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-public partial class ScrollViewComponent : IScrollViewComponent, IScrollViewComponentTrackable
+public partial class ScrollViewComponent : IScrollViewComponent
 {
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.ScrollRect.MovementType> MovementTypeTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ScrollView.MovementType);
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<float> ElasticityTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ScrollView.Elasticity);
@@ -23,16 +23,7 @@ public partial class ScrollViewComponent : IScrollViewComponent, IScrollViewComp
 	public partial float ScrollSensitivity { get => ScrollSensitivityTracked.Value; set => ScrollSensitivityTracked.Value = value; }
 	public partial float HorizontalScrollProgress { get => HorizontalScrollProgressTracked.Value; set => HorizontalScrollProgressTracked.Value = value; }
 	public partial float VerticalScrollProgress { get => VerticalScrollProgressTracked.Value; set => VerticalScrollProgressTracked.Value = value; }
-	Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.ScrollRect.MovementType> IScrollViewComponentTrackable.MovementType => MovementTypeTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<float> IScrollViewComponentTrackable.Elasticity => ElasticityTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<bool> IScrollViewComponentTrackable.Inertia => InertiaTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<float> IScrollViewComponentTrackable.DecelerationRate => DecelerationRateTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<float> IScrollViewComponentTrackable.ScrollSensitivity => ScrollSensitivityTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<float> IScrollViewComponentTrackable.HorizontalScrollProgress => HorizontalScrollProgressTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<float> IScrollViewComponentTrackable.VerticalScrollProgress => VerticalScrollProgressTracked;
 
-	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-	internal IScrollViewComponentTrackable AsTrackable() => this;
 	public override bool HasChanged() => false || (MovementTypeTracked.HasChanged || ElasticityTracked.HasChanged || InertiaTracked.HasChanged || DecelerationRateTracked.HasChanged || ScrollSensitivityTracked.HasChanged || HorizontalScrollProgressTracked.HasChanged || VerticalScrollProgressTracked.HasChanged) || ((ContentTransform?.HasChanged() ?? false) || (HorizontalScrollbar?.HasChanged() ?? false) || (VerticalScrollbar?.HasChanged() ?? false)) || base.HasChanged();
 
 	public override void ResetHasChanged()

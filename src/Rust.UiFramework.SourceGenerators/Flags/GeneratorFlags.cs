@@ -2,5 +2,5 @@
 
 public static class GeneratorFlags
 {
-    public static bool AddTrackableInterface { get; set; } = true;
+    public static bool AddTrackableInterface { get; set; } = false;
 }

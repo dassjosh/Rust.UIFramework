@@ -6,7 +6,7 @@ using Oxide.Ext.UiFramework.Interfaces;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-public partial class UiInput : IUiInput, IUiInputTrackable
+public partial class UiInput : IUiInput
 {
 	public partial int FontSize { get => Input.FontSize; set => Input.FontSize = value; }
 	public partial string Font { get => Input.Font; set => Input.Font = value; }
@@ -25,10 +25,6 @@ public partial class UiInput : IUiInput, IUiInputTrackable
 	public partial bool HudNeedsKeyboard { get => Input.HudNeedsKeyboard; set => Input.HudNeedsKeyboard = value; }
 	public partial bool AutoFocus { get => Input.AutoFocus; set => Input.AutoFocus = value; }
 	public partial bool ReadOnly { get => Input.ReadOnly; set => Input.ReadOnly = value; }
-	IInputComponentTrackable IUiInputTrackable.Input => Input.AsTrackable();
-
-	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-	internal IUiInputTrackable AsTrackable() => this;
 }
 
 

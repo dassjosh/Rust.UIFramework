@@ -6,7 +6,7 @@ using Oxide.Ext.UiFramework.Interfaces;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-public partial class UiScrollView : IUiScrollView, IUiScrollViewTrackable
+public partial class UiScrollView : IUiScrollView
 {
 	public partial UnityEngine.UI.ScrollRect.MovementType MovementType { get => ScrollView.MovementType; set => ScrollView.MovementType = value; }
 	public partial float Elasticity { get => ScrollView.Elasticity; set => ScrollView.Elasticity = value; }
@@ -18,10 +18,6 @@ public partial class UiScrollView : IUiScrollView, IUiScrollViewTrackable
 	public partial Oxide.Ext.UiFramework.Positions.UiPosition ContentPosition { get => GetOrCreateContentTransform().Position; set => GetOrCreateContentTransform().Position = value; }
 	public partial Oxide.Ext.UiFramework.Offsets.UiOffset ContentOffset { get => GetOrCreateContentTransform().Offset; set => GetOrCreateContentTransform().Offset = value; }
 	public partial UnityEngine.Vector2 ContentPivot { get => GetOrCreateContentTransform().Pivot; set => GetOrCreateContentTransform().Pivot = value; }
-	IScrollViewComponentTrackable IUiScrollViewTrackable.ScrollView => ScrollView.AsTrackable();
-
-	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-	internal IUiScrollViewTrackable AsTrackable() => this;
 }
 
 

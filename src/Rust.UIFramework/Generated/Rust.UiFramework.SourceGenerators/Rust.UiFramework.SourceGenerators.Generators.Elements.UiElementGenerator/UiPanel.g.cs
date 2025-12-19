@@ -6,7 +6,7 @@ using Oxide.Ext.UiFramework.Interfaces;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-public partial class UiPanel : IUiPanel, IUiPanelTrackable
+public partial class UiPanel : IUiPanel
 {
 	public partial Oxide.Ext.UiFramework.UiElements.UiReference PlaceholderFor { get => Image.PlaceholderFor; set => Image.PlaceholderFor = value; }
 	public partial bool FillCenter { get => Image.FillCenter; set => Image.FillCenter = value; }
@@ -15,10 +15,6 @@ public partial class UiPanel : IUiPanel, IUiPanelTrackable
 	public partial string Material { get => Image.Material; set => Image.Material = value; }
 	public partial float FadeIn { get => Image.FadeIn; set => Image.FadeIn = value; }
 	public partial Oxide.Ext.UiFramework.Colors.UiColor Color { get => Image.Color; set => Image.Color = value; }
-	IImageComponentTrackable IUiPanelTrackable.Image => Image.AsTrackable();
-
-	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-	internal IUiPanelTrackable AsTrackable() => this;
 }
 
 

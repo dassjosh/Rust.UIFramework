@@ -6,7 +6,7 @@ using Oxide.Ext.UiFramework.Interfaces;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-public partial class UiImage : IUiImage, IUiImageTrackable
+public partial class UiImage : IUiImage
 {
 	public partial UnityEngine.UI.Image.Type ImageType { get => Image.ImageType; set => Image.ImageType = value; }
 	public partial string Sprite { get => Image.Sprite; set => Image.Sprite = value; }
@@ -15,10 +15,6 @@ public partial class UiImage : IUiImage, IUiImageTrackable
 	public partial Oxide.Ext.UiFramework.Colors.UiColor Color { get => Image.Color; set => Image.Color = value; }
 	public partial Oxide.Ext.UiFramework.UiElements.UiReference PlaceholderFor { get => Image.PlaceholderFor; set => Image.PlaceholderFor = value; }
 	public partial bool FillCenter { get => Image.FillCenter; set => Image.FillCenter = value; }
-	IImageComponentTrackable IUiImageTrackable.Image => Image.AsTrackable();
-
-	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-	internal IUiImageTrackable AsTrackable() => this;
 }
 
 

@@ -6,12 +6,11 @@ using Oxide.Ext.UiFramework.Interfaces;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-public partial class BaseTypedComponent : IBaseTypedComponent, IBaseTypedComponentTrackable
+public partial class BaseTypedComponent : IBaseTypedComponent
 {
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<bool> EnabledTracked = new(true);
 
 	public partial bool Enabled { get => EnabledTracked.Value; set => EnabledTracked.Value = value; }
-	Oxide.Ext.UiFramework.Types.Tracked<bool> IBaseTypedComponentTrackable.Enabled => EnabledTracked;
 
 	public override bool HasChanged() => false || (EnabledTracked.HasChanged) || base.HasChanged();
 

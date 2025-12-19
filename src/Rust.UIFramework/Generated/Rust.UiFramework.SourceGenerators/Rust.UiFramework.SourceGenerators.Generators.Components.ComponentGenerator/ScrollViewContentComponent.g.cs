@@ -6,7 +6,7 @@ using Oxide.Ext.UiFramework.Interfaces;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-public partial class ScrollViewContentComponent : IScrollViewContentComponent, IScrollViewContentComponentTrackable
+public partial class ScrollViewContentComponent : IScrollViewContentComponent
 {
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Positions.UiPosition> PositionTracked = new(Oxide.Ext.UiFramework.Positions.UiPosition.Full);
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Offsets.UiOffset> OffsetTracked = new();
@@ -15,12 +15,7 @@ public partial class ScrollViewContentComponent : IScrollViewContentComponent, I
 	public partial Oxide.Ext.UiFramework.Positions.UiPosition Position { get => PositionTracked.Value; set => PositionTracked.Value = value; }
 	public partial Oxide.Ext.UiFramework.Offsets.UiOffset Offset { get => OffsetTracked.Value; set => OffsetTracked.Value = value; }
 	public partial UnityEngine.Vector2 Pivot { get => PivotTracked.Value; set => PivotTracked.Value = value; }
-	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Positions.UiPosition> IScrollViewContentComponentTrackable.Position => PositionTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Offsets.UiOffset> IScrollViewContentComponentTrackable.Offset => OffsetTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.Vector2> IScrollViewContentComponentTrackable.Pivot => PivotTracked;
 
-	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-	internal IScrollViewContentComponentTrackable AsTrackable() => this;
 	public override bool HasChanged() => false || (PositionTracked.HasChanged || OffsetTracked.HasChanged || PivotTracked.HasChanged) || base.HasChanged();
 
 	public override void ResetHasChanged()

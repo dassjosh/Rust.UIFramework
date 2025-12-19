@@ -6,7 +6,7 @@ using Oxide.Ext.UiFramework.Interfaces;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-public partial class RectTransformComponent : IRectTransformComponent, IRectTransformComponentTrackable
+public partial class RectTransformComponent : IRectTransformComponent
 {
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Positions.UiPosition> PositionTracked = new(Oxide.Ext.UiFramework.Positions.UiPosition.Full);
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Offsets.UiOffset> OffsetTracked = new(Oxide.Ext.UiFramework.Offsets.UiOffset.None, Oxide.Ext.UiFramework.Json.JsonDefaults.RectTransform.FpOffset);
@@ -31,20 +31,7 @@ public partial class RectTransformComponent : IRectTransformComponent, IRectTran
 	public partial Oxide.Ext.UiFramework.Types.UiRotation Rotation { get => RotationTracked.Value; set => RotationTracked.Value = value; }
 	public partial string ChangeParent { get => ChangeParentTracked.Value; set => ChangeParentTracked.Value = value; }
 	public partial int TransformIndex { get => TransformIndexTracked.Value; set => TransformIndexTracked.Value = value; }
-	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Positions.UiPosition> IRectTransformComponentTrackable.Position => PositionTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Offsets.UiOffset> IRectTransformComponentTrackable.Offset => OffsetTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Types.UiPadding> IRectTransformComponentTrackable.PositionPadding => PositionPaddingTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Types.UiPadding> IRectTransformComponentTrackable.OffsetPadding => OffsetPaddingTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Types.UiScale> IRectTransformComponentTrackable.PositionScale => PositionScaleTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Types.UiScale> IRectTransformComponentTrackable.OffsetScale => OffsetScaleTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Types.UiTranslate> IRectTransformComponentTrackable.PositionTranslate => PositionTranslateTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Types.UiTranslate> IRectTransformComponentTrackable.OffsetTranslate => OffsetTranslateTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Types.UiRotation> IRectTransformComponentTrackable.Rotation => RotationTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<string> IRectTransformComponentTrackable.ChangeParent => ChangeParentTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<int> IRectTransformComponentTrackable.TransformIndex => TransformIndexTracked;
 
-	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-	internal IRectTransformComponentTrackable AsTrackable() => this;
 	public override bool HasChanged() => false || (PositionTracked.HasChanged || OffsetTracked.HasChanged || PositionPaddingTracked.HasChanged || OffsetPaddingTracked.HasChanged || PositionScaleTracked.HasChanged || OffsetScaleTracked.HasChanged || PositionTranslateTracked.HasChanged || OffsetTranslateTracked.HasChanged || RotationTracked.HasChanged || ChangeParentTracked.HasChanged || TransformIndexTracked.HasChanged) || base.HasChanged();
 
 	public override void ResetHasChanged()

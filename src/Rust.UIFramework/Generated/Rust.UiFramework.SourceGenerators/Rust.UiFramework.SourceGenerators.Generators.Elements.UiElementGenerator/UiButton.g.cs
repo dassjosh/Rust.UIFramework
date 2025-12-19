@@ -6,7 +6,7 @@ using Oxide.Ext.UiFramework.Interfaces;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-public partial class UiButton : IUiButton, IUiButtonTrackable
+public partial class UiButton : IUiButton
 {
 	public partial string Command { get => Button.Command; set => Button.Command = value; }
 	public partial Oxide.Ext.UiFramework.Enums.ButtonType ButtonType { get => Button.ButtonType; set => Button.ButtonType = value; }
@@ -20,10 +20,6 @@ public partial class UiButton : IUiButton, IUiButtonTrackable
 	public partial string Material { get => Button.Material; set => Button.Material = value; }
 	public partial float FadeIn { get => Button.FadeIn; set => Button.FadeIn = value; }
 	public partial Oxide.Ext.UiFramework.Colors.UiColor Color { get => Button.Color; set => Button.Color = value; }
-	IButtonComponentTrackable IUiButtonTrackable.Button => Button.AsTrackable();
-
-	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-	internal IUiButtonTrackable AsTrackable() => this;
 }
 
 

@@ -6,17 +6,13 @@ using Oxide.Ext.UiFramework.Interfaces;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-public partial class UiRawImage : IUiRawImage, IUiRawImageTrackable
+public partial class UiRawImage : IUiRawImage
 {
 	public partial string Image { get => RawImage.Image; set => RawImage.Image = value; }
 	public partial Oxide.Ext.UiFramework.UiElements.UiReference PlaceholderFor { get => RawImage.PlaceholderFor; set => RawImage.PlaceholderFor = value; }
 	public partial string Material { get => RawImage.Material; set => RawImage.Material = value; }
 	public partial float FadeIn { get => RawImage.FadeIn; set => RawImage.FadeIn = value; }
 	public partial Oxide.Ext.UiFramework.Colors.UiColor Color { get => RawImage.Color; set => RawImage.Color = value; }
-	IRawImageComponentTrackable IUiRawImageTrackable.RawImage => RawImage.AsTrackable();
-
-	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-	internal IUiRawImageTrackable AsTrackable() => this;
 }
 
 

@@ -6,7 +6,7 @@ using Oxide.Ext.UiFramework.Interfaces;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-public partial class ButtonComponent : IButtonComponent, IButtonComponentTrackable
+public partial class ButtonComponent : IButtonComponent
 {
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<string> CommandTracked = new();
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> ColorTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Color.ColorValue);
@@ -21,15 +21,7 @@ public partial class ButtonComponent : IButtonComponent, IButtonComponentTrackab
 	public partial string Sprite { get => SpriteTracked.Value; set => SpriteTracked.Value = value; }
 	public partial string Material { get => MaterialTracked.Value; set => MaterialTracked.Value = value; }
 	public partial UnityEngine.UI.Image.Type ImageType { get => ImageTypeTracked.Value; set => ImageTypeTracked.Value = value; }
-	Oxide.Ext.UiFramework.Types.Tracked<string> IButtonComponentTrackable.Command => CommandTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> IButtonComponentTrackable.Color => ColorTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<float> IButtonComponentTrackable.FadeIn => FadeInTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<string> IButtonComponentTrackable.Sprite => SpriteTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<string> IButtonComponentTrackable.Material => MaterialTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.Image.Type> IButtonComponentTrackable.ImageType => ImageTypeTracked;
 
-	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-	internal IButtonComponentTrackable AsTrackable() => this;
 	public override bool HasChanged() => false || (CommandTracked.HasChanged || ColorTracked.HasChanged || FadeInTracked.HasChanged || SpriteTracked.HasChanged || MaterialTracked.HasChanged || ImageTypeTracked.HasChanged) || ((ColorBlock?.HasChanged() ?? false)) || base.HasChanged();
 
 	public override void ResetHasChanged()

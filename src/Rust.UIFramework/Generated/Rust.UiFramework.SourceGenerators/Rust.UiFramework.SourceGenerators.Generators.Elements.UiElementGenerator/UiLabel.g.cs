@@ -6,7 +6,7 @@ using Oxide.Ext.UiFramework.Interfaces;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-public partial class UiLabel : IUiLabel, IUiLabelTrackable
+public partial class UiLabel : IUiLabel
 {
 	public partial int FontSize { get => Text.FontSize; set => Text.FontSize = value; }
 	public partial string Font { get => Text.Font; set => Text.Font = value; }
@@ -16,10 +16,6 @@ public partial class UiLabel : IUiLabel, IUiLabelTrackable
 	public partial Oxide.Ext.UiFramework.UiElements.UiReference PlaceholderFor { get => Text.PlaceholderFor; set => Text.PlaceholderFor = value; }
 	public partial float FadeIn { get => Text.FadeIn; set => Text.FadeIn = value; }
 	public partial Oxide.Ext.UiFramework.Colors.UiColor Color { get => Text.Color; set => Text.Color = value; }
-	ITextComponentTrackable IUiLabelTrackable.Text => Text.AsTrackable();
-
-	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-	internal IUiLabelTrackable AsTrackable() => this;
 }
 
 

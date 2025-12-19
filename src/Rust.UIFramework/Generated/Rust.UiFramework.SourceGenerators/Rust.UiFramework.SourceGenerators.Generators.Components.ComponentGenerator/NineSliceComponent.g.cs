@@ -6,18 +6,14 @@ using Oxide.Ext.UiFramework.Interfaces;
 
 namespace Oxide.Ext.UiFramework.Components;
 
-public partial class NineSliceComponent : INineSliceComponent, INineSliceComponentTrackable
+public partial class NineSliceComponent : INineSliceComponent
 {
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<string> PngTracked = new();
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Types.UiBorderWidth> SliceTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Image.Slice);
 
 	public partial string Png { get => PngTracked.Value; set => PngTracked.Value = value; }
 	public partial Oxide.Ext.UiFramework.Types.UiBorderWidth Slice { get => SliceTracked.Value; set => SliceTracked.Value = value; }
-	Oxide.Ext.UiFramework.Types.Tracked<string> INineSliceComponentTrackable.Png => PngTracked;
-	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Types.UiBorderWidth> INineSliceComponentTrackable.Slice => SliceTracked;
 
-	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-	internal new INineSliceComponentTrackable AsTrackable() => this;
 	public override bool HasChanged() => false || (PngTracked.HasChanged || SliceTracked.HasChanged) || base.HasChanged();
 
 	public override void ResetHasChanged()

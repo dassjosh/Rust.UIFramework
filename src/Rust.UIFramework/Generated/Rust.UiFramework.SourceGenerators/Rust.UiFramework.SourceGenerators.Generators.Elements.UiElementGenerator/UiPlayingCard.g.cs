@@ -6,7 +6,7 @@ using Oxide.Ext.UiFramework.Interfaces;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-public partial class UiPlayingCard : IUiPlayingCard, IUiPlayingCardTrackable
+public partial class UiPlayingCard : IUiPlayingCard
 {
 	public partial Oxide.Ext.UiFramework.Enums.UiSuit Suit { get => Card.Suit; set => Card.Suit = value; }
 	public partial Oxide.Ext.UiFramework.Enums.UiRank Rank { get => Card.Rank; set => Card.Rank = value; }
@@ -14,10 +14,6 @@ public partial class UiPlayingCard : IUiPlayingCard, IUiPlayingCardTrackable
 	public partial string Material { get => Card.Material; set => Card.Material = value; }
 	public partial float FadeIn { get => Card.FadeIn; set => Card.FadeIn = value; }
 	public partial Oxide.Ext.UiFramework.Colors.UiColor Color { get => Card.Color; set => Card.Color = value; }
-	IPlayingCardComponentTrackable IUiPlayingCardTrackable.Card => Card.AsTrackable();
-
-	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-	internal IUiPlayingCardTrackable AsTrackable() => this;
 }
 
 
