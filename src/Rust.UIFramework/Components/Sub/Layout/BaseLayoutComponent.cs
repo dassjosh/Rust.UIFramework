@@ -8,6 +8,7 @@ using UnityEngine;
 namespace Oxide.Ext.UiFramework.Components;
 
 [GenerateComponent]
+[GenerateBuilderMethods]
 public abstract partial class BaseLayoutComponent : SubComponent
 {
     [TrackedDefaults(typeof(JsonDefaults.Layout), nameof(JsonDefaults.Layout.ChildAlignment))]
@@ -21,8 +22,8 @@ public abstract partial class BaseLayoutComponent : SubComponent
 
     protected override void WriteComponentFields(JsonFrameworkWriter writer, SerializeMode mode)
     {
-        writer.AddField(JsonDefaults.Layout.ChildAlignmentName, _childAlignment, mode);
-        writer.AddField(JsonDefaults.Layout.PaddingName, _padding, mode);
+        writer.AddField(JsonDefaults.Layout.ChildAlignmentName, ChildAlignmentTracked, mode);
+        writer.AddField(JsonDefaults.Layout.PaddingName, PaddingTracked, mode);
     }
 
     public static implicit operator UiReference(BaseLayoutComponent layout) => layout.Reference;

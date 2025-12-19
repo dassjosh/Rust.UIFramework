@@ -17,6 +17,6 @@ public partial class SlotComponent : SubComponent
 
     protected override void WriteComponentFields(JsonFrameworkWriter writer, SerializeMode mode)
     {
-        writer.AddTextField(JsonDefaults.Slot.FilterName, _filter, mode);
+        writer.AddTextField(JsonDefaults.Slot.FilterName, FilterTracked, mode);
     }
 }

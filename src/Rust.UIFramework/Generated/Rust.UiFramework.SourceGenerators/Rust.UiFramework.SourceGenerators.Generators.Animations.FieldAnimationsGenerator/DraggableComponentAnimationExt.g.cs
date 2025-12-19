@@ -9,19 +9,19 @@ public static class DraggableComponentAnimationExt
 {
 	extension(Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IComponentAnimation<Oxide.Ext.UiFramework.Components.DraggableComponent>> animation)
 	{
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<bool>> AnimateLimitToParent() => animation.AnimateField(static a => a.AsTrackable().LimitToParent);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<float>> AnimateMaxDistance() => animation.AnimateField(static a => a.AsTrackable().MaxDistance);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<bool>> AnimateAllowSwapping() => animation.AnimateField(static a => a.AsTrackable().AllowSwapping);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<bool>> AnimateDropAnywhere() => animation.AnimateField(static a => a.AsTrackable().DropAnywhere);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<float>> AnimateDragAlpha() => animation.AnimateField(static a => a.AsTrackable().DragAlpha);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<int>> AnimateParentLimitIndex() => animation.AnimateField(static a => a.AsTrackable().ParentLimitIndex);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<string>> AnimateFilter() => animation.AnimateField(static a => a.AsTrackable().Filter);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<UnityEngine.Vector2>> AnimateParentPadding() => animation.AnimateField(static a => a.AsTrackable().ParentPadding);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<UnityEngine.Vector2>> AnimateAnchorOffset() => animation.AnimateField(static a => a.AsTrackable().AnchorOffset);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<bool>> AnimateKeepOnTop() => animation.AnimateField(static a => a.AsTrackable().KeepOnTop);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<CommunityEntity.DraggablePositionSendType?>> AnimatePositionRpc() => animation.AnimateField(static a => a.AsTrackable().PositionRpc);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<bool>> AnimateMoveToAnchor() => animation.AnimateField(static a => a.AsTrackable().MoveToAnchor);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<bool>> AnimateRebuildAnchor() => animation.AnimateField(static a => a.AsTrackable().RebuildAnchor);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<bool>> AnimateLimitToParent() => animation.AnimateField(static a => a.LimitToParentTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<float>> AnimateMaxDistance() => animation.AnimateField(static a => a.MaxDistanceTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<bool>> AnimateAllowSwapping() => animation.AnimateField(static a => a.AllowSwappingTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<bool>> AnimateDropAnywhere() => animation.AnimateField(static a => a.DropAnywhereTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<float>> AnimateDragAlpha() => animation.AnimateField(static a => a.DragAlphaTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<int>> AnimateParentLimitIndex() => animation.AnimateField(static a => a.ParentLimitIndexTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<string>> AnimateFilter() => animation.AnimateField(static a => a.FilterTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<UnityEngine.Vector2>> AnimateParentPadding() => animation.AnimateField(static a => a.ParentPaddingTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<UnityEngine.Vector2>> AnimateAnchorOffset() => animation.AnimateField(static a => a.AnchorOffsetTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<bool>> AnimateKeepOnTop() => animation.AnimateField(static a => a.KeepOnTopTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<CommunityEntity.DraggablePositionSendType?>> AnimatePositionRpc() => animation.AnimateField(static a => a.PositionRpcTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<bool>> AnimateMoveToAnchor() => animation.AnimateField(static a => a.MoveToAnchorTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<bool>> AnimateRebuildAnchor() => animation.AnimateField(static a => a.RebuildAnchorTracked);
 	}
 }
 

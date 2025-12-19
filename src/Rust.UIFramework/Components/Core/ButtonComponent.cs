@@ -26,18 +26,18 @@ public partial class ButtonComponent : CoreComponent, IGraphicalComponent
 
     protected override void WriteComponentFields(JsonFrameworkWriter writer, SerializeMode mode)
     {
-        writer.AddField(JsonDefaults.BaseImage.SpriteName, _sprite, mode);
-        writer.AddField(JsonDefaults.BaseImage.MaterialName, _material, mode);
-        writer.AddField(JsonDefaults.Color.ColorName, _color, mode);
-        writer.AddField(JsonDefaults.Common.FadeInName, _fadeIn, mode);
-        writer.AddField(JsonDefaults.Image.ImageTypeName, _imageType, mode);
+        writer.AddField(JsonDefaults.BaseImage.SpriteName, SpriteTracked, mode);
+        writer.AddField(JsonDefaults.BaseImage.MaterialName, MaterialTracked, mode);
+        writer.AddField(JsonDefaults.Color.ColorName, ColorTracked, mode);
+        writer.AddField(JsonDefaults.Common.FadeInName, FadeInTracked, mode);
+        writer.AddField(JsonDefaults.Image.ImageTypeName, ImageTypeTracked, mode);
         switch (ButtonType)
         {
             case ButtonType.Command:
-                writer.AddCommandField(JsonDefaults.Common.CommandName, _command, mode);
+                writer.AddCommandField(JsonDefaults.Common.CommandName, CommandTracked, mode);
                 break;
             case ButtonType.Close:
-                writer.AddField(JsonDefaults.Button.CloseName, _command, mode);
+                writer.AddField(JsonDefaults.Button.CloseName, CommandTracked, mode);
                 break;
         }
 

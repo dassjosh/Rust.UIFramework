@@ -8,11 +8,11 @@ namespace Oxide.Ext.UiFramework.UiElements;
 
 public partial class BaseUiComponent : IBaseUiComponent, IBaseUiComponentTrackable
 {
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<float> _fadeOut = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Common.FadeOut);
-	private readonly Oxide.Ext.UiFramework.Types.Tracked<bool> _active = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Common.Active);
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<float> FadeOutTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Common.FadeOut);
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<bool> ActiveTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Common.Active);
 
-	public partial float FadeOut { get => _fadeOut.Value; set => _fadeOut.Value = value; }
-	public partial bool Active { get => _active.Value; set => _active.Value = value; }
+	public partial float FadeOut { get => FadeOutTracked.Value; set => FadeOutTracked.Value = value; }
+	public partial bool Active { get => ActiveTracked.Value; set => ActiveTracked.Value = value; }
 	public partial bool Enabled { get => Component.Enabled; set => Component.Enabled = value; }
 	public partial Oxide.Ext.UiFramework.Positions.UiPosition Position { get => RectTransform.Position; set => RectTransform.Position = value; }
 	public partial Oxide.Ext.UiFramework.Offsets.UiOffset Offset { get => RectTransform.Offset; set => RectTransform.Offset = value; }
@@ -23,8 +23,8 @@ public partial class BaseUiComponent : IBaseUiComponent, IBaseUiComponentTrackab
 	public partial Oxide.Ext.UiFramework.Types.UiScale PositionScale { get => RectTransform.PositionScale; set => RectTransform.PositionScale = value; }
 	public partial Oxide.Ext.UiFramework.Types.UiScale OffsetScale { get => RectTransform.OffsetScale; set => RectTransform.OffsetScale = value; }
 	public partial Oxide.Ext.UiFramework.Types.UiRotation Rotation { get => RectTransform.Rotation; set => RectTransform.Rotation = value; }
-	Oxide.Ext.UiFramework.Types.Tracked<float> IBaseUiComponentTrackable.FadeOut => _fadeOut;
-	Oxide.Ext.UiFramework.Types.Tracked<bool> IBaseUiComponentTrackable.Active => _active;
+	Oxide.Ext.UiFramework.Types.Tracked<float> IBaseUiComponentTrackable.FadeOut => FadeOutTracked;
+	Oxide.Ext.UiFramework.Types.Tracked<bool> IBaseUiComponentTrackable.Active => ActiveTracked;
 }
 
 

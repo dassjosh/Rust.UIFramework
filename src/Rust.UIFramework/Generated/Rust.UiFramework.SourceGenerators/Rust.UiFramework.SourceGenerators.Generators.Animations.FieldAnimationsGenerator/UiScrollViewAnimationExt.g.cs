@@ -9,13 +9,13 @@ public static class UiScrollViewAnimationExt
 {
 	extension(Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IElementAnimation<Oxide.Ext.UiFramework.UiElements.UiScrollView>> animation)
 	{
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<UnityEngine.UI.ScrollRect.MovementType>> AnimateMovementType() => animation.AnimateField(static a => a.AsTrackable().ScrollView.MovementType);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<float>> AnimateElasticity() => animation.AnimateField(static a => a.AsTrackable().ScrollView.Elasticity);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<bool>> AnimateInertia() => animation.AnimateField(static a => a.AsTrackable().ScrollView.Inertia);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<float>> AnimateDecelerationRate() => animation.AnimateField(static a => a.AsTrackable().ScrollView.DecelerationRate);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<float>> AnimateScrollSensitivity() => animation.AnimateField(static a => a.AsTrackable().ScrollView.ScrollSensitivity);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<float>> AnimateHorizontalScrollProgress() => animation.AnimateField(static a => a.AsTrackable().ScrollView.HorizontalScrollProgress);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<float>> AnimateVerticalScrollProgress() => animation.AnimateField(static a => a.AsTrackable().ScrollView.VerticalScrollProgress);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<UnityEngine.UI.ScrollRect.MovementType>> AnimateMovementType() => animation.AnimateField(static a => a.ScrollView.MovementTypeTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<float>> AnimateElasticity() => animation.AnimateField(static a => a.ScrollView.ElasticityTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<bool>> AnimateInertia() => animation.AnimateField(static a => a.ScrollView.InertiaTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<float>> AnimateDecelerationRate() => animation.AnimateField(static a => a.ScrollView.DecelerationRateTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<float>> AnimateScrollSensitivity() => animation.AnimateField(static a => a.ScrollView.ScrollSensitivityTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<float>> AnimateHorizontalScrollProgress() => animation.AnimateField(static a => a.ScrollView.HorizontalScrollProgressTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<float>> AnimateVerticalScrollProgress() => animation.AnimateField(static a => a.ScrollView.VerticalScrollProgressTracked);
 	}
 }
 

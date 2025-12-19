@@ -24,8 +24,8 @@ public partial class OutlineComponent : SubComponent
 
     protected override void WriteComponentFields(JsonFrameworkWriter writer, SerializeMode mode)
     {
-        writer.AddField(JsonDefaults.Color.ColorName, _color, mode);
-        writer.AddField(JsonDefaults.Outline.DistanceName, _distance, mode);
-        writer.AddKeyField(JsonDefaults.Outline.UseGraphicAlphaName, _useGraphicAlpha.ShouldSerialize(mode) && _useGraphicAlpha.Value);
+        writer.AddField(JsonDefaults.Color.ColorName, ColorTracked, mode);
+        writer.AddField(JsonDefaults.Outline.DistanceName, DistanceTracked, mode);
+        writer.AddKeyField(JsonDefaults.Outline.UseGraphicAlphaName, UseGraphicAlphaTracked, mode);
     }
 }

@@ -9,12 +9,12 @@ public static class UiPlayingCardAnimationExt
 {
 	extension(Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IElementAnimation<Oxide.Ext.UiFramework.UiElements.UiPlayingCard>> animation)
 	{
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<Oxide.Ext.UiFramework.Enums.UiSuit>> AnimateSuit() => animation.AnimateField(static a => a.AsTrackable().Card.Suit);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<Oxide.Ext.UiFramework.Enums.UiRank>> AnimateRank() => animation.AnimateField(static a => a.AsTrackable().Card.Rank);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<Oxide.Ext.UiFramework.Enums.UiCardType>> AnimateCardType() => animation.AnimateField(static a => a.AsTrackable().Card.CardType);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<float>> AnimateFadeIn() => animation.AnimateField(static a => a.AsTrackable().Card.FadeIn);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<string>> AnimateMaterial() => animation.AnimateField(static a => a.AsTrackable().Card.Material);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<Oxide.Ext.UiFramework.Colors.UiColor>> AnimateColor() => animation.AnimateField(static a => a.AsTrackable().Card.Color);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<Oxide.Ext.UiFramework.Enums.UiSuit>> AnimateSuit() => animation.AnimateField(static a => a.Card.SuitTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<Oxide.Ext.UiFramework.Enums.UiRank>> AnimateRank() => animation.AnimateField(static a => a.Card.RankTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<Oxide.Ext.UiFramework.Enums.UiCardType>> AnimateCardType() => animation.AnimateField(static a => a.Card.CardTypeTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<float>> AnimateFadeIn() => animation.AnimateField(static a => a.Card.FadeInTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<string>> AnimateMaterial() => animation.AnimateField(static a => a.Card.MaterialTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<Oxide.Ext.UiFramework.Colors.UiColor>> AnimateColor() => animation.AnimateField(static a => a.Card.ColorTracked);
 	}
 }
 

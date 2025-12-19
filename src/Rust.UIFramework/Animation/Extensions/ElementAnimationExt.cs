@@ -16,7 +16,7 @@ public static class ElementAnimationExt
         {
             if (animation.IsValid)
             {
-                return animation.AnimateField(static a => ((IBaseUiComponentTrackable)a).Active);
+                return animation.AnimateField(static a => a.ActiveTracked);
             }
             return default;
         }
@@ -25,7 +25,7 @@ public static class ElementAnimationExt
         {
             if (animation.IsValid)
             {
-                return animation.AnimateField(static a => ((IBaseTypedComponentTrackable)a.Component).Enabled);
+                return animation.AnimateField(static a => a.Component.EnabledTracked);
             }
             return default;
         }
@@ -34,7 +34,7 @@ public static class ElementAnimationExt
         {
             if (animation.IsValid)
             {
-                return animation.AnimateField(static a => a.RectTransform.AsTrackable().Position);
+                return animation.AnimateField(static a => a.RectTransform.PositionTracked);
             }
             return default;
         }
@@ -43,7 +43,7 @@ public static class ElementAnimationExt
         {
             if (animation.IsValid)
             {
-                return animation.AnimateField(static a => a.RectTransform.AsTrackable().Offset);
+                return animation.AnimateField(static a => a.RectTransform.OffsetTracked);
             }
             return default;
         }
@@ -52,7 +52,7 @@ public static class ElementAnimationExt
         {
             if (animation.IsValid)
             {
-                return animation.AnimateField(static a => a.RectTransform.AsTrackable().Rotation);
+                return animation.AnimateField(static a => a.RectTransform.RotationTracked);
             }
             return default;
         }
@@ -61,8 +61,8 @@ public static class ElementAnimationExt
         {
             return target switch
             {
-                PositionField.Position => animation.AnimateField(static a => a.RectTransform.AsTrackable().PositionScale),
-                PositionField.Offset => animation.AnimateField(static a => a.RectTransform.AsTrackable().OffsetScale),
+                PositionField.Position => animation.AnimateField(static a => a.RectTransform.PositionScaleTracked),
+                PositionField.Offset => animation.AnimateField(static a => a.RectTransform.OffsetScaleTracked),
                 _ => throw new ArgumentOutOfRangeException(nameof(target), target, null)
             };
         }
@@ -71,8 +71,8 @@ public static class ElementAnimationExt
         {
             return target switch
             {
-                PositionField.Position => animation.AnimateField(static a => a.RectTransform.AsTrackable().PositionTranslate),
-                PositionField.Offset => animation.AnimateField(static a => a.RectTransform.AsTrackable().OffsetTranslate),
+                PositionField.Position => animation.AnimateField(static a => a.RectTransform.PositionTranslateTracked),
+                PositionField.Offset => animation.AnimateField(static a => a.RectTransform.OffsetTranslateTracked),
                 _ => throw new ArgumentOutOfRangeException(nameof(target), target, null)
             };
         }
@@ -81,8 +81,8 @@ public static class ElementAnimationExt
         {
             return target switch
             {
-                PositionField.Position => animation.AnimateField(static a => a.RectTransform.AsTrackable().PositionPadding),
-                PositionField.Offset => animation.AnimateField(static a => a.RectTransform.AsTrackable().OffsetPadding),
+                PositionField.Position => animation.AnimateField(static a => a.RectTransform.PositionPaddingTracked),
+                PositionField.Offset => animation.AnimateField(static a => a.RectTransform.OffsetPaddingTracked),
                 _ => throw new ArgumentOutOfRangeException(nameof(target), target, null)
             };
         }

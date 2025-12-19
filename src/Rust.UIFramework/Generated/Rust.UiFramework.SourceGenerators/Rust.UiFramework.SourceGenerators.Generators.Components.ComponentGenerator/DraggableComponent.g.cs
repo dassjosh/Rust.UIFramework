@@ -8,85 +8,85 @@ namespace Oxide.Ext.UiFramework.Components;
 
 public partial class DraggableComponent : IDraggableComponent, IDraggableComponentTrackable
 {
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<bool> _limitToParent = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Draggable.LimitToParent);
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<float> _maxDistance = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Draggable.MaxDistance);
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<bool> _allowSwapping = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Draggable.AllowSwapping);
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<bool> _dropAnywhere = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Draggable.DropAnywhere);
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<float> _dragAlpha = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Draggable.DragAlpha);
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<int> _parentLimitIndex = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Draggable.ParentLimitIndex);
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<string> _filter = new();
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.Vector2> _parentPadding = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Draggable.ParentPadding);
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.Vector2> _anchorOffset = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Draggable.AnchorOffset);
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<bool> _keepOnTop = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Draggable.KeepOnTop);
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<CommunityEntity.DraggablePositionSendType?> _positionRpc = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Draggable.PositionRpc);
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<bool> _moveToAnchor = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Draggable.MoveToAnchor);
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<bool> _rebuildAnchor = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Draggable.RebuildAnchor);
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<bool> LimitToParentTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Draggable.LimitToParent);
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<float> MaxDistanceTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Draggable.MaxDistance);
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<bool> AllowSwappingTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Draggable.AllowSwapping);
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<bool> DropAnywhereTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Draggable.DropAnywhere);
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<float> DragAlphaTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Draggable.DragAlpha);
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<int> ParentLimitIndexTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Draggable.ParentLimitIndex);
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<string> FilterTracked = new();
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.Vector2> ParentPaddingTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Draggable.ParentPadding);
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.Vector2> AnchorOffsetTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Draggable.AnchorOffset);
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<bool> KeepOnTopTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Draggable.KeepOnTop);
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<CommunityEntity.DraggablePositionSendType?> PositionRpcTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Draggable.PositionRpc);
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<bool> MoveToAnchorTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Draggable.MoveToAnchor);
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<bool> RebuildAnchorTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Draggable.RebuildAnchor);
 
-	public partial bool LimitToParent { get => _limitToParent.Value; set => _limitToParent.Value = value; }
-	public partial float MaxDistance { get => _maxDistance.Value; set => _maxDistance.Value = value; }
-	public partial bool AllowSwapping { get => _allowSwapping.Value; set => _allowSwapping.Value = value; }
-	public partial bool DropAnywhere { get => _dropAnywhere.Value; set => _dropAnywhere.Value = value; }
-	public partial float DragAlpha { get => _dragAlpha.Value; set => _dragAlpha.Value = value; }
-	public partial int ParentLimitIndex { get => _parentLimitIndex.Value; set => _parentLimitIndex.Value = value; }
-	public partial string Filter { get => _filter.Value; set => _filter.Value = value; }
-	public partial UnityEngine.Vector2 ParentPadding { get => _parentPadding.Value; set => _parentPadding.Value = value; }
-	public partial UnityEngine.Vector2 AnchorOffset { get => _anchorOffset.Value; set => _anchorOffset.Value = value; }
-	public partial bool KeepOnTop { get => _keepOnTop.Value; set => _keepOnTop.Value = value; }
-	public partial CommunityEntity.DraggablePositionSendType? PositionRpc { get => _positionRpc.Value; set => _positionRpc.Value = value; }
-	public partial bool MoveToAnchor { get => _moveToAnchor.Value; set => _moveToAnchor.Value = value; }
-	public partial bool RebuildAnchor { get => _rebuildAnchor.Value; set => _rebuildAnchor.Value = value; }
-	Oxide.Ext.UiFramework.Types.Tracked<bool> IDraggableComponentTrackable.LimitToParent => _limitToParent;
-	Oxide.Ext.UiFramework.Types.Tracked<float> IDraggableComponentTrackable.MaxDistance => _maxDistance;
-	Oxide.Ext.UiFramework.Types.Tracked<bool> IDraggableComponentTrackable.AllowSwapping => _allowSwapping;
-	Oxide.Ext.UiFramework.Types.Tracked<bool> IDraggableComponentTrackable.DropAnywhere => _dropAnywhere;
-	Oxide.Ext.UiFramework.Types.Tracked<float> IDraggableComponentTrackable.DragAlpha => _dragAlpha;
-	Oxide.Ext.UiFramework.Types.Tracked<int> IDraggableComponentTrackable.ParentLimitIndex => _parentLimitIndex;
-	Oxide.Ext.UiFramework.Types.Tracked<string> IDraggableComponentTrackable.Filter => _filter;
-	Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.Vector2> IDraggableComponentTrackable.ParentPadding => _parentPadding;
-	Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.Vector2> IDraggableComponentTrackable.AnchorOffset => _anchorOffset;
-	Oxide.Ext.UiFramework.Types.Tracked<bool> IDraggableComponentTrackable.KeepOnTop => _keepOnTop;
-	Oxide.Ext.UiFramework.Types.Tracked<CommunityEntity.DraggablePositionSendType?> IDraggableComponentTrackable.PositionRpc => _positionRpc;
-	Oxide.Ext.UiFramework.Types.Tracked<bool> IDraggableComponentTrackable.MoveToAnchor => _moveToAnchor;
-	Oxide.Ext.UiFramework.Types.Tracked<bool> IDraggableComponentTrackable.RebuildAnchor => _rebuildAnchor;
+	public partial bool LimitToParent { get => LimitToParentTracked.Value; set => LimitToParentTracked.Value = value; }
+	public partial float MaxDistance { get => MaxDistanceTracked.Value; set => MaxDistanceTracked.Value = value; }
+	public partial bool AllowSwapping { get => AllowSwappingTracked.Value; set => AllowSwappingTracked.Value = value; }
+	public partial bool DropAnywhere { get => DropAnywhereTracked.Value; set => DropAnywhereTracked.Value = value; }
+	public partial float DragAlpha { get => DragAlphaTracked.Value; set => DragAlphaTracked.Value = value; }
+	public partial int ParentLimitIndex { get => ParentLimitIndexTracked.Value; set => ParentLimitIndexTracked.Value = value; }
+	public partial string Filter { get => FilterTracked.Value; set => FilterTracked.Value = value; }
+	public partial UnityEngine.Vector2 ParentPadding { get => ParentPaddingTracked.Value; set => ParentPaddingTracked.Value = value; }
+	public partial UnityEngine.Vector2 AnchorOffset { get => AnchorOffsetTracked.Value; set => AnchorOffsetTracked.Value = value; }
+	public partial bool KeepOnTop { get => KeepOnTopTracked.Value; set => KeepOnTopTracked.Value = value; }
+	public partial CommunityEntity.DraggablePositionSendType? PositionRpc { get => PositionRpcTracked.Value; set => PositionRpcTracked.Value = value; }
+	public partial bool MoveToAnchor { get => MoveToAnchorTracked.Value; set => MoveToAnchorTracked.Value = value; }
+	public partial bool RebuildAnchor { get => RebuildAnchorTracked.Value; set => RebuildAnchorTracked.Value = value; }
+	Oxide.Ext.UiFramework.Types.Tracked<bool> IDraggableComponentTrackable.LimitToParent => LimitToParentTracked;
+	Oxide.Ext.UiFramework.Types.Tracked<float> IDraggableComponentTrackable.MaxDistance => MaxDistanceTracked;
+	Oxide.Ext.UiFramework.Types.Tracked<bool> IDraggableComponentTrackable.AllowSwapping => AllowSwappingTracked;
+	Oxide.Ext.UiFramework.Types.Tracked<bool> IDraggableComponentTrackable.DropAnywhere => DropAnywhereTracked;
+	Oxide.Ext.UiFramework.Types.Tracked<float> IDraggableComponentTrackable.DragAlpha => DragAlphaTracked;
+	Oxide.Ext.UiFramework.Types.Tracked<int> IDraggableComponentTrackable.ParentLimitIndex => ParentLimitIndexTracked;
+	Oxide.Ext.UiFramework.Types.Tracked<string> IDraggableComponentTrackable.Filter => FilterTracked;
+	Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.Vector2> IDraggableComponentTrackable.ParentPadding => ParentPaddingTracked;
+	Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.Vector2> IDraggableComponentTrackable.AnchorOffset => AnchorOffsetTracked;
+	Oxide.Ext.UiFramework.Types.Tracked<bool> IDraggableComponentTrackable.KeepOnTop => KeepOnTopTracked;
+	Oxide.Ext.UiFramework.Types.Tracked<CommunityEntity.DraggablePositionSendType?> IDraggableComponentTrackable.PositionRpc => PositionRpcTracked;
+	Oxide.Ext.UiFramework.Types.Tracked<bool> IDraggableComponentTrackable.MoveToAnchor => MoveToAnchorTracked;
+	Oxide.Ext.UiFramework.Types.Tracked<bool> IDraggableComponentTrackable.RebuildAnchor => RebuildAnchorTracked;
 
 	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 	internal IDraggableComponentTrackable AsTrackable() => this;
-	public override bool HasChanged() => false || (_limitToParent.HasChanged || _maxDistance.HasChanged || _allowSwapping.HasChanged || _dropAnywhere.HasChanged || _dragAlpha.HasChanged || _parentLimitIndex.HasChanged || _filter.HasChanged || _parentPadding.HasChanged || _anchorOffset.HasChanged || _keepOnTop.HasChanged || _positionRpc.HasChanged || _moveToAnchor.HasChanged || _rebuildAnchor.HasChanged) || base.HasChanged();
+	public override bool HasChanged() => false || (LimitToParentTracked.HasChanged || MaxDistanceTracked.HasChanged || AllowSwappingTracked.HasChanged || DropAnywhereTracked.HasChanged || DragAlphaTracked.HasChanged || ParentLimitIndexTracked.HasChanged || FilterTracked.HasChanged || ParentPaddingTracked.HasChanged || AnchorOffsetTracked.HasChanged || KeepOnTopTracked.HasChanged || PositionRpcTracked.HasChanged || MoveToAnchorTracked.HasChanged || RebuildAnchorTracked.HasChanged) || base.HasChanged();
 
 	public override void ResetHasChanged()
 	{
 		base.ResetHasChanged();
-		_limitToParent.ResetHasChanged();
-		_maxDistance.ResetHasChanged();
-		_allowSwapping.ResetHasChanged();
-		_dropAnywhere.ResetHasChanged();
-		_dragAlpha.ResetHasChanged();
-		_parentLimitIndex.ResetHasChanged();
-		_filter.ResetHasChanged();
-		_parentPadding.ResetHasChanged();
-		_anchorOffset.ResetHasChanged();
-		_keepOnTop.ResetHasChanged();
-		_positionRpc.ResetHasChanged();
-		_moveToAnchor.ResetHasChanged();
-		_rebuildAnchor.ResetHasChanged();
+		LimitToParentTracked.ResetHasChanged();
+		MaxDistanceTracked.ResetHasChanged();
+		AllowSwappingTracked.ResetHasChanged();
+		DropAnywhereTracked.ResetHasChanged();
+		DragAlphaTracked.ResetHasChanged();
+		ParentLimitIndexTracked.ResetHasChanged();
+		FilterTracked.ResetHasChanged();
+		ParentPaddingTracked.ResetHasChanged();
+		AnchorOffsetTracked.ResetHasChanged();
+		KeepOnTopTracked.ResetHasChanged();
+		PositionRpcTracked.ResetHasChanged();
+		MoveToAnchorTracked.ResetHasChanged();
+		RebuildAnchorTracked.ResetHasChanged();
 	}
 
 	public override void Reset()
 	{
 		base.Reset();
-		_limitToParent.Reset();
-		_maxDistance.Reset();
-		_allowSwapping.Reset();
-		_dropAnywhere.Reset();
-		_dragAlpha.Reset();
-		_parentLimitIndex.Reset();
-		_filter.Reset();
-		_parentPadding.Reset();
-		_anchorOffset.Reset();
-		_keepOnTop.Reset();
-		_positionRpc.Reset();
-		_moveToAnchor.Reset();
-		_rebuildAnchor.Reset();
+		LimitToParentTracked.Reset();
+		MaxDistanceTracked.Reset();
+		AllowSwappingTracked.Reset();
+		DropAnywhereTracked.Reset();
+		DragAlphaTracked.Reset();
+		ParentLimitIndexTracked.Reset();
+		FilterTracked.Reset();
+		ParentPaddingTracked.Reset();
+		AnchorOffsetTracked.Reset();
+		KeepOnTopTracked.Reset();
+		PositionRpcTracked.Reset();
+		MoveToAnchorTracked.Reset();
+		RebuildAnchorTracked.Reset();
 	}
 }
 

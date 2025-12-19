@@ -8,60 +8,60 @@ namespace Oxide.Ext.UiFramework.Components;
 
 public partial class CountdownComponent : ICountdownComponent, ICountdownComponentTrackable
 {
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<float> _startTime = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Countdown.StartTime);
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<float> _endTime = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Countdown.EndTime);
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<float> _step = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Countdown.Step);
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<float> _interval = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Countdown.Interval);
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Enums.TimerFormat> _timerFormat = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Countdown.TimerFormat);
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<string> _numberFormat = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Countdown.NumberFormat);
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<bool> _destroyIfDone = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Countdown.DestroyIfDone);
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<string> _command = new();
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<float> StartTimeTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Countdown.StartTime);
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<float> EndTimeTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Countdown.EndTime);
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<float> StepTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Countdown.Step);
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<float> IntervalTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Countdown.Interval);
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Enums.TimerFormat> TimerFormatTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Countdown.TimerFormat);
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<string> NumberFormatTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Countdown.NumberFormat);
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<bool> DestroyIfDoneTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Countdown.DestroyIfDone);
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<string> CommandTracked = new();
 
-	public partial float StartTime { get => _startTime.Value; set => _startTime.Value = value; }
-	public partial float EndTime { get => _endTime.Value; set => _endTime.Value = value; }
-	public partial float Step { get => _step.Value; set => _step.Value = value; }
-	public partial float Interval { get => _interval.Value; set => _interval.Value = value; }
-	public partial Oxide.Ext.UiFramework.Enums.TimerFormat TimerFormat { get => _timerFormat.Value; set => _timerFormat.Value = value; }
-	public partial string NumberFormat { get => _numberFormat.Value; set => _numberFormat.Value = value; }
-	public partial bool DestroyIfDone { get => _destroyIfDone.Value; set => _destroyIfDone.Value = value; }
-	public partial string Command { get => _command.Value; set => _command.Value = value; }
-	Oxide.Ext.UiFramework.Types.Tracked<float> ICountdownComponentTrackable.StartTime => _startTime;
-	Oxide.Ext.UiFramework.Types.Tracked<float> ICountdownComponentTrackable.EndTime => _endTime;
-	Oxide.Ext.UiFramework.Types.Tracked<float> ICountdownComponentTrackable.Step => _step;
-	Oxide.Ext.UiFramework.Types.Tracked<float> ICountdownComponentTrackable.Interval => _interval;
-	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Enums.TimerFormat> ICountdownComponentTrackable.TimerFormat => _timerFormat;
-	Oxide.Ext.UiFramework.Types.Tracked<string> ICountdownComponentTrackable.NumberFormat => _numberFormat;
-	Oxide.Ext.UiFramework.Types.Tracked<bool> ICountdownComponentTrackable.DestroyIfDone => _destroyIfDone;
-	Oxide.Ext.UiFramework.Types.Tracked<string> ICountdownComponentTrackable.Command => _command;
+	public partial float StartTime { get => StartTimeTracked.Value; set => StartTimeTracked.Value = value; }
+	public partial float EndTime { get => EndTimeTracked.Value; set => EndTimeTracked.Value = value; }
+	public partial float Step { get => StepTracked.Value; set => StepTracked.Value = value; }
+	public partial float Interval { get => IntervalTracked.Value; set => IntervalTracked.Value = value; }
+	public partial Oxide.Ext.UiFramework.Enums.TimerFormat TimerFormat { get => TimerFormatTracked.Value; set => TimerFormatTracked.Value = value; }
+	public partial string NumberFormat { get => NumberFormatTracked.Value; set => NumberFormatTracked.Value = value; }
+	public partial bool DestroyIfDone { get => DestroyIfDoneTracked.Value; set => DestroyIfDoneTracked.Value = value; }
+	public partial string Command { get => CommandTracked.Value; set => CommandTracked.Value = value; }
+	Oxide.Ext.UiFramework.Types.Tracked<float> ICountdownComponentTrackable.StartTime => StartTimeTracked;
+	Oxide.Ext.UiFramework.Types.Tracked<float> ICountdownComponentTrackable.EndTime => EndTimeTracked;
+	Oxide.Ext.UiFramework.Types.Tracked<float> ICountdownComponentTrackable.Step => StepTracked;
+	Oxide.Ext.UiFramework.Types.Tracked<float> ICountdownComponentTrackable.Interval => IntervalTracked;
+	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Enums.TimerFormat> ICountdownComponentTrackable.TimerFormat => TimerFormatTracked;
+	Oxide.Ext.UiFramework.Types.Tracked<string> ICountdownComponentTrackable.NumberFormat => NumberFormatTracked;
+	Oxide.Ext.UiFramework.Types.Tracked<bool> ICountdownComponentTrackable.DestroyIfDone => DestroyIfDoneTracked;
+	Oxide.Ext.UiFramework.Types.Tracked<string> ICountdownComponentTrackable.Command => CommandTracked;
 
 	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 	internal ICountdownComponentTrackable AsTrackable() => this;
-	public override bool HasChanged() => false || (_startTime.HasChanged || _endTime.HasChanged || _step.HasChanged || _interval.HasChanged || _timerFormat.HasChanged || _numberFormat.HasChanged || _destroyIfDone.HasChanged || _command.HasChanged) || base.HasChanged();
+	public override bool HasChanged() => false || (StartTimeTracked.HasChanged || EndTimeTracked.HasChanged || StepTracked.HasChanged || IntervalTracked.HasChanged || TimerFormatTracked.HasChanged || NumberFormatTracked.HasChanged || DestroyIfDoneTracked.HasChanged || CommandTracked.HasChanged) || base.HasChanged();
 
 	public override void ResetHasChanged()
 	{
 		base.ResetHasChanged();
-		_startTime.ResetHasChanged();
-		_endTime.ResetHasChanged();
-		_step.ResetHasChanged();
-		_interval.ResetHasChanged();
-		_timerFormat.ResetHasChanged();
-		_numberFormat.ResetHasChanged();
-		_destroyIfDone.ResetHasChanged();
-		_command.ResetHasChanged();
+		StartTimeTracked.ResetHasChanged();
+		EndTimeTracked.ResetHasChanged();
+		StepTracked.ResetHasChanged();
+		IntervalTracked.ResetHasChanged();
+		TimerFormatTracked.ResetHasChanged();
+		NumberFormatTracked.ResetHasChanged();
+		DestroyIfDoneTracked.ResetHasChanged();
+		CommandTracked.ResetHasChanged();
 	}
 
 	public override void Reset()
 	{
 		base.Reset();
-		_startTime.Reset();
-		_endTime.Reset();
-		_step.Reset();
-		_interval.Reset();
-		_timerFormat.Reset();
-		_numberFormat.Reset();
-		_destroyIfDone.Reset();
-		_command.Reset();
+		StartTimeTracked.Reset();
+		EndTimeTracked.Reset();
+		StepTracked.Reset();
+		IntervalTracked.Reset();
+		TimerFormatTracked.Reset();
+		NumberFormatTracked.Reset();
+		DestroyIfDoneTracked.Reset();
+		CommandTracked.Reset();
 	}
 }
 

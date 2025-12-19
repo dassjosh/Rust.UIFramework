@@ -9,14 +9,14 @@ public static class TextComponentAnimationExt
 {
 	extension(Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IComponentAnimation<Oxide.Ext.UiFramework.Components.TextComponent>> animation)
 	{
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<Oxide.Ext.UiFramework.Colors.UiColor>> AnimateColor() => animation.AnimateField(static a => a.AsTrackable().Color);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<float>> AnimateFadeIn() => animation.AnimateField(static a => a.AsTrackable().FadeIn);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<int>> AnimateFontSize() => animation.AnimateField(static a => a.AsTrackable().FontSize);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<string>> AnimateFont() => animation.AnimateField(static a => a.AsTrackable().Font);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<UnityEngine.TextAnchor>> AnimateAlign() => animation.AnimateField(static a => a.AsTrackable().Align);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<string>> AnimateText() => animation.AnimateField(static a => a.AsTrackable().Text);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<UnityEngine.VerticalWrapMode>> AnimateVerticalOverflow() => animation.AnimateField(static a => a.AsTrackable().VerticalOverflow);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<Oxide.Ext.UiFramework.UiElements.UiReference>> AnimatePlaceholderFor() => animation.AnimateField(static a => a.AsTrackable().PlaceholderFor);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<Oxide.Ext.UiFramework.Colors.UiColor>> AnimateColor() => animation.AnimateField(static a => a.ColorTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<float>> AnimateFadeIn() => animation.AnimateField(static a => a.FadeInTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<int>> AnimateFontSize() => animation.AnimateField(static a => a.FontSizeTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<string>> AnimateFont() => animation.AnimateField(static a => a.FontTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<UnityEngine.TextAnchor>> AnimateAlign() => animation.AnimateField(static a => a.AlignTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<string>> AnimateText() => animation.AnimateField(static a => a.TextTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<UnityEngine.VerticalWrapMode>> AnimateVerticalOverflow() => animation.AnimateField(static a => a.VerticalOverflowTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<Oxide.Ext.UiFramework.UiElements.UiReference>> AnimatePlaceholderFor() => animation.AnimateField(static a => a.PlaceholderForTracked);
 	}
 }
 

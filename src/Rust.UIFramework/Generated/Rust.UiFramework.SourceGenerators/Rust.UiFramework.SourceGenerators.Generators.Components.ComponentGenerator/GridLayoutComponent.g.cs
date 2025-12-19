@@ -8,50 +8,50 @@ namespace Oxide.Ext.UiFramework.Components;
 
 public partial class GridLayoutComponent : IGridLayoutComponent, IGridLayoutComponentTrackable
 {
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.Vector2> _cellSize = new(Oxide.Ext.UiFramework.Json.JsonDefaults.GridLayout.CellSize);
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.Vector2> _spacing = new(Oxide.Ext.UiFramework.Json.JsonDefaults.GridLayout.Spacing);
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.GridLayoutGroup.Corner> _startCorner = new(Oxide.Ext.UiFramework.Json.JsonDefaults.GridLayout.StartCorner);
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.GridLayoutGroup.Axis> _startAxis = new(Oxide.Ext.UiFramework.Json.JsonDefaults.GridLayout.StartAxis);
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.GridLayoutGroup.Constraint> _constraint = new(Oxide.Ext.UiFramework.Json.JsonDefaults.GridLayout.Constraint);
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<int> _constraintCount = new(Oxide.Ext.UiFramework.Json.JsonDefaults.GridLayout.ConstraintCount);
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.Vector2> CellSizeTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.GridLayout.CellSize);
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.Vector2> SpacingTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.GridLayout.Spacing);
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.GridLayoutGroup.Corner> StartCornerTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.GridLayout.StartCorner);
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.GridLayoutGroup.Axis> StartAxisTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.GridLayout.StartAxis);
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.GridLayoutGroup.Constraint> ConstraintTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.GridLayout.Constraint);
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<int> ConstraintCountTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.GridLayout.ConstraintCount);
 
-	public partial UnityEngine.Vector2 CellSize { get => _cellSize.Value; set => _cellSize.Value = value; }
-	public partial UnityEngine.Vector2 Spacing { get => _spacing.Value; set => _spacing.Value = value; }
-	public partial UnityEngine.UI.GridLayoutGroup.Corner StartCorner { get => _startCorner.Value; set => _startCorner.Value = value; }
-	public partial UnityEngine.UI.GridLayoutGroup.Axis StartAxis { get => _startAxis.Value; set => _startAxis.Value = value; }
-	public partial UnityEngine.UI.GridLayoutGroup.Constraint Constraint { get => _constraint.Value; set => _constraint.Value = value; }
-	public partial int ConstraintCount { get => _constraintCount.Value; set => _constraintCount.Value = value; }
-	Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.Vector2> IGridLayoutComponentTrackable.CellSize => _cellSize;
-	Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.Vector2> IGridLayoutComponentTrackable.Spacing => _spacing;
-	Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.GridLayoutGroup.Corner> IGridLayoutComponentTrackable.StartCorner => _startCorner;
-	Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.GridLayoutGroup.Axis> IGridLayoutComponentTrackable.StartAxis => _startAxis;
-	Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.GridLayoutGroup.Constraint> IGridLayoutComponentTrackable.Constraint => _constraint;
-	Oxide.Ext.UiFramework.Types.Tracked<int> IGridLayoutComponentTrackable.ConstraintCount => _constraintCount;
+	public partial UnityEngine.Vector2 CellSize { get => CellSizeTracked.Value; set => CellSizeTracked.Value = value; }
+	public partial UnityEngine.Vector2 Spacing { get => SpacingTracked.Value; set => SpacingTracked.Value = value; }
+	public partial UnityEngine.UI.GridLayoutGroup.Corner StartCorner { get => StartCornerTracked.Value; set => StartCornerTracked.Value = value; }
+	public partial UnityEngine.UI.GridLayoutGroup.Axis StartAxis { get => StartAxisTracked.Value; set => StartAxisTracked.Value = value; }
+	public partial UnityEngine.UI.GridLayoutGroup.Constraint Constraint { get => ConstraintTracked.Value; set => ConstraintTracked.Value = value; }
+	public partial int ConstraintCount { get => ConstraintCountTracked.Value; set => ConstraintCountTracked.Value = value; }
+	Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.Vector2> IGridLayoutComponentTrackable.CellSize => CellSizeTracked;
+	Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.Vector2> IGridLayoutComponentTrackable.Spacing => SpacingTracked;
+	Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.GridLayoutGroup.Corner> IGridLayoutComponentTrackable.StartCorner => StartCornerTracked;
+	Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.GridLayoutGroup.Axis> IGridLayoutComponentTrackable.StartAxis => StartAxisTracked;
+	Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.GridLayoutGroup.Constraint> IGridLayoutComponentTrackable.Constraint => ConstraintTracked;
+	Oxide.Ext.UiFramework.Types.Tracked<int> IGridLayoutComponentTrackable.ConstraintCount => ConstraintCountTracked;
 
 	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 	internal IGridLayoutComponentTrackable AsTrackable() => this;
-	public override bool HasChanged() => false || (_cellSize.HasChanged || _spacing.HasChanged || _startCorner.HasChanged || _startAxis.HasChanged || _constraint.HasChanged || _constraintCount.HasChanged) || base.HasChanged();
+	public override bool HasChanged() => false || (CellSizeTracked.HasChanged || SpacingTracked.HasChanged || StartCornerTracked.HasChanged || StartAxisTracked.HasChanged || ConstraintTracked.HasChanged || ConstraintCountTracked.HasChanged) || base.HasChanged();
 
 	public override void ResetHasChanged()
 	{
 		base.ResetHasChanged();
-		_cellSize.ResetHasChanged();
-		_spacing.ResetHasChanged();
-		_startCorner.ResetHasChanged();
-		_startAxis.ResetHasChanged();
-		_constraint.ResetHasChanged();
-		_constraintCount.ResetHasChanged();
+		CellSizeTracked.ResetHasChanged();
+		SpacingTracked.ResetHasChanged();
+		StartCornerTracked.ResetHasChanged();
+		StartAxisTracked.ResetHasChanged();
+		ConstraintTracked.ResetHasChanged();
+		ConstraintCountTracked.ResetHasChanged();
 	}
 
 	public override void Reset()
 	{
 		base.Reset();
-		_cellSize.Reset();
-		_spacing.Reset();
-		_startCorner.Reset();
-		_startAxis.Reset();
-		_constraint.Reset();
-		_constraintCount.Reset();
+		CellSizeTracked.Reset();
+		SpacingTracked.Reset();
+		StartCornerTracked.Reset();
+		StartAxisTracked.Reset();
+		ConstraintTracked.Reset();
+		ConstraintCountTracked.Reset();
 	}
 }
 

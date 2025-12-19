@@ -8,30 +8,30 @@ namespace Oxide.Ext.UiFramework.Components;
 
 public partial class NineSliceComponent : INineSliceComponent, INineSliceComponentTrackable
 {
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<string> _png = new();
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Types.UiBorderWidth> _slice = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Image.Slice);
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<string> PngTracked = new();
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Types.UiBorderWidth> SliceTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Image.Slice);
 
-	public partial string Png { get => _png.Value; set => _png.Value = value; }
-	public partial Oxide.Ext.UiFramework.Types.UiBorderWidth Slice { get => _slice.Value; set => _slice.Value = value; }
-	Oxide.Ext.UiFramework.Types.Tracked<string> INineSliceComponentTrackable.Png => _png;
-	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Types.UiBorderWidth> INineSliceComponentTrackable.Slice => _slice;
+	public partial string Png { get => PngTracked.Value; set => PngTracked.Value = value; }
+	public partial Oxide.Ext.UiFramework.Types.UiBorderWidth Slice { get => SliceTracked.Value; set => SliceTracked.Value = value; }
+	Oxide.Ext.UiFramework.Types.Tracked<string> INineSliceComponentTrackable.Png => PngTracked;
+	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Types.UiBorderWidth> INineSliceComponentTrackable.Slice => SliceTracked;
 
 	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 	internal new INineSliceComponentTrackable AsTrackable() => this;
-	public override bool HasChanged() => false || (_png.HasChanged || _slice.HasChanged) || base.HasChanged();
+	public override bool HasChanged() => false || (PngTracked.HasChanged || SliceTracked.HasChanged) || base.HasChanged();
 
 	public override void ResetHasChanged()
 	{
 		base.ResetHasChanged();
-		_png.ResetHasChanged();
-		_slice.ResetHasChanged();
+		PngTracked.ResetHasChanged();
+		SliceTracked.ResetHasChanged();
 	}
 
 	public override void Reset()
 	{
 		base.Reset();
-		_png.Reset();
-		_slice.Reset();
+		PngTracked.Reset();
+		SliceTracked.Reset();
 	}
 }
 

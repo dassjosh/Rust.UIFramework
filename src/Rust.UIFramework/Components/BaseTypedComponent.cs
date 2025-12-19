@@ -18,7 +18,7 @@ public abstract partial class BaseTypedComponent : BaseComponent
     {
         writer.WriteStartObject();
         writer.AddField(JsonDefaults.Common.ComponentTypeName, Type);
-        writer.AddField(JsonDefaults.Common.EnabledName, _enabled, mode);
+        writer.AddField(JsonDefaults.Common.EnabledName, EnabledTracked, mode);
         WriteComponentFields(writer, mode);
         writer.WriteEndObject();
     }

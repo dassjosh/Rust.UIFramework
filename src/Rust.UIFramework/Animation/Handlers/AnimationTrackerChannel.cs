@@ -27,7 +27,7 @@ internal class AnimationTrackerChannel : BaseUiChannel<UiSendRequest>, ISingleto
             for (int index = 0; index < span.Length; index++)
             {
                 BaseUiComponent component = span[index];
-                if (component.Update is not UpdateMode.Update || component is IBaseUiComponentTrackable trackable && trackable.Active.HasChanged && !trackable.Active.Value)
+                if (component.Update is not UpdateMode.Update || component.ActiveTracked.HasChanged && !component.ActiveTracked.Value)
                 {
                     Singleton<AnimationTracker>.Instance.RemoveUiForSend(send, component.Name);
                 }

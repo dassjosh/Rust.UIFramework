@@ -8,30 +8,30 @@ namespace Oxide.Ext.UiFramework.Components;
 
 public partial class PlayerAvatarComponent : IPlayerAvatarComponent, IPlayerAvatarComponentTrackable
 {
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<ulong> _steamId = new();
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Enums.AvatarType> _avatarType = new(Oxide.Ext.UiFramework.Enums.AvatarType.Medium);
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<ulong> SteamIdTracked = new();
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Enums.AvatarType> AvatarTypeTracked = new(Oxide.Ext.UiFramework.Enums.AvatarType.Medium);
 
-	public partial ulong SteamId { get => _steamId.Value; set => _steamId.Value = value; }
-	public partial Oxide.Ext.UiFramework.Enums.AvatarType AvatarType { get => _avatarType.Value; set => _avatarType.Value = value; }
-	Oxide.Ext.UiFramework.Types.Tracked<ulong> IPlayerAvatarComponentTrackable.SteamId => _steamId;
-	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Enums.AvatarType> IPlayerAvatarComponentTrackable.AvatarType => _avatarType;
+	public partial ulong SteamId { get => SteamIdTracked.Value; set => SteamIdTracked.Value = value; }
+	public partial Oxide.Ext.UiFramework.Enums.AvatarType AvatarType { get => AvatarTypeTracked.Value; set => AvatarTypeTracked.Value = value; }
+	Oxide.Ext.UiFramework.Types.Tracked<ulong> IPlayerAvatarComponentTrackable.SteamId => SteamIdTracked;
+	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Enums.AvatarType> IPlayerAvatarComponentTrackable.AvatarType => AvatarTypeTracked;
 
 	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 	internal new IPlayerAvatarComponentTrackable AsTrackable() => this;
-	public override bool HasChanged() => false || (_steamId.HasChanged || _avatarType.HasChanged) || base.HasChanged();
+	public override bool HasChanged() => false || (SteamIdTracked.HasChanged || AvatarTypeTracked.HasChanged) || base.HasChanged();
 
 	public override void ResetHasChanged()
 	{
 		base.ResetHasChanged();
-		_steamId.ResetHasChanged();
-		_avatarType.ResetHasChanged();
+		SteamIdTracked.ResetHasChanged();
+		AvatarTypeTracked.ResetHasChanged();
 	}
 
 	public override void Reset()
 	{
 		base.Reset();
-		_steamId.Reset();
-		_avatarType.Reset();
+		SteamIdTracked.Reset();
+		AvatarTypeTracked.Reset();
 	}
 }
 

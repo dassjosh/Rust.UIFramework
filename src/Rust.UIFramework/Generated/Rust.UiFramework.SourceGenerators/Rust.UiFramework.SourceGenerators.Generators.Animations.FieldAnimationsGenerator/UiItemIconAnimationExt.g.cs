@@ -9,8 +9,8 @@ public static class UiItemIconAnimationExt
 {
 	extension(Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IElementAnimation<Oxide.Ext.UiFramework.UiElements.UiItemIcon>> animation)
 	{
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<int>> AnimateItemId() => animation.AnimateField(static a => a.AsTrackable().Icon.ItemId);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<ulong>> AnimateSkinId() => animation.AnimateField(static a => a.AsTrackable().Icon.SkinId);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<int>> AnimateItemId() => animation.AnimateField(static a => a.Icon.ItemIdTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<ulong>> AnimateSkinId() => animation.AnimateField(static a => a.Icon.SkinIdTracked);
 	}
 }
 

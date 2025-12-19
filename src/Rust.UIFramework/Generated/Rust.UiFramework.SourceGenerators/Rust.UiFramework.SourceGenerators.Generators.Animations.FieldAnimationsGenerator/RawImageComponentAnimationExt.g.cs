@@ -9,11 +9,11 @@ public static class RawImageComponentAnimationExt
 {
 	extension(Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IComponentAnimation<Oxide.Ext.UiFramework.Components.RawImageComponent>> animation)
 	{
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<Oxide.Ext.UiFramework.Colors.UiColor>> AnimateColor() => animation.AnimateField(static a => a.AsTrackable().Color);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<float>> AnimateFadeIn() => animation.AnimateField(static a => a.AsTrackable().FadeIn);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<string>> AnimateImage() => animation.AnimateField(static a => a.AsTrackable().Image);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<string>> AnimateMaterial() => animation.AnimateField(static a => a.AsTrackable().Material);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<Oxide.Ext.UiFramework.UiElements.UiReference>> AnimatePlaceholderFor() => animation.AnimateField(static a => a.AsTrackable().PlaceholderFor);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<Oxide.Ext.UiFramework.Colors.UiColor>> AnimateColor() => animation.AnimateField(static a => a.ColorTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<float>> AnimateFadeIn() => animation.AnimateField(static a => a.FadeInTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<string>> AnimateImage() => animation.AnimateField(static a => a.ImageTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<string>> AnimateMaterial() => animation.AnimateField(static a => a.MaterialTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<Oxide.Ext.UiFramework.UiElements.UiReference>> AnimatePlaceholderFor() => animation.AnimateField(static a => a.PlaceholderForTracked);
 	}
 }
 

@@ -33,15 +33,15 @@ public partial class TextComponent : CoreComponent, IGraphicalComponent
 
     protected override void WriteComponentFields(JsonFrameworkWriter writer, SerializeMode mode)
     {
-        writer.AddTextField(JsonDefaults.Text.TextName, _text, mode);
-        writer.AddField(JsonDefaults.Text.FontSizeName, _fontSize, mode);
-        writer.AddField(JsonDefaults.Text.FontName, _font, mode);
-        writer.AddField(JsonDefaults.Text.AlignName, _align, mode);
-        writer.AddField(JsonDefaults.Text.VerticalOverflowName, _verticalOverflow, mode);
-        writer.AddField(JsonDefaults.Color.ColorName, _color, mode);
-        writer.AddField(JsonDefaults.Common.FadeInName, _fadeIn, mode);
+        writer.AddTextField(JsonDefaults.Text.TextName, TextTracked, mode);
+        writer.AddField(JsonDefaults.Text.FontSizeName, FontSizeTracked, mode);
+        writer.AddField(JsonDefaults.Text.FontName, FontTracked, mode);
+        writer.AddField(JsonDefaults.Text.AlignName, AlignTracked, mode);
+        writer.AddField(JsonDefaults.Text.VerticalOverflowName, VerticalOverflowTracked, mode);
+        writer.AddField(JsonDefaults.Color.ColorName, ColorTracked, mode);
+        writer.AddField(JsonDefaults.Common.FadeInName, FadeInTracked, mode);
         
-        if (_placeholderFor.ShouldSerialize(mode) && PlaceholderFor.IsValidName())
+        if (PlaceholderForTracked.ShouldSerialize(mode) && PlaceholderFor.IsValidName())
         {
             writer.AddField(JsonDefaults.Common.PlaceholderInputId, PlaceholderFor.Name);
         }

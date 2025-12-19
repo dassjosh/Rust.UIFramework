@@ -16,7 +16,7 @@ public partial class ItemIconComponent : ImageComponent
     protected override void WriteComponentFields(JsonFrameworkWriter writer, SerializeMode mode)
     {
         base.WriteComponentFields(writer, mode);
-        writer.AddField(JsonDefaults.ItemIcon.ItemIdName, _itemId, mode);
-        writer.AddField(JsonDefaults.ItemIcon.SkinIdName, _skinId, mode);
+        writer.AddField(JsonDefaults.ItemIcon.ItemIdName, ItemIdTracked, mode);
+        writer.AddField(JsonDefaults.ItemIcon.SkinIdName, SkinIdTracked, mode);
     }
 }

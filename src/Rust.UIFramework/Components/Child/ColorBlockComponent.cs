@@ -32,10 +32,10 @@ public partial class ColorBlockComponent : ChildComponent
 
     public override void WriteComponent(JsonFrameworkWriter writer, SerializeMode mode)
     {
-        writer.AddField(JsonDefaults.ColorBlock.HighlightedColorName, _highlightedColor, mode);
-        writer.AddField(JsonDefaults.ColorBlock.PressedColorName, _pressedColor, mode);
-        writer.AddField(JsonDefaults.ColorBlock.SelectedColorName, _selectedColor, mode);
-        writer.AddField(JsonDefaults.ColorBlock.ColorMultiplierName, _colorMultiplier, mode);
-        writer.AddField(JsonDefaults.ColorBlock.FadeDurationName, _fadeDuration, mode);
+        writer.AddField(JsonDefaults.ColorBlock.HighlightedColorName, HighlightedColorTracked, mode);
+        writer.AddField(JsonDefaults.ColorBlock.PressedColorName, PressedColorTracked, mode);
+        writer.AddField(JsonDefaults.ColorBlock.SelectedColorName, SelectedColorTracked, mode);
+        writer.AddField(JsonDefaults.ColorBlock.ColorMultiplierName, ColorMultiplierTracked, mode);
+        writer.AddField(JsonDefaults.ColorBlock.FadeDurationName, FadeDurationTracked, mode);
     }
 }

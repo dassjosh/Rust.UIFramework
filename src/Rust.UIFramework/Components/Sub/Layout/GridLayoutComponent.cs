@@ -35,11 +35,11 @@ public partial class GridLayoutComponent : BaseLayoutComponent
     protected override void WriteComponentFields(JsonFrameworkWriter writer, SerializeMode mode)
     {
         base.WriteComponentFields(writer, mode);
-        writer.AddField(JsonDefaults.GridLayout.CellSizeName, _cellSize, mode);
-        writer.AddField(JsonDefaults.GridLayout.SpacingName, _spacing, mode);
-        writer.AddField(JsonDefaults.GridLayout.StartCornerName, _startCorner, mode);
-        writer.AddField(JsonDefaults.GridLayout.StartAxisName, _startAxis, mode);
-        writer.AddField(JsonDefaults.GridLayout.ConstraintName, _constraint, mode);
-        writer.AddField(JsonDefaults.GridLayout.ConstraintCountName, _constraintCount, mode);
+        writer.AddField(JsonDefaults.GridLayout.CellSizeName, CellSizeTracked, mode);
+        writer.AddField(JsonDefaults.GridLayout.SpacingName, SpacingTracked, mode);
+        writer.AddField(JsonDefaults.GridLayout.StartCornerName, StartCornerTracked, mode);
+        writer.AddField(JsonDefaults.GridLayout.StartAxisName, StartAxisTracked, mode);
+        writer.AddField(JsonDefaults.GridLayout.ConstraintName, ConstraintTracked, mode);
+        writer.AddField(JsonDefaults.GridLayout.ConstraintCountName, ConstraintCountTracked, mode);
     }
 }

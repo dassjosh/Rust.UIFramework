@@ -9,13 +9,13 @@ public static class UiImageAnimationExt
 {
 	extension(Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IElementAnimation<Oxide.Ext.UiFramework.UiElements.UiImage>> animation)
 	{
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<Oxide.Ext.UiFramework.Colors.UiColor>> AnimateColor() => animation.AnimateField(static a => a.AsTrackable().Image.Color);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<float>> AnimateFadeIn() => animation.AnimateField(static a => a.AsTrackable().Image.FadeIn);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<string>> AnimateSprite() => animation.AnimateField(static a => a.AsTrackable().Image.Sprite);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<string>> AnimateMaterial() => animation.AnimateField(static a => a.AsTrackable().Image.Material);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<UnityEngine.UI.Image.Type>> AnimateImageType() => animation.AnimateField(static a => a.AsTrackable().Image.ImageType);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<Oxide.Ext.UiFramework.UiElements.UiReference>> AnimatePlaceholderFor() => animation.AnimateField(static a => a.AsTrackable().Image.PlaceholderFor);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<bool>> AnimateFillCenter() => animation.AnimateField(static a => a.AsTrackable().Image.FillCenter);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<Oxide.Ext.UiFramework.Colors.UiColor>> AnimateColor() => animation.AnimateField(static a => a.Image.ColorTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<float>> AnimateFadeIn() => animation.AnimateField(static a => a.Image.FadeInTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<string>> AnimateSprite() => animation.AnimateField(static a => a.Image.SpriteTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<string>> AnimateMaterial() => animation.AnimateField(static a => a.Image.MaterialTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<UnityEngine.UI.Image.Type>> AnimateImageType() => animation.AnimateField(static a => a.Image.ImageTypeTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<Oxide.Ext.UiFramework.UiElements.UiReference>> AnimatePlaceholderFor() => animation.AnimateField(static a => a.Image.PlaceholderForTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<bool>> AnimateFillCenter() => animation.AnimateField(static a => a.Image.FillCenterTracked);
 	}
 }
 

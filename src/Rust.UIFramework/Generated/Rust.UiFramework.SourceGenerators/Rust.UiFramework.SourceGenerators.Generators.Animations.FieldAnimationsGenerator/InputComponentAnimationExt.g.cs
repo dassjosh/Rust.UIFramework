@@ -9,11 +9,11 @@ public static class InputComponentAnimationExt
 {
 	extension(Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IComponentAnimation<Oxide.Ext.UiFramework.Components.InputComponent>> animation)
 	{
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<int>> AnimateCharsLimit() => animation.AnimateField(static a => a.AsTrackable().CharsLimit);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<string>> AnimateCommand() => animation.AnimateField(static a => a.AsTrackable().Command);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<Oxide.Ext.UiFramework.Enums.InputMode>> AnimateMode() => animation.AnimateField(static a => a.AsTrackable().Mode);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<UnityEngine.UI.InputField.LineType>> AnimateLineType() => animation.AnimateField(static a => a.AsTrackable().LineType);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<Oxide.Ext.UiFramework.UiElements.UiReference>> AnimatePlaceholder() => animation.AnimateField(static a => a.AsTrackable().Placeholder);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<int>> AnimateCharsLimit() => animation.AnimateField(static a => a.CharsLimitTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<string>> AnimateCommand() => animation.AnimateField(static a => a.CommandTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<Oxide.Ext.UiFramework.Enums.InputMode>> AnimateMode() => animation.AnimateField(static a => a.ModeTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<UnityEngine.UI.InputField.LineType>> AnimateLineType() => animation.AnimateField(static a => a.LineTypeTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<Oxide.Ext.UiFramework.UiElements.UiReference>> AnimatePlaceholder() => animation.AnimateField(static a => a.PlaceholderTracked);
 	}
 }
 

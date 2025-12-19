@@ -5,6 +5,7 @@ using Rust.UiFramework.SourceGenerators.Attributes;
 using Rust.UiFramework.SourceGenerators.Builder.Builders;
 using Rust.UiFramework.SourceGenerators.Builder.Extensions;
 using Rust.UiFramework.SourceGenerators.Extensions;
+using Rust.UiFramework.SourceGenerators.Flags;
 using Rust.UiFramework.SourceGenerators.Helpers;
 
 namespace Rust.UiFramework.SourceGenerators.Generators.Components;
@@ -19,7 +20,10 @@ public class ComponentInterfaceGenerator : BaseGenerator, IIncrementalGenerator
             SymbolCache.Initialize(compilation);
             GeneratorData data = new(classSymbol);
             spc.AddSource($"{data.ComponentInterfaceName}.g.cs", GenerateInterface(data));
-            spc.AddSource($"{data.TrackableInterfaceName}.g.cs", GenerateTrackableInterface(data));
+            if (GeneratorFlags.AddTrackableInterface)
+            {
+                spc.AddSource($"{data.TrackableInterfaceName}.g.cs", GenerateTrackableInterface(data));
+            }
         });
     }
     

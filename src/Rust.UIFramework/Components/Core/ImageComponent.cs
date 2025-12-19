@@ -38,12 +38,12 @@ public partial class ImageComponent : CoreComponent, IGraphicalComponent
 
     protected override void WriteComponentFields(JsonFrameworkWriter writer, SerializeMode mode)
     {
-        writer.AddField(JsonDefaults.BaseImage.SpriteName, _sprite, mode);
-        writer.AddField(JsonDefaults.Common.FadeInName, _fadeIn, mode);
-        writer.AddField(JsonDefaults.BaseImage.MaterialName, _material, mode);
-        writer.AddField(JsonDefaults.Color.ColorName, _color, mode);
-        writer.AddField(JsonDefaults.Image.ImageTypeName, _imageType, mode);
-        writer.AddField(JsonDefaults.Image.FillCenterName, _fillCenter, mode);
+        writer.AddField(JsonDefaults.BaseImage.SpriteName, SpriteTracked, mode);
+        writer.AddField(JsonDefaults.Common.FadeInName, FadeInTracked, mode);
+        writer.AddField(JsonDefaults.BaseImage.MaterialName, MaterialTracked, mode);
+        writer.AddField(JsonDefaults.Color.ColorName, ColorTracked, mode);
+        writer.AddField(JsonDefaults.Image.ImageTypeName, ImageTypeTracked, mode);
+        writer.AddField(JsonDefaults.Image.FillCenterName, FillCenterTracked, mode);
         if (PlaceholderFor.IsValidName())
         {
             writer.AddField(JsonDefaults.Common.PlaceholderInputId, PlaceholderFor.Name);

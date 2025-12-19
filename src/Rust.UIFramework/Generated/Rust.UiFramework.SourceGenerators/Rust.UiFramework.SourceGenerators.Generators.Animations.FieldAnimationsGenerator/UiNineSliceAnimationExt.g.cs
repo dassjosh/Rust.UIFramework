@@ -9,8 +9,8 @@ public static class UiNineSliceAnimationExt
 {
 	extension(Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IElementAnimation<Oxide.Ext.UiFramework.UiElements.UiNineSlice>> animation)
 	{
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<string>> AnimatePng() => animation.AnimateField(static a => a.AsTrackable().Image.Png);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<Oxide.Ext.UiFramework.Types.UiBorderWidth>> AnimateSlice() => animation.AnimateField(static a => a.AsTrackable().Image.Slice);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<string>> AnimatePng() => animation.AnimateField(static a => a.Image.PngTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<Oxide.Ext.UiFramework.Types.UiBorderWidth>> AnimateSlice() => animation.AnimateField(static a => a.Image.SliceTracked);
 	}
 }
 

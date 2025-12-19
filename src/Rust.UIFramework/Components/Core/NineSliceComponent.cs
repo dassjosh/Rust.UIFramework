@@ -18,14 +18,14 @@ public partial class NineSliceComponent : ImageComponent
 
     public NineSliceComponent()
     {
-        _fillCenter.OverrideDefault(false);
-        _imageType.OverrideDefault(Image.Type.Sliced);
+        FillCenterTracked.OverrideDefault(false);
+        ImageTypeTracked.OverrideDefault(Image.Type.Sliced);
     }
     
     protected override void WriteComponentFields(JsonFrameworkWriter writer, SerializeMode mode)
     {
         base.WriteComponentFields(writer, mode);
-        writer.AddField(JsonDefaults.Image.PngName, _png, mode);
-        writer.AddField(JsonDefaults.Image.SliceName, _slice, mode);
+        writer.AddField(JsonDefaults.Image.PngName, PngTracked, mode);
+        writer.AddField(JsonDefaults.Image.SliceName, SliceTracked, mode);
     }
 }

@@ -9,8 +9,8 @@ public static class PlayerAvatarComponentAnimationExt
 {
 	extension(Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IComponentAnimation<Oxide.Ext.UiFramework.Components.PlayerAvatarComponent>> animation)
 	{
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<ulong>> AnimateSteamId() => animation.AnimateField(static a => a.AsTrackable().SteamId);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<Oxide.Ext.UiFramework.Enums.AvatarType>> AnimateAvatarType() => animation.AnimateField(static a => a.AsTrackable().AvatarType);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<ulong>> AnimateSteamId() => animation.AnimateField(static a => a.SteamIdTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<Oxide.Ext.UiFramework.Enums.AvatarType>> AnimateAvatarType() => animation.AnimateField(static a => a.AvatarTypeTracked);
 	}
 }
 

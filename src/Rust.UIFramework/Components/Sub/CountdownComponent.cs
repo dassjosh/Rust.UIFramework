@@ -38,13 +38,13 @@ public partial class CountdownComponent : SubComponent
 
     protected override void WriteComponentFields(JsonFrameworkWriter writer, SerializeMode mode)
     {
-        writer.AddField(JsonDefaults.Countdown.StartTimeName, _startTime, mode);
-        writer.AddField(JsonDefaults.Countdown.EndTimeName, _endTime, mode);
-        writer.AddField(JsonDefaults.Countdown.StepName, _step, mode);
-        writer.AddField(JsonDefaults.Countdown.IntervalName, _interval, mode);
-        writer.AddField(JsonDefaults.Countdown.TimerFormatName, _timerFormat, mode);
-        writer.AddField(JsonDefaults.Countdown.NumberFormatName, _numberFormat, mode);
-        writer.AddField(JsonDefaults.Countdown.DestroyIfDoneName, _destroyIfDone, mode);
-        writer.AddField(JsonDefaults.Countdown.CountdownCommandName, _command, mode);
+        writer.AddField(JsonDefaults.Countdown.StartTimeName, StartTimeTracked, mode);
+        writer.AddField(JsonDefaults.Countdown.EndTimeName, EndTimeTracked, mode);
+        writer.AddField(JsonDefaults.Countdown.StepName, StepTracked, mode);
+        writer.AddField(JsonDefaults.Countdown.IntervalName, IntervalTracked, mode);
+        writer.AddField(JsonDefaults.Countdown.TimerFormatName, TimerFormatTracked, mode);
+        writer.AddField(JsonDefaults.Countdown.NumberFormatName, NumberFormatTracked, mode);
+        writer.AddField(JsonDefaults.Countdown.DestroyIfDoneName, DestroyIfDoneTracked, mode);
+        writer.AddField(JsonDefaults.Countdown.CountdownCommandName, CommandTracked, mode);
     }
 }

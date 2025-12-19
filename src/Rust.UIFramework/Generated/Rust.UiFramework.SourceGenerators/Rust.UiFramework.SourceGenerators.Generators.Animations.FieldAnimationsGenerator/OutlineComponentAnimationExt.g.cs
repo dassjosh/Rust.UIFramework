@@ -9,9 +9,9 @@ public static class OutlineComponentAnimationExt
 {
 	extension(Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IComponentAnimation<Oxide.Ext.UiFramework.Components.OutlineComponent>> animation)
 	{
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<Oxide.Ext.UiFramework.Colors.UiColor>> AnimateColor() => animation.AnimateField(static a => a.AsTrackable().Color);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<UnityEngine.Vector2>> AnimateDistance() => animation.AnimateField(static a => a.AsTrackable().Distance);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<bool>> AnimateUseGraphicAlpha() => animation.AnimateField(static a => a.AsTrackable().UseGraphicAlpha);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<Oxide.Ext.UiFramework.Colors.UiColor>> AnimateColor() => animation.AnimateField(static a => a.ColorTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<UnityEngine.Vector2>> AnimateDistance() => animation.AnimateField(static a => a.DistanceTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<bool>> AnimateUseGraphicAlpha() => animation.AnimateField(static a => a.UseGraphicAlphaTracked);
 	}
 }
 

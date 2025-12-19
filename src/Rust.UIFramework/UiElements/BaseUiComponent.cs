@@ -88,8 +88,8 @@ public abstract partial class BaseUiComponent : BasePoolable
         {
             writer.AddField(JsonDefaults.Common.ParentName, Reference.Parent);
         }
-        writer.AddField(JsonDefaults.Common.FadeOutName, _fadeOut, mode);
-        writer.AddField(JsonDefaults.Common.ActiveName, _active, mode);
+        writer.AddField(JsonDefaults.Common.FadeOutName, FadeOutTracked, mode);
+        writer.AddField(JsonDefaults.Common.ActiveName, ActiveTracked, mode);
         switch (Update)
         {
             case UpdateMode.Replace:
@@ -174,21 +174,21 @@ public abstract partial class BaseUiComponent : BasePoolable
 
     protected override void EnterPool() => Reset();
 
-    public bool HasChanged() => Component.HasChanged() || _fadeOut.HasChanged || _active.HasChanged;
+    public bool HasChanged() => Component.HasChanged() || FadeOutTracked.HasChanged || ActiveTracked.HasChanged;
     
     public void ResetHasChanged()
     {
         Component.ResetHasChanged();
-        _fadeOut.ResetHasChanged();
-        _active.ResetHasChanged();
+        FadeOutTracked.ResetHasChanged();
+        ActiveTracked.ResetHasChanged();
     }
     
     public void Reset()
     {
         Reference = default;
         Update = default;
-        _fadeOut.Reset();
-        _active.Reset();
+        FadeOutTracked.Reset();
+        ActiveTracked.Reset();
         Component.Reset();
         _rectTransform = null;
     }

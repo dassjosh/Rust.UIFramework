@@ -9,12 +9,12 @@ public static class GridLayoutComponentAnimationExt
 {
 	extension(Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IComponentAnimation<Oxide.Ext.UiFramework.Components.GridLayoutComponent>> animation)
 	{
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<UnityEngine.Vector2>> AnimateCellSize() => animation.AnimateField(static a => a.AsTrackable().CellSize);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<UnityEngine.Vector2>> AnimateSpacing() => animation.AnimateField(static a => a.AsTrackable().Spacing);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<UnityEngine.UI.GridLayoutGroup.Corner>> AnimateStartCorner() => animation.AnimateField(static a => a.AsTrackable().StartCorner);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<UnityEngine.UI.GridLayoutGroup.Axis>> AnimateStartAxis() => animation.AnimateField(static a => a.AsTrackable().StartAxis);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<UnityEngine.UI.GridLayoutGroup.Constraint>> AnimateConstraint() => animation.AnimateField(static a => a.AsTrackable().Constraint);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<int>> AnimateConstraintCount() => animation.AnimateField(static a => a.AsTrackable().ConstraintCount);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<UnityEngine.Vector2>> AnimateCellSize() => animation.AnimateField(static a => a.CellSizeTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<UnityEngine.Vector2>> AnimateSpacing() => animation.AnimateField(static a => a.SpacingTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<UnityEngine.UI.GridLayoutGroup.Corner>> AnimateStartCorner() => animation.AnimateField(static a => a.StartCornerTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<UnityEngine.UI.GridLayoutGroup.Axis>> AnimateStartAxis() => animation.AnimateField(static a => a.StartAxisTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<UnityEngine.UI.GridLayoutGroup.Constraint>> AnimateConstraint() => animation.AnimateField(static a => a.ConstraintTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<int>> AnimateConstraintCount() => animation.AnimateField(static a => a.ConstraintCountTracked);
 	}
 }
 

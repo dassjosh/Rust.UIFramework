@@ -9,9 +9,9 @@ public static class ScrollViewContentComponentAnimationExt
 {
 	extension(Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IComponentAnimation<Oxide.Ext.UiFramework.Components.ScrollViewContentComponent>> animation)
 	{
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<Oxide.Ext.UiFramework.Positions.UiPosition>> AnimatePosition() => animation.AnimateField(static a => a.AsTrackable().Position);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<Oxide.Ext.UiFramework.Offsets.UiOffset>> AnimateOffset() => animation.AnimateField(static a => a.AsTrackable().Offset);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<UnityEngine.Vector2>> AnimatePivot() => animation.AnimateField(static a => a.AsTrackable().Pivot);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<Oxide.Ext.UiFramework.Positions.UiPosition>> AnimatePosition() => animation.AnimateField(static a => a.PositionTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<Oxide.Ext.UiFramework.Offsets.UiOffset>> AnimateOffset() => animation.AnimateField(static a => a.OffsetTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<UnityEngine.Vector2>> AnimatePivot() => animation.AnimateField(static a => a.PivotTracked);
 	}
 }
 

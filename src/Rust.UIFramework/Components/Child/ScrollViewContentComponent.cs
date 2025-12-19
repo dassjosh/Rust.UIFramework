@@ -25,7 +25,7 @@ public partial class ScrollViewContentComponent : ChildComponent
         writer.WriteStartObject();
         writer.AddField(Position, mode);
         writer.AddField(Offset, mode);
-        writer.AddField(JsonDefaults.ScrollView.PivotName, _pivot, mode);
+        writer.AddField(JsonDefaults.ScrollView.PivotName, PivotTracked, mode);
         writer.WriteEndObject();
     }
     

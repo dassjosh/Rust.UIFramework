@@ -22,7 +22,7 @@ public partial class ContentSizeFitterComponent : SubComponent
 
     protected override void WriteComponentFields(JsonFrameworkWriter writer, SerializeMode mode)
     {
-        writer.AddField(JsonDefaults.ContentSizeFitterData.HorizontalFitName, _horizontalFit, mode);
-        writer.AddField(JsonDefaults.ContentSizeFitterData.VerticalFitName, _verticalFit, mode);
+        writer.AddField(JsonDefaults.ContentSizeFitterData.HorizontalFitName, HorizontalFitTracked, mode);
+        writer.AddField(JsonDefaults.ContentSizeFitterData.VerticalFitName, VerticalFitTracked, mode);
     }
 }

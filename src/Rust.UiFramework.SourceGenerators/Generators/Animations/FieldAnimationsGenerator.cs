@@ -28,7 +28,7 @@ public class FieldAnimationsGenerator : BaseGenerator, IIncrementalGenerator
         
         context.Register<ClassDeclarationSyntax, GenerateComponentAttribute>((spc, compilation, @class, classSymbol, attribute) =>
         {
-            if (!classSymbol.IsAbstract && !IgnoredSubComponents.Contains(classSymbol.Name))
+            if (!IgnoredSubComponents.Contains(classSymbol.Name))
             {
                 SymbolCache.Initialize(compilation);
                 ComponentGeneratorData data = new(classSymbol);
@@ -48,13 +48,29 @@ public class FieldAnimationsGenerator : BaseGenerator, IIncrementalGenerator
                         .Name("animation"))
                 
                     .Methods(genData.PartialProperties, (p, m) => m.Public().Returns(SymbolCache.Instance.Animations.AnimationRef.Symbol.Construct(SymbolCache.Instance.Animations.IFieldAnimation.Symbol.Construct(p.Type))).Name($"Animate{p.Name}")
-                        .Body($"return animation.AnimateField(static a => a.AsTrackable().{genData.ComponentField.Name}.{p.Name});"))
+                        .Body($"return animation.AnimateField(static a => a.{genData.ComponentField.Name}.{p.Symbol.TrackedFieldName()});"))
                 ))
             .Build();
     }
     
     private string GenerateSubComponent(INamedTypeSymbol classSymbol, ComponentGeneratorData genData)
     {
+        if (classSymbol.IsAbstract)
+        {
+            return new CodeBuilder()
+                .Usings([])
+                .Namespace("Oxide.Ext.UiFramework.Animation")
+                .Add(t => t.Public().Static().Class().Name($"{classSymbol.Name}AnimationExt")
+                    .Extension(e => e.AddGeneric("T", out string genericT).Where(w => w.Type(genericT).Constrain(classSymbol))
+                        .AddParameter(p => p.Type(SymbolCache.Instance.Animations.AnimationRef.Symbol.AsGeneric(SymbolCache.Instance.Animations.IComponentAnimation.Symbol.AsGeneric(genericT)))
+                            .Name("animation"))
+                
+                        .Methods(genData.PartialProperties, (p, m) => m.Public().Returns(SymbolCache.Instance.Animations.AnimationRef.Symbol.Construct(SymbolCache.Instance.Animations.IFieldAnimation.Symbol.Construct(p.Type))).Name($"Animate{p.Name}")
+                            .Body($"return animation.AnimateField(static a => a.{p.Symbol.TrackedFieldName()});"))
+                    ))
+                .Build();
+        }
+        
         return new CodeBuilder()
             .Usings([])
             .Namespace("Oxide.Ext.UiFramework.Animation")
@@ -64,7 +80,7 @@ public class FieldAnimationsGenerator : BaseGenerator, IIncrementalGenerator
                         .Name("animation"))
                 
                     .Methods(genData.PartialProperties, (p, m) => m.Public().Returns(SymbolCache.Instance.Animations.AnimationRef.Symbol.Construct(SymbolCache.Instance.Animations.IFieldAnimation.Symbol.Construct(p.Type))).Name($"Animate{p.Name}")
-                        .Body($"return animation.AnimateField(static a => a.AsTrackable().{p.Name});"))
+                        .Body($"return animation.AnimateField(static a => a.{p.Symbol.TrackedFieldName()});"))
                 ))
             .Build();
     }
@@ -93,6 +109,7 @@ public class FieldAnimationsGenerator : BaseGenerator, IIncrementalGenerator
     
     private sealed class PropertyData(IPropertySymbol property)
     {
+        public readonly IPropertySymbol Symbol = property;
         public readonly string Name = property.Name;
         public readonly ITypeSymbol Type = property.Type;
     }

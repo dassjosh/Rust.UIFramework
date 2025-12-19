@@ -9,14 +9,14 @@ public static class CountdownComponentAnimationExt
 {
 	extension(Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IComponentAnimation<Oxide.Ext.UiFramework.Components.CountdownComponent>> animation)
 	{
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<float>> AnimateStartTime() => animation.AnimateField(static a => a.AsTrackable().StartTime);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<float>> AnimateEndTime() => animation.AnimateField(static a => a.AsTrackable().EndTime);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<float>> AnimateStep() => animation.AnimateField(static a => a.AsTrackable().Step);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<float>> AnimateInterval() => animation.AnimateField(static a => a.AsTrackable().Interval);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<Oxide.Ext.UiFramework.Enums.TimerFormat>> AnimateTimerFormat() => animation.AnimateField(static a => a.AsTrackable().TimerFormat);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<string>> AnimateNumberFormat() => animation.AnimateField(static a => a.AsTrackable().NumberFormat);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<bool>> AnimateDestroyIfDone() => animation.AnimateField(static a => a.AsTrackable().DestroyIfDone);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<string>> AnimateCommand() => animation.AnimateField(static a => a.AsTrackable().Command);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<float>> AnimateStartTime() => animation.AnimateField(static a => a.StartTimeTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<float>> AnimateEndTime() => animation.AnimateField(static a => a.EndTimeTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<float>> AnimateStep() => animation.AnimateField(static a => a.StepTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<float>> AnimateInterval() => animation.AnimateField(static a => a.IntervalTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<Oxide.Ext.UiFramework.Enums.TimerFormat>> AnimateTimerFormat() => animation.AnimateField(static a => a.TimerFormatTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<string>> AnimateNumberFormat() => animation.AnimateField(static a => a.NumberFormatTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<bool>> AnimateDestroyIfDone() => animation.AnimateField(static a => a.DestroyIfDoneTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<string>> AnimateCommand() => animation.AnimateField(static a => a.CommandTracked);
 	}
 }
 

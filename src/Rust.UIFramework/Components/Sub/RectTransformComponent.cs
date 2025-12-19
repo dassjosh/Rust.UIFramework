@@ -49,26 +49,26 @@ public partial class RectTransformComponent : SubComponent
     
     protected override void WriteComponentFields(JsonFrameworkWriter writer, SerializeMode mode)
     {
-        if (_position.ShouldSerialize(mode) 
-            || _positionPadding.ShouldSerialize(mode) 
-            || _positionScale.ShouldSerialize(mode) 
-            || _positionTranslate.ShouldSerialize(mode))
+        if (PositionTracked.ShouldSerialize(mode) 
+            || PositionPaddingTracked.ShouldSerialize(mode) 
+            || PositionScaleTracked.ShouldSerialize(mode) 
+            || PositionTranslateTracked.ShouldSerialize(mode))
         {
             UiPosition position = Position.Translate(PositionTranslate).Scale(PositionScale).WithPadding(PositionPadding);
             writer.AddField(position, mode);
         }
         
-        if (_offset.ShouldSerialize(mode) 
-            || _offsetPadding.ShouldSerialize(mode) 
-            || _offsetScale.ShouldSerialize(mode) 
-            || _offsetTranslate.ShouldSerialize(mode))
+        if (OffsetTracked.ShouldSerialize(mode) 
+            || OffsetPaddingTracked.ShouldSerialize(mode) 
+            || OffsetScaleTracked.ShouldSerialize(mode) 
+            || OffsetTranslateTracked.ShouldSerialize(mode))
         {
             UiOffset offset = Offset.Translate(OffsetTranslate).Scale(OffsetScale).WithPadding(OffsetPadding);
             writer.AddField(offset, mode);
         }
         
-        writer.AddField(JsonDefaults.RectTransform.RotationName, _rotation, mode);
-        writer.AddField(JsonDefaults.RectTransform.SetParentName, _changeParent, mode);
-        writer.AddField(JsonDefaults.RectTransform.SetTransformIndexName, _transformIndex, mode);
+        writer.AddField(JsonDefaults.RectTransform.RotationName, RotationTracked, mode);
+        writer.AddField(JsonDefaults.RectTransform.SetParentName, ChangeParentTracked, mode);
+        writer.AddField(JsonDefaults.RectTransform.SetTransformIndexName, TransformIndexTracked, mode);
     }
 }

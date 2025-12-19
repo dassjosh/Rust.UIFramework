@@ -198,6 +198,14 @@ public sealed partial class JsonFrameworkWriter : BasePoolable
         }
     }
     
+    public void AddKeyField(Utf8String name, Tracked<bool> value, SerializeMode mode)
+    {
+        if (value.ShouldSerialize(mode) && value.Value)
+        {
+            AddKeyField(name);
+        }
+    }
+    
     public void AddTextField(Utf8String name, string value)
     {
         WritePropertyName(name);

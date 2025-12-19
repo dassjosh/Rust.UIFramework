@@ -26,12 +26,12 @@ public partial class PlayingCardComponent : CoreComponent, IGraphicalComponent
 
     protected override void WriteComponentFields(JsonFrameworkWriter writer, SerializeMode mode)
     {
-        if (_suit.ShouldSerialize(mode) || _rank.ShouldSerialize(mode) || _cardType.ShouldSerialize(mode))
+        if (SuitTracked.ShouldSerialize(mode) || RankTracked.ShouldSerialize(mode) || CardTypeTracked.ShouldSerialize(mode))
         {
             writer.AddField(JsonDefaults.BaseImage.SpriteName, UiPlayingCards.GetPlayingCard(Suit, Rank, CardType));
         }
-        writer.AddField(JsonDefaults.BaseImage.MaterialName, _material, mode);
-        writer.AddField(JsonDefaults.Color.ColorName, _color, mode);
-        writer.AddField(JsonDefaults.Common.FadeInName, _fadeIn, mode);
+        writer.AddField(JsonDefaults.BaseImage.MaterialName, MaterialTracked, mode);
+        writer.AddField(JsonDefaults.Color.ColorName, ColorTracked, mode);
+        writer.AddField(JsonDefaults.Common.FadeInName, FadeInTracked, mode);
     }
 }

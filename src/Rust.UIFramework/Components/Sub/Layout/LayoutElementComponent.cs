@@ -36,12 +36,12 @@ public partial class LayoutElementComponent : SubComponent
     
     protected override void WriteComponentFields(JsonFrameworkWriter writer, SerializeMode mode)
     {
-        writer.AddField(JsonDefaults.LayoutElement.PreferredWidthName, _preferredWidth, mode);
-        writer.AddField(JsonDefaults.LayoutElement.PreferredHeightName, _preferredHeight, mode);
-        writer.AddField(JsonDefaults.LayoutElement.MinWidthName, _minWidth, mode);
-        writer.AddField(JsonDefaults.LayoutElement.MinHeightName, _minHeight, mode);
-        writer.AddField(JsonDefaults.LayoutElement.FlexibleWidthName, _flexibleWidth, mode);
-        writer.AddField(JsonDefaults.LayoutElement.FlexibleHeightName, _flexibleHeight, mode);
-        writer.AddField(JsonDefaults.LayoutElement.IgnoreLayoutName, _ignoreLayout, mode);
+        writer.AddField(JsonDefaults.LayoutElement.PreferredWidthName, PreferredWidthTracked, mode);
+        writer.AddField(JsonDefaults.LayoutElement.PreferredHeightName, PreferredHeightTracked, mode);
+        writer.AddField(JsonDefaults.LayoutElement.MinWidthName, MinWidthTracked, mode);
+        writer.AddField(JsonDefaults.LayoutElement.MinHeightName, MinHeightTracked, mode);
+        writer.AddField(JsonDefaults.LayoutElement.FlexibleWidthName, FlexibleWidthTracked, mode);
+        writer.AddField(JsonDefaults.LayoutElement.FlexibleHeightName, FlexibleHeightTracked, mode);
+        writer.AddField(JsonDefaults.LayoutElement.IgnoreLayoutName, IgnoreLayoutTracked, mode);
     }
 }

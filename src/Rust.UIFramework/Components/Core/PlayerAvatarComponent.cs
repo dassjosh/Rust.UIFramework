@@ -21,7 +21,7 @@ public partial class PlayerAvatarComponent : RawImageComponent
 
     protected override void WriteComponentFields(JsonFrameworkWriter writer, SerializeMode mode)
     {
-        if (_steamId.ShouldSerialize(mode) || _avatarType.ShouldSerialize(mode))
+        if (SteamIdTracked.ShouldSerialize(mode) || AvatarTypeTracked.ShouldSerialize(mode))
         {
             switch (AvatarType)
             {

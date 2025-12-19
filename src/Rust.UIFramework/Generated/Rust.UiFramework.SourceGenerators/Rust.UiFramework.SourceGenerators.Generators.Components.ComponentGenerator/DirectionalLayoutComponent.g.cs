@@ -8,60 +8,60 @@ namespace Oxide.Ext.UiFramework.Components;
 
 public partial class DirectionalLayoutComponent : IDirectionalLayoutComponent, IDirectionalLayoutComponentTrackable
 {
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<float> _spacing = new(Oxide.Ext.UiFramework.Json.JsonDefaults.DirectionalLayout.Spacing);
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<bool> _childForceExpandWidth = new(Oxide.Ext.UiFramework.Json.JsonDefaults.DirectionalLayout.ChildForceExpandWidth);
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<bool> _childForceExpandHeight = new(Oxide.Ext.UiFramework.Json.JsonDefaults.DirectionalLayout.ChildForceExpandHeight);
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<bool> _childControlWidth = new(Oxide.Ext.UiFramework.Json.JsonDefaults.DirectionalLayout.ChildControlWidth);
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<bool> _childControlHeight = new(Oxide.Ext.UiFramework.Json.JsonDefaults.DirectionalLayout.ChildControlHeight);
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<bool> _childScaleWidth = new(Oxide.Ext.UiFramework.Json.JsonDefaults.DirectionalLayout.ChildScaleWidth);
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<bool> _childScaleHeight = new(Oxide.Ext.UiFramework.Json.JsonDefaults.DirectionalLayout.ChildScaleHeight);
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Enums.LayoutDirection> _direction = new();
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<float> SpacingTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.DirectionalLayout.Spacing);
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<bool> ChildForceExpandWidthTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.DirectionalLayout.ChildForceExpandWidth);
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<bool> ChildForceExpandHeightTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.DirectionalLayout.ChildForceExpandHeight);
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<bool> ChildControlWidthTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.DirectionalLayout.ChildControlWidth);
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<bool> ChildControlHeightTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.DirectionalLayout.ChildControlHeight);
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<bool> ChildScaleWidthTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.DirectionalLayout.ChildScaleWidth);
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<bool> ChildScaleHeightTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.DirectionalLayout.ChildScaleHeight);
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Enums.LayoutDirection> DirectionTracked = new();
 
-	public partial float Spacing { get => _spacing.Value; set => _spacing.Value = value; }
-	public partial bool ChildForceExpandWidth { get => _childForceExpandWidth.Value; set => _childForceExpandWidth.Value = value; }
-	public partial bool ChildForceExpandHeight { get => _childForceExpandHeight.Value; set => _childForceExpandHeight.Value = value; }
-	public partial bool ChildControlWidth { get => _childControlWidth.Value; set => _childControlWidth.Value = value; }
-	public partial bool ChildControlHeight { get => _childControlHeight.Value; set => _childControlHeight.Value = value; }
-	public partial bool ChildScaleWidth { get => _childScaleWidth.Value; set => _childScaleWidth.Value = value; }
-	public partial bool ChildScaleHeight { get => _childScaleHeight.Value; set => _childScaleHeight.Value = value; }
-	public partial Oxide.Ext.UiFramework.Enums.LayoutDirection Direction { get => _direction.Value; set => _direction.Value = value; }
-	Oxide.Ext.UiFramework.Types.Tracked<float> IDirectionalLayoutComponentTrackable.Spacing => _spacing;
-	Oxide.Ext.UiFramework.Types.Tracked<bool> IDirectionalLayoutComponentTrackable.ChildForceExpandWidth => _childForceExpandWidth;
-	Oxide.Ext.UiFramework.Types.Tracked<bool> IDirectionalLayoutComponentTrackable.ChildForceExpandHeight => _childForceExpandHeight;
-	Oxide.Ext.UiFramework.Types.Tracked<bool> IDirectionalLayoutComponentTrackable.ChildControlWidth => _childControlWidth;
-	Oxide.Ext.UiFramework.Types.Tracked<bool> IDirectionalLayoutComponentTrackable.ChildControlHeight => _childControlHeight;
-	Oxide.Ext.UiFramework.Types.Tracked<bool> IDirectionalLayoutComponentTrackable.ChildScaleWidth => _childScaleWidth;
-	Oxide.Ext.UiFramework.Types.Tracked<bool> IDirectionalLayoutComponentTrackable.ChildScaleHeight => _childScaleHeight;
-	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Enums.LayoutDirection> IDirectionalLayoutComponentTrackable.Direction => _direction;
+	public partial float Spacing { get => SpacingTracked.Value; set => SpacingTracked.Value = value; }
+	public partial bool ChildForceExpandWidth { get => ChildForceExpandWidthTracked.Value; set => ChildForceExpandWidthTracked.Value = value; }
+	public partial bool ChildForceExpandHeight { get => ChildForceExpandHeightTracked.Value; set => ChildForceExpandHeightTracked.Value = value; }
+	public partial bool ChildControlWidth { get => ChildControlWidthTracked.Value; set => ChildControlWidthTracked.Value = value; }
+	public partial bool ChildControlHeight { get => ChildControlHeightTracked.Value; set => ChildControlHeightTracked.Value = value; }
+	public partial bool ChildScaleWidth { get => ChildScaleWidthTracked.Value; set => ChildScaleWidthTracked.Value = value; }
+	public partial bool ChildScaleHeight { get => ChildScaleHeightTracked.Value; set => ChildScaleHeightTracked.Value = value; }
+	public partial Oxide.Ext.UiFramework.Enums.LayoutDirection Direction { get => DirectionTracked.Value; set => DirectionTracked.Value = value; }
+	Oxide.Ext.UiFramework.Types.Tracked<float> IDirectionalLayoutComponentTrackable.Spacing => SpacingTracked;
+	Oxide.Ext.UiFramework.Types.Tracked<bool> IDirectionalLayoutComponentTrackable.ChildForceExpandWidth => ChildForceExpandWidthTracked;
+	Oxide.Ext.UiFramework.Types.Tracked<bool> IDirectionalLayoutComponentTrackable.ChildForceExpandHeight => ChildForceExpandHeightTracked;
+	Oxide.Ext.UiFramework.Types.Tracked<bool> IDirectionalLayoutComponentTrackable.ChildControlWidth => ChildControlWidthTracked;
+	Oxide.Ext.UiFramework.Types.Tracked<bool> IDirectionalLayoutComponentTrackable.ChildControlHeight => ChildControlHeightTracked;
+	Oxide.Ext.UiFramework.Types.Tracked<bool> IDirectionalLayoutComponentTrackable.ChildScaleWidth => ChildScaleWidthTracked;
+	Oxide.Ext.UiFramework.Types.Tracked<bool> IDirectionalLayoutComponentTrackable.ChildScaleHeight => ChildScaleHeightTracked;
+	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Enums.LayoutDirection> IDirectionalLayoutComponentTrackable.Direction => DirectionTracked;
 
 	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 	internal IDirectionalLayoutComponentTrackable AsTrackable() => this;
-	public override bool HasChanged() => false || (_spacing.HasChanged || _childForceExpandWidth.HasChanged || _childForceExpandHeight.HasChanged || _childControlWidth.HasChanged || _childControlHeight.HasChanged || _childScaleWidth.HasChanged || _childScaleHeight.HasChanged || _direction.HasChanged) || base.HasChanged();
+	public override bool HasChanged() => false || (SpacingTracked.HasChanged || ChildForceExpandWidthTracked.HasChanged || ChildForceExpandHeightTracked.HasChanged || ChildControlWidthTracked.HasChanged || ChildControlHeightTracked.HasChanged || ChildScaleWidthTracked.HasChanged || ChildScaleHeightTracked.HasChanged || DirectionTracked.HasChanged) || base.HasChanged();
 
 	public override void ResetHasChanged()
 	{
 		base.ResetHasChanged();
-		_spacing.ResetHasChanged();
-		_childForceExpandWidth.ResetHasChanged();
-		_childForceExpandHeight.ResetHasChanged();
-		_childControlWidth.ResetHasChanged();
-		_childControlHeight.ResetHasChanged();
-		_childScaleWidth.ResetHasChanged();
-		_childScaleHeight.ResetHasChanged();
-		_direction.ResetHasChanged();
+		SpacingTracked.ResetHasChanged();
+		ChildForceExpandWidthTracked.ResetHasChanged();
+		ChildForceExpandHeightTracked.ResetHasChanged();
+		ChildControlWidthTracked.ResetHasChanged();
+		ChildControlHeightTracked.ResetHasChanged();
+		ChildScaleWidthTracked.ResetHasChanged();
+		ChildScaleHeightTracked.ResetHasChanged();
+		DirectionTracked.ResetHasChanged();
 	}
 
 	public override void Reset()
 	{
 		base.Reset();
-		_spacing.Reset();
-		_childForceExpandWidth.Reset();
-		_childForceExpandHeight.Reset();
-		_childControlWidth.Reset();
-		_childControlHeight.Reset();
-		_childScaleWidth.Reset();
-		_childScaleHeight.Reset();
-		_direction.Reset();
+		SpacingTracked.Reset();
+		ChildForceExpandWidthTracked.Reset();
+		ChildForceExpandHeightTracked.Reset();
+		ChildControlWidthTracked.Reset();
+		ChildControlHeightTracked.Reset();
+		ChildScaleWidthTracked.Reset();
+		ChildScaleHeightTracked.Reset();
+		DirectionTracked.Reset();
 	}
 }
 

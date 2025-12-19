@@ -8,55 +8,55 @@ namespace Oxide.Ext.UiFramework.Components;
 
 public partial class LayoutElementComponent : ILayoutElementComponent, ILayoutElementComponentTrackable
 {
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<float> _preferredWidth = new(Oxide.Ext.UiFramework.Json.JsonDefaults.LayoutElement.PreferredWidth);
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<float> _preferredHeight = new(Oxide.Ext.UiFramework.Json.JsonDefaults.LayoutElement.PreferredHeight);
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<float> _minWidth = new(Oxide.Ext.UiFramework.Json.JsonDefaults.LayoutElement.MinWidth, Oxide.Ext.UiFramework.Json.JsonDefaults.LayoutElement.FpMinWidth);
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<float> _minHeight = new(Oxide.Ext.UiFramework.Json.JsonDefaults.LayoutElement.MinHeight, Oxide.Ext.UiFramework.Json.JsonDefaults.LayoutElement.FpMinHeight);
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<float> _flexibleWidth = new(Oxide.Ext.UiFramework.Json.JsonDefaults.LayoutElement.FlexibleWidth, Oxide.Ext.UiFramework.Json.JsonDefaults.LayoutElement.FpFlexibleWidth);
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<float> _flexibleHeight = new(Oxide.Ext.UiFramework.Json.JsonDefaults.LayoutElement.FlexibleHeight, Oxide.Ext.UiFramework.Json.JsonDefaults.LayoutElement.FpFlexibleHeight);
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<bool> _ignoreLayout = new(Oxide.Ext.UiFramework.Json.JsonDefaults.LayoutElement.IgnoreLayout);
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<float> PreferredWidthTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.LayoutElement.PreferredWidth);
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<float> PreferredHeightTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.LayoutElement.PreferredHeight);
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<float> MinWidthTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.LayoutElement.MinWidth, Oxide.Ext.UiFramework.Json.JsonDefaults.LayoutElement.FpMinWidth);
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<float> MinHeightTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.LayoutElement.MinHeight, Oxide.Ext.UiFramework.Json.JsonDefaults.LayoutElement.FpMinHeight);
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<float> FlexibleWidthTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.LayoutElement.FlexibleWidth, Oxide.Ext.UiFramework.Json.JsonDefaults.LayoutElement.FpFlexibleWidth);
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<float> FlexibleHeightTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.LayoutElement.FlexibleHeight, Oxide.Ext.UiFramework.Json.JsonDefaults.LayoutElement.FpFlexibleHeight);
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<bool> IgnoreLayoutTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.LayoutElement.IgnoreLayout);
 
-	public partial float PreferredWidth { get => _preferredWidth.Value; set => _preferredWidth.Value = value; }
-	public partial float PreferredHeight { get => _preferredHeight.Value; set => _preferredHeight.Value = value; }
-	public partial float MinWidth { get => _minWidth.Value; set => _minWidth.Value = value; }
-	public partial float MinHeight { get => _minHeight.Value; set => _minHeight.Value = value; }
-	public partial float FlexibleWidth { get => _flexibleWidth.Value; set => _flexibleWidth.Value = value; }
-	public partial float FlexibleHeight { get => _flexibleHeight.Value; set => _flexibleHeight.Value = value; }
-	public partial bool IgnoreLayout { get => _ignoreLayout.Value; set => _ignoreLayout.Value = value; }
-	Oxide.Ext.UiFramework.Types.Tracked<float> ILayoutElementComponentTrackable.PreferredWidth => _preferredWidth;
-	Oxide.Ext.UiFramework.Types.Tracked<float> ILayoutElementComponentTrackable.PreferredHeight => _preferredHeight;
-	Oxide.Ext.UiFramework.Types.Tracked<float> ILayoutElementComponentTrackable.MinWidth => _minWidth;
-	Oxide.Ext.UiFramework.Types.Tracked<float> ILayoutElementComponentTrackable.MinHeight => _minHeight;
-	Oxide.Ext.UiFramework.Types.Tracked<float> ILayoutElementComponentTrackable.FlexibleWidth => _flexibleWidth;
-	Oxide.Ext.UiFramework.Types.Tracked<float> ILayoutElementComponentTrackable.FlexibleHeight => _flexibleHeight;
-	Oxide.Ext.UiFramework.Types.Tracked<bool> ILayoutElementComponentTrackable.IgnoreLayout => _ignoreLayout;
+	public partial float PreferredWidth { get => PreferredWidthTracked.Value; set => PreferredWidthTracked.Value = value; }
+	public partial float PreferredHeight { get => PreferredHeightTracked.Value; set => PreferredHeightTracked.Value = value; }
+	public partial float MinWidth { get => MinWidthTracked.Value; set => MinWidthTracked.Value = value; }
+	public partial float MinHeight { get => MinHeightTracked.Value; set => MinHeightTracked.Value = value; }
+	public partial float FlexibleWidth { get => FlexibleWidthTracked.Value; set => FlexibleWidthTracked.Value = value; }
+	public partial float FlexibleHeight { get => FlexibleHeightTracked.Value; set => FlexibleHeightTracked.Value = value; }
+	public partial bool IgnoreLayout { get => IgnoreLayoutTracked.Value; set => IgnoreLayoutTracked.Value = value; }
+	Oxide.Ext.UiFramework.Types.Tracked<float> ILayoutElementComponentTrackable.PreferredWidth => PreferredWidthTracked;
+	Oxide.Ext.UiFramework.Types.Tracked<float> ILayoutElementComponentTrackable.PreferredHeight => PreferredHeightTracked;
+	Oxide.Ext.UiFramework.Types.Tracked<float> ILayoutElementComponentTrackable.MinWidth => MinWidthTracked;
+	Oxide.Ext.UiFramework.Types.Tracked<float> ILayoutElementComponentTrackable.MinHeight => MinHeightTracked;
+	Oxide.Ext.UiFramework.Types.Tracked<float> ILayoutElementComponentTrackable.FlexibleWidth => FlexibleWidthTracked;
+	Oxide.Ext.UiFramework.Types.Tracked<float> ILayoutElementComponentTrackable.FlexibleHeight => FlexibleHeightTracked;
+	Oxide.Ext.UiFramework.Types.Tracked<bool> ILayoutElementComponentTrackable.IgnoreLayout => IgnoreLayoutTracked;
 
 	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 	internal ILayoutElementComponentTrackable AsTrackable() => this;
-	public override bool HasChanged() => false || (_preferredWidth.HasChanged || _preferredHeight.HasChanged || _minWidth.HasChanged || _minHeight.HasChanged || _flexibleWidth.HasChanged || _flexibleHeight.HasChanged || _ignoreLayout.HasChanged) || base.HasChanged();
+	public override bool HasChanged() => false || (PreferredWidthTracked.HasChanged || PreferredHeightTracked.HasChanged || MinWidthTracked.HasChanged || MinHeightTracked.HasChanged || FlexibleWidthTracked.HasChanged || FlexibleHeightTracked.HasChanged || IgnoreLayoutTracked.HasChanged) || base.HasChanged();
 
 	public override void ResetHasChanged()
 	{
 		base.ResetHasChanged();
-		_preferredWidth.ResetHasChanged();
-		_preferredHeight.ResetHasChanged();
-		_minWidth.ResetHasChanged();
-		_minHeight.ResetHasChanged();
-		_flexibleWidth.ResetHasChanged();
-		_flexibleHeight.ResetHasChanged();
-		_ignoreLayout.ResetHasChanged();
+		PreferredWidthTracked.ResetHasChanged();
+		PreferredHeightTracked.ResetHasChanged();
+		MinWidthTracked.ResetHasChanged();
+		MinHeightTracked.ResetHasChanged();
+		FlexibleWidthTracked.ResetHasChanged();
+		FlexibleHeightTracked.ResetHasChanged();
+		IgnoreLayoutTracked.ResetHasChanged();
 	}
 
 	public override void Reset()
 	{
 		base.Reset();
-		_preferredWidth.Reset();
-		_preferredHeight.Reset();
-		_minWidth.Reset();
-		_minHeight.Reset();
-		_flexibleWidth.Reset();
-		_flexibleHeight.Reset();
-		_ignoreLayout.Reset();
+		PreferredWidthTracked.Reset();
+		PreferredHeightTracked.Reset();
+		MinWidthTracked.Reset();
+		MinHeightTracked.Reset();
+		FlexibleWidthTracked.Reset();
+		FlexibleHeightTracked.Reset();
+		IgnoreLayoutTracked.Reset();
 	}
 }
 

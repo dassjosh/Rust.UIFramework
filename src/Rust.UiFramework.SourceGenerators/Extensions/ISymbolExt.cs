@@ -8,8 +8,9 @@ public static class ISymbolExt
     extension(ISymbol symbol)
     {
         public string ToPrivateField() => $"_{symbol.Name.ToCamelCase()}";
-        public string ToExtensionClass() => $"{symbol.Name}Ext";
         public string GetTrackableInterface() => $"{symbol.GetInterface()}Trackable";
+        public string TrackedFieldName() => $"{symbol.Name}Tracked";
+        public string ToExtensionClass() => $"{symbol.Name}Ext";
         public string GetInterface() => $"I{symbol.Name}";
         
         public bool HasAttribute<T>() => symbol.GetAttribute<T>() != null;

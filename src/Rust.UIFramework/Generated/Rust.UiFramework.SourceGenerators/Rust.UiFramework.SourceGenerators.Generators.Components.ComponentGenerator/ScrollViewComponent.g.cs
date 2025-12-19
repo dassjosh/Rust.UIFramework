@@ -8,43 +8,43 @@ namespace Oxide.Ext.UiFramework.Components;
 
 public partial class ScrollViewComponent : IScrollViewComponent, IScrollViewComponentTrackable
 {
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.ScrollRect.MovementType> _movementType = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ScrollView.MovementType);
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<float> _elasticity = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ScrollView.Elasticity);
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<bool> _inertia = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ScrollView.Inertia);
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<float> _decelerationRate = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ScrollView.DecelerationRate);
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<float> _scrollSensitivity = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ScrollView.ScrollSensitivity);
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<float> _horizontalScrollProgress = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ScrollView.HorizontalScrollProgress);
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<float> _verticalScrollProgress = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ScrollView.VerticalScrollProgress);
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.ScrollRect.MovementType> MovementTypeTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ScrollView.MovementType);
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<float> ElasticityTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ScrollView.Elasticity);
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<bool> InertiaTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ScrollView.Inertia);
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<float> DecelerationRateTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ScrollView.DecelerationRate);
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<float> ScrollSensitivityTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ScrollView.ScrollSensitivity);
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<float> HorizontalScrollProgressTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ScrollView.HorizontalScrollProgress);
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<float> VerticalScrollProgressTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ScrollView.VerticalScrollProgress);
 
-	public partial UnityEngine.UI.ScrollRect.MovementType MovementType { get => _movementType.Value; set => _movementType.Value = value; }
-	public partial float Elasticity { get => _elasticity.Value; set => _elasticity.Value = value; }
-	public partial bool Inertia { get => _inertia.Value; set => _inertia.Value = value; }
-	public partial float DecelerationRate { get => _decelerationRate.Value; set => _decelerationRate.Value = value; }
-	public partial float ScrollSensitivity { get => _scrollSensitivity.Value; set => _scrollSensitivity.Value = value; }
-	public partial float HorizontalScrollProgress { get => _horizontalScrollProgress.Value; set => _horizontalScrollProgress.Value = value; }
-	public partial float VerticalScrollProgress { get => _verticalScrollProgress.Value; set => _verticalScrollProgress.Value = value; }
-	Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.ScrollRect.MovementType> IScrollViewComponentTrackable.MovementType => _movementType;
-	Oxide.Ext.UiFramework.Types.Tracked<float> IScrollViewComponentTrackable.Elasticity => _elasticity;
-	Oxide.Ext.UiFramework.Types.Tracked<bool> IScrollViewComponentTrackable.Inertia => _inertia;
-	Oxide.Ext.UiFramework.Types.Tracked<float> IScrollViewComponentTrackable.DecelerationRate => _decelerationRate;
-	Oxide.Ext.UiFramework.Types.Tracked<float> IScrollViewComponentTrackable.ScrollSensitivity => _scrollSensitivity;
-	Oxide.Ext.UiFramework.Types.Tracked<float> IScrollViewComponentTrackable.HorizontalScrollProgress => _horizontalScrollProgress;
-	Oxide.Ext.UiFramework.Types.Tracked<float> IScrollViewComponentTrackable.VerticalScrollProgress => _verticalScrollProgress;
+	public partial UnityEngine.UI.ScrollRect.MovementType MovementType { get => MovementTypeTracked.Value; set => MovementTypeTracked.Value = value; }
+	public partial float Elasticity { get => ElasticityTracked.Value; set => ElasticityTracked.Value = value; }
+	public partial bool Inertia { get => InertiaTracked.Value; set => InertiaTracked.Value = value; }
+	public partial float DecelerationRate { get => DecelerationRateTracked.Value; set => DecelerationRateTracked.Value = value; }
+	public partial float ScrollSensitivity { get => ScrollSensitivityTracked.Value; set => ScrollSensitivityTracked.Value = value; }
+	public partial float HorizontalScrollProgress { get => HorizontalScrollProgressTracked.Value; set => HorizontalScrollProgressTracked.Value = value; }
+	public partial float VerticalScrollProgress { get => VerticalScrollProgressTracked.Value; set => VerticalScrollProgressTracked.Value = value; }
+	Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.ScrollRect.MovementType> IScrollViewComponentTrackable.MovementType => MovementTypeTracked;
+	Oxide.Ext.UiFramework.Types.Tracked<float> IScrollViewComponentTrackable.Elasticity => ElasticityTracked;
+	Oxide.Ext.UiFramework.Types.Tracked<bool> IScrollViewComponentTrackable.Inertia => InertiaTracked;
+	Oxide.Ext.UiFramework.Types.Tracked<float> IScrollViewComponentTrackable.DecelerationRate => DecelerationRateTracked;
+	Oxide.Ext.UiFramework.Types.Tracked<float> IScrollViewComponentTrackable.ScrollSensitivity => ScrollSensitivityTracked;
+	Oxide.Ext.UiFramework.Types.Tracked<float> IScrollViewComponentTrackable.HorizontalScrollProgress => HorizontalScrollProgressTracked;
+	Oxide.Ext.UiFramework.Types.Tracked<float> IScrollViewComponentTrackable.VerticalScrollProgress => VerticalScrollProgressTracked;
 
 	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 	internal IScrollViewComponentTrackable AsTrackable() => this;
-	public override bool HasChanged() => false || (_movementType.HasChanged || _elasticity.HasChanged || _inertia.HasChanged || _decelerationRate.HasChanged || _scrollSensitivity.HasChanged || _horizontalScrollProgress.HasChanged || _verticalScrollProgress.HasChanged) || ((ContentTransform?.HasChanged() ?? false) || (HorizontalScrollbar?.HasChanged() ?? false) || (VerticalScrollbar?.HasChanged() ?? false)) || base.HasChanged();
+	public override bool HasChanged() => false || (MovementTypeTracked.HasChanged || ElasticityTracked.HasChanged || InertiaTracked.HasChanged || DecelerationRateTracked.HasChanged || ScrollSensitivityTracked.HasChanged || HorizontalScrollProgressTracked.HasChanged || VerticalScrollProgressTracked.HasChanged) || ((ContentTransform?.HasChanged() ?? false) || (HorizontalScrollbar?.HasChanged() ?? false) || (VerticalScrollbar?.HasChanged() ?? false)) || base.HasChanged();
 
 	public override void ResetHasChanged()
 	{
 		base.ResetHasChanged();
-		_movementType.ResetHasChanged();
-		_elasticity.ResetHasChanged();
-		_inertia.ResetHasChanged();
-		_decelerationRate.ResetHasChanged();
-		_scrollSensitivity.ResetHasChanged();
-		_horizontalScrollProgress.ResetHasChanged();
-		_verticalScrollProgress.ResetHasChanged();
+		MovementTypeTracked.ResetHasChanged();
+		ElasticityTracked.ResetHasChanged();
+		InertiaTracked.ResetHasChanged();
+		DecelerationRateTracked.ResetHasChanged();
+		ScrollSensitivityTracked.ResetHasChanged();
+		HorizontalScrollProgressTracked.ResetHasChanged();
+		VerticalScrollProgressTracked.ResetHasChanged();
 		ContentTransform?.ResetHasChanged();
 		HorizontalScrollbar?.ResetHasChanged();
 		VerticalScrollbar?.ResetHasChanged();
@@ -53,13 +53,13 @@ public partial class ScrollViewComponent : IScrollViewComponent, IScrollViewComp
 	public override void Reset()
 	{
 		base.Reset();
-		_movementType.Reset();
-		_elasticity.Reset();
-		_inertia.Reset();
-		_decelerationRate.Reset();
-		_scrollSensitivity.Reset();
-		_horizontalScrollProgress.Reset();
-		_verticalScrollProgress.Reset();
+		MovementTypeTracked.Reset();
+		ElasticityTracked.Reset();
+		InertiaTracked.Reset();
+		DecelerationRateTracked.Reset();
+		ScrollSensitivityTracked.Reset();
+		HorizontalScrollProgressTracked.Reset();
+		VerticalScrollProgressTracked.Reset();
 		ContentTransform?.TryDispose();
 		HorizontalScrollbar?.TryDispose();
 		VerticalScrollbar?.TryDispose();

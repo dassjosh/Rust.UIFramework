@@ -8,50 +8,50 @@ namespace Oxide.Ext.UiFramework.Components;
 
 public partial class PlayingCardComponent : IPlayingCardComponent, IPlayingCardComponentTrackable
 {
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Enums.UiSuit> _suit = new();
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Enums.UiRank> _rank = new();
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Enums.UiCardType> _cardType = new();
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<float> _fadeIn = new();
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<string> _material = new(Oxide.Ext.UiFramework.Constants.UiMaterials.Content.Ui.NameFontMaterial);
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> _color = new(Oxide.Ext.UiFramework.Colors.UiColors.White);
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Enums.UiSuit> SuitTracked = new();
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Enums.UiRank> RankTracked = new();
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Enums.UiCardType> CardTypeTracked = new();
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<float> FadeInTracked = new();
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<string> MaterialTracked = new(Oxide.Ext.UiFramework.Constants.UiMaterials.Content.Ui.NameFontMaterial);
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> ColorTracked = new(Oxide.Ext.UiFramework.Colors.UiColors.White);
 
-	public partial Oxide.Ext.UiFramework.Enums.UiSuit Suit { get => _suit.Value; set => _suit.Value = value; }
-	public partial Oxide.Ext.UiFramework.Enums.UiRank Rank { get => _rank.Value; set => _rank.Value = value; }
-	public partial Oxide.Ext.UiFramework.Enums.UiCardType CardType { get => _cardType.Value; set => _cardType.Value = value; }
-	public partial float FadeIn { get => _fadeIn.Value; set => _fadeIn.Value = value; }
-	public partial string Material { get => _material.Value; set => _material.Value = value; }
-	public partial Oxide.Ext.UiFramework.Colors.UiColor Color { get => _color.Value; set => _color.Value = value; }
-	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Enums.UiSuit> IPlayingCardComponentTrackable.Suit => _suit;
-	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Enums.UiRank> IPlayingCardComponentTrackable.Rank => _rank;
-	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Enums.UiCardType> IPlayingCardComponentTrackable.CardType => _cardType;
-	Oxide.Ext.UiFramework.Types.Tracked<float> IPlayingCardComponentTrackable.FadeIn => _fadeIn;
-	Oxide.Ext.UiFramework.Types.Tracked<string> IPlayingCardComponentTrackable.Material => _material;
-	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> IPlayingCardComponentTrackable.Color => _color;
+	public partial Oxide.Ext.UiFramework.Enums.UiSuit Suit { get => SuitTracked.Value; set => SuitTracked.Value = value; }
+	public partial Oxide.Ext.UiFramework.Enums.UiRank Rank { get => RankTracked.Value; set => RankTracked.Value = value; }
+	public partial Oxide.Ext.UiFramework.Enums.UiCardType CardType { get => CardTypeTracked.Value; set => CardTypeTracked.Value = value; }
+	public partial float FadeIn { get => FadeInTracked.Value; set => FadeInTracked.Value = value; }
+	public partial string Material { get => MaterialTracked.Value; set => MaterialTracked.Value = value; }
+	public partial Oxide.Ext.UiFramework.Colors.UiColor Color { get => ColorTracked.Value; set => ColorTracked.Value = value; }
+	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Enums.UiSuit> IPlayingCardComponentTrackable.Suit => SuitTracked;
+	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Enums.UiRank> IPlayingCardComponentTrackable.Rank => RankTracked;
+	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Enums.UiCardType> IPlayingCardComponentTrackable.CardType => CardTypeTracked;
+	Oxide.Ext.UiFramework.Types.Tracked<float> IPlayingCardComponentTrackable.FadeIn => FadeInTracked;
+	Oxide.Ext.UiFramework.Types.Tracked<string> IPlayingCardComponentTrackable.Material => MaterialTracked;
+	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> IPlayingCardComponentTrackable.Color => ColorTracked;
 
 	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 	internal IPlayingCardComponentTrackable AsTrackable() => this;
-	public override bool HasChanged() => false || (_suit.HasChanged || _rank.HasChanged || _cardType.HasChanged || _fadeIn.HasChanged || _material.HasChanged || _color.HasChanged) || base.HasChanged();
+	public override bool HasChanged() => false || (SuitTracked.HasChanged || RankTracked.HasChanged || CardTypeTracked.HasChanged || FadeInTracked.HasChanged || MaterialTracked.HasChanged || ColorTracked.HasChanged) || base.HasChanged();
 
 	public override void ResetHasChanged()
 	{
 		base.ResetHasChanged();
-		_suit.ResetHasChanged();
-		_rank.ResetHasChanged();
-		_cardType.ResetHasChanged();
-		_fadeIn.ResetHasChanged();
-		_material.ResetHasChanged();
-		_color.ResetHasChanged();
+		SuitTracked.ResetHasChanged();
+		RankTracked.ResetHasChanged();
+		CardTypeTracked.ResetHasChanged();
+		FadeInTracked.ResetHasChanged();
+		MaterialTracked.ResetHasChanged();
+		ColorTracked.ResetHasChanged();
 	}
 
 	public override void Reset()
 	{
 		base.Reset();
-		_suit.Reset();
-		_rank.Reset();
-		_cardType.Reset();
-		_fadeIn.Reset();
-		_material.Reset();
-		_color.Reset();
+		SuitTracked.Reset();
+		RankTracked.Reset();
+		CardTypeTracked.Reset();
+		FadeInTracked.Reset();
+		MaterialTracked.Reset();
+		ColorTracked.Reset();
 	}
 }
 

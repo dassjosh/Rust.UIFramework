@@ -7,6 +7,7 @@ using Rust.UiFramework.SourceGenerators.Attributes;
 using Rust.UiFramework.SourceGenerators.Builder.Builders;
 using Rust.UiFramework.SourceGenerators.Builder.Extensions;
 using Rust.UiFramework.SourceGenerators.Extensions;
+using Rust.UiFramework.SourceGenerators.Flags;
 using Rust.UiFramework.SourceGenerators.Helpers;
 
 namespace Rust.UiFramework.SourceGenerators.Generators.Elements;
@@ -31,31 +32,33 @@ public class UiElementGenerator : BaseGenerator, IIncrementalGenerator
             .Namespace(classSymbol.ContainingNamespace)
             .Add(t => t.Public().Partial().Class().Name(classSymbol.Name)
                 .Implements(genData.Symbol.GetInterface())
-                .Implements(genData.Symbol.GetTrackableInterface())
+                .If(GeneratorFlags.AddTrackableInterface, t => t.Implements(genData.Symbol.GetTrackableInterface())).EndIf()
                 
-                //Private Tracked Fields
-                .Fields(genData.TrackedProperties, (data, field) => field.Private().Readonly().Type(SymbolCache.Instance.Types.Tracked.Symbol.Construct(data.Type)).Name(data.Symbol.ToPrivateField()).New(data.GetPropertyDefaults()))
+                //Internal Tracked Fields
+                .Fields(genData.TrackedProperties, (data, field) => field.Internal().Readonly().Type(SymbolCache.Instance.Types.Tracked.Symbol.Construct(data.Type)).Name(data.Symbol.TrackedFieldName()).New(data.GetPropertyDefaults()))
                
                 //Public Properties Setting Component Fields
                 .Properties(genData.PartialProperties, (data, property) => property.Public().Partial().Type(data.TypeName).Name(data.Name)
-                    .If(data.IsTracked, p => p.Get($"{data.Symbol.ToPrivateField()}.Value").Set($"{data.Symbol.ToPrivateField()}.Value = value"))
+                    .If(data.IsTracked, p => p.Get($"{data.Symbol.TrackedFieldName()}.Value").Set($"{data.Symbol.TrackedFieldName()}.Value = value"))
                     .ElseIf(data.ComponentPropertyTargetType is PropertyTargetType.Self, p => p.Get().Set())
                     .Else(p => p.Get($"{data.GetPropertyTarget() ?? genData.ComponentFieldName}.{data.GetPropertyName()}")
                         .Set($"{data.GetPropertyTarget() ?? genData.ComponentFieldName}.{data.GetPropertyName()} = value"))
                     .EndIf())
                
-                //Public Tracked Explicit Interface Implementation Properties
-                .Properties(genData.PartialProperties, data => data.IsTracked, (data, property) => property.Type(SymbolCache.Instance.Types.Tracked.Symbol.Construct(data.Type))
-                    .Name($"{genData.Symbol.GetTrackableInterface()}.{data.Name}").Get(data.Symbol.ToPrivateField()))
-                
-                //AsTrackable for Component and Element
-                .If(!genData.Symbol.IsAbstract, t => t.Property(p => 
-                    p.Type(genData.ComponentField.Type.GetTrackableInterface())
-                        .Name($"{genData.Symbol.GetTrackableInterface()}.{genData.ComponentField.Name}")
-                        .Get($"{genData.ComponentFieldName}.AsTrackable()"))
-                    .Method(m => m.Internal().Name("AsTrackable").Returns(genData.Symbol.GetTrackableInterface()).Body("return this;")
-                        .AddAttribute(a => a.Type(SymbolCache.Instance.MethodImpl.Symbol).AddParameter(MethodImplOptions.AggressiveInlining.ToParameterValue()))))
-                .EndIf()
+                .If(GeneratorFlags.AddTrackableInterface, _ => t
+                    //Public Tracked Explicit Interface Implementation Properties
+                    .Properties(genData.PartialProperties, data => data.IsTracked, (data, property) => property.Type(SymbolCache.Instance.Types.Tracked.Symbol.Construct(data.Type))
+                        .Name($"{genData.Symbol.GetTrackableInterface()}.{data.Name}").Get(data.Symbol.TrackedFieldName()))
+                    
+                    //AsTrackable for Component and Element
+                    .If(!genData.Symbol.IsAbstract, t => t.Property(p => 
+                        p.Type(genData.ComponentField.Type.GetTrackableInterface())
+                            .Name($"{genData.Symbol.GetTrackableInterface()}.{genData.ComponentField.Name}")
+                            .Get($"{genData.ComponentFieldName}.AsTrackable()"))
+                        .Method(m => m.Internal().Name("AsTrackable").Returns(genData.Symbol.GetTrackableInterface()).Body("return this;")
+                            .AddAttribute(a => a.Type(SymbolCache.Instance.MethodImpl.Symbol).AddParameter(MethodImplOptions.AggressiveInlining.ToParameterValue()))))
+                    .EndIf()
+                ).EndIf()
             )
             .Build();
     }

@@ -46,13 +46,13 @@ public partial class ScrollViewComponent : CoreComponent
     {
         writer.AddField(JsonDefaults.ScrollView.Horizontal, HorizontalScrollbar != null, false);
         writer.AddField(JsonDefaults.ScrollView.Vertical, VerticalScrollbar != null, false);
-        writer.AddField(JsonDefaults.ScrollView.MovementTypeName, _movementType, mode);
-        writer.AddField(JsonDefaults.ScrollView.ElasticityName, _elasticity, mode);
-        writer.AddField(JsonDefaults.ScrollView.InertiaName, _inertia, mode);
-        writer.AddField(JsonDefaults.ScrollView.DecelerationRateName, _decelerationRate, mode);
-        writer.AddField(JsonDefaults.ScrollView.ScrollSensitivityName, _scrollSensitivity, mode);
-        writer.AddField(JsonDefaults.ScrollView.HorizontalScrollProgressName, _horizontalScrollProgress, mode);
-        writer.AddField(JsonDefaults.ScrollView.VerticalScrollProgressName, _verticalScrollProgress, mode);
+        writer.AddField(JsonDefaults.ScrollView.MovementTypeName, MovementTypeTracked, mode);
+        writer.AddField(JsonDefaults.ScrollView.ElasticityName, ElasticityTracked, mode);
+        writer.AddField(JsonDefaults.ScrollView.InertiaName, InertiaTracked, mode);
+        writer.AddField(JsonDefaults.ScrollView.DecelerationRateName, DecelerationRateTracked, mode);
+        writer.AddField(JsonDefaults.ScrollView.ScrollSensitivityName, ScrollSensitivityTracked, mode);
+        writer.AddField(JsonDefaults.ScrollView.HorizontalScrollProgressName, HorizontalScrollProgressTracked, mode);
+        writer.AddField(JsonDefaults.ScrollView.VerticalScrollProgressName, VerticalScrollProgressTracked, mode);
         writer.AddComponent(JsonDefaults.ScrollView.HorizontalScrollbar, HorizontalScrollbar, mode, HorizontalScrollbar != null);
         writer.AddComponent(JsonDefaults.ScrollView.VerticalScrollbar, VerticalScrollbar, mode, VerticalScrollbar != null);
         writer.AddComponent(JsonDefaults.ScrollView.ContentTransform, ContentTransform, mode);

@@ -7,6 +7,7 @@ using Rust.UiFramework.SourceGenerators.Attributes;
 using Rust.UiFramework.SourceGenerators.Builder.Builders;
 using Rust.UiFramework.SourceGenerators.Builder.Extensions;
 using Rust.UiFramework.SourceGenerators.Extensions;
+using Rust.UiFramework.SourceGenerators.Flags;
 using Rust.UiFramework.SourceGenerators.Helpers;
 
 namespace Rust.UiFramework.SourceGenerators.Generators.Components;
@@ -31,46 +32,50 @@ public class ComponentGenerator : BaseGenerator, IIncrementalGenerator
             .Namespace(classSymbol.ContainingNamespace)
             .Add(t =>
             {
-                t.Public().Partial().Class().Name(classSymbol.Name).Implements(genData.ComponentInterfaceName).Implements(genData.TrackableInterfaceName)
-
-                    //Private Tracked Fields
+                t.Public().Partial().Class().Name(classSymbol.Name).Implements(genData.ComponentInterfaceName)
+                    .If(GeneratorFlags.AddTrackableInterface, t => t.Implements(genData.TrackableInterfaceName)).EndIf()
+                    
+                    
+                    //Internal Tracked Fields
                     .Fields(genData.Properties, (data, field) =>
-                        field.Protected().Readonly().Type(SymbolCache.Instance.Types.Tracked.Symbol.Construct(data.Type)).Name(data.PrivateFieldName).New(data.GetPropertyDefaults()))
+                        field.Internal().Readonly().Type(SymbolCache.Instance.Types.Tracked.Symbol.Construct(data.Type)).Name(data.TrackedFieldName).New(data.GetPropertyDefaults()))
 
                     //Public Properties
                     .Properties(genData.Properties, (data, property) => property.Public().Partial().Type(data.Type).Name(data.Name)
-                        .Get($"{data.PrivateFieldName}.Value")
-                        .Set($"{data.PrivateFieldName}.Value = value"))
+                        .Get($"{data.TrackedFieldName}.Value")
+                        .Set($"{data.TrackedFieldName}.Value = value"))
+                    
+                    .If(GeneratorFlags.AddTrackableInterface, t =>
+                        //Explicit Tracked Interface Implementation Properties
+                        t.Properties(genData.Properties, (data, property) => property.Type(SymbolCache.Instance.Types.Tracked.Symbol.Construct(data.Type)).Name($"{genData.TrackableInterfaceName}.{data.Name}")
+                            .Get(data.TrackedFieldName))
 
-                    //Explicit Tracked Interface Implementation Properties
-                    .Properties(genData.Properties, (data, property) => property.Type(SymbolCache.Instance.Types.Tracked.Symbol.Construct(data.Type)).Name($"{genData.TrackableInterfaceName}.{data.Name}")
-                        .Get(data.PrivateFieldName))
-
-                    //As Trackable Method
-                    .If(!genData.ClassSymbol.IsAbstract, builder => builder.Method(method => method.Internal()
-                        .If(genData.ParentComponent is not null, m => m.New())
+                        //As Trackable Method
+                        .If(!genData.ClassSymbol.IsAbstract, builder => builder.Method(method => method.Internal()
+                            .If(genData.ParentComponent is not null, m => m.New())
+                            .EndIf()
+                            .Returns(genData.TrackableInterfaceName).Name("AsTrackable").Body("return this;")
+                            .AddAttribute(a => a.Type(SymbolCache.Instance.MethodImpl.Symbol).AddParameter(MethodImplOptions.AggressiveInlining.ToParameterValue()))))
                         .EndIf()
-                        .Returns(genData.TrackableInterfaceName).Name("AsTrackable").Body("return this;")
-                        .AddAttribute(a => a.Type(SymbolCache.Instance.MethodImpl.Symbol).AddParameter(MethodImplOptions.AggressiveInlining.ToParameterValue()))))
-                    .EndIf()
-
+                    ).EndIf()
+                    
                     //HasChangedGenerated Method
                     .Method(method => method.Public().Override().Returns("bool").Name("HasChanged")
                         .Body(statement => statement.Return("false")
-                            .Or(genData.Properties.Select(data => $"{data.PrivateFieldName}.HasChanged"))
+                            .Or(genData.Properties.Select(data => $"{data.TrackedFieldName}.HasChanged"))
                             .Or(genData.ChildComponentsProperties.Select(data => $"({data.Name}?.HasChanged() ?? false)"))
                             .Or("base.HasChanged()").Semicolon()))
 
                     //ResetHasChangedGenerated Method
                     .Method(method => method.Public().Override().Name("ResetHasChanged")
                         .Body(statement => statement.Invoke("base.ResetHasChanged()")
-                            .Invoke(genData.Properties.Select(data => $"{data.PrivateFieldName}.ResetHasChanged()"))
+                            .Invoke(genData.Properties.Select(data => $"{data.TrackedFieldName}.ResetHasChanged()"))
                             .Invoke(genData.ChildComponentsProperties.Select(data => $"{data.Name}?.ResetHasChanged()"))))
 
                     //ResetGenerated Method
                     .Method(method => method.Public().Override().Name("Reset")
                         .Body(statement => statement.Invoke("base.Reset()")
-                            .Invoke(genData.Properties.Select(data => $"{data.PrivateFieldName}.Reset()"))
+                            .Invoke(genData.Properties.Select(data => $"{data.TrackedFieldName}.Reset()"))
                             .Invoke(genData.ChildComponentsProperties.Select(data => $"{data.Name}?.TryDispose()"))
                             .Invoke(genData.ChildComponentsProperties.Select(data => $"{data.Name} = null"))));
 
@@ -101,7 +106,7 @@ public class ComponentGenerator : BaseGenerator, IIncrementalGenerator
     {
         public readonly string Name = property.Name;
         public readonly ITypeSymbol Type = property.Type;
-        public readonly string PrivateFieldName = property.ToPrivateField();
+        public readonly string TrackedFieldName = property.TrackedFieldName();
         public readonly AttributeData TrackedDefaults = property.GetAttribute<TrackedDefaultsAttribute>();
         public readonly bool SkipBuilder = property.HasAttribute<SkipBuilderAttribute>();
         

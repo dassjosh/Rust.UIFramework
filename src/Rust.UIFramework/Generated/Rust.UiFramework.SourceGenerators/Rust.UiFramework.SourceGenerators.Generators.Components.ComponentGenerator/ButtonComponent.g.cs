@@ -8,51 +8,51 @@ namespace Oxide.Ext.UiFramework.Components;
 
 public partial class ButtonComponent : IButtonComponent, IButtonComponentTrackable
 {
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<string> _command = new();
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> _color = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Color.ColorValue);
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<float> _fadeIn = new();
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<string> _sprite = new();
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<string> _material = new();
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.Image.Type> _imageType = new();
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<string> CommandTracked = new();
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> ColorTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Color.ColorValue);
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<float> FadeInTracked = new();
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<string> SpriteTracked = new();
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<string> MaterialTracked = new();
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.Image.Type> ImageTypeTracked = new();
 
-	public partial string Command { get => _command.Value; set => _command.Value = value; }
-	public partial Oxide.Ext.UiFramework.Colors.UiColor Color { get => _color.Value; set => _color.Value = value; }
-	public partial float FadeIn { get => _fadeIn.Value; set => _fadeIn.Value = value; }
-	public partial string Sprite { get => _sprite.Value; set => _sprite.Value = value; }
-	public partial string Material { get => _material.Value; set => _material.Value = value; }
-	public partial UnityEngine.UI.Image.Type ImageType { get => _imageType.Value; set => _imageType.Value = value; }
-	Oxide.Ext.UiFramework.Types.Tracked<string> IButtonComponentTrackable.Command => _command;
-	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> IButtonComponentTrackable.Color => _color;
-	Oxide.Ext.UiFramework.Types.Tracked<float> IButtonComponentTrackable.FadeIn => _fadeIn;
-	Oxide.Ext.UiFramework.Types.Tracked<string> IButtonComponentTrackable.Sprite => _sprite;
-	Oxide.Ext.UiFramework.Types.Tracked<string> IButtonComponentTrackable.Material => _material;
-	Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.Image.Type> IButtonComponentTrackable.ImageType => _imageType;
+	public partial string Command { get => CommandTracked.Value; set => CommandTracked.Value = value; }
+	public partial Oxide.Ext.UiFramework.Colors.UiColor Color { get => ColorTracked.Value; set => ColorTracked.Value = value; }
+	public partial float FadeIn { get => FadeInTracked.Value; set => FadeInTracked.Value = value; }
+	public partial string Sprite { get => SpriteTracked.Value; set => SpriteTracked.Value = value; }
+	public partial string Material { get => MaterialTracked.Value; set => MaterialTracked.Value = value; }
+	public partial UnityEngine.UI.Image.Type ImageType { get => ImageTypeTracked.Value; set => ImageTypeTracked.Value = value; }
+	Oxide.Ext.UiFramework.Types.Tracked<string> IButtonComponentTrackable.Command => CommandTracked;
+	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> IButtonComponentTrackable.Color => ColorTracked;
+	Oxide.Ext.UiFramework.Types.Tracked<float> IButtonComponentTrackable.FadeIn => FadeInTracked;
+	Oxide.Ext.UiFramework.Types.Tracked<string> IButtonComponentTrackable.Sprite => SpriteTracked;
+	Oxide.Ext.UiFramework.Types.Tracked<string> IButtonComponentTrackable.Material => MaterialTracked;
+	Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.Image.Type> IButtonComponentTrackable.ImageType => ImageTypeTracked;
 
 	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 	internal IButtonComponentTrackable AsTrackable() => this;
-	public override bool HasChanged() => false || (_command.HasChanged || _color.HasChanged || _fadeIn.HasChanged || _sprite.HasChanged || _material.HasChanged || _imageType.HasChanged) || ((ColorBlock?.HasChanged() ?? false)) || base.HasChanged();
+	public override bool HasChanged() => false || (CommandTracked.HasChanged || ColorTracked.HasChanged || FadeInTracked.HasChanged || SpriteTracked.HasChanged || MaterialTracked.HasChanged || ImageTypeTracked.HasChanged) || ((ColorBlock?.HasChanged() ?? false)) || base.HasChanged();
 
 	public override void ResetHasChanged()
 	{
 		base.ResetHasChanged();
-		_command.ResetHasChanged();
-		_color.ResetHasChanged();
-		_fadeIn.ResetHasChanged();
-		_sprite.ResetHasChanged();
-		_material.ResetHasChanged();
-		_imageType.ResetHasChanged();
+		CommandTracked.ResetHasChanged();
+		ColorTracked.ResetHasChanged();
+		FadeInTracked.ResetHasChanged();
+		SpriteTracked.ResetHasChanged();
+		MaterialTracked.ResetHasChanged();
+		ImageTypeTracked.ResetHasChanged();
 		ColorBlock?.ResetHasChanged();
 	}
 
 	public override void Reset()
 	{
 		base.Reset();
-		_command.Reset();
-		_color.Reset();
-		_fadeIn.Reset();
-		_sprite.Reset();
-		_material.Reset();
-		_imageType.Reset();
+		CommandTracked.Reset();
+		ColorTracked.Reset();
+		FadeInTracked.Reset();
+		SpriteTracked.Reset();
+		MaterialTracked.Reset();
+		ImageTypeTracked.Reset();
 		ColorBlock?.TryDispose();
 		ColorBlock = null;
 	}

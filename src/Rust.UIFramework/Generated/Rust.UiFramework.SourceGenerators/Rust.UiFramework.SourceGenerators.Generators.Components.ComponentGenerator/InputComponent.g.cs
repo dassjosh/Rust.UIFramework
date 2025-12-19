@@ -8,45 +8,45 @@ namespace Oxide.Ext.UiFramework.Components;
 
 public partial class InputComponent : IInputComponent, IInputComponentTrackable
 {
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<int> _charsLimit = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Input.CharacterLimit);
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<string> _command = new();
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Enums.InputMode> _mode = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Input.Mode);
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.InputField.LineType> _lineType = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Input.LineType);
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.UiElements.UiReference> _placeholder = new();
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<int> CharsLimitTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Input.CharacterLimit);
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<string> CommandTracked = new();
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Enums.InputMode> ModeTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Input.Mode);
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.InputField.LineType> LineTypeTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Input.LineType);
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.UiElements.UiReference> PlaceholderTracked = new();
 
-	public partial int CharsLimit { get => _charsLimit.Value; set => _charsLimit.Value = value; }
-	public partial string Command { get => _command.Value; set => _command.Value = value; }
-	public partial Oxide.Ext.UiFramework.Enums.InputMode Mode { get => _mode.Value; set => _mode.Value = value; }
-	public partial UnityEngine.UI.InputField.LineType LineType { get => _lineType.Value; set => _lineType.Value = value; }
-	public partial Oxide.Ext.UiFramework.UiElements.UiReference Placeholder { get => _placeholder.Value; set => _placeholder.Value = value; }
-	Oxide.Ext.UiFramework.Types.Tracked<int> IInputComponentTrackable.CharsLimit => _charsLimit;
-	Oxide.Ext.UiFramework.Types.Tracked<string> IInputComponentTrackable.Command => _command;
-	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Enums.InputMode> IInputComponentTrackable.Mode => _mode;
-	Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.InputField.LineType> IInputComponentTrackable.LineType => _lineType;
-	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.UiElements.UiReference> IInputComponentTrackable.Placeholder => _placeholder;
+	public partial int CharsLimit { get => CharsLimitTracked.Value; set => CharsLimitTracked.Value = value; }
+	public partial string Command { get => CommandTracked.Value; set => CommandTracked.Value = value; }
+	public partial Oxide.Ext.UiFramework.Enums.InputMode Mode { get => ModeTracked.Value; set => ModeTracked.Value = value; }
+	public partial UnityEngine.UI.InputField.LineType LineType { get => LineTypeTracked.Value; set => LineTypeTracked.Value = value; }
+	public partial Oxide.Ext.UiFramework.UiElements.UiReference Placeholder { get => PlaceholderTracked.Value; set => PlaceholderTracked.Value = value; }
+	Oxide.Ext.UiFramework.Types.Tracked<int> IInputComponentTrackable.CharsLimit => CharsLimitTracked;
+	Oxide.Ext.UiFramework.Types.Tracked<string> IInputComponentTrackable.Command => CommandTracked;
+	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Enums.InputMode> IInputComponentTrackable.Mode => ModeTracked;
+	Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.InputField.LineType> IInputComponentTrackable.LineType => LineTypeTracked;
+	Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.UiElements.UiReference> IInputComponentTrackable.Placeholder => PlaceholderTracked;
 
 	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 	internal new IInputComponentTrackable AsTrackable() => this;
-	public override bool HasChanged() => false || (_charsLimit.HasChanged || _command.HasChanged || _mode.HasChanged || _lineType.HasChanged || _placeholder.HasChanged) || base.HasChanged();
+	public override bool HasChanged() => false || (CharsLimitTracked.HasChanged || CommandTracked.HasChanged || ModeTracked.HasChanged || LineTypeTracked.HasChanged || PlaceholderTracked.HasChanged) || base.HasChanged();
 
 	public override void ResetHasChanged()
 	{
 		base.ResetHasChanged();
-		_charsLimit.ResetHasChanged();
-		_command.ResetHasChanged();
-		_mode.ResetHasChanged();
-		_lineType.ResetHasChanged();
-		_placeholder.ResetHasChanged();
+		CharsLimitTracked.ResetHasChanged();
+		CommandTracked.ResetHasChanged();
+		ModeTracked.ResetHasChanged();
+		LineTypeTracked.ResetHasChanged();
+		PlaceholderTracked.ResetHasChanged();
 	}
 
 	public override void Reset()
 	{
 		base.Reset();
-		_charsLimit.Reset();
-		_command.Reset();
-		_mode.Reset();
-		_lineType.Reset();
-		_placeholder.Reset();
+		CharsLimitTracked.Reset();
+		CommandTracked.Reset();
+		ModeTracked.Reset();
+		LineTypeTracked.Reset();
+		PlaceholderTracked.Reset();
 	}
 }
 

@@ -38,15 +38,15 @@ public partial class ScrollbarComponent : ChildComponent
     public override void WriteComponent(JsonFrameworkWriter writer, SerializeMode mode)
     {
         writer.WriteStartObject();
-        writer.AddField(JsonDefaults.ScrollBar.InvertName, _invert, mode);
-        writer.AddField(JsonDefaults.ScrollBar.AutoHideName, _autoHide, mode);
-        writer.AddField(JsonDefaults.ScrollBar.HandleSprite, _handleSprite, mode);
-        writer.AddField(JsonDefaults.ScrollBar.TrackSprite, _trackSprite, mode);
-        writer.AddField(JsonDefaults.ScrollBar.SizeName, _size, mode);
-        writer.AddField(JsonDefaults.ScrollBar.HandleColorName, _handleColor, mode);
-        writer.AddField(JsonDefaults.ScrollBar.HighlightColorName, _highlightColor, mode);
-        writer.AddField(JsonDefaults.ScrollBar.PressedColorName, _pressedColor, mode);
-        writer.AddField(JsonDefaults.ScrollBar.TrackColorName, _trackColor, mode);
+        writer.AddField(JsonDefaults.ScrollBar.InvertName, InvertTracked, mode);
+        writer.AddField(JsonDefaults.ScrollBar.AutoHideName, AutoHideTracked, mode);
+        writer.AddField(JsonDefaults.ScrollBar.HandleSprite, HandleSpriteTracked, mode);
+        writer.AddField(JsonDefaults.ScrollBar.TrackSprite, TrackSpriteTracked, mode);
+        writer.AddField(JsonDefaults.ScrollBar.SizeName, SizeTracked, mode);
+        writer.AddField(JsonDefaults.ScrollBar.HandleColorName, HandleColorTracked, mode);
+        writer.AddField(JsonDefaults.ScrollBar.HighlightColorName, HighlightColorTracked, mode);
+        writer.AddField(JsonDefaults.ScrollBar.PressedColorName, PressedColorTracked, mode);
+        writer.AddField(JsonDefaults.ScrollBar.TrackColorName, TrackColorTracked, mode);
         writer.WriteEndObject();
     }
 }

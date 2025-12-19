@@ -9,14 +9,14 @@ public static class DirectionalLayoutComponentAnimationExt
 {
 	extension(Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IComponentAnimation<Oxide.Ext.UiFramework.Components.DirectionalLayoutComponent>> animation)
 	{
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<float>> AnimateSpacing() => animation.AnimateField(static a => a.AsTrackable().Spacing);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<bool>> AnimateChildForceExpandWidth() => animation.AnimateField(static a => a.AsTrackable().ChildForceExpandWidth);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<bool>> AnimateChildForceExpandHeight() => animation.AnimateField(static a => a.AsTrackable().ChildForceExpandHeight);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<bool>> AnimateChildControlWidth() => animation.AnimateField(static a => a.AsTrackable().ChildControlWidth);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<bool>> AnimateChildControlHeight() => animation.AnimateField(static a => a.AsTrackable().ChildControlHeight);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<bool>> AnimateChildScaleWidth() => animation.AnimateField(static a => a.AsTrackable().ChildScaleWidth);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<bool>> AnimateChildScaleHeight() => animation.AnimateField(static a => a.AsTrackable().ChildScaleHeight);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<Oxide.Ext.UiFramework.Enums.LayoutDirection>> AnimateDirection() => animation.AnimateField(static a => a.AsTrackable().Direction);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<float>> AnimateSpacing() => animation.AnimateField(static a => a.SpacingTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<bool>> AnimateChildForceExpandWidth() => animation.AnimateField(static a => a.ChildForceExpandWidthTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<bool>> AnimateChildForceExpandHeight() => animation.AnimateField(static a => a.ChildForceExpandHeightTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<bool>> AnimateChildControlWidth() => animation.AnimateField(static a => a.ChildControlWidthTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<bool>> AnimateChildControlHeight() => animation.AnimateField(static a => a.ChildControlHeightTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<bool>> AnimateChildScaleWidth() => animation.AnimateField(static a => a.ChildScaleWidthTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<bool>> AnimateChildScaleHeight() => animation.AnimateField(static a => a.ChildScaleHeightTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<Oxide.Ext.UiFramework.Enums.LayoutDirection>> AnimateDirection() => animation.AnimateField(static a => a.DirectionTracked);
 	}
 }
 

@@ -33,16 +33,16 @@ public partial class RawImageComponent : CoreComponent, IGraphicalComponent
 
     protected override void WriteComponentFields(JsonFrameworkWriter writer, SerializeMode mode)
     {
-        writer.AddField(JsonDefaults.BaseImage.MaterialName, _material, mode);
-        writer.AddField(JsonDefaults.Color.ColorName, _color, mode);
-        writer.AddField(JsonDefaults.Common.FadeInName, _fadeIn, mode);
+        writer.AddField(JsonDefaults.BaseImage.MaterialName, MaterialTracked, mode);
+        writer.AddField(JsonDefaults.Color.ColorName, ColorTracked, mode);
+        writer.AddField(JsonDefaults.Common.FadeInName, FadeInTracked, mode);
         
-        if (_placeholderFor.ShouldSerialize(mode) && PlaceholderFor.IsValidName())
+        if (PlaceholderForTracked.ShouldSerialize(mode) && PlaceholderFor.IsValidName())
         {
             writer.AddField(JsonDefaults.Common.PlaceholderInputId, PlaceholderFor.Name);
         }
 
-        if (_image.ShouldSerialize(mode))
+        if (ImageTracked.ShouldSerialize(mode))
         {
             string image = Image;
             if (!string.IsNullOrEmpty(image))

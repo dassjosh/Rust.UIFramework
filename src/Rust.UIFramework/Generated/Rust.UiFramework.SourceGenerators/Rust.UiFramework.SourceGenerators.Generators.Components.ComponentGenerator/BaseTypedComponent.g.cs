@@ -8,23 +8,23 @@ namespace Oxide.Ext.UiFramework.Components;
 
 public partial class BaseTypedComponent : IBaseTypedComponent, IBaseTypedComponentTrackable
 {
-	protected readonly Oxide.Ext.UiFramework.Types.Tracked<bool> _enabled = new(true);
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<bool> EnabledTracked = new(true);
 
-	public partial bool Enabled { get => _enabled.Value; set => _enabled.Value = value; }
-	Oxide.Ext.UiFramework.Types.Tracked<bool> IBaseTypedComponentTrackable.Enabled => _enabled;
+	public partial bool Enabled { get => EnabledTracked.Value; set => EnabledTracked.Value = value; }
+	Oxide.Ext.UiFramework.Types.Tracked<bool> IBaseTypedComponentTrackable.Enabled => EnabledTracked;
 
-	public override bool HasChanged() => false || (_enabled.HasChanged) || base.HasChanged();
+	public override bool HasChanged() => false || (EnabledTracked.HasChanged) || base.HasChanged();
 
 	public override void ResetHasChanged()
 	{
 		base.ResetHasChanged();
-		_enabled.ResetHasChanged();
+		EnabledTracked.ResetHasChanged();
 	}
 
 	public override void Reset()
 	{
 		base.Reset();
-		_enabled.Reset();
+		EnabledTracked.Reset();
 	}
 }
 

@@ -9,8 +9,8 @@ public static class ContentSizeFitterComponentAnimationExt
 {
 	extension(Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IComponentAnimation<Oxide.Ext.UiFramework.Components.ContentSizeFitterComponent>> animation)
 	{
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<UnityEngine.UI.ContentSizeFitter.FitMode>> AnimateHorizontalFit() => animation.AnimateField(static a => a.AsTrackable().HorizontalFit);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<UnityEngine.UI.ContentSizeFitter.FitMode>> AnimateVerticalFit() => animation.AnimateField(static a => a.AsTrackable().VerticalFit);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<UnityEngine.UI.ContentSizeFitter.FitMode>> AnimateHorizontalFit() => animation.AnimateField(static a => a.HorizontalFitTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<UnityEngine.UI.ContentSizeFitter.FitMode>> AnimateVerticalFit() => animation.AnimateField(static a => a.VerticalFitTracked);
 	}
 }
 

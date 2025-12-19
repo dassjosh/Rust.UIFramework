@@ -38,12 +38,12 @@ public partial class DirectionalLayoutComponent : BaseLayoutComponent
     protected override void WriteComponentFields(JsonFrameworkWriter writer, SerializeMode mode)
     {
         base.WriteComponentFields(writer, mode);
-        writer.AddField(JsonDefaults.DirectionalLayout.SpacingName, _spacing, mode);
-        writer.AddField(JsonDefaults.DirectionalLayout.ChildForceExpandWidthName, _childForceExpandWidth, mode);
-        writer.AddField(JsonDefaults.DirectionalLayout.ChildForceExpandHeightName, _childForceExpandHeight, mode);
-        writer.AddField(JsonDefaults.DirectionalLayout.ChildControlWidthName, _childControlWidth, mode);
-        writer.AddField(JsonDefaults.DirectionalLayout.ChildControlHeightName, _childControlHeight, mode);
-        writer.AddField(JsonDefaults.DirectionalLayout.ChildScaleWidthName, _childScaleWidth, mode);
-        writer.AddField(JsonDefaults.DirectionalLayout.ChildScaleHeightName, _childScaleHeight, mode);
+        writer.AddField(JsonDefaults.DirectionalLayout.SpacingName, SpacingTracked, mode);
+        writer.AddField(JsonDefaults.DirectionalLayout.ChildForceExpandWidthName, ChildForceExpandWidthTracked, mode);
+        writer.AddField(JsonDefaults.DirectionalLayout.ChildForceExpandHeightName, ChildForceExpandHeightTracked, mode);
+        writer.AddField(JsonDefaults.DirectionalLayout.ChildControlWidthName, ChildControlWidthTracked, mode);
+        writer.AddField(JsonDefaults.DirectionalLayout.ChildControlHeightName, ChildControlHeightTracked, mode);
+        writer.AddField(JsonDefaults.DirectionalLayout.ChildScaleWidthName, ChildScaleWidthTracked, mode);
+        writer.AddField(JsonDefaults.DirectionalLayout.ChildScaleHeightName, ChildScaleHeightTracked, mode);
     }
 }

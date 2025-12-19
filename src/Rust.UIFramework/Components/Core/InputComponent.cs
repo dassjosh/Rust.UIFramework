@@ -38,8 +38,8 @@ public partial class InputComponent : TextComponent
     protected override void WriteComponentFields(JsonFrameworkWriter writer, SerializeMode mode)
     {
         base.WriteComponentFields(writer, mode);
-        writer.AddField(JsonDefaults.Input.CharacterLimitName, _charsLimit, mode);
-        writer.AddField(JsonDefaults.Input.LineTypeName, _lineType, mode);
+        writer.AddField(JsonDefaults.Input.CharacterLimitName, CharsLimitTracked, mode);
+        writer.AddField(JsonDefaults.Input.LineTypeName, LineTypeTracked, mode);
         if (mode == SerializeMode.Create)
         {
             writer.AddField(JsonDefaults.Input.PasswordName, IsPassword, false);
@@ -48,17 +48,17 @@ public partial class InputComponent : TextComponent
             writer.AddField(JsonDefaults.Input.AutoFocusName, AutoFocus, false);
             writer.AddField(JsonDefaults.Input.ReadOnlyName, ReadOnly, false);
         }
-        else if(_mode.ShouldSerialize(mode))
+        else if(ModeTracked.ShouldSerialize(mode))
         {
-            writer.AddField(JsonDefaults.Input.PasswordName, IsPassword, _mode.ShouldSerialize(mode));
-            writer.AddField(JsonDefaults.Input.NeedsKeyboardName, NeedsKeyboard, _mode.ShouldSerialize(mode));
-            writer.AddField(JsonDefaults.Input.NeedsHudKeyboardName, HudNeedsKeyboard, _mode.ShouldSerialize(mode));
-            writer.AddField(JsonDefaults.Input.AutoFocusName, AutoFocus, _mode.ShouldSerialize(mode));
-            writer.AddField(JsonDefaults.Input.ReadOnlyName, ReadOnly, _mode.ShouldSerialize(mode));
+            writer.AddField(JsonDefaults.Input.PasswordName, IsPassword, ModeTracked.ShouldSerialize(mode));
+            writer.AddField(JsonDefaults.Input.NeedsKeyboardName, NeedsKeyboard, ModeTracked.ShouldSerialize(mode));
+            writer.AddField(JsonDefaults.Input.NeedsHudKeyboardName, HudNeedsKeyboard, ModeTracked.ShouldSerialize(mode));
+            writer.AddField(JsonDefaults.Input.AutoFocusName, AutoFocus, ModeTracked.ShouldSerialize(mode));
+            writer.AddField(JsonDefaults.Input.ReadOnlyName, ReadOnly, ModeTracked.ShouldSerialize(mode));
         }
 
-        writer.AddCommandField(JsonDefaults.Common.CommandName, _command, mode);
-        if (_placeholder.ShouldSerialize(mode) && Placeholder.IsValidName())
+        writer.AddCommandField(JsonDefaults.Common.CommandName, CommandTracked, mode);
+        if (PlaceholderTracked.ShouldSerialize(mode) && Placeholder.IsValidName())
         {
             writer.AddField(JsonDefaults.Input.PlaceholderName, Placeholder.Name);
         }
