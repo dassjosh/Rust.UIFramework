@@ -5,7 +5,7 @@
 
 namespace Oxide.Ext.UiFramework.Animation;
 
-public static class InputComponentAnimationExt
+public static partial class InputComponentAnimationExt
 {
 	extension(Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IComponentAnimation<Oxide.Ext.UiFramework.Components.InputComponent>> animation)
 	{

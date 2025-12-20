@@ -5,7 +5,7 @@
 
 namespace Oxide.Ext.UiFramework.Animation;
 
-public static class ImageComponentAnimationExt
+public static partial class ImageComponentAnimationExt
 {
 	extension(Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IComponentAnimation<Oxide.Ext.UiFramework.Components.ImageComponent>> animation)
 	{

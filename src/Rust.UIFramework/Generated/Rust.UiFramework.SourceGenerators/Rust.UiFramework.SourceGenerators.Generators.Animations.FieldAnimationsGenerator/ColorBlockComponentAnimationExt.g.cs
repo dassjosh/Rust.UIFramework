@@ -5,7 +5,7 @@
 
 namespace Oxide.Ext.UiFramework.Animation;
 
-public static class ColorBlockComponentAnimationExt
+public static partial class ColorBlockComponentAnimationExt
 {
 	extension(Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IComponentAnimation<Oxide.Ext.UiFramework.Components.ColorBlockComponent>> animation)
 	{

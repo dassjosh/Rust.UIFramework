@@ -30,6 +30,7 @@ public class SymbolCache
     public readonly DotNetSymbolCache MethodImplOptions = new("System.Runtime.CompilerServices.MethodImplOptions");
 
     public readonly AnimationCache Animations;
+    public readonly ComponentCache Components;
     public readonly EnumCache Enums;
     public readonly InterfacesCache Interfaces;
     public readonly LibrariesCache Libraries;
@@ -42,6 +43,7 @@ public class SymbolCache
     public SymbolCache(Compilation compilation)
     {
         Animations = new AnimationCache(compilation);
+        Components = new ComponentCache(compilation);
         Interfaces = new InterfacesCache(compilation);
         Libraries = new LibrariesCache(compilation);
         Plugins = new PluginsCache(compilation);
@@ -84,6 +86,20 @@ public class SymbolCache
         public readonly FrameworkSymbolCache IFieldAnimation = new("Animation.IFieldAnimation`1");
 
         public AnimationCache(Compilation compilation)
+        {
+            InitializeSymbols(this, compilation);
+        }
+    }
+    
+    public class ComponentCache
+    {
+        public readonly FrameworkSymbolCache BaseComponent = new("Components.BaseComponent");
+        public readonly FrameworkSymbolCache BaseTypedComponent = new("Components.BaseTypedComponent");
+        public readonly FrameworkSymbolCache ChildComponent = new("Components.ChildComponent");
+        public readonly FrameworkSymbolCache CoreComponent = new("Components.CoreComponent");
+        public readonly FrameworkSymbolCache SubComponent = new("Components.SubComponent");
+
+        public ComponentCache(Compilation compilation)
         {
             InitializeSymbols(this, compilation);
         }
@@ -172,6 +188,7 @@ public class SymbolCache
     public class InterfacesCache
     {
         public readonly FrameworkSymbolCache IComponent = new("Interfaces.IComponent");
+        public readonly FrameworkSymbolCache ICoreComponent = new("Interfaces.ICoreComponent");
         public readonly FrameworkSymbolCache IChildComponent = new("Interfaces.IChildComponent");
         
         public InterfacesCache(Compilation compilation)

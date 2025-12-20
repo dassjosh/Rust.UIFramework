@@ -12,8 +12,6 @@ namespace Rust.UiFramework.SourceGenerators.Generators.Animations;
 [Generator]
 public class FieldAnimationsGenerator : BaseGenerator, IIncrementalGenerator
 {
-    private static readonly string[] IgnoredSubComponents = ["RectTransformComponent", "SlotComponent"];
-    
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
         context.Register<ClassDeclarationSyntax, GenerateUiElementAttribute>((spc, compilation, @class, classSymbol, attribute) =>
@@ -28,12 +26,9 @@ public class FieldAnimationsGenerator : BaseGenerator, IIncrementalGenerator
         
         context.Register<ClassDeclarationSyntax, GenerateComponentAttribute>((spc, compilation, @class, classSymbol, attribute) =>
         {
-            if (!IgnoredSubComponents.Contains(classSymbol.Name))
-            {
-                SymbolCache.Initialize(compilation);
-                ComponentGeneratorData data = new(classSymbol);
-                spc.AddSource($"{classSymbol.Name}AnimationExt.g.cs", GenerateSubComponent(classSymbol, data));
-            }
+            SymbolCache.Initialize(compilation);
+            ComponentGeneratorData data = new(classSymbol);
+            spc.AddSource($"{classSymbol.Name}AnimationExt.g.cs", GenerateSubComponent(classSymbol, data));
         });
     }
     
@@ -47,7 +42,12 @@ public class FieldAnimationsGenerator : BaseGenerator, IIncrementalGenerator
                     .AddParameter(p => p.Type(SymbolCache.Instance.Animations.AnimationRef.Symbol.Construct(SymbolCache.Instance.Animations.IElementAnimation.Symbol.Construct(classSymbol)))
                         .Name("animation"))
                 
-                    .Methods(genData.PartialProperties, (p, m) => m.Public().Returns(SymbolCache.Instance.Animations.AnimationRef.Symbol.Construct(SymbolCache.Instance.Animations.IFieldAnimation.Symbol.Construct(p.Type))).Name($"Animate{p.Name}")
+                    .Method(m => m.Public().Returns(SymbolCache.Instance.Animations.AnimationRef.Symbol.Construct(SymbolCache.Instance.Animations.IComponentAnimation.Symbol.Construct(genData.ComponentField.Type)))
+                            .Name($"Animate{genData.ComponentField.Name}Component")
+                            .Body($"return animation.AnimateComponent(static a => a.{genData.ComponentField.Name});"))
+                    
+                    .Methods(genData.PartialProperties, (p, m) => m.Public().Returns(SymbolCache.Instance.Animations.AnimationRef.Symbol.Construct(SymbolCache.Instance.Animations.IFieldAnimation.Symbol.Construct(p.Type)))
+                        .Name($"Animate{p.Name}")
                         .Body($"return animation.AnimateField(static a => a.{genData.ComponentField.Name}.{p.Symbol.TrackedFieldName()});"))
                 ))
             .Build();
@@ -60,7 +60,7 @@ public class FieldAnimationsGenerator : BaseGenerator, IIncrementalGenerator
             return new CodeBuilder()
                 .Usings([])
                 .Namespace("Oxide.Ext.UiFramework.Animation")
-                .Add(t => t.Public().Static().Class().Name($"{classSymbol.Name}AnimationExt")
+                .Add(t => t.Public().Static().Partial().Class().Name($"{classSymbol.Name}AnimationExt")
                     .Extension(e => e.AddGeneric("T", out string genericT).Where(w => w.Type(genericT).Constrain(classSymbol))
                         .AddParameter(p => p.Type(SymbolCache.Instance.Animations.AnimationRef.Symbol.AsGeneric(SymbolCache.Instance.Animations.IComponentAnimation.Symbol.AsGeneric(genericT)))
                             .Name("animation"))
@@ -74,7 +74,7 @@ public class FieldAnimationsGenerator : BaseGenerator, IIncrementalGenerator
         return new CodeBuilder()
             .Usings([])
             .Namespace("Oxide.Ext.UiFramework.Animation")
-            .Add(t => t.Public().Static().Class().Name($"{classSymbol.Name}AnimationExt")
+            .Add(t => t.Public().Static().Partial().Class().Name($"{classSymbol.Name}AnimationExt")
                 .Extension(e => e
                     .AddParameter(p => p.Type(SymbolCache.Instance.Animations.AnimationRef.Symbol.Construct(SymbolCache.Instance.Animations.IComponentAnimation.Symbol.Construct(classSymbol)))
                         .Name("animation"))

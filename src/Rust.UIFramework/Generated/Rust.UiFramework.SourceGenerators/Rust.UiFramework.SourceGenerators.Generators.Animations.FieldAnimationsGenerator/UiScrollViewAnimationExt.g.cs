@@ -9,6 +9,7 @@ public static class UiScrollViewAnimationExt
 {
 	extension(Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IElementAnimation<Oxide.Ext.UiFramework.UiElements.UiScrollView>> animation)
 	{
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IComponentAnimation<Oxide.Ext.UiFramework.Components.ScrollViewComponent>> AnimateScrollViewComponent() => animation.AnimateComponent(static a => a.ScrollView);
 		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<UnityEngine.UI.ScrollRect.MovementType>> AnimateMovementType() => animation.AnimateField(static a => a.ScrollView.MovementTypeTracked);
 		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<float>> AnimateElasticity() => animation.AnimateField(static a => a.ScrollView.ElasticityTracked);
 		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<bool>> AnimateInertia() => animation.AnimateField(static a => a.ScrollView.InertiaTracked);

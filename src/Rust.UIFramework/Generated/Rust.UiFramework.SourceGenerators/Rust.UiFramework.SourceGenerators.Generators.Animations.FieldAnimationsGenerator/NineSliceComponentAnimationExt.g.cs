@@ -5,7 +5,7 @@
 
 namespace Oxide.Ext.UiFramework.Animation;
 
-public static class NineSliceComponentAnimationExt
+public static partial class NineSliceComponentAnimationExt
 {
 	extension(Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IComponentAnimation<Oxide.Ext.UiFramework.Components.NineSliceComponent>> animation)
 	{

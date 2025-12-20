@@ -5,7 +5,7 @@
 
 namespace Oxide.Ext.UiFramework.Animation;
 
-public static class PlayingCardComponentAnimationExt
+public static partial class PlayingCardComponentAnimationExt
 {
 	extension(Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IComponentAnimation<Oxide.Ext.UiFramework.Components.PlayingCardComponent>> animation)
 	{

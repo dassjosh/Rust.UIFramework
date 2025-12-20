@@ -9,6 +9,7 @@ public static class UiInputAnimationExt
 {
 	extension(Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IElementAnimation<Oxide.Ext.UiFramework.UiElements.UiInput>> animation)
 	{
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IComponentAnimation<Oxide.Ext.UiFramework.Components.InputComponent>> AnimateInputComponent() => animation.AnimateComponent(static a => a.Input);
 		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<int>> AnimateCharsLimit() => animation.AnimateField(static a => a.Input.CharsLimitTracked);
 		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<string>> AnimateCommand() => animation.AnimateField(static a => a.Input.CommandTracked);
 		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<Oxide.Ext.UiFramework.Enums.InputMode>> AnimateMode() => animation.AnimateField(static a => a.Input.ModeTracked);

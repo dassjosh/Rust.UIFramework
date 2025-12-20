@@ -279,6 +279,7 @@ public static class AnimationExt
     extension<T>(AnimationRef<IComponentAnimation<T>> animation) where T : BaseComponent
     {
         public AnimationRef<IFieldAnimation<TField>> AnimateField<TField>(ComponentFieldSelector<TField, T> selector) => animation.IsValid ? animation.Animation.AnimateField(selector) : default;
+        public AnimationRef<IComponentAnimation<TComponent>> AnimateComponent<TComponent>(ChildComponentSelector<TComponent, T> selector) where TComponent : BaseComponent => animation.IsValid ? animation.Animation.AnimateComponent(selector) : default;
         
         public AnimationRef<IComponentAnimation<T>> InitialState(Action<T> initialize)
         {

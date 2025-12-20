@@ -39,6 +39,20 @@ public class ComponentAnimation<T> : BaseAnimation, IComponentAnimation<T> where
         AddChildAnimation(animated);
         return new AnimationRef<IFieldAnimation<TField>>(animated);
     }
+    
+    public AnimationRef<IComponentAnimation<TComponent>> AnimateComponent<TComponent>(ChildComponentSelector<TComponent, T> selector) where TComponent : BaseComponent
+    {
+        TComponent component = selector(Component);
+        TComponent source = null;
+        if (_sourceComponent != null)
+        {
+            source = selector(_sourceComponent);
+        }
+
+        ComponentAnimation<TComponent> animated = ComponentAnimation<TComponent>.Create(Plugin, component, source);
+        AddChildAnimation(animated);
+        return new AnimationRef<IComponentAnimation<TComponent>>(animated);
+    }
 
     protected override void EnterPool()
     {

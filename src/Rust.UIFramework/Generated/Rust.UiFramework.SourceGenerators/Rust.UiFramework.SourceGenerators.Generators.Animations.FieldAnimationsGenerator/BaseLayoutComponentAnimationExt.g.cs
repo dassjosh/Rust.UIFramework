@@ -5,7 +5,7 @@
 
 namespace Oxide.Ext.UiFramework.Animation;
 
-public static class BaseLayoutComponentAnimationExt
+public static partial class BaseLayoutComponentAnimationExt
 {
 	extension<T>(Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IComponentAnimation<T>> animation) where T : Oxide.Ext.UiFramework.Components.BaseLayoutComponent
 	{

@@ -9,6 +9,7 @@ public static class UiPlayingCardAnimationExt
 {
 	extension(Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IElementAnimation<Oxide.Ext.UiFramework.UiElements.UiPlayingCard>> animation)
 	{
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IComponentAnimation<Oxide.Ext.UiFramework.Components.PlayingCardComponent>> AnimateCardComponent() => animation.AnimateComponent(static a => a.Card);
 		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<Oxide.Ext.UiFramework.Enums.UiSuit>> AnimateSuit() => animation.AnimateField(static a => a.Card.SuitTracked);
 		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<Oxide.Ext.UiFramework.Enums.UiRank>> AnimateRank() => animation.AnimateField(static a => a.Card.RankTracked);
 		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<Oxide.Ext.UiFramework.Enums.UiCardType>> AnimateCardType() => animation.AnimateField(static a => a.Card.CardTypeTracked);
