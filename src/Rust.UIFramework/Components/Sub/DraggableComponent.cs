@@ -58,7 +58,7 @@ public partial class DraggableComponent : SubComponent
         writer.AddField(JsonDefaults.Draggable.MaxDistanceName, MaxDistanceTracked, mode);
         writer.AddField(JsonDefaults.Draggable.AllowSwappingName, AllowSwappingTracked, mode);
         writer.AddField(JsonDefaults.Draggable.DropAnywhereName, DropAnywhereTracked, mode);
-        writer.AddField(JsonDefaults.Draggable.DragAlphaName, DropAnywhereTracked, mode);
+        writer.AddField(JsonDefaults.Draggable.DragAlphaName, DragAlphaTracked, mode);
         writer.AddField(JsonDefaults.Draggable.ParentLimitIndexName, ParentLimitIndexTracked, mode);
         writer.AddField(JsonDefaults.Draggable.FilterName, FilterTracked, mode);
         writer.AddField(JsonDefaults.Draggable.ParentPaddingName, ParentPaddingTracked, mode);
