@@ -17,14 +17,62 @@ public partial class TextComponent : ITextComponent
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.VerticalWrapMode> VerticalOverflowTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Text.VerticalOverflow);
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.UiElements.UiReference> PlaceholderForTracked = new();
 
-	public partial Oxide.Ext.UiFramework.Colors.UiColor Color { get => ColorTracked.Value; set => ColorTracked.Value = value; }
-	public partial float FadeIn { get => FadeInTracked.Value; set => FadeInTracked.Value = value; }
-	public partial int FontSize { get => FontSizeTracked.Value; set => FontSizeTracked.Value = value; }
-	public partial string Font { get => FontTracked.Value; set => FontTracked.Value = value; }
-	public partial UnityEngine.TextAnchor Align { get => AlignTracked.Value; set => AlignTracked.Value = value; }
-	public partial string Text { get => TextTracked.Value; set => TextTracked.Value = value; }
-	public partial UnityEngine.VerticalWrapMode VerticalOverflow { get => VerticalOverflowTracked.Value; set => VerticalOverflowTracked.Value = value; }
-	public partial Oxide.Ext.UiFramework.UiElements.UiReference PlaceholderFor { get => PlaceholderForTracked.Value; set => PlaceholderForTracked.Value = value; }
+	public partial Oxide.Ext.UiFramework.Colors.UiColor Color
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => ColorTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => ColorTracked.Value = value;
+	}
+	public partial float FadeIn
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => FadeInTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => FadeInTracked.Value = value;
+	}
+	public partial int FontSize
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => FontSizeTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => FontSizeTracked.Value = value;
+	}
+	public partial string Font
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => FontTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => FontTracked.Value = value;
+	}
+	public partial UnityEngine.TextAnchor Align
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => AlignTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => AlignTracked.Value = value;
+	}
+	public partial string Text
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => TextTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => TextTracked.Value = value;
+	}
+	public partial UnityEngine.VerticalWrapMode VerticalOverflow
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => VerticalOverflowTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => VerticalOverflowTracked.Value = value;
+	}
+	public partial Oxide.Ext.UiFramework.UiElements.UiReference PlaceholderFor
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => PlaceholderForTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => PlaceholderForTracked.Value = value;
+	}
 
 	public override bool HasChanged() => false || (ColorTracked.HasChanged || FadeInTracked.HasChanged || FontSizeTracked.HasChanged || FontTracked.HasChanged || AlignTracked.HasChanged || TextTracked.HasChanged || VerticalOverflowTracked.HasChanged || PlaceholderForTracked.HasChanged) || base.HasChanged();
 

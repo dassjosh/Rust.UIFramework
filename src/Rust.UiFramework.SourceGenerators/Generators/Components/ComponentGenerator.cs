@@ -35,13 +35,12 @@ public class ComponentGenerator : BaseGenerator, IIncrementalGenerator
                 t.Public().Partial().Class().Name(classSymbol.Name).Implements(genData.ComponentInterfaceName)
                     .If(GeneratorFlags.AddTrackableInterface, t => t.Implements(genData.TrackableInterfaceName)).EndIf()
                     
-                    
                     //Internal Tracked Fields
                     .Fields(genData.Properties, (data, field) =>
                         field.Internal().Readonly().Type(SymbolCache.Instance.Types.Tracked.Symbol.Construct(data.Type)).Name(data.TrackedFieldName).New(data.GetPropertyDefaults()))
 
                     //Public Properties
-                    .Properties(genData.Properties, (data, property) => property.Public().Partial().Type(data.Type).Name(data.Name)
+                    .Properties(genData.Properties, (data, property) => property.Public().Partial().Type(data.Type).Name(data.Name).AggressiveInlining()
                         .Get($"{data.TrackedFieldName}.Value")
                         .Set($"{data.TrackedFieldName}.Value = value"))
                     
@@ -55,7 +54,7 @@ public class ComponentGenerator : BaseGenerator, IIncrementalGenerator
                             .If(genData.ParentComponent is not null, m => m.New())
                             .EndIf()
                             .Returns(genData.TrackableInterfaceName).Name("AsTrackable").Body("return this;")
-                            .AddAttribute(a => a.Type(SymbolCache.Instance.MethodImpl.Symbol).AddParameter(MethodImplOptions.AggressiveInlining.ToParameterValue()))))
+                            .AggressiveInlining()))
                         .EndIf()
                     ).EndIf()
                     

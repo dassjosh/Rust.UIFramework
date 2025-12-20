@@ -10,7 +10,13 @@ public partial class SlotComponent : ISlotComponent
 {
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<string> FilterTracked = new();
 
-	public partial string Filter { get => FilterTracked.Value; set => FilterTracked.Value = value; }
+	public partial string Filter
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => FilterTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => FilterTracked.Value = value;
+	}
 
 	public override bool HasChanged() => false || (FilterTracked.HasChanged) || base.HasChanged();
 

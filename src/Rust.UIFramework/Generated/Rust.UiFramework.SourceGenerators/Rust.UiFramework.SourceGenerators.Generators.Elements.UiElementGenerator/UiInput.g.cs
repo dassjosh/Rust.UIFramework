@@ -8,23 +8,125 @@ namespace Oxide.Ext.UiFramework.UiElements;
 
 public partial class UiInput : IUiInput
 {
-	public partial int FontSize { get => Input.FontSize; set => Input.FontSize = value; }
-	public partial string Font { get => Input.Font; set => Input.Font = value; }
-	public partial UnityEngine.TextAnchor Align { get => Input.Align; set => Input.Align = value; }
-	public partial string TextValue { get => Input.Text; set => Input.Text = value; }
-	public partial UnityEngine.VerticalWrapMode VerticalOverflow { get => Input.VerticalOverflow; set => Input.VerticalOverflow = value; }
-	public partial int CharsLimit { get => Input.CharsLimit; set => Input.CharsLimit = value; }
-	public partial string Command { get => Input.Command; set => Input.Command = value; }
-	public partial Oxide.Ext.UiFramework.Enums.InputMode Mode { get => Input.Mode; set => Input.Mode = value; }
-	public partial UnityEngine.UI.InputField.LineType LineType { get => Input.LineType; set => Input.LineType = value; }
-	public partial Oxide.Ext.UiFramework.UiElements.UiReference Placeholder { get => Input.Placeholder; set => Input.Placeholder = value; }
-	public partial float FadeIn { get => Input.FadeIn; set => Input.FadeIn = value; }
-	public partial Oxide.Ext.UiFramework.Colors.UiColor Color { get => Input.Color; set => Input.Color = value; }
-	public partial bool IsPassword { get => Input.IsPassword; set => Input.IsPassword = value; }
-	public partial bool InputNeedsKeyboard { get => Input.NeedsKeyboard; set => Input.NeedsKeyboard = value; }
-	public partial bool HudNeedsKeyboard { get => Input.HudNeedsKeyboard; set => Input.HudNeedsKeyboard = value; }
-	public partial bool AutoFocus { get => Input.AutoFocus; set => Input.AutoFocus = value; }
-	public partial bool ReadOnly { get => Input.ReadOnly; set => Input.ReadOnly = value; }
+	public partial int FontSize
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => Input.FontSize;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => Input.FontSize = value;
+	}
+	public partial string Font
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => Input.Font;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => Input.Font = value;
+	}
+	public partial UnityEngine.TextAnchor Align
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => Input.Align;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => Input.Align = value;
+	}
+	public partial string TextValue
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => Input.Text;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => Input.Text = value;
+	}
+	public partial UnityEngine.VerticalWrapMode VerticalOverflow
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => Input.VerticalOverflow;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => Input.VerticalOverflow = value;
+	}
+	public partial int CharsLimit
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => Input.CharsLimit;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => Input.CharsLimit = value;
+	}
+	public partial string Command
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => Input.Command;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => Input.Command = value;
+	}
+	public partial Oxide.Ext.UiFramework.Enums.InputMode Mode
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => Input.Mode;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => Input.Mode = value;
+	}
+	public partial UnityEngine.UI.InputField.LineType LineType
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => Input.LineType;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => Input.LineType = value;
+	}
+	public partial Oxide.Ext.UiFramework.UiElements.UiReference Placeholder
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => Input.Placeholder;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => Input.Placeholder = value;
+	}
+	public partial float FadeIn
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => Input.FadeIn;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => Input.FadeIn = value;
+	}
+	public partial Oxide.Ext.UiFramework.Colors.UiColor Color
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => Input.Color;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => Input.Color = value;
+	}
+	public partial bool IsPassword
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => Input.IsPassword;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => Input.IsPassword = value;
+	}
+	public partial bool InputNeedsKeyboard
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => Input.NeedsKeyboard;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => Input.NeedsKeyboard = value;
+	}
+	public partial bool HudNeedsKeyboard
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => Input.HudNeedsKeyboard;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => Input.HudNeedsKeyboard = value;
+	}
+	public partial bool AutoFocus
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => Input.AutoFocus;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => Input.AutoFocus = value;
+	}
+	public partial bool ReadOnly
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => Input.ReadOnly;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => Input.ReadOnly = value;
+	}
 }
 
 

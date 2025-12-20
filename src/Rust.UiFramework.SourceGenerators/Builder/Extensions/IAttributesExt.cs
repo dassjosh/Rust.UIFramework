@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using System.Text;
 using Rust.UiFramework.SourceGenerators.Builder.Builders;
 using Rust.UiFramework.SourceGenerators.Builder.Interfaces;
+using Rust.UiFramework.SourceGenerators.Extensions;
+using Rust.UiFramework.SourceGenerators.Helpers;
 
 namespace Rust.UiFramework.SourceGenerators.Builder.Extensions;
 
@@ -18,9 +21,14 @@ public static class IAttributesExt
             return attributes;
         }
 
+        public T AggressiveInlining()
+        {
+            return attributes.AddAttribute(a => a.Type(SymbolCache.Instance.MethodImpl.Symbol).AddParameter(MethodImplOptions.AggressiveInlining.ToParameterValue()));
+        }
+
         public void BuildAttributes(StringBuilder sb, int indent, string separator)
         {
-            if (attributes.Attributes is { Count: > 0 })
+            if (attributes is not null && attributes.Attributes is { Count: > 0 })
             {
                 foreach (AttributeBuilder builder in attributes.Attributes)
                 {

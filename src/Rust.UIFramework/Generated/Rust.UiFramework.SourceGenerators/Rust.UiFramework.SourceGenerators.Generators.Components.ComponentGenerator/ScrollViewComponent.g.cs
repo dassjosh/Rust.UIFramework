@@ -16,13 +16,55 @@ public partial class ScrollViewComponent : IScrollViewComponent
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<float> HorizontalScrollProgressTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ScrollView.HorizontalScrollProgress);
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<float> VerticalScrollProgressTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ScrollView.VerticalScrollProgress);
 
-	public partial UnityEngine.UI.ScrollRect.MovementType MovementType { get => MovementTypeTracked.Value; set => MovementTypeTracked.Value = value; }
-	public partial float Elasticity { get => ElasticityTracked.Value; set => ElasticityTracked.Value = value; }
-	public partial bool Inertia { get => InertiaTracked.Value; set => InertiaTracked.Value = value; }
-	public partial float DecelerationRate { get => DecelerationRateTracked.Value; set => DecelerationRateTracked.Value = value; }
-	public partial float ScrollSensitivity { get => ScrollSensitivityTracked.Value; set => ScrollSensitivityTracked.Value = value; }
-	public partial float HorizontalScrollProgress { get => HorizontalScrollProgressTracked.Value; set => HorizontalScrollProgressTracked.Value = value; }
-	public partial float VerticalScrollProgress { get => VerticalScrollProgressTracked.Value; set => VerticalScrollProgressTracked.Value = value; }
+	public partial UnityEngine.UI.ScrollRect.MovementType MovementType
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => MovementTypeTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => MovementTypeTracked.Value = value;
+	}
+	public partial float Elasticity
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => ElasticityTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => ElasticityTracked.Value = value;
+	}
+	public partial bool Inertia
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => InertiaTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => InertiaTracked.Value = value;
+	}
+	public partial float DecelerationRate
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => DecelerationRateTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => DecelerationRateTracked.Value = value;
+	}
+	public partial float ScrollSensitivity
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => ScrollSensitivityTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => ScrollSensitivityTracked.Value = value;
+	}
+	public partial float HorizontalScrollProgress
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => HorizontalScrollProgressTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => HorizontalScrollProgressTracked.Value = value;
+	}
+	public partial float VerticalScrollProgress
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => VerticalScrollProgressTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => VerticalScrollProgressTracked.Value = value;
+	}
 
 	public override bool HasChanged() => false || (MovementTypeTracked.HasChanged || ElasticityTracked.HasChanged || InertiaTracked.HasChanged || DecelerationRateTracked.HasChanged || ScrollSensitivityTracked.HasChanged || HorizontalScrollProgressTracked.HasChanged || VerticalScrollProgressTracked.HasChanged) || ((ContentTransform?.HasChanged() ?? false) || (HorizontalScrollbar?.HasChanged() ?? false) || (VerticalScrollbar?.HasChanged() ?? false)) || base.HasChanged();
 

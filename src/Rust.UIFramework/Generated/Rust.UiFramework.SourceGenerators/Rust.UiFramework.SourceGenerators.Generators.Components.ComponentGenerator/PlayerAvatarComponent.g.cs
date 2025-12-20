@@ -11,8 +11,20 @@ public partial class PlayerAvatarComponent : IPlayerAvatarComponent
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<ulong> SteamIdTracked = new();
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Enums.AvatarType> AvatarTypeTracked = new(Oxide.Ext.UiFramework.Enums.AvatarType.Medium);
 
-	public partial ulong SteamId { get => SteamIdTracked.Value; set => SteamIdTracked.Value = value; }
-	public partial Oxide.Ext.UiFramework.Enums.AvatarType AvatarType { get => AvatarTypeTracked.Value; set => AvatarTypeTracked.Value = value; }
+	public partial ulong SteamId
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => SteamIdTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => SteamIdTracked.Value = value;
+	}
+	public partial Oxide.Ext.UiFramework.Enums.AvatarType AvatarType
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => AvatarTypeTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => AvatarTypeTracked.Value = value;
+	}
 
 	public override bool HasChanged() => false || (SteamIdTracked.HasChanged || AvatarTypeTracked.HasChanged) || base.HasChanged();
 

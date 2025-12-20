@@ -14,11 +14,41 @@ public partial class ColorBlockComponent : IColorBlockComponent
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<float> ColorMultiplierTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ColorBlock.ColorMultiplier);
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<float> FadeDurationTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ColorBlock.FadeDuration);
 
-	public partial Oxide.Ext.UiFramework.Colors.UiColor HighlightedColor { get => HighlightedColorTracked.Value; set => HighlightedColorTracked.Value = value; }
-	public partial Oxide.Ext.UiFramework.Colors.UiColor PressedColor { get => PressedColorTracked.Value; set => PressedColorTracked.Value = value; }
-	public partial Oxide.Ext.UiFramework.Colors.UiColor SelectedColor { get => SelectedColorTracked.Value; set => SelectedColorTracked.Value = value; }
-	public partial float ColorMultiplier { get => ColorMultiplierTracked.Value; set => ColorMultiplierTracked.Value = value; }
-	public partial float FadeDuration { get => FadeDurationTracked.Value; set => FadeDurationTracked.Value = value; }
+	public partial Oxide.Ext.UiFramework.Colors.UiColor HighlightedColor
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => HighlightedColorTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => HighlightedColorTracked.Value = value;
+	}
+	public partial Oxide.Ext.UiFramework.Colors.UiColor PressedColor
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => PressedColorTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => PressedColorTracked.Value = value;
+	}
+	public partial Oxide.Ext.UiFramework.Colors.UiColor SelectedColor
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => SelectedColorTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => SelectedColorTracked.Value = value;
+	}
+	public partial float ColorMultiplier
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => ColorMultiplierTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => ColorMultiplierTracked.Value = value;
+	}
+	public partial float FadeDuration
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => FadeDurationTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => FadeDurationTracked.Value = value;
+	}
 
 	public override bool HasChanged() => false || (HighlightedColorTracked.HasChanged || PressedColorTracked.HasChanged || SelectedColorTracked.HasChanged || ColorMultiplierTracked.HasChanged || FadeDurationTracked.HasChanged) || base.HasChanged();
 

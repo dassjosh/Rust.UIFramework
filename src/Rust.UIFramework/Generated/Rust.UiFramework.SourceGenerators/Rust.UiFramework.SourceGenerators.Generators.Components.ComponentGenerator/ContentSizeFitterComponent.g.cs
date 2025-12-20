@@ -11,8 +11,20 @@ public partial class ContentSizeFitterComponent : IContentSizeFitterComponent
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.ContentSizeFitter.FitMode> HorizontalFitTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ContentSizeFitterData.HorizontalFit);
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.ContentSizeFitter.FitMode> VerticalFitTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ContentSizeFitterData.VerticalFit);
 
-	public partial UnityEngine.UI.ContentSizeFitter.FitMode HorizontalFit { get => HorizontalFitTracked.Value; set => HorizontalFitTracked.Value = value; }
-	public partial UnityEngine.UI.ContentSizeFitter.FitMode VerticalFit { get => VerticalFitTracked.Value; set => VerticalFitTracked.Value = value; }
+	public partial UnityEngine.UI.ContentSizeFitter.FitMode HorizontalFit
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => HorizontalFitTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => HorizontalFitTracked.Value = value;
+	}
+	public partial UnityEngine.UI.ContentSizeFitter.FitMode VerticalFit
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => VerticalFitTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => VerticalFitTracked.Value = value;
+	}
 
 	public override bool HasChanged() => false || (HorizontalFitTracked.HasChanged || VerticalFitTracked.HasChanged) || base.HasChanged();
 

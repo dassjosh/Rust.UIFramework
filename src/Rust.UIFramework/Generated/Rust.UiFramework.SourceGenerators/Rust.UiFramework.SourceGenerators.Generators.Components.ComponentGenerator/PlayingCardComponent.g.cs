@@ -15,12 +15,48 @@ public partial class PlayingCardComponent : IPlayingCardComponent
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<string> MaterialTracked = new(Oxide.Ext.UiFramework.Constants.UiMaterials.Content.Ui.NameFontMaterial);
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> ColorTracked = new(Oxide.Ext.UiFramework.Colors.UiColors.White);
 
-	public partial Oxide.Ext.UiFramework.Enums.UiSuit Suit { get => SuitTracked.Value; set => SuitTracked.Value = value; }
-	public partial Oxide.Ext.UiFramework.Enums.UiRank Rank { get => RankTracked.Value; set => RankTracked.Value = value; }
-	public partial Oxide.Ext.UiFramework.Enums.UiCardType CardType { get => CardTypeTracked.Value; set => CardTypeTracked.Value = value; }
-	public partial float FadeIn { get => FadeInTracked.Value; set => FadeInTracked.Value = value; }
-	public partial string Material { get => MaterialTracked.Value; set => MaterialTracked.Value = value; }
-	public partial Oxide.Ext.UiFramework.Colors.UiColor Color { get => ColorTracked.Value; set => ColorTracked.Value = value; }
+	public partial Oxide.Ext.UiFramework.Enums.UiSuit Suit
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => SuitTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => SuitTracked.Value = value;
+	}
+	public partial Oxide.Ext.UiFramework.Enums.UiRank Rank
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => RankTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => RankTracked.Value = value;
+	}
+	public partial Oxide.Ext.UiFramework.Enums.UiCardType CardType
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => CardTypeTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => CardTypeTracked.Value = value;
+	}
+	public partial float FadeIn
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => FadeInTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => FadeInTracked.Value = value;
+	}
+	public partial string Material
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => MaterialTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => MaterialTracked.Value = value;
+	}
+	public partial Oxide.Ext.UiFramework.Colors.UiColor Color
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => ColorTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => ColorTracked.Value = value;
+	}
 
 	public override bool HasChanged() => false || (SuitTracked.HasChanged || RankTracked.HasChanged || CardTypeTracked.HasChanged || FadeInTracked.HasChanged || MaterialTracked.HasChanged || ColorTracked.HasChanged) || base.HasChanged();
 

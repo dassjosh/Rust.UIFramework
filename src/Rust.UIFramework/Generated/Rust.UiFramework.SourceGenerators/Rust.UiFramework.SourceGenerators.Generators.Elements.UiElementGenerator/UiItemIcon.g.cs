@@ -8,13 +8,55 @@ namespace Oxide.Ext.UiFramework.UiElements;
 
 public partial class UiItemIcon : IUiItemIcon
 {
-	public partial int ItemId { get => Icon.ItemId; set => Icon.ItemId = value; }
-	public partial ulong SkinId { get => Icon.SkinId; set => Icon.SkinId = value; }
-	public partial UnityEngine.UI.Image.Type ImageType { get => Icon.ImageType; set => Icon.ImageType = value; }
-	public partial string Sprite { get => Icon.Sprite; set => Icon.Sprite = value; }
-	public partial string Material { get => Icon.Material; set => Icon.Material = value; }
-	public partial float FadeIn { get => Icon.FadeIn; set => Icon.FadeIn = value; }
-	public partial Oxide.Ext.UiFramework.Colors.UiColor Color { get => Icon.Color; set => Icon.Color = value; }
+	public partial int ItemId
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => Icon.ItemId;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => Icon.ItemId = value;
+	}
+	public partial ulong SkinId
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => Icon.SkinId;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => Icon.SkinId = value;
+	}
+	public partial UnityEngine.UI.Image.Type ImageType
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => Icon.ImageType;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => Icon.ImageType = value;
+	}
+	public partial string Sprite
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => Icon.Sprite;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => Icon.Sprite = value;
+	}
+	public partial string Material
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => Icon.Material;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => Icon.Material = value;
+	}
+	public partial float FadeIn
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => Icon.FadeIn;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => Icon.FadeIn = value;
+	}
+	public partial Oxide.Ext.UiFramework.Colors.UiColor Color
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => Icon.Color;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => Icon.Color = value;
+	}
 }
 
 

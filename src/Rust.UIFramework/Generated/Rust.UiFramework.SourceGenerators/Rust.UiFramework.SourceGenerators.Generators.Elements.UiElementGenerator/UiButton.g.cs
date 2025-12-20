@@ -8,18 +8,60 @@ namespace Oxide.Ext.UiFramework.UiElements;
 
 public partial class UiButton : IUiButton
 {
-	public partial string Command { get => Button.Command; set => Button.Command = value; }
-	public partial Oxide.Ext.UiFramework.Enums.ButtonType ButtonType { get => Button.ButtonType; set => Button.ButtonType = value; }
+	public partial string Command
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => Button.Command;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => Button.Command = value;
+	}
+	public partial Oxide.Ext.UiFramework.Enums.ButtonType ButtonType
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => Button.ButtonType;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => Button.ButtonType = value;
+	}
 	public partial Oxide.Ext.UiFramework.Colors.UiColor HighlightedColor { get => GetOrAddColorBlock().HighlightedColor; set => GetOrAddColorBlock().HighlightedColor = value; }
 	public partial Oxide.Ext.UiFramework.Colors.UiColor PressedColor { get => GetOrAddColorBlock().PressedColor; set => GetOrAddColorBlock().PressedColor = value; }
 	public partial Oxide.Ext.UiFramework.Colors.UiColor SelectedColor { get => GetOrAddColorBlock().SelectedColor; set => GetOrAddColorBlock().SelectedColor = value; }
 	public partial float ColorMultiplier { get => GetOrAddColorBlock().ColorMultiplier; set => GetOrAddColorBlock().ColorMultiplier = value; }
 	public partial float FadeDuration { get => GetOrAddColorBlock().FadeDuration; set => GetOrAddColorBlock().FadeDuration = value; }
-	public partial UnityEngine.UI.Image.Type ImageType { get => Button.ImageType; set => Button.ImageType = value; }
-	public partial string Sprite { get => Button.Sprite; set => Button.Sprite = value; }
-	public partial string Material { get => Button.Material; set => Button.Material = value; }
-	public partial float FadeIn { get => Button.FadeIn; set => Button.FadeIn = value; }
-	public partial Oxide.Ext.UiFramework.Colors.UiColor Color { get => Button.Color; set => Button.Color = value; }
+	public partial UnityEngine.UI.Image.Type ImageType
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => Button.ImageType;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => Button.ImageType = value;
+	}
+	public partial string Sprite
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => Button.Sprite;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => Button.Sprite = value;
+	}
+	public partial string Material
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => Button.Material;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => Button.Material = value;
+	}
+	public partial float FadeIn
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => Button.FadeIn;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => Button.FadeIn = value;
+	}
+	public partial Oxide.Ext.UiFramework.Colors.UiColor Color
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => Button.Color;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => Button.Color = value;
+	}
 }
 
 

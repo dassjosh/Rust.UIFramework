@@ -12,9 +12,27 @@ public partial class OutlineComponent : IOutlineComponent
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.Vector2> DistanceTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Outline.Distance, Oxide.Ext.UiFramework.Json.JsonDefaults.Outline.FpDistance);
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<bool> UseGraphicAlphaTracked = new();
 
-	public partial Oxide.Ext.UiFramework.Colors.UiColor Color { get => ColorTracked.Value; set => ColorTracked.Value = value; }
-	public partial UnityEngine.Vector2 Distance { get => DistanceTracked.Value; set => DistanceTracked.Value = value; }
-	public partial bool UseGraphicAlpha { get => UseGraphicAlphaTracked.Value; set => UseGraphicAlphaTracked.Value = value; }
+	public partial Oxide.Ext.UiFramework.Colors.UiColor Color
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => ColorTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => ColorTracked.Value = value;
+	}
+	public partial UnityEngine.Vector2 Distance
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => DistanceTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => DistanceTracked.Value = value;
+	}
+	public partial bool UseGraphicAlpha
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => UseGraphicAlphaTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => UseGraphicAlphaTracked.Value = value;
+	}
 
 	public override bool HasChanged() => false || (ColorTracked.HasChanged || DistanceTracked.HasChanged || UseGraphicAlphaTracked.HasChanged) || base.HasChanged();
 

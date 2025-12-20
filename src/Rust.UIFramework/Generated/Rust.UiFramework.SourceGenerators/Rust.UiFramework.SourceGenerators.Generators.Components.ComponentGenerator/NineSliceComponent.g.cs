@@ -11,8 +11,20 @@ public partial class NineSliceComponent : INineSliceComponent
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<string> PngTracked = new();
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Types.UiBorderWidth> SliceTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Image.Slice);
 
-	public partial string Png { get => PngTracked.Value; set => PngTracked.Value = value; }
-	public partial Oxide.Ext.UiFramework.Types.UiBorderWidth Slice { get => SliceTracked.Value; set => SliceTracked.Value = value; }
+	public partial string Png
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => PngTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => PngTracked.Value = value;
+	}
+	public partial Oxide.Ext.UiFramework.Types.UiBorderWidth Slice
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => SliceTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => SliceTracked.Value = value;
+	}
 
 	public override bool HasChanged() => false || (PngTracked.HasChanged || SliceTracked.HasChanged) || base.HasChanged();
 

@@ -15,12 +15,48 @@ public partial class ButtonComponent : IButtonComponent
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<string> MaterialTracked = new();
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.Image.Type> ImageTypeTracked = new();
 
-	public partial string Command { get => CommandTracked.Value; set => CommandTracked.Value = value; }
-	public partial Oxide.Ext.UiFramework.Colors.UiColor Color { get => ColorTracked.Value; set => ColorTracked.Value = value; }
-	public partial float FadeIn { get => FadeInTracked.Value; set => FadeInTracked.Value = value; }
-	public partial string Sprite { get => SpriteTracked.Value; set => SpriteTracked.Value = value; }
-	public partial string Material { get => MaterialTracked.Value; set => MaterialTracked.Value = value; }
-	public partial UnityEngine.UI.Image.Type ImageType { get => ImageTypeTracked.Value; set => ImageTypeTracked.Value = value; }
+	public partial string Command
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => CommandTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => CommandTracked.Value = value;
+	}
+	public partial Oxide.Ext.UiFramework.Colors.UiColor Color
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => ColorTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => ColorTracked.Value = value;
+	}
+	public partial float FadeIn
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => FadeInTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => FadeInTracked.Value = value;
+	}
+	public partial string Sprite
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => SpriteTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => SpriteTracked.Value = value;
+	}
+	public partial string Material
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => MaterialTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => MaterialTracked.Value = value;
+	}
+	public partial UnityEngine.UI.Image.Type ImageType
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => ImageTypeTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => ImageTypeTracked.Value = value;
+	}
 
 	public override bool HasChanged() => false || (CommandTracked.HasChanged || ColorTracked.HasChanged || FadeInTracked.HasChanged || SpriteTracked.HasChanged || MaterialTracked.HasChanged || ImageTypeTracked.HasChanged) || ((ColorBlock?.HasChanged() ?? false)) || base.HasChanged();
 

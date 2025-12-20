@@ -8,11 +8,41 @@ namespace Oxide.Ext.UiFramework.UiElements;
 
 public partial class UiPlayerAvatar : IUiPlayerAvatar
 {
-	public partial ulong SteamId { get => Avatar.SteamId; set => Avatar.SteamId = value; }
-	public partial Oxide.Ext.UiFramework.Enums.AvatarType AvatarType { get => Avatar.AvatarType; set => Avatar.AvatarType = value; }
-	public partial string Material { get => Avatar.Material; set => Avatar.Material = value; }
-	public partial float FadeIn { get => Avatar.FadeIn; set => Avatar.FadeIn = value; }
-	public partial Oxide.Ext.UiFramework.Colors.UiColor Color { get => Avatar.Color; set => Avatar.Color = value; }
+	public partial ulong SteamId
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => Avatar.SteamId;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => Avatar.SteamId = value;
+	}
+	public partial Oxide.Ext.UiFramework.Enums.AvatarType AvatarType
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => Avatar.AvatarType;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => Avatar.AvatarType = value;
+	}
+	public partial string Material
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => Avatar.Material;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => Avatar.Material = value;
+	}
+	public partial float FadeIn
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => Avatar.FadeIn;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => Avatar.FadeIn = value;
+	}
+	public partial Oxide.Ext.UiFramework.Colors.UiColor Color
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => Avatar.Color;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => Avatar.Color = value;
+	}
 }
 
 

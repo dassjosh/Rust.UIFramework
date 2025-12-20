@@ -8,14 +8,62 @@ namespace Oxide.Ext.UiFramework.UiElements;
 
 public partial class UiLabel : IUiLabel
 {
-	public partial int FontSize { get => Text.FontSize; set => Text.FontSize = value; }
-	public partial string Font { get => Text.Font; set => Text.Font = value; }
-	public partial UnityEngine.TextAnchor Align { get => Text.Align; set => Text.Align = value; }
-	public partial string TextValue { get => Text.Text; set => Text.Text = value; }
-	public partial UnityEngine.VerticalWrapMode VerticalOverflow { get => Text.VerticalOverflow; set => Text.VerticalOverflow = value; }
-	public partial Oxide.Ext.UiFramework.UiElements.UiReference PlaceholderFor { get => Text.PlaceholderFor; set => Text.PlaceholderFor = value; }
-	public partial float FadeIn { get => Text.FadeIn; set => Text.FadeIn = value; }
-	public partial Oxide.Ext.UiFramework.Colors.UiColor Color { get => Text.Color; set => Text.Color = value; }
+	public partial int FontSize
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => Text.FontSize;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => Text.FontSize = value;
+	}
+	public partial string Font
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => Text.Font;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => Text.Font = value;
+	}
+	public partial UnityEngine.TextAnchor Align
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => Text.Align;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => Text.Align = value;
+	}
+	public partial string TextValue
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => Text.Text;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => Text.Text = value;
+	}
+	public partial UnityEngine.VerticalWrapMode VerticalOverflow
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => Text.VerticalOverflow;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => Text.VerticalOverflow = value;
+	}
+	public partial Oxide.Ext.UiFramework.UiElements.UiReference PlaceholderFor
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => Text.PlaceholderFor;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => Text.PlaceholderFor = value;
+	}
+	public partial float FadeIn
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => Text.FadeIn;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => Text.FadeIn = value;
+	}
+	public partial Oxide.Ext.UiFramework.Colors.UiColor Color
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => Text.Color;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => Text.Color = value;
+	}
 }
 
 

@@ -17,14 +17,62 @@ public partial class CountdownComponent : ICountdownComponent
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<bool> DestroyIfDoneTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Countdown.DestroyIfDone);
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<string> CommandTracked = new();
 
-	public partial float StartTime { get => StartTimeTracked.Value; set => StartTimeTracked.Value = value; }
-	public partial float EndTime { get => EndTimeTracked.Value; set => EndTimeTracked.Value = value; }
-	public partial float Step { get => StepTracked.Value; set => StepTracked.Value = value; }
-	public partial float Interval { get => IntervalTracked.Value; set => IntervalTracked.Value = value; }
-	public partial Oxide.Ext.UiFramework.Enums.TimerFormat TimerFormat { get => TimerFormatTracked.Value; set => TimerFormatTracked.Value = value; }
-	public partial string NumberFormat { get => NumberFormatTracked.Value; set => NumberFormatTracked.Value = value; }
-	public partial bool DestroyIfDone { get => DestroyIfDoneTracked.Value; set => DestroyIfDoneTracked.Value = value; }
-	public partial string Command { get => CommandTracked.Value; set => CommandTracked.Value = value; }
+	public partial float StartTime
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => StartTimeTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => StartTimeTracked.Value = value;
+	}
+	public partial float EndTime
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => EndTimeTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => EndTimeTracked.Value = value;
+	}
+	public partial float Step
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => StepTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => StepTracked.Value = value;
+	}
+	public partial float Interval
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => IntervalTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => IntervalTracked.Value = value;
+	}
+	public partial Oxide.Ext.UiFramework.Enums.TimerFormat TimerFormat
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => TimerFormatTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => TimerFormatTracked.Value = value;
+	}
+	public partial string NumberFormat
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => NumberFormatTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => NumberFormatTracked.Value = value;
+	}
+	public partial bool DestroyIfDone
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => DestroyIfDoneTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => DestroyIfDoneTracked.Value = value;
+	}
+	public partial string Command
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => CommandTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => CommandTracked.Value = value;
+	}
 
 	public override bool HasChanged() => false || (StartTimeTracked.HasChanged || EndTimeTracked.HasChanged || StepTracked.HasChanged || IntervalTracked.HasChanged || TimerFormatTracked.HasChanged || NumberFormatTracked.HasChanged || DestroyIfDoneTracked.HasChanged || CommandTracked.HasChanged) || base.HasChanged();
 

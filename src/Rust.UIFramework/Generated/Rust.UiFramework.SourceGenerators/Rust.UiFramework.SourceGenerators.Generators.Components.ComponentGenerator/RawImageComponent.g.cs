@@ -14,11 +14,41 @@ public partial class RawImageComponent : IRawImageComponent
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<string> MaterialTracked = new();
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.UiElements.UiReference> PlaceholderForTracked = new();
 
-	public partial Oxide.Ext.UiFramework.Colors.UiColor Color { get => ColorTracked.Value; set => ColorTracked.Value = value; }
-	public partial float FadeIn { get => FadeInTracked.Value; set => FadeInTracked.Value = value; }
-	public partial string Image { get => ImageTracked.Value; set => ImageTracked.Value = value; }
-	public partial string Material { get => MaterialTracked.Value; set => MaterialTracked.Value = value; }
-	public partial Oxide.Ext.UiFramework.UiElements.UiReference PlaceholderFor { get => PlaceholderForTracked.Value; set => PlaceholderForTracked.Value = value; }
+	public partial Oxide.Ext.UiFramework.Colors.UiColor Color
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => ColorTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => ColorTracked.Value = value;
+	}
+	public partial float FadeIn
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => FadeInTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => FadeInTracked.Value = value;
+	}
+	public partial string Image
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => ImageTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => ImageTracked.Value = value;
+	}
+	public partial string Material
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => MaterialTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => MaterialTracked.Value = value;
+	}
+	public partial Oxide.Ext.UiFramework.UiElements.UiReference PlaceholderFor
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => PlaceholderForTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => PlaceholderForTracked.Value = value;
+	}
 
 	public override bool HasChanged() => false || (ColorTracked.HasChanged || FadeInTracked.HasChanged || ImageTracked.HasChanged || MaterialTracked.HasChanged || PlaceholderForTracked.HasChanged) || base.HasChanged();
 

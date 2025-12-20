@@ -39,10 +39,10 @@ public class UiElementGenerator : BaseGenerator, IIncrementalGenerator
                
                 //Public Properties Setting Component Fields
                 .Properties(genData.PartialProperties, (data, property) => property.Public().Partial().Type(data.TypeName).Name(data.Name)
-                    .If(data.IsTracked, p => p.Get($"{data.Symbol.TrackedFieldName()}.Value").Set($"{data.Symbol.TrackedFieldName()}.Value = value"))
+                    .If(data.IsTracked, p => p.Get($"{data.Symbol.TrackedFieldName()}.Value").Set($"{data.Symbol.TrackedFieldName()}.Value = value").AggressiveInlining())
                     .ElseIf(data.ComponentPropertyTargetType is PropertyTargetType.Self, p => p.Get().Set())
-                    .Else(p => p.Get($"{data.GetPropertyTarget() ?? genData.ComponentFieldName}.{data.GetPropertyName()}")
-                        .Set($"{data.GetPropertyTarget() ?? genData.ComponentFieldName}.{data.GetPropertyName()} = value"))
+                    .ElseIf(data.HasPropertyTarget(), p => p.Get($"{data.GetPropertyTarget()}.{data.GetPropertyName()}").Set($"{data.GetPropertyTarget()}.{data.GetPropertyName()} = value"))
+                    .Else(p => p.Get($"{genData.ComponentFieldName}.{data.GetPropertyName()}").Set($"{genData.ComponentFieldName}.{data.GetPropertyName()} = value").AggressiveInlining())
                     .EndIf())
                
                 .If(GeneratorFlags.AddTrackableInterface, _ => t
@@ -56,7 +56,7 @@ public class UiElementGenerator : BaseGenerator, IIncrementalGenerator
                             .Name($"{genData.Symbol.GetTrackableInterface()}.{genData.ComponentField.Name}")
                             .Get($"{genData.ComponentFieldName}.AsTrackable()"))
                         .Method(m => m.Internal().Name("AsTrackable").Returns(genData.Symbol.GetTrackableInterface()).Body("return this;")
-                            .AddAttribute(a => a.Type(SymbolCache.Instance.MethodImpl.Symbol).AddParameter(MethodImplOptions.AggressiveInlining.ToParameterValue()))))
+                            .AggressiveInlining()))
                     .EndIf()
                 ).EndIf()
             )
@@ -118,6 +118,8 @@ public class UiElementGenerator : BaseGenerator, IIncrementalGenerator
 
             return $"{args[index].Value}.{args[index + 1].Value}";
         }
+        
+        public bool HasPropertyTarget() => !string.IsNullOrEmpty(ComponentPropertyTarget);
         
         public string GetPropertyTarget()
         {

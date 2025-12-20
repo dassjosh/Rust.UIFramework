@@ -8,12 +8,48 @@ namespace Oxide.Ext.UiFramework.UiElements;
 
 public partial class UiPlayingCard : IUiPlayingCard
 {
-	public partial Oxide.Ext.UiFramework.Enums.UiSuit Suit { get => Card.Suit; set => Card.Suit = value; }
-	public partial Oxide.Ext.UiFramework.Enums.UiRank Rank { get => Card.Rank; set => Card.Rank = value; }
-	public partial Oxide.Ext.UiFramework.Enums.UiCardType CardType { get => Card.CardType; set => Card.CardType = value; }
-	public partial string Material { get => Card.Material; set => Card.Material = value; }
-	public partial float FadeIn { get => Card.FadeIn; set => Card.FadeIn = value; }
-	public partial Oxide.Ext.UiFramework.Colors.UiColor Color { get => Card.Color; set => Card.Color = value; }
+	public partial Oxide.Ext.UiFramework.Enums.UiSuit Suit
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => Card.Suit;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => Card.Suit = value;
+	}
+	public partial Oxide.Ext.UiFramework.Enums.UiRank Rank
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => Card.Rank;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => Card.Rank = value;
+	}
+	public partial Oxide.Ext.UiFramework.Enums.UiCardType CardType
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => Card.CardType;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => Card.CardType = value;
+	}
+	public partial string Material
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => Card.Material;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => Card.Material = value;
+	}
+	public partial float FadeIn
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => Card.FadeIn;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => Card.FadeIn = value;
+	}
+	public partial Oxide.Ext.UiFramework.Colors.UiColor Color
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => Card.Color;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => Card.Color = value;
+	}
 }
 
 

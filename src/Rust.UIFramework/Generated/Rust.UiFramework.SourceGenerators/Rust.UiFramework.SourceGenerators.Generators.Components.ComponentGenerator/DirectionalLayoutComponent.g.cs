@@ -17,14 +17,62 @@ public partial class DirectionalLayoutComponent : IDirectionalLayoutComponent
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<bool> ChildScaleHeightTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.DirectionalLayout.ChildScaleHeight);
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Enums.LayoutDirection> DirectionTracked = new();
 
-	public partial float Spacing { get => SpacingTracked.Value; set => SpacingTracked.Value = value; }
-	public partial bool ChildForceExpandWidth { get => ChildForceExpandWidthTracked.Value; set => ChildForceExpandWidthTracked.Value = value; }
-	public partial bool ChildForceExpandHeight { get => ChildForceExpandHeightTracked.Value; set => ChildForceExpandHeightTracked.Value = value; }
-	public partial bool ChildControlWidth { get => ChildControlWidthTracked.Value; set => ChildControlWidthTracked.Value = value; }
-	public partial bool ChildControlHeight { get => ChildControlHeightTracked.Value; set => ChildControlHeightTracked.Value = value; }
-	public partial bool ChildScaleWidth { get => ChildScaleWidthTracked.Value; set => ChildScaleWidthTracked.Value = value; }
-	public partial bool ChildScaleHeight { get => ChildScaleHeightTracked.Value; set => ChildScaleHeightTracked.Value = value; }
-	public partial Oxide.Ext.UiFramework.Enums.LayoutDirection Direction { get => DirectionTracked.Value; set => DirectionTracked.Value = value; }
+	public partial float Spacing
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => SpacingTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => SpacingTracked.Value = value;
+	}
+	public partial bool ChildForceExpandWidth
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => ChildForceExpandWidthTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => ChildForceExpandWidthTracked.Value = value;
+	}
+	public partial bool ChildForceExpandHeight
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => ChildForceExpandHeightTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => ChildForceExpandHeightTracked.Value = value;
+	}
+	public partial bool ChildControlWidth
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => ChildControlWidthTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => ChildControlWidthTracked.Value = value;
+	}
+	public partial bool ChildControlHeight
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => ChildControlHeightTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => ChildControlHeightTracked.Value = value;
+	}
+	public partial bool ChildScaleWidth
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => ChildScaleWidthTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => ChildScaleWidthTracked.Value = value;
+	}
+	public partial bool ChildScaleHeight
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => ChildScaleHeightTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => ChildScaleHeightTracked.Value = value;
+	}
+	public partial Oxide.Ext.UiFramework.Enums.LayoutDirection Direction
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => DirectionTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => DirectionTracked.Value = value;
+	}
 
 	public override bool HasChanged() => false || (SpacingTracked.HasChanged || ChildForceExpandWidthTracked.HasChanged || ChildForceExpandHeightTracked.HasChanged || ChildControlWidthTracked.HasChanged || ChildControlHeightTracked.HasChanged || ChildScaleWidthTracked.HasChanged || ChildScaleHeightTracked.HasChanged || DirectionTracked.HasChanged) || base.HasChanged();
 

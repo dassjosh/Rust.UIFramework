@@ -22,19 +22,97 @@ public partial class DraggableComponent : IDraggableComponent
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<bool> MoveToAnchorTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Draggable.MoveToAnchor);
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<bool> RebuildAnchorTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Draggable.RebuildAnchor);
 
-	public partial bool LimitToParent { get => LimitToParentTracked.Value; set => LimitToParentTracked.Value = value; }
-	public partial float MaxDistance { get => MaxDistanceTracked.Value; set => MaxDistanceTracked.Value = value; }
-	public partial bool AllowSwapping { get => AllowSwappingTracked.Value; set => AllowSwappingTracked.Value = value; }
-	public partial bool DropAnywhere { get => DropAnywhereTracked.Value; set => DropAnywhereTracked.Value = value; }
-	public partial float DragAlpha { get => DragAlphaTracked.Value; set => DragAlphaTracked.Value = value; }
-	public partial int ParentLimitIndex { get => ParentLimitIndexTracked.Value; set => ParentLimitIndexTracked.Value = value; }
-	public partial string Filter { get => FilterTracked.Value; set => FilterTracked.Value = value; }
-	public partial UnityEngine.Vector2 ParentPadding { get => ParentPaddingTracked.Value; set => ParentPaddingTracked.Value = value; }
-	public partial UnityEngine.Vector2 AnchorOffset { get => AnchorOffsetTracked.Value; set => AnchorOffsetTracked.Value = value; }
-	public partial bool KeepOnTop { get => KeepOnTopTracked.Value; set => KeepOnTopTracked.Value = value; }
-	public partial CommunityEntity.DraggablePositionSendType? PositionRpc { get => PositionRpcTracked.Value; set => PositionRpcTracked.Value = value; }
-	public partial bool MoveToAnchor { get => MoveToAnchorTracked.Value; set => MoveToAnchorTracked.Value = value; }
-	public partial bool RebuildAnchor { get => RebuildAnchorTracked.Value; set => RebuildAnchorTracked.Value = value; }
+	public partial bool LimitToParent
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => LimitToParentTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => LimitToParentTracked.Value = value;
+	}
+	public partial float MaxDistance
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => MaxDistanceTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => MaxDistanceTracked.Value = value;
+	}
+	public partial bool AllowSwapping
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => AllowSwappingTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => AllowSwappingTracked.Value = value;
+	}
+	public partial bool DropAnywhere
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => DropAnywhereTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => DropAnywhereTracked.Value = value;
+	}
+	public partial float DragAlpha
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => DragAlphaTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => DragAlphaTracked.Value = value;
+	}
+	public partial int ParentLimitIndex
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => ParentLimitIndexTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => ParentLimitIndexTracked.Value = value;
+	}
+	public partial string Filter
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => FilterTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => FilterTracked.Value = value;
+	}
+	public partial UnityEngine.Vector2 ParentPadding
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => ParentPaddingTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => ParentPaddingTracked.Value = value;
+	}
+	public partial UnityEngine.Vector2 AnchorOffset
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => AnchorOffsetTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => AnchorOffsetTracked.Value = value;
+	}
+	public partial bool KeepOnTop
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => KeepOnTopTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => KeepOnTopTracked.Value = value;
+	}
+	public partial CommunityEntity.DraggablePositionSendType? PositionRpc
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => PositionRpcTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => PositionRpcTracked.Value = value;
+	}
+	public partial bool MoveToAnchor
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => MoveToAnchorTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => MoveToAnchorTracked.Value = value;
+	}
+	public partial bool RebuildAnchor
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => RebuildAnchorTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => RebuildAnchorTracked.Value = value;
+	}
 
 	public override bool HasChanged() => false || (LimitToParentTracked.HasChanged || MaxDistanceTracked.HasChanged || AllowSwappingTracked.HasChanged || DropAnywhereTracked.HasChanged || DragAlphaTracked.HasChanged || ParentLimitIndexTracked.HasChanged || FilterTracked.HasChanged || ParentPaddingTracked.HasChanged || AnchorOffsetTracked.HasChanged || KeepOnTopTracked.HasChanged || PositionRpcTracked.HasChanged || MoveToAnchorTracked.HasChanged || RebuildAnchorTracked.HasChanged) || base.HasChanged();
 

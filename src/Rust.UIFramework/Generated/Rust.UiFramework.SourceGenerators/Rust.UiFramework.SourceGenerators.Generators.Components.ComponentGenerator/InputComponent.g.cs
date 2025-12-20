@@ -14,11 +14,41 @@ public partial class InputComponent : IInputComponent
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.InputField.LineType> LineTypeTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Input.LineType);
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.UiElements.UiReference> PlaceholderTracked = new();
 
-	public partial int CharsLimit { get => CharsLimitTracked.Value; set => CharsLimitTracked.Value = value; }
-	public partial string Command { get => CommandTracked.Value; set => CommandTracked.Value = value; }
-	public partial Oxide.Ext.UiFramework.Enums.InputMode Mode { get => ModeTracked.Value; set => ModeTracked.Value = value; }
-	public partial UnityEngine.UI.InputField.LineType LineType { get => LineTypeTracked.Value; set => LineTypeTracked.Value = value; }
-	public partial Oxide.Ext.UiFramework.UiElements.UiReference Placeholder { get => PlaceholderTracked.Value; set => PlaceholderTracked.Value = value; }
+	public partial int CharsLimit
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => CharsLimitTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => CharsLimitTracked.Value = value;
+	}
+	public partial string Command
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => CommandTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => CommandTracked.Value = value;
+	}
+	public partial Oxide.Ext.UiFramework.Enums.InputMode Mode
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => ModeTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => ModeTracked.Value = value;
+	}
+	public partial UnityEngine.UI.InputField.LineType LineType
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => LineTypeTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => LineTypeTracked.Value = value;
+	}
+	public partial Oxide.Ext.UiFramework.UiElements.UiReference Placeholder
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => PlaceholderTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => PlaceholderTracked.Value = value;
+	}
 
 	public override bool HasChanged() => false || (CharsLimitTracked.HasChanged || CommandTracked.HasChanged || ModeTracked.HasChanged || LineTypeTracked.HasChanged || PlaceholderTracked.HasChanged) || base.HasChanged();
 

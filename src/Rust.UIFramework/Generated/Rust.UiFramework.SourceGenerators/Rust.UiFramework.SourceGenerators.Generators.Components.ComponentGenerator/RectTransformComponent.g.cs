@@ -20,17 +20,83 @@ public partial class RectTransformComponent : IRectTransformComponent
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<string> ChangeParentTracked = new();
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<int> TransformIndexTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.RectTransform.SetTransformIndex);
 
-	public partial Oxide.Ext.UiFramework.Positions.UiPosition Position { get => PositionTracked.Value; set => PositionTracked.Value = value; }
-	public partial Oxide.Ext.UiFramework.Offsets.UiOffset Offset { get => OffsetTracked.Value; set => OffsetTracked.Value = value; }
-	public partial Oxide.Ext.UiFramework.Types.UiPadding PositionPadding { get => PositionPaddingTracked.Value; set => PositionPaddingTracked.Value = value; }
-	public partial Oxide.Ext.UiFramework.Types.UiPadding OffsetPadding { get => OffsetPaddingTracked.Value; set => OffsetPaddingTracked.Value = value; }
-	public partial Oxide.Ext.UiFramework.Types.UiScale PositionScale { get => PositionScaleTracked.Value; set => PositionScaleTracked.Value = value; }
-	public partial Oxide.Ext.UiFramework.Types.UiScale OffsetScale { get => OffsetScaleTracked.Value; set => OffsetScaleTracked.Value = value; }
-	public partial Oxide.Ext.UiFramework.Types.UiTranslate PositionTranslate { get => PositionTranslateTracked.Value; set => PositionTranslateTracked.Value = value; }
-	public partial Oxide.Ext.UiFramework.Types.UiTranslate OffsetTranslate { get => OffsetTranslateTracked.Value; set => OffsetTranslateTracked.Value = value; }
-	public partial Oxide.Ext.UiFramework.Types.UiRotation Rotation { get => RotationTracked.Value; set => RotationTracked.Value = value; }
-	public partial string ChangeParent { get => ChangeParentTracked.Value; set => ChangeParentTracked.Value = value; }
-	public partial int TransformIndex { get => TransformIndexTracked.Value; set => TransformIndexTracked.Value = value; }
+	public partial Oxide.Ext.UiFramework.Positions.UiPosition Position
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => PositionTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => PositionTracked.Value = value;
+	}
+	public partial Oxide.Ext.UiFramework.Offsets.UiOffset Offset
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => OffsetTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => OffsetTracked.Value = value;
+	}
+	public partial Oxide.Ext.UiFramework.Types.UiPadding PositionPadding
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => PositionPaddingTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => PositionPaddingTracked.Value = value;
+	}
+	public partial Oxide.Ext.UiFramework.Types.UiPadding OffsetPadding
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => OffsetPaddingTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => OffsetPaddingTracked.Value = value;
+	}
+	public partial Oxide.Ext.UiFramework.Types.UiScale PositionScale
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => PositionScaleTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => PositionScaleTracked.Value = value;
+	}
+	public partial Oxide.Ext.UiFramework.Types.UiScale OffsetScale
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => OffsetScaleTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => OffsetScaleTracked.Value = value;
+	}
+	public partial Oxide.Ext.UiFramework.Types.UiTranslate PositionTranslate
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => PositionTranslateTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => PositionTranslateTracked.Value = value;
+	}
+	public partial Oxide.Ext.UiFramework.Types.UiTranslate OffsetTranslate
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => OffsetTranslateTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => OffsetTranslateTracked.Value = value;
+	}
+	public partial Oxide.Ext.UiFramework.Types.UiRotation Rotation
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => RotationTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => RotationTracked.Value = value;
+	}
+	public partial string ChangeParent
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => ChangeParentTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => ChangeParentTracked.Value = value;
+	}
+	public partial int TransformIndex
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => TransformIndexTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => TransformIndexTracked.Value = value;
+	}
 
 	public override bool HasChanged() => false || (PositionTracked.HasChanged || OffsetTracked.HasChanged || PositionPaddingTracked.HasChanged || OffsetPaddingTracked.HasChanged || PositionScaleTracked.HasChanged || OffsetScaleTracked.HasChanged || PositionTranslateTracked.HasChanged || OffsetTranslateTracked.HasChanged || RotationTracked.HasChanged || ChangeParentTracked.HasChanged || TransformIndexTracked.HasChanged) || base.HasChanged();
 

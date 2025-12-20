@@ -16,13 +16,55 @@ public partial class ImageComponent : IImageComponent
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.UiElements.UiReference> PlaceholderForTracked = new();
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<bool> FillCenterTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Image.FillCenter);
 
-	public partial Oxide.Ext.UiFramework.Colors.UiColor Color { get => ColorTracked.Value; set => ColorTracked.Value = value; }
-	public partial float FadeIn { get => FadeInTracked.Value; set => FadeInTracked.Value = value; }
-	public partial string Sprite { get => SpriteTracked.Value; set => SpriteTracked.Value = value; }
-	public partial string Material { get => MaterialTracked.Value; set => MaterialTracked.Value = value; }
-	public partial UnityEngine.UI.Image.Type ImageType { get => ImageTypeTracked.Value; set => ImageTypeTracked.Value = value; }
-	public partial Oxide.Ext.UiFramework.UiElements.UiReference PlaceholderFor { get => PlaceholderForTracked.Value; set => PlaceholderForTracked.Value = value; }
-	public partial bool FillCenter { get => FillCenterTracked.Value; set => FillCenterTracked.Value = value; }
+	public partial Oxide.Ext.UiFramework.Colors.UiColor Color
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => ColorTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => ColorTracked.Value = value;
+	}
+	public partial float FadeIn
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => FadeInTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => FadeInTracked.Value = value;
+	}
+	public partial string Sprite
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => SpriteTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => SpriteTracked.Value = value;
+	}
+	public partial string Material
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => MaterialTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => MaterialTracked.Value = value;
+	}
+	public partial UnityEngine.UI.Image.Type ImageType
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => ImageTypeTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => ImageTypeTracked.Value = value;
+	}
+	public partial Oxide.Ext.UiFramework.UiElements.UiReference PlaceholderFor
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => PlaceholderForTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => PlaceholderForTracked.Value = value;
+	}
+	public partial bool FillCenter
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => FillCenterTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => FillCenterTracked.Value = value;
+	}
 
 	public override bool HasChanged() => false || (ColorTracked.HasChanged || FadeInTracked.HasChanged || SpriteTracked.HasChanged || MaterialTracked.HasChanged || ImageTypeTracked.HasChanged || PlaceholderForTracked.HasChanged || FillCenterTracked.HasChanged) || base.HasChanged();
 

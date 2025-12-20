@@ -15,12 +15,48 @@ public partial class GridLayoutComponent : IGridLayoutComponent
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.GridLayoutGroup.Constraint> ConstraintTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.GridLayout.Constraint);
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<int> ConstraintCountTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.GridLayout.ConstraintCount);
 
-	public partial UnityEngine.Vector2 CellSize { get => CellSizeTracked.Value; set => CellSizeTracked.Value = value; }
-	public partial UnityEngine.Vector2 Spacing { get => SpacingTracked.Value; set => SpacingTracked.Value = value; }
-	public partial UnityEngine.UI.GridLayoutGroup.Corner StartCorner { get => StartCornerTracked.Value; set => StartCornerTracked.Value = value; }
-	public partial UnityEngine.UI.GridLayoutGroup.Axis StartAxis { get => StartAxisTracked.Value; set => StartAxisTracked.Value = value; }
-	public partial UnityEngine.UI.GridLayoutGroup.Constraint Constraint { get => ConstraintTracked.Value; set => ConstraintTracked.Value = value; }
-	public partial int ConstraintCount { get => ConstraintCountTracked.Value; set => ConstraintCountTracked.Value = value; }
+	public partial UnityEngine.Vector2 CellSize
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => CellSizeTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => CellSizeTracked.Value = value;
+	}
+	public partial UnityEngine.Vector2 Spacing
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => SpacingTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => SpacingTracked.Value = value;
+	}
+	public partial UnityEngine.UI.GridLayoutGroup.Corner StartCorner
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => StartCornerTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => StartCornerTracked.Value = value;
+	}
+	public partial UnityEngine.UI.GridLayoutGroup.Axis StartAxis
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => StartAxisTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => StartAxisTracked.Value = value;
+	}
+	public partial UnityEngine.UI.GridLayoutGroup.Constraint Constraint
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => ConstraintTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => ConstraintTracked.Value = value;
+	}
+	public partial int ConstraintCount
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => ConstraintCountTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => ConstraintCountTracked.Value = value;
+	}
 
 	public override bool HasChanged() => false || (CellSizeTracked.HasChanged || SpacingTracked.HasChanged || StartCornerTracked.HasChanged || StartAxisTracked.HasChanged || ConstraintTracked.HasChanged || ConstraintCountTracked.HasChanged) || base.HasChanged();
 

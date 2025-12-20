@@ -8,13 +8,55 @@ namespace Oxide.Ext.UiFramework.UiElements;
 
 public partial class UiScrollView : IUiScrollView
 {
-	public partial UnityEngine.UI.ScrollRect.MovementType MovementType { get => ScrollView.MovementType; set => ScrollView.MovementType = value; }
-	public partial float Elasticity { get => ScrollView.Elasticity; set => ScrollView.Elasticity = value; }
-	public partial bool Inertia { get => ScrollView.Inertia; set => ScrollView.Inertia = value; }
-	public partial float DecelerationRate { get => ScrollView.DecelerationRate; set => ScrollView.DecelerationRate = value; }
-	public partial float ScrollSensitivity { get => ScrollView.ScrollSensitivity; set => ScrollView.ScrollSensitivity = value; }
-	public partial float HorizontalScrollProgress { get => ScrollView.HorizontalScrollProgress; set => ScrollView.HorizontalScrollProgress = value; }
-	public partial float VerticalScrollProgress { get => ScrollView.VerticalScrollProgress; set => ScrollView.VerticalScrollProgress = value; }
+	public partial UnityEngine.UI.ScrollRect.MovementType MovementType
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => ScrollView.MovementType;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => ScrollView.MovementType = value;
+	}
+	public partial float Elasticity
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => ScrollView.Elasticity;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => ScrollView.Elasticity = value;
+	}
+	public partial bool Inertia
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => ScrollView.Inertia;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => ScrollView.Inertia = value;
+	}
+	public partial float DecelerationRate
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => ScrollView.DecelerationRate;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => ScrollView.DecelerationRate = value;
+	}
+	public partial float ScrollSensitivity
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => ScrollView.ScrollSensitivity;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => ScrollView.ScrollSensitivity = value;
+	}
+	public partial float HorizontalScrollProgress
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => ScrollView.HorizontalScrollProgress;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => ScrollView.HorizontalScrollProgress = value;
+	}
+	public partial float VerticalScrollProgress
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => ScrollView.VerticalScrollProgress;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => ScrollView.VerticalScrollProgress = value;
+	}
 	public partial Oxide.Ext.UiFramework.Positions.UiPosition ContentPosition { get => GetOrCreateContentTransform().Position; set => GetOrCreateContentTransform().Position = value; }
 	public partial Oxide.Ext.UiFramework.Offsets.UiOffset ContentOffset { get => GetOrCreateContentTransform().Offset; set => GetOrCreateContentTransform().Offset = value; }
 	public partial UnityEngine.Vector2 ContentPivot { get => GetOrCreateContentTransform().Pivot; set => GetOrCreateContentTransform().Pivot = value; }

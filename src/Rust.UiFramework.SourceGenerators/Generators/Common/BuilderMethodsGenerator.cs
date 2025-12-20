@@ -39,7 +39,7 @@ public class BuilderMethodsGenerator : BaseGenerator, IIncrementalGenerator
                         .AddParameter(p => p.Type(genericT).Name("component"))
                         .Where(w => w.Type(genericT).Constrain(classSymbol))
                         .Methods(genData.Properties, data => !data.SkipBuilder, (data, method) => method.Public().Returns(genericT).Name($"Set{data.Name}")
-                            .AddAttribute(a => a.Type(SymbolCache.Instance.MethodImpl.Symbol).AddParameter(MethodImplOptions.AggressiveInlining.ToParameterValue()))
+                            .AggressiveInlining()
                             .AddParameter(p => p.Type(data.Type).If(data.Type.ShouldBePassedByIn(), p => p.In()).EndIf().Name(data.Name.ToCamelCase()))
                             .Body($"component.{data.Name} = {data.Name.ToCamelCase()};\nreturn component;"))))
                 .Build();
@@ -49,7 +49,7 @@ public class BuilderMethodsGenerator : BaseGenerator, IIncrementalGenerator
             .Namespace(classSymbol.ContainingNamespace)
             .Add(t => t.Public().Partial().Class().Name(classSymbol.Name)
                     .Methods(genData.Properties, data => !data.SkipBuilder, (data, method) => method.Public().Returns(classSymbol.Name).Name($"Set{data.Name}")
-                        .AddAttribute(a => a.Type(SymbolCache.Instance.MethodImpl.Symbol).AddParameter(MethodImplOptions.AggressiveInlining.ToParameterValue()))
+                        .AggressiveInlining()
                         .AddParameter(p => p.Type(data.Type).If(data.Type.ShouldBePassedByIn(), p => p.In()).EndIf().Name(data.Name.ToCamelCase()))
                         .Body($"{data.Name} = {data.Name.ToCamelCase()};\nreturn this;"))
             )

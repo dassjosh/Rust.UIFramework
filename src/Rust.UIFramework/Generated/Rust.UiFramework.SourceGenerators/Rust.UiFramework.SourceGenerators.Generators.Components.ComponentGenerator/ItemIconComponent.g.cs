@@ -11,8 +11,20 @@ public partial class ItemIconComponent : IItemIconComponent
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<int> ItemIdTracked = new();
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<ulong> SkinIdTracked = new();
 
-	public partial int ItemId { get => ItemIdTracked.Value; set => ItemIdTracked.Value = value; }
-	public partial ulong SkinId { get => SkinIdTracked.Value; set => SkinIdTracked.Value = value; }
+	public partial int ItemId
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => ItemIdTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => ItemIdTracked.Value = value;
+	}
+	public partial ulong SkinId
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => SkinIdTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => SkinIdTracked.Value = value;
+	}
 
 	public override bool HasChanged() => false || (ItemIdTracked.HasChanged || SkinIdTracked.HasChanged) || base.HasChanged();
 

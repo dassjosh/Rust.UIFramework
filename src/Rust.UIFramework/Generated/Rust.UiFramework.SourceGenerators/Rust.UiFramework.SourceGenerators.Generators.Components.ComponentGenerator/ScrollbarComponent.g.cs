@@ -18,15 +18,69 @@ public partial class ScrollbarComponent : IScrollbarComponent
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> PressedColorTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ScrollBar.PressedColor);
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> TrackColorTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ScrollBar.TrackColor);
 
-	public partial bool Invert { get => InvertTracked.Value; set => InvertTracked.Value = value; }
-	public partial bool AutoHide { get => AutoHideTracked.Value; set => AutoHideTracked.Value = value; }
-	public partial string HandleSprite { get => HandleSpriteTracked.Value; set => HandleSpriteTracked.Value = value; }
-	public partial string TrackSprite { get => TrackSpriteTracked.Value; set => TrackSpriteTracked.Value = value; }
-	public partial float Size { get => SizeTracked.Value; set => SizeTracked.Value = value; }
-	public partial Oxide.Ext.UiFramework.Colors.UiColor HandleColor { get => HandleColorTracked.Value; set => HandleColorTracked.Value = value; }
-	public partial Oxide.Ext.UiFramework.Colors.UiColor HighlightColor { get => HighlightColorTracked.Value; set => HighlightColorTracked.Value = value; }
-	public partial Oxide.Ext.UiFramework.Colors.UiColor PressedColor { get => PressedColorTracked.Value; set => PressedColorTracked.Value = value; }
-	public partial Oxide.Ext.UiFramework.Colors.UiColor TrackColor { get => TrackColorTracked.Value; set => TrackColorTracked.Value = value; }
+	public partial bool Invert
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => InvertTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => InvertTracked.Value = value;
+	}
+	public partial bool AutoHide
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => AutoHideTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => AutoHideTracked.Value = value;
+	}
+	public partial string HandleSprite
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => HandleSpriteTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => HandleSpriteTracked.Value = value;
+	}
+	public partial string TrackSprite
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => TrackSpriteTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => TrackSpriteTracked.Value = value;
+	}
+	public partial float Size
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => SizeTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => SizeTracked.Value = value;
+	}
+	public partial Oxide.Ext.UiFramework.Colors.UiColor HandleColor
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => HandleColorTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => HandleColorTracked.Value = value;
+	}
+	public partial Oxide.Ext.UiFramework.Colors.UiColor HighlightColor
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => HighlightColorTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => HighlightColorTracked.Value = value;
+	}
+	public partial Oxide.Ext.UiFramework.Colors.UiColor PressedColor
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => PressedColorTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => PressedColorTracked.Value = value;
+	}
+	public partial Oxide.Ext.UiFramework.Colors.UiColor TrackColor
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => TrackColorTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => TrackColorTracked.Value = value;
+	}
 
 	public override bool HasChanged() => false || (InvertTracked.HasChanged || AutoHideTracked.HasChanged || HandleSpriteTracked.HasChanged || TrackSpriteTracked.HasChanged || SizeTracked.HasChanged || HandleColorTracked.HasChanged || HighlightColorTracked.HasChanged || PressedColorTracked.HasChanged || TrackColorTracked.HasChanged) || base.HasChanged();
 

@@ -16,13 +16,55 @@ public partial class LayoutElementComponent : ILayoutElementComponent
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<float> FlexibleHeightTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.LayoutElement.FlexibleHeight, Oxide.Ext.UiFramework.Json.JsonDefaults.LayoutElement.FpFlexibleHeight);
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<bool> IgnoreLayoutTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.LayoutElement.IgnoreLayout);
 
-	public partial float PreferredWidth { get => PreferredWidthTracked.Value; set => PreferredWidthTracked.Value = value; }
-	public partial float PreferredHeight { get => PreferredHeightTracked.Value; set => PreferredHeightTracked.Value = value; }
-	public partial float MinWidth { get => MinWidthTracked.Value; set => MinWidthTracked.Value = value; }
-	public partial float MinHeight { get => MinHeightTracked.Value; set => MinHeightTracked.Value = value; }
-	public partial float FlexibleWidth { get => FlexibleWidthTracked.Value; set => FlexibleWidthTracked.Value = value; }
-	public partial float FlexibleHeight { get => FlexibleHeightTracked.Value; set => FlexibleHeightTracked.Value = value; }
-	public partial bool IgnoreLayout { get => IgnoreLayoutTracked.Value; set => IgnoreLayoutTracked.Value = value; }
+	public partial float PreferredWidth
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => PreferredWidthTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => PreferredWidthTracked.Value = value;
+	}
+	public partial float PreferredHeight
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => PreferredHeightTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => PreferredHeightTracked.Value = value;
+	}
+	public partial float MinWidth
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => MinWidthTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => MinWidthTracked.Value = value;
+	}
+	public partial float MinHeight
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => MinHeightTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => MinHeightTracked.Value = value;
+	}
+	public partial float FlexibleWidth
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => FlexibleWidthTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => FlexibleWidthTracked.Value = value;
+	}
+	public partial float FlexibleHeight
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => FlexibleHeightTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => FlexibleHeightTracked.Value = value;
+	}
+	public partial bool IgnoreLayout
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => IgnoreLayoutTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => IgnoreLayoutTracked.Value = value;
+	}
 
 	public override bool HasChanged() => false || (PreferredWidthTracked.HasChanged || PreferredHeightTracked.HasChanged || MinWidthTracked.HasChanged || MinHeightTracked.HasChanged || FlexibleWidthTracked.HasChanged || FlexibleHeightTracked.HasChanged || IgnoreLayoutTracked.HasChanged) || base.HasChanged();
 

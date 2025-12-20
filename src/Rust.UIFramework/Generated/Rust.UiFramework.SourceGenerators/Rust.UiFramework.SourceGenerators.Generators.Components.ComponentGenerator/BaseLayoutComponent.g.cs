@@ -11,8 +11,20 @@ public partial class BaseLayoutComponent : IBaseLayoutComponent
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.TextAnchor> ChildAlignmentTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Layout.ChildAlignment);
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Types.UiPadding> PaddingTracked = new();
 
-	public partial UnityEngine.TextAnchor ChildAlignment { get => ChildAlignmentTracked.Value; set => ChildAlignmentTracked.Value = value; }
-	public partial Oxide.Ext.UiFramework.Types.UiPadding Padding { get => PaddingTracked.Value; set => PaddingTracked.Value = value; }
+	public partial UnityEngine.TextAnchor ChildAlignment
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => ChildAlignmentTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => ChildAlignmentTracked.Value = value;
+	}
+	public partial Oxide.Ext.UiFramework.Types.UiPadding Padding
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => PaddingTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => PaddingTracked.Value = value;
+	}
 
 	public override bool HasChanged() => false || (ChildAlignmentTracked.HasChanged || PaddingTracked.HasChanged) || base.HasChanged();
 

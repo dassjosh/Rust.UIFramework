@@ -11,8 +11,20 @@ public partial class BaseUiComponent : IBaseUiComponent
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<float> FadeOutTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Common.FadeOut);
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<bool> ActiveTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Common.Active);
 
-	public partial float FadeOut { get => FadeOutTracked.Value; set => FadeOutTracked.Value = value; }
-	public partial bool Active { get => ActiveTracked.Value; set => ActiveTracked.Value = value; }
+	public partial float FadeOut
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => FadeOutTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => FadeOutTracked.Value = value;
+	}
+	public partial bool Active
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => ActiveTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => ActiveTracked.Value = value;
+	}
 	public partial bool Enabled { get => Component.Enabled; set => Component.Enabled = value; }
 	public partial Oxide.Ext.UiFramework.Positions.UiPosition Position { get => RectTransform.Position; set => RectTransform.Position = value; }
 	public partial Oxide.Ext.UiFramework.Offsets.UiOffset Offset { get => RectTransform.Offset; set => RectTransform.Offset = value; }

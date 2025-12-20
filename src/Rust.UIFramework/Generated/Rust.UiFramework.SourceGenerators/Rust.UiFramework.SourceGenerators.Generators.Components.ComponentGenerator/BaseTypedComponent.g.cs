@@ -10,7 +10,13 @@ public partial class BaseTypedComponent : IBaseTypedComponent
 {
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<bool> EnabledTracked = new(true);
 
-	public partial bool Enabled { get => EnabledTracked.Value; set => EnabledTracked.Value = value; }
+	public partial bool Enabled
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => EnabledTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => EnabledTracked.Value = value;
+	}
 
 	public override bool HasChanged() => false || (EnabledTracked.HasChanged) || base.HasChanged();
 
