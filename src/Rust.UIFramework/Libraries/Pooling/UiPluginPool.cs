@@ -113,7 +113,21 @@ public class UiPluginPool : IDebugLoggable
     /// </summary>
     /// <param name="set">HashSet to be freed</param>
     /// <typeparam name="T">Type of the HashSet</typeparam>
-    public void FreeHashSet<T>(HashSet<T> set) => HashSetPool<T>.ForPlugin(this).Free(set);
+    public void FreeHashSet<T>(HashSet<T> set) => HashSetPool<T>.ForPlugin(this).Free(set);    
+    
+    /// <summary>
+    /// Returns a pooled <see cref="HashSet{T}"/>
+    /// </summary>
+    /// <typeparam name="T">Type for the HashSet</typeparam>
+    /// <returns>Pooled HashSet</returns>
+    public ConcurrentHashSet<T> GetConcurrentHashSet<T>() => ConcurrentHashSetPool<T>.ForPlugin(this).Get();
+
+    /// <summary>
+    /// Free's a pooled <see cref="HashSet{T}"/>
+    /// </summary>
+    /// <param name="set">HashSet to be freed</param>
+    /// <typeparam name="T">Type of the HashSet</typeparam>
+    public void FreeConcurrentHashSet<T>(ConcurrentHashSet<T> set) => ConcurrentHashSetPool<T>.ForPlugin(this).Free(set);
 
     /// <summary>
     /// Returns a pooled <see cref="Dictionary{TKey,TValue}"/>
