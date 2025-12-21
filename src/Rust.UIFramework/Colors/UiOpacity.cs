@@ -13,9 +13,9 @@ public readonly struct UiOpacity(float value) : IEquatable<UiOpacity>
     public static readonly UiOpacity None = new(0);
     public static readonly UiOpacity Full = new(1);
     
-    public static UiOpacity Parse(string str) => new(float.Parse(str));
-    public static UiOpacity Parse(ReadOnlySpan<char> span) => new(float.Parse(span));
-    public static bool TryParse(string str, out UiOpacity rotation) => TryParse(str.AsSpan(), out rotation);
+    public static UiOpacity Parse(string input) => Parse(input.AsSpan());
+    public static UiOpacity Parse(ReadOnlySpan<char> input) => TryParse(input, out UiOpacity result) ? result : throw new FormatException($"Unable to parse '{input}' as {nameof(UiOpacity)}");
+    public static bool TryParse(string input, out UiOpacity rotation) => TryParse(input.AsSpan(), out rotation);
     
     public static bool TryParse(ReadOnlySpan<char> span, out UiOpacity rotation)
     {

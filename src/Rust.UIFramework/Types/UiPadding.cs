@@ -25,19 +25,13 @@ public readonly record struct UiPadding(float Left, float Bottom, float Right, f
     public UiOffset ToOffset() => new(Left, Bottom, -Right, -Top);
     public UiPosition ToPosition() => new(Left, Bottom, -Right, -Top);
 
-    public static UiPadding Parse(string str, string token = " ") => Parse(str.AsSpan(), token);
+    public static UiPadding Parse(string input, string token = " ") => Parse(input.AsSpan(), token);
+    public static UiPadding Parse(ReadOnlySpan<char> input, ReadOnlySpan<char> token = " ") => TryParse(input, out UiPadding result, token) ? result : throw new FormatException($"Unable to parse '{input}' as {nameof(UiPadding)}");
+    public static bool TryParse(string input, out UiPadding padding, string token = " ") => TryParse(input.AsSpan(), out padding, token);
 
-    public static UiPadding Parse(ReadOnlySpan<char> span, ReadOnlySpan<char> token = " ")
+    public static bool TryParse(ReadOnlySpan<char> input, out UiPadding padding, ReadOnlySpan<char> token = " ")
     {
-        (float left, float top, float right, float bottom) = span.ParseFourFloats(token);
-        return new UiPadding(left, top, right, bottom);
-    }
-
-    public static bool TryParse(string str, out UiPadding padding, string token = " ") => TryParse(str.AsSpan(), out padding, token);
-
-    public static bool TryParse(ReadOnlySpan<char> span, out UiPadding padding, ReadOnlySpan<char> token = " ")
-    {
-        bool success = span.TryParseFourFloats(token, out (float left, float top, float right, float bottom) parsed);
+        bool success = input.TryParseFourFloats(token, out (float left, float top, float right, float bottom) parsed);
         padding = success ? new UiPadding(parsed.left, parsed.top, parsed.right, parsed.bottom) : default;
         return success;
     }

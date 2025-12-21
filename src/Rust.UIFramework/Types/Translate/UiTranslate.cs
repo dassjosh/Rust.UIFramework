@@ -1,5 +1,6 @@
 using System;
 using System.Runtime.CompilerServices;
+using Newtonsoft.Json;
 using Oxide.Ext.UiFramework.Extensions;
 using UnityEngine;
 
@@ -7,6 +8,7 @@ namespace Oxide.Ext.UiFramework.Types;
 
 public readonly record struct UiTranslate(UiTranslateDirection X, UiTranslateDirection Y)
 {
+    [JsonIgnore]
     public bool HasTranslate => X.HasValue || Y.HasValue;
     
     public UiTranslate(UiTranslateDirection value) : this(value, value) { }

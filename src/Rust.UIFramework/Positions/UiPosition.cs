@@ -269,15 +269,9 @@ public readonly struct UiPosition(float xMin, float yMin, float xMax, float yMax
     public static UiPosition LerpUnclamped(UiPosition a, UiPosition b, float t) => new(Vector2.LerpUnclamped(a.Min, b.Min, t), Vector2.LerpUnclamped(a.Max, b.Max, t));
 #pragma warning restore EPS05
 
-    public static UiPosition Parse(string str, string token = " ") => Parse(str.AsSpan(), token);
-
-    public static UiPosition Parse(ReadOnlySpan<char> span, ReadOnlySpan<char> token = " ")
-    {
-        (float xMin, float yMin, float xMax, float yMax) = span.ParseFourFloats(token);
-        return new UiPosition(xMin, yMin, xMax, yMax);
-    }
-
-    public static bool TryParse(string str, out UiPosition position, string token = " ") => TryParse(str.AsSpan(), out position, token);
+    public static UiPosition Parse(string input, string token = " ") => Parse(input.AsSpan(), token);
+    public static UiPosition Parse(ReadOnlySpan<char> input, ReadOnlySpan<char> token = " ") => TryParse(input, out UiPosition result, token) ? result : throw new FormatException($"Unable to parse '{input}' as {nameof(UiPosition)}");
+    public static bool TryParse(string input, out UiPosition padding, string token = " ") => TryParse(input.AsSpan(), out padding, token);
 
     public static bool TryParse(ReadOnlySpan<char> span, out UiPosition position, ReadOnlySpan<char> token = " ")
     {

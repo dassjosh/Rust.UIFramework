@@ -1,5 +1,6 @@
 ﻿using System;
 using Newtonsoft.Json;
+using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Json;
 
 namespace Oxide.Ext.UiFramework.Types;
@@ -11,10 +12,14 @@ public readonly struct MemorySize(ulong bytes)
 
     private static readonly string[] Sizes = ["B", "KB", "MB", "GB"];
 
-    public static bool TryParse(string str, out MemorySize size)
+    public static MemorySize Parse(string input) => Parse(input.AsSpan());
+    public static MemorySize Parse(ReadOnlySpan<char> input) => TryParse(input, out MemorySize result) ? result : throw new FormatException($"Unable to parse '{input}' as {nameof(MemorySize)}");
+    public static bool TryParse(string input, out MemorySize rotation) => TryParse(input.AsSpan(), out rotation);
+    
+    public static bool TryParse(ReadOnlySpan<char> input, out MemorySize size)
     {
         size = default;
-        if (string.IsNullOrEmpty(str))
+        if (input.IsEmptyOrWhitespace)
         {
             return false;
         }
@@ -22,12 +27,12 @@ public readonly struct MemorySize(ulong bytes)
         ReadOnlySpan<char> numbers = default;
         ReadOnlySpan<char> type = default;
 
-        for (int i = 0; i < str.Length; i++)
+        for (int i = 0; i < input.Length; i++)
         {
-            if (!char.IsDigit(str[i]))
+            if (!char.IsDigit(input[i]))
             {
-                numbers = str[..i];
-                type = str[i..];
+                numbers = input[..i];
+                type = input[i..];
                 break;
             }
         }

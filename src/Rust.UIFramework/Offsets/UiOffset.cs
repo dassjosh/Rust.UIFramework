@@ -288,15 +288,9 @@ public readonly struct UiOffset(float xMin, float yMin, float xMax, float yMax) 
 
     #endregion
     
-    public static UiOffset Parse(string str, string token = " ") => Parse(str.AsSpan(), token);
-
-    public static UiOffset Parse(ReadOnlySpan<char> span, ReadOnlySpan<char> token = " ")
-    {
-        (float xMin, float yMin, float xMax, float yMax) = span.ParseFourFloats(token);
-        return new UiOffset(xMin, yMin, xMax, yMax);
-    }
-
-    public static bool TryParse(string str, out UiOffset offset, string token = " ") => TryParse(str.AsSpan(), out offset, token);
+    public static UiOffset Parse(string input, string token = " ") => Parse(input.AsSpan(), token);
+    public static UiOffset Parse(ReadOnlySpan<char> input, ReadOnlySpan<char> token = " ") => TryParse(input, out UiOffset result, token) ? result : throw new FormatException($"Unable to parse '{input}' as {nameof(UiOffset)}");
+    public static bool TryParse(string input, out UiOffset padding, string token = " ") => TryParse(input.AsSpan(), out padding, token);
 
     public static bool TryParse(ReadOnlySpan<char> span, out UiOffset offset, ReadOnlySpan<char> token = " ")
     {

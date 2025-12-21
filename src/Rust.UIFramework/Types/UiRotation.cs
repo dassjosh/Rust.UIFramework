@@ -45,14 +45,14 @@ public readonly record struct UiRotation(float Rotation)
 
     public static UiRotation Lerp(UiRotation a, UiRotation b, float t) => new(Mathf.Lerp(a.Rotation, b.Rotation, t));
     public static UiRotation LerpUnclamped(UiRotation a, UiRotation b, float t) => new(Mathf.LerpUnclamped(a.Rotation, b.Rotation, t));
+
+    public static UiRotation Parse(string input) => Parse(input.AsSpan());
+    public static UiRotation Parse(ReadOnlySpan<char> input) => TryParse(input, out UiRotation result) ? result : throw new FormatException($"Unable to parse '{input}' as {nameof(UiRotation)}");
+    public static bool TryParse(string input, out UiRotation rotation) => TryParse(input.AsSpan(), out rotation);
     
-    public static UiRotation Parse(string str) => new(float.Parse(str));
-    public static UiRotation Parse(ReadOnlySpan<char> span) => new(float.Parse(span));
-    public static bool TryParse(string str, out UiRotation rotation) => TryParse(str.AsSpan(), out rotation);
-    
-    public static bool TryParse(ReadOnlySpan<char> span, out UiRotation rotation)
+    public static bool TryParse(ReadOnlySpan<char> input, out UiRotation rotation)
     {
-        if (float.TryParse(span, out float rotationValue))
+        if (float.TryParse(input, out float rotationValue))
         {
             rotation = new UiRotation(rotationValue);
             return true;
