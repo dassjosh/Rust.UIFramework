@@ -16,7 +16,7 @@ public readonly record struct UiTranslateDirection(float Value, UiTranslateType 
     public bool HasValue => !Mathf.Approximately(Value, 0);
     
     public static UiTranslateDirection Parse(string input) => Parse(input.AsSpan());
-    public static UiTranslateDirection Parse(ReadOnlySpan<char> input) => TryParse(input, out UiTranslateDirection result) ? result : throw new FormatException($"Unable to parse '{input}' as {nameof(UiTranslateDirection)}");
+    public static UiTranslateDirection Parse(ReadOnlySpan<char> input) => TryParse(input, out UiTranslateDirection result) ? result : throw new FormatException($"Unable to parse '{input.ToString()}' as {nameof(UiTranslateDirection)}");
     
     public static bool TryParse(string input, out UiTranslateDirection direction) => TryParse(input.AsSpan(), out direction);
     

@@ -289,7 +289,7 @@ public readonly struct UiOffset(float xMin, float yMin, float xMax, float yMax) 
     #endregion
     
     public static UiOffset Parse(string input, string token = " ") => Parse(input.AsSpan(), token);
-    public static UiOffset Parse(ReadOnlySpan<char> input, ReadOnlySpan<char> token = " ") => TryParse(input, out UiOffset result, token) ? result : throw new FormatException($"Unable to parse '{input}' as {nameof(UiOffset)}");
+    public static UiOffset Parse(ReadOnlySpan<char> input, ReadOnlySpan<char> token = " ") => TryParse(input, out UiOffset result, token) ? result : throw new FormatException($"Unable to parse '{input.ToString()}' as {nameof(UiOffset)}");
     public static bool TryParse(string input, out UiOffset padding, string token = " ") => TryParse(input.AsSpan(), out padding, token);
 
     public static bool TryParse(ReadOnlySpan<char> span, out UiOffset offset, ReadOnlySpan<char> token = " ")

@@ -20,7 +20,7 @@ public readonly record struct UiScale(float Horizontal, float Vertical)
     public static UiScale Y(float scale) => new(1, scale);
     
     public static UiScale Parse(string input, string token = " ") => Parse(input.AsSpan(), token);
-    public static UiScale Parse(ReadOnlySpan<char> input, ReadOnlySpan<char> token = " ") => TryParse(input, out UiScale result, token) ? result : throw new FormatException($"Unable to parse '{input}' as {nameof(UiScale)}");
+    public static UiScale Parse(ReadOnlySpan<char> input, ReadOnlySpan<char> token = " ") => TryParse(input, out UiScale result, token) ? result : throw new FormatException($"Unable to parse '{input.ToString()}' as {nameof(UiScale)}");
     public static bool TryParse(string input, out UiScale scale, string token = " ") => TryParse(input.AsSpan(), out scale, token);
 
     public static bool TryParse(ReadOnlySpan<char> input, out UiScale scale, ReadOnlySpan<char> token = " ")

@@ -270,7 +270,7 @@ public readonly struct UiPosition(float xMin, float yMin, float xMax, float yMax
 #pragma warning restore EPS05
 
     public static UiPosition Parse(string input, string token = " ") => Parse(input.AsSpan(), token);
-    public static UiPosition Parse(ReadOnlySpan<char> input, ReadOnlySpan<char> token = " ") => TryParse(input, out UiPosition result, token) ? result : throw new FormatException($"Unable to parse '{input}' as {nameof(UiPosition)}");
+    public static UiPosition Parse(ReadOnlySpan<char> input, ReadOnlySpan<char> token = " ") => TryParse(input, out UiPosition result, token) ? result : throw new FormatException($"Unable to parse '{input.ToString()}' as {nameof(UiPosition)}");
     public static bool TryParse(string input, out UiPosition padding, string token = " ") => TryParse(input.AsSpan(), out padding, token);
 
     public static bool TryParse(ReadOnlySpan<char> span, out UiPosition position, ReadOnlySpan<char> token = " ")

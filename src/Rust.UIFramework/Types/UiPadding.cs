@@ -26,7 +26,7 @@ public readonly record struct UiPadding(float Left, float Bottom, float Right, f
     public UiPosition ToPosition() => new(Left, Bottom, -Right, -Top);
 
     public static UiPadding Parse(string input, string token = " ") => Parse(input.AsSpan(), token);
-    public static UiPadding Parse(ReadOnlySpan<char> input, ReadOnlySpan<char> token = " ") => TryParse(input, out UiPadding result, token) ? result : throw new FormatException($"Unable to parse '{input}' as {nameof(UiPadding)}");
+    public static UiPadding Parse(ReadOnlySpan<char> input, ReadOnlySpan<char> token = " ") => TryParse(input, out UiPadding result, token) ? result : throw new FormatException($"Unable to parse '{input.ToString()}' as {nameof(UiPadding)}");
     public static bool TryParse(string input, out UiPadding padding, string token = " ") => TryParse(input.AsSpan(), out padding, token);
 
     public static bool TryParse(ReadOnlySpan<char> input, out UiPadding padding, ReadOnlySpan<char> token = " ")
