@@ -80,20 +80,20 @@ public partial class UiScrollView : BaseUiComponent
 
     public UiScrollView SetHorizontalScrollbar()
     {
-        ScrollView.GetOrCreateHorizontalScrollBar();
+        ScrollView.GetOrCreateHorizontalScrollbar();
         return this;
     }
     
     public UiScrollView SetVerticalScrollbar()
     {
-        ScrollView.GetOrCreateVerticalScrollBar();
+        ScrollView.GetOrCreateVerticalScrollbar();
         return this;
     }
     
     public UiScrollView SetScrollbar(ScrollbarTypes type)
     {
-        if(type.HasFlag(ScrollbarTypes.Horizontal)) ScrollView.GetOrCreateHorizontalScrollBar();
-        if(type.HasFlag(ScrollbarTypes.Vertical)) ScrollView.GetOrCreateVerticalScrollBar();
+        if(type.HasFlag(ScrollbarTypes.Horizontal)) ScrollView.GetOrCreateHorizontalScrollbar();
+        if(type.HasFlag(ScrollbarTypes.Vertical)) ScrollView.GetOrCreateVerticalScrollbar();
         return this;
     }
     

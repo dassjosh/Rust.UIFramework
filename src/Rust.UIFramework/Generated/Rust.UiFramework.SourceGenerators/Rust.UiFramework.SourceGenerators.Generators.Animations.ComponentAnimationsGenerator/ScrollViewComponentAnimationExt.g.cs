@@ -9,9 +9,9 @@ public static partial class ScrollViewComponentAnimationExt
 {
 	extension(Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IComponentAnimation<Oxide.Ext.UiFramework.Components.ScrollViewComponent>> animation)
 	{
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IComponentAnimation<Oxide.Ext.UiFramework.Components.ScrollViewContentComponent>> AnimateContentTransform() => animation.AnimateComponent(static a => a.ContentTransform);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IComponentAnimation<Oxide.Ext.UiFramework.Components.ScrollbarComponent>> AnimateHorizontalScrollbar() => animation.AnimateComponent(static a => a.HorizontalScrollbar);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IComponentAnimation<Oxide.Ext.UiFramework.Components.ScrollbarComponent>> AnimateVerticalScrollbar() => animation.AnimateComponent(static a => a.VerticalScrollbar);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IComponentAnimation<Oxide.Ext.UiFramework.Components.ScrollViewContentComponent>> AnimateContentTransform() => animation.AnimateComponent(static a => a.GetOrCreateContentTransform());
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IComponentAnimation<Oxide.Ext.UiFramework.Components.ScrollbarComponent>> AnimateHorizontalScrollbar() => animation.AnimateComponent(static a => a.GetOrCreateHorizontalScrollbar());
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IComponentAnimation<Oxide.Ext.UiFramework.Components.ScrollbarComponent>> AnimateVerticalScrollbar() => animation.AnimateComponent(static a => a.GetOrCreateVerticalScrollbar());
 	}
 }
 

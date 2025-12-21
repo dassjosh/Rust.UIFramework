@@ -109,6 +109,21 @@ public static class ITypeSymbolExt
         
         public IEnumerable<IFieldSymbol> GetFields(Func<IFieldSymbol, bool> predicate) => symbol.GetFields().Where(predicate);
 
+        public IEnumerable<IMethodSymbol> GetMethods()
+        {
+            if (symbol == null)
+            {
+                yield break;
+            }
+        
+            foreach (IMethodSymbol property in symbol.GetMembers().OfType<IMethodSymbol>())
+            {
+                yield return property;
+            }
+        }
+        
+        public IEnumerable<IMethodSymbol> GetMethods(Func<IMethodSymbol, bool> predicate) => symbol.GetMethods().Where(predicate);
+        
         public IEnumerable<IFieldSymbol> GetEnumValues()
         {
             return symbol.GetMembers().OfType<IFieldSymbol>().Where(f => f.IsConst);

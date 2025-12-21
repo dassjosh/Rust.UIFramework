@@ -70,7 +70,7 @@ public class ComponentAnimationsGenerator : BaseGenerator, IIncrementalGenerator
                 
                     .Methods(genData.ChildComponents, (p, m) => m.Public().Returns(SymbolCache.Instance.Animations.AnimationRef.Symbol.Construct(SymbolCache.Instance.Animations.IComponentAnimation.Symbol.Construct(p.Type)))
                         .Name($"Animate{p.Name}")
-                        .Body($"return animation.AnimateComponent(static a => a.{p.Name});"))
+                        .Body($"return animation.AnimateComponent(static a => a.{p.GetOrCreateMethod?.Name}());"))
                 ))
             .Build();
     }
@@ -78,7 +78,7 @@ public class ComponentAnimationsGenerator : BaseGenerator, IIncrementalGenerator
     private sealed class ComponentGeneratorData
     {
         public readonly INamedTypeSymbol Symbol;
-        public readonly PropertyData[] ChildComponents;
+        public readonly ChildPropertyData[] ChildComponents;
         public bool IsSubComponent => Symbol.HasInterface("ISubComponent") && !Symbol.HasInterface("ICoreComponent");
         public bool IsCoreComponent => Symbol.HasInterface("ICoreComponent");
         public bool IsChildComponent => Symbol.HasInterface("IChildComponent");
@@ -86,14 +86,19 @@ public class ComponentAnimationsGenerator : BaseGenerator, IIncrementalGenerator
         public ComponentGeneratorData(INamedTypeSymbol symbol)
         {
             Symbol = symbol;
-            ChildComponents = symbol.GetProperties(p => p.Type.HasInterface("IChildComponent")).Select(p => new PropertyData(p)).ToArray();
+            ChildComponents = symbol.GetProperties(p => p.Type.HasInterface("IChildComponent")).Select(p => new ChildPropertyData(p, symbol)).ToArray();
         }
     }
     
-    private sealed class PropertyData(IPropertySymbol property)
+    private class PropertyData(IPropertySymbol property)
     {
         public readonly IPropertySymbol Symbol = property;
         public readonly string Name = property.Name;
         public readonly ITypeSymbol Type = property.Type;
+    }
+    
+    private sealed class ChildPropertyData(IPropertySymbol property, INamedTypeSymbol parent) : PropertyData(property)
+    {
+        public readonly IMethodSymbol GetOrCreateMethod = parent.GetMethods(m => m.Name == $"GetOrCreate{property.Name}").FirstOrDefault();
     }
 }

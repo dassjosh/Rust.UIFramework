@@ -72,7 +72,7 @@ public partial class ScrollViewComponent : CoreComponent
     internal ScrollbarComponent AddHorizontalScrollBar(bool invert = false, bool autoHide = false, string handleSprite = null, string trackSprite = null, float size = JsonDefaults.ScrollBar.Size, 
         UiColor? handleColor = null, UiColor? highlightColor = null, UiColor? pressedColor = null, UiColor? trackColor = null)
     {
-        ScrollbarComponent bar = GetOrCreateHorizontalScrollBar();
+        ScrollbarComponent bar = GetOrCreateHorizontalScrollbar();
         PopulateScrollBar(bar, invert, autoHide, handleSprite, trackSprite, size, handleColor, highlightColor, pressedColor, trackColor);
         return bar;
     }
@@ -80,13 +80,13 @@ public partial class ScrollViewComponent : CoreComponent
     internal ScrollbarComponent AddVerticalScrollBar(bool invert = false, bool autoHide = false, string handleSprite = null, string trackSprite = null, float size = JsonDefaults.ScrollBar.Size, 
         UiColor? handleColor = null, UiColor? highlightColor = null, UiColor? pressedColor = null, UiColor? trackColor = null)
     {
-        ScrollbarComponent bar = GetOrCreateVerticalScrollBar();
+        ScrollbarComponent bar = GetOrCreateVerticalScrollbar();
         PopulateScrollBar(bar, invert, autoHide, handleSprite, trackSprite, size, handleColor, highlightColor, pressedColor, trackColor);
         return bar;
     }
 
-    internal ScrollbarComponent GetOrCreateHorizontalScrollBar() => HorizontalScrollbar ??= PluginPool.Get<ScrollbarComponent>();
-    internal ScrollbarComponent GetOrCreateVerticalScrollBar() => VerticalScrollbar ??= PluginPool.Get<ScrollbarComponent>();
+    internal ScrollbarComponent GetOrCreateHorizontalScrollbar() => HorizontalScrollbar ??= PluginPool.Get<ScrollbarComponent>();
+    internal ScrollbarComponent GetOrCreateVerticalScrollbar() => VerticalScrollbar ??= PluginPool.Get<ScrollbarComponent>();
 
     private static void PopulateScrollBar(ScrollbarComponent bar, bool invert = false, bool autoHide = false, string handleSprite = null, string trackSprite = null, float size = JsonDefaults.ScrollBar.Size, 
         UiColor? handleColor = null, UiColor? highlightColor = null, UiColor? pressedColor = null, UiColor? trackColor = null)

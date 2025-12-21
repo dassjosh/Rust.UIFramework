@@ -9,7 +9,7 @@ public static partial class ButtonComponentAnimationExt
 {
 	extension(Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IComponentAnimation<Oxide.Ext.UiFramework.Components.ButtonComponent>> animation)
 	{
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IComponentAnimation<Oxide.Ext.UiFramework.Components.ColorBlockComponent>> AnimateColorBlock() => animation.AnimateComponent(static a => a.ColorBlock);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IComponentAnimation<Oxide.Ext.UiFramework.Components.ColorBlockComponent>> AnimateColorBlock() => animation.AnimateComponent(static a => a.GetOrCreateColorBlock());
 	}
 }
 

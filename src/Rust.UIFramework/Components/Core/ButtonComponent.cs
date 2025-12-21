@@ -44,11 +44,11 @@ public partial class ButtonComponent : CoreComponent, IGraphicalComponent
         ColorBlock?.WriteComponent(writer, mode);
     }
 
-    internal ColorBlockComponent GetOrAddColorBlock() => ColorBlock ??= PluginPool.Get<ColorBlockComponent>();
+    internal ColorBlockComponent GetOrCreateColorBlock() => ColorBlock ??= PluginPool.Get<ColorBlockComponent>();
 
     internal ColorBlockComponent AddColorBlock(in UiColor? highlightColor, in UiColor? pressedColor, in UiColor? selectedColor, in float? colorMultiplier, in float? fadeDuration)
     {
-        ColorBlockComponent colors = GetOrAddColorBlock();
+        ColorBlockComponent colors = GetOrCreateColorBlock();
         if(highlightColor.HasValue) colors.HighlightedColor = highlightColor.Value;
         if(pressedColor.HasValue) colors.PressedColor = pressedColor.Value;
         if(selectedColor.HasValue) colors.SelectedColor = selectedColor.Value;

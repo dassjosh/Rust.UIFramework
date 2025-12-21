@@ -85,5 +85,5 @@ public partial class UiButton : BaseUiComponent, IImageType<UiButton>, ISprite<U
         return Button.AddColorBlock(highlightColor, pressedColor, selectedColor, colorMultiplier, fadeDuration);
     }
 
-    public ColorBlockComponent GetOrAddColorBlock() => Button.GetOrAddColorBlock();
+    public ColorBlockComponent GetOrAddColorBlock() => Button.GetOrCreateColorBlock();
 }
