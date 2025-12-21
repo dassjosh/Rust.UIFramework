@@ -10,17 +10,14 @@ public class StringFormatAnimator : BasePoolable, IAnimator<string>
 {
     private string _format;
     private IFormatProvider _provider;
-    private readonly List<object> _animators = [];
+    private List<AnimatorIndex> _animators;
     private UiPooledArray<object> _values;
 
     public StringFormatAnimator() { }
 
     public StringFormatAnimator(string format, IFormatProvider provider, IEnumerable<object> animators)
     {
-        _format = format;
-        _provider = provider;
-        _animators.AddRange(animators);
-        _values = new UiPooledArray<object>(_animators.Count);
+        Init(format, provider, animators);
     }
 
     public static StringFormatAnimator Create(IUiFrameworkPlugin plugin, string format, IFormatProvider provider, IEnumerable<object> animators)
@@ -30,8 +27,25 @@ public class StringFormatAnimator : BasePoolable, IAnimator<string>
     {
         _format = format ?? throw new ArgumentNullException(nameof(format));
         _provider = provider;
-        _animators.AddRange(animators);
-        _values = PluginPool.GetArray<object>(_animators.Count);
+        List<object> tempAnimators = PluginPool.GetList<object>();
+        tempAnimators.AddRange(animators);
+        _values = PluginPool.GetArray<object>(tempAnimators.Count);
+        int index = 0;
+        foreach (object obj in tempAnimators)
+        {
+            if (obj is IAnimator<object> animator)
+            {
+                _animators.Add(new AnimatorIndex(animator, index));
+            }
+            else
+            {
+                _values[index] = obj;
+            }
+
+            index++;
+        }
+       
+        PluginPool.FreeList(tempAnimators);
         return this;
     }
 
@@ -39,25 +53,26 @@ public class StringFormatAnimator : BasePoolable, IAnimator<string>
     {
         for (int index = 0; index < _animators.Count; index++)
         {
-            object obj = _animators[index];
-            if (obj is IAnimator<object> animator)
-            {
-                _values[index] = animator.Get(progress);
-            }
-            else
-            {
-                _values[index] = obj;
-            }
+            AnimatorIndex animator = _animators[index];
+            _values[animator.Index] = animator.Animator.Get(progress);
         }
         
-        return string.Format(_provider, _format, _values);
+        return string.Format(_provider, _format, _values.Array);
+    }
+
+    protected override void LeavePool()
+    {
+        _animators = PluginPool.GetList<AnimatorIndex>();
     }
 
     protected override void EnterPool()
     {
         _format = null;
         _provider = null;
+        PluginPool.FreeList(_animators);
         _animators.TryFreeValues();
         _values.TryDispose();
     }
+    
+    private readonly record struct AnimatorIndex(IAnimator<object> Animator, int Index);
 }

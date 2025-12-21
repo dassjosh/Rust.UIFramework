@@ -558,21 +558,25 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
 
             UiPanel panel = builder.Root as UiPanel;
 
-            builder.Animate(panel)
-                .AnimateField(static p => p.RectTransform.AsTrackable().Rotation)
-                .Lerp(UiRotation.Zero, UiRotation.Full)
-                .Duration(5f)
-                .Linear()
-                .RepeatTiming(5);
+            UiButton button = null;
 
-            //
-            // builder.Animate(panel)
-            //     .Duration(5f)
-            //     .AnimateField(p => p.RectTransform.AsTrackable().Position)
-            //         .Lerp(new UiPosition(0.5f, -0.5f, 0.5f, -0.5f), UiPosition.MiddleMiddle)
-            //         .Duration(6f)
-            //         .Ease()
-            //   ;
+            builder.Animate(button)
+                .AnimateButtonComponent()
+                .AnimateColorBlock()
+                .AnimateColorMultiplier()
+                .Duration(5f);
+
+            builder.Animate(panel)
+                .AnimateGridLayoutComponent()
+                .AnimateCellSize().Duration(5f);
+            
+            builder.Animate(panel)
+                .Duration(5f)
+                .AnimatePosition()
+                    .Lerp(new UiPosition(0.5f, -0.5f, 0.5f, -0.5f), UiPosition.MiddleMiddle)
+                    .Duration(6f)
+                    .Ease()
+              ;
 
             //builder = UiBuilder.Create(this, new UiReference(UiLayer.Overlay, UiName), UiPosition.MiddleMiddle, default, _bodyColor);
 
@@ -888,13 +892,13 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
     [UiProtection(ProtectionType.None)]
     private void CloseCommand(ExecutionData data)
     {
-        //AnimationBuilder builder = AnimationBuilder.Create(this);
-        
-        // builder.AnimatePosition(_animationReference, UiPosition.MiddleMiddle, new UiPosition(0.5f, -0.5f, 0.5f, -0.5f), 5f)
-        //     .WithBezierProgressor(new BezierProgressor(.18f,-0.95f,.82f,1f))
-        //     .DestroyAfter();
+        // AnimationBuilder builder = AnimationBuilder.Create(this);
         //
-        // builder.AddUi(player);
+        //  builder.AnimatePosition(_animationReference, UiPosition.MiddleMiddle, new UiPosition(0.5f, -0.5f, 0.5f, -0.5f), 5f)
+        //      .WithBezierProgressor(new BezierProgressor(.18f,-0.95f,.82f,1f))
+        //      .DestroyAfter();
+        //
+        //  builder.AddUi(player);
         
         UiBuilder.DestroyUi(UiName);
     }

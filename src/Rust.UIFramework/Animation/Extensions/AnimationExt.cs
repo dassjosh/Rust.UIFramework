@@ -14,11 +14,11 @@ public static class AnimationExt
 {
     extension<T>(in AnimationRef<T> animation) where T : class, IAnimation
     {
-        public AnimationRef<T> ComesAfter(in AnimationRef<IAnimation> target, bool includeRepeats = false, float? timeout = null, AnimationTimeoutAction action = AnimationTimeoutAction.StartAnimation)
+        public AnimationRef<T> ComesAfter(in AnimationRef<IAnimation> target, bool includeRepeats = false, float timeout = 15f, AnimationTimeoutAction action = AnimationTimeoutAction.StartAnimation)
         {
             if (animation.IsValid)
             {
-                TriggerDelayAnimation trigger = TriggerDelay(animation);
+                TriggerDelayAnimation trigger = animation.TriggerDelay();
                 if (!target.IsValid)
                 {
                     trigger.Trigger();
@@ -32,15 +32,15 @@ public static class AnimationExt
                     target.OnFinalized(_ => trigger.Trigger());
                 }
 
-                target.Timeout(timeout ?? 15f, action);
+                target.Timeout(timeout, action);
             }
 
             return animation;
         }
 
-        public AnimationRef<T> Repeat(int repeats, float repeatDelay = 0f) => animation.IsValid ? animation.WithRepeat(AnimationRepeat.Create(animation.Plugin, repeats, repeatDelay)) : animation;
+        public AnimationRef<T> Repeat(int repeats, float repeatDelay = 0f) => animation.IsValid ? animation.WithRepeat(AnimationRepeat.Create(animation.Animation, repeats, repeatDelay)) : animation;
 
-        public AnimationRef<T> Delay(float delay) => animation.IsValid ? animation.WithDelay(TimeDelayAnimation.Create(animation.Plugin, delay)) : animation;
+        public AnimationRef<T> Delay(float delay) => animation.IsValid ? animation.WithDelay(TimeDelayAnimation.Create(animation.Plugin, animation.Animation, delay)) : animation;
 
         public UiTuple<AnimationRef<T>, TriggerDelayAnimation> TriggerDelay()
         {
@@ -54,7 +54,7 @@ public static class AnimationExt
                 return UiTuple.Create(animation, trigger);
             }
 
-            trigger = TriggerDelayAnimation.Create(animation.Plugin);
+            trigger = TriggerDelayAnimation.Create(animation.Animation);
             animation.WithDelay(trigger);
             return UiTuple.Create(animation, trigger);
         }
@@ -63,13 +63,13 @@ public static class AnimationExt
 
         public AnimationRef<T> InfiniteDelay() => animation.WithDelay(InfiniteAnimationDelay.Instance);
 
-        public AnimationRef<T> Duration(float seconds) => animation.IsValid ? animation.WithDuration(AnimationDuration.Create(animation.Plugin, seconds)) : animation;
-        public AnimationRef<T> FramesDuration(int frames) => animation.IsValid ? animation.WithDuration(FrameDuration.Create(animation.Plugin, frames)) : animation;
+        public AnimationRef<T> Duration(float seconds) => animation.IsValid ? animation.WithDuration(AnimationDuration.Create(animation.Animation, seconds)) : animation;
+        public AnimationRef<T> FramesDuration(int frames) => animation.IsValid ? animation.WithDuration(FrameDuration.Create(animation.Animation, frames)) : animation;
         public AnimationRef<T> NoDuration() => animation.WithDuration(InfiniteAnimationDuration.Instance);
         public AnimationRef<T> Infinite() => animation.NoDuration();
 
         public AnimationRef<T> Timeout(float seconds, AnimationTimeoutAction action = AnimationTimeoutAction.CancelAnimation) 
-            => animation.IsValid ? animation.WithTimeout(AnimationTimeout.Create(animation.Plugin, seconds, action)) : animation;
+            => animation.IsValid ? animation.WithTimeout(AnimationTimeout.Create(animation.Animation, seconds, action)) : animation;
 
         #region Timing Functions
         public AnimationRef<T> Bezier(CubicBezier bezier) => animation.Timing(bezier);
@@ -120,7 +120,7 @@ public static class AnimationExt
         public AnimationRef<T> Timing(TimingFunction timing) => animation.WithTiming(timing);
         
         public AnimationRef<T> DestroyAfter(in UiReference destroyTarget) => animation.DestroyAfter(destroyTarget.Name);
-        public AnimationRef<T> DestroyAfter(string name) => animation.OnFinalized(a => { BaseBuilder.DestroyUi(a.GetSendable().Send, name); });
+        public AnimationRef<T> DestroyAfter(string name) => animation.OnFinalized(a => { BaseBuilder.DestroyUi(SendInfoBuilder.GetForUi(a.GetSendable().Send), name); });
         
         public AnimationRef<T> OnQueued(Action<T> callback) => animation.On(AnimationEventType.Queued, callback);
         public AnimationRef<T> OnDelayed(Action<T> callback) => animation.On(AnimationEventType.Delayed, callback);
@@ -211,6 +211,17 @@ public static class AnimationExt
             {
                 animation.Animation.Timeout.TryReturnToPool();
                 animation.Animation.Timeout = timeout;
+            }
+
+            return animation;
+        }
+        
+        public AnimationRef<T> WithTime(IAnimationTime time)
+        {
+            if (animation.IsValid)
+            {
+                animation.Animation.Time.TryReturnToPool();
+                animation.Animation.Time = time;
             }
 
             return animation;

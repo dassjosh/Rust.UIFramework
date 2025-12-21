@@ -23,12 +23,13 @@ public abstract class BaseAnimation : BasePoolable, IAnimation
     public IAnimationTimeout Timeout { get; set; }
     public IAnimationEvents Events { get; }
     public IAnimation Parent { get; private set;  }
+    public IAnimationTime Time { get => field ?? Parent?.Time ?? Singleton<AnimationTime>.Instance; set; }
     public virtual bool HasChanged => Interpolator?.HasChanged ?? false;
     public AnimationCancelOption CancelOption { get; set; }
 
     public IReadOnlyList<IAnimation> Children => _children;
     private readonly List<BaseAnimation> _children = [];
-
+    
     protected BaseAnimation()
     {
         Events = new AnimationEvents(this);
@@ -237,7 +238,7 @@ public abstract class BaseAnimation : BasePoolable, IAnimation
 
     public virtual float GetProgress()
     {
-        if (!AnimationTime.AnimationsEnabled || State == AnimationState.Cancelled && CancelOption != AnimationCancelOption.NoTick)
+        if (!Singleton<AnimationTime>.Instance.AnimationsEnabled || State == AnimationState.Cancelled && CancelOption != AnimationCancelOption.NoTick)
         {
             return AnimationConstants.CompletedProgress;
         }
@@ -302,5 +303,7 @@ public abstract class BaseAnimation : BasePoolable, IAnimation
         Parent = default;
         _children.TryFreeValues();
         CancelOption = default;
+        Time.TryReturnToPool();
+        Time = default;
     }
 }

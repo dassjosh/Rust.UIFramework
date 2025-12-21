@@ -2,5 +2,5 @@
 
 public interface IAnimationComponent
 {
-    BaseAnimation Owner { get; } 
+    IAnimation Owner { get; } 
 }

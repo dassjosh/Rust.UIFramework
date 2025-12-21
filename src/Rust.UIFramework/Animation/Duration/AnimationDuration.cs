@@ -4,31 +4,33 @@ using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Animation;
 
-public class AnimationDuration : BasePoolable, IAnimationDuration
+public class AnimationDuration : BasePoolable, IAnimationDuration, IAnimationComponent
 {
-    public float ElapsedPercentage => Mathf.Clamp01((AnimationTime.CurrentTime - _startTime) / Duration);
+    public float ElapsedPercentage => Mathf.Clamp01((Owner.Time.CurrentTime - _startTime) / Duration);
     public float Duration { get; set; }
+    public IAnimation Owner { get; private set; }
 
     private float _startTime;
     
-    public static AnimationDuration Create(IUiFrameworkPlugin plugin, float duration) => plugin.PluginPool.Get<AnimationDuration>().Init(duration);
+    public static AnimationDuration Create(IAnimation owner, float duration) => owner.Plugin.PluginPool.Get<AnimationDuration>().Init(owner, duration);
 
-    protected AnimationDuration Init(float duration)
+    protected AnimationDuration Init(IAnimation owner, float duration)
     {
+        Owner = owner;
         Duration = duration;
         return this;
     }
     
     public void OnStarted()
     {
-        _startTime = AnimationTime.CurrentTime;
+        _startTime = Owner.Time.CurrentTime;
     }
     
     public void OnTick() { }
 
     public void Restart(float delay = 0f)
     {
-        _startTime = AnimationTime.CurrentTime + delay;
+        _startTime = Owner.Time.CurrentTime + delay;
     }
 
     protected override void EnterPool()
@@ -36,5 +38,6 @@ public class AnimationDuration : BasePoolable, IAnimationDuration
         base.EnterPool();
         Duration = 0;
         _startTime = 0;
+        Owner = null;
     }
 }

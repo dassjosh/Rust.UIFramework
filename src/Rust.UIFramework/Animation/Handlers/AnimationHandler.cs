@@ -50,7 +50,7 @@ internal class AnimationHandler : ISingleton
             try
             {
                 float startTime = Time.realtimeSinceStartup;
-                AnimationTime.UpdateTime(startTime, isPaused);
+                Singleton<AnimationTime>.Instance.UpdateTime(startTime, isPaused);
                 isPaused = false;
                 _logger.Debug("Processing {0} animations", Singleton<AnimationData>.Instance.Count);
                 ProcessAnimations();
