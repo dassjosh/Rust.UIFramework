@@ -1,5 +1,4 @@
 ﻿using Oxide.Ext.UiFramework.Enums;
-using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Pooling;
 
 namespace Oxide.Ext.UiFramework.Animation;

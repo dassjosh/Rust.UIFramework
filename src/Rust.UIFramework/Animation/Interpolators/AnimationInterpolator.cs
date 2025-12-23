@@ -1,5 +1,4 @@
 ﻿using Oxide.Ext.UiFramework.Extensions;
-using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Animation;

@@ -1,5 +1,4 @@
-﻿using Oxide.Ext.UiFramework.Plugins;
-using Oxide.Ext.UiFramework.Pooling;
+﻿using Oxide.Ext.UiFramework.Pooling;
 using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Animation;

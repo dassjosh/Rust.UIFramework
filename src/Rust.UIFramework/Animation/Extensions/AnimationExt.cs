@@ -220,8 +220,7 @@ public static class AnimationExt
         {
             if (animation.IsValid)
             {
-                animation.Animation.Time.TryReturnToPool();
-                animation.Animation.Time = time;
+                animation.Animation.SetTime(time);
             }
 
             return animation;

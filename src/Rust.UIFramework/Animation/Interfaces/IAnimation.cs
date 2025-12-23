@@ -18,7 +18,7 @@ public interface IAnimation : IAnimationTick, IAnimationStarted, IPoolable
     IAnimationTimeout Timeout { get; set; }
     IAnimationEvents Events { get; }
     IAnimation Parent { get; }
-    IAnimationTime Time { get; set; }
+    IAnimationTime Time { get; }
     IReadOnlyList<IAnimation> Children { get; }
     bool HasChanged { get; }
     AnimationCancelOption CancelOption { get; set; }
@@ -28,4 +28,5 @@ public interface IAnimation : IAnimationTick, IAnimationStarted, IPoolable
     void CompleteAnimation();
     void CancelAnimation();
     void TimeoutAnimation();
+    void SetTime(IAnimationTime time);
 }

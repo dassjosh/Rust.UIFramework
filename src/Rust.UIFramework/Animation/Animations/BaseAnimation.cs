@@ -23,12 +23,14 @@ public abstract class BaseAnimation : BasePoolable, IAnimation
     public IAnimationTimeout Timeout { get; set; }
     public IAnimationEvents Events { get; }
     public IAnimation Parent { get; private set;  }
-    public IAnimationTime Time { get => field ?? Parent?.Time ?? Singleton<AnimationTime>.Instance; set; }
     public virtual bool HasChanged => Interpolator?.HasChanged ?? false;
     public AnimationCancelOption CancelOption { get; set; }
 
     public IReadOnlyList<IAnimation> Children => _children;
     private readonly List<BaseAnimation> _children = [];
+    
+    public IAnimationTime Time => _time ?? Parent?.Time ?? Singleton<AnimationTime>.Instance;
+    private IAnimationTime _time;
     
     protected BaseAnimation()
     {
@@ -235,7 +237,12 @@ public abstract class BaseAnimation : BasePoolable, IAnimation
     public virtual void CompleteAnimation() => ChangeState(AnimationState.Completed);
     public virtual void CancelAnimation() => ChangeState(AnimationState.Cancelled);
     public virtual void TimeoutAnimation() => ChangeState(AnimationState.Timeout);
-
+    public void SetTime(IAnimationTime time)
+    {
+        _time.TryReturnToPool();
+        _time = time;
+    } 
+    
     public virtual float GetProgress()
     {
         if (!Singleton<AnimationTime>.Instance.AnimationsEnabled || State == AnimationState.Cancelled && CancelOption != AnimationCancelOption.NoTick)
@@ -264,10 +271,7 @@ public abstract class BaseAnimation : BasePoolable, IAnimation
         return progress;
     }
 
-    public virtual ISendableAnimation GetSendable()
-    {
-        return Parent?.GetSendable();
-    }
+    public virtual ISendableAnimation GetSendable() => Parent?.GetSendable();
 
     internal void AddChildAnimation(BaseAnimation animation)
     {
@@ -304,6 +308,6 @@ public abstract class BaseAnimation : BasePoolable, IAnimation
         _children.TryFreeValues();
         CancelOption = default;
         Time.TryReturnToPool();
-        Time = default;
+        _time = default;
     }
 }
