@@ -7,16 +7,21 @@ namespace Rust.UiFramework.UnitTests.Animations;
 
 public abstract class BaseAnimationTests
 {
-    protected static void RunSendableAnimation<T>(AnimationRef<T> animation, JsonFrameworkWriter writer, UnitTestAnimationTime time, float timePerTick = 1f) where T : class, ISendableAnimation
+    protected static void RunSendableAnimation<T>(AnimationRef<T> animation, float timePerTick = 1f, Action<AnimationRef<T>, int> onTick = null, Action<AnimationRef<T>> onFinished = null) where T : class, ISendableAnimation
     {
+        UnitTestAnimationTime time = new();
+        animation.WithTime(time);
         UnitTestAnimationHelpers.QueueAnimation(animation);
         UnitTestAnimationHelpers.StartAnimation(animation);
-        while (animation.Animation.State == AnimationState.Running)
+        int tickCount = 0;
+        while (animation.Animation.State <= AnimationState.Running)
         {
             animation.Animation.OnTick();
-            animation.Animation.Serialize(writer);
+            onTick?.Invoke(animation, tickCount++);
             time.AddSeconds(timePerTick);
         }
+        
+        onFinished?.Invoke(animation);
         
         animation.Animation.Dispose();
     }

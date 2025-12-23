@@ -1,4 +1,4 @@
-﻿namespace Oxide.Ext.UiFramework.Enums;
+﻿namespace Oxide.Ext.UiFramework.Animation;
 
 public enum PositionField : byte
 {

@@ -47,12 +47,7 @@ public abstract class BaseAnimation : BasePoolable, IAnimation
     
     public virtual void OnStarted()
     {
-        Timeout?.OnStarted();
-        Delay?.OnStarted();
-        Duration?.OnStarted();
-        Interpolator?.OnStarted();
-
-        ChangeState(Delay == null ? AnimationState.Running : AnimationState.Delayed);
+        ChangeState(Delay != null || Timeout != null ? AnimationState.Delayed : AnimationState.Running);
         
         for (int index = 0; index < _children.Count; index++)
         {
@@ -65,7 +60,13 @@ public abstract class BaseAnimation : BasePoolable, IAnimation
     {
         if (TickDelay())
         {
+            TickTimeout();
             return;
+        }
+
+        if (State == AnimationState.Delayed)
+        {
+            ChangeState(AnimationState.Running);
         }
 
         if (State == AnimationState.Running)
@@ -87,17 +88,9 @@ public abstract class BaseAnimation : BasePoolable, IAnimation
         {
             return false;
         }
-        
+
         Delay.OnTick();
-        if (!Delay.IsDelayed)
-        {
-            ChangeState(AnimationState.Running);
-            return false;
-        }
-
-        TickTimeout();
-
-        return true;
+        return Delay.IsDelayed;
     }
     
     protected virtual void TickTimeout()
@@ -106,14 +99,12 @@ public abstract class BaseAnimation : BasePoolable, IAnimation
         {
             return;
         }
-        
+
         Timeout.OnTick();
-        if (!Timeout.HasTimedOut)
+        if (Timeout.HasTimedOut)
         {
-            return;
+            TimeoutAnimation();
         }
-        
-        TimeoutAnimation();
     }
 
     protected virtual void TickDuration()
@@ -195,9 +186,13 @@ public abstract class BaseAnimation : BasePoolable, IAnimation
                 ChangeChildState();
                 break;
             case AnimationState.Delayed:
+                Timeout?.OnStarted();
+                Delay?.OnStarted();
                 Events.OnEvent(AnimationEventType.Delayed);
                 break;
             case AnimationState.Running:
+                Duration?.OnStarted();
+                Interpolator?.OnStarted();
                 Events.OnEvent(AnimationEventType.Started);
                 break;
             case AnimationState.Completed:

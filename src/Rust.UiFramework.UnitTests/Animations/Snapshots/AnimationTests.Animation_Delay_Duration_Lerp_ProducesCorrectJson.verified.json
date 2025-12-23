@@ -1,0 +1,80 @@
+﻿[
+  {
+    "components": [
+      {
+        "type": "UnityEngine.UI.Image"
+      }
+    ],
+    "name": "name",
+    "update": 1
+  },
+  {
+    "components": [
+      {
+        "type": "UnityEngine.UI.Image"
+      }
+    ],
+    "name": "name",
+    "update": 1
+  },
+  {
+    "components": [
+      {
+        "color": "1 0 0",
+        "type": "UnityEngine.UI.Image"
+      }
+    ],
+    "name": "name",
+    "update": 1
+  },
+  {
+    "components": [
+      {
+        "color": "0.8 0 0.2",
+        "type": "UnityEngine.UI.Image"
+      }
+    ],
+    "name": "name",
+    "update": 1
+  },
+  {
+    "components": [
+      {
+        "color": "0.6 0 0.4",
+        "type": "UnityEngine.UI.Image"
+      }
+    ],
+    "name": "name",
+    "update": 1
+  },
+  {
+    "components": [
+      {
+        "color": "0.4 0 0.6",
+        "type": "UnityEngine.UI.Image"
+      }
+    ],
+    "name": "name",
+    "update": 1
+  },
+  {
+    "components": [
+      {
+        "color": "0.2 0 0.8",
+        "type": "UnityEngine.UI.Image"
+      }
+    ],
+    "name": "name",
+    "update": 1
+  },
+  {
+    "components": [
+      {
+        "color": "0 0 1",
+        "type": "UnityEngine.UI.Image"
+      }
+    ],
+    "name": "name",
+    "update": 1
+  }
+]
