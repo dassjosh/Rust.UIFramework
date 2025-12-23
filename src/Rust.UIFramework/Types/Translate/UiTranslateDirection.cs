@@ -1,23 +1,23 @@
 ﻿using System;
 using Newtonsoft.Json;
 using Oxide.Ext.UiFramework.Extensions;
+using Oxide.Ext.UiFramework.Interfaces.Types;
 using Oxide.Ext.UiFramework.Json;
 using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Types;
 
 [JsonConverter(typeof(UiTranslateDirectionConverter))]
-public readonly record struct UiTranslateDirection(float Value, UiTranslateType Type)
+public readonly record struct UiTranslateDirection(float Value, UiTranslateType Type) : ICssString
 {
-    public static readonly UiTranslateDirection DistanceDefault = UiTranslateDirection.Distance(0);
-    public static readonly UiTranslateDirection PercentageDefault = UiTranslateDirection.Percentage(0);
+    public static readonly UiTranslateDirection ZeroPx = 0.Px();
+    public static readonly UiTranslateDirection ZeroPercent = 0.Percent();
 
     [JsonIgnore]
     public bool HasValue => !Mathf.Approximately(Value, 0);
     
     public static UiTranslateDirection Parse(string input) => Parse(input.AsSpan());
-    public static UiTranslateDirection Parse(ReadOnlySpan<char> input) => TryParse(input, out UiTranslateDirection result) ? result : throw new FormatException($"Unable to parse '{input.ToString()}' as {nameof(UiTranslateDirection)}");
-    
+    public static UiTranslateDirection Parse(ReadOnlySpan<char> input) => TryParse(input, out UiTranslateDirection result) ? result : throw FormatException.FailedParse<UiTranslateDirection>(input);
     public static bool TryParse(string input, out UiTranslateDirection direction) => TryParse(input.AsSpan(), out direction);
     
     public static bool TryParse(ReadOnlySpan<char> input, out UiTranslateDirection direction)
@@ -75,5 +75,6 @@ public readonly record struct UiTranslateDirection(float Value, UiTranslateType 
     public static UiTranslateDirection operator *(UiTranslateDirection direction, double value) => direction * (float)value;
     public static UiTranslateDirection operator *(UiTranslateDirection direction, int value) => direction * (float)value;
 
-    public override string ToString() => $"{Value}{(Type == UiTranslateType.Distance ? "PX": "%")}";
+    public override string ToString() => $"{Value}{(Type == UiTranslateType.Px ? "px": "%")}";
+    public string ToCssString() => ToString();
 }

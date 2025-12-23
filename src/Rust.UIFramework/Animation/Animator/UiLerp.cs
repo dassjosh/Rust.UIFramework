@@ -46,4 +46,15 @@ public static class UiLerp
         
     public static UiLerp<T> GetDefault<T>() => Cache.TryGetValue(typeof(T), out object cached) ? (UiLerp<T>)cached : null;
     public static UiLerp<T> GetDefaultOrError<T>() => Cache.TryGetValue(typeof(T), out object cached) ? (UiLerp<T>)cached : throw new ArgumentNullException(typeof(T).Name, $"No default lerp function found for type {typeof(T)}. Please pass a lerp function manually.");
+    public static bool TryGetLerp<T>(out UiLerp<T> lerp)
+    {
+        if(Cache.TryGetValue(typeof(T), out object cachedLerp) && cachedLerp is UiLerp<T> lerpFunc)
+        {
+            lerp = lerpFunc;
+            return true;
+        }
+        
+        lerp = null;
+        return false;
+    }
 }

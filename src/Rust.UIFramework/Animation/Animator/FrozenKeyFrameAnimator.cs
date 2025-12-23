@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -6,7 +7,7 @@ using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Animation;
 
-public class FrozenKeyFrameAnimator<T> : IAnimator<T>
+public class FrozenKeyFrameAnimator<T> : IAnimator<T>, IKeyFrame<T>
 {
     private readonly KeyFrame[] _keyFrames;
     private readonly UiLerp<T> _lerp;
@@ -54,4 +55,7 @@ public class FrozenKeyFrameAnimator<T> : IAnimator<T>
     }
     
     public KeyFrameAnimator<T> Copy() => new(_keyFrames.Select(k => new KeyValuePair<float, (T Value, TimingFunction Timing)>(k.Percentage, (k.Value, k.Timing))), _lerp);
+    public IEnumerator<KeyValuePair<float, T>> GetEnumerator() => _keyFrames.Select(frame => new KeyValuePair<float, T>(frame.Percentage, frame.Value)).GetEnumerator();
+    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+    public string ToCssString() => this.BuildCssKeyFrames();
 }

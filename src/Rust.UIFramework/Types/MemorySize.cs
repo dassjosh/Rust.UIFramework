@@ -13,7 +13,7 @@ public readonly struct MemorySize(ulong bytes)
     private static readonly string[] Sizes = ["B", "KB", "MB", "GB"];
 
     public static MemorySize Parse(string input) => Parse(input.AsSpan());
-    public static MemorySize Parse(ReadOnlySpan<char> input) => TryParse(input, out MemorySize result) ? result : throw new FormatException($"Unable to parse '{input.ToString()}' as {nameof(MemorySize)}");
+    public static MemorySize Parse(ReadOnlySpan<char> input) => TryParse(input, out MemorySize result) ? result : throw FormatException.FailedParse<MemorySize>(input);
     public static bool TryParse(string input, out MemorySize rotation) => TryParse(input.AsSpan(), out rotation);
     
     public static bool TryParse(ReadOnlySpan<char> input, out MemorySize size)

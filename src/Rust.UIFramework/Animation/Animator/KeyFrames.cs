@@ -6,26 +6,26 @@ namespace Oxide.Ext.UiFramework.Animation;
 public static class KeyFrames
 {
     public static readonly FrozenKeyFrameAnimator<UiTranslate> ShakeX = new KeyFrameAnimator<UiTranslate>()
-        .AddFrames([0, 100], UiTranslate.DistanceDefault)
-        .AddFrames([10, 30, 50, 70, 90], UiTranslate.X(-10.Px()))
-        .AddFrames([20, 40, 60, 80], UiTranslate.X(10.Px()))
+        .AddFrames([0, 100], 0.Px().X())
+        .AddFrames([10, 30, 50, 70, 90], -10.Px().X())
+        .AddFrames([20, 40, 60, 80], 10.Px().X())
         .Freeze();
     
     public static readonly FrozenKeyFrameAnimator<UiTranslate> ShakeY = new KeyFrameAnimator<UiTranslate>()
-        .AddFrames([0, 100], UiTranslate.DistanceDefault)
-        .AddFrames([10, 30, 50, 70, 90], UiTranslate.Y(-10.Px()))
-        .AddFrames([20, 40, 60, 80], UiTranslate.Y(10.Px()))
+        .AddFrames([0, 100], 0.Px().Y())
+        .AddFrames([10, 30, 50, 70, 90], -10.Px().Y())
+        .AddFrames([20, 40, 60, 80], 10.Px().Y())
         .Freeze();
     
     public static class Wobble
     {
         public static readonly FrozenKeyFrameAnimator<UiTranslate> Translate = new KeyFrameAnimator<UiTranslate>()
-            .AddFrames([0, 100], UiTranslate.PercentageDefault)
-            .AddFrame(15f, UiTranslate.X(-0.25f.Percent()))
-            .AddFrame(30f, UiTranslate.X(0.2f.Percent()))
-            .AddFrame(45f, UiTranslate.X(-0.15f.Percent()))
-            .AddFrame(60f, UiTranslate.X(0.10f.Percent()))
-            .AddFrame(75f, UiTranslate.X(-0.05f.Percent()))
+            .AddFrames([0, 100], 0.Percent().Y())
+            .AddFrame(15f, -0.25f.Percent().X())
+            .AddFrame(30f, 0.2f.Percent().X())
+            .AddFrame(45f, -0.15f.Percent().X())
+            .AddFrame(60f, 0.10f.Percent().X())
+            .AddFrame(75f, -0.05f.Percent().X())
             .Freeze();
         
         public static readonly FrozenKeyFrameAnimator<UiRotation> Rotation = new KeyFrameAnimator<UiRotation>()
@@ -41,11 +41,11 @@ public static class KeyFrames
     public static class HeadShake
     {
         public static readonly FrozenKeyFrameAnimator<UiTranslate> Translate = new KeyFrameAnimator<UiTranslate>()
-            .AddFrames([0, 100], UiTranslate.DistanceDefault)
-            .AddFrame(13, UiTranslate.X(-6.Px()))
-            .AddFrame(37, UiTranslate.X(5.Px()))
-            .AddFrame(63f, UiTranslate.X(-3.Px()))
-            .AddFrame(87f, UiTranslate.X(2.Px()))
+            .AddFrames([0, 100], 0.Px().X())
+            .AddFrame(13, -6.Px().X())
+            .AddFrame(37, 5.Px().X())
+            .AddFrame(63f, -3.Px().X())
+            .AddFrame(87f, 2.Px().X())
             .Freeze();
         
         public static readonly FrozenKeyFrameAnimator<UiRotation> Rotation = new KeyFrameAnimator<UiRotation>()
@@ -61,43 +61,43 @@ public static class KeyFrames
     {
         public static readonly FrozenKeyFrameAnimator<UiScale> Scale = new KeyFrameAnimator<UiScale>()
             .AddFrame(80, 0.7.Scale())
-            .AddFrame(100, UiScale.Default)
+            .AddFrame(100, UiScale.One)
             .Freeze();
         
         public static readonly FrozenKeyFrameAnimator<UiOpacity> Opacity = new KeyFrameAnimator<UiOpacity>()
             .AddFrame(80, 0.7.Opacity())
-            .AddFrame(100, UiOpacity.Full)
+            .AddFrame(100, UiOpacity.Opaque)
             .Freeze();
 
         public static class Down
         {
             public static readonly FrozenKeyFrameAnimator<UiTranslate> Translate = new KeyFrameAnimator<UiTranslate>()
-                .AddFrame(0, UiTranslate.Y(1200.Px()))
-                .AddFrame(80, UiTranslate.Y(0.Px()))
+                .AddFrame(0, 1200.Px().Y())
+                .AddFrame(80, 0.Px().Y())
                 .Freeze();
         }
         
         public static class Up
         {
             public static readonly FrozenKeyFrameAnimator<UiTranslate> Translate = new KeyFrameAnimator<UiTranslate>()
-                .AddFrame(0, UiTranslate.Y(-1200.Px()))
-                .AddFrame(80, UiTranslate.Y(0.Px()))
+                .AddFrame(0,-1200.Px().Y())
+                .AddFrame(80, 0.Px().Y())
                 .Freeze();
         }
         
         public static class Left
         {
             public static readonly FrozenKeyFrameAnimator<UiTranslate> Translate = new KeyFrameAnimator<UiTranslate>()
-                .AddFrame(0, UiTranslate.X(-1200.Px()))
-                .AddFrame(80, UiTranslate.X(0.Px()))
+                .AddFrame(0, -1200.Px().X())
+                .AddFrame(80, 0.Px().X())
                 .Freeze();
         }
         
         public static class Right
         {
             public static readonly FrozenKeyFrameAnimator<UiTranslate> Translate = new KeyFrameAnimator<UiTranslate>()
-                .AddFrame(0, UiTranslate.X(1200.Px()))
-                .AddFrame(80, UiTranslate.X(0.Px()))
+                .AddFrame(0, 1200.Px().X())
+                .AddFrame(80, 0.Px().X())
                 .Freeze();
         }
     }
@@ -105,44 +105,44 @@ public static class KeyFrames
     public static class BackOut
     {
         public static readonly FrozenKeyFrameAnimator<UiScale> Scale = new KeyFrameAnimator<UiScale>()
-            .AddFrame(0, UiScale.Default)
+            .AddFrame(0, UiScale.One)
             .AddFrame(20, 0.7.Scale())
             .Freeze();
         
         public static readonly FrozenKeyFrameAnimator<UiOpacity> Opacity = new KeyFrameAnimator<UiOpacity>()
-            .AddFrame(0, UiOpacity.Full)
+            .AddFrame(0, UiOpacity.Opaque)
             .AddFrame(20, 0.7.Opacity())
             .Freeze();
         
         public static class Down
         {
             public static readonly FrozenKeyFrameAnimator<UiTranslate> Translate = new KeyFrameAnimator<UiTranslate>()
-                .AddFrame(20, UiTranslate.Y(0.Px()))
-                .AddFrame(100, UiTranslate.Y(700.Px()))
+                .AddFrame(20, 0.Px().Y())
+                .AddFrame(100, 700.Px().Y())
                 .Freeze();
         }
         
         public static class Up
         {
             public static readonly FrozenKeyFrameAnimator<UiTranslate> Translate = new KeyFrameAnimator<UiTranslate>()
-                .AddFrame(20, UiTranslate.Y(0.Px()))
-                .AddFrame(100, UiTranslate.Y(-700.Px()))
+                .AddFrame(20, 0.Px().Y())
+                .AddFrame(100, -700.Px().Y())
                 .Freeze();
         }
         
         public static class Left
         {
             public static readonly FrozenKeyFrameAnimator<UiTranslate> Translate = new KeyFrameAnimator<UiTranslate>()
-                .AddFrame(20, UiTranslate.X(0.Px()))
-                .AddFrame(100, UiTranslate.X(-700.Px()))
+                .AddFrame(20, 0.Px().X())
+                .AddFrame(100, -700.Px().X())
                 .Freeze();
         }
         
         public static class Right
         {
             public static readonly FrozenKeyFrameAnimator<UiTranslate> Translate = new KeyFrameAnimator<UiTranslate>()
-                .AddFrame(20, UiTranslate.X(0.Px()))
-                .AddFrame(100, UiTranslate.X(700.Px()))
+                .AddFrame(20, 0.Px().X())
+                .AddFrame(100, 700.Px().X())
                 .Freeze();
         }
     }
@@ -158,33 +158,33 @@ public static class KeyFrames
             .AddFrame(40, 0.9.Scale())
             .AddFrame(60, 1.03.Scale())
             .AddFrame(60, 0.97.Scale())
-            .AddFrame(60, UiScale.Default)
+            .AddFrame(60, UiScale.One)
             .Freeze();
         
         public static readonly FrozenKeyFrameAnimator<UiOpacity> Opacity = new KeyFrameAnimator<UiOpacity>()
             .WithTiming(Timing)
-            .AddFrame(0, UiOpacity.None)
-            .AddFrame(60, UiOpacity.Full)
+            .AddFrame(0, UiOpacity.Transparent)
+            .AddFrame(60, UiOpacity.Opaque)
             .Freeze();
 
         public static class Down
         {
             public static readonly FrozenKeyFrameAnimator<UiScale> Scale = new KeyFrameAnimator<UiScale>()
                 .WithTiming(Timing)
-                .AddFrame(0, UiScale.Y(3))
-                .AddFrame(60, UiScale.Y(0.9f))
-                .AddFrame(75, UiScale.Y(0.95f))
-                .AddFrame(90, UiScale.Y(0.985f))
-                .AddFrame(100, UiScale.Default)
+                .AddFrame(0, 3.Scale().Y())
+                .AddFrame(60, 0.9f.Scale().Y())
+                .AddFrame(75, 0.95f.Scale().Y())
+                .AddFrame(90, 0.985f.Scale().Y())
+                .AddFrame(100, 1.Scale())
                 .Freeze();
             
             public static readonly FrozenKeyFrameAnimator<UiTranslate> Translate = new KeyFrameAnimator<UiTranslate>()
                 .WithTiming(Timing)
-                .AddFrame(0, UiTranslate.Y(3000.Px()))
-                .AddFrame(60, UiTranslate.Y(25.Px()))
-                .AddFrame(75, UiTranslate.Y(-10.Px()))
-                .AddFrame(90, UiTranslate.Y(5.Px()))
-                .AddFrame(100, UiTranslate.Y(0.Px()))
+                .AddFrame(0, 3000.Px().Y())
+                .AddFrame(60, 25.Px().Y())
+                .AddFrame(75, -10.Px().Y())
+                .AddFrame(90, 5.Px().Y())
+                .AddFrame(100, 0.Px().Y())
                 .Freeze();
         }
     }

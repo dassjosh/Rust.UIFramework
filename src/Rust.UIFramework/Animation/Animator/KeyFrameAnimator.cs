@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -6,7 +7,7 @@ using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Animation;
 
-public class KeyFrameAnimator<T> : IAnimator<T>
+public class KeyFrameAnimator<T> : IAnimator<T>, IKeyFrame<T>
 {
     private readonly SortedList<float, KeyFrameValue> _keyFrames;
     private readonly UiLerp<T> _lerp;
@@ -61,6 +62,26 @@ public class KeyFrameAnimator<T> : IAnimator<T>
 
         return this;
     }
+    
+    public KeyFrameAnimator<T> AddFrames(IEnumerable<KeyValuePair<float, T>> frames, TimingFunction timing = null)
+    {
+        foreach (KeyValuePair<float, T> frame in frames)
+        {
+            AddFrame(frame.Key, frame.Value, timing);
+        }
+
+        return this;
+    }
+    
+    public KeyFrameAnimator<T> AddFrames(ReadOnlySpan<KeyValuePair<float, T>> frames, TimingFunction timing = null)
+    {
+        foreach (KeyValuePair<float, T> frame in frames)
+        {
+            AddFrame(frame.Key, frame.Value, timing);
+        }
+
+        return this;
+    }
 
     public KeyFrameAnimator<T> RemoveKeyFrame(float percentage)
     {
@@ -102,4 +123,8 @@ public class KeyFrameAnimator<T> : IAnimator<T>
         public readonly T Value = value;
         public readonly TimingFunction Timing = timing;
     }
+    
+    public IEnumerator<KeyValuePair<float, T>> GetEnumerator() => _keyFrames.Select(frame => new KeyValuePair<float, T>(frame.Key, frame.Value.Value)).GetEnumerator();
+    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+    public string ToCssString() => this.BuildCssKeyFrames();
 }

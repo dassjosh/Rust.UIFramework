@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Diagnostics.Contracts;
 using Newtonsoft.Json;
+using Oxide.Ext.UiFramework.Extensions;
+using Oxide.Ext.UiFramework.Interfaces.Types;
 using Oxide.Ext.UiFramework.Json;
 using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Types;
 
 [JsonConverter(typeof(UiRotationConverter))]
-public readonly record struct UiRotation(float Rotation)
+public readonly record struct UiRotation(float Rotation) : ICssString
 {
     public static readonly UiRotation Zero = new(0);
     public static readonly UiRotation Twelfth = new(FullRotation / 12);
@@ -24,6 +26,7 @@ public readonly record struct UiRotation(float Rotation)
     public static readonly UiRotation Full = new(FullRotation);
 
     private const float FullRotation = 360f;
+    private const char DegreeSymbol = '°';
 
     [Pure]
     public UiRotation RotateRight(float rotation) => new(Rotation + rotation);
@@ -47,11 +50,22 @@ public readonly record struct UiRotation(float Rotation)
     public static UiRotation LerpUnclamped(UiRotation a, UiRotation b, float t) => new(Mathf.LerpUnclamped(a.Rotation, b.Rotation, t));
 
     public static UiRotation Parse(string input) => Parse(input.AsSpan());
-    public static UiRotation Parse(ReadOnlySpan<char> input) => TryParse(input, out UiRotation result) ? result : throw new FormatException($"Unable to parse '{input.ToString()}' as {nameof(UiRotation)}");
+    public static UiRotation Parse(ReadOnlySpan<char> input) => TryParse(input, out UiRotation result) ? result : throw FormatException.FailedParse<UiRotation>(input);
     public static bool TryParse(string input, out UiRotation rotation) => TryParse(input.AsSpan(), out rotation);
     
     public static bool TryParse(ReadOnlySpan<char> input, out UiRotation rotation)
     {
+        if (input.IsEmptyOrWhitespace)
+        {
+            rotation = default;
+            return false;
+        }
+
+        if (input[^1] == DegreeSymbol)
+        {
+            input = input[..^1];
+        }
+        
         if (float.TryParse(input, out float rotationValue))
         {
             rotation = new UiRotation(rotationValue);
@@ -71,7 +85,8 @@ public readonly record struct UiRotation(float Rotation)
     public static UiRotation operator /(UiRotation lhs, float rhs) => new(lhs.Rotation / rhs);
     public static UiRotation operator /(UiRotation lhs, UiRotation rhs) => new(lhs.Rotation * Full.Rotation / rhs.Rotation);
     public static UiRotation operator -(UiRotation rotation) => new(-rotation.Rotation);
-    public override string ToString() => $"{Rotation}°";
+    public override string ToString() => $"{Rotation}{DegreeSymbol}";
+    public string ToCssString() => $"transform: rotateY({Rotation}deg)";
 }
 
 public static class UiRotationExt

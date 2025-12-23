@@ -52,10 +52,10 @@ public static class FieldAnimationExt
     
     extension(in AnimationRef<IFieldAnimation<UiColor>> field)
     {
-        public AnimationRef<IFieldAnimation<UiColor>> FadeIn() => field.IsValid ? field.Lerp(UiOpacity.None, UiOpacity.Full) : field;
-        public AnimationRef<IFieldAnimation<UiColor>> FadeOut() => field.IsValid ? field.Lerp(UiOpacity.Full, UiOpacity.None) : field;
-        public AnimationRef<IFieldAnimation<UiColor>> FadeIn(UiColor color) => field.IsValid ? field.Lerp(color, UiOpacity.None, UiOpacity.Full) : field;
-        public AnimationRef<IFieldAnimation<UiColor>> FadeOut(UiColor color) => field.IsValid ? field.Lerp(color, UiOpacity.Full, UiOpacity.None) : field;
+        public AnimationRef<IFieldAnimation<UiColor>> FadeIn() => field.IsValid ? field.Lerp(UiOpacity.Transparent, UiOpacity.Opaque) : field;
+        public AnimationRef<IFieldAnimation<UiColor>> FadeOut() => field.IsValid ? field.Lerp(UiOpacity.Opaque, UiOpacity.Transparent) : field;
+        public AnimationRef<IFieldAnimation<UiColor>> FadeIn(UiColor color) => field.IsValid ? field.Lerp(color, UiOpacity.Transparent, UiOpacity.Opaque) : field;
+        public AnimationRef<IFieldAnimation<UiColor>> FadeOut(UiColor color) => field.IsValid ? field.Lerp(color, UiOpacity.Opaque, UiOpacity.Transparent) : field;
         public AnimationRef<IFieldAnimation<UiColor>> Lerp(UiColor color, UiOpacity start, UiOpacity end) => field.IsValid ? field.Lerp(start, end, color) : field;
         public AnimationRef<IFieldAnimation<UiColor>> Lerp(UiOpacity start, UiOpacity end)  => field.IsValid ? field.Lerp(field.Animation.Value, start, end) : field;
     }

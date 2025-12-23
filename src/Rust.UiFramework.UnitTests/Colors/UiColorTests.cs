@@ -14,10 +14,10 @@ public class UiColorTests
         //Act
         
         //Assert
-        color.RedB.Should().Be(50);
-        color.GreenB.Should().Be(100);
-        color.BlueB.Should().Be(150);
-        color.AlphaB.Should().Be(200);
+        color.Red.Should().Be(50);
+        color.Green.Should().Be(100);
+        color.Blue.Should().Be(150);
+        color.Alpha.Should().Be(200);
 
         color.RedFloat.Should().BeApproximately(0.19607843f, 0.001f);
         color.GreenFloat.Should().BeApproximately(0.39215687f, 0.001f);
@@ -34,10 +34,10 @@ public class UiColorTests
         //Act
         
         //Assert
-        color.RedB.Should().Be(50);
-        color.GreenB.Should().Be(100);
-        color.BlueB.Should().Be(150);
-        color.AlphaB.Should().Be(200);
+        color.Red.Should().Be(50);
+        color.Green.Should().Be(100);
+        color.Blue.Should().Be(150);
+        color.Alpha.Should().Be(200);
 
         color.RedFloat.Should().BeApproximately(0.19607843f, 0.001f);
         color.GreenFloat.Should().BeApproximately(0.39215687f, 0.001f);
@@ -54,10 +54,10 @@ public class UiColorTests
         //Act
         
         //Assert
-        color.RedB.Should().Be(50);
-        color.GreenB.Should().Be(100);
-        color.BlueB.Should().Be(150);
-        color.AlphaB.Should().Be(200);
+        color.Red.Should().Be(50);
+        color.Green.Should().Be(100);
+        color.Blue.Should().Be(150);
+        color.Alpha.Should().Be(200);
 
         color.RedFloat.Should().BeApproximately(0.19607843f, 0.001f);
         color.GreenFloat.Should().BeApproximately(0.39215687f, 0.001f);
@@ -74,10 +74,10 @@ public class UiColorTests
         //Act
         
         //Assert
-        color.RedB.Should().Be(50);
-        color.GreenB.Should().Be(100);
-        color.BlueB.Should().Be(150);
-        color.AlphaB.Should().Be(200);
+        color.Red.Should().Be(50);
+        color.Green.Should().Be(100);
+        color.Blue.Should().Be(150);
+        color.Alpha.Should().Be(200);
 
         color.RedFloat.Should().BeApproximately(0.19607843f, 0.001f);
         color.GreenFloat.Should().BeApproximately(0.39215687f, 0.001f);
@@ -99,10 +99,10 @@ public class UiColorTests
         //Act
         
         //Assert
-        color.RedB.Should().Be(r);
-        color.GreenB.Should().Be(g);
-        color.BlueB.Should().Be(b);
-        color.AlphaB.Should().Be(a);
+        color.Red.Should().Be(r);
+        color.Green.Should().Be(g);
+        color.Blue.Should().Be(b);
+        color.Alpha.Should().Be(a);
 
         color.ToHexRGB().Should().Be($"{r:X2}{g:X2}{b:X2}");
         color.ToHexRGBA().Should().Be($"{r:X2}{g:X2}{b:X2}{a:X2}");
@@ -123,10 +123,10 @@ public class UiColorTests
         //Act
         
         //Assert
-        color.RedB.Should().Be(r);
-        color.GreenB.Should().Be(g);
-        color.BlueB.Should().Be(b);
-        color.AlphaB.Should().Be(a);
+        color.Red.Should().Be(r);
+        color.Green.Should().Be(g);
+        color.Blue.Should().Be(b);
+        color.Alpha.Should().Be(a);
     }
     
     [Fact]
@@ -142,25 +142,25 @@ public class UiColorTests
         UiColor floatAlpha = color.WithAlpha(0.5f);
         
         //Assert
-        byteAlpha.RedB.Should().Be(0xFF);
-        byteAlpha.GreenB.Should().Be(0xFF);
-        byteAlpha.BlueB.Should().Be(0xFF);
-        byteAlpha.AlphaB.Should().Be(0x7F);
+        byteAlpha.Red.Should().Be(0xFF);
+        byteAlpha.Green.Should().Be(0xFF);
+        byteAlpha.Blue.Should().Be(0xFF);
+        byteAlpha.Alpha.Should().Be(0x7F);
         
-        stringHexAlpha.RedB.Should().Be(0xFF);
-        stringHexAlpha.GreenB.Should().Be(0xFF);
-        stringHexAlpha.BlueB.Should().Be(0xFF);
-        stringHexAlpha.AlphaB.Should().Be(0x7F);
+        stringHexAlpha.Red.Should().Be(0xFF);
+        stringHexAlpha.Green.Should().Be(0xFF);
+        stringHexAlpha.Blue.Should().Be(0xFF);
+        stringHexAlpha.Alpha.Should().Be(0x7F);
         
-        intAlpha.RedB.Should().Be(0xFF);
-        intAlpha.GreenB.Should().Be(0xFF);
-        intAlpha.BlueB.Should().Be(0xFF);
-        intAlpha.AlphaB.Should().Be(0x7F);
+        intAlpha.Red.Should().Be(0xFF);
+        intAlpha.Green.Should().Be(0xFF);
+        intAlpha.Blue.Should().Be(0xFF);
+        intAlpha.Alpha.Should().Be(0x7F);
         
-        floatAlpha.RedB.Should().Be(0xFF);
-        floatAlpha.GreenB.Should().Be(0xFF);
-        floatAlpha.BlueB.Should().Be(0xFF);
-        floatAlpha.AlphaB.Should().Be(0x7F);
+        floatAlpha.Red.Should().Be(0xFF);
+        floatAlpha.Green.Should().Be(0xFF);
+        floatAlpha.Blue.Should().Be(0xFF);
+        floatAlpha.Alpha.Should().Be(0x7F);
     }
     
     [Fact]
@@ -175,15 +175,15 @@ public class UiColorTests
         UiColor halfDoubled = half.MultiplyAlpha(2f);
         
         //Assert
-        fullToHalf.RedB.Should().Be(0xFF);
-        fullToHalf.GreenB.Should().Be(0xFF);
-        fullToHalf.BlueB.Should().Be(0xFF);
-        fullToHalf.AlphaB.Should().Be(0x7F);
+        fullToHalf.Red.Should().Be(0xFF);
+        fullToHalf.Green.Should().Be(0xFF);
+        fullToHalf.Blue.Should().Be(0xFF);
+        fullToHalf.Alpha.Should().Be(0x7F);
         
-        halfDoubled.RedB.Should().Be(0x7F);
-        halfDoubled.GreenB.Should().Be(0x7F);
-        halfDoubled.BlueB.Should().Be(0x7F);
-        halfDoubled.AlphaB.Should().Be(0xFE);
+        halfDoubled.Red.Should().Be(0x7F);
+        halfDoubled.Green.Should().Be(0x7F);
+        halfDoubled.Blue.Should().Be(0x7F);
+        halfDoubled.Alpha.Should().Be(0xFE);
     }
     
     [Theory]

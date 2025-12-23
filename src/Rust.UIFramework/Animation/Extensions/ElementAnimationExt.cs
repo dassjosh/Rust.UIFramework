@@ -1,6 +1,5 @@
 ﻿using System;
 using Oxide.Ext.UiFramework.Enums;
-using Oxide.Ext.UiFramework.Interfaces;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.Types;
@@ -129,7 +128,7 @@ public static class ElementAnimationExt
         {
             if (animation.IsValid)
             {
-                return animation.Scale(UiScale.Default, pulsedSize, target).Linear().PingPong();
+                return animation.Scale(UiScale.One, pulsedSize, target).Linear().PingPong();
             }
             return default;
         }

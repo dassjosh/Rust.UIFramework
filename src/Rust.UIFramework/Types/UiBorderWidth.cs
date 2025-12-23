@@ -21,7 +21,7 @@ public readonly record struct UiBorderWidth(float Left, float Top, float Right, 
     public bool IsDefault() => this == Empty;
 
     public static UiBorderWidth Parse(string input, string token = " ") => Parse(input.AsSpan(), token);
-    public static UiBorderWidth Parse(ReadOnlySpan<char> input, ReadOnlySpan<char> token = " ") => TryParse(input, out UiBorderWidth result, token) ? result : throw new FormatException($"Unable to parse '{input.ToString()}' as {nameof(UiBorderWidth)}");
+    public static UiBorderWidth Parse(ReadOnlySpan<char> input, ReadOnlySpan<char> token = " ") => TryParse(input, out UiBorderWidth result, token) ? result : throw FormatException.FailedParse<UiBorderWidth>(input);
     public static bool TryParse(string input, out UiBorderWidth padding, string token = " ") => TryParse(input.AsSpan(), out padding, token);
 
     public static bool TryParse(ReadOnlySpan<char> input, out UiBorderWidth padding, ReadOnlySpan<char> token = " ")

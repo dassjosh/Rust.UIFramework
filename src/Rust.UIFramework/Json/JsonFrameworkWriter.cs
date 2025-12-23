@@ -379,7 +379,7 @@ public sealed partial class JsonFrameworkWriter : BasePoolable
         _writer.Write(color.GreenFloat, maxFractionDigits);
         _writer.WriteChar(Space);
         _writer.Write(color.BlueFloat, maxFractionDigits);
-        if (color.AlphaB != 255)
+        if (color.Alpha != 255)
         {
             _writer.WriteChar(Space);
             _writer.Write(color.AlphaFloat, maxFractionDigits);
