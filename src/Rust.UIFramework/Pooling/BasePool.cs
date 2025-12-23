@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Concurrent;
-using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Exceptions;
 using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Libraries;
