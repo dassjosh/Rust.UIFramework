@@ -13,6 +13,8 @@ namespace Oxide.Ext.UiFramework.Libraries;
 
 public class UiPluginPool : IDebugLoggable
 {
+    internal readonly PluginPoolId Id;
+    
     private readonly List<IPool> _pools = [];
     private PoolSettings _settings;
 
@@ -26,8 +28,9 @@ public class UiPluginPool : IDebugLoggable
     /// Constructor
     /// </summary>
     /// <param name="plugin">Plugin the pool is for</param>
-    internal UiPluginPool(PluginId plugin)
+    internal UiPluginPool(PluginPoolId id, PluginId plugin)
     {
+        Id = id;
         PluginId = plugin;
         PluginName = plugin.FullName();
     }

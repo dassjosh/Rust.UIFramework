@@ -24,15 +24,16 @@ public abstract class BasePool<TPooled, TPool> : IPool, IDebugLoggable
     
     UiPluginPool IPool.PluginPool => PluginPool;
     
-    protected readonly object Lock = new();
+    protected readonly object PoolLock = new();
     
     private bool _isInitialized;
     
-    private static readonly ConcurrentDictionary<PluginId, TPool> Pools = new();
+    private static TPool[] Pools = new TPool[32];
+    private static readonly object CreatePoolLock = new();
     
     protected void InitPool(UiPluginPool pluginPool)
     {
-        lock (Lock)
+        lock (PoolLock)
         {
             if (_isInitialized)
             {
@@ -55,15 +56,30 @@ public abstract class BasePool<TPooled, TPool> : IPool, IDebugLoggable
     /// <returns></returns>
     public static TPool ForPlugin(UiPluginPool pluginPool)
     {
-        TPool pool = Pools.GetOrAdd(pluginPool.PluginId, CreatePool);
-        if (!pool._isInitialized)
+        TPool pool = Pools[pluginPool.Id.Id];
+        if (pool is { _isInitialized: true })
         {
-            pool.InitPool(pluginPool);
+            return pool;
         }
-        return pool;
+
+        lock (CreatePoolLock)
+        {
+            pool = Pools[pluginPool.Id.Id];
+            if (pool is { _isInitialized: true })
+            {
+                return pool;
+            }
+            
+            if(Pools.Length <= pluginPool.Id.Id)
+            {
+                Array.Resize(ref Pools, Pools.Length * 2);
+            }
+            
+            pool = Pools[pluginPool.Id.Id] = new TPool();
+            pool.InitPool(pluginPool);
+            return pool;
+        }
     }
-    
-    private static TPool CreatePool(PluginId id) => new();
 
     /// <summary>
     /// Frees an item back to the pool
@@ -86,7 +102,10 @@ public abstract class BasePool<TPooled, TPool> : IPool, IDebugLoggable
 
     public void OnPluginUnloaded(UiPluginPool pluginPool)
     {
-        Pools.TryRemove(pluginPool.PluginId, out TPool _);
+        if (pluginPool.Id.Id < Pools.Length)
+        {
+            Pools[pluginPool.Id.Id] = null;
+        }
     }
 
     /// <summary>
@@ -138,7 +157,7 @@ public abstract class BaseObjectPool<TPooled, TPool> : BasePool<TPooled, TPool>,
     public TPooled Get()
     {
         TPooled item = null;
-        lock (Lock)
+        lock (PoolLock)
         {
             int index = _index;
             if (index == _pool.Length && _size.CanResize(_pool.Length))
@@ -182,7 +201,7 @@ public abstract class BaseObjectPool<TPooled, TPool> : BasePool<TPooled, TPool>,
             return;
         }
 
-        lock (Lock)
+        lock (PoolLock)
         {
 #if DEBUG
             for (int index = 0; index < _pool.Length; index++)
@@ -210,7 +229,7 @@ public abstract class BaseObjectPool<TPooled, TPool> : BasePool<TPooled, TPool>,
     
     public override void ClearPoolEntities()
     {
-        lock (Lock)
+        lock (PoolLock)
         {
             _pool.Clear();
         }

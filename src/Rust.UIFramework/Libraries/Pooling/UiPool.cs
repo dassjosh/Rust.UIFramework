@@ -1,10 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Logging;
 using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Types;
-using Oxide.Plugins;
 
 namespace Oxide.Ext.UiFramework.Libraries;
 
@@ -12,9 +12,11 @@ public class UiPool : BaseUiFrameworkLibrary, ISingleton
 {
     public static readonly UiPluginPool Internal = Singleton<UiPool>.Instance._internal;
     
-    private readonly Hash<PluginId, UiPluginPool> _pluginPools = new();
+    private readonly Dictionary<PluginId, PluginPoolId> _pluginPoolIds = new();
+    private UiPluginPool[] _pluginPools = new UiPluginPool[32];
     private readonly UiPluginPool _internal;
     private readonly IUiLogger<UiPool> _logger = Singleton<UiLoggerFactory>.Instance.CreateExtensionLogger<UiPool>();
+    private readonly object _lock = new();
 
     private UiPool()
     {
@@ -49,14 +51,28 @@ public class UiPool : BaseUiFrameworkLibrary, ISingleton
     
     private UiPluginPool CreatePoolInternal(PluginId id, PoolSettings settings)
     {
-        UiPluginPool pool = _pluginPools[id];
-        if (pool == null)
+        if (_pluginPoolIds.TryGetValue(id, out PluginPoolId poolId))
         {
-            _pluginPools[id] = pool = new UiPluginPool(id);
-            pool.SetSettings(settings);
+            return _pluginPools[poolId.Id];
         }
 
-        return pool;
+        lock (_lock)
+        {
+            if (_pluginPoolIds.TryGetValue(id, out poolId))
+            {
+                return _pluginPools[poolId.Id];
+            }
+
+            _pluginPoolIds[id] = poolId = PluginPoolId.GetNextId();
+            if(poolId.Id >= _pluginPools.Length)
+            {
+                Array.Resize(ref _pluginPools, _pluginPools.Length * 2);
+            }
+            
+            UiPluginPool pool = _pluginPools[poolId.Id] = new UiPluginPool(poolId, id);
+            pool.SetSettings(settings);
+            return pool;
+        }
     }
 
     ///<inheritdoc/>
@@ -68,27 +84,31 @@ public class UiPool : BaseUiFrameworkLibrary, ISingleton
     ///<inheritdoc/>
     protected override void OnPluginUnloaded(IUiFrameworkPlugin plugin)
     {
-        PluginId id = plugin.Id();
-        UiPluginPool pool = _pluginPools[id];
-        if (pool != null)
+        if (_pluginPoolIds.TryGetValue(plugin.Id(), out PluginPoolId id))
         {
-            pool.OnPluginUnloaded();
-            _pluginPools.Remove(id);
+            UiPluginPool pool = _pluginPools[id.Id];
+            if (pool != null)
+            {
+                pool.OnPluginUnloaded();
+                _pluginPools[id.Id] = null;
+            }
         }
     }
 
     internal void Clear()
     {
-        foreach (UiPluginPool pool in _pluginPools.Values)
+        for (int index = 0; index < _pluginPools.Length; index++)
         {
+            UiPluginPool pool = _pluginPools[index];
             pool.Clear();
         }
     }
         
     internal void Wipe()
     {
-        foreach (UiPluginPool pool in _pluginPools.Values)
+        for (int index = 0; index < _pluginPools.Length; index++)
         {
+            UiPluginPool pool = _pluginPools[index];
             pool.Wipe();
         }
     }
@@ -96,8 +116,9 @@ public class UiPool : BaseUiFrameworkLibrary, ISingleton
     internal bool CheckForLeaks()
     {
         bool hasLeaked = false;
-        foreach (UiPluginPool pool in _pluginPools.Values)
+        for (int index = 0; index < _pluginPools.Length; index++)
         {
+            UiPluginPool pool = _pluginPools[index];
             hasLeaked |= pool.CheckForLeaks();
         }
 
@@ -109,8 +130,9 @@ public class UiPool : BaseUiFrameworkLibrary, ISingleton
     {
         logger.AppendObject("Internal", _internal);
         logger.AppendObject("Obsolete", UiFrameworkPool.Pool);
-        foreach (UiPluginPool pool in _pluginPools.Values)
+        for (int index = 0; index < _pluginPools.Length; index++)
         {
+            UiPluginPool pool = _pluginPools[index];
             if (pool != _internal)
             {
                 logger.AppendObject(pool.PluginName, pool);
