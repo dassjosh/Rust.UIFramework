@@ -66,6 +66,7 @@ internal class UiImageDatabase : BaseUiFrameworkLibrary, ISingleton, IImageDatab
     {
         if (_db == null)
         {
+            _logger.Error("Database is not initialized");
             return default;
         }
 
@@ -73,11 +74,13 @@ internal class UiImageDatabase : BaseUiFrameworkLibrary, ISingleton, IImageDatab
         ImageId id = new(crc);
         if (_data.IsStored(id))
         {
+            _logger.Debug("Image {0} already stored", id);
             return id;
         }
         
         _data.Touch(id);
         _db.Execute("INSERT OR REPLACE INTO data (crc, image) VALUES (?, ?)", crc, image);
+        _logger.Debug("Image {0} stored", id, crc);
         return id;
     }
 
@@ -85,6 +88,7 @@ internal class UiImageDatabase : BaseUiFrameworkLibrary, ISingleton, IImageDatab
     
     public void OnImageRegistered(ImageId id)
     {
+        _logger.Debug("OnImageRegistered : {0}", id);
         _data.Touch(id);
     }
 
