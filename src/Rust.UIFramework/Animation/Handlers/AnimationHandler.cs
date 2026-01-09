@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Threading;
 using Network;
 using Oxide.Ext.UiFramework.Config;
 using Oxide.Ext.UiFramework.Constants;
-using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Logging;
@@ -16,18 +14,21 @@ namespace Oxide.Ext.UiFramework.Animation;
 
 internal class AnimationHandler : ISingleton
 {
-    private readonly CancellationTokenSource _cancellationTokenSource = new();
-    private readonly AutoResetEvent _reset = new(false);
-    private int _sendCount;
+    private IAnimationHandler _handler;
     private readonly IUiLogger _logger = Singleton<UiLoggerFactory>.Instance.CreateExtensionLogger<AnimationHandler>();
 
     private AnimationHandler()
     {
-        Thread thread = new(AnimationLoop)
+        if (UiFrameworkConfig.Instance.Threading.EnableAnimationThread)
         {
-            IsBackground = true
-        };
-        thread.Start(_cancellationTokenSource.Token);
+            _handler = new ThreadedAnimationHandler();
+        }
+        else
+        {
+            _handler = SingletonBehavior<BehaviorAnimationHandler>.Instance;
+        }
+        
+        _handler.OnInit(this);
     }
     
     public void EnqueueAnimation(ISendableAnimation animation, SendInfo send)
@@ -35,51 +36,20 @@ internal class AnimationHandler : ISingleton
         if (animation == null) throw new ArgumentNullException(nameof(animation));
         animation.Send = send;
         animation.ChangeState(AnimationState.Queued);
-        _reset.Set();
+        _handler.OnAnimationQueued();
         _logger.Debug("Adding animation {0}", animation.Id);
     }
     
-    private void AnimationLoop(object tokenObj)
+    internal float TickAnimation(ref bool isPaused)
     {
-        CancellationToken token = (CancellationToken)tokenObj;
-
-        bool isPaused = false;
-        while (!token.IsCancellationRequested)
-        {
-            try
-            {
-                float startTime = Time.realtimeSinceStartup;
-                Singleton<AnimationTime>.Instance.UpdateTime(startTime, isPaused);
-                isPaused = false;
-                _logger.Debug("Processing {0} animations", Singleton<AnimationData>.Instance.Count);
-                ProcessAnimations();
-                _logger.Debug("Processed animations. {0} remaining", Singleton<AnimationData>.Instance.Count);
-                float endTime = Time.realtimeSinceStartup;
-                
-                if (Singleton<AnimationData>.Instance.Count == 0)
-                {
-                    _sendCount++;
-                    int timeout = GetSleepDuration();
-                    if (timeout == -1)
-                    {
-                        isPaused = true;
-                    }
-                    _reset.WaitOne(timeout);
-                }
-                else
-                {
-                    _sendCount = 0;
-                    int processDuration = Mathf.RoundToInt((endTime - startTime) * 1000);
-                    int sleepDuration = Mathf.Max(UiFrameworkConfig.Instance.Animations.UpdateRate - processDuration, 1);
-                    Thread.Sleep(sleepDuration);
-                }
-            }
-            catch (Exception ex)
-            {
-                Thread.Sleep(UiFrameworkConfig.Instance.Animations.UpdateRate);
-                _logger.Exception("An error occurred while processing animations", ex);
-            }
-        }
+        float startTime = Time.realtimeSinceStartup;
+        Singleton<AnimationTime>.Instance.UpdateTime(startTime, isPaused);
+        isPaused = false;
+        _logger.Debug("Processing {0} animations", Singleton<AnimationData>.Instance.Count);
+        ProcessAnimations();
+        _logger.Debug("Processed animations. {0} remaining", Singleton<AnimationData>.Instance.Count);
+        float endTime = Time.realtimeSinceStartup;
+        return endTime - startTime;
     }
     
     private void ProcessAnimations()
@@ -159,17 +129,7 @@ internal class AnimationHandler : ISingleton
         writer.Dispose();
     }
 
-    private int GetSleepDuration()
-    {
-        if (_sendCount > 4)
-        {
-            return -1;
-        }
-        
-        return 25 + (1 << _sendCount);
-    }
-
     public void OnPlayerDisconnected(ulong playerId) => Singleton<AnimationData>.Instance.OnPlayerDisconnected(playerId);
     internal void OnPluginUnloaded(IUiFrameworkPlugin plugin) => Singleton<AnimationData>.Instance.OnPluginUnloaded(plugin);
-    internal void OnServerShutdown() => _cancellationTokenSource.Cancel();
+    internal void OnServerShutdown() => _handler.OnServerShutdown();
 }

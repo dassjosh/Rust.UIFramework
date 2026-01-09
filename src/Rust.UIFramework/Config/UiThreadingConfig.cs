@@ -9,4 +9,7 @@ internal class UiThreadingConfig
     
     [JsonProperty("Enable Image Download Thread")]
     public bool EnableImageDownloadThread { get; set; }
+    
+    [JsonProperty("Enable Animation Thread")]
+    public bool EnableAnimationThread { get; set; }
 }
