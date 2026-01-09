@@ -113,6 +113,11 @@ internal class AnimationHandler : ISingleton
         {
             if (animation.Parent is null)
             {
+                if (animation.State == AnimationState.Pooled)
+                {
+                    return;
+                }
+                
                 if (animation.State == AnimationState.Queued)
                 {
                     animation.OnStarted();
