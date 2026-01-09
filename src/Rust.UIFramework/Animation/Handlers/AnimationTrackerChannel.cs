@@ -1,4 +1,5 @@
-﻿using Oxide.Ext.UiFramework.Threading;
+﻿using Oxide.Ext.UiFramework.Config;
+using Oxide.Ext.UiFramework.Threading;
 using Oxide.Ext.UiFramework.Threading.UiChannel;
 using Oxide.Ext.UiFramework.Types;
 
@@ -15,7 +16,7 @@ namespace Oxide.Ext.UiFramework.Animation;
 
 internal class AnimationTrackerChannel : BaseUiChannel<UiSendRequest>, ISingleton
 {
-    private AnimationTrackerChannel() : base(true) { }
+    private AnimationTrackerChannel() : base(UiFrameworkConfig.Instance.Threading.EnableAnimationThread) { }
     
     protected override void ProcessItem(UiSendRequest item)
     {
