@@ -41,7 +41,7 @@ public static class AnimationBuilderExt
                 AnimationRef<IElementAnimation<UiRawImage>> animation = builder.Animate(image)
                     .OnQueued(a =>
                     {
-                        Singleton<ImageDownloadAnimationHandler>.Instance.QueueUpdate(url, new AnimationRef<IElementAnimation<UiRawImage>>(a), null);
+                        Singleton<ImageDownloadAnimationHandler>.Instance.QueueUpdate(url, a, null);
                     });
                 return animation;
             }
@@ -64,8 +64,8 @@ public static class AnimationBuilderExt
                 string timeoutImage = !string.IsNullOrEmpty(options.TimeoutImageNameOrUrl) ? options.TimeoutImageNameOrUrl : options.FailedImageNameOrUrl;
 
                 AnimationRef<IElementAnimation<UiRawImage>> animation = builder.Animate(image)
-                    .OnQueued(a => Singleton<ImageDownloadAnimationHandler>.Instance.QueueUpdate(url, new AnimationRef<IElementAnimation<UiRawImage>>(a), options))
-                    .OnTimeout(a => a.Element.Image = timeoutImage)
+                    .OnQueued(a => Singleton<ImageDownloadAnimationHandler>.Instance.QueueUpdate(url, a, options))
+                    .OnTimeout(a => a.Animation.Element.Image = timeoutImage)
                     .TimeoutDelay(timeout);
 
                 return animation;

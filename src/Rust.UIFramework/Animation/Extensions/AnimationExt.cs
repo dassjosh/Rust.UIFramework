@@ -120,18 +120,18 @@ public static class AnimationExt
         public AnimationRef<T> Timing(TimingFunction timing) => animation.WithTiming(timing);
         
         public AnimationRef<T> DestroyAfter(in UiReference destroyTarget) => animation.DestroyAfter(destroyTarget.Name);
-        public AnimationRef<T> DestroyAfter(string name) => animation.OnFinalized(a => { BaseBuilder.DestroyUi(SendInfoBuilder.GetForUi(a.GetSendable().Send), name); });
+        public AnimationRef<T> DestroyAfter(string name) => animation.OnFinalized(a => { BaseBuilder.DestroyUi(SendInfoBuilder.GetForUi(a.Animation.GetSendable().Send), name); });
         
-        public AnimationRef<T> OnQueued(Action<T> callback) => animation.On(AnimationEventType.Queued, callback);
-        public AnimationRef<T> OnDelayed(Action<T> callback) => animation.On(AnimationEventType.Delayed, callback);
-        public AnimationRef<T> OnStarted(Action<T> callback) => animation.On(AnimationEventType.Started, callback);
-        public AnimationRef<T> OnRepeat(Action<T> callback) => animation.On(AnimationEventType.Repeat, callback);
-        public AnimationRef<T> OnCompleted(Action<T> callback) => animation.On(AnimationEventType.Completed, callback);
-        public AnimationRef<T> OnCanceled(Action<T> callback) => animation.On(AnimationEventType.Canceled, callback);
-        public AnimationRef<T> OnTimeout(Action<T> callback) => animation.On(AnimationEventType.Timeout, callback);
-        public AnimationRef<T> OnFinalized(Action<T> callback) => animation.On(AnimationEventType.Finalized, callback);
+        public AnimationRef<T> OnQueued(Action<AnimationRef<T>> callback) => animation.On(AnimationEventType.Queued, callback);
+        public AnimationRef<T> OnDelayed(Action<AnimationRef<T>> callback) => animation.On(AnimationEventType.Delayed, callback);
+        public AnimationRef<T> OnStarted(Action<AnimationRef<T>> callback) => animation.On(AnimationEventType.Started, callback);
+        public AnimationRef<T> OnRepeat(Action<AnimationRef<T>> callback) => animation.On(AnimationEventType.Repeat, callback);
+        public AnimationRef<T> OnCompleted(Action<AnimationRef<T>> callback) => animation.On(AnimationEventType.Completed, callback);
+        public AnimationRef<T> OnCanceled(Action<AnimationRef<T>> callback) => animation.On(AnimationEventType.Canceled, callback);
+        public AnimationRef<T> OnTimeout(Action<AnimationRef<T>> callback) => animation.On(AnimationEventType.Timeout, callback);
+        public AnimationRef<T> OnFinalized(Action<AnimationRef<T>> callback) => animation.On(AnimationEventType.Finalized, callback);
         
-        public AnimationRef<T> On(AnimationEventType type, Action<T> callback)
+        public AnimationRef<T> On(AnimationEventType type, Action<AnimationRef<T>> callback)
         {
             if (animation.IsValid)
             {

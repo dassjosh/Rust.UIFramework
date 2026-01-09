@@ -8,9 +8,9 @@ namespace Oxide.Ext.UiFramework.Animation;
 public class CallbackAnimationEvent<T> : BasePoolable, IAnimationEvent where T : class, IAnimation
 {
     private AnimationEventType _type;
-    private Action<T> _callback;
+    private Action<AnimationRef<T>> _callback;
     
-    public static CallbackAnimationEvent<T> Create(IUiFrameworkPlugin plugin, AnimationEventType type, Action<T> callback)
+    public static CallbackAnimationEvent<T> Create(IUiFrameworkPlugin plugin, AnimationEventType type, Action<AnimationRef<T>> callback)
     {
         CallbackAnimationEvent<T> @event = plugin.PluginPool.Get<CallbackAnimationEvent<T>>();
         @event._type = type;
@@ -29,7 +29,7 @@ public class CallbackAnimationEvent<T> : BasePoolable, IAnimationEvent where T :
         
         try
         {
-            _callback?.Invoke((T)animation.Animation);
+            _callback?.Invoke(new AnimationRef<T>((T)animation.Animation));
         }
         catch (Exception ex)
         {
