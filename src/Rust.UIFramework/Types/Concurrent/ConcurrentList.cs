@@ -9,7 +9,7 @@ namespace Oxide.Ext.UiFramework.Types;
 public class ConcurrentList<T> : IList<T>, IReadOnlyList<T>
 {
     private readonly List<T> _list = [];
-    private readonly ReaderWriterLockSlim _lock = new();
+    private readonly ReaderWriterLockSlim _lock = new(LockRecursionPolicy.SupportsRecursion);
 
     public int IndexOf(T item)
     {
