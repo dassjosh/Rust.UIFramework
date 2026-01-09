@@ -51,6 +51,12 @@ internal class UiFrameworkConfig : ConfigFile
     public UiSteamConfig Steam { get; set; }
             
     /// <summary>
+    /// UiFramework Threading Options
+    /// </summary>
+    [JsonProperty("Threading")]
+    public UiThreadingConfig Threading { get; set; }
+    
+    /// <summary>
     /// UiFramework Harmony Options
     /// </summary>
     [JsonProperty("Harmony")]
@@ -142,6 +148,11 @@ internal class UiFrameworkConfig : ConfigFile
         Steam = new UiSteamConfig
         {
             ApiKey = Steam?.ApiKey ?? string.Empty
+        };
+        
+        Threading = new UiThreadingConfig
+        {
+            EnableUiSendingThread = Threading?.EnableUiSendingThread ?? true
         };
 
         Animations = new UiAnimationConfig

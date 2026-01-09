@@ -14,28 +14,38 @@ internal abstract class BaseUiChannel<T> : IUiChannel where T : IChannelObject
     private readonly CancellationTokenSource _source = new();
     private int _sendAttempts;
     private readonly IUiLogger _logger;
+    protected readonly bool EnableThreading;
     
-    protected BaseUiChannel()
+    protected BaseUiChannel(bool enableThreading)
     {
+        EnableThreading = enableThreading;
         _logger = Singleton<UiLoggerFactory>.Instance.CreateExtensionLogger(GetType());
-        _thread = new Thread(Run)
+        if (enableThreading)
         {
-            IsBackground = true,
-            Name = $"{UiFrameworkExtension.Instance.Name}.{GetType().Name}"
-        };
-        _thread.Start();
+            _thread = new Thread(Run)
+            {
+                IsBackground = true,
+                Name = $"{UiFrameworkExtension.Instance.Name}.{GetType().Name}"
+            };
+            _thread.Start();
+        }
     }
     
     public void Enqueue(IUiChannelObject item)
     {
-        if (item is IUiChannelObject<T> obj)
+        if (item is not IUiChannelObject<T> obj)
         {
-            _queue.Enqueue(obj);
-            _reset.Set();
+            throw new Exception($"Invalid item type: {item.GetType().FullName}");
+        }
+
+        if (!EnableThreading)
+        {
+            ProcessRequestInternal(obj);
             return;
         }
-        
-        throw new Exception($"Invalid item type: {item.GetType().FullName}");
+            
+        _queue.Enqueue(obj);
+        _reset.Set();
     }
     
     private void Run()
@@ -56,21 +66,26 @@ internal abstract class BaseUiChannel<T> : IUiChannel where T : IChannelObject
         while (_queue.TryDequeue(out IUiChannelObject<T> request))
         {
             didRun = true;
-            try
-            {
-                ProcessItem(request.Item);
-            }
-            catch (Exception ex) when (ex is not ObjectDisposedException)
-            {
-                _logger.Exception("An error occured in channel", ex);
-            }
-            finally
-            {
-                request.EnqueueNext();
-            }
+            ProcessRequestInternal(request);
         }
 
         return didRun;
+    }
+
+    private void ProcessRequestInternal(IUiChannelObject<T> request)
+    {
+        try
+        {
+            ProcessItem(request.Item);
+        }
+        catch (Exception ex) when (ex is not ObjectDisposedException)
+        {
+            _logger.Exception("An error occured in channel", ex);
+        }
+        finally
+        {
+            request.EnqueueNext();
+        }
     }
 
     protected abstract void ProcessItem(T item);

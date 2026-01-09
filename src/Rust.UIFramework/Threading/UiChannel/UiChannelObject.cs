@@ -34,8 +34,8 @@ internal class UiChannelObject<T> : BasePoolable, IUiChannelObject<T> where T : 
             return;
         }
         
-        channel.Enqueue(this);
         _index++;
+        channel.Enqueue(this);
     }
 
     protected override void EnterPool()

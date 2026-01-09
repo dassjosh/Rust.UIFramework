@@ -15,7 +15,7 @@ namespace Oxide.Ext.UiFramework.Animation;
 
 internal class AnimationTrackerChannel : BaseUiChannel<UiSendRequest>, ISingleton
 {
-    private AnimationTrackerChannel() { }
+    private AnimationTrackerChannel() : base(true) { }
     
     protected override void ProcessItem(UiSendRequest item)
     {
