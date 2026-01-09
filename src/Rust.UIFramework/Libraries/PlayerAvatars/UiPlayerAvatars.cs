@@ -68,14 +68,14 @@ public class UiPlayerAvatars : BaseUiFrameworkLibrary, ISingleton
     {
         try
         {
-            HttpResponseMessage response = await _httpClient.GetAsync(StringCache<ulong>.ToString(steamId));
+            HttpResponseMessage response = await _httpClient.GetAsync(StringCache<ulong>.ToString(steamId)).ConfigureAwait(false);
             if (!response.IsSuccessStatusCode)
             {
-                _logger.Error("An error occured getting player avatar. SteamId: {0} Status Code: {1} Message: {2}", steamId, response.StatusCode, await response.Content.ReadAsStringAsync());
+                _logger.Error("An error occured getting player avatar. SteamId: {0} Status Code: {1} Message: {2}", steamId, response.StatusCode, await response.Content.ReadAsStringAsync().ConfigureAwait(false));
                 return;
             }
         
-            string json = await response.Content.ReadAsStringAsync();
+            string json = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
             Root root = JsonConvert.DeserializeObject<Root>(json);
             _data.AddAvatar(steamId, root.Response.Players[0].AvatarHash);
         }

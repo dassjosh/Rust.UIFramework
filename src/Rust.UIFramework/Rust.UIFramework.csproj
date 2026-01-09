@@ -106,6 +106,9 @@
       <Reference Include="UnityEngine.UI">
         <HintPath>..\References\UnityEngine.UI.dll</HintPath>
       </Reference>
+      <Reference Include="UnityEngine.UnityWebRequestModule">
+        <HintPath>..\references\UnityEngine.UnityWebRequestModule.dll</HintPath>
+      </Reference>
     </ItemGroup>
     
     <ItemGroup>

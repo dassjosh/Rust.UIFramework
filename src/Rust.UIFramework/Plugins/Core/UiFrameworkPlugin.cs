@@ -122,15 +122,21 @@ internal class UiFrameworkPlugin : BaseUiFrameworkPlugin, IUiFrameworkPlugin
     [HookMethod(nameof(OnPlayerConnected))]
     private void OnPlayerConnected(BasePlayer player)
     {
-        BaseUiFrameworkLibrary.ProcessOnPlayerConnected(player);
+        if (player)
+        {
+            BaseUiFrameworkLibrary.ProcessOnPlayerConnected(player);
+        }
     }
     
     // ReSharper disable once UnusedMember.Local
     [HookMethod(nameof(OnPlayerDisconnected))]
     private void OnPlayerDisconnected(BasePlayer player)
     {
-        BaseUiFrameworkLibrary.ProcessOnPlayerDisconnected(player);
-        Singleton<AnimationHandler>.Instance.OnPlayerDisconnected(player.userID.Get());
+        if (player)
+        {
+            BaseUiFrameworkLibrary.ProcessOnPlayerDisconnected(player);
+            Singleton<AnimationHandler>.Instance.OnPlayerDisconnected(player.userID.Get());
+        }
     }
     
     // ReSharper disable once UnusedMember.Local

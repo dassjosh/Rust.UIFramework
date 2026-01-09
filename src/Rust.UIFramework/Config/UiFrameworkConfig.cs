@@ -152,7 +152,8 @@ internal class UiFrameworkConfig : ConfigFile
         
         Threading = new UiThreadingConfig
         {
-            EnableUiSendingThread = Threading?.EnableUiSendingThread ?? true
+            EnableUiSendingThread = Threading?.EnableUiSendingThread ?? true,
+            EnableImageDownloadThread = Threading?.EnableImageDownloadThread ?? true
         };
 
         Animations = new UiAnimationConfig
