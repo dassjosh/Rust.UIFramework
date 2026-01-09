@@ -18,7 +18,7 @@ public partial class UiNineSlice : BaseUiComponent, IImageType<UiNineSlice>, ISp
     public partial UiBorderWidth Slice { get; set; }
     public partial UiReference PlaceholderFor { get; set; }
     public partial bool FillCenter { get; set; }
-    public partial Image.Type ImageType { get; set; }
+    public partial ImageType ImageType { get; set; }
     public partial string Sprite { get; set; }
     public partial string Material { get; set; }
     public partial float FadeIn { get; set; }
