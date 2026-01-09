@@ -121,7 +121,7 @@ internal class AnimationData : ISingleton
             if (animation is IPoolable { IsPooled: true } || id != animation.Id)
             {
                 //Somehow the animation was disposed and we didn't remove it.
-                RemoveAnimation(animation.Id);
+                RemoveAnimation(id);
                 continue;
             }
 
@@ -130,7 +130,7 @@ internal class AnimationData : ISingleton
                 case AnimationState.Cancelled:
                 case AnimationState.Completed:
                 case AnimationState.Timeout:
-                    RemoveAnimation(animation.Id);
+                    RemoveAnimation(id);
                     break;
             }
         }
