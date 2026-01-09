@@ -157,7 +157,7 @@ public abstract class BaseAnimation : BasePoolable, IAnimation
         
         UiFrameworkExtension.GlobalLogger.Debug("Animation {0} TickCleanup", Id.Id);
 
-        if (State < AnimationState.Completed && (Duration is { IsCompleted : true } || Interpolator == null) && _children.Count == 0)
+        if (State is AnimationState.Running or AnimationState.Delayed && (Duration is { IsCompleted : true } || Interpolator == null) && _children.Count == 0)
         {
             CompleteAnimation();
         }
