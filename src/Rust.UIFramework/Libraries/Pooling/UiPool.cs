@@ -51,28 +51,38 @@ public class UiPool : BaseUiFrameworkLibrary, ISingleton
     
     private UiPluginPool CreatePoolInternal(PluginId id, PoolSettings settings)
     {
-        if (_pluginPoolIds.TryGetValue(id, out PluginPoolId poolId))
+        if (_pluginPoolIds.TryGetValue(id, out PluginPoolId poolId) && TryGetPoolByPoolId(poolId, out UiPluginPool pool))
         {
-            return _pluginPools[poolId.Id];
+            return pool;
         }
 
         lock (_lock)
         {
-            if (_pluginPoolIds.TryGetValue(id, out poolId))
+            if (_pluginPoolIds.TryGetValue(id, out poolId) && TryGetPoolByPoolId(poolId, out pool))
             {
-                return _pluginPools[poolId.Id];
+                return pool;
             }
 
-            _pluginPoolIds[id] = poolId = PluginPoolId.GetNextId();
+            if (!poolId.IsValid)
+            {
+                _pluginPoolIds[id] = poolId = PluginPoolId.GetNextId();
+            }
+            
             if(poolId.Id >= _pluginPools.Length)
             {
                 Array.Resize(ref _pluginPools, _pluginPools.Length * 2);
             }
             
-            UiPluginPool pool = _pluginPools[poolId.Id] = new UiPluginPool(poolId, id);
+            pool = _pluginPools[poolId.Id] = new UiPluginPool(poolId, id);
             pool.SetSettings(settings);
             return pool;
         }
+    }
+
+    private bool TryGetPoolByPoolId(PluginPoolId poolId, out UiPluginPool pool)
+    {
+        pool = _pluginPools[poolId.Id];
+        return pool != null;
     }
 
     ///<inheritdoc/>

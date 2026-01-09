@@ -5,6 +5,7 @@ namespace Oxide.Ext.UiFramework.Libraries;
 internal readonly struct PluginPoolId
 {
     public readonly int Id;
+    public bool IsValid => Id != 0;
 
     private PluginPoolId(int id)
     {
