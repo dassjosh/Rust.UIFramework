@@ -39,6 +39,7 @@ public class Benchmarks
     private JsonFrameworkWriter _writer;
     private JsonFrameworkWriter _randomWriter;
     private readonly Connection _connection = new();
+    private readonly MemoryStream _netWriteBuffer = new();
 
     //[Params(2048, 4096, 8192)] public int ArraySize;
 
@@ -143,7 +144,7 @@ public class Benchmarks
         return count;
     }
 
-    [Benchmark]
+    //[Benchmark]
     public void UiFramework_Writer()
     {
         UiBuilder builder = _builder;
@@ -175,7 +176,7 @@ public class Benchmarks
         builder.AddUi(default(SendInfo));
     }
     
-    //[Benchmark(Baseline = true)]
+    [Benchmark(Baseline = true)]
     public UiBuilder UiFramework_Async()
     {
         UiBuilder builder = GetFrameworkBuilder();
@@ -199,7 +200,7 @@ public class Benchmarks
     //     builder.AddUiAsync(_connection);
     // }
     //
-    //[Benchmark(Baseline = false)]
+    [Benchmark(Baseline = false)]
     public void UiFramework_Full()
     {
         UiBuilder builder = GetFrameworkBuilder();
@@ -211,12 +212,21 @@ public class Benchmarks
         builder.Dispose();
     }
     
-    //[Benchmark(Baseline = false)]
-    public byte[] Oxide_Full()
+    [Benchmark(Baseline = false)]
+    public MemoryStream Oxide_Full()
     {
         CuiElementContainer builder = GetOxideContainer();
         string json = builder.ToJson();
-        return Encoding.UTF8.GetBytes(json);
+
+        if (_netWriteBuffer.Capacity < json.Length * 8)
+        {
+            _netWriteBuffer.Capacity = json.Length * 8;
+        }
+        _netWriteBuffer.Position = 0L;
+        _netWriteBuffer.SetLength(_netWriteBuffer.Capacity);
+        int bytes = Encoding.UTF8.GetBytes(json, 0, json.Length, _netWriteBuffer.GetBuffer(), 0);
+        _netWriteBuffer.SetLength(bytes);
+        return _netWriteBuffer;
     }
     
     public CuiElementContainer GetOxideContainer()
