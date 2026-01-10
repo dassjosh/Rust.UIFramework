@@ -18,30 +18,20 @@ internal class BenchmarkNetWrite : Stream, Pool.IPooled, IStreamWriter
 {
     private static readonly MemoryStream StringBuffer = new();
     private BufferStream _stream;
-    public int RefCount = 1;
-
-    public void AddReference() => Interlocked.Increment(ref RefCount);
-
-    public void RemoveReference()
-    {
-        if (Interlocked.Decrement(ref RefCount) == 0)
-        {
-            BenchmarkNetWrite netWrite = this;
-            Pool.Free(ref netWrite);
-        }
-    }
+    private byte[] _buffer;
 
     public void EnterPool()
     {
         _stream?.Dispose();
         _stream = null;
+        ReturnBuffer(_buffer);
     }
 
-    public void LeavePool() => RefCount = 1;
+    public void LeavePool() { }
     
     public bool Start(uint size)
     {
-        byte[] buffer = RentBuffer((int)BitOperations.RoundUpToPowerOf2(size));
+        byte[] buffer = _buffer = RentBuffer((int)BitOperations.RoundUpToPowerOf2(size));
         _stream = Pool.Get<BufferStream>().Initialize(buffer, -1);
         return true;
     }
@@ -53,9 +43,10 @@ internal class BenchmarkNetWrite : Stream, Pool.IPooled, IStreamWriter
 
     private static void ReturnBuffer(byte[] buffer)
     {
-        if (buffer == null || buffer.Length > BufferStream.Shared.MaximumPooledSize)
-            return;
-        BufferStream.Shared.ArrayPool.Return(buffer);
+        if (buffer != null && buffer.Length <= BufferStream.Shared.MaximumPooledSize)
+        {
+            BufferStream.Shared.ArrayPool.Return(buffer);
+        }
     }
 
     public void Send(SendInfo info) { }
