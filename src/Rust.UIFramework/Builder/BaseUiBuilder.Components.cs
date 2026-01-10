@@ -236,4 +236,42 @@ public partial class BaseUiBuilder
         return scroll;
     }
     #endregion
+
+    #region Draggable
+    public UiDraggable Draggable(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor color,
+        bool limitToParent = false, float maxDistance = -1f, bool allowSwapping = false, bool dropAnywhere = true,
+        float dragAlpha = 1f, string filter = null, DraggablePositionType positionRpc = DraggablePositionType.NormalizedScreen)
+    {
+        UiDraggable draggable = UiDraggable.Create(pos, offset, color, limitToParent, maxDistance, allowSwapping, dropAnywhere, dragAlpha, filter, positionRpc);
+        AddComponent(draggable, parent);
+        return draggable;
+    }
+
+    public UiDraggable Draggable(in UiReference parent, in UiPosition pos, UiColor color,
+        bool limitToParent = false, float maxDistance = -1f, bool allowSwapping = false, bool dropAnywhere = true,
+        float dragAlpha = 1f, string filter = null, DraggablePositionType positionRpc = DraggablePositionType.NormalizedScreen)
+        => Draggable(parent, pos, default, color, limitToParent, maxDistance, allowSwapping, dropAnywhere, dragAlpha, filter, positionRpc);
+
+    public UiDraggable Draggable(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor color)
+    {
+        UiDraggable draggable = UiDraggable.Create(pos, offset, color);
+        AddComponent(draggable, parent);
+        return draggable;
+    }
+
+    public UiDraggable Draggable(in UiReference parent, in UiPosition pos, UiColor color)
+        => Draggable(parent, pos, default, color);
+    #endregion
+
+    #region Slot
+    public UiSlot Slot(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor color, string filter = null)
+    {
+        UiSlot slot = UiSlot.Create(pos, offset, color, filter);
+        AddComponent(slot, parent);
+        return slot;
+    }
+
+    public UiSlot Slot(in UiReference parent, in UiPosition pos, UiColor color, string filter = null)
+        => Slot(parent, pos, default, color, filter);
+    #endregion
 }

@@ -167,4 +167,30 @@ public static class JsonDefaults
         public static readonly UiColor PressedColor = UiColor.ParseHexColor("#333333");
         public static readonly UiColor TrackColor = UiColor.ParseHexColor("#171717");
     }
+
+    public static class Draggable
+    {
+        public const string LimitToParentName = "limitToParent";
+        public const string MaxDistanceName = "maxDistance";
+        public const string AllowSwappingName = "allowSwapping";
+        public const string DropAnywhereName = "dropAnywhere";
+        public const string DragAlphaName = "dragAlpha";
+        public const string ParentLimitIndexName = "parentLimitIndex";
+        public const string FilterName = "filter";
+        public const string ParentPaddingName = "parentPadding";
+        public const string AnchorOffsetName = "anchorOffset";
+        public const string KeepOnTopName = "keepOnTop";
+        public const string PositionRpcName = "positionRPC";
+        public const string MoveToAnchorName = "moveToAnchor";
+        public const string RebuildAnchorName = "rebuildAnchor";
+
+        public const float MaxDistanceDefault = -1f;
+        public const int ParentLimitIndexDefault = 1;
+        public const float DragAlphaDefault = 1f;
+    }
+
+    public static class Slot
+    {
+        public const string FilterName = "filter";
+    }
 }

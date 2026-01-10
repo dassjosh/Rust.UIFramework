@@ -169,6 +169,15 @@ public class JsonFrameworkWriter : BasePoolable
         }
     }
 
+    public void AddField(string name, DraggablePositionType value)
+    {
+        if (value != DraggablePositionType.NormalizedScreen)
+        {
+            WritePropertyName(name);
+            WriteValue(EnumCache<DraggablePositionType>.ToString(value));
+        }
+    }
+
     public void AddField(string name, int value, int defaultValue)
     {
         if (value != defaultValue)
