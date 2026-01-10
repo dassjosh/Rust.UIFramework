@@ -132,7 +132,6 @@
       </Content>
       <Compile Remove="$(CompilerGeneratedFilesOutputPath)/**/*.cs" />
       <Content Include="$(CompilerGeneratedFilesOutputPath)/Rust.UiFramework.SourceGenerators/**/*.cs" />
-      <Compile Remove="Cache\FastEnumCache{T}.cs" />
     </ItemGroup>
     
     <ItemGroup>

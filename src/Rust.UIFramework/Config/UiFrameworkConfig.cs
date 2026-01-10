@@ -21,7 +21,7 @@ internal class UiFrameworkConfig : ConfigFile
     internal static UiFrameworkConfig Instance;
     
     /// <summary>
-    /// UiFramework Image Storage Options
+    /// UiFramework Font Options
     /// </summary>
     [JsonProperty("Font")]
     public UiFontConfig Font { get; set; }
@@ -39,13 +39,13 @@ internal class UiFrameworkConfig : ConfigFile
     public UiImageDatabaseConfig ImageDatabase { get; set; }
     
     /// <summary>
-    /// UiFramework Image Storage Options
+    /// UiFramework Animations Options
     /// </summary>
     [JsonProperty("Animations")]
     public UiAnimationConfig Animations { get; set; }
     
     /// <summary>
-    /// UiFramework Image Storage Options
+    /// UiFramework Steam Options
     /// </summary>
     [JsonProperty("Steam")]
     public UiSteamConfig Steam { get; set; }
