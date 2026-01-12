@@ -1,9 +1,11 @@
 ﻿using System;
 using Network;
 using Oxide.Ext.UiFramework.Enums;
+using Oxide.Ext.UiFramework.Exceptions;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Pooling;
+using Oxide.Ext.UiFramework.UiElements;
 
 namespace Oxide.Ext.UiFramework.Builder.Update;
 
@@ -22,17 +24,25 @@ public class UpdateBuilder : BaseUiBuilder
         return this;
     }
 
-    protected override void LeavePool()
+    [Obsolete("Use Component<T>(in UiReference reference) Instead")]
+    public override void AddComponent(BaseUiComponent component, in UiReference parent)
     {
-        base.LeavePool();
-        UpdateMode = UpdateMode.Replace;
-        NamingMode = NamingMode.Reference;
+        UiReferenceException.ThrowIfInvalidReference(parent);
+        component.Reference = parent;
+        Components.Add(component);
     }
-
+    
     internal override void SendAnimations(SendInfo send) { }
 
     public override void Combine(SendInfo send, JsonFrameworkWriter writer)
     {
         throw new NotSupportedException("Combine is not supported for UpdateBuilder");
+    }
+    
+    protected override void LeavePool()
+    {
+        base.LeavePool();
+        UpdateMode = UpdateMode.Replace;
+        NamingMode = NamingMode.Reference;
     }
 }

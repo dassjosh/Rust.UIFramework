@@ -3,6 +3,7 @@ using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Constants;
 using Oxide.Ext.UiFramework.Enums;
+using Oxide.Ext.UiFramework.Exceptions;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Positions;
@@ -113,4 +114,12 @@ public partial class UiBuilder
         return Popover(UiFrameworkPool.Pool, parent, size, backgroundColor, position, menuSprite);
     }
     #endregion
+
+    [Obsolete("Use Component<T>(in UiReference reference) Instead")]
+    public override void AddComponent(BaseUiComponent component, in UiReference parent)
+    {
+        UiReferenceException.ThrowIfInvalidParent(parent);
+        component.Reference = parent.WithChild(UiNameCache.GetComponentName(RootName, Components.Count));
+        Components.Add(component);
+    }
 }

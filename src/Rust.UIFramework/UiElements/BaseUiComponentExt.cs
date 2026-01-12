@@ -5,7 +5,6 @@ using Oxide.Ext.UiFramework.Layouts;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
 
-// ReSharper disable MemberCanBePrivate.Global
 namespace Oxide.Ext.UiFramework.UiElements;
 
 public static partial class BaseUiComponentExt
@@ -13,7 +12,7 @@ public static partial class BaseUiComponentExt
     extension<T>(T component) where T : BaseUiComponent
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public T SetParent(UiLayer layer) => SetParent(component, UiLayerCache.GetLayer(layer));
+        public T SetParent(UiLayer layer) => component.SetParent(UiLayerCache.GetLayer(layer));
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public T SetPosition(in UiPosition position, in UiOffset offset)

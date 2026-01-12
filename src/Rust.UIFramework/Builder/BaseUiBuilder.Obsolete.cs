@@ -15,6 +15,11 @@ namespace Oxide.Ext.UiFramework.Builder;
 
 public abstract partial class BaseUiBuilder
 {
+    #region Components
+    [Obsolete("Use Component<T>(in UiReference reference) Instead")]
+    public abstract void AddComponent(BaseUiComponent component, in UiReference parent);
+    #endregion
+    
     #region Panel
 
     [Obsolete("Use Panel(UiReference parent, UiPosition pos, UiOffset offset, UiColor color) Instead")]
