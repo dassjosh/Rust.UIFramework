@@ -47,7 +47,13 @@ public class UiImagePrecache : BaseUiFrameworkLibrary, ISingleton
         _images.Add(new PrecacheImage(imageId, image));
     }
     
-    protected override void OnPlayerConnected(BasePlayer player) => SingletonBehavior<UiFrameworkBehavior>.Instance.StartCoroutine(PrecacheImages(player));
+    protected override void OnPlayerConnected(BasePlayer player)
+    {
+        if (_images.Count != 0)
+        {
+            SingletonBehavior<UiFrameworkBehavior>.Instance.StartCoroutine(PrecacheImages(player));
+        }
+    }
 
     private IEnumerator PrecacheImages(BasePlayer player)
     {
