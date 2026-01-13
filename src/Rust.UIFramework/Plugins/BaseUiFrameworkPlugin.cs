@@ -50,5 +50,7 @@ internal class BaseUiFrameworkPlugin : CSPlugin
     protected void PrintWarning(string format, params object[] args) => Interface.Oxide.LogWarning("[{0}] {1}", Title, args.Length != 0 ? string.Format(format, args) : (object) format);
 
     protected void PrintError(string format, params object[] args) => Interface.Oxide.LogError("[{0}] {1}", Title, args.Length != 0 ? string.Format(format, args) : (object) format);
+    
+    protected void NextTick(Action callback) => Interface.Oxide.NextTick(callback);
     #endregion
 }

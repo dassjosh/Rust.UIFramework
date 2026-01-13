@@ -107,15 +107,19 @@ internal class UiFrameworkPlugin : BaseUiFrameworkPlugin, IUiFrameworkPlugin
     [HookMethod(nameof(OnEntitySpawned))]
     private void OnEntitySpawned(CommunityEntity entity)
     {
-        try
+        NextTick(() =>
         {
-            BaseUiFrameworkLibrary.ProcessOnCommunityEntitySpawned(entity);
-            Unsubscribe(nameof(OnEntitySpawned));
-        }
-        catch (Exception ex)
-        {
-            PrintError(ex.ToString());
-        }
+            try
+            {
+                BaseUiFrameworkLibrary.ProcessOnCommunityEntitySpawned(entity);
+                
+            }
+            catch (Exception ex)
+            {
+                PrintError(ex.ToString());
+            }
+        });
+        Unsubscribe(nameof(OnEntitySpawned));
     }
     
     // ReSharper disable once UnusedMember.Local
