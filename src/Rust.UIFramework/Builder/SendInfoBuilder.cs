@@ -12,6 +12,7 @@ internal static class SendInfoBuilder
 {
     private const sbyte UiChannel = 3;
     private const sbyte AnimationsChannel = 4;
+    private const sbyte PreCache = 5;
     
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal static SendInfo Get(BasePlayer player)
@@ -19,14 +20,24 @@ internal static class SendInfoBuilder
         if (!player) throw new ArgumentNullException(nameof(player));
         return Get(player.Connection);
     }
+    
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static SendInfo GetForPrecache(BasePlayer player)
+    {
+        if (!player) throw new ArgumentNullException(nameof(player));
+        return Get(player.Connection, PreCache);
+    }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static SendInfo Get(Connection connection)
+    internal static SendInfo Get(Connection connection) => Get(connection, UiChannel);
+    
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static SendInfo Get(Connection connection, sbyte channel)
     {
         if (connection == null) throw new ArgumentNullException(nameof(connection));
         return new SendInfo(connection)
         {
-            channel = UiChannel
+            channel = channel
         };
     }
 

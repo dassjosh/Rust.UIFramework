@@ -1,15 +1,17 @@
 ﻿using Network;
 using Oxide.Ext.UiFramework.Json;
 
-namespace Oxide.Ext.UiFramework.Constants;
+namespace Oxide.Ext.UiFramework.Helpers;
 
 public static class RpcFunctions
 {
     private const string AddUiFunc = "AddUI";
     private const string DestroyUiFunc = "DestroyUI";
+    private const string ReceiveFilePngFunc = "CL_ReceiveFilePng";
     
     public static readonly uint AddUi = StringPool.Get(AddUiFunc);
     public static readonly uint DestroyUi = StringPool.Get(DestroyUiFunc);
+    public static readonly uint ReceiveFilePng = StringPool.Get(ReceiveFilePngFunc);
 
     public static void SendAddUi(SendInfo send, JsonFrameworkWriter writer)
     {
@@ -37,6 +39,17 @@ public static class RpcFunctions
         if (write != null)
         {
             write.String(name);
+            write.Send(send);
+        }
+    }
+    
+    public static void SendFilePng(SendInfo send, uint textureId, byte[] bytes)
+    {
+        NetWrite write = ClientRPCStart(AddUi);
+        if (write != null)
+        {
+            write.UInt32(textureId);
+            write.BytesWithSize(bytes);
             write.Send(send);
         }
     }

@@ -7,6 +7,7 @@ using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Config;
 using Oxide.Ext.UiFramework.Data;
 using Oxide.Ext.UiFramework.Libraries;
+using Oxide.Ext.UiFramework.Libraries.ImagePrecache;
 using Oxide.Ext.UiFramework.Logging;
 using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Threading;
@@ -53,6 +54,7 @@ public class UiFrameworkExtension : Extension
             Manager.RegisterLibrary(nameof(IImageDatabase), Singleton<UiFileStorageDatabase>.Instance);
         }
         Manager.RegisterLibrary(nameof(UiImageStorage), Singleton<UiImageStorage>.Instance);
+        Manager.RegisterLibrary(nameof(UiImagePrecache), Singleton<UiImagePrecache>.Instance);
         Manager.RegisterLibrary(nameof(UiCommands), Singleton<UiCommands>.Instance);
         Manager.RegisterLibrary(nameof(UiNameStore), Singleton<UiNameStore>.Instance);
         Manager.RegisterLibrary(nameof(UiPlayerStore), Singleton<UiPlayerStore>.Instance);

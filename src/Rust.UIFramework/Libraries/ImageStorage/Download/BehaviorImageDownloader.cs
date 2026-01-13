@@ -10,13 +10,13 @@ namespace Oxide.Ext.UiFramework.Libraries;
 
 internal class BehaviorImageDownloader : FacepunchBehaviour, IImageDownloader
 {
-    private ImageDownloader _downloader;
+    private ImageDownloadQueue _queue;
     private readonly IUiLogger<BehaviorImageDownloader> _logger = Singleton<UiLoggerFactory>.Instance.CreateExtensionLogger<BehaviorImageDownloader>();
     private Coroutine _downloadRoutine;
     
-    public void OnInit(ImageDownloader downloader)
+    public void OnInit(ImageDownloadQueue queue)
     {
-        _downloader = downloader;
+        _queue = queue;
     }
 
     /// <summary>
@@ -32,7 +32,7 @@ internal class BehaviorImageDownloader : FacepunchBehaviour, IImageDownloader
     /// </summary>
     private void Update()
     {
-        if(_downloadRoutine == null && _downloader.RequestQueue.TryDequeue(out UrlDownloadState request))
+        if(_downloadRoutine == null && _queue.RequestQueue.TryDequeue(out UrlDownloadState request))
         {
             if (request.IsCompleted)
             {

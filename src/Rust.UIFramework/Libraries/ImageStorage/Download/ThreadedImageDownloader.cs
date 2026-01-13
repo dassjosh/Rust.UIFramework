@@ -16,7 +16,7 @@ internal class ThreadedImageDownloader : IImageDownloader
     private readonly object _taskLock = new();
     private int _activeWorkerCount;
     private readonly IUiLogger<ThreadedImageDownloader> _logger = Singleton<UiLoggerFactory>.Instance.CreateExtensionLogger<ThreadedImageDownloader>();
-    private ImageDownloader _downloader;
+    private ImageDownloadQueue _downloader;
     
     public ThreadedImageDownloader()
     {
@@ -45,9 +45,9 @@ internal class ThreadedImageDownloader : IImageDownloader
         _httpClient.DefaultRequestHeaders.Add("user-agent", $"Rust UiFramework (https://github.com/dassjosh/Rust.UIFramework, v{UiFrameworkExtension.Instance.Version})");
     }
 
-    public void OnInit(ImageDownloader downloader)
+    public void OnInit(ImageDownloadQueue queue)
     {
-        _downloader = downloader;
+        _downloader = queue;
     }
 
     /// <summary>

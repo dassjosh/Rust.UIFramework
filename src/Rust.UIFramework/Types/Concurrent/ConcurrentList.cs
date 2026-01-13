@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using Oxide.Ext.UiFramework.Plugins;
@@ -43,6 +44,19 @@ public class ConcurrentList<T> : IList<T>, IReadOnlyList<T>
         try
         {
             _list.RemoveAt(index);
+        }
+        finally
+        {
+            _lock.ExitWriteLock();
+        }
+    }
+
+    public int RemoveAll(Predicate<T> match)
+    {
+        _lock.EnterWriteLock();
+        try
+        {
+            return _list.RemoveAll(match);
         }
         finally
         {
@@ -179,6 +193,8 @@ public class ConcurrentList<T> : IList<T>, IReadOnlyList<T>
             _lock.ExitReadLock();
         }
     }
+    
+    internal IEnumerable<T> GetPooledEnumerator() => GetPooledEnumerator(UiFrameworkPlugin.Instance);
 
     public IEnumerable<T> GetPooledEnumerator(IUiFrameworkPlugin plugin)
     {

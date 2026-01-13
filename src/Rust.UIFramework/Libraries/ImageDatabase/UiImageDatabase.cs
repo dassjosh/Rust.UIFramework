@@ -121,7 +121,7 @@ internal class UiImageDatabase : BaseUiFrameworkLibrary, ISingleton, IImageDatab
 
     protected override void OnServerInitialized()
     {
-        ServerMgr.Instance.StartCoroutine(ClearExpiredImages());
+        SingletonBehavior<UiFrameworkBehavior>.Instance.StartCoroutine(ClearExpiredImages());
         SyncData();
     }
 

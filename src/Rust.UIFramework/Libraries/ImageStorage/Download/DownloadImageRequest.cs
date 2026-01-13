@@ -2,8 +2,10 @@
 using System.Net;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Extensions;
+using Oxide.Ext.UiFramework.Libraries.ImagePrecache;
 using Oxide.Ext.UiFramework.Logging;
 using Oxide.Ext.UiFramework.Plugins;
+using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Libraries;
 
@@ -14,16 +16,18 @@ public sealed class DownloadImageRequest
     internal readonly PluginId PluginId;
     public readonly string Name;
     public readonly UrlDownloadState UrlState;
+    private readonly RegisterImageOptions _options;
 
     private DownloadEvent<string> _downloadCompletedEvent;
     private DownloadEvent<DownloadFailedEventArgs> _downloadFailedEvent;
     private DownloadEvent<RegisterImageErrorCode> _invalidImageEvent;
 
-    internal DownloadImageRequest(PluginId pluginId, string name, UrlDownloadState urlState)
+    internal DownloadImageRequest(PluginId pluginId, string name, UrlDownloadState urlState, RegisterImageOptions options)
     {
         PluginId = pluginId;
         Name = name;
         UrlState = urlState;
+        _options = options;
     }
 
     public void AddOnDownloadCompletedCallback(Action<string> callback)
@@ -59,7 +63,15 @@ public sealed class DownloadImageRequest
         }
     }
 
-    internal void ExecuteOnDownloadCompleted() => _downloadCompletedEvent?.Invoke(PluginId, Name, UrlState.Url, UrlState.ImageId.Id.ToString());
+    internal void ExecuteOnDownloadCompleted()
+    {
+        _downloadCompletedEvent?.Invoke(PluginId, Name, UrlState.Url, UrlState.ImageId.Id.ToString());
+        if (_options.EnableClientPrecache)
+        {
+            Singleton<UiImagePrecache>.Instance.AddPrecachedImage(PluginId, UrlState.ImageId, UrlState.Image);
+        }
+    }
+
     internal void ExecuteOnDownloadFailed() => _downloadFailedEvent?.Invoke(PluginId, Name, UrlState.Url, new DownloadFailedEventArgs(UrlState.StatusCode, UrlState.Message));
     internal void ExecuteOnInvalidImage() => _invalidImageEvent?.Invoke(PluginId, Name, UrlState.Url, UrlState.ErrorCode);
 

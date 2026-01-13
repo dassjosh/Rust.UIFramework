@@ -2,7 +2,7 @@
 
 internal interface IImageDownloader
 {
-    void OnInit(ImageDownloader downloader);
+    void OnInit(ImageDownloadQueue queue);
     void OnDownloadQueued();
     void OnServerShutdown();
 }
