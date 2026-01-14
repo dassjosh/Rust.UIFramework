@@ -44,7 +44,7 @@ public class UiPlayerAvatars : BaseUiFrameworkLibrary, ISingleton
             _httpClient = new HttpClient(handler)
             {
                 Timeout = TimeSpan.FromSeconds(30),
-                BaseAddress = new Uri($"http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key={_config.ApiKey}&steamids=")
+                BaseAddress = new Uri($"https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/")
             };
         }
     }
@@ -68,7 +68,7 @@ public class UiPlayerAvatars : BaseUiFrameworkLibrary, ISingleton
     {
         try
         {
-            HttpResponseMessage response = await _httpClient.GetAsync(StringCache<ulong>.ToString(steamId)).ConfigureAwait(false);
+            HttpResponseMessage response = await _httpClient.GetAsync($"?key={_config.ApiKey}&steamids={StringCache<ulong>.ToString(steamId)}").ConfigureAwait(false);
             if (!response.IsSuccessStatusCode)
             {
                 _logger.Error("An error occured getting player avatar. SteamId: {0} Status Code: {1} Message: {2}", steamId, response.StatusCode, await response.Content.ReadAsStringAsync().ConfigureAwait(false));
