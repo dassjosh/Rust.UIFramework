@@ -13,7 +13,6 @@ using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Threading;
 using Oxide.Ext.UiFramework.Types;
 
-// ReSharper disable once CheckNamespace
 namespace Oxide.Ext.UiFramework;
 
 public class UiFrameworkExtension : Extension
@@ -37,10 +36,9 @@ public class UiFrameworkExtension : Extension
 
     public override void OnModLoad()
     {
-        UiFrameworkConfig.LoadConfig();
+        Singleton<DataHandler>.Instance.LoadAll();
         GlobalLogger = Singleton<UiLoggerFactory>.Instance.CreateGlobalLogger();
         GlobalLogger.Info($"Using UiFramework v{Version}");
-        Singleton<DataHandler>.Instance.LoadAll();
         OxideLibrary.ExtensionManager = Manager;
         Manager.RegisterPluginLoader(new UiFrameworkExtPluginLoader());
         if (UiFrameworkConfig.Instance.ImageDatabase.Enabled)
@@ -73,7 +71,7 @@ public class UiFrameworkExtension : Extension
     }
     
     /// <summary>
-    /// Called when server is shutdown
+    /// Called when the server is shutdown
     /// </summary>
     public override void OnShutdown()
     {

@@ -1,8 +1,11 @@
 ﻿using System;
 using System.IO;
 using Newtonsoft.Json;
+using Oxide.Ext.UiFramework.Cache;
+using Oxide.Ext.UiFramework.Config;
+using Oxide.Ext.UiFramework.Constants;
 using Oxide.Ext.UiFramework.Extensions;
-using Oxide.Ext.UiFramework.Logging;
+using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Types;
 using ProtoBuf;
 
@@ -14,9 +17,11 @@ internal sealed class DataHandler : ISingleton
 
     internal void LoadAll()
     {
-        Load<ImageStorageData>(new DataFileInfo("image.storage", 2, DataFormat.Protobuf));
-        Load<AvatarData>(new DataFileInfo("player.avatar", 2, DataFormat.Protobuf));
-        Load<ImageDbData>(new DataFileInfo("image.db", 2, DataFormat.Protobuf));
+        Load<UiFrameworkConfig>(new DataFileInfo(PathConstants.ConfigFolder, "UiFramework", 0, DataFormat.Json));
+        Save(UiFrameworkConfig.Instance, true);
+        Load<ImageStorageData>(new DataFileInfo(PathConstants.DataFolder, "image.storage", 2, DataFormat.Protobuf));
+        Load<AvatarData>(new DataFileInfo(PathConstants.DataFolder, "player.avatar", 2, DataFormat.Protobuf));
+        Load<ImageDbData>(new DataFileInfo(PathConstants.DataFolder, "image.db", 2, DataFormat.Protobuf));
     }
 
     public void OnServerSave() => SaveAll(false);
@@ -25,6 +30,7 @@ internal sealed class DataHandler : ISingleton
 
     private void SaveAll(bool force)
     {
+        Save(UiFrameworkConfig.Instance, false);
         Save(ImageStorageData.Instance, force);
         Save(AvatarData.Instance, force);
         Save(ImageDbData.Instance, force);
@@ -37,7 +43,7 @@ internal sealed class DataHandler : ISingleton
         {
             try
             {
-                if (index >= info.NumBackups)
+                if (index > info.NumBackups)
                 {
                     break;
                 }
@@ -58,7 +64,7 @@ internal sealed class DataHandler : ISingleton
             }
             catch (Exception ex)
             {
-                UiFrameworkExtension.GlobalLogger.Exception("An error occured loading the {0} Data File of type {1}", info.FilePath, typeof(TData).FullName, ex);
+                OxideLibrary.LogException($"An error occured loading the {info.FilePath} Data File of type {typeof(TData).FullName}", ex);
             }
             finally
             {
@@ -84,28 +90,32 @@ internal sealed class DataHandler : ISingleton
         try
         {
             int numBackups = info.NumBackups;
-            string path = info.GetPathForIndex(numBackups);
-            if (File.Exists(path))
+            string path;
+            if (numBackups > 0)
             {
-                File.Delete(path);
-            }
-
-            for (int i = numBackups - 1; i >= 0; i--)
-            {
-                path = info.GetPathForIndex(i);
+                path = info.GetPathForIndex(numBackups);
                 if (File.Exists(path))
                 {
-                    File.Move(path, info.GetPathForIndex(i + 1));
+                    File.Delete(path);
+                }
+
+                for (int i = numBackups - 1; i >= 0; i--)
+                {
+                    path = info.GetPathForIndex(i);
+                    if (File.Exists(path))
+                    {
+                        File.Move(path, info.GetPathForIndex(i + 1));
+                    }
                 }
             }
-
+            
             path = info.GetPathForIndex(0);
             Serialize(path, info.Format, data);
             data.OnDataSaved();
         }
         catch (Exception ex)
         {
-            UiFrameworkExtension.GlobalLogger.Exception("An error occured saving the data file. {0}", typeof(TData).GetRealTypeName(), ex);
+            OxideLibrary.LogException($"An error occured saving the data file. {typeof(TData).GetRealTypeName()}", ex);
         }
     }
 
@@ -114,7 +124,7 @@ internal sealed class DataHandler : ISingleton
         switch (format)
         {
             case DataFormat.Json:
-                File.WriteAllText(fileName, JsonConvert.SerializeObject(data));
+                File.WriteAllText(fileName, JsonConvert.SerializeObject(data, JsonSettings.Serializer));
                 break;
             case DataFormat.Protobuf:
                 FileMode saveMode = File.Exists(fileName) ? FileMode.Truncate : FileMode.Create;
@@ -133,7 +143,7 @@ internal sealed class DataHandler : ISingleton
         switch (format)
         {
             case DataFormat.Json:
-                return JsonConvert.DeserializeObject<TData>(File.ReadAllText(fileName));
+                return JsonConvert.DeserializeObject<TData>(File.ReadAllText(fileName), JsonSettings.Serializer);
 
             case DataFormat.Protobuf:
             {

@@ -1,175 +1,64 @@
-﻿using System;
-using Newtonsoft.Json;
-using Oxide.Core.Configuration;
-using Oxide.Ext.UiFramework.Cache;
-using Oxide.Ext.UiFramework.Constants;
-using Oxide.Ext.UiFramework.Enums;
-using Oxide.Ext.UiFramework.Logging;
-using Oxide.Ext.UiFramework.Types;
-
-#if SERVER
-using System.IO;
-#endif
+﻿using Newtonsoft.Json;
+using Oxide.Ext.UiFramework.Data;
 
 namespace Oxide.Ext.UiFramework.Config;
 
 /// <summary>
 /// Represents Ui Framework Extension Config
 /// </summary>
-internal class UiFrameworkConfig : ConfigFile
+internal class UiFrameworkConfig : BaseDataFile<UiFrameworkConfig>
 {
-    internal static UiFrameworkConfig Instance;
-    
     /// <summary>
     /// UiFramework Font Options
     /// </summary>
     [JsonProperty("Font")]
-    public UiFontConfig Font { get; set; }
+    public UiFontConfig Font { get; set; } = new();
     
     /// <summary>
     /// UiFramework Image Storage Options
     /// </summary>
     [JsonProperty("ImageStorage")]
-    public UiImageStorageConfig ImageStorage { get; set; }
+    public UiImageStorageConfig ImageStorage { get; set; } = new();
     
     /// <summary>
     /// UiFramework Image DB Options
     /// </summary>
     [JsonProperty("ImageDB")]
-    public UiImageDatabaseConfig ImageDatabase { get; set; }
+    public UiImageDatabaseConfig ImageDatabase { get; set; } = new();
     
     /// <summary>
     /// UiFramework Animations Options
     /// </summary>
     [JsonProperty("Animations")]
-    public UiAnimationConfig Animations { get; set; }
+    public UiAnimationConfig Animations { get; set; } = new();
     
     /// <summary>
     /// UiFramework Steam Options
     /// </summary>
     [JsonProperty("Steam")]
-    public UiSteamConfig Steam { get; set; }
+    public UiSteamConfig Steam { get; set; } = new();
             
     /// <summary>
     /// UiFramework Threading Options
     /// </summary>
     [JsonProperty("Threading")]
-    public UiThreadingConfig Threading { get; set; }
+    public UiThreadingConfig Threading { get; set; } = new();
     
     /// <summary>
     /// UiFramework Harmony Options
     /// </summary>
     [JsonProperty("Harmony")]
-    public UiHarmonyConfig Harmony { get; set; }
+    public UiHarmonyConfig Harmony { get; set; } = new();
     
     /// <summary>
     /// UiFramework Proxy Options
     /// </summary>
     [JsonProperty("Proxy")]
-    public UiProxyConfig Proxy { get; set; }
+    public UiProxyConfig Proxy { get; set; } = new();
     
     /// <summary>
     /// UiFramework Logging Options
     /// </summary>
     [JsonProperty("Logging")]
-    public UiLoggingConfig Logging { get; set; }
-
-    /// <summary>
-    /// Constructor for Ui Framework Config
-    /// </summary>
-    /// <param name="filename">Filename to use</param>
-    // Has to be public
-    public UiFrameworkConfig(string filename) : base(filename)
-    {
-        if (Instance != null)
-        {
-            throw new Exception("Duplicate UiFrameworkConfig Instances");
-        }
-            
-        Instance = this;
-        ApplyDefaults();
-    }
-
-    internal static void LoadConfig()
-    {
-#if SERVER
-        string configPath = Path.Combine(PathConstants.ConfigFolder, "UiFramework.json");
-        UiFrameworkConfig config = File.Exists(configPath) ? Load<UiFrameworkConfig>(configPath) : new UiFrameworkConfig(configPath);
-        config.Save();
-#else
-        new UiFrameworkConfig(null);
-#endif
-
-    }
-        
-    /// <summary>
-    /// Load the config file and populate it.
-    /// </summary>
-    /// <param name="filename"></param>
-    public override void Load(string filename = null)
-    {
-        try
-        {
-            base.Load(filename);
-            ApplyDefaults();
-        }
-        catch (Exception ex)
-        {
-            OxideLibrary.LogException($"[UiFramework] Failed to load config file. Using default config. {ex}", ex);
-            ApplyDefaults();
-        }
-    }
-
-    private void ApplyDefaults()
-    {
-        Font = new UiFontConfig
-        {
-            DefaultFont = Font?.DefaultFont ?? UiFontCache.GetUiFont(UiFont.RobotoCondensedRegular)
-        };
-        
-        Harmony = new UiHarmonyConfig
-        {
-            PatchAddUiMethod = Harmony?.PatchAddUiMethod ?? false
-        };
-
-        ImageStorage = new UiImageStorageConfig
-        {
-            MaxConcurrentDownloads = ImageStorage?.MaxConcurrentDownloads ?? 5,
-            MaxDownloadAttempts = ImageStorage?.MaxDownloadAttempts ?? 3,
-        };
-
-        ImageDatabase = new UiImageDatabaseConfig
-        {
-            Enabled = ImageDatabase?.Enabled ?? true,
-            CacheSize = new MemorySize(25 * 1024 * 1024),
-            UnusedImageMaxDays = 30
-        };
-        
-        Steam = new UiSteamConfig
-        {
-            ApiKey = Steam?.ApiKey ?? string.Empty
-        };
-        
-        Threading = new UiThreadingConfig
-        {
-            EnableUiSendingThread = Threading?.EnableUiSendingThread ?? true,
-            EnableImageDownloadThread = Threading?.EnableImageDownloadThread ?? true,
-            EnableAnimationThread = Threading?.EnableAnimationThread ?? true
-        };
-
-        Animations = new UiAnimationConfig
-        {
-            Enabled = Animations?.Enabled ?? true,
-            UpdateRate = Animations?.UpdateRate ?? 25
-        };
-
-        Proxy = new UiProxyConfig(Proxy);
-        
-        Logging = new UiLoggingConfig
-        {
-            ConsoleLogLevel = Logging?.ConsoleLogLevel ?? UiLogLevel.Info,
-            FileLogLevel = Logging?.FileLogLevel ?? UiLogLevel.Off,
-            FileDateTimeFormat = "HH:mm:ss.ff"
-        };
-    }
+    public UiLoggingConfig Logging { get; set; } = new();
 }

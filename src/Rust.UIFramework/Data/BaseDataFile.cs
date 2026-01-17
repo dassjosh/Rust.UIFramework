@@ -11,7 +11,10 @@ internal abstract class BaseDataFile<TData> where TData : BaseDataFile<TData>, n
     internal void OnDataLoaded(DataFileInfo info)
     {
         FileInfo = info;
+        OnDataLoaded();
     }
+
+    internal virtual void OnDataLoaded() {}
         
     internal void OnDataChanged() => DataUpdated = true;
     internal void OnDataSaved() => DataUpdated = false;

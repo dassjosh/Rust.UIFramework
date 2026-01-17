@@ -1,26 +1,21 @@
-﻿using Newtonsoft.Json;
+﻿using System.ComponentModel;
+using Newtonsoft.Json;
 
 namespace Oxide.Ext.UiFramework.Config;
 
 internal class UiProxyConfig
 {
+    [DefaultValue(false)]
     [JsonProperty("Enable Proxy")]
-    public bool EnableProxy { get; set; }
+    public bool EnableProxy { get; set; } = false;
         
+    [DefaultValue("")]
     [JsonProperty("Proxy Url")]
-    public string Url { get; set; }
+    public string Url { get; set; } = string.Empty;
         
-    public string Username { get; set; }
-    public string Password { get; set; }
-
-    [JsonConstructor]
-    public UiProxyConfig() { }
-
-    public UiProxyConfig(UiProxyConfig config)
-    {
-        EnableProxy = config?.EnableProxy ?? false;
-        Url = config?.Url ?? string.Empty;
-        Username = config?.Username ?? string.Empty;
-        Password = config?.Password ?? string.Empty;
-    }
+    [DefaultValue("")]
+    public string Username { get; set; } = string.Empty;
+    
+    [DefaultValue("")]
+    public string Password { get; set; } = string.Empty;
 }
