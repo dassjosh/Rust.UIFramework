@@ -197,7 +197,7 @@ internal class UiFrameworkPlugin : BaseUiFrameworkPlugin, IUiFrameworkPlugin
         UiFrameworkConfig.Instance.Harmony.PatchAddUiMethod = state;
         CuiHelper_AddUi_Patch.ToggleState(state);
         Chat(player, LangKeys.Harmony.Patch.AddUi.Set, GetLang(state ? LangKeys.Enabled : LangKeys.Disabled));
-        UiFrameworkConfig.Instance.Save();
+        UiFrameworkConfig.Instance.OnDataChanged();
     }
     
     [HookMethod(nameof(SetAnimationEnabled))]
