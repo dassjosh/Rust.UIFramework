@@ -1,6 +1,5 @@
 ﻿using System;
 using Oxide.Ext.UiFramework.Animation;
-using Oxide.Ext.UiFramework.Enums;
 
 namespace Oxide.Ext.UiFramework.Exceptions;
 

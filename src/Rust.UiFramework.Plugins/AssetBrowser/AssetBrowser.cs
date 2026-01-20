@@ -556,28 +556,6 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
             //builder = UiBuilder.Create(this, new UiReference(UiLayer.Overlay, UiName), new UiPosition(0.5f, -0.5f, 0.5f, -0.5f), new UiOffset(600, 500), _bodyColor);
             builder = UiBuilder.Create(this, new UiReference(UiLayer.Overlay, UiName), UiPosition.MiddleMiddle, new UiOffset(600, 500), _bodyColor);
 
-            UiPanel panel = builder.Root as UiPanel;
-
-            UiButton button = null;
-
-            builder.Animate(button)
-                .AnimateButtonComponent()
-                .AnimateColorBlock()
-                .AnimateColorMultiplier()
-                .Duration(5f);
-
-            builder.Animate(panel)
-                .AnimateGridLayoutComponent()
-                .AnimateCellSize().Duration(5f);
-            
-            builder.Animate(panel)
-                .Duration(5f)
-                .AnimatePosition()
-                    .Lerp(new UiPosition(0.5f, -0.5f, 0.5f, -0.5f), UiPosition.MiddleMiddle)
-                    .Duration(6f)
-                    .Ease()
-              ;
-
             //builder = UiBuilder.Create(this, new UiReference(UiLayer.Overlay, UiName), UiPosition.MiddleMiddle, default, _bodyColor);
 
             // var pos1= builder.AnimatePosition(builder.Root, UiPosition.MiddleMiddle, 2f, delay: 0f).WithAnimator(_animator);
@@ -628,8 +606,8 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
         Puts("C6");
         UiSection body = builder.Section(builder.Root, new UiPosition(0, 0, 1, 0.90f), new UiPadding(2).ToOffset());
 
-        UiRawImage image = builder.ImageStorage(body, UiPosition.Full, default, "http://www.i4ani.com/#/home?1", _downloadOptions);
-        builder.AnimateDownload(image, _downloadAnimation);
+       // UiRawImage image = builder.ImageStorage(body, UiPosition.Full, default, "http://www.i4ani.com/#/home?1", _downloadOptions);
+      //  builder.AnimateDownload(image, _downloadAnimation);
         
         Puts("D");
         switch (state.Type)
@@ -715,9 +693,9 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
         foreach (KeyValuePair<string, string> pair in folder.Files)
         {
             //Puts($"{pair.Key}: {_imageGrid.ToPosition()}");
-            UiButton button = builder.Button(scroll, _imageGrid, default, _buttonColor, null);
+            UiButton button = builder.Button(scroll, _imageGrid, default, _buttonColor, _uiCommands.SelectAsset.Build(pair.Value));
             var anchor = builder.Anchor(scroll, _imageGrid, default);
-            button.SetCommand(_uiCommands.PopoverTest.Build(anchor));
+            //button.SetCommand(_uiCommands.PopoverTest.Build(anchor));
             if (state.Type == AssetType.Sprite)
             {
                 UiImage sprite = builder.ImageSprite(button, UiPosition.Full, default, pair.Value, UiColors.White);

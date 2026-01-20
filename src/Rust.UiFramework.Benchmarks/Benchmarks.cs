@@ -1,3 +1,4 @@
+using Oxide.Ext.UiFramework.Data;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.UiElements;
 
@@ -48,7 +49,7 @@ public class Benchmarks
     {
         UiFrameworkExtension ext = new UiFrameworkExtension(null);
         
-        if(UiFrameworkConfig.Instance == null) UiFrameworkConfig.LoadConfig();
+        if(UiFrameworkConfig.Instance == null)  Singleton<DataHandler>.Instance.LoadAll();
         UiFrameworkExtension.GlobalLogger = Singleton<UiLoggerFactory>.Instance.CreateGlobalLogger();
         
         //Singleton<UiFrameworkPoolLib>.Instance.CreateInternal();

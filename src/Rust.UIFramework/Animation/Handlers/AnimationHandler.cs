@@ -1,7 +1,6 @@
 ﻿using System;
 using Network;
 using Oxide.Ext.UiFramework.Config;
-using Oxide.Ext.UiFramework.Constants;
 using Oxide.Ext.UiFramework.Exceptions;
 using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Helpers;

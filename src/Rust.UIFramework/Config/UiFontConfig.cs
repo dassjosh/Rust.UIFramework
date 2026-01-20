@@ -1,8 +1,6 @@
 ﻿using System.ComponentModel;
 using Newtonsoft.Json;
-using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Constants;
-using Oxide.Ext.UiFramework.Enums;
 
 namespace Oxide.Ext.UiFramework.Config;
 

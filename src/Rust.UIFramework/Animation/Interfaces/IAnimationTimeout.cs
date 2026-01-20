@@ -1,6 +1,4 @@
-﻿using Oxide.Ext.UiFramework.Enums;
-
-namespace Oxide.Ext.UiFramework.Animation;
+﻿namespace Oxide.Ext.UiFramework.Animation;
 
 public interface IAnimationTimeout : IAnimationTick, IAnimationStarted
 {
