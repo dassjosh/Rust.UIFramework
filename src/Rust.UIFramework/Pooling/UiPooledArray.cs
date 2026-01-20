@@ -20,8 +20,6 @@ public class UiPooledArray<T> : BasePoolable, IList<T>, IReadOnlyList<T>
     {
         Array = size == 0 ? [] : new T[size];
     }
-    
-    internal UiPooledArray(int size) : this((uint)size) {}
 
     public bool Contains(T item) => ((ICollection<T>)Array).Contains(item);
     public int IndexOf(T item) => ((IList<T>)Array).IndexOf(item);

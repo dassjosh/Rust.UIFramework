@@ -7,7 +7,7 @@ using System.Collections.Concurrent;
 /// <summary>
 /// Stores downloaded images on the main thread
 /// </summary>
-internal class ImageStorageBehavior : FacepunchBehaviour, IImageStorageBehavior
+internal class ImageStorageBehavior : FacepunchBehaviour, IImageStorageBehavior, IBehaviorSingleton
 {
     private readonly ConcurrentQueue<UrlDownloadState> _completed = new();
 

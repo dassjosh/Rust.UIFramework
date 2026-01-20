@@ -136,10 +136,17 @@ internal class UiFrameworkPlugin : BaseUiFrameworkPlugin, IUiFrameworkPlugin
     [HookMethod(nameof(OnPlayerDisconnected))]
     private void OnPlayerDisconnected(BasePlayer player)
     {
-        if (player)
+        try
         {
-            BaseUiFrameworkLibrary.ProcessOnPlayerDisconnected(player);
-            Singleton<AnimationHandler>.Instance.OnPlayerDisconnected(player.userID.Get());
+            if (player)
+            {
+                BaseUiFrameworkLibrary.ProcessOnPlayerDisconnected(player);
+                Singleton<AnimationHandler>.Instance.OnPlayerDisconnected(player.userID.Get());
+            }
+        }
+        catch(Exception ex)
+        {
+            UiFrameworkExtension.GlobalLogger.Error("An error occured processing player disconnected. SteamId: {0} Exception: {1}", player?.userID, ex);
         }
     }
     
@@ -153,13 +160,12 @@ internal class UiFrameworkPlugin : BaseUiFrameworkPlugin, IUiFrameworkPlugin
             try
             {
                 Singleton<UiCommands>.Instance.OnCommandReceived(player, new UiCommandTokenizer(command));
-                return _true;
             }
             catch (Exception ex)
             {
                 PrintError($"Failed to process command '{command}':\n{ex}");
-                return _true;
             }
+            return _true;
         }
 
         return null;
@@ -223,7 +229,7 @@ internal class UiFrameworkPlugin : BaseUiFrameworkPlugin, IUiFrameworkPlugin
             
         UiFrameworkConfig.Instance.Animations.Enabled = state;
         Chat(player, LangKeys.Animations.Enabled.Set, GetBoolLang(state));
-        UiFrameworkConfig.Instance.Save();
+        UiFrameworkConfig.Instance.OnDataChanged();
     }
     
     [HookMethod(nameof(SetAnimationUpdateRate))]
@@ -249,7 +255,7 @@ internal class UiFrameworkPlugin : BaseUiFrameworkPlugin, IUiFrameworkPlugin
             
         UiFrameworkConfig.Instance.Animations.UpdateRate = updateRate;
         Chat(player, LangKeys.Animations.UpdateRate.Set, updateRate);
-        UiFrameworkConfig.Instance.Save();
+        UiFrameworkConfig.Instance.OnDataChanged();
     }
 
     private string GetBoolLang(bool state) => GetLang(state ? LangKeys.Enabled : LangKeys.Disabled);

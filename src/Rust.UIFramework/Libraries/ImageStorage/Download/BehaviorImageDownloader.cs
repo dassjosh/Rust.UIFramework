@@ -8,7 +8,7 @@ using UnityEngine.Networking;
 
 namespace Oxide.Ext.UiFramework.Libraries;
 
-internal class BehaviorImageDownloader : FacepunchBehaviour, IImageDownloader
+internal class BehaviorImageDownloader : FacepunchBehaviour, IImageDownloader, IBehaviorSingleton
 {
     private ImageDownloadQueue _queue;
     private readonly IUiLogger<BehaviorImageDownloader> _logger = Singleton<UiLoggerFactory>.Instance.CreateExtensionLogger<BehaviorImageDownloader>();

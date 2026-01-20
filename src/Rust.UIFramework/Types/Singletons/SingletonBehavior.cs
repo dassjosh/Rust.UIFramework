@@ -2,7 +2,9 @@
 
 namespace Oxide.Ext.UiFramework.Types;
 
-internal static class SingletonBehavior<T> where T : FacepunchBehaviour
+internal interface IBehaviorSingleton;
+
+internal static class SingletonBehavior<T> where T : FacepunchBehaviour, IBehaviorSingleton
 {
     public static readonly T Instance;
 
