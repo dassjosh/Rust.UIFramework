@@ -1,7 +1,9 @@
-﻿using System.Collections.Concurrent;
+﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
-using Oxide.Ext.UiFramework.Enums;
+using Oxide.Ext.UiFramework.Exceptions;
 using Oxide.Ext.UiFramework.Extensions;
+using Oxide.Ext.UiFramework.Logging;
 using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Types;
@@ -12,7 +14,9 @@ internal class AnimationData : ISingleton
 {
     private readonly ConcurrentDictionary<AnimationId, IAnimation> _allAnimations = new();
     private readonly ConcurrentDictionary<AnimationId, ISendableAnimation> _groupAnimations = new();
+    private readonly ConcurrentDictionary<AnimationId, PlayerAnimationData> _animationPlayer = new();
     private readonly ConcurrentDictionary<ulong, PlayerAnimationData> _playerAnimations = new();
+    private readonly IUiLogger _logger = Singleton<UiLoggerFactory>.Instance.CreateExtensionLogger<AnimationData>();
 
     internal ConcurrentDictionary<AnimationId, ISendableAnimation> GroupAnimations => _groupAnimations;
     internal ConcurrentDictionary<ulong, PlayerAnimationData> PlayerAnimations => _playerAnimations;
@@ -40,22 +44,21 @@ internal class AnimationData : ISingleton
     public void AddAnimation(IAnimation animation)
     {
         _allAnimations[animation.Id] = animation;
-        if (animation is ISendableAnimation sendable)
-        {
-            AddAnimation(sendable);
-        }   
     }
     
-    private void AddAnimation(ISendableAnimation animation)
+    public void OnAnimationQueued(ISendableAnimation animation)
     {
+        if (animation == null) throw new ArgumentNullException(nameof(animation));
+        AnimationException.ThrowIfMissingSend(animation);
         if (animation.TryGetSinglePlayer(out ulong playerId))
         {
             if (!_playerAnimations.TryGetValue(playerId, out PlayerAnimationData animations))
             {
-                _playerAnimations[playerId] = animations = PlayerAnimationData.Create(animation);
+                _playerAnimations[playerId] = animations = PlayerAnimationData.Create(animation, playerId);
             }
 
             animations.AddAnimation(animation);
+            _animationPlayer[animation.Id] = animations;
             return;
         }
 
@@ -71,47 +74,38 @@ internal class AnimationData : ISingleton
 
         if (!_allAnimations.TryRemove(id, out IAnimation animation))
         {
+            _logger.Debug($"{nameof(RemoveAnimation)} Tried to remove animation id {{0}} which is not in the all animations collection", id);
             return;
         }
 
-        if (animation is ISendableAnimation sendable)
+        if (_animationPlayer.TryRemove(id, out PlayerAnimationData playerData))
         {
-            if (sendable.IsSinglePlayer())
-            {
-                RemoveSinglePlayerAnimation(sendable);
-            }
-            else
-            {
-                _groupAnimations.TryRemove(id, out ISendableAnimation _);
-            }
+            RemoveSinglePlayerAnimation(id, playerData, (ISendableAnimation)animation);
         }
         
-        if (id == animation.Id)
+        _groupAnimations.TryRemove(id, out ISendableAnimation _);
+        
+        if (animation.Id != id)
         {
-            animation.TryDispose();
+            _logger.Debug($"{nameof(RemoveAnimation)} Animation ID does not match ID: {{0}} Animation.Id: {{1}}", id, animation.Id);
+            return;
         }
+
+        animation.Parent?.RemoveChild(animation);
+        animation.TryDispose();
     }
 
-    private void RemoveSinglePlayerAnimation(ISendableAnimation animation)
+    private void RemoveSinglePlayerAnimation(AnimationId id, PlayerAnimationData playerAnimations, ISendableAnimation sendable)
     {
-        if (!animation.TryGetSinglePlayer(out ulong playerId))
+        _animationPlayer.TryRemove(id, out _);
+        playerAnimations.RemoveAnimation(sendable);
+        if (!playerAnimations.IsEmpty)
         {
             return;
         }
         
-        if (!_playerAnimations.TryGetValue(playerId, out PlayerAnimationData animations))
-        {
-            return;
-        }
-        
-        animations.RemoveAnimation(animation);
-        if (!animations.IsEmpty)
-        {
-            return;
-        }
-        
-        _playerAnimations.TryRemove(playerId, out PlayerAnimationData _);
-        animations.Dispose();
+        _playerAnimations.TryRemove(playerAnimations.PlayerId, out _);
+        playerAnimations.Dispose();
     }
 
     public void CleanupCompletedAnimations()
@@ -122,6 +116,7 @@ internal class AnimationData : ISingleton
             {
                 //Somehow the animation was disposed and we didn't remove it.
                 RemoveAnimation(id);
+                _logger.Debug("Animation ID: {0} is already pooled but still in the All Animations collection", id);
                 continue;
             }
 
@@ -131,6 +126,11 @@ internal class AnimationData : ISingleton
                 case AnimationState.Completed:
                 case AnimationState.Timeout:
                     RemoveAnimation(id);
+                    break;
+                case AnimationState.Queued:
+                case AnimationState.Delayed:
+                case AnimationState.Running:
+                    animation.TickCleanup();
                     break;
             }
         }

@@ -22,12 +22,26 @@ public abstract class BaseAnimation : BasePoolable, IAnimation
     public IAnimationDelay Delay { get; set; }
     public IAnimationTimeout Timeout { get; set; }
     public IAnimationEvents Events { get; }
-    public IAnimation Parent { get; private set;  }
+
+    public IAnimation Parent
+    {
+        get;
+        set
+        {
+            if (field is not null && value is not null && field.Id != value.Id)
+            {
+                throw new AnimationException($"Trying to set parent ID: {value.Id} on animation ID: {Id} that already has a parent ID: {field.Id}.");
+            }
+
+            field = value;
+        }
+    }
+
     public virtual bool HasChanged => Interpolator?.HasChanged ?? false;
     public AnimationCancelOption CancelOption { get; set; }
 
     public IReadOnlyList<IAnimation> Children => _children;
-    private readonly List<BaseAnimation> _children = [];
+    private readonly List<IAnimation> _children = [];
     
     public IAnimationTime Time => _time ?? Parent?.Time ?? Singleton<AnimationTime>.Instance;
     private IAnimationTime _time;
@@ -116,7 +130,7 @@ public abstract class BaseAnimation : BasePoolable, IAnimation
         
         float previous = Duration.ElapsedPercentage;
         Duration.OnTick();
-        UiFrameworkExtension.GlobalLogger.Debug("Animation {0} TickDuration {1:0.00} -> {2:0.00}. IsCompleted: {3}", Id.Id, previous, Duration.ElapsedPercentage, Duration.IsCompleted);
+        //UiFrameworkExtension.GlobalLogger.Debug("Animation {0} TickDuration {1:0.00} -> {2:0.00}. IsCompleted: {3}", Id.Id, previous, Duration.ElapsedPercentage, Duration.IsCompleted);
         if (!Duration.IsCompleted)
         {
             return;
@@ -143,19 +157,17 @@ public abstract class BaseAnimation : BasePoolable, IAnimation
         }
     }
     
-    protected virtual void TickCleanup()
+    public virtual void TickCleanup()
     {
         for (int index = _children.Count - 1; index >= 0; index--)
         {
-            BaseAnimation child = _children[index];
+            IAnimation child = _children[index];
             if (child.State > AnimationState.Running)
             {
-                child.Dispose();
                 _children.RemoveAt(index);
+                Singleton<AnimationData>.Instance.RemoveAnimation(child.Id);
             }
         }
-        
-        UiFrameworkExtension.GlobalLogger.Debug("Animation {0} TickCleanup", Id.Id);
 
         if (State is AnimationState.Running or AnimationState.Delayed && (Duration is { IsCompleted : true } || Interpolator == null) && _children.Count == 0)
         {
@@ -251,24 +263,24 @@ public abstract class BaseAnimation : BasePoolable, IAnimation
             progress = Duration.ElapsedPercentage;
             if (Timing == null)
             {
-                UiFrameworkExtension.GlobalLogger.Debug("Animation {0} GetProgress {1:0.00}%", Id.Id, progress * 100f);
+                //UiFrameworkExtension.GlobalLogger.Debug("Animation {0} GetProgress {1:0.00}%", Id.Id, progress * 100f);
                 return progress;
             }
             
             float previous = progress;
             progress = Timing(progress);
-            UiFrameworkExtension.GlobalLogger.Debug("Animation {0} GetProgress Timing {1:0.00}% -> {2:0.00}%", Id.Id, previous * 100f, progress * 100f);
+            //UiFrameworkExtension.GlobalLogger.Debug("Animation {0} GetProgress Timing {1:0.00}% -> {2:0.00}%", Id.Id, previous * 100f, progress * 100f);
             return progress;
         }
         
         progress = Parent?.GetProgress() ?? AnimationConstants.NoProgress;
-        UiFrameworkExtension.GlobalLogger.Debug("Animation {0} Parent GetProgress {1:0.00}%", Id.Id, progress * 100f);
+        //UiFrameworkExtension.GlobalLogger.Debug("Animation {0} Parent GetProgress {1:0.00}%", Id.Id, progress * 100f);
         return progress;
     }
 
     public virtual ISendableAnimation GetSendable() => Parent?.GetSendable();
 
-    internal void AddChildAnimation(BaseAnimation animation)
+    public void AddChild(IAnimation animation)
     {
         if (!_children.Contains(animation) && animation.Parent is null) 
         {
@@ -277,9 +289,10 @@ public abstract class BaseAnimation : BasePoolable, IAnimation
         }
     }
 
-    internal void RemoveChildAnimation(BaseAnimation animation)
+    public void RemoveChild(IAnimation animation)
     {
         _children.Remove(animation);
+        animation.Parent = null;
     }
 
     protected override void EnterPool()

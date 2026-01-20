@@ -2,6 +2,7 @@
 using Network;
 using Oxide.Ext.UiFramework.Config;
 using Oxide.Ext.UiFramework.Constants;
+using Oxide.Ext.UiFramework.Exceptions;
 using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Helpers;
 using Oxide.Ext.UiFramework.Json;
@@ -15,7 +16,7 @@ namespace Oxide.Ext.UiFramework.Animation;
 
 internal class AnimationHandler : ISingleton
 {
-    private IAnimationHandler _handler;
+    private readonly IAnimationHandler _handler;
     private readonly IUiLogger _logger = Singleton<UiLoggerFactory>.Instance.CreateExtensionLogger<AnimationHandler>();
 
     private AnimationHandler()
@@ -37,16 +38,17 @@ internal class AnimationHandler : ISingleton
         if (animation == null) throw new ArgumentNullException(nameof(animation));
         animation.Send = send;
         animation.ChangeState(AnimationState.Queued);
+        AnimationException.ThrowIfMissingSend(animation);
+        Singleton<AnimationData>.Instance.OnAnimationQueued(animation);
         _handler.OnAnimationQueued();
         _logger.Debug("Adding animation {0}", animation.Id);
     }
     
-    internal float TickAnimation(ref bool isPaused)
+    internal float TickAnimation(bool wasPaused)
     {
         float startTime = Time.realtimeSinceStartup;
-        Singleton<AnimationTime>.Instance.UpdateTime(startTime, isPaused);
-        isPaused = false;
-        _logger.Debug("Processing {0} animations", Singleton<AnimationData>.Instance.Count);
+        Singleton<AnimationTime>.Instance.UpdateTime(startTime, wasPaused);
+        _logger.Debug("Processing {0} animations. Delta: {1:0.0000} seconds", Singleton<AnimationData>.Instance.Count, Singleton<AnimationTime>.Instance.DeltaTime);
         ProcessAnimations();
         _logger.Debug("Processed animations. {0} remaining", Singleton<AnimationData>.Instance.Count);
         float endTime = Time.realtimeSinceStartup;
