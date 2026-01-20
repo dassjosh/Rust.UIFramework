@@ -36,7 +36,7 @@ public class ComponentAnimation<T> : BaseAnimation, IComponentAnimation<T> where
         field.ResetHasChanged();
 
         FieldAnimation<TField> animated = FieldAnimation<TField>.Create(Plugin, field);
-        AddChildAnimation(animated);
+        AddChild(animated);
         return new AnimationRef<IFieldAnimation<TField>>(animated);
     }
     
@@ -50,7 +50,7 @@ public class ComponentAnimation<T> : BaseAnimation, IComponentAnimation<T> where
         }
 
         ComponentAnimation<TComponent> animated = ComponentAnimation<TComponent>.Create(Plugin, component, source);
-        AddChildAnimation(animated);
+        AddChild(animated);
         return new AnimationRef<IComponentAnimation<TComponent>>(animated);
     }
 

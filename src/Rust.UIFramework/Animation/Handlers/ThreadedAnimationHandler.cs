@@ -39,7 +39,7 @@ internal class ThreadedAnimationHandler : IAnimationHandler
         {
             try
             {
-                float timeTaken = _handler.TickAnimation(ref isPaused);
+                float timeTaken = _handler.TickAnimation(isPaused);
                 
                 if (Singleton<AnimationData>.Instance.Count == 0)
                 {
