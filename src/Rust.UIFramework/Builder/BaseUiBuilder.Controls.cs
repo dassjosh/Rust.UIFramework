@@ -197,11 +197,11 @@ public partial class BaseUiBuilder
     public UiTuple<UiButton, UiRawImage> FileStorageImageButton(BaseUiLayout layout, string imageId, string command, UiColor? buttonColor = default, ButtonType type = ButtonType.Command, UiColor? imageColor = default)
         => RawImageButton(layout, imageId, command, buttonColor, type, imageColor);
     
-    public UiTuple<UiButton, UiRawImage> ImageStorageButton(in UiReference parent, string nameOrUrl, string command, UiColor? buttonColor = default, ButtonType type = ButtonType.Command, ImageDownloadOptions options = null, UiColor? imageColor = default)
+    public UiTuple<UiButton, UiRawImage> ImageStorageButton(in UiReference parent, string nameOrUrl, string command, UiColor? buttonColor = default, ButtonType type = ButtonType.Command, GetImageOptions options = null, UiColor? imageColor = default)
         => RawImageButton(parent, Singleton<UiImageStorage>.Instance.Get(Plugin, nameOrUrl, options), command, buttonColor, type, imageColor);
-    public UiTuple<UiButton, UiRawImage> ImageStorageButton(in UiReference parent, in UiPosition pos, in UiOffset offset, string nameOrUrl, string command, UiColor? buttonColor = default, ButtonType type = ButtonType.Command, ImageDownloadOptions options = null, UiColor? imageColor = default)
+    public UiTuple<UiButton, UiRawImage> ImageStorageButton(in UiReference parent, in UiPosition pos, in UiOffset offset, string nameOrUrl, string command, UiColor? buttonColor = default, ButtonType type = ButtonType.Command, GetImageOptions options = null, UiColor? imageColor = default)
         => RawImageButton(parent, pos, offset, Singleton<UiImageStorage>.Instance.Get(Plugin, nameOrUrl, options), command, buttonColor, type, imageColor);
-    public UiTuple<UiButton, UiRawImage> ImageStorageButton(BaseUiLayout layout, string nameOrUrl, string command, UiColor? buttonColor = default, ButtonType type = ButtonType.Command, ImageDownloadOptions options = null, UiColor? imageColor = default)
+    public UiTuple<UiButton, UiRawImage> ImageStorageButton(BaseUiLayout layout, string nameOrUrl, string command, UiColor? buttonColor = default, ButtonType type = ButtonType.Command, GetImageOptions options = null, UiColor? imageColor = default)
         => RawImageButton(layout, Singleton<UiImageStorage>.Instance.Get(Plugin, nameOrUrl, options), command, buttonColor, type, imageColor);
     #endregion
 

@@ -132,6 +132,7 @@
       </Content>
       <Compile Remove="$(CompilerGeneratedFilesOutputPath)/**/*.cs" />
       <Content Include="$(CompilerGeneratedFilesOutputPath)/Rust.UiFramework.SourceGenerators/**/*.cs" />
+      <Compile Remove="Libraries\ImageStorage\Download\ThreadedImageDownloader.cs" />
     </ItemGroup>
     
     <ItemGroup>

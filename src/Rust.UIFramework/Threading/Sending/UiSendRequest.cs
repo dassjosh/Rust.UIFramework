@@ -2,12 +2,11 @@
 using Oxide.Ext.UiFramework.Animation;
 using Oxide.Ext.UiFramework.Builder;
 using Oxide.Ext.UiFramework.Libraries;
-using Oxide.Ext.UiFramework.Threading.UiChannel;
 using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Threading;
 
-internal class UiSendRequest : BaseUiRequest, IUiRequest
+internal class UiSendRequest : BaseUiRequest
 {
     public BaseBuilder Builder;
     public UiDebugOptions? Options;
@@ -26,17 +25,17 @@ internal class UiSendRequest : BaseUiRequest, IUiRequest
         Options = options;
     }
     
-    public virtual void SendRequest()
+    public override void SendRequest()
     {
         Builder.SendUi(Send, Options);
         Builder.SendAnimations(Send);
     }
     
-    public override IUiChannel GetChannel(int index)
+    public override IUiChannel<IUiRequest> GetChannel(int index)
     {
         return base.GetChannel(index) ?? index switch
         {
-            1 => (IUiChannel)Singleton<AnimationTrackerChannel>.Instance,
+            1 => Singleton<AnimationTrackerChannel>.Instance,
             _ => null
         };
     }

@@ -2,7 +2,6 @@
 using Network;
 using Oxide.Ext.UiFramework.Builder;
 using Oxide.Ext.UiFramework.Threading;
-using Oxide.Ext.UiFramework.Threading.UiChannel;
 using Oxide.Game.Rust.Cui;
 
 namespace Oxide.Ext.UiFramework.Extensions;
@@ -16,7 +15,7 @@ public static class OxideCuiExt
             if (player && player.IsConnected)
             {
                 SendInfo send = SendInfoBuilder.Get(player);
-                AddUiAsync(container, send, destroyUiName);
+                container.AddUiAsync(send, destroyUiName);
             }
         }
 
@@ -25,20 +24,20 @@ public static class OxideCuiExt
             if (connection is { connected: true })
             {
                 SendInfo send = SendInfoBuilder.Get(connection);
-                AddUiAsync(container, send, destroyUiName);
+                container.AddUiAsync(send, destroyUiName);
             }
         }
 
         public void AddUiAsync(IEnumerable<Connection> connections, string destroyUiName = null)
         {
             SendInfo send = SendInfoBuilder.Get(connections);
-            AddUiAsync(container, send, destroyUiName);
+            container.AddUiAsync(send, destroyUiName);
         }
 
         public void AddUiAsync(string destroyUiName = null)
         {
             SendInfo send = SendInfoBuilder.Get(Net.sv.connections);
-            AddUiAsync(container, send, destroyUiName);
+            container.AddUiAsync(send, destroyUiName);
         }
 
         public void AddUiAsync(SendInfo send, string destroyUiName = null)

@@ -1,6 +1,6 @@
-﻿namespace Oxide.Ext.UiFramework.Threading.UiChannel;
+﻿namespace Oxide.Ext.UiFramework.Threading;
 
-internal interface IChannelObject
+internal interface IChannelObject<in T>
 {
-    public IUiChannel GetChannel(int index);
+    public IUiChannel<T> GetChannel(int index);
 }

@@ -1,6 +1,6 @@
-﻿namespace Oxide.Ext.UiFramework.Threading.UiChannel;
+﻿namespace Oxide.Ext.UiFramework.Threading;
 
-internal interface IUiChannel
+internal interface IUiChannel<in T>
 {
-    void Enqueue(IUiChannelObject item);
+    void Enqueue(IUiChannelObject<T> item);
 }

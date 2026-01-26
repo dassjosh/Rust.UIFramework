@@ -4,7 +4,7 @@ using Oxide.Ext.UiFramework.Libraries;
 
 namespace Oxide.Ext.UiFramework.Threading;
 
-internal class UiDestroyRequest : BaseUiRequest, IUiRequest
+internal class UiDestroyRequest : BaseUiRequest
 {
     public string Name;
     
@@ -17,7 +17,7 @@ internal class UiDestroyRequest : BaseUiRequest, IUiRequest
         return this;
     }
     
-    public void SendRequest()
+    public override void SendRequest()
     {
         RpcFunctions.SendDestroyUi(Send, Name);
     }

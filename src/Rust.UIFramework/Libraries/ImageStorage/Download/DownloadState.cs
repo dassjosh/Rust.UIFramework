@@ -2,7 +2,6 @@
 
 public enum DownloadState : byte
 {
-    Init,
     Queued,
     InProgress,
     Completed,

@@ -12,6 +12,8 @@ internal class UiFileStorageDatabase : BaseUiFrameworkLibrary, ISingleton, IImag
         // Do nothing for FP FileStorage
     }
 
+    public bool Exists(ImageId id) => FileStorage.server.Get(id.Id, FileStorage.Type.png, CommunityEntity.ServerInstance.net.ID) != null;
+
     public ImageId Store(byte[] image)
     {
         return new ImageId(FileStorage.server.Store(image, FileStorage.Type.png, CommunityEntity.ServerInstance.net.ID));

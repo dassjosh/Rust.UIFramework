@@ -8,7 +8,6 @@ using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Threading;
-using Oxide.Ext.UiFramework.Threading.UiChannel;
 using Oxide.Ext.UiFramework.Types;
 
 #if BENCHMARKS

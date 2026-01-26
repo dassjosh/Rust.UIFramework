@@ -9,7 +9,7 @@ namespace Oxide.Ext.UiFramework.Plugins;
 /// Represents a Plugin ID
 /// </summary>
 [ProtoContract]
-internal readonly record struct PluginId
+public readonly record struct PluginId
 {
     /// <summary>
     /// ID of the plugin

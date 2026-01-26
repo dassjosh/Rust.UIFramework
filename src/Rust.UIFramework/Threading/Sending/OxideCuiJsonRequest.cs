@@ -3,7 +3,7 @@ using Oxide.Ext.UiFramework.Libraries;
 
 namespace Oxide.Ext.UiFramework.Threading;
 
-internal class OxideCuiJsonRequest : BaseUiRequest, IUiRequest
+internal class OxideCuiJsonRequest : BaseUiRequest
 {
     private string _json;
     
@@ -16,7 +16,7 @@ internal class OxideCuiJsonRequest : BaseUiRequest, IUiRequest
         return this;
     }
     
-    public void SendRequest()
+    public override void SendRequest()
     {
         CommunityEntity.ServerInstance.ClientRPC(RpcTarget.SendInfo("AddUI", Send), _json);
     }

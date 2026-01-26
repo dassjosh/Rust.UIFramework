@@ -6,7 +6,7 @@ using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Libraries;
 
-public sealed class UrlDownloadState(string url)
+public sealed class ImageDownloadRequest(string url)
 {
     public readonly string Url = url;
     public int Attempts { get; private set; }
@@ -19,14 +19,14 @@ public sealed class UrlDownloadState(string url)
     public string Message { get; private set; }
     public RegisterImageErrorCode ErrorCode { get; private set; }
     
-    internal readonly ConcurrentList<DownloadImageRequest> URLRequests = [];
+    internal readonly ConcurrentList<RegisterImageRequest> URLRequests = [];
 
     public bool IsDownloading => State is DownloadState.InProgress or DownloadState.Queued;
     public bool IsCompleted => State is DownloadState.Completed or DownloadState.Stored;
     public bool HadDownloadError => State == DownloadState.Failed || Attempts > 0;
     public bool IsOutOfAttempts => Attempts >= UiFrameworkConfig.Instance.ImageStorage.MaxDownloadAttempts;
     internal PluginId GetFirstPluginId() => URLRequests.Count != 0 ? URLRequests[0].PluginId : default;
-    internal void AddRequest(DownloadImageRequest request) => URLRequests.TryAdd(request);
+    internal void AddRequest(RegisterImageRequest request) => URLRequests.TryAdd(request);
     public void OnDownloadQueued() => State = DownloadState.Queued;
     public void OnDownloadStarted() => State = DownloadState.InProgress;
 
@@ -36,7 +36,7 @@ public sealed class UrlDownloadState(string url)
         State = DownloadState.Failed;
         StatusCode = code;
         Message = message;
-        foreach (DownloadImageRequest request in URLRequests.GetPooledEnumerator(UiFrameworkPlugin.Instance))
+        foreach (RegisterImageRequest request in URLRequests.GetPooledEnumerator(UiFrameworkPlugin.Instance))
         {
             request.ExecuteOnDownloadFailed();
         }
@@ -63,7 +63,7 @@ public sealed class UrlDownloadState(string url)
     internal void OnInvalidImage(RegisterImageErrorCode code)
     {
         ErrorCode = code;
-        foreach (DownloadImageRequest request in URLRequests.GetPooledEnumerator(UiFrameworkPlugin.Instance))
+        foreach (RegisterImageRequest request in URLRequests.GetPooledEnumerator(UiFrameworkPlugin.Instance))
         {
             request.ExecuteOnInvalidImage();
         }

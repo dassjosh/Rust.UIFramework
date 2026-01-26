@@ -2,19 +2,9 @@
 using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Pooling;
 
-namespace Oxide.Ext.UiFramework.Threading.UiChannel;
+namespace Oxide.Ext.UiFramework.Threading;
 
-internal interface IUiChannelObject
-{
-    void EnqueueNext();
-}
-
-internal interface IUiChannelObject<out T> : IUiChannelObject
-{
-    T Item { get; }
-}
-
-internal class UiChannelObject<T> : BasePoolable, IUiChannelObject<T> where T : IChannelObject
+internal class UiChannelObject<T> : BasePoolable, IUiChannelObject<T> where T : IChannelObject<T>
 {
     private int _index;
     public T Item { get; private set; }
@@ -27,7 +17,7 @@ internal class UiChannelObject<T> : BasePoolable, IUiChannelObject<T> where T : 
 
     public void EnqueueNext()
     {
-        IUiChannel channel = Item.GetChannel(_index);
+        IUiChannel<T> channel = Item.GetChannel(_index);
         if(channel == null)
         {
             TryDispose();
@@ -47,7 +37,7 @@ internal class UiChannelObject<T> : BasePoolable, IUiChannelObject<T> where T : 
 
 internal static class UiChannelObjectExt
 {
-    extension<T>(T item) where T : IChannelObject
+    extension<T>(T item) where T : IChannelObject<T>
     {
         public void Enqueue()
         {

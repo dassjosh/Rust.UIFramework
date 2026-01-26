@@ -32,7 +32,7 @@ internal class BehaviorImageDownloader : FacepunchBehaviour, IImageDownloader, I
     /// </summary>
     private void Update()
     {
-        if(_downloadRoutine == null && _queue.RequestQueue.TryDequeue(out UrlDownloadState request))
+        if(_downloadRoutine == null && _queue.RequestQueue.TryDequeue(out ImageDownloadRequest request))
         {
             if (request.IsCompleted)
             {
@@ -46,7 +46,13 @@ internal class BehaviorImageDownloader : FacepunchBehaviour, IImageDownloader, I
                 return;
             }
 
-            _downloadRoutine = StartCoroutine(DownloadImageAsync(request));
+            _downloadRoutine = StartCoroutine(DownloadImage(request));
+            return;
+        }
+
+        if (_queue.RequestQueue.Count == 0)
+        {
+            enabled = false;
         }
     }
 
@@ -55,7 +61,7 @@ internal class BehaviorImageDownloader : FacepunchBehaviour, IImageDownloader, I
     /// </summary>
     /// <param name="state">The download request</param>
     /// <returns>True if the download was successful, otherwise false</returns>
-    private IEnumerator DownloadImageAsync(UrlDownloadState state)
+    private IEnumerator DownloadImage(ImageDownloadRequest state)
     {
         try
         {

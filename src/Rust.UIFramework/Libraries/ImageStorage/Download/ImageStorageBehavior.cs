@@ -1,6 +1,7 @@
 ﻿using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Libraries;
+
 //TODO: Switch to UniTask when available
 #if SERVER
 using System.Collections.Concurrent;
@@ -9,14 +10,14 @@ using System.Collections.Concurrent;
 /// </summary>
 internal class ImageStorageBehavior : FacepunchBehaviour, IImageStorageBehavior, IBehaviorSingleton
 {
-    private readonly ConcurrentQueue<UrlDownloadState> _completed = new();
+    private readonly ConcurrentQueue<ImageDownloadRequest> _completed = new();
 
     private void Awake()
     {
         enabled = false;
     }
     
-    public void OnDownloadCompleted(UrlDownloadState download)
+    public void OnDownloadCompleted(ImageDownloadRequest download)
     {
         _completed.Enqueue(download);
         enabled = true;
@@ -24,7 +25,7 @@ internal class ImageStorageBehavior : FacepunchBehaviour, IImageStorageBehavior,
     
     private void Update()
     {
-        if (_completed.TryDequeue(out UrlDownloadState download))
+        if (_completed.TryDequeue(out ImageDownloadRequest download))
         {
             Singleton<UiImageStorage>.Instance.StoreDownloadedImage(download);
             return;
@@ -47,5 +48,5 @@ internal class ImageStorageBehavior : ISingleton, IImageStorageBehavior
 
 internal interface IImageStorageBehavior
 {
-    void OnDownloadCompleted(UrlDownloadState download);
+    void OnDownloadCompleted(ImageDownloadRequest download);
 }

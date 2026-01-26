@@ -9,24 +9,24 @@ using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Libraries;
 
-public record DownloadFailedEventArgs(HttpStatusCode Code, string Message);
 
-public sealed class DownloadImageRequest
+
+public sealed class RegisterImageRequest
 {
     internal readonly PluginId PluginId;
     public readonly string Name;
-    public readonly UrlDownloadState UrlState;
+    public readonly ImageDownloadRequest Download;
     private readonly RegisterImageOptions _options;
 
     private DownloadEvent<string> _downloadCompletedEvent;
     private DownloadEvent<DownloadFailedEventArgs> _downloadFailedEvent;
     private DownloadEvent<RegisterImageErrorCode> _invalidImageEvent;
 
-    internal DownloadImageRequest(PluginId pluginId, string name, UrlDownloadState urlState, RegisterImageOptions options)
+    internal RegisterImageRequest(PluginId pluginId, string name, ImageDownloadRequest download, RegisterImageOptions options)
     {
         PluginId = pluginId;
         Name = name;
-        UrlState = urlState;
+        Download = download;
         _options = options;
     }
 
@@ -35,9 +35,9 @@ public sealed class DownloadImageRequest
         _downloadCompletedEvent ??= new DownloadEvent<string>();
         _downloadCompletedEvent.AddCallback(callback);
         
-        if (UrlState.State == DownloadState.Stored)
+        if (Download.State == DownloadState.Stored)
         {
-            callback(UrlState.ImageId.ToString());
+            callback(Download.ImageId.ToString());
         }
     }
 
@@ -46,7 +46,7 @@ public sealed class DownloadImageRequest
         _downloadFailedEvent ??= new DownloadEvent<DownloadFailedEventArgs>();
         _downloadFailedEvent.AddCallback(callback);
         
-        if (UrlState.State == DownloadState.Failed)
+        if (Download.State == DownloadState.Failed)
         {
             ExecuteOnDownloadFailed();
         }
@@ -57,7 +57,7 @@ public sealed class DownloadImageRequest
         _invalidImageEvent ??= new DownloadEvent<RegisterImageErrorCode>();
         _invalidImageEvent.AddCallback(callback);
         
-        if (UrlState.State == DownloadState.Completed && UrlState.ErrorCode != RegisterImageErrorCode.None)
+        if (Download.State == DownloadState.Completed && Download.ErrorCode != RegisterImageErrorCode.None)
         {
             ExecuteOnInvalidImage();
         }
@@ -65,15 +65,15 @@ public sealed class DownloadImageRequest
 
     internal void ExecuteOnDownloadCompleted()
     {
-        _downloadCompletedEvent?.Invoke(PluginId, Name, UrlState.Url, UrlState.ImageId.Id.ToString());
+        _downloadCompletedEvent?.Invoke(PluginId, Name, Download.Url, Download.ImageId.Id.ToString());
         if (_options.EnableClientPrecache)
         {
-            Singleton<UiImagePrecache>.Instance.AddPrecachedImage(PluginId, UrlState.ImageId, UrlState.Image);
+            Singleton<UiImagePrecache>.Instance.AddPrecachedImage(PluginId, Download.ImageId, Download.Image);
         }
     }
 
-    internal void ExecuteOnDownloadFailed() => _downloadFailedEvent?.Invoke(PluginId, Name, UrlState.Url, new DownloadFailedEventArgs(UrlState.StatusCode, UrlState.Message));
-    internal void ExecuteOnInvalidImage() => _invalidImageEvent?.Invoke(PluginId, Name, UrlState.Url, UrlState.ErrorCode);
+    internal void ExecuteOnDownloadFailed() => _downloadFailedEvent?.Invoke(PluginId, Name, Download.Url, new DownloadFailedEventArgs(Download.StatusCode, Download.Message));
+    internal void ExecuteOnInvalidImage() => _invalidImageEvent?.Invoke(PluginId, Name, Download.Url, Download.ErrorCode);
 
     private sealed class DownloadEvent<T>
     {

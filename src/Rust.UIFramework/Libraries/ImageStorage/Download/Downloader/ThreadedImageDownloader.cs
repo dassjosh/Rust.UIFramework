@@ -21,7 +21,7 @@ internal class ThreadedImageDownloader : IImageDownloader
     public ThreadedImageDownloader()
     {
         HttpClientHandler handler = new()
-        {
+        {   
             AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate,
             UseCookies = false
         };
@@ -91,7 +91,7 @@ internal class ThreadedImageDownloader : IImageDownloader
     {
         try
         {
-            while (!cancellationToken.IsCancellationRequested && _downloader.RequestQueue.TryDequeue(out UrlDownloadState request))
+            while (!cancellationToken.IsCancellationRequested && _downloader.RequestQueue.TryDequeue(out ImageDownloadRequest request))
             {
                 if (request.IsCompleted)
                 {
@@ -141,7 +141,7 @@ internal class ThreadedImageDownloader : IImageDownloader
     /// <param name="state">The download request</param>
     /// <param name="cancellationToken">Token to monitor for cancellation</param>
     /// <returns>True if the download was successful, otherwise false</returns>
-    private async ValueTask<bool> DownloadImageAsync(UrlDownloadState state, CancellationToken cancellationToken)
+    private async ValueTask<bool> DownloadImageAsync(ImageDownloadRequest state, CancellationToken cancellationToken)
     {
         try
         {

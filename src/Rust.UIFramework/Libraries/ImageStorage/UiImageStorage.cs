@@ -37,7 +37,7 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
 #endif
     }
 
-    public string Get(IUiFrameworkPlugin plugin, string nameOrUrl, ImageDownloadOptions options = null)
+    public string Get(IUiFrameworkPlugin plugin, string nameOrUrl, GetImageOptions options = null)
     {
 #if SERVER
         if (plugin == null) throw new ArgumentNullException(nameof(plugin));
@@ -47,11 +47,11 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
 #endif
     }
     
-    internal string Get(PluginId pluginId, string nameOrUrl, ImageDownloadOptions options)
+    internal string Get(PluginId pluginId, string nameOrUrl, GetImageOptions options)
     {
         InvalidPluginIdException.ThrowIfInvalidPluginId(pluginId); 
         if (nameOrUrl == null) throw new ArgumentNullException(nameof(nameOrUrl));
-        options ??= ImageDownloadOptions.Default;
+        options ??= GetImageOptions.Default;
 
         ImageId id = _data.Get(pluginId, nameOrUrl);
         if (id.IsValid)
@@ -61,13 +61,13 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
 
         if (nameOrUrl.IsValidUrl())
         {
-            DownloadImageRequest request = RegisterImage(pluginId, nameOrUrl);
-            if (request.UrlState is { HadDownloadError: false, IsDownloading: true })
+            RegisterImageRequest request = RegisterImage(pluginId, nameOrUrl);
+            if (request.Download is { HadDownloadError: false, IsDownloading: true })
             {
                 return nameOrUrl;
             }
 
-            if (request.UrlState.HadDownloadError && !string.IsNullOrEmpty(options.FallbackImageNameOrUrl) && nameOrUrl != options.FallbackImageNameOrUrl)
+            if (request.Download.HadDownloadError && !string.IsNullOrEmpty(options.FallbackImageNameOrUrl) && nameOrUrl != options.FallbackImageNameOrUrl)
             {
                 return Get(pluginId, options.FallbackImageNameOrUrl, null);
             }
@@ -83,16 +83,16 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
         }
         else
         {
-            _logger.Debug("Failed to get image for plugin: {0} name: {1}", pluginId.FullName(), nameOrUrl);
+            _logger.Warning("Failed to get image for plugin: {0} name: {1}", pluginId.FullName(), nameOrUrl);
         }
         
         return Get(UiFrameworkPlugin.Instance, UiImageDefaults.NotFound);
     }
 
-    public DownloadImageRequest RegisterImage(IUiFrameworkPlugin plugin, string url, RegisterImageOptions options = null) => RegisterImage(plugin, url, url, options);
-    internal DownloadImageRequest RegisterImage(PluginId plugin, string url, RegisterImageOptions options = null) => RegisterImage(plugin, url, url, options);
-    public DownloadImageRequest RegisterImage(IUiFrameworkPlugin plugin, string name, string url, RegisterImageOptions options = null) => RegisterImage(plugin.Id(), name, url, options);
-    internal DownloadImageRequest RegisterImage(PluginId pluginId, string name, string url, RegisterImageOptions options = null)
+    public RegisterImageRequest RegisterImage(IUiFrameworkPlugin plugin, string url, RegisterImageOptions options = null) => RegisterImage(plugin, url, url, options);
+    internal RegisterImageRequest RegisterImage(PluginId plugin, string url, RegisterImageOptions options = null) => RegisterImage(plugin, url, url, options);
+    public RegisterImageRequest RegisterImage(IUiFrameworkPlugin plugin, string name, string url, RegisterImageOptions options = null) => RegisterImage(plugin.Id(), name, url, options);
+    internal RegisterImageRequest RegisterImage(PluginId pluginId, string name, string url, RegisterImageOptions options = null)
     {
         InvalidPluginIdException.ThrowIfInvalidPluginId(pluginId); 
         CommunityEntityNotReadyException.ThrowIfNotReady();
@@ -101,7 +101,7 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
         options ??= RegisterImageOptions.Default;
         
         ImageId id = _data.GetByUrl(url);
-        if (id.IsValid)
+        if (id.IsValid && _db.Exists(id))
         {
             _data.AddPluginImage(pluginId, name, id);
             _db.OnImageRegistered(id);
@@ -120,7 +120,7 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
         options ??= RegisterImageOptions.Default;
         
         ImageId id = _data.Get(plugin.Id(), name);
-        if (id.IsValid && id.Id == Crc.GetCRC(image))
+        if (id.IsValid && id.Id == Crc.GetCRC(image) && _db.Exists(id))
         {
             _db.OnImageRegistered(id);
             if (options.EnableClientPrecache)
@@ -146,9 +146,9 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
 
     public bool IsDownloading(string url) => _downloader.IsDownloading(url);
 
-    internal void OnDownloadCompleted(UrlDownloadState request) => _storage.OnDownloadCompleted(request);
+    internal void OnDownloadCompleted(ImageDownloadRequest download) => _storage.OnDownloadCompleted(download);
     
-    internal void StoreDownloadedImage(UrlDownloadState download)
+    internal void StoreDownloadedImage(ImageDownloadRequest download)
     {
         byte[] image = download.Image;
         ImageId imageId = ProcessImage(image, out RegisterImageErrorCode error);
@@ -160,7 +160,7 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
         }
         
         _data.AddUrlImage(download.Url, imageId);
-        foreach (DownloadImageRequest request in download.URLRequests)
+        foreach (RegisterImageRequest request in download.URLRequests)
         {
             _data.AddPluginImage(request.PluginId, request.Name, imageId);
             request.ExecuteOnDownloadCompleted();
@@ -174,7 +174,7 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
     {
         if (image == null || image.Length == 0)
         {
-            error = RegisterImageErrorCode.EmptyImage;
+            error = RegisterImageErrorCode.InvalidByteArray;
             return default;
         }
 

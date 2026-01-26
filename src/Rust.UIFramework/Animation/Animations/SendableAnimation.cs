@@ -48,27 +48,27 @@ public abstract class SendableAnimation : BaseAnimation, ISendableAnimation
             throw new AnimationException($"{nameof(ISendableAnimation)}.{nameof(AddPlayer)} cannot be called on a single player animation.");
         }
 
-        if (!Send.connections.Contains(connection))
+        if (!_send.connections.Contains(connection))
         {
-            Send.connections.Add(connection);
+            _send.connections.Add(connection);
         }
     }
 
     public void RemovePlayer(ulong playerId)
     {
-        if (Send.connections != null)
+        if (_send.connections != null)
         {
-            for (int index = Send.connections.Count - 1; index >= 0; index--)
+            for (int index = _send.connections.Count - 1; index >= 0; index--)
             {
-                Connection connection = Send.connections[index];
+                Connection connection = _send.connections[index];
                 if (connection.userid == playerId)
                 {
-                    Send.connections.RemoveAt(index);
+                    _send.connections.RemoveAt(index);
                     break;
                 }
             }
 
-            if (Send.connections.Count == 0)
+            if (_send.connections.Count == 0)
             {
                 CancelAnimation();
             }
@@ -76,7 +76,7 @@ public abstract class SendableAnimation : BaseAnimation, ISendableAnimation
             return;
         }
 
-        if (Send.connection.userid == playerId)
+        if (_send.connection != null && _send.connection.userid == playerId)
         {
             CancelAnimation();
         }
@@ -87,7 +87,7 @@ public abstract class SendableAnimation : BaseAnimation, ISendableAnimation
     protected override void EnterPool()
     {
         base.EnterPool();
-        if (Send.connections != null)
+        if (_send.connections != null)
         {
             PluginPool.FreeList(Send.connections);
         }

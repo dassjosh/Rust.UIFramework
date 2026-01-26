@@ -37,6 +37,7 @@ public partial class PlayerAvatarComponent : RawImageComponent
                         string img = Singleton<UiImageStorage>.Instance.Get(UiFrameworkPlugin.Instance, avatarUrl);
                         if (img.StartsWith("http") || uint.TryParse(img, out uint _))
                         {
+                            //Set the image so the RawImageComponent will use the URL.
                             Image = img;
                         }
                         else

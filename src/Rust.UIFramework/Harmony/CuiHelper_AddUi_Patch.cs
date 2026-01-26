@@ -4,7 +4,6 @@ using Oxide.Core;
 using Oxide.Ext.UiFramework.Builder;
 using Oxide.Ext.UiFramework.Config;
 using Oxide.Ext.UiFramework.Threading;
-using Oxide.Ext.UiFramework.Threading.UiChannel;
 using Oxide.Game.Rust.Cui;
 
 namespace Oxide.Ext.UiFramework.Harmony;

@@ -1,7 +1,7 @@
-﻿using Oxide.Ext.UiFramework.Config;
+﻿using System.Threading.Tasks;
 using Oxide.Ext.UiFramework.Threading;
-using Oxide.Ext.UiFramework.Threading.UiChannel;
 using Oxide.Ext.UiFramework.Types;
+using Oxide.Ext.UiFramework.Extensions;
 
 #if SERVER
 using System;
@@ -13,11 +13,11 @@ using Oxide.Ext.UiFramework.UiElements;
 
 namespace Oxide.Ext.UiFramework.Animation;
 
-internal class AnimationTrackerChannel : BaseUiChannel<UiSendRequest>, ISingleton
+internal class AnimationTrackerChannel : BaseThreadedUiChannel<UiSendRequest>, ISingleton
 {
-    private AnimationTrackerChannel() : base(UiFrameworkConfig.Instance.Threading.EnableAnimationThread) { }
+    private AnimationTrackerChannel() : base(1) { }
     
-    protected override void ProcessItem(UiSendRequest item)
+    protected override ValueTask ProcessItem(UiSendRequest item)
     {
 #if SERVER
         if (item.Builder is BaseUiBuilder builder)
@@ -34,5 +34,6 @@ internal class AnimationTrackerChannel : BaseUiChannel<UiSendRequest>, ISingleto
             }
         }
 #endif
+        return ValueTask.Completed;
     }
 }

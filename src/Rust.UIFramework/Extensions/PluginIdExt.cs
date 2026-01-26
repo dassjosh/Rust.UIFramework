@@ -14,8 +14,8 @@ internal static class PluginIdExt
 {
     private static readonly Hash<PluginId, string> FullNameCache = new();
 
-    internal static PluginId Id(this Plugin plugin) => new(plugin.Name);
-    internal static PluginId Id(this IUiFrameworkPlugin plugin) => new(plugin.Name);
+    internal static PluginId Id(this Plugin plugin) => plugin is not null ? new PluginId(plugin.Name) : default;
+    internal static PluginId Id(this IUiFrameworkPlugin plugin) => plugin is not null ? new PluginId(plugin.Name) : default;
 
     internal static string PluginName(this Plugin plugin) => plugin?.Name ?? throw new ArgumentNullException(nameof(plugin));
     internal static string PluginName(this IUiFrameworkPlugin plugin) => plugin?.Name ?? throw new ArgumentNullException(nameof(plugin));

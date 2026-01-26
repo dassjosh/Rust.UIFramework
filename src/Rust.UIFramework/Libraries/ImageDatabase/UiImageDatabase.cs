@@ -62,6 +62,11 @@ internal class UiImageDatabase : BaseUiFrameworkLibrary, ISingleton, IImageDatab
         return bytes;
     }
 
+    public bool Exists(ImageId id)
+    {
+        return _db.Query<bool, uint>("SELECT EXISTS(SELECT 1 FROM data WHERE crc = ? LIMIT 1);", id.Id);
+    }
+
     public ImageId Store(byte[] image)
     {
         if (_db == null)

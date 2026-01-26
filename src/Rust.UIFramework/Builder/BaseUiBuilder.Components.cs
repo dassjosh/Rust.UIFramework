@@ -127,11 +127,11 @@ public partial class BaseUiBuilder
     public UiRawImage FileStorageImage(in UiReference parent, in UiPosition pos, in UiOffset offset, string imageId, UiColor? color = default) => RawImage(parent, pos, offset, imageId, color);
     public UiRawImage FileStorageImage(BaseUiLayout layout, string imageId, UiColor? color = default) => RawImage(layout, imageId, color);
     
-    public UiRawImage ImageStorage(in UiReference parent, string nameOrUrl, ImageDownloadOptions options = null, UiColor? color = default) 
+    public UiRawImage ImageStorage(in UiReference parent, string nameOrUrl, GetImageOptions options = null, UiColor? color = default) 
         => RawImage(parent, Singleton<UiImageStorage>.Instance.Get(Plugin, nameOrUrl, options), color);
-    public UiRawImage ImageStorage(in UiReference parent, in UiPosition pos, in UiOffset offset, string nameOrUrl, ImageDownloadOptions options = null, UiColor? color = default) 
+    public UiRawImage ImageStorage(in UiReference parent, in UiPosition pos, in UiOffset offset, string nameOrUrl, GetImageOptions options = null, UiColor? color = default) 
         => RawImage(parent, pos, offset, Singleton<UiImageStorage>.Instance.Get(Plugin, nameOrUrl, options), color);
-    public UiRawImage ImageStorage(BaseUiLayout layout, string nameOrUrl, ImageDownloadOptions options = null, UiColor? color = default)
+    public UiRawImage ImageStorage(BaseUiLayout layout, string nameOrUrl, GetImageOptions options = null, UiColor? color = default)
         => RawImage(layout, Singleton<UiImageStorage>.Instance.Get(Plugin, nameOrUrl, options), color);
     #endregion
     

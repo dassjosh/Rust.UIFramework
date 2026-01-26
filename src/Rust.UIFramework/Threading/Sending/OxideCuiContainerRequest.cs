@@ -4,7 +4,7 @@ using Oxide.Game.Rust.Cui;
 
 namespace Oxide.Ext.UiFramework.Threading;
 
-internal class OxideCuiContainerRequest : BaseUiRequest, IUiRequest
+internal class OxideCuiContainerRequest : BaseUiRequest
 {
     private CuiElementContainer _container;
     private string _destroyUiName;
@@ -19,7 +19,7 @@ internal class OxideCuiContainerRequest : BaseUiRequest, IUiRequest
         return this;
     }
     
-    public void SendRequest()
+    public override void SendRequest()
     {
         if (!string.IsNullOrEmpty(_destroyUiName))
         {

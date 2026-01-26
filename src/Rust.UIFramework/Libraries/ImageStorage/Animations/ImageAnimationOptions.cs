@@ -2,10 +2,10 @@
 
 namespace Oxide.Ext.UiFramework.Libraries;
 
-public class ImageAnimationOptions
+public class ImageAnimationOptions : IImageAnimationOptions
 {
-    public string DownloadingImageNameOrUrl;
-    public string TimeoutImageNameOrUrl;
-    public string FailedImageNameOrUrl;
-    public TimeSpan Timeout = TimeSpan.FromSeconds(5);
+    public string DownloadingImageNameOrUrl { get; set; }
+    public string TimeoutImageNameOrUrl { get; set; }
+    public string FailedImageNameOrUrl { get; set; }
+    public TimeSpan Timeout { get; set; } = TimeSpan.FromSeconds(10);
 }

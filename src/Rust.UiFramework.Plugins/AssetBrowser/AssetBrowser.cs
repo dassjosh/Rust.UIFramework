@@ -472,7 +472,7 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
     private readonly UiColor _spriteColor = "#BAB1A8FF";
     private KeyFrameAnimator<UiPosition> _animator;
 
-    private readonly ImageDownloadOptions _downloadOptions = new()
+    private readonly GetImageOptions _downloadOptions = new()
     {
         FallbackImageNameOrUrl = ErrorImage,
     };
