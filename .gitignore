@@ -353,6 +353,6 @@ MigrationBackup/
 .idea/*
 **/.idea/*
 
-src/References/*.dll
+src/References/Rust/*.dll
 
 *.received.*

@@ -23,67 +23,64 @@
     
     <ItemGroup>
       <Reference Include="Assembly-CSharp">
-        <HintPath>..\references\Assembly-CSharp.dll</HintPath>
+        <HintPath>..\References\Rust\Assembly-CSharp.dll</HintPath>
       </Reference>
       <Reference Include="Assembly-CSharp-firstpass">
-        <HintPath>..\references\Assembly-CSharp-firstpass.dll</HintPath>
-      </Reference>
-      <Reference Include="Facepunch.Console">
-        <HintPath>..\..\..\OxidePlugins\OxidePlugins\References\Rust\Facepunch.Console.dll</HintPath>
+        <HintPath>..\References\Rust\Assembly-CSharp-firstpass.dll</HintPath>
       </Reference>
       <Reference Include="Facepunch.Network">
-        <HintPath>..\references\Facepunch.Network.dll</HintPath>
+        <HintPath>..\References\Rust\Facepunch.Network.dll</HintPath>
       </Reference>
       <Reference Include="Facepunch.System">
-        <HintPath>..\references\Facepunch.System.dll</HintPath>
+        <HintPath>..\References\Rust\Facepunch.System.dll</HintPath>
       </Reference>
       <Reference Include="mscorlib">
-        <HintPath>..\References\mscorlib.dll</HintPath>
+        <HintPath>..\References\Rust\mscorlib.dll</HintPath>
       </Reference>
       <Reference Include="Oxide.Common">
-        <HintPath>..\References\Oxide.Common.dll</HintPath>
+        <HintPath>..\References\Rust\Oxide.Common.dll</HintPath>
       </Reference>
       <Reference Include="Oxide.Core">
-        <HintPath>..\References\Oxide.Core.dll</HintPath>
+        <HintPath>..\References\Rust\Oxide.Core.dll</HintPath>
       </Reference>
       <Reference Include="Oxide.CSharp">
-        <HintPath>..\references\Oxide.CSharp.dll</HintPath>
+        <HintPath>..\References\Rust\Oxide.CSharp.dll</HintPath>
       </Reference>
       <Reference Include="Oxide.References">
-        <HintPath>..\references\Oxide.References.dll</HintPath>
+        <HintPath>..\References\Rust\Oxide.References.dll</HintPath>
       </Reference>
       <Reference Include="Oxide.Rust">
-        <HintPath>..\References\Oxide.Rust.dll</HintPath>
+        <HintPath>..\References\Rust\Oxide.Rust.dll</HintPath>
       </Reference>
       <Reference Include="Rust.Data">
-        <HintPath>..\references\Rust.Data.dll</HintPath>
+        <HintPath>..\References\Rust\Rust.Data.dll</HintPath>
       </Reference>
       <Reference Include="System.Memory">
-        <HintPath>..\references\System.Memory.dll</HintPath>
+        <HintPath>..\References\Rust\System.Memory.dll</HintPath>
       </Reference>
       <Reference Include="System.Runtime">
-        <HintPath>..\references\System.Runtime.dll</HintPath>
+        <HintPath>..\References\Rust\System.Runtime.dll</HintPath>
       </Reference>
       <Reference Include="System.Runtime.CompilerServices.Unsafe">
-        <HintPath>..\references\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+        <HintPath>..\References\Rust\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
       </Reference>
       <Reference Include="UnityEngine">
-        <HintPath>..\references\UnityEngine.dll</HintPath>
+        <HintPath>..\References\Rust\UnityEngine.dll</HintPath>
       </Reference>
       <Reference Include="UnityEngine.CoreModule">
-        <HintPath>..\references\UnityEngine.CoreModule.dll</HintPath>
+        <HintPath>..\References\Rust\UnityEngine.CoreModule.dll</HintPath>
       </Reference>
       <Reference Include="UnityEngine.TextRenderingModule">
-        <HintPath>..\references\UnityEngine.TextRenderingModule.dll</HintPath>
+        <HintPath>..\References\Rust\UnityEngine.TextRenderingModule.dll</HintPath>
       </Reference>
       <Reference Include="UnityEngine.UI">
-        <HintPath>..\references\UnityEngine.UI.dll</HintPath>
+        <HintPath>..\References\Rust\UnityEngine.UI.dll</HintPath>
       </Reference>
       <Reference Include="UnityEngine.UIElementsModule">
-        <HintPath>..\references\UnityEngine.UIElementsModule.dll</HintPath>
+        <HintPath>..\References\Rust\UnityEngine.UIElementsModule.dll</HintPath>
       </Reference>
       <Reference Include="UnityEngine.UIModule">
-        <HintPath>..\references\UnityEngine.UIModule.dll</HintPath>
+        <HintPath>..\References\Rust\UnityEngine.UIModule.dll</HintPath>
       </Reference>
     </ItemGroup>
 

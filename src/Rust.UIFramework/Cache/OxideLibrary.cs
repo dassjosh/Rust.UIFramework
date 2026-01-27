@@ -24,6 +24,7 @@ internal static class OxideLibrary
     internal static readonly string ConfigFolder = Interface.Oxide.ConfigDirectory;
     internal static readonly string DataFolder = Interface.Oxide.DataDirectory;
     internal static readonly string LogFolder = Interface.Oxide.LogDirectory;
+    internal static readonly string ExtensionFolder = Interface.Oxide.ExtensionDirectory;
     
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal static void LogInfo(string message) => Interface.Oxide.LogInfo(message); 
@@ -44,6 +45,8 @@ internal static class OxideLibrary
     internal const string ConfigFolder = "oxide/config";
     internal const string DataFolder = "oxide/data";
     internal const string LogFolder = "oxide/log";
+    internal const string ExtensionFolder = "oxide/extensions";
+
     internal static void LogInfo(string message) => Console.WriteLine(message);
     internal static void LogWarning(string message) => Console.WriteLine(message);
     internal static void LogError(string message) => Console.WriteLine(message);

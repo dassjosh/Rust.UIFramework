@@ -37,43 +37,43 @@
 
     <ItemGroup>
       <Reference Include="Assembly-CSharp">
-        <HintPath>..\references\Assembly-CSharp.dll</HintPath>
+        <HintPath>..\References\Rust\Assembly-CSharp.dll</HintPath>
       </Reference>
       <Reference Include="Assembly-CSharp-firstpass">
-        <HintPath>..\references\Assembly-CSharp-firstpass.dll</HintPath>
+        <HintPath>..\References\Rust\Assembly-CSharp-firstpass.dll</HintPath>
       </Reference>
       <Reference Include="BoomlagoonJSON">
-        <HintPath>..\references\BoomlagoonJSON.dll</HintPath>
+        <HintPath>..\References\Rust\BoomlagoonJSON.dll</HintPath>
       </Reference>
       <Reference Include="Facepunch.Network">
-        <HintPath>..\references\Facepunch.Network.dll</HintPath>
+        <HintPath>..\References\Rust\Facepunch.Network.dll</HintPath>
       </Reference>
       <Reference Include="Facepunch.Unity">
-        <HintPath>..\references\Facepunch.Unity.dll</HintPath>
+        <HintPath>..\References\Rust\Facepunch.Unity.dll</HintPath>
       </Reference>
       <Reference Include="Facepunch.UnityEngine">
-        <HintPath>..\references\Facepunch.UnityEngine.dll</HintPath>
+        <HintPath>..\References\Rust\Facepunch.UnityEngine.dll</HintPath>
       </Reference>
       <Reference Include="Oxide.Core">
-        <HintPath>..\references\Oxide.Core.dll</HintPath>
+        <HintPath>..\References\Rust\Oxide.Core.dll</HintPath>
       </Reference>
       <Reference Include="Oxide.CSharp">
-        <HintPath>..\references\Oxide.CSharp.dll</HintPath>
+        <HintPath>..\References\Rust\Oxide.CSharp.dll</HintPath>
       </Reference>
       <Reference Include="Rust.Global">
-        <HintPath>..\references\Rust.Global.dll</HintPath>
+        <HintPath>..\References\Rust\Rust.Global.dll</HintPath>
       </Reference>
       <Reference Include="UnityEngine">
-        <HintPath>..\references\UnityEngine.dll</HintPath>
+        <HintPath>..\References\Rust\UnityEngine.dll</HintPath>
       </Reference>
       <Reference Include="UnityEngine.CoreModule">
-        <HintPath>..\references\UnityEngine.CoreModule.dll</HintPath>
+        <HintPath>..\References\Rust\UnityEngine.CoreModule.dll</HintPath>
       </Reference>
       <Reference Include="UnityEngine.TextRenderingModule">
-        <HintPath>..\references\UnityEngine.TextRenderingModule.dll</HintPath>
+        <HintPath>..\References\Rust\UnityEngine.TextRenderingModule.dll</HintPath>
       </Reference>
       <Reference Include="UnityEngine.UI">
-        <HintPath>..\references\UnityEngine.UI.dll</HintPath>
+        <HintPath>..\References\Rust\UnityEngine.UI.dll</HintPath>
       </Reference>
     </ItemGroup>
 
