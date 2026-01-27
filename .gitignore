@@ -356,3 +356,5 @@ MigrationBackup/
 src/References/Rust/*.dll
 
 *.received.*
+
+**/PolySharp.SourceGenerators/**
