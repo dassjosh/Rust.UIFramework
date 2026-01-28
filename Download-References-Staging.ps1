@@ -1,6 +1,6 @@
 # Clear the current directory (except the script itself)
 
-$resourcesDir = Join-Path -Path $PSScriptRoot -ChildPath "src/references"
+$resourcesDir = Join-Path -Path $PSScriptRoot -ChildPath "src/references/Rust"
 
 New-Item -ItemType Directory -Force -Path $resourcesDir
 

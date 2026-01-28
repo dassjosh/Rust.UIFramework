@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
+using Cysharp.Threading.Tasks;
 using Oxide.Core;
 using Oxide.Core.Extensions;
 using Oxide.Ext.UiFramework.Animation;
@@ -12,6 +13,7 @@ using Oxide.Ext.UiFramework.Logging;
 using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Threading;
 using Oxide.Ext.UiFramework.Types;
+using Oxide.Ext.UiFramework.UniTasks;
 
 namespace Oxide.Ext.UiFramework;
 
@@ -38,6 +40,7 @@ public class UiFrameworkExtension : Extension
     {
         Singleton<DataHandler>.Instance.LoadAll();
         GlobalLogger = Singleton<UiLoggerFactory>.Instance.CreateGlobalLogger();
+        UniTaskInstaller.InstallUniTask();
         GlobalLogger.Info($"Using UiFramework v{Version}");
         OxideLibrary.ExtensionManager = Manager;
         Manager.RegisterPluginLoader(new UiFrameworkExtPluginLoader());

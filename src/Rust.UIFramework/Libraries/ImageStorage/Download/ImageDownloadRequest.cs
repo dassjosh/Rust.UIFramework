@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using Cysharp.Threading.Tasks;
 using Oxide.Ext.UiFramework.Config;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Plugins;
@@ -44,13 +45,13 @@ public sealed class ImageDownloadRequest(string url)
         URLRequests.Clear();
     }
 
-    public void OnDownloadComplete(byte[] image)
+    public async UniTask OnDownloadComplete(byte[] image)
     {
         State = DownloadState.Completed;
         Image = image;
         StatusCode = HttpStatusCode.OK;
         Message = null;
-        Singleton<UiImageStorage>.Instance.OnDownloadCompleted(this);
+        await Singleton<UiImageStorage>.Instance.OnDownloadCompleted(this);
     }
 
     internal void OnImageStored(ImageId imageId)

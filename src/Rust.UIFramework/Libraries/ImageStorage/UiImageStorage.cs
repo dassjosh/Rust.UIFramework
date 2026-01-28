@@ -1,7 +1,9 @@
 ﻿using System;
+using Cysharp.Threading.Tasks;
 using Oxide.Core;
 using Oxide.Core.Plugins;
 using Oxide.Ext.UiFramework.Cache;
+using Oxide.Ext.UiFramework.Config;
 using Oxide.Ext.UiFramework.Constants;
 using Oxide.Ext.UiFramework.Data;
 using Oxide.Ext.UiFramework.Enums;
@@ -21,7 +23,6 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
     private readonly ImageDownloadQueue _downloader;
     private readonly IImageDatabase _db = OxideLibrary.GetLibrary<IImageDatabase>(nameof(IImageDatabase));
     private readonly IUiLogger<UiImageStorage> _logger = Singleton<UiLoggerFactory>.Instance.CreateExtensionLogger<UiImageStorage>();
-    private readonly IImageStorageBehavior _storage;
     
     public bool IsReady { get; private set; }
     
@@ -30,11 +31,6 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
     private UiImageStorage()
     {
         _downloader = new ImageDownloadQueue();
-#if SERVER
-        _storage = SingletonBehavior<ImageStorageBehavior>.Instance;
-#else
-        _storage = Singleton<ImageStorageBehavior>.Instance;
-#endif
     }
 
     public string Get(IUiFrameworkPlugin plugin, string nameOrUrl, GetImageOptions options = null)
@@ -146,8 +142,13 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
 
     public bool IsDownloading(string url) => _downloader.IsDownloading(url);
 
-    internal void OnDownloadCompleted(ImageDownloadRequest download) => _storage.OnDownloadCompleted(download);
-    
+    internal async UniTask OnDownloadCompleted(ImageDownloadRequest request)
+    {
+        await UniTask.SwitchToMainThread();
+        StoreDownloadedImage(request);
+        await UniTask.SwitchToThreadPool();
+    }
+
     internal void StoreDownloadedImage(ImageDownloadRequest download)
     {
         byte[] image = download.Image;

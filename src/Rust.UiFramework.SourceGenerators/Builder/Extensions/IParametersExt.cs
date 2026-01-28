@@ -34,6 +34,19 @@ public static class IParametersExt
             return builder;
         }
         
+        public T AddParameters<TValue>(IEnumerable<TValue> parameters, Action<TValue, ParameterBuilder, int> parameter)
+        {
+            builder.Parameters ??= [];
+            int index = 0;
+            foreach (TValue data in parameters)
+            {
+                ParameterBuilder parm = new();
+                parameter(data, parm, index++);
+                builder.Parameters.Add(parm);
+            }
+            return builder;
+        }
+        
         public IEnumerable<ParameterBuilder> Parameters => builder.Parameters ?? Enumerable.Empty<ParameterBuilder>();
 
         public void BuildParameters(StringBuilder sb, int indent)

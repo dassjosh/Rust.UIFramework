@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using Newtonsoft.Json;
 using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Config;
@@ -44,7 +45,7 @@ public class UiPlayerAvatars : BaseUiFrameworkLibrary, ISingleton
             _httpClient = new HttpClient(handler)
             {
                 Timeout = TimeSpan.FromSeconds(30),
-                BaseAddress = new Uri($"https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/")
+                BaseAddress = new Uri("https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/")
             };
         }
     }
@@ -58,14 +59,13 @@ public class UiPlayerAvatars : BaseUiFrameworkLibrary, ISingleton
     {
         if (_httpClient != null)
         {
-#pragma warning disable EPC13
-            Task.Run(() => GetPlayerAvatarAsync(player.userID));
-#pragma warning restore EPC13
+            GetPlayerAvatarAsync(player.userID).Forget();
         }
     }
 
-    private async Task GetPlayerAvatarAsync(ulong steamId)
+    private async UniTaskVoid GetPlayerAvatarAsync(ulong steamId)
     {
+        await UniTask.SwitchToThreadPool();
         try
         {
             HttpResponseMessage response = await _httpClient.GetAsync($"?key={_config.ApiKey}&steamids={StringCache<ulong>.ToString(steamId)}").ConfigureAwait(false);
@@ -81,7 +81,7 @@ public class UiPlayerAvatars : BaseUiFrameworkLibrary, ISingleton
         }
         catch (Exception ex)
         {
-            _logger.Exception("An error occured getting player avatar. SteamId: {0}", steamId, ex);
+            _logger.Exception("An exception occured getting player avatar. SteamId: {0}", steamId, ex);
         }
     }
     
