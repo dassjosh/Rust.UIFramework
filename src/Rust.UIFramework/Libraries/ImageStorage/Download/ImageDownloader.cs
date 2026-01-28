@@ -2,24 +2,25 @@
 using System.Net;
 using System.Net.Http;
 using System.Threading;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using Oxide.Ext.UiFramework.Config;
 using Oxide.Ext.UiFramework.Logging;
 using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Libraries;
 
-internal class ThreadedImageDownloader : IImageDownloader
+internal class ImageDownloader
 {
     private readonly HttpClient _httpClient;
     private readonly CancellationTokenSource _cancellationTokenSource = new();
     private readonly object _taskLock = new();
     private int _activeWorkerCount;
-    private readonly IUiLogger<ThreadedImageDownloader> _logger = Singleton<UiLoggerFactory>.Instance.CreateExtensionLogger<ThreadedImageDownloader>();
-    private ImageDownloadQueue _downloader;
+    private readonly IUiLogger<ImageDownloader> _logger = Singleton<UiLoggerFactory>.Instance.CreateExtensionLogger<ImageDownloader>();
+    private readonly ImageDownloadQueue _downloader;
     
-    public ThreadedImageDownloader()
+    public ImageDownloader(ImageDownloadQueue downloader)
     {
+        _downloader = downloader;
         HttpClientHandler handler = new()
         {
             AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate,
@@ -45,11 +46,6 @@ internal class ThreadedImageDownloader : IImageDownloader
         _httpClient.DefaultRequestHeaders.Add("user-agent", $"Rust UiFramework (https://github.com/dassjosh/Rust.UIFramework, v{UiFrameworkExtension.Instance.Version})");
     }
 
-    public void OnInit(ImageDownloadQueue queue)
-    {
-        _downloader = queue;
-    }
-
     /// <summary>
     /// Ensures that worker tasks are running if needed
     /// </summary>
@@ -69,14 +65,7 @@ internal class ThreadedImageDownloader : IImageDownloader
             int workersToStart = Math.Min(UiFrameworkConfig.Instance.ImageStorage.MaxConcurrentDownloads - _activeWorkerCount, _downloader.RequestQueue.Count);
             for (int i = 0; i < workersToStart; i++)
             {
-#pragma warning disable EPC13
-                Task.Factory.StartNew(
-                    () => ProcessDownloadQueue(_cancellationTokenSource.Token),
-                    _cancellationTokenSource.Token,
-                    TaskCreationOptions.None,
-                    TaskScheduler.Default);
-#pragma warning restore EPC13
-                    
+                ProcessDownloadQueue(_cancellationTokenSource.Token).Forget();
                 Interlocked.Increment(ref _activeWorkerCount);
                 _logger.Debug("Started new worker task. Active workers: {0}/{1}", _activeWorkerCount, UiFrameworkConfig.Instance.ImageStorage.MaxConcurrentDownloads);
             }
@@ -87,10 +76,12 @@ internal class ThreadedImageDownloader : IImageDownloader
     /// Processes the download queue, handling requests as they come in
     /// </summary>
     /// <param name="cancellationToken">Token to monitor for cancellation</param>
-    private async ValueTask ProcessDownloadQueue(CancellationToken cancellationToken)
+    private async UniTaskVoid ProcessDownloadQueue(CancellationToken cancellationToken)
     {
         try
         {
+            await UniTask.SwitchToThreadPool();
+            
             while (!cancellationToken.IsCancellationRequested && _downloader.RequestQueue.TryDequeue(out UrlDownloadState request))
             {
                 if (request.IsCompleted)
@@ -107,7 +98,7 @@ internal class ThreadedImageDownloader : IImageDownloader
                 
                 try
                 {
-                    await DownloadImageAsync(request, cancellationToken).ConfigureAwait(false);
+                    await DownloadImageAsync(request, cancellationToken);
                 }
                 catch (OperationCanceledException)
                 {
@@ -141,7 +132,7 @@ internal class ThreadedImageDownloader : IImageDownloader
     /// <param name="state">The download request</param>
     /// <param name="cancellationToken">Token to monitor for cancellation</param>
     /// <returns>True if the download was successful, otherwise false</returns>
-    private async ValueTask<bool> DownloadImageAsync(UrlDownloadState state, CancellationToken cancellationToken)
+    private async UniTask<bool> DownloadImageAsync(UrlDownloadState state, CancellationToken cancellationToken)
     {
         try
         {
@@ -151,7 +142,7 @@ internal class ThreadedImageDownloader : IImageDownloader
             if (response.IsSuccessStatusCode)
             {
                 byte[] data = await response.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
-                state.OnDownloadComplete(data);
+                await state.OnDownloadComplete(data);
                 _logger.Debug("Image Downloaded Successfully. Plugin: {0} Url: {1} Attempt: {2}", state.GetFirstPluginId(), state.Url, state.Attempts);
                 return true;
             }

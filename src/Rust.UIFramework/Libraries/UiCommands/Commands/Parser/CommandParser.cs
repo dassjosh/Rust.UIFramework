@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Threading.Tasks;
-using Oxide.Ext.UiFramework.Extensions;
+using Cysharp.Threading.Tasks;
 
 namespace Oxide.Ext.UiFramework.Libraries;
 
@@ -8,30 +7,30 @@ internal class CommandParser(ICommandParserData command) : BaseCommandParser(com
 {
     protected override void RunCommandInternal(ExecutionData data, UiCommandTokenizer args)
     {
-        switch (Command.Mode)
+        RunCommandAsync(data).Forget();
+    }
+
+    private async UniTask RunCommandAsync(ExecutionData data)
+    {
+        try
         {
-            case ExecutorMode.Void:
-                try
-                {
+            switch (Command.Mode)
+            {
+                case ExecutorMode.Void:
                     ((Action<ExecutionData>)Command.Delegate)(data);
-                }
-                catch (Exception ex)
-                {
-                    LogException(ex);
-                }
-                finally
-                {
-                    data.TryDispose();
-                }
-                break;
-            case ExecutorMode.Task:
-                TaskExt.RunSafely(((Func<ExecutionData, Task>)Command.Delegate)(data), LogException, data);
-                break;
-            case ExecutorMode.ValueTask:
-                TaskExt.RunSafely(((Func<ExecutionData, ValueTask>)Command.Delegate)(data), LogException, data);
-                break;
-            case ExecutorMode.UniTask:
-                break;
+                    break;
+                case ExecutorMode.UniTask:
+                    await ((Func<ExecutionData, UniTask>)Command.Delegate)(data);
+                    break;
+            }
+        }
+        catch (Exception ex)
+        {
+            LogException(ex);
+        }
+        finally
+        {
+            data.TryDispose();
         }
     }
 }

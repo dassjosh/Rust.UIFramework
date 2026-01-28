@@ -29,14 +29,13 @@ public class RegisterCommandsGenerator : BaseGenerator, IIncrementalGenerator
     {
         var methods = Enum.GetValues(typeof(ExecutorMode))
             .Cast<ExecutorMode>()
-            .Where(mode => mode != ExecutorMode.UniTask)
             .SelectMany(
                 _ => Enumerable.Range(0, UiCommands.MaxArgs + 1),
                 (mode, arg) => new { mode, arg }
             );
         
         return new CodeBuilder()
-            .Usings(["System","System.Threading.Tasks","Oxide.Ext.UiFramework.Extensions", "Oxide.Ext.UiFramework.Types"])
+            .Usings(["Oxide.Ext.UiFramework.Extensions", "Oxide.Ext.UiFramework.Types"])
             .Namespace(classSymbol.ContainingNamespace)
             .Add(t => t.Public().Partial().Class().Name("UiCommands")
                 .Methods(methods, (d, m) =>
@@ -60,12 +59,8 @@ public class RegisterCommandsGenerator : BaseGenerator, IIncrementalGenerator
         {
             case ExecutorMode.Void:
                 return SymbolCache.Instance.Action.Symbol.AsGeneric([SymbolCache.Instance.Libraries.UiCommands.ExecutionData.Symbol.ToString(), ..generics]);
-            case ExecutorMode.Task:
-                return SymbolCache.Instance.Func.Symbol.AsGeneric([SymbolCache.Instance.Libraries.UiCommands.ExecutionData.Symbol.ToString(), ..generics, SymbolCache.Instance.Task.Symbol.ToString()]);
-            case ExecutorMode.ValueTask:
-                return SymbolCache.Instance.Func.Symbol.AsGeneric([SymbolCache.Instance.Libraries.UiCommands.ExecutionData.Symbol.ToString(), ..generics, SymbolCache.Instance.ValueTask.Symbol.ToString()]);
-            //case ExecutorMode.UniTask:
-               // break;
+            case ExecutorMode.UniTask:
+                return SymbolCache.Instance.Func.Symbol.AsGeneric([SymbolCache.Instance.Libraries.UiCommands.ExecutionData.Symbol.ToString(), ..generics, SymbolCache.Instance.UniTask.UniTask.Symbol.ToString()]);
             default:
                 throw new ArgumentOutOfRangeException(nameof(mode), mode, null);
         }

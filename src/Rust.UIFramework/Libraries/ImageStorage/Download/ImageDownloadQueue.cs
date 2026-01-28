@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using Oxide.Ext.UiFramework.Config;
 using Oxide.Ext.UiFramework.Logging;
 using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Types;
@@ -15,20 +14,11 @@ internal class ImageDownloadQueue
     internal readonly ConcurrentQueue<UrlDownloadState> RequestQueue = [];
     private readonly ConcurrentDictionary<string, UrlDownloadState> _urlRequests = new();
     private readonly IUiLogger<ImageDownloadQueue> _logger = Singleton<UiLoggerFactory>.Instance.CreateExtensionLogger<ImageDownloadQueue>();
-    private readonly IImageDownloader _downloader;
+    private readonly ImageDownloader _downloader;
     
     public ImageDownloadQueue()
     {
-        if (UiFrameworkConfig.Instance.Threading.EnableImageDownloadThread)
-        {
-            _downloader = new ThreadedImageDownloader();
-        }
-        else
-        {
-            _downloader = SingletonBehavior<BehaviorImageDownloader>.Instance;
-        }
-        
-        _downloader.OnInit(this);
+        _downloader = new ImageDownloader(this);
     }
 
     /// <summary>

@@ -9,11 +9,11 @@ using Oxide.Ext.UiFramework.Logging;
 
 namespace Oxide.Ext.UiFramework.UniTasks;
 
-internal static class UniTaskValidator
+internal static class UniTaskInstaller
 {
     private const string ExtensionDownloadUrl = "https://github.com/dassjosh/Oxide.Ext.UniTask/releases/latest/download/Oxide.Ext.UniTask.dll";
 
-    public static void ValidateUniTask()
+    public static void InstallUniTask()
     {
         if (!IsUniTaskInstalled())
         {
@@ -23,7 +23,9 @@ internal static class UniTaskValidator
         }
     }
     
-    private static bool IsUniTaskInstalled() => File.Exists(Path.Combine(OxideLibrary.ExtensionFolder, "UniTask.dll")) || File.Exists(Path.Combine(OxideLibrary.ExtensionFolder, "Oxide.Ext.UniTask.dll"));
+    private static bool IsUniTaskInstalled() => File.Exists(Path.Combine(OxideLibrary.ExtensionFolder, "UniTask.dll")) 
+                                                || File.Exists(Path.Combine(OxideLibrary.ExtensionFolder, "Oxide.Ext.UniTask.dll"))
+                                                || Directory.Exists(Path.Combine(OxideLibrary.RootFolder, "carbon"));
 
     private static void DownloadUniTaskExtension()
     {
@@ -46,6 +48,7 @@ internal static class UniTaskValidator
         {
             Interface.Oxide.LoadExtension("Oxide.Ext.UniTask");
             GetUniTaskExtension()?.OnModLoad(); //Need to call OnModLoad here since Oxide won't when we load extensions this way
+            UiFrameworkExtension.GlobalLogger.Info("UniTask extension installed successfully");
         }
     }
 

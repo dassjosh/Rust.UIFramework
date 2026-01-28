@@ -40,7 +40,7 @@ public class UiFrameworkExtension : Extension
     {
         Singleton<DataHandler>.Instance.LoadAll();
         GlobalLogger = Singleton<UiLoggerFactory>.Instance.CreateGlobalLogger();
-        UniTaskValidator.ValidateUniTask();
+        UniTaskInstaller.InstallUniTask();
         GlobalLogger.Info($"Using UiFramework v{Version}");
         OxideLibrary.ExtensionManager = Manager;
         Manager.RegisterPluginLoader(new UiFrameworkExtPluginLoader());

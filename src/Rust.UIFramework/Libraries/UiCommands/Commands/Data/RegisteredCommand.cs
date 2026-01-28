@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Plugins;
 
@@ -49,21 +49,11 @@ public class RegisteredCommand : ICommandParserData, ICommandBuilderData
         {
             return ExecutorMode.Void;
         }
-
-        if (returnType == typeof(Task))
-        {
-            return ExecutorMode.Task;
-        }
-
-        if (returnType == typeof(ValueTask))
-        {
-            return ExecutorMode.ValueTask;
-        }
         
-        // if (returnType == typeof(UniTask))
-        // {
-        //     return ExecutorMode.UniTask;
-        // }
+        if (returnType == typeof(UniTask))
+        {
+            return ExecutorMode.UniTask;
+        }
 
         throw new InvalidOperationException($"Return type {returnType} is not supported");
     }

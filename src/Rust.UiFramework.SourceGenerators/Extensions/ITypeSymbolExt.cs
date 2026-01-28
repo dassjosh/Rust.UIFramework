@@ -136,7 +136,9 @@ public static class ITypeSymbolExt
         
         public string AsGeneric(IEnumerable<string> generics)
         {
-            string[] genArray = generics.ToArray();
+            string[] genArray = generics
+                .Where(g => !string.IsNullOrEmpty(g))
+                .ToArray();
             return genArray.Length == 0 ? symbol.ToString() : $"{symbol.ContainingNamespace}.{symbol.Name}<{string.Join(", ", genArray)}>";
         }
     }
