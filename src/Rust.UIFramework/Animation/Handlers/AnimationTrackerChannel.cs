@@ -1,7 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
 using Oxide.Ext.UiFramework.Threading;
 using Oxide.Ext.UiFramework.Types;
-using Oxide.Ext.UiFramework.Extensions;
 
 #if SERVER
 using System;
@@ -13,11 +12,11 @@ using Oxide.Ext.UiFramework.UiElements;
 
 namespace Oxide.Ext.UiFramework.Animation;
 
-internal class AnimationTrackerChannel : BaseThreadedUiChannel<UiSendRequest>, ISingleton
+internal class AnimationTrackerChannel : BaseThreadedUiChannel<UiTrackerRequest>, ISingleton
 {
     private AnimationTrackerChannel() : base(1) { }
     
-    protected override ValueTask ProcessItem(UiSendRequest item)
+    protected override UniTask ProcessItem(UiTrackerRequest item)
     {
 #if SERVER
         if (item.Builder is BaseUiBuilder builder)
@@ -34,6 +33,6 @@ internal class AnimationTrackerChannel : BaseThreadedUiChannel<UiSendRequest>, I
             }
         }
 #endif
-        return ValueTask.Completed;
+        return UniTask.CompletedTask;
     }
 }

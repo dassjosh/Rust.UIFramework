@@ -4,7 +4,7 @@ using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Threading;
 
-internal abstract class BaseUiChannel<T> : IUiChannel<T> where T : IChannelObject<T>
+internal abstract class BaseUiChannel<T> : IUiChannel<T> where T : IUiChannelObject<T>
 {
     internal readonly ConcurrentQueue<IUiChannelObject<T>> Queue = new();
     protected readonly IUiLogger Logger;

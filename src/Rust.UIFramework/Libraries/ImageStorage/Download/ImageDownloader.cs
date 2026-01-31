@@ -132,11 +132,7 @@ internal class ImageDownloader
     /// <param name="state">The download request</param>
     /// <param name="cancellationToken">Token to monitor for cancellation</param>
     /// <returns>True if the download was successful, otherwise false</returns>
-<<<<<<<< HEAD:src/Rust.UIFramework/Libraries/ImageStorage/Download/Downloader/ThreadedImageDownloader.cs
-    private async ValueTask<bool> DownloadImageAsync(ImageDownloadRequest state, CancellationToken cancellationToken)
-========
     private async UniTask<bool> DownloadImageAsync(UrlDownloadState state, CancellationToken cancellationToken)
->>>>>>>> unitask:src/Rust.UIFramework/Libraries/ImageStorage/Download/ImageDownloader.cs
     {
         try
         {

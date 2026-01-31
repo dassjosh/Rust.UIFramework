@@ -1,11 +1,7 @@
 ﻿namespace Oxide.Ext.UiFramework.Threading;
 
-internal interface IUiChannelObject
+internal interface IUiChannelObject<T> where T : IUiChannelObject<T>
 {
-    void EnqueueNext();
-}
-
-internal interface IUiChannelObject<out T> : IUiChannelObject
-{
-    T Item { get; }
+    void Enqueue();
+    void OnCompleted();
 }

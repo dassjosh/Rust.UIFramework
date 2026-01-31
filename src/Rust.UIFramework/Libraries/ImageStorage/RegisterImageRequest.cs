@@ -9,8 +9,6 @@ using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Libraries;
 
-
-
 public sealed class RegisterImageRequest
 {
     internal readonly PluginId PluginId;

@@ -3,6 +3,5 @@
 public enum ChannelMode : byte
 {
     Instant,
-    Threading,
-    Behavior
+    Threading
 }

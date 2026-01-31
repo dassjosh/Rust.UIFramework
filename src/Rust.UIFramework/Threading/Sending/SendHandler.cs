@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using Oxide.Ext.UiFramework.Config;
 using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Types;
@@ -11,7 +12,7 @@ internal class SendHandler : ISingleton
 
     private SendHandler()
     {
-        if (UiFrameworkConfig.Instance.Threading.EnableUiSendingThread)
+        if (ThreadingHelper.UiMultiThreaded)
         {
             Channel = new ThreadedSendChannel();
         }
@@ -23,12 +24,12 @@ internal class SendHandler : ISingleton
 
     private sealed class ThreadedSendChannel() : BaseThreadedUiChannel<IUiRequest>(1)
     {
-        protected override ValueTask ProcessItem(IUiRequest item)
+        protected override UniTask ProcessItem(IUiRequest item)
         {
 #if SERVER
             item.SendRequest();
 #endif
-            return ValueTask.Completed;
+            return UniTask.CompletedTask;
         }
     }
 

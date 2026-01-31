@@ -11,8 +11,7 @@ namespace Oxide.Ext.UiFramework.Libraries;
 /// </summary>
 internal class ImageDownloadQueue
 {
-    //internal readonly ConcurrentQueue<ImageDownloadRequest> RequestQueue = [];
-    internal readonly 
+    internal readonly ConcurrentQueue<ImageDownloadRequest> RequestQueue = [];
     private readonly ConcurrentDictionary<string, ImageDownloadRequest> _urlRequests = new();
     private readonly IUiLogger<ImageDownloadQueue> _logger = Singleton<UiLoggerFactory>.Instance.CreateExtensionLogger<ImageDownloadQueue>();
     private readonly ImageDownloader _downloader;

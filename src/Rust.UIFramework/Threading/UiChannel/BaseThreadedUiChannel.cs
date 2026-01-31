@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using Oxide.Ext.UiFramework.Config;
 using Oxide.Ext.UiFramework.Logging;
 
 namespace Oxide.Ext.UiFramework.Threading;
 
-internal abstract class BaseThreadedUiChannel<T>(int maxConcurrency) : BaseUiChannel<T> where T : IChannelObject<T>
+internal abstract class BaseThreadedUiChannel<T>(int maxConcurrency) : BaseUiChannel<T> where T : IUiChannelObject<T>
 {
     private int _activeWorkerCount;
     private readonly CancellationTokenSource _cancellationTokenSource = new();
@@ -38,14 +39,7 @@ internal abstract class BaseThreadedUiChannel<T>(int maxConcurrency) : BaseUiCha
             int workersToStart = Math.Min(UiFrameworkConfig.Instance.ImageStorage.MaxConcurrentDownloads - _activeWorkerCount, Queue.Count);
             for (int i = 0; i < workersToStart; i++)
             {
-#pragma warning disable EPC13
-                Task.Factory.StartNew(
-                    () => ProcessQueue(_cancellationTokenSource.Token),
-                    _cancellationTokenSource.Token,
-                    TaskCreationOptions.None,
-                    TaskScheduler.Default);
-#pragma warning restore EPC13
-                    
+                ProcessQueue(_cancellationTokenSource.Token).Forget();
                 Interlocked.Increment(ref _activeWorkerCount);
                 Logger.Debug("Started new worker task. Active workers: {0}/{1}", _activeWorkerCount, UiFrameworkConfig.Instance.ImageStorage.MaxConcurrentDownloads);
             }
@@ -58,13 +52,14 @@ internal abstract class BaseThreadedUiChannel<T>(int maxConcurrency) : BaseUiCha
         return _activeWorkerCount < maxConcurrency && !Queue.IsEmpty;
     }
 
-    private async ValueTask ProcessQueue(CancellationToken cancellationToken)
+    private async UniTaskVoid ProcessQueue(CancellationToken cancellationToken)
     {
         try
         {
+            await UniTask.SwitchToThreadPool();
             while (!cancellationToken.IsCancellationRequested && Queue.TryDequeue(out IUiChannelObject<T> request))
             {
-                await ProcessItemInternal(request).ConfigureAwait(false);
+                await ProcessItemInternal(request);
             }
         }
         finally
@@ -74,11 +69,11 @@ internal abstract class BaseThreadedUiChannel<T>(int maxConcurrency) : BaseUiCha
         }
     }
 
-    private async ValueTask ProcessItemInternal(IUiChannelObject<T> request)
+    private async UniTask ProcessItemInternal(IUiChannelObject<T> request)
     {
         try
         {
-            await ProcessItem(request.Item).ConfigureAwait(false);
+            await ProcessItem((T)request);
         }
         catch (Exception ex) when (ex is not ObjectDisposedException)
         {
@@ -86,11 +81,11 @@ internal abstract class BaseThreadedUiChannel<T>(int maxConcurrency) : BaseUiCha
         }
         finally
         {
-            request.EnqueueNext();
+            request.OnCompleted();
         }
     }
     
-    protected abstract ValueTask ProcessItem(T item);
+    protected abstract UniTask ProcessItem(T item);
 
     internal override void OnServerShutdown()
     {

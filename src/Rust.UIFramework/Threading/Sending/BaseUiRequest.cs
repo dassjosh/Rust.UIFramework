@@ -8,19 +8,11 @@ namespace Oxide.Ext.UiFramework.Threading;
 internal abstract class BaseUiRequest : BasePoolable, IUiRequest
 {
     public SendInfo Send;
+    private static readonly IUiChannel<IUiRequest> Channel = Singleton<SendHandler>.Instance.Channel;
 
     protected void Init(SendInfo send)
     {
         Send = send;
-    }
-    
-    public virtual IUiChannel<IUiRequest> GetChannel(int index)
-    {
-        return index switch
-        {
-            0 => Singleton<SendHandler>.Instance.Channel,
-            _ => null
-        };
     }
 
     public abstract void SendRequest();
@@ -32,5 +24,15 @@ internal abstract class BaseUiRequest : BasePoolable, IUiRequest
             UiPool.Internal.FreeList(Send.connections);
         }
         Send = default;
+    }
+
+    public void Enqueue()
+    {
+        Channel.Enqueue(this);
+    }
+
+    public virtual void OnCompleted()
+    {
+        Dispose();
     }
 }

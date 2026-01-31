@@ -3,7 +3,7 @@ using Oxide.Ext.UiFramework.Logging;
 
 namespace Oxide.Ext.UiFramework.Threading;
 
-internal abstract class BaseInstantUiChannel<T> : BaseUiChannel<T> where T : IChannelObject<T>
+internal abstract class BaseInstantUiChannel<T> : BaseUiChannel<T> where T : IUiChannelObject<T>
 {
     public override void Enqueue(IUiChannelObject<T> item)
     {
@@ -14,7 +14,7 @@ internal abstract class BaseInstantUiChannel<T> : BaseUiChannel<T> where T : ICh
     {
         try
         {
-            ProcessItem(request.Item);
+            ProcessItem((T)request);
         }
         catch (Exception ex)
         {
@@ -22,7 +22,7 @@ internal abstract class BaseInstantUiChannel<T> : BaseUiChannel<T> where T : ICh
         }
         finally
         {
-            request.EnqueueNext();
+            request.OnCompleted();
         }
     }
     
