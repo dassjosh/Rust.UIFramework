@@ -18,6 +18,15 @@ public class UiButton : BaseUiOutline
         button.Button.Command = command;
         return button;
     }
+    
+    public static UiButton CreateCloseCommand(in UiPosition pos, in UiOffset offset, UiColor color, string command, string close)
+    {
+        UiButton button = CreateBase<UiButton>(pos, offset);
+        button.Button.Color = color;
+        button.Button.Command = command;
+        button.Button.Close = close;
+        return button;
+    }
 
     public static UiButton CreateClose(in UiPosition pos, in UiOffset offset, UiColor color, string close)
     {

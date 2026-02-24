@@ -48,6 +48,13 @@ public partial class BaseUiBuilder
     #endregion
 
     #region Button
+    public UiButton CloseCommandButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor color, string command, string close)
+    {
+        UiButton button = UiButton.CreateCloseCommand(pos, offset, color, command, close);
+        AddComponent(button, parent);
+        return button;
+    }
+    
     public UiButton CommandButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor color, string command)
     {
         UiButton button = UiButton.CreateCommand(pos, offset, color, command);
@@ -55,6 +62,8 @@ public partial class BaseUiBuilder
         return button;
     }
 
+    public UiButton CloseCommandButton(in UiReference parent, in UiPosition pos, UiColor color, string command, string close) => CloseCommandButton(parent, pos, default, color, command, close);
+    
     public UiButton CommandButton(in UiReference parent, in UiPosition pos, UiColor color, string command) => CommandButton(parent, pos, default, color, command);
 
     public UiButton CloseButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor color, string close)
