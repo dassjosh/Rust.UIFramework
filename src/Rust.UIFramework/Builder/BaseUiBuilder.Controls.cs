@@ -26,7 +26,17 @@ public partial class BaseUiBuilder
 
     public UiButton TextButton(in UiReference parent, in UiPosition pos, string text, int textSize, UiColor textColor, UiColor buttonColor, string command, TextAnchor align = TextAnchor.MiddleCenter) 
         => TextButton(parent, pos, default, text, textSize, textColor, buttonColor, command, align);
-        
+
+    public UiButton CloseTextCommandButton(in UiReference parent, in UiPosition pos, in UiOffset offset, string text, int textSize, UiColor textColor, UiColor buttonColor, string command, string close, TextAnchor align = TextAnchor.MiddleCenter)
+    {
+        UiButton button = CloseCommandButton(parent, pos, offset, buttonColor, command, close);
+        Label(button, UiPosition.HorizontalPaddedFull, text, textSize, textColor, align);
+        return button;
+    }
+
+    public UiButton CloseTextCommandButton(in UiReference parent, in UiPosition pos, string text, int textSize, UiColor textColor, UiColor buttonColor, string command, string close, TextAnchor align = TextAnchor.MiddleCenter) 
+        => CloseTextCommandButton(parent, pos, default, text, textSize, textColor, buttonColor, command, close, align);
+
     public UiButton ImageFileStorageButton(in UiReference parent, in UiPosition pos, in UiOffset offset, UiColor buttonColor, string png, string command)
     {
         UiButton button = CommandButton(parent, pos, offset, buttonColor, command);
