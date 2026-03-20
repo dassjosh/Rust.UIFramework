@@ -109,8 +109,8 @@ public abstract partial class BaseUiComponent : BasePoolable
         writer.WriteEndObject();
     }
     
-    internal T GetOrAddSubComponent<T>() where T : SubComponent, new() => Component.GetOrAddSubComponent<T>();
-    internal T GetOrAddLayoutComponent<T>() where T : BaseLayoutComponent, new()
+    public T GetOrAddSubComponent<T>() where T : BaseComponent, ISubComponent, new() => Component.GetOrAddSubComponent<T>();
+    public T GetOrAddLayoutComponent<T>() where T : BaseLayoutComponent, new()
     {
         T layout = GetOrAddSubComponent<T>();
         layout.Owner = this;
