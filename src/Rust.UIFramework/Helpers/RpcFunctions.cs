@@ -45,7 +45,7 @@ public static class RpcFunctions
     
     public static void SendFilePng(SendInfo send, uint textureId, byte[] bytes)
     {
-        NetWrite write = ClientRPCStart(AddUi);
+        NetWrite write = ClientRPCStart(ReceiveFilePng);
         if (write != null)
         {
             write.UInt32(textureId);
