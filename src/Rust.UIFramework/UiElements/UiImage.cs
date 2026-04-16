@@ -1,16 +1,48 @@
-﻿using Oxide.Ext.UiFramework.Colors;
-using Oxide.Ext.UiFramework.Offsets;
-using Oxide.Ext.UiFramework.Positions;
+﻿using System;
+using Oxide.Ext.UiFramework.Colors;
+using Oxide.Ext.UiFramework.Components;
+using Oxide.Ext.UiFramework.Interfaces;
+using Rust.UiFramework.SourceGenerators.Attributes;
+using ImageType = UnityEngine.UI.Image.Type;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-public class UiImage : BaseUiImage
+[GenerateUiElement]
+[GenerateBuilderMethods]
+public partial class UiImage : BaseUiComponent, IImageType<UiImage>, ISprite<UiImage>, IMaterial<UiImage>, IFadeIn<UiImage>, IUiColor<UiImage>
 {
-    public static UiImage CreateSpriteImage(in UiPosition pos, in UiOffset offset, UiColor color, string sprite)
+    public partial ImageType ImageType { get; set; }
+    public partial string Sprite { get; set; }
+    public partial string Material { get; set; }
+    public partial float FadeIn { get; set; }
+    public partial UiColor Color { get; set; }
+    public partial UiReference PlaceholderFor { get; set; }
+    public partial bool FillCenter { get; set; }
+    
+    public readonly ImageComponent Image;
+
+    public UiImage() : this(new ImageComponent()) { }
+
+    private UiImage(ImageComponent component) : base(component)
     {
-        UiImage image = CreateBase<UiImage>(pos, offset);
-        image.Image.Color = color;
-        image.Image.Sprite = sprite;
-        return image;
+        Image = component;
     }
+    
+    public UiImage Init(string sprite, UiColor color)
+    {
+        Color = color;
+        Sprite = sprite;
+        return this;
+    }
+    
+    [Obsolete("Use SetSprite().SetMaterial().SetImageType() instead.")]
+    public UiImage SetSpriteMaterialImage(string sprite = null, string material = null, ImageType type = ImageType.Simple)
+    {
+        Sprite = sprite;
+        Material = material;
+        ImageType = type;
+        return this;
+    }
+    
+    public UiImage SetPlaceholderFor(UiInput input) => SetPlaceholderFor(input.Reference);
 }

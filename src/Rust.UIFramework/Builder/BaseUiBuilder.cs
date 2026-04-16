@@ -1,45 +1,45 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Network;
 using Oxide.Ext.UiFramework.Cache;
+using Oxide.Ext.UiFramework.Config;
 using Oxide.Ext.UiFramework.Controls;
 using Oxide.Ext.UiFramework.Enums;
+using Oxide.Ext.UiFramework.Extensions;
+using Oxide.Ext.UiFramework.Interfaces;
 using Oxide.Ext.UiFramework.Json;
+using Oxide.Ext.UiFramework.Layouts;
+using Oxide.Ext.UiFramework.Plugins;
+using Oxide.Ext.UiFramework.Types;
 using Oxide.Ext.UiFramework.UiElements;
 
 namespace Oxide.Ext.UiFramework.Builder;
 
 public abstract partial class BaseUiBuilder : BaseBuilder
 {
-    protected readonly List<BaseUiComponent> Components = new();
-    protected readonly List<BaseUiControl> Controls = new();
-    protected readonly List<BaseUiComponent> Anchors = new();
+    public UpdateMode UpdateMode;
+    public NamingMode NamingMode;
+    
+    protected readonly List<BaseUiComponent> Components = [];
+    protected readonly List<BaseUiControl> Controls = [];
+    protected readonly List<BaseUiComponent> Anchors = [];
+    protected readonly List<BaseUiLayout> Layouts = [];
         
     protected string Font;
-    protected static string GlobalFont;
+    
+    protected INamingStrategy Naming = Singleton<DefaultNamingStrategy>.Instance;
+    protected INamingCache NamingCache = Singleton<UiNamingCache>.Instance.Default;
+    
+    private static readonly string GlobalFont = UiFrameworkConfig.Instance.Font.DefaultFont;
 
-    static BaseUiBuilder()
-    {
-        SetGlobalFont(UiFont.RobotoCondensedRegular);
-    }
+    public ReadOnlySpan<BaseUiComponent> ComponentAsReadonly() => Components.GetAsReadOnlySpan();
+    public ReadOnlySpan<BaseUiControl> ControlAsReadonly() => Controls.GetAsReadOnlySpan();
+    public ReadOnlySpan<BaseUiComponent> AnchorAsReadonly() => Anchors.GetAsReadOnlySpan();
+    public ReadOnlySpan<BaseUiLayout> LayoutAsReadonly() => Layouts.GetAsReadOnlySpan();
         
-    public void EnsureCapacity(int capacity)
-    {
-        if (Components.Capacity < capacity)
-        {
-            Components.Capacity = capacity;
-        }
-    }
-        
-    public void SetCurrentFont(UiFont font)
-    {
-        Font = UiFontCache.GetUiFont(font);
-    }
-        
-    public static void SetGlobalFont(UiFont font)
-    {
-        GlobalFont = UiFontCache.GetUiFont(font);
-    }
-        
+    public void SetCurrentFont(UiFont font) => SetCurrentFont(UiFontCache.GetUiFont(font));
+    public void SetCurrentFont(string font) => Font = font;
+
     public override byte[] GetBytes()
     {
         JsonFrameworkWriter writer = CreateWriter();
@@ -48,71 +48,79 @@ public abstract partial class BaseUiBuilder : BaseBuilder
         return bytes;
     }
         
-    internal override void SendUi(SendInfo send)
+    internal override void SendUi(SendInfo send, in UiDebugOptions? options)
     {
         JsonFrameworkWriter writer = CreateWriter();
-        AddUi(send, writer);
+        AddUi(send, writer, options);
         writer.Dispose();
     }
         
     public JsonFrameworkWriter CreateWriter()
     {
-        int count = Controls.Count;
-        if (count != 0)
-        {
-            for (int index = 0; index < count; index++)
-            {
-                BaseUiControl control = Controls[index];
-                control.RenderControl(this);
-            }
-        }
-            
-        JsonFrameworkWriter writer = JsonFrameworkWriter.Create();
+        JsonFrameworkWriter writer = JsonFrameworkWriter.Create(Plugin ?? UiFrameworkPlugin.Instance);
         writer.WriteStartArray();
         WriteComponentsInternal(writer);
         writer.WriteEndArray();
         return writer;
     }
 
-    protected abstract void WriteComponentsInternal(JsonFrameworkWriter writer);
-        
-    protected override void EnterPool()
+    private void WriteComponentsInternal(JsonFrameworkWriter writer)
     {
-        base.EnterPool();
-        FreeComponents();
-        Font = null;
+        PreprocessElements();
+        WriteComponents(writer, Components);
+        WriteComponents(writer, Anchors);
     }
 
-    private void FreeComponents()
+    private static void WriteComponents<T>(JsonFrameworkWriter writer, List<T> components) where T : BaseUiComponent
     {
-        int count = Components.Count;
+        int count = components.Count;
+        T[] array = components.GetInternalArray();
         for (int index = 0; index < count; index++)
         {
-            Components[index].Dispose();
+            array[index].WriteElement(writer);
         }
-                
-        Components.Clear();
-
-        count = Controls.Count;
-        for (int index = 0; index < count; index++)
-        {
-            Controls[index].Dispose();
-        }
-                
-        Controls.Clear();
-            
-        count = Anchors.Count;
-        for (int index = 0; index < count; index++)
-        {
-            Anchors[index].Dispose();
-        }
-
-        Anchors.Clear();
     }
 
+    private void PreprocessElements()
+    {
+        ProcessLayouts();
+    }
+
+    private void ProcessLayouts()
+    {
+        int count = Layouts.Count;
+        for (int index = 0; index < count; index++)
+        {
+            Layouts[index].CalculateElementPositions();
+        }
+    }
+    
+    public override void Combine(SendInfo send, JsonFrameworkWriter writer)
+    {
+        WriteComponentsInternal(writer);
+    }
+    
+    protected virtual void FreeComponents()
+    {
+        Components.FreeValues();
+        Controls.FreeValues();
+        Anchors.FreeValues();
+        Layouts.FreeValues();
+    }
+    
     protected override void LeavePool()
     {
         base.LeavePool();
         Font = GlobalFont;
+        UpdateMode = UpdateMode.None;
+        NamingMode = NamingMode.Child;
+    }
+    
+    protected override void EnterPool()
+    {
+        base.EnterPool();
+        FreeComponents();
+        Naming = Singleton<DefaultNamingStrategy>.Instance;
+        NamingCache = Singleton<UiNamingCache>.Instance.Default;
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Oxide.Ext.UiFramework.Enums;
 
-public enum ColorPickerMode
+public enum ColorPickerMode : byte
 {
     RGB,
     RGBA

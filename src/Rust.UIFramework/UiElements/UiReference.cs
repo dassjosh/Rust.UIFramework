@@ -1,18 +1,41 @@
-﻿namespace Oxide.Ext.UiFramework.UiElements;
+﻿using System;
+using System.Diagnostics.Contracts;
+using Oxide.Ext.UiFramework.Cache;
+using Oxide.Ext.UiFramework.Enums;
 
-public readonly struct UiReference
+namespace Oxide.Ext.UiFramework.UiElements;
+
+public readonly struct UiReference(string parent, string name) : IEquatable<UiReference>
 {
-    public readonly string Parent;
-    public readonly string Name;
+    public readonly string Parent = parent;
+    public readonly string Name = name;
 
-    public UiReference(string parent, string name)
-    {
-        Parent = parent;
-        Name = name;
-    }
-
+    public UiReference(UiLayer parent, string name) : this(UiLayerCache.GetLayer(parent), name) { }
+    public UiReference(UiReference parent, string name) : this(parent.Name, name) { }
+    
+    [Pure]
     public UiReference WithChild(string name) => new(Name, name);
+    
+    [Pure]
+    public UiReference WithName(string name) => new(Parent, name);
+    
+    [Pure]
+    public UiReference WithParent(string parent) => new(parent, Name);
+    
+    [Pure]
+    public UiReference WithParent(UiLayer parent) => WithParent(UiLayerCache.GetLayer(parent));
+    
+    [Pure]
+    public UiReference WithParent(in UiReference parent) => WithParent(parent.Name);
 
     public bool IsValidParent() => !string.IsNullOrEmpty(Parent);
-    public bool IsValidReference() => IsValidParent() && !string.IsNullOrEmpty(Name);
+    public bool IsValidName() => !string.IsNullOrEmpty(Name);
+    public bool IsValidReference() => IsValidParent() && IsValidName();
+
+    public bool Equals(UiReference other) => Parent == other.Parent && Name == other.Name;
+    public override bool Equals(object obj) => obj is UiReference other && Equals(other);
+    public override int GetHashCode() => HashCode.Combine(Parent, Name);
+    public static bool operator ==(UiReference left, UiReference right) => left.Equals(right);
+    public static bool operator !=(UiReference left, UiReference right) => !(left == right);
+    public override string ToString() => $"{Parent}:{Name}";
 }

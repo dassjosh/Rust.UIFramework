@@ -1,15 +1,12 @@
 namespace Oxide.Ext.UiFramework.Pooling;
 
-public class ObjectPool<T> : BasePool<BasePoolable> where T : BasePoolable, new()
+internal class ObjectPool<T> : BaseObjectPool<BasePoolable, ObjectPool<T>> where T : BasePoolable, new()
 {
-    public static readonly IPool<BasePoolable> Instance = new ObjectPool<T>();
-
-    private ObjectPool() : base(1024) { }
-
+    protected override PoolSize GetPoolSize(PoolSettings settings) => settings.ObjectPoolSize;
     protected override BasePoolable CreateNew()
     {
         T obj = new();
-        obj.OnInit(this);
+        obj.OnInitInternal(this);
         return obj;
     }
 
@@ -18,14 +15,14 @@ public class ObjectPool<T> : BasePool<BasePoolable> where T : BasePoolable, new(
         item.LeavePoolInternal();
     }
         
-    protected override bool OnFreeItem(ref BasePoolable item)
+    protected override bool OnFreeItem(BasePoolable item)
     {
-        if (item.Disposed)
+        if (item.CanPool)
         {
-            return false;
+            item.EnterPoolInternal();
+            return true;
         }
-            
-        item.EnterPoolInternal();
-        return true;
+
+        return false;
     }
 }

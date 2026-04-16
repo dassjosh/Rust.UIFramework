@@ -1,27 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using Oxide.Ext.UiFramework.Constants;
 using Oxide.Ext.UiFramework.Enums;
+using Oxide.Ext.UiFramework.Helpers;
 
 namespace Oxide.Ext.UiFramework.Cache;
 
 public static class UiFontCache
 {
-    private const string DroidSansMono = "droidsansmono.ttf";
-    private const string PermanentMarker = "permanentmarker.ttf";
-    private const string RobotoCondensedBold = "robotocondensed-bold.ttf";
-    private const string RobotoCondensedRegular = "robotocondensed-regular.ttf";
-    private const string PressStart2PRegular = "PressStart2P-Regular.ttf";
-
-    private static readonly IReadOnlyDictionary<UiFont, string> Fonts = new Dictionary<UiFont, string>
-    {
-        [UiFont.DroidSansMono] = DroidSansMono,
-        [UiFont.PermanentMarker] = PermanentMarker,
-        [UiFont.RobotoCondensedBold] = RobotoCondensedBold,
-        [UiFont.RobotoCondensedRegular] = RobotoCondensedRegular,
-        [UiFont.PressStart2PRegular] = PressStart2PRegular
-    };
-
-    public static string GetUiFont(UiFont font)
-    {
-        return Fonts[font];
-    }
+    private static readonly string[] Fonts = CacheHelpers.ExtractCache(typeof(UiFonts), typeof(UiFont));
+    public static string GetUiFont(UiFont font) => Fonts[(byte)font];
 }

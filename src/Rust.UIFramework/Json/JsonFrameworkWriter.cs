@@ -1,440 +1,536 @@
-﻿using Network;
-using Oxide.Ext.UiFramework.Benchmarks;
+﻿using System;
+using System.IO;
+using System.Runtime.CompilerServices;
+using Network;
 using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Colors;
-using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Enums;
+using Oxide.Ext.UiFramework.Interfaces;
+using Oxide.Ext.UiFramework.Offsets;
+using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Pooling;
+using Oxide.Ext.UiFramework.Positions;
+using Oxide.Ext.UiFramework.Types;
+using Rust.UiFramework.SourceGenerators.Attributes;
 using UnityEngine;
-using UnityEngine.UI;
+
+#if BENCHMARKS
+using Oxide.Ext.UiFramework.Benchmarks;
+#endif
 
 namespace Oxide.Ext.UiFramework.Json;
 
-public class JsonFrameworkWriter : BasePoolable
+[GenerateJsonWriter]
+public sealed partial class JsonFrameworkWriter : BasePoolable
 {
-    private const char QuoteChar = '\"';
-    private const char ArrayStartChar = '[';
-    private const char ArrayEndChar = ']';
-    private const char ObjectStartChar = '{';
-    private const char ObjectEndChar = '}';
-    private const char CommaChar = ',';
-    private const string Separator = "\":";
-    private const string PropertyComma = ",\"";
+    internal const char StartQuoteString = '“';
+    internal const char EndQuoteString = '“';
+    internal const string BackslashString = "⧹";
+    
+    private const byte QuoteChar = (byte)'\"';
+    private const byte ArrayStartChar = (byte)'[';
+    private const byte ArrayEndChar = (byte)']';
+    private const byte ObjectStartChar = (byte)'{';
+    private const byte ObjectEndChar = (byte)'}';
+    private const byte CommaChar = (byte)',';
+    private const byte True = (byte)'1';
+    private const byte False = (byte)'0';
+    private const byte Space = (byte)' ';
+    private static readonly Utf8String StartQuote = Utf8String.FromChar(StartQuoteString);
+    private static readonly Utf8String EndQuote = Utf8String.FromChar(EndQuoteString);
+    private static readonly Utf8String Separator = "\":";
+    private static readonly Utf8String PropertyComma = ",\"";
+    
+    private static readonly Utf8String EscapeQuote = "\\\"";
+    private static readonly Utf8String Backslash = BackslashString;
 
     private bool _propertyComma;
     private bool _objectComma;
-        
-    private JsonBinaryWriter _writer;
+    
+    private enum TextMode : byte {Text, Command}
 
-    private void Init()
+    private readonly JsonUtf8Writer _writer = new();
+
+    public static JsonFrameworkWriter Create(IUiFrameworkPlugin plugin) => plugin.PluginPool.Get<JsonFrameworkWriter>().Init();
+
+    private JsonFrameworkWriter Init()
     {
-        _writer = UiFrameworkPool.Get<JsonBinaryWriter>();
+        _writer.Init();
+        return this;
     }
 
-    public static JsonFrameworkWriter Create()
-    {
-        JsonFrameworkWriter writer = UiFrameworkPool.Get<JsonFrameworkWriter>();
-        writer.Init();
-        return writer;
-    }
-
+    #region Comma Handling
     private void OnDepthIncrease()
     {
         if (_objectComma)
         {
-            _writer.Write(CommaChar);
+            _writer.WriteChar(CommaChar);
             _objectComma = false;
         }
             
         _propertyComma = false;
     }
-        
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private void OnDepthDecrease()
     {
         _objectComma = true;
     }
+    
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public void ResetCommaState()
+    {
+        _objectComma = false;
+        _propertyComma = false;
+    }
+    #endregion
 
-    #region Field Handling
-    public void AddFieldRaw(string name, string value)
+    #region Raw
+    public void WriteRaw(ReadOnlySpan<byte> span) => _writer.WriteRaw(span);
+    #endregion
+    
+    #region Specialised Field Handling
+    public void AddField<T>(Utf8String name, T value) where T : unmanaged, Enum
     {
         WritePropertyName(name);
-        WriteValue(value);
+        WriteEnumInternal(value);
     }
-        
-    public void AddFieldRaw(string name, char value)
+    
+    public void AddField(in UiPosition value, SerializeMode mode)
     {
-        WritePropertyName(name);
-        WriteValue(value);
-    }
-
-    public void AddFieldRaw(string name, int value)
-    {
-        WritePropertyName(name);
-        WriteValue(value);
-    }
-        
-    public void AddFieldRaw(string name, bool value)
-    {
-        WritePropertyName(name);
-        WriteValue(value);
-    }
-
-    public void AddField(string name, string value, string defaultValue)
-    {
-        if (value != null && value != defaultValue)
+        if (mode == SerializeMode.Create)
         {
-            WritePropertyName(name);
-            WriteValue(value);
+            AddField(JsonDefaults.RectTransform.AnchorMinName, value.Min, JsonDefaults.RectTransform.AnchorMin);
+            AddField(JsonDefaults.RectTransform.AnchorMaxName, value.Max, JsonDefaults.RectTransform.AnchorMax);
         }
-    }
-        
-    public void AddField(string name, Vector2 value, Vector2 defaultValue)
-    {
-        if (value != defaultValue)
+        else
         {
-            WritePropertyName(name);
-            WriteValue(value);
-        }
-    }
-
-    public void AddPosition(string name, Vector2 value, Vector2 defaultValue)
-    {
-        if (value != defaultValue)
-        {
-            WritePropertyName(name);
-            WritePosition(value);
-        }
-    }
-
-    public void AddOffset(string name, Vector2 value, Vector2 defaultValue)
-    {
-        if (value != defaultValue)
-        {
-            WritePropertyName(name);
-            WriteOffset(value);
-        }
-    }
-
-    public void AddField(string name, TextAnchor value)
-    {
-        if (value != TextAnchor.UpperLeft)
-        {
-            WritePropertyName(name);
-            WriteValue(EnumCache<TextAnchor>.ToString(value));
-        }
-    }
-
-    public void AddField(string name, InputField.LineType value)
-    {
-        if (value != InputField.LineType.SingleLine)
-        {
-            WritePropertyName(name);
-            WriteValue(EnumCache<InputField.LineType>.ToString(value));
-        }
-    }
-        
-    public void AddField(string name, Image.Type value)
-    {
-        if (value != Image.Type.Simple)
-        {
-            WritePropertyName(name);
-            WriteValue(EnumCache<Image.Type>.ToString(value));
-        }
-    }
-        
-    public void AddField(string name, VerticalWrapMode value)
-    {
-        if (value != VerticalWrapMode.Truncate)
-        {
-            WritePropertyName(name);
-            WriteValue(EnumCache<VerticalWrapMode>.ToString(value));
-        }
-    }
-        
-    public void AddField(string name, ScrollRect.MovementType value)
-    {
-        if (value != ScrollRect.MovementType.Clamped)
-        {
-            WritePropertyName(name);
-            WriteValue(EnumCache<ScrollRect.MovementType>.ToString(value));
+            WritePropertyName(JsonDefaults.RectTransform.AnchorMinName);
+            WriteValue(value.Min);
+            WritePropertyName(JsonDefaults.RectTransform.AnchorMaxName);
+            WriteValue(value.Max);
         }
     }
     
-    public void AddField(string name, TimerFormat value)
-    {
-        if (value != TimerFormat.None)
+    public void AddField(in UiOffset value, SerializeMode mode)
+    { 
+        if (mode == SerializeMode.Create)
         {
-            WritePropertyName(name);
-            WriteValue(EnumCache<TimerFormat>.ToString(value));
+            AddField(JsonDefaults.RectTransform.OffsetMinName, value.Min, JsonDefaults.RectTransform.OffsetMin);
+            AddField(JsonDefaults.RectTransform.OffsetMaxName, value.Max, JsonDefaults.RectTransform.OffsetMax);
+        }
+        else
+        {
+            WritePropertyName(JsonDefaults.RectTransform.OffsetMinName);
+            WriteValue(value.Min);
+            WritePropertyName(JsonDefaults.RectTransform.OffsetMaxName);
+            WriteValue(value.Max);
         }
     }
-
-    public void AddField(string name, int value, int defaultValue)
+    
+    public void AddField(Utf8String name, Tracked<string> value, SerializeMode mode)
     {
-        if (value != defaultValue)
+        if (value.ShouldSerialize(mode) && value.Value != null)
         {
             WritePropertyName(name);
-            WriteValue(value);
+            WriteValue(value.Value);
         }
     }
-
-    public void AddField(string name, float value, float defaultValue)
+    
+    public void AddField<T>(Utf8String name, Tracked<T> value, SerializeMode mode) where T : unmanaged, Enum
     {
-        if (value != defaultValue)
+        if (value.ShouldSerialize(mode))
         {
             WritePropertyName(name);
-            WriteValue(value);
+            WriteEnumInternal(value.Value);
         }
     }
+    
+    public void AddField<T>(Utf8String name, Tracked<T?> value, SerializeMode mode) where T : unmanaged, Enum
+    {
+        if (value.ShouldSerialize(mode))
+        {
+            T? enumVal = value.Value;
+            if (enumVal.HasValue)
+            {
+                WritePropertyName(name);
+                WriteEnumInternal(enumVal.Value);
+            }
+        }
+    }
+    
+    public void AddComponent(Utf8String name, IComponent component, SerializeMode mode, bool add)
+    {
+        if (add)
+        {
+            AddComponent(name, component, mode);
+        }
+    }
+    
+    public void AddComponent(Utf8String name, IComponent component, SerializeMode mode)
+    {
+        if (component is null)
+        {
+            return;
+        }
         
-    public void AddField(string name, ulong value, ulong defaultValue)
-    {
-        if (value != defaultValue)
-        {
-            WritePropertyName(name);
-            WriteValue(value);
-        }
-    }
-        
-    public void AddField(string name, bool value, bool defaultValue)
-    {
-        if (value != defaultValue)
-        {
-            WritePropertyName(name);
-            WriteValue(value);
-        }
-    }
-
-    public void AddField(string name, UiColor color)
-    {
-        if (color != JsonDefaults.Color.ColorValue)
-        {
-            WritePropertyName(name);
-            WriteValue(color);
-        }
-    }
-        
-    public void AddField(string name, UiColor color, UiColor defaultColor)
-    {
-        if (color != defaultColor)
-        {
-            WritePropertyName(name);
-            WriteValue(color);
-        }
-    }
-        
-    public void AddComponent(string name, IComponent component)
-    {
         WritePropertyName(name);
         bool objectComma = _objectComma;
         bool propertyComma = _propertyComma;
         _objectComma = false;
         _propertyComma = false;
-        if (component != null)
-        {
-            component.WriteComponent(this);
-        }
-        else
-        {
-            WriteStartObject();
-            WriteEndObject();
-        }
+        component.WriteComponent(this, mode);
         _objectComma = objectComma;
         _propertyComma = propertyComma;
     }
-        
-    public void AddKeyField(string name)
+    
+    public void AddKeyField(Utf8String name)
     {
         WritePropertyName(name);
-        WriteBlankValue();
+        WriteEmptyString();
     }
-        
-    public void AddTextField(string name, string value)
+    
+    public void AddKeyField(Utf8String name, bool add)
+    {
+        if (add)
+        {
+            AddKeyField(name);
+        }
+    }
+    
+    public void AddKeyField(Utf8String name, Tracked<bool> value, SerializeMode mode)
+    {
+        if (value.ShouldSerialize(mode) && value.Value)
+        {
+            AddKeyField(name);
+        }
+    }
+    
+    public void AddTextField(Utf8String name, string value)
     {
         WritePropertyName(name);
         WriteTextValue(value);
     }
-
-    public void AddMouse()
+    
+    public void AddTextField(Utf8String name, string value, string defaultValue)
     {
-        WriteStartObject();
-        AddFieldRaw(JsonDefaults.Common.ComponentTypeName, JsonDefaults.Common.NeedsCursorValue);
-        WriteEndObject();
+        if (value != defaultValue)
+        {
+            WritePropertyName(name);
+            WriteTextValue(value);
+        }
     }
-
-    public void AddKeyboard()
+    
+    public void AddTextField(Utf8String name, Tracked<string> value, SerializeMode mode)
     {
-        WriteStartObject();
-        AddFieldRaw(JsonDefaults.Common.ComponentTypeName, JsonDefaults.Common.NeedsKeyboardValue);
-        WriteEndObject();
+        if (value.ShouldSerialize(mode))
+        {
+            WritePropertyName(name);
+            WriteTextValue(value.Value);
+        }
+    }
+    
+    public void AddCommandField(Utf8String name, string value, string defaultValue)
+    {
+        if (value != null && value != defaultValue)
+        {
+            WritePropertyName(name);
+            WriteCommandValue(value);
+        }
+    }
+    
+    public void AddCommandField(Utf8String name, Tracked<string> value, SerializeMode mode)
+    {
+        if (value.ShouldSerialize(mode))
+        {
+            WritePropertyName(name);
+            WriteCommandValue(value.Value);
+        }
     }
     #endregion
         
     #region Writing
-        
-    #endregion
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void WriteStartArray()
     {
         OnDepthIncrease();
-        _writer.Write(ArrayStartChar);
+        _writer.WriteChar(ArrayStartChar);
     }
-        
+    
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void WriteEndArray()
     {
-        _writer.Write(ArrayEndChar);
+        _writer.WriteChar(ArrayEndChar);
         OnDepthDecrease();
     }
-
+    
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void WriteStartObject()
     {
         OnDepthIncrease();
-        _writer.Write(ObjectStartChar);
+        _writer.WriteChar(ObjectStartChar);
     }
-        
+    
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void WriteEndObject()
     {
-        _writer.Write(ObjectEndChar);
+        _writer.WriteChar(ObjectEndChar);
         OnDepthDecrease();
     }
 
-    public void WritePropertyName(string name)
+    public void WritePropertyName(Utf8String name)
     {
         if (_propertyComma)
         {
-            _writer.Write(PropertyComma);
+            _writer.WriteString(PropertyComma);
         }
         else
         {
             _propertyComma = true;
-            _writer.Write(QuoteChar);
+            WriteQuote();
         }
             
-        _writer.Write(name);
-        _writer.Write(Separator);
+        _writer.WriteString(name);
+        _writer.WriteString(Separator);
     }
+    
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public void WriteQuote() => _writer.WriteChar(QuoteChar);
 
-    public void WriteValue(bool value)
-    {
-        _writer.Write(value ? '1' : '0');
-    }
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public void WriteComma() => _writer.WriteChar(CommaChar);
 
-    public void WriteValue(char value)
+    public void WriteValue(Utf8String value)
     {
-        _writer.Write(value);
+        WriteQuote();
+        _writer.WriteString(value);
+        WriteQuote();
     }
-        
-    public void WriteValue(int value)
-    {
-        _writer.Write(StringCache<int>.ToString(value));
-    }
-        
-    public void WriteValue(float value)
-    {
-        _writer.Write(StringCache<float>.ToString(value));
-    }
-        
-    public void WriteValue(ulong value)
-    {
-        _writer.Write(StringCache<ulong>.ToString(value));
-    }
-
+    
+    public void WriteValue(bool value) => _writer.WriteChar(value ? True : False);
+    public void WriteValue(byte value) => _writer.Write(value);
+    public void WriteValue(sbyte value) => _writer.Write(value);
+    public void WriteValue(short value) => _writer.Write(value);
+    public void WriteValue(ushort value) => _writer.Write(value);
+    public void WriteValue(int value) => _writer.Write(value);
+    public void WriteValue(uint value) => _writer.Write(value);
+    public void WriteValue(long value) => _writer.Write(value);
+    public void WriteValue(ulong value) => _writer.Write(value);
+    public void WriteValue(float value) => _writer.Write(value);
+    
     public void WriteValue(string value)
     {
-        _writer.Write(QuoteChar);
-        _writer.Write(value);
-        _writer.Write(QuoteChar);
+        _writer.WriteChar(QuoteChar);
+        _writer.WriteString(value);
+        _writer.WriteChar(QuoteChar);
     }
-        
-    public void WriteBlankValue()
+    
+    public void WriteValue(ReadOnlySpan<char> value)
     {
-        _writer.Write(QuoteChar);
-        _writer.Write(QuoteChar);
+        _writer.WriteChar(QuoteChar);
+        _writer.WriteString(value);
+        _writer.WriteChar(QuoteChar);
     }
-
-    public void WriteTextValue(string value)
+    
+    public void WriteValue(UiRotation rotation)
     {
-        _writer.Write(QuoteChar);
-        if (value != null)
-        {
-            for (int i = 0; i < value.Length; i++)
-            {
-                char character = value[i];
-                if (character == '\"')
-                {
-                    _writer.Write("\\\"");
-                }
-                else if (character == '\\' && i + 1 == value.Length)
-                {
-                    _writer.Write(@"\\");
-                }
-                else
-                {
-                    _writer.Write(character);
-                }
-            }
-        }
-        _writer.Write(QuoteChar);
+        _writer.Write(rotation.Rotation);
     }
-
+    
     public void WriteValue(Vector2 pos)
     {
-        _writer.Write(QuoteChar);
-        VectorCache.WriteVector(_writer, pos);
-        _writer.Write(QuoteChar);
+        _writer.WriteChar(QuoteChar);
+        _writer.Write(pos.x);
+        _writer.WriteChar(Space);
+        _writer.Write(pos.y);
+        _writer.WriteChar(QuoteChar);
     }
-        
-    public void WritePosition(Vector2 pos)
+    
+    public void WriteValue(Vector3 pos)
     {
-        _writer.Write(QuoteChar);
-        VectorCache.WritePosition(_writer, pos);
-        _writer.Write(QuoteChar);
+        _writer.WriteChar(QuoteChar);
+        _writer.Write(pos.x);
+        _writer.WriteChar(Space);
+        _writer.Write(pos.y);
+        _writer.WriteChar(QuoteChar);
+        _writer.Write(pos.z);
+        _writer.WriteChar(QuoteChar);
     }
-        
-    public void WriteOffset(Vector2 offset)
+    
+    public void WriteValue(Vector4 pos)
     {
-        _writer.Write(QuoteChar);
-        VectorCache.WriteOffset(_writer, offset);
-        _writer.Write(QuoteChar);
+        _writer.WriteChar(QuoteChar);
+        _writer.Write(pos.x);
+        _writer.WriteChar(Space);
+        _writer.Write(pos.y);
+        _writer.WriteChar(QuoteChar);
+        _writer.Write(pos.z);
+        _writer.WriteChar(QuoteChar);
+        _writer.Write(pos.w);
+        _writer.WriteChar(QuoteChar);
     }
-        
+    
     public void WriteValue(UiColor color)
     {
-        _writer.Write(QuoteChar);
-        UiColorCache.WriteColor(_writer, color);
-        _writer.Write(QuoteChar);
+        const int maxFractionDigits = 4;
+        _writer.WriteChar(QuoteChar);
+        _writer.Write(color.RedFloat, maxFractionDigits);
+        _writer.WriteChar(Space);
+        _writer.Write(color.GreenFloat, maxFractionDigits);
+        _writer.WriteChar(Space);
+        _writer.Write(color.BlueFloat, maxFractionDigits);
+        if (color.Alpha != 255)
+        {
+            _writer.WriteChar(Space);
+            _writer.Write(color.AlphaFloat, maxFractionDigits);
+        }
+        _writer.WriteChar(QuoteChar);
     }
-
-    protected override void EnterPool()
+    
+    public void WriteValue(in UiPadding padding)
     {
-        _objectComma = false;
-        _propertyComma = false;
-        _writer.Dispose();
+        _writer.WriteChar(QuoteChar);
+        _writer.Write(padding.Left);
+        _writer.WriteChar(Space);
+        _writer.Write(padding.Top);
+        _writer.WriteChar(Space);
+        _writer.Write(padding.Right);
+        _writer.WriteChar(Space);
+        _writer.Write(padding.Bottom);
+        _writer.WriteChar(QuoteChar);
     }
-
-    public override string ToString()
+    
+    public void WriteValue(in UiBorderWidth border)
     {
-        return _writer.ToString();
+        _writer.WriteChar(QuoteChar);
+        _writer.Write(border.Left);
+        _writer.WriteChar(Space);
+        _writer.Write(border.Bottom);
+        _writer.WriteChar(Space);
+        _writer.Write(border.Right);
+        _writer.WriteChar(Space);
+        _writer.Write(border.Top);
+        _writer.WriteChar(QuoteChar);
     }
-
-    public int WriteTo(byte[] buffer)
+    
+    public void WriteEmptyString()
     {
-        return _writer.WriteToArray(buffer);
+        _writer.WriteChar(QuoteChar);
+        _writer.WriteChar(QuoteChar);
     }
+    
+    public void WriteTextValue(string value) => WriteTextInternal(value, TextMode.Text);
+
+    public void WriteCommandValue(string value) => WriteTextInternal(value, TextMode.Command);
+    #endregion
+    
+    #region Internal
+    private void WriteTextInternal(string value, TextMode mode)
+    {
+        if (string.IsNullOrEmpty(value))
+        {
+            WriteEmptyString();
+            return;
+        }
         
-    public void WriteToNetwork(NetWrite write)
-    {
-        _writer.WriteToNetwork(write);
+        _writer.WriteChar(QuoteChar);
+        int i = 0;
+        int length = value.Length;
+        bool isInQuote = false;
+        while (i < length)
+        {
+            char character = value[i];
+            if (char.IsHighSurrogate(character) && i + 1 < length)
+            {
+                char lowSurrogate = value[i + 1];
+                if (char.IsLowSurrogate(lowSurrogate))
+                {
+                    _writer.WriteChar(character, lowSurrogate);
+                    i += 2;
+                    continue;
+                }
+            }
+            switch (character)
+            {
+                case '\"':
+                    if (mode == TextMode.Text)
+                    {
+                        isInQuote = !isInQuote;
+                        _writer.WriteString(isInQuote ? EndQuote : StartQuote);
+                    }
+                    else
+                    {
+                        _writer.WriteString(EscapeQuote);
+                    }
+                    break;
+                case '\\':
+                    _writer.WriteString(Backslash);
+                    break;
+                default:
+                    _writer.WriteChar(character);
+                    break;
+            }
+                
+            i += 1;
+        }
+        _writer.WriteChar(QuoteChar);
     }
+
+    private void WriteEnumInternal<T>(T value) where T : unmanaged, Enum
+    {
+        _writer.WriteChar(QuoteChar);
+        switch (TypeCache<T>.TypeCode)
+        {
+            case TypeCode.SByte:
+                _writer.Write(Unsafe.As<T, sbyte>(ref value));
+                break;
+            case TypeCode.Byte:
+                _writer.Write(Unsafe.As<T, byte>(ref value));
+                break;
+            case TypeCode.Int16:
+                _writer.Write(Unsafe.As<T, short>(ref value));
+                break;
+            case TypeCode.UInt16:
+                _writer.Write(Unsafe.As<T, ushort>(ref value));
+                break;
+            case TypeCode.Int32:
+                _writer.Write(Unsafe.As<T, int>(ref value));
+                break;
+            case TypeCode.UInt32:
+                _writer.Write(Unsafe.As<T, uint>(ref value));
+                break;
+            case TypeCode.Int64:
+                _writer.Write(Unsafe.As<T, long>(ref value));
+                break;
+            case TypeCode.UInt64:
+                _writer.Write(Unsafe.As<T, ulong>(ref value));
+                break;
+            default:
+                _writer.Write((byte)0);
+                break;
+        }
+        
+        _writer.WriteChar(QuoteChar);
+    } 
+    #endregion
+
+    public void WriteToStream(Stream stream) => _writer.WriteToStream(stream);
+    public override string ToString() => _writer.ToString();
+    public int WriteTo(byte[] buffer) => _writer.WriteToArray(buffer);
+
+    public void WriteToNetwork(NetWrite write) => _writer.WriteToNetwork(write);
 
 #if BENCHMARKS
-    internal void WriteToNetwork(BenchmarkNetWrite write)
-    {
-        _writer.WriteToNetwork(write);
-    }
+    internal void WriteToNetwork(BenchmarkNetWrite write) => _writer.WriteToNetwork(write);
 #endif
 
-    public byte[] ToArray()
+    public byte[] ToArray() => _writer.ToArray();
+    
+    protected override void EnterPool()
     {
-        return _writer.ToArray();
+        ResetCommaState();
+        _writer.Reset();
+        _propertyComma = false;
+        _objectComma = false;
     }
 }

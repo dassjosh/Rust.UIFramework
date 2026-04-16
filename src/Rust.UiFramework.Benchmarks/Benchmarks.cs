@@ -1,19 +1,27 @@
-﻿using System.Text;
-using BenchmarkDotNet.Attributes;
-using Facepunch;
-using Network;
-using Oxide.Ext.UiFramework.Builder.UI;
-using Oxide.Ext.UiFramework.Colors;
-using Oxide.Ext.UiFramework.Extensions;
-using Oxide.Ext.UiFramework.Json;
-using Oxide.Ext.UiFramework.Positions;
-using Oxide.Game.Rust.Cui;
+using Oxide.Ext.UiFramework.Data;
+using Oxide.Ext.UiFramework.Enums;
+using Oxide.Ext.UiFramework.UiElements;
 
 namespace Rust.UiFramework.Benchmarks;
 
-#if BENCHMARKS
-
+#if (BENCHMARKS)
+using BenchmarkDotNet.Attributes;
+using Network;
+using Oxide.Ext.UiFramework.Colors;
+using Oxide.Ext.UiFramework.Json;
+using Oxide.Ext.UiFramework.Positions;
+using Oxide.Game.Rust.Cui;
+using Oxide.Ext.UiFramework.Builder.Cached;
+using Oxide.Ext.UiFramework.Builder.UI;
+using System.Text;
+using Oxide.Ext.UiFramework;
 using Oxide.Ext.UiFramework.Benchmarks;
+using Oxide.Ext.UiFramework.Config;
+using Oxide.Ext.UiFramework.Libraries;
+using Oxide.Ext.UiFramework.Logging;
+using Oxide.Ext.UiFramework.Threading;
+using Oxide.Ext.UiFramework.Types;
+using Facepunch;
 
 [MemoryDiagnoser]
 public class Benchmarks
@@ -22,19 +30,32 @@ public class Benchmarks
     private readonly List<string> _oxideMins = new();
     private readonly List<string> _oxideMaxs = new();
     private readonly List<UiPosition> _frameworkPos = new();
-    private readonly Random _random = new();
+    private Random _random;
     public readonly byte[] Buffer = new byte[1024 * 1024];
     private CuiElementContainer _oxideContainer;
     private string _oxideJson;
     private UiBuilder _builder;
+    private CachedUiBuilder _cached;
     private UiBuilder _randomBuilder;
     private JsonFrameworkWriter _writer;
     private JsonFrameworkWriter _randomWriter;
     private readonly Connection _connection = new();
+    private readonly MemoryStream _netWriteBuffer = new();
+
+    //[Params(2048, 4096, 8192)] public int ArraySize;
 
     [GlobalSetup]
     public void Setup()
     {
+        UiFrameworkExtension ext = new UiFrameworkExtension(null);
+        
+        if(UiFrameworkConfig.Instance == null)  Singleton<DataHandler>.Instance.LoadAll();
+        UiFrameworkExtension.GlobalLogger = Singleton<UiLoggerFactory>.Instance.CreateGlobalLogger();
+        
+        //Singleton<UiFrameworkPoolLib>.Instance.CreateInternal();
+        
+        _random = new(1234);
+        //JsonBinaryWriter.SegmentSize = ArraySize;
         for (int i = 0; i < Iterations; i++)
         {
             float xMin = (float)_random.NextDouble();
@@ -49,69 +70,138 @@ public class Benchmarks
         _oxideContainer = GetOxideContainer();
         _oxideJson = _oxideContainer.ToJson();
         _builder = GetFrameworkBuilder();
+        _cached = GetFrameworkBuilder().ToCachedBuilder();
         //_randomBuilder = GetRandomPositionBuilder();
         _writer = _builder.CreateWriter();
         //_randomWriter = _randomBuilder.CreateWriter();
+        _random = new(1234);
     }
 
-    // [Benchmark]
-    // public CuiElementContainer Oxide_CreateContainer()
-    // {
-    //     return GetOxideContainer();
-    // }
+    [GlobalCleanup]
+    public void GlobalCleanup()
+    {
+        _builder.Dispose();
+        _writer.Dispose();
+        
+        Singleton<SendHandler>.Instance.WaitUntilFinished();
+        
+        System.GC.Collect();
+        System.GC.WaitForPendingFinalizers();
+        
+        if (Singleton<UiPool>.Instance.CheckForLeaks())
+        {
+            DebugLogger logger = new();
+            Singleton<UiPool>.Instance.LogDebug(logger);
+            Console.WriteLine(logger.ToString());
+        }
+        else
+        {
+            Console.WriteLine("No leaks found");
+        }
+    }
 
     // [Benchmark(Baseline = true)]
-    // public UiBuilder UiFramework_CreateContainer()
+    // public string FastEnumCache()
     // {
-    //     UiBuilder builder = GetFrameworkBuilder();
-    //     builder.Dispose();
-    //     return builder;
-    // }
-
-    //
-    // [Benchmark]
-    // public string Oxide_CreateJson()
-    // {
-    //     return _oxideContainer.ToJson();
+    //     return FastEnumCache<UiLayer>.ToString(UiLayer.Contacts);
     // }
     //
-    // [Benchmark]
-    // public JsonFrameworkWriter UiFramework_CreateJson()
+    // [Benchmark()]
+    // public string EnumCache()
     // {
-    //     JsonFrameworkWriter writer = _builder.CreateWriter();
-    //     writer.Dispose();
-    //     return writer;
+    //     return EnumCache<UiLayer>.ToString(UiLayer.Contacts);
     // }
-    //
-    // [Benchmark]
-    // public byte[] Oxide_EncodeJson()
-    // {
-    //     return Encoding.UTF8.GetBytes(_oxideJson);
-    // }
-    //
-    // [Benchmark]
-    // public int UiFramework_EncodeJson()
-    // {
-    //     int count = _writer.WriteTo(Buffer);
-    //     return count;
-    // }
-
-    [Benchmark(Baseline = true)]
-    public void UiFramework_Async()
-    {
-        UiBuilder builder = GetFrameworkBuilder();
-        builder.AddUi(default(SendInfo));
-        builder.Dispose();
-    }
     
-    [Benchmark]
-    public void Oxide_Async()
+    //[Benchmark]
+    public CuiElementContainer Oxide_CreateContainer()
     {
-        CuiElementContainer builder = GetOxideContainer();
-        builder.AddUiAsync(_connection);
+        return GetOxideContainer();
     }
     
     //[Benchmark]
+    public string Oxide_CreateJson()
+    {
+        return _oxideContainer.ToJson();
+    }
+    
+    //[Benchmark]
+    public JsonFrameworkWriter UiFramework_CreateJson()
+    {
+        JsonFrameworkWriter writer = _builder.CreateWriter();
+        writer.Dispose();
+        return writer;
+    }
+    
+    //[Benchmark]
+    public byte[] Oxide_EncodeJson()
+    {
+        return Encoding.UTF8.GetBytes(_oxideJson);
+    }
+    
+    //[Benchmark]
+    public int UiFramework_EncodeJson()
+    {
+        int count = _writer.WriteTo(Buffer);
+        return count;
+    }
+
+    //[Benchmark]
+    public void UiFramework_Writer()
+    {
+        UiBuilder builder = _builder;
+        JsonFrameworkWriter writer = builder.CreateWriter();
+        //var a = builder.GetJsonString();
+        writer.Dispose();
+    }
+    
+    public string UiFramework_Writer1()
+    {
+        UiBuilder builder = _builder;
+        using JsonFrameworkWriter writer = builder.CreateWriter();
+        return Encoding.UTF8.GetString(writer.ToArray());
+        //writer.Dispose();
+    }
+    
+   // [Benchmark]
+    public void UiFramework_Network()
+    {
+        BenchmarkNetWrite write = Pool.Get<BenchmarkNetWrite>();
+        _writer.WriteToNetwork(write);
+        Pool.Free(ref write);
+    }
+    
+    //[Benchmark(Baseline = false)]
+    public void UiFramework_Cached()
+    {
+        CachedUiBuilder builder = _cached;
+        builder.AddUi(default(SendInfo));
+    }
+    
+    [Benchmark(Baseline = true)]
+    public UiBuilder UiFramework_Async()
+    {
+        UiBuilder builder = GetFrameworkBuilder();
+        //builder.AddUi(default(SendInfo));
+        builder.Dispose();
+        return builder;
+    }
+    
+   // [Benchmark(Baseline = false)]
+    public UiBuilder UiFramework_CreateContainer()
+    {
+        UiBuilder builder = GetFrameworkBuilder();
+        builder.Dispose();
+        return builder;
+    }
+    
+    // [Benchmark]
+    // public void Oxide_Async()
+    // {
+    //     CuiElementContainer builder = GetOxideContainer();
+    //     builder.AddUiAsync(_connection);
+    // }
+    //
+    [Benchmark(Baseline = false)]
     public void UiFramework_Full()
     {
         UiBuilder builder = GetFrameworkBuilder();
@@ -123,31 +213,135 @@ public class Benchmarks
         builder.Dispose();
     }
     
-    [Benchmark]
-    public byte[] Oxide_Full()
+    [Benchmark(Baseline = false)]
+    public MemoryStream Oxide_Full()
     {
         CuiElementContainer builder = GetOxideContainer();
         string json = builder.ToJson();
-        return Encoding.UTF8.GetBytes(json);
+
+        if (_netWriteBuffer.Capacity < json.Length * 8)
+        {
+            _netWriteBuffer.Capacity = json.Length * 8;
+        }
+        _netWriteBuffer.Position = 0L;
+        _netWriteBuffer.SetLength(_netWriteBuffer.Capacity);
+        int bytes = Encoding.UTF8.GetBytes(json, 0, json.Length, _netWriteBuffer.GetBuffer(), 0);
+        _netWriteBuffer.SetLength(bytes);
+        return _netWriteBuffer;
     }
     
-    private CuiElementContainer GetOxideContainer()
+    public CuiElementContainer GetOxideContainer()
     {
         CuiElementContainer container = new();
         for (int i = 0; i < Iterations; i++)
         {
-            container.Add(new CuiPanel
+            int mode = i % 7;
+            switch (mode)
             {
-                Image =
-                {
-                    Color = "1.0 1.0 1.0 1.0"
-                },
-                RectTransform =
-                {
-                    AnchorMin = _oxideMins[i],
-                    AnchorMax = _oxideMaxs[i]
-                }
-            });
+                case 0:
+                    container.Add(new CuiPanel
+                    {
+                        Image =
+                        {
+                            Color = "1.0 1.0 1.0 1.0"
+                        },
+                        RectTransform =
+                        {
+                            AnchorMin = _oxideMins[i],
+                            AnchorMax = _oxideMaxs[i]
+                        }
+                    });
+                    break;
+                case 1:
+                    container.Add(new CuiLabel
+                    {
+                        Text =
+                        {
+                            Color = "1.0 1.0 1.0 1.0",
+                            Text = "Text"
+                        },
+                        RectTransform =
+                        {
+                            AnchorMin = _oxideMins[i],
+                            AnchorMax = _oxideMaxs[i]
+                        }
+                    });
+                    break;
+                case 2:
+                    container.Add(new CuiButton
+                    {
+                        Text =
+                        {
+                            Color = "1.0 1.0 1.0 1.0",
+                            Text = "Text"
+                        },
+                        Button =
+                        {
+                            Command = "command"
+                        },
+                        RectTransform =
+                        {
+                            AnchorMin = _oxideMins[i],
+                            AnchorMax = _oxideMaxs[i]
+                        }
+                    });
+                    break;
+                case 3:
+                    container.Add(new CuiPanel
+                    {
+                        RawImage = new CuiRawImageComponent()
+                        {
+                            Png = "png",
+                            Color = "1.0 1.0 1.0 1.0"
+                        },
+                        RectTransform =
+                        {
+                            AnchorMin = _oxideMins[i],
+                            AnchorMax = _oxideMaxs[i]
+                        }
+                    });
+                    break;
+                case 4:
+                    container.Add(new CuiPanel()
+                    {
+                        RawImage = new CuiRawImageComponent()
+                        {
+                            Url = "url",
+                            Color = "1.0 1.0 1.0 1.0"
+                        },
+                        RectTransform =
+                        {
+                            AnchorMin = _oxideMins[i],
+                            AnchorMax = _oxideMaxs[i]
+                        }
+                    });
+                    break;
+                case 5:
+                    container.Add(new CuiPanel
+                    {
+                        Image = 
+                        {
+                            ItemId = 0,
+                            Color = "1.0 1.0 1.0 1.0"
+                        },
+                        RectTransform =
+                        {
+                            AnchorMin = _oxideMins[i],
+                            AnchorMax = _oxideMaxs[i]
+                        }
+                    });
+                    break;
+                case 6:
+                    container.Add(new CuiPanel
+                    {
+                        RectTransform =
+                        {
+                            AnchorMin = _oxideMins[i],
+                            AnchorMax = _oxideMaxs[i]
+                        }
+                    });
+                    break;
+            }
         }
 
         return container;
@@ -155,11 +349,34 @@ public class Benchmarks
 
     private UiBuilder GetFrameworkBuilder()
     {
-        UiBuilder builder = UiBuilder.Create(UiPosition.Full, UiColor.Clear, "123");
-        builder.EnsureCapacity(Iterations);
-        for (int i = 0; i < Iterations - 1; i++)
+        UiBuilder builder = UiBuilder.Create(BenchmarkHelpers.Plugin, new UiReference(UiLayer.Overlay, "Name"), UiPosition.Full, default);
+        for (int i = 0; i < Iterations; i++)
         {
-            builder.Panel(builder.Root, _frameworkPos[i], UiColor.Black);
+            int mode = i % 7;
+            switch (mode)
+            {
+                case 0:
+                    builder.Panel(builder.Root, _frameworkPos[i], default, UiColors.Clear);
+                    break;
+                case 1:
+                    builder.Label(builder.Root, _frameworkPos[i], default, "Text", 14, UiColors.White);
+                    break;
+                case 2:
+                    builder.Button(builder.Root, _frameworkPos[i], default, UiColors.Green, "command");
+                    break;
+                case 3:
+                    builder.FileStorageImage(builder.Root, _frameworkPos[i], default, "0", UiColors.Blue);
+                    break;
+                case 4:
+                    builder.WebImage(builder.Root, _frameworkPos[i], default, "http://google.com", UiColors.Yellow);
+                    break;
+                case 5:
+                    builder.ItemIcon(builder.Root, _frameworkPos[i], default, 0, 0, color: UiColors.Cyan);
+                    break;
+                case 6:
+                    builder.Section(builder.Root, _frameworkPos[i]);
+                    break;
+            }
         }
 
         return builder;

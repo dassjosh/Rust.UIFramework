@@ -1,62 +1,70 @@
-﻿using Oxide.Ext.UiFramework.Colors;
+﻿using System;
+using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Enums;
+using Oxide.Ext.UiFramework.Interfaces;
 using Oxide.Ext.UiFramework.Json;
-using Oxide.Ext.UiFramework.Offsets;
-using Oxide.Ext.UiFramework.Pooling;
-using Oxide.Ext.UiFramework.Positions;
+using Rust.UiFramework.SourceGenerators.Attributes;
 using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-public class UiLabel : BaseUiOutline
+[GenerateUiElement]
+[GenerateBuilderMethods]
+public partial class UiLabel : BaseUiComponent, IFadeIn<UiLabel>, IUiColor<UiLabel>
 {
-    public readonly TextComponent Text = new();
-    public CountdownComponent Countdown;
+    public partial int FontSize { get; set; }
+    public partial string Font { get; set; }
+    public partial TextAnchor Align { get; set; }
+    [PropertyName(nameof(TextComponent.Text))]
+    public partial string TextValue { get; set; }
+    public partial VerticalWrapMode VerticalOverflow { get; set; }
+    public partial UiReference PlaceholderFor { get; set; }
+    public partial float FadeIn { get; set; }
+    public partial UiColor Color { get; set; }
+    
+    public readonly TextComponent Text;
 
-    public static UiLabel Create(in UiPosition pos, in UiOffset offset, UiColor color, string text, int size, string font, TextAnchor align = TextAnchor.MiddleCenter)
-    {
-        UiLabel label = CreateBase<UiLabel>(pos, offset);
-        TextComponent textComp = label.Text;
-        textComp.Text = text;
-        textComp.FontSize = size;
-        textComp.Color = color;
-        textComp.Align = align;
-        textComp.Font = font;
-        return label;
-    }
+    public UiLabel() : this(new TextComponent()) { }
 
-    public CountdownComponent AddCountdown(float startTime, float endTime, float step, float interval, TimerFormat timerFormat, string numberFormat, bool destroyIfDone, string command)
+    private UiLabel(TextComponent component) : base(component)
     {
-        Countdown = UiFrameworkPool.Get<CountdownComponent>();
-        Countdown.StartTime = startTime;
-        Countdown.EndTime = endTime;
-        Countdown.Step = step;
-        Countdown.Interval = interval;
-        Countdown.TimerFormat = timerFormat;
-        Countdown.NumberFormat = numberFormat;
-        Countdown.DestroyIfDone = destroyIfDone;
-        Countdown.Command = command;
-        return Countdown;
-    }
-        
-    public void SetFadeIn(float duration)
-    {
-        Text.FadeIn = duration;
+        Text = component;
     }
 
-    protected override void WriteComponents(JsonFrameworkWriter writer)
+    public UiLabel Init(string text, int size, UiColor color, TextAnchor align, string font)
     {
-        Text.WriteComponent(writer);
-        Countdown?.WriteComponent(writer);
-        base.WriteComponents(writer);
+        TextValue = text;
+        FontSize = size;
+        Color = color;
+        Align = align;
+        Font = font;
+        return this;
     }
 
-    protected override void EnterPool()
+    public UiLabel SetPlaceholderFor(UiInput input) => SetPlaceholderFor(input.Reference);
+    
+    public CountdownComponent AddCountdown() => Text.GetOrAddSubComponent<CountdownComponent>();
+    
+    public CountdownComponent AddCountdown(float startTime, float endTime, string command, 
+        float step = JsonDefaults.Countdown.Step, 
+        float interval = JsonDefaults.Countdown.Interval, 
+        TimerFormat timerFormat = JsonDefaults.Countdown.TimerFormat, 
+        string numberFormat = JsonDefaults.Countdown.NumberFormat, 
+        bool destroyIfDone = JsonDefaults.Countdown.DestroyIfDone)
     {
-        base.EnterPool();
-        Text.Reset();
-        Countdown?.Dispose();
-        Countdown = null;
+        CountdownComponent countdown = AddCountdown();
+        countdown.StartTime = startTime;
+        countdown.EndTime = endTime;
+        countdown.Step = step;
+        countdown.Interval = interval;
+        countdown.TimerFormat = timerFormat;
+        countdown.NumberFormat = numberFormat;
+        countdown.DestroyIfDone = destroyIfDone;
+        countdown.Command = command;
+        return countdown;
     }
+
+    [Obsolete("Use AddCountdown(float startTime, float endTime, string command, float step = JsonDefaults.Countdown.Step,  float interval = JsonDefaults.Countdown.Interval, TimerFormat timerFormat = JsonDefaults.Countdown.TimerFormat, string numberFormat = JsonDefaults.Countdown.NumberFormat, bool destroyIfDone = JsonDefaults.Countdown.DestroyIfDone) Instead")]
+    public CountdownComponent AddCountdown(float startTime, float endTime, float step, float interval, TimerFormat timerFormat, string numberFormat, bool destroyIfDone, string command) => AddCountdown(startTime, endTime, command, step, interval, timerFormat, numberFormat, destroyIfDone);
 }

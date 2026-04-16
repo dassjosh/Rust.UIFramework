@@ -3,47 +3,45 @@ using Oxide.Ext.UiFramework.Builder;
 using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Controls.Data;
-using Oxide.Ext.UiFramework.Extensions;
+using Oxide.Ext.UiFramework.Layouts;
+using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Offsets;
-using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.UiElements;
+
 
 namespace Oxide.Ext.UiFramework.Controls;
 
 public class UiButtonGroup : BaseUiControl
 {
-    public UiSection Base;
+    public UiDirectionalLayout Layout;
     public List<UiButton> Buttons;
         
-    public static UiButtonGroup Create(BaseUiBuilder builder, in UiReference parent, in UiPosition pos, in UiOffset offset, List<ButtonGroupData> buttons, int textSize, UiColor textColor, UiColor buttonColor, UiColor activeButtonColor, string command)
+    public static UiButtonGroup Create(BaseUiBuilder builder, in UiReference parent, in UiPosition pos, in UiOffset offset, List<ButtonGroupData> buttons, int textSize, UiColor textColor, UiColor buttonColor, UiColor activeButtonColor)
     {
-        UiButtonGroup control = CreateControl<UiButtonGroup>();
-        control.Base = builder.Section(parent, pos, offset);
-            
-        float buttonSize = 1f / (buttons.Count + 1);
+        UiButtonGroup control = CreateControl<UiButtonGroup>(builder);
+        control.Layout = builder.DirectionalLayout(parent, pos, offset, buttons.Count);
+        
         for (int i = 0; i < buttons.Count; i++)
         {
-            ButtonGroupData button = buttons[i];
-                
-            UiPosition buttonPos = UiPosition.Full.SliceHorizontal(buttonSize * i, buttonSize * (i + 1));
-            control.Buttons.Add(builder.TextButton(control.Base, buttonPos, button.DisplayName, textSize, textColor, button.IsActive ? activeButtonColor : buttonColor, $"{command} {button.CommandArgs}"));
+            ButtonGroupData buttonData = buttons[i];
+            control.Buttons.Add(builder.TextButton(control.Layout, buttonData.DisplayName, textSize, textColor, buttonData.IsActive ? activeButtonColor : buttonColor, buttonData.Command));
         }
 
         return control;
     }
         
-    public static UiButtonGroup CreateNumeric(BaseUiBuilder builder, in UiReference parent, in UiPosition pos, in UiOffset offset, int value, int minValue, int maxValue, int textSize, UiColor textColor, UiColor buttonColor, UiColor activeButtonColor, string command)
+    public static UiButtonGroup CreateNumeric(BaseUiBuilder builder, in UiReference parent, in UiPosition pos, in UiOffset offset, int value, int minValue, int maxValue, int textSize, UiColor textColor, UiColor buttonColor, UiColor activeButtonColor, ICommandBuilder<int> command)
     {
-        List<ButtonGroupData> data = UiFrameworkPool.GetList<ButtonGroupData>();
+        List<ButtonGroupData> data = builder.PluginPool.GetList<ButtonGroupData>();
         for (int i = minValue; i <= maxValue; i++)
         {
             string num = StringCache<int>.ToString(i);
-            data.Add(new ButtonGroupData(num, num, i == value));
+            data.Add(new ButtonGroupData(num, command.Build(i), i == value));
         }
             
-        UiButtonGroup control = Create(builder, parent, pos, offset, data, textSize, textColor, buttonColor, activeButtonColor, command);
-        UiFrameworkPool.FreeList(data);
+        UiButtonGroup control = Create(builder, parent, pos, offset, data, textSize, textColor, buttonColor, activeButtonColor);
+        builder.PluginPool.FreeList(data);
 
         return control;
     }
@@ -51,13 +49,13 @@ public class UiButtonGroup : BaseUiControl
     protected override void LeavePool()
     {
         base.LeavePool();
-        Buttons = UiFrameworkPool.GetList<UiButton>();
+        Buttons = PluginPool.GetList<UiButton>();
     }
 
     protected override void EnterPool()
     {
         base.EnterPool();
-        UiFrameworkPool.FreeList(Buttons);
-        Base = null;
+        PluginPool.FreeList(Buttons);
+        Layout = null;
     }
 }

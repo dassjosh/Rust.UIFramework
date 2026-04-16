@@ -9,5 +9,7 @@ public enum BorderMode : byte
     Left = 1 << 1,
     Bottom = 1 << 2,
     Right = 1 << 3,
-    All = Top | Left | Bottom | Right
+    Horizontal = Left | Right,
+    Vertical = Top | Bottom,
+    All = Horizontal | Vertical
 }

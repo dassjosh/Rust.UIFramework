@@ -1,87 +1,89 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Facepunch;
 using Network;
-using Oxide.Ext.UiFramework.Benchmarks;
-using Oxide.Ext.UiFramework.Builders;
+using Oxide.Ext.UiFramework.Animation;
+using Oxide.Ext.UiFramework.Helpers;
 using Oxide.Ext.UiFramework.Json;
+using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Threading;
+using Oxide.Ext.UiFramework.Threading.UiChannel;
+using Oxide.Ext.UiFramework.Types;
+
+#if BENCHMARKS
+using Facepunch;
+using Oxide.Ext.UiFramework.Benchmarks;
+#endif
 
 namespace Oxide.Ext.UiFramework.Builder;
 
 public abstract class BaseBuilder : BasePoolable
 {
     protected string RootName;
-
+    
     public string GetRootName() => RootName;
+    
+    public IUiFrameworkPlugin Plugin { get; protected set; }
+
+    protected void Init(IUiFrameworkPlugin plugin)
+    {
+        Plugin = plugin;
+    }
+    
     #region Add UI
-    public void AddUi(BasePlayer player)
+    public void AddUi(BasePlayer player, in UiDebugOptions? options = default)
     {
         if (player && player.IsConnected)
         {
-            AddUi(SendInfoBuilder.Get(player));
+            AddUi(SendInfoBuilder.Get(player), options);
+        }
+        else
+        {
+            TryDispose();
         }
     }
 
-    public void AddUi(Connection connection)
+    public void AddUi(Connection connection, in UiDebugOptions? options = default)
     {
         if (connection is { connected: true })
         {
-            AddUi(SendInfoBuilder.Get(connection));
+            AddUi(SendInfoBuilder.Get(connection), options);
+        }
+        else
+        {
+            TryDispose();
         }
     }
 
-    public void AddUi(IEnumerable<Connection> connections)
-    {
-        AddUi(SendInfoBuilder.Get(connections));
-    }
+    public void AddUi(IEnumerable<Connection> connections, in UiDebugOptions? options = default) => AddUi(SendInfoBuilder.Get(connections), options);
 
-    public void AddUi()
-    {
-        AddUi(SendInfoBuilder.Get(Net.sv.connections));
-    }
+    public void AddUi(in UiDebugOptions? options = default) => AddUi(SendInfoBuilder.Get(Net.sv.connections), options);
 
-    public void AddUi(SendInfo send)
-    {
-        SendHandler.Enqueue(UiSendRequest.Create(this, send));
-    }
+    public void AddUi(SendInfo send, in UiDebugOptions? options = default) => UiSendRequest.Create(this, send, options).Enqueue();
 
-    internal abstract void SendUi(SendInfo send);
 
-    internal void AddUi(SendInfo send, JsonFrameworkWriter writer)
+    internal abstract void SendUi(SendInfo send, in UiDebugOptions? options);
+    internal abstract void SendAnimations(SendInfo send);
+
+    internal void AddUi(SendInfo send, JsonFrameworkWriter writer, in UiDebugOptions? options)
     {
-        NetWrite write = ClientRPCStart(UiConstants.RpcFunctions.AddUiFunc);
-        if (write != null)
+        RpcFunctions.SendAddUi(send, writer);
+        
+        if (options.HasValue)
         {
-            writer.WriteToNetwork(write);
-            write.Send(send);
+            UiDebugHandler.HandleDebug(Plugin, writer, options.Value);
         }
     }
         
-    protected void AddUi(SendInfo send, byte[] bytes)
+    protected void AddUi(SendInfo send, byte[] bytes, in UiDebugOptions? options)
     {
-        NetWrite write = ClientRPCStart(UiConstants.RpcFunctions.AddUiFunc);
-        if (write != null)
+        RpcFunctions.SendAddUi(send, bytes);
+        
+        if (options.HasValue)
         {
-            write.BytesWithSize(bytes);
-            write.Send(send);
+            UiDebugHandler.HandleDebug(Plugin, bytes, options.Value);
         }
-    }
-
-    private static NetWrite ClientRPCStart(string funcName)
-    {
-        if (!Net.sv.IsConnected() || CommunityEntity.ServerInstance.net == null)
-        {
-            return null;
-        }
-
-        NetWrite write = Net.sv.StartWrite();
-        write.PacketID(Message.Type.RPCMessage);
-        write.EntityID(CommunityEntity.ServerInstance.net.ID);
-        write.UInt32(StringPool.Get(funcName));
-        return write;
     }
     #endregion
 
@@ -113,7 +115,6 @@ public abstract class BaseBuilder : BasePoolable
         if (connections == null) throw new ArgumentNullException(nameof(connections));
         SendInfo send = SendInfoBuilder.Get(connections);
         DestroyUi(send, RootName);
-        ListPool<Connection>.Instance.Free(send.connections);
     }
 
     public void DestroyUi()
@@ -136,12 +137,13 @@ public abstract class BaseBuilder : BasePoolable
 
     public static void DestroyUi(SendInfo send, string name)
     {
-        SendHandler.Enqueue(UiDestroyRequest.Create(send, name));
-    }
-
-    public static void DestroyUi(IEnumerable<Connection> connections, string name)
-    {
-        DestroyUi(SendInfoBuilder.Get(connections), name);
+        if (!Net.sv.IsConnected() || CommunityEntity.ServerInstance.net == null)
+        {
+            return;
+        }
+        
+        Singleton<AnimationTracker>.Instance.RemoveUiForSend(send, name);
+        UiDestroyRequest.Create(name, send).Enqueue();
     }
     #endregion
 
@@ -168,10 +170,30 @@ public abstract class BaseBuilder : BasePoolable
     public string GetJsonString() => Encoding.UTF8.GetString(GetBytes());
     #endregion
 
+    #region Combined
+    public abstract void Combine(SendInfo send, JsonFrameworkWriter writer);
+    #endregion
+
     #region Pooling
+    protected static void ClearAnimationList(List<ISendableAnimation> animations)
+    {
+        int count = animations.Count;
+        for (int index = 0; index < count; index++)
+        {
+            ISendableAnimation animation = animations[index];
+            if (animation.State == AnimationState.Init)
+            {
+                animation.Dispose();
+            }
+        }
+        
+        animations.Clear();
+    }
+    
     protected override void EnterPool()
     {
         RootName = null;
+        Plugin = null;
     }
     #endregion
 }

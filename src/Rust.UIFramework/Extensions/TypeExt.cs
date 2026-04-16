@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Text;
-using Oxide.Ext.UiFramework.Pooling;
+using Oxide.Ext.UiFramework.Libraries;
 
 namespace Oxide.Ext.UiFramework.Extensions;
 
@@ -10,60 +11,119 @@ namespace Oxide.Ext.UiFramework.Extensions;
 /// </summary>
 internal static class TypeExt
 {
-    /// <summary>
-    /// Returns if the type is <see cref="Nullable"/>
-    /// </summary>
-    /// <param name="objectType">Type to check</param>
-    /// <returns>True if type is <see cref="Nullable"/>; false otherwise</returns>
-    public static bool IsNullable(this Type objectType) => objectType.IsGenericType && objectType.GetGenericTypeDefinition() == typeof(Nullable<>);
-        
-    /// <summary>
-    /// Returns if the type is <see cref="Nullable"/>
-    /// </summary>
-    /// <param name="objectType">Type to check</param>
-    /// <returns>True if type is <see cref="Nullable"/>; false otherwise</returns>
-    public static Type GetNullableType(this Type objectType) => Nullable.GetUnderlyingType(objectType);
-
-    /// <summary>
-    /// Returns if a type is a value type
-    /// </summary>
-    /// <param name="source"></param>
-    /// <returns></returns>
-    public static bool IsValueType(this Type source) => source.IsValueType;
-
-    /// <summary>
-    /// Returns the default value for <see cref="Type"/>
-    /// </summary>
-    /// <param name="type">Type to get default value for</param>
-    /// <returns>default value for <see cref="Type"/></returns>
-    public static object GetDefault(this Type type) => type.IsValueType ? Activator.CreateInstance(type) : null;
-
-    internal static T GetAttribute<T>(this Type type, bool inherit) where T : Attribute => type.GetCustomAttribute(typeof(T), inherit) as T;
-    internal static bool HasAttribute<T>(this Type type, bool inherit) where T : Attribute => GetAttribute<T>(type, inherit) != null;
-        
-    public static string GetRealTypeName(this Type t)
+    /// <param name="type">Type to check</param>
+    extension(Type type)
     {
-        if (!t.IsGenericType)
+        /// <summary>
+        /// Returns if the type is <see cref="Nullable"/>
+        /// </summary>
+        /// <returns>True if type is <see cref="Nullable"/>; false otherwise</returns>
+        public bool IsNullable => type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>);
+
+        public bool HasFlags => type.IsEnum && type.IsDefined(typeof(FlagsAttribute));
+        
+        public static bool IsUnmanaged<T>() => !RuntimeHelpers.IsReferenceOrContainsReferences<T>();
+
+        /// <summary>
+        /// Returns if the type is <see cref="Nullable"/>
+        /// </summary>
+        /// <returns>True if type is <see cref="Nullable"/>; false otherwise</returns>
+        public Type GetNullableType() => Nullable.GetUnderlyingType(type);
+
+        /// <summary>
+        /// Returns if a type is a value type
+        /// </summary>
+        /// <returns></returns>
+        public bool IsValueType => type.IsValueType;
+
+        /// <summary>
+        /// Returns the default value for <see cref="Type"/>
+        /// </summary>
+        /// <returns>default value for <see cref="Type"/></returns>
+        public object GetDefault() => type.IsValueType ? Activator.CreateInstance(type) : null;
+
+        internal T GetAttribute<T>(bool inherit) where T : Attribute => type.GetCustomAttribute(typeof(T), inherit) as T;
+
+        internal bool HasAttribute<T>(bool inherit) where T : Attribute => GetAttribute<T>(type, inherit) != null;
+
+        public string GetRealTypeName()
         {
-            return t.Name;
+            if (!type.IsGenericType)
+            {
+                return type.Name;
+            }
+
+            StringBuilder sb = UiPool.Internal.GetStringBuilder();
+            if (type.DeclaringType is not null)
+            {
+                sb.Append(type.DeclaringType.GetRealTypeName());
+                sb.Append('.');
+            }
+
+            if (type.Name.Contains('`'))
+            {
+                sb.Append(type.Name.AsSpan()[..type.Name.IndexOf('`')]);
+            }
+            else
+            {
+                sb.Append(type.Name);
+            }
+            
+            sb.Append('<');
+            Type[] args = type.GetGenericArguments();
+            for (int index = 0; index < args.Length; index++)
+            {
+                Type arg = args[index];
+                if (index != 0)
+                {
+                    sb.Append(',');
+                }
+                sb.Append(GetRealTypeName(arg));
+            }
+            sb.Append('>');
+            return UiPool.Internal.ToStringAndFree(sb);
         }
 
-        StringBuilder sb = StringBuilderPool.Instance.Get();
-        sb.Append(t.Name.AsSpan().Slice(0, t.Name.IndexOf('`')));
-        sb.Append('<');
-        Type[] args = t.GetGenericArguments();
-        for (int index = 0; index < args.Length; index++)
+        public TypeCode GetTypeCode()
         {
-            Type arg = args[index];
-            if (index != 0)
+            if (type == null)
             {
-                sb.Append(',');
+                return TypeCode.Empty;
             }
-            sb.Append(GetRealTypeName(arg));
+
+            if (type.IsEnum)
+            {
+                return Enum.GetUnderlyingType(type).GetTypeCode();
+            }
+
+            // Handle nullable types
+            if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>))
+            {
+                type = Nullable.GetUnderlyingType(type);
+            }
+
+            return Type.GetTypeCode(type);
         }
-        sb.Append('>');
-        string type = sb.ToString();
-        StringBuilderPool.Instance.Free(sb);
-        return type;
+
+        public bool IsNumericType()
+        {
+            switch (type.GetTypeCode())
+            {
+                case TypeCode.Byte:
+                case TypeCode.SByte:
+                case TypeCode.UInt16:
+                case TypeCode.UInt32:
+                case TypeCode.UInt64:
+                case TypeCode.Int16:
+                case TypeCode.Int32:
+                case TypeCode.Int64:
+                case TypeCode.Decimal:
+                case TypeCode.Double:
+                case TypeCode.Single:
+                    return true;
+                default:
+                    return false;
+            }
+        }
     }
 }

@@ -1,118 +1,162 @@
 ﻿using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
+using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Offsets;
-using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Positions;
+using Rust.UiFramework.SourceGenerators.Attributes;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-public class UiScrollView : BaseUiComponent
+[GenerateUiElement]
+[GenerateBuilderMethods]
+public partial class UiScrollView : BaseUiComponent
 {
-    public readonly ScrollViewComponent ScrollView = new();
-
-    public UiReference ViewPort => _viewPort ??= Reference.WithChild($"{Reference.Name}___Viewport");
-    public UiReference Content => _content ??= Reference.WithChild($"{Reference.Name}___Content");
+    public partial ScrollRect.MovementType MovementType { get; set; }
+    public partial float Elasticity { get; set; }
+    public partial bool Inertia { get; set; }
+    public partial float DecelerationRate { get; set; }
+    public partial float ScrollSensitivity { get; set; }
+    public partial float HorizontalScrollProgress { get; set; }
+    public partial float VerticalScrollProgress { get; set; }
     
-    private UiReference? _viewPort;
-    private UiReference? _content;
+    [PropertyTarget(nameof(GetOrCreateContentTransform), PropertyTargetType.Method)]
+    [PropertyName(nameof(ScrollViewContentComponent.Position))]
+    public partial UiPosition ContentPosition { get; set; }
     
-    public static UiScrollView Create(in UiPosition pos, in UiOffset offset, bool horizontal, bool vertical, ScrollRect.MovementType movementType, float elasticity,
-        bool inertia, float decelerationRate, float scrollSensitivity)
+    [PropertyTarget(nameof(GetOrCreateContentTransform), PropertyTargetType.Method)]
+    [PropertyName(nameof(ScrollViewContentComponent.Offset))]
+    public partial UiOffset ContentOffset { get; set; }
+    
+    [PropertyTarget(nameof(GetOrCreateContentTransform), PropertyTargetType.Method)]
+    [PropertyName(nameof(ScrollViewContentComponent.Pivot))]
+    public partial Vector2 ContentPivot { get; set; }
+    
+    public readonly ScrollViewComponent ScrollView;
+
+    public ScrollbarComponent HorizontalScrollbar => ScrollView.HorizontalScrollbar;
+    public ScrollbarComponent VerticalScrollbar => ScrollView.VerticalScrollbar;
+    
+    public UiScrollView() : this(new ScrollViewComponent()) { }
+
+    private UiScrollView(ScrollViewComponent component) : base(component)
     {
-        UiScrollView scroll = CreateBase<UiScrollView>(pos, offset);
-        ScrollViewComponent comp = scroll.ScrollView;
-        comp.Horizontal = horizontal;
-        comp.Vertical = vertical;
-        comp.MovementType = movementType;
-        comp.Elasticity = elasticity;
-        comp.Inertia = inertia;
-        comp.DecelerationRate = decelerationRate;
-        comp.ScrollSensitivity = scrollSensitivity;
-        return scroll;
+        ScrollView = component;
     }
-
-    public void UpdateContentTransform(in UiPosition? position = null, in UiOffset? offset = null)
+    
+    public UiScrollView Init(ScrollRect.MovementType movementType, float elasticity, bool inertia, float decelerationRate, float scrollSensitivity)
     {
-        if (position.HasValue)
-        {
-            ScrollView.ContentTransform.Position = position.Value;
-        }
-
-        if (offset.HasValue)
-        {
-            ScrollView.ContentTransform.Offset = offset.Value;
-        }
+        MovementType = movementType;
+        Elasticity = elasticity;
+        Inertia = inertia;
+        DecelerationRate = decelerationRate;
+        ScrollSensitivity = scrollSensitivity;
+        return this;
     }
+    
+    public ScrollViewContentComponent GetOrCreateContentTransform() => ScrollView.GetOrCreateContentTransform();
 
-    public void AddScrollBars(bool invert = false, bool autoHide = false, string handleSprite = null, string trackSprite = null, float size = 20f,
+    public void UpdateContentTransform(in UiPosition? position = null, in UiOffset? offset = null, in Vector2? pivot = null) => ScrollView.UpdateContentTransform(position, offset, pivot);
+
+    public (ScrollbarComponent horizontal, ScrollbarComponent vertical) AddScrollBars(bool invert = false, bool autoHide = false, string handleSprite = null, string trackSprite = null, float size = JsonDefaults.ScrollBar.Size,
         UiColor? handleColor = null, UiColor? highlightColor = null, UiColor? pressedColor = null, UiColor? trackColor = null)
     {
-        AddHorizontalScrollBar(invert, autoHide, handleSprite, trackSprite, size, handleColor, highlightColor, pressedColor, trackColor);
-        AddVerticalScrollBar(invert, autoHide, handleSprite, trackSprite, size, handleColor, highlightColor, pressedColor, trackColor);
+        return ScrollView.AddScrollBars(invert, autoHide, handleSprite, trackSprite, size, handleColor, highlightColor, pressedColor, trackColor);
     }
     
-    public ScrollbarComponent AddHorizontalScrollBar(bool invert = false, bool autoHide = false, string handleSprite = null, string trackSprite = null, float size = 20f, 
+    public ScrollbarComponent AddHorizontalScrollBar(bool invert = false, bool autoHide = false, string handleSprite = null, string trackSprite = null, float size = JsonDefaults.ScrollBar.Size, 
         UiColor? handleColor = null, UiColor? highlightColor = null, UiColor? pressedColor = null, UiColor? trackColor = null)
     {
-        ScrollView.Horizontal = true;
-        ScrollbarComponent bar = CreateScrollBar(invert, autoHide, handleSprite, trackSprite, size, handleColor, highlightColor, pressedColor, trackColor);
-        ScrollView.HorizontalScrollbar = bar;
-        return bar;
+        return ScrollView.AddHorizontalScrollBar(invert, autoHide, handleSprite, trackSprite, size, handleColor, highlightColor, pressedColor, trackColor);
     }
     
-    public ScrollbarComponent AddVerticalScrollBar(bool invert = false, bool autoHide = false, string handleSprite = null, string trackSprite = null, float size = 20f, 
+    public ScrollbarComponent AddVerticalScrollBar(bool invert = false, bool autoHide = false, string handleSprite = null, string trackSprite = null, float size = JsonDefaults.ScrollBar.Size, 
         UiColor? handleColor = null, UiColor? highlightColor = null, UiColor? pressedColor = null, UiColor? trackColor = null)
     {
-        ScrollView.Vertical = true;
-        ScrollbarComponent bar = CreateScrollBar(invert, autoHide, handleSprite, trackSprite, size, handleColor, highlightColor, pressedColor, trackColor);
-        ScrollView.VerticalScrollbar = bar;
-        return bar;
+        return ScrollView.AddVerticalScrollBar(invert, autoHide, handleSprite, trackSprite, size, handleColor, highlightColor, pressedColor, trackColor);
     }
 
-    private ScrollbarComponent CreateScrollBar(bool invert = false, bool autoHide = false, string handleSprite = null, string trackSprite = null, float size = 20f, 
-        UiColor? handleColor = null, UiColor? highlightColor = null, UiColor? pressedColor = null, UiColor? trackColor = null)
+    public UiScrollView SetHorizontalScrollbar()
     {
-        ScrollbarComponent comp = UiFrameworkPool.Get<ScrollbarComponent>();
-        comp.Invert = invert;
-        comp.AutoHide = autoHide;
-        comp.HandleSprite = handleSprite;
-        comp.TrackSprite = trackSprite;
-        comp.Size = size;
-        if (handleColor.HasValue)
-        {
-            comp.HandleColor = handleColor.Value;
-        }
-        if (highlightColor.HasValue)
-        {
-            comp.HighlightColor = highlightColor.Value;
-        }
-        if (pressedColor.HasValue)
-        {
-            comp.PressedColor = pressedColor.Value;
-        }
-        if (trackColor.HasValue)
-        {
-            comp.TrackColor = trackColor.Value;
-        }
-        return comp;
+        ScrollView.GetOrCreateHorizontalScrollbar();
+        return this;
     }
     
-    protected override void WriteComponents(JsonFrameworkWriter writer)
+    public UiScrollView SetVerticalScrollbar()
     {
-        ScrollView.WriteComponent(writer);
-        base.WriteComponents(writer);
+        ScrollView.GetOrCreateVerticalScrollbar();
+        return this;
     }
-
-    protected override void EnterPool()
+    
+    public UiScrollView SetScrollbar(ScrollbarTypes type)
     {
-        base.EnterPool();
-        ScrollView.HorizontalScrollbar?.Dispose();
-        ScrollView.HorizontalScrollbar = null;
-        ScrollView.VerticalScrollbar?.Dispose();
-        ScrollView.VerticalScrollbar = null;
-        _viewPort = null;
-        _content = null;
+        if(type.HasFlag(ScrollbarTypes.Horizontal)) ScrollView.GetOrCreateHorizontalScrollbar();
+        if(type.HasFlag(ScrollbarTypes.Vertical)) ScrollView.GetOrCreateVerticalScrollbar();
+        return this;
+    }
+    
+    public UiScrollView SetScrollbarInvert(ScrollbarTypes type, bool invert)
+    {
+        if(type.HasFlag(ScrollbarTypes.Horizontal) && HorizontalScrollbar != null) HorizontalScrollbar.Invert = invert;
+        if(type.HasFlag(ScrollbarTypes.Vertical) && VerticalScrollbar != null) VerticalScrollbar.Invert = invert;
+        return this;
+    }
+    
+    public UiScrollView SetScrollbarAutoHide(ScrollbarTypes type, bool autoHide)
+    {
+        if(type.HasFlag(ScrollbarTypes.Horizontal) && HorizontalScrollbar != null) HorizontalScrollbar.AutoHide = autoHide;
+        if(type.HasFlag(ScrollbarTypes.Vertical) && VerticalScrollbar != null) VerticalScrollbar.AutoHide = autoHide;
+        return this;
+    }
+    
+    public UiScrollView SetScrollbarHandleSprite(ScrollbarTypes type, string sprite)
+    {
+        if(type.HasFlag(ScrollbarTypes.Horizontal) && HorizontalScrollbar != null) HorizontalScrollbar.HandleSprite = sprite;
+        if(type.HasFlag(ScrollbarTypes.Vertical) && VerticalScrollbar != null) VerticalScrollbar.HandleSprite = sprite;
+        return this;
+    }
+    
+    public UiScrollView SetScrollbarTrackSprite(ScrollbarTypes type, string sprite)
+    {
+        if(type.HasFlag(ScrollbarTypes.Horizontal) && HorizontalScrollbar != null) HorizontalScrollbar.TrackSprite = sprite;
+        if(type.HasFlag(ScrollbarTypes.Vertical) && VerticalScrollbar != null) VerticalScrollbar.TrackSprite = sprite;
+        return this;
+    }
+    
+    public UiScrollView SetScrollbarSize(ScrollbarTypes type, float size)
+    {
+        if(type.HasFlag(ScrollbarTypes.Horizontal) && HorizontalScrollbar != null) HorizontalScrollbar.Size = size;
+        if(type.HasFlag(ScrollbarTypes.Vertical) && VerticalScrollbar != null) VerticalScrollbar.Size = size;
+        return this;
+    }
+    
+    public UiScrollView SetScrollbarHandleColor(ScrollbarTypes type, UiColor color)
+    {
+        if(type.HasFlag(ScrollbarTypes.Horizontal) && HorizontalScrollbar != null) HorizontalScrollbar.HandleColor = color;
+        if(type.HasFlag(ScrollbarTypes.Vertical) && VerticalScrollbar != null) VerticalScrollbar.HandleColor = color;
+        return this;
+    }
+    
+    public UiScrollView SetScrollbarHighlightColor(ScrollbarTypes type, UiColor color)
+    {
+        if(type.HasFlag(ScrollbarTypes.Horizontal) && HorizontalScrollbar != null) HorizontalScrollbar.HighlightColor = color;
+        if(type.HasFlag(ScrollbarTypes.Vertical) && VerticalScrollbar != null) VerticalScrollbar.HighlightColor = color;
+        return this;
+    }
+    
+    public UiScrollView SetScrollbarPressedColor(ScrollbarTypes type, UiColor color)
+    {
+        if(type.HasFlag(ScrollbarTypes.Horizontal) && HorizontalScrollbar != null) HorizontalScrollbar.PressedColor = color;
+        if(type.HasFlag(ScrollbarTypes.Vertical) && VerticalScrollbar != null) VerticalScrollbar.PressedColor = color;
+        return this;
+    }
+    
+    public UiScrollView SetScrollbarTrackColor(ScrollbarTypes type, UiColor color)
+    {
+        if(type.HasFlag(ScrollbarTypes.Horizontal) && HorizontalScrollbar != null) HorizontalScrollbar.TrackColor = color;
+        if(type.HasFlag(ScrollbarTypes.Vertical) && VerticalScrollbar != null) VerticalScrollbar.TrackColor = color;
+        return this;
     }
 }

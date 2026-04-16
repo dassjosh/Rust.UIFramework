@@ -1,37 +1,35 @@
 ﻿using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
-using Oxide.Ext.UiFramework.Json;
-using Oxide.Ext.UiFramework.Offsets;
-using Oxide.Ext.UiFramework.Positions;
+using Oxide.Ext.UiFramework.Enums;
+using Oxide.Ext.UiFramework.Interfaces;
+using Rust.UiFramework.SourceGenerators.Attributes;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-public class UiPlayerAvatar : BaseUiOutline
+[GenerateUiElement]
+[GenerateBuilderMethods]
+public partial class UiPlayerAvatar : BaseUiComponent, IMaterial<UiPlayerAvatar>, IFadeIn<UiPlayerAvatar>, IUiColor<UiPlayerAvatar>
 {
-    public readonly PlayerAvatarComponent Avatar = new();
+    public partial ulong SteamId { get; set; }
+    public partial AvatarType AvatarType { get; set; }
+    public partial string Material { get; set; }
+    public partial float FadeIn { get; set; }
+    public partial UiColor Color { get; set; }
+    
+    public readonly PlayerAvatarComponent Avatar;
+    
+    public UiPlayerAvatar() : this(new PlayerAvatarComponent()) { }
 
-    public static UiPlayerAvatar Create(in UiPosition pos, in UiOffset offset, UiColor color, string steamId)
+    private UiPlayerAvatar(PlayerAvatarComponent component) : base(component)
     {
-        UiPlayerAvatar icon = CreateBase<UiPlayerAvatar>(pos, offset);
-        icon.Avatar.Color = color;
-        icon.Avatar.SteamId = steamId;
-        return icon;
+        Avatar = component;
     }
-        
-    public void SetFadeIn(float duration)
+    
+    public UiPlayerAvatar Init(ulong steamId, AvatarType type, UiColor color)
     {
-        Avatar.FadeIn = duration;
-    }
-
-    protected override void WriteComponents(JsonFrameworkWriter writer)
-    {
-        Avatar.WriteComponent(writer);
-        base.WriteComponents(writer);
-    }
-
-    protected override void EnterPool()
-    {
-        base.EnterPool();
-        Avatar.Reset();
+        Color = color;
+        SteamId = steamId;
+        AvatarType = type;
+        return this;
     }
 }

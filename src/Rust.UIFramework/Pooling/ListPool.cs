@@ -6,21 +6,13 @@ namespace Oxide.Ext.UiFramework.Pooling;
 /// Represents a pool for <see cref="List{T}"/>
 /// </summary>
 /// <typeparam name="T">Type that will be in the list</typeparam>
-public class ListPool<T> : BasePool<List<T>>
+internal class ListPool<T> : BaseObjectPool<List<T>, ListPool<T>>
 {
-    public static readonly IPool<List<T>> Instance;
-        
-    static ListPool()
-    {
-        Instance = new ListPool<T>();
-    }
-
-    private ListPool() : base(128) { }
-
+    protected override PoolSize GetPoolSize(PoolSettings settings) => settings.ListPoolSize;
     protected override List<T> CreateNew() => [];
 
     ///<inheritdoc/>
-    protected override bool OnFreeItem(ref List<T> item)
+    protected override bool OnFreeItem(List<T> item)
     {
         item.Clear();
         return true;

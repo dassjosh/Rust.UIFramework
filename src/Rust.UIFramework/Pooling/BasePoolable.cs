@@ -1,71 +1,111 @@
 using System;
+using Oxide.Ext.UiFramework.Libraries;
+
+#if DEBUG
+using Oxide.Ext.UiFramework.Cache;
+#endif
 
 namespace Oxide.Ext.UiFramework.Pooling;
 
 /// <summary>
 /// Represents a poolable object
 /// </summary>
-public abstract class BasePoolable : IDisposable
+public abstract class BasePoolable : IPoolable
 {
-    internal bool Disposed;
+    public bool IsPooled { get; private set; }
 
-    /// <summary>
-    /// Returns if the object should be pooled.
-    /// This field is set to true when leaving the pool.
-    /// If the object instantiated using new() outside the pool it will be false
-    /// </summary>
-    private bool _shouldPool;
-    private IPool<BasePoolable> _pool;
+    internal bool CanPool => _pool != null && !IsPooled;
+    private IObjectPool<BasePoolable> _pool;
+    internal UiPluginPool PluginPool;
+    UiPluginPool IPoolable.PluginPool => PluginPool;
 
-    internal void OnInit(IPool<BasePoolable> pool)
+#if DEBUG
+    private readonly string _createdStack = Environment.StackTrace;
+    private string _lastGetStack;
+    private DateTime _lastGetTime;
+    private string _lastPooledStack;
+    private DateTime _lastPooledTime;
+    
+    ~BasePoolable()
+    {
+        if (CanPool)
+        {
+            OxideLibrary.LogWarning($"\n{new string('=', 30)}\nLeaked: {GetType().Name}\n{_createdStack}\n\n{_lastGetStack}\n\n{_lastPooledStack}");
+        }
+    }
+#endif
+
+    internal void OnInitInternal(IObjectPool<BasePoolable> pool)
     {
         _pool = pool;
+        PluginPool = pool.PluginPool;
+        OnInit();
+    }
+    
+    internal virtual void OnInit() {}
+    
+    internal virtual void OverridePluginPool(UiPluginPool pluginPool)
+    {
+        PluginPool = pluginPool;
     }
 
     internal void EnterPoolInternal()
     {
         EnterPool();
-        _shouldPool = false;
-        Disposed = true;
+        IsPooled = true;
     }
 
     internal void LeavePoolInternal()
     {
-        _shouldPool = true;
-        Disposed = false;
+        IsPooled = false;
         LeavePool();
+#if DEBUG
+        _lastGetStack = Environment.StackTrace;
+        _lastGetTime = DateTime.Now;
+#endif
     }
 
     /// <summary>
     /// Called when the object is returned to the pool.
-    /// Can be overriden in child classes to cleanup used data
+    /// Can be overriden in child classes to clean up used data
     /// </summary>
-    protected virtual void EnterPool()
-    {
-            
-    }
+    protected virtual void EnterPool() { }
         
     /// <summary>
     /// Called when the object leaves the pool.
     /// Can be overriden in child classes to set the initial object state
     /// </summary>
-    protected virtual void LeavePool()
-    {
-            
-    }
+    protected virtual void LeavePool() { }
+    
+#if UNIT_TESTS
+    internal void TestEnterPool() => EnterPool();
+    internal void TestLeavePool() => LeavePool();
+#endif
 
-    public virtual void Dispose()
+    public void TryDispose()
     {
-        if (!_shouldPool)
+        if (CanPool && !IsPooled)
+        {
+            Dispose();
+        }
+    }
+    
+    public void Dispose()
+    {
+        if (_pool == null)
         {
             return;
         }
-
-        if (Disposed)
+        
+        if (IsPooled)
         {
             throw new ObjectDisposedException(GetType().Name);
         }
-            
+#if DEBUG
+        _lastPooledStack = Environment.StackTrace;
+        _lastPooledTime = DateTime.Now;
+#endif
+        
         _pool.Free(this);
     }
 }

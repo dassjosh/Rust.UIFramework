@@ -1,0 +1,104 @@
+﻿using System;
+using System.Runtime.CompilerServices;
+
+namespace Oxide.Ext.UiFramework.Libraries;
+
+internal ref struct ArgWriterIterator(UiArgWriter writer, IArgWriter[] writers, int startIndex = 0)
+{
+    internal readonly UiArgWriter Writer = writer;
+    internal int Index { get; private set; } = startIndex;
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public void WriteArgs<T0>(T0 arg)
+    {
+        WriteNext(arg);
+    }
+    
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public void WriteArgs<T0, T1>(T0 arg0, T1 arg1)
+    {
+        WriteArgs(arg0);
+        WriteNext(arg1);
+    }
+    
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public void WriteArgs<T0, T1, T2>(T0 arg0, T1 arg1, T2 arg2)
+    {
+        WriteArgs(arg0, arg1);
+        WriteNext(arg2);
+    }
+    
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public void WriteArgs<T0, T1, T2, T3>(T0 arg0, T1 arg1, T2 arg2, T3 arg3)
+    {
+        WriteArgs(arg0, arg1, arg2);
+        WriteNext(arg3);
+    }
+    
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public void WriteArgs<T0, T1, T2, T3, T4>(T0 arg0, T1 arg1, T2 arg2, T3 arg3, T4 arg4)
+    {
+        WriteArgs(arg0, arg1, arg2, arg3);
+        WriteNext(arg4);
+    }
+    
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public void WriteArgs<T0, T1, T2, T3, T4, T5>(T0 arg0, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5)
+    {
+        WriteArgs(arg0, arg1, arg2, arg3, arg4);
+        WriteNext(arg5);
+    }
+    
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public void WriteArgs<T0, T1, T2, T3, T4, T5, T6>(T0 arg0, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6)
+    {
+        WriteArgs(arg0, arg1, arg2, arg3, arg4, arg5);
+        WriteNext(arg6);
+    }
+    
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public void WriteArgs<T0, T1, T2, T3, T4, T5, T6, T7>(T0 arg0, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7)
+    {
+        WriteArgs(arg0, arg1, arg2, arg3, arg4, arg5, arg6);
+        WriteNext(arg7);
+    }
+    
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public void WriteArgs<T0, T1, T2, T3, T4, T5, T6, T7, T8>(T0 arg0, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8)
+    {
+        WriteArgs(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7);
+        WriteNext(arg8);
+    }
+    
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public void WriteArgs<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9>(T0 arg0, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9)
+    {
+        WriteArgs(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
+        WriteNext(arg9);
+    }
+    
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    private void WriteNext<T>(T arg)
+    {
+        int index = Index++;
+        if(index != writers.Length - 1 || arg is not InputArg)
+        {
+            Writer.AppendSpace();
+            ((IArgWriter<T>)writers[index]).Write(Writer, arg);
+        }
+    }
+
+    internal void Write(string arg)
+    {
+        Writer.AppendSpace();
+        Writer.Append(arg);
+    }
+    
+    internal void Write(ReadOnlySpan<char> arg)
+    {
+        Writer.AppendSpace();
+        Writer.Append(arg);
+    }
+
+    public override string ToString() => Writer.ToString();
+}

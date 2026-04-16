@@ -1,59 +1,160 @@
-﻿using Oxide.Ext.UiFramework.Builder.Cached;
-using Oxide.Ext.UiFramework.Cache;
-using Oxide.Ext.UiFramework.Exceptions;
+﻿using System.Collections.Generic;
+using Network;
+using Oxide.Ext.UiFramework.Animation;
+using Oxide.Ext.UiFramework.Builder.Cached;
+using Oxide.Ext.UiFramework.Enums;
+using Oxide.Ext.UiFramework.Extensions;
+using Oxide.Ext.UiFramework.Interfaces;
 using Oxide.Ext.UiFramework.Json;
+using Oxide.Ext.UiFramework.Offsets;
+using Oxide.Ext.UiFramework.Plugins;
+using Oxide.Ext.UiFramework.Positions;
+using Oxide.Ext.UiFramework.Types;
 using Oxide.Ext.UiFramework.UiElements;
 
 namespace Oxide.Ext.UiFramework.Builder.UI;
 
-public partial class UiBuilder : BaseUiBuilder
+public partial class UiBuilder : BaseUiBuilder, IAnimationBuilder
 {
     public BaseUiComponent Root;
-
-    private bool _needsMouse;
-    private bool _needsKeyboard;
-    private bool _autoDestroy = true;
-
-    #region Decontructor
-    ~UiBuilder()
-    {
-        Dispose();
-        //Need this because there is a global GC class that causes issues
-        //ReSharper disable once RedundantNameQualifier
-        System.GC.SuppressFinalize(this);
-    }
-    #endregion
+    
+    private BaseUiComponent _actualRoot;
+    private readonly List<ISendableAnimation> _animations = [];
+    private readonly List<ICancelAnimationRequest> _cancelAnimations = [];
         
     #region Setup
-    public void SetRoot(BaseUiComponent component, string name, string parent)
+    public new UiBuilder Init(IUiFrameworkPlugin plugin)
     {
-        Root = component;
-        component.Reference = new UiReference(parent, name);
-        Components.Add(component);
+        base.Init(plugin);
+        return this;
+    }
+    
+    public UiBuilder SetRoot<T>(in UiReference reference, out T element) where T : BaseUiComponent, new()
+    {
+        element = PluginPool.Get<T>();
+        return SetRoot(element, reference.Name, reference.Parent);
+    }
+    
+    public UiBuilder SetRoot(BaseUiComponent element, string name, string parent)
+    {
+        Root = _actualRoot = element.SetUpdate(UpdateMode.Replace).SetReference(new UiReference(parent, name));
+        Components.Add(element);
         RootName = name;
+        SetNamingCache(name);
+        return this;
     }
 
-    public void OverrideRoot(BaseUiComponent component)
+    public UiBuilder OverrideRoot(BaseUiComponent component)
     {
         Root = component;
+        return this;
     }
 
-    public void NeedsMouse(bool enabled = true)
+    public UiBuilder NeedsMouse(bool enabled = true)
     {
-        _needsMouse = enabled;
+        _actualRoot.NeedsMouse(enabled);
+        return this;
     }
 
-    public void NeedsKeyboard(bool enabled = true)
+    public UiBuilder NeedsKeyboard(bool enabled = true)
     {
-        _needsKeyboard = enabled;
+        _actualRoot.NeedsKeyboard(enabled);
+        return this;
     }
 
-    public void EnableAutoDestroy(bool enabled = true)
+    public UiBuilder SetRootReplace(bool enabled = true)
     {
-        _autoDestroy = enabled;
+        _actualRoot.Update = enabled ? UpdateMode.Replace : UpdateMode.None;
+        return this;
     }
+
+    public BaseUiComponent GetActualRoot() => _actualRoot;
     #endregion
 
+    #region Builder
+    public UiBuilder SetName(string name)
+    {
+        if (!string.IsNullOrEmpty(name))
+        {
+            RootName = name;
+            SetNamingCache(name);
+            if (_actualRoot != null)
+            {
+                _actualRoot.Name = name;
+            }
+        }
+
+        return this;
+    }
+    
+    public UiBuilder SetParent(string parent)
+    {
+        _actualRoot.Parent = parent;
+        return this;
+    }
+
+    public UiBuilder SetParent(UiLayer parent)
+    {
+        _actualRoot.SetParent(parent);
+        return this;
+    }
+
+    public UiBuilder SetReference(in UiReference reference)
+    {
+        _actualRoot.Reference = reference;
+        return this;
+    }
+    
+    public UiBuilder SetNamingCache(string name)
+    {
+        SetNamingCache(Singleton<UiNamingCache>.Instance.GetNamingCache(name));
+        return this;
+    }
+
+    public UiBuilder SetNamingCache(INamingCache cache)
+    {
+        NamingCache = cache;
+        return this;
+    }
+    
+    public UiBuilder SetPosition(in UiPosition pos)
+    {
+        _actualRoot.SetPosition(pos);
+        return this;
+    }
+    
+    public UiBuilder SetPosition(in UiPosition pos, in UiOffset offset)
+    {
+        _actualRoot.SetPosition(pos, offset);
+        return this;
+    }
+    
+    public UiBuilder SetUpdateMode(UpdateMode mode)
+    {
+        UpdateMode = mode;
+        return this;
+    }
+    
+    public UiBuilder SetNamingMode(NamingMode mode)
+    {
+        NamingMode = mode;
+        return this;
+    }
+
+    public UiBuilder SetNamingStrategy(INamingStrategy naming)
+    {
+        Naming = naming;
+        return this;
+    }
+    
+    public UiBuilder UseDefaultNamingStrategy() => SetNamingStrategy(Singleton<DefaultNamingStrategy>.Instance);
+
+    public UiBuilder SwitchToDefaultMode(string uiRootName = null) => SwitchTo(UpdateMode.None, NamingMode.Child).SetName(uiRootName);
+    public UiBuilder SwitchToUpdateExistingMode() => SwitchTo(UpdateMode.Update, NamingMode.Reference);
+    public UiBuilder SwitchToReplaceExistingMode() => SwitchTo(UpdateMode.Replace, NamingMode.Reference);
+    public UiBuilder SwitchTo(UpdateMode update, NamingMode naming) => SetUpdateMode(update).SetNamingMode(naming);
+    #endregion
+    
     #region JSON
     public int WriteBuffer(byte[] buffer)
     {
@@ -65,49 +166,52 @@ public partial class UiBuilder : BaseUiBuilder
 
     public CachedUiBuilder ToCachedBuilder(bool dispose = true)
     {
-        return CachedUiBuilder.CreateCachedBuilder(this, dispose);
-    }
-    #endregion
-        
-    #region Add Components
-    public override void AddComponent(BaseUiComponent component, in UiReference parent)
-    {
-        UiReferenceException.ThrowIfInvalidParent(parent);
-        component.Reference = parent.WithChild(UiNameCache.GetComponentName(RootName, Components.Count));
-        Components.Add(component);
-    }
-        
-    protected override void AddAnchor(BaseUiComponent component, in UiReference parent)
-    {
-        UiReferenceException.ThrowIfInvalidParent(parent);
-        component.Reference = parent.WithChild(UiNameCache.GetAnchorName(RootName, Anchors.Count));
-        Anchors.Add(component);
+        CachedUiBuilder cached = CachedUiBuilder.CreateCachedBuilder(this);
+        if (dispose && CanPool)
+        {
+            Dispose();
+        }
+        return cached;
     }
     #endregion
 
-    protected override void WriteComponentsInternal(JsonFrameworkWriter writer)
+    #region Animations
+    void IAnimationBuilder.AddAnimation(ISendableAnimation animation) => _animations.Add(animation);
+    void IAnimationBuilder.CancelAnimation(ICancelAnimationRequest cancel) => _cancelAnimations.Add(cancel);
+
+    internal override void SendAnimations(SendInfo send)
     {
-        Components[0].WriteRootComponent(writer, _needsMouse, _needsKeyboard, _autoDestroy);
-
-        int count = Components.Count;
-        for (int index = 1; index < count; index++)
+        for (int index = 0; index < _cancelAnimations.Count; index++)
         {
-            Components[index].WriteComponent(writer);
+            ICancelAnimationRequest cancel = _cancelAnimations[index];
+            Animations.CancelAnimations(send, cancel);
         }
-
-        count = Anchors.Count;
-        for (int index = 0; index < count; index++)
+        
+        Singleton<AnimationTracker>.Instance.RemoveUiForSend(send, RootName);
+        for (int index = 0; index < _animations.Count; index++)
         {
-            Anchors[index].WriteComponent(writer);
+            ISendableAnimation animation = _animations[index];
+            Singleton<AnimationHandler>.Instance.EnqueueAnimation(animation, SendInfoBuilder.GetForAnimations(send));
+            Singleton<AnimationTracker>.Instance.OnAnimationQueued(animation, send, RootName);
         }
     }
-        
+    #endregion
+
+    #region Pooling
+
+    protected override void FreeComponents()
+    {
+        base.FreeComponents();
+        ClearAnimationList(_animations);
+    }
+
     protected override void EnterPool()
     {
         base.EnterPool();
         Root = null;
-        _needsKeyboard = false;
-        _needsMouse = false;
-        _autoDestroy = true;
+        _actualRoot = null;
+        _cancelAnimations.TryFreeValues();
     }
+
+    #endregion
 }

@@ -1,64 +1,35 @@
 ﻿using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
-using Oxide.Ext.UiFramework.Json;
-using Oxide.Ext.UiFramework.Offsets;
-using Oxide.Ext.UiFramework.Positions;
+using Oxide.Ext.UiFramework.Interfaces;
+using Rust.UiFramework.SourceGenerators.Attributes;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-public class UiRawImage : BaseUiOutline
+[GenerateUiElement]
+[GenerateBuilderMethods]
+public partial class UiRawImage : BaseUiComponent, IMaterial<UiRawImage>, IFadeIn<UiRawImage>, IUiColor<UiRawImage>
 {
-    public readonly RawImageComponent RawImage = new();
+    public partial string Image { get; set; }
+    public partial UiReference PlaceholderFor { get; set; }
+    public partial string Material { get; set; }
+    public partial float FadeIn { get; set; }
+    public partial UiColor Color { get; set; }
+    
+    public readonly RawImageComponent RawImage;
+    
+    public UiRawImage() : this(new RawImageComponent()) { }
 
-    public static UiRawImage CreateDefault(in UiPosition pos, in UiOffset offset)
+    private UiRawImage(RawImageComponent component) : base(component)
     {
-        UiRawImage image = CreateBase<UiRawImage>(pos, offset);
-        return image;
-    } 
-        
-    public static UiRawImage CreateUrl(in UiPosition pos, in UiOffset offset, UiColor color, string url)
-    {
-        UiRawImage image = CreateBase<UiRawImage>(pos, offset);
-        image.RawImage.Color = color;
-        image.RawImage.Url = url;
-        return image;
+        RawImage = component;
     }
-        
-    public static UiRawImage CreateTexture(in UiPosition pos, in UiOffset offset, UiColor color, string icon)
+    
+    public UiRawImage Init(string image, in UiColor color)
     {
-        UiRawImage image = CreateBase<UiRawImage>(pos, offset);
-        image.RawImage.Color = color;
-        image.RawImage.Texture = icon;
-        return image;
+        Color = color;
+        Image = image;
+        return this;
     }
-        
-    public static UiRawImage CreateFileImage(in UiPosition pos, in UiOffset offset, UiColor color, string png)
-    {
-        UiRawImage image = CreateBase<UiRawImage>(pos, offset);
-        image.RawImage.Color = color;
-        image.RawImage.Png = png;
-        return image;
-    }
-
-    public void SetMaterial(string material)
-    {
-        RawImage.Material = material;
-    }
-        
-    public void SetFadeIn(float duration)
-    {
-        RawImage.FadeIn = duration;
-    }
-
-    protected override void WriteComponents(JsonFrameworkWriter writer)
-    {
-        RawImage.WriteComponent(writer);
-        base.WriteComponents(writer);
-    }
-
-    protected override void EnterPool()
-    {
-        base.EnterPool();
-        RawImage.Reset();
-    }
+    
+    public UiRawImage SetPlaceholderFor(UiInput input) => SetPlaceholderFor(input.Reference);
 }

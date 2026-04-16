@@ -1,120 +1,172 @@
-﻿using Oxide.Ext.UiFramework.Cache;
+﻿using System;
 using Oxide.Ext.UiFramework.Colors;
-using Oxide.Ext.UiFramework.Controls.Popover;
+using Oxide.Ext.UiFramework.Constants;
 using Oxide.Ext.UiFramework.Enums;
+using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Offsets;
-using Oxide.Ext.UiFramework.Pooling;
+using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.UiElements;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.Builder.UI;
 
 public partial class UiBuilder
 {
-    public static UiBuilder Create(in UiPosition pos, string name, string parent) => Create(pos, default(UiOffset), name, parent);
-    public static UiBuilder Create(in UiPosition pos, string name, UiLayer parent = UiLayer.Overlay) => Create(pos, default(UiOffset), name, UiLayerCache.GetLayer(parent));
-    public static UiBuilder Create(in UiPosition pos, in UiOffset offset, string name, UiLayer parent = UiLayer.Overlay) => Create(pos, offset, name, UiLayerCache.GetLayer(parent));
-    public static UiBuilder Create(in UiPosition pos, in UiOffset offset, string name, string parent) => Create(UiSection.Create(pos, offset), name, parent);
-    public static UiBuilder Create(in UiPosition pos, UiColor color, string name, string parent) => Create(pos, default, color, name, parent);
-    public static UiBuilder Create(in UiPosition pos, UiColor color, string name, UiLayer parent = UiLayer.Overlay) => Create(pos, default, color, name, UiLayerCache.GetLayer(parent));
-    public static UiBuilder Create(in UiPosition pos, in UiOffset offset, UiColor color, string name, UiLayer parent = UiLayer.Overlay) => Create(pos, offset, color, name, UiLayerCache.GetLayer(parent));
-    public static UiBuilder Create(in UiPosition pos, in UiOffset offset, UiColor color, string name, string parent) => Create(UiPanel.Create(pos, offset, color), name, parent);
-    public static UiBuilder Create(BaseUiComponent root, string name, UiLayer parent = UiLayer.Overlay) => Create(root, name, UiLayerCache.GetLayer(parent));
-    public static UiBuilder Create(BaseUiComponent root, string name, string parent)
+    public static UiBuilder Create(IUiFrameworkPlugin plugin, in UiReference reference, in UiPosition pos, in UiOffset offset) => Create(plugin, reference, out UiSection _).SetPosition(pos, offset);
+    public static UiBuilder Create(IUiFrameworkPlugin plugin, in UiReference reference, in UiPosition pos, in UiOffset offset, UiColor color)
     {
-        UiBuilder builder = Create();
-        builder.SetRoot(root, name, parent);
+        UiBuilder builder = Create(plugin, reference, out UiPanel panel).SetPosition(pos, offset);
+        panel.SetColor(color);
         return builder;
     }
+    
+    public static UiBuilder Create<T>(IUiFrameworkPlugin plugin, in UiReference reference, out T root) where T : BaseUiComponent, new() => Create(plugin).SetRoot(reference, out root);
+    public static UiBuilder Create(IUiFrameworkPlugin plugin) => Create(plugin.PluginPool).Init(plugin);
+    private static UiBuilder Create(UiPluginPool pool) => pool.Get<UiBuilder>();
 
-    public static UiBuilder Create()
-    {
-        return UiFrameworkPool.Get<UiBuilder>();
-    }
-
+    /// <summary>
+    /// Creates a UiBuilder to update the existing UI
+    /// </summary>
+    /// <param name="plugin"></param>
+    /// <param name="rootName"></param>
+    /// <param name="mode">Update mode to use</param>
+    /// <param name="namingMode">Mode to use when naming UI Elements</param>
+    /// <returns></returns>
+    public static UiBuilder CreateUpdate(IUiFrameworkPlugin plugin, string rootName = null, UpdateMode mode = UpdateMode.Update, NamingMode namingMode = NamingMode.Child) => Create(plugin).SetName(rootName).SetUpdateMode(mode).SetNamingMode(namingMode);
+    
+    /// <summary>
+    /// Creates a UiBuilder to replace existing UI Elements
+    /// </summary>
+    /// <param name="plugin"></param>
+    /// <param name="mode">Update mode to use</param>
+    /// <param name="namingMode">Mode to use when naming UI Elements</param>
+    /// <returns></returns>
+    public static UiBuilder CreateReplace(IUiFrameworkPlugin plugin, UpdateMode mode = UpdateMode.Replace, NamingMode namingMode = NamingMode.Reference) => Create(plugin).SetUpdateMode(mode).SetNamingMode(namingMode);
+    
+    public static UiBuilder Create(IUiFrameworkPlugin plugin, UpdateMode mode, NamingMode namingMode) => Create(plugin).SetUpdateMode(mode).SetNamingMode(namingMode);
+    
     /// <summary>
     /// Creates a UiBuilder that is designed to be a popup modal
     /// </summary>
+    /// <param name="plugin">Plugin the UI is for</param>
+    /// <param name="reference">Name and Parent of the UI</param>
     /// <param name="modalSize">Dimensions of the modal</param>
     /// <param name="modalColor">Modal form color</param>
-    /// <param name="name">Name of the UI</param>
-    /// <param name="layer">Layer the UI is on</param>
-    /// <param name="outsideCloseCommand">Command to run when the user clicks outside the modal</param>
+    /// <param name="closeCommand">Command to run when the user clicks outside the modal</param>
+    /// <param name="buttonType"></param>
     /// <returns></returns>
-    public static UiBuilder CreateModal(in UiOffset modalSize, UiColor modalColor, string name, UiLayer layer = UiLayer.Overlay, string outsideCloseCommand = null)
+    public static UiBuilder CreateModal(IUiFrameworkPlugin plugin, in UiReference reference, in UiOffset modalSize, UiColor modalColor, string closeCommand = null, ButtonType buttonType = ButtonType.Close)
     {
-        return CreateModal(modalSize, modalColor, new UiColor(0, 0, 0, 0.5f), name, layer, UiConstants.Materials.InGameBlur, outsideCloseCommand);
+        return CreateModal(plugin.PluginPool, reference, modalSize, modalColor, new UiColor(0, 0, 0, 0.5f), UiMaterials.Content.Ui.UiBackgroundBlurInGameMenu, closeCommand, buttonType);
     }
 
     /// <summary>
     /// Creates a UiBuilder that is designed to be a popup modal
     /// </summary>
+    /// <param name="plugin">Plugin the UI is for</param>
+    /// <param name="reference">Name and Parent of the UI</param>
     /// <param name="modalSize">Dimensions of the modal</param>
     /// <param name="modalColor">Modal form color</param>
     /// <param name="modalBackgroundColor">Color of the fullscreen background</param>
-    /// <param name="name">Name of the UI</param>
-    /// <param name="layer">Layer the UI is on</param>
-    /// <param name="backgroundMaterial">Material of the full screen background</param>
-    /// <param name="outsideCloseCommand">Command to run when the user clicks outside the modal</param>
+    /// <param name="backgroundMaterial">Material of the full-screen background</param>
+    /// <param name="closeCommand">Command to run when the user clicks outside the modal</param>
+    /// <param name="buttonType"></param>
     /// <returns></returns>
-    public static UiBuilder CreateModal(in UiOffset modalSize, UiColor modalColor, UiColor modalBackgroundColor, string name, UiLayer layer = UiLayer.Overlay, string backgroundMaterial = null, string outsideCloseCommand = null)
+    public static UiBuilder CreateModal(IUiFrameworkPlugin plugin, in UiReference reference, in UiOffset modalSize, UiColor modalColor, UiColor modalBackgroundColor, string backgroundMaterial = null, string closeCommand = null, ButtonType buttonType = ButtonType.Close)
     {
-        UiPanel backgroundBlur = UiPanel.Create(UiPosition.Full, default, modalBackgroundColor);
-        backgroundBlur.SetMaterial(backgroundMaterial);
-            
-        UiBuilder builder = Create(backgroundBlur, name, layer);
-        if (!string.IsNullOrEmpty(outsideCloseCommand))
-        {
-            builder.CommandButton(builder.Root, UiPosition.Full, UiColor.Clear, outsideCloseCommand);
-        }
-            
-        UiPanel modal = UiPanel.Create(UiPosition.MiddleMiddle, modalSize, modalColor);
-        builder.AddComponent(modal, backgroundBlur);
-        builder.OverrideRoot(modal);
+        return CreateModal(plugin.PluginPool, reference, modalSize, modalColor, modalBackgroundColor, backgroundMaterial, closeCommand, buttonType);
+    }
+    
+    private static UiBuilder CreateModal(UiPluginPool pool, in UiReference reference, in UiOffset modalSize, UiColor modalColor, UiColor modalBackgroundColor, string backgroundMaterial = null, string closeCommand = null, ButtonType buttonType = ButtonType.Close)
+    {
+        UiBuilder builder = Create(pool).SetRoot(reference, out UiPanel backgroundBlur);
+        backgroundBlur.SetPosition(UiPosition.Full).SetColor(modalBackgroundColor).SetMaterial(backgroundMaterial);
+        builder.Button(builder.Root, UiPosition.Full, default, UiColors.Clear, closeCommand ?? reference.Name, buttonType);
+
+        UiPanel root = builder.Panel(builder.Root, UiPosition.Full, modalSize, modalColor);
+        builder.OverrideRoot(root);    
         return builder;
     }
-        
-    public static UiBuilder CreateRootWithOutsideClose(in UiPosition pos, in UiOffset offset, UiColor color, string name, string closeCommand, UiLayer parent = UiLayer.Overlay)
+
+    /// <summary>
+    /// Create a UI Builder with a button that will close the UI when clicked outside the UI window
+    /// </summary>
+    /// <param name="plugin">Plugin the UI is for</param>
+    /// <param name="reference">Name and Parent of the UI</param>
+    /// <param name="pos">Position of the UI</param>
+    /// <param name="offset">Offset of the UI</param>
+    /// <param name="color">Color of the UI</param>
+    /// <param name="closeCommand">Command to run when outside the UI is clicked</param>
+    /// <param name="buttonType"></param>
+    /// <returns></returns>
+    public static UiBuilder CreateRootWithOutsideClose(IUiFrameworkPlugin plugin, in UiReference reference, in UiPosition pos, in UiOffset offset, UiColor color, string closeCommand = null, ButtonType buttonType = ButtonType.Command)
     {
-        UiSection mainRoot = UiSection.Create(UiPosition.Full, default);
-        UiBuilder builder = Create(mainRoot, name, UiLayerCache.GetLayer(parent));
-        builder.CommandButton(builder.Root, UiPosition.Full, default, UiColor.Clear, closeCommand);
-        UiPanel panel =builder.Panel(builder.Root, pos, offset, color);
+        return CreateRootWithOutsideClose(plugin.PluginPool, reference, pos, offset, color, closeCommand, buttonType);
+    }
+    
+    private static UiBuilder CreateRootWithOutsideClose(UiPluginPool pool, in UiReference reference, in UiPosition pos, in UiOffset offset, UiColor color, string closeCommand, ButtonType buttonType)
+    {
+        UiBuilder builder = Create(pool).SetRoot(reference, out UiSection _);
+        builder.Button(builder.Root, UiPosition.Full, default, UiColors.Clear, closeCommand, buttonType);
+        UiPanel panel = builder.Panel(builder.Root, pos, offset, color);
         builder.OverrideRoot(panel);
         return builder;
     }
-        
+
     /// <summary>
-    /// Creates a UI builder that when created before your main UI will run a command if the user click outside of the UI window
+    /// Creates a UI builder that when created before your main UI will run a command if the user clicks outside the UI window
     /// </summary>
+    /// <param name="plugin">Plugin the UI is for</param>
+    /// <param name="reference">Name and Parent of the UI</param>
     /// <param name="command">Command to run when the button is clicked</param>
-    /// <param name="name">Name of the UI</param>
-    /// <param name="layer">Layer the UI is on</param>
+    /// <param name="buttonType">Type of button</param>
     /// <returns></returns>
-    public static UiBuilder CreateOutsideClose(string command, string name, UiLayer layer = UiLayer.Overlay)
+    public static UiBuilder CreateOutsideClose(IUiFrameworkPlugin plugin, in UiReference reference, string command, ButtonType buttonType = ButtonType.Command)
     {
-        UiBuilder builder = Create(UiButton.CreateCommand(UiPosition.Full, default, UiColor.Clear, command), name, layer);
-        builder.NeedsMouse();
+        return CreateOutsideClose(plugin.PluginPool, reference, command, buttonType);
+    }
+    
+    private static UiBuilder CreateOutsideClose(UiPluginPool pool, in UiReference reference, string command, ButtonType buttonType)
+    {
+        UiBuilder builder = Create(pool).SetRoot(reference, out UiButton button).NeedsMouse();
+        builder.Button(button, UiPosition.Full, default, UiColors.Clear, command, buttonType);
         return builder;
     }
-        
-    /// <summary>
-    /// Creates a UI builder that will hold mouse input so the mouse doesn't reset position when updating other UI's
-    /// </summary>
-    /// <param name="name">Name of the UI</param>
-    /// <param name="layer">Layer the UI is on</param>
-    /// <returns></returns>
-    public static UiBuilder CreateMouseLock(string name, UiLayer layer = UiLayer.Overlay)
+
+    public static UiBuilder Popover(IUiFrameworkPlugin plugin, in UiReference parent, Vector2 size, UiColor backgroundColor, PopoverPosition position = PopoverPosition.Bottom, string menuSprite = UiSprites.Content.Ui.UiBackgroundRounded, UiColor? outlineColor = null)
     {
-        UiBuilder builder = Create(UiPosition.None, UiColor.Clear, name, UiLayerCache.GetLayer(layer));
-        builder.NeedsMouse();
-        return builder;
+        return Popover(plugin.PluginPool, parent, size, backgroundColor, position, menuSprite, outlineColor);
     }
-        
-    public static UiPopover Popover(string parentName, Vector2Int size, UiColor backgroundColor, PopoverPosition position = PopoverPosition.Bottom, string menuSprite = UiConstants.Sprites.RoundedBackground2)
+    
+    private static UiBuilder Popover(UiPluginPool pool, in UiReference parent, Vector2 size, UiColor backgroundColor, PopoverPosition position, string menuSprite, UiColor? outlineColor = null)
     {
-        UiPopover control = UiPopover.Create(parentName, size, backgroundColor, position, menuSprite);
-        return control;
+        string name = $"{parent.Name}_Popover";
+        UiBuilder builder = Create(pool).SetRoot(parent.WithChild(name), out UiSection _);
+            
+        UiPosition anchor = position switch
+        {
+            PopoverPosition.Top or PopoverPosition.Left => UiPosition.TopLeft,
+            PopoverPosition.Right => UiPosition.TopRight,
+            PopoverPosition.Bottom => UiPosition.BottomLeft,
+            _ => throw new ArgumentOutOfRangeException(nameof(position), position, null)
+        };
+        
+        UiOffset offset = position switch
+        {
+            PopoverPosition.Top => new UiOffset(0, 1, 1 + size.x, size.y),
+            PopoverPosition.Left => new UiOffset(-size.x, -size.y - 1, 0, -1),
+            PopoverPosition.Right => new UiOffset(0, -size.y - 1, size.x, -1),
+            PopoverPosition.Bottom => new UiOffset(1, -size.y, 1 + size.x, 0),
+            _ => throw new ArgumentOutOfRangeException(nameof(position), position, null)
+        };
+        
+        builder.Button(builder.Root, UiPosition.Full, new UiOffset(9999 * 2), UiColors.Clear, name, ButtonType.Close);
+        UiPanel background = builder.Panel(builder.Root, anchor, offset, backgroundColor).SetSprite(menuSprite).SetImageType(Image.Type.Sliced);
+        background.AddOutline(outlineColor ?? UiColors.Black.WithAlpha(0.75f));
+        builder.OverrideRoot(background);
+        
+        return builder;
     }
 }

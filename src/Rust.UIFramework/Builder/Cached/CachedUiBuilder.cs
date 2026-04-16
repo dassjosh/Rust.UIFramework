@@ -1,49 +1,33 @@
-﻿using Network;
+﻿using System;
+using Network;
 using Oxide.Ext.UiFramework.Builder.UI;
+using Oxide.Ext.UiFramework.Json;
 
 namespace Oxide.Ext.UiFramework.Builder.Cached;
 
 public class CachedUiBuilder : BaseBuilder
 {
-    private readonly bool _disposeBuilderOnGeneration;
-    private UiBuilder _builder;
+    private readonly byte[] _cachedJson;
 
-    private byte[] _cachedJson;
-
-    internal static CachedUiBuilder CreateCachedBuilder(UiBuilder builder, bool disposeBuilder = true)
+    private CachedUiBuilder(UiBuilder builder)
     {
-        return new CachedUiBuilder(builder, disposeBuilder);
-    }
-
-    private CachedUiBuilder(UiBuilder builder, bool disposeBuilder = true)
-    {
-        _disposeBuilderOnGeneration = disposeBuilder;
-        _builder = builder;
-
+        _cachedJson = builder.GetBytes();
         RootName = builder.GetRootName();
+        Plugin = builder.Plugin;
     }
 
-    public override byte[] GetBytes()
+    internal static CachedUiBuilder CreateCachedBuilder(UiBuilder builder) => new(builder);
+
+    public override byte[] GetBytes() => _cachedJson;
+    public override void Combine(SendInfo send, JsonFrameworkWriter writer)
     {
-        if (_cachedJson == null)
-            CacheJson();
-
-        return _cachedJson;
+        writer.WriteRaw(_cachedJson.AsSpan()[1..^1]);
     }
 
-    internal override void SendUi(SendInfo send)
+    internal override void SendUi(SendInfo send, in UiDebugOptions? options)
     {
-        byte[] data = GetBytes();
-        AddUi(send, data);
+        AddUi(send, GetBytes(), options);
     }
 
-    private void CacheJson()
-    {
-        _cachedJson = _builder.GetBytes();
-
-        if (_disposeBuilderOnGeneration && !_builder.Disposed)
-            _builder.Dispose();
-
-        _builder = null;
-    }
+    internal override void SendAnimations(SendInfo send) { }
 }

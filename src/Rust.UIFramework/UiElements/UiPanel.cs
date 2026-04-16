@@ -1,15 +1,41 @@
-﻿using Oxide.Ext.UiFramework.Colors;
-using Oxide.Ext.UiFramework.Offsets;
-using Oxide.Ext.UiFramework.Positions;
+﻿using System;
+using Oxide.Ext.UiFramework.Colors;
+using Oxide.Ext.UiFramework.Components;
+using Oxide.Ext.UiFramework.Interfaces;
+using Rust.UiFramework.SourceGenerators.Attributes;
+using ImageType = UnityEngine.UI.Image.Type;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-public class UiPanel : BaseUiImage
+[GenerateUiElement]
+[GenerateBuilderMethods]
+public partial class UiPanel : BaseUiComponent, IImageType<UiPanel>, ISprite<UiPanel>, IMaterial<UiPanel>, IFadeIn<UiPanel>, IUiColor<UiPanel>
 {
-    public static UiPanel Create(in UiPosition pos, in UiOffset offset, UiColor color)
+    public partial UiReference PlaceholderFor { get; set; }
+    public partial bool FillCenter { get; set; }
+    public partial ImageType ImageType { get; set; }
+    public partial string Sprite { get; set; }
+    public partial string Material { get; set; }
+    public partial float FadeIn { get; set; }
+    public partial UiColor Color { get; set; }
+    
+    public readonly ImageComponent Image;
+
+    public UiPanel() : this(new ImageComponent()) { }
+
+    private UiPanel(ImageComponent component) : base(component)
     {
-        UiPanel panel = CreateBase<UiPanel>(pos, offset);
-        panel.Image.Color = color;
-        return panel;
+        Image = component;
     }
+    
+    [Obsolete("Use SetSprite().SetMaterial().SetImageType() instead.")]
+    public UiPanel SetSpriteMaterialImage(string sprite = null, string material = null, ImageType type = ImageType.Simple)
+    {
+        Sprite = sprite;
+        Material = material;
+        ImageType = type;
+        return this;
+    }
+    
+    public UiPanel SetPlaceholderFor(UiInput input) => SetPlaceholderFor(input.Reference);
 }

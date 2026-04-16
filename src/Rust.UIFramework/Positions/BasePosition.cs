@@ -6,8 +6,12 @@ public abstract class BasePosition
     public float YMin;
     public float XMax;
     public float YMax;
-    protected readonly UiPosition InitialState;
-
+#if UNIT_TESTS
+    internal readonly UiPosition InitialState;
+#else
+    protected UiPosition InitialState;    
+#endif
+    
     protected BasePosition(float xMin, float yMin, float xMax, float yMax)
     {
         XMin = xMin;
@@ -16,13 +20,8 @@ public abstract class BasePosition
         YMax = yMax;
         InitialState = new UiPosition(XMin, YMin, XMax, YMax);
     }
-
-    public UiPosition ToPosition()
-    {
-        return new UiPosition(XMin, YMin, XMax, YMax);
-    }
-        
-    public void Reset()
+    
+    public virtual void Reset()
     {
         XMin = InitialState.Min.x;
         YMin = InitialState.Min.y;
@@ -30,10 +29,20 @@ public abstract class BasePosition
         YMax = InitialState.Max.y;
     }
 
-    public override string ToString()
+    public virtual void ResetX()
     {
-        return $"{XMin.ToString()} {YMin.ToString()} {XMax.ToString()} {YMax.ToString()}";
+        XMin = InitialState.Min.x;
+        XMax = InitialState.Max.x;
     }
-        
+    
+    public virtual void ResetY()
+    {
+        YMin = InitialState.Min.y;
+        YMax = InitialState.Max.y;
+    }
+
+    public override string ToString() => $"{XMin:####} {YMin:####} {XMax:####} {YMax:####}";
+
+    public UiPosition ToPosition() => new(XMin, YMin, XMax, YMax);
     public static implicit operator UiPosition(BasePosition pos) => pos.ToPosition();
 }

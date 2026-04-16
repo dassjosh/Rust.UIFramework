@@ -1,137 +1,196 @@
-﻿using Oxide.Ext.UiFramework.Extensions;
+﻿using System;
+using Oxide.Ext.UiFramework.Colors;
+using Oxide.Ext.UiFramework.Components;
+using Oxide.Ext.UiFramework.Enums;
+using Oxide.Ext.UiFramework.Interfaces;
 using Oxide.Ext.UiFramework.Json;
+using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Positions;
+using Oxide.Ext.UiFramework.Types;
+using Rust.UiFramework.SourceGenerators.Attributes;
+using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-public abstract class BaseUiComponent : BasePoolable
+[GenerateUiElement]
+[GenerateBuilderMethods]
+public abstract partial class BaseUiComponent : BasePoolable
 {
-    public UiReference Reference;
+    [GenerateBuilderMethod]
+    public UiReference Reference { get; set; }
+    [GenerateBuilderMethod]
+    public string Name { get => Reference.Name; set => Reference = Reference.WithName(value); }
+    [GenerateBuilderMethod]
+    public string Parent { get => Reference.Parent; set => Reference = Reference.WithParent(value); } 
+    [GenerateBuilderMethod]
+    public UpdateMode Update { get; set; }
+    
+    [Tracked]
+    [TrackedDefaults(typeof(JsonDefaults.Common), nameof(JsonDefaults.Common.FadeOut))]
+    public partial float FadeOut { get; set; }
+    
+    [Tracked]
+    [TrackedDefaults(typeof(JsonDefaults.Common), nameof(JsonDefaults.Common.Active))]
+    public partial bool Active { get; set; }
+    
+    [PropertyTarget(nameof(Component), PropertyTargetType.Field)]
+    public partial bool Enabled { get; set; }
+    
+    [PropertyTarget(nameof(RectTransform), PropertyTargetType.Property)]
+    public partial UiPosition Position { get; set; }
+    
+    [PropertyTarget(nameof(RectTransform), PropertyTargetType.Property)]
+    public partial UiOffset Offset { get; set; }
+    
+    [PropertyTarget(nameof(RectTransform), PropertyTargetType.Property)]
+    public partial UiTranslate PositionTranslate { get; set; }
+    
+    [PropertyTarget(nameof(RectTransform), PropertyTargetType.Property)]
+    public partial UiTranslate OffsetTranslate { get; set; }
+    
+    [PropertyTarget(nameof(RectTransform), PropertyTargetType.Property)]
+    public partial UiPadding PositionPadding { get; set; }
+    
+    [PropertyTarget(nameof(RectTransform), PropertyTargetType.Property)]
+    public partial UiPadding OffsetPadding { get; set; }
+    
+    [PropertyTarget(nameof(RectTransform), PropertyTargetType.Property)]
+    public partial UiScale PositionScale { get; set; }
+    
+    [PropertyTarget(nameof(RectTransform), PropertyTargetType.Property)]
+    public partial UiScale OffsetScale { get; set; }
+    
+    [PropertyTarget(nameof(RectTransform), PropertyTargetType.Property)]
+    public partial UiRotation Rotation { get; set; }
 
-    public bool AutoDestroy;
-    public float FadeOut;
-
-    public UiPosition Position;
-    public UiOffset Offset;
-
-    protected static T CreateBase<T>(in UiPosition pos, in UiOffset offset) where T : BaseUiComponent, new()
+    private RectTransformComponent _rectTransform;
+    public RectTransformComponent RectTransform => _rectTransform ??= Component.GetOrAddSubComponent<RectTransformComponent>();
+    
+    internal readonly CoreComponent Component;
+    
+    protected BaseUiComponent(CoreComponent component)
     {
-        T component = UiFrameworkPool.Get<T>();
-        component.Position = pos;
-        component.Offset = offset;
-        return component;
+        Component = component;
+        Reset();
     }
 
-    public void WriteRootComponent(JsonFrameworkWriter writer, bool needsMouse, bool needsKeyboard, bool autoDestroy)
+    [Obsolete("This method is obsolete. Please use UiBuilder.Component<T>() instead.")]
+    public static T CreateBase<T>() where T : BaseUiComponent, new() => UiFrameworkPool.Get<T>();
+
+    public void WriteElement(JsonFrameworkWriter writer)
     {
+        SerializeMode mode = Update == UpdateMode.Update ? SerializeMode.Update : SerializeMode.Create;
         writer.WriteStartObject();
-        writer.AddFieldRaw(JsonDefaults.Common.ComponentName, Reference.Name);
-        writer.AddFieldRaw(JsonDefaults.Common.ParentName, Reference.Parent);
-        writer.AddField(JsonDefaults.Common.FadeOutName, FadeOut, JsonDefaults.Common.FadeOut);
-
-        if (autoDestroy)
+        writer.AddField(JsonDefaults.Common.ComponentName, Reference.Name);
+        if (mode == SerializeMode.Create)
         {
-            writer.AddFieldRaw(JsonDefaults.Common.AutoDestroy, Reference.Name);
+            writer.AddField(JsonDefaults.Common.ParentName, Reference.Parent);
         }
-
-        writer.WritePropertyName("components");
+        writer.AddField(JsonDefaults.Common.FadeOutName, FadeOutTracked, mode);
+        writer.AddField(JsonDefaults.Common.ActiveName, ActiveTracked, mode);
+        switch (Update)
+        {
+            case UpdateMode.Replace:
+                writer.AddField(JsonDefaults.Common.Replace, Reference.Name);
+                break;
+            case UpdateMode.Update:
+                writer.AddField(JsonDefaults.Common.Update, true);
+                break;
+            case UpdateMode.None:
+                break;
+        }
+        writer.WritePropertyName(JsonDefaults.Common.ComponentsName);
         writer.WriteStartArray();
-        WriteComponents(writer);
-
-        if (needsMouse)
-        {
-            writer.AddMouse();
-        }
-
-        if (needsKeyboard)
-        {
-            writer.AddKeyboard();
-        }
-
+        Component.WriteComponent(writer, mode);
+        Component.WriteSubComponents(writer, mode);
         writer.WriteEndArray();
         writer.WriteEndObject();
     }
-
-    public void WriteUpdateComponent(JsonFrameworkWriter writer)
+    
+    public T GetOrAddSubComponent<T>() where T : BaseComponent, ISubComponent, new() => Component.GetOrAddSubComponent<T>();
+    public T GetOrAddLayoutComponent<T>() where T : BaseLayoutComponent, new()
     {
-        writer.WriteStartObject();
-        writer.AddFieldRaw(JsonDefaults.Common.ComponentName, Reference.Name);
-        writer.AddFieldRaw(JsonDefaults.Common.ParentName, Reference.Parent);
-        writer.AddField(JsonDefaults.Common.FadeOutName, FadeOut, JsonDefaults.Common.FadeOut);
-        writer.AddFieldRaw(JsonDefaults.Common.AutoDestroy, Reference.Name);
-
-        writer.WritePropertyName("components");
-        writer.WriteStartArray();
-        WriteComponents(writer);
-        writer.WriteEndArray();
-        writer.WriteEndObject();
+        T layout = GetOrAddSubComponent<T>();
+        layout.Owner = this;
+        return layout;
     }
 
-    public void WriteComponent(JsonFrameworkWriter writer)
+    public OutlineComponent AddOutline() => Component.AddSubComponent<OutlineComponent>();
+    
+    public OutlineComponent AddOutline(UiColor color, Vector2? distance = null, bool useGraphicAlpha = false)
     {
-        writer.WriteStartObject();
-        writer.AddFieldRaw(JsonDefaults.Common.ComponentName, Reference.Name);
-        writer.AddFieldRaw(JsonDefaults.Common.ParentName, Reference.Parent);
-        writer.AddField(JsonDefaults.Common.FadeOutName, FadeOut, JsonDefaults.Common.FadeOut);
-
-        if (AutoDestroy)
-            writer.AddFieldRaw(JsonDefaults.Common.AutoDestroy, Reference.Name);
-
-        writer.WritePropertyName("components");
-        writer.WriteStartArray();
-        WriteComponents(writer);
-        writer.WriteEndArray();
-        writer.WriteEndObject();
+        OutlineComponent outline = AddOutline();
+        outline.Color = color;
+        outline.Distance = distance ?? JsonDefaults.Outline.Distance;
+        outline.UseGraphicAlpha = useGraphicAlpha;
+        return outline;
     }
 
-    protected virtual void WriteComponents(JsonFrameworkWriter writer)
+    [Obsolete("Use AddOutline instead")]
+    public OutlineComponent AddElementOutline(UiColor color, Vector2? distance = null, bool useGraphicAlpha = false) => AddOutline(color, distance, useGraphicAlpha);
+    
+    public void NeedsMouse(bool enabled = true)
     {
-        writer.WriteStartObject();
-        writer.AddFieldRaw(JsonDefaults.Common.ComponentTypeName, JsonDefaults.Common.RectTransformName);
-        writer.AddPosition(JsonDefaults.Position.AnchorMinName, Position.Min, JsonDefaults.Common.Min);
-        writer.AddPosition(JsonDefaults.Position.AnchorMaxName, Position.Max, JsonDefaults.Common.Max);
-        writer.AddOffset(JsonDefaults.Offset.OffsetMinName, Offset.Min, JsonDefaults.Common.Min);
-        writer.AddOffset(JsonDefaults.Offset.OffsetMaxName, Offset.Max, JsonDefaults.Common.Max);
-        writer.WriteEndObject();
+        if (enabled)
+        {
+            Component.GetOrAddSubComponent<NeedsMouseComponent>();
+        }
+        else
+        {
+            Component.RemoveSubComponent<NeedsMouseComponent>();
+        }
     }
 
-    public void SetReference(string parent, string name, bool autoDestroy = true)
+    public void NeedsKeyboard(bool enabled = true)
     {
-        Reference = new UiReference(parent, name);
-        AutoDestroy = autoDestroy;
+        if (enabled)
+        {
+            Component.GetOrAddSubComponent<NeedsKeyboardComponent>();
+        }
+        else
+        {
+            Component.RemoveSubComponent<NeedsKeyboardComponent>();
+        }
     }
 
-    public void SetAutoDestroy(bool enabled)
+    public void ShareSubComponent(ISubComponent component)
     {
-        AutoDestroy = enabled;
+        Component.RemoveSubComponent(component.ComponentType);
+        Component.AddSubComponent(component);
+        if (component is RectTransformComponent rect)
+        {
+            _rectTransform = rect;
+        }
     }
 
-    public void SetFadeOut(float duration)
+    internal override void OnInit() => Component.OverridePluginPool(PluginPool);
+    internal override void OverridePluginPool(UiPluginPool pluginPool)
     {
-        FadeOut = duration;
+        base.OverridePluginPool(pluginPool);
+        Component.OverridePluginPool(pluginPool);
     }
 
-    public void SetName(string name)
-    {
-        Reference = Reference.WithName(name);
-    }
+    protected override void EnterPool() => Reset();
 
-    public void SetParent(string parent)
+    public bool HasChanged() => Component.HasChanged() || FadeOutTracked.HasChanged || ActiveTracked.HasChanged;
+    
+    public void ResetHasChanged()
     {
-        Reference = Reference.WithParent(parent);
+        Component.ResetHasChanged();
+        FadeOutTracked.ResetHasChanged();
+        ActiveTracked.ResetHasChanged();
     }
-
-    protected override void EnterPool()
+    
+    public void Reset()
     {
         Reference = default;
-        AutoDestroy = false;
-        FadeOut = 0;
-        Position = default;
-        Offset = default;
-
-        base.EnterPool();
+        Update = default;
+        FadeOutTracked.Reset();
+        ActiveTracked.Reset();
+        Component.Reset();
+        _rectTransform = null;
     }
 
     public static implicit operator UiReference(BaseUiComponent component) => component.Reference;

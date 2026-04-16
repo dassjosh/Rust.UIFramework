@@ -1,0 +1,16 @@
+using System.Collections.Generic;
+
+namespace Oxide.Ext.UiFramework.Pooling;
+
+internal class DictionaryPool<TKey, TValue> : BaseObjectPool<Dictionary<TKey, TValue>, DictionaryPool<TKey, TValue>>
+{
+    protected override PoolSize GetPoolSize(PoolSettings settings) => settings.DictionaryPoolSize;
+    protected override Dictionary<TKey, TValue> CreateNew() => [];
+
+    ///<inheritdoc/>
+    protected override bool OnFreeItem(Dictionary<TKey, TValue> item)
+    {
+        item.Clear();
+        return true;
+    }
+}

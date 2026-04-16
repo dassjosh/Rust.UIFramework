@@ -1,0 +1,106 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Oxide.Ext.UiFramework.Enums;
+using Oxide.Ext.UiFramework.Positions;
+using Oxide.Ext.UiFramework.Types;
+using Oxide.Ext.UiFramework.UiElements;
+using UnityEngine;
+
+namespace Oxide.Ext.UiFramework.Layouts;
+
+public class UiDirectionalLayout : BaseUiLayout, IFixedElementsLayout
+{
+    public int NumElements { get; set; }
+    public LayoutDirection Direction;
+    public LayoutAlignment Alignment;
+    public UiPadding Padding;
+    public readonly List<LayoutState> Elements = [];
+
+    public UiDirectionalLayout Init(int numElements, LayoutDirection direction, LayoutAlignment alignment, in UiPadding padding)
+    {
+        NumElements = numElements;
+        Direction = direction;
+        Alignment = alignment;
+        Padding = padding;
+        return this;
+    }
+
+    public UiDirectionalLayout SetNumElements(int numElements)
+    {
+        NumElements = numElements;
+        return this;
+    }
+
+    public UiDirectionalLayout SetDirection(LayoutDirection direction)
+    {
+        Direction = direction;
+        return this;
+    }
+
+    public UiDirectionalLayout SetAlignment(LayoutAlignment alignment)
+    {
+        Alignment = alignment;
+        return this;
+    }
+
+    public UiDirectionalLayout SetPadding(in UiPadding padding)
+    {
+        Padding = padding;
+        return this;
+    }
+
+    public override void AddElement(BaseUiComponent element) => AddElement(element, 1f);
+
+    public void AddElement(BaseUiComponent element, float elementSpan)
+    {
+        Elements.Add(new LayoutState(element, elementSpan));
+    }
+
+    public override void CalculateElementPositions()
+    {
+        float totalSpan = Math.Max(NumElements, Elements.Sum(e => e.ElementSpan));
+        float scale = GetScrollViewScale(totalSpan, NumElements);
+        float currentElement = GetElementOffset(totalSpan) * scale;
+        
+        for (int index = 0; index < Elements.Count; index++)
+        {
+            LayoutState state = Elements[index];
+            state.Element.SetPosition(GetUiPosition(state, currentElement, totalSpan, scale)).SetOffsetPadding(Padding);
+            currentElement += state.ElementSpan;
+        }
+
+        ScaleScrollView(Direction, scale);
+    }
+    
+    private float GetElementOffset(float numElements) => GetAlignmentOffset(Alignment, numElements, Mathf.Max(Elements.Count, NumElements));
+    
+    private UiPosition GetUiPosition(in LayoutState state, float currentElement, float numElements, float scale)
+    {
+        float startPos = currentElement / numElements * scale;
+        float endPos = ((currentElement + state.ElementSpan) / numElements) * scale;
+        
+        return Direction switch
+        {
+            LayoutDirection.Horizontal => new UiPosition(startPos, 0, endPos, 1),
+            LayoutDirection.Vertical => new UiPosition(0, 1f - endPos, 1, 1f - startPos),
+            _ => throw new ArgumentOutOfRangeException(nameof(Direction))
+        };
+    }
+    
+    public readonly struct LayoutState(BaseUiComponent element, float elementSpan)
+    {
+        public readonly BaseUiComponent Element = element;
+        public readonly float ElementSpan = elementSpan;
+    }
+
+    protected override void EnterPool()
+    {
+        base.EnterPool();
+        Elements.Clear();
+        NumElements = default;
+        Direction = default;
+        Padding = default;
+        Alignment = default;
+    }
+}

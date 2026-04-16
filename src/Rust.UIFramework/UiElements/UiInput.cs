@@ -1,93 +1,79 @@
 ﻿using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Enums;
-using Oxide.Ext.UiFramework.Json;
-using Oxide.Ext.UiFramework.Offsets;
-using Oxide.Ext.UiFramework.Positions;
+using Oxide.Ext.UiFramework.Exceptions.UiElements;
+using Oxide.Ext.UiFramework.Interfaces;
+using Oxide.Ext.UiFramework.Libraries;
+using Rust.UiFramework.SourceGenerators.Attributes;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.UiElements;
 
-public class UiInput : BaseUiOutline
+[GenerateUiElement]
+[GenerateBuilderMethods]
+public partial class UiInput : BaseUiComponent, IFadeIn<UiInput>, IUiColor<UiInput>
 {
-    public readonly InputComponent Input = new();
+    public partial int FontSize { get; set; }
+    public partial string Font { get; set; }
+    public partial TextAnchor Align { get; set; }
+    
+    [PropertyName(nameof(TextComponent.Text))]
+    public partial string TextValue { get; set; }
+    
+    public partial VerticalWrapMode VerticalOverflow { get; set; }
+    public partial int CharsLimit { get; set; }
+    public partial string Command { get; set; }
+    public partial InputMode Mode { get; set; }
+    public partial InputField.LineType LineType { get; set; }
+    public partial UiReference Placeholder { get; set; }
+    public partial float FadeIn { get; set; }
+    public partial UiColor Color { get; set; }
+    
+    public partial bool IsPassword { get; set; }
+    [PropertyName(nameof(InputComponent.NeedsKeyboard))]
+    public partial bool InputNeedsKeyboard { get; set; }
+    public partial bool HudNeedsKeyboard { get; set; }
+    public partial bool AutoFocus { get; set; }
+    public partial bool ReadOnly { get; set; }
+    
+    public readonly InputComponent Input;
+    
+    public UiInput() : this(new InputComponent()) { }
 
-    public static UiInput Create(in UiPosition pos, in UiOffset offset, UiColor textColor, string text, int size, string cmd, string font, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, InputMode mode = InputMode.Default, InputField.LineType lineType = InputField.LineType.SingleLine)
+    private UiInput(InputComponent component) : base(component)
     {
-        UiInput input = CreateBase<UiInput>(pos, offset);
-        InputComponent comp = input.Input;
-        comp.Text = text;
-        comp.FontSize = size;
-        comp.Color = textColor;
-        comp.Align = align;
-        comp.Font = font;
-        comp.Command = cmd;
-        comp.CharsLimit = charsLimit;
-        comp.Mode = mode;
-        comp.LineType = lineType;
-        return input;
+        Input = component;
     }
-
-    public void SetTextAlign(TextAnchor align)
+    
+    public UiInput Init(string text, int size, UiColor textColor, string cmd, string font, TextAnchor align = TextAnchor.MiddleCenter, int charsLimit = 0, InputMode mode = InputMode.Default, InputField.LineType lineType = InputField.LineType.SingleLine)
     {
-        Input.Align = align;
-    }
-        
-    public void SetCharsLimit(int limit)
-    {
-        Input.CharsLimit = limit;
-    }
-
-    public void SetIsPassword(bool isPassword)
-    {
-        Input.SetMode(InputMode.Password, isPassword);
-    }
-
-    public void SetIsReadonly(bool isReadonly)
-    {
-        Input.SetMode(InputMode.ReadOnly, isReadonly);
-    }
-        
-    public void SetAutoFocus(bool autoFocus)
-    {
-        Input.SetMode(InputMode.AutoFocus, autoFocus);
-    }
-        
-    /// <summary>
-    /// Sets if the input should block keyboard input when focused.
-    /// This should not be used when the loot panel / crafting UI is open. Use SetNeedsHudKeyboard instead
-    /// </summary>
-    /// <param name="needsKeyboard"></param>
-    public void SetNeedsKeyboard(bool needsKeyboard)
-    {
-        Input.SetMode(InputMode.NeedsKeyboard, needsKeyboard);
-    }
-        
-    /// <summary>
-    /// Sets if the input should block keyboard input when focused a loot panel / crafting ui is open.
-    /// This should not if a loot panel / crafting ui won't be open when displaying the UI.
-    /// </summary>
-    /// <param name="needsKeyboard"></param>
-    public void SetNeedsHudKeyboard(bool needsKeyboard)
-    {
-        Input.SetMode(InputMode.HudNeedsKeyboard, needsKeyboard);
+        TextValue = text;
+        FontSize = size;
+        Color = textColor;
+        Align = align;
+        Font = font;
+        Command = cmd;
+        CharsLimit = charsLimit;
+        Mode = mode;
+        LineType = lineType;
+        return this;
     }
 
-    public void SetLineType(InputField.LineType lineType)
+    public bool HasMode(InputMode mode) => Input.HasMode(mode);
+    
+    public UiInput SetMode(InputMode mode, bool enabled)
     {
-        Input.LineType = lineType;
+        Input.SetMode(mode, enabled);
+        return this;
     }
-
-    protected override void WriteComponents(JsonFrameworkWriter writer)
+    
+    public UiInput SetCommand(ICommandBuilder<InputArg> command) => SetCommand(command.Build(InputArg.Empty));
+    
+    public UiInput SetPlaceholder<T>(T placeholder) where T : BaseUiComponent 
     {
-        Input.WriteComponent(writer);
-        base.WriteComponents(writer);
-    }
-            
-    protected override void EnterPool()
-    {
-        base.EnterPool();
-        Input.Reset();
+        NonGraphicalElementException.ThrowIfNonGraphicalElement(placeholder);
+        Placeholder = placeholder;
+        return this;
     }
 }
