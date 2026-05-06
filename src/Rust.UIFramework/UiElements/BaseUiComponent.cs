@@ -131,28 +131,18 @@ public abstract partial class BaseUiComponent : BasePoolable
     [Obsolete("Use AddOutline instead")]
     public OutlineComponent AddElementOutline(UiColor color, Vector2? distance = null, bool useGraphicAlpha = false) => AddOutline(color, distance, useGraphicAlpha);
     
-    public void NeedsMouse(bool enabled = true)
+    public NeedsMouseComponent NeedsMouse(bool enabled = true)
     {
-        if (enabled)
-        {
-            Component.GetOrAddSubComponent<NeedsMouseComponent>();
-        }
-        else
-        {
-            Component.RemoveSubComponent<NeedsMouseComponent>();
-        }
+        NeedsMouseComponent component = Component.GetOrAddSubComponent<NeedsMouseComponent>();
+        component.Enabled = enabled;
+        return component;
     }
 
-    public void NeedsKeyboard(bool enabled = true)
+    public NeedsKeyboardComponent NeedsKeyboard(bool enabled = true)
     {
-        if (enabled)
-        {
-            Component.GetOrAddSubComponent<NeedsKeyboardComponent>();
-        }
-        else
-        {
-            Component.RemoveSubComponent<NeedsKeyboardComponent>();
-        }
+        NeedsKeyboardComponent component = Component.GetOrAddSubComponent<NeedsKeyboardComponent>();
+        component.Enabled = enabled;
+        return component;
     }
 
     public void ShareSubComponent(ISubComponent component)
