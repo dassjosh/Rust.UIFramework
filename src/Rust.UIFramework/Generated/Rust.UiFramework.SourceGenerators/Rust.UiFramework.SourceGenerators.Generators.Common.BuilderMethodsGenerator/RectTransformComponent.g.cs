@@ -71,6 +71,13 @@ public partial class RectTransformComponent
 	}
 
 	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+	public RectTransformComponent SetPivot(Oxide.Ext.UiFramework.Types.UiPivot pivot)
+	{
+		Pivot = pivot;
+		return this;
+	}
+
+	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 	public RectTransformComponent SetChangeParent(string changeParent)
 	{
 		ChangeParent = changeParent;

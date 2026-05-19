@@ -65,6 +65,9 @@ public abstract partial class BaseUiComponent : BasePoolable
     [PropertyTarget(nameof(RectTransform), PropertyTargetType.Property)]
     public partial UiRotation Rotation { get; set; }
 
+    [PropertyTarget(nameof(RectTransform), PropertyTargetType.Property)]
+    public partial UiPivot Pivot { get; set; }
+
     private RectTransformComponent _rectTransform;
     public RectTransformComponent RectTransform => _rectTransform ??= Component.GetOrAddSubComponent<RectTransformComponent>();
     

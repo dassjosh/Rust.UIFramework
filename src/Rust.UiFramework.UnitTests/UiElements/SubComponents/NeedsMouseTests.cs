@@ -14,7 +14,7 @@ public class NeedsMouseTests : BaseUiElementsTests<UiSection>
     public async Task NeedsMouse_Sends_Enabled(TheoryRow row)
     {
         //Arrange
-        UiSection element = GetElementWithValues();
+        using UiSection element = GetElementWithValues();
         element.SetUpdate(row.Mode);
         using JsonFrameworkWriter writer = JsonFrameworkWriter.Create(UnitTestHelpers.Plugin);
 

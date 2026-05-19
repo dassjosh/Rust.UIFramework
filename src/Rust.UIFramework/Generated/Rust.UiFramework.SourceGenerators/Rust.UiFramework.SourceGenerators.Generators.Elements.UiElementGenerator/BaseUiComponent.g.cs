@@ -35,6 +35,7 @@ public partial class BaseUiComponent : IBaseUiComponent
 	public partial Oxide.Ext.UiFramework.Types.UiScale PositionScale { get => RectTransform.PositionScale; set => RectTransform.PositionScale = value; }
 	public partial Oxide.Ext.UiFramework.Types.UiScale OffsetScale { get => RectTransform.OffsetScale; set => RectTransform.OffsetScale = value; }
 	public partial Oxide.Ext.UiFramework.Types.UiRotation Rotation { get => RectTransform.Rotation; set => RectTransform.Rotation = value; }
+	public partial Oxide.Ext.UiFramework.Types.UiPivot Pivot { get => RectTransform.Pivot; set => RectTransform.Pivot = value; }
 }
 
 

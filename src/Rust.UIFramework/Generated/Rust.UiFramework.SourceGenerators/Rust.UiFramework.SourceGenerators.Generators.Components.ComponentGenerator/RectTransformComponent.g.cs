@@ -17,6 +17,7 @@ public partial class RectTransformComponent : IRectTransformComponent
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Types.UiTranslate> PositionTranslateTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.RectTransform.Translate);
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Types.UiTranslate> OffsetTranslateTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.RectTransform.Translate);
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Types.UiRotation> RotationTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.RectTransform.Rotation);
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Types.UiPivot> PivotTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.RectTransform.Pivot);
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<string> ChangeParentTracked = new();
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<int> TransformIndexTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.RectTransform.SetTransformIndex);
 
@@ -83,6 +84,13 @@ public partial class RectTransformComponent : IRectTransformComponent
 		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 		set => RotationTracked.Value = value;
 	}
+	public partial Oxide.Ext.UiFramework.Types.UiPivot Pivot
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => PivotTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => PivotTracked.Value = value;
+	}
 	public partial string ChangeParent
 	{
 		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -98,7 +106,7 @@ public partial class RectTransformComponent : IRectTransformComponent
 		set => TransformIndexTracked.Value = value;
 	}
 
-	public override bool HasChanged() => false || (PositionTracked.HasChanged || OffsetTracked.HasChanged || PositionPaddingTracked.HasChanged || OffsetPaddingTracked.HasChanged || PositionScaleTracked.HasChanged || OffsetScaleTracked.HasChanged || PositionTranslateTracked.HasChanged || OffsetTranslateTracked.HasChanged || RotationTracked.HasChanged || ChangeParentTracked.HasChanged || TransformIndexTracked.HasChanged) || base.HasChanged();
+	public override bool HasChanged() => false || (PositionTracked.HasChanged || OffsetTracked.HasChanged || PositionPaddingTracked.HasChanged || OffsetPaddingTracked.HasChanged || PositionScaleTracked.HasChanged || OffsetScaleTracked.HasChanged || PositionTranslateTracked.HasChanged || OffsetTranslateTracked.HasChanged || RotationTracked.HasChanged || PivotTracked.HasChanged || ChangeParentTracked.HasChanged || TransformIndexTracked.HasChanged) || base.HasChanged();
 
 	public override void ResetHasChanged()
 	{
@@ -112,6 +120,7 @@ public partial class RectTransformComponent : IRectTransformComponent
 		PositionTranslateTracked.ResetHasChanged();
 		OffsetTranslateTracked.ResetHasChanged();
 		RotationTracked.ResetHasChanged();
+		PivotTracked.ResetHasChanged();
 		ChangeParentTracked.ResetHasChanged();
 		TransformIndexTracked.ResetHasChanged();
 	}
@@ -128,6 +137,7 @@ public partial class RectTransformComponent : IRectTransformComponent
 		PositionTranslateTracked.Reset();
 		OffsetTranslateTracked.Reset();
 		RotationTracked.Reset();
+		PivotTracked.Reset();
 		ChangeParentTracked.Reset();
 		TransformIndexTracked.Reset();
 	}

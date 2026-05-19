@@ -4,6 +4,7 @@ using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.Types;
 using Rust.UiFramework.SourceGenerators.Attributes;
+using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Components;
 
@@ -37,6 +38,9 @@ public partial class RectTransformComponent : SubComponent
     
     [TrackedDefaults(typeof(JsonDefaults.RectTransform), nameof(JsonDefaults.RectTransform.Rotation))]
     public partial UiRotation Rotation { get; set; }
+
+    [TrackedDefaults(typeof(JsonDefaults.RectTransform), nameof(JsonDefaults.RectTransform.Pivot))]
+    public partial UiPivot Pivot { get; set; }
     
     public partial string ChangeParent { get; set; }
     
@@ -68,6 +72,7 @@ public partial class RectTransformComponent : SubComponent
         }
         
         writer.AddField(JsonDefaults.RectTransform.RotationName, RotationTracked, mode);
+        writer.AddField(JsonDefaults.RectTransform.PivotName, PivotTracked, mode);
         writer.AddField(JsonDefaults.RectTransform.SetParentName, ChangeParentTracked, mode);
         writer.AddField(JsonDefaults.RectTransform.SetTransformIndexName, TransformIndexTracked, mode);
     }

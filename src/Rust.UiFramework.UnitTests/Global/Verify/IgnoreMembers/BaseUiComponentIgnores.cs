@@ -10,6 +10,7 @@ public class BaseUiComponentIgnores : IVerifyIgnoreMembers
         VerifierSettings.IgnoreMember<BaseUiComponent>(nameof(BaseUiComponent.Position));
         VerifierSettings.IgnoreMember<BaseUiComponent>(nameof(BaseUiComponent.Offset));
         VerifierSettings.IgnoreMember<BaseUiComponent>(nameof(BaseUiComponent.Rotation));
+        VerifierSettings.IgnoreMember<BaseUiComponent>(nameof(BaseUiComponent.Pivot));
         VerifierSettings.IgnoreMember<BaseUiComponent>(nameof(BaseUiComponent.PositionPadding));
         VerifierSettings.IgnoreMember<BaseUiComponent>(nameof(BaseUiComponent.OffsetPadding));
         VerifierSettings.IgnoreMember<BaseUiComponent>(nameof(BaseUiComponent.PositionScale));

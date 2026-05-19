@@ -18,6 +18,7 @@ public static partial class RectTransformComponentAnimationExt
 		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<Oxide.Ext.UiFramework.Types.UiTranslate>> AnimatePositionTranslate() => animation.AnimateField(static a => a.PositionTranslateTracked);
 		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<Oxide.Ext.UiFramework.Types.UiTranslate>> AnimateOffsetTranslate() => animation.AnimateField(static a => a.OffsetTranslateTracked);
 		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<Oxide.Ext.UiFramework.Types.UiRotation>> AnimateRotation() => animation.AnimateField(static a => a.RotationTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<Oxide.Ext.UiFramework.Types.UiPivot>> AnimatePivot() => animation.AnimateField(static a => a.PivotTracked);
 		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<string>> AnimateChangeParent() => animation.AnimateField(static a => a.ChangeParentTracked);
 		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<int>> AnimateTransformIndex() => animation.AnimateField(static a => a.TransformIndexTracked);
 	}

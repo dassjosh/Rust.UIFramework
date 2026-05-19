@@ -16,6 +16,7 @@ public interface IRectTransformComponent : IBaseTypedComponent
 	Oxide.Ext.UiFramework.Types.UiTranslate PositionTranslate { get; set; }
 	Oxide.Ext.UiFramework.Types.UiTranslate OffsetTranslate { get; set; }
 	Oxide.Ext.UiFramework.Types.UiRotation Rotation { get; set; }
+	Oxide.Ext.UiFramework.Types.UiPivot Pivot { get; set; }
 	string ChangeParent { get; set; }
 	int TransformIndex { get; set; }
 
@@ -28,6 +29,7 @@ public interface IRectTransformComponent : IBaseTypedComponent
 	Oxide.Ext.UiFramework.Components.RectTransformComponent SetPositionTranslate(in Oxide.Ext.UiFramework.Types.UiTranslate positionTranslate);
 	Oxide.Ext.UiFramework.Components.RectTransformComponent SetOffsetTranslate(in Oxide.Ext.UiFramework.Types.UiTranslate offsetTranslate);
 	Oxide.Ext.UiFramework.Components.RectTransformComponent SetRotation(Oxide.Ext.UiFramework.Types.UiRotation rotation);
+	Oxide.Ext.UiFramework.Components.RectTransformComponent SetPivot(Oxide.Ext.UiFramework.Types.UiPivot pivot);
 	Oxide.Ext.UiFramework.Components.RectTransformComponent SetChangeParent(string changeParent);
 	Oxide.Ext.UiFramework.Components.RectTransformComponent SetTransformIndex(int transformIndex);
 }

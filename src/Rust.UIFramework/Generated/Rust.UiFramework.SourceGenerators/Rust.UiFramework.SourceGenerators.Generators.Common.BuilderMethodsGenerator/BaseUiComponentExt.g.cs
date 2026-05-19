@@ -120,6 +120,13 @@ public static partial class BaseUiComponentExt
 			component.Rotation = rotation;
 			return component;
 		}
+
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		public T SetPivot(Oxide.Ext.UiFramework.Types.UiPivot pivot)
+		{
+			component.Pivot = pivot;
+			return component;
+		}
 	}
 }
 
