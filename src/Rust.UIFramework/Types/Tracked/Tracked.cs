@@ -96,6 +96,7 @@ public class Tracked<T> : ITracked<T>, ITracked
     public void OverrideDefault(T value)
     {
         _defaultValue = value;
+        _value = value;
     }
 
     public void OverrideSerializationDefault(T value)
