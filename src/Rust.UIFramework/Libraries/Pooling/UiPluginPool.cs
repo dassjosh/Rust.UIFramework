@@ -275,4 +275,13 @@ public class UiPluginPool : IDebugLoggable
 
         return hasLeaked;
     }
+
+    internal void PrintLeaks()
+    {
+        for (int index = 0; index < _pools.Count; index++)
+        {
+            IPool pool = _pools[index];
+            pool.PrintLeaks();
+        }
+    }
 }

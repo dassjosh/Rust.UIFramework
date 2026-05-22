@@ -5,7 +5,7 @@
         <IsPackable>false</IsPackable>
         <ImplicitUsings>enable</ImplicitUsings>
         <LangVersion>14</LangVersion>
-        <Configurations>Debug;Release</Configurations>
+        <Configurations>Debug;Release;Trace Leaks</Configurations>
         <Platforms>Unit Tests;Benchmarks;UiFramework</Platforms>
         <TargetFramework>net9.0</TargetFramework>
         <OutputType>Library</OutputType>

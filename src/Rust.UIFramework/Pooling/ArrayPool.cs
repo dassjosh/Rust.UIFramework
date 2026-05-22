@@ -83,6 +83,15 @@ internal class ArrayPool<T> : BasePool<UiPooledArray<T>, ArrayPool<T>>
         return false;
     }
 
+    public override void PrintLeaks()
+    {
+        for (int index = 0; index < _pools.Length; index++)
+        {
+            ArrayPoolInternal pool = _pools[index];
+            pool.PrintLeaks();
+        }
+    }
+
     public override void LogDebug(DebugLogger logger)
     {
         logger.StartObject(GetType().GetRealTypeName());

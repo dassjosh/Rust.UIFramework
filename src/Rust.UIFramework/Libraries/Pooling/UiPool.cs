@@ -110,7 +110,7 @@ public class UiPool : BaseUiFrameworkLibrary, ISingleton
         for (int index = 0; index < _pluginPools.Length; index++)
         {
             UiPluginPool pool = _pluginPools[index];
-            pool.Clear();
+            pool?.Clear();
         }
     }
         
@@ -119,7 +119,7 @@ public class UiPool : BaseUiFrameworkLibrary, ISingleton
         for (int index = 0; index < _pluginPools.Length; index++)
         {
             UiPluginPool pool = _pluginPools[index];
-            pool.Wipe();
+            pool?.Wipe();
         }
     }
     
@@ -129,10 +129,22 @@ public class UiPool : BaseUiFrameworkLibrary, ISingleton
         for (int index = 0; index < _pluginPools.Length; index++)
         {
             UiPluginPool pool = _pluginPools[index];
-            hasLeaked |= pool.CheckForLeaks();
+            if (pool != null)
+            {
+                hasLeaked |= pool.CheckForLeaks();
+            }
         }
 
         return hasLeaked;
+    }
+
+    internal void PrintLeaks()
+    {
+        for (int index = 0; index < _pluginPools.Length; index++)
+        {
+            UiPluginPool pool = _pluginPools[index];
+            pool?.PrintLeaks();
+        }
     }
 
     ///<inheritdoc/>
@@ -143,7 +155,7 @@ public class UiPool : BaseUiFrameworkLibrary, ISingleton
         for (int index = 0; index < _pluginPools.Length; index++)
         {
             UiPluginPool pool = _pluginPools[index];
-            if (pool != _internal)
+            if (pool != null && pool != _internal)
             {
                 logger.AppendObject(pool.PluginName, pool);
             }

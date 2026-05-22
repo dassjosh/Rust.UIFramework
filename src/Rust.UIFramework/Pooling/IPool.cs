@@ -27,6 +27,7 @@ internal interface IPool
     void RemoveAllPools();
 
     bool HasPoolLeaked();
+    void PrintLeaks();
     
     void LogDebug(DebugLogger logger);
 }
