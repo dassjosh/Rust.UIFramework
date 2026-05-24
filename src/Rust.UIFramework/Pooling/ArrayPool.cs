@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Logging;
@@ -13,7 +14,7 @@ internal class ArrayPool<T> : BasePool<UiPooledArray<T>, ArrayPool<T>>
     
     private readonly ArrayPoolInternal[] _pools = new ArrayPoolInternal[PoolSize];
     private readonly object _poolLock = new();
-    
+
     protected override void OnInit(UiPluginPool pluginPool) { }
 
     public UiPooledArray<T> Get(int minSize)
@@ -38,23 +39,23 @@ internal class ArrayPool<T> : BasePool<UiPooledArray<T>, ArrayPool<T>>
         uint size = BitOperations.RoundUpToPowerOf2((uint)minSize);
         uint index = BitOperations.Log2(size);
         ArrayPoolInternal pool = _pools[index];
-        if (pool == null)
+        if (pool != null)
         {
-            lock (_poolLock)
-            {
-                pool = _pools[index];
-                if (pool == null)
-                {
-                    _pools[index] = pool = new ArrayPoolInternal();
-                    pool.InitArrayPool(PluginPool, size);
-                }
-            }
+            return pool;
         }
-
-        return pool;
+        lock (_poolLock)
+        {
+            pool = _pools[index];
+            if (pool == null)
+            {
+                _pools[index] = pool = new ArrayPoolInternal();
+                pool.InitArrayPool(PluginPool, size);
+            }
+            return pool;
+        }
     }
 
-    public override void Free(UiPooledArray<T> item)
+    public void Free(UiPooledArray<T> item)
     {
         ArrayPoolInternal pool = GetPool(item.Count);
         pool.Free(item);
@@ -109,37 +110,12 @@ internal class ArrayPool<T> : BasePool<UiPooledArray<T>, ArrayPool<T>>
 
     private sealed class ArrayPoolInternal : BaseObjectPool<UiPooledArray<T>, ArrayPoolInternal>, IObjectPool<BasePoolable>
     {
-        private uint _size;
-        
         protected override PoolSize GetPoolSize(PoolSettings settings) => settings.ArrayPoolSize;
 
         internal void InitArrayPool(UiPluginPool pool, uint size)
         {
-            _size = size;
+            SetPolicy(new ArrayPoolInternalPolicy(size, this));
             InitPool(pool);
-        }
-
-        protected override UiPooledArray<T> CreateNew()
-        {
-            UiPooledArray<T> obj = new(_size);
-            obj.OnInitInternal(this);
-            return obj;
-        }
-        
-        protected override void OnGetItem(UiPooledArray<T> item)
-        {
-            item.LeavePoolInternal();
-        }
-        
-        protected override bool OnFreeItem(UiPooledArray<T> item)
-        {
-            if (item.CanPool)
-            {
-                item.EnterPoolInternal();
-                return true;
-            }
-
-            return false;
         }
 
         BasePoolable IObjectPool<BasePoolable>.Get() => base.Get();
@@ -152,6 +128,28 @@ internal class ArrayPool<T> : BasePool<UiPooledArray<T>, ArrayPool<T>>
             }
 
             throw new NotSupportedException($"Cannot Free item {item.GetType().GetRealTypeName()} to pool {GetType().GetRealTypeName()}");
+        }
+
+        private sealed class ArrayPoolInternalPolicy(uint size, ArrayPoolInternal pool) : IPooledObjectPolicy<UiPooledArray<T>>
+        {
+            public UiPooledArray<T> Create()
+            {
+                UiPooledArray<T> obj = new(size);
+                obj.OnInitInternal(pool);
+                return obj;
+            }
+
+            public void Get(UiPooledArray<T> item) => item.LeavePoolInternal();
+            public bool Return(UiPooledArray<T> item)
+            {
+                if (item.CanPool)
+                {
+                    item.EnterPoolInternal();
+                    return true;
+                }
+
+                return false;
+            }
         }
     }
 }

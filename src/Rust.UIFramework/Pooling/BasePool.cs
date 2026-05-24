@@ -21,31 +21,26 @@ public abstract class BasePool<TPooled, TPool> : IPool, IDebugLoggable
     
     UiPluginPool IPool.PluginPool => PluginPool;
     
-    protected readonly object PoolLock = new();
-    
     private bool _isInitialized;
     
-    private static TPool[] Pools = new TPool[32];
+    private static TPool[] _pools;
     private static readonly object CreatePoolLock = new();
     
-    protected void InitPool(UiPluginPool pluginPool)
+    internal void InitPool(UiPluginPool pluginPool)
     {
-        lock (PoolLock)
+        if (_isInitialized)
         {
-            if (_isInitialized)
-            {
-                return;
-            }
-            PluginPool = pluginPool;
-            pluginPool.AddPool(this);
-            _isInitialized = true;
-            OnInit(pluginPool);
-            UiFrameworkExtension.GlobalLogger.Debug("Creating Pool. Plugin ID: {0} Type: {1}", pluginPool.PluginName, GetType().GetRealTypeName());
+            return;
         }
+        PluginPool = pluginPool;
+        pluginPool.AddPool(this);
+        OnInit(pluginPool);
+        _isInitialized = true;
+        UiFrameworkExtension.GlobalLogger.Debug("Creating Pool. Plugin ID: {0} Type: {1}", pluginPool.PluginName, GetType().GetRealTypeName());
     }
 
     protected abstract void OnInit(UiPluginPool pluginPool);
-    
+
     /// <summary>
     /// Returns a pool for the given plugin pool
     /// </summary>
@@ -53,55 +48,52 @@ public abstract class BasePool<TPooled, TPool> : IPool, IDebugLoggable
     /// <returns></returns>
     public static TPool ForPlugin(UiPluginPool pluginPool)
     {
-        TPool pool = Pools[pluginPool.Id.Id];
-        if (pool is { _isInitialized: true })
+        if(_pools == null)
         {
-            return pool;
+            lock (CreatePoolLock)
+            {
+                _pools ??= new TPool[8];
+            }
         }
 
-        lock (CreatePoolLock)
+        TPool pool;
+        int index = pluginPool.Id.Id;
+        if (index < _pools.Length)
         {
-            pool = Pools[pluginPool.Id.Id];
+            pool = _pools[index];
             if (pool is { _isInitialized: true })
             {
                 return pool;
             }
-            
-            if(Pools.Length <= pluginPool.Id.Id)
+        }
+
+        lock (CreatePoolLock)
+        {
+            if (index < _pools.Length)
             {
-                Array.Resize(ref Pools, Pools.Length * 2);
+                pool = _pools[pluginPool.Id.Id];
+                if (pool is { _isInitialized: true })
+                {
+                    return pool;
+                }
             }
-            
-            pool = Pools[pluginPool.Id.Id] = new TPool();
+
+            if(index >= _pools.Length)
+            {
+                Array.Resize(ref _pools, _pools.Length * 2);
+            }
+
+            _pools[pluginPool.Id.Id] = pool = new TPool();
             pool.InitPool(pluginPool);
             return pool;
         }
     }
 
-    /// <summary>
-    /// Frees an item back to the pool
-    /// </summary>
-    /// <param name="item">Item being freed</param>
-    public abstract void Free(TPooled item);
-
-    /// <summary>
-    /// Called when an item is retrieved from the pool
-    /// </summary>
-    /// <param name="item">Item being retrieved</param>
-    protected virtual void OnGetItem(TPooled item) { }
-
-    /// <summary>
-    /// Returns if an item can be freed to the pool
-    /// </summary>
-    /// <param name="item">Item to be freed</param>
-    /// <returns>True if can be freed; false otherwise</returns>
-    protected virtual bool OnFreeItem(TPooled item) => true;
-
     public void OnPluginUnloaded(UiPluginPool pluginPool)
     {
-        if (pluginPool.Id.Id < Pools.Length)
+        if (pluginPool.Id.Id < _pools.Length)
         {
-            Pools[pluginPool.Id.Id] = null;
+            _pools[pluginPool.Id.Id] = null;
         }
     }
 
@@ -113,10 +105,7 @@ public abstract class BasePool<TPooled, TPool> : IPool, IDebugLoggable
     /// <summary>
     /// Wipes all the pools for this type
     /// </summary>
-    public void RemoveAllPools()
-    {
-        Pools.Clear();
-    }
+    public void RemoveAllPools() => _pools.Clear();
 
     public abstract bool HasPoolLeaked();
 

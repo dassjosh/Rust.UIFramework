@@ -1,11 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
+using System.Collections.Concurrent;
 using System.Threading;
-using Oxide.Ext.UiFramework.Exceptions;
 using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Logging;
+
+#if TRACE_LEAKS
+using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using Oxide.Ext.UiFramework.Cache;
+#endif
 
 namespace Oxide.Ext.UiFramework.Pooling;
 
@@ -13,20 +17,39 @@ public abstract class BaseObjectPool<TPooled, TPool> : BasePool<TPooled, TPool>,
     where TPooled : class
     where TPool : BasePool<TPooled, TPool>, new()
 {
+    private Func<TPooled> _createFunc;
+    private Action<TPooled> _getFunc;
+    private Func<TPooled, bool> _returnFunc;
+
+    private int _numItems;
+
     private PoolSize _size;
-    private TPooled[] _pool;
-    private int _index;
-    private LeakHandler _leakHandler;
+
+    private readonly ConcurrentQueue<TPooled> _pool = new();
+
 #if TRACE_LEAKS
     private readonly ConditionalWeakTable<TPooled, InstanceTracker> _instanceTracker = new();
     private readonly ConditionalWeakTable<TPooled, LifetimeTracker> _lifetimeTracker = new();
+    private int _index;
 #endif
+
+    protected BaseObjectPool() { }
+
+    protected BaseObjectPool(IPooledObjectPolicy<TPooled> policy)
+    {
+        SetPolicy(policy);
+    }
+
+    protected void SetPolicy(IPooledObjectPolicy<TPooled> policy)
+    {
+        _createFunc = policy.Create;
+        _getFunc = policy.Get;
+        _returnFunc = policy.Return;
+    }
 
     protected override void OnInit(UiPluginPool pluginPool)
     {
         _size = GetPoolSize(pluginPool.Settings);
-        InvalidPoolException.ThrowIfInvalidPoolSize(_size);
-        _pool = new TPooled[_size.StartingSize];
     }
 
     /// <summary>
@@ -42,40 +65,23 @@ public abstract class BaseObjectPool<TPooled, TPool> : BasePool<TPooled, TPool>,
     /// <returns></returns>
     public TPooled Get()
     {
-        TPooled item = null;
-        int index = Interlocked.Increment(ref _index) - 1; //We want the previous index before the increment here
-        if (index >= _pool.Length && _size.CanResize(_pool.Length))
+        if (_pool.TryDequeue(out TPooled item))
         {
-            lock (PoolLock)
-            {
-                if (index >= _pool.Length && _size.CanResize(_pool.Length))
-                {
-                    int nextSize = PoolSize.GetNextSize(_pool.Length);
-                    UiFrameworkExtension.GlobalLogger.Debug("{0} Resizing Pool {1} Current Size: {2} Next Size: {3}", PluginPool.PluginName, GetType(), _pool.Length, nextSize);
-                    Array.Resize(ref _pool, nextSize);
-                }
-            }
-        }
-
-        if (index < _pool.Length)
-        {
-            item = _pool[index];
-            _pool[index] = null;
+            Interlocked.Decrement(ref _numItems);
         }
         else
         {
-            HandleLeak(index);
+            item = _createFunc();
         }
-
-        item ??= CreateNew();
 
 #if TRACE_LEAKS
         _instanceTracker.Add(item, new InstanceTracker());
         LifetimeTracker tracker = _lifetimeTracker.GetOrCreateValue(item);
         tracker.OnGet();
+        Interlocked.Increment(ref _index);
 #endif
 
-        OnGetItem(item);
+        _getFunc(item);
         return item;
     }
 
@@ -83,87 +89,61 @@ public abstract class BaseObjectPool<TPooled, TPool> : BasePool<TPooled, TPool>,
     /// Frees an item back to the pool
     /// </summary>
     /// <param name="item">Item being freed</param>
-    public override void Free(TPooled item)
+    public void Free(TPooled item)
     {
         if (item == null)
         {
             return;
         }
 
-        if (!OnFreeItem(item))
+#if TRACE_LEAKS
+        if (_instanceTracker.TryGetValue(item, out InstanceTracker tracker))
+        {
+            _instanceTracker.Remove(item);
+            tracker.Dispose();
+        }
+
+        if (_lifetimeTracker.TryGetValue(item, out LifetimeTracker lifetime))
+        {
+            lifetime.OnFree();
+        }
+
+        Interlocked.Decrement(ref _index);
+#endif
+
+        if (!_returnFunc(item))
         {
             return;
         }
 
-#if TRACE_LEAKS
-        for (int poolIndex = 0; poolIndex < _pool.Length; poolIndex++)
+        if (Interlocked.Increment(ref _numItems) <= _size.MaxSize)
         {
-            TPooled pooled = _pool[poolIndex];
-            if (pooled == item)
-            {
-                throw new Exception("Returned item is already in the pool!");
-            }
-        }
-#endif
-
-        int index = Interlocked.Decrement(ref _index);
-        if (index >= 0)
-        {
-            _pool[index] = item;
-#if TRACE_LEAKS
-            if (_instanceTracker.TryGetValue(item, out InstanceTracker tracker))
-            {
-                _instanceTracker.Remove(item);
-                tracker.Dispose();
-            }
-
-            if (_lifetimeTracker.TryGetValue(item, out LifetimeTracker lifetime))
-            {
-                lifetime.OnFree();
-            }
-#endif
-        }
-        else
-        {
-            Interlocked.Exchange(ref _index, 0);
-#if TRACE_LEAKS
-            if (_instanceTracker.TryGetValue(item, out InstanceTracker tracker))
-            {
-                tracker.AddAdditionalData("Index < 0");
-            }
-#endif
+            _pool.Enqueue(item);
         }
     }
-
-    /// <summary>
-    /// Creates new type of T
-    /// </summary>
-    /// <returns>Newly created type of T</returns>
-    protected abstract TPooled CreateNew();
 
     public override void ClearPoolEntities()
     {
-        lock (PoolLock)
+        _pool.Clear();
+        _numItems = 0;
+#if TRACE_LEAKS
+        _index = 0;
+        _lifetimeTracker.Clear();
+         foreach (KeyValuePair<TPooled, InstanceTracker> tracker in _instanceTracker)
         {
-            _pool.Clear();
+            tracker.Value.Dispose();
         }
-    }
-
-    private void HandleLeak(int index)
-    {
-        LeakHandler leak = _leakHandler ??= new LeakHandler(PluginPool.PluginId, GetType().ToString());
-        leak.OnLeak(index, _pool.Length);
+        _instanceTracker.Clear();
+#endif
     }
 
     public override bool HasPoolLeaked()
     {
-        if (_index != 0)
-        {
-            UiFrameworkExtension.GlobalLogger.Error("Plugin: {0} Pool: {1} Has Leaked {2}/{3} Entities", PluginPool.PluginName, GetType().GetRealTypeName(), _index, _pool.Length);
-            return true;
-        }
-
+#if TRACE_LEAKS
+        return _index != 0;
+#else
         return false;
+#endif
     }
 
     public override void PrintLeaks()
@@ -184,14 +164,17 @@ public abstract class BaseObjectPool<TPooled, TPool> : BasePool<TPooled, TPool>,
     ///<inheritdoc/>
     public override void LogDebug(DebugLogger logger)
     {
-        logger.AppendLine($"{GetType().GetRealTypeName()}: Pool: {_pool.Length - _index}/{_pool.Length}");
+#if TRACE_LEAKS
+        logger.AppendLine($"{GetType().GetRealTypeName()}: Pool: {_pool.Count - _index}/{_pool.Count}");
+#else
+        logger.AppendLine($"{GetType().GetRealTypeName()}: Pool: {_pool.Count}");
+#endif
     }
 
 #if TRACE_LEAKS
     private sealed class InstanceTracker : IDisposable
     {
         private readonly string _stack = Environment.StackTrace;
-        private string _additionalData = string.Empty;
         private bool _disposed;
 
         public void Dispose()
@@ -209,13 +192,8 @@ public abstract class BaseObjectPool<TPooled, TPool> : BasePool<TPooled, TPool>,
         {
             if (!_disposed && !Environment.HasShutdownStarted)
             {
-                Console.WriteLine($"{typeof(TPooled).Name} was leaked.{(!string.IsNullOrEmpty(_additionalData) ? $"{Environment.NewLine}Info{_additionalData}" : "")} Created at: {Environment.NewLine}{_stack}");
+                OxideLibrary.LogWarning($"{typeof(TPooled).Name} was leaked. Created at: {Environment.NewLine}{_stack}");
             }
-        }
-
-        public void AddAdditionalData(string data)
-        {
-            _additionalData += data;
         }
     }
 
@@ -247,10 +225,10 @@ public abstract class BaseObjectPool<TPooled, TPool> : BasePool<TPooled, TPool>,
         {
             if(!_isFreed)
             {
-                Console.WriteLine($"{typeof(TPooled).Name}{Environment.NewLine}" +
-                                  $"Created at: ({_createdTime}){_createdStack}{Environment.NewLine}" +
-                                  $"Last Get: ({_lastGetTime}){_lastGetStack}{Environment.NewLine}" +
-                                  $"Last Pooled: ({_lastPooledTime}){_lastPooledStack}");
+                OxideLibrary.LogWarning($"{typeof(TPooled).Name}{Environment.NewLine}" +
+                                        $"Created at: ({_createdTime}){_createdStack}{Environment.NewLine}" +
+                                        $"Last Get: ({_lastGetTime}){_lastGetStack}{Environment.NewLine}" +
+                                        $"Last Pooled: ({_lastPooledTime}){_lastPooledStack}");
             }
         }
     }

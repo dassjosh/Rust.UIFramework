@@ -14,13 +14,19 @@ class Program
 {
     static void Main(string[] args)
     {
-        Benchmarks benchmarks = new();
-        benchmarks.Setup();
-        var pool = Singleton<UiPool>.Instance;
-        benchmarks.UiFramework_Async();
-        benchmarks.UiFramework_Async();
-        benchmarks.UiFramework_Async();
-        benchmarks.GlobalCleanup();
+        // Benchmarks benchmarks = new();
+        // benchmarks.Setup();
+        // var pool = Singleton<UiPool>.Instance;
+        // benchmarks.UiFramework_Async();
+        // benchmarks.UiFramework_Async();
+        // benchmarks.UiFramework_Async();
+        // benchmarks.GlobalCleanup();
+
+        // Parallel.For(0, 1_000_000, i =>
+        // {
+        //     benchmarks.UiFramework_Async();
+        // });
+
         // while (true)
         // {
         //     var a = Task.Run(() =>
@@ -41,6 +47,8 @@ class Program
         //
         //     Task.WaitAll(a, b);
         // }
+
+
 
 #if BENCHMARKS
         ManualConfig config = DefaultConfig.Instance.AddJob(Job.Default

@@ -9,7 +9,7 @@ namespace Oxide.Ext.UiFramework.Pooling;
 internal interface IPool
 {
     UiPluginPool PluginPool { get; }
-    
+
     /// <summary>
     /// Called on a pool when a plugin is unloaded
     /// </summary>

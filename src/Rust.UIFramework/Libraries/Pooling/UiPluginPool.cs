@@ -1,4 +1,5 @@
-﻿using System.Collections.Concurrent;
+﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -16,6 +17,7 @@ public class UiPluginPool : IDebugLoggable
     internal readonly PluginPoolId Id;
     
     private readonly List<IPool> _pools = [];
+    private readonly ConcurrentDictionary<Type, IPool> _customPools = new();
     private PoolSettings _settings;
 
     internal PoolSettings Settings => _settings ?? DefaultSettings;
@@ -27,6 +29,7 @@ public class UiPluginPool : IDebugLoggable
     /// <summary>
     /// Constructor
     /// </summary>
+    /// <param name="id">ID of the plugin pool</param>
     /// <param name="plugin">Plugin the pool is for</param>
     internal UiPluginPool(PluginPoolId id, PluginId plugin)
     {
@@ -225,6 +228,29 @@ public class UiPluginPool : IDebugLoggable
     /// </summary>
     /// <param name="stream"><see cref="MemoryStream"/> being freed</param>
     public void FreeMemoryStream(MemoryStream stream) => MemoryStreamPool.ForPlugin(this).Free(stream);
+
+    public TPool CustomPool<T, TPool>()
+        where T : class
+        where TPool : CustomPool<T, TPool>, new()
+    {
+        Type type = typeof(T);
+        if(_customPools.TryGetValue(type, out IPool pool))
+        {
+            return (TPool)pool;
+        }
+
+        TPool customPool = new();
+        _customPools[type] = customPool;
+        customPool.InitPool(this);
+        return customPool;
+    }
+
+    public T Custom<T, TPool>()
+        where T : class
+        where TPool : CustomPool<T, TPool>, new()
+    {
+        return CustomPool<T, TPool>().Get();
+    }
 
     internal void OnPluginUnloaded()
     {

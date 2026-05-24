@@ -1,6 +1,8 @@
+using System.Collections.Concurrent;
 using Oxide.Ext.UiFramework.Animation;
 using Oxide.Ext.UiFramework.Data;
 using Oxide.Ext.UiFramework.Enums;
+using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.UiElements;
 
 namespace Rust.UiFramework.Benchmarks;
@@ -191,6 +193,7 @@ public class Benchmarks
     public UiBuilder UiFramework_Async()
     {
         UiBuilder builder = GetFrameworkBuilder();
+        //_cleanupList.Enqueue(builder);
         //builder.AddUi(default(SendInfo));
         builder.Dispose();
         return builder;
@@ -229,7 +232,7 @@ public class Benchmarks
         return 1;
     }
     
-    [Benchmark(Baseline = false)]
+    //[Benchmark(Baseline = false)]
     public MemoryStream Oxide_Full()
     {
         CuiElementContainer builder = GetOxideContainer();
@@ -363,7 +366,7 @@ public class Benchmarks
         return container;
     }
 
-    private UiBuilder GetFrameworkBuilder()
+    public UiBuilder GetFrameworkBuilder()
     {
         UiBuilder builder = UiBuilder.Create(BenchmarkHelpers.Plugin, new UiReference(UiLayer.Overlay, "Name"), UiPosition.Full, default);
         for (int i = 0; i < Iterations; i++)

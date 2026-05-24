@@ -5,7 +5,6 @@
 /// </summary>
 public class PoolSettings
 {
-    private const int InitialSize = 1 << 6;
     private const int CollectionMaxSize = 1 << 9;
     private const int ObjectMaxSize = 1 << 16;
     private const int InternalMultiplier = 1 << 2;
@@ -13,51 +12,51 @@ public class PoolSettings
     /// <summary>
     /// Size of the <see cref="HashPool{TKey,TValue}"/>
     /// </summary>
-    public PoolSize ArrayPoolSize { get; set; } = new(InitialSize, CollectionMaxSize);
+    public PoolSize ArrayPoolSize { get; set; } = new(CollectionMaxSize);
     
     /// <summary>
     /// Size of the <see cref="HashPool{TKey,TValue}"/>
     /// </summary>
-    public PoolSize HashPoolSize { get; set; } = new(InitialSize, CollectionMaxSize);
+    public PoolSize HashPoolSize { get; set; } = new(CollectionMaxSize);
         
     /// <summary>
     /// Size of the <see cref="HashSetPool{T}"/>
     /// </summary>
-    public PoolSize HashSetPoolSize { get; set; } = new(InitialSize, CollectionMaxSize);
+    public PoolSize HashSetPoolSize { get; set; } = new(CollectionMaxSize);
         
     /// <summary>
     /// Size of the <see cref="ListPool{T}"/>
     /// </summary>
-    public PoolSize ListPoolSize { get; set; } = new(InitialSize, CollectionMaxSize);
+    public PoolSize ListPoolSize { get; set; } = new(CollectionMaxSize);
         
     /// <summary>
     /// Size of the <see cref="ListPool{T}"/>
     /// </summary>
-    public PoolSize DictionaryPoolSize { get; set; } = new(InitialSize, CollectionMaxSize);
+    public PoolSize DictionaryPoolSize { get; set; } = new(CollectionMaxSize);
         
     /// <summary>
     /// Size of the <see cref="MemoryStreamPool"/>
     /// </summary>
-    public PoolSize MemoryStreamPoolSize { get; set; } = new(InitialSize, CollectionMaxSize);
+    public PoolSize MemoryStreamPoolSize { get; set; } = new(CollectionMaxSize);
         
     /// <summary>
     /// Size of the <see cref="ObjectPool{T}"/>
     /// </summary>
-    public PoolSize ObjectPoolSize { get; set; } = new(InitialSize, ObjectMaxSize);
+    public PoolSize ObjectPoolSize { get; set; } = new(ObjectMaxSize);
         
     /// <summary>
     /// Size of the <see cref="ObjectPool{T}"/>
     /// </summary>
-    public PoolSize StringBuilderPoolSize { get; set; } = new(InitialSize, CollectionMaxSize);
+    public PoolSize StringBuilderPoolSize { get; set; } = new(CollectionMaxSize);
         
     internal static PoolSettings CreateInternal() => new()
     {
-        HashPoolSize = new PoolSize(InitialSize * InternalMultiplier, CollectionMaxSize * InternalMultiplier),
-        HashSetPoolSize = new PoolSize(InitialSize * InternalMultiplier, CollectionMaxSize * InternalMultiplier),
-        ListPoolSize = new PoolSize(InitialSize * InternalMultiplier, CollectionMaxSize * InternalMultiplier),
-        DictionaryPoolSize = new PoolSize(InitialSize * InternalMultiplier, CollectionMaxSize * InternalMultiplier),
-        MemoryStreamPoolSize = new PoolSize(InitialSize * InternalMultiplier, CollectionMaxSize * InternalMultiplier),
-        ObjectPoolSize = new PoolSize(InitialSize * InternalMultiplier, ObjectMaxSize * InternalMultiplier),
-        StringBuilderPoolSize = new PoolSize(InitialSize * InternalMultiplier, CollectionMaxSize * InternalMultiplier),
+        HashPoolSize = new PoolSize(CollectionMaxSize * InternalMultiplier),
+        HashSetPoolSize = new PoolSize(CollectionMaxSize * InternalMultiplier),
+        ListPoolSize = new PoolSize(CollectionMaxSize * InternalMultiplier),
+        DictionaryPoolSize = new PoolSize(CollectionMaxSize * InternalMultiplier),
+        MemoryStreamPoolSize = new PoolSize(CollectionMaxSize * InternalMultiplier),
+        ObjectPoolSize = new PoolSize(ObjectMaxSize * InternalMultiplier),
+        StringBuilderPoolSize = new PoolSize(CollectionMaxSize * InternalMultiplier),
     };
 }
