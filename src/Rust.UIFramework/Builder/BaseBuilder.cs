@@ -145,6 +145,11 @@ public abstract class BaseBuilder : BasePoolable
         Singleton<AnimationTracker>.Instance.RemoveUiForSend(send, name);
         UiDestroyRequest.Create(name, send).Enqueue();
     }
+
+    public static void DestroyUi(IEnumerable<Connection> connections, string name)
+    {
+        DestroyUi(SendInfoBuilder.Get(connections), name);
+    }
     #endregion
 
 #if BENCHMARKS
