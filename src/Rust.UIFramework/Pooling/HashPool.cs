@@ -7,7 +7,7 @@ namespace Oxide.Ext.UiFramework.Pooling;
 /// </summary>
 /// <typeparam name="TKey"></typeparam>
 /// <typeparam name="TValue"></typeparam>
-internal class HashPool<TKey, TValue>() : BaseObjectPool<Hash<TKey, TValue>, HashPool<TKey, TValue>>(HashPoolPolicy.Instance)
+internal class HashPool<TKey, TValue>() : BaseObjectPool<Hash<TKey, TValue>>(HashPoolPolicy.Instance)
 {
     protected override PoolSize GetPoolSize(PoolSettings settings) => settings.DictionaryPoolSize;
     

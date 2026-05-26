@@ -6,7 +6,7 @@ namespace Oxide.Ext.UiFramework.Pooling;
 /// Represents a pool for <see cref="ConcurrentHashSet{T}"/>
 /// </summary>
 /// <typeparam name="T">Type that will be in the HashSet</typeparam>
-internal class ConcurrentHashSetPool<T>() : BaseObjectPool<ConcurrentHashSet<T>, ConcurrentHashSetPool<T>>(ConcurrentHashSetPoolPolicy.Instance)
+internal class ConcurrentHashSetPool<T>() : BaseObjectPool<ConcurrentHashSet<T>>(ConcurrentHashSetPoolPolicy.Instance)
 {
     protected override PoolSize GetPoolSize(PoolSettings settings) => settings.HashSetPoolSize;
     

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace Oxide.Ext.UiFramework.Pooling;
 
-internal class DictionaryPool<TKey, TValue>() : BaseObjectPool<Dictionary<TKey, TValue>, DictionaryPool<TKey, TValue>>(DictionaryPoolPolicy.Instance)
+internal class DictionaryPool<TKey, TValue>() : BaseObjectPool<Dictionary<TKey, TValue>>(DictionaryPoolPolicy.Instance)
 {
     protected override PoolSize GetPoolSize(PoolSettings settings) => settings.DictionaryPoolSize;
 

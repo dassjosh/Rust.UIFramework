@@ -1,6 +1,6 @@
 namespace Oxide.Ext.UiFramework.Pooling;
 
-internal class ObjectPool<T> : BaseObjectPool<BasePoolable, ObjectPool<T>> where T : BasePoolable, new()
+internal class ObjectPool<T> : BaseObjectPool<BasePoolable> where T : BasePoolable, new()
 {
     public ObjectPool()
     {

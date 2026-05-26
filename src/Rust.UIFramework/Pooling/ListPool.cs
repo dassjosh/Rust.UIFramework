@@ -6,7 +6,7 @@ namespace Oxide.Ext.UiFramework.Pooling;
 /// Represents a pool for <see cref="List{T}"/>
 /// </summary>
 /// <typeparam name="T">Type that will be in the list</typeparam>
-internal class ListPool<T>() : BaseObjectPool<List<T>, ListPool<T>>(ListPoolPolicy.Instance)
+internal class ListPool<T>() : BaseObjectPool<List<T>>(ListPoolPolicy.Instance)
 {
     protected override PoolSize GetPoolSize(PoolSettings settings) => settings.ListPoolSize;
 

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading;
 using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Logging;
@@ -7,15 +6,13 @@ using Oxide.Ext.UiFramework.Helpers;
 
 namespace Oxide.Ext.UiFramework.Pooling;
 
-internal class ArrayPool<T> : BasePool<UiPooledArray<T>, ArrayPool<T>>
+internal class ArrayPool<T> : BasePool
 {
     private const int PoolSize = 16;
     private const int MaxArraySize = 1 << PoolSize;
     
     private readonly ArrayPoolInternal[] _pools = new ArrayPoolInternal[PoolSize];
     private readonly object _poolLock = new();
-
-    protected override void OnInit(UiPluginPool pluginPool) { }
 
     public UiPooledArray<T> Get(int minSize)
     {
@@ -61,12 +58,12 @@ internal class ArrayPool<T> : BasePool<UiPooledArray<T>, ArrayPool<T>>
         pool.Free(item);
     }
 
-    public override void ClearPoolEntities()
+    public override void ClearPool()
     {
         for (int index = 0; index < _pools.Length; index++)
         {
             ArrayPoolInternal pool = _pools[index];
-            pool.ClearPoolEntities();
+            pool.ClearPool();
         }
     }
 
@@ -108,7 +105,7 @@ internal class ArrayPool<T> : BasePool<UiPooledArray<T>, ArrayPool<T>>
         logger.EndArray();
     }
 
-    private sealed class ArrayPoolInternal : BaseObjectPool<UiPooledArray<T>, ArrayPoolInternal>, IObjectPool<BasePoolable>
+    private sealed class ArrayPoolInternal : BaseObjectPool<UiPooledArray<T>>, IObjectPool<BasePoolable>
     {
         protected override PoolSize GetPoolSize(PoolSettings settings) => settings.ArrayPoolSize;
 

@@ -13,9 +13,8 @@ using Oxide.Ext.UiFramework.Cache;
 
 namespace Oxide.Ext.UiFramework.Pooling;
 
-public abstract class BaseObjectPool<TPooled, TPool> : BasePool<TPooled, TPool>, IObjectPool<TPooled>
+public abstract class BaseObjectPool<TPooled> : BasePool, IObjectPool<TPooled>
     where TPooled : class
-    where TPool : BasePool<TPooled, TPool>, new()
 {
     private Func<TPooled> _createFunc;
     private Action<TPooled> _getFunc;
@@ -120,9 +119,13 @@ public abstract class BaseObjectPool<TPooled, TPool> : BasePool<TPooled, TPool>,
         {
             _pool.Enqueue(item);
         }
+        else
+        {
+            Interlocked.Decrement(ref _numItems);
+        }
     }
 
-    public override void ClearPoolEntities()
+    public override void ClearPool()
     {
         _pool.Clear();
         _numItems = 0;

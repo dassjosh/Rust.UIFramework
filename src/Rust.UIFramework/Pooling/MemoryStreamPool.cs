@@ -5,7 +5,7 @@ namespace Oxide.Ext.UiFramework.Pooling;
 /// <summary>
 /// Pool for MemorySteam
 /// </summary>
-internal class MemoryStreamPool() : BaseObjectPool<MemoryStream, MemoryStreamPool>(MemoryStreamPoolPolicy.Instance)
+internal class MemoryStreamPool() : BaseObjectPool<MemoryStream>(MemoryStreamPoolPolicy.Instance)
 {
     protected override PoolSize GetPoolSize(PoolSettings settings) => settings.MemoryStreamPoolSize;
     

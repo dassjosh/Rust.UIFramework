@@ -2,7 +2,7 @@ using System.Collections.Concurrent;
 
 namespace Oxide.Ext.UiFramework.Pooling;
 
-internal class ConcurrentDictionaryPool<TKey, TValue>() : BaseObjectPool<ConcurrentDictionary<TKey, TValue>, ConcurrentDictionaryPool<TKey, TValue>>(ConcurrentDictionaryPoolPolicy.Instance)
+internal class ConcurrentDictionaryPool<TKey, TValue>() : BaseObjectPool<ConcurrentDictionary<TKey, TValue>>(ConcurrentDictionaryPoolPolicy.Instance)
 {
     protected override PoolSize GetPoolSize(PoolSettings settings) => settings.DictionaryPoolSize;
 

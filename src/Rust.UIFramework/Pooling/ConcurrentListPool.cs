@@ -2,7 +2,7 @@ using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Pooling;
 
-internal class ConcurrentListPool<T>() : BaseObjectPool<ConcurrentList<T>, ConcurrentListPool<T>>(ConcurrentListPoolPolicy.Instance)
+internal class ConcurrentListPool<T>() : BaseObjectPool<ConcurrentList<T>>(ConcurrentListPoolPolicy.Instance)
 {
     protected override PoolSize GetPoolSize(PoolSettings settings) => settings.ListPoolSize;
     
