@@ -5,6 +5,7 @@ using System.IO;
 using System.Runtime.CompilerServices;
 using System.Text;
 using Oxide.Ext.UiFramework.Extensions;
+using Oxide.Ext.UiFramework.Helpers;
 using Oxide.Ext.UiFramework.Logging;
 using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Pooling;
@@ -19,7 +20,7 @@ public class UiPluginPool : IDebugLoggable
     internal readonly PluginId PluginId;
     internal readonly string PluginName;
 
-    private readonly object CreatePoolLock = new();
+    private readonly object _poolLock = new();
     private BasePool[] _pools = new BasePool[32];
     private BasePool[] _customPools = [];
 
@@ -27,7 +28,6 @@ public class UiPluginPool : IDebugLoggable
     /// Constructor
     /// </summary>
     /// <param name="plugin">Plugin the pool is for</param>
-    /// <param name="settings">Settings for the PluginPool</param>
     internal UiPluginPool(PluginId plugin)
     {
         PluginId = plugin;
@@ -56,7 +56,7 @@ public class UiPluginPool : IDebugLoggable
             }
         }
 
-        lock (CreatePoolLock)
+        lock (_poolLock)
         {
             if (poolId < pools.Length)
             {
@@ -69,15 +69,25 @@ public class UiPluginPool : IDebugLoggable
 
             if(poolId >= pools.Length)
             {
-                int newSize = pools.Length > 0 ? pools.Length * 2 : 2;
-                Array.Resize(ref pools, newSize);
+                ResizePool(ref pools, poolId);
             }
 
-            TPool newPool = new();
-            pools[poolId] = newPool;
-            newPool.InitPool(this);
-            return newPool;
+            return CreatePool<TPool>(pools, poolId);
         }
+    }
+
+    private static void ResizePool(ref BasePool[] pools, int poolId)
+    {
+        int newSize = (int)BitOperations.RoundUpToPowerOf2((uint)poolId + 1);
+        Array.Resize(ref pools, newSize);
+    }
+
+    private TPool CreatePool<TPool>(BasePool[] pools, int poolId) where TPool : BasePool, new()
+    {
+        TPool newPool = new();
+        pools[poolId] = newPool;
+        newPool.InitPool(this);
+        return newPool;
     }
 
     public TPool CustomPool<T, TPool>()
@@ -85,10 +95,15 @@ public class UiPluginPool : IDebugLoggable
         where TPool : CustomPool<T, TPool>, new()
         => GetPool<TPool>(ref _customPools, CustomPoolId<TPool>.Id);
 
-    public T Custom<T, TPool>()
+    public T CustomGet<T, TPool>()
         where T : class
         where TPool : CustomPool<T, TPool>, new() =>
         CustomPool<T, TPool>().Get();
+
+    public void CustomFree<T, TPool>(T value)
+        where T : class
+        where TPool : CustomPool<T, TPool>, new() =>
+        CustomPool<T, TPool>().Free(value);
         
     /// <summary>
     /// Returns a pooled object of {T} type
@@ -300,7 +315,7 @@ public class UiPluginPool : IDebugLoggable
         logger.EndArray();
     }
     
-    internal bool CheckForLeaks()
+    internal bool HasLeaks()
     {
         bool hasLeaked = false;
         for (int index = 0; index < _pools.Length; index++)

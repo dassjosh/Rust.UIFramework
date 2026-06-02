@@ -10,6 +10,13 @@ namespace Oxide.Ext.UiFramework.Pooling;
 public interface IPooledObjectPolicy<T> where T : notnull
 {
     /// <summary>
+    /// Returns the max amount of items to be pooled at one time
+    /// </summary>
+    /// <param name="settings">Settings that contains pool settings for the pool</param>
+    /// <returns></returns>
+    int GetPoolSize(PoolSettings settings);
+
+    /// <summary>
     /// Create a <typeparamref name="T"/>.
     /// </summary>
     /// <returns>The <typeparamref name="T"/> which was created.</returns>

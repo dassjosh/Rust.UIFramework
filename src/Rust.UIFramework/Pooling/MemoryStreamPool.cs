@@ -7,12 +7,11 @@ namespace Oxide.Ext.UiFramework.Pooling;
 /// </summary>
 internal class MemoryStreamPool() : BaseObjectPool<MemoryStream>(MemoryStreamPoolPolicy.Instance)
 {
-    protected override PoolSize GetPoolSize(PoolSettings settings) => settings.MemoryStreamPoolSize;
-    
     private sealed class MemoryStreamPoolPolicy : IPooledObjectPolicy<MemoryStream>
     {
         public static readonly MemoryStreamPoolPolicy Instance = new();
-        
+
+        public int GetPoolSize(PoolSettings settings) => settings.MemoryStreamPoolSize;
         public MemoryStream Create() => new();
         public void Get(MemoryStream item) { }
         public bool Return(MemoryStream item)

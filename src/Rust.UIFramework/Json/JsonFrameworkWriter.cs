@@ -51,13 +51,7 @@ public sealed partial class JsonFrameworkWriter : BasePoolable
 
     private readonly JsonUtf8Writer _writer = new();
 
-    public static JsonFrameworkWriter Create(IUiFrameworkPlugin plugin) => plugin.PluginPool.Get<JsonFrameworkWriter>().Init();
-
-    private JsonFrameworkWriter Init()
-    {
-        _writer.Init();
-        return this;
-    }
+    public static JsonFrameworkWriter Create(IUiFrameworkPlugin plugin) => plugin.PluginPool.Get<JsonFrameworkWriter>();
 
     #region Comma Handling
     private void OnDepthIncrease()
@@ -525,7 +519,12 @@ public sealed partial class JsonFrameworkWriter : BasePoolable
 #endif
 
     public byte[] ToArray() => _writer.ToArray();
-    
+
+    protected override void LeavePool()
+    {
+        _writer.Init();
+    }
+
     protected override void EnterPool()
     {
         ResetCommaState();

@@ -7,10 +7,9 @@ internal class ObjectPool<T> : BaseObjectPool<BasePoolable> where T : BasePoolab
         SetPolicy(new ObjectPoolPolicy(this));
     }
 
-    protected override PoolSize GetPoolSize(PoolSettings settings) => settings.ObjectPoolSize;
-
     private sealed class ObjectPoolPolicy(ObjectPool<T> pool) : IPooledObjectPolicy<BasePoolable>
     {
+        public int GetPoolSize(PoolSettings settings) => settings.ObjectPoolSize;
         public BasePoolable Create()
         {
             T obj = new();

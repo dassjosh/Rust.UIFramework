@@ -44,7 +44,7 @@ internal class UiSendRequest : BaseUiRequest, IUiRequest
     protected override void EnterPool()
     {
         base.EnterPool();
-        Builder.TryDispose();
+        Builder?.TryDispose();
         Builder = null;
         Options = null;
     }

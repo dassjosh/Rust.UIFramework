@@ -15,7 +15,7 @@ public class UiPooledArray<T> : BasePoolable, IList<T>, IReadOnlyList<T>
     private static readonly bool ClearArray = !Type.IsUnmanaged<T>();
     
     internal static readonly UiPooledArray<T> Empty = new(0);
-    
+
     internal UiPooledArray(uint size)
     {
         Array = size == 0 ? [] : new T[size];

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using System.Threading;
 using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Libraries;
@@ -16,13 +15,10 @@ namespace Oxide.Ext.UiFramework.Pooling;
 public abstract class BaseObjectPool<TPooled> : BasePool, IObjectPool<TPooled>
     where TPooled : class
 {
-    private Func<TPooled> _createFunc;
-    private Action<TPooled> _getFunc;
-    private Func<TPooled, bool> _returnFunc;
+    private IPooledObjectPolicy<TPooled> _policy;
 
     private int _numItems;
-
-    private PoolSize _size;
+    private int _maxItems;
 
     private readonly ConcurrentQueue<TPooled> _pool = new();
 
@@ -41,22 +37,13 @@ public abstract class BaseObjectPool<TPooled> : BasePool, IObjectPool<TPooled>
 
     protected void SetPolicy(IPooledObjectPolicy<TPooled> policy)
     {
-        _createFunc = policy.Create;
-        _getFunc = policy.Get;
-        _returnFunc = policy.Return;
+        _policy = policy;
     }
 
     protected override void OnInit(UiPluginPool pluginPool)
     {
-        _size = GetPoolSize(pluginPool.Settings);
+        _maxItems = _policy.GetPoolSize(PluginPool.Settings);
     }
-
-    /// <summary>
-    /// Returns the pool size from the pool settings for the pool
-    /// </summary>
-    /// <param name="settings"></param>
-    /// <returns></returns>
-    protected abstract PoolSize GetPoolSize(PoolSettings settings);
 
     /// <summary>
     /// Returns an element from the pool if it exists else it creates a new one
@@ -70,7 +57,7 @@ public abstract class BaseObjectPool<TPooled> : BasePool, IObjectPool<TPooled>
         }
         else
         {
-            item = _createFunc();
+            item = _policy.Create();
         }
 
 #if TRACE_LEAKS
@@ -80,7 +67,7 @@ public abstract class BaseObjectPool<TPooled> : BasePool, IObjectPool<TPooled>
         Interlocked.Increment(ref _index);
 #endif
 
-        _getFunc(item);
+        _policy.Get(item);
         return item;
     }
 
@@ -110,12 +97,12 @@ public abstract class BaseObjectPool<TPooled> : BasePool, IObjectPool<TPooled>
         Interlocked.Decrement(ref _index);
 #endif
 
-        if (!_returnFunc(item))
+        if (!_policy.Return(item))
         {
             return;
         }
 
-        if (Interlocked.Increment(ref _numItems) <= _size.MaxSize)
+        if (Interlocked.Increment(ref _numItems) <= _maxItems)
         {
             _pool.Enqueue(item);
         }

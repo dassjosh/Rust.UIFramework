@@ -9,12 +9,11 @@ namespace Oxide.Ext.UiFramework.Pooling;
 /// <typeparam name="TValue"></typeparam>
 internal class HashPool<TKey, TValue>() : BaseObjectPool<Hash<TKey, TValue>>(HashPoolPolicy.Instance)
 {
-    protected override PoolSize GetPoolSize(PoolSettings settings) => settings.DictionaryPoolSize;
-    
     private sealed class HashPoolPolicy : IPooledObjectPolicy<Hash<TKey, TValue>>
     {
         public static readonly HashPoolPolicy Instance = new();
-        
+
+        public int GetPoolSize(PoolSettings settings) => settings.HashPoolSize;
         public Hash<TKey, TValue> Create() => [];
         public void Get(Hash<TKey, TValue> item) { }
         public bool Return(Hash<TKey, TValue> item)

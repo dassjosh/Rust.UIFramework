@@ -107,8 +107,6 @@ internal class ArrayPool<T> : BasePool
 
     private sealed class ArrayPoolInternal : BaseObjectPool<UiPooledArray<T>>, IObjectPool<BasePoolable>
     {
-        protected override PoolSize GetPoolSize(PoolSettings settings) => settings.ArrayPoolSize;
-
         internal void InitArrayPool(UiPluginPool pool, uint size)
         {
             SetPolicy(new ArrayPoolInternalPolicy(size, this));
@@ -129,6 +127,8 @@ internal class ArrayPool<T> : BasePool
 
         private sealed class ArrayPoolInternalPolicy(uint size, ArrayPoolInternal pool) : IPooledObjectPolicy<UiPooledArray<T>>
         {
+            public int GetPoolSize(PoolSettings settings) => settings.ArrayPoolSize;
+
             public UiPooledArray<T> Create()
             {
                 UiPooledArray<T> obj = new(size);

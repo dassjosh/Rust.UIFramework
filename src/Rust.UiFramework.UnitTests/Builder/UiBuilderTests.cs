@@ -53,6 +53,6 @@ public class UiBuilderTests
         Singleton<SendHandler>.Instance.WaitUntilFinished();
         
         //Assert
-        pool.CheckForLeaks().Should().BeFalse();
+        pool.HasLeaks().Should().BeFalse();
     }
 }

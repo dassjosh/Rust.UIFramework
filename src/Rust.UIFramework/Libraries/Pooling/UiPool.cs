@@ -53,6 +53,14 @@ public class UiPool : BaseUiFrameworkLibrary, ISingleton
         return pool;
     }
 
+    internal void RemovePool(PluginId id)
+    {
+        if (_pluginPools.TryRemove(id, out UiPluginPool pool))
+        {
+            pool.OnPluginUnloaded();
+        }
+    }
+
     ///<inheritdoc/>
     protected override void OnPluginLoaded(IUiFrameworkPlugin plugin)
     {
@@ -60,13 +68,7 @@ public class UiPool : BaseUiFrameworkLibrary, ISingleton
     }
 
     ///<inheritdoc/>
-    protected override void OnPluginUnloaded(IUiFrameworkPlugin plugin)
-    {
-        if (_pluginPools.TryRemove(plugin.Id(), out UiPluginPool pool))
-        {
-            pool.OnPluginUnloaded();
-        }
-    }
+    protected override void OnPluginUnloaded(IUiFrameworkPlugin plugin) => RemovePool(plugin.Id());
 
     internal void Clear()
     {
@@ -89,7 +91,7 @@ public class UiPool : BaseUiFrameworkLibrary, ISingleton
         bool hasLeaked = false;
         foreach (KeyValuePair<PluginId, UiPluginPool> pools in _pluginPools)
         {
-            hasLeaked |= pools.Value.CheckForLeaks();
+            hasLeaked |= pools.Value.HasLeaks();
         }
 
         return hasLeaked;

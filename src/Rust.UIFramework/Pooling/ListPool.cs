@@ -8,12 +8,11 @@ namespace Oxide.Ext.UiFramework.Pooling;
 /// <typeparam name="T">Type that will be in the list</typeparam>
 internal class ListPool<T>() : BaseObjectPool<List<T>>(ListPoolPolicy.Instance)
 {
-    protected override PoolSize GetPoolSize(PoolSettings settings) => settings.ListPoolSize;
-
     private sealed class ListPoolPolicy : IPooledObjectPolicy<List<T>>
     {
         public static readonly ListPoolPolicy Instance = new();
 
+        public int GetPoolSize(PoolSettings settings) => settings.ListPoolSize;
         public List<T> Create() => [];
         public void Get(List<T> item) { }
         public bool Return(List<T> item)
