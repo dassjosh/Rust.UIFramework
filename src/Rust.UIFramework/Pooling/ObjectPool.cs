@@ -7,6 +7,8 @@ internal class ObjectPool<T> : BaseObjectPool<BasePoolable> where T : BasePoolab
         SetPolicy(new ObjectPoolPolicy(this));
     }
 
+    public ObjectPool(IPooledObjectPolicy<BasePoolable> policy) : base(policy) { }
+
     private sealed class ObjectPoolPolicy(ObjectPool<T> pool) : IPooledObjectPolicy<BasePoolable>
     {
         public int GetPoolSize(PoolSettings settings) => settings.ObjectPoolSize;

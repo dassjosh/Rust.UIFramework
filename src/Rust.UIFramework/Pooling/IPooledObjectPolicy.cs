@@ -6,7 +6,7 @@ namespace Oxide.Ext.UiFramework.Pooling;
 /// <summary>
 /// Represents a policy for managing pooled objects.
 /// </summary>
-/// <typeparam name="T">The type of object which is being pooled.</typeparam>
+/// <typeparam name="T">The type of object that is being pooled.</typeparam>
 public interface IPooledObjectPolicy<T> where T : notnull
 {
     /// <summary>
@@ -19,7 +19,7 @@ public interface IPooledObjectPolicy<T> where T : notnull
     /// <summary>
     /// Create a <typeparamref name="T"/>.
     /// </summary>
-    /// <returns>The <typeparamref name="T"/> which was created.</returns>
+    /// <returns>The <typeparamref name="T"/> that was created.</returns>
     T Create();
 
     /// <summary>
