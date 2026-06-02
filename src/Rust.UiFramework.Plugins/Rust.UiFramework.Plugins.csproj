@@ -39,9 +39,6 @@
         <Reference Include="Oxide.CSharp">
             <HintPath>..\References\Rust\Oxide.CSharp.dll</HintPath>
         </Reference>
-        <Reference Include="Oxide.Ext.UniTask">
-          <HintPath>..\references\Extensions\Oxide.Ext.UniTask.dll</HintPath>
-        </Reference>
         <Reference Include="Oxide.References">
             <HintPath>..\References\Rust\Oxide.References.dll</HintPath>
         </Reference>
