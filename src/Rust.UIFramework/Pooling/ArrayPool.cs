@@ -45,7 +45,7 @@ internal class ArrayPool<T> : BasePool
             pool = _pools[index];
             if (pool == null)
             {
-                ArrayPoolInternalPolicy policy = new ArrayPoolInternalPolicy(size);
+                ArrayPoolInternalPolicy policy = new(size);
                 _pools[index] = pool = new ArrayPoolInternal(policy);
                 pool.InitPool(PluginPool);
             }
