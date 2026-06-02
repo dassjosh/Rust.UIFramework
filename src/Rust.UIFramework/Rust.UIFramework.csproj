@@ -55,9 +55,6 @@
       <Reference Include="Oxide.CSharp">
         <HintPath>..\References\Rust\Oxide.CSharp.dll</HintPath>
       </Reference>
-      <Reference Include="Oxide.Ext.UniTask">
-        <HintPath>..\References\Extensions\Oxide.Ext.UniTask.dll</HintPath>
-      </Reference>
       <Reference Include="Oxide.References">
         <HintPath>..\References\Rust\Oxide.References.dll</HintPath>
       </Reference>
@@ -96,6 +93,12 @@
       </Reference>
       <Reference Include="System.Threading.Tasks.Extensions">
         <HintPath>..\References\Rust\System.Threading.Tasks.Extensions.dll</HintPath>
+      </Reference>
+      <Reference Include="UniTask">
+        <HintPath>..\references\Rust\UniTask.dll</HintPath>
+      </Reference>
+      <Reference Include="UniTask.Linq">
+        <HintPath>..\references\Rust\UniTask.Linq.dll</HintPath>
       </Reference>
       <Reference Include="UnityEngine">
         <HintPath>..\References\Rust\UnityEngine.dll</HintPath>
