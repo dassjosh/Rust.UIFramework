@@ -54,14 +54,14 @@ public static class AnimationBuilderExt
             string url = image.Image;
             if (url.IsValidUrl() && Singleton<UiImageStorage>.Instance.IsDownloading(url))
             {
-                if (!string.IsNullOrEmpty(options.DownloadingImageNameOrUrl))
+                if (!string.IsNullOrEmpty(options.DownloadingImage))
                 {
-                    image.Image = Singleton<UiImageStorage>.Instance.Get(builder.Plugin, options.DownloadingImageNameOrUrl);
+                    image.Image = Singleton<UiImageStorage>.Instance.Get(builder.Plugin, options.DownloadingImage);
                 }
 
                 float timeout = (float)options.Timeout.TotalSeconds;
             
-                string timeoutImage = !string.IsNullOrEmpty(options.TimeoutImageNameOrUrl) ? options.TimeoutImageNameOrUrl : options.FailedImageNameOrUrl;
+                string timeoutImage = !string.IsNullOrEmpty(options.TimeoutImage) ? options.TimeoutImage : options.FailedImage;
 
                 AnimationRef<IElementAnimation<UiRawImage>> animation = builder.Animate(image)
                     .OnQueued(a => Singleton<ImageDownloadAnimationHandler>.Instance.QueueUpdate(url, a, options))

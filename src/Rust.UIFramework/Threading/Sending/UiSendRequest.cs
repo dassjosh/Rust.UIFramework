@@ -24,10 +24,11 @@ internal class UiSendRequest : BaseUiRequest
         Options = options;
     }
     
-    public override void SendRequest()
+    public override ProcessResult Process()
     {
         Builder.SendUi(Send, Options);
         Builder.SendAnimations(Send);
+        return ProcessResult.Success;
     }
     
     public override void OnCompleted()

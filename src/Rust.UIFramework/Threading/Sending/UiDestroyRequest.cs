@@ -17,9 +17,10 @@ internal class UiDestroyRequest : BaseUiRequest
         return this;
     }
     
-    public override void SendRequest()
+    public override ProcessResult Process()
     {
         RpcFunctions.SendDestroyUi(Send, Name);
+        return ProcessResult.Success;
     }
 
     protected override void EnterPool()

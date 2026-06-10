@@ -18,14 +18,15 @@ internal class OxideCuiContainerRequest : BaseUiRequest
         _destroyUiName = destroyUiName;
         return this;
     }
-    
-    public override void SendRequest()
+
+    public override ProcessResult Process()
     {
         if (!string.IsNullOrEmpty(_destroyUiName))
         {
             CommunityEntity.ServerInstance.ClientRPC(RpcTarget.SendInfo("DestroyUI", Send));
         }
         CommunityEntity.ServerInstance.ClientRPC(RpcTarget.SendInfo("AddUI", Send), _container.ToJson());
+        return ProcessResult.Success;
     }
 
     protected override void EnterPool()

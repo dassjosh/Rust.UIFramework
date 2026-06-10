@@ -52,6 +52,7 @@ public class UiFrameworkExtension : Extension
             GlobalLogger.Debug("Using {0} Image DB", nameof(UiFileStorageDatabase));
             Manager.RegisterLibrary(nameof(IImageDatabase), Singleton<UiFileStorageDatabase>.Instance);
         }
+        Manager.RegisterLibrary(nameof(UiChannels), Singleton<UiChannels>.Instance);
         Manager.RegisterLibrary(nameof(UiImageStorage), Singleton<UiImageStorage>.Instance);
         Manager.RegisterLibrary(nameof(UiImagePrecache), Singleton<UiImagePrecache>.Instance);
         Manager.RegisterLibrary(nameof(UiCommands), Singleton<UiCommands>.Instance);
@@ -77,9 +78,7 @@ public class UiFrameworkExtension : Extension
     public override void OnShutdown()
     {
         Singleton<DataHandler>.Instance.Shutdown();
-        Singleton<SendHandler>.Instance.OnServerShutdown();
         Singleton<AnimationHandler>.Instance.OnServerShutdown();
-        Singleton<AnimationTrackerChannel>.Instance.OnServerShutdown();
         Singleton<UiLoggerFactory>.Instance.OnServerShutdown();
     }
 }

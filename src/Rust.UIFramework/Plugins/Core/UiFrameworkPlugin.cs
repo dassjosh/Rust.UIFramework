@@ -112,7 +112,6 @@ internal class UiFrameworkPlugin : BaseUiFrameworkPlugin, IUiFrameworkPlugin
             try
             {
                 BaseUiFrameworkLibrary.ProcessOnCommunityEntitySpawned(entity);
-                
             }
             catch (Exception ex)
             {

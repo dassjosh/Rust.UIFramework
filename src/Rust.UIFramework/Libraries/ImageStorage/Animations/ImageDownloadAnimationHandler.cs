@@ -146,7 +146,7 @@ internal class ImageDownloadAnimationHandler : ISingleton
             {
                 if (Options != null)
                 {
-                    Animation.Animation.Element.Image = Singleton<UiImageStorage>.Instance.Get(Animation.Plugin, Options.FailedImageNameOrUrl);
+                    Animation.Animation.Element.Image = Singleton<UiImageStorage>.Instance.Get(Animation.Plugin, Options.FailedImage);
                 }
                 
                 Animation.Animation.CompleteAnimation();

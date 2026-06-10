@@ -18,9 +18,10 @@ internal class OxideCuiElementsRequest : BaseUiRequest
         return this;
     }
     
-    public override void SendRequest()
+    public override ProcessResult Process()
     {
         CommunityEntity.ServerInstance.ClientRPC(RpcTarget.SendInfo("AddUI", Send), CuiHelper.ToJson(_elements));
+        return ProcessResult.Success;
     }
 
     protected override void EnterPool()

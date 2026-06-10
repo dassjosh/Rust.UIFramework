@@ -139,6 +139,13 @@
       <Compile Remove="$(CompilerGeneratedFilesOutputPath)/**/*.cs" />
       <Content Include="$(CompilerGeneratedFilesOutputPath)/Rust.UiFramework.SourceGenerators/**/*.cs" />
       <Compile Remove="Libraries\ImageStorage\Download\ThreadedImageDownloader.cs" />
+      <Compile Remove="Threading\UiChannel\BaseUiChannel.cs" />
+      <Compile Remove="Threading\UiChannel\IUiChannel.cs" />
+      <Compile Remove="Threading\UiChannel\IUiChannelObject.cs" />
+      <Compile Remove="Libraries\ImageStorage\Download\ImageDownloadQueue.cs" />
+      <Compile Remove="Libraries\ImageStorage\Download\ImageDownloadRequest.cs" />
+      <Compile Remove="Threading\UiChannel\BaseUniTaskChannel.cs" />
+      <Compile Remove="Threading\UiChannel\IUniTaskChannelObject.cs" />
     </ItemGroup>
     
     <ItemGroup>
@@ -219,7 +226,7 @@
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|UiFramework' ">
-      <DefineConstants>TRACE;DEBUG</DefineConstants>
+      <DefineConstants>TRACE;DEBUG;SERVER</DefineConstants>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|Unit Tests' ">

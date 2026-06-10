@@ -66,6 +66,12 @@
         <Reference Include="System.Net.Http">
             <HintPath>..\References\Rust\System.Net.Http.dll</HintPath>
         </Reference>
+        <Reference Include="UniTask">
+          <HintPath>..\references\UniTask.dll</HintPath>
+        </Reference>
+        <Reference Include="UniTask.Linq">
+          <HintPath>..\references\UniTask.Linq.dll</HintPath>
+        </Reference>
         <Reference Include="UnityEngine">
             <HintPath>..\References\Rust\UnityEngine.dll</HintPath>
         </Reference>

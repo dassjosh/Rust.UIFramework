@@ -1,0 +1,10 @@
+﻿using Oxide.Ext.UiFramework.Types;
+
+namespace Oxide.Ext.UiFramework.Libraries;
+
+public readonly record struct HandlerId()
+{
+    public readonly int Id = IdGen<HandlerId>.GetNextId();
+    public bool IsValid => Id != 0;
+    public override string ToString() => Id.ToString();
+}

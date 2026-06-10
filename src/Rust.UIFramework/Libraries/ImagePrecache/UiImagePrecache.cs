@@ -97,5 +97,5 @@ public class UiImagePrecache : BaseUiFrameworkLibrary, ISingleton
         }
     }
 
-    private sealed record PrecacheImage(ImageId ImageId, byte[] Image);
+    private readonly record struct PrecacheImage(ImageId ImageId, byte[] Image);
 }

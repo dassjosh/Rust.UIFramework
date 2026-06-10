@@ -1,5 +1,6 @@
 ﻿using System;
 using Oxide.Core.Plugins;
+using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Extensions;
 using ProtoBuf;
 
@@ -22,6 +23,26 @@ public readonly record struct PluginId
     /// </summary>
     [ProtoIgnore]
     public bool IsValid => !string.IsNullOrEmpty(Id);
+
+    /// <summary>
+    /// Plugin instance associated with the ID
+    /// </summary>
+    [ProtoIgnore]
+    public Plugin Plugin
+    {
+        get
+        {
+            if(!IsValid) return null;
+            Plugin plugin = OxideLibrary.Plugins?.Find(Id);
+            return plugin?.IsLoaded ?? false ? plugin : null;
+        }
+    }
+
+    /// <summary>
+    /// IUiFrameworkPlugin instance associated with the ID
+    /// </summary>
+    [ProtoIgnore]
+    public IUiFrameworkPlugin UiPlugin => Plugin as IUiFrameworkPlugin;
 
     [ProtoIgnore] internal bool IsExtensionPlugin => IsValid && this == UiFrameworkExtension.Instance.PluginId;
         

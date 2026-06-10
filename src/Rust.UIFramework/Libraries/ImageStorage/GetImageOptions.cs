@@ -5,9 +5,17 @@ namespace Oxide.Ext.UiFramework.Libraries;
 public class GetImageOptions : IGetImageOptions
 {
     internal static readonly GetImageOptions Default = new();
-    
-    public string FallbackImageNameOrUrl { get; set; }
+
+    ///<inheritdoc/>
+    public string FallbackImage { get; set; }
+
+    [Obsolete($"Please use {nameof(FallbackImage)} instead.")]
+    public string FallbackImageNameOrUrl
+    {
+        get => FallbackImage;
+        set => FallbackImage = value;
+    }
 }
 
-[Obsolete("Please use GetImageOptions instead")]
+[Obsolete($"Please use {nameof(GetImageOptions)} instead")]
 public class ImageDownloadOptions : GetImageOptions;

@@ -8,14 +8,14 @@ namespace Oxide.Ext.UiFramework.Threading;
 internal abstract class BaseUiRequest : BasePoolable, IUiRequest
 {
     public SendInfo Send;
-    private static readonly IUiChannel<IUiRequest> Channel = Singleton<SendHandler>.Instance.Channel;
+    private static readonly UiChannel<IUiRequest> Channel = Singleton<SendHandler>.Instance.Channel;
 
     protected void Init(SendInfo send)
     {
         Send = send;
     }
 
-    public abstract void SendRequest();
+    public abstract ProcessResult Process();
 
     protected override void EnterPool()
     {
