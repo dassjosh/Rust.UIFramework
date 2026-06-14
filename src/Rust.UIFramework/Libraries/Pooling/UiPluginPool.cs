@@ -1,8 +1,11 @@
-﻿using System.Collections.Concurrent;
+﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Text;
 using Oxide.Ext.UiFramework.Extensions;
+using Oxide.Ext.UiFramework.Helpers;
 using Oxide.Ext.UiFramework.Logging;
 using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Pooling;
@@ -13,38 +16,94 @@ namespace Oxide.Ext.UiFramework.Libraries;
 
 public class UiPluginPool : IDebugLoggable
 {
-    internal readonly PluginPoolId Id;
-    
-    private readonly List<IPool> _pools = [];
-    private PoolSettings _settings;
-
-    internal PoolSettings Settings => _settings ?? DefaultSettings;
+    internal PoolSettings Settings;
     internal readonly PluginId PluginId;
     internal readonly string PluginName;
 
-    private static readonly PoolSettings DefaultSettings = new();
+    private readonly object _poolLock = new();
+    private BasePool[] _pools = new BasePool[32];
+    private BasePool[] _customPools = [];
 
     /// <summary>
     /// Constructor
     /// </summary>
     /// <param name="plugin">Plugin the pool is for</param>
-    internal UiPluginPool(PluginPoolId id, PluginId plugin)
+    internal UiPluginPool(PluginId plugin)
     {
-        Id = id;
         PluginId = plugin;
         PluginName = plugin.FullName();
+        Settings = PoolSettings.Default;
     }
 
-    /// <summary>
-    /// Sets the settings for the pools
-    /// </summary>
-    /// <param name="settings"></param>
-    public void SetSettings(PoolSettings settings)
+    internal void SetSettings(PoolSettings settings)
     {
-        _settings = settings;
+        Settings = settings;
     }
 
-    internal void AddPool(IPool pool) => _pools.Add(pool);
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    private TPool GetPool<TPool>() where TPool : BasePool, new() => GetPool<TPool>(ref _pools, PoolId<TPool>.Id);
+
+    //[MethodImpl(MethodImplOptions.AggressiveInlining)]
+    private TPool GetPool<TPool>(ref BasePool[] pools, int poolId) where TPool : BasePool, new()
+    {
+        BasePool pool;
+        if (poolId < pools.Length)
+        {
+            pool = pools[poolId];
+            if (pool is not null)
+            {
+                return (TPool)pool;
+            }
+        }
+
+        lock (_poolLock)
+        {
+            if (poolId < pools.Length)
+            {
+                pool = pools[poolId];
+                if (pool is not null)
+                {
+                    return (TPool)pool;
+                }
+            }
+
+            if(poolId >= pools.Length)
+            {
+                ResizePool(ref pools, poolId);
+            }
+
+            return CreatePool<TPool>(pools, poolId);
+        }
+    }
+
+    private static void ResizePool(ref BasePool[] pools, int poolId)
+    {
+        int newSize = (int)BitOperations.RoundUpToPowerOf2((uint)poolId + 1);
+        Array.Resize(ref pools, newSize);
+    }
+
+    private TPool CreatePool<TPool>(BasePool[] pools, int poolId) where TPool : BasePool, new()
+    {
+        TPool newPool = new();
+        pools[poolId] = newPool;
+        newPool.InitPool(this);
+        return newPool;
+    }
+
+    public TPool CustomPool<T, TPool>()
+        where T : class
+        where TPool : CustomPool<T, TPool>, new()
+        => GetPool<TPool>(ref _customPools, CustomPoolId<TPool>.Id);
+
+    public T CustomGet<T, TPool>()
+        where T : class
+        where TPool : CustomPool<T, TPool>, new() =>
+        CustomPool<T, TPool>().Get();
+
+    public void CustomFree<T, TPool>(T value)
+        where T : class
+        where TPool : CustomPool<T, TPool>, new() =>
+        CustomPool<T, TPool>().Free(value);
         
     /// <summary>
     /// Returns a pooled object of {T} type
@@ -52,84 +111,84 @@ public class UiPluginPool : IDebugLoggable
     /// </summary>
     /// <typeparam name="T">Type to be returned</typeparam>
     /// <returns>Pooled object of type T</returns>
-    public T Get<T>() where T : BasePoolable, new() => (T)ObjectPool<T>.ForPlugin(this).Get();
+    public T Get<T>() where T : BasePoolable, new() => (T)GetPool<ObjectPool<T>>().Get();
 
     /// <summary>
     /// Returns a <see cref="BasePoolable"/> back into the pool
     /// </summary>
     /// <param name="value">Object to free</param>
     /// <typeparam name="T">Type of object being freed</typeparam>
-    internal void Free<T>(T value) where T : BasePoolable, new() => ObjectPool<T>.ForPlugin(this).Free(value);
+    internal void Free<T>(T value) where T : BasePoolable, new() => GetPool<ObjectPool<T>>().Free(value);
 
     /// <summary>
     /// Returns a pooled <see cref="UiPooledArray{T}"/>
     /// </summary>
     /// <typeparam name="T">Type for the Array</typeparam>
     /// <returns>Pooled Array</returns>
-    public UiPooledArray<T> GetArray<T>(int minSize) => ArrayPool<T>.ForPlugin(this).Get(minSize);
+    public UiPooledArray<T> GetArray<T>(int minSize) => GetPool<ArrayPool<T>>().Get(minSize);
 
     /// <summary>
     /// Free's a pooled <see cref="UiPooledArray{T}"/>
     /// </summary>
     /// <param name="array">Array to be freed</param>
     /// <typeparam name="T">Type of the Array</typeparam>
-    public void FreeArray<T>(UiPooledArray<T> array) => ArrayPool<T>.ForPlugin(this).Free(array);
+    public void FreeArray<T>(UiPooledArray<T> array) => GetPool<ArrayPool<T>>().Free(array);
     
     /// <summary>
     /// Returns a pooled <see cref="List{T}"/>
     /// </summary>
     /// <typeparam name="T">Type for the list</typeparam>
     /// <returns>Pooled List</returns>
-    public List<T> GetList<T>() => ListPool<T>.ForPlugin(this).Get();
+    public List<T> GetList<T>() => GetPool<ListPool<T>>().Get();
 
     /// <summary>
     /// Free's a pooled <see cref="List{T}"/>
     /// </summary>
     /// <param name="list">List to be freed</param>
     /// <typeparam name="T">Type of the list</typeparam>
-    public void FreeList<T>(List<T> list) => ListPool<T>.ForPlugin(this).Free(list);
+    public void FreeList<T>(List<T> list) => GetPool<ListPool<T>>().Free(list);
     
     /// <summary>
     /// Returns a pooled <see cref="ConcurrentList{T}"/>
     /// </summary>
     /// <typeparam name="T">Type for the list</typeparam>
     /// <returns>Pooled List</returns>
-    public ConcurrentList<T> GetConcurrentList<T>() => ConcurrentListPool<T>.ForPlugin(this).Get();
+    public ConcurrentList<T> GetConcurrentList<T>() => GetPool<ConcurrentListPool<T>>().Get();
 
     /// <summary>
     /// Free's a pooled <see cref="ConcurrentList{T}"/>
     /// </summary>
     /// <param name="list">List to be freed</param>
     /// <typeparam name="T">Type of the list</typeparam>
-    public void FreeConcurrentList<T>(ConcurrentList<T> list) => ConcurrentListPool<T>.ForPlugin(this).Free(list);
+    public void FreeConcurrentList<T>(ConcurrentList<T> list) => GetPool<ConcurrentListPool<T>>().Free(list);
     
     /// <summary>
     /// Returns a pooled <see cref="HashSet{T}"/>
     /// </summary>
     /// <typeparam name="T">Type for the HashSet</typeparam>
     /// <returns>Pooled HashSet</returns>
-    public HashSet<T> GetHashSet<T>() => HashSetPool<T>.ForPlugin(this).Get();
+    public HashSet<T> GetHashSet<T>() => GetPool<HashSetPool<T>>().Get();
 
     /// <summary>
     /// Free's a pooled <see cref="HashSet{T}"/>
     /// </summary>
     /// <param name="set">HashSet to be freed</param>
     /// <typeparam name="T">Type of the HashSet</typeparam>
-    public void FreeHashSet<T>(HashSet<T> set) => HashSetPool<T>.ForPlugin(this).Free(set);    
+    public void FreeHashSet<T>(HashSet<T> set) => GetPool<HashSetPool<T>>().Free(set);
     
     /// <summary>
     /// Returns a pooled <see cref="HashSet{T}"/>
     /// </summary>
     /// <typeparam name="T">Type for the HashSet</typeparam>
     /// <returns>Pooled HashSet</returns>
-    public ConcurrentHashSet<T> GetConcurrentHashSet<T>() => ConcurrentHashSetPool<T>.ForPlugin(this).Get();
+    public ConcurrentHashSet<T> GetConcurrentHashSet<T>() => GetPool<ConcurrentHashSetPool<T>>().Get();
 
     /// <summary>
     /// Free's a pooled <see cref="HashSet{T}"/>
     /// </summary>
     /// <param name="set">HashSet to be freed</param>
     /// <typeparam name="T">Type of the HashSet</typeparam>
-    public void FreeConcurrentHashSet<T>(ConcurrentHashSet<T> set) => ConcurrentHashSetPool<T>.ForPlugin(this).Free(set);
+    public void FreeConcurrentHashSet<T>(ConcurrentHashSet<T> set) => GetPool<ConcurrentHashSetPool<T>>().Free(set);
 
     /// <summary>
     /// Returns a pooled <see cref="Dictionary{TKey,TValue}"/>
@@ -137,7 +196,7 @@ public class UiPluginPool : IDebugLoggable
     /// <typeparam name="TKey">Type for the key</typeparam>
     /// <typeparam name="TValue">Type for the value</typeparam>
     /// <returns>Pooled Dictionary</returns>
-    public Dictionary<TKey, TValue> GetDictionary<TKey, TValue>() => DictionaryPool<TKey, TValue>.ForPlugin(this).Get();
+    public Dictionary<TKey, TValue> GetDictionary<TKey, TValue>() => GetPool<DictionaryPool<TKey, TValue>>().Get();
 
     /// <summary>
     /// Frees a pooled <see cref="Dictionary{TKey, TValue}"/>
@@ -145,7 +204,7 @@ public class UiPluginPool : IDebugLoggable
     /// <param name="dic">Dictionary to be freed</param>
     /// <typeparam name="TKey">Type for key</typeparam>
     /// <typeparam name="TValue">Type for value</typeparam>
-    public void FreeDictionary<TKey, TValue>(Dictionary<TKey, TValue> dic) => DictionaryPool<TKey, TValue>.ForPlugin(this).Free(dic);
+    public void FreeDictionary<TKey, TValue>(Dictionary<TKey, TValue> dic) => GetPool<DictionaryPool<TKey, TValue>>().Free(dic);
     
     /// <summary>
     /// Returns a pooled <see cref="ConcurrentDictionary{TKey,TValue}"/>
@@ -153,7 +212,7 @@ public class UiPluginPool : IDebugLoggable
     /// <typeparam name="TKey">Type for the key</typeparam>
     /// <typeparam name="TValue">Type for the value</typeparam>
     /// <returns>Pooled ConcurrentDictionary</returns>
-    public ConcurrentDictionary<TKey, TValue> GetConcurrentDictionary<TKey, TValue>() => ConcurrentDictionaryPool<TKey, TValue>.ForPlugin(this).Get();
+    public ConcurrentDictionary<TKey, TValue> GetConcurrentDictionary<TKey, TValue>() => GetPool<ConcurrentDictionaryPool<TKey, TValue>>().Get();
 
     /// <summary>
     /// Frees a pooled <see cref="ConcurrentDictionary{TKey, TValue}"/>
@@ -161,7 +220,7 @@ public class UiPluginPool : IDebugLoggable
     /// <param name="dic">ConcurrentDictionary to be freed</param>
     /// <typeparam name="TKey">Type for key</typeparam>
     /// <typeparam name="TValue">Type for value</typeparam>
-    public void FreeConcurrentDictionary<TKey, TValue>(ConcurrentDictionary<TKey, TValue> dic) => ConcurrentDictionaryPool<TKey, TValue>.ForPlugin(this).Free(dic);
+    public void FreeConcurrentDictionary<TKey, TValue>(ConcurrentDictionary<TKey, TValue> dic) => GetPool<ConcurrentDictionaryPool<TKey, TValue>>().Free(dic);
     
     /// <summary>
     /// Returns a pooled <see cref="Hash{TKey,TValue}"/>
@@ -169,7 +228,7 @@ public class UiPluginPool : IDebugLoggable
     /// <typeparam name="TKey">Type for the key</typeparam>
     /// <typeparam name="TValue">Type for the value</typeparam>
     /// <returns>Pooled Hash</returns>
-    public Hash<TKey, TValue> GetHash<TKey, TValue>() => HashPool<TKey, TValue>.ForPlugin(this).Get();
+    public Hash<TKey, TValue> GetHash<TKey, TValue>() => GetPool<HashPool<TKey, TValue>>().Get();
 
     /// <summary>
     /// Frees a pooled <see cref="Hash{TKey, TValue}"/>
@@ -177,13 +236,13 @@ public class UiPluginPool : IDebugLoggable
     /// <param name="hash">Hash to be freed</param>
     /// <typeparam name="TKey">Type for key</typeparam>
     /// <typeparam name="TValue">Type for value</typeparam>
-    public void FreeHash<TKey, TValue>(Hash<TKey, TValue> hash) => HashPool<TKey, TValue>.ForPlugin(this).Free(hash);
+    public void FreeHash<TKey, TValue>(Hash<TKey, TValue> hash) => GetPool<HashPool<TKey, TValue>>().Free(hash);
 
     /// <summary>
     /// Returns a pooled <see cref="StringBuilder"/>
     /// </summary>
     /// <returns>Pooled <see cref="StringBuilder"/></returns>
-    public StringBuilder GetStringBuilder() => StringBuilderPool.ForPlugin(this).Get();
+    public StringBuilder GetStringBuilder() => GetPool<StringBuilderPool>().Get();
 
     /// <summary>
     /// Returns a pooled <see cref="StringBuilder"/>
@@ -192,7 +251,7 @@ public class UiPluginPool : IDebugLoggable
     /// <returns>Pooled <see cref="StringBuilder"/></returns>
     public StringBuilder GetStringBuilder(string initial)
     {
-        StringBuilder builder = StringBuilderPool.ForPlugin(this).Get();
+        StringBuilder builder = GetPool<StringBuilderPool>().Get();
         builder.Append(initial);
         return builder;
     }
@@ -201,7 +260,7 @@ public class UiPluginPool : IDebugLoggable
     /// Frees a <see cref="StringBuilder"/> back to the pool
     /// </summary>
     /// <param name="sb">StringBuilder being freed</param>
-    public void FreeStringBuilder(StringBuilder sb) => StringBuilderPool.ForPlugin(this).Free(sb);
+    public void FreeStringBuilder(StringBuilder sb) => GetPool<StringBuilderPool>().Free(sb);
 
     /// <summary>
     /// Frees a <see cref="StringBuilder"/> back to the pool returning the built <see cref="string"/>
@@ -218,39 +277,31 @@ public class UiPluginPool : IDebugLoggable
     /// Returns a pooled <see cref="MemoryStream"/>
     /// </summary>
     /// <returns>Pooled <see cref="MemoryStream"/></returns>
-    public MemoryStream GetMemoryStream() => MemoryStreamPool.ForPlugin(this).Get();
+    public MemoryStream GetMemoryStream() => GetPool<MemoryStreamPool>().Get();
 
     /// <summary>
     /// Frees a <see cref="MemoryStream"/> back to the pool
     /// </summary>
     /// <param name="stream"><see cref="MemoryStream"/> being freed</param>
-    public void FreeMemoryStream(MemoryStream stream) => MemoryStreamPool.ForPlugin(this).Free(stream);
+    public void FreeMemoryStream(MemoryStream stream) => GetPool<MemoryStreamPool>().Free(stream);
 
     internal void OnPluginUnloaded()
     {
-        for (int index = 0; index < _pools.Count; index++)
-        {
-            IPool pool = _pools[index];
-            pool.OnPluginUnloaded(this);
-        }
+        Wipe();
     }
         
     internal void Clear()
     {
-        for (int index = 0; index < _pools.Count; index++)
+        for (int index = 0; index < _pools.Length; index++)
         {
             IPool pool = _pools[index];
-            pool.ClearPoolEntities();
+            pool?.ClearPool();
         }
     }
 
     internal void Wipe()
     {
-        for (int index = 0; index < _pools.Count; index++)
-        {
-            IPool pool = _pools[index];
-            pool.RemoveAllPools();
-        }
+        _pools.Clear();
     }
 
     ///<inheritdoc/>
@@ -259,20 +310,29 @@ public class UiPluginPool : IDebugLoggable
         logger.StartArray(PluginId.PluginName());
         foreach (IPool pool in _pools)
         {
-            pool.LogDebug(logger);
+            pool?.LogDebug(logger);
         }
         logger.EndArray();
     }
     
-    internal bool CheckForLeaks()
+    internal bool HasLeaks()
     {
         bool hasLeaked = false;
-        for (int index = 0; index < _pools.Count; index++)
+        for (int index = 0; index < _pools.Length; index++)
         {
             IPool pool = _pools[index];
-            hasLeaked |= pool.HasPoolLeaked();
+            hasLeaked |= pool?.HasPoolLeaked() ?? false;
         }
 
         return hasLeaked;
+    }
+
+    internal void PrintLeaks()
+    {
+        for (int index = 0; index < _pools.Length; index++)
+        {
+            IPool pool = _pools[index];
+            pool?.PrintLeaks();
+        }
     }
 }

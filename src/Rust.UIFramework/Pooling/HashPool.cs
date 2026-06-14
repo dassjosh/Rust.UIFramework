@@ -7,15 +7,19 @@ namespace Oxide.Ext.UiFramework.Pooling;
 /// </summary>
 /// <typeparam name="TKey"></typeparam>
 /// <typeparam name="TValue"></typeparam>
-internal class HashPool<TKey, TValue> : BaseObjectPool<Hash<TKey, TValue>, HashPool<TKey, TValue>>
+internal class HashPool<TKey, TValue>() : BaseObjectPool<Hash<TKey, TValue>>(HashPoolPolicy.Instance)
 {
-    protected override PoolSize GetPoolSize(PoolSettings settings) => settings.DictionaryPoolSize;
-    protected override Hash<TKey, TValue> CreateNew() => new();
-
-    ///<inheritdoc/>
-    protected override bool OnFreeItem(Hash<TKey, TValue> item)
+    private sealed class HashPoolPolicy : IPooledObjectPolicy<Hash<TKey, TValue>>
     {
-        item.Clear();
-        return true;
+        public static readonly HashPoolPolicy Instance = new();
+
+        public int GetPoolSize(PoolSettings settings) => settings.HashPoolSize;
+        public Hash<TKey, TValue> Create() => [];
+        public void Get(Hash<TKey, TValue> item) { }
+        public bool Return(Hash<TKey, TValue> item)
+        {
+            item.Clear();
+            return true;
+        }
     }
 }

@@ -2,15 +2,19 @@ using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Pooling;
 
-internal class ConcurrentListPool<T> : BaseObjectPool<ConcurrentList<T>, ConcurrentListPool<T>>
+internal class ConcurrentListPool<T>() : BaseObjectPool<ConcurrentList<T>>(ConcurrentListPoolPolicy.Instance)
 {
-    protected override PoolSize GetPoolSize(PoolSettings settings) => settings.ListPoolSize;
-    protected override ConcurrentList<T> CreateNew() => [];
-
-    ///<inheritdoc/>
-    protected override bool OnFreeItem(ConcurrentList<T> item)
+    private sealed class ConcurrentListPoolPolicy : IPooledObjectPolicy<ConcurrentList<T>>
     {
-        item.Clear();
-        return true;
+        public static readonly ConcurrentListPoolPolicy Instance = new();
+
+        public int GetPoolSize(PoolSettings settings) => settings.ListPoolSize;
+        public ConcurrentList<T> Create() => [];
+        public void Get(ConcurrentList<T> item) { }
+        public bool Return(ConcurrentList<T> item)
+        {
+            item.Clear();
+            return true;
+        }
     }
 }

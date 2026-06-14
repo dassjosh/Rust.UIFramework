@@ -1,6 +1,6 @@
 ﻿{
   "AllowMultiple": false,
   "ComponentType": "NeedsKeyboard",
-  "Enabled": true,
+  "Enabled": false,
   "Type": "NeedsKeyboard"
 }

@@ -65,6 +65,9 @@ public abstract partial class BaseUiComponent : BasePoolable
     [PropertyTarget(nameof(RectTransform), PropertyTargetType.Property)]
     public partial UiRotation Rotation { get; set; }
 
+    [PropertyTarget(nameof(RectTransform), PropertyTargetType.Property)]
+    public partial UiPivot Pivot { get; set; }
+
     private RectTransformComponent _rectTransform;
     public RectTransformComponent RectTransform => _rectTransform ??= Component.GetOrAddSubComponent<RectTransformComponent>();
     
@@ -109,8 +112,8 @@ public abstract partial class BaseUiComponent : BasePoolable
         writer.WriteEndObject();
     }
     
-    internal T GetOrAddSubComponent<T>() where T : SubComponent, new() => Component.GetOrAddSubComponent<T>();
-    internal T GetOrAddLayoutComponent<T>() where T : BaseLayoutComponent, new()
+    public T GetOrAddSubComponent<T>() where T : BaseComponent, ISubComponent, new() => Component.GetOrAddSubComponent<T>();
+    public T GetOrAddLayoutComponent<T>() where T : BaseLayoutComponent, new()
     {
         T layout = GetOrAddSubComponent<T>();
         layout.Owner = this;
@@ -131,28 +134,18 @@ public abstract partial class BaseUiComponent : BasePoolable
     [Obsolete("Use AddOutline instead")]
     public OutlineComponent AddElementOutline(UiColor color, Vector2? distance = null, bool useGraphicAlpha = false) => AddOutline(color, distance, useGraphicAlpha);
     
-    public void NeedsMouse(bool enabled = true)
+    public NeedsMouseComponent NeedsMouse(bool enabled = true)
     {
-        if (enabled)
-        {
-            Component.GetOrAddSubComponent<NeedsMouseComponent>();
-        }
-        else
-        {
-            Component.RemoveSubComponent<NeedsMouseComponent>();
-        }
+        NeedsMouseComponent component = Component.GetOrAddSubComponent<NeedsMouseComponent>();
+        component.Enabled = enabled;
+        return component;
     }
 
-    public void NeedsKeyboard(bool enabled = true)
+    public NeedsKeyboardComponent NeedsKeyboard(bool enabled = true)
     {
-        if (enabled)
-        {
-            Component.GetOrAddSubComponent<NeedsKeyboardComponent>();
-        }
-        else
-        {
-            Component.RemoveSubComponent<NeedsKeyboardComponent>();
-        }
+        NeedsKeyboardComponent component = Component.GetOrAddSubComponent<NeedsKeyboardComponent>();
+        component.Enabled = enabled;
+        return component;
     }
 
     public void ShareSubComponent(ISubComponent component)

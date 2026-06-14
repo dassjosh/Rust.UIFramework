@@ -2,6 +2,7 @@
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
+using Oxide.Ext.UiFramework.Types;
 using Rust.UiFramework.SourceGenerators.Attributes;
 using UnityEngine;
 
@@ -16,7 +17,7 @@ public partial class ScrollViewContentComponent : ChildComponent
     public partial UiOffset Offset { get; set; }
     
     [TrackedDefaults(typeof(JsonDefaults.ScrollView), nameof(JsonDefaults.ScrollView.Pivot))]
-    public partial Vector2 Pivot { get; set; }
+    public partial UiPivot Pivot { get; set; }
     
     public override ComponentType ComponentType => ComponentType.ScrollViewContent;
     

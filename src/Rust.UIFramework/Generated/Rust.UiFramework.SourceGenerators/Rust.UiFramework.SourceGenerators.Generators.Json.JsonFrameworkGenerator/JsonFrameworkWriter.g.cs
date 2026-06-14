@@ -91,6 +91,12 @@ public partial class JsonFrameworkWriter
 		WriteValue(value);
 	}
 
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, Oxide.Ext.UiFramework.Types.UiPivot value)
+	{
+		WritePropertyName(name);
+		WriteValue(value);
+	}
+
 	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, in Oxide.Ext.UiFramework.Types.UiBorderWidth value)
 	{
 		WritePropertyName(name);
@@ -245,6 +251,15 @@ public partial class JsonFrameworkWriter
 	}
 
 	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, Oxide.Ext.UiFramework.Types.UiRotation value, Oxide.Ext.UiFramework.Types.UiRotation defaultValue)
+	{
+		if (value != defaultValue)
+		{
+		    WritePropertyName(name);
+		    WriteValue(value);
+		}
+	}
+
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, Oxide.Ext.UiFramework.Types.UiPivot value, Oxide.Ext.UiFramework.Types.UiPivot defaultValue)
 	{
 		if (value != defaultValue)
 		{
@@ -416,6 +431,15 @@ public partial class JsonFrameworkWriter
 	}
 
 	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Types.UiRotation> value, Oxide.Ext.UiFramework.Enums.SerializeMode mode)
+	{
+		if (value.ShouldSerialize(mode))
+		{
+		    WritePropertyName(name);
+		    WriteValue(value.Value);
+		}
+	}
+
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Types.UiPivot> value, Oxide.Ext.UiFramework.Enums.SerializeMode mode)
 	{
 		if (value.ShouldSerialize(mode))
 		{

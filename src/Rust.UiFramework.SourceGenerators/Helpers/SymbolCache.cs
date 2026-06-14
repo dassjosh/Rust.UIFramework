@@ -156,6 +156,7 @@ public class SymbolCache
         public readonly FrameworkSymbolCache StaticUiTuple = new("Types.UiTuple");
         public readonly FrameworkSymbolCache Utf8String = new("Types.Utf8String");
         public readonly FrameworkSymbolCache UiRotation = new("Types.UiRotation");
+        public readonly FrameworkSymbolCache UiPivot = new("Types.UiPivot");
         public readonly FrameworkSymbolCache UiBorderWidth = new("Types.UiBorderWidth");
         public readonly FrameworkSymbolCache UiPadding = new("Types.UiPadding");
         public readonly FrameworkSymbolCache UiColor = new("Colors.UiColor");

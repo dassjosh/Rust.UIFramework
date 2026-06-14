@@ -5,7 +5,7 @@
         <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
         <AssemblyName>Oxide.Ext.UiFramework</AssemblyName>
         <RootNamespace>Oxide.Ext.UiFramework</RootNamespace>
-        <Configurations>Debug;Release</Configurations>
+        <Configurations>Debug;Release;Trace Leaks</Configurations>
         <Platforms>Unit Tests;UiFramework;Benchmarks</Platforms>
         <AssemblyVersion>$(VERSION)</AssemblyVersion>
         <FileVersion>$(VERSION)</FileVersion>
@@ -169,7 +169,7 @@
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
-      <PackageReference Include="PolySharp" Version="1.15.0">
+      <PackageReference Include="PolySharp" Version="1.16.0">
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
@@ -255,6 +255,18 @@
 
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|Unit Tests' ">
       <DefineConstants>TRACE;UNIT_TESTS</DefineConstants>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Trace Leaks|Benchmarks' ">
+      <DefineConstants>TRACE;DEBUG;TRACE_LEAKS;BENCHMARKS</DefineConstants>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Trace Leaks|UiFramework' ">
+      <DefineConstants>TRACE;DEBUG;TRACE_LEAKS</DefineConstants>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Trace Leaks|Unit Tests' ">
+      <DefineConstants>TRACE;DEBUG;TRACE_LEAKS;UNIT_TESTS</DefineConstants>
     </PropertyGroup>
 
 

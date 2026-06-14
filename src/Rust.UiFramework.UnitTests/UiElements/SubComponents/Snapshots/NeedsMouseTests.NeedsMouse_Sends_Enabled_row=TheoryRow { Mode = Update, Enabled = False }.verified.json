@@ -1,0 +1,17 @@
+﻿{
+  "components": [
+    {
+      "anchormax": "0.3 0.4",
+      "anchormin": "0.1 0.2",
+      "offsetmax": "300 400",
+      "offsetmin": "100 200",
+      "type": "RectTransform"
+    },
+    {
+      "enabled": 0,
+      "type": "NeedsCursor"
+    }
+  ],
+  "name": "element",
+  "update": 1
+}

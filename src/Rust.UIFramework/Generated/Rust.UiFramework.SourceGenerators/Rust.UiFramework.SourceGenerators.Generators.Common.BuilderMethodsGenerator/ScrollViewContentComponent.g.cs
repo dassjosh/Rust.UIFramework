@@ -22,7 +22,7 @@ public partial class ScrollViewContentComponent
 	}
 
 	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-	public ScrollViewContentComponent SetPivot(UnityEngine.Vector2 pivot)
+	public ScrollViewContentComponent SetPivot(Oxide.Ext.UiFramework.Types.UiPivot pivot)
 	{
 		Pivot = pivot;
 		return this;

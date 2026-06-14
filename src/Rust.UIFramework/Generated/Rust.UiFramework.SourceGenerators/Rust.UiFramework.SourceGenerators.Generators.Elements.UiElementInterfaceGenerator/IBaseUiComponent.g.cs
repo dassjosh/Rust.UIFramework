@@ -23,6 +23,7 @@ public interface IBaseUiComponent
 	Oxide.Ext.UiFramework.Types.UiScale PositionScale { get; }
 	Oxide.Ext.UiFramework.Types.UiScale OffsetScale { get; }
 	Oxide.Ext.UiFramework.Types.UiRotation Rotation { get; }
+	Oxide.Ext.UiFramework.Types.UiPivot Pivot { get; }
 	Oxide.Ext.UiFramework.Components.RectTransformComponent RectTransform { get; }
 }
 

@@ -231,9 +231,19 @@ public abstract partial class BaseUiBuilder
     public T AutoSizedScrollView<T>(UiScrollView scrollView, AutoSizeDirection direction) where T : BaseUiComponent, new()
     {
         T section = SelectScrollViewContent<T>(scrollView);
-        ContentSizeFitter(section)
-            .SetHorizontalFit(direction.HasFlag(AutoSizeDirection.Horizontal) ? FitMode.PreferredSize : FitMode.Unconstrained)
-            .SetVerticalFit(direction.HasFlag(AutoSizeDirection.Vertical) ? FitMode.PreferredSize : FitMode.Unconstrained);
+        ContentSizeFitterComponent fitter = ContentSizeFitter(section);
+        if (direction.HasFlag(AutoSizeDirection.Horizontal))
+        {
+            fitter.SetHorizontalFit(FitMode.PreferredSize);
+            scrollView.ContentPivot = scrollView.ContentPivot.WithX(0);
+        }
+
+        if (direction.HasFlag(AutoSizeDirection.Vertical))
+        {
+            fitter.SetVerticalFit(FitMode.PreferredSize);
+            scrollView.ContentPivot = scrollView.ContentPivot.WithY(1);
+        }
+
         return section;
     }
 

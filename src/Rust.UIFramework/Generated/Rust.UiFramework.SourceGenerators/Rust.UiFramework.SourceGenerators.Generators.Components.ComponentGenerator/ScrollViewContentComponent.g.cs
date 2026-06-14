@@ -10,7 +10,7 @@ public partial class ScrollViewContentComponent : IScrollViewContentComponent
 {
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Positions.UiPosition> PositionTracked = new(Oxide.Ext.UiFramework.Positions.UiPosition.Full);
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Offsets.UiOffset> OffsetTracked = new();
-	internal readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.Vector2> PivotTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ScrollView.Pivot);
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Types.UiPivot> PivotTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ScrollView.Pivot);
 
 	public partial Oxide.Ext.UiFramework.Positions.UiPosition Position
 	{
@@ -26,7 +26,7 @@ public partial class ScrollViewContentComponent : IScrollViewContentComponent
 		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 		set => OffsetTracked.Value = value;
 	}
-	public partial UnityEngine.Vector2 Pivot
+	public partial Oxide.Ext.UiFramework.Types.UiPivot Pivot
 	{
 		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 		get => PivotTracked.Value;

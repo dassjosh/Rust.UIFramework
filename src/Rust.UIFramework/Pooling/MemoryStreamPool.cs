@@ -5,15 +5,19 @@ namespace Oxide.Ext.UiFramework.Pooling;
 /// <summary>
 /// Pool for MemorySteam
 /// </summary>
-internal class MemoryStreamPool : BaseObjectPool<MemoryStream, MemoryStreamPool>
+internal class MemoryStreamPool() : BaseObjectPool<MemoryStream>(MemoryStreamPoolPolicy.Instance)
 {
-    protected override PoolSize GetPoolSize(PoolSettings settings) => settings.MemoryStreamPoolSize;
-    protected override MemoryStream CreateNew() => new();
-
-    ///<inheritdoc/>
-    protected override bool OnFreeItem(MemoryStream item)
+    private sealed class MemoryStreamPoolPolicy : IPooledObjectPolicy<MemoryStream>
     {
-        item.SetLength(0);
-        return true;
+        public static readonly MemoryStreamPoolPolicy Instance = new();
+
+        public int GetPoolSize(PoolSettings settings) => settings.MemoryStreamPoolSize;
+        public MemoryStream Create() => new();
+        public void Get(MemoryStream item) { }
+        public bool Return(MemoryStream item)
+        {
+            item.SetLength(0);
+            return true;
+        }
     }
 }

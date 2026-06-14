@@ -10,5 +10,4 @@ public class NeedsKeyboardComponent : SubComponent
     public override ComponentType ComponentType => ComponentType.NeedsKeyboard;
     public override bool AllowMultiple => false;
     protected override void WriteComponentFields(JsonFrameworkWriter writer, SerializeMode mode) { }
-    public override bool HasChanged() => false;
 }

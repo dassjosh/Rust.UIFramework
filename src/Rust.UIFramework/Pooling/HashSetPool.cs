@@ -6,15 +6,19 @@ namespace Oxide.Ext.UiFramework.Pooling;
 /// Represents a pool for <see cref="HashSet{T}"/>
 /// </summary>
 /// <typeparam name="T">Type that will be in the HashSet</typeparam>
-internal class HashSetPool<T> : BaseObjectPool<HashSet<T>, HashSetPool<T>>
+internal class HashSetPool<T>() : BaseObjectPool<HashSet<T>>(HashSetPoolPolicy.Instance)
 {
-    protected override PoolSize GetPoolSize(PoolSettings settings) => settings.HashSetPoolSize;
-    protected override HashSet<T> CreateNew() => [];
-
-    ///<inheritdoc/>
-    protected override bool OnFreeItem(HashSet<T> item)
+    private sealed class HashSetPoolPolicy : IPooledObjectPolicy<HashSet<T>>
     {
-        item.Clear();
-        return true;
+        public static readonly HashSetPoolPolicy Instance = new();
+
+        public int GetPoolSize(PoolSettings settings) => settings.HashSetPoolSize;
+        public HashSet<T> Create() => [];
+        public void Get(HashSet<T> item) { }
+        public bool Return(HashSet<T> item)
+        {
+            item.Clear();
+            return true;
+        }
     }
 }

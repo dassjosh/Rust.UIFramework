@@ -71,7 +71,7 @@ public class StringFormatAnimator : BasePoolable, IAnimator<string>
         _provider = null;
         PluginPool.FreeList(_animators);
         _animators.TryFreeValues();
-        _values.TryDispose();
+        _values?.TryDispose();
     }
     
     private readonly record struct AnimatorIndex(IAnimator<object> Animator, int Index);

@@ -103,7 +103,6 @@ public abstract class BasePopulateComponentTests<T>(Action<T> populateComponent)
     {
         // Arrange
         using T component = UiPool.Internal.Get<T>();
-        Assert.SkipWhen(component is NeedsKeyboardComponent or NeedsMouseComponent, $"Skipping TrackedValues_HaveExpectedValues for {typeof(T).Name}");
         
         // Act
         var values = component.GetType().GetFields(BindingFlags.Instance | BindingFlags.NonPublic)

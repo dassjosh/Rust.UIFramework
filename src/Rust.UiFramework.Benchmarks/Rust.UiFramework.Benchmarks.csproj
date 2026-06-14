@@ -5,7 +5,7 @@
         <Nullable>disable</Nullable>
         <LangVersion>14</LangVersion>
         <SignAssembly>true</SignAssembly>
-        <Configurations>Release;Debug</Configurations>
+        <Configurations>Release;Debug;Trace Leaks</Configurations>
         <Platforms>UiFramework;Unit Tests;Benchmarks</Platforms>
         <OutputType>Exe</OutputType>
         <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -18,6 +18,10 @@
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|Benchmarks' ">
+      <DefineConstants>TRACE;BENCHMARKS</DefineConstants>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Trace Leaks|Benchmarks' ">
       <DefineConstants>TRACE;BENCHMARKS</DefineConstants>
     </PropertyGroup>
     

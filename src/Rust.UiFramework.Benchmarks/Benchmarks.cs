@@ -1,5 +1,8 @@
+using System.Collections.Concurrent;
+using Oxide.Ext.UiFramework.Animation;
 using Oxide.Ext.UiFramework.Data;
 using Oxide.Ext.UiFramework.Enums;
+using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.UiElements;
 
 namespace Rust.UiFramework.Benchmarks;
@@ -27,9 +30,9 @@ using Facepunch;
 public class Benchmarks
 {
     private const int Iterations = 100;
-    private readonly List<string> _oxideMins = new();
-    private readonly List<string> _oxideMaxs = new();
-    private readonly List<UiPosition> _frameworkPos = new();
+    private readonly List<string> _oxideMins = [];
+    private readonly List<string> _oxideMaxs = [];
+    private readonly List<UiPosition> _frameworkPos = [];
     private Random _random;
     public readonly byte[] Buffer = new byte[1024 * 1024];
     private CuiElementContainer _oxideContainer;
@@ -80,23 +83,32 @@ public class Benchmarks
     [GlobalCleanup]
     public void GlobalCleanup()
     {
-        _builder.Dispose();
-        _writer.Dispose();
-        
-        Singleton<SendHandler>.Instance.WaitUntilFinished();
-        
-        System.GC.Collect();
-        System.GC.WaitForPendingFinalizers();
-        
-        if (Singleton<UiPool>.Instance.CheckForLeaks())
+        try
         {
-            DebugLogger logger = new();
-            Singleton<UiPool>.Instance.LogDebug(logger);
-            Console.WriteLine(logger.ToString());
+            _builder?.Dispose();
+            _writer?.Dispose();
+
+            Singleton<SendHandler>.Instance.WaitUntilFinished();
+            Singleton<AnimationTrackerChannel>.Instance.WaitUntilFinished();
+
+            System.GC.Collect();
+            System.GC.WaitForPendingFinalizers();
+
+            if (Singleton<UiPool>.Instance.CheckForLeaks())
+            {
+                DebugLogger logger = new();
+                Singleton<UiPool>.Instance.LogDebug(logger);
+                Console.WriteLine(logger.ToString());
+                Singleton<UiPool>.Instance.PrintLeaks();
+            }
+            else
+            {
+                Console.WriteLine("No leaks found");
+            }
         }
-        else
+        catch (Exception e)
         {
-            Console.WriteLine("No leaks found");
+            Console.WriteLine($"[Exception] {e}");
         }
     }
 
@@ -181,6 +193,7 @@ public class Benchmarks
     public UiBuilder UiFramework_Async()
     {
         UiBuilder builder = GetFrameworkBuilder();
+        //_cleanupList.Enqueue(builder);
         //builder.AddUi(default(SendInfo));
         builder.Dispose();
         return builder;
@@ -201,7 +214,7 @@ public class Benchmarks
     //     builder.AddUiAsync(_connection);
     // }
     //
-    [Benchmark(Baseline = false)]
+    //[Benchmark(Baseline = false)]
     public void UiFramework_Full()
     {
         UiBuilder builder = GetFrameworkBuilder();
@@ -212,8 +225,14 @@ public class Benchmarks
         Pool.Free(ref write);
         builder.Dispose();
     }
+
+    //[Benchmark]
+    public int DoNothing()
+    {
+        return 1;
+    }
     
-    [Benchmark(Baseline = false)]
+    //[Benchmark(Baseline = false)]
     public MemoryStream Oxide_Full()
     {
         CuiElementContainer builder = GetOxideContainer();
@@ -347,7 +366,7 @@ public class Benchmarks
         return container;
     }
 
-    private UiBuilder GetFrameworkBuilder()
+    public UiBuilder GetFrameworkBuilder()
     {
         UiBuilder builder = UiBuilder.Create(BenchmarkHelpers.Plugin, new UiReference(UiLayer.Overlay, "Name"), UiPosition.Full, default);
         for (int i = 0; i < Iterations; i++)

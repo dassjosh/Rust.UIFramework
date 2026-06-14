@@ -17,6 +17,9 @@ Global
 		Debug|Unit Tests = Debug|Unit Tests
 		Release|UiFramework = Release|UiFramework
 		Release|Benchmarks = Release|Benchmarks
+		Release|Unit Tests = Release|Unit Tests
+		Trace Leaks|Benchmarks = Trace Leaks|Benchmarks
+		Trace Leaks|Unit Tests = Trace Leaks|Unit Tests
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{2CEE08B1-A5BD-4F64-A1A9-5242440758D0}.Debug|Benchmarks.ActiveCfg = Debug|Benchmarks
@@ -29,6 +32,12 @@ Global
 		{2CEE08B1-A5BD-4F64-A1A9-5242440758D0}.Debug|Unit Tests.Build.0 = Debug|Unit Tests
 		{2CEE08B1-A5BD-4F64-A1A9-5242440758D0}.Release|Benchmarks.ActiveCfg = Release|Benchmarks
 		{2CEE08B1-A5BD-4F64-A1A9-5242440758D0}.Release|Benchmarks.Build.0 = Release|Benchmarks
+		{2CEE08B1-A5BD-4F64-A1A9-5242440758D0}.Release|Unit Tests.ActiveCfg = Release|Unit Tests
+		{2CEE08B1-A5BD-4F64-A1A9-5242440758D0}.Release|Unit Tests.Build.0 = Release|Unit Tests
+		{2CEE08B1-A5BD-4F64-A1A9-5242440758D0}.Trace Leaks|Benchmarks.ActiveCfg = Trace Leaks|Benchmarks
+		{2CEE08B1-A5BD-4F64-A1A9-5242440758D0}.Trace Leaks|Benchmarks.Build.0 = Trace Leaks|Benchmarks
+		{2CEE08B1-A5BD-4F64-A1A9-5242440758D0}.Trace Leaks|Unit Tests.ActiveCfg = Trace Leaks|Unit Tests
+		{2CEE08B1-A5BD-4F64-A1A9-5242440758D0}.Trace Leaks|Unit Tests.Build.0 = Trace Leaks|Unit Tests
 		{6C18B22C-7319-4C3F-B7F9-F9B87B6B244C}.Debug|Benchmarks.ActiveCfg = Debug|Benchmarks
 		{6C18B22C-7319-4C3F-B7F9-F9B87B6B244C}.Debug|Benchmarks.Build.0 = Debug|Benchmarks
 		{6C18B22C-7319-4C3F-B7F9-F9B87B6B244C}.Debug|UiFramework.ActiveCfg = Debug|UiFramework
@@ -36,6 +45,10 @@ Global
 		{6C18B22C-7319-4C3F-B7F9-F9B87B6B244C}.Debug|Unit Tests.ActiveCfg = Debug|Unit Tests
 		{6C18B22C-7319-4C3F-B7F9-F9B87B6B244C}.Release|Benchmarks.ActiveCfg = Release|Benchmarks
 		{6C18B22C-7319-4C3F-B7F9-F9B87B6B244C}.Release|Benchmarks.Build.0 = Release|Benchmarks
+		{6C18B22C-7319-4C3F-B7F9-F9B87B6B244C}.Release|Unit Tests.ActiveCfg = Release|Unit Tests
+		{6C18B22C-7319-4C3F-B7F9-F9B87B6B244C}.Trace Leaks|Benchmarks.ActiveCfg = Trace Leaks|Benchmarks
+		{6C18B22C-7319-4C3F-B7F9-F9B87B6B244C}.Trace Leaks|Benchmarks.Build.0 = Trace Leaks|Benchmarks
+		{6C18B22C-7319-4C3F-B7F9-F9B87B6B244C}.Trace Leaks|Unit Tests.ActiveCfg = Trace Leaks|Unit Tests
 		{5E54706A-32E2-4E3E-BE13-D3C646DD1533}.Debug|Benchmarks.ActiveCfg = Debug|Benchmarks
 		{5E54706A-32E2-4E3E-BE13-D3C646DD1533}.Debug|UiFramework.ActiveCfg = Debug|UiFramework
 		{5E54706A-32E2-4E3E-BE13-D3C646DD1533}.Debug|UiFramework.Build.0 = Debug|UiFramework
@@ -43,6 +56,9 @@ Global
 		{5E54706A-32E2-4E3E-BE13-D3C646DD1533}.Release|UiFramework.Build.0 = Release|UiFramework
 		{5E54706A-32E2-4E3E-BE13-D3C646DD1533}.Debug|Unit Tests.ActiveCfg = Debug|Unit Tests
 		{5E54706A-32E2-4E3E-BE13-D3C646DD1533}.Release|Benchmarks.ActiveCfg = Release|Benchmarks
+		{5E54706A-32E2-4E3E-BE13-D3C646DD1533}.Release|Unit Tests.ActiveCfg = Release|Unit Tests
+		{5E54706A-32E2-4E3E-BE13-D3C646DD1533}.Trace Leaks|Benchmarks.ActiveCfg = Trace Leaks|Benchmarks
+		{5E54706A-32E2-4E3E-BE13-D3C646DD1533}.Trace Leaks|Unit Tests.ActiveCfg = Trace Leaks|Unit Tests
 		{26704024-E6B8-488A-B781-81C4D96101D9}.Debug|Benchmarks.ActiveCfg = Debug|Benchmarks
 		{26704024-E6B8-488A-B781-81C4D96101D9}.Debug|Benchmarks.Build.0 = Debug|Benchmarks
 		{26704024-E6B8-488A-B781-81C4D96101D9}.Debug|UiFramework.ActiveCfg = Debug|UiFramework
@@ -53,11 +69,22 @@ Global
 		{26704024-E6B8-488A-B781-81C4D96101D9}.Debug|Unit Tests.Build.0 = Debug|Unit Tests
 		{26704024-E6B8-488A-B781-81C4D96101D9}.Release|Benchmarks.ActiveCfg = Release|Benchmarks
 		{26704024-E6B8-488A-B781-81C4D96101D9}.Release|Benchmarks.Build.0 = Release|Benchmarks
+		{26704024-E6B8-488A-B781-81C4D96101D9}.Release|Unit Tests.ActiveCfg = Release|Unit Tests
+		{26704024-E6B8-488A-B781-81C4D96101D9}.Release|Unit Tests.Build.0 = Release|Unit Tests
+		{26704024-E6B8-488A-B781-81C4D96101D9}.Trace Leaks|Benchmarks.ActiveCfg = Trace Leaks|Benchmarks
+		{26704024-E6B8-488A-B781-81C4D96101D9}.Trace Leaks|Benchmarks.Build.0 = Trace Leaks|Benchmarks
+		{26704024-E6B8-488A-B781-81C4D96101D9}.Trace Leaks|Unit Tests.ActiveCfg = Trace Leaks|Unit Tests
+		{26704024-E6B8-488A-B781-81C4D96101D9}.Trace Leaks|Unit Tests.Build.0 = Trace Leaks|Unit Tests
 		{6D5681D6-15DF-41DF-8A1F-03A923F592F1}.Debug|Benchmarks.ActiveCfg = Debug|Benchmarks
 		{6D5681D6-15DF-41DF-8A1F-03A923F592F1}.Debug|UiFramework.ActiveCfg = Debug|UiFramework
 		{6D5681D6-15DF-41DF-8A1F-03A923F592F1}.Release|UiFramework.ActiveCfg = Release|UiFramework
 		{6D5681D6-15DF-41DF-8A1F-03A923F592F1}.Debug|Unit Tests.ActiveCfg = Debug|Unit Tests
 		{6D5681D6-15DF-41DF-8A1F-03A923F592F1}.Debug|Unit Tests.Build.0 = Debug|Unit Tests
 		{6D5681D6-15DF-41DF-8A1F-03A923F592F1}.Release|Benchmarks.ActiveCfg = Release|Benchmarks
+		{6D5681D6-15DF-41DF-8A1F-03A923F592F1}.Release|Unit Tests.ActiveCfg = Release|Unit Tests
+		{6D5681D6-15DF-41DF-8A1F-03A923F592F1}.Release|Unit Tests.Build.0 = Release|Unit Tests
+		{6D5681D6-15DF-41DF-8A1F-03A923F592F1}.Trace Leaks|Benchmarks.ActiveCfg = Trace Leaks|Benchmarks
+		{6D5681D6-15DF-41DF-8A1F-03A923F592F1}.Trace Leaks|Unit Tests.ActiveCfg = Trace Leaks|Unit Tests
+		{6D5681D6-15DF-41DF-8A1F-03A923F592F1}.Trace Leaks|Unit Tests.Build.0 = Trace Leaks|Unit Tests
 	EndGlobalSection
 EndGlobal

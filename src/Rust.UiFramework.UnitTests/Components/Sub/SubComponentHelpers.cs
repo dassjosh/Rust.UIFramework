@@ -1,6 +1,9 @@
 ﻿using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Enums;
+using Oxide.Ext.UiFramework.Offsets;
+using Oxide.Ext.UiFramework.Positions;
+using Oxide.Ext.UiFramework.Types;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -42,6 +45,22 @@ public static class SubComponentHelpers
         outline.Color = UiColors.Red;
         outline.Distance = new Vector2(0.5f, 0.4f);
         outline.UseGraphicAlpha = true;
+    }
+
+    public static void PopulateRectTransform(RectTransformComponent transform)
+    {
+        transform.ChangeParent = "newParent";
+        transform.Rotation = UiRotation.Full;
+        transform.Pivot = UiPivot.BottomRight;
+        transform.Position = new UiPosition(1, 2, 3, 4);
+        transform.PositionPadding = new UiPadding(0.1f, 0.3f, 0.5f, 0.7f);
+        transform.PositionScale = new UiScale(1.1f);
+        transform.PositionTranslate = new UiTranslate(0.5f.Px(), 1.5f.Px());
+        transform.Offset = new UiOffset(5, 6, 7, 8);
+        transform.OffsetPadding = new UiPadding(0.2f, 0.4f, 0.6f, 0.8f);
+        transform.OffsetScale = new UiScale(1.2f);
+        transform.OffsetTranslate = new UiTranslate(0.25.Percent(), 0.75.Percent());
+        transform.TransformIndex = 2;
     }
     
     public static void PopulateSlot(SlotComponent slot)
@@ -86,5 +105,15 @@ public static class SubComponentHelpers
         layout.FlexibleWidth = 50;
         layout.FlexibleHeight = 60;
         layout.IgnoreLayout = true;
+    }
+
+    public static void PopulateNeedsKeyboard(NeedsKeyboardComponent keyboard)
+    {
+        keyboard.Enabled = false;
+    }
+
+    public static void PopulateNeedsMouse(NeedsMouseComponent mouse)
+    {
+        mouse.Enabled = false;
     }
 }

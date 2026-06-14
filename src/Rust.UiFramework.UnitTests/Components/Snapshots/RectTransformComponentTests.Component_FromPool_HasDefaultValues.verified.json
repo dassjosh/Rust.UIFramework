@@ -1,0 +1,11 @@
+﻿{
+  "AllowMultiple": false,
+  "ComponentType": "RectTransform",
+  "Enabled": true,
+  "OffsetScale": "1 1",
+  "Pivot": "0.5 0.5",
+  "Position": "(0, 0) (1, 1)",
+  "PositionScale": "1 1",
+  "TransformIndex": -1,
+  "Type": "RectTransform"
+}

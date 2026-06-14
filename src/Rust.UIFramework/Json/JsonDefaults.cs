@@ -54,6 +54,9 @@ public static class JsonDefaults
         
         public static readonly Utf8String RotationName = "rotation";
         public static readonly UiRotation Rotation = new(0);
+
+        public static readonly Utf8String PivotName = "pivot";
+        public static readonly UiPivot Pivot = new(0.5f, 0.5f);
         
         public static readonly Utf8String SetParentName = "setParent";
         
@@ -215,7 +218,7 @@ public static class JsonDefaults
         public static readonly Vector2 OffsetMax = new(0, 0);
         
         public static readonly Utf8String PivotName = "pivot";
-        public static readonly Vector2 Pivot = new(0.5f, 0.5f);
+        public static readonly UiPivot Pivot = UiPivot.Center;
         
         public static readonly Utf8String HorizontalScrollProgressName = "horizontalNormalizedPosition";
         public const float HorizontalScrollProgress = 0f;
