@@ -49,6 +49,9 @@
       <Reference Include="mscorlib">
         <HintPath>..\References\Rust\mscorlib.dll</HintPath>
       </Reference>
+      <Reference Include="netstandard" Condition="'$(TargetFramework)' == 'net48'">
+        <HintPath>..\references\netstandard.dll</HintPath>
+      </Reference>
       <Reference Include="Oxide.Core">
         <HintPath>..\References\Rust\Oxide.Core.dll</HintPath>
       </Reference>
@@ -100,11 +103,20 @@
       <Reference Include="UniTask.Linq">
         <HintPath>..\references\Rust\UniTask.Linq.dll</HintPath>
       </Reference>
+      <Reference Include="Unity.Burst">
+        <HintPath>..\references\Unity.Burst.dll</HintPath>
+      </Reference>
+      <Reference Include="Unity.Mathematics">
+        <HintPath>..\references\Unity.Mathematics.dll</HintPath>
+      </Reference>
       <Reference Include="UnityEngine">
         <HintPath>..\References\Rust\UnityEngine.dll</HintPath>
       </Reference>
       <Reference Include="UnityEngine.CoreModule">
         <HintPath>..\References\Rust\UnityEngine.CoreModule.dll</HintPath>
+      </Reference>
+      <Reference Include="UnityEngine.ImageConversionModule">
+        <HintPath>..\references\UnityEngine.ImageConversionModule.dll</HintPath>
       </Reference>
       <Reference Include="UnityEngine.TextRenderingModule">
         <HintPath>..\References\Rust\UnityEngine.TextRenderingModule.dll</HintPath>

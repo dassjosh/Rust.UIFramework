@@ -4,7 +4,7 @@
       "align": "6",
       "color": "0.502 0.502 0.502",
       "fadeIn": 1.5,
-      "font": "lcd.ttf",
+      "font": "lcd/lcd.ttf",
       "fontSize": 20,
       "text": "text",
       "type": "UnityEngine.UI.Text",

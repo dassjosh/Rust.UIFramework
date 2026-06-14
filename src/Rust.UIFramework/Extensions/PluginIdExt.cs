@@ -20,6 +20,7 @@ internal static class PluginIdExt
     internal static string PluginName(this Plugin plugin) => plugin?.Name ?? throw new ArgumentNullException(nameof(plugin));
     internal static string PluginName(this IUiFrameworkPlugin plugin) => plugin?.Name ?? throw new ArgumentNullException(nameof(plugin));
     internal static string PluginName(this PluginId pluginId) => pluginId.Id;
+    internal static object CallHook(this PluginId pluginId, string hook, params object[] args) => pluginId.Plugin?.CallHook(hook, args);
 
     internal static string FullName(this Plugin plugin)
     {

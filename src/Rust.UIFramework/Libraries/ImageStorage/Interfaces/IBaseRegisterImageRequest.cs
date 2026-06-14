@@ -1,6 +1,5 @@
 ﻿using System;
 using Oxide.Ext.UiFramework.Plugins;
-using Oxide.Ext.UiFramework.Threading;
 
 namespace Oxide.Ext.UiFramework.Libraries;
 

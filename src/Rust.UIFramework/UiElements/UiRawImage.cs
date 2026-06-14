@@ -1,6 +1,8 @@
 ﻿using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Interfaces;
+using Oxide.Ext.UiFramework.Libraries;
+using Oxide.Ext.UiFramework.Types;
 using Rust.UiFramework.SourceGenerators.Attributes;
 
 namespace Oxide.Ext.UiFramework.UiElements;
@@ -32,4 +34,10 @@ public partial class UiRawImage : BaseUiComponent, IMaterial<UiRawImage>, IFadeI
     }
     
     public UiRawImage SetPlaceholderFor(UiInput input) => SetPlaceholderFor(input.Reference);
+
+    public UiRawImage AddBorderRadius(in UiBorderRadius radius, bool antialiasing = false, float edgeWidth = 0, UiColor? replacementColor = null)
+    {
+        Image = Singleton<UiImageStorage>.Instance.GetBorderRadius(PluginPool?.PluginId.UiPlugin, Image, radius, antialiasing, edgeWidth, replacementColor ?? UiColors.Transparent);
+        return this;
+    }
 }

@@ -55,6 +55,13 @@ public partial class ImageComponent
 		FillCenter = fillCenter;
 		return this;
 	}
+
+	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+	public ImageComponent SetPng(string png)
+	{
+		Png = png;
+		return this;
+	}
 }
 
 

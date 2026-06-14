@@ -10,7 +10,6 @@ namespace Oxide.Ext.UiFramework.Components;
 [GenerateBuilderMethods]
 public partial class NineSliceComponent : ImageComponent
 {
-    public partial string Png { get; set; }
     [TrackedDefaults(typeof(JsonDefaults.Image), nameof(JsonDefaults.Image.Slice))]
     public partial UiBorderWidth Slice { get; set; }
     
@@ -25,7 +24,6 @@ public partial class NineSliceComponent : ImageComponent
     protected override void WriteComponentFields(JsonFrameworkWriter writer, SerializeMode mode)
     {
         base.WriteComponentFields(writer, mode);
-        writer.AddField(JsonDefaults.Image.PngName, PngTracked, mode);
         writer.AddField(JsonDefaults.Image.SliceName, SliceTracked, mode);
     }
 }

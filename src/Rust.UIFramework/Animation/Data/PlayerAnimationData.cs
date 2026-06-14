@@ -40,6 +40,7 @@ internal sealed class PlayerAnimationData : BasePoolable
 
     protected override void EnterPool()
     {
+        PlayerId = 0;
         Send = default;
         Animations.Clear();
         base.EnterPool();

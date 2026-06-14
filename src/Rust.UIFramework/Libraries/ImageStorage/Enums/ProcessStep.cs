@@ -4,6 +4,7 @@ public enum ProcessStep : byte
 {
     Init,
     Download,
+    Generate,
     Process,
     Store,
     Save,

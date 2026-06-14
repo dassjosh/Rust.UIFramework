@@ -55,6 +55,13 @@ public partial class UiImage
 		FillCenter = fillCenter;
 		return this;
 	}
+
+	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+	public UiImage SetPng(string png)
+	{
+		Png = png;
+		return this;
+	}
 }
 
 

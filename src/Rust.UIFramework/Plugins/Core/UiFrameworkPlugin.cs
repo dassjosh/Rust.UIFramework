@@ -24,6 +24,7 @@ internal class UiFrameworkPlugin : BaseUiFrameworkPlugin, IUiFrameworkPlugin
     private readonly object _true = true;
     public UiPluginPool PluginPool { get; set; } = UiPool.Internal;
     public HarmonyLib.Harmony Harmony => HarmonyInstance;
+    private readonly IUiLogger<UiFrameworkPlugin> _logger = Singleton<UiLoggerFactory>.Instance.CreateExtensionLogger<UiFrameworkPlugin>();
     
     public UiFrameworkPlugin()
     {
@@ -37,14 +38,16 @@ internal class UiFrameworkPlugin : BaseUiFrameworkPlugin, IUiFrameworkPlugin
     [HookMethod(nameof(Init))]
     internal void Init()
     {
+#if SERVER
         AddCovalenceCommand(["uif.version"], nameof(VersionCommand), "uif.version");
         AddCovalenceCommand(["uif.harmony.oxide.addui"], nameof(HarmonyAddUiPatch), "uif.harmony.oxide.addui");
-        
+
         foreach (KeyValuePair<string, Dictionary<string, string>> language in Localization.Languages)
         {
             Lang.RegisterMessages(language.Value, this, language.Key);
         }
-        
+#endif
+
         IconsLib.RegisterIcons<Icons>(this, @enum => string.Format(DefaultIconFormats.RustIconsFormat, (int)@enum), icon => icon.SetMaterial(UiMaterials.Icons.IconMaterial));
         IconsLib.RegisterIcons<FontAwesomeRegularIcons>(this, @enum => string.Format(DefaultIconFormats.FontAwesomeRegularFormat, @enum), icon => icon.SetMaterial(UiMaterials.Icons.IconMaterial));
         IconsLib.RegisterIcons<FontAwesomeSolidIcons>(this, @enum => string.Format(DefaultIconFormats.FontAwesomeSolidFormat, @enum), icon => icon.SetMaterial(UiMaterials.Icons.IconMaterial));
@@ -85,13 +88,20 @@ internal class UiFrameworkPlugin : BaseUiFrameworkPlugin, IUiFrameworkPlugin
     [HookMethod(nameof(OnPluginUnloaded))]
     private void OnPluginUnloaded(Plugin plugin)
     {
-        BaseUiFrameworkLibrary.ProcessOnPluginUnloaded(plugin);
-        PluginIdExt.OnPluginUnloaded(plugin);
-        if (plugin is IUiFrameworkPlugin uiPlugin)
+        try
         {
-            BaseUiFrameworkLibrary.ProcessOnPluginUnloaded(uiPlugin);
-            Singleton<UiLoggerFactory>.Instance.OnPluginUnloaded(uiPlugin);
-            Singleton<AnimationHandler>.Instance.OnPluginUnloaded(uiPlugin);
+            BaseUiFrameworkLibrary.ProcessOnPluginUnloaded(plugin);
+            PluginIdExt.OnPluginUnloaded(plugin);
+            if (plugin is IUiFrameworkPlugin uiPlugin)
+            {
+                BaseUiFrameworkLibrary.ProcessOnPluginUnloaded(uiPlugin);
+                Singleton<UiLoggerFactory>.Instance.OnPluginUnloaded(uiPlugin);
+                Singleton<AnimationHandler>.Instance.OnPluginUnloaded(uiPlugin);
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.Exception("An error occured in OnPluginUnloaded. Plugin: {0} ", plugin.Name, ex);
         }
     }
     
@@ -111,7 +121,7 @@ internal class UiFrameworkPlugin : BaseUiFrameworkPlugin, IUiFrameworkPlugin
         {
             try
             {
-                BaseUiFrameworkLibrary.ProcessOnCommunityEntitySpawned(entity);
+                BaseUiFrameworkLibrary.ProcessOnCommunityEntitySpawned(new CommunityEntityImpl(entity));
             }
             catch (Exception ex)
             {

@@ -57,6 +57,13 @@ public partial class UiImage : IUiImage
 		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 		set => Image.FillCenter = value;
 	}
+	public partial string Png
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => Image.Png;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => Image.Png = value;
+	}
 }
 
 

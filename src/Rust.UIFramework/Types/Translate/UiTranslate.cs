@@ -8,15 +8,15 @@ using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Types;
 
-public readonly record struct UiTranslate(UiTranslateDirection X, UiTranslateDirection Y) : ICssString
+public readonly record struct UiTranslate(UiUnit X, UiUnit Y) : ICssString
 {
     [JsonIgnore]
     public bool HasTranslate => X.HasValue || Y.HasValue;
     
-    public UiTranslate(UiTranslateDirection value) : this(value, value) { }
+    public UiTranslate(UiUnit value) : this(value, value) { }
     
-    public static readonly UiTranslate ZeroPx = new(UiTranslateDirection.ZeroPx);
-    public static readonly UiTranslate ZeroPercent = new(UiTranslateDirection.ZeroPercent);
+    public static readonly UiTranslate ZeroPx = new(UiUnit.ZeroPx);
+    public static readonly UiTranslate ZeroPercent = new(UiUnit.ZeroPercent);
     
     [Pure]
     public UiTranslate Scale(float scale) => new(X * scale, Y * scale);
@@ -37,39 +37,14 @@ public readonly record struct UiTranslate(UiTranslateDirection X, UiTranslateDir
     
     public static bool TryParse(ReadOnlySpan<char> input, out UiTranslate result)
     {
-        result = default;
-        if (input.IsEmptyOrWhitespace)
+        if(input.TryParse(" ", UiUnit.TryParse, out (UiUnit X, UiUnit Y) parsed))
         {
-            return false;
-        }
-
-        int splitIndex = input.IndexOf(' ');
-        if (splitIndex == -1)
-        {
-            if (!UiTranslateDirection.TryParse(input, out UiTranslateDirection dir))
-            {
-                return false;
-            }
-            
-            result = new UiTranslate(dir);
+            result = new UiTranslate(parsed.X, parsed.Y);
             return true;
         }
 
-        ReadOnlySpan<char> spanX = input[..splitIndex];
-        ReadOnlySpan<char> spanY = input[(splitIndex + 1)..];
-
-        if (spanX.IsEmptyOrWhitespace || spanY.IsEmptyOrWhitespace)
-        {
-            return false;
-        }
-
-        if (!UiTranslateDirection.TryParse(spanX, out UiTranslateDirection x) || !UiTranslateDirection.TryParse(spanY, out UiTranslateDirection y))
-        {
-            return false;
-        }
-            
-        result = new UiTranslate(x, y);
-        return true;
+        result = default;
+        return false;
     }
     
     public (Vector2 Min, Vector2 Max) Apply(Vector2 min, Vector2 max)
@@ -80,14 +55,14 @@ public readonly record struct UiTranslate(UiTranslateDirection X, UiTranslateDir
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static (float Min, float Max) Apply(float min, float max, UiTranslateDirection direction)
+    private static (float Min, float Max) Apply(float min, float max, UiUnit direction)
     {
         if (!direction.HasValue)
         {
             return (min, max);
         }
         
-        if(direction.Type == UiTranslateType.Px)
+        if(direction.Type == UiUnitType.Px)
         {
             return (min + direction.Value, max + direction.Value);
         }
@@ -96,7 +71,7 @@ public readonly record struct UiTranslate(UiTranslateDirection X, UiTranslateDir
         return (min + direction.Value * size, max + direction.Value * size);
     }
     
-    public static UiTranslate Lerp(in UiTranslate a, in UiTranslate b, float t) => new(UiTranslateDirection.Lerp(a.X, b.X, t), UiTranslateDirection.Lerp(a.Y, b.Y, t));
+    public static UiTranslate Lerp(in UiTranslate a, in UiTranslate b, float t) => new(UiUnit.Lerp(a.X, b.X, t), UiUnit.Lerp(a.Y, b.Y, t));
 #pragma warning disable EPS05
     public static UiTranslate Lerp(UiTranslate a, UiTranslate b, float t) => Lerp(in a, in b, t);
 #pragma warning restore EPS05

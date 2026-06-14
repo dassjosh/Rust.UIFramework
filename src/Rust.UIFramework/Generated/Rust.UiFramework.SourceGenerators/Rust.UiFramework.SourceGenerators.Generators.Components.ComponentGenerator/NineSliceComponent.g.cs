@@ -8,16 +8,8 @@ namespace Oxide.Ext.UiFramework.Components;
 
 public partial class NineSliceComponent : INineSliceComponent
 {
-	internal readonly Oxide.Ext.UiFramework.Types.Tracked<string> PngTracked = new();
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Types.UiBorderWidth> SliceTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Image.Slice);
 
-	public partial string Png
-	{
-		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-		get => PngTracked.Value;
-		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-		set => PngTracked.Value = value;
-	}
 	public partial Oxide.Ext.UiFramework.Types.UiBorderWidth Slice
 	{
 		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -26,19 +18,17 @@ public partial class NineSliceComponent : INineSliceComponent
 		set => SliceTracked.Value = value;
 	}
 
-	public override bool HasChanged() => false || (PngTracked.HasChanged || SliceTracked.HasChanged) || base.HasChanged();
+	public override bool HasChanged() => false || (SliceTracked.HasChanged) || base.HasChanged();
 
 	public override void ResetHasChanged()
 	{
 		base.ResetHasChanged();
-		PngTracked.ResetHasChanged();
 		SliceTracked.ResetHasChanged();
 	}
 
 	public override void Reset()
 	{
 		base.Reset();
-		PngTracked.Reset();
 		SliceTracked.Reset();
 	}
 }

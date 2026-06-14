@@ -7,6 +7,7 @@
   "ImageType": "Sliced",
   "Material": "assets/icons/iconmaterial.mat",
   "PlaceholderFor": "parent:name",
+  "Png": "png",
   "Sprite": "assets/content/ui/ui.background.rounded.png",
   "Type": "UnityEngine.UI.Image"
 }

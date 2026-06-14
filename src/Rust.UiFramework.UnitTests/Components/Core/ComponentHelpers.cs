@@ -23,6 +23,7 @@ public static class ComponentHelpers
         image.ImageType = Image.Type.Sliced;
         image.PlaceholderFor = new UiReference("parent", "name");
         image.FillCenter = false;
+        image.Png = "png";
     } 
     
     public static void PopulateNineSlice(NineSliceComponent slice)

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using Oxide.Core.Extensions;
 using Oxide.Core.Libraries;
 using Oxide.Core.Libraries.Covalence;
@@ -34,7 +35,27 @@ internal static class OxideLibrary
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal static void LogError(string message) => Interface.Oxide.LogError(message); 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void LogException(string message, Exception exception) => Interface.Oxide.LogException(message, exception); 
+    internal static void LogException(string message, Exception exception) => Interface.Oxide.LogException(message, exception);
+
+    internal static void RegisterLibrary(string name, Library value)
+    {
+        ExtensionManager.RegisterLibrary(name, value);
+    }
+
+    internal static T GetLibrary<T>(string name)
+    {
+        if (ExtensionManager == null)
+        {
+            return default;
+        }
+
+        if (ExtensionManager.GetLibrary(name) is T lib)
+        {
+            return lib;
+        }
+
+        throw new Exception($"Library {name} not found");
+    }
 #else
 
     internal static readonly Covalence Covalence = null;
@@ -53,22 +74,24 @@ internal static class OxideLibrary
     internal static void LogWarning(string message) => Console.WriteLine(message);
     internal static void LogError(string message) => Console.WriteLine(message);
     internal static void LogException(string message, Exception exception) => Console.WriteLine($"{message}\n{exception}");
+
+    private static readonly ConcurrentDictionary<string, Library> libraries = new();
+
+    internal static void RegisterLibrary(string name, Library value)
+    {
+        libraries.TryAdd(name, value);
+    }
+
+    internal static T GetLibrary<T>(string name)
+    {
+        if(libraries.TryGetValue(name, out Library lib) && lib is T value)
+        {
+            return value;
+        }
+
+        throw new Exception($"Library {name} not found");
+    }
 #endif
 
     internal static ExtensionManager ExtensionManager;
-    
-    internal static T GetLibrary<T>(string name)
-    {
-        if (ExtensionManager == null)
-        {
-            return default;
-        }
-        
-        if (ExtensionManager.GetLibrary(name) is T lib)
-        {
-            return lib;
-        }
-        
-        throw new Exception($"Library {name} not found");
-    }
 }

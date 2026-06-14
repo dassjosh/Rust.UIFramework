@@ -8,6 +8,7 @@
   "ItemId": 123,
   "Material": "assets/icons/iconmaterial.mat",
   "PlaceholderFor": "parent:name",
+  "Png": "png",
   "SkinId": 34621422135410688,
   "Sprite": "assets/content/ui/ui.background.rounded.png",
   "Type": "UnityEngine.UI.Image"

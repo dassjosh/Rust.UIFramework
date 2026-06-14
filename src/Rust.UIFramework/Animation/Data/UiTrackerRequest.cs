@@ -64,6 +64,7 @@ public class UiTrackerRequest : BasePoolable, IUiChannelObject
     protected override void EnterPool()
     {
         base.EnterPool();
+        Send = default;
         Builder.TryDispose();
         Builder = null;
     }

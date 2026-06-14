@@ -5,6 +5,7 @@
   "imagetype": "1",
   "material": "assets/icons/iconmaterial.mat",
   "placeholderParentId": "name",
+  "png": "png",
   "sprite": "assets/content/ui/ui.background.rounded.png",
   "type": "UnityEngine.UI.Image"
 }

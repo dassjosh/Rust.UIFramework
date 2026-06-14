@@ -8,13 +8,6 @@ namespace Oxide.Ext.UiFramework.Components;
 public partial class NineSliceComponent
 {
 	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-	public NineSliceComponent SetPng(string png)
-	{
-		Png = png;
-		return this;
-	}
-
-	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 	public NineSliceComponent SetSlice(in Oxide.Ext.UiFramework.Types.UiBorderWidth slice)
 	{
 		Slice = slice;

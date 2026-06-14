@@ -53,7 +53,9 @@ public readonly struct UiColor : IEquatable<UiColor>, IUiConvertable<UiColor, Ui
     #region Operators
     public static implicit operator UiColor(string value) => ParseHexColor(value);
     public static implicit operator UiColor(Color value) => new(value);
+    public static implicit operator UiColor(Color32 value) => new(value.r, value.g, value.b, value.a);
     public static implicit operator Color(UiColor value) => new(value.RedFloat, value.GreenFloat, value.BlueFloat, value.AlphaFloat);
+    public static implicit operator Color32(UiColor value) => new(value.Red, value.Green, value.Blue, value.Alpha);
     public static bool operator ==(UiColor lhs, UiColor rhs) => lhs.Red == rhs.Red && lhs.Green == rhs.Green && lhs.Blue == rhs.Blue && lhs.Alpha == rhs.Alpha;
     public static bool operator !=(UiColor lhs, UiColor rhs) => !(lhs == rhs);
     public static UiColor operator *(UiColor color, UiColor multiplier)

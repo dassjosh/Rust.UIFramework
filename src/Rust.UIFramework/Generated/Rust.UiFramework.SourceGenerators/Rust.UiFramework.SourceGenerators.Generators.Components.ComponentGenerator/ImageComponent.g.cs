@@ -15,6 +15,7 @@ public partial class ImageComponent : IImageComponent
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.Image.Type> ImageTypeTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Image.ImageType);
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.UiElements.UiReference> PlaceholderForTracked = new();
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<bool> FillCenterTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Image.FillCenter);
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<string> PngTracked = new();
 
 	public partial Oxide.Ext.UiFramework.Colors.UiColor Color
 	{
@@ -65,8 +66,15 @@ public partial class ImageComponent : IImageComponent
 		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 		set => FillCenterTracked.Value = value;
 	}
+	public partial string Png
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => PngTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => PngTracked.Value = value;
+	}
 
-	public override bool HasChanged() => false || (ColorTracked.HasChanged || FadeInTracked.HasChanged || SpriteTracked.HasChanged || MaterialTracked.HasChanged || ImageTypeTracked.HasChanged || PlaceholderForTracked.HasChanged || FillCenterTracked.HasChanged) || base.HasChanged();
+	public override bool HasChanged() => false || (ColorTracked.HasChanged || FadeInTracked.HasChanged || SpriteTracked.HasChanged || MaterialTracked.HasChanged || ImageTypeTracked.HasChanged || PlaceholderForTracked.HasChanged || FillCenterTracked.HasChanged || PngTracked.HasChanged) || base.HasChanged();
 
 	public override void ResetHasChanged()
 	{
@@ -78,6 +86,7 @@ public partial class ImageComponent : IImageComponent
 		ImageTypeTracked.ResetHasChanged();
 		PlaceholderForTracked.ResetHasChanged();
 		FillCenterTracked.ResetHasChanged();
+		PngTracked.ResetHasChanged();
 	}
 
 	public override void Reset()
@@ -90,6 +99,7 @@ public partial class ImageComponent : IImageComponent
 		ImageTypeTracked.Reset();
 		PlaceholderForTracked.Reset();
 		FillCenterTracked.Reset();
+		PngTracked.Reset();
 	}
 }
 

@@ -1,7 +1,10 @@
 ﻿using System;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
+using Oxide.Ext.UiFramework.Guards;
 using Oxide.Ext.UiFramework.Interfaces;
+using Oxide.Ext.UiFramework.Libraries;
+using Oxide.Ext.UiFramework.Types;
 using Rust.UiFramework.SourceGenerators.Attributes;
 using ImageType = UnityEngine.UI.Image.Type;
 
@@ -18,6 +21,7 @@ public partial class UiImage : BaseUiComponent, IImageType<UiImage>, ISprite<UiI
     public partial UiColor Color { get; set; }
     public partial UiReference PlaceholderFor { get; set; }
     public partial bool FillCenter { get; set; }
+    public partial string Png { get; set; }
     
     public readonly ImageComponent Image;
 
@@ -45,4 +49,11 @@ public partial class UiImage : BaseUiComponent, IImageType<UiImage>, ISprite<UiI
     }
     
     public UiImage SetPlaceholderFor(UiInput input) => SetPlaceholderFor(input.Reference);
+
+    public void AddBorderRadius(in UiBorderRadius radius, bool antialiasing = true, float edgeWidth = 1) => AddBorderRadius(new UiDimensions2D(200, 200), radius, antialiasing, edgeWidth);
+
+    public void AddBorderRadius(UiDimensions2D size, in UiBorderRadius radius, bool antialiasing = true, float edgeWidth = 1)
+    {
+        Png = Singleton<UiImageStorage>.Instance.GetBorderRadius(PluginPool?.PluginId.UiPlugin, size, radius, antialiasing, edgeWidth);
+    }
 }

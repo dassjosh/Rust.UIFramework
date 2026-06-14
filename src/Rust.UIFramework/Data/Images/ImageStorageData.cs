@@ -17,6 +17,8 @@ internal class ImageStorageData : BaseDataFile<ImageStorageData>
     private readonly ConcurrentDictionary<string, ImageId> _urlImages = [];
     [ProtoMember(3)]
     private readonly ConcurrentDictionary<PluginImage, ImageId> _pluginImages = [];
+    [ProtoMember(4)]
+    private readonly ConcurrentDictionary<string, ImageId> _borderRadiusImages = [];
 
     public void AddUrlImage(string url, ImageId imageId)
     {
@@ -37,6 +39,15 @@ internal class ImageStorageData : BaseDataFile<ImageStorageData>
         }
     }
 
+    public void AddBorderRadiusImage(string name, ImageId imageId)
+    {
+        if (!_borderRadiusImages.TryGetValue(name, out ImageId existingId) || existingId != imageId)
+        {
+            _borderRadiusImages[name] = imageId;
+            OnDataChanged();
+        }
+    }
+
     public ImageId Get(PluginId pluginId, string name)
     {
         if (_pluginImages.TryGetValue(new PluginImage(pluginId, name), out ImageId png) && png.IsValid)
@@ -52,15 +63,8 @@ internal class ImageStorageData : BaseDataFile<ImageStorageData>
         return default;
     }
 
-    public ImageId GetByUrl(string url)
-    {
-        if (_urlImages.TryGetValue(url, out ImageId image) && image.IsValid)
-        {
-            return image;
-        }
-
-        return default;
-    }
+    public ImageId GetByUrl(string url) => _urlImages.TryGetValue(url, out ImageId image) && image.IsValid ? image : default;
+    public ImageId GetBorderRadius(string name) => _borderRadiusImages.TryGetValue(name, out ImageId image) && image.IsValid ? image : default;
 
     internal void OnCommunityEntityLoaded(SaveVersion saveVersion)
     {

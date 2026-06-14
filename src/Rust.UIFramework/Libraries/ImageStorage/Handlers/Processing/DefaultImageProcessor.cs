@@ -2,7 +2,6 @@
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Logging;
 using Oxide.Ext.UiFramework.Plugins;
-using Oxide.Ext.UiFramework.Threading;
 using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Libraries;

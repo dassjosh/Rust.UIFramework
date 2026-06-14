@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Types;
 
@@ -9,9 +10,12 @@ internal class RegisterImageRequestHandler(PluginId pluginId) : IRegisterImageRe
     public HandlerId Id { get; } = new();
     public PluginId PluginCreator { get; } = pluginId;
     public ProcessStep Step { get; private set; }
-    public byte[] Image { get; protected set; }
+    public byte[] Image { get; private set; }
+    public bool ModifiedImage { get; private set; }
     public ImageId ImageId { get; protected set; }
     public UiImageType Type { get; private set; }
+
+    public List<IImageModifier> Modifiers { get; protected set; }
 
     private CallbackEvent<RegisterSuccessEventArgs> _successEvent;
     private CallbackEvent<IRegisterImageFailureResult> _failedEvent;
@@ -33,9 +37,20 @@ internal class RegisterImageRequestHandler(PluginId pluginId) : IRegisterImageRe
         Requests.TryAdd(request);
     }
 
+    public void SetImage(byte[] image, bool modified = false)
+    {
+        Image = image;
+        ModifiedImage = modified;
+    }
+
     public void SetImageType(UiImageType type)
     {
         Type = type;
+    }
+
+    public void SetImageId(ImageId id)
+    {
+        ImageId = id;
     }
 
     public void SetStep(ProcessStep step)
@@ -44,6 +59,54 @@ internal class RegisterImageRequestHandler(PluginId pluginId) : IRegisterImageRe
         {
             Step = step;
         }
+    }
+
+    public void AddModifier(IImageModifier modifier)
+    {
+        Modifiers ??= [];
+        Modifiers.Add(modifier);
+    }
+
+    public void AddModifiers(IEnumerable<IImageModifier> modifiers)
+    {
+        Modifiers ??= [];
+        Modifiers.AddRange(modifiers);
+    }
+
+    public T GetModifier<T>()
+    {
+        if (Modifiers == null)
+        {
+            return default;
+        }
+
+        foreach (IImageModifier modifier in Modifiers)
+        {
+            if (modifier is T result)
+            {
+                return result;
+            }
+        }
+
+        return default;
+    }
+
+    public bool Redirect()
+    {
+        if (Modifiers == null)
+        {
+            return false;
+        }
+
+        foreach (IImageModifier modifier in Modifiers)
+        {
+            if(modifier.Redirect(Step))
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public void AddSuccessCallback(Action<RegisterSuccessEventArgs> callback)

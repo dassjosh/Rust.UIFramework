@@ -1,14 +1,18 @@
 ﻿using Argon;
 using Oxide.Ext.UiFramework;
+using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Config;
 using Oxide.Ext.UiFramework.Data;
 using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Logging;
+using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.Types;
 using Rust.UiFramework.UnitTests.Global;
 using Rust.UiFramework.UnitTests.Global.Verify.IgnoreMembers;
 using Rust.UiFramework.UnitTests.Global.XUnit.Serializers;
+using Rust.UiFramework.UnitTests.Mocks.Libraries;
+using Rust.UiFramework.UnitTests.Mocks.Libraries.ImageDb;
 using Xunit.Sdk;
 using Xunit.v3;
 
@@ -76,6 +80,10 @@ public class AssemblyFixture : XunitTestFramework
         if(UiFrameworkConfig.Instance == null) Singleton<DataHandler>.Instance.LoadAll();
         UiFrameworkExtension.GlobalLogger = Singleton<UiLoggerFactory>.Instance.CreateGlobalLogger();
         Singleton<DataHandler>.Instance.LoadAll();
+        OxideLibrary.RegisterLibrary(nameof(IImageDatabase), new ImageDatabaseMock());
+        OxideLibrary.RegisterLibrary(nameof(UiImageStorage), Singleton<UiImageStorage>.Instance);
+        //new UiFrameworkPlugin().Init();
+        BaseUiFrameworkLibrary.ProcessOnCommunityEntitySpawned(new CommunityEntityMock());
         // var plugin = new UiFrameworkPlugin();
         // plugin.Init();
         // plugin.OnServerInitialized();

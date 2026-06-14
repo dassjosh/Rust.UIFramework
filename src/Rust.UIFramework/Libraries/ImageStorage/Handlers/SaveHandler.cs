@@ -3,7 +3,6 @@ using Oxide.Ext.UiFramework.Data;
 using Oxide.Ext.UiFramework.Libraries.ImagePrecache;
 using Oxide.Ext.UiFramework.Logging;
 using Oxide.Ext.UiFramework.Plugins;
-using Oxide.Ext.UiFramework.Threading;
 using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Libraries;
@@ -32,11 +31,24 @@ internal class SaveHandler : ISingleton, IUiChannelProcess<RegisterImageRequestH
         ImageId id = request.ImageId;
         if (request is IDownloadImageRequestHandler download)
         {
-            _logger.Debug("Save Url: ID: {0} ImageId: {1}, Url: {2}", request.Id, request.ImageId, download.Url);
-            _data.AddUrlImage(download.Url, id);
+            if (request.ModifiedImage)
+            {
+                _logger.Debug("Save Modified Url: ID: {0} ImageId: {1}, Url: {2}", request.Id, download.DownloadedImageId, download.Url);
+                _data.AddUrlImage(download.Url, download.DownloadedImageId);
+            }
+            else
+            {
+                _logger.Debug("Save Url: ID: {0} ImageId: {1}, Url: {2}", request.Id, id, download.Url);
+                _data.AddUrlImage(download.Url, id);
+            }
         }
 
-        foreach (RegisterImageRequest image in request.Requests.GetPooledEnumerator())
+        if (request is IBorderRadiusRequestHandler borderRadius)
+        {
+            _data.AddBorderRadiusImage(borderRadius.Name, id);
+        }
+
+        foreach (RegisterImageRequest image in request.Requests)
         {
             _logger.Debug("Save Image: ID: {0} ImageId: {1}, PluginId: {2}, Name: {3}", request.Id, request.ImageId, image.PluginId, image.Name);
             _data.AddPluginImage(image.PluginId, image.Name, id);

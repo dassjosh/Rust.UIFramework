@@ -7,7 +7,7 @@
       "color": "0.502 0.502 0.502",
       "command": "command",
       "fadeIn": 1.5,
-      "font": "lcd.ttf",
+      "font": "lcd/lcd.ttf",
       "fontSize": 20,
       "lineType": "2",
       "text": "text",

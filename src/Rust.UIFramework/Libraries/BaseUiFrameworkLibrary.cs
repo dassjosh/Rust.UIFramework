@@ -15,7 +15,7 @@ public abstract class BaseUiFrameworkLibrary : Library
     }
 
     protected virtual void OnInit() {}
-    protected virtual void OnCommunityEntitySpawned(CommunityEntity entity) {}
+    protected virtual void OnCommunityEntitySpawned(ICommunityEntity entity) {}
     protected virtual void OnServerInitialized() {}
     protected virtual void OnPluginLoaded(Plugin plugin){}
     protected virtual void OnPluginUnloaded(Plugin plugin){}
@@ -34,7 +34,7 @@ public abstract class BaseUiFrameworkLibrary : Library
         }
     }
     
-    internal static void ProcessOnCommunityEntitySpawned(CommunityEntity entity)
+    internal static void ProcessOnCommunityEntitySpawned(ICommunityEntity entity)
     {
         foreach (BaseUiFrameworkLibrary library in Libraries)
         {

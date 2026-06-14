@@ -20,7 +20,8 @@ public static class UiColors
     public static readonly UiColor Magenta = "#FF00FF";
     public static readonly UiColor Purple = "#800080";
     public static readonly UiColor Clear = "#00000000";
-    
+    public static readonly UiColor Transparent = "#00000000";
+
     public static class BootStrap
     {
         public static readonly UiColor Blue = "#007bff";
@@ -108,7 +109,7 @@ public static class UiColors
     {
         public static readonly UiColor Body = "#00001F";
         public static readonly UiColor Header = "#00001F";
-        public static readonly UiColor Text = White;
+        public static readonly UiColor Text = "#FFFFFFFF";
         public static readonly UiColor Panel = "#2B2B2B";
         public static readonly UiColor PanelSecondary = "#3f3f3f";
         public static readonly UiColor PanelTertiary = "#525252";

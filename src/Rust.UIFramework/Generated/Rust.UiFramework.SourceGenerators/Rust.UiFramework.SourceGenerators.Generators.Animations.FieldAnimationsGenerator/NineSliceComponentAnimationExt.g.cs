@@ -9,7 +9,6 @@ public static partial class NineSliceComponentAnimationExt
 {
 	extension(Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IComponentAnimation<Oxide.Ext.UiFramework.Components.NineSliceComponent>> animation)
 	{
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<string>> AnimatePng() => animation.AnimateField(static a => a.PngTracked);
 		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<Oxide.Ext.UiFramework.Types.UiBorderWidth>> AnimateSlice() => animation.AnimateField(static a => a.SliceTracked);
 	}
 }

@@ -11,6 +11,7 @@ internal class UiFrameworkHandler :
     IArgHandler<UiPadding>, IArgHandler<UiPadding?>, 
     IArgHandler<UiScale>, IArgHandler<UiScale?>,
     IArgHandler<UiBorderWidth>, IArgHandler<UiBorderWidth?>,
+    IArgHandler<UiUnit>, IArgHandler<UiUnit?>,
     ISingleton
 {
     private const string Separator = ";";
@@ -18,15 +19,17 @@ internal class UiFrameworkHandler :
     private UiFrameworkHandler() { }
 
     UiPosition IArgReader<UiPosition>.Read(ReadOnlySpan<char> arg) => UiPosition.Parse(arg, Separator);
-    UiOffset IArgReader<UiOffset>.Read(ReadOnlySpan<char> arg) => UiOffset.Parse(arg, Separator);
-    UiPadding IArgReader<UiPadding>.Read(ReadOnlySpan<char> arg) => UiPadding.Parse(arg, Separator);
-    UiScale IArgReader<UiScale>.Read(ReadOnlySpan<char> arg) => UiScale.Parse(arg, Separator);
-    UiBorderWidth IArgReader<UiBorderWidth>.Read(ReadOnlySpan<char> arg) => UiBorderWidth.Parse(arg, Separator);
     UiPosition? IArgReader<UiPosition?>.Read(ReadOnlySpan<char> arg) => arg is UiCommands.NullArg ? null : ((IArgReader<UiPosition>)this).Read(arg);
+    UiOffset IArgReader<UiOffset>.Read(ReadOnlySpan<char> arg) => UiOffset.Parse(arg, Separator);
     UiOffset? IArgReader<UiOffset?>.Read(ReadOnlySpan<char> arg) => arg is UiCommands.NullArg ? null : ((IArgReader<UiOffset>)this).Read(arg);
+    UiPadding IArgReader<UiPadding>.Read(ReadOnlySpan<char> arg) => UiPadding.Parse(arg, Separator);
     UiPadding? IArgReader<UiPadding?>.Read(ReadOnlySpan<char> arg) => arg is UiCommands.NullArg ? null : ((IArgReader<UiPadding>)this).Read(arg);
+    UiScale IArgReader<UiScale>.Read(ReadOnlySpan<char> arg) => UiScale.Parse(arg, Separator);
     UiScale? IArgReader<UiScale?>.Read(ReadOnlySpan<char> arg) => arg is UiCommands.NullArg ? null : ((IArgReader<UiScale>)this).Read(arg);
+    UiBorderWidth IArgReader<UiBorderWidth>.Read(ReadOnlySpan<char> arg) => UiBorderWidth.Parse(arg, Separator);
     UiBorderWidth? IArgReader<UiBorderWidth?>.Read(ReadOnlySpan<char> arg) => arg is UiCommands.NullArg ? null : ((IArgReader<UiBorderWidth>)this).Read(arg);
+    UiUnit IArgReader<UiUnit>.Read(ReadOnlySpan<char> arg) => UiUnit.Parse(arg);
+    UiUnit? IArgReader<UiUnit?>.Read(ReadOnlySpan<char> arg) => arg is UiCommands.NullArg ? null : ((IArgReader<UiUnit>)this).Read(arg);
 
     public void Write(UiArgWriter writer, UiPosition arg)
     {
@@ -88,6 +91,22 @@ internal class UiFrameworkHandler :
         writer.Append(arg.Bottom);
         writer.AppendEndQuote();
     }
+
+    public void Write(UiArgWriter writer, UiUnit arg)
+    {
+        writer.AppendStartQuote();
+        writer.Append(arg.Value);
+        switch (arg.Type)
+        {
+            case UiUnitType.Percent:
+                writer.Append("%");
+                break;
+            case UiUnitType.Px:
+                writer.Append("px");
+                break;
+        }
+        writer.AppendEndQuote();
+    }
     
     public void Write(UiArgWriter writer, UiPosition? arg)
     {
@@ -139,6 +158,18 @@ internal class UiFrameworkHandler :
     }
 
     public void Write(UiArgWriter writer, UiBorderWidth? arg)
+    {
+        if (!arg.HasValue)
+        {
+            writer.AppendNull();
+        }
+        else
+        {
+            Write(writer, arg.Value);
+        }
+    }
+
+    public void Write(UiArgWriter writer, UiUnit? arg)
     {
         if (!arg.HasValue)
         {

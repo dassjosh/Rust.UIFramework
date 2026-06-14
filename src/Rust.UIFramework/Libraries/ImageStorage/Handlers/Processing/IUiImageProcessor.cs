@@ -1,6 +1,4 @@
-﻿using Oxide.Ext.UiFramework.Threading;
-
-namespace Oxide.Ext.UiFramework.Libraries;
+﻿namespace Oxide.Ext.UiFramework.Libraries;
 
 internal interface IUiImageProcessor
 {

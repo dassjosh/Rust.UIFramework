@@ -9,9 +9,9 @@ internal static class FileStorage_Get_Prefix_Patch
 {
     private static NetworkableId _communityEntityId;
     
-    internal static void Patch(CommunityEntity entity)
+    internal static void Patch(ICommunityEntity entity)
     {
-        _communityEntityId = entity.net.ID;
+        _communityEntityId = new NetworkableId(entity.Id);
         MethodInfo target = AccessTools.Method(typeof(FileStorage), nameof(FileStorage.Get), [typeof(uint), typeof(FileStorage.Type), typeof(NetworkableId), typeof(uint)]);
         MethodInfo patch = AccessTools.Method(typeof(FileStorage_Get_Prefix_Patch), nameof(FileStorage_Get_Prefix));
         UiHarmony.Harmony.Patch(target, prefix: patch);

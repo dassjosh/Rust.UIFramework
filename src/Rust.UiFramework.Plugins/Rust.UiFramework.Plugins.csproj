@@ -91,7 +91,7 @@
     </ItemGroup>
 
     <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-      <Exec Command="copy /Y &quot;$(MSBuildProjectDirectory)\AssetBrowser\AssetBrowser.cs&quot; &quot;D:\Servers\Full\Rust-Main\steamapps\common\rust_dedicated\server\oxide-rust\oxide\plugins&quot;" />
+      <Exec Command="copy /Y &quot;$(MSBuildProjectDirectory)\AssetBrowser\AssetBrowser.cs&quot; &quot;D:\Servers\Full\Rust-Main\steamapps\common\rust_dedicated\server\oxide-rust\oxide\plugins&quot;&#xA;&#xA;copy /Y &quot;$(MSBuildProjectDirectory)\BorderRadius\BorderRadiusTester.cs&quot; &quot;D:\Servers\Full\Rust-Main\steamapps\common\rust_dedicated\server\oxide-rust\oxide\plugins&quot;" />
     </Target>
     
 </Project>

@@ -3,7 +3,6 @@ using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Logging;
 using Oxide.Ext.UiFramework.Plugins;
-using Oxide.Ext.UiFramework.Threading;
 using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Libraries;
@@ -37,6 +36,16 @@ internal class StoreHandler : ISingleton, IUiChannelProcess<RegisterImageRequest
             return ProcessResult.Failed;
         }
 
+        if (request is DownloadImageRequestHandler download && request.ModifiedImage)
+        {
+            ImageId downloadId = StoreImage(download.DownloadedImage);
+            if (downloadId.IsValid)
+            {
+                download.SetDownloadImageId(downloadId);
+            }
+        }
+
+        request.SetImageId(id);
         _logger.Debug("Image stored successfully. ID: {0} Plugin: {1} Image ID: {2}", request.Id, request.PluginCreator, id);
         return ProcessResult.Success;
     }

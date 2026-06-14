@@ -57,6 +57,13 @@ public partial class UiPanel : IUiPanel
 		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 		set => Image.Color = value;
 	}
+	public partial string Png
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => Image.Png;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => Image.Png = value;
+	}
 }
 
 

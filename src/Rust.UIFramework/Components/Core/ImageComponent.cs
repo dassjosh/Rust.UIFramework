@@ -32,6 +32,8 @@ public partial class ImageComponent : CoreComponent, IGraphicalComponent
     
     [TrackedDefaults(typeof(JsonDefaults.Image), nameof(JsonDefaults.Image.FillCenter))]
     public partial bool FillCenter { get; set; }
+
+    public partial string Png { get; set; }
     
     public override Utf8String Type => JsonDefaults.Image.Type;
     public override ComponentType ComponentType => ComponentType.Image;
@@ -44,6 +46,7 @@ public partial class ImageComponent : CoreComponent, IGraphicalComponent
         writer.AddField(JsonDefaults.Color.ColorName, ColorTracked, mode);
         writer.AddField(JsonDefaults.Image.ImageTypeName, ImageTypeTracked, mode);
         writer.AddField(JsonDefaults.Image.FillCenterName, FillCenterTracked, mode);
+        writer.AddField(JsonDefaults.Image.PngName, PngTracked, mode);
         if (PlaceholderFor.IsValidName())
         {
             writer.AddField(JsonDefaults.Common.PlaceholderInputId, PlaceholderFor.Name);

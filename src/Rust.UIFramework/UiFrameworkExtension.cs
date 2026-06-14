@@ -45,21 +45,21 @@ public class UiFrameworkExtension : Extension
         if (UiFrameworkConfig.Instance.ImageDatabase.Enabled)
         {
             GlobalLogger.Debug("Using {0} Image DB", nameof(UiImageDatabase));
-            Manager.RegisterLibrary(nameof(IImageDatabase), Singleton<UiImageDatabase>.Instance);
+            OxideLibrary.RegisterLibrary(nameof(IImageDatabase), Singleton<UiImageDatabase>.Instance);
         }
         else
         {
             GlobalLogger.Debug("Using {0} Image DB", nameof(UiFileStorageDatabase));
-            Manager.RegisterLibrary(nameof(IImageDatabase), Singleton<UiFileStorageDatabase>.Instance);
+            OxideLibrary.RegisterLibrary(nameof(IImageDatabase), Singleton<UiFileStorageDatabase>.Instance);
         }
-        Manager.RegisterLibrary(nameof(UiChannels), Singleton<UiChannels>.Instance);
-        Manager.RegisterLibrary(nameof(UiImageStorage), Singleton<UiImageStorage>.Instance);
-        Manager.RegisterLibrary(nameof(UiImagePrecache), Singleton<UiImagePrecache>.Instance);
-        Manager.RegisterLibrary(nameof(UiCommands), Singleton<UiCommands>.Instance);
-        Manager.RegisterLibrary(nameof(UiNameStore), Singleton<UiNameStore>.Instance);
-        Manager.RegisterLibrary(nameof(UiPlayerStore), Singleton<UiPlayerStore>.Instance);
-        Manager.RegisterLibrary(nameof(ThemeManager), Singleton<ThemeManager>.Instance);
-        Manager.RegisterLibrary(nameof(UiPlayerAvatars), Singleton<UiPlayerAvatars>.Instance);
+        OxideLibrary.RegisterLibrary(nameof(UiChannels), Singleton<UiChannels>.Instance);
+        OxideLibrary.RegisterLibrary(nameof(UiImageStorage), Singleton<UiImageStorage>.Instance);
+        OxideLibrary.RegisterLibrary(nameof(UiImagePrecache), Singleton<UiImagePrecache>.Instance);
+        OxideLibrary.RegisterLibrary(nameof(UiCommands), Singleton<UiCommands>.Instance);
+        OxideLibrary.RegisterLibrary(nameof(UiNameStore), Singleton<UiNameStore>.Instance);
+        OxideLibrary.RegisterLibrary(nameof(UiPlayerStore), Singleton<UiPlayerStore>.Instance);
+        OxideLibrary.RegisterLibrary(nameof(ThemeManager), Singleton<ThemeManager>.Instance);
+        OxideLibrary.RegisterLibrary(nameof(UiPlayerAvatars), Singleton<UiPlayerAvatars>.Instance);
     }
 
     public override IEnumerable<string> GetPreprocessorDirectives()

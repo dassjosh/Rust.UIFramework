@@ -240,4 +240,15 @@ public sealed class UiChannel<T> : IUiChannel where T : IBaseUiChannelObject
     {
         _cancellationTokenSource.Cancel();
     }
+
+#if UNIT_TESTS
+    public void WaitUntilFinished()
+    {
+        while (!_queue.IsEmpty)
+        {
+            Thread.Sleep(10);
+        }
+    }
+#endif
+
 }

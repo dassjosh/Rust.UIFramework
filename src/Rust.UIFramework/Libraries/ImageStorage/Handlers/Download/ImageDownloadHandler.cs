@@ -134,7 +134,10 @@ internal class ImageDownloadHandler : ISingleton, IUiChannelAsyncProcess<Downloa
 
     public void OnSuccess(DownloadImageRequestHandler request)
     {
-        Singleton<DefaultImageProcessor>.Instance.Enqueue(request);
+        if (!request.Redirect())
+        {
+            Singleton<DefaultImageProcessor>.Instance.Enqueue(request);
+        }
     }
 
     public void OnFailed(DownloadImageRequestHandler request)

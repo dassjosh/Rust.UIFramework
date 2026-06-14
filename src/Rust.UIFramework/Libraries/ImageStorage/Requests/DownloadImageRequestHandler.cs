@@ -7,6 +7,8 @@ namespace Oxide.Ext.UiFramework.Libraries;
 internal class DownloadImageRequestHandler(PluginId id, string url) : RegisterImageRequestHandler(id), IDownloadImageRequestHandler
 {
     public string Url { get; } = url;
+    public byte[] DownloadedImage { get; private set; }
+    public ImageId DownloadedImageId { get; private set;  }
     public IDownloadImageState State { get; } = new DownloadImageState();
 
     public DownloadImageRequestHandler(PluginId id, string url, ImageId imageId) : this(id, url)
@@ -17,6 +19,11 @@ internal class DownloadImageRequestHandler(PluginId id, string url) : RegisterIm
     public void OnDownloadStarted()
     {
         State.OnDownloadStarted();
+    }
+
+    public void SetDownloadImageId(ImageId id)
+    {
+        DownloadedImageId = id;
     }
 
     public override void Success(RegisterSuccessEventArgs args)
@@ -43,7 +50,8 @@ internal class DownloadImageRequestHandler(PluginId id, string url) : RegisterIm
 
     public void OnDownloadComplete(byte[] image)
     {
-        Image = image;
+        SetImage(image);
+        DownloadedImage = image;
         State.OnDownloadCompleted();
     }
 }

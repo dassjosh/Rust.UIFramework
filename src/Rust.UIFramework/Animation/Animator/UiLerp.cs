@@ -21,7 +21,7 @@ public static class UiLerp
         [typeof(UiScale)] = (UiLerp<UiScale>)UiScale.Lerp,
         [typeof(UiPadding)] = (UiLerp<UiPadding>)UiPadding.Lerp,
         [typeof(UiTranslate)] = (UiLerp<UiTranslate>)UiTranslate.Lerp,
-        [typeof(UiTranslateDirection)] = (UiLerp<UiTranslateDirection>)UiTranslateDirection.Lerp,
+        [typeof(UiUnit)] = (UiLerp<UiUnit>)UiUnit.Lerp,
         [typeof(UiOpacity)] = (UiLerp<UiOpacity>)UiOpacity.Lerp,
         [typeof(Vector2)] = (UiLerp<Vector2>)Vector2.LerpUnclamped,
         [typeof(Vector3)] = (UiLerp<Vector3>)Vector3.LerpUnclamped,

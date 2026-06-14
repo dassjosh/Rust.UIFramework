@@ -6,6 +6,7 @@
   "itemid": 123,
   "material": "assets/icons/iconmaterial.mat",
   "placeholderParentId": "name",
+  "png": "png",
   "skinid": 34621422135410688,
   "sprite": "assets/content/ui/ui.background.rounded.png",
   "type": "UnityEngine.UI.Image"

@@ -7,7 +7,7 @@ namespace Oxide.Ext.UiFramework.Types;
 /// How the element should be translated
 /// </summary>
 [JsonConverter(typeof(StringEnumConverter))]
-public enum UiTranslateType : byte
+public enum UiUnitType : byte
 {
     /// <summary>
     /// Translate in pixels

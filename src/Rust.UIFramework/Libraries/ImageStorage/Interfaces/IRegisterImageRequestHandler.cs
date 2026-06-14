@@ -7,6 +7,7 @@ internal interface IRegisterImageRequestHandler : IBaseUiChannelObject
 {
     HandlerId Id { get; }
     byte[] Image { get; }
+    bool ModifiedImage { get; }
     ImageId ImageId { get; }
     UiImageType Type { get; }
     PluginId PluginCreator { get; }

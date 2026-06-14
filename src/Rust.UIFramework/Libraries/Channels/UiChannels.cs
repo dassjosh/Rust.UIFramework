@@ -24,10 +24,12 @@ public class UiChannels : BaseUiFrameworkLibrary, ISingleton
 
     protected override void OnPluginUnloaded(IUiFrameworkPlugin plugin)
     {
-        _channels.TryRemove(plugin.Id(), out ConcurrentBag<IUiChannel> channels);
-        foreach (IUiChannel channel in channels)
+        if (_channels.TryRemove(plugin.Id(), out ConcurrentBag<IUiChannel> channels))
         {
-            channel.Stop();
+            foreach (IUiChannel channel in channels)
+            {
+                channel.Stop();
+            }
         }
     }
 

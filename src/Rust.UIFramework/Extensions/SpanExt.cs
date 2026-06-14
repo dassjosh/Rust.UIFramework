@@ -12,6 +12,9 @@ public static class SpanExt
 {
     private static readonly ThreadLocal<char[]> Buffer = new(() => new char[128]);
 
+    public delegate bool TryParseDelegate<T>(ReadOnlySpan<char> input, ReadOnlySpan<char> token, out ReadOnlySpan<char> remaining, out T parsed);
+    public delegate T ParseDelegate<out T>(ReadOnlySpan<char> input, ReadOnlySpan<char> token, out ReadOnlySpan<char> remaining);
+
     /// <param name="input">Input string</param>
     extension(ReadOnlySpan<char> input)
     {
@@ -113,37 +116,43 @@ public static class SpanExt
             return ulong.Parse(parsed);
         }
         
-        public (float, float) ParseTwoFloats(ReadOnlySpan<char> token)
+        public (float, float) ParseTwoFloats(ReadOnlySpan<char> token) => input.ParseTwo(token, ParseNextFloat);
+        public bool TryParseTwoFloats(ReadOnlySpan<char> token, out (float, float) parsed)=> input.TryParse(token, TryParseNextFloat, out parsed);
+        public bool TryParseTwoInts(ReadOnlySpan<char> token, out (int, int) parsed) => input.TryParse(token, TryParseNextInt, out parsed);
+        public (float, float, float, float) ParseFourFloats(ReadOnlySpan<char> token) => input.ParseFour(token, ParseNextFloat);
+        public bool TryParseFourFloats(ReadOnlySpan<char> token, out (float, float, float, float) parsed) => input.TryParse(token, TryParseNextFloat, out parsed);
+
+        public (T, T) ParseTwo<T>(ReadOnlySpan<char> token, ParseDelegate<T> parser)
         {
-            float first = input.ParseNextFloat(token, out input);
-            float second = input.ParseNextFloat(token, out input);
+            T first = parser(input, token, out input);
+            T second = parser(input, token, out input);
             return (first, second);
         }
-        
-        public bool TryParseTwoFloats(ReadOnlySpan<char> token, out (float, float) parsed)
+
+        public (T, T, T, T) ParseFour<T>(ReadOnlySpan<char> token, ParseDelegate<T> parser)
         {
-            bool firstParsed = input.TryParseNextFloat(token, out input, out float first);
-            bool secondParsed = input.TryParseNextFloat(token, out input, out float second);
+            T first = parser(input, token, out input);
+            T second = parser(input, token, out input);
+            T third = parser(input, token, out input);
+            T forth = parser(input, token, out input);
+            return (first, second, third, forth);
+        }
+
+        public bool TryParse<T>(ReadOnlySpan<char> token, TryParseDelegate<T> tryParser, out (T, T) parsed)
+        {
+            bool firstParsed = tryParser(input, token, out input, out T first);
+            bool secondParsed = tryParser(input, token, out input, out T second);
             bool success = firstParsed && secondParsed;
             parsed = success ? (first, second) : default;
             return success;
         }
-        
-        public (float, float, float, float) ParseFourFloats(ReadOnlySpan<char> token)
+
+        public bool TryParse<T>(ReadOnlySpan<char> token, TryParseDelegate<T> tryParser, out (T, T, T, T) parsed)
         {
-            float first = input.ParseNextFloat(token, out input);
-            float second = input.ParseNextFloat(token, out input);
-            float third = input.ParseNextFloat(token, out input);
-            float forth = input.ParseNextFloat(token, out input);
-            return (first, second, third, forth);
-        }
-        
-        public bool TryParseFourFloats(ReadOnlySpan<char> token, out (float, float, float, float) parsed)
-        {
-            bool firstParsed = input.TryParseNextFloat(token, out input, out float first);
-            bool secondParsed = input.TryParseNextFloat(token, out input, out float second);
-            bool thirdParsed = input.TryParseNextFloat(token, out input, out float third);
-            bool fourthParsed = input.TryParseNextFloat(token, out input, out float fourth);
+            bool firstParsed = tryParser(input, token, out input, out T first);
+            bool secondParsed = tryParser(input, token, out input, out T second);
+            bool thirdParsed = tryParser(input, token, out input, out T third);
+            bool fourthParsed = tryParser(input, token, out input, out T fourth);
             bool success = firstParsed && secondParsed && thirdParsed && fourthParsed;
             parsed = success ? (first, second, third, fourth) : default;
             return success;
