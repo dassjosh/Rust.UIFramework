@@ -4,5 +4,6 @@ public enum RegisterImageErrorCode : byte
 {
     InvalidByteArray,
     InvalidImageType,
-    DbStorageFailed
+    DbStorageFailed,
+    ImageNotFound
 }

@@ -1,6 +1,6 @@
 ﻿namespace Oxide.Ext.UiFramework.Libraries;
 
-public interface IRegisterImageFailureResult
+public interface IRegisterImageException
 {
     FailureType FailureType { get; }
     string Message { get; }

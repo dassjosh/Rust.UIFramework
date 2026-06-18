@@ -36,6 +36,9 @@ public interface IPluginBase
     /// Whether the plugin is loaded
     /// </summary>
     bool IsLoaded { get; }
+
+
+    object CallHook(string hook, params object[] args);
 }
 
 public static class IPluginBaseExt

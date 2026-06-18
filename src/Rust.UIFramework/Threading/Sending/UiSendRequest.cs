@@ -33,7 +33,15 @@ internal class UiSendRequest : BaseUiRequest
     
     public override void OnCompleted()
     {
-        UiTrackerRequest.Create(Builder.Plugin, Builder, Send).Enqueue();
+        if (Builder.Plugin != null)
+        {
+            UiTrackerRequest.Create(Builder.Plugin, Builder, Send).Enqueue();
+        }
+        else
+        {
+            Builder.Dispose();
+        }
+
         Dispose();
     }
     

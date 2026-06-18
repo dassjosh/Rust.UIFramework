@@ -26,10 +26,7 @@ public class UiPooledArray<T> : BasePoolable, IList<T>, IReadOnlyList<T>
 
     public void SetArray(T[] array)
     {
-        if (_array != null)
-        {
-            _array = array;
-        }
+        _array ??= array;
     }
 
     public bool Contains(T item) => ((ICollection<T>)_array).Contains(item);

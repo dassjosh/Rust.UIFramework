@@ -76,7 +76,7 @@ public class AssemblyFixture : XunitTestFramework
 
     private static void ConfigureExtension()
     {
-        UiFrameworkExtension ext = new UiFrameworkExtension(null);
+        UiFrameworkExtension ext = new(null);
         if(UiFrameworkConfig.Instance == null) Singleton<DataHandler>.Instance.LoadAll();
         UiFrameworkExtension.GlobalLogger = Singleton<UiLoggerFactory>.Instance.CreateGlobalLogger();
         Singleton<DataHandler>.Instance.LoadAll();

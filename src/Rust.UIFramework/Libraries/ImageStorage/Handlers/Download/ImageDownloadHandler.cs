@@ -142,7 +142,7 @@ internal class ImageDownloadHandler : ISingleton, IUiChannelAsyncProcess<Downloa
 
     public void OnFailed(DownloadImageRequestHandler request)
     {
-        if (!request.State.IsOutOfAttempts && !_cancellationTokenSource.IsCancellationRequested)
+        if (!request.State.IsOutOfAttempts && !_cancellationTokenSource.IsCancellationRequested && request.Step == ProcessStep.Download)
         {
             Enqueue(request);
         }
@@ -155,7 +155,7 @@ internal class ImageDownloadHandler : ISingleton, IUiChannelAsyncProcess<Downloa
 
     public void OnException(DownloadImageRequestHandler request, Exception ex)
     {
-        request.Failed(new ExceptionEventArgs(ex));
+        request.Failed(new RegisterException(ex));
         _logger.Exception("Process Request Failed: ID: {0}", request.Id, ex);
     }
 }

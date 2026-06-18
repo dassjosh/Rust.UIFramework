@@ -29,14 +29,14 @@ internal class DefaultImageProcessor : IUiImageProcessor, ISingleton, IUiChannel
         if (request.Image == null || request.Image.Length == 0)
         {
             _logger.Debug("Process Request Failed: ID: {0} - Invalid ByteArray", request.Id);
-            request.Failed(new RegisterFailedEventArgs(RegisterImageErrorCode.InvalidByteArray));
+            request.Failed(new RegisteredFailedException(RegisterImageErrorCode.InvalidByteArray));
             return ProcessResult.Failed;
         }
 
         if (!UiImageValidation.TryGetImageType(request.Image, out UiImageType imageType))
         {
             _logger.Debug("Process Request Failed: ID: {0} - Invalid Image Type", request.Id);
-            request.Failed(new RegisterFailedEventArgs(RegisterImageErrorCode.InvalidImageType));
+            request.Failed(new RegisteredFailedException(RegisterImageErrorCode.InvalidImageType));
             return ProcessResult.Failed;
         }
 
@@ -45,11 +45,18 @@ internal class DefaultImageProcessor : IUiImageProcessor, ISingleton, IUiChannel
         return ProcessResult.Success;
     }
 
-    public void OnSuccess(RegisterImageRequestHandler request) => Singleton<StoreHandler>.Instance.Enqueue(request);
+    public void OnSuccess(RegisterImageRequestHandler request)
+    {
+        if (!request.Redirect())
+        {
+            Singleton<StoreHandler>.Instance.Enqueue(request);
+        }
+    }
+
     public void OnFailed(RegisterImageRequestHandler request) { }
     public void OnException(RegisterImageRequestHandler request, Exception ex)
     {
-        request.Failed(new ExceptionEventArgs(ex));
+        request.Failed(new RegisterException(ex));
         _logger.Exception("Process Request Failed: ID: {0}", request.Id, ex);
     }
 }

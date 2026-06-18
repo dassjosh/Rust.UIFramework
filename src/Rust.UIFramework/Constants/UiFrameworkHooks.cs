@@ -7,5 +7,5 @@ public static class UiFrameworkHooks
     public const string OnUiPluginImageRegistered = nameof(OnUiPluginImageRegistered);
     public const string OnUiPluginImageRegistrationFailed = nameof(OnUiPluginImageRegistrationFailed);
     public const string OnPlayerUiImagesPrecached = nameof(OnPlayerUiImagesPrecached);
-    
+    public const string OnUiPluginReady = nameof(OnUiPluginReady);
 }

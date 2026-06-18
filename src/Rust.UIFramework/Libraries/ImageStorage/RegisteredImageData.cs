@@ -2,6 +2,7 @@
 using System.Linq;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Constants;
+using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Guards;
 using Oxide.Ext.UiFramework.Plugins;
@@ -87,6 +88,7 @@ internal class RegisteredImageData : ISingleton
         DownloadImageRequest request = new(pluginId, name, options, handler);
         handler.AddRequest(request);
         AddPluginImageRequest(pluginId, request);
+        handler.Success(new RegisterSuccessEventArgs(imageId));
         Singleton<SaveHandler>.Instance.Enqueue(handler);
         return request;
     }
@@ -102,29 +104,49 @@ internal class RegisteredImageData : ISingleton
         RegisterImageRequest request = new(pluginId, name, options, handler);
         handler.AddRequest(request);
         AddPluginImageRequest(pluginId, request);
+        handler.Success(new RegisterSuccessEventArgs(imageId));
         Singleton<SaveHandler>.Instance.Enqueue(handler);
         return request;
     }
 
-    internal (BorderRadiusRequest request, BorderRadiusRequestHandler handler) CreateRequest(PluginId pluginId, BorderRadiusData data)
+    internal BorderRadiusRequest AddRequest(PluginId pluginId, BorderRadiusData data, RegisterImageOptions options)
     {
         string name = data.ToName();
         BorderRadiusRequestHandler handler = new(pluginId, name, data);
-        BorderRadiusRequest request = new(pluginId, name, handler);
+        BorderRadiusRequest request = new(pluginId, name, handler, options);
         handler.AddRequest(request);
         AddPluginImageRequest(pluginId, request);
-        return (request, handler);
+        Singleton<BorderRadiusHandler>.Instance.Enqueue(handler);
+        return request;
     }
 
-    internal (RegisterImageRequest request, RegisterImageRequestHandler handler) CreateRequest(PluginId pluginId, byte[] image, BorderRadiusImageData data)
+    internal RegisterImageRequest AddRequest(PluginId pluginId, byte[] image, BorderRadiusData data, RegisterImageOptions options)
     {
         string name = data.ToName();
         RegisterImageRequestHandler handler = new(pluginId, image);
-        RegisterImageRequest request = new(pluginId, name, RegisterImageOptions.Default, handler);
+        RegisterImageRequest request = new(pluginId, name, options, handler);
         handler.AddRequest(request);
         AddPluginImageRequest(pluginId, request);
         handler.AddModifier(new BorderRadiusImageModifier(handler, data));
-        return (request, handler);
+        Singleton<BorderRadiusImageHandler>.Instance.Enqueue(handler);
+        return request;
+    }
+
+    internal DownloadImageRequest AddRequest(PluginId pluginId, string url, BorderRadiusData data, RegisterImageOptions options)
+    {
+        DownloadImageRequest request = AddRequest(pluginId, data.ToName(), url, options);
+        request.WithBorderRadius(data);
+        return request;
+    }
+
+    internal RegisterImageRequest CreateFailed(PluginId pluginId, string name, RegisterImageOptions options)
+    {
+        RegisterImageRequestHandler handler = new(pluginId, null);
+        RegisterImageRequest request = new(pluginId, name, options, handler);
+        handler.AddRequest(request);
+        AddPluginImageRequest(pluginId, request);
+        handler.Failed(new RegisteredFailedException(RegisterImageErrorCode.ImageNotFound));
+        return request;
     }
 
     public void OnPluginImageRegistrationCompleted(RegisterImageRequestHandler handler)

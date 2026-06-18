@@ -32,6 +32,8 @@ internal static class UnitTestHelpers
         public string Author => "MJSU";
         public VersionNumber Version => new(1, 0, 0);
         public bool IsLoaded => true;
+        public object CallHook(string hook, params object[] args) { return null; }
+
         public UiPluginPool PluginPool { get; set; }
     }
 }

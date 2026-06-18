@@ -41,11 +41,4 @@ public partial class UiPanel : BaseUiComponent, IImageType<UiPanel>, ISprite<UiP
     }
     
     public UiPanel SetPlaceholderFor(UiInput input) => SetPlaceholderFor(input.Reference);
-
-    public void AddBorderRadius(in UiBorderRadius radius, bool antialiasing = true, float edgeWidth = 1) => AddBorderRadius(new UiDimensions2D(200, 200), radius, antialiasing, edgeWidth);
-
-    public void AddBorderRadius(UiDimensions2D size, in UiBorderRadius radius, bool antialiasing = true, float edgeWidth = 1)
-    {
-        Png = Singleton<UiImageStorage>.Instance.GetBorderRadius(PluginPool?.PluginId.UiPlugin, size, radius, antialiasing, edgeWidth);
-    }
 }

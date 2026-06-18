@@ -91,6 +91,11 @@ public class UiColorTests
     [InlineData("#0000FF", 0, 0, 0xFF, 0xFF)]
     [InlineData("#000000FF", 0, 0, 0, 0xFF)]
     [InlineData("#FFFFFF", 0xFF, 0xFF, 0xFF, 0xFF)]
+    [InlineData("#FFF", 0xFF, 0xFF, 0xFF, 0xFF)]
+    [InlineData("#FFFF", 0xFF, 0xFF, 0xFF, 0xFF)]
+    [InlineData("#000", 0x00, 0x00, 0x00, 0xFF)]
+    [InlineData("#0000", 0x00, 0x00, 0x00, 0x00)]
+    [InlineData("#ABCD", 0xAA, 0xBB, 0xCC, 0xDD)]
     public void ParseHexColor_SetsCorrectValues(string hex, byte r, byte g, byte b, byte a)
     {
         //Arrange
@@ -115,6 +120,7 @@ public class UiColorTests
     [InlineData("0 0 1.0", 0, 0, 0xFF, 0xFF)]
     [InlineData("0 0 0 1", 0, 0, 0, 0xFF)]
     [InlineData("1.0 1.0 1.0 1.0", 0xFF, 0xFF, 0xFF, 0xFF)]
+    [InlineData("0.1 0.2 0.3 0.4", 0x1A, 0x33, 0x4C, 0x66)]
     public void ParseRustColor_SetsCorrectValues(string hex, byte r, byte g, byte b, byte a)
     {
         //Arrange

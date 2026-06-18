@@ -86,6 +86,6 @@ public readonly record struct UiUnit(float Value, UiUnitType Type) : ICssString
     public static UiUnit operator *(UiUnit direction, double value) => direction * (float)value;
     public static UiUnit operator *(UiUnit direction, int value) => direction * (float)value;
 
-    public override string ToString() => $"{Value}{(Type == UiUnitType.Px ? "px": "%")}";
+    public override string ToString() => $"{Value:0.####}{(Type == UiUnitType.Px ? "px": "%")}";
     public string ToCssString() => ToString();
 }

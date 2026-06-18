@@ -1,15 +1,14 @@
-﻿using Oxide.Ext.UiFramework.Colors;
-using Oxide.Ext.UiFramework.Types;
+﻿using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Libraries;
 
-internal record BorderRadiusImageModifier(RegisterImageRequestHandler Handler, BorderRadiusImageData Data) : IImageModifier
+internal record BorderRadiusImageModifier(RegisterImageRequestHandler Handler, BorderRadiusData Data) : IImageModifier
 {
     public bool Redirect(ProcessStep step)
     {
         switch (step)
         {
-            case ProcessStep.Download:
+            case ProcessStep.Process:
                 Singleton<BorderRadiusImageHandler>.Instance.Enqueue(Handler);
                 return true;
             default:

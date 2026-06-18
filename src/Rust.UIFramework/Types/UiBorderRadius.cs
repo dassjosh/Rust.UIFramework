@@ -1,5 +1,6 @@
 ﻿using System;
 using Oxide.Ext.UiFramework.Extensions;
+using UnityEngine;
 using UnityEngine.Rendering;
 
 namespace Oxide.Ext.UiFramework.Types;
@@ -39,20 +40,33 @@ public readonly record struct UiBorderRadius(UiUnit TopLeft, UiUnit TopRight, Ui
         return false;
     }
 
-    public (float Tlx, float Trx, float Brx, float Blx, float Tly, float Try, float Bry, float Bly) Apply(UiDimensions2D dimensions)
+    public (Vector2 Tl, Vector2 Tr, Vector2 Br, Vector2 Bly) Apply(UiSize2D dimensions)
     {
-        (float tlx, float tly) = ApplyUnit(dimensions, TopLeft);
-        (float trx, float @try) = ApplyUnit(dimensions, TopRight);
-        (float brx, float bry) = ApplyUnit(dimensions, BottomRight);
-        (float blx, float bly) = ApplyUnit(dimensions, BottomLeft);
+        Vector2 tl = ApplyUnit(dimensions, TopLeft);
+        Vector2 tr = ApplyUnit(dimensions, TopRight);
+        Vector2 br = ApplyUnit(dimensions, BottomRight);
+        Vector2 bl = ApplyUnit(dimensions, BottomLeft);
 
-        return (tlx, trx, brx, blx, tly, @try, bry, bly);
+        return (tl, tr, br, bl);
     }
 
-    private static (float x, float y) ApplyUnit(UiDimensions2D dimensions, UiUnit unit)
+    private static Vector2 ApplyUnit(UiSize2D dimensions, UiUnit unit)
     {
-        return unit.Type == UiUnitType.Px ? (unit.Value, unit.Value) : (unit.Value / 100f * dimensions.Width, unit.Value / 100f * dimensions.Height);
+        return unit.Type == UiUnitType.Px ? new Vector2(unit.Value, unit.Value) : new Vector2(unit.Value / 100f * dimensions.Width, unit.Value / 100f * dimensions.Height);
     }
+
+    public static UiBorderRadius operator -(UiBorderRadius radius) => new(-radius.TopLeft, -radius.TopRight, -radius.BottomRight, -radius.BottomLeft);
+
+    public static UiBorderRadius operator +(UiBorderRadius radius, float value) => new(radius.TopLeft + value, radius.TopRight + value, radius.BottomRight + value, radius.BottomLeft + value);
+    public static UiBorderRadius operator -(UiBorderRadius radius, float value) => new(radius.TopLeft - value, radius.TopRight - value, radius.BottomRight - value, radius.BottomLeft - value);
+    public static UiBorderRadius operator *(UiBorderRadius radius, float value) => new(radius.TopLeft * value, radius.TopRight * value, radius.BottomRight * value, radius.BottomLeft * value);
+
+    public static UiBorderRadius operator +(UiBorderRadius radius, double value) => radius + (float)value;
+    public static UiBorderRadius operator +(UiBorderRadius radius, int value) => radius + (float)value;
+    public static UiBorderRadius operator -(UiBorderRadius radius, double value) => radius - (float)value;
+    public static UiBorderRadius operator -(UiBorderRadius radius, int value) => radius - (float)value;
+    public static UiBorderRadius operator *(UiBorderRadius radius, double value) => radius * (float)value;
+    public static UiBorderRadius operator *(UiBorderRadius radius, int value) => radius * (float)value;
 
     public override string ToString() => $"{TopLeft}x{TopRight}x{BottomRight}x{BottomLeft}";
 }

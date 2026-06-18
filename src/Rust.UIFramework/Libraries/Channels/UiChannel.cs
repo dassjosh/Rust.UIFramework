@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Logging;
-using Oxide.Ext.UiFramework.Plugins;
-using Oxide.Ext.UiFramework.Threading;
 using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Libraries;
@@ -31,12 +28,6 @@ public sealed class UiChannel<T> : IUiChannel where T : IBaseUiChannelObject
     public void Enqueue(T item)
     {
         if (_cancellationTokenSource.IsCancellationRequested) return;
-        if (!_options.EnableMultithreading)
-        {
-            ProcessInternal(item).Forget();
-            return;
-        }
-
         _queue.Enqueue(item);
         StartWorkers();
     }
@@ -74,6 +65,11 @@ public sealed class UiChannel<T> : IUiChannel where T : IBaseUiChannelObject
 
     private async UniTaskVoid Run()
     {
+        if (!_options.EnableMultithreading)
+        {
+            await UniTask.SwitchToMainThread();
+        }
+
         CancellationToken cancellationToken = _cancellationTokenSource.Token;
         try
         {

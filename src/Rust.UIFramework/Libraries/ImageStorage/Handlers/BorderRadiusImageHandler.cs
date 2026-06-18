@@ -1,15 +1,19 @@
 ﻿using System;
+using System.Threading;
+using Cysharp.Threading.Tasks;
+using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Logging;
 using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Types;
-using Unity.Collections;
-using Unity.Jobs;
 using UnityEngine;
-using Object = UnityEngine.Object;
+
+#if SERVER
+using Unity.Collections;
+#endif
 
 namespace Oxide.Ext.UiFramework.Libraries;
 
-internal class BorderRadiusImageHandler : ISingleton, IUiChannelProcess<RegisterImageRequestHandler>, IUiChannelProcessResult<RegisterImageRequestHandler>, IUiChannelException<RegisterImageRequestHandler>
+internal class BorderRadiusImageHandler : ISingleton, IUiChannelAsyncProcess<RegisterImageRequestHandler>, IUiChannelProcessResult<RegisterImageRequestHandler>, IUiChannelException<RegisterImageRequestHandler>
 {
     private readonly UiChannel<RegisterImageRequestHandler> _channel;
     private readonly IUiLogger<BorderRadiusHandler> _logger = Singleton<UiLoggerFactory>.Instance.CreateExtensionLogger<BorderRadiusHandler>();
@@ -25,90 +29,96 @@ internal class BorderRadiusImageHandler : ISingleton, IUiChannelProcess<Register
         _channel.Enqueue(request);
     }
 
-    public ProcessResult Process(RegisterImageRequestHandler request)
+    public async UniTask<ProcessResult> Process(RegisterImageRequestHandler request)
     {
+#if SERVER
         NativeArray<Color32> input = default;
         NativeArray<Color32> output = default;
-        Texture2D tex = null;
+#endif
+
         try
         {
-            BorderRadiusImageData data = request.GetModifier<BorderRadiusImageModifier>().Data;
+            BorderRadiusData data = request.GetModifier<BorderRadiusImageModifier>().Data;
 
-            Texture2D image = new(2, 2);
-            if(!image.LoadImage(request.Image))
+            _logger.Debug("Processing Request: ID: {0} ImageId: {1} Type: {2} Thread: {3}", request.Id, request.ImageId, request.Type, Thread.CurrentThread.ManagedThreadId);
+
+#if SERVER
+            if (!ImageEncoding.LoadImage(request.Image, Allocator.TempJob, out input, out int width, out int height))
             {
                 _logger.Warning("Failed to load image for request.");
                 return ProcessResult.Failed;
             }
 
-            UiDimensions2D size = new(image.width, image.height);
+            int count = width * height;
+            output = new NativeArray<Color32>(count, Allocator.TempJob);
 
-            int count = size.WidthInt * size.HeightInt;
-            input = new NativeArray<Color32>(count, Allocator.Temp);
-            output = new NativeArray<Color32>(count, Allocator.Temp);
-            image.SetPixelData(input, 0);
+            _logger.Debug("Loaded Image: ID: {0} ImageId: {1} Size: {2}x{3} Pixels: {4}", request.Id, request.ImageId, width, height, count);
+#else
+            ImageEncoding.LoadImage(request.Image, out Color32[] input, out int width, out int height);
+            int count = width * height;
+            Color32[] output = new Color32[count];
+#endif
+            UiSize2D size = new(width, height);
+            (Vector2 topLeft, Vector2 topRight, Vector2 bottomRight, Vector2 bottomLeft) = data.Radius.Apply(size);
 
-            (float tlx, float trx, float brx, float blx, float tly, float @try, float bry, float bly) = data.Radius.Apply(size);
-
-            BorderRadiusImageJob job = new()
+            BorderRadiusJob job = new()
             {
-                Width = size.WidthInt,
-                Height = size.HeightInt,
+                UseInputImage = true,
+                Input = input,
+                Output = output,
 
-                Tlx = tlx,
-                Trx = trx,
-                Brx = brx,
-                Blx = blx,
-                Tly = tly,
-                Try = @try,
-                Bry = bry,
-                Bly = bly,
+                Width = width,
+                Height = height,
+
+                Tlx = topLeft.x,
+                Trx = topRight.x,
+                Brx = bottomRight.x,
+                Blx = bottomLeft.x,
+                Tly = topLeft.y,
+                Try = topRight.y,
+                Bry = bottomRight.y,
+                Bly = bottomLeft.y,
 
                 AntiAlias = data.AntiAlias,
                 EdgeWidth = data.EdgeWidth,
+                Transparent = data.Transparent,
 
-                Image = input,
-                Pixels = output,
+                EnableBorder = data.EnableBorder,
+                BorderColor = data.BorderColor,
+                BorderWidth = data.BorderWidth,
 
-                Replacement = data.ReplacementColor
+                EnableDashedBorder = data.EnableDashedBorder,
+                DashLength = data.DashLength,
+                GapLength = data.GapLength
             };
 
-            JobHandle handle = job.Schedule(count, 64);
-            handle.Complete();
-
-            tex = new Texture2D(size.WidthInt, size.HeightInt, TextureFormat.RGBA32, false);
-            tex.SetPixelData(output, 0);
-            tex.Apply();
-
-            byte[] bytes = tex.EncodeToPNG();
+            await job.RunAsync(count, 64);
+            byte[] bytes = ImageEncoding.EncodeToPng(output, width, height);
             request.SetImage(bytes, true);
             return ProcessResult.Success;
         }
         catch (Exception ex)
         {
-            request.Failed(new ExceptionEventArgs(ex));
+            request.Failed(new RegisterException(ex));
             return ProcessResult.Failed;
         }
         finally
         {
-            if(input.IsCreated)
+#if SERVER
+            if (input.IsCreated)
             {
                 input.Dispose();
             }
 
-            if(output.IsCreated)
+            if (output.IsCreated)
             {
                 output.Dispose();
             }
-
-            if(tex)
-            {
-                Object.Destroy(tex);
-            }
+#endif
         }
     }
 
-    public void OnSuccess(RegisterImageRequestHandler request) => Singleton<DefaultImageProcessor>.Instance.Enqueue(request);
+    public void OnSuccess(RegisterImageRequestHandler request) => Singleton<StoreHandler>.Instance.Enqueue(request);
     public void OnFailed(RegisterImageRequestHandler request) { }
-    public void OnException(RegisterImageRequestHandler request, Exception ex) => request.Failed(new ExceptionEventArgs(ex));
+    public void OnException(RegisterImageRequestHandler request, Exception ex) => request.Failed(new RegisterException(ex));
 }

@@ -17,4 +17,6 @@ public abstract class BaseUiFrameworkException : Exception
     /// </summary>
     /// <param name="message">Exception message</param>
     protected BaseUiFrameworkException(string message) : base($"UiFramework Extension Exception ({UiFrameworkExtension.Instance.Version}): {message}") { }
+
+    protected BaseUiFrameworkException(string message, Exception inner) : base($"UiFramework Extension Exception ({UiFrameworkExtension.Instance.Version}): {message}", inner) { }
 }

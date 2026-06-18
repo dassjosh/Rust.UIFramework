@@ -145,7 +145,11 @@ public readonly ref struct UiArgWriter()
     internal void Insert(string value) => Insert(value.AsSpan());
     internal void Insert(ReadOnlySpan<char> value)
     {
-        _sb.Insert(0, ' ');
+        if (_sb.Length != 0)
+        {
+            _sb.Insert(0, ' ');
+        }
+
         _sb.Insert(0, value);
     }
     

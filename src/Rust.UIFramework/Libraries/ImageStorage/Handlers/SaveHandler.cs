@@ -65,7 +65,7 @@ internal class SaveHandler : ISingleton, IUiChannelProcess<RegisterImageRequestH
 
     public void OnException(RegisterImageRequestHandler request, Exception ex)
     {
-        request.Failed(new ExceptionEventArgs(ex));
+        request.Failed(new RegisterException(ex));
         _logger.Exception("Process Request Failed: ID: {0}", request.Id, ex);
     }
 }

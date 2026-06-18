@@ -32,19 +32,19 @@ internal class DownloadImageRequestHandler(PluginId id, string url) : RegisterIm
         Singleton<ImageDownloadAnimationHandler>.Instance.OnDownloadCompleted(Url, true, ImageId);
     }
 
-    public override void Failed(IRegisterImageFailureResult args)
+    public override void Failed(BaseImageStorageException exception)
     {
-        base.Failed(args);
+        base.Failed(exception);
         Singleton<ImageDownloadAnimationHandler>.Instance.OnDownloadCompleted(Url, false, default);
     }
 
     public void OnDownloadFailed(HttpStatusCode code, string message)
     {
         State.OnDownloadFailed();
-        if (State.IsOutOfAttempts)
+        if (State.IsOutOfAttempts || !IsHttpCodeRetryable(code))
         {
             SetStep(ProcessStep.Failed);
-            Failed(new DownloadFailedEventArgs(code, message));
+            Failed(new DownloadFailedException(code, message));
         }
     }
 
@@ -53,5 +53,10 @@ internal class DownloadImageRequestHandler(PluginId id, string url) : RegisterIm
         SetImage(image);
         DownloadedImage = image;
         State.OnDownloadCompleted();
+    }
+
+    public bool IsHttpCodeRetryable(HttpStatusCode code)
+    {
+        return code is < HttpStatusCode.BadRequest or >= HttpStatusCode.InternalServerError;
     }
 }

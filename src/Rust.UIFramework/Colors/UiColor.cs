@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Runtime.CompilerServices;
 using Newtonsoft.Json;
 using Oxide.Ext.UiFramework.Exceptions;
+using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Types;
 using UnityEngine;
@@ -236,6 +237,7 @@ public readonly struct UiColor : IEquatable<UiColor>, IUiConvertable<UiColor, Ui
     #endregion
 
     #region Parsing
+
     /// <summary>
     /// Valid Rust Color Formats
     /// 0 0 0
@@ -243,8 +245,9 @@ public readonly struct UiColor : IEquatable<UiColor>, IUiConvertable<UiColor, Ui
     /// 1.0 1.0 1.0
     /// 1.0 1.0 1.0 1.0
     /// </summary>
-    /// <param name="color"></param>
-    public static UiColor ParseRustColor(string color) => new(ColorEx.Parse(color));
+    /// <param name="rustColor"></param>
+    public static UiColor ParseRustColor(string rustColor) => ParseRustColor(rustColor.AsSpan());
+    public static UiColor ParseRustColor(ReadOnlySpan<char> span) => TryParseRustColor(span, out UiColor color) ? color : default;
 
     /// <summary>
     /// <a href="https://docs.unity3d.com/ScriptReference/ColorUtility.TryParseHtmlString.html">Unity ColorUtility.TryParseHtmlString API reference</a>
@@ -258,23 +261,92 @@ public readonly struct UiColor : IEquatable<UiColor>, IUiConvertable<UiColor, Ui
     /// <returns></returns>
     /// <exception cref="UiFrameworkException"></exception>
     public static UiColor ParseHexColor(string hexColor) => ParseHexColor(hexColor.AsSpan());
-    
-    public static UiColor ParseHexColor(ReadOnlySpan<char> span)
+    public static UiColor ParseHexColor(ReadOnlySpan<char> span) => TryParseHexColor(span, out UiColor color) ? color : default;
+
+    public static bool TryParse(ReadOnlySpan<char> span, out UiColor color) => TryParseHexColor(span, out color) || TryParseRustColor(span, out color);
+
+    public static bool TryParseRustColor(ReadOnlySpan<char> span, out UiColor color)
+    {
+        if(!span.TryParseNextFloat(" ", out span, out float red))
+        {
+            color = default;
+            return false;
+        }
+
+        if(!span.TryParseNextFloat(" ", out span, out float green))
+        {
+            color = default;
+            return false;
+        }
+
+        if(!span.TryParseNextFloat(" ", out span, out float blue))
+        {
+            color = default;
+            return false;
+        }
+
+        if(!span.TryParseNextFloat(" ", out span, out float alpha))
+        {
+            alpha = 1;
+        }
+
+        color = new UiColor(red, green, blue, alpha);
+        return true;
+    }
+
+    public static bool TryParseHexColor(ReadOnlySpan<char> span, out UiColor color)
     {
         if (span[0] == '#')
         {
             span = span[1..];
         }
-        
-        byte red = byte.Parse(span[..2], NumberStyles.HexNumber);
-        byte green = byte.Parse(span[2..4], NumberStyles.HexNumber);
-        byte blue = byte.Parse(span[4..6], NumberStyles.HexNumber);
-        byte alpha = 255;
-        if (span.Length == 8)
+
+        if (!int.TryParse(span, NumberStyles.HexNumber, NumberFormatInfo.CurrentInfo, out int colorValue))
         {
-            alpha = byte.Parse(span[6..8], NumberStyles.HexNumber);
+            color = default;
+            return false;
         }
-        return new UiColor(red, green, blue, alpha);
+
+        byte red;
+        byte green;
+        byte blue;
+        byte alpha = byte.MaxValue;
+
+        switch (span.Length)
+        {
+            case 3:
+                red = (byte)(((colorValue >> 8) & 0xF) * 17);
+                green = (byte)(((colorValue >> 4) & 0xF) * 17);
+                blue = (byte)((colorValue & 0xF) * 17);
+                break;
+
+            case 4:
+                red = (byte)(((colorValue >> 12) & 0xF) * 17);
+                green = (byte)(((colorValue >> 8) & 0xF) * 17);
+                blue = (byte)(((colorValue >> 4) & 0xF) * 17);
+                alpha = (byte)((colorValue & 0xF) * 17);
+                break;
+
+            case 6:
+                red = (byte)(colorValue >> 16);
+                green = (byte)(colorValue >> 8);
+                blue = (byte)colorValue;
+                break;
+
+            case 8:
+                red = (byte)(colorValue >> 24);
+                green = (byte)(colorValue >> 16);
+                blue = (byte)(colorValue >> 8);
+                alpha = (byte)colorValue;
+                break;
+
+            default:
+                color = default;
+                return false;
+        }
+
+        color = new UiColor(red, green, blue, alpha);
+        return true;
     }
     #endregion
 }

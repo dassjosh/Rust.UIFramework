@@ -85,6 +85,9 @@
       <Reference Include="System.Core">
         <HintPath>..\References\Rust\System.Core.dll</HintPath>
       </Reference>
+      <Reference Include="System.Drawing" Condition="'$(Platform)' != 'UiFramework'">
+        <HintPath>..\references\System.Drawing.dll</HintPath>
+      </Reference>
       <Reference Include="System.Net.Http">
         <HintPath>..\References\Rust\System.Net.Http.dll</HintPath>
       </Reference>
@@ -111,6 +114,9 @@
       </Reference>
       <Reference Include="UnityEngine">
         <HintPath>..\References\Rust\UnityEngine.dll</HintPath>
+      </Reference>
+      <Reference Include="UnityEngine.AssetBundleModule">
+        <HintPath>..\references\UnityEngine.AssetBundleModule.dll</HintPath>
       </Reference>
       <Reference Include="UnityEngine.CoreModule">
         <HintPath>..\References\Rust\UnityEngine.CoreModule.dll</HintPath>

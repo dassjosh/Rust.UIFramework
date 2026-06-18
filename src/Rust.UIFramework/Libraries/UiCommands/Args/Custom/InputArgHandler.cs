@@ -1,4 +1,5 @@
 ﻿using System;
+using Oxide.Ext.UiFramework.Colors;
 
 namespace Oxide.Ext.UiFramework.Libraries;
 
@@ -21,6 +22,7 @@ public readonly struct InputArg(string value)
     public bool TryGetValue(out decimal value) => decimal.TryParse(Value, out value);
     public bool TryGetValue(out bool value) => bool.TryParse(Value, out value);
     public bool TryGetValue(out char value) => char.TryParse(Value, out value);
+    public bool TryGetValue(out UiColor value) => UiColor.TryParse(Value, out value);
 }
 
 internal class InputArgHandler : IArgHandler<InputArg>

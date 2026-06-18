@@ -32,7 +32,7 @@ internal class StoreHandler : ISingleton, IUiChannelProcess<RegisterImageRequest
         if (!id.IsValid)
         {
             _logger.Debug("Failed to store image. ID: {0} Plugin: {1}", request.Id, request.PluginCreator);
-            request.Failed(new RegisterFailedEventArgs(RegisterImageErrorCode.DbStorageFailed));
+            request.Failed(new RegisteredFailedException(RegisterImageErrorCode.DbStorageFailed));
             return ProcessResult.Failed;
         }
 
@@ -67,7 +67,7 @@ internal class StoreHandler : ISingleton, IUiChannelProcess<RegisterImageRequest
     public void OnFailed(RegisterImageRequestHandler request) { }
     public void OnException(RegisterImageRequestHandler request, Exception ex)
     {
-        request.Failed(new ExceptionEventArgs(ex));
+        request.Failed(new RegisterException(ex));
         _logger.Exception("Process Request Failed: ID: {0}", request.Id, ex);
     }
 }

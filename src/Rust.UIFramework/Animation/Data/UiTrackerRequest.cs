@@ -1,12 +1,10 @@
 ﻿using System;
-using Cysharp.Threading.Tasks;
 using Network;
 using Oxide.Ext.UiFramework.Builder;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Pooling;
-using Oxide.Ext.UiFramework.Threading;
 using Oxide.Ext.UiFramework.Types;
 using Oxide.Ext.UiFramework.UiElements;
 
@@ -65,7 +63,7 @@ public class UiTrackerRequest : BasePoolable, IUiChannelObject
     {
         base.EnterPool();
         Send = default;
-        Builder.TryDispose();
+        Builder?.TryDispose();
         Builder = null;
     }
 }

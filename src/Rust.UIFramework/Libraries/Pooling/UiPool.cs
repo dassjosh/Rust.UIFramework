@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using Oxide.Ext.UiFramework.Constants;
 using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Logging;
 using Oxide.Ext.UiFramework.Plugins;
@@ -65,6 +66,7 @@ public class UiPool : BaseUiFrameworkLibrary, ISingleton
     protected override void OnPluginLoaded(IUiFrameworkPlugin plugin)
     {
         plugin.PluginPool = GetOrCreate(plugin);
+        plugin.CallHook(UiFrameworkHooks.OnUiPluginReady);
     }
 
     ///<inheritdoc/>

@@ -85,7 +85,7 @@ public partial class UiBuilder
         backgroundBlur.SetPosition(UiPosition.Full).SetColor(modalBackgroundColor).SetMaterial(backgroundMaterial);
         builder.Button(builder.Root, UiPosition.Full, default, UiColors.Clear, closeCommand ?? reference.Name, buttonType);
 
-        UiPanel root = builder.Panel(builder.Root, UiPosition.Full, modalSize, modalColor);
+        UiPanel root = builder.Panel(builder.Root, UiPosition.MiddleMiddle, modalSize, modalColor);
         builder.OverrideRoot(root);    
         return builder;
     }

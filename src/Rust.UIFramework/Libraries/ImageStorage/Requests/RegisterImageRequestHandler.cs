@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Types;
+using Oxide.Ext.UiFramework.Types.Results;
 
 namespace Oxide.Ext.UiFramework.Libraries;
 
@@ -17,8 +19,12 @@ internal class RegisterImageRequestHandler(PluginId pluginId) : IRegisterImageRe
 
     public List<IImageModifier> Modifiers { get; protected set; }
 
+    public Result<ImageId> Result { get; private set; }
+
     private CallbackEvent<RegisterSuccessEventArgs> _successEvent;
-    private CallbackEvent<IRegisterImageFailureResult> _failedEvent;
+    private CallbackEvent<IRegisterImageException> _failedEvent;
+
+    private UniTaskCompletionSource<Result<ImageId>> _task;
 
     public ConcurrentList<RegisterImageRequest> Requests { get; } = [];
 
@@ -111,14 +117,36 @@ internal class RegisterImageRequestHandler(PluginId pluginId) : IRegisterImageRe
 
     public void AddSuccessCallback(Action<RegisterSuccessEventArgs> callback)
     {
+        if (Result is { IsSuccess: true })
+        {
+            callback(new RegisterSuccessEventArgs(ImageId));
+            return;
+        }
+
         _successEvent ??= new CallbackEvent<RegisterSuccessEventArgs>();
         _successEvent.AddCallback(callback);
     }
 
-    public void AddFailedCallback(Action<IRegisterImageFailureResult> callback)
+    public void AddFailedCallback(Action<IRegisterImageException> callback)
     {
-        _failedEvent ??= new CallbackEvent<IRegisterImageFailureResult>();
+        if (Result is { IsFailure: true })
+        {
+            callback(Result.Exception as IRegisterImageException);
+            return;
+        }
+
+        _failedEvent ??= new CallbackEvent<IRegisterImageException>();
         _failedEvent.AddCallback(callback);
+    }
+
+    public UniTask<Result<ImageId>> AsUniTask()
+    {
+        _task ??= new UniTaskCompletionSource<Result<ImageId>>();
+        if (Result != null)
+        {
+            _task.TrySetResult(Result);
+        }
+        return _task.Task;
     }
 
     public virtual void Success(RegisterSuccessEventArgs args)
@@ -126,13 +154,17 @@ internal class RegisterImageRequestHandler(PluginId pluginId) : IRegisterImageRe
         ImageId = args.ImageId;
         SetStep(ProcessStep.Completed);
         Singleton<RegisteredImageData>.Instance.OnPluginImageRegistrationCompleted(this);
+        Result = Result<ImageId>.Success(args.ImageId);
         _successEvent?.Invoke(this, args);
+        _task?.TrySetResult(args.ImageId);
     }
 
-    public virtual void Failed(IRegisterImageFailureResult args)
+    public virtual void Failed(BaseImageStorageException exception)
     {
         SetStep(ProcessStep.Failed);
         Singleton<RegisteredImageData>.Instance.OnPluginImageRegistrationCompleted(this);
-        _failedEvent?.Invoke(this, args);
+        Result = Result<ImageId>.Failure(exception);
+        _failedEvent?.Invoke(this, exception);
+        _task?.TrySetResult(Result);
     }
 }

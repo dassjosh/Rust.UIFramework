@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using Oxide.Core;
 using Oxide.Core.Plugins;
 using Oxide.Ext.UiFramework.Cache;
@@ -37,12 +38,8 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
     /// <exception cref="ArgumentNullException">Thrown if the image is null</exception>
     public string Get(IUiFrameworkPlugin plugin, string image, GetImageOptions options = null)
     {
-#if SERVER
         Guard.IsNotNull(plugin);
         return Get(plugin.Id(), image, options);
-#else
-        return image;
-#endif
     }
     
     internal string Get(PluginId pluginId, string image, GetImageOptions options)
@@ -92,6 +89,76 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
         return Get(UiFrameworkPlugin.Instance, UiImageDefaults.NotFound);
     }
 
+    public ImageId GetByUrl(string url)
+    {
+        return _data.GetByUrl(url);
+    }
+
+    public byte[] GetBytes(IUiFrameworkPlugin plugin, string image)
+    {
+        Guard.IsNotNull(plugin);
+        return GetBytes(plugin.Id(), image);
+    }
+
+    internal byte[] GetBytes(PluginId pluginId, string image)
+    {
+        Guard.IsCommunityEntityReady();
+        Guard.IsValid(pluginId);
+        Guard.IsNotNullOrEmpty(image);
+
+        if(ImageId.TryParse(image, out ImageId id))
+        {
+            return _db.Get(id);
+        }
+
+        id = _data.Get(pluginId, image);
+        if (id.IsValid)
+        {
+            return _db.Get(id);
+        }
+
+        return null;
+    }
+
+    public bool WriteImage(IUiFrameworkPlugin plugin, string filePath, string image)
+    {
+        Guard.IsNotNull(plugin);
+        return WriteImage(plugin.Id(), filePath, image);
+    }
+
+    public bool WriteImage(PluginId pluginId, string filePath, string image)
+    {
+        Guard.IsCommunityEntityReady();
+        Guard.IsValid(pluginId);
+        Guard.IsNotNullOrEmpty(filePath);
+        Guard.IsNotNullOrEmpty(image);
+
+        byte[] data = GetBytes(pluginId, image);
+        if (data == null)
+        {
+            _logger.Error("Failed to write image for plugin: {0} name: {1}. Image not found.", pluginId.FullName(), image);
+            return false;
+        }
+
+        UiImageValidation.TryGetImageType(data, out UiImageType type);
+        if (type == UiImageType.Unknown)
+        {
+            _logger.Error("Failed to write image for plugin: {0} name: {1}. Image type not supported.", pluginId.FullName(), image);
+            return false;
+        }
+
+        string extension = Path.GetExtension(filePath);
+        filePath = type switch
+        {
+            UiImageType.Png when extension.Equals(".jpg") => Path.ChangeExtension(filePath, ".png"),
+            UiImageType.Jpg when extension.Equals(".png") => Path.ChangeExtension(filePath, ".jpg"),
+            _ => filePath
+        };
+
+        File.WriteAllBytes(filePath, data);
+        return true;
+    }
+
     public IDownloadImageRequest RegisterImage(IUiFrameworkPlugin plugin, string url, RegisterImageOptions options = null) => RegisterImage(plugin, url, url, options);
     internal DownloadImageRequest RegisterImage(PluginId plugin, string url, RegisterImageOptions options = null) => RegisterImage(plugin, url, url, options);
     public IDownloadImageRequest RegisterImage(IUiFrameworkPlugin plugin, string name, string url, RegisterImageOptions options = null) => RegisterImage(plugin.Id(), name, url, options);
@@ -132,20 +199,24 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
         return Singleton<RegisteredImageData>.Instance.AddRequest(plugin.Id(), name, image, options);
     }
 
-    public IRegisterImageRequest RegisterBorderRadius(IUiFrameworkPlugin plugin, in UiBorderRadius radius, bool antiAlias = true, float edgeWidth = 1f)
-    {
-        return RegisterBorderRadius(plugin, new UiDimensions2D(200, 200), radius, antiAlias, edgeWidth);
-    }
-
-    public IRegisterImageRequest RegisterBorderRadius(IUiFrameworkPlugin plugin, UiDimensions2D size, in UiBorderRadius radius, bool antiAlias = true, float edgeWidth = 1f)
+    public IRegisterImageRequest RegisterBorderRadius(IUiFrameworkPlugin plugin, UiSize2D size, in UiBorderRadius radius,
+        UiColor? fillColor = null, UiColor? transparentColor = null,
+        bool antiAlias = true, float edgeWidth = 1f,
+        bool enableBorder = false, float borderWidth = 1f, UiColor? borderColor = null,
+        bool enableDashedBorder = false, float dashLength = 1f, float gapLength = 1f,
+        RegisterImageOptions options = null
+        )
     {
         Guard.IsCommunityEntityReady();
         Guard.IsNotNull(plugin);
         Guard.IsGreaterThanZero(size.Width);
         Guard.IsGreaterThanZero(size.Height);
-        Guard.IsGreaterThanOrEqualToZero(edgeWidth);
 
-        using BorderRadiusData data = BorderRadiusData.Get(plugin, size, radius, antiAlias, edgeWidth);
+        UiColor selectedFillColor = fillColor ?? UiColors.White;
+        UiColor selectedTransparentColor = transparentColor ?? UiColors.Transparent;
+        UiColor selectedBorderColor = borderColor ?? UiColors.Black;
+
+        using BorderRadiusData data = BorderRadiusData.Get(plugin, size, radius, selectedFillColor, selectedTransparentColor, antiAlias, edgeWidth, enableBorder, borderWidth, selectedBorderColor, enableDashedBorder, dashLength, gapLength);
         ImageId id = _data.GetBorderRadius(BorderRadiusKeyCache.GetKey(data));
         if (id.IsValid && _db.Exists(id))
         {
@@ -154,61 +225,59 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
             return Singleton<RegisteredImageData>.Instance.AddExistingImageRequest(plugin.Id(), data.ToName(), image, id, RegisterImageOptions.Default);
         }
 
-        (BorderRadiusRequest request, BorderRadiusRequestHandler handler) = Singleton<RegisteredImageData>.Instance.CreateRequest(plugin.Id(), data.New());
-        Singleton<BorderRadiusHandler>.Instance.Enqueue(handler);
+        BorderRadiusRequest request = Singleton<RegisteredImageData>.Instance.AddRequest(plugin.Id(), data.New(), options ?? RegisterImageOptions.Default);
         return request;
     }
 
-    internal string GetBorderRadius(IUiFrameworkPlugin plugin, UiDimensions2D size, in UiBorderRadius radius, bool antiAlias = true, float edgeWidth = 1f)
+    public IRegisterImageRequest RegisterBorderRadius(IUiFrameworkPlugin plugin, string image, in UiBorderRadius radius, UiColor? transparentColor = null,
+        bool antiAlias = true, float edgeWidth = 1f,
+        bool enableBorder = false, float borderWidth = 1f, UiColor? borderColor = null,
+        bool enableDashedBorder = false, float dashLength = 1f, float gapLength = 1f,
+        RegisterImageOptions options = null
+    )
     {
         Guard.IsCommunityEntityReady();
         Guard.IsNotNull(plugin);
-        Guard.IsGreaterThanZero(size.Width);
-        Guard.IsGreaterThanZero(size.Height);
-        Guard.IsGreaterThanOrEqualToZero(edgeWidth);
+        Guard.IsNotNullOrEmpty(image);
+        UiColor selectedTransparentColor = transparentColor ?? UiColors.Transparent;
+        UiColor selectedBorderColor = borderColor ?? UiColors.Black;
 
-        using BorderRadiusData data = BorderRadiusData.Get(plugin, size, radius, antiAlias, edgeWidth);
-        // ImageId id = _data.GetBorderRadius(BorderRadiusKeyCache.GetKey(data));
-        // if(id.IsValid)
-        // {
-        //     _logger.Debug("Border radius image already stored for plugin: {0} name: {1}", plugin.Id(), data.ToName());
-        //     return id.ToString();
-        // }
-
-        Guard.IsMainThread();
-
-        (BorderRadiusRequest _, BorderRadiusRequestHandler handler) = Singleton<RegisteredImageData>.Instance.CreateRequest(plugin.Id(), data.New());
-        return Singleton<SynchronousHandler>.Instance.RunSynchronously(handler) == ProcessResult.Success ? handler.ImageId.ToString() : null;
-    }
-
-    internal string GetBorderRadius(IUiFrameworkPlugin plugin, string png, in UiBorderRadius radius, bool antiAlias, float edgeWidth, UiColor replacementColor)
-    {
-        if (string.IsNullOrEmpty(png) || !uint.TryParse(png, out _))
+        using BorderRadiusData data = BorderRadiusData.Get(plugin, image, radius, selectedTransparentColor, antiAlias, edgeWidth, enableBorder, borderWidth, selectedBorderColor, enableDashedBorder, dashLength, gapLength);
+        ImageId id = _data.GetBorderRadius(BorderRadiusKeyCache.GetKey(data));
+        byte[] imageData;
+        if (id.IsValid && _db.Exists(id))
         {
-            return png;
+            _db.OnImageRegistered(id);
+            imageData = _db.Get(id);
+            return Singleton<RegisteredImageData>.Instance.AddExistingImageRequest(plugin.Id(), data.ToName(), imageData, id, options ?? RegisterImageOptions.Default);
         }
 
-        Guard.IsCommunityEntityReady();
-        Guard.IsNotNull(plugin);
-        Guard.IsGreaterThanOrEqualToZero(edgeWidth);
-
-        using BorderRadiusImageData key = BorderRadiusImageData.Get(plugin, png, radius, antiAlias, edgeWidth, replacementColor);
-        ImageId id = _data.GetBorderRadius(BorderRadiusKeyCache.GetKey(key));
-        if(id.IsValid)
+        if (ImageId.TryParse(image, out id))
         {
-            return id.ToString();
+            imageData = _db.Get(id);
+            return Singleton<RegisteredImageData>.Instance.AddRequest(plugin.Id(), imageData, data.New(), options ?? RegisterImageOptions.Default);
         }
 
-        Guard.IsMainThread();
-
-        byte[] image = _db.Get(id);
-        if (image == null || image.Length == 0)
+        if (image.IsValidUrl())
         {
-            return png;
+            id = _data.GetByUrl(image);
+            if (id.IsValid)
+            {
+                imageData = _db.Get(id);
+                return Singleton<RegisteredImageData>.Instance.AddRequest(plugin.Id(), imageData, data.New(), options ?? RegisterImageOptions.Default);
+            }
+
+            return Singleton<RegisteredImageData>.Instance.AddRequest(plugin.Id(), image, data.New(), options ?? RegisterImageOptions.Default);
         }
 
-        (RegisterImageRequest _, RegisterImageRequestHandler handler) = Singleton<RegisteredImageData>.Instance.CreateRequest(plugin.Id(), image, key.New());
-        return Singleton<SynchronousHandler>.Instance.RunBorderRadiusImageSynchronously(handler) == ProcessResult.Success ? handler.ImageId.ToString() : png;
+        imageData = GetBytes(plugin, image);
+        if (imageData != null)
+        {
+            return Singleton<RegisteredImageData>.Instance.AddRequest(plugin.Id(), imageData, data.New(), options ?? RegisterImageOptions.Default);
+        }
+
+        _logger.Error("Failed to register border radius image for plugin: {0} name: {1}. Image not found.", plugin.Id(), image);
+        return Singleton<RegisteredImageData>.Instance.CreateFailed(plugin.Id(), image, options ?? RegisterImageOptions.Default);
     }
 
     public bool IsDownloading(string url) => Singleton<RegisteredImageData>.Instance.IsDownloading(url);

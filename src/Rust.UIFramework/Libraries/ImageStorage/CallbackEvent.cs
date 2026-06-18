@@ -8,32 +8,15 @@ namespace Oxide.Ext.UiFramework.Libraries;
 internal sealed class CallbackEvent<T>
 {
     private event Action<T> Event;
-    private T _invokedValue;
-    private bool _hasBeenInvoked;
 
     public void AddCallback(Action<T> callback)
     {
         Guard.IsNotNull(callback);
-
-        if (_hasBeenInvoked)
-        {
-            callback(_invokedValue);
-            return;
-        }
-
         Event += callback;
     }
 
     public void Invoke(RegisterImageRequestHandler handler, T arg)
     {
-        if (_hasBeenInvoked)
-        {
-            return;
-        }
-
-        _invokedValue = arg;
-        _hasBeenInvoked = true;
-
         try
         {
             Event?.Invoke(arg);
