@@ -23,4 +23,8 @@ internal class AnimationTrackerChannel : ISingleton
     {
         _channel.Enqueue(item);
     }
+
+#if UNIT_TESTS || BENCHMARKS
+    public void WaitUntilFinished() => _channel.WaitUntilFinished();
+#endif
 }

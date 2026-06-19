@@ -237,7 +237,7 @@ public sealed class UiChannel<T> : IUiChannel where T : IBaseUiChannelObject
         _cancellationTokenSource.Cancel();
     }
 
-#if UNIT_TESTS
+#if UNIT_TESTS || BENCHMARKS
     public void WaitUntilFinished()
     {
         while (!_queue.IsEmpty)
