@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Oxide.Ext.UiFramework.Builder;
 using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Colors;
-using Oxide.Ext.UiFramework.Layouts;
+using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.UiElements;
 using Rust.UI;
@@ -19,7 +19,7 @@ public class UiPaginator : BaseUiControl
     public UiButton NextPage;
     public UiButton LastPage;
 
-    public static UiPaginator Create(BaseUiBuilder builder, BaseUiLayout layout, int numElements, int currentPage, int maxPage, int fontSize, UiColor textColor, UiColor buttonColor, UiColor activePageColor, ICommandBuilder<int> command, UiColor? disabledColorMultiplier)
+    public static UiPaginator Create(BaseUiBuilder builder, BaseLayoutComponent layout, int numElements, int currentPage, int maxPage, int fontSize, UiColor textColor, UiColor buttonColor, UiColor activePageColor, ICommandBuilder<int> command, UiColor? disabledColorMultiplier)
     {
         UiPaginator control = CreateControl<UiPaginator>(builder);
         

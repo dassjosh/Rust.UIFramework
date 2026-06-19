@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using Oxide.Ext.UiFramework.Builder;
 using Oxide.Ext.UiFramework.Colors;
+using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Enums;
-using Oxide.Ext.UiFramework.Layouts;
 using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
@@ -23,7 +23,7 @@ public class UiScrollBar : BaseUiControl
         UiScrollBar control = CreateControl<UiScrollBar>(builder);
             
         control.Background = builder.Panel(parent, position, offset, backgroundColor).SetSprite(sprite).SetImageType(Image.Type.Sliced);
-        UiDirectionalLayout layout = builder.DirectionalLayout(parent, position, offset, maxPage + 1, direction == ScrollbarDirection.Horizontal ? LayoutDirection.Horizontal : LayoutDirection.Vertical);
+        DirectionalLayoutComponent layout = builder.DirectionalLayout(control.Background, direction == ScrollbarDirection.Horizontal ? LayoutDirection.Horizontal : LayoutDirection.Vertical);
         
         for (int i = 0; i <= maxPage; i++)
         {

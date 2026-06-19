@@ -8,7 +8,6 @@ using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Interfaces;
 using Oxide.Ext.UiFramework.Json;
-using Oxide.Ext.UiFramework.Layouts;
 using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Types;
 using Oxide.Ext.UiFramework.UiElements;
@@ -23,7 +22,6 @@ public abstract partial class BaseUiBuilder : BaseBuilder
     protected readonly List<BaseUiComponent> Components = [];
     protected readonly List<BaseUiControl> Controls = [];
     protected readonly List<BaseUiComponent> Anchors = [];
-    protected readonly List<BaseUiLayout> Layouts = [];
         
     protected string Font;
     
@@ -35,7 +33,6 @@ public abstract partial class BaseUiBuilder : BaseBuilder
     public ReadOnlySpan<BaseUiComponent> ComponentAsReadonly() => Components.GetAsReadOnlySpan();
     public ReadOnlySpan<BaseUiControl> ControlAsReadonly() => Controls.GetAsReadOnlySpan();
     public ReadOnlySpan<BaseUiComponent> AnchorAsReadonly() => Anchors.GetAsReadOnlySpan();
-    public ReadOnlySpan<BaseUiLayout> LayoutAsReadonly() => Layouts.GetAsReadOnlySpan();
         
     public void SetCurrentFont(UiFont font) => SetCurrentFont(UiFontCache.GetUiFont(font));
     public void SetCurrentFont(string font) => Font = font;
@@ -66,7 +63,6 @@ public abstract partial class BaseUiBuilder : BaseBuilder
 
     private void WriteComponentsInternal(JsonFrameworkWriter writer)
     {
-        PreprocessElements();
         WriteComponents(writer, Components);
         WriteComponents(writer, Anchors);
     }
@@ -80,20 +76,6 @@ public abstract partial class BaseUiBuilder : BaseBuilder
             array[index].WriteElement(writer);
         }
     }
-
-    private void PreprocessElements()
-    {
-        ProcessLayouts();
-    }
-
-    private void ProcessLayouts()
-    {
-        int count = Layouts.Count;
-        for (int index = 0; index < count; index++)
-        {
-            Layouts[index].CalculateElementPositions();
-        }
-    }
     
     public override void Combine(SendInfo send, JsonFrameworkWriter writer)
     {
@@ -105,7 +87,6 @@ public abstract partial class BaseUiBuilder : BaseBuilder
         Components.FreeValues();
         Controls.FreeValues();
         Anchors.FreeValues();
-        Layouts.FreeValues();
     }
     
     protected override void LeavePool()

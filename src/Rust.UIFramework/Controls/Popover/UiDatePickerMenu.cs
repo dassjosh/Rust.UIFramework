@@ -2,8 +2,8 @@
 using Oxide.Ext.UiFramework.Builder;
 using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Colors;
+using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Enums;
-using Oxide.Ext.UiFramework.Layouts;
 using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
@@ -26,7 +26,8 @@ public class UiDatePickerMenu : BaseUiControl
 
     public void CreatePickers(BaseUiBuilder builder, in UiReference parent, in UiPosition pos, in UiOffset offset, DateTime date, int fontSize, UiColor textColor, UiColor backgroundColor, ICommandBuilder<DateTime> changeCommand, DatePickerDisplayMode displayMode, DatePickerDisplayOrder order)
     {
-        UiDirectionalLayout layout = builder.DirectionalLayout(parent, pos, offset, GetPickerCount(displayMode), LayoutDirection.Vertical);
+        UiSection section = builder.Section(parent, pos, offset);
+        DirectionalLayoutComponent layout = builder.DirectionalLayout(section, LayoutDirection.Vertical);
         
         //TODO: Localization
         switch (order)
@@ -49,7 +50,7 @@ public class UiDatePickerMenu : BaseUiControl
         }
     }
 
-    public void CreateYearPicker(BaseUiBuilder builder, BaseUiLayout layout, DateTime value, int fontSize, UiColor textColor, UiColor backgroundColor, DatePickerDisplayMode mode, ICommandBuilder<DateTime> changeCommand)
+    public void CreateYearPicker(BaseUiBuilder builder, BaseLayoutComponent layout, DateTime value, int fontSize, UiColor textColor, UiColor backgroundColor, DatePickerDisplayMode mode, ICommandBuilder<DateTime> changeCommand)
     {
         if (HasDatePickerDisplayModeFlag(mode, DatePickerDisplayMode.Year))
         {
@@ -57,7 +58,7 @@ public class UiDatePickerMenu : BaseUiControl
         }
     }
         
-    public void CreateMonthPicker(BaseUiBuilder builder, BaseUiLayout layout, DateTime value, int fontSize, UiColor textColor, UiColor backgroundColor, DatePickerDisplayMode mode, ICommandBuilder<DateTime> changeCommand)
+    public void CreateMonthPicker(BaseUiBuilder builder, BaseLayoutComponent layout, DateTime value, int fontSize, UiColor textColor, UiColor backgroundColor, DatePickerDisplayMode mode, ICommandBuilder<DateTime> changeCommand)
     {
         if (HasDatePickerDisplayModeFlag(mode, DatePickerDisplayMode.Month))
         {
@@ -66,7 +67,7 @@ public class UiDatePickerMenu : BaseUiControl
         }
     }
         
-    public void CreateDayPicker(BaseUiBuilder builder, BaseUiLayout layout, DateTime value, int fontSize, UiColor textColor, UiColor backgroundColor, DatePickerDisplayMode mode, ICommandBuilder<DateTime> changeCommand)
+    public void CreateDayPicker(BaseUiBuilder builder, BaseLayoutComponent layout, DateTime value, int fontSize, UiColor textColor, UiColor backgroundColor, DatePickerDisplayMode mode, ICommandBuilder<DateTime> changeCommand)
     {
         if (HasDatePickerDisplayModeFlag(mode, DatePickerDisplayMode.Day))
         {
@@ -74,9 +75,9 @@ public class UiDatePickerMenu : BaseUiControl
         }
     }
 
-    public UiPicker CreatePicker(BaseUiBuilder builder, BaseUiLayout layout, string displayText, int fontSize, UiColor textColor, UiColor backgroundColor, ICommandBuilder<DateTime> changeCommand, DateTime increment, DateTime decrement)
+    public UiPicker CreatePicker(BaseUiBuilder builder, BaseLayoutComponent layout, string displayText, int fontSize, UiColor textColor, UiColor backgroundColor, ICommandBuilder<DateTime> changeCommand, DateTime increment, DateTime decrement)
     {
-        UiDirectionalLayout pickerLayout = builder.DirectionalLayout(layout, 3, LayoutDirection.Vertical);
+        DirectionalLayoutComponent pickerLayout = builder.DirectionalLayout(layout.Owner, LayoutDirection.Vertical);
         return UiPicker.Create(builder, pickerLayout, displayText, fontSize, textColor, backgroundColor, changeCommand.Build(increment), changeCommand.Build(decrement));
     }
     

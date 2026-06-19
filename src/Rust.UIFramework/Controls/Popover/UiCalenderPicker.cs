@@ -4,14 +4,15 @@ using System.Globalization;
 using Oxide.Ext.UiFramework.Builder;
 using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Colors;
+using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Enums;
-using Oxide.Ext.UiFramework.Layouts;
 using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.Types;
 using Oxide.Ext.UiFramework.UiElements;
 using Rust.UI;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Oxide.Ext.UiFramework.Controls.Popover;
@@ -48,7 +49,8 @@ public class UiCalenderPicker : BaseUiControl
     private void CreateCalender(BaseUiBuilder builder, in UiReference reference, in UiPosition pos, in UiOffset offset, DateTime date, int fontSize, UiColor textColor, UiColor buttonColor, UiColor selectedDateColor, ICommandBuilder<DateTime> changeCommand, string buttonSprite)
     {
         CalculateDates(date);
-        UiDirectionalLayout layout = builder.DirectionalLayout(reference, pos, offset, _numRows + 2, LayoutDirection.Vertical, padding: HeaderPadding);
+        UiSection section = builder.Section(reference, pos, offset);
+        DirectionalLayoutComponent layout = builder.DirectionalLayout(section, LayoutDirection.Vertical, padding: HeaderPadding);
         CreateHeader(builder, layout, date, fontSize, textColor, buttonColor, changeCommand, buttonSprite);
         CreateDayOfWeekHeader(builder, layout, fontSize, textColor);
         CreateCalender(builder, layout, fontSize, textColor, buttonColor, selectedDateColor, changeCommand, buttonSprite);
@@ -63,9 +65,9 @@ public class UiCalenderPicker : BaseUiControl
         _maxDays = _numRows * NumColumns;
     }
 
-    public void CreateHeader(BaseUiBuilder builder, BaseUiLayout layout, DateTime value, int fontSize, UiColor textColor, UiColor buttonColor, ICommandBuilder<DateTime> changeCommand, string buttonSprite)
+    public void CreateHeader(BaseUiBuilder builder, BaseLayoutComponent layout, DateTime value, int fontSize, UiColor textColor, UiColor buttonColor, ICommandBuilder<DateTime> changeCommand, string buttonSprite)
     {
-        UiDirectionalLayout headerLayout = builder.DirectionalLayout(layout, 7);
+        DirectionalLayoutComponent headerLayout = builder.DirectionalLayout(layout.Owner, LayoutDirection.Horizontal);
         
         PreviousYear = builder.IconButton(headerLayout, buttonColor, Icons.StepBackward, changeCommand.Build(value.AddYears(-1)), textColor);
         StyleButton(PreviousYear, buttonSprite);
@@ -74,7 +76,6 @@ public class UiCalenderPicker : BaseUiControl
         StyleButton(PreviousMonth, buttonSprite);
         
         UiLabel label = builder.Label(headerLayout, FormatCache<DateTime>.ToString(_firstOfTheMonth, "MMM yyyy"), fontSize, textColor);
-        headerLayout.AddElement(label, 3f);
         
         NextMonth = builder.IconButton(headerLayout, buttonColor, Icons.Forward, changeCommand.Build(value.AddYears(1)), textColor);
         StyleButton(NextMonth, buttonSprite);
@@ -83,18 +84,18 @@ public class UiCalenderPicker : BaseUiControl
         StyleButton(NextYear, buttonSprite);
     }
 
-    public void CreateDayOfWeekHeader(BaseUiBuilder builder, BaseUiLayout layout, int fontSize, UiColor textColor)
+    public void CreateDayOfWeekHeader(BaseUiBuilder builder, BaseLayoutComponent layout, int fontSize, UiColor textColor)
     {
-        UiDirectionalLayout weekLayout = builder.DirectionalLayout(layout, NumColumns);
+        var weekLayout = builder.DirectionalLayout(layout.Owner, LayoutDirection.Horizontal);
         for (int i = 0; i < 7; i++)
         {
             builder.Label(weekLayout, DayOfWeekNames[i], fontSize, textColor);
         }
     }
 
-    public void CreateCalender(BaseUiBuilder builder, BaseUiLayout layout, int fontSize, UiColor textColor, UiColor buttonColor, UiColor selectedDateColor, ICommandBuilder<DateTime> changeCommand, string buttonSprite)
+    public void CreateCalender(BaseUiBuilder builder, BaseLayoutComponent layout, int fontSize, UiColor textColor, UiColor buttonColor, UiColor selectedDateColor, ICommandBuilder<DateTime> changeCommand, string buttonSprite)
     {
-        UiGridLayout daysLayout = builder.GridLayout(layout, NumColumns, _numRows, padding: DayPadding);
+        GridLayoutComponent daysLayout = builder.GridLayout(layout.Owner, new Vector2(25, 25), new Vector2(5, 5));
 
         UiColor disabledText = textColor * UiColors.DisabledButtonMultiplier;
         

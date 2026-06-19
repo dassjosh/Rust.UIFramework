@@ -2,8 +2,9 @@
 using Oxide.Ext.UiFramework.Builder;
 using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Colors;
+using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Controls.Data;
-using Oxide.Ext.UiFramework.Layouts;
+using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
@@ -14,13 +15,14 @@ namespace Oxide.Ext.UiFramework.Controls;
 
 public class UiButtonGroup : BaseUiControl
 {
-    public UiDirectionalLayout Layout;
+    public DirectionalLayoutComponent Layout;
     public List<UiButton> Buttons;
         
     public static UiButtonGroup Create(BaseUiBuilder builder, in UiReference parent, in UiPosition pos, in UiOffset offset, List<ButtonGroupData> buttons, int textSize, UiColor textColor, UiColor buttonColor, UiColor activeButtonColor)
     {
         UiButtonGroup control = CreateControl<UiButtonGroup>(builder);
-        control.Layout = builder.DirectionalLayout(parent, pos, offset, buttons.Count);
+        var section = builder.Section(parent, pos, offset);
+        control.Layout = builder.DirectionalLayout(section, LayoutDirection.Horizontal);
         
         for (int i = 0; i < buttons.Count; i++)
         {

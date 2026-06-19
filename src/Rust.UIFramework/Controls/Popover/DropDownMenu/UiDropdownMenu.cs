@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using Oxide.Ext.UiFramework.Builder;
 using Oxide.Ext.UiFramework.Colors;
+using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Constants;
 using Oxide.Ext.UiFramework.Enums;
-using Oxide.Ext.UiFramework.Layouts;
 using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
@@ -26,12 +26,13 @@ public class UiDropdownMenu : BaseUiControl
         
         int itemCount = Math.Min(items.Count, maxValuesPerPage);
         int maxPage = UiHelpers.CalculateMaxPage(items.Count, maxValuesPerPage);
-            
-        UiDirectionalLayout layout = builder.DirectionalLayout(reference, position, offset, itemCount, LayoutDirection.Vertical, padding: padding ?? new UiPadding(5, 4));
+
+        var section = builder.Section(reference, position, offset);
+        DirectionalLayoutComponent layout = builder.DirectionalLayout(section, LayoutDirection.Vertical, padding: padding ?? new UiPadding(5, 4));
         
         if (scrollMode == DropdownMenuScrollMode.ScrollBar)
         {
-            control.ScrollBarSection = builder.Section(layout.Section, UiPosition.Right, new UiOffset(-10, 5, -3, -5));
+            control.ScrollBarSection = builder.Section(layout.Owner, UiPosition.Right, new UiOffset(-10, 5, -3, -5));
             control.ScrollBar = builder.ScrollBar(control.ScrollBarSection, UiPosition.Full, default, page, maxPage, UiColors.ButtonPrimary, UiColors.PanelSecondary, pageCommand);
             control.ScrollBar.SetSpriteMaterialImage(UiSprites.Content.Ui.UiRounded, null, Image.Type.Sliced);
         }

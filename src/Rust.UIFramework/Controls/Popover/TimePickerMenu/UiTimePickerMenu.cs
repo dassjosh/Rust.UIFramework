@@ -2,8 +2,8 @@
 using Oxide.Ext.UiFramework.Builder;
 using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Colors;
+using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Enums;
-using Oxide.Ext.UiFramework.Layouts;
 using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Positions;
@@ -28,7 +28,8 @@ public class UiTimePickerMenu : BaseUiControl
     public void CreateUi(BaseUiBuilder builder, in UiReference reference, in UiPosition pos, in UiOffset offset, TimePickerData time, int fontSize, UiColor textColor, UiColor backgroundColor, ICommandBuilder<TimePickerData> changeCommand, TimePickerDisplayModes displayMode = TimePickerDisplayModes.All, ClockMode clockMode = ClockMode.Hour12)
     {
         int numPickers = GetPickerCount(displayMode, clockMode);
-        UiDirectionalLayout mainLayout = builder.DirectionalLayout(reference, pos, offset, numPickers);
+        var section = builder.Section(reference, pos, offset);
+        DirectionalLayoutComponent mainLayout = builder.DirectionalLayout(section, LayoutDirection.Horizontal);
             
         if (displayMode.HasFlag(TimePickerDisplayModes.Hours))
         {
@@ -77,7 +78,7 @@ public class UiTimePickerMenu : BaseUiControl
         return numPickers;
     }
 
-    private static UiPicker CreateTimePickerTimeSegment(BaseUiBuilder builder, BaseUiLayout layout, TimePickerData time, int fontSize, UiColor textColor, UiColor backgroundColor, TimePickerSegment segment, ClockMode clockMode, ICommandBuilder<TimePickerData> changeCommand)
+    private static UiPicker CreateTimePickerTimeSegment(BaseUiBuilder builder, BaseLayoutComponent layout, TimePickerData time, int fontSize, UiColor textColor, UiColor backgroundColor, TimePickerSegment segment, ClockMode clockMode, ICommandBuilder<TimePickerData> changeCommand)
     {
         int value = segment switch
         {
@@ -87,7 +88,7 @@ public class UiTimePickerMenu : BaseUiControl
             _ => throw new ArgumentOutOfRangeException(nameof(segment), segment, null)
         };
 
-        UiDirectionalLayout pickerLayout = builder.DirectionalLayout(layout, 3, LayoutDirection.Vertical);
+        DirectionalLayoutComponent pickerLayout = builder.DirectionalLayout(layout.Owner, LayoutDirection.Vertical);
         string displayedValue = segment == TimePickerSegment.Hour ? StringCache<int>.ToString(value) : FormatCache<int>.ToString(value, "00");
         return UiPicker.Create(builder, pickerLayout, displayedValue, fontSize, textColor, backgroundColor, changeCommand.Build(time.Add(segment)), changeCommand.Build(time.Subtract(segment)));
     }
@@ -104,7 +105,7 @@ public class UiTimePickerMenu : BaseUiControl
         return value;
     }
 
-    public static UiPicker CreateTimePickerAmPmSegment(BaseUiBuilder builder, BaseUiLayout layout, TimePickerData time, int fontSize, UiColor textColor, UiColor backgroundColor, ICommandBuilder<TimePickerData> changeCommand)
+    public static UiPicker CreateTimePickerAmPmSegment(BaseUiBuilder builder, BaseLayoutComponent layout, TimePickerData time, int fontSize, UiColor textColor, UiColor backgroundColor, ICommandBuilder<TimePickerData> changeCommand)
     {
         byte value = time.Hour;
         TimePickerData newTime = value >= 12 ? time with { Hour = (byte)(value - 12) } : time with { Hour = (byte)(value + 12) };
