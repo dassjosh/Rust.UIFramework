@@ -7,10 +7,10 @@ internal class BasePlayerHandler : IArgHandler<BasePlayer>, ISingleton
 {
     private BasePlayerHandler() { }
     
-    public BasePlayer Read(ReadOnlySpan<char> arg)
+    public BasePlayer Read(in UiStringView view)
     {
-        if(arg is UiCommands.NullArg) return default;
-        ulong playerId = ulong.Parse(arg);
+        if(view.AsSpan() is UiCommands.NullArg) return default;
+        ulong playerId = ulong.Parse(view);
         BasePlayer player = BasePlayer.FindAwakeOrSleepingByID(playerId);
         return player ? player : BasePlayer.FindBot(playerId);
     }

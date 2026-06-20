@@ -11,23 +11,26 @@ internal class UnityArgHandler : IArgHandler<Vector2>, IArgHandler<Vector3>, IAr
     
     private UnityArgHandler() { }
     
-    Vector2 IArgReader<Vector2>.Read(ReadOnlySpan<char> arg)
+    Vector2 IArgReader<Vector2>.Read(in UiStringView view)
     {
+        ReadOnlySpan<char> arg = view.AsSpan();
         float x = arg.ParseNextFloat(Separator, out arg);
         float y = arg.ParseNextFloat(Separator, out arg);
         return new Vector2(x, y);
     }
     
-    Vector3 IArgReader<Vector3>.Read(ReadOnlySpan<char> arg)
+    Vector3 IArgReader<Vector3>.Read(in UiStringView view)
     {
+        ReadOnlySpan<char> arg = view.AsSpan();
         float x = arg.ParseNextFloat(Separator, out arg);
         float y = arg.ParseNextFloat(Separator, out arg);
         float z = arg.ParseNextFloat(Separator, out arg);
         return new Vector3(x, y, z);
     }
     
-    Vector4 IArgReader<Vector4>.Read(ReadOnlySpan<char> arg)
+    Vector4 IArgReader<Vector4>.Read(in UiStringView view)
     {
+        ReadOnlySpan<char> arg = view.AsSpan();
         float w = arg.ParseNextFloat(Separator, out arg);
         float x = arg.ParseNextFloat(Separator, out arg);
         float y = arg.ParseNextFloat(Separator, out arg);
@@ -35,8 +38,9 @@ internal class UnityArgHandler : IArgHandler<Vector2>, IArgHandler<Vector3>, IAr
         return new Vector4(x, y, z, w);
     }
     
-    Quaternion IArgReader<Quaternion>.Read(ReadOnlySpan<char> arg)
+    Quaternion IArgReader<Quaternion>.Read(in UiStringView view)
     {
+        ReadOnlySpan<char> arg = view.AsSpan();
         float w = arg.ParseNextFloat(Separator, out arg);
         float x = arg.ParseNextFloat(Separator, out arg);
         float y = arg.ParseNextFloat(Separator, out arg);
@@ -44,10 +48,10 @@ internal class UnityArgHandler : IArgHandler<Vector2>, IArgHandler<Vector3>, IAr
         return new Quaternion(x, y, z, w);
     }
 
-    Vector2? IArgReader<Vector2?>.Read(ReadOnlySpan<char> arg) => arg is UiCommands.NullArg ? null : ((IArgReader<Vector2>)this).Read(arg);
-    Vector3? IArgReader<Vector3?>.Read(ReadOnlySpan<char> arg) => arg is UiCommands.NullArg ? null : ((IArgReader<Vector3>)this).Read(arg);
-    Vector4? IArgReader<Vector4?>.Read(ReadOnlySpan<char> arg) => arg is UiCommands.NullArg ? null : ((IArgReader<Vector4>)this).Read(arg);
-    Quaternion? IArgReader<Quaternion?>.Read(ReadOnlySpan<char> arg) => arg is UiCommands.NullArg ? null : ((IArgReader<Quaternion>)this).Read(arg);
+    Vector2? IArgReader<Vector2?>.Read(in UiStringView view) => view.AsSpan() is UiCommands.NullArg ? null : ((IArgReader<Vector2>)this).Read(view);
+    Vector3? IArgReader<Vector3?>.Read(in UiStringView view) => view.AsSpan() is UiCommands.NullArg ? null : ((IArgReader<Vector3>)this).Read(view);
+    Vector4? IArgReader<Vector4?>.Read(in UiStringView view) => view.AsSpan() is UiCommands.NullArg ? null : ((IArgReader<Vector4>)this).Read(view);
+    Quaternion? IArgReader<Quaternion?>.Read(in UiStringView view) => view.AsSpan() is UiCommands.NullArg ? null : ((IArgReader<Quaternion>)this).Read(view);
     
     public void Write(UiArgWriter writer, Vector2 arg)
     {

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Facepunch;
 using Oxide.Ext.UiFramework.Exceptions;
 using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Guards;
@@ -100,8 +101,8 @@ public partial class UiCommands : BaseUiFrameworkLibrary, ISingleton
     internal void OnCommandReceived(BasePlayer player, UiCommandTokenizer tokenizer)
     {
         tokenizer.GetNext(); // Skip UiCommandName
-        ReadOnlySpan<char> span = tokenizer.GetNext();
-        if (!uint.TryParse(span, out uint id))
+        UiStringView span = tokenizer.GetNext();
+        if (!uint.TryParse(span.AsSpan(), out uint id))
         {
             _logger.Debug($"{nameof(OnCommandReceived)} Invalid command id: {{0}}", span.ToString());
             return;

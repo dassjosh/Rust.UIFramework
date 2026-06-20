@@ -1,4 +1,6 @@
 ﻿using System;
+using Facepunch;
+using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Libraries;
 
@@ -12,7 +14,7 @@ public interface IArgReader
 
 public interface IArgReader<out T> : IArgReader
 {
-    T Read(ReadOnlySpan<char> arg);
+    T Read(in UiStringView view);
 }
 
 public interface IArgWriter;

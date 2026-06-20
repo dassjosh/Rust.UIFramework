@@ -10,7 +10,7 @@ internal class CommandParser(ICommandParserData command) : BaseCommandParser(com
         RunCommandAsync(data).Forget();
     }
 
-    private async UniTask RunCommandAsync(ExecutionData data)
+    private async UniTaskVoid RunCommandAsync(ExecutionData data)
     {
         try
         {

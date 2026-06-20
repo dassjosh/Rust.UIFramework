@@ -1,4 +1,5 @@
 ﻿using System;
+using Oxide.Ext.UiFramework.Extensions;
 
 namespace Oxide.Ext.UiFramework.Libraries;
 
@@ -15,7 +16,7 @@ internal class SimpleProtection(RegisteredCommand command) : BaseCommandProtecti
 
     public override bool TryValidateProtection(BasePlayer player, ref UiCommandTokenizer tokenizer)
     {
-        if (!tokenizer.GetNext().SequenceEqual(_protectionKey))
+        if (!tokenizer.GetNext().AsSpan().SequenceEqual(_protectionKey))
         {
             tokenizer = default;
             HandleCallback(player);

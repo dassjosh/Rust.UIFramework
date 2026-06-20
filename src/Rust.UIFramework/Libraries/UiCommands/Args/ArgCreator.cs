@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Facepunch;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Exceptions;
 using Oxide.Ext.UiFramework.Extensions;
@@ -55,64 +56,82 @@ internal static class ArgCreator
     
     private static IArgHandler CreateArgHandler<T>(Type type)
     {
-        if (type == typeof(char)) return new ArgHandler<char>(span => span[0], (writer, arg) => writer.Append(arg));
-        if (type == typeof(char?)) return new ArgHandler<char?>(span => span is UiCommands.NullArg ? null : span[0], (writer, arg) => writer.Append(arg));
-        if (type == typeof(string)) return new ArgHandler<string>(span => span.ToString(), (writer, arg) =>
-        {
-            writer.AppendStartQuote();
-            writer.Append(arg);
-            writer.AppendEndQuote();
-        });
-        if (type == typeof(byte)) return new ArgHandler<byte>(span => byte.Parse(span), (writer, arg) => writer.Append(arg));
-        if (type == typeof(byte?)) return new ArgHandler<byte?>(span => span is UiCommands.NullArg ? null : byte.Parse(span), (writer, arg) => writer.Append(arg));
-        if (type == typeof(sbyte)) return new ArgHandler<sbyte>(span => sbyte.Parse(span), (writer, arg) => writer.Append(arg));
-        if (type == typeof(sbyte?)) return new ArgHandler<sbyte?>(span => span is UiCommands.NullArg ? null : sbyte.Parse(span), (writer, arg) => writer.Append(arg));
-        if (type == typeof(short)) return new ArgHandler<short>(span => short.Parse(span), (writer, arg) => writer.Append(arg));
-        if (type == typeof(short?)) return new ArgHandler<short?>(span => span is UiCommands.NullArg ? null : short.Parse(span), (writer, arg) => writer.Append(arg));
-        if (type == typeof(ushort)) return new ArgHandler<ushort>(span => ushort.Parse(span), (writer, arg) => writer.Append(arg));
-        if (type == typeof(ushort?)) return new ArgHandler<ushort?>(span => span is UiCommands.NullArg ? null : ushort.Parse(span), (writer, arg) => writer.Append(arg));
-        if (type == typeof(int)) return new ArgHandler<int>(span => int.Parse(span), (writer, arg) => writer.Append(arg));
-        if (type == typeof(int?)) return new ArgHandler<int?>(span => span is UiCommands.NullArg ? null : int.Parse(span), (writer, arg) => writer.Append(arg));
-        if (type == typeof(uint)) return new ArgHandler<uint>(span => uint.Parse(span), (writer, arg) => writer.Append(arg));
-        if (type == typeof(uint?)) return new ArgHandler<uint?>(span => span is UiCommands.NullArg ? null : uint.Parse(span), (writer, arg) => writer.Append(arg));
-        if (type == typeof(long)) return new ArgHandler<long>(span => long.Parse(span), (writer, arg) => writer.Append(arg));
-        if (type == typeof(long?)) return new ArgHandler<long?>(span => span is UiCommands.NullArg ? null : long.Parse(span), (writer, arg) => writer.Append(arg));
-        if (type == typeof(ulong)) return new ArgHandler<ulong>(span => ulong.Parse(span), (writer, arg) => writer.Append(arg));
-        if (type == typeof(ulong?)) return new ArgHandler<ulong?>(span => span is UiCommands.NullArg ? null : ulong.Parse(span), (writer, arg) => writer.Append(arg));
-        if (type == typeof(float)) return new ArgHandler<float>(span => float.Parse(span), (writer, arg) => writer.Append(arg));
-        if (type == typeof(float?)) return new ArgHandler<float?>(span => span is UiCommands.NullArg ? null : float.Parse(span), (writer, arg) => writer.Append(arg));
-        if (type == typeof(double)) return new ArgHandler<double>(span => double.Parse(span), (writer, arg) => writer.Append(arg));
-        if (type == typeof(double?)) return new ArgHandler<double?>(span => span is UiCommands.NullArg ? null : double.Parse(span), (writer, arg) => writer.Append(arg));
-        if (type == typeof(decimal)) return new ArgHandler<decimal>(span => decimal.Parse(span), (writer, arg) => writer.Append(arg));
-        if (type == typeof(decimal?)) return new ArgHandler<decimal?>(span => span is UiCommands.NullArg ? null : decimal.Parse(span), (writer, arg) => writer.Append(arg));
-        if (type == typeof(bool)) return new ArgHandler<bool>(span => span is "1", (writer, arg) => writer.Append(arg));
-        if (type == typeof(bool?)) return new ArgHandler<bool?>(span => span is UiCommands.NullArg ? null : bool.Parse(span), (writer, arg) => writer.Append(arg));
-        if (type == typeof(DateTime)) return new ArgHandler<DateTime>(span => DateTime.Parse(span), (writer, arg) => writer.Append(arg));
-        if (type == typeof(DateTime?)) return new ArgHandler<DateTime?>(span => span is UiCommands.NullArg ? null : DateTime.Parse(span), (writer, arg) => writer.Append(arg));
-        if (type == typeof(DateTimeOffset)) return new ArgHandler<DateTimeOffset>(span => DateTimeOffset.Parse(span), (writer, arg) => writer.Append(arg));
-        if (type == typeof(DateTimeOffset?)) return new ArgHandler<DateTimeOffset?>(span => span is UiCommands.NullArg ? null : DateTimeOffset.Parse(span), (writer, arg) => writer.Append(arg));
-        if (type == typeof(TimeSpan)) return new ArgHandler<TimeSpan>(span => TimeSpan.Parse(span), (writer, arg) => writer.Append(arg));
-        if (type == typeof(TimeSpan?)) return new ArgHandler<TimeSpan?>(span => span is UiCommands.NullArg ? null : TimeSpan.Parse(span), (writer, arg) => writer.Append(arg));
-        if (type == typeof(NetworkableId)) return new ArgHandler<NetworkableId>(span => new NetworkableId(ulong.Parse(span)), (writer, arg) => writer.Append(arg));
-        if (type == typeof(NetworkableId?)) return new ArgHandler<NetworkableId?>(span => span is UiCommands.NullArg ? null : new NetworkableId(ulong.Parse(span)), (writer, arg) => writer.Append(arg));
+        if (type == typeof(char)) return new ArgHandler<char>((in span) => span[0], (writer, arg) => writer.Append(arg));
+        if (type == typeof(char?)) return new ArgHandler<char?>((in span) => span.AsSpan() is UiCommands.NullArg ? null : span[0], (writer, arg) => writer.Append(arg));
+        if (type == typeof(byte)) return new ArgHandler<byte>((in span) => byte.Parse(span), (writer, arg) => writer.Append(arg));
+        if (type == typeof(byte?)) return new ArgHandler<byte?>((in span) => span.AsSpan() is UiCommands.NullArg ? null : byte.Parse(span), (writer, arg) => writer.Append(arg));
+        if (type == typeof(sbyte)) return new ArgHandler<sbyte>((in span) => sbyte.Parse(span), (writer, arg) => writer.Append(arg));
+        if (type == typeof(sbyte?)) return new ArgHandler<sbyte?>((in span) => span.AsSpan() is UiCommands.NullArg ? null : sbyte.Parse(span), (writer, arg) => writer.Append(arg));
+        if (type == typeof(short)) return new ArgHandler<short>((in span) => short.Parse(span), (writer, arg) => writer.Append(arg));
+        if (type == typeof(short?)) return new ArgHandler<short?>((in span) => span.AsSpan() is UiCommands.NullArg ? null : short.Parse(span), (writer, arg) => writer.Append(arg));
+        if (type == typeof(ushort)) return new ArgHandler<ushort>((in span) => ushort.Parse(span), (writer, arg) => writer.Append(arg));
+        if (type == typeof(ushort?)) return new ArgHandler<ushort?>((in span) => span.AsSpan() is UiCommands.NullArg ? null : ushort.Parse(span), (writer, arg) => writer.Append(arg));
+        if (type == typeof(int)) return new ArgHandler<int>((in span) => int.Parse(span), (writer, arg) => writer.Append(arg));
+        if (type == typeof(int?)) return new ArgHandler<int?>((in span) => span.AsSpan() is UiCommands.NullArg ? null : int.Parse(span), (writer, arg) => writer.Append(arg));
+        if (type == typeof(uint)) return new ArgHandler<uint>((in span) => uint.Parse(span), (writer, arg) => writer.Append(arg));
+        if (type == typeof(uint?)) return new ArgHandler<uint?>((in span) => span.AsSpan() is UiCommands.NullArg ? null : uint.Parse(span), (writer, arg) => writer.Append(arg));
+        if (type == typeof(long)) return new ArgHandler<long>((in span) => long.Parse(span), (writer, arg) => writer.Append(arg));
+        if (type == typeof(long?)) return new ArgHandler<long?>((in span) => span.AsSpan() is UiCommands.NullArg ? null : long.Parse(span), (writer, arg) => writer.Append(arg));
+        if (type == typeof(ulong)) return new ArgHandler<ulong>((in span) => ulong.Parse(span), (writer, arg) => writer.Append(arg));
+        if (type == typeof(ulong?)) return new ArgHandler<ulong?>((in span) => span.AsSpan() is UiCommands.NullArg ? null : ulong.Parse(span), (writer, arg) => writer.Append(arg));
+        if (type == typeof(float)) return new ArgHandler<float>((in span) => float.Parse(span), (writer, arg) => writer.Append(arg));
+        if (type == typeof(float?)) return new ArgHandler<float?>((in span) => span.AsSpan() is UiCommands.NullArg ? null : float.Parse(span), (writer, arg) => writer.Append(arg));
+        if (type == typeof(double)) return new ArgHandler<double>((in span) => double.Parse(span), (writer, arg) => writer.Append(arg));
+        if (type == typeof(double?)) return new ArgHandler<double?>((in span) => span.AsSpan() is UiCommands.NullArg ? null : double.Parse(span), (writer, arg) => writer.Append(arg));
+        if (type == typeof(decimal)) return new ArgHandler<decimal>((in span) => decimal.Parse(span), (writer, arg) => writer.Append(arg));
+        if (type == typeof(decimal?)) return new ArgHandler<decimal?>((in span) => span.AsSpan() is UiCommands.NullArg ? null : decimal.Parse(span), (writer, arg) => writer.Append(arg));
+        if (type == typeof(bool)) return new ArgHandler<bool>((in span) => span.AsSpan() is "1", (writer, arg) => writer.Append(arg));
+        if (type == typeof(bool?)) return new ArgHandler<bool?>((in span) => span.AsSpan() is UiCommands.NullArg ? null : bool.Parse(span), (writer, arg) => writer.Append(arg));
+        if (type == typeof(DateTime)) return new ArgHandler<DateTime>((in span) => DateTime.Parse(span), (writer, arg) => writer.Append(arg));
+        if (type == typeof(DateTime?)) return new ArgHandler<DateTime?>((in span) => span.AsSpan() is UiCommands.NullArg ? null : DateTime.Parse(span), (writer, arg) => writer.Append(arg));
+        if (type == typeof(DateTimeOffset)) return new ArgHandler<DateTimeOffset>((in span) => DateTimeOffset.Parse(span), (writer, arg) => writer.Append(arg));
+        if (type == typeof(DateTimeOffset?)) return new ArgHandler<DateTimeOffset?>((in span) => span.AsSpan() is UiCommands.NullArg ? null : DateTimeOffset.Parse(span), (writer, arg) => writer.Append(arg));
+        if (type == typeof(TimeSpan)) return new ArgHandler<TimeSpan>((in span) => TimeSpan.Parse(span), (writer, arg) => writer.Append(arg));
+        if (type == typeof(TimeSpan?)) return new ArgHandler<TimeSpan?>((in span) => span.AsSpan() is UiCommands.NullArg ? null : TimeSpan.Parse(span), (writer, arg) => writer.Append(arg));
+        if (type == typeof(NetworkableId)) return new ArgHandler<NetworkableId>((in span) => new NetworkableId(ulong.Parse(span)), (writer, arg) => writer.Append(arg));
+        if (type == typeof(NetworkableId?)) return new ArgHandler<NetworkableId?>((in span) => span.AsSpan() is UiCommands.NullArg ? null : new NetworkableId(ulong.Parse(span)), (writer, arg) => writer.Append(arg));
         if (type == typeof(UiReference) || type == typeof(UiReference?)) return Singleton<UiReferenceHandler>.Instance;
         if (type == typeof(Vector2) || type == typeof(Vector2?) || type == typeof(Vector3) || type == typeof(Vector3?) || type == typeof(Vector4) || type == typeof(Vector4?)) return Singleton<UnityArgHandler>.Instance;
-        if (type == typeof(UiColor)) return new ArgHandler<UiColor>(UiColor.ParseHexColor, (writer, arg) => writer.Append(arg));
-        if (type == typeof(UiColor?)) return new ArgHandler<UiColor?>(span => span is UiCommands.NullArg ? null : UiColor.ParseHexColor(span), (writer, arg) => writer.Append(arg));
+        if (type == typeof(UiColor)) return new ArgHandler<UiColor>((in arg) => UiColor.ParseHexColor(arg), (writer, arg) => writer.Append(arg));
+        if (type == typeof(UiColor?)) return new ArgHandler<UiColor?>((in span) => span.AsSpan() is UiCommands.NullArg ? null : UiColor.ParseHexColor(span), (writer, arg) => writer.Append(arg));
         if (type == typeof(InputArg)) return new InputArgHandler();
         if (type == typeof(UiRotation) || type == typeof(UiRotation?) || type == typeof(UiPadding) || type == typeof(UiPadding?) 
             || type == typeof(UiScale) || type == typeof(UiScale?) || type == typeof(UiBorderWidth) || type == typeof(UiBorderWidth?)) return Singleton<UiFrameworkHandler>.Instance;
         if (type == typeof(BasePlayer)) return Singleton<BasePlayerHandler>.Instance;
         if (typeof(BaseNetworkable).IsAssignableFrom(type)) return new BaseNetworkableHandler<T>();
         if (type.IsEnum) return new EnumHandler<T>();
+        if (type == typeof(string)) return new ArgHandler<string>((in span) => span.ToString(), (writer, arg) =>
+        {
+            writer.AppendStartQuote();
+            writer.Append(arg);
+            writer.AppendEndQuote();
+        });
+        if (type == typeof(UiStringView)) return new ArgHandler<UiStringView>((in span) => span, (writer, arg) =>
+        {
+            writer.AppendStartQuote();
+            writer.Append(arg.AsSpan());
+            writer.AppendEndQuote();
+        });
+        if (type == typeof(StringView)) return new ArgHandler<StringView>((in span) => span, (writer, arg) =>
+        {
+            writer.AppendStartQuote();
+            writer.Append((ReadOnlySpan<char>)arg);
+            writer.AppendEndQuote();
+        });
+        if (type == typeof(ReadOnlyMemory<char>)) return new ArgHandler<ReadOnlyMemory<char>>((in span) => span, (writer, arg) =>
+        {
+            writer.AppendStartQuote();
+            writer.Append(arg);
+            writer.AppendEndQuote();
+        });
         
         return null;
     }
 
     private static IArgHandler CreatePluginArgHandler<T>(PluginId pluginId, Type type)
     {
-        if(typeof(INamedStore).IsAssignableFrom(type)) return new ArgHandler<T>(span => (T)Singleton<UiNameStore>.Instance.GetOrCreateStore(pluginId, span.ToString()) , (writer, arg) => writer.Append(((INamedStore)arg).Name));
-        if(typeof(IPlayerStore).IsAssignableFrom(type)) return new ArgHandler<T>(span => (T)Singleton<UiPlayerStore>.Instance.GetOrCreateStore(pluginId, ulong.Parse(span)) , (writer, arg) => writer.Append(((IPlayerStore)arg).PlayerId));
+        if(typeof(INamedStore).IsAssignableFrom(type)) return new ArgHandler<T>((in span) => (T)Singleton<UiNameStore>.Instance.GetOrCreateStore(pluginId, span.ToString()) , (writer, arg) => writer.Append(((INamedStore)arg).Name));
+        if(typeof(IPlayerStore).IsAssignableFrom(type)) return new ArgHandler<T>((in span) => (T)Singleton<UiPlayerStore>.Instance.GetOrCreateStore(pluginId, ulong.Parse(span)) , (writer, arg) => writer.Append(((IPlayerStore)arg).PlayerId));
         return null;
     }
     

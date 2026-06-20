@@ -15,7 +15,7 @@ internal class AdvancedProtection(RegisteredCommand command, float protectionKey
 
     public override bool TryValidateProtection(BasePlayer player, ref UiCommandTokenizer tokenizer)
     {
-        int value = tokenizer.GetNext().ToIntFromBase64();
+        int value = tokenizer.GetNext().AsSpan().ToIntFromBase64();
         if (!_protectionCache.ContainsKey(value))
         {
             tokenizer = default;

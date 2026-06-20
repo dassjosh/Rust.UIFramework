@@ -18,7 +18,7 @@ internal class ExtremeProtection(RegisteredCommand command, float protectionKeyL
 
     public override bool TryValidateProtection(BasePlayer player, ref UiCommandTokenizer tokenizer)
     {
-        long protectionKey = tokenizer.GetNext().ToLongFromBase64();
+        long protectionKey = tokenizer.GetNext().AsSpan().ToLongFromBase64();
         if (!_protectedArgs.TryGetValue(protectionKey, out string args))
         {
             tokenizer = default;
