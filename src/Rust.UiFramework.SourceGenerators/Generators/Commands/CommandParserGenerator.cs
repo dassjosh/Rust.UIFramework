@@ -25,35 +25,53 @@ public class CommandParserGenerator : BaseGenerator, IIncrementalGenerator
     private string GenerateParser(INamedTypeSymbol classSymbol)
     {
         return new CodeBuilder()
-            .Usings(["Oxide.Ext.UiFramework.Extensions", "Cysharp.Threading.Tasks"])
+            .Usings([])
             .Namespace(classSymbol.ContainingNamespace)
             .Add(Enumerable.Range(1, UiCommands.MaxArgs), (args, t) =>
             {
-                t.Internal().Class().Name(classSymbol.Name)
+                t.Internal().Class().Name($"{classSymbol.Name}")
                     .AddGenerics(g => g.Generics(Enumerable.Range(0, args)), out GenericsBuilder generics)
                     .AddParameter(p => p.Type(SymbolCache.Instance.Libraries.UiCommands.ICommandParserData.Symbol).Name("data"))
                     .Extends(SymbolCache.Instance.Libraries.UiCommands.BaseCommandParser.Symbol).AddExtendParameter("data")
-                    
+
+                    .Field(f => f.Private().Readonly().Type(GetDelegateType(generics, SymbolCache.Instance.Action.Symbol, null)).Name("_command").Equals($"({GetDelegateType(generics, SymbolCache.Instance.Action.Symbol, null)})data.Delegate"))
+
                     //Run Command Method
                     .Method(m => m.Protected().Override().Void().Name("RunCommandInternal")
                         .AddParameter(p => p.Type(SymbolCache.Instance.Libraries.UiCommands.ExecutionData.Symbol).Name("data"))
                         .AddParameter(p => p.Type(SymbolCache.Instance.Libraries.UiCommands.UiCommandTokenizer.Symbol).Name("args"))
-                        .Body(GenerateRunCommandInternalBody(args)))
-                
-                    .Method(m => m.Private().Void().Name("RunCommandSync")
+                        .Body(GenerateRunCommandInternalBody(args, false)))
+
+                    .Method(m => m.Private().Void().Name("RunCommand")
                         .AddParameter(p => p.Type(SymbolCache.Instance.Libraries.UiCommands.ExecutionData.Symbol).Name("data"))
                         .AddParameters(generics, (generic, p, index) => p.Type(generic).Name($"arg{index}"))
-                        .Body(GenerateRunCommandBody(generics, args, SymbolCache.Instance.Action.Symbol, null)))
-                    
-                    .Method(m => m.Private().Async().Returns(SymbolCache.Instance.UniTask.UniTaskVoid.Symbol).Name("RunCommandAsync")
-                    .AddParameter(p => p.Type(SymbolCache.Instance.Libraries.UiCommands.ExecutionData.Symbol).Name("data"))
-                    .AddParameters(generics, (generic, p, index) => p.Type(generic).Name($"arg{index}"))
-                    .Body(GenerateRunCommandBody(generics, args, SymbolCache.Instance.Func.Symbol, SymbolCache.Instance.UniTask.UniTask.Symbol)));
+                        .Body(GenerateRunCommandBody(args, null)));
 
-            }).Build();
+            })
+            .Add(Enumerable.Range(1, UiCommands.MaxArgs), (args, t) =>
+            {
+                t.Internal().Class().Name($"{classSymbol.Name}Async")
+                    .AddGenerics(g => g.Generics(Enumerable.Range(0, args)), out GenericsBuilder asyncGenerics)
+                    .AddParameter(p => p.Type(SymbolCache.Instance.Libraries.UiCommands.ICommandParserData.Symbol).Name("data"))
+                    .Extends(SymbolCache.Instance.Libraries.UiCommands.BaseCommandParser.Symbol).AddExtendParameter("data")
+
+                    .Field(f => f.Private().Readonly().Type(GetDelegateType(asyncGenerics, SymbolCache.Instance.Func.Symbol, SymbolCache.Instance.UniTask.UniTask.Symbol)).Name("_command").Equals($"({GetDelegateType(asyncGenerics, SymbolCache.Instance.Func.Symbol, SymbolCache.Instance.UniTask.UniTask.Symbol)})data.Delegate"))
+
+                    //Run Command Method
+                    .Method(m => m.Protected().Override().Void().Name("RunCommandInternal")
+                        .AddParameter(p => p.Type(SymbolCache.Instance.Libraries.UiCommands.ExecutionData.Symbol).Name("data"))
+                        .AddParameter(p => p.Type(SymbolCache.Instance.Libraries.UiCommands.UiCommandTokenizer.Symbol).Name("args"))
+                        .Body(GenerateRunCommandInternalBody(args, true)))
+
+                    .Method(m => m.Private().Async().Returns(SymbolCache.Instance.UniTask.UniTaskVoid.Symbol).Name("RunCommand")
+                        .AddParameter(p => p.Type(SymbolCache.Instance.Libraries.UiCommands.ExecutionData.Symbol).Name("data"))
+                        .AddParameters(asyncGenerics, (generic, p, index) => p.Type(generic).Name($"arg{index}"))
+                        .Body(GenerateRunCommandBody(args, SymbolCache.Instance.UniTask.UniTask.Symbol)));
+            })
+            .Build();
     }
 
-    private string GenerateRunCommandInternalBody(int args)
+    private string GenerateRunCommandInternalBody(int args, bool isAsync)
     {
         string parameterString = GetArgString(args);
         
@@ -64,20 +82,19 @@ public class CommandParserGenerator : BaseGenerator, IIncrementalGenerator
             sb.AppendLine($"T{i} arg{i} = iterator.ParseNext<T{i}>(ref args);");
         }
 
-        sb.AppendLine("switch (Command.Mode)");
-        sb.AppendLine("{");
-        sb.AppendLine("\tcase ExecutorMode.Void:");
-        sb.AppendLine($"\t\tRunCommandSync(data, {parameterString});");
-        sb.AppendLine("\t\tbreak;");
-        sb.AppendLine("\tcase ExecutorMode.UniTask:");
-        sb.AppendLine($"\t\tRunCommandAsync(data, {parameterString}).Forget();");
-        sb.AppendLine("\t\tbreak;");
-        sb.AppendLine("}");
-        
+        if (isAsync)
+        {
+            sb.AppendLine($"RunCommand(data, {parameterString}).Forget();");
+        }
+        else
+        {
+            sb.AppendLine($"RunCommand(data, {parameterString});");
+        }
+
         return sb.ToString();
     }
     
-    private string GenerateRunCommandBody(GenericsBuilder generics, int args, INamedTypeSymbol delegateType, INamedTypeSymbol returnType)
+    private string GenerateRunCommandBody(int args, INamedTypeSymbol returnType)
     {
         string parameterString = GetArgString(args);
         
@@ -85,7 +102,7 @@ public class CommandParserGenerator : BaseGenerator, IIncrementalGenerator
 
         sb.AppendLine("try");
         sb.AppendLine("{");
-        sb.AppendLine($"\t{(returnType is not null ? "await " : null)}(({delegateType.AsGeneric([SymbolCache.Instance.Libraries.UiCommands.ExecutionData.Symbol.ToString(), ..generics, returnType?.ToString()])})Command.Delegate)(data, {parameterString});");
+        sb.AppendLine($"\t{(returnType is not null ? "await " : null)}_command(data, {parameterString});");
         sb.AppendLine("}");
         sb.AppendLine($"catch ({SymbolCache.Instance.Exception.Symbol} ex)");
         sb.AppendLine("{");
@@ -97,6 +114,11 @@ public class CommandParserGenerator : BaseGenerator, IIncrementalGenerator
         sb.AppendLine("}");
         
         return sb.ToString();
+    }
+
+    private string GetDelegateType(GenericsBuilder generics, INamedTypeSymbol delegateType, INamedTypeSymbol returnType)
+    {
+        return $"{delegateType.AsGeneric([SymbolCache.Instance.Libraries.UiCommands.ExecutionData.Symbol.ToString(), ..generics, returnType?.ToString()])}";
     }
     
     private static string GetArgString(int args)

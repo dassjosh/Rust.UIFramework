@@ -4,6 +4,7 @@ using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Positions;
+using Oxide.Ext.UiFramework.Types;
 using Oxide.Ext.UiFramework.UiElements;
 using Oxide.Plugins;
 
@@ -75,9 +76,9 @@ public class UiCommandExample : RustPlugin, IUiFrameworkPlugin
     {
         private readonly Hash<ulong, MyCustomArg> _classes = new();
         
-        public MyCustomArg Read(ReadOnlySpan<char> arg)
+        public MyCustomArg Read(in UiStringView view)
         {
-            ulong id = ulong.Parse(arg);
+            ulong id = ulong.Parse(view);
             if (!_classes.TryGetValue(id, out MyCustomArg custom))
             {
                 _classes[id] = custom = new MyCustomArg(id);
