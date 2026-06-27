@@ -56,11 +56,12 @@ public abstract class BaseBuilder : BasePoolable
     }
 
     public void AddUi(IEnumerable<Connection> connections, in UiDebugOptions? options = default) => AddUi(SendInfoBuilder.Get(connections), options);
-
+    public void AddUi(IEnumerable<BasePlayer> players, in UiDebugOptions? options = default) => AddUi(SendInfoBuilder.Get(players), options);
     public void AddUi(in UiDebugOptions? options = default) => AddUi(SendInfoBuilder.Get(Net.sv.connections), options);
-
-    public void AddUi(SendInfo send, in UiDebugOptions? options = default) => UiSendRequest.Create(this, send, options).Enqueue();
-
+    public void AddUi(SendInfo send, in UiDebugOptions? options = default)
+    {
+        UiSendRequest.Create(this, send, options).Enqueue();
+    }
 
     internal abstract void SendUi(SendInfo send, in UiDebugOptions? options);
     internal abstract void SendAnimations(SendInfo send);
@@ -103,51 +104,41 @@ public abstract class BaseBuilder : BasePoolable
         }
     }
 
-    public void DestroyUi(List<Connection> connections)
-    {
-        if (connections == null) throw new ArgumentNullException(nameof(connections));
-        DestroyUi(SendInfoBuilder.Get(connections), RootName);
-    }
-    
-    public void DestroyUi(IEnumerable<Connection> connections)
-    {
-        if (connections == null) throw new ArgumentNullException(nameof(connections));
-        SendInfo send = SendInfoBuilder.Get(connections);
-        DestroyUi(send, RootName);
-    }
+    public void DestroyUi(IEnumerable<Connection> connections) => DestroyUi(SendInfoBuilder.Get(connections), RootName);
+    public void DestroyUi(List<Connection> connections) => DestroyUi(SendInfoBuilder.Get(connections), RootName);
+    public void DestroyUi(IEnumerable<BasePlayer> players) => DestroyUi(SendInfoBuilder.Get(players), RootName);
+    public void DestroyUi(List<BasePlayer> players) => DestroyUi(SendInfoBuilder.Get(players), RootName);
+    public void DestroyUi() => DestroyUi(RootName);
 
-    public void DestroyUi()
-    {
-        DestroyUi(RootName);
-    }
-        
+    public static void DestroyUi(string name) => DestroyUi(Net.sv.connections, name);
+    public static void DestroyUi(IEnumerable<Connection> connections, string name) => DestroyUi(SendInfoBuilder.Get(connections), name);
+    public static void DestroyUi(List<Connection> connections, string name) => DestroyUi(SendInfoBuilder.Get(connections), name);
+    public static void DestroyUi(IEnumerable<BasePlayer> players, string name) => DestroyUi(SendInfoBuilder.Get(players), name);
+    public static void DestroyUi(List<BasePlayer> players, string name) => DestroyUi(SendInfoBuilder.Get(players), name);
+
     public static void DestroyUi(BasePlayer player, string name)
     {
-        if (player && player.IsConnected)
+        if (player)
         {
-            DestroyUi(SendInfoBuilder.Get(player.Connection), name);
+            DestroyUi(player.Connection, name);
         }
     }
 
-    public static void DestroyUi(string name)
+    public static void DestroyUi(Connection connection, string name)
     {
-        DestroyUi(SendInfoBuilder.Get(Net.sv.connections), name);
+        if (connection is { connected: true })
+        {
+            DestroyUi(SendInfoBuilder.Get(connection), name);
+        }
     }
 
     public static void DestroyUi(SendInfo send, string name)
     {
-        if (!Net.sv.IsConnected() || CommunityEntity.ServerInstance.net == null)
+        if (Net.sv.IsConnected() && CommunityEntity.ServerInstance.net != null)
         {
-            return;
+            Singleton<AnimationTracker>.Instance.RemoveUiForSend(send, name);
+            UiDestroyRequest.Create(name, send).Enqueue();
         }
-        
-        Singleton<AnimationTracker>.Instance.RemoveUiForSend(send, name);
-        UiDestroyRequest.Create(name, send).Enqueue();
-    }
-
-    public static void DestroyUi(IEnumerable<Connection> connections, string name)
-    {
-        DestroyUi(SendInfoBuilder.Get(connections), name);
     }
     #endregion
 

@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Network;
 using Oxide.Ext.UiFramework.Animation;
+using Oxide.Ext.UiFramework.Guards;
 using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Types;
 
@@ -17,14 +17,14 @@ internal static class SendInfoBuilder
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal static SendInfo Get(BasePlayer player)
     {
-        if (!player) throw new ArgumentNullException(nameof(player));
+        Guard.IsEntityNotNull(player);
         return Get(player.Connection);
     }
     
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal static SendInfo GetForPrecache(BasePlayer player)
     {
-        if (!player) throw new ArgumentNullException(nameof(player));
+        Guard.IsEntityNotNull(player);
         return Get(player.Connection, PreCache);
     }
 
@@ -34,7 +34,7 @@ internal static class SendInfoBuilder
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal static SendInfo Get(Connection connection, sbyte channel)
     {
-        if (connection == null) throw new ArgumentNullException(nameof(connection));
+        Guard.IsNotNull(connection);
         return new SendInfo(connection)
         {
             channel = channel
@@ -44,16 +44,65 @@ internal static class SendInfoBuilder
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal static SendInfo Get(IEnumerable<Connection> connections)
     {
-        if (connections == null) throw new ArgumentNullException(nameof(connections));
+        Guard.IsNotNull(connections);
         List<Connection> pooledConnection = UiPool.Internal.GetList<Connection>();
-        foreach (Connection connection in connections)
+        if (connections is IList<Connection> list)
         {
-            if (connection is { connected: true })
+            //Fast Path
+            for (int index = 0; index < list.Count; index++)
             {
-                pooledConnection.Add(connection);
+                Connection connection = list[index];
+                if(connection is { connected: true })
+                {
+                    pooledConnection.Add(connection);
+                }
+            }
+        }
+        else
+        {
+            foreach (Connection connection in connections)
+            {
+                if (connection is { connected: true })
+                {
+                    pooledConnection.Add(connection);
+                }
             }
         }
         
+        return new SendInfo(pooledConnection)
+        {
+            channel = UiChannel
+        };
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal static SendInfo Get(IEnumerable<BasePlayer> players)
+    {
+        Guard.IsNotNull(players);
+        List<Connection> pooledConnection = UiPool.Internal.GetList<Connection>();
+        if (players is IList<BasePlayer> list)
+        {
+            //Fast Path
+            for (int index = 0; index < list.Count; index++)
+            {
+                BasePlayer player = list[index];
+                if(player && player.Connection is { connected: true })
+                {
+                    pooledConnection.Add(player.Connection);
+                }
+            }
+        }
+        else
+        {
+            foreach (BasePlayer player in players)
+            {
+                if (player && player.Connection is { connected: true })
+                {
+                    pooledConnection.Add(player.Connection);
+                }
+            }
+        }
+
         return new SendInfo(pooledConnection)
         {
             channel = UiChannel
@@ -82,14 +131,15 @@ internal static class SendInfoBuilder
         }
 
         List<Connection> connections = UiPool.Internal.GetList<Connection>();
-        foreach (Connection connection in info.connections)
+        for (int index = 0; index < info.connections.Count; index++)
         {
+            Connection connection = info.connections[index];
             if (connection is { connected: true })
             {
                 connections.Add(connection);
             }
         }
-        
+
         return new SendInfo(connections)
         {
             channel = channel
