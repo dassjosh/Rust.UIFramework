@@ -67,7 +67,9 @@ public sealed class UiChannel<T> : IUiChannel where T : IBaseUiChannelObject
     {
         if (!_options.EnableMultithreading)
         {
+#if SERVER
             await UniTask.SwitchToMainThread();
+#endif
         }
 
         CancellationToken cancellationToken = _cancellationTokenSource.Token;

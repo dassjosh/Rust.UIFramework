@@ -42,7 +42,7 @@ public class ImageDownloadAnimationTests
         for (int i = 0; i < 100; i++)
         {
             //Console.WriteLine($"{i/100f:0.00}: {sampleA[i]}, {sampleB[i]} = {Mathf.Abs(sampleA[i] - sampleB[i])}");
-            Console.WriteLine($"{i/100f:0.00}: {sampleC[i]}");
+            //Console.WriteLine($"{i/100f:0.00}: {sampleC[i]}");
         }
 
     }

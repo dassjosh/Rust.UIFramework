@@ -1,11 +1,11 @@
 ﻿using Argon;
+using Cysharp.Threading.Tasks;
 using Oxide.Ext.UiFramework;
 using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Config;
 using Oxide.Ext.UiFramework.Data;
 using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Logging;
-using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.Types;
 using Rust.UiFramework.UnitTests.Global;
@@ -27,6 +27,7 @@ public class AssemblyFixture : XunitTestFramework
         ConfigureXUnit();
         ConfigureVerify();
         ConfigureExtension();
+        ConfigureUniTask();
     }
 
     private static void ConfigureXUnit()
@@ -88,6 +89,18 @@ public class AssemblyFixture : XunitTestFramework
         // plugin.Init();
         // plugin.OnServerInitialized();
         AvatarData.Instance.AddAvatar(UnitTestsConstants.AvatarSteamId, "Test Avatar");
+
+    }
+
+    private static void ConfigureUniTask()
+    {
+        static void OnUniTaskSchedulerOnUnobservedTaskException(Exception ex)
+        {
+            UiFrameworkExtension.GlobalLogger.Exception("UniTask UnobservedTaskException", ex);
+        }
+
+        UniTaskScheduler.UnobservedTaskException += OnUniTaskSchedulerOnUnobservedTaskException;
+        UniTaskScheduler.DispatchUnityMainThread = false;
     }
 
     public override async ValueTask DisposeAsync()
