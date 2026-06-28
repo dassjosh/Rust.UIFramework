@@ -49,13 +49,7 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
         Guard.IsNotNullOrEmpty(image);
         options ??= GetImageOptions.Default;
 
-        if(ImageId.TryParse(image, out _))
-        {
-            return image;
-        }
-
-        ImageId id = _data.Get(pluginId, image);
-        if (id.IsValid)
+        if(TryGet(pluginId, image, out ImageId id))
         {
             return id.ToString();
         }
@@ -89,6 +83,32 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
         return Get(UiFrameworkPlugin.Instance, UiImageDefaults.NotFound);
     }
 
+    public bool TryGet(IUiFrameworkPlugin plugin, string image, out ImageId id)
+    {
+        Guard.IsNotNull(plugin);
+        return TryGet(plugin.Id(), image, out id);
+    }
+
+    private bool TryGet(PluginId pluginId, string image, out ImageId id)
+    {
+        Guard.IsValid(pluginId);
+        Guard.IsNotNullOrEmpty(image);
+
+        if(ImageId.TryParse(image, out id))
+        {
+            return true;
+        }
+
+        id = _data.Get(pluginId, image);
+        if (id.IsValid)
+        {
+            return true;
+        }
+
+        id = default;
+        return false;
+    }
+
     public ImageId GetByUrl(string url)
     {
         return _data.GetByUrl(url);
@@ -100,7 +120,7 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
         return GetBytes(plugin.Id(), image);
     }
 
-    internal byte[] GetBytes(PluginId pluginId, string image)
+    private byte[] GetBytes(PluginId pluginId, string image)
     {
         Guard.IsCommunityEntityReady();
         Guard.IsValid(pluginId);
@@ -112,12 +132,7 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
         }
 
         id = _data.Get(pluginId, image);
-        if (id.IsValid)
-        {
-            return _db.Get(id);
-        }
-
-        return null;
+        return id.IsValid ? _db.Get(id) : null;
     }
 
     public bool WriteImage(IUiFrameworkPlugin plugin, string filePath, string image)
@@ -252,7 +267,7 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
             return Singleton<RegisteredImageData>.Instance.AddExistingImageRequest(plugin.Id(), data.ToName(), imageData, id, options ?? RegisterImageOptions.Default);
         }
 
-        if (ImageId.TryParse(image, out id))
+        if (ImageId.TryParse(image, out id) && _db.Exists(id))
         {
             imageData = _db.Get(id);
             return Singleton<RegisteredImageData>.Instance.AddRequest(plugin.Id(), imageData, data.New(), options ?? RegisterImageOptions.Default);
@@ -261,7 +276,7 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
         if (image.IsValidUrl())
         {
             id = _data.GetByUrl(image);
-            if (id.IsValid)
+            if (id.IsValid && _db.Exists(id))
             {
                 imageData = _db.Get(id);
                 return Singleton<RegisteredImageData>.Instance.AddRequest(plugin.Id(), imageData, data.New(), options ?? RegisterImageOptions.Default);
