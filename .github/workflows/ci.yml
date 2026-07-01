@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "framework-improvements" ]
   pull_request:
     branches: [ "main" ]
 
