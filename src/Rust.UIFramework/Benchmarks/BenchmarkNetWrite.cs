@@ -14,7 +14,7 @@ using Helpers;
 using SilentOrbit.ProtocolBuffers;
 using UnityEngine.Assertions;
 
-internal class BenchmarkNetWrite : Stream, Pool.IPooled, IStreamWriter
+internal class BenchmarkNetWrite : Stream, Pool.IPooled
 {
     private static readonly MemoryStream StringBuffer = new();
     private BufferStream _stream;
