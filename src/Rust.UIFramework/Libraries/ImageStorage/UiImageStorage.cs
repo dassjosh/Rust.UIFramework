@@ -57,7 +57,7 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
         if (image.IsValidUrl())
         {
             DownloadImageRequest request = RegisterImage(pluginId, image);
-            if (request.State is { HadDownloadError: false, IsDownloading: true })
+            if (request.State is { HadDownloadError: false, IsDownloading: true } || image == UiImageDefaults.NotFound)
             {
                 return image;
             }
