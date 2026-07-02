@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using Facepunch;
 using Oxide.Ext.UiFramework.Extensions;
@@ -6,20 +7,16 @@ using Oxide.Ext.UiFramework.Guards;
 
 namespace Oxide.Ext.UiFramework.Types;
 
-public readonly struct UiStringView(string value, int start, int end) : IEquatable<UiStringView>
+[DebuggerDisplay("{ToString()}")]
+public readonly struct UiStringView(string value, int start, int length) : IEquatable<UiStringView>
 {
     public readonly string Value = value;
     public readonly int Start = start;
-    public readonly int End = end;
-
-    public int Length
-    {
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        get => End - Start;
-    }
+    public readonly int Length = length;
 
     public UiStringView(string value) : this(value, 0, value.Length) { }
-    public UiStringView(string value, int start) : this(value, start, value.Length) { }
+    public UiStringView(string value, int start) : this(value, start, value.Length - start) { }
+    public UiStringView() : this(string.Empty) { }
 
     public static UiStringView Empty => new(string.Empty);
 
@@ -49,7 +46,7 @@ public readonly struct UiStringView(string value, int start, int end) : IEquatab
             int end = range.End.GetOffset(length);
             Guard.InRange(start, 0, length);
             Guard.InRange(end, 0, length);
-            return new UiStringView(Value, Start + start, Start + end);
+            return new UiStringView(Value, Start + start, end - start);
         }
     }
 
@@ -63,7 +60,7 @@ public readonly struct UiStringView(string value, int start, int end) : IEquatab
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static implicit operator ReadOnlyMemory<char>(UiStringView view) => view.AsMemory();
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static implicit operator StringView(UiStringView view) => new(view.Value, view.Start, view.End);
+    public static implicit operator StringView(UiStringView view) => new(view.Value, view.Start, view.Length);
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static implicit operator string(UiStringView view) => view.ToString();
 
