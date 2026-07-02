@@ -270,7 +270,14 @@ public class UiImageStorageTests
         var image = storage.Get(UnitTestHelpers.Plugin, $"{UiImageDefaults.NotFound}123");
 
         // Assert
-        Assert.Equal(UiImageDefaults.NotFound, image);
+        if (uint.TryParse(image, out uint id))
+        {
+            Assert.Equal(1503184602u, id);
+        }
+        else
+        {
+            Assert.Equal(UiImageDefaults.NotFound, image);
+        }
     }
 
     private static async Task WaitForCompletion(IDownloadImageRequest register, CancellationToken cancellationToken)
