@@ -1,4 +1,5 @@
 ﻿using Network;
+using Oxide.Ext.UiFramework.Helpers;
 using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Game.Rust.Cui;
 
@@ -23,9 +24,9 @@ internal class OxideCuiContainerRequest : BaseUiRequest
     {
         if (!string.IsNullOrEmpty(_destroyUiName))
         {
-            CommunityEntity.ServerInstance.ClientRPC(RpcTarget.SendInfo("DestroyUI", Send));
+            RpcFunctions.SendDestroyUi(Send, _destroyUiName);
         }
-        CommunityEntity.ServerInstance.ClientRPC(RpcTarget.SendInfo("AddUI", Send), _container.ToJson());
+        RpcFunctions.SendAddUi(Send, _container.ToJson());
         return ProcessResult.Success;
     }
 
