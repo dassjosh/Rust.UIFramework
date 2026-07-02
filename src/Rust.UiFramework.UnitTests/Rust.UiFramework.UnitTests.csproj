@@ -36,6 +36,9 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Reference Include="0Harmony">
+        <HintPath>..\References\Rust\0Harmony.dll</HintPath>
+      </Reference>
       <Reference Include="Assembly-CSharp">
         <HintPath>..\references\Rust\Assembly-CSharp.dll</HintPath>
       </Reference>

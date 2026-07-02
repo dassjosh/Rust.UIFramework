@@ -3,26 +3,29 @@ using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Pooling;
 using Oxide.Ext.UiFramework.Types;
+using Rust.UiFramework.UnitTests.Mocks.Plugins;
 
 namespace Rust.UiFramework.UnitTests;
 
 internal static class UnitTestHelpers
 {
-    public static void EnterPool<T>(T poolable) where T : BasePoolable => poolable.TestEnterPool();
-    public static void LeavePool<T>(T poolable) where T : BasePoolable => poolable.TestLeavePool();
     public static readonly PluginId UnitTestPluginId = PluginId.CreateInternal("UnitTestPlugin");
-    
     public static UiPluginPool UnitTestPool => Singleton<UiPool>.Instance.GetOrCreate(UnitTestPluginId);
     public static readonly UnitTestPlugin Plugin = new()
     {
         PluginPool = UnitTestPool
     };
 
+    public static readonly IUiFrameworkCorePlugin CorePlugin = new UiFrameworkCorePluginMock();
+
     public static UiPluginPool CreatePoolForTest(string name)
     {
         PluginId uiBuilderTestsPlugin = PluginId.CreateInternal(name);
         return Singleton<UiPool>.Instance.GetOrCreate(uiBuilderTestsPlugin);
     }
+
+    public static void EnterPool<T>(T poolable) where T : BasePoolable => poolable.TestEnterPool();
+    public static void LeavePool<T>(T poolable) where T : BasePoolable => poolable.TestLeavePool();
     
     public class UnitTestPlugin : IUiFrameworkPlugin
     {

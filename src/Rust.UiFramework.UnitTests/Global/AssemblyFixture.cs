@@ -6,6 +6,7 @@ using Oxide.Ext.UiFramework.Config;
 using Oxide.Ext.UiFramework.Data;
 using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Logging;
+using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Positions;
 using Oxide.Ext.UiFramework.Types;
 using Rust.UiFramework.UnitTests.Global;
@@ -83,13 +84,14 @@ public class AssemblyFixture : XunitTestFramework
         Singleton<DataHandler>.Instance.LoadAll();
         OxideLibrary.RegisterLibrary(nameof(IImageDatabase), new ImageDatabaseMock());
         OxideLibrary.RegisterLibrary(nameof(UiImageStorage), Singleton<UiImageStorage>.Instance);
+        UiFrameworkPlugin.Instance = UnitTestHelpers.CorePlugin;
+
         //new UiFrameworkPlugin().Init();
         BaseUiFrameworkLibrary.ProcessOnCommunityEntitySpawned(new CommunityEntityMock());
         // var plugin = new UiFrameworkPlugin();
         // plugin.Init();
         // plugin.OnServerInitialized();
         AvatarData.Instance.AddAvatar(UnitTestsConstants.AvatarSteamId, "Test Avatar");
-
     }
 
     private static void ConfigureUniTask()
