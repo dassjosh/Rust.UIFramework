@@ -558,7 +558,8 @@
                                 "MonsteraDeliciosaMat": "assets/content/nature/treessource/bush_monstera_deliciosa/models/materials/monstera_deliciosa_mat.mat",
                                 "MonsteraDeliciosaMBillBoardMat": "assets/content/nature/treessource/bush_monstera_deliciosa/models/materials/monstera_deliciosa_m_billboard_mat.mat",
                                 "MonsteraDeliciosaSBillBoardMat": "assets/content/nature/treessource/bush_monstera_deliciosa/models/materials/monstera_deliciosa_s_billboard_mat.mat",
-                                "MonsteraDeliciosaXlBillBoardMat": "assets/content/nature/treessource/bush_monstera_deliciosa/models/materials/monstera_deliciosa_xl_billboard_mat.mat"
+                                "MonsteraDeliciosaXlBillBoardMat": "assets/content/nature/treessource/bush_monstera_deliciosa/models/materials/monstera_deliciosa_xl_billboard_mat.mat",
+                                "MonsteraDeliciosaXsBillBoardMat": "assets/content/nature/treessource/bush_monstera_deliciosa/models/materials/monstera_deliciosa_xs_billboard_mat.mat"
                               },
                               "SubFolders": {}
                             }
@@ -1622,6 +1623,45 @@
                     }
                   }
                 },
+                "vines": {
+                  "Name": "vines",
+                  "Path": "assets/assets/content/nature/vines",
+                  "Files": {},
+                  "SubFolders": {
+                    "hedera_helix_variegata": {
+                      "Name": "hedera_helix_variegata",
+                      "Path": "assets/assets/content/nature/vines/hedera_helix_variegata",
+                      "Files": {},
+                      "SubFolders": {
+                        "materials": {
+                          "Name": "materials",
+                          "Path": "assets/assets/content/nature/vines/hedera_helix_variegata/materials",
+                          "Files": {
+                            "HederaHelixVariegataAtlas": "assets/content/nature/vines/hedera_helix_variegata/materials/hedera_helix_variegata_atlas.mat"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    },
+                    "piper_nigrum": {
+                      "Name": "piper_nigrum",
+                      "Path": "assets/assets/content/nature/vines/piper_nigrum",
+                      "Files": {},
+                      "SubFolders": {
+                        "materials": {
+                          "Name": "materials",
+                          "Path": "assets/assets/content/nature/vines/piper_nigrum/materials",
+                          "Files": {
+                            "PiperNigrumA": "assets/content/nature/vines/piper_nigrum/materials/piper_nigrum_a.mat",
+                            "PiperNigrumAtlasA": "assets/content/nature/vines/piper_nigrum/materials/piper_nigrum_atlas_a.mat",
+                            "PiperNigrumLod": "assets/content/nature/vines/piper_nigrum/materials/piper_nigrum_lod.mat"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    }
+                  }
+                },
                 "ice": {
                   "Name": "ice",
                   "Path": "assets/assets/content/nature/ice",
@@ -1779,30 +1819,6 @@
                             "OreNodeSulfur": "assets/content/nature/ores/models/materials/ore_node_sulfur.mat",
                             "OreNodeSulfurSnow": "assets/content/nature/ores/models/materials/ore_node_sulfur_snow.mat",
                             "RockOresWm": "assets/content/nature/ores/models/materials/rock_ores_wm.mat"
-                          },
-                          "SubFolders": {}
-                        }
-                      }
-                    }
-                  }
-                },
-                "vines": {
-                  "Name": "vines",
-                  "Path": "assets/assets/content/nature/vines",
-                  "Files": {},
-                  "SubFolders": {
-                    "piper_nigrum": {
-                      "Name": "piper_nigrum",
-                      "Path": "assets/assets/content/nature/vines/piper_nigrum",
-                      "Files": {},
-                      "SubFolders": {
-                        "materials": {
-                          "Name": "materials",
-                          "Path": "assets/assets/content/nature/vines/piper_nigrum/materials",
-                          "Files": {
-                            "PiperNigrumA": "assets/content/nature/vines/piper_nigrum/materials/piper_nigrum_a.mat",
-                            "PiperNigrumAtlasA": "assets/content/nature/vines/piper_nigrum/materials/piper_nigrum_atlas_a.mat",
-                            "PiperNigrumLod": "assets/content/nature/vines/piper_nigrum/materials/piper_nigrum_lod.mat"
                           },
                           "SubFolders": {}
                         }
@@ -2419,7 +2435,6 @@
                                     "RadtownStorageConcretefloor": "assets/content/structures/radtown/industrial/storage_warehouse/models/materials/radtown_storage_concretefloor.mat",
                                     "RadtownStorageDirtTrim": "assets/content/structures/radtown/industrial/storage_warehouse/models/materials/radtown_storage_dirt_trim.mat",
                                     "RadtownStorageEdges": "assets/content/structures/radtown/industrial/storage_warehouse/models/materials/radtown_storage_edges.mat",
-                                    "RadtownStorageGenericTrimsEdges": "assets/content/structures/radtown/industrial/storage_warehouse/models/materials/radtown_storage_generic_trims_edges.mat",
                                     "RadtownStorageGenericTrimsFade": "assets/content/structures/radtown/industrial/storage_warehouse/models/materials/radtown_storage_generic_trims_fade.mat",
                                     "RoofingAsphaltA": "assets/content/structures/radtown/industrial/storage_warehouse/models/materials/roofing_asphalt_a.mat",
                                     "RoofingAsphaltA1": "assets/content/structures/radtown/industrial/storage_warehouse/models/materials/roofing_asphalt_a 1.mat"
@@ -2698,6 +2713,207 @@
                     }
                   }
                 },
+                "apartment_complex_b": {
+                  "Name": "apartment_complex_b",
+                  "Path": "assets/assets/content/structures/apartment_complex_b",
+                  "Files": {},
+                  "SubFolders": {
+                    "models": {
+                      "Name": "models",
+                      "Path": "assets/assets/content/structures/apartment_complex_b/models",
+                      "Files": {},
+                      "SubFolders": {
+                        "materials": {
+                          "Name": "materials",
+                          "Path": "assets/assets/content/structures/apartment_complex_b/models/materials",
+                          "Files": {
+                            "ApartmentBBitumen": "assets/content/structures/apartment_complex_b/models/materials/apartment_b_bitumen.mat",
+                            "ApartmentBConcreteDamage": "assets/content/structures/apartment_complex_b/models/materials/apartment_b_concrete_damage.mat",
+                            "ApartmentBConcreteMixed": "assets/content/structures/apartment_complex_b/models/materials/apartment_b_concrete_mixed.mat",
+                            "ApartmentBConcreteMixedSlab": "assets/content/structures/apartment_complex_b/models/materials/apartment_b_concrete_mixed_slab.mat",
+                            "ApartmentBConcreteMixedSlabPainted": "assets/content/structures/apartment_complex_b/models/materials/apartment_b_concrete_mixed_slab_painted.mat",
+                            "ApartmentBDetails": "assets/content/structures/apartment_complex_b/models/materials/apartment_b_details.mat",
+                            "ApartmentBGlassBlocks": "assets/content/structures/apartment_complex_b/models/materials/apartment_b_glass_blocks.mat",
+                            "ApartmentBPanels": "assets/content/structures/apartment_complex_b/models/materials/apartment_b_panels.mat",
+                            "ApartmentBPlaster": "assets/content/structures/apartment_complex_b/models/materials/apartment_b_plaster.mat",
+                            "ApartmentBRoof": "assets/content/structures/apartment_complex_b/models/materials/apartment_b_roof.mat",
+                            "ApartmentBRoofTerrazzo": "assets/content/structures/apartment_complex_b/models/materials/apartment_b_roof_terrazzo.mat",
+                            "ApartmentBTrims": "assets/content/structures/apartment_complex_b/models/materials/apartment_b_trims.mat",
+                            "ApartmentBWindows": "assets/content/structures/apartment_complex_b/models/materials/apartment_b_windows.mat",
+                            "ApartmentBWindowsOpaque": "assets/content/structures/apartment_complex_b/models/materials/apartment_b_windows_opaque.mat",
+                            "ApartmentComplexCommunalTilesDark": "assets/content/structures/apartment_complex_b/models/materials/apartment_complex_communal_tiles_dark.mat",
+                            "ApartmentsComplexBCorridorALiftShaftLod3": "assets/content/structures/apartment_complex_b/models/materials/apartments_complex_b_corridor_a_lift_shaft_lod3.mat",
+                            "ApartmentsComplexBCorridorALod3": "assets/content/structures/apartment_complex_b/models/materials/apartments_complex_b_corridor_a_lod3.mat",
+                            "ApartmentsComplexBCorridorAPartitionALod3": "assets/content/structures/apartment_complex_b/models/materials/apartments_complex_b_corridor_a_partition_a_lod3.mat",
+                            "ApartmentsComplexBCorridorBLod3": "assets/content/structures/apartment_complex_b/models/materials/apartments_complex_b_corridor_b_lod3.mat",
+                            "ApartmentsComplexBCorridorCLod3": "assets/content/structures/apartment_complex_b/models/materials/apartments_complex_b_corridor_c_lod3.mat",
+                            "ApartmentsComplexBCorridorDLod3": "assets/content/structures/apartment_complex_b/models/materials/apartments_complex_b_corridor_d_lod3.mat",
+                            "ApartmentsComplexBCorridorELod3": "assets/content/structures/apartment_complex_b/models/materials/apartments_complex_b_corridor_e_lod3.mat",
+                            "ApartmentsComplexBFacadeA": "assets/content/structures/apartment_complex_b/models/materials/apartments_complex_b_facade_a.mat",
+                            "ApartmentsComplexBFacadeB": "assets/content/structures/apartment_complex_b/models/materials/apartments_complex_b_facade_b.mat",
+                            "ApartmentsComplexBFacadeC": "assets/content/structures/apartment_complex_b/models/materials/apartments_complex_b_facade_c.mat",
+                            "ApartmentsComplexBFacadeCorner": "assets/content/structures/apartment_complex_b/models/materials/apartments_complex_b_facade_corner.mat",
+                            "ApartmentsComplexBFacadeD": "assets/content/structures/apartment_complex_b/models/materials/apartments_complex_b_facade_d.mat",
+                            "ApartmentsComplexBFacadeE": "assets/content/structures/apartment_complex_b/models/materials/apartments_complex_b_facade_e.mat",
+                            "ApartmentsComplexBFacadeEndA": "assets/content/structures/apartment_complex_b/models/materials/apartments_complex_b_facade_end_a.mat",
+                            "ApartmentsComplexBFacadeEndB": "assets/content/structures/apartment_complex_b/models/materials/apartments_complex_b_facade_end_b.mat",
+                            "ApartmentsComplexRoofA": "assets/content/structures/apartment_complex_b/models/materials/apartments_complex_roof_a.mat",
+                            "ApartmentsComplexRoofB": "assets/content/structures/apartment_complex_b/models/materials/apartments_complex_roof_b.mat"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    }
+                  }
+                },
+                "apartments_complex_roof_structures": {
+                  "Name": "apartments_complex_roof_structures",
+                  "Path": "assets/assets/content/structures/apartments_complex_roof_structures",
+                  "Files": {},
+                  "SubFolders": {
+                    "models": {
+                      "Name": "models",
+                      "Path": "assets/assets/content/structures/apartments_complex_roof_structures/models",
+                      "Files": {},
+                      "SubFolders": {
+                        "materials": {
+                          "Name": "materials",
+                          "Path": "assets/assets/content/structures/apartments_complex_roof_structures/models/materials",
+                          "Files": {
+                            "ApartmentBBitumen": "assets/content/structures/apartments_complex_roof_structures/models/materials/apartment_b_bitumen.mat",
+                            "ApartmentBConcreteMixed": "assets/content/structures/apartments_complex_roof_structures/models/materials/apartment_b_concrete_mixed.mat",
+                            "ApartmentBDetails": "assets/content/structures/apartments_complex_roof_structures/models/materials/apartment_b_details.mat"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    }
+                  }
+                },
+                "apartments_complex": {
+                  "Name": "apartments_complex",
+                  "Path": "assets/assets/content/structures/apartments_complex",
+                  "Files": {},
+                  "SubFolders": {
+                    "models": {
+                      "Name": "models",
+                      "Path": "assets/assets/content/structures/apartments_complex/models",
+                      "Files": {},
+                      "SubFolders": {
+                        "materials": {
+                          "Name": "materials",
+                          "Path": "assets/assets/content/structures/apartments_complex/models/materials",
+                          "Files": {
+                            "ApartmentCarpetDamageDecals": "assets/content/structures/apartments_complex/models/materials/apartment_carpet_damage_decals.mat",
+                            "ApartmentComplexCommunalBlocksBasement": "assets/content/structures/apartments_complex/models/materials/apartment_complex_communal_blocks_basement.mat",
+                            "ApartmentComplexCommunalBrickBasement": "assets/content/structures/apartments_complex/models/materials/apartment_complex_communal_brick_basement.mat",
+                            "ApartmentComplexCommunalCarpet": "assets/content/structures/apartments_complex/models/materials/apartment_complex_communal_carpet.mat",
+                            "ApartmentComplexCommunalCarpetGreen": "assets/content/structures/apartments_complex/models/materials/apartment_complex_communal_carpet_green.mat",
+                            "ApartmentComplexCommunalCeiling": "assets/content/structures/apartments_complex/models/materials/apartment_complex_communal_ceiling.mat",
+                            "ApartmentComplexCommunalConcrete": "assets/content/structures/apartments_complex/models/materials/apartment_complex_communal_concrete.mat",
+                            "ApartmentComplexCommunalConcreteBasementWalls": "assets/content/structures/apartments_complex/models/materials/apartment_complex_communal_concrete_basement_walls.mat",
+                            "ApartmentComplexCommunalConcreteFloor": "assets/content/structures/apartments_complex/models/materials/apartment_complex_communal_concrete_floor.mat",
+                            "ApartmentComplexCommunalConcreteRidges": "assets/content/structures/apartments_complex/models/materials/apartment_complex_communal_concrete_ridges.mat",
+                            "ApartmentComplexCommunalCorridorCeiling": "assets/content/structures/apartments_complex/models/materials/apartment_complex_communal_corridor_ceiling.mat",
+                            "ApartmentComplexCommunalCorridorPaint": "assets/content/structures/apartments_complex/models/materials/apartment_complex_communal_corridor_paint.mat",
+                            "ApartmentComplexCommunalEdgeDecals": "assets/content/structures/apartments_complex/models/materials/apartment_complex_communal_edge_decals.mat",
+                            "ApartmentComplexCommunalEdgeDecalsCutout": "assets/content/structures/apartments_complex/models/materials/apartment_complex_communal_edge_decals_cutout.mat",
+                            "ApartmentComplexCommunalPlaster": "assets/content/structures/apartments_complex/models/materials/apartment_complex_communal_plaster.mat",
+                            "ApartmentComplexCommunalPlasterBlueGrey": "assets/content/structures/apartments_complex/models/materials/apartment_complex_communal_plaster_bluegrey.mat",
+                            "ApartmentComplexCommunalSoil": "assets/content/structures/apartments_complex/models/materials/apartment_complex_communal_soil.mat",
+                            "ApartmentComplexCommunalStonewall": "assets/content/structures/apartments_complex/models/materials/apartment_complex_communal_stonewall.mat",
+                            "ApartmentComplexCommunalTerrazzo": "assets/content/structures/apartments_complex/models/materials/apartment_complex_communal_terrazzo.mat",
+                            "ApartmentComplexCommunalTiles": "assets/content/structures/apartments_complex/models/materials/apartment_complex_communal_tiles.mat",
+                            "ApartmentComplexCommunalTilesA": "assets/content/structures/apartments_complex/models/materials/apartment_complex_communal_tiles_a.mat",
+                            "ApartmentComplexCommunalTrims": "assets/content/structures/apartments_complex/models/materials/apartment_complex_communal_trims.mat",
+                            "ApartmentComplexCommunalWallTiles": "assets/content/structures/apartments_complex/models/materials/apartment_complex_communal_wall_tiles.mat",
+                            "ApartmentComplexCommunalWoodPanels": "assets/content/structures/apartments_complex/models/materials/apartment_complex_communal_wood_panels.mat",
+                            "ApartmentComplexCommunalWoodRough": "assets/content/structures/apartments_complex/models/materials/apartment_complex_communal_wood_rough.mat",
+                            "ApartmentComplexComunalPlaster": "assets/content/structures/apartments_complex/models/materials/apartment_complex_comunal_plaster.mat",
+                            "ApartmentComplexConcreteA": "assets/content/structures/apartments_complex/models/materials/apartment_complex_concrete_a.mat",
+                            "ApartmentComplexConcreteB": "assets/content/structures/apartments_complex/models/materials/apartment_complex_concrete_b.mat",
+                            "ApartmentComplexCoreFacadeLod2": "assets/content/structures/apartments_complex/models/materials/apartment_complex_core_facade_lod2.mat",
+                            "ApartmentComplexCoreGroundFloorLod3": "assets/content/structures/apartments_complex/models/materials/apartment_complex_core_ground_floor_lod3.mat",
+                            "ApartmentComplexCoreMidFloorsLod3": "assets/content/structures/apartments_complex/models/materials/apartment_complex_core_mid_floors_lod3.mat",
+                            "ApartmentComplexCoreUpperFloorsLod3": "assets/content/structures/apartments_complex/models/materials/apartment_complex_core_upper_floors_lod3.mat",
+                            "ApartmentComplexCorridors1sFloorLod2": "assets/content/structures/apartments_complex/models/materials/apartment_complex_corridors_1s_floor_lod2.mat",
+                            "ApartmentComplexCorridorsBasementLod2": "assets/content/structures/apartments_complex/models/materials/apartment_complex_corridors_basement_lod2.mat",
+                            "ApartmentComplexCorridorsDamagedLod2": "assets/content/structures/apartments_complex/models/materials/apartment_complex_corridors_damaged_lod2.mat",
+                            "ApartmentComplexCorridorsMidFloorsLod2": "assets/content/structures/apartments_complex/models/materials/apartment_complex_corridors_mid_floors_lod2.mat",
+                            "ApartmentComplexCorridorsUpperFloorLod2": "assets/content/structures/apartments_complex/models/materials/apartment_complex_corridors_upper_floor_lod2.mat",
+                            "ApartmentComplexCorrugatedSteel": "assets/content/structures/apartments_complex/models/materials/apartment_complex_corrugated_steel.mat",
+                            "ApartmentComplexDecals": "assets/content/structures/apartments_complex/models/materials/apartment_complex_decals.mat",
+                            "ApartmentComplexFacadeDamagedLod2": "assets/content/structures/apartments_complex/models/materials/apartment_complex_facade_damaged_lod2.mat",
+                            "ApartmentComplexFacadeLod2": "assets/content/structures/apartments_complex/models/materials/apartment_complex_facade_lod2.mat",
+                            "ApartmentComplexFoundation": "assets/content/structures/apartments_complex/models/materials/apartment_complex_foundation.mat",
+                            "ApartmentComplexGenericTrims": "assets/content/structures/apartments_complex/models/materials/apartment_complex_generic_trims.mat",
+                            "ApartmentComplexMosaic": "assets/content/structures/apartments_complex/models/materials/apartment_complex_mosaic.mat",
+                            "ApartmentComplexRebar": "assets/content/structures/apartments_complex/models/materials/apartment_complex_rebar.mat",
+                            "ApartmentComplexRoofDamagedLod2": "assets/content/structures/apartments_complex/models/materials/apartment_complex_roof_damaged_lod2.mat",
+                            "ApartmentComplexRoofing": "assets/content/structures/apartments_complex/models/materials/apartment_complex_roofing.mat",
+                            "ApartmentComplexRoofLod2": "assets/content/structures/apartments_complex/models/materials/apartment_complex_roof_lod2.mat",
+                            "ApartmentComplexSideDamagedLod2": "assets/content/structures/apartments_complex/models/materials/apartment_complex_side_damaged_lod2.mat",
+                            "ApartmentComplexSideLod2": "assets/content/structures/apartments_complex/models/materials/apartment_complex_side_lod2.mat",
+                            "ApartmentComplexTrims": "assets/content/structures/apartments_complex/models/materials/apartment_complex_trims.mat",
+                            "ApartmentComplexTrimsGreen": "assets/content/structures/apartments_complex/models/materials/apartment_complex_trims_green.mat",
+                            "ApartmentFloorA": "assets/content/structures/apartments_complex/models/materials/apartment_floor_a.mat",
+                            "ApartmentGlass": "assets/content/structures/apartments_complex/models/materials/apartment_glass.mat",
+                            "ApartmentGlassFake": "assets/content/structures/apartments_complex/models/materials/apartment_glass_fake.mat",
+                            "ApartmentGlassOpaque": "assets/content/structures/apartments_complex/models/materials/apartment_glass_opaque.mat",
+                            "ApartmentGreyBoxGrey": "assets/content/structures/apartments_complex/models/materials/apartment_greybox_grey.mat",
+                            "ApartmentInteriorArtexCeiling": "assets/content/structures/apartments_complex/models/materials/apartment_interior_artex_ceiling.mat",
+                            "ApartmentInteriorBricksWallA": "assets/content/structures/apartments_complex/models/materials/apartment_interior_bricks_wall_a.mat",
+                            "ApartmentInteriorCarpetRed": "assets/content/structures/apartments_complex/models/materials/apartment_interior_carpet_red.mat",
+                            "ApartmentInteriorFireplaceTilesA": "assets/content/structures/apartments_complex/models/materials/apartment_interior_fireplace_tiles_a.mat",
+                            "ApartmentInteriorFloorParquet": "assets/content/structures/apartments_complex/models/materials/apartment_interior_floor_parquet.mat",
+                            "ApartmentInteriorKitchenTilesA": "assets/content/structures/apartments_complex/models/materials/apartment_interior_kitchen_tiles_a.mat",
+                            "ApartmentInteriorLoftBoardS": "assets/content/structures/apartments_complex/models/materials/apartment_interior_loft_boards.mat",
+                            "ApartmentInteriorPlasterA": "assets/content/structures/apartments_complex/models/materials/apartment_interior_plaster_a.mat",
+                            "ApartmentInteriorRoomTrimsA": "assets/content/structures/apartments_complex/models/materials/apartment_interior_room_trims_a.mat",
+                            "ApartmentInteriorShowerWalls": "assets/content/structures/apartments_complex/models/materials/apartment_interior_shower_walls.mat",
+                            "ApartmentInteriorWallTilesA": "assets/content/structures/apartments_complex/models/materials/apartment_interior_wall_tiles_a.mat",
+                            "ApartmentLargeLod2": "assets/content/structures/apartments_complex/models/materials/apartment_large_lod2.mat",
+                            "ApartmentRoomsTrimsRottenA": "assets/content/structures/apartments_complex/models/materials/apartment_rooms_trims_rotten_a.mat",
+                            "ApartmentWallA": "assets/content/structures/apartments_complex/models/materials/apartment_wall_a.mat",
+                            "SignBeige": "assets/content/structures/apartments_complex/models/materials/sign_beige.mat",
+                            "SignBlack": "assets/content/structures/apartments_complex/models/materials/sign_black.mat",
+                            "SignBlue": "assets/content/structures/apartments_complex/models/materials/sign_blue.mat",
+                            "SignPlasticPanels": "assets/content/structures/apartments_complex/models/materials/sign_plastic_panels.mat",
+                            "SignRed": "assets/content/structures/apartments_complex/models/materials/sign_red.mat",
+                            "SignSteel": "assets/content/structures/apartments_complex/models/materials/sign_steel.mat"
+                          },
+                          "SubFolders": {
+                            "medium_apartment": {
+                              "Name": "medium_apartment",
+                              "Path": "assets/assets/content/structures/apartments_complex/models/materials/medium_apartment",
+                              "Files": {
+                                "ApartmentMediumCeiling": "assets/content/structures/apartments_complex/models/materials/medium_apartment/apartment_medium_ceiling.mat",
+                                "ApartmentMediumEdgedecal": "assets/content/structures/apartments_complex/models/materials/medium_apartment/apartment_medium_edgedecal.mat",
+                                "ApartmentMediumKitchentiles": "assets/content/structures/apartments_complex/models/materials/medium_apartment/apartment_medium_kitchentiles.mat",
+                                "ApartmentMediumWalls": "assets/content/structures/apartments_complex/models/materials/medium_apartment/apartment_medium_walls.mat",
+                                "ApartmentMediumWalltiles": "assets/content/structures/apartments_complex/models/materials/medium_apartment/apartment_medium_walltiles.mat",
+                                "ApartmentMediumWood": "assets/content/structures/apartments_complex/models/materials/medium_apartment/apartment_medium_wood.mat",
+                                "MediumApartmentLod": "assets/content/structures/apartments_complex/models/materials/medium_apartment/medium_apartment_lod.mat"
+                              },
+                              "SubFolders": {}
+                            },
+                            "small_apartment": {
+                              "Name": "small_apartment",
+                              "Path": "assets/assets/content/structures/apartments_complex/models/materials/small_apartment",
+                              "Files": {
+                                "ApartmentSmallEdgedecal": "assets/content/structures/apartments_complex/models/materials/small_apartment/apartment_small_edgedecal.mat",
+                                "ApartmentSmallLod": "assets/content/structures/apartments_complex/models/materials/small_apartment/apartment_small_lod.mat",
+                                "ApartmentSmallWalls": "assets/content/structures/apartments_complex/models/materials/small_apartment/apartment_small_walls.mat",
+                                "ApartmentSmallWalltiles": "assets/content/structures/apartments_complex/models/materials/small_apartment/apartment_small_walltiles.mat"
+                              },
+                              "SubFolders": {}
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
                 "office_buildings": {
                   "Name": "office_buildings",
                   "Path": "assets/assets/content/structures/office_buildings",
@@ -2813,6 +3029,96 @@
                             "AwningWhiteWind": "assets/content/structures/awnings/models/materials/awning_white_wind.mat"
                           },
                           "SubFolders": {}
+                        }
+                      }
+                    }
+                  }
+                },
+                "residential_buildings": {
+                  "Name": "residential_buildings",
+                  "Path": "assets/assets/content/structures/residential_buildings",
+                  "Files": {},
+                  "SubFolders": {
+                    "models": {
+                      "Name": "models",
+                      "Path": "assets/assets/content/structures/residential_buildings/models",
+                      "Files": {},
+                      "SubFolders": {
+                        "materials": {
+                          "Name": "materials",
+                          "Path": "assets/assets/content/structures/residential_buildings/models/materials",
+                          "Files": {
+                            "Baked04Default": "assets/content/structures/residential_buildings/models/materials/baked_04 - default.mat",
+                            "BrickCornerDecal": "assets/content/structures/residential_buildings/models/materials/brick_corner_decal.mat",
+                            "ConcreteMossyRoof": "assets/content/structures/residential_buildings/models/materials/concrete_mossy_roof.mat",
+                            "GaragesRoof": "assets/content/structures/residential_buildings/models/materials/garages_roof.mat",
+                            "HouseBrickWallA": "assets/content/structures/residential_buildings/models/materials/house_brick_wall_a.mat",
+                            "HouseBrickWallA1": "assets/content/structures/residential_buildings/models/materials/house_brick_wall_a 1.mat",
+                            "HouseBrickWallABlue": "assets/content/structures/residential_buildings/models/materials/house_brick_wall_a_blue.mat",
+                            "HouseBrickWallABlueberry": "assets/content/structures/residential_buildings/models/materials/house_brick_wall_a_blueberry.mat",
+                            "HouseBrickWallACream": "assets/content/structures/residential_buildings/models/materials/house_brick_wall_a_cream.mat",
+                            "HouseBrickWallAGreen": "assets/content/structures/residential_buildings/models/materials/house_brick_wall_a_green.mat",
+                            "HouseBrickWallARed": "assets/content/structures/residential_buildings/models/materials/house_brick_wall_a_red.mat",
+                            "HouseBrickWallB": "assets/content/structures/residential_buildings/models/materials/house_brick_wall_b.mat",
+                            "HouseBrickWallC": "assets/content/structures/residential_buildings/models/materials/house_brick_wall_c.mat",
+                            "HouseBrickWallD": "assets/content/structures/residential_buildings/models/materials/house_brick_wall_d.mat",
+                            "HouseCinderBlock": "assets/content/structures/residential_buildings/models/materials/house_cinder_block.mat",
+                            "HouseFloorA": "assets/content/structures/residential_buildings/models/materials/house_floor_a.mat",
+                            "HouseFloorB": "assets/content/structures/residential_buildings/models/materials/house_floor_b.mat",
+                            "HouseRoofTrims": "assets/content/structures/residential_buildings/models/materials/house_roof_trims.mat",
+                            "HousesGlass": "assets/content/structures/residential_buildings/models/materials/houses_glass.mat",
+                            "HousesWindowFrames": "assets/content/structures/residential_buildings/models/materials/houses_window_frames.mat",
+                            "OutbuildingRoofA": "assets/content/structures/residential_buildings/models/materials/outbuilding_roof_a.mat",
+                            "ShedRoof": "assets/content/structures/residential_buildings/models/materials/shed_roof.mat",
+                            "Stairs": "assets/content/structures/residential_buildings/models/materials/stairs.mat",
+                            "Tar": "assets/content/structures/residential_buildings/models/materials/tar.mat",
+                            "Trims": "assets/content/structures/residential_buildings/models/materials/trims.mat",
+                            "WindoorConcTrims": "assets/content/structures/residential_buildings/models/materials/windoor_conc_trims.mat",
+                            "WindoorConcTrimsDark": "assets/content/structures/residential_buildings/models/materials/windoor_conc_trims_dark.mat",
+                            "WindoorWoodTrims": "assets/content/structures/residential_buildings/models/materials/windoor_wood_trims.mat",
+                            "WindoorWoodTrimsBlueberry": "assets/content/structures/residential_buildings/models/materials/windoor_wood_trims_blueberry.mat",
+                            "WindoorWoodTrimsBrown": "assets/content/structures/residential_buildings/models/materials/windoor_wood_trims_brown.mat",
+                            "WindoorWoodTrimsClay": "assets/content/structures/residential_buildings/models/materials/windoor_wood_trims_clay.mat",
+                            "WindoorWoodTrimsGreen": "assets/content/structures/residential_buildings/models/materials/windoor_wood_trims_green.mat",
+                            "WindoorWoodTrimsGrey": "assets/content/structures/residential_buildings/models/materials/windoor_wood_trims_grey.mat",
+                            "WindoorWoodTrimsPiss": "assets/content/structures/residential_buildings/models/materials/windoor_wood_trims_piss.mat",
+                            "WindoorWoodTrimsPurple": "assets/content/structures/residential_buildings/models/materials/windoor_wood_trims_purple.mat"
+                          },
+                          "SubFolders": {
+                            "lods": {
+                              "Name": "lods",
+                              "Path": "assets/assets/content/structures/residential_buildings/models/materials/lods",
+                              "Files": {
+                                "Outbuilding1st15x9LodA": "assets/content/structures/residential_buildings/models/materials/lods/outbuilding_1st_15x9_lod_a.mat",
+                                "Outbuilding1st15x9LodB": "assets/content/structures/residential_buildings/models/materials/lods/outbuilding_1st_15x9_lod_b.mat",
+                                "Outbuilding1st15x9LodC": "assets/content/structures/residential_buildings/models/materials/lods/outbuilding_1st_15x9_lod_c.mat",
+                                "Outbuilding1st15x9LodD": "assets/content/structures/residential_buildings/models/materials/lods/outbuilding_1st_15x9_lod_d.mat",
+                                "Outbuilding1st27x9LodA": "assets/content/structures/residential_buildings/models/materials/lods/outbuilding_1st_27x9_lod_a.mat",
+                                "Outbuilding1st27x9LodB": "assets/content/structures/residential_buildings/models/materials/lods/outbuilding_1st_27x9_lod_b.mat",
+                                "Outbuilding1st27x9LodC": "assets/content/structures/residential_buildings/models/materials/lods/outbuilding_1st_27x9_lod_c.mat",
+                                "Outbuilding1st6x9LodA": "assets/content/structures/residential_buildings/models/materials/lods/outbuilding_1st_6x9_lod_a.mat",
+                                "Outbuilding1st6x9LodB": "assets/content/structures/residential_buildings/models/materials/lods/outbuilding_1st_6x9_lod_b.mat",
+                                "Outbuilding1st6x9LodC": "assets/content/structures/residential_buildings/models/materials/lods/outbuilding_1st_6x9_lod_c.mat",
+                                "Outbuilding2st21x9LodA": "assets/content/structures/residential_buildings/models/materials/lods/outbuilding_2st_21x9_lod_a.mat",
+                                "Outbuilding2st21x9LodB": "assets/content/structures/residential_buildings/models/materials/lods/outbuilding_2st_21x9_lod_b.mat",
+                                "Rowhouse2st6x12LodA": "assets/content/structures/residential_buildings/models/materials/lods/rowhouse_2st_6x12_lod_a.mat",
+                                "Rowhouse2st6x12LodB": "assets/content/structures/residential_buildings/models/materials/lods/rowhouse_2st_6x12_lod_b.mat",
+                                "Rowhouse2st9x122LodA": "assets/content/structures/residential_buildings/models/materials/lods/rowhouse_2st_9x12-2_lod_a.mat",
+                                "Rowhouse2st9x122LodB": "assets/content/structures/residential_buildings/models/materials/lods/rowhouse_2st_9x12-2_lod_b.mat",
+                                "Rowhouse2st9x122LodC": "assets/content/structures/residential_buildings/models/materials/lods/rowhouse_2st_9x12-2_lod_c.mat",
+                                "Rowhouse2st9x12LodA": "assets/content/structures/residential_buildings/models/materials/lods/rowhouse_2st_9x12_lod_a.mat",
+                                "Rowhouse2st9x12LodB": "assets/content/structures/residential_buildings/models/materials/lods/rowhouse_2st_9x12_lod_b.mat",
+                                "Rowhouse2st9x12LodC": "assets/content/structures/residential_buildings/models/materials/lods/rowhouse_2st_9x12_lod_c.mat",
+                                "Rowhouse3st9x12LodA": "assets/content/structures/residential_buildings/models/materials/lods/rowhouse_3st_9x12_lod_a.mat",
+                                "Rowhouse3st9x12LodB": "assets/content/structures/residential_buildings/models/materials/lods/rowhouse_3st_9x12_lod_b.mat",
+                                "Rowhouse3st9x9LodA": "assets/content/structures/residential_buildings/models/materials/lods/rowhouse_3st_9x9_lod_a.mat",
+                                "Rowhouse3st9x9LodB": "assets/content/structures/residential_buildings/models/materials/lods/rowhouse_3st_9x9_lod_b.mat",
+                                "Rowhouse3st9x9LodC": "assets/content/structures/residential_buildings/models/materials/lods/rowhouse_3st_9x9_lod_c.mat",
+                                "Rowhouse4st9x12Lod": "assets/content/structures/residential_buildings/models/materials/lods/rowhouse_4st_9x12_lod.mat"
+                              },
+                              "SubFolders": {}
+                            }
+                          }
                         }
                       }
                     }
@@ -3344,6 +3650,45 @@
                     }
                   }
                 },
+                "rentable_shops": {
+                  "Name": "rentable_shops",
+                  "Path": "assets/assets/content/structures/rentable_shops",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/assets/content/structures/rentable_shops/materials",
+                      "Files": {
+                        "Blank": "assets/content/structures/rentable_shops/materials/blank.mat",
+                        "CorrugatedMetalPom": "assets/content/structures/rentable_shops/materials/corrugated_metal_pom.mat",
+                        "GlassDirty": "assets/content/structures/rentable_shops/materials/glass_dirty.mat",
+                        "MetalPlateRed01": "assets/content/structures/rentable_shops/materials/metal_plate_red_01.mat",
+                        "MetalPlateWhite01": "assets/content/structures/rentable_shops/materials/metal_plate_white_01.mat",
+                        "PlyWoodPainted": "assets/content/structures/rentable_shops/materials/plywood_painted.mat",
+                        "PlyWoodPaintedPaintable": "assets/content/structures/rentable_shops/materials/plywood_painted_paintable.mat",
+                        "RentableShopsBrick": "assets/content/structures/rentable_shops/materials/rentable_shops_brick.mat",
+                        "RentableShopsCorrugatedMetal": "assets/content/structures/rentable_shops/materials/rentable_shops_corrugated_metal.mat",
+                        "RentableShopsCorrugatedMetalB": "assets/content/structures/rentable_shops/materials/rentable_shops_corrugated_metal_b.mat",
+                        "RentableShopsKioskMetalPanelsPaintedA": "assets/content/structures/rentable_shops/materials/rentable_shops_kiosk_metal_panels_painted_a.mat",
+                        "RentableShopsKioskMetalPanelsPaintedB": "assets/content/structures/rentable_shops/materials/rentable_shops_kiosk_metal_panels_painted_b.mat",
+                        "RentableShopsKioskTrimsBlend": "assets/content/structures/rentable_shops/materials/rentable_shops_kiosk_trims_blend.mat",
+                        "RentableShopsKioskTrimsPaintable": "assets/content/structures/rentable_shops/materials/rentable_shops_kiosk_trims_paintable.mat",
+                        "RentableShopsKioskTrimsPaintedA": "assets/content/structures/rentable_shops/materials/rentable_shops_kiosk_trims_painted_a.mat",
+                        "RentableShopsKioskTrimsPlain": "assets/content/structures/rentable_shops/materials/rentable_shops_kiosk_trims_plain.mat",
+                        "RentableShopsLod3A": "assets/content/structures/rentable_shops/materials/rentable_shops_lod3_a.mat",
+                        "RentableShopsLod3B": "assets/content/structures/rentable_shops/materials/rentable_shops_lod3_b.mat",
+                        "RentableShopsRedPanels": "assets/content/structures/rentable_shops/materials/rentable_shops_red_panels.mat",
+                        "RentableShopsShutters": "assets/content/structures/rentable_shops/materials/rentable_shops_shutters.mat",
+                        "RentableShopsSignageAtlas": "assets/content/structures/rentable_shops/materials/rentable_shops_signage_atlas.mat",
+                        "RentableShopsSignageAtlasB": "assets/content/structures/rentable_shops/materials/rentable_shops_signage_atlas_b.mat",
+                        "RentableShopsYellowPanels": "assets/content/structures/rentable_shops/materials/rentable_shops_yellow_panels.mat",
+                        "RentableShopTilingWood": "assets/content/structures/rentable_shops/materials/rentable_shop_tiling_wood.mat",
+                        "RentableShopTilingWoodPaintable": "assets/content/structures/rentable_shops/materials/rentable_shop_tiling_wood_paintable.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
                 "cargo_ship": {
                   "Name": "cargo_ship",
                   "Path": "assets/assets/content/structures/cargo_ship",
@@ -3712,95 +4057,6 @@
                             "WaterTowerIndustrialLodRed": "assets/content/structures/industrial_structures/models/materials/water_tower_industrial_lod_red.mat"
                           },
                           "SubFolders": {}
-                        }
-                      }
-                    }
-                  }
-                },
-                "residential_buildings": {
-                  "Name": "residential_buildings",
-                  "Path": "assets/assets/content/structures/residential_buildings",
-                  "Files": {},
-                  "SubFolders": {
-                    "models": {
-                      "Name": "models",
-                      "Path": "assets/assets/content/structures/residential_buildings/models",
-                      "Files": {},
-                      "SubFolders": {
-                        "materials": {
-                          "Name": "materials",
-                          "Path": "assets/assets/content/structures/residential_buildings/models/materials",
-                          "Files": {
-                            "BrickCornerDecal": "assets/content/structures/residential_buildings/models/materials/brick_corner_decal.mat",
-                            "ConcreteMossyRoof": "assets/content/structures/residential_buildings/models/materials/concrete_mossy_roof.mat",
-                            "GaragesRoof": "assets/content/structures/residential_buildings/models/materials/garages_roof.mat",
-                            "HouseBrickWallA": "assets/content/structures/residential_buildings/models/materials/house_brick_wall_a.mat",
-                            "HouseBrickWallA1": "assets/content/structures/residential_buildings/models/materials/house_brick_wall_a 1.mat",
-                            "HouseBrickWallABlue": "assets/content/structures/residential_buildings/models/materials/house_brick_wall_a_blue.mat",
-                            "HouseBrickWallABlueberry": "assets/content/structures/residential_buildings/models/materials/house_brick_wall_a_blueberry.mat",
-                            "HouseBrickWallACream": "assets/content/structures/residential_buildings/models/materials/house_brick_wall_a_cream.mat",
-                            "HouseBrickWallAGreen": "assets/content/structures/residential_buildings/models/materials/house_brick_wall_a_green.mat",
-                            "HouseBrickWallARed": "assets/content/structures/residential_buildings/models/materials/house_brick_wall_a_red.mat",
-                            "HouseBrickWallB": "assets/content/structures/residential_buildings/models/materials/house_brick_wall_b.mat",
-                            "HouseBrickWallC": "assets/content/structures/residential_buildings/models/materials/house_brick_wall_c.mat",
-                            "HouseBrickWallD": "assets/content/structures/residential_buildings/models/materials/house_brick_wall_d.mat",
-                            "HouseCinderBlock": "assets/content/structures/residential_buildings/models/materials/house_cinder_block.mat",
-                            "HouseFloorA": "assets/content/structures/residential_buildings/models/materials/house_floor_a.mat",
-                            "HouseFloorB": "assets/content/structures/residential_buildings/models/materials/house_floor_b.mat",
-                            "HouseRoofTrims": "assets/content/structures/residential_buildings/models/materials/house_roof_trims.mat",
-                            "HousesGlass": "assets/content/structures/residential_buildings/models/materials/houses_glass.mat",
-                            "HousesWindowFrames": "assets/content/structures/residential_buildings/models/materials/houses_window_frames.mat",
-                            "OutbuildingRoofA": "assets/content/structures/residential_buildings/models/materials/outbuilding_roof_a.mat",
-                            "ShedRoof": "assets/content/structures/residential_buildings/models/materials/shed_roof.mat",
-                            "Stairs": "assets/content/structures/residential_buildings/models/materials/stairs.mat",
-                            "Tar": "assets/content/structures/residential_buildings/models/materials/tar.mat",
-                            "Trims": "assets/content/structures/residential_buildings/models/materials/trims.mat",
-                            "WindoorConcTrims": "assets/content/structures/residential_buildings/models/materials/windoor_conc_trims.mat",
-                            "WindoorConcTrimsDark": "assets/content/structures/residential_buildings/models/materials/windoor_conc_trims_dark.mat",
-                            "WindoorWoodTrims": "assets/content/structures/residential_buildings/models/materials/windoor_wood_trims.mat",
-                            "WindoorWoodTrimsBlueberry": "assets/content/structures/residential_buildings/models/materials/windoor_wood_trims_blueberry.mat",
-                            "WindoorWoodTrimsBrown": "assets/content/structures/residential_buildings/models/materials/windoor_wood_trims_brown.mat",
-                            "WindoorWoodTrimsClay": "assets/content/structures/residential_buildings/models/materials/windoor_wood_trims_clay.mat",
-                            "WindoorWoodTrimsGreen": "assets/content/structures/residential_buildings/models/materials/windoor_wood_trims_green.mat",
-                            "WindoorWoodTrimsGrey": "assets/content/structures/residential_buildings/models/materials/windoor_wood_trims_grey.mat",
-                            "WindoorWoodTrimsPiss": "assets/content/structures/residential_buildings/models/materials/windoor_wood_trims_piss.mat",
-                            "WindoorWoodTrimsPurple": "assets/content/structures/residential_buildings/models/materials/windoor_wood_trims_purple.mat"
-                          },
-                          "SubFolders": {
-                            "lods": {
-                              "Name": "lods",
-                              "Path": "assets/assets/content/structures/residential_buildings/models/materials/lods",
-                              "Files": {
-                                "Outbuilding1st15x9LodA": "assets/content/structures/residential_buildings/models/materials/lods/outbuilding_1st_15x9_lod_a.mat",
-                                "Outbuilding1st15x9LodB": "assets/content/structures/residential_buildings/models/materials/lods/outbuilding_1st_15x9_lod_b.mat",
-                                "Outbuilding1st15x9LodC": "assets/content/structures/residential_buildings/models/materials/lods/outbuilding_1st_15x9_lod_c.mat",
-                                "Outbuilding1st15x9LodD": "assets/content/structures/residential_buildings/models/materials/lods/outbuilding_1st_15x9_lod_d.mat",
-                                "Outbuilding1st27x9LodA": "assets/content/structures/residential_buildings/models/materials/lods/outbuilding_1st_27x9_lod_a.mat",
-                                "Outbuilding1st27x9LodB": "assets/content/structures/residential_buildings/models/materials/lods/outbuilding_1st_27x9_lod_b.mat",
-                                "Outbuilding1st27x9LodC": "assets/content/structures/residential_buildings/models/materials/lods/outbuilding_1st_27x9_lod_c.mat",
-                                "Outbuilding1st6x9LodA": "assets/content/structures/residential_buildings/models/materials/lods/outbuilding_1st_6x9_lod_a.mat",
-                                "Outbuilding1st6x9LodB": "assets/content/structures/residential_buildings/models/materials/lods/outbuilding_1st_6x9_lod_b.mat",
-                                "Outbuilding1st6x9LodC": "assets/content/structures/residential_buildings/models/materials/lods/outbuilding_1st_6x9_lod_c.mat",
-                                "Outbuilding2st21x9LodA": "assets/content/structures/residential_buildings/models/materials/lods/outbuilding_2st_21x9_lod_a.mat",
-                                "Outbuilding2st21x9LodB": "assets/content/structures/residential_buildings/models/materials/lods/outbuilding_2st_21x9_lod_b.mat",
-                                "Rowhouse2st6x12LodA": "assets/content/structures/residential_buildings/models/materials/lods/rowhouse_2st_6x12_lod_a.mat",
-                                "Rowhouse2st6x12LodB": "assets/content/structures/residential_buildings/models/materials/lods/rowhouse_2st_6x12_lod_b.mat",
-                                "Rowhouse2st9x122LodA": "assets/content/structures/residential_buildings/models/materials/lods/rowhouse_2st_9x12-2_lod_a.mat",
-                                "Rowhouse2st9x122LodB": "assets/content/structures/residential_buildings/models/materials/lods/rowhouse_2st_9x12-2_lod_b.mat",
-                                "Rowhouse2st9x122LodC": "assets/content/structures/residential_buildings/models/materials/lods/rowhouse_2st_9x12-2_lod_c.mat",
-                                "Rowhouse2st9x12LodA": "assets/content/structures/residential_buildings/models/materials/lods/rowhouse_2st_9x12_lod_a.mat",
-                                "Rowhouse2st9x12LodB": "assets/content/structures/residential_buildings/models/materials/lods/rowhouse_2st_9x12_lod_b.mat",
-                                "Rowhouse2st9x12LodC": "assets/content/structures/residential_buildings/models/materials/lods/rowhouse_2st_9x12_lod_c.mat",
-                                "Rowhouse3st9x12LodA": "assets/content/structures/residential_buildings/models/materials/lods/rowhouse_3st_9x12_lod_a.mat",
-                                "Rowhouse3st9x12LodB": "assets/content/structures/residential_buildings/models/materials/lods/rowhouse_3st_9x12_lod_b.mat",
-                                "Rowhouse3st9x9LodA": "assets/content/structures/residential_buildings/models/materials/lods/rowhouse_3st_9x9_lod_a.mat",
-                                "Rowhouse3st9x9LodB": "assets/content/structures/residential_buildings/models/materials/lods/rowhouse_3st_9x9_lod_b.mat",
-                                "Rowhouse3st9x9LodC": "assets/content/structures/residential_buildings/models/materials/lods/rowhouse_3st_9x9_lod_c.mat",
-                                "Rowhouse4st9x12Lod": "assets/content/structures/residential_buildings/models/materials/lods/rowhouse_4st_9x12_lod.mat"
-                              },
-                              "SubFolders": {}
-                            }
-                          }
                         }
                       }
                     }
@@ -4280,6 +4536,7 @@
                           "Files": {
                             "CarparkALod": "assets/content/structures/roads/models/materials/carpark_a_lod.mat",
                             "CarparkALodSnow": "assets/content/structures/roads/models/materials/carpark_a_lod_snow.mat",
+                            "CobbleStoneRoadBlend": "assets/content/structures/roads/models/materials/cobblestone_road_blend.mat",
                             "LoadingBayLaneALod": "assets/content/structures/roads/models/materials/loading_bay_lane_a_lod.mat",
                             "Pavement": "assets/content/structures/roads/models/materials/pavement.mat",
                             "PavementBlend": "assets/content/structures/roads/models/materials/pavement_blend.mat",
@@ -4299,6 +4556,7 @@
                             "RoadGroundLayerLod": "assets/content/structures/roads/models/materials/road_ground_layer_lod.mat",
                             "RoadNopavementLods": "assets/content/structures/roads/models/materials/road_nopavement_lods.mat",
                             "RoadNopavementLodsSnow": "assets/content/structures/roads/models/materials/road_nopavement_lods_snow.mat",
+                            "RoadsCobbleStoneLods": "assets/content/structures/roads/models/materials/roads_cobblestone_lods.mat",
                             "RoadsLods": "assets/content/structures/roads/models/materials/roads_lods.mat",
                             "RoadsLodsSnow": "assets/content/structures/roads/models/materials/roads_lods_snow.mat",
                             "SideWalkBlend": "assets/content/structures/roads/models/materials/sidewalk_blend.mat",
@@ -4476,6 +4734,71 @@
                     }
                   }
                 },
+                "church": {
+                  "Name": "church",
+                  "Path": "assets/assets/content/structures/church",
+                  "Files": {},
+                  "SubFolders": {
+                    "models": {
+                      "Name": "models",
+                      "Path": "assets/assets/content/structures/church/models",
+                      "Files": {},
+                      "SubFolders": {
+                        "materials": {
+                          "Name": "materials",
+                          "Path": "assets/assets/content/structures/church/models/materials",
+                          "Files": {
+                            "ChurchALod4": "assets/content/structures/church/models/materials/church_a_lod4.mat",
+                            "ChurchBottomTrim": "assets/content/structures/church/models/materials/church_bottom_trim.mat",
+                            "ChurchBrick": "assets/content/structures/church/models/materials/church_brick.mat",
+                            "ChurchConcrete": "assets/content/structures/church/models/materials/church_concrete.mat",
+                            "ChurchCopperRoof": "assets/content/structures/church/models/materials/church_copper_roof.mat",
+                            "ChurchDamage": "assets/content/structures/church/models/materials/church_damage.mat",
+                            "ChurchDirt": "assets/content/structures/church/models/materials/church_dirt.mat",
+                            "ChurchRustyMetal": "assets/content/structures/church/models/materials/church_rusty_metal.mat",
+                            "ChurchWindows": "assets/content/structures/church/models/materials/church_windows.mat"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    }
+                  }
+                },
+                "city_hall": {
+                  "Name": "city_hall",
+                  "Path": "assets/assets/content/structures/city_hall",
+                  "Files": {},
+                  "SubFolders": {
+                    "model": {
+                      "Name": "model",
+                      "Path": "assets/assets/content/structures/city_hall/model",
+                      "Files": {},
+                      "SubFolders": {
+                        "materials": {
+                          "Name": "materials",
+                          "Path": "assets/assets/content/structures/city_hall/model/materials",
+                          "Files": {
+                            "CityhallConcreteDamage": "assets/content/structures/city_hall/model/materials/cityhall_concrete_damage.mat",
+                            "CityhallConcreteEdgeDecal": "assets/content/structures/city_hall/model/materials/cityhall_concrete_edge_decal.mat",
+                            "CityhallConcreteWall": "assets/content/structures/city_hall/model/materials/cityhall_concrete_wall.mat",
+                            "CityhallGarageDoor": "assets/content/structures/city_hall/model/materials/cityhall_garage_door.mat",
+                            "CityhallGlass": "assets/content/structures/city_hall/model/materials/cityhall_glass.mat",
+                            "CityhallHelipadLandingpad": "assets/content/structures/city_hall/model/materials/cityhall_helipad_landingpad.mat",
+                            "CityhallHelipadLod4": "assets/content/structures/city_hall/model/materials/cityhall_helipad_lod4.mat",
+                            "CityhallHelipadMesh": "assets/content/structures/city_hall/model/materials/cityhall_helipad_mesh.mat",
+                            "CityhallHelipadMetal": "assets/content/structures/city_hall/model/materials/cityhall_helipad_metal.mat",
+                            "CityhallIndustrialDoor": "assets/content/structures/city_hall/model/materials/cityhall_industrial_door.mat",
+                            "CityhallMetalTrims": "assets/content/structures/city_hall/model/materials/cityhall_metal_trims.mat",
+                            "CityhallMetalTrimsRaw": "assets/content/structures/city_hall/model/materials/cityhall_metal_trims_raw.mat",
+                            "CityhallPlyWood": "assets/content/structures/city_hall/model/materials/cityhall_plywood.mat",
+                            "CityhallRoof": "assets/content/structures/city_hall/model/materials/cityhall_roof.mat"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    }
+                  }
+                },
                 "coaling_tower": {
                   "Name": "coaling_tower",
                   "Path": "assets/assets/content/structures/coaling_tower",
@@ -4504,6 +4827,29 @@
                             "CoalingTowerWindowsDoublesided": "assets/content/structures/coaling_tower/models/materials/coaling_tower_windows doublesided.mat",
                             "CobaltLogistics": "assets/content/structures/coaling_tower/models/materials/cobalt_logistics.mat",
                             "TrampledCoal": "assets/content/structures/coaling_tower/models/materials/trampled_coal.mat"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    }
+                  }
+                },
+                "cobalt_statue": {
+                  "Name": "cobalt_statue",
+                  "Path": "assets/assets/content/structures/cobalt_statue",
+                  "Files": {},
+                  "SubFolders": {
+                    "models": {
+                      "Name": "models",
+                      "Path": "assets/assets/content/structures/cobalt_statue/models",
+                      "Files": {},
+                      "SubFolders": {
+                        "materials": {
+                          "Name": "materials",
+                          "Path": "assets/assets/content/structures/cobalt_statue/models/materials",
+                          "Files": {
+                            "CobaltStatueHelix": "assets/content/structures/cobalt_statue/models/materials/cobalt_statue_helix.mat",
+                            "CobaltStatuePedestal": "assets/content/structures/cobalt_statue/models/materials/cobalt_statue_pedestal.mat"
                           },
                           "SubFolders": {}
                         }
@@ -5062,6 +5408,7 @@
                             "OfficeTrims": "assets/content/structures/office_interiors/models/materials/office_trims.mat",
                             "OfficeVents": "assets/content/structures/office_interiors/models/materials/office_vents.mat",
                             "OfficeVentsGlass": "assets/content/structures/office_interiors/models/materials/office_vents_glass.mat",
+                            "OfficeVentsGlassFrosted": "assets/content/structures/office_interiors/models/materials/office_vents_glass_frosted.mat",
                             "OfficeWalls": "assets/content/structures/office_interiors/models/materials/office_walls.mat",
                             "PlasticPanelsB": "assets/content/structures/office_interiors/models/materials/plastic_panels_b.mat",
                             "WindowsGlass": "assets/content/structures/office_interiors/models/materials/windows_glass.mat",
@@ -5931,6 +6278,7 @@
                             "PipeLinesPillarsLod": "assets/content/structures/pipelines/models/materials/pipelines_pillars_lod.mat",
                             "PipeLinesPillarsSnow": "assets/content/structures/pipelines/models/materials/pipelines_pillars_snow.mat",
                             "PipeLinesRustyMetal": "assets/content/structures/pipelines/models/materials/pipelines_rusty_metal.mat",
+                            "PipeLinesRustyMetalBlack": "assets/content/structures/pipelines/models/materials/pipelines_rusty_metal_black.mat",
                             "PipeLinesRustyMetalBlue": "assets/content/structures/pipelines/models/materials/pipelines_rusty_metal_blue.mat",
                             "PipeLinesRustyMetalBlueLod": "assets/content/structures/pipelines/models/materials/pipelines_rusty_metal_blue_lod.mat",
                             "PipeLinesRustyMetalGreen": "assets/content/structures/pipelines/models/materials/pipelines_rusty_metal_green.mat",
@@ -5996,6 +6344,22 @@
                           "SubFolders": {}
                         }
                       }
+                    }
+                  }
+                },
+                "monument_blockers": {
+                  "Name": "monument_blockers",
+                  "Path": "assets/assets/content/structures/monument_blockers",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/assets/content/structures/monument_blockers/materials",
+                      "Files": {
+                        "MonumentBlockerCorrugatedA": "assets/content/structures/monument_blockers/materials/monument_blocker_corrugated_a.mat",
+                        "MonumentBlockerIndustrialBarricadeA": "assets/content/structures/monument_blockers/materials/monument_blocker_industrial_barricade_a.mat"
+                      },
+                      "SubFolders": {}
                     }
                   }
                 },
@@ -6434,6 +6798,36 @@
                     }
                   }
                 },
+                "playground": {
+                  "Name": "playground",
+                  "Path": "assets/assets/content/structures/playground",
+                  "Files": {},
+                  "SubFolders": {
+                    "sandboxes": {
+                      "Name": "sandboxes",
+                      "Path": "assets/assets/content/structures/playground/sandboxes",
+                      "Files": {},
+                      "SubFolders": {
+                        "models": {
+                          "Name": "models",
+                          "Path": "assets/assets/content/structures/playground/sandboxes/models",
+                          "Files": {},
+                          "SubFolders": {
+                            "materials": {
+                              "Name": "materials",
+                              "Path": "assets/assets/content/structures/playground/sandboxes/models/materials",
+                              "Files": {
+                                "SandBoxBorders": "assets/content/structures/playground/sandboxes/models/materials/sandbox_borders.mat",
+                                "SandBoxSand": "assets/content/structures/playground/sandboxes/models/materials/sandbox_sand.mat"
+                              },
+                              "SubFolders": {}
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
                 "security_door": {
                   "Name": "security_door",
                   "Path": "assets/assets/content/structures/security_door",
@@ -6453,6 +6847,30 @@
                             "SecurityDoorGlass": "assets/content/structures/security_door/models/materials/security_door_glass.mat",
                             "SecurityDoorGreen": "assets/content/structures/security_door/models/materials/security_door_green.mat",
                             "SecurityDoorRed": "assets/content/structures/security_door/models/materials/security_door_red.mat"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    }
+                  }
+                },
+                "town_square": {
+                  "Name": "town_square",
+                  "Path": "assets/assets/content/structures/town_square",
+                  "Files": {},
+                  "SubFolders": {
+                    "models": {
+                      "Name": "models",
+                      "Path": "assets/assets/content/structures/town_square/models",
+                      "Files": {},
+                      "SubFolders": {
+                        "materials": {
+                          "Name": "materials",
+                          "Path": "assets/assets/content/structures/town_square/models/materials",
+                          "Files": {
+                            "SideWalkASquare": "assets/content/structures/town_square/models/materials/sidewalk_a_square.mat",
+                            "SideWalkCSquare": "assets/content/structures/town_square/models/materials/sidewalk_c_square.mat",
+                            "TownSquareLod2": "assets/content/structures/town_square/models/materials/town_square_lod2.mat"
                           },
                           "SubFolders": {}
                         }
@@ -8255,6 +8673,7 @@
                     "FlameLickFlatFurnace": "assets/content/effects/fire/flame_lick_flat_furnace.mat",
                     "FlameLickFlatFurnaceLarge": "assets/content/effects/fire/flame_lick_flat_furnace_large.mat",
                     "FlameLickFlatFurnaceLargeIndustrial": "assets/content/effects/fire/flame_lick_flat_furnace_large_industrial.mat",
+                    "FlameLickFlatFurnaceOpaque": "assets/content/effects/fire/flame_lick_flat_furnace_opaque.mat",
                     "FlameLickFloating": "assets/content/effects/fire/flame_lick_floating.mat",
                     "FlameLickHobobarrel": "assets/content/effects/fire/flame_lick_hobobarrel.mat",
                     "FlameLickPeak": "assets/content/effects/fire/flame_lick_peak.mat",
@@ -8542,12 +8961,14 @@
                   "Files": {
                     "VfxEmber": "assets/content/effects/cars/vfx_ember.mat",
                     "VfxEmber2": "assets/content/effects/cars/vfx_ember2.mat",
+                    "VfxEmberOpaque": "assets/content/effects/cars/vfx_ember_opaque.mat",
                     "VfxEmberStronger": "assets/content/effects/cars/vfx_ember_stronger.mat",
                     "VfxGibsSnow": "assets/content/effects/cars/vfx_gibs_snow.mat",
                     "VfxHeatshimmer": "assets/content/effects/cars/vfx_heatshimmer.mat",
                     "VfxHeatshimmerHeater": "assets/content/effects/cars/vfx_heatshimmer_heater.mat",
                     "VfxHeatshimmerLava": "assets/content/effects/cars/vfx_heatshimmer_lava.mat",
                     "VfxHeatshimmerMilder": "assets/content/effects/cars/vfx_heatshimmer_milder.mat",
+                    "VfxHeatshimmerStove": "assets/content/effects/cars/vfx_heatshimmer_stove.mat",
                     "VfxHeatshimmerStronger": "assets/content/effects/cars/vfx_heatshimmer_stronger.mat",
                     "VfxHeatshimmerStrongest": "assets/content/effects/cars/vfx_heatshimmer_strongest.mat",
                     "VfxMudChunks": "assets/content/effects/cars/vfx_mud_chunks.mat",
@@ -10062,6 +10483,7 @@
                             "VanBodyBlack": "assets/content/vehicles/van/models/materials/van_body_black.mat",
                             "VanBodyGrey": "assets/content/vehicles/van/models/materials/van_body_grey.mat",
                             "VanBodyLightBlue": "assets/content/vehicles/van/models/materials/van_body_light_blue.mat",
+                            "VanBodyLightOrange": "assets/content/vehicles/van/models/materials/van_body_light_orange.mat",
                             "VanBodyRusty": "assets/content/vehicles/van/models/materials/van_body_rusty.mat",
                             "VanBodyRustySnow": "assets/content/vehicles/van/models/materials/van_body_rusty_snow.mat",
                             "VanBodyWhite": "assets/content/vehicles/van/models/materials/van_body_white.mat",
@@ -10069,6 +10491,7 @@
                             "VanLod4Black": "assets/content/vehicles/van/models/materials/van_lod4_black.mat",
                             "VanLod4Grey": "assets/content/vehicles/van/models/materials/van_lod4_grey.mat",
                             "VanLod4LightBlue": "assets/content/vehicles/van/models/materials/van_lod4_light_blue.mat",
+                            "VanLod4LightOrange": "assets/content/vehicles/van/models/materials/van_lod4_light_orange.mat",
                             "VanLod4Rusty": "assets/content/vehicles/van/models/materials/van_lod4_rusty.mat",
                             "VanLod4RustySnow": "assets/content/vehicles/van/models/materials/van_lod4_rusty_snow.mat",
                             "VanLod4White": "assets/content/vehicles/van/models/materials/van_lod4_white.mat",
@@ -10207,6 +10630,47 @@
                     }
                   }
                 },
+                "apartment_fridge": {
+                  "Name": "apartment_fridge",
+                  "Path": "assets/assets/content/props/apartment_fridge",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/assets/content/props/apartment_fridge/materials",
+                      "Files": {
+                        "ApartmentFridge": "assets/content/props/apartment_fridge/materials/apartment_fridge.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
+                "apartment_lights": {
+                  "Name": "apartment_lights",
+                  "Path": "assets/assets/content/props/apartment_lights",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/assets/content/props/apartment_lights/materials",
+                      "Files": {
+                        "ApartmentLights": "assets/content/props/apartment_lights/materials/apartment_lights.mat"
+                      },
+                      "SubFolders": {}
+                    },
+                    "effects": {
+                      "Name": "effects",
+                      "Path": "assets/assets/content/props/apartment_lights/effects",
+                      "Files": {
+                        "BulbCutout": "assets/content/props/apartment_lights/effects/bulb_cutout.mat",
+                        "BulbCutoutOn": "assets/content/props/apartment_lights/effects/bulb_cutout_on.mat",
+                        "BulbTransparent": "assets/content/props/apartment_lights/effects/bulb_transparent.mat",
+                        "BulbTransparentOn": "assets/content/props/apartment_lights/effects/bulb_transparent_on.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
                 "appartment_mailboxes": {
                   "Name": "appartment_mailboxes",
                   "Path": "assets/assets/content/props/appartment_mailboxes",
@@ -10226,6 +10690,68 @@
                           "SubFolders": {}
                         }
                       }
+                    }
+                  }
+                },
+                "apartments_beds": {
+                  "Name": "apartments_beds",
+                  "Path": "assets/assets/content/props/apartments_beds",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/assets/content/props/apartments_beds/materials",
+                      "Files": {
+                        "ApartmentsBeds": "assets/content/props/apartments_beds/materials/apartments_beds.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
+                "apartment_spotlight": {
+                  "Name": "apartment_spotlight",
+                  "Path": "assets/assets/content/props/apartment_spotlight",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/assets/content/props/apartment_spotlight/materials",
+                      "Files": {
+                        "ApartmentSpotLight": "assets/content/props/apartment_spotlight/materials/apartment_spotlight.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
+                "apartments_wood_shutters": {
+                  "Name": "apartments_wood_shutters",
+                  "Path": "assets/assets/content/props/apartments_wood_shutters",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/assets/content/props/apartments_wood_shutters/materials",
+                      "Files": {
+                        "ApartmentsWoodShutters": "assets/content/props/apartments_wood_shutters/materials/apartments_wood_shutters.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
+                "apartment_wood_stove": {
+                  "Name": "apartment_wood_stove",
+                  "Path": "assets/assets/content/props/apartment_wood_stove",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/assets/content/props/apartment_wood_stove/materials",
+                      "Files": {
+                        "ApartmentWoodStove": "assets/content/props/apartment_wood_stove/materials/apartment_wood_stove.mat",
+                        "ApartmentWoodStoveGlassDisabled": "assets/content/props/apartment_wood_stove/materials/apartment_wood_stove_glass_disabled.mat",
+                        "ApartmentWoodStoveGlassEnabled": "assets/content/props/apartment_wood_stove/materials/apartment_wood_stove_glass_enabled.mat"
+                      },
+                      "SubFolders": {}
                     }
                   }
                 },
@@ -10935,6 +11461,22 @@
                     }
                   }
                 },
+                "broken_tiles": {
+                  "Name": "broken_tiles",
+                  "Path": "assets/assets/content/props/broken_tiles",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/assets/content/props/broken_tiles/materials",
+                      "Files": {
+                        "BrokenTiles": "assets/content/props/broken_tiles/materials/broken_tiles.mat",
+                        "BrokenTilesDark": "assets/content/props/broken_tiles/materials/broken_tiles_dark.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
                 "food containers": {
                   "Name": "food containers",
                   "Path": "assets/assets/content/props/food containers",
@@ -10974,6 +11516,21 @@
                           "SubFolders": {}
                         }
                       }
+                    }
+                  }
+                },
+                "apartment_bulky_sofa": {
+                  "Name": "apartment_bulky_sofa",
+                  "Path": "assets/assets/content/props/apartment_bulky_sofa",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/assets/content/props/apartment_bulky_sofa/materials",
+                      "Files": {
+                        "BulkyApartmentSofa": "assets/content/props/apartment_bulky_sofa/materials/bulky_apartment_sofa.mat"
+                      },
+                      "SubFolders": {}
                     }
                   }
                 },
@@ -11036,6 +11593,28 @@
                     }
                   }
                 },
+                "camping_cooker": {
+                  "Name": "camping_cooker",
+                  "Path": "assets/assets/content/props/camping_cooker",
+                  "Files": {},
+                  "SubFolders": {
+                    "model": {
+                      "Name": "model",
+                      "Path": "assets/assets/content/props/camping_cooker/model",
+                      "Files": {},
+                      "SubFolders": {
+                        "material": {
+                          "Name": "material",
+                          "Path": "assets/assets/content/props/camping_cooker/model/material",
+                          "Files": {
+                            "CampingCooker": "assets/content/props/camping_cooker/model/material/camping_cooker.mat"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    }
+                  }
+                },
                 "candles": {
                   "Name": "candles",
                   "Path": "assets/assets/content/props/candles",
@@ -11062,7 +11641,8 @@
                       "Files": {
                         "Cantinastool": "assets/content/props/various_chairs/materials/cantinastool.mat",
                         "CantinastoolBrown": "assets/content/props/various_chairs/materials/cantinastool brown.mat",
-                        "Controlchair": "assets/content/props/various_chairs/materials/controlchair.mat"
+                        "Controlchair": "assets/content/props/various_chairs/materials/controlchair.mat",
+                        "Stools": "assets/content/props/various_chairs/materials/stools.mat"
                       },
                       "SubFolders": {}
                     }
@@ -11126,6 +11706,21 @@
                     }
                   }
                 },
+                "castironpan": {
+                  "Name": "castironpan",
+                  "Path": "assets/assets/content/props/castironpan",
+                  "Files": {},
+                  "SubFolders": {
+                    "material": {
+                      "Name": "material",
+                      "Path": "assets/assets/content/props/castironpan/material",
+                      "Files": {
+                        "Castironpan": "assets/content/props/castironpan/material/castironpan.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
                 "light_fixtures": {
                   "Name": "light_fixtures",
                   "Path": "assets/assets/content/props/light_fixtures",
@@ -11165,6 +11760,7 @@
                             "DistanceflareSpotLight": "assets/content/props/light_fixtures/v2/distance flares/distanceflare-spotlight.mat",
                             "DistanceflareSpotLightWarm": "assets/content/props/light_fixtures/v2/distance flares/distanceflare-spotlight-warm.mat",
                             "DistanceflareStreetLight": "assets/content/props/light_fixtures/v2/distance flares/distanceflare-streetlight.mat",
+                            "DistanceflareStreetLightApartments": "assets/content/props/light_fixtures/v2/distance flares/distanceflare-streetlight-apartments.mat",
                             "DistanceflareWarm": "assets/content/props/light_fixtures/v2/distance flares/distanceflare-warm.mat",
                             "DistanceflareWarmFluorescent": "assets/content/props/light_fixtures/v2/distance flares/distanceflare-warm-fluorescent.mat",
                             "DistanceflareWhite": "assets/content/props/light_fixtures/v2/distance flares/distanceflare-white.mat",
@@ -11204,6 +11800,7 @@
                           "Path": "assets/assets/content/props/light_fixtures/models/materials",
                           "Files": {
                             "FluorescentLight": "assets/content/props/light_fixtures/models/materials/fluorescentlight.mat",
+                            "FluorescentLightapartments": "assets/content/props/light_fixtures/models/materials/fluorescentlightapartments.mat",
                             "FluorescentLightCasino": "assets/content/props/light_fixtures/models/materials/fluorescentlight_casino.mat",
                             "FluorescentLightcold": "assets/content/props/light_fixtures/models/materials/fluorescentlightcold.mat",
                             "FluorescentLightoff": "assets/content/props/light_fixtures/models/materials/fluorescentlightoff.mat",
@@ -11224,6 +11821,7 @@
                             "LightFixturesCargoWarm": "assets/content/props/light_fixtures/models/materials/light_fixtures_cargo_warm.mat",
                             "LightFixturesCeilingTallCold": "assets/content/props/light_fixtures/models/materials/light_fixtures_ceiling_tall_cold.mat",
                             "LightFixturesCeilingTallGreen": "assets/content/props/light_fixtures/models/materials/light_fixtures_ceiling_tall_green.mat",
+                            "LightFixturesCeilingTallWarm": "assets/content/props/light_fixtures/models/materials/light_fixtures_ceiling_tall_warm.mat",
                             "LightFixturesEmAlt": "assets/content/props/light_fixtures/models/materials/light_fixtures_em_alt.mat",
                             "LightFixturesEmB": "assets/content/props/light_fixtures/models/materials/light_fixtures_em_b.mat",
                             "LightFixturesEmCold": "assets/content/props/light_fixtures/models/materials/light_fixtures_em_cold.mat",
@@ -11248,8 +11846,10 @@
                             "OfficeCeilingLightATransparentOn": "assets/content/props/light_fixtures/models/materials/office_ceiling_light_a_transparent_on.mat",
                             "OfficeCeilingLightBOff": "assets/content/props/light_fixtures/models/materials/office_ceiling_light_b_off.mat",
                             "OfficeCeilingLightBOn": "assets/content/props/light_fixtures/models/materials/office_ceiling_light_b_on.mat",
+                            "OfficeCeilingLightBOnWarm": "assets/content/props/light_fixtures/models/materials/office_ceiling_light_b_on_warm.mat",
                             "OfficeCeilingLightBTransparent": "assets/content/props/light_fixtures/models/materials/office_ceiling_light_b_transparent.mat",
                             "OfficeCeilingLightBTransparentOn": "assets/content/props/light_fixtures/models/materials/office_ceiling_light_b_transparent_on.mat",
+                            "OfficeCeilingLightBTransparentOnWarm": "assets/content/props/light_fixtures/models/materials/office_ceiling_light_b_transparent_on_warm.mat",
                             "PlainLightBlue": "assets/content/props/light_fixtures/models/materials/plainlight_blue.mat",
                             "PlainLightBlueDeeper": "assets/content/props/light_fixtures/models/materials/plainlight_blue_deeper.mat",
                             "PlainLightBlueHid": "assets/content/props/light_fixtures/models/materials/plainlight_blue_hid.mat",
@@ -11258,6 +11858,7 @@
                             "PlainLightGreen": "assets/content/props/light_fixtures/models/materials/plainlight_green.mat",
                             "PlainLightGreenDimmer": "assets/content/props/light_fixtures/models/materials/plainlight_green_dimmer.mat",
                             "PlainLightGreenHid": "assets/content/props/light_fixtures/models/materials/plainlight_green_hid.mat",
+                            "PlainLightOfficeLightBulb": "assets/content/props/light_fixtures/models/materials/plainlight_office_light_bulb.mat",
                             "PlainLightOrange": "assets/content/props/light_fixtures/models/materials/plainlight_orange.mat",
                             "PlainLightOrangeDimmer": "assets/content/props/light_fixtures/models/materials/plainlight_orange_dimmer.mat",
                             "PlainLightParticleLightAdditive": "assets/content/props/light_fixtures/models/materials/plainlight_particle_light_additive.mat",
@@ -11287,6 +11888,7 @@
                             "SirenLightRedIo": "assets/content/props/light_fixtures/models/materials/sirenlight_red_io.mat",
                             "SirenLightRedOff": "assets/content/props/light_fixtures/models/materials/sirenlight_red_off.mat",
                             "SirenLightRedSpinner": "assets/content/props/light_fixtures/models/materials/sirenlight_red_spinner.mat",
+                            "SirenLightWarm": "assets/content/props/light_fixtures/models/materials/sirenlight_warm.mat",
                             "SpotLightOff": "assets/content/props/light_fixtures/models/materials/spotlight.off.mat",
                             "SpotLightOn": "assets/content/props/light_fixtures/models/materials/spotlight_on.mat",
                             "SpotLightOnCool": "assets/content/props/light_fixtures/models/materials/spotlight_on_cool.mat",
@@ -11477,6 +12079,36 @@
                     }
                   }
                 },
+                "cobwebs": {
+                  "Name": "cobwebs",
+                  "Path": "assets/assets/content/props/cobwebs",
+                  "Files": {},
+                  "SubFolders": {
+                    "textures": {
+                      "Name": "textures",
+                      "Path": "assets/assets/content/props/cobwebs/textures",
+                      "Files": {
+                        "Cobweb": "assets/content/props/cobwebs/textures/cobweb.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
+                "cockroach": {
+                  "Name": "cockroach",
+                  "Path": "assets/assets/content/props/cockroach",
+                  "Files": {},
+                  "SubFolders": {
+                    "textures": {
+                      "Name": "textures",
+                      "Path": "assets/assets/content/props/cockroach/textures",
+                      "Files": {
+                        "Cockroach": "assets/content/props/cockroach/textures/cockroach.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
                 "coconut": {
                   "Name": "coconut",
                   "Path": "assets/assets/content/props/coconut",
@@ -11544,6 +12176,7 @@
                             "PipesSteel": "assets/content/props/pipes/models/materials/pipes_steel.mat",
                             "PipesSteelSnow": "assets/content/props/pipes/models/materials/pipes_steel_snow.mat",
                             "PipesWhite": "assets/content/props/pipes/models/materials/pipes_white.mat",
+                            "PipesWhiteA": "assets/content/props/pipes/models/materials/pipes_white_a.mat",
                             "PipesYellow": "assets/content/props/pipes/models/materials/pipes_yellow.mat"
                           },
                           "SubFolders": {}
@@ -11705,8 +12338,10 @@
                       "Path": "assets/assets/content/props/debris/materials",
                       "Files": {
                         "DebrisA": "assets/content/props/debris/materials/debris_a.mat",
+                        "DebrisADark": "assets/content/props/debris/materials/debris_a_dark.mat",
                         "DebrisAMossy": "assets/content/props/debris/materials/debris_a_mossy.mat",
                         "DebrisKitA": "assets/content/props/debris/materials/debris_kit_a.mat",
+                        "DebrisKitADark": "assets/content/props/debris/materials/debris_kit_a_dark.mat",
                         "DebrisKitAMossy": "assets/content/props/debris/materials/debris_kit_a_mossy.mat"
                       },
                       "SubFolders": {}
@@ -11842,6 +12477,44 @@
                         "DiyHAmmock": "assets/content/props/diy_hammock/materials/diy_hammock.mat"
                       },
                       "SubFolders": {}
+                    }
+                  }
+                },
+                "apartment_door_mats": {
+                  "Name": "apartment_door_mats",
+                  "Path": "assets/assets/content/props/apartment_door_mats",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/assets/content/props/apartment_door_mats/materials",
+                      "Files": {
+                        "DoorMats": "assets/content/props/apartment_door_mats/materials/door_mats.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
+                "doors_apartments": {
+                  "Name": "doors_apartments",
+                  "Path": "assets/assets/content/props/doors_apartments",
+                  "Files": {},
+                  "SubFolders": {
+                    "models": {
+                      "Name": "models",
+                      "Path": "assets/assets/content/props/doors_apartments/models",
+                      "Files": {},
+                      "SubFolders": {
+                        "materials": {
+                          "Name": "materials",
+                          "Path": "assets/assets/content/props/doors_apartments/models/materials",
+                          "Files": {
+                            "DoorsApartments": "assets/content/props/doors_apartments/models/materials/doors_apartments.mat",
+                            "DoorsApartmentsGlass": "assets/content/props/doors_apartments/models/materials/doors_apartments_glass.mat"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
                     }
                   }
                 },
@@ -11991,6 +12664,21 @@
                     }
                   }
                 },
+                "firewood": {
+                  "Name": "firewood",
+                  "Path": "assets/assets/content/props/firewood",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/assets/content/props/firewood/materials",
+                      "Files": {
+                        "FireWoodStack": "assets/content/props/firewood/materials/firewood_stack.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
                 "first_aid_cabinet": {
                   "Name": "first_aid_cabinet",
                   "Path": "assets/assets/content/props/first_aid_cabinet",
@@ -12096,6 +12784,21 @@
                     }
                   }
                 },
+                "foldable table": {
+                  "Name": "foldable table",
+                  "Path": "assets/assets/content/props/foldable table",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/assets/content/props/foldable table/materials",
+                      "Files": {
+                        "FoldableTable": "assets/content/props/foldable table/materials/foldable_table.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
                 "folding_chairs": {
                   "Name": "folding_chairs",
                   "Path": "assets/assets/content/props/folding_chairs",
@@ -12173,6 +12876,21 @@
                           "SubFolders": {}
                         }
                       }
+                    }
+                  }
+                },
+                "freestanding sink": {
+                  "Name": "freestanding sink",
+                  "Path": "assets/assets/content/props/freestanding sink",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/assets/content/props/freestanding sink/materials",
+                      "Files": {
+                        "FreestandingSink": "assets/content/props/freestanding sink/materials/freestanding_sink.mat"
+                      },
+                      "SubFolders": {}
                     }
                   }
                 },
@@ -12737,7 +13455,8 @@
                           "Name": "materials",
                           "Path": "assets/assets/content/props/ceiling_pipe_cable_kit/models/materials",
                           "Files": {
-                            "JungleCableGantry": "assets/content/props/ceiling_pipe_cable_kit/models/materials/jungle_cable_gantry.mat"
+                            "JungleCableGantry": "assets/content/props/ceiling_pipe_cable_kit/models/materials/jungle_cable_gantry.mat",
+                            "JungleCableGantryClean": "assets/content/props/ceiling_pipe_cable_kit/models/materials/jungle_cable_gantry_clean.mat"
                           },
                           "SubFolders": {}
                         }
@@ -12849,6 +13568,29 @@
                     }
                   }
                 },
+                "oven": {
+                  "Name": "oven",
+                  "Path": "assets/assets/content/props/oven",
+                  "Files": {},
+                  "SubFolders": {
+                    "model": {
+                      "Name": "model",
+                      "Path": "assets/assets/content/props/oven/model",
+                      "Files": {},
+                      "SubFolders": {
+                        "materials": {
+                          "Name": "materials",
+                          "Path": "assets/assets/content/props/oven/model/materials",
+                          "Files": {
+                            "KitchenOven": "assets/content/props/oven/model/materials/kitchen_oven.mat",
+                            "KitchenOvenTransparent": "assets/content/props/oven/model/materials/kitchen_oven_transparent.mat"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    }
+                  }
+                },
                 "kitchen_furniture": {
                   "Name": "kitchen_furniture",
                   "Path": "assets/assets/content/props/kitchen_furniture",
@@ -12862,6 +13604,37 @@
                         "Kitchenset02": "assets/content/props/kitchen_furniture/materials/kitchenset_02.mat"
                       },
                       "SubFolders": {}
+                    },
+                    "apartment set large": {
+                      "Name": "apartment set large",
+                      "Path": "assets/assets/content/props/kitchen_furniture/apartment set large",
+                      "Files": {},
+                      "SubFolders": {
+                        "materials": {
+                          "Name": "materials",
+                          "Path": "assets/assets/content/props/kitchen_furniture/apartment set large/materials",
+                          "Files": {
+                            "LargeApartmentKitchen": "assets/content/props/kitchen_furniture/apartment set large/materials/large_apartment_kitchen.mat",
+                            "LargeApartmentKitchenPaint": "assets/content/props/kitchen_furniture/apartment set large/materials/large_apartment_kitchen_paint.mat"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    },
+                    "apartment set small": {
+                      "Name": "apartment set small",
+                      "Path": "assets/assets/content/props/kitchen_furniture/apartment set small",
+                      "Files": {},
+                      "SubFolders": {
+                        "materials": {
+                          "Name": "materials",
+                          "Path": "assets/assets/content/props/kitchen_furniture/apartment set small/materials",
+                          "Files": {
+                            "SmallKitchenCabinet": "assets/content/props/kitchen_furniture/apartment set small/materials/small_kitchen_cabinet.mat"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
                     }
                   }
                 },
@@ -12908,6 +13681,23 @@
                           "SubFolders": {}
                         }
                       }
+                    }
+                  }
+                },
+                "apartment_rugs": {
+                  "Name": "apartment_rugs",
+                  "Path": "assets/assets/content/props/apartment_rugs",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/assets/content/props/apartment_rugs/materials",
+                      "Files": {
+                        "LargeInteriorRugs": "assets/content/props/apartment_rugs/materials/large_interior_rugs.mat",
+                        "MediumInteriorRugs": "assets/content/props/apartment_rugs/materials/medium_interior_rugs.mat",
+                        "SmallInteriorRugs": "assets/content/props/apartment_rugs/materials/small_interior_rugs.mat"
+                      },
+                      "SubFolders": {}
                     }
                   }
                 },
@@ -13035,6 +13825,37 @@
                           "SubFolders": {}
                         }
                       }
+                    }
+                  }
+                },
+                "apartment_l_shaped_sofa": {
+                  "Name": "apartment_l_shaped_sofa",
+                  "Path": "assets/assets/content/props/apartment_l_shaped_sofa",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/assets/content/props/apartment_l_shaped_sofa/materials",
+                      "Files": {
+                        "LShapedSofa": "assets/content/props/apartment_l_shaped_sofa/materials/l_shaped_sofa.mat",
+                        "LShapedSofaRugs": "assets/content/props/apartment_l_shaped_sofa/materials/l_shaped_sofa_rugs.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
+                "makeshift_coffee_table": {
+                  "Name": "makeshift_coffee_table",
+                  "Path": "assets/assets/content/props/makeshift_coffee_table",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/assets/content/props/makeshift_coffee_table/materials",
+                      "Files": {
+                        "MakeshiftCoffeeTable": "assets/content/props/makeshift_coffee_table/materials/makeshift_coffee_table.mat"
+                      },
+                      "SubFolders": {}
                     }
                   }
                 },
@@ -13282,6 +14103,40 @@
                     }
                   }
                 },
+                "neon_signs_shops": {
+                  "Name": "neon_signs_shops",
+                  "Path": "assets/assets/content/props/neon_signs_shops",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/assets/content/props/neon_signs_shops/materials",
+                      "Files": {
+                        "NeonSignsShops": "assets/content/props/neon_signs_shops/materials/neon_signs_shops.mat",
+                        "NeonSignsShopsTiming2": "assets/content/props/neon_signs_shops/materials/neon_signs_shops_timing2.mat",
+                        "NeonSignsShopsTiming3": "assets/content/props/neon_signs_shops/materials/neon_signs_shops_timing3.mat",
+                        "NeonSignsShopsTiming4": "assets/content/props/neon_signs_shops/materials/neon_signs_shops_timing4.mat",
+                        "NeonSignsShopsTiming5": "assets/content/props/neon_signs_shops/materials/neon_signs_shops_timing5.mat"
+                      },
+                      "SubFolders": {}
+                    },
+                    "models": {
+                      "Name": "models",
+                      "Path": "assets/assets/content/props/neon_signs_shops/models",
+                      "Files": {},
+                      "SubFolders": {
+                        "materials": {
+                          "Name": "materials",
+                          "Path": "assets/assets/content/props/neon_signs_shops/models/materials",
+                          "Files": {
+                            "RentableShopsNeonSigns": "assets/content/props/neon_signs_shops/models/materials/rentable_shops_neon_signs.mat"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    }
+                  }
+                },
                 "notepad": {
                   "Name": "notepad",
                   "Path": "assets/assets/content/props/notepad",
@@ -13438,6 +14293,23 @@
                     }
                   }
                 },
+                "playground_assets": {
+                  "Name": "playground_assets",
+                  "Path": "assets/assets/content/props/playground_assets",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/assets/content/props/playground_assets/materials",
+                      "Files": {
+                        "PlaygroundAssetsA": "assets/content/props/playground_assets/materials/playground_assets_a.mat",
+                        "PlaygroundAssetsTrimsA": "assets/content/props/playground_assets/materials/playground_assets_trims_a.mat",
+                        "PlaygroundAssetsTrimsB": "assets/content/props/playground_assets/materials/playground_assets_trims_b.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
                 "boomboxportable": {
                   "Name": "boomboxportable",
                   "Path": "assets/assets/content/props/boomboxportable",
@@ -13503,7 +14375,8 @@
                       "Path": "assets/assets/content/props/powerline_poles/materials",
                       "Files": {
                         "PowerlinePole": "assets/content/props/powerline_poles/materials/powerline_pole.mat",
-                        "PowerlinePoleLit": "assets/content/props/powerline_poles/materials/powerline_pole_lit.mat"
+                        "PowerlinePoleLit": "assets/content/props/powerline_poles/materials/powerline_pole_lit.mat",
+                        "PowerlinePoleLitApartments": "assets/content/props/powerline_poles/materials/powerline_pole_lit_apartments.mat"
                       },
                       "SubFolders": {}
                     }
@@ -13726,6 +14599,29 @@
                             "ReclaimTerminalTrimsYellow": "assets/content/props/reclaim_terminal/models/materials/reclaim_terminal_trims_yellow.mat",
                             "ReclaimTerminalVent": "assets/content/props/reclaim_terminal/models/materials/reclaim_terminal_vent.mat",
                             "ReclaimTerminalWheels": "assets/content/props/reclaim_terminal/models/materials/reclaim_terminal_wheels.mat"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    }
+                  }
+                },
+                "rentable_shops_notice_box": {
+                  "Name": "rentable_shops_notice_box",
+                  "Path": "assets/assets/content/props/rentable_shops_notice_box",
+                  "Files": {},
+                  "SubFolders": {
+                    "models": {
+                      "Name": "models",
+                      "Path": "assets/assets/content/props/rentable_shops_notice_box/models",
+                      "Files": {},
+                      "SubFolders": {
+                        "materials": {
+                          "Name": "materials",
+                          "Path": "assets/assets/content/props/rentable_shops_notice_box/models/materials",
+                          "Files": {
+                            "RentableShopNoticeBox": "assets/content/props/rentable_shops_notice_box/models/materials/rentable_shop_notice_box.mat",
+                            "RentableShopNoticeBoxOpacity": "assets/content/props/rentable_shops_notice_box/models/materials/rentable_shop_notice_box_opacity.mat"
                           },
                           "SubFolders": {}
                         }
@@ -14802,6 +15698,30 @@
                     }
                   }
                 },
+                "tree_guard_fence": {
+                  "Name": "tree_guard_fence",
+                  "Path": "assets/assets/content/props/tree_guard_fence",
+                  "Files": {},
+                  "SubFolders": {
+                    "models": {
+                      "Name": "models",
+                      "Path": "assets/assets/content/props/tree_guard_fence/models",
+                      "Files": {},
+                      "SubFolders": {
+                        "materials": {
+                          "Name": "materials",
+                          "Path": "assets/assets/content/props/tree_guard_fence/models/materials",
+                          "Files": {
+                            "TreeGuardFence": "assets/content/props/tree_guard_fence/models/materials/tree_guard_fence.mat",
+                            "TreeGuardGround": "assets/content/props/tree_guard_fence/models/materials/tree_guard_ground.mat",
+                            "TreeGuardGroundDecal": "assets/content/props/tree_guard_fence/models/materials/tree_guard_ground_decal.mat"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    }
+                  }
+                },
                 "truck_barrier_guide": {
                   "Name": "truck_barrier_guide",
                   "Path": "assets/assets/content/props/truck_barrier_guide",
@@ -14843,6 +15763,22 @@
                           "SubFolders": {}
                         }
                       }
+                    }
+                  }
+                },
+                "apartment_vanity_cabinets": {
+                  "Name": "apartment_vanity_cabinets",
+                  "Path": "assets/assets/content/props/apartment_vanity_cabinets",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/assets/content/props/apartment_vanity_cabinets/materials",
+                      "Files": {
+                        "Vanitybathroomcabinets": "assets/content/props/apartment_vanity_cabinets/materials/vanitybathroomcabinets.mat",
+                        "VanitybathroomcabinetsPaint": "assets/content/props/apartment_vanity_cabinets/materials/vanitybathroomcabinets_paint.mat"
+                      },
+                      "SubFolders": {}
                     }
                   }
                 },
@@ -15459,6 +16395,14 @@
                           "SubFolders": {}
                         }
                       }
+                    },
+                    "vcr_osd": {
+                      "Name": "vcr_osd",
+                      "Path": "assets/assets/content/ui/fonts/vcr_osd",
+                      "Files": {
+                        "VcrOsdMonoSdf": "assets/content/ui/fonts/vcr_osd/vcr_osd_mono sdf.mat"
+                      },
+                      "SubFolders": {}
                     }
                   }
                 }
@@ -15926,6 +16870,15 @@
                       "SubFolders": {}
                     }
                   }
+                },
+                "decals": {
+                  "Name": "decals",
+                  "Path": "assets/assets/content/textures/decals",
+                  "Files": {
+                    "DecalSewerGraffiti": "assets/content/textures/decals/decal_sewer_graffiti.mat",
+                    "OvergrowthFig": "assets/content/textures/decals/overgrowth_fig.mat"
+                  },
+                  "SubFolders": {}
                 },
                 "debug": {
                   "Name": "debug",
@@ -16974,7 +17927,8 @@
                       "Name": "materials",
                       "Path": "assets/assets/content/mesh decals/compound_decals/materials",
                       "Files": {
-                        "CompoundSigns": "assets/content/mesh decals/compound_decals/materials/compound_signs.mat"
+                        "CompoundSigns": "assets/content/mesh decals/compound_decals/materials/compound_signs.mat",
+                        "DecalsCompoundVendingMachines": "assets/content/mesh decals/compound_decals/materials/decals_compound_vending_machines.mat"
                       },
                       "SubFolders": {}
                     }
@@ -17146,6 +18100,18 @@
                   "Name": "materials",
                   "Path": "assets/assets/content/decals/materials",
                   "Files": {
+                    "DecalApartmentComplex1": "assets/content/decals/materials/decal_apartment_complex_1.mat",
+                    "DecalApartmentComplex2": "assets/content/decals/materials/decal_apartment_complex_2.mat",
+                    "DecalApartmentComplex3": "assets/content/decals/materials/decal_apartment_complex_3.mat",
+                    "DecalApartmentComplex4": "assets/content/decals/materials/decal_apartment_complex_4.mat",
+                    "DecalApartmentComplex5": "assets/content/decals/materials/decal_apartment_complex_5.mat",
+                    "DecalApartmentComplex6": "assets/content/decals/materials/decal_apartment_complex_6.mat",
+                    "DecalApartmentComplexCheckin": "assets/content/decals/materials/decal_apartment_complex_checkin.mat",
+                    "DecalApartmentComplexLine": "assets/content/decals/materials/decal_apartment_complex_line.mat",
+                    "DecalApartmentComplexMailman": "assets/content/decals/materials/decal_apartment_complex_mailman.mat",
+                    "DecalApartmentComplexPlebs": "assets/content/decals/materials/decal_apartment_complex_plebs.mat",
+                    "DecalApartmentComplexRich": "assets/content/decals/materials/decal_apartment_complex_rich.mat",
+                    "DecalApartmentRooms4rent": "assets/content/decals/materials/decal_apartment_rooms4rent.mat",
                     "DecalArrowStraightA": "assets/content/decals/materials/decal_arrow_straight_a.mat",
                     "DecalBirdcraplarge": "assets/content/decals/materials/decal_birdcraplarge.mat",
                     "DecalBirdshit": "assets/content/decals/materials/decal_birdshit.mat",
@@ -17184,6 +18150,7 @@
                     "DecalBulletStone01": "assets/content/decals/materials/decal_bullet_stone_01.mat",
                     "DecalBulletTundra01": "assets/content/decals/materials/decal_bullet_tundra_01.mat",
                     "DecalChillZone": "assets/content/decals/materials/decal_chillzone.mat",
+                    "DecalCobaltMosaic": "assets/content/decals/materials/decal_cobalt_mosaic.mat",
                     "DecalCompoundMuralGeometric": "assets/content/decals/materials/decal_compound_mural_geometric.mat",
                     "DecalCompoundMuralGeometric2": "assets/content/decals/materials/decal_compound_mural_geometric2.mat",
                     "DecalCompoundMuralIsometric": "assets/content/decals/materials/decal_compound_mural_isometric.mat",
@@ -17194,6 +18161,7 @@
                     "DecalConcreteLeaksD": "assets/content/decals/materials/decal_concrete_leaks_d.mat",
                     "DecalConcreteLeaksE": "assets/content/decals/materials/decal_concrete_leaks_e.mat",
                     "DecalConcreteLeaksF": "assets/content/decals/materials/decal_concrete_leaks_f.mat",
+                    "DecalDegenzGraffiti": "assets/content/decals/materials/decal_degenz_graffiti.mat",
                     "DecalExplosion01": "assets/content/decals/materials/decalexplosion01.mat",
                     "DecalFloatingCitiesMedical": "assets/content/decals/materials/decal_floating_cities_medical.mat",
                     "DecalFootprintHumanBareLeft": "assets/content/decals/materials/decal_footprint_human_bare_left.mat",
@@ -17213,6 +18181,7 @@
                     "DecalLabelOilA": "assets/content/decals/materials/decal_label_oil_a.mat",
                     "DecalmeleeWoodblunt": "assets/content/decals/materials/decalmeleewoodblunt.mat",
                     "DecalMossyGround": "assets/content/decals/materials/decal_mossy_ground.mat",
+                    "DecalOxumGraffiti": "assets/content/decals/materials/decal_oxum_graffiti.mat",
                     "DecalRadtownSign": "assets/content/decals/materials/decal_radtownsign.mat",
                     "DecalRifleBulletImpactMetalA": "assets/content/decals/materials/decal_rifle_bullet_impact_metal_a.mat",
                     "DecalRoadDebris": "assets/content/decals/materials/decal_road_debris.mat",
@@ -18452,51 +19421,6 @@
                         }
                       }
                     },
-                    "tunnel": {
-                      "Name": "tunnel",
-                      "Path": "assets/assets/prefabs/deployable/playerioents/tunnel",
-                      "Files": {},
-                      "SubFolders": {
-                        "models": {
-                          "Name": "models",
-                          "Path": "assets/assets/prefabs/deployable/playerioents/tunnel/models",
-                          "Files": {},
-                          "SubFolders": {
-                            "materials": {
-                              "Name": "materials",
-                              "Path": "assets/assets/prefabs/deployable/playerioents/tunnel/models/materials",
-                              "Files": {
-                                "CableTunnel": "assets/prefabs/deployable/playerioents/tunnel/models/materials/cable_tunnel.mat"
-                              },
-                              "SubFolders": {}
-                            }
-                          }
-                        }
-                      }
-                    },
-                    "batteries": {
-                      "Name": "batteries",
-                      "Path": "assets/assets/prefabs/deployable/playerioents/batteries",
-                      "Files": {},
-                      "SubFolders": {
-                        "models": {
-                          "Name": "models",
-                          "Path": "assets/assets/prefabs/deployable/playerioents/batteries/models",
-                          "Files": {},
-                          "SubFolders": {
-                            "materials": {
-                              "Name": "materials",
-                              "Path": "assets/assets/prefabs/deployable/playerioents/batteries/models/materials",
-                              "Files": {
-                                "CarBattery": "assets/prefabs/deployable/playerioents/batteries/models/materials/car_battery.mat",
-                                "CarBatteryPtboat": "assets/prefabs/deployable/playerioents/batteries/models/materials/car_battery_ptboat.mat"
-                              },
-                              "SubFolders": {}
-                            }
-                          }
-                        }
-                      }
-                    },
                     "lights": {
                       "Name": "lights",
                       "Path": "assets/assets/prefabs/deployable/playerioents/lights",
@@ -18507,6 +19431,35 @@
                           "Path": "assets/assets/prefabs/deployable/playerioents/lights/cozypack",
                           "Files": {},
                           "SubFolders": {
+                            "hangingbulbs": {
+                              "Name": "hangingbulbs",
+                              "Path": "assets/assets/prefabs/deployable/playerioents/lights/cozypack/hangingbulbs",
+                              "Files": {},
+                              "SubFolders": {
+                                "materials": {
+                                  "Name": "materials",
+                                  "Path": "assets/assets/prefabs/deployable/playerioents/lights/cozypack/hangingbulbs/materials",
+                                  "Files": {
+                                    "BulbBareCutoutOff": "assets/prefabs/deployable/playerioents/lights/cozypack/hangingbulbs/materials/bulb_bare_cutout_off.mat",
+                                    "BulbBareCutoutOn": "assets/prefabs/deployable/playerioents/lights/cozypack/hangingbulbs/materials/bulb_bare_cutout_on.mat",
+                                    "BulbBareTransparentOff": "assets/prefabs/deployable/playerioents/lights/cozypack/hangingbulbs/materials/bulb_bare_transparent_off.mat",
+                                    "BulbBareTransparentOn": "assets/prefabs/deployable/playerioents/lights/cozypack/hangingbulbs/materials/bulb_bare_transparent_on.mat",
+                                    "DlcLightBulbs": "assets/prefabs/deployable/playerioents/lights/cozypack/hangingbulbs/materials/dlc_light_bulbs.mat",
+                                    "DlcLightBulbsCutout": "assets/prefabs/deployable/playerioents/lights/cozypack/hangingbulbs/materials/dlc_light_bulbs_cutout.mat",
+                                    "DlcLightBulbsCutoutOn": "assets/prefabs/deployable/playerioents/lights/cozypack/hangingbulbs/materials/dlc_light_bulbs_cutout_on.mat",
+                                    "DlcLightBulbsfairyCutout": "assets/prefabs/deployable/playerioents/lights/cozypack/hangingbulbs/materials/dlc_light_bulbsfairy_cutout.mat",
+                                    "DlcLightBulbsTransparent": "assets/prefabs/deployable/playerioents/lights/cozypack/hangingbulbs/materials/dlc_light_bulbs_transparent.mat",
+                                    "DlcLightBulbsTransparentNotexture": "assets/prefabs/deployable/playerioents/lights/cozypack/hangingbulbs/materials/dlc_light_bulbs_transparent_notexture.mat",
+                                    "DlcLightBulbsTransparentNotextureOnSpotLight": "assets/prefabs/deployable/playerioents/lights/cozypack/hangingbulbs/materials/dlc_light_bulbs_transparent_notexture_on_spotlight.mat",
+                                    "DlcLightBulbsTransparentOffOpaque": "assets/prefabs/deployable/playerioents/lights/cozypack/hangingbulbs/materials/dlc_light_bulbs_transparent_off_opaque.mat",
+                                    "DlcLightBulbsTransparentOn": "assets/prefabs/deployable/playerioents/lights/cozypack/hangingbulbs/materials/dlc_light_bulbs_transparent_on.mat",
+                                    "DlcLightBulbsTransparentOnOpaque": "assets/prefabs/deployable/playerioents/lights/cozypack/hangingbulbs/materials/dlc_light_bulbs_transparent_on_opaque.mat",
+                                    "HangingbulbsWire": "assets/prefabs/deployable/playerioents/lights/cozypack/hangingbulbs/materials/hangingbulbs_wire.mat"
+                                  },
+                                  "SubFolders": {}
+                                }
+                              }
+                            },
                             "chandelier": {
                               "Name": "chandelier",
                               "Path": "assets/assets/prefabs/deployable/playerioents/lights/cozypack/chandelier",
@@ -18572,31 +19525,6 @@
                                 }
                               }
                             },
-                            "hangingbulbs": {
-                              "Name": "hangingbulbs",
-                              "Path": "assets/assets/prefabs/deployable/playerioents/lights/cozypack/hangingbulbs",
-                              "Files": {},
-                              "SubFolders": {
-                                "materials": {
-                                  "Name": "materials",
-                                  "Path": "assets/assets/prefabs/deployable/playerioents/lights/cozypack/hangingbulbs/materials",
-                                  "Files": {
-                                    "DlcLightBulbs": "assets/prefabs/deployable/playerioents/lights/cozypack/hangingbulbs/materials/dlc_light_bulbs.mat",
-                                    "DlcLightBulbsCutout": "assets/prefabs/deployable/playerioents/lights/cozypack/hangingbulbs/materials/dlc_light_bulbs_cutout.mat",
-                                    "DlcLightBulbsCutoutOn": "assets/prefabs/deployable/playerioents/lights/cozypack/hangingbulbs/materials/dlc_light_bulbs_cutout_on.mat",
-                                    "DlcLightBulbsfairyCutout": "assets/prefabs/deployable/playerioents/lights/cozypack/hangingbulbs/materials/dlc_light_bulbsfairy_cutout.mat",
-                                    "DlcLightBulbsTransparent": "assets/prefabs/deployable/playerioents/lights/cozypack/hangingbulbs/materials/dlc_light_bulbs_transparent.mat",
-                                    "DlcLightBulbsTransparentNotexture": "assets/prefabs/deployable/playerioents/lights/cozypack/hangingbulbs/materials/dlc_light_bulbs_transparent_notexture.mat",
-                                    "DlcLightBulbsTransparentNotextureOnSpotLight": "assets/prefabs/deployable/playerioents/lights/cozypack/hangingbulbs/materials/dlc_light_bulbs_transparent_notexture_on_spotlight.mat",
-                                    "DlcLightBulbsTransparentOffOpaque": "assets/prefabs/deployable/playerioents/lights/cozypack/hangingbulbs/materials/dlc_light_bulbs_transparent_off_opaque.mat",
-                                    "DlcLightBulbsTransparentOn": "assets/prefabs/deployable/playerioents/lights/cozypack/hangingbulbs/materials/dlc_light_bulbs_transparent_on.mat",
-                                    "DlcLightBulbsTransparentOnOpaque": "assets/prefabs/deployable/playerioents/lights/cozypack/hangingbulbs/materials/dlc_light_bulbs_transparent_on_opaque.mat",
-                                    "HangingbulbsWire": "assets/prefabs/deployable/playerioents/lights/cozypack/hangingbulbs/materials/hangingbulbs_wire.mat"
-                                  },
-                                  "SubFolders": {}
-                                }
-                              }
-                            },
                             "orientablespotlight": {
                               "Name": "orientablespotlight",
                               "Path": "assets/assets/prefabs/deployable/playerioents/lights/cozypack/orientablespotlight",
@@ -18658,6 +19586,51 @@
                             "Sirenemission": "assets/prefabs/deployable/playerioents/lights/sirenlight/sirenemission.mat"
                           },
                           "SubFolders": {}
+                        }
+                      }
+                    },
+                    "tunnel": {
+                      "Name": "tunnel",
+                      "Path": "assets/assets/prefabs/deployable/playerioents/tunnel",
+                      "Files": {},
+                      "SubFolders": {
+                        "models": {
+                          "Name": "models",
+                          "Path": "assets/assets/prefabs/deployable/playerioents/tunnel/models",
+                          "Files": {},
+                          "SubFolders": {
+                            "materials": {
+                              "Name": "materials",
+                              "Path": "assets/assets/prefabs/deployable/playerioents/tunnel/models/materials",
+                              "Files": {
+                                "CableTunnel": "assets/prefabs/deployable/playerioents/tunnel/models/materials/cable_tunnel.mat"
+                              },
+                              "SubFolders": {}
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "batteries": {
+                      "Name": "batteries",
+                      "Path": "assets/assets/prefabs/deployable/playerioents/batteries",
+                      "Files": {},
+                      "SubFolders": {
+                        "models": {
+                          "Name": "models",
+                          "Path": "assets/assets/prefabs/deployable/playerioents/batteries/models",
+                          "Files": {},
+                          "SubFolders": {
+                            "materials": {
+                              "Name": "materials",
+                              "Path": "assets/assets/prefabs/deployable/playerioents/batteries/models/materials",
+                              "Files": {
+                                "CarBattery": "assets/prefabs/deployable/playerioents/batteries/models/materials/car_battery.mat",
+                                "CarBatteryPtboat": "assets/prefabs/deployable/playerioents/batteries/models/materials/car_battery_ptboat.mat"
+                              },
+                              "SubFolders": {}
+                            }
+                          }
                         }
                       }
                     },
@@ -19409,6 +20382,51 @@
                       "Path": "assets/assets/prefabs/deployable/charity_plushie_02/material",
                       "Files": {
                         "CharityPlushie02": "assets/prefabs/deployable/charity_plushie_02/material/charity_plushie_02.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
+                "charity_plushie_03": {
+                  "Name": "charity_plushie_03",
+                  "Path": "assets/assets/prefabs/deployable/charity_plushie_03",
+                  "Files": {},
+                  "SubFolders": {
+                    "material": {
+                      "Name": "material",
+                      "Path": "assets/assets/prefabs/deployable/charity_plushie_03/material",
+                      "Files": {
+                        "CharityPlushie03": "assets/prefabs/deployable/charity_plushie_03/material/charity_plushie_03.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
+                "charity_plushie_04": {
+                  "Name": "charity_plushie_04",
+                  "Path": "assets/assets/prefabs/deployable/charity_plushie_04",
+                  "Files": {},
+                  "SubFolders": {
+                    "material": {
+                      "Name": "material",
+                      "Path": "assets/assets/prefabs/deployable/charity_plushie_04/material",
+                      "Files": {
+                        "CharityPlushie04": "assets/prefabs/deployable/charity_plushie_04/material/charity_plushie_04.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
+                "charity_plushie_05": {
+                  "Name": "charity_plushie_05",
+                  "Path": "assets/assets/prefabs/deployable/charity_plushie_05",
+                  "Files": {},
+                  "SubFolders": {
+                    "material": {
+                      "Name": "material",
+                      "Path": "assets/assets/prefabs/deployable/charity_plushie_05/material",
+                      "Files": {
+                        "CharityPlushie05": "assets/prefabs/deployable/charity_plushie_05/material/charity_plushie_05.mat"
                       },
                       "SubFolders": {}
                     }
@@ -20922,7 +21940,10 @@
                           "Name": "materials",
                           "Path": "assets/assets/prefabs/deployable/plant pots/single plant pot/materials",
                           "Files": {
-                            "Singleplantpot": "assets/prefabs/deployable/plant pots/single plant pot/materials/singleplantpot.mat"
+                            "Singleplantpot": "assets/prefabs/deployable/plant pots/single plant pot/materials/singleplantpot.mat",
+                            "SingleplantpotBlack": "assets/prefabs/deployable/plant pots/single plant pot/materials/singleplantpot_black.mat",
+                            "SingleplantpotBrown": "assets/prefabs/deployable/plant pots/single plant pot/materials/singleplantpot_brown.mat",
+                            "SingleplantpotRed": "assets/prefabs/deployable/plant pots/single plant pot/materials/singleplantpot_red.mat"
                           },
                           "SubFolders": {}
                         }
@@ -21633,7 +22654,9 @@
                           "Name": "materials",
                           "Path": "assets/assets/prefabs/building/wall.frame.shopfront/models/materials",
                           "Files": {
-                            "GlassReinforcedShop": "assets/prefabs/building/wall.frame.shopfront/models/materials/glass_reinforced_shop.mat"
+                            "GlassReinforcedShop": "assets/prefabs/building/wall.frame.shopfront/models/materials/glass_reinforced_shop.mat",
+                            "MetalShopfrontBack": "assets/prefabs/building/wall.frame.shopfront/models/materials/metal_shopfront_back.mat",
+                            "MetalShopfrontFront": "assets/prefabs/building/wall.frame.shopfront/models/materials/metal_shopfront_front.mat"
                           },
                           "SubFolders": {}
                         }
@@ -24955,6 +25978,28 @@
                     }
                   }
                 },
+                "kick": {
+                  "Name": "kick",
+                  "Path": "assets/assets/prefabs/misc/kick",
+                  "Files": {},
+                  "SubFolders": {
+                    "kick gems": {
+                      "Name": "kick gems",
+                      "Path": "assets/assets/prefabs/misc/kick/kick gems",
+                      "Files": {},
+                      "SubFolders": {
+                        "materials": {
+                          "Name": "materials",
+                          "Path": "assets/assets/prefabs/misc/kick/kick gems/materials",
+                          "Files": {
+                            "Kicksgems": "assets/prefabs/misc/kick/kick gems/materials/kicksgems.mat"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    }
+                  }
+                },
                 "largebackpack": {
                   "Name": "largebackpack",
                   "Path": "assets/assets/prefabs/misc/largebackpack",
@@ -24994,6 +26039,35 @@
                           "Path": "assets/assets/prefabs/misc/smallbackpack/rework/materials",
                           "Files": {
                             "Smallbackpack": "assets/prefabs/misc/smallbackpack/rework/materials/smallbackpack.mat"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    }
+                  }
+                },
+                "permstore": {
+                  "Name": "permstore",
+                  "Path": "assets/assets/prefabs/misc/permstore",
+                  "Files": {},
+                  "SubFolders": {
+                    "industriallight": {
+                      "Name": "industriallight",
+                      "Path": "assets/assets/prefabs/misc/permstore/industriallight",
+                      "Files": {},
+                      "SubFolders": {
+                        "materials": {
+                          "Name": "materials",
+                          "Path": "assets/assets/prefabs/misc/permstore/industriallight/materials",
+                          "Files": {
+                            "LightFixturesDlcBlue": "assets/prefabs/misc/permstore/industriallight/materials/light_fixtures_dlc_blue.mat",
+                            "LightFixturesDlcBlueOpacity": "assets/prefabs/misc/permstore/industriallight/materials/light_fixtures_dlc_blue_opacity.mat",
+                            "LightFixturesDlcGreen": "assets/prefabs/misc/permstore/industriallight/materials/light_fixtures_dlc_green.mat",
+                            "LightFixturesDlcGreenOpacity": "assets/prefabs/misc/permstore/industriallight/materials/light_fixtures_dlc_green_opacity.mat",
+                            "LightFixturesDlcRed": "assets/prefabs/misc/permstore/industriallight/materials/light_fixtures_dlc_red.mat",
+                            "LightFixturesDlcRedOpacity": "assets/prefabs/misc/permstore/industriallight/materials/light_fixtures_dlc_red_opacity.mat",
+                            "LightFixturesDlcWhite": "assets/prefabs/misc/permstore/industriallight/materials/light_fixtures_dlc_white.mat",
+                            "LightFixturesDlcWhiteOpacity": "assets/prefabs/misc/permstore/industriallight/materials/light_fixtures_dlc_white_opacity.mat"
                           },
                           "SubFolders": {}
                         }
@@ -25286,6 +26360,231 @@
                         "_8xScope": "assets/prefabs/weapon mods/8x scope/materials/8x scope.mat"
                       },
                       "SubFolders": {}
+                    }
+                  }
+                },
+                "charms": {
+                  "Name": "charms",
+                  "Path": "assets/assets/prefabs/weapon mods/charms",
+                  "Files": {},
+                  "SubFolders": {
+                    "charm_prefabs": {
+                      "Name": "charm_prefabs",
+                      "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs",
+                      "Files": {},
+                      "SubFolders": {
+                        "canbe_charms": {
+                          "Name": "canbe_charms",
+                          "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms",
+                          "Files": {},
+                          "SubFolders": {
+                            "backpackcharm": {
+                              "Name": "backpackcharm",
+                              "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/backpackcharm",
+                              "Files": {},
+                              "SubFolders": {
+                                "material": {
+                                  "Name": "material",
+                                  "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/backpackcharm/material",
+                                  "Files": {
+                                    "Backpackcharm": "assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/backpackcharm/material/backpackcharm.mat",
+                                    "BackpackcharmBlack": "assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/backpackcharm/material/backpackcharm_black.mat"
+                                  },
+                                  "SubFolders": {}
+                                }
+                              }
+                            },
+                            "charm_fplogo": {
+                              "Name": "charm_fplogo",
+                              "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_fplogo",
+                              "Files": {},
+                              "SubFolders": {
+                                "materials": {
+                                  "Name": "materials",
+                                  "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_fplogo/materials",
+                                  "Files": {
+                                    "CharmFpLogo": "assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_fplogo/materials/charm_fplogo.mat"
+                                  },
+                                  "SubFolders": {}
+                                }
+                              }
+                            },
+                            "charm_home_is_a_2x2": {
+                              "Name": "charm_home_is_a_2x2",
+                              "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_home_is_a_2x2",
+                              "Files": {},
+                              "SubFolders": {
+                                "materials": {
+                                  "Name": "materials",
+                                  "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_home_is_a_2x2/materials",
+                                  "Files": {
+                                    "CharmHomeIsA2x2": "assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_home_is_a_2x2/materials/charm_home_is_a_2x2.mat"
+                                  },
+                                  "SubFolders": {}
+                                }
+                              }
+                            },
+                            "charm_parental_advisory": {
+                              "Name": "charm_parental_advisory",
+                              "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_parental_advisory",
+                              "Files": {},
+                              "SubFolders": {
+                                "materials": {
+                                  "Name": "materials",
+                                  "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_parental_advisory/materials",
+                                  "Files": {
+                                    "CharmParentalAdvisory": "assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_parental_advisory/materials/charm_parental_advisory.mat"
+                                  },
+                                  "SubFolders": {}
+                                }
+                              }
+                            },
+                            "charm_raiders_gang": {
+                              "Name": "charm_raiders_gang",
+                              "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_raiders_gang",
+                              "Files": {},
+                              "SubFolders": {
+                                "materials": {
+                                  "Name": "materials",
+                                  "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_raiders_gang/materials",
+                                  "Files": {
+                                    "CharmRaidersGang": "assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_raiders_gang/materials/charm_raiders_gang.mat"
+                                  },
+                                  "SubFolders": {}
+                                }
+                              }
+                            },
+                            "charm_reflective_rust_logo": {
+                              "Name": "charm_reflective_rust_logo",
+                              "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_reflective_rust_logo",
+                              "Files": {},
+                              "SubFolders": {
+                                "materials": {
+                                  "Name": "materials",
+                                  "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_reflective_rust_logo/materials",
+                                  "Files": {
+                                    "CharmReflectiveRustLogo": "assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_reflective_rust_logo/materials/charm_reflective_rust_logo.mat"
+                                  },
+                                  "SubFolders": {}
+                                }
+                              }
+                            },
+                            "charm_rust_logo": {
+                              "Name": "charm_rust_logo",
+                              "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_rust_logo",
+                              "Files": {},
+                              "SubFolders": {
+                                "materials": {
+                                  "Name": "materials",
+                                  "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_rust_logo/materials",
+                                  "Files": {
+                                    "CharmRustLogo": "assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_rust_logo/materials/charm_rust_logo.mat"
+                                  },
+                                  "SubFolders": {}
+                                }
+                              }
+                            },
+                            "charm_smiley_face": {
+                              "Name": "charm_smiley_face",
+                              "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_smiley_face",
+                              "Files": {},
+                              "SubFolders": {
+                                "materials": {
+                                  "Name": "materials",
+                                  "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_smiley_face/materials",
+                                  "Files": {
+                                    "CharmSmileyFace": "assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_smiley_face/materials/charm_smiley_face.mat"
+                                  },
+                                  "SubFolders": {}
+                                }
+                              }
+                            },
+                            "charm_whenswipe": {
+                              "Name": "charm_whenswipe",
+                              "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_whenswipe",
+                              "Files": {},
+                              "SubFolders": {
+                                "material": {
+                                  "Name": "material",
+                                  "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_whenswipe/material",
+                                  "Files": {
+                                    "CharmWhenswipe": "assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_whenswipe/material/charm_whenswipe.mat"
+                                  },
+                                  "SubFolders": {}
+                                }
+                              }
+                            },
+                            "frogboots": {
+                              "Name": "frogboots",
+                              "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/frogboots",
+                              "Files": {},
+                              "SubFolders": {
+                                "materials": {
+                                  "Name": "materials",
+                                  "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/frogboots/materials",
+                                  "Files": {
+                                    "Frogbootcharm": "assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/frogboots/materials/frogbootcharm.mat"
+                                  },
+                                  "SubFolders": {}
+                                }
+                              }
+                            },
+                            "metal_chain": {
+                              "Name": "metal_chain",
+                              "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/metal_chain",
+                              "Files": {},
+                              "SubFolders": {
+                                "materials": {
+                                  "Name": "materials",
+                                  "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/metal_chain/materials",
+                                  "Files": {
+                                    "MetalChain": "assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/metal_chain/materials/metal_chain.mat"
+                                  },
+                                  "SubFolders": {}
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "genericcircle": {
+                          "Name": "genericcircle",
+                          "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs/genericcircle",
+                          "Files": {},
+                          "SubFolders": {
+                            "materials": {
+                              "Name": "materials",
+                              "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs/genericcircle/materials",
+                              "Files": {
+                                "GenericcircleCharm": "assets/prefabs/weapon mods/charms/charm_prefabs/genericcircle/materials/genericcircle_charm.mat"
+                              },
+                              "SubFolders": {}
+                            }
+                          }
+                        },
+                        "heavyscientistchibi": {
+                          "Name": "heavyscientistchibi",
+                          "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs/heavyscientistchibi",
+                          "Files": {
+                            "HeavyScientistchibiCharm": "assets/prefabs/weapon mods/charms/charm_prefabs/heavyscientistchibi/heavyscientistchibi_charm.mat"
+                          },
+                          "SubFolders": {}
+                        },
+                        "pixelsmg": {
+                          "Name": "pixelsmg",
+                          "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs/pixelsmg",
+                          "Files": {},
+                          "SubFolders": {
+                            "materials": {
+                              "Name": "materials",
+                              "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs/pixelsmg/materials",
+                              "Files": {
+                                "PixelsmgCharm": "assets/prefabs/weapon mods/charms/charm_prefabs/pixelsmg/materials/pixelsmg_charm.mat"
+                              },
+                              "SubFolders": {}
+                            }
+                          }
+                        }
+                      }
                     }
                   }
                 },
@@ -33901,6 +35200,47 @@
                         }
                       }
                     },
+                    "2026-07_glowing": {
+                      "Name": "2026-07_glowing",
+                      "Path": "assets/assets/prefabs/wallpaper/skins/2026-07_glowing",
+                      "Files": {},
+                      "SubFolders": {
+                        "materials": {
+                          "Name": "materials",
+                          "Path": "assets/assets/prefabs/wallpaper/skins/2026-07_glowing/materials",
+                          "Files": {
+                            "CeilingFoxfire": "assets/prefabs/wallpaper/skins/2026-07_glowing/materials/ceiling_foxfire.mat",
+                            "CeilingGlowingStars": "assets/prefabs/wallpaper/skins/2026-07_glowing/materials/ceiling_glowing_stars.mat",
+                            "CeilingGraffitiBigTags": "assets/prefabs/wallpaper/skins/2026-07_glowing/materials/ceiling_graffiti_big_tags.mat",
+                            "CeilingGraffitiClouds": "assets/prefabs/wallpaper/skins/2026-07_glowing/materials/ceiling_graffiti_clouds.mat",
+                            "CeilingGraffitiTags": "assets/prefabs/wallpaper/skins/2026-07_glowing/materials/ceiling_graffiti_tags.mat",
+                            "CeilingGraffitiVehicles": "assets/prefabs/wallpaper/skins/2026-07_glowing/materials/ceiling_graffiti_vehicles.mat",
+                            "FloorCarpetNeonHoops": "assets/prefabs/wallpaper/skins/2026-07_glowing/materials/floor_carpet_neon_hoops.mat",
+                            "FloorCarpetNeonSpace": "assets/prefabs/wallpaper/skins/2026-07_glowing/materials/floor_carpet_neon_space.mat",
+                            "FloorCarpetNeonSplats": "assets/prefabs/wallpaper/skins/2026-07_glowing/materials/floor_carpet_neon_splats.mat",
+                            "FloorConcreteGraffitiBend": "assets/prefabs/wallpaper/skins/2026-07_glowing/materials/floor_concrete_graffiti_bend.mat",
+                            "FloorConcreteGraffitiCross": "assets/prefabs/wallpaper/skins/2026-07_glowing/materials/floor_concrete_graffiti_cross.mat",
+                            "FloorConcreteGraffitiEnd": "assets/prefabs/wallpaper/skins/2026-07_glowing/materials/floor_concrete_graffiti_end.mat",
+                            "FloorConcreteGraffitiPlain": "assets/prefabs/wallpaper/skins/2026-07_glowing/materials/floor_concrete_graffiti_plain.mat",
+                            "FloorConcreteGraffitiStraight": "assets/prefabs/wallpaper/skins/2026-07_glowing/materials/floor_concrete_graffiti_straight.mat",
+                            "FloorConcreteGraffitiTjunction": "assets/prefabs/wallpaper/skins/2026-07_glowing/materials/floor_concrete_graffiti_tjunction.mat",
+                            "WallExplosions": "assets/prefabs/wallpaper/skins/2026-07_glowing/materials/wall_explosions.mat",
+                            "WallFirearms": "assets/prefabs/wallpaper/skins/2026-07_glowing/materials/wall_firearms.mat",
+                            "WallFireflies": "assets/prefabs/wallpaper/skins/2026-07_glowing/materials/wall_fireflies.mat",
+                            "WallFoxfire": "assets/prefabs/wallpaper/skins/2026-07_glowing/materials/wall_foxfire.mat",
+                            "WallGlowingMushrooms": "assets/prefabs/wallpaper/skins/2026-07_glowing/materials/wall_glowing_mushrooms.mat",
+                            "WallGlowingStarsPlanets": "assets/prefabs/wallpaper/skins/2026-07_glowing/materials/wall_glowing_stars_planets.mat",
+                            "WallGraffitiBase": "assets/prefabs/wallpaper/skins/2026-07_glowing/materials/wall_graffiti_base.mat",
+                            "WallGraffitiHazmats": "assets/prefabs/wallpaper/skins/2026-07_glowing/materials/wall_graffiti_hazmats.mat",
+                            "WallGraffitiRaider": "assets/prefabs/wallpaper/skins/2026-07_glowing/materials/wall_graffiti_raider.mat",
+                            "WallNeonBolts": "assets/prefabs/wallpaper/skins/2026-07_glowing/materials/wall_neon_bolts.mat",
+                            "WallNeonShapes": "assets/prefabs/wallpaper/skins/2026-07_glowing/materials/wall_neon_shapes.mat",
+                            "WallNeonSquiggles": "assets/prefabs/wallpaper/skins/2026-07_glowing/materials/wall_neon_squiggles.mat"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    },
                     "2025-06_floor&ceiling_pack_dlc": {
                       "Name": "2025-06_floor&ceiling_pack_dlc",
                       "Path": "assets/assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc",
@@ -34240,6 +35580,21 @@
                       "Path": "assets/assets/scenes/prefabs/airfield/airfield_1_root_lods",
                       "Files": {
                         "Airfield1RootHlodMaterial": "assets/scenes/prefabs/airfield/airfield_1_root_lods/airfield_1_root_hlod_material.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
+                "apartments complex": {
+                  "Name": "apartments complex",
+                  "Path": "assets/assets/scenes/prefabs/apartments complex",
+                  "Files": {},
+                  "SubFolders": {
+                    "apartments_complex_1_root_lods": {
+                      "Name": "apartments_complex_1_root_lods",
+                      "Path": "assets/assets/scenes/prefabs/apartments complex/apartments_complex_1_root_lods",
+                      "Files": {
+                        "ApartmentsComplex1RootHlodMaterial": "assets/scenes/prefabs/apartments complex/apartments_complex_1_root_lods/apartments_complex_1_root_hlod_material.mat"
                       },
                       "SubFolders": {}
                     }
@@ -34914,7 +36269,16 @@
                       "Files": {
                         "Tropical1Default": "assets/scenes/release/_highseas/tropical1/tropical1 default.mat"
                       },
-                      "SubFolders": {}
+                      "SubFolders": {
+                        "meshlods": {
+                          "Name": "meshlods",
+                          "Path": "assets/assets/scenes/release/_highseas/tropical1/meshlods",
+                          "Files": {
+                            "Tropical1Terrainmesh": "assets/scenes/release/_highseas/tropical1/meshlods/tropical1_terrainmesh.mat"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
                     },
                     "tropical2": {
                       "Name": "tropical2",
@@ -34922,7 +36286,16 @@
                       "Files": {
                         "Tropical2Default": "assets/scenes/release/_highseas/tropical2/tropical2 default.mat"
                       },
-                      "SubFolders": {}
+                      "SubFolders": {
+                        "meshlods": {
+                          "Name": "meshlods",
+                          "Path": "assets/assets/scenes/release/_highseas/tropical2/meshlods",
+                          "Files": {
+                            "Tropical2Terrainmesh": "assets/scenes/release/_highseas/tropical2/meshlods/tropical2_terrainmesh.mat"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
                     },
                     "tropical3": {
                       "Name": "tropical3",
@@ -34930,7 +36303,16 @@
                       "Files": {
                         "Tropical3Default": "assets/scenes/release/_highseas/tropical3/tropical3 default.mat"
                       },
-                      "SubFolders": {}
+                      "SubFolders": {
+                        "meshlods": {
+                          "Name": "meshlods",
+                          "Path": "assets/assets/scenes/release/_highseas/tropical3/meshlods",
+                          "Files": {
+                            "Tropical3Terrainmesh": "assets/scenes/release/_highseas/tropical3/meshlods/tropical3_terrainmesh.mat"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
                     },
                     "tropical4": {
                       "Name": "tropical4",
@@ -34938,7 +36320,16 @@
                       "Files": {
                         "Tropical4Default": "assets/scenes/release/_highseas/tropical4/tropical4 default.mat"
                       },
-                      "SubFolders": {}
+                      "SubFolders": {
+                        "meshlods": {
+                          "Name": "meshlods",
+                          "Path": "assets/assets/scenes/release/_highseas/tropical4/meshlods",
+                          "Files": {
+                            "Tropical4Terrainmesh": "assets/scenes/release/_highseas/tropical4/meshlods/tropical4_terrainmesh.mat"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
                     }
                   }
                 },
@@ -36173,14 +37564,6 @@
                                           "Path": "assets/assets/bundled/prefabs/ui/menu2/_pages/store/skinviewer/models/objects",
                                           "Files": {},
                                           "SubFolders": {
-                                            "table": {
-                                              "Name": "table",
-                                              "Path": "assets/assets/bundled/prefabs/ui/menu2/_pages/store/skinviewer/models/objects/table",
-                                              "Files": {
-                                                "Table": "assets/bundled/prefabs/ui/menu2/_pages/store/skinviewer/models/objects/table/table.mat"
-                                              },
-                                              "SubFolders": {}
-                                            },
                                             "wooden_double_door": {
                                               "Name": "wooden_double_door",
                                               "Path": "assets/assets/bundled/prefabs/ui/menu2/_pages/store/skinviewer/models/objects/wooden_double_door",
@@ -36188,6 +37571,42 @@
                                                 "WoodeDoubleDoorFrame": "assets/bundled/prefabs/ui/menu2/_pages/store/skinviewer/models/objects/wooden_double_door/woode_double_door_frame.mat"
                                               },
                                               "SubFolders": {}
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                "general": {
+                                  "Name": "general",
+                                  "Path": "assets/assets/bundled/prefabs/ui/menu2/_pages/store/general",
+                                  "Files": {},
+                                  "SubFolders": {
+                                    "packs": {
+                                      "Name": "packs",
+                                      "Path": "assets/assets/bundled/prefabs/ui/menu2/_pages/store/general/packs",
+                                      "Files": {},
+                                      "SubFolders": {
+                                        "_packs": {
+                                          "Name": "_packs",
+                                          "Path": "assets/assets/bundled/prefabs/ui/menu2/_pages/store/general/packs/_packs",
+                                          "Files": {},
+                                          "SubFolders": {
+                                            "glowing wallpaper": {
+                                              "Name": "glowing wallpaper",
+                                              "Path": "assets/assets/bundled/prefabs/ui/menu2/_pages/store/general/packs/_packs/glowing wallpaper",
+                                              "Files": {},
+                                              "SubFolders": {
+                                                "_assets": {
+                                                  "Name": "_assets",
+                                                  "Path": "assets/assets/bundled/prefabs/ui/menu2/_pages/store/general/packs/_packs/glowing wallpaper/_assets",
+                                                  "Files": {
+                                                    "UiFlashLightreveal": "assets/bundled/prefabs/ui/menu2/_pages/store/general/packs/_packs/glowing wallpaper/_assets/ui_flashlightreveal.mat"
+                                                  },
+                                                  "SubFolders": {}
+                                                }
+                                              }
                                             }
                                           }
                                         }
@@ -36244,6 +37663,21 @@
                           "Files": {
                             "PremiumIcon": "assets/bundled/prefabs/ui/menu2/_shaders/premiumicon.mat",
                             "Premiumtext": "assets/bundled/prefabs/ui/menu2/_shaders/premiumtext.mat"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    },
+                    "apartmentterminal": {
+                      "Name": "apartmentterminal",
+                      "Path": "assets/assets/bundled/prefabs/ui/apartmentterminal",
+                      "Files": {},
+                      "SubFolders": {
+                        "_assets": {
+                          "Name": "_assets",
+                          "Path": "assets/assets/bundled/prefabs/ui/apartmentterminal/_assets",
+                          "Files": {
+                            "UiVignette": "assets/bundled/prefabs/ui/apartmentterminal/_assets/ui_vignette.mat"
                           },
                           "SubFolders": {}
                         }

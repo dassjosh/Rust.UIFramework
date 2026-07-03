@@ -1687,6 +1687,21 @@
                   },
                   "SubFolders": {}
                 },
+                "kick": {
+                  "Name": "kick",
+                  "Path": "assets/assets/prefabs/misc/kick",
+                  "Files": {},
+                  "SubFolders": {
+                    "kick gems": {
+                      "Name": "kick gems",
+                      "Path": "assets/assets/prefabs/misc/kick/kick gems",
+                      "Files": {
+                        "KickgemsIcon": "assets/prefabs/misc/kick/kick gems/kickgems.icon.png"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
                 "largebackpack": {
                   "Name": "largebackpack",
                   "Path": "assets/assets/prefabs/misc/largebackpack",
@@ -2110,6 +2125,132 @@
                     "_8xscopeEntityIcon": "assets/prefabs/weapon mods/8x scope/8xscope.entity.icon.png"
                   },
                   "SubFolders": {}
+                },
+                "charms": {
+                  "Name": "charms",
+                  "Path": "assets/assets/prefabs/weapon mods/charms",
+                  "Files": {},
+                  "SubFolders": {
+                    "charm_prefabs": {
+                      "Name": "charm_prefabs",
+                      "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs",
+                      "Files": {},
+                      "SubFolders": {
+                        "canbe_charms": {
+                          "Name": "canbe_charms",
+                          "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms",
+                          "Files": {},
+                          "SubFolders": {
+                            "backpackcharm": {
+                              "Name": "backpackcharm",
+                              "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/backpackcharm",
+                              "Files": {
+                                "BackpackcharmblackIcon": "assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/backpackcharm/backpackcharmblack.icon.png",
+                                "BackpackcharmIcon": "assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/backpackcharm/backpackcharm.icon.png"
+                              },
+                              "SubFolders": {}
+                            },
+                            "charm_fplogo": {
+                              "Name": "charm_fplogo",
+                              "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_fplogo",
+                              "Files": {
+                                "CharmFpLogoIcon": "assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_fplogo/charm_fplogo.icon.png"
+                              },
+                              "SubFolders": {}
+                            },
+                            "charm_home_is_a_2x2": {
+                              "Name": "charm_home_is_a_2x2",
+                              "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_home_is_a_2x2",
+                              "Files": {
+                                "CharmHomeIsA2x2Icon": "assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_home_is_a_2x2/charm_home_is_a_2x2.icon.png"
+                              },
+                              "SubFolders": {}
+                            },
+                            "charm_parental_advisory": {
+                              "Name": "charm_parental_advisory",
+                              "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_parental_advisory",
+                              "Files": {
+                                "CharmParentalAdvisoryIcon": "assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_parental_advisory/charm_parental_advisory.icon.png"
+                              },
+                              "SubFolders": {}
+                            },
+                            "charm_raiders_gang": {
+                              "Name": "charm_raiders_gang",
+                              "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_raiders_gang",
+                              "Files": {
+                                "CharmRaidersGangIcon": "assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_raiders_gang/charm_raiders_gang.icon.png"
+                              },
+                              "SubFolders": {}
+                            },
+                            "charm_reflective_rust_logo": {
+                              "Name": "charm_reflective_rust_logo",
+                              "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_reflective_rust_logo",
+                              "Files": {
+                                "CharmReflectiveRustLogoIcon": "assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_reflective_rust_logo/charm_reflective_rust_logo.icon.png"
+                              },
+                              "SubFolders": {}
+                            },
+                            "charm_rust_logo": {
+                              "Name": "charm_rust_logo",
+                              "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_rust_logo",
+                              "Files": {
+                                "CharmRustLogoIcon": "assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_rust_logo/charm_rust_logo.icon.png"
+                              },
+                              "SubFolders": {}
+                            },
+                            "charm_smiley_face": {
+                              "Name": "charm_smiley_face",
+                              "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_smiley_face",
+                              "Files": {
+                                "CharmSmileyFaceIcon": "assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_smiley_face/charm_smiley_face.icon.png"
+                              },
+                              "SubFolders": {}
+                            },
+                            "charm_whenswipe": {
+                              "Name": "charm_whenswipe",
+                              "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_whenswipe",
+                              "Files": {
+                                "CharmWhenswipeIcon": "assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_whenswipe/charm_whenswipe.icon.png"
+                              },
+                              "SubFolders": {}
+                            },
+                            "frogboots": {
+                              "Name": "frogboots",
+                              "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/frogboots",
+                              "Files": {
+                                "FrogBootsCharmIcon": "assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/frogboots/frogboots_charm.icon.png"
+                              },
+                              "SubFolders": {}
+                            }
+                          }
+                        },
+                        "beancan": {
+                          "Name": "beancan",
+                          "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs/beancan",
+                          "Files": {
+                            "BeancanCharmIcon": "assets/prefabs/weapon mods/charms/charm_prefabs/beancan/beancan_charm.icon.png"
+                          },
+                          "SubFolders": {}
+                        },
+                        "genericcircle": {
+                          "Name": "genericcircle",
+                          "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs/genericcircle",
+                          "Files": {
+                            "GenericcircleCharmIcon": "assets/prefabs/weapon mods/charms/charm_prefabs/genericcircle/genericcircle_charm.icon.png"
+                          },
+                          "SubFolders": {}
+                        },
+                        "pixelsmg": {
+                          "Name": "pixelsmg",
+                          "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs/pixelsmg",
+                          "Files": {
+                            "PixelsmgCharmIcon": "assets/prefabs/weapon mods/charms/charm_prefabs/pixelsmg/pixelsmg_charm.icon.png"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    }
+                  }
                 },
                 "burstmodule": {
                   "Name": "burstmodule",
@@ -3283,6 +3424,30 @@
                   "Path": "assets/assets/prefabs/deployable/charity_plushie_02",
                   "Files": {
                     "CharityPlushie02DeployedIcon": "assets/prefabs/deployable/charity_plushie_02/charityplushie_02_deployed.icon.png"
+                  },
+                  "SubFolders": {}
+                },
+                "charity_plushie_03": {
+                  "Name": "charity_plushie_03",
+                  "Path": "assets/assets/prefabs/deployable/charity_plushie_03",
+                  "Files": {
+                    "CharityPlushie03DeployedIcon": "assets/prefabs/deployable/charity_plushie_03/charityplushie_03_deployed.icon.png"
+                  },
+                  "SubFolders": {}
+                },
+                "charity_plushie_04": {
+                  "Name": "charity_plushie_04",
+                  "Path": "assets/assets/prefabs/deployable/charity_plushie_04",
+                  "Files": {
+                    "CharityPlushie04DeployedIcon": "assets/prefabs/deployable/charity_plushie_04/charityplushie_04_deployed.icon.png"
+                  },
+                  "SubFolders": {}
+                },
+                "charity_plushie_05": {
+                  "Name": "charity_plushie_05",
+                  "Path": "assets/assets/prefabs/deployable/charity_plushie_05",
+                  "Files": {
+                    "CharityPlushie05Icon": "assets/prefabs/deployable/charity_plushie_05/charityplushie_05.icon.png"
                   },
                   "SubFolders": {}
                 },
@@ -8307,7 +8472,6 @@
               "Name": "wallpaper",
               "Path": "assets/assets/prefabs/wallpaper",
               "Files": {
-                "WallPaperEntityIconrenderPrefab": "assets/prefabs/wallpaper/wallpaper.entity_iconrender.prefab.png",
                 "WallPaperToolIcon": "assets/prefabs/wallpaper/wallpaper.tool.icon.png"
               },
               "SubFolders": {
@@ -8333,6 +8497,47 @@
                             "WallPaperDiadelosmuertosStoreIcon": "assets/prefabs/wallpaper/skins/2025-10_halloween/icons/wallpaper.diadelosmuertos.store.icon.png",
                             "WallPaperHalloweenbatsIcon": "assets/prefabs/wallpaper/skins/2025-10_halloween/icons/wallpaper.halloweenbats.icon.png",
                             "WallPaperHalloweenbatsStoreIcon": "assets/prefabs/wallpaper/skins/2025-10_halloween/icons/wallpaper.halloweenbats.store.icon.png"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    },
+                    "2026-07_glowing": {
+                      "Name": "2026-07_glowing",
+                      "Path": "assets/assets/prefabs/wallpaper/skins/2026-07_glowing",
+                      "Files": {},
+                      "SubFolders": {
+                        "icons": {
+                          "Name": "icons",
+                          "Path": "assets/assets/prefabs/wallpaper/skins/2026-07_glowing/icons",
+                          "Files": {
+                            "CeilingPaperFoxfireIcon": "assets/prefabs/wallpaper/skins/2026-07_glowing/icons/ceilingpaper.foxfire.icon.png",
+                            "CeilingPaperGlowingStarsIcon": "assets/prefabs/wallpaper/skins/2026-07_glowing/icons/ceilingpaper.glowing.stars.icon.png",
+                            "CeilingPaperGraffitiBigTagsIcon": "assets/prefabs/wallpaper/skins/2026-07_glowing/icons/ceilingpaper.graffiti.big.tags.icon.png",
+                            "CeilingPaperGraffitiCloudsIcon": "assets/prefabs/wallpaper/skins/2026-07_glowing/icons/ceilingpaper.graffiti.clouds.icon.png",
+                            "CeilingPaperGraffitiTagsIcon": "assets/prefabs/wallpaper/skins/2026-07_glowing/icons/ceilingpaper.graffiti.tags.icon.png",
+                            "CeilingPaperGraffitiVehiclesIcon": "assets/prefabs/wallpaper/skins/2026-07_glowing/icons/ceilingpaper.graffiti.vehicles.icon.png",
+                            "FloorPaperCarpetNeonHoopsIcon": "assets/prefabs/wallpaper/skins/2026-07_glowing/icons/floorpaper.carpet.neon.hoops.icon.png",
+                            "FloorPaperCarpetNeonSpaceIcon": "assets/prefabs/wallpaper/skins/2026-07_glowing/icons/floorpaper.carpet.neon.space.icon.png",
+                            "FloorPaperCarpetNeonSplatsIcon": "assets/prefabs/wallpaper/skins/2026-07_glowing/icons/floorpaper.carpet.neon.splats.icon.png",
+                            "FloorPaperConcreteGraffitiBendIcon": "assets/prefabs/wallpaper/skins/2026-07_glowing/icons/floorpaper.concrete.graffiti.bend.icon.png",
+                            "FloorPaperConcreteGraffitiCrossIcon": "assets/prefabs/wallpaper/skins/2026-07_glowing/icons/floorpaper.concrete.graffiti.cross.icon.png",
+                            "FloorPaperConcreteGraffitiEndIcon": "assets/prefabs/wallpaper/skins/2026-07_glowing/icons/floorpaper.concrete.graffiti.end.icon.png",
+                            "FloorPaperConcreteGraffitiPlainIcon": "assets/prefabs/wallpaper/skins/2026-07_glowing/icons/floorpaper.concrete.graffiti.plain.icon.png",
+                            "FloorPaperConcreteGraffitiStraightIcon": "assets/prefabs/wallpaper/skins/2026-07_glowing/icons/floorpaper.concrete.graffiti.straight.icon.png",
+                            "FloorPaperConcreteGraffitiTjunctionIcon": "assets/prefabs/wallpaper/skins/2026-07_glowing/icons/floorpaper.concrete.graffiti.tjunction.icon.png",
+                            "WallPaperExplosionsIcon": "assets/prefabs/wallpaper/skins/2026-07_glowing/icons/wallpaper.explosions.icon.png",
+                            "WallPaperFirearmsIcon": "assets/prefabs/wallpaper/skins/2026-07_glowing/icons/wallpaper.firearms.icon.png",
+                            "WallPaperFirefliesIcon": "assets/prefabs/wallpaper/skins/2026-07_glowing/icons/wallpaper.fireflies.icon.png",
+                            "WallPaperFoxfireIcon": "assets/prefabs/wallpaper/skins/2026-07_glowing/icons/wallpaper.foxfire.icon.png",
+                            "WallPaperGlowingMushroomsIcon": "assets/prefabs/wallpaper/skins/2026-07_glowing/icons/wallpaper.glowing.mushrooms.icon.png",
+                            "WallPaperGlowingStarsPlanetsIcon": "assets/prefabs/wallpaper/skins/2026-07_glowing/icons/wallpaper.glowing.stars.planets.icon.png",
+                            "WallPaperGraffitiBaseIcon": "assets/prefabs/wallpaper/skins/2026-07_glowing/icons/wallpaper.graffiti.base.icon.png",
+                            "WallPaperGraffitiHazmatsIcon": "assets/prefabs/wallpaper/skins/2026-07_glowing/icons/wallpaper.graffiti.hazmats.icon.png",
+                            "WallPaperGraffitiRaiderIcon": "assets/prefabs/wallpaper/skins/2026-07_glowing/icons/wallpaper.graffiti.raider.icon.png",
+                            "WallPaperNeonBoltsIcon": "assets/prefabs/wallpaper/skins/2026-07_glowing/icons/wallpaper.neon.bolts.icon.png",
+                            "WallPaperNeonShapesIcon": "assets/prefabs/wallpaper/skins/2026-07_glowing/icons/wallpaper.neon.shapes.icon.png",
+                            "WallPaperNeonSquigglesIcon": "assets/prefabs/wallpaper/skins/2026-07_glowing/icons/wallpaper.neon.squiggles.icon.png"
                           },
                           "SubFolders": {}
                         }
@@ -9238,6 +9443,14 @@
                       },
                       "SubFolders": {}
                     },
+                    "glowing_wallpaper_pack": {
+                      "Name": "glowing_wallpaper_pack",
+                      "Path": "assets/assets/prefabs/dlc/pack_sitems/glowing_wallpaper_pack",
+                      "Files": {
+                        "StoreIconGlowingWallPaperPack": "assets/prefabs/dlc/pack_sitems/glowing_wallpaper_pack/store-icon_glowing_wallpaper_pack.png"
+                      },
+                      "SubFolders": {}
+                    },
                     "industrial_decor_pack": {
                       "Name": "industrial_decor_pack",
                       "Path": "assets/assets/prefabs/dlc/pack_sitems/industrial_decor_pack",
@@ -9630,6 +9843,60 @@
                                                         "GesturepackMediaShush01": "assets/bundled/prefabs/ui/menu2/_pages/store/general/packs/_packs/gesture pack/_assets/media/gesturepack_media_shush_01.jpg",
                                                         "GesturepackMediaThroatslit01": "assets/bundled/prefabs/ui/menu2/_pages/store/general/packs/_packs/gesture pack/_assets/media/gesturepack_media_throatslit_01.jpg",
                                                         "GesturepackMediaWatchingYou01": "assets/bundled/prefabs/ui/menu2/_pages/store/general/packs/_packs/gesture pack/_assets/media/gesturepack_media_watchingyou_01.jpg"
+                                                      },
+                                                      "SubFolders": {}
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            },
+                                            "glowing wallpaper": {
+                                              "Name": "glowing wallpaper",
+                                              "Path": "assets/assets/bundled/prefabs/ui/menu2/_pages/store/general/packs/_packs/glowing wallpaper",
+                                              "Files": {},
+                                              "SubFolders": {
+                                                "_assets": {
+                                                  "Name": "_assets",
+                                                  "Path": "assets/assets/bundled/prefabs/ui/menu2/_pages/store/general/packs/_packs/glowing wallpaper/_assets",
+                                                  "Files": {
+                                                    "GlowingwallPaperPackBranding": "assets/bundled/prefabs/ui/menu2/_pages/store/general/packs/_packs/glowing wallpaper/_assets/glowingwallpaper-pack_branding.png",
+                                                    "GlowingwallPaperPackCover16x9": "assets/bundled/prefabs/ui/menu2/_pages/store/general/packs/_packs/glowing wallpaper/_assets/glowingwallpaper-pack_cover_16x9.jpg",
+                                                    "GlowingwallPaperPackCover1x1": "assets/bundled/prefabs/ui/menu2/_pages/store/general/packs/_packs/glowing wallpaper/_assets/glowingwallpaper-pack_cover_1x1.jpg",
+                                                    "GlowingwallPaperPackCover9x16": "assets/bundled/prefabs/ui/menu2/_pages/store/general/packs/_packs/glowing wallpaper/_assets/glowingwallpaper-pack_cover_9x16.jpg"
+                                                  },
+                                                  "SubFolders": {
+                                                    "media": {
+                                                      "Name": "media",
+                                                      "Path": "assets/assets/bundled/prefabs/ui/menu2/_pages/store/general/packs/_packs/glowing wallpaper/_assets/media",
+                                                      "Files": {
+                                                        "GlowingwallPaperPackMedia1": "assets/bundled/prefabs/ui/menu2/_pages/store/general/packs/_packs/glowing wallpaper/_assets/media/glowingwallpaper-pack_media_1.jpg",
+                                                        "GlowingwallPaperPackMedia10": "assets/bundled/prefabs/ui/menu2/_pages/store/general/packs/_packs/glowing wallpaper/_assets/media/glowingwallpaper-pack_media_10.jpg",
+                                                        "GlowingwallPaperPackMedia10Light": "assets/bundled/prefabs/ui/menu2/_pages/store/general/packs/_packs/glowing wallpaper/_assets/media/glowingwallpaper-pack_media_10_light.jpg",
+                                                        "GlowingwallPaperPackMedia11": "assets/bundled/prefabs/ui/menu2/_pages/store/general/packs/_packs/glowing wallpaper/_assets/media/glowingwallpaper-pack_media_11.jpg",
+                                                        "GlowingwallPaperPackMedia11Light": "assets/bundled/prefabs/ui/menu2/_pages/store/general/packs/_packs/glowing wallpaper/_assets/media/glowingwallpaper-pack_media_11_light.jpg",
+                                                        "GlowingwallPaperPackMedia12": "assets/bundled/prefabs/ui/menu2/_pages/store/general/packs/_packs/glowing wallpaper/_assets/media/glowingwallpaper-pack_media_12.jpg",
+                                                        "GlowingwallPaperPackMedia12Light": "assets/bundled/prefabs/ui/menu2/_pages/store/general/packs/_packs/glowing wallpaper/_assets/media/glowingwallpaper-pack_media_12_light.jpg",
+                                                        "GlowingwallPaperPackMedia13": "assets/bundled/prefabs/ui/menu2/_pages/store/general/packs/_packs/glowing wallpaper/_assets/media/glowingwallpaper-pack_media_13.jpg",
+                                                        "GlowingwallPaperPackMedia13Light": "assets/bundled/prefabs/ui/menu2/_pages/store/general/packs/_packs/glowing wallpaper/_assets/media/glowingwallpaper-pack_media_13_light.jpg",
+                                                        "GlowingwallPaperPackMedia14": "assets/bundled/prefabs/ui/menu2/_pages/store/general/packs/_packs/glowing wallpaper/_assets/media/glowingwallpaper-pack_media_14.jpg",
+                                                        "GlowingwallPaperPackMedia14Light": "assets/bundled/prefabs/ui/menu2/_pages/store/general/packs/_packs/glowing wallpaper/_assets/media/glowingwallpaper-pack_media_14_light.jpg",
+                                                        "GlowingwallPaperPackMedia1Light": "assets/bundled/prefabs/ui/menu2/_pages/store/general/packs/_packs/glowing wallpaper/_assets/media/glowingwallpaper-pack_media_1_light.jpg",
+                                                        "GlowingwallPaperPackMedia2": "assets/bundled/prefabs/ui/menu2/_pages/store/general/packs/_packs/glowing wallpaper/_assets/media/glowingwallpaper-pack_media_2.jpg",
+                                                        "GlowingwallPaperPackMedia2Light": "assets/bundled/prefabs/ui/menu2/_pages/store/general/packs/_packs/glowing wallpaper/_assets/media/glowingwallpaper-pack_media_2_light.jpg",
+                                                        "GlowingwallPaperPackMedia3": "assets/bundled/prefabs/ui/menu2/_pages/store/general/packs/_packs/glowing wallpaper/_assets/media/glowingwallpaper-pack_media_3.jpg",
+                                                        "GlowingwallPaperPackMedia3Light": "assets/bundled/prefabs/ui/menu2/_pages/store/general/packs/_packs/glowing wallpaper/_assets/media/glowingwallpaper-pack_media_3_light.jpg",
+                                                        "GlowingwallPaperPackMedia4": "assets/bundled/prefabs/ui/menu2/_pages/store/general/packs/_packs/glowing wallpaper/_assets/media/glowingwallpaper-pack_media_4.jpg",
+                                                        "GlowingwallPaperPackMedia4Light": "assets/bundled/prefabs/ui/menu2/_pages/store/general/packs/_packs/glowing wallpaper/_assets/media/glowingwallpaper-pack_media_4_light.jpg",
+                                                        "GlowingwallPaperPackMedia5": "assets/bundled/prefabs/ui/menu2/_pages/store/general/packs/_packs/glowing wallpaper/_assets/media/glowingwallpaper-pack_media_5.jpg",
+                                                        "GlowingwallPaperPackMedia5Light": "assets/bundled/prefabs/ui/menu2/_pages/store/general/packs/_packs/glowing wallpaper/_assets/media/glowingwallpaper-pack_media_5_light.jpg",
+                                                        "GlowingwallPaperPackMedia6": "assets/bundled/prefabs/ui/menu2/_pages/store/general/packs/_packs/glowing wallpaper/_assets/media/glowingwallpaper-pack_media_6.jpg",
+                                                        "GlowingwallPaperPackMedia6Light": "assets/bundled/prefabs/ui/menu2/_pages/store/general/packs/_packs/glowing wallpaper/_assets/media/glowingwallpaper-pack_media_6_light.jpg",
+                                                        "GlowingwallPaperPackMedia7": "assets/bundled/prefabs/ui/menu2/_pages/store/general/packs/_packs/glowing wallpaper/_assets/media/glowingwallpaper-pack_media_7.jpg",
+                                                        "GlowingwallPaperPackMedia7Light": "assets/bundled/prefabs/ui/menu2/_pages/store/general/packs/_packs/glowing wallpaper/_assets/media/glowingwallpaper-pack_media_7_light.jpg",
+                                                        "GlowingwallPaperPackMedia8": "assets/bundled/prefabs/ui/menu2/_pages/store/general/packs/_packs/glowing wallpaper/_assets/media/glowingwallpaper-pack_media_8.jpg",
+                                                        "GlowingwallPaperPackMedia8Light": "assets/bundled/prefabs/ui/menu2/_pages/store/general/packs/_packs/glowing wallpaper/_assets/media/glowingwallpaper-pack_media_8_light.jpg",
+                                                        "GlowingwallPaperPackMedia9": "assets/bundled/prefabs/ui/menu2/_pages/store/general/packs/_packs/glowing wallpaper/_assets/media/glowingwallpaper-pack_media_9.jpg",
+                                                        "GlowingwallPaperPackMedia9Light": "assets/bundled/prefabs/ui/menu2/_pages/store/general/packs/_packs/glowing wallpaper/_assets/media/glowingwallpaper-pack_media_9_light.jpg"
                                                       },
                                                       "SubFolders": {}
                                                     }
@@ -10903,7 +11170,9 @@
                             "PlaceholderMedievalpack": "assets/bundled/prefabs/ui/menu2/_assets/placeholder_medievalpack.jpg",
                             "PremiumaccessBg": "assets/bundled/prefabs/ui/menu2/_assets/premiumaccess_bg.png",
                             "RustMobileImage": "assets/bundled/prefabs/ui/menu2/_assets/rust_mobile_image.png",
-                            "RustPlusQrcode": "assets/bundled/prefabs/ui/menu2/_assets/rustplus_qrcode.png"
+                            "RustPlusQrcode": "assets/bundled/prefabs/ui/menu2/_assets/rustplus_qrcode.png",
+                            "Softcore": "assets/bundled/prefabs/ui/menu2/_assets/softcore.png",
+                            "SoftcoreBg": "assets/bundled/prefabs/ui/menu2/_assets/softcore_bg.png"
                           },
                           "SubFolders": {
                             "_branding": {
@@ -10945,6 +11214,24 @@
                               "SubFolders": {}
                             }
                           }
+                        }
+                      }
+                    },
+                    "apartmentterminal": {
+                      "Name": "apartmentterminal",
+                      "Path": "assets/assets/bundled/prefabs/ui/apartmentterminal",
+                      "Files": {},
+                      "SubFolders": {
+                        "_assets": {
+                          "Name": "_assets",
+                          "Path": "assets/assets/bundled/prefabs/ui/apartmentterminal/_assets",
+                          "Files": {
+                            "Subtract": "assets/bundled/prefabs/ui/apartmentterminal/_assets/subtract.png",
+                            "TerminalBg": "assets/bundled/prefabs/ui/apartmentterminal/_assets/terminal-bg.png",
+                            "TerminalLogo": "assets/bundled/prefabs/ui/apartmentterminal/_assets/terminal-logo.png",
+                            "ZenLabsLogo": "assets/bundled/prefabs/ui/apartmentterminal/_assets/zenlabs-logo.png"
+                          },
+                          "SubFolders": {}
                         }
                       }
                     }
@@ -11029,6 +11316,7 @@
             "AlertEdit": "assets/icons/alert_edit.png",
             "Ammunition": "assets/icons/ammunition.png",
             "ArrowRight": "assets/icons/arrow_right.png",
+            "Attachment": "assets/icons/attachment.png",
             "Authorize": "assets/icons/authorize.png",
             "Backpack": "assets/icons/backpack.png",
             "Bite": "assets/icons/bite.png",
@@ -11344,6 +11632,29 @@
                 "Vi": "assets/icons/flags/vi.png",
                 "ZhCn": "assets/icons/flags/zh-cn.png",
                 "ZhTw": "assets/icons/flags/zh-tw.png"
+              },
+              "SubFolders": {}
+            },
+            "elevator": {
+              "Name": "elevator",
+              "Path": "assets/assets/icons/elevator",
+              "Files": {
+                "Elevator": "assets/icons/elevator/elevator.png",
+                "Elevator0": "assets/icons/elevator/elevator_0.png",
+                "Elevator1": "assets/icons/elevator/elevator_1.png",
+                "Elevator10": "assets/icons/elevator/elevator_10.png",
+                "Elevator2": "assets/icons/elevator/elevator_2.png",
+                "Elevator3": "assets/icons/elevator/elevator_3.png",
+                "Elevator4": "assets/icons/elevator/elevator_4.png",
+                "Elevator5": "assets/icons/elevator/elevator_5.png",
+                "Elevator6": "assets/icons/elevator/elevator_6.png",
+                "Elevator7": "assets/icons/elevator/elevator_7.png",
+                "Elevator8": "assets/icons/elevator/elevator_8.png",
+                "Elevator9": "assets/icons/elevator/elevator_9.png",
+                "ElevatorB": "assets/icons/elevator/elevator_b.png",
+                "ElevatorL": "assets/icons/elevator/elevator_l.png",
+                "ElevatorMinus1": "assets/icons/elevator/elevator_minus1.png",
+                "ElevatorP": "assets/icons/elevator/elevator_p.png"
               },
               "SubFolders": {}
             },

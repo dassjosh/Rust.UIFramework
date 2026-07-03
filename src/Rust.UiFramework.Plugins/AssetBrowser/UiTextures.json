@@ -3816,6 +3816,107 @@
                     }
                   }
                 },
+                "apartments_beds": {
+                  "Name": "apartments_beds",
+                  "Path": "assets/assets/content/props/apartments_beds",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/assets/content/props/apartments_beds/materials",
+                      "Files": {},
+                      "SubFolders": {
+                        "textures": {
+                          "Name": "textures",
+                          "Path": "assets/assets/content/props/apartments_beds/materials/textures",
+                          "Files": {
+                            "ApartmentBedsAo": "assets/content/props/apartments_beds/materials/textures/apartment_beds_ao.tga",
+                            "ApartmentBedsBc": "assets/content/props/apartments_beds/materials/textures/apartment_beds_bc.tga",
+                            "ApartmentBedsMg": "assets/content/props/apartments_beds/materials/textures/apartment_beds_mg.tga",
+                            "ApartmentBedsNrm": "assets/content/props/apartments_beds/materials/textures/apartment_beds_nrm.tga"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    }
+                  }
+                },
+                "apartment_door_mats": {
+                  "Name": "apartment_door_mats",
+                  "Path": "assets/assets/content/props/apartment_door_mats",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/assets/content/props/apartment_door_mats/materials",
+                      "Files": {},
+                      "SubFolders": {
+                        "textures": {
+                          "Name": "textures",
+                          "Path": "assets/assets/content/props/apartment_door_mats/materials/textures",
+                          "Files": {
+                            "ApartmentDoorMatsAlbedo": "assets/content/props/apartment_door_mats/materials/textures/apartment_door_mats_albedo.tga",
+                            "ApartmentDoorMatsAo": "assets/content/props/apartment_door_mats/materials/textures/apartment_door_mats_ao.tga",
+                            "ApartmentDoorMatsMetallic": "assets/content/props/apartment_door_mats/materials/textures/apartment_door_mats_metallic.tga",
+                            "ApartmentDoorMatsNormal": "assets/content/props/apartment_door_mats/materials/textures/apartment_door_mats_normal.tga"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    }
+                  }
+                },
+                "apartment_fridge": {
+                  "Name": "apartment_fridge",
+                  "Path": "assets/assets/content/props/apartment_fridge",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/assets/content/props/apartment_fridge/materials",
+                      "Files": {},
+                      "SubFolders": {
+                        "textures": {
+                          "Name": "textures",
+                          "Path": "assets/assets/content/props/apartment_fridge/materials/textures",
+                          "Files": {
+                            "ApartmentFridgeAo": "assets/content/props/apartment_fridge/materials/textures/apartment_fridge_ao.tga",
+                            "ApartmentFridgeBc": "assets/content/props/apartment_fridge/materials/textures/apartment_fridge_bc.tga",
+                            "ApartmentFridgeMg": "assets/content/props/apartment_fridge/materials/textures/apartment_fridge_mg.tga",
+                            "ApartmentFridgeNrm": "assets/content/props/apartment_fridge/materials/textures/apartment_fridge_nrm.tga"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    }
+                  }
+                },
+                "apartment_lights": {
+                  "Name": "apartment_lights",
+                  "Path": "assets/assets/content/props/apartment_lights",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/assets/content/props/apartment_lights/materials",
+                      "Files": {},
+                      "SubFolders": {
+                        "textures": {
+                          "Name": "textures",
+                          "Path": "assets/assets/content/props/apartment_lights/materials/textures",
+                          "Files": {
+                            "ApartmentLightsAlbedo": "assets/content/props/apartment_lights/materials/textures/apartment_lights_albedo.tga",
+                            "ApartmentLightsAo": "assets/content/props/apartment_lights/materials/textures/apartment_lights_ao.tga",
+                            "ApartmentLightsMetallic": "assets/content/props/apartment_lights/materials/textures/apartment_lights_metallic.tga",
+                            "ApartmentLightsNormal": "assets/content/props/apartment_lights/materials/textures/apartment_lights_normal.tga",
+                            "ApartmentLightsTrans": "assets/content/props/apartment_lights/materials/textures/apartment_lights_trans.tga"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    }
+                  }
+                },
                 "appartment_mailboxes": {
                   "Name": "appartment_mailboxes",
                   "Path": "assets/assets/content/props/appartment_mailboxes",
@@ -3832,6 +3933,112 @@
                         "ApartmentMailBoxesNrm": "assets/content/props/appartment_mailboxes/textures/apartment_mailboxes_nrm.tga"
                       },
                       "SubFolders": {}
+                    }
+                  }
+                },
+                "apartment_rugs": {
+                  "Name": "apartment_rugs",
+                  "Path": "assets/assets/content/props/apartment_rugs",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/assets/content/props/apartment_rugs/materials",
+                      "Files": {},
+                      "SubFolders": {
+                        "textures": {
+                          "Name": "textures",
+                          "Path": "assets/assets/content/props/apartment_rugs/materials/textures",
+                          "Files": {
+                            "ApartmentRugsAlbedo": "assets/content/props/apartment_rugs/materials/textures/apartment_rugs_albedo.tga",
+                            "ApartmentRugsAo": "assets/content/props/apartment_rugs/materials/textures/apartment_rugs_ao.tga",
+                            "ApartmentRugsColorMask": "assets/content/props/apartment_rugs/materials/textures/apartment_rugs_color_mask.tga",
+                            "ApartmentRugsMetallic": "assets/content/props/apartment_rugs/materials/textures/apartment_rugs_metallic.tga",
+                            "ApartmentRugsNormal": "assets/content/props/apartment_rugs/materials/textures/apartment_rugs_normal.tga",
+                            "ApartmentRugsSheenMask": "assets/content/props/apartment_rugs/materials/textures/apartment_rugs_sheen_mask.tga"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    }
+                  }
+                },
+                "apartment_spotlight": {
+                  "Name": "apartment_spotlight",
+                  "Path": "assets/assets/content/props/apartment_spotlight",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/assets/content/props/apartment_spotlight/materials",
+                      "Files": {},
+                      "SubFolders": {
+                        "textures": {
+                          "Name": "textures",
+                          "Path": "assets/assets/content/props/apartment_spotlight/materials/textures",
+                          "Files": {
+                            "ApartmentSpotLightAo": "assets/content/props/apartment_spotlight/materials/textures/apartment_spotlight_ao.tga",
+                            "ApartmentSpotLightDiff": "assets/content/props/apartment_spotlight/materials/textures/apartment_spotlight_diff.tga",
+                            "ApartmentSpotLightEmissive": "assets/content/props/apartment_spotlight/materials/textures/apartment_spotlight_emissive.tga",
+                            "ApartmentSpotLightNrm": "assets/content/props/apartment_spotlight/materials/textures/apartment_spotlight_nrm.tga",
+                            "ApartmentSpotLightSpec": "assets/content/props/apartment_spotlight/materials/textures/apartment_spotlight_spec.tga"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    }
+                  }
+                },
+                "apartment_wood_stove": {
+                  "Name": "apartment_wood_stove",
+                  "Path": "assets/assets/content/props/apartment_wood_stove",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/assets/content/props/apartment_wood_stove/materials",
+                      "Files": {},
+                      "SubFolders": {
+                        "textures": {
+                          "Name": "textures",
+                          "Path": "assets/assets/content/props/apartment_wood_stove/materials/textures",
+                          "Files": {
+                            "ApartmentStoveAlbedo": "assets/content/props/apartment_wood_stove/materials/textures/apartment_stove_albedo.tga",
+                            "ApartmentStoveAo": "assets/content/props/apartment_wood_stove/materials/textures/apartment_stove_ao.tga",
+                            "ApartmentStoveGlassAlbedo": "assets/content/props/apartment_wood_stove/materials/textures/apartment_stove_glass_albedo.tga",
+                            "ApartmentStoveGlassMetallic": "assets/content/props/apartment_wood_stove/materials/textures/apartment_stove_glass_metallic.tga",
+                            "ApartmentStoveGlassNormal": "assets/content/props/apartment_wood_stove/materials/textures/apartment_stove_glass_normal.tga",
+                            "ApartmentStoveMetallic": "assets/content/props/apartment_wood_stove/materials/textures/apartment_stove_metallic.tga",
+                            "ApartmentStoveNormal": "assets/content/props/apartment_wood_stove/materials/textures/apartment_stove_normal.tga"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    }
+                  }
+                },
+                "apartments_wood_shutters": {
+                  "Name": "apartments_wood_shutters",
+                  "Path": "assets/assets/content/props/apartments_wood_shutters",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/assets/content/props/apartments_wood_shutters/materials",
+                      "Files": {},
+                      "SubFolders": {
+                        "textures": {
+                          "Name": "textures",
+                          "Path": "assets/assets/content/props/apartments_wood_shutters/materials/textures",
+                          "Files": {
+                            "ApartmentsWoodShuttersAo": "assets/content/props/apartments_wood_shutters/materials/textures/apartments_wood_shutters_ao.tga",
+                            "ApartmentsWoodShuttersBc": "assets/content/props/apartments_wood_shutters/materials/textures/apartments_wood_shutters_bc.tga",
+                            "ApartmentsWoodShuttersMg": "assets/content/props/apartments_wood_shutters/materials/textures/apartments_wood_shutters_mg.tga",
+                            "ApartmentsWoodShuttersNrm": "assets/content/props/apartments_wood_shutters/materials/textures/apartments_wood_shutters_nrm.tga"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
                     }
                   }
                 },
@@ -4379,6 +4586,31 @@
                     }
                   }
                 },
+                "apartment_bulky_sofa": {
+                  "Name": "apartment_bulky_sofa",
+                  "Path": "assets/assets/content/props/apartment_bulky_sofa",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/assets/content/props/apartment_bulky_sofa/materials",
+                      "Files": {},
+                      "SubFolders": {
+                        "textures": {
+                          "Name": "textures",
+                          "Path": "assets/assets/content/props/apartment_bulky_sofa/materials/textures",
+                          "Files": {
+                            "BulkyApartmentSofaAo": "assets/content/props/apartment_bulky_sofa/materials/textures/bulky_apartment_sofa_ao.tga",
+                            "BulkyApartmentSofaDiff": "assets/content/props/apartment_bulky_sofa/materials/textures/bulky_apartment_sofa_diff.tga",
+                            "BulkyApartmentSofaNrm": "assets/content/props/apartment_bulky_sofa/materials/textures/bulky_apartment_sofa_nrm.tga",
+                            "BulkyApartmentSofaSpec": "assets/content/props/apartment_bulky_sofa/materials/textures/bulky_apartment_sofa_spec.tga"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    }
+                  }
+                },
                 "burned_body": {
                   "Name": "burned_body",
                   "Path": "assets/assets/content/props/burned_body",
@@ -4394,6 +4626,38 @@
                         "BurnedBodyNrm": "assets/content/props/burned_body/materials/burned_body_nrm.tga"
                       },
                       "SubFolders": {}
+                    }
+                  }
+                },
+                "camping_cooker": {
+                  "Name": "camping_cooker",
+                  "Path": "assets/assets/content/props/camping_cooker",
+                  "Files": {},
+                  "SubFolders": {
+                    "model": {
+                      "Name": "model",
+                      "Path": "assets/assets/content/props/camping_cooker/model",
+                      "Files": {},
+                      "SubFolders": {
+                        "material": {
+                          "Name": "material",
+                          "Path": "assets/assets/content/props/camping_cooker/model/material",
+                          "Files": {},
+                          "SubFolders": {
+                            "textures": {
+                              "Name": "textures",
+                              "Path": "assets/assets/content/props/camping_cooker/model/material/textures",
+                              "Files": {
+                                "CampingcookerAlbedoTransparency": "assets/content/props/camping_cooker/model/material/textures/campingcooker_albedotransparency.tga",
+                                "CampingcookerAo": "assets/content/props/camping_cooker/model/material/textures/campingcooker_ao.tga",
+                                "CampingcookerMetallicSmoothness": "assets/content/props/camping_cooker/model/material/textures/campingcooker_metallicsmoothness.tga",
+                                "CampingcookerNormal": "assets/content/props/camping_cooker/model/material/textures/campingcooker_normal.tga"
+                              },
+                              "SubFolders": {}
+                            }
+                          }
+                        }
+                      }
                     }
                   }
                 },
@@ -4432,7 +4696,11 @@
                         "ControlchairBc": "assets/content/props/various_chairs/materials/controlchair_bc.tga",
                         "ControlchairMg": "assets/content/props/various_chairs/materials/controlchair_mg.tga",
                         "ControlchairNrm": "assets/content/props/various_chairs/materials/controlchair_nrm.tga",
-                        "ControlseatAo": "assets/content/props/various_chairs/materials/controlseat_ao.tga"
+                        "ControlseatAo": "assets/content/props/various_chairs/materials/controlseat_ao.tga",
+                        "StoolsAlbedo": "assets/content/props/various_chairs/materials/stools_albedo.tga",
+                        "StoolsAo": "assets/content/props/various_chairs/materials/stools_ao.tga",
+                        "StoolsMetallic": "assets/content/props/various_chairs/materials/stools_metallic.tga",
+                        "StoolsNormal": "assets/content/props/various_chairs/materials/stools_normal.tga"
                       },
                       "SubFolders": {}
                     }
@@ -4532,14 +4800,6 @@
                       "Path": "assets/assets/content/props/light_fixtures/v2",
                       "Files": {},
                       "SubFolders": {
-                        "distance flares": {
-                          "Name": "distance flares",
-                          "Path": "assets/assets/content/props/light_fixtures/v2/distance flares",
-                          "Files": {
-                            "Distanceflare": "assets/content/props/light_fixtures/v2/distance flares/distanceflare.png"
-                          },
-                          "SubFolders": {}
-                        },
                         "ies": {
                           "Name": "ies",
                           "Path": "assets/assets/content/props/light_fixtures/v2/ies",
@@ -4549,6 +4809,8 @@
                               "Name": "spotlight",
                               "Path": "assets/assets/content/props/light_fixtures/v2/ies/spotlight",
                               "Files": {
+                                "CookieApartmentSkyLight": "assets/content/props/light_fixtures/v2/ies/spotlight/cookie-apartment-skylight.tga",
+                                "CookieApartmentSkyLight2": "assets/content/props/light_fixtures/v2/ies/spotlight/cookie-apartment-skylight_2.tga",
                                 "IesCookieHemisphereSpot": "assets/content/props/light_fixtures/v2/ies/spotlight/ies-cookie-hemisphere-spot.tga",
                                 "IesCookieReflector1": "assets/content/props/light_fixtures/v2/ies/spotlight/ies-cookie-reflector1.tga",
                                 "IesCookieReflector2": "assets/content/props/light_fixtures/v2/ies/spotlight/ies-cookie-reflector2.tga",
@@ -4559,6 +4821,14 @@
                               "SubFolders": {}
                             }
                           }
+                        },
+                        "distance flares": {
+                          "Name": "distance flares",
+                          "Path": "assets/assets/content/props/light_fixtures/v2/distance flares",
+                          "Files": {
+                            "Distanceflare": "assets/content/props/light_fixtures/v2/distance flares/distanceflare.png"
+                          },
+                          "SubFolders": {}
                         }
                       }
                     }
@@ -4579,6 +4849,31 @@
                         "CassettetapesNrm": "assets/content/props/cassette/materials/cassettetapes_nrm.tga"
                       },
                       "SubFolders": {}
+                    }
+                  }
+                },
+                "castironpan": {
+                  "Name": "castironpan",
+                  "Path": "assets/assets/content/props/castironpan",
+                  "Files": {},
+                  "SubFolders": {
+                    "material": {
+                      "Name": "material",
+                      "Path": "assets/assets/content/props/castironpan/material",
+                      "Files": {},
+                      "SubFolders": {
+                        "textures": {
+                          "Name": "textures",
+                          "Path": "assets/assets/content/props/castironpan/material/textures",
+                          "Files": {
+                            "CastironpanAo": "assets/content/props/castironpan/material/textures/castironpan_ao.tga",
+                            "CastironpanBc": "assets/content/props/castironpan/material/textures/castironpan_bc.tga",
+                            "CastironpanMg": "assets/content/props/castironpan/material/textures/castironpan_mg.tga",
+                            "CastironpanNrm": "assets/content/props/castironpan/material/textures/castironpan_nrm.tga"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
                     }
                   }
                 },
@@ -4737,6 +5032,37 @@
                         "CoatHangerWallMountedBc": "assets/content/props/wall mounted coat hanger/textures/coat_hanger_wall_mounted_bc.tga",
                         "CoatHangerWallMountedMg": "assets/content/props/wall mounted coat hanger/textures/coat_hanger_wall_mounted_mg.tga",
                         "CoatHangerWallMountedNrm": "assets/content/props/wall mounted coat hanger/textures/coat_hanger_wall_mounted_nrm.tga"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
+                "cobwebs": {
+                  "Name": "cobwebs",
+                  "Path": "assets/assets/content/props/cobwebs",
+                  "Files": {},
+                  "SubFolders": {
+                    "textures": {
+                      "Name": "textures",
+                      "Path": "assets/assets/content/props/cobwebs/textures",
+                      "Files": {
+                        "CobwebsBc": "assets/content/props/cobwebs/textures/cobwebs_bc.tga"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
+                "cockroach": {
+                  "Name": "cockroach",
+                  "Path": "assets/assets/content/props/cockroach",
+                  "Files": {},
+                  "SubFolders": {
+                    "textures": {
+                      "Name": "textures",
+                      "Path": "assets/assets/content/props/cockroach/textures",
+                      "Files": {
+                        "CockroachBc": "assets/content/props/cockroach/textures/cockroach_bc.tga",
+                        "CockroachNrm": "assets/content/props/cockroach/textures/cockroach_nrm.tga"
                       },
                       "SubFolders": {}
                     }
@@ -5114,6 +5440,23 @@
                     }
                   }
                 },
+                "doors_apartments": {
+                  "Name": "doors_apartments",
+                  "Path": "assets/assets/content/props/doors_apartments",
+                  "Files": {},
+                  "SubFolders": {
+                    "textures": {
+                      "Name": "textures",
+                      "Path": "assets/assets/content/props/doors_apartments/textures",
+                      "Files": {
+                        "DoorsApartmentsDiff": "assets/content/props/doors_apartments/textures/doors_apartments_diff.tga",
+                        "DoorsApartmentsNrm": "assets/content/props/doors_apartments/textures/doors_apartments_nrm.tga",
+                        "DoorsApartmentsSpec": "assets/content/props/doors_apartments/textures/doors_apartments_spec.tga"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
                 "wooden_furniture": {
                   "Name": "wooden_furniture",
                   "Path": "assets/assets/content/props/wooden_furniture",
@@ -5266,6 +5609,31 @@
                     }
                   }
                 },
+                "firewood": {
+                  "Name": "firewood",
+                  "Path": "assets/assets/content/props/firewood",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/assets/content/props/firewood/materials",
+                      "Files": {},
+                      "SubFolders": {
+                        "textures": {
+                          "Name": "textures",
+                          "Path": "assets/assets/content/props/firewood/materials/textures",
+                          "Files": {
+                            "FireWoodStackAlbedo": "assets/content/props/firewood/materials/textures/firewood_stack_albedo.tga",
+                            "FireWoodStackAo": "assets/content/props/firewood/materials/textures/firewood_stack_ao.tga",
+                            "FireWoodStackMetallic": "assets/content/props/firewood/materials/textures/firewood_stack_metallic.tga",
+                            "FireWoodStackNormal": "assets/content/props/firewood/materials/textures/firewood_stack_normal.tga"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    }
+                  }
+                },
                 "first_aid_cabinet": {
                   "Name": "first_aid_cabinet",
                   "Path": "assets/assets/content/props/first_aid_cabinet",
@@ -5344,6 +5712,31 @@
                     }
                   }
                 },
+                "foldable table": {
+                  "Name": "foldable table",
+                  "Path": "assets/assets/content/props/foldable table",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/assets/content/props/foldable table/materials",
+                      "Files": {},
+                      "SubFolders": {
+                        "textures": {
+                          "Name": "textures",
+                          "Path": "assets/assets/content/props/foldable table/materials/textures",
+                          "Files": {
+                            "FoldableTableAlbedo": "assets/content/props/foldable table/materials/textures/foldable_table_albedo.tga",
+                            "FoldableTableAo": "assets/content/props/foldable table/materials/textures/foldable_table_ao.tga",
+                            "FoldableTableMetallic": "assets/content/props/foldable table/materials/textures/foldable_table_metallic.tga",
+                            "FoldableTableNormal": "assets/content/props/foldable table/materials/textures/foldable_table_normal.tga"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    }
+                  }
+                },
                 "folding_chairs": {
                   "Name": "folding_chairs",
                   "Path": "assets/assets/content/props/folding_chairs",
@@ -5412,6 +5805,31 @@
                         "ForkliftNrm": "assets/content/props/forklift/textures/forklift_nrm.tga"
                       },
                       "SubFolders": {}
+                    }
+                  }
+                },
+                "freestanding sink": {
+                  "Name": "freestanding sink",
+                  "Path": "assets/assets/content/props/freestanding sink",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/assets/content/props/freestanding sink/materials",
+                      "Files": {},
+                      "SubFolders": {
+                        "textures": {
+                          "Name": "textures",
+                          "Path": "assets/assets/content/props/freestanding sink/materials/textures",
+                          "Files": {
+                            "FreestandingSinkAo": "assets/content/props/freestanding sink/materials/textures/freestanding_sink_ao.tga",
+                            "FreestandingSinkBc": "assets/content/props/freestanding sink/materials/textures/freestanding_sink_bc.tga",
+                            "FreestandingSinkMg": "assets/content/props/freestanding sink/materials/textures/freestanding_sink_mg.tga",
+                            "FreestandingSinkNrm": "assets/content/props/freestanding sink/materials/textures/freestanding_sink_nrm.tga"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
                     }
                   }
                 },
@@ -5499,6 +5917,9 @@
                               "Path": "assets/assets/content/props/ceiling_pipe_cable_kit/models/materials/textures",
                               "Files": {
                                 "GantryBc": "assets/content/props/ceiling_pipe_cable_kit/models/materials/textures/gantry_bc.tga",
+                                "GantryCleanBc": "assets/content/props/ceiling_pipe_cable_kit/models/materials/textures/gantry_clean_bc.tga",
+                                "GantryCleanMg": "assets/content/props/ceiling_pipe_cable_kit/models/materials/textures/gantry_clean_mg.tga",
+                                "GantryCleanNrm": "assets/content/props/ceiling_pipe_cable_kit/models/materials/textures/gantry_clean_nrm.tga",
                                 "GantryMask": "assets/content/props/ceiling_pipe_cable_kit/models/materials/textures/gantry_mask.tif",
                                 "GantryMg": "assets/content/props/ceiling_pipe_cable_kit/models/materials/textures/gantry_mg.tga",
                                 "GantryNrm": "assets/content/props/ceiling_pipe_cable_kit/models/materials/textures/gantry_nrm.tga"
@@ -5753,6 +6174,24 @@
                     }
                   }
                 },
+                "industrial_barricade": {
+                  "Name": "industrial_barricade",
+                  "Path": "assets/assets/content/props/industrial_barricade",
+                  "Files": {},
+                  "SubFolders": {
+                    "textures": {
+                      "Name": "textures",
+                      "Path": "assets/assets/content/props/industrial_barricade/textures",
+                      "Files": {
+                        "IndustrialBarricadeAo": "assets/content/props/industrial_barricade/textures/industrial_barricade_ao.tga",
+                        "IndustrialBarricadeBc": "assets/content/props/industrial_barricade/textures/industrial_barricade_bc.tga",
+                        "IndustrialBarricadeMg": "assets/content/props/industrial_barricade/textures/industrial_barricade_mg.tga",
+                        "IndustrialBarricadeNrm": "assets/content/props/industrial_barricade/textures/industrial_barricade_nrm.tga"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
                 "iv_stand": {
                   "Name": "iv_stand",
                   "Path": "assets/assets/content/props/iv_stand",
@@ -5863,6 +6302,57 @@
                         "Kitchenset02Nrm": "assets/content/props/kitchen_furniture/materials/kitchenset02_nrm.tga"
                       },
                       "SubFolders": {}
+                    },
+                    "apartment set large": {
+                      "Name": "apartment set large",
+                      "Path": "assets/assets/content/props/kitchen_furniture/apartment set large",
+                      "Files": {},
+                      "SubFolders": {
+                        "materials": {
+                          "Name": "materials",
+                          "Path": "assets/assets/content/props/kitchen_furniture/apartment set large/materials",
+                          "Files": {},
+                          "SubFolders": {
+                            "textures": {
+                              "Name": "textures",
+                              "Path": "assets/assets/content/props/kitchen_furniture/apartment set large/materials/textures",
+                              "Files": {
+                                "LargeApartmentKitchenAo": "assets/content/props/kitchen_furniture/apartment set large/materials/textures/large_apartment_kitchen_ao.tga",
+                                "LargeApartmentKitchenBc": "assets/content/props/kitchen_furniture/apartment set large/materials/textures/large_apartment_kitchen_bc.tga",
+                                "LargeApartmentKitchenMask": "assets/content/props/kitchen_furniture/apartment set large/materials/textures/large_apartment_kitchen_mask.tga",
+                                "LargeApartmentKitchenMg": "assets/content/props/kitchen_furniture/apartment set large/materials/textures/large_apartment_kitchen_mg.tga",
+                                "LargeApartmentKitchenNrm": "assets/content/props/kitchen_furniture/apartment set large/materials/textures/large_apartment_kitchen_nrm.tga"
+                              },
+                              "SubFolders": {}
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "apartment set small": {
+                      "Name": "apartment set small",
+                      "Path": "assets/assets/content/props/kitchen_furniture/apartment set small",
+                      "Files": {},
+                      "SubFolders": {
+                        "materials": {
+                          "Name": "materials",
+                          "Path": "assets/assets/content/props/kitchen_furniture/apartment set small/materials",
+                          "Files": {},
+                          "SubFolders": {
+                            "textures": {
+                              "Name": "textures",
+                              "Path": "assets/assets/content/props/kitchen_furniture/apartment set small/materials/textures",
+                              "Files": {
+                                "SmallKitchenCabinetAlbedo": "assets/content/props/kitchen_furniture/apartment set small/materials/textures/small_kitchen_cabinet_albedo.tga",
+                                "SmallKitchenCabinetAo": "assets/content/props/kitchen_furniture/apartment set small/materials/textures/small_kitchen_cabinet_ao.tga",
+                                "SmallKitchenCabinetMetallic": "assets/content/props/kitchen_furniture/apartment set small/materials/textures/small_kitchen_cabinet_metallic.tga",
+                                "SmallKitchenCabinetNormal": "assets/content/props/kitchen_furniture/apartment set small/materials/textures/small_kitchen_cabinet_normal.tga"
+                              },
+                              "SubFolders": {}
+                            }
+                          }
+                        }
+                      }
                     }
                   }
                 },
@@ -6032,6 +6522,60 @@
                         "LpRadiatorNrm": "assets/content/props/radiator/textures/lp_radiator_nrm.tga"
                       },
                       "SubFolders": {}
+                    }
+                  }
+                },
+                "apartment_l_shaped_sofa": {
+                  "Name": "apartment_l_shaped_sofa",
+                  "Path": "assets/assets/content/props/apartment_l_shaped_sofa",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/assets/content/props/apartment_l_shaped_sofa/materials",
+                      "Files": {},
+                      "SubFolders": {
+                        "textures": {
+                          "Name": "textures",
+                          "Path": "assets/assets/content/props/apartment_l_shaped_sofa/materials/textures",
+                          "Files": {
+                            "LShapedSofaAo": "assets/content/props/apartment_l_shaped_sofa/materials/textures/l_shaped_sofa_ao.tga",
+                            "LShapedSofaDiff": "assets/content/props/apartment_l_shaped_sofa/materials/textures/l_shaped_sofa_diff.tga",
+                            "LShapedSofaNrm": "assets/content/props/apartment_l_shaped_sofa/materials/textures/l_shaped_sofa_nrm.tga",
+                            "LShapedSofaRugsAo": "assets/content/props/apartment_l_shaped_sofa/materials/textures/l_shaped_sofa_rugs_ao.tga",
+                            "LShapedSofaRugsDiff": "assets/content/props/apartment_l_shaped_sofa/materials/textures/l_shaped_sofa_rugs_diff.tga",
+                            "LShapedSofaRugsNrm": "assets/content/props/apartment_l_shaped_sofa/materials/textures/l_shaped_sofa_rugs_nrm.tga",
+                            "LShapedSofaRugsSpec": "assets/content/props/apartment_l_shaped_sofa/materials/textures/l_shaped_sofa_rugs_spec.tga",
+                            "LShapedSofaSpec": "assets/content/props/apartment_l_shaped_sofa/materials/textures/l_shaped_sofa_spec.tga"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    }
+                  }
+                },
+                "makeshift_coffee_table": {
+                  "Name": "makeshift_coffee_table",
+                  "Path": "assets/assets/content/props/makeshift_coffee_table",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/assets/content/props/makeshift_coffee_table/materials",
+                      "Files": {},
+                      "SubFolders": {
+                        "textures": {
+                          "Name": "textures",
+                          "Path": "assets/assets/content/props/makeshift_coffee_table/materials/textures",
+                          "Files": {
+                            "MakeshiftCoffeeTableAlbedo": "assets/content/props/makeshift_coffee_table/materials/textures/makeshift_coffee_table_albedo.tga",
+                            "MakeshiftCoffeeTableAo": "assets/content/props/makeshift_coffee_table/materials/textures/makeshift_coffee_table_ao.tga",
+                            "MakeshiftCoffeeTableMetallic": "assets/content/props/makeshift_coffee_table/materials/textures/makeshift_coffee_table_metallic.tga",
+                            "MakeshiftCoffeeTableNormal": "assets/content/props/makeshift_coffee_table/materials/textures/makeshift_coffee_table_normal.tga"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
                     }
                   }
                 },
@@ -6310,6 +6854,27 @@
                     }
                   }
                 },
+                "neon_signs_shops": {
+                  "Name": "neon_signs_shops",
+                  "Path": "assets/assets/content/props/neon_signs_shops",
+                  "Files": {},
+                  "SubFolders": {
+                    "textures": {
+                      "Name": "textures",
+                      "Path": "assets/assets/content/props/neon_signs_shops/textures",
+                      "Files": {
+                        "NeonSignsShopsAo": "assets/content/props/neon_signs_shops/textures/neon_signs_shops_ao.tga",
+                        "NeonSignsShopsBc": "assets/content/props/neon_signs_shops/textures/neon_signs_shops_bc.tga",
+                        "NeonSignsShopsEm": "assets/content/props/neon_signs_shops/textures/neon_signs_shops_em.tga",
+                        "NeonSignsShopsEmMask": "assets/content/props/neon_signs_shops/textures/neon_signs_shops_em_mask.tga",
+                        "NeonSignsShopsEmUv2": "assets/content/props/neon_signs_shops/textures/neon_signs_shops_em_uv2.tga",
+                        "NeonSignsShopsMg": "assets/content/props/neon_signs_shops/textures/neon_signs_shops_mg.tga",
+                        "NeonSignsShopsNrm": "assets/content/props/neon_signs_shops/textures/neon_signs_shops_nrm.tga"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
                 "notepad": {
                   "Name": "notepad",
                   "Path": "assets/assets/content/props/notepad",
@@ -6410,9 +6975,11 @@
                       "Name": "material",
                       "Path": "assets/assets/content/props/old sofa/material",
                       "Files": {
+                        "OldsofaAo": "assets/content/props/old sofa/material/oldsofa_ao.tga",
                         "OldsofaBc": "assets/content/props/old sofa/material/oldsofa_bc.tga",
+                        "OldsofaMask": "assets/content/props/old sofa/material/oldsofa_mask.tga",
+                        "OldsofaMg": "assets/content/props/old sofa/material/oldsofa_mg.tga",
                         "OldsofaPatternBc": "assets/content/props/old sofa/material/oldsofapattern_bc.tga",
-                        "OldsofaRgba": "assets/content/props/old sofa/material/oldsofa_rgba.tga",
                         "SofaNrm": "assets/content/props/old sofa/material/sofa_nrm.tga"
                       },
                       "SubFolders": {}
@@ -6441,6 +7008,39 @@
                         "TvOld2Nrm": "assets/content/props/old_tvs/textures/tv_old_2_nrm.tga"
                       },
                       "SubFolders": {}
+                    }
+                  }
+                },
+                "oven": {
+                  "Name": "oven",
+                  "Path": "assets/assets/content/props/oven",
+                  "Files": {},
+                  "SubFolders": {
+                    "model": {
+                      "Name": "model",
+                      "Path": "assets/assets/content/props/oven/model",
+                      "Files": {},
+                      "SubFolders": {
+                        "materials": {
+                          "Name": "materials",
+                          "Path": "assets/assets/content/props/oven/model/materials",
+                          "Files": {},
+                          "SubFolders": {
+                            "textures": {
+                              "Name": "textures",
+                              "Path": "assets/assets/content/props/oven/model/materials/textures",
+                              "Files": {
+                                "OvenAo": "assets/content/props/oven/model/materials/textures/oven_ao.tga",
+                                "OvenBc": "assets/content/props/oven/model/materials/textures/oven_bc.tga",
+                                "OvenEmissive": "assets/content/props/oven/model/materials/textures/oven_emissive.png",
+                                "OvenMg": "assets/content/props/oven/model/materials/textures/oven_mg.tga",
+                                "OvenNrm": "assets/content/props/oven/model/materials/textures/oven_nrm.tga"
+                              },
+                              "SubFolders": {}
+                            }
+                          }
+                        }
+                      }
                     }
                   }
                 },
@@ -6477,6 +7077,7 @@
                         "PipesBc": "assets/content/props/pipes/textures/pipes_bc.tga",
                         "PipesBcRed": "assets/content/props/pipes/textures/pipes_bc_red.tga",
                         "PipesBcWhite": "assets/content/props/pipes/textures/pipes_bc_white.tga",
+                        "PipesBcWhiteA": "assets/content/props/pipes/textures/pipes_bc_white_a.tga",
                         "PipesMg": "assets/content/props/pipes/textures/pipes_mg.tga",
                         "PipesNrm": "assets/content/props/pipes/textures/pipes_nrm.tga"
                       },
@@ -6497,6 +7098,29 @@
                         "PipewrenchBc": "assets/content/props/pipe_wrench/textures/pipewrench_bc.tga",
                         "PipewrenchMg": "assets/content/props/pipe_wrench/textures/pipewrench_mg.tga",
                         "PipewrenchNrm": "assets/content/props/pipe_wrench/textures/pipewrench_nrm.tga"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
+                "playground_assets": {
+                  "Name": "playground_assets",
+                  "Path": "assets/assets/content/props/playground_assets",
+                  "Files": {},
+                  "SubFolders": {
+                    "textures": {
+                      "Name": "textures",
+                      "Path": "assets/assets/content/props/playground_assets/textures",
+                      "Files": {
+                        "PlaygroundAssetsAAo": "assets/content/props/playground_assets/textures/playground_assets_a_ao.tga",
+                        "PlaygroundAssetsABc": "assets/content/props/playground_assets/textures/playground_assets_a_bc.tga",
+                        "PlaygroundAssetsAMg": "assets/content/props/playground_assets/textures/playground_assets_a_mg.tga",
+                        "PlaygroundAssetsANrm": "assets/content/props/playground_assets/textures/playground_assets_a_nrm.tga",
+                        "PlaygroundAssetsTrimsAo": "assets/content/props/playground_assets/textures/playground_assets_trims_ao.tga",
+                        "PlaygroundAssetsTrimsBcA": "assets/content/props/playground_assets/textures/playground_assets_trims_bc_a.tga",
+                        "PlaygroundAssetsTrimsBcB": "assets/content/props/playground_assets/textures/playground_assets_trims_bc_b.tga",
+                        "PlaygroundAssetsTrimsMg": "assets/content/props/playground_assets/textures/playground_assets_trims_mg.tga",
+                        "PlaygroundAssetsTrimsNrm": "assets/content/props/playground_assets/textures/playground_assets_trims_nrm.tga"
                       },
                       "SubFolders": {}
                     }
@@ -6686,6 +7310,24 @@
                         "ReclaimTerminalLod4Bc": "assets/content/props/reclaim_terminal/textures/reclaim_terminal_lod4_bc.tga",
                         "ReclaimTerminalLod4Nrm": "assets/content/props/reclaim_terminal/textures/reclaim_terminal_lod4_nrm.tga",
                         "ReclaimTerminalTextBc": "assets/content/props/reclaim_terminal/textures/reclaim_terminal_text_bc.png"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
+                "rentable_shops_notice_box": {
+                  "Name": "rentable_shops_notice_box",
+                  "Path": "assets/assets/content/props/rentable_shops_notice_box",
+                  "Files": {},
+                  "SubFolders": {
+                    "textures": {
+                      "Name": "textures",
+                      "Path": "assets/assets/content/props/rentable_shops_notice_box/textures",
+                      "Files": {
+                        "RentableShopNoticeBoxAo": "assets/content/props/rentable_shops_notice_box/textures/rentable_shop_notice_box_ao.tga",
+                        "RentableShopNoticeBoxBc": "assets/content/props/rentable_shops_notice_box/textures/rentable_shop_notice_box_bc.tga",
+                        "RentableShopNoticeBoxMg": "assets/content/props/rentable_shops_notice_box/textures/rentable_shop_notice_box_mg.tga",
+                        "RentableShopNoticeBoxNrm": "assets/content/props/rentable_shops_notice_box/textures/rentable_shop_notice_box_nrm.tga"
                       },
                       "SubFolders": {}
                     }
@@ -7503,6 +8145,32 @@
                         "TurnstileNrm": "assets/content/props/turnstile/textures/turnstile_nrm.tga"
                       },
                       "SubFolders": {}
+                    }
+                  }
+                },
+                "apartment_vanity_cabinets": {
+                  "Name": "apartment_vanity_cabinets",
+                  "Path": "assets/assets/content/props/apartment_vanity_cabinets",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/assets/content/props/apartment_vanity_cabinets/materials",
+                      "Files": {},
+                      "SubFolders": {
+                        "textures": {
+                          "Name": "textures",
+                          "Path": "assets/assets/content/props/apartment_vanity_cabinets/materials/textures",
+                          "Files": {
+                            "VanitybathroomcabinetsAo": "assets/content/props/apartment_vanity_cabinets/materials/textures/vanitybathroomcabinets_ao.tga",
+                            "VanitybathroomcabinetsBc": "assets/content/props/apartment_vanity_cabinets/materials/textures/vanitybathroomcabinets_bc.tga",
+                            "VanitybathroomcabinetsMask": "assets/content/props/apartment_vanity_cabinets/materials/textures/vanitybathroomcabinets_mask.tga",
+                            "VanitybathroomcabinetsMg": "assets/content/props/apartment_vanity_cabinets/materials/textures/vanitybathroomcabinets_mg.tga",
+                            "VanitybathroomcabinetsNrm": "assets/content/props/apartment_vanity_cabinets/materials/textures/vanitybathroomcabinets_nrm.tga"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
                     }
                   }
                 },
@@ -9113,6 +9781,211 @@
                     }
                   }
                 },
+                "apartments_complex": {
+                  "Name": "apartments_complex",
+                  "Path": "assets/assets/content/structures/apartments_complex",
+                  "Files": {},
+                  "SubFolders": {
+                    "textures": {
+                      "Name": "textures",
+                      "Path": "assets/assets/content/structures/apartments_complex/textures",
+                      "Files": {
+                        "ApartmentCarpetDamageDecalsAo": "assets/content/structures/apartments_complex/textures/apartment_carpet_damage_decals_ao.tga",
+                        "ApartmentCarpetDamageDecalsBc": "assets/content/structures/apartments_complex/textures/apartment_carpet_damage_decals_bc.tga",
+                        "ApartmentCarpetDamageDecalsMg": "assets/content/structures/apartments_complex/textures/apartment_carpet_damage_decals_mg.tga",
+                        "ApartmentCarpetDamageDecalsNrm": "assets/content/structures/apartments_complex/textures/apartment_carpet_damage_decals_nrm.tga",
+                        "ApartmentCarpetMaskA": "assets/content/structures/apartments_complex/textures/apartment_carpet_mask_a.tga",
+                        "ApartmentDamagedAsbestosTilesBc": "assets/content/structures/apartments_complex/textures/apartment_damaged_asbestos_tiles_bc.tga",
+                        "ApartmentDamagedAsbestosTilesMask": "assets/content/structures/apartments_complex/textures/apartment_damaged_asbestos_tiles_mask.png",
+                        "ApartmentDamagedAsbestosTilesNrm": "assets/content/structures/apartments_complex/textures/apartment_damaged_asbestos_tiles_nrm.tga",
+                        "ApartmentDamagedAsbestosTilesSg": "assets/content/structures/apartments_complex/textures/apartment_damaged_asbestos_tiles_sg.tga",
+                        "ApartmentDamagedParquetBc": "assets/content/structures/apartments_complex/textures/apartment_damaged_parquet_bc.tga",
+                        "ApartmentDamagedParquetMask": "assets/content/structures/apartments_complex/textures/apartment_damaged_parquet_mask.tga",
+                        "ApartmentDamagedParquetNrm": "assets/content/structures/apartments_complex/textures/apartment_damaged_parquet_nrm.tga",
+                        "ApartmentDamagedParquetSg": "assets/content/structures/apartments_complex/textures/apartment_damaged_parquet_sg.tga",
+                        "ApartmentInteriorLoftBoardBc": "assets/content/structures/apartments_complex/textures/apartment_interior_loft_board_bc.tga",
+                        "ApartmentInteriorLoftBoardDisp": "assets/content/structures/apartments_complex/textures/apartment_interior_loft_board_disp.tga",
+                        "ApartmentInteriorLoftBoardNrm": "assets/content/structures/apartments_complex/textures/apartment_interior_loft_board_nrm.tga",
+                        "ApartmentInteriorLoftBoardSg": "assets/content/structures/apartments_complex/textures/apartment_interior_loft_board_sg.tga",
+                        "ApartmentPlasterPaintMask": "assets/content/structures/apartments_complex/textures/apartment_plaster_paint_mask.tga",
+                        "ApartmentRoomsTrimsAAo": "assets/content/structures/apartments_complex/textures/apartment_rooms_trims_a_ao.tga",
+                        "ApartmentRoomsTrimsABc": "assets/content/structures/apartments_complex/textures/apartment_rooms_trims_a_bc.tga",
+                        "ApartmentRoomsTrimsAMask": "assets/content/structures/apartments_complex/textures/apartment_rooms_trims_a_mask.tga",
+                        "ApartmentRoomsTrimsAMg": "assets/content/structures/apartments_complex/textures/apartment_rooms_trims_a_mg.tga",
+                        "ApartmentRoomsTrimsANrm": "assets/content/structures/apartments_complex/textures/apartment_rooms_trims_a_nrm.tga",
+                        "ApartmentRoomsTrimsRottenAAo": "assets/content/structures/apartments_complex/textures/apartment_rooms_trims_rotten_a_ao.tga",
+                        "ApartmentRoomsTrimsRottenABc": "assets/content/structures/apartments_complex/textures/apartment_rooms_trims_rotten_a_bc.tga",
+                        "ApartmentRoomsTrimsRottenAMask": "assets/content/structures/apartments_complex/textures/apartment_rooms_trims_rotten_a_mask.tga",
+                        "ApartmentRoomsTrimsRottenAMg": "assets/content/structures/apartments_complex/textures/apartment_rooms_trims_rotten_a_mg.tga",
+                        "ApartmentRoomsTrimsRottenANrm": "assets/content/structures/apartments_complex/textures/apartment_rooms_trims_rotten_a_nrm.tga",
+                        "LargeApartmentLodBc": "assets/content/structures/apartments_complex/textures/large_apartment_lod_bc.tga",
+                        "LargeApartmentLodNrm": "assets/content/structures/apartments_complex/textures/large_apartment_lod_nrm.tga",
+                        "LargeApartmentLodSg": "assets/content/structures/apartments_complex/textures/large_apartment_lod_sg.tga",
+                        "MediumApartmentLodBc": "assets/content/structures/apartments_complex/textures/medium_apartment_lod_bc.png",
+                        "MediumApartmentLodNrm": "assets/content/structures/apartments_complex/textures/medium_apartment_lod_nrm.png",
+                        "MediumApartmentLodSg": "assets/content/structures/apartments_complex/textures/medium_apartment_lod_sg.png",
+                        "RedCarpetDamageAo": "assets/content/structures/apartments_complex/textures/red_carpet_damage_ao.tga",
+                        "RedCarpetDamageBc": "assets/content/structures/apartments_complex/textures/red_carpet_damage_bc.tga",
+                        "RedCarpetDamageMask": "assets/content/structures/apartments_complex/textures/red_carpet_damage_mask.tga",
+                        "RedCarpetDamageNrm": "assets/content/structures/apartments_complex/textures/red_carpet_damage_nrm.tga",
+                        "SmallApartmentLodBc": "assets/content/structures/apartments_complex/textures/small_apartment_lod_bc.png",
+                        "SmallApartmentLodNrm": "assets/content/structures/apartments_complex/textures/small_apartment_lod_nrm.png",
+                        "SmallApartmentLodSg": "assets/content/structures/apartments_complex/textures/small_apartment_lod_sg.png"
+                      },
+                      "SubFolders": {
+                        "temp": {
+                          "Name": "temp",
+                          "Path": "assets/assets/content/structures/apartments_complex/textures/temp",
+                          "Files": {
+                            "TcomBurlap2kAlbedo": "assets/content/structures/apartments_complex/textures/temp/tcom_burlap_2k_albedo.tif",
+                            "TcomBurlap2kAlpha": "assets/content/structures/apartments_complex/textures/temp/tcom_burlap_2k_alpha.tif",
+                            "TcomBurlap2kHeight": "assets/content/structures/apartments_complex/textures/temp/tcom_burlap_2k_height.tif",
+                            "TcomBurlap2kNormal": "assets/content/structures/apartments_complex/textures/temp/tcom_burlap_2k_normal.tif",
+                            "TcomBurlap2kRoughness": "assets/content/structures/apartments_complex/textures/temp/tcom_burlap_2k_roughness.tif",
+                            "TcomFabricCarpet0204X042kAlbedo": "assets/content/structures/apartments_complex/textures/temp/tcom_fabric_carpet02_0.4x0.4_2k_albedo.tif",
+                            "TcomFabricCarpet0204X042kNormal": "assets/content/structures/apartments_complex/textures/temp/tcom_fabric_carpet02_0.4x0.4_2k_normal.tif",
+                            "TcomPlainCarpetc2kAo": "assets/content/structures/apartments_complex/textures/temp/tcom_plaincarpetc_2k_ao.tif"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    },
+                    "nested_prefabs": {
+                      "Name": "nested_prefabs",
+                      "Path": "assets/assets/content/structures/apartments_complex/nested_prefabs",
+                      "Files": {},
+                      "SubFolders": {
+                        "textures": {
+                          "Name": "textures",
+                          "Path": "assets/assets/content/structures/apartments_complex/nested_prefabs/textures",
+                          "Files": {
+                            "ApartmentComplexCoreFacadeLodDiffuse": "assets/content/structures/apartments_complex/nested_prefabs/textures/apartment_complex_core_facade_lod_diffuse.png",
+                            "ApartmentComplexCoreFacadeLodNormals": "assets/content/structures/apartments_complex/nested_prefabs/textures/apartment_complex_core_facade_lod_normals.png",
+                            "ApartmentComplexCoreFacadeLodSpecGloss": "assets/content/structures/apartments_complex/nested_prefabs/textures/apartment_complex_core_facade_lod_specgloss.png",
+                            "ApartmentComplexCoreGroundFloorLodBc": "assets/content/structures/apartments_complex/nested_prefabs/textures/apartment_complex_core_ground_floor_lod_bc.tga",
+                            "ApartmentComplexCoreGroundFloorLodNrm": "assets/content/structures/apartments_complex/nested_prefabs/textures/apartment_complex_core_ground_floor_lod_nrm.tga",
+                            "ApartmentComplexCoreGroundFloorLodSg": "assets/content/structures/apartments_complex/nested_prefabs/textures/apartment_complex_core_ground_floor_lod_sg.tga",
+                            "ApartmentComplexCoreMidFloorsLodBc": "assets/content/structures/apartments_complex/nested_prefabs/textures/apartment_complex_core_mid_floors_lod_bc.tga",
+                            "ApartmentComplexCoreMidFloorsLodNrm": "assets/content/structures/apartments_complex/nested_prefabs/textures/apartment_complex_core_mid_floors_lod_nrm.tga",
+                            "ApartmentComplexCoreMidFloorsLodSg": "assets/content/structures/apartments_complex/nested_prefabs/textures/apartment_complex_core_mid_floors_lod_sg.tga",
+                            "ApartmentComplexCoreUpperFloorLodBc": "assets/content/structures/apartments_complex/nested_prefabs/textures/apartment_complex_core_upper_floor_lod_bc.tga",
+                            "ApartmentComplexCoreUpperFloorLodNrm": "assets/content/structures/apartments_complex/nested_prefabs/textures/apartment_complex_core_upper_floor_lod_nrm.tga",
+                            "ApartmentComplexCoreUpperFloorLodSg": "assets/content/structures/apartments_complex/nested_prefabs/textures/apartment_complex_core_upper_floor_lod_sg.tga",
+                            "ApartmentComplexCorridors1stFloorLodBc": "assets/content/structures/apartments_complex/nested_prefabs/textures/apartment_complex_corridors_1st_floor_lod_bc.tga",
+                            "ApartmentComplexCorridors1stFloorLodNrm": "assets/content/structures/apartments_complex/nested_prefabs/textures/apartment_complex_corridors_1st_floor_lod_nrm.tga",
+                            "ApartmentComplexCorridors1stFloorLodSg": "assets/content/structures/apartments_complex/nested_prefabs/textures/apartment_complex_corridors_1st_floor_lod_sg.tga",
+                            "ApartmentComplexCorridorsBasementLodBc": "assets/content/structures/apartments_complex/nested_prefabs/textures/apartment_complex_corridors_basement_lod_bc.tga",
+                            "ApartmentComplexCorridorsBasementLodNrm": "assets/content/structures/apartments_complex/nested_prefabs/textures/apartment_complex_corridors_basement_lod_nrm.tga",
+                            "ApartmentComplexCorridorsBasementLodSg": "assets/content/structures/apartments_complex/nested_prefabs/textures/apartment_complex_corridors_basement_lod_sg.tga",
+                            "ApartmentComplexCorridorsDamagedLodDiffuse": "assets/content/structures/apartments_complex/nested_prefabs/textures/apartment_complex_corridors_damaged_lod_diffuse.png",
+                            "ApartmentComplexCorridorsDamagedLodNormals": "assets/content/structures/apartments_complex/nested_prefabs/textures/apartment_complex_corridors_damaged_lod_normals.png",
+                            "ApartmentComplexCorridorsDamagedLodSpecGloss": "assets/content/structures/apartments_complex/nested_prefabs/textures/apartment_complex_corridors_damaged_lod_specgloss.png",
+                            "ApartmentComplexCorridorsMidFloorsLodBc": "assets/content/structures/apartments_complex/nested_prefabs/textures/apartment_complex_corridors_mid_floors_lod_bc.tga",
+                            "ApartmentComplexCorridorsMidFloorsLodNrm": "assets/content/structures/apartments_complex/nested_prefabs/textures/apartment_complex_corridors_mid_floors_lod_nrm.tga",
+                            "ApartmentComplexCorridorsMidFloorsLodSg": "assets/content/structures/apartments_complex/nested_prefabs/textures/apartment_complex_corridors_mid_floors_lod_sg.tga",
+                            "ApartmentComplexCorridorsUpperFloorLodBc": "assets/content/structures/apartments_complex/nested_prefabs/textures/apartment_complex_corridors_upper_floor_lod_bc.tga",
+                            "ApartmentComplexCorridorsUpperFloorLodNrm": "assets/content/structures/apartments_complex/nested_prefabs/textures/apartment_complex_corridors_upper_floor_lod_nrm.tga",
+                            "ApartmentComplexCorridorsUpperFloorLodSg": "assets/content/structures/apartments_complex/nested_prefabs/textures/apartment_complex_corridors_upper_floor_lod_sg.tga",
+                            "ApartmentComplexFacadeDamagedLodDiffuse": "assets/content/structures/apartments_complex/nested_prefabs/textures/apartment_complex_facade_damaged_lod_diffuse.png",
+                            "ApartmentComplexFacadeDamagedLodNormals": "assets/content/structures/apartments_complex/nested_prefabs/textures/apartment_complex_facade_damaged_lod_normals.png",
+                            "ApartmentComplexFacadeDamagedLodSpecGloss": "assets/content/structures/apartments_complex/nested_prefabs/textures/apartment_complex_facade_damaged_lod_specgloss.png",
+                            "ApartmentComplexFacadeLodDiffuse": "assets/content/structures/apartments_complex/nested_prefabs/textures/apartment_complex_facade_lod_diffuse.png",
+                            "ApartmentComplexFacadeLodNormals": "assets/content/structures/apartments_complex/nested_prefabs/textures/apartment_complex_facade_lod_normals.png",
+                            "ApartmentComplexFacadeLodSpecGloss": "assets/content/structures/apartments_complex/nested_prefabs/textures/apartment_complex_facade_lod_specgloss.png",
+                            "ApartmentComplexRoofDamagedLodDiffuse": "assets/content/structures/apartments_complex/nested_prefabs/textures/apartment_complex_roof_damaged_lod_diffuse.png",
+                            "ApartmentComplexRoofDamagedLodNormals": "assets/content/structures/apartments_complex/nested_prefabs/textures/apartment_complex_roof_damaged_lod_normals.png",
+                            "ApartmentComplexRoofDamagedLodSpecGloss": "assets/content/structures/apartments_complex/nested_prefabs/textures/apartment_complex_roof_damaged_lod_specgloss.png",
+                            "ApartmentComplexRoofLodDiffuse": "assets/content/structures/apartments_complex/nested_prefabs/textures/apartment_complex_roof_lod_diffuse.png",
+                            "ApartmentComplexRoofLodNormals": "assets/content/structures/apartments_complex/nested_prefabs/textures/apartment_complex_roof_lod_normals.png",
+                            "ApartmentComplexRoofLodSpecGloss": "assets/content/structures/apartments_complex/nested_prefabs/textures/apartment_complex_roof_lod_specgloss.png",
+                            "ApartmentComplexSideDamagedLodDiffuse": "assets/content/structures/apartments_complex/nested_prefabs/textures/apartment_complex_side_damaged_lod_diffuse.png",
+                            "ApartmentComplexSideDamagedLodNormals": "assets/content/structures/apartments_complex/nested_prefabs/textures/apartment_complex_side_damaged_lod_normals.png",
+                            "ApartmentComplexSideDamagedLodSpecGloss": "assets/content/structures/apartments_complex/nested_prefabs/textures/apartment_complex_side_damaged_lod_specgloss.png",
+                            "ApartmentComplexSideLodDiffuse": "assets/content/structures/apartments_complex/nested_prefabs/textures/apartment_complex_side_lod_diffuse.png",
+                            "ApartmentComplexSideLodNormals": "assets/content/structures/apartments_complex/nested_prefabs/textures/apartment_complex_side_lod_normals.png",
+                            "ApartmentComplexSideLodSpecGloss": "assets/content/structures/apartments_complex/nested_prefabs/textures/apartment_complex_side_lod_specgloss.png"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    }
+                  }
+                },
+                "apartment_complex_b": {
+                  "Name": "apartment_complex_b",
+                  "Path": "assets/assets/content/structures/apartment_complex_b",
+                  "Files": {},
+                  "SubFolders": {
+                    "prefabs": {
+                      "Name": "prefabs",
+                      "Path": "assets/assets/content/structures/apartment_complex_b/prefabs",
+                      "Files": {},
+                      "SubFolders": {
+                        "textures": {
+                          "Name": "textures",
+                          "Path": "assets/assets/content/structures/apartment_complex_b/prefabs/textures",
+                          "Files": {
+                            "ApartmentsComplexBCorridorALiftShaftLodBc": "assets/content/structures/apartment_complex_b/prefabs/textures/apartments_complex_b_corridor_a_lift_shaft_lod_bc.tga",
+                            "ApartmentsComplexBCorridorALiftShaftLodNrm": "assets/content/structures/apartment_complex_b/prefabs/textures/apartments_complex_b_corridor_a_lift_shaft_lod_nrm.tga",
+                            "ApartmentsComplexBCorridorALiftShaftLodSg": "assets/content/structures/apartment_complex_b/prefabs/textures/apartments_complex_b_corridor_a_lift_shaft_lod_sg.tga",
+                            "ApartmentsComplexBCorridorALodBc": "assets/content/structures/apartment_complex_b/prefabs/textures/apartments_complex_b_corridor_a_lod_bc.tga",
+                            "ApartmentsComplexBCorridorALodNrm": "assets/content/structures/apartment_complex_b/prefabs/textures/apartments_complex_b_corridor_a_lod_nrm.tga",
+                            "ApartmentsComplexBCorridorALodSg": "assets/content/structures/apartment_complex_b/prefabs/textures/apartments_complex_b_corridor_a_lod_sg.tga",
+                            "ApartmentsComplexBCorridorAPartitionALodBc": "assets/content/structures/apartment_complex_b/prefabs/textures/apartments_complex_b_corridor_a_partition_a_lod_bc.tga",
+                            "ApartmentsComplexBCorridorAPartitionALodNrm": "assets/content/structures/apartment_complex_b/prefabs/textures/apartments_complex_b_corridor_a_partition_a_lod_nrm.tga",
+                            "ApartmentsComplexBCorridorAPartitionALodSg": "assets/content/structures/apartment_complex_b/prefabs/textures/apartments_complex_b_corridor_a_partition_a_lod_sg.tga",
+                            "ApartmentsComplexBCorridorAPartitionBLodBc": "assets/content/structures/apartment_complex_b/prefabs/textures/apartments_complex_b_corridor_a_partition_b_lod_bc.tga",
+                            "ApartmentsComplexBCorridorAPartitionBLodNrm": "assets/content/structures/apartment_complex_b/prefabs/textures/apartments_complex_b_corridor_a_partition_b_lod_nrm.tga",
+                            "ApartmentsComplexBCorridorAPartitionBLodSg": "assets/content/structures/apartment_complex_b/prefabs/textures/apartments_complex_b_corridor_a_partition_b_lod_sg.tga",
+                            "ApartmentsComplexBCorridorBLodBc": "assets/content/structures/apartment_complex_b/prefabs/textures/apartments_complex_b_corridor_b_lod_bc.tga",
+                            "ApartmentsComplexBCorridorBLodNrm": "assets/content/structures/apartment_complex_b/prefabs/textures/apartments_complex_b_corridor_b_lod_nrm.tga",
+                            "ApartmentsComplexBCorridorBLodSg": "assets/content/structures/apartment_complex_b/prefabs/textures/apartments_complex_b_corridor_b_lod_sg.tga",
+                            "ApartmentsComplexBCorridorCLodBc": "assets/content/structures/apartment_complex_b/prefabs/textures/apartments_complex_b_corridor_c_lod_bc.tga",
+                            "ApartmentsComplexBCorridorCLodNrm": "assets/content/structures/apartment_complex_b/prefabs/textures/apartments_complex_b_corridor_c_lod_nrm.tga",
+                            "ApartmentsComplexBCorridorCLodSg": "assets/content/structures/apartment_complex_b/prefabs/textures/apartments_complex_b_corridor_c_lod_sg.tga",
+                            "ApartmentsComplexBCorridorDLodBc": "assets/content/structures/apartment_complex_b/prefabs/textures/apartments_complex_b_corridor_d_lod_bc.tga",
+                            "ApartmentsComplexBCorridorDLodNrm": "assets/content/structures/apartment_complex_b/prefabs/textures/apartments_complex_b_corridor_d_lod_nrm.tga",
+                            "ApartmentsComplexBCorridorDLodSg": "assets/content/structures/apartment_complex_b/prefabs/textures/apartments_complex_b_corridor_d_lod_sg.tga",
+                            "ApartmentsComplexBCorridorELodBc": "assets/content/structures/apartment_complex_b/prefabs/textures/apartments_complex_b_corridor_e_lod_bc.tga",
+                            "ApartmentsComplexBCorridorELodNrm": "assets/content/structures/apartment_complex_b/prefabs/textures/apartments_complex_b_corridor_e_lod_nrm.tga",
+                            "ApartmentsComplexBCorridorELodSg": "assets/content/structures/apartment_complex_b/prefabs/textures/apartments_complex_b_corridor_e_lod_sg.tga",
+                            "ApartmentsComplexBFacadeALodDiffuse": "assets/content/structures/apartment_complex_b/prefabs/textures/apartments_complex_b_facade_a_lod_diffuse.png",
+                            "ApartmentsComplexBFacadeALodNormals": "assets/content/structures/apartment_complex_b/prefabs/textures/apartments_complex_b_facade_a_lod_normals.png",
+                            "ApartmentsComplexBFacadeALodSpecGloss": "assets/content/structures/apartment_complex_b/prefabs/textures/apartments_complex_b_facade_a_lod_specgloss.png",
+                            "ApartmentsComplexBFacadeBLodDiffuse": "assets/content/structures/apartment_complex_b/prefabs/textures/apartments_complex_b_facade_b_lod_diffuse.png",
+                            "ApartmentsComplexBFacadeBLodNormals": "assets/content/structures/apartment_complex_b/prefabs/textures/apartments_complex_b_facade_b_lod_normals.png",
+                            "ApartmentsComplexBFacadeBLodSpecGloss": "assets/content/structures/apartment_complex_b/prefabs/textures/apartments_complex_b_facade_b_lod_specgloss.png",
+                            "ApartmentsComplexBFacadeCLodDiffuse": "assets/content/structures/apartment_complex_b/prefabs/textures/apartments_complex_b_facade_c_lod_diffuse.png",
+                            "ApartmentsComplexBFacadeCLodNormals": "assets/content/structures/apartment_complex_b/prefabs/textures/apartments_complex_b_facade_c_lod_normals.png",
+                            "ApartmentsComplexBFacadeCLodSpecGloss": "assets/content/structures/apartment_complex_b/prefabs/textures/apartments_complex_b_facade_c_lod_specgloss.png",
+                            "ApartmentsComplexBFacadeCornerLodDiffuse": "assets/content/structures/apartment_complex_b/prefabs/textures/apartments_complex_b_facade_corner_lod_diffuse.png",
+                            "ApartmentsComplexBFacadeCornerLodNormals": "assets/content/structures/apartment_complex_b/prefabs/textures/apartments_complex_b_facade_corner_lod_normals.png",
+                            "ApartmentsComplexBFacadeCornerLodSpecGloss": "assets/content/structures/apartment_complex_b/prefabs/textures/apartments_complex_b_facade_corner_lod_specgloss.png",
+                            "ApartmentsComplexBFacadeDLodDiffuse": "assets/content/structures/apartment_complex_b/prefabs/textures/apartments_complex_b_facade_d_lod_diffuse.png",
+                            "ApartmentsComplexBFacadeDLodNormals": "assets/content/structures/apartment_complex_b/prefabs/textures/apartments_complex_b_facade_d_lod_normals.png",
+                            "ApartmentsComplexBFacadeDLodSpecGloss": "assets/content/structures/apartment_complex_b/prefabs/textures/apartments_complex_b_facade_d_lod_specgloss.png",
+                            "ApartmentsComplexBFacadeELodDiffuse": "assets/content/structures/apartment_complex_b/prefabs/textures/apartments_complex_b_facade_e_lod_diffuse.png",
+                            "ApartmentsComplexBFacadeELodNormals": "assets/content/structures/apartment_complex_b/prefabs/textures/apartments_complex_b_facade_e_lod_normals.png",
+                            "ApartmentsComplexBFacadeELodSpecGloss": "assets/content/structures/apartment_complex_b/prefabs/textures/apartments_complex_b_facade_e_lod_specgloss.png",
+                            "ApartmentsComplexBFacadeEndALodDiffuse": "assets/content/structures/apartment_complex_b/prefabs/textures/apartments_complex_b_facade_end_a_lod_diffuse.png",
+                            "ApartmentsComplexBFacadeEndALodNormals": "assets/content/structures/apartment_complex_b/prefabs/textures/apartments_complex_b_facade_end_a_lod_normals.png",
+                            "ApartmentsComplexBFacadeEndALodSpecGloss": "assets/content/structures/apartment_complex_b/prefabs/textures/apartments_complex_b_facade_end_a_lod_specgloss.png",
+                            "ApartmentsComplexBFacadeEndBLodDiffuse": "assets/content/structures/apartment_complex_b/prefabs/textures/apartments_complex_b_facade_end_b_lod_diffuse.png",
+                            "ApartmentsComplexBFacadeEndBLodNormals": "assets/content/structures/apartment_complex_b/prefabs/textures/apartments_complex_b_facade_end_b_lod_normals.png",
+                            "ApartmentsComplexBFacadeEndBLodSpecGloss": "assets/content/structures/apartment_complex_b/prefabs/textures/apartments_complex_b_facade_end_b_lod_specgloss.png",
+                            "ApartmentsComplexRoofALodDiffuse": "assets/content/structures/apartment_complex_b/prefabs/textures/apartments_complex_roof_a_lod_diffuse.png",
+                            "ApartmentsComplexRoofALodNormals": "assets/content/structures/apartment_complex_b/prefabs/textures/apartments_complex_roof_a_lod_normals.png",
+                            "ApartmentsComplexRoofALodSpecGloss": "assets/content/structures/apartment_complex_b/prefabs/textures/apartments_complex_roof_a_lod_specgloss.png",
+                            "ApartmentsComplexRoofBLodDiffuse": "assets/content/structures/apartment_complex_b/prefabs/textures/apartments_complex_roof_b_lod_diffuse.png",
+                            "ApartmentsComplexRoofBLodNormals": "assets/content/structures/apartment_complex_b/prefabs/textures/apartments_complex_roof_b_lod_normals.png",
+                            "ApartmentsComplexRoofBLodSpecGloss": "assets/content/structures/apartment_complex_b/prefabs/textures/apartments_complex_roof_b_lod_specgloss.png"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    }
+                  }
+                },
                 "arctic_base_modules": {
                   "Name": "arctic_base_modules",
                   "Path": "assets/assets/content/structures/arctic_base_modules",
@@ -9746,6 +10619,9 @@
                         "LoadingBayLaneALodNrm": "assets/content/structures/roads/textures/loading_bay_lane_a_lod_nrm.tga",
                         "RoadNopavementLodsBc": "assets/content/structures/roads/textures/road_nopavement_lods_bc.tga",
                         "RoadNopavementLodsNrm": "assets/content/structures/roads/textures/road_nopavement_lods_nrm.tga",
+                        "RoadsCobbleStoneLodDiff": "assets/content/structures/roads/textures/roads_cobblestone_lod_diff.tga",
+                        "RoadsCobbleStoneLodNrm": "assets/content/structures/roads/textures/roads_cobblestone_lod_nrm.tga",
+                        "RoadsCobbleStoneLodSpec": "assets/content/structures/roads/textures/roads_cobblestone_lod_spec.tga",
                         "RoadsLodsBc": "assets/content/structures/roads/textures/roads_lods_bc.tga",
                         "RoadsLodsNrm": "assets/content/structures/roads/textures/roads_lods_nrm.tga"
                       },
@@ -9874,6 +10750,39 @@
                     }
                   }
                 },
+                "city_hall": {
+                  "Name": "city_hall",
+                  "Path": "assets/assets/content/structures/city_hall",
+                  "Files": {},
+                  "SubFolders": {
+                    "textures": {
+                      "Name": "textures",
+                      "Path": "assets/assets/content/structures/city_hall/textures",
+                      "Files": {
+                        "ChHelipadLod4Diff": "assets/content/structures/city_hall/textures/ch_helipad_lod4_diff.tga",
+                        "ChHelipadLod4Nrm": "assets/content/structures/city_hall/textures/ch_helipad_lod4_nrm.tga",
+                        "ChHelipadLod4Spec": "assets/content/structures/city_hall/textures/ch_helipad_lod4_spec.tga"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
+                "church": {
+                  "Name": "church",
+                  "Path": "assets/assets/content/structures/church",
+                  "Files": {},
+                  "SubFolders": {
+                    "textures": {
+                      "Name": "textures",
+                      "Path": "assets/assets/content/structures/church/textures",
+                      "Files": {
+                        "ChurchALod4Col": "assets/content/structures/church/textures/church_a_lod4_col.tga",
+                        "ChurchALod4Norm": "assets/content/structures/church/textures/church_a_lod4_norm.tga"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
                 "coaling_tower": {
                   "Name": "coaling_tower",
                   "Path": "assets/assets/content/structures/coaling_tower",
@@ -9887,6 +10796,28 @@
                         "CoalingTowerLod3Mg": "assets/content/structures/coaling_tower/textures/coaling_tower_lod3_mg.tga",
                         "CoalingTowerLod3Nrm": "assets/content/structures/coaling_tower/textures/coaling_tower_lod3_nrm.tga",
                         "CobaltLogistics": "assets/content/structures/coaling_tower/textures/cobalt_logistics.tga"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
+                "cobalt_statue": {
+                  "Name": "cobalt_statue",
+                  "Path": "assets/assets/content/structures/cobalt_statue",
+                  "Files": {},
+                  "SubFolders": {
+                    "textures": {
+                      "Name": "textures",
+                      "Path": "assets/assets/content/structures/cobalt_statue/textures",
+                      "Files": {
+                        "CobaltStatueHelixAo": "assets/content/structures/cobalt_statue/textures/cobalt_statue_helix_ao.tga",
+                        "CobaltStatueHelixBc": "assets/content/structures/cobalt_statue/textures/cobalt_statue_helix_bc.tga",
+                        "CobaltStatueHelixMg": "assets/content/structures/cobalt_statue/textures/cobalt_statue_helix_mg.tga",
+                        "CobaltStatueHelixNrm": "assets/content/structures/cobalt_statue/textures/cobalt_statue_helix_nrm.tga",
+                        "CobaltStatuePedestalAo": "assets/content/structures/cobalt_statue/textures/cobalt_statue_pedestal_ao.tga",
+                        "CobaltStatuePedestalBc": "assets/content/structures/cobalt_statue/textures/cobalt_statue_pedestal_bc.tga",
+                        "CobaltStatuePedestalMg": "assets/content/structures/cobalt_statue/textures/cobalt_statue_pedestal_mg.tga",
+                        "CobaltStatuePedestalNrm": "assets/content/structures/cobalt_statue/textures/cobalt_statue_pedestal_nrm.tga"
                       },
                       "SubFolders": {}
                     }
@@ -9915,6 +10846,7 @@
                                 "ConcreteCleanBc": "assets/content/structures/jungle_ziggurat/models/christest/textures/concrete_clean_bc.tga",
                                 "ConcreteCleanbMg": "assets/content/structures/jungle_ziggurat/models/christest/textures/concrete_cleanb_mg.tga",
                                 "ConcreteCleanbNrm": "assets/content/structures/jungle_ziggurat/models/christest/textures/concrete_cleanb_nrm.tga",
+                                "ConcreteCleancBc": "assets/content/structures/jungle_ziggurat/models/christest/textures/concrete_cleanc_bc.tga",
                                 "ConcreteCleanMg": "assets/content/structures/jungle_ziggurat/models/christest/textures/concrete_clean_mg.tga",
                                 "ConcreteCleanNrm": "assets/content/structures/jungle_ziggurat/models/christest/textures/concrete_clean_nrm.tga",
                                 "ConcretedecalBc": "assets/content/structures/jungle_ziggurat/models/christest/textures/concretedecal_bc.tga",
@@ -10299,6 +11231,77 @@
                         "CorridorTrainTunnelEntranceALod3Bc": "assets/content/structures/train_tunnels/textures/corridor_train_tunnel_entrance_a_lod3_bc.tga",
                         "CorridorTrainTunnelEntranceALod3Mg": "assets/content/structures/train_tunnels/textures/corridor_train_tunnel_entrance_a_lod3_mg.tga",
                         "CorridorTrainTunnelEntranceALod3Nrm": "assets/content/structures/train_tunnels/textures/corridor_train_tunnel_entrance_a_lod3_nrm.tga"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
+                "rentable_shops": {
+                  "Name": "rentable_shops",
+                  "Path": "assets/assets/content/structures/rentable_shops",
+                  "Files": {
+                    "RentableShopACookie": "assets/content/structures/rentable_shops/rentable_shop_a_cookie.png",
+                    "RentableShopBCookie": "assets/content/structures/rentable_shops/rentable_shop_b_cookie.png",
+                    "RentableShopCCookie": "assets/content/structures/rentable_shops/rentable_shop_c_cookie.png",
+                    "RentableShopDCookie": "assets/content/structures/rentable_shops/rentable_shop_d_cookie.png",
+                    "RentableShopECookie": "assets/content/structures/rentable_shops/rentable_shop_e_cookie.png",
+                    "RentableShopFCookie": "assets/content/structures/rentable_shops/rentable_shop_f_cookie.png"
+                  },
+                  "SubFolders": {
+                    "textures": {
+                      "Name": "textures",
+                      "Path": "assets/assets/content/structures/rentable_shops/textures",
+                      "Files": {
+                        "CorrugatedAo": "assets/content/structures/rentable_shops/textures/corrugated_ao.tga",
+                        "CorrugatedDiff": "assets/content/structures/rentable_shops/textures/corrugated_diff.tga",
+                        "CorrugatedNrm": "assets/content/structures/rentable_shops/textures/corrugated_nrm.tga",
+                        "CorrugatedRelief": "assets/content/structures/rentable_shops/textures/corrugated_relief.tga",
+                        "CorrugatedSpec": "assets/content/structures/rentable_shops/textures/corrugated_spec.tga",
+                        "GlassDirtyDiff": "assets/content/structures/rentable_shops/textures/glass_dirty_diff.tga",
+                        "GlassDirtyNrm": "assets/content/structures/rentable_shops/textures/glass_dirty_nrm.tga",
+                        "GlassDirtySpec": "assets/content/structures/rentable_shops/textures/glass_dirty_spec.tga",
+                        "KioskCeilingMetalSheetANrm": "assets/content/structures/rentable_shops/textures/kiosk_ceiling_metal_sheet_a_nrm.tga",
+                        "MetalPlate01Ao": "assets/content/structures/rentable_shops/textures/metal_plate_01_ao.tga",
+                        "MetalPlate01Bc": "assets/content/structures/rentable_shops/textures/metal_plate_01_bc.tga",
+                        "MetalPlate01Diff": "assets/content/structures/rentable_shops/textures/metal_plate_01_diff.png",
+                        "MetalPlate01Mg": "assets/content/structures/rentable_shops/textures/metal_plate_01_mg.png",
+                        "MetalPlate01Mg1": "assets/content/structures/rentable_shops/textures/metal_plate_01_mg.tga",
+                        "MetalPlate01Nrm": "assets/content/structures/rentable_shops/textures/metal_plate_01_nrm.png",
+                        "MetalPlate01Nrm1": "assets/content/structures/rentable_shops/textures/metal_plate_01_nrm.tga",
+                        "MetalPlate01RedDiff": "assets/content/structures/rentable_shops/textures/metal_plate_01_red_diff.png",
+                        "MetalPlate01RedDiff1": "assets/content/structures/rentable_shops/textures/metal_plate_01_red_diff.tga",
+                        "MetalPlate01RustedDiff": "assets/content/structures/rentable_shops/textures/metal_plate_01_rusted_diff.png",
+                        "MetalPlate01RustedMg": "assets/content/structures/rentable_shops/textures/metal_plate_01_rusted_mg.png",
+                        "MetalPlate01RustedNrm": "assets/content/structures/rentable_shops/textures/metal_plate_01_rusted_nrm.png",
+                        "PlyWoodPaintedAo": "assets/content/structures/rentable_shops/textures/plywood_painted_ao.tga",
+                        "PlyWoodPaintedDiff": "assets/content/structures/rentable_shops/textures/plywood_painted_diff.tga",
+                        "PlyWoodPaintedMask": "assets/content/structures/rentable_shops/textures/plywood_painted_mask.tga",
+                        "PlyWoodPaintedNrm": "assets/content/structures/rentable_shops/textures/plywood_painted_nrm.tga",
+                        "PlyWoodPaintedSpec": "assets/content/structures/rentable_shops/textures/plywood_painted_spec.tga",
+                        "RentableKioskTrimsNormal": "assets/content/structures/rentable_shops/textures/rentable_kiosk_trims_normal.png",
+                        "RentableShopKioskPaintDiff": "assets/content/structures/rentable_shops/textures/rentable_shop_kiosk_paint_diff.tga",
+                        "RentableShopKioskPaintMs": "assets/content/structures/rentable_shops/textures/rentable_shop_kiosk_paint_ms.tga",
+                        "RentableShopKioskPaintNrm": "assets/content/structures/rentable_shops/textures/rentable_shop_kiosk_paint_nrm.tga",
+                        "RentableShopNeonAtlas": "assets/content/structures/rentable_shops/textures/rentable_shop_neon_atlas.png",
+                        "RentableShopNeonAtlasMask": "assets/content/structures/rentable_shops/textures/rentable_shop_neon_atlas_mask.png",
+                        "RentableShopsKioskTrimsBlend": "assets/content/structures/rentable_shops/textures/rentable_shops_kiosk_trims_blend.tga",
+                        "RentableShopsKioskTrimsDetailDiff": "assets/content/structures/rentable_shops/textures/rentable_shops_kiosk_trims_detail_diff.tga",
+                        "RentableShopsKioskTrimsDetailMs": "assets/content/structures/rentable_shops/textures/rentable_shops_kiosk_trims_detail_ms.tga",
+                        "RentableShopsKioskTrimsDetailNrm": "assets/content/structures/rentable_shops/textures/rentable_shops_kiosk_trims_detail_nrm.tga",
+                        "RentableShopsKioskTrimsDiff": "assets/content/structures/rentable_shops/textures/rentable_shops_kiosk_trims_diff.tga",
+                        "RentableShopsKioskTrimsMask": "assets/content/structures/rentable_shops/textures/rentable_shops_kiosk_trims_mask.tga",
+                        "RentableShopsKioskTrimsMs": "assets/content/structures/rentable_shops/textures/rentable_shops_kiosk_trims_ms.tga",
+                        "RentableShopsKioskTrimsNrm": "assets/content/structures/rentable_shops/textures/rentable_shops_kiosk_trims_nrm.tga",
+                        "RentableShopsKioskTrimsPaintMaskA": "assets/content/structures/rentable_shops/textures/rentable_shops_kiosk_trims_paint_mask_a.tga",
+                        "RentableShopsLod3ABc": "assets/content/structures/rentable_shops/textures/rentable_shops_lod3_a_bc.tga",
+                        "RentableShopsLod3ANrm": "assets/content/structures/rentable_shops/textures/rentable_shops_lod3_a_nrm.tga",
+                        "RentableShopsLod3ASg": "assets/content/structures/rentable_shops/textures/rentable_shops_lod3_a_sg.tga",
+                        "RentableShopsLod3BBc": "assets/content/structures/rentable_shops/textures/rentable_shops_lod3_b_bc.tga",
+                        "RentableShopsLod3BNrm": "assets/content/structures/rentable_shops/textures/rentable_shops_lod3_b_nrm.tga",
+                        "RentableShopsLod3BSg": "assets/content/structures/rentable_shops/textures/rentable_shops_lod3_b_sg.tga",
+                        "RentableShopsSignageAtlasDiff": "assets/content/structures/rentable_shops/textures/rentable_shops_signage_atlas_diff.tga",
+                        "RentableShopsSignageAtlasMs": "assets/content/structures/rentable_shops/textures/rentable_shops_signage_atlas_ms.tga",
+                        "RentableShopsSignageAtlasNrm": "assets/content/structures/rentable_shops/textures/rentable_shops_signage_atlas_nrm.tga"
                       },
                       "SubFolders": {}
                     }
@@ -11605,6 +12608,23 @@
                     }
                   }
                 },
+                "town_square": {
+                  "Name": "town_square",
+                  "Path": "assets/assets/content/structures/town_square",
+                  "Files": {},
+                  "SubFolders": {
+                    "textures": {
+                      "Name": "textures",
+                      "Path": "assets/assets/content/structures/town_square/textures",
+                      "Files": {
+                        "TownSquareLod2Diff": "assets/content/structures/town_square/textures/town_square_lod2_diff.tga",
+                        "TownSquareLod2Nrm": "assets/content/structures/town_square/textures/town_square_lod2_nrm.tga",
+                        "TownSquareLod2Spec": "assets/content/structures/town_square/textures/town_square_lod2_spec.tga"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
                 "train_crane": {
                   "Name": "train_crane",
                   "Path": "assets/assets/content/structures/train_crane",
@@ -12317,7 +13337,10 @@
                             "MonsteraDeliciosaTr": "assets/content/nature/treessource/bush_monstera_deliciosa/textures/monstera_deliciosa_tr.tga",
                             "MonsteraDeliciosaXlBillBoardDiff": "assets/content/nature/treessource/bush_monstera_deliciosa/textures/monstera_deliciosa_xl_billboard_diff.tga",
                             "MonsteraDeliciosaXlBillBoardNrm": "assets/content/nature/treessource/bush_monstera_deliciosa/textures/monstera_deliciosa_xl_billboard_nrm.tga",
-                            "MonsteraDeliciosaXlBillBoardSpec": "assets/content/nature/treessource/bush_monstera_deliciosa/textures/monstera_deliciosa_xl_billboard_spec.tga"
+                            "MonsteraDeliciosaXlBillBoardSpec": "assets/content/nature/treessource/bush_monstera_deliciosa/textures/monstera_deliciosa_xl_billboard_spec.tga",
+                            "MonsteraDeliciosaXsBillBoardDiff": "assets/content/nature/treessource/bush_monstera_deliciosa/textures/monstera_deliciosa_xs_billboard_diff.tga",
+                            "MonsteraDeliciosaXsBillBoardNrm": "assets/content/nature/treessource/bush_monstera_deliciosa/textures/monstera_deliciosa_xs_billboard_nrm.tga",
+                            "MonsteraDeliciosaXsBillBoardSpec": "assets/content/nature/treessource/bush_monstera_deliciosa/textures/monstera_deliciosa_xs_billboard_spec.tga"
                           },
                           "SubFolders": {}
                         }
@@ -13597,6 +14620,52 @@
                     }
                   }
                 },
+                "vines": {
+                  "Name": "vines",
+                  "Path": "assets/assets/content/nature/vines",
+                  "Files": {},
+                  "SubFolders": {
+                    "hedera_helix_variegata": {
+                      "Name": "hedera_helix_variegata",
+                      "Path": "assets/assets/content/nature/vines/hedera_helix_variegata",
+                      "Files": {},
+                      "SubFolders": {
+                        "textures": {
+                          "Name": "textures",
+                          "Path": "assets/assets/content/nature/vines/hedera_helix_variegata/textures",
+                          "Files": {
+                            "HederaHelixVariegataAtlasBc": "assets/content/nature/vines/hedera_helix_variegata/textures/hedera_helix_variegata_atlas_bc.tga",
+                            "HederaHelixVariegataAtlasNrm": "assets/content/nature/vines/hedera_helix_variegata/textures/hedera_helix_variegata_atlas_nrm.tga",
+                            "HederaHelixVariegataAtlasTr": "assets/content/nature/vines/hedera_helix_variegata/textures/hedera_helix_variegata_atlas_tr.tga"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    },
+                    "piper_nigrum": {
+                      "Name": "piper_nigrum",
+                      "Path": "assets/assets/content/nature/vines/piper_nigrum",
+                      "Files": {},
+                      "SubFolders": {
+                        "textures": {
+                          "Name": "textures",
+                          "Path": "assets/assets/content/nature/vines/piper_nigrum/textures",
+                          "Files": {
+                            "PiperNigrumABc": "assets/content/nature/vines/piper_nigrum/textures/piper_nigrum_a_bc.tga",
+                            "PiperNigrumANrm": "assets/content/nature/vines/piper_nigrum/textures/piper_nigrum_a_nrm.tga",
+                            "PiperNigrumAtlasABc": "assets/content/nature/vines/piper_nigrum/textures/piper_nigrum_atlas_a_bc.tga",
+                            "PiperNigrumAtlasANrm": "assets/content/nature/vines/piper_nigrum/textures/piper_nigrum_atlas_a_nrm.tga",
+                            "PiperNigrumAtlasATr": "assets/content/nature/vines/piper_nigrum/textures/piper_nigrum_atlas_a_tr.tga",
+                            "PiperNigrumLodBc": "assets/content/nature/vines/piper_nigrum/textures/piper_nigrum_lod_bc.tga",
+                            "PiperNigrumLodNrm": "assets/content/nature/vines/piper_nigrum/textures/piper_nigrum_lod_nrm.tga",
+                            "PiperNigrumLodTr": "assets/content/nature/vines/piper_nigrum/textures/piper_nigrum_lod_tr.tga"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    }
+                  }
+                },
                 "ice": {
                   "Name": "ice",
                   "Path": "assets/assets/content/nature/ice",
@@ -13734,35 +14803,6 @@
                         "RockOresWmNrm": "assets/content/nature/ores/textures/rock_ores_wm_nrm.tga"
                       },
                       "SubFolders": {}
-                    }
-                  }
-                },
-                "vines": {
-                  "Name": "vines",
-                  "Path": "assets/assets/content/nature/vines",
-                  "Files": {},
-                  "SubFolders": {
-                    "piper_nigrum": {
-                      "Name": "piper_nigrum",
-                      "Path": "assets/assets/content/nature/vines/piper_nigrum",
-                      "Files": {},
-                      "SubFolders": {
-                        "textures": {
-                          "Name": "textures",
-                          "Path": "assets/assets/content/nature/vines/piper_nigrum/textures",
-                          "Files": {
-                            "PiperNigrumABc": "assets/content/nature/vines/piper_nigrum/textures/piper_nigrum_a_bc.tga",
-                            "PiperNigrumANrm": "assets/content/nature/vines/piper_nigrum/textures/piper_nigrum_a_nrm.tga",
-                            "PiperNigrumAtlasABc": "assets/content/nature/vines/piper_nigrum/textures/piper_nigrum_atlas_a_bc.tga",
-                            "PiperNigrumAtlasANrm": "assets/content/nature/vines/piper_nigrum/textures/piper_nigrum_atlas_a_nrm.tga",
-                            "PiperNigrumAtlasATr": "assets/content/nature/vines/piper_nigrum/textures/piper_nigrum_atlas_a_tr.tga",
-                            "PiperNigrumLodBc": "assets/content/nature/vines/piper_nigrum/textures/piper_nigrum_lod_bc.tga",
-                            "PiperNigrumLodNrm": "assets/content/nature/vines/piper_nigrum/textures/piper_nigrum_lod_nrm.tga",
-                            "PiperNigrumLodTr": "assets/content/nature/vines/piper_nigrum/textures/piper_nigrum_lod_tr.tga"
-                          },
-                          "SubFolders": {}
-                        }
-                      }
                     }
                   }
                 },
@@ -14083,6 +15123,18 @@
                       },
                       "SubFolders": {}
                     },
+                    "asphalt_b": {
+                      "Name": "asphalt_b",
+                      "Path": "assets/assets/content/textures/generic/asphalt_b",
+                      "Files": {
+                        "AsphaltBAo": "assets/content/textures/generic/asphalt_b/asphalt_b_ao.tga",
+                        "AsphaltBDiff": "assets/content/textures/generic/asphalt_b/asphalt_b_diff.tga",
+                        "AsphaltBMask": "assets/content/textures/generic/asphalt_b/asphalt_b_mask.tga",
+                        "AsphaltBNrm": "assets/content/textures/generic/asphalt_b/asphalt_b_nrm.tga",
+                        "AsphaltBSpec": "assets/content/textures/generic/asphalt_b/asphalt_b_spec.tga"
+                      },
+                      "SubFolders": {}
+                    },
                     "background": {
                       "Name": "background",
                       "Path": "assets/assets/content/textures/generic/background",
@@ -14191,7 +15243,9 @@
                         "BrickWallDBc": "assets/content/textures/generic/brick_wall_d/brick_wall_d_bc.tga",
                         "BrickWallDMask": "assets/content/textures/generic/brick_wall_d/brick_wall_d_mask.tga",
                         "BrickWallDMg": "assets/content/textures/generic/brick_wall_d/brick_wall_d_mg.tga",
-                        "BrickWallDNrm": "assets/content/textures/generic/brick_wall_d/brick_wall_d_nrm.tga"
+                        "BrickWallDNrm": "assets/content/textures/generic/brick_wall_d/brick_wall_d_nrm.tga",
+                        "BrickWallDWhiteBc": "assets/content/textures/generic/brick_wall_d/brick_wall_d_white_bc.tga",
+                        "BrickWallDWhiteMg": "assets/content/textures/generic/brick_wall_d/brick_wall_d_white_mg.tga"
                       },
                       "SubFolders": {}
                     },
@@ -14203,7 +15257,10 @@
                         "BuildingGenericTrimsMask": "assets/content/textures/generic/building_generic_trims/building_generic_trims_mask.tga",
                         "BuildingGenericTrimsMask2": "assets/content/textures/generic/building_generic_trims/building_generic_trims_mask2.tga",
                         "BuildingGenericTrimsMask3": "assets/content/textures/generic/building_generic_trims/building_generic_trims_mask3.tga",
+                        "BuildingGenericTrimsMaskBlend": "assets/content/textures/generic/building_generic_trims/building_generic_trims_mask_blend.tga",
                         "BuildingGenericTrimsMg": "assets/content/textures/generic/building_generic_trims/building_generic_trims_mg.tga",
+                        "BuildingGenericTrimsNoPaintDiff": "assets/content/textures/generic/building_generic_trims/building_generic_trims_no_paint_diff.tga",
+                        "BuildingGenericTrimsNoPaintNrm": "assets/content/textures/generic/building_generic_trims/building_generic_trims_no_paint_nrm.tga",
                         "BuildingGenericTrimsNrm": "assets/content/textures/generic/building_generic_trims/building_generic_trims_nrm.tga"
                       },
                       "SubFolders": {}
@@ -14331,6 +15388,8 @@
                       "Path": "assets/assets/content/textures/generic/cinder_blocks_a",
                       "Files": {
                         "CinderBlocksABc": "assets/content/textures/generic/cinder_blocks_a/cinder_blocks_a_bc.tga",
+                        "CinderBlocksADirtyBc": "assets/content/textures/generic/cinder_blocks_a/cinder_blocks_a_dirty_bc.tga",
+                        "CinderBlocksAMask": "assets/content/textures/generic/cinder_blocks_a/cinder_blocks_a_mask.tga",
                         "CinderBlocksAMg": "assets/content/textures/generic/cinder_blocks_a/cinder_blocks_a_mg.tga",
                         "CinderBlocksANrm": "assets/content/textures/generic/cinder_blocks_a/cinder_blocks_a_nrm.tga"
                       },
@@ -14345,6 +15404,18 @@
                         "DirtMask": "assets/content/textures/generic/dirt/dirt_mask.tga",
                         "DirtMg": "assets/content/textures/generic/dirt/dirt_mg.tga",
                         "DirtNrm": "assets/content/textures/generic/dirt/dirt_nrm.tga"
+                      },
+                      "SubFolders": {}
+                    },
+                    "cobblestone_road": {
+                      "Name": "cobblestone_road",
+                      "Path": "assets/assets/content/textures/generic/cobblestone_road",
+                      "Files": {
+                        "CobbleStoneRoadAo": "assets/content/textures/generic/cobblestone_road/cobblestone_road_ao.tga",
+                        "CobbleStoneRoadDiff": "assets/content/textures/generic/cobblestone_road/cobblestone_road_diff.tga",
+                        "CobbleStoneRoadMask": "assets/content/textures/generic/cobblestone_road/cobblestone_road_mask.tga",
+                        "CobbleStoneRoadNrm": "assets/content/textures/generic/cobblestone_road/cobblestone_road_nrm.tga",
+                        "CobbleStoneRoadSpec": "assets/content/textures/generic/cobblestone_road/cobblestone_road_spec.tga"
                       },
                       "SubFolders": {}
                     },
@@ -14372,6 +15443,7 @@
                       "Path": "assets/assets/content/textures/generic/concrete_i",
                       "Files": {
                         "Concrete01Bc": "assets/content/textures/generic/concrete_i/concrete01_bc.tga",
+                        "Concrete01Mask": "assets/content/textures/generic/concrete_i/concrete01_mask.tga",
                         "Concrete01Mg": "assets/content/textures/generic/concrete_i/concrete01_mg.tga",
                         "Concrete01Nrm": "assets/content/textures/generic/concrete_i/concrete01_nrm.tga"
                       },
@@ -14425,7 +15497,20 @@
                         "ConcreteDamageABc": "assets/content/textures/generic/concrete_damage_a/concrete_damage_a_bc.tga",
                         "ConcreteDamageAMask": "assets/content/textures/generic/concrete_damage_a/concrete_damage_a_mask.tga",
                         "ConcreteDamageAMg": "assets/content/textures/generic/concrete_damage_a/concrete_damage_a_mg.tga",
-                        "ConcreteDamageANrm": "assets/content/textures/generic/concrete_damage_a/concrete_damage_a_nrm.tga"
+                        "ConcreteDamageANrm": "assets/content/textures/generic/concrete_damage_a/concrete_damage_a_nrm.tga",
+                        "ConcreteDamageAVarMg": "assets/content/textures/generic/concrete_damage_a/concrete_damage_a_var_mg.tga"
+                      },
+                      "SubFolders": {}
+                    },
+                    "concrete_damage_b": {
+                      "Name": "concrete_damage_b",
+                      "Path": "assets/assets/content/textures/generic/concrete_damage_b",
+                      "Files": {
+                        "ConcreteDamageBAo": "assets/content/textures/generic/concrete_damage_b/concrete_damage_b_ao.tga",
+                        "ConcreteDamageBBc": "assets/content/textures/generic/concrete_damage_b/concrete_damage_b_bc.tga",
+                        "ConcreteDamageBMask": "assets/content/textures/generic/concrete_damage_b/concrete_damage_b_mask.tga",
+                        "ConcreteDamageBMg": "assets/content/textures/generic/concrete_damage_b/concrete_damage_b_mg.tga",
+                        "ConcreteDamageBNrm": "assets/content/textures/generic/concrete_damage_b/concrete_damage_b_nrm.tga"
                       },
                       "SubFolders": {}
                     },
@@ -14452,6 +15537,9 @@
                       "Name": "concrete_e",
                       "Path": "assets/assets/content/textures/generic/concrete_e",
                       "Files": {
+                        "ConcreteEAltDiff": "assets/content/textures/generic/concrete_e/concrete_e_alt_diff.tga",
+                        "ConcreteEAltNrm": "assets/content/textures/generic/concrete_e/concrete_e_alt_nrm.tga",
+                        "ConcreteEAltSpec": "assets/content/textures/generic/concrete_e/concrete_e_alt_spec.tga",
                         "ConcreteEAo": "assets/content/textures/generic/concrete_e/concrete_e_ao.tga",
                         "ConcreteEBc": "assets/content/textures/generic/concrete_e/concrete_e_bc.tga",
                         "ConcreteEMask": "assets/content/textures/generic/concrete_e/concrete_e_mask.tga",
@@ -14469,6 +15557,18 @@
                       "Files": {
                         "ConcreteEdgesABc": "assets/content/textures/generic/concrete_edges_a/concrete_edges_a_bc.tga",
                         "ConcreteEdgesANrm": "assets/content/textures/generic/concrete_edges_a/concrete_edges_a_nrm.tga"
+                      },
+                      "SubFolders": {}
+                    },
+                    "concrete_exposed_rebar": {
+                      "Name": "concrete_exposed_rebar",
+                      "Path": "assets/assets/content/textures/generic/concrete_exposed_rebar",
+                      "Files": {
+                        "ConcreteExposedRebarAo": "assets/content/textures/generic/concrete_exposed_rebar/concrete_exposed_rebar_ao.tga",
+                        "ConcreteExposedRebarDiff": "assets/content/textures/generic/concrete_exposed_rebar/concrete_exposed_rebar_diff.tga",
+                        "ConcreteExposedRebarMask": "assets/content/textures/generic/concrete_exposed_rebar/concrete_exposed_rebar_mask.tga",
+                        "ConcreteExposedRebarNrm": "assets/content/textures/generic/concrete_exposed_rebar/concrete_exposed_rebar_nrm.tga",
+                        "ConcreteExposedRebarSpec": "assets/content/textures/generic/concrete_exposed_rebar/concrete_exposed_rebar_spec.tga"
                       },
                       "SubFolders": {}
                     },
@@ -14527,6 +15627,18 @@
                         "ConcreteHVarMask": "assets/content/textures/generic/concrete_h/concrete_h_var_mask.tga",
                         "ConcreteHVarMg": "assets/content/textures/generic/concrete_h/concrete_h_var_mg.tga",
                         "ConcreteHVarNrm": "assets/content/textures/generic/concrete_h/concrete_h_var_nrm.tga"
+                      },
+                      "SubFolders": {}
+                    },
+                    "concrete_ridges": {
+                      "Name": "concrete_ridges",
+                      "Path": "assets/assets/content/textures/generic/concrete_ridges",
+                      "Files": {
+                        "ConcreteRidgesAo": "assets/content/textures/generic/concrete_ridges/concrete_ridges_ao.tga",
+                        "ConcreteRidgesBc": "assets/content/textures/generic/concrete_ridges/concrete_ridges_bc.tga",
+                        "ConcreteRidgesMask": "assets/content/textures/generic/concrete_ridges/concrete_ridges_mask.tga",
+                        "ConcreteRidgesMg": "assets/content/textures/generic/concrete_ridges/concrete_ridges_mg.tga",
+                        "ConcreteRidgesNrm": "assets/content/textures/generic/concrete_ridges/concrete_ridges_nrm.tga"
                       },
                       "SubFolders": {}
                     },
@@ -14656,6 +15768,7 @@
                       "Path": "assets/assets/content/textures/generic/dark_wood_planks",
                       "Files": {
                         "DarkWoodPlanksBc": "assets/content/textures/generic/dark_wood_planks/dark_wood_planks_bc.tga",
+                        "DarkWoodPlanksDamagedBc": "assets/content/textures/generic/dark_wood_planks/dark_wood_planks_damaged_bc.tga",
                         "DarkWoodPlanksMask": "assets/content/textures/generic/dark_wood_planks/dark_wood_planks_mask.tga",
                         "DarkWoodPlanksMg": "assets/content/textures/generic/dark_wood_planks/dark_wood_planks_mg.tga",
                         "DarkWoodPlanksNrm": "assets/content/textures/generic/dark_wood_planks/dark_wood_planks_nrm.tga"
@@ -14690,6 +15803,17 @@
                         "DoorMetalABc": "assets/content/textures/generic/door_metal_a/door_metal_a_bc.tga",
                         "DoorMetalAMg": "assets/content/textures/generic/door_metal_a/door_metal_a_mg.tga",
                         "DoorMetalANrm": "assets/content/textures/generic/door_metal_a/door_metal_a_nrm.tga"
+                      },
+                      "SubFolders": {}
+                    },
+                    "edge_decals": {
+                      "Name": "edge_decals",
+                      "Path": "assets/assets/content/textures/generic/edge_decals",
+                      "Files": {
+                        "EdgeDecalsAo": "assets/content/textures/generic/edge_decals/edge_decals_ao.tga",
+                        "EdgeDecalsBc": "assets/content/textures/generic/edge_decals/edge_decals_bc.tga",
+                        "EdgeDecalsMg": "assets/content/textures/generic/edge_decals/edge_decals_mg.tga",
+                        "EdgeDecalsNrm": "assets/content/textures/generic/edge_decals/edge_decals_nrm.tga"
                       },
                       "SubFolders": {}
                     },
@@ -14735,9 +15859,11 @@
                       "Files": {
                         "GarageAAo": "assets/content/textures/generic/garage_door_a/garage_a_ao.tga",
                         "GarageABc": "assets/content/textures/generic/garage_door_a/garage_a_bc.tga",
+                        "GarageADiff2k": "assets/content/textures/generic/garage_door_a/garage_a_diff_2k.tga",
                         "GarageAMg": "assets/content/textures/generic/garage_door_a/garage_a_mg.tga",
                         "GarageAMsk": "assets/content/textures/generic/garage_door_a/garage_a_msk.tga",
-                        "GarageANrm": "assets/content/textures/generic/garage_door_a/garage_a_nrm.tga"
+                        "GarageANrm": "assets/content/textures/generic/garage_door_a/garage_a_nrm.tga",
+                        "GarageANrm2k": "assets/content/textures/generic/garage_door_a/garage_a_nrm_2k.tga"
                       },
                       "SubFolders": {}
                     },
@@ -14763,6 +15889,17 @@
                         "GingerbreadTilingMg": "assets/content/textures/generic/gingerbread_tiling/gingerbread_tiling_mg.tga",
                         "GingerbreadTilingNrm": "assets/content/textures/generic/gingerbread_tiling/gingerbread_tiling_nrm.tga",
                         "GingerbreadTilingSpecPacked": "assets/content/textures/generic/gingerbread_tiling/gingerbread_tiling_spec_packed.tga"
+                      },
+                      "SubFolders": {}
+                    },
+                    "glass_blocks": {
+                      "Name": "glass_blocks",
+                      "Path": "assets/assets/content/textures/generic/glass_blocks",
+                      "Files": {
+                        "GlassBlocksAo": "assets/content/textures/generic/glass_blocks/glass_blocks_ao.tga",
+                        "GlassBlocksBc": "assets/content/textures/generic/glass_blocks/glass_blocks_bc.tga",
+                        "GlassBlocksMg": "assets/content/textures/generic/glass_blocks/glass_blocks_mg.tga",
+                        "GlassBlocksNrm": "assets/content/textures/generic/glass_blocks/glass_blocks_nrm.tga"
                       },
                       "SubFolders": {}
                     },
@@ -14820,6 +15957,7 @@
                       "Path": "assets/assets/content/textures/generic/glass_shattered",
                       "Files": {
                         "GlassShatteredBc": "assets/content/textures/generic/glass_shattered/glass_shattered_bc.tga",
+                        "GlassShatteredMask": "assets/content/textures/generic/glass_shattered/glass_shattered_mask.tga",
                         "GlassShatteredMg": "assets/content/textures/generic/glass_shattered/glass_shattered_mg.tga",
                         "GlassShatteredNrm": "assets/content/textures/generic/glass_shattered/glass_shattered_nrm.tga"
                       },
@@ -15008,11 +16146,13 @@
                       "Files": {
                         "LabWallMask": "assets/content/textures/generic/plaster_c/lab_wall_mask.tga",
                         "LabWallMask2": "assets/content/textures/generic/plaster_c/lab_wall_mask2.tga",
+                        "PlasterC2Bc": "assets/content/textures/generic/plaster_c/plaster_c_2_bc.tga",
+                        "PlasterC2Mg": "assets/content/textures/generic/plaster_c/plaster_c_2_mg.tga",
+                        "PlasterC3Mg": "assets/content/textures/generic/plaster_c/plaster_c_3_mg.tga",
                         "PlasterCBc": "assets/content/textures/generic/plaster_c/plaster_c_bc.tga",
                         "PlasterCMask": "assets/content/textures/generic/plaster_c/plaster_c_mask.tga",
                         "PlasterCMg": "assets/content/textures/generic/plaster_c/plaster_c_mg.tga",
-                        "PlasterCNrm": "assets/content/textures/generic/plaster_c/plaster_c_nrm.tga",
-                        "PlasterCSpecAlt": "assets/content/textures/generic/plaster_c/plaster_c_spec_alt.tga"
+                        "PlasterCNrm": "assets/content/textures/generic/plaster_c/plaster_c_nrm.tga"
                       },
                       "SubFolders": {}
                     },
@@ -15662,6 +16802,7 @@
                         "Paintwall2Mg": "assets/content/textures/generic/peelingpaint/paintwall2_mg.tga",
                         "Paintwall2Nrm": "assets/content/textures/generic/peelingpaint/paintwall2_nrm.tga",
                         "Paintwall3Bc": "assets/content/textures/generic/peelingpaint/paintwall3_bc.tga",
+                        "Paintwall3Mask": "assets/content/textures/generic/peelingpaint/paintwall3_mask.jpg",
                         "Paintwall3Mg": "assets/content/textures/generic/peelingpaint/paintwall3_mg.tga",
                         "Paintwall3Nrm": "assets/content/textures/generic/peelingpaint/paintwall3_nrm.tga",
                         "PaintwallBc": "assets/content/textures/generic/peelingpaint/paintwall_bc.tga",
@@ -15801,16 +16942,21 @@
                       "Name": "roof_bitumen",
                       "Path": "assets/assets/content/textures/generic/roof_bitumen",
                       "Files": {
-                        "PuddleMask": "assets/content/textures/generic/roof_bitumen/puddlemask.tga",
-                        "Roofbitumen2Bc": "assets/content/textures/generic/roof_bitumen/roofbitumen2_bc.tga",
-                        "Roofbitumen2Mg": "assets/content/textures/generic/roof_bitumen/roofbitumen2_mg.tga",
-                        "Roofbitumen2Nrm": "assets/content/textures/generic/roof_bitumen/roofbitumen2_nrm.tga",
-                        "Roofbitumen3Bc": "assets/content/textures/generic/roof_bitumen/roofbitumen3_bc.tga",
-                        "Roofbitumen3Mg": "assets/content/textures/generic/roof_bitumen/roofbitumen3_mg.tga",
-                        "Roofbitumen3Nrm": "assets/content/textures/generic/roof_bitumen/roofbitumen3_nrm.tga",
-                        "RoofbitumenBc": "assets/content/textures/generic/roof_bitumen/roofbitumen_bc.tga",
-                        "RoofbitumenMg": "assets/content/textures/generic/roof_bitumen/roofbitumen_mg.tga",
-                        "RoofbitumenNrm": "assets/content/textures/generic/roof_bitumen/roofbitumen_nrm.tga"
+                        "PuddleMask": "assets/content/textures/generic/roof_bitumen/puddle_mask.tga",
+                        "RoofbitumenABc": "assets/content/textures/generic/roof_bitumen/roofbitumen_a_bc.tga",
+                        "RoofbitumenAMg": "assets/content/textures/generic/roof_bitumen/roofbitumen_a_mg.tga",
+                        "RoofbitumenANrm": "assets/content/textures/generic/roof_bitumen/roofbitumen_a_nrm.tga",
+                        "RoofbitumenBBc": "assets/content/textures/generic/roof_bitumen/roofbitumen_b_bc.tga",
+                        "RoofbitumenBMask": "assets/content/textures/generic/roof_bitumen/roofbitumen_b_mask.tga",
+                        "RoofbitumenBMg": "assets/content/textures/generic/roof_bitumen/roofbitumen_b_mg.tga",
+                        "RoofbitumenBNrm": "assets/content/textures/generic/roof_bitumen/roofbitumen_b_nrm.tga",
+                        "RoofbitumenCBc": "assets/content/textures/generic/roof_bitumen/roofbitumen_c_bc.tga",
+                        "RoofbitumenCMask": "assets/content/textures/generic/roof_bitumen/roofbitumen_c_mask.tga",
+                        "RoofbitumenCMg": "assets/content/textures/generic/roof_bitumen/roofbitumen_c_mg.tga",
+                        "RoofbitumenCNrm": "assets/content/textures/generic/roof_bitumen/roofbitumen_c_nrm.tga",
+                        "RoofbitumenDBc": "assets/content/textures/generic/roof_bitumen/roofbitumen_d_bc.tga",
+                        "RoofbitumenDMg": "assets/content/textures/generic/roof_bitumen/roofbitumen_d_mg.tga",
+                        "RoofbitumenDNrm": "assets/content/textures/generic/roof_bitumen/roofbitumen_d_nrm.tga"
                       },
                       "SubFolders": {}
                     },
@@ -16033,6 +17179,16 @@
                       },
                       "SubFolders": {}
                     },
+                    "sidewalk_c": {
+                      "Name": "sidewalk_c",
+                      "Path": "assets/assets/content/textures/generic/sidewalk_c",
+                      "Files": {
+                        "SideWalkCDiff": "assets/content/textures/generic/sidewalk_c/sidewalk_c_diff.tga",
+                        "SideWalkCNrm": "assets/content/textures/generic/sidewalk_c/sidewalk_c_nrm.tga",
+                        "SideWalkCSpec": "assets/content/textures/generic/sidewalk_c/sidewalk_c_spec.tga"
+                      },
+                      "SubFolders": {}
+                    },
                     "signage_trims": {
                       "Name": "signage_trims",
                       "Path": "assets/assets/content/textures/generic/signage_trims",
@@ -16152,6 +17308,32 @@
                       },
                       "SubFolders": {}
                     },
+                    "terrazzo_a": {
+                      "Name": "terrazzo_a",
+                      "Path": "assets/assets/content/textures/generic/terrazzo_a",
+                      "Files": {
+                        "TerrazzoADiff": "assets/content/textures/generic/terrazzo_a/terrazzo_a_diff.tga",
+                        "TerrazzoAMask": "assets/content/textures/generic/terrazzo_a/terrazzo_a_mask.tga",
+                        "TerrazzoANrm": "assets/content/textures/generic/terrazzo_a/terrazzo_a_nrm.tga",
+                        "TerrazzoARedDiff": "assets/content/textures/generic/terrazzo_a/terrazzo_a_red_diff.tga",
+                        "TerrazzoASpec": "assets/content/textures/generic/terrazzo_a/terrazzo_a_spec.tga"
+                      },
+                      "SubFolders": {}
+                    },
+                    "terrazzo_b": {
+                      "Name": "terrazzo_b",
+                      "Path": "assets/assets/content/textures/generic/terrazzo_b",
+                      "Files": {
+                        "TerrazzoBBc": "assets/content/textures/generic/terrazzo_b/terrazzo_b_bc.tga",
+                        "TerrazzoBDirtyBc": "assets/content/textures/generic/terrazzo_b/terrazzo_b_dirty_bc.tga",
+                        "TerrazzoBDirtyMg": "assets/content/textures/generic/terrazzo_b/terrazzo_b_dirty_mg.tga",
+                        "TerrazzoBDirtyNrm": "assets/content/textures/generic/terrazzo_b/terrazzo_b_dirty_nrm.tga",
+                        "TerrazzoBMask": "assets/content/textures/generic/terrazzo_b/terrazzo_b_mask.tga",
+                        "TerrazzoBMg": "assets/content/textures/generic/terrazzo_b/terrazzo_b_mg.tga",
+                        "TerrazzoBNrm": "assets/content/textures/generic/terrazzo_b/terrazzo_b_nrm.tga"
+                      },
+                      "SubFolders": {}
+                    },
                     "thatched_b": {
                       "Name": "thatched_b",
                       "Path": "assets/assets/content/textures/generic/thatched_b",
@@ -16181,6 +17363,8 @@
                         "TilesAAo": "assets/content/textures/generic/tiles_a/tiles_a_ao.tga",
                         "TilesABc": "assets/content/textures/generic/tiles_a/tiles_a_bc.tga",
                         "TilesABc2": "assets/content/textures/generic/tiles_a/tiles_a_bc2.tga",
+                        "TilesADamagedNrm": "assets/content/textures/generic/tiles_a/tiles_a_damaged_nrm.tga",
+                        "TilesAMask": "assets/content/textures/generic/tiles_a/tiles_a_mask.tga",
                         "TilesAMg": "assets/content/textures/generic/tiles_a/tiles_a_mg.tga",
                         "TilesANrm": "assets/content/textures/generic/tiles_a/tiles_a_nrm.tga"
                       },
@@ -16250,11 +17434,35 @@
                       "Path": "assets/assets/content/textures/generic/wall_tiles_b",
                       "Files": {
                         "WallTilesB2Bc": "assets/content/textures/generic/wall_tiles_b/wall_tiles_b_2_bc.tga",
+                        "WallTilesB2Mask": "assets/content/textures/generic/wall_tiles_b/wall_tiles_b_2_mask.tga",
                         "WallTilesB2Mg": "assets/content/textures/generic/wall_tiles_b/wall_tiles_b_2_mg.tga",
                         "WallTilesBBc": "assets/content/textures/generic/wall_tiles_b/wall_tiles_b_bc.tga",
                         "WallTilesBMask": "assets/content/textures/generic/wall_tiles_b/wall_tiles_b_mask.tga",
                         "WallTilesBMg": "assets/content/textures/generic/wall_tiles_b/wall_tiles_b_mg.tga",
                         "WallTilesBNrm": "assets/content/textures/generic/wall_tiles_b/wall_tiles_b_nrm.tga"
+                      },
+                      "SubFolders": {}
+                    },
+                    "wall_tiles_mosaic": {
+                      "Name": "wall_tiles_mosaic",
+                      "Path": "assets/assets/content/textures/generic/wall_tiles_mosaic",
+                      "Files": {
+                        "WallTilesMosaicAo": "assets/content/textures/generic/wall_tiles_mosaic/wall_tiles_mosaic_ao.tga",
+                        "WallTilesMosaicBc": "assets/content/textures/generic/wall_tiles_mosaic/wall_tiles_mosaic_bc.tga",
+                        "WallTilesMosaicMask": "assets/content/textures/generic/wall_tiles_mosaic/wall_tiles_mosaic_mask.tga",
+                        "WallTilesMosaicMg": "assets/content/textures/generic/wall_tiles_mosaic/wall_tiles_mosaic_mg.tga",
+                        "WallTilesMosaicNrm": "assets/content/textures/generic/wall_tiles_mosaic/wall_tiles_mosaic_nrm.tga"
+                      },
+                      "SubFolders": {}
+                    },
+                    "window_atlas": {
+                      "Name": "window_atlas",
+                      "Path": "assets/assets/content/textures/generic/window_atlas",
+                      "Files": {
+                        "WindowAtlasAo": "assets/content/textures/generic/window_atlas/window_atlas_ao.tga",
+                        "WindowAtlasBc": "assets/content/textures/generic/window_atlas/window_atlas_bc.tga",
+                        "WindowAtlasMg": "assets/content/textures/generic/window_atlas/window_atlas_mg.tga",
+                        "WindowAtlasNrm": "assets/content/textures/generic/window_atlas/window_atlas_nrm.tga"
                       },
                       "SubFolders": {}
                     },
@@ -16396,6 +17604,10 @@
                   "Name": "decals",
                   "Path": "assets/assets/content/textures/decals",
                   "Files": {
+                    "CompoundMuralGeometric": "assets/content/textures/decals/compound_mural_geometric.tga",
+                    "CompoundMuralGeometric2": "assets/content/textures/decals/compound_mural_geometric2.tga",
+                    "CompoundMuralIsometric": "assets/content/textures/decals/compound_mural_isometric.tga",
+                    "DecalApartmentComplexGraffitiBc": "assets/content/textures/decals/decal_apartment_complex_graffiti_bc.tga",
                     "DecalArrowStraightABc": "assets/content/textures/decals/decal_arrow_straight_a_bc.tga",
                     "DecalBloodBc": "assets/content/textures/decals/decal_blood_bc.tga",
                     "DecalBloodNrm": "assets/content/textures/decals/decal_blood_nrm.tga",
@@ -16480,6 +17692,7 @@
                     "DecalBulletStone01Sg": "assets/content/textures/decals/decal_bullet_stone_01_sg.tga",
                     "DecalChillZoneBc": "assets/content/textures/decals/decal_chillzone_bc.png",
                     "DecalCompoundSignsBc": "assets/content/textures/decals/decal_compound_signs_bc.tga",
+                    "DecalCompoundVendingMachines": "assets/content/textures/decals/decal_compound_vending_machines.tga",
                     "DecalConcreteCracksABc": "assets/content/textures/decals/decal_concrete_cracks_a_bc.tga",
                     "DecalConcreteCracksANrm": "assets/content/textures/decals/decal_concrete_cracks_a_nrm.tga",
                     "DecalConcreteLeaksABc": "assets/content/textures/decals/decal_concrete_leaks_a_bc.tga",
@@ -16492,6 +17705,7 @@
                     "DecalConcreteLeaksDNrm": "assets/content/textures/decals/decal_concrete_leaks_d_nrm.tga",
                     "DecalConcreteLeaksEBc": "assets/content/textures/decals/decal_concrete_leaks_e_bc.tga",
                     "DecalConcreteLeaksFBc": "assets/content/textures/decals/decal_concrete_leaks_f_bc.tga",
+                    "DecalDegenzGraffiti": "assets/content/textures/decals/decal_degenz_graffiti.tga",
                     "DecalExplosion01Bc": "assets/content/textures/decals/decal_explosion01_bc.tga",
                     "DecalExplosion01Nrm": "assets/content/textures/decals/decal_explosion01_nrm.tga",
                     "DecalExplosionBc": "assets/content/textures/decals/decal_explosion_bc.tga",
@@ -16511,12 +17725,14 @@
                     "DecalKargo1X4Bc": "assets/content/textures/decals/decal_kargo_1x4_bc.tga",
                     "DecalKeepOutBc": "assets/content/textures/decals/decal_keep_out_bc.tga",
                     "DecalLabelOilABc": "assets/content/textures/decals/decal_label_oil_a_bc.tga",
+                    "DecalOxumGraffiti": "assets/content/textures/decals/decal_oxum_graffiti.tga",
                     "DecalRifleBulletImpactMetalABc": "assets/content/textures/decals/decal_rifle_bullet_impact_metal_a_bc.tga",
                     "DecalRifleBulletImpactMetalANrm": "assets/content/textures/decals/decal_rifle_bullet_impact_metal_a_nrm.tga",
                     "DecalRifleBulletImpactMetalASg": "assets/content/textures/decals/decal_rifle_bullet_impact_metal_a_sg.tga",
                     "DecalRoadDebrisBc": "assets/content/textures/decals/decal_road_debris_bc.tga",
                     "DecalRoadDebrisNrm": "assets/content/textures/decals/decal_road_debris_nrm.tga",
                     "DecalRoadDebrisSg": "assets/content/textures/decals/decal_road_debris_sg.tga",
+                    "DecalRooms4rent": "assets/content/textures/decals/decal_rooms4rent.tga",
                     "DecalRustMillsShippingBc": "assets/content/textures/decals/decal_rust_mills_shipping_bc.tga",
                     "DecalSeaweedPlaneSeaweedDecalBc": "assets/content/textures/decals/decal_seaweedplane_seaweeddecal_bc.tga",
                     "DecalSeaweedPlaneSeaweedDecalMg": "assets/content/textures/decals/decal_seaweedplane_seaweeddecal_mg.tga",
@@ -16549,7 +17765,14 @@
                     "DecalWarningRecycleBc": "assets/content/textures/decals/decal_warning_recycle_bc.png",
                     "DecalWarningVolatileBc": "assets/content/textures/decals/decal_warning_volatile_bc.png",
                     "DecalXSprayABc": "assets/content/textures/decals/decal_xspray_a_bc.png",
-                    "DecalXSprayARed": "assets/content/textures/decals/decal_xspray_a_red.tga"
+                    "DecalXSprayARed": "assets/content/textures/decals/decal_xspray_a_red.tga",
+                    "MosaicBc": "assets/content/textures/decals/mosaic_bc.tga",
+                    "MosaicMg": "assets/content/textures/decals/mosaic_mg.tga",
+                    "MosaicNrm": "assets/content/textures/decals/mosaic_nrm.tga",
+                    "OvergrowthFigDiff": "assets/content/textures/decals/overgrowth_fig_diff.tga",
+                    "OvergrowthFigNrm": "assets/content/textures/decals/overgrowth_fig_nrm.tga",
+                    "OvergrowthFigSpec": "assets/content/textures/decals/overgrowth_fig_spec.tga",
+                    "SewersGraffiti": "assets/content/textures/decals/sewers_graffiti.tga"
                   },
                   "SubFolders": {}
                 },
@@ -23678,6 +24901,38 @@
                     }
                   }
                 },
+                "kick": {
+                  "Name": "kick",
+                  "Path": "assets/assets/prefabs/misc/kick",
+                  "Files": {},
+                  "SubFolders": {
+                    "kick gems": {
+                      "Name": "kick gems",
+                      "Path": "assets/assets/prefabs/misc/kick/kick gems",
+                      "Files": {},
+                      "SubFolders": {
+                        "materials": {
+                          "Name": "materials",
+                          "Path": "assets/assets/prefabs/misc/kick/kick gems/materials",
+                          "Files": {},
+                          "SubFolders": {
+                            "textures": {
+                              "Name": "textures",
+                              "Path": "assets/assets/prefabs/misc/kick/kick gems/materials/textures",
+                              "Files": {
+                                "KickgemsAo": "assets/prefabs/misc/kick/kick gems/materials/textures/kickgems_ao.tga",
+                                "KickgemsBc": "assets/prefabs/misc/kick/kick gems/materials/textures/kickgems_bc.tga",
+                                "KickgemsMg": "assets/prefabs/misc/kick/kick gems/materials/textures/kickgems_mg.tga",
+                                "KickgemsNrm": "assets/prefabs/misc/kick/kick gems/materials/textures/kickgems_nrm.tga"
+                              },
+                              "SubFolders": {}
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
                 "largebackpack": {
                   "Name": "largebackpack",
                   "Path": "assets/assets/prefabs/misc/largebackpack",
@@ -23744,6 +24999,28 @@
                         "RecyclerSg": "assets/prefabs/misc/recycler/textures/recycler_sg.tga"
                       },
                       "SubFolders": {}
+                    }
+                  }
+                },
+                "permstore": {
+                  "Name": "permstore",
+                  "Path": "assets/assets/prefabs/misc/permstore",
+                  "Files": {},
+                  "SubFolders": {
+                    "industriallight": {
+                      "Name": "industriallight",
+                      "Path": "assets/assets/prefabs/misc/permstore/industriallight",
+                      "Files": {},
+                      "SubFolders": {
+                        "materials": {
+                          "Name": "materials",
+                          "Path": "assets/assets/prefabs/misc/permstore/industriallight/materials",
+                          "Files": {
+                            "LightFixturesDlcEm": "assets/prefabs/misc/permstore/industriallight/materials/light_fixtures_dlc_em.tga"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
                     }
                   }
                 },
@@ -24085,6 +25362,286 @@
                         "_8xscopeNrm": "assets/prefabs/weapon mods/8x scope/materials/8xscope_nrm.tga"
                       },
                       "SubFolders": {}
+                    }
+                  }
+                },
+                "charms": {
+                  "Name": "charms",
+                  "Path": "assets/assets/prefabs/weapon mods/charms",
+                  "Files": {},
+                  "SubFolders": {
+                    "charm_prefabs": {
+                      "Name": "charm_prefabs",
+                      "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs",
+                      "Files": {},
+                      "SubFolders": {
+                        "canbe_charms": {
+                          "Name": "canbe_charms",
+                          "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms",
+                          "Files": {},
+                          "SubFolders": {
+                            "backpackcharm": {
+                              "Name": "backpackcharm",
+                              "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/backpackcharm",
+                              "Files": {},
+                              "SubFolders": {
+                                "material": {
+                                  "Name": "material",
+                                  "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/backpackcharm/material",
+                                  "Files": {
+                                    "BackpackcharmAlbedo": "assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/backpackcharm/material/backpackcharm_albedo.png",
+                                    "BackpackcharmAo": "assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/backpackcharm/material/backpackcharm_ao.png",
+                                    "BackpackcharmMetallic": "assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/backpackcharm/material/backpackcharm_metallic.png",
+                                    "BackpackcharmNormal": "assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/backpackcharm/material/backpackcharm_normal.png"
+                                  },
+                                  "SubFolders": {
+                                    "black": {
+                                      "Name": "black",
+                                      "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/backpackcharm/material/black",
+                                      "Files": {
+                                        "BackpackcharmblackAlbedo": "assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/backpackcharm/material/black/backpackcharmblack_albedo.png",
+                                        "BackpackcharmblackAo": "assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/backpackcharm/material/black/backpackcharmblack_ao.png",
+                                        "BackpackcharmblackMetallic": "assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/backpackcharm/material/black/backpackcharmblack_metallic.png",
+                                        "BackpackcharmblackNormal": "assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/backpackcharm/material/black/backpackcharmblack_normal.png"
+                                      },
+                                      "SubFolders": {}
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "metal_chain": {
+                              "Name": "metal_chain",
+                              "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/metal_chain",
+                              "Files": {},
+                              "SubFolders": {
+                                "materials": {
+                                  "Name": "materials",
+                                  "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/metal_chain/materials",
+                                  "Files": {
+                                    "CharmChainAlbedo": "assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/metal_chain/materials/charm_chain_albedo.tga",
+                                    "CharmChainAo": "assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/metal_chain/materials/charm_chain_ao.tga",
+                                    "CharmChainMetalsmooth": "assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/metal_chain/materials/charm_chain_metalsmooth.tga",
+                                    "CharmChainNormal": "assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/metal_chain/materials/charm_chain_normal.tga"
+                                  },
+                                  "SubFolders": {}
+                                }
+                              }
+                            },
+                            "charm_fplogo": {
+                              "Name": "charm_fplogo",
+                              "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_fplogo",
+                              "Files": {},
+                              "SubFolders": {
+                                "materials": {
+                                  "Name": "materials",
+                                  "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_fplogo/materials",
+                                  "Files": {
+                                    "CharmFpLogoAlbedo": "assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_fplogo/materials/charm_fplogo_albedo.tga",
+                                    "CharmFpLogoAo": "assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_fplogo/materials/charm_fplogo_ao.tga",
+                                    "CharmFpLogoMetalsmooth": "assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_fplogo/materials/charm_fplogo_metalsmooth.tga",
+                                    "CharmFpLogoNormal": "assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_fplogo/materials/charm_fplogo_normal.tga"
+                                  },
+                                  "SubFolders": {}
+                                }
+                              }
+                            },
+                            "charm_raiders_gang": {
+                              "Name": "charm_raiders_gang",
+                              "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_raiders_gang",
+                              "Files": {},
+                              "SubFolders": {
+                                "materials": {
+                                  "Name": "materials",
+                                  "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_raiders_gang/materials",
+                                  "Files": {
+                                    "CharmRaidersGangAlbedo": "assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_raiders_gang/materials/charm_raiders_gang_albedo.tga",
+                                    "CharmRaidersGangAo": "assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_raiders_gang/materials/charm_raiders_gang_ao.tga",
+                                    "CharmRaidersGangMetalsmooth": "assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_raiders_gang/materials/charm_raiders_gang_metalsmooth.tga",
+                                    "CharmRaidersGangNormal": "assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_raiders_gang/materials/charm_raiders_gang_normal.tga"
+                                  },
+                                  "SubFolders": {}
+                                }
+                              }
+                            },
+                            "charm_reflective_rust_logo": {
+                              "Name": "charm_reflective_rust_logo",
+                              "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_reflective_rust_logo",
+                              "Files": {},
+                              "SubFolders": {
+                                "materials": {
+                                  "Name": "materials",
+                                  "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_reflective_rust_logo/materials",
+                                  "Files": {
+                                    "CharmReflectiveRustLogoAo": "assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_reflective_rust_logo/materials/charm_reflective_rust_logo_ao.tga",
+                                    "CharmReflectiveRustLogoDiffuse": "assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_reflective_rust_logo/materials/charm_reflective_rust_logo_diffuse.tga",
+                                    "CharmReflectiveRustLogoNormal": "assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_reflective_rust_logo/materials/charm_reflective_rust_logo_normal.tga",
+                                    "CharmReflectiveRustLogoSpecGloss": "assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_reflective_rust_logo/materials/charm_reflective_rust_logo_specgloss.tga"
+                                  },
+                                  "SubFolders": {}
+                                }
+                              }
+                            },
+                            "charm_rust_logo": {
+                              "Name": "charm_rust_logo",
+                              "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_rust_logo",
+                              "Files": {},
+                              "SubFolders": {
+                                "materials": {
+                                  "Name": "materials",
+                                  "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_rust_logo/materials",
+                                  "Files": {
+                                    "CharmRustLogoAlbedo": "assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_rust_logo/materials/charm_rust_logo_albedo.tga",
+                                    "CharmRustLogoAo": "assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_rust_logo/materials/charm_rust_logo_ao.tga",
+                                    "CharmRustLogoMetalsmooth": "assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_rust_logo/materials/charm_rust_logo_metalsmooth.tga",
+                                    "CharmRustLogoNormal": "assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_rust_logo/materials/charm_rust_logo_normal.tga"
+                                  },
+                                  "SubFolders": {}
+                                }
+                              }
+                            },
+                            "charm_smiley_face": {
+                              "Name": "charm_smiley_face",
+                              "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_smiley_face",
+                              "Files": {},
+                              "SubFolders": {
+                                "materials": {
+                                  "Name": "materials",
+                                  "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_smiley_face/materials",
+                                  "Files": {
+                                    "CharmSmileyFaceAlbedo": "assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_smiley_face/materials/charm_smiley_face_albedo.tga",
+                                    "CharmSmileyFaceAo": "assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_smiley_face/materials/charm_smiley_face_ao.tga",
+                                    "CharmSmileyFaceMetalsmooth": "assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_smiley_face/materials/charm_smiley_face_metalsmooth.tga",
+                                    "CharmSmileyFaceNormal": "assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_smiley_face/materials/charm_smiley_face_normal.tga"
+                                  },
+                                  "SubFolders": {}
+                                }
+                              }
+                            },
+                            "charm_whenswipe": {
+                              "Name": "charm_whenswipe",
+                              "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_whenswipe",
+                              "Files": {},
+                              "SubFolders": {
+                                "material": {
+                                  "Name": "material",
+                                  "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_whenswipe/material",
+                                  "Files": {
+                                    "CharmWhenswipeAlbedo": "assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_whenswipe/material/charm_whenswipe_albedo.tga",
+                                    "CharmWhenswipeAo": "assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_whenswipe/material/charm_whenswipe_ao.tga",
+                                    "CharmWhenswipeMetalsmooth": "assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_whenswipe/material/charm_whenswipe_metalsmooth.tga",
+                                    "CharmWhenswipeNormal": "assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_whenswipe/material/charm_whenswipe_normal.tga"
+                                  },
+                                  "SubFolders": {}
+                                }
+                              }
+                            },
+                            "frogboots": {
+                              "Name": "frogboots",
+                              "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/frogboots",
+                              "Files": {},
+                              "SubFolders": {
+                                "materials": {
+                                  "Name": "materials",
+                                  "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/frogboots/materials",
+                                  "Files": {
+                                    "FrogbootcharmAlbedo": "assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/frogboots/materials/frogbootcharm_albedo.png",
+                                    "FrogbootcharmAo": "assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/frogboots/materials/frogbootcharm_ao.png",
+                                    "FrogbootcharmMetallic": "assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/frogboots/materials/frogbootcharm_metallic.png",
+                                    "FrogbootcharmNormal": "assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/frogboots/materials/frogbootcharm_normal.png",
+                                    "FrogbootcharmSsMask": "assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/frogboots/materials/frogbootcharm_ssmask.png",
+                                    "FrogbootcharmTransmission": "assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/frogboots/materials/frogbootcharm_transmission.png"
+                                  },
+                                  "SubFolders": {}
+                                }
+                              }
+                            },
+                            "charm_home_is_a_2x2": {
+                              "Name": "charm_home_is_a_2x2",
+                              "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_home_is_a_2x2",
+                              "Files": {},
+                              "SubFolders": {
+                                "materials": {
+                                  "Name": "materials",
+                                  "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_home_is_a_2x2/materials",
+                                  "Files": {
+                                    "HomeIsA2x2Albedo": "assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_home_is_a_2x2/materials/home_is_a_2x2_albedo.tga",
+                                    "HomeIsA2x2Ao": "assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_home_is_a_2x2/materials/home_is_a_2x2_ao.tga",
+                                    "HomeIsA2x2Metalsmooth": "assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_home_is_a_2x2/materials/home_is_a_2x2_metalsmooth.tga",
+                                    "HomeIsA2x2Normal": "assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_home_is_a_2x2/materials/home_is_a_2x2_normal.tga"
+                                  },
+                                  "SubFolders": {}
+                                }
+                              }
+                            },
+                            "charm_parental_advisory": {
+                              "Name": "charm_parental_advisory",
+                              "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_parental_advisory",
+                              "Files": {},
+                              "SubFolders": {
+                                "materials": {
+                                  "Name": "materials",
+                                  "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_parental_advisory/materials",
+                                  "Files": {
+                                    "ParentalAdvisoryAlbedo": "assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_parental_advisory/materials/parental_advisory_albedo.tga",
+                                    "ParentalAdvisoryAo": "assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_parental_advisory/materials/parental_advisory_ao.tga",
+                                    "ParentalAdvisoryMetalsmooth": "assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_parental_advisory/materials/parental_advisory_metalsmooth.tga",
+                                    "ParentalAdvisoryNormal": "assets/prefabs/weapon mods/charms/charm_prefabs/canbe_charms/charm_parental_advisory/materials/parental_advisory_normal.tga"
+                                  },
+                                  "SubFolders": {}
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "genericcircle": {
+                          "Name": "genericcircle",
+                          "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs/genericcircle",
+                          "Files": {},
+                          "SubFolders": {
+                            "materials": {
+                              "Name": "materials",
+                              "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs/genericcircle/materials",
+                              "Files": {
+                                "GenericcircleAlbedo": "assets/prefabs/weapon mods/charms/charm_prefabs/genericcircle/materials/genericcircle_albedo.png",
+                                "GenericcircleAo": "assets/prefabs/weapon mods/charms/charm_prefabs/genericcircle/materials/genericcircle_ao.png",
+                                "GenericcircleMetal": "assets/prefabs/weapon mods/charms/charm_prefabs/genericcircle/materials/genericcircle_metal.png",
+                                "GenericcircleNormal": "assets/prefabs/weapon mods/charms/charm_prefabs/genericcircle/materials/genericcircle_normal.png"
+                              },
+                              "SubFolders": {}
+                            }
+                          }
+                        },
+                        "heavyscientistchibi": {
+                          "Name": "heavyscientistchibi",
+                          "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs/heavyscientistchibi",
+                          "Files": {
+                            "HeavyScientistchibiAlbedo": "assets/prefabs/weapon mods/charms/charm_prefabs/heavyscientistchibi/heavyscientistchibi_albedo.png",
+                            "HeavyScientistchibiAo": "assets/prefabs/weapon mods/charms/charm_prefabs/heavyscientistchibi/heavyscientistchibi_ao.png",
+                            "HeavyScientistchibiMetal": "assets/prefabs/weapon mods/charms/charm_prefabs/heavyscientistchibi/heavyscientistchibi_metal.png",
+                            "HeavyScientistchibiNormal": "assets/prefabs/weapon mods/charms/charm_prefabs/heavyscientistchibi/heavyscientistchibi_normal.png"
+                          },
+                          "SubFolders": {}
+                        },
+                        "pixelsmg": {
+                          "Name": "pixelsmg",
+                          "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs/pixelsmg",
+                          "Files": {},
+                          "SubFolders": {
+                            "materials": {
+                              "Name": "materials",
+                              "Path": "assets/assets/prefabs/weapon mods/charms/charm_prefabs/pixelsmg/materials",
+                              "Files": {
+                                "PixelsmgcharmAlbedo": "assets/prefabs/weapon mods/charms/charm_prefabs/pixelsmg/materials/pixelsmgcharm_albedo.tga",
+                                "PixelsmgcharmAo": "assets/prefabs/weapon mods/charms/charm_prefabs/pixelsmg/materials/pixelsmgcharm_ao.tga",
+                                "PixelsmgcharmMetallic": "assets/prefabs/weapon mods/charms/charm_prefabs/pixelsmg/materials/pixelsmgcharm_metallic.tga",
+                                "PixelsmgcharmNormal": "assets/prefabs/weapon mods/charms/charm_prefabs/pixelsmg/materials/pixelsmgcharm_normal.tga"
+                              },
+                              "SubFolders": {}
+                            }
+                          }
+                        }
+                      }
                     }
                   }
                 },
@@ -26354,6 +27911,66 @@
                     }
                   }
                 },
+                "charity_plushie_03": {
+                  "Name": "charity_plushie_03",
+                  "Path": "assets/assets/prefabs/deployable/charity_plushie_03",
+                  "Files": {},
+                  "SubFolders": {
+                    "material": {
+                      "Name": "material",
+                      "Path": "assets/assets/prefabs/deployable/charity_plushie_03/material",
+                      "Files": {
+                        "CharityPlushie03Albedo": "assets/prefabs/deployable/charity_plushie_03/material/charity_plushie_03_albedo.png",
+                        "CharityPlushie03Ao": "assets/prefabs/deployable/charity_plushie_03/material/charity_plushie_03_ao.png",
+                        "CharityPlushie03Emmisive": "assets/prefabs/deployable/charity_plushie_03/material/charity_plushie_03_emmisive.png",
+                        "CharityPlushie03FuzzMask": "assets/prefabs/deployable/charity_plushie_03/material/charity_plushie_03_fuzzmask.png",
+                        "CharityPlushie03Metallic": "assets/prefabs/deployable/charity_plushie_03/material/charity_plushie_03_metallic.png",
+                        "CharityPlushie03Normal": "assets/prefabs/deployable/charity_plushie_03/material/charity_plushie_03_normal.png"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
+                "charity_plushie_04": {
+                  "Name": "charity_plushie_04",
+                  "Path": "assets/assets/prefabs/deployable/charity_plushie_04",
+                  "Files": {},
+                  "SubFolders": {
+                    "material": {
+                      "Name": "material",
+                      "Path": "assets/assets/prefabs/deployable/charity_plushie_04/material",
+                      "Files": {
+                        "CharityPlushie04Albedo": "assets/prefabs/deployable/charity_plushie_04/material/charity_plushie_04_albedo.png",
+                        "CharityPlushie04Ao": "assets/prefabs/deployable/charity_plushie_04/material/charity_plushie_04_ao.png",
+                        "CharityPlushie04Emmissive": "assets/prefabs/deployable/charity_plushie_04/material/charity_plushie_04_emmissive.png",
+                        "CharityPlushie04Mask": "assets/prefabs/deployable/charity_plushie_04/material/charity_plushie_04_mask.png",
+                        "CharityPlushie04Metallic": "assets/prefabs/deployable/charity_plushie_04/material/charity_plushie_04_metallic.png",
+                        "CharityPlushie04Normal": "assets/prefabs/deployable/charity_plushie_04/material/charity_plushie_04_normal.png"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
+                "charity_plushie_05": {
+                  "Name": "charity_plushie_05",
+                  "Path": "assets/assets/prefabs/deployable/charity_plushie_05",
+                  "Files": {},
+                  "SubFolders": {
+                    "material": {
+                      "Name": "material",
+                      "Path": "assets/assets/prefabs/deployable/charity_plushie_05/material",
+                      "Files": {
+                        "CharityPlushie05Albedo": "assets/prefabs/deployable/charity_plushie_05/material/charity_plushie_05_albedo.png",
+                        "CharityPlushie05Ao": "assets/prefabs/deployable/charity_plushie_05/material/charity_plushie_05_ao.png",
+                        "CharityPlushie05Emmissive": "assets/prefabs/deployable/charity_plushie_05/material/charity_plushie_05_emmissive.png",
+                        "CharityPlushie05Mask": "assets/prefabs/deployable/charity_plushie_05/material/charity_plushie_05_mask.png",
+                        "CharityPlushie05Normal": "assets/prefabs/deployable/charity_plushie_05/material/charity_plushie_05_normal.png",
+                        "CharityPlushie05Smoothness": "assets/prefabs/deployable/charity_plushie_05/material/charity_plushie_05_smoothness.png"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
                 "chickencoop": {
                   "Name": "chickencoop",
                   "Path": "assets/assets/prefabs/deployable/chickencoop",
@@ -26404,7 +28021,9 @@
                                 "ClantabledressingMg": "assets/prefabs/deployable/clan table/model/materials/textures/clantabledressing_mg.tga",
                                 "ClantabledressingNrm": "assets/prefabs/deployable/clan table/model/materials/textures/clantabledressing_nrm.tga",
                                 "ClantableMg": "assets/prefabs/deployable/clan table/model/materials/textures/clantable_mg.tga",
-                                "ClantableNrm": "assets/prefabs/deployable/clan table/model/materials/textures/clantable_nrm.tga"
+                                "ClantableNrm": "assets/prefabs/deployable/clan table/model/materials/textures/clantable_nrm.tga",
+                                "PaperBc": "assets/prefabs/deployable/clan table/model/materials/textures/paper_bc.tga",
+                                "PaperNrm": "assets/prefabs/deployable/clan table/model/materials/textures/paper_nrm.jpg"
                               },
                               "SubFolders": {}
                             }
@@ -26907,7 +28526,8 @@
                   "Name": "furnace",
                   "Path": "assets/assets/prefabs/deployable/furnace",
                   "Files": {
-                    "FurnaceCookie": "assets/prefabs/deployable/furnace/furnace_cookie.png"
+                    "FurnaceCookie": "assets/prefabs/deployable/furnace/furnace_cookie.png",
+                    "FurnaceCookie2": "assets/prefabs/deployable/furnace/furnace_cookie_2.png"
                   },
                   "SubFolders": {
                     "model": {
@@ -28829,6 +30449,35 @@
                         "MetalDoorTier2Sg": "assets/prefabs/building/door.hinged/model/metal_door_tier2_sg.tga"
                       },
                       "SubFolders": {}
+                    }
+                  }
+                },
+                "wall.frame.shopfront": {
+                  "Name": "wall.frame.shopfront",
+                  "Path": "assets/assets/prefabs/building/wall.frame.shopfront",
+                  "Files": {},
+                  "SubFolders": {
+                    "models": {
+                      "Name": "models",
+                      "Path": "assets/assets/prefabs/building/wall.frame.shopfront/models",
+                      "Files": {},
+                      "SubFolders": {
+                        "materials": {
+                          "Name": "materials",
+                          "Path": "assets/assets/prefabs/building/wall.frame.shopfront/models/materials",
+                          "Files": {
+                            "MetalShopfrontBackAlbedo": "assets/prefabs/building/wall.frame.shopfront/models/materials/metal_shopfront_back_albedo.tga",
+                            "MetalShopfrontBackAo": "assets/prefabs/building/wall.frame.shopfront/models/materials/metal_shopfront_back_ao.tga",
+                            "MetalShopfrontBackMg": "assets/prefabs/building/wall.frame.shopfront/models/materials/metal_shopfront_back_mg.tga",
+                            "MetalShopfrontBackNrm": "assets/prefabs/building/wall.frame.shopfront/models/materials/metal_shopfront_back_nrm.tga",
+                            "MetalShopfrontFrontAlbedo": "assets/prefabs/building/wall.frame.shopfront/models/materials/metal_shopfront_front_albedo.tga",
+                            "MetalShopfrontFrontAo": "assets/prefabs/building/wall.frame.shopfront/models/materials/metal_shopfront_front_ao.tga",
+                            "MetalShopfrontFrontMg": "assets/prefabs/building/wall.frame.shopfront/models/materials/metal_shopfront_front_mg.tga",
+                            "MetalShopfrontFrontNrm": "assets/prefabs/building/wall.frame.shopfront/models/materials/metal_shopfront_front_nrm.tga"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
                     }
                   }
                 },
@@ -34976,6 +36625,7 @@
                             "CeilingArtexWavesSg": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/ceiling_artex_waves_sg.tga",
                             "CeilingMetalSheetAAo": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/ceiling_metal_sheet_a_ao.tga",
                             "CeilingMetalSheetABc": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/ceiling_metal_sheet_a_bc.tga",
+                            "CeilingMetalSheetAMs": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/ceiling_metal_sheet_a_ms.tga",
                             "CeilingMetalSheetANrm": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/ceiling_metal_sheet_a_nrm.tga",
                             "CeilingMetalSheetASg": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/ceiling_metal_sheet_a_sg.tga",
                             "CeilingMetalSheetBBc": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/ceiling_metal_sheet_b_bc.tga",
@@ -35092,6 +36742,145 @@
                             "FloorTatamiABc": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_tatami_a_bc.tga",
                             "FloorTatamiANrm": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_tatami_a_nrm.tga",
                             "FloorTatamiASg": "assets/prefabs/wallpaper/skins/2025-06_floor&ceiling_pack_dlc/textures/floor_tatami_a_sg.tga"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    },
+                    "2026-07_glowing": {
+                      "Name": "2026-07_glowing",
+                      "Path": "assets/assets/prefabs/wallpaper/skins/2026-07_glowing",
+                      "Files": {},
+                      "SubFolders": {
+                        "textures": {
+                          "Name": "textures",
+                          "Path": "assets/assets/prefabs/wallpaper/skins/2026-07_glowing/textures",
+                          "Files": {
+                            "CeilingFoxfireAo": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/ceiling_foxfire_ao.tga",
+                            "CeilingFoxfireBc": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/ceiling_foxfire_bc.tga",
+                            "CeilingFoxfireEm": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/ceiling_foxfire_em.tga",
+                            "CeilingFoxfireNrm": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/ceiling_foxfire_nrm.tga",
+                            "CeilingFoxfireSg": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/ceiling_foxfire_sg.tga",
+                            "CeilingGlowingStarsAo": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/ceiling_glowing_stars_ao.tga",
+                            "CeilingGlowingStarsBc": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/ceiling_glowing_stars_bc.tga",
+                            "CeilingGlowingStarsEm": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/ceiling_glowing_stars_em.tga",
+                            "CeilingGlowingStarsNrm": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/ceiling_glowing_stars_nrm.tga",
+                            "CeilingGlowingStarsSg": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/ceiling_glowing_stars_sg.tga",
+                            "CeilingGraffitiBigTagsBc": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/ceiling_graffiti_big_tags_bc.tga",
+                            "CeilingGraffitiBigTagsEm": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/ceiling_graffiti_big_tags_em.tga",
+                            "CeilingGraffitiBigTagsSg": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/ceiling_graffiti_big_tags_sg.tga",
+                            "CeilingGraffitiCloudsBc": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/ceiling_graffiti_clouds_bc.tga",
+                            "CeilingGraffitiCloudsEm": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/ceiling_graffiti_clouds_em.tga",
+                            "CeilingGraffitiCloudsSg": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/ceiling_graffiti_clouds_sg.tga",
+                            "CeilingGraffitiTagsAo": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/ceiling_graffiti_tags_ao.tga",
+                            "CeilingGraffitiTagsBc": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/ceiling_graffiti_tags_bc.tga",
+                            "CeilingGraffitiTagsEm": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/ceiling_graffiti_tags_em.tga",
+                            "CeilingGraffitiTagsNrm": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/ceiling_graffiti_tags_nrm.tga",
+                            "CeilingGraffitiTagsSg": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/ceiling_graffiti_tags_sg.tga",
+                            "CeilingGraffitiVehiclesBc": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/ceiling_graffiti_vehicles_bc.tga",
+                            "CeilingGraffitiVehiclesEm": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/ceiling_graffiti_vehicles_em.tga",
+                            "CeilingGraffitiVehiclesSg": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/ceiling_graffiti_vehicles_sg.tga",
+                            "FloorCarpetNeonHoopsAo": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/floor_carpet_neon_hoops_ao.tga",
+                            "FloorCarpetNeonHoopsBc": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/floor_carpet_neon_hoops_bc.tga",
+                            "FloorCarpetNeonHoopsEm": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/floor_carpet_neon_hoops_em.tga",
+                            "FloorCarpetNeonHoopsNrm": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/floor_carpet_neon_hoops_nrm.tga",
+                            "FloorCarpetNeonHoopsSg": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/floor_carpet_neon_hoops_sg.tga",
+                            "FloorCarpetNeonSplatsAo": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/floor_carpet_neon_splats_ao.tga",
+                            "FloorCarpetNeonSplatsBc": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/floor_carpet_neon_splats_bc.tga",
+                            "FloorCarpetNeonSplatsEm": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/floor_carpet_neon_splats_em.tga",
+                            "FloorCarpetNeonSplatsNrm": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/floor_carpet_neon_splats_nrm.tga",
+                            "FloorCarpetNeonSplatsSg": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/floor_carpet_neon_splats_sg.tga",
+                            "FloorConcreteGraffitiBendAo": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/floor_concrete_graffiti_bend_ao.tga",
+                            "FloorConcreteGraffitiBendBc": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/floor_concrete_graffiti_bend_bc.tga",
+                            "FloorConcreteGraffitiBendEm": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/floor_concrete_graffiti_bend_em.tga",
+                            "FloorConcreteGraffitiBendNrm": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/floor_concrete_graffiti_bend_nrm.tga",
+                            "FloorConcreteGraffitiBendSg": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/floor_concrete_graffiti_bend_sg.tga",
+                            "FloorConcreteGraffitiCrossAo": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/floor_concrete_graffiti_cross_ao.tga",
+                            "FloorConcreteGraffitiCrossBc": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/floor_concrete_graffiti_cross_bc.tga",
+                            "FloorConcreteGraffitiCrossEm": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/floor_concrete_graffiti_cross_em.tga",
+                            "FloorConcreteGraffitiCrossNrm": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/floor_concrete_graffiti_cross_nrm.tga",
+                            "FloorConcreteGraffitiCrossSg": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/floor_concrete_graffiti_cross_sg.tga",
+                            "FloorConcreteGraffitiEndAo": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/floor_concrete_graffiti_end_ao.tga",
+                            "FloorConcreteGraffitiEndBc": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/floor_concrete_graffiti_end_bc.tga",
+                            "FloorConcreteGraffitiEndEm": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/floor_concrete_graffiti_end_em.tga",
+                            "FloorConcreteGraffitiEndNrm": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/floor_concrete_graffiti_end_nrm.tga",
+                            "FloorConcreteGraffitiEndSg": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/floor_concrete_graffiti_end_sg.tga",
+                            "FloorConcreteGraffitiPlainAo": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/floor_concrete_graffiti_plain_ao.tga",
+                            "FloorConcreteGraffitiPlainBc": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/floor_concrete_graffiti_plain_bc.tga",
+                            "FloorConcreteGraffitiPlainEm": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/floor_concrete_graffiti_plain_em.tga",
+                            "FloorConcreteGraffitiPlainNrm": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/floor_concrete_graffiti_plain_nrm.tga",
+                            "FloorConcreteGraffitiPlainSg": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/floor_concrete_graffiti_plain_sg.tga",
+                            "FloorConcreteGraffitiStraightAo": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/floor_concrete_graffiti_straight_ao.tga",
+                            "FloorConcreteGraffitiStraightBc": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/floor_concrete_graffiti_straight_bc.tga",
+                            "FloorConcreteGraffitiStraightEm": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/floor_concrete_graffiti_straight_em.tga",
+                            "FloorConcreteGraffitiStraightNrm": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/floor_concrete_graffiti_straight_nrm.tga",
+                            "FloorConcreteGraffitiStraightSg": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/floor_concrete_graffiti_straight_sg.tga",
+                            "FloorConcreteGraffitiTjunctionAo": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/floor_concrete_graffiti_tjunction_ao.tga",
+                            "FloorConcreteGraffitiTjunctionBc": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/floor_concrete_graffiti_tjunction_bc.tga",
+                            "FloorConcreteGraffitiTjunctionEm": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/floor_concrete_graffiti_tjunction_em.tga",
+                            "FloorConcreteGraffitiTjunctionNrm": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/floor_concrete_graffiti_tjunction_nrm.tga",
+                            "FloorConcreteGraffitiTjunctionSg": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/floor_concrete_graffiti_tjunction_sg.tga",
+                            "FloorNeonspaceAo": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/floor_neonspace_ao.tga",
+                            "FloorNeonspaceBc": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/floor_neonspace_bc.tga",
+                            "FloorNeonspaceEm": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/floor_neonspace_em.tga",
+                            "FloorNeonspaceNrm": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/floor_neonspace_nrm.tga",
+                            "FloorNeonspaceSg": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/floor_neonspace_sg.tga",
+                            "WallExplosionsAo": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/wall_explosions_ao.tga",
+                            "WallExplosionsBc": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/wall_explosions_bc.tga",
+                            "WallExplosionsEm": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/wall_explosions_em.tga",
+                            "WallExplosionsNrm": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/wall_explosions_nrm.tga",
+                            "WallExplosionsSg": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/wall_explosions_sg.tga",
+                            "WallFirearmsAo": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/wall_firearms_ao.tga",
+                            "WallFirearmsBc": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/wall_firearms_bc.tga",
+                            "WallFirearmsEm": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/wall_firearms_em.tga",
+                            "WallFirearmsNrm": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/wall_firearms_nrm.tga",
+                            "WallFirearmsSg": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/wall_firearms_sg.tga",
+                            "WallFirefliesAo": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/wall_fireflies_ao.tga",
+                            "WallFirefliesBc": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/wall_fireflies_bc.tga",
+                            "WallFirefliesEm": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/wall_fireflies_em.tga",
+                            "WallFirefliesNrm": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/wall_fireflies_nrm.tga",
+                            "WallFirefliesSg": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/wall_fireflies_sg.tga",
+                            "WallFoxfireAo": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/wall_foxfire_ao.tga",
+                            "WallFoxfireBc": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/wall_foxfire_bc.tga",
+                            "WallFoxfireEm": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/wall_foxfire_em.tga",
+                            "WallFoxfireNrm": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/wall_foxfire_nrm.tga",
+                            "WallFoxfireSg": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/wall_foxfire_sg.tga",
+                            "WallGlowingMushroomsAo": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/wall_glowing_mushrooms_ao.tga",
+                            "WallGlowingMushroomsBc": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/wall_glowing_mushrooms_bc.tga",
+                            "WallGlowingMushroomsEm": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/wall_glowing_mushrooms_em.tga",
+                            "WallGlowingMushroomsNrm": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/wall_glowing_mushrooms_nrm.tga",
+                            "WallGlowingMushroomsSg": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/wall_glowing_mushrooms_sg.tga",
+                            "WallGlowingStarsPlanetsAo": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/wall_glowing_stars_planets_ao.tga",
+                            "WallGlowingStarsPlanetsBc": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/wall_glowing_stars_planets_bc.tga",
+                            "WallGlowingStarsPlanetsEm": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/wall_glowing_stars_planets_em.tga",
+                            "WallGlowingStarsPlanetsNrm": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/wall_glowing_stars_planets_nrm.tga",
+                            "WallGlowingStarsPlanetsSg": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/wall_glowing_stars_planets_sg.tga",
+                            "WallGraffitiBaseBc": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/wall_graffiti_base_bc.tga",
+                            "WallGraffitiBaseEm": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/wall_graffiti_base_em.tga",
+                            "WallGraffitiBaseSg": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/wall_graffiti_base_sg.tga",
+                            "WallGraffitiHazmatsBc": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/wall_graffiti_hazmats_bc.tga",
+                            "WallGraffitiHazmatsEm": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/wall_graffiti_hazmats_em.tga",
+                            "WallGraffitiHazmatsSg": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/wall_graffiti_hazmats_sg.tga",
+                            "WallGraffitiRaiderAo": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/wall_graffiti_raider_ao.tga",
+                            "WallGraffitiRaiderBc": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/wall_graffiti_raider_bc.tga",
+                            "WallGraffitiRaiderEm": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/wall_graffiti_raider_em.tga",
+                            "WallGraffitiRaiderNrm": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/wall_graffiti_raider_nrm.tga",
+                            "WallGraffitiRaiderSg": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/wall_graffiti_raider_sg.tga",
+                            "WallNeonBoltsAo": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/wall_neon_bolts_ao.tga",
+                            "WallNeonBoltsBc": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/wall_neon_bolts_bc.tga",
+                            "WallNeonBoltsEm": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/wall_neon_bolts_em.tga",
+                            "WallNeonBoltsNrm": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/wall_neon_bolts_nrm.tga",
+                            "WallNeonBoltsSg": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/wall_neon_bolts_sg.tga",
+                            "WallNeonShapesAo": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/wall_neon_shapes_ao.tga",
+                            "WallNeonShapesBc": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/wall_neon_shapes_bc.tga",
+                            "WallNeonShapesEm": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/wall_neon_shapes_em.tga",
+                            "WallNeonShapesNrm": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/wall_neon_shapes_nrm.tga",
+                            "WallNeonShapesSg": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/wall_neon_shapes_sg.tga",
+                            "WallNeonSquigglesAo": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/wall_neon_squiggles_ao.tga",
+                            "WallNeonSquigglesBc": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/wall_neon_squiggles_bc.tga",
+                            "WallNeonSquigglesEm": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/wall_neon_squiggles_em.tga",
+                            "WallNeonSquigglesNrm": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/wall_neon_squiggles_nrm.tga",
+                            "WallNeonSquigglesSg": "assets/prefabs/wallpaper/skins/2026-07_glowing/textures/wall_neon_squiggles_sg.tga"
                           },
                           "SubFolders": {}
                         }
@@ -36414,6 +38203,50 @@
                 }
               }
             },
+            "terrain textures exporter": {
+              "Name": "terrain textures exporter",
+              "Path": "assets/assets/third party/terrain textures exporter",
+              "Files": {},
+              "SubFolders": {
+                "editor": {
+                  "Name": "editor",
+                  "Path": "assets/assets/third party/terrain textures exporter/editor",
+                  "Files": {},
+                  "SubFolders": {
+                    "readme": {
+                      "Name": "readme",
+                      "Path": "assets/assets/third party/terrain textures exporter/editor/readme",
+                      "Files": {
+                        "Icon": "assets/third party/terrain textures exporter/editor/readme/icon.png"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                }
+              }
+            },
+            "terrain to mesh": {
+              "Name": "terrain to mesh",
+              "Path": "assets/assets/third party/terrain to mesh",
+              "Files": {},
+              "SubFolders": {
+                "editor": {
+                  "Name": "editor",
+                  "Path": "assets/assets/third party/terrain to mesh/editor",
+                  "Files": {},
+                  "SubFolders": {
+                    "readme": {
+                      "Name": "readme",
+                      "Path": "assets/assets/third party/terrain to mesh/editor/readme",
+                      "Files": {
+                        "Icon": "assets/third party/terrain to mesh/editor/readme/icon.png"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                }
+              }
+            },
             "cinematiceffects": {
               "Name": "cinematiceffects",
               "Path": "assets/assets/third party/cinematiceffects",
@@ -36506,6 +38339,39 @@
                         "Splattexture0": "assets/scenes/prefabs/airfield/airfield_1/splattexture0.png",
                         "Splattexture1": "assets/scenes/prefabs/airfield/airfield_1/splattexture1.png",
                         "Topologytexture": "assets/scenes/prefabs/airfield/airfield_1/topologytexture.png"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
+                "apartments complex": {
+                  "Name": "apartments complex",
+                  "Path": "assets/assets/scenes/prefabs/apartments complex",
+                  "Files": {},
+                  "SubFolders": {
+                    "apartments_complex1": {
+                      "Name": "apartments_complex1",
+                      "Path": "assets/assets/scenes/prefabs/apartments complex/apartments_complex1",
+                      "Files": {
+                        "Alphatexture": "assets/scenes/prefabs/apartments complex/apartments_complex1/alphatexture.png",
+                        "Biometexture": "assets/scenes/prefabs/apartments complex/apartments_complex1/biometexture.png",
+                        "Blendtexture": "assets/scenes/prefabs/apartments complex/apartments_complex1/blendtexture.png",
+                        "Heighttexture": "assets/scenes/prefabs/apartments complex/apartments_complex1/heighttexture.png",
+                        "Normaltexture": "assets/scenes/prefabs/apartments complex/apartments_complex1/normaltexture.png",
+                        "Splattexture0": "assets/scenes/prefabs/apartments complex/apartments_complex1/splattexture0.png",
+                        "Splattexture1": "assets/scenes/prefabs/apartments complex/apartments_complex1/splattexture1.png",
+                        "Topologytexture": "assets/scenes/prefabs/apartments complex/apartments_complex1/topologytexture.png",
+                        "Watertexture": "assets/scenes/prefabs/apartments complex/apartments_complex1/watertexture.png"
+                      },
+                      "SubFolders": {}
+                    },
+                    "apartments_complex_1_root_lods": {
+                      "Name": "apartments_complex_1_root_lods",
+                      "Path": "assets/assets/scenes/prefabs/apartments complex/apartments_complex_1_root_lods",
+                      "Files": {
+                        "ApartmentsComplex1RootHlodAlbedo": "assets/scenes/prefabs/apartments complex/apartments_complex_1_root_lods/apartments_complex_1_root_hlod_albedo.png",
+                        "ApartmentsComplex1RootHlodNormals": "assets/scenes/prefabs/apartments complex/apartments_complex_1_root_lods/apartments_complex_1_root_hlod_normals.png",
+                        "ApartmentsComplex1RootHlodSpecular": "assets/scenes/prefabs/apartments complex/apartments_complex_1_root_lods/apartments_complex_1_root_hlod_specular.png"
                       },
                       "SubFolders": {}
                     }
@@ -36748,6 +38614,21 @@
                     "Topologytexture": "assets/scenes/prefabs/compound/compound/topologytexture.png"
                   },
                   "SubFolders": {
+                    "compound_redesign": {
+                      "Name": "compound_redesign",
+                      "Path": "assets/assets/scenes/prefabs/compound/compound_redesign",
+                      "Files": {
+                        "Alphatexture": "assets/scenes/prefabs/compound/compound_redesign/alphatexture.png",
+                        "Biometexture": "assets/scenes/prefabs/compound/compound_redesign/biometexture.png",
+                        "Blendtexture": "assets/scenes/prefabs/compound/compound_redesign/blendtexture.png",
+                        "Heighttexture": "assets/scenes/prefabs/compound/compound_redesign/heighttexture.png",
+                        "Normaltexture": "assets/scenes/prefabs/compound/compound_redesign/normaltexture.png",
+                        "Splattexture0": "assets/scenes/prefabs/compound/compound_redesign/splattexture0.png",
+                        "Splattexture1": "assets/scenes/prefabs/compound/compound_redesign/splattexture1.png",
+                        "Topologytexture": "assets/scenes/prefabs/compound/compound_redesign/topologytexture.png"
+                      },
+                      "SubFolders": {}
+                    },
                     "compound_root_lods": {
                       "Name": "compound_root_lods",
                       "Path": "assets/assets/scenes/prefabs/compound/compound_root_lods",
