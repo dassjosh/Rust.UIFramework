@@ -14,7 +14,6 @@ using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Constants;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Extensions;
-using Oxide.Ext.UiFramework.Layouts;
 using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Plugins;
@@ -736,8 +735,7 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
     private void CreatePlayingCards(UiBuilder builder, UiReference root, UiState state)
     {       
         UiScrollView scroll = CreateScrollView(builder, root);
-        UiGridLayout grid = builder.GridLayout(scroll, UiPosition.Full, new UiOffset(0, 0, -20, 0), ImageColumns, ImageRows, padding: LayoutPadding);
-        grid.ForScrollView(scroll);
+        GridLayoutComponent grid = builder.GridLayout(scroll, new Vector2(100, 100), new Vector2(2, 2));
         
         if (!state.CardType.HasValue)
         {
@@ -790,7 +788,7 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
     
     private void CreateIcons<T>(UiBuilder builder, UiReference root, UiState state, Func<T, bool> filter) where T : unmanaged, Enum
     {
-        UiGridLayout layout =  builder.GridLayout(root, new UiPosition(0, 0.075f, 1, 1), default, ImageColumns, ImageRows, default, LayoutPadding);
+        GridLayoutComponent layout = builder.GridLayout(builder.Section(root, new UiPosition(0, 0.075f, 1, 1)), new Vector2(100, 100), new Vector2(2, 2));
         
         IReadOnlyCollection<T> values = EnumCache<T>.GetValues();
         int maxPage = UiHelpers.CalculateMaxPage(values.Count, TotalImages);
@@ -807,9 +805,10 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
             UiButton button = builder.Button(layout, _buttonColor, _uiCommands.SelectAsset.Build($"Rust.UI.Icons.{icon} | {Convert.ToUInt32(icon)}"));
             builder.Icon(button, UiPosition.Full, default, icon);
         }
-        
-        UiDirectionalLayout paginationLayout = builder.DirectionalLayout(root, new UiPosition(0, 0, 1, 0.075f), default, 15, padding: LayoutPadding, direction: LayoutDirection.Horizontal);
-        builder.Paginator(paginationLayout, state.Page, maxPage, 14, _textColor, UiColors.ButtonSecondary, UiColors.ButtonPrimary, _uiCommands.ChangePage);
+
+        UiSection layoutSection = builder.Section(root, new UiPosition(0, 0, 1, 0.075f));
+        DirectionalLayoutComponent paginationLayout = builder.DirectionalLayout(layoutSection, LayoutDirection.Horizontal, 2f);
+        builder.Paginator(paginationLayout, 15, state.Page, maxPage, 14, _textColor, UiColors.ButtonSecondary, UiColors.ButtonPrimary, _uiCommands.ChangePage);
     }
     
     private readonly GridPosition _fontGrid = new GridPositionBuilder(1, 8).SetPadding(0.01f).Build();

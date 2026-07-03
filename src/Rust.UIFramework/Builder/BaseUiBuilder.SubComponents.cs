@@ -141,7 +141,7 @@ public abstract partial class BaseUiBuilder
 
     public GridLayoutComponent GridLayout(BaseUiComponent component,
         Vector2 cellSize,
-        Vector2 spacing,
+        Vector2 spacing = default,
         TextAnchor childAlignment = JsonDefaults.Layout.ChildAlignment,
         GridLayoutGroup.Corner startCorner = JsonDefaults.GridLayout.StartCorner,
         GridLayoutGroup.Axis startAxis = JsonDefaults.GridLayout.StartAxis,
