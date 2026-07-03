@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "framework-improvements" ]
   pull_request:
     branches: [ "main" ]
 
@@ -12,6 +12,9 @@ jobs:
     runs-on: windows-latest
 
     steps:
+      - name: Enable long paths
+        run: git config --system core.longpaths true
+
       - name: Checkout
         uses: actions/checkout@v4
 
@@ -30,5 +33,12 @@ jobs:
           .\Download-References.ps1
 
       - name: Build DLLs - Oxide
-        run: dotnet build Rust.UIFramework.csproj -c Release /p:Platform=Oxide /p:Version=${{ env.VERSION }} -f net48
+        run: dotnet build Rust.UIFramework.csproj -c Release /p:Platform=UiFramework /p:Version=${{ env.VERSION }} -f net48
         working-directory: src/Rust.UIFramework
+
+      - name: Build Unit Tests
+        run: dotnet build src/ -c Release /p:Platform="Unit Tests"
+
+      - name: Run Unit Tests
+        run: |
+            .\src\Rust.UiFramework.UnitTests\bin\"Unit Tests"\Release\net9.0\Rust.UiFramework.UnitTests.exe

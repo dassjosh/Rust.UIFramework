@@ -28,6 +28,12 @@ internal static class BenchmarkHelpers
         public string Author => "MJSU";
         public VersionNumber Version => new(1, 0, 0);
         public bool IsLoaded => true;
+
         public UiPluginPool PluginPool { get; set; }
+
+        public object CallHook(string hook, params object[] args)
+        {
+            return null;
+        }
     }
 }

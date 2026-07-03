@@ -1,47 +1,61 @@
 ﻿using System;
+using Facepunch;
 using Oxide.Ext.UiFramework.Exceptions;
+using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Libraries;
 
 public ref struct UiCommandTokenizer(string str)
 {
-    private ReadOnlySpan<char> _remaining = str;
-    
-    public ReadOnlySpan<char> GetNext()
+    private readonly string _str = str ?? throw new ArgumentNullException(nameof(str));
+    private int _pos = 0;
+
+    public UiStringView GetNext()
     {
-        ReadOnlySpan<char> remaining = _remaining;
-        if (remaining.Length == 0) throw new FailedToParseArgumentException();
+        if (_pos >= _str.Length)
+            throw new FailedToParseArgumentException();
 
-        int index;
-        //Process quoted strings
-        if (remaining[0] == UiCommands.StartQuote && remaining.Length >= 2)
+        // Skip leading spaces
+        while (_pos < _str.Length && _str[_pos] == ' ')
+            _pos++;
+
+        if (_pos >= _str.Length)
+            throw new FailedToParseArgumentException();
+
+        // Quoted string
+        if (_str[_pos] == UiCommands.StartQuote && _pos + 1 < _str.Length)
         {
-            remaining = remaining[1..];
-            index = remaining.IndexOf(UiCommands.EndQuote);
-            ReadOnlySpan<char> quoted = remaining[..index];
-            _remaining = remaining[Math.Min(remaining.Length, index)..];
-            return quoted;
+            int start = _pos + 1;
+            int end = _str.IndexOf(UiCommands.EndQuote, start);
+
+            if (end == -1)
+                throw new FailedToParseArgumentException();
+
+            _pos = end + 1; // Move past closing quote
+            return new UiStringView(_str, start, end - start);
         }
 
-        index = remaining.IndexOf(' ');
-        if (index == -1)
+        // Non-quoted token
+        int tokenStart = _pos;
+        int spaceIndex = _str.IndexOf(' ', _pos);
+
+        if (spaceIndex == -1)
         {
-            index = remaining.Length;
-        }
-        else if (index == 0)
-        {
-            _remaining = remaining[1..];
-            return GetNext();
+            _pos = _str.Length;
+            return new UiStringView(_str, tokenStart, _str.Length - tokenStart);
         }
 
-        _remaining = remaining[Math.Min(remaining.Length, index + 1)..];
-        return remaining[..index];
+        _pos = spaceIndex + 1;
+        return new UiStringView(_str, tokenStart, spaceIndex - tokenStart);
     }
 
-    public ReadOnlySpan<char> ReadToEnd()
+    public UiStringView ReadToEnd()
     {
-        ReadOnlySpan<char> remaining = _remaining;
-        _remaining = ReadOnlySpan<char>.Empty;
-        return remaining;
+        if (_pos >= _str.Length)
+            return new UiStringView(_str, _str.Length, 0);
+
+        int start = _pos;
+        _pos = _str.Length;
+        return new UiStringView(_str, start, _str.Length - start);
     }
 }

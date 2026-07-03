@@ -13,76 +13,76 @@
 
     <ItemGroup>
         <Reference Include="Assembly-CSharp">
-            <HintPath>..\References\Rust\Assembly-CSharp.dll</HintPath>
+            <HintPath>..\references\Rust\Assembly-CSharp.dll</HintPath>
         </Reference>
         <Reference Include="Assembly-CSharp-firstpass">
-            <HintPath>..\References\Rust\Assembly-CSharp-firstpass.dll</HintPath>
+            <HintPath>..\references\Rust\Assembly-CSharp-firstpass.dll</HintPath>
         </Reference>
         <Reference Include="Facepunch.Console">
-            <HintPath>..\References\Rust\Facepunch.Console.dll</HintPath>
+            <HintPath>..\references\Rust\Facepunch.Console.dll</HintPath>
         </Reference>
         <Reference Include="Facepunch.Network">
-            <HintPath>..\References\Rust\Facepunch.Network.dll</HintPath>
+            <HintPath>..\references\Rust\Facepunch.Network.dll</HintPath>
         </Reference>
         <Reference Include="Facepunch.System">
-            <HintPath>..\References\Rust\Facepunch.System.dll</HintPath>
+            <HintPath>..\references\Rust\Facepunch.System.dll</HintPath>
         </Reference>
         <Reference Include="Facepunch.UnityEngine">
-            <HintPath>..\References\Rust\Facepunch.UnityEngine.dll</HintPath>
+            <HintPath>..\references\Rust\Facepunch.UnityEngine.dll</HintPath>
         </Reference>
         <Reference Include="mscorlib">
-            <HintPath>..\References\Rust\mscorlib.dll</HintPath>
+            <HintPath>..\references\Rust\mscorlib.dll</HintPath>
         </Reference>
         <Reference Include="Oxide.Core">
-            <HintPath>..\References\Rust\Oxide.Core.dll</HintPath>
+            <HintPath>..\references\Rust\Oxide.Core.dll</HintPath>
         </Reference>
         <Reference Include="Oxide.CSharp">
-            <HintPath>..\References\Rust\Oxide.CSharp.dll</HintPath>
+            <HintPath>..\references\Rust\Oxide.CSharp.dll</HintPath>
         </Reference>
         <Reference Include="Oxide.References">
-            <HintPath>..\References\Rust\Oxide.References.dll</HintPath>
+            <HintPath>..\references\Rust\Oxide.References.dll</HintPath>
         </Reference>
         <Reference Include="Oxide.Rust">
-            <HintPath>..\References\Rust\Oxide.Rust.dll</HintPath>
+            <HintPath>..\references\Rust\Oxide.Rust.dll</HintPath>
         </Reference>
         <Reference Include="Oxide.SQLite">
-            <HintPath>..\References\Rust\Oxide.SQLite.dll</HintPath>
+            <HintPath>..\references\Rust\Oxide.SQLite.dll</HintPath>
         </Reference>
         <Reference Include="Oxide.Unity">
-            <HintPath>..\References\Rust\Oxide.Unity.dll</HintPath>
+            <HintPath>..\references\Rust\Oxide.Unity.dll</HintPath>
         </Reference>
         <Reference Include="Rust.Data">
-            <HintPath>..\References\Rust\Rust.Data.dll</HintPath>
+            <HintPath>..\references\Rust\Rust.Data.dll</HintPath>
         </Reference>
         <Reference Include="Rust.Global">
-            <HintPath>..\References\Rust\Rust.Global.dll</HintPath>
+            <HintPath>..\references\Rust\Rust.Global.dll</HintPath>
         </Reference>
         <Reference Include="Rust.Localization">
-          <HintPath>..\References\Rust\Rust.Localization.dll</HintPath>
+          <HintPath>..\references\Rust\Rust.Localization.dll</HintPath>
         </Reference>
         <Reference Include="Rust.UI">
-            <HintPath>..\References\Rust\Rust.UI.dll</HintPath>
+            <HintPath>..\references\Rust\Rust.UI.dll</HintPath>
         </Reference>
         <Reference Include="System.Net.Http">
-            <HintPath>..\References\Rust\System.Net.Http.dll</HintPath>
+            <HintPath>..\references\Rust\System.Net.Http.dll</HintPath>
         </Reference>
         <Reference Include="UniTask">
-          <HintPath>..\references\UniTask.dll</HintPath>
+          <HintPath>..\references\Rust\UniTask.dll</HintPath>
         </Reference>
         <Reference Include="UniTask.Linq">
-          <HintPath>..\references\UniTask.Linq.dll</HintPath>
+          <HintPath>..\references\Rust\UniTask.Linq.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine">
-            <HintPath>..\References\Rust\UnityEngine.dll</HintPath>
+            <HintPath>..\references\Rust\UnityEngine.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.CoreModule">
-            <HintPath>..\References\Rust\UnityEngine.CoreModule.dll</HintPath>
+            <HintPath>..\references\Rust\UnityEngine.CoreModule.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.TextRenderingModule">
-            <HintPath>..\References\Rust\UnityEngine.TextRenderingModule.dll</HintPath>
+            <HintPath>..\references\Rust\UnityEngine.TextRenderingModule.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.UI">
-            <HintPath>..\References\Rust\UnityEngine.UI.dll</HintPath>
+            <HintPath>..\references\Rust\UnityEngine.UI.dll</HintPath>
         </Reference>
     </ItemGroup>
 

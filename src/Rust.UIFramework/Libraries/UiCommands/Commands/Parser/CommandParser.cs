@@ -5,24 +5,44 @@ namespace Oxide.Ext.UiFramework.Libraries;
 
 internal class CommandParser(ICommandParserData command) : BaseCommandParser(command)
 {
+    private readonly Action<ExecutionData> _command = (Action<ExecutionData>)command.Delegate;
+
     protected override void RunCommandInternal(ExecutionData data, UiCommandTokenizer args)
     {
-        RunCommandAsync(data).Forget();
+        RunCommand(data);
     }
 
-    private async UniTask RunCommandAsync(ExecutionData data)
+    private void RunCommand(ExecutionData data)
     {
         try
         {
-            switch (Command.Mode)
-            {
-                case ExecutorMode.Void:
-                    ((Action<ExecutionData>)Command.Delegate)(data);
-                    break;
-                case ExecutorMode.UniTask:
-                    await ((Func<ExecutionData, UniTask>)Command.Delegate)(data);
-                    break;
-            }
+            _command(data);
+        }
+        catch (Exception ex)
+        {
+            LogException(ex);
+        }
+        finally
+        {
+            data.TryDispose();
+        }
+    }
+}
+
+internal class CommandParserAsync(ICommandParserData command) : BaseCommandParser(command)
+{
+    private readonly Func<ExecutionData, UniTask> _command = (Func<ExecutionData, UniTask>)command.Delegate;
+
+    protected override void RunCommandInternal(ExecutionData data, UiCommandTokenizer args)
+    {
+        RunCommand(data).Forget();
+    }
+
+    private async UniTaskVoid RunCommand(ExecutionData data)
+    {
+        try
+        {
+            await _command(data);
         }
         catch (Exception ex)
         {

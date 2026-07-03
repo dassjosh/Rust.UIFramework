@@ -1,13 +1,15 @@
 ﻿using System;
 using Oxide.Ext.UiFramework.Colors;
+using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Libraries;
 
-public readonly struct InputArg(string value)
+public readonly struct InputArg(UiStringView view)
 {
-    public readonly string Value = value;
-    public bool IsValid => !string.IsNullOrEmpty(Value);
-    public static InputArg Empty => new(null);
+    public readonly UiStringView View = view;
+    public string Value => View.ToString();
+    public bool IsValid => View.Length != 0;
+    public static InputArg Empty => new(UiStringView.Empty);
     
     public bool TryGetValue(out byte value) => byte.TryParse(Value, out value);
     public bool TryGetValue(out sbyte value) => sbyte.TryParse(Value, out value);
@@ -27,7 +29,7 @@ public readonly struct InputArg(string value)
 
 internal class InputArgHandler : IArgHandler<InputArg>
 {
-    public InputArg Read(ReadOnlySpan<char> arg) => new(arg.ToString());
+    public InputArg Read(in UiStringView view) => new(view);
     public void Write(UiArgWriter writer, InputArg arg) => throw new NotSupportedException();
     public bool IsInputArg() => true;
 }

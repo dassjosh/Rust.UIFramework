@@ -42,9 +42,12 @@ public class UiBuilderTests
                     builder.AddUi((Connection)null);
                     break;
                 case 2:
-                    builder.AddUi([]);
+                    builder.AddUi(new List<BasePlayer>());
                     break;
                 case 3:
+                    builder.AddUi(new List<Connection>());
+                    break;
+                case 4:
                     builder.TryDispose();
                     break;
             }

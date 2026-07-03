@@ -17,9 +17,9 @@ using Rust.UI;
 
 namespace Oxide.Ext.UiFramework.Plugins;
 
-internal class UiFrameworkPlugin : BaseUiFrameworkPlugin, IUiFrameworkPlugin
+internal class UiFrameworkPlugin : BaseUiFrameworkPlugin, IUiFrameworkCorePlugin
 {
-    public static UiFrameworkPlugin Instance;
+    public static IUiFrameworkCorePlugin Instance;
     public readonly PluginId PluginId;
     private readonly object _true = true;
     public UiPluginPool PluginPool { get; set; } = UiPool.Internal;

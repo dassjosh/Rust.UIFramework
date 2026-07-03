@@ -35,7 +35,7 @@ public class RegisterCommandsGenerator : BaseGenerator, IIncrementalGenerator
             );
         
         return new CodeBuilder()
-            .Usings(["Oxide.Ext.UiFramework.Extensions", "Oxide.Ext.UiFramework.Types"])
+            .Usings(["Oxide.Ext.UiFramework.Extensions"])
             .Namespace(classSymbol.ContainingNamespace)
             .Add(t => t.Public().Partial().Class().Name("UiCommands")
                 .Methods(methods, (d, m) =>
@@ -76,7 +76,14 @@ public class RegisterCommandsGenerator : BaseGenerator, IIncrementalGenerator
         
         StringBuilder sb = new();
         sb.AppendLine($"{SymbolCache.Instance.Libraries.UiCommands.RegisteredCommand.Symbol} command = ParseCommand(plugin, method, ArgCreator.CreateArgHandler{argHandlerGenerics}(plugin.Id()));");
-        sb.AppendLine($"_commands[command.Id] = new {SymbolCache.Instance.Libraries.UiCommands.CommandParser.Symbol.AsGeneric(generics)}(command);");
+        sb.AppendLine("if(command.Mode == ExecutorMode.Void)");
+        sb.AppendLine("{");
+        sb.AppendLine($"\t_commands[command.Id] = new {SymbolCache.Instance.Libraries.UiCommands.CommandParser.Symbol.AsGeneric(generics)}(command);");
+        sb.AppendLine("}");
+        sb.AppendLine("else");
+        sb.AppendLine("{");
+        sb.AppendLine($"\t_commands[command.Id] = new {SymbolCache.Instance.Libraries.UiCommands.CommandParserAsync.Symbol.AsGeneric(generics)}(command);");
+        sb.AppendLine("}");
         sb.AppendLine($"{SymbolCache.Instance.Libraries.UiCommands.ICommandBuilder.Symbol.AsGeneric(generics)} builder = new {SymbolCache.Instance.Libraries.UiCommands.CommandBuilder.Symbol.AsGeneric(generics)}(command);");
         sb.AppendLine($"return {SymbolCache.Instance.Types.StaticUiTuple.Symbol}.Create(command, builder);");
         return sb.ToString();

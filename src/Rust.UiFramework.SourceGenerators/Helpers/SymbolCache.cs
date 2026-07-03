@@ -127,6 +127,7 @@ public class SymbolCache
             public readonly FrameworkSymbolCache ICommandParserData = new("Libraries.ICommandParserData");
             public readonly FrameworkSymbolCache BaseCommandParser = new("Libraries.BaseCommandParser");
             public readonly FrameworkSymbolCache CommandParser = new("Libraries.CommandParser");
+            public readonly FrameworkSymbolCache CommandParserAsync = new("Libraries.CommandParserAsync");
             public readonly FrameworkSymbolCache RegisteredCommand = new("Libraries.RegisteredCommand");
             public readonly FrameworkSymbolCache ArgWriterIterator = new("Libraries.ArgWriterIterator");
             public readonly FrameworkSymbolCache ArgReaderIterator = new("Libraries.ArgReaderIterator");

@@ -1,4 +1,5 @@
 ﻿using Argon;
+using Cysharp.Threading.Tasks;
 using Oxide.Ext.UiFramework;
 using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Config;
@@ -27,6 +28,7 @@ public class AssemblyFixture : XunitTestFramework
         ConfigureXUnit();
         ConfigureVerify();
         ConfigureExtension();
+        ConfigureUniTask();
     }
 
     private static void ConfigureXUnit()
@@ -82,12 +84,25 @@ public class AssemblyFixture : XunitTestFramework
         Singleton<DataHandler>.Instance.LoadAll();
         OxideLibrary.RegisterLibrary(nameof(IImageDatabase), new ImageDatabaseMock());
         OxideLibrary.RegisterLibrary(nameof(UiImageStorage), Singleton<UiImageStorage>.Instance);
+        UiFrameworkPlugin.Instance = UnitTestHelpers.CorePlugin;
+
         //new UiFrameworkPlugin().Init();
         BaseUiFrameworkLibrary.ProcessOnCommunityEntitySpawned(new CommunityEntityMock());
         // var plugin = new UiFrameworkPlugin();
         // plugin.Init();
         // plugin.OnServerInitialized();
         AvatarData.Instance.AddAvatar(UnitTestsConstants.AvatarSteamId, "Test Avatar");
+    }
+
+    private static void ConfigureUniTask()
+    {
+        static void OnUniTaskSchedulerOnUnobservedTaskException(Exception ex)
+        {
+            UiFrameworkExtension.GlobalLogger.Exception("UniTask UnobservedTaskException", ex);
+        }
+
+        UniTaskScheduler.UnobservedTaskException += OnUniTaskSchedulerOnUnobservedTaskException;
+        UniTaskScheduler.DispatchUnityMainThread = false;
     }
 
     public override async ValueTask DisposeAsync()

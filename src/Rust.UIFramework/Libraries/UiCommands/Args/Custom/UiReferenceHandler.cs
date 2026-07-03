@@ -1,4 +1,5 @@
 ﻿using System;
+using Facepunch;
 using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Types;
 using Oxide.Ext.UiFramework.UiElements;
@@ -11,14 +12,15 @@ internal class UiReferenceHandler : IArgHandler<UiReference>, IArgHandler<UiRefe
 
     private UiReferenceHandler() { }
     
-    UiReference IArgReader<UiReference>.Read(ReadOnlySpan<char> arg)
+    UiReference IArgReader<UiReference>.Read(in UiStringView view)
     {
+        ReadOnlySpan<char> arg = view.AsSpan();
         arg.ParseNextString(Separator, out ReadOnlySpan<char> parent, out arg);
         arg.ParseNextString(Separator, out ReadOnlySpan<char> name, out arg);
         return new UiReference(parent.ToString(), name.ToString());
     }
     
-    UiReference? IArgReader<UiReference?>.Read(ReadOnlySpan<char> arg) => arg is UiCommands.NullArg ? null : ((IArgReader<UiReference>)this).Read(arg);
+    UiReference? IArgReader<UiReference?>.Read(in UiStringView view) => view.AsSpan() is UiCommands.NullArg ? null : ((IArgReader<UiReference>)this).Read(view);
 
     public void Write(UiArgWriter writer, UiReference arg)
     {

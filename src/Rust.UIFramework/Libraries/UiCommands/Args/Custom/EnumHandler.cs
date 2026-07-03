@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using Oxide.Ext.UiFramework.Cache;
+using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Libraries;
 
@@ -15,7 +16,7 @@ internal class EnumHandler<T> : IArgHandler<T>
         _isUnsigned = underlyingType == typeof(byte) || underlyingType == typeof(ushort) || underlyingType == typeof(uint) || underlyingType == typeof(ulong);
     }
     
-    public T Read(ReadOnlySpan<char> arg) => _isUnsigned ? (T)Enum.ToObject(_enumType, ulong.Parse(arg)) : (T)Enum.ToObject(_enumType, long.Parse(arg));
+    public T Read(in UiStringView view) => _isUnsigned ? (T)Enum.ToObject(_enumType, ulong.Parse(view)) : (T)Enum.ToObject(_enumType, long.Parse(view));
 
     public void Write(UiArgWriter writer, T arg)
     {

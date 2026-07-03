@@ -10,7 +10,7 @@ internal class SendHandler : ISingleton
 
     private SendHandler() { }
 
-#if UNIT_TESTS
+#if UNIT_TESTS || BENCHMARKS
     public void WaitUntilFinished() => Channel.WaitUntilFinished();
 #endif
 }

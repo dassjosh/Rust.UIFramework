@@ -257,6 +257,29 @@ public class UiImageStorageTests
         await Verify(request.Image, "png");
     }
 
+    [Fact(Skip = "Not implemented yet")]
+    public async Task UiImageStorage_GetInvalidImage_ReturnsNotFound()
+    {
+        // Arrange
+        UiImageStorage storage = Singleton<UiImageStorage>.Instance;
+
+        //Act
+        IDownloadImageRequest request = storage.RegisterImage(UnitTestHelpers.Plugin, $"{UiImageDefaults.NotFound}123");
+        Result<ImageId> result = await request.AsUniTask();
+
+        var image = storage.Get(UnitTestHelpers.Plugin, $"{UiImageDefaults.NotFound}123");
+
+        // Assert
+        if (uint.TryParse(image, out uint id))
+        {
+            Assert.Equal(1503184602u, id);
+        }
+        else
+        {
+            Assert.Equal(UiImageDefaults.NotFound, image);
+        }
+    }
+
     private static async Task WaitForCompletion(IDownloadImageRequest register, CancellationToken cancellationToken)
     {
         await Task.Run(() =>

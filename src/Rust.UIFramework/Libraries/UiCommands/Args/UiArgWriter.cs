@@ -117,6 +117,9 @@ public readonly ref struct UiArgWriter()
     
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void Append(ReadOnlySpan<char> value) => _sb.Append(value);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public void Append(ReadOnlyMemory<char> value) => _sb.Append(value);
     
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void Append(UiColor color) => _sb.AppendSpan(color);

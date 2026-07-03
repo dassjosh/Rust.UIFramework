@@ -1,4 +1,5 @@
 ﻿using Network;
+using Oxide.Ext.UiFramework.Helpers;
 using Oxide.Ext.UiFramework.Libraries;
 
 namespace Oxide.Ext.UiFramework.Threading;
@@ -18,7 +19,7 @@ internal class OxideCuiJsonRequest : BaseUiRequest
     
     public override ProcessResult Process()
     {
-        CommunityEntity.ServerInstance.ClientRPC(RpcTarget.SendInfo("AddUI", Send), _json);
+        RpcFunctions.SendAddUi(Send, _json);
         return ProcessResult.Success;
     }
 

@@ -1,4 +1,6 @@
-﻿using Network;
+﻿using System;
+using Network;
+using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Json;
 
 namespace Oxide.Ext.UiFramework.Helpers;
@@ -28,7 +30,17 @@ public static class RpcFunctions
         NetWrite write = ClientRPCStart(AddUi);
         if (write != null)
         {
-            write.BytesWithSize(bytes);
+            write.BytesWithSizeCustom(bytes);
+            write.Send(send);
+        }
+    }
+
+    public static void SendAddUi(SendInfo send, string json)
+    {
+        NetWrite write = ClientRPCStart(AddUi);
+        if (write != null)
+        {
+            write.String(json);
             write.Send(send);
         }
     }
@@ -49,7 +61,7 @@ public static class RpcFunctions
         if (write != null)
         {
             write.UInt32(textureId);
-            write.BytesWithSize(bytes);
+            write.BytesWithSizeCustom(bytes);
             write.Send(send);
         }
     }

@@ -70,7 +70,7 @@ public class BorderRadiusTester : RustPlugin, IUiFrameworkPlugin
         CreateUi(player).Forget();
     }
 
-    private async UniTask CreateUi(BasePlayer player)
+    private async UniTaskVoid CreateUi(BasePlayer player)
     {
         UiState state = _playerStore.GetOrCreateStore<UiState>(this, player);
         state.Image = await state.Generate(this);

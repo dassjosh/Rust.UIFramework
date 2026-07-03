@@ -576,4 +576,20 @@ public static class SpanExt
         written = original[..^span.Length];
         return true;
     }
+
+    public static int GetSpanHashCode(this ReadOnlySpan<char> span)
+    {
+        unchecked
+        {
+            int hash = (int)2166136261;
+
+            for (int i = 0; i < span.Length; i++)
+            {
+                hash ^= span[i];
+                hash *= 16777619;
+            }
+
+            return hash;
+        }
+    }
 }

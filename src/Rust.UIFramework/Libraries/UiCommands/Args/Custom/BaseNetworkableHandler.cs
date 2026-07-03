@@ -1,13 +1,14 @@
 ﻿using System;
+using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Libraries;
 
 internal class BaseNetworkableHandler<T> : IArgHandler<T>
 {
-    public T Read(ReadOnlySpan<char> arg)
+    public T Read(in UiStringView view)
     {
-        if(arg is UiCommands.NullArg) return default;
-        BaseNetworkable networkable = BaseNetworkable.serverEntities.Find(new NetworkableId(ulong.Parse(arg)));
+        if(view.AsSpan() is UiCommands.NullArg) return default;
+        BaseNetworkable networkable = BaseNetworkable.serverEntities.Find(new NetworkableId(ulong.Parse(view)));
         return networkable && networkable is T entity ? entity : default;
     }
 
