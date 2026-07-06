@@ -1,5 +1,6 @@
 ﻿using Argon;
 using Cysharp.Threading.Tasks;
+using DiffEngine;
 using Oxide.Ext.UiFramework;
 using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Config;
@@ -34,6 +35,7 @@ public class AssemblyFixture : XunitTestFramework
     private static void ConfigureXUnit()
     {
         SerializationHelper.Instance.AddRegisteredSerializers(typeof(AssemblyFixture).Assembly);
+        DiffTools.UseOrder(DiffTool.Rider, DiffTool.VisualStudio);
     }
 
     private static void ConfigureVerify()
