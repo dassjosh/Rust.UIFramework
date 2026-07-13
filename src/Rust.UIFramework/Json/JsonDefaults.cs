@@ -436,4 +436,20 @@ public static class JsonDefaults
         public static readonly Utf8String FadeName = "fade";
         public static readonly UiCanvasGroupFade Fade = new(0, 1);
     }
+
+    public static class RectMask2D
+    {
+        public static readonly Utf8String Type = "UnityEngine.UI.RectMask2D";
+
+        public static readonly Utf8String PaddingName = "padding";
+        public static readonly UiPadding Padding = new(0, 0, 0, 0);
+    }
+
+    public static class Mask
+    {
+        public static readonly Utf8String Type = "UnityEngine.UI.Mask";
+
+        public static readonly Utf8String ShowMaskGraphicName = "showMaskGraphic";
+        public const bool ShowMaskGraphic = true;
+    }
 }

@@ -84,7 +84,7 @@ public class JsonFrameworkGenerator : BaseGenerator, IIncrementalGenerator
         {
             SymbolCache cache = SymbolCache.Instance;
             CommonFieldTypes = [cache.Byte.Symbol, cache.SByte.Symbol, cache.Char.Symbol, cache.Bool.Symbol, cache.Int16.Symbol, cache.UInt16.Symbol, cache.Int32.Symbol, cache.UInt32.Symbol, cache.Int64.Symbol, 
-                cache.UInt64.Symbol, cache.Float.Symbol, cache.String.Symbol, cache.Types.UiColor.Symbol, cache.Types.UiRotation.Symbol, cache.Types.UiPivot.Symbol, cache.Types.UiBorderWidth.Symbol, cache.Types.UiPadding.Symbol,
+                cache.UInt64.Symbol, cache.Float.Symbol, cache.String.Symbol, cache.Types.UiColor.Symbol, cache.Types.UiRotation.Symbol, cache.Types.UiPivot.Symbol, cache.Types.UiBorderWidth.Symbol,
                 cache.Vector2.Symbol, cache.Vector3.Symbol, cache.Vector4.Symbol, cache.Types.Utf8String.Symbol, cache.Types.UiCanvasGroupFade.Symbol];
             AddFieldTypes = CommonFieldTypes;
             AddDefaultValueTypes = CommonFieldTypes;

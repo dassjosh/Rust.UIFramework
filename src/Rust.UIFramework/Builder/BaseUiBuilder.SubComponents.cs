@@ -275,4 +275,22 @@ public abstract partial class BaseUiBuilder
         return canvas;
     }
     #endregion
+
+    #region Rect Mask 2D
+    public RectMask2DComponent RectMask2D(BaseUiComponent component, UiPadding padding = default)
+    {
+        RectMask2DComponent mask = component.GetOrAddSubComponent<RectMask2DComponent>();
+        mask.Padding = padding;
+        return mask;
+    }
+    #endregion
+
+    #region Rect Mask 2D
+    public MaskComponent Mask(BaseUiComponent component, bool showMaskGraphic = JsonDefaults.Mask.ShowMaskGraphic)
+    {
+        MaskComponent mask = component.GetOrAddSubComponent<MaskComponent>();
+        mask.ShowMaskGraphic = showMaskGraphic;
+        return mask;
+    }
+    #endregion
 }

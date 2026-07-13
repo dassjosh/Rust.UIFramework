@@ -103,12 +103,6 @@ public partial class JsonFrameworkWriter
 		WriteValue(value);
 	}
 
-	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, in Oxide.Ext.UiFramework.Types.UiPadding value)
-	{
-		WritePropertyName(name);
-		WriteValue(value);
-	}
-
 	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, UnityEngine.Vector2 value)
 	{
 		WritePropertyName(name);
@@ -275,15 +269,6 @@ public partial class JsonFrameworkWriter
 	}
 
 	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, in Oxide.Ext.UiFramework.Types.UiBorderWidth value, in Oxide.Ext.UiFramework.Types.UiBorderWidth defaultValue)
-	{
-		if (value != defaultValue)
-		{
-		    WritePropertyName(name);
-		    WriteValue(value);
-		}
-	}
-
-	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, in Oxide.Ext.UiFramework.Types.UiPadding value, in Oxide.Ext.UiFramework.Types.UiPadding defaultValue)
 	{
 		if (value != defaultValue)
 		{
@@ -464,15 +449,6 @@ public partial class JsonFrameworkWriter
 	}
 
 	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Types.UiBorderWidth> value, Oxide.Ext.UiFramework.Enums.SerializeMode mode)
-	{
-		if (value.ShouldSerialize(mode))
-		{
-		    WritePropertyName(name);
-		    WriteValue(value.Value);
-		}
-	}
-
-	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Types.UiPadding> value, Oxide.Ext.UiFramework.Enums.SerializeMode mode)
 	{
 		if (value.ShouldSerialize(mode))
 		{
