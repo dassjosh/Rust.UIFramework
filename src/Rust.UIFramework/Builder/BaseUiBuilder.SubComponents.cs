@@ -304,7 +304,7 @@ public abstract partial class BaseUiBuilder
     #region Rect Mask 2D
     public TooltipComponent Tooltip(BaseUiComponent component) => SubComponent<TooltipComponent>(component);
 
-    public TooltipComponent Tooltip(BaseUiComponent component, string text, Tooltip.DelayType delay = JsonDefaults.ToolTip.Delay, TooltipContainer.PositionMode position = JsonDefaults.ToolTip.Position, UiOffset? offset = null, bool useCenter = JsonDefaults.ToolTip.UseCenter)
+    public TooltipComponent Tooltip(BaseUiComponent component, string text, Tooltip.DelayType delay = JsonDefaults.ToolTip.Delay, TooltipContainer.PositionMode position = JsonDefaults.ToolTip.Position, Vector2? offset = null, bool useCenter = JsonDefaults.ToolTip.UseCenter)
     {
         TooltipComponent tooltip = Tooltip(component);
         tooltip.Text = text;

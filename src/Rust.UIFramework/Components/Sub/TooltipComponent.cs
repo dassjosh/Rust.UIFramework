@@ -3,6 +3,7 @@ using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Types;
 using Rust.UiFramework.SourceGenerators.Attributes;
+using UnityEngine;
 
 namespace Oxide.Ext.UiFramework.Components;
 
@@ -20,7 +21,7 @@ public partial class TooltipComponent : SubComponent
     public partial TooltipContainer.PositionMode Position { get; set; }
 
     [TrackedDefaults(typeof(JsonDefaults.ToolTip), nameof(JsonDefaults.ToolTip.Offset))]
-    public partial UiOffset Offset { get; set; }
+    public partial Vector2 Offset { get; set; }
 
     [TrackedDefaults(typeof(JsonDefaults.ToolTip), nameof(JsonDefaults.ToolTip.UseCenter))]
     public partial bool UseCenter { get; set; }
@@ -34,7 +35,7 @@ public partial class TooltipComponent : SubComponent
         writer.AddField(JsonDefaults.ToolTip.TextName, TextTracked, mode);
         writer.AddField(JsonDefaults.ToolTip.DelayName, DelayTracked, mode);
         writer.AddField(JsonDefaults.ToolTip.PositionName, PositionTracked, mode);
-        //writer.AddField(JsonDefaults.ToolTip.OffsetName, OffsetTracked, mode); //TODO: Figure out what Offset is
+        writer.AddField(JsonDefaults.ToolTip.OffsetName, OffsetTracked, mode);
         writer.AddField(JsonDefaults.ToolTip.UseCenterName, UseCenterTracked, mode);
     }
 }

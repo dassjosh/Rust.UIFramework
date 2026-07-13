@@ -465,7 +465,7 @@ public static class JsonDefaults
         public const TooltipContainer.PositionMode Position = TooltipContainer.PositionMode.Auto;
 
         public static readonly Utf8String OffsetName = "offset";
-        public static readonly UiOffset Offset = UiOffset.None;
+        public static readonly Vector2 Offset = new(8, 8);
 
         public static readonly Utf8String UseCenterName = "useCentre";
         public const bool UseCenter = true;

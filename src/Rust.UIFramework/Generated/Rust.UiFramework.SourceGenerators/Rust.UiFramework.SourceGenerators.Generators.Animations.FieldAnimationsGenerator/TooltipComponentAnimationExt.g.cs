@@ -12,7 +12,7 @@ public static partial class TooltipComponentAnimationExt
 		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<string>> AnimateText() => animation.AnimateField(static a => a.TextTracked);
 		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<Tooltip.DelayType>> AnimateDelay() => animation.AnimateField(static a => a.DelayTracked);
 		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<TooltipContainer.PositionMode>> AnimatePosition() => animation.AnimateField(static a => a.PositionTracked);
-		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<Oxide.Ext.UiFramework.Offsets.UiOffset>> AnimateOffset() => animation.AnimateField(static a => a.OffsetTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<UnityEngine.Vector2>> AnimateOffset() => animation.AnimateField(static a => a.OffsetTracked);
 		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<bool>> AnimateUseCenter() => animation.AnimateField(static a => a.UseCenterTracked);
 	}
 }

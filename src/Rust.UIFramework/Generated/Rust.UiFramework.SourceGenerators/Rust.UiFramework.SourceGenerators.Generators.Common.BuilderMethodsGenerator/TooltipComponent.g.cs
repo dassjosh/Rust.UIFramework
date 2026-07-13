@@ -29,7 +29,7 @@ public partial class TooltipComponent
 	}
 
 	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-	public TooltipComponent SetOffset(in Oxide.Ext.UiFramework.Offsets.UiOffset offset)
+	public TooltipComponent SetOffset(UnityEngine.Vector2 offset)
 	{
 		Offset = offset;
 		return this;

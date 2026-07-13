@@ -8,10 +8,10 @@ namespace Oxide.Ext.UiFramework.Components;
 
 public partial class TooltipComponent : ITooltipComponent
 {
-	internal readonly Oxide.Ext.UiFramework.Types.Tracked<string> TextTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ToolTip.TextName);
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<string> TextTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ToolTip.Text);
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<Tooltip.DelayType> DelayTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ToolTip.Delay);
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<TooltipContainer.PositionMode> PositionTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ToolTip.Position);
-	internal readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Offsets.UiOffset> OffsetTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ToolTip.Offset);
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.Vector2> OffsetTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ToolTip.Offset);
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<bool> UseCenterTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ToolTip.UseCenter);
 
 	public partial string Text
@@ -35,7 +35,7 @@ public partial class TooltipComponent : ITooltipComponent
 		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 		set => PositionTracked.Value = value;
 	}
-	public partial Oxide.Ext.UiFramework.Offsets.UiOffset Offset
+	public partial UnityEngine.Vector2 Offset
 	{
 		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 		get => OffsetTracked.Value;

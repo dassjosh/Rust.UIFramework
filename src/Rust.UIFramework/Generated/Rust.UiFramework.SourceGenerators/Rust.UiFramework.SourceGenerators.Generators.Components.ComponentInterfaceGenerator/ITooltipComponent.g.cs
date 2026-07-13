@@ -10,13 +10,13 @@ public interface ITooltipComponent : IBaseTypedComponent
 	string Text { get; set; }
 	Tooltip.DelayType Delay { get; set; }
 	TooltipContainer.PositionMode Position { get; set; }
-	Oxide.Ext.UiFramework.Offsets.UiOffset Offset { get; set; }
+	UnityEngine.Vector2 Offset { get; set; }
 	bool UseCenter { get; set; }
 
 	Oxide.Ext.UiFramework.Components.TooltipComponent SetText(string text);
 	Oxide.Ext.UiFramework.Components.TooltipComponent SetDelay(Tooltip.DelayType delay);
 	Oxide.Ext.UiFramework.Components.TooltipComponent SetPosition(TooltipContainer.PositionMode position);
-	Oxide.Ext.UiFramework.Components.TooltipComponent SetOffset(in Oxide.Ext.UiFramework.Offsets.UiOffset offset);
+	Oxide.Ext.UiFramework.Components.TooltipComponent SetOffset(UnityEngine.Vector2 offset);
 	Oxide.Ext.UiFramework.Components.TooltipComponent SetUseCenter(bool useCenter);
 }
 
