@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using Oxide.Ext.UiFramework.Colors;
+using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Constants;
 using Oxide.Ext.UiFramework.Controls;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Exceptions;
+using Oxide.Ext.UiFramework.Interfaces;
 using Oxide.Ext.UiFramework.Json;
 using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Offsets;
@@ -34,6 +36,8 @@ public partial class BaseUiBuilder
         Naming.SetComponentName(component, reference, NamingMode, NamingCache, Components.Count);
         return component.SetUpdate(UpdateMode);
     }
+
+    public T SubComponent<T>(BaseUiComponent component) where T : BaseComponent, ISubComponent, new() => component.GetOrAddSubComponent<T>();
     #endregion
 
     #region Update

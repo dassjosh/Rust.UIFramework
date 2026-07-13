@@ -450,4 +450,24 @@ public static class JsonDefaults
         public static readonly Utf8String ShowMaskGraphicName = "showMaskGraphic";
         public const bool ShowMaskGraphic = true;
     }
+
+    public static class ToolTip
+    {
+        public static readonly Utf8String Type = "Tooltip";
+
+        public static readonly Utf8String TextName = "text";
+        public const string Text = null;
+
+        public static readonly Utf8String DelayName = "delay";
+        public const Tooltip.DelayType Delay = Tooltip.DelayType.Short;
+
+        public static readonly Utf8String PositionName = "position";
+        public const TooltipContainer.PositionMode Position = TooltipContainer.PositionMode.Auto;
+
+        public static readonly Utf8String OffsetName = "offset";
+        public static readonly UiOffset Offset = UiOffset.None;
+
+        public static readonly Utf8String UseCenterName = "useCentre";
+        public const bool UseCenter = true;
+    }
 }

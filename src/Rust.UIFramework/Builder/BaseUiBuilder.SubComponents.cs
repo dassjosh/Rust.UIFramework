@@ -3,6 +3,7 @@ using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Json;
+using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Types;
 using Oxide.Ext.UiFramework.UiElements;
 using UnityEngine;
@@ -262,9 +263,11 @@ public abstract partial class BaseUiBuilder
     #endregion
 
     #region Canvas Group
+    public CanvasGroupComponent CanvasGroup(BaseUiComponent component) => SubComponent<CanvasGroupComponent>(component);
+
     public CanvasGroupComponent CanvasGroup(BaseUiComponent component, float alpha = 1f, bool allowRaycast = true, bool interactable = true, UiCanvasGroupFade? fade = null)
     {
-        CanvasGroupComponent canvas = component.GetOrAddSubComponent<CanvasGroupComponent>();
+        CanvasGroupComponent canvas = CanvasGroup(component);
         canvas.Alpha = alpha;
         canvas.AllowRaycast = allowRaycast;
         canvas.Interactable = interactable;
@@ -277,20 +280,42 @@ public abstract partial class BaseUiBuilder
     #endregion
 
     #region Rect Mask 2D
-    public RectMask2DComponent RectMask2D(BaseUiComponent component, UiPadding padding = default)
+    public RectMask2DComponent RectMask2D(BaseUiComponent component) => SubComponent<RectMask2DComponent>(component);
+
+    public RectMask2DComponent RectMask2D(BaseUiComponent component, UiPadding padding)
     {
-        RectMask2DComponent mask = component.GetOrAddSubComponent<RectMask2DComponent>();
+        RectMask2DComponent mask = RectMask2D(component);
         mask.Padding = padding;
         return mask;
     }
     #endregion
 
     #region Rect Mask 2D
-    public MaskComponent Mask(BaseUiComponent component, bool showMaskGraphic = JsonDefaults.Mask.ShowMaskGraphic)
+    public MaskComponent Mask(BaseUiComponent component) => SubComponent<MaskComponent>(component);
+
+    public MaskComponent Mask(BaseUiComponent component, bool showMaskGraphic)
     {
-        MaskComponent mask = component.GetOrAddSubComponent<MaskComponent>();
+        MaskComponent mask = Mask(component);
         mask.ShowMaskGraphic = showMaskGraphic;
         return mask;
+    }
+    #endregion
+
+    #region Rect Mask 2D
+    public TooltipComponent Tooltip(BaseUiComponent component) => SubComponent<TooltipComponent>(component);
+
+    public TooltipComponent Tooltip(BaseUiComponent component, string text, Tooltip.DelayType delay = JsonDefaults.ToolTip.Delay, TooltipContainer.PositionMode position = JsonDefaults.ToolTip.Position, UiOffset? offset = null, bool useCenter = JsonDefaults.ToolTip.UseCenter)
+    {
+        TooltipComponent tooltip = Tooltip(component);
+        tooltip.Text = text;
+        tooltip.Delay = delay;
+        tooltip.Position = position;
+        if (offset.HasValue)
+        {
+            tooltip.Offset = offset.Value;
+        }
+        tooltip.UseCenter = useCenter;
+        return tooltip;
     }
     #endregion
 }

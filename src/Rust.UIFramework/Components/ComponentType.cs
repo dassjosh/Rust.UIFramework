@@ -28,6 +28,7 @@ public enum ComponentType : ushort
    CanvasGroup = 111,
    RectMask2D = 112,
    Mask = 113,
+   ToolTip = 114,
    
    ColorBlock = 1000,
    ScrollBar = 1001,
