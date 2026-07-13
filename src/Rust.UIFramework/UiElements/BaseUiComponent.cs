@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Enums;
@@ -19,14 +20,14 @@ namespace Oxide.Ext.UiFramework.UiElements;
 public abstract partial class BaseUiComponent : BasePoolable
 {
     [GenerateBuilderMethod]
-    public UiReference Reference { get; set; }
+    public UiReference Reference { [MethodImpl(MethodImplOptions.AggressiveInlining)] get; set; }
     [GenerateBuilderMethod]
-    public string Name { get => Reference.Name; set => Reference = Reference.WithName(value); }
+    public string Name { [MethodImpl(MethodImplOptions.AggressiveInlining)] get => Reference.Name; set => Reference = Reference.WithName(value); }
     [GenerateBuilderMethod]
-    public string Parent { get => Reference.Parent; set => Reference = Reference.WithParent(value); } 
+    public string Parent { [MethodImpl(MethodImplOptions.AggressiveInlining)] get => Reference.Parent; set => Reference = Reference.WithParent(value); }
     [GenerateBuilderMethod]
-    public UpdateMode Update { get; set; }
-    
+    public UpdateMode Update { [MethodImpl(MethodImplOptions.AggressiveInlining)] get; set; }
+
     [Tracked]
     [TrackedDefaults(typeof(JsonDefaults.Common), nameof(JsonDefaults.Common.FadeOut))]
     public partial float FadeOut { get; set; }

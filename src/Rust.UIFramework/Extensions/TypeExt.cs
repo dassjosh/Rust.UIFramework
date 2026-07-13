@@ -125,5 +125,8 @@ internal static class TypeExt
                     return false;
             }
         }
+
+        public bool IsUnsigned() => type == typeof(byte) || type == typeof(ushort) || type == typeof(uint) || type == typeof(ulong);
+        public bool IsSigned() => type == typeof(sbyte) || type == typeof(short) || type == typeof(int) || type == typeof(long);
     }
 }
