@@ -55,6 +55,13 @@ public partial class ButtonComponent
 		AllowRaycast = allowRaycast;
 		return this;
 	}
+
+	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+	public ButtonComponent SetInteractable(bool interactable)
+	{
+		Interactable = interactable;
+		return this;
+	}
 }
 
 

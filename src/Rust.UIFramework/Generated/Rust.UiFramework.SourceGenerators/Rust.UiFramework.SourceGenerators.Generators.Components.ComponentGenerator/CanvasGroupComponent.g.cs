@@ -10,7 +10,7 @@ public partial class CanvasGroupComponent : ICanvasGroupComponent
 {
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<float> AlphaTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.CanvasGroup.Alpha);
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<bool> AllowRaycastTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Common.AllowRaycast);
-	internal readonly Oxide.Ext.UiFramework.Types.Tracked<bool> InteractableTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.CanvasGroup.Interactable);
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<bool> InteractableTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Common.Interactable);
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Types.UiCanvasGroupFade> FadeTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.CanvasGroup.Fade);
 
 	public partial float Alpha

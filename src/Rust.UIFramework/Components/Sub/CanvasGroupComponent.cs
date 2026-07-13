@@ -15,7 +15,7 @@ public partial class CanvasGroupComponent : SubComponent
     [TrackedDefaults(typeof(JsonDefaults.Common), nameof(JsonDefaults.Common.AllowRaycast))]
     public partial bool AllowRaycast { get; set; }
 
-    [TrackedDefaults(typeof(JsonDefaults.CanvasGroup), nameof(JsonDefaults.CanvasGroup.Interactable))]
+    [TrackedDefaults(typeof(JsonDefaults.Common), nameof(JsonDefaults.Common.Interactable))]
     public partial bool Interactable { get; set; }
 
     [TrackedDefaults(typeof(JsonDefaults.CanvasGroup), nameof(JsonDefaults.CanvasGroup.Fade))]
@@ -29,7 +29,7 @@ public partial class CanvasGroupComponent : SubComponent
     {
         writer.AddField(JsonDefaults.CanvasGroup.AlphaName, AlphaTracked, mode);
         writer.AddField(JsonDefaults.Common.AllowRaycastName, AllowRaycastTracked, mode);
-        writer.AddField(JsonDefaults.CanvasGroup.InteractableName, InteractableTracked, mode);
+        writer.AddField(JsonDefaults.Common.InteractableName, InteractableTracked, mode);
         writer.AddField(JsonDefaults.CanvasGroup.FadeName, FadeTracked, mode);
     }
 }

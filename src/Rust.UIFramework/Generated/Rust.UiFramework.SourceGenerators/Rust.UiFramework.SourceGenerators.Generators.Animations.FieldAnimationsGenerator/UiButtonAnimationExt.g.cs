@@ -17,6 +17,7 @@ public static class UiButtonAnimationExt
 		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<string>> AnimateMaterial() => animation.AnimateField(static a => a.Button.MaterialTracked);
 		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<UnityEngine.UI.Image.Type>> AnimateImageType() => animation.AnimateField(static a => a.Button.ImageTypeTracked);
 		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<bool>> AnimateAllowRaycast() => animation.AnimateField(static a => a.Button.AllowRaycastTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<bool>> AnimateInteractable() => animation.AnimateField(static a => a.Button.InteractableTracked);
 	}
 }
 

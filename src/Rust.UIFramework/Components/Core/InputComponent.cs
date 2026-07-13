@@ -19,6 +19,8 @@ public partial class InputComponent : TextComponent
     [TrackedDefaults(typeof(JsonDefaults.Input), nameof(JsonDefaults.Input.LineType))]
     public partial InputField.LineType LineType { get; set; }
     public partial UiReference Placeholder { get; set; }
+    [TrackedDefaults(typeof(JsonDefaults.Common), nameof(JsonDefaults.Common.Interactable))]
+    public partial bool Interactable { get; set; }
     
     [GenerateBuilderMethod]
     public bool IsPassword { get => HasMode(InputMode.Password); set => SetMode(InputMode.Password, value); }
@@ -39,6 +41,7 @@ public partial class InputComponent : TextComponent
         base.WriteComponentFields(writer, mode);
         writer.AddField(JsonDefaults.Input.CharacterLimitName, CharsLimitTracked, mode);
         writer.AddField(JsonDefaults.Input.LineTypeName, LineTypeTracked, mode);
+        writer.AddField(JsonDefaults.Common.InteractableName, InteractableTracked, mode);
         if (mode == SerializeMode.Create)
         {
             writer.AddField(JsonDefaults.Input.PasswordName, IsPassword, false);

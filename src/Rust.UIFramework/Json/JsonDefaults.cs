@@ -39,6 +39,10 @@ public static class JsonDefaults
 
         public static readonly Utf8String AllowRaycastName = "blocksRaycast";
         public const bool AllowRaycast = true;
+
+        public static readonly Utf8String InteractableName = "interactable";
+        public const bool Interactable = true;
+
     }
 
     public static class RectTransform
@@ -426,12 +430,6 @@ public static class JsonDefaults
 
         public static readonly Utf8String AlphaName = "alpha";
         public const float Alpha = 1f;
-
-        public static readonly Utf8String BlocksRaycastsName = "blocksRaycasts";
-        public const bool BlocksRaycasts = true;
-
-        public static readonly Utf8String InteractableName = "interactable";
-        public const bool Interactable = true;
 
         public static readonly Utf8String FadeName = "fade";
         public static readonly UiCanvasGroupFade Fade = new(0, 1);

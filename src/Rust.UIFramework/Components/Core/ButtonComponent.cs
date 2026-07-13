@@ -22,6 +22,8 @@ public partial class ButtonComponent : CoreComponent, IGraphicalComponent
     public partial Image.Type ImageType { get; set; }
     [TrackedDefaults(typeof(JsonDefaults.Common), nameof(JsonDefaults.Common.AllowRaycast))]
     public partial bool AllowRaycast { get; set; }
+    [TrackedDefaults(typeof(JsonDefaults.Common), nameof(JsonDefaults.Common.Interactable))]
+    public partial bool Interactable { get; set; }
     public ButtonType ButtonType { get; set; }
     public ColorBlockComponent ColorBlock { get; private set; }
     public override Utf8String Type => JsonDefaults.Button.Type;
@@ -35,6 +37,7 @@ public partial class ButtonComponent : CoreComponent, IGraphicalComponent
         writer.AddField(JsonDefaults.Common.FadeInName, FadeInTracked, mode);
         writer.AddField(JsonDefaults.Image.ImageTypeName, ImageTypeTracked, mode);
         writer.AddField(JsonDefaults.Common.AllowRaycastName, AllowRaycastTracked, mode);
+        writer.AddField(JsonDefaults.Common.InteractableName, InteractableTracked, mode);
         switch (ButtonType)
         {
             case ButtonType.Command:
