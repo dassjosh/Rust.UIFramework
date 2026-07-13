@@ -260,4 +260,19 @@ public abstract partial class BaseUiBuilder
         return Component<T>(scroll).SetName(Singleton<ScrollViewContentCache>.Instance.GetContentName(scroll.Reference.Name)).SetUpdate(UpdateMode.Update);
     }
     #endregion
+
+    #region Canvas Group
+    public CanvasGroupComponent CanvasGroup(BaseUiComponent component, float alpha = 1f, bool allowRaycast = true, bool interactable = true, UiCanvasGroupFade? fade = null)
+    {
+        CanvasGroupComponent canvas = component.GetOrAddSubComponent<CanvasGroupComponent>();
+        canvas.Alpha = alpha;
+        canvas.AllowRaycast = allowRaycast;
+        canvas.Interactable = interactable;
+        if(fade.HasValue)
+        {
+            canvas.Fade = fade.Value;
+        }
+        return canvas;
+    }
+    #endregion
 }

@@ -25,6 +25,7 @@ public enum ComponentType : ushort
    GridLayout = 108,
    ContentSizeFitter = 109,
    LayoutElement = 110,
+   CanvasGroup = 111,
    
    ColorBlock = 1000,
    ScrollBar = 1001,

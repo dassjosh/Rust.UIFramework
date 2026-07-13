@@ -36,6 +36,9 @@ public static class JsonDefaults
         
         public static readonly UiPadding TextPadding = new(2, 0);
         public static readonly UiPadding Padding = new(2);
+
+        public static readonly Utf8String AllowRaycastName = "blocksRaycast";
+        public const bool AllowRaycast = true;
     }
 
     public static class RectTransform
@@ -415,5 +418,22 @@ public static class JsonDefaults
         
         public static readonly Utf8String IgnoreLayoutName = "ignoreLayout";
         public const bool IgnoreLayout = false;
+    }
+
+    public static class CanvasGroup
+    {
+        public static readonly Utf8String Type = "UnityEngine.UI.CanvasGroup";
+
+        public static readonly Utf8String AlphaName = "alpha";
+        public const float Alpha = 1f;
+
+        public static readonly Utf8String BlocksRaycastsName = "blocksRaycasts";
+        public const bool BlocksRaycasts = true;
+
+        public static readonly Utf8String InteractableName = "interactable";
+        public const bool Interactable = true;
+
+        public static readonly Utf8String FadeName = "fade";
+        public static readonly UiCanvasGroupFade Fade = new(0, 1);
     }
 }

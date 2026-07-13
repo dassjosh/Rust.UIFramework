@@ -10,10 +10,11 @@ public partial class ButtonComponent : IButtonComponent
 {
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<string> CommandTracked = new();
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> ColorTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Color.ColorValue);
-	internal readonly Oxide.Ext.UiFramework.Types.Tracked<float> FadeInTracked = new();
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<float> FadeInTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Common.FadeIn);
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<string> SpriteTracked = new();
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<string> MaterialTracked = new();
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.Image.Type> ImageTypeTracked = new();
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<bool> AllowRaycastTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Common.AllowRaycast);
 
 	public partial string Command
 	{
@@ -57,8 +58,15 @@ public partial class ButtonComponent : IButtonComponent
 		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 		set => ImageTypeTracked.Value = value;
 	}
+	public partial bool AllowRaycast
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => AllowRaycastTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => AllowRaycastTracked.Value = value;
+	}
 
-	public override bool HasChanged() => false || (CommandTracked.HasChanged || ColorTracked.HasChanged || FadeInTracked.HasChanged || SpriteTracked.HasChanged || MaterialTracked.HasChanged || ImageTypeTracked.HasChanged) || ((ColorBlock?.HasChanged() ?? false)) || base.HasChanged();
+	public override bool HasChanged() => false || (CommandTracked.HasChanged || ColorTracked.HasChanged || FadeInTracked.HasChanged || SpriteTracked.HasChanged || MaterialTracked.HasChanged || ImageTypeTracked.HasChanged || AllowRaycastTracked.HasChanged) || ((ColorBlock?.HasChanged() ?? false)) || base.HasChanged();
 
 	public override void ResetHasChanged()
 	{
@@ -69,6 +77,7 @@ public partial class ButtonComponent : IButtonComponent
 		SpriteTracked.ResetHasChanged();
 		MaterialTracked.ResetHasChanged();
 		ImageTypeTracked.ResetHasChanged();
+		AllowRaycastTracked.ResetHasChanged();
 		ColorBlock?.ResetHasChanged();
 	}
 
@@ -81,6 +90,7 @@ public partial class ButtonComponent : IButtonComponent
 		SpriteTracked.Reset();
 		MaterialTracked.Reset();
 		ImageTypeTracked.Reset();
+		AllowRaycastTracked.Reset();
 		ColorBlock?.TryDispose();
 		ColorBlock = null;
 	}

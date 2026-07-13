@@ -161,6 +161,7 @@ public class SymbolCache
         public readonly FrameworkSymbolCache UiBorderWidth = new("Types.UiBorderWidth");
         public readonly FrameworkSymbolCache UiPadding = new("Types.UiPadding");
         public readonly FrameworkSymbolCache UiColor = new("Colors.UiColor");
+        public readonly FrameworkSymbolCache UiCanvasGroupFade = new("Types.UiCanvasGroupFade");
 
         public TypesCache(Compilation compilation)
         {

@@ -133,6 +133,12 @@ public partial class JsonFrameworkWriter
 		WriteValue(value);
 	}
 
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, Oxide.Ext.UiFramework.Types.UiCanvasGroupFade value)
+	{
+		WritePropertyName(name);
+		WriteValue(value);
+	}
+
 	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, byte value, byte defaultValue)
 	{
 		if (value != defaultValue)
@@ -322,6 +328,15 @@ public partial class JsonFrameworkWriter
 		}
 	}
 
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, Oxide.Ext.UiFramework.Types.UiCanvasGroupFade value, Oxide.Ext.UiFramework.Types.UiCanvasGroupFade defaultValue)
+	{
+		if (value != defaultValue)
+		{
+		    WritePropertyName(name);
+		    WriteValue(value);
+		}
+	}
+
 	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, Oxide.Ext.UiFramework.Types.Tracked<byte> value, Oxide.Ext.UiFramework.Enums.SerializeMode mode)
 	{
 		if (value.ShouldSerialize(mode))
@@ -494,6 +509,15 @@ public partial class JsonFrameworkWriter
 	}
 
 	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Types.Utf8String> value, Oxide.Ext.UiFramework.Enums.SerializeMode mode)
+	{
+		if (value.ShouldSerialize(mode))
+		{
+		    WritePropertyName(name);
+		    WriteValue(value.Value);
+		}
+	}
+
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Types.UiCanvasGroupFade> value, Oxide.Ext.UiFramework.Enums.SerializeMode mode)
 	{
 		if (value.ShouldSerialize(mode))
 		{

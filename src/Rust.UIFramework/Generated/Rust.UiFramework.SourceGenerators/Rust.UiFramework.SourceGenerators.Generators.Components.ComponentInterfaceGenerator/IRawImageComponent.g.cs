@@ -12,12 +12,14 @@ public interface IRawImageComponent : IBaseTypedComponent
 	string Image { get; set; }
 	string Material { get; set; }
 	Oxide.Ext.UiFramework.UiElements.UiReference PlaceholderFor { get; set; }
+	bool AllowRaycast { get; set; }
 
 	Oxide.Ext.UiFramework.Components.RawImageComponent SetColor(Oxide.Ext.UiFramework.Colors.UiColor color);
 	Oxide.Ext.UiFramework.Components.RawImageComponent SetFadeIn(float fadeIn);
 	Oxide.Ext.UiFramework.Components.RawImageComponent SetImage(string image);
 	Oxide.Ext.UiFramework.Components.RawImageComponent SetMaterial(string material);
 	Oxide.Ext.UiFramework.Components.RawImageComponent SetPlaceholderFor(in Oxide.Ext.UiFramework.UiElements.UiReference placeholderFor);
+	Oxide.Ext.UiFramework.Components.RawImageComponent SetAllowRaycast(bool allowRaycast);
 }
 
 

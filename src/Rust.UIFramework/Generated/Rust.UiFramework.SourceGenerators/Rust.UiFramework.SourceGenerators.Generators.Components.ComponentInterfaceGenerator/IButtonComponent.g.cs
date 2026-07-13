@@ -13,6 +13,7 @@ public interface IButtonComponent : IBaseTypedComponent
 	string Sprite { get; set; }
 	string Material { get; set; }
 	UnityEngine.UI.Image.Type ImageType { get; set; }
+	bool AllowRaycast { get; set; }
 
 	Oxide.Ext.UiFramework.Components.ButtonComponent SetCommand(string command);
 	Oxide.Ext.UiFramework.Components.ButtonComponent SetColor(Oxide.Ext.UiFramework.Colors.UiColor color);
@@ -20,6 +21,7 @@ public interface IButtonComponent : IBaseTypedComponent
 	Oxide.Ext.UiFramework.Components.ButtonComponent SetSprite(string sprite);
 	Oxide.Ext.UiFramework.Components.ButtonComponent SetMaterial(string material);
 	Oxide.Ext.UiFramework.Components.ButtonComponent SetImageType(UnityEngine.UI.Image.Type imageType);
+	Oxide.Ext.UiFramework.Components.ButtonComponent SetAllowRaycast(bool allowRaycast);
 }
 
 

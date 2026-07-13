@@ -406,6 +406,15 @@ public sealed partial class JsonFrameworkWriter : BasePoolable
         _writer.Write(border.Top);
         _writer.WriteChar(QuoteChar);
     }
+
+    public void WriteValue(UiCanvasGroupFade fade)
+    {
+        _writer.WriteChar(QuoteChar);
+        _writer.Write(fade.ToAlpha);
+        _writer.WriteChar(Space);
+        _writer.Write(fade.Duration);
+        _writer.WriteChar(QuoteChar);
+    }
     
     public void WriteEmptyString()
     {

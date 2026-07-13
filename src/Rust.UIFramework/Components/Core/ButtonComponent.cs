@@ -15,11 +15,14 @@ public partial class ButtonComponent : CoreComponent, IGraphicalComponent
     public partial string Command { get; set; }
     [TrackedDefaults(typeof(JsonDefaults.Color), nameof(JsonDefaults.Color.ColorValue))]
     public partial UiColor Color { get; set; }
+    [TrackedDefaults(typeof(JsonDefaults.Common), nameof(JsonDefaults.Common.FadeIn))]
     public partial float FadeIn { get; set; }
     public partial string Sprite { get; set; }
     public partial string Material { get; set; }
     public partial Image.Type ImageType { get; set; }
-    public ButtonType ButtonType;
+    [TrackedDefaults(typeof(JsonDefaults.Common), nameof(JsonDefaults.Common.AllowRaycast))]
+    public partial bool AllowRaycast { get; set; }
+    public ButtonType ButtonType { get; set; }
     public ColorBlockComponent ColorBlock { get; private set; }
     public override Utf8String Type => JsonDefaults.Button.Type;
     public override ComponentType ComponentType => ComponentType.Button;
@@ -31,6 +34,7 @@ public partial class ButtonComponent : CoreComponent, IGraphicalComponent
         writer.AddField(JsonDefaults.Color.ColorName, ColorTracked, mode);
         writer.AddField(JsonDefaults.Common.FadeInName, FadeInTracked, mode);
         writer.AddField(JsonDefaults.Image.ImageTypeName, ImageTypeTracked, mode);
+        writer.AddField(JsonDefaults.Common.AllowRaycastName, AllowRaycastTracked, mode);
         switch (ButtonType)
         {
             case ButtonType.Command:

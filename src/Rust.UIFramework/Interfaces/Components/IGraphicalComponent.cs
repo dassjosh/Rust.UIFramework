@@ -3,4 +3,5 @@
 public interface IGraphicalComponent
 {
     float FadeIn { get; set; }
+    bool AllowRaycast { get; set; }
 }
