@@ -16,6 +16,7 @@ public static partial class ImageComponentAnimationExt
 		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<UnityEngine.UI.Image.Type>> AnimateImageType() => animation.AnimateField(static a => a.ImageTypeTracked);
 		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<Oxide.Ext.UiFramework.UiElements.UiReference>> AnimatePlaceholderFor() => animation.AnimateField(static a => a.PlaceholderForTracked);
 		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<bool>> AnimateFillCenter() => animation.AnimateField(static a => a.FillCenterTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<float>> AnimatePixelPerUnitMultiplier() => animation.AnimateField(static a => a.PixelPerUnitMultiplierTracked);
 		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<string>> AnimatePng() => animation.AnimateField(static a => a.PngTracked);
 	}
 }

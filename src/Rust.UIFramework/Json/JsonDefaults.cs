@@ -134,6 +134,9 @@ public static class JsonDefaults
         
         public static readonly Utf8String SliceName = "slice";
         public static readonly UiBorderWidth Slice = UiBorderWidth.Empty;
+
+        public static readonly Utf8String PixelPerUnitMultiplierName = "ppuMultiplier";
+        public const float PixelPerUnitMultiplier = 1f;
     }
 
     public static class ItemIcon

@@ -14,6 +14,7 @@ public interface IImageComponent : IBaseTypedComponent
 	UnityEngine.UI.Image.Type ImageType { get; set; }
 	Oxide.Ext.UiFramework.UiElements.UiReference PlaceholderFor { get; set; }
 	bool FillCenter { get; set; }
+	float PixelPerUnitMultiplier { get; set; }
 	string Png { get; set; }
 
 	Oxide.Ext.UiFramework.Components.ImageComponent SetColor(Oxide.Ext.UiFramework.Colors.UiColor color);
@@ -23,6 +24,7 @@ public interface IImageComponent : IBaseTypedComponent
 	Oxide.Ext.UiFramework.Components.ImageComponent SetImageType(UnityEngine.UI.Image.Type imageType);
 	Oxide.Ext.UiFramework.Components.ImageComponent SetPlaceholderFor(in Oxide.Ext.UiFramework.UiElements.UiReference placeholderFor);
 	Oxide.Ext.UiFramework.Components.ImageComponent SetFillCenter(bool fillCenter);
+	Oxide.Ext.UiFramework.Components.ImageComponent SetPixelPerUnitMultiplier(float pixelPerUnitMultiplier);
 	Oxide.Ext.UiFramework.Components.ImageComponent SetPng(string png);
 }
 
