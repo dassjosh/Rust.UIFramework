@@ -1,8 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Facepunch;
 using Network;
 using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Json;
+using ProtoBuf;
 
 namespace Oxide.Ext.UiFramework.Helpers;
 
@@ -10,10 +11,12 @@ public static class RpcFunctions
 {
     private const string AddUiFunc = "AddUI";
     private const string DestroyUiFunc = "DestroyUI";
+    private const string DestroyUisFunc = "DestroyUIs";
     private const string ReceiveFilePngFunc = "CL_ReceiveFilePng";
     
     public static readonly uint AddUi = StringPool.Get(AddUiFunc);
     public static readonly uint DestroyUi = StringPool.Get(DestroyUiFunc);
+    public static readonly uint DestroyUis = StringPool.Get(DestroyUisFunc);
     public static readonly uint ReceiveFilePng = StringPool.Get(ReceiveFilePngFunc);
 
     public static void SendAddUi(SendInfo send, JsonFrameworkWriter writer)
@@ -58,10 +61,13 @@ public static class RpcFunctions
 
     public static void SendDestroyUis(SendInfo send, List<string> names)
     {
-        NetWrite write = ClientRPCStart(DestroyUi);
+        NetWrite write = ClientRPCStart(DestroyUis);
         if (write != null)
         {
-            //write.String(name); //TODO: Implement once available
+            using CommunityEntity_DestroyUIs destroyUi = Pool.Get<CommunityEntity_DestroyUIs>();
+            destroyUi.list = Pool.Get<List<string>>();
+            destroyUi.list.AddRange(names);
+            write.Proto(destroyUi);
             write.Send(send);
         }
     }
