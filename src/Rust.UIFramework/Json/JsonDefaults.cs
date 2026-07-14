@@ -458,6 +458,9 @@ public static class JsonDefaults
         public static readonly Utf8String TextName = "text";
         public const string Text = null;
 
+        public static readonly Utf8String TooltipTypeName = "tooltipType";
+        public const CommunityEntity.TooltipType TooltipType = CommunityEntity.TooltipType.Default;
+
         public static readonly Utf8String DelayName = "delay";
         public const Tooltip.DelayType Delay = Tooltip.DelayType.Short;
 

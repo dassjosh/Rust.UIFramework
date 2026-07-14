@@ -13,6 +13,9 @@ public partial class TooltipComponent : SubComponent
     [TrackedDefaults(typeof(JsonDefaults.ToolTip), nameof(JsonDefaults.ToolTip.Text))]
     public partial string Text { get; set; }
 
+    [TrackedDefaults(typeof(JsonDefaults.ToolTip), nameof(JsonDefaults.ToolTip.TooltipType))]
+    public partial CommunityEntity.TooltipType TooltipType { get; set; }
+
     [TrackedDefaults(typeof(JsonDefaults.ToolTip), nameof(JsonDefaults.ToolTip.Delay))]
     public partial Tooltip.DelayType Delay { get; set; }
 
@@ -32,6 +35,7 @@ public partial class TooltipComponent : SubComponent
     protected override void WriteComponentFields(JsonFrameworkWriter writer, SerializeMode mode)
     {
         writer.AddField(JsonDefaults.ToolTip.TextName, TextTracked, mode);
+        writer.AddField(JsonDefaults.ToolTip.TooltipTypeName, TooltipTypeTracked, mode);
         writer.AddField(JsonDefaults.ToolTip.DelayName, DelayTracked, mode);
         writer.AddField(JsonDefaults.ToolTip.PositionName, PositionTracked, mode);
         writer.AddField(JsonDefaults.ToolTip.OffsetName, OffsetTracked, mode);
