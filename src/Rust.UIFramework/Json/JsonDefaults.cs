@@ -255,6 +255,9 @@ public static class JsonDefaults
         public static readonly UiColor HighlightColor = UiColor.ParseHexColor("#2B2B2B");
         public static readonly UiColor PressedColor = UiColor.ParseHexColor("#333333");
         public static readonly UiColor TrackColor = UiColor.ParseHexColor("#171717");
+
+        public static readonly Utf8String FadeDurationName = "fadeDuration";
+        public const float FadeDuration = 0.1f;
     }
 
     public static class ColorBlock

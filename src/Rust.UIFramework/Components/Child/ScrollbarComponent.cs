@@ -32,6 +32,9 @@ public partial class ScrollbarComponent : ChildComponent
     
     [TrackedDefaults(typeof(JsonDefaults.ScrollBar), nameof(JsonDefaults.ScrollBar.TrackColor))]
     public partial UiColor TrackColor { get; set; }
+
+    [TrackedDefaults(typeof(JsonDefaults.ScrollBar), nameof(JsonDefaults.ScrollBar.FadeDuration))]
+    public partial float FadeDuration { get; set; }
     
     public override ComponentType ComponentType => ComponentType.ScrollBar;
 
@@ -47,6 +50,7 @@ public partial class ScrollbarComponent : ChildComponent
         writer.AddField(JsonDefaults.ScrollBar.HighlightColorName, HighlightColorTracked, mode);
         writer.AddField(JsonDefaults.ScrollBar.PressedColorName, PressedColorTracked, mode);
         writer.AddField(JsonDefaults.ScrollBar.TrackColorName, TrackColorTracked, mode);
+        writer.AddField(JsonDefaults.ScrollBar.FadeDurationName, FadeDurationTracked, mode);
         writer.WriteEndObject();
     }
 }
