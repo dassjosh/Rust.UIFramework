@@ -113,6 +113,31 @@ internal class AnimationTracker : ISingleton
             UiPool.Internal.FreeList(playerPanels);
         }
     }
+
+    public void RemoveUiForSend(SendInfo send, List<string> names)
+    {
+        if (send.connections == null)
+        {
+            for (int index = 0; index < names.Count; index++)
+            {
+                string name = names[index];
+                RemoveUiForSend(send.connection.userid, name);
+            }
+
+            return;
+        }
+
+        List<Connection> connections = send.connections;
+        for (int connectionIndex = 0; connectionIndex < connections.Count; connectionIndex++)
+        {
+            Connection connection = connections[connectionIndex];
+            for (int index = 0; index < names.Count; index++)
+            {
+                string name = names[index];
+                RemoveUiForSend(connection.userid, name);
+            }
+        }
+    }
     
     public void RemoveUiForSend(SendInfo send, string name)
     {

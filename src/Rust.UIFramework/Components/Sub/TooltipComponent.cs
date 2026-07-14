@@ -1,6 +1,5 @@
 ﻿using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Json;
-using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Types;
 using Rust.UiFramework.SourceGenerators.Attributes;
 using UnityEngine;

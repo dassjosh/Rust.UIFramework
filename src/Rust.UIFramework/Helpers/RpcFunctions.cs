@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Network;
 using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Json;
@@ -51,6 +52,16 @@ public static class RpcFunctions
         if (write != null)
         {
             write.String(name);
+            write.Send(send);
+        }
+    }
+
+    public static void SendDestroyUis(SendInfo send, List<string> names)
+    {
+        NetWrite write = ClientRPCStart(DestroyUi);
+        if (write != null)
+        {
+            //write.String(name); //TODO: Implement once available
             write.Send(send);
         }
     }

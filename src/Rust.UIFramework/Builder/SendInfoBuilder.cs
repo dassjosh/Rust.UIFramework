@@ -2,6 +2,7 @@
 using System.Runtime.CompilerServices;
 using Network;
 using Oxide.Ext.UiFramework.Animation;
+using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Guards;
 using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Types;
@@ -45,30 +46,7 @@ internal static class SendInfoBuilder
     internal static SendInfo Get(IEnumerable<Connection> connections)
     {
         Guard.IsNotNull(connections);
-        List<Connection> pooledConnection = UiPool.Internal.GetList<Connection>();
-        if (connections is IList<Connection> list)
-        {
-            //Fast Path
-            for (int index = 0; index < list.Count; index++)
-            {
-                Connection connection = list[index];
-                if(connection is { connected: true })
-                {
-                    pooledConnection.Add(connection);
-                }
-            }
-        }
-        else
-        {
-            foreach (Connection connection in connections)
-            {
-                if (connection is { connected: true })
-                {
-                    pooledConnection.Add(connection);
-                }
-            }
-        }
-        
+        List<Connection> pooledConnection = connections.ToListPooled(UiPool.Internal);
         return new SendInfo(pooledConnection)
         {
             channel = UiChannel
