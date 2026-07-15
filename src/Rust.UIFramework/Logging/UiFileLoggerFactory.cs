@@ -20,7 +20,7 @@ internal sealed class UiFileLoggerFactory : ISingleton
         _writerThread = new Thread(WriteLogThread)
         {
             IsBackground = true,
-            Name = nameof(UiFileLogger)
+            Name = $"{UiFrameworkExtension.Instance.Name} {nameof(UiFileLogger)}"
         };
         _writerThread.Start();
     }
