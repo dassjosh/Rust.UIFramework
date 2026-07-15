@@ -13,11 +13,13 @@ public static class RpcFunctions
     private const string DestroyUiFunc = "DestroyUI";
     private const string DestroyUisFunc = "DestroyUIs";
     private const string ReceiveFilePngFunc = "CL_ReceiveFilePng";
-    
+    private const string OpenPieFunc = "OpenPie";
+
     public static readonly uint AddUi = StringPool.Get(AddUiFunc);
     public static readonly uint DestroyUi = StringPool.Get(DestroyUiFunc);
     public static readonly uint DestroyUis = StringPool.Get(DestroyUisFunc);
     public static readonly uint ReceiveFilePng = StringPool.Get(ReceiveFilePngFunc);
+    public static readonly uint OpenPie = StringPool.Get(OpenPieFunc);
 
     public static void SendAddUi(SendInfo send, JsonFrameworkWriter writer)
     {
@@ -79,6 +81,26 @@ public static class RpcFunctions
         {
             write.UInt32(textureId);
             write.BytesWithSizeCustom(bytes);
+            write.Send(send);
+        }
+    }
+
+    public static void SendPieMenu(SendInfo send, CustomPie pie)
+    {
+        NetWrite write = ClientRPCStart(OpenPie);
+        if (write != null)
+        {
+            write.Proto(pie);
+            write.Send(send);
+        }
+    }
+
+    public static void SendPieMenu(SendInfo send, byte[] pie)
+    {
+        NetWrite write = ClientRPCStart(OpenPie);
+        if (write != null)
+        {
+            write.BytesCustom(pie);
             write.Send(send);
         }
     }
