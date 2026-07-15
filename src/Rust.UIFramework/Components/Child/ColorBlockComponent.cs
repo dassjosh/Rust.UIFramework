@@ -17,6 +17,9 @@ public partial class ColorBlockComponent : ChildComponent
     
     [TrackedDefaults(typeof(JsonDefaults.ColorBlock), nameof(JsonDefaults.ColorBlock.SelectedColor))]
     public partial UiColor SelectedColor { get; set; }
+
+    [TrackedDefaults(typeof(JsonDefaults.ColorBlock), nameof(JsonDefaults.ColorBlock.DisabledColor))]
+    public partial UiColor DisabledColor { get; set; }
     
     [TrackedDefaults(typeof(JsonDefaults.ColorBlock), nameof(JsonDefaults.ColorBlock.ColorMultiplier))]
     public partial float ColorMultiplier { get; set; }
@@ -29,12 +32,14 @@ public partial class ColorBlockComponent : ChildComponent
     public static readonly UiColor DefaultHighlightedColor = JsonDefaults.ColorBlock.HighlightedColor;
     public static readonly UiColor DefaultPressedColor = JsonDefaults.ColorBlock.PressedColor;
     public static readonly UiColor DefaultSelectedColor = JsonDefaults.ColorBlock.SelectedColor;
+    public static readonly UiColor DefaultDisabledColor = JsonDefaults.ColorBlock.DisabledColor;
 
     public override void WriteComponent(JsonFrameworkWriter writer, SerializeMode mode)
     {
         writer.AddField(JsonDefaults.ColorBlock.HighlightedColorName, HighlightedColorTracked, mode);
         writer.AddField(JsonDefaults.ColorBlock.PressedColorName, PressedColorTracked, mode);
         writer.AddField(JsonDefaults.ColorBlock.SelectedColorName, SelectedColorTracked, mode);
+        writer.AddField(JsonDefaults.ColorBlock.DisabledColorName, DisabledColorTracked, mode);
         writer.AddField(JsonDefaults.ColorBlock.ColorMultiplierName, ColorMultiplierTracked, mode);
         writer.AddField(JsonDefaults.ColorBlock.FadeDurationName, FadeDurationTracked, mode);
     }

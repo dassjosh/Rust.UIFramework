@@ -8,9 +8,9 @@ namespace Oxide.Ext.UiFramework.Builder;
 public abstract partial class BaseUiBuilder
 {
     #region ColorBlock
-    public ColorBlockComponent ColorBlock(UiButton button, in UiColor? highlightColor = null, in UiColor? pressedColor = null, in UiColor? selectedColor = null, in float? colorMultiplier = null, in float? fadeDuration = null)
+    public ColorBlockComponent ColorBlock(UiButton button, in UiColor? highlightColor = null, in UiColor? pressedColor = null, in UiColor? selectedColor = null, in UiColor? disabledColor = null, in float? colorMultiplier = null, in float? fadeDuration = null)
     {
-        return button.AddColorBlock(highlightColor, pressedColor, selectedColor, colorMultiplier, fadeDuration);
+        return button.AddColorBlock(highlightColor, pressedColor, selectedColor, disabledColor, colorMultiplier, fadeDuration);
     }
     #endregion
 

@@ -29,6 +29,13 @@ public partial class ColorBlockComponent
 	}
 
 	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+	public ColorBlockComponent SetDisabledColor(Oxide.Ext.UiFramework.Colors.UiColor disabledColor)
+	{
+		DisabledColor = disabledColor;
+		return this;
+	}
+
+	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 	public ColorBlockComponent SetColorMultiplier(float colorMultiplier)
 	{
 		ColorMultiplier = colorMultiplier;

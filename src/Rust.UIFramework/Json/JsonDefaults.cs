@@ -270,6 +270,9 @@ public static class JsonDefaults
         
         public static readonly Utf8String SelectedColorName = "selectedColor";
         public static readonly UiColor SelectedColor = UiColor.ParseHexColor("#F5F5F5FF");
+
+        public static readonly Utf8String DisabledColorName = "selectedColor";
+        public static readonly UiColor DisabledColor = UiColor.ParseHexColor("##808080FF");
         
         public static readonly Utf8String ColorMultiplierName = "colorMultiplier";
         public const float ColorMultiplier = 1f;
