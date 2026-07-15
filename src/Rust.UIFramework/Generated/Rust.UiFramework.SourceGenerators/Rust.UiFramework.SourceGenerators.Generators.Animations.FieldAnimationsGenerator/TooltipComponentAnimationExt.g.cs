@@ -10,6 +10,7 @@ public static partial class TooltipComponentAnimationExt
 	extension(Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IComponentAnimation<Oxide.Ext.UiFramework.Components.TooltipComponent>> animation)
 	{
 		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<string>> AnimateText() => animation.AnimateField(static a => a.TextTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<CommunityEntity.TooltipType>> AnimateTooltipType() => animation.AnimateField(static a => a.TooltipTypeTracked);
 		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<Tooltip.DelayType>> AnimateDelay() => animation.AnimateField(static a => a.DelayTracked);
 		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<TooltipContainer.PositionMode>> AnimatePosition() => animation.AnimateField(static a => a.PositionTracked);
 		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<UnityEngine.Vector2>> AnimateOffset() => animation.AnimateField(static a => a.OffsetTracked);

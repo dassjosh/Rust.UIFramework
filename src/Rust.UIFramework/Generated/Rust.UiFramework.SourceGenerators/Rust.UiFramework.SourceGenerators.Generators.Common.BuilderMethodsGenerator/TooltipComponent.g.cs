@@ -15,6 +15,13 @@ public partial class TooltipComponent
 	}
 
 	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+	public TooltipComponent SetTooltipType(CommunityEntity.TooltipType tooltipType)
+	{
+		TooltipType = tooltipType;
+		return this;
+	}
+
+	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 	public TooltipComponent SetDelay(Tooltip.DelayType delay)
 	{
 		Delay = delay;

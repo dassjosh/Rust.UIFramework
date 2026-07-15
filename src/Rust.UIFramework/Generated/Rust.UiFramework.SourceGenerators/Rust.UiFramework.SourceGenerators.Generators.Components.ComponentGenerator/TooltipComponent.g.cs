@@ -9,6 +9,7 @@ namespace Oxide.Ext.UiFramework.Components;
 public partial class TooltipComponent : ITooltipComponent
 {
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<string> TextTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ToolTip.Text);
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<CommunityEntity.TooltipType> TooltipTypeTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ToolTip.TooltipType);
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<Tooltip.DelayType> DelayTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ToolTip.Delay);
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<TooltipContainer.PositionMode> PositionTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ToolTip.Position);
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.Vector2> OffsetTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ToolTip.Offset);
@@ -20,6 +21,13 @@ public partial class TooltipComponent : ITooltipComponent
 		get => TextTracked.Value;
 		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 		set => TextTracked.Value = value;
+	}
+	public partial CommunityEntity.TooltipType TooltipType
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => TooltipTypeTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => TooltipTypeTracked.Value = value;
 	}
 	public partial Tooltip.DelayType Delay
 	{
@@ -50,12 +58,13 @@ public partial class TooltipComponent : ITooltipComponent
 		set => UseCenterTracked.Value = value;
 	}
 
-	public override bool HasChanged() => false || (TextTracked.HasChanged || DelayTracked.HasChanged || PositionTracked.HasChanged || OffsetTracked.HasChanged || UseCenterTracked.HasChanged) || base.HasChanged();
+	public override bool HasChanged() => false || (TextTracked.HasChanged || TooltipTypeTracked.HasChanged || DelayTracked.HasChanged || PositionTracked.HasChanged || OffsetTracked.HasChanged || UseCenterTracked.HasChanged) || base.HasChanged();
 
 	public override void ResetHasChanged()
 	{
 		base.ResetHasChanged();
 		TextTracked.ResetHasChanged();
+		TooltipTypeTracked.ResetHasChanged();
 		DelayTracked.ResetHasChanged();
 		PositionTracked.ResetHasChanged();
 		OffsetTracked.ResetHasChanged();
@@ -66,6 +75,7 @@ public partial class TooltipComponent : ITooltipComponent
 	{
 		base.Reset();
 		TextTracked.Reset();
+		TooltipTypeTracked.Reset();
 		DelayTracked.Reset();
 		PositionTracked.Reset();
 		OffsetTracked.Reset();

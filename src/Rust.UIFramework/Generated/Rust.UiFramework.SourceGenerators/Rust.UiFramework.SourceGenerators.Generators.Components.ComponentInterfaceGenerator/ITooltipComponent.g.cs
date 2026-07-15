@@ -8,12 +8,14 @@ namespace Oxide.Ext.UiFramework.Interfaces;
 public interface ITooltipComponent : IBaseTypedComponent
 {
 	string Text { get; set; }
+	CommunityEntity.TooltipType TooltipType { get; set; }
 	Tooltip.DelayType Delay { get; set; }
 	TooltipContainer.PositionMode Position { get; set; }
 	UnityEngine.Vector2 Offset { get; set; }
 	bool UseCenter { get; set; }
 
 	Oxide.Ext.UiFramework.Components.TooltipComponent SetText(string text);
+	Oxide.Ext.UiFramework.Components.TooltipComponent SetTooltipType(CommunityEntity.TooltipType tooltipType);
 	Oxide.Ext.UiFramework.Components.TooltipComponent SetDelay(Tooltip.DelayType delay);
 	Oxide.Ext.UiFramework.Components.TooltipComponent SetPosition(TooltipContainer.PositionMode position);
 	Oxide.Ext.UiFramework.Components.TooltipComponent SetOffset(UnityEngine.Vector2 offset);
