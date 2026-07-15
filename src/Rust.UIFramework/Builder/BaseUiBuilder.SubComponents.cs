@@ -280,17 +280,6 @@ public abstract partial class BaseUiBuilder
     #endregion
 
     #region Rect Mask 2D
-    public RectMask2DComponent RectMask2D(BaseUiComponent component) => SubComponent<RectMask2DComponent>(component);
-
-    public RectMask2DComponent RectMask2D(BaseUiComponent component, UiPadding padding)
-    {
-        RectMask2DComponent mask = RectMask2D(component);
-        mask.Padding = padding;
-        return mask;
-    }
-    #endregion
-
-    #region Rect Mask 2D
     public MaskComponent Mask(BaseUiComponent component) => SubComponent<MaskComponent>(component);
 
     public MaskComponent Mask(BaseUiComponent component, bool showMaskGraphic)
