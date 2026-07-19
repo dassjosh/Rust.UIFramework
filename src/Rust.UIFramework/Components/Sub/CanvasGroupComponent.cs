@@ -21,7 +21,7 @@ public partial class CanvasGroupComponent : SubComponent
     [TrackedDefaults(typeof(JsonDefaults.CanvasGroup), nameof(JsonDefaults.CanvasGroup.Fade))]
     public partial UiCanvasGroupFade Fade { get; set; }
     
-    public override Utf8String Type => JsonDefaults.Slot.Type;
+    public override Utf8String Type => JsonDefaults.CanvasGroup.Type;
     public override ComponentType ComponentType => ComponentType.CanvasGroup;
     public override bool AllowMultiple => false;
 
