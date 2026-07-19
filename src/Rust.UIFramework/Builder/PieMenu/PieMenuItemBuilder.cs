@@ -7,123 +7,136 @@ namespace Oxide.Ext.UiFramework.Builder;
 
 public class PieMenuItemBuilder : BasePoolable
 {
-    public string Name;
-    public string Description;
-    public string Command;
-    public string Image;
-    public bool Disabled;
-    public bool Selected;
-    public int Order;
-    public PieMenu.MenuOption.ColorMode.PieMenuSpriteColorOption ColorMode;
-    public UiColor Color;
-    public string NextCommand;
-    public string PrevCommand;
-    public string DisabledCommand;
+    private string _name;
+    private string _description;
+    private string _command;
+    private string _image;
+    private bool _disabled;
+    private bool _selected;
+    private int _order;
+    private PieMenu.MenuOption.ColorMode.PieMenuSpriteColorOption _colorMode;
+    private UiColor _color;
+    private string _nextCommand;
+    private string _prevCommand;
+    private string _disabledCommand;
 
     public static PieMenuItemBuilder Create(IUiFrameworkPlugin plugin) => plugin.PluginPool.Get<PieMenuItemBuilder>().Init();
 
-    public PieMenuItemBuilder Init()
-    {
-        return this;
-    }
+    public PieMenuItemBuilder Init() => this;
 
     public PieMenuItemBuilder SetName(string name)
     {
-        Name = name;
+        _name = name;
         return this;
     }
 
     public PieMenuItemBuilder SetDescription(string description)
     {
-        Description = description;
+        _description = description;
         return this;
     }
 
     public PieMenuItemBuilder SetCommand(string command)
     {
-        Command = command;
+        _command = command;
         return this;
     }
 
     public PieMenuItemBuilder SetImage(string image)
     {
-        Image = image;
+        _image = image;
         return this;
     }
 
     public PieMenuItemBuilder SetDisabled(bool disabled)
     {
-        Disabled = disabled;
+        _disabled = disabled;
         return this;
     }
 
     public PieMenuItemBuilder SetSelected(bool selected)
     {
-        Selected = selected;
+        _selected = selected;
         return this;
     }
 
     public PieMenuItemBuilder SetOrder(int order)
     {
-        Order = order;
+        _order = order;
         return this;
     }
 
     public PieMenuItemBuilder SetColorMode(PieMenu.MenuOption.ColorMode.PieMenuSpriteColorOption colorMode)
     {
-        ColorMode = colorMode;
+        _colorMode = colorMode;
         return this;
     }
 
     public PieMenuItemBuilder SetColor(UiColor color)
     {
-        Color = color;
+        _color = color;
         return this;
     }
 
     public PieMenuItemBuilder SetNextCommand(string command)
     {
-        NextCommand = command;
+        _nextCommand = command;
         return this;
     }
 
     public PieMenuItemBuilder SetPreviousCommand(string command)
     {
-        PrevCommand = command;
+        _prevCommand = command;
         return this;
     }
 
     public PieMenuItemBuilder SetDisabledCommand(string command)
     {
-        DisabledCommand = command;
+        _disabledCommand = command;
         return this;
     }
 
     public CustomPieMenu Build()
     {
         CustomPieMenu menu = Facepunch.Pool.Get<CustomPieMenu>();
-        menu.name = Name;
-        menu.description = Description;
-        menu.command = Command;
-        menu.disabled = Disabled;
-        menu.selected = Selected;
-        menu.order = Order;
-        menu.colorMode = (int)ColorMode;
-        menu.color = Color;
-        menu.nextCommand = NextCommand;
-        menu.prevCommand = PrevCommand;
-        menu.disabledCommand = DisabledCommand;
-        if (!string.IsNullOrEmpty(Image))
+        menu.name = _name;
+        menu.description = _description;
+        menu.command = _command;
+        menu.disabled = _disabled;
+        menu.selected = _selected;
+        menu.order = _order;
+        menu.colorMode = (int)_colorMode;
+        menu.color = _color;
+        menu.nextCommand = _nextCommand;
+        menu.prevCommand = _prevCommand;
+        menu.disabledCommand = _disabledCommand;
+        if (!string.IsNullOrEmpty(_image))
         {
-            if (uint.TryParse(Image, out uint imageId))
+            if (uint.TryParse(_image, out uint imageId))
             {
                 menu.imageId = imageId;
             }
             else
             {
-                menu.sprite = Image;
+                menu.sprite = _image;
             }
         }
         return menu;
+    }
+
+    protected override void EnterPool()
+    {
+        _name = null;
+        _description = null;
+        _command = null;
+        _image = null;
+        _disabled = false;
+        _selected = false;
+        _order = 0;
+        _colorMode = PieMenu.MenuOption.ColorMode.PieMenuSpriteColorOption.CustomColor;
+        _color = UiColors.Clear;
+        _nextCommand = null;
+        _prevCommand = null;
+        _disabledCommand = null;
     }
 }
