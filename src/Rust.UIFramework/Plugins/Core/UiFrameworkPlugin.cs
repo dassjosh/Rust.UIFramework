@@ -40,7 +40,6 @@ internal class UiFrameworkPlugin : BaseUiFrameworkPlugin, IUiFrameworkCorePlugin
     {
 #if SERVER
         AddCovalenceCommand(["uif.version"], nameof(VersionCommand), "uif.version");
-        AddCovalenceCommand(["uif.harmony.oxide.addui"], nameof(HarmonyAddUiPatch), "uif.harmony.oxide.addui");
 
         foreach (KeyValuePair<string, Dictionary<string, string>> language in Localization.Languages)
         {
@@ -186,33 +185,6 @@ internal class UiFrameworkPlugin : BaseUiFrameworkPlugin, IUiFrameworkCorePlugin
     private void VersionCommand(IPlayer player)
     {
         Chat(player, LangKeys.Version, UiFrameworkExtension.Instance.Version);
-    }
-    
-    [HookMethod(nameof(HarmonyAddUiPatch))]
-    private void HarmonyAddUiPatch(IPlayer player, string cmd, string[] args)
-    {
-        if (args.Length == 0)
-        {
-            Chat(player, LangKeys.Harmony.Patch.AddUi.Show, GetLang(UiFrameworkConfig.Instance.Harmony.PatchAddUiMethod ? LangKeys.Enabled : LangKeys.Disabled));
-            return;
-        }
-
-        if (!args[0].TryParseBool(out bool state))
-        {
-            Chat(player, LangKeys.Harmony.Patch.AddUi.InvalidArg, args[0]);
-            return;
-        }
-        
-        if (state == UiFrameworkConfig.Instance.Harmony.PatchAddUiMethod)
-        {
-            Chat(player, LangKeys.Harmony.Patch.AddUi.Show, GetLang(state ? LangKeys.Enabled : LangKeys.Disabled));
-            return;
-        }
-            
-        UiFrameworkConfig.Instance.Harmony.PatchAddUiMethod = state;
-        CuiHelper_AddUi_Patch.ToggleState(state);
-        Chat(player, LangKeys.Harmony.Patch.AddUi.Set, GetLang(state ? LangKeys.Enabled : LangKeys.Disabled));
-        UiFrameworkConfig.Instance.OnDataChanged();
     }
     
     [HookMethod(nameof(SetAnimationEnabled))]

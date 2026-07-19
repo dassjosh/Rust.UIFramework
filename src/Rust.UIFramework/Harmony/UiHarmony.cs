@@ -13,6 +13,6 @@ internal static class UiHarmony
     
     internal static void Initialize()
     {
-        CuiHelper_AddUi_Patch.Patch();
+
     }
 }
