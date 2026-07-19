@@ -1,4 +1,5 @@
 ﻿{
+  "AllowRaycast": false,
   "Color": "#FF0000FF",
   "ComponentType": "ItemIcon",
   "Enabled": true,
@@ -7,6 +8,7 @@
   "ImageType": "Sliced",
   "ItemId": 123,
   "Material": "assets/icons/iconmaterial.mat",
+  "PixelPerUnitMultiplier": 2.0,
   "PlaceholderFor": "parent:name",
   "Png": "png",
   "SkinId": 34621422135410688,

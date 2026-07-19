@@ -27,6 +27,7 @@ public class UiButtonTests() : BaseTheoryUiElementsTests<UiButton, UiButtonTests
         HighlightedColor = UiColors.Blue,
         PressedColor = UiColors.Orange,
         SelectedColor = UiColors.Green,
+        DisabledColor = UiColors.Magenta,
         ColorMultiplier = 2f,
         FadeDuration = 3f
     };
@@ -69,7 +70,7 @@ public class UiButtonTests() : BaseTheoryUiElementsTests<UiButton, UiButtonTests
         button.ButtonType = row.ButtonType;
         if(row.AddColorBlock)
         {
-            button.AddColorBlock(ColorBlock.HighlightedColor, ColorBlock.PressedColor, ColorBlock.SelectedColor, ColorBlock.ColorMultiplier, ColorBlock.FadeDuration);
+            button.AddColorBlock(ColorBlock.HighlightedColor, ColorBlock.PressedColor, ColorBlock.SelectedColor, ColorBlock.DisabledColor, ColorBlock.ColorMultiplier, ColorBlock.FadeDuration);
         }
     }
 

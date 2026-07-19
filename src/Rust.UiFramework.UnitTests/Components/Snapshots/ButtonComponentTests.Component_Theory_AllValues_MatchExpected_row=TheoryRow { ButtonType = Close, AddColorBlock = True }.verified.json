@@ -1,9 +1,11 @@
 ﻿{
+  "AllowRaycast": false,
   "ButtonType": "Close",
   "Color": "#FF0000FF",
   "ColorBlock": {
     "ColorMultiplier": 0.5,
     "ComponentType": "ColorBlock",
+    "DisabledColor": "#FF00FFFF",
     "FadeDuration": 1.5,
     "HighlightedColor": "#0000FFFF",
     "PressedColor": "#FFA500FF",
@@ -14,6 +16,7 @@
   "Enabled": true,
   "FadeIn": 1.0,
   "ImageType": "Sliced",
+  "Interactable": false,
   "Material": "assets/icons/iconmaterial.mat",
   "Sprite": "assets/content/ui/ui.background.rounded.png",
   "Type": "UnityEngine.UI.Button"

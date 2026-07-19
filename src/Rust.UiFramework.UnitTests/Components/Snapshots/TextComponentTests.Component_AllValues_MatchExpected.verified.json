@@ -1,5 +1,6 @@
 ﻿{
   "Align": "UpperRight",
+  "AllowRaycast": false,
   "Color": "#008000FF",
   "ComponentType": "Text",
   "Enabled": true,

@@ -24,6 +24,8 @@ public static class ComponentHelpers
         image.PlaceholderFor = new UiReference("parent", "name");
         image.FillCenter = false;
         image.Png = "png";
+        image.PixelPerUnitMultiplier = 2f;
+        image.AllowRaycast = false;
     } 
     
     public static void PopulateNineSlice(NineSliceComponent slice)
@@ -40,6 +42,8 @@ public static class ComponentHelpers
         button.Material = UiMaterials.Icons.IconMaterial;
         button.ImageType = Image.Type.Sliced;
         button.Command = "command";
+        button.Interactable = false;
+        button.AllowRaycast = false;
     }
     
     public static void PopulateItemIcon(ItemIconComponent icon)
@@ -59,6 +63,7 @@ public static class ComponentHelpers
         text.Text = "text 123";
         text.VerticalOverflow = VerticalWrapMode.Overflow;
         text.PlaceholderFor = new UiReference("parent", "name");
+        text.AllowRaycast = false;
     }
 
     public static void PopulateInput(InputComponent input)
@@ -69,6 +74,8 @@ public static class ComponentHelpers
         input.Mode = InputMode.NeedsKeyboard | InputMode.AutoFocus;
         input.LineType = InputField.LineType.MultiLineNewline;
         input.Placeholder = new UiReference("parent", "name");
+        input.AllowRaycast = false;
+        input.Interactable = false;
     }
 
     public static void PopulateRawImage(RawImageComponent image)
@@ -78,6 +85,7 @@ public static class ComponentHelpers
         image.Material = UiMaterials.Content.Ui.NameFontMaterial;
         image.Image = "https://www.example.com";
         image.PlaceholderFor = new UiReference("parent", "name");
+        image.AllowRaycast = false;
     }
     
     public static void PopulatePlayerAvatar(PlayerAvatarComponent avatar)
@@ -107,5 +115,6 @@ public static class ComponentHelpers
         card.FadeIn = 1.5f;
         card.Material = UiMaterials.Content.Ui.UiBackgroundBlur;
         card.Color = UiColors.Orange;
+        card.AllowRaycast = false;
     }
 }

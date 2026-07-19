@@ -1,6 +1,7 @@
 ﻿{
   "Active": true,
   "Card": {
+    "AllowRaycast": true,
     "Color": "#FFFFFFFF",
     "ComponentType": "PlayingCard",
     "Enabled": true,

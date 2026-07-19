@@ -116,4 +116,27 @@ public static class SubComponentHelpers
     {
         mouse.Enabled = false;
     }
+
+    public static void PopulateCanvasGroup(CanvasGroupComponent canvas)
+    {
+        canvas.Alpha = 0.05f;
+        canvas.AllowRaycast = false;
+        canvas.Interactable = false;
+        canvas.Fade = new UiCanvasGroupFade(0.5f, 0.25f);
+    }
+
+    public static void PopulateMask(MaskComponent mask)
+    {
+        mask.ShowMaskGraphic = false;
+    }
+
+    public static void PopulateTooltip(TooltipComponent tooltip)
+    {
+        tooltip.Text = "text";
+        tooltip.TooltipType = CommunityEntity.TooltipType.AlwaysOnTopEmoji;
+        tooltip.Delay = Tooltip.DelayType.Long;
+        tooltip.Position = TooltipContainer.PositionMode.TopLeft;
+        tooltip.Offset = new Vector2(5, 10);
+        tooltip.UseCenter = false;
+    }
 }

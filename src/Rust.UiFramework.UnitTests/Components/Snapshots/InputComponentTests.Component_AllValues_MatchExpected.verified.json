@@ -1,5 +1,6 @@
 ﻿{
   "Align": "UpperRight",
+  "AllowRaycast": false,
   "AutoFocus": true,
   "CharsLimit": 16,
   "Color": "#008000FF",
@@ -10,6 +11,7 @@
   "Font": "permanentmarker.ttf",
   "FontSize": 24,
   "HudNeedsKeyboard": false,
+  "Interactable": false,
   "IsPassword": false,
   "LineType": "MultiLineNewline",
   "Mode": "NeedsKeyboard, AutoFocus",

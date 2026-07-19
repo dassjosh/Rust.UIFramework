@@ -4,6 +4,7 @@
       "close": "command",
       "color": "0.502 0.502 0.502",
       "colorMultiplier": 2,
+      "disabledColor": "1 0 1",
       "fadeDuration": 3,
       "fadeIn": 1.5,
       "highlightedColor": "0 0 1",

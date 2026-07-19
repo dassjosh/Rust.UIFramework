@@ -1,5 +1,6 @@
 ﻿{
   "align": "2",
+  "blocksRaycast": 0,
   "color": "0 0.502 0",
   "fadeIn": 2,
   "font": "permanentmarker.ttf",

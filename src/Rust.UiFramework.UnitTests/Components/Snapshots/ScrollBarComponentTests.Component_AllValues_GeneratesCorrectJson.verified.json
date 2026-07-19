@@ -1,4 +1,5 @@
 ﻿{
+  "fadeDuration": 1.5,
   "handleColor": "0 0 0",
   "handleSprite": "assets/icons/add.png",
   "highlightColor": "0.502 0 0",

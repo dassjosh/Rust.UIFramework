@@ -1,5 +1,6 @@
 ﻿{
   "align": "2",
+  "blocksRaycast": 0,
   "characterLimit": 16,
   "color": "0 0.502 0",
   "command": "command",
@@ -7,6 +8,7 @@
   "font": "permanentmarker.ttf",
   "fontSize": 24,
   "hudMenuInput": 0,
+  "interactable": 0,
   "lineType": "2",
   "password": 0,
   "placeholderId": "name",

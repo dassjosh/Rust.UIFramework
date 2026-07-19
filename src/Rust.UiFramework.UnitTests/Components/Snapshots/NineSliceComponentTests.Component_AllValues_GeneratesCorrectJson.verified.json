@@ -2,6 +2,7 @@
   "fillCenter": 0,
   "imagetype": "1",
   "png": "png",
+  "ppuMultiplier": 0,
   "slice": "1 8 4 2",
   "type": "UnityEngine.UI.Image"
 }

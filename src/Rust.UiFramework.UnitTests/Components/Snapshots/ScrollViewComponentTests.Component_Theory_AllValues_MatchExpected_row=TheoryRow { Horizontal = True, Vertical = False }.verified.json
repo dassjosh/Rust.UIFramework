@@ -13,6 +13,7 @@
   "HorizontalScrollbar": {
     "AutoHide": true,
     "ComponentType": "ScrollBar",
+    "FadeDuration": 0.1,
     "HandleColor": "#008000FF",
     "HandleSprite": "assets/icons/add.png",
     "HighlightColor": "#0000FFFF",

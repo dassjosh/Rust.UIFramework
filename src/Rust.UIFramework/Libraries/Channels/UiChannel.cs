@@ -50,7 +50,7 @@ public sealed class UiChannel<T> : IUiChannel where T : IBaseUiChannelObject
             int workersToStart = Math.Min(_options.MaxConcurrency - _activeWorkerCount, _queue.Count);
             for (int i = 0; i < workersToStart; i++)
             {
-                UniTask.RunOnThreadPool(Run, false, _cancellationTokenSource.Token);
+                Run().Forget();
                 Interlocked.Increment(ref _activeWorkerCount);
                 _logger.Debug("Started new worker task. Active workers: {0}/{1}", _activeWorkerCount, _options.MaxConcurrency);
             }
@@ -65,7 +65,11 @@ public sealed class UiChannel<T> : IUiChannel where T : IBaseUiChannelObject
 
     private async UniTaskVoid Run()
     {
-        if (!_options.EnableMultithreading)
+        if (_options.EnableMultithreading)
+        {
+            await UniTask.SwitchToThreadPool();
+        }
+        else
         {
 #if SERVER
             await UniTask.SwitchToMainThread();

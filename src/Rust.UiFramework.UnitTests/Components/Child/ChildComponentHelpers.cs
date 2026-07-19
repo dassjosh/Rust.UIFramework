@@ -15,6 +15,7 @@ public static class ChildComponentHelpers
         block.HighlightedColor = UiColors.Red;
         block.PressedColor = UiColors.Green;
         block.SelectedColor = UiColors.Blue;
+        block.DisabledColor = UiColors.Magenta;
         block.ColorMultiplier = 0.5f;
         block.FadeDuration = 1.5f;
     }
@@ -30,6 +31,7 @@ public static class ChildComponentHelpers
         scrollbar.HighlightColor = UiColors.Maroon;
         scrollbar.PressedColor = UiColors.Navy;
         scrollbar.TrackColor = UiColors.Olive;
+        scrollbar.FadeDuration = 1.5f;
     }
     
     public static void PopulateScrollViewContent(ScrollViewContentComponent content)

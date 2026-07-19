@@ -1,7 +1,9 @@
 ﻿{
+  "AllowRaycast": true,
   "Color": "#FFFFFFFF",
   "ComponentType": "Image",
   "Enabled": true,
   "FillCenter": true,
+  "PixelPerUnitMultiplier": 1.0,
   "Type": "UnityEngine.UI.Image"
 }
