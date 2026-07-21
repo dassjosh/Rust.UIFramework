@@ -26,9 +26,8 @@ public enum ComponentType : ushort
    ContentSizeFitter = 109,
    LayoutElement = 110,
    CanvasGroup = 111,
-   RectMask2D = 112,
-   Mask = 113,
-   ToolTip = 114,
+   Mask = 112,
+   ToolTip = 113,
    
    ColorBlock = 1000,
    ScrollBar = 1001,
