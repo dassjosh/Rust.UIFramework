@@ -11,9 +11,10 @@ public partial class PlayingCardComponent : IPlayingCardComponent
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Enums.UiSuit> SuitTracked = new();
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Enums.UiRank> RankTracked = new();
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Enums.UiCardType> CardTypeTracked = new();
-	internal readonly Oxide.Ext.UiFramework.Types.Tracked<float> FadeInTracked = new();
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<float> FadeInTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Common.FadeIn);
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<string> MaterialTracked = new(Oxide.Ext.UiFramework.Constants.UiMaterials.Content.Ui.NameFontMaterial);
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> ColorTracked = new(Oxide.Ext.UiFramework.Colors.UiColors.White);
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<bool> AllowRaycastTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Common.AllowRaycast);
 
 	public partial Oxide.Ext.UiFramework.Enums.UiSuit Suit
 	{
@@ -57,8 +58,15 @@ public partial class PlayingCardComponent : IPlayingCardComponent
 		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 		set => ColorTracked.Value = value;
 	}
+	public partial bool AllowRaycast
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => AllowRaycastTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => AllowRaycastTracked.Value = value;
+	}
 
-	public override bool HasChanged() => false || (SuitTracked.HasChanged || RankTracked.HasChanged || CardTypeTracked.HasChanged || FadeInTracked.HasChanged || MaterialTracked.HasChanged || ColorTracked.HasChanged) || base.HasChanged();
+	public override bool HasChanged() => false || (SuitTracked.HasChanged || RankTracked.HasChanged || CardTypeTracked.HasChanged || FadeInTracked.HasChanged || MaterialTracked.HasChanged || ColorTracked.HasChanged || AllowRaycastTracked.HasChanged) || base.HasChanged();
 
 	public override void ResetHasChanged()
 	{
@@ -69,6 +77,7 @@ public partial class PlayingCardComponent : IPlayingCardComponent
 		FadeInTracked.ResetHasChanged();
 		MaterialTracked.ResetHasChanged();
 		ColorTracked.ResetHasChanged();
+		AllowRaycastTracked.ResetHasChanged();
 	}
 
 	public override void Reset()
@@ -80,6 +89,7 @@ public partial class PlayingCardComponent : IPlayingCardComponent
 		FadeInTracked.Reset();
 		MaterialTracked.Reset();
 		ColorTracked.Reset();
+		AllowRaycastTracked.Reset();
 	}
 }
 

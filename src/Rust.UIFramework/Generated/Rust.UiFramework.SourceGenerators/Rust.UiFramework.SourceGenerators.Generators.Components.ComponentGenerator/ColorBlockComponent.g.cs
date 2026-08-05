@@ -11,6 +11,7 @@ public partial class ColorBlockComponent : IColorBlockComponent
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> HighlightedColorTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ColorBlock.HighlightedColor);
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> PressedColorTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ColorBlock.PressedColor);
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> SelectedColorTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ColorBlock.SelectedColor);
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> DisabledColorTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ColorBlock.DisabledColor);
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<float> ColorMultiplierTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ColorBlock.ColorMultiplier);
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<float> FadeDurationTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ColorBlock.FadeDuration);
 
@@ -35,6 +36,13 @@ public partial class ColorBlockComponent : IColorBlockComponent
 		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 		set => SelectedColorTracked.Value = value;
 	}
+	public partial Oxide.Ext.UiFramework.Colors.UiColor DisabledColor
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => DisabledColorTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => DisabledColorTracked.Value = value;
+	}
 	public partial float ColorMultiplier
 	{
 		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
@@ -50,7 +58,7 @@ public partial class ColorBlockComponent : IColorBlockComponent
 		set => FadeDurationTracked.Value = value;
 	}
 
-	public override bool HasChanged() => false || (HighlightedColorTracked.HasChanged || PressedColorTracked.HasChanged || SelectedColorTracked.HasChanged || ColorMultiplierTracked.HasChanged || FadeDurationTracked.HasChanged) || base.HasChanged();
+	public override bool HasChanged() => false || (HighlightedColorTracked.HasChanged || PressedColorTracked.HasChanged || SelectedColorTracked.HasChanged || DisabledColorTracked.HasChanged || ColorMultiplierTracked.HasChanged || FadeDurationTracked.HasChanged) || base.HasChanged();
 
 	public override void ResetHasChanged()
 	{
@@ -58,6 +66,7 @@ public partial class ColorBlockComponent : IColorBlockComponent
 		HighlightedColorTracked.ResetHasChanged();
 		PressedColorTracked.ResetHasChanged();
 		SelectedColorTracked.ResetHasChanged();
+		DisabledColorTracked.ResetHasChanged();
 		ColorMultiplierTracked.ResetHasChanged();
 		FadeDurationTracked.ResetHasChanged();
 	}
@@ -68,6 +77,7 @@ public partial class ColorBlockComponent : IColorBlockComponent
 		HighlightedColorTracked.Reset();
 		PressedColorTracked.Reset();
 		SelectedColorTracked.Reset();
+		DisabledColorTracked.Reset();
 		ColorMultiplierTracked.Reset();
 		FadeDurationTracked.Reset();
 	}

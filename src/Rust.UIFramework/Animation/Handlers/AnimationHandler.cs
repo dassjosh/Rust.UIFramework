@@ -28,6 +28,7 @@ internal class AnimationHandler : ISingleton
     {
         Thread thread = new(AnimationLoop)
         {
+            Name = $"{UiFrameworkExtension.Instance.Name} {nameof(AnimationHandler)}",
             IsBackground = true
         };
         thread.Start();

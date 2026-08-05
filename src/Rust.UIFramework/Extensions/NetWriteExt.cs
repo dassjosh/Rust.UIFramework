@@ -22,5 +22,11 @@ internal static class NetWriteExt
                 write.Write(bytes, 0, bytes.Length);
             }
         }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void BytesCustom(byte[] bytes)
+        {
+            write.Write(bytes, 0, bytes.Length);
+        }
     }
 }

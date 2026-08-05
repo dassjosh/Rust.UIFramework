@@ -23,7 +23,7 @@ public abstract partial class BaseLayoutComponent : SubComponent
     protected override void WriteComponentFields(JsonFrameworkWriter writer, SerializeMode mode)
     {
         writer.AddField(JsonDefaults.Layout.ChildAlignmentName, ChildAlignmentTracked, mode);
-        writer.AddField(JsonDefaults.Layout.PaddingName, PaddingTracked, mode);
+        writer.AddField(JsonDefaults.Layout.PaddingName, PaddingTracked, mode, UiPaddingFormat.LTRB);
     }
 
     public static implicit operator UiReference(BaseLayoutComponent layout) => layout.Reference;

@@ -1,10 +1,12 @@
 ﻿{
+  "AllowRaycast": false,
   "Color": "#FF0000FF",
   "Command": "command",
   "ComponentType": "Button",
   "Enabled": true,
   "FadeIn": 1.0,
   "ImageType": "Sliced",
+  "Interactable": false,
   "Material": "assets/icons/iconmaterial.mat",
   "Sprite": "assets/content/ui/ui.background.rounded.png",
   "Type": "UnityEngine.UI.Button"

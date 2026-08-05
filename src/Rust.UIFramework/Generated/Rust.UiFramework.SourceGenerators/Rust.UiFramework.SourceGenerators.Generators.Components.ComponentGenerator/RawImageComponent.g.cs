@@ -13,6 +13,7 @@ public partial class RawImageComponent : IRawImageComponent
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<string> ImageTracked = new();
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<string> MaterialTracked = new();
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.UiElements.UiReference> PlaceholderForTracked = new();
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<bool> AllowRaycastTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Common.AllowRaycast);
 
 	public partial Oxide.Ext.UiFramework.Colors.UiColor Color
 	{
@@ -49,8 +50,15 @@ public partial class RawImageComponent : IRawImageComponent
 		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 		set => PlaceholderForTracked.Value = value;
 	}
+	public partial bool AllowRaycast
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => AllowRaycastTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => AllowRaycastTracked.Value = value;
+	}
 
-	public override bool HasChanged() => false || (ColorTracked.HasChanged || FadeInTracked.HasChanged || ImageTracked.HasChanged || MaterialTracked.HasChanged || PlaceholderForTracked.HasChanged) || base.HasChanged();
+	public override bool HasChanged() => false || (ColorTracked.HasChanged || FadeInTracked.HasChanged || ImageTracked.HasChanged || MaterialTracked.HasChanged || PlaceholderForTracked.HasChanged || AllowRaycastTracked.HasChanged) || base.HasChanged();
 
 	public override void ResetHasChanged()
 	{
@@ -60,6 +68,7 @@ public partial class RawImageComponent : IRawImageComponent
 		ImageTracked.ResetHasChanged();
 		MaterialTracked.ResetHasChanged();
 		PlaceholderForTracked.ResetHasChanged();
+		AllowRaycastTracked.ResetHasChanged();
 	}
 
 	public override void Reset()
@@ -70,6 +79,7 @@ public partial class RawImageComponent : IRawImageComponent
 		ImageTracked.Reset();
 		MaterialTracked.Reset();
 		PlaceholderForTracked.Reset();
+		AllowRaycastTracked.Reset();
 	}
 }
 

@@ -14,7 +14,7 @@ public class ButtonComponentTests() : BaseTheoryComponentTests<ButtonComponent, 
         component.ButtonType = row.ButtonType;
         if(row.AddColorBlock)
         {
-            component.AddColorBlock(UiColors.Blue, UiColors.Orange, UiColors.Green, 0.5f, 1.5f);
+            component.AddColorBlock(UiColors.Blue, UiColors.Orange, UiColors.Green, UiColors.Magenta, 0.5f, 1.5f);
         }    
     }
 

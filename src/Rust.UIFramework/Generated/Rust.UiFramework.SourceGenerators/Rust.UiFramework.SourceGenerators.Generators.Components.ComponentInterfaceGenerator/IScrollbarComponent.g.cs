@@ -16,6 +16,7 @@ public interface IScrollbarComponent
 	Oxide.Ext.UiFramework.Colors.UiColor HighlightColor { get; set; }
 	Oxide.Ext.UiFramework.Colors.UiColor PressedColor { get; set; }
 	Oxide.Ext.UiFramework.Colors.UiColor TrackColor { get; set; }
+	float FadeDuration { get; set; }
 
 	Oxide.Ext.UiFramework.Components.ScrollbarComponent SetInvert(bool invert);
 	Oxide.Ext.UiFramework.Components.ScrollbarComponent SetAutoHide(bool autoHide);
@@ -26,6 +27,7 @@ public interface IScrollbarComponent
 	Oxide.Ext.UiFramework.Components.ScrollbarComponent SetHighlightColor(Oxide.Ext.UiFramework.Colors.UiColor highlightColor);
 	Oxide.Ext.UiFramework.Components.ScrollbarComponent SetPressedColor(Oxide.Ext.UiFramework.Colors.UiColor pressedColor);
 	Oxide.Ext.UiFramework.Components.ScrollbarComponent SetTrackColor(Oxide.Ext.UiFramework.Colors.UiColor trackColor);
+	Oxide.Ext.UiFramework.Components.ScrollbarComponent SetFadeDuration(float fadeDuration);
 }
 
 

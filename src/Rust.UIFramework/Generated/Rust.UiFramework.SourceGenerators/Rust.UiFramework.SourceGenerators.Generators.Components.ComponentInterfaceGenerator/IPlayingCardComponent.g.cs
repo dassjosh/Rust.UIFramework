@@ -13,6 +13,7 @@ public interface IPlayingCardComponent : IBaseTypedComponent
 	float FadeIn { get; set; }
 	string Material { get; set; }
 	Oxide.Ext.UiFramework.Colors.UiColor Color { get; set; }
+	bool AllowRaycast { get; set; }
 
 	Oxide.Ext.UiFramework.Components.PlayingCardComponent SetSuit(Oxide.Ext.UiFramework.Enums.UiSuit suit);
 	Oxide.Ext.UiFramework.Components.PlayingCardComponent SetRank(Oxide.Ext.UiFramework.Enums.UiRank rank);
@@ -20,6 +21,7 @@ public interface IPlayingCardComponent : IBaseTypedComponent
 	Oxide.Ext.UiFramework.Components.PlayingCardComponent SetFadeIn(float fadeIn);
 	Oxide.Ext.UiFramework.Components.PlayingCardComponent SetMaterial(string material);
 	Oxide.Ext.UiFramework.Components.PlayingCardComponent SetColor(Oxide.Ext.UiFramework.Colors.UiColor color);
+	Oxide.Ext.UiFramework.Components.PlayingCardComponent SetAllowRaycast(bool allowRaycast);
 }
 
 

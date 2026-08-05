@@ -1,0 +1,9 @@
+﻿{
+  "delay": "1",
+  "offset": "5 10",
+  "position": "5",
+  "text": "text",
+  "tooltipType": "2",
+  "type": "Tooltip",
+  "useCentre": 0
+}

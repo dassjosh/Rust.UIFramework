@@ -17,6 +17,7 @@ public partial class ScrollbarComponent : IScrollbarComponent
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> HighlightColorTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ScrollBar.HighlightColor);
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> PressedColorTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ScrollBar.PressedColor);
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> TrackColorTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ScrollBar.TrackColor);
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<float> FadeDurationTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.ScrollBar.FadeDuration);
 
 	public partial bool Invert
 	{
@@ -81,8 +82,15 @@ public partial class ScrollbarComponent : IScrollbarComponent
 		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 		set => TrackColorTracked.Value = value;
 	}
+	public partial float FadeDuration
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => FadeDurationTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => FadeDurationTracked.Value = value;
+	}
 
-	public override bool HasChanged() => false || (InvertTracked.HasChanged || AutoHideTracked.HasChanged || HandleSpriteTracked.HasChanged || TrackSpriteTracked.HasChanged || SizeTracked.HasChanged || HandleColorTracked.HasChanged || HighlightColorTracked.HasChanged || PressedColorTracked.HasChanged || TrackColorTracked.HasChanged) || base.HasChanged();
+	public override bool HasChanged() => false || (InvertTracked.HasChanged || AutoHideTracked.HasChanged || HandleSpriteTracked.HasChanged || TrackSpriteTracked.HasChanged || SizeTracked.HasChanged || HandleColorTracked.HasChanged || HighlightColorTracked.HasChanged || PressedColorTracked.HasChanged || TrackColorTracked.HasChanged || FadeDurationTracked.HasChanged) || base.HasChanged();
 
 	public override void ResetHasChanged()
 	{
@@ -96,6 +104,7 @@ public partial class ScrollbarComponent : IScrollbarComponent
 		HighlightColorTracked.ResetHasChanged();
 		PressedColorTracked.ResetHasChanged();
 		TrackColorTracked.ResetHasChanged();
+		FadeDurationTracked.ResetHasChanged();
 	}
 
 	public override void Reset()
@@ -110,6 +119,7 @@ public partial class ScrollbarComponent : IScrollbarComponent
 		HighlightColorTracked.Reset();
 		PressedColorTracked.Reset();
 		TrackColorTracked.Reset();
+		FadeDurationTracked.Reset();
 	}
 }
 

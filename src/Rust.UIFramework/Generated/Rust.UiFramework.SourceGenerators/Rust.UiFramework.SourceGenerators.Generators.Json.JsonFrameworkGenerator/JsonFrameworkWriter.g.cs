@@ -103,12 +103,6 @@ public partial class JsonFrameworkWriter
 		WriteValue(value);
 	}
 
-	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, in Oxide.Ext.UiFramework.Types.UiPadding value)
-	{
-		WritePropertyName(name);
-		WriteValue(value);
-	}
-
 	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, UnityEngine.Vector2 value)
 	{
 		WritePropertyName(name);
@@ -128,6 +122,12 @@ public partial class JsonFrameworkWriter
 	}
 
 	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, Oxide.Ext.UiFramework.Types.Utf8String value)
+	{
+		WritePropertyName(name);
+		WriteValue(value);
+	}
+
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, Oxide.Ext.UiFramework.Types.UiCanvasGroupFade value)
 	{
 		WritePropertyName(name);
 		WriteValue(value);
@@ -277,15 +277,6 @@ public partial class JsonFrameworkWriter
 		}
 	}
 
-	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, in Oxide.Ext.UiFramework.Types.UiPadding value, in Oxide.Ext.UiFramework.Types.UiPadding defaultValue)
-	{
-		if (value != defaultValue)
-		{
-		    WritePropertyName(name);
-		    WriteValue(value);
-		}
-	}
-
 	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, UnityEngine.Vector2 value, UnityEngine.Vector2 defaultValue)
 	{
 		if (value != defaultValue)
@@ -314,6 +305,15 @@ public partial class JsonFrameworkWriter
 	}
 
 	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, Oxide.Ext.UiFramework.Types.Utf8String value, Oxide.Ext.UiFramework.Types.Utf8String defaultValue)
+	{
+		if (value != defaultValue)
+		{
+		    WritePropertyName(name);
+		    WriteValue(value);
+		}
+	}
+
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, Oxide.Ext.UiFramework.Types.UiCanvasGroupFade value, Oxide.Ext.UiFramework.Types.UiCanvasGroupFade defaultValue)
 	{
 		if (value != defaultValue)
 		{
@@ -457,15 +457,6 @@ public partial class JsonFrameworkWriter
 		}
 	}
 
-	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Types.UiPadding> value, Oxide.Ext.UiFramework.Enums.SerializeMode mode)
-	{
-		if (value.ShouldSerialize(mode))
-		{
-		    WritePropertyName(name);
-		    WriteValue(value.Value);
-		}
-	}
-
 	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.Vector2> value, Oxide.Ext.UiFramework.Enums.SerializeMode mode)
 	{
 		if (value.ShouldSerialize(mode))
@@ -494,6 +485,15 @@ public partial class JsonFrameworkWriter
 	}
 
 	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Types.Utf8String> value, Oxide.Ext.UiFramework.Enums.SerializeMode mode)
+	{
+		if (value.ShouldSerialize(mode))
+		{
+		    WritePropertyName(name);
+		    WriteValue(value.Value);
+		}
+	}
+
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Types.UiCanvasGroupFade> value, Oxide.Ext.UiFramework.Enums.SerializeMode mode)
 	{
 		if (value.ShouldSerialize(mode))
 		{

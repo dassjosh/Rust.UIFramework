@@ -1,4 +1,5 @@
 ﻿{
+  "AllowRaycast": false,
   "Color": "#FFEB04FF",
   "ComponentType": "RawImage",
   "Enabled": true,

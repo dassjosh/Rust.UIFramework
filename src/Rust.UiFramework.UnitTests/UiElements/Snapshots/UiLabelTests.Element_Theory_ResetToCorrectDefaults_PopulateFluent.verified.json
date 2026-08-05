@@ -4,6 +4,7 @@
   "Enabled": true,
   "FontSize": 14,
   "Text": {
+    "AllowRaycast": true,
     "Color": "#FFFFFFFF",
     "ComponentType": "Text",
     "Enabled": true,

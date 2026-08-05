@@ -12,13 +12,19 @@ internal static class UiDebugHandler
     public static void HandleDebug(IUiFrameworkPlugin plugin, JsonFrameworkWriter writer, in UiDebugOptions options)
     {
         WriteToStream(plugin, writer, options);
-        WriteToConsole(writer.ToString(), options);
+        if (options.Mode.HasFlag(UiDebugModes.Console))
+        {
+            WriteToConsole(writer.ToString(), options);
+        }
     }
     
     public static void HandleDebug(IUiFrameworkPlugin plugin, byte[] bytes, in UiDebugOptions options)
     {
         WriteToStream(plugin, bytes, options);
-        WriteToConsole(Encoding.UTF8.GetString(bytes), options);
+        if (options.Mode.HasFlag(UiDebugModes.Console))
+        {
+            WriteToConsole(Encoding.UTF8.GetString(bytes), options);
+        }
     }
 
     public static void WriteToStream(IUiFrameworkPlugin plugin, JsonFrameworkWriter writer, in UiDebugOptions options)
@@ -50,9 +56,6 @@ internal static class UiDebugHandler
 
     public static void WriteToConsole(string json, in UiDebugOptions options)
     {
-        if (options.Mode.HasFlag(UiDebugModes.Console))
-        {
-            UiFrameworkExtension.GlobalLogger.Debug($"{options.Identifier}:\n{new string('=', 20)}\n{json}\n{new string('=', 20)}");
-        }
+        UiFrameworkExtension.GlobalLogger.Debug($"{options.Identifier}:\n{new string('=', 20)}\n{json}\n{new string('=', 20)}");
     }
 }

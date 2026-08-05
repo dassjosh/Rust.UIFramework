@@ -1,0 +1,8 @@
+﻿{
+  "AllowMultiple": false,
+  "ComponentType": "ToolTip",
+  "Enabled": true,
+  "Offset": "8 8",
+  "Type": "Tooltip",
+  "UseCenter": true
+}

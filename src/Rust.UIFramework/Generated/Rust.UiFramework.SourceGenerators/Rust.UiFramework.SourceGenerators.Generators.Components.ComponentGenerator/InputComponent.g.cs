@@ -13,6 +13,7 @@ public partial class InputComponent : IInputComponent
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Enums.InputMode> ModeTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Input.Mode);
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.UI.InputField.LineType> LineTypeTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Input.LineType);
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.UiElements.UiReference> PlaceholderTracked = new();
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<bool> InteractableTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Common.Interactable);
 
 	public partial int CharsLimit
 	{
@@ -49,8 +50,15 @@ public partial class InputComponent : IInputComponent
 		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 		set => PlaceholderTracked.Value = value;
 	}
+	public partial bool Interactable
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => InteractableTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => InteractableTracked.Value = value;
+	}
 
-	public override bool HasChanged() => false || (CharsLimitTracked.HasChanged || CommandTracked.HasChanged || ModeTracked.HasChanged || LineTypeTracked.HasChanged || PlaceholderTracked.HasChanged) || base.HasChanged();
+	public override bool HasChanged() => false || (CharsLimitTracked.HasChanged || CommandTracked.HasChanged || ModeTracked.HasChanged || LineTypeTracked.HasChanged || PlaceholderTracked.HasChanged || InteractableTracked.HasChanged) || base.HasChanged();
 
 	public override void ResetHasChanged()
 	{
@@ -60,6 +68,7 @@ public partial class InputComponent : IInputComponent
 		ModeTracked.ResetHasChanged();
 		LineTypeTracked.ResetHasChanged();
 		PlaceholderTracked.ResetHasChanged();
+		InteractableTracked.ResetHasChanged();
 	}
 
 	public override void Reset()
@@ -70,6 +79,7 @@ public partial class InputComponent : IInputComponent
 		ModeTracked.Reset();
 		LineTypeTracked.Reset();
 		PlaceholderTracked.Reset();
+		InteractableTracked.Reset();
 	}
 }
 

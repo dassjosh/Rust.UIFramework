@@ -17,6 +17,7 @@ public static partial class TextComponentAnimationExt
 		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<string>> AnimateText() => animation.AnimateField(static a => a.TextTracked);
 		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<UnityEngine.VerticalWrapMode>> AnimateVerticalOverflow() => animation.AnimateField(static a => a.VerticalOverflowTracked);
 		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<Oxide.Ext.UiFramework.UiElements.UiReference>> AnimatePlaceholderFor() => animation.AnimateField(static a => a.PlaceholderForTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<bool>> AnimateAllowRaycast() => animation.AnimateField(static a => a.AllowRaycastTracked);
 	}
 }
 

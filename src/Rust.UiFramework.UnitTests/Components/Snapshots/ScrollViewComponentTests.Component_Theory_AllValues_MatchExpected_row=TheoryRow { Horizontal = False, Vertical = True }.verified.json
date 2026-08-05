@@ -18,6 +18,7 @@
   "VerticalScrollbar": {
     "AutoHide": false,
     "ComponentType": "ScrollBar",
+    "FadeDuration": 0.1,
     "HandleColor": "#00FFFFFF",
     "HandleSprite": "assets/icons/subtract.png",
     "HighlightColor": "#00FF00FF",

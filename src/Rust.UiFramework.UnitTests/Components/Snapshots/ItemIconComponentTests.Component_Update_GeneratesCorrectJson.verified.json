@@ -1,4 +1,5 @@
 ﻿{
+  "blocksRaycast": 0,
   "color": "1 0 0",
   "fadeIn": 1,
   "fillCenter": 0,
@@ -7,6 +8,7 @@
   "material": "assets/icons/iconmaterial.mat",
   "placeholderParentId": "name",
   "png": "png",
+  "ppuMultiplier": 0,
   "skinid": 34621422135410688,
   "sprite": "assets/content/ui/ui.background.rounded.png",
   "type": "UnityEngine.UI.Image"

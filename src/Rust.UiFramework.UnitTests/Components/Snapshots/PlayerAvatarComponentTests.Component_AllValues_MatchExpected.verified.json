@@ -1,4 +1,5 @@
 ﻿{
+  "AllowRaycast": false,
   "AvatarType": "Medium",
   "Color": "#FFEB04FF",
   "ComponentType": "PlayerAvatar",

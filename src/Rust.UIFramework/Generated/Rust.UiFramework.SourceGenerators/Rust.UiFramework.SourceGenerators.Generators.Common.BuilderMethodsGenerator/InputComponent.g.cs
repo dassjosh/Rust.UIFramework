@@ -43,6 +43,13 @@ public partial class InputComponent
 	}
 
 	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+	public InputComponent SetInteractable(bool interactable)
+	{
+		Interactable = interactable;
+		return this;
+	}
+
+	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 	public InputComponent SetIsPassword(bool isPassword)
 	{
 		IsPassword = isPassword;

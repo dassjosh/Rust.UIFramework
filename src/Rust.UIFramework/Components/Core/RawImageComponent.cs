@@ -20,6 +20,9 @@ public partial class RawImageComponent : CoreComponent, IGraphicalComponent
     public partial string Image { get; set; }
     public partial string Material { get; set; }
     public partial UiReference PlaceholderFor { get; set; }
+
+    [TrackedDefaults(typeof(JsonDefaults.Common), nameof(JsonDefaults.Common.AllowRaycast))]
+    public partial bool AllowRaycast { get; set; }
     
     [Obsolete("Please use Image instead")]
     public string Url { get => Image; set => Image = value; }
@@ -36,6 +39,7 @@ public partial class RawImageComponent : CoreComponent, IGraphicalComponent
         writer.AddField(JsonDefaults.BaseImage.MaterialName, MaterialTracked, mode);
         writer.AddField(JsonDefaults.Color.ColorName, ColorTracked, mode);
         writer.AddField(JsonDefaults.Common.FadeInName, FadeInTracked, mode);
+        writer.AddField(JsonDefaults.Common.AllowRaycastName, AllowRaycastTracked, mode);
         
         if (PlaceholderForTracked.ShouldSerialize(mode) && PlaceholderFor.IsValidName())
         {

@@ -15,6 +15,7 @@ public interface ITextComponent : IBaseTypedComponent
 	string Text { get; set; }
 	UnityEngine.VerticalWrapMode VerticalOverflow { get; set; }
 	Oxide.Ext.UiFramework.UiElements.UiReference PlaceholderFor { get; set; }
+	bool AllowRaycast { get; set; }
 
 	Oxide.Ext.UiFramework.Components.TextComponent SetColor(Oxide.Ext.UiFramework.Colors.UiColor color);
 	Oxide.Ext.UiFramework.Components.TextComponent SetFadeIn(float fadeIn);
@@ -24,6 +25,7 @@ public interface ITextComponent : IBaseTypedComponent
 	Oxide.Ext.UiFramework.Components.TextComponent SetText(string text);
 	Oxide.Ext.UiFramework.Components.TextComponent SetVerticalOverflow(UnityEngine.VerticalWrapMode verticalOverflow);
 	Oxide.Ext.UiFramework.Components.TextComponent SetPlaceholderFor(in Oxide.Ext.UiFramework.UiElements.UiReference placeholderFor);
+	Oxide.Ext.UiFramework.Components.TextComponent SetAllowRaycast(bool allowRaycast);
 }
 
 

@@ -16,6 +16,7 @@ public partial class TextComponent : ITextComponent
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<string> TextTracked = new();
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<UnityEngine.VerticalWrapMode> VerticalOverflowTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Text.VerticalOverflow);
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.UiElements.UiReference> PlaceholderForTracked = new();
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<bool> AllowRaycastTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Common.AllowRaycast);
 
 	public partial Oxide.Ext.UiFramework.Colors.UiColor Color
 	{
@@ -73,8 +74,15 @@ public partial class TextComponent : ITextComponent
 		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 		set => PlaceholderForTracked.Value = value;
 	}
+	public partial bool AllowRaycast
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => AllowRaycastTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => AllowRaycastTracked.Value = value;
+	}
 
-	public override bool HasChanged() => false || (ColorTracked.HasChanged || FadeInTracked.HasChanged || FontSizeTracked.HasChanged || FontTracked.HasChanged || AlignTracked.HasChanged || TextTracked.HasChanged || VerticalOverflowTracked.HasChanged || PlaceholderForTracked.HasChanged) || base.HasChanged();
+	public override bool HasChanged() => false || (ColorTracked.HasChanged || FadeInTracked.HasChanged || FontSizeTracked.HasChanged || FontTracked.HasChanged || AlignTracked.HasChanged || TextTracked.HasChanged || VerticalOverflowTracked.HasChanged || PlaceholderForTracked.HasChanged || AllowRaycastTracked.HasChanged) || base.HasChanged();
 
 	public override void ResetHasChanged()
 	{
@@ -87,6 +95,7 @@ public partial class TextComponent : ITextComponent
 		TextTracked.ResetHasChanged();
 		VerticalOverflowTracked.ResetHasChanged();
 		PlaceholderForTracked.ResetHasChanged();
+		AllowRaycastTracked.ResetHasChanged();
 	}
 
 	public override void Reset()
@@ -100,6 +109,7 @@ public partial class TextComponent : ITextComponent
 		TextTracked.Reset();
 		VerticalOverflowTracked.Reset();
 		PlaceholderForTracked.Reset();
+		AllowRaycastTracked.Reset();
 	}
 }
 

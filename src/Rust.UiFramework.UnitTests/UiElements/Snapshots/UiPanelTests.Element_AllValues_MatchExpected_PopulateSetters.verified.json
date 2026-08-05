@@ -5,6 +5,7 @@
   "FadeIn": 1.5,
   "FillCenter": true,
   "Image": {
+    "AllowRaycast": true,
     "Color": "#808080FF",
     "ComponentType": "Image",
     "Enabled": true,
@@ -12,6 +13,7 @@
     "FillCenter": true,
     "ImageType": "Tiled",
     "Material": "assets/icons/iconmaterial.mat",
+    "PixelPerUnitMultiplier": 1.0,
     "Sprite": "assets/icons/authorize.png",
     "Type": "UnityEngine.UI.Image"
   },

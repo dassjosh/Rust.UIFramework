@@ -1,0 +1,12 @@
+﻿{
+  "AllowMultiple": false,
+  "ComponentType": "ToolTip",
+  "Delay": "Long",
+  "Enabled": true,
+  "Offset": "5 10",
+  "Position": "TopLeft",
+  "Text": "text",
+  "TooltipType": "AlwaysOnTopEmoji",
+  "Type": "Tooltip",
+  "UseCenter": false
+}

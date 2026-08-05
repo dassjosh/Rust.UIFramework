@@ -36,6 +36,13 @@ public static class JsonDefaults
         
         public static readonly UiPadding TextPadding = new(2, 0);
         public static readonly UiPadding Padding = new(2);
+
+        public static readonly Utf8String AllowRaycastName = "blocksRaycast";
+        public const bool AllowRaycast = true;
+
+        public static readonly Utf8String InteractableName = "interactable";
+        public const bool Interactable = true;
+
     }
 
     public static class RectTransform
@@ -134,6 +141,9 @@ public static class JsonDefaults
         
         public static readonly Utf8String SliceName = "slice";
         public static readonly UiBorderWidth Slice = UiBorderWidth.Empty;
+
+        public static readonly Utf8String PixelPerUnitMultiplierName = "ppuMultiplier";
+        public const float PixelPerUnitMultiplier = 1f;
     }
 
     public static class ItemIcon
@@ -245,6 +255,9 @@ public static class JsonDefaults
         public static readonly UiColor HighlightColor = UiColor.ParseHexColor("#2B2B2B");
         public static readonly UiColor PressedColor = UiColor.ParseHexColor("#333333");
         public static readonly UiColor TrackColor = UiColor.ParseHexColor("#171717");
+
+        public static readonly Utf8String FadeDurationName = "fadeDuration";
+        public const float FadeDuration = 0.1f;
     }
 
     public static class ColorBlock
@@ -257,6 +270,9 @@ public static class JsonDefaults
         
         public static readonly Utf8String SelectedColorName = "selectedColor";
         public static readonly UiColor SelectedColor = UiColor.ParseHexColor("#F5F5F5FF");
+
+        public static readonly Utf8String DisabledColorName = "disabledColor";
+        public static readonly UiColor DisabledColor = UiColor.ParseHexColor("##808080FF");
         
         public static readonly Utf8String ColorMultiplierName = "colorMultiplier";
         public const float ColorMultiplier = 1f;
@@ -412,5 +428,47 @@ public static class JsonDefaults
         
         public static readonly Utf8String IgnoreLayoutName = "ignoreLayout";
         public const bool IgnoreLayout = false;
+    }
+
+    public static class CanvasGroup
+    {
+        public static readonly Utf8String Type = "UnityEngine.UI.CanvasGroup";
+
+        public static readonly Utf8String AlphaName = "alpha";
+        public const float Alpha = 1f;
+
+        public static readonly Utf8String FadeName = "fade";
+        public static readonly UiCanvasGroupFade Fade = new(0, 1);
+    }
+
+    public static class Mask
+    {
+        public static readonly Utf8String Type = "UnityEngine.UI.Mask";
+
+        public static readonly Utf8String ShowMaskGraphicName = "showMaskGraphic";
+        public const bool ShowMaskGraphic = true;
+    }
+
+    public static class ToolTip
+    {
+        public static readonly Utf8String Type = "Tooltip";
+
+        public static readonly Utf8String TextName = "text";
+        public const string Text = null;
+
+        public static readonly Utf8String TooltipTypeName = "tooltipType";
+        public const CommunityEntity.TooltipType TooltipType = CommunityEntity.TooltipType.Default;
+
+        public static readonly Utf8String DelayName = "delay";
+        public const Tooltip.DelayType Delay = Tooltip.DelayType.Short;
+
+        public static readonly Utf8String PositionName = "position";
+        public const TooltipContainer.PositionMode Position = TooltipContainer.PositionMode.Auto;
+
+        public static readonly Utf8String OffsetName = "offset";
+        public static readonly Vector2 Offset = new(8, 8);
+
+        public static readonly Utf8String UseCenterName = "useCentre";
+        public const bool UseCenter = true;
     }
 }

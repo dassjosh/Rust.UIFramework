@@ -1,6 +1,7 @@
 ﻿{
   "AutoHide": false,
   "ComponentType": "ScrollBar",
+  "FadeDuration": 0.1,
   "HandleColor": "#262626FF",
   "HighlightColor": "#2B2B2BFF",
   "Invert": false,

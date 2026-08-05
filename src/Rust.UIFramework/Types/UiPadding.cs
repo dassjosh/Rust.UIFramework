@@ -9,11 +9,9 @@ using UnityEngine;
 namespace Oxide.Ext.UiFramework.Types;
 
 [JsonConverter(typeof(UiPaddingConverter))]
-public readonly record struct UiPadding(float Left, float Bottom, float Right, float Top)
+public readonly record struct UiPadding(float Left, float Top, float Right, float Bottom)
 {
     public static readonly UiPadding None = new(0);
-    
-    public bool IsSingleValue => Mathf.Approximately(Left, Bottom) && Mathf.Approximately(Left, Right) && Mathf.Approximately(Left, Top);
 
     public UiPadding(float horizontal, float vertical) : this(horizontal, vertical, horizontal, vertical) {}
 
@@ -44,7 +42,10 @@ public readonly record struct UiPadding(float Left, float Bottom, float Right, f
             Mathf.LerpUnclamped(start.Right, end.Right, progress), 
             Mathf.LerpUnclamped(start.Bottom, end.Bottom, progress));
     }
-    
+
+    public static implicit operator UiOffset(in UiPadding padding) => padding.ToOffset();
+    public static implicit operator UiPosition(in UiPadding padding) => padding.ToPosition();
+
 #pragma warning disable EPS05
     public static UiPadding Lerp(UiPadding start, UiPadding end, float progress) => Lerp(in start, in end, progress);
 #pragma warning restore EPS05

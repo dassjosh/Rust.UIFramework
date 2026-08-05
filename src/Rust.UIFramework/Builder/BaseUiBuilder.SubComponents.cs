@@ -3,6 +3,7 @@ using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Components;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Json;
+using Oxide.Ext.UiFramework.Offsets;
 using Oxide.Ext.UiFramework.Types;
 using Oxide.Ext.UiFramework.UiElements;
 using UnityEngine;
@@ -258,6 +259,53 @@ public abstract partial class BaseUiBuilder
     public T SelectScrollViewContent<T>(UiScrollView scroll) where T : BaseUiComponent, new()
     {
         return Component<T>(scroll).SetName(Singleton<ScrollViewContentCache>.Instance.GetContentName(scroll.Reference.Name)).SetUpdate(UpdateMode.Update);
+    }
+    #endregion
+
+    #region Canvas Group
+    public CanvasGroupComponent CanvasGroup(BaseUiComponent component) => SubComponent<CanvasGroupComponent>(component);
+
+    public CanvasGroupComponent CanvasGroup(BaseUiComponent component, float alpha = 1f, bool allowRaycast = true, bool interactable = true, UiCanvasGroupFade? fade = null)
+    {
+        CanvasGroupComponent canvas = CanvasGroup(component);
+        canvas.Alpha = alpha;
+        canvas.AllowRaycast = allowRaycast;
+        canvas.Interactable = interactable;
+        if(fade.HasValue)
+        {
+            canvas.Fade = fade.Value;
+        }
+        return canvas;
+    }
+    #endregion
+
+    #region Rect Mask 2D
+    public MaskComponent Mask(BaseUiComponent component) => SubComponent<MaskComponent>(component);
+
+    public MaskComponent Mask(BaseUiComponent component, bool showMaskGraphic)
+    {
+        MaskComponent mask = Mask(component);
+        mask.ShowMaskGraphic = showMaskGraphic;
+        return mask;
+    }
+    #endregion
+
+    #region Rect Mask 2D
+    public TooltipComponent Tooltip(BaseUiComponent component) => SubComponent<TooltipComponent>(component);
+
+    public TooltipComponent Tooltip(BaseUiComponent component, string text, CommunityEntity.TooltipType type = CommunityEntity.TooltipType.Default, Tooltip.DelayType delay = JsonDefaults.ToolTip.Delay, TooltipContainer.PositionMode position = JsonDefaults.ToolTip.Position, Vector2? offset = null, bool useCenter = JsonDefaults.ToolTip.UseCenter)
+    {
+        TooltipComponent tooltip = Tooltip(component);
+        tooltip.Text = text;
+        tooltip.TooltipType = type;
+        tooltip.Delay = delay;
+        tooltip.Position = position;
+        if (offset.HasValue)
+        {
+            tooltip.Offset = offset.Value;
+        }
+        tooltip.UseCenter = useCenter;
+        return tooltip;
     }
     #endregion
 }

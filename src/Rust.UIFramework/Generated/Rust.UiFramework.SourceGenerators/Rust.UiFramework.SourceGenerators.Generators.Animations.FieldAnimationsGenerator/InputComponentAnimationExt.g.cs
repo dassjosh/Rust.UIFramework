@@ -14,6 +14,7 @@ public static partial class InputComponentAnimationExt
 		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<Oxide.Ext.UiFramework.Enums.InputMode>> AnimateMode() => animation.AnimateField(static a => a.ModeTracked);
 		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<UnityEngine.UI.InputField.LineType>> AnimateLineType() => animation.AnimateField(static a => a.LineTypeTracked);
 		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<Oxide.Ext.UiFramework.UiElements.UiReference>> AnimatePlaceholder() => animation.AnimateField(static a => a.PlaceholderTracked);
+		public Oxide.Ext.UiFramework.Animation.AnimationRef<Oxide.Ext.UiFramework.Animation.IFieldAnimation<bool>> AnimateInteractable() => animation.AnimateField(static a => a.InteractableTracked);
 	}
 }
 

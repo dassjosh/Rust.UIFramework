@@ -13,6 +13,7 @@
   "HorizontalScrollbar": {
     "AutoHide": true,
     "ComponentType": "ScrollBar",
+    "FadeDuration": 0.1,
     "HandleColor": "#008000FF",
     "HandleSprite": "assets/icons/add.png",
     "HighlightColor": "#0000FFFF",
@@ -30,6 +31,7 @@
   "VerticalScrollbar": {
     "AutoHide": false,
     "ComponentType": "ScrollBar",
+    "FadeDuration": 0.1,
     "HandleColor": "#00FFFFFF",
     "HandleSprite": "assets/icons/subtract.png",
     "HighlightColor": "#00FF00FF",

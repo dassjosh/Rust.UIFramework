@@ -136,8 +136,37 @@ public abstract class BaseBuilder : BasePoolable
     {
         if (Net.sv.IsConnected() && CommunityEntity.ServerInstance.net != null)
         {
-            Singleton<AnimationTracker>.Instance.RemoveUiForSend(send, name);
-            UiDestroyRequest.Create(name, send).Enqueue();
+            DestroyUiRequest.Create(name, send).Enqueue();
+        }
+    }
+
+    public static void DestroyUis(IEnumerable<string> names) => DestroyUis(Net.sv.connections, names);
+    public static void DestroyUis(IEnumerable<Connection> connections, IEnumerable<string> names) => DestroyUis(SendInfoBuilder.Get(connections), names);
+    public static void DestroyUis(List<Connection> connections, IEnumerable<string> names) => DestroyUis(SendInfoBuilder.Get(connections), names);
+    public static void DestroyUis(IEnumerable<BasePlayer> players, IEnumerable<string> names) => DestroyUis(SendInfoBuilder.Get(players), names);
+    public static void DestroyUis(List<BasePlayer> players, IEnumerable<string> names) => DestroyUis(SendInfoBuilder.Get(players), names);
+
+    public static void DestroyUis(BasePlayer player, IEnumerable<string> names)
+    {
+        if (player)
+        {
+            DestroyUis(player.Connection, names);
+        }
+    }
+
+    public static void DestroyUis(Connection connection, IEnumerable<string> names)
+    {
+        if (connection is { connected: true })
+        {
+            DestroyUis(SendInfoBuilder.Get(connection), names);
+        }
+    }
+
+    public static void DestroyUis(SendInfo send, IEnumerable<string> names)
+    {
+        if (Net.sv.IsConnected() && CommunityEntity.ServerInstance.net != null)
+        {
+            DestroyUisRequest.Create(names, send).Enqueue();
         }
     }
     #endregion

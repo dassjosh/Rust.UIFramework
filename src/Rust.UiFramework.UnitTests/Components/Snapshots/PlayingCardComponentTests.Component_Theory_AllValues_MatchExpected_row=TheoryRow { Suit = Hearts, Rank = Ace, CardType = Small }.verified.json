@@ -1,4 +1,5 @@
 ﻿{
+  "AllowRaycast": false,
   "CardType": "Small",
   "Color": "#FFA500FF",
   "ComponentType": "PlayingCard",

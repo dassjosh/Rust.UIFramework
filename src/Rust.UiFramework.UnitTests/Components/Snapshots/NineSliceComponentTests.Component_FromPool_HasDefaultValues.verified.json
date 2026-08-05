@@ -1,8 +1,10 @@
 ﻿{
+  "AllowRaycast": true,
   "Color": "#FFFFFFFF",
   "ComponentType": "NineSlice",
   "Enabled": true,
   "FillCenter": false,
   "ImageType": "Sliced",
+  "PixelPerUnitMultiplier": 1.0,
   "Type": "UnityEngine.UI.Image"
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Concurrent;
 using System.Reflection;
 using System.Text;
+using Oxide.Ext.UiFramework.Builder;
 using Oxide.Ext.UiFramework.Builder.Cached;
 using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Plugins;
@@ -148,7 +149,7 @@ public class UiPoolingTests
     private static IEnumerable<Type> GetBasePoolables() => GetLoadableTypes(typeof(BasePoolable).Assembly)
         .Where(t => !t.IsAbstract && !t.ContainsGenericParameters && t.IsSubclassOf(typeof(BasePoolable)) && !IgnoredBasePoolables.Contains(t));
 
-    private static readonly List<Type> IgnoredBasePoolables = [typeof(ExecutionData), typeof(CachedUiBuilder)];
+    private static readonly List<Type> IgnoredBasePoolables = [typeof(ExecutionData), typeof(CachedUiBuilder), typeof(CachedPieMenu)];
 
     private static IEnumerable<Type> GetLoadableTypes(Assembly assembly)
     {

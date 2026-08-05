@@ -33,6 +33,12 @@ public partial class ImageComponent : CoreComponent, IGraphicalComponent
     [TrackedDefaults(typeof(JsonDefaults.Image), nameof(JsonDefaults.Image.FillCenter))]
     public partial bool FillCenter { get; set; }
 
+    [TrackedDefaults(typeof(JsonDefaults.Image), nameof(JsonDefaults.Image.PixelPerUnitMultiplier))]
+    public partial float PixelPerUnitMultiplier { get; set; }
+
+    [TrackedDefaults(typeof(JsonDefaults.Common), nameof(JsonDefaults.Common.AllowRaycast))]
+    public partial bool AllowRaycast { get; set; }
+
     public partial string Png { get; set; }
     
     public override Utf8String Type => JsonDefaults.Image.Type;
@@ -46,7 +52,9 @@ public partial class ImageComponent : CoreComponent, IGraphicalComponent
         writer.AddField(JsonDefaults.Color.ColorName, ColorTracked, mode);
         writer.AddField(JsonDefaults.Image.ImageTypeName, ImageTypeTracked, mode);
         writer.AddField(JsonDefaults.Image.FillCenterName, FillCenterTracked, mode);
+        writer.AddField(JsonDefaults.Image.PixelPerUnitMultiplierName, FillCenterTracked, mode);
         writer.AddField(JsonDefaults.Image.PngName, PngTracked, mode);
+        writer.AddField(JsonDefaults.Common.AllowRaycastName, AllowRaycastTracked, mode);
         if (PlaceholderFor.IsValidName())
         {
             writer.AddField(JsonDefaults.Common.PlaceholderInputId, PlaceholderFor.Name);

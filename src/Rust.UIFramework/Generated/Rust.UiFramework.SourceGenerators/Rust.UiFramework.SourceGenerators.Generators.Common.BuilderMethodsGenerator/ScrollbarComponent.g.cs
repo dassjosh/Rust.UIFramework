@@ -69,6 +69,13 @@ public partial class ScrollbarComponent
 		TrackColor = trackColor;
 		return this;
 	}
+
+	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+	public ScrollbarComponent SetFadeDuration(float fadeDuration)
+	{
+		FadeDuration = fadeDuration;
+		return this;
+	}
 }
 
 

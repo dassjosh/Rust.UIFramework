@@ -1,8 +1,8 @@
 ﻿{
-  "anchormax": "3.1 4.9",
-  "anchormin": "1.5 3.7",
-  "offsetmax": "7.1 8.9",
-  "offsetmin": "5.5 7.7",
+  "anchormax": "3.1 5.3",
+  "anchormin": "1.5 4.1",
+  "offsetmax": "7.1 9.3",
+  "offsetmin": "5.5 8.1",
   "pivot": "1 0",
   "rotation": 360,
   "setParent": "newParent",

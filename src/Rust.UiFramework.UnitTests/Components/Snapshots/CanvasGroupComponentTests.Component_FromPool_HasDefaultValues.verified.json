@@ -1,0 +1,12 @@
+﻿{
+  "AllowMultiple": false,
+  "AllowRaycast": true,
+  "Alpha": 1.0,
+  "ComponentType": "CanvasGroup",
+  "Enabled": true,
+  "Fade": {
+    "Duration": 1.0
+  },
+  "Interactable": true,
+  "Type": "UnityEngine.UI.CanvasGroup"
+}
