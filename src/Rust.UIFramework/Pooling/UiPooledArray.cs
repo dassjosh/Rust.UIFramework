@@ -8,12 +8,11 @@ namespace Oxide.Ext.UiFramework.Pooling;
 
 public class UiPooledArray<T> : BasePoolable, IList<T>, IReadOnlyList<T>
 {
-    private T[] _array;
+    private readonly T[] _array;
     public T[] Array => _array;
     public int Count => _length < 0 ? _array.Length : _length;
     public bool IsReadOnly => _array.IsReadOnly;
     private int _length = -1;
-    private static readonly bool ClearArray = !Type.IsUnmanaged<T>();
     
     internal static readonly UiPooledArray<T> Empty = new(0);
 
@@ -23,11 +22,6 @@ public class UiPooledArray<T> : BasePoolable, IList<T>, IReadOnlyList<T>
     }
 
     public UiPooledArray() { }
-
-    public void SetArray(T[] array)
-    {
-        _array ??= array;
-    }
 
     public bool Contains(T item) => ((ICollection<T>)_array).Contains(item);
     public int IndexOf(T item) => ((IList<T>)_array).IndexOf(item);
@@ -63,9 +57,6 @@ public class UiPooledArray<T> : BasePoolable, IList<T>, IReadOnlyList<T>
     protected override void EnterPool()
     {
         _length = -1;
-        if (ClearArray)
-        {
-            _array.Clear();
-        }
+        _array.Clear();
     }
 }

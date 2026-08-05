@@ -32,5 +32,6 @@ internal class DestroyUisRequest : BaseUiRequest
     {
         base.EnterPool();
         PluginPool.FreeList(Names);
+        Names = null;
     }
 }

@@ -82,6 +82,7 @@ public class PieMenuBuilder : BasePieMenuBuilder
 
     protected override void EnterPool()
     {
+        Plugin = null;
         _closeCommand = null;
         _items.FreeValues();
     }
