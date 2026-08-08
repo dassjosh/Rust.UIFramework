@@ -50,9 +50,9 @@ public sealed class UiChannel<T> : IUiChannel where T : IBaseUiChannelObject
             int workersToStart = Math.Min(_options.MaxConcurrency - _activeWorkerCount, _queue.Count);
             for (int i = 0; i < workersToStart; i++)
             {
-                Run().Forget();
                 Interlocked.Increment(ref _activeWorkerCount);
                 _logger.Debug("Started new worker task. Active workers: {0}/{1}", _activeWorkerCount, _options.MaxConcurrency);
+                Run().Forget();
             }
         }
     }
@@ -86,8 +86,8 @@ public sealed class UiChannel<T> : IUiChannel where T : IBaseUiChannelObject
         }
         finally
         {
-            _logger.Debug("Worker task shutting down due to empty queue. Active workers: {0}", _activeWorkerCount);
             Interlocked.Decrement(ref _activeWorkerCount);
+            _logger.Debug("Worker task shutting down due to empty queue. Active workers: {0}", _activeWorkerCount);
         }
     }
 
