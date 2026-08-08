@@ -55,6 +55,13 @@ public partial class UiItemIcon
 		Color = color;
 		return this;
 	}
+
+	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+	public UiItemIcon SetAllowRaycast(bool allowRaycast)
+	{
+		AllowRaycast = allowRaycast;
+		return this;
+	}
 }
 
 

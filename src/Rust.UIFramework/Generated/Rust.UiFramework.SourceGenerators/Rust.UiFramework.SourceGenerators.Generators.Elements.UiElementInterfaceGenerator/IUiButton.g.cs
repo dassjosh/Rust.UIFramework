@@ -14,6 +14,8 @@ public interface IUiButton : Oxide.Ext.UiFramework.Interfaces.IImageType<Oxide.E
 	Oxide.Ext.UiFramework.Colors.UiColor SelectedColor { get; }
 	float ColorMultiplier { get; }
 	float FadeDuration { get; }
+	bool Interactable { get; }
+	bool AllowRaycast { get; }
 	Oxide.Ext.UiFramework.Components.ColorBlockComponent ColorBlock { get; }
 
 	Oxide.Ext.UiFramework.UiElements.UiButton SetCommand(string command);
@@ -23,6 +25,8 @@ public interface IUiButton : Oxide.Ext.UiFramework.Interfaces.IImageType<Oxide.E
 	Oxide.Ext.UiFramework.UiElements.UiButton SetSelectedColor(Oxide.Ext.UiFramework.Colors.UiColor selectedColor);
 	Oxide.Ext.UiFramework.UiElements.UiButton SetColorMultiplier(float colorMultiplier);
 	Oxide.Ext.UiFramework.UiElements.UiButton SetFadeDuration(float fadeDuration);
+	Oxide.Ext.UiFramework.UiElements.UiButton SetInteractable(bool interactable);
+	Oxide.Ext.UiFramework.UiElements.UiButton SetAllowRaycast(bool allowRaycast);
 }
 
 

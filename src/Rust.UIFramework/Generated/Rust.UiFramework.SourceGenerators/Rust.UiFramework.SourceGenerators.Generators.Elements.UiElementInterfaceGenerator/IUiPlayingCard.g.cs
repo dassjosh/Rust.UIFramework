@@ -10,10 +10,12 @@ public interface IUiPlayingCard : Oxide.Ext.UiFramework.Interfaces.IMaterial<Oxi
 	Oxide.Ext.UiFramework.Enums.UiSuit Suit { get; }
 	Oxide.Ext.UiFramework.Enums.UiRank Rank { get; }
 	Oxide.Ext.UiFramework.Enums.UiCardType CardType { get; }
+	bool AllowRaycast { get; }
 
 	Oxide.Ext.UiFramework.UiElements.UiPlayingCard SetSuit(Oxide.Ext.UiFramework.Enums.UiSuit suit);
 	Oxide.Ext.UiFramework.UiElements.UiPlayingCard SetRank(Oxide.Ext.UiFramework.Enums.UiRank rank);
 	Oxide.Ext.UiFramework.UiElements.UiPlayingCard SetCardType(Oxide.Ext.UiFramework.Enums.UiCardType cardType);
+	Oxide.Ext.UiFramework.UiElements.UiPlayingCard SetAllowRaycast(bool allowRaycast);
 }
 
 

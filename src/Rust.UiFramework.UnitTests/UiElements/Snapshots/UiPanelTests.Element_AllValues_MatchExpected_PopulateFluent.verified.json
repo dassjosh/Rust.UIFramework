@@ -1,5 +1,6 @@
 ﻿{
   "Active": true,
+  "AllowRaycast": true,
   "Color": "#808080FF",
   "Enabled": true,
   "FadeIn": 1.5,

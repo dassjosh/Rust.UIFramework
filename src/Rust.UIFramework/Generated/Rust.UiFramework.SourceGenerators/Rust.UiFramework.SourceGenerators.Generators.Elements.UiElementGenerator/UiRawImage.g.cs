@@ -43,6 +43,13 @@ public partial class UiRawImage : IUiRawImage
 		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 		set => RawImage.Color = value;
 	}
+	public partial bool AllowRaycast
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => RawImage.AllowRaycast;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => RawImage.AllowRaycast = value;
+	}
 }
 
 

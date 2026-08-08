@@ -36,6 +36,7 @@ public partial class UiInput : BaseUiComponent, IFadeIn<UiInput>, IUiColor<UiInp
     public partial bool HudNeedsKeyboard { get; set; }
     public partial bool AutoFocus { get; set; }
     public partial bool ReadOnly { get; set; }
+    public partial bool Interactable { get; set; }
     
     public readonly InputComponent Input;
     

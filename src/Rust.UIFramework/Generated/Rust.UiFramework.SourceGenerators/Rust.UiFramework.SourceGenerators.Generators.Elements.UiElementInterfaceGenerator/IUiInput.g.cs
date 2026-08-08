@@ -22,6 +22,7 @@ public interface IUiInput : Oxide.Ext.UiFramework.Interfaces.IFadeIn<Oxide.Ext.U
 	bool HudNeedsKeyboard { get; }
 	bool AutoFocus { get; }
 	bool ReadOnly { get; }
+	bool Interactable { get; }
 
 	Oxide.Ext.UiFramework.UiElements.UiInput SetFontSize(int fontSize);
 	Oxide.Ext.UiFramework.UiElements.UiInput SetFont(string font);
@@ -38,6 +39,7 @@ public interface IUiInput : Oxide.Ext.UiFramework.Interfaces.IFadeIn<Oxide.Ext.U
 	Oxide.Ext.UiFramework.UiElements.UiInput SetHudNeedsKeyboard(bool hudNeedsKeyboard);
 	Oxide.Ext.UiFramework.UiElements.UiInput SetAutoFocus(bool autoFocus);
 	Oxide.Ext.UiFramework.UiElements.UiInput SetReadOnly(bool readOnly);
+	Oxide.Ext.UiFramework.UiElements.UiInput SetInteractable(bool interactable);
 }
 
 

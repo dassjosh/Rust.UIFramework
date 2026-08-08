@@ -9,9 +9,11 @@ public interface IUiPlayerAvatar : Oxide.Ext.UiFramework.Interfaces.IMaterial<Ox
 {
 	ulong SteamId { get; }
 	Oxide.Ext.UiFramework.Enums.AvatarType AvatarType { get; }
+	bool AllowRaycast { get; }
 
 	Oxide.Ext.UiFramework.UiElements.UiPlayerAvatar SetSteamId(ulong steamId);
 	Oxide.Ext.UiFramework.UiElements.UiPlayerAvatar SetAvatarType(Oxide.Ext.UiFramework.Enums.AvatarType avatarType);
+	Oxide.Ext.UiFramework.UiElements.UiPlayerAvatar SetAllowRaycast(bool allowRaycast);
 }
 
 

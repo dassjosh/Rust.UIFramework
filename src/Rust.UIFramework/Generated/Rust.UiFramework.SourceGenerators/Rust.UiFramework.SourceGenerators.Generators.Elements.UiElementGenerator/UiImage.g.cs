@@ -64,6 +64,20 @@ public partial class UiImage : IUiImage
 		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 		set => Image.Png = value;
 	}
+	public partial float PixelPerUnitMultiplier
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => Image.PixelPerUnitMultiplier;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => Image.PixelPerUnitMultiplier = value;
+	}
+	public partial bool AllowRaycast
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => Image.AllowRaycast;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => Image.AllowRaycast = value;
+	}
 }
 
 

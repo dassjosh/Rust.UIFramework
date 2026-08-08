@@ -62,6 +62,13 @@ public partial class UiPanel
 		Png = png;
 		return this;
 	}
+
+	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+	public UiPanel SetAllowRaycast(bool allowRaycast)
+	{
+		AllowRaycast = allowRaycast;
+		return this;
+	}
 }
 
 

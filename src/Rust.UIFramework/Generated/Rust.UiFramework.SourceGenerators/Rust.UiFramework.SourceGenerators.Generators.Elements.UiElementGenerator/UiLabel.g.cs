@@ -64,6 +64,13 @@ public partial class UiLabel : IUiLabel
 		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 		set => Text.Color = value;
 	}
+	public partial bool AllowRaycast
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => Text.AllowRaycast;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => Text.AllowRaycast = value;
+	}
 }
 
 

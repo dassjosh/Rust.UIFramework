@@ -22,6 +22,8 @@ public partial class UiImage : BaseUiComponent, IImageType<UiImage>, ISprite<UiI
     public partial UiReference PlaceholderFor { get; set; }
     public partial bool FillCenter { get; set; }
     public partial string Png { get; set; }
+    public partial float PixelPerUnitMultiplier { get; set; }
+    public partial bool AllowRaycast { get; set; }
     
     public readonly ImageComponent Image;
 

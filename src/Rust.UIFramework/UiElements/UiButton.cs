@@ -36,6 +36,8 @@ public partial class UiButton : BaseUiComponent, IImageType<UiButton>, ISprite<U
     public partial string Material { get; set; }
     public partial float FadeIn { get; set; }
     public partial UiColor Color { get; set; }
+    public partial bool Interactable { get; set; }
+    public partial bool AllowRaycast { get; set; }
     
     public readonly ButtonComponent Button;
     public ColorBlockComponent ColorBlock => Button.ColorBlock;

@@ -1,5 +1,6 @@
 ﻿{
   "Active": true,
+  "AllowRaycast": true,
   "Card": {
     "AllowRaycast": true,
     "CardType": "SmallTransparent",

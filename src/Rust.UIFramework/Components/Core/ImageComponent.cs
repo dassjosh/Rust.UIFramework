@@ -52,7 +52,7 @@ public partial class ImageComponent : CoreComponent, IGraphicalComponent
         writer.AddField(JsonDefaults.Color.ColorName, ColorTracked, mode);
         writer.AddField(JsonDefaults.Image.ImageTypeName, ImageTypeTracked, mode);
         writer.AddField(JsonDefaults.Image.FillCenterName, FillCenterTracked, mode);
-        writer.AddField(JsonDefaults.Image.PixelPerUnitMultiplierName, FillCenterTracked, mode);
+        writer.AddField(JsonDefaults.Image.PixelPerUnitMultiplierName, PixelPerUnitMultiplierTracked, mode);
         writer.AddField(JsonDefaults.Image.PngName, PngTracked, mode);
         writer.AddField(JsonDefaults.Common.AllowRaycastName, AllowRaycastTracked, mode);
         if (PlaceholderFor.IsValidName())

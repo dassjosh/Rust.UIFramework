@@ -62,6 +62,20 @@ public partial class UiImage
 		Png = png;
 		return this;
 	}
+
+	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+	public UiImage SetPixelPerUnitMultiplier(float pixelPerUnitMultiplier)
+	{
+		PixelPerUnitMultiplier = pixelPerUnitMultiplier;
+		return this;
+	}
+
+	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+	public UiImage SetAllowRaycast(bool allowRaycast)
+	{
+		AllowRaycast = allowRaycast;
+		return this;
+	}
 }
 
 

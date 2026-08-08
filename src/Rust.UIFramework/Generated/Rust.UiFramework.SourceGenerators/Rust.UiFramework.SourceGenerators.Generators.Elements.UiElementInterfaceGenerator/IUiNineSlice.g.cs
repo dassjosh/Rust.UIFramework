@@ -11,11 +11,13 @@ public interface IUiNineSlice : Oxide.Ext.UiFramework.Interfaces.IImageType<Oxid
 	Oxide.Ext.UiFramework.Types.UiBorderWidth Slice { get; }
 	Oxide.Ext.UiFramework.UiElements.UiReference PlaceholderFor { get; }
 	bool FillCenter { get; }
+	bool AllowRaycast { get; }
 
 	Oxide.Ext.UiFramework.UiElements.UiNineSlice SetPng(string png);
 	Oxide.Ext.UiFramework.UiElements.UiNineSlice SetSlice(in Oxide.Ext.UiFramework.Types.UiBorderWidth slice);
 	Oxide.Ext.UiFramework.UiElements.UiNineSlice SetPlaceholderFor(in Oxide.Ext.UiFramework.UiElements.UiReference placeholderFor);
 	Oxide.Ext.UiFramework.UiElements.UiNineSlice SetFillCenter(bool fillCenter);
+	Oxide.Ext.UiFramework.UiElements.UiNineSlice SetAllowRaycast(bool allowRaycast);
 }
 
 

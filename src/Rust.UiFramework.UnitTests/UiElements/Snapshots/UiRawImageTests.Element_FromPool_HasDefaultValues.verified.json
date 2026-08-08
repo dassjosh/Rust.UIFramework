@@ -1,5 +1,6 @@
 ﻿{
   "Active": true,
+  "AllowRaycast": true,
   "Enabled": true,
   "RawImage": {
     "AllowRaycast": true,

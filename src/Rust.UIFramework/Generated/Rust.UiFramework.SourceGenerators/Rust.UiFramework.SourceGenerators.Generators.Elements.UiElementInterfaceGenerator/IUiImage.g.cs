@@ -10,10 +10,14 @@ public interface IUiImage : Oxide.Ext.UiFramework.Interfaces.IImageType<Oxide.Ex
 	Oxide.Ext.UiFramework.UiElements.UiReference PlaceholderFor { get; }
 	bool FillCenter { get; }
 	string Png { get; }
+	float PixelPerUnitMultiplier { get; }
+	bool AllowRaycast { get; }
 
 	Oxide.Ext.UiFramework.UiElements.UiImage SetPlaceholderFor(in Oxide.Ext.UiFramework.UiElements.UiReference placeholderFor);
 	Oxide.Ext.UiFramework.UiElements.UiImage SetFillCenter(bool fillCenter);
 	Oxide.Ext.UiFramework.UiElements.UiImage SetPng(string png);
+	Oxide.Ext.UiFramework.UiElements.UiImage SetPixelPerUnitMultiplier(float pixelPerUnitMultiplier);
+	Oxide.Ext.UiFramework.UiElements.UiImage SetAllowRaycast(bool allowRaycast);
 }
 
 

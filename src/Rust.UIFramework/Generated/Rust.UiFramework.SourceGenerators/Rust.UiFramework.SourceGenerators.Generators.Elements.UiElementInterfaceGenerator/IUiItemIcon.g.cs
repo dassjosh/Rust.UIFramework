@@ -10,10 +10,12 @@ public interface IUiItemIcon : Oxide.Ext.UiFramework.Interfaces.IMaterial<Oxide.
 	int ItemId { get; }
 	ulong SkinId { get; }
 	string Sprite { get; }
+	bool AllowRaycast { get; }
 
 	Oxide.Ext.UiFramework.UiElements.UiItemIcon SetItemId(int itemId);
 	Oxide.Ext.UiFramework.UiElements.UiItemIcon SetSkinId(ulong skinId);
 	Oxide.Ext.UiFramework.UiElements.UiItemIcon SetSprite(string sprite);
+	Oxide.Ext.UiFramework.UiElements.UiItemIcon SetAllowRaycast(bool allowRaycast);
 }
 
 

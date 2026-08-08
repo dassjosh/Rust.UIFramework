@@ -1,5 +1,6 @@
 ﻿{
   "Active": true,
+  "AllowRaycast": true,
   "Button": {
     "AllowRaycast": true,
     "Color": "#FFFFFFFF",
@@ -9,5 +10,6 @@
     "Type": "UnityEngine.UI.Button"
   },
   "Color": "#FFFFFFFF",
-  "Enabled": true
+  "Enabled": true,
+  "Interactable": true
 }

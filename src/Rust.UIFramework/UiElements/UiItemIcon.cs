@@ -17,6 +17,7 @@ public partial class UiItemIcon : BaseUiComponent, IMaterial<UiItemIcon>, IFadeI
     public partial string Material { get; set; }
     public partial float FadeIn { get; set; }
     public partial UiColor Color { get; set; }
+    public partial bool AllowRaycast { get; set; }
     
     public readonly ItemIconComponent Icon;
     

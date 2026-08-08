@@ -48,6 +48,13 @@ public partial class UiPlayingCard
 		Color = color;
 		return this;
 	}
+
+	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+	public UiPlayingCard SetAllowRaycast(bool allowRaycast)
+	{
+		AllowRaycast = allowRaycast;
+		return this;
+	}
 }
 
 

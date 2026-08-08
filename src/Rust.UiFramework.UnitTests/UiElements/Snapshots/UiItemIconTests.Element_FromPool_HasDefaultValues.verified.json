@@ -1,5 +1,6 @@
 ﻿{
   "Active": true,
+  "AllowRaycast": true,
   "Color": "#FFFFFFFF",
   "Enabled": true,
   "Icon": {

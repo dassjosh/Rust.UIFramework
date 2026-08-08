@@ -22,6 +22,7 @@ public partial class UiLabel : BaseUiComponent, IFadeIn<UiLabel>, IUiColor<UiLab
     public partial UiReference PlaceholderFor { get; set; }
     public partial float FadeIn { get; set; }
     public partial UiColor Color { get; set; }
+    public partial bool AllowRaycast { get; set; }
     
     public readonly TextComponent Text;
 

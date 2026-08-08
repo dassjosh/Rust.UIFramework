@@ -10,10 +10,12 @@ public interface IUiPanel : Oxide.Ext.UiFramework.Interfaces.IImageType<Oxide.Ex
 	Oxide.Ext.UiFramework.UiElements.UiReference PlaceholderFor { get; }
 	bool FillCenter { get; }
 	string Png { get; }
+	bool AllowRaycast { get; }
 
 	Oxide.Ext.UiFramework.UiElements.UiPanel SetPlaceholderFor(in Oxide.Ext.UiFramework.UiElements.UiReference placeholderFor);
 	Oxide.Ext.UiFramework.UiElements.UiPanel SetFillCenter(bool fillCenter);
 	Oxide.Ext.UiFramework.UiElements.UiPanel SetPng(string png);
+	Oxide.Ext.UiFramework.UiElements.UiPanel SetAllowRaycast(bool allowRaycast);
 }
 
 
