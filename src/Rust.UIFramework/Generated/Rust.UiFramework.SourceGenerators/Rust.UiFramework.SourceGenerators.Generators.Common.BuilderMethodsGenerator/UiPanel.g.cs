@@ -64,6 +64,13 @@ public partial class UiPanel
 	}
 
 	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+	public UiPanel SetPixelPerUnitMultiplier(float pixelPerUnitMultiplier)
+	{
+		PixelPerUnitMultiplier = pixelPerUnitMultiplier;
+		return this;
+	}
+
+	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 	public UiPanel SetAllowRaycast(bool allowRaycast)
 	{
 		AllowRaycast = allowRaycast;

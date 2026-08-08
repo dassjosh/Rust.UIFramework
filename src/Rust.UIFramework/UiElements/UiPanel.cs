@@ -21,6 +21,7 @@ public partial class UiPanel : BaseUiComponent, IImageType<UiPanel>, ISprite<UiP
     public partial float FadeIn { get; set; }
     public partial UiColor Color { get; set; }
     public partial string Png { get; set; }
+    public partial float PixelPerUnitMultiplier { get; set; }
     public partial bool AllowRaycast { get; set; }
     
     public readonly ImageComponent Image;

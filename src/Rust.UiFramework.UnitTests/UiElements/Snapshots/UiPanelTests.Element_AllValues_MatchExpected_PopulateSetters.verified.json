@@ -22,6 +22,7 @@
   "Material": "assets/icons/iconmaterial.mat",
   "Name": "element",
   "Parent": "parent",
+  "PixelPerUnitMultiplier": 1.0,
   "Reference": "parent:element",
   "Sprite": "assets/icons/authorize.png"
 }

@@ -12,5 +12,6 @@
     "FillCenter": true,
     "PixelPerUnitMultiplier": 1.0,
     "Type": "UnityEngine.UI.Image"
-  }
+  },
+  "PixelPerUnitMultiplier": 1.0
 }
