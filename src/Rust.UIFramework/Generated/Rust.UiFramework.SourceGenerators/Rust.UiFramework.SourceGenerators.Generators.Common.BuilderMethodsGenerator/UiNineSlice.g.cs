@@ -71,6 +71,13 @@ public partial class UiNineSlice
 	}
 
 	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+	public UiNineSlice SetPixelPerUnitMultiplier(float pixelPerUnitMultiplier)
+	{
+		PixelPerUnitMultiplier = pixelPerUnitMultiplier;
+		return this;
+	}
+
+	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 	public UiNineSlice SetAllowRaycast(bool allowRaycast)
 	{
 		AllowRaycast = allowRaycast;
