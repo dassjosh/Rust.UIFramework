@@ -34,7 +34,7 @@ public partial class TooltipComponent : SubComponent
 
     protected override void WriteComponentFields(JsonFrameworkWriter writer, SerializeMode mode)
     {
-        writer.AddField(JsonDefaults.ToolTip.TextName, TextTracked, mode);
+        writer.AddTextField(JsonDefaults.ToolTip.TextName, TextTracked, mode);
         writer.AddField(JsonDefaults.ToolTip.TooltipTypeName, TooltipTypeTracked, mode);
         writer.AddField(JsonDefaults.ToolTip.DelayName, DelayTracked, mode);
         writer.AddField(JsonDefaults.ToolTip.PositionName, PositionTracked, mode);
