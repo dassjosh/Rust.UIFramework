@@ -9,6 +9,7 @@ using Oxide.Ext.UiFramework.Cache;
 using Oxide.Ext.UiFramework.Config;
 using Oxide.Ext.UiFramework.Data;
 using Oxide.Ext.UiFramework.Enums;
+using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Logging;
 using Oxide.Ext.UiFramework.Types;
 
@@ -65,7 +66,7 @@ public class UiPlayerAvatars : BaseUiFrameworkLibrary, ISingleton
 
     private async UniTaskVoid GetPlayerAvatarAsync(ulong steamId)
     {
-        await UniTask.SwitchToThreadPool();
+        await UniTaskExt.SwitchToThreadPool();
         try
         {
             HttpResponseMessage response = await _httpClient.GetAsync($"?key={_config.ApiKey}&steamids={StringCache<ulong>.ToString(steamId)}").ConfigureAwait(false);

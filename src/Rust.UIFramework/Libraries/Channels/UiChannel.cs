@@ -67,12 +67,12 @@ public sealed class UiChannel<T> : IUiChannel where T : IBaseUiChannelObject
     {
         if (_options.EnableMultithreading)
         {
-            await UniTask.SwitchToThreadPool();
+            await UniTaskExt.SwitchToThreadPool();
         }
         else
         {
 #if SERVER
-            await UniTask.SwitchToMainThread();
+            await UniTaskExt.SwitchToMainThread();
 #endif
         }
 

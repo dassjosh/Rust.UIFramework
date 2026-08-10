@@ -183,12 +183,12 @@ internal class AnimationHandler : ISingleton
     {
         try
         {
-            await UniTask.SwitchToMainThread();
+            await UniTaskExt.SwitchToMainThread();
             SendAnimations(writer, send);
         }
         finally
         {
-            await UniTask.SwitchToThreadPool();
+            await UniTaskExt.SwitchToThreadPool();
             writer.TryDispose();
         }
     }
