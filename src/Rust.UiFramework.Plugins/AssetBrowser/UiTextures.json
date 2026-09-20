@@ -883,6 +883,7 @@
                     "VfxShockwave": "assets/content/effects/explosions/vfx_shockwave.tga",
                     "VfxShockwave2Nrm": "assets/content/effects/explosions/vfx_shockwave2_nrm.png",
                     "VfxShockwave3": "assets/content/effects/explosions/vfx_shockwave3.tga",
+                    "VfxShockwave4": "assets/content/effects/explosions/vfx_shockwave4.tga",
                     "VfxShockwaveHarder": "assets/content/effects/explosions/vfx_shockwave_harder.tga",
                     "VfxShockwaveNrm": "assets/content/effects/explosions/vfx_shockwave_nrm.tga"
                   },
@@ -1055,21 +1056,6 @@
                           "Path": "assets/assets/content/effects/explosions/tests/explosion2",
                           "Files": {},
                           "SubFolders": {
-                            "high fps": {
-                              "Name": "high fps",
-                              "Path": "assets/assets/content/effects/explosions/tests/explosion2/high fps",
-                              "Files": {
-                                "ExplosionV2HighAlpha": "assets/content/effects/explosions/tests/explosion2/high fps/explosion_v2_high_alpha.tga",
-                                "ExplosionV2HighBc": "assets/content/effects/explosions/tests/explosion2/high fps/explosion_v2_high_bc.tga",
-                                "ExplosionV2HighEm": "assets/content/effects/explosions/tests/explosion2/high fps/explosion_v2_high_em.tga",
-                                "ExplosionV2HighMv": "assets/content/effects/explosions/tests/explosion2/high fps/explosion_v2_high_mv.tga",
-                                "ExplosionV2HighNrm": "assets/content/effects/explosions/tests/explosion2/high fps/explosion_v2_high_nrm.tga",
-                                "ExplosionV2HighSixpoints1": "assets/content/effects/explosions/tests/explosion2/high fps/explosion_v2_high_sixpoints_1.tga",
-                                "ExplosionV2HighSixpoints2": "assets/content/effects/explosions/tests/explosion2/high fps/explosion_v2_high_sixpoints_2.tga",
-                                "ExplosionV2HighSmoke": "assets/content/effects/explosions/tests/explosion2/high fps/explosion_v2_high_smoke.tga"
-                              },
-                              "SubFolders": {}
-                            },
                             "low fps": {
                               "Name": "low fps",
                               "Path": "assets/assets/content/effects/explosions/tests/explosion2/low fps",
@@ -1688,6 +1674,7 @@
                       "Name": "textures",
                       "Path": "assets/assets/content/effects/impact/textures",
                       "Files": {
+                        "BluntImpactMeleeCactus": "assets/content/effects/impact/textures/blunt_impact_melee_cactus.tga",
                         "BluntImpactMeleeWood": "assets/content/effects/impact/textures/blunt_impact_melee_wood.tga",
                         "FlecksCloth": "assets/content/effects/impact/textures/flecks_cloth.tga",
                         "FlecksGrass": "assets/content/effects/impact/textures/flecks_grass.tga",
@@ -1695,6 +1682,8 @@
                         "FlecksWood": "assets/content/effects/impact/textures/flecks_wood.tga",
                         "GrassParticle": "assets/content/effects/impact/textures/grass_particle.tga",
                         "ImpactBloodSplatter": "assets/content/effects/impact/textures/impact__bloodsplatter.tga",
+                        "ImpactBulletCactus": "assets/content/effects/impact/textures/impact_bullet_cactus.tga",
+                        "ImpactBulletCactusNrm": "assets/content/effects/impact/textures/impact_bullet_cactus_nrm.tga",
                         "ImpactBulletWood": "assets/content/effects/impact/textures/impact_bullet_wood.tga",
                         "ImpactBulletWoodHeight": "assets/content/effects/impact/textures/impact_bullet_wood_height.tga",
                         "ImpactBulletWoodNrm": "assets/content/effects/impact/textures/impact_bullet_wood_nrm.tga",
@@ -1705,6 +1694,8 @@
                         "ImpactGroundSmokeSandB": "assets/content/effects/impact/textures/impact_ground_smoke_sand_b.tga",
                         "ImpactGroundSnowDust": "assets/content/effects/impact/textures/impact_ground_snow_dust.tga",
                         "ImpactGroundSnowDust2": "assets/content/effects/impact/textures/impact_ground_snow_dust_2.tga",
+                        "ImpactMeleeCactus": "assets/content/effects/impact/textures/impact_melee_cactus.tga",
+                        "ImpactMeleeCactusNrm": "assets/content/effects/impact/textures/impact_melee_cactus_nrm.tga",
                         "ImpactMeleeGeneric": "assets/content/effects/impact/textures/impact_melee_generic.tga",
                         "ImpactMeleeGenericNrm": "assets/content/effects/impact/textures/impact_melee_generic_nrm.tga",
                         "ImpactMeleeWood": "assets/content/effects/impact/textures/impact_melee_wood.tga",
@@ -3747,6 +3738,27 @@
                     }
                   }
                 },
+                "compound_rules_sign": {
+                  "Name": "compound_rules_sign",
+                  "Path": "assets/assets/content/props/compound_rules_sign",
+                  "Files": {},
+                  "SubFolders": {
+                    "textures": {
+                      "Name": "textures",
+                      "Path": "assets/assets/content/props/compound_rules_sign/textures",
+                      "Files": {
+                        "AirfieldMaintainablesRulesSignBc": "assets/content/props/compound_rules_sign/textures/airfield_maintainables_rules_sign_bc.tga",
+                        "AirfieldMaintainablesRulesSignMg": "assets/content/props/compound_rules_sign/textures/airfield_maintainables_rules_sign_mg.tga",
+                        "CompoundRulesSignBc": "assets/content/props/compound_rules_sign/textures/compound_rules_sign_bc.tga",
+                        "CompoundRulesSignMg": "assets/content/props/compound_rules_sign/textures/compound_rules_sign_mg.tga",
+                        "CompoundRulesSignNrm": "assets/content/props/compound_rules_sign/textures/compound_rules_sign_nrm.tga",
+                        "WtpMaintainablesRulesSignBc": "assets/content/props/compound_rules_sign/textures/wtp_maintainables_rules_sign_bc.tga",
+                        "WtpMaintainablesRulesSignMg": "assets/content/props/compound_rules_sign/textures/wtp_maintainables_rules_sign_mg.tga"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
                 "ammo_buckts": {
                   "Name": "ammo_buckts",
                   "Path": "assets/assets/content/props/ammo_buckts",
@@ -5093,23 +5105,6 @@
                     }
                   }
                 },
-                "compound_rules_sign": {
-                  "Name": "compound_rules_sign",
-                  "Path": "assets/assets/content/props/compound_rules_sign",
-                  "Files": {},
-                  "SubFolders": {
-                    "textures": {
-                      "Name": "textures",
-                      "Path": "assets/assets/content/props/compound_rules_sign/textures",
-                      "Files": {
-                        "CompoundRulesSignBc": "assets/content/props/compound_rules_sign/textures/compound_rules_sign_bc.tga",
-                        "CompoundRulesSignMg": "assets/content/props/compound_rules_sign/textures/compound_rules_sign_mg.tga",
-                        "CompoundRulesSignNrm": "assets/content/props/compound_rules_sign/textures/compound_rules_sign_nrm.tga"
-                      },
-                      "SubFolders": {}
-                    }
-                  }
-                },
                 "condenser_tank": {
                   "Name": "condenser_tank",
                   "Path": "assets/assets/content/props/condenser_tank",
@@ -5503,6 +5498,25 @@
                     }
                   }
                 },
+                "electrical_fuse_box": {
+                  "Name": "electrical_fuse_box",
+                  "Path": "assets/assets/content/props/electrical_fuse_box",
+                  "Files": {},
+                  "SubFolders": {
+                    "textures": {
+                      "Name": "textures",
+                      "Path": "assets/assets/content/props/electrical_fuse_box/textures",
+                      "Files": {
+                        "ElectricalFuseBoxAo": "assets/content/props/electrical_fuse_box/textures/electrical_fuse_box_ao.tga",
+                        "ElectricalFuseBoxBc": "assets/content/props/electrical_fuse_box/textures/electrical_fuse_box_bc.tga",
+                        "ElectricalFuseBoxEm": "assets/content/props/electrical_fuse_box/textures/electrical_fuse_box_em.tga",
+                        "ElectricalFuseBoxMg": "assets/content/props/electrical_fuse_box/textures/electrical_fuse_box_mg.tga",
+                        "ElectricalFuseBoxNrm": "assets/content/props/electrical_fuse_box/textures/electrical_fuse_box_nrm.tga"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
                 "electric_fan": {
                   "Name": "electric_fan",
                   "Path": "assets/assets/content/props/electric_fan",
@@ -5875,6 +5889,35 @@
                     }
                   }
                 },
+                "fuse heavy": {
+                  "Name": "fuse heavy",
+                  "Path": "assets/assets/content/props/fuse heavy",
+                  "Files": {},
+                  "SubFolders": {
+                    "material": {
+                      "Name": "material",
+                      "Path": "assets/assets/content/props/fuse heavy/material",
+                      "Files": {},
+                      "SubFolders": {
+                        "textures": {
+                          "Name": "textures",
+                          "Path": "assets/assets/content/props/fuse heavy/material/textures",
+                          "Files": {
+                            "FuseAo": "assets/content/props/fuse heavy/material/textures/fuse_ao.tga",
+                            "FuseBlueBc": "assets/content/props/fuse heavy/material/textures/fuse_blue_bc.tga",
+                            "FuseGreenBc": "assets/content/props/fuse heavy/material/textures/fuse_green_bc.tga",
+                            "FuseMg": "assets/content/props/fuse heavy/material/textures/fuse_mg.tga",
+                            "FuseNrm": "assets/content/props/fuse heavy/material/textures/fuse_nrm.tga",
+                            "FusePinkBc": "assets/content/props/fuse heavy/material/textures/fuse_pink_bc.tga",
+                            "FuseRedBc": "assets/content/props/fuse heavy/material/textures/fuse_red_bc.tga",
+                            "FuseYellowBc": "assets/content/props/fuse heavy/material/textures/fuse_yellow_bc.tga"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    }
+                  }
+                },
                 "fusebox": {
                   "Name": "fusebox",
                   "Path": "assets/assets/content/props/fusebox",
@@ -5942,8 +5985,12 @@
                       "Path": "assets/assets/content/props/gas_pump/textures",
                       "Files": {
                         "GasPumpBc": "assets/content/props/gas_pump/textures/gas_pump_bc.tga",
+                        "GasPumpBcCrude": "assets/content/props/gas_pump/textures/gas_pump_bc_crude.tga",
+                        "GasPumpEm": "assets/content/props/gas_pump/textures/gas_pump_em.tga",
                         "GasPumpMg": "assets/content/props/gas_pump/textures/gas_pump_mg.tga",
-                        "GasPumpNrm": "assets/content/props/gas_pump/textures/gas_pump_nrm.tga"
+                        "GasPumpNrm": "assets/content/props/gas_pump/textures/gas_pump_nrm.tga",
+                        "GasPumpTintMask": "assets/content/props/gas_pump/textures/gas_pump_tint_mask.tga",
+                        "GasPumpTintMask2": "assets/content/props/gas_pump/textures/gas_pump_tint_mask2.tga"
                       },
                       "SubFolders": {}
                     }
@@ -6185,6 +6232,7 @@
                       "Files": {
                         "IndustrialBarricadeAo": "assets/content/props/industrial_barricade/textures/industrial_barricade_ao.tga",
                         "IndustrialBarricadeBc": "assets/content/props/industrial_barricade/textures/industrial_barricade_bc.tga",
+                        "IndustrialBarricadeEm": "assets/content/props/industrial_barricade/textures/industrial_barricade_em.tga",
                         "IndustrialBarricadeMg": "assets/content/props/industrial_barricade/textures/industrial_barricade_mg.tga",
                         "IndustrialBarricadeNrm": "assets/content/props/industrial_barricade/textures/industrial_barricade_nrm.tga"
                       },
@@ -7055,6 +7103,11 @@
                       "Files": {
                         "PipePolesLodBc": "assets/content/props/powerline_poles/textures/pipe_poles_lod_bc.tga",
                         "PipePolesLodNrm": "assets/content/props/powerline_poles/textures/pipe_poles_lod_nrm.tga",
+                        "PowerlineindicatorEm": "assets/content/props/powerline_poles/textures/powerlineindicator_em.tga",
+                        "PowerlineindiciatorAo": "assets/content/props/powerline_poles/textures/powerlineindiciator_ao.tga",
+                        "PowerlineindiciatorBc": "assets/content/props/powerline_poles/textures/powerlineindiciator_bc.tga",
+                        "PowerlineindiciatorMg": "assets/content/props/powerline_poles/textures/powerlineindiciator_mg.tga",
+                        "PowerlineindiciatorNrm": "assets/content/props/powerline_poles/textures/powerlineindiciator_nrm.tga",
                         "PowerlinePolesBc": "assets/content/props/powerline_poles/textures/powerline_poles_bc.tga",
                         "PowerlinePolesEm": "assets/content/props/powerline_poles/textures/powerline_poles_em.tga",
                         "PowerlinePolesMg": "assets/content/props/powerline_poles/textures/powerline_poles_mg.tga",
@@ -7483,6 +7536,72 @@
                             "RustyCellDoorBc": "assets/content/props/prison_cell_door/materials/textures/rusty_cell_door_bc.tga",
                             "RustyCellDoorMg": "assets/content/props/prison_cell_door/materials/textures/rusty_cell_door_mg.tga",
                             "RustyCellDoorNrm": "assets/content/props/prison_cell_door/materials/textures/rusty_cell_door_nrm.tga"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    }
+                  }
+                },
+                "satellite_control_console": {
+                  "Name": "satellite_control_console",
+                  "Path": "assets/assets/content/props/satellite_control_console",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/assets/content/props/satellite_control_console/materials",
+                      "Files": {},
+                      "SubFolders": {
+                        "textures": {
+                          "Name": "textures",
+                          "Path": "assets/assets/content/props/satellite_control_console/materials/textures",
+                          "Files": {
+                            "SatConsoleAo": "assets/content/props/satellite_control_console/materials/textures/sat_console_ao.tga",
+                            "SatConsoleBc": "assets/content/props/satellite_control_console/materials/textures/sat_console_bc.tga",
+                            "SatConsoleEm": "assets/content/props/satellite_control_console/materials/textures/sat_console_em.png",
+                            "SatConsoleMg": "assets/content/props/satellite_control_console/materials/textures/sat_console_mg.tga",
+                            "SatConsoleNrm": "assets/content/props/satellite_control_console/materials/textures/sat_console_nrm.tga",
+                            "SatConsolePartsAo": "assets/content/props/satellite_control_console/materials/textures/sat_console_parts_ao.tga",
+                            "SatConsolePartsBc": "assets/content/props/satellite_control_console/materials/textures/sat_console_parts_bc.tga",
+                            "SatConsolePartsEm": "assets/content/props/satellite_control_console/materials/textures/sat_console_parts_em.png",
+                            "SatConsolePartsEmMask": "assets/content/props/satellite_control_console/materials/textures/sat_console_parts_em_mask.png",
+                            "SatConsolePartsEmMask1": "assets/content/props/satellite_control_console/materials/textures/sat_console_parts_em_mask.tga",
+                            "SatConsolePartsMg": "assets/content/props/satellite_control_console/materials/textures/sat_console_parts_mg.tga",
+                            "SatConsolePartsNrm": "assets/content/props/satellite_control_console/materials/textures/sat_console_parts_nrm.tga"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    }
+                  }
+                },
+                "satellite_crate": {
+                  "Name": "satellite_crate",
+                  "Path": "assets/assets/content/props/satellite_crate",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/assets/content/props/satellite_crate/materials",
+                      "Files": {},
+                      "SubFolders": {
+                        "textures": {
+                          "Name": "textures",
+                          "Path": "assets/assets/content/props/satellite_crate/materials/textures",
+                          "Files": {
+                            "SatelliteCrate1Ao": "assets/content/props/satellite_crate/materials/textures/satellite_crate_1_ao.png",
+                            "SatelliteCrate1Bc": "assets/content/props/satellite_crate/materials/textures/satellite_crate_1_bc.png",
+                            "SatelliteCrate1Mg": "assets/content/props/satellite_crate/materials/textures/satellite_crate_1_mg.png",
+                            "SatelliteCrate1Nrm": "assets/content/props/satellite_crate/materials/textures/satellite_crate_1_nrm.png",
+                            "SatelliteCrate2Ao": "assets/content/props/satellite_crate/materials/textures/satellite_crate_2_ao.png",
+                            "SatelliteCrate2Bc": "assets/content/props/satellite_crate/materials/textures/satellite_crate_2_bc.png",
+                            "SatelliteCrate2Mg": "assets/content/props/satellite_crate/materials/textures/satellite_crate_2_mg.png",
+                            "SatelliteCrate2Nrm": "assets/content/props/satellite_crate/materials/textures/satellite_crate_2_nrm.png",
+                            "SatelliteCrate3Ao": "assets/content/props/satellite_crate/materials/textures/satellite_crate_3_ao.png",
+                            "SatelliteCrate3Bc": "assets/content/props/satellite_crate/materials/textures/satellite_crate_3_bc.png",
+                            "SatelliteCrate3Mg": "assets/content/props/satellite_crate/materials/textures/satellite_crate_3_mg.png",
+                            "SatelliteCrate3Nrm": "assets/content/props/satellite_crate/materials/textures/satellite_crate_3_nrm.png"
                           },
                           "SubFolders": {}
                         }
@@ -7955,6 +8074,32 @@
                         "SupermarketCounterNrm": "assets/content/props/supermarket_counter/textures/supermarket_counter_nrm.tga"
                       },
                       "SubFolders": {}
+                    }
+                  }
+                },
+                "supermarket freezer": {
+                  "Name": "supermarket freezer",
+                  "Path": "assets/assets/content/props/supermarket freezer",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/assets/content/props/supermarket freezer/materials",
+                      "Files": {},
+                      "SubFolders": {
+                        "textures": {
+                          "Name": "textures",
+                          "Path": "assets/assets/content/props/supermarket freezer/materials/textures",
+                          "Files": {
+                            "SupermarketfreezerAo": "assets/content/props/supermarket freezer/materials/textures/supermarketfreezer_ao.tga",
+                            "SupermarketfreezerBc": "assets/content/props/supermarket freezer/materials/textures/supermarketfreezer_bc.tga",
+                            "SupermarketfreezerEm": "assets/content/props/supermarket freezer/materials/textures/supermarketfreezer_em.tga",
+                            "SupermarketfreezerMg": "assets/content/props/supermarket freezer/materials/textures/supermarketfreezer_mg.tga",
+                            "SupermarketfreezerNrm": "assets/content/props/supermarket freezer/materials/textures/supermarketfreezer_nrm.tga"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
                     }
                   }
                 },
@@ -10320,6 +10465,51 @@
                     }
                   }
                 },
+                "monument_blockers": {
+                  "Name": "monument_blockers",
+                  "Path": "assets/assets/content/structures/monument_blockers",
+                  "Files": {
+                    "MonumentBlockerStackedTerminalsAAo": "assets/content/structures/monument_blockers/monument_blocker_stacked_terminals_a_ao.png",
+                    "MonumentBlockerStackedTerminalsABc": "assets/content/structures/monument_blockers/monument_blocker_stacked_terminals_a_bc.png",
+                    "MonumentBlockerStackedTerminalsAMg": "assets/content/structures/monument_blockers/monument_blocker_stacked_terminals_a_mg.png",
+                    "MonumentBlockerStackedTerminalsANrm": "assets/content/structures/monument_blockers/monument_blocker_stacked_terminals_a_nrm.png"
+                  },
+                  "SubFolders": {
+                    "textures": {
+                      "Name": "textures",
+                      "Path": "assets/assets/content/structures/monument_blockers/textures",
+                      "Files": {
+                        "BlockerBlastdoorBc": "assets/content/structures/monument_blockers/textures/blocker_blastdoor_bc.tga",
+                        "BlockerBlastdoorMg": "assets/content/structures/monument_blockers/textures/blocker_blastdoor_mg.tga",
+                        "BlockerBlastdoorNrm": "assets/content/structures/monument_blockers/textures/blocker_blastdoor_nrm.tga",
+                        "BlockerCabinetRustedAo": "assets/content/structures/monument_blockers/textures/blocker_cabinet_rusted_ao.tga",
+                        "BlockerCabinetRustedBc": "assets/content/structures/monument_blockers/textures/blocker_cabinet_rusted_bc.tga",
+                        "BlockerCabinetRustedMg": "assets/content/structures/monument_blockers/textures/blocker_cabinet_rusted_mg.tga",
+                        "BlockerCabinetRustedNrm": "assets/content/structures/monument_blockers/textures/blocker_cabinet_rusted_nrm.tga",
+                        "BlockerCollapse300x300AConcreteLodBc": "assets/content/structures/monument_blockers/textures/blocker_collapse_300x300_a_concrete_lod_bc.tga",
+                        "BlockerCollapse300x300AConcreteLodNrm": "assets/content/structures/monument_blockers/textures/blocker_collapse_300x300_a_concrete_lod_nrm.tga",
+                        "BlockerCollapse300x300AConcreteLodSg": "assets/content/structures/monument_blockers/textures/blocker_collapse_300x300_a_concrete_lod_sg.tga",
+                        "BlockerLockersAAo": "assets/content/structures/monument_blockers/textures/blocker_lockers_a_ao.tga",
+                        "BlockerLockersABc": "assets/content/structures/monument_blockers/textures/blocker_lockers_a_bc.tga",
+                        "BlockerLockersAMg": "assets/content/structures/monument_blockers/textures/blocker_lockers_a_mg.tga",
+                        "BlockerLockersANrm": "assets/content/structures/monument_blockers/textures/blocker_lockers_a_nrm.tga",
+                        "BlockerRubbleADetailNrm": "assets/content/structures/monument_blockers/textures/blocker_rubble_a_detail_nrm.tga",
+                        "BlockerRubbleBDetailNrm": "assets/content/structures/monument_blockers/textures/blocker_rubble_b_detail_nrm.tga",
+                        "BlockerStackedTerminalsAAo": "assets/content/structures/monument_blockers/textures/blocker_stacked_terminals_a_ao.tga",
+                        "BlockerStackedTerminalsABc": "assets/content/structures/monument_blockers/textures/blocker_stacked_terminals_a_bc.tga",
+                        "BlockerStackedTerminalsAMg": "assets/content/structures/monument_blockers/textures/blocker_stacked_terminals_a_mg.tga",
+                        "BlockerStackedTerminalsANrm": "assets/content/structures/monument_blockers/textures/blocker_stacked_terminals_a_nrm.tga",
+                        "BlockerStackedTerminalsLod3Bc": "assets/content/structures/monument_blockers/textures/blocker_stacked_terminals_lod3_bc.tga",
+                        "BlockerStackedTerminalsLod3Mg": "assets/content/structures/monument_blockers/textures/blocker_stacked_terminals_lod3_mg.tga",
+                        "BlockerStackedTerminalsLod3Nrm": "assets/content/structures/monument_blockers/textures/blocker_stacked_terminals_lod3_nrm.tga",
+                        "BlockerTrolleyLodbakeLodBc": "assets/content/structures/monument_blockers/textures/blocker_trolley_lodbake_lod_bc.tga",
+                        "BlockerTrolleyLodbakeLodNrm": "assets/content/structures/monument_blockers/textures/blocker_trolley_lodbake_lod_nrm.tga",
+                        "BlockerTrolleyLodbakeLodSg": "assets/content/structures/monument_blockers/textures/blocker_trolley_lodbake_lod_sg.tga"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
                 "ship_trawler": {
                   "Name": "ship_trawler",
                   "Path": "assets/assets/content/structures/ship_trawler",
@@ -11192,6 +11382,9 @@
                         "IndustrialBldJLodNrm": "assets/content/structures/industrial_structures/textures/industrial_bld_j_lod_nrm.tga",
                         "IndustrialSewageTankBrokenLodBc": "assets/content/structures/industrial_structures/textures/industrial_sewage_tank_broken_lod_bc.tga",
                         "IndustrialSewageTankBrokenLodNrm": "assets/content/structures/industrial_structures/textures/industrial_sewage_tank_broken_lod_nrm.tga",
+                        "IndustrialSewageTankIntactLodBc": "assets/content/structures/industrial_structures/textures/industrial_sewage_tank_intact_lod_bc.tga",
+                        "IndustrialSewageTankIntactLodNrm": "assets/content/structures/industrial_structures/textures/industrial_sewage_tank_intact_lod_nrm.tga",
+                        "IndustrialSewageTankIntactLodSg": "assets/content/structures/industrial_structures/textures/industrial_sewage_tank_intact_lod_sg.tga",
                         "IndustrialSewageTankLodBc": "assets/content/structures/industrial_structures/textures/industrial_sewage_tank_lod_bc.tga",
                         "IndustrialSewageTankLodNrm": "assets/content/structures/industrial_structures/textures/industrial_sewage_tank_lod_nrm.tga",
                         "OverpassLodsBc": "assets/content/structures/industrial_structures/textures/overpass_lods_bc.tga",
@@ -11754,7 +11947,11 @@
                         "InteractiveWheelAo": "assets/content/structures/interactive_garage_door/textures/interactive_wheel_ao.tga",
                         "InteractiveWheelBc": "assets/content/structures/interactive_garage_door/textures/interactive_wheel_bc.tga",
                         "InteractiveWheelMg": "assets/content/structures/interactive_garage_door/textures/interactive_wheel_mg.tga",
-                        "InteractiveWheelNrm": "assets/content/structures/interactive_garage_door/textures/interactive_wheel_nrm.tga"
+                        "InteractiveWheelNrm": "assets/content/structures/interactive_garage_door/textures/interactive_wheel_nrm.tga",
+                        "PressureguageAo": "assets/content/structures/interactive_garage_door/textures/pressureguage_ao.tga",
+                        "PressureguageBc": "assets/content/structures/interactive_garage_door/textures/pressureguage_bc.tga",
+                        "PressureguageMg": "assets/content/structures/interactive_garage_door/textures/pressureguage_mg.tga",
+                        "PressureguageNrm": "assets/content/structures/interactive_garage_door/textures/pressureguage_nrm.tga"
                       },
                       "SubFolders": {}
                     }
@@ -14786,6 +14983,10 @@
                       "Name": "textures",
                       "Path": "assets/assets/content/nature/ores/textures",
                       "Files": {
+                        "OreNodeHqmBc": "assets/content/nature/ores/textures/ore_node_hqm_bc.tga",
+                        "OreNodeHqmMask": "assets/content/nature/ores/textures/ore_node_hqm_mask.tga",
+                        "OreNodeHqmMg": "assets/content/nature/ores/textures/ore_node_hqm_mg.tga",
+                        "OreNodeHqmNrm": "assets/content/nature/ores/textures/ore_node_hqm_nrm.tga",
                         "OreNodesAo": "assets/content/nature/ores/textures/ore_nodes_ao.tga",
                         "OreNodesBc": "assets/content/nature/ores/textures/ore_nodes_bc.tga",
                         "OreNodesMask": "assets/content/nature/ores/textures/ore_nodes_mask.tga",
@@ -14796,6 +14997,11 @@
                         "OreNodesNrm": "assets/content/nature/ores/textures/ore_nodes_nrm.tga",
                         "OreNodesSulfurBc": "assets/content/nature/ores/textures/ore_nodes_sulfur_bc.tga",
                         "OreNodesSulfurMg": "assets/content/nature/ores/textures/ore_nodes_sulfur_mg.tga",
+                        "RockOresHqmWmAo": "assets/content/nature/ores/textures/rock_ores_hqm_wm_ao.tga",
+                        "RockOresHqmWmBc": "assets/content/nature/ores/textures/rock_ores_hqm_wm_bc.tga",
+                        "RockOresHqmWmMask": "assets/content/nature/ores/textures/rock_ores_hqm_wm_mask.tga",
+                        "RockOresHqmWmMg": "assets/content/nature/ores/textures/rock_ores_hqm_wm_mg.tga",
+                        "RockOresHqmWmNrm": "assets/content/nature/ores/textures/rock_ores_hqm_wm_nrm.tga",
                         "RockOresWmAo": "assets/content/nature/ores/textures/rock_ores_wm_ao.tga",
                         "RockOresWmBc": "assets/content/nature/ores/textures/rock_ores_wm_bc.tga",
                         "RockOresWmMask": "assets/content/nature/ores/textures/rock_ores_wm_mask.tga",
@@ -15188,6 +15394,25 @@
                         "BirdshitNrm": "assets/content/textures/generic/bird_poop/birdshit_nrm.tga"
                       },
                       "SubFolders": {}
+                    },
+                    "details": {
+                      "Name": "details",
+                      "Path": "assets/assets/content/textures/generic/details",
+                      "Files": {},
+                      "SubFolders": {
+                        "bolts": {
+                          "Name": "bolts",
+                          "Path": "assets/assets/content/textures/generic/details/bolts",
+                          "Files": {
+                            "Bolts01Ao": "assets/content/textures/generic/details/bolts/bolts_01_ao.tga",
+                            "Bolts01Bc": "assets/content/textures/generic/details/bolts/bolts_01_bc.tga",
+                            "Bolts01Mask": "assets/content/textures/generic/details/bolts/bolts_01_mask.tga",
+                            "Bolts01Mg": "assets/content/textures/generic/details/bolts/bolts_01_mg.tga",
+                            "Bolts01Nrm": "assets/content/textures/generic/details/bolts/bolts_01_nrm.tga"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
                     },
                     "brick_wall_a": {
                       "Name": "brick_wall_a",
@@ -17287,6 +17512,16 @@
                       },
                       "SubFolders": {}
                     },
+                    "tape_ribbon_01": {
+                      "Name": "tape_ribbon_01",
+                      "Path": "assets/assets/content/textures/generic/tape_ribbon_01",
+                      "Files": {
+                        "TapeRibbon01Bc": "assets/content/textures/generic/tape_ribbon_01/tape_ribbon_01_bc.tga",
+                        "TapeRibbon01Mg": "assets/content/textures/generic/tape_ribbon_01/tape_ribbon_01_mg.tga",
+                        "TapeRibbon01Nrm": "assets/content/textures/generic/tape_ribbon_01/tape_ribbon_01_nrm.tga"
+                      },
+                      "SubFolders": {}
+                    },
                     "tarpaulin": {
                       "Name": "tarpaulin",
                       "Path": "assets/assets/content/textures/generic/tarpaulin",
@@ -17463,6 +17698,17 @@
                         "WindowAtlasBc": "assets/content/textures/generic/window_atlas/window_atlas_bc.tga",
                         "WindowAtlasMg": "assets/content/textures/generic/window_atlas/window_atlas_mg.tga",
                         "WindowAtlasNrm": "assets/content/textures/generic/window_atlas/window_atlas_nrm.tga"
+                      },
+                      "SubFolders": {}
+                    },
+                    "wire_fence_01": {
+                      "Name": "wire_fence_01",
+                      "Path": "assets/assets/content/textures/generic/wire_fence_01",
+                      "Files": {
+                        "WireFence01Ao": "assets/content/textures/generic/wire_fence_01/wire_fence_01_ao.tga",
+                        "WireFence01Bc": "assets/content/textures/generic/wire_fence_01/wire_fence_01_bc.tga",
+                        "WireFence01Mg": "assets/content/textures/generic/wire_fence_01/wire_fence_01_mg.tga",
+                        "WireFence01Nrm": "assets/content/textures/generic/wire_fence_01/wire_fence_01_nrm.tga"
                       },
                       "SubFolders": {}
                     },
@@ -17722,10 +17968,15 @@
                     "DecalFootprintHumanBootSandRightBc": "assets/content/textures/decals/decal_footprint_human_boot_sand_right_bc.tga",
                     "DecalFootprintHumanBootSnowLeftBc": "assets/content/textures/decals/decal_footprint_human_boot_snow_left_bc.tga",
                     "DecalFootprintHumanBootSnowRightBc": "assets/content/textures/decals/decal_footprint_human_boot_snow_right_bc.tga",
+                    "DecalIndustrial1Bc": "assets/content/textures/decals/decal_industrial1_bc.png",
+                    "DecalIndustrial1N": "assets/content/textures/decals/decal_industrial1_n.jpg",
+                    "DecalIndustrial1Orm": "assets/content/textures/decals/decal_industrial1_orm.jpg",
+                    "DecalIndustrial1Orm1": "assets/content/textures/decals/decal_industrial1_orm.tga",
                     "DecalKargo1X4Bc": "assets/content/textures/decals/decal_kargo_1x4_bc.tga",
                     "DecalKeepOutBc": "assets/content/textures/decals/decal_keep_out_bc.tga",
                     "DecalLabelOilABc": "assets/content/textures/decals/decal_label_oil_a_bc.tga",
                     "DecalOxumGraffiti": "assets/content/textures/decals/decal_oxum_graffiti.tga",
+                    "DecalPmmOilrigDomeLogicBc": "assets/content/textures/decals/decal_pmm_oilrig_dome_logic_bc.tga",
                     "DecalRifleBulletImpactMetalABc": "assets/content/textures/decals/decal_rifle_bullet_impact_metal_a_bc.tga",
                     "DecalRifleBulletImpactMetalANrm": "assets/content/textures/decals/decal_rifle_bullet_impact_metal_a_nrm.tga",
                     "DecalRifleBulletImpactMetalASg": "assets/content/textures/decals/decal_rifle_bullet_impact_metal_a_sg.tga",
@@ -17995,6 +18246,7 @@
               "Name": "ui",
               "Path": "assets/assets/content/ui",
               "Files": {
+                "DomeFuellingPosterTemp": "assets/content/ui/dome_fuelling_poster_temp.jpg",
                 "MugshotUnknown": "assets/content/ui/mugshot_unknown.png",
                 "NmsDirt": "assets/content/ui/nms-dirt.png",
                 "OverlayBleeding": "assets/content/ui/overlay_bleeding.png",
@@ -18006,6 +18258,7 @@
                   "Name": "gameui",
                   "Path": "assets/assets/content/ui/gameui",
                   "Files": {
+                    "SatellitecomputerBg": "assets/content/ui/gameui/satellitecomputer_bg.png",
                     "UiCrosshairCircle": "assets/content/ui/gameui/ui.crosshair.circle.png"
                   },
                   "SubFolders": {
@@ -18353,6 +18606,41 @@
                         }
                       }
                     },
+                    "glass skin": {
+                      "Name": "glass skin",
+                      "Path": "assets/assets/prefabs/weapons/ak47u/glass skin",
+                      "Files": {},
+                      "SubFolders": {
+                        "model": {
+                          "Name": "model",
+                          "Path": "assets/assets/prefabs/weapons/ak47u/glass skin/model",
+                          "Files": {},
+                          "SubFolders": {
+                            "materials": {
+                              "Name": "materials",
+                              "Path": "assets/assets/prefabs/weapons/ak47u/glass skin/model/materials",
+                              "Files": {
+                                "VArGlassAo": "assets/prefabs/weapons/ak47u/glass skin/model/materials/v_ar_glass_ao.tga",
+                                "VArGlassBc": "assets/prefabs/weapons/ak47u/glass skin/model/materials/v_ar_glass_bc.tga",
+                                "VArGlassNrm": "assets/prefabs/weapons/ak47u/glass skin/model/materials/v_ar_glass_nrm.tga",
+                                "VArGlassSg": "assets/prefabs/weapons/ak47u/glass skin/model/materials/v_ar_glass_sg.tga",
+                                "VArGlassTranspAo": "assets/prefabs/weapons/ak47u/glass skin/model/materials/v_ar_glass_transp_ao.tga",
+                                "VArGlassTranspBc": "assets/prefabs/weapons/ak47u/glass skin/model/materials/v_ar_glass_transp_bc.tga",
+                                "VArGlassTranspNrm": "assets/prefabs/weapons/ak47u/glass skin/model/materials/v_ar_glass_transp_nrm.tga",
+                                "VArGlassTranspSg": "assets/prefabs/weapons/ak47u/glass skin/model/materials/v_ar_glass_transp_sg.tga",
+                                "VArGlassTranspThickness": "assets/prefabs/weapons/ak47u/glass skin/model/materials/v_ar_glass_transp_thickness.tga",
+                                "WArGlassAo": "assets/prefabs/weapons/ak47u/glass skin/model/materials/w_ar_glass_ao.tga",
+                                "WArGlassBc": "assets/prefabs/weapons/ak47u/glass skin/model/materials/w_ar_glass_bc.tga",
+                                "WArGlassNrm": "assets/prefabs/weapons/ak47u/glass skin/model/materials/w_ar_glass_nrm.tga",
+                                "WArGlassSg": "assets/prefabs/weapons/ak47u/glass skin/model/materials/w_ar_glass_sg.tga",
+                                "WArGlassThickness": "assets/prefabs/weapons/ak47u/glass skin/model/materials/w_ar_glass_thickness.tga"
+                              },
+                              "SubFolders": {}
+                            }
+                          }
+                        }
+                      }
+                    },
                     "waterskin": {
                       "Name": "waterskin",
                       "Path": "assets/assets/prefabs/weapons/ak47u/waterskin",
@@ -18536,6 +18824,31 @@
                           "SubFolders": {}
                         }
                       }
+                    },
+                    "arrow new": {
+                      "Name": "arrow new",
+                      "Path": "assets/assets/prefabs/weapons/bow/arrow new",
+                      "Files": {},
+                      "SubFolders": {
+                        "material": {
+                          "Name": "material",
+                          "Path": "assets/assets/prefabs/weapons/bow/arrow new/material",
+                          "Files": {},
+                          "SubFolders": {
+                            "textures": {
+                              "Name": "textures",
+                              "Path": "assets/assets/prefabs/weapons/bow/arrow new/material/textures",
+                              "Files": {
+                                "WoodenArrownewAo": "assets/prefabs/weapons/bow/arrow new/material/textures/woodenarrownew_ao.tga",
+                                "WoodenArrownewBc": "assets/prefabs/weapons/bow/arrow new/material/textures/woodenarrownew_bc.tga",
+                                "WoodenArrownewMg": "assets/prefabs/weapons/bow/arrow new/material/textures/woodenarrownew_mg.tga",
+                                "WoodenArrownewNrm": "assets/prefabs/weapons/bow/arrow new/material/textures/woodenarrownew_nrm.tga"
+                              },
+                              "SubFolders": {}
+                            }
+                          }
+                        }
+                      }
                     }
                   }
                 },
@@ -18559,6 +18872,33 @@
                             "BandagesSg": "assets/prefabs/weapons/bandage/model/materials/bandages_sg.tga",
                             "GauzeBc": "assets/prefabs/weapons/bandage/model/materials/gauze_bc.tga",
                             "GauzeNrm": "assets/prefabs/weapons/bandage/model/materials/gauze_nrm.tga"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    }
+                  }
+                },
+                "medicalhoneybandage": {
+                  "Name": "medicalhoneybandage",
+                  "Path": "assets/assets/prefabs/weapons/medicalhoneybandage",
+                  "Files": {},
+                  "SubFolders": {
+                    "model": {
+                      "Name": "model",
+                      "Path": "assets/assets/prefabs/weapons/medicalhoneybandage/model",
+                      "Files": {},
+                      "SubFolders": {
+                        "materials": {
+                          "Name": "materials",
+                          "Path": "assets/assets/prefabs/weapons/medicalhoneybandage/model/materials",
+                          "Files": {
+                            "BandagesAo": "assets/prefabs/weapons/medicalhoneybandage/model/materials/bandages_ao.tga",
+                            "BandagesBc": "assets/prefabs/weapons/medicalhoneybandage/model/materials/bandages_bc.tga",
+                            "BandagesNrm": "assets/prefabs/weapons/medicalhoneybandage/model/materials/bandages_nrm.tga",
+                            "BandagesSg": "assets/prefabs/weapons/medicalhoneybandage/model/materials/bandages_sg.tga",
+                            "GauzeBc": "assets/prefabs/weapons/medicalhoneybandage/model/materials/gauze_bc.tga",
+                            "GauzeNrm": "assets/prefabs/weapons/medicalhoneybandage/model/materials/gauze_nrm.tga"
                           },
                           "SubFolders": {}
                         }
@@ -20873,6 +21213,38 @@
                     }
                   }
                 },
+                "salvaged_hammer": {
+                  "Name": "salvaged_hammer",
+                  "Path": "assets/assets/prefabs/weapons/salvaged_hammer",
+                  "Files": {},
+                  "SubFolders": {
+                    "model": {
+                      "Name": "model",
+                      "Path": "assets/assets/prefabs/weapons/salvaged_hammer/model",
+                      "Files": {},
+                      "SubFolders": {
+                        "materials": {
+                          "Name": "materials",
+                          "Path": "assets/assets/prefabs/weapons/salvaged_hammer/model/materials",
+                          "Files": {},
+                          "SubFolders": {
+                            "textures": {
+                              "Name": "textures",
+                              "Path": "assets/assets/prefabs/weapons/salvaged_hammer/model/materials/textures",
+                              "Files": {
+                                "SalvagedHammerAo": "assets/prefabs/weapons/salvaged_hammer/model/materials/textures/salvaged_hammer_ao.tga",
+                                "SalvagedHammerBc": "assets/prefabs/weapons/salvaged_hammer/model/materials/textures/salvaged_hammer_bc.tga",
+                                "SalvagedHammerMg": "assets/prefabs/weapons/salvaged_hammer/model/materials/textures/salvaged_hammer_mg.tga",
+                                "SalvagedHammerNrm": "assets/prefabs/weapons/salvaged_hammer/model/materials/textures/salvaged_hammer_nrm.tga"
+                              },
+                              "SubFolders": {}
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
                 "salvaged_icepick": {
                   "Name": "salvaged_icepick",
                   "Path": "assets/assets/prefabs/weapons/salvaged_icepick",
@@ -21142,31 +21514,6 @@
                             "StoneSpearNrm": "assets/prefabs/weapons/stone spear/model/materials/stone_spear_nrm.tga",
                             "StoneSpearSg": "assets/prefabs/weapons/stone spear/model/materials/stone_spear_sg.tga",
                             "WoodDetailNrm": "assets/prefabs/weapons/stone spear/model/materials/wood_detail_nrm.tif"
-                          },
-                          "SubFolders": {}
-                        }
-                      }
-                    }
-                  }
-                },
-                "salvaged_hammer": {
-                  "Name": "salvaged_hammer",
-                  "Path": "assets/assets/prefabs/weapons/salvaged_hammer",
-                  "Files": {},
-                  "SubFolders": {
-                    "model": {
-                      "Name": "model",
-                      "Path": "assets/assets/prefabs/weapons/salvaged_hammer/model",
-                      "Files": {},
-                      "SubFolders": {
-                        "materials": {
-                          "Name": "materials",
-                          "Path": "assets/assets/prefabs/weapons/salvaged_hammer/model/materials",
-                          "Files": {
-                            "STool3Ao": "assets/prefabs/weapons/salvaged_hammer/model/materials/s_tool_3_ao.tga",
-                            "STool3Bc": "assets/prefabs/weapons/salvaged_hammer/model/materials/s_tool_3_bc.tga",
-                            "STool3Mg": "assets/prefabs/weapons/salvaged_hammer/model/materials/s_tool_3_mg.tga",
-                            "STool3Nrm": "assets/prefabs/weapons/salvaged_hammer/model/materials/s_tool_3_nrm.tga"
                           },
                           "SubFolders": {}
                         }
@@ -25232,31 +25579,12 @@
                       "Name": "materials",
                       "Path": "assets/assets/prefabs/misc/smallbackpack/materials",
                       "Files": {
-                        "SmallbackpackAo": "assets/prefabs/misc/smallbackpack/materials/smallbackpack_ao.tga",
-                        "SmallbackpackBc": "assets/prefabs/misc/smallbackpack/materials/smallbackpack_bc.tga",
-                        "SmallbackpackFuzz": "assets/prefabs/misc/smallbackpack/materials/smallbackpack_fuzz.tga",
-                        "SmallbackpackNrm": "assets/prefabs/misc/smallbackpack/materials/smallbackpack_nrm.tga",
-                        "SmallbackpackSg": "assets/prefabs/misc/smallbackpack/materials/smallbackpack_sg.tga"
+                        "SmallbackpackAo": "assets/prefabs/misc/smallbackpack/materials/smallbackpack_ao.png",
+                        "SmallbackpackBc": "assets/prefabs/misc/smallbackpack/materials/smallbackpack_bc.png",
+                        "SmallbackpackMg": "assets/prefabs/misc/smallbackpack/materials/smallbackpack_mg.png",
+                        "SmallbackpackNrm": "assets/prefabs/misc/smallbackpack/materials/smallbackpack_nrm.png"
                       },
                       "SubFolders": {}
-                    },
-                    "rework": {
-                      "Name": "rework",
-                      "Path": "assets/assets/prefabs/misc/smallbackpack/rework",
-                      "Files": {},
-                      "SubFolders": {
-                        "materials": {
-                          "Name": "materials",
-                          "Path": "assets/assets/prefabs/misc/smallbackpack/rework/materials",
-                          "Files": {
-                            "SmallbackpackAo": "assets/prefabs/misc/smallbackpack/rework/materials/smallbackpack_ao.png",
-                            "SmallbackpackBc": "assets/prefabs/misc/smallbackpack/rework/materials/smallbackpack_bc.png",
-                            "SmallbackpackMg": "assets/prefabs/misc/smallbackpack/rework/materials/smallbackpack_mg.png",
-                            "SmallbackpackNrm": "assets/prefabs/misc/smallbackpack/rework/materials/smallbackpack_nrm.png"
-                          },
-                          "SubFolders": {}
-                        }
-                      }
                     }
                   }
                 },
@@ -27392,6 +27720,99 @@
                     }
                   }
                 },
+                "chair": {
+                  "Name": "chair",
+                  "Path": "assets/assets/prefabs/deployable/chair",
+                  "Files": {},
+                  "SubFolders": {
+                    "skins": {
+                      "Name": "skins",
+                      "Path": "assets/assets/prefabs/deployable/chair/skins",
+                      "Files": {},
+                      "SubFolders": {
+                        "bar_games_bar_stools": {
+                          "Name": "bar_games_bar_stools",
+                          "Path": "assets/assets/prefabs/deployable/chair/skins/bar_games_bar_stools",
+                          "Files": {},
+                          "SubFolders": {
+                            "materials": {
+                              "Name": "materials",
+                              "Path": "assets/assets/prefabs/deployable/chair/skins/bar_games_bar_stools/materials",
+                              "Files": {
+                                "BarstoolAAo": "assets/prefabs/deployable/chair/skins/bar_games_bar_stools/materials/barstool_a_ao.png",
+                                "BarstoolABc": "assets/prefabs/deployable/chair/skins/bar_games_bar_stools/materials/barstool_a_bc.tga",
+                                "BarstoolAMg": "assets/prefabs/deployable/chair/skins/bar_games_bar_stools/materials/barstool_a_mg.png",
+                                "BarstoolANrm": "assets/prefabs/deployable/chair/skins/bar_games_bar_stools/materials/barstool_a_nrm.png",
+                                "BarstoolBAo": "assets/prefabs/deployable/chair/skins/bar_games_bar_stools/materials/barstool_b_ao.png",
+                                "BarstoolBBc": "assets/prefabs/deployable/chair/skins/bar_games_bar_stools/materials/barstool_b_bc.tga",
+                                "BarstoolBFuzz": "assets/prefabs/deployable/chair/skins/bar_games_bar_stools/materials/barstool_b_fuzz.png",
+                                "BarstoolBMg": "assets/prefabs/deployable/chair/skins/bar_games_bar_stools/materials/barstool_b_mg.png",
+                                "BarstoolBNrm": "assets/prefabs/deployable/chair/skins/bar_games_bar_stools/materials/barstool_b_nrm.png"
+                              },
+                              "SubFolders": {}
+                            }
+                          }
+                        },
+                        "cozy_beanbag_seat": {
+                          "Name": "cozy_beanbag_seat",
+                          "Path": "assets/assets/prefabs/deployable/chair/skins/cozy_beanbag_seat",
+                          "Files": {},
+                          "SubFolders": {
+                            "materials": {
+                              "Name": "materials",
+                              "Path": "assets/assets/prefabs/deployable/chair/skins/cozy_beanbag_seat/materials",
+                              "Files": {
+                                "CozyBeanBagSeat2Ao": "assets/prefabs/deployable/chair/skins/cozy_beanbag_seat/materials/cozy_beanbag_seat_2_ao.png",
+                                "CozyBeanBagSeat2Bc": "assets/prefabs/deployable/chair/skins/cozy_beanbag_seat/materials/cozy_beanbag_seat_2_bc.png",
+                                "CozyBeanBagSeat2Mg": "assets/prefabs/deployable/chair/skins/cozy_beanbag_seat/materials/cozy_beanbag_seat_2_mg.png",
+                                "CozyBeanBagSeat2Nrm": "assets/prefabs/deployable/chair/skins/cozy_beanbag_seat/materials/cozy_beanbag_seat_2_nrm.png",
+                                "CozyBeanBagSeatAo": "assets/prefabs/deployable/chair/skins/cozy_beanbag_seat/materials/cozy_beanbag_seat_ao.png",
+                                "CozyBeanBagSeatBc": "assets/prefabs/deployable/chair/skins/cozy_beanbag_seat/materials/cozy_beanbag_seat_bc.png",
+                                "CozyBeanBagSeatFuzz": "assets/prefabs/deployable/chair/skins/cozy_beanbag_seat/materials/cozy_beanbag_seat_fuzz.png",
+                                "CozyBeanBagSeatMg": "assets/prefabs/deployable/chair/skins/cozy_beanbag_seat/materials/cozy_beanbag_seat_mg.png",
+                                "CozyBeanBagSeatNrm": "assets/prefabs/deployable/chair/skins/cozy_beanbag_seat/materials/cozy_beanbag_seat_nrm.png"
+                              },
+                              "SubFolders": {}
+                            }
+                          }
+                        },
+                        "pilot_hazmat_ejector_seat": {
+                          "Name": "pilot_hazmat_ejector_seat",
+                          "Path": "assets/assets/prefabs/deployable/chair/skins/pilot_hazmat_ejector_seat",
+                          "Files": {},
+                          "SubFolders": {
+                            "materials": {
+                              "Name": "materials",
+                              "Path": "assets/assets/prefabs/deployable/chair/skins/pilot_hazmat_ejector_seat/materials",
+                              "Files": {
+                                "PilotEjectorSeatUvset1Ao": "assets/prefabs/deployable/chair/skins/pilot_hazmat_ejector_seat/materials/pilot_ejector_seat_uvset1_ao.png",
+                                "PilotEjectorSeatUvset1Bc": "assets/prefabs/deployable/chair/skins/pilot_hazmat_ejector_seat/materials/pilot_ejector_seat_uvset1_bc.png",
+                                "PilotEjectorSeatUvset1Mg": "assets/prefabs/deployable/chair/skins/pilot_hazmat_ejector_seat/materials/pilot_ejector_seat_uvset1_mg.png",
+                                "PilotEjectorSeatUvset1Nrm": "assets/prefabs/deployable/chair/skins/pilot_hazmat_ejector_seat/materials/pilot_ejector_seat_uvset1_nrm.png",
+                                "PilotEjectorSeatUvset2Ao": "assets/prefabs/deployable/chair/skins/pilot_hazmat_ejector_seat/materials/pilot_ejector_seat_uvset2_ao.png",
+                                "PilotEjectorSeatUvset2Bc": "assets/prefabs/deployable/chair/skins/pilot_hazmat_ejector_seat/materials/pilot_ejector_seat_uvset2_bc.png",
+                                "PilotEjectorSeatUvset2Mg": "assets/prefabs/deployable/chair/skins/pilot_hazmat_ejector_seat/materials/pilot_ejector_seat_uvset2_mg.png",
+                                "PilotEjectorSeatUvset2Nrm": "assets/prefabs/deployable/chair/skins/pilot_hazmat_ejector_seat/materials/pilot_ejector_seat_uvset2_nrm.png"
+                              },
+                              "SubFolders": {}
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "textures": {
+                      "Name": "textures",
+                      "Path": "assets/assets/prefabs/deployable/chair/textures",
+                      "Files": {
+                        "ChairAo": "assets/prefabs/deployable/chair/textures/chair_ao.tga",
+                        "ChairBc": "assets/prefabs/deployable/chair/textures/chair_bc.tga",
+                        "ChairNrm": "assets/prefabs/deployable/chair/textures/chair_nrm.tga",
+                        "ChairSg": "assets/prefabs/deployable/chair/textures/chair_sg.tga"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
                 "makeshift batteries": {
                   "Name": "makeshift batteries",
                   "Path": "assets/assets/prefabs/deployable/makeshift batteries",
@@ -27801,76 +28222,6 @@
                     }
                   }
                 },
-                "chair": {
-                  "Name": "chair",
-                  "Path": "assets/assets/prefabs/deployable/chair",
-                  "Files": {},
-                  "SubFolders": {
-                    "textures": {
-                      "Name": "textures",
-                      "Path": "assets/assets/prefabs/deployable/chair/textures",
-                      "Files": {
-                        "ChairAo": "assets/prefabs/deployable/chair/textures/chair_ao.tga",
-                        "ChairBc": "assets/prefabs/deployable/chair/textures/chair_bc.tga",
-                        "ChairNrm": "assets/prefabs/deployable/chair/textures/chair_nrm.tga",
-                        "ChairSg": "assets/prefabs/deployable/chair/textures/chair_sg.tga"
-                      },
-                      "SubFolders": {}
-                    },
-                    "skins": {
-                      "Name": "skins",
-                      "Path": "assets/assets/prefabs/deployable/chair/skins",
-                      "Files": {},
-                      "SubFolders": {
-                        "cozy_beanbag_seat": {
-                          "Name": "cozy_beanbag_seat",
-                          "Path": "assets/assets/prefabs/deployable/chair/skins/cozy_beanbag_seat",
-                          "Files": {},
-                          "SubFolders": {
-                            "materials": {
-                              "Name": "materials",
-                              "Path": "assets/assets/prefabs/deployable/chair/skins/cozy_beanbag_seat/materials",
-                              "Files": {
-                                "CozyBeanBagSeat2Ao": "assets/prefabs/deployable/chair/skins/cozy_beanbag_seat/materials/cozy_beanbag_seat_2_ao.png",
-                                "CozyBeanBagSeat2Bc": "assets/prefabs/deployable/chair/skins/cozy_beanbag_seat/materials/cozy_beanbag_seat_2_bc.png",
-                                "CozyBeanBagSeat2Mg": "assets/prefabs/deployable/chair/skins/cozy_beanbag_seat/materials/cozy_beanbag_seat_2_mg.png",
-                                "CozyBeanBagSeat2Nrm": "assets/prefabs/deployable/chair/skins/cozy_beanbag_seat/materials/cozy_beanbag_seat_2_nrm.png",
-                                "CozyBeanBagSeatAo": "assets/prefabs/deployable/chair/skins/cozy_beanbag_seat/materials/cozy_beanbag_seat_ao.png",
-                                "CozyBeanBagSeatBc": "assets/prefabs/deployable/chair/skins/cozy_beanbag_seat/materials/cozy_beanbag_seat_bc.png",
-                                "CozyBeanBagSeatFuzz": "assets/prefabs/deployable/chair/skins/cozy_beanbag_seat/materials/cozy_beanbag_seat_fuzz.png",
-                                "CozyBeanBagSeatMg": "assets/prefabs/deployable/chair/skins/cozy_beanbag_seat/materials/cozy_beanbag_seat_mg.png",
-                                "CozyBeanBagSeatNrm": "assets/prefabs/deployable/chair/skins/cozy_beanbag_seat/materials/cozy_beanbag_seat_nrm.png"
-                              },
-                              "SubFolders": {}
-                            }
-                          }
-                        },
-                        "pilot_hazmat_ejector_seat": {
-                          "Name": "pilot_hazmat_ejector_seat",
-                          "Path": "assets/assets/prefabs/deployable/chair/skins/pilot_hazmat_ejector_seat",
-                          "Files": {},
-                          "SubFolders": {
-                            "materials": {
-                              "Name": "materials",
-                              "Path": "assets/assets/prefabs/deployable/chair/skins/pilot_hazmat_ejector_seat/materials",
-                              "Files": {
-                                "PilotEjectorSeatUvset1Ao": "assets/prefabs/deployable/chair/skins/pilot_hazmat_ejector_seat/materials/pilot_ejector_seat_uvset1_ao.png",
-                                "PilotEjectorSeatUvset1Bc": "assets/prefabs/deployable/chair/skins/pilot_hazmat_ejector_seat/materials/pilot_ejector_seat_uvset1_bc.png",
-                                "PilotEjectorSeatUvset1Mg": "assets/prefabs/deployable/chair/skins/pilot_hazmat_ejector_seat/materials/pilot_ejector_seat_uvset1_mg.png",
-                                "PilotEjectorSeatUvset1Nrm": "assets/prefabs/deployable/chair/skins/pilot_hazmat_ejector_seat/materials/pilot_ejector_seat_uvset1_nrm.png",
-                                "PilotEjectorSeatUvset2Ao": "assets/prefabs/deployable/chair/skins/pilot_hazmat_ejector_seat/materials/pilot_ejector_seat_uvset2_ao.png",
-                                "PilotEjectorSeatUvset2Bc": "assets/prefabs/deployable/chair/skins/pilot_hazmat_ejector_seat/materials/pilot_ejector_seat_uvset2_bc.png",
-                                "PilotEjectorSeatUvset2Mg": "assets/prefabs/deployable/chair/skins/pilot_hazmat_ejector_seat/materials/pilot_ejector_seat_uvset2_mg.png",
-                                "PilotEjectorSeatUvset2Nrm": "assets/prefabs/deployable/chair/skins/pilot_hazmat_ejector_seat/materials/pilot_ejector_seat_uvset2_nrm.png"
-                              },
-                              "SubFolders": {}
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                },
                 "charity_plushie_01": {
                   "Name": "charity_plushie_01",
                   "Path": "assets/assets/prefabs/deployable/charity_plushie_01",
@@ -27946,26 +28297,6 @@
                         "CharityPlushie04Mask": "assets/prefabs/deployable/charity_plushie_04/material/charity_plushie_04_mask.png",
                         "CharityPlushie04Metallic": "assets/prefabs/deployable/charity_plushie_04/material/charity_plushie_04_metallic.png",
                         "CharityPlushie04Normal": "assets/prefabs/deployable/charity_plushie_04/material/charity_plushie_04_normal.png"
-                      },
-                      "SubFolders": {}
-                    }
-                  }
-                },
-                "charity_plushie_05": {
-                  "Name": "charity_plushie_05",
-                  "Path": "assets/assets/prefabs/deployable/charity_plushie_05",
-                  "Files": {},
-                  "SubFolders": {
-                    "material": {
-                      "Name": "material",
-                      "Path": "assets/assets/prefabs/deployable/charity_plushie_05/material",
-                      "Files": {
-                        "CharityPlushie05Albedo": "assets/prefabs/deployable/charity_plushie_05/material/charity_plushie_05_albedo.png",
-                        "CharityPlushie05Ao": "assets/prefabs/deployable/charity_plushie_05/material/charity_plushie_05_ao.png",
-                        "CharityPlushie05Emmissive": "assets/prefabs/deployable/charity_plushie_05/material/charity_plushie_05_emmissive.png",
-                        "CharityPlushie05Mask": "assets/prefabs/deployable/charity_plushie_05/material/charity_plushie_05_mask.png",
-                        "CharityPlushie05Normal": "assets/prefabs/deployable/charity_plushie_05/material/charity_plushie_05_normal.png",
-                        "CharityPlushie05Smoothness": "assets/prefabs/deployable/charity_plushie_05/material/charity_plushie_05_smoothness.png"
                       },
                       "SubFolders": {}
                     }
@@ -28317,6 +28648,28 @@
                           "SubFolders": {}
                         }
                       }
+                    },
+                    "rocksculpture": {
+                      "Name": "rocksculpture",
+                      "Path": "assets/assets/prefabs/deployable/sculptures/rocksculpture",
+                      "Files": {},
+                      "SubFolders": {
+                        "materials": {
+                          "Name": "materials",
+                          "Path": "assets/assets/prefabs/deployable/sculptures/rocksculpture/materials",
+                          "Files": {
+                            "RockSculptureAo": "assets/prefabs/deployable/sculptures/rocksculpture/materials/rock_sculpture_ao.tga",
+                            "RockSculptureBc": "assets/prefabs/deployable/sculptures/rocksculpture/materials/rock_sculpture_bc.tga",
+                            "RockSculptureMg": "assets/prefabs/deployable/sculptures/rocksculpture/materials/rock_sculpture_mg.tga",
+                            "RockSculptureNrm": "assets/prefabs/deployable/sculptures/rocksculpture/materials/rock_sculpture_nrm.tga",
+                            "StoneCarvingBlockCompoSiteBcAo": "assets/prefabs/deployable/sculptures/rocksculpture/materials/stone_carving_block_composite_bc_ao.tga",
+                            "StoneCarvingBlockGrungePacked": "assets/prefabs/deployable/sculptures/rocksculpture/materials/stone_carving_block_grunge_packed.tga",
+                            "StoneCarvingBlockPackedNrm": "assets/prefabs/deployable/sculptures/rocksculpture/materials/stone_carving_block_packed_nrm.tga",
+                            "StoneCarvingBlockPackedSpec": "assets/prefabs/deployable/sculptures/rocksculpture/materials/stone_carving_block_packed_spec.tga"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
                     }
                   }
                 },
@@ -28339,9 +28692,54 @@
                         "Crate2Bc": "assets/prefabs/deployable/wooden loot crates/textures/crate_2_bc.tga",
                         "Crate2DmTier2Bc": "assets/prefabs/deployable/wooden loot crates/textures/crate_2_dm_tier2_bc.psd",
                         "Crate2Nrm": "assets/prefabs/deployable/wooden loot crates/textures/crate_2_nrm.tga",
-                        "Crate2Sg": "assets/prefabs/deployable/wooden loot crates/textures/crate_2_sg.tga"
+                        "Crate2Sg": "assets/prefabs/deployable/wooden loot crates/textures/crate_2_sg.tga",
+                        "Woodencrate1Ao": "assets/prefabs/deployable/wooden loot crates/textures/woodencrate1_ao.tga",
+                        "Woodencrate1Bc": "assets/prefabs/deployable/wooden loot crates/textures/woodencrate1_bc.tga",
+                        "Woodencrate1FoodsafeBc": "assets/prefabs/deployable/wooden loot crates/textures/woodencrate1_foodsafe_bc.tga",
+                        "Woodencrate1MedicalBc": "assets/prefabs/deployable/wooden loot crates/textures/woodencrate1_medical_bc.tga",
+                        "Woodencrate1Mg": "assets/prefabs/deployable/wooden loot crates/textures/woodencrate1_mg.tga",
+                        "Woodencrate1Nrm": "assets/prefabs/deployable/wooden loot crates/textures/woodencrate1_nrm.tga",
+                        "Woodencrate2Ao": "assets/prefabs/deployable/wooden loot crates/textures/woodencrate2_ao.tga",
+                        "Woodencrate2Bc": "assets/prefabs/deployable/wooden loot crates/textures/woodencrate2_bc.tga",
+                        "Woodencrate2DmBc": "assets/prefabs/deployable/wooden loot crates/textures/woodencrate2_dm_bc.tga",
+                        "Woodencrate2Mg": "assets/prefabs/deployable/wooden loot crates/textures/woodencrate2_mg.tga",
+                        "Woodencrate2Nrm": "assets/prefabs/deployable/wooden loot crates/textures/woodencrate2_nrm.tga"
                       },
                       "SubFolders": {}
+                    }
+                  }
+                },
+                "dartboard": {
+                  "Name": "dartboard",
+                  "Path": "assets/assets/prefabs/deployable/dartboard",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/assets/prefabs/deployable/dartboard/materials",
+                      "Files": {},
+                      "SubFolders": {
+                        "textures": {
+                          "Name": "textures",
+                          "Path": "assets/assets/prefabs/deployable/dartboard/materials/textures",
+                          "Files": {
+                            "DartBoardAo": "assets/prefabs/deployable/dartboard/materials/textures/dartboard_ao.tga",
+                            "DartBoardBc": "assets/prefabs/deployable/dartboard/materials/textures/dartboard_bc.tga",
+                            "DartBoardDartAo": "assets/prefabs/deployable/dartboard/materials/textures/dartboard_dart_ao.tga",
+                            "DartBoardDartBc": "assets/prefabs/deployable/dartboard/materials/textures/dartboard_dart_bc.tga",
+                            "DartBoardDartMask": "assets/prefabs/deployable/dartboard/materials/textures/dartboard_dart_mask.tga",
+                            "DartBoardDartNrm": "assets/prefabs/deployable/dartboard/materials/textures/dartboard_dart_nrm.tga",
+                            "DartBoardDartSpecGloss": "assets/prefabs/deployable/dartboard/materials/textures/dartboard_dart_specgloss.tga",
+                            "DartBoardMg": "assets/prefabs/deployable/dartboard/materials/textures/dartboard_mg.tga",
+                            "DartBoardNrm": "assets/prefabs/deployable/dartboard/materials/textures/dartboard_nrm.tga",
+                            "GamesroomDartmatAo": "assets/prefabs/deployable/dartboard/materials/textures/gamesroom_dartmat_ao.tga",
+                            "GamesroomDartmatBc": "assets/prefabs/deployable/dartboard/materials/textures/gamesroom_dartmat_bc.tga",
+                            "GamesroomDartmatMg": "assets/prefabs/deployable/dartboard/materials/textures/gamesroom_dartmat_mg.tga",
+                            "GamesroomDartmatNrm": "assets/prefabs/deployable/dartboard/materials/textures/gamesroom_dartmat_nrm.tga"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
                     }
                   }
                 },
@@ -28431,6 +28829,29 @@
                         "UndergroundLiftCageLodBc": "assets/prefabs/deployable/elevator/textures/underground_lift_cage_lod_bc.png",
                         "UndergroundLiftCageLodNrm": "assets/prefabs/deployable/elevator/textures/underground_lift_cage_lod_nrm.png",
                         "UndergroundLiftCageLodSg": "assets/prefabs/deployable/elevator/textures/underground_lift_cage_lod_sg.png"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
+                "loot crate b": {
+                  "Name": "loot crate b",
+                  "Path": "assets/assets/prefabs/deployable/loot crate b",
+                  "Files": {},
+                  "SubFolders": {
+                    "textures": {
+                      "Name": "textures",
+                      "Path": "assets/assets/prefabs/deployable/loot crate b/textures",
+                      "Files": {
+                        "ElitecrateAo": "assets/prefabs/deployable/loot crate b/textures/elitecrate_ao.tga",
+                        "ElitecrateBc": "assets/prefabs/deployable/loot crate b/textures/elitecrate_bc.tga",
+                        "ElitecrateMg": "assets/prefabs/deployable/loot crate b/textures/elitecrate_mg.tga",
+                        "ElitecrateNrm": "assets/prefabs/deployable/loot crate b/textures/elitecrate_nrm.tga",
+                        "LootCrateBAo": "assets/prefabs/deployable/loot crate b/textures/loot_crate_b__ao.tga",
+                        "LootCrateBBc": "assets/prefabs/deployable/loot crate b/textures/loot_crate_b__bc.tga",
+                        "LootCrateBDmtier3Bc": "assets/prefabs/deployable/loot crate b/textures/loot_crate_b_dmtier3_bc.psd",
+                        "LootCrateBNrm": "assets/prefabs/deployable/loot crate b/textures/loot_crate_b__nrm.tga",
+                        "LootCrateBSg": "assets/prefabs/deployable/loot crate b/textures/loot_crate_b__sg.tga"
                       },
                       "SubFolders": {}
                     }
@@ -28564,7 +28985,33 @@
                     "SingleshottrapNrm": "assets/prefabs/deployable/single shot trap/singleshottrap_nrm.tga",
                     "SingleshottrapSg": "assets/prefabs/deployable/single shot trap/singleshottrap_sg.tga"
                   },
-                  "SubFolders": {}
+                  "SubFolders": {
+                    "skins": {
+                      "Name": "skins",
+                      "Path": "assets/assets/prefabs/deployable/single shot trap/skins",
+                      "Files": {},
+                      "SubFolders": {
+                        "gamesroom_shotgun_trap": {
+                          "Name": "gamesroom_shotgun_trap",
+                          "Path": "assets/assets/prefabs/deployable/single shot trap/skins/gamesroom_shotgun_trap",
+                          "Files": {},
+                          "SubFolders": {
+                            "material": {
+                              "Name": "material",
+                              "Path": "assets/assets/prefabs/deployable/single shot trap/skins/gamesroom_shotgun_trap/material",
+                              "Files": {
+                                "GamesroomShotgunTrapAo": "assets/prefabs/deployable/single shot trap/skins/gamesroom_shotgun_trap/material/gamesroom_shotgun_trap_ao.tga",
+                                "GamesroomShotgunTrapBc": "assets/prefabs/deployable/single shot trap/skins/gamesroom_shotgun_trap/material/gamesroom_shotgun_trap_bc.tga",
+                                "GamesroomShotgunTrapNrm": "assets/prefabs/deployable/single shot trap/skins/gamesroom_shotgun_trap/material/gamesroom_shotgun_trap_nrm.tga",
+                                "GamesroomShotgunTrapSpecGloss": "assets/prefabs/deployable/single shot trap/skins/gamesroom_shotgun_trap/material/gamesroom_shotgun_trap_specgloss.tga"
+                              },
+                              "SubFolders": {}
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
                 },
                 "gambling_light": {
                   "Name": "gambling_light",
@@ -28588,6 +29035,59 @@
                         "GamblingLampTransparentNrmUnused": "assets/prefabs/deployable/gambling_light/materials/gambling_lamp_transparent_nrm_unused.tga"
                       },
                       "SubFolders": {}
+                    }
+                  }
+                },
+                "minifridge": {
+                  "Name": "minifridge",
+                  "Path": "assets/assets/prefabs/deployable/minifridge",
+                  "Files": {},
+                  "SubFolders": {
+                    "skins": {
+                      "Name": "skins",
+                      "Path": "assets/assets/prefabs/deployable/minifridge/skins",
+                      "Files": {},
+                      "SubFolders": {
+                        "gamesroom_minifridge": {
+                          "Name": "gamesroom_minifridge",
+                          "Path": "assets/assets/prefabs/deployable/minifridge/skins/gamesroom_minifridge",
+                          "Files": {},
+                          "SubFolders": {
+                            "material": {
+                              "Name": "material",
+                              "Path": "assets/assets/prefabs/deployable/minifridge/skins/gamesroom_minifridge/material",
+                              "Files": {
+                                "GamesroomMinifridgeAo": "assets/prefabs/deployable/minifridge/skins/gamesroom_minifridge/material/gamesroom_minifridge_ao.tga",
+                                "GamesroomMinifridgeBc": "assets/prefabs/deployable/minifridge/skins/gamesroom_minifridge/material/gamesroom_minifridge_bc.tga",
+                                "GamesroomMinifridgeEm": "assets/prefabs/deployable/minifridge/skins/gamesroom_minifridge/material/gamesroom_minifridge_em.tga",
+                                "GamesroomMinifridgeNrm": "assets/prefabs/deployable/minifridge/skins/gamesroom_minifridge/material/gamesroom_minifridge_nrm.tga",
+                                "GamesroomMinifridgeSpecGloss": "assets/prefabs/deployable/minifridge/skins/gamesroom_minifridge/material/gamesroom_minifridge_specgloss.tga"
+                              },
+                              "SubFolders": {}
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/assets/prefabs/deployable/minifridge/materials",
+                      "Files": {},
+                      "SubFolders": {
+                        "textures": {
+                          "Name": "textures",
+                          "Path": "assets/assets/prefabs/deployable/minifridge/materials/textures",
+                          "Files": {
+                            "MinifridgeAo": "assets/prefabs/deployable/minifridge/materials/textures/minifridge_ao.tga",
+                            "MinifridgeBc": "assets/prefabs/deployable/minifridge/materials/textures/minifridge_bc.tga",
+                            "MinifridgeEm": "assets/prefabs/deployable/minifridge/materials/textures/minifridge_em.tga",
+                            "MinifridgeFuzz": "assets/prefabs/deployable/minifridge/materials/textures/minifridge_fuzz.tga",
+                            "MinifridgeMg": "assets/prefabs/deployable/minifridge/materials/textures/minifridge_mg.tga",
+                            "MinifridgeNrm": "assets/prefabs/deployable/minifridge/materials/textures/minifridge_nrm.tga"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
                     }
                   }
                 },
@@ -28906,15 +29406,35 @@
                     }
                   }
                 },
+                "jukebox": {
+                  "Name": "jukebox",
+                  "Path": "assets/assets/prefabs/deployable/jukebox",
+                  "Files": {},
+                  "SubFolders": {
+                    "material": {
+                      "Name": "material",
+                      "Path": "assets/assets/prefabs/deployable/jukebox/material",
+                      "Files": {
+                        "JukeBoxAo": "assets/prefabs/deployable/jukebox/material/jukebox_ao.png",
+                        "JukeBoxBc": "assets/prefabs/deployable/jukebox/material/jukebox_bc.tga",
+                        "JukeBoxEmit": "assets/prefabs/deployable/jukebox/material/jukebox_emit.png",
+                        "JukeBoxMask": "assets/prefabs/deployable/jukebox/material/jukebox_mask.tga",
+                        "JukeBoxMg": "assets/prefabs/deployable/jukebox/material/jukebox_mg.png",
+                        "JukeBoxNrm": "assets/prefabs/deployable/jukebox/material/jukebox_nrm.png",
+                        "MatrixDisplayGlyphAtlasAo": "assets/prefabs/deployable/jukebox/material/matrix_display_glyph_atlas_ao.tga",
+                        "MatrixDisplayGlyphAtlasBc": "assets/prefabs/deployable/jukebox/material/matrix_display_glyph_atlas_bc.tga",
+                        "MatrixDisplayGlyphAtlasEmit": "assets/prefabs/deployable/jukebox/material/matrix_display_glyph_atlas_emit.tga",
+                        "MatrixDisplayGlyphAtlasMs": "assets/prefabs/deployable/jukebox/material/matrix_display_glyph_atlas_ms.tga",
+                        "MatrixDisplayGlyphAtlasN": "assets/prefabs/deployable/jukebox/material/matrix_display_glyph_atlas_n.tga"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
                 "landmine": {
                   "Name": "landmine",
                   "Path": "assets/assets/prefabs/deployable/landmine",
-                  "Files": {
-                    "LandmineAo": "assets/prefabs/deployable/landmine/landmine_ao.tga",
-                    "LandmineBc": "assets/prefabs/deployable/landmine/landmine_bc.tga",
-                    "LandmineNrm": "assets/prefabs/deployable/landmine/landmine_nrm.tga",
-                    "LandmineSg": "assets/prefabs/deployable/landmine/landmine_sg.tga"
-                  },
+                  "Files": {},
                   "SubFolders": {
                     "model": {
                       "Name": "model",
@@ -29023,25 +29543,6 @@
                     }
                   }
                 },
-                "loot crate b": {
-                  "Name": "loot crate b",
-                  "Path": "assets/assets/prefabs/deployable/loot crate b",
-                  "Files": {},
-                  "SubFolders": {
-                    "textures": {
-                      "Name": "textures",
-                      "Path": "assets/assets/prefabs/deployable/loot crate b/textures",
-                      "Files": {
-                        "LootCrateBAo": "assets/prefabs/deployable/loot crate b/textures/loot_crate_b__ao.tga",
-                        "LootCrateBBc": "assets/prefabs/deployable/loot crate b/textures/loot_crate_b__bc.tga",
-                        "LootCrateBDmtier3Bc": "assets/prefabs/deployable/loot crate b/textures/loot_crate_b_dmtier3_bc.psd",
-                        "LootCrateBNrm": "assets/prefabs/deployable/loot crate b/textures/loot_crate_b__nrm.tga",
-                        "LootCrateBSg": "assets/prefabs/deployable/loot crate b/textures/loot_crate_b__sg.tga"
-                      },
-                      "SubFolders": {}
-                    }
-                  }
-                },
                 "lunar_new_year_2025_wall_divider": {
                   "Name": "lunar_new_year_2025_wall_divider",
                   "Path": "assets/assets/prefabs/deployable/lunar_new_year_2025_wall_divider",
@@ -29080,33 +29581,6 @@
                         "MailBoxSg": "assets/prefabs/deployable/mailbox/textures/mailbox_sg.tga"
                       },
                       "SubFolders": {}
-                    }
-                  }
-                },
-                "minifridge": {
-                  "Name": "minifridge",
-                  "Path": "assets/assets/prefabs/deployable/minifridge",
-                  "Files": {},
-                  "SubFolders": {
-                    "materials": {
-                      "Name": "materials",
-                      "Path": "assets/assets/prefabs/deployable/minifridge/materials",
-                      "Files": {},
-                      "SubFolders": {
-                        "textures": {
-                          "Name": "textures",
-                          "Path": "assets/assets/prefabs/deployable/minifridge/materials/textures",
-                          "Files": {
-                            "MinifridgeAo": "assets/prefabs/deployable/minifridge/materials/textures/minifridge_ao.tga",
-                            "MinifridgeBc": "assets/prefabs/deployable/minifridge/materials/textures/minifridge_bc.tga",
-                            "MinifridgeEm": "assets/prefabs/deployable/minifridge/materials/textures/minifridge_em.tga",
-                            "MinifridgeFuzz": "assets/prefabs/deployable/minifridge/materials/textures/minifridge_fuzz.tga",
-                            "MinifridgeMg": "assets/prefabs/deployable/minifridge/materials/textures/minifridge_mg.tga",
-                            "MinifridgeNrm": "assets/prefabs/deployable/minifridge/materials/textures/minifridge_nrm.tga"
-                          },
-                          "SubFolders": {}
-                        }
-                      }
                     }
                   }
                 },
@@ -29297,6 +29771,43 @@
                         "PlanterBottleNrm": "assets/prefabs/deployable/planter_bottle/materials/planter_bottle_nrm.tga"
                       },
                       "SubFolders": {}
+                    }
+                  }
+                },
+                "pooltable": {
+                  "Name": "pooltable",
+                  "Path": "assets/assets/prefabs/deployable/pooltable",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/assets/prefabs/deployable/pooltable/materials",
+                      "Files": {},
+                      "SubFolders": {
+                        "textures": {
+                          "Name": "textures",
+                          "Path": "assets/assets/prefabs/deployable/pooltable/materials/textures",
+                          "Files": {
+                            "PoolballsBc": "assets/prefabs/deployable/pooltable/materials/textures/poolballs_bc.tga",
+                            "PoolballsMg": "assets/prefabs/deployable/pooltable/materials/textures/poolballs_mg.tga",
+                            "PoolballsN": "assets/prefabs/deployable/pooltable/materials/textures/poolballs_n.tga",
+                            "PoolcueAAo": "assets/prefabs/deployable/pooltable/materials/textures/poolcue_a_ao.png",
+                            "PoolcueABc": "assets/prefabs/deployable/pooltable/materials/textures/poolcue_a_bc.tga",
+                            "PoolcueAMg": "assets/prefabs/deployable/pooltable/materials/textures/poolcue_a_mg.png",
+                            "PoolcueANrm": "assets/prefabs/deployable/pooltable/materials/textures/poolcue_a_nrm.png",
+                            "PoolcueBAo": "assets/prefabs/deployable/pooltable/materials/textures/poolcue_b_ao.png",
+                            "PoolcueBBc": "assets/prefabs/deployable/pooltable/materials/textures/poolcue_b_bc.tga",
+                            "PoolcueBMg": "assets/prefabs/deployable/pooltable/materials/textures/poolcue_b_mg.png",
+                            "PoolcueBNrm": "assets/prefabs/deployable/pooltable/materials/textures/poolcue_b_nrm.png",
+                            "PooltableAo": "assets/prefabs/deployable/pooltable/materials/textures/pooltable_ao.tga",
+                            "PooltableBc": "assets/prefabs/deployable/pooltable/materials/textures/pooltable_bc.tga",
+                            "PooltableMf": "assets/prefabs/deployable/pooltable/materials/textures/pooltable_mf.tga",
+                            "PooltableMg": "assets/prefabs/deployable/pooltable/materials/textures/pooltable_mg.tga",
+                            "PooltableNrm": "assets/prefabs/deployable/pooltable/materials/textures/pooltable_nrm.tga"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
                     }
                   }
                 },
@@ -31648,9 +32159,9 @@
                       "Files": {
                         "FuzzMask": "assets/prefabs/clothes/hat.woodarmor/textures/fuzzmask.tif",
                         "WoodhelmetAo": "assets/prefabs/clothes/hat.woodarmor/textures/woodhelmet_ao.png",
-                        "WoodhelmetBc": "assets/prefabs/clothes/hat.woodarmor/textures/woodhelmet_bc.tif",
+                        "WoodhelmetBc": "assets/prefabs/clothes/hat.woodarmor/textures/woodhelmet_bc.png",
                         "WoodhelmetNrm": "assets/prefabs/clothes/hat.woodarmor/textures/woodhelmet_nrm.png",
-                        "WoodhelmetSg": "assets/prefabs/clothes/hat.woodarmor/textures/woodhelmet_sg.tif"
+                        "WoodhelmetSg": "assets/prefabs/clothes/hat.woodarmor/textures/woodhelmet_sg.png"
                       },
                       "SubFolders": {}
                     }
@@ -32900,6 +33411,25 @@
                     }
                   }
                 },
+                "gloves.woodarmor": {
+                  "Name": "gloves.woodarmor",
+                  "Path": "assets/assets/prefabs/clothes/gloves.woodarmor",
+                  "Files": {},
+                  "SubFolders": {
+                    "textures": {
+                      "Name": "textures",
+                      "Path": "assets/assets/prefabs/clothes/gloves.woodarmor/textures",
+                      "Files": {
+                        "WoodarmourgloveAo": "assets/prefabs/clothes/gloves.woodarmor/textures/woodarmourglove_ao.tga",
+                        "WoodarmourgloveBc": "assets/prefabs/clothes/gloves.woodarmor/textures/woodarmourglove_bc.tga",
+                        "WoodarmourgloveMg": "assets/prefabs/clothes/gloves.woodarmor/textures/woodarmourglove_mg.tga",
+                        "WoodarmourgloveNrm": "assets/prefabs/clothes/gloves.woodarmor/textures/woodarmourglove_nrm.tga",
+                        "WoodarmourgloveSg": "assets/prefabs/clothes/gloves.woodarmor/textures/woodarmourglove_sg.tga"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
                 "jacket.woodarmor": {
                   "Name": "jacket.woodarmor",
                   "Path": "assets/assets/prefabs/clothes/jacket.woodarmor",
@@ -32909,10 +33439,10 @@
                       "Name": "textures",
                       "Path": "assets/assets/prefabs/clothes/jacket.woodarmor/textures",
                       "Files": {
-                        "WoodarmorjacketAo": "assets/prefabs/clothes/jacket.woodarmor/textures/woodarmorjacket_ao.png",
-                        "WoodarmorjacketBc": "assets/prefabs/clothes/jacket.woodarmor/textures/woodarmorjacket_bc.tif",
-                        "WoodarmorjacketNrm": "assets/prefabs/clothes/jacket.woodarmor/textures/woodarmorjacket_nrm.png",
-                        "WoodarmorjacketSg": "assets/prefabs/clothes/jacket.woodarmor/textures/woodarmorjacket_sg.tif"
+                        "WoodarmourjacketAo": "assets/prefabs/clothes/jacket.woodarmor/textures/woodarmourjacket_ao.png",
+                        "WoodarmourjacketBc": "assets/prefabs/clothes/jacket.woodarmor/textures/woodarmourjacket_bc.png",
+                        "WoodarmourjacketNrm": "assets/prefabs/clothes/jacket.woodarmor/textures/woodarmourjacket_nrm.png",
+                        "WoodarmourjacketSg": "assets/prefabs/clothes/jacket.woodarmor/textures/woodarmourjacket_sg.png"
                       },
                       "SubFolders": {}
                     }
@@ -32927,28 +33457,10 @@
                       "Name": "textures",
                       "Path": "assets/assets/prefabs/clothes/pants.woodarmor/textures",
                       "Files": {
-                        "WoodarmorpantsAo": "assets/prefabs/clothes/pants.woodarmor/textures/woodarmorpants_ao.png",
-                        "WoodarmorpantsBc": "assets/prefabs/clothes/pants.woodarmor/textures/woodarmorpants_bc.tif",
-                        "WoodarmorpantsNrm": "assets/prefabs/clothes/pants.woodarmor/textures/woodarmorpants_nrm.png",
-                        "WoodarmorpantsSg": "assets/prefabs/clothes/pants.woodarmor/textures/woodarmorpants_sg.tif"
-                      },
-                      "SubFolders": {}
-                    }
-                  }
-                },
-                "gloves.woodarmor": {
-                  "Name": "gloves.woodarmor",
-                  "Path": "assets/assets/prefabs/clothes/gloves.woodarmor",
-                  "Files": {},
-                  "SubFolders": {
-                    "textures": {
-                      "Name": "textures",
-                      "Path": "assets/assets/prefabs/clothes/gloves.woodarmor/textures",
-                      "Files": {
-                        "WoodarmourgloveAo": "assets/prefabs/clothes/gloves.woodarmor/textures/woodarmourglove_ao.tga",
-                        "WoodarmourgloveBc": "assets/prefabs/clothes/gloves.woodarmor/textures/woodarmourglove_bc.tga",
-                        "WoodarmourgloveMg": "assets/prefabs/clothes/gloves.woodarmor/textures/woodarmourglove_mg.tga",
-                        "WoodarmourgloveNrm": "assets/prefabs/clothes/gloves.woodarmor/textures/woodarmourglove_nrm.tga"
+                        "WoodarmourpantsAo": "assets/prefabs/clothes/pants.woodarmor/textures/woodarmourpants_ao.png",
+                        "WoodarmourpantsBc": "assets/prefabs/clothes/pants.woodarmor/textures/woodarmourpants_bc.png",
+                        "WoodarmourpantsNrm": "assets/prefabs/clothes/pants.woodarmor/textures/woodarmourpants_nrm.png",
+                        "WoodarmourpantsSg": "assets/prefabs/clothes/pants.woodarmor/textures/woodarmourpants_sg.png"
                       },
                       "SubFolders": {}
                     }
@@ -34334,6 +34846,34 @@
                                 }
                               }
                             },
+                            "bar.games.dlc": {
+                              "Name": "bar.games.dlc",
+                              "Path": "assets/assets/prefabs/tools/spraycan/sprays/skins/bar.games.dlc",
+                              "Files": {},
+                              "SubFolders": {
+                                "static": {
+                                  "Name": "static",
+                                  "Path": "assets/assets/prefabs/tools/spraycan/sprays/skins/bar.games.dlc/static",
+                                  "Files": {},
+                                  "SubFolders": {
+                                    "materials": {
+                                      "Name": "materials",
+                                      "Path": "assets/assets/prefabs/tools/spraycan/sprays/skins/bar.games.dlc/static/materials",
+                                      "Files": {
+                                        "BarGamesDlcCircle01": "assets/prefabs/tools/spraycan/sprays/skins/bar.games.dlc/static/materials/bar.games.dlc_circle_01.png",
+                                        "BarGamesDlcCircle02": "assets/prefabs/tools/spraycan/sprays/skins/bar.games.dlc/static/materials/bar.games.dlc_circle_02.png",
+                                        "BarGamesDlcCircle03": "assets/prefabs/tools/spraycan/sprays/skins/bar.games.dlc/static/materials/bar.games.dlc_circle_03.png",
+                                        "BarGamesDlcCross01": "assets/prefabs/tools/spraycan/sprays/skins/bar.games.dlc/static/materials/bar.games.dlc_cross_01.png",
+                                        "BarGamesDlcCross02": "assets/prefabs/tools/spraycan/sprays/skins/bar.games.dlc/static/materials/bar.games.dlc_cross_02.png",
+                                        "BarGamesDlcCross03": "assets/prefabs/tools/spraycan/sprays/skins/bar.games.dlc/static/materials/bar.games.dlc_cross_03.png",
+                                        "BarGamesDlcGrid": "assets/prefabs/tools/spraycan/sprays/skins/bar.games.dlc/static/materials/bar.games.dlc_grid.png"
+                                      },
+                                      "SubFolders": {}
+                                    }
+                                  }
+                                }
+                              }
+                            },
                             "industrial.dlc": {
                               "Name": "industrial.dlc",
                               "Path": "assets/assets/prefabs/tools/spraycan/sprays/skins/industrial.dlc",
@@ -34462,6 +35002,8 @@
                       "Files": {
                         "BandagesAo": "assets/prefabs/tools/bandages/materials/bandages_ao.tga",
                         "BandagesBc": "assets/prefabs/tools/bandages/materials/bandages_bc.tga",
+                        "BandageshoneyBc": "assets/prefabs/tools/bandages/materials/bandageshoney_bc.tga",
+                        "BandageshoneyMg": "assets/prefabs/tools/bandages/materials/bandageshoney_mg.tga",
                         "BandagesMg": "assets/prefabs/tools/bandages/materials/bandages_mg.tga",
                         "BandagesNrm": "assets/prefabs/tools/bandages/materials/bandages_nrm.tga"
                       },
@@ -34775,6 +35317,34 @@
                     }
                   }
                 },
+                "flashlight": {
+                  "Name": "flashlight",
+                  "Path": "assets/assets/prefabs/tools/flashlight",
+                  "Files": {},
+                  "SubFolders": {
+                    "model": {
+                      "Name": "model",
+                      "Path": "assets/assets/prefabs/tools/flashlight/model",
+                      "Files": {},
+                      "SubFolders": {
+                        "textures": {
+                          "Name": "textures",
+                          "Path": "assets/assets/prefabs/tools/flashlight/model/textures",
+                          "Files": {
+                            "FlashLightAo": "assets/prefabs/tools/flashlight/model/textures/flashlight_ao.tga",
+                            "FlashLightBc": "assets/prefabs/tools/flashlight/model/textures/flashlight_bc.tga",
+                            "FlashLightGlassBc": "assets/prefabs/tools/flashlight/model/textures/flashlight_glass_bc.tga",
+                            "FlashLightGlassMg": "assets/prefabs/tools/flashlight/model/textures/flashlight_glass_mg.tga",
+                            "FlashLightGlassNrm": "assets/prefabs/tools/flashlight/model/textures/flashlight_glass_nrm.tga",
+                            "FlashLightMg": "assets/prefabs/tools/flashlight/model/textures/flashlight_mg.tga",
+                            "FlashLightNrm": "assets/prefabs/tools/flashlight/model/textures/flashlight_nrm.tga"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    }
+                  }
+                },
                 "fuel generator": {
                   "Name": "fuel generator",
                   "Path": "assets/assets/prefabs/tools/fuel generator",
@@ -34952,6 +35522,31 @@
                         "MapBc": "assets/prefabs/tools/map/textures/map_bc.png"
                       },
                       "SubFolders": {}
+                    }
+                  }
+                },
+                "master key": {
+                  "Name": "master key",
+                  "Path": "assets/assets/prefabs/tools/master key",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/assets/prefabs/tools/master key/materials",
+                      "Files": {},
+                      "SubFolders": {
+                        "textures": {
+                          "Name": "textures",
+                          "Path": "assets/assets/prefabs/tools/master key/materials/textures",
+                          "Files": {
+                            "MasterkeyAo": "assets/prefabs/tools/master key/materials/textures/masterkey_ao.tga",
+                            "MasterkeyBc": "assets/prefabs/tools/master key/materials/textures/masterkey_bc.tga",
+                            "MasterkeyMg": "assets/prefabs/tools/master key/materials/textures/masterkey_mg.tga",
+                            "MasterkeyNrm": "assets/prefabs/tools/master key/materials/textures/masterkey_nrm.tga"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
                     }
                   }
                 },
@@ -35151,29 +35746,6 @@
                             "VFlareRedBc": "assets/prefabs/tools/flareold/model/textures/v_flare_red_bc.tga",
                             "VFlareRedNrm": "assets/prefabs/tools/flareold/model/textures/v_flare_red_nrm.tga",
                             "VFlareYellowBc": "assets/prefabs/tools/flareold/model/textures/v_flare_yellow_bc.tga"
-                          },
-                          "SubFolders": {}
-                        }
-                      }
-                    }
-                  }
-                },
-                "flashlight": {
-                  "Name": "flashlight",
-                  "Path": "assets/assets/prefabs/tools/flashlight",
-                  "Files": {},
-                  "SubFolders": {
-                    "model": {
-                      "Name": "model",
-                      "Path": "assets/assets/prefabs/tools/flashlight/model",
-                      "Files": {},
-                      "SubFolders": {
-                        "textures": {
-                          "Name": "textures",
-                          "Path": "assets/assets/prefabs/tools/flashlight/model/textures",
-                          "Files": {
-                            "VFlashLightBc": "assets/prefabs/tools/flashlight/model/textures/v_flashlight_bc.tga",
-                            "VFlashLightNrm": "assets/prefabs/tools/flashlight/model/textures/v_flashlight_nrm.tga"
                           },
                           "SubFolders": {}
                         }
@@ -36978,6 +37550,28 @@
                         }
                       }
                     },
+                    "2026-08_bar.games": {
+                      "Name": "2026-08_bar.games",
+                      "Path": "assets/assets/prefabs/wallpaper/skins/2026-08_bar.games",
+                      "Files": {},
+                      "SubFolders": {
+                        "textures": {
+                          "Name": "textures",
+                          "Path": "assets/assets/prefabs/wallpaper/skins/2026-08_bar.games/textures",
+                          "Files": {
+                            "FloorCarpetBarGamesPackAo": "assets/prefabs/wallpaper/skins/2026-08_bar.games/textures/floor_carpet_bar_games_pack_ao.tga",
+                            "FloorCarpetBarGamesPackBc": "assets/prefabs/wallpaper/skins/2026-08_bar.games/textures/floor_carpet_bar_games_pack_bc.tga",
+                            "FloorCarpetBarGamesPackNrm": "assets/prefabs/wallpaper/skins/2026-08_bar.games/textures/floor_carpet_bar_games_pack_nrm.tga",
+                            "FloorCarpetBarGamesPackSg": "assets/prefabs/wallpaper/skins/2026-08_bar.games/textures/floor_carpet_bar_games_pack_sg.tga",
+                            "WallWoodPanellingBarGamesAo": "assets/prefabs/wallpaper/skins/2026-08_bar.games/textures/wall_wood_panelling_bar_games_ao.tga",
+                            "WallWoodPanellingBarGamesDiff": "assets/prefabs/wallpaper/skins/2026-08_bar.games/textures/wall_wood_panelling_bar_games_diff.tga",
+                            "WallWoodPanellingBarGamesNrm": "assets/prefabs/wallpaper/skins/2026-08_bar.games/textures/wall_wood_panelling_bar_games_nrm.tga",
+                            "WallWoodPanellingBarGamesSpec": "assets/prefabs/wallpaper/skins/2026-08_bar.games/textures/wall_wood_panelling_bar_games_spec.tga"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    },
                     "2026-06_industrial": {
                       "Name": "2026-06_industrial",
                       "Path": "assets/assets/prefabs/wallpaper/skins/2026-06_industrial",
@@ -37296,9 +37890,13 @@
                       "Name": "model",
                       "Path": "assets/assets/prefabs/locks/keylock/model",
                       "Files": {
+                        "KeyAo": "assets/prefabs/locks/keylock/model/key_ao.tga",
+                        "KeyBc": "assets/prefabs/locks/keylock/model/key_bc.tga",
                         "KeylockBc": "assets/prefabs/locks/keylock/model/keylock_bc.tga",
                         "KeylockMg": "assets/prefabs/locks/keylock/model/keylock_mg.tga",
-                        "KeylockNrm": "assets/prefabs/locks/keylock/model/keylock_nrm.tga"
+                        "KeylockNrm": "assets/prefabs/locks/keylock/model/keylock_nrm.tga",
+                        "KeyMg": "assets/prefabs/locks/keylock/model/key_mg.tga",
+                        "KeyNrm": "assets/prefabs/locks/keylock/model/key_nrm.tga"
                       },
                       "SubFolders": {}
                     }
@@ -37577,6 +38175,39 @@
                           "SubFolders": {}
                         }
                       }
+                    }
+                  }
+                }
+              }
+            },
+            "satellite": {
+              "Name": "satellite",
+              "Path": "assets/assets/prefabs/satellite",
+              "Files": {},
+              "SubFolders": {
+                "materials": {
+                  "Name": "materials",
+                  "Path": "assets/assets/prefabs/satellite/materials",
+                  "Files": {},
+                  "SubFolders": {
+                    "textures": {
+                      "Name": "textures",
+                      "Path": "assets/assets/prefabs/satellite/materials/textures",
+                      "Files": {
+                        "SatellitedecalSheetBc": "assets/prefabs/satellite/materials/textures/satellitedecalsheet_bc.tga",
+                        "SatelliteTrimSheet01Ao": "assets/prefabs/satellite/materials/textures/satellitetrimsheet_01_ao.tga",
+                        "SatelliteTrimSheet01Bc": "assets/prefabs/satellite/materials/textures/satellitetrimsheet_01_bc.tga",
+                        "SatelliteTrimSheet01Mg": "assets/prefabs/satellite/materials/textures/satellitetrimsheet_01_mg.tga",
+                        "SatelliteTrimSheet01Nrm": "assets/prefabs/satellite/materials/textures/satellitetrimsheet_01_nrm.tga",
+                        "SatelliteTrimSheet02Bc": "assets/prefabs/satellite/materials/textures/satellitetrimsheet_02_bc.tga",
+                        "SatelliteTrimSheet02Mg": "assets/prefabs/satellite/materials/textures/satellitetrimsheet_02_mg.tga",
+                        "SatelliteTrimSheet02Nrm": "assets/prefabs/satellite/materials/textures/satellitetrimsheet_02_nrm.tga",
+                        "SatelliteTrimSheet02Uv2Bc": "assets/prefabs/satellite/materials/textures/satellitetrimsheet_02_uv2_bc.tga",
+                        "SatelliteTrimSheet02Uv2Mg": "assets/prefabs/satellite/materials/textures/satellitetrimsheet_02_uv2_mg.tga",
+                        "SatelliteTrimSheet02Uv2Nrm": "assets/prefabs/satellite/materials/textures/satellitetrimsheet_02_uv2_nrm.tga",
+                        "Satelliteuv2Ao": "assets/prefabs/satellite/materials/textures/satelliteuv2_ao.tga"
+                      },
+                      "SubFolders": {}
                     }
                   }
                 }
@@ -40799,6 +41430,15 @@
                     "Splattexture0": "assets/scenes/test/world_revamp/world_revamp/splattexture0.png",
                     "Splattexture1": "assets/scenes/test/world_revamp/world_revamp/splattexture1.png",
                     "Topologytexture": "assets/scenes/test/world_revamp/world_revamp/topologytexture.png"
+                  },
+                  "SubFolders": {}
+                },
+                "automatedteststerrain": {
+                  "Name": "automatedteststerrain",
+                  "Path": "assets/assets/scenes/test/automatedteststerrain",
+                  "Files": {
+                    "Splattexture0": "assets/scenes/test/automatedteststerrain/splattexture0.png",
+                    "Splattexture1": "assets/scenes/test/automatedteststerrain/splattexture1.png"
                   },
                   "SubFolders": {}
                 }
