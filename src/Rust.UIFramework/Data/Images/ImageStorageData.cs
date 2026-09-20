@@ -1,4 +1,9 @@
-﻿using System.Collections.Concurrent;
+﻿using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Linq;
+using Oxide.Ext.UiFramework.Config;
+using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Plugins;
 using ProtoBuf;
@@ -12,12 +17,16 @@ internal readonly record struct SaveVersion([property: ProtoMember(1)] ulong Ent
 internal class ImageStorageData : BaseDataFile<ImageStorageData>
 {
     [ProtoMember(1)]
-    private SaveVersion _saveVersion;
+    public SaveVersion SaveVersion { get; private set; }
     [ProtoMember(2)]
-    private readonly ConcurrentDictionary<string, ImageId> _urlImages = [];
+    public ImageDatabaseType Type { get; private set; }
     [ProtoMember(3)]
-    private readonly ConcurrentDictionary<PluginImage, ImageId> _pluginImages = [];
+    private readonly ConcurrentDictionary<ImageId, DateTime> _imageLastAccessed = [];
     [ProtoMember(4)]
+    private readonly ConcurrentDictionary<string, ImageId> _urlImages = [];
+    [ProtoMember(5)]
+    private readonly ConcurrentDictionary<PluginImage, ImageId> _pluginImages = [];
+    [ProtoMember(6)]
     private readonly ConcurrentDictionary<string, ImageId> _borderRadiusImages = [];
 
     public void AddUrlImage(string url, ImageId imageId)
@@ -25,7 +34,7 @@ internal class ImageStorageData : BaseDataFile<ImageStorageData>
         if (!_urlImages.TryGetValue(url, out ImageId existingId) || existingId != imageId)
         {
             _urlImages[url] = imageId;
-            OnDataChanged();
+            Touch(imageId);
         }
     }
     
@@ -35,7 +44,7 @@ internal class ImageStorageData : BaseDataFile<ImageStorageData>
         if (!_pluginImages.TryGetValue(pluginImage, out ImageId existingId) || existingId != imageId)
         {
             _pluginImages[pluginImage] = imageId;
-            OnDataChanged();
+            Touch(imageId);
         }
     }
 
@@ -44,7 +53,7 @@ internal class ImageStorageData : BaseDataFile<ImageStorageData>
         if (!_borderRadiusImages.TryGetValue(name, out ImageId existingId) || existingId != imageId)
         {
             _borderRadiusImages[name] = imageId;
-            OnDataChanged();
+            Touch(imageId);
         }
     }
 
@@ -52,33 +61,91 @@ internal class ImageStorageData : BaseDataFile<ImageStorageData>
     {
         if (_pluginImages.TryGetValue(new PluginImage(pluginId, name), out ImageId png) && png.IsValid)
         {
+            Touch(png);
             return png;
         }
         
         if (_urlImages.TryGetValue(name, out ImageId url) && url.IsValid)
         {
+            Touch(url);
             return url;
         }
 
         return default;
     }
 
-    public ImageId GetByUrl(string url) => _urlImages.TryGetValue(url, out ImageId image) && image.IsValid ? image : default;
-    public ImageId GetBorderRadius(string name) => _borderRadiusImages.TryGetValue(name, out ImageId image) && image.IsValid ? image : default;
-
-    internal void OnCommunityEntityLoaded(SaveVersion saveVersion)
+    public ImageId GetByUrl(string url)
     {
-        if (saveVersion != _saveVersion)
+        if (_urlImages.TryGetValue(url, out ImageId image) && image.IsValid)
         {
-            Wipe();
-            _saveVersion = saveVersion;
+            Touch(image);
+            return image;
+        }
+
+        return default;
+    }
+
+    public ImageId GetBorderRadius(string name)
+    {
+        if (_borderRadiusImages.TryGetValue(name, out ImageId image))
+        {
+            Touch(image);
+            return image;
+        }
+
+        return default;
+    }
+
+    public void Touch(ImageId imageId)
+    {
+        _imageLastAccessed[imageId] = DateTime.UtcNow;
+        OnDataChanged();
+    }
+
+    public IEnumerable<ImageId> GetExpiredImages() => _imageLastAccessed
+        .Where(x => x.Value + TimeSpan.FromDays(UiFrameworkConfig.Instance.ImageDatabase.UnusedImageMaxDays) < DateTime.UtcNow)
+        .Select(x => x.Key);
+
+    public void RemoveImage(ImageId id)
+    {
+        _imageLastAccessed.TryRemove(id, out _);
+        _pluginImages.TryRemoveByValue(id);
+        _urlImages.TryRemoveByValue(id);
+        _borderRadiusImages.TryRemoveByValue(id);
+        OnDataChanged();
+    }
+
+    public void OnCommunityEntityLoaded(ICommunityEntity entity, ImageDatabaseType type)
+    {
+        SaveVersion saveVersion = new(entity.Id);
+        if(Type != type)
+        {
+            Type = type;
+            Wipe(saveVersion);
+            return;
+        }
+
+        if (SaveVersion != saveVersion)
+        {
+            if (Type == ImageDatabaseType.FileStorage)
+            {
+                Wipe(saveVersion);
+            }
+            else
+            {
+                SaveVersion = saveVersion;
+                OnDataChanged();
+            }
         }
     }
 
-    public void Wipe()
+    private void Wipe(SaveVersion saveVersion)
     {
+        SaveVersion = saveVersion;
+        _imageLastAccessed.Clear();
         _urlImages.Clear();
         _pluginImages.Clear();
+        _borderRadiusImages.Clear();
         OnDataChanged();
     }
 }

@@ -35,7 +35,7 @@ internal static class OxideLibrary
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     internal static void LogError(string message) => Interface.Oxide.LogError(message); 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static void LogException(string message, Exception exception) => Interface.Oxide.LogException(message, exception);
+    internal static void LogException(string message, Exception exception) => Interface.Oxide.LogException($"[{exception?.GetType().Name}] {message}", exception);
 
     internal static void RegisterLibrary(string name, Library value)
     {

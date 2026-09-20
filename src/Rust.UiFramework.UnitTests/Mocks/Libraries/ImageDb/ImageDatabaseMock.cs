@@ -10,8 +10,7 @@ internal class ImageDatabaseMock : Library, IImageDatabase
 {
     private readonly ConcurrentDictionary<ImageId, byte[]> _images = new();
 
-    public void OnImageRegistered(ImageId id) { }
-
+    public ImageDatabaseType Type { get; set; }
     public bool Exists(ImageId id) => _images.ContainsKey(id);
 
     public ImageId Store(byte[] image)
@@ -21,13 +20,7 @@ internal class ImageDatabaseMock : Library, IImageDatabase
         return id;
     }
 
-    public byte[] Get(ImageId id)
-    {
-        return _images.GetValueOrDefault(id);
-    }
-
-    public SaveVersion GetSaveVersion(ICommunityEntity entity)
-    {
-        return new SaveVersion(entity.Id);
-    }
+    public void Remove(ImageId id) => _images.TryRemove(id, out _);
+    public byte[] Get(ImageId id) => _images.GetValueOrDefault(id);
+    public List<ImageId> GetExistingImages() => [.. _images.Keys];
 }

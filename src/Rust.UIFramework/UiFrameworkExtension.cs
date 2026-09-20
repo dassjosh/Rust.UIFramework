@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
-using Cysharp.Threading.Tasks;
 using Oxide.Core;
 using Oxide.Core.Extensions;
 using Oxide.Ext.UiFramework.Animation;
@@ -11,7 +10,6 @@ using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Libraries.ImagePrecache;
 using Oxide.Ext.UiFramework.Logging;
 using Oxide.Ext.UiFramework.Plugins;
-using Oxide.Ext.UiFramework.Threading;
 using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework;
@@ -42,6 +40,7 @@ public class UiFrameworkExtension : Extension
         GlobalLogger.Info($"Using UiFramework v{Version}");
         OxideLibrary.ExtensionManager = Manager;
         Manager.RegisterPluginLoader(new UiFrameworkExtPluginLoader());
+
         if (UiFrameworkConfig.Instance.ImageDatabase.Enabled)
         {
             GlobalLogger.Debug("Using {0} Image DB", nameof(UiImageDatabase));
@@ -52,7 +51,9 @@ public class UiFrameworkExtension : Extension
             GlobalLogger.Debug("Using {0} Image DB", nameof(UiFileStorageDatabase));
             OxideLibrary.RegisterLibrary(nameof(IImageDatabase), Singleton<UiFileStorageDatabase>.Instance);
         }
+
         OxideLibrary.RegisterLibrary(nameof(UiChannels), Singleton<UiChannels>.Instance);
+        OxideLibrary.RegisterLibrary(nameof(UiImageDatabaseHandler), Singleton<UiImageDatabaseHandler>.Instance);
         OxideLibrary.RegisterLibrary(nameof(UiImageStorage), Singleton<UiImageStorage>.Instance);
         OxideLibrary.RegisterLibrary(nameof(UiImagePrecache), Singleton<UiImagePrecache>.Instance);
         OxideLibrary.RegisterLibrary(nameof(UiCommands), Singleton<UiCommands>.Instance);

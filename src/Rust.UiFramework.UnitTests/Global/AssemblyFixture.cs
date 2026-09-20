@@ -85,8 +85,11 @@ public class AssemblyFixture : XunitTestFramework
         UiFrameworkExtension.GlobalLogger = Singleton<UiLoggerFactory>.Instance.CreateGlobalLogger();
         Singleton<DataHandler>.Instance.LoadAll();
         OxideLibrary.RegisterLibrary(nameof(IImageDatabase), new ImageDatabaseMock());
+        OxideLibrary.RegisterLibrary(nameof(UiImageDatabaseHandler), Singleton<UiImageDatabaseHandler>.Instance);
         OxideLibrary.RegisterLibrary(nameof(UiImageStorage), Singleton<UiImageStorage>.Instance);
+        OxideLibrary.RegisterLibrary(nameof(UiIconLib), Singleton<UiIconLib>.Instance);
         UiFrameworkPlugin.Instance = UnitTestHelpers.CorePlugin;
+        Singleton<UiIconLib>.Instance.RegisterDefaults(UiFrameworkPlugin.Instance);
 
         //new UiFrameworkPlugin().Init();
         BaseUiFrameworkLibrary.ProcessOnCommunityEntitySpawned(new CommunityEntityMock());

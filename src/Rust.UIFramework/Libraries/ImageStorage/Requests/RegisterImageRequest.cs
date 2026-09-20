@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Types.Results;
@@ -17,15 +16,8 @@ internal class RegisterImageRequest(PluginId pluginId, string name, IRegisterIma
     public ProcessStep Step => Handler.Step;
     public RegisterImageRequestHandler Handler { get; } = handler;
 
-    public void OnSuccess(Action<RegisterSuccessEventArgs> callback)
-    {
-        Handler.AddSuccessCallback(callback);
-    }
-
-    public void OnFailed(Action<IRegisterImageException> callback)
-    {
-        Handler.AddFailedCallback(callback);
-    }
+    public void OnSuccess(Action<RegisterSuccessEventArgs> callback) => Handler.AddSuccessCallback(callback);
+    public void OnFailed(Action<IRegisterImageException> callback) => Handler.AddFailedCallback(callback);
 
     public UniTask<Result<ImageId>> AsUniTask() => Handler.AsUniTask();
 }

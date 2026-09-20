@@ -20,6 +20,9 @@ public class UiImageStorageTests
 
         // Assert
         Assert.Equal(ProcessStep.Completed, request.Step);
+        Assert.True(request.State.IsCompleted);
+        Assert.False(request.State.IsDownloading);
+        Assert.False(request.State.HadDownloadError);
         Assert.NotEqual((uint)0, request.ImageId.Id);
         Assert.NotNull(request.Image);
         Assert.Equal(UiImageType.Png, request.Type);
@@ -32,12 +35,16 @@ public class UiImageStorageTests
         UiImageStorage storage = Singleton<UiImageStorage>.Instance;
 
         //Act
-        IDownloadImageRequest request = storage.RegisterImage(UnitTestHelpers.Plugin, $"{UiImageDefaults.NotFound}123");
+        string url = GetInvalidImageUrl();
+        IDownloadImageRequest request = storage.RegisterImage(UnitTestHelpers.Plugin, url);
         CancellationTokenSource cts = new(TimeSpan.FromSeconds(5));
         await WaitForCompletion(request, cts.Token);
 
         // Assert
         Assert.Equal(ProcessStep.Failed, request.Step);
+        Assert.False(request.State.IsCompleted);
+        Assert.False(request.State.IsDownloading);
+        Assert.True(request.State.HadDownloadError);
         Assert.Equal((uint)0, request.ImageId.Id);
         Assert.Null(request.Image);
         Assert.Equal(UiImageType.Unknown, request.Type);
@@ -76,7 +83,8 @@ public class UiImageStorageTests
         UiImageStorage storage = Singleton<UiImageStorage>.Instance;
 
         //Act
-        IDownloadImageRequest request = storage.RegisterImage(UnitTestHelpers.Plugin, $"{UiImageDefaults.NotFound}123");
+        string url = GetInvalidImageUrl();
+        IDownloadImageRequest request = storage.RegisterImage(UnitTestHelpers.Plugin, url);
         bool success = false;
         bool failed = false;
         request.OnSuccess(_ =>
@@ -102,8 +110,9 @@ public class UiImageStorageTests
         UiImageStorage storage = Singleton<UiImageStorage>.Instance;
 
         //Act
-        IDownloadImageRequest request1 = storage.RegisterImage(UnitTestHelpers.Plugin, UiImageDefaults.NotFound);
-        IDownloadImageRequest request2 = storage.RegisterImage(UnitTestHelpers.Plugin, UiImageDefaults.NotFound);
+        string url = Singleton<UiIconLib>.Instance.GetIconUrl(FontAwesomeRegularIcons.AddressBook);
+        IDownloadImageRequest request1 = storage.RegisterImage(UnitTestHelpers.Plugin, url);
+        IDownloadImageRequest request2 = storage.RegisterImage(UnitTestHelpers.Plugin, url);
 
         DownloadImageRequest internalRequest1 = request1 as DownloadImageRequest;
         DownloadImageRequest internalRequest2 = request2 as DownloadImageRequest;
@@ -113,9 +122,33 @@ public class UiImageStorageTests
 
         // Assert
         Assert.NotEqual(request1, request2);
-        Assert.Equal(internalRequest1!.Handler, internalRequest2!.Handler);
+        Assert.Equal(internalRequest1.Handler.Id, internalRequest2.Handler.Id);
         Assert.Equal(ProcessStep.Completed, request1.Step);
         Assert.Equal(ProcessStep.Completed, request2.Step);
+    }
+
+    [Fact]
+    public async Task UiImageStorage_RegisterUrlImage_InvalidImage_MultipleRegisters_SameHandler_DifferentRequest()
+    {
+        // Arrange
+        UiImageStorage storage = Singleton<UiImageStorage>.Instance;
+
+        //Act
+        string url = GetInvalidImageUrl();
+        IDownloadImageRequest request1 = storage.RegisterImage(UnitTestHelpers.Plugin, url);
+        IDownloadImageRequest request2 = storage.RegisterImage(UnitTestHelpers.Plugin, url);
+
+        DownloadImageRequest internalRequest1 = request1 as DownloadImageRequest;
+        DownloadImageRequest internalRequest2 = request2 as DownloadImageRequest;
+
+        CancellationTokenSource cts = new(TimeSpan.FromSeconds(5));
+        await WaitForCompletion(request2, cts.Token);
+
+        // Assert
+        Assert.NotEqual(request1, request2);
+        Assert.Equal(internalRequest1.Handler.Id, internalRequest2.Handler.Id);
+        Assert.Equal(ProcessStep.Failed, request1.Step);
+        Assert.Equal(ProcessStep.Failed, request2.Step);
     }
 
     [Fact]
@@ -130,6 +163,9 @@ public class UiImageStorageTests
 
         // Assert
         Assert.Equal(ProcessStep.Completed, request.Step);
+        Assert.True(request.State.IsCompleted);
+        Assert.False(request.State.IsDownloading);
+        Assert.False(request.State.HadDownloadError);
         Assert.NotEqual((uint)0, request.ImageId.Id);
         Assert.Equal(imageId.Id, request.ImageId.Id);
         Assert.NotNull(request.Image);
@@ -148,6 +184,9 @@ public class UiImageStorageTests
 
         // Assert
         Assert.Equal(ProcessStep.Completed, request.Step);
+        Assert.True(request.State.IsCompleted);
+        Assert.False(request.State.IsDownloading);
+        Assert.False(request.State.HadDownloadError);
         Assert.NotEqual((uint)0, request.ImageId.Id);
         Assert.True(result.IsSuccess);
         Assert.Equal(result.Value.Id, request.ImageId.Id);
@@ -162,11 +201,15 @@ public class UiImageStorageTests
         UiImageStorage storage = Singleton<UiImageStorage>.Instance;
 
         //Act
-        IDownloadImageRequest request = storage.RegisterImage(UnitTestHelpers.Plugin, $"{UiImageDefaults.NotFound}123");
+        string url = GetInvalidImageUrl();
+        IDownloadImageRequest request = storage.RegisterImage(UnitTestHelpers.Plugin, url);
         Result<ImageId> result = await request.AsUniTask();
 
         // Assert
         Assert.Equal(ProcessStep.Failed, request.Step);
+        Assert.False(request.State.IsCompleted);
+        Assert.False(request.State.IsDownloading);
+        Assert.True(request.State.HadDownloadError);
         Assert.Equal((uint)0, request.ImageId.Id);
         Assert.True(result.IsFailure);
         Assert.Equal(result.Value.Id, request.ImageId.Id);
@@ -257,27 +300,26 @@ public class UiImageStorageTests
         await Verify(request.Image, "png");
     }
 
-    [Fact(Skip = "Not implemented yet")]
+    [Fact]
     public async Task UiImageStorage_GetInvalidImage_ReturnsNotFound()
     {
         // Arrange
         UiImageStorage storage = Singleton<UiImageStorage>.Instance;
 
         //Act
-        IDownloadImageRequest request = storage.RegisterImage(UnitTestHelpers.Plugin, $"{UiImageDefaults.NotFound}123");
+        Result<ImageId> notFoundResult = await storage.RegisterImage(UnitTestHelpers.Plugin, UiImageDefaults.NotFound).AsUniTask();
+
+        string url = GetInvalidImageUrl();
+        IDownloadImageRequest request = storage.RegisterImage(UnitTestHelpers.Plugin, url);
         Result<ImageId> result = await request.AsUniTask();
 
-        var image = storage.Get(UnitTestHelpers.Plugin, $"{UiImageDefaults.NotFound}123");
+        string image = storage.Get(UnitTestHelpers.Plugin, url);
 
         // Assert
-        if (uint.TryParse(image, out uint id))
-        {
-            Assert.Equal(1503184602u, id);
-        }
-        else
-        {
-            Assert.Equal(UiImageDefaults.NotFound, image);
-        }
+        Assert.True(notFoundResult.IsSuccess);
+        Assert.False(result.IsSuccess);
+        Assert.True(result.IsFailure);
+        Assert.Equal(notFoundResult.Value.Id.ToString(), image);
     }
 
     private static async Task WaitForCompletion(IDownloadImageRequest register, CancellationToken cancellationToken)
@@ -287,4 +329,6 @@ public class UiImageStorageTests
             while (!cancellationToken.IsCancellationRequested && register.Step != ProcessStep.Completed && register.Step != ProcessStep.Failed) { Thread.Sleep(25); }
         }, cancellationToken);
     }
+
+    private static string GetInvalidImageUrl() => $"https://example.com/{Guid.NewGuid().ToString()}";
 }

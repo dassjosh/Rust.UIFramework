@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using Oxide.Ext.UiFramework.Libraries;
 using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Pooling;
 
@@ -22,6 +23,26 @@ public static class ConcurrentDictionaryExt
         public PooledDictionaryEnumerator<TKey, TValue> GetEnumeratorPooled(IUiFrameworkPlugin plugin)
         {
             return PooledDictionaryEnumerator<TKey, TValue>.Create(plugin, dictionary.ToArrayPooled(plugin));
+        }
+
+        public bool TryRemoveByValue(TValue value)
+        {
+            List<TKey> keys = UiPool.Internal.GetList<TKey>();
+            foreach (KeyValuePair<TKey, TValue> pair in dictionary)
+            {
+                if (pair.Value.Equals(value))
+                {
+                    keys.Add(pair.Key);
+                }
+            }
+
+            foreach (TKey key in keys)
+            {
+                dictionary.TryRemove(key, out _);
+            }
+
+            UiPool.Internal.FreeList(keys);
+            return keys.Count > 0;
         }
     }
 }

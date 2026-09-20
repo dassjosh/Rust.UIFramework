@@ -1,6 +1,5 @@
 ﻿using System.Collections.Concurrent;
 using System.Linq;
-using Oxide.Ext.UiFramework.Colors;
 using Oxide.Ext.UiFramework.Constants;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Extensions;
@@ -76,7 +75,7 @@ internal class RegisteredImageData : ISingleton
         return request;
     }
 
-    internal DownloadImageRequest AddExistingImageRequest(PluginId pluginId, string name, string url, ImageId imageId, RegisterImageOptions options)
+    internal DownloadImageRequest AddExistingImageRequest(PluginId pluginId, string name, string url, byte[] image, ImageId imageId, RegisterImageOptions options)
     {
         Guard.IsValid(pluginId);
         Guard.IsNotNullOrEmpty(name);
@@ -88,8 +87,8 @@ internal class RegisteredImageData : ISingleton
         DownloadImageRequest request = new(pluginId, name, options, handler);
         handler.AddRequest(request);
         AddPluginImageRequest(pluginId, request);
-        handler.Success(new RegisterSuccessEventArgs(imageId));
-        Singleton<SaveHandler>.Instance.Enqueue(handler);
+        handler.OnDownloadComplete(image);
+        Singleton<DefaultImageProcessor>.Instance.Enqueue(handler);
         return request;
     }
 
@@ -104,8 +103,7 @@ internal class RegisteredImageData : ISingleton
         RegisterImageRequest request = new(pluginId, name, options, handler);
         handler.AddRequest(request);
         AddPluginImageRequest(pluginId, request);
-        handler.Success(new RegisterSuccessEventArgs(imageId));
-        Singleton<SaveHandler>.Instance.Enqueue(handler);
+        Singleton<DefaultImageProcessor>.Instance.Enqueue(handler);
         return request;
     }
 

@@ -28,7 +28,7 @@ public class Result<T>
 
     public R Match<R>(Func<T, R> onSuccess, Func<Result<T>, R> onFailure)
     {
-        Guard.IsNotNull(onSuccess );
+        Guard.IsNotNull(onSuccess);
         Guard.IsNotNull(onFailure);
         return IsSuccess ? onSuccess(Value) : onFailure(this);
     }

@@ -21,7 +21,6 @@ internal sealed class DataHandler : ISingleton
         Save(UiFrameworkConfig.Instance, true);
         Load<ImageStorageData>(new DataFileInfo(PathConstants.DataFolder, "image.storage", 2, DataFormat.Protobuf));
         Load<AvatarData>(new DataFileInfo(PathConstants.DataFolder, "player.avatar", 2, DataFormat.Protobuf));
-        Load<ImageDbData>(new DataFileInfo(PathConstants.DataFolder, "image.db", 2, DataFormat.Protobuf));
     }
 
     public void OnServerSave() => SaveAll(false);
@@ -33,7 +32,6 @@ internal sealed class DataHandler : ISingleton
         Save(UiFrameworkConfig.Instance, false);
         Save(ImageStorageData.Instance, force);
         Save(AvatarData.Instance, force);
-        Save(ImageDbData.Instance, force);
     }
         
     public static TData Load<TData>(DataFileInfo info) where TData : BaseDataFile<TData>, new()

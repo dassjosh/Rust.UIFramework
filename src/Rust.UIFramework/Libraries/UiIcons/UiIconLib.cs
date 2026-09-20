@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using Oxide.Ext.UiFramework.Constants;
 using Oxide.Ext.UiFramework.Extensions;
 using Oxide.Ext.UiFramework.Logging;
 using Oxide.Ext.UiFramework.Plugins;
 using Oxide.Ext.UiFramework.Types;
 using Oxide.Ext.UiFramework.UiElements;
+using Rust.UI;
 
 namespace Oxide.Ext.UiFramework.Libraries;
 
@@ -43,6 +45,13 @@ public class UiIconLib : BaseUiFrameworkLibrary, ISingleton
         _logger.Debug("Registered icon for plugin: {0} type: {1}", pluginId.FullName(), typeof(T));
     }
 
+    internal void RegisterDefaults(IUiFrameworkPlugin plugin)
+    {
+        RegisterIcons<Icons>(plugin, @enum => string.Format(DefaultIconFormats.RustIconsFormat, (int)@enum), icon => icon.SetMaterial(UiMaterials.Icons.IconMaterial));
+        RegisterIcons<FontAwesomeRegularIcons>(plugin, @enum => string.Format(DefaultIconFormats.FontAwesomeRegularFormat, @enum), icon => icon.SetMaterial(UiMaterials.Icons.IconMaterial));
+        RegisterIcons<FontAwesomeSolidIcons>(plugin, @enum => string.Format(DefaultIconFormats.FontAwesomeSolidFormat, @enum), icon => icon.SetMaterial(UiMaterials.Icons.IconMaterial));
+    }
+
     internal void PopulateIconData<T>(UiIcon icon, T value) where T : struct, Enum
     {
         if(_enumIconData.TryGetValue(typeof(T), out IIconData data))
@@ -51,6 +60,16 @@ public class UiIconLib : BaseUiFrameworkLibrary, ISingleton
             return;
         }
         
+        throw new Exception($"No icon registered for {typeof(T)}");
+    }
+
+    internal string GetIconUrl<T>(T value) where T : struct, Enum
+    {
+        if(_enumIconData.TryGetValue(typeof(T), out IIconData data))
+        {
+            return ((PluginIconData<T>)data).GetUrl(value);
+        }
+
         throw new Exception($"No icon registered for {typeof(T)}");
     }
     
@@ -76,7 +95,7 @@ file sealed class PluginIconData<T>(PluginId id, IconUrlLookup<T> urlLookup, Ico
     public PluginId Id { get; } = id;
     private readonly Dictionary<T, string> _cachedUrls = new();
 
-    private string GetUrl(T value)
+    internal string GetUrl(T value)
     {
         if (!_cachedUrls.TryGetValue(value, out string url))
         {

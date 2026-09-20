@@ -47,10 +47,7 @@ internal class UiFrameworkPlugin : BaseUiFrameworkPlugin, IUiFrameworkCorePlugin
         }
 #endif
 
-        IconsLib.RegisterIcons<Icons>(this, @enum => string.Format(DefaultIconFormats.RustIconsFormat, (int)@enum), icon => icon.SetMaterial(UiMaterials.Icons.IconMaterial));
-        IconsLib.RegisterIcons<FontAwesomeRegularIcons>(this, @enum => string.Format(DefaultIconFormats.FontAwesomeRegularFormat, @enum), icon => icon.SetMaterial(UiMaterials.Icons.IconMaterial));
-        IconsLib.RegisterIcons<FontAwesomeSolidIcons>(this, @enum => string.Format(DefaultIconFormats.FontAwesomeSolidFormat, @enum), icon => icon.SetMaterial(UiMaterials.Icons.IconMaterial));
-        
+        IconsLib.RegisterDefaults(this);
         BaseUiFrameworkLibrary.ProcessOnInit();
     }
 

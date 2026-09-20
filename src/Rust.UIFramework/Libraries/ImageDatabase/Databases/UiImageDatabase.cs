@@ -1,24 +1,21 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Facepunch.Sqlite;
 using Oxide.Ext.UiFramework.Config;
 using Oxide.Ext.UiFramework.Constants;
-using Oxide.Ext.UiFramework.Data;
-using Oxide.Ext.UiFramework.Harmony;
 using Oxide.Ext.UiFramework.Helpers;
 using Oxide.Ext.UiFramework.Logging;
 using Oxide.Ext.UiFramework.Types;
 
 namespace Oxide.Ext.UiFramework.Libraries;
 
-internal class UiImageDatabase : BaseUiFrameworkLibrary, ISingleton, IImageDatabase
+internal class UiImageDatabase : BaseUiFrameworkLibrary, IImageDatabase
 {
+    public ImageDatabaseType Type => ImageDatabaseType.ImageDatabase;
     private readonly ImageDatabase _db;
     private readonly LruDictionary<ImageId, CachedImage> _cache;
-    private readonly ImageDbData _data = ImageDbData.Instance;
     private readonly IUiLogger<UiImageDatabase> _logger = Singleton<UiLoggerFactory>.Instance.CreateExtensionLogger<UiImageDatabase>();
     
     private UiImageDatabase()
@@ -33,39 +30,38 @@ internal class UiImageDatabase : BaseUiFrameworkLibrary, ISingleton, IImageDatab
         
         _cache = new LruDictionary<ImageId, CachedImage>(UiFrameworkConfig.Instance.ImageDatabase.CacheSize.Bytes);
     }
-    
+
     public byte[] Get(ImageId id)
     {
         if (_db == null)
         {
-            return null;
-        }
-        
-        if (!_data.IsStored(id))
-        {
+            _logger.Error($"{nameof(Get)} Database is not initialized");
             return null;
         }
         
         if (_cache.TryGetValue(id, out CachedImage image) && image.IsValid)
         {
-            _data.Touch(id);
+            _logger.Verbose($"{nameof(Get)} Image From Cache: {{0}}", id.Id);
             return image.Data;
         }
         
         byte[] bytes = _db.Query<byte[], uint>("SELECT image FROM data WHERE crc = ? LIMIT 1", id.Id);
         if (bytes != null)
         {
-            _data.Touch(id);
+            _logger.Verbose($"{nameof(Get)} Image From DB: {{0}}", id.Id);
             _cache.Add(id, new CachedImage(bytes));
+        }
+        else
+        {
+            _logger.Verbose($"{nameof(Get)} Image Not Found In DB: {{0}}", id.Id);
         }
 
         return bytes;
     }
 
-    public bool Exists(ImageId id)
-    {
-        return _db.Query<bool, uint>("SELECT EXISTS(SELECT 1 FROM data WHERE crc = ? LIMIT 1);", id.Id);
-    }
+    public List<ImageId> GetExistingImages() => _db.GetAllCrc();
+
+    public bool Exists(ImageId id) => _db.Query<bool, uint>("SELECT EXISTS(SELECT 1 FROM data WHERE crc = ? LIMIT 1);", id.Id);
 
     public ImageId Store(byte[] image)
     {
@@ -77,76 +73,25 @@ internal class UiImageDatabase : BaseUiFrameworkLibrary, ISingleton, IImageDatab
 
         uint crc = Crc.GetCRC(image);
         ImageId id = new(crc);
-        if (_data.IsStored(id))
-        {
-            _logger.Debug("Image {0} already stored", id);
-            return id;
-        }
-        
-        _data.Touch(id);
+
         _db.Execute("INSERT OR REPLACE INTO data (crc, image) VALUES (?, ?)", crc, image);
-        _logger.Debug("Image {0} stored", id, crc);
+        _cache.Remove(id);
+        _cache.Add(id, new CachedImage(image));
+        _logger.Verbose($"{nameof(Store)} Image stored ID: {{0}} IsValid: {{1}}", id.Id, id.IsValid);
         return id;
     }
 
-    public SaveVersion GetSaveVersion(ICommunityEntity entity) => new(ulong.MaxValue);
-    
-    public void OnImageRegistered(ImageId id)
-    {
-        _logger.Debug("OnImageRegistered : {0}", id);
-        _data.Touch(id);
-    }
-
-    private IEnumerator ClearExpiredImages()
-    {
-        foreach (ImageId id in _data.GetExpiredImages())
-        {
-            RemoveImage(id);
-            yield return null;
-        }
-    }
-
-    private void RemoveImage(ImageId id)
+    public void Remove(ImageId id)
     {
         try
         {
             _db.Execute("DELETE FROM data WHERE crc = ?", id.Id);
-            _data.Remove(id);
+            _cache.Remove(id);
+            _logger.Verbose($"{nameof(Remove)} Image Removed ID: {{0}} IsValid: {{1}}", id.Id, id.IsValid);
         }
         catch (Exception ex)
         {
             _logger.Exception("An error occured removing Image {0}", id, ex);
-        }
-    }
-
-    protected override void OnCommunityEntitySpawned(ICommunityEntity entity)
-    {
-        FileStorage_Get_Prefix_Patch.Patch(entity);
-    }
-
-    protected override void OnServerInitialized()
-    {
-        SingletonBehavior<UiFrameworkBehavior>.Instance.StartCoroutine(ClearExpiredImages());
-        SyncData();
-    }
-
-    private void SyncData()
-    {
-        HashSet<uint> savedCrcs = _db.GetAllCrc();
-        foreach (ImageId id in _data.GetAllImages())
-        {
-            if (!savedCrcs.Contains(id.Id))
-            {
-                _data.Remove(id);
-            }
-        }
-
-        foreach (uint crc in savedCrcs)
-        {
-            if (!_data.IsStored(new ImageId(crc)))
-            {
-                RemoveImage(new ImageId(crc));
-            }
         }
     }
 
@@ -155,12 +100,12 @@ internal class UiImageDatabase : BaseUiFrameworkLibrary, ISingleton, IImageDatab
 
     private sealed class ImageDatabase : Database
     {
-        public HashSet<uint> GetAllCrc()
+        public List<ImageId> GetAllCrc()
         {
             IntPtr stmHandle = Prepare("SELECT crc FROM data");
             List<uint> crcs = [];
             ExecuteAndReadQueryResults(stmHandle, crcs, ptr => GetColumnValue<uint>(ptr, 0));
-            return crcs.ToHashSet();
+            return [.. crcs.Select(crc => new ImageId(crc))];
         }
     }
     

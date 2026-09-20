@@ -1,4 +1,5 @@
 using Oxide.Ext.UiFramework.Cache;
+using Oxide.Ext.UiFramework.Types;
 using ProtoBuf;
 
 namespace Oxide.Ext.UiFramework.Libraries;
@@ -7,7 +8,7 @@ namespace Oxide.Ext.UiFramework.Libraries;
 public readonly record struct ImageId([property: ProtoMember(1)] uint Id)
 {
     public bool IsValid => Id > 0;
-    public override string ToString() => IsValid ? StringCache<uint>.ToString(Id) : "Invalid ImageId";
+    public override string ToString() => IsValid ? StringCache<uint>.ToString(Id) : Singleton<UiImageStorage>.Instance.NotFound();
     public static implicit operator string(ImageId id) => id.ToString();
     public static implicit operator ImageId(string id) => uint.TryParse(id, out uint imageId) ? new ImageId(imageId) : default;
 
