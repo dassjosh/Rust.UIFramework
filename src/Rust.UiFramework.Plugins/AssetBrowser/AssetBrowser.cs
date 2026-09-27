@@ -548,7 +548,7 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
 
     private void CreateUi(BasePlayer player, UiState state, bool isInitial = false)
     {
-        Puts("A");
+        //Puts("A");
         UiBuilder builder;
         if (isInitial)
         {
@@ -566,7 +566,7 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
             //builder = UiBuilder.Create(UiPosition.MiddleMiddle, new UiOffset(500, 400), _bodyColor, UiName);
             builder = UiBuilder.Create(this, new UiReference(UiLayer.Overlay, UiName), UiPosition.MiddleMiddle, new UiOffset(600, 500), _bodyColor);
         }
-        Puts("B");
+        //Puts("B");
         //builder.SetCurrentFont(UiFontCache.RobotomonoRegular);
         builder.NeedsKeyboard();
         builder.NeedsMouse();
@@ -582,33 +582,33 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
         UiSection pathBar = builder.Section(builder.Root, new UiPosition(0, 0.9f, 1, 0.95f), new UiOffset(1, 1, -1, -1));
         UiPanel pathPanel = builder.Panel(pathBar, new UiPosition(0.1f, 0, .9f, 1), default, _pathBarColor);
         
-        Puts("C");
+        //Puts("C");
         string path = state.GetDisplayPath();
-        Puts("C1");
+        //Puts("C1");
         if (!string.IsNullOrWhiteSpace(path))
         {
-            Puts("C2");
+            //Puts("C2");
             builder.Label(pathPanel, UiPosition.Full, new UiOffset(2, 0, 0, 0), path,14, _textColor, TextAnchor.MiddleLeft);
         }
 
-        Puts("C3");
+        //Puts("C3");
         if (state.Type != AssetType.None)
         {
-            Puts("C$");
+            //Puts("C$");
             builder.IconButton(pathBar, new UiPosition(0.00f, 0, 0.05f, 1), default, _spriteColor, Icons.ChevronLeft, _uiCommands.PrevFolder.Build());
             builder.IconButton(pathBar, new UiPosition(0.05f, 0, 0.1f, 1), default, _spriteColor, Icons.ChevronRight, _uiCommands.NextFolder.Build());
         }
         
-        Puts("C5");
+        //Puts("C5");
         builder.SpriteButton(pathBar, new UiPosition(0.90f, 0, 0.95f, 1), default, _spriteColor, UiSprites.Icons.FolderUp, _uiCommands.PathUp.Build());
         
-        Puts("C6");
+        //Puts("C6");
         UiSection body = builder.Section(builder.Root, new UiPosition(0, 0, 1, 0.90f), new UiPadding(2).ToOffset());
 
        // UiRawImage image = builder.ImageStorage(body, UiPosition.Full, default, "http://www.i4ani.com/#/home?1", _downloadOptions);
       //  builder.AnimateDownload(image, _downloadAnimation);
         
-        Puts("D");
+        //Puts("D");
         switch (state.Type)
         {
             case AssetType.None:
@@ -641,7 +641,7 @@ public class AssetBrowser : RustPlugin, IUiFrameworkPlugin
                 break;
         }
 
-        Puts("E");
+        //Puts("E");
         //builder.ImageStorage(body, UiPosition.Full, default, "https://rust-images.joshdass.dev/rust-icons/61504.png", _downloadOptions);
         
         builder.AddUi(player, new UiDebugOptions("main"));

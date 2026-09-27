@@ -1,14 +1,16 @@
 using System;
 using System.Buffers.Text;
+using System.Globalization;
 using System.Runtime.CompilerServices;
+using System.Text;
 
 namespace Oxide.Ext.UiFramework.Extensions;
 
 public static class Utf8FormatterExt
 {
     // Default max precision for a single-precision float in general format
-    private const int DefaultMaxFractionalDigits = 6; 
-    
+    private const int DefaultMaxFractionalDigits = 6;
+
     extension(Utf8Formatter)
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -61,41 +63,48 @@ public static class Utf8FormatterExt
 
             return 4;
         }
-        
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int Format(float value, Span<byte> buffer)
         {
             return FormatInternal(value, DefaultMaxFractionalDigits, buffer);
         }
-        
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int Format(float value, int maxFractionalDigits, Span<byte> buffer)
         {
             return FormatInternal(value, maxFractionalDigits, buffer);
         }
-        
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+
         private static int FormatInternal(float value, int maxFractionalDigits, Span<byte> buffer)
         {
             int written = 0;
 
-            // Handle zero - check bit pattern to catch both +0 and -0
             if (value == 0f)
             {
                 buffer[0] = (byte)'0';
                 return 1;
             }
-    
-            // Handle negative
+
             if (value < 0)
             {
                 buffer[written++] = (byte)'-';
-                value = -value; 
+                value = -value;
             }
-    
-            // Fast path for 1.0
+
             if (value == 1f)
             {
                 buffer[written++] = (byte)'1';
                 return written;
+            }
+
+            // Switches to exponent mode because custom float handing will fail. Uses slower but correct built-in logic.
+            if (value > 1e15f)
+            {
+                Span<char> stackBuffer = stackalloc char[Utf8Sizes.Float];
+                value.TryFormat(stackBuffer, out int formattedLength, default, CultureInfo.InvariantCulture);
+                Span<char> utf16Text = stackBuffer[..formattedLength];
+                return Encoding.UTF8.GetBytes(utf16Text, buffer);
             }
 
             // Write integer part
@@ -119,7 +128,7 @@ public static class Utf8FormatterExt
     
             buffer[written++] = (byte)'.';
             int fractionalStart = written;
-            
+
             const float epsilon = 1e-7f; // Float precision threshold
 
             int i;
@@ -221,6 +230,15 @@ public static class Utf8FormatterExt
             } while (value > 0);
 
             return length;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static int Format(double value, Span<byte> buffer)
+        {
+            Span<char> stackBuffer = stackalloc char[Utf8Sizes.Double];
+            value.TryFormat(stackBuffer, out int formattedLength, default, CultureInfo.InvariantCulture);
+            Span<char> utf16Text = stackBuffer[..formattedLength];
+            return Encoding.UTF8.GetBytes(utf16Text, buffer);
         }
     }
 }

@@ -10,6 +10,8 @@ public static class Utf8Sizes
     public const int Long = 20;
     public const int ULong = 20;
     public const int Float = 24;
+    public const int Double = 24;
+    public const int Decimal = 30;
     public const int Char = 3;
     public const int SurrogateChar = 4;
 }

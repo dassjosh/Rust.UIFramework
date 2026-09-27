@@ -27,7 +27,7 @@ public partial class PlayerAvatarComponent : RawImageComponent
             {
                 case AvatarType.Small:
                 case AvatarType.Medium:
-                    writer.AddField(JsonDefaults.PlayerAvatar.SteamIdName, StringCache<ulong>.ToString(SteamId));
+                    writer.AddQuotedField(JsonDefaults.PlayerAvatar.SteamIdName, SteamId);
                     break;
             
                 case AvatarType.Large:
@@ -39,17 +39,12 @@ public partial class PlayerAvatarComponent : RawImageComponent
                         {
                             //Set the image so the RawImageComponent will use the URL.
                             Image = img;
+                            break;
                         }
-                        else
-                        {
-                            writer.AddField(JsonDefaults.PlayerAvatar.SteamIdName, StringCache<ulong>.ToString(SteamId));
-                        }
-                    }
-                    else
-                    {
-                        writer.AddField(JsonDefaults.PlayerAvatar.SteamIdName, StringCache<ulong>.ToString(SteamId));
                     }
 
+                    //Fallback to CUI Avatar if large avatar fails to be loaded
+                    writer.AddQuotedField(JsonDefaults.PlayerAvatar.SteamIdName, SteamId);
                     break;
             }
             

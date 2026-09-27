@@ -73,6 +73,18 @@ public partial class JsonFrameworkWriter
 		WriteValue(value);
 	}
 
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, double value)
+	{
+		WritePropertyName(name);
+		WriteValue(value);
+	}
+
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, decimal value)
+	{
+		WritePropertyName(name);
+		WriteValue(value);
+	}
+
 	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, string value)
 	{
 		WritePropertyName(name);
@@ -224,6 +236,24 @@ public partial class JsonFrameworkWriter
 	}
 
 	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, float value, float defaultValue)
+	{
+		if (value != defaultValue)
+		{
+		    WritePropertyName(name);
+		    WriteValue(value);
+		}
+	}
+
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, double value, double defaultValue)
+	{
+		if (value != defaultValue)
+		{
+		    WritePropertyName(name);
+		    WriteValue(value);
+		}
+	}
+
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, decimal value, decimal defaultValue)
 	{
 		if (value != defaultValue)
 		{
@@ -421,6 +451,24 @@ public partial class JsonFrameworkWriter
 		}
 	}
 
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, Oxide.Ext.UiFramework.Types.Tracked<double> value, Oxide.Ext.UiFramework.Enums.SerializeMode mode)
+	{
+		if (value.ShouldSerialize(mode))
+		{
+		    WritePropertyName(name);
+		    WriteValue(value.Value);
+		}
+	}
+
+	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, Oxide.Ext.UiFramework.Types.Tracked<decimal> value, Oxide.Ext.UiFramework.Enums.SerializeMode mode)
+	{
+		if (value.ShouldSerialize(mode))
+		{
+		    WritePropertyName(name);
+		    WriteValue(value.Value);
+		}
+	}
+
 	public void AddField(Oxide.Ext.UiFramework.Types.Utf8String name, Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.Colors.UiColor> value, Oxide.Ext.UiFramework.Enums.SerializeMode mode)
 	{
 		if (value.ShouldSerialize(mode))
@@ -500,6 +548,248 @@ public partial class JsonFrameworkWriter
 		    WritePropertyName(name);
 		    WriteValue(value.Value);
 		}
+	}
+
+	public void AddQuotedField(Oxide.Ext.UiFramework.Types.Utf8String name, byte value)
+	{
+		WritePropertyName(name);
+		WriteQuotedValue(value);
+	}
+
+	public void AddQuotedField(Oxide.Ext.UiFramework.Types.Utf8String name, sbyte value)
+	{
+		WritePropertyName(name);
+		WriteQuotedValue(value);
+	}
+
+	public void AddQuotedField(Oxide.Ext.UiFramework.Types.Utf8String name, short value)
+	{
+		WritePropertyName(name);
+		WriteQuotedValue(value);
+	}
+
+	public void AddQuotedField(Oxide.Ext.UiFramework.Types.Utf8String name, ushort value)
+	{
+		WritePropertyName(name);
+		WriteQuotedValue(value);
+	}
+
+	public void AddQuotedField(Oxide.Ext.UiFramework.Types.Utf8String name, int value)
+	{
+		WritePropertyName(name);
+		WriteQuotedValue(value);
+	}
+
+	public void AddQuotedField(Oxide.Ext.UiFramework.Types.Utf8String name, uint value)
+	{
+		WritePropertyName(name);
+		WriteQuotedValue(value);
+	}
+
+	public void AddQuotedField(Oxide.Ext.UiFramework.Types.Utf8String name, long value)
+	{
+		WritePropertyName(name);
+		WriteQuotedValue(value);
+	}
+
+	public void AddQuotedField(Oxide.Ext.UiFramework.Types.Utf8String name, ulong value)
+	{
+		WritePropertyName(name);
+		WriteQuotedValue(value);
+	}
+
+	public void AddQuotedField(Oxide.Ext.UiFramework.Types.Utf8String name, float value)
+	{
+		WritePropertyName(name);
+		WriteQuotedValue(value);
+	}
+
+	public void AddQuotedField(Oxide.Ext.UiFramework.Types.Utf8String name, double value)
+	{
+		WritePropertyName(name);
+		WriteQuotedValue(value);
+	}
+
+	public void AddQuotedField(Oxide.Ext.UiFramework.Types.Utf8String name, decimal value)
+	{
+		WritePropertyName(name);
+		WriteQuotedValue(value);
+	}
+
+	public void AddQuotedField(Oxide.Ext.UiFramework.Types.Utf8String name, Oxide.Ext.UiFramework.Types.Tracked<byte> value, Oxide.Ext.UiFramework.Enums.SerializeMode mode)
+	{
+		if (value.ShouldSerialize(mode))
+		{
+		    WritePropertyName(name);
+		    WriteQuotedValue(value.Value);
+		}
+	}
+
+	public void AddQuotedField(Oxide.Ext.UiFramework.Types.Utf8String name, Oxide.Ext.UiFramework.Types.Tracked<sbyte> value, Oxide.Ext.UiFramework.Enums.SerializeMode mode)
+	{
+		if (value.ShouldSerialize(mode))
+		{
+		    WritePropertyName(name);
+		    WriteQuotedValue(value.Value);
+		}
+	}
+
+	public void AddQuotedField(Oxide.Ext.UiFramework.Types.Utf8String name, Oxide.Ext.UiFramework.Types.Tracked<short> value, Oxide.Ext.UiFramework.Enums.SerializeMode mode)
+	{
+		if (value.ShouldSerialize(mode))
+		{
+		    WritePropertyName(name);
+		    WriteQuotedValue(value.Value);
+		}
+	}
+
+	public void AddQuotedField(Oxide.Ext.UiFramework.Types.Utf8String name, Oxide.Ext.UiFramework.Types.Tracked<ushort> value, Oxide.Ext.UiFramework.Enums.SerializeMode mode)
+	{
+		if (value.ShouldSerialize(mode))
+		{
+		    WritePropertyName(name);
+		    WriteQuotedValue(value.Value);
+		}
+	}
+
+	public void AddQuotedField(Oxide.Ext.UiFramework.Types.Utf8String name, Oxide.Ext.UiFramework.Types.Tracked<int> value, Oxide.Ext.UiFramework.Enums.SerializeMode mode)
+	{
+		if (value.ShouldSerialize(mode))
+		{
+		    WritePropertyName(name);
+		    WriteQuotedValue(value.Value);
+		}
+	}
+
+	public void AddQuotedField(Oxide.Ext.UiFramework.Types.Utf8String name, Oxide.Ext.UiFramework.Types.Tracked<uint> value, Oxide.Ext.UiFramework.Enums.SerializeMode mode)
+	{
+		if (value.ShouldSerialize(mode))
+		{
+		    WritePropertyName(name);
+		    WriteQuotedValue(value.Value);
+		}
+	}
+
+	public void AddQuotedField(Oxide.Ext.UiFramework.Types.Utf8String name, Oxide.Ext.UiFramework.Types.Tracked<long> value, Oxide.Ext.UiFramework.Enums.SerializeMode mode)
+	{
+		if (value.ShouldSerialize(mode))
+		{
+		    WritePropertyName(name);
+		    WriteQuotedValue(value.Value);
+		}
+	}
+
+	public void AddQuotedField(Oxide.Ext.UiFramework.Types.Utf8String name, Oxide.Ext.UiFramework.Types.Tracked<ulong> value, Oxide.Ext.UiFramework.Enums.SerializeMode mode)
+	{
+		if (value.ShouldSerialize(mode))
+		{
+		    WritePropertyName(name);
+		    WriteQuotedValue(value.Value);
+		}
+	}
+
+	public void AddQuotedField(Oxide.Ext.UiFramework.Types.Utf8String name, Oxide.Ext.UiFramework.Types.Tracked<float> value, Oxide.Ext.UiFramework.Enums.SerializeMode mode)
+	{
+		if (value.ShouldSerialize(mode))
+		{
+		    WritePropertyName(name);
+		    WriteQuotedValue(value.Value);
+		}
+	}
+
+	public void AddQuotedField(Oxide.Ext.UiFramework.Types.Utf8String name, Oxide.Ext.UiFramework.Types.Tracked<double> value, Oxide.Ext.UiFramework.Enums.SerializeMode mode)
+	{
+		if (value.ShouldSerialize(mode))
+		{
+		    WritePropertyName(name);
+		    WriteQuotedValue(value.Value);
+		}
+	}
+
+	public void AddQuotedField(Oxide.Ext.UiFramework.Types.Utf8String name, Oxide.Ext.UiFramework.Types.Tracked<decimal> value, Oxide.Ext.UiFramework.Enums.SerializeMode mode)
+	{
+		if (value.ShouldSerialize(mode))
+		{
+		    WritePropertyName(name);
+		    WriteQuotedValue(value.Value);
+		}
+	}
+
+	public void WriteQuotedValue(byte value)
+	{
+		_writer.WriteChar(QuoteChar);
+		WriteValue(value);
+		_writer.WriteChar(QuoteChar);
+	}
+
+	public void WriteQuotedValue(sbyte value)
+	{
+		_writer.WriteChar(QuoteChar);
+		WriteValue(value);
+		_writer.WriteChar(QuoteChar);
+	}
+
+	public void WriteQuotedValue(short value)
+	{
+		_writer.WriteChar(QuoteChar);
+		WriteValue(value);
+		_writer.WriteChar(QuoteChar);
+	}
+
+	public void WriteQuotedValue(ushort value)
+	{
+		_writer.WriteChar(QuoteChar);
+		WriteValue(value);
+		_writer.WriteChar(QuoteChar);
+	}
+
+	public void WriteQuotedValue(int value)
+	{
+		_writer.WriteChar(QuoteChar);
+		WriteValue(value);
+		_writer.WriteChar(QuoteChar);
+	}
+
+	public void WriteQuotedValue(uint value)
+	{
+		_writer.WriteChar(QuoteChar);
+		WriteValue(value);
+		_writer.WriteChar(QuoteChar);
+	}
+
+	public void WriteQuotedValue(long value)
+	{
+		_writer.WriteChar(QuoteChar);
+		WriteValue(value);
+		_writer.WriteChar(QuoteChar);
+	}
+
+	public void WriteQuotedValue(ulong value)
+	{
+		_writer.WriteChar(QuoteChar);
+		WriteValue(value);
+		_writer.WriteChar(QuoteChar);
+	}
+
+	public void WriteQuotedValue(float value)
+	{
+		_writer.WriteChar(QuoteChar);
+		WriteValue(value);
+		_writer.WriteChar(QuoteChar);
+	}
+
+	public void WriteQuotedValue(double value)
+	{
+		_writer.WriteChar(QuoteChar);
+		WriteValue(value);
+		_writer.WriteChar(QuoteChar);
+	}
+
+	public void WriteQuotedValue(decimal value)
+	{
+		_writer.WriteChar(QuoteChar);
+		WriteValue(value);
+		_writer.WriteChar(QuoteChar);
 	}
 }
 

@@ -17,6 +17,8 @@ public class SymbolCache
     public readonly SpecialSymbolCache Int64 = new(SpecialType.System_Int64);
     public readonly SpecialSymbolCache UInt64 = new(SpecialType.System_UInt64);
     public readonly SpecialSymbolCache Float = new(SpecialType.System_Single);
+    public readonly SpecialSymbolCache Double = new(SpecialType.System_Double);
+    public readonly SpecialSymbolCache Decimal = new(SpecialType.System_Decimal);
     public readonly SpecialSymbolCache Char = new(SpecialType.System_Char);
     public readonly SpecialSymbolCache String = new(SpecialType.System_String);
     public readonly DotNetSymbolCache Action = new("System.Action");

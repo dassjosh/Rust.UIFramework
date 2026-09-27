@@ -69,7 +69,38 @@ public class JsonFrameworkGenerator : BaseGenerator, IIncrementalGenerator
                                       WritePropertyName(name);
                                       WriteValue(value.Value);
                                   }
-                                  """));
+                                  """))
+
+                    .Methods(genData.NumericTypes, (type, method) =>
+                        method.Public().Void().Name("AddQuotedField")
+                            .AddParameter(parameter => parameter.Type(SymbolCache.Instance.Types.Utf8String.Symbol).Name("name"))
+                            .AddParameter(parameter => parameter.Type(type).Name("value"))
+                            .Body("""
+                                  WritePropertyName(name);
+                                  WriteQuotedValue(value);
+                                  """))
+
+                    .Methods(genData.NumericTypes, (type, method) =>
+                    method.Public().Void().Name("AddQuotedField")
+                        .AddParameter(parameter => parameter.Type(SymbolCache.Instance.Types.Utf8String.Symbol).Name("name"))
+                        .AddParameter(parameter => parameter.Type(SymbolCache.Instance.Types.Tracked.Symbol.Construct(type)).Name("value"))
+                        .AddParameter(parameter => parameter.Type(SymbolCache.Instance.Enums.SerializeMode.Symbol).Name("mode"))
+                        .Body("""
+                              if (value.ShouldSerialize(mode))
+                              {
+                                  WritePropertyName(name);
+                                  WriteQuotedValue(value.Value);
+                              }
+                              """))
+
+                    .Methods(genData.NumericTypes, (type, method) =>
+                    method.Public().Void().Name("WriteQuotedValue")
+                        .AddParameter(parameter => parameter.Type(type).Name("value"))
+                        .Body("""
+                              _writer.WriteChar(QuoteChar);
+                              WriteValue(value);
+                              _writer.WriteChar(QuoteChar);
+                              """));
             }).Build();
     }
 
@@ -79,16 +110,18 @@ public class JsonFrameworkGenerator : BaseGenerator, IIncrementalGenerator
         public readonly INamedTypeSymbol[] AddFieldTypes;
         public readonly INamedTypeSymbol[] AddDefaultValueTypes;
         public readonly INamedTypeSymbol[] AddTrackedTypes;
+        public readonly INamedTypeSymbol[] NumericTypes;
 
         public GeneratorData()
         {
             SymbolCache cache = SymbolCache.Instance;
             CommonFieldTypes = [cache.Byte.Symbol, cache.SByte.Symbol, cache.Char.Symbol, cache.Bool.Symbol, cache.Int16.Symbol, cache.UInt16.Symbol, cache.Int32.Symbol, cache.UInt32.Symbol, cache.Int64.Symbol, 
-                cache.UInt64.Symbol, cache.Float.Symbol, cache.String.Symbol, cache.Types.UiColor.Symbol, cache.Types.UiRotation.Symbol, cache.Types.UiPivot.Symbol, cache.Types.UiBorderWidth.Symbol,
+                cache.UInt64.Symbol, cache.Float.Symbol, cache.Double.Symbol, cache.Decimal.Symbol, cache.String.Symbol, cache.Types.UiColor.Symbol, cache.Types.UiRotation.Symbol, cache.Types.UiPivot.Symbol, cache.Types.UiBorderWidth.Symbol,
                 cache.Vector2.Symbol, cache.Vector3.Symbol, cache.Vector4.Symbol, cache.Types.Utf8String.Symbol, cache.Types.UiCanvasGroupFade.Symbol];
             AddFieldTypes = CommonFieldTypes;
             AddDefaultValueTypes = CommonFieldTypes;
             AddTrackedTypes = CommonFieldTypes.Where(t => !t.Equals(cache.String.Symbol, SymbolEqualityComparer.Default)).ToArray(); // String has special tracked handling
+            NumericTypes = CommonFieldTypes.Where(f => f.IsNumericType()).ToArray();
         }
     }
     

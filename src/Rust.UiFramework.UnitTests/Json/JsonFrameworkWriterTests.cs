@@ -189,4 +189,63 @@ public class JsonFrameworkWriterTests
     
     public static TheoryData<string> UserInputString_TheoryData() 
         => [string.Empty, "123", "a\"b\"c", "\"d\"", "\\e\\", "f\ng\nh", "適当に選んだ日本語文字", "\'i\'", "\tj\t", "\\\\", "1", "\u00E7", "1\U0001F47D", "2\uD83D\uDC7D", "3\"\"", "\"\"4", "€ Ωא"];
+
+    [Theory]
+    [InlineData(float.MaxValue)]
+    [InlineData(float.MinValue)]
+    [InlineData(float.NegativeZero)]
+    [InlineData(float.E)]
+    public async Task Float_ShouldSerialize_Correctly(float value)
+    {
+        // Arrange
+        using JsonFrameworkWriter writer = JsonFrameworkWriter.Create(UnitTestHelpers.Plugin);
+
+        // Act
+        writer.WriteStartObject();
+        writer.AddField((Utf8String)"TextField", value);
+        writer.WriteEndObject();
+
+        // Assert
+        string json = writer.ToString();
+        await VerifyJson(json);
+    }
+
+    [Theory]
+    [InlineData(double.MaxValue)]
+    [InlineData(double.MinValue)]
+    [InlineData(double.NegativeZero)]
+    public async Task Double_ShouldSerialize_Correctly(double value)
+    {
+        // Arrange
+        using JsonFrameworkWriter writer = JsonFrameworkWriter.Create(UnitTestHelpers.Plugin);
+
+        // Act
+        writer.WriteStartObject();
+        writer.AddField((Utf8String)"TextField", value);
+        writer.WriteEndObject();
+
+        // Assert
+        string json = writer.ToString();
+        await VerifyJson(json);
+    }
+
+    [Theory]
+    [MemberData(nameof(Decimal_TheoryData))]
+    public async Task Decimal_ShouldSerialize_Correctly(decimal value)
+    {
+        // Arrange
+        using JsonFrameworkWriter writer = JsonFrameworkWriter.Create(UnitTestHelpers.Plugin);
+
+        // Act
+        writer.WriteStartObject();
+        writer.AddField((Utf8String)"TextField", value);
+        writer.WriteEndObject();
+
+        // Assert
+        string json = writer.ToString();
+        await VerifyJson(json);
+    }
+
+    public static TheoryData<decimal> Decimal_TheoryData()
+        => [decimal.MaxValue, decimal.MinValue, decimal.MinusOne, decimal.One, decimal.Zero];
 }

@@ -47,7 +47,7 @@ public sealed partial class JsonFrameworkWriter : BasePoolable
     private bool _propertyComma;
     private bool _objectComma;
     
-    private enum TextMode : byte {Text, Command}
+    private enum TextMode : byte { Text, Command }
 
     private readonly JsonUtf8Writer _writer = new();
 
@@ -320,7 +320,9 @@ public sealed partial class JsonFrameworkWriter : BasePoolable
     public void WriteValue(long value) => _writer.Write(value);
     public void WriteValue(ulong value) => _writer.Write(value);
     public void WriteValue(float value) => _writer.Write(value);
-    
+    public void WriteValue(double value) => _writer.Write(value);
+    public void WriteValue(decimal value) => _writer.Write(value);
+
     public void WriteValue(string value)
     {
         _writer.WriteChar(QuoteChar);
@@ -463,6 +465,12 @@ public sealed partial class JsonFrameworkWriter : BasePoolable
 
     public void WriteCommandValue(string value) => WriteTextInternal(value, TextMode.Command);
     #endregion
+
+    private static char[] EscapeChars =
+    [
+        '\\', '"'
+    ];
+
     
     #region Internal
     private void WriteTextInternal(string value, TextMode mode)
@@ -470,6 +478,12 @@ public sealed partial class JsonFrameworkWriter : BasePoolable
         if (string.IsNullOrEmpty(value))
         {
             WriteEmptyString();
+            return;
+        }
+
+        if (value.IndexOfAny(EscapeChars) == -1)
+        {
+            WriteValue(value);
             return;
         }
         
