@@ -17,6 +17,7 @@ public partial class UiRawImage : BaseUiComponent, IMaterial<UiRawImage>, IFadeI
     public partial float FadeIn { get; set; }
     public partial UiColor Color { get; set; }
     public partial bool AllowRaycast { get; set; }
+    public partial string FallbackTexture { get; set; }
     
     public readonly RawImageComponent RawImage;
     

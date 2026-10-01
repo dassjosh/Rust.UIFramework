@@ -13,6 +13,7 @@ public interface IRawImageComponent : IBaseTypedComponent
 	string Material { get; set; }
 	Oxide.Ext.UiFramework.UiElements.UiReference PlaceholderFor { get; set; }
 	bool AllowRaycast { get; set; }
+	string FallbackTexture { get; set; }
 
 	Oxide.Ext.UiFramework.Components.RawImageComponent SetColor(Oxide.Ext.UiFramework.Colors.UiColor color);
 	Oxide.Ext.UiFramework.Components.RawImageComponent SetFadeIn(float fadeIn);
@@ -20,6 +21,7 @@ public interface IRawImageComponent : IBaseTypedComponent
 	Oxide.Ext.UiFramework.Components.RawImageComponent SetMaterial(string material);
 	Oxide.Ext.UiFramework.Components.RawImageComponent SetPlaceholderFor(in Oxide.Ext.UiFramework.UiElements.UiReference placeholderFor);
 	Oxide.Ext.UiFramework.Components.RawImageComponent SetAllowRaycast(bool allowRaycast);
+	Oxide.Ext.UiFramework.Components.RawImageComponent SetFallbackTexture(string fallbackTexture);
 }
 
 

@@ -10,10 +10,12 @@ public interface IUiRawImage : Oxide.Ext.UiFramework.Interfaces.IMaterial<Oxide.
 	string Image { get; }
 	Oxide.Ext.UiFramework.UiElements.UiReference PlaceholderFor { get; }
 	bool AllowRaycast { get; }
+	string FallbackTexture { get; }
 
 	Oxide.Ext.UiFramework.UiElements.UiRawImage SetImage(string image);
 	Oxide.Ext.UiFramework.UiElements.UiRawImage SetPlaceholderFor(in Oxide.Ext.UiFramework.UiElements.UiReference placeholderFor);
 	Oxide.Ext.UiFramework.UiElements.UiRawImage SetAllowRaycast(bool allowRaycast);
+	Oxide.Ext.UiFramework.UiElements.UiRawImage SetFallbackTexture(string fallbackTexture);
 }
 
 

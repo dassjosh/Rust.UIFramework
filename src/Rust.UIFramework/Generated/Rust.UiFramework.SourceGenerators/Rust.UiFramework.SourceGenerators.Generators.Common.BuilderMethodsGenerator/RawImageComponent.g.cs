@@ -48,6 +48,13 @@ public partial class RawImageComponent
 		AllowRaycast = allowRaycast;
 		return this;
 	}
+
+	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+	public RawImageComponent SetFallbackTexture(string fallbackTexture)
+	{
+		FallbackTexture = fallbackTexture;
+		return this;
+	}
 }
 
 

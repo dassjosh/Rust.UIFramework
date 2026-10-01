@@ -14,6 +14,7 @@ public partial class RawImageComponent : IRawImageComponent
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<string> MaterialTracked = new();
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<Oxide.Ext.UiFramework.UiElements.UiReference> PlaceholderForTracked = new();
 	internal readonly Oxide.Ext.UiFramework.Types.Tracked<bool> AllowRaycastTracked = new(Oxide.Ext.UiFramework.Json.JsonDefaults.Common.AllowRaycast);
+	internal readonly Oxide.Ext.UiFramework.Types.Tracked<string> FallbackTextureTracked = new();
 
 	public partial Oxide.Ext.UiFramework.Colors.UiColor Color
 	{
@@ -57,8 +58,15 @@ public partial class RawImageComponent : IRawImageComponent
 		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 		set => AllowRaycastTracked.Value = value;
 	}
+	public partial string FallbackTexture
+	{
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		get => FallbackTextureTracked.Value;
+		[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+		set => FallbackTextureTracked.Value = value;
+	}
 
-	public override bool HasChanged() => false || (ColorTracked.HasChanged || FadeInTracked.HasChanged || ImageTracked.HasChanged || MaterialTracked.HasChanged || PlaceholderForTracked.HasChanged || AllowRaycastTracked.HasChanged) || base.HasChanged();
+	public override bool HasChanged() => false || (ColorTracked.HasChanged || FadeInTracked.HasChanged || ImageTracked.HasChanged || MaterialTracked.HasChanged || PlaceholderForTracked.HasChanged || AllowRaycastTracked.HasChanged || FallbackTextureTracked.HasChanged) || base.HasChanged();
 
 	public override void ResetHasChanged()
 	{
@@ -69,6 +77,7 @@ public partial class RawImageComponent : IRawImageComponent
 		MaterialTracked.ResetHasChanged();
 		PlaceholderForTracked.ResetHasChanged();
 		AllowRaycastTracked.ResetHasChanged();
+		FallbackTextureTracked.ResetHasChanged();
 	}
 
 	public override void Reset()
@@ -80,6 +89,7 @@ public partial class RawImageComponent : IRawImageComponent
 		MaterialTracked.Reset();
 		PlaceholderForTracked.Reset();
 		AllowRaycastTracked.Reset();
+		FallbackTextureTracked.Reset();
 	}
 }
 

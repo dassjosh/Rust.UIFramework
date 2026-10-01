@@ -23,6 +23,7 @@ public partial class RawImageComponent : CoreComponent, IGraphicalComponent
 
     [TrackedDefaults(typeof(JsonDefaults.Common), nameof(JsonDefaults.Common.AllowRaycast))]
     public partial bool AllowRaycast { get; set; }
+    public partial string FallbackTexture { get; set; }
     
     [Obsolete("Please use Image instead")]
     public string Url { get => Image; set => Image = value; }
@@ -54,10 +55,18 @@ public partial class RawImageComponent : CoreComponent, IGraphicalComponent
                 if (image.StartsWith("http", StringComparison.OrdinalIgnoreCase))
                 {
                     writer.AddField(JsonDefaults.Image.UrlName, image);
+                    if (!string.IsNullOrEmpty(FallbackTexture))
+                    {
+                        writer.AddField(JsonDefaults.BaseImage.SpriteName, FallbackTexture);
+                    }
                 } 
                 else if (uint.TryParse(image, out uint _))
                 {
                     writer.AddField(JsonDefaults.Image.PngName, image);
+                    if (!string.IsNullOrEmpty(FallbackTexture))
+                    {
+                        writer.AddField(JsonDefaults.BaseImage.SpriteName, FallbackTexture);
+                    }
                 }
                 else if(image.StartsWith("assets/", StringComparison.OrdinalIgnoreCase))
                 {

@@ -48,6 +48,13 @@ public partial class UiRawImage
 		AllowRaycast = allowRaycast;
 		return this;
 	}
+
+	[System.Runtime.CompilerServices.MethodImplAttribute(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+	public UiRawImage SetFallbackTexture(string fallbackTexture)
+	{
+		FallbackTexture = fallbackTexture;
+		return this;
+	}
 }
 
 
