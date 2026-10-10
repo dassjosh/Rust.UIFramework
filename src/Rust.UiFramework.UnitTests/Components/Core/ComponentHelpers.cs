@@ -84,6 +84,7 @@ public static class ComponentHelpers
         image.FadeIn = 3.5f;
         image.Material = UiMaterials.Content.Ui.NameFontMaterial;
         image.Image = "https://www.example.com";
+        image.FallbackTexture = UiTextures.Content.Ui.GameUi.UiCrosshairCircle;
         image.PlaceholderFor = new UiReference("parent", "name");
         image.AllowRaycast = false;
     }

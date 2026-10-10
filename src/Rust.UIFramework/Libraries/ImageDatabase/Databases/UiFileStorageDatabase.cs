@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Oxide.Ext.UiFramework.Guards;
 using ProtoBuf;
 
 namespace Oxide.Ext.UiFramework.Libraries;
@@ -11,10 +12,25 @@ internal class UiFileStorageDatabase : BaseUiFrameworkLibrary, IImageDatabase
     private UiFileStorageDatabase() { }
 
     public bool Exists(ImageId id) => Get(id) != null;
-    public ImageId Store(byte[] image) => new(FileStorage.server.Store(image, FileStorage.Type.png, _id));
-    public void Remove(ImageId id) => FileStorage.server.Remove(id.Id, FileStorage.Type.png, _id);
 
-    public byte[] Get(ImageId id) => FileStorage.server.Get(id.Id, FileStorage.Type.png, _id);
+    public ImageId Store(byte[] image)
+    {
+        Guard.IsMainThread();
+        return new ImageId(FileStorage.server.Store(image, FileStorage.Type.png, _id));
+    }
+
+    public void Remove(ImageId id)
+    {
+        Guard.IsMainThread();
+        FileStorage.server.Remove(id.Id, FileStorage.Type.png, _id);
+    }
+
+    public byte[] Get(ImageId id)
+    {
+        Guard.IsMainThread();
+        return FileStorage.server.Get(id.Id, FileStorage.Type.png, _id);
+    }
+
     public List<ImageId> GetExistingImages()
     {
         AssociatedFiles.AssociatedFile[] storedImages = [.. FileStorage.server.QueryAllByEntity(_id)];

@@ -4,6 +4,7 @@
   "ComponentType": "RawImage",
   "Enabled": true,
   "FadeIn": 3.5,
+  "FallbackTexture": "assets/content/ui/gameui/ui.crosshair.circle.png",
   "Image": "http://example.com/image.png",
   "Material": "assets/content/ui/namefontmaterial.mat",
   "PlaceholderFor": "parent:name",

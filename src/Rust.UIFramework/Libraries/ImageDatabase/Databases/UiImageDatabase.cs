@@ -5,6 +5,7 @@ using System.Linq;
 using Facepunch.Sqlite;
 using Oxide.Ext.UiFramework.Config;
 using Oxide.Ext.UiFramework.Constants;
+using Oxide.Ext.UiFramework.Guards;
 using Oxide.Ext.UiFramework.Helpers;
 using Oxide.Ext.UiFramework.Logging;
 using Oxide.Ext.UiFramework.Types;
@@ -33,6 +34,7 @@ internal class UiImageDatabase : BaseUiFrameworkLibrary, IImageDatabase
 
     public byte[] Get(ImageId id)
     {
+        Guard.IsMainThread();
         if (_db == null)
         {
             _logger.Error($"{nameof(Get)} Database is not initialized");
@@ -65,6 +67,7 @@ internal class UiImageDatabase : BaseUiFrameworkLibrary, IImageDatabase
 
     public ImageId Store(byte[] image)
     {
+        Guard.IsMainThread();
         if (_db == null)
         {
             _logger.Error("Database is not initialized");
@@ -83,6 +86,7 @@ internal class UiImageDatabase : BaseUiFrameworkLibrary, IImageDatabase
 
     public void Remove(ImageId id)
     {
+        Guard.IsMainThread();
         try
         {
             _db.Execute("DELETE FROM data WHERE crc = ?", id.Id);

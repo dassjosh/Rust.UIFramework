@@ -1,5 +1,5 @@
 ﻿using System.Collections.Concurrent;
-using System.Linq;
+using Oxide.Ext.UiFramework.Config;
 using Oxide.Ext.UiFramework.Constants;
 using Oxide.Ext.UiFramework.Enums;
 using Oxide.Ext.UiFramework.Extensions;
@@ -11,16 +11,16 @@ namespace Oxide.Ext.UiFramework.Libraries;
 
 internal class RegisteredImageData : ISingleton
 {
-    private readonly ConcurrentDictionary<PluginId, ConcurrentList<RegisterImageRequest>> _pluginImages = new();
-    private readonly ConcurrentDictionary<string, DownloadImageRequestHandler> _urlRequests = new();
+    private readonly ConcurrentDictionary<PluginId, ConcurrentHashSet<ImageRequestId>> _pluginImages = new();
+    private readonly ConcurrentDictionary<string, DownloadImageRequestState> _urlRequests = new();
     private readonly ConcurrentHashSet<PluginId> _completedPlugins = [];
 
     private RegisteredImageData() { }
 
     private void AddPluginImageRequest(PluginId id, RegisterImageRequest request)
     {
-        ConcurrentList<RegisterImageRequest> requests = _pluginImages.GetOrAdd(id, static _ => []);
-        requests.TryAdd(request);
+        ConcurrentHashSet<ImageRequestId> requests = _pluginImages.GetOrAdd(id, static _ => []);
+        requests.Add(request.Id);
     }
 
     /// <summary>
@@ -38,15 +38,21 @@ internal class RegisteredImageData : ISingleton
         Guard.IsNotNullOrEmpty(url);
         Guard.IsNotNull(options);
 
-        if (!_urlRequests.TryGetValue(url, out DownloadImageRequestHandler handler))
+        DownloadImageRequestHandler handler;
+        if (!_urlRequests.TryGetValue(url, out DownloadImageRequestState state))
         {
             handler = new DownloadImageRequestHandler(pluginId, url);
-            _urlRequests.TryAdd(url, handler);
+            state = new DownloadImageRequestState(handler);
+            _urlRequests.TryAdd(url, state);
+        }
+        else
+        {
+            handler = state.Handler;
         }
 
         DownloadImageRequest request = new(pluginId, name, options, handler);
         AddPluginImageRequest(pluginId, request);
-        if (handler.State.IsCompleted || handler.State.IsOutOfAttempts)
+        if (handler.State.IsCompleted || handler.State.IsOutOfAttempts || state.IsOutOfAttempts)
         {
             return request;
         }
@@ -149,19 +155,43 @@ internal class RegisteredImageData : ISingleton
 
     public void OnPluginImageRegistrationCompleted(RegisterImageRequestHandler handler)
     {
+        if (handler is DownloadImageRequestHandler downloadHandler)
+        {
+            if (handler.Step == ProcessStep.Completed)
+            {
+                _urlRequests.TryRemove(downloadHandler.Url, out _);
+            }
+            else if(_urlRequests.TryGetValue(downloadHandler.Url, out DownloadImageRequestState state))
+            {
+                state.OnAttemptFailed();
+            }
+        }
+
         foreach (RegisterImageRequest request in handler.Requests)
         {
-            PluginId id = request.PluginId;
-            id.CallHook(handler.Step == ProcessStep.Completed ? UiFrameworkHooks.OnUiPluginImageRegistered : UiFrameworkHooks.OnUiPluginImageRegistrationFailed, request);
-            ConcurrentList<RegisterImageRequest> requests = _pluginImages.GetOrAdd(id, static _ => []);
-            if (requests.All(r => r.Step is ProcessStep.Completed or ProcessStep.Failed) && _completedPlugins.Add(id))
+            ImageRequestId id = request.Id;
+            PluginId pluginId = request.PluginId;
+            pluginId.CallHook(handler.Step == ProcessStep.Completed ? UiFrameworkHooks.OnUiPluginImageRegistered : UiFrameworkHooks.OnUiPluginImageRegistrationFailed, request);
+            ConcurrentHashSet<ImageRequestId> requests = _pluginImages.GetOrAdd(pluginId, static _ => []);
+
+            if (requests.Remove(id) && !_completedPlugins.Contains(pluginId) && requests.Count == 0)
             {
-                id.CallHook(UiFrameworkHooks.OnUiPluginImagesCompleted,
-                    requests.Where(r => r.Step is ProcessStep.Completed).ToArray<IRegisterImageRequest>(),
-                    requests.Where(r => r.Step is ProcessStep.Failed).ToArray<IRegisterImageRequest>());
+                pluginId.CallHook(UiFrameworkHooks.OnUiPluginImagesCompleted);
+                _completedPlugins.Add(pluginId);
             }
+
+            _pluginImages.TryRemove(pluginId, out _);
         }
     }
 
-    internal bool IsDownloading(string url) => _urlRequests.TryGetValue(url, out DownloadImageRequestHandler handler) && handler.State.IsDownloading;
+    internal bool IsDownloading(string url) => _urlRequests.TryGetValue(url, out DownloadImageRequestState state) && state.Handler.State.IsDownloading;
+
+    private sealed class DownloadImageRequestState(DownloadImageRequestHandler handler)
+    {
+        public readonly DownloadImageRequestHandler Handler = handler;
+        private int _attempts;
+        public bool IsOutOfAttempts => _attempts >= UiFrameworkConfig.Instance.ImageStorage.MaxDownloadAttempts;
+
+        public void OnAttemptFailed() => _attempts++;
+    }
 }

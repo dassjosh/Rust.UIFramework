@@ -4,6 +4,7 @@
   "fadeIn": 3.5,
   "material": "assets/content/ui/namefontmaterial.mat",
   "placeholderParentId": "name",
+  "sprite": "assets/content/ui/gameui/ui.crosshair.circle.png",
   "type": "UnityEngine.UI.RawImage",
   "url": "https://avatars.steamstatic.com/Test Avatar_full.jpg"
 }

@@ -1,12 +1,14 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
 using Oxide.Ext.UiFramework.Plugins;
+using Oxide.Ext.UiFramework.Types;
 using Oxide.Ext.UiFramework.Types.Results;
 
 namespace Oxide.Ext.UiFramework.Libraries;
 
 internal class RegisterImageRequest(PluginId pluginId, string name, IRegisterImageOptions options, RegisterImageRequestHandler handler) : IRegisterImageRequest
 {
+    public readonly ImageRequestId Id = new(IdGen<IRegisterImageRequest>.GetNextId());
     public PluginId PluginId { get; } = pluginId;
     public string Name { get; } = name;
     public IRegisterImageOptions Options { get; } = options;
