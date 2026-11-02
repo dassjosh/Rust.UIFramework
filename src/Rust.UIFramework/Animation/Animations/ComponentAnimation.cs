@@ -56,6 +56,7 @@ public class ComponentAnimation<T> : BaseAnimation, IComponentAnimation<T> where
 
     protected override void EnterPool()
     {
+        base.EnterPool();
         Component = null;
         _sourceComponent = null;
     }
