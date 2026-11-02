@@ -33,6 +33,7 @@ public abstract class BaseNumberPicker<T> : BaseUiControl where T : struct, ICon
 
     protected override void EnterPool()
     {
+        base.EnterPool();
         Background = null;
         Input = null;
     }

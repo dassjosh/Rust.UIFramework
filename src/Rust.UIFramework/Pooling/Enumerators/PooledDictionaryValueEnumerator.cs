@@ -36,6 +36,7 @@ public sealed class PooledDictionaryValueEnumerator<TKey, TValue> : BasePooledEn
 
     protected override void EnterPool()
     {
+        base.EnterPool();
         _enumerator.TryDispose();
     }
 }

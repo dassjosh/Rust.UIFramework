@@ -11,7 +11,7 @@ public class ComponentAnimation<T> : BaseAnimation, IComponentAnimation<T> where
     private T _sourceComponent;
 
     public static ComponentAnimation<T> Create(IUiFrameworkPlugin plugin, T component, T sourceComponent) => plugin.PluginPool.Get<ComponentAnimation<T>>().Init(plugin, component, sourceComponent);
-    
+
     protected ComponentAnimation<T> Init(IUiFrameworkPlugin plugin, T component, T sourceComponent)
     {
         base.Init(plugin);
@@ -19,13 +19,13 @@ public class ComponentAnimation<T> : BaseAnimation, IComponentAnimation<T> where
         _sourceComponent = sourceComponent;
         return this;
     }
-    
+
     public IComponentAnimation<T> InitialState(Action<T> initialize)
     {
         initialize(Component);
         return this;
     }
-    
+
     public AnimationRef<IFieldAnimation<TField>> AnimateField<TField>(ComponentFieldSelector<TField, T> selector)
     {
         Tracked<TField> field = selector(Component);
@@ -39,7 +39,7 @@ public class ComponentAnimation<T> : BaseAnimation, IComponentAnimation<T> where
         AddChild(animated);
         return new AnimationRef<IFieldAnimation<TField>>(animated);
     }
-    
+
     public AnimationRef<IComponentAnimation<TComponent>> AnimateComponent<TComponent>(ChildComponentSelector<TComponent, T> selector) where TComponent : BaseComponent
     {
         TComponent component = selector(Component);

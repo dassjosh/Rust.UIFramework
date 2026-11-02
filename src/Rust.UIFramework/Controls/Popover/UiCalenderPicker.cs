@@ -149,6 +149,7 @@ public class UiCalenderPicker : BaseUiControl
 
     protected override void EnterPool()
     {
+        base.EnterPool();
         _numRows = 0;
         _maxDays = 0;
         _daysInMonth = 0;

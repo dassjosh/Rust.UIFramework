@@ -109,6 +109,7 @@ public class UiDatePickerMenu : BaseUiControl
 
     protected override void EnterPool()
     {
+        base.EnterPool();
         Year = null;
         Month = null;
         Day = null;

@@ -65,6 +65,7 @@ public class UiNumberPicker : BaseNumberPicker<int>
 
     protected override void EnterPool()
     {
+        base.EnterPool();
         Subtract = null;
         Add = null;
     }

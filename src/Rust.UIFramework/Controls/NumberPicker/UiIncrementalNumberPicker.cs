@@ -62,12 +62,14 @@ public class UiIncrementalNumberPicker<T> : BaseNumberPicker<T> where T : struct
 
     protected override void LeavePool()
     {
+        base.LeavePool();
         Subtracts = PluginPool.GetList<UiButton>();
         Adds = PluginPool.GetList<UiButton>();
     }
 
     protected override void EnterPool()
     {
+        base.EnterPool();
         PluginPool.FreeList(Subtracts);
         PluginPool.FreeList(Adds);
     }

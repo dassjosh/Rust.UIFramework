@@ -48,6 +48,7 @@ public class AnimationBuilder : BaseBuilder, IAnimationBuilder
 
     protected override void EnterPool()
     {
+        base.EnterPool();
         ClearAnimationList(_animations);
         _cancelAnimations.TryFreeValues();
         Plugin = null;

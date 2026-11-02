@@ -115,6 +115,7 @@ public class UiTimePickerMenu : BaseUiControl
 
     protected override void EnterPool()
     {
+        base.EnterPool();
         Hour = null;
         Minute = null;
         Second = null;

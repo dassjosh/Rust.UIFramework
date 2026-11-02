@@ -31,6 +31,7 @@ public abstract class BasePooledListEnumerator<T> : BasePooledEnumerator<T>
 
     protected override void EnterPool()
     {
+        base.EnterPool();
         _currentIndex = -1;
     }
 }
