@@ -177,7 +177,7 @@ public class UiImageStorage : BaseUiFrameworkLibrary, ISingleton
         Guard.IsNotNullOrEmpty(image);
         options ??= RegisterImageOptions.Default;
 
-        if (_handler.TryGetImageId(plugin.Id(), name, out ImageId id) && id.Id == Crc.GetCRC(image))
+        if (_handler.TryGetImageId(plugin.Id(), name, out ImageId id) && id.Id == FileStorage.ComputeCrc(image))
         {
             return Singleton<RegisteredImageData>.Instance.AddExistingImageRequest(plugin.Id(), name, image, id, options);
         }

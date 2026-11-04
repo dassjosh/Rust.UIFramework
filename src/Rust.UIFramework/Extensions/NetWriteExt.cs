@@ -9,18 +9,10 @@ internal static class NetWriteExt
     extension(NetWrite write)
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void BytesWithSizeCustom(byte[] bytes, bool variableLength = false)
+        public void BytesWithSizeCustom(byte[] bytes)
         {
-            if (bytes.Length > 10485760 /*0xA00000*/)
-            {
-                write.WriteUInt32(0U, variableLength);
-                Debug.LogError($"BytesWithSize: Too big {bytes.Length}");
-            }
-            else
-            {
-                write.WriteUInt32((uint) bytes.Length, variableLength);
-                write.Write(bytes, 0, bytes.Length);
-            }
+            write.UInt32((uint) bytes.Length);
+            write.BytesCustom(bytes);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

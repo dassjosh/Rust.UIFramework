@@ -74,7 +74,7 @@ internal class UiImageDatabase : BaseUiFrameworkLibrary, IImageDatabase
             return default;
         }
 
-        uint crc = Crc.GetCRC(image);
+        uint crc = FileStorage.ComputeCrc(image);
         ImageId id = new(crc);
 
         _db.Execute("INSERT OR REPLACE INTO data (crc, image) VALUES (?, ?)", crc, image);

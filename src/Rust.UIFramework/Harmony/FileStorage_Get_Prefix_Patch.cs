@@ -15,15 +15,15 @@ internal static class FileStorage_Get_Prefix_Patch
     {
 #if SERVER
         _communityEntityId = new NetworkableId(entity.Id);
-        MethodInfo target = AccessTools.Method(typeof(FileStorage), nameof(FileStorage.Get), [typeof(uint), typeof(FileStorage.Type), typeof(NetworkableId), typeof(uint)]);
+        MethodInfo target = AccessTools.Method(typeof(FileStorage), nameof(FileStorage.Get), [typeof(NetworkableId), typeof(ulong), typeof(uint)]);
         MethodInfo patch = AccessTools.Method(typeof(FileStorage_Get_Prefix_Patch), nameof(FileStorage_Get_Prefix));
         UiHarmony.Harmony.Patch(target, prefix: patch);
 #endif
     }
     
-    public static bool FileStorage_Get_Prefix(uint crc, NetworkableId entityID, ref byte[] __result)
+    public static bool FileStorage_Get_Prefix(NetworkableId entityId, ulong part, uint crc, ref byte[] __result)
     {
-        if (_communityEntityId != entityID)
+        if (_communityEntityId != entityId)
         {
             return true;
         }

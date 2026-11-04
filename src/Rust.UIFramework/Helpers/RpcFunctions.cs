@@ -79,6 +79,7 @@ public static class RpcFunctions
         NetWrite write = ClientRPCStart(ReceiveFilePng);
         if (write != null)
         {
+            write.UInt64(textureId);
             write.UInt32(textureId);
             write.BytesWithSizeCustom(bytes);
             write.Send(send);

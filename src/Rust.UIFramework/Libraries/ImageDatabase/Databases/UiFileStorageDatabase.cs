@@ -16,19 +16,19 @@ internal class UiFileStorageDatabase : BaseUiFrameworkLibrary, IImageDatabase
     public ImageId Store(byte[] image)
     {
         Guard.IsMainThread();
-        return new ImageId(FileStorage.server.Store(image, FileStorage.Type.png, _id));
+        return new ImageId(FileStorage.server.StoreByCrc(_id, FileStorage.Type.png, image));
     }
 
     public void Remove(ImageId id)
     {
         Guard.IsMainThread();
-        FileStorage.server.Remove(id.Id, FileStorage.Type.png, _id);
+        FileStorage.server.Remove(_id, id.Id);
     }
 
     public byte[] Get(ImageId id)
     {
         Guard.IsMainThread();
-        return FileStorage.server.Get(id.Id, FileStorage.Type.png, _id);
+        return FileStorage.server.Get(_id, id.Id);
     }
 
     public List<ImageId> GetExistingImages()
@@ -38,7 +38,7 @@ internal class UiFileStorageDatabase : BaseUiFrameworkLibrary, IImageDatabase
         for (int index = 0; index < storedImages.Length; index++)
         {
             using AssociatedFiles.AssociatedFile image = storedImages[index];
-            existing.Add(new ImageId(image.numID));
+            existing.Add(new ImageId((uint)image.part));
         }
 
         return existing;
