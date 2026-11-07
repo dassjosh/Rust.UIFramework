@@ -41,6 +41,7 @@
                 "GuideHighLight2": "assets/content/materials/guide_highlight_2.mat",
                 "GuideHighLightError": "assets/content/materials/guide_highlight_error.mat",
                 "GuideNeutral": "assets/content/materials/guide_neutral.mat",
+                "GuideOpaque": "assets/content/materials/guide_opaque.mat",
                 "GuideVolume": "assets/content/materials/guide_volume.mat",
                 "ItemMaterial": "assets/content/materials/itemmaterial.mat",
                 "MaleMaterial": "assets/content/materials/male.material.mat",
@@ -1342,6 +1343,7 @@
                         "TerrainV3": "assets/content/nature/terrain/materials/terrain.v3.mat",
                         "TerrainV3Geoclip": "assets/content/nature/terrain/materials/terrain.v3.geoclip.mat",
                         "TerrainV3GeoclipRrp": "assets/content/nature/terrain/materials/terrain.v3.geoclip.rrp.mat",
+                        "TerrainV3GeoclipRrpPixelnormals": "assets/content/nature/terrain/materials/terrain.v3.geoclip.rrp.pixelnormals.mat",
                         "TerrainV3Hapis": "assets/content/nature/terrain/materials/terrain.v3.hapis.mat",
                         "TerrainV3Margin": "assets/content/nature/terrain/materials/terrain.v3_margin.mat",
                         "TerrainV3Tropical": "assets/content/nature/terrain/materials/terrain.v3.tropical.mat"
@@ -2304,6 +2306,7 @@
                             "L3InteriorCeiling": "assets/content/structures/oilrig/models/materials/l3_interior_ceiling.mat",
                             "L3InteriorHallFloor": "assets/content/structures/oilrig/models/materials/l3_interior_hall_floor.mat",
                             "L3InteriorWall": "assets/content/structures/oilrig/models/materials/l3_interior_wall.mat",
+                            "L3InteriorWallVar": "assets/content/structures/oilrig/models/materials/l3_interior_wall_var.mat",
                             "Oilrig": "assets/content/structures/oilrig/models/materials/oilrig.mat",
                             "OilrigAirvents": "assets/content/structures/oilrig/models/materials/oilrig_airvents.mat",
                             "OilrigBarriersLod": "assets/content/structures/oilrig/models/materials/oilrig_barriers_lod.mat",
@@ -2409,6 +2412,7 @@
                           "Files": {
                             "BargebLod": "assets/content/structures/floatingcity/barge/materials/bargeb_lod.mat",
                             "BargeextrasMat": "assets/content/structures/floatingcity/barge/materials/bargeextras_mat.mat",
+                            "BargeextrasMatBright": "assets/content/structures/floatingcity/barge/materials/bargeextras_mat_bright.mat",
                             "BargeLodMat": "assets/content/structures/floatingcity/barge/materials/barge_lod_mat.mat",
                             "BargeMat": "assets/content/structures/floatingcity/barge/materials/barge_mat.mat",
                             "BargetopMat": "assets/content/structures/floatingcity/barge/materials/bargetop_mat.mat",
@@ -4080,6 +4084,7 @@
                             "IndustrialBldALod": "assets/content/structures/industrial_structures/models/materials/industrial_bld_a_lod.mat",
                             "IndustrialBldBLod": "assets/content/structures/industrial_structures/models/materials/industrial_bld_b_lod.mat",
                             "IndustrialBldCLod": "assets/content/structures/industrial_structures/models/materials/industrial_bld_c_lod.mat",
+                            "IndustrialBldCLodVar": "assets/content/structures/industrial_structures/models/materials/industrial_bld_c_lod_var.mat",
                             "IndustrialBldDLod": "assets/content/structures/industrial_structures/models/materials/industrial_bld_d_lod.mat",
                             "IndustrialBldELod": "assets/content/structures/industrial_structures/models/materials/industrial_bld_e_lod.mat",
                             "IndustrialBldELodGrey": "assets/content/structures/industrial_structures/models/materials/industrial_bld_e_lod_grey.mat",
@@ -5869,6 +5874,7 @@
                               "Path": "assets/assets/content/structures/building_features/door_frames/models/materials",
                               "Files": {
                                 "GenericFramesBrown": "assets/content/structures/building_features/door_frames/models/materials/generic_frames_brown.mat",
+                                "GenericFramesBrownWarm": "assets/content/structures/building_features/door_frames/models/materials/generic_frames_brown_warm.mat",
                                 "GenericFramesGreen": "assets/content/structures/building_features/door_frames/models/materials/generic_frames_green.mat",
                                 "GenericFramesRusty": "assets/content/structures/building_features/door_frames/models/materials/generic_frames_rusty.mat",
                                 "GenericFramesWhite": "assets/content/structures/building_features/door_frames/models/materials/generic_frames_white.mat"
@@ -6056,6 +6062,7 @@
                       "Path": "assets/assets/content/structures/improvised_walkways/materials",
                       "Files": {
                         "ImprovisedWalkwayAtlas": "assets/content/structures/improvised_walkways/materials/improvised_walkway_atlas.mat",
+                        "ImprovisedWalkwayAtlasBlend": "assets/content/structures/improvised_walkways/materials/improvised_walkway_atlas_blend.mat",
                         "ImprovisedWalkwayPlyWood": "assets/content/structures/improvised_walkways/materials/improvised_walkway_plywood.mat",
                         "ImprovisedWalkwayPlyWoodB": "assets/content/structures/improvised_walkways/materials/improvised_walkway_plywood_b.mat",
                         "ImprovisedWalkwaySheetRusty": "assets/content/structures/improvised_walkways/materials/improvised_walkway_sheet_rusty.mat",
@@ -6259,6 +6266,7 @@
                         "LighthouseDirtStainsLeaks": "assets/content/structures/abandonded lighthouse/materials/lighthouse_dirt_stains_leaks.mat",
                         "LighthouseGlassIndustrial": "assets/content/structures/abandonded lighthouse/materials/lighthouse_glass_industrial.mat",
                         "LighthouseLamp": "assets/content/structures/abandonded lighthouse/materials/lighthouse_lamp.mat",
+                        "LighthouseLightDamagedLod": "assets/content/structures/abandonded lighthouse/materials/lighthouse_light_damaged_lod.mat",
                         "LighthouseMetalGrateA": "assets/content/structures/abandonded lighthouse/materials/lighthouse_metal_grate_a.mat",
                         "LighthouseMetalGrateB": "assets/content/structures/abandonded lighthouse/materials/lighthouse_metal_grate_b.mat",
                         "LighthouseMetalPanelsA": "assets/content/structures/abandonded lighthouse/materials/lighthouse_metal_panels_a.mat",
@@ -6422,6 +6430,21 @@
                           "SubFolders": {}
                         }
                       }
+                    }
+                  }
+                },
+                "modular_contraption_kit": {
+                  "Name": "modular_contraption_kit",
+                  "Path": "assets/assets/content/structures/modular_contraption_kit",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/assets/content/structures/modular_contraption_kit/materials",
+                      "Files": {
+                        "ModularContraptionKitB": "assets/content/structures/modular_contraption_kit/materials/modular_contraption_kit_b.mat"
+                      },
+                      "SubFolders": {}
                     }
                   }
                 },
@@ -11379,7 +11402,8 @@
                       "Name": "materials",
                       "Path": "assets/assets/content/props/bloody_bucket/materials",
                       "Files": {
-                        "BloodyBucket": "assets/content/props/bloody_bucket/materials/bloody_bucket.mat"
+                        "BloodyBucket": "assets/content/props/bloody_bucket/materials/bloody_bucket.mat",
+                        "YellowPaintBucket": "assets/content/props/bloody_bucket/materials/yellow paint_bucket.mat"
                       },
                       "SubFolders": {}
                     }
@@ -11553,7 +11577,8 @@
                       "Path": "assets/assets/content/props/broken_tiles/materials",
                       "Files": {
                         "BrokenTiles": "assets/content/props/broken_tiles/materials/broken_tiles.mat",
-                        "BrokenTilesDark": "assets/content/props/broken_tiles/materials/broken_tiles_dark.mat"
+                        "BrokenTilesDark": "assets/content/props/broken_tiles/materials/broken_tiles_dark.mat",
+                        "BrokenTilesYellow": "assets/content/props/broken_tiles/materials/broken_tiles_yellow.mat"
                       },
                       "SubFolders": {}
                     }
@@ -11839,6 +11864,7 @@
                             "DistanceflarePurpleFluorescent": "assets/content/props/light_fixtures/v2/distance flares/distanceflare-purple-fluorescent.mat",
                             "DistanceflareRed": "assets/content/props/light_fixtures/v2/distance flares/distanceflare-red.mat",
                             "DistanceflareRedFluorescent": "assets/content/props/light_fixtures/v2/distance flares/distanceflare-red-fluorescent.mat",
+                            "DistanceflareRenderer": "assets/content/props/light_fixtures/v2/distance flares/distanceflarerenderer.mat",
                             "DistanceflareSpotLight": "assets/content/props/light_fixtures/v2/distance flares/distanceflare-spotlight.mat",
                             "DistanceflareSpotLightWarm": "assets/content/props/light_fixtures/v2/distance flares/distanceflare-spotlight-warm.mat",
                             "DistanceflareStreetLight": "assets/content/props/light_fixtures/v2/distance flares/distanceflare-streetlight.mat",
@@ -12410,6 +12436,21 @@
                       "Path": "assets/assets/content/props/crockery/materials",
                       "Files": {
                         "CrockeryA": "assets/content/props/crockery/materials/crockery_a.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
+                "dairy churn": {
+                  "Name": "dairy churn",
+                  "Path": "assets/assets/content/props/dairy churn",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/assets/content/props/dairy churn/materials",
+                      "Files": {
+                        "Dairychurn": "assets/content/props/dairy churn/materials/dairychurn.mat"
                       },
                       "SubFolders": {}
                     }
@@ -13427,9 +13468,14 @@
                           "Files": {
                             "HelipadDecal": "assets/content/props/helipad_tarpaulin/models/materials/helipad_decal.mat",
                             "HelipadNet": "assets/content/props/helipad_tarpaulin/models/materials/helipad_net.mat",
+                            "HelipadNetTorn": "assets/content/props/helipad_tarpaulin/models/materials/helipad_net_torn.mat",
                             "HelipadRope": "assets/content/props/helipad_tarpaulin/models/materials/helipad_rope.mat",
                             "HelipadTarpaulin": "assets/content/props/helipad_tarpaulin/models/materials/helipad_tarpaulin.mat",
+                            "HelipadTarpaulinDamaged": "assets/content/props/helipad_tarpaulin/models/materials/helipad_tarpaulin_damaged.mat",
+                            "HelipadTarpaulinDamagedB": "assets/content/props/helipad_tarpaulin/models/materials/helipad_tarpaulin_damaged_b.mat",
+                            "HelipadTarpaulinDamagedC": "assets/content/props/helipad_tarpaulin/models/materials/helipad_tarpaulin_damaged_c.mat",
                             "HelipadTarpaulinLod3": "assets/content/props/helipad_tarpaulin/models/materials/helipad_tarpaulin_lod3.mat",
+                            "HelipadTarpaulinTorn": "assets/content/props/helipad_tarpaulin/models/materials/helipad_tarpaulin_torn.mat",
                             "HelipadTimber": "assets/content/props/helipad_tarpaulin/models/materials/helipad_timber.mat",
                             "HutTarpaulin": "assets/content/props/helipad_tarpaulin/models/materials/hut_tarpaulin.mat",
                             "NoName": "assets/content/props/helipad_tarpaulin/models/materials/no name.mat"
@@ -13789,6 +13835,29 @@
                           "Path": "assets/assets/content/props/kitchen_furniture/apartment set small/materials",
                           "Files": {
                             "SmallKitchenCabinet": "assets/content/props/kitchen_furniture/apartment set small/materials/small_kitchen_cabinet.mat"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    }
+                  }
+                },
+                "ladders": {
+                  "Name": "ladders",
+                  "Path": "assets/assets/content/props/ladders",
+                  "Files": {},
+                  "SubFolders": {
+                    "models": {
+                      "Name": "models",
+                      "Path": "assets/assets/content/props/ladders/models",
+                      "Files": {},
+                      "SubFolders": {
+                        "materials": {
+                          "Name": "materials",
+                          "Path": "assets/assets/content/props/ladders/models/materials",
+                          "Files": {
+                            "LadderTallBare": "assets/content/props/ladders/models/materials/ladder_tall_bare.mat",
+                            "LadderTallBlue": "assets/content/props/ladders/models/materials/ladder_tall_blue.mat"
                           },
                           "SubFolders": {}
                         }
@@ -16430,88 +16499,29 @@
                 "UiNozTest": "assets/content/ui/ui.noztest.mat"
               },
               "SubFolders": {
-                "gameui": {
-                  "Name": "gameui",
-                  "Path": "assets/assets/content/ui/gameui",
-                  "Files": {
-                    "GameUiBlurModal": "assets/content/ui/gameui/gameui.blur.modal.mat"
-                  },
-                  "SubFolders": {
-                    "attackheli": {
-                      "Name": "attackheli",
-                      "Path": "assets/assets/content/ui/gameui/attackheli",
-                      "Files": {},
-                      "SubFolders": {
-                        "hires": {
-                          "Name": "hires",
-                          "Path": "assets/assets/content/ui/gameui/attackheli/hires",
-                          "Files": {
-                            "AhCrtHdr": "assets/content/ui/gameui/attackheli/hires/ah_crt_hdr.mat",
-                            "CompassStripAttackHeli": "assets/content/ui/gameui/attackheli/hires/compassstripattackheli.mat"
-                          },
-                          "SubFolders": {}
-                        }
-                      }
-                    },
-                    "compass": {
-                      "Name": "compass",
-                      "Path": "assets/assets/content/ui/gameui/compass",
-                      "Files": {
-                        "CompassStrip": "assets/content/ui/gameui/compass/compassstrip.mat"
-                      },
-                      "SubFolders": {}
-                    },
-                    "manpad": {
-                      "Name": "manpad",
-                      "Path": "assets/assets/content/ui/gameui/manpad",
-                      "Files": {
-                        "ManPadCrtHdr": "assets/content/ui/gameui/manpad/manpad_crt_hdr.mat"
-                      },
-                      "SubFolders": {}
-                    },
-                    "map": {
-                      "Name": "map",
-                      "Path": "assets/assets/content/ui/gameui/map",
-                      "Files": {
-                        "MaPlayers": "assets/content/ui/gameui/map/maplayers.mat"
-                      },
-                      "SubFolders": {}
-                    },
-                    "crosshairs": {
-                      "Name": "crosshairs",
-                      "Path": "assets/assets/content/ui/gameui/crosshairs",
-                      "Files": {
-                        "MarkerMaterial": "assets/content/ui/gameui/crosshairs/markermaterial.mat"
-                      },
-                      "SubFolders": {}
-                    },
-                    "retrocomputer": {
-                      "Name": "retrocomputer",
-                      "Path": "assets/assets/content/ui/gameui/retrocomputer",
-                      "Files": {
-                        "ScreenAdditiveGreen": "assets/content/ui/gameui/retrocomputer/screen_additive_green.mat",
-                        "ScreenFill": "assets/content/ui/gameui/retrocomputer/screen_fill.mat",
-                        "ScreenLcdBackLight": "assets/content/ui/gameui/retrocomputer/screen_lcd_backlight.mat"
-                      },
-                      "SubFolders": {}
-                    }
-                  }
-                },
-                "optimisedblur": {
-                  "Name": "optimisedblur",
-                  "Path": "assets/assets/content/ui/optimisedblur",
-                  "Files": {
-                    "BlurMenu": "assets/content/ui/optimisedblur/blur_menu.mat",
-                    "BlurMenuModal": "assets/content/ui/optimisedblur/blur_menu_modal.mat",
-                    "BlurMenuModalBacking": "assets/content/ui/optimisedblur/blur_menu_modal_backing.mat"
-                  },
-                  "SubFolders": {}
-                },
                 "fonts": {
                   "Name": "fonts",
                   "Path": "assets/assets/content/ui/fonts",
                   "Files": {},
                   "SubFolders": {
+                    "dripping": {
+                      "Name": "dripping",
+                      "Path": "assets/assets/content/ui/fonts/dripping",
+                      "Files": {
+                        "Adrip1SdfApartmentsSlummy": "assets/content/ui/fonts/dripping/adrip1 sdf apartments slummy.mat"
+                      },
+                      "SubFolders": {}
+                    },
+                    "_notosans": {
+                      "Name": "_notosans",
+                      "Path": "assets/assets/content/ui/fonts/_notosans",
+                      "Files": {
+                        "NotoSanScjkscBoldSdfApartmentmailBoxes": "assets/content/ui/fonts/_notosans/notosanscjksc-bold sdf apartmentmailboxes.mat",
+                        "NotoSanScjkscBoldSdfApartmentmediums": "assets/content/ui/fonts/_notosans/notosanscjksc-bold sdf apartmentmediums.mat",
+                        "NotoSanScjkscBoldSdfApartmentpenthouses": "assets/content/ui/fonts/_notosans/notosanscjksc-bold sdf apartmentpenthouses.mat"
+                      },
+                      "SubFolders": {}
+                    },
                     "permanentmarker": {
                       "Name": "permanentmarker",
                       "Path": "assets/assets/content/ui/fonts/permanentmarker",
@@ -16613,6 +16623,83 @@
                       "SubFolders": {}
                     }
                   }
+                },
+                "gameui": {
+                  "Name": "gameui",
+                  "Path": "assets/assets/content/ui/gameui",
+                  "Files": {
+                    "GameUiBlurModal": "assets/content/ui/gameui/gameui.blur.modal.mat"
+                  },
+                  "SubFolders": {
+                    "attackheli": {
+                      "Name": "attackheli",
+                      "Path": "assets/assets/content/ui/gameui/attackheli",
+                      "Files": {},
+                      "SubFolders": {
+                        "hires": {
+                          "Name": "hires",
+                          "Path": "assets/assets/content/ui/gameui/attackheli/hires",
+                          "Files": {
+                            "AhCrtHdr": "assets/content/ui/gameui/attackheli/hires/ah_crt_hdr.mat",
+                            "CompassStripAttackHeli": "assets/content/ui/gameui/attackheli/hires/compassstripattackheli.mat"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    },
+                    "compass": {
+                      "Name": "compass",
+                      "Path": "assets/assets/content/ui/gameui/compass",
+                      "Files": {
+                        "CompassStrip": "assets/content/ui/gameui/compass/compassstrip.mat"
+                      },
+                      "SubFolders": {}
+                    },
+                    "manpad": {
+                      "Name": "manpad",
+                      "Path": "assets/assets/content/ui/gameui/manpad",
+                      "Files": {
+                        "ManPadCrtHdr": "assets/content/ui/gameui/manpad/manpad_crt_hdr.mat"
+                      },
+                      "SubFolders": {}
+                    },
+                    "map": {
+                      "Name": "map",
+                      "Path": "assets/assets/content/ui/gameui/map",
+                      "Files": {
+                        "MaPlayers": "assets/content/ui/gameui/map/maplayers.mat"
+                      },
+                      "SubFolders": {}
+                    },
+                    "crosshairs": {
+                      "Name": "crosshairs",
+                      "Path": "assets/assets/content/ui/gameui/crosshairs",
+                      "Files": {
+                        "MarkerMaterial": "assets/content/ui/gameui/crosshairs/markermaterial.mat"
+                      },
+                      "SubFolders": {}
+                    },
+                    "retrocomputer": {
+                      "Name": "retrocomputer",
+                      "Path": "assets/assets/content/ui/gameui/retrocomputer",
+                      "Files": {
+                        "ScreenAdditiveGreen": "assets/content/ui/gameui/retrocomputer/screen_additive_green.mat",
+                        "ScreenFill": "assets/content/ui/gameui/retrocomputer/screen_fill.mat",
+                        "ScreenLcdBackLight": "assets/content/ui/gameui/retrocomputer/screen_lcd_backlight.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
+                "optimisedblur": {
+                  "Name": "optimisedblur",
+                  "Path": "assets/assets/content/ui/optimisedblur",
+                  "Files": {
+                    "BlurMenu": "assets/content/ui/optimisedblur/blur_menu.mat",
+                    "BlurMenuModal": "assets/content/ui/optimisedblur/blur_menu_modal.mat",
+                    "BlurMenuModalBacking": "assets/content/ui/optimisedblur/blur_menu_modal_backing.mat"
+                  },
+                  "SubFolders": {}
                 }
               }
             },
@@ -16897,6 +16984,8 @@
                   "Path": "assets/assets/content/building/materials",
                   "Files": {
                     "AtlasBrickSkin": "assets/content/building/materials/atlas_brick_skin.mat",
+                    "AtlasScrapKingA": "assets/content/building/materials/atlas_scrap_king_a.mat",
+                    "AtlasScrapKingB": "assets/content/building/materials/atlas_scrap_king_b.mat",
                     "AtlasSpaceStationA": "assets/content/building/materials/atlas_space_station_a.mat",
                     "AtlasSpaceStationB": "assets/content/building/materials/atlas_space_station_b.mat",
                     "AtlasToptier": "assets/content/building/materials/atlas_toptier.mat",
@@ -19519,6 +19608,39 @@
                     }
                   }
                 },
+                "biofuel generator": {
+                  "Name": "biofuel generator",
+                  "Path": "assets/assets/prefabs/deployable/biofuel generator",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/assets/prefabs/deployable/biofuel generator/materials",
+                      "Files": {
+                        "BioFuelgenerator01": "assets/prefabs/deployable/biofuel generator/materials/biofuelgenerator01.mat",
+                        "BioFuelgenerator01Gibs": "assets/prefabs/deployable/biofuel generator/materials/biofuelgenerator01_gibs.mat",
+                        "BioFuelgenerator02": "assets/prefabs/deployable/biofuel generator/materials/biofuelgenerator02.mat",
+                        "BioFuelgenerator02Gibs": "assets/prefabs/deployable/biofuel generator/materials/biofuelgenerator02_gibs.mat",
+                        "BioFuelgenerator02Glass": "assets/prefabs/deployable/biofuel generator/materials/biofuelgenerator02_glass.mat",
+                        "BioFuelgenerator03": "assets/prefabs/deployable/biofuel generator/materials/biofuelgenerator03.mat",
+                        "BioFuelgenerator03Gibs": "assets/prefabs/deployable/biofuel generator/materials/biofuelgenerator03_gibs.mat",
+                        "BioFuelgeneratorDisplayBacking": "assets/prefabs/deployable/biofuel generator/materials/biofuelgenerator.display.backing.mat",
+                        "BioFuelgeneratorFlies": "assets/prefabs/deployable/biofuel generator/materials/biofuelgenerator.flies.mat",
+                        "BioFuelgeneratorIndicatorGreen": "assets/prefabs/deployable/biofuel generator/materials/biofuelgenerator.indicator.green.mat",
+                        "BioFuelgeneratorIndicatorRed": "assets/prefabs/deployable/biofuel generator/materials/biofuelgenerator.indicator.red.mat"
+                      },
+                      "SubFolders": {}
+                    },
+                    "effects": {
+                      "Name": "effects",
+                      "Path": "assets/assets/prefabs/deployable/biofuel generator/effects",
+                      "Files": {
+                        "BioFuelRipples": "assets/prefabs/deployable/biofuel generator/effects/biofuel_ripples.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
                 "boat building platform": {
                   "Name": "boat building platform",
                   "Path": "assets/assets/prefabs/deployable/boat building platform",
@@ -19777,7 +19899,6 @@
                                       "Path": "assets/assets/prefabs/deployable/playerioents/lights/cozypack/chandelier/models/materials",
                                       "Files": {
                                         "ChainTrim": "assets/prefabs/deployable/playerioents/lights/cozypack/chandelier/models/materials/chain_trim.mat",
-                                        "ChainTrimAdjustedTiling": "assets/prefabs/deployable/playerioents/lights/cozypack/chandelier/models/materials/chain_trim_adjusted_tiling.mat",
                                         "ChainTrimStatic": "assets/prefabs/deployable/playerioents/lights/cozypack/chandelier/models/materials/chain_trim_static.mat",
                                         "ChainTrimStaticNocutout": "assets/prefabs/deployable/playerioents/lights/cozypack/chandelier/models/materials/chain_trim_static_nocutout.mat",
                                         "Chandelier": "assets/prefabs/deployable/playerioents/lights/cozypack/chandelier/models/materials/chandelier.mat"
@@ -21492,6 +21613,21 @@
                     }
                   }
                 },
+                "halloween_string_lights": {
+                  "Name": "halloween_string_lights",
+                  "Path": "assets/assets/prefabs/deployable/halloween_string_lights",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/assets/prefabs/deployable/halloween_string_lights/materials",
+                      "Files": {
+                        "HalloweenGarland": "assets/prefabs/deployable/halloween_string_lights/materials/halloween_garland.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
                 "hamster_water_wheel": {
                   "Name": "hamster_water_wheel",
                   "Path": "assets/assets/prefabs/deployable/hamster_water_wheel",
@@ -22512,6 +22648,28 @@
                         "TunacanWallLight": "assets/prefabs/deployable/tuna can wall lamp/materials/tunacan_walllight.mat"
                       },
                       "SubFolders": {}
+                    },
+                    "skins": {
+                      "Name": "skins",
+                      "Path": "assets/assets/prefabs/deployable/tuna can wall lamp/skins",
+                      "Files": {},
+                      "SubFolders": {
+                        "skull wall lamp": {
+                          "Name": "skull wall lamp",
+                          "Path": "assets/assets/prefabs/deployable/tuna can wall lamp/skins/skull wall lamp",
+                          "Files": {},
+                          "SubFolders": {
+                            "model": {
+                              "Name": "model",
+                              "Path": "assets/assets/prefabs/deployable/tuna can wall lamp/skins/skull wall lamp/model",
+                              "Files": {
+                                "TunaLightSkull": "assets/prefabs/deployable/tuna can wall lamp/skins/skull wall lamp/model/tunalight_skull.mat"
+                              },
+                              "SubFolders": {}
+                            }
+                          }
+                        }
+                      }
                     }
                   }
                 },
@@ -22628,6 +22786,21 @@
                       "SubFolders": {}
                     }
                   }
+                },
+                "discord zombie plush": {
+                  "Name": "discord zombie plush",
+                  "Path": "assets/assets/prefabs/deployable/discord zombie plush",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/assets/prefabs/deployable/discord zombie plush/materials",
+                      "Files": {
+                        "Zombiewumpus": "assets/prefabs/deployable/discord zombie plush/materials/zombiewumpus.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
                 }
               }
             },
@@ -22721,7 +22894,8 @@
                       "Name": "materials",
                       "Path": "assets/assets/prefabs/building/floor.ladder.hatch.toptier/materials",
                       "Files": {
-                        "ArmouredLadderHatch": "assets/prefabs/building/floor.ladder.hatch.toptier/materials/armoured_ladder_hatch.mat"
+                        "ArmouredLadderHatch": "assets/prefabs/building/floor.ladder.hatch.toptier/materials/armoured_ladder_hatch.mat",
+                        "ArmouredLadderHatchTriangle": "assets/prefabs/building/floor.ladder.hatch.toptier/materials/armoured_ladder_hatch_triangle.mat"
                       },
                       "SubFolders": {}
                     }
@@ -23012,6 +23186,36 @@
                           "SubFolders": {}
                         }
                       }
+                    }
+                  }
+                },
+                "floor.ladder.hatch": {
+                  "Name": "floor.ladder.hatch",
+                  "Path": "assets/assets/prefabs/building/floor.ladder.hatch",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/assets/prefabs/building/floor.ladder.hatch/materials",
+                      "Files": {
+                        "LadderHatch": "assets/prefabs/building/floor.ladder.hatch/materials/ladder_hatch.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
+                "floor.triangle.ladder.hatch": {
+                  "Name": "floor.triangle.ladder.hatch",
+                  "Path": "assets/assets/prefabs/building/floor.triangle.ladder.hatch",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/assets/prefabs/building/floor.triangle.ladder.hatch/materials",
+                      "Files": {
+                        "LadderHatchTriangle": "assets/prefabs/building/floor.triangle.ladder.hatch/materials/ladder_hatch_triangle.mat"
+                      },
+                      "SubFolders": {}
                     }
                   }
                 },
@@ -23466,7 +23670,16 @@
                               "Files": {
                                 "GiftwrapBlueprint": "assets/prefabs/misc/xmas/wrappingpaper/materials/blueprint/giftwrap_blueprint.mat"
                               },
-                              "SubFolders": {}
+                              "SubFolders": {
+                                "materials": {
+                                  "Name": "materials",
+                                  "Path": "assets/assets/prefabs/misc/xmas/wrappingpaper/materials/blueprint/materials",
+                                  "Files": {
+                                    "GiftwrapBlueprintAlbedo": "assets/prefabs/misc/xmas/wrappingpaper/materials/blueprint/materials/giftwrap_blueprint_albedo.mat"
+                                  },
+                                  "SubFolders": {}
+                                }
+                              }
                             },
                             "cloth": {
                               "Name": "cloth",
@@ -24215,6 +24428,502 @@
                             "AirRaceCheckpoint3": "assets/prefabs/misc/waypointrace/models/materials/air_race_checkpoint_3.mat"
                           },
                           "SubFolders": {}
+                        }
+                      }
+                    }
+                  }
+                },
+                "halloween": {
+                  "Name": "halloween",
+                  "Path": "assets/assets/prefabs/misc/halloween",
+                  "Files": {},
+                  "SubFolders": {
+                    "alien.costume": {
+                      "Name": "alien.costume",
+                      "Path": "assets/assets/prefabs/misc/halloween/alien.costume",
+                      "Files": {},
+                      "SubFolders": {
+                        "materials": {
+                          "Name": "materials",
+                          "Path": "assets/assets/prefabs/misc/halloween/alien.costume/materials",
+                          "Files": {
+                            "AlienCostumeA": "assets/prefabs/misc/halloween/alien.costume/materials/alien_costume_a.mat",
+                            "AlienCostumeB": "assets/prefabs/misc/halloween/alien.costume/materials/alien_costume_b.mat",
+                            "AlienCostumeC": "assets/prefabs/misc/halloween/alien.costume/materials/alien_costume_c.mat"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    },
+                    "candies": {
+                      "Name": "candies",
+                      "Path": "assets/assets/prefabs/misc/halloween/candies",
+                      "Files": {},
+                      "SubFolders": {
+                        "candy_apple": {
+                          "Name": "candy_apple",
+                          "Path": "assets/assets/prefabs/misc/halloween/candies/candy_apple",
+                          "Files": {
+                            "CandyApple": "assets/prefabs/misc/halloween/candies/candy_apple/candy_apple.mat",
+                            "CandyAppleEmissive": "assets/prefabs/misc/halloween/candies/candy_apple/candy_apple_emissive.mat",
+                            "CandyAppleNormals": "assets/prefabs/misc/halloween/candies/candy_apple/candy_apple_normals.mat"
+                          },
+                          "SubFolders": {}
+                        },
+                        "candy_corn": {
+                          "Name": "candy_corn",
+                          "Path": "assets/assets/prefabs/misc/halloween/candies/candy_corn",
+                          "Files": {
+                            "CandyCorn": "assets/prefabs/misc/halloween/candies/candy_corn/candy_corn.mat",
+                            "CandyCornEmissive": "assets/prefabs/misc/halloween/candies/candy_corn/candy_corn_emissive.mat"
+                          },
+                          "SubFolders": {}
+                        },
+                        "chocolate_bar": {
+                          "Name": "chocolate_bar",
+                          "Path": "assets/assets/prefabs/misc/halloween/candies/chocolate_bar",
+                          "Files": {
+                            "ChocolateBar": "assets/prefabs/misc/halloween/candies/chocolate_bar/chocolate_bar.mat",
+                            "ChocolateBarEmissive": "assets/prefabs/misc/halloween/candies/chocolate_bar/chocolate_bar_emissive.mat",
+                            "ChocolateNormals": "assets/prefabs/misc/halloween/candies/chocolate_bar/chocolate_normals.mat"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    },
+                    "pumpkin_bucket": {
+                      "Name": "pumpkin_bucket",
+                      "Path": "assets/assets/prefabs/misc/halloween/pumpkin_bucket",
+                      "Files": {},
+                      "SubFolders": {
+                        "materials": {
+                          "Name": "materials",
+                          "Path": "assets/assets/prefabs/misc/halloween/pumpkin_bucket/materials",
+                          "Files": {
+                            "CandycornPile": "assets/prefabs/misc/halloween/pumpkin_bucket/materials/candycorn_pile.mat",
+                            "HalloweenBucket": "assets/prefabs/misc/halloween/pumpkin_bucket/materials/halloween_bucket.mat"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    },
+                    "carvablepumpkin": {
+                      "Name": "carvablepumpkin",
+                      "Path": "assets/assets/prefabs/misc/halloween/carvablepumpkin",
+                      "Files": {},
+                      "SubFolders": {
+                        "materials": {
+                          "Name": "materials",
+                          "Path": "assets/assets/prefabs/misc/halloween/carvablepumpkin/materials",
+                          "Files": {
+                            "CarvablePumpkin": "assets/prefabs/misc/halloween/carvablepumpkin/materials/carvable_pumpkin.mat",
+                            "CarvablePumpkinEmission": "assets/prefabs/misc/halloween/carvablepumpkin/materials/carvable_pumpkin_emission.mat",
+                            "CarvablePumpkinEmissionSkinviewer1": "assets/prefabs/misc/halloween/carvablepumpkin/materials/carvable_pumpkin_emission_skinviewer1.mat",
+                            "CarvablePumpkinEmissionSkinviewer2": "assets/prefabs/misc/halloween/carvablepumpkin/materials/carvable_pumpkin_emission_skinviewer2.mat",
+                            "CarvablePumpkinEmissionSkinviewer3": "assets/prefabs/misc/halloween/carvablepumpkin/materials/carvable_pumpkin_emission_skinviewer3.mat",
+                            "CarvablePumpkinInner": "assets/prefabs/misc/halloween/carvablepumpkin/materials/carvable_pumpkin_inner.mat",
+                            "CarvablePumpkinInnerEmission": "assets/prefabs/misc/halloween/carvablepumpkin/materials/carvable_pumpkin_inner_emission.mat",
+                            "CarvablePumpkinInnerEmissionSkinviewer1": "assets/prefabs/misc/halloween/carvablepumpkin/materials/carvable_pumpkin_inner_emission_skinviewer1.mat",
+                            "CarvablePumpkinInnerEmissionSkinviewer2": "assets/prefabs/misc/halloween/carvablepumpkin/materials/carvable_pumpkin_inner_emission_skinviewer2.mat",
+                            "CarvablePumpkinInnerEmissionSkinviewer3": "assets/prefabs/misc/halloween/carvablepumpkin/materials/carvable_pumpkin_inner_emission_skinviewer3.mat",
+                            "CarvablePumpkinLod": "assets/prefabs/misc/halloween/carvablepumpkin/materials/carvable_pumpkin_lod.mat",
+                            "CarvablePumpkinLodEmission": "assets/prefabs/misc/halloween/carvablepumpkin/materials/carvable_pumpkin_lod_emission.mat"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    },
+                    "gravestone": {
+                      "Name": "gravestone",
+                      "Path": "assets/assets/prefabs/misc/halloween/gravestone",
+                      "Files": {
+                        "Cobwebs": "assets/prefabs/misc/halloween/gravestone/cobwebs.mat",
+                        "GraveStone": "assets/prefabs/misc/halloween/gravestone/gravestone.mat"
+                      },
+                      "SubFolders": {}
+                    },
+                    "condemned_door_barrier": {
+                      "Name": "condemned_door_barrier",
+                      "Path": "assets/assets/prefabs/misc/halloween/condemned_door_barrier",
+                      "Files": {},
+                      "SubFolders": {
+                        "materials": {
+                          "Name": "materials",
+                          "Path": "assets/assets/prefabs/misc/halloween/condemned_door_barrier/materials",
+                          "Files": {
+                            "CondemnedDoorBarrier": "assets/prefabs/misc/halloween/condemned_door_barrier/materials/condemned_door_barrier.mat"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    },
+                    "cursed_cauldron": {
+                      "Name": "cursed_cauldron",
+                      "Path": "assets/assets/prefabs/misc/halloween/cursed_cauldron",
+                      "Files": {
+                        "GreenBubble": "assets/prefabs/misc/halloween/cursed_cauldron/green bubble.mat"
+                      },
+                      "SubFolders": {
+                        "models": {
+                          "Name": "models",
+                          "Path": "assets/assets/prefabs/misc/halloween/cursed_cauldron/models",
+                          "Files": {},
+                          "SubFolders": {
+                            "materials": {
+                              "Name": "materials",
+                              "Path": "assets/assets/prefabs/misc/halloween/cursed_cauldron/models/materials",
+                              "Files": {
+                                "CursedCauldron": "assets/prefabs/misc/halloween/cursed_cauldron/models/materials/cursed_cauldron.mat"
+                              },
+                              "SubFolders": {}
+                            }
+                          }
+                        },
+                        "effects": {
+                          "Name": "effects",
+                          "Path": "assets/assets/prefabs/misc/halloween/cursed_cauldron/effects",
+                          "Files": {
+                            "FxCauldronWaterDisabled": "assets/prefabs/misc/halloween/cursed_cauldron/effects/fx_cauldron_water_disabled.mat",
+                            "FxCauldronWaterEnabled": "assets/prefabs/misc/halloween/cursed_cauldron/effects/fx_cauldron_water_enabled.mat",
+                            "PfxCauldronBubble": "assets/prefabs/misc/halloween/cursed_cauldron/effects/pfx_cauldron_bubble.mat",
+                            "PfxCauldronBubbleFloating": "assets/prefabs/misc/halloween/cursed_cauldron/effects/pfx_cauldron_bubble_floating.mat",
+                            "PfxCauldronBublePop": "assets/prefabs/misc/halloween/cursed_cauldron/effects/pfx_cauldron_buble_pop.mat",
+                            "PfxCauldronRippleDisabled": "assets/prefabs/misc/halloween/cursed_cauldron/effects/pfx_cauldron_ripple_disabled.mat",
+                            "PfxCauldronRippleEnabled": "assets/prefabs/misc/halloween/cursed_cauldron/effects/pfx_cauldron_ripple_enabled.mat",
+                            "PfxCauldronSmoke": "assets/prefabs/misc/halloween/cursed_cauldron/effects/pfx_cauldron_smoke.mat"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    },
+                    "mummywraps_underwear": {
+                      "Name": "mummywraps_underwear",
+                      "Path": "assets/assets/prefabs/misc/halloween/mummywraps_underwear",
+                      "Files": {},
+                      "SubFolders": {
+                        "materials": {
+                          "Name": "materials",
+                          "Path": "assets/assets/prefabs/misc/halloween/mummywraps_underwear/materials",
+                          "Files": {
+                            "FemaleUnderwearMummyWraps": "assets/prefabs/misc/halloween/mummywraps_underwear/materials/femaleunderwear_mummywraps.mat",
+                            "MaleUnderwearMummyWraps": "assets/prefabs/misc/halloween/mummywraps_underwear/materials/maleunderwear_mummywraps.mat"
+                          },
+                          "SubFolders": {
+                            "fullbody": {
+                              "Name": "fullbody",
+                              "Path": "assets/assets/prefabs/misc/halloween/mummywraps_underwear/materials/fullbody",
+                              "Files": {
+                                "FemaleUnderwearMummyWrapsOpaque": "assets/prefabs/misc/halloween/mummywraps_underwear/materials/fullbody/femaleunderwear_mummywraps_opaque.mat",
+                                "FemaleUnderwearMummyWrapsTransparent": "assets/prefabs/misc/halloween/mummywraps_underwear/materials/fullbody/femaleunderwear_mummywraps_transparent.mat"
+                              },
+                              "SubFolders": {}
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "frankensteintable": {
+                      "Name": "frankensteintable",
+                      "Path": "assets/assets/prefabs/misc/halloween/frankensteintable",
+                      "Files": {},
+                      "SubFolders": {
+                        "materials": {
+                          "Name": "materials",
+                          "Path": "assets/assets/prefabs/misc/halloween/frankensteintable/materials",
+                          "Files": {
+                            "Frankeninterface": "assets/prefabs/misc/halloween/frankensteintable/materials/frankeninterface.mat",
+                            "Frankentable": "assets/prefabs/misc/halloween/frankensteintable/materials/frankentable.mat"
+                          },
+                          "SubFolders": {}
+                        },
+                        "fx": {
+                          "Name": "fx",
+                          "Path": "assets/assets/prefabs/misc/halloween/frankensteintable/fx",
+                          "Files": {
+                            "TeslaGlow": "assets/prefabs/misc/halloween/frankensteintable/fx/tesla-glow.mat"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    },
+                    "frankensteins_monster_01": {
+                      "Name": "frankensteins_monster_01",
+                      "Path": "assets/assets/prefabs/misc/halloween/frankensteins_monster_01",
+                      "Files": {},
+                      "SubFolders": {
+                        "materials": {
+                          "Name": "materials",
+                          "Path": "assets/assets/prefabs/misc/halloween/frankensteins_monster_01/materials",
+                          "Files": {
+                            "FrankensteinsMonster01Head": "assets/prefabs/misc/halloween/frankensteins_monster_01/materials/frankensteins_monster_01_head.mat",
+                            "FrankensteinsMonster01Legs": "assets/prefabs/misc/halloween/frankensteins_monster_01/materials/frankensteins_monster_01_legs.mat",
+                            "FrankensteinsMonster01Torso": "assets/prefabs/misc/halloween/frankensteins_monster_01/materials/frankensteins_monster_01_torso.mat"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    },
+                    "frankensteins_monster_02": {
+                      "Name": "frankensteins_monster_02",
+                      "Path": "assets/assets/prefabs/misc/halloween/frankensteins_monster_02",
+                      "Files": {},
+                      "SubFolders": {
+                        "materials": {
+                          "Name": "materials",
+                          "Path": "assets/assets/prefabs/misc/halloween/frankensteins_monster_02/materials",
+                          "Files": {
+                            "FrankensteinsMonster02Eyes": "assets/prefabs/misc/halloween/frankensteins_monster_02/materials/frankensteins_monster_02_eyes.mat",
+                            "FrankensteinsMonster02Head": "assets/prefabs/misc/halloween/frankensteins_monster_02/materials/frankensteins_monster_02_head.mat",
+                            "FrankensteinsMonster02Legs": "assets/prefabs/misc/halloween/frankensteins_monster_02/materials/frankensteins_monster_02_legs.mat",
+                            "FrankensteinsMonster02Torso": "assets/prefabs/misc/halloween/frankensteins_monster_02/materials/frankensteins_monster_02_torso.mat"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    },
+                    "skull_fire_pit": {
+                      "Name": "skull_fire_pit",
+                      "Path": "assets/assets/prefabs/misc/halloween/skull_fire_pit",
+                      "Files": {},
+                      "SubFolders": {
+                        "models": {
+                          "Name": "models",
+                          "Path": "assets/assets/prefabs/misc/halloween/skull_fire_pit/models",
+                          "Files": {},
+                          "SubFolders": {
+                            "materials": {
+                              "Name": "materials",
+                              "Path": "assets/assets/prefabs/misc/halloween/skull_fire_pit/models/materials",
+                              "Files": {
+                                "FxFlameOverlaySkullFirePit": "assets/prefabs/misc/halloween/skull_fire_pit/models/materials/fx_flame_overlay_skull_fire_pit.mat",
+                                "SkullFirePit": "assets/prefabs/misc/halloween/skull_fire_pit/models/materials/skull_fire_pit.mat",
+                                "SkullFirePitOn": "assets/prefabs/misc/halloween/skull_fire_pit/models/materials/skull_fire_pit_on.mat"
+                              },
+                              "SubFolders": {}
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "graveyard_fence": {
+                      "Name": "graveyard_fence",
+                      "Path": "assets/assets/prefabs/misc/halloween/graveyard_fence",
+                      "Files": {},
+                      "SubFolders": {
+                        "models": {
+                          "Name": "models",
+                          "Path": "assets/assets/prefabs/misc/halloween/graveyard_fence/models",
+                          "Files": {},
+                          "SubFolders": {
+                            "materials": {
+                              "Name": "materials",
+                              "Path": "assets/assets/prefabs/misc/halloween/graveyard_fence/models/materials",
+                              "Files": {
+                                "GraveyardFenceBrick": "assets/prefabs/misc/halloween/graveyard_fence/models/materials/graveyard_fence_brick.mat",
+                                "GraveyardFenceConcreteTrim": "assets/prefabs/misc/halloween/graveyard_fence/models/materials/graveyard_fence_concrete_trim.mat",
+                                "GraveyardFenceMetal": "assets/prefabs/misc/halloween/graveyard_fence/models/materials/graveyard_fence_metal.mat",
+                                "GraveyardFenceSprite": "assets/prefabs/misc/halloween/graveyard_fence/models/materials/graveyard_fence_sprite.mat"
+                              },
+                              "SubFolders": {}
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "metal cross": {
+                      "Name": "metal cross",
+                      "Path": "assets/assets/prefabs/misc/halloween/metal cross",
+                      "Files": {
+                        "MetalCross": "assets/prefabs/misc/halloween/metal cross/metal cross.mat"
+                      },
+                      "SubFolders": {}
+                    },
+                    "scarecrow": {
+                      "Name": "scarecrow",
+                      "Path": "assets/assets/prefabs/misc/halloween/scarecrow",
+                      "Files": {},
+                      "SubFolders": {
+                        "models": {
+                          "Name": "models",
+                          "Path": "assets/assets/prefabs/misc/halloween/scarecrow/models",
+                          "Files": {},
+                          "SubFolders": {
+                            "materials": {
+                              "Name": "materials",
+                              "Path": "assets/assets/prefabs/misc/halloween/scarecrow/models/materials",
+                              "Files": {
+                                "Scarecrow": "assets/prefabs/misc/halloween/scarecrow/models/materials/scarecrow.mat"
+                              },
+                              "SubFolders": {}
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "skeleton arms": {
+                      "Name": "skeleton arms",
+                      "Path": "assets/assets/prefabs/misc/halloween/skeleton arms",
+                      "Files": {},
+                      "SubFolders": {
+                        "models": {
+                          "Name": "models",
+                          "Path": "assets/assets/prefabs/misc/halloween/skeleton arms/models",
+                          "Files": {},
+                          "SubFolders": {
+                            "materials": {
+                              "Name": "materials",
+                              "Path": "assets/assets/prefabs/misc/halloween/skeleton arms/models/materials",
+                              "Files": {
+                                "SkeletonArms": "assets/prefabs/misc/halloween/skeleton arms/models/materials/skeleton_arms.mat"
+                              },
+                              "SubFolders": {}
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "skull_door_knocker": {
+                      "Name": "skull_door_knocker",
+                      "Path": "assets/assets/prefabs/misc/halloween/skull_door_knocker",
+                      "Files": {},
+                      "SubFolders": {
+                        "materials": {
+                          "Name": "materials",
+                          "Path": "assets/assets/prefabs/misc/halloween/skull_door_knocker/materials",
+                          "Files": {
+                            "SkullDoorKnocker": "assets/prefabs/misc/halloween/skull_door_knocker/materials/skull_door_knocker.mat"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    },
+                    "skull spikes": {
+                      "Name": "skull spikes",
+                      "Path": "assets/assets/prefabs/misc/halloween/skull spikes",
+                      "Files": {},
+                      "SubFolders": {
+                        "materials": {
+                          "Name": "materials",
+                          "Path": "assets/assets/prefabs/misc/halloween/skull spikes/materials",
+                          "Files": {
+                            "Skullspikes": "assets/prefabs/misc/halloween/skull spikes/materials/skullspikes.mat",
+                            "SkullspikesNight": "assets/prefabs/misc/halloween/skull spikes/materials/skullspikes_night.mat"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    },
+                    "spidereggs": {
+                      "Name": "spidereggs",
+                      "Path": "assets/assets/prefabs/misc/halloween/spidereggs",
+                      "Files": {
+                        "SpiderEggs": "assets/prefabs/misc/halloween/spidereggs/spider eggs.mat"
+                      },
+                      "SubFolders": {}
+                    },
+                    "surgeon_outfit": {
+                      "Name": "surgeon_outfit",
+                      "Path": "assets/assets/prefabs/misc/halloween/surgeon_outfit",
+                      "Files": {},
+                      "SubFolders": {
+                        "materials": {
+                          "Name": "materials",
+                          "Path": "assets/assets/prefabs/misc/halloween/surgeon_outfit/materials",
+                          "Files": {
+                            "SurgeonOutfitFrayed": "assets/prefabs/misc/halloween/surgeon_outfit/materials/surgeon_outfit_frayed.mat",
+                            "SurgeonOutfitMain": "assets/prefabs/misc/halloween/surgeon_outfit/materials/surgeon_outfit_main.mat"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    },
+                    "frankensteins_monster_03": {
+                      "Name": "frankensteins_monster_03",
+                      "Path": "assets/assets/prefabs/misc/halloween/frankensteins_monster_03",
+                      "Files": {},
+                      "SubFolders": {
+                        "materials": {
+                          "Name": "materials",
+                          "Path": "assets/assets/prefabs/misc/halloween/frankensteins_monster_03/materials",
+                          "Files": {
+                            "Tier3FrankensteinBody": "assets/prefabs/misc/halloween/frankensteins_monster_03/materials/tier3_frankenstein_body.mat",
+                            "Tier3FrankensteinFeet": "assets/prefabs/misc/halloween/frankensteins_monster_03/materials/tier3_frankenstein_feet.mat",
+                            "Tier3FrankensteinHead": "assets/prefabs/misc/halloween/frankensteins_monster_03/materials/tier3_frankenstein_head.mat",
+                            "Tier3FrankensteinLegs": "assets/prefabs/misc/halloween/frankensteins_monster_03/materials/tier3_frankenstein_legs.mat"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    },
+                    "trophy skulls": {
+                      "Name": "trophy skulls",
+                      "Path": "assets/assets/prefabs/misc/halloween/trophy skulls",
+                      "Files": {},
+                      "SubFolders": {
+                        "materials": {
+                          "Name": "materials",
+                          "Path": "assets/assets/prefabs/misc/halloween/trophy skulls/materials",
+                          "Files": {
+                            "TrophySkulls": "assets/prefabs/misc/halloween/trophy skulls/materials/trophy skulls.mat",
+                            "TrophySkullsGlass": "assets/prefabs/misc/halloween/trophy skulls/materials/trophy skulls glass.mat"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    },
+                    "spiderweb": {
+                      "Name": "spiderweb",
+                      "Path": "assets/assets/prefabs/misc/halloween/spiderweb",
+                      "Files": {},
+                      "SubFolders": {
+                        "materials": {
+                          "Name": "materials",
+                          "Path": "assets/assets/prefabs/misc/halloween/spiderweb/materials",
+                          "Files": {
+                            "Web01": "assets/prefabs/misc/halloween/spiderweb/materials/web_01.mat",
+                            "Web02": "assets/prefabs/misc/halloween/spiderweb/materials/web_02.mat",
+                            "Web03": "assets/prefabs/misc/halloween/spiderweb/materials/web_03.mat",
+                            "Web04": "assets/prefabs/misc/halloween/spiderweb/materials/web_04.mat",
+                            "Web05": "assets/prefabs/misc/halloween/spiderweb/materials/web_05.mat",
+                            "Web06": "assets/prefabs/misc/halloween/spiderweb/materials/web_06.mat",
+                            "Web07": "assets/prefabs/misc/halloween/spiderweb/materials/web_07.mat",
+                            "Web08": "assets/prefabs/misc/halloween/spiderweb/materials/web_08.mat",
+                            "WebTest": "assets/prefabs/misc/halloween/spiderweb/materials/webtest.mat",
+                            "WebTest1": "assets/prefabs/misc/halloween/spiderweb/materials/webtest 1.mat",
+                            "WebTest2": "assets/prefabs/misc/halloween/spiderweb/materials/webtest 2.mat",
+                            "WebTest3": "assets/prefabs/misc/halloween/spiderweb/materials/webtest 3.mat"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    },
+                    "wooden cross": {
+                      "Name": "wooden cross",
+                      "Path": "assets/assets/prefabs/misc/halloween/wooden cross",
+                      "Files": {
+                        "WoodCross": "assets/prefabs/misc/halloween/wooden cross/wood cross.mat"
+                      },
+                      "SubFolders": {}
+                    },
+                    "coffin": {
+                      "Name": "coffin",
+                      "Path": "assets/assets/prefabs/misc/halloween/coffin",
+                      "Files": {},
+                      "SubFolders": {
+                        "models": {
+                          "Name": "models",
+                          "Path": "assets/assets/prefabs/misc/halloween/coffin/models",
+                          "Files": {},
+                          "SubFolders": {
+                            "materials": {
+                              "Name": "materials",
+                              "Path": "assets/assets/prefabs/misc/halloween/coffin/models/materials",
+                              "Files": {
+                                "WoodenWalkway": "assets/prefabs/misc/halloween/coffin/models/materials/wooden_walkway.mat"
+                              },
+                              "SubFolders": {}
+                            }
+                          }
                         }
                       }
                     }
@@ -25469,485 +26178,6 @@
                         "SackDif": "assets/prefabs/misc/burlap sack/materials/sack_dif.mat"
                       },
                       "SubFolders": {}
-                    }
-                  }
-                },
-                "halloween": {
-                  "Name": "halloween",
-                  "Path": "assets/assets/prefabs/misc/halloween",
-                  "Files": {},
-                  "SubFolders": {
-                    "candies": {
-                      "Name": "candies",
-                      "Path": "assets/assets/prefabs/misc/halloween/candies",
-                      "Files": {},
-                      "SubFolders": {
-                        "candy_apple": {
-                          "Name": "candy_apple",
-                          "Path": "assets/assets/prefabs/misc/halloween/candies/candy_apple",
-                          "Files": {
-                            "CandyApple": "assets/prefabs/misc/halloween/candies/candy_apple/candy_apple.mat",
-                            "CandyAppleEmissive": "assets/prefabs/misc/halloween/candies/candy_apple/candy_apple_emissive.mat",
-                            "CandyAppleNormals": "assets/prefabs/misc/halloween/candies/candy_apple/candy_apple_normals.mat"
-                          },
-                          "SubFolders": {}
-                        },
-                        "candy_corn": {
-                          "Name": "candy_corn",
-                          "Path": "assets/assets/prefabs/misc/halloween/candies/candy_corn",
-                          "Files": {
-                            "CandyCorn": "assets/prefabs/misc/halloween/candies/candy_corn/candy_corn.mat",
-                            "CandyCornEmissive": "assets/prefabs/misc/halloween/candies/candy_corn/candy_corn_emissive.mat"
-                          },
-                          "SubFolders": {}
-                        },
-                        "chocolate_bar": {
-                          "Name": "chocolate_bar",
-                          "Path": "assets/assets/prefabs/misc/halloween/candies/chocolate_bar",
-                          "Files": {
-                            "ChocolateBar": "assets/prefabs/misc/halloween/candies/chocolate_bar/chocolate_bar.mat",
-                            "ChocolateBarEmissive": "assets/prefabs/misc/halloween/candies/chocolate_bar/chocolate_bar_emissive.mat",
-                            "ChocolateNormals": "assets/prefabs/misc/halloween/candies/chocolate_bar/chocolate_normals.mat"
-                          },
-                          "SubFolders": {}
-                        }
-                      }
-                    },
-                    "pumpkin_bucket": {
-                      "Name": "pumpkin_bucket",
-                      "Path": "assets/assets/prefabs/misc/halloween/pumpkin_bucket",
-                      "Files": {},
-                      "SubFolders": {
-                        "materials": {
-                          "Name": "materials",
-                          "Path": "assets/assets/prefabs/misc/halloween/pumpkin_bucket/materials",
-                          "Files": {
-                            "CandycornPile": "assets/prefabs/misc/halloween/pumpkin_bucket/materials/candycorn_pile.mat",
-                            "HalloweenBucket": "assets/prefabs/misc/halloween/pumpkin_bucket/materials/halloween_bucket.mat"
-                          },
-                          "SubFolders": {}
-                        }
-                      }
-                    },
-                    "carvablepumpkin": {
-                      "Name": "carvablepumpkin",
-                      "Path": "assets/assets/prefabs/misc/halloween/carvablepumpkin",
-                      "Files": {},
-                      "SubFolders": {
-                        "materials": {
-                          "Name": "materials",
-                          "Path": "assets/assets/prefabs/misc/halloween/carvablepumpkin/materials",
-                          "Files": {
-                            "CarvablePumpkin": "assets/prefabs/misc/halloween/carvablepumpkin/materials/carvable_pumpkin.mat",
-                            "CarvablePumpkinEmission": "assets/prefabs/misc/halloween/carvablepumpkin/materials/carvable_pumpkin_emission.mat",
-                            "CarvablePumpkinEmissionSkinviewer1": "assets/prefabs/misc/halloween/carvablepumpkin/materials/carvable_pumpkin_emission_skinviewer1.mat",
-                            "CarvablePumpkinEmissionSkinviewer2": "assets/prefabs/misc/halloween/carvablepumpkin/materials/carvable_pumpkin_emission_skinviewer2.mat",
-                            "CarvablePumpkinEmissionSkinviewer3": "assets/prefabs/misc/halloween/carvablepumpkin/materials/carvable_pumpkin_emission_skinviewer3.mat",
-                            "CarvablePumpkinInner": "assets/prefabs/misc/halloween/carvablepumpkin/materials/carvable_pumpkin_inner.mat",
-                            "CarvablePumpkinInnerEmission": "assets/prefabs/misc/halloween/carvablepumpkin/materials/carvable_pumpkin_inner_emission.mat",
-                            "CarvablePumpkinInnerEmissionSkinviewer1": "assets/prefabs/misc/halloween/carvablepumpkin/materials/carvable_pumpkin_inner_emission_skinviewer1.mat",
-                            "CarvablePumpkinInnerEmissionSkinviewer2": "assets/prefabs/misc/halloween/carvablepumpkin/materials/carvable_pumpkin_inner_emission_skinviewer2.mat",
-                            "CarvablePumpkinInnerEmissionSkinviewer3": "assets/prefabs/misc/halloween/carvablepumpkin/materials/carvable_pumpkin_inner_emission_skinviewer3.mat",
-                            "CarvablePumpkinLod": "assets/prefabs/misc/halloween/carvablepumpkin/materials/carvable_pumpkin_lod.mat",
-                            "CarvablePumpkinLodEmission": "assets/prefabs/misc/halloween/carvablepumpkin/materials/carvable_pumpkin_lod_emission.mat"
-                          },
-                          "SubFolders": {}
-                        }
-                      }
-                    },
-                    "gravestone": {
-                      "Name": "gravestone",
-                      "Path": "assets/assets/prefabs/misc/halloween/gravestone",
-                      "Files": {
-                        "Cobwebs": "assets/prefabs/misc/halloween/gravestone/cobwebs.mat",
-                        "GraveStone": "assets/prefabs/misc/halloween/gravestone/gravestone.mat"
-                      },
-                      "SubFolders": {}
-                    },
-                    "condemned_door_barrier": {
-                      "Name": "condemned_door_barrier",
-                      "Path": "assets/assets/prefabs/misc/halloween/condemned_door_barrier",
-                      "Files": {},
-                      "SubFolders": {
-                        "materials": {
-                          "Name": "materials",
-                          "Path": "assets/assets/prefabs/misc/halloween/condemned_door_barrier/materials",
-                          "Files": {
-                            "CondemnedDoorBarrier": "assets/prefabs/misc/halloween/condemned_door_barrier/materials/condemned_door_barrier.mat"
-                          },
-                          "SubFolders": {}
-                        }
-                      }
-                    },
-                    "cursed_cauldron": {
-                      "Name": "cursed_cauldron",
-                      "Path": "assets/assets/prefabs/misc/halloween/cursed_cauldron",
-                      "Files": {
-                        "GreenBubble": "assets/prefabs/misc/halloween/cursed_cauldron/green bubble.mat"
-                      },
-                      "SubFolders": {
-                        "models": {
-                          "Name": "models",
-                          "Path": "assets/assets/prefabs/misc/halloween/cursed_cauldron/models",
-                          "Files": {},
-                          "SubFolders": {
-                            "materials": {
-                              "Name": "materials",
-                              "Path": "assets/assets/prefabs/misc/halloween/cursed_cauldron/models/materials",
-                              "Files": {
-                                "CursedCauldron": "assets/prefabs/misc/halloween/cursed_cauldron/models/materials/cursed_cauldron.mat"
-                              },
-                              "SubFolders": {}
-                            }
-                          }
-                        },
-                        "effects": {
-                          "Name": "effects",
-                          "Path": "assets/assets/prefabs/misc/halloween/cursed_cauldron/effects",
-                          "Files": {
-                            "FxCauldronWaterDisabled": "assets/prefabs/misc/halloween/cursed_cauldron/effects/fx_cauldron_water_disabled.mat",
-                            "FxCauldronWaterEnabled": "assets/prefabs/misc/halloween/cursed_cauldron/effects/fx_cauldron_water_enabled.mat",
-                            "PfxCauldronBubble": "assets/prefabs/misc/halloween/cursed_cauldron/effects/pfx_cauldron_bubble.mat",
-                            "PfxCauldronBubbleFloating": "assets/prefabs/misc/halloween/cursed_cauldron/effects/pfx_cauldron_bubble_floating.mat",
-                            "PfxCauldronBublePop": "assets/prefabs/misc/halloween/cursed_cauldron/effects/pfx_cauldron_buble_pop.mat",
-                            "PfxCauldronRippleDisabled": "assets/prefabs/misc/halloween/cursed_cauldron/effects/pfx_cauldron_ripple_disabled.mat",
-                            "PfxCauldronRippleEnabled": "assets/prefabs/misc/halloween/cursed_cauldron/effects/pfx_cauldron_ripple_enabled.mat",
-                            "PfxCauldronSmoke": "assets/prefabs/misc/halloween/cursed_cauldron/effects/pfx_cauldron_smoke.mat"
-                          },
-                          "SubFolders": {}
-                        }
-                      }
-                    },
-                    "mummywraps_underwear": {
-                      "Name": "mummywraps_underwear",
-                      "Path": "assets/assets/prefabs/misc/halloween/mummywraps_underwear",
-                      "Files": {},
-                      "SubFolders": {
-                        "materials": {
-                          "Name": "materials",
-                          "Path": "assets/assets/prefabs/misc/halloween/mummywraps_underwear/materials",
-                          "Files": {
-                            "FemaleUnderwearMummyWraps": "assets/prefabs/misc/halloween/mummywraps_underwear/materials/femaleunderwear_mummywraps.mat",
-                            "MaleUnderwearMummyWraps": "assets/prefabs/misc/halloween/mummywraps_underwear/materials/maleunderwear_mummywraps.mat"
-                          },
-                          "SubFolders": {
-                            "fullbody": {
-                              "Name": "fullbody",
-                              "Path": "assets/assets/prefabs/misc/halloween/mummywraps_underwear/materials/fullbody",
-                              "Files": {
-                                "FemaleUnderwearMummyWrapsOpaque": "assets/prefabs/misc/halloween/mummywraps_underwear/materials/fullbody/femaleunderwear_mummywraps_opaque.mat",
-                                "FemaleUnderwearMummyWrapsTransparent": "assets/prefabs/misc/halloween/mummywraps_underwear/materials/fullbody/femaleunderwear_mummywraps_transparent.mat"
-                              },
-                              "SubFolders": {}
-                            }
-                          }
-                        }
-                      }
-                    },
-                    "frankensteintable": {
-                      "Name": "frankensteintable",
-                      "Path": "assets/assets/prefabs/misc/halloween/frankensteintable",
-                      "Files": {},
-                      "SubFolders": {
-                        "materials": {
-                          "Name": "materials",
-                          "Path": "assets/assets/prefabs/misc/halloween/frankensteintable/materials",
-                          "Files": {
-                            "Frankeninterface": "assets/prefabs/misc/halloween/frankensteintable/materials/frankeninterface.mat",
-                            "Frankentable": "assets/prefabs/misc/halloween/frankensteintable/materials/frankentable.mat"
-                          },
-                          "SubFolders": {}
-                        },
-                        "fx": {
-                          "Name": "fx",
-                          "Path": "assets/assets/prefabs/misc/halloween/frankensteintable/fx",
-                          "Files": {
-                            "TeslaGlow": "assets/prefabs/misc/halloween/frankensteintable/fx/tesla-glow.mat"
-                          },
-                          "SubFolders": {}
-                        }
-                      }
-                    },
-                    "frankensteins_monster_01": {
-                      "Name": "frankensteins_monster_01",
-                      "Path": "assets/assets/prefabs/misc/halloween/frankensteins_monster_01",
-                      "Files": {},
-                      "SubFolders": {
-                        "materials": {
-                          "Name": "materials",
-                          "Path": "assets/assets/prefabs/misc/halloween/frankensteins_monster_01/materials",
-                          "Files": {
-                            "FrankensteinsMonster01Head": "assets/prefabs/misc/halloween/frankensteins_monster_01/materials/frankensteins_monster_01_head.mat",
-                            "FrankensteinsMonster01Legs": "assets/prefabs/misc/halloween/frankensteins_monster_01/materials/frankensteins_monster_01_legs.mat",
-                            "FrankensteinsMonster01Torso": "assets/prefabs/misc/halloween/frankensteins_monster_01/materials/frankensteins_monster_01_torso.mat"
-                          },
-                          "SubFolders": {}
-                        }
-                      }
-                    },
-                    "frankensteins_monster_02": {
-                      "Name": "frankensteins_monster_02",
-                      "Path": "assets/assets/prefabs/misc/halloween/frankensteins_monster_02",
-                      "Files": {},
-                      "SubFolders": {
-                        "materials": {
-                          "Name": "materials",
-                          "Path": "assets/assets/prefabs/misc/halloween/frankensteins_monster_02/materials",
-                          "Files": {
-                            "FrankensteinsMonster02Eyes": "assets/prefabs/misc/halloween/frankensteins_monster_02/materials/frankensteins_monster_02_eyes.mat",
-                            "FrankensteinsMonster02Head": "assets/prefabs/misc/halloween/frankensteins_monster_02/materials/frankensteins_monster_02_head.mat",
-                            "FrankensteinsMonster02Legs": "assets/prefabs/misc/halloween/frankensteins_monster_02/materials/frankensteins_monster_02_legs.mat",
-                            "FrankensteinsMonster02Torso": "assets/prefabs/misc/halloween/frankensteins_monster_02/materials/frankensteins_monster_02_torso.mat"
-                          },
-                          "SubFolders": {}
-                        }
-                      }
-                    },
-                    "skull_fire_pit": {
-                      "Name": "skull_fire_pit",
-                      "Path": "assets/assets/prefabs/misc/halloween/skull_fire_pit",
-                      "Files": {},
-                      "SubFolders": {
-                        "models": {
-                          "Name": "models",
-                          "Path": "assets/assets/prefabs/misc/halloween/skull_fire_pit/models",
-                          "Files": {},
-                          "SubFolders": {
-                            "materials": {
-                              "Name": "materials",
-                              "Path": "assets/assets/prefabs/misc/halloween/skull_fire_pit/models/materials",
-                              "Files": {
-                                "FxFlameOverlaySkullFirePit": "assets/prefabs/misc/halloween/skull_fire_pit/models/materials/fx_flame_overlay_skull_fire_pit.mat",
-                                "SkullFirePit": "assets/prefabs/misc/halloween/skull_fire_pit/models/materials/skull_fire_pit.mat",
-                                "SkullFirePitOn": "assets/prefabs/misc/halloween/skull_fire_pit/models/materials/skull_fire_pit_on.mat"
-                              },
-                              "SubFolders": {}
-                            }
-                          }
-                        }
-                      }
-                    },
-                    "graveyard_fence": {
-                      "Name": "graveyard_fence",
-                      "Path": "assets/assets/prefabs/misc/halloween/graveyard_fence",
-                      "Files": {},
-                      "SubFolders": {
-                        "models": {
-                          "Name": "models",
-                          "Path": "assets/assets/prefabs/misc/halloween/graveyard_fence/models",
-                          "Files": {},
-                          "SubFolders": {
-                            "materials": {
-                              "Name": "materials",
-                              "Path": "assets/assets/prefabs/misc/halloween/graveyard_fence/models/materials",
-                              "Files": {
-                                "GraveyardFenceBrick": "assets/prefabs/misc/halloween/graveyard_fence/models/materials/graveyard_fence_brick.mat",
-                                "GraveyardFenceConcreteTrim": "assets/prefabs/misc/halloween/graveyard_fence/models/materials/graveyard_fence_concrete_trim.mat",
-                                "GraveyardFenceMetal": "assets/prefabs/misc/halloween/graveyard_fence/models/materials/graveyard_fence_metal.mat",
-                                "GraveyardFenceSprite": "assets/prefabs/misc/halloween/graveyard_fence/models/materials/graveyard_fence_sprite.mat"
-                              },
-                              "SubFolders": {}
-                            }
-                          }
-                        }
-                      }
-                    },
-                    "metal cross": {
-                      "Name": "metal cross",
-                      "Path": "assets/assets/prefabs/misc/halloween/metal cross",
-                      "Files": {
-                        "MetalCross": "assets/prefabs/misc/halloween/metal cross/metal cross.mat"
-                      },
-                      "SubFolders": {}
-                    },
-                    "scarecrow": {
-                      "Name": "scarecrow",
-                      "Path": "assets/assets/prefabs/misc/halloween/scarecrow",
-                      "Files": {},
-                      "SubFolders": {
-                        "models": {
-                          "Name": "models",
-                          "Path": "assets/assets/prefabs/misc/halloween/scarecrow/models",
-                          "Files": {},
-                          "SubFolders": {
-                            "materials": {
-                              "Name": "materials",
-                              "Path": "assets/assets/prefabs/misc/halloween/scarecrow/models/materials",
-                              "Files": {
-                                "Scarecrow": "assets/prefabs/misc/halloween/scarecrow/models/materials/scarecrow.mat"
-                              },
-                              "SubFolders": {}
-                            }
-                          }
-                        }
-                      }
-                    },
-                    "skeleton arms": {
-                      "Name": "skeleton arms",
-                      "Path": "assets/assets/prefabs/misc/halloween/skeleton arms",
-                      "Files": {},
-                      "SubFolders": {
-                        "models": {
-                          "Name": "models",
-                          "Path": "assets/assets/prefabs/misc/halloween/skeleton arms/models",
-                          "Files": {},
-                          "SubFolders": {
-                            "materials": {
-                              "Name": "materials",
-                              "Path": "assets/assets/prefabs/misc/halloween/skeleton arms/models/materials",
-                              "Files": {
-                                "SkeletonArms": "assets/prefabs/misc/halloween/skeleton arms/models/materials/skeleton_arms.mat"
-                              },
-                              "SubFolders": {}
-                            }
-                          }
-                        }
-                      }
-                    },
-                    "skull_door_knocker": {
-                      "Name": "skull_door_knocker",
-                      "Path": "assets/assets/prefabs/misc/halloween/skull_door_knocker",
-                      "Files": {},
-                      "SubFolders": {
-                        "materials": {
-                          "Name": "materials",
-                          "Path": "assets/assets/prefabs/misc/halloween/skull_door_knocker/materials",
-                          "Files": {
-                            "SkullDoorKnocker": "assets/prefabs/misc/halloween/skull_door_knocker/materials/skull_door_knocker.mat"
-                          },
-                          "SubFolders": {}
-                        }
-                      }
-                    },
-                    "skull spikes": {
-                      "Name": "skull spikes",
-                      "Path": "assets/assets/prefabs/misc/halloween/skull spikes",
-                      "Files": {},
-                      "SubFolders": {
-                        "materials": {
-                          "Name": "materials",
-                          "Path": "assets/assets/prefabs/misc/halloween/skull spikes/materials",
-                          "Files": {
-                            "Skullspikes": "assets/prefabs/misc/halloween/skull spikes/materials/skullspikes.mat",
-                            "SkullspikesNight": "assets/prefabs/misc/halloween/skull spikes/materials/skullspikes_night.mat"
-                          },
-                          "SubFolders": {}
-                        }
-                      }
-                    },
-                    "spidereggs": {
-                      "Name": "spidereggs",
-                      "Path": "assets/assets/prefabs/misc/halloween/spidereggs",
-                      "Files": {
-                        "SpiderEggs": "assets/prefabs/misc/halloween/spidereggs/spider eggs.mat"
-                      },
-                      "SubFolders": {}
-                    },
-                    "surgeon_outfit": {
-                      "Name": "surgeon_outfit",
-                      "Path": "assets/assets/prefabs/misc/halloween/surgeon_outfit",
-                      "Files": {},
-                      "SubFolders": {
-                        "materials": {
-                          "Name": "materials",
-                          "Path": "assets/assets/prefabs/misc/halloween/surgeon_outfit/materials",
-                          "Files": {
-                            "SurgeonOutfitFrayed": "assets/prefabs/misc/halloween/surgeon_outfit/materials/surgeon_outfit_frayed.mat",
-                            "SurgeonOutfitMain": "assets/prefabs/misc/halloween/surgeon_outfit/materials/surgeon_outfit_main.mat"
-                          },
-                          "SubFolders": {}
-                        }
-                      }
-                    },
-                    "frankensteins_monster_03": {
-                      "Name": "frankensteins_monster_03",
-                      "Path": "assets/assets/prefabs/misc/halloween/frankensteins_monster_03",
-                      "Files": {},
-                      "SubFolders": {
-                        "materials": {
-                          "Name": "materials",
-                          "Path": "assets/assets/prefabs/misc/halloween/frankensteins_monster_03/materials",
-                          "Files": {
-                            "Tier3FrankensteinBody": "assets/prefabs/misc/halloween/frankensteins_monster_03/materials/tier3_frankenstein_body.mat",
-                            "Tier3FrankensteinFeet": "assets/prefabs/misc/halloween/frankensteins_monster_03/materials/tier3_frankenstein_feet.mat",
-                            "Tier3FrankensteinHead": "assets/prefabs/misc/halloween/frankensteins_monster_03/materials/tier3_frankenstein_head.mat",
-                            "Tier3FrankensteinLegs": "assets/prefabs/misc/halloween/frankensteins_monster_03/materials/tier3_frankenstein_legs.mat"
-                          },
-                          "SubFolders": {}
-                        }
-                      }
-                    },
-                    "trophy skulls": {
-                      "Name": "trophy skulls",
-                      "Path": "assets/assets/prefabs/misc/halloween/trophy skulls",
-                      "Files": {},
-                      "SubFolders": {
-                        "materials": {
-                          "Name": "materials",
-                          "Path": "assets/assets/prefabs/misc/halloween/trophy skulls/materials",
-                          "Files": {
-                            "TrophySkulls": "assets/prefabs/misc/halloween/trophy skulls/materials/trophy skulls.mat",
-                            "TrophySkullsGlass": "assets/prefabs/misc/halloween/trophy skulls/materials/trophy skulls glass.mat"
-                          },
-                          "SubFolders": {}
-                        }
-                      }
-                    },
-                    "spiderweb": {
-                      "Name": "spiderweb",
-                      "Path": "assets/assets/prefabs/misc/halloween/spiderweb",
-                      "Files": {},
-                      "SubFolders": {
-                        "materials": {
-                          "Name": "materials",
-                          "Path": "assets/assets/prefabs/misc/halloween/spiderweb/materials",
-                          "Files": {
-                            "Web01": "assets/prefabs/misc/halloween/spiderweb/materials/web_01.mat",
-                            "Web02": "assets/prefabs/misc/halloween/spiderweb/materials/web_02.mat",
-                            "Web03": "assets/prefabs/misc/halloween/spiderweb/materials/web_03.mat",
-                            "Web04": "assets/prefabs/misc/halloween/spiderweb/materials/web_04.mat",
-                            "Web05": "assets/prefabs/misc/halloween/spiderweb/materials/web_05.mat",
-                            "Web06": "assets/prefabs/misc/halloween/spiderweb/materials/web_06.mat",
-                            "Web07": "assets/prefabs/misc/halloween/spiderweb/materials/web_07.mat",
-                            "Web08": "assets/prefabs/misc/halloween/spiderweb/materials/web_08.mat",
-                            "WebTest": "assets/prefabs/misc/halloween/spiderweb/materials/webtest.mat",
-                            "WebTest1": "assets/prefabs/misc/halloween/spiderweb/materials/webtest 1.mat",
-                            "WebTest2": "assets/prefabs/misc/halloween/spiderweb/materials/webtest 2.mat",
-                            "WebTest3": "assets/prefabs/misc/halloween/spiderweb/materials/webtest 3.mat"
-                          },
-                          "SubFolders": {}
-                        }
-                      }
-                    },
-                    "wooden cross": {
-                      "Name": "wooden cross",
-                      "Path": "assets/assets/prefabs/misc/halloween/wooden cross",
-                      "Files": {
-                        "WoodCross": "assets/prefabs/misc/halloween/wooden cross/wood cross.mat"
-                      },
-                      "SubFolders": {}
-                    },
-                    "coffin": {
-                      "Name": "coffin",
-                      "Path": "assets/assets/prefabs/misc/halloween/coffin",
-                      "Files": {},
-                      "SubFolders": {
-                        "models": {
-                          "Name": "models",
-                          "Path": "assets/assets/prefabs/misc/halloween/coffin/models",
-                          "Files": {},
-                          "SubFolders": {
-                            "materials": {
-                              "Name": "materials",
-                              "Path": "assets/assets/prefabs/misc/halloween/coffin/models/materials",
-                              "Files": {
-                                "WoodenWalkway": "assets/prefabs/misc/halloween/coffin/models/materials/wooden_walkway.mat"
-                              },
-                              "SubFolders": {}
-                            }
-                          }
-                        }
-                      }
                     }
                   }
                 },
@@ -27311,6 +27541,21 @@
                         "Nailgun": "assets/prefabs/weapons/nailgun/materials/nailgun.mat"
                       },
                       "SubFolders": {}
+                    },
+                    "model": {
+                      "Name": "model",
+                      "Path": "assets/assets/prefabs/weapons/nailgun/model",
+                      "Files": {},
+                      "SubFolders": {
+                        "materials": {
+                          "Name": "materials",
+                          "Path": "assets/assets/prefabs/weapons/nailgun/model/materials",
+                          "Files": {
+                            "NailgunRemake": "assets/prefabs/weapons/nailgun/model/materials/nailgun_remake.mat"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
                     }
                   }
                 },
@@ -27389,31 +27634,6 @@
                             "BandagesAlpha": "assets/prefabs/weapons/bandage/model/materials/bandages_alpha.mat",
                             "BandagesColor": "assets/prefabs/weapons/bandage/model/materials/bandages_color.mat",
                             "WMedSyringe": "assets/prefabs/weapons/bandage/model/materials/w_med_syringe.mat"
-                          },
-                          "SubFolders": {}
-                        }
-                      }
-                    }
-                  }
-                },
-                "medicalhoneybandage": {
-                  "Name": "medicalhoneybandage",
-                  "Path": "assets/assets/prefabs/weapons/medicalhoneybandage",
-                  "Files": {},
-                  "SubFolders": {
-                    "model": {
-                      "Name": "model",
-                      "Path": "assets/assets/prefabs/weapons/medicalhoneybandage/model",
-                      "Files": {},
-                      "SubFolders": {
-                        "materials": {
-                          "Name": "materials",
-                          "Path": "assets/assets/prefabs/weapons/medicalhoneybandage/model/materials",
-                          "Files": {
-                            "BandagesAlpha": "assets/prefabs/weapons/medicalhoneybandage/model/materials/bandages_alpha.mat",
-                            "BandagesColor": "assets/prefabs/weapons/medicalhoneybandage/model/materials/bandages_color.mat",
-                            "Honeybandages": "assets/prefabs/weapons/medicalhoneybandage/model/materials/honeybandages.mat",
-                            "WMedSyringe": "assets/prefabs/weapons/medicalhoneybandage/model/materials/w_med_syringe.mat"
                           },
                           "SubFolders": {}
                         }
@@ -27801,6 +28021,33 @@
                               "SubFolders": {}
                             }
                           }
+                        }
+                      }
+                    }
+                  }
+                },
+                "uzi": {
+                  "Name": "uzi",
+                  "Path": "assets/assets/prefabs/weapons/uzi",
+                  "Files": {},
+                  "SubFolders": {
+                    "model": {
+                      "Name": "model",
+                      "Path": "assets/assets/prefabs/weapons/uzi/model",
+                      "Files": {},
+                      "SubFolders": {
+                        "materials": {
+                          "Name": "materials",
+                          "Path": "assets/assets/prefabs/weapons/uzi/model/materials",
+                          "Files": {
+                            "Blockout": "assets/prefabs/weapons/uzi/model/materials/blockout.mat",
+                            "Grips": "assets/prefabs/weapons/uzi/model/materials/grips.mat",
+                            "Reciever": "assets/prefabs/weapons/uzi/model/materials/reciever.mat",
+                            "UziGrip": "assets/prefabs/weapons/uzi/model/materials/uzi_grip.mat",
+                            "UziPicatinny": "assets/prefabs/weapons/uzi/model/materials/uzi_picatinny.mat",
+                            "UziReceiver": "assets/prefabs/weapons/uzi/model/materials/uzi_receiver.mat"
+                          },
+                          "SubFolders": {}
                         }
                       }
                     }
@@ -28716,6 +28963,28 @@
                     }
                   }
                 },
+                "medicalhoneybandage": {
+                  "Name": "medicalhoneybandage",
+                  "Path": "assets/assets/prefabs/weapons/medicalhoneybandage",
+                  "Files": {},
+                  "SubFolders": {
+                    "model": {
+                      "Name": "model",
+                      "Path": "assets/assets/prefabs/weapons/medicalhoneybandage/model",
+                      "Files": {},
+                      "SubFolders": {
+                        "materials": {
+                          "Name": "materials",
+                          "Path": "assets/assets/prefabs/weapons/medicalhoneybandage/model/materials",
+                          "Files": {
+                            "Honeybandages": "assets/prefabs/weapons/medicalhoneybandage/model/materials/honeybandages.mat"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    }
+                  }
+                },
                 "improvised_shield": {
                   "Name": "improvised_shield",
                   "Path": "assets/assets/prefabs/weapons/improvised_shield",
@@ -29016,6 +29285,28 @@
                         "M39Emr": "assets/prefabs/weapons/m39 emr/material/m39 emr.mat"
                       },
                       "SubFolders": {}
+                    }
+                  }
+                },
+                "machete": {
+                  "Name": "machete",
+                  "Path": "assets/assets/prefabs/weapons/machete",
+                  "Files": {},
+                  "SubFolders": {
+                    "model": {
+                      "Name": "model",
+                      "Path": "assets/assets/prefabs/weapons/machete/model",
+                      "Files": {},
+                      "SubFolders": {
+                        "material": {
+                          "Name": "material",
+                          "Path": "assets/assets/prefabs/weapons/machete/model/material",
+                          "Files": {
+                            "MacheteRefresh": "assets/prefabs/weapons/machete/model/material/machete_refresh.mat"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
                     }
                   }
                 },
@@ -30078,22 +30369,6 @@
                         }
                       }
                     },
-                    "crab": {
-                      "Name": "crab",
-                      "Path": "assets/assets/prefabs/npc/fish/crab",
-                      "Files": {},
-                      "SubFolders": {
-                        "materials": {
-                          "Name": "materials",
-                          "Path": "assets/assets/prefabs/npc/fish/crab/materials",
-                          "Files": {
-                            "Crab": "assets/prefabs/npc/fish/crab/materials/crab.mat",
-                            "CritterCrab": "assets/prefabs/npc/fish/crab/materials/critter_crab.mat"
-                          },
-                          "SubFolders": {}
-                        }
-                      }
-                    },
                     "materials": {
                       "Name": "materials",
                       "Path": "assets/assets/prefabs/npc/fish/materials",
@@ -30634,6 +30909,21 @@
                     }
                   }
                 },
+                "blueprint book": {
+                  "Name": "blueprint book",
+                  "Path": "assets/assets/prefabs/resource/blueprint book",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/assets/prefabs/resource/blueprint book/materials",
+                      "Files": {
+                        "Blueprintbook": "assets/prefabs/resource/blueprint book/materials/blueprintbook.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
                 "blueprint fragment": {
                   "Name": "blueprint fragment",
                   "Path": "assets/assets/prefabs/resource/blueprint fragment",
@@ -31061,6 +31351,22 @@
                       }
                     }
                   }
+                },
+                "wool": {
+                  "Name": "wool",
+                  "Path": "assets/assets/prefabs/resource/wool",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/assets/prefabs/resource/wool/materials",
+                      "Files": {
+                        "Wool": "assets/prefabs/resource/wool/materials/wool.mat",
+                        "Woolshells": "assets/prefabs/resource/wool/materials/woolshells.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
                 }
               }
             },
@@ -31096,7 +31402,9 @@
                         "AsbestosArmourplate": "assets/prefabs/tools/armourplating/materials/asbestosarmourplate.mat",
                         "Leadarmourplate": "assets/prefabs/tools/armourplating/materials/leadarmourplate.mat",
                         "Metalarmourplate": "assets/prefabs/tools/armourplating/materials/metalarmourplate.mat",
-                        "Woodarmourplate": "assets/prefabs/tools/armourplating/materials/woodarmourplate.mat"
+                        "Woodarmourplate": "assets/prefabs/tools/armourplating/materials/woodarmourplate.mat",
+                        "Woolarmourplate": "assets/prefabs/tools/armourplating/materials/woolarmourplate.mat",
+                        "WoolarmourplateShells": "assets/prefabs/tools/armourplating/materials/woolarmourplate_shells.mat"
                       },
                       "SubFolders": {}
                     }
@@ -31623,6 +31931,7 @@
                       "Path": "assets/assets/prefabs/tools/metaldetector/materials",
                       "Files": {
                         "Mdbulb": "assets/prefabs/tools/metaldetector/materials/mdbulb.mat",
+                        "MdbulbWorldModel": "assets/prefabs/tools/metaldetector/materials/mdbulb_worldmodel.mat",
                         "Metaldetector01": "assets/prefabs/tools/metaldetector/materials/metaldetector_01.mat",
                         "Metaldetector02": "assets/prefabs/tools/metaldetector/materials/metaldetector_02.mat",
                         "Metaldetector02LitGreen": "assets/prefabs/tools/metaldetector/materials/metaldetector_02_lit_green.mat",
@@ -31740,6 +32049,22 @@
                           "SubFolders": {}
                         }
                       }
+                    }
+                  }
+                },
+                "shears": {
+                  "Name": "shears",
+                  "Path": "assets/assets/prefabs/tools/shears",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/assets/prefabs/tools/shears/materials",
+                      "Files": {
+                        "Shears": "assets/prefabs/tools/shears/materials/shears.mat",
+                        "ShearsWool": "assets/prefabs/tools/shears/materials/shears_wool.mat"
+                      },
+                      "SubFolders": {}
                     }
                   }
                 },
@@ -31994,6 +32319,9 @@
                         "ChickenMeatCooked": "assets/prefabs/food/meat/materials/chicken_meat_cooked.mat",
                         "ChickenMeatRaw": "assets/prefabs/food/meat/materials/chicken_meat_raw.mat",
                         "ChickenMeatSpoiled": "assets/prefabs/food/meat/materials/chicken_meat_spoiled.mat",
+                        "CowMeatCooked": "assets/prefabs/food/meat/materials/cow_meat_cooked.mat",
+                        "CowMeatRaw": "assets/prefabs/food/meat/materials/cow_meat_raw.mat",
+                        "CowMeatSpoiled": "assets/prefabs/food/meat/materials/cow_meat_spoiled.mat",
                         "CrocodileMeatCooked": "assets/prefabs/food/meat/materials/crocodile_meat_cooked.mat",
                         "CrocodileMeatRaw": "assets/prefabs/food/meat/materials/crocodile_meat_raw.mat",
                         "CrocodileMeatSpoiled": "assets/prefabs/food/meat/materials/crocodile_meat_spoiled.mat",
@@ -32013,6 +32341,9 @@
                         "HumanMeatCooked": "assets/prefabs/food/meat/materials/human_meat_cooked.mat",
                         "HumanMeatRaw": "assets/prefabs/food/meat/materials/human_meat_raw.mat",
                         "HumanMeatSpoiled": "assets/prefabs/food/meat/materials/human_meat_spoiled.mat",
+                        "LambMeatCooked": "assets/prefabs/food/meat/materials/lamb_meat_cooked.mat",
+                        "LambMeatRaw": "assets/prefabs/food/meat/materials/lamb_meat_raw.mat",
+                        "LambMeatSpoiled": "assets/prefabs/food/meat/materials/lamb_meat_spoiled.mat",
                         "MeatRabbitCooked": "assets/prefabs/food/meat/materials/meat_rabbit_cooked.mat",
                         "MeatRabbitRaw": "assets/prefabs/food/meat/materials/meat_rabbit_raw.mat",
                         "PorkMeatBurned": "assets/prefabs/food/meat/materials/pork_meat_burned.mat",
@@ -32108,19 +32439,7 @@
                       "Path": "assets/assets/prefabs/food/pies/cooking_conditionals",
                       "Files": {
                         "CcPieCrustRaw": "assets/prefabs/food/pies/cooking_conditionals/cc_pie_crust_raw.mat",
-                        "CcPiePanApple": "assets/prefabs/food/pies/cooking_conditionals/cc_pie_pan_apple.mat",
-                        "CcPiePanBear": "assets/prefabs/food/pies/cooking_conditionals/cc_pie_pan_bear.mat",
-                        "CcPiePanBerry": "assets/prefabs/food/pies/cooking_conditionals/cc_pie_pan_berry.mat",
-                        "CcPiePanChicken": "assets/prefabs/food/pies/cooking_conditionals/cc_pie_pan_chicken.mat",
-                        "CcPiePanDeer": "assets/prefabs/food/pies/cooking_conditionals/cc_pie_pan_deer.mat",
-                        "CcPiePanFish": "assets/prefabs/food/pies/cooking_conditionals/cc_pie_pan_fish.mat",
-                        "CcPiePanHorse": "assets/prefabs/food/pies/cooking_conditionals/cc_pie_pan_horse.mat",
-                        "CcPiePanHuman": "assets/prefabs/food/pies/cooking_conditionals/cc_pie_pan_human.mat",
-                        "CcPiePanMushroom": "assets/prefabs/food/pies/cooking_conditionals/cc_pie_pan_mushroom.mat",
-                        "CcPiePanPork": "assets/prefabs/food/pies/cooking_conditionals/cc_pie_pan_pork.mat",
-                        "CcPiePanPotato": "assets/prefabs/food/pies/cooking_conditionals/cc_pie_pan_potato.mat",
-                        "CcPiePanPumpkin": "assets/prefabs/food/pies/cooking_conditionals/cc_pie_pan_pumpkin.mat",
-                        "CcPiePanWolf": "assets/prefabs/food/pies/cooking_conditionals/cc_pie_pan_wolf.mat"
+                        "CcPiePan": "assets/prefabs/food/pies/cooking_conditionals/cc_pie_pan.mat"
                       },
                       "SubFolders": {}
                     },
@@ -32135,17 +32454,8 @@
                           "Files": {
                             "PieCrust": "assets/prefabs/food/pies/models/materials/pie_crust.mat",
                             "PieFryingPan": "assets/prefabs/food/pies/models/materials/pie_frying_pan.mat",
-                            "PieFryingPanApple": "assets/prefabs/food/pies/models/materials/pie_frying_pan_apple.mat",
-                            "PieFryingPanBear": "assets/prefabs/food/pies/models/materials/pie_frying_pan_bear.mat",
-                            "PieFryingPanBigCat": "assets/prefabs/food/pies/models/materials/pie_frying_pan_big_cat.mat",
-                            "PieFryingPanChicken": "assets/prefabs/food/pies/models/materials/pie_frying_pan_chicken.mat",
-                            "PieFryingPanCrocodile": "assets/prefabs/food/pies/models/materials/pie_frying_pan_crocodile.mat",
-                            "PieFryingPanFish": "assets/prefabs/food/pies/models/materials/pie_frying_pan_fish.mat",
-                            "PieFryingPanHunters": "assets/prefabs/food/pies/models/materials/pie_frying_pan_hunters.mat",
-                            "PieFryingPanPork": "assets/prefabs/food/pies/models/materials/pie_frying_pan_pork.mat",
-                            "PieFryingPanPumpkin": "assets/prefabs/food/pies/models/materials/pie_frying_pan_pumpkin.mat",
-                            "PieFryingPanSurvivors": "assets/prefabs/food/pies/models/materials/pie_frying_pan_survivors.mat",
-                            "PieJungleCrust": "assets/prefabs/food/pies/models/materials/pie_jungle_crust.mat"
+                            "PieJungleCrust": "assets/prefabs/food/pies/models/materials/pie_jungle_crust.mat",
+                            "PieLiveStockCrust": "assets/prefabs/food/pies/models/materials/pie_livestock_crust.mat"
                           },
                           "SubFolders": {}
                         }
@@ -32188,6 +32498,25 @@
                           "SubFolders": {}
                         }
                       }
+                    }
+                  }
+                },
+                "milk": {
+                  "Name": "milk",
+                  "Path": "assets/assets/prefabs/food/milk",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/assets/prefabs/food/milk/materials",
+                      "Files": {
+                        "Milkjar": "assets/prefabs/food/milk/materials/milkjar.mat",
+                        "MilkjarCream": "assets/prefabs/food/milk/materials/milkjar_cream.mat",
+                        "MilkjarGlass": "assets/prefabs/food/milk/materials/milkjar_glass.mat",
+                        "MilkjarMilk": "assets/prefabs/food/milk/materials/milkjar_milk.mat",
+                        "MilkjarSkimmed": "assets/prefabs/food/milk/materials/milkjar_skimmed.mat"
+                      },
+                      "SubFolders": {}
                     }
                   }
                 },
@@ -32380,6 +32709,7 @@
                             "DiversuitHelmetvar4": "assets/prefabs/clothes/suit.hazmat/diver/materials/diversuit_helmetvar4.mat",
                             "DiversuitHelmetvar4Cloth": "assets/prefabs/clothes/suit.hazmat/diver/materials/diversuit_helmetvar4_cloth.mat",
                             "DiversuitOxygencylindersvar4": "assets/prefabs/clothes/suit.hazmat/diver/materials/diversuit_oxygencylindersvar4.mat",
+                            "DiversuitOxygencylindersvar4Wm": "assets/prefabs/clothes/suit.hazmat/diver/materials/diversuit_oxygencylindersvar4_wm.mat",
                             "DiversuitPants": "assets/prefabs/clothes/suit.hazmat/diver/materials/diversuit_pants.mat",
                             "DiversuitTankVar02": "assets/prefabs/clothes/suit.hazmat/diver/materials/diversuit_tank_var_02.mat",
                             "DiversuitTankVar03": "assets/prefabs/clothes/suit.hazmat/diver/materials/diversuit_tank_var_03.mat"
@@ -32426,7 +32756,8 @@
                             "KickhazmatLod3": "assets/prefabs/clothes/suit.hazmat/kick/materials/kickhazmat_lod3.mat",
                             "KickhazmatPants": "assets/prefabs/clothes/suit.hazmat/kick/materials/kickhazmat_pants.mat",
                             "KickhazmatTanks": "assets/prefabs/clothes/suit.hazmat/kick/materials/kickhazmat_tanks.mat",
-                            "KickhazmatTorso": "assets/prefabs/clothes/suit.hazmat/kick/materials/kickhazmat_torso.mat"
+                            "KickhazmatTorso": "assets/prefabs/clothes/suit.hazmat/kick/materials/kickhazmat_torso.mat",
+                            "KickhazmatWmLod": "assets/prefabs/clothes/suit.hazmat/kick/materials/kickhazmat_wm_lod.mat"
                           },
                           "SubFolders": {}
                         }
@@ -32556,6 +32887,27 @@
                               "SubFolders": {}
                             }
                           }
+                        }
+                      }
+                    },
+                    "plague": {
+                      "Name": "plague",
+                      "Path": "assets/assets/prefabs/clothes/suit.hazmat/plague",
+                      "Files": {},
+                      "SubFolders": {
+                        "materials": {
+                          "Name": "materials",
+                          "Path": "assets/assets/prefabs/clothes/suit.hazmat/plague/materials",
+                          "Files": {
+                            "PlaguehazmatBakelod": "assets/prefabs/clothes/suit.hazmat/plague/materials/plaguehazmat_bakelod.mat",
+                            "PlaguehazmatBody": "assets/prefabs/clothes/suit.hazmat/plague/materials/plaguehazmat_body.mat",
+                            "PlaguehazmatBodyGlass": "assets/prefabs/clothes/suit.hazmat/plague/materials/plaguehazmat_body_glass.mat",
+                            "PlaguehazmatGloves": "assets/prefabs/clothes/suit.hazmat/plague/materials/plaguehazmat_gloves.mat",
+                            "PlaguehazmatHead": "assets/prefabs/clothes/suit.hazmat/plague/materials/plaguehazmat_head.mat",
+                            "PlaguehazmatLegs": "assets/prefabs/clothes/suit.hazmat/plague/materials/plaguehazmat_legs.mat",
+                            "PlaguehazmatTank": "assets/prefabs/clothes/suit.hazmat/plague/materials/plaguehazmat_tank.mat"
+                          },
+                          "SubFolders": {}
                         }
                       }
                     },
@@ -35011,9 +35363,21 @@
                       "Path": "assets/assets/prefabs/plants/hemp/materials",
                       "Files": {
                         "Hemp": "assets/prefabs/plants/hemp/materials/hemp.mat",
+                        "HempCyan": "assets/prefabs/plants/hemp/materials/hemp_cyan.mat",
                         "HempLod": "assets/prefabs/plants/hemp/materials/hemp_lod.mat",
+                        "HempLodCyan": "assets/prefabs/plants/hemp/materials/hemp_lod_cyan.mat",
+                        "HempLodRed": "assets/prefabs/plants/hemp/materials/hemp_lod_red.mat",
+                        "HempLodYellow": "assets/prefabs/plants/hemp/materials/hemp_lod_yellow.mat",
+                        "HempRed": "assets/prefabs/plants/hemp/materials/hemp_red.mat",
                         "HempRipe": "assets/prefabs/plants/hemp/materials/hemp_ripe.mat",
-                        "HempRipeLod": "assets/prefabs/plants/hemp/materials/hemp_ripe_lod.mat"
+                        "HempRipeCyan": "assets/prefabs/plants/hemp/materials/hemp_ripe_cyan.mat",
+                        "HempRipeLod": "assets/prefabs/plants/hemp/materials/hemp_ripe_lod.mat",
+                        "HempRipeLodCyan": "assets/prefabs/plants/hemp/materials/hemp_ripe_lod_cyan.mat",
+                        "HempRipeLodRed": "assets/prefabs/plants/hemp/materials/hemp_ripe_lod_red.mat",
+                        "HempRipeLodYellow": "assets/prefabs/plants/hemp/materials/hemp_ripe_lod_yellow.mat",
+                        "HempRipeRed": "assets/prefabs/plants/hemp/materials/hemp_ripe_red.mat",
+                        "HempRipeYellow": "assets/prefabs/plants/hemp/materials/hemp_ripe_yellow.mat",
+                        "HempYellow": "assets/prefabs/plants/hemp/materials/hemp_yellow.mat"
                       },
                       "SubFolders": {}
                     },
@@ -35694,6 +36058,23 @@
                             "WallNeonBolts": "assets/prefabs/wallpaper/skins/2026-07_glowing/materials/wall_neon_bolts.mat",
                             "WallNeonShapes": "assets/prefabs/wallpaper/skins/2026-07_glowing/materials/wall_neon_shapes.mat",
                             "WallNeonSquiggles": "assets/prefabs/wallpaper/skins/2026-07_glowing/materials/wall_neon_squiggles.mat"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    },
+                    "2026-10_halloween": {
+                      "Name": "2026-10_halloween",
+                      "Path": "assets/assets/prefabs/wallpaper/skins/2026-10_halloween",
+                      "Files": {},
+                      "SubFolders": {
+                        "materials": {
+                          "Name": "materials",
+                          "Path": "assets/assets/prefabs/wallpaper/skins/2026-10_halloween/materials",
+                          "Files": {
+                            "CeilingManor": "assets/prefabs/wallpaper/skins/2026-10_halloween/materials/ceiling_manor.mat",
+                            "FloorCultistTile": "assets/prefabs/wallpaper/skins/2026-10_halloween/materials/floor_cultist_tile.mat",
+                            "WallDerelictWood": "assets/prefabs/wallpaper/skins/2026-10_halloween/materials/wall_derelict_wood.mat"
                           },
                           "SubFolders": {}
                         }
@@ -36921,6 +37302,37 @@
                     }
                   }
                 },
+                "rabbit": {
+                  "Name": "rabbit",
+                  "Path": "assets/assets/rust.ai/agents/rabbit",
+                  "Files": {},
+                  "SubFolders": {
+                    "maps": {
+                      "Name": "maps",
+                      "Path": "assets/assets/rust.ai/agents/rabbit/maps",
+                      "Files": {},
+                      "SubFolders": {
+                        "materials": {
+                          "Name": "materials",
+                          "Path": "assets/assets/rust.ai/agents/rabbit/maps/materials",
+                          "Files": {
+                            "Black": "assets/rust.ai/agents/rabbit/maps/materials/black.mat",
+                            "Grey": "assets/rust.ai/agents/rabbit/maps/materials/grey.mat"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    },
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/assets/rust.ai/agents/rabbit/materials",
+                      "Files": {
+                        "EuropeanrabbitMaterial": "assets/rust.ai/agents/rabbit/materials/europeanrabbit_material.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
                 "fish": {
                   "Name": "fish",
                   "Path": "assets/assets/rust.ai/agents/fish",
@@ -36985,6 +37397,48 @@
                     }
                   }
                 },
+                "bull": {
+                  "Name": "bull",
+                  "Path": "assets/assets/rust.ai/agents/bull",
+                  "Files": {},
+                  "SubFolders": {
+                    "material": {
+                      "Name": "material",
+                      "Path": "assets/assets/rust.ai/agents/bull/material",
+                      "Files": {
+                        "Bull01": "assets/rust.ai/agents/bull/material/bull 01.mat",
+                        "Bull02": "assets/rust.ai/agents/bull/material/bull 02.mat",
+                        "Bull03": "assets/rust.ai/agents/bull/material/bull 03.mat",
+                        "Bull04": "assets/rust.ai/agents/bull/material/bull 04.mat",
+                        "BullProcmat": "assets/rust.ai/agents/bull/material/bull_procmat.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
+                "calf": {
+                  "Name": "calf",
+                  "Path": "assets/assets/rust.ai/agents/calf",
+                  "Files": {},
+                  "SubFolders": {
+                    "material": {
+                      "Name": "material",
+                      "Path": "assets/assets/rust.ai/agents/calf/material",
+                      "Files": {
+                        "Calf01": "assets/rust.ai/agents/calf/material/calf_01.mat",
+                        "Calf02": "assets/rust.ai/agents/calf/material/calf_02.mat",
+                        "Calf03": "assets/rust.ai/agents/calf/material/calf_03.mat",
+                        "Calf04": "assets/rust.ai/agents/calf/material/calf_04.mat",
+                        "Calf05": "assets/rust.ai/agents/calf/material/calf_05.mat",
+                        "Calf06": "assets/rust.ai/agents/calf/material/calf_06.mat",
+                        "Calf07": "assets/rust.ai/agents/calf/material/calf_07.mat",
+                        "CalfMProcmat": "assets/rust.ai/agents/calf/material/calf_m_procmat.mat",
+                        "CalfProcmat": "assets/rust.ai/agents/calf/material/calf_procmat.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
                 "chicken": {
                   "Name": "chicken",
                   "Path": "assets/assets/rust.ai/agents/chicken",
@@ -37019,6 +37473,44 @@
                     }
                   }
                 },
+                "cow": {
+                  "Name": "cow",
+                  "Path": "assets/assets/rust.ai/agents/cow",
+                  "Files": {},
+                  "SubFolders": {
+                    "material": {
+                      "Name": "material",
+                      "Path": "assets/assets/rust.ai/agents/cow/material",
+                      "Files": {
+                        "Cow": "assets/rust.ai/agents/cow/material/cow.mat",
+                        "CowProcmat": "assets/rust.ai/agents/cow/material/cow_procmat.mat",
+                        "CowVariant": "assets/rust.ai/agents/cow/material/cow variant.mat",
+                        "CowVariant1": "assets/rust.ai/agents/cow/material/cow variant 1.mat",
+                        "CowVariant2": "assets/rust.ai/agents/cow/material/cow variant 2.mat",
+                        "CowVariant3": "assets/rust.ai/agents/cow/material/cow variant 3.mat",
+                        "CowVariant4": "assets/rust.ai/agents/cow/material/cow variant 4.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
+                "crabs": {
+                  "Name": "crabs",
+                  "Path": "assets/assets/rust.ai/agents/crabs",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/assets/rust.ai/agents/crabs/materials",
+                      "Files": {
+                        "Crab": "assets/rust.ai/agents/crabs/materials/crab.mat",
+                        "CrabSwarmEnv": "assets/rust.ai/agents/crabs/materials/crab_swarm_env.mat",
+                        "CritterCrab": "assets/rust.ai/agents/crabs/materials/critter_crab.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
                 "crocodile": {
                   "Name": "crocodile",
                   "Path": "assets/assets/rust.ai/agents/crocodile",
@@ -37035,6 +37527,43 @@
                         "Crocodilenighteye": "assets/rust.ai/agents/crocodile/materials/crocodilenighteye.mat"
                       },
                       "SubFolders": {}
+                    }
+                  }
+                },
+                "birdflocks": {
+                  "Name": "birdflocks",
+                  "Path": "assets/assets/rust.ai/agents/birdflocks",
+                  "Files": {},
+                  "SubFolders": {
+                    "crow": {
+                      "Name": "crow",
+                      "Path": "assets/assets/rust.ai/agents/birdflocks/crow",
+                      "Files": {},
+                      "SubFolders": {
+                        "material": {
+                          "Name": "material",
+                          "Path": "assets/assets/rust.ai/agents/birdflocks/crow/material",
+                          "Files": {
+                            "CrowFlock": "assets/rust.ai/agents/birdflocks/crow/material/crow_flock.mat"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    },
+                    "seagull": {
+                      "Name": "seagull",
+                      "Path": "assets/assets/rust.ai/agents/birdflocks/seagull",
+                      "Files": {},
+                      "SubFolders": {
+                        "material": {
+                          "Name": "material",
+                          "Path": "assets/assets/rust.ai/agents/birdflocks/seagull/material",
+                          "Files": {
+                            "SeagullFlock": "assets/rust.ai/agents/birdflocks/seagull/material/seagull_flock.mat"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
                     }
                   }
                 },
@@ -37124,6 +37653,133 @@
                         "Pantheralpha": "assets/rust.ai/agents/panther/materials/pantheralpha.mat",
                         "Panthernighteye": "assets/rust.ai/agents/panther/materials/panthernighteye.mat",
                         "Pantherwhiskers": "assets/rust.ai/agents/panther/materials/pantherwhiskers.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
+                "frog": {
+                  "Name": "frog",
+                  "Path": "assets/assets/rust.ai/agents/frog",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/assets/rust.ai/agents/frog/materials",
+                      "Files": {
+                        "Frog": "assets/rust.ai/agents/frog/materials/frog.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
+                "sheep": {
+                  "Name": "sheep",
+                  "Path": "assets/assets/rust.ai/agents/sheep",
+                  "Files": {
+                    "LambfurWhite": "assets/rust.ai/agents/sheep/lambfur_white.mat",
+                    "LambfurWhiteOpaque": "assets/rust.ai/agents/sheep/lambfur_white_opaque.mat",
+                    "LambWhite": "assets/rust.ai/agents/sheep/lamb_white.mat",
+                    "SheepfurWhite": "assets/rust.ai/agents/sheep/sheepfur_white.mat",
+                    "SheepfurWhiteLod": "assets/rust.ai/agents/sheep/sheepfur_white_lod.mat",
+                    "SheepWhite": "assets/rust.ai/agents/sheep/sheep_white.mat"
+                  },
+                  "SubFolders": {
+                    "effects": {
+                      "Name": "effects",
+                      "Path": "assets/assets/rust.ai/agents/sheep/effects",
+                      "Files": {
+                        "FxWoolPuff": "assets/rust.ai/agents/sheep/effects/fx_wool_puff.mat",
+                        "FxWoolstrand": "assets/rust.ai/agents/sheep/effects/fx_woolstrand.mat",
+                        "FxWooltuft": "assets/rust.ai/agents/sheep/effects/fx_wooltuft.mat",
+                        "FxWooltuftCutout": "assets/rust.ai/agents/sheep/effects/fx_wooltuft_cutout.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
+                "jellyfish": {
+                  "Name": "jellyfish",
+                  "Path": "assets/assets/rust.ai/agents/jellyfish",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/assets/rust.ai/agents/jellyfish/materials",
+                      "Files": {
+                        "JellyfishMovement": "assets/rust.ai/agents/jellyfish/materials/jellyfish_movement.mat"
+                      },
+                      "SubFolders": {}
+                    },
+                    "art": {
+                      "Name": "art",
+                      "Path": "assets/assets/rust.ai/agents/jellyfish/art",
+                      "Files": {},
+                      "SubFolders": {
+                        "materials": {
+                          "Name": "materials",
+                          "Path": "assets/assets/rust.ai/agents/jellyfish/art/materials",
+                          "Files": {
+                            "MJcompass1": "assets/rust.ai/agents/jellyfish/art/materials/m_jcompass1.mat",
+                            "MJcompass2": "assets/rust.ai/agents/jellyfish/art/materials/m_jcompass2.mat"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    }
+                  }
+                },
+                "squirrel": {
+                  "Name": "squirrel",
+                  "Path": "assets/assets/rust.ai/agents/squirrel",
+                  "Files": {},
+                  "SubFolders": {
+                    "materials": {
+                      "Name": "materials",
+                      "Path": "assets/assets/rust.ai/agents/squirrel/materials",
+                      "Files": {
+                        "PlaneM": "assets/rust.ai/agents/squirrel/materials/plane_m.mat",
+                        "SquirrelM": "assets/rust.ai/agents/squirrel/materials/squirrel_m.mat"
+                      },
+                      "SubFolders": {}
+                    },
+                    "textures": {
+                      "Name": "textures",
+                      "Path": "assets/assets/rust.ai/agents/squirrel/textures",
+                      "Files": {
+                        "Squirrel": "assets/rust.ai/agents/squirrel/textures/squirrel.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
+                "seagull": {
+                  "Name": "seagull",
+                  "Path": "assets/assets/rust.ai/agents/seagull",
+                  "Files": {},
+                  "SubFolders": {
+                    "material": {
+                      "Name": "material",
+                      "Path": "assets/assets/rust.ai/agents/seagull/material",
+                      "Files": {
+                        "Seagull": "assets/rust.ai/agents/seagull/material/seagull.mat",
+                        "SeagullWings": "assets/rust.ai/agents/seagull/material/seagull_wings.mat",
+                        "SeagullWingsLod": "assets/rust.ai/agents/seagull/material/seagull_wings_lod.mat"
+                      },
+                      "SubFolders": {}
+                    }
+                  }
+                },
+                "seaturtle": {
+                  "Name": "seaturtle",
+                  "Path": "assets/assets/rust.ai/agents/seaturtle",
+                  "Files": {},
+                  "SubFolders": {
+                    "textures": {
+                      "Name": "textures",
+                      "Path": "assets/assets/rust.ai/agents/seaturtle/textures",
+                      "Files": {
+                        "Seaturtle": "assets/rust.ai/agents/seaturtle/textures/seaturtle.mat"
                       },
                       "SubFolders": {}
                     }
@@ -37908,6 +38564,30 @@
                         }
                       }
                     },
+                    "cinematic": {
+                      "Name": "cinematic",
+                      "Path": "assets/assets/bundled/prefabs/modding/cinematic",
+                      "Files": {},
+                      "SubFolders": {
+                        "cinelights": {
+                          "Name": "cinelights",
+                          "Path": "assets/assets/bundled/prefabs/modding/cinematic/cinelights",
+                          "Files": {
+                            "CineLight": "assets/bundled/prefabs/modding/cinematic/cinelights/cinelight.mat"
+                          },
+                          "SubFolders": {}
+                        },
+                        "materials": {
+                          "Name": "materials",
+                          "Path": "assets/assets/bundled/prefabs/modding/cinematic/materials",
+                          "Files": {
+                            "TrackingMarker01": "assets/bundled/prefabs/modding/cinematic/materials/tracking_marker_01.mat",
+                            "TrackingMarker02": "assets/bundled/prefabs/modding/cinematic/materials/tracking_marker_02.mat"
+                          },
+                          "SubFolders": {}
+                        }
+                      }
+                    },
                     "asset_store": {
                       "Name": "asset_store",
                       "Path": "assets/assets/bundled/prefabs/modding/asset_store",
@@ -37935,22 +38615,6 @@
                               }
                             }
                           }
-                        }
-                      }
-                    },
-                    "cinematic": {
-                      "Name": "cinematic",
-                      "Path": "assets/assets/bundled/prefabs/modding/cinematic",
-                      "Files": {},
-                      "SubFolders": {
-                        "materials": {
-                          "Name": "materials",
-                          "Path": "assets/assets/bundled/prefabs/modding/cinematic/materials",
-                          "Files": {
-                            "TrackingMarker01": "assets/bundled/prefabs/modding/cinematic/materials/tracking_marker_01.mat",
-                            "TrackingMarker02": "assets/bundled/prefabs/modding/cinematic/materials/tracking_marker_02.mat"
-                          },
-                          "SubFolders": {}
                         }
                       }
                     }
@@ -38147,7 +38811,9 @@
                                       "Files": {
                                         "UiLimitedSkinGlow": "assets/bundled/prefabs/ui/menu2/_pages/store/_assets/shaders/ui_limitedskinglow.mat",
                                         "UiLimitedSkinGlowFeatured": "assets/bundled/prefabs/ui/menu2/_pages/store/_assets/shaders/ui_limitedskinglow_featured.mat",
-                                        "UiSkinviewerBackground": "assets/bundled/prefabs/ui/menu2/_pages/store/_assets/shaders/ui_skinviewerbackground.mat"
+                                        "UiSkinviewerBackground": "assets/bundled/prefabs/ui/menu2/_pages/store/_assets/shaders/ui_skinviewerbackground.mat",
+                                        "UiSkinviewerbgBlur": "assets/bundled/prefabs/ui/menu2/_pages/store/_assets/shaders/ui_skinviewerbgblur.mat",
+                                        "UiStorebgBlur": "assets/bundled/prefabs/ui/menu2/_pages/store/_assets/shaders/ui_storebgblur.mat"
                                       },
                                       "SubFolders": {}
                                     }
